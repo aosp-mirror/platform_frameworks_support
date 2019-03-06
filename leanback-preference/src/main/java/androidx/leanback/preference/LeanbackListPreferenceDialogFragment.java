@@ -16,8 +16,11 @@
 
 package androidx.leanback.preference;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.TypedValue;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +40,10 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * @deprecated Use {@link LeanbackListPreferenceDialogFragmentCompat}
+ */
+@Deprecated
 public class LeanbackListPreferenceDialogFragment extends LeanbackPreferenceDialogFragment {
 
     private static final String SAVE_STATE_IS_MULTI =
@@ -143,8 +150,17 @@ public class LeanbackListPreferenceDialogFragment extends LeanbackPreferenceDial
     @Override
     public @Nullable View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.leanback_list_preference_fragment, container,
-                false);
+        final TypedValue tv = new TypedValue();
+        getActivity().getTheme().resolveAttribute(R.attr.preferenceTheme, tv, true);
+        int theme = tv.resourceId;
+        if (theme == 0) {
+            // Fallback to default theme.
+            theme = R.style.PreferenceThemeOverlayLeanback;
+        }
+        Context styledContext = new ContextThemeWrapper(getActivity(), theme);
+        LayoutInflater styledInflater = inflater.cloneInContext(styledContext);
+        final View view = styledInflater.inflate(R.layout.leanback_list_preference_fragment,
+                container, false);
         final VerticalGridView verticalGridView =
                 (VerticalGridView) view.findViewById(android.R.id.list);
 
@@ -178,6 +194,12 @@ public class LeanbackListPreferenceDialogFragment extends LeanbackPreferenceDial
         }
     }
 
+    /**
+     * Adapter for single choice.
+     *
+     * @deprecated Use LeanbackListPreferenceDialogFragmentCompat.
+     */
+    @Deprecated
     public class AdapterSingle extends RecyclerView.Adapter<ViewHolder>
             implements ViewHolder.OnItemClickListener {
 
@@ -232,6 +254,12 @@ public class LeanbackListPreferenceDialogFragment extends LeanbackPreferenceDial
         }
     }
 
+    /**
+     * Adapter for multiple choices.
+     *
+     * @deprecated Ue LeanbackListPreferenceDialogFragmentCompat.
+     */
+    @Deprecated
     public class AdapterMulti extends RecyclerView.Adapter<ViewHolder>
             implements ViewHolder.OnItemClickListener {
 
@@ -297,6 +325,12 @@ public class LeanbackListPreferenceDialogFragment extends LeanbackPreferenceDial
         }
     }
 
+    /**
+     * ViewHolder of the List.
+     *
+     * @deprecated Ue LeanbackListPreferenceDialogFragmentCompat.
+     */
+    @Deprecated
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public interface OnItemClickListener {

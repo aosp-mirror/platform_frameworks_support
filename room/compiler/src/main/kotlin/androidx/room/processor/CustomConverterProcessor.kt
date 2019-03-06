@@ -20,19 +20,17 @@ import androidx.room.TypeConverter
 import androidx.room.TypeConverters
 import androidx.room.ext.hasAnnotation
 import androidx.room.ext.hasAnyOf
-import androidx.room.ext.toListOfClassTypes
+import androidx.room.ext.toAnnotationBox
 import androidx.room.ext.typeName
 import androidx.room.processor.ProcessorErrors.TYPE_CONVERTER_BAD_RETURN_TYPE
 import androidx.room.processor.ProcessorErrors.TYPE_CONVERTER_EMPTY_CLASS
-import androidx.room.processor.ProcessorErrors
-        .TYPE_CONVERTER_MISSING_NOARG_CONSTRUCTOR
+import androidx.room.processor.ProcessorErrors.TYPE_CONVERTER_MISSING_NOARG_CONSTRUCTOR
 import androidx.room.processor.ProcessorErrors.TYPE_CONVERTER_MUST_BE_PUBLIC
 import androidx.room.processor.ProcessorErrors.TYPE_CONVERTER_MUST_RECEIVE_1_PARAM
 import androidx.room.processor.ProcessorErrors.TYPE_CONVERTER_UNBOUND_GENERIC
 import androidx.room.solver.types.CustomTypeConverterWrapper
 import androidx.room.vo.CustomTypeConverter
-import com.google.auto.common.AnnotationMirrors
-import com.google.auto.common.MoreElements
+import asTypeElement
 import com.google.auto.common.MoreTypes
 import java.util.LinkedHashSet
 import javax.lang.model.element.Element
@@ -51,38 +49,29 @@ class CustomConverterProcessor(val context: Context, val element: TypeElement) {
     companion object {
         private val INVALID_RETURN_TYPES = setOf(TypeKind.ERROR, TypeKind.VOID, TypeKind.NONE)
         fun findConverters(context: Context, element: Element): ProcessResult {
-            val annotation = MoreElements.getAnnotationMirror(element,
-                    TypeConverters::class.java).orNull()
+            val annotation = element.toAnnotationBox(TypeConverters::class)
             return annotation?.let {
-                val classes = AnnotationMirrors.getAnnotationValue(annotation, "value")
-                        ?.toListOfClassTypes()
-                        ?.filter {
-                            MoreTypes.isType(it)
-                        }?.mapTo(LinkedHashSet(), { it }) ?: LinkedHashSet<TypeMirror>()
-                val converters = classes
-                        .flatMap {
-                            CustomConverterProcessor(context, MoreTypes.asTypeElement(it))
-                                    .process()
-                        }
-                converters.let {
-                    reportDuplicates(context, converters)
+                val classes = it.getAsTypeMirrorList("value")
+                    .filter { MoreTypes.isType(it) }
+                    .mapTo(LinkedHashSet()) { it }
+                val converters = classes.flatMap {
+                    CustomConverterProcessor(context, it.asTypeElement()).process()
                 }
+                reportDuplicates(context, converters)
                 ProcessResult(classes, converters.map(::CustomTypeConverterWrapper))
             } ?: ProcessResult.EMPTY
         }
 
-        fun reportDuplicates(context: Context, converters: List<CustomTypeConverter>) {
-            val groupedByFrom = converters.groupBy { it.from.typeName() }
-            groupedByFrom.forEach {
-                it.value.groupBy { it.to.typeName() }.forEach {
-                    if (it.value.size > 1) {
-                        it.value.forEach { converter ->
-                            context.logger.e(converter.method, ProcessorErrors
-                                    .duplicateTypeConverters(it.value.minus(converter)))
-                        }
+        private fun reportDuplicates(context: Context, converters: List<CustomTypeConverter>) {
+            converters
+                .groupBy { it.from.typeName() to it.to.typeName() }
+                .filterValues { it.size > 1 }
+                .values.forEach {
+                    it.forEach { converter ->
+                        context.logger.e(converter.method, ProcessorErrors
+                                .duplicateTypeConverters(it.minus(converter)))
                     }
                 }
-            }
         }
     }
 
@@ -105,7 +94,9 @@ class CustomConverterProcessor(val context: Context, val element: TypeElement) {
     }
 
     private fun processMethod(
-            container: DeclaredType, methodElement: ExecutableElement): CustomTypeConverter? {
+        container: DeclaredType,
+        methodElement: ExecutableElement
+    ): CustomTypeConverter? {
         val asMember = context.processingEnv.typeUtils.asMemberOf(container, methodElement)
         val executableType = MoreTypes.asExecutable(asMember)
         val returnType = executableType.returnType
@@ -135,8 +126,8 @@ class CustomConverterProcessor(val context: Context, val element: TypeElement) {
      * Order of classes is important hence they are a LinkedHashSet not a set.
      */
     open class ProcessResult(
-            val classes: LinkedHashSet<TypeMirror>,
-            val converters: List<CustomTypeConverterWrapper>
+        val classes: LinkedHashSet<TypeMirror>,
+        val converters: List<CustomTypeConverterWrapper>
     ) {
         object EMPTY : ProcessResult(LinkedHashSet(), emptyList())
         operator fun plus(other: ProcessResult): ProcessResult {

@@ -24,7 +24,8 @@ import java.util.List;
 
 class WrapperItemKeyedDataSource<K, A, B> extends ItemKeyedDataSource<K, B> {
     private final ItemKeyedDataSource<K, A> mSource;
-    private final Function<List<A>, List<B>> mListFunction;
+    @SuppressWarnings("WeakerAccess") /* synthetic access */
+    final Function<List<A>, List<B>> mListFunction;
 
     private final IdentityHashMap<B, K> mKeyMap = new IdentityHashMap<>();
 
@@ -54,7 +55,8 @@ class WrapperItemKeyedDataSource<K, A, B> extends ItemKeyedDataSource<K, B> {
         return mSource.isInvalid();
     }
 
-    private List<B> convertWithStashedKeys(List<A> source) {
+    @SuppressWarnings("WeakerAccess") /* synthetic access */
+    List<B> convertWithStashedKeys(List<A> source) {
         List<B> dest = convert(mListFunction, source);
         synchronized (mKeyMap) {
             // synchronize on mKeyMap, since multiple loads may occur simultaneously.
@@ -79,6 +81,16 @@ class WrapperItemKeyedDataSource<K, A, B> extends ItemKeyedDataSource<K, B> {
             public void onResult(@NonNull List<A> data) {
                 callback.onResult(convertWithStashedKeys(data));
             }
+
+            @Override
+            public void onError(@NonNull Throwable error) {
+                callback.onError(error);
+            }
+
+            @Override
+            public void onRetryableError(@NonNull Throwable error) {
+                callback.onRetryableError(error);
+            }
         });
     }
 
@@ -90,6 +102,16 @@ class WrapperItemKeyedDataSource<K, A, B> extends ItemKeyedDataSource<K, B> {
             public void onResult(@NonNull List<A> data) {
                 callback.onResult(convertWithStashedKeys(data));
             }
+
+            @Override
+            public void onError(@NonNull Throwable error) {
+                callback.onError(error);
+            }
+
+            @Override
+            public void onRetryableError(@NonNull Throwable error) {
+                callback.onRetryableError(error);
+            }
         });
     }
 
@@ -100,6 +122,16 @@ class WrapperItemKeyedDataSource<K, A, B> extends ItemKeyedDataSource<K, B> {
             @Override
             public void onResult(@NonNull List<A> data) {
                 callback.onResult(convertWithStashedKeys(data));
+            }
+
+            @Override
+            public void onError(@NonNull Throwable error) {
+                callback.onError(error);
+            }
+
+            @Override
+            public void onRetryableError(@NonNull Throwable error) {
+                callback.onRetryableError(error);
             }
         });
     }

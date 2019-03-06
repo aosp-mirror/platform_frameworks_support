@@ -50,8 +50,6 @@ public class MockMediaBrowserServiceCompat extends MediaBrowserServiceCompat {
             sInstance = this;
         }
         mSessionCompat = new MediaSessionCompat(this, TAG);
-        mSessionCompat.setFlags(MediaSessionCompat.FLAG_HANDLES_MEDIA_BUTTONS
-                | MediaSessionCompat.FLAG_HANDLES_MEDIA_BUTTONS);
         mSessionCompat.setCallback(new Callback() { });
         mSessionCompat.setActive(true);
         setSessionToken(mSessionCompat.getSessionToken());
@@ -63,7 +61,12 @@ public class MockMediaBrowserServiceCompat extends MediaBrowserServiceCompat {
         mSessionCompat.release();
         synchronized (sLock) {
             sInstance = null;
-            sServiceProxy = null;
+            // Note: Don't reset sServiceProxy.
+            //       When a test is finished and its next test is running, this service will be
+            //       destroyed and re-created for the next test. When it happens, onDestroy() may be
+            //       called after the next test's proxy has set because onDestroy() and tests run on
+            //       the different threads.
+            //       So keep sServiceProxy for the next test.
         }
     }
 

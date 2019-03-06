@@ -20,12 +20,16 @@ import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 import static android.view.Window.FEATURE_OPTIONS_PANEL;
 
+import static androidx.annotation.RestrictTo.Scope.LIBRARY;
+
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.UiModeManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
@@ -41,10 +45,10 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.os.PowerManager;
 import android.text.TextUtils;
 import android.util.AndroidRuntimeException;
 import android.util.AttributeSet;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -71,6 +75,8 @@ import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.annotation.RestrictTo;
+import androidx.annotation.StyleRes;
 import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.R;
 import androidx.appcompat.content.res.AppCompatResources;
@@ -94,6 +100,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.widget.VectorEnabledTintResources;
 import androidx.appcompat.widget.ViewStubCompat;
 import androidx.appcompat.widget.ViewUtils;
+import androidx.collection.ArrayMap;
+import androidx.core.app.ActivityCompat;
 import androidx.core.app.NavUtils;
 import androidx.core.view.KeyEventDispatcher;
 import androidx.core.view.LayoutInflaterCompat;
@@ -108,13 +116,19 @@ import androidx.core.widget.PopupWindowCompat;
 import org.xmlpull.v1.XmlPullParser;
 
 import java.util.List;
+import java.util.Map;
 
+/**
+ * @hide
+ */
+@RestrictTo(LIBRARY)
 class AppCompatDelegateImpl extends AppCompatDelegate
         implements MenuBuilder.Callback, LayoutInflater.Factory2 {
 
+    private static final Map<Class<?>, Integer> sLocalNightModes = new ArrayMap<>();
+
     private static final boolean DEBUG = false;
     private static final boolean IS_PRE_LOLLIPOP = Build.VERSION.SDK_INT < 21;
-    private static final String KEY_LOCAL_NIGHT_MODE = "appcompat:local_night_mode";
 
     private static final int[] sWindowBackgroundStyleable = {android.R.attr.windowBackground};
 
@@ -158,10 +172,10 @@ class AppCompatDelegateImpl extends AppCompatDelegate
         }
     }
 
+    final Object mHost;
     final Context mContext;
-    final Window mWindow;
-    final Window.Callback mOriginalWindowCallback;
-    final Window.Callback mAppCompatWindowCallback;
+    Window mWindow;
+    private AppCompatWindowCallback mAppCompatWindowCallback;
     final AppCompatCallback mAppCompatCallback;
 
     ActionBar mActionBar;
@@ -209,14 +223,20 @@ class AppCompatDelegateImpl extends AppCompatDelegate
 
     private boolean mLongPressBackDown;
 
+    private boolean mBaseContextAttached;
+    private boolean mCreated;
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     boolean mIsDestroyed;
 
     @NightMode
     private int mLocalNightMode = MODE_NIGHT_UNSPECIFIED;
-    private boolean mApplyDayNightCalled;
 
-    private AutoNightModeManager mAutoNightModeManager;
+    private int mThemeResId;
+    private boolean mActivityHandlesUiMode;
+    private boolean mActivityHandlesUiModeChecked;
+
+    private AutoNightModeManager mAutoTimeNightModeManager;
+    private AutoNightModeManager mAutoBatteryNightModeManager;
 
     boolean mInvalidatePanelMenuPosted;
     int mInvalidatePanelMenuFeatures;
@@ -241,36 +261,82 @@ class AppCompatDelegateImpl extends AppCompatDelegate
 
     private AppCompatViewInflater mAppCompatViewInflater;
 
+    AppCompatDelegateImpl(Activity activity, AppCompatCallback callback) {
+        this(activity, null, callback, activity);
+    }
+
+    AppCompatDelegateImpl(Dialog dialog, AppCompatCallback callback) {
+        this(dialog.getContext(), dialog.getWindow(), callback, dialog);
+    }
+
     AppCompatDelegateImpl(Context context, Window window, AppCompatCallback callback) {
+        this(context, window, callback, context);
+    }
+
+    private AppCompatDelegateImpl(Context context, Window window, AppCompatCallback callback,
+            Object host) {
         mContext = context;
-        mWindow = window;
         mAppCompatCallback = callback;
+        mHost = host;
 
-        mOriginalWindowCallback = mWindow.getCallback();
-        if (mOriginalWindowCallback instanceof AppCompatWindowCallback) {
-            throw new IllegalStateException(
-                    "AppCompat has already installed itself into the Window");
+        if (window != null) {
+            attachToWindow(window);
         }
-        mAppCompatWindowCallback = new AppCompatWindowCallback(mOriginalWindowCallback);
-        // Now install the new callback
-        mWindow.setCallback(mAppCompatWindowCallback);
 
-        final TintTypedArray a = TintTypedArray.obtainStyledAttributes(
-                context, null, sWindowBackgroundStyleable);
-        final Drawable winBg = a.getDrawableIfKnown(0);
-        if (winBg != null) {
-            mWindow.setBackgroundDrawable(winBg);
+        if (mLocalNightMode == MODE_NIGHT_UNSPECIFIED && mHost instanceof Dialog) {
+            final AppCompatActivity activity = tryUnwrapContext();
+            if (activity != null) {
+                // This code path is used to detect when this Delegate is a child Delegate from
+                // an Activity, primarily for Dialogs. Dialogs use the Activity as it's Context,
+                // so we want to make sure that the this 'child' delegate does not interfere
+                // with the Activity config. The simplest way to do that is to match the
+                // outer Activity's local night mode
+                mLocalNightMode = activity.getDelegate().getLocalNightMode();
+            }
         }
-        a.recycle();
+        if (mLocalNightMode == MODE_NIGHT_UNSPECIFIED) {
+            // Try and read the current night mode from our static store
+            final Integer value = sLocalNightModes.get(mHost.getClass());
+            if (value != null) {
+                mLocalNightMode = value;
+                // Finally remove the value
+                sLocalNightModes.remove(mHost.getClass());
+            }
+        }
+
+        // Preload appcompat-specific handling of drawables that should be handled in a special
+        // way (for tinting etc). After the following line completes, calls from AppCompatResources
+        // to ResourceManagerInternal (in appcompat-resources) will handle those internal drawable
+        // paths correctly without having to go through AppCompatDrawableManager APIs.
+        AppCompatDrawableManager.preload();
+    }
+
+    @Override
+    public void attachBaseContext(Context context) {
+        applyDayNight();
+        mBaseContextAttached = true;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        if (mOriginalWindowCallback instanceof Activity) {
+        // attachBaseContext will only be called from an Activity, so make sure we switch this for
+        // Dialogs, etc
+        mBaseContextAttached = true;
+
+        // We lazily fetch the Window for Activities, to allow DayNight to apply in
+        // attachBaseContext
+        if (mWindow == null && mHost instanceof Activity) {
+            attachToWindow(((Activity) mHost).getWindow());
+        }
+
+        if (mWindow == null) {
+            throw new IllegalStateException("We have not been given a Window");
+        }
+
+        if (mHost instanceof Activity) {
             String parentActivityName = null;
             try {
-                parentActivityName = NavUtils.getParentActivityName(
-                        (Activity) mOriginalWindowCallback);
+                parentActivityName = NavUtils.getParentActivityName((Activity) mHost);
             } catch (IllegalArgumentException iae) {
                 // Ignore in this case
             }
@@ -285,12 +351,17 @@ class AppCompatDelegateImpl extends AppCompatDelegate
             }
         }
 
-        if (savedInstanceState != null && mLocalNightMode == MODE_NIGHT_UNSPECIFIED) {
-            // If we have a icicle and we haven't had a local night mode set yet, try and read
-            // it from the icicle
-            mLocalNightMode = savedInstanceState.getInt(KEY_LOCAL_NIGHT_MODE,
-                    MODE_NIGHT_UNSPECIFIED);
+        applyDayNight();
+
+        final TintTypedArray a = TintTypedArray.obtainStyledAttributes(
+                mContext, null, sWindowBackgroundStyleable);
+        final Drawable winBg = a.getDrawableIfKnown(0);
+        if (winBg != null) {
+            mWindow.setBackgroundDrawable(winBg);
         }
+        a.recycle();
+
+        mCreated = true;
     }
 
     @Override
@@ -322,11 +393,10 @@ class AppCompatDelegateImpl extends AppCompatDelegate
             return;
         }
 
-        if (mOriginalWindowCallback instanceof Activity) {
-            mActionBar = new WindowDecorActionBar((Activity) mOriginalWindowCallback,
-                    mOverlayActionBar);
-        } else if (mOriginalWindowCallback instanceof Dialog) {
-            mActionBar = new WindowDecorActionBar((Dialog) mOriginalWindowCallback);
+        if (mHost instanceof Activity) {
+            mActionBar = new WindowDecorActionBar((Activity) mHost, mOverlayActionBar);
+        } else if (mHost instanceof Dialog) {
+            mActionBar = new WindowDecorActionBar((Dialog) mHost);
         }
         if (mActionBar != null) {
             mActionBar.setDefaultDisplayHomeAsUpEnabled(mEnableDefaultActionBarUp);
@@ -335,7 +405,7 @@ class AppCompatDelegateImpl extends AppCompatDelegate
 
     @Override
     public void setSupportActionBar(Toolbar toolbar) {
-        if (!(mOriginalWindowCallback instanceof Activity)) {
+        if (!(mHost instanceof Activity)) {
             // Only Activities support custom Action Bars
             return;
         }
@@ -357,8 +427,8 @@ class AppCompatDelegateImpl extends AppCompatDelegate
         }
 
         if (toolbar != null) {
-            final ToolbarActionBar tbab = new ToolbarActionBar(toolbar,
-                    ((Activity) mOriginalWindowCallback).getTitle(), mAppCompatWindowCallback);
+            final ToolbarActionBar tbab = new ToolbarActionBar(toolbar, getTitle(),
+                    mAppCompatWindowCallback);
             mActionBar = tbab;
             mWindow.setCallback(tbab.getWrappedWindowCallback());
         } else {
@@ -420,8 +490,9 @@ class AppCompatDelegateImpl extends AppCompatDelegate
         // Make sure that the DrawableManager knows about the new config
         AppCompatDrawableManager.get().onConfigurationChanged(mContext);
 
-        // Re-apply Day/Night to the new configuration
-        applyDayNight();
+        // Re-apply Day/Night with the new configuration but disable recreations. Since this
+        // configuration change has only just happened we can safely just update the resources now
+        applyDayNight(false);
     }
 
     @Override
@@ -439,8 +510,11 @@ class AppCompatDelegateImpl extends AppCompatDelegate
         }
 
         // Make sure we clean up any receivers setup for AUTO mode
-        if (mAutoNightModeManager != null) {
-            mAutoNightModeManager.cleanup();
+        if (mAutoTimeNightModeManager != null) {
+            mAutoTimeNightModeManager.cleanup();
+        }
+        if (mAutoBatteryNightModeManager != null) {
+            mAutoBatteryNightModeManager.cleanup();
         }
     }
 
@@ -455,43 +529,43 @@ class AppCompatDelegateImpl extends AppCompatDelegate
     @Override
     public void setContentView(View v) {
         ensureSubDecor();
-        ViewGroup contentParent = (ViewGroup) mSubDecor.findViewById(android.R.id.content);
+        ViewGroup contentParent = mSubDecor.findViewById(android.R.id.content);
         contentParent.removeAllViews();
         contentParent.addView(v);
-        mOriginalWindowCallback.onContentChanged();
+        mAppCompatWindowCallback.getWrapped().onContentChanged();
     }
 
     @Override
     public void setContentView(int resId) {
         ensureSubDecor();
-        ViewGroup contentParent = (ViewGroup) mSubDecor.findViewById(android.R.id.content);
+        ViewGroup contentParent = mSubDecor.findViewById(android.R.id.content);
         contentParent.removeAllViews();
         LayoutInflater.from(mContext).inflate(resId, contentParent);
-        mOriginalWindowCallback.onContentChanged();
+        mAppCompatWindowCallback.getWrapped().onContentChanged();
     }
 
     @Override
     public void setContentView(View v, ViewGroup.LayoutParams lp) {
         ensureSubDecor();
-        ViewGroup contentParent = (ViewGroup) mSubDecor.findViewById(android.R.id.content);
+        ViewGroup contentParent = mSubDecor.findViewById(android.R.id.content);
         contentParent.removeAllViews();
         contentParent.addView(v, lp);
-        mOriginalWindowCallback.onContentChanged();
+        mAppCompatWindowCallback.getWrapped().onContentChanged();
     }
 
     @Override
     public void addContentView(View v, ViewGroup.LayoutParams lp) {
         ensureSubDecor();
-        ViewGroup contentParent = (ViewGroup) mSubDecor.findViewById(android.R.id.content);
+        ViewGroup contentParent = mSubDecor.findViewById(android.R.id.content);
         contentParent.addView(v, lp);
-        mOriginalWindowCallback.onContentChanged();
+        mAppCompatWindowCallback.getWrapped().onContentChanged();
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         if (mLocalNightMode != MODE_NIGHT_UNSPECIFIED) {
             // If we have a local night mode set, save it
-            outState.putInt(KEY_LOCAL_NIGHT_MODE, mLocalNightMode);
+            sLocalNightModes.put(mHost.getClass(), mLocalNightMode);
         }
     }
 
@@ -508,9 +582,35 @@ class AppCompatDelegateImpl extends AppCompatDelegate
         }
 
         // Make sure we clean up any receivers setup for AUTO mode
-        if (mAutoNightModeManager != null) {
-            mAutoNightModeManager.cleanup();
+        if (mAutoTimeNightModeManager != null) {
+            mAutoTimeNightModeManager.cleanup();
         }
+        if (mAutoBatteryNightModeManager != null) {
+            mAutoBatteryNightModeManager.cleanup();
+        }
+    }
+
+    @Override
+    public void onSetTheme(@StyleRes int themeResId) {
+        mThemeResId = themeResId;
+    }
+
+    private void attachToWindow(@NonNull Window window) {
+        if (mWindow != null) {
+            throw new IllegalStateException(
+                    "AppCompat has already installed itself into the Window");
+        }
+
+        final Window.Callback callback = window.getCallback();
+        if (callback instanceof AppCompatWindowCallback) {
+            throw new IllegalStateException(
+                    "AppCompat has already installed itself into the Window");
+        }
+        mAppCompatWindowCallback = new AppCompatWindowCallback(callback);
+        // Now install the new callback
+        window.setCallback(mAppCompatWindowCallback);
+
+        mWindow = window;
     }
 
     private void ensureSubDecor() {
@@ -847,8 +947,8 @@ class AppCompatDelegateImpl extends AppCompatDelegate
 
     final CharSequence getTitle() {
         // If the original window callback is an Activity, we'll use its title
-        if (mOriginalWindowCallback instanceof Activity) {
-            return ((Activity) mOriginalWindowCallback).getTitle();
+        if (mHost instanceof Activity) {
+            return ((Activity) mHost).getTitle();
         }
         // Else, we'll return the title we have recorded ourselves
         return mTitle;
@@ -1162,8 +1262,7 @@ class AppCompatDelegateImpl extends AppCompatDelegate
     boolean dispatchKeyEvent(KeyEvent event) {
         // Check AppCompatDialog directly since it isn't able to implement KeyEventDispatcher
         // while it is @hide.
-        if (mOriginalWindowCallback instanceof KeyEventDispatcher.Component
-                || mOriginalWindowCallback instanceof AppCompatDialog) {
+        if (mHost instanceof KeyEventDispatcher.Component || mHost instanceof AppCompatDialog) {
             View root = mWindow.getDecorView();
             if (root != null && KeyEventDispatcher.dispatchBeforeHierarchy(root, event)) {
                 return true;
@@ -1172,7 +1271,7 @@ class AppCompatDelegateImpl extends AppCompatDelegate
 
         if (event.getKeyCode() == KeyEvent.KEYCODE_MENU) {
             // If this is a MENU event, let the Activity have a go.
-            if (mOriginalWindowCallback.dispatchKeyEvent(event)) {
+            if (mAppCompatWindowCallback.getWrapped().dispatchKeyEvent(event)) {
                 return true;
             }
         }
@@ -1324,6 +1423,22 @@ class AppCompatDelegateImpl extends AppCompatDelegate
         return onCreateView(null, name, context, attrs);
     }
 
+    @Nullable
+    private AppCompatActivity tryUnwrapContext() {
+        Context context = mContext;
+        while (context != null) {
+            if (context instanceof AppCompatActivity) {
+                return (AppCompatActivity) context;
+            }
+            if (context instanceof ContextWrapper) {
+                context = ((ContextWrapper) context).getBaseContext();
+            } else {
+                return null;
+            }
+        }
+        return null;
+    }
+
     private void openPanel(final PanelFeatureState st, KeyEvent event) {
         // Already open, return
         if (st.isOpen || mIsDestroyed) {
@@ -1383,7 +1498,7 @@ class AppCompatDelegateImpl extends AppCompatDelegate
             st.decorView.setBackgroundResource(backgroundResId);
 
             ViewParent shownPanelParent = st.shownPanelView.getParent();
-            if (shownPanelParent != null && shownPanelParent instanceof ViewGroup) {
+            if (shownPanelParent instanceof ViewGroup) {
                 ((ViewGroup) shownPanelParent).removeView(st.shownPanelView);
             }
             st.decorView.addView(st.shownPanelView, lp);
@@ -1777,7 +1892,7 @@ class AppCompatDelegateImpl extends AppCompatDelegate
             // We need to be careful which callback we dispatch the call to. We can not dispatch
             // this to the Window's callback since that will call back into this method and cause a
             // crash. Instead we need to dispatch down to the original Activity/Dialog/etc.
-            mOriginalWindowCallback.onPanelClosed(featureId, menu);
+            mAppCompatWindowCallback.getWrapped().onPanelClosed(featureId, menu);
         }
     }
 
@@ -1999,50 +2114,46 @@ class AppCompatDelegateImpl extends AppCompatDelegate
 
     @Override
     public boolean applyDayNight() {
-        boolean applied = false;
+        return applyDayNight(true);
+    }
 
-        @NightMode final int nightMode = getNightMode();
+    private boolean applyDayNight(final boolean recreateIfNeeded) {
+        @NightMode final int nightMode = calculateNightMode();
         @ApplyableNightMode final int modeToApply = mapNightMode(nightMode);
-        if (modeToApply != MODE_NIGHT_FOLLOW_SYSTEM) {
-            applied = updateForNightMode(modeToApply);
-        }
+        final boolean applied = updateForNightMode(modeToApply, recreateIfNeeded);
 
-        if (nightMode == MODE_NIGHT_AUTO) {
+        if (nightMode == MODE_NIGHT_AUTO_TIME) {
             // If we're already been started, we may need to setup auto mode again
-            ensureAutoNightModeManager();
-            mAutoNightModeManager.setup();
+            getAutoTimeNightModeManager().setup();
+        } else if (nightMode == MODE_NIGHT_AUTO_BATTERY) {
+            getAutoBatteryNightModeManager().setup();
         }
 
-        mApplyDayNightCalled = true;
         return applied;
     }
 
     @Override
-    public void setLocalNightMode(@NightMode final int mode) {
-        switch (mode) {
-            case MODE_NIGHT_AUTO:
-            case MODE_NIGHT_NO:
-            case MODE_NIGHT_YES:
-            case MODE_NIGHT_FOLLOW_SYSTEM:
-                if (mLocalNightMode != mode) {
-                    mLocalNightMode = mode;
-                    if (mApplyDayNightCalled) {
-                        // If we've already applied day night, re-apply since we won't be
-                        // called again
-                        applyDayNight();
-                    }
-                }
-                break;
-            default:
-                Log.i(TAG, "setLocalNightMode() called with an unknown mode");
-                break;
+    public void setLocalNightMode(@NightMode int mode) {
+        if (mLocalNightMode != mode) {
+            mLocalNightMode = mode;
+            applyDayNight();
         }
+    }
+
+    @Override
+    public int getLocalNightMode() {
+        return mLocalNightMode;
     }
 
     @ApplyableNightMode
     int mapNightMode(@NightMode final int mode) {
         switch (mode) {
-            case MODE_NIGHT_AUTO:
+            case MODE_NIGHT_NO:
+            case MODE_NIGHT_YES:
+            case MODE_NIGHT_FOLLOW_SYSTEM:
+                // $FALLTHROUGH since these are all valid modes to return
+                return mode;
+            case MODE_NIGHT_AUTO_TIME:
                 if (Build.VERSION.SDK_INT >= 23) {
                     UiModeManager uiModeManager = mContext.getSystemService(UiModeManager.class);
                     if (uiModeManager.getNightMode() == UiModeManager.MODE_NIGHT_AUTO) {
@@ -2051,99 +2162,184 @@ class AppCompatDelegateImpl extends AppCompatDelegate
                         return MODE_NIGHT_FOLLOW_SYSTEM;
                     }
                 }
-                ensureAutoNightModeManager();
-                return mAutoNightModeManager.getApplyableNightMode();
+                return getAutoTimeNightModeManager().getApplyableNightMode();
+            case MODE_NIGHT_AUTO_BATTERY:
+                return getAutoBatteryNightModeManager().getApplyableNightMode();
             case MODE_NIGHT_UNSPECIFIED:
-                // If we don't have a mode specified, just let the system handle it
+                // If we don't have a mode specified, let the system handle it
                 return MODE_NIGHT_FOLLOW_SYSTEM;
             default:
-                return mode;
+                throw new IllegalStateException("Unknown value set for night mode. Please use one"
+                        + " of the MODE_NIGHT values from AppCompatDelegate.");
         }
     }
 
     @NightMode
-    private int getNightMode() {
+    private int calculateNightMode() {
         return mLocalNightMode != MODE_NIGHT_UNSPECIFIED ? mLocalNightMode : getDefaultNightMode();
     }
 
     /**
      * Updates the {@link Resources} configuration {@code uiMode} with the
      * chosen {@code UI_MODE_NIGHT} value.
+     *
+     * @param mode The new night mode to apply
+     * @param config The configuration which triggered this update
+     * @return true if an action has been taken (recreation, resources updating, etc)
      */
-    private boolean updateForNightMode(@ApplyableNightMode final int mode) {
-        final Resources res = mContext.getResources();
-        final Configuration conf = res.getConfiguration();
-        final int currentNightMode = conf.uiMode & Configuration.UI_MODE_NIGHT_MASK;
+    private boolean updateForNightMode(@ApplyableNightMode final int mode,
+            final boolean allowRecreation) {
+        boolean handled = false;
 
-        final int newNightMode = (mode == MODE_NIGHT_YES)
-                ? Configuration.UI_MODE_NIGHT_YES
-                : Configuration.UI_MODE_NIGHT_NO;
+        int newNightMode;
+        switch (mode) {
+            case MODE_NIGHT_YES:
+                newNightMode = Configuration.UI_MODE_NIGHT_YES;
+                break;
+            case MODE_NIGHT_NO:
+                newNightMode = Configuration.UI_MODE_NIGHT_NO;
+                break;
+            default:
+            case MODE_NIGHT_FOLLOW_SYSTEM:
+                // If we're following the system, we just use the system default from the
+                // application context
+                newNightMode = mContext.getApplicationContext()
+                        .getResources()
+                        .getConfiguration()
+                        .uiMode & Configuration.UI_MODE_NIGHT_MASK;
+                break;
+        }
 
-        if (currentNightMode != newNightMode) {
-            if (shouldRecreateOnNightModeChange()) {
+        final boolean activityHandlingUiMode = isActivityManifestHandlingUiMode();
+
+        if (!activityHandlingUiMode && Build.VERSION.SDK_INT >= 17 && !mBaseContextAttached
+                && mHost instanceof android.view.ContextThemeWrapper) {
+            // If we're here then we can try and apply an override configuration on the Context.
+            final Configuration conf = new Configuration();
+            conf.uiMode = newNightMode | (conf.uiMode & ~Configuration.UI_MODE_NIGHT_MASK);
+
+            try {
                 if (DEBUG) {
-                    Log.d(TAG, "applyNightMode() | Night mode changed, recreating Activity");
+                    Log.d(TAG, "updateForNightMode. Applying override config");
                 }
-                // If we've already been created, we need to recreate the Activity for the
-                // mode to be applied
-                final Activity activity = (Activity) mContext;
-                activity.recreate();
+                ((android.view.ContextThemeWrapper) mHost).applyOverrideConfiguration(conf);
+                handled = true;
+            } catch (IllegalStateException e) {
+                // applyOverrideConfiguration throws an IllegalStateException if it's resources
+                // have already been created. Since there's no way to check this beforehand we
+                // just have to try it and catch the exception
+                handled = false;
+            }
+        }
+
+        if (!handled && !activityHandlingUiMode) {
+            final int currentNightMode = mContext.getResources().getConfiguration().uiMode
+                    & Configuration.UI_MODE_NIGHT_MASK;
+            if (currentNightMode != newNightMode) {
+                if (allowRecreation && (Build.VERSION.SDK_INT >= 17 || mCreated)
+                        && mHost instanceof Activity) {
+                    // If we're created and are an Activity, we can recreate to apply
+                    // The SDK_INT check above is because applyOverrideConfiguration only exists on
+                    // API 17+, so we don't want to get into an loop of infinite recreations.
+                    // On < API 17 we need to use updateConfiguration before we're 'created'
+                    if (DEBUG) {
+                        Log.d(TAG, "updateForNightMode. Recreating Activity");
+                    }
+                    ActivityCompat.recreate((Activity) mHost);
+                    handled = true;
+                }
+                if (!handled) {
+                    // Else we need to use the updateConfiguration path
+                    if (DEBUG) {
+                        Log.d(TAG, "updateForNightMode. Updating resources config");
+                    }
+                    updateResourcesConfigurationForNightMode(newNightMode);
+                    handled = true;
+                }
             } else {
                 if (DEBUG) {
-                    Log.d(TAG, "applyNightMode() | Night mode changed, updating configuration");
-                }
-                final Configuration config = new Configuration(conf);
-                final DisplayMetrics metrics = res.getDisplayMetrics();
-
-                // Update the UI Mode to reflect the new night mode
-                config.uiMode = newNightMode | (config.uiMode & ~Configuration.UI_MODE_NIGHT_MASK);
-                res.updateConfiguration(config, metrics);
-
-                // We may need to flush the Resources' drawable cache due to framework bugs.
-                if (!(Build.VERSION.SDK_INT >= 26)) {
-                    ResourcesFlusher.flush(res);
+                    Log.d(TAG, "updateForNightMode. Skipping. Night mode: " + mode);
                 }
             }
-            return true;
-        } else {
-            if (DEBUG) {
-                Log.d(TAG, "applyNightMode() | Skipping. Night mode has not changed: " + mode);
+        }
+
+        // Notify the activity of the night mode. We only notify if we handled the change,
+        // or the Activity is set to handle uiMode changes
+        if ((handled || activityHandlingUiMode) && mHost instanceof AppCompatActivity) {
+            ((AppCompatActivity) mHost).onNightModeChanged(mode);
+        }
+
+        return handled;
+    }
+
+    private void updateResourcesConfigurationForNightMode(final int uiModeNightModeValue) {
+        // If the Activity is not set to handle uiMode config changes we will
+        // update the Resources with a new Configuration with an updated UI Mode
+        final Resources res = mContext.getResources();
+        final Configuration conf = new Configuration();
+        conf.uiMode = uiModeNightModeValue
+                | (res.getConfiguration().uiMode & ~Configuration.UI_MODE_NIGHT_MASK);
+        res.updateConfiguration(conf, null);
+
+        // We may need to flush the Resources' drawable cache due to framework bugs.
+        if (Build.VERSION.SDK_INT < 26) {
+            ResourcesFlusher.flush(res);
+        }
+
+        if (mThemeResId != 0) {
+            // We need to re-apply the theme so that it reflected the new
+            // configuration
+            mContext.setTheme(mThemeResId);
+
+            if (Build.VERSION.SDK_INT >= 23) {
+                // On M+ setTheme only applies if the themeResId actually changes,
+                // since we have no way to publicly check what the Theme's current
+                // themeResId is, we just manually apply it anyway. Most of the time
+                // this is what we need anyway (since the themeResId does not
+                // often change)
+                mContext.getTheme().applyStyle(mThemeResId, true);
             }
         }
-        return false;
     }
 
-    private void ensureAutoNightModeManager() {
-        if (mAutoNightModeManager == null) {
-            mAutoNightModeManager = new AutoNightModeManager(TwilightManager.getInstance(mContext));
+    /**
+     * @hide
+     */
+    @NonNull
+    @RestrictTo(LIBRARY)
+    final AutoNightModeManager getAutoTimeNightModeManager() {
+        if (mAutoTimeNightModeManager == null) {
+            mAutoTimeNightModeManager = new AutoTimeNightModeManager(
+                    TwilightManager.getInstance(mContext));
         }
+        return mAutoTimeNightModeManager;
     }
 
-    @VisibleForTesting
-    final AutoNightModeManager getAutoNightModeManager() {
-        ensureAutoNightModeManager();
-        return mAutoNightModeManager;
+    private AutoNightModeManager getAutoBatteryNightModeManager() {
+        if (mAutoBatteryNightModeManager == null) {
+            mAutoBatteryNightModeManager = new AutoBatteryNightModeManager(mContext);
+        }
+        return mAutoBatteryNightModeManager;
     }
 
-    private boolean shouldRecreateOnNightModeChange() {
-        if (mApplyDayNightCalled && mContext instanceof Activity) {
-            // If we've already applyDayNight() (via setTheme), we need to check if the
-            // Activity has configChanges set to handle uiMode changes
+    private boolean isActivityManifestHandlingUiMode() {
+        if (!mActivityHandlesUiModeChecked && mHost instanceof Activity) {
             final PackageManager pm = mContext.getPackageManager();
             try {
                 final ActivityInfo info = pm.getActivityInfo(
-                        new ComponentName(mContext, mContext.getClass()), 0);
-                // We should return true (to recreate) if configChanges does not want to
-                // handle uiMode
-                return (info.configChanges & ActivityInfo.CONFIG_UI_MODE) == 0;
+                        new ComponentName(mContext, mHost.getClass()), 0);
+                mActivityHandlesUiMode = (info.configChanges & ActivityInfo.CONFIG_UI_MODE) != 0;
             } catch (PackageManager.NameNotFoundException e) {
                 // This shouldn't happen but let's not crash because of it, we'll just log and
-                // return true (since most apps will do that anyway)
+                // return false (since most apps won't be handling it)
                 Log.d(TAG, "Exception while getting ActivityInfo", e);
-                return true;
+                mActivityHandlesUiMode = false;
             }
         }
-        return false;
+        // Flip the checked flag so we don't check again
+        mActivityHandlesUiModeChecked = true;
+
+        return mActivityHandlesUiMode;
     }
 
     /**
@@ -2431,7 +2627,7 @@ class AppCompatDelegateImpl extends AppCompatDelegate
                 frozenMenuState = null;
             }
         }
-
+        @SuppressLint("BanParcelableUsage")
         private static class SavedState implements Parcelable {
             int featureId;
             boolean isOpen;
@@ -2662,64 +2858,107 @@ class AppCompatDelegateImpl extends AppCompatDelegate
         }
     }
 
+    /**
+     * @hide
+     */
     @VisibleForTesting
-    final class AutoNightModeManager {
-        private TwilightManager mTwilightManager;
-        private boolean mIsNight;
-
-        private BroadcastReceiver mAutoTimeChangeReceiver;
-        private IntentFilter mAutoTimeChangeReceiverFilter;
-
-        AutoNightModeManager(@NonNull TwilightManager twilightManager) {
-            mTwilightManager = twilightManager;
-            mIsNight = twilightManager.isNight();
-        }
+    @RestrictTo(LIBRARY)
+    abstract class AutoNightModeManager {
+        private BroadcastReceiver mReceiver;
 
         @ApplyableNightMode
-        int getApplyableNightMode() {
-            mIsNight = mTwilightManager.isNight();
-            return mIsNight ? MODE_NIGHT_YES : MODE_NIGHT_NO;
-        }
+        abstract int getApplyableNightMode();
 
-        void dispatchTimeChanged() {
-            final boolean isNight = mTwilightManager.isNight();
-            if (isNight != mIsNight) {
-                mIsNight = isNight;
-                applyDayNight();
-            }
-        }
+        abstract void onChange();
 
         void setup() {
             cleanup();
 
-            // If we're set to AUTO, we register a receiver to be notified on time changes. The
-            // system only sends the tick out every minute, but that's enough fidelity for our use
-            // case
-            if (mAutoTimeChangeReceiver == null) {
-                mAutoTimeChangeReceiver = new BroadcastReceiver() {
+            final IntentFilter filter = createIntentFilterForBroadcastReceiver();
+            if (filter == null || filter.countActions() == 0) {
+                // Null or empty IntentFilter, skip
+                return;
+            }
+
+            if (mReceiver == null) {
+                mReceiver = new BroadcastReceiver() {
                     @Override
                     public void onReceive(Context context, Intent intent) {
-                        if (DEBUG) {
-                            Log.d("AutoTimeChangeReceiver", "onReceive | Intent: " + intent);
-                        }
-                        dispatchTimeChanged();
+                        onChange();
                     }
                 };
             }
-            if (mAutoTimeChangeReceiverFilter == null) {
-                mAutoTimeChangeReceiverFilter = new IntentFilter();
-                mAutoTimeChangeReceiverFilter.addAction(Intent.ACTION_TIME_CHANGED);
-                mAutoTimeChangeReceiverFilter.addAction(Intent.ACTION_TIMEZONE_CHANGED);
-                mAutoTimeChangeReceiverFilter.addAction(Intent.ACTION_TIME_TICK);
-            }
-            mContext.registerReceiver(mAutoTimeChangeReceiver, mAutoTimeChangeReceiverFilter);
+            mContext.registerReceiver(mReceiver, filter);
         }
 
+        @Nullable
+        abstract IntentFilter createIntentFilterForBroadcastReceiver();
+
         void cleanup() {
-            if (mAutoTimeChangeReceiver != null) {
-                mContext.unregisterReceiver(mAutoTimeChangeReceiver);
-                mAutoTimeChangeReceiver = null;
+            if (mReceiver != null) {
+                mContext.unregisterReceiver(mReceiver);
+                mReceiver = null;
             }
+        }
+    }
+
+    private class AutoTimeNightModeManager extends AutoNightModeManager {
+        private final TwilightManager mTwilightManager;
+
+        AutoTimeNightModeManager(@NonNull TwilightManager twilightManager) {
+            mTwilightManager = twilightManager;
+        }
+
+        @ApplyableNightMode
+        @Override
+        public int getApplyableNightMode() {
+            return mTwilightManager.isNight() ? MODE_NIGHT_YES : MODE_NIGHT_NO;
+        }
+
+        @Override
+        public void onChange() {
+            applyDayNight();
+        }
+
+        @Override
+        IntentFilter createIntentFilterForBroadcastReceiver() {
+            IntentFilter filter = new IntentFilter();
+            filter.addAction(Intent.ACTION_TIME_CHANGED);
+            filter.addAction(Intent.ACTION_TIMEZONE_CHANGED);
+            filter.addAction(Intent.ACTION_TIME_TICK);
+            return filter;
+        }
+    }
+
+    private class AutoBatteryNightModeManager extends AutoNightModeManager {
+        private final PowerManager mPowerManager;
+
+        AutoBatteryNightModeManager(@NonNull Context context) {
+            mPowerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+        }
+
+        @ApplyableNightMode
+        @Override
+        public int getApplyableNightMode() {
+            if (Build.VERSION.SDK_INT >= 21) {
+                return mPowerManager.isPowerSaveMode() ? MODE_NIGHT_YES : MODE_NIGHT_NO;
+            }
+            return MODE_NIGHT_NO;
+        }
+
+        @Override
+        public void onChange() {
+            applyDayNight();
+        }
+
+        @Override
+        IntentFilter createIntentFilterForBroadcastReceiver() {
+            if (Build.VERSION.SDK_INT >= 21) {
+                IntentFilter filter = new IntentFilter();
+                filter.addAction(PowerManager.ACTION_POWER_SAVE_MODE_CHANGED);
+                return filter;
+            }
+            return null;
         }
     }
 

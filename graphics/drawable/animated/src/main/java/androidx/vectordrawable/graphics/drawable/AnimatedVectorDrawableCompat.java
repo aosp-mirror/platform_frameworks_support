@@ -343,6 +343,14 @@ public class AnimatedVectorDrawableCompat extends VectorDrawableCommon
     }
 
     @Override
+    public ColorFilter getColorFilter() {
+        if (mDelegateDrawable != null) {
+            return DrawableCompat.getColorFilter(mDelegateDrawable);
+        }
+        return mAnimatedVectorState.mVectorDrawable.getColorFilter();
+    }
+
+    @Override
     public void setTint(int tint) {
         if (mDelegateDrawable != null) {
             DrawableCompat.setTint(mDelegateDrawable, tint);
@@ -907,7 +915,7 @@ public class AnimatedVectorDrawableCompat extends VectorDrawableCommon
      * Otherwise, it is treated as AnimatedVectorDrawableCompat.
      */
     public static void clearAnimationCallbacks(Drawable dr) {
-        if (dr == null || !(dr instanceof Animatable)) {
+        if (!(dr instanceof Animatable)) {
             return;
         }
         if (Build.VERSION.SDK_INT >= 24) {

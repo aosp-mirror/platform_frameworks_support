@@ -119,6 +119,10 @@ public class ViewPager extends ViewGroup {
 
     private static final int MIN_FLING_VELOCITY = 400; // dips
 
+    /** Class name may be obfuscated by Proguard. Hardcode the string for accessibility usage. */
+    private static final String ACCESSIBILITY_CLASS_NAME =
+            "androidx.viewpager.widget.ViewPager";
+
     static final int[] LAYOUT_ATTRS = new int[] {
         android.R.attr.layout_gravity
     };
@@ -179,8 +183,6 @@ public class ViewPager extends ViewGroup {
     private float mFirstOffset = -Float.MAX_VALUE;
     private float mLastOffset = Float.MAX_VALUE;
 
-    private int mChildWidthMeasureSpec;
-    private int mChildHeightMeasureSpec;
     private boolean mInLayout;
 
     private boolean mScrollingCacheEnabled;
@@ -193,6 +195,9 @@ public class ViewPager extends ViewGroup {
     private int mDefaultGutterSize;
     private int mGutterSize;
     private int mTouchSlop;
+
+    private boolean mDragInGutterEnabled = true;
+
     /**
      * Position of the last motion event.
      */
@@ -232,7 +237,6 @@ public class ViewPager extends ViewGroup {
     private EdgeEffect mRightEdge;
 
     private boolean mFirstLayout = true;
-    private boolean mNeedCalculatePageOffsets = false;
     private boolean mCalledSuper;
     private int mDecorChildCount;
 
@@ -934,16 +938,6 @@ public class ViewPager extends ViewGroup {
      *
      * @param x the number of pixels to scroll by on the X axis
      * @param y the number of pixels to scroll by on the Y axis
-     */
-    void smoothScrollTo(int x, int y) {
-        smoothScrollTo(x, y, 0);
-    }
-
-    /**
-     * Like {@link View#scrollBy}, but scroll smoothly instead of immediately.
-     *
-     * @param x the number of pixels to scroll by on the X axis
-     * @param y the number of pixels to scroll by on the Y axis
      * @param velocity the velocity associated with a fling, if applicable. (0 otherwise)
      */
     void smoothScrollTo(int x, int y, int velocity) {
@@ -1376,8 +1370,6 @@ public class ViewPager extends ViewGroup {
             ii.offset = offset;
             offset += ii.widthFactor + marginOffset;
         }
-
-        mNeedCalculatePageOffsets = false;
     }
 
     /**
@@ -1521,7 +1513,7 @@ public class ViewPager extends ViewGroup {
     ItemInfo infoForAnyChild(View child) {
         ViewParent parent;
         while ((parent = child.getParent()) != this) {
-            if (parent == null || !(parent instanceof View)) {
+            if (!(parent instanceof View)) {
                 return null;
             }
             child = (View) parent;
@@ -1614,8 +1606,10 @@ public class ViewPager extends ViewGroup {
             }
         }
 
-        mChildWidthMeasureSpec = MeasureSpec.makeMeasureSpec(childWidthSize, MeasureSpec.EXACTLY);
-        mChildHeightMeasureSpec = MeasureSpec.makeMeasureSpec(childHeightSize, MeasureSpec.EXACTLY);
+        int childWidthMeasureSpec = MeasureSpec.makeMeasureSpec(childWidthSize,
+                MeasureSpec.EXACTLY);
+        int childHeightMeasureSpec = MeasureSpec.makeMeasureSpec(childHeightSize,
+                MeasureSpec.EXACTLY);
 
         // Make sure we have created all fragments that we need to have shown.
         mInLayout = true;
@@ -1628,14 +1622,14 @@ public class ViewPager extends ViewGroup {
             final View child = getChildAt(i);
             if (child.getVisibility() != GONE) {
                 if (DEBUG) {
-                    Log.v(TAG, "Measuring #" + i + " " + child + ": " + mChildWidthMeasureSpec);
+                    Log.v(TAG, "Measuring #" + i + " " + child + ": " + childWidthMeasureSpec);
                 }
 
                 final LayoutParams lp = (LayoutParams) child.getLayoutParams();
                 if (lp == null || !lp.isDecor) {
                     final int widthSpec = MeasureSpec.makeMeasureSpec(
                             (int) (childWidthSize * lp.widthFactor), MeasureSpec.EXACTLY);
-                    child.measure(widthSpec, mChildHeightMeasureSpec);
+                    child.measure(widthSpec, childHeightMeasureSpec);
                 }
             }
         }
@@ -2007,7 +2001,26 @@ public class ViewPager extends ViewGroup {
         }
     }
 
+    /**
+     * @return Whether dragging in the gutter (left and right edges) of the ViewPager is enabled.
+     */
+    public boolean isDragInGutterEnabled() {
+        return mDragInGutterEnabled;
+    }
+
+    /**
+     * Set whether ViewPager should consume drag events if they are within the gutter
+     * (left and right edges) of the ViewPager. The default value {@code false}.
+     * @param enabled true if ViewPager should allow drag in gutter, false otherwise
+     */
+    public void setDragInGutterEnabled(boolean enabled) {
+        mDragInGutterEnabled = enabled;
+    }
+
     private boolean isGutterDrag(float x, float dx) {
+        if (mDragInGutterEnabled) {
+            return false;
+        }
         return (x < mGutterSize && dx > 0) || (x > getWidth() - mGutterSize && dx < 0);
     }
 
@@ -3039,7 +3052,7 @@ public class ViewPager extends ViewGroup {
         @Override
         public void onInitializeAccessibilityEvent(View host, AccessibilityEvent event) {
             super.onInitializeAccessibilityEvent(host, event);
-            event.setClassName(ViewPager.class.getName());
+            event.setClassName(ACCESSIBILITY_CLASS_NAME);
             event.setScrollable(canScroll());
             if (event.getEventType() == AccessibilityEvent.TYPE_VIEW_SCROLLED && mAdapter != null) {
                 event.setItemCount(mAdapter.getCount());
@@ -3051,7 +3064,7 @@ public class ViewPager extends ViewGroup {
         @Override
         public void onInitializeAccessibilityNodeInfo(View host, AccessibilityNodeInfoCompat info) {
             super.onInitializeAccessibilityNodeInfo(host, info);
-            info.setClassName(ViewPager.class.getName());
+            info.setClassName(ACCESSIBILITY_CLASS_NAME);
             info.setScrollable(canScroll());
             if (canScrollHorizontally(1)) {
                 info.addAction(AccessibilityNodeInfoCompat.ACTION_SCROLL_FORWARD);

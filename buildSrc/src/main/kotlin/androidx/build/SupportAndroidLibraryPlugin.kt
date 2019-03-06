@@ -16,13 +16,17 @@
 
 package androidx.build
 
-import androidx.build.SupportConfig.INSTRUMENTATION_RUNNER
-import androidx.build.license.CheckExternalDependencyLicensesTask
+import androidx.build.dokka.Dokka
+import androidx.build.metalava.Metalava
 import com.android.build.gradle.LibraryExtension
-import com.android.build.gradle.tasks.GenerateBuildConfig
-import org.gradle.api.JavaVersion
+import com.android.build.gradle.LibraryPlugin
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.api.artifacts.ComponentModuleMetadataDetails
+import org.gradle.api.logging.LogLevel
+import org.gradle.api.plugins.JavaBasePlugin
+import org.gradle.kotlin.dsl.apply
+import org.gradle.kotlin.dsl.extra
 
 /**
  * Support library specific com.android.library plugin that sets common configurations needed for
@@ -31,107 +35,107 @@ import org.gradle.api.Project
 class SupportAndroidLibraryPlugin : Plugin<Project> {
 
     override fun apply(project: Project) {
+        project.apply<AndroidXPlugin>()
+
         val supportLibraryExtension = project.extensions.create("supportLibrary",
                 SupportLibraryExtension::class.java, project)
-        apply(project, supportLibraryExtension)
-        CheckExternalDependencyLicensesTask.configure(project)
-        val isCoreSupportLibrary = project.rootProject.name == "support"
+        project.configureMavenArtifactUpload(supportLibraryExtension)
+
+        // Workaround for concurrentfuture
+        project.dependencies.modules.module("com.google.guava:listenablefuture") {
+            (it as ComponentModuleMetadataDetails).replacedBy(
+                "com.google.guava:guava", "guava contains listenablefuture")
+        }
 
         project.afterEvaluate {
+            // workaround for b/120487939
+            project.configurations.all {
+                // Gradle seems to crash an androidtest configurations preferring project modules...
+                if (!it.name.toLowerCase().contains("androidtest")) {
+                    it.resolutionStrategy.preferProjectModules()
+                }
+            }
+            if (supportLibraryExtension.publish) {
+                project.extra.set("publish", true)
+                project.addToProjectMap(supportLibraryExtension.mavenGroup)
+            }
             val library = project.extensions.findByType(LibraryExtension::class.java)
                     ?: return@afterEvaluate
 
-            library.defaultConfig.minSdkVersion(supportLibraryExtension.minSdkVersion)
+            project.injectCompilationForBenchmarks(library, supportLibraryExtension)
 
-            // Java 8 is only fully supported on API 24+ and not all Java 8 features are binary
-            // compatible with API < 24, so use Java 7 for both source AND target.
-            val javaVersion: JavaVersion
-            if (supportLibraryExtension.java8Library) {
-                if (library.defaultConfig.minSdkVersion.apiLevel < 24) {
-                    throw IllegalArgumentException("Libraries can only support Java 8 if " +
-                            "minSdkVersion is 24 or higher")
-                }
-                javaVersion = JavaVersion.VERSION_1_8
+            Dokka.registerAndroidProject(project, library, supportLibraryExtension)
+            if (supportLibraryExtension.useMetalava) {
+                Metalava.registerAndroidProject(project, library, supportLibraryExtension)
             } else {
-                javaVersion = JavaVersion.VERSION_1_7
+                DiffAndDocs.get(project)
+                    .registerAndroidProject(project, library, supportLibraryExtension)
             }
 
-            library.compileOptions.setSourceCompatibility(javaVersion)
-            library.compileOptions.setTargetCompatibility(javaVersion)
-
-            VersionFileWriterTask.setUpAndroidLibrary(project, library)
-            DiffAndDocs.registerAndroidProject(project, library, supportLibraryExtension)
+            if (supportLibraryExtension.compilationTarget != CompilationTarget.DEVICE) {
+                throw IllegalStateException(
+                        "Android libraries must use a compilation target of DEVICE")
+            }
 
             library.libraryVariants.all { libraryVariant ->
                 if (libraryVariant.getBuildType().getName().equals("debug")) {
-                    @Suppress("DEPRECATION")
-                    val javaCompile = libraryVariant.javaCompile
-                    if (supportLibraryExtension.failOnUncheckedWarnings) {
-                        javaCompile.options.compilerArgs.add("-Xlint:unchecked")
+                    libraryVariant.javaCompileProvider.configure { javaCompile ->
+                        if (supportLibraryExtension.failOnUncheckedWarnings) {
+                            javaCompile.options.compilerArgs.add("-Xlint:unchecked")
+                        }
+                        if (supportLibraryExtension.failOnDeprecationWarnings) {
+                            javaCompile.options.compilerArgs.add("-Xlint:deprecation")
+                        }
                     }
-                    if (supportLibraryExtension.failOnDeprecationWarnings) {
-                        javaCompile.options.compilerArgs.add("-Xlint:deprecation")
-                    }
-                    javaCompile.options.compilerArgs.add("-Werror")
                 }
             }
         }
 
-        project.apply(mapOf("plugin" to "com.android.library"))
-
-        project.afterEvaluate {
-            project.tasks.all({
-                if (it is GenerateBuildConfig) {
-                    // Disable generating BuildConfig.java
-                    it.enabled = false
-                }
-            })
-        }
-
-        project.configurations.all { configuration ->
-            if (isCoreSupportLibrary && project.name != "annotations") {
-                // While this usually happens naturally due to normal project dependencies, force
-                // evaluation on the annotations project in case the below substitution is the only
-                // dependency to this project. See b/70650240 on what happens when this is missing.
-                project.evaluationDependsOn(":annotation")
-
-                // In projects which compile as part of the "core" support libraries (which include
-                // the annotations), replace any transitive pointer to the deployed Maven
-                // coordinate version of annotations with a reference to the local project. These
-                // usually originate from test dependencies and otherwise cause multiple copies on
-                // the classpath. We do not do this for non-"core" projects as they need to
-                // depend on the Maven coordinate variant.
-                configuration.resolutionStrategy.dependencySubstitution.apply {
-                    substitute(module("androidx.annotation:annotation"))
-                            .with(project(":annotation"))
-                }
-            }
-        }
+        project.apply<LibraryPlugin>()
 
         val library = project.extensions.findByType(LibraryExtension::class.java)
                 ?: throw Exception("Failed to find Android extension")
 
-        library.compileSdkVersion(SupportConfig.CURRENT_SDK_VERSION)
-
-        library.buildToolsVersion = SupportConfig.BUILD_TOOLS_VERSION
-
-        // Update the version meta-data in each Manifest.
-        library.defaultConfig.addManifestPlaceholders(
-                mapOf("target-sdk-version" to SupportConfig.CURRENT_SDK_VERSION))
-
-        // Set test runner.
-        library.defaultConfig.testInstrumentationRunner = INSTRUMENTATION_RUNNER
-
-        library.testOptions.unitTests.isReturnDefaultValues = true
-
-        // Use a local debug keystore to avoid build server issues.
-        library.signingConfigs.findByName("debug")?.storeFile =
-                SupportConfig.getKeystore(project)
-
         project.configureLint(library.lintOptions, supportLibraryExtension)
+    }
+}
 
-        setUpSoureJarTaskForAndroidProject(project, library)
+/**
+ * For benchmarks, inject an extra adb command to AOT compile the APK after install.
+ *
+ * This is disgusting, but seems to be the only way to AOT-compile an APK without essentially
+ * reimplementing connectedCheck. If AGP adds support for this in some other way, we can avoid this.
+ *
+ * Additionally, AOT isn't a great solution here, since it's not very representative of real world.
+ * Ideally we'd use profile-driven compilation, but that requires significantly more steps. However
+ * AOT still gives us much better performance stability.
+ *
+ * For more info about AOT compilation, and why it's only used on N+:
+ *
+ * https://source.android.com/devices/tech/dalvik/jit-compiler
+ *
+ * https://android.googlesource.com/platform/system/extras/+/master/simpleperf/doc/README.md#why-we-suggest-profiling-on-android-n-devices
+ */
+private fun Project.injectCompilationForBenchmarks(
+    extension: LibraryExtension,
+    supportLibraryExtension: SupportLibraryExtension
+) {
+    if (isBenchmark()) {
+        tasks.filter { it.group == JavaBasePlugin.VERIFICATION_GROUP }.forEach {
+            it.doFirst {
+                logger.log(LogLevel.WARN,
+                        "Warning: ADB command injection used to force AOT-compile benchmark")
+            }
+        }
 
-        project.configureErrorProneForAndroid(library.libraryVariants)
+        val group = supportLibraryExtension.mavenGroup
+
+        // NOTE: we assume here that all benchmarks have package name $groupname.benchmark.test
+        val aotCompile = "cmd package compile -m speed -f $group.benchmark.test"
+        // only run aotCompile on N+, where it's supported
+        val inject = "if ((`getprop ro.build.version.sdk` >= 24)); then $aotCompile; fi"
+        // NOTE: we assume here that all benchmarks have apk name $projectname-debug-androidTest.apk
+        val options = "/data/local/tmp/$name-debug-androidTest.apk && $inject #"
+        extension.adbOptions.setInstallOptions(*options.split(" ").toTypedArray())
     }
 }

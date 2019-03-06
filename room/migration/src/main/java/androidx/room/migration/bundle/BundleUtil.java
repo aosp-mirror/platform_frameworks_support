@@ -23,15 +23,24 @@ import androidx.annotation.RestrictTo;
  *
  * @hide
  */
-@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
 public class BundleUtil {
     /**
      * Placeholder for table names in queries.
      */
     public static final String TABLE_NAME_PLACEHOLDER = "${TABLE_NAME}";
 
+    /**
+     * Placeholder for view names in queries.
+     */
+    public static final String VIEW_NAME_PLACEHOLDER = "${VIEW_NAME}";
+
     static String replaceTableName(String contents, String tableName) {
         return contents.replace(TABLE_NAME_PLACEHOLDER, tableName);
+    }
+
+    static String replaceViewName(String contents, String viewName) {
+        return contents.replace(VIEW_NAME_PLACEHOLDER, viewName);
     }
 
     private BundleUtil() {

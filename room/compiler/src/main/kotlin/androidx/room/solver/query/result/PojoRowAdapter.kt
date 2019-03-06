@@ -17,6 +17,7 @@
 package androidx.room.solver.query.result
 
 import androidx.room.ext.L
+import androidx.room.ext.RoomTypeNames
 import androidx.room.ext.S
 import androidx.room.ext.T
 import androidx.room.processor.Context
@@ -28,6 +29,7 @@ import androidx.room.vo.FieldWithIndex
 import androidx.room.vo.Pojo
 import androidx.room.vo.RelationCollector
 import androidx.room.vo.Warning
+import androidx.room.vo.findFieldByColumnName
 import androidx.room.writer.FieldReadWriteWriter
 import com.squareup.javapoet.TypeName
 import stripNonJava
@@ -39,8 +41,11 @@ import javax.lang.model.type.TypeMirror
  * The info comes from the query processor so we know about the order of columns in the result etc.
  */
 class PojoRowAdapter(
-        context: Context, private val info: QueryResultInfo?,
-        val pojo: Pojo, out: TypeMirror) : RowAdapter(out) {
+    context: Context,
+    private val info: QueryResultInfo?,
+    val pojo: Pojo,
+    out: TypeMirror
+) : RowAdapter(out) {
     val mapping: Mapping
     val relationCollectors: List<RelationCollector>
 
@@ -53,8 +58,8 @@ class PojoRowAdapter(
             matchedFields = info.columns.mapNotNull { column ->
                 // first check remaining, otherwise check any. maybe developer wants to map the same
                 // column into 2 fields. (if they want to post process etc)
-                val field = remainingFields.firstOrNull { it.columnName == column.name } ?:
-                        pojo.fields.firstOrNull { it.columnName == column.name }
+                val field = remainingFields.firstOrNull { it.columnName == column.name }
+                        ?: pojo.findFieldByColumnName(column.name)
                 if (field == null) {
                     unusedColumns.add(column.name)
                     null
@@ -81,7 +86,7 @@ class PojoRowAdapter(
                         allQueryColumns = info.columns.map { it.name }))
             }
             if (matchedFields.isEmpty()) {
-                context.logger.e(ProcessorErrors.CANNOT_FIND_QUERY_RESULT_ADAPTER)
+                context.logger.e(ProcessorErrors.cannotFindQueryResultAdapter(out.toString()))
             }
         } else {
             matchedFields = remainingFields.map { it }
@@ -108,7 +113,6 @@ class PojoRowAdapter(
     }
 
     override fun onCursorReady(cursorVarName: String, scope: CodeGenScope) {
-        relationCollectors.forEach { it.writeInitCode(scope) }
         mapping.fieldsWithIndices = mapping.matchedFields.map {
             val indexVar = scope.getTmpVar("_cursorIndexOf${it.name.stripNonJava().capitalize()}")
             val indexMethod = if (info == null) {
@@ -116,9 +120,23 @@ class PojoRowAdapter(
             } else {
                 "getColumnIndexOrThrow"
             }
-            scope.builder().addStatement("final $T $L = $L.$L($S)",
-                    TypeName.INT, indexVar, cursorVarName, indexMethod, it.columnName)
+            scope.builder().addStatement("final $T $L = $T.$L($L, $S)",
+                TypeName.INT, indexVar, RoomTypeNames.CURSOR_UTIL, indexMethod, cursorVarName,
+                it.columnName)
             FieldWithIndex(field = it, indexVar = indexVar, alwaysExists = info != null)
+        }
+        if (relationCollectors.isNotEmpty()) {
+            relationCollectors.forEach { it.writeInitCode(scope) }
+            scope.builder().apply {
+                beginControlFlow("while ($L.moveToNext())", cursorVarName).apply {
+                    relationCollectors.forEach {
+                        it.writeReadParentKeyCode(cursorVarName, mapping.fieldsWithIndices, scope)
+                    }
+                }
+                endControlFlow()
+            }
+            scope.builder().addStatement("$L.moveToPosition(-1)", cursorVarName)
+            relationCollectors.forEach { it.writeCollectionCode(scope) }
         }
     }
 
@@ -134,23 +152,11 @@ class PojoRowAdapter(
         }
     }
 
-    override fun onCursorFinished(): ((CodeGenScope) -> Unit)? =
-            if (relationCollectors.isEmpty()) {
-                // it is important to return empty to notify that we don't need any post process
-                // task
-                null
-            } else {
-                { scope ->
-                    relationCollectors.forEach { collector ->
-                        collector.writeCollectionCode(scope)
-                    }
-                }
-            }
-
     data class Mapping(
-            val matchedFields: List<Field>,
-            val unusedColumns: List<String>,
-            val unusedFields: List<Field>) {
+        val matchedFields: List<Field>,
+        val unusedColumns: List<String>,
+        val unusedFields: List<Field>
+    ) {
         // set when cursor is ready.
         lateinit var fieldsWithIndices: List<FieldWithIndex>
     }

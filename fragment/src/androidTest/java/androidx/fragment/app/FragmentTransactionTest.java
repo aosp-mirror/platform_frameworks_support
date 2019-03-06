@@ -18,9 +18,9 @@ package androidx.fragment.app;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import android.app.Activity;
 import android.app.Instrumentation;
@@ -28,18 +28,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
-import androidx.annotation.Nullable;
+import androidx.annotation.ContentView;
+import androidx.annotation.NonNull;
 import androidx.fragment.app.test.FragmentTestActivity;
 import androidx.fragment.app.test.NewIntentActivity;
 import androidx.fragment.test.R;
-import androidx.test.InstrumentationRegistry;
 import androidx.test.annotation.UiThreadTest;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.MediumTest;
+import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
-import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -49,6 +48,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.util.Collection;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -88,222 +88,181 @@ public class FragmentTransactionTest {
     }
 
     @Test
-    public void testAddTransactionWithValidFragment() throws Throwable {
+    @UiThreadTest
+    public void testAddTransactionWithValidFragment() {
         final Fragment fragment = new CorrectFragment();
-        mActivityRule.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                mActivity.getSupportFragmentManager().beginTransaction()
-                        .add(R.id.content, fragment)
-                        .addToBackStack(null)
-                        .commit();
-                mActivity.getSupportFragmentManager().executePendingTransactions();
-                assertEquals(1, mOnBackStackChangedTimes);
-            }
-        });
-        InstrumentationRegistry.getInstrumentation().waitForIdleSync();
+        mActivity.getSupportFragmentManager().beginTransaction()
+                .add(R.id.content, fragment)
+                .addToBackStack(null)
+                .commit();
+        mActivity.getSupportFragmentManager().executePendingTransactions();
+        assertEquals(1, mOnBackStackChangedTimes);
         assertTrue(fragment.isAdded());
     }
 
     @Test
-    public void testAddTransactionWithPrivateFragment() throws Throwable {
+    @UiThreadTest
+    public void testAddTransactionWithPrivateFragment() {
         final Fragment fragment = new PrivateFragment();
-        mActivityRule.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                boolean exceptionThrown = false;
-                try {
-                    mActivity.getSupportFragmentManager().beginTransaction()
-                            .add(R.id.content, fragment)
-                            .addToBackStack(null)
-                            .commit();
-                    mActivity.getSupportFragmentManager().executePendingTransactions();
-                    assertEquals(1, mOnBackStackChangedTimes);
-                } catch (IllegalStateException e) {
-                    exceptionThrown = true;
-                } finally {
-                    assertTrue("Exception should be thrown", exceptionThrown);
-                    assertFalse("Fragment shouldn't be added", fragment.isAdded());
-                }
-            }
-        });
-        InstrumentationRegistry.getInstrumentation().waitForIdleSync();
+        boolean exceptionThrown = false;
+        try {
+            mActivity.getSupportFragmentManager().beginTransaction()
+                    .add(R.id.content, fragment)
+                    .addToBackStack(null)
+                    .commit();
+            mActivity.getSupportFragmentManager().executePendingTransactions();
+            assertEquals(1, mOnBackStackChangedTimes);
+        } catch (IllegalStateException e) {
+            exceptionThrown = true;
+        } finally {
+            assertTrue("Exception should be thrown", exceptionThrown);
+            assertFalse("Fragment shouldn't be added", fragment.isAdded());
+        }
     }
 
-    @Test
-    public void testAddTransactionWithPackagePrivateFragment() throws Throwable {
-        final Fragment fragment = new PackagePrivateFragment();
-        mActivityRule.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                boolean exceptionThrown = false;
-                try {
-                    mActivity.getSupportFragmentManager().beginTransaction()
-                            .add(R.id.content, fragment)
-                            .addToBackStack(null)
-                            .commit();
-                    mActivity.getSupportFragmentManager().executePendingTransactions();
-                    assertEquals(1, mOnBackStackChangedTimes);
-                } catch (IllegalStateException e) {
-                    exceptionThrown = true;
-                } finally {
-                    assertTrue("Exception should be thrown", exceptionThrown);
-                    assertFalse("Fragment shouldn't be added", fragment.isAdded());
-                }
-            }
-        });
-        InstrumentationRegistry.getInstrumentation().waitForIdleSync();
-    }
-
-    @Test
-    public void testAddTransactionWithAnonymousFragment() throws Throwable {
-        final Fragment fragment = new Fragment() {};
-        mActivityRule.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                boolean exceptionThrown = false;
-                try {
-                    mActivity.getSupportFragmentManager().beginTransaction()
-                            .add(R.id.content, fragment)
-                            .addToBackStack(null)
-                            .commit();
-                    mActivity.getSupportFragmentManager().executePendingTransactions();
-                    assertEquals(1, mOnBackStackChangedTimes);
-                } catch (IllegalStateException e) {
-                    exceptionThrown = true;
-                } finally {
-                    assertTrue("Exception should be thrown", exceptionThrown);
-                    assertFalse("Fragment shouldn't be added", fragment.isAdded());
-                }
-            }
-        });
-        InstrumentationRegistry.getInstrumentation().waitForIdleSync();
-    }
-
-    @Test
-    public void testGetLayoutInflater() throws Throwable {
-        mActivityRule.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                final OnGetLayoutInflaterFragment fragment1 = new OnGetLayoutInflaterFragment();
-                assertEquals(0, fragment1.onGetLayoutInflaterCalls);
-                mActivity.getSupportFragmentManager().beginTransaction()
-                        .add(R.id.content, fragment1)
-                        .addToBackStack(null)
-                        .commit();
-                mActivity.getSupportFragmentManager().executePendingTransactions();
-                assertEquals(1, fragment1.onGetLayoutInflaterCalls);
-                assertEquals(fragment1.layoutInflater, fragment1.getLayoutInflater());
-                // getLayoutInflater() didn't force onGetLayoutInflater()
-                assertEquals(1, fragment1.onGetLayoutInflaterCalls);
-
-                LayoutInflater layoutInflater = fragment1.layoutInflater;
-                // Replacing fragment1 won't detach it, so the value won't be cleared
-                final OnGetLayoutInflaterFragment fragment2 = new OnGetLayoutInflaterFragment();
-                mActivity.getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.content, fragment2)
-                        .addToBackStack(null)
-                        .commit();
-                mActivity.getSupportFragmentManager().executePendingTransactions();
-
-                assertSame(layoutInflater, fragment1.getLayoutInflater());
-                assertEquals(1, fragment1.onGetLayoutInflaterCalls);
-
-                // Popping it should cause onCreateView again, so a new LayoutInflater...
-                mActivity.getSupportFragmentManager().popBackStackImmediate();
-                assertNotSame(layoutInflater, fragment1.getLayoutInflater());
-                assertEquals(2, fragment1.onGetLayoutInflaterCalls);
-                layoutInflater = fragment1.layoutInflater;
-                assertSame(layoutInflater, fragment1.getLayoutInflater());
-
-                // Popping it should detach it, clearing the cached value again
-                mActivity.getSupportFragmentManager().popBackStackImmediate();
-
-                // once it is detached, the getLayoutInflater() will default to throw
-                // an exception, but we've made it return null instead.
-                assertEquals(2, fragment1.onGetLayoutInflaterCalls);
-                assertNull(fragment1.getLayoutInflater());
-                assertEquals(3, fragment1.onGetLayoutInflaterCalls);
-            }
-        });
-    }
-
-    @Test
-    public void testAddTransactionWithNonStaticFragment() throws Throwable {
-        final Fragment fragment = new NonStaticFragment();
-        mActivityRule.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                boolean exceptionThrown = false;
-                try {
-                    mActivity.getSupportFragmentManager().beginTransaction()
-                            .add(R.id.content, fragment)
-                            .addToBackStack(null)
-                            .commit();
-                    mActivity.getSupportFragmentManager().executePendingTransactions();
-                    assertEquals(1, mOnBackStackChangedTimes);
-                } catch (IllegalStateException e) {
-                    exceptionThrown = true;
-                } finally {
-                    assertTrue("Exception should be thrown", exceptionThrown);
-                    assertFalse("Fragment shouldn't be added", fragment.isAdded());
-                }
-            }
-        });
-        InstrumentationRegistry.getInstrumentation().waitForIdleSync();
-    }
-
-    @Test
-    public void testPostOnCommit() throws Throwable {
-        mActivityRule.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                final boolean[] ran = new boolean[1];
-                FragmentManager fm = mActivityRule.getActivity().getSupportFragmentManager();
-                fm.beginTransaction().runOnCommit(new Runnable() {
-                    @Override
-                    public void run() {
-                        ran[0] = true;
-                    }
-                }).commit();
-                fm.executePendingTransactions();
-
-                assertTrue("runOnCommit runnable never ran", ran[0]);
-
-                ran[0] = false;
-
-                boolean threw = false;
-                try {
-                    fm.beginTransaction().runOnCommit(new Runnable() {
-                        @Override
-                        public void run() {
-                            ran[0] = true;
-                        }
-                    }).addToBackStack(null).commit();
-                } catch (IllegalStateException ise) {
-                    threw = true;
-                }
-
-                fm.executePendingTransactions();
-
-                assertTrue("runOnCommit was allowed to be called for back stack transaction",
-                        threw);
-                assertFalse("runOnCommit runnable for back stack transaction was run", ran[0]);
-            }
-        });
-    }
-
-    /**
-     * Test to ensure that when onBackPressed() is received that there is no crash.
-     */
     @Test
     @UiThreadTest
-    public void crashOnBackPressed() throws Throwable {
-        Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
-        Bundle outState = new Bundle();
-        FragmentTestActivity activity = mActivityRule.getActivity();
-        instrumentation.callActivityOnSaveInstanceState(activity, outState);
-        activity.onBackPressed();
+    public void testAddTransactionWithPackagePrivateFragment() {
+        final Fragment fragment = new PackagePrivateFragment();
+        boolean exceptionThrown = false;
+        try {
+            mActivity.getSupportFragmentManager().beginTransaction()
+                    .add(R.id.content, fragment)
+                    .addToBackStack(null)
+                    .commit();
+            mActivity.getSupportFragmentManager().executePendingTransactions();
+            assertEquals(1, mOnBackStackChangedTimes);
+        } catch (IllegalStateException e) {
+            exceptionThrown = true;
+        } finally {
+            assertTrue("Exception should be thrown", exceptionThrown);
+            assertFalse("Fragment shouldn't be added", fragment.isAdded());
+        }
+    }
+
+    @Test
+    @UiThreadTest
+    public void testAddTransactionWithAnonymousFragment() {
+        final Fragment fragment = new Fragment() {};
+        boolean exceptionThrown = false;
+        try {
+            mActivity.getSupportFragmentManager().beginTransaction()
+                    .add(R.id.content, fragment)
+                    .addToBackStack(null)
+                    .commit();
+            mActivity.getSupportFragmentManager().executePendingTransactions();
+            assertEquals(1, mOnBackStackChangedTimes);
+        } catch (IllegalStateException e) {
+            exceptionThrown = true;
+        } finally {
+            assertTrue("Exception should be thrown", exceptionThrown);
+            assertFalse("Fragment shouldn't be added", fragment.isAdded());
+        }
+    }
+
+    @Test
+    @UiThreadTest
+    public void testGetLayoutInflater() {
+        final OnGetLayoutInflaterFragment fragment1 = new OnGetLayoutInflaterFragment();
+        assertEquals(0, fragment1.onGetLayoutInflaterCalls);
+        mActivity.getSupportFragmentManager().beginTransaction()
+                .add(R.id.content, fragment1)
+                .addToBackStack(null)
+                .commit();
+        mActivity.getSupportFragmentManager().executePendingTransactions();
+        assertEquals(1, fragment1.onGetLayoutInflaterCalls);
+        assertEquals(fragment1.layoutInflater, fragment1.getLayoutInflater());
+        // getLayoutInflater() didn't force onGetLayoutInflater()
+        assertEquals(1, fragment1.onGetLayoutInflaterCalls);
+
+        LayoutInflater layoutInflater = fragment1.layoutInflater;
+        // Replacing fragment1 won't detach it, so the value won't be cleared
+        final OnGetLayoutInflaterFragment fragment2 = new OnGetLayoutInflaterFragment();
+        mActivity.getSupportFragmentManager().beginTransaction()
+                .replace(R.id.content, fragment2)
+                .addToBackStack(null)
+                .commit();
+        mActivity.getSupportFragmentManager().executePendingTransactions();
+
+        assertSame(layoutInflater, fragment1.getLayoutInflater());
+        assertEquals(1, fragment1.onGetLayoutInflaterCalls);
+
+        // Popping it should cause onCreateView again, so a new LayoutInflater...
+        mActivity.getSupportFragmentManager().popBackStackImmediate();
+        assertNotSame(layoutInflater, fragment1.getLayoutInflater());
+        assertEquals(2, fragment1.onGetLayoutInflaterCalls);
+        layoutInflater = fragment1.layoutInflater;
+        assertSame(layoutInflater, fragment1.getLayoutInflater());
+
+        // Popping it should detach it, clearing the cached value again
+        mActivity.getSupportFragmentManager().popBackStackImmediate();
+
+        // once it is detached, the getLayoutInflater() will default to throw
+        // an exception, but we've made it return null instead.
+        assertEquals(2, fragment1.onGetLayoutInflaterCalls);
+        try {
+            fragment1.getLayoutInflater();
+            fail("getLayoutInflater should throw when the Fragment is detached");
+        } catch (IllegalStateException e) {
+            // Expected
+        }
+        assertEquals(3, fragment1.onGetLayoutInflaterCalls);
+    }
+
+    @Test
+    @UiThreadTest
+    public void testAddTransactionWithNonStaticFragment() {
+        final Fragment fragment = new NonStaticFragment();
+        boolean exceptionThrown = false;
+        try {
+            mActivity.getSupportFragmentManager().beginTransaction()
+                    .add(R.id.content, fragment)
+                    .addToBackStack(null)
+                    .commit();
+            mActivity.getSupportFragmentManager().executePendingTransactions();
+            assertEquals(1, mOnBackStackChangedTimes);
+        } catch (IllegalStateException e) {
+            exceptionThrown = true;
+        } finally {
+            assertTrue("Exception should be thrown", exceptionThrown);
+            assertFalse("Fragment shouldn't be added", fragment.isAdded());
+        }
+    }
+
+    @Test
+    @UiThreadTest
+    public void testPostOnCommit() {
+        final boolean[] ran = new boolean[1];
+        FragmentManager fm = mActivityRule.getActivity().getSupportFragmentManager();
+        fm.beginTransaction().runOnCommit(new Runnable() {
+            @Override
+            public void run() {
+                ran[0] = true;
+            }
+        }).commit();
+        fm.executePendingTransactions();
+
+        assertTrue("runOnCommit runnable never ran", ran[0]);
+
+        ran[0] = false;
+
+        boolean threw = false;
+        try {
+            fm.beginTransaction().runOnCommit(new Runnable() {
+                @Override
+                public void run() {
+                    ran[0] = true;
+                }
+            }).addToBackStack(null).commit();
+        } catch (IllegalStateException ise) {
+            threw = true;
+        }
+
+        fm.executePendingTransactions();
+
+        assertTrue("runOnCommit was allowed to be called for back stack transaction",
+                threw);
+        assertFalse("runOnCommit runnable for back stack transaction was run", ran[0]);
     }
 
     // Ensure that getFragments() works during transactions, even if it is run off thread
@@ -362,7 +321,24 @@ public class FragmentTransactionTest {
 
         // We can't force concurrency, but we can do it lots of times and hope that
         // we hit it.
-        for (int i = 0; i < 100; i++) {
+        // Reset count here to verify afterwards
+
+        // Wait until we receive a OnBackStackChange callback for the total number of times
+        // specified by transactionCount times 2 (1 for adding, 1 for removal)
+        final int transactionCount = 100;
+        final CountDownLatch backStackLatch = new CountDownLatch(transactionCount * 2);
+        final FragmentManager.OnBackStackChangedListener countDownListener =
+                new FragmentManager.OnBackStackChangedListener() {
+
+            @Override
+            public void onBackStackChanged() {
+                backStackLatch.countDown();
+            }
+        };
+
+        fm.addOnBackStackChangedListener(countDownListener);
+
+        for (int i = 0; i < transactionCount; i++) {
             Fragment fragment2 = new CorrectFragment();
             fm.beginTransaction()
                     .add(R.id.content, fragment2)
@@ -373,6 +349,10 @@ public class FragmentTransactionTest {
             fm.popBackStack();
             getFragmentsUntilSize(0);
         }
+
+        backStackLatch.await();
+
+        fm.removeOnBackStackChangedListener(countDownListener);
     }
 
     /**
@@ -464,26 +444,17 @@ public class FragmentTransactionTest {
 
     private class NonStaticFragment extends Fragment {}
 
+    @ContentView(R.layout.fragment_a)
     public static class OnGetLayoutInflaterFragment extends Fragment {
         public int onGetLayoutInflaterCalls = 0;
         public LayoutInflater layoutInflater;
 
+        @NonNull
         @Override
         public LayoutInflater onGetLayoutInflater(Bundle savedInstanceState) {
             onGetLayoutInflaterCalls++;
-            try {
-                layoutInflater = super.onGetLayoutInflater(savedInstanceState);
-            } catch (Exception e) {
-                return null;
-            }
+            layoutInflater = super.onGetLayoutInflater(savedInstanceState);
             return layoutInflater;
-        }
-
-        @Nullable
-        @Override
-        public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
-                @Nullable Bundle savedInstanceState) {
-            return inflater.inflate(R.layout.fragment_a, container, false);
         }
     }
 }

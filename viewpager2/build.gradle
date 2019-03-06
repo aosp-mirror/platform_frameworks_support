@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 The Android Open Source Project
+ * Copyright 2017 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,12 +20,17 @@ import androidx.build.LibraryVersions
 
 plugins {
     id("SupportAndroidLibraryPlugin")
+    id("kotlin-android")
 }
 
 dependencies {
     api(project(":fragment"))
     api(project(":recyclerview"))
+    implementation(project(":appcompat"))
+    implementation(project(":collection"))
 
+    androidTestImplementation(TEST_EXT_JUNIT)
+    androidTestImplementation(TEST_CORE)
     androidTestImplementation(TEST_RUNNER)
     androidTestImplementation(TEST_RULES)
     androidTestImplementation(ESPRESSO_CORE, libs.exclude_for_espresso)
@@ -34,6 +39,7 @@ dependencies {
     androidTestImplementation project(':internal-testutils'), {
         exclude group: 'androidx.viewpager2', module: 'viewpager2'
     }
+    androidTestImplementation(KOTLIN_STDLIB)
 }
 
 android {
@@ -44,8 +50,8 @@ android {
 
 supportLibrary {
     name = "AndroidX Widget ViewPager2"
-    publish = false
-    mavenVersion = LibraryVersions.SUPPORT_LIBRARY
+    publish = true
+    mavenVersion = LibraryVersions.VIEWPAGER2
     mavenGroup = LibraryGroups.VIEWPAGER2
     inceptionYear = "2017"
     description = "AndroidX Widget ViewPager2"

@@ -24,9 +24,9 @@ import android.os.SystemClock;
 import android.view.KeyEvent;
 
 import androidx.appcompat.test.R;
-import androidx.test.filters.SmallTest;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.MediumTest;
 import androidx.test.rule.ActivityTestRule;
-import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -36,7 +36,7 @@ import org.junit.runner.RunWith;
 /**
  * Test shortcut trigger in case of MenuItems with non-default modifiers.
  */
-@SmallTest
+@MediumTest
 @RunWith(AndroidJUnit4.class)
 public class AppCompatMenuItemShortcutsTest {
 

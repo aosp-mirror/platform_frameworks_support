@@ -16,7 +16,7 @@
 
 package androidx.preference;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
@@ -26,9 +26,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RestrictTo;
-import androidx.annotation.VisibleForTesting;
-import androidx.core.content.ContextCompat;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
@@ -37,134 +37,99 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * An adapter that connects a RecyclerView to the {@link Preference} objects contained in the
- * associated {@link PreferenceGroup}.
+ * An adapter that connects a {@link RecyclerView} to the {@link Preference}s contained in
+ * an associated {@link PreferenceGroup}.
+ *
+ * Used by Settings.
  *
  * @hide
  */
-@RestrictTo(LIBRARY_GROUP)
+@RestrictTo(LIBRARY_GROUP_PREFIX)
 public class PreferenceGroupAdapter extends RecyclerView.Adapter<PreferenceViewHolder>
         implements Preference.OnPreferenceChangeInternalListener,
         PreferenceGroup.PreferencePositionCallback {
 
     /**
-     * The group that we are providing data from.
+     * The {@link PreferenceGroup} that we build a list of preferences from. This should
+     * typically be the root {@link PreferenceScreen} managed by a {@link PreferenceFragmentCompat}.
      */
     private PreferenceGroup mPreferenceGroup;
 
     /**
-     * Maps a position into this adapter -> {@link Preference}. These
-     * {@link Preference}s don't have to be direct children of this
-     * {@link PreferenceGroup}, they can be grand children or younger)
+     * Contains a sorted list of all {@link Preference}s in this adapter regardless of visibility.
+     * This is used to construct {@link #mVisiblePreferences}.
      */
-    private List<Preference> mPreferenceList;
+    private List<Preference> mPreferences;
 
     /**
-     * Contains a sorted list of all preferences in this adapter regardless of visibility. This is
-     * used to construct {@link #mPreferenceList}
+     * Contains a sorted list of all {@link Preference}s in this adapter that are visible to the
+     * user and hence displayed in the attached {@link RecyclerView}. The position of
+     * {@link Preference}s in this list corresponds to the position of the {@link Preference}s
+     * displayed on screen. These {@link Preference}s don't have to be direct children of
+     * {@link #mPreferenceGroup}, they can be children of other nested {@link PreferenceGroup}s.
      */
-    private List<Preference> mPreferenceListInternal;
+    private List<Preference> mVisiblePreferences;
 
     /**
-     * List of unique Preference and its subclasses' names and layouts.
+     * List of unique {@link PreferenceResourceDescriptor}s, used to cache item view types for
+     * {@link RecyclerView}.
      */
-    private List<PreferenceLayout> mPreferenceLayouts;
-
-
-    private PreferenceLayout mTempPreferenceLayout = new PreferenceLayout();
+    private List<PreferenceResourceDescriptor> mPreferenceResourceDescriptors;
 
     private Handler mHandler;
-
-    private CollapsiblePreferenceGroupController mPreferenceGroupController;
 
     private Runnable mSyncRunnable = new Runnable() {
         @Override
         public void run() {
-            syncMyPreferences();
+            updatePreferences();
         }
     };
 
-    private static class PreferenceLayout {
-        int mResId;
-        int mWidgetResId;
-        String mName;
-
-        PreferenceLayout() {}
-
-        PreferenceLayout(PreferenceLayout other) {
-            mResId = other.mResId;
-            mWidgetResId = other.mWidgetResId;
-            mName = other.mName;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (!(o instanceof PreferenceLayout)) {
-                return false;
-            }
-            final PreferenceLayout other = (PreferenceLayout) o;
-            return mResId == other.mResId
-                    && mWidgetResId == other.mWidgetResId
-                    && TextUtils.equals(mName, other.mName);
-        }
-
-        @Override
-        public int hashCode() {
-            int result = 17;
-            result = 31 * result + mResId;
-            result = 31 * result + mWidgetResId;
-            result = 31 * result + mName.hashCode();
-            return result;
-        }
-    }
-
     public PreferenceGroupAdapter(PreferenceGroup preferenceGroup) {
-        this(preferenceGroup, new Handler());
-    }
-
-    private PreferenceGroupAdapter(PreferenceGroup preferenceGroup, Handler handler) {
         mPreferenceGroup = preferenceGroup;
-        mHandler = handler;
-        mPreferenceGroupController =
-                new CollapsiblePreferenceGroupController(preferenceGroup, this);
-        // If this group gets or loses any children, let us know
+        mHandler = new Handler();
+
+        // This adapter should be notified when preferences are added or removed from the group
         mPreferenceGroup.setOnPreferenceChangeInternalListener(this);
 
-        mPreferenceList = new ArrayList<>();
-        mPreferenceListInternal = new ArrayList<>();
-        mPreferenceLayouts = new ArrayList<>();
+        mPreferences = new ArrayList<>();
+        mVisiblePreferences = new ArrayList<>();
+        mPreferenceResourceDescriptors = new ArrayList<>();
 
         if (mPreferenceGroup instanceof PreferenceScreen) {
             setHasStableIds(((PreferenceScreen) mPreferenceGroup).shouldUseGeneratedIds());
         } else {
             setHasStableIds(true);
         }
-
-        syncMyPreferences();
+        // Initial sync to generate mPreferences and mVisiblePreferences and display the visible
+        // preferences in the RecyclerView
+        updatePreferences();
     }
 
-    @VisibleForTesting
-    static PreferenceGroupAdapter createInstanceWithCustomHandler(PreferenceGroup preferenceGroup,
-            Handler handler) {
-        return new PreferenceGroupAdapter(preferenceGroup, handler);
-    }
-
+    /**
+     * Updates {@link #mPreferences} and {@link #mVisiblePreferences} as well as notifying
+     * {@link RecyclerView} of any changes.
+     */
     @SuppressWarnings("WeakerAccess") /* synthetic access */
-    void syncMyPreferences() {
-        for (final Preference preference : mPreferenceListInternal) {
+    void updatePreferences() {
+        for (final Preference preference : mPreferences) {
             // Clear out the listeners in anticipation of some items being removed. This listener
-            // will be (re-)added to the remaining prefs when we flatten.
+            // will be set again on any remaining preferences when we flatten the group.
             preference.setOnPreferenceChangeInternalListener(null);
         }
-        final List<Preference> fullPreferenceList = new ArrayList<>(mPreferenceListInternal.size());
-        flattenPreferenceGroup(fullPreferenceList, mPreferenceGroup);
+        // Attempt to reuse the current array size when creating the new array for efficiency
+        final int size = mPreferences.size();
+        mPreferences = new ArrayList<>(size);
+        flattenPreferenceGroup(mPreferences, mPreferenceGroup);
 
-        final List<Preference> visiblePreferenceList =
-                mPreferenceGroupController.createVisiblePreferencesList(mPreferenceGroup);
+        final List<Preference> oldVisibleList = mVisiblePreferences;
 
-        final List<Preference> oldVisibleList = mPreferenceList;
-        mPreferenceList = visiblePreferenceList;
-        mPreferenceListInternal = fullPreferenceList;
+        // Create a new variable so we can pass into DiffUtil without using a synthetic accessor
+        // to access the private mVisiblePreferences
+        final List<Preference> visiblePreferenceList = createVisiblePreferencesList(
+                mPreferenceGroup);
+
+        mVisiblePreferences = visiblePreferenceList;
 
         final PreferenceManager preferenceManager = mPreferenceGroup.getPreferenceManager();
         if (preferenceManager != null
@@ -202,26 +167,37 @@ public class PreferenceGroupAdapter extends RecyclerView.Adapter<PreferenceViewH
             notifyDataSetChanged();
         }
 
-        for (final Preference preference : fullPreferenceList) {
+        for (final Preference preference : mPreferences) {
             preference.clearWasDetached();
         }
     }
 
+    /**
+     * Recursively builds a list containing a flattened representation of a given
+     * {@link PreferenceGroup}, which may itself contain nested {@link PreferenceGroup}s with
+     * their own {@link Preference}s.
+     *
+     * @param preferences The list to add the flattened {@link Preference}s to
+     * @param group       The {@link PreferenceGroup} to generate the list for
+     */
     private void flattenPreferenceGroup(List<Preference> preferences, PreferenceGroup group) {
         group.sortPreferences();
-
         final int groupSize = group.getPreferenceCount();
         for (int i = 0; i < groupSize; i++) {
             final Preference preference = group.getPreference(i);
 
             preferences.add(preference);
 
-            addPreferenceClassName(preference);
+            final PreferenceResourceDescriptor descriptor = new PreferenceResourceDescriptor(
+                    preference);
+            if (!mPreferenceResourceDescriptors.contains(descriptor)) {
+                mPreferenceResourceDescriptors.add(descriptor);
+            }
 
             if (preference instanceof PreferenceGroup) {
-                final PreferenceGroup preferenceAsGroup = (PreferenceGroup) preference;
-                if (preferenceAsGroup.isOnSameScreenAsChildren()) {
-                    flattenPreferenceGroup(preferences, preferenceAsGroup);
+                final PreferenceGroup nestedGroup = (PreferenceGroup) preference;
+                if (nestedGroup.isOnSameScreenAsChildren()) {
+                    flattenPreferenceGroup(preferences, nestedGroup);
                 }
             }
 
@@ -230,33 +206,132 @@ public class PreferenceGroupAdapter extends RecyclerView.Adapter<PreferenceViewH
     }
 
     /**
-     * Creates a string that includes the preference name, layout id and widget layout id.
-     * If a particular preference type uses 2 different resources, they will be treated as
-     * different view types.
+     * Recursively generates a list of {@link Preference}s visible to the user.
+     *
+     * @param group The root preference group to be processed
+     * @return The flattened and visible section of the preference group
      */
-    private PreferenceLayout createPreferenceLayout(Preference preference, PreferenceLayout in) {
-        PreferenceLayout pl = in != null ? in : new PreferenceLayout();
-        pl.mName = preference.getClass().getName();
-        pl.mResId = preference.getLayoutResource();
-        pl.mWidgetResId = preference.getWidgetLayoutResource();
-        return pl;
+    private List<Preference> createVisiblePreferencesList(PreferenceGroup group) {
+        int visiblePreferenceCount = 0;
+        final List<Preference> visiblePreferences = new ArrayList<>();
+        final List<Preference> collapsedPreferences = new ArrayList<>();
+
+        final int groupSize = group.getPreferenceCount();
+        for (int i = 0; i < groupSize; i++) {
+            final Preference preference = group.getPreference(i);
+
+            if (!preference.isVisible()) {
+                continue;
+            }
+
+            if (!isGroupExpandable(group)
+                    || visiblePreferenceCount < group.getInitialExpandedChildrenCount()) {
+                visiblePreferences.add(preference);
+            } else {
+                collapsedPreferences.add(preference);
+            }
+
+            // PreferenceGroups do not count towards the maximal number of preferences to show
+            if (!(preference instanceof PreferenceGroup)) {
+                visiblePreferenceCount++;
+                continue;
+            }
+
+            PreferenceGroup innerGroup = (PreferenceGroup) preference;
+            if (!innerGroup.isOnSameScreenAsChildren()) {
+                continue;
+            }
+
+            if (isGroupExpandable(group) && isGroupExpandable(innerGroup)) {
+                throw new IllegalStateException(
+                        "Nesting an expandable group inside of another expandable group is not "
+                                + "supported!");
+            }
+
+            // Recursively generate nested list of visible preferences
+            final List<Preference> innerList = createVisiblePreferencesList(innerGroup);
+
+            for (Preference inner : innerList) {
+                if (!isGroupExpandable(group)
+                        || visiblePreferenceCount < group.getInitialExpandedChildrenCount()) {
+                    visiblePreferences.add(inner);
+                } else {
+                    collapsedPreferences.add(inner);
+                }
+                visiblePreferenceCount++;
+            }
+        }
+
+        // If there are any visible preferences being hidden, add an expand button to show the rest
+        // of the preferences. Clicking the expand button will show all the visible preferences.
+        if (isGroupExpandable(group)
+                && visiblePreferenceCount > group.getInitialExpandedChildrenCount()) {
+            final ExpandButton expandButton = createExpandButton(group, collapsedPreferences);
+            visiblePreferences.add(expandButton);
+        }
+        return visiblePreferences;
     }
 
-    private void addPreferenceClassName(Preference preference) {
-        final PreferenceLayout pl = createPreferenceLayout(preference, null);
-        if (!mPreferenceLayouts.contains(pl)) {
-            mPreferenceLayouts.add(pl);
-        }
+    /**
+     * Creates a {@link ExpandButton} for a given {@link PreferenceGroup} that will expand the
+     * group when clicked, showing preferences previously collapsed by the group.
+     *
+     * @param group                The {@link PreferenceGroup} to create the {@link ExpandButton}
+     *                             for
+     * @param collapsedPreferences The {@link Preference}s that have been collapsed by the group.
+     *                             These are used to generate the summary for the
+     *                             {@link ExpandButton}
+     * @return An {@link ExpandButton} to be displayed as the last item in a {@link PreferenceGroup}
+     */
+    private ExpandButton createExpandButton(final PreferenceGroup group,
+            List<Preference> collapsedPreferences) {
+        final ExpandButton preference = new ExpandButton(
+                group.getContext(),
+                collapsedPreferences,
+                group.getId()
+        );
+        preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                group.setInitialExpandedChildrenCount(Integer.MAX_VALUE);
+                onPreferenceHierarchyChange(preference);
+                final PreferenceGroup.OnExpandButtonClickListener listener =
+                        group.getOnExpandButtonClickListener();
+                if (listener != null) {
+                    listener.onExpandButtonClick();
+                }
+                return true;
+            }
+        });
+        return preference;
+    }
+
+    /**
+     * Helper method to return whether a group allows hiding some of its preferences into an
+     * {@link ExpandButton}.
+     *
+     * @param preferenceGroup The group to be checked
+     * @return {@code true} if the group is expandable
+     */
+    private boolean isGroupExpandable(PreferenceGroup preferenceGroup) {
+        return preferenceGroup.getInitialExpandedChildrenCount() != Integer.MAX_VALUE;
+    }
+
+    /**
+     * Returns the {@link Preference} at the given position
+     *
+     * @param position The position of the {@link Preference} in the list displayed to the user
+     * @return The corresponding {@link Preference}, or {@code null} if the given position is out
+     * of bounds
+     */
+    public Preference getItem(int position) {
+        if (position < 0 || position >= getItemCount()) return null;
+        return mVisiblePreferences.get(position);
     }
 
     @Override
     public int getItemCount() {
-        return mPreferenceList.size();
-    }
-
-    public Preference getItem(int position) {
-        if (position < 0 || position >= getItemCount()) return null;
-        return mPreferenceList.get(position);
+        return mVisiblePreferences.size();
     }
 
     @Override
@@ -269,10 +344,10 @@ public class PreferenceGroupAdapter extends RecyclerView.Adapter<PreferenceViewH
 
     @Override
     public void onPreferenceChange(Preference preference) {
-        final int index = mPreferenceList.indexOf(preference);
+        final int index = mVisiblePreferences.indexOf(preference);
         // If we don't find the preference, we don't need to notify anyone
         if (index != -1) {
-            // Send the pref object as a placeholder to ensure the view holder is recycled in place
+            // Send the preference as a placeholder to ensure the view holder is recycled in place
             notifyItemChanged(index, preference);
         }
     }
@@ -285,88 +360,50 @@ public class PreferenceGroupAdapter extends RecyclerView.Adapter<PreferenceViewH
 
     @Override
     public void onPreferenceVisibilityChange(Preference preference) {
-        if (!mPreferenceListInternal.contains(preference)) {
-            return;
-        }
-        if (mPreferenceGroupController.onPreferenceVisibilityChange(preference)) {
-            return;
-        }
-        if (preference.isVisible()) {
-            // The preference has become visible, we need to add it in the correct location.
-
-            // Index (inferred) in mPreferenceList of the item preceding the newly visible pref
-            int previousVisibleIndex = -1;
-            for (final Preference pref : mPreferenceListInternal) {
-                if (preference.equals(pref)) {
-                    break;
-                }
-                if (pref.isVisible()) {
-                    previousVisibleIndex++;
-                }
-            }
-            // Insert this preference into the active list just after the previous visible entry
-            mPreferenceList.add(previousVisibleIndex + 1, preference);
-
-            notifyItemInserted(previousVisibleIndex + 1);
-        } else {
-            // The preference has become invisible. Find it in the list and remove it.
-
-            int removalIndex;
-            final int listSize = mPreferenceList.size();
-            for (removalIndex = 0; removalIndex < listSize; removalIndex++) {
-                if (preference.equals(mPreferenceList.get(removalIndex))) {
-                    break;
-                } else if (removalIndex == listSize - 1) {
-                    // Return if this preference can not be found in this list. This can happen
-                    // if the preference was removed from this list asynchronously (for example
-                    // in onPreferenceHierarchyChange)
-                    return;
-                }
-            }
-            mPreferenceList.remove(removalIndex);
-            notifyItemRemoved(removalIndex);
-        }
+        onPreferenceHierarchyChange(preference);
     }
 
     @Override
     public int getItemViewType(int position) {
         final Preference preference = this.getItem(position);
 
-        mTempPreferenceLayout = createPreferenceLayout(preference, mTempPreferenceLayout);
+        PreferenceResourceDescriptor descriptor = new PreferenceResourceDescriptor(preference);
 
-        int viewType = mPreferenceLayouts.indexOf(mTempPreferenceLayout);
+        int viewType = mPreferenceResourceDescriptors.indexOf(descriptor);
         if (viewType != -1) {
             return viewType;
         } else {
-            viewType = mPreferenceLayouts.size();
-            mPreferenceLayouts.add(new PreferenceLayout(mTempPreferenceLayout));
+            viewType = mPreferenceResourceDescriptors.size();
+            mPreferenceResourceDescriptors.add(descriptor);
             return viewType;
         }
     }
 
     @Override
-    public PreferenceViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        final PreferenceLayout pl = mPreferenceLayouts.get(viewType);
+    @NonNull
+    public PreferenceViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        final PreferenceResourceDescriptor descriptor = mPreferenceResourceDescriptors.get(
+                viewType);
         final LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         TypedArray a
                 = parent.getContext().obtainStyledAttributes(null, R.styleable.BackgroundStyle);
         Drawable background
                 = a.getDrawable(R.styleable.BackgroundStyle_android_selectableItemBackground);
         if (background == null) {
-            background = ContextCompat.getDrawable(parent.getContext(),
+            background = AppCompatResources.getDrawable(parent.getContext(),
                     android.R.drawable.list_selector_background);
         }
         a.recycle();
 
-        final View view = inflater.inflate(pl.mResId, parent, false);
+        final View view = inflater.inflate(descriptor.mLayoutResId, parent, false);
         if (view.getBackground() == null) {
             ViewCompat.setBackground(view, background);
         }
 
-        final ViewGroup widgetFrame = (ViewGroup) view.findViewById(android.R.id.widget_frame);
+        final ViewGroup widgetFrame = view.findViewById(android.R.id.widget_frame);
         if (widgetFrame != null) {
-            if (pl.mWidgetResId != 0) {
-                inflater.inflate(pl.mWidgetResId, widgetFrame);
+            if (descriptor.mWidgetLayoutResId != 0) {
+                inflater.inflate(descriptor.mWidgetLayoutResId, widgetFrame);
             } else {
                 widgetFrame.setVisibility(View.GONE);
             }
@@ -376,16 +413,16 @@ public class PreferenceGroupAdapter extends RecyclerView.Adapter<PreferenceViewH
     }
 
     @Override
-    public void onBindViewHolder(PreferenceViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull PreferenceViewHolder holder, int position) {
         final Preference preference = getItem(position);
         preference.onBindViewHolder(holder);
     }
 
     @Override
     public int getPreferenceAdapterPosition(String key) {
-        final int size = mPreferenceList.size();
+        final int size = mVisiblePreferences.size();
         for (int i = 0; i < size; i++) {
-            final Preference candidate = mPreferenceList.get(i);
+            final Preference candidate = mVisiblePreferences.get(i);
             if (TextUtils.equals(key, candidate.getKey())) {
                 return i;
             }
@@ -395,13 +432,52 @@ public class PreferenceGroupAdapter extends RecyclerView.Adapter<PreferenceViewH
 
     @Override
     public int getPreferenceAdapterPosition(Preference preference) {
-        final int size = mPreferenceList.size();
+        final int size = mVisiblePreferences.size();
         for (int i = 0; i < size; i++) {
-            final Preference candidate = mPreferenceList.get(i);
+            final Preference candidate = mVisiblePreferences.get(i);
             if (candidate != null && candidate.equals(preference)) {
                 return i;
             }
         }
         return RecyclerView.NO_POSITION;
+    }
+
+    /**
+     * Describes a unique combination of layout resource, widget layout resource, and class name.
+     * This is needed as different instances of {@link Preference} subclasses can have different
+     * layout / widget layout resources set, and so we can only reuse the same cached
+     * {@link PreferenceViewHolder} if the class name, layout resource, and widget layout
+     * resource are identical.
+     */
+    private static class PreferenceResourceDescriptor {
+        int mLayoutResId;
+        int mWidgetLayoutResId;
+        String mClassName;
+
+        PreferenceResourceDescriptor(Preference preference) {
+            mClassName = preference.getClass().getName();
+            mLayoutResId = preference.getLayoutResource();
+            mWidgetLayoutResId = preference.getWidgetLayoutResource();
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (!(o instanceof PreferenceResourceDescriptor)) {
+                return false;
+            }
+            final PreferenceResourceDescriptor other = (PreferenceResourceDescriptor) o;
+            return mLayoutResId == other.mLayoutResId
+                    && mWidgetLayoutResId == other.mWidgetLayoutResId
+                    && TextUtils.equals(mClassName, other.mClassName);
+        }
+
+        @Override
+        public int hashCode() {
+            int result = 17;
+            result = 31 * result + mLayoutResId;
+            result = 31 * result + mWidgetLayoutResId;
+            result = 31 * result + mClassName.hashCode();
+            return result;
+        }
     }
 }

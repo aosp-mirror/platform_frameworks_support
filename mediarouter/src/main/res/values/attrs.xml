@@ -21,6 +21,11 @@
              and non-checked / non-checkable indicates
              that media is playing to the local device only. -->
         <attr name="externalRouteEnabledDrawable" format="reference" />
+        <!-- This drawable is a static version of the above animation drawable.
+             In order to speed up the inflation, the static drawable is loaded first
+             and the animation drawable will be loaded lazily in a worker thread
+             when the user taps the button -->
+        <attr name="externalRouteEnabledDrawableStatic" format="reference" />
         <!-- Tint to apply to the media route button -->
         <attr name="mediaRouteButtonTint" format="color" />
 
@@ -29,6 +34,8 @@
     </declare-styleable>
 
     <attr name="mediaRouteButtonStyle" format="reference" />
+    <attr name="mediaRouteHeaderTextAppearance" format="reference" />
+    <attr name="mediaRouteBodyTextAppearance" format="reference" />
     <attr name="mediaRouteCloseDrawable" format="reference" />
     <attr name="mediaRoutePlayDrawable" format="reference" />
     <attr name="mediaRoutePauseDrawable" format="reference" />
@@ -38,6 +45,7 @@
     <attr name="mediaRouteTvIconDrawable" format="reference" />
     <attr name="mediaRouteSpeakerIconDrawable" format="reference" />
     <attr name="mediaRouteSpeakerGroupIconDrawable" format="reference" />
+    <attr name="mediaRouteDividerColor" format="color" />
     <attr name="mediaRouteControlPanelThemeOverlay" format="reference" />
 
     <attr name="mediaRouteTheme" format="reference" />

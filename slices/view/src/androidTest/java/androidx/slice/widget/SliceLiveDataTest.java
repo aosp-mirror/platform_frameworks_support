@@ -16,6 +16,7 @@
 
 package androidx.slice.widget;
 
+import static org.junit.Assert.assertNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.argThat;
@@ -41,10 +42,12 @@ import androidx.slice.SliceItem;
 import androidx.slice.SliceUtils;
 import androidx.slice.SliceViewManager;
 import androidx.slice.SliceViewManager.SliceCallback;
-import androidx.test.InstrumentationRegistry;
+import androidx.test.annotation.UiThreadTest;
+import androidx.test.core.app.ApplicationProvider;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.MediumTest;
 import androidx.test.filters.SdkSuppress;
-import androidx.test.filters.SmallTest;
-import androidx.test.runner.AndroidJUnit4;
+import androidx.test.platform.app.InstrumentationRegistry;
 
 import org.junit.After;
 import org.junit.Before;
@@ -59,13 +62,16 @@ import java.io.InputStream;
 import java.util.concurrent.CountDownLatch;
 
 @RunWith(AndroidJUnit4.class)
-@SmallTest
+@MediumTest
 @SdkSuppress(minSdkVersion = 19)
 public class SliceLiveDataTest {
 
     private static final Uri URI = Uri.parse("content://test/something");
+    private static final Intent INTENT_ONE = new Intent("intent1");
+    private static final Intent INTENT_TWO = new Intent("intent2");
+    private static final Intent INTENT_THREE = new Intent("intent3");
 
-    private final Context mContext = InstrumentationRegistry.getContext();
+    private final Context mContext = ApplicationProvider.getApplicationContext();
     private final Instrumentation mInstrumentation = InstrumentationRegistry.getInstrumentation();
 
     private SliceViewManager mManager = mock(SliceViewManager.class);
@@ -79,7 +85,8 @@ public class SliceLiveDataTest {
                         new Slice.Builder(Uri.parse("content://test/something/other")).build(),
                         null)
                 .build();
-    private LiveData<Slice> mLiveData;
+    private SliceLiveData.CachedSliceLiveData mLiveData;
+    private ArgumentCaptor<Slice> mSlice;
 
     @Before
     public void setUp() throws InterruptedException {
@@ -92,6 +99,8 @@ public class SliceLiveDataTest {
                 mLiveData.observeForever(mObserver);
             }
         });
+        waitForAsync();
+        // The second one executes the loading initial slice code.
         waitForAsync();
         mInstrumentation.waitForIdleSync();
     }
@@ -140,24 +149,31 @@ public class SliceLiveDataTest {
     }
 
     @Test
-    public void testMultipleClickGoesLive() throws PendingIntent.CanceledException,
-            InterruptedException {
+    public void testMultipleClickGoesLive() throws InterruptedException {
         when(mManager.bindSlice(URI)).thenReturn(mBaseSlice);
-
-        ArgumentCaptor<Slice> s = ArgumentCaptor.forClass(Slice.class);
-        verify(mObserver, times(1)).onChanged(s.capture());
+        mSlice = ArgumentCaptor.forClass(Slice.class);
+        verify(mObserver, times(1)).onChanged(mSlice.capture());
         clearInvocations(mObserver);
 
-        // Triggers three different intents on the slice.
-        Intent intent1 = new Intent("intent1");
-        Intent intent2 = new Intent("intent2");
-        Intent intent3 = new Intent("intent3");
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    SliceItem item = mSlice.getValue().getItems().get(0);
+                    item.fireAction(null, INTENT_ONE);
+                    item.fireAction(null, INTENT_TWO);
+                    item.fireAction(null, INTENT_THREE);
+                } catch (PendingIntent.CanceledException e) {
+                }
+            }
+        });
 
-        s.getValue().getItems().get(0).fireAction(null, intent1);
-        s.getValue().getItems().get(0).fireAction(null, intent2);
-        s.getValue().getItems().get(0).fireAction(null, intent3);
-
+        // Wait for the completion of the first async to fire action three times.
         waitForAsync();
+
+        // Wait for the completion of the second async to update slice.
+        waitForAsync();
+
         mInstrumentation.waitForIdleSync();
 
         verify(mManager, times(1)).bindSlice(any(Uri.class));
@@ -170,11 +186,11 @@ public class SliceLiveDataTest {
 
         // Make sure all three intent actions are fired.
         verify(mActionHandler, times(1)).onAction(any(SliceItem.class), (Context) eq(null),
-                eq(intent1));
+                eq(INTENT_ONE));
         verify(mActionHandler, times(1)).onAction(any(SliceItem.class), (Context) eq(null),
-                eq(intent2));
+                eq(INTENT_TWO));
         verify(mActionHandler, times(1)).onAction(any(SliceItem.class), (Context) eq(null),
-                eq(intent3));
+                eq(INTENT_THREE));
     }
 
     @Test
@@ -252,11 +268,22 @@ public class SliceLiveDataTest {
     public void testInvalidInput() throws PendingIntent.CanceledException, InterruptedException {
         mLiveData = SliceLiveData.fromStream(mContext, mManager,
                 new ByteArrayInputStream(new byte[0]), mErrorListener);
+        mLiveData.parseStream();
         waitForAsync();
         mInstrumentation.waitForIdleSync();
         verify(mErrorListener).onSliceError(
                 eq(SliceLiveData.OnErrorListener.ERROR_INVALID_INPUT),
                 any(Throwable.class));
+    }
+
+    @Test
+    @UiThreadTest
+    public void testInvalidUri() {
+        final SliceView sliceView = new SliceView(mContext);
+        LiveData<Slice> sliceLiveData = SliceLiveData.fromUri(mContext,
+                Uri.parse("content://doesnotexist"));
+        sliceLiveData.observeForever(sliceView);
+        assertNull(sliceView.getSlice());
     }
 
     private InputStream createInput(Slice s) {
