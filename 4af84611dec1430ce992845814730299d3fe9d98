@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d27b4e66_1ce3be3f",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-03-06T01:25:07Z",
+      "side": 1,
+      "message": "Perhaps also mention what WebView will load in this case? Blank page?",
+      "range": {
+        "startLine": 410,
+        "startChar": 7,
+        "endLine": 414,
+        "endChar": 41
+      },
+      "revId": "4af84611dec1430ce992845814730299d3fe9d98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
