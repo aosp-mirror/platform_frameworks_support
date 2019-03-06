@@ -20,15 +20,19 @@ import static android.app.slice.Slice.HINT_LARGE;
 import static android.app.slice.Slice.HINT_TITLE;
 import static android.app.slice.SliceItem.FORMAT_TEXT;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.app.slice.SliceProvider;
+import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ProviderInfo;
+import android.content.pm.ResolveInfo;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -65,6 +69,9 @@ import java.util.concurrent.TimeUnit;
 public class SliceSelectionDialog {
 
     private static final String TAG = "SliceSelectionDialog";
+
+    private SliceSelectionDialog() {
+    }
 
     /**
      * Show the selection dialog
@@ -145,13 +152,30 @@ public class SliceSelectionDialog {
         ProgressDialog dialog = ProgressDialog.show(context, null, "Loading...");
 
         new Thread(() -> {
-            String authority = provider.authority.split(";")[0];
+            String authority = provider.authority.split(";", -1)[0];
             HashMap<String, String> labels = new HashMap<>();
             SliceViewManager sliceViewManager = SliceViewManager.getInstance(context);
             List<Uri> slices = new ArrayList<>(sliceViewManager.getSliceDescendants(
                     new Uri.Builder().scheme(ContentResolver.SCHEME_CONTENT)
                             .authority(authority)
                             .build()));
+
+            Intent mainIntent = new Intent(Intent.ACTION_MAIN, null);
+            mainIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+            mainIntent.setPackage(provider.packageName);
+            Uri uri = sliceViewManager.mapIntentToUri(mainIntent);
+            List<ResolveInfo> info = context.getPackageManager().queryIntentActivities(mainIntent,
+                    0);
+            if (info.size() == 1) {
+                // If we resolve to an activity, set the intent to explicitly
+                // point at that activity.
+                mainIntent = new Intent()
+                        .setComponent(new ComponentName(provider.packageName,
+                                    info.get(0).activityInfo.name));
+            }
+            if (uri != null) {
+                slices.add(uri);
+            }
             for (Uri slice : slices) {
                 labels.put(slice.toString(), loadLabel(context, sliceViewManager, slice));
             }
@@ -194,9 +218,9 @@ public class SliceSelectionDialog {
                     selectedCallback.accept(slice);
                 };
                 new AlertDialog.Builder(context)
-                        .setTitle(label)
-                        .setAdapter(adapter, clickListener)
-                        .show();
+                    .setTitle(label)
+                    .setAdapter(adapter, clickListener)
+                    .show();
             });
         }).start();
     }
@@ -206,17 +230,13 @@ public class SliceSelectionDialog {
         return String.valueOf(findTitle(context, content, SliceMetadata.from(context, content)));
     }
 
+    @SuppressLint("RestrictedApi")
     protected static CharSequence findTitle(Context context, Slice loadedSlice,
             SliceMetadata metaData) {
-        ListContent content = new ListContent(context, loadedSlice, null, 0, 0);
-        SliceItem headerItem = content.getHeaderItem();
-        if (headerItem == null) {
-            if (content.getRowItems().size() != 0) {
-                headerItem = content.getRowItems().get(0);
-            } else {
-                return null;
-            }
-        }
+        ListContent content = new ListContent(loadedSlice);
+        SliceItem headerItem = content.getHeader() != null
+                ? content.getHeader().getSliceItem() : null;
+        if (headerItem == null) return null;
         // Look for a title, then large text, then any text at all.
         SliceItem title = SliceQuery.find(headerItem, FORMAT_TEXT, HINT_TITLE, null);
         if (title != null) {
@@ -294,17 +314,17 @@ public class SliceSelectionDialog {
             if (provider == null || provider.authority == null) {
                 return "";
             }
-            String authority = provider.authority.split(";")[0];
+            String authority = provider.authority.split(";", -1)[0];
             if (mSharedPreferences.contains(authority)) {
                 return mSharedPreferences.getString(authority, null);
             }
             String type = String.valueOf(mContext.getContentResolver().getType(new Uri.Builder()
-                    .scheme(ContentResolver.SCHEME_CONTENT)
-                    .authority(authority)
-                    .build()));
+                        .scheme(ContentResolver.SCHEME_CONTENT)
+                        .authority(authority)
+                        .build()));
             mSharedPreferences.edit()
-                    .putString(authority, type)
-                    .commit();
+                .putString(authority, type)
+                .commit();
             return type;
         }
     }

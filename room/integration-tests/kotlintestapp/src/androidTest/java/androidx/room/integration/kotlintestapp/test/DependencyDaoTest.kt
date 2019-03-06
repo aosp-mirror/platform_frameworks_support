@@ -20,15 +20,19 @@ import androidx.room.integration.kotlintestapp.dao.DependencyDao
 import androidx.room.integration.kotlintestapp.vo.DataClassFromDependency
 import androidx.room.integration.kotlintestapp.vo.EmbeddedFromDependency
 import androidx.room.integration.kotlintestapp.vo.PojoFromDependency
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SdkSuppress
-import androidx.test.runner.AndroidJUnit4
-import org.hamcrest.CoreMatchers.*
+import androidx.test.filters.SmallTest
+import org.hamcrest.CoreMatchers.`is`
+import org.hamcrest.CoreMatchers.notNullValue
+import org.hamcrest.CoreMatchers.nullValue
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
+@SmallTest
 class DependencyDaoTest : TestDatabaseTest() {
     lateinit var dao: DependencyDao
     @Before

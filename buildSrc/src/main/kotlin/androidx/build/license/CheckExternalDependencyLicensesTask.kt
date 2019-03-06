@@ -15,6 +15,7 @@
  */
 package androidx.build.license
 
+import androidx.build.gradle.isRoot
 import org.gradle.api.DefaultTask
 import org.gradle.api.GradleException
 import org.gradle.api.Project
@@ -37,7 +38,7 @@ open class CheckExternalDependencyLicensesTask : DefaultTask() {
                 .get("supportRootFolder") as File
         val prebuiltsRoot = File(supportRoot, "../../prebuilts").canonicalFile
 
-        val checkerConfig = project.configurations.getByName(CONFIG)
+        val checkerConfig = project.configurations.getByName(CONFIGURATION_NAME)
 
         project
                 .configurations
@@ -88,8 +89,8 @@ open class CheckExternalDependencyLicensesTask : DefaultTask() {
             }
 
             val found = folder.listFiles().firstOrNull {
-                it.name.toUpperCase().startsWith("NOTICE")
-                        || it.name.toUpperCase().startsWith("LICENSE")
+                it.name.startsWith("NOTICE", ignoreCase = true) ||
+                        it.name.startsWith("LICENSE", ignoreCase = true)
             }
             return found ?: recurse(folder.parentFile)
         }
@@ -97,16 +98,20 @@ open class CheckExternalDependencyLicensesTask : DefaultTask() {
     }
 
     companion object {
-        private const val CONFIG = "allExternalDependencies"
-        const val ROOT_TASK_NAME = "checkExternalLicenses"
-        private const val PER_PROJECT_TASK_NAME = ROOT_TASK_NAME
-        fun configure(project: Project) {
-            val task = project.tasks.create(PER_PROJECT_TASK_NAME,
-                    CheckExternalDependencyLicensesTask::class.java)
-            project.configurations.create(CONFIG)
-            val rootTask = project.rootProject.tasks.findByName(ROOT_TASK_NAME)
-                    ?: project.rootProject.tasks.create(ROOT_TASK_NAME)
-            rootTask.dependsOn(task)
-        }
+        internal const val CONFIGURATION_NAME = "allExternalDependencies"
+        const val TASK_NAME = "checkExternalLicenses"
+    }
+}
+
+fun Project.configureExternalDependencyLicenseCheck() {
+    if (isRoot) {
+        // Create an empty task in the root which will depend on all the per-project child tasks.
+        // TODO have the normal license check run here so it catches the buildscript classpath.
+        tasks.create(CheckExternalDependencyLicensesTask.TASK_NAME)
+    } else {
+        val task = tasks.create(CheckExternalDependencyLicensesTask.TASK_NAME,
+                CheckExternalDependencyLicensesTask::class.java)
+        configurations.create(CheckExternalDependencyLicensesTask.CONFIGURATION_NAME)
+        rootProject.tasks.getByName(CheckExternalDependencyLicensesTask.TASK_NAME).dependsOn(task)
     }
 }

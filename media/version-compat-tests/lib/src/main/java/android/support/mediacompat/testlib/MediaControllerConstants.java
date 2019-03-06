@@ -29,6 +29,7 @@ public class MediaControllerConstants {
     public static final int SET_VOLUME_TO = 205;
     public static final int ADJUST_VOLUME = 206;
     public static final int DISPATCH_MEDIA_BUTTON = 207;
+    public static final int ADD_QUEUE_ITEM_WITH_CUSTOM_PARCELABLE = 208;
 
     // TransportControls methods.
     public static final int PLAY = 301;
@@ -53,6 +54,7 @@ public class MediaControllerConstants {
     public static final int SET_CAPTIONING_ENABLED = 320;
     public static final int SET_REPEAT_MODE = 321;
     public static final int SET_SHUFFLE_MODE = 322;
+    public static final int SET_PLAYBACK_SPEED = 323;
 
     private MediaControllerConstants() {
     }

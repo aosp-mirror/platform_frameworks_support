@@ -17,6 +17,7 @@
 package androidx.paging;
 
 import androidx.annotation.AnyThread;
+import androidx.annotation.IntRange;
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -74,20 +75,19 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * <ul>
  *     <li>They express the full sized list to the presentation layer (often a
  *     {@link PagedListAdapter}), and so can support scrollbars (without jumping as pages are
- *     loaded) and fast-scrolling to any position, whether loaded or not.
+ *     loaded or dropped) and fast-scrolling to any position, loaded or not.
  *     <li>They avoid the need for a loading spinner at the end of the loaded list, since the list
  *     is always full sized.
  * </ul>
  * <p>
  * They also have drawbacks:
  * <ul>
- *     <li>Your Adapter (or other presentation mechanism) needs to account for {@code null} items.
- *     This often means providing default values in data you bind to a
- *     {@link androidx.recyclerview.widget.RecyclerView.ViewHolder}.
+ *     <li>Your Adapter needs to account for {@code null} items. This often means providing default
+ *     values in data you bind to a {@link androidx.recyclerview.widget.RecyclerView.ViewHolder}.
  *     <li>They don't work well if your item views are of different sizes, as this will prevent
  *     loading items from cross-fading nicely.
  *     <li>They require you to count your data set, which can be expensive or impossible, depending
- *     on where your data comes from.
+ *     on your DataSource.
  * </ul>
  * <p>
  * Placeholders are enabled by default, but can be disabled in two ways. They are disabled if the
@@ -112,6 +112,218 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * @param <T> The type of the entries in the list.
  */
 public abstract class PagedList<T> extends AbstractList<T> {
+
+    /**
+     * Type of load a PagedList can perform.
+     * <p>
+     * You can use a {@link LoadStateListener} to observe {@link LoadState} of
+     * any {@link LoadType}. For UI purposes (swipe refresh, loading spinner, retry button), this
+     * is typically done by registering a Listener with the {@code PagedListAdapter} or
+     * {@code AsyncPagedListDiffer}.
+     *
+     * @see LoadState
+     */
+    public enum LoadType {
+        /**
+         * PagedList content being reloaded, may contain content updates.
+         */
+        REFRESH,
+
+        /**
+         * Load at the start of the PagedList.
+         */
+        START,
+
+        /**
+         * Load at the end of the PagedList.
+         */
+        END
+    }
+
+    /**
+     * State of a PagedList load - associated with a {@code LoadType}
+     * <p>
+     * You can use a {@link LoadStateListener} to observe {@link LoadState} of
+     * any {@link LoadType}. For UI purposes (swipe refresh, loading spinner, retry button), this
+     * is typically done by registering a Listener with the {@code PagedListAdapter} or
+     * {@code AsyncPagedListDiffer}.
+     */
+    public enum LoadState {
+        /**
+         * Indicates the PagedList is not currently loading, and no error currently observed.
+         */
+        IDLE,
+
+        /**
+         * Loading is in progress.
+         */
+        LOADING,
+
+        /**
+         * Loading is complete.
+         */
+        DONE,
+
+        /**
+         * Loading hit a non-retryable error.
+         */
+        ERROR,
+
+        /**
+         * Loading hit a retryable error.
+         *
+         * @see #retry()
+         */
+        RETRYABLE_ERROR,
+    }
+
+
+
+
+    /**
+     * Listener for changes to loading state - whether the refresh, prepend, or append is idle,
+     * loading, or has an error.
+     * <p>
+     * Can be used to observe the {@link LoadState} of any {@link LoadType} (REFRESH/START/END).
+     * For UI purposes (swipe refresh, loading spinner, retry button), this is typically done by
+     * registering a Listener with the {@code PagedListAdapter} or {@code AsyncPagedListDiffer}.
+     * <p>
+     * These calls will be dispatched on the executor defined by
+     * {@link Builder#setNotifyExecutor(Executor)}, which is generally the main/UI thread.
+     *
+     * @see LoadType
+     * @see LoadState
+     */
+    public interface LoadStateListener {
+        /**
+         * Called when the LoadState has changed - whether the refresh, prepend, or append is
+         * idle, loading, or has an error.
+         * <p>
+         * REFRESH events can be used to drive a {@code SwipeRefreshLayout}, or START/END events
+         * can be used to drive loading spinner items in your {@code RecyclerView}.
+         *
+         * @param type Type of load - START, END, or REFRESH.
+         * @param state State of load - IDLE, LOADING, DONE, ERROR, or RETRYABLE_ERROR
+         * @param error Error, if in an error state, null otherwise.
+         *
+         * @see #retry()
+         */
+        void onLoadStateChanged(@NonNull LoadType type,
+                @NonNull LoadState state, @Nullable Throwable error);
+    }
+
+    @SuppressWarnings("WeakerAccess") /* synthetic access */
+    static boolean equalsHelper(@Nullable Object a, @Nullable Object b) {
+        // Because Objects.equals() is API 19+
+        return a == b || (a != null && a.equals(b));
+    }
+
+    abstract static class LoadStateManager {
+        @NonNull
+        private LoadState mRefresh = LoadState.IDLE;
+        @Nullable
+        private Throwable mRefreshError = null;
+        @NonNull
+        private LoadState mStart = LoadState.IDLE;
+        @Nullable
+        private Throwable mStartError = null;
+        @NonNull
+        private LoadState mEnd = LoadState.IDLE;
+        @Nullable
+        private Throwable mEndError = null;
+
+        @NonNull
+        public LoadState getRefresh() {
+            return mRefresh;
+        }
+
+        @NonNull
+        public LoadState getStart() {
+            return mStart;
+        }
+
+        @NonNull
+        public LoadState getEnd() {
+            return mEnd;
+        }
+
+        @Nullable
+        public Throwable getRefreshError() {
+            return mRefreshError;
+        }
+
+        @Nullable
+        public Throwable getStartError() {
+            return mStartError;
+        }
+
+        @Nullable
+        public Throwable getEndError() {
+            return mEndError;
+        }
+
+        void setState(@NonNull LoadType type, @NonNull LoadState state, @Nullable Throwable error) {
+            boolean expectError = state == LoadState.RETRYABLE_ERROR || state == LoadState.ERROR;
+            boolean hasError = error != null;
+            if (expectError != hasError) {
+                throw new IllegalArgumentException(
+                        "Error states must be accompanied by a throwable, other states must not");
+            }
+
+            // deduplicate signals
+            switch (type) {
+                case REFRESH:
+                    if (mRefresh.equals(state) && equalsHelper(mRefreshError, error)) return;
+                    mRefresh = state;
+                    mRefreshError = error;
+                    break;
+                case START:
+                    if (mStart.equals(state) && equalsHelper(mStartError, error)) return;
+                    mStart = state;
+                    mStartError = error;
+                    break;
+                case END:
+                    if (mEnd.equals(state) && equalsHelper(mEndError, error)) return;
+                    mEnd = state;
+                    mEndError = error;
+                    break;
+            }
+            onStateChanged(type, state, error);
+        }
+
+        protected abstract void onStateChanged(@NonNull LoadType type,
+                @NonNull LoadState state, @Nullable Throwable error);
+    }
+
+    /**
+     * Retry any retryable errors associated with this PagedList.
+     * <p>
+     * If for example a network DataSource append timed out, calling this method will retry the
+     * failed append load. Note that your DataSource will need to pass {@code true} to
+     * {@code onError()} to signify the error as retryable.
+     * <p>
+     * You can observe loading state via {@link #addWeakLoadStateListener(LoadStateListener)},
+     * though generally this is done through the {@link PagedListAdapter} or
+     * {@link AsyncPagedListDiffer}.
+     *
+     * @see #addWeakLoadStateListener(LoadStateListener)
+     * @see #removeWeakLoadStateListener(LoadStateListener)
+     */
+    public void retry() {}
+
+    // Notes on threading:
+    //
+    // PagedList and its subclasses are passed and accessed on multiple threads, but are always
+    // owned by a single thread. During initialization, this is the creation thread, generally the
+    // fetchExecutor/fetchScheduler when using LiveData/RxJava. After initialization, the PagedList
+    // is owned by the main thread (or notifyScheduler, if overridden in RxJava).
+    //
+    // The only exception is detach()/isDetached(), which can be called from the fetch thread.
+    // However these methods simply wrap a atomic boolean, so are safe.
+    //
+    // The PageResult.Receiver that receives new data from the DataSource is always run on the
+    // owning thread.
+
     @NonNull
     final Executor mMainThreadExecutor;
     @NonNull
@@ -123,13 +335,23 @@ public abstract class PagedList<T> extends AbstractList<T> {
     @NonNull
     final PagedStorage<T> mStorage;
 
+    /**
+     * Last access location, in total position space (including offset).
+     * <p>
+     * Used by positional data
+     * sources to initialize loading near viewport
+     */
     int mLastLoad = 0;
     T mLastItem = null;
 
+    final int mRequiredRemainder;
+
     // if set to true, mBoundaryCallback is non-null, and should
     // be dispatched when nearby load has occurred
-    private boolean mBoundaryCallbackBeginDeferred = false;
-    private boolean mBoundaryCallbackEndDeferred = false;
+    @SuppressWarnings("WeakerAccess") /* synthetic access */
+    boolean mBoundaryCallbackBeginDeferred = false;
+    @SuppressWarnings("WeakerAccess") /* synthetic access */
+    boolean mBoundaryCallbackEndDeferred = false;
 
     // lowest and highest index accessed by loadAround. Used to
     // decide when mBoundaryCallback should be dispatched
@@ -139,6 +361,31 @@ public abstract class PagedList<T> extends AbstractList<T> {
     private final AtomicBoolean mDetached = new AtomicBoolean(false);
 
     private final ArrayList<WeakReference<Callback>> mCallbacks = new ArrayList<>();
+
+    @SuppressWarnings("WeakerAccess") /* synthetic access */
+    final ArrayList<WeakReference<LoadStateListener>> mListeners = new ArrayList<>();
+
+    final LoadStateManager mLoadStateManager = new LoadStateManager() {
+        @Override
+        protected void onStateChanged(@NonNull final LoadType type, @NonNull final LoadState state,
+                @Nullable final Throwable error) {
+            // new state, dispatch to listeners
+            // Post, since UI will want to react immediately
+            mMainThreadExecutor.execute(new Runnable() {
+                @Override
+                public void run() {
+                    for (int i = mListeners.size() - 1; i >= 0; i--) {
+                        final LoadStateListener currentListener = mListeners.get(i).get();
+                        if (currentListener == null) {
+                            mListeners.remove(i);
+                        } else {
+                            currentListener.onLoadStateChanged(type, state, error);
+                        }
+                    }
+                }
+            });
+        }
+    };
 
     PagedList(@NonNull PagedStorage<T> storage,
             @NonNull Executor mainThreadExecutor,
@@ -150,6 +397,7 @@ public abstract class PagedList<T> extends AbstractList<T> {
         mBackgroundThreadExecutor = backgroundThreadExecutor;
         mBoundaryCallback = boundaryCallback;
         mConfig = config;
+        mRequiredRemainder = mConfig.prefetchDistance * 2 + mConfig.pageSize;
     }
 
     /**
@@ -170,7 +418,8 @@ public abstract class PagedList<T> extends AbstractList<T> {
      * @return Newly created PagedList, which will page in data from the DataSource as needed.
      */
     @NonNull
-    private static <K, T> PagedList<T> create(@NonNull DataSource<K, T> dataSource,
+    @SuppressWarnings("WeakerAccess") /* synthetic access */
+    static <K, T> PagedList<T> create(@NonNull DataSource<K, T> dataSource,
             @NonNull Executor notifyExecutor,
             @NonNull Executor fetchExecutor,
             @Nullable BoundaryCallback<T> boundaryCallback,
@@ -394,6 +643,10 @@ public abstract class PagedList<T> extends AbstractList<T> {
      * @param index Index at which to load.
      */
     public void loadAround(int index) {
+        if (index < 0 || index >= size()) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size());
+        }
+
         mLastLoad = index + getPositionOffset();
         loadAroundInternal(index);
 
@@ -464,7 +717,8 @@ public abstract class PagedList<T> extends AbstractList<T> {
      * Call this when mLowest/HighestIndexAccessed are changed, or
      * mBoundaryCallbackBegin/EndDeferred is set.
      */
-    private void tryDispatchBoundaryCallbacks(boolean post) {
+    @SuppressWarnings("WeakerAccess") /* synthetic access */
+    void tryDispatchBoundaryCallbacks(boolean post) {
         final boolean dispatchBegin = mBoundaryCallbackBeginDeferred
                 && mLowestIndexAccessed <= mConfig.prefetchDistance;
         final boolean dispatchEnd = mBoundaryCallbackEndDeferred
@@ -492,7 +746,8 @@ public abstract class PagedList<T> extends AbstractList<T> {
         }
     }
 
-    private void dispatchBoundaryCallbacks(boolean begin, boolean end) {
+    @SuppressWarnings("WeakerAccess") /* synthetic access */
+    void dispatchBoundaryCallbacks(boolean begin, boolean end) {
         // safe to deref mBoundaryCallback here, since we only defer if mBoundaryCallback present
         if (begin) {
             //noinspection ConstantConditions
@@ -505,7 +760,7 @@ public abstract class PagedList<T> extends AbstractList<T> {
     }
 
     /** @hide */
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
     void offsetAccessIndices(int offset) {
         // update last loadAround index
         mLastLoad += offset;
@@ -518,11 +773,31 @@ public abstract class PagedList<T> extends AbstractList<T> {
     /**
      * Returns size of the list, including any not-yet-loaded null padding.
      *
-     * @return Current total size of the list.
+     * To get the number of loaded items, not counting placeholders, use {@link #getLoadedCount()}.
+     *
+     * @return Current total size of the list, including placeholders.
+     *
+     * @see #getLoadedCount()
      */
     @Override
     public int size() {
         return mStorage.size();
+    }
+
+    /**
+     * Returns the number of items loaded in the PagedList.
+     *
+     * Unlike {@link #size()} this counts only loaded items, not placeholders.
+     * <p>
+     * If placeholders are {@link Config#enablePlaceholders disabled}, this method is equivalent to
+     * {@link #size()}.
+     *
+     * @return Number of items currently loaded, not counting placeholders.
+     *
+     * @see #size()
+     */
+    public int getLoadedCount() {
+        return mStorage.getLoadedCount();
     }
 
     /**
@@ -628,6 +903,49 @@ public abstract class PagedList<T> extends AbstractList<T> {
         return mStorage.getPositionOffset();
     }
 
+
+    /**
+     * Add a LoadStateListener to observe the loading state of the PagedList.
+     *
+     * @param listener Listener to receive updates.
+     *
+     * @see #removeWeakLoadStateListener(LoadStateListener)
+     */
+    public void addWeakLoadStateListener(@NonNull LoadStateListener listener) {
+        // first, clean up any empty weak refs
+        for (int i = mListeners.size() - 1; i >= 0; i--) {
+            final LoadStateListener currentListener = mListeners.get(i).get();
+            if (currentListener == null) {
+                mListeners.remove(i);
+            }
+        }
+
+        // then add the new one
+        mListeners.add(new WeakReference<>(listener));
+        listener.onLoadStateChanged(PagedList.LoadType.REFRESH, mLoadStateManager.getRefresh(),
+                mLoadStateManager.getRefreshError());
+        listener.onLoadStateChanged(PagedList.LoadType.START, mLoadStateManager.getStart(),
+                mLoadStateManager.getStartError());
+        listener.onLoadStateChanged(PagedList.LoadType.END, mLoadStateManager.getEnd(),
+                mLoadStateManager.getEndError());
+    }
+
+    /**
+     * Remove a previously registered LoadStateListener.
+     *
+     * @param listener Previously registered listener.
+     * @see #addWeakLoadStateListener(LoadStateListener)
+     */
+    public void removeWeakLoadStateListener(@NonNull LoadStateListener listener) {
+        for (int i = mListeners.size() - 1; i >= 0; i--) {
+            final LoadStateListener currentListener = mListeners.get(i).get();
+            if (currentListener == null || currentListener == listener) {
+                // found Listener, or empty weak ref
+                mListeners.remove(i);
+            }
+        }
+    }
+
     /**
      * Adds a callback, and issues updates since the previousSnapshot was created.
      * <p>
@@ -670,7 +988,7 @@ public abstract class PagedList<T> extends AbstractList<T> {
 
         // first, clean up any empty weak refs
         for (int i = mCallbacks.size() - 1; i >= 0; i--) {
-            Callback currentCallback = mCallbacks.get(i).get();
+            final Callback currentCallback = mCallbacks.get(i).get();
             if (currentCallback == null) {
                 mCallbacks.remove(i);
             }
@@ -688,7 +1006,7 @@ public abstract class PagedList<T> extends AbstractList<T> {
     @SuppressWarnings("WeakerAccess")
     public void removeWeakCallback(@NonNull Callback callback) {
         for (int i = mCallbacks.size() - 1; i >= 0; i--) {
-            Callback currentCallback = mCallbacks.get(i).get();
+            final Callback currentCallback = mCallbacks.get(i).get();
             if (currentCallback == null || currentCallback == callback) {
                 // found callback, or empty weak ref
                 mCallbacks.remove(i);
@@ -699,7 +1017,7 @@ public abstract class PagedList<T> extends AbstractList<T> {
     void notifyInserted(int position, int count) {
         if (count != 0) {
             for (int i = mCallbacks.size() - 1; i >= 0; i--) {
-                Callback callback = mCallbacks.get(i).get();
+                final Callback callback = mCallbacks.get(i).get();
                 if (callback != null) {
                     callback.onInserted(position, count);
                 }
@@ -710,7 +1028,7 @@ public abstract class PagedList<T> extends AbstractList<T> {
     void notifyChanged(int position, int count) {
         if (count != 0) {
             for (int i = mCallbacks.size() - 1; i >= 0; i--) {
-                Callback callback = mCallbacks.get(i).get();
+                final Callback callback = mCallbacks.get(i).get();
 
                 if (callback != null) {
                     callback.onChanged(position, count);
@@ -719,7 +1037,17 @@ public abstract class PagedList<T> extends AbstractList<T> {
         }
     }
 
+    void notifyRemoved(int position, int count) {
+        if (count != 0) {
+            for (int i = mCallbacks.size() - 1; i >= 0; i--) {
+                final Callback callback = mCallbacks.get(i).get();
 
+                if (callback != null) {
+                    callback.onRemoved(position, count);
+                }
+            }
+        }
+    }
 
     /**
      * Dispatch updates since the non-empty snapshot was taken.
@@ -779,6 +1107,13 @@ public abstract class PagedList<T> extends AbstractList<T> {
      */
     public static class Config {
         /**
+         * When {@link #maxSize} is set to {@code MAX_SIZE_UNBOUNDED}, the maximum number of items
+         * loaded is unbounded, and pages will never be dropped.
+         */
+        @SuppressWarnings("WeakerAccess")
+        public static final int MAX_SIZE_UNBOUNDED = Integer.MAX_VALUE;
+
+        /**
          * Size of each page loaded by the PagedList.
          */
         public final int pageSize;
@@ -802,17 +1137,30 @@ public abstract class PagedList<T> extends AbstractList<T> {
         public final boolean enablePlaceholders;
 
         /**
+         * Defines the maximum number of items that may be loaded into this pagedList before pages
+         * should be dropped.
+         * <p>
+         * {@link PageKeyedDataSource} does not currently support dropping pages - when
+         * loading from a {@code PageKeyedDataSource}, this value is ignored.
+         *
+         * @see #MAX_SIZE_UNBOUNDED
+         * @see Builder#setMaxSize(int)
+         */
+        public final int maxSize;
+
+        /**
          * Size hint for initial load of PagedList, often larger than a regular page.
          */
         @SuppressWarnings("WeakerAccess")
         public final int initialLoadSizeHint;
 
-        private Config(int pageSize, int prefetchDistance,
-                boolean enablePlaceholders, int initialLoadSizeHint) {
+        Config(int pageSize, int prefetchDistance,
+                boolean enablePlaceholders, int initialLoadSizeHint, int maxSize) {
             this.pageSize = pageSize;
             this.prefetchDistance = prefetchDistance;
             this.enablePlaceholders = enablePlaceholders;
             this.initialLoadSizeHint = initialLoadSizeHint;
+            this.maxSize = maxSize;
         }
 
         /**
@@ -821,10 +1169,13 @@ public abstract class PagedList<T> extends AbstractList<T> {
          * You must at minimum specify page size with {@link #setPageSize(int)}.
          */
         public static final class Builder {
+            static final int DEFAULT_INITIAL_PAGE_MULTIPLIER = 3;
+
             private int mPageSize = -1;
             private int mPrefetchDistance = -1;
             private int mInitialLoadSizeHint = -1;
             private boolean mEnablePlaceholders = true;
+            private int mMaxSize = MAX_SIZE_UNBOUNDED;
 
             /**
              * Defines the number of items loaded at once from the DataSource.
@@ -844,8 +1195,12 @@ public abstract class PagedList<T> extends AbstractList<T> {
              * @param pageSize Number of items loaded at once from the DataSource.
              * @return this
              */
-            public Builder setPageSize(int pageSize) {
-                this.mPageSize = pageSize;
+            @NonNull
+            public Builder setPageSize(@IntRange(from = 1) int pageSize) {
+                if (pageSize < 1) {
+                    throw new IllegalArgumentException("Page size must be a positive number");
+                }
+                mPageSize = pageSize;
                 return this;
             }
 
@@ -864,8 +1219,9 @@ public abstract class PagedList<T> extends AbstractList<T> {
              * @param prefetchDistance Distance the PagedList should prefetch.
              * @return this
              */
-            public Builder setPrefetchDistance(int prefetchDistance) {
-                this.mPrefetchDistance = prefetchDistance;
+            @NonNull
+            public Builder setPrefetchDistance(@IntRange(from = 0) int prefetchDistance) {
+                mPrefetchDistance = prefetchDistance;
                 return this;
             }
 
@@ -896,8 +1252,9 @@ public abstract class PagedList<T> extends AbstractList<T> {
              * @return this
              */
             @SuppressWarnings("SameParameterValue")
+            @NonNull
             public Builder setEnablePlaceholders(boolean enablePlaceholders) {
-                this.mEnablePlaceholders = enablePlaceholders;
+                mEnablePlaceholders = enablePlaceholders;
                 return this;
             }
 
@@ -916,8 +1273,50 @@ public abstract class PagedList<T> extends AbstractList<T> {
              * @return this
              */
             @SuppressWarnings("WeakerAccess")
-            public Builder setInitialLoadSizeHint(int initialLoadSizeHint) {
-                this.mInitialLoadSizeHint = initialLoadSizeHint;
+            @NonNull
+            public Builder setInitialLoadSizeHint(@IntRange(from = 1) int initialLoadSizeHint) {
+                mInitialLoadSizeHint = initialLoadSizeHint;
+                return this;
+            }
+
+            /**
+             * Defines how many items to keep loaded at once.
+             * <p>
+             * This can be used to cap the number of items kept in memory by dropping pages. This
+             * value is typically many pages so old pages are cached in case the user scrolls back.
+             * <p>
+             * This value must be at least two times the
+             * {@link #setPrefetchDistance(int)} prefetch distance} plus the
+             * {@link #setPageSize(int) page size}). This constraint prevent loads from being
+             * continuously fetched and discarded due to prefetching.
+             * <p>
+             * The max size specified here best effort, not a guarantee. In practice, if maxSize
+             * is many times the page size, the number of items held by the PagedList will not grow
+             * above this number. Exceptions are made as necessary to guarantee:
+             * <ul>
+             *     <li>Pages are never dropped until there are more than two pages loaded. Note that
+             *     a DataSource may not be held strictly to
+             *     {@link Config#pageSize requested pageSize}, so two pages may be larger than
+             *     expected.
+             *     <li>Pages are never dropped if they are within a prefetch window (defined to be
+             *     {@code pageSize + (2 * prefetchDistance)}) of the most recent load.
+             * </ul>
+             * <p>
+             * {@link PageKeyedDataSource} does not currently support dropping pages - when
+             * loading from a {@code PageKeyedDataSource}, this value is ignored.
+             * <p>
+             * If not set, defaults to {@code MAX_SIZE_UNBOUNDED}, which disables page dropping.
+             *
+             * @param maxSize Maximum number of items to keep in memory, or
+             *                {@code MAX_SIZE_UNBOUNDED} to disable page dropping.
+             * @return this
+             *
+             * @see Config#MAX_SIZE_UNBOUNDED
+             * @see Config#maxSize
+             */
+            @NonNull
+            public Builder setMaxSize(@IntRange(from = 2) int maxSize) {
+                mMaxSize = maxSize;
                 return this;
             }
 
@@ -926,24 +1325,29 @@ public abstract class PagedList<T> extends AbstractList<T> {
              *
              * @return A new Config.
              */
+            @NonNull
             public Config build() {
-                if (mPageSize < 1) {
-                    throw new IllegalArgumentException("Page size must be a positive number");
-                }
                 if (mPrefetchDistance < 0) {
                     mPrefetchDistance = mPageSize;
                 }
                 if (mInitialLoadSizeHint < 0) {
-                    mInitialLoadSizeHint = mPageSize * 3;
+                    mInitialLoadSizeHint = mPageSize * DEFAULT_INITIAL_PAGE_MULTIPLIER;
                 }
                 if (!mEnablePlaceholders && mPrefetchDistance == 0) {
                     throw new IllegalArgumentException("Placeholders and prefetch are the only ways"
                             + " to trigger loading of more data in the PagedList, so either"
                             + " placeholders must be enabled, or prefetch distance must be > 0.");
                 }
+                if (mMaxSize != MAX_SIZE_UNBOUNDED) {
+                    if (mMaxSize < mPageSize + mPrefetchDistance * 2) {
+                        throw new IllegalArgumentException("Maximum size must be at least"
+                                + " pageSize + 2*prefetchDist, pageSize=" + mPageSize
+                                + ", prefetchDist=" + mPrefetchDistance + ", maxSize=" + mMaxSize);
+                    }
+                }
 
                 return new Config(mPageSize, mPrefetchDistance,
-                        mEnablePlaceholders, mInitialLoadSizeHint);
+                        mEnablePlaceholders, mInitialLoadSizeHint, mMaxSize);
             }
         }
     }

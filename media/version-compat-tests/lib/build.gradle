@@ -21,9 +21,12 @@ plugins {
 }
 
 dependencies {
+    api(project(':annotation'))
+    api(project(':versionedparcelable'))
     implementation(JUNIT)
 }
 
 supportLibrary {
     failOnUncheckedWarnings = false
+    toolingProject = true
 }

@@ -43,43 +43,48 @@ open class VersionFileWriterTask : DefaultTask() {
         writer.println(version)
         writer.close()
     }
+}
 
-    companion object {
-        val RESOURCE_DIRECTORY = "generatedResources"
-        val VERSION_FILE_PATH = RESOURCE_DIRECTORY + "/META-INF/%s_%s.version"
+private val RESOURCE_DIRECTORY = "generatedResources"
+private val VERSION_FILE_PATH = "$RESOURCE_DIRECTORY/META-INF/%s_%s.version"
 
-        /**
-         * Sets up Android Library project to have a task that generates a version file.
-         * It must be called after [LibraryExtension] has been resolved.
-         *
-         * @param project an Android Library project.
-         */
-        fun setUpAndroidLibrary(project: Project, library: LibraryExtension) {
-            val group = project.properties["group"] as String
-            val artifactId = project.properties["name"] as String
-            val version = project.properties["version"] as String
+/**
+ * Sets up Android Library project to have a task that generates a version file.
+ * It must be called after [LibraryExtension] has been resolved.
+ *
+ * @param project an Android Library project.
+ */
+fun Project.configureVersionFileWriter(library: LibraryExtension) {
+    val writeVersionFile = tasks.register("writeVersionFile",
+            VersionFileWriterTask::class.java)
+
+    afterEvaluate {
+        writeVersionFile.configure {
+            val group = properties["group"] as String
+            val artifactId = properties["name"] as String
+            val version = properties["version"] as String
 
             // Add a java resource file to the library jar for version tracking purposes.
             val artifactName = File(
-                    project.buildDir,
-                    String.format(VERSION_FILE_PATH, group, artifactId))
+                buildDir,
+                String.format(VERSION_FILE_PATH, group, artifactId))
 
-            val writeVersionFile = project.tasks.create("writeVersionFile",
-                    VersionFileWriterTask::class.java)
-            writeVersionFile.version = version
-            writeVersionFile.outputFile = artifactName
-
-            library.libraryVariants.all {
-                it.processJavaResources.dependsOn(writeVersionFile)
-            }
-
-            val resources = library.sourceSets.getByName("main").resources
-            resources.srcDir(File(project.buildDir, RESOURCE_DIRECTORY))
-            if (!resources.includes.isEmpty()) {
-                val includes = resources.includes
-                includes.add("META-INF/*.version")
-                resources.setIncludes(includes)
-            }
+            it.version = version
+            it.outputFile = artifactName
         }
+    }
+
+    library.libraryVariants.all {
+        it.processJavaResourcesProvider.configure {
+            it.dependsOn(writeVersionFile)
+        }
+    }
+
+    val resources = library.sourceSets.getByName("main").resources
+    resources.srcDir(File(buildDir, RESOURCE_DIRECTORY))
+    if (!resources.includes.isEmpty()) {
+        val includes = resources.includes
+        includes.add("META-INF/*.version")
+        resources.setIncludes(includes)
     }
 }

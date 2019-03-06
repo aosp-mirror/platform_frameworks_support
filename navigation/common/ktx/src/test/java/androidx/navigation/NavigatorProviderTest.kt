@@ -17,8 +17,7 @@
 package androidx.navigation
 
 import androidx.test.filters.SmallTest
-import androidx.navigation.testing.TestNavigator
-import org.junit.Assert.assertSame
+import com.google.common.truth.Truth.assertWithMessage
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
@@ -26,23 +25,25 @@ import org.junit.runners.JUnit4
 @SmallTest
 @RunWith(JUnit4::class)
 class NavigatorProviderTest {
-    private val provider = SimpleNavigatorProvider()
+    private val provider = NavigatorProvider()
 
     @Test
     fun set() {
-        val navigator = TestNavigator()
+        val navigator = NoOpNavigator()
         provider[NAME] = navigator
         val foundNavigator: Navigator<NavDestination> = provider[NAME]
-        assertSame("Set destination should be retrieved with get", navigator,
-                foundNavigator)
+        assertWithMessage("Set destination should be retrieved with get")
+            .that(foundNavigator)
+            .isSameAs(navigator)
     }
 
     @Test
     fun plusAssign() {
-        val navigator = TestNavigator()
+        val navigator = NoOpNavigator()
         provider += navigator
-        assertSame("Set destination should be retrieved with get", navigator,
-                provider[TestNavigator::class])
+        assertWithMessage("Set destination should be retrieved with get")
+            .that(provider[NoOpNavigator::class])
+            .isSameAs(navigator)
     }
 }
 

@@ -26,6 +26,8 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListUpdateCallback;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.Executor;
 
 /**
@@ -121,19 +123,27 @@ public class AsyncPagedListDiffer<T> {
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     final AsyncDifferConfig<T> mConfig;
 
-    @SuppressWarnings("RestrictedApi")
     Executor mMainThreadExecutor = ArchTaskExecutor.getMainThreadExecutor();
 
-    // TODO: REAL API
-    interface PagedListListener<T> {
-        void onCurrentListChanged(@Nullable PagedList<T> currentList);
+    /**
+     * Listener for when the current PagedList is updated.
+     *
+     * @param <T> Type of items in PagedList
+     */
+    public interface PagedListListener<T> {
+        /**
+         * Called after the current PagedList has been updated.
+         *
+         * @param previousList The previous list, may be null.
+         * @param currentList The new current list, may be null.
+         */
+        void onCurrentListChanged(
+                @Nullable PagedList<T> previousList, @Nullable PagedList<T> currentList);
     }
 
-    @Nullable
-    PagedListListener<T> mListener;
+    private final List<PagedListListener<T>> mListeners = new CopyOnWriteArrayList<>();
 
     private boolean mIsContiguous;
-    private int mLastAccessIndex;
 
     private PagedList<T> mPagedList;
     private PagedList<T> mSnapshot;
@@ -141,6 +151,30 @@ public class AsyncPagedListDiffer<T> {
     // Max generation of currently scheduled runnable
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     int mMaxScheduledGeneration;
+
+    @SuppressWarnings("WeakerAccess") /* synthetic access */
+    final PagedList.LoadStateManager mLoadStateManager = new PagedList.LoadStateManager() {
+        @Override
+        protected void onStateChanged(@NonNull PagedList.LoadType type,
+                @NonNull PagedList.LoadState state, @Nullable Throwable error) {
+            // Don't need to post - PagedList will already have done that
+            for (PagedList.LoadStateListener listener : mLoadStateListeners) {
+                listener.onLoadStateChanged(type, state, error);
+            }
+        }
+    };
+    @SuppressWarnings("WeakerAccess") // synthetic access
+    PagedList.LoadStateListener mLoadStateListener = new PagedList.LoadStateListener() {
+        @Override
+        public void onLoadStateChanged(@NonNull PagedList.LoadType type,
+                @NonNull PagedList.LoadState state, @Nullable Throwable error) {
+            mLoadStateManager.onStateChanged(type, state, error);
+        }
+    };
+
+    @SuppressWarnings("WeakerAccess") // synthetic access
+    final List<PagedList.LoadStateListener> mLoadStateListeners =
+            new CopyOnWriteArrayList<>();
 
     /**
      * Convenience for {@code AsyncPagedListDiffer(new AdapterListUpdateCallback(adapter),
@@ -231,8 +265,29 @@ public class AsyncPagedListDiffer<T> {
      *
      * @param pagedList The new PagedList.
      */
+    public void submitList(@Nullable final PagedList<T> pagedList) {
+        submitList(pagedList, null);
+    }
+
+    /**
+     * Pass a new PagedList to the differ.
+     * <p>
+     * If a PagedList is already present, a diff will be computed asynchronously on a background
+     * thread. When the diff is computed, it will be applied (dispatched to the
+     * {@link ListUpdateCallback}), and the new PagedList will be swapped in as the
+     * {@link #getCurrentList() current list}.
+     * <p>
+     * The commit callback can be used to know when the PagedList is committed, but note that it
+     * may not be executed. If PagedList B is submitted immediately after PagedList A, and is
+     * committed directly, the callback associated with PagedList A will not be run.
+     *
+     * @param pagedList The new PagedList.
+     * @param commitCallback Optional runnable that is executed when the PagedList is committed, if
+     *                       it is committed.
+     */
     @SuppressWarnings("ReferenceEquality")
-    public void submitList(final PagedList<T> pagedList) {
+    public void submitList(@Nullable final PagedList<T> pagedList,
+            @Nullable final Runnable commitCallback) {
         if (pagedList != null) {
             if (mPagedList == null && mSnapshot == null) {
                 mIsContiguous = pagedList.isContiguous();
@@ -244,41 +299,44 @@ public class AsyncPagedListDiffer<T> {
             }
         }
 
+        // incrementing generation means any currently-running diffs are discarded when they finish
+        final int runGeneration = ++mMaxScheduledGeneration;
+
         if (pagedList == mPagedList) {
-            // nothing to do
+            // nothing to do (Note - still had to inc generation, since may have ongoing work)
+            if (commitCallback != null) {
+                commitCallback.run();
+            }
             return;
         }
 
-        // incrementing generation means any currently-running diffs are discarded when they finish
-        final int runGeneration = ++mMaxScheduledGeneration;
+        final PagedList<T> previous = (mSnapshot != null) ? mSnapshot : mPagedList;
 
         if (pagedList == null) {
             int removedCount = getItemCount();
             if (mPagedList != null) {
                 mPagedList.removeWeakCallback(mPagedListCallback);
+                mPagedList.removeWeakLoadStateListener(mLoadStateListener);
                 mPagedList = null;
             } else if (mSnapshot != null) {
                 mSnapshot = null;
             }
             // dispatch update callback after updating mPagedList/mSnapshot
             mUpdateCallback.onRemoved(0, removedCount);
-            if (mListener != null) {
-                mListener.onCurrentListChanged(null);
-            }
+            onCurrentListChanged(previous, null, commitCallback);
             return;
         }
 
         if (mPagedList == null && mSnapshot == null) {
             // fast simple first insert
             mPagedList = pagedList;
+            mPagedList.addWeakLoadStateListener(mLoadStateListener);
             pagedList.addWeakCallback(null, mPagedListCallback);
 
             // dispatch update callback after updating mPagedList/mSnapshot
             mUpdateCallback.onInserted(0, pagedList.size());
 
-            if (mListener != null) {
-                mListener.onCurrentListChanged(pagedList);
-            }
+            onCurrentListChanged(null, pagedList, commitCallback);
             return;
         }
 
@@ -286,6 +344,8 @@ public class AsyncPagedListDiffer<T> {
             // first update scheduled on this list, so capture mPages as a snapshot, removing
             // callbacks so we don't have resolve updates against a moving target
             mPagedList.removeWeakCallback(mPagedListCallback);
+            mPagedList.removeWeakLoadStateListener(mLoadStateListener);
+
             mSnapshot = (PagedList<T>) mPagedList.snapshot();
             mPagedList = null;
         }
@@ -309,7 +369,8 @@ public class AsyncPagedListDiffer<T> {
                     @Override
                     public void run() {
                         if (mMaxScheduledGeneration == runGeneration) {
-                            latchPagedList(pagedList, newSnapshot, result, oldSnapshot.mLastLoad);
+                            latchPagedList(pagedList, newSnapshot, result,
+                                    oldSnapshot.mLastLoad, commitCallback);
                         }
                     }
                 });
@@ -322,13 +383,15 @@ public class AsyncPagedListDiffer<T> {
             @NonNull PagedList<T> newList,
             @NonNull PagedList<T> diffSnapshot,
             @NonNull DiffUtil.DiffResult diffResult,
-            int lastAccessIndex) {
+            int lastAccessIndex,
+            @Nullable Runnable commitCallback) {
         if (mSnapshot == null || mPagedList != null) {
             throw new IllegalStateException("must be in snapshot state to apply diff");
         }
 
         PagedList<T> previousSnapshot = mSnapshot;
         mPagedList = newList;
+        mPagedList.addWeakLoadStateListener(mLoadStateListener);
         mSnapshot = null;
 
         // dispatch update callback after updating mPagedList/mSnapshot
@@ -337,16 +400,96 @@ public class AsyncPagedListDiffer<T> {
 
         newList.addWeakCallback(diffSnapshot, mPagedListCallback);
 
-        // Transform the last loadAround() index from the old list to the new list by passing it
-        // through the DiffResult. This ensures the lastKey of a positional PagedList is carried
-        // to new list even if no in-viewport item changes (AsyncPagedListDiffer#get not called)
-        int newPosition = PagedStorageDiffHelper.transformAnchorIndex(
-                diffResult, previousSnapshot.mStorage, newList.mStorage, lastAccessIndex);
-        // copy lastLoad position, clamped to list bounds
-        mPagedList.mLastLoad = Math.max(0, Math.min(mPagedList.size(), newPosition));
+        if (!mPagedList.isEmpty()) {
+            // Transform the last loadAround() index from the old list to the new list by passing it
+            // through the DiffResult. This ensures the lastKey of a positional PagedList is carried
+            // to new list even if no in-viewport item changes (AsyncPagedListDiffer#get not called)
+            // Note: we don't take into account loads between new list snapshot and new list, but
+            // this is only a problem in rare cases when placeholders are disabled, and a load
+            // starts (for some reason) and finishes before diff completes.
+            int newPosition = PagedStorageDiffHelper.transformAnchorIndex(
+                    diffResult, previousSnapshot.mStorage, diffSnapshot.mStorage, lastAccessIndex);
 
-        if (mListener != null) {
-            mListener.onCurrentListChanged(mPagedList);
+            // Trigger load in new list at this position, clamped to list bounds.
+            // This is a load, not just an update of last load position, since the new list may be
+            // incomplete. If new list is subset of old list, but doesn't fill the viewport, this
+            // will likely trigger a load of new data.
+            mPagedList.loadAround(Math.max(0, Math.min(mPagedList.size() - 1, newPosition)));
+        }
+
+        onCurrentListChanged(previousSnapshot, mPagedList, commitCallback);
+    }
+
+    private void onCurrentListChanged(
+            @Nullable PagedList<T> previousList,
+            @Nullable PagedList<T> currentList,
+            @Nullable Runnable commitCallback) {
+        for (PagedListListener<T> listener : mListeners) {
+            listener.onCurrentListChanged(previousList, currentList);
+        }
+        if (commitCallback != null) {
+            commitCallback.run();
+        }
+    }
+
+    /**
+     * Add a PagedListListener to receive updates when the current PagedList changes.
+     *
+     * @param listener Listener to receive updates.
+     *
+     * @see #getCurrentList()
+     * @see #removePagedListListener(PagedListListener)
+     */
+    public void addPagedListListener(@NonNull PagedListListener<T> listener) {
+        mListeners.add(listener);
+    }
+
+    /**
+     * Remove a previously registered PagedListListener.
+     *
+     * @param listener Previously registered listener.
+     * @see #getCurrentList()
+     * @see #addPagedListListener(PagedListListener)
+     */
+    public void removePagedListListener(@NonNull PagedListListener<T> listener) {
+        mListeners.remove(listener);
+    }
+
+    /**
+     * Add a LoadStateListener to observe the loading state of the current PagedList.
+     *
+     * As new PagedLists are submitted and displayed, the listener will be notified to reflect
+     * current REFRESH, START, and END states.
+     *
+     * @param listener Listener to receive updates.
+     *
+     * @see #removeLoadStateListListener(PagedList.LoadStateListener)
+     */
+    public void addLoadStateListener(@NonNull PagedList.LoadStateListener listener) {
+        if (mPagedList != null) {
+            mPagedList.addWeakLoadStateListener(listener);
+        } else {
+            listener.onLoadStateChanged(PagedList.LoadType.REFRESH, mLoadStateManager.getRefresh(),
+                    mLoadStateManager.getRefreshError());
+            listener.onLoadStateChanged(PagedList.LoadType.START, mLoadStateManager.getStart(),
+                    mLoadStateManager.getStartError());
+            listener.onLoadStateChanged(PagedList.LoadType.END, mLoadStateManager.getEnd(),
+                    mLoadStateManager.getEndError());
+        }
+        mLoadStateListeners.add(listener);
+    }
+
+    /**
+     * Remove a previously registered PagedListListener.
+     *
+     * @param listener Previously registered listener.
+     * @see #getCurrentList()
+     * @see #addPagedListListener(PagedListListener)
+     */
+    public void removeLoadStateListListener(@NonNull PagedList.LoadStateListener listener) {
+        mLoadStateListeners.remove(listener);
+        if (mPagedList != null) {
+            mPagedList.removeWeakLoadStateListener(listener);
         }
     }
 

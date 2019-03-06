@@ -18,6 +18,7 @@
           package="androidx.media2.test">
     <uses-sdk android:targetSdkVersion="${target-sdk-version}"/>
 
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
@@ -34,23 +35,21 @@
 
         <activity android:name="androidx.media2.MockActivity" />
 
-        <!-- Keep the test services synced together with the MockMediaSessionService2 -->
-        <service android:name="androidx.media2.MockMediaSessionService2">
+        <!-- Keep the test services synced together with the MockMediaSessionService -->
+        <service android:name="androidx.media2.MockMediaSessionService">
             <intent-filter>
-                <action android:name="android.media.MediaSessionService2" />
+                <action android:name="androidx.media2.MediaSessionService" />
                 <action android:name="android.media.browse.MediaBrowserService" />
             </intent-filter>
-            <meta-data android:name="android.media.session" android:value="TestSession" />
         </service>
         <!-- Keep the test services synced together with the MockMediaLibraryService -->
-        <service android:name="androidx.media2.MockMediaLibraryService2">
+        <service android:name="androidx.media2.MockMediaLibraryService">
             <intent-filter>
-                <action android:name="android.media.MediaLibraryService2" />
+                <action android:name="androidx.media2.MediaLibraryService" />
                 <action android:name="android.media.browse.MediaBrowserService" />
             </intent-filter>
-            <meta-data android:name="android.media.session" android:value="TestLibrary" />
         </service>
-        <!-- Keep the test services synced together with the MockMediaSessionService2 -->
+        <!-- Keep the test services synced together with the MockMediaSessionService -->
         <service android:name="androidx.media2.MockMediaBrowserServiceCompat">
             <intent-filter>
                 <action android:name="android.media.browse.MediaBrowserService" />

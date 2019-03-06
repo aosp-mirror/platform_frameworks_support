@@ -16,6 +16,7 @@
 
 package androidx.work.integration.testapp.imageprocessing;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
@@ -23,6 +24,7 @@ import android.util.Log;
 import androidx.work.Data;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.Worker;
+import androidx.work.WorkerParameters;
 import androidx.work.integration.testapp.db.Image;
 import androidx.work.integration.testapp.db.TestDatabase;
 
@@ -33,6 +35,10 @@ public class ImageSetupWorker extends Worker {
     private static final String TAG = "ImageSetupWorker";
     private static final String URI_KEY = "uri";
 
+    public ImageSetupWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
+        super(context, workerParams);
+    }
+
     @Override
     public @NonNull Result doWork() {
         Log.d(TAG, "Started");
@@ -40,14 +46,14 @@ public class ImageSetupWorker extends Worker {
         String uriString = getInputData().getString(URI_KEY);
         if (TextUtils.isEmpty(uriString)) {
             Log.e(TAG, "Invalid URI!");
-            return Result.FAILURE;
+            return Result.failure();
         }
 
         Image image = new Image();
         image.mOriginalAssetName = uriString;
         image.mIsProcessed = false;
         TestDatabase.getInstance(getApplicationContext()).getImageDao().insert(image);
-        return Result.SUCCESS;
+        return Result.success();
     }
 
     static OneTimeWorkRequest createWork(String uriString) {

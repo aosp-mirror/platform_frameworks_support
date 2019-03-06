@@ -24,12 +24,9 @@ import android.view.accessibility.CaptioningManager;
 import android.view.accessibility.CaptioningManager.CaptionStyle;
 import android.view.accessibility.CaptioningManager.CaptioningChangeListener;
 
-import androidx.annotation.RequiresApi;
-
 /**
  * Abstract widget class to render a closed caption track.
  */
-@RequiresApi(28)
 abstract class ClosedCaptionWidget extends ViewGroup implements SubtitleTrack.RenderingWidget {
 
     interface ClosedCaptionLayout {
@@ -61,12 +58,7 @@ abstract class ClosedCaptionWidget extends ViewGroup implements SubtitleTrack.Re
     }
 
     ClosedCaptionWidget(Context context, AttributeSet attrs, int defStyle) {
-        this(context, attrs, defStyle, 0);
-    }
-
-    ClosedCaptionWidget(Context context, AttributeSet attrs, int defStyleAttr,
-            int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
+        super(context, attrs, defStyle);
 
         // Cannot render text over video when layer type is hardware.
         setLayerType(View.LAYER_TYPE_SOFTWARE, null);

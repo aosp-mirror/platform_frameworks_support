@@ -25,27 +25,35 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import androidx.annotation.NonNull;
-import androidx.test.filters.MediumTest;
+import androidx.concurrent.futures.ResolvableFuture;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.LargeTest;
 import androidx.test.filters.SdkSuppress;
-import androidx.test.runner.AndroidJUnit4;
 
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
-@MediumTest
+import okhttp3.mockwebserver.MockResponse;
+import okhttp3.mockwebserver.MockWebServer;
+import okhttp3.mockwebserver.RecordedRequest;
+
+@LargeTest
 @RunWith(AndroidJUnit4.class)
 public class WebViewClientCompatTest {
     private WebViewOnUiThread mWebViewOnUiThread;
+    private MockWebServer mWebServer;
 
-    private static final long TEST_TIMEOUT = 20000L;
     private static final String TEST_URL = "http://www.example.com/";
     private static final String TEST_SAFE_BROWSING_URL =
             "chrome://safe-browsing/match?type=malware";
@@ -55,6 +63,21 @@ public class WebViewClientCompatTest {
         mWebViewOnUiThread = new WebViewOnUiThread();
     }
 
+    @After
+    public void cleanUp() throws IOException {
+        if (mWebViewOnUiThread != null) {
+            mWebViewOnUiThread.cleanUp();
+        }
+        if (mWebServer != null) {
+            mWebServer.shutdown();
+        }
+    }
+
+    /**
+     * This should remain functionally equivalent to
+     * android.webkit.cts.WebViewClientTest#testShouldOverrideUrlLoadingDefault. Modifications to
+     * this test should be reflected in that test as necessary. See http://go/modifying-webview-cts.
+     */
     @Test
     @SdkSuppress(minSdkVersion = 21) // to instantiate WebResourceRequest
     public void testShouldOverrideUrlLoadingDefault() {
@@ -99,29 +122,31 @@ public class WebViewClientCompatTest {
                 mWebViewOnUiThread.getWebViewOnCurrentThread(), resourceRequest));
     }
 
+    /**
+     * This should remain functionally equivalent to
+     * android.webkit.cts.WebViewClientTest#testShouldOverrideUrlLoading. Modifications to this
+     * test should be reflected in that test as necessary. See http://go/modifying-webview-cts.
+     */
     @Test
-    public void testShouldOverrideUrlLoading() throws InterruptedException {
-        Assume.assumeTrue(
-                WebViewFeature.isFeatureSupported(WebViewFeature.SHOULD_OVERRIDE_WITH_REDIRECTS));
-        Assume.assumeTrue(
-                WebViewFeature.isFeatureSupported(WebViewFeature.WEB_RESOURCE_REQUEST_IS_REDIRECT));
+    public void testShouldOverrideUrlLoading() throws Throwable {
+        WebkitUtils.checkFeature(WebViewFeature.SHOULD_OVERRIDE_WITH_REDIRECTS);
+        WebkitUtils.checkFeature(WebViewFeature.WEB_RESOURCE_REQUEST_IS_REDIRECT);
 
         String data = "<html><body>"
                 + "<a href=\"" + TEST_URL + "\" id=\"link\">new page</a>"
                 + "</body></html>";
         mWebViewOnUiThread.loadDataAndWaitForCompletion(data, "text/html", null);
-        final CountDownLatch pageFinishedLatch = new CountDownLatch(1);
+        final ResolvableFuture<Void> pageFinishedFuture = ResolvableFuture.create();
         final MockWebViewClient webViewClient = new MockWebViewClient() {
             @Override
             public void onPageFinished(WebView view, String url) {
-                super.onPageFinished(view, url);
-                pageFinishedLatch.countDown();
+                pageFinishedFuture.set(null);
             }
         };
         mWebViewOnUiThread.setWebViewClient(webViewClient);
         mWebViewOnUiThread.getSettings().setJavaScriptEnabled(true);
         clickOnLinkUsingJs("link", mWebViewOnUiThread);
-        pageFinishedLatch.await(TEST_TIMEOUT, TimeUnit.MILLISECONDS);
+        WebkitUtils.waitForFuture(pageFinishedFuture);
         Assert.assertEquals(TEST_URL,
                 webViewClient.getLastShouldOverrideResourceRequest().getUrl().toString());
 
@@ -133,26 +158,30 @@ public class WebViewClientCompatTest {
     }
 
     private void clickOnLinkUsingJs(final String linkId, WebViewOnUiThread webViewOnUiThread)
-            throws InterruptedException {
-        final CountDownLatch callbackLatch = new CountDownLatch(1);
+            throws InterruptedException, ExecutionException, TimeoutException {
+        final ResolvableFuture<String> javascriptFuture = ResolvableFuture.create();
         ValueCallback<String> callback = new ValueCallback<String>() {
             @Override
             public void onReceiveValue(String value) {
-                callbackLatch.countDown();
+                javascriptFuture.set(value);
             }
         };
         webViewOnUiThread.evaluateJavascript(
                 "document.getElementById('" + linkId + "').click();"
                         + "console.log('element with id [" + linkId + "] clicked');", callback);
-        Assert.assertTrue(callbackLatch.await(TEST_TIMEOUT, TimeUnit.MILLISECONDS));
+        // TODO(ntfschr): consider asserting the value.
+        WebkitUtils.waitForFuture(javascriptFuture);
     }
 
+    /**
+     * This should remain functionally equivalent to
+     * android.webkit.cts.WebViewClientTest#testOnReceivedError. Modifications to this test should
+     * be reflected in that test as necessary. See http://go/modifying-webview-cts.
+     */
     @Test
     public void testOnReceivedError() throws Exception {
-        Assume.assumeTrue(
-                WebViewFeature.isFeatureSupported(WebViewFeature.RECEIVE_WEB_RESOURCE_ERROR));
-        Assume.assumeTrue(
-                WebViewFeature.isFeatureSupported(WebViewFeature.WEB_RESOURCE_ERROR_GET_CODE));
+        WebkitUtils.checkFeature(WebViewFeature.RECEIVE_WEB_RESOURCE_ERROR);
+        WebkitUtils.checkFeature(WebViewFeature.WEB_RESOURCE_ERROR_GET_CODE);
 
         final MockWebViewClient webViewClient = new MockWebViewClient();
         mWebViewOnUiThread.setWebViewClient(webViewClient);
@@ -165,10 +194,14 @@ public class WebViewClientCompatTest {
                 webViewClient.getOnReceivedResourceError().getErrorCode());
     }
 
+    /**
+     * This should remain functionally equivalent to
+     * android.webkit.cts.WebViewClientTest#testOnReceivedErrorForSubresource. Modifications to
+     * this test should be reflected in that test as necessary. See http://go/modifying-webview-cts.
+     */
     @Test
     public void testOnReceivedErrorForSubresource() throws Exception {
-        Assume.assumeTrue(
-                WebViewFeature.isFeatureSupported(WebViewFeature.RECEIVE_WEB_RESOURCE_ERROR));
+        WebkitUtils.checkFeature(WebViewFeature.RECEIVE_WEB_RESOURCE_ERROR);
 
         final MockWebViewClient webViewClient = new MockWebViewClient();
         mWebViewOnUiThread.setWebViewClient(webViewClient);
@@ -186,14 +219,46 @@ public class WebViewClientCompatTest {
                 webViewClient.getOnReceivedResourceError().getErrorCode());
     }
 
+    /**
+     * This should remain functionally equivalent to
+     * android.webkit.cts.WebViewClientTest#testOnReceivedHttpError. Modifications to
+     * this test should be reflected in that test as necessary. See http://go/modifying-webview-cts.
+     */
+    @Test
+    public void testOnReceivedHttpError() throws Exception {
+        WebkitUtils.checkFeature(WebViewFeature.RECEIVE_HTTP_ERROR);
+
+        final MockWebViewClient webViewClient = new MockWebViewClient();
+        mWebViewOnUiThread.setWebViewClient(webViewClient);
+        mWebServer = new MockWebServer();
+        mWebServer.start();
+
+        Assert.assertNull(webViewClient.getOnReceivedHttpError());
+        String url = mWebServer.url("/non_existent_page").toString();
+        mWebServer.enqueue(new MockResponse().setResponseCode(404));
+
+        mWebViewOnUiThread.loadUrlAndWaitForCompletion(url);
+
+        RecordedRequest request = mWebServer.takeRequest(WebkitUtils.TEST_TIMEOUT_MS,
+                TimeUnit.MILLISECONDS);
+        Assert.assertNotNull("The server should receive an HTTP request", request);
+        Assert.assertEquals("/non_existent_page", request.getPath());
+
+        Assert.assertNotNull(webViewClient.getOnReceivedHttpError());
+        Assert.assertEquals(404, webViewClient.getOnReceivedHttpError().getStatusCode());
+    }
+
+    /**
+     * This should remain functionally equivalent to
+     * android.webkit.cts.WebViewClientTest#testOnSafeBrowsingHitBackToSafety. Modifications to
+     * this test should be reflected in that test as necessary. See http://go/modifying-webview-cts.
+     */
     @Test
     public void testOnSafeBrowsingHitBackToSafety() throws Throwable {
-        Assume.assumeTrue(WebViewFeature.isFeatureSupported(WebViewFeature.SAFE_BROWSING_HIT));
-        Assume.assumeTrue(WebViewFeature.isFeatureSupported(WebViewFeature.SAFE_BROWSING_ENABLE));
-        Assume.assumeTrue(WebViewFeature.isFeatureSupported(
-                WebViewFeature.SAFE_BROWSING_RESPONSE_BACK_TO_SAFETY));
-        Assume.assumeTrue(
-                WebViewFeature.isFeatureSupported(WebViewFeature.WEB_RESOURCE_ERROR_GET_CODE));
+        WebkitUtils.checkFeature(WebViewFeature.SAFE_BROWSING_HIT);
+        WebkitUtils.checkFeature(WebViewFeature.SAFE_BROWSING_ENABLE);
+        WebkitUtils.checkFeature(WebViewFeature.SAFE_BROWSING_RESPONSE_BACK_TO_SAFETY);
+        WebkitUtils.checkFeature(WebViewFeature.WEB_RESOURCE_ERROR_GET_CODE);
 
         final SafeBrowsingBackToSafetyClient backToSafetyWebViewClient =
                 new SafeBrowsingBackToSafetyClient();
@@ -216,12 +281,16 @@ public class WebViewClientCompatTest {
         Assert.assertEquals(originalUrl, mWebViewOnUiThread.getUrl());
     }
 
+    /**
+     * This should remain functionally equivalent to
+     * android.webkit.cts.WebViewClientTest#testOnSafeBrowsingHitProceed. Modifications to this
+     * test should be reflected in that test as necessary. See http://go/modifying-webview-cts.
+     */
     @Test
     public void testOnSafeBrowsingHitProceed() throws Throwable {
-        Assume.assumeTrue(WebViewFeature.isFeatureSupported(WebViewFeature.SAFE_BROWSING_HIT));
-        Assume.assumeTrue(WebViewFeature.isFeatureSupported(WebViewFeature.SAFE_BROWSING_ENABLE));
-        Assume.assumeTrue(WebViewFeature.isFeatureSupported(
-                WebViewFeature.SAFE_BROWSING_RESPONSE_PROCEED));
+        WebkitUtils.checkFeature(WebViewFeature.SAFE_BROWSING_HIT);
+        WebkitUtils.checkFeature(WebViewFeature.SAFE_BROWSING_ENABLE);
+        WebkitUtils.checkFeature(WebViewFeature.SAFE_BROWSING_RESPONSE_PROCEED);
 
         final SafeBrowsingProceedClient proceedWebViewClient = new SafeBrowsingProceedClient();
         mWebViewOnUiThread.setWebViewClient(proceedWebViewClient);
@@ -243,7 +312,8 @@ public class WebViewClientCompatTest {
         // enabled.
         boolean deviceSupportsSafeBrowsing =
                 WebSettingsCompat.getSafeBrowsingEnabled(mWebViewOnUiThread.getSettings());
-        Assume.assumeTrue(deviceSupportsSafeBrowsing);
+        final String msg = "The device should support Safe Browsing";
+        Assume.assumeTrue(msg, deviceSupportsSafeBrowsing);
 
         Assert.assertNull(client.getOnReceivedResourceError());
         mWebViewOnUiThread.loadUrlAndWaitForCompletion(TEST_SAFE_BROWSING_URL);
@@ -253,22 +323,72 @@ public class WebViewClientCompatTest {
         Assert.assertTrue(client.getOnSafeBrowsingHitRequest().isForMainFrame());
     }
 
+    /**
+     * This should remain functionally equivalent to
+     * android.webkit.cts.WebViewClientTest#testOnPageCommitVisibleCalled. Modifications to this
+     * test should be reflected in that test as necessary. See http://go/modifying-webview-cts.
+     */
     @Test
     public void testOnPageCommitVisibleCalled() throws Exception {
-        Assume.assumeTrue(WebViewFeature.isFeatureSupported(WebViewFeature.VISUAL_STATE_CALLBACK));
+        WebkitUtils.checkFeature(WebViewFeature.VISUAL_STATE_CALLBACK);
 
-        final CountDownLatch callbackLatch = new CountDownLatch(1);
-
+        final ResolvableFuture<String> pageCommitVisibleFuture = ResolvableFuture.create();
         mWebViewOnUiThread.setWebViewClient(new WebViewClientCompat() {
             @Override
             public void onPageCommitVisible(@NonNull WebView view, @NonNull String url) {
-                Assert.assertEquals(url, "about:blank");
-                callbackLatch.countDown();
+                pageCommitVisibleFuture.set(url);
             }
         });
 
         mWebViewOnUiThread.loadUrl("about:blank");
-        Assert.assertTrue(callbackLatch.await(TEST_TIMEOUT, TimeUnit.MILLISECONDS));
+        Assert.assertEquals(WebkitUtils.waitForFuture(pageCommitVisibleFuture), "about:blank");
+    }
+
+    @Test
+    public void testResetClientToCompat() throws Exception {
+        WebkitUtils.checkFeature(WebViewFeature.VISUAL_STATE_CALLBACK);
+
+        final ResolvableFuture<String> pageCommitVisibleFuture = ResolvableFuture.create();
+        WebViewClient nonCompatClient = new WebViewClient() {
+            @Override
+            public void onPageStarted(WebView view, String url, Bitmap bitmap) {
+                pageCommitVisibleFuture.setException(new IllegalStateException(
+                        "This client should not have callbacks invoked"));
+            }
+        };
+        mWebViewOnUiThread.setWebViewClient(nonCompatClient);
+
+        WebViewClientCompat compatClient = new WebViewClientCompat() {
+            @Override
+            public void onPageCommitVisible(@NonNull WebView view, @NonNull String url) {
+                pageCommitVisibleFuture.set(url);
+            }
+        };
+        mWebViewOnUiThread.setWebViewClient(compatClient); // reset to the new client
+        mWebViewOnUiThread.loadUrl("about:blank");
+        Assert.assertEquals(WebkitUtils.waitForFuture(pageCommitVisibleFuture), "about:blank");
+    }
+
+    @Test
+    public void testResetClientToRegular() throws Exception {
+        WebViewClientCompat compatClient = new WebViewClientCompat() {
+            @Override
+            public void onPageStarted(WebView view, String url, Bitmap bitmap) {
+                Assert.fail("This client should not have callbacks invoked");
+            }
+        };
+        mWebViewOnUiThread.setWebViewClient(compatClient);
+
+        final ResolvableFuture<String> pageFinishedFuture = ResolvableFuture.create();
+        WebViewClient nonCompatClient = new WebViewClient() {
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                pageFinishedFuture.set(url);
+            }
+        };
+        mWebViewOnUiThread.setWebViewClient(nonCompatClient); // reset to the new client
+        mWebViewOnUiThread.loadUrl("about:blank");
+        Assert.assertEquals(WebkitUtils.waitForFuture(pageFinishedFuture), "about:blank");
     }
 
     private class MockWebViewClient extends WebViewOnUiThread.WaitForLoadedClient {
@@ -312,7 +432,6 @@ public class WebViewClientCompatTest {
         @Override
         public void onLoadResource(WebView view, String url) {
             super.onLoadResource(view, url);
-            Assert.assertTrue(mOnPageStartedCalled);
             mOnLoadResourceCalled = true;
         }
 

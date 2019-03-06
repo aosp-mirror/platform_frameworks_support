@@ -16,10 +16,12 @@
 
 package androidx.work.worker;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
 import androidx.work.Worker;
+import androidx.work.WorkerParameters;
 
 /**
  * Simple Test Worker
@@ -27,9 +29,13 @@ import androidx.work.Worker;
 
 public class TestWorker extends Worker {
 
+    public TestWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
+        super(context, workerParams);
+    }
+
     @Override
     public @NonNull Result doWork() {
         Log.d("TestWorker", "TestWorker Ran!");
-        return Result.SUCCESS;
+        return Result.success();
     }
 }

@@ -38,8 +38,12 @@ import java.util.zip.ZipOutputStream
  */
 class Archive(
     override val relativePath: Path,
-    val files: List<ArchiveItem>
+    files: List<ArchiveItem>
 ) : ArchiveItem {
+
+    private val _files: MutableList<ArchiveItem> = files.toMutableList()
+
+    val files: List<ArchiveItem> = _files
 
     companion object {
         /** Defines file extensions that are recognized as archives */
@@ -49,6 +53,8 @@ class Archive(
     }
 
     override val fileName: String = relativePath.fileName.toString()
+
+    override var markedForRemoval: Boolean = false
 
     private var targetPath: Path = relativePath
 
@@ -60,6 +66,10 @@ class Archive(
      */
     fun setTargetPath(path: Path) {
         targetPath = path
+    }
+
+    override fun findAllFiles(selector: (ArchiveFile) -> Boolean, result: FileSearchResult) {
+        files.forEach { it.findAllFiles(selector, result) }
     }
 
     override fun accept(visitor: ArchiveItemVisitor) {
@@ -75,6 +85,14 @@ class Archive(
 
     fun writeSelf(): File {
         return writeSelfToFile(targetPath)
+    }
+
+    fun removeItem(item: ArchiveItem) {
+        _files.remove(item)
+    }
+
+    fun addItem(item: ArchiveItem) {
+        _files.add(item)
     }
 
     @Throws(IOException::class)
@@ -103,6 +121,10 @@ class Archive(
         val out = ZipOutputStream(outputStream)
 
         for (file in files) {
+            if (file.markedForRemoval) {
+                continue
+            }
+
             Log.v(TAG, "Writing file: %s", file.relativePath)
             // Make sure we always use '/' as separator in ZipOutputStream otherwise we might end
             // up with a corrupted zip file on a non-Unix OS (b/109738608).

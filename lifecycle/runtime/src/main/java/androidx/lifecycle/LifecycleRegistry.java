@@ -28,8 +28,6 @@ import static androidx.lifecycle.Lifecycle.State.INITIALIZED;
 import static androidx.lifecycle.Lifecycle.State.RESUMED;
 import static androidx.lifecycle.Lifecycle.State.STARTED;
 
-import android.util.Log;
-
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -47,8 +45,6 @@ import java.util.Map.Entry;
  * a custom LifecycleOwner.
  */
 public class LifecycleRegistry extends Lifecycle {
-
-    private static final String LOG_TAG = "LifecycleRegistry";
 
     /**
      * Custom list that keeps observers and can handle removals / additions during traversal.
@@ -104,10 +100,21 @@ public class LifecycleRegistry extends Lifecycle {
      * Moves the Lifecycle to the given state and dispatches necessary events to the observers.
      *
      * @param state new state
+     * @deprecated Use {@link #setCurrentState(State)}.
      */
-    @SuppressWarnings("WeakerAccess")
+    @Deprecated
     @MainThread
     public void markState(@NonNull State state) {
+        setCurrentState(state);
+    }
+
+    /**
+     * Moves the Lifecycle to the given state and dispatches necessary events to the observers.
+     *
+     * @param state new state
+     */
+    @MainThread
+    public void setCurrentState(@NonNull State state) {
         moveToState(state);
     }
 
@@ -317,9 +324,8 @@ public class LifecycleRegistry extends Lifecycle {
     private void sync() {
         LifecycleOwner lifecycleOwner = mLifecycleOwner.get();
         if (lifecycleOwner == null) {
-            Log.w(LOG_TAG, "LifecycleOwner is garbage collected, you shouldn't try dispatch "
-                    + "new events from it.");
-            return;
+            throw new IllegalStateException("LifecycleOwner of this LifecycleRegistry is already"
+                    + "garbage collected. It is too late to change lifecycle state.");
         }
         while (!isSynced()) {
             mNewEventOccurred = false;
@@ -342,10 +348,10 @@ public class LifecycleRegistry extends Lifecycle {
 
     static class ObserverWithState {
         State mState;
-        GenericLifecycleObserver mLifecycleObserver;
+        LifecycleEventObserver mLifecycleObserver;
 
         ObserverWithState(LifecycleObserver observer, State initialState) {
-            mLifecycleObserver = Lifecycling.getCallback(observer);
+            mLifecycleObserver = Lifecycling.lifecycleEventObserver(observer);
             mState = initialState;
         }
 

@@ -99,12 +99,14 @@ public class RxRoom {
      *
      * @hide
      */
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
     public static <T> Flowable<T> createFlowable(final RoomDatabase database,
             final String[] tableNames, final Callable<T> callable) {
         Scheduler scheduler = Schedulers.from(database.getQueryExecutor());
         final Maybe<T> maybe = Maybe.fromCallable(callable);
         return createFlowable(database, tableNames)
+                .subscribeOn(scheduler)
+                .unsubscribeOn(scheduler)
                 .observeOn(scheduler)
                 .flatMapMaybe(new Function<Object, MaybeSource<T>>() {
                     @Override
@@ -161,12 +163,14 @@ public class RxRoom {
      *
      * @hide
      */
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
     public static <T> Observable<T> createObservable(final RoomDatabase database,
             final String[] tableNames, final Callable<T> callable) {
         Scheduler scheduler = Schedulers.from(database.getQueryExecutor());
         final Maybe<T> maybe = Maybe.fromCallable(callable);
         return createObservable(database, tableNames)
+                .subscribeOn(scheduler)
+                .unsubscribeOn(scheduler)
                 .observeOn(scheduler)
                 .flatMapMaybe(new Function<Object, MaybeSource<T>>() {
                     @Override

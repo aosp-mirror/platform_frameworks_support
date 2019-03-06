@@ -8,8 +8,9 @@ plugins {
 
 dependencies {
     api(project(":core"))
-    api(project(":legacy-support-core-ui"))
 
+    androidTestImplementation(TEST_EXT_JUNIT)
+    androidTestImplementation(TEST_CORE)
     androidTestImplementation(TEST_RUNNER)
     androidTestImplementation(TEST_RULES)
     androidTestImplementation(ESPRESSO_CORE, libs.exclude_for_espresso)
@@ -18,7 +19,7 @@ dependencies {
 supportLibrary {
     name = "Android Support Grid Layout"
     publish = true
-    mavenVersion = LibraryVersions.SUPPORT_LIBRARY
+    mavenVersion = LibraryVersions.GRIDLAYOUT
     mavenGroup = LibraryGroups.GRIDLAYOUT
     inceptionYear = "2013"
     description = "Android Support Grid Layout"
