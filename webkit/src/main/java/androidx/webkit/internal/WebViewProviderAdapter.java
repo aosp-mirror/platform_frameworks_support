@@ -17,16 +17,21 @@
 package androidx.webkit.internal;
 
 import android.net.Uri;
+import android.webkit.WebChromeClient;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 import androidx.webkit.WebMessageCompat;
 import androidx.webkit.WebMessagePortCompat;
 import androidx.webkit.WebViewCompat;
+import androidx.webkit.WebViewRenderer;
+import androidx.webkit.WebViewRendererClient;
 
 import org.chromium.support_lib_boundary.WebViewProviderBoundaryInterface;
 import org.chromium.support_lib_boundary.util.BoundaryInterfaceReflectionUtil;
 
 import java.lang.reflect.InvocationHandler;
+import java.util.concurrent.Executor;
 
 /**
  * Adapter for WebViewProviderBoundaryInterface providing the functionality expected of
@@ -70,5 +75,47 @@ public class WebViewProviderAdapter {
         mImpl.postMessageToMainFrame(
                 BoundaryInterfaceReflectionUtil.createInvocationHandlerFor(
                         new WebMessageAdapter(message)), targetOrigin);
+    }
+
+    /**
+     * Adapter method for {@link WebViewCompat#getWebViewClient()}.
+     */
+    public WebViewClient getWebViewClient() {
+        return mImpl.getWebViewClient();
+    }
+
+    /**
+     * Adapter method for {@link WebViewCompat#getWebChromeClient()}.
+     */
+    public WebChromeClient getWebChromeClient() {
+        return mImpl.getWebChromeClient();
+    }
+
+    /**
+     * Adapter method for {@link WebViewCompat#getWebViewRenderer()}.
+     */
+    public WebViewRenderer getWebViewRenderer() {
+        return WebViewRendererImpl.forInvocationHandler(mImpl.getWebViewRenderer());
+    }
+
+    /**
+     * Adapter method for {@link WebViewCompat#getWebViewRendererClient()}.
+     */
+    public WebViewRendererClient getWebViewRendererClient() {
+        InvocationHandler handler = mImpl.getWebViewRendererClient();
+        if (handler == null) return null;
+        return ((WebViewRendererClientAdapter)
+                BoundaryInterfaceReflectionUtil.getDelegateFromInvocationHandler(
+                        handler)).getWebViewRendererClient();
+    }
+
+    /**
+     * Adapter method for {@link WebViewCompat#setWebViewRendererClient(WebViewRendererClient)}.
+     */
+    public void setWebViewRendererClient(
+            Executor executor, WebViewRendererClient webViewRendererClient) {
+        mImpl.setWebViewRendererClient(
+                BoundaryInterfaceReflectionUtil.createInvocationHandlerFor(
+                      new WebViewRendererClientAdapter(executor, webViewRendererClient)));
     }
 }

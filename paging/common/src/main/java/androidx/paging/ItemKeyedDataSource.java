@@ -94,6 +94,7 @@ public abstract class ItemKeyedDataSource<Key, Value> extends ContiguousDataSour
          * <p>
          * Returned data must begin directly adjacent to this position.
          */
+        @NonNull
         public final Key key;
         /**
          * Requested number of items to load.
@@ -103,7 +104,7 @@ public abstract class ItemKeyedDataSource<Key, Value> extends ContiguousDataSour
          */
         public final int requestedLoadSize;
 
-        public LoadParams(Key key, int requestedLoadSize) {
+        public LoadParams(@NonNull Key key, int requestedLoadSize) {
             this.key = key;
             this.requestedLoadSize = requestedLoadSize;
         }
@@ -152,7 +153,6 @@ public abstract class ItemKeyedDataSource<Key, Value> extends ContiguousDataSour
         public abstract void onResult(@NonNull List<Value> data, int position, int totalCount);
     }
 
-
     /**
      * Callback for ItemKeyedDataSource {@link #loadBefore(LoadParams, LoadCallback)}
      * and {@link #loadAfter(LoadParams, LoadCallback)} to return data.
@@ -182,6 +182,38 @@ public abstract class ItemKeyedDataSource<Key, Value> extends ContiguousDataSour
          * @param data List of items loaded from the ItemKeyedDataSource.
          */
         public abstract void onResult(@NonNull List<Value> data);
+
+        /**
+         * Called to report a non-retryable error from a DataSource.
+         * <p>
+         * Call this method to report a non-retryable error from
+         * {@link #loadInitial(LoadInitialParams, LoadInitialCallback)},
+         * {@link #loadBefore(LoadParams, LoadCallback)}, or
+         * {@link #loadAfter(LoadParams, LoadCallback)} methods.
+         *
+         * @param error The error that occurred during loading.
+         */
+        public void onError(@NonNull Throwable error) {
+            // TODO: remove default implementation in 3.0
+            throw new IllegalStateException(
+                    "You must implement onError if implementing your own load callback");
+        }
+
+        /**
+         * Called to report a retryable error from a DataSource.
+         * <p>
+         * Call this method to report a retryable error from
+         * {@link #loadInitial(LoadInitialParams, LoadInitialCallback)},
+         * {@link #loadBefore(LoadParams, LoadCallback)}, or
+         * {@link #loadAfter(LoadParams, LoadCallback)} methods.
+         *
+         * @param error The error that occurred during loading.
+         */
+        public void onRetryableError(@NonNull Throwable error) {
+            // TODO: remove default implementation in 3.0
+            throw new IllegalStateException(
+                    "You must implement onRetryableError if implementing your own load callback");
+        }
     }
 
     static class LoadInitialCallbackImpl<Value> extends LoadInitialCallback<Value> {
@@ -214,6 +246,16 @@ public abstract class ItemKeyedDataSource<Key, Value> extends ContiguousDataSour
                 mCallbackHelper.dispatchResultToReceiver(new PageResult<>(data, 0, 0, 0));
             }
         }
+
+        @Override
+        public void onError(@NonNull Throwable error) {
+            mCallbackHelper.dispatchErrorToReceiver(error, false);
+        }
+
+        @Override
+        public void onRetryableError(@NonNull Throwable error) {
+            mCallbackHelper.dispatchErrorToReceiver(error, true);
+        }
     }
 
     static class LoadCallbackImpl<Value> extends LoadCallback<Value> {
@@ -231,6 +273,16 @@ public abstract class ItemKeyedDataSource<Key, Value> extends ContiguousDataSour
             if (!mCallbackHelper.dispatchInvalidResultIfInvalid()) {
                 mCallbackHelper.dispatchResultToReceiver(new PageResult<>(data, 0, 0, 0));
             }
+        }
+
+        @Override
+        public void onError(@NonNull Throwable error) {
+            mCallbackHelper.dispatchErrorToReceiver(error, false);
+        }
+
+        @Override
+        public void onRetryableError(@NonNull Throwable error) {
+            mCallbackHelper.dispatchErrorToReceiver(error, true);
         }
     }
 

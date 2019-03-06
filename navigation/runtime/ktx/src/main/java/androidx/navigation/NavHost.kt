@@ -16,13 +16,13 @@
 
 package androidx.navigation
 
-import android.support.annotation.IdRes
+import androidx.annotation.IdRes
 
 /**
  * Construct a new [NavGraph]
  */
 inline fun NavHost.createGraph(
-        @IdRes id: Int = 0,
-        @IdRes startDestination: Int,
-        block: NavGraphBuilder.() -> Unit
-): NavGraph = navController.createGraph(id, startDestination, block)
+    @IdRes id: Int = 0,
+    @IdRes startDestination: Int,
+    builder: NavGraphBuilder.() -> Unit
+): NavGraph = navController.createGraph(id, startDestination, builder)

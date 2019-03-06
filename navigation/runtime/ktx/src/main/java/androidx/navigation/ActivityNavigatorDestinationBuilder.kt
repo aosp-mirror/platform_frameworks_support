@@ -21,27 +21,27 @@ package androidx.navigation
 import android.app.Activity
 import android.content.ComponentName
 import android.net.Uri
-import android.support.annotation.IdRes
+import androidx.annotation.IdRes
 import kotlin.reflect.KClass
 
 /**
  * Construct a new [ActivityNavigator.Destination]
  */
 inline fun NavGraphBuilder.activity(
-        @IdRes id: Int,
-        block: ActivityNavigatorDestinationBuilder.() -> Unit
+    @IdRes id: Int,
+    builder: ActivityNavigatorDestinationBuilder.() -> Unit
 ) = destination(ActivityNavigatorDestinationBuilder(
         provider[ActivityNavigator::class],
         id
-).apply(block))
+).apply(builder))
 
 /**
  * DSL for constructing a new [ActivityNavigator.Destination]
  */
 @NavDestinationDsl
 class ActivityNavigatorDestinationBuilder(
-        navigator: ActivityNavigator,
-        @IdRes id: Int
+    navigator: ActivityNavigator,
+    @IdRes id: Int
 ) : NavDestinationBuilder<ActivityNavigator.Destination>(navigator, id) {
     private val context = navigator.context
 

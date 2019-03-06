@@ -15,7 +15,8 @@
   ~ limitations under the License
   -->
 <resources>
-    <color name="lb_preference_decor_list_background">#FF202124</color>
+    <color name="default_preference_window_background_legacy">#263238</color>
+    <color name="default_preference_brand_color_legacy">#FF37474F</color>
 
     <color name="lb_preference_item_primary_text_color_default">#EEEEEE</color>
     <color name="lb_preference_item_primary_text_color_disabled">#4DEEEEEE</color>

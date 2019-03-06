@@ -16,7 +16,7 @@
 
 package androidx.media2.subtitle;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -30,6 +30,7 @@ import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.TextPaint;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -37,7 +38,6 @@ import android.view.accessibility.CaptioningManager.CaptionStyle;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.annotation.RequiresApi;
 import androidx.annotation.RestrictTo;
 import androidx.media2.R;
 
@@ -47,9 +47,9 @@ import java.util.ArrayList;
 /**
  * @hide
  */
-@RequiresApi(28)
-@RestrictTo(LIBRARY_GROUP)
+@RestrictTo(LIBRARY_GROUP_PREFIX)
 public class ClosedCaptionRenderer extends SubtitleController.Renderer {
+    private static final String TAG = "ClosedCaptionRenderer";
     private final Context mContext;
     private Cea608CCWidget mCCWidget;
 
@@ -121,11 +121,7 @@ public class ClosedCaptionRenderer extends SubtitleController.Renderer {
         }
 
         Cea608CCWidget(Context context, AttributeSet attrs, int defStyle) {
-            this(context, attrs, defStyle, 0);
-        }
-
-        Cea608CCWidget(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-            super(context, attrs, defStyleAttr, defStyleRes);
+            super(context, attrs, defStyle);
         }
 
         @Override
@@ -208,8 +204,11 @@ public class ClosedCaptionRenderer extends SubtitleController.Renderer {
                 getPaint().getTextBounds(DUMMY_TEXT, 0, DUMMY_TEXT.length(), mTextBounds);
                 float actualTextWidth = mTextBounds.width();
                 float requiredTextWidth = MeasureSpec.getSize(widthMeasureSpec);
-                setScaleX(requiredTextWidth / actualTextWidth);
-
+                if (actualTextWidth != .0f) {
+                    setScaleX(requiredTextWidth / actualTextWidth);
+                } else {
+                    Log.w(TAG, "onMeasure(): Paint#getTextBounds() returned zero width. Ignored.");
+                }
                 super.onMeasure(widthMeasureSpec, heightMeasureSpec);
             }
 

@@ -16,52 +16,76 @@
 
 package androidx.work.impl.utils.taskexecutor;
 
-import android.support.annotation.Nullable;
+import android.os.Handler;
+import android.os.Looper;
+import android.support.annotation.NonNull;
 import android.support.annotation.RestrictTo;
 
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadFactory;
+
 /**
- * A static class that serves as a central point to execute common tasks in WorkManager.
- * This is used for business logic internal to WorkManager and NOT for worker processing.
- * Adapted from {@link android.arch.core.executor.ArchTaskExecutor}
+ * Default Task Executor for executing common tasks in WorkManager
  * @hide
  */
 
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public class WorkManagerTaskExecutor implements TaskExecutor {
-    private static WorkManagerTaskExecutor sInstance;
-    private final TaskExecutor mDefaultTaskExecutor = new DefaultTaskExecutor();
-    private TaskExecutor mTaskExecutor = mDefaultTaskExecutor;
 
-    /**
-     * Returns an instance of the task executor.
-     * @return The singleton WorkManagerTaskExecutor.
-     */
-    public static synchronized WorkManagerTaskExecutor getInstance() {
-        if (sInstance == null) {
-            sInstance = new WorkManagerTaskExecutor();
+    private final Handler mMainThreadHandler = new Handler(Looper.getMainLooper());
+
+    private final Executor mMainThreadExecutor = new Executor() {
+        @Override
+        public void execute(@NonNull Runnable command) {
+            postToMainThread(command);
         }
-        return sInstance;
-    }
+    };
 
-    private WorkManagerTaskExecutor() {
-    }
+    // Avoiding synthetic accessor.
+    volatile Thread mCurrentBackgroundExecutorThread;
+    private final ThreadFactory mBackgroundThreadFactory = new ThreadFactory() {
 
-    /**
-     * Overrides the task executor used by {@link androidx.work.impl.WorkManagerImpl}.
-     *
-     * @param taskExecutor The instance of the {@link TaskExecutor}.
-     */
-    public void setTaskExecutor(@Nullable TaskExecutor taskExecutor) {
-        mTaskExecutor = taskExecutor == null ? mDefaultTaskExecutor : taskExecutor;
-    }
+        private int mThreadsCreated = 0;
+
+        @Override
+        public Thread newThread(@NonNull Runnable r) {
+            // Delegate to the default factory, but keep track of the current thread being used.
+            Thread thread = Executors.defaultThreadFactory().newThread(r);
+            thread.setName("WorkManager-WorkManagerTaskExecutor-thread-" + mThreadsCreated);
+            mThreadsCreated++;
+            mCurrentBackgroundExecutorThread = thread;
+            return thread;
+        }
+    };
+
+    private final ExecutorService mBackgroundExecutor =
+            Executors.newSingleThreadExecutor(mBackgroundThreadFactory);
 
     @Override
     public void postToMainThread(Runnable r) {
-        mTaskExecutor.postToMainThread(r);
+        mMainThreadHandler.post(r);
+    }
+
+    @Override
+    public Executor getMainThreadExecutor() {
+        return mMainThreadExecutor;
     }
 
     @Override
     public void executeOnBackgroundThread(Runnable r) {
-        mTaskExecutor.executeOnBackgroundThread(r);
+        mBackgroundExecutor.execute(r);
+    }
+
+    @Override
+    public Executor getBackgroundExecutor() {
+        return mBackgroundExecutor;
+    }
+
+    @NonNull
+    @Override
+    public Thread getBackgroundExecutorThread() {
+        return mCurrentBackgroundExecutorThread;
     }
 }

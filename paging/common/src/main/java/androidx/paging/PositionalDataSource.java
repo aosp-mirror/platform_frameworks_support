@@ -103,7 +103,7 @@ public abstract class PositionalDataSource<T> extends DataSource<Integer, T> {
     @SuppressWarnings("WeakerAccess")
     public static class LoadRangeParams {
         /**
-         * Start position of data to load.
+         * START position of data to load.
          * <p>
          * Returned data must start at this position.
          */
@@ -173,6 +173,34 @@ public abstract class PositionalDataSource<T> extends DataSource<Integer, T> {
          *                 pass {@code N}.
          */
         public abstract void onResult(@NonNull List<T> data, int position);
+
+        /**
+         * Called to report a non-retryable error from a DataSource.
+         * <p>
+         * Call this method to report a non-retryable error from
+         * {@link #loadInitial(LoadInitialParams, LoadInitialCallback)}.
+         *
+         * @param error The error that occurred during loading.
+         */
+        public void onError(@NonNull Throwable error) {
+            // TODO: remove default implementation in 3.0
+            throw new IllegalStateException(
+                    "You must implement onError if implementing your own load callback");
+        }
+
+        /**
+         * Called to report a retryable error from a DataSource.
+         * <p>
+         * Call this method to report a retryable error from
+         * {@link #loadInitial(LoadInitialParams, LoadInitialCallback)}.
+         *
+         * @param error The error that occurred during loading.
+         */
+        public void onRetryableError(@NonNull Throwable error) {
+            // TODO: remove default implementation in 3.0
+            throw new IllegalStateException(
+                    "You must implement onRetryableError if implementing your own load callback");
+        }
     }
 
     /**
@@ -195,6 +223,34 @@ public abstract class PositionalDataSource<T> extends DataSource<Integer, T> {
          *             unless at end of list.
          */
         public abstract void onResult(@NonNull List<T> data);
+
+        /**
+         * Called to report a non-retryable error from a DataSource.
+         * <p>
+         * Call this method to report a non-retryable error from
+         * {@link #loadRange(LoadRangeParams, LoadRangeCallback)}.
+         *
+         * @param error The error that occurred during loading.
+         */
+        public void onError(@NonNull Throwable error) {
+            // TODO: remove default implementation in 3.0
+            throw new IllegalStateException(
+                    "You must implement onError if implementing your own load callback");
+        }
+
+        /**
+         * Called to report a retryable error from a DataSource.
+         * <p>
+         * Call this method to report a retryable error from
+         * {@link #loadRange(LoadRangeParams, LoadRangeCallback)}.
+         *
+         * @param error The error that occurred during loading.
+         */
+        public void onRetryableError(@NonNull Throwable error) {
+            // TODO: remove default implementation in 3.0
+            throw new IllegalStateException(
+                    "You must implement onRetryableError if implementing your own load callback");
+        }
     }
 
     static class LoadInitialCallbackImpl<T> extends LoadInitialCallback<T> {
@@ -253,6 +309,16 @@ public abstract class PositionalDataSource<T> extends DataSource<Integer, T> {
                 mCallbackHelper.dispatchResultToReceiver(new PageResult<>(data, position));
             }
         }
+
+        @Override
+        public void onError(@NonNull Throwable error) {
+            mCallbackHelper.dispatchErrorToReceiver(error, false);
+        }
+
+        @Override
+        public void onRetryableError(@NonNull Throwable error) {
+            mCallbackHelper.dispatchErrorToReceiver(error, true);
+        }
     }
 
     static class LoadRangeCallbackImpl<T> extends LoadRangeCallback<T> {
@@ -272,6 +338,16 @@ public abstract class PositionalDataSource<T> extends DataSource<Integer, T> {
                 mCallbackHelper.dispatchResultToReceiver(new PageResult<>(
                         data, 0, 0, mPositionOffset));
             }
+        }
+
+        @Override
+        public void onError(@NonNull Throwable error) {
+            mCallbackHelper.dispatchErrorToReceiver(error, false);
+        }
+
+        @Override
+        public void onRetryableError(@NonNull Throwable error) {
+            mCallbackHelper.dispatchErrorToReceiver(error, true);
         }
     }
 
@@ -394,16 +470,16 @@ public abstract class PositionalDataSource<T> extends DataSource<Integer, T> {
         int initialLoadSize = params.requestedLoadSize;
         int pageSize = params.pageSize;
 
-        int roundedPageStart = Math.round(position / pageSize) * pageSize;
+        int pageStart = position / pageSize * pageSize;
 
         // maximum start pos is that which will encompass end of list
         int maximumLoadPage = ((totalCount - initialLoadSize + pageSize - 1) / pageSize) * pageSize;
-        roundedPageStart = Math.min(maximumLoadPage, roundedPageStart);
+        pageStart = Math.min(maximumLoadPage, pageStart);
 
         // minimum start position is 0
-        roundedPageStart = Math.max(0, roundedPageStart);
+        pageStart = Math.max(0, pageStart);
 
-        return roundedPageStart;
+        return pageStart;
     }
 
     /**
@@ -509,12 +585,22 @@ public abstract class PositionalDataSource<T> extends DataSource<Integer, T> {
         void dispatchLoadInitial(@Nullable Integer position, int initialLoadSize, int pageSize,
                 boolean enablePlaceholders, @NonNull Executor mainThreadExecutor,
                 @NonNull PageResult.Receiver<Value> receiver) {
-            final int convertPosition = position == null ? 0 : position;
+
+            if (position == null) {
+                position = 0;
+            } else {
+                // snap load size to page multiple (minimum two)
+                initialLoadSize = (Math.max(initialLoadSize / pageSize, 2)) * pageSize;
+
+                // move start pos so that the load is centered around the key, not starting at it
+                final int idealStart = position - initialLoadSize / 2;
+                position = Math.max(0, idealStart / pageSize * pageSize);
+            }
 
             // Note enablePlaceholders will be false here, but we don't have a way to communicate
             // this to PositionalDataSource. This is fine, because only the list and its position
             // offset will be consumed by the LoadInitialCallback.
-            mSource.dispatchLoadInitial(false, convertPosition, initialLoadSize,
+            mSource.dispatchLoadInitial(false, position, initialLoadSize,
                     pageSize, mainThreadExecutor, receiver);
         }
 
@@ -531,7 +617,6 @@ public abstract class PositionalDataSource<T> extends DataSource<Integer, T> {
         void dispatchLoadBefore(int currentBeginIndex, @NonNull Value currentBeginItem,
                 int pageSize, @NonNull Executor mainThreadExecutor,
                 @NonNull PageResult.Receiver<Value> receiver) {
-
             int startIndex = currentBeginIndex - 1;
             if (startIndex < 0) {
                 // trigger empty list load

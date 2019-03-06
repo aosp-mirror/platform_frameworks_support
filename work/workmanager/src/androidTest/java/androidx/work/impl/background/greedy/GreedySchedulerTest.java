@@ -23,8 +23,8 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.SmallTest;
-import androidx.test.runner.AndroidJUnit4;
 import androidx.work.Constraints;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.PeriodicWorkRequest;
@@ -94,6 +94,16 @@ public class GreedySchedulerTest extends WorkManagerTest {
 
     @Test
     @SmallTest
+    public void testGreedyScheduler_ignoresBackedOffWork() {
+        OneTimeWorkRequest work = new OneTimeWorkRequest.Builder(TestWorker.class)
+                .setInitialRunAttemptCount(5)
+                .build();
+        mGreedyScheduler.schedule(getWorkSpec(work));
+        verify(mMockWorkConstraintsTracker, never()).replace(ArgumentMatchers.<WorkSpec>anyList());
+    }
+
+    @Test
+    @SmallTest
     public void testGreedyScheduler_startsWorkWhenConstraintsMet() {
         mGreedyScheduler.onAllConstraintsMet(Collections.singletonList(TEST_ID));
         verify(mWorkManagerImpl).startWork(TEST_ID);
@@ -117,7 +127,7 @@ public class GreedySchedulerTest extends WorkManagerTest {
         verify(mMockWorkConstraintsTracker).replace(Collections.singletonList(workSpec));
         reset(mMockWorkConstraintsTracker);
 
-        mGreedyScheduler.onExecuted(workSpec.id, false, false);
+        mGreedyScheduler.onExecuted(workSpec.id, false);
         verify(mMockWorkConstraintsTracker).replace(Collections.<WorkSpec>emptyList());
     }
 

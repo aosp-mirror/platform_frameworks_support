@@ -36,10 +36,11 @@ import androidx.lifecycle.testapp.NavigationDialogActivity;
 import androidx.lifecycle.testapp.NavigationTestActivityFirst;
 import androidx.lifecycle.testapp.NavigationTestActivitySecond;
 import androidx.lifecycle.testapp.NonSupportActivity;
-import androidx.test.InstrumentationRegistry;
-import androidx.test.filters.SmallTest;
+import androidx.test.core.app.ApplicationProvider;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.LargeTest;
+import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
-import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.After;
 import org.junit.Rule;
@@ -49,10 +50,14 @@ import org.junit.runner.RunWith;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
-@SmallTest
+@LargeTest
 @RunWith(AndroidJUnit4.class)
 public class ProcessOwnerTest {
+
+    private static final int TIMEOUT = 5; // secs
 
     @Rule
     public ActivityTestRule<NavigationTestActivityFirst> activityTestRule =
@@ -134,8 +139,43 @@ public class ProcessOwnerTest {
         FragmentActivity dialogActivity = (FragmentActivity) monitor.waitForActivity();
         checkProcessObserverSilent(dialogActivity);
 
-        List<Event> events = Collections.synchronizedList(new ArrayList<>());
+        class GoToBackgroundObserver implements LifecycleObserver {
+            volatile boolean mStartTest;
+            int mExpectedInd = 0;
+            Event[] mExpectedEvents = {ON_PAUSE, ON_STOP};
+            volatile Error mFailure;
+            final CountDownLatch mLatch = new CountDownLatch(1);
 
+            @OnLifecycleEvent(Event.ON_ANY)
+            public void onAny(@SuppressWarnings("unused") LifecycleOwner provider,
+                    Event event) throws Throwable {
+                if (!mStartTest) {
+                    // ignore all events on the way up
+                    return;
+                }
+                if (event != mExpectedEvents[mExpectedInd]) {
+                    removeProcessObserver(this);
+                    mFailure = new AssertionError("Expected event was "
+                            + mExpectedEvents[mExpectedInd] + ", but was " + event);
+                    mLatch.countDown();
+                    return;
+                }
+                mExpectedInd++;
+                if (mExpectedInd == mExpectedEvents.length) {
+                    removeProcessObserver(this);
+                    mLatch.countDown();
+                }
+            }
+        }
+        GoToBackgroundObserver goToBackgroundObserver = new GoToBackgroundObserver();
+        addProcessObserver(goToBackgroundObserver);
+        goToBackgroundObserver.mStartTest = true;
+        assertThat(activity.moveTaskToBack(true), is(true));
+        goToBackgroundObserver.mLatch.await(TIMEOUT, TimeUnit.SECONDS);
+        if (goToBackgroundObserver.mFailure != null) {
+            throw goToBackgroundObserver.mFailure;
+        }
+        List<Event> events = Collections.synchronizedList(new ArrayList<>());
         LifecycleObserver collectingObserver = new LifecycleObserver() {
             @OnLifecycleEvent(Event.ON_ANY)
             public void onStateChanged(@SuppressWarnings("unused") LifecycleOwner provider,
@@ -145,11 +185,7 @@ public class ProcessOwnerTest {
         };
         addProcessObserver(collectingObserver);
         events.clear();
-        assertThat(activity.moveTaskToBack(true), is(true));
-        Thread.sleep(ProcessLifecycleOwner.TIMEOUT_MS * 2);
-        assertThat(events.toArray(), is(new Event[]{ON_PAUSE, ON_STOP}));
-        events.clear();
-        Context context = InstrumentationRegistry.getContext();
+        Context context = ApplicationProvider.getApplicationContext();
         context.startActivity(new Intent(activity, NavigationDialogActivity.class)
                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
         waitTillResumed(dialogActivity, activityTestRule);

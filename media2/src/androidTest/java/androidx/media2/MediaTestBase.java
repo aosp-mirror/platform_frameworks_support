@@ -20,7 +20,8 @@ import android.content.Context;
 import android.media.AudioManager;
 import android.os.Looper;
 
-import androidx.test.InstrumentationRegistry;
+import androidx.test.core.app.ApplicationProvider;
+import androidx.test.platform.app.InstrumentationRegistry;
 
 import org.junit.BeforeClass;
 
@@ -31,7 +32,7 @@ abstract class MediaTestBase {
     /**
      * All tests methods should start with this.
      * <p>
-     * MediaControllerCompat, which is wrapped by the MediaSession2, can be only created by the
+     * MediaControllerCompat, which is wrapped by the MediaSession, can be only created by the
      * thread whose Looper is prepared. However, when the presubmit test runs on the server,
      * test runs with the {@link org.junit.internal.runners.statements.FailOnTimeout} which creates
      * dedicated thread for running test methods while methods annotated with @After or @Before
@@ -60,7 +61,7 @@ abstract class MediaTestBase {
                 // Without posting this, audio focus listeners wouldn't be called because the
                 // listeners would be posted to the test thread (here) where it waits until the
                 // tests are finished.
-                Context context = InstrumentationRegistry.getTargetContext();
+                Context context = ApplicationProvider.getApplicationContext();
                 AudioManager manager =
                         (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
             }

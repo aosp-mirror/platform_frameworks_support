@@ -18,12 +18,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.androidx.media">
 
-    <uses-sdk tools:overrideLibrary="androidx.media.widget" />
+    <uses-sdk tools:overrideLibrary="androidx.media2.widget" />
 
-    <application android:label="Video View Test">
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
-        <!-- Video Selection Activity -->
-        <activity android:name="VideoSelector"
+    <application android:label="Video View Test"
+                 android:supportsRtl="true">
+
+        <activity android:name=".VideoSelectorActivity"
             android:theme="@style/Theme.AppCompat"
             android:configChanges="orientation|screenSize">
             <intent-filter>
@@ -32,8 +35,7 @@
             </intent-filter>
         </activity>
 
-        <!-- Video playback activity -->
-        <activity android:name="VideoViewTest"
+        <activity android:name=".VideoPlayerActivity"
             android:theme="@style/Theme.AppCompat"
             android:configChanges="orientation|screenSize">
             <intent-filter>
@@ -41,8 +43,12 @@
             </intent-filter>
         </activity>
 
+        <receiver android:name="androidx.media.session.MediaButtonReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.MEDIA_BUTTON" />
+            </intent-filter>
+        </receiver>
+
     </application>
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
 </manifest>

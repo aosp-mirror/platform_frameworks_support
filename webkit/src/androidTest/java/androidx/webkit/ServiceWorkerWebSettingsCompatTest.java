@@ -16,32 +16,35 @@
 
 package androidx.webkit;
 
-import static org.junit.Assume.assumeTrue;
-
 import android.webkit.WebSettings;
 
-import androidx.test.filters.SmallTest;
-import androidx.test.runner.AndroidJUnit4;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.LargeTest;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-@SmallTest
+@LargeTest
 @RunWith(AndroidJUnit4.class)
 public class ServiceWorkerWebSettingsCompatTest {
     private ServiceWorkerWebSettingsCompat mSettings;
 
     @Before
     public void setUp() throws Exception {
-        assumeTrue(WebViewFeature.isFeatureSupported(WebViewFeature.SERVICE_WORKER_BASIC_USAGE));
+        WebkitUtils.checkFeature(WebViewFeature.SERVICE_WORKER_BASIC_USAGE);
         mSettings = ServiceWorkerControllerCompat.getInstance().getServiceWorkerWebSettings();
     }
 
+    /**
+     * This should remain functionally equivalent to
+     * android.webkit.cts.ServiceWorkerWebSettingsTest#testCacheMode. Modifications to this test
+     * should be reflected in that test as necessary. See http://go/modifying-webview-cts.
+     */
     @Test
     public void testCacheMode() {
-        assumeTrue(WebViewFeature.isFeatureSupported(WebViewFeature.SERVICE_WORKER_CACHE_MODE));
+        WebkitUtils.checkFeature(WebViewFeature.SERVICE_WORKER_CACHE_MODE);
 
         int i = WebSettings.LOAD_DEFAULT;
         Assert.assertEquals(i, mSettings.getCacheMode());
@@ -51,9 +54,14 @@ public class ServiceWorkerWebSettingsCompatTest {
         }
     }
 
+    /**
+     * This should remain functionally equivalent to
+     * android.webkit.cts.ServiceWorkerWebSettingsTest#testAllowContentAccess. Modifications to
+     * this test should be reflected in that test as necessary. See http://go/modifying-webview-cts.
+     */
     @Test
     public void testAllowContentAccess() {
-        assumeTrue(WebViewFeature.isFeatureSupported(WebViewFeature.SERVICE_WORKER_CONTENT_ACCESS));
+        WebkitUtils.checkFeature(WebViewFeature.SERVICE_WORKER_CONTENT_ACCESS);
 
         Assert.assertEquals(mSettings.getAllowContentAccess(), true);
         for (boolean b : new boolean[]{false, true}) {
@@ -62,9 +70,14 @@ public class ServiceWorkerWebSettingsCompatTest {
         }
     }
 
+    /**
+     * This should remain functionally equivalent to
+     * android.webkit.cts.ServiceWorkerWebSettingsTest#testAllowFileAccess. Modifications to this
+     * test should be reflected in that test as necessary. See http://go/modifying-webview-cts.
+     */
     @Test
     public void testAllowFileAccess() {
-        assumeTrue(WebViewFeature.isFeatureSupported(WebViewFeature.SERVICE_WORKER_FILE_ACCESS));
+        WebkitUtils.checkFeature(WebViewFeature.SERVICE_WORKER_FILE_ACCESS);
 
         Assert.assertEquals(mSettings.getAllowFileAccess(), true);
         for (boolean b : new boolean[]{false, true}) {
@@ -73,10 +86,14 @@ public class ServiceWorkerWebSettingsCompatTest {
         }
     }
 
+    /**
+     * This should remain functionally equivalent to
+     * android.webkit.cts.ServiceWorkerWebSettingsTest#testBlockNetworkLoads. Modifications to this
+     * test should be reflected in that test as necessary. See http://go/modifying-webview-cts.
+     */
     @Test
     public void testBlockNetworkLoads() {
-        assumeTrue(WebViewFeature.isFeatureSupported(
-                WebViewFeature.SERVICE_WORKER_BLOCK_NETWORK_LOADS));
+        WebkitUtils.checkFeature(WebViewFeature.SERVICE_WORKER_BLOCK_NETWORK_LOADS);
 
         // Note: we cannot test this setter unless we provide the INTERNET permission, otherwise we
         // get a SecurityException when we pass 'false'.

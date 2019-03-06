@@ -25,6 +25,7 @@ import android.graphics.Paint.Join;
 import android.graphics.Paint.Style;
 import android.graphics.RectF;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.text.Layout.Alignment;
 import android.text.SpannableStringBuilder;
 import android.text.StaticLayout;
@@ -33,11 +34,9 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.accessibility.CaptioningManager.CaptionStyle;
 
-import androidx.annotation.RequiresApi;
 import androidx.media2.R;
 
 /** Copied from frameworks/base/core/java/com/android/internal/widget/SubtitleView.java */
-@RequiresApi(28)
 class SubtitleView extends View {
     // Ratio of inner padding to font size.
     private static final float INNER_PADDING_RATIO = 0.125f;
@@ -87,11 +86,7 @@ class SubtitleView extends View {
     }
 
     SubtitleView(Context context, AttributeSet attrs, int defStyleAttr) {
-        this(context, attrs, defStyleAttr, 0);
-    }
-
-    SubtitleView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs);
+        super(context, attrs, defStyleAttr);
 
         // Set up density-dependent properties.
         // TODO: Move these to a default style.
@@ -234,12 +229,19 @@ class SubtitleView extends View {
         // StaticLayout.getWidth(), so this is non-trivial.
         mHasMeasurements = true;
         mLastMeasuredWidth = maxWidth;
-        mLayout = StaticLayout.Builder.obtain(mText, 0, mText.length(), mTextPaint, maxWidth)
-                .setAlignment(mAlignment)
-                .setLineSpacing(mSpacingAdd, mSpacingMult)
-                .setUseLineSpacingFromFallbacks(true)
-                .build();
-
+        if (Build.VERSION.SDK_INT >= 23) {
+            StaticLayout.Builder builder =
+                    StaticLayout.Builder.obtain(mText, 0, mText.length(), mTextPaint, maxWidth)
+                            .setAlignment(mAlignment)
+                            .setLineSpacing(mSpacingAdd, mSpacingMult);
+            if (Build.VERSION.SDK_INT >= 28) {
+                builder.setUseLineSpacingFromFallbacks(true);
+            }
+            mLayout = builder.build();
+        } else {
+            mLayout = new StaticLayout(mText, 0, mText.length(), mTextPaint, maxWidth, mAlignment,
+                    mSpacingMult, mSpacingAdd, true);
+        }
         return true;
     }
 

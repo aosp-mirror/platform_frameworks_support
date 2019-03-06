@@ -18,10 +18,12 @@ package androidx.loader.content;
 
 import static org.junit.Assert.fail;
 
+import android.os.AsyncTask;
+
 import androidx.annotation.NonNull;
-import androidx.test.InstrumentationRegistry;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
-import androidx.test.runner.AndroidJUnit4;
+import androidx.test.platform.app.InstrumentationRegistry;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,12 +35,10 @@ import java.util.concurrent.TimeUnit;
 @RunWith(AndroidJUnit4.class)
 public class ModernAsyncTaskTest {
 
-    ModernAsyncTask mModernAsyncTask;
+    private ModernAsyncTask mModernAsyncTask;
 
     /**
      * Test to ensure that onCancelled is always called, even if doInBackground throws an exception.
-     *
-     * @throws Throwable
      */
     @LargeTest
     @Test
@@ -49,13 +49,18 @@ public class ModernAsyncTaskTest {
         InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable() {
             @Override
             public void run() {
+                // we need to class load AsyncTask on API 15 in a thread with Looper,
+                // because sInternalHandler was initialized as static field.
+                // https://github.com/aosp-mirror/platform_frameworks_base/blob/ics-mr1/core/java/android/os/AsyncTask.java#L190
+                //noinspection unused
+                Executor unused = AsyncTask.THREAD_POOL_EXECUTOR;
                 mModernAsyncTask = new ModernAsyncTask() {
                     @Override
-                    protected Object doInBackground(Object[] params) {
+                    protected Object doInBackground() {
                         readyToCancel.countDown();
                         try {
                             readyToThrow.await();
-                        } catch (InterruptedException e) { }
+                        } catch (InterruptedException ignored) { }
                         // This exception is expected to be caught and ignored
                         throw new RuntimeException();
                     }
@@ -68,7 +73,7 @@ public class ModernAsyncTaskTest {
             }
         });
 
-        mModernAsyncTask.execute();
+        mModernAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         if (!readyToCancel.await(5, TimeUnit.SECONDS)) {
             fail("Test failure: doInBackground did not run in time.");
         }
@@ -82,8 +87,6 @@ public class ModernAsyncTaskTest {
     /**
      * Test to ensure that onCancelled is always called instead of onPostExecute when the exception
      * is not suppressed by cancelling the task.
-     *
-     * @throws Throwable
      */
     @LargeTest
     @Test
@@ -94,7 +97,7 @@ public class ModernAsyncTaskTest {
             public void run() {
                 mModernAsyncTask = new ModernAsyncTask() {
                     @Override
-                    protected Object doInBackground(Object[] params) {
+                    protected Object doInBackground() {
                         throw new RuntimeException();
                     }
 

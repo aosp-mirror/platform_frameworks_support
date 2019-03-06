@@ -16,7 +16,7 @@
 
 package androidx.leanback.preference;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
 import android.app.Fragment;
 import android.transition.Transition;
@@ -30,7 +30,7 @@ import androidx.leanback.transition.FadeAndShortSlide;
  * @hide
  */
 @RequiresApi(21)
-@RestrictTo(LIBRARY_GROUP)
+@RestrictTo(LIBRARY_GROUP_PREFIX)
 public class LeanbackPreferenceFragmentTransitionHelperApi21 {
 
     public static void addTransitions(Fragment f) {
@@ -43,6 +43,19 @@ public class LeanbackPreferenceFragmentTransitionHelperApi21 {
         f.setReturnTransition(transitionEndEdge);
     }
 
+    /**
+     * Setup preference fragment transition.
+     * @param f The preference fragment.
+     */
+    static void addTransitions(androidx.fragment.app.Fragment f) {
+        final Transition transitionStartEdge = new FadeAndShortSlide(Gravity.START);
+        final Transition transitionEndEdge = new FadeAndShortSlide(Gravity.END);
+
+        f.setEnterTransition(transitionEndEdge);
+        f.setExitTransition(transitionStartEdge);
+        f.setReenterTransition(transitionStartEdge);
+        f.setReturnTransition(transitionEndEdge);
+    }
 
     private LeanbackPreferenceFragmentTransitionHelperApi21() {
     }

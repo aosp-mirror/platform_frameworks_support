@@ -16,7 +16,10 @@
 
 package androidx.work.impl.utils.taskexecutor;
 
+import android.support.annotation.NonNull;
 import android.support.annotation.RestrictTo;
+
+import java.util.concurrent.Executor;
 
 /**
  * Interface for executing common tasks in WorkManager.
@@ -27,12 +30,28 @@ import android.support.annotation.RestrictTo;
 public interface TaskExecutor {
 
     /**
-     * @param runnable {@link Runnable} to post to the main thread.
+     * @param runnable {@link Runnable} to post to the main thread
      */
     void postToMainThread(Runnable runnable);
 
     /**
-     * @param runnable {@link Runnable} to execute on a background thread pool.
+     * @return The {@link Executor} for main thread task processing
+     */
+    Executor getMainThreadExecutor();
+
+    /**
+     * @param runnable {@link Runnable} to execute on a background thread pool
      */
     void executeOnBackgroundThread(Runnable runnable);
+
+    /**
+     * @return the {@link Thread} being used by WorkManager's background task executor.
+     */
+    @NonNull
+    Thread getBackgroundExecutorThread();
+
+    /**
+     * @return The {@link Executor} for background task processing
+     */
+    Executor getBackgroundExecutor();
 }

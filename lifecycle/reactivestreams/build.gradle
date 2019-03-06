@@ -23,12 +23,18 @@ plugins {
     id("SupportAndroidLibraryPlugin")
 }
 
+android {
+    lintOptions {
+        fatal("UnknownNullness")
+    }
+}
+
 dependencies {
     api(project(":arch:core-common"))
     api(project(":lifecycle:lifecycle-common"))
     api(project(":lifecycle:lifecycle-livedata"))
     api(project(":lifecycle:lifecycle-runtime"))
-    api(SUPPORT_ANNOTATIONS)
+    api(project(":annotation"))
     api(REACTIVE_STREAMS)
 
     annotationProcessor(NULLAWAY)
@@ -41,7 +47,7 @@ dependencies {
 supportLibrary {
     name = "Android Lifecycle Reactivestreams"
     publish = true
-    mavenVersion = LibraryVersions.LIFECYCLES_EXT
+    mavenVersion = LibraryVersions.LIFECYCLE
     mavenGroup = LibraryGroups.LIFECYCLE
     inceptionYear = "2017"
     description = "Android Lifecycle Reactivestreams"

@@ -35,6 +35,18 @@ class CoreRemapperImpl(
 
     companion object {
         const val TAG = "CoreRemapperImpl"
+
+        val AMBIGUOUS_STRINGS = setOf(
+            JavaType.fromDotVersion("android.support.v4"),
+            JavaType.fromDotVersion("android.support.v4.content"),
+            JavaType.fromDotVersion("android.support.v4.widget"),
+            JavaType.fromDotVersion("android.support.v4.view"),
+            JavaType.fromDotVersion("android.support.v4.media"),
+            JavaType.fromDotVersion("android.support.v13"),
+            JavaType.fromDotVersion("android.support.v13.view"),
+            JavaType.fromDotVersion("android.support.v13.app"),
+            JavaType.fromDotVersion("android.support.design.widget")
+        )
     }
 
     private val typesMap = context.config.typesMap
@@ -56,16 +68,37 @@ class CoreRemapperImpl(
     }
 
     override fun rewriteString(value: String): String {
-        val type = JavaType.fromDotVersion(value)
+        val hasDotSeparators = value.contains(".")
+        val hasSlashSeparators = value.contains("/")
+
+        if (hasDotSeparators && hasSlashSeparators) {
+            // We do not support mix of both separators
+            return value
+        }
+
+        val type = if (hasDotSeparators) {
+            JavaType.fromDotVersion(value)
+        } else {
+            JavaType(value)
+        }
+
         if (!context.config.isEligibleForRewrite(type)) {
             return value
+        }
+
+        // Verify that we did not make an ambiguous mapping, see b/116745353
+        if (!context.allowAmbiguousPackages && AMBIGUOUS_STRINGS.contains(type)) {
+            throw AmbiguousStringJetifierException("The given artifact contains a string literal " +
+                "with a package reference '$value' that cannot be safely rewritten. Libraries " +
+                "using reflection such as annotation processors need to be updated manually " +
+                "to add support for androidx.")
         }
 
         val mappedType = context.config.typesMap.mapType(type)
         if (mappedType != null) {
             changesDone = changesDone || mappedType != type
             Log.i(TAG, "Map string: '%s' -> '%s'", type, mappedType)
-            return mappedType.toDotNotation()
+            return if (hasDotSeparators) mappedType.toDotNotation() else mappedType.fullName
         }
 
         // We might be working with an internal type or field reference, e.g.
@@ -84,7 +117,11 @@ class CoreRemapperImpl(
             val rewrittenType = context.config.rulesMap.rewriteType(type)
             if (rewrittenType != null) {
                 Log.i(TAG, "Map string: '%s' -> '%s' via fallback", value, rewrittenType)
-                return rewrittenType.toDotNotation()
+                return if (hasDotSeparators) {
+                    rewrittenType.toDotNotation()
+                } else {
+                    rewrittenType.fullName
+                }
             }
         }
 
@@ -111,3 +148,8 @@ class CoreRemapperImpl(
         return path
     }
 }
+
+/**
+ * Thrown when jetifier finds a string reference to a package that has ambiguous mapping.
+ */
+class AmbiguousStringJetifierException(message: String) : Exception(message)

@@ -16,13 +16,15 @@
 
 package androidx.fragment.app;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,7 +51,7 @@ public class DialogFragment extends Fragment
         implements DialogInterface.OnCancelListener, DialogInterface.OnDismissListener {
 
     /** @hide */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     @IntDef({STYLE_NORMAL, STYLE_NO_TITLE, STYLE_NO_FRAME, STYLE_NO_INPUT})
     @Retention(RetentionPolicy.SOURCE)
     private @interface DialogStyle {}
@@ -87,13 +89,22 @@ public class DialogFragment extends Fragment
     private static final String SAVED_SHOWS_DIALOG = "android:showsDialog";
     private static final String SAVED_BACK_STACK_ID = "android:backStackId";
 
+    private Handler mHandler;
+    private Runnable mDismissRunnable = new Runnable() {
+        @Override
+        public void run() {
+            if (mDialog != null) {
+                onDismiss(mDialog);
+            }
+        }
+    };
     int mStyle = STYLE_NORMAL;
     int mTheme = 0;
     boolean mCancelable = true;
     boolean mShowsDialog = true;
     int mBackStackId = -1;
 
-    Dialog mDialog;
+    @Nullable Dialog mDialog;
     boolean mViewDestroyed;
     boolean mDismissed;
     boolean mShownByMe;
@@ -136,7 +147,7 @@ public class DialogFragment extends Fragment
      * @param tag The tag for this fragment, as per
      * {@link FragmentTransaction#add(Fragment, String) FragmentTransaction.add}.
      */
-    public void show(FragmentManager manager, String tag) {
+    public void show(@NonNull FragmentManager manager, @Nullable String tag) {
         mDismissed = false;
         mShownByMe = true;
         FragmentTransaction ft = manager.beginTransaction();
@@ -153,7 +164,7 @@ public class DialogFragment extends Fragment
      * @return Returns the identifier of the committed transaction, as per
      * {@link FragmentTransaction#commit() FragmentTransaction.commit()}.
      */
-    public int show(FragmentTransaction transaction, String tag) {
+    public int show(@NonNull FragmentTransaction transaction, @Nullable String tag) {
         mDismissed = false;
         mShownByMe = true;
         transaction.add(this, tag);
@@ -173,7 +184,7 @@ public class DialogFragment extends Fragment
      * @param tag The tag for this fragment, as per
      * {@link FragmentTransaction#add(Fragment, String) FragmentTransaction.add}.
      */
-    public void showNow(FragmentManager manager, String tag) {
+    public void showNow(@NonNull FragmentManager manager, @Nullable String tag) {
         mDismissed = false;
         mShownByMe = true;
         FragmentTransaction ft = manager.beginTransaction();
@@ -188,7 +199,7 @@ public class DialogFragment extends Fragment
      * the fragment.
      */
     public void dismiss() {
-        dismissInternal(false);
+        dismissInternal(false, false);
     }
 
     /**
@@ -198,25 +209,40 @@ public class DialogFragment extends Fragment
      * documentation for further details.
      */
     public void dismissAllowingStateLoss() {
-        dismissInternal(true);
+        dismissInternal(true, false);
     }
 
-    void dismissInternal(boolean allowStateLoss) {
+    void dismissInternal(boolean allowStateLoss, boolean fromOnDismiss) {
         if (mDismissed) {
             return;
         }
         mDismissed = true;
         mShownByMe = false;
         if (mDialog != null) {
+            // Instead of waiting for a posted onDismiss(), null out
+            // the listener and call onDismiss() manually to ensure
+            // that the callback happens before onDestroy()
+            mDialog.setOnDismissListener(null);
             mDialog.dismiss();
+            if (!fromOnDismiss) {
+                // onDismiss() is always called on the main thread, so
+                // we mimic that behavior here. The difference here is that
+                // we don't post the message to ensure that the onDismiss()
+                // callback still happens before onDestroy()
+                if (Looper.myLooper() == mHandler.getLooper()) {
+                    onDismiss(mDialog);
+                } else {
+                    mHandler.post(mDismissRunnable);
+                }
+            }
         }
         mViewDestroyed = true;
         if (mBackStackId >= 0) {
-            getFragmentManager().popBackStack(mBackStackId,
+            requireFragmentManager().popBackStack(mBackStackId,
                     FragmentManager.POP_BACK_STACK_INCLUSIVE);
             mBackStackId = -1;
         } else {
-            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            FragmentTransaction ft = requireFragmentManager().beginTransaction();
             ft.remove(this);
             if (allowStateLoss) {
                 ft.commitAllowingStateLoss();
@@ -226,8 +252,30 @@ public class DialogFragment extends Fragment
         }
     }
 
+    /**
+     * Return the {@link Dialog} this fragment is currently controlling.
+     *
+     * @see #requireDialog()
+     */
+    @Nullable
     public Dialog getDialog() {
         return mDialog;
+    }
+
+    /**
+     * Return the {@link Dialog} this fragment is currently controlling.
+     *
+     * @throws IllegalStateException if the Dialog has not yet been created (before
+     * {@link #onCreateDialog(Bundle)}) or has been destroyed (after {@link #onDestroyView()}.
+     * @see #getDialog()
+     */
+    @NonNull
+    public final Dialog requireDialog() {
+        Dialog dialog = getDialog();
+        if (dialog == null) {
+            throw new IllegalStateException("DialogFragment " + this + " does not have a Dialog.");
+        }
+        return dialog;
     }
 
     @StyleRes
@@ -285,7 +333,7 @@ public class DialogFragment extends Fragment
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         if (!mShownByMe) {
             // If not explicitly shown through our API, take this as an
@@ -308,6 +356,8 @@ public class DialogFragment extends Fragment
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // This assumes that onCreate() is being called on the main thread
+        mHandler = new Handler();
 
         mShowsDialog = mContainerId == 0;
 
@@ -340,8 +390,8 @@ public class DialogFragment extends Fragment
     }
 
     /** @hide */
-    @RestrictTo(LIBRARY_GROUP)
-    public void setupDialog(Dialog dialog, int style) {
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    public void setupDialog(@NonNull Dialog dialog, int style) {
         switch (style) {
             case STYLE_NO_INPUT:
                 dialog.getWindow().addFlags(
@@ -378,21 +428,21 @@ public class DialogFragment extends Fragment
      */
     @NonNull
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        return new Dialog(getActivity(), getTheme());
+        return new Dialog(requireContext(), getTheme());
     }
 
     @Override
-    public void onCancel(DialogInterface dialog) {
+    public void onCancel(@NonNull DialogInterface dialog) {
     }
 
     @Override
-    public void onDismiss(DialogInterface dialog) {
+    public void onDismiss(@NonNull DialogInterface dialog) {
         if (!mViewDestroyed) {
             // Note: we need to use allowStateLoss, because the dialog
             // dispatches this asynchronously so we can receive the call
             // after the activity is paused.  Worst case, when the user comes
             // back to the activity they see the dialog again.
-            dismissInternal(true);
+            dismissInternal(true, true);
         }
     }
 
@@ -482,7 +532,16 @@ public class DialogFragment extends Fragment
             // the dialog -- we don't want this to cause the fragment to
             // actually be removed.
             mViewDestroyed = true;
+            // Instead of waiting for a posted onDismiss(), null out
+            // the listener and call onDismiss() manually to ensure
+            // that the callback happens before onDestroy()
+            mDialog.setOnDismissListener(null);
             mDialog.dismiss();
+            if (!mDismissed) {
+                // Don't send a second onDismiss() callback if we've already
+                // dismissed the dialog manually in dismissInternal()
+                onDismiss(mDialog);
+            }
             mDialog = null;
         }
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 The Android Open Source Project
+ * Copyright 2018 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -46,7 +46,7 @@ public abstract class BaseActivity extends RecreatedActivity {
 
     public abstract void validateState();
 
-    public abstract void updatePage(int pageIx, int newValue);
+    public abstract void updatePageContent(int pageIx, int newValue);
 
     public static Intent createIntent(int totalPages) {
         Intent intent = new Intent();
