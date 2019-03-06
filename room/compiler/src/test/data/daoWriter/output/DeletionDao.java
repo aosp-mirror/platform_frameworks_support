@@ -5,15 +5,22 @@ import androidx.room.RoomDatabase;
 import androidx.room.SharedSQLiteStatement;
 import androidx.room.util.StringUtil;
 import androidx.sqlite.db.SupportSQLiteStatement;
+import io.reactivex.Completable;
+import io.reactivex.Maybe;
+import io.reactivex.Single;
+import java.lang.Exception;
+import java.lang.Integer;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.StringBuilder;
 import java.lang.SuppressWarnings;
+import java.lang.Void;
 import java.util.List;
+import java.util.concurrent.Callable;
 import javax.annotation.Generated;
 
 @Generated("androidx.room.RoomProcessor")
-@SuppressWarnings("unchecked")
+@SuppressWarnings({"unchecked", "deprecation"})
 public final class DeletionDao_Impl implements DeletionDao {
   private final RoomDatabase __db;
 
@@ -88,7 +95,8 @@ public final class DeletionDao_Impl implements DeletionDao {
   }
 
   @Override
-  public void deleteUser(User user) {
+  public void deleteUser(final User user) {
+    __db.assertNotSuspendingTransaction();
     __db.beginTransaction();
     try {
       __deletionAdapterOfUser.handle(user);
@@ -99,7 +107,8 @@ public final class DeletionDao_Impl implements DeletionDao {
   }
 
   @Override
-  public void deleteUsers(User user1, List<User> others) {
+  public void deleteUsers(final User user1, final List<User> others) {
+    __db.assertNotSuspendingTransaction();
     __db.beginTransaction();
     try {
       __deletionAdapterOfUser.handle(user1);
@@ -111,7 +120,8 @@ public final class DeletionDao_Impl implements DeletionDao {
   }
 
   @Override
-  public void deleteArrayOfUsers(User[] users) {
+  public void deleteArrayOfUsers(final User[] users) {
+    __db.assertNotSuspendingTransaction();
     __db.beginTransaction();
     try {
       __deletionAdapterOfUser.handleMultiple(users);
@@ -122,7 +132,8 @@ public final class DeletionDao_Impl implements DeletionDao {
   }
 
   @Override
-  public int deleteUserAndReturnCount(User user) {
+  public Integer deleteUserAndReturnCountObject(final User user) {
+    __db.assertNotSuspendingTransaction();
     int _total = 0;
     __db.beginTransaction();
     try {
@@ -135,7 +146,22 @@ public final class DeletionDao_Impl implements DeletionDao {
   }
 
   @Override
-  public int deleteUserAndReturnCount(User user1, List<User> others) {
+  public int deleteUserAndReturnCount(final User user) {
+    __db.assertNotSuspendingTransaction();
+    int _total = 0;
+    __db.beginTransaction();
+    try {
+      _total +=__deletionAdapterOfUser.handle(user);
+      __db.setTransactionSuccessful();
+      return _total;
+    } finally {
+      __db.endTransaction();
+    }
+  }
+
+  @Override
+  public int deleteUserAndReturnCount(final User user1, final List<User> others) {
+    __db.assertNotSuspendingTransaction();
     int _total = 0;
     __db.beginTransaction();
     try {
@@ -149,7 +175,8 @@ public final class DeletionDao_Impl implements DeletionDao {
   }
 
   @Override
-  public int deleteUserAndReturnCount(User[] users) {
+  public int deleteUserAndReturnCount(final User[] users) {
+    __db.assertNotSuspendingTransaction();
     int _total = 0;
     __db.beginTransaction();
     try {
@@ -162,7 +189,61 @@ public final class DeletionDao_Impl implements DeletionDao {
   }
 
   @Override
-  public int multiPKey(MultiPKeyEntity entity) {
+  public Completable deleteUserCompletable(final User user) {
+    return Completable.fromCallable(new Callable<Void>() {
+      @Override
+      public Void call() throws Exception {
+        __db.beginTransaction();
+        try {
+          __deletionAdapterOfUser.handle(user);
+          __db.setTransactionSuccessful();
+          return null;
+        } finally {
+          __db.endTransaction();
+        }
+      }
+    });
+  }
+
+  @Override
+  public Single<Integer> deleteUserSingle(final User user) {
+    return Single.fromCallable(new Callable<Integer>() {
+      @Override
+      public Integer call() throws Exception {
+        int _total = 0;
+        __db.beginTransaction();
+        try {
+          _total +=__deletionAdapterOfUser.handle(user);
+          __db.setTransactionSuccessful();
+          return _total;
+        } finally {
+          __db.endTransaction();
+        }
+      }
+    });
+  }
+
+  @Override
+  public Maybe<Integer> deleteUserMaybe(final User user) {
+    return Maybe.fromCallable(new Callable<Integer>() {
+      @Override
+      public Integer call() throws Exception {
+        int _total = 0;
+        __db.beginTransaction();
+        try {
+          _total +=__deletionAdapterOfUser.handle(user);
+          __db.setTransactionSuccessful();
+          return _total;
+        } finally {
+          __db.endTransaction();
+        }
+      }
+    });
+  }
+
+  @Override
+  public int multiPKey(final MultiPKeyEntity entity) {
+    __db.assertNotSuspendingTransaction();
     int _total = 0;
     __db.beginTransaction();
     try {
@@ -175,7 +256,8 @@ public final class DeletionDao_Impl implements DeletionDao {
   }
 
   @Override
-  public void deleteUserAndBook(User user, Book book) {
+  public void deleteUserAndBook(final User user, final Book book) {
+    __db.assertNotSuspendingTransaction();
     __db.beginTransaction();
     try {
       __deletionAdapterOfUser.handle(user);
@@ -187,12 +269,13 @@ public final class DeletionDao_Impl implements DeletionDao {
   }
 
   @Override
-  public int deleteByUid(int uid) {
+  public int deleteByUid(final int uid) {
+    __db.assertNotSuspendingTransaction();
     final SupportSQLiteStatement _stmt = __preparedStmtOfDeleteByUid.acquire();
+    int _argIndex = 1;
+    _stmt.bindLong(_argIndex, uid);
     __db.beginTransaction();
     try {
-      int _argIndex = 1;
-      _stmt.bindLong(_argIndex, uid);
       final int _result = _stmt.executeUpdateDelete();
       __db.setTransactionSuccessful();
       return _result;
@@ -203,7 +286,71 @@ public final class DeletionDao_Impl implements DeletionDao {
   }
 
   @Override
+  public Completable deleteByUidCompletable(final int uid) {
+    return Completable.fromCallable(new Callable<Void>() {
+      @Override
+      public Void call() throws Exception {
+        final SupportSQLiteStatement _stmt = __preparedStmtOfDeleteByUid.acquire();
+        int _argIndex = 1;
+        _stmt.bindLong(_argIndex, uid);
+        __db.beginTransaction();
+        try {
+          _stmt.executeUpdateDelete();
+          __db.setTransactionSuccessful();
+          return null;
+        } finally {
+          __db.endTransaction();
+          __preparedStmtOfDeleteByUid.release(_stmt);
+        }
+      }
+    });
+  }
+
+  @Override
+  public Single<Integer> deleteByUidSingle(final int uid) {
+    return Single.fromCallable(new Callable<Integer>() {
+      @Override
+      public Integer call() throws Exception {
+        final SupportSQLiteStatement _stmt = __preparedStmtOfDeleteByUid.acquire();
+        int _argIndex = 1;
+        _stmt.bindLong(_argIndex, uid);
+        __db.beginTransaction();
+        try {
+          final java.lang.Integer _result = _stmt.executeUpdateDelete();
+          __db.setTransactionSuccessful();
+          return _result;
+        } finally {
+          __db.endTransaction();
+          __preparedStmtOfDeleteByUid.release(_stmt);
+        }
+      }
+    });
+  }
+
+  @Override
+  public Maybe<Integer> deleteByUidMaybe(final int uid) {
+    return Maybe.fromCallable(new Callable<Integer>() {
+      @Override
+      public Integer call() throws Exception {
+        final SupportSQLiteStatement _stmt = __preparedStmtOfDeleteByUid.acquire();
+        int _argIndex = 1;
+        _stmt.bindLong(_argIndex, uid);
+        __db.beginTransaction();
+        try {
+          final java.lang.Integer _result = _stmt.executeUpdateDelete();
+          __db.setTransactionSuccessful();
+          return _result;
+        } finally {
+          __db.endTransaction();
+          __preparedStmtOfDeleteByUid.release(_stmt);
+        }
+      }
+    });
+  }
+
+  @Override
   public int deleteEverything() {
+    __db.assertNotSuspendingTransaction();
     final SupportSQLiteStatement _stmt = __preparedStmtOfDeleteEverything.acquire();
     __db.beginTransaction();
     try {
@@ -217,14 +364,15 @@ public final class DeletionDao_Impl implements DeletionDao {
   }
 
   @Override
-  public int deleteByUidList(int... uid) {
+  public int deleteByUidList(final int... uid) {
+    __db.assertNotSuspendingTransaction();
     StringBuilder _stringBuilder = StringUtil.newStringBuilder();
     _stringBuilder.append("DELETE FROM user where uid IN(");
     final int _inputSize = uid.length;
     StringUtil.appendPlaceholders(_stringBuilder, _inputSize);
     _stringBuilder.append(")");
     final String _sql = _stringBuilder.toString();
-    SupportSQLiteStatement _stmt = __db.compileStatement(_sql);
+    final SupportSQLiteStatement _stmt = __db.compileStatement(_sql);
     int _argIndex = 1;
     for (int _item : uid) {
       _stmt.bindLong(_argIndex, _item);

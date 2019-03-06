@@ -34,7 +34,7 @@ import java.util.List;
  * @hide
  */
 @SuppressWarnings("unused")
-@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
 public class RoomOpenHelper extends SupportSQLiteOpenHelper.Callback {
     @Nullable
     private DatabaseConfiguration mConfiguration;
@@ -82,16 +82,19 @@ public class RoomOpenHelper extends SupportSQLiteOpenHelper.Callback {
             List<Migration> migrations = mConfiguration.migrationContainer.findMigrationPath(
                     oldVersion, newVersion);
             if (migrations != null) {
+                mDelegate.onPreMigrate(db);
                 for (Migration migration : migrations) {
                     migration.migrate(db);
                 }
                 mDelegate.validateMigration(db);
+                mDelegate.onPostMigrate(db);
                 updateIdentity(db);
                 migrated = true;
             }
         }
         if (!migrated) {
-            if (mConfiguration != null && !mConfiguration.isMigrationRequiredFrom(oldVersion)) {
+            if (mConfiguration != null
+                    && !mConfiguration.isMigrationRequired(oldVersion, newVersion)) {
                 mDelegate.dropAllTables(db);
                 mDelegate.createAllTables(db);
             } else {
@@ -162,7 +165,7 @@ public class RoomOpenHelper extends SupportSQLiteOpenHelper.Callback {
     /**
      * @hide
      */
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
     public abstract static class Delegate {
         public final int version;
 
@@ -184,6 +187,23 @@ public class RoomOpenHelper extends SupportSQLiteOpenHelper.Callback {
          * @param db The SQLite database.
          */
         protected abstract void validateMigration(SupportSQLiteDatabase db);
+
+
+        /**
+         * Called before migrations execute to perform preliminary work.
+         * @param database The SQLite database.
+         */
+        protected void onPreMigrate(SupportSQLiteDatabase database) {
+
+        }
+
+        /**
+         * Called after migrations execute to perform additional work.
+         * @param database The SQLite database.
+         */
+        protected void onPostMigrate(SupportSQLiteDatabase database) {
+
+        }
     }
 
 }

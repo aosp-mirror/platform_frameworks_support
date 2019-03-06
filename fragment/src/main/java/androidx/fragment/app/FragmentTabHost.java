@@ -16,6 +16,7 @@
 
 package androidx.fragment.app;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Bundle;
@@ -130,14 +131,14 @@ public class FragmentTabHost extends TabHost
         };
     }
 
-    public FragmentTabHost(Context context) {
+    public FragmentTabHost(@NonNull Context context) {
         // Note that we call through to the version that takes an AttributeSet,
         // because the simple Context construct can result in a broken object!
         super(context, null);
         initFragmentTabHost(context, null);
     }
 
-    public FragmentTabHost(Context context, AttributeSet attrs) {
+    public FragmentTabHost(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         initFragmentTabHost(context, attrs);
     }
@@ -190,7 +191,10 @@ public class FragmentTabHost extends TabHost
                 "Must call setup() that takes a Context and FragmentManager");
     }
 
-    public void setup(Context context, FragmentManager manager) {
+    /**
+     * Set up the FragmentTabHost to use the given FragmentManager
+     */
+    public void setup(@NonNull Context context, @NonNull FragmentManager manager) {
         ensureHierarchy(context);  // Ensure views required by super.setup()
         super.setup();
         mContext = context;
@@ -198,7 +202,11 @@ public class FragmentTabHost extends TabHost
         ensureContent();
     }
 
-    public void setup(Context context, FragmentManager manager, int containerId) {
+    /**
+     * Set up the FragmentTabHost to use the given FragmentManager
+     */
+    public void setup(@NonNull Context context, @NonNull FragmentManager manager,
+            int containerId) {
         ensureHierarchy(context);  // Ensure views required by super.setup()
         super.setup();
         mContext = context;
@@ -225,7 +233,7 @@ public class FragmentTabHost extends TabHost
     }
 
     @Override
-    public void setOnTabChangedListener(OnTabChangeListener l) {
+    public void setOnTabChangedListener(@Nullable OnTabChangeListener l) {
         mOnTabChangeListener = l;
     }
 
@@ -298,6 +306,7 @@ public class FragmentTabHost extends TabHost
     }
 
     @Override
+    @NonNull
     protected Parcelable onSaveInstanceState() {
         Parcelable superState = super.onSaveInstanceState();
         SavedState ss = new SavedState(superState);
@@ -306,7 +315,7 @@ public class FragmentTabHost extends TabHost
     }
 
     @Override
-    protected void onRestoreInstanceState(Parcelable state) {
+    protected void onRestoreInstanceState(@SuppressLint("UnknownNullness") Parcelable state) {
         if (!(state instanceof SavedState)) {
             super.onRestoreInstanceState(state);
             return;
@@ -317,7 +326,7 @@ public class FragmentTabHost extends TabHost
     }
 
     @Override
-    public void onTabChanged(String tabId) {
+    public void onTabChanged(@Nullable String tabId) {
         if (mAttached) {
             final FragmentTransaction ft = doTabChanged(tabId, null);
             if (ft != null) {
@@ -346,8 +355,9 @@ public class FragmentTabHost extends TabHost
 
             if (newTab != null) {
                 if (newTab.fragment == null) {
-                    newTab.fragment = Fragment.instantiate(mContext,
-                            newTab.clss.getName(), newTab.args);
+                    newTab.fragment = mFragmentManager.getFragmentFactory().instantiate(
+                            mContext.getClassLoader(), newTab.clss.getName(), newTab.args);
+                    newTab.fragment.setArguments(newTab.args);
                     ft.add(mContainerId, newTab.fragment, newTab.tag);
                 } else {
                     ft.attach(newTab.fragment);

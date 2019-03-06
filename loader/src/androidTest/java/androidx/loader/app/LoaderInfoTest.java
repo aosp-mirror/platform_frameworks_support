@@ -29,10 +29,10 @@ import androidx.lifecycle.LifecycleRegistry;
 import androidx.loader.app.test.DelayLoader;
 import androidx.loader.app.test.DummyLoaderCallbacks;
 import androidx.loader.content.Loader;
-import androidx.test.InstrumentationRegistry;
 import androidx.test.annotation.UiThreadTest;
-import androidx.test.filters.SmallTest;
-import androidx.test.runner.AndroidJUnit4;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.LargeTest;
+import androidx.test.platform.app.InstrumentationRegistry;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -42,7 +42,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 @RunWith(AndroidJUnit4.class)
-@SmallTest
+@LargeTest
 public class LoaderInfoTest {
 
     private LifecycleOwner mOwner;
@@ -93,7 +93,7 @@ public class LoaderInfoTest {
 
     @UiThreadTest
     @Test
-    public void testSetCallback() throws Throwable {
+    public void testSetCallback() {
         final DummyLoaderCallbacks loaderCallback = new DummyLoaderCallbacks(mock(Context.class));
         Loader<Boolean> loader = loaderCallback.onCreateLoader(0, null);
         final LoaderManagerImpl.LoaderInfo<Boolean> loaderInfo = new LoaderManagerImpl.LoaderInfo<>(
@@ -108,7 +108,7 @@ public class LoaderInfoTest {
 
     @UiThreadTest
     @Test
-    public void testSetCallback_replace() throws Throwable {
+    public void testSetCallback_replace() {
         final DummyLoaderCallbacks initialCallback = new DummyLoaderCallbacks(mock(Context.class));
         Loader<Boolean> loader = initialCallback.onCreateLoader(0, null);
         LoaderManagerImpl.LoaderInfo<Boolean> loaderInfo = new LoaderManagerImpl.LoaderInfo<>(
@@ -135,7 +135,7 @@ public class LoaderInfoTest {
 
     @UiThreadTest
     @Test
-    public void testMarkForRedelivery() throws Throwable {
+    public void testMarkForRedelivery() {
         DummyLoaderCallbacks loaderCallback =
                 new DummyLoaderCallbacks(mock(Context.class));
         Loader<Boolean> loader = loaderCallback.onCreateLoader(0, null);
@@ -158,7 +158,7 @@ public class LoaderInfoTest {
 
     @UiThreadTest
     @Test
-    public void testMarkForRedelivery_replace() throws Throwable {
+    public void testMarkForRedelivery_replace() {
         DummyLoaderCallbacks initialCallback =
                 new DummyLoaderCallbacks(mock(Context.class));
         Loader<Boolean> loader = initialCallback.onCreateLoader(0, null);
@@ -190,7 +190,7 @@ public class LoaderInfoTest {
 
     @UiThreadTest
     @Test
-    public void testDestroy() throws Throwable {
+    public void testDestroy() {
         final DummyLoaderCallbacks loaderCallback = new DummyLoaderCallbacks(mock(Context.class));
         final Loader<Boolean> loader = loaderCallback.onCreateLoader(0, null);
         final LoaderManagerImpl.LoaderInfo<Boolean> loaderInfo = new LoaderManagerImpl.LoaderInfo<>(

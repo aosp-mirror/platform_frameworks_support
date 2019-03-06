@@ -33,9 +33,9 @@ import android.view.View;
 import androidx.core.app.SharedElementCallback;
 import androidx.fragment.app.test.FragmentTestActivity;
 import androidx.fragment.test.R;
-import androidx.test.InstrumentationRegistry;
 import androidx.test.filters.MediumTest;
 import androidx.test.filters.SdkSuppress;
+import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 
 import org.junit.After;
@@ -552,7 +552,7 @@ public class FragmentTransitionTest {
         final View endGreen = findViewById(fragment2, R.id.greenSquare);
         final View endBlue = findViewById(fragment2, R.id.blueSquare);
 
-        assertEquals(View.GONE, fragment1.getView().getVisibility());
+        assertEquals(View.GONE, fragment1.requireView().getVisibility());
         assertEquals(View.VISIBLE, startGreen.getVisibility());
         assertEquals(View.VISIBLE, startBlue.getVisibility());
 
@@ -571,7 +571,7 @@ public class FragmentTransitionTest {
         verifyAndClearTransition(fragment1.reenterTransition, null, startGreen, startBlue);
         verifyNoOtherTransitions(fragment1);
 
-        assertEquals(View.VISIBLE, fragment1.getView().getVisibility());
+        assertEquals(View.VISIBLE, fragment1.requireView().getVisibility());
         assertEquals(View.VISIBLE, startGreen.getVisibility());
         assertEquals(View.VISIBLE, startBlue.getVisibility());
 
@@ -856,7 +856,7 @@ public class FragmentTransitionTest {
     }
 
     private View findViewById(Fragment fragment, int id) {
-        return fragment.getView().findViewById(id);
+        return fragment.requireView().findViewById(id);
     }
 
     private View findGreen() {

@@ -16,11 +16,10 @@
 
 package androidx.media;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
 import android.content.Context;
 import android.os.Build;
-import android.support.v4.media.MediaBrowserCompat;
 import android.support.v4.media.session.MediaControllerCompat;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.util.Log;
@@ -52,17 +51,15 @@ public final class MediaSessionManager {
      * @return The MediaSessionManager instance for this context.
      */
     public static @NonNull MediaSessionManager getSessionManager(@NonNull Context context) {
-        MediaSessionManager manager = sSessionManager;
-        if (manager == null) {
-            synchronized (sLock) {
-                manager = sSessionManager;
-                if (manager == null) {
-                    sSessionManager = new MediaSessionManager(context.getApplicationContext());
-                    manager = sSessionManager;
-                }
-            }
+        if (context == null) {
+            throw new IllegalArgumentException("context cannot be null");
         }
-        return manager;
+        synchronized (sLock) {
+            if (sSessionManager == null) {
+                sSessionManager = new MediaSessionManager(context.getApplicationContext());
+            }
+            return sSessionManager;
+        }
     }
 
     private MediaSessionManager(Context context) {
@@ -126,6 +123,20 @@ public final class MediaSessionManager {
          */
         public static final String LEGACY_CONTROLLER = "android.media.session.MediaController";
 
+        /**
+         * Represents an unknown pid of an application.
+         * @hide
+         */
+        @RestrictTo(LIBRARY_GROUP_PREFIX)
+        public static final int UNKNOWN_PID = -1;
+
+        /**
+         * Represents an unknown uid of an application.
+         * @hide
+         */
+        @RestrictTo(LIBRARY_GROUP_PREFIX)
+        public static final int UNKNOWN_UID = -1;
+
         RemoteUserInfoImpl mImpl;
 
         /**
@@ -157,7 +168,7 @@ public final class MediaSessionManager {
          * @param remoteUserInfo Framework RemoteUserInfo
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP)
+        @RestrictTo(LIBRARY_GROUP_PREFIX)
         @RequiresApi(28)
         public RemoteUserInfo(
                 android.media.session.MediaSessionManager.RemoteUserInfo remoteUserInfo) {
@@ -173,32 +184,29 @@ public final class MediaSessionManager {
         }
 
         /**
-         * @return pid of the controller
+         * @return pid of the controller. Can be a negative value if the pid cannot be obtained.
          */
         public int getPid() {
             return mImpl.getPid();
         }
 
         /**
-         * @return uid of the controller
+         * @return uid of the controller. Can be a negative value if the uid cannot be obtained.
          */
         public int getUid() {
             return mImpl.getUid();
         }
 
         /**
-         * Returns equality of two RemoteUserInfo.
+         * Returns equality of two RemoteUserInfo by comparing their package name, UID, and PID.
          * <p>
-         * Prior to P (API < 28), two RemoteUserInfo objects are equal only if
-         * they are from same package and from same process.
-         * <p>
-         * On P and beyond (API >= 28), two RemoteUserInfo objects are equal only if they're sent
-         * from the same controller (either {@link MediaControllerCompat} or
-         * {@link MediaBrowserCompat}. If it's not nor one of them is triggered by the key presses,
-         * they would be considered as different one.
-         * <p>
-         * If you only want to compare the caller's package, compare them with the
-         * {@link #getPackageName()}, {@link #getPid()}, and/or {@link #getUid()} directly.
+         * On P and before (API <= 28), two RemoteUserInfo objects equal if following conditions are
+         * met:
+         * <ol>
+         * <li>UID and package name are the same</li>
+         * <li>One of the RemoteUserInfo's PID is {@link #UNKNOWN_PID} or both of RemoteUserInfo's
+         *     PID are the same</li>
+         * </ol>
          *
          * @param obj the reference object with which to compare.
          * @return {@code true} if equals, {@code false} otherwise

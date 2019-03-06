@@ -25,9 +25,10 @@ import static java.lang.Math.sin;
 import android.os.SystemClock;
 import android.view.MotionEvent;
 
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.LargeTest;
 import androidx.test.filters.MediumTest;
 import androidx.test.rule.ActivityTestRule;
-import androidx.test.runner.AndroidJUnit4;
 import androidx.wear.widget.util.WakeLockRule;
 
 import org.junit.Before;
@@ -75,6 +76,7 @@ public class ScrollManagerTest {
                 .scrollBy(0, 1);
     }
 
+    @LargeTest
     @Test
     public void testStraightDownScrollingGestureLeft() throws Throwable {
         // Pretend to scroll in a straight line upper left to center left

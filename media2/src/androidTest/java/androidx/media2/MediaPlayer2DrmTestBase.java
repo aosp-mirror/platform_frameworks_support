@@ -31,8 +31,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.media.MediaDrm;
-import android.media.ResourceBusyException;
-import android.media.UnsupportedSchemeException;
 import android.net.Uri;
 import android.os.PowerManager;
 import android.os.SystemClock;
@@ -44,7 +42,7 @@ import android.view.WindowManager;
 import androidx.annotation.CallSuper;
 import androidx.media2.MediaPlayer2.DrmInfo;
 import androidx.media2.TestUtils.Monitor;
-import androidx.test.InstrumentationRegistry;
+import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 
 import org.json.JSONArray;
@@ -129,7 +127,7 @@ public class MediaPlayer2DrmTestBase {
         mContext = mInstrumentation.getTargetContext();
         mResources = mContext.getResources();
 
-        mExecutor = Executors.newFixedThreadPool(1);
+        mExecutor = Executors.newFixedThreadPool(2);
     }
 
     @After
@@ -236,10 +234,10 @@ public class MediaPlayer2DrmTestBase {
     }
 
     /**
-     * Play a video which has already been loaded with setDataSource().
+     * Play a video which has already been loaded with setMediaItem().
      * The DRM setup is performed synchronously.
      *
-     * @param file data source
+     * @param file media item
      * @param width width of the video to verify, or null to skip verification
      * @param height height of the video to verify, or null to skip verification
      * @param playTime length of time to play video, or 0 to play entire video
@@ -272,18 +270,18 @@ public class MediaPlayer2DrmTestBase {
         mCallStatus = MediaPlayer2.CALL_STATUS_NO_ERROR;
         mECb = new MediaPlayer2.EventCallback() {
                 @Override
-                public void onVideoSizeChanged(MediaPlayer2 mp, DataSourceDesc2 dsd, int w, int h) {
+                public void onVideoSizeChanged(MediaPlayer2 mp, MediaItem item, int w, int h) {
                     Log.v(TAG, "VideoSizeChanged" + " w:" + w + " h:" + h);
                     mOnVideoSizeChangedCalled.signal();
                 }
 
                 @Override
-                public void onError(MediaPlayer2 mp, DataSourceDesc2 dsd, int what, int extra) {
+                public void onError(MediaPlayer2 mp, MediaItem item, int what, int extra) {
                     fail("Media player had error " + what + " playing video");
                 }
 
                 @Override
-                public void onInfo(MediaPlayer2 mp, DataSourceDesc2 dsd, int what, int extra) {
+                public void onInfo(MediaPlayer2 mp, MediaItem item, int what, int extra) {
                     if (what == MediaPlayer2.MEDIA_INFO_PREPARED) {
                         mOnPreparedCalled.signal();
                     } else if (what == MediaPlayer2.MEDIA_INFO_DATA_SOURCE_END) {
@@ -293,7 +291,7 @@ public class MediaPlayer2DrmTestBase {
                 }
 
                 @Override
-                public void onCallCompleted(MediaPlayer2 mp, DataSourceDesc2 dsd,
+                public void onCallCompleted(MediaPlayer2 mp, MediaItem item,
                         int what, int status) {
                     if (what == MediaPlayer2.CALL_COMPLETED_SET_DATA_SOURCE) {
                         mCallStatus = status;
@@ -303,8 +301,9 @@ public class MediaPlayer2DrmTestBase {
             };
 
         mPlayer.setEventCallback(mExecutor, mECb);
-        Log.v(TAG, "playLoadedVideo: setDataSource()");
-        mPlayer.setDataSource(new DataSourceDesc2.Builder().setDataSource(mContext, file).build());
+        Log.v(TAG, "playLoadedVideo: setMediaItem()");
+        mPlayer.setMediaItem(
+                new UriMediaItem.Builder(mContext, file).build());
         mSetDataSourceCallCompleted.waitForSignal();
         if (mCallStatus != MediaPlayer2.CALL_STATUS_NO_ERROR) {
             throw new PrepareFailedException();
@@ -384,7 +383,7 @@ public class MediaPlayer2DrmTestBase {
 
         mPlayer.setDrmEventCallback(mExecutor, new MediaPlayer2.DrmEventCallback() {
             @Override
-            public void onDrmInfo(MediaPlayer2 mp, DataSourceDesc2 dsd, DrmInfo drmInfo) {
+            public void onDrmInfo(MediaPlayer2 mp, MediaItem item, DrmInfo drmInfo) {
                 Log.v(TAG, "preparePlayerAndDrm_V1: onDrmInfo" + drmInfo);
 
                 // in the callback (async mode) so handling exceptions here
@@ -418,7 +417,7 @@ public class MediaPlayer2DrmTestBase {
     private void preparePlayerAndDrm_V2_syncDrmSetupPlusConfig() throws Exception {
         mPlayer.setOnDrmConfigHelper(new MediaPlayer2.OnDrmConfigHelper() {
             @Override
-            public void onDrmConfig(MediaPlayer2 mp, DataSourceDesc2 dsd) {
+            public void onDrmConfig(MediaPlayer2 mp, MediaItem item) {
                 String widevineSecurityLevel3 = "L3";
                 String securityLevelProperty = "securityLevel";
 
@@ -460,7 +459,7 @@ public class MediaPlayer2DrmTestBase {
 
         mPlayer.setDrmEventCallback(mExecutor, new MediaPlayer2.DrmEventCallback() {
             @Override
-            public void onDrmInfo(MediaPlayer2 mp, DataSourceDesc2 dsd, DrmInfo drmInfo) {
+            public void onDrmInfo(MediaPlayer2 mp, MediaItem item, DrmInfo drmInfo) {
                 Log.v(TAG, "preparePlayerAndDrm_V3: onDrmInfo" + drmInfo);
 
                 // DRM preperation
@@ -498,7 +497,7 @@ public class MediaPlayer2DrmTestBase {
             }
 
             @Override
-            public void onDrmPrepared(MediaPlayer2 mp, DataSourceDesc2 dsd, int status) {
+            public void onDrmPrepared(MediaPlayer2 mp, MediaItem item, int status) {
                 Log.v(TAG, "preparePlayerAndDrm_V3: onDrmPrepared status: " + status);
 
                 assertTrue("preparePlayerAndDrm_V3: onDrmPrepared did not succeed",
@@ -557,9 +556,9 @@ public class MediaPlayer2DrmTestBase {
             try {
                 mPlayer.setEventCallback(mExecutor, mECb);
 
-                Log.v(TAG, "playLoadedVideo: setDataSource()");
-                mPlayer.setDataSource(
-                        new DataSourceDesc2.Builder().setDataSource(mContext, file).build());
+                Log.v(TAG, "playLoadedVideo: setMediaItem()");
+                mPlayer.setMediaItem(
+                        new UriMediaItem.Builder(mContext, file).build());
 
                 Log.v(TAG, "playLoadedVideo: prepare()");
                 mPlayer.prepare();
@@ -688,7 +687,16 @@ public class MediaPlayer2DrmTestBase {
                     Log.d(TAG, "setupDrm: selected " + drmScheme);
 
                     if (prepareDrm) {
+                        final Monitor drmPrepared = new Monitor();
+                        mPlayer.setDrmEventCallback(mExecutor, new MediaPlayer2.DrmEventCallback() {
+                            @Override
+                            public void onDrmPrepared(
+                                    MediaPlayer2 mp, MediaItem item, int status) {
+                                drmPrepared.signal();
+                            }
+                        });
                         mPlayer.prepareDrm(drmScheme);
+                        drmPrepared.waitForSignal();
                     }
 
                     byte[] psshData = drmInfo.getPssh().get(drmScheme);
@@ -747,22 +755,6 @@ public class MediaPlayer2DrmTestBase {
 
         } catch (MediaPlayer2.NoDrmSchemeException e) {
             Log.d(TAG, "setupDrm: NoDrmSchemeException");
-            e.printStackTrace();
-            throw e;
-        } catch (MediaPlayer2.ProvisioningNetworkErrorException e) {
-            Log.d(TAG, "setupDrm: ProvisioningNetworkErrorException");
-            e.printStackTrace();
-            throw e;
-        } catch (MediaPlayer2.ProvisioningServerErrorException e) {
-            Log.d(TAG, "setupDrm: ProvisioningServerErrorException");
-            e.printStackTrace();
-            throw e;
-        } catch (UnsupportedSchemeException e) {
-            Log.d(TAG, "setupDrm: UnsupportedSchemeException");
-            e.printStackTrace();
-            throw e;
-        } catch (ResourceBusyException e) {
-            Log.d(TAG, "setupDrm: ResourceBusyException");
             e.printStackTrace();
             throw e;
         } catch (Exception e) {

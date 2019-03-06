@@ -46,23 +46,6 @@ import androidx.viewpager.widget.PagerAdapter;
  * <p>Subclasses only need to implement {@link #getItem(int)}
  * and {@link #getCount()} to have a working adapter.
  *
- * <p>Here is an example implementation of a pager containing fragments of
- * lists:
- *
- * {@sample frameworks/support/samples/Support13Demos/src/main/java/com/example/android/supportv13/app/FragmentPagerSupport.java
- *      complete}
- *
- * <p>The <code>R.layout.fragment_pager</code> resource of the top-level fragment is:
- *
- * {@sample frameworks/support/samples/Support13Demos/src/main/res/layout/fragment_pager.xml
- *      complete}
- *
- * <p>The <code>R.layout.fragment_pager_list</code> resource containing each
- * individual fragment's layout is:
- *
- * {@sample frameworks/support/samples/Support13Demos/src/main/res/layout/fragment_pager_list.xml
- *      complete}
- *
  * @deprecated Use {@link androidx.fragment.app.FragmentPagerAdapter} instead.
  */
 @Deprecated

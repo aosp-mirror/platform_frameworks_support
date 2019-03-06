@@ -16,6 +16,7 @@
 
 package androidx.fragment.app;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -54,7 +55,7 @@ public abstract class FragmentHostCallback<E> extends FragmentContainer {
     }
 
     FragmentHostCallback(@NonNull FragmentActivity activity) {
-        this(activity, activity /*context*/, activity.mHandler, 0 /*windowAnimations*/);
+        this(activity, activity /*context*/, new Handler(), 0 /*windowAnimations*/);
     }
 
     FragmentHostCallback(@Nullable Activity activity, @NonNull Context context,
@@ -74,13 +75,14 @@ public abstract class FragmentHostCallback<E> extends FragmentContainer {
      *                  for you after you return.
      * @param args additional arguments to the dump request.
      */
-    public void onDump(String prefix, FileDescriptor fd, PrintWriter writer, String[] args) {
+    public void onDump(@NonNull String prefix, @Nullable FileDescriptor fd,
+            @NonNull PrintWriter writer, @Nullable String[] args) {
     }
 
     /**
      * Return {@code true} if the fragment's state needs to be saved.
      */
-    public boolean onShouldSaveFragmentState(Fragment fragment) {
+    public boolean onShouldSaveFragmentState(@NonNull Fragment fragment) {
         return true;
     }
 
@@ -112,7 +114,8 @@ public abstract class FragmentHostCallback<E> extends FragmentContainer {
      * Starts a new {@link Activity} from the given fragment.
      * See {@link FragmentActivity#startActivityForResult(Intent, int)}.
      */
-    public void onStartActivityFromFragment(Fragment fragment, Intent intent, int requestCode) {
+    public void onStartActivityFromFragment(@NonNull Fragment fragment,
+            @SuppressLint("UnknownNullness") Intent intent, int requestCode) {
         onStartActivityFromFragment(fragment, intent, requestCode, null);
     }
 
@@ -121,7 +124,8 @@ public abstract class FragmentHostCallback<E> extends FragmentContainer {
      * See {@link FragmentActivity#startActivityForResult(Intent, int, Bundle)}.
      */
     public void onStartActivityFromFragment(
-            Fragment fragment, Intent intent, int requestCode, @Nullable Bundle options) {
+            @NonNull Fragment fragment, @SuppressLint("UnknownNullness") Intent intent,
+            int requestCode, @Nullable Bundle options) {
         if (requestCode != -1) {
             throw new IllegalStateException(
                     "Starting activity with a requestCode requires a FragmentActivity host");
@@ -133,9 +137,10 @@ public abstract class FragmentHostCallback<E> extends FragmentContainer {
      * Starts a new {@link IntentSender} from the given fragment.
      * See {@link Activity#startIntentSender(IntentSender, Intent, int, int, int, Bundle)}.
      */
-    public void onStartIntentSenderFromFragment(Fragment fragment, IntentSender intent,
-            int requestCode, @Nullable Intent fillInIntent, int flagsMask, int flagsValues,
-            int extraFlags, Bundle options) throws IntentSender.SendIntentException {
+    public void onStartIntentSenderFromFragment(@NonNull Fragment fragment,
+            @SuppressLint("UnknownNullness") IntentSender intent, int requestCode,
+            @Nullable Intent fillInIntent, int flagsMask, int flagsValues, int extraFlags,
+            @Nullable Bundle options) throws IntentSender.SendIntentException {
         if (requestCode != -1) {
             throw new IllegalStateException(
                     "Starting intent sender with a requestCode requires a FragmentActivity host");
@@ -200,10 +205,6 @@ public abstract class FragmentHostCallback<E> extends FragmentContainer {
         return mHandler;
     }
 
-    FragmentManagerImpl getFragmentManagerImpl() {
-        return mFragmentManager;
-    }
-
-    void onAttachFragment(Fragment fragment) {
+    void onAttachFragment(@NonNull Fragment fragment) {
     }
 }

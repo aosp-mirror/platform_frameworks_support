@@ -22,8 +22,8 @@ import static org.mockito.Mockito.verify;
 
 import android.util.Property;
 
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.SmallTest;
-import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -42,7 +42,7 @@ public class ParallaxIntEffectTest {
     @Mock ParallaxTarget mTarget;
 
     static void assertFloatEquals(float expected, float actual) {
-        org.junit.Assert.assertEquals((double) expected, (double) actual, 0.0001d);
+        assertEquals((double) expected, (double) actual, 0.0001d);
     }
 
     @Before

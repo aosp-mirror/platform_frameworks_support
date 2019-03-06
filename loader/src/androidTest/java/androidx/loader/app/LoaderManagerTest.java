@@ -33,10 +33,10 @@ import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.loader.app.test.DelayLoaderCallbacks;
 import androidx.loader.app.test.DummyLoaderCallbacks;
 import androidx.loader.content.Loader;
-import androidx.test.InstrumentationRegistry;
 import androidx.test.annotation.UiThreadTest;
-import androidx.test.filters.SmallTest;
-import androidx.test.runner.AndroidJUnit4;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.LargeTest;
+import androidx.test.platform.app.InstrumentationRegistry;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -46,7 +46,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 @RunWith(AndroidJUnit4.class)
-@SmallTest
+@LargeTest
 public class LoaderManagerTest {
 
     private LoaderManager mLoaderManager;
@@ -108,7 +108,7 @@ public class LoaderManagerTest {
     }
 
     @Test
-    public void testDestroyLoaderBeforeDeliverData() throws Throwable {
+    public void testDestroyLoaderBeforeDeliverData() {
         final DelayLoaderCallbacks callback =
                 new DelayLoaderCallbacks(mock(Context.class), new CountDownLatch(1));
         InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable() {
@@ -204,6 +204,38 @@ public class LoaderManagerTest {
                 initialCallback.mLoader.isReset());
     }
 
+    /**
+     * Ensures that calling restartLoader from onLoadFinished will not reset current loader.
+     * This is especially important for CursorLoader which closes cursor when Loader is reset.
+     * This means that rest of onLoadFinished could access closed cursor.
+     */
+    @Test
+    public void testRestartLoaderWhileDeliveringData() throws Throwable {
+        CountDownLatch initialCountDownLatch = new CountDownLatch(1);
+        final DelayLoaderCallbacks initialCallback = new DelayLoaderCallbacks(mock(Context.class),
+                initialCountDownLatch) {
+            @Override
+            public void onLoadFinished(@NonNull Loader<Boolean> loader, Boolean data) {
+                super.onLoadFinished(loader, data);
+                assertFalse("Assumption is that loader is not reset in onLoadFinished",
+                        loader.isReset());
+                mLoaderManager.restartLoader(45, null,
+                        new DelayLoaderCallbacks(mock(Context.class), new CountDownLatch(1)));
+                assertFalse("Loader should not be reset when restarted in onLoadFinished",
+                        loader.isReset());
+            }
+        };
+        InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable() {
+            @Override
+            public void run() {
+                mLoaderManager.initLoader(45, null, initialCallback);
+            }
+        });
+        // Wait for the Loader to return data
+        initialCountDownLatch.await(1, TimeUnit.SECONDS);
+    }
+
+
     @Test
     public void testRestartLoaderMultiple() throws Throwable {
         CountDownLatch initialCountDownLatch = new CountDownLatch(1);
@@ -245,17 +277,19 @@ public class LoaderManagerTest {
     @Test(expected = IllegalArgumentException.class)
     public void enforceNonNullLoader() {
         mLoaderManager.initLoader(-1, null, new LoaderManager.LoaderCallbacks<Object>() {
+            @SuppressWarnings("ConstantConditions")
+            @NonNull
             @Override
             public Loader<Object> onCreateLoader(int id, Bundle args) {
                 return null;
             }
 
             @Override
-            public void onLoadFinished(Loader<Object> loader, Object data) {
+            public void onLoadFinished(@NonNull Loader<Object> loader, Object data) {
             }
 
             @Override
-            public void onLoaderReset(Loader<Object> loader) {
+            public void onLoaderReset(@NonNull Loader<Object> loader) {
             }
         });
     }

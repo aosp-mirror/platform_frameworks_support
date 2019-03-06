@@ -14,14 +14,17 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License
   -->
-
+<!-- This layout isn't used by us anymore. We should remove this when we remove all the old layout
+     files from the holo theme-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:minHeight="?android:attr/listPreferredItemHeightSmall"
     android:gravity="center_vertical"
     android:paddingLeft="?android:attr/listPreferredItemPaddingLeft"
-    android:paddingRight="?android:attr/listPreferredItemPaddingRight">
+    android:paddingRight="?android:attr/listPreferredItemPaddingRight"
+    android:paddingStart="?android:attr/listPreferredItemPaddingStart"
+    android:paddingEnd="?android:attr/listPreferredItemPaddingEnd">
 
     <LinearLayout
         android:id="@+id/icon_frame"
@@ -34,11 +37,12 @@
             android:id="@android:id/icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="8dip" />
+            android:layout_marginRight="8dip"
+            android:layout_marginEnd="8dip" />
     </LinearLayout>
 
     <RelativeLayout
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:paddingTop="16dip"
@@ -48,16 +52,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:singleLine="true"
-            android:textAppearance="@style/Preference_TextAppearanceMaterialSubhead" />
+            android:textAppearance="?android:attr/textAppearanceListItem" />
 
         <TextView android:id="@android:id/summary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@android:id/title"
             android:layout_alignLeft="@android:id/title"
-            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_alignStart="@android:id/title"
             android:textColor="?android:attr/textColorSecondary"
-            android:maxLines="10" />
+            android:maxLines="10"
+            style="@style/PreferenceSummaryTextStyle"/>
 
     </RelativeLayout>
 

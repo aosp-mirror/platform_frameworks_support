@@ -16,9 +16,10 @@
 
 package androidx.room.vo
 
+import androidx.room.ext.toAnnotationBox
 import androidx.room.ext.typeName
+import androidx.room.processor.DatabaseViewProcessor
 import androidx.room.processor.EntityProcessor
-import com.google.auto.common.MoreElements
 import com.squareup.javapoet.TypeName
 import javax.lang.model.element.TypeElement
 import javax.lang.model.type.DeclaredType
@@ -27,25 +28,32 @@ import javax.lang.model.type.DeclaredType
  * A class is turned into a Pojo if it is used in a query response.
  */
 open class Pojo(
-        val element: TypeElement,
-        val type: DeclaredType,
-        val fields: List<Field>,
-        val embeddedFields: List<EmbeddedField>,
-        val relations: List<Relation>,
-        val constructor: Constructor? = null) {
+    val element: TypeElement,
+    val type: DeclaredType,
+    fields: List<Field>,
+    val embeddedFields: List<EmbeddedField>,
+    val relations: List<Relation>,
+    val constructor: Constructor? = null
+) : HasFields {
     val typeName: TypeName by lazy { type.typeName() }
 
+    override val fields = Fields(fields)
+
     /**
-     * All table names that are somehow accessed by this Pojo.
+     * All table or view names that are somehow accessed by this Pojo.
      * Might be via Embedded or Relation.
      */
     fun accessedTableNames(): List<String> {
-        val entityAnnotation = MoreElements.getAnnotationMirror(element,
-                androidx.room.Entity::class.java).orNull()
+        val entityAnnotation = element.toAnnotationBox(androidx.room.Entity::class)
         return if (entityAnnotation != null) {
-            listOf(EntityProcessor.extractTableName(element, entityAnnotation))
+            listOf(EntityProcessor.extractTableName(element, entityAnnotation.value))
         } else {
-            embeddedFields.flatMap {
+            val viewAnnotation = element.toAnnotationBox(androidx.room.DatabaseView::class)
+            if (viewAnnotation != null) {
+                listOf(DatabaseViewProcessor.extractViewName(element, viewAnnotation.value))
+            } else {
+                emptyList()
+            } + embeddedFields.flatMap {
                 it.pojo.accessedTableNames()
             } + relations.map {
                 it.entity.tableName

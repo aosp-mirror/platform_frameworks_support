@@ -19,16 +19,17 @@ package androidx.navigation.fragment;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Bundle;
-import android.support.annotation.NavigationRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
+import androidx.annotation.CallSuper;
+import androidx.annotation.NavigationRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.NavGraph;
 import androidx.navigation.NavHost;
@@ -42,23 +43,23 @@ import androidx.navigation.Navigator;
  * defining your app's chrome around it, e.g.:</p>
  *
  * <pre class="prettyprint">
- *     <android.support.v4.widget.DrawerLayout
- *             xmlns:android="http://schemas.android.com/apk/res/android"
- *             xmlns:app="http://schemas.android.com/apk/res-auto"
- *             android:layout_width="match_parent"
- *             android:layout_height="match_parent">
- *         <fragment
- *                 android:layout_width="match_parent"
- *                 android:layout_height="match_parent"
- *                 android:id="@+id/my_nav_host_fragment"
- *                 android:name="androidx.navigation.fragment.NavHostFragment"
- *                 app:navGraph="@xml/nav_sample"
- *                 app:defaultNavHost="true" />
- *         <android.support.design.widget.NavigationView
- *                 android:layout_width="wrap_content"
- *                 android:layout_height="match_parent"
- *                 android:layout_gravity="start"/>
- *     </android.support.v4.widget.DrawerLayout>
+ * &lt;android.support.v4.widget.DrawerLayout
+ *        xmlns:android="http://schemas.android.com/apk/res/android"
+ *        xmlns:app="http://schemas.android.com/apk/res-auto"
+ *        android:layout_width="match_parent"
+ *        android:layout_height="match_parent"&gt;
+ *    &lt;fragment
+ *            android:layout_width="match_parent"
+ *            android:layout_height="match_parent"
+ *            android:id="@+id/my_nav_host_fragment"
+ *            android:name="androidx.navigation.fragment.NavHostFragment"
+ *            app:navGraph="@xml/nav_sample"
+ *            app:defaultNavHost="true" /&gt;
+ *    &lt;android.support.design.widget.NavigationView
+ *            android:layout_width="wrap_content"
+ *            android:layout_height="match_parent"
+ *            android:layout_gravity="start"/&gt;
+ * &lt;/android.support.v4.widget.DrawerLayout&gt;
  * </pre>
  *
  * <p>Each NavHostFragment has a {@link NavController} that defines valid navigation within
@@ -75,6 +76,8 @@ import androidx.navigation.Navigator;
  */
 public class NavHostFragment extends Fragment implements NavHost {
     private static final String KEY_GRAPH_ID = "android-support-nav:fragment:graphId";
+    private static final String KEY_START_DESTINATION_ARGS =
+            "android-support-nav:fragment:startDestinationArgs";
     private static final String KEY_NAV_CONTROLLER_STATE =
             "android-support-nav:fragment:navControllerState";
     private static final String KEY_DEFAULT_NAV_HOST = "android-support-nav:fragment:defaultHost";
@@ -120,6 +123,7 @@ public class NavHostFragment extends Fragment implements NavHost {
     private NavController mNavController;
 
     // State that will be saved and restored
+    private int mGraphId;
     private boolean mDefaultNavHost;
 
     /**
@@ -128,11 +132,31 @@ public class NavHostFragment extends Fragment implements NavHost {
      * @param graphResId resource id of the navigation graph to inflate
      * @return a new NavHostFragment instance
      */
+    @NonNull
     public static NavHostFragment create(@NavigationRes int graphResId) {
+        return create(graphResId, null);
+    }
+
+    /**
+     * Create a new NavHostFragment instance with an inflated {@link NavGraph} resource.
+     *
+     * @param graphResId resource id of the navigation graph to inflate
+     * @param startDestinationArgs arguments to send to the start destination of the graph
+     * @return a new NavHostFragment instance
+     */
+    @NonNull
+    public static NavHostFragment create(@NavigationRes int graphResId,
+            @Nullable Bundle startDestinationArgs) {
         Bundle b = null;
         if (graphResId != 0) {
             b = new Bundle();
             b.putInt(KEY_GRAPH_ID, graphResId);
+        }
+        if (startDestinationArgs != null) {
+            if (b == null) {
+                b = new Bundle();
+            }
+            b.putBundle(KEY_START_DESTINATION_ARGS, startDestinationArgs);
         }
 
         final NavHostFragment result = new NavHostFragment();
@@ -152,34 +176,16 @@ public class NavHostFragment extends Fragment implements NavHost {
      */
     @NonNull
     @Override
-    public NavController getNavController() {
+    public final NavController getNavController() {
         if (mNavController == null) {
             throw new IllegalStateException("NavController is not available before onCreate()");
         }
         return mNavController;
     }
 
-    /**
-     * Set a {@link NavGraph} for this navigation host's {@link NavController} by resource id.
-     * The existing graph will be replaced.
-     *
-     * @param graphResId resource id of the navigation graph to inflate
-     */
-    public void setGraph(@NavigationRes int graphResId) {
-        if (mNavController == null) {
-            Bundle args = getArguments();
-            if (args == null) {
-                args = new Bundle();
-            }
-            args.putInt(KEY_GRAPH_ID, graphResId);
-            setArguments(args);
-        } else {
-            mNavController.setGraph(graphResId);
-        }
-    }
-
+    @CallSuper
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         // TODO This feature should probably be a first-class feature of the Fragment system,
         // but it can stay here until we can add the necessary attr resources to
@@ -191,6 +197,7 @@ public class NavHostFragment extends Fragment implements NavHost {
         }
     }
 
+    @CallSuper
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -213,13 +220,19 @@ public class NavHostFragment extends Fragment implements NavHost {
         if (navState != null) {
             // Navigation controller state overrides arguments
             mNavController.restoreState(navState);
+        }
+        if (mGraphId != 0) {
+            // Set from onInflate()
+            mNavController.setGraph(mGraphId);
         } else {
+            // See if it was set by NavHostFragment.create()
             final Bundle args = getArguments();
             final int graphId = args != null ? args.getInt(KEY_GRAPH_ID) : 0;
+            final Bundle startDestinationArgs = args != null
+                    ? args.getBundle(KEY_START_DESTINATION_ARGS)
+                    : null;
             if (graphId != 0) {
-                mNavController.setGraph(graphId);
-            } else {
-                mNavController.setMetadataGraph();
+                mNavController.setGraph(graphId, startDestinationArgs);
             }
         }
     }
@@ -263,8 +276,10 @@ public class NavHostFragment extends Fragment implements NavHost {
         Navigation.setViewNavController(rootView, mNavController);
     }
 
+    @CallSuper
     @Override
-    public void onInflate(Context context, AttributeSet attrs, Bundle savedInstanceState) {
+    public void onInflate(@NonNull Context context, @NonNull AttributeSet attrs,
+            @Nullable Bundle savedInstanceState) {
         super.onInflate(context, attrs, savedInstanceState);
 
         final TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.NavHostFragment);
@@ -272,7 +287,7 @@ public class NavHostFragment extends Fragment implements NavHost {
         final boolean defaultHost = a.getBoolean(R.styleable.NavHostFragment_defaultNavHost, false);
 
         if (graphId != 0) {
-            setGraph(graphId);
+            mGraphId = graphId;
         }
         if (defaultHost) {
             mDefaultNavHost = true;
@@ -280,6 +295,7 @@ public class NavHostFragment extends Fragment implements NavHost {
         a.recycle();
     }
 
+    @CallSuper
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
