@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d1ebc2cc_c3d57943",
+        "filename": "webkit/src/main/java/androidx/webkit/internal/WebViewFeatureInternal.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-03-06T22:58:34Z",
+      "side": 1,
+      "message": "maybe rename this variable, to make the API clearer? Or, you could consider adding `@NonNull @WebViewSupportFeature` as we do here: http://cs/aosp-androidx/webkit/src/main/java/androidx/webkit/WebViewFeature.java?l\u003d405\u0026rcl\u003d820dc775a7a35e9ba0bbee65d317a67905ec2410",
+      "range": {
+        "startLine": 371,
+        "startChar": 59,
+        "endLine": 371,
+        "endChar": 66
+      },
+      "revId": "8b632bdb5b4d24486d1ba525915f3fcac9fc35c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
