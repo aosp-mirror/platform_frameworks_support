@@ -41,13 +41,18 @@ import org.gradle.api.logging.Logger
  *  ALL_AFFECTED_PROJECTS -- The union of CHANGED_PROJECTS and DEPENDENT_PROJECTS,
  *      which encompasses all projects that could possibly break due to the changes.
  */
-internal enum class ProjectSubset { DEPENDENT_PROJECTS, CHANGED_PROJECTS, ALL }
+internal enum class ProjectSubset { DEPENDENT_PROJECTS, CHANGED_PROJECTS, ALL_AFFECTED_PROJECTS }
 
 /**
  * A utility class that can discover which files are changed based on git history.
  *
  * To enable this, you need to pass [ENABLE_ARG] into the build as a command line parameter
  * (-P<name>)
+ *
+ * Passing [DEPENDENT_PROJECTS_ARG] will result in only DEPENDENT_PROJECTS being returned (see enum)
+ * Passing [CHANGED_PROJECTS_ARG] will behave likewise.
+ *
+ * If neither of those are passed, [ALL_AFFECTED_PROJECTS] is returned.
  *
  * Currently, it checks git logs to find last merge CL to discover where the anchor CL is.
  *
@@ -66,8 +71,8 @@ abstract class AffectedModuleDetector {
         private const val ROOT_PROP_NAME = "affectedModuleDetector"
         private const val LOG_FILE_NAME = "affected_module_detector_log.txt"
         private const val ENABLE_ARG = "androidx.enableAffectedModuleDetection"
-        private const val DEPENDENT_PROJECTS_ARG = "androidx.onlyDependent"
-        private const val CHANGED_PROJECTS_ARG = "androidx.onlyDirectlyAffected"
+        private const val DEPENDENT_PROJECTS_ARG = "androidx.dependentProjects"
+        private const val CHANGED_PROJECTS_ARG = "androidx.changedProjects"
         @JvmStatic
         fun configure(gradle: Gradle, rootProject: Project) {
             val enabled = rootProject.hasProperty(ENABLE_ARG)
@@ -75,7 +80,7 @@ abstract class AffectedModuleDetector {
                 rootProject.hasProperty(DEPENDENT_PROJECTS_ARG) -> ProjectSubset.DEPENDENT_PROJECTS
                 rootProject.hasProperty(CHANGED_PROJECTS_ARG)
                     -> ProjectSubset.CHANGED_PROJECTS
-                else -> ProjectSubset.ALL
+                else -> ProjectSubset.ALL_AFFECTED_PROJECTS
             }
             val inBuildServer = isRunningOnBuildServer()
             if (!enabled && !inBuildServer) {
@@ -176,7 +181,7 @@ internal class AffectedModuleDetectorImpl constructor(
     private val logger: Logger?,
         // used for debugging purposes when we want to ignore non module files
     private val ignoreUnknownProjects: Boolean = false,
-    private val projectSubset: ProjectSubset = ProjectSubset.ALL,
+    private val projectSubset: ProjectSubset = ProjectSubset.ALL_AFFECTED_PROJECTS,
     private val injectedGitClient: GitClient? = null
 ) : AffectedModuleDetector() {
     private val git by lazy {
@@ -206,11 +211,11 @@ internal class AffectedModuleDetectorImpl constructor(
     }
 
     /**
-     * By default, finds all modules that are affected by current changes, and always built modules
+     * By default, finds all modules that are affected by current changes
      *
-     * With param onlyDependent, finds only modules dependent on directly affected modules
+     * With param dependentProjects, finds only modules dependent on directly changed modules
      *
-     * With param onlyDirectlyAffected, finds only directly affectedModules and always built modules
+     * With param changedProjects, finds only directly changed modules
      *
      * If it cannot determine the containing module for a file (e.g. buildSrc or root), it
      * defaults to all projects unless [ignoreUnknownProjects] is set to true.
@@ -234,7 +239,7 @@ internal class AffectedModuleDetectorImpl constructor(
                     }
                 }
         if (containingProjects.any { it == null }) {
-            logger?.info("couldn't find containing file for some projects, returning ALL")
+            logger?.info("couldn't find containing file for some projects, returning all projects")
             logger?.info(
                     """
                         if i was going to check for what i've found, i would've returned
@@ -247,14 +252,14 @@ internal class AffectedModuleDetectorImpl constructor(
             ALWAYS_BUILD.any {
                 project.name.contains(it)
             }
-        }
+        }.toSet()
 
-        return when (projectSubset) {
+        return alwaysBuild + when (projectSubset) {
             ProjectSubset.DEPENDENT_PROJECTS
                 -> expandToDependents(containingProjects) - containingProjects.filterNotNull()
             ProjectSubset.CHANGED_PROJECTS
-                -> (containingProjects + alwaysBuild).filterNotNull().toSet()
-            else -> expandToDependents(containingProjects) + alwaysBuild
+                -> (containingProjects).filterNotNull().toSet()
+            else -> expandToDependents(containingProjects)
         }
     }
 
@@ -271,7 +276,8 @@ internal class AffectedModuleDetectorImpl constructor(
     }
 
     companion object {
-        // list of projects that should always be built
-        private val ALWAYS_BUILD = arrayOf("dumb-test", "wear", "media2-test")
+        // dummy test to ensure no failure due to "no instrumentation. See b/112645580
+        // and b/126377106
+        private val ALWAYS_BUILD = setOf("dumb-test")
     }
 }
