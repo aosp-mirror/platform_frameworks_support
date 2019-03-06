@@ -94,6 +94,30 @@
       "revId": "b38cbfbca5ee3ad33dc3d4168ede6f465461e259",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30cd2f58_59141493",
+        "filename": "lifecycle/runtime/eap/src/main/java/androidx/lifecycle/PausingDispatcher.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-06T11:14:56Z",
+      "side": 1,
+      "message": "Oh, yeah. It wasn\u0027t meant to replace android-specific check as you correctly outlined. It was in \"addition to\", because as far as I understand catching \"Exception\" will break proper cancelation. So we still plan to write android specific lint that flags incorrect finally blocks.",
+      "parentUuid": "bc27f846_d964b0e7",
+      "range": {
+        "startLine": 127,
+        "startChar": 12,
+        "endLine": 137,
+        "endChar": 12
+      },
+      "revId": "b38cbfbca5ee3ad33dc3d4168ede6f465461e259",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
