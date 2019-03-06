@@ -53,6 +53,7 @@ import androidx.slice.builders.ListBuilder.InputRangeBuilder;
 import androidx.slice.builders.ListBuilder.RangeBuilder;
 import androidx.slice.builders.ListBuilder.RowBuilder;
 import androidx.slice.builders.MessagingSliceBuilder;
+import androidx.slice.builders.SelectionBuilder;
 import androidx.slice.builders.SliceAction;
 
 import java.util.ArrayList;
@@ -106,6 +107,9 @@ public class SampleSliceProvider extends SliceProvider {
             "slices",
             "cat",
             "permission",
+            "longtext",
+            "loading",
+            "selection",
     };
 
     /**
@@ -143,6 +147,8 @@ public class SampleSliceProvider extends SliceProvider {
         }
         switch (path) {
             // TODO: add list / grid slices with 'see more' options
+            case "/longtext":
+                return createLongText(sliceUri);
             case "/message":
                 return createMessagingSlice(sliceUri);
             case "/wifi":
@@ -197,6 +203,10 @@ public class SampleSliceProvider extends SliceProvider {
                 return createBigPicSlice(sliceUri);
             case "/permission":
                 return createPermissionSlice(getContext(), sliceUri, getContext().getPackageName());
+            case "/loading":
+                return createLoadingSlice(sliceUri);
+            case "/selection":
+                return createSelectionSlice(sliceUri);
         }
         Log.w(TAG, String.format("Unknown uri: %s", sliceUri));
         return null;
@@ -493,6 +503,22 @@ public class SampleSliceProvider extends SliceProvider {
                 .build();
     }
 
+    private Slice createLongText(Uri sliceUri) {
+        ListBuilder lb = new ListBuilder(getContext(), sliceUri, INFINITY);
+        SliceAction action = SliceAction.create(getBroadcastIntent(ACTION_TOAST, "Open story"),
+                IconCompat.createWithResource(getContext(), R.drawable.pizza1), SMALL_IMAGE,
+                "Best Pizza");
+        lb.setHeader(new HeaderBuilder()
+                .setTitle("Best new pizza places in San Francisco")
+                .setSubtitle("June 3rd, 2019 - Pizza Review")
+                .setPrimaryAction(action));
+        lb.addRow(new RowBuilder()
+                .setSubtitle("San Francisco doesn't have a lot of variety in terms of pizza, "
+                        + "you're either getting something fancy and tasty or something awful, "
+                        + "there are very few mid-tier pizza options."));
+        return lb.build();
+    }
+
     private Slice createMessagingSlice(Uri sliceUri) {
         // TODO: Remote input.
         MessagingSliceBuilder b = new MessagingSliceBuilder(getContext(), sliceUri);
@@ -519,16 +545,16 @@ public class SampleSliceProvider extends SliceProvider {
                 "Create note");
         return new ListBuilder(getContext(), sliceUri, INFINITY)
                 .setAccentColor(0xfff4b400)
-                .setHeader(new HeaderBuilder()
+                .addRow(new RowBuilder()
                         .setTitle("Create new note")
-                        .setPrimaryAction(createNote))
-                .addAction(createNote)
-                .addAction(SliceAction.create(getBroadcastIntent(ACTION_TOAST, "voice note"),
+                        .setPrimaryAction(createNote)
+                .addEndItem(createNote)
+                .addEndItem(SliceAction.create(getBroadcastIntent(ACTION_TOAST, "voice note"),
                         IconCompat.createWithResource(getContext(), R.drawable.ic_voice),
                         ICON_IMAGE, "Voice note"))
-                .addAction(SliceAction.create(getIntent("android.media.action.IMAGE_CAPTURE"),
+                .addEndItem(SliceAction.create(getIntent("android.media.action.IMAGE_CAPTURE"),
                         IconCompat.createWithResource(getContext(), R.drawable.ic_camera),
-                        ICON_IMAGE, "Photo note"))
+                        ICON_IMAGE, "Photo note")))
                 .build();
     }
 
@@ -992,6 +1018,11 @@ public class SampleSliceProvider extends SliceProvider {
                         .setPrimaryAction(simpleAction)).build();
     }
 
+    private Slice createLoadingSlice(Uri uri) {
+        return new ListBuilder(getContext(), uri, INFINITY)
+                .setHeader(new HeaderBuilder().setTitle("Some loading title", true)).build();
+    }
+
     private Handler mHandler = new Handler();
     private SparseArray<String> mListSummaries = new SparseArray<>();
     long mListLastUpdate;
@@ -1115,6 +1146,28 @@ public class SampleSliceProvider extends SliceProvider {
                                         updating || TextUtils.isEmpty(school))))
                 .build();
         return s;
+    }
+
+    private Slice createSelectionSlice(Uri sliceUri) {
+        return new ListBuilder(getContext(), sliceUri, INFINITY)
+                .addSelection(new SelectionBuilder()
+                        .setTitle("Pick a card")
+                        .setSubtitle("Any card")
+                        .addOption("index", "Index")
+                        .addOption("business", "Business")
+                        .addOption("playing", "Playing")
+                        .setSelectedOption("business")
+                        // TODO: Update this intent once view-side selection is supported.
+                        .setPrimaryAction(SliceAction.create(
+                                getBroadcastIntent(ACTION_TOAST,
+                                        "open card type selection"),
+                                IconCompat.createWithResource(getContext(), R.drawable.ic_note),
+                                ICON_IMAGE,
+                                "Select card type"))
+                        .setInputAction(getBroadcastIntent(ACTION_TOAST,
+                                "handle card type selection"))
+                        .setContentDescription("selection for card type"))
+                .build();
     }
 
     private PendingIntent getIntent(String action) {

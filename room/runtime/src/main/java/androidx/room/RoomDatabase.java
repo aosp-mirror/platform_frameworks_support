@@ -49,7 +49,7 @@ import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executor;
 import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 /**
  * Base class for all Room databases. All classes that are annotated with {@link Database} must
@@ -60,7 +60,6 @@ import java.util.concurrent.locks.ReentrantLock;
  *
  * @see Database
  */
-//@SuppressWarnings({"unused", "WeakerAccess"})
 public abstract class RoomDatabase {
     private static final String DB_IMPL_SUFFIX = "_Impl";
     /**
@@ -68,9 +67,14 @@ public abstract class RoomDatabase {
      *
      * @hide
      */
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
     public static final int MAX_BIND_PARAMETER_CNT = 999;
-    // set by the generated open helper.
+    /**
+     * Set by the generated open helper.
+     *
+     * @deprecated Will be hidden in the next release.
+     */
+    @Deprecated
     protected volatile SupportSQLiteDatabase mDatabase;
     private Executor mQueryExecutor;
     private SupportSQLiteOpenHelper mOpenHelper;
@@ -78,19 +82,43 @@ public abstract class RoomDatabase {
     private boolean mAllowMainThreadQueries;
     boolean mWriteAheadLoggingEnabled;
 
+    /**
+     * @deprecated Will be hidden in the next release.
+     */
     @Nullable
+    @Deprecated
     protected List<Callback> mCallbacks;
 
-    private final ReentrantLock mCloseLock = new ReentrantLock();
+    private final ReentrantReadWriteLock mCloseLock = new ReentrantReadWriteLock();
 
     /**
      * {@link InvalidationTracker} uses this lock to prevent the database from closing while it is
      * querying database updates.
+     * <p>
+     * The returned lock is reentrant and will allow multiple threads to acquire the lock
+     * simultaneously until {@link #close()} is invoked in which the lock becomes exclusive as
+     * a way to let the InvalidationTracker finish its work before closing the database.
      *
      * @return The lock for {@link #close()}.
      */
     Lock getCloseLock() {
-        return mCloseLock;
+        return mCloseLock.readLock();
+    }
+
+    /**
+     * This id is only set on threads that are used to dispatch coroutines within a suspending
+     * database transaction.
+     */
+    private final ThreadLocal<Integer> mSuspendingTransactionId = new ThreadLocal<>();
+
+    /**
+     * Gets the suspending transaction id of the current thread.
+     *
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+    ThreadLocal<Integer> getSuspendingTransactionId() {
+        return mSuspendingTransactionId;
     }
 
     /**
@@ -121,6 +149,10 @@ public abstract class RoomDatabase {
         mQueryExecutor = configuration.queryExecutor;
         mAllowMainThreadQueries = configuration.allowMainThreadQueries;
         mWriteAheadLoggingEnabled = wal;
+        if (configuration.multiInstanceInvalidation) {
+            mInvalidationTracker.startMultiInstanceInvalidation(configuration.context,
+                    configuration.name);
+        }
     }
 
     /**
@@ -184,11 +216,13 @@ public abstract class RoomDatabase {
      */
     public void close() {
         if (isOpen()) {
+            final Lock closeLock = mCloseLock.writeLock();
             try {
-                mCloseLock.lock();
+                closeLock.lock();
+                mInvalidationTracker.stopMultiInstanceInvalidation();
                 mOpenHelper.close();
             } finally {
-                mCloseLock.unlock();
+                closeLock.unlock();
             }
         }
     }
@@ -199,7 +233,7 @@ public abstract class RoomDatabase {
      * @hide
      */
     @SuppressWarnings("WeakerAccess")
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
     // used in generated code
     public void assertNotMainThread() {
         if (mAllowMainThreadQueries) {
@@ -211,6 +245,21 @@ public abstract class RoomDatabase {
         }
     }
 
+    /**
+     * Asserts that we are not on a suspending transaction.
+     *
+     * @hide
+     */
+    @SuppressWarnings("WeakerAccess")
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+    // used in generated code
+    public void assertNotSuspendingTransaction() {
+        if (!inTransaction() && mSuspendingTransactionId.get() != null) {
+            throw new IllegalStateException("Cannot access database on a different coroutine"
+                    + " context inherited from a suspending transaction.");
+        }
+    }
+
     // Below, there are wrapper methods for SupportSQLiteDatabase. This helps us track which
     // methods we are using and also helps unit tests to mock this class without mocking
     // all SQLite database methods.
@@ -219,8 +268,7 @@ public abstract class RoomDatabase {
      * Convenience method to query the database with arguments.
      *
      * @param query The sql query
-     * @param args The bind arguments for the placeholders in the query
-     *
+     * @param args  The bind arguments for the placeholders in the query
      * @return A Cursor obtained by running the given query in the Room database.
      */
     public Cursor query(String query, @Nullable Object[] args) {
@@ -235,6 +283,7 @@ public abstract class RoomDatabase {
      */
     public Cursor query(SupportSQLiteQuery query) {
         assertNotMainThread();
+        assertNotSuspendingTransaction();
         return mOpenHelper.getWritableDatabase().query(query);
     }
 
@@ -246,12 +295,16 @@ public abstract class RoomDatabase {
      */
     public SupportSQLiteStatement compileStatement(@NonNull String sql) {
         assertNotMainThread();
+        assertNotSuspendingTransaction();
         return mOpenHelper.getWritableDatabase().compileStatement(sql);
     }
 
     /**
      * Wrapper for {@link SupportSQLiteDatabase#beginTransaction()}.
+     *
+     * @deprecated Use {@link #runInTransaction(Runnable)}
      */
+    @Deprecated
     public void beginTransaction() {
         assertNotMainThread();
         SupportSQLiteDatabase database = mOpenHelper.getWritableDatabase();
@@ -261,7 +314,10 @@ public abstract class RoomDatabase {
 
     /**
      * Wrapper for {@link SupportSQLiteDatabase#endTransaction()}.
+     *
+     * @deprecated Use {@link #runInTransaction(Runnable)}
      */
+    @Deprecated
     public void endTransaction() {
         mOpenHelper.getWritableDatabase().endTransaction();
         if (!inTransaction()) {
@@ -281,7 +337,10 @@ public abstract class RoomDatabase {
 
     /**
      * Wrapper for {@link SupportSQLiteDatabase#setTransactionSuccessful()}.
+     *
+     * @deprecated Use {@link #runInTransaction(Runnable)}
      */
+    @Deprecated
     public void setTransactionSuccessful() {
         mOpenHelper.getWritableDatabase().setTransactionSuccessful();
     }
@@ -292,6 +351,7 @@ public abstract class RoomDatabase {
      *
      * @param body The piece of code to execute.
      */
+    @SuppressWarnings("deprecation")
     public void runInTransaction(@NonNull Runnable body) {
         beginTransaction();
         try {
@@ -310,6 +370,7 @@ public abstract class RoomDatabase {
      * @param <V>  The type of the return value.
      * @return The value returned from the {@link Callable}.
      */
+    @SuppressWarnings("deprecation")
     public <V> V runInTransaction(@NonNull Callable<V> body) {
         beginTransaction();
         try {
@@ -423,7 +484,9 @@ public abstract class RoomDatabase {
         private SupportSQLiteOpenHelper.Factory mFactory;
         private boolean mAllowMainThreadQueries;
         private JournalMode mJournalMode;
+        private boolean mMultiInstanceInvalidation;
         private boolean mRequireMigration;
+        private boolean mAllowDestructiveMigrationOnDowngrade;
         /**
          * Migrations, mapped by from-to pairs.
          */
@@ -478,11 +541,11 @@ public abstract class RoomDatabase {
          * @return this
          */
         @NonNull
-        public Builder<T> addMigrations(@NonNull  Migration... migrations) {
+        public Builder<T> addMigrations(@NonNull Migration... migrations) {
             if (mMigrationStartAndEndVersions == null) {
                 mMigrationStartAndEndVersions = new HashSet<>();
             }
-            for (Migration migration: migrations) {
+            for (Migration migration : migrations) {
                 mMigrationStartAndEndVersions.add(migration.startVersion);
                 mMigrationStartAndEndVersions.add(migration.endVersion);
             }
@@ -549,6 +612,25 @@ public abstract class RoomDatabase {
         }
 
         /**
+         * Sets whether table invalidation in this instance of {@link RoomDatabase} should be
+         * broadcast and synchronized with other instances of the same {@link RoomDatabase},
+         * including those in a separate process. In order to enable multi-instance invalidation,
+         * this has to be turned on both ends.
+         * <p>
+         * This is not enabled by default.
+         * <p>
+         * This does not work for in-memory databases. This does not work between database instances
+         * targeting different database files.
+         *
+         * @return this
+         */
+        @NonNull
+        public Builder<T> enableMultiInstanceInvalidation() {
+            mMultiInstanceInvalidation = mName != null;
+            return this;
+        }
+
+        /**
          * Allows Room to destructively recreate database tables if {@link Migration}s that would
          * migrate old database schemas to the latest schema version are not found.
          * <p>
@@ -562,12 +644,33 @@ public abstract class RoomDatabase {
          * crashing.
          * <p>
          * Note that this will delete all of the data in the database tables managed by Room.
+         * <p>
+         * To let Room fallback to destructive migration only during a schema downgrade then use
+         * {@link #fallbackToDestructiveMigrationOnDowngrade()}.
          *
          * @return this
+         *
+         * @see #fallbackToDestructiveMigrationOnDowngrade()
          */
         @NonNull
         public Builder<T> fallbackToDestructiveMigration() {
             mRequireMigration = false;
+            mAllowDestructiveMigrationOnDowngrade = true;
+            return this;
+        }
+
+        /**
+         * Allows Room to destructively recreate database tables if {@link Migration}s are not
+         * available when downgrading to old schema versions.
+         *
+         * @return this
+         *
+         * @see Builder#fallbackToDestructiveMigration()
+         */
+        @NonNull
+        public Builder<T> fallbackToDestructiveMigrationOnDowngrade() {
+            mRequireMigration = true;
+            mAllowDestructiveMigrationOnDowngrade = true;
             return this;
         }
 
@@ -626,6 +729,7 @@ public abstract class RoomDatabase {
          *
          * @return A new database instance.
          */
+        @SuppressLint("RestrictedApi")
         @NonNull
         public T build() {
             //noinspection ConstantConditions
@@ -660,10 +764,11 @@ public abstract class RoomDatabase {
             }
             DatabaseConfiguration configuration =
                     new DatabaseConfiguration(mContext, mName, mFactory, mMigrationContainer,
-                            mCallbacks, mAllowMainThreadQueries,
-                            mJournalMode.resolve(mContext),
+                            mCallbacks, mAllowMainThreadQueries, mJournalMode.resolve(mContext),
                             mQueryExecutor,
-                            mRequireMigration, mMigrationsNotRequiredFrom);
+                            mMultiInstanceInvalidation,
+                            mRequireMigration,
+                            mAllowDestructiveMigrationOnDowngrade, mMigrationsNotRequiredFrom);
             T db = Room.getGeneratedImplementation(mDatabaseClass, DB_IMPL_SUFFIX);
             db.init(configuration);
             return db;

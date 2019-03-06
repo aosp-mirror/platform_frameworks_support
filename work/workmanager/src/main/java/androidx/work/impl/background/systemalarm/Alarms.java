@@ -41,7 +41,7 @@ import androidx.work.impl.utils.IdGenerator;
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 class Alarms {
 
-    private static final String TAG = "Alarms";
+    private static final String TAG = Logger.tagWithPrefix("Alarms");
 
     /**
      * Sets an exact alarm after cancelling any existing alarms for the given id.
@@ -89,7 +89,7 @@ class Alarms {
         SystemIdInfo systemIdInfo = systemIdInfoDao.getSystemIdInfo(workSpecId);
         if (systemIdInfo != null) {
             cancelExactAlarm(context, workSpecId, systemIdInfo.systemId);
-            Logger.debug(TAG,
+            Logger.get().debug(TAG,
                     String.format("Removing SystemIdInfo for workSpecId (%s)", workSpecId));
             systemIdInfoDao.removeSystemIdInfo(workSpecId);
         }
@@ -105,7 +105,7 @@ class Alarms {
         PendingIntent pendingIntent = PendingIntent.getService(
                 context, alarmId, delayMet, PendingIntent.FLAG_NO_CREATE);
         if (pendingIntent != null && alarmManager != null) {
-            Logger.debug(TAG, String.format(
+            Logger.get().debug(TAG, String.format(
                     "Cancelling existing alarm with (workSpecId, systemId) (%s, %s)",
                     workSpecId,
                     alarmId));

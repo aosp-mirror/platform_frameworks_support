@@ -21,30 +21,41 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.RootMatchers.isPlatformPopup;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
+import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
+
+import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
+import android.os.SystemClock;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.ColorRes;
 import androidx.annotation.IdRes;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.test.R;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.test.filters.LargeTest;
-import androidx.test.filters.SmallTest;
+import androidx.test.filters.MediumTest;
 
 import org.hamcrest.Matcher;
+import org.junit.After;
 import org.junit.Test;
 
 /**
  * In addition to all tinting-related tests done by the base class, this class provides
  * tests specific to {@link AppCompatSpinner} class.
  */
-@SmallTest
+@LargeTest
 public class AppCompatSpinnerTest
         extends AppCompatBaseViewTest<AppCompatSpinnerActivity, AppCompatSpinner> {
+    private static final String EARTH = "Earth";
+
     public AppCompatSpinnerTest() {
         super(AppCompatSpinnerActivity.class);
     }
@@ -53,6 +64,23 @@ public class AppCompatSpinnerTest
     protected boolean hasBackgroundByDefault() {
         // Spinner has default background set on it
         return true;
+    }
+
+    @Override
+    public void setUp() {
+        super.setUp();
+        if (mActivity.getRequestedOrientation() != ActivityInfo.SCREEN_ORIENTATION_PORTRAIT) {
+            mActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+            SystemClock.sleep(250);
+        }
+    }
+
+    @After
+    public void cleanUp() {
+        if (mActivity.getRequestedOrientation() != ActivityInfo.SCREEN_ORIENTATION_PORTRAIT) {
+            mActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+            SystemClock.sleep(250);
+        }
     }
 
     /**
@@ -125,5 +153,37 @@ public class AppCompatSpinnerTest
         spinner.setPopupBackgroundDrawable(ContextCompat.getDrawable(
                 mActivityTestRule.getActivity(), R.drawable.test_background_blue));
         verifySpinnerPopupTheming(R.id.view_ocean_themed_popup, R.color.test_blue, false);
+    }
+
+    @MediumTest
+    @Test
+    public void testHasAppCompatDialogMode() {
+        final AppCompatSpinner spinner = mContainer.findViewById(R.id.spinner_dialog_popup);
+        final AppCompatSpinner.SpinnerPopup popup = spinner.getInternalPopup();
+        assertNotNull(popup);
+        assertThat(popup, instanceOf(AppCompatSpinner.DialogPopup.class));
+
+        onView(withId(R.id.spinner_dialog_popup)).perform(click());
+
+        final AppCompatSpinner.DialogPopup dialogPopup = (AppCompatSpinner.DialogPopup) popup;
+        assertThat(dialogPopup.mPopup, instanceOf(AlertDialog.class));
+    }
+
+    @LargeTest
+    @Test
+    public void testChangeOrientationDialogPopupPersists() {
+        verifyChangeOrientationPopupPersists(R.id.spinner_dialog_popup);
+    }
+
+    @LargeTest
+    @Test
+    public void testChangeOrientationDropdownPopupPersists() {
+        verifyChangeOrientationPopupPersists(R.id.spinner_dropdown_popup);
+    }
+
+    private void verifyChangeOrientationPopupPersists(@IdRes int spinnerId) {
+        onView(withId(spinnerId)).perform(click());
+        mActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        onView(withText(EARTH)).check(matches(isDisplayed()));
     }
 }

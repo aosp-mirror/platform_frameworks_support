@@ -49,13 +49,14 @@ import androidx.core.util.Pair;
 import androidx.slice.builders.GridRowBuilder;
 import androidx.slice.builders.ListBuilder;
 import androidx.slice.builders.SliceAction;
+import androidx.slice.core.SliceHints;
 import androidx.slice.render.SliceRenderActivity;
 import androidx.slice.widget.EventInfo;
 import androidx.slice.widget.SliceLiveData;
-import androidx.test.InstrumentationRegistry;
+import androidx.test.core.app.ApplicationProvider;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.MediumTest;
 import androidx.test.filters.SdkSuppress;
-import androidx.test.filters.SmallTest;
-import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -73,11 +74,11 @@ import java.util.concurrent.atomic.AtomicInteger;
  * Tests for {@link SliceMetadata}.
  */
 @RunWith(AndroidJUnit4.class)
-@SmallTest
+@MediumTest
 @SdkSuppress(minSdkVersion = 19)
 public class SliceMetadataTest {
 
-    private final Context mContext = InstrumentationRegistry.getContext();
+    private final Context mContext = ApplicationProvider.getApplicationContext();
 
     @Before
     public void setup() {
@@ -175,6 +176,40 @@ public class SliceMetadataTest {
                 .addAction(action1)
                 .addAction(action2)
                 .addAction(action3);
+
+        ArrayList<SliceAction> expectedActions = new ArrayList<>();
+        expectedActions.add(action1);
+        expectedActions.add(action2);
+        expectedActions.add(action3);
+
+        SliceMetadata sliceMetadata = SliceMetadata.from(mContext, lb.build());
+        List<androidx.slice.core.SliceAction> actions = sliceMetadata.getSliceActions();
+
+        for (int i = 0; i < expectedActions.size(); i++) {
+            assertEquivalent(expectedActions.get(i), actions.get(i));
+        }
+    }
+
+    @Test
+    public void testGetSliceActionsFromEndItems() {
+        Uri uri = Uri.parse("content://pkg/slice");
+        PendingIntent pi = getIntent("");
+        Bitmap b = Bitmap.createBitmap(50, 25, Bitmap.Config.ARGB_8888);
+        new Canvas(b).drawColor(0xffff0000);
+        IconCompat icon = IconCompat.createWithBitmap(b);
+
+        SliceAction action1 = SliceAction.create(pi, icon, ListBuilder.SMALL_IMAGE, "action1");
+        SliceAction action2 = SliceAction.createDeeplink(pi, icon,
+                ListBuilder.SMALL_IMAGE, "action2");
+        SliceAction action3 = SliceAction.create(pi, icon, ListBuilder.SMALL_IMAGE, "action3");
+
+        ListBuilder lb = new ListBuilder(mContext, uri, ListBuilder.INFINITY);
+        lb.addRow(new ListBuilder.RowBuilder()
+                .setTitle("Text")
+                .setPrimaryAction(getAction("Action"))
+                .addEndItem(action1)
+                .addEndItem(action2)
+                .addEndItem(action3));
 
         ArrayList<SliceAction> expectedActions = new ArrayList<>();
         expectedActions.add(action1);
@@ -361,10 +396,10 @@ public class SliceMetadataTest {
         Uri uri = Uri.parse("content://pkg/slice");
 
         ListBuilder lb = new ListBuilder(mContext, uri, ListBuilder.INFINITY);
-        lb.addRow(new ListBuilder.RowBuilder(lb)
+        lb.addRow(new ListBuilder.RowBuilder()
                 .setTitle("a title")
                 .setPrimaryAction(getAction("Action")));
-        lb.addRow(new ListBuilder.RowBuilder(lb)
+        lb.addRow(new ListBuilder.RowBuilder()
                 .setTitle("another row another title"));
 
         Slice rowSlice = lb.build();
@@ -377,7 +412,7 @@ public class SliceMetadataTest {
         Uri uri = Uri.parse("content://pkg/slice");
 
         ListBuilder lb = new ListBuilder(mContext, uri, ListBuilder.INFINITY);
-        lb.addRow(new ListBuilder.RowBuilder(lb)
+        lb.addRow(new ListBuilder.RowBuilder()
                 .setTitle("a title")
                 .setPrimaryAction(getAction("Action")));
 
@@ -391,7 +426,7 @@ public class SliceMetadataTest {
         Uri uri = Uri.parse("content://pkg/slice");
 
         ListBuilder lb = new ListBuilder(mContext, uri, ListBuilder.INFINITY);
-        lb.addRow(new ListBuilder.RowBuilder(lb)
+        lb.addRow(new ListBuilder.RowBuilder()
                 .setTitle("a title")
                 .setPrimaryAction(getAction("Action")));
 
@@ -407,7 +442,7 @@ public class SliceMetadataTest {
 
         SliceAction toggleAction = new SliceAction(pi, "toggle", false /* isChecked */);
         ListBuilder lb = new ListBuilder(mContext, uri, ListBuilder.INFINITY);
-        lb.addRow(new ListBuilder.RowBuilder(lb)
+        lb.addRow(new ListBuilder.RowBuilder()
                 .setTitle("another title")
                 .setPrimaryAction(toggleAction));
 
@@ -430,7 +465,7 @@ public class SliceMetadataTest {
         SliceAction toggleAction2 = new SliceAction(pi, icon, "toggle2", true /* isChecked */);
 
         ListBuilder lb = new ListBuilder(mContext, uri, ListBuilder.INFINITY);
-        lb.addRow(new ListBuilder.RowBuilder(lb)
+        lb.addRow(new ListBuilder.RowBuilder()
                 .setTitle("another title")
                 .setPrimaryAction(getAction("Action"))
                 .addEndItem(toggleAction)
@@ -447,6 +482,16 @@ public class SliceMetadataTest {
         for (int i = 0; i < expectedToggles.size(); i++) {
             assertEquivalent(expectedToggles.get(i), actualToggles.get(i));
         }
+    }
+
+    @Test
+    public void testGetToggleEmptySlice() {
+        Uri uri = Uri.parse("content://pkg/slice");
+
+        ListBuilder lb = new ListBuilder(mContext, uri, ListBuilder.INFINITY);
+        Slice rowSlice = lb.build();
+        SliceMetadata rowInfo = SliceMetadata.from(mContext, rowSlice);
+        assertTrue(rowInfo.getToggles().isEmpty());
     }
 
     @Test
@@ -470,7 +515,7 @@ public class SliceMetadataTest {
 
         Uri uri = Uri.parse("content://pkg/slice");
         ListBuilder lb = new ListBuilder(mContext, uri, ListBuilder.INFINITY);
-        lb.setHeader(new ListBuilder.HeaderBuilder(lb)
+        lb.setHeader(new ListBuilder.HeaderBuilder()
                 .setTitle("another title")
                 .setPrimaryAction(getAction("Action")));
         lb.addAction(toggle);
@@ -495,7 +540,7 @@ public class SliceMetadataTest {
         Uri uri = Uri.parse("content://pkg/slice");
 
         ListBuilder lb = new ListBuilder(mContext, uri, ListBuilder.INFINITY);
-        lb.addRow(new ListBuilder.RowBuilder(lb)
+        lb.addRow(new ListBuilder.RowBuilder()
                 .setTitle("a title")
                 .setPrimaryAction(getAction("Action")));
 
@@ -510,7 +555,7 @@ public class SliceMetadataTest {
         PendingIntent pi = getIntent("");
 
         ListBuilder lb = new ListBuilder(mContext, uri, ListBuilder.INFINITY);
-        lb.addInputRange(new ListBuilder.InputRangeBuilder(lb)
+        lb.addInputRange(new ListBuilder.InputRangeBuilder()
                 .setTitle("another title")
                 .setValue(7)
                 .setMin(5)
@@ -540,7 +585,7 @@ public class SliceMetadataTest {
         SliceAction primaryAction = new SliceAction(getIntent(""), icon, "action");
 
         ListBuilder lb = new ListBuilder(mContext, uri, ListBuilder.INFINITY);
-        lb.addInputRange(new ListBuilder.InputRangeBuilder(lb)
+        lb.addInputRange(new ListBuilder.InputRangeBuilder()
                 .setTitle("another title")
                 .setValue(7)
                 .setMin(5)
@@ -616,7 +661,7 @@ public class SliceMetadataTest {
         Uri uri = Uri.parse("content://pkg/slice");
 
         ListBuilder lb = new ListBuilder(mContext, uri, ListBuilder.INFINITY);
-        lb.addRange(new ListBuilder.RangeBuilder(lb)
+        lb.addRange(new ListBuilder.RangeBuilder()
                 .setTitle("another title")
                 .setValue(5)
                 .setPrimaryAction(getAction("Action"))
@@ -792,6 +837,25 @@ public class SliceMetadataTest {
                 .build();
         SliceMetadata data = SliceMetadata.from(mContext, slice);
         assertEquals("Summary", data.getSummary());
+    }
+
+    @Test
+    public void testIsCached() {
+        Uri uri = Uri.parse("content://pkg/slice");
+        Slice slice = new Slice.Builder(uri)
+                .addHints(SliceHints.HINT_CACHED)
+                .build();
+        SliceMetadata data = SliceMetadata.from(mContext, slice);
+        assertTrue(data.isCachedSlice());
+    }
+
+    @Test
+    public void testNotCached() {
+        Uri uri = Uri.parse("content://pkg/slice");
+        Slice slice = new Slice.Builder(uri)
+                .build();
+        SliceMetadata data = SliceMetadata.from(mContext, slice);
+        assertFalse(data.isCachedSlice());
     }
 
     private SliceAction getAction(String actionName) {

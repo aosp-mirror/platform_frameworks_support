@@ -19,6 +19,7 @@ package androidx.slice;
 import static androidx.slice.SliceConvert.unwrap;
 import static androidx.slice.widget.SliceLiveData.SUPPORTED_SPECS;
 
+import android.annotation.SuppressLint;
 import android.app.slice.SliceSpec;
 import android.content.ContentProviderClient;
 import android.content.ContentResolver;
@@ -44,6 +45,7 @@ import java.util.Set;
 @RestrictTo(RestrictTo.Scope.LIBRARY)
 @RequiresApi(api = 28)
 class SliceViewManagerWrapper extends SliceViewManagerBase {
+    private static final String TAG = "SliceViewManagerWrapper"; // exactly 23
 
     private final ArrayMap<String, Boolean> mCachedSuspendFlags = new ArrayMap<>();
     private final ArrayMap<String, String> mCachedAuthorities = new ArrayMap<>();
@@ -62,7 +64,20 @@ class SliceViewManagerWrapper extends SliceViewManagerBase {
 
     @Override
     public void pinSlice(@NonNull Uri uri) {
-        mManager.pinSlice(uri, mSpecs);
+        // TODO: When this is fixed in framework, remove this try / catch (b/80118259)
+        try {
+            mManager.pinSlice(uri, mSpecs);
+        } catch (RuntimeException e) {
+            // Check if a provider exists for this uri
+            ContentResolver resolver = mContext.getContentResolver();
+            ContentProviderClient provider = resolver.acquireContentProviderClient(uri);
+            if (provider == null) {
+                throw new IllegalArgumentException("No provider found for " + uri);
+            } else {
+                provider.release();
+                throw e;
+            }
+        }
     }
 
     @Override
@@ -132,6 +147,7 @@ class SliceViewManagerWrapper extends SliceViewManagerBase {
     }
 
     @Override
+    @SuppressLint("WrongThread") // TODO https://issuetracker.google.com/issues/116776070
     public Collection<Uri> getSliceDescendants(Uri uri) {
         // TODO: When this is fixed in framework, remove this try / catch (b/80118259)
         try {
@@ -143,7 +159,7 @@ class SliceViewManagerWrapper extends SliceViewManagerBase {
             if (provider == null) {
                 throw new IllegalArgumentException("No provider found for " + uri);
             } else {
-                provider.close();
+                provider.release();
                 throw e;
             }
         }

@@ -19,15 +19,14 @@ package androidx.slice.builders;
 import static androidx.annotation.RestrictTo.Scope.LIBRARY;
 
 import android.app.PendingIntent;
-import android.net.Uri;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.RestrictTo;
 import androidx.core.graphics.drawable.IconCompat;
-import androidx.core.util.Consumer;
 import androidx.core.util.Pair;
+import androidx.remotecallback.RemoteCallback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,21 +46,6 @@ import java.util.List;
  *     a small size.</li>
  *     <li>{@link ListBuilder#LARGE_IMAGE} - large images are not tinted and are shown as
  *     large as they can be, in a {@link android.widget.ImageView.ScaleType#CENTER_CROP}</li>
- * </ul>
- * <p>
- * If the first row of your slice was created with {@link GridRowBuilder} then there are a couple
- * of extra considerations you should take for when the slice is displayed in different modes,
- * particularly:
- * <ul>
- *     <li>{@link androidx.slice.widget.SliceView#MODE_SHORTCUT} - ensure you use
- *     {@link #setPrimaryAction(SliceAction)} on grid row builder to specify the shortcut action,
- *     icon, and label. This action will also be activated when the whole row is clicked, unless
- *     the individual cells in the row have actions set on them.</li>
- *     <li>{@link androidx.slice.widget.SliceView#MODE_SMALL} - in small format there might not
- *     be enough space to display a cell containing two lines of text and an image, in this case
- *     only one line of text will be shown with the image, favoring text added via
- *     {@link CellBuilder#addTitleText(CharSequence)} or the first text added if no title was
- *     added.</li>
  * </ul>
  * <p>
  * If more cells are added to the grid row than can be displayed, the cells will be cut off. Using
@@ -88,33 +72,12 @@ public class GridRowBuilder {
     }
 
     /**
-     * Create a builder which will construct a slice displayed in a grid format.
-     * @param parent The builder constructing the parent slice.
-     * @deprecated TO BE REMOVED
-     */
-    @Deprecated
-    public GridRowBuilder(@NonNull ListBuilder parent) {
-    }
-
-    /**
      * Add a cell to the grid builder.
      */
     @NonNull
     public GridRowBuilder addCell(@NonNull CellBuilder builder) {
         mCells.add(builder);
         return this;
-    }
-
-    /**
-     * Add a cell to the grid builder.
-     * @deprecated use {@link #addCell(CellBuilder)} instead
-     */
-    @NonNull
-    @Deprecated
-    public GridRowBuilder addCell(@NonNull Consumer<CellBuilder> c) {
-        CellBuilder b = new CellBuilder(this);
-        c.accept(b);
-        return addCell(b);
     }
 
     /**
@@ -144,30 +107,6 @@ public class GridRowBuilder {
     }
 
     /**
-     * If all content in a slice cannot be shown, the cell added here may be displayed where the
-     * content is cut off.
-     * <p>
-     * This method should only be used if you want to display a custom cell to indicate more
-     * content, consider using {@link #setSeeMoreAction(PendingIntent)} otherwise. If you do
-     * choose to specify a custom cell, the cell should have
-     * {@link CellBuilder#setContentIntent(PendingIntent)} specified to take the user to an
-     * activity to see all of the content.
-     * </p>
-     * <p>
-     * Only one see more affordance can be added, this throws {@link IllegalStateException} if
-     * a row or action has been previously added.
-     * </p>
-     * @deprecated use {@link #setSeeMoreCell(CellBuilder)} instead
-     */
-    @NonNull
-    @Deprecated
-    public GridRowBuilder setSeeMoreCell(@NonNull Consumer<CellBuilder> c) {
-        CellBuilder b = new CellBuilder(this);
-        c.accept(b);
-        return setSeeMoreCell(b);
-    }
-
-    /**
      * If all content in a slice cannot be shown, a "see more" affordance may be displayed where
      * the content is cut off. The action added here should take the user to an activity to see
      * all of the content, and will be invoked when the "see more" affordance is tapped.
@@ -183,6 +122,26 @@ public class GridRowBuilder {
                     + "already been added");
         }
         mSeeMoreIntent = intent;
+        mHasSeeMore = true;
+        return this;
+    }
+
+    /**
+     * If all content in a slice cannot be shown, a "see more" affordance may be displayed where
+     * the content is cut off. The action added here should take the user to an activity to see
+     * all of the content, and will be invoked when the "see more" affordance is tapped.
+     * <p>
+     * Only one see more affordance can be added, this throws {@link IllegalStateException} if
+     * a row or action has been previously added.
+     * </p>
+     */
+    @NonNull
+    public GridRowBuilder setSeeMoreAction(@NonNull RemoteCallback callback) {
+        if (mHasSeeMore) {
+            throw new IllegalStateException("Trying to add see more action when one has "
+                    + "already been added");
+        }
+        mSeeMoreIntent = callback.toPendingIntent();
         mHasSeeMore = true;
         return this;
     }
@@ -334,24 +293,6 @@ public class GridRowBuilder {
         }
 
         /**
-         * Create a builder which will construct a slice displayed as a cell in a grid.
-         * @param parent The builder constructing the parent slice.
-         * @deprecated TO BE REMOVED
-         */
-        @Deprecated
-        public CellBuilder(@NonNull GridRowBuilder parent) {
-        }
-
-        /**
-         * Create a builder which will construct a slice displayed as a cell in a grid.
-         * @param uri Uri to tag for this slice.
-         * @deprecated TO BE REMOVED
-         */
-        @Deprecated
-        public CellBuilder(@NonNull GridRowBuilder parent, @NonNull Uri uri) {
-        }
-
-        /**
          * Adds text to the cell. There can be at most two text items, the first two added
          * will be used, others will be ignored.
          */
@@ -455,6 +396,15 @@ public class GridRowBuilder {
         @NonNull
         public CellBuilder setContentIntent(@NonNull PendingIntent intent) {
             mContentIntent = intent;
+            return this;
+        }
+
+        /**
+         * Sets the action to be invoked if the user taps on this cell in the row.
+         */
+        @NonNull
+        public CellBuilder setContentIntent(@NonNull RemoteCallback callback) {
+            mContentIntent = callback.toPendingIntent();
             return this;
         }
 
