@@ -16,9 +16,10 @@
 
 package androidx.core.os
 
-import androidx.test.InstrumentationRegistry
-import androidx.test.filters.SdkSuppress
 import android.view.View
+import androidx.test.core.app.ApplicationProvider
+import androidx.test.filters.SdkSuppress
+import androidx.test.filters.SmallTest
 import androidx.testutils.assertThrows
 import com.google.common.truth.Truth.assertThat
 import org.junit.Assert.assertArrayEquals
@@ -27,6 +28,7 @@ import org.junit.Assert.assertNull
 import org.junit.Test
 
 @SdkSuppress(minSdkVersion = 21)
+@SmallTest
 class PersistableBundleTest {
     @Test fun persistableBundleOfValid() {
         val bundle = persistableBundleOf(
@@ -75,11 +77,11 @@ class PersistableBundleTest {
 
     @Test fun persistableBundleOfInvalid() {
         assertThrows<IllegalArgumentException> {
-            persistableBundleOf("nope" to View(InstrumentationRegistry.getContext()))
+            persistableBundleOf("nope" to View(ApplicationProvider.getApplicationContext() as android.content.Context))
         }.hasMessageThat().isEqualTo("Illegal value type android.view.View for key \"nope\"")
 
         assertThrows<IllegalArgumentException> {
-            persistableBundleOf("nopes" to arrayOf(View(InstrumentationRegistry.getContext())))
+            persistableBundleOf("nopes" to arrayOf(View(ApplicationProvider.getApplicationContext() as android.content.Context)))
         }.hasMessageThat().isEqualTo("Illegal value array type android.view.View for key \"nopes\"")
     }
 }

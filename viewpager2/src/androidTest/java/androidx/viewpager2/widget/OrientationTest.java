@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 The Android Open Source Project
+ * Copyright 2018 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,16 +19,18 @@ package androidx.viewpager2.widget;
 import static androidx.core.util.Preconditions.checkNotNull;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 
-import androidx.test.InstrumentationRegistry;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.test.core.app.ApplicationProvider;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.SmallTest;
-import androidx.test.runner.AndroidJUnit4;
 import androidx.viewpager2.test.R;
-import androidx.viewpager2.widget.ViewPager2.Orientation;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -38,34 +40,42 @@ import org.junit.runner.RunWith;
 public class OrientationTest {
     @Test
     public void test_orientation_noAttrs() {
-        ViewPager2 viewPager = new ViewPager2(InstrumentationRegistry.getContext());
-        assertThat(viewPager.getOrientation(), equalTo(Orientation.HORIZONTAL));
+        ViewPager2 viewPager = new ViewPager2(ApplicationProvider.getApplicationContext());
+        assertThat(viewPager.getOrientation(), equalTo(ViewPager2.ORIENTATION_HORIZONTAL));
     }
 
     @Test
     public void test_orientation_nullAttrs() {
-        ViewPager2 viewPager = new ViewPager2(InstrumentationRegistry.getContext(), null);
-        assertThat(viewPager.getOrientation(), equalTo(Orientation.HORIZONTAL));
+        ViewPager2 viewPager = new ViewPager2(ApplicationProvider.getApplicationContext(), null);
+        assertThat(viewPager.getOrientation(), equalTo(ViewPager2.ORIENTATION_HORIZONTAL));
     }
 
     @Test
     public void test_orientation_default() {
-        assertOrientationCorrect(R.layout.orientation_default, Orientation.HORIZONTAL);
+        assertOrientationCorrect(R.layout.orientation_default, ViewPager2.ORIENTATION_HORIZONTAL);
     }
 
     @Test
     public void test_orientation_horizontal() {
-        assertOrientationCorrect(R.layout.orientation_horizontal, Orientation.HORIZONTAL);
+        assertOrientationCorrect(R.layout.orientation_horizontal,
+                ViewPager2.ORIENTATION_HORIZONTAL);
     }
 
     @Test
     public void test_orientation_vertical() {
-        assertOrientationCorrect(R.layout.orientation_vertical, Orientation.VERTICAL);
+        assertOrientationCorrect(R.layout.orientation_vertical, ViewPager2.ORIENTATION_VERTICAL);
+    }
+
+    @Test
+    public void test_valuesInSync() {
+        assertThat(ViewPager2.ORIENTATION_HORIZONTAL, allOf(is(0), is(RecyclerView.HORIZONTAL)));
+        assertThat(ViewPager2.ORIENTATION_VERTICAL, allOf(is(1), is(RecyclerView.VERTICAL)));
     }
 
     private void assertOrientationCorrect(int layoutId, int expectedOrientation) {
-        LayoutInflater layoutInflater = (LayoutInflater) checkNotNull(InstrumentationRegistry
-                .getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE));
+        LayoutInflater layoutInflater = (LayoutInflater) checkNotNull(
+                ApplicationProvider.getApplicationContext().getSystemService(
+                        Context.LAYOUT_INFLATER_SERVICE));
         ViewPager2 viewPager = (ViewPager2) layoutInflater.inflate(layoutId, null);
         assertThat(viewPager.getOrientation(), equalTo(expectedOrientation));
     }

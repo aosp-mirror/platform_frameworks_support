@@ -16,8 +16,14 @@
 
 package androidx.room.integration.testapp.test;
 
+import androidx.arch.core.executor.ArchTaskExecutor;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.room.integration.testapp.vo.Address;
 import androidx.room.integration.testapp.vo.Coordinates;
+import androidx.room.integration.testapp.vo.House;
+import androidx.room.integration.testapp.vo.Mail;
 import androidx.room.integration.testapp.vo.Pet;
 import androidx.room.integration.testapp.vo.School;
 import androidx.room.integration.testapp.vo.Toy;
@@ -27,6 +33,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.FutureTask;
 
 public class TestUtil {
     public static User[] createUsersArray(int... ids) {
@@ -105,6 +113,52 @@ public class TestUtil {
         coordinates.lat = Math.random();
         coordinates.lng = Math.random();
         return coordinates;
+    }
+
+    public static House[] createHousesForUser(int uid, int houseStartId, int count) {
+        House[] houses = new House[count];
+        for (int i = 0; i < count; i++) {
+            houses[i] = new House(houseStartId++, uid, createAddress());
+        }
+        return houses;
+    }
+
+    public static Mail createMail(int id, String subject, String body) {
+        Mail mail = new Mail();
+        mail.rowId = id;
+        mail.subject = subject;
+        mail.body = body;
+        mail.datetime = System.currentTimeMillis();
+        return mail;
+    }
+
+    public static void observeOnMainThread(final LiveData liveData, final LifecycleOwner provider,
+            final Observer observer) throws ExecutionException, InterruptedException {
+        FutureTask<Void> futureTask = new FutureTask<>(() -> {
+            //noinspection unchecked
+            liveData.observe(provider, observer);
+            return null;
+        });
+        ArchTaskExecutor.getInstance().executeOnMainThread(futureTask);
+        futureTask.get();
+    }
+
+    public static void observeForeverOnMainThread(final LiveData liveData, final Observer observer)
+            throws ExecutionException, InterruptedException {
+        FutureTask<Void> futureTask = new FutureTask<>(() -> {
+            //noinspection unchecked
+            liveData.observeForever(observer);
+            return null;
+        });
+        ArchTaskExecutor.getInstance().executeOnMainThread(futureTask);
+        futureTask.get();
+    }
+
+    public static void forceGc() {
+        Runtime.getRuntime().gc();
+        Runtime.getRuntime().runFinalization();
+        Runtime.getRuntime().gc();
+        Runtime.getRuntime().runFinalization();
     }
 
     private TestUtil() {

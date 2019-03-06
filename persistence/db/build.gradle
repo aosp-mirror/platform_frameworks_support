@@ -31,11 +31,11 @@ dependencies {
 
 // Used by testCompile in room-compiler
 android.libraryVariants.all { variant ->
-    def name = variant.buildType.name
+    def name = variant.name
     def suffix = name.capitalize()
     def jarTask = project.tasks.create(name: "jar${suffix}", type: Jar){
-        dependsOn variant.javaCompile
-        from variant.javaCompile.destinationDir
+        dependsOn variant.javaCompileProvider.get()
+        from variant.javaCompileProvider.get().destinationDir
         destinationDir new File(project.buildDir, "libJar")
     }
 }
@@ -43,7 +43,7 @@ android.libraryVariants.all { variant ->
 supportLibrary {
     name = "Android DB"
     publish = true
-    mavenVersion = LibraryVersions.ROOM
+    mavenVersion = LibraryVersions.PERSISTENCE
     mavenGroup = LibraryGroups.PERSISTENCE
     inceptionYear = "2017"
     description = "Android DB"

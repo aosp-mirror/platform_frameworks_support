@@ -6,19 +6,27 @@ plugins {
     id("SupportAndroidLibraryPlugin")
 }
 
+android {
+    lintOptions {
+        fatal("UnknownNullness")
+    }
+}
+
 dependencies {
     api(project(":core"))
-    api(project(":legacy-support-core-utils"))
+    implementation(project(":collection"))
 
     annotationProcessor(NULLAWAY)
 
+    androidTestImplementation(TEST_EXT_JUNIT)
+    androidTestImplementation(TEST_CORE)
     androidTestImplementation(TEST_RUNNER)
 }
 
 supportLibrary {
     name = "Android Support Palette v7"
     publish = true
-    mavenVersion = LibraryVersions.SUPPORT_LIBRARY
+    mavenVersion = LibraryVersions.PALETTE
     mavenGroup = LibraryGroups.PALETTE
     inceptionYear = "2014"
     description = "Android Support Palette v7"

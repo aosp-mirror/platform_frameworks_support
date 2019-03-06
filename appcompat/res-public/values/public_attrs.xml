@@ -116,6 +116,7 @@
      <public type="attr" name="elevation"/>
      <public type="attr" name="firstBaselineToTopHeight"/>
      <public type="attr" name="fontFamily"/>
+     <public type="attr" name="fontVariationSettings"/>
      <public type="attr" name="gapBetweenBars"/>
      <public type="attr" name="goIcon"/>
      <public type="attr" name="height"/>
@@ -134,6 +135,8 @@
      <public type="attr" name="layout"/>
      <public type="attr" name="lineHeight"/>
      <public type="attr" name="listChoiceBackgroundIndicator"/>
+     <public type="attr" name="listChoiceIndicatorMultipleAnimated"/>
+     <public type="attr" name="listChoiceIndicatorSingleAnimated"/>
      <public type="attr" name="listDividerAlertDialog"/>
      <public type="attr" name="listPopupWindowStyle"/>
      <public type="attr" name="listPreferredItemHeight"/>
@@ -141,6 +144,8 @@
      <public type="attr" name="listPreferredItemHeightSmall"/>
      <public type="attr" name="listPreferredItemPaddingLeft"/>
      <public type="attr" name="listPreferredItemPaddingRight"/>
+     <public type="attr" name="listPreferredItemPaddingStart"/>
+     <public type="attr" name="listPreferredItemPaddingEnd"/>
      <public type="attr" name="logo"/>
      <public type="attr" name="logoDescription"/>
      <public type="attr" name="maxButtonHeight"/>
@@ -199,6 +204,7 @@
      <public type="attr" name="textAppearanceSearchResultTitle"/>
      <public type="attr" name="textAppearanceSmallPopupMenu"/>
      <public type="attr" name="textColorAlertDialogListItem"/>
+     <public type="attr" name="textLocale"/>
      <public type="attr" name="theme"/>
      <public type="attr" name="thickness"/>
      <public type="attr" name="thumbTextPadding"/>

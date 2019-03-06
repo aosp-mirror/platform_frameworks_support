@@ -16,6 +16,8 @@
 
 package androidx.room;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteException;
 import android.util.Log;
@@ -28,15 +30,21 @@ import androidx.annotation.WorkerThread;
 import androidx.arch.core.internal.SafeIterableMap;
 import androidx.collection.ArrayMap;
 import androidx.collection.ArraySet;
+import androidx.collection.SparseArrayCompat;
+import androidx.lifecycle.LiveData;
+import androidx.sqlite.db.SimpleSQLiteQuery;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import androidx.sqlite.db.SupportSQLiteStatement;
 
 import java.lang.ref.WeakReference;
 import java.util.Arrays;
+import java.util.BitSet;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.Callable;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.locks.Lock;
 
@@ -44,65 +52,53 @@ import java.util.concurrent.locks.Lock;
  * InvalidationTracker keeps a list of tables modified by queries and notifies its callbacks about
  * these tables.
  */
-// We create an in memory table with (version, table_id) where version is an auto-increment primary
-// key and a table_id (hardcoded int from initialization).
-// ObservedTableTracker tracks list of tables we should be watching (e.g. adding triggers for).
-// Before each beginTransaction, RoomDatabase invokes InvalidationTracker to sync trigger states.
-// After each endTransaction, RoomDatabase invokes InvalidationTracker to refresh invalidated
+// Some details on how the InvalidationTracker works:
+// * An in memory table is created with (table_id, invalidated) table_id is a hardcoded int from
+// initialization, while invalidated is a boolean bit to indicate if the table has been invalidated.
+// * ObservedTableTracker tracks list of tables we should be watching (e.g. adding triggers for).
+// * Before each beginTransaction, RoomDatabase invokes InvalidationTracker to sync trigger states.
+// * After each endTransaction, RoomDatabase invokes InvalidationTracker to refresh invalidated
 // tables.
-// Each update on one of the observed tables triggers an insertion into this table, hence a
-// new version.
-// Unfortunately, we cannot override the previous row because sqlite uses the conflict resolution
-// of the outer query (the thing that triggered us) so we do a cleanup as we sync instead of letting
-// SQLite override the rows.
-// https://sqlite.org/lang_createtrigger.html:  An ON CONFLICT clause may be specified as part of an
-// UPDATE or INSERT action within the body of the trigger. However if an ON CONFLICT clause is
-// specified as part of the statement causing the trigger to fire, then conflict handling policy of
-// the outer statement is used instead.
+// * Each update (write operation) on one of the observed tables triggers an update into the
+// memory table table, flipping the invalidated flag ON.
+// * When multi-instance invalidation is turned on, MultiInstanceInvalidationClient will be created.
+// It works as an Observer, and notifies other instances of table invalidation.
 public class InvalidationTracker {
 
     private static final String[] TRIGGERS = new String[]{"UPDATE", "DELETE", "INSERT"};
 
     private static final String UPDATE_TABLE_NAME = "room_table_modification_log";
 
-    private static final String VERSION_COLUMN_NAME = "version";
-
     private static final String TABLE_ID_COLUMN_NAME = "table_id";
 
-    private static final String CREATE_VERSION_TABLE_SQL = "CREATE TEMP TABLE " + UPDATE_TABLE_NAME
-            + "(" + VERSION_COLUMN_NAME
-            + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + TABLE_ID_COLUMN_NAME
-            + " INTEGER)";
+    private static final String INVALIDATED_COLUMN_NAME = "invalidated";
+
+    private static final String CREATE_TRACKING_TABLE_SQL = "CREATE TEMP TABLE " + UPDATE_TABLE_NAME
+            + "(" + TABLE_ID_COLUMN_NAME + " INTEGER PRIMARY KEY, "
+            + INVALIDATED_COLUMN_NAME + " INTEGER NOT NULL DEFAULT 0)";
 
     @VisibleForTesting
-    static final String CLEANUP_SQL = "DELETE FROM " + UPDATE_TABLE_NAME
-            + " WHERE " + VERSION_COLUMN_NAME + " NOT IN( SELECT MAX("
-            + VERSION_COLUMN_NAME + ") FROM " + UPDATE_TABLE_NAME
-            + " GROUP BY " + TABLE_ID_COLUMN_NAME + ")";
+    static final String RESET_UPDATED_TABLES_SQL = "UPDATE " + UPDATE_TABLE_NAME
+            + " SET " + INVALIDATED_COLUMN_NAME + " = 0 WHERE " + INVALIDATED_COLUMN_NAME + " = 1 ";
 
     @VisibleForTesting
-    // We always clean before selecting so it is unlikely to have the same row twice and if we
-    // do, it is not a big deal, just more data in the cursor.
     static final String SELECT_UPDATED_TABLES_SQL = "SELECT * FROM " + UPDATE_TABLE_NAME
-            + " WHERE " + VERSION_COLUMN_NAME
-            + "  > ? ORDER BY " + VERSION_COLUMN_NAME + " ASC;";
+            + " WHERE " + INVALIDATED_COLUMN_NAME + " = 1;";
 
     @NonNull
     @VisibleForTesting
-    ArrayMap<String, Integer> mTableIdLookup;
-    private String[] mTableNames;
+    final ArrayMap<String, Integer> mTableIdLookup;
+    final String[] mTableNames;
+    @NonNull
+    @VisibleForTesting
+    final SparseArrayCompat<String> mShadowTableLookup;
+
+    @NonNull
+    private Map<String, Set<String>> mViewTables;
 
     @NonNull
     @VisibleForTesting
-    long[] mTableVersions;
-
-    @SuppressWarnings("WeakerAccess") /* synthetic access */
-    Object[] mQueryArgs = new Object[1];
-
-    // max id in the last syc
-    @SuppressWarnings("WeakerAccess") /* synthetic access */
-    long mMaxVersion = 0;
+    final BitSet mTableInvalidStatus;
 
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     final RoomDatabase mDatabase;
@@ -116,9 +112,14 @@ public class InvalidationTracker {
 
     private ObservedTableTracker mObservedTableTracker;
 
+    private final InvalidationLiveDataContainer mInvalidationLiveDataContainer;
+
     // should be accessed with synchronization only.
     @VisibleForTesting
+    @SuppressLint("RestrictedApi")
     final SafeIterableMap<Observer, ObserverWrapper> mObserverMap = new SafeIterableMap<>();
+
+    private MultiInstanceInvalidationClient mMultiInstanceInvalidationClient;
 
     /**
      * Used by the generated code.
@@ -126,20 +127,39 @@ public class InvalidationTracker {
      * @hide
      */
     @SuppressWarnings("WeakerAccess")
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
     public InvalidationTracker(RoomDatabase database, String... tableNames) {
+        this(database, new HashMap<String, String>(), Collections.<String, Set<String>>emptyMap(),
+                tableNames);
+    }
+
+    /**
+     * Used by the generated code.
+     *
+     * @hide
+     */
+    @SuppressWarnings("WeakerAccess")
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
+    public InvalidationTracker(RoomDatabase database, Map<String, String> shadowTablesMap,
+            Map<String, Set<String>> viewTables, String... tableNames) {
         mDatabase = database;
         mObservedTableTracker = new ObservedTableTracker(tableNames.length);
         mTableIdLookup = new ArrayMap<>();
+        mShadowTableLookup = new SparseArrayCompat<>(shadowTablesMap.size());
+        mViewTables = viewTables;
+        mInvalidationLiveDataContainer = new InvalidationLiveDataContainer(mDatabase);
         final int size = tableNames.length;
         mTableNames = new String[size];
         for (int id = 0; id < size; id++) {
             final String tableName = tableNames[id].toLowerCase(Locale.US);
             mTableIdLookup.put(tableName, id);
             mTableNames[id] = tableName;
+            String shadowTableName = shadowTablesMap.get(tableNames[id]);
+            if (shadowTableName != null) {
+                mShadowTableLookup.append(id, shadowTableName.toLowerCase(Locale.US));
+            }
         }
-        mTableVersions = new long[tableNames.length];
-        Arrays.fill(mTableVersions, 0);
+        mTableInvalidStatus = new BitSet(tableNames.length);
     }
 
     /**
@@ -158,14 +178,26 @@ public class InvalidationTracker {
             try {
                 database.execSQL("PRAGMA temp_store = MEMORY;");
                 database.execSQL("PRAGMA recursive_triggers='ON';");
-                database.execSQL(CREATE_VERSION_TABLE_SQL);
+                database.execSQL(CREATE_TRACKING_TABLE_SQL);
                 database.setTransactionSuccessful();
             } finally {
                 database.endTransaction();
             }
             syncTriggers(database);
-            mCleanupStatement = database.compileStatement(CLEANUP_SQL);
+            mCleanupStatement = database.compileStatement(RESET_UPDATED_TABLES_SQL);
             mInitialized = true;
+        }
+    }
+
+    void startMultiInstanceInvalidation(Context context, String name) {
+        mMultiInstanceInvalidationClient = new MultiInstanceInvalidationClient(context, name, this,
+                mDatabase.getQueryExecutor());
+    }
+
+    void stopMultiInstanceInvalidation() {
+        if (mMultiInstanceInvalidationClient != null) {
+            mMultiInstanceInvalidationClient.stop();
+            mMultiInstanceInvalidationClient = null;
         }
     }
 
@@ -180,7 +212,7 @@ public class InvalidationTracker {
     }
 
     private void stopTrackingTable(SupportSQLiteDatabase writableDb, int tableId) {
-        final String tableName = mTableNames[tableId];
+        final String tableName = mShadowTableLookup.get(tableId, mTableNames[tableId]);
         StringBuilder stringBuilder = new StringBuilder();
         for (String trigger : TRIGGERS) {
             stringBuilder.setLength(0);
@@ -191,7 +223,9 @@ public class InvalidationTracker {
     }
 
     private void startTrackingTable(SupportSQLiteDatabase writableDb, int tableId) {
-        final String tableName = mTableNames[tableId];
+        writableDb.execSQL(
+                "INSERT OR IGNORE INTO " + UPDATE_TABLE_NAME + " VALUES(" + tableId + ", 0)");
+        final String tableName = mShadowTableLookup.get(tableId, mTableNames[tableId]);
         StringBuilder stringBuilder = new StringBuilder();
         for (String trigger : TRIGGERS) {
             stringBuilder.setLength(0);
@@ -201,11 +235,12 @@ public class InvalidationTracker {
                     .append(trigger)
                     .append(" ON `")
                     .append(tableName)
-                    .append("` BEGIN INSERT OR REPLACE INTO ")
+                    .append("` BEGIN UPDATE ")
                     .append(UPDATE_TABLE_NAME)
-                    .append(" VALUES(null, ")
-                    .append(tableId)
-                    .append("); END");
+                    .append(" SET ").append(INVALIDATED_COLUMN_NAME).append(" = 1")
+                    .append(" WHERE ").append(TABLE_ID_COLUMN_NAME).append(" = ").append(tableId)
+                    .append(" AND ").append(INVALIDATED_COLUMN_NAME).append(" = 0")
+                    .append("; END");
             writableDb.execSQL(stringBuilder.toString());
         }
     }
@@ -224,23 +259,21 @@ public class InvalidationTracker {
      *
      * @param observer The observer which listens the database for changes.
      */
+    @SuppressLint("RestrictedApi")
     @WorkerThread
     public void addObserver(@NonNull Observer observer) {
-        final String[] tableNames = observer.mTables;
+        final String[] tableNames = resolveViews(observer.mTables);
         int[] tableIds = new int[tableNames.length];
         final int size = tableNames.length;
-        long[] versions = new long[tableNames.length];
 
-        // TODO sync versions ?
         for (int i = 0; i < size; i++) {
             Integer tableId = mTableIdLookup.get(tableNames[i].toLowerCase(Locale.US));
             if (tableId == null) {
                 throw new IllegalArgumentException("There is no table with name " + tableNames[i]);
             }
             tableIds[i] = tableId;
-            versions[i] = mMaxVersion;
         }
-        ObserverWrapper wrapper = new ObserverWrapper(observer, tableIds, tableNames, versions);
+        ObserverWrapper wrapper = new ObserverWrapper(observer, tableIds, tableNames);
         ObserverWrapper currentObserver;
         synchronized (mObserverMap) {
             currentObserver = mObserverMap.putIfAbsent(observer, wrapper);
@@ -248,6 +281,35 @@ public class InvalidationTracker {
         if (currentObserver == null && mObservedTableTracker.onAdded(tableIds)) {
             syncTriggers();
         }
+    }
+
+    private String[] validateAndResolveTableNames(String[] tableNames) {
+        String[] resolved = resolveViews(tableNames);
+        for (String tableName : resolved) {
+            if (!mTableIdLookup.containsKey(tableName.toLowerCase(Locale.US))) {
+                throw new IllegalArgumentException("There is no table with name " + tableName);
+            }
+        }
+        return resolved;
+    }
+
+    /**
+     * Resolves the list of tables and views into a list of unique tables that are underlying them.
+     *
+     * @param names The names of tables or views.
+     * @return The names of the underlying tables.
+     */
+    private String[] resolveViews(String[] names) {
+        Set<String> tables = new ArraySet<>();
+        for (String name : names) {
+            final String lowercase = name.toLowerCase(Locale.US);
+            if (mViewTables.containsKey(lowercase)) {
+                tables.addAll(mViewTables.get(lowercase));
+            } else {
+                tables.add(name);
+            }
+        }
+        return tables.toArray(new String[tables.size()]);
     }
 
     /**
@@ -260,7 +322,7 @@ public class InvalidationTracker {
      * @hide
      */
     @SuppressWarnings("unused")
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
     public void addWeakObserver(Observer observer) {
         addObserver(new WeakObserver(this, observer));
     }
@@ -270,6 +332,7 @@ public class InvalidationTracker {
      *
      * @param observer The observer to remove.
      */
+    @SuppressLint("RestrictedApi")
     @SuppressWarnings("WeakerAccess")
     @WorkerThread
     public void removeObserver(@NonNull final Observer observer) {
@@ -323,14 +386,12 @@ public class InvalidationTracker {
                     return;
                 }
 
-                mCleanupStatement.executeUpdateDelete();
-                mQueryArgs[0] = mMaxVersion;
                 if (mDatabase.mWriteAheadLoggingEnabled) {
                     // This transaction has to be on the underlying DB rather than the RoomDatabase
                     // in order to avoid a recursive loop after endTransaction.
                     SupportSQLiteDatabase db = mDatabase.getOpenHelper().getWritableDatabase();
+                    db.beginTransaction();
                     try {
-                        db.beginTransaction();
                         hasUpdatedTable = checkUpdatedTable();
                         db.setTransactionSuccessful();
                     } finally {
@@ -349,28 +410,29 @@ public class InvalidationTracker {
             if (hasUpdatedTable) {
                 synchronized (mObserverMap) {
                     for (Map.Entry<Observer, ObserverWrapper> entry : mObserverMap) {
-                        entry.getValue().checkForInvalidation(mTableVersions);
+                        entry.getValue().notifyByTableVersions(mTableInvalidStatus);
                     }
                 }
+                // Reset invalidated status flags.
+                mTableInvalidStatus.clear();
             }
         }
 
         private boolean checkUpdatedTable() {
             boolean hasUpdatedTable = false;
-            Cursor cursor = mDatabase.query(SELECT_UPDATED_TABLES_SQL, mQueryArgs);
+            Cursor cursor = mDatabase.query(new SimpleSQLiteQuery(SELECT_UPDATED_TABLES_SQL));
             //noinspection TryFinallyCanBeTryWithResources
             try {
                 while (cursor.moveToNext()) {
-                    final long version = cursor.getLong(0);
-                    final int tableId = cursor.getInt(1);
-
-                    mTableVersions[tableId] = version;
+                    final int tableId = cursor.getInt(0);
+                    mTableInvalidStatus.set(tableId);
                     hasUpdatedTable = true;
-                    // result is ordered so we can safely do this assignment
-                    mMaxVersion = version;
                 }
             } finally {
                 cursor.close();
+            }
+            if (hasUpdatedTable) {
+                mCleanupStatement.executeUpdateDelete();
             }
             return hasUpdatedTable;
         }
@@ -396,11 +458,32 @@ public class InvalidationTracker {
      *
      * @hide
      */
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
     @WorkerThread
     public void refreshVersionsSync() {
         syncTriggers();
         mRefreshRunnable.run();
+    }
+
+    /**
+     * Notifies all the registered {@link Observer}s of table changes.
+     * <p>
+     * This can be used for notifying invalidation that cannot be detected by this
+     * {@link InvalidationTracker}, for example, invalidation from another process.
+     *
+     * @param tables The invalidated tables.
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
+    @VisibleForTesting(otherwise = VisibleForTesting.PACKAGE_PRIVATE)
+    public void notifyObserversByTableNames(String... tables) {
+        synchronized (mObserverMap) {
+            for (Map.Entry<Observer, ObserverWrapper> entry : mObserverMap) {
+                if (!entry.getKey().isRemote()) {
+                    entry.getValue().notifyByTableNames(tables);
+                }
+            }
+        }
     }
 
     void syncTriggers(SupportSQLiteDatabase database) {
@@ -422,8 +505,8 @@ public class InvalidationTracker {
                         return;
                     }
                     final int limit = tablesToSync.length;
+                    database.beginTransaction();
                     try {
-                        database.beginTransaction();
                         for (int tableId = 0; tableId < limit; tableId++) {
                             switch (tablesToSync[tableId]) {
                                 case ObservedTableTracker.ADD:
@@ -466,6 +549,25 @@ public class InvalidationTracker {
     }
 
     /**
+     * Creates a LiveData that computes the given function once and for every other invalidation
+     * of the database.
+     * <p>
+     * Holds a strong reference to the created LiveData as long as it is active.
+     *
+     * @param computeFunction The function that calculates the value
+     * @param tableNames      The list of tables to observe
+     * @param <T>             The return type
+     * @return A new LiveData that computes the given function when the given list of tables
+     * invalidates.
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
+    public <T> LiveData<T> createLiveData(String[] tableNames, Callable<T> computeFunction) {
+        return mInvalidationLiveDataContainer.create(
+                validateAndResolveTableNames(tableNames), computeFunction);
+    }
+
+    /**
      * Wraps an observer and keeps the table information.
      * <p>
      * Internally table ids are used which may change from database to database so the table
@@ -475,15 +577,13 @@ public class InvalidationTracker {
     static class ObserverWrapper {
         final int[] mTableIds;
         private final String[] mTableNames;
-        private final long[] mVersions;
         final Observer mObserver;
         private final Set<String> mSingleTableSet;
 
-        ObserverWrapper(Observer observer, int[] tableIds, String[] tableNames, long[] versions) {
+        ObserverWrapper(Observer observer, int[] tableIds, String[] tableNames) {
             mObserver = observer;
             mTableIds = tableIds;
             mTableNames = tableNames;
-            mVersions = versions;
             if (tableIds.length == 1) {
                 ArraySet<String> set = new ArraySet<>();
                 set.add(mTableNames[0]);
@@ -493,15 +593,18 @@ public class InvalidationTracker {
             }
         }
 
-        void checkForInvalidation(long[] versions) {
+        /**
+         * Updates the table versions and notifies the underlying {@link #mObserver} if any of the
+         * observed tables are invalidated.
+         *
+         * @param tableInvalidStatus The table invalid statuses.
+         */
+        void notifyByTableVersions(BitSet tableInvalidStatus) {
             Set<String> invalidatedTables = null;
             final int size = mTableIds.length;
             for (int index = 0; index < size; index++) {
                 final int tableId = mTableIds[index];
-                final long newVersion = versions[tableId];
-                final long currentVersion = mVersions[index];
-                if (currentVersion < newVersion) {
-                    mVersions[index] = newVersion;
+                if (tableInvalidStatus.get(tableId)) {
                     if (size == 1) {
                         // Optimization for a single-table observer
                         invalidatedTables = mSingleTableSet;
@@ -517,6 +620,41 @@ public class InvalidationTracker {
                 mObserver.onInvalidated(invalidatedTables);
             }
         }
+
+        /**
+         * Notifies the underlying {@link #mObserver} if it observes any of the specified
+         * {@code tables}.
+         *
+         * @param tables The invalidated table names.
+         */
+        void notifyByTableNames(String[] tables) {
+            Set<String> invalidatedTables = null;
+            if (mTableNames.length == 1) {
+                for (String table : tables) {
+                    if (table.equalsIgnoreCase(mTableNames[0])) {
+                        // Optimization for a single-table observer
+                        invalidatedTables = mSingleTableSet;
+                        break;
+                    }
+                }
+            } else {
+                ArraySet<String> set = new ArraySet<>();
+                for (String table : tables) {
+                    for (String ourTable : mTableNames) {
+                        if (ourTable.equalsIgnoreCase(table)) {
+                            set.add(ourTable);
+                            break;
+                        }
+                    }
+                }
+                if (set.size() > 0) {
+                    invalidatedTables = set;
+                }
+            }
+            if (invalidatedTables != null) {
+                mObserver.onInvalidated(invalidatedTables);
+            }
+        }
     }
 
     /**
@@ -526,10 +664,10 @@ public class InvalidationTracker {
         final String[] mTables;
 
         /**
-         * Observes the given list of tables.
+         * Observes the given list of tables and views.
          *
-         * @param firstTable The table name
-         * @param rest       More table names
+         * @param firstTable The name of the table or view.
+         * @param rest       More names of tables or views.
          */
         @SuppressWarnings("unused")
         protected Observer(@NonNull String firstTable, String... rest) {
@@ -538,9 +676,9 @@ public class InvalidationTracker {
         }
 
         /**
-         * Observes the given list of tables.
+         * Observes the given list of tables and views.
          *
-         * @param tables The list of tables to observe for changes.
+         * @param tables The list of tables or views to observe for changes.
          */
         public Observer(@NonNull String[] tables) {
             // copy tables in case user modifies them afterwards
@@ -551,11 +689,15 @@ public class InvalidationTracker {
          * Called when one of the observed tables is invalidated in the database.
          *
          * @param tables A set of invalidated tables. This is useful when the observer targets
-         *               multiple tables and want to know which table is invalidated.
+         *               multiple tables and you want to know which table is invalidated. This will
+         *               be names of underlying tables when you are observing views.
          */
         public abstract void onInvalidated(@NonNull Set<String> tables);
-    }
 
+        boolean isRemote() {
+            return false;
+        }
+    }
 
     /**
      * Keeps a list of tables we should observe. Invalidation tracker lazily syncs this list w/
@@ -671,7 +813,7 @@ public class InvalidationTracker {
     /**
      * An Observer wrapper that keeps a weak reference to the given object.
      * <p>
-     * This class with automatically unsubscribe when the wrapped observer goes out of memory.
+     * This class will automatically unsubscribe when the wrapped observer goes out of memory.
      */
     static class WeakObserver extends Observer {
         final InvalidationTracker mTracker;

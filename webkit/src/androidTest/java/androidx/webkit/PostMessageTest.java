@@ -16,8 +16,6 @@
 
 package androidx.webkit;
 
-import static org.junit.Assume.assumeTrue;
-
 import android.net.Uri;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -25,9 +23,9 @@ import android.os.Looper;
 import android.webkit.WebView;
 
 import androidx.annotation.NonNull;
-import androidx.test.InstrumentationRegistry;
-import androidx.test.filters.MediumTest;
-import androidx.test.runner.AndroidJUnit4;
+import androidx.concurrent.futures.ResolvableFuture;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.LargeTest;
 import androidx.webkit.WebMessagePortCompat.WebMessageCallbackCompat;
 
 import junit.framework.Assert;
@@ -37,9 +35,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 
-@MediumTest
+@LargeTest
 @RunWith(AndroidJUnit4.class)
 public class PostMessageTest {
     public static final long TIMEOUT = 6000L;
@@ -101,18 +100,33 @@ public class PostMessageTest {
         }.run();
     }
 
+    /**
+     * This should remain functionally equivalent to
+     * android.webkit.cts.PostMessageTest#testSimpleMessageToMainFrame. Modifications to this test
+     * should be reflected in that test as necessary. See http://go/modifying-webview-cts.
+     */
     // Post a string message to main frame and make sure it is received.
     @Test
     public void testSimpleMessageToMainFrame() throws Throwable {
         verifyPostMessageToOrigin(Uri.parse(BASE_URI));
     }
 
+    /**
+     * This should remain functionally equivalent to
+     * android.webkit.cts.PostMessageTest#testWildcardOriginMatchesAnything. Modifications to this
+     * test should be reflected in that test as necessary. See http://go/modifying-webview-cts.
+     */
     // Post a string message to main frame passing a wildcard as target origin
     @Test
     public void testWildcardOriginMatchesAnything() throws Throwable {
         verifyPostMessageToOrigin(Uri.parse("*"));
     }
 
+    /**
+     * This should remain functionally equivalent to
+     * android.webkit.cts.PostMessageTest#testEmptyStringOriginMatchesAnything. Modifications to
+     * this test should be reflected in that test as necessary. See http://go/modifying-webview-cts.
+     */
     // Post a string message to main frame passing an empty string as target origin
     @Test
     public void testEmptyStringOriginMatchesAnything() throws Throwable {
@@ -120,7 +134,7 @@ public class PostMessageTest {
     }
 
     private void verifyPostMessageToOrigin(Uri origin) throws Throwable {
-        assumeTrue(WebViewFeature.isFeatureSupported(WebViewFeature.POST_WEB_MESSAGE));
+        WebkitUtils.checkFeature(WebViewFeature.POST_WEB_MESSAGE);
 
         loadPage(TITLE_FROM_POST_MESSAGE);
         WebMessageCompat message = new WebMessageCompat(WEBVIEW_MESSAGE);
@@ -128,11 +142,16 @@ public class PostMessageTest {
         waitForTitle(WEBVIEW_MESSAGE);
     }
 
+    /**
+     * This should remain functionally equivalent to
+     * android.webkit.cts.PostMessageTest#testMultipleMessagesToMainFrame. Modifications to this
+     * test should be reflected in that test as necessary. See http://go/modifying-webview-cts.
+     */
     // Post multiple messages to main frame and make sure they are received in
     // correct order.
     @Test
     public void testMultipleMessagesToMainFrame() throws Throwable {
-        assumeTrue(WebViewFeature.isFeatureSupported(WebViewFeature.POST_WEB_MESSAGE));
+        WebkitUtils.checkFeature(WebViewFeature.POST_WEB_MESSAGE);
 
         loadPage(TITLE_FROM_POST_MESSAGE);
         for (int i = 0; i < 10; i++) {
@@ -142,14 +161,18 @@ public class PostMessageTest {
         waitForTitle("0123456789");
     }
 
+    /**
+     * This should remain functionally equivalent to
+     * android.webkit.cts.PostMessageTest#testMessageChannel. Modifications to this test should be
+     * reflected in that test as necessary. See http://go/modifying-webview-cts.
+     */
     // Create a message channel and make sure it can be used for data transfer to/from js.
     @Test
     public void testMessageChannel() throws Throwable {
-        assumeTrue(WebViewFeature.isFeatureSupported(WebViewFeature.CREATE_WEB_MESSAGE_CHANNEL));
-        assumeTrue(WebViewFeature.isFeatureSupported(WebViewFeature.POST_WEB_MESSAGE));
-        assumeTrue(WebViewFeature.isFeatureSupported(WebViewFeature.WEB_MESSAGE_PORT_POST_MESSAGE));
-        assumeTrue(WebViewFeature.isFeatureSupported(
-                WebViewFeature.WEB_MESSAGE_PORT_SET_MESSAGE_CALLBACK));
+        WebkitUtils.checkFeature(WebViewFeature.CREATE_WEB_MESSAGE_CHANNEL);
+        WebkitUtils.checkFeature(WebViewFeature.POST_WEB_MESSAGE);
+        WebkitUtils.checkFeature(WebViewFeature.WEB_MESSAGE_PORT_POST_MESSAGE);
+        WebkitUtils.checkFeature(WebViewFeature.WEB_MESSAGE_PORT_SET_MESSAGE_CALLBACK);
 
         loadPage(CHANNEL_MESSAGE);
         final WebMessagePortCompat[] channel = mOnUiThread.createWebMessageChannelCompat();
@@ -157,8 +180,8 @@ public class PostMessageTest {
                 new WebMessageCompat(WEBVIEW_MESSAGE, new WebMessagePortCompat[]{channel[1]});
         mOnUiThread.postWebMessageCompat(message, Uri.parse(BASE_URI));
         final int messageCount = 3;
-        final CountDownLatch latch = new CountDownLatch(messageCount);
-        InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable() {
+        final BlockingQueue<String> queue = new ArrayBlockingQueue<>(messageCount);
+        WebkitUtils.onMainThread(new Runnable() {
             @Override
             public void run() {
                 for (int i = 0; i < messageCount; i++) {
@@ -168,31 +191,40 @@ public class PostMessageTest {
                     @Override
                     public void onMessage(@NonNull WebMessagePortCompat port,
                             WebMessageCompat message) {
-                        int i = messageCount - (int) latch.getCount();
-                        Assert.assertEquals(WEBVIEW_MESSAGE + i + i, message.getData());
-                        latch.countDown();
+                        queue.add(message.getData());
                     }
                 });
             }
         });
         // Wait for all the responses to arrive.
-        Assert.assertTrue(latch.await(TIMEOUT, java.util.concurrent.TimeUnit.MILLISECONDS));
+        for (int i = 0; i < messageCount; i++) {
+            // The JavaScript code simply appends an integer counter to the end of the message it
+            // receives, which is why we have a second i on the end.
+            String expectedMessageFromJavascript = WEBVIEW_MESSAGE + i + "" + i;
+            Assert.assertEquals(expectedMessageFromJavascript,
+                    WebkitUtils.waitForNextQueueElement(queue));
+        }
     }
 
+    /**
+     * This should remain functionally equivalent to
+     * android.webkit.cts.PostMessageTest#testClose. Modifications to this test should be reflected
+     * in that test as necessary. See http://go/modifying-webview-cts.
+     */
     // Test that a message port that is closed cannot used to send a message
     @Test
     public void testClose() throws Throwable {
-        assumeTrue(WebViewFeature.isFeatureSupported(WebViewFeature.CREATE_WEB_MESSAGE_CHANNEL));
-        assumeTrue(WebViewFeature.isFeatureSupported(WebViewFeature.POST_WEB_MESSAGE));
-        assumeTrue(WebViewFeature.isFeatureSupported(WebViewFeature.WEB_MESSAGE_PORT_CLOSE));
-        assumeTrue(WebViewFeature.isFeatureSupported(WebViewFeature.WEB_MESSAGE_PORT_POST_MESSAGE));
+        WebkitUtils.checkFeature(WebViewFeature.CREATE_WEB_MESSAGE_CHANNEL);
+        WebkitUtils.checkFeature(WebViewFeature.POST_WEB_MESSAGE);
+        WebkitUtils.checkFeature(WebViewFeature.WEB_MESSAGE_PORT_CLOSE);
+        WebkitUtils.checkFeature(WebViewFeature.WEB_MESSAGE_PORT_POST_MESSAGE);
 
         loadPage(CHANNEL_MESSAGE);
         final WebMessagePortCompat[] channel = mOnUiThread.createWebMessageChannelCompat();
         WebMessageCompat message =
                 new WebMessageCompat(WEBVIEW_MESSAGE, new WebMessagePortCompat[]{channel[1]});
         mOnUiThread.postWebMessageCompat(message, Uri.parse(BASE_URI));
-        InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable() {
+        WebkitUtils.onMainThreadSync(new Runnable() {
             @Override
             public void run() {
                 try {
@@ -225,12 +257,17 @@ public class PostMessageTest {
                     + "   </script>"
                     + "</body></html>";
 
+    /**
+     * This should remain functionally equivalent to
+     * android.webkit.cts.PostMessageTest#testReceiveMessagePort. Modifications to this test should
+     * be reflected in that test as necessary. See http://go/modifying-webview-cts.
+     */
     // Test a message port created in JS can be received and used for message transfer.
     @Test
     public void testReceiveMessagePort() throws Throwable {
-        assumeTrue(WebViewFeature.isFeatureSupported(WebViewFeature.CREATE_WEB_MESSAGE_CHANNEL));
-        assumeTrue(WebViewFeature.isFeatureSupported(WebViewFeature.POST_WEB_MESSAGE));
-        assumeTrue(WebViewFeature.isFeatureSupported(WebViewFeature.WEB_MESSAGE_PORT_POST_MESSAGE));
+        WebkitUtils.checkFeature(WebViewFeature.CREATE_WEB_MESSAGE_CHANNEL);
+        WebkitUtils.checkFeature(WebViewFeature.POST_WEB_MESSAGE);
+        WebkitUtils.checkFeature(WebViewFeature.WEB_MESSAGE_PORT_POST_MESSAGE);
 
         final String hello = "HELLO";
         loadPage(CHANNEL_FROM_JS);
@@ -238,7 +275,7 @@ public class PostMessageTest {
         WebMessageCompat message =
                 new WebMessageCompat(WEBVIEW_MESSAGE, new WebMessagePortCompat[]{channel[1]});
         mOnUiThread.postWebMessageCompat(message, Uri.parse(BASE_URI));
-        InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable() {
+        WebkitUtils.onMainThreadSync(new Runnable() {
             @Override
             public void run() {
                 channel[0].setWebMessageCallback(new WebMessageCallbackCompat() {
@@ -253,14 +290,18 @@ public class PostMessageTest {
         waitForTitle(hello);
     }
 
+    /**
+     * This should remain functionally equivalent to
+     * android.webkit.cts.PostMessageTest#testWebMessageHandler. Modifications to this test should
+     * be reflected in that test as necessary. See http://go/modifying-webview-cts.
+     */
     // Ensure the callback is invoked on the correct Handler.
     @Test
     public void testWebMessageHandler() throws Throwable {
-        assumeTrue(WebViewFeature.isFeatureSupported(WebViewFeature.CREATE_WEB_MESSAGE_CHANNEL));
-        assumeTrue(WebViewFeature.isFeatureSupported(WebViewFeature.POST_WEB_MESSAGE));
-        assumeTrue(WebViewFeature.isFeatureSupported(WebViewFeature.WEB_MESSAGE_PORT_POST_MESSAGE));
-        assumeTrue(WebViewFeature.isFeatureSupported(
-                WebViewFeature.WEB_MESSAGE_PORT_SET_MESSAGE_CALLBACK));
+        WebkitUtils.checkFeature(WebViewFeature.CREATE_WEB_MESSAGE_CHANNEL);
+        WebkitUtils.checkFeature(WebViewFeature.POST_WEB_MESSAGE);
+        WebkitUtils.checkFeature(WebViewFeature.WEB_MESSAGE_PORT_POST_MESSAGE);
+        WebkitUtils.checkFeature(WebViewFeature.WEB_MESSAGE_PORT_SET_MESSAGE_CALLBACK);
 
         loadPage(CHANNEL_MESSAGE);
         final WebMessagePortCompat[] channel = mOnUiThread.createWebMessageChannelCompat();
@@ -268,38 +309,42 @@ public class PostMessageTest {
                 WebMessagePortCompat[]{channel[1]});
         mOnUiThread.postWebMessageCompat(message, Uri.parse(BASE_URI));
         final int messageCount = 1;
-        final CountDownLatch latch = new CountDownLatch(messageCount);
+        final ResolvableFuture<Boolean> messageHandlerThreadFuture = ResolvableFuture.create();
 
         // Create a new thread for the WebMessageCallbackCompat.
         final HandlerThread messageHandlerThread = new HandlerThread("POST_MESSAGE_THREAD");
         messageHandlerThread.start();
         final Handler messageHandler = new Handler(messageHandlerThread.getLooper());
 
-        InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable() {
+        WebkitUtils.onMainThreadSync(new Runnable() {
             @Override
             public void run() {
                 channel[0].postMessage(new WebMessageCompat(WEBVIEW_MESSAGE));
                 channel[0].setWebMessageCallback(messageHandler, new WebMessageCallbackCompat() {
                     @Override
                     public void onMessage(WebMessagePortCompat port, WebMessageCompat message) {
-                        Assert.assertTrue(messageHandlerThread.getLooper().isCurrentThread());
-                        latch.countDown();
+                        messageHandlerThreadFuture.set(
+                                messageHandlerThread.getLooper().isCurrentThread());
                     }
                 });
             }
         });
-        // Wait for all the responses to arrive.
-        Assert.assertTrue(latch.await(TIMEOUT, java.util.concurrent.TimeUnit.MILLISECONDS));
+        // Wait for all the responses to arrive and assert correct thread.
+        Assert.assertTrue(WebkitUtils.waitForFuture(messageHandlerThreadFuture));
     }
 
+    /**
+     * This should remain functionally equivalent to
+     * android.webkit.cts.PostMessageTest#testWebMessageDefaultHandler. Modifications to this test
+     * should be reflected in that test as necessary. See http://go/modifying-webview-cts.
+     */
     // Ensure the callback is invoked on the MainLooper by default.
     @Test
     public void testWebMessageDefaultHandler() throws Throwable {
-        assumeTrue(WebViewFeature.isFeatureSupported(WebViewFeature.CREATE_WEB_MESSAGE_CHANNEL));
-        assumeTrue(WebViewFeature.isFeatureSupported(WebViewFeature.POST_WEB_MESSAGE));
-        assumeTrue(WebViewFeature.isFeatureSupported(WebViewFeature.WEB_MESSAGE_PORT_POST_MESSAGE));
-        assumeTrue(WebViewFeature.isFeatureSupported(
-                WebViewFeature.WEB_MESSAGE_PORT_SET_MESSAGE_CALLBACK));
+        WebkitUtils.checkFeature(WebViewFeature.CREATE_WEB_MESSAGE_CHANNEL);
+        WebkitUtils.checkFeature(WebViewFeature.POST_WEB_MESSAGE);
+        WebkitUtils.checkFeature(WebViewFeature.WEB_MESSAGE_PORT_POST_MESSAGE);
+        WebkitUtils.checkFeature(WebViewFeature.WEB_MESSAGE_PORT_SET_MESSAGE_CALLBACK);
 
         loadPage(CHANNEL_MESSAGE);
         final WebMessagePortCompat[] channel = mOnUiThread.createWebMessageChannelCompat();
@@ -307,22 +352,21 @@ public class PostMessageTest {
                 new WebMessagePortCompat[]{channel[1]});
         mOnUiThread.postWebMessageCompat(message, Uri.parse(BASE_URI));
         final int messageCount = 1;
-        final CountDownLatch latch = new CountDownLatch(messageCount);
+        final ResolvableFuture<Boolean> messageMainLooperFuture = ResolvableFuture.create();
 
-        InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable() {
+        WebkitUtils.onMainThread(new Runnable() {
             @Override
             public void run() {
                 channel[0].postMessage(new WebMessageCompat(WEBVIEW_MESSAGE));
                 channel[0].setWebMessageCallback(new WebMessageCallbackCompat() {
                     @Override
                     public void onMessage(WebMessagePortCompat port, WebMessageCompat message) {
-                        Assert.assertTrue(Looper.getMainLooper().isCurrentThread());
-                        latch.countDown();
+                        messageMainLooperFuture.set(Looper.getMainLooper().isCurrentThread());
                     }
                 });
             }
         });
-        // Wait for all the responses to arrive.
-        Assert.assertTrue(latch.await(TIMEOUT, java.util.concurrent.TimeUnit.MILLISECONDS));
+        // Wait for all the responses to arrive and assert correct thread.
+        Assert.assertTrue(WebkitUtils.waitForFuture(messageMainLooperFuture));
     }
 }

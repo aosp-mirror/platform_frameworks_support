@@ -20,9 +20,10 @@
 import static androidx.build.dependencies.DependenciesKt.*
 
 plugins {
-    id("SupportAndroidTestAppPlugin")
-    id("kotlin-kapt")
+    id("AndroidXPlugin")
+    id("com.android.application")
     id("kotlin-android")
+    id("kotlin-kapt")
 }
 
 android {
@@ -45,8 +46,12 @@ dependencies {
     implementation(project(":room:room-runtime"))
     implementation(project(":arch:core-runtime"))
     implementation(project(":lifecycle:lifecycle-extensions"))
+    implementation(KOTLIN_STDLIB)
+    implementation(KOTLIN_COROUTINES)
     kaptAndroidTest project(":room:room-compiler")
 
+    androidTestImplementation(TEST_EXT_JUNIT)
+    androidTestImplementation(TEST_CORE)
     androidTestImplementation(TEST_RUNNER) {
         exclude module: 'support-annotations'
         exclude module: 'hamcrest-core'
@@ -55,14 +60,15 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
         exclude module: "hamcrest-core"
     })
+    androidTestImplementation(TRUTH)
     // IJ's gradle integration just cannot figure this out ...
-    androidTestImplementation project(':lifecycle:lifecycle-extensions')
-    androidTestImplementation project(':lifecycle:lifecycle-common')
-    androidTestImplementation project(':lifecycle:lifecycle-runtime')
+    androidTestImplementation(ARCH_LIFECYCLE_EXTENSIONS)
+    androidTestImplementation(ARCH_CORE_RUNTIME)
     androidTestImplementation project(':room:room-guava')
     androidTestImplementation project(':room:room-testing')
     androidTestImplementation project(':room:room-rxjava2')
-    androidTestImplementation project(':arch:core-testing')
+    androidTestImplementation(project(":room:room-ktx"))
+    androidTestImplementation(ARCH_CORE_TESTING)
     androidTestImplementation(GUAVA_ANDROID)
     androidTestImplementation(RX_JAVA)
     testImplementation(MOCKITO_CORE)
@@ -71,8 +77,3 @@ dependencies {
 tasks['check'].dependsOn(tasks['connectedCheck'])
 
 uploadArchives.enabled = false
-
-supportTestApp {
-    // to assert that room generates somewhat OK code.
-    enableErrorProne = true
-}

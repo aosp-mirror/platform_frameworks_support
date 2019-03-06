@@ -15,11 +15,10 @@
  */
 package androidx.room.processor
 
+import androidx.room.ext.toAnnotationBox
 import androidx.room.vo.Entity
 import androidx.room.vo.ShortcutQueryParameter
-import com.google.auto.common.MoreElements
-import com.google.auto.common.MoreTypes
-import javax.lang.model.element.AnnotationMirror
+import asTypeElement
 import javax.lang.model.element.ExecutableElement
 import javax.lang.model.type.DeclaredType
 import javax.lang.model.type.TypeMirror
@@ -28,29 +27,26 @@ import kotlin.reflect.KClass
 /**
  * Common functionality for shortcut method processors
  */
-class ShortcutMethodProcessor(baseContext: Context,
-                              val containing: DeclaredType,
-                              val executableElement: ExecutableElement) {
+class ShortcutMethodProcessor(
+    baseContext: Context,
+    val containing: DeclaredType,
+    val executableElement: ExecutableElement
+) {
     val context = baseContext.fork(executableElement)
-    private val asMember = context.processingEnv.typeUtils.asMemberOf(containing, executableElement)
-    private val executableType = MoreTypes.asExecutable(asMember)
+    private val delegate = MethodProcessorDelegate.createFor(context, containing, executableElement)
 
-    fun extractAnnotation(klass: KClass<out Annotation>,
-                          errorMsg: String): AnnotationMirror? {
-        val annotation = MoreElements.getAnnotationMirror(executableElement,
-                klass.java).orNull()
+    fun <T : Annotation> extractAnnotation(klass: KClass<T>, errorMsg: String): T? {
+        val annotation = executableElement.toAnnotationBox(klass)
         context.checker.check(annotation != null, executableElement, errorMsg)
-        return annotation
+        return annotation?.value
     }
 
-    fun extractReturnType(): TypeMirror {
-        return executableType.returnType
-    }
+    fun extractReturnType() = delegate.extractReturnType()
 
     fun extractParams(
-            missingParamError: String
+        missingParamError: String
     ): Pair<Map<String, Entity>, List<ShortcutQueryParameter>> {
-        val params = executableElement.parameters
+        val params = delegate.extractParams()
                 .map { ShortcutParameterProcessor(
                         baseContext = context,
                         containing = containing,
@@ -60,9 +56,17 @@ class ShortcutMethodProcessor(baseContext: Context,
                 .filter { it.entityType != null }
                 .associateBy({ it.name }, {
                     EntityProcessor(
-                            baseContext = context,
-                            element = MoreTypes.asTypeElement(it.entityType)).process()
+                            context = context,
+                            element = it.entityType!!.asTypeElement()).process()
                 })
         return Pair(entities, params)
     }
+
+    fun findInsertMethodBinder(
+        returnType: TypeMirror,
+        params: List<ShortcutQueryParameter>
+    ) = delegate.findInsertMethodBinder(returnType, params)
+
+    fun findDeleteOrUpdateMethodBinder(returnType: TypeMirror) =
+        delegate.findDeleteOrUpdateMethodBinder(returnType)
 }

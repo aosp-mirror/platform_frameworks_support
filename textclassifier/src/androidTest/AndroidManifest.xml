@@ -17,4 +17,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="androidx.textclassifier.test">
     <uses-sdk android:targetSdkVersion="${target-sdk-version}"/>
+
+    <application
+        android:supportsRtl="true"
+        android:theme="@style/Theme.AppCompat">
+        <activity
+            android:name="androidx.textclassifier.widget.FloatingToolbarActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize" />
+    </application>
 </manifest>

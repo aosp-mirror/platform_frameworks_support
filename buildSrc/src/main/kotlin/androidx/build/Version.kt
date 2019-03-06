@@ -16,6 +16,7 @@
 
 package androidx.build
 
+import org.gradle.api.Project
 import java.io.File
 import java.util.regex.Matcher
 import java.util.regex.Pattern
@@ -24,10 +25,10 @@ import java.util.regex.Pattern
  * Utility class which represents a version
  */
 data class Version(
-        val major: Int,
-        val minor: Int,
-        val patch: Int,
-        val extra: String? = null
+    val major: Int,
+    val minor: Int,
+    val patch: Int,
+    val extra: String? = null
 ) : Comparable<Version> {
 
     constructor(versionString: String) : this(
@@ -43,7 +44,7 @@ data class Version(
 
     fun isAlpha(): Boolean = extra?.toLowerCase()?.startsWith("-alpha") ?: false
 
-    fun isFinalApi(): Boolean = !isSnapshot() && !isAlpha()
+    fun isFinalApi(): Boolean = isPatch() || !(isSnapshot() || isAlpha())
 
     override fun compareTo(other: Version) = compareValuesBy(this, other,
             { it.major },
@@ -58,7 +59,7 @@ data class Version(
     }
 
     companion object {
-        private val VERSION_FILE_REGEX = Pattern.compile("^(\\d+\\.\\d+\\.\\d+).txt$")
+        private val VERSION_FILE_REGEX = Pattern.compile("^(res-)?(.*).txt$")
         private val VERSION_REGEX = Pattern.compile("^(\\d+)\\.(\\d+)\\.(\\d+)(-.+)?$")
 
         private fun checkedMatcher(versionString: String): Matcher {
@@ -75,7 +76,7 @@ data class Version(
         fun parseOrNull(file: File): Version? {
             if (!file.isFile) return null
             val matcher = VERSION_FILE_REGEX.matcher(file.name)
-            return if (matcher.matches()) Version(matcher.group(1)) else null
+            return if (matcher.matches()) parseOrNull(matcher.group(2)) else null
         }
 
         /**
@@ -87,3 +88,10 @@ data class Version(
         }
     }
 }
+
+fun Project.setupVersion(extension: SupportLibraryExtension) = afterEvaluate {
+    @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
+    version = extension.mavenVersion?.toString()
+}
+
+fun Project.version() = Version(project.version as String)

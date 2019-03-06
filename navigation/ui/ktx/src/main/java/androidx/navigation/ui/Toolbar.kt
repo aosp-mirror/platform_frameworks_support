@@ -16,8 +16,8 @@
 
 package androidx.navigation.ui
 
-import android.support.v4.widget.DrawerLayout
-import android.support.v7.widget.Toolbar
+import androidx.appcompat.widget.Toolbar
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 
 /**
@@ -27,18 +27,45 @@ import androidx.navigation.NavController
  * the destination changes (assuming there is a valid
  * [label][androidx.navigation.NavDestination.getLabel]).
  *
- * The Toolbar will also display the Up button when you are on a non-root destination and
- * the drawer icon when on the root destination, automatically animating between them. This
- * method will call [DrawerLayout.navigateUp] when the navigation icon
- * is clicked.
+ * The start destination of your navigation graph is considered the only top level
+ * destination. On the start destination of your navigation graph, the Toolbar will show
+ * the drawer icon if the given `drawerLayout` is non null. On all other destinations,
+ * the Toolbar will show the Up button.
+ *
+ * This method will call [NavController.navigateUp] when the navigation icon is clicked.
  *
  * @param navController The NavController whose navigation actions will be reflected
  *                      in the title of the Toolbar.
- * @param drawerLayout The DrawerLayout that should be toggled from the home button
+ * @param drawerLayout The DrawerLayout that should be toggled from the Navigation button
  */
 fun Toolbar.setupWithNavController(
     navController: NavController,
-    drawerLayout: DrawerLayout? = null
+    drawerLayout: DrawerLayout?
 ) {
-    NavigationUI.setupWithNavController(this, navController, drawerLayout)
+    NavigationUI.setupWithNavController(this, navController,
+        AppBarConfiguration(navController.graph, drawerLayout))
+}
+
+/**
+ * Sets up a [Toolbar] for use with a [NavController].
+ *
+ * By calling this method, the title in the Toolbar will automatically be updated when
+ * the destination changes (assuming there is a valid
+ * [label][androidx.navigation.NavDestination.getLabel]).
+ *
+ * The [AppBarConfiguration] you provide controls how the Navigation button is
+ * displayed and what action is triggered when the Navigation button is tapped.
+ *
+ * This method will call [NavController.navigateUp] when the navigation icon is clicked.
+ *
+ * @param navController The NavController whose navigation actions will be reflected
+ *                      in the title of the Toolbar.
+ * @param configuration Additional configuration options for customizing the behavior of the
+ *                      Toolbar
+ */
+fun Toolbar.setupWithNavController(
+    navController: NavController,
+    configuration: AppBarConfiguration = AppBarConfiguration(navController.graph)
+) {
+    NavigationUI.setupWithNavController(this, navController, configuration)
 }

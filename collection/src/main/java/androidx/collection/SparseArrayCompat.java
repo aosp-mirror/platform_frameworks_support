@@ -78,7 +78,6 @@ public class SparseArrayCompat<E> implements Cloneable {
             mKeys = new int[initialCapacity];
             mValues = new Object[initialCapacity];
         }
-        mSize = 0;
     }
 
     @Override
@@ -126,9 +125,17 @@ public class SparseArrayCompat<E> implements Cloneable {
     }
 
     /**
+     * @deprecated Alias for {@link #remove(int)}.
+     */
+    @Deprecated
+    public void delete(int key) {
+        remove(key);
+    }
+
+    /**
      * Removes the mapping from the specified key, if there was any.
      */
-    public void delete(int key) {
+    public void remove(int key) {
         int i =  ContainerHelpers.binarySearch(mKeys, mSize, key);
 
         if (i >= 0) {
@@ -140,10 +147,21 @@ public class SparseArrayCompat<E> implements Cloneable {
     }
 
     /**
-     * Alias for {@link #delete(int)}.
+     * Remove an existing key from the array map only if it is currently mapped to {@code value}.
+     * @param key The key of the mapping to remove.
+     * @param value The value expected to be mapped to the key.
+     * @return Returns true if the mapping was removed.
      */
-    public void remove(int key) {
-        delete(key);
+    public boolean remove(int key, Object value) {
+        int index = indexOfKey(key);
+        if (index >= 0) {
+            E mapValue = valueAt(index);
+            if (value == mapValue || (value != null && value.equals(mapValue))) {
+                removeAt(index);
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -167,6 +185,43 @@ public class SparseArrayCompat<E> implements Cloneable {
         for (int i = index; i < end; i++) {
             removeAt(i);
         }
+    }
+
+    /**
+     * Replace the mapping for {@code key} only if it is already mapped to a value.
+     * @param key The key of the mapping to replace.
+     * @param value The value to store for the given key.
+     * @return Returns the previous mapped value or null.
+     */
+    @Nullable
+    public E replace(int key, E value) {
+        int index = indexOfKey(key);
+        if (index >= 0) {
+            E oldValue = (E) mValues[index];
+            mValues[index] = value;
+            return oldValue;
+        }
+        return null;
+    }
+
+    /**
+     * Replace the mapping for {@code key} only if it is already mapped to a value.
+     *
+     * @param key The key of the mapping to replace.
+     * @param oldValue The value expected to be mapped to the key.
+     * @param newValue The value to store for the given key.
+     * @return Returns true if the value was replaced.
+     */
+    public boolean replace(int key, E oldValue, E newValue) {
+        int index = indexOfKey(key);
+        if (index >= 0) {
+            Object mapValue = mValues[index];
+            if (mapValue == oldValue || (oldValue != null && oldValue.equals(mapValue))) {
+                mValues[index] = newValue;
+                return true;
+            }
+        }
+        return false;
     }
 
     private void gc() {
@@ -258,6 +313,23 @@ public class SparseArrayCompat<E> implements Cloneable {
         for (int i = 0, size = other.size(); i < size; i++) {
             put(other.keyAt(i), other.valueAt(i));
         }
+    }
+
+    /**
+     * Add a new value to the array map only if the key does not already have a value or it is
+     * mapped to {@code null}.
+     * @param key The key under which to store the value.
+     * @param value The value to store for the given key.
+     * @return Returns the value that was stored for the given key, or null if there
+     * was no such key.
+     */
+    @Nullable
+    public E putIfAbsent(int key, E value) {
+        E mapValue = get(key);
+        if (mapValue == null) {
+            put(key, value);
+        }
+        return mapValue;
     }
 
     /**

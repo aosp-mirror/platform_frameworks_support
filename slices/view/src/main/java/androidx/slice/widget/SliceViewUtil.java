@@ -115,9 +115,9 @@ public class SliceViewUtil {
         TypedArray ta = context.obtainStyledAttributes(new int[] {
                 attr
         });
-        @ColorInt int colorAccent = ta.getColor(0, 0);
+        @ColorInt int color = ta.getColor(0, 0);
         ta.recycle();
-        return colorAccent;
+        return color;
     }
 
     /**
@@ -231,7 +231,7 @@ public class SliceViewUtil {
         int color = SliceViewUtil.getColorAttr(context, R.attr.colorControlHighlight);
         Drawable progressDrawable = DrawableCompat.wrap(
                 bar.getIndeterminateDrawable());
-        if (progressDrawable != null) {
+        if (progressDrawable != null && color != 0) {
             progressDrawable.setColorFilter(color, android.graphics.PorterDuff.Mode.MULTIPLY);
             bar.setProgressDrawable(progressDrawable);
         }

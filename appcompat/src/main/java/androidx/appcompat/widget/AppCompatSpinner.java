@@ -16,9 +16,11 @@
 
 package androidx.appcompat.widget;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
@@ -27,12 +29,15 @@ import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
@@ -44,7 +49,9 @@ import android.widget.SpinnerAdapter;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
+import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.R;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.appcompat.view.menu.ShowableListMenu;
@@ -91,7 +98,7 @@ public class AppCompatSpinner extends Spinner implements TintableBackgroundView 
 
     private final boolean mPopupSet;
 
-    DropdownPopup mPopup;
+    private SpinnerPopup mPopup;
 
     int mDropDownWidth;
 
@@ -207,31 +214,34 @@ public class AppCompatSpinner extends Spinner implements TintableBackgroundView 
             if (popupThemeResId != 0) {
                 mPopupContext = new ContextThemeWrapper(context, popupThemeResId);
             } else {
-                // If we're running on a < M device, we'll use the current context and still handle
-                // any dropdown popup
-                mPopupContext = !(Build.VERSION.SDK_INT >= 23) ? context : null;
+                mPopupContext = context;
             }
         }
 
-        if (mPopupContext != null) {
-            if (mode == MODE_THEME) {
-                TypedArray aa = null;
-                try {
-                    aa = context.obtainStyledAttributes(attrs, ATTRS_ANDROID_SPINNERMODE,
-                            defStyleAttr, 0);
-                    if (aa.hasValue(0)) {
-                        mode = aa.getInt(0, MODE_DIALOG);
-                    }
-                } catch (Exception e) {
-                    Log.i(TAG, "Could not read android:spinnerMode", e);
-                } finally {
-                    if (aa != null) {
-                        aa.recycle();
-                    }
+        if (mode == MODE_THEME) {
+            TypedArray aa = null;
+            try {
+                aa = context.obtainStyledAttributes(attrs, ATTRS_ANDROID_SPINNERMODE,
+                        defStyleAttr, 0);
+                if (aa.hasValue(0)) {
+                    mode = aa.getInt(0, MODE_DIALOG);
+                }
+            } catch (Exception e) {
+                Log.i(TAG, "Could not read android:spinnerMode", e);
+            } finally {
+                if (aa != null) {
+                    aa.recycle();
                 }
             }
+        }
 
-            if (mode == MODE_DROPDOWN) {
+        switch (mode) {
+            case MODE_DIALOG: {
+                mPopup = new AppCompatSpinner.DialogPopup();
+                mPopup.setPromptText(a.getString(R.styleable.Spinner_android_prompt));
+                break;
+            }
+            case MODE_DROPDOWN: {
                 final DropdownPopup popup = new DropdownPopup(mPopupContext, attrs, defStyleAttr);
                 final TintTypedArray pa = TintTypedArray.obtainStyledAttributes(
                         mPopupContext, attrs, R.styleable.Spinner, defStyleAttr, 0);
@@ -250,9 +260,10 @@ public class AppCompatSpinner extends Spinner implements TintableBackgroundView 
                     }
 
                     @Override
+                    @SuppressLint("SyntheticAccessor")
                     public boolean onForwardingStarted() {
-                        if (!mPopup.isShowing()) {
-                            mPopup.show();
+                        if (!getInternalPopup().isShowing()) {
+                            showPopup();
                         }
                         return true;
                     }
@@ -287,19 +298,14 @@ public class AppCompatSpinner extends Spinner implements TintableBackgroundView 
      */
     @Override
     public Context getPopupContext() {
-        if (mPopup != null) {
-            return mPopupContext;
-        } else if (Build.VERSION.SDK_INT >= 23) {
-            return super.getPopupContext();
-        }
-        return null;
+        return mPopupContext;
     }
 
     @Override
     public void setPopupBackgroundDrawable(Drawable background) {
         if (mPopup != null) {
             mPopup.setBackgroundDrawable(background);
-        } else if (Build.VERSION.SDK_INT >= 16) {
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             super.setPopupBackgroundDrawable(background);
         }
     }
@@ -313,7 +319,7 @@ public class AppCompatSpinner extends Spinner implements TintableBackgroundView 
     public Drawable getPopupBackground() {
         if (mPopup != null) {
             return mPopup.getBackground();
-        } else if (Build.VERSION.SDK_INT >= 16) {
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             return super.getPopupBackground();
         }
         return null;
@@ -323,7 +329,7 @@ public class AppCompatSpinner extends Spinner implements TintableBackgroundView 
     public void setDropDownVerticalOffset(int pixels) {
         if (mPopup != null) {
             mPopup.setVerticalOffset(pixels);
-        } else if (Build.VERSION.SDK_INT >= 16) {
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             super.setDropDownVerticalOffset(pixels);
         }
     }
@@ -332,7 +338,7 @@ public class AppCompatSpinner extends Spinner implements TintableBackgroundView 
     public int getDropDownVerticalOffset() {
         if (mPopup != null) {
             return mPopup.getVerticalOffset();
-        } else if (Build.VERSION.SDK_INT >= 16) {
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             return super.getDropDownVerticalOffset();
         }
         return 0;
@@ -342,7 +348,7 @@ public class AppCompatSpinner extends Spinner implements TintableBackgroundView 
     public void setDropDownHorizontalOffset(int pixels) {
         if (mPopup != null) {
             mPopup.setHorizontalOffset(pixels);
-        } else if (Build.VERSION.SDK_INT >= 16) {
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             super.setDropDownHorizontalOffset(pixels);
         }
     }
@@ -357,7 +363,7 @@ public class AppCompatSpinner extends Spinner implements TintableBackgroundView 
     public int getDropDownHorizontalOffset() {
         if (mPopup != null) {
             return mPopup.getHorizontalOffset();
-        } else if (Build.VERSION.SDK_INT >= 16) {
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             return super.getDropDownHorizontalOffset();
         }
         return 0;
@@ -367,7 +373,7 @@ public class AppCompatSpinner extends Spinner implements TintableBackgroundView 
     public void setDropDownWidth(int pixels) {
         if (mPopup != null) {
             mDropDownWidth = pixels;
-        } else if (Build.VERSION.SDK_INT >= 16) {
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             super.setDropDownWidth(pixels);
         }
     }
@@ -376,7 +382,7 @@ public class AppCompatSpinner extends Spinner implements TintableBackgroundView 
     public int getDropDownWidth() {
         if (mPopup != null) {
             return mDropDownWidth;
-        } else if (Build.VERSION.SDK_INT >= 16) {
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             return super.getDropDownWidth();
         }
         return 0;
@@ -434,7 +440,7 @@ public class AppCompatSpinner extends Spinner implements TintableBackgroundView 
         if (mPopup != null) {
             // If we have a popup, show it if needed, or just consume the click...
             if (!mPopup.isShowing()) {
-                mPopup.show();
+                showPopup();
             }
             return true;
         }
@@ -480,7 +486,7 @@ public class AppCompatSpinner extends Spinner implements TintableBackgroundView 
      *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     @Override
     public void setSupportBackgroundTintList(@Nullable ColorStateList tint) {
         if (mBackgroundTintHelper != null) {
@@ -494,7 +500,7 @@ public class AppCompatSpinner extends Spinner implements TintableBackgroundView 
      *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     @Override
     @Nullable
     public ColorStateList getSupportBackgroundTintList() {
@@ -509,7 +515,7 @@ public class AppCompatSpinner extends Spinner implements TintableBackgroundView 
      *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     @Override
     public void setSupportBackgroundTintMode(@Nullable PorterDuff.Mode tintMode) {
         if (mBackgroundTintHelper != null) {
@@ -523,7 +529,7 @@ public class AppCompatSpinner extends Spinner implements TintableBackgroundView 
      *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     @Override
     @Nullable
     public PorterDuff.Mode getSupportBackgroundTintMode() {
@@ -583,6 +589,88 @@ public class AppCompatSpinner extends Spinner implements TintableBackgroundView 
         return width;
     }
 
+    @VisibleForTesting
+    final SpinnerPopup getInternalPopup() {
+        return mPopup;
+    }
+
+    void showPopup() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            mPopup.show(getTextDirection(), getTextAlignment());
+        } else {
+            mPopup.show(-1, -1);
+        }
+    }
+
+
+    @Override
+    public Parcelable onSaveInstanceState() {
+        final AppCompatSpinner.SavedState ss =
+                new AppCompatSpinner.SavedState(super.onSaveInstanceState());
+        ss.mShowDropdown = mPopup != null && mPopup.isShowing();
+        return ss;
+    }
+
+    @Override
+    public void onRestoreInstanceState(Parcelable state) {
+        AppCompatSpinner.SavedState ss = (AppCompatSpinner.SavedState) state;
+
+        super.onRestoreInstanceState(ss.getSuperState());
+
+        if (ss.mShowDropdown) {
+            ViewTreeObserver vto = getViewTreeObserver();
+            if (vto != null) {
+                final OnGlobalLayoutListener listener = new OnGlobalLayoutListener() {
+                    @Override
+                    public void onGlobalLayout() {
+                        if (!getInternalPopup().isShowing()) {
+                            showPopup();
+                        }
+                        final ViewTreeObserver vto = getViewTreeObserver();
+                        if (vto != null) {
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                                vto.removeOnGlobalLayoutListener(this);
+                            } else {
+                                vto.removeGlobalOnLayoutListener(this);
+                            }
+                        }
+                    }
+                };
+                vto.addOnGlobalLayoutListener(listener);
+            }
+        }
+    }
+
+    static class SavedState extends BaseSavedState {
+        boolean mShowDropdown;
+
+        SavedState(Parcelable superState) {
+            super(superState);
+        }
+
+        SavedState(Parcel in) {
+            super(in);
+            mShowDropdown = in.readByte() != 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel out, int flags) {
+            super.writeToParcel(out, flags);
+            out.writeByte((byte) (mShowDropdown ? 1 : 0));
+        }
+
+        public static final Parcelable.Creator<SavedState> CREATOR =
+                new Parcelable.Creator<SavedState>() {
+                    public SavedState createFromParcel(Parcel in) {
+                        return new SavedState(in);
+                    }
+
+                    public SavedState[] newArray(int size) {
+                        return new SavedState[size];
+                    }
+                };
+    }
+
     /**
      * <p>Wrapper class for an Adapter. Transforms the embedded Adapter instance
      * into a ListAdapter.</p>
@@ -609,7 +697,7 @@ public class AppCompatSpinner extends Spinner implements TintableBackgroundView 
             }
 
             if (dropDownTheme != null) {
-                 if (Build.VERSION.SDK_INT >= 23
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
                          && adapter instanceof android.widget.ThemedSpinnerAdapter) {
                     final android.widget.ThemedSpinnerAdapter themedAdapter =
                             (android.widget.ThemedSpinnerAdapter) adapter;
@@ -714,7 +802,140 @@ public class AppCompatSpinner extends Spinner implements TintableBackgroundView 
         }
     }
 
-    private class DropdownPopup extends ListPopupWindow {
+    /**
+     * Implements some sort of popup selection interface for selecting a spinner option.
+     * Allows for different spinner modes.
+     */
+    @VisibleForTesting
+    interface SpinnerPopup {
+        void setAdapter(ListAdapter adapter);
+
+        /**
+         * Show the popup
+         */
+        void show(int textDirection, int textAlignment);
+
+        /**
+         * Dismiss the popup
+         */
+        void dismiss();
+
+        /**
+         * @return true if the popup is showing, false otherwise.
+         */
+        boolean isShowing();
+
+        /**
+         * Set hint text to be displayed to the user. This should provide
+         * a description of the choice being made.
+         * @param hintText Hint text to set.
+         */
+        void setPromptText(CharSequence hintText);
+        CharSequence getHintText();
+
+        void setBackgroundDrawable(Drawable bg);
+        void setVerticalOffset(int px);
+        void setHorizontalOffset(int px);
+        Drawable getBackground();
+        int getVerticalOffset();
+        int getHorizontalOffset();
+    }
+
+    @VisibleForTesting
+    class DialogPopup implements SpinnerPopup, DialogInterface.OnClickListener {
+        @VisibleForTesting
+        AlertDialog mPopup;
+        private ListAdapter mListAdapter;
+        private CharSequence mPrompt;
+
+        @Override
+        public void dismiss() {
+            if (mPopup != null) {
+                mPopup.dismiss();
+                mPopup = null;
+            }
+        }
+
+        @Override
+        public boolean isShowing() {
+            return mPopup != null ? mPopup.isShowing() : false;
+        }
+
+        @Override
+        public void setAdapter(ListAdapter adapter) {
+            mListAdapter = adapter;
+        }
+
+        @Override
+        public void setPromptText(CharSequence hintText) {
+            mPrompt = hintText;
+        }
+
+        @Override
+        public CharSequence getHintText() {
+            return mPrompt;
+        }
+
+        @Override
+        public void show(int textDirection, int textAlignment) {
+            if (mListAdapter == null) {
+                return;
+            }
+            AlertDialog.Builder builder = new AlertDialog.Builder(getPopupContext());
+            if (mPrompt != null) {
+                builder.setTitle(mPrompt);
+            }
+            mPopup = builder.setSingleChoiceItems(mListAdapter,
+                    getSelectedItemPosition(), this).create();
+            final ListView listView = mPopup.getListView();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                listView.setTextDirection(textDirection);
+                listView.setTextAlignment(textAlignment);
+            }
+            mPopup.show();
+        }
+
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            setSelection(which);
+            if (getOnItemClickListener() != null) {
+                performItemClick(null, which, mListAdapter.getItemId(which));
+            }
+            dismiss();
+        }
+
+        @Override
+        public void setBackgroundDrawable(Drawable bg) {
+            Log.e(TAG, "Cannot set popup background for MODE_DIALOG, ignoring");
+        }
+
+        @Override
+        public void setVerticalOffset(int px) {
+            Log.e(TAG, "Cannot set vertical offset for MODE_DIALOG, ignoring");
+        }
+
+        @Override
+        public void setHorizontalOffset(int px) {
+            Log.e(TAG, "Cannot set horizontal offset for MODE_DIALOG, ignoring");
+        }
+
+        @Override
+        public Drawable getBackground() {
+            return null;
+        }
+
+        @Override
+        public int getVerticalOffset() {
+            return 0;
+        }
+
+        @Override
+        public int getHorizontalOffset() {
+            return 0;
+        }
+    }
+
+    private class DropdownPopup extends ListPopupWindow implements SpinnerPopup {
         private CharSequence mHintText;
         ListAdapter mAdapter;
         private final Rect mVisibleRect = new Rect();
@@ -745,10 +966,12 @@ public class AppCompatSpinner extends Spinner implements TintableBackgroundView 
             mAdapter = adapter;
         }
 
+        @Override
         public CharSequence getHintText() {
             return mHintText;
         }
 
+        @Override
         public void setPromptText(CharSequence hintText) {
             // Hint text is ignored for dropdowns, but maintain it here.
             mHintText = hintText;
@@ -792,7 +1015,13 @@ public class AppCompatSpinner extends Spinner implements TintableBackgroundView 
         }
 
         @Override
+        @SuppressLint("SyntheticAccessor")
         public void show() {
+            showPopup();
+        }
+
+        @Override
+        public void show(int textDirection, int textAlignment) {
             final boolean wasShowing = isShowing();
 
             computeContentWidth();
@@ -801,6 +1030,10 @@ public class AppCompatSpinner extends Spinner implements TintableBackgroundView 
             super.show();
             final ListView listView = getListView();
             listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                listView.setTextDirection(textDirection);
+                listView.setTextAlignment(textAlignment);
+            }
             setSelection(AppCompatSpinner.this.getSelectedItemPosition());
 
             if (wasShowing) {

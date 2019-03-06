@@ -16,10 +16,9 @@
 
 package androidx.mediarouter.app;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -32,6 +31,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.CallSuper;
@@ -39,7 +39,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RestrictTo;
 import androidx.appcompat.app.AppCompatDialog;
 import androidx.mediarouter.R;
-import androidx.mediarouter.media.MediaRouteDescriptor;
 import androidx.mediarouter.media.MediaRouteSelector;
 import androidx.mediarouter.media.MediaRouter;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -61,7 +60,7 @@ import java.util.List;
  * @see MediaRouteActionProvider
  * @hide
  */
-@RestrictTo(LIBRARY_GROUP)
+@RestrictTo(LIBRARY_GROUP_PREFIX)
 public class MediaRouteDevicePickerDialog extends AppCompatDialog {
     private static final String TAG = "MediaRouteDevicePickerDialog";
 
@@ -70,10 +69,12 @@ public class MediaRouteDevicePickerDialog extends AppCompatDialog {
     private static final int ITEM_TYPE_ROUTE = 2;
 
     // Do not update the route list immediately to avoid unnatural dialog change.
-    static final int MSG_UPDATE_ROUTES = 1;
+    private static final int MSG_UPDATE_ROUTES = 1;
 
-    private final MediaRouter mRouter;
+    final MediaRouter mRouter;
     private final MediaRouteDevicePickerDialog.MediaRouterCallback mCallback;
+    @SuppressWarnings("WeakerAccess") /* synthetic access */
+    boolean mIsSelectingDynamicRoute;
 
     Context mContext;
     private MediaRouteSelector mSelector = MediaRouteSelector.EMPTY;
@@ -180,6 +181,7 @@ public class MediaRouteDevicePickerDialog extends AppCompatDialog {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.mr_picker_dialog);
+        MediaRouterThemeHelper.setDialogBackgroundColor(mContext, this);
 
         mRoutes = new ArrayList<>();
         mCloseButton = findViewById(R.id.mr_picker_close_button);
@@ -201,11 +203,10 @@ public class MediaRouteDevicePickerDialog extends AppCompatDialog {
     /**
      * Sets the width of the dialog. Also called when configuration changes.
      */
-    // TODO: Support different size for tablets(use MediaRouteDialogHelper)
     void updateLayout() {
-        // Set layout width and height to MATCH_PARENT to make full screen dialog
-        getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT);
+        int width = MediaRouteDialogHelper.getDialogWidthForDynamicGroup(mContext);
+        int height = MediaRouteDialogHelper.getDialogHeight(mContext);
+        getWindow().setLayout(width, height);
     }
 
     @CallSuper
@@ -250,7 +251,7 @@ public class MediaRouteDevicePickerDialog extends AppCompatDialog {
         mLastUpdateTime = SystemClock.uptimeMillis();
         mRoutes.clear();
         mRoutes.addAll(routes);
-        mAdapter.setItems();
+        mAdapter.rebuildItems();
     }
 
     private final class MediaRouterCallback extends MediaRouter.Callback {
@@ -293,7 +294,7 @@ public class MediaRouteDevicePickerDialog extends AppCompatDialog {
      */
     private final class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         private static final String TAG = "RecyclerAdapter";
-        ArrayList<Item> mItems;
+        private final ArrayList<Item> mItems;
 
         private final LayoutInflater mInflater;
         private final Drawable mDefaultIcon;
@@ -302,49 +303,25 @@ public class MediaRouteDevicePickerDialog extends AppCompatDialog {
         private final Drawable mSpeakerGroupIcon;
 
         RecyclerAdapter() {
+            mItems = new ArrayList<>();
+
             mInflater = LayoutInflater.from(mContext);
-            TypedArray styledAttributes = mContext.obtainStyledAttributes(new int[] {
-                    R.attr.mediaRouteDefaultIconDrawable,
-                    R.attr.mediaRouteTvIconDrawable,
-                    R.attr.mediaRouteSpeakerIconDrawable,
-                    R.attr.mediaRouteSpeakerGroupIconDrawable});
-            mDefaultIcon = styledAttributes.getDrawable(0);
-            mTvIcon = styledAttributes.getDrawable(1);
-            mSpeakerIcon = styledAttributes.getDrawable(2);
-            mSpeakerGroupIcon = styledAttributes.getDrawable(3);
-            styledAttributes.recycle();
-            setItems();
+            mDefaultIcon = MediaRouterThemeHelper.getDefaultDrawableIcon(mContext);
+            mTvIcon = MediaRouterThemeHelper.getTvDrawableIcon(mContext);
+            mSpeakerIcon = MediaRouterThemeHelper.getSpeakerDrawableIcon(mContext);
+            mSpeakerGroupIcon = MediaRouterThemeHelper.getSpeakerGroupDrawableIcon(mContext);
+            rebuildItems();
         }
 
-        // Create a list of items with mRoutes and add them to mItems
-        void setItems() {
-            mItems = new ArrayList<>();
-            ArrayList<MediaRouter.RouteInfo> routeGroups = new ArrayList<>();
+        // Create a list of items with mMemberRoutes and add them to mItems
+        void rebuildItems() {
+            mItems.clear();
 
-            // Find route consists of multiple devices and add them to routeGroups
-            for (int i = mRoutes.size(); i-- > 0; ) {
-                MediaRouter.RouteInfo route = mRoutes.get(i);
-                MediaRouteDescriptor descriptor = MediaRouteDescriptor.fromBundle(
-                        route.getUniqueRouteDescriptorBundle());
-                boolean isGroup = descriptor.getGroupMemberIds() != null;
-
-                if (isGroup) {
-                    routeGroups.add(route);
-                    mRoutes.remove(i);
-                }
-            }
-
-            // Add list items of single device section to mItems
-            mItems.add(new Item(mContext.getString(R.string.mr_dialog_device_header)));
+            mItems.add(new Item(mContext.getString(R.string.mr_chooser_title)));
             for (MediaRouter.RouteInfo route : mRoutes) {
                 mItems.add(new Item(route));
             }
 
-            // Add list items of group section to mItems
-            mItems.add(new Item(mContext.getString(R.string.mr_dialog_route_header)));
-            for (MediaRouter.RouteInfo routeGroup : routeGroups) {
-                mItems.add(new Item(routeGroup));
-            }
             notifyDataSetChanged();
         }
 
@@ -354,10 +331,10 @@ public class MediaRouteDevicePickerDialog extends AppCompatDialog {
 
             switch (viewType) {
                 case ITEM_TYPE_HEADER:
-                    view = mInflater.inflate(R.layout.mr_picker_list_item_header, parent, false);
+                    view = mInflater.inflate(R.layout.mr_picker_header_item, parent, false);
                     return new HeaderViewHolder(view);
                 case ITEM_TYPE_ROUTE:
-                    view = mInflater.inflate(R.layout.mr_picker_list_item_route, parent, false);
+                    view = mInflater.inflate(R.layout.mr_picker_route_item, parent, false);
                     return new RouteViewHolder(view);
                 default:
                     Log.w(TAG, "Cannot create ViewHolder because of wrong view type");
@@ -372,7 +349,7 @@ public class MediaRouteDevicePickerDialog extends AppCompatDialog {
 
             switch (viewType) {
                 case ITEM_TYPE_HEADER:
-                    ((HeaderViewHolder) holder).binHeaderView(item);
+                    ((HeaderViewHolder) holder).bindHeaderView(item);
                     break;
                 case ITEM_TYPE_ROUTE:
                     ((RouteViewHolder) holder).bindRouteView(item);
@@ -414,7 +391,7 @@ public class MediaRouteDevicePickerDialog extends AppCompatDialog {
             }
 
             // Otherwise, make the best guess based on other route information.
-            if (route instanceof MediaRouter.RouteGroup) {
+            if (route.isGroup()) {
                 // Only speakers can be grouped for now.
                 return mSpeakerGroupIcon;
             }
@@ -469,7 +446,7 @@ public class MediaRouteDevicePickerDialog extends AppCompatDialog {
                 mTextView = itemView.findViewById(R.id.mr_picker_header_name);
             }
 
-            public void binHeaderView(Item item) {
+            public void bindHeaderView(Item item) {
                 String headerName = item.getData().toString();
 
                 mTextView.setText(headerName);
@@ -478,24 +455,34 @@ public class MediaRouteDevicePickerDialog extends AppCompatDialog {
 
         // ViewHolder for route list item
         private class RouteViewHolder extends RecyclerView.ViewHolder {
-            View mItemView;
-            TextView mTextView;
-            ImageView mImageView;
+            final View mItemView;
+            final ImageView mImageView;
+            final ProgressBar mProgressBar;
+            final TextView mTextView;
 
             RouteViewHolder(View itemView) {
                 super(itemView);
                 mItemView = itemView;
-                mTextView = itemView.findViewById(R.id.mr_picker_route_name);
                 mImageView = itemView.findViewById(R.id.mr_picker_route_icon);
+                mProgressBar = itemView.findViewById(R.id.mr_picker_route_progress_bar);
+                mTextView = itemView.findViewById(R.id.mr_picker_route_name);
+
+                MediaRouterThemeHelper.setIndeterminateProgressBarColor(mContext, mProgressBar);
             }
 
             public void bindRouteView(final Item item) {
                 final MediaRouter.RouteInfo route = (MediaRouter.RouteInfo) item.getData();
-
+                mItemView.setVisibility(View.VISIBLE);
+                mProgressBar.setVisibility(View.INVISIBLE);
                 mItemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        if (route.isDynamicRoute()) {
+                            mIsSelectingDynamicRoute = true;
+                        }
                         route.select();
+                        mImageView.setVisibility(View.INVISIBLE);
+                        mProgressBar.setVisibility(View.VISIBLE);
                     }
                 });
                 mTextView.setText(route.getName());
