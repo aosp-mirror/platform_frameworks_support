@@ -107,6 +107,24 @@
     },
     {
       "key": {
+        "uuid": "9608ecdb_7b0826e3",
+        "filename": "lifecycle/runtime/eap/src/main/java/androidx/lifecycle/PausingDispatcher.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1376662
+      },
+      "writtenOn": "2019-03-06T07:23:40Z",
+      "side": 1,
+      "message": "This will cause delay calls to skip Robolectric\u0027s looper\n\nhttps://github.com/Kotlin/kotlinx.coroutines/blob/master/core/kotlinx-coroutines-core/src/EventLoop.kt#L96\n\nhttps://github.com/Kotlin/kotlinx.coroutines/blob/master/core/kotlinx-coroutines-core/src/DefaultExecutor.kt#L9\n\nvs \n\nhttps://github.com/robolectric/robolectric/blob/master/shadows/framework/src/main/java/org/robolectric/shadows/ShadowLooper.java#L317\n\nFrom a testing standpoint for Fragment code, it would be preferred if delay(1_000) ended up calling through to postDelayed at some point when it\u0027s called from Main. Other dispatchers should be handled with something like https://github.com/Kotlin/kotlinx.coroutines/pull/890.",
+      "parentUuid": "5088079c_e344b22c",
+      "revId": "4748f8f427767250507107e96b83acd43fac010c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cbbf8d62_3645f0c2",
         "filename": "lifecycle/runtime/eap/src/main/java/androidx/lifecycle/StateManagerImpl.kt",
         "patchSetId": 8
