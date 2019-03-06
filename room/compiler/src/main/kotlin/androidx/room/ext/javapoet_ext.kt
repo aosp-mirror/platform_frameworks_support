@@ -18,7 +18,12 @@ package androidx.room.ext
 
 import com.squareup.javapoet.ArrayTypeName
 import com.squareup.javapoet.ClassName
+import com.squareup.javapoet.MethodSpec
+import com.squareup.javapoet.ParameterizedTypeName
 import com.squareup.javapoet.TypeName
+import com.squareup.javapoet.TypeSpec
+import java.util.concurrent.Callable
+import javax.lang.model.element.Modifier
 import javax.lang.model.type.TypeMirror
 import kotlin.reflect.KClass
 
@@ -48,6 +53,7 @@ object SupportDbTypeNames {
 object RoomTypeNames {
     val STRING_UTIL: ClassName = ClassName.get("androidx.room.util", "StringUtil")
     val ROOM_DB: ClassName = ClassName.get("androidx.room", "RoomDatabase")
+    val ROOM_DB_KT: ClassName = ClassName.get("androidx.room", "RoomDatabaseKt")
     val ROOM_DB_CONFIG: ClassName = ClassName.get("androidx.room",
             "DatabaseConfiguration")
     val INSERTION_ADAPTER: ClassName =
@@ -74,8 +80,16 @@ object RoomTypeNames {
             ClassName.get("androidx.room.util", "TableInfo.ForeignKey")
     val TABLE_INFO_INDEX: ClassName =
             ClassName.get("androidx.room.util", "TableInfo.Index")
+    val FTS_TABLE_INFO: ClassName =
+            ClassName.get("androidx.room.util", "FtsTableInfo")
+    val VIEW_INFO: ClassName =
+            ClassName.get("androidx.room.util", "ViewInfo")
     val LIMIT_OFFSET_DATA_SOURCE: ClassName =
             ClassName.get("androidx.room.paging", "LimitOffsetDataSource")
+    val DB_UTIL: ClassName =
+            ClassName.get("androidx.room.util", "DBUtil")
+    val CURSOR_UTIL: ClassName =
+            ClassName.get("androidx.room.util", "CursorUtil")
 }
 
 object PagingTypeNames {
@@ -96,6 +110,7 @@ object LifecyclesTypeNames {
 object AndroidTypeNames {
     val CURSOR: ClassName = ClassName.get("android.database", "Cursor")
     val ARRAY_MAP: ClassName = ClassName.get("androidx.collection", "ArrayMap")
+    val LONG_SPARSE_ARRAY: ClassName = ClassName.get("androidx.collection", "LongSparseArray")
     val BUILD: ClassName = ClassName.get("android.os", "Build")
 }
 
@@ -120,6 +135,7 @@ object RxJava2TypeNames {
     val OBSERVABLE = ClassName.get("io.reactivex", "Observable")
     val MAYBE = ClassName.get("io.reactivex", "Maybe")
     val SINGLE = ClassName.get("io.reactivex", "Single")
+    val COMPLETABLE = ClassName.get("io.reactivex", "Completable")
 }
 
 object ReactiveStreamsTypeNames {
@@ -138,6 +154,16 @@ object RoomRxJava2TypeNames {
             "EmptyResultSetException")
 }
 
+object RoomCoroutinesTypeNames {
+    val COROUTINES_ROOM = ClassName.get("androidx.room", "CoroutinesRoom")
+}
+
+object KotlinTypeNames {
+    val UNIT = ClassName.get("kotlin", "Unit")
+    val CONTINUATION = ClassName.get("kotlin.coroutines", "Continuation")
+    val COROUTINE_SCOPE = ClassName.get("kotlinx.coroutines", "CoroutineScope")
+}
+
 fun TypeName.defaultValue(): String {
     return if (!isPrimitive) {
         "null"
@@ -146,4 +172,44 @@ fun TypeName.defaultValue(): String {
     } else {
         "0"
     }
+}
+
+fun CallableTypeSpecBuilder(
+    parameterTypeName: TypeName,
+    callBody: MethodSpec.Builder.() -> Unit
+) = TypeSpec.anonymousClassBuilder("").apply {
+    superclass(ParameterizedTypeName.get(Callable::class.typeName(), parameterTypeName))
+    addMethod(MethodSpec.methodBuilder("call").apply {
+        returns(parameterTypeName)
+        addException(Exception::class.typeName())
+        addModifiers(Modifier.PUBLIC)
+        addAnnotation(Override::class.java)
+        callBody()
+    }.build())
+}
+
+fun Function2TypeSpecBuilder(
+    parameter1: Pair<TypeName, String>,
+    parameter2: Pair<TypeName, String>,
+    returnTypeName: TypeName,
+    callBody: MethodSpec.Builder.() -> Unit
+) = TypeSpec.anonymousClassBuilder("").apply {
+    val (param1TypeName, param1Name) = parameter1
+    val (param2TypeName, param2Name) = parameter2
+    superclass(
+        ParameterizedTypeName.get(
+            Function2::class.typeName(),
+            param1TypeName,
+            param2TypeName,
+            returnTypeName
+        )
+    )
+    addMethod(MethodSpec.methodBuilder("invoke").apply {
+        addParameter(param1TypeName, param1Name)
+        addParameter(param2TypeName, param2Name)
+        returns(returnTypeName)
+        addModifiers(Modifier.PUBLIC)
+        addAnnotation(Override::class.java)
+        callBody()
+    }.build())
 }

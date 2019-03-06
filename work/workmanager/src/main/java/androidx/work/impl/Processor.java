@@ -21,6 +21,10 @@ import android.support.annotation.RestrictTo;
 
 import androidx.work.Configuration;
 import androidx.work.Logger;
+import androidx.work.WorkerParameters;
+import androidx.work.impl.utils.taskexecutor.TaskExecutor;
+
+import com.google.common.util.concurrent.ListenableFuture;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,7 +32,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutionException;
 
 /**
  * A Processor can intelligently schedule and execute work on demand.
@@ -37,33 +41,35 @@ import java.util.concurrent.Executor;
  */
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public class Processor implements ExecutionListener {
-    private static final String TAG = "Processor";
+    private static final String TAG = Logger.tagWithPrefix("Processor");
 
     private Context mAppContext;
     private Configuration mConfiguration;
+    private TaskExecutor mWorkTaskExecutor;
     private WorkDatabase mWorkDatabase;
     private Map<String, WorkerWrapper> mEnqueuedWorkMap;
     private List<Scheduler> mSchedulers;
-    private Executor mExecutor;
 
     private Set<String> mCancelledIds;
 
     private final List<ExecutionListener> mOuterListeners;
+    private final Object mLock;
 
     public Processor(
             Context appContext,
             Configuration configuration,
+            TaskExecutor workTaskExecutor,
             WorkDatabase workDatabase,
-            List<Scheduler> schedulers,
-            Executor executor) {
+            List<Scheduler> schedulers) {
         mAppContext = appContext;
         mConfiguration = configuration;
+        mWorkTaskExecutor = workTaskExecutor;
         mWorkDatabase = workDatabase;
         mEnqueuedWorkMap = new HashMap<>();
         mSchedulers = schedulers;
-        mExecutor = executor;
         mCancelledIds = new HashSet<>();
         mOuterListeners = new ArrayList<>();
+        mLock = new Object();
     }
 
     /**
@@ -72,7 +78,7 @@ public class Processor implements ExecutionListener {
      * @param id The work id to execute.
      * @return {@code true} if the work was successfully enqueued for processing
      */
-    public synchronized boolean startWork(String id) {
+    public boolean startWork(String id) {
         return startWork(id, null);
     }
 
@@ -80,26 +86,39 @@ public class Processor implements ExecutionListener {
      * Starts a given unit of work in the background.
      *
      * @param id The work id to execute.
-     * @param runtimeExtras The {@link Extras.RuntimeExtras} for this work, if any.
+     * @param runtimeExtras The {@link WorkerParameters.RuntimeExtras} for this work, if any.
      * @return {@code true} if the work was successfully enqueued for processing
      */
-    public synchronized boolean startWork(String id, Extras.RuntimeExtras runtimeExtras) {
-        // Work may get triggered multiple times if they have passing constraints and new work with
-        // those constraints are added.
-        if (mEnqueuedWorkMap.containsKey(id)) {
-            Logger.debug(TAG, String.format("Work %s is already enqueued for processing", id));
-            return false;
-        }
+    public boolean startWork(String id, WorkerParameters.RuntimeExtras runtimeExtras) {
+        WorkerWrapper workWrapper;
+        synchronized (mLock) {
+            // Work may get triggered multiple times if they have passing constraints
+            // and new work with those constraints are added.
+            if (mEnqueuedWorkMap.containsKey(id)) {
+                Logger.get().debug(
+                        TAG,
+                        String.format("Work %s is already enqueued for processing", id));
+                return false;
+            }
 
-        WorkerWrapper workWrapper =
-                new WorkerWrapper.Builder(mAppContext, mConfiguration, mWorkDatabase, id)
-                        .withListener(this)
-                        .withSchedulers(mSchedulers)
-                        .withRuntimeExtras(runtimeExtras)
-                        .build();
-        mEnqueuedWorkMap.put(id, workWrapper);
-        mExecutor.execute(workWrapper);
-        Logger.debug(TAG, String.format("%s: processing %s", getClass().getSimpleName(), id));
+            workWrapper =
+                    new WorkerWrapper.Builder(
+                            mAppContext,
+                            mConfiguration,
+                            mWorkTaskExecutor,
+                            mWorkDatabase,
+                            id)
+                            .withSchedulers(mSchedulers)
+                            .withRuntimeExtras(runtimeExtras)
+                            .build();
+            ListenableFuture<Boolean> future = workWrapper.getFuture();
+            future.addListener(
+                    new FutureListener(this, id, future),
+                    mWorkTaskExecutor.getMainThreadExecutor());
+            mEnqueuedWorkMap.put(id, workWrapper);
+        }
+        mWorkTaskExecutor.getBackgroundExecutor().execute(workWrapper);
+        Logger.get().debug(TAG, String.format("%s: processing %s", getClass().getSimpleName(), id));
         return true;
     }
 
@@ -109,16 +128,18 @@ public class Processor implements ExecutionListener {
      * @param id The work id to stop
      * @return {@code true} if the work was stopped successfully
      */
-    public synchronized boolean stopWork(String id) {
-        Logger.debug(TAG, String.format("Processor stopping %s", id));
-        WorkerWrapper wrapper = mEnqueuedWorkMap.remove(id);
-        if (wrapper != null) {
-            wrapper.interrupt(false);
-            Logger.debug(TAG, String.format("WorkerWrapper stopped for %s", id));
-            return true;
+    public boolean stopWork(String id) {
+        synchronized (mLock) {
+            Logger.get().debug(TAG, String.format("Processor stopping %s", id));
+            WorkerWrapper wrapper = mEnqueuedWorkMap.remove(id);
+            if (wrapper != null) {
+                wrapper.interrupt(false);
+                Logger.get().debug(TAG, String.format("WorkerWrapper stopped for %s", id));
+                return true;
+            }
+            Logger.get().debug(TAG, String.format("WorkerWrapper could not be found for %s", id));
+            return false;
         }
-        Logger.debug(TAG, String.format("WorkerWrapper could not be found for %s", id));
-        return false;
     }
 
     /**
@@ -127,17 +148,19 @@ public class Processor implements ExecutionListener {
      * @param id The work id to stop and cancel
      * @return {@code true} if the work was stopped successfully
      */
-    public synchronized boolean stopAndCancelWork(String id) {
-        Logger.debug(TAG, String.format("Processor cancelling %s", id));
-        mCancelledIds.add(id);
-        WorkerWrapper wrapper = mEnqueuedWorkMap.remove(id);
-        if (wrapper != null) {
-            wrapper.interrupt(true);
-            Logger.debug(TAG, String.format("WorkerWrapper cancelled for %s", id));
-            return true;
+    public boolean stopAndCancelWork(String id) {
+        synchronized (mLock) {
+            Logger.get().debug(TAG, String.format("Processor cancelling %s", id));
+            mCancelledIds.add(id);
+            WorkerWrapper wrapper = mEnqueuedWorkMap.remove(id);
+            if (wrapper != null) {
+                wrapper.interrupt(true);
+                Logger.get().debug(TAG, String.format("WorkerWrapper cancelled for %s", id));
+                return true;
+            }
+            Logger.get().debug(TAG, String.format("WorkerWrapper could not be found for %s", id));
+            return false;
         }
-        Logger.debug(TAG, String.format("WorkerWrapper could not be found for %s", id));
-        return false;
     }
 
     /**
@@ -146,23 +169,29 @@ public class Processor implements ExecutionListener {
      * @param id The work id to query
      * @return {@code true} if the id has already been marked as cancelled
      */
-    public synchronized boolean isCancelled(String id) {
-        return mCancelledIds.contains(id);
+    public boolean isCancelled(String id) {
+        synchronized (mLock) {
+            return mCancelledIds.contains(id);
+        }
     }
 
     /**
      * @return {@code true} if the processor has work to process.
      */
-    public synchronized boolean hasWork() {
-        return !mEnqueuedWorkMap.isEmpty();
+    public boolean hasWork() {
+        synchronized (mLock) {
+            return !mEnqueuedWorkMap.isEmpty();
+        }
     }
 
     /**
      * @param workSpecId The {@link androidx.work.impl.model.WorkSpec} id
      * @return {@code true} if the id was enqueued in the processor.
      */
-    public synchronized boolean isEnqueued(@NonNull String workSpecId) {
-        return mEnqueuedWorkMap.containsKey(workSpecId);
+    public boolean isEnqueued(@NonNull String workSpecId) {
+        synchronized (mLock) {
+            return mEnqueuedWorkMap.containsKey(workSpecId);
+        }
     }
 
     /**
@@ -170,9 +199,10 @@ public class Processor implements ExecutionListener {
      *
      * @param executionListener The {@link ExecutionListener} to add
      */
-    public synchronized void addExecutionListener(ExecutionListener executionListener) {
-        // TODO(sumir): Let's get some synchronization guarantees here.
-        mOuterListeners.add(executionListener);
+    public void addExecutionListener(ExecutionListener executionListener) {
+        synchronized (mLock) {
+            mOuterListeners.add(executionListener);
+        }
     }
 
     /**
@@ -180,24 +210,57 @@ public class Processor implements ExecutionListener {
      *
      * @param executionListener The {@link ExecutionListener} to remove
      */
-    public synchronized void removeExecutionListener(ExecutionListener executionListener) {
-        // TODO(sumir): Let's get some synchronization guarantees here.
-        mOuterListeners.remove(executionListener);
+    public void removeExecutionListener(ExecutionListener executionListener) {
+        synchronized (mLock) {
+            mOuterListeners.remove(executionListener);
+        }
     }
 
     @Override
-    public synchronized void onExecuted(
-            @NonNull String workSpecId,
-            boolean isSuccessful,
+    public void onExecuted(
+            @NonNull final String workSpecId,
             boolean needsReschedule) {
 
-        mEnqueuedWorkMap.remove(workSpecId);
-        Logger.debug(TAG, String.format("%s %s executed; isSuccessful = %s, reschedule = %s",
-                getClass().getSimpleName(), workSpecId, isSuccessful, needsReschedule));
+        synchronized (mLock) {
+            mEnqueuedWorkMap.remove(workSpecId);
+            Logger.get().debug(TAG, String.format("%s %s executed; reschedule = %s",
+                    getClass().getSimpleName(), workSpecId, needsReschedule));
 
-        // TODO(sumir): Let's get some synchronization guarantees here.
-        for (ExecutionListener executionListener : mOuterListeners) {
-            executionListener.onExecuted(workSpecId, isSuccessful, needsReschedule);
+            for (ExecutionListener executionListener : mOuterListeners) {
+                executionListener.onExecuted(workSpecId, needsReschedule);
+            }
+        }
+    }
+
+    /**
+     * An {@link ExecutionListener} for the {@link ListenableFuture} returned by
+     * {@link WorkerWrapper}.
+     */
+    private static class FutureListener implements Runnable {
+
+        private @NonNull ExecutionListener mExecutionListener;
+        private @NonNull String mWorkSpecId;
+        private @NonNull ListenableFuture<Boolean> mFuture;
+
+        FutureListener(
+                @NonNull ExecutionListener executionListener,
+                @NonNull String workSpecId,
+                @NonNull ListenableFuture<Boolean> future) {
+            mExecutionListener = executionListener;
+            mWorkSpecId = workSpecId;
+            mFuture = future;
+        }
+
+        @Override
+        public void run() {
+            boolean needsReschedule;
+            try {
+                needsReschedule = mFuture.get();
+            } catch (InterruptedException | ExecutionException e) {
+                // Should never really happen(?)
+                needsReschedule = true;
+            }
+            mExecutionListener.onExecuted(mWorkSpecId, needsReschedule);
         }
     }
 }

@@ -16,11 +16,18 @@
 
 package androidx.work.worker;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 
 import androidx.work.Worker;
+import androidx.work.WorkerParameters;
 
 public class InterruptionAwareWorker extends Worker {
+
+    public InterruptionAwareWorker(@NonNull Context context,
+            @NonNull WorkerParameters workerParams) {
+        super(context, workerParams);
+    }
 
     @Override
     public @NonNull Result doWork() {
@@ -31,6 +38,6 @@ public class InterruptionAwareWorker extends Worker {
         } catch (InterruptedException e) {
             // Do nothing.
         }
-        return Result.SUCCESS;
+        return Result.success();
     }
 }

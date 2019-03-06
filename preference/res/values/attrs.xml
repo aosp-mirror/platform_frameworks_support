@@ -26,10 +26,13 @@
         <!-- Theme for inflating Preference objects -->
         <attr name="preferenceTheme" format="reference" />
 
+        <!-- The preferred TextAppearance for the title displayed in a PreferenceCategory.
+        This is needed as there are no relevant android: attributes we can use for this as we
+        do with other text appearance styles. -->
+        <attr name="preferenceCategoryTitleTextAppearance" format="reference" />
+
         <!-- Default style for PreferenceScreen. -->
         <attr name="preferenceScreenStyle" format="reference" />
-        <!-- Default style for the PreferenceActivity. -->
-        <attr name="preferenceActivityStyle" format="reference" />
         <!-- Default style for Headers pane in PreferenceActivity. -->
         <attr name="preferenceFragmentStyle" format="reference" />
         <!-- Default style for Headers pane in PreferenceActivity. -->
@@ -42,28 +45,14 @@
         <attr name="preferenceInformationStyle" format="reference" />
         <!-- Default style for CheckBoxPreference. -->
         <attr name="checkBoxPreferenceStyle" format="reference" />
-        <!-- Default style for YesNoPreference. -->
-        <attr name="yesNoPreferenceStyle" format="reference" />
         <!-- Default style for DialogPreference. -->
         <attr name="dialogPreferenceStyle" format="reference" />
         <!-- Default style for EditTextPreference. -->
         <attr name="editTextPreferenceStyle" format="reference" />
-        <!-- Default style for RingtonePreference. -->
-        <attr name="ringtonePreferenceStyle" format="reference" />
         <!-- Default style for DropDownPreference. -->
         <attr name="dropdownPreferenceStyle" format="reference" />
-        <!-- The preference layout that has the child/tabbed effect. -->
-        <attr name="preferenceLayoutChild" format="reference" />
-        <!-- Preference panel style -->
-        <attr name="preferencePanelStyle" format="reference" />
-        <!-- Preference headers panel style -->
-        <attr name="preferenceHeaderPanelStyle" format="reference" />
-        <!-- Preference list style -->
-        <attr name="preferenceListStyle" format="reference" />
         <!-- Preference fragment list style -->
         <attr name="preferenceFragmentListStyle" format="reference" />
-        <!-- Preference fragment padding side -->
-        <attr name="preferenceFragmentPaddingSide" format="dimension" />
         <!-- Default style for switch preferences. -->
         <attr name="switchPreferenceStyle" format="reference" />
         <!-- Default style for switch compat preferences. -->
@@ -181,6 +170,9 @@
         <!-- Whether the Preference is visible. By default, this is set to true. -->
         <attr name="isPreferenceVisible" format="boolean" />
 
+        <!-- Whether the summary of this preference can be copied to the clipboard by long pressing
+             on the preference. By default, this is set to false. -->
+        <attr name="enableCopying" format="boolean"/>
     </declare-styleable>
 
     <!-- Base attributes available to CheckBoxPreference. -->
@@ -226,6 +218,13 @@
         <attr name="android:dialogLayout" />
     </declare-styleable>
 
+    <!-- Base attributes available to EditTextPreference. -->
+    <declare-styleable name="EditTextPreference">
+        <!-- Whether the preference should automatically set its summary to the value saved for the
+             preference, and update the summary when the value is changed. Defaults to false. -->
+        <attr name="useSimpleSummaryProvider" format="boolean"/>
+    </declare-styleable>
+
     <!-- Base attributes available to ListPreference. -->
     <declare-styleable name="ListPreference">
         <!-- The human-readable array to present as a list. Each entry must have a corresponding
@@ -237,6 +236,9 @@
              second item in this array will be saved to the preference. -->
         <attr name="entryValues" format="reference" />
         <attr name="android:entryValues" />
+        <!-- Whether the preference should automatically set its summary to the value saved for the
+             preference, and update the summary when the value is changed. Defaults to false. -->
+        <attr name="useSimpleSummaryProvider"/>
     </declare-styleable>
 
     <declare-styleable name="MultiSelectListPreference">
@@ -304,8 +306,13 @@
         <attr name="adjustable" format="boolean" />
         <!-- Flag indicating whether the TextView next to the seekbar that shows the current seekbar
         value will be displayed. If true, the view is VISIBLE; if false, the view will be GONE.
-        By default, this view is VISIBLE. -->
+        By default, this view is GONE. -->
         <attr name="showSeekBarValue" format="boolean" />
+        <!-- Flag indicating whether the SeekBarPreference should continuously save the Seekbar
+        value while the Seekbar is being dragged. If true, the SeekBarPreference should continuously
+        save the Seekbar value while it is being dragged. If false, the Seekbar value is only saved
+        when released. By default, this boolean is false. -->
+        <attr name="updatesContinuously" format="boolean" />
     </declare-styleable>
 
     <declare-styleable name="SwitchPreference">

@@ -23,12 +23,9 @@ import static android.app.slice.Slice.HINT_SEE_MORE;
 import static android.app.slice.Slice.HINT_SHORTCUT;
 import static android.app.slice.Slice.HINT_TITLE;
 import static android.app.slice.Slice.HINT_TTL;
-import static android.app.slice.Slice.SUBTYPE_COLOR;
 import static android.app.slice.Slice.SUBTYPE_CONTENT_DESCRIPTION;
-import static android.app.slice.Slice.SUBTYPE_LAYOUT_DIRECTION;
 import static android.app.slice.SliceItem.FORMAT_ACTION;
 import static android.app.slice.SliceItem.FORMAT_IMAGE;
-import static android.app.slice.SliceItem.FORMAT_INT;
 import static android.app.slice.SliceItem.FORMAT_LONG;
 import static android.app.slice.SliceItem.FORMAT_SLICE;
 import static android.app.slice.SliceItem.FORMAT_TEXT;
@@ -37,11 +34,8 @@ import static androidx.slice.core.SliceHints.ICON_IMAGE;
 import static androidx.slice.core.SliceHints.LARGE_IMAGE;
 import static androidx.slice.core.SliceHints.SMALL_IMAGE;
 import static androidx.slice.core.SliceHints.UNKNOWN_IMAGE;
-import static androidx.slice.widget.SliceViewUtil.resolveLayoutDirection;
 
 import android.app.slice.Slice;
-import android.content.Context;
-import android.content.res.Resources;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -50,7 +44,6 @@ import androidx.annotation.RestrictTo;
 import androidx.slice.SliceItem;
 import androidx.slice.core.SliceActionImpl;
 import androidx.slice.core.SliceQuery;
-import androidx.slice.view.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,59 +52,30 @@ import java.util.List;
  * Extracts information required to present content in a grid format from a slice.
  * @hide
  */
-@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
 @RequiresApi(19)
-public class GridContent {
+public class GridContent extends SliceContent {
 
     private boolean mAllImages;
-    private SliceItem mColorItem;
-    private SliceItem mLayoutDirItem;
     private SliceItem mPrimaryAction;
     private ArrayList<CellContent> mGridContent = new ArrayList<>();
     private SliceItem mSeeMoreItem;
     private int mMaxCellLineCount;
     private boolean mHasImage;
     private int mLargestImageMode = UNKNOWN_IMAGE;
-    private SliceItem mContentDescr;
+    private boolean mIsLastIndex;
 
-    private int mBigPicMinHeight;
-    private int mBigPicMaxHeight;
-    private int mAllImagesHeight;
-    private int mImageTextHeight;
-    private int mMaxHeight;
-    private int mMinHeight;
     private SliceItem mTitleItem;
 
-    public GridContent(Context context, SliceItem gridItem) {
+    public GridContent(SliceItem gridItem, int position) {
+        super(gridItem, position);
         populate(gridItem);
-
-        if (context != null) {
-            Resources res = context.getResources();
-            mBigPicMinHeight = res.getDimensionPixelSize(R.dimen.abc_slice_big_pic_min_height);
-            mBigPicMaxHeight = res.getDimensionPixelSize(R.dimen.abc_slice_big_pic_max_height);
-            mAllImagesHeight = res.getDimensionPixelSize(R.dimen.abc_slice_grid_image_only_height);
-            mImageTextHeight = res.getDimensionPixelSize(R.dimen.abc_slice_grid_image_text_height);
-            mMinHeight = res.getDimensionPixelSize(R.dimen.abc_slice_grid_min_height);
-            mMaxHeight = res.getDimensionPixelSize(R.dimen.abc_slice_grid_max_height);
-        }
     }
 
     /**
      * @return whether this grid has content that is valid to display.
      */
     private boolean populate(SliceItem gridItem) {
-        mColorItem = SliceQuery.findSubtype(gridItem, FORMAT_INT, SUBTYPE_COLOR);
-        if (FORMAT_SLICE.equals(gridItem.getFormat())
-                || FORMAT_ACTION.equals(gridItem.getFormat())) {
-            mLayoutDirItem = SliceQuery.findTopLevelItem(gridItem.getSlice(), FORMAT_INT,
-                SUBTYPE_LAYOUT_DIRECTION, null, null);
-            if (mLayoutDirItem != null) {
-                // Make sure it's valid
-                mLayoutDirItem = resolveLayoutDirection(mLayoutDirItem.getInt()) != -1
-                        ? mLayoutDirItem
-                        : null;
-            }
-        }
         mSeeMoreItem = SliceQuery.find(gridItem, null, HINT_SEE_MORE, null);
         if (mSeeMoreItem != null && FORMAT_SLICE.equals(mSeeMoreItem.getFormat())) {
             List<SliceItem> seeMoreItems = mSeeMoreItem.getSlice().getItems();
@@ -128,9 +92,7 @@ public class GridContent {
             items = filterAndProcessItems(items);
             for (int i = 0; i < items.size(); i++) {
                 SliceItem item = items.get(i);
-                if (SUBTYPE_CONTENT_DESCRIPTION.equals(item.getSubType())) {
-                    mContentDescr = item;
-                } else {
+                if (!SUBTYPE_CONTENT_DESCRIPTION.equals(item.getSubType())) {
                     CellContent cc = new CellContent(item);
                     processContent(cc);
                 }
@@ -165,7 +127,7 @@ public class GridContent {
     @Nullable
     public CharSequence getTitle() {
         if (mTitleItem != null) {
-            return mTitleItem.getText();
+            return mTitleItem.getSanitizedText();
         } else if (mPrimaryAction != null) {
             return new SliceActionImpl(mPrimaryAction).getTitle();
         }
@@ -178,19 +140,6 @@ public class GridContent {
     @NonNull
     public ArrayList<CellContent> getGridContent() {
         return mGridContent;
-    }
-
-    @Nullable
-    public SliceItem getLayoutDirItem() {
-        return mLayoutDirItem;
-    }
-
-    /**
-     * @return the color to tint content in this grid.
-     */
-    @Nullable
-    public SliceItem getColorItem() {
-        return mColorItem;
     }
 
     /**
@@ -210,18 +159,11 @@ public class GridContent {
     }
 
     /**
-     * @return content description for this row.
-     */
-    @Nullable
-    public CharSequence getContentDescription() {
-        return mContentDescr != null ? mContentDescr.getText() : null;
-    }
-
-    /**
      * @return whether this grid has content that is valid to display.
      */
+    @Override
     public boolean isValid() {
-        return mGridContent.size() > 0;
+        return super.isValid() && mGridContent.size() > 0;
     }
 
     /**
@@ -274,47 +216,27 @@ public class GridContent {
     }
 
     /**
-     * @return the height to display a grid row at when it is used as a small template.
-     * Does not include padding that might be added by slice view attributes,
-     * see {@link ListContent#getListHeight(Context, List)}.
+     * @return whether this content is being displayed last in a list.
      */
-    public int getSmallHeight() {
-        return getHeight(true /* isSmall */);
-    }
+    public boolean getIsLastIndex() { return mIsLastIndex; }
 
     /**
-     * @return the height the content in this template requires to be displayed.
-     * Does not include padding that might be added by slice view attributes,
-     * see {@link ListContent#getListHeight(Context, List)}.
+     * Sets whether this content is being displayed last in a list.
      */
-    public int getActualHeight() {
-        return getHeight(false /* isSmall */);
+    public void setIsLastIndex(boolean isLast) {
+        mIsLastIndex = isLast;
     }
 
-    private int getHeight(boolean isSmall) {
-        if (!isValid()) {
-            return 0;
-        }
-        if (mAllImages) {
-            return mGridContent.size() == 1
-                    ? isSmall ? mBigPicMinHeight : mBigPicMaxHeight
-                    : mLargestImageMode == ICON_IMAGE ? mMinHeight : mAllImagesHeight;
-        } else {
-            boolean twoLines = getMaxCellLineCount() > 1;
-            boolean hasImage = hasImage();
-            boolean iconImagesOrNone = mLargestImageMode == ICON_IMAGE
-                    || mLargestImageMode == UNKNOWN_IMAGE;
-            return (twoLines && !isSmall)
-                    ? hasImage ? mMaxHeight : mMinHeight
-                    : iconImagesOrNone ? mMinHeight : mImageTextHeight;
-        }
+    @Override
+    public int getHeight(SliceStyle style, SliceViewPolicy policy) {
+        return style.getGridHeight(this, policy);
     }
 
     /**
      * Extracts information required to present content in a cell.
      * @hide
      */
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
     public static class CellContent {
         private SliceItem mContentIntent;
         private ArrayList<SliceItem> mCellItems = new ArrayList<>();

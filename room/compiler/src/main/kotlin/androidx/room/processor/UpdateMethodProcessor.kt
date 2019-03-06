@@ -19,16 +19,15 @@ package androidx.room.processor
 import androidx.room.OnConflictStrategy.IGNORE
 import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Update
-import androidx.room.ext.typeName
 import androidx.room.vo.UpdateMethod
-import com.squareup.javapoet.TypeName
 import javax.lang.model.element.ExecutableElement
 import javax.lang.model.type.DeclaredType
 
 class UpdateMethodProcessor(
-        baseContext: Context,
-        val containing: DeclaredType,
-        val executableElement: ExecutableElement) {
+    baseContext: Context,
+    val containing: DeclaredType,
+    val executableElement: ExecutableElement
+) {
     val context = baseContext.fork(executableElement)
 
     fun process(): UpdateMethod {
@@ -36,20 +35,21 @@ class UpdateMethodProcessor(
         val annotation = delegate
                 .extractAnnotation(Update::class, ProcessorErrors.MISSING_UPDATE_ANNOTATION)
 
-        val onConflict = OnConflictProcessor.extractFrom(annotation)
-        context.checker.check(onConflict <= IGNORE && onConflict >= REPLACE,
+        val onConflict = annotation?.onConflict ?: OnConflictProcessor.INVALID_ON_CONFLICT
+        context.checker.check(onConflict in REPLACE..IGNORE,
                 executableElement, ProcessorErrors.INVALID_ON_CONFLICT_VALUE)
 
-        val returnTypeName = delegate.extractReturnType().typeName()
-        context.checker.check(
-                returnTypeName == TypeName.VOID || returnTypeName == TypeName.INT,
-                executableElement,
-                ProcessorErrors.UPDATE_METHODS_MUST_RETURN_VOID_OR_INT
+        val (entities, params) = delegate.extractParams(
+                missingParamError = ProcessorErrors.UPDATE_MISSING_PARAMS
         )
 
-        val (entities, params) = delegate.extractParams(
-                missingParamError = ProcessorErrors
-                        .UPDATE_MISSING_PARAMS
+        val returnType = delegate.extractReturnType()
+        val methodBinder = delegate.findDeleteOrUpdateMethodBinder(returnType)
+
+        context.checker.check(
+                methodBinder.adapter != null,
+                executableElement,
+                ProcessorErrors.CANNOT_FIND_UPDATE_RESULT_ADAPTER
         )
 
         return UpdateMethod(
@@ -57,7 +57,7 @@ class UpdateMethodProcessor(
                 name = delegate.executableElement.simpleName.toString(),
                 entities = entities,
                 onConflictStrategy = onConflict,
-                returnCount = returnTypeName == TypeName.INT,
+                methodBinder = methodBinder,
                 parameters = params
         )
     }

@@ -19,7 +19,7 @@ import androidx.room.*;
 import java.lang.SuppressWarnings;
 import java.util.List;
 
-@Database(entities = {User.class}, version = 1923)
+@Database(entities = {User.class, Child1.class, Child2.class}, views = {UserSummary.class}, version = 1923)
 abstract class ComplexDatabase extends RoomDatabase {
     abstract ComplexDao getComplexDao();
 }

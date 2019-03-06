@@ -16,7 +16,7 @@
 
 package androidx.versionedparcelable;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
 import android.os.BadParcelableException;
 import android.os.Build;
@@ -33,6 +33,8 @@ import android.util.SparseBooleanArray;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.RestrictTo;
+import androidx.collection.ArrayMap;
+import androidx.collection.ArraySet;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -42,13 +44,17 @@ import java.io.ObjectOutputStream;
 import java.io.ObjectStreamClass;
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * @hide
  */
-@RestrictTo(LIBRARY_GROUP)
+@RestrictTo(LIBRARY_GROUP_PREFIX)
 public abstract class VersionedParcel {
 
     private static final String TAG = "VersionedParcel";
@@ -68,6 +74,20 @@ public abstract class VersionedParcel {
     private static final int TYPE_SERIALIZABLE = 3;
     private static final int TYPE_STRING = 4;
     private static final int TYPE_BINDER = 5;
+    private static final int TYPE_INTEGER = 7;
+    private static final int TYPE_FLOAT = 8;
+
+    protected final ArrayMap<String, Method> mReadCache;
+    protected final ArrayMap<String, Method> mWriteCache;
+    protected final ArrayMap<String, Class> mParcelizerCache;
+
+    public VersionedParcel(ArrayMap<String, Method> readCache,
+            ArrayMap<String, Method> writeCache,
+            ArrayMap<String, Class> parcelizerCache) {
+        mReadCache = readCache;
+        mWriteCache = writeCache;
+        mParcelizerCache = parcelizerCache;
+    }
 
     /**
      * Whether this VersionedParcel is serializing into a stream and will not accept Parcelables.
@@ -101,6 +121,11 @@ public abstract class VersionedParcel {
      * @param len    Number of bytes to write.
      */
     protected abstract void writeByteArray(byte[] b, int offset, int len);
+
+    /**
+     * Write a CharSequence into the parcel.
+     */
+    protected abstract void writeCharSequence(CharSequence charSequence);
 
     /**
      * Write an integer value into the parcel at the current dataPosition(),
@@ -203,6 +228,11 @@ public abstract class VersionedParcel {
     protected abstract byte[] readByteArray();
 
     /**
+     * Read a CharSequence from the parcel
+     */
+    protected abstract CharSequence readCharSequence();
+
+    /**
      */
     @SuppressWarnings({"unchecked", "TypeParameterUnusedInFormals"})
     protected abstract <T extends Parcelable> T readParcelable();
@@ -285,6 +315,15 @@ public abstract class VersionedParcel {
     public void writeByteArray(byte[] b, int offset, int len, int fieldId) {
         setOutputField(fieldId);
         writeByteArray(b, offset, len);
+    }
+
+    /**
+     * Write a CharSequence into the parcel at the current dataPosition(),
+     * growing dataCapacity() if needed.
+     */
+    public void writeCharSequence(CharSequence val, int fieldId) {
+        setOutputField(fieldId);
+        writeCharSequence(val);
     }
 
     /**
@@ -573,6 +612,15 @@ public abstract class VersionedParcel {
 
     /**
      */
+    public CharSequence readCharSequence(CharSequence def, int fieldId) {
+        if (!readField(fieldId)) {
+            return def;
+        }
+        return readCharSequence();
+    }
+
+    /**
+     */
     public char[] readCharArray(char[] def, int fieldId) {
         if (!readField(fieldId)) {
             return def;
@@ -765,57 +813,114 @@ public abstract class VersionedParcel {
     }
 
     /**
-     * Flatten a List containing a particular object type into the parcel, at
+     * Flatten a Set containing a particular object type into the parcel, at
      * the current dataPosition() and growing dataCapacity() if needed.  The
      * type of the objects in the list must be one that implements VersionedParcelable,
      * Parcelable, String, or Serializable.
+     *
+     * @param val The list of objects to be written.
+     * @see #readSet
+     * @see VersionedParcelable
+     */
+    public <T> void writeSet(Set<T> val, int fieldId) {
+        writeCollection(val, fieldId);
+    }
+
+    /**
+     * Flatten a List containing a particular object type into the parcel, at
+     * the current dataPosition() and growing dataCapacity() if needed.  The
+     * type of the objects in the list must be one that implements VersionedParcelable,
+     * Parcelable, String, Float, Integer or Serializable.
      *
      * @param val The list of objects to be written.
      * @see #readList
      * @see VersionedParcelable
      */
     public <T> void writeList(List<T> val, int fieldId) {
+        writeCollection(val, fieldId);
+    }
+
+    /**
+     * Flatten a Map containing a particular object type into the parcel, at
+     * the current dataPosition() and growing dataCapacity() if needed.  The
+     * type of the objects in the list must be one that implements VersionedParcelable,
+     * Parcelable, String, Float, Integer or Serializable.
+     *
+     * @param val The list of objects to be written.
+     * @see #readMap
+     * @see VersionedParcelable
+     */
+    public <K, V> void writeMap(Map<K, V> val, int fieldId) {
         setOutputField(fieldId);
+        if (val == null) {
+            writeInt(-1);
+            return;
+        }
+        int size = val.size();
+        writeInt(size);
+        if (size == 0) {
+            return;
+        }
+        List<K> keySet = new ArrayList<>();
+        List<V> valueSet = new ArrayList<>();
+        for (Map.Entry<K, V> entry : val.entrySet()) {
+            keySet.add(entry.getKey());
+            valueSet.add(entry.getValue());
+        }
+        writeCollection(keySet);
+        writeCollection(valueSet);
+    }
+
+    private <T> void writeCollection(Collection<T> val, int fieldId) {
+        setOutputField(fieldId);
+        writeCollection(val);
+    }
+
+    private <T> void writeCollection(Collection<T> val) {
         if (val == null) {
             writeInt(-1);
             return;
         }
 
         int n = val.size();
-        int i = 0;
         writeInt(n);
         if (n > 0) {
-            int type = getType(val.get(0));
+            int type = getType(val.iterator().next());
             writeInt(type);
             switch (type) {
                 case TYPE_STRING:
-                    while (i < n) {
-                        writeString((String) val.get(i));
-                        i++;
+                    for (T v : val) {
+                        writeString((String) v);
                     }
                     break;
                 case TYPE_PARCELABLE:
-                    while (i < n) {
-                        writeParcelable((Parcelable) val.get(i));
-                        i++;
+                    for (T v : val) {
+                        writeParcelable((Parcelable) v);
                     }
                     break;
                 case TYPE_VERSIONED_PARCELABLE:
-                    while (i < n) {
-                        writeVersionedParcelable((VersionedParcelable) val.get(i));
-                        i++;
+                    for (T v : val) {
+                        writeVersionedParcelable((VersionedParcelable) v);
                     }
                     break;
                 case TYPE_SERIALIZABLE:
-                    while (i < n) {
-                        writeSerializable((Serializable) val.get(i));
-                        i++;
+                    for (T v : val) {
+                        writeSerializable((Serializable) v);
                     }
                     break;
                 case TYPE_BINDER:
-                    while (i < n) {
-                        writeStrongBinder((IBinder) val.get(i));
-                        i++;
+                    for (T v : val) {
+                        writeStrongBinder((IBinder) v);
+                    }
+                    break;
+                case TYPE_INTEGER:
+                    for (T v : val) {
+                        writeInt((Integer) v);
+                    }
+                    break;
+                case TYPE_FLOAT:
+                    for (T v : val) {
+                        writeFloat((Float) v);
                     }
                     break;
             }
@@ -897,6 +1002,10 @@ public abstract class VersionedParcel {
             return TYPE_SERIALIZABLE;
         } else if (t instanceof IBinder) {
             return TYPE_BINDER;
+        } else if (t instanceof Integer) {
+            return TYPE_INTEGER;
+        } else if (t instanceof Float) {
+            return TYPE_FLOAT;
         }
         throw new IllegalArgumentException(t.getClass().getName()
                 + " cannot be VersionedParcelled");
@@ -1194,6 +1303,25 @@ public abstract class VersionedParcel {
     }
 
     /**
+     * Read and return a new ArraySet containing a particular object type from
+     * the parcel that was written with {@link #writeSet} at the
+     * current dataPosition().  Returns null if the
+     * previously written list object was null.  The list <em>must</em> have
+     * previously been written via {@link #writeSet} with the same object
+     * type.
+     *
+     * @return A newly created ArraySet containing objects with the same data
+     * as those that were previously written.
+     * @see #writeSet
+     */
+    public <T> Set<T> readSet(Set<T> def, int fieldId) {
+        if (!readField(fieldId)) {
+            return def;
+        }
+        return readCollection(new ArraySet<T>());
+    }
+
+    /**
      * Read and return a new ArrayList containing a particular object type from
      * the parcel that was written with {@link #writeList} at the
      * current dataPosition().  Returns null if the
@@ -1209,11 +1337,14 @@ public abstract class VersionedParcel {
         if (!readField(fieldId)) {
             return def;
         }
+        return readCollection(new ArrayList<T>());
+    }
+
+    private <T, S extends Collection<T>> S readCollection(S list) {
         int n = readInt();
         if (n < 0) {
             return null;
         }
-        ArrayList<T> list = new ArrayList<T>(n);
         if (n != 0) {
             int type = readInt();
             if (n < 0) {
@@ -1253,6 +1384,39 @@ public abstract class VersionedParcel {
             }
         }
         return list;
+    }
+
+    /**
+     * Read and return a new ArrayMap containing a particular object type from
+     * the parcel that was written with {@link #writeMap} at the
+     * current dataPosition().  Returns null if the
+     * previously written list object was null.  The list <em>must</em> have
+     * previously been written via {@link #writeMap} with the same object type.
+     *
+     * @return A newly created ArrayMap containing objects with the same data
+     * as those that were previously written.
+     * @see #writeMap
+     */
+    public <K, V> Map<K, V> readMap(Map<K, V> def, int fieldId) {
+        if (!readField(fieldId)) {
+            return def;
+        }
+        int size = readInt();
+        if (size < 0) {
+            return null;
+        }
+        Map<K, V> map = new ArrayMap<>();
+        if (size == 0) {
+            return map;
+        }
+        List<K> keyList = new ArrayList<>();
+        List<V> valueList = new ArrayList<>();
+        readCollection(keyList);
+        readCollection(valueList);
+        for (int i = 0; i < size; i++) {
+            map.put(keyList.get(i), valueList.get(i));
+        }
+        return map;
     }
 
     /**
@@ -1395,12 +1559,11 @@ public abstract class VersionedParcel {
     /**
      */
     @SuppressWarnings({"unchecked", "TypeParameterUnusedInFormals"})
-    protected static <T extends VersionedParcelable> T readFromParcel(
+    protected <T extends VersionedParcelable> T readFromParcel(
             String parcelCls, VersionedParcel versionedParcel) {
         try {
-            Class cls = Class.forName(parcelCls, true, VersionedParcel.class.getClassLoader());
-            return (T) cls.getDeclaredMethod("read", VersionedParcel.class)
-                    .invoke(null, versionedParcel);
+            Method m = getReadMethod(parcelCls);
+            return (T) m.invoke(null, versionedParcel);
         } catch (IllegalAccessException e) {
             throw new RuntimeException("VersionedParcel encountered IllegalAccessException", e);
         } catch (InvocationTargetException e) {
@@ -1417,12 +1580,11 @@ public abstract class VersionedParcel {
 
     /**
      */
-    protected static <T extends VersionedParcelable> void writeToParcel(T val,
+    protected <T extends VersionedParcelable> void writeToParcel(T val,
             VersionedParcel versionedParcel) {
         try {
-            Class cls = findParcelClass(val);
-            cls.getDeclaredMethod("write", val.getClass(), VersionedParcel.class)
-                    .invoke(null, val, versionedParcel);
+            Method m = getWriteMethod(val.getClass());
+            m.invoke(null, val, versionedParcel);
         } catch (IllegalAccessException e) {
             throw new RuntimeException("VersionedParcel encountered IllegalAccessException", e);
         } catch (InvocationTargetException e) {
@@ -1437,17 +1599,40 @@ public abstract class VersionedParcel {
         }
     }
 
-    private static <T extends VersionedParcelable> Class findParcelClass(T val)
-            throws ClassNotFoundException {
-        Class<? extends VersionedParcelable> cls = val.getClass();
-        return findParcelClass(cls);
+    private Method getReadMethod(String parcelCls) throws IllegalAccessException,
+            NoSuchMethodException, ClassNotFoundException {
+        Method m = mReadCache.get(parcelCls);
+        if (m == null) {
+            long start = System.currentTimeMillis();
+            Class cls = Class.forName(parcelCls, true, VersionedParcel.class.getClassLoader());
+            m = cls.getDeclaredMethod("read", VersionedParcel.class);
+            mReadCache.put(parcelCls, m);
+        }
+        return m;
     }
 
-    private static Class findParcelClass(Class<? extends VersionedParcelable> cls)
+    private Method getWriteMethod(Class baseCls) throws IllegalAccessException,
+            NoSuchMethodException, ClassNotFoundException {
+        Method m = mWriteCache.get(baseCls.getName());
+        if (m == null) {
+            Class cls = findParcelClass(baseCls);
+            long start = System.currentTimeMillis();
+            m = cls.getDeclaredMethod("write", baseCls, VersionedParcel.class);
+            mWriteCache.put(baseCls.getName(), m);
+        }
+        return m;
+    }
+
+    private Class findParcelClass(Class<? extends VersionedParcelable> cls)
             throws ClassNotFoundException {
-        String pkg = cls.getPackage().getName();
-        String c = String.format("%s.%sParcelizer", pkg, cls.getSimpleName());
-        return Class.forName(c, false, cls.getClassLoader());
+        Class ret = mParcelizerCache.get(cls.getName());
+        if (ret == null) {
+            String pkg = cls.getPackage().getName();
+            String c = String.format("%s.%sParcelizer", pkg, cls.getSimpleName());
+            ret = Class.forName(c, false, cls.getClassLoader());
+            mParcelizerCache.put(cls.getName(), ret);
+        }
+        return ret;
     }
 
     /**

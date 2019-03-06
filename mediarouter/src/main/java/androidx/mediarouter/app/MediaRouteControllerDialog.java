@@ -36,6 +36,7 @@ import android.os.RemoteException;
 import android.os.SystemClock;
 import android.support.v4.media.MediaDescriptionCompat;
 import android.support.v4.media.MediaMetadataCompat;
+import android.support.v4.media.session.MediaControllerCompat;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.support.v4.media.session.PlaybackStateCompat;
 import android.text.TextUtils;
@@ -69,7 +70,6 @@ import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.util.ObjectsCompat;
 import androidx.core.view.accessibility.AccessibilityEventCompat;
-import android.support.v4.media.session.MediaControllerCompat;
 import androidx.mediarouter.R;
 import androidx.mediarouter.media.MediaRouteSelector;
 import androidx.mediarouter.media.MediaRouter;
@@ -229,13 +229,6 @@ public class MediaRouteControllerDialog extends AlertDialog {
      */
     public MediaRouter.RouteInfo getRoute() {
         return mRoute;
-    }
-
-    private MediaRouter.RouteGroup getGroup() {
-        if (mRoute instanceof MediaRouter.RouteGroup) {
-            return (MediaRouter.RouteGroup) mRoute;
-        }
-        return null;
     }
 
     /**
@@ -413,7 +406,7 @@ public class MediaRouteControllerDialog extends AlertDialog {
         mGroupMemberRoutesAnimatingWithBitmap = new HashSet<>();
 
         MediaRouterThemeHelper.setMediaControlsBackgroundColor(mContext,
-                mMediaMainControlLayout, mVolumeGroupList, getGroup() != null);
+                mMediaMainControlLayout, mVolumeGroupList, mRoute.isGroup());
         MediaRouterThemeHelper.setVolumeSliderColor(mContext,
                 (MediaRouteVolumeSlider) mVolumeSlider, mMediaMainControlLayout);
         mVolumeSliderMap = new HashMap<>();
@@ -628,8 +621,8 @@ public class MediaRouteControllerDialog extends AlertDialog {
         int mainControllerHeight = getMainControllerHeight(canShowPlaybackControlLayout());
         int volumeGroupListCount = mGroupMemberRoutes.size();
         // Scale down volume group list items in landscape mode.
-        int expandedGroupListHeight = getGroup() == null ? 0 :
-                mVolumeGroupListItemHeight * getGroup().getRoutes().size();
+        int expandedGroupListHeight = mRoute.isGroup()
+                ? mVolumeGroupListItemHeight * mRoute.getMemberRoutes().size() : 0;
         if (volumeGroupListCount > 0) {
             expandedGroupListHeight += mVolumeGroupListPaddingTop;
         }
@@ -739,8 +732,8 @@ public class MediaRouteControllerDialog extends AlertDialog {
                 mVolumeControlLayout.setVisibility(View.VISIBLE);
                 mVolumeSlider.setMax(mRoute.getVolumeMax());
                 mVolumeSlider.setProgress(mRoute.getVolume());
-                mGroupExpandCollapseButton.setVisibility(getGroup() == null ? View.GONE
-                        : View.VISIBLE);
+                mGroupExpandCollapseButton.setVisibility(mRoute.isGroup()
+                        ? View.VISIBLE : View.GONE);
             }
         } else {
             mVolumeControlLayout.setVisibility(View.GONE);
@@ -748,8 +741,8 @@ public class MediaRouteControllerDialog extends AlertDialog {
     }
 
     private void rebuildVolumeGroupList(boolean animate) {
-        List<MediaRouter.RouteInfo> routes = getGroup() == null ? null : getGroup().getRoutes();
-        if (routes == null) {
+        List<MediaRouter.RouteInfo> routes = mRoute.getMemberRoutes();
+        if (routes.isEmpty()) {
             mGroupMemberRoutes.clear();
             mVolumeGroupAdapter.notifyDataSetChanged();
         } else if (MediaRouteDialogHelper.listUnorderedEquals(mGroupMemberRoutes, routes)) {

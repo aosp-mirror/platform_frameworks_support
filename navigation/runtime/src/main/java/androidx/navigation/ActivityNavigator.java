@@ -23,12 +23,15 @@ import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+
+import androidx.annotation.CallSuper;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.ActivityOptionsCompat;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -42,6 +45,10 @@ public class ActivityNavigator extends Navigator<ActivityNavigator.Destination> 
             "android-support-navigation:ActivityNavigator:source";
     private static final String EXTRA_NAV_CURRENT =
             "android-support-navigation:ActivityNavigator:current";
+    private static final String EXTRA_POP_ENTER_ANIM =
+            "android-support-navigation:ActivityNavigator:popEnterAnim";
+    private static final String EXTRA_POP_EXIT_ANIM =
+            "android-support-navigation:ActivityNavigator:popExitAnim";
 
     private Context mContext;
     private Activity mHostActivity;
@@ -57,8 +64,30 @@ public class ActivityNavigator extends Navigator<ActivityNavigator.Destination> 
         }
     }
 
+    /**
+     * Apply any pop animations in the Intent of the given Activity to a pending transition.
+     * This should be used in place of {@link Activity#overridePendingTransition(int, int)}
+     * to get the appropriate pop animations.
+     * @param activity An activity started from the {@link ActivityNavigator}.
+     * @see NavOptions#getPopEnterAnim()
+     * @see NavOptions#getPopExitAnim()
+     */
+    public static void applyPopAnimationsToPendingTransition(@NonNull Activity activity) {
+        Intent intent = activity.getIntent();
+        if (intent == null) {
+            return;
+        }
+        int popEnterAnim = intent.getIntExtra(EXTRA_POP_ENTER_ANIM, -1);
+        int popExitAnim = intent.getIntExtra(EXTRA_POP_EXIT_ANIM, -1);
+        if (popEnterAnim != -1 || popExitAnim != -1) {
+            popEnterAnim = popEnterAnim != -1 ? popEnterAnim : 0;
+            popExitAnim = popExitAnim != -1 ? popExitAnim : 0;
+            activity.overridePendingTransition(popEnterAnim, popExitAnim);
+        }
+    }
+
     @NonNull
-    Context getContext() {
+    final Context getContext() {
         return mContext;
     }
 
@@ -71,22 +100,16 @@ public class ActivityNavigator extends Navigator<ActivityNavigator.Destination> 
     @Override
     public boolean popBackStack() {
         if (mHostActivity != null) {
-            int destId = 0;
-            final Intent intent = mHostActivity.getIntent();
-            if (intent != null) {
-                destId = intent.getIntExtra(EXTRA_NAV_SOURCE, 0);
-            }
             mHostActivity.finish();
-            dispatchOnNavigatorNavigated(destId, BACK_STACK_DESTINATION_POPPED);
             return true;
         }
         return false;
     }
 
-    @SuppressWarnings("deprecation")
+    @Nullable
     @Override
-    public void navigate(@NonNull Destination destination, @Nullable Bundle args,
-            @Nullable NavOptions navOptions) {
+    public NavDestination navigate(@NonNull Destination destination, @Nullable Bundle args,
+            @Nullable NavOptions navOptions, @Nullable Navigator.Extras navigatorExtras) {
         if (destination.getIntent() == null) {
             throw new IllegalStateException("Destination " + destination.getId()
                     + " does not have an Intent set.");
@@ -104,7 +127,8 @@ public class ActivityNavigator extends Navigator<ActivityNavigator.Destination> 
                     String argName = matcher.group(1);
                     if (args.containsKey(argName)) {
                         matcher.appendReplacement(data, "");
-                        data.append(Uri.encode(args.getString(argName)));
+                        //noinspection ConstantConditions
+                        data.append(Uri.encode(args.get(argName).toString()));
                     } else {
                         throw new IllegalArgumentException("Could not find " + argName + " in "
                                 + args + " to fill data pattern " + dataPattern);
@@ -114,13 +138,11 @@ public class ActivityNavigator extends Navigator<ActivityNavigator.Destination> 
                 intent.setData(Uri.parse(data.toString()));
             }
         }
-        if (navOptions != null && navOptions.shouldClearTask()) {
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        if (navigatorExtras instanceof Extras) {
+            Extras extras = (Extras) navigatorExtras;
+            intent.addFlags(extras.getFlags());
         }
-        if (navOptions != null && navOptions.shouldLaunchDocument()
-                && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT);
-        } else if (!(mContext instanceof Activity)) {
+        if (!(mContext instanceof Activity)) {
             // If we're not launching from an Activity context we have to launch in a new task.
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         }
@@ -138,8 +160,22 @@ public class ActivityNavigator extends Navigator<ActivityNavigator.Destination> 
         }
         final int destId = destination.getId();
         intent.putExtra(EXTRA_NAV_CURRENT, destId);
-        NavOptions.addPopAnimationsToIntent(intent, navOptions);
-        mContext.startActivity(intent);
+        if (navOptions != null) {
+            // For use in applyPopAnimationsToPendingTransition()
+            intent.putExtra(EXTRA_POP_ENTER_ANIM, navOptions.getPopEnterAnim());
+            intent.putExtra(EXTRA_POP_EXIT_ANIM, navOptions.getPopExitAnim());
+        }
+        if (navigatorExtras instanceof Extras) {
+            Extras extras = (Extras) navigatorExtras;
+            ActivityOptionsCompat activityOptions = extras.getActivityOptions();
+            if (activityOptions != null) {
+                ActivityCompat.startActivity(mContext, intent, activityOptions.toBundle());
+            } else {
+                mContext.startActivity(intent);
+            }
+        } else {
+            mContext.startActivity(intent);
+        }
         if (navOptions != null && mHostActivity != null) {
             int enterAnim = navOptions.getEnterAnim();
             int exitAnim = navOptions.getExitAnim();
@@ -152,12 +188,13 @@ public class ActivityNavigator extends Navigator<ActivityNavigator.Destination> 
 
         // You can't pop the back stack from the caller of a new Activity,
         // so we don't add this navigator to the controller's back stack
-        dispatchOnNavigatorNavigated(destId, BACK_STACK_UNCHANGED);
+        return null;
     }
 
     /**
      * NavDestination for activity navigation
      */
+    @NavDestination.ClassType(Activity.class)
     public static class Destination extends NavDestination {
         private Intent mIntent;
         private String mDataPattern;
@@ -187,18 +224,16 @@ public class ActivityNavigator extends Navigator<ActivityNavigator.Destination> 
             super(activityNavigator);
         }
 
+        @CallSuper
         @Override
         public void onInflate(@NonNull Context context, @NonNull AttributeSet attrs) {
             super.onInflate(context, attrs);
             TypedArray a = context.getResources().obtainAttributes(attrs,
                     R.styleable.ActivityNavigator);
-            String cls = a.getString(R.styleable.ActivityNavigator_android_name);
-            if (!TextUtils.isEmpty(cls)) {
-                // TODO Replace with ComponentName.createRelative() when minSdkVersion is 23
-                if (cls.charAt(0) == '.') {
-                    cls = context.getPackageName() + cls;
-                }
-                setComponentName(new ComponentName(context, cls));
+            String className = a.getString(R.styleable.ActivityNavigator_android_name);
+            if (className != null) {
+                setComponentName(new ComponentName(context,
+                        parseClassFromName(context, className, Activity.class)));
             }
             setAction(a.getString(R.styleable.ActivityNavigator_action));
             String data = a.getString(R.styleable.ActivityNavigator_data);
@@ -215,7 +250,7 @@ public class ActivityNavigator extends Navigator<ActivityNavigator.Destination> 
          * @return this {@link Destination}
          */
         @NonNull
-        public Destination setIntent(Intent intent) {
+        public final Destination setIntent(@Nullable Intent intent) {
             mIntent = intent;
             return this;
         }
@@ -225,7 +260,7 @@ public class ActivityNavigator extends Navigator<ActivityNavigator.Destination> 
          * @return
          */
         @Nullable
-        public Intent getIntent() {
+        public final Intent getIntent() {
             return mIntent;
         }
 
@@ -236,7 +271,7 @@ public class ActivityNavigator extends Navigator<ActivityNavigator.Destination> 
          * @return this {@link Destination}
          */
         @NonNull
-        public Destination setComponentName(ComponentName name) {
+        public final Destination setComponentName(@Nullable ComponentName name) {
             if (mIntent == null) {
                 mIntent = new Intent();
             }
@@ -249,7 +284,7 @@ public class ActivityNavigator extends Navigator<ActivityNavigator.Destination> 
          * @return
          */
         @Nullable
-        public ComponentName getComponent() {
+        public final ComponentName getComponent() {
             if (mIntent == null) {
                 return null;
             }
@@ -262,7 +297,7 @@ public class ActivityNavigator extends Navigator<ActivityNavigator.Destination> 
          * @return this {@link Destination}
          */
         @NonNull
-        public Destination setAction(String action) {
+        public final Destination setAction(@Nullable String action) {
             if (mIntent == null) {
                 mIntent = new Intent();
             }
@@ -274,7 +309,7 @@ public class ActivityNavigator extends Navigator<ActivityNavigator.Destination> 
          * Get the action used to start the Activity, if any
          */
         @Nullable
-        public String getAction() {
+        public final String getAction() {
             if (mIntent == null) {
                 return null;
             }
@@ -293,7 +328,7 @@ public class ActivityNavigator extends Navigator<ActivityNavigator.Destination> 
          * @return this {@link Destination}
          */
         @NonNull
-        public Destination setData(Uri data) {
+        public final Destination setData(@Nullable Uri data) {
             if (mIntent == null) {
                 mIntent = new Intent();
             }
@@ -305,7 +340,7 @@ public class ActivityNavigator extends Navigator<ActivityNavigator.Destination> 
          * Get the data URI used to start the Activity, if any
          */
         @Nullable
-        public Uri getData() {
+        public final Uri getData() {
             if (mIntent == null) {
                 return null;
             }
@@ -324,7 +359,7 @@ public class ActivityNavigator extends Navigator<ActivityNavigator.Destination> 
          * @return this {@link Destination}
          */
         @NonNull
-        public Destination setDataPattern(String dataPattern) {
+        public final Destination setDataPattern(@Nullable String dataPattern) {
             mDataPattern = dataPattern;
             return this;
         }
@@ -333,8 +368,88 @@ public class ActivityNavigator extends Navigator<ActivityNavigator.Destination> 
          * Gets the dynamic data URI pattern, if any
          */
         @Nullable
-        public String getDataPattern() {
+        public final String getDataPattern() {
             return mDataPattern;
+        }
+
+        @Override
+        boolean supportsActions() {
+            return false;
+        }
+    }
+
+    /**
+     * Extras that can be passed to ActivityNavigator to customize what
+     * {@link ActivityOptionsCompat} and flags are passed through to the call to
+     * {@link ActivityCompat#startActivity(Context, Intent, Bundle)}.
+     */
+    public static final class Extras implements Navigator.Extras {
+        private final int mFlags;
+        private final ActivityOptionsCompat mActivityOptions;
+
+        Extras(int flags, @Nullable ActivityOptionsCompat activityOptions) {
+            mFlags = flags;
+            mActivityOptions = activityOptions;
+        }
+
+        /**
+         * Gets the <code>Intent.FLAG_ACTIVITY_</code> flags that should be added to the Intent.
+         */
+        public int getFlags() {
+            return mFlags;
+        }
+
+        /**
+         * Gets the {@link ActivityOptionsCompat} that should be used with
+         * {@link ActivityCompat#startActivity(Context, Intent, Bundle)}.
+         */
+        @Nullable
+        public ActivityOptionsCompat getActivityOptions() {
+            return mActivityOptions;
+        }
+
+        /**
+         * Builder for constructing new {@link Extras} instances. The resulting instances are
+         * immutable.
+         */
+        public static final class Builder {
+            private int mFlags;
+            private ActivityOptionsCompat mActivityOptions;
+
+            /**
+             * Adds one or more <code>Intent.FLAG_ACTIVITY_</code> flags
+             *
+             * @param flags the flags to add
+             * @return this {@link Builder}
+             */
+            @NonNull
+            public Builder addFlags(int flags) {
+                mFlags |= flags;
+                return this;
+            }
+
+            /**
+             * Sets the {@link ActivityOptionsCompat} that should be used with
+             * {@link ActivityCompat#startActivity(Context, Intent, Bundle)}.
+             *
+             * @param activityOptions The {@link ActivityOptionsCompat} to pass through
+             * @return this {@link Builder}
+             */
+            @NonNull
+            public Builder setActivityOptions(@NonNull ActivityOptionsCompat activityOptions) {
+                mActivityOptions = activityOptions;
+                return this;
+            }
+
+            /**
+             * Constructs the final {@link Extras} instance.
+             *
+             * @return An immutable {@link Extras} instance.
+             */
+            @NonNull
+            public Extras build() {
+                return new Extras(mFlags, mActivityOptions);
+            }
         }
     }
 }

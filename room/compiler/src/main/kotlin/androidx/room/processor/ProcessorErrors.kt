@@ -23,10 +23,13 @@ import androidx.room.RawQuery
 import androidx.room.Update
 import androidx.room.ext.RoomTypeNames
 import androidx.room.ext.SupportDbTypeNames
+import androidx.room.parser.QueryType
 import androidx.room.parser.SQLTypeAffinity
 import androidx.room.vo.CustomTypeConverter
 import androidx.room.vo.Field
 import com.squareup.javapoet.TypeName
+import java.lang.StringBuilder
+import javax.lang.model.element.ElementKind
 
 object ProcessorErrors {
     private fun String.trim(): String {
@@ -39,17 +42,8 @@ object ProcessorErrors {
     val MISSING_RAWQUERY_ANNOTATION = "RawQuery methods must be annotated with" +
             " ${RawQuery::class.java}"
     val INVALID_ON_CONFLICT_VALUE = "On conflict value must be one of @OnConflictStrategy values."
-    val INVALID_INSERTION_METHOD_RETURN_TYPE = "Methods annotated with @Insert can return either" +
-            " void, long, Long, long[], Long[] or List<Long>."
     val TRANSACTION_REFERENCE_DOCS = "https://developer.android.com/reference/android/arch/" +
             "persistence/room/Transaction.html"
-
-    fun insertionMethodReturnTypeMismatch(definedReturn: TypeName,
-                                          expectedReturnTypes: List<TypeName>): String {
-        return "Method returns $definedReturn but it should return one of the following: `" +
-                expectedReturnTypes.joinToString(", ") + "`. If you want to return the list of" +
-                " row ids from the query, your insertion method can receive only 1 parameter."
-    }
 
     val ABSTRACT_METHOD_IN_DAO_MISSING_ANY_ANNOTATION = "Abstract method in DAO must be annotated" +
             " with ${Query::class.java} AND ${Insert::class.java}"
@@ -90,7 +84,6 @@ object ProcessorErrors {
 
     val DAO_MUST_BE_AN_ABSTRACT_CLASS_OR_AN_INTERFACE = "Dao class must be an abstract class or" +
             " an interface"
-    val DATABASE_MUST_BE_ANNOTATED_WITH_DATABASE = "Database must be annotated with @Database"
     val DAO_MUST_BE_ANNOTATED_WITH_DAO = "Dao class must be annotated with @Dao"
 
     fun daoMustHaveMatchingConstructor(daoName: String, dbName: String): String {
@@ -109,6 +102,23 @@ object ProcessorErrors {
     val ENTITY_TABLE_NAME_CANNOT_BE_EMPTY = "Entity table name cannot be blank. If you don't want" +
             " to set it, just remove the tableName property."
 
+    val ENTITY_TABLE_NAME_CANNOT_START_WITH_SQLITE =
+        "Entity table name cannot start with \"sqlite_\"."
+
+    val VIEW_MUST_BE_ANNOTATED_WITH_DATABASE_VIEW = "View class must be annotated with " +
+            "@DatabaseView"
+    val VIEW_NAME_CANNOT_BE_EMPTY = "View name cannot be blank. If you don't want" +
+            " to set it, just remove the viewName property."
+    val VIEW_NAME_CANNOT_START_WITH_SQLITE =
+            "View name cannot start with \"sqlite_\"."
+    val VIEW_QUERY_MUST_BE_SELECT =
+            "Query for @DatabaseView must be a SELECT."
+    val VIEW_QUERY_CANNOT_TAKE_ARGUMENTS =
+            "Query for @DatabaseView cannot take any arguments."
+    fun viewCircularReferenceDetected(views: List<String>): String {
+        return "Circular reference detected among views: ${views.joinToString(", ")}"
+    }
+
     val CANNOT_BIND_QUERY_PARAMETER_INTO_STMT = "Query method parameters should either be a" +
             " type that can be converted into a database column or a List / Array that contains" +
             " such type. You can consider adding a Type Adapter for this."
@@ -116,8 +126,8 @@ object ProcessorErrors {
     val QUERY_PARAMETERS_CANNOT_START_WITH_UNDERSCORE = "Query/Insert method parameters cannot " +
             "start with underscore (_)."
 
-    val CANNOT_FIND_QUERY_RESULT_ADAPTER = "Not sure how to convert a Cursor to this method's " +
-            "return type"
+    fun cannotFindQueryResultAdapter(returnTypeName: String) = "Not sure how to convert a " +
+            "Cursor to this method's return type ($returnTypeName)."
 
     val INSERTION_DOES_NOT_HAVE_ANY_PARAMETERS_TO_INSERT = "Method annotated with" +
             " @Insert but does not have any parameters to insert."
@@ -125,12 +135,29 @@ object ProcessorErrors {
     val DELETION_MISSING_PARAMS = "Method annotated with" +
             " @Delete but does not have any parameters to delete."
 
+    val CANNOT_FIND_DELETE_RESULT_ADAPTER = "Not sure how to handle delete method's " +
+            "return type. Currently the supported return types are void, int or Int."
+
+    val CANNOT_FIND_UPDATE_RESULT_ADAPTER = "Not sure how to handle update method's " +
+            "return type. Currently the supported return types are void, int or Int."
+
+    val CANNOT_FIND_INSERT_RESULT_ADAPTER = "Not sure how to handle insert method's return type."
+
     val UPDATE_MISSING_PARAMS = "Method annotated with" +
             " @Update but does not have any parameters to update."
 
     val TRANSACTION_METHOD_MODIFIERS = "Method annotated with @Transaction must not be " +
             "private, final, or abstract. It can be abstract only if the method is also" +
             " annotated with @Query."
+
+    fun transactionMethodAsync(returnTypeName: String) = "Method annotated with @Transaction must" +
+            " not return deferred/async return type $returnTypeName. Since transactions are" +
+            " thread confined and Room cannot guarantee that all queries in the method" +
+            " implementation are performed on the same thread, only synchronous @Transaction" +
+            " implemented methods are allowed. If a transaction is started and a change of thread" +
+            " is done and waited upon then a database deadlock can occur if the additional thread" +
+            " attempts to perform a query. This restrictions prevents such situation from" +
+            " occurring."
 
     val TRANSACTION_MISSING_ON_RELATION = "The return value includes a Pojo with a @Relation." +
             " It is usually desired to annotate this method with @Transaction to avoid" +
@@ -142,9 +169,6 @@ object ProcessorErrors {
 
     val DB_MUST_EXTEND_ROOM_DB = "Classes annotated with @Database should extend " +
             RoomTypeNames.ROOM_DB
-
-    val LIVE_DATA_QUERY_WITHOUT_SELECT = "LiveData return type can only be used with SELECT" +
-            " queries."
 
     val OBSERVABLE_QUERY_NOTHING_TO_OBSERVE = "Observable query return type (LiveData, Flowable" +
             ", DataSource, DataSourceFactory etc) can only be used with SELECT queries that" +
@@ -190,16 +214,11 @@ object ProcessorErrors {
                 unusedParams.joinToString(","))
     }
 
-    private val DUPLICATE_TABLES = "Table name \"%s\" is used by multiple entities: %s"
+    private val DUPLICATE_TABLES_OR_VIEWS =
+            "The name \"%s\" is used by multiple entities or views: %s"
     fun duplicateTableNames(tableName: String, entityNames: List<String>): String {
-        return DUPLICATE_TABLES.format(tableName, entityNames.joinToString(", "))
+        return DUPLICATE_TABLES_OR_VIEWS.format(tableName, entityNames.joinToString(", "))
     }
-
-    val DELETION_METHODS_MUST_RETURN_VOID_OR_INT = "Deletion methods must either return void or" +
-            " return int (the number of deleted rows)."
-
-    val UPDATE_METHODS_MUST_RETURN_VOID_OR_INT = "Update methods must either return void or" +
-            " return int (the number of updated rows)."
 
     val DAO_METHOD_CONFLICTS_WITH_OTHERS = "Dao method has conflicts."
 
@@ -214,8 +233,11 @@ object ProcessorErrors {
                 """.trim()
     }
 
-    fun pojoMissingNonNull(pojoTypeName: TypeName, missingPojoFields: List<String>,
-                           allQueryColumns: List<String>): String {
+    fun pojoMissingNonNull(
+        pojoTypeName: TypeName,
+        missingPojoFields: List<String>,
+        allQueryColumns: List<String>
+    ): String {
         return """
         The columns returned by the query does not have the fields
         [${missingPojoFields.joinToString(",")}] in $pojoTypeName even though they are
@@ -224,13 +246,17 @@ object ProcessorErrors {
         """.trim()
     }
 
-    fun cursorPojoMismatch(pojoTypeName: TypeName,
-                           unusedColumns: List<String>, allColumns: List<String>,
-                           unusedFields: List<Field>, allFields: List<Field>): String {
+    fun cursorPojoMismatch(
+        pojoTypeName: TypeName,
+        unusedColumns: List<String>,
+        allColumns: List<String>,
+        unusedFields: List<Field>,
+        allFields: List<Field>
+    ): String {
         val unusedColumnsWarning = if (unusedColumns.isNotEmpty()) {
             """
                 The query returns some columns [${unusedColumns.joinToString(", ")}] which are not
-                use by $pojoTypeName. You can use @ColumnInfo annotation on the fields to specify
+                used by $pojoTypeName. You can use @ColumnInfo annotation on the fields to specify
                 the mapping.
             """.trim()
         } else {
@@ -319,8 +345,11 @@ object ProcessorErrors {
                 " Alternatively, you can set inheritSuperIndices to true in the @Entity annotation."
     }
 
-    fun droppedSuperClassFieldIndex(fieldName: String, childEntity: String,
-                                    superEntity: String): String {
+    fun droppedSuperClassFieldIndex(
+        fieldName: String,
+        childEntity: String,
+        superEntity: String
+    ): String {
         return "Index defined on field `$fieldName` in $superEntity will NOT be re-used in" +
                 " $childEntity. " +
                 "If you want to inherit it, you must re-declare it in $childEntity." +
@@ -329,14 +358,22 @@ object ProcessorErrors {
 
     val RELATION_NOT_COLLECTION = "Fields annotated with @Relation must be a List or Set."
 
-    fun relationCannotFindEntityField(entityName: String, columnName: String,
-                                      availableColumns: List<String>): String {
+    val NOT_ENTITY_OR_VIEW = "The class must be either @Entity or @DatabaseView."
+
+    fun relationCannotFindEntityField(
+        entityName: String,
+        columnName: String,
+        availableColumns: List<String>
+    ): String {
         return "Cannot find the child entity column `$columnName` in $entityName." +
                 " Options: ${availableColumns.joinToString(", ")}"
     }
 
-    fun relationCannotFindParentEntityField(entityName: String, columnName: String,
-                                            availableColumns: List<String>): String {
+    fun relationCannotFindParentEntityField(
+        entityName: String,
+        columnName: String,
+        availableColumns: List<String>
+    ): String {
         return "Cannot find the parent entity column `$columnName` in $entityName." +
                 " Options: ${availableColumns.joinToString(", ")}"
     }
@@ -345,9 +382,12 @@ object ProcessorErrors {
 
     val CANNOT_FIND_TYPE = "Cannot find type."
 
-    fun relationAffinityMismatch(parentColumn: String, childColumn: String,
-                                 parentAffinity: SQLTypeAffinity?,
-                                 childAffinity: SQLTypeAffinity?): String {
+    fun relationAffinityMismatch(
+        parentColumn: String,
+        childColumn: String,
+        parentAffinity: SQLTypeAffinity?,
+        childAffinity: SQLTypeAffinity?
+    ): String {
         return """
         The affinity of parent column ($parentColumn : $parentAffinity) does not match the type
         affinity of the child column ($childColumn : $childAffinity).
@@ -359,8 +399,16 @@ object ProcessorErrors {
         it.java.simpleName
     }
 
-    fun relationBadProject(entityQName: String, missingColumnNames: List<String>,
-                           availableColumnNames: List<String>): String {
+    fun missingIgnoredColumns(missingIgnoredColumns: List<String>): String {
+        return "Non-existent columns are specified to be ignored in ignoreColumns: " +
+                missingIgnoredColumns.joinToString(",")
+    }
+
+    fun relationBadProject(
+        entityQName: String,
+        missingColumnNames: List<String>,
+        availableColumnNames: List<String>
+    ): String {
         return """
         $entityQName does not have the following columns: ${missingColumnNames.joinToString(",")}.
         Available columns are: ${availableColumnNames.joinToString(",")}
@@ -388,9 +436,11 @@ object ProcessorErrors {
                 " Available column names:${allColumns.joinToString(", ")}"
     }
 
-    fun foreignKeyParentColumnDoesNotExist(parentEntity: String,
-                                           missingColumn: String,
-                                           allColumns: List<String>): String {
+    fun foreignKeyParentColumnDoesNotExist(
+        parentEntity: String,
+        missingColumn: String,
+        allColumns: List<String>
+    ): String {
         return "($missingColumn) does not exist in $parentEntity. Available columns are" +
                 " ${allColumns.joinToString(",")}"
     }
@@ -400,7 +450,9 @@ object ProcessorErrors {
     val FOREIGN_KEY_EMPTY_PARENT_COLUMN_LIST = "Must specify at least 1 column name for the parent"
 
     fun foreignKeyColumnNumberMismatch(
-            childColumns: List<String>, parentColumns: List<String>): String {
+        childColumns: List<String>,
+        parentColumns: List<String>
+    ): String {
         return """
                 Number of child columns in foreign key must match number of parent columns.
                 Child reference has ${childColumns.joinToString(",")} and parent reference has
@@ -415,8 +467,12 @@ object ProcessorErrors {
                 the @Database annotation?""".trim()
     }
 
-    fun foreignKeyMissingIndexInParent(parentEntity: String, parentColumns: List<String>,
-                                       childEntity: String, childColumns: List<String>): String {
+    fun foreignKeyMissingIndexInParent(
+        parentEntity: String,
+        parentColumns: List<String>,
+        childEntity: String,
+        childColumns: List<String>
+    ): String {
         return """
                 $childEntity has a foreign key (${childColumns.joinToString(",")}) that references
                 $parentEntity (${parentColumns.joinToString(",")}) but $parentEntity does not have
@@ -452,13 +508,19 @@ object ProcessorErrors {
     }
 
     val MISSING_ROOM_GUAVA_ARTIFACT = "To use Guava features, you must add `guava`" +
-            " artifact from Room as a dependency. androidx.room:guava:<version>"
+            " artifact from Room as a dependency. androidx.room:room-guava:<version>"
 
     val MISSING_ROOM_RXJAVA2_ARTIFACT = "To use RxJava2 features, you must add `rxjava2`" +
-            " artifact from Room as a dependency. androidx.room:rxjava2:<version>"
+            " artifact from Room as a dependency. androidx.room:room-rxjava2:<version>"
+
+    val MISSING_ROOM_COROUTINE_ARTIFACT = "To use Coroutine features, you must add `ktx`" +
+            " artifact from Room as a dependency. androidx.room:room-ktx:<version>"
 
     fun ambigiousConstructor(
-            pojo: String, paramName: String, matchingFields: List<String>): String {
+        pojo: String,
+        paramName: String,
+        matchingFields: List<String>
+    ): String {
         return """
             Ambiguous constructor. The parameter ($paramName) in $pojo matches multiple fields:
             [${matchingFields.joinToString(",")}]. If you don't want to use this constructor,
@@ -480,11 +542,6 @@ object ProcessorErrors {
     val TOO_MANY_POJO_CONSTRUCTORS_CHOOSING_NO_ARG = """
             There are multiple good constructors and Room will pick the no-arg constructor.
             You can use the @Ignore annotation to eliminate unwanted constructors.
-            """.trim()
-
-    val RELATION_CANNOT_BE_CONSTRUCTOR_PARAMETER = """
-            Fields annotated with @Relation cannot be constructor parameters. These values are
-            fetched after the object is constructed.
             """.trim()
 
     val PAGING_SPECIFY_DATA_SOURCE_TYPE = "For now, Room only supports PositionalDataSource class."
@@ -517,4 +574,72 @@ object ProcessorErrors {
 
     val RAW_QUERY_STRING_PARAMETER_REMOVED = "RawQuery does not allow passing a string anymore." +
             " Please use ${SupportDbTypeNames.QUERY}."
+
+    val MISSING_COPY_ANNOTATIONS = "Annotated property getter is missing " +
+            "@AutoValue.CopyAnnotations."
+
+    fun invalidAnnotationTarget(annotationName: String, elementKind: ElementKind): String {
+        return "@$annotationName is not allowed in this ${elementKind.name.toLowerCase()}."
+    }
+
+    val INDICES_IN_FTS_ENTITY = "Indices not allowed in FTS Entity."
+
+    val FOREIGN_KEYS_IN_FTS_ENTITY = "Foreign Keys not allowed in FTS Entity."
+
+    val MISSING_PRIMARY_KEYS_ANNOTATION_IN_ROW_ID = "The field with column name 'rowid' in " +
+            "an FTS entity must be annotated with @PrimaryKey."
+
+    val TOO_MANY_PRIMARY_KEYS_IN_FTS_ENTITY = "An FTS entity can only have a single primary key."
+
+    val INVALID_FTS_ENTITY_PRIMARY_KEY_NAME = "The single primary key field in an FTS entity " +
+            "must either be named 'rowid' or must be annotated with @ColumnInfo(name = \"rowid\")"
+
+    val INVALID_FTS_ENTITY_PRIMARY_KEY_AFFINITY = "The single @PrimaryKey annotated field in an " +
+            "FTS entity must be of INTEGER affinity."
+
+    fun missingLanguageIdField(columnName: String) = "The specified 'languageid' column: " +
+            "\"$columnName\", was not found."
+
+    val INVALID_FTS_ENTITY_LANGUAGE_ID_AFFINITY = "The 'languageid' field must be of INTEGER " +
+            "affinity."
+
+    fun missingNotIndexedField(missingNotIndexedColumns: List<String>) =
+            "Non-existent columns are specified to be not indexed in notIndexed: " +
+                    missingNotIndexedColumns.joinToString(",")
+
+    val INVALID_FTS_ENTITY_PREFIX_SIZES = "Prefix sizes to index must non-zero positive values."
+
+    val INVALID_FOREIGN_KEY_IN_FTS_ENTITY = "@ForeignKey is not allowed in an FTS entity fields."
+
+    val FTS_EXTERNAL_CONTENT_CANNOT_FIND_ENTITY = "Cannot find external content entity class."
+
+    fun externalContentNotAnEntity(className: String) = "External content entity referenced in " +
+            "a Fts4 annotation must be a @Entity class. $className is not an entity"
+
+    fun missingFtsContentField(ftsClassName: String, columnName: String, contentClassName: String) =
+            "External Content FTS Entity '$ftsClassName' has declared field with column name " +
+                    "'$columnName' that was not found in the external content entity " +
+                    "'$contentClassName'."
+
+    fun missingExternalContentEntity(ftsClassName: String, contentClassName: String) =
+            "External Content FTS Entity '$ftsClassName' has a declared content entity " +
+                    "'$contentClassName' that is not present in the same @Database. Maybe you " +
+                    "forgot to add it to the entities section of the @Database?"
+
+    fun cannotFindPreparedQueryResultAdapter(
+        returnType: String,
+        type: QueryType
+    ) = StringBuilder().apply {
+        append("Not sure how to handle query method's return type ($returnType). ")
+        if (type == QueryType.INSERT) {
+            append("INSERT query methods must either return void " +
+                    "or long (the rowid of the inserted row).")
+        } else if (type == QueryType.UPDATE) {
+            append("UPDATE query methods must either return void " +
+                    "or int (the number of updated rows).")
+        } else if (type == QueryType.DELETE) {
+            append("DELETE query methods must either return void " +
+                    "or int (the number of deleted rows).")
+        }
+    }.toString()
 }

@@ -20,20 +20,27 @@ import androidx.build.LibraryVersions
 
 plugins {
     id("SupportAndroidLibraryPlugin")
+    id("kotlin-android")
 }
 
 dependencies {
+    // TODO: change to alpha02 after release
+    implementation(project(":annotation"))
+    api("androidx.appcompat:appcompat:1.1.0-alpha02")
+    // TODO: change to alpha05 after release
     api(project(":core"))
-    api(project(":collection"))
-    api(project(":fragment"))
-    api(project(":appcompat"))
-    api(project(":recyclerview"))
+    implementation("androidx.collection:collection:1.0.0")
+    api("androidx.fragment:fragment:1.1.0-alpha04")
+    api("androidx.recyclerview:recyclerview:1.0.0")
 
+    androidTestImplementation(TEST_EXT_JUNIT)
+    androidTestImplementation(TEST_CORE)
     androidTestImplementation(TEST_RUNNER)
     androidTestImplementation(TEST_RULES)
     androidTestImplementation(ESPRESSO_CORE, libs.exclude_for_espresso)
     androidTestImplementation(MOCKITO_CORE, libs.exclude_bytebuddy) // DexMaker has it"s own MockMaker
     androidTestImplementation(DEXMAKER_MOCKITO, libs.exclude_bytebuddy) // DexMaker has it"s own MockMaker
+    androidTestImplementation(KOTLIN_STDLIB)
 }
 
 android {
@@ -50,12 +57,12 @@ android {
 }
 
 supportLibrary {
-    name = "Android Support Preference v7"
+    name = "AndroidX Preference"
     publish = true
-    mavenVersion = LibraryVersions.SUPPORT_LIBRARY
+    mavenVersion = LibraryVersions.PREFERENCE
     mavenGroup = LibraryGroups.PREFERENCE
     inceptionYear = "2015"
-    description = "Android Support Preference v7"
-    failOnUncheckedWarnings = false
+    description = "AndroidX Preference"
+    // TODO: remove when PreferenceFragment / PreferenceDialogFragment are removed
     failOnDeprecationWarnings = false
 }

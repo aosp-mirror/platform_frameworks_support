@@ -26,13 +26,14 @@ import static org.junit.Assert.assertTrue;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.PreferenceScreen;
 import androidx.preference.tests.helpers.PreferenceWrapper;
-import androidx.test.InstrumentationRegistry;
 import androidx.test.annotation.UiThreadTest;
+import androidx.test.core.app.ApplicationProvider;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.SmallTest;
-import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -44,7 +45,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Tests for {@link androidx.preference.Preference} persist / retrieve logic.
+ * Test for {@link Preference} persist and retrieve logic.
  */
 @SmallTest
 @RunWith(AndroidJUnit4.class)
@@ -66,7 +67,7 @@ public class PreferencePersistTest {
     @Before
     @UiThreadTest
     public void setup() {
-        Context context = InstrumentationRegistry.getTargetContext();
+        Context context = ApplicationProvider.getApplicationContext();
         PreferenceManager manager = new PreferenceManager(context);
         mSharedPref = manager.getSharedPreferences();
 
@@ -76,8 +77,7 @@ public class PreferencePersistTest {
         PreferenceScreen screen = manager.createPreferenceScreen(context);
         screen.addPreference(mPreference);
 
-        // Make sure that the key is not present in SharedPreferences to ensure tests
-        // correctness.
+        // Make sure that the key does not exist in SharedPreferences to ensure a clean state.
         mSharedPref.edit().remove(KEY).apply();
         assertNull(mSharedPref.getString(KEY, null));
     }
