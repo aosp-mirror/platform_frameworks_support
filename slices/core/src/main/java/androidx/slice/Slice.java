@@ -41,13 +41,17 @@ import static android.app.slice.SliceItem.FORMAT_REMOTE_INPUT;
 import static android.app.slice.SliceItem.FORMAT_SLICE;
 import static android.app.slice.SliceItem.FORMAT_TEXT;
 
+import static androidx.annotation.RestrictTo.Scope.LIBRARY;
 import static androidx.slice.SliceConvert.unwrap;
 import static androidx.slice.core.SliceHints.HINT_ACTIVITY;
+import static androidx.slice.core.SliceHints.HINT_CACHED;
+import static androidx.slice.core.SliceHints.HINT_SELECTION_OPTION_VALUE;
 
 import android.app.PendingIntent;
 import android.app.RemoteInput;
 import android.app.slice.SliceManager;
 import android.content.Context;
+import android.graphics.drawable.Icon;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -62,31 +66,43 @@ import androidx.annotation.StringDef;
 import androidx.core.graphics.drawable.IconCompat;
 import androidx.core.util.Preconditions;
 import androidx.slice.compat.SliceProviderCompat;
+import androidx.versionedparcelable.CustomVersionedParcelable;
 import androidx.versionedparcelable.ParcelField;
 import androidx.versionedparcelable.VersionedParcelable;
 import androidx.versionedparcelable.VersionedParcelize;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
 /**
- * A slice is a piece of app content and actions that can be surfaced outside of the app.
+ * A slice is a piece of app content and actions that can be surfaced outside of the app. A slice
+ * is identified by a Uri and served via a {@link SliceProvider}.
  *
- * <p>They are constructed using {@link androidx.slice.builders.TemplateSliceBuilder}s
+ * <p>Slices are constructed using {@link androidx.slice.builders.TemplateSliceBuilder}s
  * in a tree structure that provides the OS some information about how the content should be
  * displayed.
  */
-@VersionedParcelize(allowSerialization = true)
+@VersionedParcelize(allowSerialization = true, isCustom = true)
 @RequiresApi(19)
-public final class Slice implements VersionedParcelable {
+public final class Slice extends CustomVersionedParcelable implements VersionedParcelable {
+
+    /**
+     * Key to retrieve an extra added to an intent when an item in a selection is selected.
+     */
+    public static final String EXTRA_SELECTION = "android.app.slice.extra.SELECTION";
 
     private static final String HINTS = "hints";
     private static final String ITEMS = "items";
     private static final String URI = "uri";
     private static final String SPEC_TYPE = "type";
     private static final String SPEC_REVISION = "revision";
+
+    static final String[] NO_HINTS = new String[0];
+    static final SliceItem[] NO_ITEMS = new SliceItem[0];
 
     /**
      * @hide
@@ -111,19 +127,22 @@ public final class Slice implements VersionedParcelable {
             HINT_PERMISSION_REQUEST,
             HINT_ERROR,
             HINT_ACTIVITY,
+            HINT_CACHED,
+            HINT_SELECTION_OPTION_VALUE
     })
+    @Retention(RetentionPolicy.SOURCE)
     public @interface SliceHint{ }
 
-    @ParcelField(1)
-    SliceSpec mSpec;
+    @ParcelField(value = 1, defaultValue = "null")
+    SliceSpec mSpec = null;
 
-    @ParcelField(2)
-    SliceItem[] mItems = new SliceItem[0];
-    @ParcelField(3)
+    @ParcelField(value = 2, defaultValue = "androidx.slice.Slice.NO_ITEMS")
+    SliceItem[] mItems = NO_ITEMS;
+    @ParcelField(value = 3, defaultValue = "androidx.slice.Slice.NO_HINTS")
     @SliceHint
-    String[] mHints = new String[0];
-    @ParcelField(4)
-    String mUri;
+    String[] mHints = NO_HINTS;
+    @ParcelField(value = 4, defaultValue = "null")
+    String mUri = null;
 
     /**
      * @hide
@@ -188,7 +207,7 @@ public final class Slice implements VersionedParcelable {
      * @return The spec for this slice
      * @hide
      */
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
     public @Nullable SliceSpec getSpec() {
         return mSpec;
     }
@@ -208,6 +227,15 @@ public final class Slice implements VersionedParcelable {
     }
 
     /**
+     * @hide
+     * @return
+     */
+    @RestrictTo(LIBRARY)
+    public SliceItem[] getItemArray() {
+        return mItems;
+    }
+
+    /**
      * @return All hints associated with this Slice.
      */
     public @SliceHint List<String> getHints() {
@@ -217,16 +245,48 @@ public final class Slice implements VersionedParcelable {
     /**
      * @hide
      */
-    @RestrictTo(Scope.LIBRARY_GROUP)
+    @RestrictTo(LIBRARY)
+    public @SliceHint String[] getHintArray() {
+        return mHints;
+    }
+
+    /**
+     * @hide
+     */
+    @RestrictTo(Scope.LIBRARY_GROUP_PREFIX)
     public boolean hasHint(@SliceHint String hint) {
         return ArrayUtils.contains(mHints, hint);
+    }
+
+    /**
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
+    @Override
+    public void onPreParceling(boolean isStream) {
+    }
+
+    /**
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
+    @Override
+    public void onPostParceling() {
+        for (int i = mItems.length - 1; i >= 0; i--) {
+            if (mItems[i].mObj == null) {
+                mItems = ArrayUtils.removeElement(SliceItem.class, mItems, mItems[i]);
+                if (mItems == null) {
+                    mItems = new SliceItem[0];
+                }
+            }
+        }
     }
 
     /**
      * A Builder used to construct {@link Slice}s
      * @hide
      */
-    @RestrictTo(Scope.LIBRARY_GROUP)
+    @RestrictTo(Scope.LIBRARY_GROUP_PREFIX)
     public static class Builder {
 
         private final Uri mUri;
@@ -261,7 +321,7 @@ public final class Slice implements VersionedParcelable {
          * Add the spec for this slice.
          * @hide
          */
-        @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+        @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
         public Builder setSpec(SliceSpec spec) {
             mSpec = spec;
             return this;
@@ -297,8 +357,7 @@ public final class Slice implements VersionedParcelable {
          */
         public Builder addSubSlice(@NonNull Slice slice, String subType) {
             Preconditions.checkNotNull(slice);
-            mItems.add(new SliceItem(slice, FORMAT_SLICE, subType, slice.getHints().toArray(
-                    new String[slice.getHints().size()])));
+            mItems.add(new SliceItem(slice, FORMAT_SLICE, subType, slice.getHintArray()));
             return this;
         }
 
@@ -311,7 +370,7 @@ public final class Slice implements VersionedParcelable {
                 @NonNull Slice s, @Nullable String subType) {
             Preconditions.checkNotNull(action);
             Preconditions.checkNotNull(s);
-            @SliceHint String[] hints = s.getHints().toArray(new String[s.getHints().size()]);
+            @SliceHint String[] hints = s.getHintArray();
             mItems.add(new SliceItem(action, s, FORMAT_ACTION, subType, hints));
             return this;
         }
@@ -325,7 +384,7 @@ public final class Slice implements VersionedParcelable {
         public Slice.Builder addAction(@NonNull SliceItem.ActionHandler action,
                 @NonNull Slice s, @Nullable String subType) {
             Preconditions.checkNotNull(s);
-            @SliceHint String[] hints = s.getHints().toArray(new String[s.getHints().size()]);
+            @SliceHint String[] hints = s.getHintArray();
             mItems.add(new SliceItem(action, s, FORMAT_ACTION, subType, hints));
             return this;
         }
@@ -359,7 +418,9 @@ public final class Slice implements VersionedParcelable {
         public Builder addIcon(IconCompat icon, @Nullable String subType,
                 @SliceHint String... hints) {
             Preconditions.checkNotNull(icon);
-            mItems.add(new SliceItem(icon, FORMAT_IMAGE, subType, hints));
+            if (isValidIcon(icon)) {
+                mItems.add(new SliceItem(icon, FORMAT_IMAGE, subType, hints));
+            }
             return this;
         }
 
@@ -371,7 +432,10 @@ public final class Slice implements VersionedParcelable {
         public Builder addIcon(IconCompat icon, @Nullable String subType,
                 @SliceHint List<String> hints) {
             Preconditions.checkNotNull(icon);
-            return addIcon(icon, subType, hints.toArray(new String[hints.size()]));
+            if (isValidIcon(icon)) {
+                return addIcon(icon, subType, hints.toArray(new String[hints.size()]));
+            }
+            return this;
         }
 
         /**
@@ -380,7 +444,7 @@ public final class Slice implements VersionedParcelable {
          * @see SliceItem#getSubType()
          * @hide
          */
-        @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+        @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
         public Slice.Builder addRemoteInput(RemoteInput remoteInput, @Nullable String subType,
                 @SliceHint List<String> hints) {
             Preconditions.checkNotNull(remoteInput);
@@ -393,7 +457,7 @@ public final class Slice implements VersionedParcelable {
          * @see SliceItem#getSubType()
          * @hide
          */
-        @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+        @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
         public Slice.Builder addRemoteInput(RemoteInput remoteInput, @Nullable String subType,
                 @SliceHint String... hints) {
             Preconditions.checkNotNull(remoteInput);
@@ -470,7 +534,7 @@ public final class Slice implements VersionedParcelable {
          * Add a SliceItem to the slice being constructed.
          * @hide
          */
-        @RestrictTo(Scope.LIBRARY)
+        @RestrictTo(Scope.LIBRARY_GROUP)
         public Slice.Builder addItem(SliceItem item) {
             mItems.add(item);
             return this;
@@ -544,7 +608,7 @@ public final class Slice implements VersionedParcelable {
      * @return The Slice provided by the app or null if none is given.
      * @see Slice
      */
-    @RestrictTo(Scope.LIBRARY_GROUP)
+    @RestrictTo(Scope.LIBRARY_GROUP_PREFIX)
     @Nullable
     public static Slice bindSlice(Context context, @NonNull Uri uri,
             Set<SliceSpec> supportedSpecs) {
@@ -560,5 +624,20 @@ public final class Slice implements VersionedParcelable {
             Set<SliceSpec> supportedSpecs) {
         return SliceConvert.wrap(context.getSystemService(SliceManager.class)
                 .bindSlice(uri, unwrap(supportedSpecs)), context);
+    }
+
+    /**
+     * @hide
+     */
+    @RestrictTo(LIBRARY)
+    static boolean isValidIcon(IconCompat icon) {
+        if (icon == null) {
+            return false;
+        }
+        if (icon.mType == Icon.TYPE_RESOURCE && icon.getResId() == 0) {
+            throw new IllegalArgumentException("Failed to add icon, invalid resource id: "
+                    + icon.getResId());
+        }
+        return true;
     }
 }

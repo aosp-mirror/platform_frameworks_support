@@ -19,40 +19,55 @@ import static androidx.appcompat.testutils.TestUtilsActions.setEnabled;
 import static androidx.appcompat.testutils.TestUtilsActions.setTextAppearance;
 import static androidx.appcompat.testutils.TestUtilsMatchers.isBackground;
 import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.VectorDrawable;
 import android.os.Build;
-import android.text.PrecomputedText;
+import android.os.LocaleList;
+import android.text.Layout;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.textclassifier.TextClassificationManager;
+import android.view.textclassifier.TextClassifier;
 import android.widget.TextView;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.GuardedBy;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.test.R;
+import androidx.appcompat.testutils.TestUtils;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
+import androidx.core.graphics.ColorUtils;
 import androidx.core.text.PrecomputedTextCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.widget.TextViewCompat;
 import androidx.test.annotation.UiThreadTest;
+import androidx.test.filters.LargeTest;
 import androidx.test.filters.MediumTest;
 import androidx.test.filters.SdkSuppress;
-import androidx.test.filters.SmallTest;
+import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executor;
 import java.util.concurrent.TimeUnit;
@@ -64,7 +79,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * In addition to all tinting-related tests done by the base class, this class provides
  * tests specific to {@link AppCompatTextView} class.
  */
-@SmallTest
+@LargeTest
 public class AppCompatTextViewTest
         extends AppCompatBaseViewTest<AppCompatTextViewActivity, AppCompatTextView> {
     private static final String SAMPLE_TEXT_1 = "Hello, World!";
@@ -145,20 +160,20 @@ public class AppCompatTextViewTest
     public void testAppCompatAllCapsFalseOnButton() {
         final String text = mResources.getString(R.string.sample_text2);
         final AppCompatTextView textView =
-                 mContainer.findViewById(R.id.text_view_app_allcaps_false);
+                mContainer.findViewById(R.id.text_view_app_allcaps_false);
 
         assertEquals("Text view is not in all caps", text, textView.getLayout().getText());
     }
 
     @Test
     public void testTextColorSetHex() {
-        final TextView textView =  mContainer.findViewById(R.id.view_text_color_hex);
+        final TextView textView = mContainer.findViewById(R.id.view_text_color_hex);
         assertEquals(Color.RED, textView.getCurrentTextColor());
     }
 
     @Test
     public void testTextColorSetColorStateList() {
-        final TextView textView =  mContainer.findViewById(R.id.view_text_color_csl);
+        final TextView textView = mContainer.findViewById(R.id.view_text_color_csl);
 
         onView(withId(R.id.view_text_color_csl)).perform(setEnabled(true));
         assertEquals(ContextCompat.getColor(textView.getContext(), R.color.ocean_default),
@@ -171,13 +186,13 @@ public class AppCompatTextViewTest
 
     @Test
     public void testTextColorSetThemeAttrHex() {
-        final TextView textView =  mContainer.findViewById(R.id.view_text_color_primary);
+        final TextView textView = mContainer.findViewById(R.id.view_text_color_primary);
         assertEquals(Color.BLUE, textView.getCurrentTextColor());
     }
 
     @Test
     public void testTextColorSetThemeAttrColorStateList() {
-        final TextView textView =  mContainer.findViewById(R.id.view_text_color_secondary);
+        final TextView textView = mContainer.findViewById(R.id.view_text_color_secondary);
 
         onView(withId(R.id.view_text_color_secondary)).perform(setEnabled(true));
         assertEquals(ContextCompat.getColor(textView.getContext(), R.color.sand_default),
@@ -191,9 +206,9 @@ public class AppCompatTextViewTest
     private void verifyTextLinkColor(TextView textView) {
         ColorStateList linkColorStateList = textView.getLinkTextColors();
         assertEquals(ContextCompat.getColor(textView.getContext(), R.color.lilac_default),
-                linkColorStateList.getColorForState(new int[] { android.R.attr.state_enabled}, 0));
+                linkColorStateList.getColorForState(new int[]{android.R.attr.state_enabled}, 0));
         assertEquals(ContextCompat.getColor(textView.getContext(), R.color.lilac_disabled),
-                linkColorStateList.getColorForState(new int[] { -android.R.attr.state_enabled}, 0));
+                linkColorStateList.getColorForState(new int[]{-android.R.attr.state_enabled}, 0));
     }
 
     @Test
@@ -204,6 +219,7 @@ public class AppCompatTextViewTest
 
     @Test
     @UiThreadTest
+    @SdkSuppress(minSdkVersion = Build.VERSION_CODES.JELLY_BEAN)
     public void testTextSize_canBeZero() {
         final TextView textView = mContainer.findViewById(R.id.textview_zero_text_size);
         // text size should be 0 as set in xml, rather than the text view default (15.0)
@@ -347,6 +363,42 @@ public class AppCompatTextViewTest
         assertEquals(Typeface.SERIF, textView.getTypeface());
     }
 
+    @SdkSuppress(minSdkVersion = 21)
+    @Test
+    public void testTextLocale_setInXml() {
+        final AppCompatTextView textView = mActivity.findViewById(
+                R.id.textview_textLocale_textView);
+        if (Build.VERSION.SDK_INT >= 24) {
+            assertEquals(LocaleList.forLanguageTags("ja-JP,zh-CN"), textView.getTextLocales());
+        } else {
+            assertEquals(Locale.forLanguageTag("ja-JP"), textView.getTextLocale());
+        }
+    }
+
+    @SdkSuppress(minSdkVersion = 21)
+    @Test
+    public void testTextLocale_setInXmlByTextAppearance() {
+        final AppCompatTextView textView = mActivity.findViewById(
+                R.id.textview_textLocale_textAppearance);
+        if (Build.VERSION.SDK_INT >= 24) {
+            assertEquals(LocaleList.forLanguageTags("zh-CN,ja-JP"), textView.getTextLocales());
+        } else {
+            assertEquals(Locale.forLanguageTag("zh-CN"), textView.getTextLocale());
+        }
+    }
+
+    @SdkSuppress(minSdkVersion = 21)
+    @Test
+    public void testTextLocalePriority_setInXml() {
+        final AppCompatTextView textView = mActivity.findViewById(
+                R.id.textview_textLocale_textView_and_textAppearance);
+        if (Build.VERSION.SDK_INT >= 24) {
+            assertEquals(LocaleList.forLanguageTags("ja-JP,zh-CN"), textView.getTextLocales());
+        } else {
+            assertEquals(Locale.forLanguageTag("ja-JP"), textView.getTextLocale());
+        }
+    }
+
     @Test
     @UiThreadTest
     public void testTypefaceAttribute_monospace() {
@@ -392,6 +444,43 @@ public class AppCompatTextViewTest
         assertEquals(Typeface.MONOSPACE, textView.getTypeface());
     }
 
+    @SdkSuppress(minSdkVersion = 26)
+    @Test
+    public void testFontVariation_setInXml() {
+        final AppCompatTextView textView = mActivity.findViewById(
+                R.id.textview_fontVariation_textView);
+        assertEquals("'wdth' 30", textView.getFontVariationSettings());
+    }
+
+    @SdkSuppress(minSdkVersion = 26)
+    @Test
+    public void testFontVariation_setInXmlByTextAppearance() {
+        final AppCompatTextView textView = mActivity.findViewById(
+                R.id.textview_fontVariation_textAppearance);
+        assertEquals("'wght' 300", textView.getFontVariationSettings());
+    }
+
+    @SdkSuppress(minSdkVersion = 26)
+    @Test
+    public void testFontVariationPriority_setInXml() {
+        final AppCompatTextView textView = mActivity.findViewById(
+                R.id.textview_fontVariation_textView_and_textAppearance);
+        //FontVariation is set in both AppCompatTextView and textAppearance,
+        //we should use the one in AppCompatTextView.
+        assertEquals("'wdth' 30", textView.getFontVariationSettings());
+    }
+
+    @SdkSuppress(minSdkVersion = 26)
+    @Test
+    @UiThreadTest
+    public void testFontVariation_setTextAppearance() throws Throwable {
+        final AppCompatTextView textView = mActivity.findViewById(
+                R.id.textview_simple
+        );
+        textView.setTextAppearance(textView.getContext(), R.style.TextView_FontVariation);
+        assertEquals("'wght' 300", textView.getFontVariationSettings());
+    }
+
     @Test
     @UiThreadTest
     public void testBaselineAttributes() {
@@ -432,7 +521,6 @@ public class AppCompatTextViewTest
 
         /**
          * Synchronously execute the i-th runnable
-         * @param i
          */
         public void doExecution(int i) {
             getRunnableAt(i).run();
@@ -488,9 +576,6 @@ public class AppCompatTextViewTest
                 // setText may wrap the given text with SpannedString. Check the contents by casting
                 // to String.
                 assertEquals(SAMPLE_TEXT_1, tv.getText().toString());
-                if (Build.VERSION.SDK_INT >= 28) {
-                    assertTrue(tv.getText() instanceof PrecomputedText);
-                }
             }
         });
     }
@@ -508,9 +593,6 @@ public class AppCompatTextViewTest
                 tv.measure(UNLIMITED_MEASURE_SPEC, UNLIMITED_MEASURE_SPEC);
                 assertNotEquals(0.0f, tv.getMeasuredWidth());
                 assertEquals(SAMPLE_TEXT_1, tv.getText().toString());
-                if (Build.VERSION.SDK_INT >= 28) {
-                    assertTrue(tv.getText() instanceof PrecomputedText);
-                }
             }
         });
         executor.doExecution(0);
@@ -540,9 +622,6 @@ public class AppCompatTextViewTest
                 // setText may wrap the given text with SpannedString. Check the contents by casting
                 // to String.
                 assertEquals(SAMPLE_TEXT_2, tv.getText().toString());
-                if (Build.VERSION.SDK_INT >= 28) {
-                    assertTrue(tv.getText() instanceof PrecomputedText);
-                }
             }
         });
         executor.doExecution(0);  // Do execution of 1st runnable.
@@ -555,9 +634,63 @@ public class AppCompatTextViewTest
                 // setText may wrap the given text with SpannedString. Check the contents by casting
                 // to String.
                 assertEquals(SAMPLE_TEXT_2, tv.getText().toString());
-                if (Build.VERSION.SDK_INT >= 28) {
-                    assertTrue(tv.getText() instanceof PrecomputedText);
-                }
+            }
+        });
+    }
+
+    @Test
+    public void testSetTextAsync_directionDifference() throws Throwable {
+        mActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mActivity.setContentView(R.layout.appcompat_textview_rtl);
+                final ViewGroup container = mActivity.findViewById(R.id.container);
+                final AppCompatTextView tv = mActivity.findViewById(R.id.text_view_rtl);
+                tv.setTextFuture(PrecomputedTextCompat.getTextFuture(
+                        SAMPLE_TEXT_1, tv.getTextMetricsParamsCompat(), null));
+                container.measure(UNLIMITED_MEASURE_SPEC, UNLIMITED_MEASURE_SPEC);
+            }
+        });
+    }
+
+    @Test
+    public void testSetTextAsync_createAndAttach() throws Throwable {
+        mActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mActivity.setContentView(R.layout.appcompat_textview_rtl);
+                final ViewGroup container = mActivity.findViewById(R.id.container);
+
+                final AppCompatTextView tv = new AppCompatTextView(mActivity);
+                tv.setTextFuture(PrecomputedTextCompat.getTextFuture(
+                        SAMPLE_TEXT_1, tv.getTextMetricsParamsCompat(), null));
+                container.addView(tv);
+                container.measure(UNLIMITED_MEASURE_SPEC, UNLIMITED_MEASURE_SPEC);
+            }
+        });
+    }
+
+    @Test
+    public void testSetTextAsync_executionOrder_withNull() throws Throwable {
+        final ManualExecutor executor = new ManualExecutor();
+        mActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                final AppCompatTextView tv = mActivity.findViewById(R.id.textview_set_text_async);
+                tv.setText(""); // Make the measured width to be zero.
+                tv.setTextFuture(PrecomputedTextCompat.getTextFuture(
+                        SAMPLE_TEXT_1, tv.getTextMetricsParamsCompat(), executor));
+                tv.setTextFuture(null);
+            }
+        });
+        executor.doExecution(0);  // Do execution of 1st runnable.
+        mActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                final AppCompatTextView tv = mActivity.findViewById(R.id.textview_set_text_async);
+                tv.measure(UNLIMITED_MEASURE_SPEC, UNLIMITED_MEASURE_SPEC);
+                // The setTextFuture was reset by passing null.
+                assertEquals(0.0f, tv.getMeasuredWidth(), 0.0f);
             }
         });
     }
@@ -585,5 +718,461 @@ public class AppCompatTextViewTest
                 }
             }
         });
+    }
+
+    @SdkSuppress(minSdkVersion = 23)
+    @Test
+    public void testHyphenationFrequencyDefaultValue_withDefaultConstructor() {
+        final AppCompatTextView textView = new AppCompatTextView(mActivity);
+        assertEquals(Layout.HYPHENATION_FREQUENCY_NONE, textView.getHyphenationFrequency());
+    }
+
+    @SdkSuppress(minSdkVersion = 23)
+    @Test
+    public void testHyphenationFrequencyDefaultValue_withInflator() {
+        final AppCompatTextView textView = mActivity.findViewById(R.id.text_view_default_values);
+        assertEquals(Layout.HYPHENATION_FREQUENCY_NONE, textView.getHyphenationFrequency());
+    }
+
+    @SdkSuppress(minSdkVersion = 23)
+    @Test
+    public void testHyphenationFrequencyOverride_withInflator() {
+        final AppCompatTextView textView = mActivity.findViewById(
+                R.id.text_view_hyphen_break_override);
+        assertEquals(Layout.HYPHENATION_FREQUENCY_FULL, textView.getHyphenationFrequency());
+    }
+
+    @SdkSuppress(minSdkVersion = 23)
+    @Test
+    public void testBreakStrategyDefaultValue_withDefaultConstructor() {
+        final AppCompatTextView textView = new AppCompatTextView(mActivity);
+        assertEquals(Layout.BREAK_STRATEGY_HIGH_QUALITY, textView.getBreakStrategy());
+    }
+
+    @SdkSuppress(minSdkVersion = 23)
+    @Test
+    public void testBreakStrategyDefaultValue_withInflator() {
+        final AppCompatTextView textView = mActivity.findViewById(R.id.text_view_default_values);
+        assertEquals(Layout.BREAK_STRATEGY_HIGH_QUALITY, textView.getBreakStrategy());
+    }
+
+    @SdkSuppress(minSdkVersion = 23)
+    @Test
+    public void testBreakStrategyOverride_withInflator() {
+        final AppCompatTextView textView = mActivity.findViewById(
+                R.id.text_view_hyphen_break_override);
+        assertEquals(Layout.BREAK_STRATEGY_BALANCED, textView.getBreakStrategy());
+    }
+
+    @Test
+    public void testCompoundDrawablesCompat() {
+        // Given an ACTV with drawable[Left,Top,Right,Bottom]Compat set
+        final AppCompatTextView textView = mActivity.findViewById(
+                R.id.text_view_compound_drawables_compat);
+        // Then all 4 drawables should be present
+        final Drawable[] compoundDrawables = textView.getCompoundDrawables();
+        assertNotNull(compoundDrawables[0]);
+        assertNotNull(compoundDrawables[1]);
+        assertNotNull(compoundDrawables[2]);
+        assertNotNull(compoundDrawables[3]);
+    }
+
+    @SdkSuppress(minSdkVersion = 17)
+    @Test
+    public void testCompoundDrawablesCompat_relative() {
+        // Given an ACTV with both drawableStartCompat and drawableEndCompat set
+        final AppCompatTextView textView = mActivity.findViewById(
+                R.id.text_view_compound_drawables_compat_relative);
+        // Then both should be present
+        final Drawable[] compoundDrawablesRelative = textView.getCompoundDrawablesRelative();
+        assertNotNull(compoundDrawablesRelative[0]);
+        assertNotNull(compoundDrawablesRelative[2]);
+    }
+
+    @SdkSuppress(maxSdkVersion = 16)
+    @Test
+    public void testCompoundDrawablesCompat_relativeIgnoredPre17() {
+        // Given an ACTV with both drawableStartCompat and drawableEndCompat set
+        final AppCompatTextView textView = mActivity.findViewById(
+                R.id.text_view_compound_drawables_compat_relative);
+        // Then both should be ignored before API17
+        final Drawable[] compoundDrawables = textView.getCompoundDrawables();
+        assertNull(compoundDrawables[0]);
+        assertNull(compoundDrawables[2]);
+    }
+
+    @SdkSuppress(minSdkVersion = 17)
+    @Test
+    public void testCompoundDrawablesCompat_relativeAndAbsolute() {
+        // Given an ACTV with both drawableStartCompat and drawableRightCompat set
+        final AppCompatTextView textView = mActivity.findViewById(
+                R.id.text_view_compound_drawables_compat_relative_and_absolute);
+        // Then the start drawable should be present
+        assertNotNull(textView.getCompoundDrawablesRelative()[0]);
+        // Then the absolute right drawable should be ignored
+        assertNull(textView.getCompoundDrawables()[2]);
+    }
+
+    @Test
+    public void testCompoundDrawablesCompat_overridesPlatform() {
+        // Given an ACTV with both a raster android:drawableLeft & a vector app:drawableLeftCompat
+        final AppCompatTextView textView = mActivity.findViewById(
+                R.id.text_view_compound_drawables_compat_and_platform_same);
+        boolean isVector = false;
+        // Then the left drawable should be present & should be a vector i.e. from the compat attr
+        final Drawable drawableLeft = textView.getCompoundDrawables()[0];
+        assertNotNull(drawableLeft);
+        if (Build.VERSION.SDK_INT >= 21) {
+            isVector = drawableLeft instanceof VectorDrawableCompat
+                    || drawableLeft instanceof VectorDrawable;
+        } else {
+            isVector = drawableLeft instanceof VectorDrawableCompat;
+        }
+        assertTrue(isVector);
+    }
+
+    @Test
+    public void testCompoundDrawablesCompat_coexistPlatform() {
+        // Given an ACTV with app:drawableTopCompat & android:drawableBottom set
+        final AppCompatTextView textView = mActivity.findViewById(
+                R.id.text_view_compound_drawables_compat_and_platform_mix);
+        // Then both should be present
+        final Drawable[] compoundDrawables = textView.getCompoundDrawables();
+        assertNotNull(compoundDrawables[1]);
+        assertNotNull(compoundDrawables[3]);
+    }
+
+    @SdkSuppress(minSdkVersion = 17)
+    @Test
+    public void testCompoundDrawablesRelative_platformCompatCoexist() {
+        // Given an ACTV with app:drawableStartCompat & android:drawableEnd set
+        final AppCompatTextView textView = mActivity.findViewById(
+                R.id.text_view_compound_drawables_compat_and_platform_relative_mix);
+        // Then both should be present
+        final Drawable[] compoundDrawables = textView.getCompoundDrawablesRelative();
+        assertNotNull(compoundDrawables[0]);
+        assertNotNull(compoundDrawables[2]);
+    }
+
+    @SdkSuppress(minSdkVersion = 17)
+    @Test
+    public void testCompoundDrawables_relativePlatform_ignoresCompatAbsolute() {
+        // Given an ACTV with app:drawableLeftCompat & android:drawableEnd set
+        final AppCompatTextView textView = mActivity.findViewById(
+                R.id.text_view_compound_drawables_compat_abs_platform_relative);
+        // Then the relative drawable is present
+        assertNotNull(textView.getCompoundDrawablesRelative()[2]);
+        // Then the absolute drawable is ignored
+        assertNull(textView.getCompoundDrawablesRelative()[0]);
+    }
+
+    @SdkSuppress(minSdkVersion = 17)
+    @Test
+    public void testCompoundDrawables_relativeCompat_ignoresPlatformAbsolute() {
+        // Given an ACTV with app:drawableStartCompat & android:drawableRight set
+        final AppCompatTextView textView = mActivity.findViewById(
+                R.id.text_view_compound_drawables_compat_relative_platform_abs);
+        // Then the relative drawable is present
+        assertNotNull(textView.getCompoundDrawablesRelative()[0]);
+        // Then the absolute drawable is ignored
+        assertNull(textView.getCompoundDrawablesRelative()[2]);
+    }
+
+    @SdkSuppress(minSdkVersion = 26)
+    @Test
+    public void testGetTextClassifier() {
+        AppCompatTextView textView = mContainer.findViewById(R.id.textview_simple);
+        textView.getTextClassifier();
+        DummyTextClassifier dummyTextClassifier = new DummyTextClassifier();
+
+        TextClassificationManager textClassificationManager =
+                mActivity.getSystemService(TextClassificationManager.class);
+        textClassificationManager.setTextClassifier(dummyTextClassifier);
+
+        assertEquals(dummyTextClassifier, textView.getTextClassifier());
+    }
+
+    @SdkSuppress(minSdkVersion = 26)
+    @Test
+    public void testSetTextClassifier() {
+        final AppCompatTextView textview = new AppCompatTextView(mActivityTestRule.getActivity());
+        DummyTextClassifier dummyTextClassifier = new DummyTextClassifier();
+
+        textview.setTextClassifier(dummyTextClassifier);
+
+        assertEquals(dummyTextClassifier, textview.getTextClassifier());
+    }
+
+    private static class DummyTextClassifier implements TextClassifier {}
+
+    class TestCase {
+        public final int id;
+        public final char expected3EMChar;
+
+        TestCase(int id, char expected3EMChar) {
+            this.id = id;
+            this.expected3EMChar = expected3EMChar;
+        }
+    }
+
+    /**
+     * Find a character which has 3em width.
+     *
+     * The search range is from 'a' to 'r'.
+     * @param p a paint
+     * @return the character which has 3em width.
+     */
+    private static char find3EmChar(Paint p) {
+        char threeEmChar = '\0';
+        p.setTextSize(100.0f);  // Make 1EM = 100px
+        for (char c = 'a'; c <= 'r'; c++) {
+            final float charWidth = p.measureText(new char[] { c }, 0, 1);
+            if (charWidth != 100.0f && charWidth != 300.0f) {
+                throw new RuntimeException("Char width must be 1em or 3em. Test setup error?");
+            }
+
+            if (charWidth == 300.0f) {
+                if (threeEmChar != '\0') {
+                    throw new RuntimeException(
+                            "two or more 3em character found. Test setup error?");
+                }
+                threeEmChar = c;
+            }
+        }
+        if (threeEmChar == '\0') {
+            throw new RuntimeException("No 3em character found. Test setup error?");
+        }
+        return threeEmChar;
+    }
+
+    @SdkSuppress(minSdkVersion = 28)
+    @Test
+    @UiThreadTest
+    public void testFontWeight() {
+        // For the details of the font files, see comments in multiweight_family.xml
+        TestCase[] testCases = {
+                new TestCase(R.id.textview_family_selection_weight_100_upright, 'a'),
+                new TestCase(R.id.textview_family_selection_weight_100_italic, 'b'),
+                new TestCase(R.id.textview_family_selection_weight_200_upright, 'c'),
+                new TestCase(R.id.textview_family_selection_weight_200_italic, 'd'),
+                new TestCase(R.id.textview_family_selection_weight_300_upright, 'e'),
+                new TestCase(R.id.textview_family_selection_weight_300_italic, 'f'),
+                new TestCase(R.id.textview_family_selection_weight_400_upright, 'g'),
+                new TestCase(R.id.textview_family_selection_weight_400_italic, 'h'),
+                new TestCase(R.id.textview_family_selection_weight_500_upright, 'i'),
+                new TestCase(R.id.textview_family_selection_weight_500_italic, 'j'),
+                new TestCase(R.id.textview_family_selection_weight_600_upright, 'k'),
+                new TestCase(R.id.textview_family_selection_weight_600_italic, 'l'),
+                new TestCase(R.id.textview_family_selection_weight_700_upright, 'm'),
+                new TestCase(R.id.textview_family_selection_weight_700_italic, 'n'),
+                new TestCase(R.id.textview_family_selection_weight_800_upright, 'o'),
+                new TestCase(R.id.textview_family_selection_weight_800_italic, 'p'),
+                new TestCase(R.id.textview_family_selection_weight_900_upright, 'q'),
+                new TestCase(R.id.textview_family_selection_weight_900_italic, 'r'),
+        };
+
+        mActivity.setContentView(R.layout.appcompat_textview_family_selection);
+
+        for (TestCase testCase : testCases) {
+            final AppCompatTextView tv = mActivity.findViewById(testCase.id);
+
+            final Paint p = tv.getPaint();
+            char actual3EMChar = find3EmChar(p);
+
+            final String msg = "Expected 3em character is " + testCase.expected3EMChar
+                    + " but actual 3em character is " + actual3EMChar;
+            assertEquals(msg, testCase.expected3EMChar, actual3EMChar);
+        }
+    }
+
+    @SdkSuppress(minSdkVersion = 28)
+    @Test
+    @UiThreadTest
+    public void testFontWeight_styleConflict() {
+        mActivity.setContentView(R.layout.appcompat_textview_family_selection);
+        final AppCompatTextView tv = mActivity.findViewById(
+                R.id.textview_family_selection_style_conflict);
+        // The layout has both textFontWeight=400 and textStyle=bold. The textFontWeight is used if
+        // these two attributes are conflict.
+        final char actual = find3EmChar(tv.getPaint());
+        final String msg = "Expected 3em character is 'g' but actual 3em character is " + actual;
+        assertEquals(msg, 'g', find3EmChar(tv.getPaint()));
+    }
+
+    @SdkSuppress(minSdkVersion = 28)
+    @Test
+    @UiThreadTest
+    public void testFontWeight_styleConflict_italic_preserve() {
+        mActivity.setContentView(R.layout.appcompat_textview_family_selection);
+        final AppCompatTextView tv = mActivity.findViewById(
+                R.id.textview_family_selection_style_conflict_italic_preserve);
+        // The layout has both textFontWeight=400 and textStyle=bold|italic. The textFontWeight is
+        // used if these two attributes are conflict, but italic information should be preserved.
+        final char actual = find3EmChar(tv.getPaint());
+        final String msg = "Expected 3em character is 'h' but actual 3em character is " + actual;
+        assertEquals(msg, 'h', find3EmChar(tv.getPaint()));
+    }
+
+    @Test
+    public void testCompoundDrawablesTint() {
+        // Given an ACTV with a white drawableLeftCompat set and a #f0f drawableTint
+        final AppCompatTextView textView = mActivity.findViewById(
+                R.id.text_view_compound_drawable_tint);
+        final int tint = 0xffff00ff;
+        // Then the drawable should be tinted
+        final Drawable drawable = textView.getCompoundDrawables()[0];
+        TestUtils.assertAllPixelsOfColor(
+                "Tint not applied to AppCompatTextView compound drawable",
+                drawable,
+                drawable.getIntrinsicWidth(),
+                drawable.getIntrinsicHeight(),
+                true,
+                tint,
+                0,
+                true);
+        // Then the TextViewCompat getter should return the tint
+        assertEquals(ColorStateList.valueOf(tint),
+                TextViewCompat.getCompoundDrawableTintList(textView));
+    }
+
+    @Test
+    public void testCompoundDrawablesTintList() {
+        // Given an ACTV with a white drawableLeftCompat and a ColorStateList drawableTint set
+        final AppCompatTextView textView = mActivity.findViewById(
+                R.id.text_view_compound_drawable_tint_list);
+        final int defaultTint = ResourcesCompat.getColor(mResources, R.color.lilac_default, null);
+        final int disabledTint = ResourcesCompat.getColor(mResources, R.color.lilac_disabled, null);
+
+        // Then the initial drawable tint is applied
+        final Drawable drawable = textView.getCompoundDrawables()[0];
+        TestUtils.assertAllPixelsOfColor(
+                "Tint not applied to AppCompatTextView compound drawable",
+                drawable,
+                drawable.getIntrinsicWidth(),
+                drawable.getIntrinsicHeight(),
+                true,
+                defaultTint,
+                0,
+                true);
+
+        // When the view is disabled
+        onView(withId(textView.getId())).perform(scrollTo(), setEnabled(false));
+        // Then the appropriate drawable tint is applied
+        TestUtils.assertAllPixelsOfColor(
+                "Tint not applied to AppCompatTextView compound drawable",
+                drawable,
+                drawable.getIntrinsicWidth(),
+                drawable.getIntrinsicHeight(),
+                true,
+                disabledTint,
+                0,
+                true);
+    }
+
+    @Test
+    public void testCompoundDrawablesTintMode() {
+        // Given an ACTV with a red drawableLeft, a semi-transparent blue drawableTint
+        // & drawableTintMode of src_over
+        final AppCompatTextView textView = mActivity.findViewById(
+                R.id.text_view_compound_drawable_tint_mode);
+        final int expected = ColorUtils.compositeColors(0x800000ff, 0xffff0000);
+        final int tolerance = 2; // allow some tolerance for the blending
+        // Then the drawable should be tinted
+        final Drawable drawable = textView.getCompoundDrawables()[0];
+        TestUtils.assertAllPixelsOfColor(
+                "Tint not applied to AppCompatTextView compound drawable",
+                drawable,
+                drawable.getIntrinsicWidth(),
+                drawable.getIntrinsicHeight(),
+                true,
+                expected,
+                tolerance,
+                true);
+        // Then the TextViewCompat getter returns the mode
+        assertEquals(PorterDuff.Mode.SRC_OVER,
+                TextViewCompat.getCompoundDrawableTintMode(textView));
+    }
+
+    @Test
+    public void testSetCompoundDrawablesTintList() {
+        // Given an ACTV with a compound drawable
+        final AppCompatTextView textView = new AppCompatTextView(mActivity);
+        textView.setCompoundDrawables(AppCompatResources.getDrawable(
+                mActivity, R.drawable.white_square), null, null, null);
+
+        // When a tint is set programmatically
+        final int tint = 0xffa4c639;
+        final ColorStateList tintList = ColorStateList.valueOf(tint);
+        TextViewCompat.setCompoundDrawableTintList(textView, tintList);
+
+        // Then the drawable should be tinted
+        final Drawable drawable = textView.getCompoundDrawables()[0];
+        TestUtils.assertAllPixelsOfColor(
+                "Tint not applied to AppCompatTextView compound drawable",
+                drawable,
+                drawable.getIntrinsicWidth(),
+                drawable.getIntrinsicHeight(),
+                true,
+                tint,
+                0,
+                true);
+        // Then the TextViewCompat getter should return the tint
+        assertEquals(tintList, TextViewCompat.getCompoundDrawableTintList(textView));
+    }
+
+    @Test
+    public void testSetCompoundDrawablesTintMode() {
+        // Given an ACTV with a red compound drawable
+        final AppCompatTextView textView = new AppCompatTextView(mActivity);
+        textView.setCompoundDrawables(AppCompatResources.getDrawable(
+                mActivity, R.drawable.red_square), null, null, null);
+
+        // When a semi-transparent blue tint is set programmatically with a mode of SRC_OVER
+        final int tint = 0x800000ff;
+        final PorterDuff.Mode mode = PorterDuff.Mode.SRC_OVER;
+        final ColorStateList tintList = ColorStateList.valueOf(tint);
+        TextViewCompat.setCompoundDrawableTintList(textView, tintList);
+        TextViewCompat.setCompoundDrawableTintMode(textView, mode);
+        final int expected = ColorUtils.compositeColors(tint, 0xffff0000);
+        final int tolerance = 2; // allow some tolerance for the blending
+
+        // Then the drawable should be tinted
+        final Drawable drawable = textView.getCompoundDrawables()[0];
+        TestUtils.assertAllPixelsOfColor(
+                "Tint not applied to AppCompatTextView compound drawable",
+                drawable,
+                drawable.getIntrinsicWidth(),
+                drawable.getIntrinsicHeight(),
+                true,
+                expected,
+                tolerance,
+                true);
+        // Then the TextViewCompat getter should return the tint mode
+        assertEquals(mode, TextViewCompat.getCompoundDrawableTintMode(textView));
+    }
+
+
+    @Test
+    public void testCompoundDrawablesSetAfterTint() {
+        // Given an ACTV with a magenta tint
+        final AppCompatTextView textView = new AppCompatTextView(mActivity);
+        final int tint = 0xffff00ff;
+        TextViewCompat.setCompoundDrawableTintList(textView, ColorStateList.valueOf(tint));
+
+        // When a white compound drawable is set
+        textView.setCompoundDrawables(AppCompatResources.getDrawable(
+                mActivity, R.drawable.white_square), null, null, null);
+
+        // Then the drawable should be tinted
+        final Drawable drawable = textView.getCompoundDrawables()[0];
+        TestUtils.assertAllPixelsOfColor(
+                "Tint not applied to AppCompatTextView compound drawable",
+                drawable,
+                drawable.getIntrinsicWidth(),
+                drawable.getIntrinsicHeight(),
+                true,
+                tint,
+                0,
+                true);
     }
 }

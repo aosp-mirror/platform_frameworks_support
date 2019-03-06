@@ -22,7 +22,12 @@ android {
     buildToolsVersion buildTools
     compileSdkVersion compileSdk
     defaultConfig {
-        minSdkVersion 14
+        minSdkVersion minSdk
+    }
+    signingConfigs {
+        debug {
+            storeFile file("$debugKeystoreFile")
+        }
     }
     baseFeature true
 
@@ -42,4 +47,5 @@ dependencies {
     application project(':app')
     feature project(':feature')
     implementation project(":library")
+    implementation "$navigationCommonDep"
 }

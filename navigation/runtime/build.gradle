@@ -21,6 +21,13 @@ import androidx.build.SupportLibraryExtension
 
 plugins {
     id("SupportAndroidLibraryPlugin")
+    id("kotlin-android")
+}
+
+android {
+    lintOptions {
+        fatal("UnknownNullness")
+    }
 }
 
 dependencies {
@@ -29,11 +36,20 @@ dependencies {
 
     testImplementation(JUNIT)
     testImplementation(MOCKITO_CORE)
+    testImplementation(TEST_EXT_JUNIT)
+    testImplementation(TEST_CORE)
     testImplementation(TEST_RUNNER)
 
     androidTestImplementation(project(":navigation:navigation-testing"))
+    androidTestImplementation(TEST_EXT_JUNIT)
+    androidTestImplementation(TEST_CORE)
     androidTestImplementation(TEST_RUNNER)
+    androidTestImplementation(TEST_RULES)
     androidTestImplementation(ESPRESSO_CORE)
+    androidTestImplementation(TRUTH)
+    androidTestImplementation(MOCKITO_CORE, libs.exclude_bytebuddy)
+    androidTestImplementation(DEXMAKER_MOCKITO, libs.exclude_bytebuddy)
+    androidTestImplementation(KOTLIN_STDLIB)
 }
 
 supportLibrary {

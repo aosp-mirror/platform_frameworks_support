@@ -35,9 +35,10 @@ import android.widget.TextView;
  * <p>The fragment needs only to implement {@link #onCreatePreferences(Bundle, String)} to populate
  * the list of preference objects:</p>
  *
- * {@sample frameworks/support/samples/SupportPreferenceDemos/src/main/java/com/example/android/supportpreference/FragmentSupportPreferencesLeanback.java
- *      support_fragment_leanback}
+ * {@sample frameworks/support/samples/SupportPreferenceDemos/src/main/java/com/example/androidx/preference/LeanbackPreferences.java leanback_preferences}
+ * @deprecated Use {@link LeanbackPreferenceFragmentCompat}
  */
+@Deprecated
 public abstract class LeanbackPreferenceFragment extends BaseLeanbackPreferenceFragment {
 
     public LeanbackPreferenceFragment() {
@@ -49,9 +50,12 @@ public abstract class LeanbackPreferenceFragment extends BaseLeanbackPreferenceF
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.leanback_preference_fragment, container, false);
+        final View innerView = super.onCreateView(inflater, container, savedInstanceState);
+        // parent class would create a themed context based the preferenceTheme attr.
+        LayoutInflater themedInflater = LayoutInflater.from(innerView.getContext());
+        final View view = themedInflater.inflate(R.layout.leanback_preference_fragment, container,
+                false);
         final ViewGroup innerContainer = (ViewGroup) view.findViewById(R.id.main_frame);
-        final View innerView = super.onCreateView(inflater, innerContainer, savedInstanceState);
         if (innerView != null) {
             innerContainer.addView(innerView);
         }

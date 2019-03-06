@@ -16,15 +16,21 @@
 
 package androidx.mediarouter.app;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.util.TypedValue;
 import android.view.ContextThemeWrapper;
 import android.view.View;
+import android.widget.ProgressBar;
 
 import androidx.annotation.IntDef;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.ColorUtils;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.mediarouter.R;
 
 import java.lang.annotation.Retention;
@@ -39,8 +45,61 @@ final class MediaRouterThemeHelper {
 
     static final int COLOR_DARK_ON_LIGHT_BACKGROUND = 0xDE000000; /* Opacity of 87% */
     static final int COLOR_WHITE_ON_DARK_BACKGROUND = Color.WHITE;
+    private static final int COLOR_DARK_ON_LIGHT_BACKGROUND_RES_ID =
+            R.color.mr_dynamic_dialog_icon_light;
 
     private MediaRouterThemeHelper() {
+    }
+
+    static Drawable getMuteButtonDrawableIcon(Context context) {
+        return getIconByDrawableId(context, R.drawable.mr_cast_mute_button);
+    }
+
+    static Drawable getCheckBoxDrawableIcon(Context context) {
+        return getIconByDrawableId(context, R.drawable.mr_cast_checkbox);
+    }
+
+    static Drawable getDefaultDrawableIcon(Context context) {
+        return getIconByAttrId(context, R.attr.mediaRouteDefaultIconDrawable);
+    }
+
+    static Drawable getTvDrawableIcon(Context context) {
+        return getIconByAttrId(context, R.attr.mediaRouteTvIconDrawable);
+    }
+
+    static Drawable getSpeakerDrawableIcon(Context context) {
+        return getIconByAttrId(context, R.attr.mediaRouteSpeakerIconDrawable);
+    }
+
+    static Drawable getSpeakerGroupDrawableIcon(Context context) {
+        return getIconByAttrId(context, R.attr.mediaRouteSpeakerGroupIconDrawable);
+    }
+
+    private static Drawable getIconByDrawableId(Context context, int drawableId) {
+        Drawable icon = ContextCompat.getDrawable(context, drawableId);
+        icon = DrawableCompat.wrap(icon);
+
+        if (isLightTheme(context)) {
+            int tintColor = ContextCompat.getColor(context, COLOR_DARK_ON_LIGHT_BACKGROUND_RES_ID);
+            DrawableCompat.setTint(icon, tintColor);
+        }
+        return icon;
+    }
+
+    private static Drawable getIconByAttrId(Context context, int attrId) {
+        TypedArray styledAttributes = context.obtainStyledAttributes(new int[] { attrId });
+        Drawable icon = styledAttributes.getDrawable(0);
+        icon = DrawableCompat.wrap(icon);
+
+        // Since Chooser(Controller)Dialog and DevicePicker(Cast)Dialog is using same shape but
+        // different color icon for LightTheme, change color of the icon for the latter.
+        if (isLightTheme(context)) {
+            int tintColor = ContextCompat.getColor(context, COLOR_DARK_ON_LIGHT_BACKGROUND_RES_ID);
+            DrawableCompat.setTint(icon, tintColor);
+        }
+        styledAttributes.recycle();
+
+        return icon;
     }
 
     static Context createThemedButtonContext(Context context) {
@@ -134,6 +193,23 @@ final class MediaRouterThemeHelper {
         return primaryColor;
     }
 
+    static TypedArray getStyledAttributes(Context context) {
+        TypedArray styledAttributes = context.obtainStyledAttributes(new int[] {
+                R.attr.mediaRouteDefaultIconDrawable,
+                R.attr.mediaRouteTvIconDrawable,
+                R.attr.mediaRouteSpeakerIconDrawable,
+                R.attr.mediaRouteSpeakerGroupIconDrawable});
+        return styledAttributes;
+    }
+
+    static void setDialogBackgroundColor(Context context, Dialog dialog) {
+        View dialogView = dialog.getWindow().getDecorView();
+        int backgroundColor = ContextCompat.getColor(context, isLightTheme(context)
+                ? R.color.mr_dynamic_dialog_background_light
+                : R.color.mr_dynamic_dialog_background_dark);
+        dialogView.setBackgroundColor(backgroundColor);
+    }
+
     static void setMediaControlsBackgroundColor(
             Context context, View mainControls, View groupControls, boolean hasGroup) {
         int primaryColor = getThemeColor(context, 0,
@@ -154,6 +230,10 @@ final class MediaRouterThemeHelper {
         groupControls.setTag(primaryDarkColor);
     }
 
+    /**
+     * This method is used by MediaRouteControllerDialog to set color of the volume slider
+     * appropriate for the color of controller and backgroundView.
+     */
     static void setVolumeSliderColor(
             Context context, MediaRouteVolumeSlider volumeSlider, View backgroundView) {
         int controllerColor = getControllerColor(context, 0);
@@ -164,6 +244,37 @@ final class MediaRouterThemeHelper {
             controllerColor = ColorUtils.compositeColors(controllerColor, backgroundColor);
         }
         volumeSlider.setColor(controllerColor);
+    }
+
+    /**
+     * This method is used by MediaRouteCastDialog to set color of the volume slider according to
+     * current theme.
+     */
+    static void setVolumeSliderColor(Context context, MediaRouteVolumeSlider volumeSlider) {
+        int progressAndThumbColor, backgroundColor;
+        if (isLightTheme(context)) {
+            progressAndThumbColor = ContextCompat.getColor(context,
+                    R.color.mr_cast_progressbar_progress_and_thumb_light);
+            backgroundColor = ContextCompat.getColor(context,
+                    R.color.mr_cast_progressbar_background_light);
+        } else {
+            progressAndThumbColor = ContextCompat.getColor(context,
+                    R.color.mr_cast_progressbar_progress_and_thumb_dark);
+            backgroundColor = ContextCompat.getColor(context,
+                    R.color.mr_cast_progressbar_background_dark);
+        }
+        volumeSlider.setColor(progressAndThumbColor, backgroundColor);
+    }
+
+    static void setIndeterminateProgressBarColor(Context context, ProgressBar progressBar) {
+        if (!progressBar.isIndeterminate()) {
+            return;
+        }
+        int progressColor = ContextCompat.getColor(context, isLightTheme(context)
+                ? R.color.mr_cast_progressbar_progress_and_thumb_light :
+                R.color.mr_cast_progressbar_progress_and_thumb_dark);
+        progressBar.getIndeterminateDrawable().setColorFilter(progressColor,
+                PorterDuff.Mode.SRC_IN);
     }
 
     private static boolean isLightTheme(Context context) {

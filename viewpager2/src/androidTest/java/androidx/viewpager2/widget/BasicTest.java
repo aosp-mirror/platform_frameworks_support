@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 The Android Open Source Project
+ * Copyright 2018 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,13 +25,10 @@ import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.view.View;
-import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.test.InstrumentationRegistry;
-import androidx.test.filters.SmallTest;
-import androidx.test.runner.AndroidJUnit4;
+import androidx.test.core.app.ApplicationProvider;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.MediumTest;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -40,62 +37,34 @@ import org.junit.runner.RunWith;
 
 import java.util.UUID;
 
-@SmallTest
+@MediumTest
 @RunWith(AndroidJUnit4.class)
 public class BasicTest {
     @Rule
     public ExpectedException mExpectedException = ExpectedException.none();
 
     @Test
-    public void test_recyclerViewAdapter_pageFillEnforced() {
-        mExpectedException.expect(IllegalStateException.class);
-        mExpectedException.expectMessage(
-                "Item's root view must fill the whole ViewPager2 (use match_parent)");
-
-        ViewPager2 viewPager = new ViewPager2(InstrumentationRegistry.getContext());
-        viewPager.setAdapter(new RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-            @NonNull
-            @Override
-            public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent,
-                    int viewType) {
-                View view = new View(parent.getContext());
-                view.setLayoutParams(new ViewGroup.LayoutParams(50, 50)); // arbitrary fixed size
-                return new RecyclerView.ViewHolder(view) {
-                };
-            }
-
-            @Override
-            public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-                // do nothing
-            }
-
-            @Override
-            public int getItemCount() {
-                return 1;
-            }
-        });
-
-        viewPager.measure(0, 0); // equivalent of unspecified
-    }
-
-    @Test
-    public void test_childrenNotAllowed() throws Exception {
+    public void test_childrenNotAllowed() {
         mExpectedException.expect(IllegalStateException.class);
         mExpectedException.expectMessage("ViewPager2 does not support direct child views");
 
-        Context context = InstrumentationRegistry.getContext();
+        Context context = ApplicationProvider.getApplicationContext();
         ViewPager2 viewPager = new ViewPager2(context);
         viewPager.addView(new View(context));
     }
 
     @Test
-    public void test_saveStateParcel_createRestore() throws Throwable {
+    public void test_saveStateParcel_createRestore() {
         // given
         Bundle superState = createIntBundle(42);
         ViewPager2.SavedState state = new ViewPager2.SavedState(superState);
         state.mRecyclerViewId = 700;
-        state.mAdapterState = new Parcelable[]{createIntBundle(1), createIntBundle(2),
-                createIntBundle(3)};
+        state.mOrientation = 800;
+
+        Bundle adapterState = new Bundle(1);
+        adapterState.putParcelableArray("adapterState",
+                new Parcelable[]{createIntBundle(1), createIntBundle(2), createIntBundle(3)});
+        state.mAdapterState = adapterState;
 
         // when
         Parcel parcel = Parcel.obtain();
@@ -111,11 +80,15 @@ public class BasicTest {
                 equalTo(parcelSuffix));
         assertThat("All of the parcel should be read", parcel.dataAvail(), equalTo(0));
         assertThat(recreatedState.mRecyclerViewId, equalTo(700));
-        assertThat(recreatedState.mAdapterState, arrayWithSize(3));
+        assertThat(recreatedState.mOrientation, equalTo(800));
+        Parcelable[] recreatedAdapterState =
+                ((Bundle) recreatedState.mAdapterState).getParcelableArray("adapterState");
+        assertThat(recreatedAdapterState, arrayWithSize(3));
         assertThat((int) ((Bundle) recreatedState.getSuperState()).get("key"), equalTo(42));
-        assertThat((int) ((Bundle) recreatedState.mAdapterState[0]).get("key"), equalTo(1));
-        assertThat((int) ((Bundle) recreatedState.mAdapterState[1]).get("key"), equalTo(2));
-        assertThat((int) ((Bundle) recreatedState.mAdapterState[2]).get("key"), equalTo(3));
+        //noinspection ConstantConditions
+        assertThat((int) ((Bundle) recreatedAdapterState[0]).get("key"), equalTo(1));
+        assertThat((int) ((Bundle) recreatedAdapterState[1]).get("key"), equalTo(2));
+        assertThat((int) ((Bundle) recreatedAdapterState[2]).get("key"), equalTo(3));
     }
 
     private Bundle createIntBundle(int value) {

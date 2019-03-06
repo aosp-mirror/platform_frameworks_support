@@ -15,7 +15,7 @@
  */
 package androidx.mediarouter.media;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
 import android.content.IntentFilter;
 import android.content.IntentSender;
@@ -47,6 +47,7 @@ public final class MediaRouteDescriptor {
     static final String KEY_DESCRIPTION = "status";
     static final String KEY_ICON_URI = "iconUri";
     static final String KEY_ENABLED = "enabled";
+    static final String IS_DYNAMIC_GROUP_ROUTE = "isDynamicGroupRoute";
     static final String KEY_CONNECTING = "connecting";
     static final String KEY_CONNECTION_STATE = "connectionState";
     static final String KEY_CONTROL_FILTERS = "controlFilters";
@@ -64,11 +65,11 @@ public final class MediaRouteDescriptor {
     static final String KEY_MAX_CLIENT_VERSION = "maxClientVersion";
 
     final Bundle mBundle;
+    List<String> mGroupMemberIds;
     List<IntentFilter> mControlFilters;
 
-    MediaRouteDescriptor(Bundle bundle, List<IntentFilter> controlFilters) {
+    MediaRouteDescriptor(Bundle bundle) {
         mBundle = bundle;
-        mControlFilters = controlFilters;
     }
 
     /**
@@ -91,9 +92,19 @@ public final class MediaRouteDescriptor {
      * </p>
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public List<String> getGroupMemberIds() {
-        return mBundle.getStringArrayList(KEY_GROUP_MEMBER_IDS);
+        ensureGroupMemberIds();
+        return mGroupMemberIds;
+    }
+
+    void ensureGroupMemberIds() {
+        if (mGroupMemberIds == null) {
+            mGroupMemberIds = mBundle.getStringArrayList(KEY_GROUP_MEMBER_IDS);
+            if (mGroupMemberIds == null) {
+                mGroupMemberIds = Collections.emptyList();
+            }
+        }
     }
 
     /**
@@ -134,6 +145,26 @@ public final class MediaRouteDescriptor {
      */
     public boolean isEnabled() {
         return mBundle.getBoolean(KEY_ENABLED, true);
+    }
+
+    /**
+     * Returns if this route is a dynamic group route.
+     * <p>
+     * {@link MediaRouteProvider} creates a dynamic group route when
+     * {@link MediaRouteProvider#onCreateDynamicGroupRouteController(String)} is called.
+     * It happens when a single route or a single static group is selected.
+     * </p>
+     * <p>
+     * If a single device or a static group is selected, the associated dynamic group route
+     * should not be seen by any client app because there is already one for the device.
+     * After user added more devices into the session, it should be seen by the client app.
+     * The provider can treat this by not setting the media intent for the dynamic group route
+     * if it contains only one member.
+     * </p>>
+     * @return {@code true} if this route is a dynamic group route.
+     */
+    public boolean isDynamicGroupRoute() {
+        return mBundle.getBoolean(IS_DYNAMIC_GROUP_ROUTE, false);
     }
 
     /**
@@ -279,7 +310,7 @@ public final class MediaRouteDescriptor {
      * Gets the minimum client version required for this route.
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public int getMinClientVersion() {
         return mBundle.getInt(KEY_MIN_CLIENT_VERSION,
                 MediaRouteProviderProtocol.CLIENT_VERSION_START);
@@ -289,7 +320,7 @@ public final class MediaRouteDescriptor {
      * Gets the maximum client version required for this route.
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public int getMaxClientVersion() {
         return mBundle.getInt(KEY_MAX_CLIENT_VERSION, Integer.MAX_VALUE);
     }
@@ -351,7 +382,7 @@ public final class MediaRouteDescriptor {
      * @return The new instance, or null if the bundle was null.
      */
     public static MediaRouteDescriptor fromBundle(Bundle bundle) {
-        return bundle != null ? new MediaRouteDescriptor(bundle, null) : null;
+        return bundle != null ? new MediaRouteDescriptor(bundle) : null;
     }
 
     /**
@@ -385,8 +416,11 @@ public final class MediaRouteDescriptor {
 
             mBundle = new Bundle(descriptor.mBundle);
 
-            descriptor.ensureControlFilters();
-            if (!descriptor.mControlFilters.isEmpty()) {
+            if (!descriptor.getGroupMemberIds().isEmpty()) {
+                mGroupMemberIds = new ArrayList<String>(descriptor.getGroupMemberIds());
+            }
+
+            if (!descriptor.getControlFilters().isEmpty()) {
                 mControlFilters = new ArrayList<IntentFilter>(descriptor.mControlFilters);
             }
         }
@@ -412,7 +446,7 @@ public final class MediaRouteDescriptor {
          * </p>
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP)
+        @RestrictTo(LIBRARY_GROUP_PREFIX)
         public Builder addGroupMemberId(String groupMemberId) {
             if (TextUtils.isEmpty(groupMemberId)) {
                 throw new IllegalArgumentException("groupMemberId must not be empty");
@@ -435,7 +469,7 @@ public final class MediaRouteDescriptor {
          * </p>
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP)
+        @RestrictTo(LIBRARY_GROUP_PREFIX)
         public Builder addGroupMemberIds(Collection<String> groupMemberIds) {
             if (groupMemberIds == null) {
                 throw new IllegalArgumentException("groupMemberIds must not be null");
@@ -445,6 +479,26 @@ public final class MediaRouteDescriptor {
                 for (String groupMemberId : groupMemberIds) {
                     addGroupMemberId(groupMemberId);
                 }
+            }
+            return this;
+        }
+
+        /**
+         * Removes a group member id from the route's member list.
+         * <p>
+         * A route descriptor that has one or more group member route ids
+         * represents a route group. A member route may belong to another group.
+         * </p>
+         * @hide
+         */
+        @RestrictTo(LIBRARY_GROUP_PREFIX)
+        public Builder removeGroupMemberId(String memberRouteId) {
+            if (TextUtils.isEmpty(memberRouteId)) {
+                throw new IllegalArgumentException("memberRouteId must not be empty");
+            }
+
+            if (mGroupMemberIds != null) {
+                mGroupMemberIds.remove(memberRouteId);
             }
             return this;
         }
@@ -507,6 +561,14 @@ public final class MediaRouteDescriptor {
             return this;
         }
 
+        /**
+         * Sets whether the route is a dynamic group route.
+         * @see #isDynamicGroupRoute()
+         */
+        public Builder setIsDynamicGroupRoute(boolean isDynamicGroupRoute) {
+            mBundle.putBoolean(IS_DYNAMIC_GROUP_ROUTE, isDynamicGroupRoute);
+            return this;
+        }
         /**
          * Sets whether the route is in the process of connecting and is not yet
          * ready for use.
@@ -664,7 +726,7 @@ public final class MediaRouteDescriptor {
          * A router whose version is lower than this will not be able to connect to this route.
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP)
+        @RestrictTo(LIBRARY_GROUP_PREFIX)
         public Builder setMinClientVersion(int minVersion) {
             mBundle.putInt(KEY_MIN_CLIENT_VERSION, minVersion);
             return this;
@@ -675,7 +737,7 @@ public final class MediaRouteDescriptor {
          * A router whose version is higher than this will not be able to connect to this route.
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP)
+        @RestrictTo(LIBRARY_GROUP_PREFIX)
         public Builder setMaxClientVersion(int maxVersion) {
             mBundle.putInt(KEY_MAX_CLIENT_VERSION, maxVersion);
             return this;
@@ -691,7 +753,7 @@ public final class MediaRouteDescriptor {
             if (mGroupMemberIds != null) {
                 mBundle.putStringArrayList(KEY_GROUP_MEMBER_IDS, mGroupMemberIds);
             }
-            return new MediaRouteDescriptor(mBundle, mControlFilters);
+            return new MediaRouteDescriptor(mBundle);
         }
     }
 }

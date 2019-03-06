@@ -34,13 +34,17 @@ import android.content.res.Resources.Theme;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.ColorFilter;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 
-import androidx.test.InstrumentationRegistry;
+import androidx.test.core.app.ApplicationProvider;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.MediumTest;
-import androidx.test.runner.AndroidJUnit4;
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 import androidx.vectordrawable.test.R;
 
@@ -88,6 +92,8 @@ public class VectorDrawableTest {
             R.drawable.vector_icon_five_bars,
             R.drawable.vector_icon_filltype_evenodd,
             R.drawable.vector_icon_filltype_nonzero,
+            R.drawable.vector_icon_clip_filltype_evenodd,
+            R.drawable.vector_icon_clip_filltype_nonzero,
     };
 
     private static final int[] GOLDEN_IMAGES = new int[]{
@@ -119,6 +125,8 @@ public class VectorDrawableTest {
             R.drawable.vector_icon_five_bars_golden,
             R.drawable.vector_icon_filltype_evenodd_golden,
             R.drawable.vector_icon_filltype_nonzero_golden,
+            R.drawable.vector_icon_clip_filltype_evenodd_golden,
+            R.drawable.vector_icon_clip_filltype_nonzero_golden,
     };
 
     private static final int[] EDGES = new int[]{
@@ -150,6 +158,8 @@ public class VectorDrawableTest {
             R.drawable.vector_icon_five_bars_edge,
             -1,
             -1,
+            -1,
+            -1,
     };
 
     private static final int[] GRADIENT_ICON_RES_IDS = new int[]{
@@ -159,6 +169,7 @@ public class VectorDrawableTest {
             R.drawable.vector_icon_gradient_1_clamp,
             R.drawable.vector_icon_gradient_2_repeat,
             R.drawable.vector_icon_gradient_3_mirror,
+            R.drawable.vector_icon_gradient_then_solid
     };
 
     /* Golden images for vectors with gradients. Note some images have platform level variants:
@@ -172,6 +183,7 @@ public class VectorDrawableTest {
             R.drawable.vector_icon_gradient_1_clamp_golden,
             R.drawable.vector_icon_gradient_2_repeat_golden,
             R.drawable.vector_icon_gradient_3_mirror_golden,
+            R.drawable.vector_icon_gradient_then_solid_golden
     };
 
     private static final int[] STATEFUL_RES_IDS = new int[]{
@@ -227,10 +239,10 @@ public class VectorDrawableTest {
         mBitmap = Bitmap.createBitmap(IMAGE_WIDTH, IMAGE_HEIGHT, ARGB_8888);
         mCanvas = new Canvas(mBitmap);
 
-        mContext = InstrumentationRegistry.getContext();
+        mContext = ApplicationProvider.getApplicationContext();
         mResources = mContext.getResources();
         mTheme = mContext.getTheme();
-        mTheme.applyStyle(R.style.VectorDrawableTestTheme, false);
+        mTheme.applyStyle(R.style.VectorDrawableTestTheme, true);
     }
 
     @Test
@@ -479,6 +491,7 @@ public class VectorDrawableTest {
         d2.setAlpha(originalAlpha);
     }
 
+    @Test
     public void testBounds() {
         VectorDrawableCompat vectorDrawable =
                 VectorDrawableCompat.create(mResources, R.drawable.vector_icon_delete, mTheme);
@@ -493,5 +506,65 @@ public class VectorDrawableTest {
 
         vectorDrawable.copyBounds(rect);
         assertEquals("Bounds should be same value for copyBounds", rect, expectedRect);
+    }
+
+    @Test
+    public void testTint() {
+        VectorDrawableCompat d =
+                VectorDrawableCompat.create(mResources, R.drawable.heart, mTheme);
+
+        d.setBounds(0, 0, 64, 64);
+        Bitmap bitmap = Bitmap.createBitmap(64, 64, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        d.draw(canvas);
+        assertEquals(0xff00fff0, bitmap.getPixel(32, 32));
+    }
+
+    @Test
+    public void testGetColorFilter() {
+        VectorDrawableCompat d =
+                VectorDrawableCompat.create(mResources, R.drawable.heart, mTheme);
+
+        d.setBounds(0, 0, 64, 64);
+
+        int color = Color.BLACK;
+        ColorFilter blackFilter = new PorterDuffColorFilter(color, PorterDuff.Mode.SRC_OVER);
+        d.setColorFilter(blackFilter);
+        assertEquals(blackFilter, d.getColorFilter());
+
+        Bitmap bitmap = Bitmap.createBitmap(64, 64, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        d.draw(canvas);
+        assertEquals(color, bitmap.getPixel(32, 32));
+
+        color = Color.WHITE;
+        ColorFilter whiteFilter = new PorterDuffColorFilter(color, PorterDuff.Mode.SRC_OVER);
+        d.setColorFilter(whiteFilter);
+        assertEquals(whiteFilter, d.getColorFilter());
+
+        d.draw(canvas);
+        assertEquals(color, bitmap.getPixel(32, 32));
+    }
+
+    /**
+     * Test VectorDrawableCompat#setColorFilter(int, Mode)
+     */
+    @Test
+    public void testSetColorFilter() {
+        VectorDrawableCompat d =
+                VectorDrawableCompat.create(mResources, R.drawable.heart, mTheme);
+        int color = Color.CYAN;
+        d.setBounds(0, 0, 64, 64);
+        d.setColorFilter(color, PorterDuff.Mode.SRC_OVER);
+
+        Bitmap bitmap = Bitmap.createBitmap(64, 64, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        d.draw(canvas);
+        assertEquals(color, bitmap.getPixel(32, 32));
+
+        color = Color.YELLOW;
+        d.setColorFilter(color, PorterDuff.Mode.SRC_OVER);
+        d.draw(canvas);
+        assertEquals(color, bitmap.getPixel(32, 32));
     }
 }

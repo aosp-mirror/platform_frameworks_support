@@ -14,13 +14,17 @@
  * limitations under the License.
  */
 
+import androidx.room.DatabaseView
 import androidx.room.Entity
+import androidx.room.ext.GuavaUtilConcurrentTypeNames
 import androidx.room.ext.LifecyclesTypeNames
 import androidx.room.ext.PagingTypeNames
 import androidx.room.ext.ReactiveStreamsTypeNames
+import androidx.room.ext.RoomGuavaTypeNames
 import androidx.room.ext.RoomRxJava2TypeNames
 import androidx.room.ext.RxJava2TypeNames
-import androidx.room.processor.EntityProcessor
+import androidx.room.processor.TableEntityProcessor
+import androidx.room.processor.DatabaseViewProcessor
 import androidx.room.solver.CodeGenScope
 import androidx.room.testing.TestInvocation
 import androidx.room.testing.TestProcessor
@@ -52,6 +56,9 @@ object COMMON {
     val USER by lazy {
         loadJavaCode("common/input/User.java", "foo.bar.User")
     }
+    val USER_SUMMARY by lazy {
+        loadJavaCode("common/input/UserSummary.java", "foo.bar.UserSummary")
+    }
     val USER_TYPE_NAME by lazy {
         ClassName.get("foo.bar", "User")
     }
@@ -60,6 +67,19 @@ object COMMON {
     }
     val NOT_AN_ENTITY by lazy {
         loadJavaCode("common/input/NotAnEntity.java", "foo.bar.NotAnEntity")
+    }
+
+    val PARENT by lazy {
+        loadJavaCode("common/input/Parent.java", "foo.bar.Parent")
+    }
+    val CHILD1 by lazy {
+        loadJavaCode("common/input/Child1.java", "foo.bar.Child1")
+    }
+    val CHILD2 by lazy {
+        loadJavaCode("common/input/Child2.java", "foo.bar.Child2")
+    }
+    val INFO by lazy {
+        loadJavaCode("common/input/Info.java", "foo.bar.Info")
     }
 
     val NOT_AN_ENTITY_TYPE_NAME by lazy {
@@ -88,6 +108,18 @@ object COMMON {
         loadJavaCode("common/input/rxjava2/Observable.java",
                 RxJava2TypeNames.OBSERVABLE.toString())
     }
+    val SINGLE by lazy {
+        loadJavaCode("common/input/rxjava2/Single.java",
+                RxJava2TypeNames.SINGLE.toString())
+    }
+    val MAYBE by lazy {
+        loadJavaCode("common/input/rxjava2/Maybe.java",
+                RxJava2TypeNames.MAYBE.toString())
+    }
+    val COMPLETABLE by lazy {
+        loadJavaCode("common/input/rxjava2/Completable.java",
+                RxJava2TypeNames.COMPLETABLE.toString())
+    }
 
     val RX2_ROOM by lazy {
         loadJavaCode("common/input/Rx2Room.java", RoomRxJava2TypeNames.RX_ROOM.toString())
@@ -100,6 +132,16 @@ object COMMON {
     val POSITIONAL_DATA_SOURCE by lazy {
         loadJavaCode("common/input/PositionalDataSource.java",
                 PagingTypeNames.POSITIONAL_DATA_SOURCE.toString())
+    }
+
+    val LISTENABLE_FUTURE by lazy {
+        loadJavaCode("common/input/guava/ListenableFuture.java",
+            GuavaUtilConcurrentTypeNames.LISTENABLE_FUTURE.toString())
+    }
+
+    val GUAVA_ROOM by lazy {
+        loadJavaCode("common/input/GuavaRoom.java",
+            RoomGuavaTypeNames.GUAVA_ROOM.toString())
     }
 }
 fun testCodeGenScope(): CodeGenScope {
@@ -128,12 +170,15 @@ fun loadJavaCode(fileName: String, qName: String): JavaFileObject {
     return JavaFileObjects.forSourceString(qName, contents)
 }
 
-fun createVerifierFromEntities(invocation: TestInvocation): DatabaseVerifier {
+fun createVerifierFromEntitiesAndViews(invocation: TestInvocation): DatabaseVerifier {
     val entities = invocation.roundEnv.getElementsAnnotatedWith(Entity::class.java).map {
-        EntityProcessor(invocation.context, MoreElements.asType(it)).process()
+        TableEntityProcessor(invocation.context, MoreElements.asType(it)).process()
+    }
+    val views = invocation.roundEnv.getElementsAnnotatedWith(DatabaseView::class.java).map {
+        DatabaseViewProcessor(invocation.context, MoreElements.asType(it)).process()
     }
     return DatabaseVerifier.create(invocation.context, Mockito.mock(Element::class.java),
-            entities)!!
+            entities, views)!!
 }
 
 /**
@@ -178,3 +223,5 @@ fun compileLibrarySources(vararg sources: JavaFileObject): ClassLoader {
     val classesPath = Paths.get(tempDir.path, StandardLocation.CLASS_OUTPUT.name).toUri().toURL()
     return URLClassLoader(arrayOf(classesPath), ClassLoader.getSystemClassLoader())
 }
+
+fun String.toJFO(qName: String): JavaFileObject = JavaFileObjects.forSourceLines(qName, this)

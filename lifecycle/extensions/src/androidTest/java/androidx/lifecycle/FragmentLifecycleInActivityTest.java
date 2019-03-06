@@ -33,8 +33,8 @@ import android.content.Intent;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.activity.FragmentLifecycleActivity;
-import androidx.test.InstrumentationRegistry;
-import androidx.test.filters.MediumTest;
+import androidx.test.filters.SmallTest;
+import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 
 import org.junit.Before;
@@ -46,7 +46,7 @@ import org.junit.runners.Parameterized;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
-@MediumTest
+@SmallTest
 @RunWith(Parameterized.class)
 public class FragmentLifecycleInActivityTest {
 

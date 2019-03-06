@@ -16,7 +16,7 @@
 
 package androidx.preference;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -41,11 +41,11 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
 /**
- * Abstract base class which presents a dialog associated with a
- * {@link androidx.preference.DialogPreference}. Since the preference object may
- * not be available during fragment re-creation, the necessary information for displaying the dialog
- * is read once during the initial call to {@link #onCreate(Bundle)} and saved/restored in the saved
- * instance state. Custom subclasses should also follow this pattern.
+ * Abstract base class which presents a dialog associated with a {@link DialogPreference}. Since
+ * the preference object may not be available during fragment re-creation, the necessary
+ * information for displaying the dialog is read once during the initial call to
+ * {@link #onCreate(Bundle)} and saved/restored in the saved instance state. Custom subclasses
+ * should also follow this pattern.
  */
 public abstract class PreferenceDialogFragmentCompat extends DialogFragment implements
         DialogInterface.OnClickListener {
@@ -87,7 +87,7 @@ public abstract class PreferenceDialogFragmentCompat extends DialogFragment impl
 
         final String key = getArguments().getString(ARG_KEY);
         if (savedInstanceState == null) {
-            mPreference = (DialogPreference) fragment.findPreference(key);
+            mPreference = fragment.findPreference(key);
             mDialogTitle = mPreference.getDialogTitle();
             mPositiveButtonText = mPreference.getPositiveButtonText();
             mNegativeButtonText = mPreference.getNegativeButtonText();
@@ -167,15 +167,14 @@ public abstract class PreferenceDialogFragmentCompat extends DialogFragment impl
      * Get the preference that requested this dialog. Available after {@link #onCreate(Bundle)} has
      * been called on the {@link PreferenceFragmentCompat} which launched this dialog.
      *
-     * @return The {@link DialogPreference} associated with this
-     * dialog.
+     * @return The {@link DialogPreference} associated with this dialog
      */
     public DialogPreference getPreference() {
         if (mPreference == null) {
             final String key = getArguments().getString(ARG_KEY);
             final DialogPreference.TargetFragment fragment =
                     (DialogPreference.TargetFragment) getTargetFragment();
-            mPreference = (DialogPreference) fragment.findPreference(key);
+            mPreference = fragment.findPreference(key);
         }
         return mPreference;
     }
@@ -183,9 +182,8 @@ public abstract class PreferenceDialogFragmentCompat extends DialogFragment impl
     /**
      * Prepares the dialog builder to be shown when the preference is clicked.
      * Use this to set custom properties on the dialog.
-     * <p>
-     * Do not {@link AlertDialog.Builder#create()} or
-     * {@link AlertDialog.Builder#show()}.
+     *
+     * <p>Do not {@link AlertDialog.Builder#create()} or {@link AlertDialog.Builder#show()}.
      */
     protected void onPrepareDialogBuilder(AlertDialog.Builder builder) {}
 
@@ -200,7 +198,7 @@ public abstract class PreferenceDialogFragmentCompat extends DialogFragment impl
      *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY)
     protected boolean needInputMethod() {
         return false;
     }
@@ -214,11 +212,10 @@ public abstract class PreferenceDialogFragmentCompat extends DialogFragment impl
     }
 
     /**
-     * Creates the content view for the dialog (if a custom content view is
-     * required). By default, it inflates the dialog layout resource if it is
-     * set.
+     * Creates the content view for the dialog (if a custom content view is required).
+     * By default, it inflates the dialog layout resource if it is set.
      *
-     * @return The content View for the dialog.
+     * @return The content view for the dialog
      * @see DialogPreference#setLayoutResource(int)
      */
     protected View onCreateDialogView(Context context) {
@@ -232,11 +229,11 @@ public abstract class PreferenceDialogFragmentCompat extends DialogFragment impl
     }
 
     /**
-     * Binds views in the content View of the dialog to data.
-     * <p>
-     * Make sure to call through to the superclass implementation.
+     * Binds views in the content view of the dialog to data.
      *
-     * @param view The content View of the dialog, if it is custom.
+     * <p>Make sure to call through to the superclass implementation.
+     *
+     * @param view The content view of the dialog, if it is custom
      */
     protected void onBindDialogView(View view) {
         View dialogMessageView = view.findViewById(android.R.id.message);
@@ -265,7 +262,7 @@ public abstract class PreferenceDialogFragmentCompat extends DialogFragment impl
     }
 
     @Override
-    public void onDismiss(DialogInterface dialog) {
+    public void onDismiss(@NonNull DialogInterface dialog) {
         super.onDismiss(dialog);
         onDialogClosed(mWhichButtonClicked == DialogInterface.BUTTON_POSITIVE);
     }

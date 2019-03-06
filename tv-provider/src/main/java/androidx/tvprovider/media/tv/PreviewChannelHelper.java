@@ -15,8 +15,9 @@
  */
 package androidx.tvprovider.media.tv;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
+import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
@@ -244,7 +245,7 @@ public class PreviewChannelHelper {
      *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     protected void updatePreviewChannelInternal(long channelId, @NonNull PreviewChannel upgrade) {
         mContext.getContentResolver().update(
                 TvContractCompat.buildChannelUri(channelId),
@@ -260,6 +261,8 @@ public class PreviewChannelHelper {
      * must have a logo, a NullPointerException is thrown if the channel being published has no
      * associated logo to publish with it.
      */
+    @WorkerThread
+    @SuppressLint("WrongThread") // TODO https://issuetracker.google.com/issues/116776070
     private boolean addChannelLogo(long channelId, @NonNull PreviewChannel channel) {
         boolean result = false;
         if (!channel.isLogoChanged()) {
@@ -404,7 +407,7 @@ public class PreviewChannelHelper {
      *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     void updatePreviewProgramInternal(long programId, @NonNull PreviewProgram upgrade) {
         mContext.getContentResolver().update(
                 TvContractCompat.buildPreviewProgramUri(programId),
@@ -465,7 +468,7 @@ public class PreviewChannelHelper {
      *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     void updateWatchNextProgram(long programId, @NonNull WatchNextProgram upgrade) {
         mContext.getContentResolver().update(
                 TvContractCompat.buildWatchNextProgramUri(programId),

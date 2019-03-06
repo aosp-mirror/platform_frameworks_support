@@ -16,38 +16,39 @@
 
 package androidx.build
 
-import androidx.build.SupportConfig.DEFAULT_MIN_SDK_VERSION
 import groovy.lang.Closure
 import org.gradle.api.Project
 import java.util.ArrayList
+import kotlin.properties.Delegates
 
 /**
  * Extension for [SupportAndroidLibraryPlugin] and [SupportJavaLibraryPlugin].
  */
 open class SupportLibraryExtension(val project: Project) {
     var name: String? = null
-    var mavenVersion: Version? = null
+    var mavenVersion: Version? by Delegates.observable<Version?>(null) { _, _, new: Version? ->
+        project.version = new?.toString()
+    }
     var mavenGroup: String? = null
     var description: String? = null
     var inceptionYear: String? = null
     var url = SUPPORT_URL
     private var licenses: MutableCollection<License> = ArrayList()
-    var java8Library = false
     var publish = false
     var failOnUncheckedWarnings = true
     var failOnDeprecationWarnings = true
 
+    var compilationTarget: CompilationTarget = CompilationTarget.DEVICE
+
+    var useMetalava = true
+    var trackRestrictedAPIs = true
+
     /**
-     * This flag works only if publish flag is "true".
-     * It is useful for modules that are used for tooling. For example room annotation
-     * processor module is published, but we don't want to expose any docs, because we don't
-     * support using it as a library.
+     * It disables docs generation and api tracking for tooling modules like annotation processors.
+     * We don't expect such modules to be used by developers as libraries, so we don't guarantee
+     * any api stability and don't expose any docs about them.
      */
-    var generateDocs = true
-    /**
-     * If unset minSdkVersion will be [DEFAULT_MIN_SDK_VERSION].
-     */
-    var minSdkVersion: Int = DEFAULT_MIN_SDK_VERSION
+    var toolingProject = false
 
     fun license(closure: Closure<*>): License {
         val license = project.configure(License(), closure) as License
@@ -61,11 +62,18 @@ open class SupportLibraryExtension(val project: Project) {
 
     companion object {
         @JvmField
-        val ARCHITECTURE_URL
-                = "https://developer.android.com/topic/libraries/architecture/index.html"
+        val ARCHITECTURE_URL =
+                "https://developer.android.com/topic/libraries/architecture/index.html"
         @JvmField
         val SUPPORT_URL = "http://developer.android.com/tools/extras/support-library.html"
     }
+}
+
+enum class CompilationTarget {
+    /** This library is meant to run on the host machine (like an annotation processor). */
+    HOST,
+    /** This library is meant to run on an Android device. */
+    DEVICE
 }
 
 class License {

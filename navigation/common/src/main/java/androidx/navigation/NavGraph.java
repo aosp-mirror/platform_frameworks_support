@@ -19,14 +19,12 @@ package androidx.navigation;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.net.Uri;
-import android.os.Bundle;
-import android.support.annotation.IdRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.util.Pair;
-import android.support.v4.util.SparseArrayCompat;
 import android.util.AttributeSet;
 
+import androidx.annotation.IdRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.collection.SparseArrayCompat;
 import androidx.navigation.common.R;
 
 import java.util.Collection;
@@ -44,18 +42,7 @@ public class NavGraph extends NavDestination implements Iterable<NavDestination>
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     final SparseArrayCompat<NavDestination> mNodes = new SparseArrayCompat<>();
     private int mStartDestId;
-
-    /**
-     * Construct a new NavGraph. This NavGraph is not valid until you
-     * {@link #addDestination(NavDestination) add a destination} and
-     * {@link #setStartDestination(int) set the starting destination}.
-     *
-     * @param navigatorProvider The {@link NavController} which this NavGraph
-     *                          will be associated with.
-     */
-    public NavGraph(@NonNull NavigatorProvider navigatorProvider) {
-        this(navigatorProvider.getNavigator(NavGraphNavigator.class));
-    }
+    private String mStartDestIdName;
 
     /**
      * Construct a new NavGraph. This NavGraph is not valid until you
@@ -78,25 +65,24 @@ public class NavGraph extends NavDestination implements Iterable<NavDestination>
                 R.styleable.NavGraphNavigator);
         setStartDestination(
                 a.getResourceId(R.styleable.NavGraphNavigator_startDestination, 0));
+        mStartDestIdName = getDisplayName(context, mStartDestId);
         a.recycle();
     }
 
     @Override
     @Nullable
-    Pair<NavDestination, Bundle> matchDeepLink(@NonNull Uri uri) {
+    DeepLinkMatch matchDeepLink(@NonNull Uri uri) {
         // First search through any deep links directly added to this NavGraph
-        Pair<NavDestination, Bundle> result = super.matchDeepLink(uri);
-        if (result != null) {
-            return result;
-        }
+        DeepLinkMatch bestMatch = super.matchDeepLink(uri);
         // Then search through all child destinations for a matching deep link
         for (NavDestination child : this) {
-            Pair<NavDestination, Bundle> childResult = child.matchDeepLink(uri);
-            if (childResult != null) {
-                return childResult;
+            DeepLinkMatch childBestMatch = child.matchDeepLink(uri);
+            if (childBestMatch != null && (bestMatch == null
+                    || childBestMatch.compareTo(bestMatch) > 0)) {
+                bestMatch = childBestMatch;
             }
         }
-        return null;
+        return bestMatch;
     }
 
     /**
@@ -109,7 +95,7 @@ public class NavGraph extends NavDestination implements Iterable<NavDestination>
      *
      * @param node destination to add
      */
-    public void addDestination(@NonNull NavDestination node) {
+    public final void addDestination(@NonNull NavDestination node) {
         if (node.getId() == 0) {
             throw new IllegalArgumentException("Destinations must have an id."
                     + " Call setId() or include an android:id in your navigation XML.");
@@ -139,7 +125,7 @@ public class NavGraph extends NavDestination implements Iterable<NavDestination>
      *
      * @param nodes destinations to add
      */
-    public void addDestinations(@NonNull Collection<NavDestination> nodes) {
+    public final void addDestinations(@NonNull Collection<NavDestination> nodes) {
         for (NavDestination node : nodes) {
             if (node == null) {
                 continue;
@@ -158,7 +144,7 @@ public class NavGraph extends NavDestination implements Iterable<NavDestination>
      *
      * @param nodes destinations to add
      */
-    public void addDestinations(@NonNull NavDestination... nodes) {
+    public final void addDestinations(@NonNull NavDestination... nodes) {
         for (NavDestination node : nodes) {
             if (node == null) {
                 continue;
@@ -175,11 +161,13 @@ public class NavGraph extends NavDestination implements Iterable<NavDestination>
      * @param resid ID to locate
      * @return the node with ID resid
      */
-    public NavDestination findNode(@IdRes int resid) {
+    @Nullable
+    public final NavDestination findNode(@IdRes int resid) {
         return findNode(resid, true);
     }
 
-    NavDestination findNode(@IdRes int resid, boolean searchParents) {
+    @Nullable
+    final NavDestination findNode(@IdRes int resid, boolean searchParents) {
         NavDestination destination = mNodes.get(resid);
         // Search the parent for the NavDestination if it is not a child of this navigation graph
         // and searchParents is true
@@ -190,7 +178,7 @@ public class NavGraph extends NavDestination implements Iterable<NavDestination>
 
     @NonNull
     @Override
-    public Iterator<NavDestination> iterator() {
+    public final Iterator<NavDestination> iterator() {
         return new Iterator<NavDestination>() {
             private int mIndex = -1;
             private boolean mWentToNext = false;
@@ -230,7 +218,7 @@ public class NavGraph extends NavDestination implements Iterable<NavDestination>
      * @param other collection of destinations to add. All destinations will be removed from this
      * graph after being added to this graph.
      */
-    public void addAll(@NonNull NavGraph other) {
+    public final void addAll(@NonNull NavGraph other) {
         Iterator<NavDestination> iterator = other.iterator();
         while (iterator.hasNext()) {
             NavDestination destination = iterator.next();
@@ -244,7 +232,7 @@ public class NavGraph extends NavDestination implements Iterable<NavDestination>
      *
      * @param node the destination to remove.
      */
-    public void remove(@NonNull NavDestination node) {
+    public final void remove(@NonNull NavDestination node) {
         int index = mNodes.indexOfKey(node.getId());
         if (index >= 0) {
             mNodes.valueAt(index).setParent(null);
@@ -255,12 +243,18 @@ public class NavGraph extends NavDestination implements Iterable<NavDestination>
     /**
      * Clear all destinations from this navigation graph.
      */
-    public void clear() {
+    public final void clear() {
         Iterator<NavDestination> iterator = iterator();
         while (iterator.hasNext()) {
             iterator.next();
             iterator.remove();
         }
+    }
+
+    @NonNull
+    @Override
+    String getDisplayName() {
+        return getId() != 0 ? super.getDisplayName() : "the root navigation";
     }
 
     /**
@@ -269,7 +263,7 @@ public class NavGraph extends NavDestination implements Iterable<NavDestination>
      * @return
      */
     @IdRes
-    public int getStartDestination() {
+    public final int getStartDestination() {
         return mStartDestId;
     }
 
@@ -278,7 +272,16 @@ public class NavGraph extends NavDestination implements Iterable<NavDestination>
      *
      * @param startDestId The id of the destination to be shown when navigating to this NavGraph.
      */
-    public void setStartDestination(@IdRes int startDestId) {
+    public final void setStartDestination(@IdRes int startDestId) {
         mStartDestId = startDestId;
+        mStartDestIdName = null;
+    }
+
+    @NonNull
+    String getStartDestDisplayName() {
+        if (mStartDestIdName == null) {
+            mStartDestIdName = Integer.toString(mStartDestId);
+        }
+        return mStartDestIdName;
     }
 }

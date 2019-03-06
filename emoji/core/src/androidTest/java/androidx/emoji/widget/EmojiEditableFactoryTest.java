@@ -31,13 +31,13 @@ import android.text.Spanned;
 import androidx.emoji.text.EmojiMetadata;
 import androidx.emoji.text.EmojiSpan;
 import androidx.emoji.text.TypefaceEmojiSpan;
-import androidx.test.filters.SmallTest;
-import androidx.test.runner.AndroidJUnit4;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.MediumTest;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-@SmallTest
+@MediumTest
 @RunWith(AndroidJUnit4.class)
 public class EmojiEditableFactoryTest {
 

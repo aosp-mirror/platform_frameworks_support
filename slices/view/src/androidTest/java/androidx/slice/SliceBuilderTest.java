@@ -27,16 +27,21 @@ import static org.mockito.Mockito.verify;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.net.Uri;
 
+import androidx.core.graphics.drawable.IconCompat;
 import androidx.slice.builders.GridRowBuilder;
 import androidx.slice.builders.ListBuilder;
+import androidx.slice.builders.SelectionBuilder;
+import androidx.slice.builders.SliceAction;
 import androidx.slice.render.SliceRenderActivity;
 import androidx.slice.widget.SliceLiveData;
-import androidx.test.InstrumentationRegistry;
+import androidx.test.core.app.ApplicationProvider;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.LargeTest;
 import androidx.test.filters.SdkSuppress;
-import androidx.test.filters.SmallTest;
-import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -47,11 +52,11 @@ import org.junit.runner.RunWith;
  * Tests for content validation of the different slice builders.
  */
 @RunWith(AndroidJUnit4.class)
-@SmallTest
+@LargeTest
 @SdkSuppress(minSdkVersion = 19)
 public class SliceBuilderTest {
 
-    private final Context mContext = InstrumentationRegistry.getContext();
+    private final Context mContext = ApplicationProvider.getApplicationContext();
     private final Uri mUri = Uri.parse("content://androidx.slice.view.test/slice");
 
     @Before
@@ -64,6 +69,7 @@ public class SliceBuilderTest {
         ListBuilder lb = new ListBuilder(mContext, mUri, INFINITY);
         Slice slice = lb.addInputRange(new ListBuilder.InputRangeBuilder()
                 .setInputAction(getIntent(""))
+                .setPrimaryAction(getAction("action"))
                 .setTitle("Input range")
                 .setMax(20)
                 .setMin(50))
@@ -76,6 +82,7 @@ public class SliceBuilderTest {
         Slice slice = lb.addInputRange(new ListBuilder.InputRangeBuilder()
                 .setTitle("Input range")
                 .setInputAction(getIntent(""))
+                .setPrimaryAction(getAction("action"))
                 .setMax(20)
                 .setMin(30))
                 .build();
@@ -86,6 +93,7 @@ public class SliceBuilderTest {
         ListBuilder lb = new ListBuilder(mContext, mUri, INFINITY);
         Slice slice = lb.addInputRange(new ListBuilder.InputRangeBuilder()
                 .setInputAction(getIntent(""))
+                .setPrimaryAction(getAction("action"))
                 .setTitle("Input range")
                 .setMax(80)
                 .setValue(100)
@@ -108,9 +116,11 @@ public class SliceBuilderTest {
         lb.build();
     }
 
+    @Test
     public void testNoThrowForFirstHeader() {
         ListBuilder lb = new ListBuilder(mContext, mUri, INFINITY);
         lb.setHeader(new ListBuilder.HeaderBuilder()
+                .setPrimaryAction(getAction("action"))
                 .setTitle("Title"));
         lb.build();
     }
@@ -120,15 +130,18 @@ public class SliceBuilderTest {
         ListBuilder lb = new ListBuilder(mContext, mUri, INFINITY);
         lb.addInputRange(new ListBuilder.InputRangeBuilder()
                 .setInputAction(getIntent(""))
+                .setPrimaryAction(getAction("action"))
                 .setMax(80)
                 .setValue(70)
                 .setMin(30))
                 .build();
     }
 
+    @Test
     public void testNoThrowForFirstInputRange() {
         ListBuilder lb = new ListBuilder(mContext, mUri, INFINITY);
         lb.addInputRange(new ListBuilder.InputRangeBuilder()
+                .setPrimaryAction(getAction("action"))
                 .setInputAction(getIntent(""))
                 .setTitle("Title")
                 .setMax(80)
@@ -164,10 +177,67 @@ public class SliceBuilderTest {
         }
     }
 
+    @Test
     public void testNoThrowForFirstRow() {
         ListBuilder lb = new ListBuilder(mContext, mUri, INFINITY);
-        lb.addRow(new ListBuilder.RowBuilder().setTitle("Title"));
+        lb.addRow(new ListBuilder.RowBuilder()
+                .setTitle("Title")
+                .setPrimaryAction(getAction("action")));
         lb.build();
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void testThrowNoPrimaryAction() {
+        ListBuilder lb = new ListBuilder(mContext, mUri, INFINITY);
+        lb.addRow(new ListBuilder.RowBuilder()
+                .setTitle("Title"));
+        lb.build();
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testThrowSelectionNoPrimaryAction() {
+        ListBuilder lb = new ListBuilder(mContext, mUri, INFINITY);
+        lb.addSelection(new SelectionBuilder()
+                .setTitle("Title")
+                .setSubtitle("Subtitle")
+                .setInputAction(getIntent("")));
+        lb.build();
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testThrowSelectionNoInputAction() {
+        ListBuilder lb = new ListBuilder(mContext, mUri, INFINITY);
+        lb.addSelection(new SelectionBuilder()
+                .setTitle("Title")
+                .setSubtitle("Subtitle")
+                .setPrimaryAction(getAction("action")));
+        lb.build();
+    }
+
+    @Test
+    public void testNoThrowSelection() {
+        ListBuilder lb = new ListBuilder(mContext, mUri, INFINITY);
+        lb.addSelection(new SelectionBuilder()
+                .setTitle("Title")
+                .setSubtitle("Subtitle")
+                .setPrimaryAction(getAction("action"))
+                .setInputAction(getIntent("")));
+        lb.build();
+    }
+
+    @Test
+    public void testNoThrowNoPrimaryActionWhileLoading() {
+        ListBuilder lb = new ListBuilder(mContext, mUri, INFINITY);
+        lb.addRow(new ListBuilder.RowBuilder()
+                .setTitle("Title", true /* isLoading */));
+        lb.build();
+    }
+
+    private SliceAction getAction(String actionName) {
+        Bitmap b = Bitmap.createBitmap(50, 25, Bitmap.Config.ARGB_8888);
+        new Canvas(b).drawColor(0xffff0000);
+        IconCompat icon = IconCompat.createWithBitmap(b);
+        return new SliceAction(getIntent(""), icon, actionName);
     }
 
     private PendingIntent getIntent(String action) {

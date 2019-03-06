@@ -21,7 +21,7 @@
             app:startDestination="@+id/first_screen">
     <fragment android:name="a.FakeFragment">
         <action android:id="@+id/finish" app:popUpTo="@id/first_screen">
-            <argument android:name="myArg" app:type="integer" app:nullable="true" />
+            <argument android:name="myArg" app:argType="integer" app:nullable="true" />
         </action>
     </fragment>
 </navigation>
