@@ -24,15 +24,15 @@ import android.content.Context;
 import android.view.View;
 
 import androidx.leanback.R;
-import androidx.test.InstrumentationRegistry;
-import androidx.test.filters.SmallTest;
-import androidx.test.runner.AndroidJUnit4;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.LargeTest;
+import androidx.test.platform.app.InstrumentationRegistry;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 
-@SmallTest
+@LargeTest
 @RunWith(AndroidJUnit4.class)
 
 public class ThumbsBarTest {
@@ -217,6 +217,7 @@ public class ThumbsBarTest {
      * be 1. According to the algorithm of calculateNumOfThumbs, it should be reassigned to 2 and
      * the final result should be 3 after counting the hero thumb.
      */
+    @LargeTest
     @Test
     public void checkCalculateNumberOfThumbs1() {
         mContext = InstrumentationRegistry.getInstrumentation().getTargetContext();

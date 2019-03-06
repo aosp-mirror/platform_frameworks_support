@@ -17,8 +17,11 @@ package androidx.testutils;
 
 import static org.junit.Assert.assertTrue;
 
+import android.os.Build;
 import android.os.Looper;
+import android.view.View;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.test.rule.ActivityTestRule;
 
 import java.util.concurrent.CountDownLatch;
@@ -35,9 +38,26 @@ public class AppCompatActivityUtils {
     };
 
     /**
+     * Wait until the specified number of cycles have passed.
+     *
+     * @param cycles The number of cycles to wait
+     * @param rule The test's ActivityTestRule
+     */
+    public static void waitForCycles(final int cycles,
+            final ActivityTestRule<? extends RecreatedAppCompatActivity> rule) {
+        try {
+            for (int i = 0; i < cycles; i++) {
+                rule.runOnUiThread(DO_NOTHING);
+            }
+        } catch (Throwable throwable) {
+            throw new RuntimeException(throwable);
+        }
+    }
+
+    /**
      * Waits for the execution of the provided activity test rule.
      *
-     * @param rule Activity test rule to wait for.
+     * @param rule Activity test rule to wait for
      */
     public static void waitForExecution(
             final ActivityTestRule<? extends RecreatedAppCompatActivity> rule) {
@@ -45,12 +65,7 @@ public class AppCompatActivityUtils {
         // the UI thread and then the execution will be added onto the queue after that.
         // The two-cycle wait makes sure fragments have the opportunity to complete both
         // before returning.
-        try {
-            rule.runOnUiThread(DO_NOTHING);
-            rule.runOnUiThread(DO_NOTHING);
-        } catch (Throwable throwable) {
-            throw new RuntimeException(throwable);
-        }
+        waitForCycles(2, rule);
     }
 
     private static void runOnUiThreadRethrow(
@@ -92,6 +107,36 @@ public class AppCompatActivityUtils {
 
         RecreatedAppCompatActivity.clearState();
         return newActivity;
+    }
+
+    /**
+     * Waits until the activity is (re)drawn.
+     *
+     * @param activity An Activity
+     */
+    public static <T extends AppCompatActivity> void waitForActivityDrawn(final T activity) {
+        final CountDownLatch latch = new CountDownLatch(1);
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                View view = activity.getWindow().getDecorView();
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                    view.getViewTreeObserver().addOnDrawListener(
+                            new CountOnDraw(latch, view));
+                } else {
+                    view.getViewTreeObserver().addOnPreDrawListener(
+                            new CountOnPreDraw(latch, view));
+                }
+                view.invalidate();
+            }
+        });
+
+        try {
+            assertTrue("Draw pass did not occur within 5 seconds",
+                    latch.await(5, TimeUnit.SECONDS));
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private AppCompatActivityUtils() {

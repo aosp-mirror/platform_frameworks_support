@@ -16,10 +16,10 @@
 
 package androidx.coordinatorlayout.widget;
 
-import static androidx.test.InstrumentationRegistry.getInstrumentation;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.swipeUp;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -39,6 +39,7 @@ import static org.mockito.Mockito.verify;
 
 import android.app.Instrumentation;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.graphics.Rect;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -54,10 +55,10 @@ import androidx.core.view.GravityCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.test.annotation.UiThreadTest;
-import androidx.test.filters.MediumTest;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.LargeTest;
 import androidx.test.filters.SdkSuppress;
 import androidx.test.rule.ActivityTestRule;
-import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -68,7 +69,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
-@MediumTest
+@LargeTest
 @RunWith(AndroidJUnit4.class)
 public class CoordinatorLayoutTest {
     @Rule
@@ -88,6 +89,13 @@ public class CoordinatorLayoutTest {
     @Test
     @SdkSuppress(minSdkVersion = 21)
     public void testSetFitSystemWindows() throws Throwable {
+        // Skip this test on Android TV
+        PackageManager manager = mActivityTestRule.getActivity().getPackageManager();
+        if (manager.hasSystemFeature(PackageManager.FEATURE_TELEVISION)
+                || manager.hasSystemFeature(PackageManager.FEATURE_LEANBACK)) {
+            return;
+        }
+
         final Instrumentation instrumentation = getInstrumentation();
         final CoordinatorLayout col = mActivityTestRule.getActivity().mCoordinatorLayout;
         final View view = new View(col.getContext());

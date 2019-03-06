@@ -16,28 +16,27 @@
 
 package androidx.navigation
 
-import android.os.Bundle
-import android.support.annotation.IdRes
-import androidx.test.InstrumentationRegistry
+import androidx.annotation.IdRes
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
-import androidx.test.runner.AndroidJUnit4
-import androidx.navigation.testing.TestNavigator
-import androidx.navigation.testing.TestNavigatorProvider
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotNull
+import com.google.common.truth.Truth.assertWithMessage
 import org.junit.Test
 import org.junit.runner.RunWith
 
 @SmallTest
 @RunWith(AndroidJUnit4::class)
 class NavDestinationTest {
-    private val provider = TestNavigatorProvider(InstrumentationRegistry.getTargetContext())
+    private val provider = NavigatorProvider().apply {
+        addNavigator(NavGraphNavigator(this))
+        addNavigator(NoOpNavigator())
+    }
 
     @Test
     fun navDestination() {
         val destination = provider.navDestination(DESTINATION_ID) { }
-        assertEquals("NavDestination should have id set",
-                DESTINATION_ID, destination.id)
+        assertWithMessage("NavDestination should have id set")
+            .that(destination.id)
+            .isEqualTo(DESTINATION_ID)
     }
 
     @Test
@@ -45,18 +44,40 @@ class NavDestinationTest {
         val destination = provider.navDestination(DESTINATION_ID) {
             label = LABEL
         }
-        assertEquals("NavDestination should have label set",
-                LABEL, destination.label)
+        assertWithMessage("NavDestination should have label set")
+            .that(destination.label)
+            .isEqualTo(LABEL)
     }
 
     @Test
     fun navDestinationDefaultArguments() {
-        val arguments = Bundle()
         val destination = provider.navDestination(DESTINATION_ID) {
-            defaultArguments = arguments
+            argument("testArg") {
+                defaultValue = "123"
+                type = NavType.StringType
+            }
+            argument("testArg2") {
+                type = NavType.StringType
+            }
         }
-        assertEquals("NavDestination should have default arguments set",
-                arguments, destination.defaultArguments)
+        assertWithMessage("NavDestination should have default arguments set")
+            .that(destination.arguments.get("testArg")?.defaultValue)
+            .isEqualTo("123")
+        assertWithMessage("NavArgument shouldn't have a default value")
+                .that(destination.arguments.get("testArg2")?.isDefaultValuePresent)
+                .isFalse()
+    }
+
+    @Test
+    fun navDestinationDefaultArgumentsInferred() {
+        val destination = provider.navDestination(DESTINATION_ID) {
+            argument("testArg") {
+                defaultValue = 123
+            }
+        }
+        assertWithMessage("NavDestination should have default arguments set")
+            .that(destination.arguments.get("testArg")?.defaultValue)
+            .isEqualTo(123)
     }
 
     @Test
@@ -70,9 +91,12 @@ class NavDestinationTest {
             }
         }
         val action = destination.getAction(ACTION_ID)
-        assertNotNull("NavDestination should have action that was added", action)
-        assertEquals("NavAction should have NavOptions set",
-                DESTINATION_ID, action?.navOptions?.popUpTo)
+        assertWithMessage("NavDestination should have action that was added")
+            .that(action)
+            .isNotNull()
+        assertWithMessage("NavAction should have NavOptions set")
+            .that(action?.navOptions?.popUpTo)
+            .isEqualTo(DESTINATION_ID)
     }
 }
 
@@ -86,6 +110,6 @@ private const val ACTION_ID = 1
  * isolation.
  */
 fun NavigatorProvider.navDestination(
-        @IdRes id: Int,
-        block: NavDestinationBuilder<NavDestination>.() -> Unit
-): NavDestination = NavDestinationBuilder(this[TestNavigator::class], id).apply(block).build()
+    @IdRes id: Int,
+    builder: NavDestinationBuilder<NavDestination>.() -> Unit
+): NavDestination = NavDestinationBuilder(this[NoOpNavigator::class], id).apply(builder).build()

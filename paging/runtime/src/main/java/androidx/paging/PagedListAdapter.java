@@ -16,6 +16,8 @@
 
 package androidx.paging;
 
+import android.annotation.SuppressLint;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.AdapterListUpdateCallback;
@@ -109,14 +111,24 @@ import androidx.recyclerview.widget.RecyclerView;
  */
 public abstract class PagedListAdapter<T, VH extends RecyclerView.ViewHolder>
         extends RecyclerView.Adapter<VH> {
-    private final AsyncPagedListDiffer<T> mDiffer;
+    final AsyncPagedListDiffer<T> mDiffer;
     private final AsyncPagedListDiffer.PagedListListener<T> mListener =
             new AsyncPagedListDiffer.PagedListListener<T>() {
         @Override
-        public void onCurrentListChanged(@Nullable PagedList<T> currentList) {
+        public void onCurrentListChanged(
+                @Nullable PagedList<T> previousList, @Nullable PagedList<T> currentList) {
             PagedListAdapter.this.onCurrentListChanged(currentList);
+            PagedListAdapter.this.onCurrentListChanged(previousList, currentList);
         }
     };
+    private final PagedList.LoadStateListener mLoadStateListener =
+            new PagedList.LoadStateListener() {
+                @Override
+                public void onLoadStateChanged(@NonNull PagedList.LoadType type,
+                        @NonNull PagedList.LoadState state, @Nullable Throwable error) {
+                    PagedListAdapter.this.onLoadStateChanged(type, state, error);
+                }
+            };
 
     /**
      * Creates a PagedListAdapter with default threading and
@@ -130,13 +142,14 @@ public abstract class PagedListAdapter<T, VH extends RecyclerView.ViewHolder>
      */
     protected PagedListAdapter(@NonNull DiffUtil.ItemCallback<T> diffCallback) {
         mDiffer = new AsyncPagedListDiffer<>(this, diffCallback);
-        mDiffer.mListener = mListener;
+        mDiffer.addPagedListListener(mListener);
+        mDiffer.addLoadStateListener(mLoadStateListener);
     }
 
-    @SuppressWarnings("unused, WeakerAccess")
     protected PagedListAdapter(@NonNull AsyncDifferConfig<T> config) {
         mDiffer = new AsyncPagedListDiffer<>(new AdapterListUpdateCallback(this), config);
-        mDiffer.mListener = mListener;
+        mDiffer.addPagedListListener(mListener);
+        mDiffer.addLoadStateListener(mLoadStateListener);
     }
 
     /**
@@ -147,8 +160,27 @@ public abstract class PagedListAdapter<T, VH extends RecyclerView.ViewHolder>
      *
      * @param pagedList The new list to be displayed.
      */
-    public void submitList(PagedList<T> pagedList) {
+    public void submitList(@Nullable PagedList<T> pagedList) {
         mDiffer.submitList(pagedList);
+    }
+
+    /**
+     * Set the new list to be displayed.
+     * <p>
+     * If a list is already being displayed, a diff will be computed on a background thread, which
+     * will dispatch Adapter.notifyItem events on the main thread.
+     * <p>
+     * The commit callback can be used to know when the PagedList is committed, but note that it
+     * may not be executed. If PagedList B is submitted immediately after PagedList A, and is
+     * committed directly, the callback associated with PagedList A will not be run.
+     *
+     * @param pagedList The new list to be displayed.
+     * @param commitCallback Optional runnable that is executed when the PagedList is committed, if
+     *                       it is committed.
+     */
+    public void submitList(@Nullable PagedList<T> pagedList,
+            @Nullable final Runnable commitCallback) {
+        mDiffer.submitList(pagedList, commitCallback);
     }
 
     @Nullable
@@ -169,6 +201,8 @@ public abstract class PagedListAdapter<T, VH extends RecyclerView.ViewHolder>
      * updating the currentList value. May be null if no PagedList is being presented.
      *
      * @return The list currently being displayed.
+     *
+     * @see #onCurrentListChanged(PagedList, PagedList)
      */
     @Nullable
     public PagedList<T> getCurrentList() {
@@ -187,9 +221,78 @@ public abstract class PagedListAdapter<T, VH extends RecyclerView.ViewHolder>
      * to a snapshot version of the PagedList during a diff. This means you cannot observe each
      * PagedList via this method.
      *
+     * @deprecated Use the two argument variant instead:
+     * {@link #onCurrentListChanged(PagedList, PagedList)}
+     *
      * @param currentList new PagedList being displayed, may be null.
+     *
+     * @see #getCurrentList()
      */
-    @SuppressWarnings("WeakerAccess")
+    @SuppressWarnings("DeprecatedIsStillUsed")
+    @Deprecated
     public void onCurrentListChanged(@Nullable PagedList<T> currentList) {
+    }
+
+    /**
+     * Called when the current PagedList is updated.
+     * <p>
+     * This may be dispatched as part of {@link #submitList(PagedList)} if a background diff isn't
+     * needed (such as when the first list is passed, or the list is cleared). In either case,
+     * PagedListAdapter will simply call
+     * {@link #notifyItemRangeInserted(int, int) notifyItemRangeInserted/Removed(0, mPreviousSize)}.
+     * <p>
+     * This method will <em>not</em>be called when the Adapter switches from presenting a PagedList
+     * to a snapshot version of the PagedList during a diff. This means you cannot observe each
+     * PagedList via this method.
+     *
+     * @param previousList PagedList that was previously displayed, may be null.
+     * @param currentList new PagedList being displayed, may be null.
+     *
+     * @see #getCurrentList()
+     */
+    public void onCurrentListChanged(
+            @Nullable PagedList<T> previousList, @Nullable PagedList<T> currentList) {
+    }
+
+
+    /**
+     * Called when the LoadState for a particular type of load (START, END, REFRESH) has
+     * changed.
+     * <p>
+     * REFRESH events can be used to drive a {@code SwipeRefreshLayout}, or START/END events
+     * can be used to drive loading spinner items in the Adapter.
+     *
+     * @param type Type of load - START, END, or REFRESH.
+     * @param state State of load - IDLE, LOADING, DONE, ERROR, or RETRYABLE_ERROR
+     * @param error Error, if in an error state, null otherwise.
+     */
+    public void onLoadStateChanged(@NonNull PagedList.LoadType type,
+            @NonNull PagedList.LoadState state, @Nullable Throwable error) {
+    }
+
+    /**
+     * Add a LoadStateListener to observe the loading state of the current PagedList.
+     *
+     * As new PagedLists are submitted and displayed, the listener will be notified to reflect
+     * current REFRESH, START, and END states.
+     *
+     * @param listener Listener to receive updates.
+     *
+     * @see #removeLoadStateListener(PagedList.LoadStateListener)
+     */
+    @SuppressLint("UnknownNullness")
+    public void addLoadStateListener(PagedList.LoadStateListener listener) {
+        mDiffer.addLoadStateListener(listener);
+    }
+
+    /**
+     * Remove a previously registered LoadStateListener.
+     *
+     * @param listener Previously registered listener.
+     * @see #addLoadStateListener(PagedList.LoadStateListener)
+     */
+    @SuppressLint("UnknownNullness")
+    public void removeLoadStateListener(PagedList.LoadStateListener listener) {
+        mDiffer.removeLoadStateListListener(listener);
     }
 }

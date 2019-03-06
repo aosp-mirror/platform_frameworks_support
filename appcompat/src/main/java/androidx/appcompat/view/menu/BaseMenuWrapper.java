@@ -27,15 +27,14 @@ import androidx.core.internal.view.SupportSubMenu;
 import java.util.Iterator;
 import java.util.Map;
 
-abstract class BaseMenuWrapper<T> extends BaseWrapper<T> {
+abstract class BaseMenuWrapper {
 
     final Context mContext;
 
     private Map<SupportMenuItem, MenuItem> mMenuItems;
     private Map<SupportSubMenu, SubMenu> mSubMenus;
 
-    BaseMenuWrapper(Context context, T object) {
-        super(object);
+    BaseMenuWrapper(Context context) {
         mContext = context;
     }
 
@@ -53,7 +52,7 @@ abstract class BaseMenuWrapper<T> extends BaseWrapper<T> {
 
             if (null == wrappedItem) {
                 // ... if not, create one and add it to our map
-                wrappedItem = MenuWrapperFactory.wrapSupportMenuItem(mContext, supportMenuItem);
+                wrappedItem = new MenuItemWrapperICS(mContext, supportMenuItem);
                 mMenuItems.put(supportMenuItem, wrappedItem);
             }
 
@@ -74,7 +73,7 @@ abstract class BaseMenuWrapper<T> extends BaseWrapper<T> {
             SubMenu wrappedMenu = mSubMenus.get(supportSubMenu);
 
             if (null == wrappedMenu) {
-                wrappedMenu = MenuWrapperFactory.wrapSupportSubMenu(mContext, supportSubMenu);
+                wrappedMenu = new SubMenuWrapperICS(mContext, supportSubMenu);
                 mSubMenus.put(supportSubMenu, wrappedMenu);
             }
             return wrappedMenu;

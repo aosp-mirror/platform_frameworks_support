@@ -20,6 +20,8 @@ import static android.app.AlarmManager.RTC_WAKEUP;
 import static android.app.PendingIntent.FLAG_NO_CREATE;
 import static android.app.PendingIntent.FLAG_UPDATE_CURRENT;
 
+import static androidx.work.impl.model.WorkSpec.SCHEDULE_NOT_REQUESTED_YET;
+
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.ComponentName;
@@ -31,8 +33,13 @@ import android.support.annotation.RestrictTo;
 import android.support.annotation.VisibleForTesting;
 
 import androidx.work.Logger;
+import androidx.work.impl.Schedulers;
+import androidx.work.impl.WorkDatabase;
 import androidx.work.impl.WorkManagerImpl;
+import androidx.work.impl.model.WorkSpec;
+import androidx.work.impl.model.WorkSpecDao;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -45,7 +52,7 @@ import java.util.concurrent.TimeUnit;
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public class ForceStopRunnable implements Runnable {
 
-    private static final String TAG = "ForceStopRunnable";
+    private static final String TAG = Logger.tagWithPrefix("ForceStopRunnable");
 
     @VisibleForTesting
     static final String ACTION_FORCE_STOP_RESCHEDULE = "ACTION_FORCE_STOP_RESCHEDULE";
@@ -65,13 +72,42 @@ public class ForceStopRunnable implements Runnable {
     @Override
     public void run() {
         if (shouldRescheduleWorkers()) {
-            Logger.debug(TAG, "Rescheduling Workers.");
+            Logger.get().debug(TAG, "Rescheduling Workers.");
             mWorkManager.rescheduleEligibleWork();
             // Mark the jobs as migrated.
             mWorkManager.getPreferences().setNeedsReschedule(false);
         } else if (isForceStopped()) {
-            Logger.debug(TAG, "Application was force-stopped, rescheduling.");
+            Logger.get().debug(TAG, "Application was force-stopped, rescheduling.");
             mWorkManager.rescheduleEligibleWork();
+        } else {
+            WorkDatabase workDatabase = mWorkManager.getWorkDatabase();
+            WorkSpecDao workSpecDao = workDatabase.workSpecDao();
+            try {
+                workDatabase.beginTransaction();
+                List<WorkSpec> workSpecs = workSpecDao.getEnqueuedWork();
+                if (workSpecs != null && !workSpecs.isEmpty()) {
+                    Logger.get().debug(TAG, "Found unfinished work, scheduling it.");
+                    // Mark every instance of unfinished work with
+                    // SCHEDULE_NOT_REQUESTED_AT = -1 irrespective of its current state.
+                    // This is because the application might have crashed previously and we should
+                    // reschedule jobs that may have been running previously.
+                    // Also there is a chance that an application crash, happened during
+                    // onStartJob() and now no corresponding job now exists in JobScheduler.
+                    // To solve this, we simply force-reschedule all unfinished work.
+                    for (WorkSpec workSpec : workSpecs) {
+                        workSpecDao.markWorkSpecScheduled(workSpec.id, SCHEDULE_NOT_REQUESTED_YET);
+                    }
+                    Schedulers.schedule(
+                            mWorkManager.getConfiguration(),
+                            workDatabase,
+                            mWorkManager.getSchedulers());
+                }
+                workDatabase.setTransactionSuccessful();
+            } finally {
+                workDatabase.endTransaction();
+            }
+            Logger.get().debug(TAG, "Unfinished Workers exist, rescheduling.");
+
         }
         mWorkManager.onForceStopRunnableCompleted();
     }
@@ -85,9 +121,9 @@ public class ForceStopRunnable implements Runnable {
         // Cancelling of Jobs on force-stop was introduced in N-MR1 (SDK 25).
         // Even though API 23, 24 are probably safe, OEMs may choose to do
         // something different.
-        PendingIntent pendingIntent = getPendingIntent(ALARM_ID, FLAG_NO_CREATE);
+        PendingIntent pendingIntent = getPendingIntent(mContext, FLAG_NO_CREATE);
         if (pendingIntent == null) {
-            setAlarm(ALARM_ID);
+            setAlarm(mContext);
             return true;
         } else {
             return false;
@@ -98,36 +134,34 @@ public class ForceStopRunnable implements Runnable {
      * @return {@code true} If we need to reschedule Workers.
      */
     @VisibleForTesting
-    public boolean shouldRescheduleWorkers() {
+    boolean shouldRescheduleWorkers() {
         return mWorkManager.getPreferences().needsReschedule();
     }
 
     /**
-     * @param alarmId The stable alarm id to be used.
      * @param flags   The {@link PendingIntent} flags.
      * @return an instance of the {@link PendingIntent}.
      */
-    @VisibleForTesting
-    public PendingIntent getPendingIntent(int alarmId, int flags) {
-        Intent intent = getIntent();
-        return PendingIntent.getBroadcast(mContext, alarmId, intent, flags);
+    private static PendingIntent getPendingIntent(Context context, int flags) {
+        Intent intent = getIntent(context);
+        return PendingIntent.getBroadcast(context, ALARM_ID, intent, flags);
     }
 
     /**
      * @return The instance of {@link Intent} used to keep track of force stops.
      */
     @VisibleForTesting
-    public Intent getIntent() {
+    static Intent getIntent(Context context) {
         Intent intent = new Intent();
-        intent.setComponent(new ComponentName(mContext, ForceStopRunnable.BroadcastReceiver.class));
+        intent.setComponent(new ComponentName(context, ForceStopRunnable.BroadcastReceiver.class));
         intent.setAction(ACTION_FORCE_STOP_RESCHEDULE);
         return intent;
     }
 
-    void setAlarm(int alarmId) {
-        AlarmManager alarmManager = (AlarmManager) mContext.getSystemService(Context.ALARM_SERVICE);
+    static void setAlarm(Context context) {
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         // Using FLAG_UPDATE_CURRENT, because we only ever want once instance of this alarm.
-        PendingIntent pendingIntent = getPendingIntent(alarmId, FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = getPendingIntent(context, FLAG_UPDATE_CURRENT);
         long triggerAt = System.currentTimeMillis() + TEN_YEARS;
         if (alarmManager != null) {
             if (Build.VERSION.SDK_INT >= 19) {
@@ -140,23 +174,26 @@ public class ForceStopRunnable implements Runnable {
 
     /**
      * A {@link android.content.BroadcastReceiver} which takes care of recreating the
-     * long lived alarm which helps track force stops for an application.
+     * long lived alarm which helps track force stops for an application.  This is the target of the
+     * alarm set by ForceStopRunnable in {@link #setAlarm(Context)}.
      *
      * @hide
      */
     @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
     public static class BroadcastReceiver extends android.content.BroadcastReceiver {
-        private static final String TAG = "ForceStopRunnable$Rcvr";
+        private static final String TAG = Logger.tagWithPrefix("ForceStopRunnable$Rcvr");
 
         @Override
         public void onReceive(Context context, Intent intent) {
+            // Our alarm somehow got triggered, so make sure we reschedule it.  This should really
+            // never happen because we set it so far in the future.
             if (intent != null) {
                 String action = intent.getAction();
                 if (ACTION_FORCE_STOP_RESCHEDULE.equals(action)) {
-                    Logger.verbose(TAG, "Rescheduling alarm that keeps track of force-stops.");
-                    WorkManagerImpl workManager = WorkManagerImpl.getInstance();
-                    ForceStopRunnable runnable = new ForceStopRunnable(context, workManager);
-                    runnable.setAlarm(ForceStopRunnable.ALARM_ID);
+                    Logger.get().verbose(
+                            TAG,
+                            "Rescheduling alarm that keeps track of force-stops.");
+                    ForceStopRunnable.setAlarm(context);
                 }
             }
         }

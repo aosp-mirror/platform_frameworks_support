@@ -89,7 +89,6 @@ class SuggestionsAdapter extends ResourceCursorAdapter implements OnClickListene
 
     // private final Runnable mStartSpinnerRunnable;
     // private final Runnable mStopSpinnerRunnable;
-
     public SuggestionsAdapter(Context context, SearchView searchView, SearchableInfo searchable,
             WeakHashMap<String, Drawable.ConstantState> outsideDrawablesCache) {
         super(context, searchView.getSuggestionRowLayout(), null /* no initial cursor */,

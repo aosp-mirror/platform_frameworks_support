@@ -17,6 +17,8 @@
 package androidx.lifecycle;
 
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Class to store {@code ViewModels}.
@@ -48,12 +50,16 @@ public class ViewModelStore {
         return mMap.get(key);
     }
 
+    Set<String> keys() {
+        return new HashSet<>(mMap.keySet());
+    }
+
     /**
      *  Clears internal storage and notifies ViewModels that they are no longer used.
      */
     public final void clear() {
         for (ViewModel vm : mMap.values()) {
-            vm.onCleared();
+            vm.clear();
         }
         mMap.clear();
     }

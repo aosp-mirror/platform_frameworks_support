@@ -16,7 +16,7 @@
 
 package androidx.appcompat.view.menu;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -48,7 +48,7 @@ import androidx.core.view.ActionProvider;
 /**
  * @hide
  */
-@RestrictTo(LIBRARY_GROUP)
+@RestrictTo(LIBRARY_GROUP_PREFIX)
 public final class MenuItemImpl implements SupportMenuItem {
 
     private static final String TAG = "MenuItemImpl";
@@ -706,8 +706,14 @@ public final class MenuItemImpl implements SupportMenuItem {
         return (mShowAsAction & SHOW_AS_ACTION_IF_ROOM) == SHOW_AS_ACTION_IF_ROOM;
     }
 
+    @Override
     public boolean requiresActionButton() {
         return (mShowAsAction & SHOW_AS_ACTION_ALWAYS) == SHOW_AS_ACTION_ALWAYS;
+    }
+
+    @Override
+    public boolean requiresOverflow() {
+        return !requiresActionButton() && !requestsActionButton();
     }
 
     public void setIsActionButton(boolean isActionButton) {

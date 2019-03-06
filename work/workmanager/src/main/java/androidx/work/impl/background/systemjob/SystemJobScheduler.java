@@ -26,6 +26,7 @@ import android.support.annotation.RestrictTo;
 import android.support.annotation.VisibleForTesting;
 
 import androidx.work.Logger;
+import androidx.work.WorkInfo;
 import androidx.work.impl.Scheduler;
 import androidx.work.impl.WorkDatabase;
 import androidx.work.impl.WorkManagerImpl;
@@ -44,7 +45,7 @@ import java.util.List;
 @RequiresApi(WorkManagerImpl.MIN_JOB_SCHEDULER_API_LEVEL)
 public class SystemJobScheduler implements Scheduler {
 
-    private static final String TAG = "SystemJobScheduler";
+    private static final String TAG = Logger.tagWithPrefix("SystemJobScheduler");
 
     private final JobScheduler mJobScheduler;
     private final WorkManagerImpl mWorkManager;
@@ -75,15 +76,47 @@ public class SystemJobScheduler implements Scheduler {
         WorkDatabase workDatabase = mWorkManager.getWorkDatabase();
 
         for (WorkSpec workSpec : workSpecs) {
+            workDatabase.beginTransaction();
             try {
-                workDatabase.beginTransaction();
+                // It is possible that this WorkSpec got cancelled/pruned since this isn't part of
+                // the same database transaction as marking it enqueued (for example, if we using
+                // any of the synchronous operations).  For now, handle this gracefully by exiting
+                // the loop.  When we plumb ListenableFutures all the way through, we can remove the
+                // *sync methods and return ListenableFutures, which will block on an operation on
+                // the background task thread so all database operations happen on the same thread.
+                // See b/114705286.
+                WorkSpec currentDbWorkSpec = workDatabase.workSpecDao().getWorkSpec(workSpec.id);
+                if (currentDbWorkSpec == null) {
+                    Logger.get().warning(
+                            TAG,
+                            "Skipping scheduling " + workSpec.id
+                                    + " because it's no longer in the DB");
+                    continue;
+                } else if (currentDbWorkSpec.state != WorkInfo.State.ENQUEUED) {
+                    Logger.get().warning(
+                            TAG,
+                            "Skipping scheduling " + workSpec.id
+                                    + " because it is no longer enqueued");
+                    continue;
+                }
 
                 SystemIdInfo info = workDatabase.systemIdInfoDao()
                         .getSystemIdInfo(workSpec.id);
 
+                if (info != null) {
+                    JobInfo jobInfo = getPendingJobInfo(mJobScheduler, workSpec.id);
+                    if (jobInfo != null) {
+                        Logger.get().debug(TAG, String.format(
+                                "Skipping scheduling %s because JobScheduler is aware of it "
+                                        + "already.",
+                                workSpec.id));
+                        continue;
+                    }
+                }
+
                 int jobId = info != null ? info.systemId : mIdGenerator.nextJobSchedulerIdWithRange(
-                        mWorkManager.getConfiguration().getMinJobSchedulerID(),
-                        mWorkManager.getConfiguration().getMaxJobSchedulerID());
+                        mWorkManager.getConfiguration().getMinJobSchedulerId(),
+                        mWorkManager.getConfiguration().getMaxJobSchedulerId());
 
                 if (info == null) {
                     SystemIdInfo newSystemIdInfo = new SystemIdInfo(workSpec.id, jobId);
@@ -101,8 +134,8 @@ public class SystemJobScheduler implements Scheduler {
                 // in SystemJobService as needed.
                 if (Build.VERSION.SDK_INT == 23) {
                     int nextJobId = mIdGenerator.nextJobSchedulerIdWithRange(
-                            mWorkManager.getConfiguration().getMinJobSchedulerID(),
-                            mWorkManager.getConfiguration().getMaxJobSchedulerID());
+                            mWorkManager.getConfiguration().getMinJobSchedulerId(),
+                            mWorkManager.getConfiguration().getMaxJobSchedulerId());
 
                     scheduleInternal(workSpec, nextJobId);
                 }
@@ -122,7 +155,9 @@ public class SystemJobScheduler implements Scheduler {
     @VisibleForTesting
     public void scheduleInternal(WorkSpec workSpec, int jobId) {
         JobInfo jobInfo = mSystemJobInfoConverter.convert(workSpec, jobId);
-        Logger.debug(TAG, String.format("Scheduling work ID %s Job ID %s", workSpec.id, jobId));
+        Logger.get().debug(
+                TAG,
+                String.format("Scheduling work ID %s Job ID %s", workSpec.id, jobId));
         mJobScheduler.schedule(jobInfo);
     }
 
@@ -173,5 +208,26 @@ public class SystemJobScheduler implements Scheduler {
                 }
             }
         }
+    }
+
+    private static JobInfo getPendingJobInfo(
+            @NonNull JobScheduler jobScheduler,
+            @NonNull String workSpecId) {
+
+        List<JobInfo> jobInfos = jobScheduler.getAllPendingJobs();
+        // Apparently this CAN be null on API 23?
+        if (jobInfos != null) {
+            for (JobInfo jobInfo : jobInfos) {
+                PersistableBundle extras = jobInfo.getExtras();
+                if (extras != null
+                        && extras.containsKey(SystemJobInfoConverter.EXTRA_WORK_SPEC_ID)) {
+                    if (workSpecId.equals(
+                            extras.getString(SystemJobInfoConverter.EXTRA_WORK_SPEC_ID))) {
+                        return jobInfo;
+                    }
+                }
+            }
+        }
+        return null;
     }
 }

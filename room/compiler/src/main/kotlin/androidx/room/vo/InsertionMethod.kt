@@ -17,38 +17,16 @@
 package androidx.room.vo
 
 import androidx.room.OnConflictStrategy
-import androidx.room.ext.typeName
-import com.squareup.javapoet.ArrayTypeName
-import com.squareup.javapoet.ParameterizedTypeName
-import com.squareup.javapoet.TypeName
+import androidx.room.solver.shortcut.binder.InsertMethodBinder
 import javax.lang.model.element.ExecutableElement
 import javax.lang.model.type.TypeMirror
 
-data class InsertionMethod(val element: ExecutableElement, val name: String,
-                           @OnConflictStrategy val onConflict: Int,
-                           val entities: Map<String, Entity>, val returnType: TypeMirror,
-                           val insertionType: Type?,
-                           val parameters: List<ShortcutQueryParameter>) {
-    fun insertMethodTypeFor(param: ShortcutQueryParameter): Type {
-        return if (insertionType == Type.INSERT_VOID || insertionType == null) {
-            Type.INSERT_VOID
-        } else if (!param.isMultiple) {
-            Type.INSERT_SINGLE_ID
-        } else {
-            insertionType
-        }
-    }
-
-    enum class Type(
-            // methodName matches EntityInsertionAdapter methods
-            val methodName: String, val returnTypeName: TypeName) {
-        INSERT_VOID("insert", TypeName.VOID), // return void
-        INSERT_SINGLE_ID("insertAndReturnId", TypeName.LONG), // return long
-        INSERT_ID_ARRAY("insertAndReturnIdsArray",
-                ArrayTypeName.of(TypeName.LONG)), // return long[]
-        INSERT_ID_ARRAY_BOX("insertAndReturnIdsArrayBox",
-                ArrayTypeName.of(TypeName.LONG.box())), // return Long[]
-        INSERT_ID_LIST("insertAndReturnIdsList", // return List<Long>
-                ParameterizedTypeName.get(List::class.typeName(), TypeName.LONG.box()))
-    }
-}
+data class InsertionMethod(
+    val element: ExecutableElement,
+    val name: String,
+    @OnConflictStrategy val onConflict: Int,
+    val entities: Map<String, Entity>,
+    val returnType: TypeMirror,
+    val parameters: List<ShortcutQueryParameter>,
+    val methodBinder: InsertMethodBinder
+)

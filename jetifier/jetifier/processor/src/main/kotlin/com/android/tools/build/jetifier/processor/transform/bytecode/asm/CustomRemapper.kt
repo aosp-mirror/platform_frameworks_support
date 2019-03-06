@@ -17,7 +17,6 @@
 package com.android.tools.build.jetifier.processor.transform.bytecode.asm
 
 import com.android.tools.build.jetifier.core.type.JavaType
-import com.android.tools.build.jetifier.core.utils.Log
 import com.android.tools.build.jetifier.processor.transform.bytecode.CoreRemapper
 import org.objectweb.asm.commons.Remapper
 
@@ -40,6 +39,20 @@ class CustomRemapper(private val remapper: CoreRemapper) : Remapper() {
             return super.mapValue(value)
         }
 
+        fun mapPoolReferenceType(typeDeclaration: String): String {
+            if (!typeDeclaration.contains(".")) {
+                return remapper.rewriteType(JavaType(typeDeclaration)).fullName
+            }
+
+            if (typeDeclaration.contains("/")) {
+                // Mixed "." and "/"  - not something we know how to handle
+                return typeDeclaration
+            }
+
+            val toRewrite = typeDeclaration.replace(".", "/")
+            return remapper.rewriteType(JavaType(toRewrite)).toDotNotation()
+        }
+
         if (stringVal.startsWith("L") && stringVal.endsWith(";")) {
             // L denotes a type declaration. For some reason there are references in the constant
             // pool that ASM skips.
@@ -47,7 +60,17 @@ class CustomRemapper(private val remapper: CoreRemapper) : Remapper() {
             if (typeDeclaration.isEmpty()) {
                 return value
             }
-            return "L" + remapper.rewriteString(typeDeclaration) + ";"
+
+            if (typeDeclaration.contains(";L")) {
+                // We have array of constants
+                return "L" +
+                            typeDeclaration
+                                .split(";L")
+                                .joinToString(";L") { mapPoolReferenceType(it) } +
+                        ";"
+            }
+
+            return "L" + mapPoolReferenceType(typeDeclaration) + ";"
         }
         return remapper.rewriteString(stringVal)
     }

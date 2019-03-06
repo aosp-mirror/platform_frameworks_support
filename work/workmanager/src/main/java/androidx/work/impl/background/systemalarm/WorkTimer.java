@@ -27,6 +27,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -39,7 +40,21 @@ import java.util.concurrent.TimeUnit;
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 class WorkTimer {
 
-    private static final String TAG = "WorkTimer";
+    private static final String TAG = Logger.tagWithPrefix("WorkTimer");
+
+    private final ThreadFactory mBackgroundThreadFactory = new ThreadFactory() {
+
+        private int mThreadsCreated = 0;
+
+        @Override
+        public Thread newThread(@NonNull Runnable r) {
+            // Delegate to the default factory, but keep track of the current thread being used.
+            Thread thread = Executors.defaultThreadFactory().newThread(r);
+            thread.setName("WorkManager-WorkTimer-thread-" + mThreadsCreated);
+            mThreadsCreated++;
+            return thread;
+        }
+    };
 
     private final ScheduledExecutorService mExecutorService;
     final Map<String, WorkTimerRunnable> mTimerMap;
@@ -50,7 +65,7 @@ class WorkTimer {
         mTimerMap = new HashMap<>();
         mListeners = new HashMap<>();
         mLock = new Object();
-        mExecutorService = Executors.newSingleThreadScheduledExecutor();
+        mExecutorService = Executors.newSingleThreadScheduledExecutor(mBackgroundThreadFactory);
     }
 
     @SuppressWarnings("FutureReturnValueIgnored")
@@ -59,7 +74,7 @@ class WorkTimer {
             @NonNull TimeLimitExceededListener listener) {
 
         synchronized (mLock) {
-            Logger.debug(TAG, String.format("Starting timer for %s", workSpecId));
+            Logger.get().debug(TAG, String.format("Starting timer for %s", workSpecId));
             // clear existing timer's first
             stopTimer(workSpecId);
             WorkTimerRunnable runnable = new WorkTimerRunnable(this, workSpecId);
@@ -71,9 +86,9 @@ class WorkTimer {
 
     void stopTimer(@NonNull final String workSpecId) {
         synchronized (mLock) {
-            if (mTimerMap.containsKey(workSpecId)) {
-                Logger.debug(TAG, String.format("Stopping timer for %s", workSpecId));
-                mTimerMap.remove(workSpecId);
+            WorkTimerRunnable removed = mTimerMap.remove(workSpecId);
+            if (removed != null) {
+                Logger.get().debug(TAG, String.format("Stopping timer for %s", workSpecId));
                 mListeners.remove(workSpecId);
             }
         }
@@ -106,15 +121,15 @@ class WorkTimer {
         @Override
         public void run() {
             synchronized (mWorkTimer.mLock) {
-                if (mWorkTimer.mTimerMap.containsKey(mWorkSpecId)) {
-                    mWorkTimer.mTimerMap.remove(mWorkSpecId);
+                WorkTimerRunnable removed = mWorkTimer.mTimerMap.remove(mWorkSpecId);
+                if (removed != null) {
                     // notify time limit exceeded.
                     TimeLimitExceededListener listener = mWorkTimer.mListeners.remove(mWorkSpecId);
                     if (listener != null) {
                         listener.onTimeLimitExceeded(mWorkSpecId);
                     }
                 } else {
-                    Logger.debug(TAG, String.format(
+                    Logger.get().debug(TAG, String.format(
                             "Timer with %s is already marked as complete.", mWorkSpecId));
                 }
             }

@@ -29,7 +29,9 @@ import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 /**
- * The base interface for work requests.
+ * The base class for specifying parameters for work that should be enqueued in {@link WorkManager}.
+ * There are two concrete implementations of this class: {@link OneTimeWorkRequest} and
+ * {@link PeriodicWorkRequest}.
  */
 
 public abstract class WorkRequest {
@@ -106,9 +108,10 @@ public abstract class WorkRequest {
     }
 
     /**
-     * A builder for {@link WorkRequest}.
+     * A builder for {@link WorkRequest}s.  There are two concrete implementations of this class:
+     * {@link OneTimeWorkRequest.Builder} and {@link PeriodicWorkRequest.Builder}.
      *
-     * @param <B> The concrete implementation of of this Builder
+     * @param <B> The concrete implementation of this Builder
      * @param <W> The type of work object built by this Builder
      */
     public abstract static class Builder<B extends Builder, W extends WorkRequest> {
@@ -118,25 +121,25 @@ public abstract class WorkRequest {
         WorkSpec mWorkSpec;
         Set<String> mTags = new HashSet<>();
 
-        public Builder(@NonNull Class<? extends Worker> workerClass) {
+        Builder(@NonNull Class<? extends ListenableWorker> workerClass) {
             mId = UUID.randomUUID();
             mWorkSpec = new WorkSpec(mId.toString(), workerClass.getName());
             addTag(workerClass.getName());
         }
 
         /**
-         * Change backoff policy and delay for the work.  The default is
+         * Sets the backoff policy and backoff delay for the work.  The default values are
          * {@link BackoffPolicy#EXPONENTIAL} and
-         * {@value WorkRequest#DEFAULT_BACKOFF_DELAY_MILLIS}.  The maximum backoff delay
-         * duration is {@value WorkRequest#MAX_BACKOFF_MILLIS}.
+         * {@value WorkRequest#DEFAULT_BACKOFF_DELAY_MILLIS}, respectively.  {@code backoffDelay}
+         * will be clamped between {@link WorkRequest#MIN_BACKOFF_MILLIS} and
+         * {@link WorkRequest#MAX_BACKOFF_MILLIS}.
          *
-         * @param backoffPolicy The {@link BackoffPolicy} to use for work
-         * @param backoffDelay Time to wait before restarting {@link Worker} in {@code timeUnit}
-         *                     units
+         * @param backoffPolicy The {@link BackoffPolicy} to use when increasing backoff time
+         * @param backoffDelay Time to wait before retrying the work in {@code timeUnit} units
          * @param timeUnit The {@link TimeUnit} for {@code backoffDelay}
          * @return The current {@link Builder}
          */
-        public @NonNull B setBackoffCriteria(
+        public final @NonNull B setBackoffCriteria(
                 @NonNull BackoffPolicy backoffPolicy,
                 long backoffDelay,
                 @NonNull TimeUnit timeUnit) {
@@ -147,47 +150,69 @@ public abstract class WorkRequest {
         }
 
         /**
-         * Add constraints to the {@link OneTimeWorkRequest}.
+         * Sets the backoff policy and backoff delay for the work.  The default values are
+         * {@link BackoffPolicy#EXPONENTIAL} and
+         * {@value WorkRequest#DEFAULT_BACKOFF_DELAY_MILLIS}, respectively.  {@code duration} will
+         * be clamped between {@link WorkRequest#MIN_BACKOFF_MILLIS} and
+         * {@link WorkRequest#MAX_BACKOFF_MILLIS}.
+         *
+         * @param backoffPolicy The {@link BackoffPolicy} to use when increasing backoff time
+         * @param duration Time to wait before retrying the work
+         * @return The current {@link Builder}
+         */
+        @RequiresApi(26)
+        public final @NonNull B setBackoffCriteria(
+                @NonNull BackoffPolicy backoffPolicy,
+                @NonNull Duration duration) {
+            mBackoffCriteriaSet = true;
+            mWorkSpec.backoffPolicy = backoffPolicy;
+            mWorkSpec.setBackoffDelayDuration(duration.toMillis());
+            return getThis();
+        }
+
+        /**
+         * Adds constraints to the {@link WorkRequest}.
          *
          * @param constraints The constraints for the work
          * @return The current {@link Builder}
          */
-        public @NonNull B setConstraints(@NonNull Constraints constraints) {
+        public final @NonNull B setConstraints(@NonNull Constraints constraints) {
             mWorkSpec.constraints = constraints;
             return getThis();
         }
 
         /**
-         * Add input {@link Data} to the work.
+         * Adds input {@link Data} to the work.  If a worker has prerequisites in its chain, this
+         * Data will be merged with the outputs of the prerequisites using an {@link InputMerger}.
          *
-         * @param inputData key/value pairs that will be provided to the {@link Worker} class
+         * @param inputData key/value pairs that will be provided to the worker
          * @return The current {@link Builder}
          */
-        public @NonNull B setInputData(@NonNull Data inputData) {
+        public final @NonNull B setInputData(@NonNull Data inputData) {
             mWorkSpec.input = inputData;
             return getThis();
         }
 
         /**
-         * Add an optional tag for the work.  This is particularly useful for modules or
-         * libraries who want to query for or cancel all of their own work.
+         * Adds a tag for the work.  You can query and cancel work by tags.  Tags are particularly
+         * useful for modules or libraries to find and operate on their own work.
          *
          * @param tag A tag for identifying the work in queries.
          * @return The current {@link Builder}
          */
-        public @NonNull B addTag(@NonNull String tag) {
+        public final @NonNull B addTag(@NonNull String tag) {
             mTags.add(tag);
             return getThis();
         }
 
         /**
          * Specifies that the results of this work should be kept for at least the specified amount
-         * of time.  After this time has elapsed, the results may be pruned at the discretion of
-         * WorkManager when there are no pending dependent jobs.
-         *
+         * of time.  After this time has elapsed, the results <b>may</b> be pruned at the discretion
+         * of WorkManager when there are no pending dependent jobs.
+         * <p>
          * When the results of a work are pruned, it becomes impossible to query for its
-         * {@link WorkStatus}.
-         *
+         * {@link WorkInfo}.
+         * <p>
          * Specifying a long duration here may adversely affect performance in terms of app storage
          * and database query time.
          *
@@ -196,19 +221,19 @@ public abstract class WorkRequest {
          * @param timeUnit The unit of time for {@code duration}
          * @return The current {@link Builder}
          */
-        public @NonNull B keepResultsForAtLeast(long duration, @NonNull TimeUnit timeUnit) {
+        public final @NonNull B keepResultsForAtLeast(long duration, @NonNull TimeUnit timeUnit) {
             mWorkSpec.minimumRetentionDuration = timeUnit.toMillis(duration);
             return getThis();
         }
 
         /**
          * Specifies that the results of this work should be kept for at least the specified amount
-         * of time.  After this time has elapsed, the results may be pruned at the discretion of
-         * WorkManager when there are no pending dependent jobs.
-         *
+         * of time.  After this time has elapsed, the results <p>may</p> be pruned at the discretion
+         * of WorkManager when there are no pending dependent jobs.
+         * <p>
          * When the results of a work are pruned, it becomes impossible to query for its
-         * {@link WorkStatus}.
-         *
+         * {@link WorkInfo}.
+         * <p>
          * Specifying a long duration here may adversely affect performance in terms of app storage
          * and database query time.
          *
@@ -216,36 +241,45 @@ public abstract class WorkRequest {
          * @return The current {@link Builder}
          */
         @RequiresApi(26)
-        public @NonNull B keepResultsForAtLeast(@NonNull Duration duration) {
+        public final @NonNull B keepResultsForAtLeast(@NonNull Duration duration) {
             mWorkSpec.minimumRetentionDuration = duration.toMillis();
             return getThis();
         }
 
         /**
-         * Builds this work object.
+         * Builds a {@link WorkRequest} based on this {@link Builder}.
          *
-         * @return The concrete implementation of the work associated with this builder
+         * @return A {@link WorkRequest} based on this {@link Builder}
          */
-        public abstract @NonNull W build();
+        public final @NonNull W build() {
+            W returnValue = buildInternal();
+            // Create a new id and WorkSpec so this WorkRequest.Builder can be used multiple times.
+            mId = UUID.randomUUID();
+            mWorkSpec = new WorkSpec(mWorkSpec);
+            mWorkSpec.id = mId.toString();
+            return returnValue;
+        }
+
+        abstract @NonNull W buildInternal();
 
         abstract @NonNull B getThis();
 
         /**
-         * Set the initial state for this work.  Used in testing only.
+         * Sets the initial state for this work.  Used in testing only.
          *
-         * @param state The {@link State} to set
+         * @param state The {@link WorkInfo.State} to set
          * @return The current {@link Builder}
          * @hide
          */
         @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
         @VisibleForTesting
-        public @NonNull B setInitialState(@NonNull State state) {
+        public final @NonNull B setInitialState(@NonNull WorkInfo.State state) {
             mWorkSpec.state = state;
             return getThis();
         }
 
         /**
-         * Set the initial run attempt count for this work.  Used in testing only.
+         * Sets the initial run attempt count for this work.  Used in testing only.
          *
          * @param runAttemptCount The initial run attempt count
          * @return The current {@link Builder}
@@ -253,13 +287,13 @@ public abstract class WorkRequest {
          */
         @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
         @VisibleForTesting
-        public @NonNull B setInitialRunAttemptCount(int runAttemptCount) {
+        public final @NonNull B setInitialRunAttemptCount(int runAttemptCount) {
             mWorkSpec.runAttemptCount = runAttemptCount;
             return getThis();
         }
 
         /**
-         * Set the period start time for this work. Used in testing only.
+         * Sets the period start time for this work. Used in testing only.
          *
          * @param periodStartTime the period start time in {@code timeUnit} units
          * @param timeUnit The {@link TimeUnit} for {@code periodStartTime}
@@ -268,13 +302,15 @@ public abstract class WorkRequest {
          */
         @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
         @VisibleForTesting
-        public @NonNull B setPeriodStartTime(long periodStartTime, @NonNull TimeUnit timeUnit) {
+        public final @NonNull B setPeriodStartTime(
+                long periodStartTime,
+                @NonNull TimeUnit timeUnit) {
             mWorkSpec.periodStartTime = timeUnit.toMillis(periodStartTime);
             return getThis();
         }
 
         /**
-         * Set when the scheduler actually schedules the worker.
+         * Sets when the scheduler actually schedules the worker.
          *
          * @param scheduleRequestedAt The time at which the scheduler scheduled a worker.
          * @param timeUnit            The {@link TimeUnit} for {@code scheduleRequestedAt}
@@ -283,7 +319,7 @@ public abstract class WorkRequest {
          */
         @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
         @VisibleForTesting
-        public @NonNull B setScheduleRequestedAt(
+        public final @NonNull B setScheduleRequestedAt(
                 long scheduleRequestedAt,
                 @NonNull TimeUnit timeUnit) {
             mWorkSpec.scheduleRequestedAt = timeUnit.toMillis(scheduleRequestedAt);

@@ -15,10 +15,12 @@
  */
 package androidx.work.integration.testapp.sherlockholmes;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
 import androidx.work.Worker;
+import androidx.work.WorkerParameters;
 import androidx.work.integration.testapp.db.TestDatabase;
 
 /**
@@ -26,11 +28,16 @@ import androidx.work.integration.testapp.db.TestDatabase;
  */
 public class TextStartupWorker extends Worker {
 
+    public TextStartupWorker(@NonNull Context context,
+            @NonNull WorkerParameters workerParams) {
+        super(context, workerParams);
+    }
+
     @Override
     public @NonNull Result doWork() {
         TestDatabase db = TestDatabase.getInstance(getApplicationContext());
         db.getWordCountDao().clear();
         Log.d("Startup", "Database cleared");
-        return Result.SUCCESS;
+        return Result.success();
     }
 }

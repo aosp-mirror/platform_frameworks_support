@@ -16,19 +16,14 @@
 
 package androidx.room.solver.query.result
 
-import androidx.room.ext.AndroidTypeNames
 import androidx.room.ext.L
 import androidx.room.ext.N
 import androidx.room.ext.RoomGuavaTypeNames
 import androidx.room.ext.T
+import androidx.room.ext.CallableTypeSpecBuilder
 import androidx.room.ext.typeName
 import androidx.room.solver.CodeGenScope
-import androidx.room.writer.DaoWriter
 import com.squareup.javapoet.FieldSpec
-import com.squareup.javapoet.MethodSpec
-import com.squareup.javapoet.ParameterizedTypeName
-import com.squareup.javapoet.TypeSpec
-import javax.lang.model.element.Modifier
 import javax.lang.model.type.TypeMirror
 
 /**
@@ -37,84 +32,37 @@ import javax.lang.model.type.TypeMirror
  * <p>The Future runs on the background thread Executor.
  */
 class GuavaListenableFutureQueryResultBinder(
-        val typeArg: TypeMirror,
-        adapter: QueryResultAdapter?)
-    : BaseObservableQueryResultBinder(adapter) {
+    val typeArg: TypeMirror,
+    adapter: QueryResultAdapter?
+) : BaseObservableQueryResultBinder(adapter) {
 
     override fun convertAndReturn(
-            roomSQLiteQueryVar: String,
-            canReleaseQuery: Boolean,
-            dbField: FieldSpec,
-            inTransaction: Boolean,
-            scope: CodeGenScope) {
-        // Callable<T>
-        val callableImpl = createCallableOfT(
-                roomSQLiteQueryVar,
-                dbField,
-                inTransaction,
-                scope)
+        roomSQLiteQueryVar: String,
+        canReleaseQuery: Boolean,
+        dbField: FieldSpec,
+        inTransaction: Boolean,
+        scope: CodeGenScope
+    ) {
+        // Callable<T> // Note that this callable does not release the query object.
+        val callableImpl = CallableTypeSpecBuilder(typeArg.typeName()) {
+            createRunQueryAndReturnStatements(
+                builder = this,
+                roomSQLiteQueryVar = roomSQLiteQueryVar,
+                dbField = dbField,
+                inTransaction = inTransaction,
+                scope = scope
+            )
+        }.build()
 
         scope.builder().apply {
             addStatement(
-                    "return $T.createListenableFuture($N, $L, $L, $L)",
-                    RoomGuavaTypeNames.GUAVA_ROOM,
-                    DaoWriter.dbField,
-                    callableImpl,
-                    roomSQLiteQueryVar,
-                    canReleaseQuery)
+                "return $T.createListenableFuture($N, $L, $L, $L)",
+                RoomGuavaTypeNames.GUAVA_ROOM,
+                dbField,
+                callableImpl,
+                roomSQLiteQueryVar,
+                canReleaseQuery
+            )
         }
-    }
-
-    /**
-     * Returns an anonymous subclass of Callable<T> that executes the database transaction and
-     * constitutes the result T.
-     *
-     * <p>Note that this method does not release the query object.
-     */
-    private fun createCallableOfT(
-            roomSQLiteQueryVar: String,
-            dbField: FieldSpec,
-            inTransaction: Boolean,
-            scope: CodeGenScope): TypeSpec {
-        return TypeSpec.anonymousClassBuilder("").apply {
-            superclass(
-                    ParameterizedTypeName.get(java.util.concurrent.Callable::class.typeName(),
-                            typeArg.typeName()))
-            addMethod(
-                    MethodSpec.methodBuilder("call").apply {
-                        // public T call() throws Exception {}
-                        returns(typeArg.typeName())
-                        addAnnotation(Override::class.typeName())
-                        addModifiers(Modifier.PUBLIC)
-                        addException(Exception::class.typeName())
-
-                        // Body.
-                        val transactionWrapper = if (inTransaction) {
-                            transactionWrapper(dbField)
-                        } else {
-                            null
-                        }
-                        transactionWrapper?.beginTransactionWithControlFlow()
-                        apply {
-                            val outVar = scope.getTmpVar("_result")
-                            val cursorVar = scope.getTmpVar("_cursor")
-                            addStatement("final $T $L = $N.query($L)", AndroidTypeNames.CURSOR,
-                                    cursorVar,
-                                    DaoWriter.dbField, roomSQLiteQueryVar)
-                            beginControlFlow("try").apply {
-                                val adapterScope = scope.fork()
-                                adapter?.convert(outVar, cursorVar, adapterScope)
-                                addCode(adapterScope.builder().build())
-                                transactionWrapper?.commitTransaction()
-                                addStatement("return $L", outVar)
-                            }
-                            nextControlFlow("finally").apply {
-                                addStatement("$L.close()", cursorVar)
-                            }
-                            endControlFlow()
-                        }
-                        transactionWrapper?.endTransactionWithControlFlow()
-                    }.build())
-        }.build()
     }
 }
