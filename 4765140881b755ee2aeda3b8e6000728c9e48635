@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5e6a950e_65005428",
+        "filename": "media/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-03-06T11:08:13Z",
+      "side": 1,
+      "message": "Q) Is it okay to use this? (FYI, androidx.transition also rely on this)",
+      "range": {
+        "startLine": 10,
+        "startChar": 18,
+        "endLine": 10,
+        "endChar": 22
+      },
+      "revId": "4765140881b755ee2aeda3b8e6000728c9e48635",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
