@@ -30,7 +30,6 @@ import androidx.viewpager2.widget.ViewPager2.ORIENTATION_VERTICAL
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import androidx.viewpager2.widget.ViewPager2.PageTransformer
 import org.hamcrest.CoreMatchers.equalTo
-import org.hamcrest.CoreMatchers.instanceOf
 import org.hamcrest.CoreMatchers.not
 import org.hamcrest.Matchers.greaterThan
 import org.hamcrest.Matchers.lessThan
@@ -136,8 +135,8 @@ class PageTransformerTest(private val config: TestConfig) : BaseTest() {
 
             // then
             callback.apply {
-                assertThat(events.first(), instanceOf(OnPageScrolledEvent::class.java))
-                assertThat(events.last(), instanceOf(TransformPageEvent::class.java))
+                assertFirstTransformEventsAreSnapped(currentPage)
+                assertLastTransformEventsAreSnapped(targetPage)
 
                 val sortOrder = if (targetPage - currentPage > 0) ASC else DESC
                 assertTransformEventsPerScrollEventAreForUniquePages()
@@ -209,14 +208,17 @@ class PageTransformerTest(private val config: TestConfig) : BaseTest() {
 
         val transformEvents get() = events.mapNotNull { it as? TransformPageEvent }
         val frames get() =
-            events.fold(mutableListOf<MutableList<TransformPageEvent>>()) { groups, e ->
-                if (e is Event.OnPageScrolledEvent) {
-                    groups.add(mutableListOf())
-                } else if (e is TransformPageEvent) {
-                    groups.last().add(e)
+            // Drop the first TransformPageEvents, they were triggered
+            // by setting the PageTransformer and not by the scroll
+            events.dropWhile { it is TransformPageEvent }
+                .fold(mutableListOf<MutableList<TransformPageEvent>>()) { groups, e ->
+                    if (e is Event.OnPageScrolledEvent) {
+                        groups.add(mutableListOf())
+                    } else if (e is TransformPageEvent) {
+                        groups.last().add(e)
+                    }
+                    groups
                 }
-                groups
-            }
         val pageIndices get() = events.mapNotNull { (it as? TransformPageEvent)?.page }.distinct()
 
         fun indexedEventsOf(page: Int): List<Pair<Int, TransformPageEvent>> {
@@ -251,6 +253,23 @@ class PageTransformerTest(private val config: TestConfig) : BaseTest() {
     }
 
     /* assertions */
+
+    private fun RecordingCallback.assertFirstTransformEventsAreSnapped(currentPage: Int) {
+        events.takeWhile { it is TransformPageEvent }.assertSnappedAtPage(currentPage)
+    }
+
+    private fun RecordingCallback.assertLastTransformEventsAreSnapped(targetPage: Int) {
+        events.takeLastWhile { it is TransformPageEvent }.assertSnappedAtPage(targetPage)
+    }
+
+    private fun List<Event>.assertSnappedAtPage(snappedPage: Int) {
+        map { it as TransformPageEvent }.forEach {
+            assertThat("transformPage() call must be snapped at page $snappedPage",
+                // event.page - event.offset resolves to the currently visible page index
+                it.page - it.offset, equalTo(snappedPage.toFloat())
+            )
+        }
+    }
 
     private fun RecordingCallback.assertTransformEventsPerScrollEventAreForUniquePages() {
         frames.forEach {
