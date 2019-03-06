@@ -69,6 +69,30 @@
       "revId": "6bb107f02580db88019b78c28e26a6a88fc5bf55",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04c92e58_72b4e119",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/LibraryGroups.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-03-06T20:57:29Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d6915120_89f5acee",
+      "range": {
+        "startLine": 23,
+        "startChar": 53,
+        "endLine": 23,
+        "endChar": 58
+      },
+      "revId": "6bb107f02580db88019b78c28e26a6a88fc5bf55",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
