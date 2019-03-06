@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e0529c4a_b738dda3",
+        "filename": "fragment/src/androidTest/java/androidx/fragment/app/NestedFragmentRestoreTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-03-06T23:25:37Z",
+      "side": 1,
+      "message": "Just use var attachedTo: Context? \u003d null",
+      "range": {
+        "startLine": 55,
+        "startChar": 8,
+        "endLine": 55,
+        "endChar": 49
+      },
+      "revId": "5fb75b97b44a39ee82e02c5aaebb84f459187179",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
