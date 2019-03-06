@@ -18,49 +18,54 @@ package androidx.media2;
 
 import androidx.media.AudioAttributesCompat;
 
+import com.google.common.util.concurrent.ListenableFuture;
+
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.Executor;
 
 /**
- * Mock implementation of {@link BaseRemoteMediaPlayer}.
+ * Mock implementation of {@link RemoteSessionPlayer}.
  */
-public class MockRemotePlayer extends BaseRemoteMediaPlayer {
+public class MockRemotePlayer extends RemoteSessionPlayer {
+    private static final int ITEM_NONE = -1;
+
     public final CountDownLatch mLatch = new CountDownLatch(1);
     public boolean mSetVolumeToCalled;
     public boolean mAdjustVolumeCalled;
-    public int mControlType;
-    public float mCurrentVolume;
-    public float mMaxVolume;
+    public @VolumeControlType int mControlType;
+    public int mCurrentVolume;
+    public int mMaxVolume;
     public int mDirection;
 
-    MockRemotePlayer(int controlType, float maxVolume, float currentVolume) {
+    public MockRemotePlayer(int controlType, int maxVolume, int currentVolume) {
         mControlType = controlType;
         mMaxVolume = maxVolume;
         mCurrentVolume = currentVolume;
     }
 
     @Override
-    public void setPlayerVolume(float volume) {
+    public ListenableFuture<PlayerResult> setVolume(int volume) {
         mSetVolumeToCalled = true;
         mCurrentVolume = volume;
         mLatch.countDown();
+        return new SyncListenableFuture(null);
     }
 
     @Override
-    public void adjustPlayerVolume(int direction) {
+    public ListenableFuture<PlayerResult> adjustVolume(int direction) {
         mAdjustVolumeCalled = true;
         mDirection = direction;
         mLatch.countDown();
+        return new SyncListenableFuture(null);
     }
 
     @Override
-    public float getPlayerVolume() {
+    public int getVolume() {
         return mCurrentVolume;
     }
 
     @Override
-    public float getMaxPlayerVolume() {
+    public int getMaxVolume() {
         return mMaxVolume;
     }
 
@@ -70,52 +75,52 @@ public class MockRemotePlayer extends BaseRemoteMediaPlayer {
     }
 
     @Override
-    public void play() {
-
+    public ListenableFuture<PlayerResult> play() {
+        return null;
     }
 
     @Override
-    public void prepare() {
-
+    public ListenableFuture<PlayerResult> pause() {
+        return null;
     }
 
     @Override
-    public void pause() {
-
+    public ListenableFuture<PlayerResult> prepare() {
+        return null;
     }
 
     @Override
-    public void reset() {
-
+    public ListenableFuture<PlayerResult> seekTo(long position) {
+        return null;
     }
 
     @Override
-    public void skipToNext() {
-
+    public ListenableFuture<PlayerResult> setPlaybackSpeed(float playbackSpeed) {
+        return null;
     }
 
     @Override
-    public void seekTo(long pos) {
-
-    }
-
-    @Override
-    public long getCurrentPosition() {
-        return super.getCurrentPosition();
-    }
-
-    @Override
-    public long getDuration() {
-        return super.getDuration();
-    }
-
-    @Override
-    public long getBufferedPosition() {
-        return super.getBufferedPosition();
+    public ListenableFuture<PlayerResult> setAudioAttributes(AudioAttributesCompat attributes) {
+        return null;
     }
 
     @Override
     public int getPlayerState() {
+        return 0;
+    }
+
+    @Override
+    public long getCurrentPosition() {
+        return 0;
+    }
+
+    @Override
+    public long getDuration() {
+        return 0;
+    }
+
+    @Override
+    public long getBufferedPosition() {
         return 0;
     }
 
@@ -125,8 +130,14 @@ public class MockRemotePlayer extends BaseRemoteMediaPlayer {
     }
 
     @Override
-    public void setAudioAttributes(AudioAttributesCompat attributes) {
+    public float getPlaybackSpeed() {
+        return 0;
+    }
 
+    @Override
+    public ListenableFuture<PlayerResult> setPlaylist(List<MediaItem> list,
+            MediaMetadata metadata) {
+        return null;
     }
 
     @Override
@@ -135,57 +146,96 @@ public class MockRemotePlayer extends BaseRemoteMediaPlayer {
     }
 
     @Override
-    public void setDataSource(DataSourceDesc2 dsd) {
-
-    }
-
-    @Override
-    public void setNextDataSource(DataSourceDesc2 dsd) {
-
-    }
-
-    @Override
-    public void setNextDataSources(List<DataSourceDesc2> dsds) {
-
-    }
-
-    @Override
-    public DataSourceDesc2 getCurrentDataSource() {
+    public ListenableFuture<PlayerResult> setMediaItem(MediaItem item) {
         return null;
     }
 
     @Override
-    public void loopCurrent(boolean loop) {
-
+    public ListenableFuture<PlayerResult> addPlaylistItem(int index, MediaItem item) {
+        return null;
     }
 
     @Override
-    public void setPlaybackSpeed(float speed) {
-
+    public ListenableFuture<PlayerResult> removePlaylistItem(int index) {
+        return null;
     }
 
     @Override
-    public float getPlaybackSpeed() {
-        return super.getPlaybackSpeed();
+    public ListenableFuture<PlayerResult> replacePlaylistItem(int index, MediaItem item) {
+        return null;
     }
 
     @Override
-    public boolean isReversePlaybackSupported() {
-        return super.isReversePlaybackSupported();
+    public ListenableFuture<PlayerResult> skipToPreviousPlaylistItem() {
+        return null;
     }
 
     @Override
-    public void registerPlayerEventCallback(Executor executor, PlayerEventCallback callback) {
-
+    public ListenableFuture<PlayerResult> skipToNextPlaylistItem() {
+        return null;
     }
 
     @Override
-    public void unregisterPlayerEventCallback(PlayerEventCallback callback) {
+    public ListenableFuture<PlayerResult> skipToPlaylistItem(int index) {
+        return null;
+    }
 
+    @Override
+    public ListenableFuture<PlayerResult> updatePlaylistMetadata(MediaMetadata metadata) {
+        return null;
+    }
+
+    @Override
+    public ListenableFuture<PlayerResult> setRepeatMode(int repeatMode) {
+        return null;
+    }
+
+    @Override
+    public ListenableFuture<PlayerResult> setShuffleMode(int shuffleMode) {
+        return null;
+    }
+
+    @Override
+    public List<MediaItem> getPlaylist() {
+        return null;
+    }
+
+    @Override
+    public MediaMetadata getPlaylistMetadata() {
+        return null;
+    }
+
+    @Override
+    public int getRepeatMode() {
+        return 0;
+    }
+
+    @Override
+    public int getShuffleMode() {
+        return 0;
+    }
+
+    @Override
+    public MediaItem getCurrentMediaItem() {
+        return null;
+    }
+
+    @Override
+    public int getCurrentMediaItemIndex() {
+        return ITEM_NONE;
+    }
+
+    @Override
+    public int getPreviousMediaItemIndex() {
+        return ITEM_NONE;
+    }
+
+    @Override
+    public int getNextMediaItemIndex() {
+        return ITEM_NONE;
     }
 
     @Override
     public void close() throws Exception {
-
     }
 }

@@ -34,10 +34,10 @@ import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.LargeTest;
 import androidx.test.filters.SdkSuppress;
-import androidx.test.filters.SmallTest;
 import androidx.test.rule.ActivityTestRule;
-import androidx.test.runner.AndroidJUnit4;
 import androidx.wear.test.R;
 
 import org.junit.Before;
@@ -47,7 +47,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 
 /** Tests for {@link RoundedDrawable} */
-@SmallTest
+@LargeTest
 @RunWith(AndroidJUnit4.class)
 public class RoundedDrawableTest {
 

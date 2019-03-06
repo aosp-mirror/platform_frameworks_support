@@ -28,13 +28,13 @@ plugins {
 dependencies {
     testCompile(JUNIT)
     testCompile(MOCKITO_CORE)
-    compile(SUPPORT_ANNOTATIONS)
+    compile(project(":annotation"))
 }
 
 supportLibrary {
     name = "Android Lifecycle-Common"
     publish = true
-    mavenVersion = LibraryVersions.LIFECYCLES_CORE
+    mavenVersion = LibraryVersions.LIFECYCLE
     mavenGroup = LibraryGroups.LIFECYCLE
     inceptionYear = "2017"
     description = "Android Lifecycle-Common"

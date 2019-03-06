@@ -29,6 +29,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.graphics.drawable.Icon;
 import android.net.Uri;
 import android.os.Binder;
 import android.os.Build;
@@ -46,8 +47,10 @@ import androidx.annotation.RequiresApi;
 import androidx.annotation.RestrictTo;
 import androidx.annotation.RestrictTo.Scope;
 import androidx.collection.ArraySet;
+import androidx.core.graphics.drawable.IconCompat;
 import androidx.core.util.Preconditions;
 import androidx.slice.Slice;
+import androidx.slice.SliceItemHolder;
 import androidx.slice.SliceProvider;
 import androidx.slice.SliceSpec;
 import androidx.versionedparcelable.ParcelUtils;
@@ -61,7 +64,7 @@ import java.util.Set;
 /**
  * @hide
  */
-@RestrictTo(Scope.LIBRARY)
+@RestrictTo(Scope.LIBRARY_GROUP)
 @RequiresApi(19)
 public class SliceProviderCompat {
     public static final String PERMS_PREFIX = "slice_perms_";
@@ -143,7 +146,9 @@ public class SliceProviderCompat {
             Slice s = handleBindSlice(uri, specs, getCallingPackage());
             Bundle b = new Bundle();
             if (ARG_SUPPORTS_VERSIONED_PARCELABLE.equals(arg)) {
-                b.putParcelable(EXTRA_SLICE, s != null ? ParcelUtils.toParcelable(s) : null);
+                synchronized (SliceItemHolder.sSerializeLock) {
+                    b.putParcelable(EXTRA_SLICE, s != null ? ParcelUtils.toParcelable(s) : null);
+                }
             } else {
                 b.putParcelable(EXTRA_SLICE, s != null ? s.toBundle() : null);
             }
@@ -156,7 +161,10 @@ public class SliceProviderCompat {
                 Set<SliceSpec> specs = getSpecs(extras);
                 Slice s = handleBindSlice(uri, specs, getCallingPackage());
                 if (ARG_SUPPORTS_VERSIONED_PARCELABLE.equals(arg)) {
-                    b.putParcelable(EXTRA_SLICE, s != null ? ParcelUtils.toParcelable(s) : null);
+                    synchronized (SliceItemHolder.sSerializeLock) {
+                        b.putParcelable(EXTRA_SLICE,
+                                s != null ? ParcelUtils.toParcelable(s) : null);
+                    }
                 } else {
                     b.putParcelable(EXTRA_SLICE, s != null ? s.toBundle() : null);
                 }
@@ -313,22 +321,12 @@ public class SliceProviderCompat {
             addSpecs(extras, supportedSpecs);
             final Bundle res = holder.mProvider.call(METHOD_SLICE,
                     ARG_SUPPORTS_VERSIONED_PARCELABLE, extras);
-            if (res == null) {
-                return null;
-            }
-            res.setClassLoader(SliceProviderCompat.class.getClassLoader());
-            Parcelable parcel = res.getParcelable(EXTRA_SLICE);
-            if (parcel == null) {
-                return null;
-            }
-            if (parcel instanceof Bundle) {
-                return new Slice((Bundle) parcel);
-            }
-            return ParcelUtils.fromParcelable(parcel);
+            return parseSlice(context, res);
         } catch (RemoteException e) {
             Log.e(TAG, "Unable to bind slice", e);
             return null;
         } finally {
+            holder.close();
         }
     }
 
@@ -410,21 +408,45 @@ public class SliceProviderCompat {
             addSpecs(extras, supportedSpecs);
             final Bundle res = holder.mProvider.call(METHOD_MAP_INTENT,
                     ARG_SUPPORTS_VERSIONED_PARCELABLE, extras);
-            if (res == null) {
-                return null;
-            }
-            res.setClassLoader(SliceProviderCompat.class.getClassLoader());
-            Parcelable parcel = res.getParcelable(EXTRA_SLICE);
-            if (parcel == null) {
-                return null;
-            }
-            if (parcel instanceof Bundle) {
-                return new Slice((Bundle) parcel);
-            }
-            return ParcelUtils.fromParcelable(parcel);
+            return parseSlice(context, res);
         } catch (RemoteException e) {
             Log.e(TAG, "Unable to bind slice", e);
             return null;
+        } finally {
+            holder.close();
+        }
+    }
+
+    private static Slice parseSlice(final Context context, Bundle res) {
+        if (res == null) {
+            return null;
+        }
+        synchronized (SliceItemHolder.sSerializeLock) {
+            try {
+                SliceItemHolder.sHandler = new SliceItemHolder.HolderHandler() {
+                    @Override
+                    public void handle(SliceItemHolder holder, String format) {
+                        if (holder.mVersionedParcelable instanceof IconCompat) {
+                            IconCompat icon = (IconCompat) holder.mVersionedParcelable;
+                            icon.checkResource(context);
+                            if (icon.getType() == Icon.TYPE_RESOURCE && icon.getResId() == 0) {
+                                holder.mVersionedParcelable = null;
+                            }
+                        }
+                    }
+                };
+                res.setClassLoader(SliceProviderCompat.class.getClassLoader());
+                Parcelable parcel = res.getParcelable(EXTRA_SLICE);
+                if (parcel == null) {
+                    return null;
+                }
+                if (parcel instanceof Bundle) {
+                    return new Slice((Bundle) parcel);
+                }
+                return ParcelUtils.fromParcelable(parcel);
+            } finally {
+                SliceItemHolder.sHandler = null;
+            }
         }
     }
 
@@ -445,6 +467,8 @@ public class SliceProviderCompat {
             holder.mProvider.call(METHOD_PIN, ARG_SUPPORTS_VERSIONED_PARCELABLE, extras);
         } catch (RemoteException e) {
             Log.e(TAG, "Unable to pin slice", e);
+        } finally {
+            holder.close();
         }
     }
 
@@ -466,6 +490,8 @@ public class SliceProviderCompat {
                 holder.mProvider.call(METHOD_UNPIN, ARG_SUPPORTS_VERSIONED_PARCELABLE, extras);
             } catch (RemoteException e) {
                 Log.e(TAG, "Unable to unpin slice", e);
+            } finally {
+                holder.close();
             }
         }
     }
@@ -488,6 +514,8 @@ public class SliceProviderCompat {
             }
         } catch (RemoteException e) {
             Log.e(TAG, "Unable to get pinned specs", e);
+        } finally {
+            holder.close();
         }
         return null;
     }

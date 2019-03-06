@@ -13,7 +13,7 @@
  */
 package androidx.leanback.widget;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -45,14 +45,14 @@ public abstract class BaseGridView extends RecyclerView {
      * is back to the view.
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public final static int FOCUS_SCROLL_ALIGNED = 0;
 
     /**
      * Scroll to make the focused item inside client area.
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public final static int FOCUS_SCROLL_ITEM = 1;
 
     /**
@@ -60,7 +60,7 @@ public abstract class BaseGridView extends RecyclerView {
      * The page size matches the client area size of RecyclerView.
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public final static int FOCUS_SCROLL_PAGE = 2;
 
     /**
@@ -154,6 +154,8 @@ public abstract class BaseGridView extends RecyclerView {
      */
     public static final int SAVE_ALL_CHILD = 3;
 
+    private static final int PFLAG_RETAIN_FOCUS_FOR_CHILD = 1 << 0;
+
     /**
      * Listener for intercepting touch dispatch events.
      */
@@ -213,6 +215,8 @@ public abstract class BaseGridView extends RecyclerView {
      */
     int mInitialPrefetchItemCount = 4;
 
+    private int mPrivateFlag;
+
     BaseGridView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         mLayoutManager = new GridLayoutManager(this);
@@ -268,7 +272,7 @@ public abstract class BaseGridView extends RecyclerView {
      * </ul>
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public void setFocusScrollStrategy(int scrollStrategy) {
         if (scrollStrategy != FOCUS_SCROLL_ALIGNED && scrollStrategy != FOCUS_SCROLL_ITEM
             && scrollStrategy != FOCUS_SCROLL_PAGE) {
@@ -287,7 +291,7 @@ public abstract class BaseGridView extends RecyclerView {
      * </ul>
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public int getFocusScrollStrategy() {
         return mLayoutManager.getFocusScrollStrategy();
     }
@@ -681,7 +685,7 @@ public abstract class BaseGridView extends RecyclerView {
      * Changes the selected item and/or subposition immediately without animation.
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public void setSelectedPositionWithSub(int position, int subposition) {
         mLayoutManager.setSelectionWithSub(position, subposition, 0);
     }
@@ -701,7 +705,7 @@ public abstract class BaseGridView extends RecyclerView {
      * another {@link #setSelectedPosition} or {@link #setSelectedPositionSmooth} call.
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public void setSelectedPositionWithSub(int position, int subposition, int scrollExtra) {
         mLayoutManager.setSelectionWithSub(position, subposition, scrollExtra);
     }
@@ -720,7 +724,7 @@ public abstract class BaseGridView extends RecyclerView {
      * position.
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public void setSelectedPositionSmoothWithSub(int position, int subposition) {
         mLayoutManager.setSelectionSmoothWithSub(position, subposition);
     }
@@ -792,7 +796,7 @@ public abstract class BaseGridView extends RecyclerView {
      * is defined.
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public int getSelectedSubPosition() {
         return mLayoutManager.getSubSelection();
     }
@@ -836,6 +840,10 @@ public abstract class BaseGridView extends RecyclerView {
 
     @Override
     public boolean onRequestFocusInDescendants(int direction, Rect previouslyFocusedRect) {
+        if ((mPrivateFlag & PFLAG_RETAIN_FOCUS_FOR_CHILD) == PFLAG_RETAIN_FOCUS_FOR_CHILD) {
+            // dont focus to child if GridView itself retains focus for child
+            return false;
+        }
         return mLayoutManager.gridOnRequestFocusInDescendants(this, direction,
                 previouslyFocusedRect);
     }
@@ -1101,7 +1109,7 @@ public abstract class BaseGridView extends RecyclerView {
      *                          Must be bigger or equals to 0.
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public void setExtraLayoutSpace(int extraLayoutSpace) {
         mLayoutManager.setExtraLayoutSpace(extraLayoutSpace);
     }
@@ -1111,7 +1119,7 @@ public abstract class BaseGridView extends RecyclerView {
      *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public int getExtraLayoutSpace() {
         return mLayoutManager.getExtraLayoutSpace();
     }
@@ -1199,5 +1207,35 @@ public abstract class BaseGridView extends RecyclerView {
      */
     public int getInitialPrefetchItemCount() {
         return mInitialPrefetchItemCount;
+    }
+
+    @Override
+    public void removeView(View view) {
+        boolean retainFocusForChild = view.hasFocus() && isFocusable();
+        if (retainFocusForChild) {
+            // When animation or scrolling removes a focused child, focus to GridView itself to
+            // avoid losing focus.
+            mPrivateFlag |= PFLAG_RETAIN_FOCUS_FOR_CHILD;
+            requestFocus();
+        }
+        super.removeView(view);
+        if (retainFocusForChild) {
+            mPrivateFlag ^= (~PFLAG_RETAIN_FOCUS_FOR_CHILD);
+        }
+    }
+
+    @Override
+    public void removeViewAt(int index) {
+        boolean retainFocusForChild = getChildAt(index).hasFocus();
+        if (retainFocusForChild) {
+            // When animation or scrolling removes a focused child, focus to GridView itself to
+            // avoid losing focus.
+            mPrivateFlag |= PFLAG_RETAIN_FOCUS_FOR_CHILD;
+            requestFocus();
+        }
+        super.removeViewAt(index);
+        if (retainFocusForChild) {
+            mPrivateFlag ^= (~PFLAG_RETAIN_FOCUS_FOR_CHILD);
+        }
     }
 }

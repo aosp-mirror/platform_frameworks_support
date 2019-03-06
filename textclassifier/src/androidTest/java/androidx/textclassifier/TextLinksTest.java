@@ -16,20 +16,26 @@
 
 package androidx.textclassifier;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static androidx.textclassifier.TextClassifier.EntityConfig;
+import static androidx.textclassifier.TextClassifier.TYPE_ADDRESS;
+import static androidx.textclassifier.TextClassifier.TYPE_OTHER;
+import static androidx.textclassifier.TextClassifier.TYPE_PHONE;
 
-import android.os.Parcel;
+import static com.google.common.truth.Truth.assertThat;
+
+import static org.junit.Assert.assertEquals;
+
+import android.content.Context;
+import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
-import android.text.style.ClickableSpan;
-import android.view.View;
 
-import androidx.annotation.Nullable;
 import androidx.collection.ArrayMap;
 import androidx.core.os.LocaleListCompat;
+import androidx.test.core.app.ApplicationProvider;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.SdkSuppress;
 import androidx.test.filters.SmallTest;
-import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -37,6 +43,7 @@ import org.junit.runner.RunWith;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -45,171 +52,188 @@ import java.util.Map;
 @RunWith(AndroidJUnit4.class)
 public final class TextLinksTest {
 
-    private static class NoOpSpan extends ClickableSpan {
-        @Override
-        public void onClick(View v) {
-            // Do nothing.
-        }
-    }
+    private static final Spannable FULL_TEXT = new SpannableString("this is just a test");
+    private static final int START = 5;
+    private static final int END = 6;
 
-    private static class CustomTextLinkSpan extends TextLinks.TextLinkSpan {
-        CustomTextLinkSpan(@Nullable TextLinks.TextLink textLink) {
-            super(textLink);
-        }
-    }
+    private static final String LANGUAGE_TAGS = "en-US,de-DE";
+    private static final LocaleListCompat LOCALE_LIST =
+            LocaleListCompat.forLanguageTags(LANGUAGE_TAGS);
+    private static final long REFERENCE_TIME = System.currentTimeMillis();
 
-    private static class CustomSpanFactory implements TextLinks.SpanFactory {
-        @Override
-        public TextLinks.TextLinkSpan createSpan(TextLinks.TextLink textLink) {
-            return new CustomTextLinkSpan(textLink);
-        }
-    }
-
-    private TextClassifier mClassifier;
     private Map<String, Float> mDummyEntityScores;
+
+    private static final String BUNDLE_KEY = "key";
+    private static final String BUNDLE_VALUE = "value";
+    private static final Bundle BUNDLE = new Bundle();
+    static {
+        BUNDLE.putString(BUNDLE_KEY, BUNDLE_VALUE);
+    }
 
     @Before
     public void setup() {
-        mClassifier = new TextClassifier();
         mDummyEntityScores = new ArrayMap<>();
-        mDummyEntityScores.put(TextClassifier.TYPE_ADDRESS, 0.2f);
-        mDummyEntityScores.put(TextClassifier.TYPE_PHONE, 0.7f);
-        mDummyEntityScores.put(TextClassifier.TYPE_OTHER, 0.3f);
+        mDummyEntityScores.put(TYPE_ADDRESS, 0.2f);
+        mDummyEntityScores.put(TYPE_PHONE, 0.7f);
+        mDummyEntityScores.put(TYPE_OTHER, 0.3f);
     }
 
     private Map<String, Float> getEntityScores(float address, float phone, float other) {
         final Map<String, Float> result = new ArrayMap<>();
         if (address > 0.f) {
-            result.put(TextClassifier.TYPE_ADDRESS, address);
+            result.put(TYPE_ADDRESS, address);
         }
         if (phone > 0.f) {
-            result.put(TextClassifier.TYPE_PHONE, phone);
+            result.put(TYPE_PHONE, phone);
         }
         if (other > 0.f) {
-            result.put(TextClassifier.TYPE_OTHER, other);
+            result.put(TYPE_OTHER, other);
         }
         return result;
     }
 
     @Test
-    public void testParcel() {
-        final String fullText = "this is just a test";
-        final TextLinks reference = new TextLinks.Builder(fullText)
+    public void testBundle() {
+        final TextLinks reference = new TextLinks.Builder(FULL_TEXT.toString())
                 .addLink(0, 4, getEntityScores(0.f, 0.f, 1.f))
                 .addLink(5, 12, getEntityScores(.8f, .1f, .5f))
+                .setExtras(BUNDLE)
                 .build();
 
-        // Parcel and unparcel.
-        final Parcel parcel = Parcel.obtain();
-        reference.writeToParcel(parcel, reference.describeContents());
-        parcel.setDataPosition(0);
-        final TextLinks result = TextLinks.CREATOR.createFromParcel(parcel);
-        final List<TextLinks.TextLink> resultList = new ArrayList<>(result.getLinks());
+        // Serialize/deserialize.
+        final TextLinks result = TextLinks.createFromBundle(reference.toBundle());
 
+        assertTextLinks(result);
+        assertEquals(BUNDLE_VALUE, result.getExtras().getString(BUNDLE_KEY));
+    }
+
+    @Test
+    public void testBundleRequest() {
+        TextLinks.Request reference = createTextLinksRequest().setExtras(BUNDLE).build();
+
+        // Serialize/deserialize.
+        TextLinks.Request result = TextLinks.Request.createFromBundle(reference.toBundle());
+
+        assertEquals(FULL_TEXT, result.getText());
+        assertEquals(LANGUAGE_TAGS, result.getDefaultLocales().toLanguageTags());
+        assertThat(result.getEntityConfig().getHints()).containsExactly("hints");
+        assertThat(result.getEntityConfig().resolveEntityTypes(
+                Arrays.asList("default", "excluded")))
+                .containsExactly("included", "default");
+        assertThat(result.getReferenceTime()).isEqualTo(REFERENCE_TIME);
+        assertEquals(BUNDLE_VALUE, result.getExtras().getString(BUNDLE_KEY));
+    }
+
+    @Test
+    public void testBundleRequest_minimalRequest() {
+        TextLinks.Request reference = new TextLinks.Request.Builder(FULL_TEXT).build();
+
+        // Serialize/deserialize.
+        TextLinks.Request result = TextLinks.Request.createFromBundle(reference.toBundle());
+
+        assertEquals(FULL_TEXT, result.getText());
+    }
+
+    @Test
+    @SdkSuppress(minSdkVersion = 28)
+    public void testConvertToPlatformRequest() {
+        TextLinks.Request request = createTextLinksRequest().build();
+
+        android.view.textclassifier.TextLinks.Request platformRequest = request.toPlatform();
+        assertEquals(FULL_TEXT, platformRequest.getText());
+        assertEquals(LANGUAGE_TAGS, platformRequest.getDefaultLocales().toLanguageTags());
+        assertThat(platformRequest.getEntityConfig().getHints()).containsExactly("hints");
+        assertThat(platformRequest.getEntityConfig().resolveEntityListModifications(
+                Arrays.asList("default", "excluded")))
+                .containsExactly("included", "default");
+    }
+
+    @Test
+    @SdkSuppress(minSdkVersion = 28)
+    public void testConvertFromPlatformTextLinks() {
+        final android.view.textclassifier.TextLinks platformTextLinks =
+                new android.view.textclassifier.TextLinks.Builder(FULL_TEXT.toString())
+                        .addLink(0, 4, getEntityScores(0.f, 0.f, 1.f))
+                        .addLink(5, 12, getEntityScores(.8f, .1f, .5f))
+                        .build();
+
+        TextLinks textLinks = TextLinks.fromPlatform(platformTextLinks, FULL_TEXT);
+        assertTextLinks(textLinks);
+    }
+
+    @Test
+    public void testApply_spannable_no_link() {
+        SpannableString text = new SpannableString(FULL_TEXT);
+        TextLinks textLinks = new TextLinks.Builder(text).build();
+
+        Context context = ApplicationProvider.getApplicationContext();
+        TextClassifier textClassifier = TextClassificationManager.of(context).getTextClassifier();
+        int status = textLinks.apply(text, textClassifier, TextLinksParams.DEFAULT_PARAMS);
+        assertThat(status).isEqualTo(TextLinks.STATUS_NO_LINKS_FOUND);
+
+        final TextLinks.TextLinkSpan[] spans =
+                text.getSpans(0, text.length(), TextLinks.TextLinkSpan.class);
+        assertThat(spans).isEmpty();
+    }
+
+    @Test
+    public void testApply_spannable() {
+        SpannableString text = new SpannableString(FULL_TEXT);
+        TextLinks textLinks = new TextLinks.Builder(text)
+                .addLink(START, END, Collections.singletonMap(TextClassifier.TYPE_PHONE, 1.0f))
+                .build();
+
+        Context context = ApplicationProvider.getApplicationContext();
+        TextClassifier textClassifier = TextClassificationManager.of(context).getTextClassifier();
+        int status = textLinks.apply(text, textClassifier, TextLinksParams.DEFAULT_PARAMS);
+        assertThat(status).isEqualTo(TextLinks.STATUS_LINKS_APPLIED);
+
+        assertAppliedSpannable(text);
+    }
+
+    private void assertAppliedSpannable(Spannable spannable) {
+        TextLinks.TextLinkSpan[] spans =
+                spannable.getSpans(0, spannable.length(), TextLinks.TextLinkSpan.class);
+        assertThat(spans).hasLength(1);
+        TextLinks.TextLinkSpan span = spans[0];
+        assertThat(spannable.getSpanStart(span)).isEqualTo(START);
+        assertThat(spannable.getSpanEnd(span)).isEqualTo(END);
+        assertThat(span.getTextLinkSpanData().getTextLink().getEntityType(0))
+                .isEqualTo(TextClassifier.TYPE_PHONE);
+    }
+
+    private TextLinks.Request.Builder createTextLinksRequest() {
+        EntityConfig entityConfig = new EntityConfig.Builder()
+                .setIncludedEntityTypes(Arrays.asList("included"))
+                .setExcludedEntityTypes(Arrays.asList("excluded"))
+                .setHints(Arrays.asList("hints"))
+                .build();
+
+        return new TextLinks.Request.Builder(FULL_TEXT)
+                .setDefaultLocales(LOCALE_LIST)
+                .setEntityConfig(entityConfig)
+                .setReferenceTime(REFERENCE_TIME);
+    }
+
+    private void assertTextLinks(TextLinks textLinks) {
+        assertEquals(FULL_TEXT.toString(), textLinks.getText());
+        final List<TextLinks.TextLink> resultList = new ArrayList<>(textLinks.getLinks());
+        final float epsilon = 1e-7f;
         assertEquals(2, resultList.size());
         assertEquals(0, resultList.get(0).getStart());
         assertEquals(4, resultList.get(0).getEnd());
-        assertEquals(1, resultList.get(0).getEntityCount());
-        assertEquals(TextClassifier.TYPE_OTHER, resultList.get(0).getEntity(0));
-        assertEquals(1.f, resultList.get(0).getConfidenceScore(TextClassifier.TYPE_OTHER),
-                1e-7f);
+        assertEquals(1, resultList.get(0).getEntityTypeCount());
+        assertEquals(TYPE_OTHER, resultList.get(0).getEntityType(0));
+        assertEquals(1.f, resultList.get(0).getConfidenceScore(TYPE_OTHER), epsilon);
         assertEquals(5, resultList.get(1).getStart());
         assertEquals(12, resultList.get(1).getEnd());
-        assertEquals(3, resultList.get(1).getEntityCount());
-        assertEquals(TextClassifier.TYPE_ADDRESS, resultList.get(1).getEntity(0));
-        assertEquals(TextClassifier.TYPE_OTHER, resultList.get(1).getEntity(1));
-        assertEquals(TextClassifier.TYPE_PHONE, resultList.get(1).getEntity(2));
-        assertEquals(.8f, resultList.get(1).getConfidenceScore(TextClassifier.TYPE_ADDRESS), 1e-7f);
-        assertEquals(.5f, resultList.get(1).getConfidenceScore(TextClassifier.TYPE_OTHER), 1e-7f);
-        assertEquals(.1f, resultList.get(1).getConfidenceScore(TextClassifier.TYPE_PHONE), 1e-7f);
+        assertEquals(3, resultList.get(1).getEntityTypeCount());
+        assertEquals(TYPE_ADDRESS, resultList.get(1).getEntityType(0));
+        assertEquals(TYPE_OTHER, resultList.get(1).getEntityType(1));
+        assertEquals(TYPE_PHONE, resultList.get(1).getEntityType(2));
+        assertEquals(.8f, resultList.get(1).getConfidenceScore(TYPE_ADDRESS), epsilon);
+        assertEquals(.5f, resultList.get(1).getConfidenceScore(TYPE_OTHER), epsilon);
+        assertEquals(.1f, resultList.get(1).getConfidenceScore(TYPE_PHONE), epsilon);
     }
 
-    @Test
-    public void testParcelOptions() {
-        TextClassifier.EntityConfig entityConfig = new TextClassifier.EntityConfig(
-                TextClassifier.ENTITY_PRESET_NONE);
-        entityConfig.includeEntities("a", "b", "c");
-        entityConfig.excludeEntities("b");
-        final String callingPackageName = "packageName";
-        TextLinks.Options reference = new TextLinks.Options()
-                .setDefaultLocales(LocaleListCompat.forLanguageTags("en-US,de-DE"))
-                .setEntityConfig(entityConfig)
-                .setApplyStrategy(TextLinks.APPLY_STRATEGY_REPLACE)
-                .setSpanFactory(new CustomSpanFactory())
-                .setCallingPackageName(callingPackageName);
-
-        final Parcel parcel = Parcel.obtain();
-        reference.writeToParcel(parcel, reference.describeContents());
-        parcel.setDataPosition(0);
-        TextLinks.Options result = TextLinks.Options.CREATOR.createFromParcel(parcel);
-
-        assertEquals("en-US,de-DE", result.getDefaultLocales().toLanguageTags());
-        assertEquals(Arrays.asList("a", "c"), result.getEntityConfig().getEntities(mClassifier));
-        assertEquals(TextLinks.APPLY_STRATEGY_REPLACE, result.getApplyStrategy());
-        assertEquals(null, result.getSpanFactory());
-        assertEquals(callingPackageName, result.getCallingPackageName());
-    }
-
-    @Test
-    public void testApplyDifferentText() {
-        SpannableString text = new SpannableString("foo");
-        TextLinks links = new TextLinks.Builder("bar").build();
-        assertEquals(links.apply(text, TextLinks.APPLY_STRATEGY_REPLACE, null),
-                TextLinks.STATUS_DIFFERENT_TEXT);
-    }
-
-    @Test
-    public void testApplyNoLinks() {
-        SpannableString text = new SpannableString("foo");
-        TextLinks links = new TextLinks.Builder(text.toString()).build();
-        assertEquals(links.apply(text, TextLinks.APPLY_STRATEGY_REPLACE, null),
-                TextLinks.STATUS_NO_LINKS_FOUND);
-    }
-
-    @Test
-    public void testApplyNoApplied() {
-        SpannableString text = new SpannableString("foo");
-        text.setSpan(new NoOpSpan(), 0, 3, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        TextLinks links = new TextLinks.Builder(text.toString()).addLink(
-                0, 3, mDummyEntityScores).build();
-        assertEquals(links.apply(text, TextLinks.APPLY_STRATEGY_IGNORE, null),
-                TextLinks.STATUS_NO_LINKS_APPLIED);
-    }
-
-    @Test
-    public void testApplyAppliedDefaultSpanFactory() {
-        SpannableString text = new SpannableString("foo");
-        TextLinks links = new TextLinks.Builder(text.toString()).addLink(
-                0, 3, mDummyEntityScores).build();
-        assertEquals(links.apply(text, TextLinks.APPLY_STRATEGY_IGNORE, null),
-                TextLinks.STATUS_LINKS_APPLIED);
-        TextLinks.TextLinkSpan[] spans = text.getSpans(0, 3, TextLinks.TextLinkSpan.class);
-        assertEquals(spans.length, 1);
-        assertTrue(links.getLinks().contains(spans[0].getTextLink()));
-    }
-
-    @Test
-    public void testApplyAppliedDefaultSpanFactoryReplace() {
-        SpannableString text = new SpannableString("foo");
-        text.setSpan(new NoOpSpan(), 0, 3, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        TextLinks links = new TextLinks.Builder(text.toString()).addLink(
-                0, 3, mDummyEntityScores).build();
-        assertEquals(links.apply(text, TextLinks.APPLY_STRATEGY_REPLACE, null),
-                TextLinks.STATUS_LINKS_APPLIED);
-        TextLinks.TextLinkSpan[] spans = text.getSpans(0, 3, TextLinks.TextLinkSpan.class);
-        assertEquals(spans.length, 1);
-        assertTrue(links.getLinks().contains(spans[0].getTextLink()));
-    }
-
-    @Test
-    public void testApplyAppliedCustomSpanFactory() {
-        SpannableString text = new SpannableString("foo");
-        TextLinks links = new TextLinks.Builder(text.toString()).addLink(
-                0, 3, mDummyEntityScores).build();
-        assertEquals(links.apply(text, TextLinks.APPLY_STRATEGY_IGNORE, new CustomSpanFactory()),
-                TextLinks.STATUS_LINKS_APPLIED);
-        CustomTextLinkSpan[] spans = text.getSpans(0, 3, CustomTextLinkSpan.class);
-        assertEquals(spans.length, 1);
-        assertTrue(links.getLinks().contains(spans[0].getTextLink()));
-    }
 }

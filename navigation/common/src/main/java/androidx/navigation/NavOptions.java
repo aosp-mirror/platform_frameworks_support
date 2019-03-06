@@ -16,81 +16,16 @@
 
 package androidx.navigation;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.annotation.AnimRes;
-import android.support.annotation.AnimatorRes;
-import android.support.annotation.IdRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.AnimRes;
+import androidx.annotation.AnimatorRes;
+import androidx.annotation.IdRes;
+import androidx.annotation.NonNull;
 
 /**
  * NavOptions stores special options for navigate actions
  */
-public class NavOptions {
-    static final int LAUNCH_SINGLE_TOP = 0x1;
-    static final int LAUNCH_DOCUMENT = 0x2;
-    static final int LAUNCH_CLEAR_TASK = 0x4;
-
-    private static final String KEY_NAV_OPTIONS = "android-support-nav:navOptions";
-    private static final String KEY_LAUNCH_MODE = "launchMode";
-    private static final String KEY_POP_UP_TO = "popUpTo";
-    private static final String KEY_POP_UP_TO_INCLUSIVE = "popUpToInclusive";
-    private static final String KEY_ENTER_ANIM = "enterAnim";
-    private static final String KEY_EXIT_ANIM = "exitAnim";
-    private static final String KEY_POP_ENTER_ANIM = "popEnterAnim";
-    private static final String KEY_POP_EXIT_ANIM = "popExitAnim";
-
-    /**
-     * Add the {@link #getPopEnterAnim() pop enter} and {@link #getPopExitAnim() pop exit}
-     * animation to an Intent for later usage with
-     * {@link #applyPopAnimationsToPendingTransition(Activity)}.
-     * <p>
-     * This is automatically called for you by {@link ActivityNavigator}.
-     * </p>
-     *
-     * @param intent Intent being started with the given NavOptions
-     * @param navOptions NavOptions containing the pop animations.
-     * @see #applyPopAnimationsToPendingTransition(Activity)
-     * @see #getPopEnterAnim()
-     * @see #getPopExitAnim()
-     */
-    public static void addPopAnimationsToIntent(@NonNull Intent intent,
-            @Nullable NavOptions navOptions) {
-        if (navOptions != null) {
-            intent.putExtra(KEY_NAV_OPTIONS, navOptions.toBundle());
-        }
-    }
-
-    /**
-     * Apply any pop animations in the Intent of the given Activity to a pending transition.
-     * This should be used in place of  {@link Activity#overridePendingTransition(int, int)}
-     * to get the appropriate pop animations.
-     * @param activity An activity started from the {@link ActivityNavigator}.
-     * @see #addPopAnimationsToIntent(Intent, NavOptions)
-     * @see #getPopEnterAnim()
-     * @see #getPopExitAnim()
-     */
-    public static void applyPopAnimationsToPendingTransition(@NonNull Activity activity) {
-        Intent intent = activity.getIntent();
-        if (intent == null) {
-            return;
-        }
-        Bundle bundle = intent.getBundleExtra(KEY_NAV_OPTIONS);
-        if (bundle != null) {
-            NavOptions navOptions = NavOptions.fromBundle(bundle);
-            int popEnterAnim = navOptions.getPopEnterAnim();
-            int popExitAnim = navOptions.getPopExitAnim();
-            if (popEnterAnim != -1 || popExitAnim != -1) {
-                popEnterAnim = popEnterAnim != -1 ? popEnterAnim : 0;
-                popExitAnim = popExitAnim != -1 ? popExitAnim : 0;
-                activity.overridePendingTransition(popEnterAnim, popExitAnim);
-            }
-        }
-    }
-
-    private int mLaunchMode;
+public final class NavOptions {
+    private boolean mSingleTop;
     @IdRes
     private int mPopUpTo;
     private boolean mPopUpToInclusive;
@@ -103,10 +38,10 @@ public class NavOptions {
     @AnimRes @AnimatorRes
     private int mPopExitAnim;
 
-    NavOptions(int launchMode, @IdRes int popUpTo, boolean popUpToInclusive,
+    NavOptions(boolean singleTop, @IdRes int popUpTo, boolean popUpToInclusive,
             @AnimRes @AnimatorRes int enterAnim, @AnimRes @AnimatorRes int exitAnim,
             @AnimRes @AnimatorRes int popEnterAnim, @AnimRes @AnimatorRes int popExitAnim) {
-        mLaunchMode = launchMode;
+        mSingleTop = singleTop;
         mPopUpTo = popUpTo;
         mPopUpToInclusive = popUpToInclusive;
         mEnterAnim = enterAnim;
@@ -123,34 +58,7 @@ public class NavOptions {
      * works with activites.
      */
     public boolean shouldLaunchSingleTop() {
-        return (mLaunchMode & LAUNCH_SINGLE_TOP) != 0;
-    }
-
-    /**
-     * Whether this navigation action should launch the destination in a new document.
-     * <p>
-     * This functions similarly to how {@link android.content.Intent#FLAG_ACTIVITY_NEW_DOCUMENT}
-     * works with activites.
-     * @deprecated As per the {@link android.content.Intent#FLAG_ACTIVITY_NEW_DOCUMENT}
-     * documentation, it is recommended to use {@link android.R.attr#documentLaunchMode} on an
-     * Activity you wish to launch as a new document.
-     */
-    @Deprecated
-    public boolean shouldLaunchDocument() {
-        return (mLaunchMode & LAUNCH_DOCUMENT) != 0;
-    }
-
-    /**
-     * Whether this navigation action should clear the entire back stack
-     * <p>
-     * This functions similarly to how {@link android.content.Intent#FLAG_ACTIVITY_CLEAR_TASK}
-     * works with activites.
-     * @deprecated This is synonymous with {@link #getPopUpTo()} with the root of the graph and
-     * using {@link #isPopUpToInclusive()}.
-     */
-    @Deprecated
-    public boolean shouldClearTask() {
-        return (mLaunchMode & LAUNCH_CLEAR_TASK) != 0;
+        return mSingleTop;
     }
 
     /**
@@ -196,7 +104,6 @@ public class NavOptions {
      * The custom enter Animation/Animator that should be run when this destination is
      * popped from the back stack.
      * @return the resource id of a Animation or Animator or -1 if none.
-     * @see #applyPopAnimationsToPendingTransition(Activity)
      */
     @AnimRes @AnimatorRes
     public int getPopEnterAnim() {
@@ -207,41 +114,19 @@ public class NavOptions {
      * The custom exit Animation/Animator that should be run when this destination is
      * popped from the back stack.
      * @return the resource id of a Animation or Animator or -1 if none.
-     * @see #applyPopAnimationsToPendingTransition(Activity)
      */
     @AnimRes @AnimatorRes
     public int getPopExitAnim() {
         return mPopExitAnim;
     }
 
-    @NonNull
-    private Bundle toBundle() {
-        Bundle b = new Bundle();
-        b.putInt(KEY_LAUNCH_MODE, mLaunchMode);
-        b.putInt(KEY_POP_UP_TO, mPopUpTo);
-        b.putBoolean(KEY_POP_UP_TO_INCLUSIVE, mPopUpToInclusive);
-        b.putInt(KEY_ENTER_ANIM, mEnterAnim);
-        b.putInt(KEY_EXIT_ANIM, mExitAnim);
-        b.putInt(KEY_POP_ENTER_ANIM, mPopEnterAnim);
-        b.putInt(KEY_POP_EXIT_ANIM, mPopExitAnim);
-        return b;
-    }
-
-    @NonNull
-    private static NavOptions fromBundle(@NonNull Bundle b) {
-        return new NavOptions(b.getInt(KEY_LAUNCH_MODE, 0),
-                b.getInt(KEY_POP_UP_TO, 0), b.getBoolean(KEY_POP_UP_TO_INCLUSIVE, false),
-                b.getInt(KEY_ENTER_ANIM, -1), b.getInt(KEY_EXIT_ANIM, -1),
-                b.getInt(KEY_POP_ENTER_ANIM, -1), b.getInt(KEY_POP_EXIT_ANIM, -1));
-    }
-
     /**
      * Builder for constructing new instances of NavOptions.
      */
-    public static class Builder {
-        int mLaunchMode;
+    public static final class Builder {
+        boolean mSingleTop;
         @IdRes
-        int mPopUpTo;
+        int mPopUpTo = -1;
         boolean mPopUpToInclusive;
         @AnimRes @AnimatorRes
         int mEnterAnim = -1;
@@ -264,59 +149,7 @@ public class NavOptions {
          */
         @NonNull
         public Builder setLaunchSingleTop(boolean singleTop) {
-            if (singleTop) {
-                mLaunchMode |= LAUNCH_SINGLE_TOP;
-            } else {
-                mLaunchMode &= ~LAUNCH_SINGLE_TOP;
-            }
-            return this;
-        }
-
-        /**
-         * Launch a navigation target as a document if you want it to appear as its own
-         * entry in the system Overview screen. If the same document is launched multiple times
-         * it will not create a new task, it will bring the existing document task to the front.
-         *
-         * <p>If the user presses the system Back key from a new document task they will land
-         * on their previous task. If the user reached the document task from the system Overview
-         * screen they will be taken to their home screen.</p>
-         *
-         * @param launchDocument true to launch a new document task
-         * @deprecated As per the {@link android.content.Intent#FLAG_ACTIVITY_NEW_DOCUMENT}
-         * documentation, it is recommended to use {@link android.R.attr#documentLaunchMode} on an
-         * Activity you wish to launch as a new document.
-         */
-        @Deprecated
-        @NonNull
-        public Builder setLaunchDocument(boolean launchDocument) {
-            if (launchDocument) {
-                mLaunchMode |= LAUNCH_DOCUMENT;
-            } else {
-                mLaunchMode &= ~LAUNCH_DOCUMENT;
-            }
-            return this;
-        }
-
-        /**
-         * Clear the entire task before launching this target. If you are launching as a
-         * {@link #setLaunchDocument(boolean) document}, this will clear the document task.
-         * Otherwise it will clear the current task.
-         *
-         * @param clearTask
-         * @return
-         * @deprecated Use {@link #setPopUpTo(int, boolean)} with the
-         * {@link NavDestination#getId() id} of the
-         * {@link androidx.navigation.NavController#getGraph() NavController's graph}
-         * and set inclusive to true.
-         */
-        @Deprecated
-        @NonNull
-        public Builder setClearTask(boolean clearTask) {
-            if (clearTask) {
-                mLaunchMode |= LAUNCH_CLEAR_TASK;
-            } else {
-                mLaunchMode &= ~LAUNCH_CLEAR_TASK;
-            }
+            mSingleTop = singleTop;
             return this;
         }
 
@@ -400,7 +233,7 @@ public class NavOptions {
          */
         @NonNull
         public NavOptions build() {
-            return new NavOptions(mLaunchMode, mPopUpTo, mPopUpToInclusive,
+            return new NavOptions(mSingleTop, mPopUpTo, mPopUpToInclusive,
                     mEnterAnim, mExitAnim, mPopEnterAnim, mPopExitAnim);
         }
     }

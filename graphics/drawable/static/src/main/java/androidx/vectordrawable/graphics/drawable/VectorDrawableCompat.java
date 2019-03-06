@@ -22,7 +22,7 @@ import static android.graphics.Paint.Join;
 import static android.graphics.Paint.Style.FILL;
 import static android.graphics.Paint.Style.STROKE;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
 import android.annotation.SuppressLint;
 import android.content.res.ColorStateList;
@@ -460,6 +460,14 @@ public class VectorDrawableCompat extends VectorDrawableCommon {
         invalidateSelf();
     }
 
+    @Override
+    public ColorFilter getColorFilter() {
+        if (mDelegateDrawable != null) {
+            return DrawableCompat.getColorFilter(mDelegateDrawable);
+        }
+        return mColorFilter;
+    }
+
     /**
      * Ensures the tint filter is consistent with the current tint color and
      * mode.
@@ -605,7 +613,7 @@ public class VectorDrawableCompat extends VectorDrawableCommon {
      *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public float getPixelSize() {
         if (mVectorState == null || mVectorState.mVPathRenderer == null
                 || mVectorState.mVPathRenderer.mBaseWidth == 0
@@ -708,7 +716,7 @@ public class VectorDrawableCompat extends VectorDrawableCommon {
         final TypedArray a = TypedArrayUtils.obtainAttributes(res, theme, attrs,
                 AndroidResources.STYLEABLE_VECTOR_DRAWABLE_TYPE_ARRAY);
 
-        updateStateFromTypedArray(a, parser);
+        updateStateFromTypedArray(a, parser, theme);
         a.recycle();
         state.mChangingConfigurations = getChangingConfigurations();
         state.mCacheDirty = true;
@@ -741,7 +749,7 @@ public class VectorDrawableCompat extends VectorDrawableCommon {
         }
     }
 
-    private void updateStateFromTypedArray(TypedArray a, XmlPullParser parser)
+    private void updateStateFromTypedArray(TypedArray a, XmlPullParser parser, Theme theme)
             throws XmlPullParserException {
         final VectorDrawableCompatState state = mVectorState;
         final VPathRenderer pathRenderer = state.mVPathRenderer;
@@ -754,7 +762,8 @@ public class VectorDrawableCompat extends VectorDrawableCommon {
         state.mTintMode = parseTintModeCompat(mode, Mode.SRC_IN);
 
         final ColorStateList tint =
-                a.getColorStateList(AndroidResources.STYLEABLE_VECTOR_DRAWABLE_TINT);
+                TypedArrayUtils.getNamedColorStateList(a, parser, theme, "tint",
+                        AndroidResources.STYLEABLE_VECTOR_DRAWABLE_TINT);
         if (tint != null) {
             state.mTint = tint;
         }
@@ -1277,6 +1286,8 @@ public class VectorDrawableCompat extends VectorDrawableCommon {
             mRenderPath.reset();
 
             if (vPath.isClipPath()) {
+                mRenderPath.setFillType(vPath.mFillRule == 0 ? Path.FillType.WINDING
+                        : Path.FillType.EVEN_ODD);
                 mRenderPath.addPath(path, mFinalPathMatrix);
                 canvas.clipPath(mRenderPath);
             } else {
@@ -1318,6 +1329,8 @@ public class VectorDrawableCompat extends VectorDrawableCommon {
                         fillPaint.setShader(shader);
                         fillPaint.setAlpha(Math.round(fullPath.mFillAlpha * 255f));
                     } else {
+                        fillPaint.setShader(null);
+                        fillPaint.setAlpha(255);
                         fillPaint.setColor(applyAlpha(fill.getColor(), fullPath.mFillAlpha));
                     }
                     fillPaint.setColorFilter(filter);
@@ -1349,6 +1362,8 @@ public class VectorDrawableCompat extends VectorDrawableCommon {
                         strokePaint.setShader(shader);
                         strokePaint.setAlpha(Math.round(fullPath.mStrokeAlpha * 255f));
                     } else {
+                        strokePaint.setShader(null);
+                        strokePaint.setAlpha(255);
                         strokePaint.setColor(applyAlpha(strokeColor.getColor(),
                                 fullPath.mStrokeAlpha));
                     }
@@ -1668,8 +1683,11 @@ public class VectorDrawableCompat extends VectorDrawableCommon {
      * Common Path information for clip path and normal path.
      */
     private abstract static class VPath extends VObject {
+        private static final int FILL_TYPE_WINDING = 0;
         protected PathParser.PathDataNode[] mNodes = null;
         String mPathName;
+        // Default fill rule is winding, or as known as "non-zero".
+        int mFillRule = FILL_TYPE_WINDING;
         int mChangingConfigurations;
 
         public VPath() {
@@ -1747,11 +1765,11 @@ public class VectorDrawableCompat extends VectorDrawableCommon {
      * Clip path, which only has name and pathData.
      */
     private static class VClipPath extends VPath {
-        public VClipPath() {
+        VClipPath() {
             // Empty constructor.
         }
 
-        public VClipPath(VClipPath copy) {
+        VClipPath(VClipPath copy) {
             super(copy);
         }
 
@@ -1782,6 +1800,8 @@ public class VectorDrawableCompat extends VectorDrawableCommon {
             if (pathData != null) {
                 mNodes = PathParser.createNodesFromPathData(pathData);
             }
+            mFillRule = a.getInt(AndroidResources.STYLEABLE_VECTOR_DRAWABLE_CLIP_PATH_FILLTYPE,
+                    mFillRule);
         }
 
         @Override
@@ -1797,14 +1817,11 @@ public class VectorDrawableCompat extends VectorDrawableCommon {
         /////////////////////////////////////////////////////
         // Variables below need to be copied (deep copy if applicable) for mutation.
         private int[] mThemeAttrs;
-        private static final int FILL_TYPE_WINDING = 0;
         ComplexColorCompat mStrokeColor;
         float mStrokeWidth = 0;
 
         ComplexColorCompat mFillColor;
         float mStrokeAlpha = 1.0f;
-        // Default fill rule is winding, or as known as "non-zero".
-        int mFillRule = FILL_TYPE_WINDING;
         float mFillAlpha = 1.0f;
         float mTrimPathStart = 0;
         float mTrimPathEnd = 1;
@@ -1814,11 +1831,11 @@ public class VectorDrawableCompat extends VectorDrawableCommon {
         Join mStrokeLineJoin = Join.MITER;
         float mStrokeMiterlimit = 4;
 
-        public VFullPath() {
+        VFullPath() {
             // Empty constructor.
         }
 
-        public VFullPath(VFullPath copy) {
+        VFullPath(VFullPath copy) {
             super(copy);
             mThemeAttrs = copy.mThemeAttrs;
 

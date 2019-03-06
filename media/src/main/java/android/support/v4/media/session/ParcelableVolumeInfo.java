@@ -15,6 +15,7 @@
 
 package android.support.v4.media.session;
 
+import android.annotation.SuppressLint;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -22,6 +23,7 @@ import android.os.Parcelable;
  * Convenience class for passing information about the audio configuration of a
  * {@link MediaSessionCompat}.
  */
+@SuppressLint("BanParcelableUsage")
 public class ParcelableVolumeInfo implements Parcelable {
     public int volumeType;
     public int audioStream;

@@ -7,12 +7,16 @@ plugins {
 }
 
 dependencies {
+    api(project(":annotation"))
+    api("androidx.interpolator:interpolator:1.0.0")
     api(project(":core"))
-    api(project(":legacy-support-core-ui"))
-    api(project(":media"))
-    api(project(":fragment"))
-    api(project(":recyclerview"))
+    implementation("androidx.collection:collection:1.0.0")
+    api("androidx.media:media:1.0.0")
+    api("androidx.fragment:fragment:1.0.0")
+    api("androidx.recyclerview:recyclerview:1.0.0")
 
+    androidTestImplementation(TEST_EXT_JUNIT)
+    androidTestImplementation(TEST_CORE)
     androidTestImplementation(TEST_RUNNER)
     androidTestImplementation(TEST_RULES)
     androidTestImplementation(ESPRESSO_CORE, libs.exclude_for_espresso)
@@ -21,6 +25,10 @@ dependencies {
 }
 
 android {
+    defaultConfig {
+        minSdkVersion 17
+    }
+
     sourceSets {
         main.java.srcDirs += [
                 'common',
@@ -33,11 +41,10 @@ android {
 supportLibrary {
     name = "Android Support Leanback v17"
     publish = true
-    mavenVersion = LibraryVersions.SUPPORT_LIBRARY
+    mavenVersion = LibraryVersions.LEANBACK
     mavenGroup = LibraryGroups.LEANBACK
     inceptionYear = "2014"
     description = "Android Support Leanback v17"
-    minSdkVersion = 17
     failOnUncheckedWarnings = false
     failOnDeprecationWarnings = false
 }

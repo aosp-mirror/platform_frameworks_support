@@ -15,6 +15,7 @@
  */
 
 import static androidx.build.dependencies.DependenciesKt.*
+import androidx.build.CompilationTarget
 import androidx.build.LibraryGroups
 import androidx.build.LibraryVersions
 import androidx.build.SupportLibraryExtension
@@ -24,6 +25,8 @@ apply plugin: androidx.build.SupportKotlinLibraryPlugin
 apply plugin: 'java-gradle-plugin'
 
 ext.generatedResources = "$buildDir/generated/resources"
+ext.prebuiltsRoot = "${project.projectDir.getParentFile()}/../../../prebuilts"
+ext.debugKeystore = "${project.projectDir.getParentFile()}/../development/keystore/debug.keystore"
 
 sourceSets {
     test.java.srcDirs += 'src/tests/kotlin'
@@ -31,7 +34,8 @@ sourceSets {
 }
 
 dependencies {
-    compile build_libs.gradle
+    compile(SAFE_ARGS_ANDROID_GRADLE_PLUGIN)
+    compile(SAFE_ARGS_KOTLIN_GRADLE_PLUGIN)
     compile project(":navigation:navigation-safe-args-generator")
     compile gradleApi()
     compile(GSON)
@@ -40,15 +44,25 @@ dependencies {
 }
 
 task generateSdkResource() {
-    inputs.property("compileSdkVersion", SupportConfig.CURRENT_SDK_VERSION)
+    inputs.property("prebuiltsRoot", prebuiltsRoot)
+    inputs.property("compileSdkVersion", SupportConfig.TARGET_SDK_VERSION)
     inputs.property("buildToolsVersion", SupportConfig.BUILD_TOOLS_VERSION)
+    inputs.property("minSdkVersion", SupportConfig.DEFAULT_MIN_SDK_VERSION)
+    inputs.property("debugKeystore", debugKeystore)
+    inputs.property("navigationCommon", SAFE_ARGS_NAVIGATION_COMMON)
+    inputs.property("kotlinStdlib", KOTLIN_STDLIB)
     outputs.dir(generatedResources)
     doLast {
         // Properties.write will have a timestamp, that invalidates the task,
         // so we don't use it and write a file manually
         new File(generatedResources, "sdk.prop").withWriter('UTF-8') { writer ->
-            writer.write("compileSdkVersion=$SupportConfig.CURRENT_SDK_VERSION\n")
+            writer.write("prebuiltsRepo=$prebuiltsRoot\n")
+            writer.write("compileSdkVersion=$SupportConfig.TARGET_SDK_VERSION\n")
             writer.write("buildToolsVersion=$SupportConfig.BUILD_TOOLS_VERSION\n")
+            writer.write("minSdkVersion=$SupportConfig.DEFAULT_MIN_SDK_VERSION\n")
+            writer.write("debugKeystore=$debugKeystore\n")
+            writer.write("navigationCommon=$SAFE_ARGS_NAVIGATION_COMMON\n")
+            writer.write("kotlinStdlib=$KOTLIN_STDLIB\n")
         }
     }
 }
@@ -61,9 +75,13 @@ tasks["compileTestJava"].dependsOn generateSdkResource
 
 gradlePlugin {
     plugins {
-        safeargs {
+        safeargsJava {
             id = "androidx.navigation.safeargs"
-            implementationClass = "androidx.navigation.safeargs.gradle.SafeArgsPlugin"
+            implementationClass = "androidx.navigation.safeargs.gradle.SafeArgsJavaPlugin"
+        }
+        safeargsKotlin {
+            id = "androidx.navigation.safeargs.kotlin"
+            implementationClass = "androidx.navigation.safeargs.gradle.SafeArgsKotlinPlugin"
         }
     }
 }
@@ -71,9 +89,11 @@ gradlePlugin {
 supportLibrary {
     name = "Android Navigation TypeSafe Arguments Gradle Plugin"
     publish = true
+    toolingProject = true
     mavenVersion = LibraryVersions.NAVIGATION
     mavenGroup = LibraryGroups.NAVIGATION
     inceptionYear = "2017"
     description = "Android Navigation TypeSafe Arguments Gradle Plugin"
     url = SupportLibraryExtension.ARCHITECTURE_URL
+    compilationTarget = CompilationTarget.HOST
 }

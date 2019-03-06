@@ -23,18 +23,21 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static org.hamcrest.CoreMatchers.allOf;
 import static org.mockito.Mockito.mock;
 
+import android.util.Log;
 import android.view.View;
 import android.view.ViewStub;
 
 import androidx.annotation.LayoutRes;
 import androidx.appcompat.test.R;
+import androidx.core.view.GravityCompat;
+import androidx.core.view.ViewCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.test.annotation.UiThreadTest;
 import androidx.test.espresso.UiController;
 import androidx.test.espresso.ViewAction;
-import androidx.test.filters.SmallTest;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
-import androidx.test.runner.AndroidJUnit4;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
@@ -48,7 +51,7 @@ import org.junit.runner.RunWith;
  * Test cases to verify that <code>DrawerLayout</code> only supports configurations
  * with at most one drawer child along each vertical (left / right) edge.
  */
-@SmallTest
+@LargeTest
 @RunWith(AndroidJUnit4.class)
 public class DrawerDynamicLayoutTest {
     @Rule
@@ -81,10 +84,14 @@ public class DrawerDynamicLayoutTest {
         };
     }
 
+    private ViewAction inflateViewStub(final @LayoutRes int layoutResId) {
+        return inflateViewStub(layoutResId, false);
+    }
+
     /**
      * Inflates the <code>ViewStub</code> with the passed layout resource.
      */
-    private ViewAction inflateViewStub(final @LayoutRes int layoutResId) {
+    private ViewAction inflateViewStub(final @LayoutRes int layoutResId, final boolean log) {
         return new ViewAction() {
             @Override
             public Matcher<View> getConstraints() {
@@ -102,11 +109,27 @@ public class DrawerDynamicLayoutTest {
 
                 ViewStub viewStub = (ViewStub) view;
                 viewStub.setLayoutResource(layoutResId);
-                viewStub.inflate();
-
+                View drawer = viewStub.inflate();
                 uiController.loopMainThreadUntilIdle();
+                if (log) {
+                    logGravity(drawer);
+                }
             }
         };
+    }
+
+    public static void logGravity(View view) {
+        DrawerLayout drawer = (DrawerLayout) view;
+        for (int i = 0; i < drawer.getChildCount(); i++) {
+            View child = drawer.getChildAt(i);
+            final int gravity = ((DrawerLayout.LayoutParams) child.getLayoutParams()).gravity;
+            final int absGravity = GravityCompat.getAbsoluteGravity(gravity,
+                    ViewCompat.getLayoutDirection(child));
+            final int gravityInParent = GravityCompat.getAbsoluteGravity(gravity,
+                    ViewCompat.getLayoutDirection(drawer));
+            Log.e("DrawerDynamicLayoutTest", "gravity of child[" + i + "] "
+                    + " = " + absGravity +  "; gravity in parent " + gravityInParent);
+        }
     }
 
     @Test
@@ -138,7 +161,7 @@ public class DrawerDynamicLayoutTest {
         // Note the expected exception in the @Test annotation, as we expect the DrawerLayout
         // to throw exception during the measure pass as it detects two end drawers.
         onView(withId(R.id.drawer_stub)).perform(
-                inflateViewStub(R.layout.drawer_dynamic_content_double_end));
+                inflateViewStub(R.layout.drawer_dynamic_content_double_end, true));
     }
 
     @Test

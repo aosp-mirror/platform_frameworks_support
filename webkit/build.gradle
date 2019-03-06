@@ -26,7 +26,12 @@ dependencies {
     api(project(":annotation"))
     api(project(':core'))
 
+    androidTestImplementation(OKHTTP_MOCKWEBSERVER)
+    androidTestImplementation(TEST_EXT_JUNIT)
+    androidTestImplementation(TEST_CORE)
     androidTestImplementation(TEST_RUNNER)
+    androidTestImplementation(TEST_RULES)
+    androidTestImplementation(project(":concurrent:concurrent-futures"))
 }
 
 ext {
@@ -47,8 +52,9 @@ android {
 supportLibrary {
     name = "WebView Support Library"
     publish = true
-    mavenVersion = LibraryVersions.SUPPORT_LIBRARY
+    mavenVersion = LibraryVersions.WEBKIT
     mavenGroup = LibraryGroups.WEBKIT
     inceptionYear = "2017"
     description = "The WebView Support Library is a static library you can add to your Android application in order to use android.webkit APIs that are not available for older platform versions."
+    trackRestrictedAPIs = false
 }

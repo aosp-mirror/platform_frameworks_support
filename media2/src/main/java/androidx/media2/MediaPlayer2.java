@@ -16,26 +16,28 @@
 
 package androidx.media2;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
-import android.annotation.TargetApi;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.SurfaceTexture;
 import android.media.DeniedByServerException;
 import android.media.MediaDrm;
 import android.media.MediaDrmException;
 import android.media.MediaFormat;
-import android.media.ResourceBusyException;
-import android.media.UnsupportedSchemeException;
 import android.os.Build;
+import android.os.ParcelFileDescriptor;
 import android.os.PersistableBundle;
 import android.view.Surface;
 
 import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.annotation.RestrictTo;
 import androidx.media.AudioAttributesCompat;
+import androidx.media2.exoplayer.ExoPlayerMediaPlayer2Impl;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -50,7 +52,7 @@ import java.util.concurrent.Executor;
  * <p>Topics covered here are:
  * <ol>
  * <li><a href="#PlayerStates">Player states</a>
- * <li><a href="#Valid_and_Invalid_States">Valid and Invalid States</a>
+ * <li><a href="#Invalid_States">Invalid method calls</a>
  * <li><a href="#Permissions">Permissions</a>
  * <li><a href="#callbacks">Callbacks</a>
  * </ol>
@@ -59,9 +61,9 @@ import java.util.concurrent.Executor;
  * <h3 id="PlayerStates">Player states</h3>
  *
  * <p>The playback control of audio/video files is managed as a state machine.</p>
- * <p><img src="../../../images/mediaplayer2_state_diagram.png"
+ * <p><div style="text-align:center;"><img src="../../../images/mediaplayer2_state_diagram.png"
  *         alt="MediaPlayer2 State diagram"
- *         border="0" /></p>
+ *         border="0" /></div></p>
  * <p>The MediaPlayer2 object has five states:</p>
  * <ol>
  *     <li><p>{@link #PLAYER_STATE_IDLE}: MediaPlayer2 is in the <strong>Idle</strong>
@@ -69,10 +71,10 @@ import java.util.concurrent.Executor;
  *         {@link #create(Context)}, or after calling {@link #reset()}.</p>
  *
  *         <p>While in this state, you should call
- *         {@link #setDataSource(DataSourceDesc2) setDataSource()}. It is a good
+ *         {@link #setMediaItem(MediaItem) setMediaItem()}. It is a good
  *         programming practice to register an {@link EventCallback#onCallCompleted onCallCompleted}
  *         <a href="#callback">callback</a> and watch for {@link #CALL_STATUS_BAD_VALUE} and
- *         {@link #CALL_STATUS_ERROR_IO}, which might be caused by <code>setDataSource</code>.
+ *         {@link #CALL_STATUS_ERROR_IO}, which might be caused by <code>setMediaItem</code>.
  *         </p>
  *
  *         <p>Calling {@link #prepare()} transfers a MediaPlayer2 object to
@@ -93,7 +95,7 @@ import java.util.concurrent.Executor;
  *      </li>
  *
  *     <li>{@link #PLAYER_STATE_PLAYING}:
- *         <p>The player plays the data source while in this state.
+ *         <p>The player plays the media item while in this state.
  *         If you register an {@link EventCallback#onInfo} <a href="#callback">callback</a>
  *         the player regularly executes the callback with
  *         {@link #MEDIA_INFO_BUFFERING_UPDATE}.
@@ -111,7 +113,7 @@ import java.util.concurrent.Executor;
  *         </li>
  *         <li>If the looping mode was set to <code>true</code>,
  *         the MediaPlayer2 object remains in the <strong>Playing</strong> state and replays its
- *         data source from the beginning.</li>
+ *         media item from the beginning.</li>
  *         </ul>
  *         </li>
  *
@@ -127,7 +129,7 @@ import java.util.concurrent.Executor;
  *
  *          <p>If you register an {@link EventCallback#onError}} <a href="#callback">callback</a>
  *          the callback will be performed when entering the state. When programming errors happen,
- *          such as calling {@link #prepare()} and {@link #setDataSource(DataSourceDesc2)} methods
+ *          such as calling {@link #prepare()} and {@link #setMediaItem(MediaItem)} methods
  *          from an <a href="#invalid_state">invalid state</a>, The callback is called with
  *          {@link #CALL_STATUS_INVALID_OPERATION} . The MediaPlayer2 object enters the
  *          <strong>Error</strong> whether or not a callback exists. </p>
@@ -167,136 +169,35 @@ import java.util.concurrent.Executor;
  *
  * </ul>
  *
- * <a name="Valid_and_Invalid_States"></a>
- * <h3>Valid and invalid states</h3>
+ * <h3 id="Invalid_States">Invalid method calls</h3>
+ *
+ * <p>The only methods you safely call from the <strong>Error</strong> state are {@link #close()},
+ * {@link #reset()}, {@link #notifyWhenCommandLabelReached}, {@link #clearPendingCommands()},
+ * {@link #setEventCallback}, {@link #clearEventCallback()} and {@link #getState()}.
+ * Any other methods might throw an exception, return meaningless data, or invoke a
+ * {@link EventCallback#onCallCompleted} with an error code.</p>
+ *
+ * <p>Most methods can be called from any non-Error state. They will either perform their work or
+ * silently have no effect. The following table lists the methods that will invoke a
+ * {@link EventCallback#onCallCompleted} with an error code or throw an exception when they are
+ * called from the associated invalid states.</p>
  *
  * <table border="0" cellspacing="0" cellpadding="0">
- * <tr><td>Method Name </p></td>
- *     <td>Valid Sates </p></td>
- *     <td>Invalid States </p></td></tr>
- * <tr><td>close </p></td>
- *     <td>{Idle, Prepared, Paused, Playing, Error} </p></td>
- *     <td>{} </p></td></tr>
- * <tr><td>play </p></td>
- *     <td>{Prepared, Paused, Playing} </p></td>
- *     <td>{Idle, Error} </p></td></tr>
- * <tr><td>prepare </p></td>
- *     <td>{Idle} </p></td>
- *     <td>{Prepared, Paused, Playing, Error} </p></td></tr>
- * <tr><td>pause </p></td>
- *     <td>{Paused, Playing} </p></td>
- *     <td>{Idle, Prepared, Error} </p></td></tr>
- * <tr><td>skipToNext </p></td>
- *     <td>{Idle, Prepared, Paused, Playing} </p></td>
- *     <td>{Error} </p></td></tr>
- * <tr><td>seekTo </p></td>
- *     <td>{Prepared, Paused, Playing} </p></td>
- *     <td>{Idle, Error} </p></td></tr>
- * <tr><td>getCurrentPosition </p></td>
- *     <td>{Prepared, Paused, Playing} </p></td>
- *     <td>{Idle, Error} </p></td></tr>
- * <tr><td>getDuration </p></td>
- *     <td>{Prepared, Paused, Playing} </p></td>
- *     <td>{Idle, Error} </p></td></tr>
- * <tr><td>getBufferedPosition </p></td>
- *     <td>{Prepared, Paused, Playing} </p></td>
- *     <td>{Idle, Error} </p></td></tr>
- * <tr><td>getState </p></td>
- *     <td>{Idle, Prepared, Paused, Playing, Error} </p></td>
- *     <td>{} </p></td></tr>
- * <tr><td>setAudioAttributes </p></td>
- *     <td>{Idle, Prepared, Paused, Playing, Error} </p></td>
- *     <td>{} </p></td></tr>
- * <tr><td>getAudioAttributes </p></td>
- *     <td>{Idle, Prepared, Paused, Playing, Error} </p></td>
- *     <td>{} </p></td></tr>
- * <tr><td>setDataSource </p></td>
- *     <td>{Idle} </p></td>
- *     <td>{Prepared, Paused, Playing, Error} </p></td></tr>
- * <tr><td>setNextDataSource </p></td>
- *     <td>{Idle, Prepared, Paused, Playing} </p></td>
- *     <td>{Error} </p></td></tr>
- * <tr><td>setNextDataSources </p></td>
- *     <td>{Idle, Prepared, Paused, Playing} </p></td>
- *     <td>{Error} </p></td></tr>
- * <tr><td>getCurrentDataSource </p></td>
- *     <td>{Idle, Prepared, Paused, Playing} </p></td>
- *     <td>{Error} </p></td></tr>
- * <tr><td>loopCurrent </p></td>
- *     <td>{Idle, Prepared, Paused, Playing, Error} </p></td>
- *     <td>{} </p></td></tr>
- * <tr><td>isReversePlaybackSupported </p></td>
- *     <td>{Idle, Prepared, Paused, Playing, Error} </p></td>
- *     <td>{} </p></td></tr>
- * <tr><td>setPlayerVolume </p></td>
- *     <td>{Idle, Prepared, Paused, Playing, Error} </p></td>
- *     <td>{} </p></td></tr>
- * <tr><td>getPlayerVolume </p></td>
- *     <td>{Idle, Prepared, Paused, Playing, Error} </p></td>
- *     <td>{} </p></td></tr>
- * <tr><td>getMaxPlayerVolume </p></td>
- *     <td>{Idle, Prepared, Paused, Playing, Error} </p></td>
- *     <td>{} </p></td></tr>
- * <tr><td>notifyWhenCommandLabelReached </p></td>
- *     <td>{Idle, Prepared, Paused, Playing, Error} </p></td>
- *     <td>{} </p></td></tr>
- * <tr><td>setSurface </p></td>
- *     <td>{Idle, Prepared, Paused, Playing, Error} </p></td>
- *     <td>{} </p></td></tr>
- * <tr><td>clearPendingCommands </p></td>
- *     <td>{Idle, Prepared, Paused, Playing, Error} </p></td>
- *     <td>{} </p></td></tr>
- * <tr><td>getVideoWidth </p></td>
- *     <td>{Idle, Prepared, Paused, Playing, Error} </p></td>
- *     <td>{} </p></td></tr>
- * <tr><td>getVideoHeight </p></td>
- *     <td>{Idle, Prepared, Paused, Playing, Error} </p></td>
- *     <td>{} </p></td></tr>
- * <tr><td>getMetrics </p></td>
- *     <td>{Idle, Prepared, Paused, Playing, Error} </p></td>
- *     <td>{} </p></td></tr>
- * <tr><td>setPlaybackParams </p></td>
- *     <td>{Idle, Prepared, Paused, Playing, Error} </p></td>
- *     <td>{} </p></td></tr>
- * <tr><td>getPlaybackParams </p></td>
- *     <td>{Prepared, Paused, Playing, Error} </p></td>
- *     <td>{Idle} </p></td></tr>
- * <tr><td>getTimestamp </p></td>
- *     <td>{Idle, Prepared, Paused, Playing, Error} </p></td>
- *     <td>{} </p></td></tr>
- * <tr><td>reset </p></td>
- *     <td>{Idle, Prepared, Paused, Playing, Error} </p></td>
- *     <td>{} </p></td></tr>
- * <tr><td>setAudioSessionId </p></td>
- *     <td>{Idle, Prepared, Paused, Playing, Error} </p></td>
- *     <td>{} </p></td></tr>
- * <tr><td>getAudioSessionId </p></td>
- *     <td>{Idle, Prepared, Paused, Playing, Error} </p></td>
- *     <td>{} </p></td></tr>
- * <tr><td>attachAuxEffect </p></td>
- *     <td>{Idle, Prepared, Paused, Playing, Error} </p></td>
- *     <td>{} </p></td></tr>
- * <tr><td>setAuxEffectSendLevel </p></td>
- *     <td>{Idle, Prepared, Paused, Playing, Error} </p></td>
- *     <td>{} </p></td></tr>
- * <tr><td>getTrackInfo </p></td>
- *     <td>{Prepared, Paused, Playing} </p></td>
- *     <td>{Idle, Error} </p></td></tr>
- * <tr><td>getSelectedTrack </p></td>
- *     <td>{Prepared, Paused, Playing} </p></td>
- *     <td>{Idle, Error} </p></td></tr>
- * <tr><td>selectTrack </p></td>
- *     <td>{Prepared, Paused, Playing} </p></td>
- *     <td>{Idle, Error} </p></td></tr>
- * <tr><td>deselectTrack </p></td>
- *     <td>{Prepared, Paused, Playing} </p></td>
- *     <td>{Idle, Error} </p></td></tr>
- * <tr><td>setEventCallback </p></td>
- *     <td>{Idle, Prepared, Paused, Playing, Error} </p></td>
- *     <td>{} </p></td></tr>
- * <tr><td>clearEventCallback </p></td>
- *     <td>{Idle, Prepared, Paused, Playing, Error} </p></td>
- *     <td>{} </p></td></tr>
+ * <tr><th>Method Name</th>
+ * <th>Invalid States</th></tr>
+ *
+ * <tr><td>setMediaItem</td> <td>{Prepared, Paused, Playing}</td></tr>
+ * <tr><td>prepare</td> <td>{Prepared, Paused, Playing}</td></tr>
+ * <tr><td>play</td> <td>{Idle}</td></tr>
+ * <tr><td>pause</td> <td>{Idle}</td></tr>
+ * <tr><td>seekTo</td> <td>{Idle}</td></tr>
+ * <tr><td>getCurrentPosition</td> <td>{Idle}</td></tr>
+ * <tr><td>getDuration</td> <td>{Idle}</td></tr>
+ * <tr><td>getBufferedPosition</td> <td>{Idle}</td></tr>
+ * <tr><td>getTrackInfo</td> <td>{Idle}</td></tr>
+ * <tr><td>getSelectedTrack</td> <td>{Idle}</td></tr>
+ * <tr><td>selectTrack</td> <td>{Idle}</td></tr>
+ * <tr><td>deselectTrack</td> <td>{Idle}</td></tr>
  * </table>
  *
  * <h3 id="Permissions">Permissions</h3>
@@ -317,20 +218,24 @@ import java.util.concurrent.Executor;
  * and {@link #CALL_COMPLETED_PAUSE}.
  * Then check the <code>status</code> parameter. The value {@link #CALL_STATUS_NO_ERROR} indicates a
  * successful transition. Any other value will be an error. Call {@link #getState()} to
- * determine the current state.
- * (You can also register a {@link BaseMediaPlayer.PlayerEventCallback#onPlayerStateChanged}
- * callback but this method does not distinguish between the <strong>Idle</strong> and
- * <strong>Prepared</strong> states.)</p>
- *
- * <p>You can also register a {@link BaseMediaPlayer.PlayerEventCallback#onPlayerStateChanged}
- * callback. Call {@link #getState()} from your code to determine the state.</p>
+ * determine the current state.</p>
  *
  * <p>In order for callbacks to work, your app must create
  * MediaPlayer2 objects on a thread that has its own running Looper. This can be done on the main UI
  * thread, which has a Looper.</p>
+ *
+ * @hide
  */
-@TargetApi(Build.VERSION_CODES.P)
+@RestrictTo(LIBRARY)
+@SuppressLint("RestrictedApi")
 public abstract class MediaPlayer2 {
+
+    /**
+     * Debug flag that forces use of {@link ExoPlayerMediaPlayer2Impl} even if the device is running
+     * an Android P build.
+     */
+    private static final boolean DEBUG_USE_EXOPLAYER = false;
+
     /**
      * Create a MediaPlayer2 object.
      *
@@ -338,20 +243,28 @@ public abstract class MediaPlayer2 {
      * @return A MediaPlayer2 object created
      */
     public static final MediaPlayer2 create(@NonNull Context context) {
-        return new MediaPlayer2Impl();
+        if (Build.VERSION.SDK_INT <= 27 || DEBUG_USE_EXOPLAYER) {
+            return new ExoPlayerMediaPlayer2Impl(context);
+        } else {
+            return new MediaPlayer2Impl();
+        }
     }
 
     /**
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public MediaPlayer2() { }
 
     /**
-     * Returns a {@link BaseMediaPlayer} implementation which runs based on
-     * this MediaPlayer2 instance.
+     * Cancels the asynchronous call previously submitted.
+     *
+     * @param token the token which is returned from the asynchronous call.
+     * @return {@code false} if the task could not be cancelled; {@code true} otherwise.
+     * @hide
      */
-    public abstract BaseMediaPlayer getBaseMediaPlayer();
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    public abstract boolean cancel(Object token);
 
     /**
      * Releases the resources held by this {@code MediaPlayer2} object.
@@ -382,9 +295,10 @@ public abstract class MediaPlayer2 {
      * playback will start at the beginning. If the source had not been
      * prepared, the player will prepare the source and play.
      *
+     * @return a token which can be used to cancel the operation later with {@link #cancel}.
      */
     // This is an asynchronous call.
-    public abstract void play();
+    public abstract Object play();
 
     /**
      * Prepares the player for playback, asynchronously.
@@ -392,31 +306,36 @@ public abstract class MediaPlayer2 {
      * After setting the datasource and the display surface, you need to
      * call prepare().
      *
+     * @return a token which can be used to cancel the operation later with {@link #cancel}.
      */
     // This is an asynchronous call.
-    public abstract void prepare();
+    public abstract Object prepare();
 
     /**
      * Pauses playback. Call play() to resume.
+     * @return a token which can be used to cancel the operation later with {@link #cancel}.
      */
     // This is an asynchronous call.
-    public abstract void pause();
+    public abstract Object pause();
 
     /**
-     * Tries to play next data source if applicable.
+     * Tries to play next media item if applicable.
+     * @return a token which can be used to cancel the operation later with {@link #cancel}.
      */
     // This is an asynchronous call.
-    public abstract void skipToNext();
+    public abstract Object skipToNext();
 
     /**
      * Moves the media to specified time position.
      * Same as {@link #seekTo(long, int)} with {@code mode = SEEK_PREVIOUS_SYNC}.
      *
      * @param msec the offset in milliseconds from the start to seek to
+     * @return a token which can be used to cancel the operation later with {@link #cancel}.
      */
     // This is an asynchronous call.
-    public void seekTo(long msec) {
-        seekTo(msec, SEEK_PREVIOUS_SYNC /* mode */);
+    @SuppressLint("RestrictedApi")
+    public Object seekTo(long msec) {
+        return seekTo(msec, SEEK_PREVIOUS_SYNC /* mode */);
     }
 
     /**
@@ -458,9 +377,10 @@ public abstract class MediaPlayer2 {
      * You must call this method before {@link #prepare()} in order
      * for the audio attributes to become effective thereafter.
      * @param attributes a non-null set of audio attributes
+     * @return a token which can be used to cancel the operation later with {@link #cancel}.
      */
     // This is an asynchronous call.
-    public abstract void setAudioAttributes(@NonNull AudioAttributesCompat attributes);
+    public abstract Object setAudioAttributes(@NonNull AudioAttributesCompat attributes);
 
     /**
      * Gets the audio attributes for this MediaPlayer2.
@@ -469,43 +389,56 @@ public abstract class MediaPlayer2 {
     public abstract @Nullable AudioAttributesCompat getAudioAttributes();
 
     /**
-     * Sets the data source as described by a DataSourceDesc2.
+     * Sets the media item as described by a MediaItem.
+     * <p>
+     * When the media item is a {@link FileMediaItem}, the {@link ParcelFileDescriptor}
+     * in the {@link FileMediaItem} will be closed by the player.
      *
-     * @param dsd the descriptor of data source you want to play
+     * @param item the descriptor of media item you want to play
+     * @return a token which can be used to cancel the operation later with {@link #cancel}.
      */
     // This is an asynchronous call.
-    public abstract void setDataSource(@NonNull DataSourceDesc2 dsd);
+    public abstract Object setMediaItem(@NonNull MediaItem item);
 
     /**
-     * Sets a single data source as described by a DataSourceDesc2 which will be played
-     * after current data source is finished.
+     * Sets a single media item as described by a MediaItem which will be played
+     * after current media item is finished.
+     * <p>
+     * When the media item is a {@link FileMediaItem}, the {@link ParcelFileDescriptor}
+     * in the {@link FileMediaItem} will be closed by the player.
      *
-     * @param dsd the descriptor of data source you want to play after current one
+     * @param item the descriptor of media item you want to play after current one
+     * @return a token which can be used to cancel the operation later with {@link #cancel}.
      */
     // This is an asynchronous call.
-    public abstract void setNextDataSource(@NonNull DataSourceDesc2 dsd);
+    public abstract Object setNextMediaItem(@NonNull MediaItem item);
 
     /**
-     * Sets a list of data sources to be played sequentially after current data source is done.
+     * Sets a list of media items to be played sequentially after current media item is done.
+     * <p>
+     * If a media item in the list is a {@link FileMediaItem}, the {@link ParcelFileDescriptor}
+     * in the {@link FileMediaItem} will be closed by the player.
      *
-     * @param dsds the list of data sources you want to play after current one
+     * @param items the list of media items you want to play after current one
+     * @return a token which can be used to cancel the operation later with {@link #cancel}.
      */
     // This is an asynchronous call.
-    public abstract void setNextDataSources(@NonNull List<DataSourceDesc2> dsds);
+    public abstract Object setNextMediaItems(@NonNull List<MediaItem> items);
 
     /**
-     * Gets the current data source as described by a DataSourceDesc2.
+     * Gets the current media item as described by a MediaItem.
      *
-     * @return the current DataSourceDesc2
+     * @return the current MediaItem
      */
-    public abstract @NonNull DataSourceDesc2 getCurrentDataSource();
+    public abstract @Nullable MediaItem getCurrentMediaItem();
 
     /**
-     * Configures the player to loop on the current data source.
-     * @param loop true if the current data source is meant to loop.
+     * Configures the player to loop on the current media item.
+     * @param loop true if the current media item is meant to loop.
+     * @return a token which can be used to cancel the operation later with {@link #cancel}.
      */
     // This is an asynchronous call.
-    public abstract void loopCurrent(boolean loop);
+    public abstract Object loopCurrent(boolean loop);
 
     /**
      * Sets the volume of the audio of the media to play, expressed as a linear multiplier
@@ -515,9 +448,10 @@ public abstract class MediaPlayer2 {
      * A value of 0.0f indicates muting, a value of 1.0f is the nominal unattenuated and unamplified
      * gain. See {@link #getMaxPlayerVolume()} for the volume range supported by this player.
      * @param volume a value between 0.0f and {@link #getMaxPlayerVolume()}.
+     * @return a token which can be used to cancel the operation later with {@link #cancel}.
      */
     // This is an asynchronous call.
-    public abstract void setPlayerVolume(float volume);
+    public abstract Object setPlayerVolume(float volume);
 
     /**
      * Returns the current volume of this player to this player.
@@ -543,9 +477,10 @@ public abstract class MediaPlayer2 {
      *
      * @param label An application specific Object used to help to identify the completeness
      * of a batch of commands.
+     * @return a token which can be used to cancel the operation later with {@link #cancel}.
      */
     // This is an asynchronous call.
-    public void notifyWhenCommandLabelReached(@NonNull Object label) { }
+    public abstract Object notifyWhenCommandLabelReached(@NonNull Object label);
 
     /**
      * Sets the {@link Surface} to be used as the sink for the video portion of
@@ -565,9 +500,10 @@ public abstract class MediaPlayer2 {
      * the media.
      * @throws IllegalStateException if the internal player engine has not been
      * initialized or has been released.
+     * @return a token which can be used to cancel the operation later with {@link #cancel}.
      */
     // This is an asynchronous call.
-    public abstract void setSurface(Surface surface);
+    public abstract Object setSurface(@Nullable Surface surface);
 
     /* Do not change these video scaling mode values below without updating
      * their counterparts in system/window.h! Please do not forget to update
@@ -624,21 +560,22 @@ public abstract class MediaPlayer2 {
      *  Additional vendor-specific fields may also be present in
      *  the return value.
      */
+    @RequiresApi(21)
     public abstract PersistableBundle getMetrics();
 
     /**
-     * Sets playback rate using {@link PlaybackParams2}. The object sets its internal
-     * PlaybackParams2 to the input, except that the object remembers previous speed
-     * when input speed is zero. This allows the object to resume at previous speed
-     * when play() is called. Calling it before the object is prepared does not change
-     * the object state. After the object is prepared, calling it with zero speed is
-     * equivalent to calling pause(). After the object is prepared, calling it with
-     * non-zero speed is equivalent to calling play().
+     * Sets playback rate using {@link PlaybackParams}. The player sets its internal
+     * PlaybackParams to the given input. This does not change the player state. For example,
+     * if this is called with the speed of 2.0f in {@link #PLAYER_STATE_PAUSED}, the player will
+     * just update internal property and stay paused. Once the client calls {@link #play()}
+     * afterwards, the player will start playback with the given speed. Calling this with zero
+     * speed is not allowed.
      *
      * @param params the playback params.
+     * @return a token which can be used to cancel the operation later with {@link #cancel}.
      */
     // This is an asynchronous call.
-    public abstract void setPlaybackParams(@NonNull PlaybackParams2 params);
+    public abstract Object setPlaybackParams(@NonNull PlaybackParams params);
 
     /**
      * Gets the playback params, containing the current playback rate.
@@ -646,7 +583,7 @@ public abstract class MediaPlayer2 {
      * @return the playback params.
      */
     @NonNull
-    public abstract PlaybackParams2 getPlaybackParams();
+    public abstract PlaybackParams getPlaybackParams();
 
     /**
      * Seek modes used in method seekTo(long, int) to move media position
@@ -657,7 +594,7 @@ public abstract class MediaPlayer2 {
      */
     /**
      * This mode is used with {@link #seekTo(long, int)} to move media position to
-     * a sync (or key) frame associated with a data source that is located
+     * a sync (or key) frame associated with a media item that is located
      * right before or at the given time.
      *
      * @see #seekTo(long, int)
@@ -665,7 +602,7 @@ public abstract class MediaPlayer2 {
     public static final int SEEK_PREVIOUS_SYNC    = 0x00;
     /**
      * This mode is used with {@link #seekTo(long, int)} to move media position to
-     * a sync (or key) frame associated with a data source that is located
+     * a sync (or key) frame associated with a media item that is located
      * right after or at the given time.
      *
      * @see #seekTo(long, int)
@@ -673,7 +610,7 @@ public abstract class MediaPlayer2 {
     public static final int SEEK_NEXT_SYNC        = 0x01;
     /**
      * This mode is used with {@link #seekTo(long, int)} to move media position to
-     * a sync (or key) frame associated with a data source that is located
+     * a sync (or key) frame associated with a media item that is located
      * closest to (in time) or at the given time.
      *
      * @see #seekTo(long, int)
@@ -681,7 +618,7 @@ public abstract class MediaPlayer2 {
     public static final int SEEK_CLOSEST_SYNC     = 0x02;
     /**
      * This mode is used with {@link #seekTo(long, int)} to move media position to
-     * a frame (not necessarily a key frame) associated with a data source that
+     * a frame (not necessarily a key frame) associated with a media item that
      * is located closest to or at the given time.
      *
      * @see #seekTo(long, int)
@@ -696,7 +633,7 @@ public abstract class MediaPlayer2 {
             SEEK_CLOSEST,
     })
     @Retention(RetentionPolicy.SOURCE)
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public @interface SeekMode {}
 
     /**
@@ -711,19 +648,20 @@ public abstract class MediaPlayer2 {
      * position or mode is different.
      *
      * @param msec the offset in milliseconds from the start to seek to.
-     * When seeking to the given time position, there is no guarantee that the data source
+     * When seeking to the given time position, there is no guarantee that the media item
      * has a frame located at the position. When this happens, a frame nearby will be rendered.
      * If msec is negative, time position zero will be used.
      * If msec is larger than duration, duration will be used.
      * @param mode the mode indicating where exactly to seek to.
+     * @return a token which can be used to cancel the operation later with {@link #cancel}.
      */
     // This is an asynchronous call.
-    public abstract void seekTo(long msec, @SeekMode int mode);
+    public abstract Object seekTo(long msec, @SeekMode int mode);
 
     /**
-     * Gets current playback position as a {@link MediaTimestamp2}.
+     * Gets current playback position as a {@link MediaTimestamp}.
      * <p>
-     * The MediaTimestamp2 represents how the media time correlates to the system time in
+     * The MediaTimestamp represents how the media time correlates to the system time in
      * a linear fashion using an anchor and a clock rate. During regular playback, the media
      * time moves fairly constantly (though the anchor frame may be rebased to a current
      * system time, the linear correlation stays steady). Therefore, this method does not
@@ -731,20 +669,20 @@ public abstract class MediaPlayer2 {
      * <p>
      * To help users get current playback position, this method always anchors the timestamp
      * to the current {@link System#nanoTime system time}, so
-     * {@link MediaTimestamp2#getAnchorMediaTimeUs} can be used as current playback position.
+     * {@link MediaTimestamp#getAnchorMediaTimeUs} can be used as current playback position.
      *
-     * @return a MediaTimestamp2 object if a timestamp is available, or {@code null} if no timestamp
+     * @return a MediaTimestamp object if a timestamp is available, or {@code null} if no timestamp
      *         is available, e.g. because the media player has not been initialized.
      *
-     * @see MediaTimestamp2
+     * @see MediaTimestamp
      */
     @Nullable
-    public abstract MediaTimestamp2 getTimestamp();
+    public abstract MediaTimestamp getTimestamp();
 
     /**
      * Resets the MediaPlayer2 to its uninitialized state. After calling
      * this method, you will have to initialize it again by setting the
-     * data source and calling prepare().
+     * media item and calling prepare().
      */
     // This is a synchronous call.
     public abstract void reset();
@@ -762,10 +700,11 @@ public abstract class MediaPlayer2 {
      * When created, a MediaPlayer2 instance automatically generates its own audio session ID.
      * However, it is possible to force this player to be part of an already existing audio session
      * by calling this method.
-     * This method must be called before one of the overloaded <code> setDataSource </code> methods.
+     * This method must be called before one of the overloaded <code> setMediaItem </code> methods.
+     * @return a token which can be used to cancel the operation later with {@link #cancel}.
      */
     // This is an asynchronous call.
-    public abstract void setAudioSessionId(int sessionId);
+    public abstract Object setAudioSessionId(int sessionId);
 
     /**
      * Returns the audio session ID.
@@ -786,12 +725,13 @@ public abstract class MediaPlayer2 {
      * {@link android.media.audiofx.AudioEffect#getId()} and use it when calling this method
      * to attach the player to the effect.
      * <p>To detach the effect from the player, call this method with a null effect id.
-     * <p>This method must be called after one of the overloaded <code> setDataSource </code>
+     * <p>This method must be called after one of the overloaded <code> setMediaItem </code>
      * methods.
      * @param effectId system wide unique id of the effect to attach
+     * @return a token which can be used to cancel the operation later with {@link #cancel}.
      */
     // This is an asynchronous call.
-    public abstract void attachAuxEffect(int effectId);
+    public abstract Object attachAuxEffect(int effectId);
 
 
     /**
@@ -805,9 +745,10 @@ public abstract class MediaPlayer2 {
      * x == 0 -> level = 0
      * 0 < x <= R -> level = 10^(72*(x-R)/20/R)
      * @param level send level scalar
+     * @return a token which can be used to cancel the operation later with {@link #cancel}.
      */
     // This is an asynchronous call.
-    public abstract void setAuxEffectSendLevel(float level);
+    public abstract Object setAuxEffectSendLevel(float level);
 
     /**
      * Class for MediaPlayer2 to return each audio/video/subtitle track's metadata.
@@ -840,7 +781,7 @@ public abstract class MediaPlayer2 {
         public static final int MEDIA_TRACK_TYPE_AUDIO = 2;
 
         /** @hide */
-        @RestrictTo(LIBRARY_GROUP)
+        @RestrictTo(LIBRARY_GROUP_PREFIX)
         public static final int MEDIA_TRACK_TYPE_TIMEDTEXT = 3;
 
         public static final int MEDIA_TRACK_TYPE_SUBTITLE = 4;
@@ -903,9 +844,10 @@ public abstract class MediaPlayer2 {
      * each individual track can be found by calling {@link #getTrackInfo()} method.
      *
      * @see MediaPlayer2#getTrackInfo
+     * @return a token which can be used to cancel the operation later with {@link #cancel}.
      */
     // This is an asynchronous call.
-    public abstract void selectTrack(int index);
+    public abstract Object selectTrack(int index);
 
     /**
      * Deselects a track.
@@ -919,9 +861,10 @@ public abstract class MediaPlayer2 {
      * each individual track can be found by calling {@link #getTrackInfo()} method.
      *
      * @see MediaPlayer2#getTrackInfo
+     * @return a token which can be used to cancel the operation later with {@link #cancel}.
      */
     // This is an asynchronous call.
-    public abstract void deselectTrack(int index);
+    public abstract Object deselectTrack(int index);
 
     /**
      * Interface definition for callbacks to be invoked when the player has the corresponding
@@ -935,12 +878,12 @@ public abstract class MediaPlayer2 {
          * no display surface was set, or the value was not determined yet.
          *
          * @param mp the MediaPlayer2 associated with this callback
-         * @param dsd the DataSourceDesc2 of this data source
+         * @param item the MediaItem of this media item
          * @param width the width of the video
          * @param height the height of the video
          */
         public void onVideoSizeChanged(
-                MediaPlayer2 mp, DataSourceDesc2 dsd, int width, int height) { }
+                MediaPlayer2 mp, MediaItem item, int width, int height) { }
 
         /**
          * Called to indicate available timed metadata
@@ -950,51 +893,51 @@ public abstract class MediaPlayer2 {
          * not controlled by the associated timestamp.
          * <p>
          * Currently only HTTP live streaming data URI's embedded with timed ID3 tags generates
-         * {@link TimedMetaData2}.
+         * {@link TimedMetaData}.
          *
          * @see MediaPlayer2#selectTrack(int)
-         * @see TimedMetaData2
+         * @see TimedMetaData
          *
          * @param mp the MediaPlayer2 associated with this callback
-         * @param dsd the DataSourceDesc2 of this data source
+         * @param item the MediaItem of this media item
          * @param data the timed metadata sample associated with this event
          */
         public void onTimedMetaDataAvailable(
-                MediaPlayer2 mp, DataSourceDesc2 dsd, TimedMetaData2 data) { }
+                MediaPlayer2 mp, MediaItem item, TimedMetaData data) { }
 
         /**
          * Called to indicate an error.
          *
          * @param mp the MediaPlayer2 the error pertains to
-         * @param dsd the DataSourceDesc2 of this data source
+         * @param item the MediaItem of this media item
          * @param what the type of error that has occurred.
          * @param extra an extra code, specific to the error. Typically
          * implementation dependent.
          */
         public void onError(
-                MediaPlayer2 mp, DataSourceDesc2 dsd, @MediaError int what, int extra) { }
+                MediaPlayer2 mp, MediaItem item, @MediaError int what, int extra) { }
 
         /**
          * Called to indicate an info or a warning.
          *
          * @param mp the MediaPlayer2 the info pertains to.
-         * @param dsd the DataSourceDesc2 of this data source
+         * @param item the MediaItem of this media item
          * @param what the type of info or warning.
          * @param extra an extra code, specific to the info. Typically
          * implementation dependent.
          */
-        public void onInfo(MediaPlayer2 mp, DataSourceDesc2 dsd, @MediaInfo int what, int extra) { }
+        public void onInfo(MediaPlayer2 mp, MediaItem item, @MediaInfo int what, int extra) { }
 
         /**
          * Called to acknowledge an API call.
          *
          * @param mp the MediaPlayer2 the call was made on.
-         * @param dsd the DataSourceDesc2 of this data source
+         * @param item the MediaItem of this media item
          * @param what the enum for the API call.
          * @param status the returned status code for the call.
          */
         public void onCallCompleted(
-                MediaPlayer2 mp, DataSourceDesc2 dsd, @CallCompleted int what,
+                MediaPlayer2 mp, MediaItem item, @CallCompleted int what,
                 @CallStatus int status) { }
 
         /**
@@ -1013,12 +956,12 @@ public abstract class MediaPlayer2 {
          * </ul>
          *
          * @param mp the MediaPlayer2 the media time pertains to.
-         * @param dsd the DataSourceDesc2 of this data source
+         * @param item the MediaItem of this media item
          * @param timestamp the timestamp that correlates media time, system time and clock rate,
-         *     or {@link MediaTimestamp2#TIMESTAMP_UNKNOWN} in an error case.
+         *     or {@link MediaTimestamp#TIMESTAMP_UNKNOWN} in an error case.
          */
         public void onMediaTimeDiscontinuity(
-                MediaPlayer2 mp, DataSourceDesc2 dsd, MediaTimestamp2 timestamp) { }
+                MediaPlayer2 mp, MediaItem item, MediaTimestamp timestamp) { }
 
         /**
          * Called to indicate {@link #notifyWhenCommandLabelReached(Object)} has been processed.
@@ -1032,11 +975,11 @@ public abstract class MediaPlayer2 {
         /**
          * Called when when a player subtitle track has new subtitle data available.
          * @param mp the player that reports the new subtitle data
-         * @param dsd the DataSourceDesc2 of this data source
+         * @param item the MediaItem of this media item
          * @param data the subtitle data
          */
         public void onSubtitleData(
-                MediaPlayer2 mp, DataSourceDesc2 dsd, @NonNull SubtitleData2 data) { }
+                MediaPlayer2 mp, MediaItem item, @NonNull SubtitleData data) { }
     }
 
     /**
@@ -1092,32 +1035,35 @@ public abstract class MediaPlayer2 {
             PLAYER_STATE_PLAYING,
             PLAYER_STATE_ERROR})
     @Retention(RetentionPolicy.SOURCE)
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public @interface MediaPlayer2State {}
 
-    /* Do not change these values without updating their counterparts
-     * in include/media/mediaplayer2.h!
-     */
     /** Unspecified media player error.
      * @see EventCallback#onError
      */
     public static final int MEDIA_ERROR_UNKNOWN = 1;
 
-    /** The video is streamed and its container is not valid for progressive
-     * playback i.e the video's index (e.g moov atom) is not at the start of the
-     * file.
+    /**
+     * File or network related operation errors.
      * @see EventCallback#onError
      */
-    public static final int MEDIA_ERROR_NOT_VALID_FOR_PROGRESSIVE_PLAYBACK = 200;
-
-    /** File or network related operation errors. */
     public static final int MEDIA_ERROR_IO = -1004;
-    /** Bitstream is not conforming to the related coding standard or file spec. */
+
+    /**
+     * Bitstream is not conforming to the related coding standard or file spec.
+     * @see EventCallback#onError
+     */
     public static final int MEDIA_ERROR_MALFORMED = -1007;
-    /** Bitstream is conforming to the related coding standard or file spec, but
-     * the media framework does not support the feature. */
+    /**
+     * Bitstream is conforming to the related coding standard or file spec, but
+     * the media framework does not support the feature.
+     * @see EventCallback#onError
+     */
     public static final int MEDIA_ERROR_UNSUPPORTED = -1010;
-    /** Some operation takes too long to complete, usually more than 3-5 seconds. */
+    /**
+     * Some operation takes too long to complete, usually more than 3-5 seconds.
+     * @see EventCallback#onError
+     */
     public static final int MEDIA_ERROR_TIMED_OUT = -110;
 
     /** Unspecified low-level system error. This value originated from UNKNOWN_ERROR in
@@ -1125,7 +1071,7 @@ public abstract class MediaPlayer2 {
      * @see EventCallback#onError
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public static final int MEDIA_ERROR_SYSTEM = -2147483648;
 
     /**
@@ -1133,7 +1079,6 @@ public abstract class MediaPlayer2 {
      */
     @IntDef(flag = false, /*prefix = "MEDIA_ERROR",*/ value = {
             MEDIA_ERROR_UNKNOWN,
-            MEDIA_ERROR_NOT_VALID_FOR_PROGRESSIVE_PLAYBACK,
             MEDIA_ERROR_IO,
             MEDIA_ERROR_MALFORMED,
             MEDIA_ERROR_UNSUPPORTED,
@@ -1141,7 +1086,7 @@ public abstract class MediaPlayer2 {
             MEDIA_ERROR_SYSTEM
     })
     @Retention(RetentionPolicy.SOURCE)
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public @interface MediaError {}
 
     /** Unspecified media player info.
@@ -1149,7 +1094,7 @@ public abstract class MediaPlayer2 {
      */
     public static final int MEDIA_INFO_UNKNOWN = 1;
 
-    /** The player just started the playback of this data source.
+    /** The player just started the playback of this media item.
      * @see EventCallback#onInfo
      */
     public static final int MEDIA_INFO_DATA_SOURCE_START = 2;
@@ -1164,13 +1109,13 @@ public abstract class MediaPlayer2 {
      */
     public static final int MEDIA_INFO_AUDIO_RENDERING_START = 4;
 
-    /** The player just completed the playback of this data source.
+    /** The player just completed the playback of this media item.
      * @see EventCallback#onInfo
      */
     public static final int MEDIA_INFO_DATA_SOURCE_END = 5;
 
-    /** The player just completed the playback of all the data sources set by {@link #setDataSource}
-     *  , {@link #setNextDataSource} and {@link #setNextDataSources}.
+    /** The player just completed the playback of all the media items set by {@link #setMediaItem}
+     *  , {@link #setNextMediaItem} and {@link #setNextMediaItems}.
      * @see EventCallback#onInfo
      */
     public static final int MEDIA_INFO_DATA_SOURCE_LIST_END = 6;
@@ -1181,7 +1126,7 @@ public abstract class MediaPlayer2 {
      */
     public static final int MEDIA_INFO_DATA_SOURCE_REPEAT = 7;
 
-    /** The player just prepared a data source.
+    /** The player just prepared a media item.
      * @see EventCallback#onInfo
      */
     public static final int MEDIA_INFO_PREPARED = 100;
@@ -1209,7 +1154,7 @@ public abstract class MediaPlayer2 {
      * @see EventCallback#onInfo
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public static final int MEDIA_INFO_NETWORK_BANDWIDTH = 703;
 
     /**
@@ -1246,7 +1191,7 @@ public abstract class MediaPlayer2 {
      *  JAVA framework to avoid triggering track scanning.
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public static final int MEDIA_INFO_EXTERNAL_METADATA_UPDATE = 803;
 
     /** Informs that audio is not playing. Note that playback of the video
@@ -1263,9 +1208,9 @@ public abstract class MediaPlayer2 {
 
     /** Failed to handle timed text track properly.
      * @see EventCallback#onInfo
-     * {@hide}
+     * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public static final int MEDIA_INFO_TIMED_TEXT_ERROR = 900;
 
     /** Subtitle track was not supported by the media framework.
@@ -1306,7 +1251,7 @@ public abstract class MediaPlayer2 {
             MEDIA_INFO_SUBTITLE_TIMED_OUT
     })
     @Retention(RetentionPolicy.SOURCE)
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public @interface MediaInfo {}
 
     //--------------------------------------------------------------------------
@@ -1365,17 +1310,17 @@ public abstract class MediaPlayer2 {
      */
     public static final int CALL_COMPLETED_SET_AUX_EFFECT_SEND_LEVEL = 18;
 
-    /** The player just completed a call {@link #setDataSource}.
+    /** The player just completed a call {@link #setMediaItem}.
      * @see EventCallback#onCallCompleted
      */
     public static final int CALL_COMPLETED_SET_DATA_SOURCE = 19;
 
-    /** The player just completed a call {@link #setNextDataSource}.
+    /** The player just completed a call {@link #setNextMediaItem}.
      * @see EventCallback#onCallCompleted
      */
     public static final int CALL_COMPLETED_SET_NEXT_DATA_SOURCE = 22;
 
-    /** The player just completed a call {@link #setNextDataSources}.
+    /** The player just completed a call {@link #setNextMediaItems}.
      * @see EventCallback#onCallCompleted
      */
     public static final int CALL_COMPLETED_SET_NEXT_DATA_SOURCES = 23;
@@ -1400,12 +1345,29 @@ public abstract class MediaPlayer2 {
      */
     public static final int CALL_COMPLETED_SKIP_TO_NEXT = 29;
 
+    /**
+     * The start of the methods which have separate call complete callback.
+     *
+     * @hide
+     */
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    public static final int SEPARATE_CALL_COMPLETE_CALLBACK_START = 1000;
+
     /** The player just completed a call {@code notifyWhenCommandLabelReached}.
      * @see EventCallback#onCommandLabelReached
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
-    public static final int CALL_COMPLETED_NOTIFY_WHEN_COMMAND_LABEL_REACHED = 1003;
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    public static final int CALL_COMPLETED_NOTIFY_WHEN_COMMAND_LABEL_REACHED =
+            SEPARATE_CALL_COMPLETE_CALLBACK_START;
+
+    /** The player just completed a call {@link #prepareDrm}.
+     * @see EventCallback#onCommandLabelReached
+     * @hide
+     */
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    public static final int CALL_COMPLETED_PREPARE_DRM =
+            SEPARATE_CALL_COMPLETE_CALLBACK_START + 1;
 
     /**
      * @hide
@@ -1430,9 +1392,10 @@ public abstract class MediaPlayer2 {
             CALL_COMPLETED_SET_SURFACE,
             CALL_COMPLETED_SKIP_TO_NEXT,
             CALL_COMPLETED_NOTIFY_WHEN_COMMAND_LABEL_REACHED,
+            CALL_COMPLETED_PREPARE_DRM,
     })
     @Retention(RetentionPolicy.SOURCE)
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public @interface CallCompleted {}
 
     /** Status code represents that call is completed without an error.
@@ -1483,7 +1446,7 @@ public abstract class MediaPlayer2 {
             CALL_STATUS_ERROR_IO,
             CALL_STATUS_SKIPPED})
     @Retention(RetentionPolicy.SOURCE)
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public @interface CallStatus {}
 
     // Modular DRM begin
@@ -1503,9 +1466,9 @@ public abstract class MediaPlayer2 {
          * Called to give the app the opportunity to configure DRM before the session is created
          *
          * @param mp the {@code MediaPlayer2} associated with this callback
-         * @param dsd the DataSourceDesc2 of this data source
+         * @param item the MediaItem of this media item
          */
-        void onDrmConfig(MediaPlayer2 mp, DataSourceDesc2 dsd);
+        void onDrmConfig(MediaPlayer2 mp, MediaItem item);
     }
 
     /**
@@ -1528,22 +1491,22 @@ public abstract class MediaPlayer2 {
          * Called to indicate DRM info is available
          *
          * @param mp the {@code MediaPlayer2} associated with this callback
-         * @param dsd the DataSourceDesc2 of this data source
+         * @param item the MediaItem of this media item
          * @param drmInfo DRM info of the source including PSSH, and subset
          *                of crypto schemes supported by this device
          */
-        public void onDrmInfo(MediaPlayer2 mp, DataSourceDesc2 dsd, DrmInfo drmInfo) { }
+        public void onDrmInfo(MediaPlayer2 mp, MediaItem item, DrmInfo drmInfo) { }
 
         /**
          * Called to notify the client that {@link #prepareDrm} is finished and ready for
          * key request/response.
          *
          * @param mp the {@code MediaPlayer2} associated with this callback
-         * @param dsd the DataSourceDesc2 of this data source
+         * @param item the MediaItem of this media item
          * @param status the result of DRM preparation.
          */
         public void onDrmPrepared(
-                MediaPlayer2 mp, DataSourceDesc2 dsd, @PrepareDrmStatusCode int status) { }
+                MediaPlayer2 mp, MediaItem item, @PrepareDrmStatusCode int status) { }
     }
 
     /**
@@ -1581,10 +1544,19 @@ public abstract class MediaPlayer2 {
     public static final int PREPARE_DRM_STATUS_PROVISIONING_SERVER_ERROR = 2;
 
     /**
-     * The DRM preparation has failed .
+     * The DRM preparation has failed.
      */
     public static final int PREPARE_DRM_STATUS_PREPARATION_ERROR = 3;
 
+    /**
+     * The crypto scheme UUID that is not supported by the device.
+     */
+    public static final int PREPARE_DRM_STATUS_UNSUPPORTED_SCHEME = 4;
+
+    /**
+     * The hardware resources are not available, due to being in use.
+     */
+    public static final int PREPARE_DRM_STATUS_RESOURCE_BUSY = 5;
 
     /** @hide */
     @IntDef(flag = false, /*prefix = "PREPARE_DRM_STATUS",*/ value = {
@@ -1592,9 +1564,11 @@ public abstract class MediaPlayer2 {
             PREPARE_DRM_STATUS_PROVISIONING_NETWORK_ERROR,
             PREPARE_DRM_STATUS_PROVISIONING_SERVER_ERROR,
             PREPARE_DRM_STATUS_PREPARATION_ERROR,
+            PREPARE_DRM_STATUS_UNSUPPORTED_SCHEME,
+            PREPARE_DRM_STATUS_RESOURCE_BUSY,
     })
     @Retention(RetentionPolicy.SOURCE)
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public @interface PrepareDrmStatusCode {}
 
     /**
@@ -1616,34 +1590,19 @@ public abstract class MediaPlayer2 {
      * If the device has not been provisioned before, this call also provisions the device
      * which involves accessing the provisioning server and can take a variable time to
      * complete depending on the network connectivity.
-     * If {@code OnDrmPreparedListener} is registered, prepareDrm() runs in non-blocking
-     * mode by launching the provisioning in the background and returning. The listener
-     * will be called when provisioning and preparation has finished. If a
-     * {@code OnDrmPreparedListener} is not registered, prepareDrm() waits till provisioning
-     * and preparation has finished, i.e., runs in blocking mode.
-     * <p>
-     * If {@code OnDrmPreparedListener} is registered, it is called to indicate the DRM
-     * session being ready. The application should not make any assumption about its call
-     * sequence (e.g., before or after prepareDrm returns), or the thread context that will
-     * execute the listener (unless the listener is registered with a handler thread).
+     * prepareDrm() runs in non-blocking mode by launching the provisioning in the background and
+     * returning. {@link DrmEventCallback#onDrmPrepared} will be called when provisioning and
+     * preparation has finished. The application should check the status code returned with
+     * {@link DrmEventCallback#onDrmPrepared} to proceed.
      * <p>
      *
      * @param uuid The UUID of the crypto scheme. If not known beforehand, it can be retrieved
-     * from the source through {@code getDrmInfo} or registering a {@code onDrmInfoListener}.
-     *
-     * @throws IllegalStateException              if called before being prepared or the DRM was
-     *                                            prepared already
-     * @throws UnsupportedSchemeException         if the crypto scheme is not supported
-     * @throws ResourceBusyException              if required DRM resources are in use
-     * @throws ProvisioningNetworkErrorException  if provisioning is required but failed due to a
-     *                                            network error
-     * @throws ProvisioningServerErrorException   if provisioning is required but failed due to
-     *                                            the request denied by the provisioning server
+     * from the source through {@link #getDrmInfo} or registering
+     * {@link DrmEventCallback#onDrmInfo}.
+     * @return a token which can be used to cancel the operation later with {@link #cancel}.
      */
-    // This is a synchronous call.
-    public abstract void prepareDrm(@NonNull UUID uuid)
-            throws UnsupportedSchemeException, ResourceBusyException,
-            ProvisioningNetworkErrorException, ProvisioningServerErrorException;
+    // This is an asynchronous call.
+    public abstract Object prepareDrm(@NonNull UUID uuid);
 
     /**
      * Releases the DRM session
@@ -1706,12 +1665,12 @@ public abstract class MediaPlayer2 {
      * provided to the DRM engine plugin using provideDrmKeyResponse. When the
      * response is for an offline key request, a key-set identifier is returned that
      * can be used to later restore the keys to a new session with the method
-     * {@ link # restoreDrmKeys}.
+     * {@link #restoreDrmKeys}.
      * When the response is for a streaming or release request, null is returned.
      *
      * @param keySetId When the response is for a release request, keySetId identifies
      * the saved key associated with the release request (i.e., the same keySetId
-     * passed to the earlier {@ link # getDrmKeyRequest} call. It MUST be null when the
+     * passed to the earlier {@link #getDrmKeyRequest} call. It MUST be null when the
      * response is for either streaming or offline key requests.
      *
      * @param response the byte array response from the server
@@ -1769,12 +1728,12 @@ public abstract class MediaPlayer2 {
      */
     public abstract static class DrmInfo {
         /**
-         * Returns the PSSH info of the data source for each supported DRM scheme.
+         * Returns the PSSH info of the media item for each supported DRM scheme.
          */
         public abstract Map<UUID, byte[]> getPssh();
 
         /**
-         * Returns the intersection of the data source and the device DRM schemes.
+         * Returns the intersection of the media item and the device DRM schemes.
          * It effectively identifies the subset of the source's DRM schemes which
          * are supported by the device too.
          */
@@ -1787,28 +1746,6 @@ public abstract class MediaPlayer2 {
      */
     public static class NoDrmSchemeException extends MediaDrmException {
         public NoDrmSchemeException(String detailMessage) {
-            super(detailMessage);
-        }
-    }
-
-    /**
-     * Thrown when the device requires DRM provisioning but the provisioning attempt has
-     * failed due to a network error (Internet reachability, timeout, etc.).
-     * Extends MediaDrm.MediaDrmException
-     */
-    public static class ProvisioningNetworkErrorException extends MediaDrmException {
-        public ProvisioningNetworkErrorException(String detailMessage) {
-            super(detailMessage);
-        }
-    }
-
-    /**
-     * Thrown when the device requires DRM provisioning but the provisioning attempt has
-     * failed due to the provisioning server denying the request.
-     * Extends MediaDrm.MediaDrmException
-     */
-    public static class ProvisioningServerErrorException extends MediaDrmException {
-        public ProvisioningServerErrorException(String detailMessage) {
             super(detailMessage);
         }
     }
