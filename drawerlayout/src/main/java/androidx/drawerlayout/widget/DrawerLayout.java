@@ -17,7 +17,7 @@
 
 package androidx.drawerlayout.widget;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -192,6 +192,10 @@ public class DrawerLayout extends ViewGroup {
     private static final boolean SET_DRAWER_SHADOW_FROM_ELEVATION =
             Build.VERSION.SDK_INT >= 21;
 
+    /** Class name may be obfuscated by Proguard. Hardcode the string for accessibility usage. */
+    private static final String ACCESSIBILITY_CLASS_NAME =
+            "androidx.drawerlayout.widget.DrawerLayout";
+
     private final ChildAccessibilityDelegate mChildAccessibilityDelegate =
             new ChildAccessibilityDelegate();
     private float mDrawerElevation;
@@ -215,7 +219,6 @@ public class DrawerLayout extends ViewGroup {
     private @LockMode int mLockModeStart = LOCK_MODE_UNDEFINED;
     private @LockMode int mLockModeEnd = LOCK_MODE_UNDEFINED;
 
-    private boolean mDisallowInterceptRequested;
     private boolean mChildrenCanceledTouch;
 
     private @Nullable DrawerListener mListener;
@@ -400,7 +403,7 @@ public class DrawerLayout extends ViewGroup {
      * @hide Internal use only; called to apply window insets when configured
      * with fitsSystemWindows="true"
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public void setChildInsets(Object insets, boolean draw) {
         mLastInsets = insets;
         mDrawStatusBarBackground = draw;
@@ -810,7 +813,7 @@ public class DrawerLayout extends ViewGroup {
      * Resolve the shared state of all drawers from the component ViewDragHelpers.
      * Should be called whenever a ViewDragHelper's state changes.
      */
-    void updateDrawerState(int forGravity, @State int activeState, View activeDrawer) {
+    void updateDrawerState(@State int activeState, View activeDrawer) {
         final int leftState = mLeftDragger.getViewDragState();
         final int rightState = mRightDragger.getViewDragState();
 
@@ -1037,16 +1040,10 @@ public class DrawerLayout extends ViewGroup {
                 // or pick a magic number from thin air otherwise.
                 // TODO Better communication with tools of this bogus state.
                 // It will crash on a real device.
-                if (widthMode == MeasureSpec.AT_MOST) {
-                    widthMode = MeasureSpec.EXACTLY;
-                } else if (widthMode == MeasureSpec.UNSPECIFIED) {
-                    widthMode = MeasureSpec.EXACTLY;
+                if (widthMode == MeasureSpec.UNSPECIFIED) {
                     widthSize = 300;
                 }
-                if (heightMode == MeasureSpec.AT_MOST) {
-                    heightMode = MeasureSpec.EXACTLY;
-                } else if (heightMode == MeasureSpec.UNSPECIFIED) {
-                    heightMode = MeasureSpec.EXACTLY;
+                if (heightMode == MeasureSpec.UNSPECIFIED) {
                     heightSize = 300;
                 }
             } else {
@@ -1201,16 +1198,11 @@ public class DrawerLayout extends ViewGroup {
 
     /**
      * Change the layout direction of the given drawable.
-     * Return true if auto-mirror is supported and drawable's layout direction can be changed.
-     * Otherwise, return false.
      */
-    private boolean mirror(Drawable drawable, int layoutDirection) {
-        if (drawable == null || !DrawableCompat.isAutoMirrored(drawable)) {
-            return false;
+    private void mirror(Drawable drawable, int layoutDirection) {
+        if (drawable != null && DrawableCompat.isAutoMirrored(drawable)) {
+            DrawableCompat.setLayoutDirection(drawable, layoutDirection);
         }
-
-        DrawableCompat.setLayoutDirection(drawable, layoutDirection);
-        return true;
     }
 
     @Override
@@ -1502,7 +1494,6 @@ public class DrawerLayout extends ViewGroup {
                         interceptForTap = true;
                     }
                 }
-                mDisallowInterceptRequested = false;
                 mChildrenCanceledTouch = false;
                 break;
             }
@@ -1519,7 +1510,6 @@ public class DrawerLayout extends ViewGroup {
             case MotionEvent.ACTION_CANCEL:
             case MotionEvent.ACTION_UP: {
                 closeDrawers(true);
-                mDisallowInterceptRequested = false;
                 mChildrenCanceledTouch = false;
             }
         }
@@ -1570,7 +1560,6 @@ public class DrawerLayout extends ViewGroup {
         mRightDragger.processTouchEvent(ev);
 
         final int action = ev.getAction();
-        boolean wantTouchEvents = true;
 
         switch (action & MotionEvent.ACTION_MASK) {
             case MotionEvent.ACTION_DOWN: {
@@ -1578,7 +1567,6 @@ public class DrawerLayout extends ViewGroup {
                 final float y = ev.getY();
                 mInitialMotionX = x;
                 mInitialMotionY = y;
-                mDisallowInterceptRequested = false;
                 mChildrenCanceledTouch = false;
                 break;
             }
@@ -1601,19 +1589,17 @@ public class DrawerLayout extends ViewGroup {
                     }
                 }
                 closeDrawers(peekingOnly);
-                mDisallowInterceptRequested = false;
                 break;
             }
 
             case MotionEvent.ACTION_CANCEL: {
                 closeDrawers(true);
-                mDisallowInterceptRequested = false;
                 mChildrenCanceledTouch = false;
                 break;
             }
         }
 
-        return wantTouchEvents;
+        return true;
     }
 
     @Override
@@ -1624,7 +1610,6 @@ public class DrawerLayout extends ViewGroup {
             // If we have an edge touch we want to skip this and track it for later instead.
             super.requestDisallowInterceptTouchEvent(disallowIntercept);
         }
-        mDisallowInterceptRequested = disallowIntercept;
         if (disallowIntercept) {
             closeDrawers(true);
         }
@@ -1706,7 +1691,7 @@ public class DrawerLayout extends ViewGroup {
             }
         } else {
             moveDrawerToOffset(drawerView, 1.f);
-            updateDrawerState(lp.gravity, STATE_IDLE, drawerView);
+            updateDrawerState(STATE_IDLE, drawerView);
             drawerView.setVisibility(VISIBLE);
         }
         invalidate();
@@ -1773,7 +1758,7 @@ public class DrawerLayout extends ViewGroup {
             }
         } else {
             moveDrawerToOffset(drawerView, 0.f);
-            updateDrawerState(lp.gravity, STATE_IDLE, drawerView);
+            updateDrawerState(STATE_IDLE, drawerView);
             drawerView.setVisibility(INVISIBLE);
         }
         invalidate();
@@ -2171,7 +2156,7 @@ public class DrawerLayout extends ViewGroup {
 
         @Override
         public void onViewDragStateChanged(int state) {
-            updateDrawerState(mAbsGravity, state, mDragger.getCapturedView());
+            updateDrawerState(state, mDragger.getCapturedView());
         }
 
         @Override
@@ -2371,12 +2356,11 @@ public class DrawerLayout extends ViewGroup {
                 addChildrenForAccessibility(info, (ViewGroup) host);
             }
 
-            info.setClassName(DrawerLayout.class.getName());
+            info.setClassName(ACCESSIBILITY_CLASS_NAME);
 
             // This view reports itself as focusable so that it can intercept
             // the back button, but we should prevent this view from reporting
             // itself as focusable to accessibility services.
-            info.setFocusable(false);
             info.setFocused(false);
             info.removeAction(AccessibilityActionCompat.ACTION_FOCUS);
             info.removeAction(AccessibilityActionCompat.ACTION_CLEAR_FOCUS);
@@ -2386,7 +2370,7 @@ public class DrawerLayout extends ViewGroup {
         public void onInitializeAccessibilityEvent(View host, AccessibilityEvent event) {
             super.onInitializeAccessibilityEvent(host, event);
 
-            event.setClassName(DrawerLayout.class.getName());
+            event.setClassName(ACCESSIBILITY_CLASS_NAME);
         }
 
         @Override
@@ -2453,12 +2437,9 @@ public class DrawerLayout extends ViewGroup {
             dest.setContentDescription(src.getContentDescription());
 
             dest.setEnabled(src.isEnabled());
-            dest.setClickable(src.isClickable());
-            dest.setFocusable(src.isFocusable());
             dest.setFocused(src.isFocused());
             dest.setAccessibilityFocused(src.isAccessibilityFocused());
             dest.setSelected(src.isSelected());
-            dest.setLongClickable(src.isLongClickable());
 
             dest.addAction(src.getActions());
         }

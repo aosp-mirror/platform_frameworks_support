@@ -24,6 +24,8 @@ import static androidx.versionedparcelable.ParcelUtils.toParcelable;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import android.content.Intent;
@@ -33,10 +35,14 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.Parcel;
+import android.text.SpannableString;
+import android.text.TextUtils;
 import android.util.Size;
 import android.util.SizeF;
 import android.util.SparseBooleanArray;
 
+import androidx.collection.ArrayMap;
+import androidx.collection.ArraySet;
 import androidx.test.filters.SmallTest;
 
 import org.junit.Test;
@@ -47,6 +53,8 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 @RunWith(Parameterized.class)
 @SmallTest
@@ -256,6 +264,7 @@ public class VersionedParcelIntegTest {
         ParcelizableImpl obj = new ParcelizableImpl();
         obj.mException = new IllegalArgumentException();
         ParcelizableImpl other = parcelCopy(obj);
+        assertNotNull(other.mException);
         assertEquals(obj.mException.getClass(), other.mException.getClass());
     }
 
@@ -320,6 +329,14 @@ public class VersionedParcelIntegTest {
     }
 
     @Test
+    public void testStringSet() {
+        ParcelizableImpl obj = new ParcelizableImpl();
+        obj.mStringSet = new ArraySet<>(Arrays.asList("string_1", "42"));
+        ParcelizableImpl other = parcelCopy(obj);
+        assertEquals(obj.mStringSet, other.mStringSet);
+    }
+
+    @Test
     public void testBinderList() {
         if (mUseStream) {
             return;
@@ -370,6 +387,72 @@ public class VersionedParcelIntegTest {
         assertEquals(1.2f, floatArray[0], .01f);
         assertEquals(3.4f, floatArray[1], .01f);
         assertEquals(5.6f, floatArray[2], .01f);
+    }
+
+    @Test
+    public void testIntList() {
+        ParcelizableImpl obj = new ParcelizableImpl();
+        obj.mIntList = Arrays.asList(1, 2);
+        ParcelizableImpl other = parcelCopy(obj);
+        assertEquals(obj.mIntList, other.mIntList);
+    }
+
+    @Test
+    public void testFloatList() {
+        ParcelizableImpl obj = new ParcelizableImpl();
+        obj.mFloatList = Arrays.asList(1.f, 2.f);
+        ParcelizableImpl other = parcelCopy(obj);
+        assertEquals(obj.mFloatList, other.mFloatList);
+    }
+
+    @Test
+    public void testStringFloatMap() {
+        ParcelizableImpl obj = new ParcelizableImpl();
+        Map<String, Float> arrayMap = new ArrayMap<>();
+        arrayMap.put("one", 1f);
+        arrayMap.put("two", 1f);
+        arrayMap.put("three", 3f);
+
+        obj.mStringFloatMap = arrayMap;
+        ParcelizableImpl other = parcelCopy(obj);
+        assertEquals(obj.mStringFloatMap, other.mStringFloatMap);
+    }
+
+    @Test
+    public void testStringFloatMap_empty() {
+        ParcelizableImpl obj = new ParcelizableImpl();
+        Map<String, Float> arrayMap = new ArrayMap<>();
+        obj.mStringFloatMap = arrayMap;
+        ParcelizableImpl other = parcelCopy(obj);
+        assertEquals(obj.mStringFloatMap, other.mStringFloatMap);
+        assertTrue(other.mStringFloatMap.isEmpty());
+    }
+
+    @Test
+    public void testStringFloatMap_null() {
+        ParcelizableImpl obj = new ParcelizableImpl();
+        obj.mStringFloatMap = null;
+        ParcelizableImpl other = parcelCopy(obj);
+        assertNull(other.mStringFloatMap);
+    }
+
+    @Test
+    public void testCharSequence() {
+        if (mUseStream) {
+            return;
+        }
+        ParcelizableImpl obj = new ParcelizableImpl();
+        obj.mCharSequence = new SpannableString("xxxx");
+        ParcelizableImpl other = parcelCopy(obj);
+        assertTrue(TextUtils.equals(obj.mCharSequence, other.mCharSequence));
+    }
+
+    @Test
+    public void testGenerics() {
+        ParcelizableImpl obj = new ParcelizableImpl();
+        obj.mGenericType = new GenericType<>("xxxx");
+        ParcelizableImpl other = parcelCopy(obj);
+        assertEquals(obj.mGenericType.mValue, other.mGenericType.mValue);
     }
 
     @VersionedParcelize(allowSerialization = true,
@@ -434,6 +517,18 @@ public class VersionedParcelIntegTest {
         public List<String> mStringList;
         @ParcelField(27)
         public List<IBinder> mBinderList;
+        @ParcelField(28)
+        public Set<String> mStringSet;
+        @ParcelField(29)
+        public List<Integer> mIntList;
+        @ParcelField(30)
+        public List<Float> mFloatList;
+        @ParcelField(31)
+        public Map<String, Float> mStringFloatMap;
+        @ParcelField(32)
+        public CharSequence mCharSequence;
+        @ParcelField(33)
+        public GenericType<String> mGenericType;
 
         @NonParcelField
         private boolean mPreParcelled;
@@ -448,6 +543,20 @@ public class VersionedParcelIntegTest {
         @Override
         public void onPostParceling() {
             mPostParcelled = true;
+        }
+    }
+
+    @VersionedParcelize(allowSerialization = true)
+    public static final class GenericType<T> implements VersionedParcelable {
+        @ParcelField(1)
+        public String mValue;
+
+        /** Used by {@link VersionedParcelable} */
+        GenericType() {
+        }
+
+        GenericType(T value) {
+            mValue = value.toString();
         }
     }
 }

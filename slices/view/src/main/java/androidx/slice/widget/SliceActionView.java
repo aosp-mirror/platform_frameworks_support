@@ -24,6 +24,7 @@ import static androidx.slice.core.SliceHints.ICON_IMAGE;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -41,6 +42,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.RestrictTo;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.slice.SliceItem;
 import androidx.slice.core.SliceActionImpl;
@@ -56,7 +58,7 @@ public class SliceActionView extends FrameLayout implements View.OnClickListener
         CompoundButton.OnCheckedChangeListener {
     private static final String TAG = "SliceActionView";
 
-    static final int[] STATE_CHECKED = {
+    static final int[] CHECKED_STATE_SET = {
             android.R.attr.state_checked
     };
 
@@ -111,12 +113,33 @@ public class SliceActionView extends FrameLayout implements View.OnClickListener
             switchView.setMinimumHeight(mImageSize);
             switchView.setMinimumWidth(mImageSize);
             if (color != -1) {
+                // See frameworks/base/core/res/res/color/switch_track_material.xml.
+                final int uncheckedTrackColor = SliceViewUtil.getColorAttr(getContext(),
+                        android.R.attr.colorForeground);
+
+                ColorStateList trackTintList = new ColorStateList(
+                        new int[][]{ CHECKED_STATE_SET, EMPTY_STATE_SET },
+                        new int[]{ color, uncheckedTrackColor });
+
                 Drawable trackDrawable = DrawableCompat.wrap(switchView.getTrackDrawable());
-                DrawableCompat.setTint(trackDrawable, color);
+                DrawableCompat.setTintList(trackDrawable, trackTintList);
                 switchView.setTrackDrawable(trackDrawable);
 
+                // See frameworks/base/core/res/res/drawable/switch_thumb_material_anim.xml.
+                int uncheckedThumbColor = SliceViewUtil.getColorAttr(getContext(),
+                        androidx.appcompat.R.attr.colorSwitchThumbNormal);
+                if (uncheckedThumbColor == 0) {
+                    // We aren't in an appcompat theme, pull the default light switch color.
+                    uncheckedThumbColor = ContextCompat.getColor(getContext(),
+                            R.color.switch_thumb_normal_material_light);
+                }
+
+                ColorStateList thumbTintList = new ColorStateList(
+                        new int[][]{ CHECKED_STATE_SET, EMPTY_STATE_SET },
+                        new int[]{ color, uncheckedThumbColor });
+
                 Drawable thumbDrawable = DrawableCompat.wrap(switchView.getThumbDrawable());
-                DrawableCompat.setTint(thumbDrawable, color);
+                DrawableCompat.setTintList(thumbDrawable, thumbTintList);
                 switchView.setThumbDrawable(thumbDrawable);
             }
             mActionView = switchView;
@@ -307,7 +330,7 @@ public class SliceActionView extends FrameLayout implements View.OnClickListener
         public int[] onCreateDrawableState(int extraSpace) {
             final int[] drawableState = super.onCreateDrawableState(extraSpace + 1);
             if (mIsChecked) {
-                mergeDrawableStates(drawableState, STATE_CHECKED);
+                mergeDrawableStates(drawableState, CHECKED_STATE_SET);
             }
             return drawableState;
         }

@@ -16,7 +16,7 @@
 
 package androidx.appcompat.widget;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -42,6 +42,8 @@ import androidx.appcompat.R;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.view.menu.MenuPresenter;
 import androidx.core.view.NestedScrollingParent;
+import androidx.core.view.NestedScrollingParent2;
+import androidx.core.view.NestedScrollingParent3;
 import androidx.core.view.NestedScrollingParentHelper;
 import androidx.core.view.ViewCompat;
 
@@ -51,9 +53,9 @@ import androidx.core.view.ViewCompat;
  *
  * @hide
  */
-@RestrictTo(LIBRARY_GROUP)
+@RestrictTo(LIBRARY_GROUP_PREFIX)
 public class ActionBarOverlayLayout extends ViewGroup implements DecorContentParent,
-        NestedScrollingParent {
+        NestedScrollingParent, NestedScrollingParent2, NestedScrollingParent3 {
     private static final String TAG = "ActionBarOverlayLayout";
 
     private int mActionBarHeight;
@@ -463,6 +465,52 @@ public class ActionBarOverlayLayout extends ViewGroup implements DecorContentPar
     public boolean shouldDelayChildPressedState() {
         return false;
     }
+
+    // NestedScrollingParent3 implementation.
+
+    @Override
+    public void onNestedScroll(View target, int dxConsumed, int dyConsumed, int dxUnconsumed,
+            int dyUnconsumed, int type, int[] consumed) {
+        onNestedScroll(target, dxConsumed, dyConsumed, dxUnconsumed, dyUnconsumed, type);
+    }
+
+    // NestedScrollingParent2 implementation.
+
+    @Override
+    public boolean onStartNestedScroll(View child, View target, int axes, int type) {
+        return type == ViewCompat.TYPE_TOUCH && onStartNestedScroll(child, target, axes);
+    }
+
+    @Override
+    public void onNestedScrollAccepted(View child, View target, int axes, int type) {
+        if (type == ViewCompat.TYPE_TOUCH) {
+            onNestedScrollAccepted(child, target, axes);
+        }
+    }
+
+    @Override
+    public void onStopNestedScroll(View target, int type) {
+        if (type == ViewCompat.TYPE_TOUCH) {
+            onStopNestedScroll(target);
+        }
+    }
+
+    @Override
+    public void onNestedScroll(View target, int dxConsumed, int dyConsumed, int dxUnconsumed,
+            int dyUnconsumed, int type) {
+        if (type == ViewCompat.TYPE_TOUCH) {
+            onNestedScroll(target, dxConsumed, dyConsumed, dxUnconsumed, dyUnconsumed);
+        }
+    }
+
+    @Override
+    public void onNestedPreScroll(View target, int dx, int dy, int[] consumed, int type) {
+        if (type == ViewCompat.TYPE_TOUCH) {
+            onNestedPreScroll(target, dx, dy, consumed);
+        }
+    }
+
+    // NestedScrollingParent implementation.
 
     @Override
     public boolean onStartNestedScroll(View child, View target, int axes) {

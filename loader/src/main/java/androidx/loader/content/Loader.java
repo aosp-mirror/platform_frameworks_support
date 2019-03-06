@@ -23,7 +23,6 @@ import android.os.Handler;
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.util.DebugUtils;
 import androidx.loader.app.LoaderManager;
 
 import java.io.FileDescriptor;
@@ -37,15 +36,15 @@ import java.io.PrintWriter;
  * documentation for a class overview.
  */
 public class Loader<D> {
-    int mId;
-    OnLoadCompleteListener<D> mListener;
-    OnLoadCanceledListener<D> mOnLoadCanceledListener;
-    Context mContext;
-    boolean mStarted = false;
-    boolean mAbandoned = false;
-    boolean mReset = true;
-    boolean mContentChanged = false;
-    boolean mProcessingChange = false;
+    private int mId;
+    private OnLoadCompleteListener<D> mListener;
+    private OnLoadCanceledListener<D> mOnLoadCanceledListener;
+    private Context mContext;
+    private boolean mStarted = false;
+    private boolean mAbandoned = false;
+    private boolean mReset = true;
+    private boolean mContentChanged = false;
+    private boolean mProcessingChange = false;
 
     /**
      * An implementation of a ContentObserver that takes care of connecting
@@ -525,15 +524,26 @@ public class Loader<D> {
     @NonNull
     public String dataToString(@Nullable D data) {
         StringBuilder sb = new StringBuilder(64);
-        DebugUtils.buildShortClassTag(data, sb);
-        sb.append("}");
+        if (data == null) {
+            sb.append("null");
+        } else {
+            Class cls = data.getClass();
+            sb.append(cls.getSimpleName());
+            sb.append("{");
+            sb.append(Integer.toHexString(System.identityHashCode(cls)));
+            sb.append("}");
+        }
         return sb.toString();
     }
 
+    @NonNull
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder(64);
-        DebugUtils.buildShortClassTag(this, sb);
+        Class cls = getClass();
+        sb.append(cls.getSimpleName());
+        sb.append("{");
+        sb.append(Integer.toHexString(System.identityHashCode(cls)));
         sb.append(" id=");
         sb.append(mId);
         sb.append("}");
@@ -550,6 +560,7 @@ public class Loader<D> {
      * @deprecated Consider using {@link LoaderManager#enableDebugLogging(boolean)} to understand
      * the series of operations performed by LoaderManager.
      */
+    @SuppressWarnings("DeprecatedIsStillUsed")
     @Deprecated
     public void dump(String prefix, FileDescriptor fd, PrintWriter writer, String[] args) {
         writer.print(prefix); writer.print("mId="); writer.print(mId);

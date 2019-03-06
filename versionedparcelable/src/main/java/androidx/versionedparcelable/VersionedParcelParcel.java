@@ -21,10 +21,14 @@ import android.os.IBinder;
 import android.os.IInterface;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.text.TextUtils;
 import android.util.Log;
 import android.util.SparseIntArray;
 
 import androidx.annotation.RestrictTo;
+import androidx.collection.ArrayMap;
+
+import java.lang.reflect.Method;
 
 /**
  * @hide
@@ -41,12 +45,19 @@ class VersionedParcelParcel extends VersionedParcel {
     private final String mPrefix;
     private int mCurrentField = -1;
     private int mNextRead = 0;
+    private int mFieldId = -1;
 
     VersionedParcelParcel(Parcel p) {
-        this(p, p.dataPosition(), p.dataSize(), "");
+        this(p, p.dataPosition(), p.dataSize(), "", new ArrayMap<String, Method>(),
+                new ArrayMap<String, Method>(),
+                new ArrayMap<String, Class>());
     }
 
-    VersionedParcelParcel(Parcel p, int offset, int end, String prefix) {
+    private VersionedParcelParcel(Parcel p, int offset, int end, String prefix,
+            ArrayMap<String, Method> readCache,
+            ArrayMap<String, Method> writeCache,
+            ArrayMap<String, Class> parcelizerCache) {
+        super(readCache, writeCache, parcelizerCache);
         mParcel = p;
         mOffset = offset;
         mEnd = end;
@@ -54,28 +65,23 @@ class VersionedParcelParcel extends VersionedParcel {
         mPrefix = prefix;
     }
 
-    private int readUntilField(int fieldId) {
+    @Override
+    public boolean readField(int fieldId) {
         while (mNextRead < mEnd) {
+            if (mFieldId == fieldId) {
+                return true;
+            }
+            if (String.valueOf(mFieldId).compareTo(String.valueOf(fieldId)) > 0) {
+                return false;
+            }
             mParcel.setDataPosition(mNextRead);
             int size = mParcel.readInt();
-            int fid = mParcel.readInt();
+            mFieldId = mParcel.readInt();
             if (DEBUG) Log.d(TAG, mPrefix + "Found field " + fieldId + " : " + size);
 
             mNextRead = mNextRead + size;
-            if (fid == fieldId) return mParcel.dataPosition();
         }
-        return -1;
-    }
-
-    @Override
-    public boolean readField(int fieldId) {
-        int position = readUntilField(fieldId);
-        if (position == -1) {
-            return false;
-        }
-        if (DEBUG) Log.d(TAG, mPrefix + "Reading " + fieldId + " : " + position);
-        mParcel.setDataPosition(position);
-        return true;
+        return mFieldId == fieldId;
     }
 
     @Override
@@ -111,7 +117,8 @@ class VersionedParcelParcel extends VersionedParcel {
                     + mParcel.dataPosition() + " - " + (mNextRead == mOffset ? mEnd : mNextRead));
         }
         return new VersionedParcelParcel(mParcel, mParcel.dataPosition(),
-                mNextRead == mOffset ? mEnd : mNextRead, mPrefix + "  ");
+                mNextRead == mOffset ? mEnd : mNextRead, mPrefix + "  ", mReadCache, mWriteCache,
+                mParcelizerCache);
     }
 
     @Override
@@ -182,6 +189,16 @@ class VersionedParcelParcel extends VersionedParcel {
     @Override
     public void writeBundle(Bundle val) {
         mParcel.writeBundle(val);
+    }
+
+    @Override
+    protected void writeCharSequence(CharSequence charSequence) {
+        TextUtils.writeToParcel(charSequence, mParcel, 0);
+    }
+
+    @Override
+    protected CharSequence readCharSequence() {
+        return TextUtils.CHAR_SEQUENCE_CREATOR.createFromParcel(mParcel);
     }
 
     @Override

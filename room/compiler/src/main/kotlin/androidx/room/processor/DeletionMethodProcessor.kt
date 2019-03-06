@@ -16,39 +16,41 @@
 package androidx.room.processor
 
 import androidx.room.Delete
-import androidx.room.ext.typeName
 import androidx.room.vo.DeletionMethod
-import com.squareup.javapoet.TypeName
 import javax.lang.model.element.ExecutableElement
 import javax.lang.model.type.DeclaredType
 
-class DeletionMethodProcessor(baseContext: Context,
-                              val containing: DeclaredType,
-                              val executableElement: ExecutableElement) {
+class DeletionMethodProcessor(
+    baseContext: Context,
+    val containing: DeclaredType,
+    val executableElement: ExecutableElement
+) {
     val context = baseContext.fork(executableElement)
 
     fun process(): DeletionMethod {
         val delegate = ShortcutMethodProcessor(context, containing, executableElement)
         delegate.extractAnnotation(Delete::class, ProcessorErrors.MISSING_DELETE_ANNOTATION)
 
-        val returnTypeName = delegate.extractReturnType().typeName()
+        val returnType = delegate.extractReturnType()
+
+        val methodBinder = delegate.findDeleteOrUpdateMethodBinder(returnType)
+
         context.checker.check(
-                returnTypeName == TypeName.VOID || returnTypeName == TypeName.INT,
+                methodBinder.adapter != null,
                 executableElement,
-                ProcessorErrors.DELETION_METHODS_MUST_RETURN_VOID_OR_INT
+                ProcessorErrors.CANNOT_FIND_DELETE_RESULT_ADAPTER
         )
 
         val (entities, params) = delegate.extractParams(
-                missingParamError = ProcessorErrors
-                        .DELETION_MISSING_PARAMS
+                missingParamError = ProcessorErrors.DELETION_MISSING_PARAMS
         )
 
         return DeletionMethod(
                 element = delegate.executableElement,
                 name = delegate.executableElement.simpleName.toString(),
                 entities = entities,
-                returnCount = returnTypeName == TypeName.INT,
-                parameters = params
+                parameters = params,
+                methodBinder = methodBinder
         )
     }
 }

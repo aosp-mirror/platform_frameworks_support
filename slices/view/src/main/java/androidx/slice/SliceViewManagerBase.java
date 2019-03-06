@@ -18,6 +18,7 @@ package androidx.slice;
 
 import static androidx.slice.widget.SliceLiveData.SUPPORTED_SPECS;
 
+import android.content.ContentProviderClient;
 import android.content.Context;
 import android.database.ContentObserver;
 import android.net.Uri;
@@ -77,10 +78,10 @@ public abstract class SliceViewManagerBase extends SliceViewManager {
             SliceListenerImpl listener) {
         Pair<Uri, SliceCallback> key = new Pair<>(uri, callback);
         synchronized (mListenerLookup) {
-            if (mListenerLookup.containsKey(key)) {
-                mListenerLookup.get(key).stopListening();
+            SliceListenerImpl oldImpl = mListenerLookup.put(key, listener);
+            if (oldImpl != null) {
+                oldImpl.stopListening();
             }
-            mListenerLookup.put(key, listener);
         }
         return listener;
     }
@@ -99,8 +100,13 @@ public abstract class SliceViewManagerBase extends SliceViewManager {
         }
 
         void startListening() {
-            mContext.getContentResolver().registerContentObserver(mUri, true, mObserver);
-            tryPin();
+            ContentProviderClient provider =
+                    mContext.getContentResolver().acquireContentProviderClient(mUri);
+            if (provider != null) {
+                provider.release();
+                mContext.getContentResolver().registerContentObserver(mUri, true, mObserver);
+                tryPin();
+            }
         }
 
         void tryPin() {

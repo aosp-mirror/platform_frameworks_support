@@ -23,6 +23,12 @@ plugins {
     id("SupportAndroidLibraryPlugin")
 }
 
+android {
+    lintOptions {
+        fatal("UnknownNullness")
+    }
+}
+
 dependencies {
     api(project(":lifecycle:lifecycle-runtime"))
     api(project(":arch:core-common"))
@@ -38,6 +44,8 @@ dependencies {
     testImplementation(JUNIT)
     testImplementation(MOCKITO_CORE)
 
+    androidTestImplementation(TEST_EXT_JUNIT)
+    androidTestImplementation(TEST_CORE)
     androidTestImplementation(TEST_RUNNER)
     androidTestImplementation(TEST_RULES)
     androidTestImplementation(ESPRESSO_CORE)
@@ -47,7 +55,7 @@ dependencies {
 supportLibrary {
     name = "Android Lifecycle Extensions"
     publish = true
-    mavenVersion = LibraryVersions.LIFECYCLES_EXT
+    mavenVersion = LibraryVersions.LIFECYCLE
     mavenGroup = LibraryGroups.LIFECYCLE
     inceptionYear = "2017"
     description = "Android Lifecycle Extensions"

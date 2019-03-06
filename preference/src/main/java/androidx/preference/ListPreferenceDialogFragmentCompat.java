@@ -86,29 +86,24 @@ public class ListPreferenceDialogFragmentCompat extends PreferenceDialogFragment
                     public void onClick(DialogInterface dialog, int which) {
                         mClickedDialogEntryIndex = which;
 
-                        /*
-                         * Clicking on an item simulates the positive button
-                         * click, and dismisses the dialog.
-                         */
+                        // Clicking on an item simulates the positive button click, and dismisses
+                        // the dialog.
                         ListPreferenceDialogFragmentCompat.this.onClick(dialog,
                                 DialogInterface.BUTTON_POSITIVE);
                         dialog.dismiss();
                     }
                 });
 
-        /*
-         * The typical interaction for list-based dialogs is to have
-         * click-on-an-item dismiss the dialog instead of the user having to
-         * press 'Ok'.
-         */
+        // The typical interaction for list-based dialogs is to have click-on-an-item dismiss the
+        // dialog instead of the user having to press 'Ok'.
         builder.setPositiveButton(null, null);
     }
 
     @Override
     public void onDialogClosed(boolean positiveResult) {
-        final ListPreference preference = getListPreference();
         if (positiveResult && mClickedDialogEntryIndex >= 0) {
             String value = mEntryValues[mClickedDialogEntryIndex].toString();
+            final ListPreference preference = getListPreference();
             if (preference.callChangeListener(value)) {
                 preference.setValue(value);
             }

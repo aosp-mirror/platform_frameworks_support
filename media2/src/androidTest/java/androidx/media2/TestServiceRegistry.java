@@ -21,11 +21,13 @@ import static org.junit.Assert.fail;
 import android.os.Handler;
 
 import androidx.annotation.GuardedBy;
-import androidx.media2.MediaLibraryService2.MediaLibrarySession.MediaLibrarySessionCallback;
+import androidx.media2.MediaLibraryService.MediaLibrarySession.MediaLibrarySessionCallback;
 import androidx.media2.TestUtils.SyncHandler;
 
+import java.util.List;
+
 /**
- * Keeps the instance of currently running {@link MockMediaSessionService2}. And also provides
+ * Keeps the instance of currently running {@link MockMediaSessionService}. And also provides
  * a way to control them in one place.
  * <p>
  * It only support only one service at a time.
@@ -34,13 +36,15 @@ public class TestServiceRegistry {
     @GuardedBy("TestServiceRegistry.class")
     private static TestServiceRegistry sInstance;
     @GuardedBy("TestServiceRegistry.class")
-    private MediaSessionService2 mService;
+    private MediaSessionService mService;
     @GuardedBy("TestServiceRegistry.class")
     private SyncHandler mHandler;
     @GuardedBy("TestServiceRegistry.class")
     private MediaLibrarySessionCallback mSessionCallback;
     @GuardedBy("TestServiceRegistry.class")
     private SessionServiceCallback mSessionServiceCallback;
+    @GuardedBy("TestServiceRegistry.class")
+    private OnGetSessionHandler mOnGetSessionHandler;
 
     /**
      * Callback for session service's lifecyle (onCreate() / onDestroy())
@@ -56,6 +60,18 @@ public class TestServiceRegistry {
                 sInstance = new TestServiceRegistry();
             }
             return sInstance;
+        }
+    }
+
+    public void setOnGetSessionHandler(OnGetSessionHandler onGetSessionHandler) {
+        synchronized (TestServiceRegistry.class) {
+            mOnGetSessionHandler = onGetSessionHandler;
+        }
+    }
+
+    public OnGetSessionHandler getOnGetSessionHandler() {
+        synchronized (TestServiceRegistry.class) {
+            return mOnGetSessionHandler;
         }
     }
 
@@ -89,7 +105,7 @@ public class TestServiceRegistry {
         }
     }
 
-    public void setServiceInstance(MediaSessionService2 service) {
+    public void setServiceInstance(MediaSessionService service) {
         synchronized (TestServiceRegistry.class) {
             if (mService != null) {
                 fail("Previous service instance is still running. Clean up manually to ensure"
@@ -102,7 +118,7 @@ public class TestServiceRegistry {
         }
     }
 
-    public MediaSessionService2 getServiceInstance() {
+    public MediaSessionService getServiceInstance() {
         synchronized (TestServiceRegistry.class) {
             return mService;
         }
@@ -112,7 +128,10 @@ public class TestServiceRegistry {
         synchronized (TestServiceRegistry.class) {
             if (mService != null) {
                 // TODO(jaewan): Remove this, and override SessionService#onDestroy() to do this
-                mService.getSession().close();
+                List<MediaSession> sessions = mService.getSessions();
+                for (int i = 0; i < sessions.size(); i++) {
+                    sessions.get(i).close();
+                }
                 // stopSelf() would not kill service while the binder connection established by
                 // bindService() exists, and close() above will do the job instead.
                 // So stopSelf() isn't really needed, but just for sure.
@@ -127,6 +146,11 @@ public class TestServiceRegistry {
                 mSessionServiceCallback.onDestroyed();
                 mSessionServiceCallback = null;
             }
+            mOnGetSessionHandler = null;
         }
+    }
+
+    public interface OnGetSessionHandler {
+        MediaSession onGetSession();
     }
 }

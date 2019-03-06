@@ -16,7 +16,7 @@
 
 package androidx.leanback.preference;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
@@ -50,9 +50,10 @@ import androidx.preference.PreferenceScreen;
  * {@link PreferenceFragment.OnPreferenceStartScreenCallback#onPreferenceStartScreen(PreferenceFragment, PreferenceScreen)},
  * and {@link #onPreferenceStartInitialScreen()}:</p>
  *
- * {@sample frameworks/support/samples/SupportPreferenceDemos/src/main/java/com/example/android/supportpreference/FragmentSupportPreferencesLeanback.java
- *      support_fragment_leanback}
+ * {@sample frameworks/support/samples/SupportPreferenceDemos/src/main/java/com/example/androidx/preference/LeanbackPreferences.java leanback_preferences}
+ * @deprecated Use {@link LeanbackSettingsFragmentCompat}
  */
+@Deprecated
 public abstract class LeanbackSettingsFragment extends Fragment
         implements PreferenceFragment.OnPreferenceStartFragmentCallback,
         PreferenceFragment.OnPreferenceStartScreenCallback,
@@ -195,7 +196,7 @@ public abstract class LeanbackSettingsFragment extends Fragment
     /**
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public static class DummyFragment extends Fragment {
 
         @Override

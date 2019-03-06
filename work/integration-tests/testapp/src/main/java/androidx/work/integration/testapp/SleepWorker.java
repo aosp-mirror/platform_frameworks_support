@@ -16,16 +16,22 @@
 
 package androidx.work.integration.testapp;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
 import androidx.work.Worker;
+import androidx.work.WorkerParameters;
 
 /**
  * A test worker that sleeps.
  */
 public class SleepWorker extends Worker {
     private static final String TAG = "SleepWorker";
+
+    public SleepWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
+        super(context, workerParams);
+    }
 
     @Override
     public @NonNull Result doWork() {
@@ -36,6 +42,6 @@ public class SleepWorker extends Worker {
         } catch (InterruptedException ignore) {
             Log.v(TAG, "Interrupted.");
         }
-        return Result.SUCCESS;
+        return Result.success();
     }
 }

@@ -22,6 +22,10 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 
+/**
+ * @deprecated Use {@link ListPreferenceDialogFragmentCompat} instead
+ */
+@Deprecated
 public class ListPreferenceDialogFragment extends PreferenceDialogFragment {
 
     private static final String SAVE_STATE_INDEX = "ListPreferenceDialogFragment.index";
@@ -33,6 +37,16 @@ public class ListPreferenceDialogFragment extends PreferenceDialogFragment {
     private CharSequence[] mEntries;
     private CharSequence[] mEntryValues;
 
+    /**
+     * @deprecated Use {@link ListPreferenceDialogFragmentCompat} instead
+     */
+    @Deprecated
+    public ListPreferenceDialogFragment() {}
+
+    /**
+     * @deprecated Use {@link ListPreferenceDialogFragmentCompat} instead
+     */
+    @Deprecated
     public static ListPreferenceDialogFragment newInstance(String key) {
         final ListPreferenceDialogFragment fragment = new ListPreferenceDialogFragment();
         final Bundle b = new Bundle(1);
@@ -84,24 +98,23 @@ public class ListPreferenceDialogFragment extends PreferenceDialogFragment {
                     public void onClick(DialogInterface dialog, int which) {
                         mClickedDialogEntryIndex = which;
 
-                        /*
-                         * Clicking on an item simulates the positive button
-                         * click, and dismisses the dialog.
-                         */
+                        // Clicking on an item simulates the positive button click, and dismisses
+                        // the dialog.
                         ListPreferenceDialogFragment.this.onClick(dialog,
                                 DialogInterface.BUTTON_POSITIVE);
                         dialog.dismiss();
                     }
                 });
 
-        /*
-         * The typical interaction for list-based dialogs is to have
-         * click-on-an-item dismiss the dialog instead of the user having to
-         * press 'Ok'.
-         */
+        // The typical interaction for list-based dialogs is to have click-on-an-item dismiss the
+        // dialog instead of the user having to press 'Ok'.
         builder.setPositiveButton(null, null);
     }
 
+    /**
+     * @deprecated Use {@link ListPreferenceDialogFragmentCompat} instead
+     */
+    @Deprecated
     @Override
     public void onDialogClosed(boolean positiveResult) {
         final ListPreference preference = getListPreference();

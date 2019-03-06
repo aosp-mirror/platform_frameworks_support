@@ -20,6 +20,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.car.widget.CarToolbar;
 import androidx.car.widget.ListItem;
 import androidx.car.widget.ListItemAdapter;
 import androidx.car.widget.ListItemProvider;
@@ -41,6 +42,10 @@ public class SubheaderListItemActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_paged_list_view);
+
+        CarToolbar toolbar = findViewById(R.id.car_toolbar);
+        toolbar.setTitle(R.string.sub_header_list_item_title);
+        toolbar.setNavigationIconOnClickListener(v -> finish());
 
         mPagedListView = findViewById(R.id.paged_list_view);
 
@@ -68,7 +73,7 @@ public class SubheaderListItemActivity extends Activity {
             subheaderItem = new SubheaderListItem(mContext,
                     "subheader matching items without start margin");
             subheaderItem.setTextStartMarginType(SubheaderListItem.TEXT_START_MARGIN_TYPE_NONE);
-            subheaderItem.setHideDivider(true);
+            subheaderItem.setShowDivider(false);
             mItems.add(subheaderItem);
 
             item = new TextListItem(mContext);
@@ -81,7 +86,7 @@ public class SubheaderListItemActivity extends Activity {
 
             item = new TextListItem(mContext);
             item.setTitle("item - hides following divider");
-            item.setHideDivider(true);
+            item.setShowDivider(false);
             mItems.add(item);
 
             // ========================
@@ -90,14 +95,14 @@ public class SubheaderListItemActivity extends Activity {
             item.setPrimaryActionEmptyIcon();
             item.setTitle("Header");
             item.setBody("header text with more words");
-            item.setHideDivider(true);
+            item.setShowDivider(false);
             mItems.add(item);
 
             subheaderItem = new SubheaderListItem(mContext,
                     "subheader matching items with no icon");
             subheaderItem.setTextStartMarginType(
                     SubheaderListItem.TEXT_START_MARGIN_TYPE_SMALL);
-            subheaderItem.setHideDivider(true);
+            subheaderItem.setShowDivider(false);
             mItems.add(subheaderItem);
 
             item = new TextListItem(mContext);
@@ -113,7 +118,7 @@ public class SubheaderListItemActivity extends Activity {
             item = new TextListItem(mContext);
             item.setPrimaryActionEmptyIcon();
             item.setTitle("item - hides following divider");
-            item.setHideDivider(true);
+            item.setShowDivider(false);
             mItems.add(item);
 
             // ========================
@@ -125,12 +130,14 @@ public class SubheaderListItemActivity extends Activity {
             mItems.add(subheaderItem);
 
             item = new TextListItem(mContext);
-            item.setPrimaryActionIcon(android.R.drawable.sym_def_app_icon);
+            item.setPrimaryActionIcon(android.R.drawable.sym_def_app_icon,
+                    TextListItem.PRIMARY_ACTION_ICON_SIZE_SMALL);
             item.setTitle("item");
             mItems.add(item);
 
             item = new TextListItem(mContext);
-            item.setPrimaryActionIcon(android.R.drawable.sym_def_app_icon);
+            item.setPrimaryActionIcon(android.R.drawable.sym_def_app_icon,
+                    TextListItem.PRIMARY_ACTION_ICON_SIZE_SMALL);
             item.setTitle("item");
             mItems.add(item);
 
@@ -143,14 +150,14 @@ public class SubheaderListItemActivity extends Activity {
             mItems.add(subheaderItem);
 
             item = new TextListItem(mContext);
-            item.setPrimaryActionIcon(android.R.drawable.sym_def_app_icon);
-            item.setPrimaryActionIconSize(TextListItem.PRIMARY_ACTION_ICON_SIZE_LARGE);
+            item.setPrimaryActionIcon(android.R.drawable.sym_def_app_icon,
+                    TextListItem.PRIMARY_ACTION_ICON_SIZE_LARGE);
             item.setTitle("item");
             mItems.add(item);
 
             item = new TextListItem(mContext);
-            item.setPrimaryActionIcon(android.R.drawable.sym_def_app_icon);
-            item.setPrimaryActionIconSize(TextListItem.PRIMARY_ACTION_ICON_SIZE_LARGE);
+            item.setPrimaryActionIcon(android.R.drawable.sym_def_app_icon,
+                    TextListItem.PRIMARY_ACTION_ICON_SIZE_LARGE);
             item.setTitle("item");
             mItems.add(item);
 
