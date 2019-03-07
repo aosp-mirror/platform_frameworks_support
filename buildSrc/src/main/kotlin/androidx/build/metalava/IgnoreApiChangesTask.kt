@@ -41,15 +41,18 @@ open class IgnoreApiChangesTask : MetalavaTask() {
     @InputFiles
     fun getTaskInputs(): List<File> {
         if (processRestrictedAPIs) {
-            return referenceApi!!.files() + exclusions!!.files()
+            return referenceApi!!.files()
         }
-        return listOf(referenceApi!!.publicApiFile, exclusions!!.publicApiFile)
+        return listOf(referenceApi!!.publicApiFile)
     }
 
     // Declaring outputs prevents Gradle from rerunning this task if the inputs haven't changed
     @OutputFiles
     fun getTaskOutputs(): List<File>? {
-        return getTaskInputs()
+        if (processRestrictedAPIs) {
+            return exclusions!!.files()
+        }
+        return listOf(exclusions!!.publicApiFile)
     }
 
     @TaskAction
@@ -60,8 +63,8 @@ open class IgnoreApiChangesTask : MetalavaTask() {
         check(bootClasspath.isNotEmpty()) { "Android boot classpath not set." }
 
         updateExclusions(referenceApi.publicApiFile, exclusions.publicApiFile, false)
-        if (processRestrictedAPIs) {
-            updateExclusions(referenceApi.restrictedApiFile, exclusions.restrictedApiFile, false)
+        if (processRestrictedAPIs && referenceApi.restrictedApiFile.exists()) {
+            updateExclusions(referenceApi.restrictedApiFile, exclusions.restrictedApiFile, true)
         }
     }
 
@@ -69,6 +72,7 @@ open class IgnoreApiChangesTask : MetalavaTask() {
     // present in the current source path
     fun updateExclusions(apiFile: File, exclusionsFile: File, processRestrictedAPIs: Boolean) {
         val intermediateExclusionsFile = checkNotNull(intermediateExclusionsFile) { "intermediateExclusionsFile not set" }
+        intermediateExclusionsFile.parentFile.mkdirs()
         intermediateExclusionsFile.createNewFile()
 
         var args = listOf("--classpath",
@@ -95,6 +99,10 @@ open class IgnoreApiChangesTask : MetalavaTask() {
 
         if (intermediateExclusionsFile.length() > 0) {
             Files.copy(intermediateExclusionsFile, exclusionsFile)
+        } else {
+            if (exclusionsFile.exists()) {
+                exclusionsFile.delete()
+            }
         }
     }
 }

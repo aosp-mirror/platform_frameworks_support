@@ -20,7 +20,8 @@ import kotlin.jvm.JvmStatic
 data class MainFragmentArgs(
     val main: String,
     val optional: Int = -1,
-    val reference: Int = a.b.R.drawable.background,
+    val reference: Int = R.drawable.background,
+    val referenceZeroDefaultValue: Int = 0,
     val floatArg: Float = 1F,
     val floatArrayArg: FloatArray,
     val objectArrayArg: Array<ActivityInfo>,
@@ -34,6 +35,7 @@ data class MainFragmentArgs(
         result.putString("main", this.main)
         result.putInt("optional", this.optional)
         result.putInt("reference", this.reference)
+        result.putInt("referenceZeroDefaultValue", this.referenceZeroDefaultValue)
         result.putFloat("floatArg", this.floatArg)
         result.putFloatArray("floatArrayArg", this.floatArrayArg)
         result.putParcelableArray("objectArrayArg", this.objectArrayArg)
@@ -75,7 +77,13 @@ data class MainFragmentArgs(
             if (bundle.containsKey("reference")) {
                 __reference = bundle.getInt("reference")
             } else {
-                __reference = a.b.R.drawable.background
+                __reference = R.drawable.background
+            }
+            val __referenceZeroDefaultValue : Int
+            if (bundle.containsKey("referenceZeroDefaultValue")) {
+                __referenceZeroDefaultValue = bundle.getInt("referenceZeroDefaultValue")
+            } else {
+                __referenceZeroDefaultValue = 0
             }
             val __floatArg : Float
             if (bundle.containsKey("floatArg")) {
@@ -94,8 +102,8 @@ data class MainFragmentArgs(
             }
             val __objectArrayArg : Array<ActivityInfo>?
             if (bundle.containsKey("objectArrayArg")) {
-                __objectArrayArg = bundle.getParcelableArray("objectArrayArg") as
-                        Array<ActivityInfo>?
+                __objectArrayArg = bundle.getParcelableArray("objectArrayArg")?.map { it as
+                        ActivityInfo }?.toTypedArray()
                 if (__objectArrayArg == null) {
                     throw IllegalArgumentException("Argument \"objectArrayArg\" is marked as non-null but was passed a null value.")
                 }
@@ -135,8 +143,9 @@ data class MainFragmentArgs(
             } else {
                 __enumArg = AccessMode.READ
             }
-            return MainFragmentArgs(__main, __optional, __reference, __floatArg, __floatArrayArg,
-                    __objectArrayArg, __boolArg, __optionalParcelable, __enumArg)
+            return MainFragmentArgs(__main, __optional, __reference, __referenceZeroDefaultValue,
+                    __floatArg, __floatArrayArg, __objectArrayArg, __boolArg, __optionalParcelable,
+                    __enumArg)
         }
     }
 }

@@ -20,7 +20,6 @@ import androidx.build.dependencyTracker.AffectedModuleDetector.Companion.ENABLE_
 import androidx.build.getDistributionDirectory
 import androidx.build.gradle.isRoot
 import androidx.build.isRunningOnBuildServer
-import com.android.annotations.VisibleForTesting
 import org.gradle.BuildAdapter
 import org.gradle.api.GradleException
 import org.gradle.api.Project
@@ -29,10 +28,31 @@ import org.gradle.api.invocation.Gradle
 import org.gradle.api.logging.Logger
 
 /**
+ * The subsets we allow the projects to be partitioned into.
+ * This is to allow more granular testing. Specifically, to enable running large tests on
+ * CHANGED_PROJECTS, and
+ *
+ * The subsets are:
+ *  CHANGED_PROJECTS -- The containing projects for any files that were changed in this CL.
+ *
+ *  DEPENDENT_PROJECTS -- Any projects that have a dependency on any of the projects
+ *      in the CHANGED_PROJECTS set.
+ *
+ *  ALL_AFFECTED_PROJECTS -- The union of CHANGED_PROJECTS and DEPENDENT_PROJECTS,
+ *      which encompasses all projects that could possibly break due to the changes.
+ */
+internal enum class ProjectSubset { DEPENDENT_PROJECTS, CHANGED_PROJECTS, ALL_AFFECTED_PROJECTS }
+
+/**
  * A utility class that can discover which files are changed based on git history.
  *
  * To enable this, you need to pass [ENABLE_ARG] into the build as a command line parameter
  * (-P<name>)
+ *
+ * Passing [DEPENDENT_PROJECTS_ARG] will result in only DEPENDENT_PROJECTS being returned (see enum)
+ * Passing [CHANGED_PROJECTS_ARG] will behave likewise.
+ *
+ * If neither of those are passed, [ALL_AFFECTED_PROJECTS] is returned.
  *
  * Currently, it checks git logs to find last merge CL to discover where the anchor CL is.
  *
@@ -51,9 +71,17 @@ abstract class AffectedModuleDetector {
         private const val ROOT_PROP_NAME = "affectedModuleDetector"
         private const val LOG_FILE_NAME = "affected_module_detector_log.txt"
         private const val ENABLE_ARG = "androidx.enableAffectedModuleDetection"
+        private const val DEPENDENT_PROJECTS_ARG = "androidx.dependentProjects"
+        private const val CHANGED_PROJECTS_ARG = "androidx.changedProjects"
         @JvmStatic
         fun configure(gradle: Gradle, rootProject: Project) {
             val enabled = rootProject.hasProperty(ENABLE_ARG)
+            val subset = when {
+                rootProject.hasProperty(DEPENDENT_PROJECTS_ARG) -> ProjectSubset.DEPENDENT_PROJECTS
+                rootProject.hasProperty(CHANGED_PROJECTS_ARG)
+                    -> ProjectSubset.CHANGED_PROJECTS
+                else -> ProjectSubset.ALL_AFFECTED_PROJECTS
+            }
             val inBuildServer = isRunningOnBuildServer()
             if (!enabled && !inBuildServer) {
                 setInstance(rootProject, AcceptAll())
@@ -74,7 +102,8 @@ abstract class AffectedModuleDetector {
                     AffectedModuleDetectorImpl(
                             rootProject = rootProject,
                             logger = logger,
-                            ignoreUnknownProjects = false
+                            ignoreUnknownProjects = false,
+                            projectSubset = subset
                     ).also {
                         if (!enabled) {
                             logger.info("swapping with accept all")
@@ -147,12 +176,12 @@ private class AcceptAll(
  *
  * When a file in a module is changed, all modules that depend on it are considered as changed.
  */
-@VisibleForTesting
 internal class AffectedModuleDetectorImpl constructor(
     private val rootProject: Project,
     private val logger: Logger?,
         // used for debugging purposes when we want to ignore non module files
     private val ignoreUnknownProjects: Boolean = false,
+    private val projectSubset: ProjectSubset = ProjectSubset.ALL_AFFECTED_PROJECTS,
     private val injectedGitClient: GitClient? = null
 ) : AffectedModuleDetector() {
     private val git by lazy {
@@ -182,7 +211,11 @@ internal class AffectedModuleDetectorImpl constructor(
     }
 
     /**
-     * Finds all modules that are affected by current changes.
+     * By default, finds all modules that are affected by current changes
+     *
+     * With param dependentProjects, finds only modules dependent on directly changed modules
+     *
+     * With param changedProjects, finds only directly changed modules
      *
      * If it cannot determine the containing module for a file (e.g. buildSrc or root), it
      * defaults to all projects unless [ignoreUnknownProjects] is set to true.
@@ -206,11 +239,11 @@ internal class AffectedModuleDetectorImpl constructor(
                     }
                 }
         if (containingProjects.any { it == null }) {
-            logger?.info("couldn't find containing file for some projects, returning ALL")
+            logger?.info("couldn't find containing file for some projects, returning all projects")
             logger?.info(
                     """
                         if i was going to check for what i've found, i would've returned
-                        ${expandToDependants(containingProjects.filterNotNull())}
+                        ${expandToDependents(containingProjects.filterNotNull())}
                     """.trimIndent()
             )
             return allProjects
@@ -219,14 +252,20 @@ internal class AffectedModuleDetectorImpl constructor(
             ALWAYS_BUILD.any {
                 project.name.contains(it)
             }
+        }.toSet()
+
+        return alwaysBuild + when (projectSubset) {
+            ProjectSubset.DEPENDENT_PROJECTS
+                -> expandToDependents(containingProjects) - containingProjects.filterNotNull()
+            ProjectSubset.CHANGED_PROJECTS
+                -> (containingProjects).filterNotNull().toSet()
+            else -> expandToDependents(containingProjects)
         }
-        // expand the list to all of their dependants
-        return expandToDependants(containingProjects + alwaysBuild)
     }
 
-    private fun expandToDependants(containingProjects: List<Project?>): Set<Project> {
+    private fun expandToDependents(containingProjects: List<Project?>): Set<Project> {
         return containingProjects.flatMapTo(mutableSetOf()) {
-            dependencyTracker.findAllDependants(it!!)
+            dependencyTracker.findAllDependents(it!!)
         }
     }
 
@@ -237,7 +276,8 @@ internal class AffectedModuleDetectorImpl constructor(
     }
 
     companion object {
-        // list of projects that should always be built
-        private val ALWAYS_BUILD = arrayOf("dumb-test", "wear", "media-compat-test", "media2-test")
+        // dummy test to ensure no failure due to "no instrumentation. See b/112645580
+        // and b/126377106
+        private val ALWAYS_BUILD = setOf("dumb-test")
     }
 }

@@ -16,17 +16,23 @@
 
 package androidx.fragment.app.testing
 
+import android.app.UiModeManager
+import android.content.res.Configuration
 import android.os.Bundle
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.FragmentFactory
+import androidx.fragment.testing.test.R.id.view_tag_id
 import androidx.fragment.testing.test.R.style.ThemedFragmentTheme
+import androidx.lifecycle.GenericLifecycleObserver
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Lifecycle.State
-import androidx.test.core.app.ApplicationProvider
+import androidx.test.core.app.ApplicationProvider.getApplicationContext
 import androidx.test.espresso.Espresso.onView
-import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withText
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
@@ -181,6 +187,33 @@ class FragmentScenarioTest {
             onFragment { fragment ->
                 assertThat(fragment.state).isEqualTo(State.RESUMED)
                 assertThat(fragment.constructorArg).isEqualTo("my constructor arg")
+                assertThat(fragment.numberOfRecreations).isEqualTo(0)
+                assertThat(fragment.isViewAttachedToWindow).isTrue()
+            }
+        }
+    }
+
+    @Test
+    fun launchInContainerWithEarlyLifecycleCallbacks() {
+        var tagSetBeforeOnStart = false
+        with(launchFragmentInContainer {
+            StateRecordingFragment().also { fragment ->
+                fragment.viewLifecycleOwnerLiveData.observeForever { viewLifecycleOwner ->
+                    if (viewLifecycleOwner != null) {
+                        fragment.requireView().setTag(view_tag_id, "fakeNavController")
+                    }
+                }
+                fragment.lifecycle.addObserver(GenericLifecycleObserver { _, event ->
+                    if (event == Lifecycle.Event.ON_START) {
+                        tagSetBeforeOnStart =
+                            fragment.requireView().getTag(view_tag_id) == "fakeNavController"
+                    }
+                })
+            }
+        }) {
+            assertThat(tagSetBeforeOnStart).isTrue()
+            onFragment { fragment ->
+                assertThat(fragment.state).isEqualTo(State.RESUMED)
                 assertThat(fragment.numberOfRecreations).isEqualTo(0)
                 assertThat(fragment.isViewAttachedToWindow).isTrue()
             }
@@ -402,8 +435,16 @@ class FragmentScenarioTest {
 
     @Test
     fun fragmentWithOptionsMenu() {
-        launchFragment<OptionsMenuFragment>()
-        openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext())
-        onView(withText("Item1")).check(matches(isDisplayed()))
+        val uiModeManager = getSystemService(getApplicationContext(), UiModeManager::class.java)!!
+        if (uiModeManager.currentModeType == Configuration.UI_MODE_TYPE_TELEVISION) {
+            // Android TV does not support action bar.
+            return
+        }
+
+        with(launchFragment<OptionsMenuFragment>()) {
+            openActionBarOverflowOrOptionsMenu(getApplicationContext())
+            onFragment { fragment -> fragment.requireActivity().openOptionsMenu() }
+            onView(withText("Item1")).check(matches(isDisplayed()))
+        }
     }
 }

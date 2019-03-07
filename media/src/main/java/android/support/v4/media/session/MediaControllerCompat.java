@@ -17,7 +17,7 @@
 package android.support.v4.media.session;
 
 import static androidx.annotation.RestrictTo.Scope.LIBRARY;
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
 import android.app.Activity;
 import android.app.PendingIntent;
@@ -541,7 +541,7 @@ public final class MediaControllerCompat {
      * @return The session's token as VersionedParcelable.
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public @Nullable VersionedParcelable getSession2Token() {
         return mToken.getSession2Token();
     }
@@ -1301,6 +1301,15 @@ public final class MediaControllerCompat {
         public abstract void setRating(RatingCompat rating, Bundle extras);
 
         /**
+         * Set the playback speed.
+         *
+         * @param speed The playback speed
+         * @hide
+         */
+        @RestrictTo(LIBRARY_GROUP_PREFIX)
+        public void setPlaybackSpeed(float speed) {}
+
+        /**
          * Enables/disables captioning for this session.
          *
          * @param enabled {@code true} to enable captioning, {@code false} to disable.
@@ -1938,6 +1947,15 @@ public final class MediaControllerCompat {
         }
 
         @Override
+        public void setPlaybackSpeed(float speed) {
+            try {
+                mBinder.setPlaybackSpeed(speed);
+            } catch (RemoteException e) {
+                Log.e(TAG, "Dead object in setPlaybackSpeed.", e);
+            }
+        }
+
+        @Override
         public void setCaptioningEnabled(boolean enabled) {
             try {
                 mBinder.setCaptioningEnabled(enabled);
@@ -2426,6 +2444,13 @@ public final class MediaControllerCompat {
             bundle.putParcelable(MediaSessionCompat.ACTION_ARGUMENT_RATING, rating);
             bundle.putBundle(MediaSessionCompat.ACTION_ARGUMENT_EXTRAS, extras);
             sendCustomAction(MediaSessionCompat.ACTION_SET_RATING, bundle);
+        }
+
+        @Override
+        public void setPlaybackSpeed(float speed) {
+            Bundle bundle = new Bundle();
+            bundle.putFloat(MediaSessionCompat.ACTION_ARGUMENT_PLAYBACK_SPEED, speed);
+            sendCustomAction(MediaSessionCompat.ACTION_SET_PLAYBACK_SPEED, bundle);
         }
 
         @Override

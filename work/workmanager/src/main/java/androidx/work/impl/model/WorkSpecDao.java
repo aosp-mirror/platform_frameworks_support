@@ -16,17 +16,15 @@
 
 package androidx.work.impl.model;
 
-import static android.arch.persistence.room.OnConflictStrategy.IGNORE;
-
+import static androidx.room.OnConflictStrategy.IGNORE;
 import static androidx.work.impl.model.WorkTypeConverters.StateIds.COMPLETED_STATES;
 
-import android.arch.lifecycle.LiveData;
-import android.arch.persistence.room.Dao;
-import android.arch.persistence.room.Insert;
-import android.arch.persistence.room.Query;
-import android.arch.persistence.room.Transaction;
-import android.support.annotation.NonNull;
-
+import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
+import androidx.room.Dao;
+import androidx.room.Insert;
+import androidx.room.Query;
+import androidx.room.Transaction;
 import androidx.work.Data;
 import androidx.work.WorkInfo;
 
@@ -301,6 +299,15 @@ public interface WorkSpecDao {
             + " AND schedule_requested_at<>" + WorkSpec.SCHEDULE_NOT_REQUESTED_YET
     )
     List<WorkSpec> getScheduledWork();
+
+    /**
+     * @return The List of {@link WorkSpec}s that are unfinished and scheduled.
+     */
+    @Query("SELECT * FROM workspec WHERE "
+            // Unfinished work
+            + "state=" + WorkTypeConverters.StateIds.ENQUEUED
+    )
+    List<WorkSpec> getEnqueuedWork();
 
     /**
      * Immediately prunes eligible work from the database meeting the following criteria:

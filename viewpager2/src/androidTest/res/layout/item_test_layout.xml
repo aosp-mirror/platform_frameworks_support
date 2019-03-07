@@ -14,9 +14,10 @@
      limitations under the License.
 -->
 
-<TextView
+<androidx.viewpager2.test.ui.TouchConsumingTextView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/text_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:textColor="@color/primary_text_default_material_light"
     android:gravity="center"/>
