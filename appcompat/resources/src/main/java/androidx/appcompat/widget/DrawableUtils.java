@@ -40,7 +40,6 @@ import java.lang.reflect.Method;
 
 /** @hide */
 @RestrictTo(LIBRARY_GROUP_PREFIX)
-@SuppressLint("RestrictedAPI") // Temporary until we have correct restriction scopes for 1.0
 public class DrawableUtils {
     private static final int[] CHECKED_STATE_SET = new int[]{android.R.attr.state_checked};
     private static final int[] EMPTY_STATE_SET = new int[0];

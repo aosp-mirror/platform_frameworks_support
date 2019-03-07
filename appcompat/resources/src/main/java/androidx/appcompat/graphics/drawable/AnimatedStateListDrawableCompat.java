@@ -87,7 +87,6 @@ import java.io.IOException;
  * {@link android.R.attr#state_pressed}
  * @see ResourceManagerInternal#getDrawable(Context, int)
  */
-@SuppressLint("RestrictedAPI") // Temporary until we have correct restriction scopes for 1.0
 public class AnimatedStateListDrawableCompat extends StateListDrawable
         implements TintAwareDrawable {
     private static final String LOGTAG = AnimatedStateListDrawableCompat.class.getSimpleName();

@@ -31,7 +31,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-@SuppressLint("RestrictedApi")
 final class Recreator implements GenericLifecycleObserver {
 
     static final String CLASSES_KEY = "classes_to_restore";
