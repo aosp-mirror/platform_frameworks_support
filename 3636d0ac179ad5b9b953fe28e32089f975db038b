@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "30e61635_af1999ed",
+        "filename": "appcompat/build.gradle",
+        "patchSetId": 5
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1061051
+      },
+      "writtenOn": "2019-03-07T19:35:17Z",
+      "side": 1,
+      "message": "See the linked bug - appcompat is using an annotation added after the last stable release",
+      "parentUuid": "34026d3f_ab3772b3",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 31
+      },
+      "revId": "3636d0ac179ad5b9b953fe28e32089f975db038b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "73be993c_fabd713f",
         "filename": "appcompat/build.gradle",
         "patchSetId": 5
@@ -36,6 +60,30 @@
       "writtenOn": "2019-03-07T19:30:07Z",
       "side": 1,
       "message": "Can we pick a released version here too?",
+      "range": {
+        "startLine": 16,
+        "startChar": 4,
+        "endLine": 16,
+        "endChar": 27
+      },
+      "revId": "3636d0ac179ad5b9b953fe28e32089f975db038b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "430f4a08_4f67bc15",
+        "filename": "appcompat/build.gradle",
+        "patchSetId": 5
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1061051
+      },
+      "writtenOn": "2019-03-07T19:35:17Z",
+      "side": 1,
+      "message": "Same here - AppCompatActivity needs the latest alpha of fragment because the base ComponentActivity class that comes from there now implements LifecycleOwner interface.",
+      "parentUuid": "73be993c_fabd713f",
       "range": {
         "startLine": 16,
         "startChar": 4,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "ad636dc6_e3a46ac2",
+        "filename": "appcompat/resources/build.gradle",
+        "patchSetId": 5
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1061051
+      },
+      "writtenOn": "2019-03-07T19:35:17Z",
+      "side": 1,
+      "message": "Same as in appcompat - we\u0027re already using a new annotation added in one of the 1.1.0 alphas",
+      "parentUuid": "1a43f61a_08aeaaa2",
+      "range": {
+        "startLine": 27,
+        "startChar": 4,
+        "endLine": 27,
+        "endChar": 31
+      },
+      "revId": "3636d0ac179ad5b9b953fe28e32089f975db038b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "14f31dd6_61d28296",
         "filename": "appcompat/resources/src/main/java/androidx/appcompat/content/res/AppCompatResources.java",
         "patchSetId": 5
@@ -82,6 +154,30 @@
       "writtenOn": "2019-03-07T19:30:07Z",
       "side": 1,
       "message": "What\u0027s the tracking bug for this?\n\nAlso, can we suppress the usages inline, so we don\u0027t accidentally add new ones?",
+      "range": {
+        "startLine": 46,
+        "startChar": 31,
+        "endLine": 46,
+        "endChar": 92
+      },
+      "revId": "3636d0ac179ad5b9b953fe28e32089f975db038b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a85529a_170ebbad",
+        "filename": "appcompat/resources/src/main/java/androidx/appcompat/content/res/AppCompatResources.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1061051
+      },
+      "writtenOn": "2019-03-07T19:35:17Z",
+      "side": 1,
+      "message": "Alan said that Jeff will be looking at generating synthetic signatures for 1.0.X releases",
+      "parentUuid": "14f31dd6_61d28296",
       "range": {
         "startLine": 46,
         "startChar": 31,
