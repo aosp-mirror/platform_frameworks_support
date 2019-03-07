@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "80a70230_e4a0a7e8",
+        "filename": "lifecycle/livedata/eap/src/main/java/androidx/lifecycle/CoroutineLiveData.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1376662
+      },
+      "writtenOn": "2019-03-07T09:24:25Z",
+      "side": 1,
+      "message": "typo: operations",
+      "revId": "b4470f794875cf0fb564c35d983d91c1ed46db99",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1e44814_4edae991",
+        "filename": "lifecycle/livedata/eap/src/main/java/androidx/lifecycle/CoroutineLiveData.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1376662
+      },
+      "writtenOn": "2019-03-07T09:24:25Z",
+      "side": 1,
+      "message": "These examples are 💯",
+      "revId": "b4470f794875cf0fb564c35d983d91c1ed46db99",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "26c58248_21cae4c7",
+        "filename": "lifecycle/livedata/eap/src/test/java/androidx/lifecycle/LiveData.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1376662
+      },
+      "writtenOn": "2019-03-07T09:24:25Z",
+      "side": 1,
+      "message": "We should really consider polishing these into a public API, they\u0027re incredibly useful :)",
+      "revId": "b4470f794875cf0fb564c35d983d91c1ed46db99",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
