@@ -219,7 +219,6 @@ public class TransitionInflater {
         }
     }
 
-    @SuppressLint("RestrictedApi") // remove once core lib would be released with the new
     // LIBRARY_GROUP_PREFIX restriction. tracking in b/127286008
     private void getTargetIds(XmlPullParser parser,
             AttributeSet attrs, Transition transition) throws XmlPullParserException, IOException {
@@ -307,7 +306,6 @@ public class TransitionInflater {
         return transitionManager;
     }
 
-    @SuppressLint("RestrictedApi") // remove once core lib would be released with the new
     // LIBRARY_GROUP_PREFIX restriction. tracking in b/127286008
     private void loadTransition(AttributeSet attrs, XmlPullParser parser, ViewGroup sceneRoot,
             TransitionManager transitionManager) throws Resources.NotFoundException {

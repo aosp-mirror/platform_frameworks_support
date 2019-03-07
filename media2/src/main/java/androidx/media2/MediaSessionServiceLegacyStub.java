@@ -40,7 +40,6 @@ class MediaSessionServiceLegacyStub extends MediaBrowserServiceCompat {
 
     final MediaSessionManager mManager;
 
-    @SuppressLint("RestrictedApi")
     MediaSessionServiceLegacyStub(Context context, MediaSessionImpl sessionImpl,
             MediaSessionCompat.Token token) {
         super();

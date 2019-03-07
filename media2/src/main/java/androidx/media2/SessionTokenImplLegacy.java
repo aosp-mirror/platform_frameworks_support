@@ -40,7 +40,6 @@ import androidx.versionedparcelable.VersionedParcelable;
 import androidx.versionedparcelable.VersionedParcelize;
 
 @VersionedParcelize(isCustom = true)
-@SuppressLint("RestrictedApi")
 final class SessionTokenImplLegacy extends CustomVersionedParcelable implements SessionTokenImpl {
     // Don't mark mLegacyToken @ParcelField, because we need to use toBundle()/fromBundle() instead
     // of the writeToParcel()/Parcelable.Creator for sending extra binder.

@@ -36,7 +36,6 @@ import java.util.Map;
  * <p>This objects lifetime is bound to the lifecycle of owning component: when activity or
  * fragment is recreated, new instance of the object is created as well.
  */
-@SuppressLint("RestrictedApi")
 public final class SavedStateRegistry {
     private static final String SAVED_COMPONENTS_KEY =
             "androidx.lifecycle.BundlableSavedStateRegistry.key";

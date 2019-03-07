@@ -163,7 +163,6 @@ public class Slide extends Visibility {
         setSlideEdge(slideEdge);
     }
 
-    @SuppressLint("RestrictedApi") // remove once core lib would be released with the new
     // LIBRARY_GROUP_PREFIX restriction. tracking in b/127286008
     public Slide(Context context, AttributeSet attrs) {
         super(context, attrs);

@@ -46,7 +46,6 @@ public class CustomerViewModel extends AndroidViewModel {
         createDb();
     }
 
-    @SuppressLint("RestrictedApi")
     private void createDb() {
         mDatabase = Room.databaseBuilder(this.getApplication(),
                 SampleDatabase.class, "customerDatabase").build();
@@ -73,13 +72,11 @@ public class CustomerViewModel extends AndroidViewModel {
         return customer;
     }
 
-    @SuppressLint("RestrictedApi")
     void insertCustomer() {
         ArchTaskExecutor.getInstance().executeOnDiskIO(
                 () -> mDatabase.getCustomerDao().insert(createCustomer()));
     }
 
-    @SuppressLint("RestrictedApi")
     void clearAllCustomers() {
         ArchTaskExecutor.getInstance().executeOnDiskIO(
                 () -> mDatabase.getCustomerDao().removeAll());

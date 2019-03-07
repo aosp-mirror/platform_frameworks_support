@@ -77,7 +77,6 @@ class MediaSessionStub extends IMediaSession.Stub {
             new SparseArray<>();
 
     static {
-        @SuppressLint("RestrictedApi")
         SessionCommandGroup group = new SessionCommandGroup.Builder()
                 .addAllPlayerCommands(COMMAND_VERSION_CURRENT)
                 .addAllVolumeCommands(COMMAND_VERSION_CURRENT)

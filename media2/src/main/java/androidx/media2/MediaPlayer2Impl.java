@@ -68,7 +68,6 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 @RequiresApi(28)
 @RestrictTo(LIBRARY_GROUP_PREFIX)
-@SuppressLint("RestrictedApi")
 public final class MediaPlayer2Impl extends MediaPlayer2 {
 
     private static final String TAG = "MediaPlayer2Impl";

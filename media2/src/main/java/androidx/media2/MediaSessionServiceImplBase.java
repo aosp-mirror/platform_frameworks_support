@@ -60,7 +60,6 @@ class MediaSessionServiceImplBase implements MediaSessionServiceImpl {
     }
 
     @Override
-    @SuppressLint("RestrictedApi")
     public void onCreate(MediaSessionService service) {
         synchronized (mLock) {
             mInstance = service;
@@ -107,7 +106,6 @@ class MediaSessionServiceImplBase implements MediaSessionServiceImpl {
     }
 
     @Override
-    @SuppressLint("RestrictedApi")
     public void addSession(final MediaSession session) {
         final MediaSession old;
         synchronized (mLock) {
@@ -168,7 +166,6 @@ class MediaSessionServiceImplBase implements MediaSessionServiceImpl {
     }
 
     @Override
-    @SuppressLint("RestrictedApi")
     public MediaNotification onUpdateNotification(MediaSession session) {
         final MediaNotificationHandler handler;
         synchronized (mLock) {

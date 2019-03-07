@@ -185,7 +185,6 @@ public class ParcelImplListSlice implements Parcelable {
     }
 
     @Override
-    @SuppressLint("RestrictedApi")
     public int describeContents() {
         int contents = 0;
         final List<ParcelImpl> list = getList();

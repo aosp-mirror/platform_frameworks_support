@@ -65,7 +65,6 @@ public class ArcMotion extends PathMotion {
     public ArcMotion() {
     }
 
-    @SuppressLint("RestrictedApi") // remove once core lib would be released with the new
     // LIBRARY_GROUP_PREFIX restriction. tracking in b/127286008
     public ArcMotion(Context context, AttributeSet attrs) {
         super(context, attrs);

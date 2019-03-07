@@ -121,7 +121,6 @@ class RoomTrackingLiveData<T> extends LiveData<T> {
             }
         }
     };
-    @SuppressLint("RestrictedApi")
     RoomTrackingLiveData(
             RoomDatabase database,
             InvalidationLiveDataContainer container,

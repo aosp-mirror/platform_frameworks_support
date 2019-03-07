@@ -179,7 +179,6 @@ class MediaLibrarySessionImplBase extends MediaSessionImplBase implements MediaL
         return returnedResult;
     }
 
-    @SuppressLint("RestrictedApi")
     private boolean isValidItem(MediaItem item) {
         if (item == null) {
             throw new RuntimeException("Item shouldn't be null for the success");

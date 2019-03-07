@@ -75,7 +75,6 @@ public final class FragmentScenario<F extends Fragment> {
                         + ".THEME_EXTRAS_BUNDLE_KEY";
 
         @Override
-        @SuppressLint("RestrictedApi")
         protected void onCreate(@Nullable Bundle savedInstanceState) {
             setTheme(getIntent().getIntExtra(THEME_EXTRAS_BUNDLE_KEY,
                     R.style.FragmentScenarioEmptyFragmentActivityTheme));
@@ -269,7 +268,6 @@ public final class FragmentScenario<F extends Fragment> {
     }
 
     @NonNull
-    @SuppressLint("RestrictedApi")
     private static <F extends Fragment> FragmentScenario<F> internalLaunch(
             @NonNull final Class<F> fragmentClass, final @Nullable Bundle fragmentArgs,
             final int themeResId, @Nullable final FragmentFactory factory,

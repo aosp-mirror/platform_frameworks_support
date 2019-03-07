@@ -68,7 +68,6 @@ class MediaSessionLegacyStub extends MediaSessionCompat.Callback {
             new SparseArray<>();
 
     static {
-        @SuppressLint("RestrictedApi")
         SessionCommandGroup group = new SessionCommandGroup.Builder()
                 .addAllPlayerCommands(COMMAND_VERSION_CURRENT)
                 .addAllVolumeCommands(COMMAND_VERSION_CURRENT)
@@ -354,7 +353,6 @@ class MediaSessionLegacyStub extends MediaSessionCompat.Callback {
     }
 
     @Override
-    @SuppressLint("RestrictedApi")
     public void onSetRating(final RatingCompat rating, Bundle extras) {
         if (rating == null) {
             return;
@@ -434,7 +432,6 @@ class MediaSessionLegacyStub extends MediaSessionCompat.Callback {
     }
 
     @Override
-    @SuppressLint("RestrictedApi")
     public void onRemoveQueueItem(final MediaDescriptionCompat description) {
         if (description == null) {
             return;
