@@ -19,17 +19,17 @@ package androidx.navigation.fragment;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Bundle;
-import android.support.annotation.CallSuper;
-import android.support.annotation.IdRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 
+import androidx.annotation.CallSuper;
+import androidx.annotation.IdRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
 import androidx.navigation.NavOptions;
@@ -46,6 +46,14 @@ import java.util.Map;
  * Navigator that navigates through {@link FragmentTransaction fragment transactions}. Every
  * destination using this Navigator must set a valid Fragment class name with
  * <code>android:name</code> or {@link Destination#setClassName(String)}.
+ * <p>
+ * The current Fragment from FragmentNavigator's perspective can be retrieved by calling
+ * {@link FragmentManager#getPrimaryNavigationFragment()} with the FragmentManager
+ * passed to this FragmentNavigator.
+ * <p>
+ * Note that the default implementation does Fragment transactions
+ * asynchronously, so the current Fragment will not be available immediately
+ * (i.e., in callbacks to {@link NavController.OnDestinationChangedListener}).
  */
 @Navigator.Name("fragment")
 public class FragmentNavigator extends Navigator<FragmentNavigator.Destination> {
@@ -119,6 +127,18 @@ public class FragmentNavigator extends Navigator<FragmentNavigator.Destination> 
         mFragmentManager.removeOnBackStackChangedListener(mOnBackStackChangedListener);
     }
 
+    /**
+     * {@inheritDoc}
+     * <p>
+     * This method must call
+     * {@link FragmentTransaction#setPrimaryNavigationFragment(Fragment)}
+     * if the pop succeeded so that the newly visible Fragment can be retrieved with
+     * {@link FragmentManager#getPrimaryNavigationFragment()}.
+     * <p>
+     * Note that the default implementation pops the Fragment
+     * asynchronously, so the newly visible Fragment from the back stack
+     * is not instantly available after this call completes.
+     */
     @Override
     public boolean popBackStack() {
         if (mBackStack.isEmpty()) {
@@ -129,16 +149,14 @@ public class FragmentNavigator extends Navigator<FragmentNavigator.Destination> 
                     + " saved its state");
             return false;
         }
-        boolean popped = false;
         if (mFragmentManager.getBackStackEntryCount() > 0) {
             mFragmentManager.popBackStack(
                     generateBackStackName(mBackStack.size(), mBackStack.peekLast()),
                     FragmentManager.POP_BACK_STACK_INCLUSIVE);
             mIsPendingBackStackOperation = true;
-            popped = true;
-        }
+        } // else, we're on the first Fragment, so there's nothing to pop from FragmentManager
         mBackStack.removeLast();
-        return popped;
+        return true;
     }
 
     @NonNull
@@ -166,6 +184,18 @@ public class FragmentNavigator extends Navigator<FragmentNavigator.Destination> 
         return Fragment.instantiate(context, className, args);
     }
 
+    /**
+     * {@inheritDoc}
+     * <p>
+     * This method should always call
+     * {@link FragmentTransaction#setPrimaryNavigationFragment(Fragment)}
+     * so that the Fragment associated with the new destination can be retrieved with
+     * {@link FragmentManager#getPrimaryNavigationFragment()}.
+     * <p>
+     * Note that the default implementation commits the new Fragment
+     * asynchronously, so the new Fragment is not instantly available
+     * after this call completes.
+     */
     @Nullable
     @Override
     public NavDestination navigate(@NonNull Destination destination, @Nullable Bundle args,
@@ -216,8 +246,10 @@ public class FragmentNavigator extends Navigator<FragmentNavigator.Destination> 
                 // back stack, a simple replace() isn't enough so we
                 // remove it from the back stack and put our replacement
                 // on the back stack in its place
-                mFragmentManager.popBackStack();
-                ft.addToBackStack(generateBackStackName(mBackStack.size() + 1, destId));
+                mFragmentManager.popBackStack(
+                        generateBackStackName(mBackStack.size(), mBackStack.peekLast()),
+                        FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                ft.addToBackStack(generateBackStackName(mBackStack.size(), destId));
                 mIsPendingBackStackOperation = true;
             }
             isAdded = false;

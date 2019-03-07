@@ -17,12 +17,12 @@
 package androidx.navigation.ui;
 
 import android.annotation.SuppressLint;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavGraph;
 
 import java.util.HashSet;
@@ -30,9 +30,9 @@ import java.util.Set;
 
 /**
  * Configuration options for {@link NavigationUI} methods that interact with implementations of the
- * app bar pattern such as {@link android.support.v7.widget.Toolbar},
- * {@link android.support.design.widget.CollapsingToolbarLayout}, and
- * {@link android.support.v7.app.ActionBar}.
+ * app bar pattern such as {@link androidx.appcompat.widget.Toolbar},
+ * {@link com.google.android.material.appbar.CollapsingToolbarLayout}, and
+ * {@link androidx.appcompat.app.ActionBar}.
  */
 public final class AppBarConfiguration {
     /**

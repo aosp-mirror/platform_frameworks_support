@@ -513,12 +513,6 @@ class MediaControllerImplLegacy implements MediaController.MediaControllerImpl {
     }
 
     @Override
-    public ListenableFuture<SessionResult> setPlaybackSpeed(float speed) {
-        // Unsupported action
-        return createFutureWithResult(RESULT_ERROR_NOT_SUPPORTED);
-    }
-
-    @Override
     public @BuffState int getBufferingState() {
         synchronized (mLock) {
             if (!mConnected) {
@@ -554,6 +548,7 @@ class MediaControllerImplLegacy implements MediaController.MediaControllerImpl {
     }
 
     @Override
+    @SuppressLint("RestrictedApi")
     public ListenableFuture<SessionResult> setRating(@NonNull String mediaId,
             @NonNull Rating rating) {
         synchronized (mLock) {
@@ -565,6 +560,18 @@ class MediaControllerImplLegacy implements MediaController.MediaControllerImpl {
                 mControllerCompat.getTransportControls().setRating(
                         MediaUtils.convertToRatingCompat(rating));
             }
+        }
+        return createFutureWithResult(RESULT_SUCCESS);
+    }
+
+    @Override
+    public ListenableFuture<SessionResult> setPlaybackSpeed(float speed) {
+        synchronized (mLock) {
+            if (!mConnected) {
+                Log.w(TAG, "Session isn't active", new IllegalStateException());
+                return createFutureWithResult(RESULT_ERROR_SESSION_DISCONNECTED);
+            }
+            mControllerCompat.getTransportControls().setPlaybackSpeed(speed);
         }
         return createFutureWithResult(RESULT_SUCCESS);
     }
@@ -929,6 +936,7 @@ class MediaControllerImplLegacy implements MediaController.MediaControllerImpl {
         sendCommand(command, null, receiver);
     }
 
+    @SuppressLint("RestrictedApi")
     private void sendCommand(String command, Bundle args, ResultReceiver receiver) {
         if (args == null) {
             args = new Bundle();

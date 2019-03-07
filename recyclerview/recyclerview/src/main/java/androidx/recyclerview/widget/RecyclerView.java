@@ -17,7 +17,7 @@
 
 package androidx.recyclerview.widget;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 import static androidx.core.view.ViewCompat.TYPE_NON_TOUCH;
 import static androidx.core.view.ViewCompat.TYPE_TOUCH;
 
@@ -67,6 +67,7 @@ import androidx.annotation.RestrictTo;
 import androidx.annotation.VisibleForTesting;
 import androidx.core.os.TraceCompat;
 import androidx.core.util.Preconditions;
+import androidx.core.view.AccessibilityDelegateCompat;
 import androidx.core.view.InputDeviceCompat;
 import androidx.core.view.MotionEventCompat;
 import androidx.core.view.NestedScrollingChild2;
@@ -262,7 +263,7 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
     static final boolean DISPATCH_TEMP_DETACH = false;
 
     /** @hide */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     @IntDef({HORIZONTAL, VERTICAL})
     @Retention(RetentionPolicy.SOURCE)
     public @interface Orientation {}
@@ -6185,7 +6186,10 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
                     ViewCompat.setImportantForAccessibility(itemView,
                             ViewCompat.IMPORTANT_FOR_ACCESSIBILITY_YES);
                 }
-                if (!ViewCompat.hasAccessibilityDelegate(itemView)) {
+                AccessibilityDelegateCompat delegate =
+                        ViewCompat.getAccessibilityDelegate(itemView);
+                if (delegate == null
+                        || delegate.getClass().equals(AccessibilityDelegateCompat.class)) {
                     holder.addFlags(ViewHolder.FLAG_SET_A11Y_ITEM_DELEGATE);
                     ViewCompat.setAccessibilityDelegate(itemView,
                             mAccessibilityDelegate.getItemDelegate());
@@ -12168,7 +12172,7 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
      * This is public so that the CREATOR can be accessed on cold launch.
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public static class SavedState extends AbsSavedState {
 
         Parcelable mLayoutState;

@@ -241,8 +241,8 @@ public class SliceMetadata {
                     toggles.add(action);
                 }
             }
-        } else {
-            toggles = mHeaderContent.getToggleItems();
+        } else if (mHeaderContent != null) {
+            toggles.addAll(mHeaderContent.getToggleItems());
         }
         return toggles;
     }
@@ -498,7 +498,7 @@ public class SliceMetadata {
     /**
      * @hide
      */
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
     public ListContent getListContent() {
         return mListContent;
     }
