@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c876abc2_091496a7",
+        "filename": "media2/src/main/java/androidx/media2/UriMediaItem.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-03-07T05:57:58Z",
+      "side": 1,
+      "message": "You may want to remove this, too.",
+      "range": {
+        "startLine": 121,
+        "startChar": 23,
+        "endLine": 121,
+        "endChar": 47
+      },
+      "revId": "a0195e8140b5e92a34a4f0f74450c828170b5e54",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
