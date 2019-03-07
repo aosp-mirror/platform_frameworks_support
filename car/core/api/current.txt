@@ -46,6 +46,32 @@ package androidx.car.app {
     method public CharSequence getTitle();
   }
 
+  public class CarSelectionDialog extends android.app.Dialog {
+  }
+
+  public static final class CarSelectionDialog.Builder {
+    ctor public CarSelectionDialog.Builder(android.content.Context!);
+    method public androidx.car.app.CarSelectionDialog! create();
+    method public androidx.car.app.CarSelectionDialog.Builder setBodyText(@StringRes int);
+    method public androidx.car.app.CarSelectionDialog.Builder setBodyText(CharSequence!);
+    method public androidx.car.app.CarSelectionDialog.Builder setCancelable(boolean);
+    method public androidx.car.app.CarSelectionDialog.Builder! setNegativeButton(@StringRes int, android.content.DialogInterface.OnClickListener!);
+    method public androidx.car.app.CarSelectionDialog.Builder! setNegativeButton(CharSequence!, android.content.DialogInterface.OnClickListener!);
+    method public androidx.car.app.CarSelectionDialog.Builder! setNeutralButton(@StringRes int, android.content.DialogInterface.OnClickListener!);
+    method public androidx.car.app.CarSelectionDialog.Builder! setNeutralButton(CharSequence!, android.content.DialogInterface.OnClickListener!);
+    method public androidx.car.app.CarSelectionDialog.Builder setOnCancelListener(android.content.DialogInterface.OnCancelListener!);
+    method public androidx.car.app.CarSelectionDialog.Builder setOnDismissListener(android.content.DialogInterface.OnDismissListener!);
+    method public androidx.car.app.CarSelectionDialog.Builder! setPositiveButton(@StringRes int, android.content.DialogInterface.OnClickListener!);
+    method public androidx.car.app.CarSelectionDialog.Builder! setPositiveButton(CharSequence!, android.content.DialogInterface.OnClickListener!);
+    method public androidx.car.app.CarSelectionDialog.Builder setSingleChoiceItems(androidx.car.app.CarSelectionDialog.DialogSelectionItem[], android.content.DialogInterface.OnClickListener?);
+    method public androidx.car.app.CarSelectionDialog.Builder setTitle(@StringRes int);
+    method public androidx.car.app.CarSelectionDialog.Builder setTitle(CharSequence!);
+  }
+
+  public static class CarSelectionDialog.DialogSelectionItem {
+    ctor public CarSelectionDialog.DialogSelectionItem(CharSequence!, CharSequence!);
+  }
+
 }
 
 package androidx.car.drawer {
@@ -477,6 +503,7 @@ package androidx.car.widget {
     method public void setOnCheckedChangeListener(android.widget.CompoundButton.OnCheckedChangeListener);
     method public void setPrimaryActionIcon(android.graphics.drawable.Icon, int);
     method public void setShowRadioButtonDivider(boolean);
+    method public void setSubtext(CharSequence?);
     method public void setText(CharSequence?);
     method public void setTextStartMargin(@DimenRes int);
     field public static final int PRIMARY_ACTION_ICON_SIZE_LARGE = 2; // 0x2
@@ -490,6 +517,7 @@ package androidx.car.widget {
     method public android.widget.ImageView getPrimaryIcon();
     method public android.widget.RadioButton getRadioButton();
     method public android.view.View getRadioButtonDivider();
+    method public android.widget.TextView getSubtext();
     method public android.widget.TextView getText();
     method public void onUxRestrictionsChanged(androidx.car.uxrestrictions.CarUxRestrictions!);
   }

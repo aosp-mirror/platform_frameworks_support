@@ -74,7 +74,7 @@ public class RadioButtonListItemActivity extends Activity {
 
         item = new RadioButtonListItem(this);
         item.setPrimaryActionIcon(null, RadioButtonListItem.PRIMARY_ACTION_ICON_SIZE_SMALL);
-        item.setTextStartMargin(R.dimen.car_keyline_1);
+        item.setTextStartMargin(R.dimen.car_keyline_4);
         item.setText("No icon");
         items.add(item);
 
