@@ -686,7 +686,7 @@ class FragmentTransitionTest(private val mReorderingAllowed: Boolean) {
             fail("Expected IllegalArgumentException")
         } catch (e: IllegalArgumentException) {
             assertThat(e)
-                .hasMessageThat().contains("A shared element with the source name 'blueSquare " +
+                .hasMessageThat().contains("A shared element with the source name 'blueSquare' " +
                         "has already been added to the transaction.")
         }
     }
