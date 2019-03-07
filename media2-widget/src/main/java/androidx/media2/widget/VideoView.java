@@ -852,7 +852,7 @@ public class VideoView extends SelectiveLayout {
                         }
                         return;
                     }
-                    if (what == MediaPlayer2.MEDIA_INFO_METADATA_UPDATE) {
+                    if (what == MediaPlayer.MEDIA_INFO_METADATA_UPDATE) {
                         Bundle data = extractTrackInfoData();
                         if (data != null) {
                             mMediaSession.broadcastCustomCommand(
@@ -941,6 +941,15 @@ public class VideoView extends SelectiveLayout {
                     }
                 }
 
+                @Override
+                public void onPlaybackCompleted(SessionPlayer player) {
+                    if (player != mMediaPlayer) {
+                        Log.d(TAG, "onPlaybackCompleted() is ignored. player is already gone.");
+                    }
+                    mCurrentState = STATE_PLAYBACK_COMPLETED;
+                    mTargetState = STATE_PLAYBACK_COMPLETED;
+                }
+
                 private void onPrepared(SessionPlayer player) {
                     if (DEBUG) {
                         Log.d(TAG, "OnPreparedListener(): "
@@ -981,11 +990,6 @@ public class VideoView extends SelectiveLayout {
                             mMediaSession.getPlayer().play();
                         }
                     }
-                }
-
-                private void onCompletion(MediaPlayer mp, MediaItem dsd) {
-                    mCurrentState = STATE_PLAYBACK_COMPLETED;
-                    mTargetState = STATE_PLAYBACK_COMPLETED;
                 }
             };
 
