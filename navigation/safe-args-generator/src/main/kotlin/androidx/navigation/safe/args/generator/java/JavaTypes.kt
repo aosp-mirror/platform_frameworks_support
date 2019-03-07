@@ -41,7 +41,8 @@ import androidx.navigation.safe.args.generator.models.Argument
 import androidx.navigation.safe.args.generator.ReferenceValue
 import androidx.navigation.safe.args.generator.StringValue
 import androidx.navigation.safe.args.generator.WritableValue
-import androidx.navigation.safe.args.generator.models.accessor
+import androidx.navigation.safe.args.generator.ext.toClassNameParts
+import androidx.navigation.safe.args.generator.models.ResReference
 import com.squareup.javapoet.ArrayTypeName
 import com.squareup.javapoet.ClassName
 import com.squareup.javapoet.CodeBlock
@@ -57,6 +58,7 @@ internal val HASHMAP_CLASSNAME: ClassName = ClassName.get("java.util", "HashMap"
 internal val BUNDLE_CLASSNAME: ClassName = ClassName.get("android.os", "Bundle")
 internal val PARCELABLE_CLASSNAME = ClassName.get("android.os", "Parcelable")
 internal val SERIALIZABLE_CLASSNAME = ClassName.get("java.io", "Serializable")
+internal val SYSTEM_CLASSNAME = ClassName.get("java.lang", "System")
 
 internal abstract class Annotations {
     abstract val NULLABLE_CLASSNAME: ClassName
@@ -107,10 +109,22 @@ internal fun NavType.addBundleGetStatement(
             )
         }.endControlFlow()
     }
-    is ObjectArrayType -> builder.addStatement(
-        "$N = ($T) $N.$N($S)",
-        lValue, typeName(), bundle, bundleGetMethod(), arg.name
-    )
+    is ObjectArrayType -> builder.apply {
+        val arrayName = "__array"
+        val baseType = (arg.type.typeName() as ArrayTypeName).componentType
+        addStatement("$T[] $N = $N.$N($S)",
+            PARCELABLE_CLASSNAME, arrayName, bundle, bundleGetMethod(), arg.name)
+        beginControlFlow("if ($N != null)", arrayName).apply {
+            addStatement("$N = new $T[$N.length]", lValue, baseType, arrayName)
+            addStatement("$T.arraycopy($N, 0, $N, 0, $N.length)",
+                SYSTEM_CLASSNAME, arrayName, lValue, arrayName
+            )
+        }
+        nextControlFlow("else").apply {
+            addStatement("$N = null", lValue)
+        }
+        endControlFlow()
+    }
     else -> builder.addStatement(
         "$N = $N.$N($S)",
         lValue,
@@ -173,26 +187,19 @@ internal fun NavType.typeName(): TypeName = when (this) {
     BoolArrayType -> ArrayTypeName.of(TypeName.BOOLEAN)
     ReferenceType -> TypeName.INT
     ReferenceArrayType -> ArrayTypeName.of(TypeName.INT)
-    is ObjectType -> canonicalName.let {
-        ClassName.get(
-            it.substringBeforeLast('.', ""),
-            it.substringAfterLast('.')
-        )
+    is ObjectType -> canonicalName.toClassNameParts().let { (packageName, simpleName, innerNames) ->
+        ClassName.get(packageName, simpleName, *innerNames)
     }
-    is ObjectArrayType -> canonicalName.let {
-        ArrayTypeName.of(
-            ClassName.get(
-                it.substringBeforeLast('.', ""),
-                it.substringAfterLast('.')
-            )
-        )
-    }
+    is ObjectArrayType -> ArrayTypeName.of(
+        canonicalName.toClassNameParts().let { (packageName, simpleName, innerNames) ->
+            ClassName.get(packageName, simpleName, *innerNames)
+        })
     else -> throw IllegalStateException("Unknown type: $this")
 }
 
 internal fun WritableValue.write(): CodeBlock {
     return when (this) {
-        is ReferenceValue -> CodeBlock.of(resReference.accessor())
+        is ReferenceValue -> resReference.accessor()
         is StringValue -> CodeBlock.of(S, value)
         is IntValue -> CodeBlock.of(value)
         is LongValue -> CodeBlock.of(value)
@@ -203,3 +210,7 @@ internal fun WritableValue.write(): CodeBlock {
         else -> throw IllegalStateException("Unknown value: $this")
     }
 }
+
+internal fun ResReference?.accessor() = this?.let {
+    CodeBlock.of("$T.$N", ClassName.get(packageName, "R", resType), javaIdentifier)
+} ?: CodeBlock.of("0")

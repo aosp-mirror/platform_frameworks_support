@@ -1,7 +1,7 @@
 package foo;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import androidx.navigation.NavDirections;
 import java.lang.Object;
 import java.lang.Override;
@@ -50,7 +50,7 @@ public class InnerSettingsDirections {
 
         @Override
         public int getActionId() {
-            return foo.R.id.exit;
+            return R.id.exit;
         }
 
         @SuppressWarnings("unchecked")

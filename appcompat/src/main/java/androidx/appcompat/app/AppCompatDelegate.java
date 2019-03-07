@@ -16,7 +16,7 @@
 
 package androidx.appcompat.app;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -146,13 +146,21 @@ public abstract class AppCompatDelegate {
      */
     public static final int MODE_NIGHT_AUTO_BATTERY = 3;
 
-    static final int MODE_NIGHT_UNSPECIFIED = -100;
+    /**
+     * An unspecified mode for night mode. This is primarily used with
+     * {@link #setLocalNightMode(int)}, to allow the default night mode to be used.
+     * If both the default and local night modes are set to this value, then the default value of
+     * {@link #MODE_NIGHT_FOLLOW_SYSTEM} is applied.
+     *
+     * @see AppCompatDelegate#setDefaultNightMode(int)
+     */
+    public static final int MODE_NIGHT_UNSPECIFIED = -100;
 
     @NightMode
-    private static int sDefaultNightMode = MODE_NIGHT_FOLLOW_SYSTEM;
+    private static int sDefaultNightMode = MODE_NIGHT_UNSPECIFIED;
 
     /** @hide */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     @IntDef({MODE_NIGHT_NO, MODE_NIGHT_YES, MODE_NIGHT_AUTO_TIME, MODE_NIGHT_FOLLOW_SYSTEM,
             MODE_NIGHT_UNSPECIFIED, MODE_NIGHT_AUTO_BATTERY})
     @Retention(RetentionPolicy.SOURCE)
@@ -200,8 +208,10 @@ public abstract class AppCompatDelegate {
      *
      * @param callback An optional callback for AppCompat specific events
      */
-    public static AppCompatDelegate create(Activity activity, AppCompatCallback callback) {
-        return new AppCompatDelegateImpl(activity, activity.getWindow(), callback);
+    @NonNull
+    public static AppCompatDelegate create(@NonNull Activity activity,
+            @Nullable AppCompatCallback callback) {
+        return new AppCompatDelegateImpl(activity, callback);
     }
 
     /**
@@ -209,8 +219,10 @@ public abstract class AppCompatDelegate {
      *
      * @param callback An optional callback for AppCompat specific events
      */
-    public static AppCompatDelegate create(Dialog dialog, AppCompatCallback callback) {
-        return new AppCompatDelegateImpl(dialog.getContext(), dialog.getWindow(), callback);
+    @NonNull
+    public static AppCompatDelegate create(@NonNull Dialog dialog,
+            @Nullable AppCompatCallback callback) {
+        return new AppCompatDelegateImpl(dialog, callback);
     }
 
     /**
@@ -219,8 +231,9 @@ public abstract class AppCompatDelegate {
      *
      * @param callback An optional callback for AppCompat specific events
      */
-    public static AppCompatDelegate create(Context context, Window window,
-            AppCompatCallback callback) {
+    @NonNull
+    public static AppCompatDelegate create(@NonNull Context context, @NonNull Window window,
+            @Nullable AppCompatCallback callback) {
         return new AppCompatDelegateImpl(context, window, callback);
     }
 
@@ -337,6 +350,12 @@ public abstract class AppCompatDelegate {
      * {@link Activity#addContentView(android.view.View, android.view.ViewGroup.LayoutParams)}}
      */
     public abstract void addContentView(View v, ViewGroup.LayoutParams lp);
+
+    /**
+     * Should be called from {@link Activity#attachBaseContext(Context)}
+     */
+    public void attachBaseContext(Context context) {
+    }
 
     /**
      * Should be called from {@link Activity#onTitleChanged(CharSequence, int)}}
@@ -478,8 +497,20 @@ public abstract class AppCompatDelegate {
      *
      * <p>As this will call {@link #applyDayNight()}, the host component might be
      * recreated automatically.</p>
+     *
+     * <p>It is not recommended to use this method on a delegate attached to a {@link Dialog}.
+     * Dialogs use the host Activity as their context, resulting in the dialog's night mode
+     * overriding the Activity's night mode.
      */
     public abstract void setLocalNightMode(@NightMode int mode);
+
+    /**
+     * Returns the night mode previously set via {@link #getLocalNightMode()}.
+     */
+    @NightMode
+    public int getLocalNightMode() {
+        return MODE_NIGHT_UNSPECIFIED;
+    }
 
     /**
      * Sets the default night mode. This is used across all activities/dialogs but can be overridden

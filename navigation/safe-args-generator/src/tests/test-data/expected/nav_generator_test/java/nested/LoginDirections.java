@@ -16,7 +16,7 @@
 
 package foo;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import androidx.navigation.ActionOnlyNavDirections;
 import androidx.navigation.NavDirections;
 
@@ -26,6 +26,6 @@ public class LoginDirections {
 
     @NonNull
     public static NavDirections actionDone() {
-        return new ActionOnlyNavDirections(foo.R.id.action_done);
+        return new ActionOnlyNavDirections(R.id.action_done);
     }
 }

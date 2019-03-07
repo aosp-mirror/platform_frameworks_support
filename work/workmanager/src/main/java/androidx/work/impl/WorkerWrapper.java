@@ -27,12 +27,12 @@ import static androidx.work.impl.model.WorkSpec.SCHEDULE_NOT_REQUESTED_YET;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.RestrictTo;
-import android.support.annotation.VisibleForTesting;
-import android.support.annotation.WorkerThread;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RestrictTo;
+import androidx.annotation.VisibleForTesting;
+import androidx.annotation.WorkerThread;
 import androidx.work.Configuration;
 import androidx.work.Data;
 import androidx.work.InputMerger;
@@ -167,7 +167,17 @@ public class WorkerWrapper implements Runnable {
 
             if (mWorkSpec.isPeriodic() || mWorkSpec.isBackedOff()) {
                 long now = System.currentTimeMillis();
-                if (now < mWorkSpec.calculateNextRunTime()) {
+                // Allow first run of a PeriodicWorkRequest when flex is applicable
+                // (when using AlarmManager) to go through. This is because when periodStartTime=0;
+                // calculateNextRunTime() always > now. We are being overly cautious with the
+                // SDK_INT check and the intervalDuration != flexDuration check.
+                // For more information refer to b/124274584
+                boolean isFirstRunWhenFlexApplicable =
+                        Build.VERSION.SDK_INT < WorkManagerImpl.MIN_JOB_SCHEDULER_API_LEVEL
+                                && mWorkSpec.intervalDuration != mWorkSpec.flexDuration
+                                && mWorkSpec.periodStartTime == 0;
+
+                if (!isFirstRunWhenFlexApplicable && now < mWorkSpec.calculateNextRunTime()) {
                     Logger.get().debug(TAG,
                             String.format(
                                     "Delaying execution for %s because it is being executed "

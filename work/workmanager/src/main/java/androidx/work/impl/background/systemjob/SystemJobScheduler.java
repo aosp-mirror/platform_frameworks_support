@@ -20,11 +20,11 @@ import android.app.job.JobScheduler;
 import android.content.Context;
 import android.os.Build;
 import android.os.PersistableBundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
-import android.support.annotation.RestrictTo;
-import android.support.annotation.VisibleForTesting;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.annotation.RestrictTo;
+import androidx.annotation.VisibleForTesting;
 import androidx.work.Logger;
 import androidx.work.WorkInfo;
 import androidx.work.impl.Scheduler;
@@ -104,7 +104,7 @@ public class SystemJobScheduler implements Scheduler {
                         .getSystemIdInfo(workSpec.id);
 
                 if (info != null) {
-                    JobInfo jobInfo = mJobScheduler.getPendingJob(info.systemId);
+                    JobInfo jobInfo = getPendingJobInfo(mJobScheduler, workSpec.id);
                     if (jobInfo != null) {
                         Logger.get().debug(TAG, String.format(
                                 "Skipping scheduling %s because JobScheduler is aware of it "
@@ -208,5 +208,26 @@ public class SystemJobScheduler implements Scheduler {
                 }
             }
         }
+    }
+
+    private static JobInfo getPendingJobInfo(
+            @NonNull JobScheduler jobScheduler,
+            @NonNull String workSpecId) {
+
+        List<JobInfo> jobInfos = jobScheduler.getAllPendingJobs();
+        // Apparently this CAN be null on API 23?
+        if (jobInfos != null) {
+            for (JobInfo jobInfo : jobInfos) {
+                PersistableBundle extras = jobInfo.getExtras();
+                if (extras != null
+                        && extras.containsKey(SystemJobInfoConverter.EXTRA_WORK_SPEC_ID)) {
+                    if (workSpecId.equals(
+                            extras.getString(SystemJobInfoConverter.EXTRA_WORK_SPEC_ID))) {
+                        return jobInfo;
+                    }
+                }
+            }
+        }
+        return null;
     }
 }
