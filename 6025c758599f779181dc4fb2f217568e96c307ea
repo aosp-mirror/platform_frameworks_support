@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "653d1628_035cca6b",
+        "filename": "benchmark/api/1.0.0-alpha01.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-03-07T20:34:46Z",
+      "side": 1,
+      "message": "I assume \u0027property public final\u0027 is what we expect for a getter from kotlin?",
+      "revId": "6025c758599f779181dc4fb2f217568e96c307ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
