@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ab0a35c3_cc909522",
+        "filename": "dynamic-animation/ktx/src/main/java/androidx/dynamicanimation/animation/DynamicAnimation.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-03-07T19:34:34Z",
+      "side": 1,
+      "message": "I considered flingAnimationOf(..), but since property isn\u0027t one of the parameters, I was concerned it might not be clear enough. I\u0027m happy to change it back.",
+      "parentUuid": "21c2feb5_c8602c67",
+      "range": {
+        "startLine": 26,
+        "startChar": 20,
+        "endLine": 26,
+        "endChar": 28
+      },
+      "revId": "3aaf047ed290ae319db98d7b0b6ee179d3b780ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "29195836_0427d834",
         "filename": "dynamic-animation/ktx/src/main/java/androidx/dynamicanimation/animation/DynamicAnimation.kt",
         "patchSetId": 2
@@ -36,6 +60,24 @@
       "writtenOn": "2019-03-07T12:22:42Z",
       "side": 1,
       "message": "This feels like a misuse of FloatValueHolder class for me. I can think about quite more clear way of doing this with extracting an interface from FloatValueHolder and have two implementations: 1) which stores into a mValue field; 2) which takes setter and getter lambdas as a constructor parameter.",
+      "revId": "3aaf047ed290ae319db98d7b0b6ee179d3b780ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55755584_b47625ce",
+        "filename": "dynamic-animation/ktx/src/main/java/androidx/dynamicanimation/animation/DynamicAnimation.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-03-07T19:34:34Z",
+      "side": 1,
+      "message": "It\u0027s a good suggestion except for one small caveat: FloatValueHolder is defined in java. So we can\u0027t use lambda\u0027s in FloatValueHolder for the lack of java 8. Do you have other suggestions on improving it? I wasn\u0027t stressing over it as it\u0027s an implementation detail. Though I would love to get feedback on making it look better.",
+      "parentUuid": "29195836_0427d834",
       "revId": "3aaf047ed290ae319db98d7b0b6ee179d3b780ca",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
