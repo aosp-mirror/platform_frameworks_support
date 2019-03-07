@@ -37,11 +37,15 @@ import android.view.ViewConfiguration;
 import androidx.annotation.NonNull;
 import androidx.core.test.R;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.LargeTest;
+import androidx.test.filters.SmallTest;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Rule;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentMatcher;
 import org.mockito.InOrder;
@@ -161,9 +165,9 @@ public class DragStartHelperTest {
         mDragSource = mActivityRule.getActivity().findViewById(R.id.drag_source);
     }
 
-    // Temporarily disabled due to b/110483469
-    // @SmallTest
-    // @Test
+    @Ignore("Temporarily disabled due to b/110483469")
+    @SmallTest
+    @Test
     public void mouseClick() throws Throwable {
         final DragStartListener listener = createListener(true);
         final DragStartHelper helper = createDragStartHelper(listener);
@@ -176,9 +180,9 @@ public class DragStartHelperTest {
         verifyNoMoreInteractions(listener);
     }
 
-    // Temporarily disabled due to b/110483469
-    // @SmallTest
-    // @Test
+    @Ignore("Temporarily disabled due to b/110483469")
+    @SmallTest
+    @Test
     public void mousePressWithSecondaryButton() throws Throwable {
         final DragStartListener listener = createListener(true);
         final DragStartHelper helper = createDragStartHelper(listener);
@@ -193,9 +197,9 @@ public class DragStartHelperTest {
         verifyNoMoreInteractions(listener);
     }
 
-    // Temporarily disabled due to b/110483469
-    // @SmallTest
-    // @Test
+    @Ignore("Temporarily disabled due to b/110483469")
+    @SmallTest
+    @Test
     public void mouseDrag() throws Throwable {
         final DragStartListener listener = createListener(true);
         final DragStartHelper helper = createDragStartHelper(listener);
@@ -212,9 +216,9 @@ public class DragStartHelperTest {
         verifyNoMoreInteractions(listener);
     }
 
-    // Temporarily disabled due to b/110483469
-    // @SmallTest
-    // @Test
+    @Ignore("Temporarily disabled due to b/110483469")
+    @SmallTest
+    @Test
     public void mouseDragWithNonprimaryButton() throws Throwable {
         final DragStartListener listener = createListener(true);
         final DragStartHelper helper = createDragStartHelper(listener);
@@ -232,9 +236,9 @@ public class DragStartHelperTest {
         verifyNoMoreInteractions(listener);
     }
 
-    // Temporarily disabled due to b/110483469
-    // @SmallTest
-    // @Test
+    @Ignore("Temporarily disabled due to b/110483469")
+    @SmallTest
+    @Test
     public void mouseDragUsingTouchListener() throws Throwable {
         final DragStartListener listener = createListener(true);
         final DragStartHelper helper = createDragStartHelper(listener);
@@ -258,9 +262,9 @@ public class DragStartHelperTest {
         verifyNoMoreInteractions(listener);
     }
 
-    // Temporarily disabled due to b/110483469
-    // @SmallTest
-    // @Test
+    @Ignore("Temporarily disabled due to b/110483469")
+    @SmallTest
+    @Test
     public void mouseDragWhenListenerReturnsFalse() throws Throwable {
         final DragStartListener listener = createListener(false);
         final DragStartHelper helper = createDragStartHelper(listener);
@@ -282,9 +286,9 @@ public class DragStartHelperTest {
         inOrder.verifyNoMoreInteractions();
     }
 
-    // Temporarily disabled due to b/110483469
-    // @LargeTest
-    // @Test
+    @Ignore("Temporarily disabled due to b/110483469")
+    @LargeTest
+    @Test
     public void mouseLongPress() throws Throwable {
         final DragStartListener listener = createListener(true);
         final DragStartHelper helper = createDragStartHelper(listener);
@@ -299,9 +303,9 @@ public class DragStartHelperTest {
         verifyNoMoreInteractions(listener);
     }
 
-    // Temporarily disabled due to b/110483469
-    // @SmallTest
-    // @Test
+    @Ignore("Temporarily disabled due to b/110483469")
+    @SmallTest
+    @Test
     public void touchDrag() throws Throwable {
         final DragStartListener listener = createListener(false);
         final DragStartHelper helper = createDragStartHelper(listener);
@@ -316,9 +320,9 @@ public class DragStartHelperTest {
         verifyNoMoreInteractions(listener);
     }
 
-    // Temporarily disabled due to b/110483469
-    // @SmallTest
-    // @Test
+    @Ignore("Temporarily disabled due to b/110483469")
+    @SmallTest
+    @Test
     public void touchTap() throws Throwable {
         final DragStartListener listener = createListener(false);
         final DragStartHelper helper = createDragStartHelper(listener);
@@ -331,9 +335,9 @@ public class DragStartHelperTest {
         verifyNoMoreInteractions(listener);
     }
 
-    // Temporarily disabled due to b/110483469
-    // @LargeTest
-    // @Test
+    @Ignore("Temporarily disabled due to b/110483469")
+    @LargeTest
+    @Test
     public void touchLongPress() throws Throwable {
         final DragStartListener listener = createListener(true);
         final DragStartHelper helper = createDragStartHelper(listener);
@@ -348,9 +352,9 @@ public class DragStartHelperTest {
         verifyNoMoreInteractions(listener);
     }
 
-    // Temporarily disabled due to b/110483469
-    // @LargeTest
-    // @Test
+    @Ignore("Temporarily disabled due to b/110483469")
+    @LargeTest
+    @Test
     public void touchLongPressUsingLongClickListener() throws Throwable {
         final DragStartListener listener = createListener(true);
 

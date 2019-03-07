@@ -20,16 +20,17 @@ import androidx.build.LibraryVersions
 
 plugins {
     id("SupportAndroidLibraryPlugin")
+    id("kotlin-android")
 }
 
 dependencies {
-    // TODO: change to 1.1.0-alpha02 after release
-    api(project(":appcompat"))
-    // TODO: change to 1.1.0-alpha04 after release
+    // TODO: change to alpha02 after release
+    implementation(project(":annotation"))
+    api("androidx.appcompat:appcompat:1.1.0-alpha02")
+    // TODO: change to alpha05 after release
     api(project(":core"))
     implementation("androidx.collection:collection:1.0.0")
-    // TODO: change to 1.1.0-alpha04 after release
-    api(project(":fragment"))
+    api("androidx.fragment:fragment:1.1.0-alpha04")
     api("androidx.recyclerview:recyclerview:1.0.0")
 
     androidTestImplementation(TEST_EXT_JUNIT)
@@ -39,6 +40,7 @@ dependencies {
     androidTestImplementation(ESPRESSO_CORE, libs.exclude_for_espresso)
     androidTestImplementation(MOCKITO_CORE, libs.exclude_bytebuddy) // DexMaker has it"s own MockMaker
     androidTestImplementation(DEXMAKER_MOCKITO, libs.exclude_bytebuddy) // DexMaker has it"s own MockMaker
+    androidTestImplementation(KOTLIN_STDLIB)
 }
 
 android {

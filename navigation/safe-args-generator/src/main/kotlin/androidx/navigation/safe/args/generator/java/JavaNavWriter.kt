@@ -36,7 +36,6 @@ import androidx.navigation.safe.args.generator.ext.toCamelCaseAsVar
 import androidx.navigation.safe.args.generator.models.Action
 import androidx.navigation.safe.args.generator.models.Argument
 import androidx.navigation.safe.args.generator.models.Destination
-import androidx.navigation.safe.args.generator.models.accessor
 import com.squareup.javapoet.AnnotationSpec
 import com.squareup.javapoet.ClassName
 import com.squareup.javapoet.CodeBlock
@@ -55,7 +54,7 @@ const val S = "\$S"
 const val BEGIN_STMT = "\$["
 const val END_STMT = "\$]"
 
-class JavaNavWriter(private val useAndroidX: Boolean = false) : NavWriter<JavaCodeFile> {
+class JavaNavWriter(private val useAndroidX: Boolean = true) : NavWriter<JavaCodeFile> {
 
     override fun generateDirectionsCodeFile(
         destination: Destination,
@@ -152,7 +151,7 @@ class JavaNavWriter(private val useAndroidX: Boolean = false) : NavWriter<JavaCo
             .addAnnotation(Override::class.java)
             .addModifiers(Modifier.PUBLIC)
             .returns(Int::class.java)
-            .addStatement("return $N", action.id.accessor())
+            .addStatement("return $L", action.id.accessor())
             .build()
 
         val additionalEqualsBlock = CodeBlock.builder().apply {

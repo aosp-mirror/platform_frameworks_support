@@ -61,6 +61,7 @@ import java.util.concurrent.Executor;
  * This object is thread safe.
  */
 @VersionedParcelize(isCustom = true)
+@SuppressLint("RestrictedApi")
 public class MediaItem extends CustomVersionedParcelable {
     private static final String TAG = "MediaItem";
 
@@ -102,7 +103,7 @@ public class MediaItem extends CustomVersionedParcelable {
     // Note: Needs to be protected when we want to allow 3rd party player to define customized
     //       MediaItem.
     @SuppressWarnings("WeakerAccess") /* synthetic access */
-    MediaItem(BuilderBase builder) {
+    MediaItem(Builder builder) {
         this(builder.mMetadata, builder.mStartPositionMs, builder.mEndPositionMs);
     }
 
@@ -208,7 +209,7 @@ public class MediaItem extends CustomVersionedParcelable {
      * @hide
      */
     // TODO: Remove
-    @RestrictTo(LIBRARY)
+    @RestrictTo(LIBRARY_GROUP)
     public @Nullable String getMediaId() {
         synchronized (mLock) {
             return mMetadata != null
@@ -239,13 +240,9 @@ public class MediaItem extends CustomVersionedParcelable {
     }
 
     /**
-     * Base builder for {@link MediaItem} and its subclass.
-     *
-     * @param <T> builder class
-     * @hide
+     * Builder for {@link MediaItem}.
      */
-    @RestrictTo(LIBRARY_GROUP)
-    public static class BuilderBase<T extends BuilderBase> {
+    public static class Builder {
         @SuppressWarnings("WeakerAccess") /* synthetic access */
                 MediaMetadata mMetadata;
         @SuppressWarnings("WeakerAccess") /* synthetic access */
@@ -254,14 +251,21 @@ public class MediaItem extends CustomVersionedParcelable {
         long mEndPositionMs = POSITION_UNKNOWN;
 
         /**
+         * Default constructor
+         */
+        public Builder() {
+        }
+
+        /**
          * Set the metadata of this instance. {@code null} for unset.
          *
          * @param metadata metadata
          * @return this instance for chaining
          */
-        public @NonNull T setMetadata(@Nullable MediaMetadata metadata) {
+        @NonNull
+        public Builder setMetadata(@Nullable MediaMetadata metadata) {
             mMetadata = metadata;
-            return (T) this;
+            return this;
         }
 
         /**
@@ -269,14 +273,15 @@ public class MediaItem extends CustomVersionedParcelable {
          * Any negative number is treated as 0.
          *
          * @param position the start position in milliseconds at which the playback will start
-         * @return the same Builder instance.
+         * @return this instance for chaining
          */
-        public @NonNull T setStartPosition(long position) {
+        @NonNull
+        public Builder setStartPosition(long position) {
             if (position < 0) {
                 position = 0;
             }
             mStartPositionMs = position;
-            return (T) this;
+            return this;
         }
 
         /**
@@ -284,14 +289,15 @@ public class MediaItem extends CustomVersionedParcelable {
          * Any negative number is treated as maximum length of the media item.
          *
          * @param position the end position in milliseconds at which the playback will end
-         * @return the same Builder instance.
+         * @return this instance for chaining
          */
-        public @NonNull T setEndPosition(long position) {
+        @NonNull
+        public Builder setEndPosition(long position) {
             if (position < 0) {
                 position = POSITION_UNKNOWN;
             }
             mEndPositionMs = position;
-            return (T) this;
+            return this;
         }
 
         /**
@@ -299,20 +305,9 @@ public class MediaItem extends CustomVersionedParcelable {
          *
          * @return a new {@link MediaItem}.
          */
-        public @NonNull MediaItem build() {
+        @NonNull
+        public MediaItem build() {
             return new MediaItem(this);
-        }
-    }
-
-    /**
-     * Builder for {@link MediaItem}.
-     */
-    public static class Builder extends BuilderBase<Builder> {
-        /**
-         * Default constructor
-         */
-        public Builder() {
-            super();
         }
     }
 
@@ -329,8 +324,7 @@ public class MediaItem extends CustomVersionedParcelable {
     @SuppressLint("RestrictedApi")
     public void onPreParceling(boolean isStream) {
         if (getClass() != MediaItem.class) {
-            throw new RuntimeException("MediaItem's subclasses shouldn't be parcelized."
-                    + " Use instead");
+            throw new RuntimeException("MediaItem's subclasses shouldn't be parcelized.");
         }
         super.onPreParceling(isStream);
     }

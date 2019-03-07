@@ -16,7 +16,7 @@
 
 package androidx.media2;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
 import android.os.ParcelFileDescriptor;
 import android.os.SystemClock;
@@ -149,7 +149,7 @@ public abstract class SessionPlayer implements AutoCloseable {
     /**
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     @IntDef({
             PLAYER_STATE_IDLE,
             PLAYER_STATE_PAUSED,
@@ -162,7 +162,7 @@ public abstract class SessionPlayer implements AutoCloseable {
     /**
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     @IntDef({
             BUFFERING_STATE_UNKNOWN,
             BUFFERING_STATE_BUFFERING_AND_PLAYABLE,
@@ -219,7 +219,7 @@ public abstract class SessionPlayer implements AutoCloseable {
     /**
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     @IntDef({REPEAT_MODE_NONE, REPEAT_MODE_ONE, REPEAT_MODE_ALL,
             REPEAT_MODE_GROUP})
     @Retention(RetentionPolicy.SOURCE)
@@ -251,7 +251,7 @@ public abstract class SessionPlayer implements AutoCloseable {
     /**
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     @IntDef({SHUFFLE_MODE_NONE, SHUFFLE_MODE_ALL, SHUFFLE_MODE_GROUP})
     @Retention(RetentionPolicy.SOURCE)
     public @interface ShuffleMode {
@@ -383,9 +383,11 @@ public abstract class SessionPlayer implements AutoCloseable {
     public abstract float getPlaybackSpeed();
 
     /**
-     * Sets a list of {@link MediaItem} with metadata. Ensure uniqueness of each {@link MediaItem}
-     * in the playlist so the session can uniquely identity individual items. All
-     * {@link MediaItem}s shouldn't be {@code null} as well.
+     * Sets a list of {@link MediaItem} with metadata. Use this or {@link #setMediaItem} to specify
+     * which items to play.
+     * <p>
+     * Ensure uniqueness of each {@link MediaItem} in the playlist so the session can uniquely
+     * identity individual items. All {@link MediaItem}s shouldn't be {@code null} as well.
      * <p>
      * It's recommended to fill {@link MediaMetadata} in each {@link MediaItem} especially for the
      * duration information with the key {@link MediaMetadata#METADATA_KEY_DURATION}. Without the
@@ -393,8 +395,8 @@ public abstract class SessionPlayer implements AutoCloseable {
      * it to the controller.
      * <p>
      * The implementation must notify registered callbacks with
-     * {@link PlayerCallback#onPlaylistChanged(SessionPlayer, List, MediaMetadata)} when it's
-     * completed.
+     * {@link PlayerCallback#onPlaylistChanged} and {@link PlayerCallback#onCurrentMediaItemChanged}
+     * when it's completed. The current media item would be the first item in the playlist.
      * <p>
      * The implementation must close the {@link ParcelFileDescriptor} in the {@link FileMediaItem}
      * when a media item in the playlist is a {@link FileMediaItem}.
@@ -403,7 +405,9 @@ public abstract class SessionPlayer implements AutoCloseable {
      * @throws IllegalArgumentException if the given list is {@code null} or empty, or has
      *         duplicated media items.
      * @return a {@link ListenableFuture} which represents the pending completion of the command.
-     * @see PlayerCallback#onPlaylistChanged(SessionPlayer, List, MediaMetadata)
+     * @see #setMediaItem
+     * @see PlayerCallback#onPlaylistChanged
+     * @see PlayerCallback#onCurrentMediaItemChanged
      */
     public abstract @NonNull ListenableFuture<PlayerResult> setPlaylist(
             @NonNull List<MediaItem> list, @Nullable MediaMetadata metadata);
@@ -414,22 +418,28 @@ public abstract class SessionPlayer implements AutoCloseable {
     public abstract @Nullable AudioAttributesCompat getAudioAttributes();
 
     /**
-     * Sets a {@link MediaItem} for playback.
+     * Sets a {@link MediaItem} for playback. Use this or {@link #setPlaylist} to specify which
+     * items to play. If you want to change current item in the playlist, use one of
+     * {@link #skipToPlaylistItem}, {@link #skipToNextPlaylistItem}, or
+     * {@link #skipToPreviousPlaylistItem} instead of this method.
      * <p>
-     * It's recommended to fill {@link MediaMetadata} in each {@link MediaItem} especially for the
+     * It's recommended to fill {@link MediaMetadata} in {@link MediaItem} especially for the
      * duration information with the key {@link MediaMetadata#METADATA_KEY_DURATION}. Without the
      * duration information in the metadata, session will do extra work to get the duration and send
      * it to the controller.
      * <p>
      * The implementation must notify registered callbacks with
-     * {@link PlayerCallback#onPlaylistChanged(SessionPlayer, List, MediaMetadata)} when it's
-     * completed.
+     * {@link PlayerCallback#onPlaylistChanged} and {@link PlayerCallback#onCurrentMediaItemChanged}
+     * when it's completed. The current item would be the item given here.
      * <p>
      * The implementation must close the {@link ParcelFileDescriptor} in the {@link FileMediaItem}
      * if the given media item is a {@link FileMediaItem}.
      *
      * @param item the descriptor of media item you want to play
      * @return a {@link ListenableFuture} which represents the pending completion of the command.
+     * @see #setPlaylist
+     * @see PlayerCallback#onPlaylistChanged
+     * @see PlayerCallback#onCurrentMediaItemChanged
      * @throws IllegalArgumentException if the given item is {@code null}.
      */
     public abstract @NonNull ListenableFuture<PlayerResult> setMediaItem(
@@ -571,9 +581,10 @@ public abstract class SessionPlayer implements AutoCloseable {
             @ShuffleMode int shuffleMode);
 
     /**
-     * Gets the playlist.
+     * Gets the playlist. Can be {@code null} if the playlist hasn't been set or it's reset by
+     * {@link #setMediaItem}.
      *
-     * @return playlist, or null if none is set.
+     * @return playlist, or {@code null}
      * @see PlayerCallback#onPlaylistChanged(SessionPlayer, List, MediaMetadata)
      */
     public abstract @Nullable List<MediaItem> getPlaylist();
@@ -611,13 +622,16 @@ public abstract class SessionPlayer implements AutoCloseable {
     public abstract @ShuffleMode int getShuffleMode();
 
     /**
-     * Gets the current media item. This value may be updated when
+     * Gets the current media item, which is currently playing or would be played with later
+     * {@link #play}. This value may be updated when
      * {@link PlayerCallback#onCurrentMediaItemChanged(SessionPlayer, MediaItem)} or
      * {@link PlayerCallback#onPlaylistChanged(SessionPlayer, List, MediaMetadata)} is
      * called.
      *
      * @return the current media item. Can be {@code null} only when media item or playlist hasn't
      *         been set.
+     * @see #setMediaItem
+     * @see #setPlaylist
      */
     public abstract @Nullable MediaItem getCurrentMediaItem();
 
@@ -629,7 +643,7 @@ public abstract class SessionPlayer implements AutoCloseable {
      * @return the index of current media item. Can be {@link #INVALID_ITEM_INDEX} when current
      *         media item is null or not in the playlist, and when the playlist hasn't been set.
      */
-    public abstract int getCurrentMediaItemIndex();
+    public abstract @IntRange(from = INVALID_ITEM_INDEX) int getCurrentMediaItemIndex();
 
     /**
      * Gets the previous item index in the playlist. The returned value can be outdated after
@@ -639,7 +653,7 @@ public abstract class SessionPlayer implements AutoCloseable {
      * @return the index of previous media item. Can be {@link #INVALID_ITEM_INDEX} only when
      *         previous media item does not exist or playlist hasn't been set.
      */
-    public abstract int getPreviousMediaItemIndex();
+    public abstract @IntRange(from = INVALID_ITEM_INDEX) int getPreviousMediaItemIndex();
 
     /**
      * Gets the next item index in the playlist. The returned value can be outdated after
@@ -649,7 +663,7 @@ public abstract class SessionPlayer implements AutoCloseable {
      * @return the index of next media item. Can be {@link #INVALID_ITEM_INDEX} only when next media
      *         item does not exist or playlist hasn't been set.
      */
-    public abstract int getNextMediaItemIndex();
+    public abstract @IntRange(from = INVALID_ITEM_INDEX) int getNextMediaItemIndex();
 
     // Listeners / Callback related
     // Intentionally final not to allow developers to change the behavior
@@ -763,7 +777,8 @@ public abstract class SessionPlayer implements AutoCloseable {
         }
 
         /**
-         * Called when a playlist is changed.
+         * Called when a playlist is changed. It's also called after {@link #setPlaylist} or
+         * {@link #setMediaItem}.
          *
          * @param player the player that has changed the playlist and playlist metadata.
          * @param list new playlist
@@ -824,7 +839,8 @@ public abstract class SessionPlayer implements AutoCloseable {
         }
 
         /**
-         * Called when the player's current media item has changed.
+         * Called when the player's current media item has changed. It's also called after
+         * {@link #setPlaylist} or {@link #setMediaItem}.
          *
          * @param player the player whose media item changed.
          * @param item the new current media item.
@@ -877,14 +893,14 @@ public abstract class SessionPlayer implements AutoCloseable {
          */
         @IntDef(flag = false, /*prefix = "RESULT_CODE",*/ value = {
                 RESULT_SUCCESS,
-                RESULT_ERROR_UNKNOWN_ERROR,
+                RESULT_ERROR_UNKNOWN,
                 RESULT_ERROR_INVALID_STATE,
                 RESULT_ERROR_BAD_VALUE,
                 RESULT_ERROR_PERMISSION_DENIED,
-                RESULT_ERROR_IO_ERROR,
+                RESULT_ERROR_IO,
                 RESULT_INFO_SKIPPED})
         @Retention(RetentionPolicy.SOURCE)
-        @RestrictTo(LIBRARY_GROUP)
+        @RestrictTo(LIBRARY_GROUP_PREFIX)
         public @interface ResultCode {}
 
         private final int mResultCode;
@@ -922,11 +938,11 @@ public abstract class SessionPlayer implements AutoCloseable {
          * codes defined here. Check the documentation of the class that you're interested in.
          *
          * @return result code.
-         * @see #RESULT_ERROR_UNKNOWN_ERROR
+         * @see #RESULT_ERROR_UNKNOWN
          * @see #RESULT_ERROR_INVALID_STATE
          * @see #RESULT_ERROR_BAD_VALUE
          * @see #RESULT_ERROR_PERMISSION_DENIED
-         * @see #RESULT_ERROR_IO_ERROR
+         * @see #RESULT_ERROR_IO
          * @see #RESULT_INFO_SKIPPED
          */
         @Override
