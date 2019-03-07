@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4976ee1a_0e454784",
+        "filename": "benchmark/src/main/java/androidx/benchmark/BenchmarkRule.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-03-07T21:55:53Z",
+      "side": 1,
+      "message": "Remove the empty line?",
+      "revId": "cadec6a01870465ebeeef721e277195a5e67f22f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
