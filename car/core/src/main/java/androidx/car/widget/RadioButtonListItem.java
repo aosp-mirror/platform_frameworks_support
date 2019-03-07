@@ -44,10 +44,11 @@ import java.util.List;
 /**
  * Class to build a list item with {@link RadioButton}.
  *
- * <p>A radio button list item visually composes of 3 parts.
+ * <p>A radio button list item visually composes of 4 parts.
  * <ul>
  *     <li>optional {@code Primary Action Icon}.
  *     <li>optional {@code Text}.
+ *     <li>optional {@code Subtext}.
  *     <li>A {@link RadioButton}.
  * </ul>
  *
@@ -84,6 +85,7 @@ public class RadioButtonListItem extends ListItem<RadioButtonListItem.ViewHolder
 
     private int mTextStartMargin;
     private CharSequence mText;
+    private CharSequence mSubtext;
 
     private boolean mIsChecked;
     private boolean mShowRadioButtonDivider;
@@ -163,12 +165,22 @@ public class RadioButtonListItem extends ListItem<RadioButtonListItem.ViewHolder
     }
 
     /**
-     * Sets text to be displayed next to icon.
+     * Sets text to be displayed next to radio button.
      *
      * @param text Text to be displayed, or {@code null} to clear the content.
      */
     public void setText(@Nullable CharSequence text) {
         mText = text;
+        markDirty();
+    }
+    /**
+     * Sets subtext to be displayed next to radio button.
+     *
+     * @param text Text to be displayed, or {@code null} to clear the content.
+     */
+
+    public void setSubtext(@Nullable CharSequence text) {
+        mSubtext = text;
         markDirty();
     }
 
@@ -218,6 +230,7 @@ public class RadioButtonListItem extends ListItem<RadioButtonListItem.ViewHolder
 
     private void setTextInternal() {
         setTextContent();
+        setTextPadding();
         setTextStartMargin();
     }
 
@@ -315,29 +328,57 @@ public class RadioButtonListItem extends ListItem<RadioButtonListItem.ViewHolder
                 vh.getText().setText(mText);
             });
         }
+
+        if (!TextUtils.isEmpty(mSubtext)) {
+            mBinders.add(vh -> {
+                vh.getSubtext().setVisibility(View.VISIBLE);
+                vh.getSubtext().setText(mSubtext);
+            });
+        } else {
+            mBinders.add(vh -> vh.getSubtext().setVisibility(View.GONE));
+        }
+    }
+
+    /**
+     * Sets top and bottom margins of text views depending on existence of other text view.
+     */
+    private void setTextPadding() {
+        if (TextUtils.isEmpty(mSubtext)) {
+            mBinders.add(vh -> {
+                ViewGroup.MarginLayoutParams textViewLayoutParams =
+                        (ViewGroup.MarginLayoutParams) vh.getText().getLayoutParams();
+                textViewLayoutParams.topMargin = 0;
+                vh.getText().requestLayout();
+            });
+        }
+
+        if (TextUtils.isEmpty(mText)) {
+            mBinders.add(vh -> {
+                ViewGroup.MarginLayoutParams textViewLayoutParams =
+                        (ViewGroup.MarginLayoutParams) vh.getSubtext().getLayoutParams();
+                textViewLayoutParams.bottomMargin = 0;
+                vh.getSubtext().requestLayout();
+            });
+        }
     }
 
     /**
      * Sets start margin of text view depending on icon type.
      */
     private void setTextStartMargin() {
-        int offset = 0;
-        if (mPrimaryActionIcon != null) {
-            // If there is an icon, offset text to accommodate it.
-            @DimenRes int startMarginResId =
-                    mPrimaryActionIconSize == PRIMARY_ACTION_ICON_SIZE_LARGE
-                            ? R.dimen.car_keyline_4
-                            : R.dimen.car_keyline_3;  // Small and medium sized icon.
-            offset = mContext.getResources().getDimensionPixelSize(startMarginResId);
-        }
+        if (mTextStartMargin != 0) {
+            mBinders.add(vh -> {
+                ViewGroup.MarginLayoutParams textViewLayoutParams =
+                        (ViewGroup.MarginLayoutParams) vh.getText().getLayoutParams();
+                textViewLayoutParams.setMarginStart(mTextStartMargin);
+                vh.getText().requestLayout();
 
-        int startMargin = offset + mTextStartMargin;
-        mBinders.add(vh -> {
-            ViewGroup.MarginLayoutParams layoutParams =
-                    (ViewGroup.MarginLayoutParams) vh.getText().getLayoutParams();
-            layoutParams.setMarginStart(startMargin);
-            vh.getText().requestLayout();
-        });
+                ViewGroup.MarginLayoutParams subTextViewLayoutParams =
+                        (ViewGroup.MarginLayoutParams) vh.getSubtext().getLayoutParams();
+                subTextViewLayoutParams.setMarginStart(mTextStartMargin);
+                vh.getSubtext().requestLayout();
+            });
+        }
     }
 
     // Clicking the item always checks radio button.
@@ -383,6 +424,7 @@ public class RadioButtonListItem extends ListItem<RadioButtonListItem.ViewHolder
 
         private ImageView mPrimaryIcon;
         private TextView mText;
+        private TextView mSubText;
 
         private View mRadioButtonDivider;
         private RadioButton mRadioButton;
@@ -394,6 +436,7 @@ public class RadioButtonListItem extends ListItem<RadioButtonListItem.ViewHolder
 
             mPrimaryIcon = itemView.findViewById(R.id.primary_icon);
             mText = itemView.findViewById(R.id.text);
+            mSubText = itemView.findViewById(R.id.subtext);
 
             mRadioButton = itemView.findViewById(R.id.radio_button);
             mRadioButtonDivider = itemView.findViewById(R.id.radio_button_divider);
@@ -424,6 +467,11 @@ public class RadioButtonListItem extends ListItem<RadioButtonListItem.ViewHolder
         @NonNull
         public TextView getText() {
             return mText;
+        }
+
+        @NonNull
+        public TextView getSubtext() {
+            return mSubText;
         }
 
         @NonNull
