@@ -19,18 +19,18 @@ package androidx.work.integration.testapp;
 import static androidx.work.ExistingWorkPolicy.KEEP;
 import static androidx.work.ExistingWorkPolicy.REPLACE;
 
-import android.arch.lifecycle.Observer;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.work.Constraints;
 import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;
@@ -186,6 +186,23 @@ public class MainActivity extends AppCompatActivity {
                 WorkManager.getInstance().enqueue(request);
             }
         });
+
+        findViewById(R.id.enqueue_periodic_work_flex).setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Data input = new Data.Builder()
+                                .putString(ToastWorker.ARG_MESSAGE, "Periodic work with Flex")
+                                .build();
+                        PeriodicWorkRequest request =
+                                new PeriodicWorkRequest.Builder(ToastWorker.class, 15,
+                                        TimeUnit.MINUTES, 10,
+                                        TimeUnit.MINUTES)
+                                        .setInputData(input)
+                                        .build();
+                        WorkManager.getInstance().enqueue(request);
+                    }
+                });
 
         findViewById(R.id.begin_unique_work_loop)
                 .setOnClickListener(new View.OnClickListener() {

@@ -39,6 +39,7 @@ import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.CoreMatchers.not
 import org.hamcrest.CoreMatchers.nullValue
 import org.hamcrest.Matchers.allOf
+import org.hamcrest.Matchers.greaterThan
 import org.hamcrest.Matchers.greaterThanOrEqualTo
 import org.junit.Assert.assertThat
 import org.junit.Test
@@ -118,7 +119,7 @@ class PageChangeCallbackTest(private val config: TestConfig) : BaseTest() {
                 latch.await(1, SECONDS)
 
                 // then
-                assertBasicState(targetPage, "$targetPage")
+                assertBasicState(targetPage)
 
                 callback.apply {
                     // verify all events
@@ -179,7 +180,7 @@ class PageChangeCallbackTest(private val config: TestConfig) : BaseTest() {
                 latch.await(2, SECONDS)
 
                 // then
-                assertBasicState(targetPage, "$targetPage")
+                assertBasicState(targetPage)
 
                 if (targetPage == initialPage && edgePages.contains(targetPage)) {
                     callback.apply {
@@ -896,6 +897,7 @@ class PageChangeCallbackTest(private val config: TestConfig) : BaseTest() {
 
     private fun RecordingCallback.assertTargetReachedAfterMarker(targetPage: Int, marker: Int) {
         val finalEvents = eventsAfter(marker)
+        assertThat(finalEvents.size, greaterThan(0))
         assertThat(finalEvents[0], equalTo(OnPageScrolledEvent(targetPage, 0f, 0) as Event))
         assertThat(
             finalEvents[1],

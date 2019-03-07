@@ -18,10 +18,10 @@ package androidx.work;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.support.annotation.Keep;
-import android.support.annotation.NonNull;
-import android.support.annotation.WorkerThread;
 
+import androidx.annotation.Keep;
+import androidx.annotation.NonNull;
+import androidx.annotation.WorkerThread;
 import androidx.work.impl.utils.futures.SettableFuture;
 
 import com.google.common.util.concurrent.ListenableFuture;
@@ -81,8 +81,13 @@ public abstract class Worker extends ListenableWorker {
         getBackgroundExecutor().execute(new Runnable() {
             @Override
             public void run() {
-                Result result = doWork();
-                mFuture.set(result);
+                try {
+                    Result result = doWork();
+                    mFuture.set(result);
+                } catch (Throwable throwable) {
+                    mFuture.setException(throwable);
+                }
+
             }
         });
         return mFuture;

@@ -127,7 +127,7 @@ public class InvalidationTracker {
      * @hide
      */
     @SuppressWarnings("WeakerAccess")
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
     public InvalidationTracker(RoomDatabase database, String... tableNames) {
         this(database, new HashMap<String, String>(), Collections.<String, Set<String>>emptyMap(),
                 tableNames);
@@ -139,7 +139,7 @@ public class InvalidationTracker {
      * @hide
      */
     @SuppressWarnings("WeakerAccess")
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
     public InvalidationTracker(RoomDatabase database, Map<String, String> shadowTablesMap,
             Map<String, Set<String>> viewTables, String... tableNames) {
         mDatabase = database;
@@ -322,7 +322,7 @@ public class InvalidationTracker {
      * @hide
      */
     @SuppressWarnings("unused")
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
     public void addWeakObserver(Observer observer) {
         addObserver(new WeakObserver(this, observer));
     }
@@ -458,7 +458,7 @@ public class InvalidationTracker {
      *
      * @hide
      */
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
     @WorkerThread
     public void refreshVersionsSync() {
         syncTriggers();
@@ -561,7 +561,7 @@ public class InvalidationTracker {
      * invalidates.
      * @hide
      */
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
     public <T> LiveData<T> createLiveData(String[] tableNames, Callable<T> computeFunction) {
         return mInvalidationLiveDataContainer.create(
                 validateAndResolveTableNames(tableNames), computeFunction);
