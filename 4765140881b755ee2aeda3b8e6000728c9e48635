@@ -70,6 +70,30 @@
       "revId": "4765140881b755ee2aeda3b8e6000728c9e48635",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66c33a82_ac7954ba",
+        "filename": "media/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-03-07T05:44:54Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e9dd73a8_da7d7ced",
+      "range": {
+        "startLine": 10,
+        "startChar": 18,
+        "endLine": 10,
+        "endChar": 22
+      },
+      "revId": "4765140881b755ee2aeda3b8e6000728c9e48635",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
