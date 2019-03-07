@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5afb3484_f511b7fb",
+        "filename": "car/core/src/main/java/androidx/car/util/CarUxRestrictionsHelper.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1010670
+      },
+      "writtenOn": "2019-03-07T01:03:29Z",
+      "side": 1,
+      "message": "I commented but my comment disappeared I think. So it can look as duplicate.\n\nBesically make this non-null and return a default policy. It is not acceptable to return null and expect apps to do the right thing.",
+      "range": {
+        "startLine": 111,
+        "startChar": 32,
+        "endLine": 111,
+        "endChar": 36
+      },
+      "revId": "624bf5535c0f92960bdb87096b1223abe49f3d3c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
