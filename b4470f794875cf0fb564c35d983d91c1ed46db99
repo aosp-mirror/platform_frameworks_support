@@ -19,6 +19,23 @@
     },
     {
       "key": {
+        "uuid": "e2323e1a_e8950184",
+        "filename": "lifecycle/livedata/eap/src/main/java/androidx/lifecycle/CoroutineLiveData.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1460379
+      },
+      "writtenOn": "2019-03-07T19:25:43Z",
+      "side": 1,
+      "message": "nitpick `also tries to update from the server` would sound better as  `also tries to backfill the database`.  Initially I read/understood  `a Live data....also tries to update from server`  as the live data will emit the server value to the consumer as well.",
+      "revId": "b4470f794875cf0fb564c35d983d91c1ed46db99",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b1e44814_4edae991",
         "filename": "lifecycle/livedata/eap/src/main/java/androidx/lifecycle/CoroutineLiveData.kt",
         "patchSetId": 10
