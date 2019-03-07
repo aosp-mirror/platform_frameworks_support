@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "21c2feb5_c8602c67",
+        "filename": "dynamic-animation/ktx/src/main/java/androidx/dynamicanimation/animation/DynamicAnimation.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-03-07T12:22:42Z",
+      "side": 1,
+      "message": "This library adds FloatPropertyCompat class, so as a user I would expect the method to have a FloatPropertyCompat as a parameter when it called \"...ofProperyy\". With the current signature of setter and getter params I would suggest to not rename it and keep just \"flingAnimationOf\" as a name.",
+      "range": {
+        "startLine": 26,
+        "startChar": 20,
+        "endLine": 26,
+        "endChar": 28
+      },
+      "revId": "3aaf047ed290ae319db98d7b0b6ee179d3b780ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29195836_0427d834",
+        "filename": "dynamic-animation/ktx/src/main/java/androidx/dynamicanimation/animation/DynamicAnimation.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-03-07T12:22:42Z",
+      "side": 1,
+      "message": "This feels like a misuse of FloatValueHolder class for me. I can think about quite more clear way of doing this with extracting an interface from FloatValueHolder and have two implementations: 1) which stores into a mValue field; 2) which takes setter and getter lambdas as a constructor parameter.",
+      "revId": "3aaf047ed290ae319db98d7b0b6ee179d3b780ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
