@@ -46,6 +46,31 @@ package androidx.car.app {
     method public CharSequence getTitle();
   }
 
+  public final class CarSingleSelectionDialog extends android.app.Dialog {
+  }
+
+  public static final class CarSingleSelectionDialog.Builder {
+    ctor public CarSingleSelectionDialog.Builder(android.content.Context);
+    method public androidx.car.app.CarSingleSelectionDialog create();
+    method public androidx.car.app.CarSingleSelectionDialog.Builder setBodyText(@StringRes int);
+    method public androidx.car.app.CarSingleSelectionDialog.Builder setBodyText(CharSequence?);
+    method public androidx.car.app.CarSingleSelectionDialog.Builder setCancelable(boolean);
+    method public androidx.car.app.CarSingleSelectionDialog.Builder setItems(java.util.List<androidx.car.app.CarSingleSelectionDialog.SelectionItem>, @IntRange(from=0) int);
+    method public androidx.car.app.CarSingleSelectionDialog.Builder setNegativeButton(@StringRes int);
+    method public androidx.car.app.CarSingleSelectionDialog.Builder setNegativeButton(CharSequence);
+    method public androidx.car.app.CarSingleSelectionDialog.Builder setOnCancelListener(android.content.DialogInterface.OnCancelListener?);
+    method public androidx.car.app.CarSingleSelectionDialog.Builder setOnDismissListener(android.content.DialogInterface.OnDismissListener?);
+    method public androidx.car.app.CarSingleSelectionDialog.Builder setPositiveButton(@StringRes int, android.content.DialogInterface.OnClickListener);
+    method public androidx.car.app.CarSingleSelectionDialog.Builder setPositiveButton(CharSequence, android.content.DialogInterface.OnClickListener);
+    method public androidx.car.app.CarSingleSelectionDialog.Builder setTitle(@StringRes int);
+    method public androidx.car.app.CarSingleSelectionDialog.Builder setTitle(CharSequence?);
+  }
+
+  public static class CarSingleSelectionDialog.SelectionItem {
+    ctor public CarSingleSelectionDialog.SelectionItem(CharSequence);
+    ctor public CarSingleSelectionDialog.SelectionItem(CharSequence, CharSequence?);
+  }
+
 }
 
 package androidx.car.drawer {
@@ -483,6 +508,7 @@ package androidx.car.widget {
     method public boolean isChecked();
     method protected void onBind(androidx.car.widget.RadioButtonListItem.ViewHolder!);
     method protected void resolveDirtyState();
+    method public void setBody(CharSequence?);
     method public void setChecked(boolean);
     method public void setEnabled(boolean);
     method public void setOnCheckedChangeListener(android.widget.CompoundButton.OnCheckedChangeListener);
@@ -490,8 +516,8 @@ package androidx.car.widget {
     method public void setPrimaryActionIcon(@DrawableRes int, int);
     method public void setPrimaryActionNoIcon();
     method public void setShowRadioButtonDivider(boolean);
-    method public void setText(CharSequence?);
     method public void setTextStartMargin(@DimenRes int);
+    method public void setTitle(CharSequence?);
     field public static final int PRIMARY_ACTION_ICON_SIZE_LARGE = 2; // 0x2
     field public static final int PRIMARY_ACTION_ICON_SIZE_MEDIUM = 1; // 0x1
     field public static final int PRIMARY_ACTION_ICON_SIZE_SMALL = 0; // 0x0
@@ -499,11 +525,12 @@ package androidx.car.widget {
 
   public static final class RadioButtonListItem.ViewHolder extends androidx.car.widget.ListItem.ViewHolder {
     ctor public RadioButtonListItem.ViewHolder(android.view.View);
+    method public android.widget.TextView getBody();
     method public android.view.ViewGroup getContainerLayout();
     method public android.widget.ImageView getPrimaryIcon();
     method public android.widget.RadioButton getRadioButton();
     method public android.view.View getRadioButtonDivider();
-    method public android.widget.TextView getText();
+    method public android.widget.TextView getTitle();
     method public void onUxRestrictionsChanged(androidx.car.uxrestrictions.CarUxRestrictions!);
   }
 
