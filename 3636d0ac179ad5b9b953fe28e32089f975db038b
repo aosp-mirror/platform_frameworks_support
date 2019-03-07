@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "34026d3f_ab3772b3",
+        "filename": "appcompat/build.gradle",
+        "patchSetId": 5
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-03-07T19:30:07Z",
+      "side": 1,
+      "message": "Pick a released version?",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 31
+      },
+      "revId": "3636d0ac179ad5b9b953fe28e32089f975db038b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73be993c_fabd713f",
+        "filename": "appcompat/build.gradle",
+        "patchSetId": 5
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-03-07T19:30:07Z",
+      "side": 1,
+      "message": "Can we pick a released version here too?",
+      "range": {
+        "startLine": 16,
+        "startChar": 4,
+        "endLine": 16,
+        "endChar": 27
+      },
+      "revId": "3636d0ac179ad5b9b953fe28e32089f975db038b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a43f61a_08aeaaa2",
+        "filename": "appcompat/resources/build.gradle",
+        "patchSetId": 5
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-03-07T19:30:07Z",
+      "side": 1,
+      "message": "Can we also pick a release version of annotations?",
+      "range": {
+        "startLine": 27,
+        "startChar": 4,
+        "endLine": 27,
+        "endChar": 31
+      },
+      "revId": "3636d0ac179ad5b9b953fe28e32089f975db038b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14f31dd6_61d28296",
+        "filename": "appcompat/resources/src/main/java/androidx/appcompat/content/res/AppCompatResources.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-03-07T19:30:07Z",
+      "side": 1,
+      "message": "What\u0027s the tracking bug for this?\n\nAlso, can we suppress the usages inline, so we don\u0027t accidentally add new ones?",
+      "range": {
+        "startLine": 46,
+        "startChar": 31,
+        "endLine": 46,
+        "endChar": 92
+      },
+      "revId": "3636d0ac179ad5b9b953fe28e32089f975db038b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
