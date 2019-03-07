@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1fbe78e9_909a4f3d",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-03-07T05:05:46Z",
+      "side": 1,
+      "message": "I think you could phrase this more generally: \"throws IllegalArgumentException if the Builder received conflicting inputs\" (suggestion)",
+      "range": {
+        "startLine": 307,
+        "startChar": 44,
+        "endLine": 308,
+        "endChar": 61
+      },
+      "revId": "444270f7dabeaa8d226dc2bc5d3a2d5c0545ce10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e99eb51d_b85d21ca",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-03-07T05:05:46Z",
+      "side": 1,
+      "message": "nit: Exception messages don\u0027t usually have punctuation",
+      "range": {
+        "startLine": 316,
+        "startChar": 94,
+        "endLine": 316,
+        "endChar": 95
+      },
+      "revId": "444270f7dabeaa8d226dc2bc5d3a2d5c0545ce10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
