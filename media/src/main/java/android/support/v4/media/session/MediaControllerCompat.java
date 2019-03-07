@@ -1301,6 +1301,18 @@ public final class MediaControllerCompat {
         public abstract void setRating(RatingCompat rating, Bundle extras);
 
         /**
+<<<<<<< HEAD   (c6a768 Merge "Merge empty history for sparse-5330139-L6850000027064)
+=======
+         * Set the playback speed.
+         *
+         * @param speed The playback speed
+         * @hide
+         */
+        @RestrictTo(LIBRARY_GROUP_PREFIX)
+        public void setPlaybackSpeed(float speed) {}
+
+        /**
+>>>>>>> BRANCH (085152 Merge "Merge cherrypicks of [922394] into sparse-5359448-L96)
          * Enables/disables captioning for this session.
          *
          * @param enabled {@code true} to enable captioning, {@code false} to disable.

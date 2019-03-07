@@ -19,7 +19,6 @@ package androidx.appcompat.app;
 import static androidx.appcompat.app.NightModeActivity.TOP_ACTIVITY;
 import static androidx.appcompat.testutils.NightModeUtils.assertConfigurationNightModeEquals;
 import static androidx.appcompat.testutils.NightModeUtils.setLocalNightModeAndWait;
-import static androidx.appcompat.testutils.TestUtilsActions.rotateScreenOrientation;
 import static androidx.appcompat.testutils.TestUtilsMatchers.isBackground;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
@@ -27,10 +26,12 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 import static org.junit.Assert.assertEquals;
+<<<<<<< HEAD   (c6a768 Merge "Merge empty history for sparse-5330139-L6850000027064)
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
+=======
+>>>>>>> BRANCH (085152 Merge "Merge cherrypicks of [922394] into sparse-5359448-L96)
 
-import android.app.Activity;
 import android.app.Instrumentation;
 import android.content.res.Configuration;
 import android.webkit.WebView;
@@ -223,24 +224,6 @@ public class NightModeTestCase {
         // Assert that the Activity received a new value
         assertEquals(AppCompatDelegate.MODE_NIGHT_NO,
                 mActivityTestRule.getActivity().getLastNightModeAndReset());
-    }
-
-    @Test
-    public void testRotateRecreatesActivity() throws Throwable {
-        // Set local night mode to YES
-        setLocalNightModeAndWait(mActivityTestRule, AppCompatDelegate.MODE_NIGHT_YES);
-
-        final Activity activity = mActivityTestRule.getActivity();
-
-        // Assert that the current Activity is 'dark'
-        assertConfigurationNightModeEquals(Configuration.UI_MODE_NIGHT_YES,
-                activity.getResources().getConfiguration());
-
-        // Now rotate the device
-        onView(withId(android.R.id.content)).perform(rotateScreenOrientation(activity));
-
-        // And assert that we have a new Activity, and thus was recreated
-        assertNotSame(activity, mActivityTestRule.getActivity());
     }
 
     @Test

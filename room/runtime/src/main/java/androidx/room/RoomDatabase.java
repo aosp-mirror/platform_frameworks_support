@@ -60,7 +60,6 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
  *
  * @see Database
  */
-//@SuppressWarnings({"unused", "WeakerAccess"})
 public abstract class RoomDatabase {
     private static final String DB_IMPL_SUFFIX = "_Impl";
     /**
@@ -104,6 +103,22 @@ public abstract class RoomDatabase {
      */
     Lock getCloseLock() {
         return mCloseLock.readLock();
+    }
+
+    /**
+     * This id is only set on threads that are used to dispatch coroutines within a suspending
+     * database transaction.
+     */
+    private final ThreadLocal<Integer> mSuspendingTransactionId = new ThreadLocal<>();
+
+    /**
+     * Gets the suspending transaction id of the current thread.
+     *
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+    ThreadLocal<Integer> getSuspendingTransactionId() {
+        return mSuspendingTransactionId;
     }
 
     /**
@@ -230,6 +245,21 @@ public abstract class RoomDatabase {
         }
     }
 
+    /**
+     * Asserts that we are not on a suspending transaction.
+     *
+     * @hide
+     */
+    @SuppressWarnings("WeakerAccess")
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+    // used in generated code
+    public void assertNotSuspendingTransaction() {
+        if (!inTransaction() && mSuspendingTransactionId.get() != null) {
+            throw new IllegalStateException("Cannot access database on a different coroutine"
+                    + " context inherited from a suspending transaction.");
+        }
+    }
+
     // Below, there are wrapper methods for SupportSQLiteDatabase. This helps us track which
     // methods we are using and also helps unit tests to mock this class without mocking
     // all SQLite database methods.
@@ -253,6 +283,7 @@ public abstract class RoomDatabase {
      */
     public Cursor query(SupportSQLiteQuery query) {
         assertNotMainThread();
+        assertNotSuspendingTransaction();
         return mOpenHelper.getWritableDatabase().query(query);
     }
 
@@ -264,12 +295,16 @@ public abstract class RoomDatabase {
      */
     public SupportSQLiteStatement compileStatement(@NonNull String sql) {
         assertNotMainThread();
+        assertNotSuspendingTransaction();
         return mOpenHelper.getWritableDatabase().compileStatement(sql);
     }
 
     /**
      * Wrapper for {@link SupportSQLiteDatabase#beginTransaction()}.
+     *
+     * @deprecated Use {@link #runInTransaction(Runnable)}
      */
+    @Deprecated
     public void beginTransaction() {
         assertNotMainThread();
         SupportSQLiteDatabase database = mOpenHelper.getWritableDatabase();
@@ -279,7 +314,10 @@ public abstract class RoomDatabase {
 
     /**
      * Wrapper for {@link SupportSQLiteDatabase#endTransaction()}.
+     *
+     * @deprecated Use {@link #runInTransaction(Runnable)}
      */
+    @Deprecated
     public void endTransaction() {
         mOpenHelper.getWritableDatabase().endTransaction();
         if (!inTransaction()) {
@@ -299,7 +337,10 @@ public abstract class RoomDatabase {
 
     /**
      * Wrapper for {@link SupportSQLiteDatabase#setTransactionSuccessful()}.
+     *
+     * @deprecated Use {@link #runInTransaction(Runnable)}
      */
+    @Deprecated
     public void setTransactionSuccessful() {
         mOpenHelper.getWritableDatabase().setTransactionSuccessful();
     }
@@ -310,6 +351,7 @@ public abstract class RoomDatabase {
      *
      * @param body The piece of code to execute.
      */
+    @SuppressWarnings("deprecation")
     public void runInTransaction(@NonNull Runnable body) {
         beginTransaction();
         try {
@@ -328,6 +370,7 @@ public abstract class RoomDatabase {
      * @param <V>  The type of the return value.
      * @return The value returned from the {@link Callable}.
      */
+    @SuppressWarnings("deprecation")
     public <V> V runInTransaction(@NonNull Callable<V> body) {
         beginTransaction();
         try {
@@ -686,6 +729,7 @@ public abstract class RoomDatabase {
          *
          * @return A new database instance.
          */
+        @SuppressLint("RestrictedApi")
         @NonNull
         public T build() {
             //noinspection ConstantConditions

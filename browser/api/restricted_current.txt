@@ -1,0 +1,31 @@
+<<<<<<< HEAD   (c6a768 Merge "Merge empty history for sparse-5330139-L6850000027064)
+=======
+// Signature format: 3.0
+package androidx.browser.browseractions {
+
+  public class BrowserActionItem {
+    ctor @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX) public BrowserActionItem(String, android.app.PendingIntent, android.net.Uri);
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX) public class BrowserActionsFallbackMenuView extends android.widget.LinearLayout {
+    ctor public BrowserActionsFallbackMenuView(android.content.Context!, android.util.AttributeSet!);
+  }
+
+  public class BrowserActionsIntent {
+  }
+
+  @IntDef({androidx.browser.browseractions.BrowserActionsIntent.ITEM_INVALID_ITEM, androidx.browser.browseractions.BrowserActionsIntent.ITEM_OPEN_IN_NEW_TAB, androidx.browser.browseractions.BrowserActionsIntent.ITEM_OPEN_IN_INCOGNITO, androidx.browser.browseractions.BrowserActionsIntent.ITEM_DOWNLOAD, androidx.browser.browseractions.BrowserActionsIntent.ITEM_COPY, androidx.browser.browseractions.BrowserActionsIntent.ITEM_SHARE}) @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) public static @interface BrowserActionsIntent.BrowserActionsItemId {
+  }
+
+  @IntDef({androidx.browser.browseractions.BrowserActionsIntent.URL_TYPE_NONE, androidx.browser.browseractions.BrowserActionsIntent.URL_TYPE_IMAGE, androidx.browser.browseractions.BrowserActionsIntent.URL_TYPE_VIDEO, androidx.browser.browseractions.BrowserActionsIntent.URL_TYPE_AUDIO, androidx.browser.browseractions.BrowserActionsIntent.URL_TYPE_FILE, androidx.browser.browseractions.BrowserActionsIntent.URL_TYPE_PLUGIN}) @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) public static @interface BrowserActionsIntent.BrowserActionsUrlType {
+  }
+
+
+}
+
+package androidx.browser.customtabs {
+
+
+}
+
+>>>>>>> BRANCH (085152 Merge "Merge cherrypicks of [922394] into sparse-5359448-L96)

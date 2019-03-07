@@ -1,3 +1,4 @@
+<<<<<<< HEAD   (c6a768 Merge "Merge empty history for sparse-5330139-L6850000027064)
 #!/usr/bin/python
 
 # This script does package renamings on source code (and .xml files and build files, etc), as part of migrating code to Jetpack.
@@ -141,3 +142,5 @@ def main():
 main()
 
 
+=======
+>>>>>>> BRANCH (085152 Merge "Merge cherrypicks of [922394] into sparse-5359448-L96)

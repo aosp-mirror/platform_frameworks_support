@@ -29,6 +29,7 @@ val RELEASE_RULE = docsRules("public", false) {
     prebuilts(LibraryGroups.ANNOTATION, "1.1.0-alpha01")
     ignore(LibraryGroups.APPCOMPAT, "appcompat-resources")
     prebuilts(LibraryGroups.APPCOMPAT, "1.1.0-alpha02")
+    prebuilts(LibraryGroups.ARCH_CORE, "2.0.0")
     prebuilts(LibraryGroups.ASYNCLAYOUTINFLATER, "1.0.0")
     prebuilts(LibraryGroups.BIOMETRIC, "biometric", "1.0.0-alpha03")
     prebuilts(LibraryGroups.BROWSER, "1.0.0")
@@ -50,6 +51,7 @@ val RELEASE_RULE = docsRules("public", false) {
     prebuilts(LibraryGroups.DYNAMICANIMATION, "dynamicanimation-ktx", "1.0.0-alpha01")
     prebuilts(LibraryGroups.DYNAMICANIMATION, "1.0.0")
     prebuilts(LibraryGroups.EMOJI, "1.0.0")
+    prebuilts(LibraryGroups.ENTERPRISE, "1.0.0-alpha01")
     prebuilts(LibraryGroups.EXIFINTERFACE, "1.0.0")
     prebuilts(LibraryGroups.FRAGMENT, "1.1.0-alpha04")
     prebuilts(LibraryGroups.GRIDLAYOUT, "1.0.0")
@@ -57,6 +59,15 @@ val RELEASE_RULE = docsRules("public", false) {
     prebuilts(LibraryGroups.INTERPOLATOR, "1.0.0")
     prebuilts(LibraryGroups.LEANBACK, "1.1.0-alpha01")
     prebuilts(LibraryGroups.LEGACY, "1.0.0")
+    ignore(LibraryGroups.LIFECYCLE, "lifecycle-savedstate-core")
+    ignore(LibraryGroups.LIFECYCLE, "lifecycle-savedstate-fragment")
+    ignore(LibraryGroups.LIFECYCLE, "lifecycle-viewmodel-savedstate")
+    ignore(LibraryGroups.LIFECYCLE, "lifecycle-viewmodel-fragment")
+    ignore(LibraryGroups.LIFECYCLE, "lifecycle-livedata-ktx")
+    ignore(LibraryGroups.LIFECYCLE, "lifecycle-livedata-core-ktx")
+    ignore(LibraryGroups.LIFECYCLE, "lifecycle-compiler")
+    ignore(LibraryGroups.LIFECYCLE, "lifecycle-common-eap")
+    prebuilts(LibraryGroups.LIFECYCLE, "2.1.0-alpha02")
     prebuilts(LibraryGroups.LOADER, "1.1.0-alpha01")
     prebuilts(LibraryGroups.LOCALBROADCASTMANAGER, "1.1.0-alpha01")
     prebuilts(LibraryGroups.MEDIA, "media", "1.1.0-alpha01")
@@ -66,8 +77,12 @@ val RELEASE_RULE = docsRules("public", false) {
     ignore(LibraryGroups.MEDIA2, "media2-exoplayer")
     prebuilts(LibraryGroups.MEDIA2, "1.0.0-alpha03")
     prebuilts(LibraryGroups.MEDIAROUTER, "1.1.0-alpha01")
+    ignore(LibraryGroups.NAVIGATION, "navigation-testing")
+    prebuilts(LibraryGroups.NAVIGATION, "2.0.0-rc02")
+    prebuilts(LibraryGroups.PAGING, "2.1.0")
     prebuilts(LibraryGroups.PALETTE, "1.0.0")
     prebuilts(LibraryGroups.PERCENTLAYOUT, "1.0.0")
+    prebuilts(LibraryGroups.PERSISTENCE, "2.0.0")
     prebuilts(LibraryGroups.PREFERENCE, "preference-ktx", "1.1.0-alpha03")
     prebuilts(LibraryGroups.PREFERENCE, "1.1.0-alpha03")
     prebuilts(LibraryGroups.PRINT, "1.0.0")
@@ -75,6 +90,7 @@ val RELEASE_RULE = docsRules("public", false) {
     prebuilts(LibraryGroups.RECYCLERVIEW, "recyclerview", "1.1.0-alpha02")
     prebuilts(LibraryGroups.RECYCLERVIEW, "recyclerview-selection", "1.1.0-alpha01")
     prebuilts(LibraryGroups.REMOTECALLBACK, "1.0.0-alpha01")
+    prebuilts(LibraryGroups.ROOM, "2.1.0-alpha05")
     prebuilts(LibraryGroups.SLICE, "slice-builders", "1.0.0")
     prebuilts(LibraryGroups.SLICE, "slice-builders-ktx", "1.0.0-alpha6")
     prebuilts(LibraryGroups.SLICE, "slice-core", "1.0.0")
@@ -94,6 +110,7 @@ val RELEASE_RULE = docsRules("public", false) {
     prebuilts(LibraryGroups.WEAR, "1.0.0")
             .addStubs("wear/wear_stubs/com.google.android.wearable-stubs.jar")
     prebuilts(LibraryGroups.WEBKIT, "1.0.0")
+<<<<<<< HEAD   (c6a768 Merge "Merge empty history for sparse-5330139-L6850000027064)
     prebuilts(LibraryGroups.ROOM, "2.1.0-alpha04")
     prebuilts(LibraryGroups.PERSISTENCE, "2.0.0")
     ignore(LibraryGroups.LIFECYCLE, "lifecycle-savedstate-core")
@@ -109,6 +126,9 @@ val RELEASE_RULE = docsRules("public", false) {
     ignore(LibraryGroups.NAVIGATION, "navigation-testing")
     prebuilts(LibraryGroups.NAVIGATION, "1.0.0-beta02")
     prebuilts(LibraryGroups.WORKMANAGER, "1.0.0-rc01")
+=======
+    prebuilts(LibraryGroups.WORKMANAGER, "1.0.0-rc02")
+>>>>>>> BRANCH (085152 Merge "Merge cherrypicks of [922394] into sparse-5359448-L96)
     default(Ignore)
 }
 
@@ -242,10 +262,18 @@ sealed class Strategy {
         }
 
         override fun toString() = "Prebuilts(\"$version\")"
+        fun dependency(extension: SupportLibraryExtension): String {
+            return "${extension.mavenGroup}:${extension.project.name}:$version"
+        }
     }
 }
 
 class PublishDocsRules(val name: String, val offline: Boolean, private val rules: List<DocsRule>) {
+    fun resolve(extension: SupportLibraryExtension): DocsRule? {
+        val mavenGroup = extension.mavenGroup
+        return if (mavenGroup == null) null else resolve(mavenGroup, extension.project.name)
+    }
+
     fun resolve(groupName: String, moduleName: String): DocsRule {
         return rules.find { it.predicate.apply(groupName, moduleName) } ?: throw Error()
     }

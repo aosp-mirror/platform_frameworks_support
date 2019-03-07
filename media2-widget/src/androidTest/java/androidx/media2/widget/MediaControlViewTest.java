@@ -20,8 +20,13 @@ import static android.content.Context.KEYGUARD_SERVICE;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
+<<<<<<< HEAD   (c6a768 Merge "Merge empty history for sparse-5330139-L6850000027064)
+=======
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.isCompletelyDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+>>>>>>> BRANCH (085152 Merge "Merge cherrypicks of [922394] into sparse-5359448-L96)
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static androidx.test.espresso.matcher.ViewMatchers.withParent;
 
 import static org.hamcrest.CoreMatchers.allOf;
 import static org.junit.Assert.assertEquals;
@@ -147,8 +152,7 @@ public class MediaControlViewTest {
             }
         });
         assertTrue(latchForPausedState.await(WAIT_TIME_MS, TimeUnit.MILLISECONDS));
-        onView(allOf((withId(R.id.pause)),
-                withParent(withId(R.id.full_transport_controls)))).perform(click());
+        onView(allOf(withId(R.id.pause), isCompletelyDisplayed())).perform(click());
         assertTrue(latchForPlayingState.await(WAIT_TIME_MS, TimeUnit.MILLISECONDS));
     }
 
@@ -181,8 +185,7 @@ public class MediaControlViewTest {
             }
         });
         assertTrue(latchForPausedState.await(WAIT_TIME_MS, TimeUnit.MILLISECONDS));
-        onView(allOf((withId(R.id.ffwd)),
-                withParent(withId(R.id.full_transport_controls)))).perform(click());
+        onView(allOf(withId(R.id.ffwd), isCompletelyDisplayed())).perform(click());
         assertTrue(latchForFfwd.await(WAIT_TIME_MS, TimeUnit.MILLISECONDS));
     }
 
@@ -230,8 +233,7 @@ public class MediaControlViewTest {
             }
         });
         assertTrue(latchForFfwd.await(WAIT_TIME_MS, TimeUnit.MILLISECONDS));
-        onView(allOf((withId(R.id.rew)),
-                withParent(withId(R.id.full_transport_controls)))).perform(click());
+        onView(allOf(withId(R.id.rew), isCompletelyDisplayed())).perform(click());
         assertTrue(latchForRew.await(WAIT_TIME_MS, TimeUnit.MILLISECONDS));
     }
 

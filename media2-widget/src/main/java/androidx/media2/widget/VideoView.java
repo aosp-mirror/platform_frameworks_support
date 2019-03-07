@@ -639,7 +639,7 @@ public class VideoView extends SelectiveLayout {
         player.registerPlayerCallback(mCallbackExecutor, mMediaPlayerCallback);
     }
 
-    private boolean isMediaPrepared() {
+    boolean isMediaPrepared() {
         return mMediaSession != null
                 && mMediaSession.getPlayer().getPlayerState() != SessionPlayer.PLAYER_STATE_ERROR
                 && mMediaSession.getPlayer().getPlayerState() != SessionPlayer.PLAYER_STATE_IDLE;
@@ -1016,6 +1016,23 @@ public class VideoView extends SelectiveLayout {
                     .addCommand(new SessionCommand(
                             MediaControlView.COMMAND_HIDE_SUBTITLE, null));
             return commandsBuilder.build();
+        }
+
+        @Override
+        public void onPostConnect(@NonNull MediaSession session,
+                @NonNull MediaSession.ControllerInfo controller) {
+            if (session != mMediaSession) {
+                if (DEBUG) {
+                    Log.w(TAG, "onPostConnect() is ignored. session is already gone.");
+                }
+            }
+            if (isMediaPrepared()) {
+                Bundle data = extractTrackInfoData();
+                if (data != null) {
+                    mMediaSession.broadcastCustomCommand(new SessionCommand(
+                            MediaControlView.EVENT_UPDATE_TRACK_STATUS, null), data);
+                }
+            }
         }
 
         @Override

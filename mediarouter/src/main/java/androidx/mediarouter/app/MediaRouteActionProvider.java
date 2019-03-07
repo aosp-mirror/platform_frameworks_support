@@ -199,6 +199,16 @@ public class MediaRouteActionProvider extends ActionProvider {
 
     /**
      * Enables dynamic group feature.
+<<<<<<< HEAD   (c6a768 Merge "Merge empty history for sparse-5330139-L6850000027064)
+=======
+     * With this enabled, a different set of {@link MediaRouteChooserDialog} and
+     * {@link MediaRouteControllerDialog} is shown when the button is clicked.
+     * If a {@link androidx.mediarouter.media.MediaRouteProvider media route provider}
+     * supports dynamic group, the users can use that feature with the dialogs.
+     *
+     * @see MediaRouteButton#enableDynamicGroup()
+     * @see androidx.mediarouter.media.MediaRouteProvider.DynamicGroupRouteController
+>>>>>>> BRANCH (085152 Merge "Merge cherrypicks of [922394] into sparse-5359448-L96)
      */
     public void enableDynamicGroup() {
         mUseDynamicGroup = true;

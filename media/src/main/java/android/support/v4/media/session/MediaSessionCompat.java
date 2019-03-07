@@ -478,14 +478,9 @@ public class MediaSessionCompat {
 
     /**
      * @hide
-     * Creates session for MediaSession.
      */
     @RestrictTo(LIBRARY_GROUP_PREFIX)
-    public MediaSessionCompat(Context context, String tag, VersionedParcelable session2Token) {
-        this(context, tag, null, null, session2Token);
-    }
-
-    private MediaSessionCompat(Context context, String tag, ComponentName mbrComponent,
+    public MediaSessionCompat(Context context, String tag, ComponentName mbrComponent,
             PendingIntent mbrIntent, VersionedParcelable session2Token) {
         if (context == null) {
             throw new IllegalArgumentException("context must not be null");
@@ -1259,6 +1254,24 @@ public class MediaSessionCompat {
         }
 
         /**
+<<<<<<< HEAD   (c6a768 Merge "Merge empty history for sparse-5330139-L6850000027064)
+=======
+         * Override to handle the playback speed change.
+         * To update the new playback speed, create a new {@link PlaybackStateCompat} by using
+         * {@link PlaybackStateCompat.Builder#setState(int, long, float)}, and set it with
+         * {@link #setPlaybackState(PlaybackStateCompat)}.
+         *
+         * @param speed the playback speed
+         * @see #setPlaybackState(PlaybackStateCompat)
+         * @see PlaybackStateCompat.Builder#setState(int, long, float)
+         * @hide
+         */
+        @RestrictTo(LIBRARY_GROUP_PREFIX)
+        public void onSetPlaybackSpeed(float speed) {
+        }
+
+        /**
+>>>>>>> BRANCH (085152 Merge "Merge cherrypicks of [922394] into sparse-5359448-L96)
          * Override to handle requests to enable/disable captioning.
          *
          * @param enabled {@code true} to enable captioning, {@code false} to disable.

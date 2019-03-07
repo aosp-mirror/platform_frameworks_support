@@ -84,8 +84,10 @@ includeProject(":jetifier-standalone", "jetifier/jetifier/standalone")
 includeProject(":jetifier-preprocessor", "jetifier/jetifier/preprocessor")
 includeProject(":leanback", "leanback")
 includeProject(":leanback-preference", "leanback-preference")
-includeProject(":lifecycle:integration-tests:testapp", "lifecycle/integration-tests/testapp")
+includeProject(":lifecycle:integration-tests:lifecycle-testapp", "lifecycle/integration-tests/testapp")
+includeProject(":lifecycle:integration-tests:lifecycle-testapp-kotlin", "lifecycle/integration-tests/kotlintestapp")
 includeProject(":lifecycle:lifecycle-common", "lifecycle/common")
+includeProject(":lifecycle:lifecycle-common-eap", "lifecycle/common/eap")
 includeProject(":lifecycle:lifecycle-common-java8", "lifecycle/common-java8")
 includeProject(":lifecycle:lifecycle-compiler", "lifecycle/compiler")
 includeProject(":lifecycle:lifecycle-extensions", "lifecycle/extensions")
@@ -145,8 +147,8 @@ includeProject(":room:integration-tests:room-testapp-kotlin", "room/integration-
 includeProject(":room:room-benchmark", "room/benchmark")
 includeProject(":room:room-common", "room/common")
 includeProject(":room:room-compiler", "room/compiler")
-includeProject(":room:room-coroutines", "room/coroutines")
 includeProject(":room:room-guava", "room/guava")
+includeProject(":room:room-ktx", "room/ktx")
 includeProject(":room:room-migration", "room/migration")
 includeProject(":room:room-runtime", "room/runtime")
 includeProject(":room:room-rxjava2", "room/rxjava2")
@@ -269,7 +271,7 @@ includeProject(":webview-support-interfaces", new File(externalRoot, "webview_su
 // we need real android project to generate R.java, aidl etc files that mentioned in sources
 if (!startParameter.projectProperties.containsKey('android.injected.invoked.from.ide')) {
     // we don't need it in ide, so we don't configure it there
-    includeProject(":docs-fake", "docs-fake")
+    includeProject(":docs-runner", "docs-runner")
 }
 
 // dumb test project that has a test for each size to ensure that at least one test is run

@@ -1,3 +1,4 @@
+<<<<<<< HEAD   (c6a768 Merge "Merge empty history for sparse-5330139-L6850000027064)
 /*
  * Copyright 2018 The Android Open Source Project
  *
@@ -41,3 +42,5 @@ class CoroutinesRoom {
         }
     }
 }
+=======
+>>>>>>> BRANCH (085152 Merge "Merge cherrypicks of [922394] into sparse-5359448-L96)

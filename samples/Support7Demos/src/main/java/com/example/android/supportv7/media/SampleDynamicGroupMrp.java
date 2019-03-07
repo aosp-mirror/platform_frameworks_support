@@ -48,6 +48,10 @@ import java.util.concurrent.Executor;
  */
 final class SampleDynamicGroupMrp extends SampleMediaRouteProvider {
     private static final String TAG = "SampleDynamicGroupMrp";
+<<<<<<< HEAD   (c6a768 Merge "Merge empty history for sparse-5330139-L6850000027064)
+=======
+    static final boolean DEBUG = Log.isLoggable(TAG, Log.DEBUG);
+>>>>>>> BRANCH (085152 Merge "Merge cherrypicks of [922394] into sparse-5359448-L96)
 
     private static final String FIXED_VOLUME_ROUTE_ID = "fixed";
     private static final String VARIABLE_VOLUME_BASIC_ROUTE_ID = "variable_basic";
@@ -88,7 +92,7 @@ final class SampleDynamicGroupMrp extends SampleMediaRouteProvider {
         return mController;
     }
 
-    private void copyRouteWithNewId(String routeId) {
+    void copyRouteWithNewId(String routeId) {
         MediaRouteDescriptor routeDescriptor = mRouteDescriptors.get(routeId);
         if (routeDescriptor == null || !routeDescriptor.isValid()) {
             Log.w(TAG, "copyRouteWithNewId: Route doesn't exist or isn't valid : " + routeId);
@@ -264,7 +268,8 @@ final class SampleDynamicGroupMrp extends SampleMediaRouteProvider {
         SampleDynamicGroupRouteController(String dynamicGroupRouteId,
                 List<String> memberIds) {
             mRouteId = dynamicGroupRouteId;
-            mTvSelectedCount = 0;
+            MediaRouteDescriptor selectedRouteDescriptor = mRouteDescriptors.get(mRouteId);
+            mTvSelectedCount = countTvFromRoute(selectedRouteDescriptor);
 
             // Initialize DynamicRouteDescriptor with all the route descriptors.
             List<MediaRouteDescriptor> routeDescriptors = getDescriptor().getRoutes();
@@ -281,6 +286,9 @@ final class SampleDynamicGroupMrp extends SampleMediaRouteProvider {
                                             : DynamicRouteDescriptor.UNSELECTED);
                     mDynamicRouteDescriptors.put(routeId, builder.build());
                 }
+            }
+            if (memberIds != null) {
+                mMemberRouteIds.addAll(memberIds);
             }
 
             mHelper = new RouteControlHelper(mRouteId);
@@ -307,6 +315,20 @@ final class SampleDynamicGroupMrp extends SampleMediaRouteProvider {
             mMemberRouteIds = routeIds;
         }
 
+        private boolean ensureDynamicRoute(String routeId) {
+            MediaRouteDescriptor selectedRouteDescriptor = mRouteDescriptors.get(routeId);
+            if (selectedRouteDescriptor == null) {
+                return false;
+            }
+            if (!selectedRouteDescriptor.isDynamicGroupRoute()) {
+                // We should reinitialize here not to add members twice
+                mTvSelectedCount = 0;
+                mMemberRouteIds.clear();
+                copyRouteWithNewId(mRouteId);
+            }
+            return true;
+        }
+
         @Override
         public void onAddMemberRoute(String routeId) {
             DynamicRouteDescriptor dynamicDescriptor = mDynamicRouteDescriptors.get(routeId);
@@ -315,13 +337,15 @@ final class SampleDynamicGroupMrp extends SampleMediaRouteProvider {
                 return;
             }
 
+<<<<<<< HEAD   (c6a768 Merge "Merge empty history for sparse-5330139-L6850000027064)
             MediaRouteDescriptor selectedRouteDescriptor = mRouteDescriptors.get(mRouteId);
             if (selectedRouteDescriptor == null) {
                 Log.d(TAG, "onAddMemberRoute: Can't find selected route : " + mRouteId);
+=======
+            if (!ensureDynamicRoute(mRouteId)) {
+                Log.w(TAG, "onAddMemberRoute: Can't find selected route : " + mRouteId);
+>>>>>>> BRANCH (085152 Merge "Merge cherrypicks of [922394] into sparse-5359448-L96)
                 return;
-            }
-            if (!selectedRouteDescriptor.isDynamicGroupRoute()) {
-                copyRouteWithNewId(mRouteId);
             }
 
             // Add each member route do dynamic group
@@ -415,13 +439,15 @@ final class SampleDynamicGroupMrp extends SampleMediaRouteProvider {
                 return;
             }
 
+<<<<<<< HEAD   (c6a768 Merge "Merge empty history for sparse-5330139-L6850000027064)
             MediaRouteDescriptor selectedRouteDescriptor = mRouteDescriptors.get(mRouteId);
             if (selectedRouteDescriptor == null) {
                 Log.d(TAG, "onRemoveMemberRoute: Can't find selected route : " + mRouteId);
+=======
+            if (!ensureDynamicRoute(mRouteId)) {
+                Log.w(TAG, "onRemoveMemberRoute: Can't find selected route : " + mRouteId);
+>>>>>>> BRANCH (085152 Merge "Merge cherrypicks of [922394] into sparse-5359448-L96)
                 return;
-            }
-            if (!selectedRouteDescriptor.isDynamicGroupRoute()) {
-                copyRouteWithNewId(mRouteId);
             }
 
             MediaRouteDescriptor routeDescriptor = dynamicDescriptor.getRouteDescriptor();

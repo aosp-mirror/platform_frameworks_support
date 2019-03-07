@@ -1,0 +1,20 @@
+<<<<<<< HEAD   (c6a768 Merge "Merge empty history for sparse-5330139-L6850000027064)
+=======
+// Signature format: 3.0
+package androidx.navigation {
+
+  public abstract class Navigator<D extends androidx.navigation.NavDestination> {
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public final void addOnNavigatorBackPressListener(androidx.navigation.Navigator.OnNavigatorBackPressListener);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public final void dispatchOnNavigatorBackPress();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) protected void onBackPressAdded();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) protected void onBackPressRemoved();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public final void removeOnNavigatorBackPressListener(androidx.navigation.Navigator.OnNavigatorBackPressListener);
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public static interface Navigator.OnNavigatorBackPressListener {
+    method public void onPopBackStack(androidx.navigation.Navigator);
+  }
+
+}
+
+>>>>>>> BRANCH (085152 Merge "Merge cherrypicks of [922394] into sparse-5359448-L96)

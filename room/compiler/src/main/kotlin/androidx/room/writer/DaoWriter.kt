@@ -24,14 +24,14 @@ import androidx.room.ext.T
 import androidx.room.processor.OnConflictProcessor
 import androidx.room.solver.CodeGenScope
 import androidx.room.vo.Dao
-import androidx.room.vo.ReadQueryMethod
 import androidx.room.vo.Entity
 import androidx.room.vo.InsertionMethod
-import androidx.room.vo.WriteQueryMethod
 import androidx.room.vo.QueryMethod
 import androidx.room.vo.RawQueryMethod
+import androidx.room.vo.ReadQueryMethod
 import androidx.room.vo.ShortcutMethod
 import androidx.room.vo.TransactionMethod
+import androidx.room.vo.WriteQueryMethod
 import com.google.auto.common.MoreTypes
 import com.squareup.javapoet.ClassName
 import com.squareup.javapoet.CodeBlock
@@ -49,7 +49,6 @@ import javax.lang.model.element.Modifier.FINAL
 import javax.lang.model.element.Modifier.PRIVATE
 import javax.lang.model.element.Modifier.PUBLIC
 import javax.lang.model.type.DeclaredType
-import javax.lang.model.type.TypeKind
 
 /**
  * Creates the implementation for a class annotated with Dao.
@@ -169,6 +168,7 @@ class DaoWriter(val dao: Dao, val processingEnv: ProcessingEnvironment)
 
     private fun createTransactionMethodBody(method: TransactionMethod): MethodSpec {
         val scope = CodeGenScope(this)
+<<<<<<< HEAD   (c6a768 Merge "Merge empty history for sparse-5330139-L6850000027064)
         val methodBuilder = overrideWithoutAnnotations(method.element, declaredDao).apply {
             addStatement("$N.beginTransaction()", dbField)
             beginControlFlow("try").apply {
@@ -234,6 +234,18 @@ class DaoWriter(val dao: Dao, val processingEnv: ProcessingEnvironment)
             append(")")
         }
         addStatement(format, *params.toTypedArray())
+=======
+        method.methodBinder.executeAndReturn(
+            returnType = method.returnType,
+            parameterNames = method.parameterNames,
+            daoName = dao.typeName,
+            daoImplName = dao.implTypeName,
+            dbField = dbField,
+            scope = scope)
+        return overrideWithoutAnnotations(method.element, declaredDao)
+            .addCode(scope.generate())
+            .build()
+>>>>>>> BRANCH (085152 Merge "Merge cherrypicks of [922394] into sparse-5359448-L96)
     }
 
     private fun createConstructor(

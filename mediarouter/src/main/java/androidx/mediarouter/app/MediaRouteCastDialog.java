@@ -1179,6 +1179,10 @@ public class MediaRouteCastDialog extends AppCompatDialog {
                 if (mUngroupableRoutes.contains(route)) {
                     return false;
                 }
+                // The last member route can not be removed.
+                if (isSelected(route) && mSelectedRoute.getMemberRoutes().size() < 2) {
+                    return false;
+                }
                 // Selected route that can't be unselected has to be disabled.
                 if (isSelected(route) && mSelectedRoute.isDynamicRoute()) {
                     return route.isUnselectable();
@@ -1486,7 +1490,12 @@ public class MediaRouteCastDialog extends AppCompatDialog {
                     }
                     // Calculate required size to decode the art and possibly resize it.
                     options.inJustDecodeBounds = false;
+<<<<<<< HEAD   (c6a768 Merge "Merge empty history for sparse-5330139-L6850000027064)
                     int reqHeight = getDesiredArtHeight(options.outWidth, options.outHeight);
+=======
+                    int reqHeight = mContext.getResources().getDimensionPixelSize(
+                            R.dimen.mr_cast_meta_art_size);
+>>>>>>> BRANCH (085152 Merge "Merge cherrypicks of [922394] into sparse-5359448-L96)
                     int ratio = options.outHeight / reqHeight;
                     options.inSampleSize = Math.max(1, Integer.highestOneBit(ratio));
                     if (isCancelled()) {

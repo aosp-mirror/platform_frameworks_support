@@ -1,0 +1,10 @@
+<<<<<<< HEAD   (c6a768 Merge "Merge empty history for sparse-5330139-L6850000027064)
+=======
+// Signature format: 3.0
+package androidx.fragment.app.testing {
+
+
+
+}
+
+>>>>>>> BRANCH (085152 Merge "Merge cherrypicks of [922394] into sparse-5359448-L96)

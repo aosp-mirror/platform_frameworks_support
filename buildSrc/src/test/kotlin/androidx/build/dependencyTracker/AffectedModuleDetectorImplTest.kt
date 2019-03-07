@@ -68,6 +68,10 @@ class AffectedModuleDetectorImplTest {
                 rootProject = root,
                 logger = logger,
                 ignoreUnknownProjects = false,
+<<<<<<< HEAD   (c6a768 Merge "Merge empty history for sparse-5330139-L6850000027064)
+=======
+                projectSubset = ProjectSubset.ALL_AFFECTED_PROJECTS,
+>>>>>>> BRANCH (085152 Merge "Merge cherrypicks of [922394] into sparse-5359448-L96)
                 injectedGitClient = MockGitClient(
                         lastMergeSha = "foo",
                         changedFiles = emptyList())
@@ -83,6 +87,10 @@ class AffectedModuleDetectorImplTest {
                 rootProject = root,
                 logger = logger,
                 ignoreUnknownProjects = false,
+<<<<<<< HEAD   (c6a768 Merge "Merge empty history for sparse-5330139-L6850000027064)
+=======
+            projectSubset = ProjectSubset.ALL_AFFECTED_PROJECTS,
+>>>>>>> BRANCH (085152 Merge "Merge cherrypicks of [922394] into sparse-5359448-L96)
                 injectedGitClient = MockGitClient(
                         lastMergeSha = "foo",
                         changedFiles = listOf(convertToFilePath("p1", "foo.java")))
@@ -98,6 +106,10 @@ class AffectedModuleDetectorImplTest {
                 rootProject = root,
                 logger = logger,
                 ignoreUnknownProjects = false,
+<<<<<<< HEAD   (c6a768 Merge "Merge empty history for sparse-5330139-L6850000027064)
+=======
+                projectSubset = ProjectSubset.ALL_AFFECTED_PROJECTS,
+>>>>>>> BRANCH (085152 Merge "Merge cherrypicks of [922394] into sparse-5359448-L96)
                 injectedGitClient = MockGitClient(
                         lastMergeSha = "foo",
                         changedFiles = listOf(
@@ -115,6 +127,10 @@ class AffectedModuleDetectorImplTest {
                 rootProject = root,
                 logger = logger,
                 ignoreUnknownProjects = false,
+<<<<<<< HEAD   (c6a768 Merge "Merge empty history for sparse-5330139-L6850000027064)
+=======
+                projectSubset = ProjectSubset.ALL_AFFECTED_PROJECTS,
+>>>>>>> BRANCH (085152 Merge "Merge cherrypicks of [922394] into sparse-5359448-L96)
                 injectedGitClient = MockGitClient(
                         lastMergeSha = "foo",
                         changedFiles = listOf("foo.java"))

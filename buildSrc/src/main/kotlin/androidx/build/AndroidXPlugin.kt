@@ -25,7 +25,8 @@ import androidx.build.checkapi.ApiType
 import androidx.build.checkapi.getLastReleasedApiFileFromDir
 import androidx.build.checkapi.hasApiFolder
 import androidx.build.dependencyTracker.AffectedModuleDetector
-import androidx.build.dokka.Dokka
+import androidx.build.dokka.DokkaPublicDocs
+import androidx.build.dokka.DokkaSourceDocs
 import androidx.build.gradle.getByType
 import androidx.build.gradle.isRoot
 import androidx.build.jacoco.Jacoco
@@ -99,6 +100,10 @@ class AndroidXPlugin : Plugin<Project> {
                     project.configureResourceApiChecks()
                     val verifyDependencyVersionsTask = project.createVerifyDependencyVersionsTask()
                     val checkNoWarningsTask = project.tasks.register(CHECK_NO_WARNINGS_TASK)
+                    // Only dump dependencies of published projects
+                    if (project.extra.has("publish")) {
+                        project.createDumpDependenciesTask()
+                    }
                     project.createCheckReleaseReadyTask(listOf(verifyDependencyVersionsTask,
                         checkNoWarningsTask))
                     extension.libraryVariants.all { libraryVariant ->
@@ -142,19 +147,25 @@ class AndroidXPlugin : Plugin<Project> {
     private fun Project.configureRootProject() {
         val buildOnServerTask = tasks.create(BUILD_ON_SERVER_TASK)
         val buildTestApksTask = tasks.create(BUILD_TEST_APKS)
+        project.configureDependencyGraphFileTask()
         var projectModules = ConcurrentHashMap<String, String>()
         project.extra.set("projects", projectModules)
         tasks.all { task ->
             if (task.name.startsWith(Release.DIFF_TASK_PREFIX) ||
                     "distDocs" == task.name ||
-                    Dokka.ARCHIVE_TASK_NAME == task.name ||
                     "partiallyDejetifyArchive" == task.name ||
                     CheckExternalDependencyLicensesTask.TASK_NAME == task.name) {
                 buildOnServerTask.dependsOn(task)
             }
         }
         subprojects { project ->
-            if (project.path == ":docs-fake") {
+            if (project.path == ":docs-runner") {
+                project.tasks.all { task ->
+                    if (DokkaPublicDocs.ARCHIVE_TASK_NAME == task.name ||
+                        DokkaSourceDocs.ARCHIVE_TASK_NAME == task.name) {
+                        buildOnServerTask.dependsOn(task)
+                    }
+                }
                 return@subprojects
             }
             project.tasks.all { task ->
@@ -316,6 +327,29 @@ class AndroidXPlugin : Plugin<Project> {
             TaskProvider<VerifyDependencyVersionsTask> {
         return project.tasks.register("verifyDependencyVersions",
                 VerifyDependencyVersionsTask::class.java)
+    }
+
+    // Task that creates a json file of a project's dependencies
+    private fun Project.createDumpDependenciesTask():
+            TaskProvider<ListProjectDependencyVersionsTask> {
+        return project.tasks.register("dumpDependencies",
+            ListProjectDependencyVersionsTask::class.java)
+    }
+
+    // Task that creates a json file of the AndroidX dependency graph (all projects)
+    private fun Project.configureDependencyGraphFileTask() {
+        project.tasks.register("createDependencyGraphFile",
+            DependencyGraphFileTask::class.java) { depGraphTask ->
+            subprojects { project ->
+                project.tasks.all { dumpDepTask ->
+                    if ("dumpDependencies" == dumpDepTask.name &&
+                        dumpDepTask is ListProjectDependencyVersionsTask) {
+                        depGraphTask.dependsOn(dumpDepTask)
+                        depGraphTask.projectDepDumpFiles.add(dumpDepTask.outputDepFile)
+                    }
+                }
+            }
+        }
     }
 
     companion object {

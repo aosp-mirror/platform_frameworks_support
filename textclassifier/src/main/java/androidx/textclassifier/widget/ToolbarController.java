@@ -88,6 +88,7 @@ public final class ToolbarController {
         if (controller == null) {
             sInstance = new WeakReference<>(new ToolbarController(textView));
         } else if (controller.mTextView != textView) {
+            logv("New textView. Dismissing previous toolbar.");
             dismissImmediately(controller.mToolbar);
             sInstance = new WeakReference<>(new ToolbarController(textView));
         }
@@ -125,15 +126,17 @@ public final class ToolbarController {
             return;
         }
 
+        logv("About to show new toolbar state. Dismissing old state");
         dismissImmediately(mToolbar);
-        setListeners(mTextView, start, end, mToolbar);
         final SupportMenu menu = createMenu(mTextView, mHighlight, actions);
-        if (hasValidTextView(mTextView) && menu.hasVisibleItems()) {
+        if (canShowToolbar(mTextView, true) && menu.hasVisibleItems()) {
+            setListeners(mTextView, start, end, mToolbar);
             setHighlight(mTextView, mHighlight, start, end, mToolbar);
             updateRectCoordinates(mContentRect, mTextView, start, end);
             mToolbar.setContentRect(mContentRect);
             mToolbar.setMenu(menu);
             mToolbar.show();
+            logv("Showing toolbar");
         }
     }
 
@@ -148,9 +151,25 @@ public final class ToolbarController {
         toolbar.dismiss();
     }
 
+    /**
+     * Returns true if the textView should be allowed to show a toolbar. Otherwise, returns false.
+     *
+     * @param textView the textView
+     * @param assumeWindowFocus if true, this method assumes the window in which the textView is in
+     *                          has focus. Should typically be set to {@code true} unless the caller
+     *                          knows the window does not have focus.
+     */
     @SuppressWarnings("WeakerAccess") /* synthetic access */
-    static boolean hasValidTextView(TextView textView) {
-        return textView.isAttachedToWindow();
+    static boolean canShowToolbar(TextView textView, boolean assumeWindowFocus) {
+        final boolean viewFocus = textView.hasFocus();
+        final boolean viewAttached = textView.isAttachedToWindow();
+        final boolean canShowToolbar = assumeWindowFocus && viewFocus && viewAttached;
+        if (!canShowToolbar) {
+            logv(String.format("canShowToolbar=false. "
+                    + "Reason: windowFocus=%b, viewFocus=%b, viewAttached=%b",
+                    assumeWindowFocus, viewFocus, viewAttached));
+        }
+        return canShowToolbar;
     }
 
     @SuppressWarnings("WeakerAccess") /* synthetic access */
@@ -198,7 +217,7 @@ public final class ToolbarController {
             textView.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    if (hasValidTextView(textView)
+                    if (canShowToolbar(textView, true)
                             && originalText.equals(textView.getText().toString())
                             && toolbar.isShowing()) {
                         ((Spannable) text).setSpan(highlight, start, end, 0);
@@ -314,6 +333,16 @@ public final class ToolbarController {
         return menu;
     }
 
+    /* To enable verbose logging. Run the following command:
+     * adb shell setprop log.tag.ToolbarController VERBOSE && adb shell stop && adb shell start
+     */
+    @SuppressWarnings("WeakerAccess") /* synthetic access */
+    static void logv(String message) {
+        if (Log.isLoggable(LOG_TAG, Log.VERBOSE)) {
+            Log.v(LOG_TAG, message);
+        }
+    }
+
     private static void setListeners(
             TextView textView, int start, int end, FloatingToolbar toolbar) {
         final ViewTreeObserver observer = textView.getViewTreeObserver();
@@ -375,10 +404,19 @@ public final class ToolbarController {
 
         @Override
         public boolean onPreDraw() {
+<<<<<<< HEAD   (c6a768 Merge "Merge empty history for sparse-5330139-L6850000027064)
             if (mToolbar.isShowing()) {
                 final int[] location = new int[2];
                 mTextView.getRootView().getLocationOnScreen(location);
                 if (location[0] != mLocation[0] || location[1] != mLocation[1]) {
+=======
+            final long now = System.currentTimeMillis();
+            if (!maybeDismissToolbar(true, "onPreDraw")
+                    && mToolbar.isShowing()
+                    && now - mLastUpdateTimeMs >= THROTTLE_DELAY_MS) {
+                updateRectCoordinates(mTempRect, mTextView, mStart, mEnd);
+                if (!mTempRect.equals(mContentRect)) {
+>>>>>>> BRANCH (085152 Merge "Merge cherrypicks of [922394] into sparse-5359448-L96)
                     // View moved.
                     updateRectCoordinates(mContentRect, mTextView, mStart, mEnd);
                     mToolbar.setContentRect(mContentRect);
@@ -401,6 +439,7 @@ public final class ToolbarController {
 
         @Override
         public void onWindowFocusChanged(boolean hasFocus) {
+<<<<<<< HEAD   (c6a768 Merge "Merge empty history for sparse-5330139-L6850000027064)
             if (!hasFocus) {
                 mToolbar.dismiss();
             }
@@ -416,9 +455,13 @@ public final class ToolbarController {
         OnTextViewFocusChangeListener(TextView textView, FloatingToolbar toolbar) {
             mTextView = Preconditions.checkNotNull(textView);
             mToolbar = Preconditions.checkNotNull(toolbar);
+=======
+            maybeDismissToolbar(hasFocus, "onWindowFocusChanged");
+>>>>>>> BRANCH (085152 Merge "Merge cherrypicks of [922394] into sparse-5359448-L96)
         }
 
         @Override
+<<<<<<< HEAD   (c6a768 Merge "Merge empty history for sparse-5330139-L6850000027064)
         public void onGlobalFocusChanged(View v, View v1) {
             if (!mTextView.hasFocus()) {
                 mToolbar.dismiss();
@@ -433,14 +476,37 @@ public final class ToolbarController {
 
         OnTextViewDetachedListener(FloatingToolbar toolbar) {
             mToolbar = Preconditions.checkNotNull(toolbar);
+=======
+        public void onGlobalFocusChanged(View oldFocus, View newFocus) {
+            maybeDismissToolbar(true, "onGlobalFocusChanged");
+>>>>>>> BRANCH (085152 Merge "Merge cherrypicks of [922394] into sparse-5359448-L96)
         }
 
         @Override
+<<<<<<< HEAD   (c6a768 Merge "Merge empty history for sparse-5330139-L6850000027064)
         public void onWindowAttached() {}
+=======
+        public void onWindowAttached() {
+            maybeDismissToolbar(true, "onWindowAttached");
+        }
+>>>>>>> BRANCH (085152 Merge "Merge cherrypicks of [922394] into sparse-5359448-L96)
 
         @Override
         public void onWindowDetached() {
+<<<<<<< HEAD   (c6a768 Merge "Merge empty history for sparse-5330139-L6850000027064)
             mToolbar.dismiss();
+=======
+            maybeDismissToolbar(true, "onWindowDetached");
+        }
+
+        private boolean maybeDismissToolbar(boolean assumeWindowFocus, String caller) {
+            if (canShowToolbar(mTextView, assumeWindowFocus)) {
+                return false;
+            }
+            logv("TextViewListener." + caller + ": Dismissing toolbar.");
+            dismissImmediately(mToolbar);
+            return true;
+>>>>>>> BRANCH (085152 Merge "Merge cherrypicks of [922394] into sparse-5359448-L96)
         }
     }
 
@@ -475,6 +541,8 @@ public final class ToolbarController {
                 // custom callback is set.
                 if (mOriginalCallback == null
                         || mOriginalCallback.onCreateActionMode(actionMode, menu)) {
+                    logv("ActionModeCallback: Dismissing toolbar. hasCallback="
+                            + (mOriginalCallback != null));
                     dismissImmediately(mToolbar);
                     return true;
                 }
