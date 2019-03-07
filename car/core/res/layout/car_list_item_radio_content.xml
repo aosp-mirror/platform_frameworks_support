@@ -20,54 +20,73 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:ignore="MissingConstraints"
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:minHeight="@dimen/car_single_line_list_item_height"
     android:paddingEnd="@dimen/car_keyline_1"
-    android:minHeight="@dimen/car_single_line_list_item_height" >
+    tools:ignore="MissingConstraints">
 
-    <!-- Primary Action. -->
-    <ImageView
-        android:id="@+id/primary_icon"
+    <!-- Radio button. -->
+    <RadioButton
+        android:id="@+id/radio_button"
         android:layout_width="@dimen/car_primary_icon_size"
         android:layout_height="@dimen/car_primary_icon_size"
         android:layout_marginStart="@dimen/car_keyline_1"
-        android:tint="?attr/listItemPrimaryIconTint"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/radio_button_divider"
+        style="@style/CarListVerticalDivider"
+        android:background="?attr/listItemActionDividerColor"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/radio_button"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- Text. -->
     <TextView
         android:id="@+id/text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/car_padding_4"
-        android:singleLine="true"
+        android:layout_marginStart="@dimen/car_keyline_3"
+        android:layout_marginTop="@dimen/car_padding_2"
+        android:layout_marginEnd="@dimen/car_keyline_3"
         android:ellipsize="end"
-        android:textAppearance="?attr/listItemTitleTextAppearance"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:singleLine="true"
+        android:textAppearance="@style/TextAppearance.Car.Body1"
+        app:layout_constraintBottom_toTopOf="@+id/subtext"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/radio_button" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Radio button. -->
-    <View
-        android:id="@+id/radio_button_divider"
-        android:background="?attr/listItemActionDividerColor"
-        android:layout_marginEnd="@dimen/car_padding_1"
-        app:layout_constraintTop_toTopOf="parent"
+    <TextView
+        android:id="@+id/subtext"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/car_keyline_3"
+        android:layout_marginBottom="@dimen/car_padding_2"
+        android:layout_marginEnd="@dimen/car_keyline_3"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textAppearance="@style/TextAppearance.Car.Body3"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/radio_button"
-        style="@style/CarListVerticalDivider" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <RadioButton
-        android:id="@+id/radio_button"
+    <!-- Primary Icon. -->
+    <ImageView
+        android:id="@+id/primary_icon"
         android:layout_width="@dimen/car_primary_icon_size"
         android:layout_height="@dimen/car_primary_icon_size"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginEnd="@dimen/car_keyline_1"
+        android:layout_marginStart="@dimen/car_padding_4"
+        android:tint="?attr/listItemPrimaryIconTint"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
 
