@@ -69,28 +69,42 @@ public class RadioButtonListItemActivity extends Activity {
         item = new RadioButtonListItem(this);
         item.setPrimaryActionIcon(null, RadioButtonListItem.PRIMARY_ACTION_ICON_SIZE_SMALL);
         item.setTextStartMargin(R.dimen.car_keyline_3);
-        item.setText("Empty icon");
+        item.setTitle("Empty icon");
         items.add(item);
 
         item = new RadioButtonListItem(this);
         item.setPrimaryActionIcon(null, RadioButtonListItem.PRIMARY_ACTION_ICON_SIZE_SMALL);
-        item.setTextStartMargin(R.dimen.car_keyline_1);
-        item.setText("No icon");
+        item.setTextStartMargin(R.dimen.car_keyline_4);
+        item.setTitle("No icon");
         items.add(item);
 
         item = new RadioButtonListItem(this);
         item.setPrimaryActionIcon(
                 Icon.createWithResource(this, android.R.drawable.sym_def_app_icon),
                 RadioButtonListItem.PRIMARY_ACTION_ICON_SIZE_SMALL);
-        item.setText("Small icon - with action divider");
+        item.setTitle("Small icon - with action divider");
         item.setShowRadioButtonDivider(true);
         items.add(item);
 
         item = new RadioButtonListItem(this);
         item.setPrimaryActionIcon(
                 Icon.createWithResource(this, android.R.drawable.sym_def_app_icon),
+                RadioButtonListItem.PRIMARY_ACTION_ICON_SIZE_SMALL);
+        item.setTitle("Small icon - with body text");
+        item.setBody("Sample body text");
+        item.setShowRadioButtonDivider(true);
+        items.add(item);
+
+        item = new RadioButtonListItem(this);
+        item.setBody("Only body text - No title, no divider");
+        items.add(item);
+
+
+        item = new RadioButtonListItem(this);
+        item.setPrimaryActionIcon(
+                Icon.createWithResource(this, android.R.drawable.sym_def_app_icon),
                 RadioButtonListItem.PRIMARY_ACTION_ICON_SIZE_MEDIUM);
-        item.setText("Avatar sized icon - with action divider");
+        item.setTitle("Avatar sized icon - with action divider");
         item.setShowRadioButtonDivider(true);
         items.add(item);
 
@@ -98,7 +112,7 @@ public class RadioButtonListItemActivity extends Activity {
         item.setPrimaryActionIcon(
                 Icon.createWithResource(this, android.R.drawable.sym_def_app_icon),
                 RadioButtonListItem.PRIMARY_ACTION_ICON_SIZE_LARGE);
-        item.setText("Large icon");
+        item.setTitle("Large icon");
         items.add(item);
 
         return items;
