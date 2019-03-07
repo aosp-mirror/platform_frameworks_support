@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cc38d1a0_aefac875",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/BaseTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-03-07T15:20:29Z",
+      "side": 1,
+      "message": "Any reason for this one? We didn\u0027t need it before.",
+      "range": {
+        "startLine": 379,
+        "startChar": 8,
+        "endLine": 379,
+        "endChar": 14
+      },
+      "revId": "388acac4ed76f2a6a61d2633d9ce93e40a1a297f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d69b714_842c4e2b",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/DragWhileSmoothScrollTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-03-07T15:20:29Z",
+      "side": 1,
+      "message": "Is there value in adding RTL as a dimension here?",
+      "range": {
+        "startLine": 217,
+        "startChar": 12,
+        "endLine": 217,
+        "endChar": 25
+      },
+      "revId": "388acac4ed76f2a6a61d2633d9ce93e40a1a297f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
