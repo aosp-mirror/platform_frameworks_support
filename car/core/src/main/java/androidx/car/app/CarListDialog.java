@@ -28,6 +28,7 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -65,6 +66,13 @@ public class CarListDialog extends Dialog {
     private final CharSequence mTitle;
     private TextView mTitleView;
 
+    private CharSequence mPositiveButtonText;
+    private OnClickListener mPositiveButtonListener;
+    private CharSequence mNegativeButtonText;
+    private OnClickListener mNegativeButtonListener;
+    private CharSequence mNeutralButtonText;
+    private OnClickListener mNeutralButtonListener;
+
     private ListItemAdapter mAdapter;
     private final int mInitialPosition;
     @SuppressWarnings("WeakerAccess") /* synthetic access */
@@ -93,6 +101,13 @@ public class CarListDialog extends Dialog {
         mInitialPosition = builder.mInitialPosition;
         mOnClickListener = builder.mOnClickListener;
         mTitle = builder.mTitle;
+
+        mPositiveButtonText = builder.mPositiveButtonText;
+        mPositiveButtonListener = builder.mPositiveButtonListener;
+        mNegativeButtonText = builder.mNegativeButtonText;
+        mNegativeButtonListener = builder.mNegativeButtonListener;
+        mNeutralButtonText = builder.mNeutralButtonText;
+        mNeutralButtonListener = builder.mNeutralButtonListener;
 
         if (builder.mSections != null) {
             initializeWithSections(builder.mSections);
@@ -140,10 +155,54 @@ public class CarListDialog extends Dialog {
         initializeTitle();
         initializeList();
         initializeScrollbar();
+        initializeButtons();
 
         // Need to set this elevation listener last because the title and list need to be
         // initialized first.
         initializeTitleElevationListener();
+    }
+
+    private void initializeButtons() {
+        boolean buttonPresent = false;
+        Button positiveButtonView = getWindow().findViewById(R.id.positive_button);
+        if (!TextUtils.isEmpty(mPositiveButtonText)) {
+            buttonPresent = true;
+            positiveButtonView.setText(mPositiveButtonText);
+            positiveButtonView.setOnClickListener(v -> {
+                mPositiveButtonListener.onClick(this, DialogInterface.BUTTON_POSITIVE);
+                dismiss();
+            });
+        } else {
+            positiveButtonView.setVisibility(View.GONE);
+        }
+
+        Button neutralButtonView = getWindow().findViewById(R.id.neutral_button);
+        if (!TextUtils.isEmpty(mNeutralButtonText)) {
+            buttonPresent = true;
+            neutralButtonView.setText(mNeutralButtonText);
+            neutralButtonView.setOnClickListener(v -> {
+                mNeutralButtonListener.onClick(this, DialogInterface.BUTTON_NEUTRAL);
+                dismiss();
+            });
+        } else {
+            neutralButtonView.setVisibility(View.GONE);
+        }
+
+        Button negativeButtonView = getWindow().findViewById(R.id.negative_button);
+        if (!TextUtils.isEmpty(mNegativeButtonText)) {
+            buttonPresent = true;
+            negativeButtonView.setText(mNegativeButtonText);
+            negativeButtonView.setOnClickListener(v -> {
+                mNegativeButtonListener.onClick(this, DialogInterface.BUTTON_NEGATIVE);
+                dismiss();
+            });
+        } else {
+            negativeButtonView.setVisibility(View.GONE);
+        }
+
+        if (!buttonPresent) {
+            getWindow().findViewById(R.id.button_panel).setVisibility(View.GONE);
+        }
     }
 
     private void initializeTitle() {
@@ -176,6 +235,7 @@ public class CarListDialog extends Dialog {
 
         super.onStop();
     }
+
 
     private void initializeList() {
         mList = getWindow().findViewById(R.id.list);
@@ -427,6 +487,13 @@ public class CarListDialog extends Dialog {
         DialogSubSection[] mSections;
         DialogInterface.OnClickListener mOnClickListener;
 
+        CharSequence mPositiveButtonText;
+        OnClickListener mPositiveButtonListener;
+        CharSequence mNegativeButtonText;
+        OnClickListener mNegativeButtonListener;
+        CharSequence mNeutralButtonText;
+        OnClickListener mNeutralButtonListener;
+
         private boolean mCancelable = true;
         private OnCancelListener mOnCancelListener;
         private OnDismissListener mOnDismissListener;
@@ -554,6 +621,79 @@ public class CarListDialog extends Dialog {
                 throw new IllegalArgumentException("Initial position cannot be negative.");
             }
             mInitialPosition = initialPosition;
+            return this;
+        }
+
+        /**
+         * Set a listener to be invoked when the positive button of the dialog is pressed.
+         * @param textId The resource id of the text to display in the positive button
+         * @param listener The {@link DialogInterface.OnClickListener} to use.
+         *
+         * @return This Builder object to allow for chaining of calls to set methods
+         */
+        public Builder setPositiveButton(@StringRes int textId, final OnClickListener listener) {
+            mPositiveButtonText = mContext.getText(textId);
+            mPositiveButtonListener = listener;
+            return this;
+        }
+        /**
+         * Set a listener to be invoked when the positive button of the dialog is pressed.
+         * @param text The text to display in the positive button
+         * @param listener The {@link DialogInterface.OnClickListener} to use.
+         *
+         * @return This Builder object to allow for chaining of calls to set methods
+         */
+        public Builder setPositiveButton(CharSequence text, final OnClickListener listener) {
+            mPositiveButtonText = text;
+            mPositiveButtonListener = listener;
+            return this;
+        }
+        /**
+         * Set a listener to be invoked when the negative button of the dialog is pressed.
+         * @param textId The resource id of the text to display in the negative button
+         * @param listener The {@link DialogInterface.OnClickListener} to use.
+         *
+         * @return This Builder object to allow for chaining of calls to set methods
+         */
+        public Builder setNegativeButton(@StringRes int textId, final OnClickListener listener) {
+            mNegativeButtonText = mContext.getText(textId);
+            mNegativeButtonListener = listener;
+            return this;
+        }
+        /**
+         * Set a listener to be invoked when the negative button of the dialog is pressed.
+         * @param text The text to display in the negative button
+         * @param listener The {@link DialogInterface.OnClickListener} to use.
+         *
+         * @return This Builder object to allow for chaining of calls to set methods
+         */
+        public Builder setNegativeButton(CharSequence text, final OnClickListener listener) {
+            mNegativeButtonText = text;
+            mNegativeButtonListener = listener;
+            return this;
+        }
+        /**
+         * Set a listener to be invoked when the neutral button of the dialog is pressed.
+         * @param textId The resource id of the text to display in the neutral button
+         * @param listener The {@link DialogInterface.OnClickListener} to use.
+         *
+         * @return This Builder object to allow for chaining of calls to set methods
+         */
+        public Builder setNeutralButton(@StringRes int textId, final OnClickListener listener) {
+            mNeutralButtonText = mContext.getText(textId);
+            mNeutralButtonListener = listener;
+            return this;
+        }
+        /**
+         * Set a listener to be invoked when the neutral button of the dialog is pressed.
+         * @param text The text to display in the neutral button
+         * @param listener The {@link DialogInterface.OnClickListener} to use.
+         *
+         * @return This Builder object to allow for chaining of calls to set methods
+         */
+        public Builder setNeutralButton(CharSequence text, final OnClickListener listener) {
+            mNeutralButtonText = text;
+            mNeutralButtonListener = listener;
             return this;
         }
 

@@ -18,18 +18,18 @@ limitations under the License.
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/container"
-    android:background="@color/car_list_dialog_scrim"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:background="@color/car_list_dialog_scrim">
 
     <!-- Note: the width is 0dp because ColumnCardView will automatically set a width based
          on the number of columns it should take up. See ColumnCardView for more details. -->
     <androidx.car.widget.ColumnCardView
-        android:layout_gravity="center"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/car_padding_4"
+        android:layout_gravity="center"
         android:layout_marginBottom="@dimen/car_padding_4"
+        android:layout_marginTop="@dimen/car_padding_4"
         android:elevation="@dimen/car_dialog_elevation"
         app:cardBackgroundColor="?attr/dialogBackgroundColor"
         app:cardCornerRadius="@dimen/car_radius_3">
@@ -42,14 +42,14 @@ limitations under the License.
             <!-- Note: the title needs a background in order for elevation to show up. -->
             <TextView
                 android:id="@+id/title"
-                android:background="?attr/dialogBackgroundColor"
+                style="?attr/dialogTitleStyle"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/car_dialog_header_height"
-                android:paddingStart="@dimen/car_keyline_1"
-                android:paddingEnd="@dimen/car_keyline_1"
+                android:background="?attr/dialogBackgroundColor"
                 android:gravity="center_vertical|start"
-                android:visibility="gone"
-                style="?attr/dialogTitleStyle" />
+                android:paddingEnd="@dimen/car_keyline_1"
+                android:paddingStart="@dimen/car_keyline_1"
+                android:visibility="gone" />
 
             <!-- Hide the scrollbar for this PagedListView because it will be implemented by
                  @id/scrollbar. -->
@@ -58,11 +58,51 @@ limitations under the License.
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:theme="?attr/dialogListTheme"
-                app:gutter="none"
-                app:dividerStartMargin="@dimen/car_keyline_1"
                 app:dividerEndMargin="@dimen/car_keyline_1"
-                app:showPagedListViewDivider="true"
-                app:scrollBarEnabled="false" />
+                app:dividerStartMargin="@dimen/car_keyline_1"
+                app:gutter="none"
+                app:scrollBarEnabled="false"
+                app:showPagedListViewDivider="true" />
+
+            <LinearLayout
+                android:id="@+id/button_panel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/negative_button"
+                    style="?attr/dialogButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/car_padding_2"
+                    android:layout_marginEnd="@dimen/car_padding_2"
+                    android:layout_marginStart="@dimen/car_padding_2"
+                    android:layout_marginTop="@dimen/car_padding_2" />
+
+                <Button
+                    android:id="@+id/neutral_button"
+                    style="?attr/dialogButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/car_padding_2"
+                    android:layout_marginEnd="@dimen/car_padding_2"
+                    android:layout_marginStart="@dimen/car_padding_2"
+                    android:layout_marginTop="@dimen/car_padding_2"
+                    android:textAppearance="@style/TextAppearance.Car.Body3" />
+
+                <Button
+                    android:id="@+id/positive_button"
+                    style="?attr/dialogButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/car_padding_2"
+                    android:layout_marginEnd="@dimen/car_padding_2"
+                    android:layout_marginStart="@dimen/car_padding_2"
+                    android:layout_marginTop="@dimen/car_padding_2"
+                    android:textAppearance="@style/TextAppearance.Car.Body3" />
+            </LinearLayout>
+
         </LinearLayout>
     </androidx.car.widget.ColumnCardView>
 
@@ -70,12 +110,12 @@ limitations under the License.
          the chance of clicks on the buttons accidentally dismissing the dialog. -->
     <androidx.car.widget.PagedScrollBarView
         android:id="@+id/scrollbar"
+        style="@style/Widget.Car.Scrollbar.Light"
         android:layout_width="@dimen/car_margin"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/car_padding_4"
-        android:layout_marginBottom="@dimen/car_padding_4"
         android:layout_gravity="start|top"
+        android:layout_marginBottom="@dimen/car_padding_4"
+        android:layout_marginTop="@dimen/car_padding_4"
         android:clickable="true"
-        android:visibility="invisible"
-        style="@style/Widget.Car.Scrollbar.Light" />
+        android:visibility="invisible" />
 </FrameLayout>
