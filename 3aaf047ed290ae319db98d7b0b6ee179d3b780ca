@@ -81,6 +81,24 @@
       "revId": "3aaf047ed290ae319db98d7b0b6ee179d3b780ca",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c575c53_cc52035a",
+        "filename": "dynamic-animation/ktx/src/main/java/androidx/dynamicanimation/animation/DynamicAnimation.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-03-07T23:48:42Z",
+      "side": 1,
+      "message": "We still can define an interface and the first implementation with just a field in java and the one with lambda in Kotlin. Wdyt?",
+      "parentUuid": "55755584_b47625ce",
+      "revId": "3aaf047ed290ae319db98d7b0b6ee179d3b780ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
