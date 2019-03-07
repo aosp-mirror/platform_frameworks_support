@@ -16,6 +16,47 @@
       "revId": "6025c758599f779181dc4fb2f217568e96c307ea",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "abe9bede_b8bc5871",
+        "filename": "benchmark/api/1.0.0-alpha01.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-03-07T21:05:56Z",
+      "side": 1,
+      "message": "Yeah, it seems that is what they look like (e.g. navigation/common/ktx/api/current.txt has some)",
+      "parentUuid": "653d1628_035cca6b",
+      "revId": "6025c758599f779181dc4fb2f217568e96c307ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae8dec11_3f196ed2",
+        "filename": "benchmark/api/current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-03-07T21:05:56Z",
+      "side": 1,
+      "message": "Why does it think that T is not annotated @Nullable or @NonNull?",
+      "range": {
+        "startLine": 13,
+        "startChar": 29,
+        "endLine": 13,
+        "endChar": 31
+      },
+      "revId": "6025c758599f779181dc4fb2f217568e96c307ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
