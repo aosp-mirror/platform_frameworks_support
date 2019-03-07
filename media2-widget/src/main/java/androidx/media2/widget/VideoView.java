@@ -1140,7 +1140,6 @@ public class VideoView extends SelectiveLayout {
             }
         }
 
-        @SuppressLint("RestrictedApi")
         MediaMetadata extractMetadata(MediaItem mediaItem, boolean isMusic) {
             MediaMetadataRetriever retriever = null;
             String path = "";

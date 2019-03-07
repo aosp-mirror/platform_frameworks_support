@@ -110,7 +110,6 @@ public class TransitionSet extends Transition {
     public TransitionSet() {
     }
 
-    @SuppressLint("RestrictedApi") // remove once core lib would be released with the new
     // LIBRARY_GROUP_PREFIX restriction. tracking in b/127286008
     public TransitionSet(Context context, AttributeSet attrs) {
         super(context, attrs);

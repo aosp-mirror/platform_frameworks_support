@@ -116,7 +116,6 @@ public class InvalidationTracker {
 
     // should be accessed with synchronization only.
     @VisibleForTesting
-    @SuppressLint("RestrictedApi")
     final SafeIterableMap<Observer, ObserverWrapper> mObserverMap = new SafeIterableMap<>();
 
     private MultiInstanceInvalidationClient mMultiInstanceInvalidationClient;
@@ -259,7 +258,6 @@ public class InvalidationTracker {
      *
      * @param observer The observer which listens the database for changes.
      */
-    @SuppressLint("RestrictedApi")
     @WorkerThread
     public void addObserver(@NonNull Observer observer) {
         final String[] tableNames = resolveViews(observer.mTables);
@@ -332,7 +330,6 @@ public class InvalidationTracker {
      *
      * @param observer The observer to remove.
      */
-    @SuppressLint("RestrictedApi")
     @SuppressWarnings("WeakerAccess")
     @WorkerThread
     public void removeObserver(@NonNull final Observer observer) {

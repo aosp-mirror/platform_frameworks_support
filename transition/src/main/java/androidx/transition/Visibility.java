@@ -100,7 +100,6 @@ public abstract class Visibility extends Transition {
     public Visibility() {
     }
 
-    @SuppressLint("RestrictedApi") // remove once core lib would be released with the new
     // LIBRARY_GROUP_PREFIX restriction. tracking in b/127286008
     public Visibility(Context context, AttributeSet attrs) {
         super(context, attrs);

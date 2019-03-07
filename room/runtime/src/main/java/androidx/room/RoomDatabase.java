@@ -729,7 +729,6 @@ public abstract class RoomDatabase {
          *
          * @return A new database instance.
          */
-        @SuppressLint("RestrictedApi")
         @NonNull
         public T build() {
             //noinspection ConstantConditions

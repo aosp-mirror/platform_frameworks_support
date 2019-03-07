@@ -77,7 +77,6 @@ import java.util.Arrays;
  * @hide
  */
 @RestrictTo(LIBRARY_GROUP_PREFIX)
-@SuppressLint("RestrictedAPI") // Temporary until we have correct restriction scopes for 1.0
 class StateListDrawable extends DrawableContainer {
     private static final String TAG = "StateListDrawable";
     private static final boolean DEBUG = false;
