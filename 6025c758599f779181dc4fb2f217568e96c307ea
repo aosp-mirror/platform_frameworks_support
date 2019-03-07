@@ -57,6 +57,40 @@
       "revId": "6025c758599f779181dc4fb2f217568e96c307ea",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ecec0a1_bbd6a288",
+        "filename": "benchmark/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-03-07T21:12:00Z",
+      "side": 1,
+      "message": "Did you intend to switch this to true? I guess it makes sense (?) Just wondering if it was intentional.",
+      "revId": "6025c758599f779181dc4fb2f217568e96c307ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76ac60ad_1853ce74",
+        "filename": "benchmark/src/main/java/androidx/benchmark/BenchmarkRule.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-03-07T21:12:00Z",
+      "side": 1,
+      "message": "A more succinct way to write this might be:\n\n invokeMethodName.substring(index, invokeMethodName.length - 1).any { Character.isDigit(it) }\n\n...but I\u0027m not sure if that might cause extra allocations we\u0027re uncomfortable with.",
+      "revId": "6025c758599f779181dc4fb2f217568e96c307ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
