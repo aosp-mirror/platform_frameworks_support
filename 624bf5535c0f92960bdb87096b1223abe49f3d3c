@@ -70,6 +70,30 @@
       "revId": "624bf5535c0f92960bdb87096b1223abe49f3d3c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "44f86e5b_e17aee49",
+        "filename": "car/core/src/main/java/androidx/car/util/CarUxRestrictionsHelper.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-03-07T02:03:43Z",
+      "side": 1,
+      "message": "Should be resolved in patchset 5.",
+      "parentUuid": "b3c4a4a6_32d933f1",
+      "range": {
+        "startLine": 111,
+        "startChar": 32,
+        "endLine": 111,
+        "endChar": 36
+      },
+      "revId": "624bf5535c0f92960bdb87096b1223abe49f3d3c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
