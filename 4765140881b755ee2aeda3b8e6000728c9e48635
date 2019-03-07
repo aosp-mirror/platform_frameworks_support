@@ -46,6 +46,30 @@
       "revId": "4765140881b755ee2aeda3b8e6000728c9e48635",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9dd73a8_da7d7ced",
+        "filename": "media/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2019-03-07T02:09:33Z",
+      "side": 1,
+      "message": "Q) 1.0.X core depends on the older annotation where LIBRARY_GROUP_PREFIX wasn\u0027t added. Should we stop using LIBRARY_GROUP_PREFIX here and other places?",
+      "parentUuid": "90af889e_aa98758c",
+      "range": {
+        "startLine": 10,
+        "startChar": 18,
+        "endLine": 10,
+        "endChar": 22
+      },
+      "revId": "4765140881b755ee2aeda3b8e6000728c9e48635",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
