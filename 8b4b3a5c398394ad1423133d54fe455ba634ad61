@@ -22,6 +22,30 @@
       "revId": "8b4b3a5c398394ad1423133d54fe455ba634ad61",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e41d94d9_baf73735",
+        "filename": "work/workmanager-testing/src/main/java/androidx/work/testing/WorkManagerTestInitHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1086529
+      },
+      "writtenOn": "2019-03-08T20:05:28Z",
+      "side": 1,
+      "message": "That new constructor still needs the database though. We\u0027ll either need to duplicate the code, or somehow change WorkManagerImpl as well.\n\nThis CL, though, can be safely applied to workmanager-testing 1.0.0-rc03 (or probably all the way back to beta01) in isolated way, without any modification to workmanager-runtime library.\n\nIdeally, we\u0027d need one extra constructor like:\n    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)\n    public WorkManagerImpl(\n            @NonNull Context context,\n            @NonNull Configuration configuration,\n            @NonNull TaskExecutor workTaskExecutor,\n            @NonNull List\u003cScheduler\u003e schedulers,\n            boolean useTestDatabase)",
+      "parentUuid": "6daa5334_04ba41b7",
+      "range": {
+        "startLine": 57,
+        "startChar": 48,
+        "endLine": 57,
+        "endChar": 69
+      },
+      "revId": "8b4b3a5c398394ad1423133d54fe455ba634ad61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
