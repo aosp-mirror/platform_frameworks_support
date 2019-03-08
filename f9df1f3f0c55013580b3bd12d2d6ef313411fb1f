@@ -1,0 +1,175 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e46007c4_e8b6b1b5",
+        "filename": "benchmark/src/main/java/androidx/benchmark/WarningState.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-03-08T17:36:19Z",
+      "side": 1,
+      "message": "extract this to a function isCpuLocked()",
+      "revId": "f9df1f3f0c55013580b3bd12d2d6ef313411fb1f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9deca821_b5e783ee",
+        "filename": "benchmark/src/main/java/androidx/benchmark/WarningState.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-03-08T17:36:19Z",
+      "side": 1,
+      "message": "we generally avoid underscores, so \u0027cpuDir\u0027\n\nSee the style guide here: https://source.android.com/setup/contribute/code-style",
+      "range": {
+        "startLine": 79,
+        "startChar": 23,
+        "endLine": 79,
+        "endChar": 30
+      },
+      "revId": "f9df1f3f0c55013580b3bd12d2d6ef313411fb1f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cdfb3055_782ac0ab",
+        "filename": "benchmark/src/main/java/androidx/benchmark/WarningState.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-03-08T17:36:19Z",
+      "side": 1,
+      "message": "coreDirs",
+      "range": {
+        "startLine": 89,
+        "startChar": 35,
+        "endLine": 89,
+        "endChar": 44
+      },
+      "revId": "f9df1f3f0c55013580b3bd12d2d6ef313411fb1f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7936ec8e_afc1eeb9",
+        "filename": "benchmark/src/main/java/androidx/benchmark/WarningState.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-03-08T17:36:19Z",
+      "side": 1,
+      "message": "can you catch specific exceptions that happen here?",
+      "revId": "f9df1f3f0c55013580b3bd12d2d6ef313411fb1f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e06dbe55_5e34b12a",
+        "filename": "benchmark/src/main/java/androidx/benchmark/WarningState.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-03-08T17:36:19Z",
+      "side": 1,
+      "message": "In what non-emulator conditions will this fail?\n\nCurious for user/userdebug/eng build\n\nprint the exception with the three parameter Log.d(), so it\u0027s not entirely silent",
+      "revId": "f9df1f3f0c55013580b3bd12d2d6ef313411fb1f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a6fd738_58ea2bb0",
+        "filename": "benchmark/src/main/java/androidx/benchmark/WarningState.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-03-08T17:36:19Z",
+      "side": 1,
+      "message": "to generally avoid the emulator problem, put this check in an else {} after the emulator check",
+      "range": {
+        "startLine": 100,
+        "startChar": 15,
+        "endLine": 100,
+        "endChar": 23
+      },
+      "revId": "f9df1f3f0c55013580b3bd12d2d6ef313411fb1f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b61c12eb_a5cd07b2",
+        "filename": "benchmark/src/main/java/androidx/benchmark/WarningState.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-03-08T17:36:19Z",
+      "side": 1,
+      "message": "What do you think about avoiding the warning prefix for this warning specifically if they\u0027re on an unrooted device, since they can\u0027t do much about it.\n\nCan we detect that easily?\n\nA lot of devs won\u0027t have access to physical, rooted device, and I\u0027d like to avoid \u0027tainting\u0027 the output like we do when they have a fixable problem, like debuggable\u003dtrue.",
+      "revId": "f9df1f3f0c55013580b3bd12d2d6ef313411fb1f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0191f6f8_60a9f0e6",
+        "filename": "benchmark/src/main/java/androidx/benchmark/WarningState.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-03-08T17:36:19Z",
+      "side": 1,
+      "message": "WARNING: unstable CPU clocks\\n",
+      "revId": "f9df1f3f0c55013580b3bd12d2d6ef313411fb1f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ef60ac1_597f9c29",
+        "filename": "benchmark/src/main/java/androidx/benchmark/WarningState.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-03-08T17:36:19Z",
+      "side": 1,
+      "message": "I\u0027ll comment about the text itself once we figure out if we can print this for rooted-devices-only",
+      "revId": "f9df1f3f0c55013580b3bd12d2d6ef313411fb1f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
