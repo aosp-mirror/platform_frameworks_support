@@ -758,6 +758,11 @@ package androidx.core.app {
     method public void onSharedElementsReady();
   }
 
+  public interface Subscription {
+    method public void cancel();
+    method public boolean isCancelled();
+  }
+
   public final class TaskStackBuilder implements java.lang.Iterable<android.content.Intent> {
     method public androidx.core.app.TaskStackBuilder addNextIntent(android.content.Intent);
     method public androidx.core.app.TaskStackBuilder addNextIntentWithParentStack(android.content.Intent);
