@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "407441dc_86ba2bce",
+        "filename": "dynamic-animation/ktx/src/main/java/androidx/dynamicanimation/animation/DynamicAnimation.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-03-08T06:49:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ab0a35c3_cc909522",
+      "range": {
+        "startLine": 26,
+        "startChar": 20,
+        "endLine": 26,
+        "endChar": 28
+      },
+      "revId": "3aaf047ed290ae319db98d7b0b6ee179d3b780ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "29195836_0427d834",
         "filename": "dynamic-animation/ktx/src/main/java/androidx/dynamicanimation/animation/DynamicAnimation.kt",
         "patchSetId": 2
@@ -96,6 +120,24 @@
       "side": 1,
       "message": "We still can define an interface and the first implementation with just a field in java and the one with lambda in Kotlin. Wdyt?",
       "parentUuid": "55755584_b47625ce",
+      "revId": "3aaf047ed290ae319db98d7b0b6ee179d3b780ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f1e82f5_709ae2ef",
+        "filename": "dynamic-animation/ktx/src/main/java/androidx/dynamicanimation/animation/DynamicAnimation.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-03-08T06:49:30Z",
+      "side": 1,
+      "message": "Please correct me if I misunderstood you, you are suggesting:\nCreate an interface in Java, and have FloatValueHolder implement it. In kotlin, create another impl of that interface that uses setter and getter directly.\n\nThat is a viable option. However, it involves either changing all the public APIs (in 3 classes) that currently use FloatValueHolder to that new interface, or adding a bunch of new APIs to support that interface. It seems like too much API change to avoid this bit of internal implementation detail messiness, especially that we don\u0027t expose this intermediate FloatValueHolder to devs. Given this tradeoff, I\u0027m leaning towards not adding new Java APIs. What do you think?",
+      "parentUuid": "4c575c53_cc52035a",
       "revId": "3aaf047ed290ae319db98d7b0b6ee179d3b780ca",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
