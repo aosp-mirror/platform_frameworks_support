@@ -141,6 +141,24 @@
       "revId": "3aaf047ed290ae319db98d7b0b6ee179d3b780ca",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38d196a2_45c96942",
+        "filename": "dynamic-animation/ktx/src/main/java/androidx/dynamicanimation/animation/DynamicAnimation.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-03-08T11:26:15Z",
+      "side": 1,
+      "message": "Sorry if I asked for something way too complex for this CL. I didn\u0027t mean to be too bothersome. I +2ed this change and don\u0027t insist on this.\n\nLet me describe what I proposed, I just wanted to improve the API a bit.\nIt is a public API change for sure. But it will not require library users to change something in their code. \n1) We can create a new interface\ninterface FloatPropertyHolder {\n    public void setValue(float value);\n    public float getValue();\n}\n2) We add `final` back for FloatValueHolder and mark this class as `implements FloatPropertyHolder`.\n3) We change SpringAnimation to accept FloatPropertyHolder instead of FloatValueHolder as a constructor parameter. \nLibrary user\u0027s code still works as they are providing FloatValueHolder into a constructor and it implements FloatPropertyHolder.\nIt potentially allows developers to create their custom proxy properties:\nclass ViewAlphaProperty(private val view: View) : FloatPropertyHolder {\n    override fun setValue(value: Float) \u003d view.setAlpha(value)\n    override fun getValue() \u003d view.getAlpha()\n}\nThey can write the same in java, it is just shorter in Kotlin to write an example.\nThanks.",
+      "parentUuid": "8f1e82f5_709ae2ef",
+      "revId": "3aaf047ed290ae319db98d7b0b6ee179d3b780ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
