@@ -23,6 +23,12 @@ import android.util.Log;
 import androidx.annotation.Nullable;
 import androidx.test.platform.app.InstrumentationRegistry;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FilenameFilter;
+import java.io.IOException;
+
 class WarningState {
     private static final String TAG = "Benchmark";
 
@@ -43,14 +49,7 @@ class WarningState {
                     + "    in ways that mean benchmark improvements might not carry over to a\n"
                     + "    real user's experience (or even regress release performance).\n";
         }
-        if (Build.FINGERPRINT.startsWith("generic")
-                || Build.FINGERPRINT.startsWith("unknown")
-                || Build.MODEL.contains("google_sdk")
-                || Build.MODEL.contains("Emulator")
-                || Build.MODEL.contains("Android SDK built for x86")
-                || Build.MANUFACTURER.contains("Genymotion")
-                || (Build.BRAND.startsWith("generic") && Build.DEVICE.startsWith("generic"))
-                || "google_sdk".equals(Build.PRODUCT)) {
+        if (isEmulator()) {
             warningPrefix += "EMULATOR_";
             warningString += "\nWARNING: Running on Emulator\n"
                     + "    Benchmark is running on an emulator, which is not representative of\n"
@@ -66,6 +65,26 @@ class WarningState {
                     + "    changes quickly. For this reason they should not be used for\n"
                     + "    benchmarking. Use a '-user' or '-userdebug' system image.\n";
         }
+
+        try {
+            if (isDeviceRooted() && !isCpuLocked()) {
+                warningPrefix += "DEVICE_";
+                warningString += "\nWARNING: unstable CPU clocks\n"
+                        + "    Benchmark is running on device with a CPU that has at least one\n"
+                        + "    core configured with a variable clock speed. This can lead to\n"
+                        + "    inconsistent results due to CPU throttling, which depends on \n"
+                        + "    external factors. To lock the CPU clock speed, set the values of\n"
+                        + "    scaling_max_freq, scaling_min_freq, and scaling_setspeed to a\n"
+                        + "    constant value. Typically, these files are located in\n"
+                        + "    /sys/devices/system/cpu/cpu*/cpufreq/. If you have followed these\n"
+                        + "    steps and are still seeing this warning, it is possible you have\n"
+                        + "    locked the device's clock speed to the minimum possible value.\n";
+            }
+        } catch (IOException e) {
+            // Failed to detect whether the device is rooted.
+            Log.d(TAG, "Error while reading device state", e);
+        }
+
         WARNING_PREFIX = warningPrefix;
 
         if (!warningString.isEmpty()) {
@@ -82,5 +101,81 @@ class WarningState {
         String ret = sWarningString;
         sWarningString = null;
         return ret;
+    }
+
+    private static boolean isEmulator() {
+        return Build.FINGERPRINT.startsWith("generic")
+                || Build.FINGERPRINT.startsWith("unknown")
+                || Build.MODEL.contains("google_sdk")
+                || Build.MODEL.contains("Emulator")
+                || Build.MODEL.contains("Android SDK built for x86")
+                || Build.MANUFACTURER.contains("Genymotion")
+                || (Build.BRAND.startsWith("generic") && Build.DEVICE.startsWith("generic"))
+                || "google_sdk".equals(Build.PRODUCT);
+    }
+
+    private static boolean isDeviceRooted() throws IOException {
+        // Check for existence of any bins used to gain root access.
+        final String[] suBinPaths = {"/system/app/Superuser.apk", "/sbin/su", "/system/bin/su",
+                "/system/xbin/su", "/data/local/xbin/su", "/data/local/bin/su",
+                "/system/sd/xbin/su", "/system/bin/failsafe/su", "/data/local/su", "/su/bin/su"};
+
+        for (String path : suBinPaths) {
+            if (new File(path).exists()) {
+                return true;
+            }
+        }
+
+        // Check for unofficially signed builds of Android.
+        final String buildTags = android.os.Build.TAGS;
+        return buildTags != null && buildTags.contains("test-keys");
+    }
+
+    private static boolean isCpuLocked() {
+        // If any core is detected to have a variable clock speed, this flag is set to false.
+        boolean didLockCpuClock = true;
+        final File cpu_dir = new File("/sys/devices/system/cpu");
+        final String[] coreDirs = cpu_dir.list(new FilenameFilter() {
+            @Override
+            public boolean accept(File current, String name) {
+                return new File(current, name).isDirectory() && name.matches("^cpu[0-9]+");
+            }
+        });
+
+        // Check cpu clock speed locking by testing against each core's minimum possible clock
+        // speed.
+        for (final String coreDir : coreDirs) {
+            try {
+                final int cpuMinFreq = Integer.parseInt(readFirstLineFromFile(
+                        "/sys/devices/system/cpu/" + coreDir + "/cpufreq/cpuinfo_min_freq"));
+                final int scaleCurFreq = Integer.parseInt(readFirstLineFromFile(
+                        "/sys/devices/system/cpu/" + coreDir + "/cpufreq/scaling_cur_freq"));
+                final boolean coreMightBeLocked = scaleCurFreq != cpuMinFreq;
+                didLockCpuClock = didLockCpuClock && coreMightBeLocked;
+            } catch (NumberFormatException | IOException e) {
+                // Failed to read the cpu clock speed! This can happen in a number of cases where
+                // the required files are either missing due to running on an emulator or when the
+                // files have been tampered with / not generated by the OS for some cores.
+                if (!isEmulator()) {
+                    Log.d(TAG, "Error while reading cpu state", e);
+                }
+            }
+        }
+
+        return didLockCpuClock;
+    }
+
+    /**
+     * Read the first line of a file as a String.
+     *
+     * Inherently deprecated helper which can be replaced with Files from java.nio APIs once this
+     * library's min_sdk is above 26.
+     */
+    private static String readFirstLineFromFile(String path) throws IOException {
+        final BufferedReader reader = new BufferedReader(new FileReader(path));
+        final String line = reader.readLine();
+        reader.close();
+
+        return line;
     }
 }
