@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6daa5334_04ba41b7",
+        "filename": "work/workmanager-testing/src/main/java/androidx/work/testing/WorkManagerTestInitHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2019-03-08T19:53:30Z",
+      "side": 1,
+      "message": "The initialization here was awkward because of the way the old WorkManagerImpl\u0027s constructor used to work. I was actually planning to refactor this to use this (https://android.googlesource.com/platform/frameworks/support/+/androidx-master-dev/work/workmanager/src/main/java/androidx/work/impl/WorkManagerImpl.java#219) new constructor. That way we can just specify all the parameters we need and we no longer need to create a lot of these helpers.\n\nI think TestWorkMangerImpl does not need to be abstract as long as it can supply all the parameters we need for that constructor. \n\nI was thinking the new TestWorkManagerImpl could be something like:\n\nclass TestWorkManagerImpl extends WorkManagerImpl {\n   \n   TestWorkManagerImpl(Context context, Configuration configuration) {\n     this(context, configuration, Collections.singletonList(new TestScheduler());\n   }\n   \n   TestWorkManagerImpl(Context context, Configuration configuration, List\u003cScheduler\u003e schedulers) {\n      // create a test task executor like before and supply it to the newly linked constructor\n      // above.\n   }\n}",
+      "range": {
+        "startLine": 57,
+        "startChar": 48,
+        "endLine": 57,
+        "endChar": 69
+      },
+      "revId": "8b4b3a5c398394ad1423133d54fe455ba634ad61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
