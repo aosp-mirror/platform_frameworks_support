@@ -54,31 +54,8 @@ public final class WorkManagerTestInitHelper {
     public static void initializeTestWorkManager(
             @NonNull Context context,
             @NonNull Configuration configuration) {
-
-        final TestScheduler scheduler = new TestScheduler();
-        WorkManagerImpl workManager = new TestWorkManagerImpl(context, configuration) {
-
-            @Override
-            public @NonNull List<Scheduler> createSchedulers(Context context) {
-                return Collections.singletonList((Scheduler) scheduler);
-            }
-
-            @Override
-            public void setAllConstraintsMet(@NonNull UUID workSpecId) {
-                scheduler.setAllConstraintsMet(workSpecId);
-            }
-
-            @Override
-            public void setInitialDelayMet(@NonNull UUID workSpecId) {
-                scheduler.setInitialDelayMet(workSpecId);
-            }
-
-            @Override
-            public void setPeriodDelayMet(@NonNull UUID workSpecId) {
-                scheduler.setPeriodDelayMet(workSpecId);
-            }
-        };
-        workManager.getProcessor().addExecutionListener(scheduler);
+        HelperWorkManagerImpl workManager = new HelperWorkManagerImpl(context, configuration);
+        workManager.getProcessor().addExecutionListener(workManager.mScheduler);
         WorkManagerImpl.setDelegate(workManager);
     }
 
@@ -92,6 +69,37 @@ public final class WorkManagerTestInitHelper {
             return null;
         } else {
             return ((TestWorkManagerImpl) WorkManagerImpl.getInstance());
+        }
+    }
+
+    private static class HelperWorkManagerImpl extends TestWorkManagerImpl {
+        TestScheduler mScheduler;
+
+        HelperWorkManagerImpl(
+                @NonNull Context context,
+                @NonNull Configuration configuration) {
+            super(context, configuration);
+        }
+
+        @Override
+        public @NonNull List<Scheduler> createSchedulers(Context context) {
+            mScheduler = new TestScheduler();
+            return Collections.singletonList((Scheduler) mScheduler);
+        }
+
+        @Override
+        public void setAllConstraintsMet(@NonNull UUID workSpecId) {
+            mScheduler.setAllConstraintsMet(workSpecId);
+        }
+
+        @Override
+        public void setInitialDelayMet(@NonNull UUID workSpecId) {
+            mScheduler.setInitialDelayMet(workSpecId);
+        }
+
+        @Override
+        public void setPeriodDelayMet(@NonNull UUID workSpecId) {
+            mScheduler.setPeriodDelayMet(workSpecId);
         }
     }
 
