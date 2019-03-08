@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "226b85c8_5105b43b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-03-08T18:51:33Z",
+      "side": 1,
+      "message": "Could you point me to where this doc is? I can\u0027t find it in your diff.",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 7
+      },
+      "revId": "919b2d8cefaa56acab01fde4a77ae4dfc0fe8e77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
