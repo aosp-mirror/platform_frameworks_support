@@ -159,6 +159,24 @@
       "revId": "3aaf047ed290ae319db98d7b0b6ee179d3b780ca",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "642ae92d_9988b056",
+        "filename": "dynamic-animation/ktx/src/main/java/androidx/dynamicanimation/animation/DynamicAnimation.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-03-08T19:40:30Z",
+      "side": 1,
+      "message": "Yes, that\u0027s how I understood it. That would require DynamicAnimation, SpringAnimation, and FlingAnimation to all add/change public API to support the new FloatPropertyHolder, which is a much larger API surface change than I\u0027d intended. My concern is mostly around the public API churns, much less about implementation complexity. Let\u0027s keep the rest of the public API untouched for now. If there\u0027s a convincing use case for changes outline above, we can do it then.",
+      "parentUuid": "38d196a2_45c96942",
+      "revId": "3aaf047ed290ae319db98d7b0b6ee179d3b780ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
