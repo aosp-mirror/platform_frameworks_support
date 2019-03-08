@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d62cd092_418454e0",
+        "filename": "exifinterface/src/main/java/androidx/exifinterface/media/ExifInterface.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 2960,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-03-08T06:53:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5b855013_013b9146",
+      "range": {
+        "startLine": 2960,
+        "startChar": 8,
+        "endLine": 2960,
+        "endChar": 59
+      },
+      "revId": "bab7ecd1c25195ac0cf483822437a66607036cea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ddc284ce_efc1e997",
         "filename": "exifinterface/src/main/java/androidx/exifinterface/media/ExifInterface.java",
         "patchSetId": 6
@@ -45,6 +69,30 @@
       "revId": "bab7ecd1c25195ac0cf483822437a66607036cea",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bde26883_2aac2c4c",
+        "filename": "exifinterface/src/main/java/androidx/exifinterface/media/ExifInterface.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 3901,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-03-08T06:53:48Z",
+      "side": 1,
+      "message": "Done.\nb/127896321",
+      "parentUuid": "ddc284ce_efc1e997",
+      "range": {
+        "startLine": 3901,
+        "startChar": 22,
+        "endLine": 3901,
+        "endChar": 46
+      },
+      "revId": "bab7ecd1c25195ac0cf483822437a66607036cea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "c3dec3c0_c148b727",
+        "filename": "exifinterface/src/main/java/androidx/exifinterface/media/ExifInterface.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 4794,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-03-08T06:53:48Z",
+      "side": 1,
+      "message": "It was changed in order to differentiate this function with the newly added functions. But since the original explanation is valuable info and the setDateTime javadoc has the same explanation so I added it back in.",
+      "parentUuid": "1d22f6e2_250e0302",
+      "range": {
+        "startLine": 4794,
+        "startChar": 15,
+        "endLine": 4794,
+        "endChar": 78
+      },
+      "revId": "bab7ecd1c25195ac0cf483822437a66607036cea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "187cfdc3_090b6173",
         "filename": "exifinterface/src/main/java/androidx/exifinterface/media/ExifInterface.java",
         "patchSetId": 6
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "0e7fdf67_abfb84ad",
+        "filename": "exifinterface/src/main/java/androidx/exifinterface/media/ExifInterface.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 4805,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-03-08T06:53:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "187cfdc3_090b6173",
+      "range": {
+        "startLine": 4805,
+        "startChar": 29,
+        "endLine": 4805,
+        "endChar": 46
+      },
+      "revId": "bab7ecd1c25195ac0cf483822437a66607036cea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "972387df_d7259a84",
         "filename": "exifinterface/src/main/java/androidx/exifinterface/media/ExifInterface.java",
         "patchSetId": 6
@@ -114,6 +210,30 @@
       "revId": "bab7ecd1c25195ac0cf483822437a66607036cea",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9b454e2_def86727",
+        "filename": "exifinterface/src/main/java/androidx/exifinterface/media/ExifInterface.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 4821,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-03-08T06:53:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "972387df_d7259a84",
+      "range": {
+        "startLine": 4816,
+        "startChar": 4,
+        "endLine": 4821,
+        "endChar": 7
+      },
+      "revId": "bab7ecd1c25195ac0cf483822437a66607036cea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
