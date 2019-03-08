@@ -48,6 +48,7 @@ import java.util.TreeMap;
  * @hide
  */
 @RestrictTo(LIBRARY_GROUP_PREFIX)
+@SuppressLint("RestrictedApi") // TODO(b/68398926): Remove once RestrictedApi checks are fixed.
 /* package */ class TextRenderer extends BaseRenderer {
 
     /** Interface for text renderer outputs. */

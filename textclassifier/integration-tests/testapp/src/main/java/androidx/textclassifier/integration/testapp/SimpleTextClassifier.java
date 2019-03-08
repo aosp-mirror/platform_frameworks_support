@@ -85,6 +85,7 @@ public class SimpleTextClassifier extends TextClassifier {
     }
 
     @Override
+    @SuppressLint("RestrictedApi")
     public void onSelectionEvent(SelectionEvent event) {
         super.onSelectionEvent(event);
     }

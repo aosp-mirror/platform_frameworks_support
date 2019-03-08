@@ -227,6 +227,7 @@ import java.util.concurrent.Executor;
  * @hide
  */
 @RestrictTo(LIBRARY)
+@SuppressLint("RestrictedApi")
 public abstract class MediaPlayer2 {
 
     /**
@@ -332,6 +333,7 @@ public abstract class MediaPlayer2 {
      * @return a token which can be used to cancel the operation later with {@link #cancel}.
      */
     // This is an asynchronous call.
+    @SuppressLint("RestrictedApi")
     public Object seekTo(long msec) {
         return seekTo(msec, SEEK_PREVIOUS_SYNC /* mode */);
     }

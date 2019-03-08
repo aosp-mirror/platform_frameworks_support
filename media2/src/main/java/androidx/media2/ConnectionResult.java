@@ -39,6 +39,7 @@ import java.util.List;
  * All fields here are effectively final. Do not modify.
  */
 @VersionedParcelize(isCustom = true)
+@SuppressLint("RestrictedApi")
 class ConnectionResult extends CustomVersionedParcelable {
     @ParcelField(0)
     int mVersion;

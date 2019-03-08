@@ -42,6 +42,7 @@ import java.util.List;
  * {@link androidx.media2.MediaLibraryService.MediaLibrarySession} and {@link MediaBrowser}.
  */
 @VersionedParcelize(isCustom = true)
+@SuppressLint("RestrictedApi")
 public class LibraryResult extends CustomVersionedParcelable implements RemoteResult {
     /**
      * @hide

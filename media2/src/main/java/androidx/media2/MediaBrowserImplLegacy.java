@@ -382,6 +382,7 @@ class MediaBrowserImplLegacy extends MediaControllerImplLegacy implements MediaB
         }
 
         @Override
+        @SuppressLint("RestrictedApi")
         public void onChildrenLoaded(final String parentId,
                 List<MediaBrowserCompat.MediaItem> children, final Bundle options) {
             if (TextUtils.isEmpty(parentId)) {

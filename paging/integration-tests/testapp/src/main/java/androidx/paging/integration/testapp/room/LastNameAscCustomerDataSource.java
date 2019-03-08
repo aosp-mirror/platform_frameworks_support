@@ -47,6 +47,7 @@ public class LastNameAscCustomerDataSource extends ItemKeyedDataSource<String, C
     /**
      * Create a DataSource from the customer table of the given database
      */
+    @SuppressLint("RestrictedApi")
     private LastNameAscCustomerDataSource(SampleDatabase db) {
         mDb = db;
         mCustomerDao = db.getCustomerDao();
@@ -60,6 +61,7 @@ public class LastNameAscCustomerDataSource extends ItemKeyedDataSource<String, C
     }
 
     @Override
+    @SuppressLint("RestrictedApi")
     public boolean isInvalid() {
         mDb.getInvalidationTracker().refreshVersionsSync();
         return super.isInvalid();

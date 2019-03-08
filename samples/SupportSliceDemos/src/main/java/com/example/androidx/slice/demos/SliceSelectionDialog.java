@@ -230,6 +230,7 @@ public class SliceSelectionDialog {
         return String.valueOf(findTitle(context, content, SliceMetadata.from(context, content)));
     }
 
+    @SuppressLint("RestrictedApi")
     protected static CharSequence findTitle(Context context, Slice loadedSlice,
             SliceMetadata metaData) {
         ListContent content = new ListContent(loadedSlice);

@@ -48,6 +48,7 @@ import java.util.ArrayList;
  * @hide
  */
 @RestrictTo(LIBRARY_GROUP_PREFIX)
+@SuppressLint("RestrictedApi") // TODO(b/68398926): Remove once RestrictedApi checks are fixed.
 /* package */ final class RenderersFactory extends DefaultRenderersFactory {
 
     public static final int VIDEO_RENDERER_INDEX = 0;
