@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "367e1976_d2b2bb61",
+        "filename": "benchmark/src/main/java/androidx/benchmark/WarningState.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-03-08T22:37:50Z",
+      "side": 1,
+      "message": "UNLOCKED_",
+      "range": {
+        "startLine": 78,
+        "startChar": 34,
+        "endLine": 78,
+        "endChar": 41
+      },
+      "revId": "0bd95b62659465d2c0f866596e52ccba2e91a2f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

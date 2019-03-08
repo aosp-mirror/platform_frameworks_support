@@ -248,6 +248,30 @@
     },
     {
       "key": {
+        "uuid": "548c045d_e1f20ce2",
+        "filename": "benchmark/src/main/java/androidx/benchmark/WarningState.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-03-08T22:37:50Z",
+      "side": 1,
+      "message": "True, the logic is independent, I just don\u0027t think printing out the exception is useful when we already know the device is an emulator.",
+      "parentUuid": "ae592a0e_eb9ffa06",
+      "range": {
+        "startLine": 100,
+        "startChar": 15,
+        "endLine": 100,
+        "endChar": 23
+      },
+      "revId": "f9df1f3f0c55013580b3bd12d2d6ef313411fb1f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b61c12eb_a5cd07b2",
         "filename": "benchmark/src/main/java/androidx/benchmark/WarningState.java",
         "patchSetId": 2
@@ -277,6 +301,24 @@
       "side": 1,
       "message": "I like that idea a lot actually, I was thinking of making that change in a separate CL to try to keep this change small, but I can bundle it together if you\u0027d rather not see this land until we have some root detection!",
       "parentUuid": "b61c12eb_a5cd07b2",
+      "revId": "f9df1f3f0c55013580b3bd12d2d6ef313411fb1f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57785f05_099b6646",
+        "filename": "benchmark/src/main/java/androidx/benchmark/WarningState.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-03-08T22:37:50Z",
+      "side": 1,
+      "message": "Let\u0027s hold off, since the content of the string depends on what we end up with, and writing warnings is hard :D",
+      "parentUuid": "df7d6eac_2815b8d1",
       "revId": "f9df1f3f0c55013580b3bd12d2d6ef313411fb1f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
