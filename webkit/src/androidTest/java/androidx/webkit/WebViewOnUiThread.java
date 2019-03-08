@@ -174,47 +174,49 @@ class WebViewOnUiThread {
         });
     }
 
-    public void setWebViewRendererClient(final WebViewRendererClient webViewRendererClient) {
-        setWebViewRendererClient(mWebView, webViewRendererClient);
+    public void setWebViewRenderProcessClient(
+            final WebViewRenderProcessClient webViewRenderProcessClient) {
+        setWebViewRenderProcessClient(mWebView, webViewRenderProcessClient);
     }
 
-    public static void setWebViewRendererClient(
-            final WebView webView, final WebViewRendererClient webViewRendererClient) {
+    public static void setWebViewRenderProcessClient(
+            final WebView webView, final WebViewRenderProcessClient webViewRenderProcessClient) {
         WebkitUtils.onMainThreadSync(new Runnable() {
             @Override
             public void run() {
-                WebViewCompat.setWebViewRendererClient(webView, webViewRendererClient);
+                WebViewCompat.setWebViewRenderProcessClient(webView, webViewRenderProcessClient);
             }
         });
     }
 
-    public void setWebViewRendererClient(
-            final Executor executor, final WebViewRendererClient webViewRendererClient) {
-        setWebViewRendererClient(mWebView, executor, webViewRendererClient);
+    public void setWebViewRenderProcessClient(
+            final Executor executor, final WebViewRenderProcessClient webViewRenderProcessClient) {
+        setWebViewRenderProcessClient(mWebView, executor, webViewRenderProcessClient);
     }
 
-    public static void setWebViewRendererClient(
+    public static void setWebViewRenderProcessClient(
             final WebView webView,
             final Executor executor,
-            final WebViewRendererClient webViewRendererClient) {
+            final WebViewRenderProcessClient webViewRenderProcessClient) {
         WebkitUtils.onMainThreadSync(new Runnable() {
             @Override
             public void run() {
-                WebViewCompat.setWebViewRendererClient(webView, executor, webViewRendererClient);
+                WebViewCompat.setWebViewRenderProcessClient(
+                        webView, executor, webViewRenderProcessClient);
             }
         });
     }
 
-    public WebViewRendererClient getWebViewRendererClient() {
-        return getWebViewRendererClient(mWebView);
+    public WebViewRenderProcessClient getWebViewRenderProcessClient() {
+        return getWebViewRenderProcessClient(mWebView);
     }
 
-    public static WebViewRendererClient getWebViewRendererClient(
+    public static WebViewRenderProcessClient getWebViewRenderProcessClient(
             final WebView webView) {
-        return getValue(new ValueGetter<WebViewRendererClient>() {
+        return getValue(new ValueGetter<WebViewRenderProcessClient>() {
             @Override
-            public WebViewRendererClient capture() {
-                return WebViewCompat.getWebViewRendererClient(webView);
+            public WebViewRenderProcessClient capture() {
+                return WebViewCompat.getWebViewRenderProcessClient(webView);
             }
         });
     }
