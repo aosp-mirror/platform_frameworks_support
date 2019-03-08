@@ -253,6 +253,15 @@ class FragmentTest {
         }
 
         try {
+            fragment.instantiateChildFragmentManager()
+            fail()
+        } catch (expected: IllegalStateException) {
+            assertThat(expected)
+                .hasMessageThat()
+                .contains("Fragment $fragment has not been attached yet.")
+        }
+
+        try {
             fragment.requireFragmentManager()
             fail()
         } catch (expected: IllegalStateException) {
