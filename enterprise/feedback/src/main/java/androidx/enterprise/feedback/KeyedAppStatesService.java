@@ -135,7 +135,14 @@ public abstract class KeyedAppStatesService extends Service {
 
         private static Collection<ReceivedKeyedAppState> extractReceivedKeyedAppStates(
                 Message message, String packageName, long timestamp) {
-            Bundle bundle = message.getData();
+            Bundle bundle;
+
+            try {
+                bundle = (Bundle) message.obj;
+            } catch (ClassCastException e) {
+                Log.e(LOG_TAG, "Could not extract state bundles from message");
+                return Collections.emptyList();
+            }
 
             if (bundle == null) {
                 Log.e(LOG_TAG, "Could not extract state bundles from message");
