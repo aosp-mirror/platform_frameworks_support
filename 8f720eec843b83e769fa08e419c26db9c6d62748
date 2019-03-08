@@ -22,6 +22,30 @@
       "revId": "8f720eec843b83e769fa08e419c26db9c6d62748",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba4fda9c_bb32cecb",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/ProxyControllerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-03-08T18:12:35Z",
+      "side": 1,
+      "message": "You should revert this part. This bug was already fixed by http://aosp/906233",
+      "parentUuid": "d4d62c2a_512c8d0c",
+      "range": {
+        "startLine": 55,
+        "startChar": 12,
+        "endLine": 55,
+        "endChar": 76
+      },
+      "revId": "8f720eec843b83e769fa08e419c26db9c6d62748",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
