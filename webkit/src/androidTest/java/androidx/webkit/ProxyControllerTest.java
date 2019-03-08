@@ -52,7 +52,9 @@ public class ProxyControllerTest {
 
     @After
     public void tearDown() throws Exception {
-        clearProxyOverrideSync();
+        if (WebViewFeature.isFeatureSupported(WebViewFeature.PROXY_OVERRIDE)) {
+            clearProxyOverrideSync();
+        }
         if (mWebViewOnUiThread != null) {
             mWebViewOnUiThread.cleanUp();
         }
