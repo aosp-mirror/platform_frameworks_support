@@ -16,6 +16,24 @@
       "revId": "85399ab2ac2c27443adab790eb651e8eb30c56ef",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b17d7344_947660ab",
+        "filename": "media2/src/main/java/androidx/media2/MediaPlayer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 870,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2019-03-08T22:50:24Z",
+      "side": 1,
+      "message": "Thanks for pointing this out. Let me address this with a separate change.",
+      "parentUuid": "998d9729_5ad4e421",
+      "revId": "85399ab2ac2c27443adab790eb651e8eb30c56ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
