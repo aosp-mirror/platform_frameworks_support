@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d4d62c2a_512c8d0c",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/ProxyControllerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1101490
+      },
+      "writtenOn": "2019-03-08T17:34:15Z",
+      "side": 1,
+      "message": "Without this check, clearProxyOverrideSync fails with an exception that is swallowed silently, but means that mWebViewOnUiThread.cleanUp() is skipped, leading to a webview that is not destroyed.",
+      "range": {
+        "startLine": 55,
+        "startChar": 12,
+        "endLine": 55,
+        "endChar": 76
+      },
+      "revId": "8f720eec843b83e769fa08e419c26db9c6d62748",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
