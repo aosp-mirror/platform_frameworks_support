@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "c5b87223_54b330ac",
+        "filename": "benchmark/src/main/java/androidx/benchmark/WarningState.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-03-08T18:33:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e46007c4_e8b6b1b5",
+      "revId": "f9df1f3f0c55013580b3bd12d2d6ef313411fb1f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9deca821_b5e783ee",
         "filename": "benchmark/src/main/java/androidx/benchmark/WarningState.java",
         "patchSetId": 2
@@ -39,6 +57,30 @@
       "revId": "f9df1f3f0c55013580b3bd12d2d6ef313411fb1f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea8c47c6_6daca614",
+        "filename": "benchmark/src/main/java/androidx/benchmark/WarningState.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-03-08T18:33:43Z",
+      "side": 1,
+      "message": "Done - sorry, still trying to shift my javascript muscle memory.",
+      "parentUuid": "9deca821_b5e783ee",
+      "range": {
+        "startLine": 79,
+        "startChar": 23,
+        "endLine": 79,
+        "endChar": 30
+      },
+      "revId": "f9df1f3f0c55013580b3bd12d2d6ef313411fb1f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "dbaf616c_e39cf942",
+        "filename": "benchmark/src/main/java/androidx/benchmark/WarningState.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-03-08T18:33:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cdfb3055_782ac0ab",
+      "range": {
+        "startLine": 89,
+        "startChar": 35,
+        "endLine": 89,
+        "endChar": 44
+      },
+      "revId": "f9df1f3f0c55013580b3bd12d2d6ef313411fb1f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7936ec8e_afc1eeb9",
         "filename": "benchmark/src/main/java/androidx/benchmark/WarningState.java",
         "patchSetId": 2
@@ -82,6 +148,24 @@
     },
     {
       "key": {
+        "uuid": "a21ebc3d_c8113b31",
+        "filename": "benchmark/src/main/java/androidx/benchmark/WarningState.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-03-08T18:33:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7936ec8e_afc1eeb9",
+      "revId": "f9df1f3f0c55013580b3bd12d2d6ef313411fb1f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e06dbe55_5e34b12a",
         "filename": "benchmark/src/main/java/androidx/benchmark/WarningState.java",
         "patchSetId": 2
@@ -93,6 +177,24 @@
       "writtenOn": "2019-03-08T17:36:19Z",
       "side": 1,
       "message": "In what non-emulator conditions will this fail?\n\nCurious for user/userdebug/eng build\n\nprint the exception with the three parameter Log.d(), so it\u0027s not entirely silent",
+      "revId": "f9df1f3f0c55013580b3bd12d2d6ef313411fb1f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c74c822_6faf046e",
+        "filename": "benchmark/src/main/java/androidx/benchmark/WarningState.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-03-08T18:33:43Z",
+      "side": 1,
+      "message": "I\u0027m not convinced that the FS permissions are setup the same way for every device. Also the device I\u0027m testing on is missing some of the cpuinfo / scaling freq files we depend on completely for 3/4 of it\u0027s available cores, and I think that\u0027s because it\u0027s a quad core cpu. There\u0027s also cases for hyper-threading, where I\u0027m not entirely sure exactly how that will get reflected in the /sys/devices/system/cpu/** files.",
+      "parentUuid": "e06dbe55_5e34b12a",
       "revId": "f9df1f3f0c55013580b3bd12d2d6ef313411fb1f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
@@ -122,6 +224,30 @@
     },
     {
       "key": {
+        "uuid": "ae592a0e_eb9ffa06",
+        "filename": "benchmark/src/main/java/androidx/benchmark/WarningState.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-03-08T18:33:43Z",
+      "side": 1,
+      "message": "I feel like this logic is independent of emulation itself though, it just happens to also handle the case without any extra code as it\u0027s inherently a best effort approach and I wanted to note that in the comments.",
+      "parentUuid": "3a6fd738_58ea2bb0",
+      "range": {
+        "startLine": 100,
+        "startChar": 15,
+        "endLine": 100,
+        "endChar": 23
+      },
+      "revId": "f9df1f3f0c55013580b3bd12d2d6ef313411fb1f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b61c12eb_a5cd07b2",
         "filename": "benchmark/src/main/java/androidx/benchmark/WarningState.java",
         "patchSetId": 2
@@ -133,6 +259,24 @@
       "writtenOn": "2019-03-08T17:36:19Z",
       "side": 1,
       "message": "What do you think about avoiding the warning prefix for this warning specifically if they\u0027re on an unrooted device, since they can\u0027t do much about it.\n\nCan we detect that easily?\n\nA lot of devs won\u0027t have access to physical, rooted device, and I\u0027d like to avoid \u0027tainting\u0027 the output like we do when they have a fixable problem, like debuggable\u003dtrue.",
+      "revId": "f9df1f3f0c55013580b3bd12d2d6ef313411fb1f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df7d6eac_2815b8d1",
+        "filename": "benchmark/src/main/java/androidx/benchmark/WarningState.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-03-08T18:33:43Z",
+      "side": 1,
+      "message": "I like that idea a lot actually, I was thinking of making that change in a separate CL to try to keep this change small, but I can bundle it together if you\u0027d rather not see this land until we have some root detection!",
+      "parentUuid": "b61c12eb_a5cd07b2",
       "revId": "f9df1f3f0c55013580b3bd12d2d6ef313411fb1f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
@@ -156,6 +300,24 @@
     },
     {
       "key": {
+        "uuid": "be54033b_44f105c4",
+        "filename": "benchmark/src/main/java/androidx/benchmark/WarningState.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-03-08T18:33:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0191f6f8_60a9f0e6",
+      "revId": "f9df1f3f0c55013580b3bd12d2d6ef313411fb1f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3ef60ac1_597f9c29",
         "filename": "benchmark/src/main/java/androidx/benchmark/WarningState.java",
         "patchSetId": 2
@@ -170,6 +332,24 @@
       "revId": "f9df1f3f0c55013580b3bd12d2d6ef313411fb1f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fea24516_c451617d",
+        "filename": "benchmark/src/main/java/androidx/benchmark/WarningState.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-03-08T18:33:43Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "3ef60ac1_597f9c29",
+      "revId": "f9df1f3f0c55013580b3bd12d2d6ef313411fb1f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
