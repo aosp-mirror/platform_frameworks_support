@@ -23,6 +23,12 @@ import android.util.Log;
 import androidx.annotation.Nullable;
 import androidx.test.platform.app.InstrumentationRegistry;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FilenameFilter;
+import java.io.IOException;
+
 class WarningState {
     private static final String TAG = "Benchmark";
 
@@ -66,6 +72,43 @@ class WarningState {
                     + "    changes quickly. For this reason they should not be used for\n"
                     + "    benchmarking. Use a '-user' or '-userdebug' system image.\n";
         }
+
+        // Check cpu clock frequency.
+        boolean didLockClock = false;
+        try {
+            final File cpu_dir = new File("/sys/devices/system/cpu");
+            final String[] core_dirs = cpu_dir.list(new FilenameFilter() {
+                @Override
+                public boolean accept(File current, String name) {
+                    return new File(current, name).isDirectory();
+                }
+            });
+
+            for (String core_dir : core_dirs) {
+                final int cpuMinFreq = Integer.parseInt(readFromFile(
+                        "/sys/devices/system/cpu/" + core_dir + "/cpufreq/cpuinfo_min_freq"));
+                final int scaleCurFreq = Integer.parseInt(readFromFile(
+                        "/sys/devices/system/cpu/" + core_dir + "/cpufreq/scaling_cur_freq"));
+                didLockClock = didLockClock || (scaleCurFreq == cpuMinFreq);
+            }
+        } catch (Exception ignored) {
+        }
+
+        if (!didLockClock) {
+            warningPrefix += "DEVICE_";
+            warningString += "\nWARNING: Running on a device with an unstable CPU clock speed\n"
+                    + "    Benchmark is running on device with a CPU that has at least one core\n"
+                    + "    configured with a variable clock speed. This can lead to inconsistent\n"
+                    + "    results due to CPU throttling, which depends on external factors. To\n"
+                    + "    lock the CPU clock speed, set the values of scaling_max_freq,\n"
+                    + "    scaling_min_freq, and scaling_setspeed to a constant value. Typically,\n"
+                    + "    these files are located in /sys/devices/system/cpu/cpu*/cpufreq/. If\n"
+                    + "    you have followed these steps and are still seeing this warning, it is\n"
+                    + "    possible you have locked the device's clock speed to the minimum "
+                    + "possible\n"
+                    + "    value.\n";
+        }
+
         WARNING_PREFIX = warningPrefix;
 
         if (!warningString.isEmpty()) {
@@ -75,6 +118,14 @@ class WarningState {
             }
             Log.w(TAG, "");
         }
+    }
+
+    static String readFromFile(String path) throws IOException {
+        BufferedReader reader = new BufferedReader(new FileReader(path));
+        String line = reader.readLine();
+        reader.close();
+
+        return line;
     }
 
     @Nullable
