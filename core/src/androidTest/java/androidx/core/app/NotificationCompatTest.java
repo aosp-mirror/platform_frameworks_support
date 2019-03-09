@@ -566,14 +566,18 @@ public class NotificationCompatTest extends BaseInstrumentationTestCase<TestActi
         Person person2 = new Person.Builder()
                 .setName("test name 2").setKey("key 2").setImportant(true).build();
         messagingStyle.addMessage("text", 200, person);
-        messagingStyle.addMessage("text2", 300, person2);
+        Message typedMessage = new Message("text2", 300, person2);
+        typedMessage.setMessageType(Message.MESSAGE_TYPE_STATUS);
+        messagingStyle.addMessage(typedMessage);
 
+        // Build MessagingStyle notification to Framework Notification
         Notification notification = new NotificationCompat.Builder(mContext, "test id")
                 .setSmallIcon(1)
                 .setContentTitle("test title")
                 .setStyle(messagingStyle)
                 .build();
 
+        // Extract messages back out via compat
         List<Message> result = NotificationCompat.MessagingStyle
                 .extractMessagingStyleFromNotification(notification)
                 .getMessages();
@@ -588,6 +592,7 @@ public class NotificationCompatTest extends BaseInstrumentationTestCase<TestActi
         assertEquals("test name 2", result.get(1).getPerson().getName());
         assertEquals("key 2", result.get(1).getPerson().getKey());
         assertTrue(result.get(1).getPerson().isImportant());
+        assertEquals(Message.MESSAGE_TYPE_STATUS, result.get(1).getMessageType());
     }
 
     @Test

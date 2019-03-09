@@ -489,11 +489,25 @@ package androidx.core.app {
     method public String? getDataMimeType();
     method public android.net.Uri? getDataUri();
     method public android.os.Bundle getExtras();
+    method public int getMessageType();
     method public androidx.core.app.Person? getPerson();
     method @Deprecated public CharSequence? getSender();
     method public CharSequence getText();
     method public long getTimestamp();
     method public androidx.core.app.NotificationCompat.MessagingStyle.Message! setData(String!, android.net.Uri!);
+    method public androidx.core.app.NotificationCompat.MessagingStyle.Message! setMessageType(int);
+    field public static final int MESSAGE_TYPE_AUDIO = 4; // 0x4
+    field public static final int MESSAGE_TYPE_ETA = 6; // 0x6
+    field public static final int MESSAGE_TYPE_GENERIC_LOCATION = 7; // 0x7
+    field public static final int MESSAGE_TYPE_GENERIC_URI = 11; // 0xb
+    field public static final int MESSAGE_TYPE_IMAGE = 2; // 0x2
+    field public static final int MESSAGE_TYPE_OTHER = 1; // 0x1
+    field public static final int MESSAGE_TYPE_SELF_LOCATION = 8; // 0x8
+    field public static final int MESSAGE_TYPE_SERVICE = 10; // 0xa
+    field public static final int MESSAGE_TYPE_STATUS = 9; // 0x9
+    field public static final int MESSAGE_TYPE_STICKER = 5; // 0x5
+    field public static final int MESSAGE_TYPE_TEXT = 0; // 0x0
+    field public static final int MESSAGE_TYPE_VIDEO = 3; // 0x3
   }
 
   public abstract static class NotificationCompat.Style {
