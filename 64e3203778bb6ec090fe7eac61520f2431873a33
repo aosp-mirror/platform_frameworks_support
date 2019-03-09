@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c158f626_c92bc334",
+        "filename": "lifecycle/livedata/eap/src/main/java/androidx/lifecycle/CoroutineLiveData.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1460379
+      },
+      "writtenOn": "2019-03-09T03:09:29Z",
+      "side": 1,
+      "message": "Personally, I\u0027m not crazy about `yield` as a keyword for what it is trying to do. Out of context would someone thing that yield is setting some value?    If it is setting the LiveData value, how about just calling it `set` or `setValue` or `send` or `push` or anything else that gives the intent a bit better of what calling this function will do.",
+      "revId": "64e3203778bb6ec090fe7eac61520f2431873a33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
