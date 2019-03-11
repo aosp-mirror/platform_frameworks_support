@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c512656f_fc919010",
+        "filename": "paging/common/api/current.txt",
+        "patchSetId": 14
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-11T15:11:34Z",
+      "side": 1,
+      "message": "this is unfortunate.  ItemKeyedDataSource is subclass, but we use its LoadParams (I know, that it existed in previous release, don\u0027t you think it would nicer to create class LoadParams here as well and extend ItemKeyedDataSource.LoadParams (like, ItemKeyedDataSource.LoadParams extends ListenableKeyedDataSource.LoadParams)",
+      "range": {
+        "startLine": 64,
+        "startChar": 149,
+        "endLine": 64,
+        "endChar": 200
+      },
+      "revId": "9219d846826edccb0bef5c542bfe67009ae55e2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b034b42_c17cfbcb",
+        "filename": "paging/common/api/current.txt",
+        "patchSetId": 14
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-11T15:11:34Z",
+      "side": 1,
+      "message": "should be these classes final?",
+      "revId": "9219d846826edccb0bef5c542bfe67009ae55e2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c73e8e80_a29047f0",
+        "filename": "paging/common/api/current.txt",
+        "patchSetId": 14
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-11T15:11:34Z",
+      "side": 1,
+      "message": "Is it binary compatible change?",
+      "revId": "9219d846826edccb0bef5c542bfe67009ae55e2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2cc99c1f_99aa7537",
+        "filename": "paging/common/src/main/java/androidx/paging/DataSource.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-11T15:11:34Z",
+      "side": 1,
+      "message": "So this one is not public and its fields don\u0027t have documentation (fine), however you have public classes that extends this class, that don\u0027t provide any additional fields / method. So do you expect devs to touch these fields?  If yes, why don\u0027t you want to make this public?\n\n+ Why do you want to expose RangeResult / InitialResult classes if they don\u0027t provide anything new?",
+      "revId": "9219d846826edccb0bef5c542bfe67009ae55e2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ac51dd4_7bddbb16",
+        "filename": "paging/common/src/main/java/androidx/paging/DataSource.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 518,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-11T15:11:34Z",
+      "side": 1,
+      "message": "It is a bit weird here, DataSource doesn\u0027t have any public methods for loading. Do you think it would make sense to expand documentation and point to subclass load methods (loadAfter, loadBefore etc)? Or maybe make it package private here and make it public in subclasses?",
+      "range": {
+        "startLine": 518,
+        "startChar": 46,
+        "endLine": 518,
+        "endChar": 53
+      },
+      "revId": "9219d846826edccb0bef5c542bfe67009ae55e2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
