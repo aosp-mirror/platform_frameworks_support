@@ -32,10 +32,10 @@ import static org.mockito.Mockito.when;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
@@ -648,6 +648,12 @@ public class SystemAlarmDispatcherTest extends DatabaseTest {
             }
         }
         assertThat(numExecutionCompleted, is(2));
+    }
+
+    @Test
+    public void tearDownTest() {
+        mDispatcher.onDestroy();
+        assertThat(mDispatcher.getWorkTimer().getExecutorService().isShutdown(), is(true));
     }
 
     // Marking it public for mocking
