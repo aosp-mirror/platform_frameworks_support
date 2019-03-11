@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "72a14016_a1ebcccc",
+        "filename": "activity/src/main/java/androidx/activity/OnBackPressedDispatcher.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-11T16:21:32Z",
+      "side": 1,
+      "message": "nit: we can avoid double hashing here: get + null check",
+      "revId": "2b5d9a372b8a3eef1c2d8c76f4283fa44a61fe4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
