@@ -679,13 +679,6 @@ public final class HeifEncoder implements AutoCloseable,
     void stopInternal() {
         if (DEBUG) Log.d(TAG, "stopInternal");
 
-        // after start, mEncoder is only accessed on handler, so no need to sync
-        if (mEncoder != null) {
-            mEncoder.stop();
-            mEncoder.release();
-            mEncoder = null;
-        }
-
         // unblock the addBuffer() if we're tearing down before EOS is sent.
         synchronized (mEmptyBuffers) {
             mInputEOS = true;
@@ -710,6 +703,13 @@ public final class HeifEncoder implements AutoCloseable,
                 mInputTexture.release();
                 mInputTexture = null;
             }
+        }
+
+        // after start, mEncoder is only accessed on handler, so no need to sync
+        if (mEncoder != null) {
+            mEncoder.stop();
+            mEncoder.release();
+            mEncoder = null;
         }
     }
 
