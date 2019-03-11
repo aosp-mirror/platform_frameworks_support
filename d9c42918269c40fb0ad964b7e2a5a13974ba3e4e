@@ -1,0 +1,193 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b6ebf6ca_e8ed706a",
+        "filename": "lifecycle/common/eap/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-11T22:51:33Z",
+      "side": 1,
+      "message": "we want to move this out of common to runtime but its fine, i can do it later.",
+      "range": {
+        "startLine": 21,
+        "startChar": 1,
+        "endLine": 25,
+        "endChar": 0
+      },
+      "revId": "d9c42918269c40fb0ad964b7e2a5a13974ba3e4e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6fb69d04_deee39b6",
+        "filename": "lifecycle/common/eap/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-11T22:51:33Z",
+      "side": 1,
+      "message": "keep false for eap",
+      "range": {
+        "startLine": 39,
+        "startChar": 14,
+        "endLine": 39,
+        "endChar": 18
+      },
+      "revId": "d9c42918269c40fb0ad964b7e2a5a13974ba3e4e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a68ecdc_128e49fc",
+        "filename": "lifecycle/lint/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-11T22:51:33Z",
+      "side": 1,
+      "message": "false",
+      "range": {
+        "startLine": 49,
+        "startChar": 14,
+        "endLine": 49,
+        "endChar": 18
+      },
+      "revId": "d9c42918269c40fb0ad964b7e2a5a13974ba3e4e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "749b3465_a11d030d",
+        "filename": "lifecycle/lint/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-11T22:51:33Z",
+      "side": 1,
+      "message": "there is a version for LIFECYCLES_COROUTINES that is shared across all lifecycle eaps.",
+      "revId": "d9c42918269c40fb0ad964b7e2a5a13974ba3e4e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe132dfc_62063014",
+        "filename": "lifecycle/lint/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-11T22:51:33Z",
+      "side": 1,
+      "message": "thats quite old :)",
+      "revId": "d9c42918269c40fb0ad964b7e2a5a13974ba3e4e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f62eee27_6999f33b",
+        "filename": "lifecycle/lint/src/main/java/androidx/lifecycle/lint/FinallyInWhenStarted.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-11T22:51:33Z",
+      "side": 1,
+      "message": "TODO?",
+      "range": {
+        "startLine": 43,
+        "startChar": 15,
+        "endLine": 44,
+        "endChar": 36
+      },
+      "revId": "d9c42918269c40fb0ad964b7e2a5a13974ba3e4e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec9b680e_665e8b53",
+        "filename": "lifecycle/lint/src/main/java/androidx/lifecycle/lint/FinallyInWhenStarted.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-11T22:51:33Z",
+      "side": 1,
+      "message": "block inside a whenXXX method",
+      "range": {
+        "startLine": 68,
+        "startChar": 51,
+        "endLine": 68,
+        "endChar": 57
+      },
+      "revId": "d9c42918269c40fb0ad964b7e2a5a13974ba3e4e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0932ce75_e281e7a9",
+        "filename": "lifecycle/lint/src/test/java/androidx/lifecycle/lint/FinallyInWhenStartedTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-11T22:51:33Z",
+      "side": 1,
+      "message": "can\u0027t we run this as part of host side tests?",
+      "range": {
+        "startLine": 26,
+        "startChar": 3,
+        "endLine": 26,
+        "endChar": 9
+      },
+      "revId": "d9c42918269c40fb0ad964b7e2a5a13974ba3e4e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d49b8d7a_770767fd",
+        "filename": "lifecycle/lint/src/test/java/androidx/lifecycle/lint/FinallyInWhenStartedTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-11T22:51:33Z",
+      "side": 1,
+      "message": "probably need some more tests, especially around calling other metods and also negative cases (e.g. no error).\neventually, we should allow these if there is a lifecycle.isAtLeast code.",
+      "revId": "d9c42918269c40fb0ad964b7e2a5a13974ba3e4e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
