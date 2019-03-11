@@ -114,7 +114,7 @@ public class PagedListView extends FrameLayout {
     /** Maximum number of pages to show. */
     private int mMaxPages = UNLIMITED_PAGES;
 
-    OnScrollListener mOnScrollListener;
+    PagedListViewCallback mCallback;
 
     /** Used to check if there are more items added to the list. */
     private int mLastItemCount;
@@ -244,7 +244,20 @@ public class PagedListView extends FrameLayout {
         mSnapHelper = new PagedSnapHelper(context);
         mSnapHelper.attachToRecyclerView(mRecyclerView);
 
-        mRecyclerView.addOnScrollListener(mRecyclerViewOnScrollListener);
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    mHandler.postDelayed(mPaginationRunnable, PAGINATION_HOLD_DELAY_MS);
+                }
+
+            }
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                updatePaginationButtons(false);
+            }
+        });
         mRecyclerView.getRecycledViewPool().setMaxRecycledViews(0, 12);
 
         if (a.getBoolean(R.styleable.PagedListView_verticallyCenterListContent, false)) {
@@ -298,14 +311,14 @@ public class PagedListView extends FrameLayout {
                 switch (direction) {
                     case PagedScrollBarView.PaginationListener.PAGE_UP:
                         pageUp();
-                        if (mOnScrollListener != null) {
-                            mOnScrollListener.onScrollUpButtonClicked();
+                        if (mCallback != null) {
+                            mCallback.onScrollUpButtonClicked();
                         }
                         break;
                     case PagedScrollBarView.PaginationListener.PAGE_DOWN:
                         pageDown();
-                        if (mOnScrollListener != null) {
-                            mOnScrollListener.onScrollDownButtonClicked();
+                        if (mCallback != null) {
+                            mCallback.onScrollDownButtonClicked();
                         }
                         break;
                     default:
@@ -827,13 +840,23 @@ public class PagedListView extends FrameLayout {
     }
 
     /**
-     * Sets the {@link OnScrollListener} that will be notified of scroll events within the
-     * PagedListView.
+     * Sets the {@link RecyclerView.OnScrollListener} that will be notified of scroll events
+     * within the PagedListView.
      *
      * @param listener The scroll listener to set.
      */
-    public void setOnScrollListener(OnScrollListener listener) {
-        mOnScrollListener = listener;
+    public void setOnScrollListener(RecyclerView.OnScrollListener listener) {
+        mRecyclerView.addOnScrollListener(listener);
+    }
+
+    /**
+     * Sets the {@link PagedListViewCallback} that will be notified of PagedListView events.
+     *
+     * @param callback The callback to set.
+     */
+
+    public void registerPageListViewCallback(PagedListViewCallback callback) {
+        mCallback = callback;
     }
 
     /** Returns the page the given position is on, starting with page 0. */
@@ -1099,12 +1122,12 @@ public class PagedListView extends FrameLayout {
 
     /** Returns {@code true} if the RecyclerView is completely displaying the first item. */
     public boolean isAtStart() {
-        return mSnapHelper.isAtStart(mRecyclerView.getLayoutManager());
+        return mRecyclerView.isAtStart();
     }
 
     /** Returns {@code true} if the RecyclerView is completely displaying the last item. */
     public boolean isAtEnd() {
-        return mSnapHelper.isAtEnd(mRecyclerView.getLayoutManager());
+        return mRecyclerView.isAtEnd();
     }
 
     @UiThread
@@ -1246,31 +1269,6 @@ public class PagedListView extends FrameLayout {
         }
     }
 
-    private final RecyclerView.OnScrollListener mRecyclerViewOnScrollListener =
-            new RecyclerView.OnScrollListener() {
-                @Override
-                public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                    if (mOnScrollListener != null) {
-                        mOnScrollListener.onScrolled(recyclerView, dx, dy);
-
-                        if (!isAtStart() && isAtEnd()) {
-                            mOnScrollListener.onReachBottom();
-                        }
-                    }
-                    updatePaginationButtons(false);
-                }
-
-                @Override
-                public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                    if (mOnScrollListener != null) {
-                        mOnScrollListener.onScrollStateChanged(recyclerView, newState);
-                    }
-                    if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                        mHandler.postDelayed(mPaginationRunnable, PAGINATION_HOLD_DELAY_MS);
-                    }
-                }
-            };
-
     final Runnable mPaginationRunnable =
             new Runnable() {
                 @Override
@@ -1291,25 +1289,12 @@ public class PagedListView extends FrameLayout {
     private final Runnable mUpdatePaginationRunnable =
             () -> updatePaginationButtons(true /*animate*/);
 
-    /** Used to listen for {@code PagedListView} scroll events. */
-    public abstract static class OnScrollListener {
-        /**
-         * Called when the {@code PagedListView} has been scrolled so that the last item is
-         * completely visible.
-         */
-        public void onReachBottom() {}
+    /** Used to listen for {@code PagedListView} events. */
+    public abstract static class PagedListViewCallback {
         /** Called when scroll up button is clicked */
         public void onScrollUpButtonClicked() {}
+
         /** Called when scroll down button is clicked */
         public void onScrollDownButtonClicked() {}
-
-        /**
-         * Called when RecyclerView.OnScrollListener#onScrolled is called. See
-         * RecyclerView.OnScrollListener
-         */
-        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {}
-
-        /** See RecyclerView.OnScrollListener */
-        public void onScrollStateChanged(RecyclerView recyclerView, int newState) {}
     }
 }
