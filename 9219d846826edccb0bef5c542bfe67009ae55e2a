@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "9e01818e_644964ae",
+        "filename": "paging/common/api/current.txt",
+        "patchSetId": 14
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-11T23:12:33Z",
+      "side": 1,
+      "message": "I\u0027ll spend on this tomorrow a bit more",
+      "parentUuid": "332bad8c_51a2a010",
+      "range": {
+        "startLine": 64,
+        "startChar": 149,
+        "endLine": 64,
+        "endChar": 200
+      },
+      "revId": "9219d846826edccb0bef5c542bfe67009ae55e2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1b034b42_c17cfbcb",
         "filename": "paging/common/api/current.txt",
         "patchSetId": 14
@@ -78,6 +102,24 @@
       "side": 1,
       "message": "Can\u0027t be done, if we\u0027re subclassing them in the callback APIs",
       "parentUuid": "1b034b42_c17cfbcb",
+      "revId": "9219d846826edccb0bef5c542bfe67009ae55e2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ba98042_9e256b29",
+        "filename": "paging/common/api/current.txt",
+        "patchSetId": 14
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-11T23:12:33Z",
+      "side": 1,
+      "message": "Can you please elaborate a little bit? Currently nothing subclasses them, so thee is a plan do that? Or are devs supposed to do that?",
+      "parentUuid": "96aae3d2_d7f32ce4",
       "revId": "9219d846826edccb0bef5c542bfe67009ae55e2a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
@@ -119,6 +161,24 @@
     },
     {
       "key": {
+        "uuid": "55c21ce2_18840df5",
+        "filename": "paging/common/api/current.txt",
+        "patchSetId": 14
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-11T23:12:33Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "bf94aceb_1eabd424",
+      "revId": "9219d846826edccb0bef5c542bfe67009ae55e2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2cc99c1f_99aa7537",
         "filename": "paging/common/src/main/java/androidx/paging/DataSource.java",
         "patchSetId": 14
@@ -148,6 +208,24 @@
       "side": 1,
       "message": "I do not expect devs to touch any properties.\n\nThe subclasses constrain which constructors you can call, and still pass those to your ListenableFuture.\n\nNote that I\u0027m considering switching the constructors for the subtypes to builders.",
       "parentUuid": "2cc99c1f_99aa7537",
+      "revId": "9219d846826edccb0bef5c542bfe67009ae55e2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a9edac9_5bd6da75",
+        "filename": "paging/common/src/main/java/androidx/paging/DataSource.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-11T23:12:33Z",
+      "side": 1,
+      "message": "So once you do that, subclasses will be hidden, right?",
+      "parentUuid": "453fa798_f893fff1",
       "revId": "9219d846826edccb0bef5c542bfe67009ae55e2a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
@@ -189,6 +267,30 @@
       "side": 1,
       "message": "There are too many subclass load methods, but I could make it package private.\n\nOne nice feature about it being public on datasource is that apps can use it directly:\n\n    myAdapter.getCurrentList().getDataSource().isRetryableError()\n\nNot really necessary, since we always do it for them, but possibly justified in tests.",
       "parentUuid": "2ac51dd4_7bddbb16",
+      "range": {
+        "startLine": 518,
+        "startChar": 46,
+        "endLine": 518,
+        "endChar": 53
+      },
+      "revId": "9219d846826edccb0bef5c542bfe67009ae55e2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11178aa2_e3953781",
+        "filename": "paging/common/src/main/java/androidx/paging/DataSource.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 518,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-11T23:12:33Z",
+      "side": 1,
+      "message": "I think we can link at least some not all of them? (though yeah all of them will be too much)",
+      "parentUuid": "858cd7ba_6e4896f7",
       "range": {
         "startLine": 518,
         "startChar": 46,
