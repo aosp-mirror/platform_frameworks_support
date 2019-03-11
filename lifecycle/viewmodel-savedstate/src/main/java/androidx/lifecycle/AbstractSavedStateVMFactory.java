@@ -20,6 +20,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RestrictTo;
 import androidx.savedstate.SavedStateRegistry;
 import androidx.savedstate.SavedStateRegistryOwner;
 
@@ -29,7 +30,7 @@ import androidx.savedstate.SavedStateRegistryOwner;
  * implement {@link #create(String, Class, SavedStateHandle)} to actually instantiate
  * {@code ViewModels}.
  */
-public abstract class AbstractSavedStateVMFactory implements ViewModelProvider.KeyedFactory {
+public abstract class AbstractSavedStateVMFactory extends ViewModelProvider.KeyedFactory {
     static final String TAG_SAVED_STATE_HANDLE_CONTROLLER = "androidx.lifecycle.savedstate.vm.tag";
 
     private final SavedStateRegistry mSavedStateRegistry;
@@ -53,6 +54,11 @@ public abstract class AbstractSavedStateVMFactory implements ViewModelProvider.K
         mDefaultArgs = defaultArgs;
     }
 
+    // TODO: make KeyedFactory#create(String, Class) package private
+    /**
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
     @NonNull
     @Override
     public final <T extends ViewModel> T create(@NonNull String key, @NonNull Class<T> modelClass) {
@@ -64,6 +70,19 @@ public abstract class AbstractSavedStateVMFactory implements ViewModelProvider.K
         viewmodel.setTagIfAbsent(TAG_SAVED_STATE_HANDLE_CONTROLLER, controller);
         mSavedStateRegistry.runOnNextRecreation(OnRecreation.class);
         return viewmodel;
+    }
+
+    @NonNull
+    @Override
+    public final <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
+        // ViewModelProvider calls correct create that support same modelClass with different keys
+        // If a developer manually calls this method, there is no "key" in picture, so factory
+        // simply uses classname internally as as key.
+        String canonicalName = modelClass.getCanonicalName();
+        if (canonicalName == null) {
+            throw new IllegalArgumentException("Local and anonymous classes can not be ViewModels");
+        }
+        return create(canonicalName, modelClass);
     }
 
     /**
