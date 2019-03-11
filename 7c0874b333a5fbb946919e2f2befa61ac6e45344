@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "01ed6b7d_ad96a7a1",
+        "filename": "jetifier/jetifier/core/src/main/resources/default.config",
+        "patchSetId": 7
+      },
+      "lineNbr": 1539,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-03-11T17:17:17Z",
+      "side": 1,
+      "message": "I actually see much more artifacts in maven for navigation that we might need to map.\n\nnavigation-common\n\nnavigation-common-ktx\n\nnavigation-fragment\n\nnavigation-fragment-ktx\n\nnavigation-runtime\n\nnavigation-runtime-ktx\n\nnavigation-safe-args-generator\n\nnavigation-safe-args-gradle-plugin\n\nnavigation-testing\n\nnavigation-testing-ktx\n\nnavigation-ui\n\nnavigation-ui-ktx",
+      "range": {
+        "startLine": 1538,
+        "startChar": 12,
+        "endLine": 1539,
+        "endChar": 127
+      },
+      "revId": "7c0874b333a5fbb946919e2f2befa61ac6e45344",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
