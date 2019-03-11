@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4a3eb930_7e9b0405",
+        "filename": "fragment/src/androidTest/java/androidx/fragment/app/FragmentViewLifecycleTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-03-11T20:17:53Z",
+      "side": 1,
+      "message": "Can we convert ObserveringFragment to Kotlin and make this liveData?",
+      "range": {
+        "startLine": 233,
+        "startChar": 27,
+        "endLine": 233,
+        "endChar": 36
+      },
+      "revId": "858f26c3ffdbe64108f03a67c839513d0ecb5b94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
