@@ -542,6 +542,10 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
     private float mScaledHorizontalScrollFactor = Float.MIN_VALUE;
     private float mScaledVerticalScrollFactor = Float.MIN_VALUE;
 
+    // Orientation helpers are lazily created per LayoutManager.
+    @Nullable private OrientationHelper mVerticalHelper;
+    @Nullable private OrientationHelper mHorizontalHelper;
+
     private boolean mPreserveFocusAfterLayout = true;
 
     final ViewFlinger mViewFlinger = new ViewFlinger();
@@ -1098,6 +1102,53 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
     @Override
     public boolean getClipToPadding() {
         return mClipToPadding;
+    }
+
+    @NonNull
+    private OrientationHelper getVerticalHelper() {
+        if (mVerticalHelper == null || mVerticalHelper.getLayoutManager() != mLayout) {
+            mVerticalHelper = OrientationHelper.createVerticalHelper(mLayout);
+        }
+        return mVerticalHelper;
+    }
+
+    @NonNull
+    private OrientationHelper getHorizontalHelper() {
+        if (mHorizontalHelper == null || mHorizontalHelper.getLayoutManager() != mLayout) {
+            mHorizontalHelper = OrientationHelper.createHorizontalHelper(mLayout);
+        }
+        return mHorizontalHelper;
+    }
+
+    /** Returns {@code true} if the RecyclerView is completely displaying the first item. */
+    public boolean isAtStart() {
+        if (mLayout == null || mLayout.getChildCount() == 0) {
+            return true;
+        }
+
+        View firstChild = mLayout.getChildAt(0);
+        OrientationHelper orientationHelper = mLayout.canScrollVertically()
+                ? getVerticalHelper()
+                : getHorizontalHelper();
+
+        // Check that the first child is completely visible and is the first item in the list.
+        return orientationHelper.getDecoratedStart(firstChild) >= 0
+                && mLayout.getPosition(firstChild) == 0;
+    }
+
+    /** Returns {@code true} if the RecyclerView is completely displaying the last item. */
+    public boolean isAtEnd() {
+        if (mLayout == null || mLayout.getChildCount() == 0) {
+            return true;
+        }
+
+        int childCount = mLayout.getChildCount();
+        View lastVisibleChild = mLayout.getChildAt(childCount - 1);
+
+        // The list has reached the bottom if the last child that is visible is the last item
+        // in the list and it's fully shown.
+        return mLayout.getPosition(lastVisibleChild) == (mLayout.getItemCount() - 1)
+                && mLayout.getDecoratedBottom(lastVisibleChild) <= mLayout.getHeight();
     }
 
     /**
@@ -5059,14 +5110,22 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
         // Pass the real deltas to onScrolled, the RecyclerView-specific method.
         onScrolled(hresult, vresult);
 
+        boolean didReachBottom = !isAtStart() && isAtEnd();
+
         // Invoke listeners last. Subclassed view methods always handle the event first.
         // All internal state is consistent by the time listeners are invoked.
         if (mScrollListener != null) {
             mScrollListener.onScrolled(this, hresult, vresult);
+            if (didReachBottom) {
+                mScrollListener.onReachBottom(this);
+            }
         }
         if (mScrollListeners != null) {
             for (int i = mScrollListeners.size() - 1; i >= 0; i--) {
                 mScrollListeners.get(i).onScrolled(this, hresult, vresult);
+                if (didReachBottom) {
+                    mScrollListeners.get(i).onReachBottom(this);
+                }
             }
         }
         mDispatchScrollCounter--;
@@ -10758,6 +10817,12 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
          * @param dy The amount of vertical scroll.
          */
         public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy){}
+
+        /**
+         * Called when the {@code PagedListView} has been scrolled so that the last item is
+         * completely visible.
+         */
+        public void onReachBottom(@NonNull RecyclerView recyclerView){}
     }
 
     /**

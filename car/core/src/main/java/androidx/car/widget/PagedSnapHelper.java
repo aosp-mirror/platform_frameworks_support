@@ -263,7 +263,7 @@ class PagedSnapHelper extends LinearSnapHelper {
             return outDist;
         }
 
-        int lastChildPosition = isAtEnd(layoutManager) ? 0 : layoutManager.getChildCount() - 1;
+        int lastChildPosition = mRecyclerView.isAtEnd() ? 0 : layoutManager.getChildCount() - 1;
 
         OrientationHelper orientationHelper = getOrientationHelper(layoutManager);
         View lastChild = layoutManager.getChildAt(lastChildPosition);
@@ -284,37 +284,6 @@ class PagedSnapHelper extends LinearSnapHelper {
         outDist[1] = clamp(outDist[1], minDistance, maxDistance);
 
         return outDist;
-    }
-
-    /** Returns {@code true} if the RecyclerView is completely displaying the first item. */
-    public boolean isAtStart(RecyclerView.LayoutManager layoutManager) {
-        if (layoutManager == null || layoutManager.getChildCount() == 0) {
-            return true;
-        }
-
-        View firstChild = layoutManager.getChildAt(0);
-        OrientationHelper orientationHelper = layoutManager.canScrollVertically()
-                ? getVerticalHelper(layoutManager)
-                : getHorizontalHelper(layoutManager);
-
-        // Check that the first child is completely visible and is the first item in the list.
-        return orientationHelper.getDecoratedStart(firstChild) >= 0
-                && layoutManager.getPosition(firstChild) == 0;
-    }
-
-    /** Returns {@code true} if the RecyclerView is completely displaying the last item. */
-    public boolean isAtEnd(RecyclerView.LayoutManager layoutManager) {
-        if (layoutManager == null || layoutManager.getChildCount() == 0) {
-            return true;
-        }
-
-        int childCount = layoutManager.getChildCount();
-        View lastVisibleChild = layoutManager.getChildAt(childCount - 1);
-
-        // The list has reached the bottom if the last child that is visible is the last item
-        // in the list and it's fully shown.
-        return layoutManager.getPosition(lastVisibleChild) == (layoutManager.getItemCount() - 1)
-                && layoutManager.getDecoratedBottom(lastVisibleChild) <= layoutManager.getHeight();
     }
 
     /**

@@ -383,6 +383,7 @@ package androidx.car.widget {
     method public void pageDown();
     method public void pageUp();
     method public int positionOf(android.view.View?);
+    method public void registerPageListViewCallback(androidx.car.widget.PagedListView.PagedListViewCallback!);
     method public void removeItemDecoration(androidx.recyclerview.widget.RecyclerView.ItemDecoration);
     method public void removeOnItemTouchListener(androidx.recyclerview.widget.RecyclerView.OnItemTouchListener);
     method public void scrollToPosition(int);
@@ -396,7 +397,7 @@ package androidx.car.widget {
     method public void setListContentBottomOffset(@Px int);
     method public void setListContentTopOffset(@Px int);
     method public void setMaxPages(int);
-    method public void setOnScrollListener(androidx.car.widget.PagedListView.OnScrollListener!);
+    method public void setOnScrollListener(androidx.recyclerview.widget.RecyclerView.OnScrollListener!);
     method public void setScrollBarContainerWidth(int);
     method public void setScrollBarTopMargin(int);
     method public void setScrollbarThumbEnabled(boolean);
@@ -426,13 +427,10 @@ package androidx.car.widget {
     method public void setPositionOffset(int);
   }
 
-  public abstract static class PagedListView.OnScrollListener {
-    ctor public PagedListView.OnScrollListener();
-    method public void onReachBottom();
+  public abstract static class PagedListView.PagedListViewCallback {
+    ctor public PagedListView.PagedListViewCallback();
     method public void onScrollDownButtonClicked();
-    method public void onScrollStateChanged(androidx.recyclerview.widget.RecyclerView!, int);
     method public void onScrollUpButtonClicked();
-    method public void onScrolled(androidx.recyclerview.widget.RecyclerView!, int, int);
   }
 
   public class PagedScrollBarView extends android.view.ViewGroup {
