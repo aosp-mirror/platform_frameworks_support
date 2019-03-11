@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "437a2d1a_bfb777c3",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dependencyTracker/AffectedModuleDetector.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1442661
+      },
+      "writtenOn": "2019-03-11T13:05:51Z",
+      "side": 1,
+      "message": "Since the results are binary, would this look better as an \"if\" on projectSubset\u003d\u003dProjectSubset.CHANGED_PROJECTS? I used \"when\" to keep the look consistent with the final return statement, but now I think it might be better collapsed to the if. Which do you think works better?",
+      "revId": "34fbb350daa6ac9f8ad4768acb8dd7ecb5b47913",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
