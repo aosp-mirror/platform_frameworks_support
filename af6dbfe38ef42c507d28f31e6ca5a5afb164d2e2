@@ -1,0 +1,291 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6866300b_09517cae",
+        "filename": "viewpager2/api/current.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-03-11T14:32:38Z",
+      "side": 1,
+      "message": "Could we expose \u0027getScrollState()\u0027 instead?",
+      "range": {
+        "startLine": 41,
+        "startChar": 4,
+        "endLine": 42,
+        "endChar": 43
+      },
+      "revId": "af6dbfe38ef42c507d28f31e6ca5a5afb164d2e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d22e2ec_23068112",
+        "filename": "viewpager2/api/current.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-03-11T14:32:38Z",
+      "side": 1,
+      "message": "Could you get sign-off on the API change from Adam/Alan? Seems fine to me, but would be good to get their opinion.",
+      "revId": "af6dbfe38ef42c507d28f31e6ca5a5afb164d2e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2fdf701_592b1b1c",
+        "filename": "viewpager2/integration-tests/testapp/src/androidTest/java/com/example/androidx/viewpager2/BaseTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-03-11T14:32:38Z",
+      "side": 1,
+      "message": "When is this a valid case? Maybe throw an exception instead?",
+      "range": {
+        "startLine": 81,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 33
+      },
+      "revId": "af6dbfe38ef42c507d28f31e6ca5a5afb164d2e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e760c19_2bb659e6",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/TestUtils.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-03-11T14:32:38Z",
+      "side": 1,
+      "message": "IllegalArgumentException?",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 25
+      },
+      "revId": "af6dbfe38ef42c507d28f31e6ca5a5afb164d2e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65e7b9e0_e2c04bf4",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/TestUtils.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-03-11T14:32:38Z",
+      "side": 1,
+      "message": "Not sure if we actually need this and want to maintain it - the benefit is limited (int value easy to look up). I\u0027d drop: fewer lines to maintain \u003d fewer bugs, and lower maintenance cost.",
+      "revId": "af6dbfe38ef42c507d28f31e6ca5a5afb164d2e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "303ca7dd_6bab23a3",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ScrollEventAdapter.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-03-11T14:32:38Z",
+      "side": 1,
+      "message": "Maybe return void here, so we have a clarify that this one updates internal state and doesn\u0027t compute a fresh new one? You\u0027re only using a return value in one place.",
+      "range": {
+        "startLine": 196,
+        "startChar": 12,
+        "endLine": 196,
+        "endChar": 29
+      },
+      "revId": "af6dbfe38ef42c507d28f31e6ca5a5afb164d2e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "136ce6c1_a86cf999",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ScrollEventAdapter.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-03-11T14:32:38Z",
+      "side": 1,
+      "message": "Can you comment on the difference between mAdapterState and mScrollState?\n\nIf mScrollState is what we communicate externally via ViewPager2 and mAdapterState is the state of the SEA state machine, then ideally in SEA we\u0027d only rely on mAdapterState, and for the \u0027external world\u0027 queries we\u0027d have a mapping from mAdapterState to mScrollState (also here).",
+      "range": {
+        "startLine": 344,
+        "startChar": 15,
+        "endLine": 344,
+        "endChar": 28
+      },
+      "revId": "af6dbfe38ef42c507d28f31e6ca5a5afb164d2e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ae3e21a_ca81e4fb",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-03-11T14:32:38Z",
+      "side": 1,
+      "message": "Is it feasible to move those, and fake drag methods to a separate class, similarly to what we did with ScrollEventAdapter? It\u0027d make the ViewPager2 class more manageable.",
+      "range": {
+        "startLine": 100,
+        "startChar": 0,
+        "endLine": 105,
+        "endChar": 36
+      },
+      "revId": "af6dbfe38ef42c507d28f31e6ca5a5afb164d2e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c96c93a_b1fe31df",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 529,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-03-11T14:32:38Z",
+      "side": 1,
+      "message": "As discussed offline, let\u0027s give those names that reflect what they\u0027re responsible for.",
+      "range": {
+        "startLine": 529,
+        "startChar": 8,
+        "endLine": 529,
+        "endChar": 38
+      },
+      "revId": "af6dbfe38ef42c507d28f31e6ca5a5afb164d2e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31f9a44f_a02540d2",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-03-11T14:32:38Z",
+      "side": 1,
+      "message": "what does that mean? \u0027to end\u0027 is what confuses me",
+      "range": {
+        "startLine": 553,
+        "startChar": 15,
+        "endLine": 553,
+        "endChar": 44
+      },
+      "revId": "af6dbfe38ef42c507d28f31e6ca5a5afb164d2e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04b8dbb3_a8d3118a",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 571,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-03-11T14:32:38Z",
+      "side": 1,
+      "message": "nit: isHorizontal",
+      "range": {
+        "startLine": 571,
+        "startChar": 16,
+        "endLine": 571,
+        "endChar": 26
+      },
+      "revId": "af6dbfe38ef42c507d28f31e6ca5a5afb164d2e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0b108dd_feaf2eef",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 601,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-03-11T14:32:38Z",
+      "side": 1,
+      "message": "Where does this value come from?",
+      "range": {
+        "startLine": 601,
+        "startChar": 18,
+        "endLine": 601,
+        "endChar": 40
+      },
+      "revId": "af6dbfe38ef42c507d28f31e6ca5a5afb164d2e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77050e5a_668c29e5",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 648,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-03-11T14:32:38Z",
+      "side": 1,
+      "message": "If this is a copy/paste from PSH, let\u0027s write a note to keep them in sync. It\u0027ll be useful if we find a bug in this area.",
+      "range": {
+        "startLine": 648,
+        "startChar": 17,
+        "endLine": 648,
+        "endChar": 27
+      },
+      "revId": "af6dbfe38ef42c507d28f31e6ca5a5afb164d2e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
