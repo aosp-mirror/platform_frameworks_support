@@ -16,6 +16,116 @@
       "revId": "64e3203778bb6ec090fe7eac61520f2431873a33",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e9edd4b_2d70502f",
+        "filename": "lifecycle/livedata/eap/src/main/java/androidx/lifecycle/CoroutineLiveData.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1014545
+      },
+      "writtenOn": "2019-03-11T22:54:22Z",
+      "side": 1,
+      "message": "`yield` has precedent in kotlin as the standard name for this: https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.sequences/-sequence-scope/index.html",
+      "parentUuid": "c158f626_c92bc334",
+      "revId": "64e3203778bb6ec090fe7eac61520f2431873a33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac016ecf_c23e52e2",
+        "filename": "lifecycle/livedata/eap/src/main/java/androidx/lifecycle/CoroutineLiveData.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1014545
+      },
+      "writtenOn": "2019-03-11T22:54:22Z",
+      "side": 1,
+      "message": "Can we avoid having this as API? If we want to handle restarts perhaps we could have the builder method take `LiveDataScope\u003cT\u003e.(T?) -\u003e Unit` instead. Users who don\u0027t care can ignore the parameter and the resulting implicit `it`.",
+      "range": {
+        "startLine": 72,
+        "startChar": 16,
+        "endLine": 72,
+        "endChar": 28
+      },
+      "revId": "64e3203778bb6ec090fe7eac61520f2431873a33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8b4c778_a2c0f3a9",
+        "filename": "lifecycle/livedata/eap/src/main/java/androidx/lifecycle/CoroutineLiveData.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 1014545
+      },
+      "writtenOn": "2019-03-11T22:54:22Z",
+      "side": 1,
+      "message": "stop putting spaces here :D",
+      "range": {
+        "startLine": 286,
+        "startChar": 17,
+        "endLine": 286,
+        "endChar": 18
+      },
+      "revId": "64e3203778bb6ec090fe7eac61520f2431873a33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0242c85_414cd4d9",
+        "filename": "lifecycle/livedata/eap/src/main/java/androidx/lifecycle/CoroutineLiveData.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1014545
+      },
+      "writtenOn": "2019-03-11T22:54:22Z",
+      "side": 1,
+      "message": "Data point, the final kotlinx.coroutines api surface uses just the noun as the function name, omitting \"build.\" https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.sequences/-sequence-scope/index.html see `sequence`, `iterator`",
+      "range": {
+        "startLine": 297,
+        "startChar": 8,
+        "endLine": 297,
+        "endChar": 21
+      },
+      "revId": "64e3203778bb6ec090fe7eac61520f2431873a33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "587907d4_2da3f6f6",
+        "filename": "lifecycle/livedata/eap/src/test/java/androidx/lifecycle/LiveData.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1014545
+      },
+      "writtenOn": "2019-03-11T22:54:22Z",
+      "side": 1,
+      "message": "`CompletableDeferred\u003cUnit\u003e()` can be used as a suspending latch instead of blocking an IO pool thread",
+      "range": {
+        "startLine": 63,
+        "startChar": 20,
+        "endLine": 63,
+        "endChar": 34
+      },
+      "revId": "64e3203778bb6ec090fe7eac61520f2431873a33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
