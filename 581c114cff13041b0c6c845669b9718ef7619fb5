@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2d5d0269_7bba6c2d",
+        "filename": "benchmark/src/main/java/androidx/benchmark/WarningState.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-03-11T21:54:17Z",
+      "side": 1,
+      "message": "cpuClocksAreLocked",
+      "range": {
+        "startLine": 128,
+        "startChar": 16,
+        "endLine": 128,
+        "endChar": 31
+      },
+      "revId": "581c114cff13041b0c6c845669b9718ef7619fb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
