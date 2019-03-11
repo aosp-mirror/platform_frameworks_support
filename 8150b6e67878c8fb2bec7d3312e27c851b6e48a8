@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5d585e75_549d4dcd",
+        "filename": "benchmark/src/main/java/androidx/benchmark/WarningState.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-03-11T20:40:06Z",
+      "side": 1,
+      "message": "indent and use newlines for each line",
+      "revId": "8150b6e67878c8fb2bec7d3312e27c851b6e48a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
