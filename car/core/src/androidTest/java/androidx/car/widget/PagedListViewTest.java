@@ -36,6 +36,9 @@ import static org.hamcrest.Matchers.lessThan;
 import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
@@ -176,6 +179,38 @@ public final class PagedListViewTest {
     public void testScrollBarIsInvisibleIfItemsDoNotFillOnePage() {
         setUpPagedListView(1 /* itemCount */);
         onView(withId(R.id.paged_scroll_view)).check(matches(not(isDisplayed())));
+    }
+
+    @Test
+    public void testScrollButtonCallback() {
+        int itemCount = ITEMS_PER_PAGE * 3;
+        setUpPagedListView(itemCount);
+
+        PagedListView.Callback mockedCallback = mock(PagedListView.Callback.class);
+        mPagedListView.registerCallback(mockedCallback);
+
+        // Move one page down.
+        onView(withId(R.id.page_down)).perform(click());
+        verify(mockedCallback, times(1)).onScrollDownButtonClicked();
+
+        // Move one page up.
+        onView(withId(R.id.page_up)).perform(click());
+        verify(mockedCallback, times(1)).onScrollUpButtonClicked();
+    }
+
+    @Test
+    public void testReachBottomCallback() {
+        int itemCount = ITEMS_PER_PAGE * 2;
+        setUpPagedListView(itemCount);
+
+        PagedListView.Callback mockedCallback = mock(PagedListView.Callback.class);
+        mPagedListView.registerCallback(mockedCallback);
+
+        // Moving down to bottom of list.
+        onView(withId(R.id.page_down)).perform(click());
+        onView(withId(R.id.page_down)).perform(click());
+
+        verify(mockedCallback, times(1)).onReachBottom();
     }
 
     @Test
