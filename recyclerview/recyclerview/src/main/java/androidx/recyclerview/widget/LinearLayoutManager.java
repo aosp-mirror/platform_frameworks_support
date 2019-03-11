@@ -53,6 +53,8 @@ public class LinearLayoutManager extends RecyclerView.LayoutManager implements
 
     public static final int INVALID_OFFSET = Integer.MIN_VALUE;
 
+    public static final int DIRECTION_START = -1;
+    public static final int DIRECTION_END = 1;
 
     /**
      * While trying to find next view to focus, LayoutManager will not try to scroll more
@@ -443,6 +445,14 @@ public class LinearLayoutManager extends RecyclerView.LayoutManager implements
         }
     }
 
+    protected int getExtraLayoutSpace(RecyclerView.State state, int extraDirection, int scrollDirection) {
+        if (extraDirection == scrollDirection) {
+            return getExtraLayoutSpace(state);
+        } else {
+            return 0;
+        }
+    }
+
     @Override
     public void smoothScrollToPosition(RecyclerView recyclerView, RecyclerView.State state,
             int position) {
@@ -529,15 +539,14 @@ public class LinearLayoutManager extends RecyclerView.LayoutManager implements
         // caching or predictive animations.
         int extraForStart;
         int extraForEnd;
-        final int extra = getExtraLayoutSpace(state);
-        // If the previous scroll delta was less than zero, the extra space should be laid out
-        // at the start. Otherwise, it should be at the end.
+        // If the previous scroll delta was greater than zero, the last scroll was towards the end,
+        // so the end is considered to be "in front". Otherwise, treat the start as "in front".
         if (mLayoutState.mLastScrollDelta >= 0) {
-            extraForEnd = extra;
-            extraForStart = 0;
+            extraForStart = getExtraLayoutSpace(state, DIRECTION_START, DIRECTION_END);
+            extraForEnd = getExtraLayoutSpace(state, DIRECTION_END, DIRECTION_END);
         } else {
-            extraForStart = extra;
-            extraForEnd = 0;
+            extraForStart = getExtraLayoutSpace(state, DIRECTION_START, DIRECTION_START);
+            extraForEnd = getExtraLayoutSpace(state, DIRECTION_END, DIRECTION_START);
         }
         extraForStart += mOrientationHelper.getStartAfterPadding();
         extraForEnd += mOrientationHelper.getEndPadding();
@@ -977,7 +986,6 @@ public class LinearLayoutManager extends RecyclerView.LayoutManager implements
         mLayoutState.mLayoutDirection = LayoutState.LAYOUT_START;
         mLayoutState.mOffset = offset;
         mLayoutState.mScrollingOffset = LayoutState.SCROLLING_OFFSET_NaN;
-
     }
 
     protected boolean isLayoutRTL() {
@@ -1175,7 +1183,8 @@ public class LinearLayoutManager extends RecyclerView.LayoutManager implements
             boolean canUseExistingSpace, RecyclerView.State state) {
         // If parent provides a hint, don't measure unlimited.
         mLayoutState.mInfinite = resolveIsInfinite();
-        mLayoutState.mExtra = getExtraLayoutSpace(state);
+        mLayoutState.mExtra = getExtraLayoutSpace(state, layoutDirection, layoutDirection);
+        mLayoutState.mRecycleTailOffset = getExtraLayoutSpace(state, -layoutDirection, layoutDirection);
         mLayoutState.mLayoutDirection = layoutDirection;
         int scrollingOffset;
         if (layoutDirection == LayoutState.LAYOUT_END) {
@@ -1386,7 +1395,7 @@ public class LinearLayoutManager extends RecyclerView.LayoutManager implements
      *                 to detect children that will go out of bounds after scrolling, without
      *                 actually moving them.
      */
-    private void recycleViewsFromStart(RecyclerView.Recycler recycler, int dt) {
+    private void recycleViewsFromStart(RecyclerView.Recycler recycler, int dt, int offset) {
         if (dt < 0) {
             if (DEBUG) {
                 Log.d(TAG, "Called recycle from start with a negative value. This might happen"
@@ -1395,7 +1404,7 @@ public class LinearLayoutManager extends RecyclerView.LayoutManager implements
             return;
         }
         // ignore padding, ViewGroup may not clip children.
-        final int limit = dt;
+        final int limit = dt - offset;
         final int childCount = getChildCount();
         if (mShouldReverseLayout) {
             for (int i = childCount - 1; i >= 0; i--) {
@@ -1431,7 +1440,7 @@ public class LinearLayoutManager extends RecyclerView.LayoutManager implements
      *                 to detect children that will go out of bounds after scrolling, without
      *                 actually moving them.
      */
-    private void recycleViewsFromEnd(RecyclerView.Recycler recycler, int dt) {
+    private void recycleViewsFromEnd(RecyclerView.Recycler recycler, int dt, int offset) {
         final int childCount = getChildCount();
         if (dt < 0) {
             if (DEBUG) {
@@ -1440,7 +1449,7 @@ public class LinearLayoutManager extends RecyclerView.LayoutManager implements
             }
             return;
         }
-        final int limit = mOrientationHelper.getEnd() - dt;
+        final int limit = mOrientationHelper.getEnd() - dt + offset;
         if (mShouldReverseLayout) {
             for (int i = 0; i < childCount; i++) {
                 View child = getChildAt(i);
@@ -1471,8 +1480,8 @@ public class LinearLayoutManager extends RecyclerView.LayoutManager implements
      * @param layoutState Current layout state. Right now, this object does not change but
      *                    we may consider moving it out of this view so passing around as a
      *                    parameter for now, rather than accessing {@link #mLayoutState}
-     * @see #recycleViewsFromStart(RecyclerView.Recycler, int)
-     * @see #recycleViewsFromEnd(RecyclerView.Recycler, int)
+     * @see #recycleViewsFromStart(RecyclerView.Recycler, int, int)
+     * @see #recycleViewsFromEnd(RecyclerView.Recycler, int, int)
      * @see LinearLayoutManager.LayoutState#mLayoutDirection
      */
     private void recycleByLayoutState(RecyclerView.Recycler recycler, LayoutState layoutState) {
@@ -1480,9 +1489,9 @@ public class LinearLayoutManager extends RecyclerView.LayoutManager implements
             return;
         }
         if (layoutState.mLayoutDirection == LayoutState.LAYOUT_START) {
-            recycleViewsFromEnd(recycler, layoutState.mScrollingOffset);
+            recycleViewsFromEnd(recycler, layoutState.mScrollingOffset, layoutState.mRecycleTailOffset);
         } else {
-            recycleViewsFromStart(recycler, layoutState.mScrollingOffset);
+            recycleViewsFromStart(recycler, layoutState.mScrollingOffset, layoutState.mRecycleTailOffset);
         }
     }
 
@@ -1979,7 +1988,6 @@ public class LinearLayoutManager extends RecyclerView.LayoutManager implements
             return null;
         }
         ensureLayoutState();
-        ensureLayoutState();
         final int maxScroll = (int) (MAX_SCROLL_FACTOR * mOrientationHelper.getTotalSpace());
         updateLayoutState(layoutDir, maxScroll, false, state);
         mLayoutState.mScrollingOffset = LayoutState.SCROLLING_OFFSET_NaN;
@@ -2182,6 +2190,8 @@ public class LinearLayoutManager extends RecyclerView.LayoutManager implements
          * {@link #mExtra} is not considered to avoid recycling visible children.
          */
         int mExtra = 0;
+
+        int mRecycleTailOffset = 0;
 
         /**
          * Equal to {@link RecyclerView.State#isPreLayout()}. When consuming scrap, if this value
