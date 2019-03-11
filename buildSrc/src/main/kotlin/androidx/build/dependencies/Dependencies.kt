@@ -45,7 +45,10 @@ const val KOTLIN_COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-android:
 const val KOTLIN_COROUTINES_CORE = "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.0"
 const val KOTLIN_COROUTINES_TEST = "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.1.0"
 const val LEAKCANARY_INSTRUMENTATION =
-        "com.squareup.leakcanary:leakcanary-android-instrumentation:1.6.2"
+            "com.squareup.leakcanary:leakcanary-android-instrumentation:1.6.2"
+const val LINT_API = "com.android.tools.lint:lint-api:26.4.0-beta03"
+const val LINT_CORE = "com.android.tools.lint:lint:26.4.0-beta03"
+const val LINT_TESTS = "com.android.tools.lint:lint-tests:26.4.0-beta03"
 const val MOCKITO_CORE = "org.mockito:mockito-core:2.19.0"
 const val MULTIDEX = "androidx.multidex:multidex:2.0.0"
 const val NULLAWAY = "com.uber.nullaway:nullaway:0.3.7"

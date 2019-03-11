@@ -19,7 +19,8 @@ import androidx.build.LibraryGroups
 import androidx.build.LibraryVersions
 
 plugins {
-    id("SupportKotlinLibraryPlugin")
+    id("SupportAndroidLibraryPlugin")
+    id("org.jetbrains.kotlin.android")
 }
 
 dependencies {
@@ -28,11 +29,14 @@ dependencies {
     api(KOTLIN_COROUTINES_CORE)
     // tests are in lifecycle kotlin test app to be able to test with a proper lifecycle
     // implementation while keeping this project pure kotlin.
+    // have to use lintChecks because, lintPublish does nothing: b/123377555
+    lintChecks(project(':lifecycle:lifecycle-lint'))
+    lintPublish(project(':lifecycle:lifecycle-lint'))
 }
 
 supportLibrary {
     name = "Lifecycle Kotlin Extensions"
-    publish = false
+    publish = true
     mavenVersion = LibraryVersions.LIFECYCLES_COROUTINES
     mavenGroup = LibraryGroups.LIFECYCLE
     inceptionYear = "2018"
