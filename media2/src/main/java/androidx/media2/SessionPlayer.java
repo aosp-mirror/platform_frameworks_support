@@ -274,7 +274,7 @@ public abstract class SessionPlayer implements AutoCloseable {
      */
     public static final int SHUFFLE_MODE_GROUP = 2;
 
-    public static final long UNKNOWN_TIME = -1;
+    public static final long UNKNOWN_TIME = Long.MIN_VALUE;
 
     /**
      * Media item index is invalid. This value will be returned when the corresponding media item
@@ -288,17 +288,26 @@ public abstract class SessionPlayer implements AutoCloseable {
 
     /**
      * Plays the playback.
+     * <p>
+     * This transfers the player state from {@link #PLAYER_STATE_PAUSED} to
+     * {@link #PLAYER_STATE_PLAYING}.
      */
     public abstract @NonNull ListenableFuture<PlayerResult> play();
 
     /**
      * Pauses playback.
+     * <p>
+     * This transfers the player state from {@link #PLAYER_STATE_PLAYING} to
+     * {@link #PLAYER_STATE_PAUSED}.
      */
     public abstract @NonNull ListenableFuture<PlayerResult> pause();
 
     /**
      * Prepares the media items for playback. During this time, the player may allocate resources
      * required to play, such as audio and video decoders.
+     * <p>
+     * This transfers the player state from {@link #PLAYER_STATE_IDLE} to
+     * {@link #PLAYER_STATE_PAUSED}.
      */
     public abstract @NonNull ListenableFuture<PlayerResult> prepare();
 
