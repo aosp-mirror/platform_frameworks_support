@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "167dd294_2e43a54e",
+        "filename": "benchmark/src/main/java/androidx/benchmark/WarningState.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-03-11T20:17:34Z",
+      "side": 1,
+      "message": "Unstable",
+      "range": {
+        "startLine": 71,
+        "startChar": 41,
+        "endLine": 71,
+        "endChar": 49
+      },
+      "revId": "00a99911bfb21fbf040e6166160483fe6aa2cca6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "577aae18_a2c05759",
+        "filename": "benchmark/src/main/java/androidx/benchmark/WarningState.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-03-11T20:17:34Z",
+      "side": 1,
+      "message": "Rest looks good, suggest:\n\nBenchmark appears to be running on a rooted device with unlocked CPU clocks. Unlocked CPU clocks can lead to inconsistent results due to dynamic frequency scaling, and thermal throttling. On a rooted device, lock your device clocks to a stable frequency with lockClocks.sh.\n\nThis way, we\u0027re\n\n1) not getting bogged down in details of how to lock (we\u0027ll distribute lockClocks.sh as a  script for now)\n2) clarifying this is only a warning on rooted device\n3) being a little clearer in terminology (freq scaling applies to load-driven cpu frequency changing, and throttling is only for when the device gets too hot)",
+      "revId": "00a99911bfb21fbf040e6166160483fe6aa2cca6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
