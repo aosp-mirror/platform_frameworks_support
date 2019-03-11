@@ -21,6 +21,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RestrictTo;
 import androidx.savedstate.SavedStateRegistry;
 
 /**
@@ -47,6 +48,11 @@ public abstract class AbstractSavedStateVMFactory implements ViewModelProvider.K
         VMSavedStateInitializer.initializeIfNeeded(application);
     }
 
+    // TODO: make KeyedFactory#create(String, Class) package private
+    /**
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
     @NonNull
     @Override
     public final <T extends ViewModel> T create(@NonNull String key, @NonNull Class<T> modelClass) {
@@ -58,6 +64,22 @@ public abstract class AbstractSavedStateVMFactory implements ViewModelProvider.K
         return viewmodel;
     }
 
+<<<<<<< HEAD   (e99b02 Merge "Merge empty history for sparse-5359697-L9090000027789)
+=======
+    @NonNull
+    @Override
+    public final <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
+        // ViewModelProvider calls correct create that support same modelClass with different keys
+        // If a developer manually calls this method, there is no "key" in picture, so factory
+        // simply uses classname internally as as key.
+        String canonicalName = modelClass.getCanonicalName();
+        if (canonicalName == null) {
+            throw new IllegalArgumentException("Local and anonymous classes can not be ViewModels");
+        }
+        return create(canonicalName, modelClass);
+    }
+
+>>>>>>> BRANCH (f56687 Merge "Merge cherrypicks of [926273] into sparse-5361903-L36)
     /**
      * Creates a new instance of the given {@code Class}.
      * <p>
