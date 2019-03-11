@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e55f7b6d_a2162d77",
+        "filename": "media2-widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 458,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-03-11T05:29:54Z",
+      "side": 1,
+      "message": "Q) Does it make sense to call View.GONE here instead?",
+      "range": {
+        "startLine": 458,
+        "startChar": 65,
+        "endLine": 458,
+        "endChar": 74
+      },
+      "revId": "4de8c555e83a205a362f9160fbc23fb506e7013e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
