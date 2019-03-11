@@ -42,6 +42,24 @@
     },
     {
       "key": {
+        "uuid": "ac128ed1_6e2cd644",
+        "filename": "viewpager2/api/current.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1014545
+      },
+      "writtenOn": "2019-03-11T15:46:14Z",
+      "side": 1,
+      "message": "What is a developer meant to do differently in response to fake dragging vs. dragging?",
+      "parentUuid": "0d22e2ec_23068112",
+      "revId": "af6dbfe38ef42c507d28f31e6ca5a5afb164d2e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c2fdf701_592b1b1c",
         "filename": "viewpager2/integration-tests/testapp/src/androidTest/java/com/example/androidx/viewpager2/BaseTest.kt",
         "patchSetId": 6
