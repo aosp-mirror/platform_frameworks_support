@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "71820142_25346be4",
+        "filename": "benchmark/src/main/java/androidx/benchmark/WarningState.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-03-11T18:11:04Z",
+      "side": 1,
+      "message": "User builds can be signed with test-keys, right? Try and flash a user build without release keys from the flashstation - I don\u0027t think this is a good signal for root access.",
+      "revId": "e2d92f2eee69c752b6459d557c33bc0f9bfb0bea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f03b5535_1f06ab39",
+        "filename": "benchmark/src/main/java/androidx/benchmark/WarningState.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-03-11T18:11:04Z",
+      "side": 1,
+      "message": "Does this prints errors when certain cores don\u0027t have a min/current freq file? Let\u0027s just ignore those cores.",
+      "revId": "e2d92f2eee69c752b6459d557c33bc0f9bfb0bea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1186a774_752914dc",
+        "filename": "benchmark/src/main/java/androidx/benchmark/WarningState.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-03-11T18:11:04Z",
+      "side": 1,
+      "message": "Does this handle disabled cores? in lockClocks.sh, we intentionally disable smaller cores, so work doesn\u0027t ping pong between cores of different performance.\n\n    echo 0 \u003e /sys/devices/system/cpu/cpu0/online",
+      "revId": "e2d92f2eee69c752b6459d557c33bc0f9bfb0bea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5fed6e65_2e927b51",
+        "filename": "benchmark/src/main/java/androidx/benchmark/WarningState.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-03-11T18:11:04Z",
+      "side": 1,
+      "message": "suggest: \u0027cpu clock state\u0027",
+      "range": {
+        "startLine": 160,
+        "startChar": 52,
+        "endLine": 160,
+        "endChar": 61
+      },
+      "revId": "e2d92f2eee69c752b6459d557c33bc0f9bfb0bea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
