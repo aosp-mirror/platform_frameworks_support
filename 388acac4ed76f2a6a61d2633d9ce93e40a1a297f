@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "47ac7d18_a1ef2d4e",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/BaseTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-03-11T12:48:53Z",
+      "side": 1,
+      "message": "Discussed offline that it\u0027s fine.",
+      "parentUuid": "cc38d1a0_aefac875",
+      "range": {
+        "startLine": 379,
+        "startChar": 8,
+        "endLine": 379,
+        "endChar": 14
+      },
+      "revId": "388acac4ed76f2a6a61d2633d9ce93e40a1a297f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2d69b714_842c4e2b",
         "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/DragWhileSmoothScrollTest.kt",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "388acac4ed76f2a6a61d2633d9ce93e40a1a297f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad050641_4b811f33",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/DragWhileSmoothScrollTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-03-11T12:48:53Z",
+      "side": 1,
+      "message": "Discussed offline that it might not add value.",
+      "parentUuid": "2d69b714_842c4e2b",
+      "range": {
+        "startLine": 217,
+        "startChar": 12,
+        "endLine": 217,
+        "endChar": 25
+      },
+      "revId": "388acac4ed76f2a6a61d2633d9ce93e40a1a297f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
