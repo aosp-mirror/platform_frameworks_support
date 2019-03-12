@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7b8dbdab_cb75981a",
+        "filename": "benchmark/src/androidTest/java/androidx/benchmark/StandaloneBenchmark.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-03-12T16:27:31Z",
+      "side": 1,
+      "message": "you don\u0027t need to lateinit this, can just inline the var definition",
+      "revId": "8cb50190cf6fb693705036a744ce3c77fb11f108",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb9c28b1_bc1955ec",
+        "filename": "benchmark/src/androidTest/java/androidx/benchmark/StandaloneBenchmark.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-03-12T16:27:31Z",
+      "side": 1,
+      "message": "InstrumentationRegistry.getInstrumentationRegistry().getTargetContext\n\ngetContext isn\u0027t generally what you want, since it\u0027s for the test app, instead of the app being tested. \n\nIn the case of a com.android.library, it won\u0027t matter, since it\u0027s just one self-instrumenting APK, it\u0027s just a good habit to always call getTargetContext",
+      "range": {
+        "startLine": 44,
+        "startChar": 42,
+        "endLine": 44,
+        "endChar": 52
+      },
+      "revId": "8cb50190cf6fb693705036a744ce3c77fb11f108",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e657775b_4ea7ef6b",
+        "filename": "benchmark/src/androidTest/java/androidx/benchmark/StandaloneBenchmark.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-03-12T16:27:31Z",
+      "side": 1,
+      "message": "move these to separate classes, though can keep them in the same file:\n\nAutoBoxingBenchmark, BitmapBenchmark",
+      "revId": "8cb50190cf6fb693705036a744ce3c77fb11f108",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
