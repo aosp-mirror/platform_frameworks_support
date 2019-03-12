@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "12dfffe4_cea8a0d0",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedListView.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-03-12T23:50:54Z",
+      "side": 1,
+      "message": "private",
+      "revId": "a13a6f9807ccaceec974adb063739584425e6f16",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f675692a_0af9d93b",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedListView.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-03-12T23:50:54Z",
+      "side": 1,
+      "message": "Here should be a space after \"callback\":\n\n  for (Callback callback : mCallbacks)\n\nhttp://go/java-style#s4.6.2-horizontal-whitespace",
+      "range": {
+        "startLine": 331,
+        "startChar": 38,
+        "endLine": 331,
+        "endChar": 46
+      },
+      "revId": "a13a6f9807ccaceec974adb063739584425e6f16",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3c38e4a_ba5320ff",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedListView.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1355,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-03-12T23:50:54Z",
+      "side": 1,
+      "message": "Remove this extra new line",
+      "revId": "a13a6f9807ccaceec974adb063739584425e6f16",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
