@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1bc99490_f074eec4",
+        "filename": "mediarouter/build.gradle",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1019013
+      },
+      "writtenOn": "2019-03-12T08:14:07Z",
+      "side": 1,
+      "message": "Q) should we also change this to implementation?",
+      "range": {
+        "startLine": 13,
+        "startChar": 4,
+        "endLine": 13,
+        "endChar": 7
+      },
+      "revId": "614f1570e79772b7b6311f48690d0d5ecf90b4a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
