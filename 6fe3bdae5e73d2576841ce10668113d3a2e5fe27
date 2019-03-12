@@ -16,6 +16,24 @@
       "revId": "6fe3bdae5e73d2576841ce10668113d3a2e5fe27",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d482f16c_9c64658e",
+        "filename": "media2-widget/src/androidTest/java/androidx/media2/widget/MediaControlViewTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-03-12T15:39:31Z",
+      "side": 1,
+      "message": "Thanks for the detailed comment :) I changed the test to address all the points you mentioned.",
+      "parentUuid": "07e22e31_70ef3f34",
+      "revId": "6fe3bdae5e73d2576841ce10668113d3a2e5fe27",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
