@@ -203,7 +203,7 @@ final class LegacyTextClassifier extends TextClassifier {
         }
 
         private static Bundle createUserRestrictions(Context context) {
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2) {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
                 return Bundle.EMPTY;
             }
             final Object userManager = context.getSystemService(Context.USER_SERVICE);
