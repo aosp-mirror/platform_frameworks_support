@@ -22,6 +22,29 @@
       "revId": "84d93e7264159689603ba59d6e68fe5c25b95d7e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b835e1a_a651b25e",
+        "filename": "heifwriter/src/main/java/androidx/heifwriter/HeifWriter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1121338
+      },
+      "writtenOn": "2019-03-12T00:06:52Z",
+      "side": 1,
+      "message": "nit: fashion",
+      "range": {
+        "startLine": 123,
+        "startChar": 7,
+        "endLine": 123,
+        "endChar": 14
+      },
+      "revId": "84d93e7264159689603ba59d6e68fe5c25b95d7e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
