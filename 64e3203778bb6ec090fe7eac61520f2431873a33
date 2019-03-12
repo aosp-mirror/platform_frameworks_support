@@ -60,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "f58f97b4_2e2164ad",
+        "filename": "lifecycle/livedata/eap/src/main/java/androidx/lifecycle/CoroutineLiveData.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-12T02:28:17Z",
+      "side": 1,
+      "message": "What is your concern with this API?\n\nI\u0027m fine with your suggestion but it breaks the @BuilderInterface and requires explicitly specifying the type parameter (not sure why :/ ).",
+      "parentUuid": "ac016ecf_c23e52e2",
+      "range": {
+        "startLine": 72,
+        "startChar": 16,
+        "endLine": 72,
+        "endChar": 28
+      },
+      "revId": "64e3203778bb6ec090fe7eac61520f2431873a33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f8b4c778_a2c0f3a9",
         "filename": "lifecycle/livedata/eap/src/main/java/androidx/lifecycle/CoroutineLiveData.kt",
         "patchSetId": 15
@@ -83,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "161546a4_6917e64f",
+        "filename": "lifecycle/livedata/eap/src/main/java/androidx/lifecycle/CoroutineLiveData.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-12T02:28:17Z",
+      "side": 1,
+      "message": "make me a tool that code style checks my docs too :)",
+      "parentUuid": "f8b4c778_a2c0f3a9",
+      "range": {
+        "startLine": 286,
+        "startChar": 17,
+        "endLine": 286,
+        "endChar": 18
+      },
+      "revId": "64e3203778bb6ec090fe7eac61520f2431873a33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c0242c85_414cd4d9",
         "filename": "lifecycle/livedata/eap/src/main/java/androidx/lifecycle/CoroutineLiveData.kt",
         "patchSetId": 15
@@ -94,6 +142,30 @@
       "writtenOn": "2019-03-11T22:54:22Z",
       "side": 1,
       "message": "Data point, the final kotlinx.coroutines api surface uses just the noun as the function name, omitting \"build.\" https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.sequences/-sequence-scope/index.html see `sequence`, `iterator`",
+      "range": {
+        "startLine": 297,
+        "startChar": 8,
+        "endLine": 297,
+        "endChar": 21
+      },
+      "revId": "64e3203778bb6ec090fe7eac61520f2431873a33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c483569_4ef9c588",
+        "filename": "lifecycle/livedata/eap/src/main/java/androidx/lifecycle/CoroutineLiveData.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-12T02:28:17Z",
+      "side": 1,
+      "message": "hmm interesting. I\u0027m fine with `liveData` as an API as well.",
+      "parentUuid": "c0242c85_414cd4d9",
       "range": {
         "startLine": 297,
         "startChar": 8,
@@ -126,6 +198,30 @@
       "revId": "64e3203778bb6ec090fe7eac61520f2431873a33",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b0339717_0cca9b8b",
+        "filename": "lifecycle/livedata/eap/src/test/java/androidx/lifecycle/LiveData.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-12T02:28:17Z",
+      "side": 1,
+      "message": "thanks, replaced w/ a deferred that is cancelled in a non-joined launch.\ntest still uses latches though, i kind of like their convenience along with the built in timeout capability \nI wonder why Deferred does not have an await(timeout) that throws. Unfortunately for latch use cases, withTimeout gracefully cancels instead of failing. I could create a Deferred extension function that does that but seemed overkill for a test :)",
+      "parentUuid": "587907d4_2da3f6f6",
+      "range": {
+        "startLine": 63,
+        "startChar": 20,
+        "endLine": 63,
+        "endChar": 34
+      },
+      "revId": "64e3203778bb6ec090fe7eac61520f2431873a33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
