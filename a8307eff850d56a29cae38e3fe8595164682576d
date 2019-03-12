@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "21467384_dae244b3",
+        "filename": "benchmark/src/androidTest/java/androidx/benchmark/SynchronizedBenchmark.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-03-12T17:56:23Z",
+      "side": 1,
+      "message": "private var, otherwise kotlin will generate getters",
+      "revId": "a8307eff850d56a29cae38e3fe8595164682576d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
