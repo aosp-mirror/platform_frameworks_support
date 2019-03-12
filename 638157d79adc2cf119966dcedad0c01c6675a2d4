@@ -1,0 +1,175 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3cc6b09e_de163971",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedListView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-03-12T21:02:25Z",
+      "side": 1,
+      "message": "Personal feeling is that you can initialize the list here and just declare this as final. This makes it so that we don\u0027t have to do null checks everywhere.\n\nI can see the argument that if someone doesn\u0027t register a callback, then you initialize an empty list. I don\u0027t think it\u0027s that big a deal, but I\u0027ll leave this decision up to you.",
+      "revId": "638157d79adc2cf119966dcedad0c01c6675a2d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "928a41ca_8ac11e6f",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedListView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 870,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-03-12T21:02:25Z",
+      "side": 1,
+      "message": "Expand the javadoc for this @Deprecated. A user of setOnScrollListener() cannot just blindly migrate to addOnScrollListener(); instead, it depends what methods they need (e.g. onScrolled() is not provided by Callback, but by RecyclerView.OnScrollListener).",
+      "revId": "638157d79adc2cf119966dcedad0c01c6675a2d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b562bbf6_72aa0db0",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedListView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 902,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-03-12T21:02:25Z",
+      "side": 1,
+      "message": "Remove this extra new line.",
+      "revId": "638157d79adc2cf119966dcedad0c01c6675a2d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4903a871_cdad2f16",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedListView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 903,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-03-12T21:02:25Z",
+      "side": 1,
+      "message": "registerCallback* is probably a good enough name.",
+      "range": {
+        "startLine": 903,
+        "startChar": 16,
+        "endLine": 903,
+        "endChar": 44
+      },
+      "revId": "638157d79adc2cf119966dcedad0c01c6675a2d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c569bdbb_5158cfc5",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedListView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 903,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-03-12T21:02:25Z",
+      "side": 1,
+      "message": "Also needs a @NonNull annotation. Here and for unregister.",
+      "range": {
+        "startLine": 903,
+        "startChar": 45,
+        "endLine": 903,
+        "endChar": 62
+      },
+      "revId": "638157d79adc2cf119966dcedad0c01c6675a2d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b04f499f_93d13fa0",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedListView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 915,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-03-12T21:02:25Z",
+      "side": 1,
+      "message": "Remove new line.",
+      "revId": "638157d79adc2cf119966dcedad0c01c6675a2d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43c877d9_5e19c7f1",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedListView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1354,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-03-12T21:02:25Z",
+      "side": 1,
+      "message": "Interface is better than abstract class. The OnScrollListener is abstract because it\u0027s trying to mimic what RecyclerView did, but I believe that practice is outdated now:\n\nhttp://go/java-practices/classes#abstract-classes-vs-interfaces\n\nAn interface would offer more flexibility for developers.",
+      "range": {
+        "startLine": 1354,
+        "startChar": 11,
+        "endLine": 1354,
+        "endChar": 32
+      },
+      "revId": "638157d79adc2cf119966dcedad0c01c6675a2d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7944f8dc_963e4058",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedListView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1365,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-03-12T21:02:25Z",
+      "side": 1,
+      "message": "Expand this javadoc. Similar to the setOnScrollListener.",
+      "revId": "638157d79adc2cf119966dcedad0c01c6675a2d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "218c40a0_1c1ad7a7",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedListView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1373,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-03-12T21:02:25Z",
+      "side": 1,
+      "message": "What about this method?",
+      "revId": "638157d79adc2cf119966dcedad0c01c6675a2d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
