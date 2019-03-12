@@ -343,23 +343,27 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
         }
     }
 
-    private int getHeightForMode(int maxHeight) {
+    private void configureViewPolicy(int maxHeight) {
+        if (mListContent != null && !mListContent.isValid() && getMode() != MODE_SHORTCUT) {
+            if (maxHeight > 0 && maxHeight < mSliceStyle.getRowMaxHeight()) {
+                if (maxHeight <= mMinTemplateHeight) {
+                    maxHeight = mMinTemplateHeight;
+                }
+                mViewPolicy.setMaxSmallHeight(maxHeight);
+            } else {
+                mViewPolicy.setMaxSmallHeight(0);
+            }
+            mViewPolicy.setMaxHeight(maxHeight);
+        }
+    }
+
+    private int getHeightForMode() {
         if (mListContent == null || !mListContent.isValid()) {
             return 0;
         }
-        int mode = getMode();
-        if (mode == MODE_SHORTCUT) {
+        if (getMode() == MODE_SHORTCUT) {
             return mShortcutSize;
         }
-        if (maxHeight > 0 && maxHeight < mSliceStyle.getRowMaxHeight()) {
-            if (maxHeight <= mMinTemplateHeight) {
-                maxHeight = mMinTemplateHeight;
-            }
-            mViewPolicy.setMaxSmallHeight(maxHeight);
-        } else {
-            mViewPolicy.setMaxSmallHeight(0);
-        }
-        mViewPolicy.setMaxHeight(maxHeight);
         return mListContent.getHeight(mSliceStyle, mViewPolicy);
     }
 
@@ -380,27 +384,28 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
                 || heightMode == MeasureSpec.UNSPECIFIED
                 ? -1 // no max, be default sizes
                 : heightAvailable;
-        final int sliceHeight = getHeightForMode(maxHeight);
+        configureViewPolicy(maxHeight);
         // Remove the padding from our available height
         int height = heightAvailable - getPaddingTop() - getPaddingBottom();
-        if (heightAvailable >= sliceHeight + actionHeight
-                || heightMode == MeasureSpec.UNSPECIFIED) {
-            // Available space is larger than the slice or we be what we want
-            if (heightMode == EXACTLY) {
-                height = Math.min(sliceHeight, height);
+
+        // never change the height if set to exactly
+        if (heightMode != EXACTLY) {
+            int requiredHeight = getHeightForMode() + actionHeight;
+
+            if (height > requiredHeight || heightMode == MeasureSpec.UNSPECIFIED) {
+                // Available space is larger than what the slice wants
+                height = requiredHeight;
             } else {
-                height = sliceHeight;
-            }
-        } else {
-            // Not enough space available for slice in current mode
-            if (getMode() == MODE_LARGE
-                    && heightAvailable >= mLargeHeight + actionHeight) {
-                height = sliceHeight;
-            } else if (getMode() == MODE_SHORTCUT) {
-                // TODO: consider scaling the shortcut to fit if too small
-                height = mShortcutSize;
-            } else if (height <= mMinTemplateHeight) {
-                height = mMinTemplateHeight;
+                // Not enough space available for slice in current mode
+                if (getMode() == MODE_LARGE
+                        && heightAvailable >= mLargeHeight + actionHeight) {
+                    height = mLargeHeight + actionHeight;
+                } else if (getMode() == MODE_SHORTCUT) {
+                    // TODO: consider scaling the shortcut to fit if too small
+                    height = mShortcutSize;
+                } else if (height <= mMinTemplateHeight) {
+                    height = mMinTemplateHeight;
+                }
             }
         }
 
