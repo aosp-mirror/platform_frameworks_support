@@ -702,13 +702,21 @@ public class SearchFragment extends Fragment {
     }
 
     private void focusOnResults() {
-        if (mRowsFragment == null || mRowsFragment.getVerticalGridView() == null
-                || mResultAdapter.size() == 0) {
-            return;
-        }
-        if (mRowsFragment.getVerticalGridView().requestFocus()) {
-            mStatus &= ~RESULTS_CHANGED;
-        }
+        // Delay focus on result because focus to result in EditText.onKeyPreIme(KEYCODE_BACK).
+        // If set focus too early, the activity will be closed.
+        mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                if (mRowsFragment == null
+                        || mRowsFragment.getVerticalGridView() == null
+                        || mResultAdapter.size() == 0) {
+                    return;
+                }
+                if (mRowsFragment.getVerticalGridView().requestFocus()) {
+                    mStatus &= ~RESULTS_CHANGED;
+                }
+            }
+        });
     }
 
     private void onSetSearchResultProvider() {

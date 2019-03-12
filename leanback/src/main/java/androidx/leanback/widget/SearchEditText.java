@@ -57,7 +57,6 @@ public class SearchEditText extends StreamingTextView {
             if (DEBUG) Log.v(TAG, "Keyboard being dismissed");
             if (mKeyboardDismissListener != null) {
                 mKeyboardDismissListener.onKeyboardDismiss();
-                return true;
             }
         }
         return super.onKeyPreIme(keyCode, event);
