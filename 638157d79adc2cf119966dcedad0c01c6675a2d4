@@ -283,6 +283,30 @@
     },
     {
       "key": {
+        "uuid": "f389010e_e88fd9ec",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedListView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1354,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-03-12T22:46:51Z",
+      "side": 1,
+      "message": "That guide states: \"This guideline only applies to libraries that need to support Java 7 compilation targets.\" Car library uses Java 8 (see car/core/build.gradle).\n\nClasses can only have one parent, so you\u0027re making it so that a developer needs to have a separate class to be the callback rather than allowing them the flexibility to define it wherever they want. \n\nIf the only advantage you find with abstract classes is to provide a default implementation, then we can do that with default methods for interfaces.",
+      "parentUuid": "dd8df23d_3ede39a1",
+      "range": {
+        "startLine": 1354,
+        "startChar": 11,
+        "endLine": 1354,
+        "endChar": 32
+      },
+      "revId": "638157d79adc2cf119966dcedad0c01c6675a2d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7944f8dc_963e4058",
         "filename": "car/core/src/main/java/androidx/car/widget/PagedListView.java",
         "patchSetId": 4
@@ -332,6 +356,24 @@
       "revId": "638157d79adc2cf119966dcedad0c01c6675a2d4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b10ed079_48fffb47",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedListView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1373,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-03-12T22:46:51Z",
+      "side": 1,
+      "message": "This comes back to that issue where you still have to wait for RecyclerView to update itself within google3. So, you\u0027re essentially blocking the deprecation of this listener until then.\n\nI think a better way would be to define this method on Callback. We can migrate all clients to Callback, remove this OnScrollListener, and then deprecate onReachBottom when the RecyclerView change goes in.\n\nIt\u0027d be quicker to migrate clients off than for the push of RecyclerView. Cause you still need to wait for that CL to be approved.",
+      "parentUuid": "869f8195_637412b7",
+      "revId": "638157d79adc2cf119966dcedad0c01c6675a2d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
