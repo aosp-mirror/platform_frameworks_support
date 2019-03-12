@@ -383,24 +383,25 @@ public class SliceView extends ViewGroup implements Observer<Slice>, View.OnClic
         final int sliceHeight = getHeightForMode(maxHeight);
         // Remove the padding from our available height
         int height = heightAvailable - getPaddingTop() - getPaddingBottom();
-        if (heightAvailable >= sliceHeight + actionHeight
-                || heightMode == MeasureSpec.UNSPECIFIED) {
-            // Available space is larger than the slice or we be what we want
-            if (heightMode == EXACTLY) {
-                height = Math.min(sliceHeight, height);
+
+        // never change the height if set to exactly
+        if (heightMode != EXACTLY) {
+            int requiredHeight = sliceHeight + actionHeight;
+
+            if (height > requiredHeight || heightMode == MeasureSpec.UNSPECIFIED) {
+                // Available space is larger than what the slice wants
+                height = requiredHeight;
             } else {
-                height = sliceHeight;
-            }
-        } else {
-            // Not enough space available for slice in current mode
-            if (getMode() == MODE_LARGE
-                    && heightAvailable >= mLargeHeight + actionHeight) {
-                height = sliceHeight;
-            } else if (getMode() == MODE_SHORTCUT) {
-                // TODO: consider scaling the shortcut to fit if too small
-                height = mShortcutSize;
-            } else if (height <= mMinTemplateHeight) {
-                height = mMinTemplateHeight;
+                // Not enough space available for slice in current mode
+                if (getMode() == MODE_LARGE
+                        && heightAvailable >= mLargeHeight + actionHeight) {
+                    height = mLargeHeight + actionHeight;
+                } else if (getMode() == MODE_SHORTCUT) {
+                    // TODO: consider scaling the shortcut to fit if too small
+                    height = mShortcutSize;
+                } else if (height <= mMinTemplateHeight) {
+                    height = mMinTemplateHeight;
+                }
             }
         }
 
