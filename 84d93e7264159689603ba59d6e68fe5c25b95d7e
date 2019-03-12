@@ -45,6 +45,54 @@
       "revId": "84d93e7264159689603ba59d6e68fe5c25b95d7e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56d62971_9df5ea10",
+        "filename": "heifwriter/src/main/java/androidx/heifwriter/HeifWriter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1092583
+      },
+      "writtenOn": "2019-03-12T04:34:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5b835e1a_a651b25e",
+      "range": {
+        "startLine": 123,
+        "startChar": 7,
+        "endLine": 123,
+        "endChar": 14
+      },
+      "revId": "84d93e7264159689603ba59d6e68fe5c25b95d7e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4e1b7f57_7d7dffc8",
+        "filename": "heifwriter/src/main/java/androidx/heifwriter/HeifWriter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1092583
+      },
+      "writtenOn": "2019-03-12T04:34:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a942c6b7_05cf2bac",
+      "range": {
+        "startLine": 123,
+        "startChar": 7,
+        "endLine": 123,
+        "endChar": 13
+      },
+      "revId": "84d93e7264159689603ba59d6e68fe5c25b95d7e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
