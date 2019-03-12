@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "db1ba2eb_09b2eebf",
+        "filename": "exifinterface/src/main/java/androidx/exifinterface/media/ExifInterface.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 5204,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-03-12T00:06:10Z",
+      "side": 1,
+      "message": "Why don\u0027t you use Arrays.copyOfRans like L5214?",
+      "revId": "3408c225a7383ca8174a9a5964e6cfc566fbde17",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
