@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "329e67ef_b7eacf28",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedListView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-03-12T21:47:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3cc6b09e_de163971",
+      "revId": "638157d79adc2cf119966dcedad0c01c6675a2d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "928a41ca_8ac11e6f",
         "filename": "car/core/src/main/java/androidx/car/widget/PagedListView.java",
         "patchSetId": 4
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "683f39e8_e8f230f5",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedListView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 870,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-03-12T21:47:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "928a41ca_8ac11e6f",
+      "revId": "638157d79adc2cf119966dcedad0c01c6675a2d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b562bbf6_72aa0db0",
         "filename": "car/core/src/main/java/androidx/car/widget/PagedListView.java",
         "patchSetId": 4
@@ -50,6 +86,24 @@
       "revId": "638157d79adc2cf119966dcedad0c01c6675a2d4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf7fd1e3_194fbf62",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedListView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 902,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-03-12T21:47:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b562bbf6_72aa0db0",
+      "revId": "638157d79adc2cf119966dcedad0c01c6675a2d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -99,6 +153,54 @@
     },
     {
       "key": {
+        "uuid": "aeddf0cd_bd52481c",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedListView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 903,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-03-12T21:47:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c569bdbb_5158cfc5",
+      "range": {
+        "startLine": 903,
+        "startChar": 45,
+        "endLine": 903,
+        "endChar": 62
+      },
+      "revId": "638157d79adc2cf119966dcedad0c01c6675a2d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e1f905c3_c8fbf6ea",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedListView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 903,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-03-12T21:47:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4903a871_cdad2f16",
+      "range": {
+        "startLine": 903,
+        "startChar": 16,
+        "endLine": 903,
+        "endChar": 44
+      },
+      "revId": "638157d79adc2cf119966dcedad0c01c6675a2d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b04f499f_93d13fa0",
         "filename": "car/core/src/main/java/androidx/car/widget/PagedListView.java",
         "patchSetId": 4
@@ -116,6 +218,24 @@
     },
     {
       "key": {
+        "uuid": "08559eef_155c7582",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedListView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 915,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-03-12T21:47:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b04f499f_93d13fa0",
+      "revId": "638157d79adc2cf119966dcedad0c01c6675a2d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "43c877d9_5e19c7f1",
         "filename": "car/core/src/main/java/androidx/car/widget/PagedListView.java",
         "patchSetId": 4
@@ -127,6 +247,30 @@
       "writtenOn": "2019-03-12T21:02:25Z",
       "side": 1,
       "message": "Interface is better than abstract class. The OnScrollListener is abstract because it\u0027s trying to mimic what RecyclerView did, but I believe that practice is outdated now:\n\nhttp://go/java-practices/classes#abstract-classes-vs-interfaces\n\nAn interface would offer more flexibility for developers.",
+      "range": {
+        "startLine": 1354,
+        "startChar": 11,
+        "endLine": 1354,
+        "endChar": 32
+      },
+      "revId": "638157d79adc2cf119966dcedad0c01c6675a2d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd8df23d_3ede39a1",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedListView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1354,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-03-12T21:47:22Z",
+      "side": 1,
+      "message": "I tried to follow https://docs.google.com/document/d/1GAzXERdykuhyubY-KEXNcaNB1KW-Vw4Qen8_4DulrT0/edit#bookmark\u003did.e36u6uqk5qfe. I tend to find abstract classes to also offer more flexibility (ie. not required to implement new methods etc). What\u0027s making you lean towards interfaces?",
+      "parentUuid": "43c877d9_5e19c7f1",
       "range": {
         "startLine": 1354,
         "startChar": 11,
@@ -170,6 +314,24 @@
       "revId": "638157d79adc2cf119966dcedad0c01c6675a2d4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "869f8195_637412b7",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedListView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1373,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-03-12T21:47:22Z",
+      "side": 1,
+      "message": "Putting together aosp/927341 to bridge that gap. Putting the changes on the same topic.",
+      "parentUuid": "218c40a0_1c1ad7a7",
+      "revId": "638157d79adc2cf119966dcedad0c01c6675a2d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
