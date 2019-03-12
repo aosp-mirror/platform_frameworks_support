@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ce35ad27_0b07fe3b",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-03-12T16:03:03Z",
+      "side": 1,
+      "message": "OFFSCREEN_PAGE_LIMIT_DISABLED\n\nGenerally, constants should start with the name of the property (here, offscreenPageLimit)",
+      "range": {
+        "startLine": 86,
+        "startChar": 28,
+        "endLine": 86,
+        "endChar": 51
+      },
+      "revId": "726dc903c12522445a2d1730b178a074a215f7e4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a376d184_1ca5293e",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 537,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-03-12T16:03:03Z",
+      "side": 1,
+      "message": "passing 0, negative values just ignored?\n\nthrow if invalid",
+      "revId": "726dc903c12522445a2d1730b178a074a215f7e4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cefb8e06_baba7ff5",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 542,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-03-12T16:03:03Z",
+      "side": 1,
+      "message": "If you trace scrolling with systrace, would item prefetch help? Just want to make sure we\u0027re not losing something here in the common case",
+      "revId": "726dc903c12522445a2d1730b178a074a215f7e4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
