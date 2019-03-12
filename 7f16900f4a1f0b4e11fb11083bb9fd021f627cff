@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9942178c_3482b050",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedListView.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1300,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-03-12T00:13:55Z",
+      "side": 0,
+      "message": "It\u0027s probably going to be easier to mark these as @Deprecated first, then migrate clients off of it. \n\nOtherwise, you\u0027ll need to migrate everything when you push the prebuilts.\n\nI think there\u0027s just this one in gerrit:\nhttp://cs/android/vendor/auto/embedded/apps/CarSetupWizard/src/com/google/android/car/setupwizard/common/TitleBarElevationController.java?l\u003d20\n\nNote that SUW will eventually migrate to google3. Other usages in google3:\n\nhttp://cs/search/?q\u003dsetOnScrollListener+package:piper+%22androidx.car.widget.pagedlistview%22+-f:third_party+lang:java\u0026type\u003dcs",
+      "revId": "7f16900f4a1f0b4e11fb11083bb9fd021f627cff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
