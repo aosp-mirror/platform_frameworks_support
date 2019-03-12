@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "acb046b3_6a0feccb",
+        "filename": "benchmark/src/main/java/androidx/benchmark/BenchmarkState.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-03-12T23:48:22Z",
+      "side": 1,
+      "message": "Scope prefix",
+      "revId": "a14c157b6914b56bf1a4e000dcf9bce0646a50a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f44e66f2_9a35d082",
+        "filename": "benchmark/src/main/java/androidx/benchmark/BenchmarkState.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-03-12T23:48:22Z",
+      "side": 1,
+      "message": "Scope prefix",
+      "revId": "a14c157b6914b56bf1a4e000dcf9bce0646a50a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "123de922_239420d9",
+        "filename": "benchmark/src/main/java/androidx/benchmark/BenchmarkState.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-03-12T23:48:22Z",
+      "side": 1,
+      "message": "Isn\u0027t StringBuilder a compiler optimization most people assume / take for granted? I\u0027m not sure it\u0027s necessary to explicitly StringBuilder anymore for clarity. I get that this was already here before and you\u0027re just converting over though :)\n\nHowever, you should probably just use a string template, now that we\u0027re in .kt:\nhttps://kotlinlang.org/docs/reference/basic-types.html#string-templates",
+      "revId": "a14c157b6914b56bf1a4e000dcf9bce0646a50a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2a2b343_6002b6f4",
+        "filename": "benchmark/src/main/java/androidx/benchmark/BenchmarkState.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-03-12T23:48:22Z",
+      "side": 1,
+      "message": "I feel like the logic here can be cleaned up, maybe something like:\n\nwarningString \u003d WarningState\n    .acquireWarningStringForLogging()\n    .split(\"\\n\")\n    .map { \"$STUDIO_OUTPUT_KEY_ID:$it\\n\"}\n    .joinToString(\"\")",
+      "revId": "a14c157b6914b56bf1a4e000dcf9bce0646a50a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3f4cc73_be65fdc3",
+        "filename": "benchmark/src/main/java/androidx/benchmark/BenchmarkState.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-03-12T23:48:22Z",
+      "side": 1,
+      "message": "results.joinToString() - this is also actually probably short enough to inline, but I also like that there\u0027s context (csv). Hm...",
+      "revId": "a14c157b6914b56bf1a4e000dcf9bce0646a50a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d3612f0_e8216492",
+        "filename": "benchmark/src/main/java/androidx/benchmark/BenchmarkState.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-03-12T23:48:22Z",
+      "side": 1,
+      "message": "I personally like the functional representation better, but it\u0027s really up to you.\n\ni.e.,\n\nval csvHeaders \u003d IntArray(REPEAT_COUNT) { it }.map(\"Result $it\")\nLog.i(CSV_TAG, \"Benchmark, ${csvHeaders.joinToString()}\")",
+      "revId": "a14c157b6914b56bf1a4e000dcf9bce0646a50a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
