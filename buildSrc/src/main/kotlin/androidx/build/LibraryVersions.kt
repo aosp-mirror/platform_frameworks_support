@@ -67,7 +67,11 @@ object LibraryVersions {
     val MEDIA2_EXOPLAYER = Version("1.0.0-alpha02")
     val MEDIA2_WIDGET = Version("1.0.0-alpha07")
     val MEDIAROUTER = Version("1.1.0-alpha02")
+<<<<<<< HEAD   (c1c058 Merge "Merge empty history for sparse-5361903-L3680000027893)
     val NAVIGATION = Version("1.0.0-beta02")
+=======
+    val NAVIGATION = Version("1.0.0")
+>>>>>>> BRANCH (d26b59 Merge "Merge cherrypicks of [927297] into sparse-5338950-L06)
     val NAVIGATION_TESTING = Version("1.0.0-alpha08") // Unpublished
     val PAGING = Version("2.2.0-alpha01")
     val PALETTE = Version("1.1.0-alpha01")
