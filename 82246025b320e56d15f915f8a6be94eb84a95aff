@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "829c74f4_e0ba8a1a",
+        "filename": "slices/view/src/main/java/androidx/slice/widget/SliceView.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 1004304
+      },
+      "writtenOn": "2019-03-13T22:34:20Z",
+      "side": 1,
+      "message": "nit: Can we make it clearer what area getHeightForMode() is considering?",
+      "revId": "82246025b320e56d15f915f8a6be94eb84a95aff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
