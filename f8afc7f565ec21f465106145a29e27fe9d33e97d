@@ -323,6 +323,24 @@
       "revId": "f8afc7f565ec21f465106145a29e27fe9d33e97d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ee81e3f9_511a2018",
+        "filename": "benchmark/src/main/java/androidx/benchmark/WarningState.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-03-13T16:50:20Z",
+      "side": 1,
+      "message": "Wait - on my browser I still see the old line:\n\nreturn File(path).bufferedReader().readLine()\n\nWhich also opens a buffered reader but doesn\u0027t close it",
+      "parentUuid": "ed22ea0a_0c545ca4",
+      "revId": "f8afc7f565ec21f465106145a29e27fe9d33e97d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
