@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "00b594db_32954509",
+        "filename": "exifinterface/api/1.1.0-alpha01.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-03-13T05:07:10Z",
+      "side": 1,
+      "message": "You may not want to touch this file.",
+      "revId": "6b7872e5cb4a3efd538c859e63d02b2f8bf56e70",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
