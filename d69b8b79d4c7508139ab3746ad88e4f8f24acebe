@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d975c500_a473ccd9",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewFeature.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 1101490
+      },
+      "writtenOn": "2019-03-13T10:19:46Z",
+      "side": 1,
+      "message": "New pattern is not to refer to the boundary interface here, but to use the raw string \"SUPPRESS_ERROR_PAGE\".",
+      "range": {
+        "startLine": 402,
+        "startChar": 53,
+        "endLine": 402,
+        "endChar": 81
+      },
+      "revId": "d69b8b79d4c7508139ab3746ad88e4f8f24acebe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2da9c200_a5dab266",
+        "filename": "webkit/src/main/java/androidx/webkit/internal/WebViewFeatureInternal.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 1101490
+      },
+      "writtenOn": "2019-03-13T10:19:46Z",
+      "side": 1,
+      "message": "This also has to change. If you rebase your CL, you\u0027ll see that there\u0027s now a arg constructor that takes the internal (Features) string and the external (WebViewFeature) string.",
+      "range": {
+        "startLine": 312,
+        "startChar": 4,
+        "endLine": 312,
+        "endChar": 23
+      },
+      "revId": "d69b8b79d4c7508139ab3746ad88e4f8f24acebe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
