@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1fd6c42f_fe0ddc12",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedListView.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-03-13T19:38:41Z",
+      "side": 1,
+      "message": "used in anonymous classes below. kept package private to avoid synthetic member warning.",
+      "parentUuid": "12dfffe4_cea8a0d0",
+      "revId": "a13a6f9807ccaceec974adb063739584425e6f16",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f675692a_0af9d93b",
         "filename": "car/core/src/main/java/androidx/car/widget/PagedListView.java",
         "patchSetId": 7
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "f833afcb_a45a4488",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedListView.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-03-13T19:38:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f675692a_0af9d93b",
+      "range": {
+        "startLine": 331,
+        "startChar": 38,
+        "endLine": 331,
+        "endChar": 46
+      },
+      "revId": "a13a6f9807ccaceec974adb063739584425e6f16",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d3c38e4a_ba5320ff",
         "filename": "car/core/src/main/java/androidx/car/widget/PagedListView.java",
         "patchSetId": 7
@@ -56,6 +98,24 @@
       "revId": "a13a6f9807ccaceec974adb063739584425e6f16",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a28fd81_60d13d18",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedListView.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1355,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-03-13T19:38:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d3c38e4a_ba5320ff",
+      "revId": "a13a6f9807ccaceec974adb063739584425e6f16",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
