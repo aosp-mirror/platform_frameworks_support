@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "0e1684cf_c3bfdd13",
+        "filename": "lifecycle/livedata/eap/src/main/java/androidx/lifecycle/CoroutineLiveData.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1451037
+      },
+      "writtenOn": "2019-03-13T16:59:38Z",
+      "side": 1,
+      "message": "`yield` was also weird for me when I read it for the first time. It came more naturally after reading the documentation. Hopefully, people will read the docs before using it :)",
+      "parentUuid": "6e9edd4b_2d70502f",
+      "revId": "64e3203778bb6ec090fe7eac61520f2431873a33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ac016ecf_c23e52e2",
         "filename": "lifecycle/livedata/eap/src/main/java/androidx/lifecycle/CoroutineLiveData.kt",
         "patchSetId": 15
