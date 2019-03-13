@@ -266,7 +266,7 @@ public class InvalidationTrackerTest {
         for (int i = 0; i < triggers.length; i++) {
             assertThat(sqlCaptorValues.get(i + 1),
                     is("CREATE TEMP TRIGGER IF NOT EXISTS "
-                            + "`room_table_modification_trigger_d_" + triggers[i] + "` AFTER "
+                            + "`room_table_modification_trigger_d_3_" + triggers[i] + "` AFTER "
                             + triggers[i] + " ON `d` BEGIN UPDATE room_table_modification_log "
                             + "SET invalidated = 1 WHERE table_id = 3 AND invalidated = 0; END"
                     ));
@@ -280,7 +280,7 @@ public class InvalidationTrackerTest {
         sqlCaptorValues = sqlArgCaptor.getAllValues();
         for (int i = 0; i < triggers.length; i++) {
             assertThat(sqlCaptorValues.get(i),
-                    is("DROP TRIGGER IF EXISTS `room_table_modification_trigger_d_"
+                    is("DROP TRIGGER IF EXISTS `room_table_modification_trigger_d_3_"
                             + triggers[i] + "`"));
         }
     }
