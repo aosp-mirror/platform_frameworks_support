@@ -287,6 +287,24 @@
       "revId": "f8afc7f565ec21f465106145a29e27fe9d33e97d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8f4fe70b_6829e363",
+        "filename": "benchmark/src/main/java/androidx/benchmark/WarningState.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-03-13T16:20:51Z",
+      "side": 1,
+      "message": "I meant that we should be able to replace this helper with File(path).readText()",
+      "parentUuid": "f9a88da0_716a8263",
+      "revId": "f8afc7f565ec21f465106145a29e27fe9d33e97d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
