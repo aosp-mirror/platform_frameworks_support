@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "98ced2d3_b10fd2ae",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/PagedListViewTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-03-13T21:24:51Z",
+      "side": 1,
+      "message": "Add one more test for each of these and register at least two callbacks.",
+      "revId": "dcc6abafa0f2553034ca1801a2240b50d7d9f263",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a76f9813_adbf3c99",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedListView.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 533,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-03-13T21:24:51Z",
+      "side": 1,
+      "message": "Can you revert this change? I\u0027m guessing the auto format fixed it, but it should be flush to the \"*\" since it\u0027s not actually part of the @param. Think the code style just gets confused here.",
+      "revId": "dcc6abafa0f2553034ca1801a2240b50d7d9f263",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18af939f_deeed213",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedListView.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1354,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-03-13T21:24:51Z",
+      "side": 1,
+      "message": "Thought you wanted the {} :)",
+      "revId": "dcc6abafa0f2553034ca1801a2240b50d7d9f263",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
