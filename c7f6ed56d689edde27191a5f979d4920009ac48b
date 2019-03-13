@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "395abba1_7a59bd1a",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatAutoCompleteTextView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1018893
+      },
+      "writtenOn": "2019-03-13T23:24:01Z",
+      "side": 1,
+      "message": "Nit: Don\u0027t need `this.`. Same for the other classes.",
+      "range": {
+        "startLine": 76,
+        "startChar": 45,
+        "endLine": 76,
+        "endChar": 49
+      },
+      "revId": "c7f6ed56d689edde27191a5f979d4920009ac48b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7db6d0e7_afae9379",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/ThemeUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1018893
+      },
+      "writtenOn": "2019-03-13T23:24:01Z",
+      "side": 1,
+      "message": "view.getClass() ?",
+      "range": {
+        "startLine": 129,
+        "startChar": 58,
+        "endLine": 129,
+        "endChar": 62
+      },
+      "revId": "c7f6ed56d689edde27191a5f979d4920009ac48b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
