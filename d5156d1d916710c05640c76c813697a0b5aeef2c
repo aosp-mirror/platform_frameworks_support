@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c5a4f8b9_211a505b",
+        "filename": "benchmark/src/main/java/androidx/benchmark/BenchmarkState.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-03-13T01:43:20Z",
+      "side": 1,
+      "message": "Did you purposely specify the optional separator param with the same default because we need to make sure it\u0027s a well-formed .csv?",
+      "revId": "d5156d1d916710c05640c76c813697a0b5aeef2c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
