@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "217ffe40_a8ec7263",
+        "filename": "room/integration-tests/testapp/src/androidTest/java/androidx/room/integration/testapp/test/LiveDataQueryTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-13T22:54:45Z",
+      "side": 1,
+      "message": "lol",
+      "revId": "c6f4c5c5f7b780aa36030b494fdd43d7fc0576a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "089ce7ae_74f273d5",
+        "filename": "room/runtime/src/main/java/androidx/room/InvalidationTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-13T22:54:45Z",
+      "side": 1,
+      "message": "pass it as int, instead toString()-ing twice. Also I think may remove tableName from trigger name or do you use it for debug?",
+      "range": {
+        "startLine": 205,
+        "startChar": 17,
+        "endLine": 205,
+        "endChar": 18
+      },
+      "revId": "c6f4c5c5f7b780aa36030b494fdd43d7fc0576a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
