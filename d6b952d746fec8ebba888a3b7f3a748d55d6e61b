@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "677b4d7f_0826deb1",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 465,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-03-13T21:10:13Z",
+      "side": 1,
+      "message": "You are right, good points for sure.  See my top level comments for thoughts on this.",
+      "parentUuid": "bd506eda_96a2b14f",
+      "range": {
+        "startLine": 465,
+        "startChar": 20,
+        "endLine": 465,
+        "endChar": 91
+      },
+      "revId": "d6b952d746fec8ebba888a3b7f3a748d55d6e61b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0290b1c8_40593302",
         "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2019-03-13T15:31:15Z",
       "side": 1,
       "message": "TOWARDS_END, I presume?",
+      "range": {
+        "startLine": 466,
+        "startChar": 35,
+        "endLine": 466,
+        "endChar": 48
+      },
+      "revId": "d6b952d746fec8ebba888a3b7f3a748d55d6e61b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d9a62d70_75ff6df7",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 466,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-03-13T21:10:13Z",
+      "side": 1,
+      "message": "I think this logic lines up correctly with the previous code.  Previously, mLayoutState.mLastScrollDelta \u003e\u003d 0 would result in extraForStart \u003d 0 (no extra scroll distance at the start of the items), and now that result is the same.\n\nI think there is an inherent ambiguousness when it comes to scroll direction.  When items in the scroll view move toward the top of the scroll view, is the scroll view scrolling up because items are moving in that direction, or down because items further down are becoming progressively exposed...?",
+      "parentUuid": "0290b1c8_40593302",
       "range": {
         "startLine": 466,
         "startChar": 35,
