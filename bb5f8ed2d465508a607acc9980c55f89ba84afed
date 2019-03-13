@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f2145abf_96517463",
+        "filename": "slices/view/src/main/res/layout/abc_slice_row_selection.xml",
+        "patchSetId": 18
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1033561
+      },
+      "writtenOn": "2019-03-13T02:10:14Z",
+      "side": 1,
+      "message": "nit: 2019",
+      "range": {
+        "startLine": 3,
+        "startChar": 17,
+        "endLine": 3,
+        "endChar": 18
+      },
+      "revId": "bb5f8ed2d465508a607acc9980c55f89ba84afed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "355266fa_03ac2d23",
+        "filename": "slices/view/src/main/res/layout/abc_slice_row_selection_dropdown_text.xml",
+        "patchSetId": 18
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1033561
+      },
+      "writtenOn": "2019-03-13T02:10:14Z",
+      "side": 1,
+      "message": "nit: 2019",
+      "range": {
+        "startLine": 3,
+        "startChar": 17,
+        "endLine": 3,
+        "endChar": 18
+      },
+      "revId": "bb5f8ed2d465508a607acc9980c55f89ba84afed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "665d9cad_eeb1ded1",
+        "filename": "slices/view/src/main/res/layout/abc_slice_row_selection_text.xml",
+        "patchSetId": 18
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1033561
+      },
+      "writtenOn": "2019-03-13T02:10:14Z",
+      "side": 1,
+      "message": "nit: 2019",
+      "range": {
+        "startLine": 3,
+        "startChar": 14,
+        "endLine": 3,
+        "endChar": 18
+      },
+      "revId": "bb5f8ed2d465508a607acc9980c55f89ba84afed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5dbfd59c_0e67302c",
+        "filename": "slices/view/src/main/res/layout/abc_slice_row_selection_text.xml",
+        "patchSetId": 18
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1033561
+      },
+      "writtenOn": "2019-03-13T02:10:14Z",
+      "side": 1,
+      "message": "is this needed?",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 28
+      },
+      "revId": "bb5f8ed2d465508a607acc9980c55f89ba84afed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

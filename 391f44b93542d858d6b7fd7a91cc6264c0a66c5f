@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "b7bab33c_02ec4ba5",
+        "filename": "slices/view/src/main/java/androidx/slice/widget/RowContent.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 1033561
+      },
+      "writtenOn": "2019-03-13T02:10:14Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a883b0eb_1a3a019c",
+      "range": {
+        "startLine": 401,
+        "startChar": 11,
+        "endLine": 401,
+        "endChar": 91
+      },
+      "revId": "391f44b93542d858d6b7fd7a91cc6264c0a66c5f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "172bd7ad_84a58e49",
         "filename": "slices/view/src/main/java/androidx/slice/widget/RowView.java",
         "patchSetId": 5
