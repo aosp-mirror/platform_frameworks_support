@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bd506eda_96a2b14f",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 465,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-03-13T15:31:15Z",
+      "side": 1,
+      "message": "Code that currently overrides getExtraLayoutSpace(state) and returns a value less than mOrientationHelper.getTotalSpace() will now be broken, with the only detection being a warning about deprecation.\n\nSimilarly, if people follow the directions to use getExtraLayoutSpaceForScrolling() and return a value less than mOrientationHelper.getTotalSpace(), it will not work as expected.",
+      "range": {
+        "startLine": 465,
+        "startChar": 20,
+        "endLine": 465,
+        "endChar": 91
+      },
+      "revId": "d6b952d746fec8ebba888a3b7f3a748d55d6e61b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0290b1c8_40593302",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 466,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-03-13T15:31:15Z",
+      "side": 1,
+      "message": "TOWARDS_END, I presume?",
+      "range": {
+        "startLine": 466,
+        "startChar": 35,
+        "endLine": 466,
+        "endChar": 48
+      },
+      "revId": "d6b952d746fec8ebba888a3b7f3a748d55d6e61b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
