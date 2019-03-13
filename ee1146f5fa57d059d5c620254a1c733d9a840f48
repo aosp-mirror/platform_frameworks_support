@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a70b226d_ebf21f1b",
+        "filename": "navigation/fragment/src/androidTest/java/androidx/navigation/fragment/FragmentNavigatorTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1442279
+      },
+      "writtenOn": "2019-03-13T20:30:05Z",
+      "side": 1,
+      "message": "Do we wanna use assertWithMessage() for these instead?",
+      "range": {
+        "startLine": 104,
+        "startChar": 8,
+        "endLine": 104,
+        "endChar": 21
+      },
+      "revId": "ee1146f5fa57d059d5c620254a1c733d9a840f48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
