@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "911a3d90_8f58b5a9",
+        "filename": "slices/view/src/main/java/androidx/slice/widget/SliceView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 1033561
+      },
+      "writtenOn": "2019-03-13T01:53:57Z",
+      "side": 1,
+      "message": "nit: It looks like this could be moved into the if below / that\u0027s the only place where the value gets used, however, getHeightForMode can have side effects.\n\nMaybe it should be renamed / have the getter functionality separated out?\n\nconfigureViewPolicy(int maxHeight)\n\ngetHeightForMode() ?",
+      "range": {
+        "startLine": 383,
+        "startChar": 8,
+        "endLine": 383,
+        "endChar": 60
+      },
+      "revId": "e853201b9d37feab8acbd2f6e5b67a216593967e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
