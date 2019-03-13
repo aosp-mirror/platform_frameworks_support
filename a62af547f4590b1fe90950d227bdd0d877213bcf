@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0db8370c_2ef8b7b1",
+        "filename": "lifecycle/livedata/eap/src/main/java/androidx/lifecycle/CoroutineLiveData.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1451037
+      },
+      "writtenOn": "2019-03-13T17:31:28Z",
+      "side": 1,
+      "message": "Wouldn\u0027t this require `buildLiveData` before the while loop?",
+      "revId": "a62af547f4590b1fe90950d227bdd0d877213bcf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
