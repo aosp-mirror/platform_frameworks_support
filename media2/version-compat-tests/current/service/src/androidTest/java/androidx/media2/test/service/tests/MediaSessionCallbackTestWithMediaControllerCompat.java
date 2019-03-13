@@ -39,6 +39,7 @@ import android.support.v4.media.MediaDescriptionCompat;
 import android.support.v4.media.RatingCompat;
 import android.support.v4.media.session.MediaControllerCompat;
 import android.support.v4.media.session.MediaSessionCompat.QueueItem;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.media.AudioAttributesCompat;
@@ -406,7 +407,9 @@ public class MediaSessionCallbackTestWithMediaControllerCompat extends MediaSess
         // 'Do Not Disturb' or 'Volume limit'.
         final int stream = AudioManager.STREAM_ALARM;
         final int maxVolume = mAudioManager.getStreamMaxVolume(stream);
-        final int minVolume = 1;
+        final int minVolume =
+                Build.VERSION.SDK_INT >= 28 ? mAudioManager.getStreamMinVolume(stream) : 0;
+        Log.d(TAG, "maxVolume=" + maxVolume + ", minVolume=" + minVolume);
         if (maxVolume <= minVolume) {
             return;
         }
@@ -446,7 +449,9 @@ public class MediaSessionCallbackTestWithMediaControllerCompat extends MediaSess
         // 'Do Not Disturb' or 'Volume limit'.
         final int stream = AudioManager.STREAM_ALARM;
         final int maxVolume = mAudioManager.getStreamMaxVolume(stream);
-        final int minVolume = 1;
+        final int minVolume =
+                Build.VERSION.SDK_INT >= 28 ? mAudioManager.getStreamMinVolume(stream) : 0;
+        Log.d(TAG, "maxVolume=" + maxVolume + ", minVolume=" + minVolume);
         if (maxVolume <= minVolume) {
             return;
         }
