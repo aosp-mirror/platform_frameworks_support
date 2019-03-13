@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "82cb1530_42da6a55",
+        "filename": "lifecycle/viewmodel/ktx/src/androidTest/java/androidx/lifecycle/ViewModelTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-13T18:29:44Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "1db2839e_6ecb8c06",
+      "range": {
+        "startLine": 74,
+        "startChar": 12,
+        "endLine": 74,
+        "endChar": 28
+      },
+      "revId": "c504f932245cecf3de457ba06ec91ad3a81d0af7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e721e6ef_9341a51c",
         "filename": "lifecycle/viewmodel/ktx/src/androidTest/java/androidx/lifecycle/ViewModelTest.kt",
         "patchSetId": 1
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "this test won\u0027t pass without change, because delayingDeferred won\u0027t be active here:\nTruth.assertThat(delayingDeferred.isActive).isTrue().\n\nI don\u0027t add much tests around SupervisorJob behavior, because it is tested in coroutines source code.",
       "parentUuid": "e721e6ef_9341a51c",
+      "range": {
+        "startLine": 76,
+        "startChar": 5,
+        "endLine": 77,
+        "endChar": 0
+      },
+      "revId": "c504f932245cecf3de457ba06ec91ad3a81d0af7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d13fe4f_708cf5d1",
+        "filename": "lifecycle/viewmodel/ktx/src/androidTest/java/androidx/lifecycle/ViewModelTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-13T18:29:44Z",
+      "side": 1,
+      "message": "oh somehow i missed that assertion :facepalm:\nthen thats. It was not about testing how SupervisorJob works btw, it is more about how VMScope works since using Supervisor is implicit to the API provided by the VM.",
+      "parentUuid": "ab795aea_69a1f8ef",
       "range": {
         "startLine": 76,
         "startChar": 5,
