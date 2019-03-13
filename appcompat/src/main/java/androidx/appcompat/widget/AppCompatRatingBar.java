@@ -47,6 +47,8 @@ public class AppCompatRatingBar extends RatingBar {
     public AppCompatRatingBar(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
+        ThemeUtils.checkAppCompatTheme(this, this.getContext());
+
         mAppCompatProgressBarHelper = new AppCompatProgressBarHelper(this);
         mAppCompatProgressBarHelper.loadFromAttributes(attrs, defStyleAttr);
     }

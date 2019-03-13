@@ -70,6 +70,8 @@ public class AppCompatImageView extends ImageView implements TintableBackgroundV
     public AppCompatImageView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(TintContextWrapper.wrap(context), attrs, defStyleAttr);
 
+        ThemeUtils.checkAppCompatTheme(this, this.getContext());
+
         mBackgroundTintHelper = new AppCompatBackgroundHelper(this);
         mBackgroundTintHelper.loadFromAttributes(attrs, defStyleAttr);
 

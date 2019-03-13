@@ -16,14 +16,24 @@
 
 package androidx.appcompat.widget;
 
+import static androidx.annotation.RestrictTo.Scope.LIBRARY;
+
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.util.TypedValue;
+import android.view.View;
 
+import androidx.annotation.RestrictTo;
+import androidx.appcompat.R;
 import androidx.core.graphics.ColorUtils;
 
-class ThemeUtils {
+/**
+ * @hide
+ */
+@RestrictTo(LIBRARY)
+public class ThemeUtils {
 
     private static final ThreadLocal<TypedValue> TL_TYPED_VALUE = new ThreadLocal<>();
 
@@ -109,6 +119,19 @@ class ThemeUtils {
         final int color = getThemeAttrColor(context, attr);
         final int originalAlpha = Color.alpha(color);
         return ColorUtils.setAlphaComponent(color, Math.round(originalAlpha * alpha));
+    }
+
+    public static void checkAppCompatTheme(View view, Context context) {
+        TypedArray a = context.obtainStyledAttributes(R.styleable.AppCompatTheme);
+
+        try {
+            if (!a.hasValue(R.styleable.AppCompatTheme_windowActionBar)) {
+                throw new IllegalStateException("View " + view + " is an AppCompat widget that " +
+                        "can only be used with a Theme.AppCompat theme (or descendant).");
+            }
+        } finally {
+            a.recycle();
+        }
     }
 
     private ThemeUtils() {

@@ -70,6 +70,8 @@ public class AppCompatMultiAutoCompleteTextView extends MultiAutoCompleteTextVie
     public AppCompatMultiAutoCompleteTextView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(TintContextWrapper.wrap(context), attrs, defStyleAttr);
 
+        ThemeUtils.checkAppCompatTheme(this, this.getContext());
+
         TintTypedArray a = TintTypedArray.obtainStyledAttributes(getContext(), attrs,
                 TINT_ATTRS, defStyleAttr, 0);
         if (a.hasValue(0)) {
