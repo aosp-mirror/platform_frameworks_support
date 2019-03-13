@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "563db9ef_314b863d",
+        "filename": "media2-widget/src/androidTest/java/androidx/media2/widget/MediaControlViewTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-03-13T07:28:05Z",
+      "side": 1,
+      "message": "I think we can use espresso\u0027s apis? there might be isClickable or something?",
+      "revId": "e59015c562112ce5aca88d53af8a8ad0362382cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bef6e011_fd45d58f",
+        "filename": "media2-widget/src/androidTest/java/androidx/media2/widget/MediaControlViewTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-03-13T07:28:05Z",
+      "side": 1,
+      "message": "how about \"isCompletelyDisplayed()\"?",
+      "range": {
+        "startLine": 396,
+        "startChar": 31,
+        "endLine": 396,
+        "endChar": 42
+      },
+      "revId": "e59015c562112ce5aca88d53af8a8ad0362382cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
