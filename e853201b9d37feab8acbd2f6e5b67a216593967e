@@ -46,6 +46,81 @@
       "revId": "e853201b9d37feab8acbd2f6e5b67a216593967e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "74dcbd71_8091ec85",
+        "filename": "slices/view/src/main/java/androidx/slice/widget/SliceView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 1004304
+      },
+      "writtenOn": "2019-03-13T22:32:22Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "911a3d90_8f58b5a9",
+      "range": {
+        "startLine": 383,
+        "startChar": 8,
+        "endLine": 383,
+        "endChar": 60
+      },
+      "revId": "e853201b9d37feab8acbd2f6e5b67a216593967e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06c662d8_fbd528d5",
+        "filename": "slices/view/src/main/java/androidx/slice/widget/SliceView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 1004304
+      },
+      "writtenOn": "2019-03-13T22:32:22Z",
+      "side": 1,
+      "message": "nit: Can this be named something clearer than just \"height\"?",
+      "revId": "e853201b9d37feab8acbd2f6e5b67a216593967e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6153f7e7_73499374",
+        "filename": "slices/view/src/main/java/androidx/slice/widget/SliceView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 1004304
+      },
+      "writtenOn": "2019-03-13T22:32:22Z",
+      "side": 1,
+      "message": "nit: This is inconsistent with line 388; please use either (qualified) \"MeasureSpec.EXACTLY\" there or (bare) \"UNSPECIFIED\" here.",
+      "revId": "e853201b9d37feab8acbd2f6e5b67a216593967e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b046029c_213cf47c",
+        "filename": "slices/view/src/main/java/androidx/slice/widget/SliceView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 1004304
+      },
+      "writtenOn": "2019-03-13T22:32:22Z",
+      "side": 1,
+      "message": "nit: It\u0027s a little weird to me that both getHeightForMode and here check the mode. I feel like splitting this up by mode might be clearer, so we can see in one place the ideal and failover calculations for, say, MODE_SMALL.\n\n(I\u0027m not sure there is a super clear way to write this, but reducing that inconsistency might help.)",
+      "revId": "e853201b9d37feab8acbd2f6e5b67a216593967e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
