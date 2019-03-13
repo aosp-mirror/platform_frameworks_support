@@ -467,8 +467,10 @@ public class MediaControlView extends ViewGroup {
                 sizeType != SIZE_TYPE_MINIMAL ? View.VISIBLE : View.INVISIBLE);
         mMinimalFullScreenButton.setVisibility(
                 sizeType == SIZE_TYPE_MINIMAL ? View.VISIBLE : View.INVISIBLE);
-        mCenterView.setVisibility(
-                sizeType != SIZE_TYPE_FULL ? View.VISIBLE : View.INVISIBLE);
+        if (mUxState == UX_STATE_ALL_VISIBLE) {
+            mCenterView.setVisibility(
+                    sizeType != SIZE_TYPE_FULL ? View.VISIBLE : View.INVISIBLE);
+        }
 
         final int childLeft = getPaddingLeft();
         final int childRight = childLeft + width;
@@ -688,6 +690,13 @@ public class MediaControlView extends ViewGroup {
                     mCenterView.setVisibility(View.VISIBLE);
                 }
                 mMinimalFullScreenView.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                if (mSizeType != SIZE_TYPE_FULL) {
+                    mCenterView.setVisibility(View.VISIBLE);
+                }
             }
         });
 
