@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a96aee8_26d70318",
+        "filename": "benchmark/src/main/java/androidx/benchmark/WarmupManager.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-03-13T02:51:46Z",
+      "side": 1,
+      "message": "Small thing, but while we\u0027re here - maybe we should settle on F or f (bottom of file) for consistency :D",
+      "revId": "f8afc7f565ec21f465106145a29e27fe9d33e97d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51a32a09_8f49a210",
+        "filename": "benchmark/src/main/java/androidx/benchmark/WarmupManager.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-03-13T02:51:46Z",
+      "side": 1,
+      "message": "Weird inconsistency with the line above.",
+      "revId": "f8afc7f565ec21f465106145a29e27fe9d33e97d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eca06bf3_39003bab",
+        "filename": "benchmark/src/main/java/androidx/benchmark/WarmupManager.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-03-13T02:51:46Z",
+      "side": 1,
+      "message": "1e9 might be a bit more clear?\n\nAlternatively you can also use the TimeUnit API if that\u0027s available.",
+      "revId": "f8afc7f565ec21f465106145a29e27fe9d33e97d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c7513d0_d7b86ca9",
+        "filename": "benchmark/src/main/java/androidx/benchmark/WarningState.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-03-13T02:51:46Z",
+      "side": 1,
+      "message": "This is no longer static, but still has the incorrect name - actually are these really meant to no longer be static?",
+      "revId": "f8afc7f565ec21f465106145a29e27fe9d33e97d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "205916a3_40d00a38",
+        "filename": "benchmark/src/main/java/androidx/benchmark/WarningState.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-03-13T02:51:46Z",
+      "side": 1,
+      "message": "Redundant type def",
+      "revId": "f8afc7f565ec21f465106145a29e27fe9d33e97d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33e68c24_1acfb946",
+        "filename": "benchmark/src/main/java/androidx/benchmark/WarningState.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-03-13T02:51:46Z",
+      "side": 1,
+      "message": "Redundant type def",
+      "revId": "f8afc7f565ec21f465106145a29e27fe9d33e97d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3f838b3_b9a7689d",
+        "filename": "benchmark/src/main/java/androidx/benchmark/WarningState.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-03-13T02:51:46Z",
+      "side": 1,
+      "message": "Maybe turn this into a public get with a private set?",
+      "revId": "f8afc7f565ec21f465106145a29e27fe9d33e97d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2c1e9c8_ea15fdf5",
+        "filename": "benchmark/src/main/java/androidx/benchmark/WarningState.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-03-13T02:51:46Z",
+      "side": 1,
+      "message": "Are we able to remove previous jank and use File(path).readText() here or does that still require us to raise the min sdk level?",
+      "revId": "f8afc7f565ec21f465106145a29e27fe9d33e97d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
