@@ -916,7 +916,7 @@ public class MediaControllerTest extends MediaSessionTestBase {
         // 'Do Not Disturb' or 'Volume limit'.
         final int stream = AudioManager.STREAM_ALARM;
         final int maxVolume = mAudioManager.getStreamMaxVolume(stream);
-        final int minVolume = 1;
+        final int minVolume = Build.VERSION.SDK_INT >= 28 ? 1 : 0;
         if (maxVolume <= minVolume) {
             return;
         }
@@ -956,7 +956,7 @@ public class MediaControllerTest extends MediaSessionTestBase {
         // 'Do Not Disturb' or 'Volume limit'.
         final int stream = AudioManager.STREAM_ALARM;
         final int maxVolume = mAudioManager.getStreamMaxVolume(stream);
-        final int minVolume = 1;
+        final int minVolume = Build.VERSION.SDK_INT >= 28 ? 1 : 0;
         if (maxVolume <= minVolume) {
             return;
         }
