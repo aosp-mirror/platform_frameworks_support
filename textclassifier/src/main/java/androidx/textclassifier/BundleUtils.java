@@ -18,6 +18,7 @@ package androidx.textclassifier;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,6 +26,7 @@ import androidx.annotation.RestrictTo;
 import androidx.collection.ArrayMap;
 import androidx.core.app.RemoteActionCompat;
 import androidx.core.os.LocaleListCompat;
+import androidx.versionedparcelable.ParcelUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -85,23 +87,23 @@ import java.util.Map;
             bundle.remove(key);
             return;
         }
-        final ArrayList<Bundle> actionBundles = new ArrayList<>(actions.size());
+        final ArrayList<Parcelable> parcelables = new ArrayList<>(actions.size());
         for (RemoteActionCompat action : actions) {
-            actionBundles.add(action.toBundle());
+            parcelables.add(ParcelUtils.toParcelable(action));
         }
-        bundle.putParcelableArrayList(key, actionBundles);
+        bundle.putParcelableArrayList(key, parcelables);
     }
 
     /** @throws IllegalArgumentException if key can't be found in the bundle */
     static List<RemoteActionCompat> getRemoteActionListOrThrow(
             @NonNull Bundle bundle, @NonNull String key) {
-        final List<Bundle> actionBundles = bundle.getParcelableArrayList(key);
-        if (actionBundles == null) {
+        final List<Parcelable> parcelables = bundle.getParcelableArrayList(key);
+        if (parcelables == null) {
             throw new IllegalArgumentException("Missing " + key);
         }
-        final List<RemoteActionCompat> actions = new ArrayList<>(actionBundles.size());
-        for (Bundle actionBundle : actionBundles) {
-            actions.add(RemoteActionCompat.createFromBundle(actionBundle));
+        final List<RemoteActionCompat> actions = new ArrayList<>(parcelables.size());
+        for (Parcelable parcelable : parcelables) {
+            actions.add((RemoteActionCompat) ParcelUtils.fromParcelable(parcelable));
         }
         return actions;
     }
