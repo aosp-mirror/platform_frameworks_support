@@ -22,6 +22,30 @@
       "revId": "dc8d246868290ec0edac965394bcc58ea3c9e15c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d17a3a89_49c867e7",
+        "filename": "media2/src/main/java/androidx/media2/MediaPlayer2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1153,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-03-13T03:40:13Z",
+      "side": 1,
+      "message": "Please ignore this comment. I missed that the class itself is hidden.",
+      "parentUuid": "875cfc16_21583357",
+      "range": {
+        "startLine": 1153,
+        "startChar": 5,
+        "endLine": 1153,
+        "endChar": 63
+      },
+      "revId": "dc8d246868290ec0edac965394bcc58ea3c9e15c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
