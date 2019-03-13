@@ -202,10 +202,12 @@ public class InvalidationTracker {
     }
 
     private static void appendTriggerName(StringBuilder builder, String tableName,
-            String triggerType) {
+            int tableId, String triggerType) {
         builder.append("`")
                 .append("room_table_modification_trigger_")
                 .append(tableName)
+                .append("_")
+                .append(tableId)
                 .append("_")
                 .append(triggerType)
                 .append("`");
@@ -217,7 +219,7 @@ public class InvalidationTracker {
         for (String trigger : TRIGGERS) {
             stringBuilder.setLength(0);
             stringBuilder.append("DROP TRIGGER IF EXISTS ");
-            appendTriggerName(stringBuilder, tableName, trigger);
+            appendTriggerName(stringBuilder, tableName, tableId, trigger);
             writableDb.execSQL(stringBuilder.toString());
         }
     }
@@ -230,7 +232,7 @@ public class InvalidationTracker {
         for (String trigger : TRIGGERS) {
             stringBuilder.setLength(0);
             stringBuilder.append("CREATE TEMP TRIGGER IF NOT EXISTS ");
-            appendTriggerName(stringBuilder, tableName, trigger);
+            appendTriggerName(stringBuilder, tableName, tableId, trigger);
             stringBuilder.append(" AFTER ")
                     .append(trigger)
                     .append(" ON `")
