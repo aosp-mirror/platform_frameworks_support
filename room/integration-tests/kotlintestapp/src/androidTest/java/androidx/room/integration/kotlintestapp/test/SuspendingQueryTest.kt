@@ -17,6 +17,7 @@
 package androidx.room.integration.kotlintestapp.test
 
 import android.os.Build
+import androidx.arch.core.executor.ArchTaskExecutor
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.integration.kotlintestapp.NewThreadDispatcher
@@ -47,6 +48,7 @@ import java.io.IOException
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
+import java.util.concurrent.atomic.AtomicInteger
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
@@ -603,32 +605,50 @@ class SuspendingQueryTest : TestDatabaseTest() {
     @Test
     @Suppress("DeferredResultUnused")
     fun withTransaction_multipleTransactions_multipleThreads() {
+        val threadsCreated = AtomicInteger(0)
+        val executorService = Executors.newCachedThreadPool { runnable ->
+            val threadId = threadsCreated.incrementAndGet()
+            Thread(runnable).apply { name = "TestThread-$threadId" }
+        }
+        val localDatabase = Room.inMemoryDatabaseBuilder(
+            ApplicationProvider.getApplicationContext(), TestDatabase::class.java)
+            .setExecutors(ArchTaskExecutor.getIOThreadExecutor(), executorService)
+            .build()
+        val localBooksDao = localDatabase.booksDao()
+
         runBlocking {
-            booksDao.insertPublisherSuspend(
+            localBooksDao.insertPublisherSuspend(
                 TestUtil.PUBLISHER.publisherId,
                 TestUtil.PUBLISHER.name
             )
 
             async(newSingleThreadContext("asyncThread1")) {
-                database.withTransaction {
-                    delay(100)
-                    booksDao.insertBookSuspend(TestUtil.BOOK_1)
+                localDatabase.withTransaction {
+                    delay(200)
+                    localBooksDao.insertBookSuspend(TestUtil.BOOK_1)
                 }
             }
 
             async(newSingleThreadContext("asyncThread2")) {
-                database.withTransaction {
-                    delay(100)
-                    booksDao.insertBookSuspend(TestUtil.BOOK_2)
+                localDatabase.withTransaction {
+                    delay(200)
+                    localBooksDao.insertBookSuspend(TestUtil.BOOK_2)
                 }
             }
         }
 
         runBlocking {
             // as Set since insertion order is undefined
-            assertThat(booksDao.getBooksSuspend().toSet())
+            assertThat(localBooksDao.getBooksSuspend().toSet())
                 .isEqualTo(setOf(TestUtil.BOOK_1, TestUtil.BOOK_2))
         }
+
+        // At most there is only 1 grabbed thread for transactions, other transactions suspend
+        // instead of acquiring more threads which would then block while waiting for primary db
+        // connection.
+        assertThat(threadsCreated.get()).isAtMost(1)
+
+        executorService.shutdownNow()
     }
 
     @Test
@@ -700,7 +720,7 @@ class SuspendingQueryTest : TestDatabaseTest() {
             val executorService = Executors.newSingleThreadExecutor()
             val localDatabase = Room.inMemoryDatabaseBuilder(
                 ApplicationProvider.getApplicationContext(), TestDatabase::class.java)
-                .setQueryExecutor(executorService)
+                .setExecutors(executorService, executorService)
                 .build()
 
             // Simulate a busy executor, no thread to acquire for transaction.
@@ -735,7 +755,7 @@ class SuspendingQueryTest : TestDatabaseTest() {
             val executorService = Executors.newCachedThreadPool()
             val localDatabase = Room.inMemoryDatabaseBuilder(
                 ApplicationProvider.getApplicationContext(), TestDatabase::class.java)
-                .setQueryExecutor(executorService)
+                .setExecutors(executorService, executorService)
                 .build()
 
             executorService.shutdownNow()
