@@ -16,6 +16,24 @@
       "revId": "a62af547f4590b1fe90950d227bdd0d877213bcf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b9b129b_e6ab495f",
+        "filename": "lifecycle/livedata/eap/src/main/java/androidx/lifecycle/CoroutineLiveData.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-13T18:35:02Z",
+      "side": 1,
+      "message": "oh good catch! :)",
+      "parentUuid": "0db8370c_2ef8b7b1",
+      "revId": "a62af547f4590b1fe90950d227bdd0d877213bcf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
