@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "971578bd_ef7c1c2c",
+        "filename": "lifecycle/viewmodel/ktx/src/androidTest/java/androidx/lifecycle/ViewModelTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-13T16:45:23Z",
+      "side": 1,
+      "message": "idk if there is a test covering this but maybe make this vm.clear() and then join on the failing one to ensure it is cancelled via VM ?",
+      "range": {
+        "startLine": 74,
+        "startChar": 12,
+        "endLine": 74,
+        "endChar": 28
+      },
+      "revId": "c504f932245cecf3de457ba06ec91ad3a81d0af7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e721e6ef_9341a51c",
+        "filename": "lifecycle/viewmodel/ktx/src/androidTest/java/androidx/lifecycle/ViewModelTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-13T16:45:23Z",
+      "side": 1,
+      "message": "also i think the test we want here is that the delayed one completed successfully so maybe delay it just 1 second, and join on it normally instead of cancelling ?\nbecause i think this test would still pass w/o the change since w/o the change, delayed will be cancelled as well.",
+      "range": {
+        "startLine": 76,
+        "startChar": 5,
+        "endLine": 77,
+        "endChar": 0
+      },
+      "revId": "c504f932245cecf3de457ba06ec91ad3a81d0af7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
