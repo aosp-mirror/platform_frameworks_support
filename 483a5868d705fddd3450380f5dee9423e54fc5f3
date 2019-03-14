@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e1373d36_4192021c",
+        "filename": "fragment/testing/src/androidTest/java/androidx/fragment/app/testing/FragmentScenarioDialogFragmentTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-03-14T18:18:22Z",
+      "side": 1,
+      "message": "Can you also assert that fragment.dialog.isShowing() is true? In this and other tests.",
+      "range": {
+        "startLine": 216,
+        "startChar": 27,
+        "endLine": 216,
+        "endChar": 35
+      },
+      "revId": "483a5868d705fddd3450380f5dee9423e54fc5f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
