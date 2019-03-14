@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "44e159cc_5831e5e7",
+        "filename": "emoji/core/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-03-14T20:49:54Z",
+      "side": 1,
+      "message": "this does not sound right.",
+      "range": {
+        "startLine": 17,
+        "startChar": 5,
+        "endLine": 17,
+        "endChar": 67
+      },
+      "revId": "9f72cb1182bf3ff3c4cc59bca1151077c60cf75f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
