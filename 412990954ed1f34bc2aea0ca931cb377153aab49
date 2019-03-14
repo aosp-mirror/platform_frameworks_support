@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "989516f0_e6fa58c9",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/BundleUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2019-03-14T00:08:56Z",
+      "side": 1,
+      "message": "Should I add a PacelUtils.putVersionedParcelable method that takes a list of parcelable as argument instead for double bundling?",
+      "revId": "412990954ed1f34bc2aea0ca931cb377153aab49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
