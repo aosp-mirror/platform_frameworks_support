@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "38b5c468_12f11d71",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/BaseTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 507,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-03-14T16:50:48Z",
+      "side": 1,
+      "message": "import?",
+      "range": {
+        "startLine": 507,
+        "startChar": 22,
+        "endLine": 507,
+        "endChar": 32
+      },
+      "revId": "c98b89afaf049f7b434891f41e2b456b9b395431",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d8a3ef2_8669add1",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/BaseTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 512,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-03-14T16:50:48Z",
+      "side": 1,
+      "message": "Use constants e.g. SCROLL_STATE_IDLE. Otherwise if we change int values we won\u0027t be able to track all places where they\u0027re used.",
+      "range": {
+        "startLine": 512,
+        "startChar": 51,
+        "endLine": 512,
+        "endChar": 52
+      },
+      "revId": "c98b89afaf049f7b434891f41e2b456b9b395431",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7dc653ce_a6de04b9",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/FakeDragTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-03-14T16:50:48Z",
+      "side": 1,
+      "message": "Super thorough, thank you!\n\nMaybe add:\n- drag almost to next page (offset 90%) and fling back",
+      "range": {
+        "startLine": 53,
+        "startChar": 6,
+        "endLine": 53,
+        "endChar": 18
+      },
+      "revId": "c98b89afaf049f7b434891f41e2b456b9b395431",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a0b7f19_758599fc",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageChangeCallbackTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 725,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-03-14T16:50:48Z",
+      "side": 1,
+      "message": "could you add a comment why",
+      "range": {
+        "startLine": 725,
+        "startChar": 12,
+        "endLine": 725,
+        "endChar": 35
+      },
+      "revId": "c98b89afaf049f7b434891f41e2b456b9b395431",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf50b937_3c2c26b8",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageChangeCallbackTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 730,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-03-14T16:50:48Z",
+      "side": 1,
+      "message": "Can you use swipeForward with SwipeMethod.FAKE_DRAG?\nAny maybe hide (if easy) all Swiper implementations so we use swipeForward consistently?",
+      "range": {
+        "startLine": 730,
+        "startChar": 12,
+        "endLine": 730,
+        "endChar": 30
+      },
+      "revId": "c98b89afaf049f7b434891f41e2b456b9b395431",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22902a06_5ae6ec89",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageChangeCallbackTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 746,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-03-14T16:50:48Z",
+      "side": 1,
+      "message": "that\u0027s a really tight timeout, might become flaky on slow devices. any reason why so tight?",
+      "range": {
+        "startLine": 746,
+        "startChar": 36,
+        "endLine": 746,
+        "endChar": 53
+      },
+      "revId": "c98b89afaf049f7b434891f41e2b456b9b395431",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "032e09f5_188f4d41",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/swipe/PageSwiperFakeDrag.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-03-14T16:50:48Z",
+      "side": 1,
+      "message": "Do you not want this to be float / double?",
+      "range": {
+        "startLine": 32,
+        "startChar": 44,
+        "endLine": 32,
+        "endChar": 54
+      },
+      "revId": "c98b89afaf049f7b434891f41e2b456b9b395431",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b7a6280_0c11642f",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-03-14T16:50:48Z",
+      "side": 1,
+      "message": "optional: drop Component; ok to leave as is if you prefer",
+      "range": {
+        "startLine": 92,
+        "startChar": 12,
+        "endLine": 92,
+        "endChar": 29
+      },
+      "revId": "c98b89afaf049f7b434891f41e2b456b9b395431",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90b85bb5_c49ff71f",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 545,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-03-14T16:50:48Z",
+      "side": 1,
+      "message": "should we make these RTL aware?",
+      "range": {
+        "startLine": 545,
+        "startChar": 36,
+        "endLine": 545,
+        "endChar": 49
+      },
+      "revId": "c98b89afaf049f7b434891f41e2b456b9b395431",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
