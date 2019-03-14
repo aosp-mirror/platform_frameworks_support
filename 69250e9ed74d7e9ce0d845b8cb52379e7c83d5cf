@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "3a20326f_608c2175",
+        "filename": "benchmark/gradle-plugin/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-03-14T16:35:28Z",
+      "side": 1,
+      "message": "Sounds good, go ahead and remove then",
+      "parentUuid": "fa2f1aaf_5965851f",
+      "revId": "69250e9ed74d7e9ce0d845b8cb52379e7c83d5cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a6293e8d_cd742fe0",
         "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/BenchmarkPlugin.kt",
         "patchSetId": 1
@@ -66,6 +84,24 @@
       "side": 1,
       "message": "Ah yeah, good idea. I think it can be applied anywhere, but I should make the sample reflect that. There\u0027s an if (project.isRootProject()) kind of check (forget the actual name), but I figured it\u0027s no harm to let people apply it wherever.",
       "parentUuid": "a6293e8d_cd742fe0",
+      "revId": "69250e9ed74d7e9ce0d845b8cb52379e7c83d5cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83191c82_ad34a67e",
+        "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/BenchmarkPlugin.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-03-14T16:35:28Z",
+      "side": 1,
+      "message": "Can we walk up to the root project and apply it there? :P\n\nPeople can apply the plugin at the root project, but that\u0027s not likely once the plugin\u0027s primary job (copying xml/json, possibly wrapping connectedCheck) is done - the plugin will most likely be applied in a benchmark project.\n\n./gradlew someModule:lockClocks vs ./gradlew otherModule:lockClocks look to me like they\u0027d do different things",
+      "parentUuid": "adfb0b94_a21d0ee2",
       "revId": "69250e9ed74d7e9ce0d845b8cb52379e7c83d5cf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
@@ -195,6 +231,24 @@
       "side": 1,
       "message": "I agree, but I\u0027m not aware of any alternatives :(",
       "parentUuid": "965dd7e5_fab47b43",
+      "revId": "69250e9ed74d7e9ce0d845b8cb52379e7c83d5cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f2baa59_762d0803",
+        "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/LockClocksTask.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-03-14T16:35:28Z",
+      "side": 1,
+      "message": "Alright, maybe sergeyv will have suggestions",
+      "parentUuid": "e12791b3_a574a0c4",
       "revId": "69250e9ed74d7e9ce0d845b8cb52379e7c83d5cf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
