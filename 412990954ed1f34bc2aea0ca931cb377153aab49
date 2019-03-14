@@ -16,6 +16,24 @@
       "revId": "412990954ed1f34bc2aea0ca931cb377153aab49",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6cd8dc37_f1430108",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/BundleUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-03-14T17:22:44Z",
+      "side": 1,
+      "message": "Be aware that using ParcelUtils.toParcelable() will result in a crash in any remote process that receives a Bundle containing the resulting Parcelable. Basically, when a process receives a bundle it will immediately un-parcel the contents for every key. If the contents are a VersionedParcelable parcel and the process doesn\u0027t have VersionedParcelable on the classpath, then it will crash.\n\nSo -- long story short, prefer the Bundle method from ParcelUtils. It is safer.",
+      "parentUuid": "989516f0_e6fa58c9",
+      "revId": "412990954ed1f34bc2aea0ca931cb377153aab49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
