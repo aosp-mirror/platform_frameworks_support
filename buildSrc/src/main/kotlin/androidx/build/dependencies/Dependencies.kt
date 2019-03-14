@@ -22,6 +22,7 @@ const val AUTO_VALUE_ANNOTATIONS = "com.google.auto.value:auto-value-annotations
 const val AUTO_VALUE_PARCEL = "com.ryanharter.auto.value:auto-value-parcel:0.2.6"
 const val ANTLR = "org.antlr:antlr4:4.7.1"
 const val APACHE_COMMONS_CODEC = "commons-codec:commons-codec:1.10"
+const val APACHE_COMMONS_IO = "commons-io:commons-io:2.4"
 const val CHECKER_FRAMEWORK = "org.checkerframework:checker-qual:2.5.3"
 const val CONSTRAINT_LAYOUT = "androidx.constraintlayout:constraintlayout:1.1.0@aar"
 const val DEXMAKER_MOCKITO = "com.linkedin.dexmaker:dexmaker-mockito:2.19.0"
