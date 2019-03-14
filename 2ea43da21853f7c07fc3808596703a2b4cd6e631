@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3629cc6e_390333e2",
+        "filename": "lifecycle/livedata/eap/src/main/java/androidx/lifecycle/CoroutineLiveData.kt",
+        "patchSetId": 21
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-14T22:17:17Z",
+      "side": 1,
+      "message": "i cant, it breaks BuilderInterface (then we cannot infer the type from yield).\nopen to naming suggestions.",
+      "parentUuid": "53140356_c5e86fee",
+      "range": {
+        "startLine": 71,
+        "startChar": 8,
+        "endLine": 71,
+        "endChar": 20
+      },
+      "revId": "2ea43da21853f7c07fc3808596703a2b4cd6e631",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d4898479_f206e3f3",
         "filename": "lifecycle/livedata/eap/src/main/java/androidx/lifecycle/CoroutineLiveData.kt",
         "patchSetId": 21
@@ -36,6 +60,30 @@
       "writtenOn": "2019-03-14T20:22:33Z",
       "side": 1,
       "message": "it maybe not main thread and then we have a concurrency issue with `target.yieldSource(source)`",
+      "range": {
+        "startLine": 83,
+        "startChar": 72,
+        "endLine": 83,
+        "endChar": 88
+      },
+      "revId": "2ea43da21853f7c07fc3808596703a2b4cd6e631",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "070b6787_9479c718",
+        "filename": "lifecycle/livedata/eap/src/main/java/androidx/lifecycle/CoroutineLiveData.kt",
+        "patchSetId": 21
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-14T22:17:17Z",
+      "side": 1,
+      "message": "what do you mean, the context is defined as \n`coroutineContext \u003d context + Dispatchers.Main`\nso main dispatcher will always override unless i\u0027m missing something.",
+      "parentUuid": "d4898479_f206e3f3",
       "range": {
         "startLine": 83,
         "startChar": 72,
