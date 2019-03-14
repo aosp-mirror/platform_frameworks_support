@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "cbd57857_95e4496f",
+        "filename": "mediarouter/proguard-rules.pro",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2019-03-14T02:15:39Z",
+      "side": 1,
+      "message": "Thanks for pointing out.\nI figured out \u003cinit\u003e is sufficient to work.",
+      "parentUuid": "1db1ba6f_ff9000b9",
+      "range": {
+        "startLine": 16,
+        "startChar": 64,
+        "endLine": 16,
+        "endChar": 66
+      },
+      "revId": "20c908f4e243e97bb85da27135fc22773749850b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "48b1aee0_8e31a830",
         "filename": "mediarouter/proguard-rules.pro",
         "patchSetId": 1
@@ -39,6 +63,24 @@
       "revId": "20c908f4e243e97bb85da27135fc22773749850b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "660a0dec_bbaab654",
+        "filename": "mediarouter/proguard-rules.pro",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2019-03-14T02:15:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "48b1aee0_8e31a830",
+      "revId": "20c908f4e243e97bb85da27135fc22773749850b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
