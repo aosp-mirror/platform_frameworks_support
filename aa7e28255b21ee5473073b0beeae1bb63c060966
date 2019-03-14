@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9962778e_b1c961bf",
+        "filename": "benchmark/src/androidTest/java/androidx/benchmark/JniBenchmark.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-03-14T15:33:02Z",
+      "side": 1,
+      "message": "I don\u0027t think we need to compare against the kotlin impl\n\nalso \"native\" is a weird word around these parts, since we use it both to talk about \"native app development\" (in Kotlin/Java), as well as \"native code\" (C/C++)",
+      "range": {
+        "startLine": 34,
+        "startChar": 8,
+        "endLine": 34,
+        "endChar": 23
+      },
+      "revId": "aa7e28255b21ee5473073b0beeae1bb63c060966",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
