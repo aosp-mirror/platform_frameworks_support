@@ -34,6 +34,24 @@
       "revId": "412990954ed1f34bc2aea0ca931cb377153aab49",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dac09a5b_d9975e72",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/BundleUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2019-03-14T22:16:24Z",
+      "side": 1,
+      "message": "Thanks, added PacelUtil.put/getVersionedParcelableList",
+      "parentUuid": "6cd8dc37_f1430108",
+      "revId": "412990954ed1f34bc2aea0ca931cb377153aab49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
