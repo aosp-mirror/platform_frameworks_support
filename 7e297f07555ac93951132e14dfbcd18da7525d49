@@ -16,6 +16,24 @@
       "revId": "7e297f07555ac93951132e14dfbcd18da7525d49",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad0cf859_b71d9248",
+        "filename": "media2/src/main/java/androidx/media2/exoplayer/ExoPlayerWrapper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 470,
+      "author": {
+        "id": 1060104
+      },
+      "writtenOn": "2019-03-14T09:27:18Z",
+      "side": 1,
+      "message": "AnalyticsListener would be good except that I think we can\u0027t take advantage of default method implementations in interfaces as it\u0027s a Java 8 feature (the ExoPlayer build uses Java 8 but is desugared when we import it). Therefore, to use AnalyticsListener we\u0027d need to add lots of empty method implementations, as it contains almost every callback in ExoPlayer. Hopefully there will be a way to use Java 8 features soon, so I will add a TODO to migrate over.",
+      "parentUuid": "677b7d02_412c74b5",
+      "revId": "7e297f07555ac93951132e14dfbcd18da7525d49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
