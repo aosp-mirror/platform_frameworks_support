@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "fa2f1aaf_5965851f",
+        "filename": "benchmark/gradle-plugin/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-03-14T16:28:45Z",
+      "side": 1,
+      "message": "This is just for a helper which reads an InputStream into a String, I can rewrite to not use this lib though 😊",
+      "parentUuid": "d5ef042d_7f78797b",
+      "revId": "69250e9ed74d7e9ce0d845b8cb52379e7c83d5cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a6293e8d_cd742fe0",
         "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/BenchmarkPlugin.kt",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2019-03-14T15:43:33Z",
       "side": 1,
       "message": "Does this apply it to the top level project?\n\nwould like to have project-wide\n\n    ./gradlew lockClocks\n\ninstead of\n\n    ./gradlew app:lockClocks",
+      "revId": "69250e9ed74d7e9ce0d845b8cb52379e7c83d5cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "adfb0b94_a21d0ee2",
+        "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/BenchmarkPlugin.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-03-14T16:28:45Z",
+      "side": 1,
+      "message": "Ah yeah, good idea. I think it can be applied anywhere, but I should make the sample reflect that. There\u0027s an if (project.isRootProject()) kind of check (forget the actual name), but I figured it\u0027s no harm to let people apply it wherever.",
+      "parentUuid": "a6293e8d_cd742fe0",
       "revId": "69250e9ed74d7e9ce0d845b8cb52379e7c83d5cf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
@@ -59,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "42d4da33_6301f7f4",
+        "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/LockClocksTask.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-03-14T16:28:45Z",
+      "side": 1,
+      "message": "Done - oopsies 😋",
+      "parentUuid": "70a2309c_fc677b94",
+      "range": {
+        "startLine": 37,
+        "startChar": 22,
+        "endLine": 40,
+        "endChar": 9
+      },
+      "revId": "69250e9ed74d7e9ce0d845b8cb52379e7c83d5cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f7be0ba2_3ad66ede",
         "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/LockClocksTask.kt",
         "patchSetId": 1
@@ -82,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "3d6f0b33_28eea065",
+        "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/LockClocksTask.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-03-14T16:28:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f7be0ba2_3ad66ede",
+      "range": {
+        "startLine": 74,
+        "startChar": 27,
+        "endLine": 74,
+        "endChar": 38
+      },
+      "revId": "69250e9ed74d7e9ce0d845b8cb52379e7c83d5cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "965dd7e5_fab47b43",
         "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/LockClocksTask.kt",
         "patchSetId": 1
@@ -93,6 +177,24 @@
       "writtenOn": "2019-03-14T15:43:33Z",
       "side": 1,
       "message": "are these properties not read by default, already? seems strange we have to manually specify path like this",
+      "revId": "69250e9ed74d7e9ce0d845b8cb52379e7c83d5cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e12791b3_a574a0c4",
+        "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/LockClocksTask.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-03-14T16:28:45Z",
+      "side": 1,
+      "message": "I agree, but I\u0027m not aware of any alternatives :(",
+      "parentUuid": "965dd7e5_fab47b43",
       "revId": "69250e9ed74d7e9ce0d845b8cb52379e7c83d5cf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
