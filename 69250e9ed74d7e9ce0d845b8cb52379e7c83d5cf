@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d5ef042d_7f78797b",
+        "filename": "benchmark/gradle-plugin/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-03-14T15:43:33Z",
+      "side": 1,
+      "message": "what\u0027s this used for?\n\nWe have to check in and maintain prebuilts we use, so we like to minimize extra libraries if we don\u0027t need them.\n\n(Looks like we have commons-compress, commons-lang3, and commons-parent already checked in prebuilts: androidx-master-dev/prebuilts/androidx/external/org/apache/commons)",
+      "revId": "69250e9ed74d7e9ce0d845b8cb52379e7c83d5cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6293e8d_cd742fe0",
+        "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/BenchmarkPlugin.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-03-14T15:43:33Z",
+      "side": 1,
+      "message": "Does this apply it to the top level project?\n\nwould like to have project-wide\n\n    ./gradlew lockClocks\n\ninstead of\n\n    ./gradlew app:lockClocks",
+      "revId": "69250e9ed74d7e9ce0d845b8cb52379e7c83d5cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70a2309c_fc677b94",
+        "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/LockClocksTask.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-03-14T15:43:33Z",
+      "side": 1,
+      "message": "did you mean to remove this?",
+      "range": {
+        "startLine": 37,
+        "startChar": 22,
+        "endLine": 40,
+        "endChar": 9
+      },
+      "revId": "69250e9ed74d7e9ce0d845b8cb52379e7c83d5cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7be0ba2_3ad66ede",
+        "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/LockClocksTask.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-03-14T15:43:33Z",
+      "side": 1,
+      "message": "projectRoot",
+      "range": {
+        "startLine": 74,
+        "startChar": 27,
+        "endLine": 74,
+        "endChar": 38
+      },
+      "revId": "69250e9ed74d7e9ce0d845b8cb52379e7c83d5cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "965dd7e5_fab47b43",
+        "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/LockClocksTask.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-03-14T15:43:33Z",
+      "side": 1,
+      "message": "are these properties not read by default, already? seems strange we have to manually specify path like this",
+      "revId": "69250e9ed74d7e9ce0d845b8cb52379e7c83d5cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
