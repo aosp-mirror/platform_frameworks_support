@@ -12,15 +12,9 @@ ext {
     fontDir = project(':noto-emoji-compat').projectDir
 }
 
-configurations {
-    repackage
-}
-
 dependencies {
-    repackage project(path: ':noto-emoji-compat', configuration: "parser")
-    // Wrap the noto-emoji-compat dependency in a FileCollection so that the Android Gradle plugin
-    // treats this as local jar and package it inside the aar.
-    api files(configurations.repackage)
+    implementation(project(':noto-emoji-compat'))
+    implementation("com.google.flatbuffers:flatbuffers-java:1.8.0")
 
     api(project(":core"))
     implementation(project(':collection'))
