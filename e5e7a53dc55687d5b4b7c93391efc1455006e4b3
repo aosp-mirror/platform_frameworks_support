@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "769dffa9_e71c8160",
+        "filename": "lifecycle/runtime/eap/src/main/java/androidx/lifecycle/DispatchQueue.kt",
+        "patchSetId": 21
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-03-14T13:38:39Z",
+      "side": 1,
+      "message": "Should finished being set to true cause an ISE to be thrown from runOrEnqueue, pause, and resume?",
+      "revId": "e5e7a53dc55687d5b4b7c93391efc1455006e4b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
