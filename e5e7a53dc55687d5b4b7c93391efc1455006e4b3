@@ -2,6 +2,69 @@
   "comments": [
     {
       "key": {
+        "uuid": "cb489545_0efd36fe",
+        "filename": "lifecycle/runtime/eap/src/androidTest/java/androidx/lifecycle/PausingDispatcherTest.kt",
+        "patchSetId": 21
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-14T18:52:41Z",
+      "side": 1,
+      "message": "is Robolectric our answer to external devs, how can\u0027t `setMainHandler(handler)`?",
+      "revId": "e5e7a53dc55687d5b4b7c93391efc1455006e4b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8da0c125_f2edda25",
+        "filename": "lifecycle/runtime/eap/src/androidTest/java/androidx/lifecycle/PausingDispatcherTest.kt",
+        "patchSetId": 21
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-14T18:52:41Z",
+      "side": 1,
+      "message": "dones[0]?",
+      "range": {
+        "startLine": 408,
+        "startChar": 0,
+        "endLine": 408,
+        "endChar": 52
+      },
+      "revId": "e5e7a53dc55687d5b4b7c93391efc1455006e4b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40fa6951_60c49f7d",
+        "filename": "lifecycle/runtime/eap/src/androidTest/java/androidx/lifecycle/PausingDispatcherTest.kt",
+        "patchSetId": 21
+      },
+      "lineNbr": 468,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-14T18:52:41Z",
+      "side": 1,
+      "message": "I\u0027d say it is harmful to have such tests, because each of runs for 2 seconds.",
+      "range": {
+        "startLine": 468,
+        "startChar": 38,
+        "endLine": 468,
+        "endChar": 49
+      },
+      "revId": "e5e7a53dc55687d5b4b7c93391efc1455006e4b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "769dffa9_e71c8160",
         "filename": "lifecycle/runtime/eap/src/main/java/androidx/lifecycle/DispatchQueue.kt",
         "patchSetId": 21
@@ -34,6 +97,23 @@
       "revId": "e5e7a53dc55687d5b4b7c93391efc1455006e4b3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f2d91156_26a01e87",
+        "filename": "lifecycle/runtime/eap/src/main/java/androidx/lifecycle/PausingDispatcher.kt",
+        "patchSetId": 21
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-14T18:52:41Z",
+      "side": 1,
+      "message": "you need outline cancelation + finally cases here, not only in HUGE SNIPPET OF CODE",
+      "revId": "e5e7a53dc55687d5b4b7c93391efc1455006e4b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
