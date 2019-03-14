@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2596f078_bb46e466",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageChangeCallbackTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-03-14T17:14:15Z",
+      "side": 1,
+      "message": "nit: pageMarginDp or pageMarginPx; I recommend px",
+      "range": {
+        "startLine": 62,
+        "startChar": 12,
+        "endLine": 62,
+        "endChar": 22
+      },
+      "revId": "0078b850ec41ce7fe2d42097c051cf6f36055186",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "689fceb2_06bd88bb",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageChangeCallbackTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-03-14T17:14:15Z",
+      "side": 1,
+      "message": "nit1: primes?\nnit2: spaces?",
+      "range": {
+        "startLine": 96,
+        "startChar": 51,
+        "endLine": 96,
+        "endChar": 52
+      },
+      "revId": "0078b850ec41ce7fe2d42097c051cf6f36055186",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
