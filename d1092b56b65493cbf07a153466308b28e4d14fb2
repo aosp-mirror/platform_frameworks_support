@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "cead309d_abbbbd73",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-14T18:02:00Z",
+      "side": 1,
+      "message": "actaully start end lgtm. thats what we use in the rest of RV.",
+      "parentUuid": "ede9d1a9_829f2edb",
+      "range": {
+        "startLine": 56,
+        "startChar": 28,
+        "endLine": 56,
+        "endChar": 43
+      },
+      "revId": "d1092b56b65493cbf07a153466308b28e4d14fb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2142fe93_f13610b9",
         "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
         "patchSetId": 1
@@ -36,6 +60,29 @@
       "writtenOn": "2019-03-12T16:08:56Z",
       "side": 1,
       "message": "I think it\u0027s unintuitive that getExtraLayoutSpace calls another variant with *fewer* params. They should be named distinctly.",
+      "revId": "d1092b56b65493cbf07a153466308b28e4d14fb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a92a5096_2db9e180",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-14T18:02:00Z",
+      "side": 1,
+      "message": "this will be like a 3rd suggestion but i would say we just change this method to something like:\n\n\ngetExtraLayoutSpaceInto(State state, out : int[])\n\nwhere int[] has START and END.\nRecyclerView.State should ahve enough information to get the scroll direction (verification needed)\n\nso now in every frame, LM gets a chance to have a default extra space in both ends.\nthe result needs to be kept in the LayoutState and considered in the recycling.",
+      "range": {
+        "startLine": 448,
+        "startChar": 18,
+        "endLine": 448,
+        "endChar": 37
+      },
       "revId": "d1092b56b65493cbf07a153466308b28e4d14fb2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
