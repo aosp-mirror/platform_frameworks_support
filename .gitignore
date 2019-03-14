@@ -33,3 +33,6 @@ jacoco.exec
 
 # Layout Inspector creates it.
 captures/
+
+# External native build folder generated in Android Studio 2.2 and later
+**/.externalNativeBuild
