@@ -16,6 +16,24 @@
       "revId": "e5e7a53dc55687d5b4b7c93391efc1455006e4b3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b3d166f_cf4695fc",
+        "filename": "lifecycle/runtime/eap/src/main/java/androidx/lifecycle/DispatchQueue.kt",
+        "patchSetId": 21
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-14T18:27:11Z",
+      "side": 1,
+      "message": "not fur runOrEnqueue because it handles the finally blocks.\nhttps://android-review.googlesource.com/c/platform/frameworks/support/+/905134/6/lifecycle/runtime/eap/src/main/java/androidx/lifecycle/PausingDispatcher.kt#102\n\n\nbut pause and resume, yes we should NOT allow `resume` after `finish`. i\u0027ll add a checek.",
+      "parentUuid": "769dffa9_e71c8160",
+      "revId": "e5e7a53dc55687d5b4b7c93391efc1455006e4b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
