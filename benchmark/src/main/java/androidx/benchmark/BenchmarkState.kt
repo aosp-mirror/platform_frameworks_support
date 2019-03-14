@@ -51,20 +51,19 @@ import java.util.concurrent.TimeUnit
  * @see BenchmarkRule#getState()
  */
 class BenchmarkState internal constructor() {
-    /* used by keepRunningInline() */
-    @JvmField
-    @PublishedApi
-    internal var iteration = 0
+    private var warmupIteration = 0 // increasing iteration count during warmup
 
-    /* used by keepRunningInline() */
-    @JvmField
+    /**
+     * Decreasing iteration count used when [state] == [RUNNING], used to determine when main
+     * measurement loop finishes.
+     */
+    @JvmField /* Used by [BenchmarkState.keepRunningInline()] */
     @PublishedApi
-    internal var maxIterations = 0
+    internal var iterationsRemaining = -1
 
-    /* used by keepRunningInline() */
-    @JvmField
-    @PublishedApi
-    internal var state = NOT_STARTED // Current benchmark state.
+    private var maxIterations = 0
+
+    private var state = NOT_STARTED // Current benchmark state.
 
     private val warmupManager = WarmupManager()
 
@@ -166,7 +165,7 @@ class BenchmarkState internal constructor() {
 
     private fun beginWarmup() {
         startTimeNs = System.nanoTime()
-        iteration = 0
+        warmupIteration = 0
         state = WARMUP
     }
 
@@ -187,7 +186,7 @@ class BenchmarkState internal constructor() {
             Math.max(idealIterations, MIN_TEST_ITERATIONS)
         )
         pausedDurationNs = 0
-        iteration = 0
+        iterationsRemaining = maxIterations
         repeatCount = 0
         state = RUNNING
         startTimeNs = System.nanoTime()
@@ -206,7 +205,7 @@ class BenchmarkState internal constructor() {
             return false
         }
         pausedDurationNs = 0
-        iteration = 0
+        iterationsRemaining = maxIterations
         startTimeNs = System.nanoTime()
         return true
     }
@@ -224,20 +223,11 @@ class BenchmarkState internal constructor() {
      */
     @Suppress("NOTHING_TO_INLINE")
     inline fun keepRunningInline(): Boolean {
-        if (state == RUNNING && iteration < maxIterations) {
-            iteration++
+        if (iterationsRemaining > 0) {
+            iterationsRemaining--
             return true
         }
-        return keepRunning()
-    }
-
-    private fun throwIfPaused() {
-        if (paused) {
-            throw IllegalStateException(
-                "Benchmark step finished with paused state." +
-                        " Resume the benchmark before finishing each step."
-            )
-        }
+        return keepRunningInternal()
     }
 
     /**
@@ -251,13 +241,21 @@ class BenchmarkState internal constructor() {
      * ```
      */
     fun keepRunning(): Boolean {
+        if (iterationsRemaining > 0) {
+            iterationsRemaining--
+            return true
+        }
+        return keepRunningInternal()
+    }
+
+    fun keepRunningInternal(): Boolean {
         when (state) {
             NOT_STARTED -> {
                 beginWarmup()
                 return true
             }
             WARMUP -> {
-                iteration++
+                warmupIteration++
                 // Only check nanoTime on every iteration in WARMUP since we
                 // don't yet have a target iteration count.
                 val time = System.nanoTime()
@@ -270,8 +268,8 @@ class BenchmarkState internal constructor() {
                 return true
             }
             RUNNING -> {
-                iteration++
-                if (iteration >= maxIterations) {
+                iterationsRemaining--
+                if (iterationsRemaining <= 0) {
                     throwIfPaused() // only check at end of loop to save cycles
                     return startNextTestRun()
                 }
@@ -279,6 +277,15 @@ class BenchmarkState internal constructor() {
             }
             FINISHED -> throw IllegalStateException("The benchmark has finished.")
             else -> throw IllegalStateException("The benchmark is in unknown state.")
+        }
+    }
+
+    private fun throwIfPaused() {
+        if (paused) {
+            throw IllegalStateException(
+                "Benchmark step finished with paused state." +
+                        " Resume the benchmark before finishing each step."
+            )
         }
     }
 
