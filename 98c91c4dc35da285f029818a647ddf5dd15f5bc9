@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "05f3b417_dabc351f",
+        "filename": "media2-widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1104,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-03-14T10:14:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ffe76fe_db9a9757",
+      "range": {
+        "startLine": 1104,
+        "startChar": 15,
+        "endLine": 1104,
+        "endChar": 75
+      },
+      "revId": "98c91c4dc35da285f029818a647ddf5dd15f5bc9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f250474f_b0582380",
         "filename": "media2-widget/src/main/java/androidx/media2/widget/MediaControlView.java",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "98c91c4dc35da285f029818a647ddf5dd15f5bc9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78dbc913_dbd488a5",
+        "filename": "media2-widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1106,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-03-14T10:14:46Z",
+      "side": 1,
+      "message": "I think it guards some edge cases that the mDuration is unknown yet. I don\u0027t want to touch it now.",
+      "parentUuid": "f250474f_b0582380",
+      "range": {
+        "startLine": 1106,
+        "startChar": 68,
+        "endLine": 1106,
+        "endChar": 82
+      },
+      "revId": "98c91c4dc35da285f029818a647ddf5dd15f5bc9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "425dc867_be5ec22d",
+        "filename": "media2-widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1371,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-03-14T10:14:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2eaca138_346a9dee",
+      "range": {
+        "startLine": 1370,
+        "startChar": 63,
+        "endLine": 1371,
+        "endChar": 35
+      },
+      "revId": "98c91c4dc35da285f029818a647ddf5dd15f5bc9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ad810153_505af931",
         "filename": "media2-widget/src/main/java/androidx/media2/widget/MediaControlView.java",
         "patchSetId": 2
@@ -91,6 +163,30 @@
       "revId": "98c91c4dc35da285f029818a647ddf5dd15f5bc9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5cba92c_82cb9a1e",
+        "filename": "media2-widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1628,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-03-14T10:14:46Z",
+      "side": 1,
+      "message": "Nice naming! Done.",
+      "parentUuid": "ad810153_505af931",
+      "range": {
+        "startLine": 1628,
+        "startChar": 4,
+        "endLine": 1628,
+        "endChar": 51
+      },
+      "revId": "98c91c4dc35da285f029818a647ddf5dd15f5bc9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
