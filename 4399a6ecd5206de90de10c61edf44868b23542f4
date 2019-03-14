@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "46f95e09_1d7129e5",
+        "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/BenchmarkPlugin.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-03-14T17:47:56Z",
+      "side": 1,
+      "message": "does this conflict if you apply the benchmark plugin multiple times?",
+      "revId": "4399a6ecd5206de90de10c61edf44868b23542f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
