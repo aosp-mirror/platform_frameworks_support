@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "2135eb83_1383ebbd",
+        "filename": "room/integration-tests/testapp/src/androidTest/java/androidx/room/integration/testapp/test/LiveDataQueryTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-03-14T00:30:10Z",
+      "side": 1,
+      "message": "You gotta listen to him, sooooo goood: https://youtu.be/krhh4Jmiru8",
+      "parentUuid": "217ffe40_a8ec7263",
+      "revId": "c6f4c5c5f7b780aa36030b494fdd43d7fc0576a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "089ce7ae_74f273d5",
         "filename": "room/runtime/src/main/java/androidx/room/InvalidationTracker.java",
         "patchSetId": 1
