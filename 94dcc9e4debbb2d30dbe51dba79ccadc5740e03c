@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "390b9252_15e81052",
+        "filename": "room/runtime/src/main/java/androidx/room/InvalidationTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-14T20:45:40Z",
+      "side": 1,
+      "message": "merge this \"for\" with previous one, so it will be easier to understand how id -\u003e tableName (mTableNames) correlates with table -\u003e id  (mTableIdLookUp_",
+      "range": {
+        "startLine": 160,
+        "startChar": 8,
+        "endLine": 164,
+        "endChar": 83
+      },
+      "revId": "94dcc9e4debbb2d30dbe51dba79ccadc5740e03c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
