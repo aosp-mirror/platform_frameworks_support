@@ -22,6 +22,30 @@
       "revId": "94dcc9e4debbb2d30dbe51dba79ccadc5740e03c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51df879e_ca503633",
+        "filename": "room/runtime/src/main/java/androidx/room/InvalidationTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-03-14T20:55:07Z",
+      "side": 1,
+      "message": "I can\u0027t merge them :(\nThe order of received tables is user defined so we might go through fts tables first before going through their shadow tables, unable to know what id they got assigned to do the re-mapping.",
+      "parentUuid": "390b9252_15e81052",
+      "range": {
+        "startLine": 160,
+        "startChar": 8,
+        "endLine": 164,
+        "endChar": 83
+      },
+      "revId": "94dcc9e4debbb2d30dbe51dba79ccadc5740e03c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
