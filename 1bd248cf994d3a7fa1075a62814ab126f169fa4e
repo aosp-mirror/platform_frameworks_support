@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0b89ca6b_b59e6799",
+        "filename": "jetifier/jetifier/core/src/main/resources/default.config",
+        "patchSetId": 8
+      },
+      "lineNbr": 1556,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-03-14T00:43:10Z",
+      "side": 1,
+      "message": "navigation-testing is unpublished, so no need to dejetify it.",
+      "range": {
+        "startLine": 1553,
+        "startChar": 0,
+        "endLine": 1556,
+        "endChar": 10
+      },
+      "revId": "1bd248cf994d3a7fa1075a62814ab126f169fa4e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

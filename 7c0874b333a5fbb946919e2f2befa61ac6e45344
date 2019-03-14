@@ -47,6 +47,30 @@
       "revId": "7c0874b333a5fbb946919e2f2befa61ac6e45344",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c860d76d_93b37e6a",
+        "filename": "jetifier/jetifier/core/src/main/resources/default.config",
+        "patchSetId": 7
+      },
+      "lineNbr": 1539,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-03-14T00:43:10Z",
+      "side": 1,
+      "message": "-ktx, yes. Safe Args, no.",
+      "parentUuid": "e51b655e_ab63e652",
+      "range": {
+        "startLine": 1538,
+        "startChar": 12,
+        "endLine": 1539,
+        "endChar": 127
+      },
+      "revId": "7c0874b333a5fbb946919e2f2befa61ac6e45344",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
