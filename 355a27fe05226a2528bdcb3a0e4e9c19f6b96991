@@ -22,6 +22,30 @@
       "revId": "355a27fe05226a2528bdcb3a0e4e9c19f6b96991",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c625946b_28624b66",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-03-14T19:37:15Z",
+      "side": 1,
+      "message": "I thought so. According to https://stackoverflow.com/questions/2290757/how-can-you-escape-the-character-in-javadoc , the text \"{@literal @}\" turns into the text \"@\". I could test it if you recommend though",
+      "parentUuid": "4b9bbf8b_7ad7335c",
+      "range": {
+        "startLine": 64,
+        "startChar": 22,
+        "endLine": 64,
+        "endChar": 23
+      },
+      "revId": "355a27fe05226a2528bdcb3a0e4e9c19f6b96991",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
