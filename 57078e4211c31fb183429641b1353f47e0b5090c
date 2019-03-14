@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9abab226_170997fd",
+        "filename": "jetifier/jetifier/core/src/main/resources/default.config",
+        "patchSetId": 9
+      },
+      "lineNbr": 1797,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-03-14T18:28:18Z",
+      "side": 1,
+      "message": "Use 1.0.0 now that we\u0027re stable",
+      "revId": "57078e4211c31fb183429641b1353f47e0b5090c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d14407d_8a9d502d",
+        "filename": "jetifier/jetifier/core/src/main/resources/default.config",
+        "patchSetId": 9
+      },
+      "lineNbr": 1814,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-03-14T18:28:18Z",
+      "side": 1,
+      "message": "Use 2.0.0 now that we\u0027re stable.",
+      "revId": "57078e4211c31fb183429641b1353f47e0b5090c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
