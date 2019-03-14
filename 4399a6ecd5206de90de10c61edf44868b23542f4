@@ -16,6 +16,24 @@
       "revId": "4399a6ecd5206de90de10c61edf44868b23542f4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90668c3a_70a21591",
+        "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/BenchmarkPlugin.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-03-14T22:06:56Z",
+      "side": 1,
+      "message": "I think it\u0027s just like setting a property so it overwrites the field, which was set last time the plugin was applied.",
+      "parentUuid": "46f95e09_1d7129e5",
+      "revId": "4399a6ecd5206de90de10c61edf44868b23542f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
