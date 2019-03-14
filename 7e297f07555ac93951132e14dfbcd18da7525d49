@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "677b7d02_412c74b5",
+        "filename": "media2/src/main/java/androidx/media2/exoplayer/ExoPlayerWrapper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 470,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-03-14T08:30:27Z",
+      "side": 1,
+      "message": "Q) It seems like that setVideoDebugListener is deprecated. Why not using AnalyticsListener?",
+      "revId": "7e297f07555ac93951132e14dfbcd18da7525d49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
