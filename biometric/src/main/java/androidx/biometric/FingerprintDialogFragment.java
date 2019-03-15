@@ -65,9 +65,14 @@ public class FingerprintDialogFragment extends DialogFragment {
     // Show an error in the help area, and dismiss the dialog afterwards
     protected static final int MSG_SHOW_ERROR = 2;
     // Dismisses the authentication dialog
-    protected static final int MSG_DISMISS_DIALOG = 3;
+    protected static final int MSG_DISMISS_DIALOG_FAILURE = 3;
     // Resets the help message
     protected static final int MSG_RESET_MESSAGE = 4;
+    // Dismisses the authentication dialog after success.
+    protected static final int MSG_DISMISS_DIALOG_SUCCESS = 5;
+    // The amount of time required that this fragment be displayed for in order that
+    // we show an error message on top of the ui.
+    protected static final int DISPLAYED_FOR_500_MS = 6;
 
     // States for icon animation
     private static final int STATE_NONE = 0;
@@ -93,11 +98,17 @@ public class FingerprintDialogFragment extends DialogFragment {
                 case MSG_SHOW_ERROR:
                     handleShowError(msg.arg1, (CharSequence) msg.obj);
                     break;
-                case MSG_DISMISS_DIALOG:
+                case MSG_DISMISS_DIALOG_FAILURE:
                     handleDismissDialog();
+                    break;
+                case MSG_DISMISS_DIALOG_SUCCESS:
+                    dismiss();
                     break;
                 case MSG_RESET_MESSAGE:
                     handleResetMessage();
+                    break;
+                case DISPLAYED_FOR_500_MS:
+                    mDismissInstantly = false;
                     break;
             }
         }
@@ -105,6 +116,7 @@ public class FingerprintDialogFragment extends DialogFragment {
 
     private H mHandler = new H();
     private Bundle mBundle;
+    private boolean mDismissInstantly = true;
     private int mErrorColor;
     private int mTextColor;
     private int mLastState;
@@ -328,11 +340,31 @@ public class FingerprintDialogFragment extends DialogFragment {
         mErrorText.setText(msg);
 
         // Dismiss the dialog after a delay
-        mHandler.sendMessageDelayed(mHandler.obtainMessage(MSG_DISMISS_DIALOG), HIDE_DIALOG_DELAY);
+        mHandler.sendMessageDelayed(mHandler.obtainMessage(MSG_DISMISS_DIALOG_FAILURE),
+                HIDE_DIALOG_DELAY);
+    }
+
+    void dismissFromDisplay() {
+        mErrorText.setTextColor(mErrorColor);
+        mErrorText.setText(
+                R.string.too_many_attempts);
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                dismiss();
+            }
+        }, HIDE_DIALOG_DELAY);
     }
 
     void handleDismissDialog() {
-        dismiss();
+        if (mDismissInstantly) {
+            dismiss();
+        } else {
+            dismissFromDisplay();
+        }
+        // Always set this to true. In case the user tries to auth again we will not show
+        // the ui.
+        mDismissInstantly = true;
     }
 
     void handleResetMessage() {
