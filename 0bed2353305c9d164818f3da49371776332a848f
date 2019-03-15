@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "19e08691_c60d891b",
+        "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/SdkUtil.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-03-15T23:13:37Z",
+      "side": 1,
+      "message": "looks static - object SdkUtil?",
+      "revId": "0bed2353305c9d164818f3da49371776332a848f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dbb5a0ae_07e262f5",
+        "filename": "benchmark/gradle-plugin/src/test/kotlin/androidx/benchmark/gradle/SdkUtilTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-03-15T23:13:37Z",
+      "side": 1,
+      "message": "Does this file actually get created? Where? Don\u0027t want to litter the filesystem (we have a rule that anything generated needs to go in the top level aosp-androidx-dev/out/ directory)",
+      "revId": "0bed2353305c9d164818f3da49371776332a848f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5686fad_dd5a70be",
+        "filename": "benchmark/gradle-plugin/src/test/kotlin/androidx/benchmark/gradle/SdkUtilTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-03-15T23:13:37Z",
+      "side": 1,
+      "message": "why not a regular string?",
+      "revId": "0bed2353305c9d164818f3da49371776332a848f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c85aabe_c04bd46c",
+        "filename": "benchmark/gradle-plugin/src/test/kotlin/androidx/benchmark/gradle/SdkUtilTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-03-15T23:13:37Z",
+      "side": 1,
+      "message": "is this going to clobber the actual system property?\n\nif so, by sure to reset it in a finally{} block",
+      "revId": "0bed2353305c9d164818f3da49371776332a848f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a5721ff_b9a7dda8",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dependencies/Dependencies.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-03-15T23:13:37Z",
+      "side": 1,
+      "message": "can you avoid this? need to check in a prebuilt if we want to use this",
+      "revId": "0bed2353305c9d164818f3da49371776332a848f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
