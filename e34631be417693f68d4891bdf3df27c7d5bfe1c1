@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9417594f_b1fd349e",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/verifier/DatabaseVerifier.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-03-15T19:30:12Z",
+      "side": 1,
+      "message": "This line is never reached, even when the build failure occurs",
+      "revId": "e34631be417693f68d4891bdf3df27c7d5bfe1c1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9497fd5_bb154335",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/verifier/DatabaseVerifier.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-03-15T19:30:12Z",
+      "side": 1,
+      "message": "This line is never reached, even when the build failure occurs",
+      "revId": "e34631be417693f68d4891bdf3df27c7d5bfe1c1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
