@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e55a3568_ebb44e59",
+        "filename": "benchmark/src/main/java/androidx/benchmark/BenchmarkRule.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-03-15T20:47:10Z",
+      "side": 1,
+      "message": "What do you think about adding a line indicating where the file was saved to the test run output?",
+      "revId": "2b1d94dffdaf628514695bd516dfb01275e92c76",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
