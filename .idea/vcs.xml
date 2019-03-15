@@ -1,9 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="IssueNavigationConfiguration">
+    <option name="links">
+      <list>
+        <IssueNavigationLink>
+          <option name="issueRegexp" value="\bb/(\d+)(#\w+)?\b" />
+          <option name="linkRegexp" value="https://buganizer.corp.google.com/issues/$1$2" />
+        </IssueNavigationLink>
+        <IssueNavigationLink>
+          <option name="issueRegexp" value="\b(?:BUG=|FIXED=)(\d+)\b" />
+          <option name="linkRegexp" value="https://buganizer.corp.google.com/issues/$1" />
+        </IssueNavigationLink>
+        <IssueNavigationLink>
+          <option name="issueRegexp" value="\b(?:cl/|cr/|OCL=|DIFFBASE=|ROLLBACK_OF=)(\d+)\b" />
+          <option name="linkRegexp" value="https://critique.corp.google.com/$1" />
+        </IssueNavigationLink>
+        <IssueNavigationLink>
+          <option name="issueRegexp" value="\bomg/(\d+)\b" />
+          <option name="linkRegexp" value="https://omg.corp.google.com/$1" />
+        </IssueNavigationLink>
+        <IssueNavigationLink>
+          <option name="issueRegexp" value="\b(?:go/|goto/)([^,.&lt;&gt;()&quot;\s]+(?:[.,][^,.&lt;&gt;()&quot;\s]+)*)" />
+          <option name="linkRegexp" value="https://goto.google.com/$1" />
+        </IssueNavigationLink>
+      </list>
+    </option>
+  </component>
   <component name="VcsDirectoryMappings">
-    <mapping directory="$PROJECT_DIR$/../../external/doclava" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/../../external/jdiff" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/../../external/webview_support_interfaces" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="" vcs="Git" />
   </component>
 </project>
