@@ -40,6 +40,11 @@ dependencies {
     androidTestImplementation(DEXMAKER_MOCKITO, libs.exclude_bytebuddy) // DexMaker has it"s own MockMaker
 
     testImplementation(JUNIT)
+    testImplementation('org.robolectric:robolectric:4.1')
+    testImplementation 'androidx.test:core:1.1.0' //Robolectric environment
+    testImplementation(TEST_EXT_JUNIT)
+    testImplementation(TEST_CORE)
+    testImplementation(TEST_RUNNER)
 }
 
 supportLibrary {
