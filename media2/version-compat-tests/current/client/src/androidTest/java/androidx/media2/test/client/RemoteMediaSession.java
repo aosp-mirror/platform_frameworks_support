@@ -30,7 +30,7 @@ import static androidx.media2.test.common.CommonConstants.KEY_PLAYLIST;
 import static androidx.media2.test.common.CommonConstants.KEY_SPEED;
 import static androidx.media2.test.common.CommonConstants.KEY_VOLUME_CONTROL_TYPE;
 import static androidx.media2.test.common.CommonConstants.MEDIA2_SESSION_PROVIDER_SERVICE;
-import static androidx.media2.test.common.TestUtils.TIMEOUT_MS;
+import static androidx.media2.test.common.TestUtils.SERVICE_CONNECT_IMEOUT_MS;
 
 import static junit.framework.TestCase.fail;
 
@@ -507,7 +507,7 @@ public class RemoteMediaSession {
 
         if (bound) {
             try {
-                mCountDownLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS);
+                mCountDownLatch.await(SERVICE_CONNECT_IMEOUT_MS, TimeUnit.MILLISECONDS);
             } catch (InterruptedException ex) {
                 Log.e(TAG, "InterruptedException while waiting for onServiceConnected.", ex);
             }

@@ -30,6 +30,7 @@ import java.util.concurrent.TimeUnit;
 public class TestUtils {
 
     public static final int TIMEOUT_MS = 1000;
+    public static final int SERVICE_CONNECT_IMEOUT_MS = 3000;
 
     /**
      * Compares contents of two bundles.
