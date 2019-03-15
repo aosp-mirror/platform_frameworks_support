@@ -16,6 +16,24 @@
       "revId": "b22ffc3557abd387a3d680be9c6d89dfa1fd7617",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e03b8ed4_e332db84",
+        "filename": "benchmark/gradle-plugin/src/test/kotlin/androidx/benchmark/gradle/BenchmarkPluginTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-03-15T21:46:30Z",
+      "side": 1,
+      "message": "I tried for some time and can only get 2/4 cases to work...\n\nBasically I\u0027m not sure how to get the GradleRunner to return a project so I can\u0027t use that, and ProjectBuilder.builder().withGradleUserHomeDir doesn\u0027t seem to do anything either in terms of overriding properties.\n\nThere\u0027s also no easy way to override the system env values without gradle properties and also not affect state outside the test.\n\nI\u0027m sure there\u0027s a way to make this work, but it currently eludes me... hopefully 2/4 is good enough?",
+      "parentUuid": "98f21fd2_e6ee72c2",
+      "revId": "b22ffc3557abd387a3d680be9c6d89dfa1fd7617",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
