@@ -553,6 +553,15 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".widget.RvDisappearBugActivity"
+            android:label="@string/rv_dissappear_bug"
+            android:theme="@style/Theme.AppCompat">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.example.android.supportv7.SAMPLE_CODE" />
+            </intent-filter>
+        </activity>
+
         <activity android:name=".view.CardViewActivity"
                   android:label="@string/card_view"
                   android:theme="@style/Theme.AppCompat.Light.NoActionBar">

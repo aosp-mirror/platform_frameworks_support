@@ -3774,9 +3774,9 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
             // mFocusedItemPosition should hold the current adapter position of the previously
             // focused item. If the item is removed, we store the previous adapter position of the
             // removed item.
-            mState.mFocusedItemPosition = mDataSetHasChangedAfterLayout ? NO_POSITION
-                    : (focusedVh.isRemoved() ? focusedVh.mOldPosition
-                            : focusedVh.getAdapterPosition());
+            mState.mFocusedItemPosition = mDataSetHasChangedAfterLayout ? NO_POSITION :
+                            (focusedVh.isRemoved() ? focusedVh.mOldPosition :
+                                    focusedVh.getAdapterPosition());
             mState.mFocusedSubChildId = getDeepestFocusedViewWithId(focusedVh.itemView);
         }
     }
@@ -3797,8 +3797,8 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
      */
     @Nullable
     private View findNextViewToFocus() {
-        int startFocusSearchIndex = mState.mFocusedItemPosition != -1 ? mState.mFocusedItemPosition
-                : 0;
+        int startFocusSearchIndex =
+                mState.mFocusedItemPosition == NO_ID ? 0 : mState.mFocusedItemPosition;
         ViewHolder nextFocus;
         final int itemCount = mState.getItemCount();
         for (int i = startFocusSearchIndex; i < itemCount; i++) {
