@@ -113,6 +113,30 @@
     },
     {
       "key": {
+        "uuid": "b4a9e26b_8083e317",
+        "filename": "lifecycle/runtime/eap/src/androidTest/java/androidx/lifecycle/PausingDispatcherTest.kt",
+        "patchSetId": 21
+      },
+      "lineNbr": 468,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-15T13:37:44Z",
+      "side": 1,
+      "message": "I think we should follow the pattern how coroutines test themselves: \nThis is setup:\nhttps://github.com/Kotlin/kotlinx.coroutines/blob/master/core/kotlinx-coroutines-core/test/TestBase.kt \n\nand they just throw from unreachable parts of code. \n\nWhy I\u0027m so against of that - 2 seconds is the huge price for a test. 30 tests like this it is 1 minute of CPU time.  Given that we have a lot of complains that presubmit is slow etc, we should try to avoid things like",
+      "parentUuid": "fa9e9c47_a46ebe54",
+      "range": {
+        "startLine": 468,
+        "startChar": 38,
+        "endLine": 468,
+        "endChar": 49
+      },
+      "revId": "e5e7a53dc55687d5b4b7c93391efc1455006e4b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "769dffa9_e71c8160",
         "filename": "lifecycle/runtime/eap/src/main/java/androidx/lifecycle/DispatchQueue.kt",
         "patchSetId": 21
