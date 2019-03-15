@@ -87,6 +87,11 @@ final class TouchInputHandler<K> extends MotionInputHandler<K> {
             return false;
         }
 
+        if (!item.allowHandleTap(e)) {
+            if (DEBUG) Log.d(TAG, "Tap handling rejected by item details. Ignoring.");
+            return false;
+        }
+
         if (mSelectionTracker.hasSelection()) {
             if (isRangeExtension(e)) {
                 extendSelectionRange(item);

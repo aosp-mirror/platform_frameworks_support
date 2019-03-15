@@ -195,6 +195,22 @@ public abstract class ItemDetailsLookup<K> {
         public abstract @Nullable K getSelectionKey();
 
         /**
+         * Sometimes a view item needs to contain a child view that handles
+         * its own input. An item-specific menu button is a good example.
+         * This method returns true by default meaning SelectionTracker
+         * can handle all tap events. If your view item has a child view
+         * that needs to handle an event, override this method and return
+         * false when the the event is over the child view.
+         *
+         * @return true if event can be consumed by SelectionTracker,
+         *     false if you want to reserve the event for a view
+         *     under the event.
+         */
+        public boolean allowHandleTap(@NonNull MotionEvent e) {
+            return true;
+        }
+
+        /**
          * Areas are often included in a view that behave similar to checkboxes, such
          * as the icon to the left of an email message. "selection
          * hotspot" provides a mechanism to identify such regions, and for the

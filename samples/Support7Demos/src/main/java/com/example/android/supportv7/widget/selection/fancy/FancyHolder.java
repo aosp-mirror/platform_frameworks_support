@@ -18,9 +18,12 @@ package com.example.android.supportv7.widget.selection.fancy;
 import android.graphics.Rect;
 import android.net.Uri;
 import android.view.MotionEvent;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.selection.ItemDetailsLookup.ItemDetails;
 import androidx.recyclerview.widget.RecyclerView;
@@ -32,6 +35,7 @@ final class FancyHolder extends RecyclerView.ViewHolder {
     private final LinearLayout mContainer;
     public final TextView mSelector;
     public final TextView mLabel;
+    public final TextView mMenu;
     private final ItemDetails<Uri> mDetails;
 
     private @Nullable Uri mKey;
@@ -40,7 +44,14 @@ final class FancyHolder extends RecyclerView.ViewHolder {
         super(layout);
         mContainer = layout.findViewById(R.id.container);
         mSelector = layout.findViewById(R.id.selector);
+        mMenu = layout.findViewById(R.id.menu);
         mLabel = layout.findViewById(R.id.label);
+        mMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(mMenu.getContext(), "Tapped menu item", Toast.LENGTH_SHORT).show();
+            }
+        });
         mDetails = new ItemDetails<Uri>() {
             @Override
             public int getPosition() {
@@ -50,6 +61,11 @@ final class FancyHolder extends RecyclerView.ViewHolder {
             @Override
             public Uri getSelectionKey() {
                 return FancyHolder.this.mKey;
+            }
+
+            @Override
+            public boolean allowHandleTap(@NonNull MotionEvent e) {
+                return FancyHolder.this.allowHandleTap(e);
             }
 
             @Override
@@ -75,6 +91,18 @@ final class FancyHolder extends RecyclerView.ViewHolder {
         mSelector.setActivated(selected);
     }
 
+    boolean allowHandleTap(MotionEvent event) {
+        Rect iconRect = new Rect();
+        mMenu.getGlobalVisibleRect(iconRect);
+        return !iconRect.contains((int) event.getRawX(), (int) event.getRawY());
+    }
+
+    boolean inSelectRegion(MotionEvent event) {
+        Rect iconRect = new Rect();
+        mSelector.getGlobalVisibleRect(iconRect);
+        return iconRect.contains((int) event.getRawX(), (int) event.getRawY());
+    }
+
     boolean inDragRegion(MotionEvent event) {
         // If itemView is activated = selected, then whole region is interactive
         if (itemView.isActivated()) {
@@ -97,12 +125,6 @@ final class FancyHolder extends RecyclerView.ViewHolder {
 
         // If the tap occurred inside icon or the text, these are interactive spots.
         return rect.contains((int) event.getRawX(), (int) event.getRawY());
-    }
-
-    boolean inSelectRegion(MotionEvent e) {
-        Rect iconRect = new Rect();
-        mSelector.getGlobalVisibleRect(iconRect);
-        return iconRect.contains((int) e.getRawX(), (int) e.getRawY());
     }
 
     ItemDetails<Uri> getItemDetails() {
