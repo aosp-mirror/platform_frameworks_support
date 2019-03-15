@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e04706a8_20b43504",
+        "filename": "navigation/runtime/src/main/java/androidx/navigation/Navigation.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-03-15T22:38:28Z",
+      "side": 1,
+      "message": "Should be \"via a generated {@link NavDirections}.\"",
+      "range": {
+        "startLine": 126,
+        "startChar": 23,
+        "endLine": 127,
+        "endChar": 93
+      },
+      "revId": "31e64511f02cca866d2fabfa53dc90a5e78ac4ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
