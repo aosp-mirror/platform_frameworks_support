@@ -34,4 +34,6 @@
     <string name="fingerprint_error_user_canceled">Fingerprint operation canceled by user.</string>
     <!-- Generic error message shown when an unknown error has occurred. [CHAR LIMIT=NONE] -->
     <string name="default_error_msg">Unknown error</string>
+    <!-- Error message shown after too many failed authentication attempts. [CHAR LIMIT=NONE] -->
+    <string name="too_many_attempts">Too many attempts. Please try again later.</string>
 </resources>

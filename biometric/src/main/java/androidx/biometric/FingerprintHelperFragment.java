@@ -70,7 +70,7 @@ public class FingerprintHelperFragment extends Fragment {
 
                 private void dismissAndForwardResult(final int errMsgId,
                         final CharSequence errString) {
-                    mHandler.obtainMessage(FingerprintDialogFragment.MSG_DISMISS_DIALOG)
+                    mHandler.obtainMessage(FingerprintDialogFragment.MSG_DISMISS_DIALOG_FAILURE)
                             .sendToTarget();
                     mExecutor.execute(new Runnable() {
                         @Override
@@ -90,6 +90,13 @@ public class FingerprintHelperFragment extends Fragment {
                         }
                     } else if (errMsgId == BiometricPrompt.ERROR_LOCKOUT
                             || errMsgId == BiometricPrompt.ERROR_LOCKOUT_PERMANENT) {
+                        mExecutor.execute(new Runnable() {
+                            @Override
+                            public void run() {
+                                mClientAuthenticationCallback
+                                        .onAuthenticationError(errMsgId, errString);
+                            }
+                        });
                         dismissAndForwardResult(errMsgId, errString);
                     } else {
                         mHandler.obtainMessage(FingerprintDialogFragment.MSG_SHOW_ERROR, errMsgId,
@@ -124,7 +131,7 @@ public class FingerprintHelperFragment extends Fragment {
                 public void onAuthenticationSucceeded(
                         final FingerprintManagerCompat.AuthenticationResult result) {
                     mHandler.obtainMessage(
-                            FingerprintDialogFragment.MSG_DISMISS_DIALOG).sendToTarget();
+                            FingerprintDialogFragment.MSG_DISMISS_DIALOG_SUCCESS).sendToTarget();
                     mExecutor.execute(new Runnable() {
                         @Override
                         public void run() {
@@ -182,7 +189,8 @@ public class FingerprintHelperFragment extends Fragment {
             FingerprintManagerCompat fingerprintManagerCompat = FingerprintManagerCompat.from(
                     mContext);
             if (handlePreAuthenticationErrors(fingerprintManagerCompat)) {
-                mHandler.obtainMessage(FingerprintDialogFragment.MSG_DISMISS_DIALOG).sendToTarget();
+                mHandler.obtainMessage(
+                        FingerprintDialogFragment.MSG_DISMISS_DIALOG_FAILURE).sendToTarget();
                 cleanup();
             } else {
                 fingerprintManagerCompat.authenticate(

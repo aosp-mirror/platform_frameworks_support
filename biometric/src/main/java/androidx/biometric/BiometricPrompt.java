@@ -52,6 +52,10 @@ public class BiometricPrompt implements BiometricConstants {
 
     private static final String TAG = "BiometricPromptCompat";
     private static final boolean DEBUG = false;
+    // In order to keep consistent behavior between versions, we need to send
+    // FingerprintDialogFragment a message
+    // indicating whether or not to dismiss the UI instantly.
+    private static final int DELAY_MILLIS = 500;
 
     static final String DIALOG_FRAGMENT_TAG = "FingerprintDialogFragment";
     static final String FINGERPRINT_HELPER_FRAGMENT_TAG = "FingerprintHelperFragment";
@@ -502,6 +506,9 @@ public class BiometricPrompt implements BiometricConstants {
             mFingerprintHelperFragment.setHandler(mFingerprintDialogFragment.getHandler());
             mFingerprintHelperFragment.setCryptoObject(crypto);
 
+            mFingerprintDialogFragment.getHandler().sendMessageDelayed(
+                    mFingerprintDialogFragment.getHandler().obtainMessage(
+                            FingerprintDialogFragment.DISPLAYED_FOR_500_MS), DELAY_MILLIS);
             if (fragmentManager.findFragmentByTag(FINGERPRINT_HELPER_FRAGMENT_TAG) == null) {
                 // If the fragment hasn't been added before, add it. It will also start the
                 // authentication.
