@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dc19d914_8776b81d",
+        "filename": "navigation/runtime/src/main/java/androidx/navigation/Navigation.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-03-15T23:21:27Z",
+      "side": 1,
+      "message": "Can we instead call navigate(directions)? If developers are mocking their NavController and checking for an exact navigate() call, I think they\u0027d expect us to call the NavDirections version.",
+      "range": {
+        "startLine": 134,
+        "startChar": 15,
+        "endLine": 134,
+        "endChar": 97
+      },
+      "revId": "60c1a26008796488280642787d6c0f68008ee526",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
