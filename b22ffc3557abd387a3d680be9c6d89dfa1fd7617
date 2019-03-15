@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "98f21fd2_e6ee72c2",
+        "filename": "benchmark/gradle-plugin/src/test/kotlin/androidx/benchmark/gradle/BenchmarkPluginTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-03-15T18:22:09Z",
+      "side": 1,
+      "message": "can you test any of the sdk path behavior?",
+      "revId": "b22ffc3557abd387a3d680be9c6d89dfa1fd7617",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
