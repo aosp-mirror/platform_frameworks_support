@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2c087a0d_6f595d2a",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/RadioButtonListItemTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-03-15T23:32:59Z",
+      "side": 0,
+      "message": "These test that the icon was at the start, but now it\u0027s at the end. I think you can just modify these tests to still test that.",
+      "revId": "7981dcacb5fc9f6825e4925f51e0cce72a9a835a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
