@@ -20,6 +20,9 @@ import java.util.List;
 
 /**
  * An interface that you can implement on your Adapter to enable support for Alpha-Jump.
+ *
+ * <p>Alpha-Jump buckets only support characters from the en language. Characters from other
+ * languages will not be recognized and bucketed.
  */
 public interface AlphaJumpAdapter {
 

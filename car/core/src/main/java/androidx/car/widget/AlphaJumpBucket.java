@@ -18,6 +18,9 @@ package androidx.car.widget;
 
 /**
  * A bucket represents a "button" in the alpha-jump menu.
+ *
+ * <p>Alpha-Jump buckets only support characters from the en language. Characters from other
+ * languages will not be recognized and bucketed.
  */
 public interface AlphaJumpBucket {
 
