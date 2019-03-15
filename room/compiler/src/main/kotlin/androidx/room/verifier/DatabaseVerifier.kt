@@ -25,6 +25,7 @@ import androidx.room.vo.Warning
 import columnInfo
 import org.sqlite.JDBC
 import java.io.File
+import java.lang.UnsatisfiedLinkError
 import java.sql.Connection
 import java.sql.DriverManager
 import java.sql.SQLException
@@ -61,8 +62,10 @@ class DatabaseVerifier private constructor(
             val tmpDir = System.getProperty("java.io.tmpdir")
             if (tmpDir != null) {
                 val outDir = File(tmpDir, "room-${UUID.randomUUID()}")
+                if (outDir.exists()) {
+                    throw Exception("temp room dir " + outDir + " already exists!")
+                }
                 outDir.mkdirs()
-                outDir.deleteOnExit()
                 System.setProperty("org.sqlite.tmpdir", outDir.absolutePath)
                 // dummy call to trigger JDBC initialization so that we can unregister it
                 JDBC.isValidURL(CONNECTION_URL)
@@ -79,13 +82,22 @@ class DatabaseVerifier private constructor(
             entities: List<Entity>,
             views: List<DatabaseView>
         ): DatabaseVerifier? {
+            val tmp = File(System.getProperty("org.sqlite.tmpdir"));
             return try {
+                if (!tmp.exists() || !tmp.isDirectory() || !tmp.canRead() || !tmp.canWrite()) {
+                    throw Exception("error with tmpDir " + tmp);
+                }
                 val connection = JDBC.createConnection(CONNECTION_URL, java.util.Properties())
+                tmp.deleteOnExit()
                 DatabaseVerifier(connection, context, entities, views)
-            } catch (ex: Exception) {
-                context.logger.w(Warning.CANNOT_CREATE_VERIFICATION_DATABASE, element,
-                        DatabaseVerificaitonErrors.cannotCreateConnection(ex))
-                null
+            } catch (e: UnsatisfiedLinkError) {
+                //System.out.println("Cannot create connection for dir " + tmp)
+                //context.logger.w(Warning.CANNOT_CREATE_VERIFICATION_DATABASE, element,
+                //        DatabaseVerificaitonErrors.cannotCreateConnection(t))
+                //var files = ""
+                var files = StringBuilder()
+                tmp.walkTopDown().forEach({f -> files.append(f.toString() + ",")})
+                throw Exception("Cannot create connection for dir " + tmp + " having contents: " + files, e)
             }
         }
 
