@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "21000ec6_a94de7e5",
+        "filename": "car/core/src/main/java/androidx/car/widget/AlphaJumpAdapter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-03-15T22:48:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0cd2e311_35458d2d",
+      "range": {
+        "startLine": 24,
+        "startChar": 58,
+        "endLine": 24,
+        "endChar": 60
+      },
+      "revId": "f7c6ce189b88e7f835a533991b5aa78e58a2850d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6afabb8f_1c3498ae",
         "filename": "car/core/src/main/java/androidx/car/widget/AlphaJumpAdapter.java",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "f7c6ce189b88e7f835a533991b5aa78e58a2850d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f055ece9_84fd538e",
+        "filename": "car/core/src/main/java/androidx/car/widget/AlphaJumpAdapter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-03-15T22:48:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6afabb8f_1c3498ae",
+      "range": {
+        "startLine": 24,
+        "startChar": 71,
+        "endLine": 25,
+        "endChar": 49
+      },
+      "revId": "f7c6ce189b88e7f835a533991b5aa78e58a2850d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
