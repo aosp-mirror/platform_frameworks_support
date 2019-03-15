@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "2295dd2e_3c545581",
+        "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/SdkUtil.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-03-15T23:46:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "19e08691_c60d891b",
+      "revId": "0bed2353305c9d164818f3da49371776332a848f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dbb5a0ae_07e262f5",
         "filename": "benchmark/gradle-plugin/src/test/kotlin/androidx/benchmark/gradle/SdkUtilTest.kt",
         "patchSetId": 9
@@ -30,6 +48,24 @@
       "writtenOn": "2019-03-15T23:13:37Z",
       "side": 1,
       "message": "Does this file actually get created? Where? Don\u0027t want to litter the filesystem (we have a rule that anything generated needs to go in the top level aosp-androidx-dev/out/ directory)",
+      "revId": "0bed2353305c9d164818f3da49371776332a848f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2c44b19_7f39fcf2",
+        "filename": "benchmark/gradle-plugin/src/test/kotlin/androidx/benchmark/gradle/SdkUtilTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-03-15T23:46:46Z",
+      "side": 1,
+      "message": "Ah - I forgot to use the testProjectDir here. Otherwise, it does get created, but it gets deleted after this test case finishes.",
+      "parentUuid": "dbb5a0ae_07e262f5",
       "revId": "0bed2353305c9d164818f3da49371776332a848f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "94dcbbee_652c97a1",
+        "filename": "benchmark/gradle-plugin/src/test/kotlin/androidx/benchmark/gradle/SdkUtilTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-03-15T23:46:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e5686fad_dd5a70be",
+      "revId": "0bed2353305c9d164818f3da49371776332a848f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3c85aabe_c04bd46c",
         "filename": "benchmark/gradle-plugin/src/test/kotlin/androidx/benchmark/gradle/SdkUtilTest.kt",
         "patchSetId": 9
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "4108d21f_8c0670ac",
+        "filename": "benchmark/gradle-plugin/src/test/kotlin/androidx/benchmark/gradle/SdkUtilTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-03-15T23:46:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3c85aabe_c04bd46c",
+      "revId": "0bed2353305c9d164818f3da49371776332a848f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4a5721ff_b9a7dda8",
         "filename": "buildSrc/src/main/kotlin/androidx/build/dependencies/Dependencies.kt",
         "patchSetId": 9
@@ -84,6 +156,24 @@
       "revId": "0bed2353305c9d164818f3da49371776332a848f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d481e85_cf8de3cb",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dependencies/Dependencies.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-03-15T23:46:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4a5721ff_b9a7dda8",
+      "revId": "0bed2353305c9d164818f3da49371776332a848f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
