@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3f5c3ea6_5413ab42",
+        "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/LockClocksTask.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-03-15T00:32:37Z",
+      "side": 1,
+      "message": "update comment:\n\n// Skip \"adb root\" if already rooted, as it will fail",
+      "revId": "9bbd87a50deb726af69d3c2ca2581958f29b98f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
