@@ -122,6 +122,20 @@ public final class Navigation {
     }
 
     /**
+     * Create an {@link android.view.View.OnClickListener} for navigating
+     * to a destination. This supports both navigating via an
+     * {@link NavDestination#getAction(int) action} and directly navigating to a destination.
+     *
+     * @param directions directions that describe this navigation operation
+     * @return a new click listener for setting on an arbitrary view
+     */
+    @NonNull
+    public static View.OnClickListener createNavigateOnClickListener(
+            @NonNull final NavDirections directions) {
+        return createNavigateOnClickListener(directions.getActionId(), directions.getArguments());
+    }
+
+    /**
      * Associates a NavController with the given View, allowing developers to use
      * {@link #findNavController(View)} and {@link #findNavController(Activity, int)} with that
      * View or any of its children to retrieve the NavController.
