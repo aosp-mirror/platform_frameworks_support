@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "81ff33be_9e129862",
+        "filename": "fragment/src/androidTest/java/androidx/fragment/app/FragmentTransitionTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-03-15T23:19:34Z",
+      "side": 1,
+      "message": "reorderingAllowed",
+      "range": {
+        "startLine": 47,
+        "startChar": 41,
+        "endLine": 47,
+        "endChar": 59
+      },
+      "revId": "606a04e93f8b647694ed7b91c7a0b39cc8ccf34b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff8ab1df_2f864c7a",
+        "filename": "fragment/src/androidTest/java/androidx/fragment/app/FragmentTransitionTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-03-15T23:19:34Z",
+      "side": 1,
+      "message": "I don\u0027t think we need this line in Kotlin, do we? Same for the others in this file",
+      "range": {
+        "startLine": 371,
+        "startChar": 4,
+        "endLine": 371,
+        "endChar": 29
+      },
+      "revId": "606a04e93f8b647694ed7b91c7a0b39cc8ccf34b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
