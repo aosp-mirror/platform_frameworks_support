@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1e5a8385_6f638811",
+        "filename": "media2-widget/src/androidTest/java/androidx/media2/widget/MediaControlViewTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-03-15T13:09:22Z",
+      "side": 1,
+      "message": "Changed this because MediaPlayer\u0027s subtitle extraction behavior may change and we cannot rely on the current behavior.",
+      "range": {
+        "startLine": 394,
+        "startChar": 8,
+        "endLine": 408,
+        "endChar": 9
+      },
+      "revId": "6ffcd9bdc9eed90159989c81700bd1a2e42b6d79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
