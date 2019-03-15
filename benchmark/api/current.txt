@@ -19,5 +19,9 @@ package androidx.benchmark {
     method public void resumeTiming();
   }
 
+  public final class ReproFileKt {
+    ctor public ReproFileKt();
+  }
+
 }
 
