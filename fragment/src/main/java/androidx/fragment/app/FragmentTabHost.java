@@ -50,7 +50,10 @@ import java.util.ArrayList;
  *
  * {@sample frameworks/support/samples/Support4Demos/src/main/java/com/example/android/supportv4/app/FragmentTabsFragmentSupport.java
  *      complete}
+ *
+ * @deprecated Use {@link com.google.android.material.tabs.TabLayout} instead.
  */
+@Deprecated
 public class FragmentTabHost extends TabHost
         implements TabHost.OnTabChangeListener {
     private final ArrayList<TabInfo> mTabs = new ArrayList<>();
@@ -131,6 +134,10 @@ public class FragmentTabHost extends TabHost
         };
     }
 
+    /**
+     * @deprecated Use {@link com.google.android.material.tabs.TabLayout} instead.
+     */
+    @Deprecated
     public FragmentTabHost(@NonNull Context context) {
         // Note that we call through to the version that takes an AttributeSet,
         // because the simple Context construct can result in a broken object!
@@ -138,6 +145,10 @@ public class FragmentTabHost extends TabHost
         initFragmentTabHost(context, null);
     }
 
+    /**
+     * @deprecated Use {@link com.google.android.material.tabs.TabLayout} instead.
+     */
+    @Deprecated
     public FragmentTabHost(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         initFragmentTabHost(context, attrs);
@@ -193,7 +204,10 @@ public class FragmentTabHost extends TabHost
 
     /**
      * Set up the FragmentTabHost to use the given FragmentManager
+     *
+     * @deprecated Use {@link com.google.android.material.tabs.TabLayout} instead.
      */
+    @Deprecated
     public void setup(@NonNull Context context, @NonNull FragmentManager manager) {
         ensureHierarchy(context);  // Ensure views required by super.setup()
         super.setup();
@@ -204,7 +218,10 @@ public class FragmentTabHost extends TabHost
 
     /**
      * Set up the FragmentTabHost to use the given FragmentManager
+     *
+     * @deprecated Use {@link com.google.android.material.tabs.TabLayout} instead.
      */
+    @Deprecated
     public void setup(@NonNull Context context, @NonNull FragmentManager manager,
             int containerId) {
         ensureHierarchy(context);  // Ensure views required by super.setup()
@@ -232,6 +249,10 @@ public class FragmentTabHost extends TabHost
         }
     }
 
+    /**
+     * @deprecated Use {@link com.google.android.material.tabs.TabLayout} instead.
+     */
+    @Deprecated
     @Override
     public void setOnTabChangedListener(@Nullable OnTabChangeListener l) {
         mOnTabChangeListener = l;
@@ -260,6 +281,10 @@ public class FragmentTabHost extends TabHost
         addTab(tabSpec);
     }
 
+    /**
+     * @deprecated Use {@link com.google.android.material.tabs.TabLayout} instead.
+     */
+    @Deprecated
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
@@ -299,12 +324,20 @@ public class FragmentTabHost extends TabHost
         }
     }
 
+    /**
+     * @deprecated Use {@link com.google.android.material.tabs.TabLayout} instead.
+     */
+    @Deprecated
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
         mAttached = false;
     }
 
+    /**
+     * @deprecated Use {@link com.google.android.material.tabs.TabLayout} instead.
+     */
+    @Deprecated
     @Override
     @NonNull
     protected Parcelable onSaveInstanceState() {
@@ -314,6 +347,10 @@ public class FragmentTabHost extends TabHost
         return ss;
     }
 
+    /**
+     * @deprecated Use {@link com.google.android.material.tabs.TabLayout} instead.
+     */
+    @Deprecated
     @Override
     protected void onRestoreInstanceState(@SuppressLint("UnknownNullness") Parcelable state) {
         if (!(state instanceof SavedState)) {
@@ -325,6 +362,10 @@ public class FragmentTabHost extends TabHost
         setCurrentTabByTag(ss.curTab);
     }
 
+    /**
+     * @deprecated Use {@link com.google.android.material.tabs.TabLayout} instead.
+     */
+    @Deprecated
     @Override
     public void onTabChanged(@Nullable String tabId) {
         if (mAttached) {
