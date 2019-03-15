@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "196c5b99_ad316541",
+        "filename": "fragment/src/androidTest/java/androidx/fragment/app/PostponedTransitionTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-03-15T23:12:32Z",
+      "side": 1,
+      "message": "backStackListener to match capitalization with other variables.",
+      "range": {
+        "startLine": 55,
+        "startChar": 12,
+        "endLine": 55,
+        "endChar": 29
+      },
+      "revId": "5a95e66829251e409b2dc99751caeb9d14f703fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae371b2f_6d0d4746",
+        "filename": "fragment/src/androidTest/java/androidx/fragment/app/PostponedTransitionTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 714,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-03-15T23:12:32Z",
+      "side": 1,
+      "message": "This is always true since our minSdkVersion is 14, remove these checks throughout the whole file",
+      "range": {
+        "startLine": 714,
+        "startChar": 12,
+        "endLine": 714,
+        "endChar": 66
+      },
+      "revId": "5a95e66829251e409b2dc99751caeb9d14f703fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
