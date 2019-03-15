@@ -25,14 +25,16 @@
   <LinearLayout
       android:id="@+id/container"
       xmlns:android="http://schemas.android.com/apk/res/android"
-      android:layout_height="match_parent"
-      android:layout_width="match_parent"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
       android:background="@drawable/selection_demo_item_background">
       <TextView
           android:id="@+id/selector"
           android:textSize="20sp"
           android:textStyle="bold"
           android:gravity="center"
+          android:layout_weight = "0"
           android:layout_height="match_parent"
           android:layout_width="40dp"
           android:textColor="@color/selection_demo_item_selector"
@@ -43,11 +45,23 @@
           android:id="@+id/label"
           android:textSize="20sp"
           android:textStyle="bold"
+          android:layout_weight = "1"
           android:gravity="center_vertical"
-          android:paddingStart="10dp"
-          android:paddingEnd="10dp"
+          android:marginStart="10dp"
+          android:marginEnd="10dp"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent">
+      </TextView>
+      <TextView
+          android:id="@+id/menu"
+          android:textSize="20sp"
+          android:textStyle="bold"
+          android:gravity="center"
+          android:layout_weight = "0"
           android:layout_height="match_parent"
-          android:layout_width="match_parent">
+          android:layout_width="40dp"
+          android:textColor="@color/selection_demo_item_selector"
+          android:text="...">
       </TextView>
   </LinearLayout>
 </LinearLayout>
