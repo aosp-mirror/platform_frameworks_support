@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0cd2e311_35458d2d",
+        "filename": "car/core/src/main/java/androidx/car/widget/AlphaJumpAdapter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-03-15T22:33:26Z",
+      "side": 1,
+      "message": "Use {@code en} here",
+      "range": {
+        "startLine": 24,
+        "startChar": 58,
+        "endLine": 24,
+        "endChar": 60
+      },
+      "revId": "f7c6ce189b88e7f835a533991b5aa78e58a2850d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6afabb8f_1c3498ae",
+        "filename": "car/core/src/main/java/androidx/car/widget/AlphaJumpAdapter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-03-15T22:33:26Z",
+      "side": 1,
+      "message": "There\u0027s no actual enforcement of this right?\n\nIf not, I would word this more that other languages are not supported* and the behavior is undefined.",
+      "range": {
+        "startLine": 24,
+        "startChar": 71,
+        "endLine": 25,
+        "endChar": 49
+      },
+      "revId": "f7c6ce189b88e7f835a533991b5aa78e58a2850d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
