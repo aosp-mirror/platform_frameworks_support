@@ -46,6 +46,29 @@
       "revId": "94dcc9e4debbb2d30dbe51dba79ccadc5740e03c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d0176b93_3c140b0b",
+        "filename": "room/runtime/src/test/java/androidx/room/InvalidationTrackerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-15T16:28:12Z",
+      "side": 1,
+      "message": "can we add a test where we observe an fts_table that is mapped ot table_1 and ALSO observe table_1.\nin that case, when we notify, we should list both of their names in the list.",
+      "range": {
+        "startLine": 325,
+        "startChar": 16,
+        "endLine": 325,
+        "endChar": 46
+      },
+      "revId": "94dcc9e4debbb2d30dbe51dba79ccadc5740e03c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
