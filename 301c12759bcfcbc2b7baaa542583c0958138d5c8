@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f4ba60be_d11e18b4",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/parser/ParsedQuery.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-03-16T00:26:48Z",
+      "side": 1,
+      "message": "Convert to named params",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 17
+      },
+      "revId": "301c12759bcfcbc2b7baaa542583c0958138d5c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7cce3e0_730808d3",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/parser/ParsedQuery.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-03-16T00:26:48Z",
+      "side": 1,
+      "message": "Seems like the getter for this should be private, but do have a public setter.",
+      "range": {
+        "startLine": 96,
+        "startChar": 8,
+        "endLine": 96,
+        "endChar": 16
+      },
+      "revId": "301c12759bcfcbc2b7baaa542583c0958138d5c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "874e92b7_36e3417e",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/parser/ParsedQuery.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-03-16T00:26:48Z",
+      "side": 1,
+      "message": "Triplet is so hard to follow, it would be nice to make a small Data class with descriptive names for all 3 properties.",
+      "range": {
+        "startLine": 112,
+        "startChar": 34,
+        "endLine": 112,
+        "endChar": 40
+      },
+      "revId": "301c12759bcfcbc2b7baaa542583c0958138d5c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "87fe78c6_f032f41a",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/parser/ParsedQuery.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-03-16T00:26:48Z",
+      "side": 1,
+      "message": "sections.filterIsInstance\u003cSection.BindVar\u003e() might be nicer",
+      "range": {
+        "startLine": 173,
+        "startChar": 31,
+        "endLine": 173,
+        "endChar": 72
+      },
+      "revId": "301c12759bcfcbc2b7baaa542583c0958138d5c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bdc26529_64c34abf",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/parser/SqlParser.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-03-16T00:26:48Z",
+      "side": 1,
+      "message": "It would be nice if you could extract all the information you need during node visiting instead of exposing the parser generated data structure.",
+      "range": {
+        "startLine": 38,
+        "startChar": 44,
+        "endLine": 38,
+        "endChar": 77
+      },
+      "revId": "301c12759bcfcbc2b7baaa542583c0958138d5c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ad93fca_5248ac7b",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/parser/SqlParser.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-03-16T00:26:48Z",
+      "side": 1,
+      "message": "init using named parameters",
+      "range": {
+        "startLine": 173,
+        "startChar": 24,
+        "endLine": 174,
+        "endChar": 77
+      },
+      "revId": "301c12759bcfcbc2b7baaa542583c0958138d5c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a43b48f_62239157",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/parser/SqlParser.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-03-16T00:26:48Z",
+      "side": 1,
+      "message": "init using named parameters",
+      "range": {
+        "startLine": 190,
+        "startChar": 20,
+        "endLine": 192,
+        "endChar": 25
+      },
+      "revId": "301c12759bcfcbc2b7baaa542583c0958138d5c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb0a87da_2319b95e",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/DatabaseProcessor.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-03-16T00:26:48Z",
+      "side": 1,
+      "message": ".filterIsInstance\u003cReadQueryMethod\u003e()",
+      "range": {
+        "startLine": 117,
+        "startChar": 12,
+        "endLine": 117,
+        "endChar": 58
+      },
+      "revId": "301c12759bcfcbc2b7baaa542583c0958138d5c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a0611b0_6d85f940",
+        "filename": "room/compiler/src/test/kotlin/androidx/room/processor/QueryInterpreterTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-03-16T00:26:48Z",
+      "side": 1,
+      "message": "Can you add some tests with more expressions as column results:\n\n`SELECT 1 AS uno FROM user`\n`SELECT firstName NOT IN (\u0027juan\u0027, \u0027pedro\u0027) FROM user`\n\nor inner select statements\n\n`select *, (SELECT count(*) FROM user AS u WHERE u.name \u003d user.name) \u003d 1 AS hasUniqueName FROM user`",
+      "range": {
+        "startLine": 34,
+        "startChar": 6,
+        "endLine": 34,
+        "endChar": 26
+      },
+      "revId": "301c12759bcfcbc2b7baaa542583c0958138d5c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
