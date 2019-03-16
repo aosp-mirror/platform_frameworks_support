@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d58a6951_46c859e7",
+        "filename": "room/runtime/src/test/java/androidx/room/InvalidationTrackerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-16T01:10:29Z",
+      "side": 1,
+      "message": "nice",
+      "revId": "48753f9ec399cd4e48c5655a67358b940140aaca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
