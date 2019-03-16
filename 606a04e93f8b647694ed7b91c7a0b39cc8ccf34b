@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "19b17297_0dc723d4",
+        "filename": "fragment/src/androidTest/java/androidx/fragment/app/FragmentTransitionTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1442279
+      },
+      "writtenOn": "2019-03-16T21:28:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "81ff33be_9e129862",
+      "range": {
+        "startLine": 47,
+        "startChar": 41,
+        "endLine": 47,
+        "endChar": 59
+      },
+      "revId": "606a04e93f8b647694ed7b91c7a0b39cc8ccf34b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ff8ab1df_2f864c7a",
         "filename": "fragment/src/androidTest/java/androidx/fragment/app/FragmentTransitionTest.kt",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2019-03-15T23:19:34Z",
       "side": 1,
       "message": "I don\u0027t think we need this line in Kotlin, do we? Same for the others in this file",
+      "range": {
+        "startLine": 371,
+        "startChar": 4,
+        "endLine": 371,
+        "endChar": 29
+      },
+      "revId": "606a04e93f8b647694ed7b91c7a0b39cc8ccf34b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb4a65c4_c7569fae",
+        "filename": "fragment/src/androidTest/java/androidx/fragment/app/FragmentTransitionTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 1442279
+      },
+      "writtenOn": "2019-03-16T21:28:15Z",
+      "side": 1,
+      "message": "We do not, missed those.",
+      "parentUuid": "ff8ab1df_2f864c7a",
       "range": {
         "startLine": 371,
         "startChar": 4,
