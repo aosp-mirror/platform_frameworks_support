@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ef278916_ceeb0496",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-03-16T13:34:14Z",
+      "side": 1,
+      "message": "\\o/",
+      "range": {
+        "startLine": 89,
+        "startChar": 28,
+        "endLine": 89,
+        "endChar": 43
+      },
+      "revId": "2bb5488ff21af8f81bdded10174888cd042a8a30",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6be68d78_da10ff4a",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dokka/Dokka.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-03-16T13:34:14Z",
+      "side": 1,
+      "message": "Can we add path to the output file?",
+      "range": {
+        "startLine": 75,
+        "startChar": 53,
+        "endLine": 75,
+        "endChar": 54
+      },
+      "revId": "2bb5488ff21af8f81bdded10174888cd042a8a30",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
