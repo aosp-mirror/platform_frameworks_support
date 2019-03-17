@@ -2068,9 +2068,15 @@ public class MediaControlView extends ViewGroup {
                     // dragged, start to update progress.
                     if (!mDragging) {
                         removeCallbacks(mUpdateProgress);
-                        removeCallbacks(mHideMainBars);
                         post(mUpdateProgress);
-                        postDelayedRunnable(mHideMainBars, mDelayedAnimationIntervalMs);
+
+                        removeCallbacks(mHideMainBars);
+                        removeCallbacks(mHideProgressBar);
+                        if (mUxState == UX_STATE_ALL_VISIBLE) {
+                            postDelayedRunnable(mHideMainBars, mDelayedAnimationIntervalMs);
+                        } else if (mUxState == UX_STATE_ONLY_PROGRESS_VISIBLE) {
+                            postDelayedRunnable(mHideProgressBar, mDelayedAnimationIntervalMs);
+                        }
                     }
                 }
             }
