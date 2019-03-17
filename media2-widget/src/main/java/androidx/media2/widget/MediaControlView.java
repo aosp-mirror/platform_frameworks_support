@@ -194,6 +194,7 @@ public class MediaControlView extends ViewGroup {
     boolean mSeekAvailable;
     boolean mIsAdvertisement;
     boolean mNeedToHideBars;
+    boolean mNeedToShowBars;
     boolean mWasPlaying;
 
     private SparseArray<View> mTransportControlsMap = new SparseArray<>();
@@ -697,6 +698,10 @@ public class MediaControlView extends ViewGroup {
             @Override
             public void onAnimationEnd(Animator animation) {
                 mUxState = UX_STATE_ONLY_PROGRESS_VISIBLE;
+                if (mNeedToShowBars) {
+                    post(mShowMainBars);
+                    mNeedToShowBars = false;
+                }
             }
         });
 
@@ -712,6 +717,10 @@ public class MediaControlView extends ViewGroup {
             @Override
             public void onAnimationEnd(Animator animation) {
                 mUxState = UX_STATE_NONE_VISIBLE;
+                if (mNeedToShowBars) {
+                    post(mShowAllBars);
+                    mNeedToShowBars = false;
+                }
             }
         });
 
@@ -730,6 +739,10 @@ public class MediaControlView extends ViewGroup {
             @Override
             public void onAnimationEnd(Animator animation) {
                 mUxState = UX_STATE_NONE_VISIBLE;
+                if (mNeedToShowBars) {
+                    post(mShowAllBars);
+                    mNeedToShowBars = false;
+                }
             }
         });
 
@@ -1610,6 +1623,7 @@ public class MediaControlView extends ViewGroup {
                 ffwdButton.setAlpha(0.5f);
                 ffwdButton.setEnabled(false);
             }
+            showAllBars();
         } else {
             mIsShowingReplayButton = false;
             if (playPauseButton != null) {
@@ -1635,6 +1649,22 @@ public class MediaControlView extends ViewGroup {
     void postDelayedRunnable(Runnable runnable, long interval) {
         if (interval != DISABLE_DELAYED_ANIMATION) {
             postDelayed(runnable, interval);
+        }
+    }
+
+    void showAllBars() {
+        switch (mUxState) {
+            case UX_STATE_ALL_VISIBLE:
+                // do nothing
+                break;
+            case UX_STATE_ONLY_PROGRESS_VISIBLE:
+                post(mShowMainBars);
+                break;
+            case UX_STATE_NONE_VISIBLE:
+                post(mShowAllBars);
+                break;
+            case UX_STATE_ANIMATING:
+                mNeedToShowBars = true;
         }
     }
 
@@ -1988,6 +2018,7 @@ public class MediaControlView extends ViewGroup {
                             playPauseButton.setContentDescription(
                                     mResources.getString(R.string.mcv2_play_button_desc));
                             removeCallbacks(mUpdateProgress);
+                            showAllBars();
                             break;
                         case SessionPlayer.PLAYER_STATE_ERROR:
                             playPauseButton.setImageDrawable(
