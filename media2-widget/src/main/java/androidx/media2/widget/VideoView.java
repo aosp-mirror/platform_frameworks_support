@@ -762,7 +762,6 @@ public class VideoView extends SelectiveLayout {
         mAudioTrackIndices = new ArrayList<>();
         mSubtitleTracks = new SparseArray<>();
         ArrayList<String> subtitleTracksLanguageList = new ArrayList<>();
-        mSubtitleController.reset();
         for (int i = 0; i < trackInfos.size(); ++i) {
             int trackType = trackInfos.get(i).getTrackType();
             if (trackType == MediaPlayer.TrackInfo.MEDIA_TRACK_TYPE_VIDEO) {
