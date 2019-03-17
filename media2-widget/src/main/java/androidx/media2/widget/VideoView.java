@@ -685,7 +685,31 @@ public class VideoView extends SelectiveLayout {
             mMediaPlayer.setMediaItem(mMediaItem);
 
             final Context context = getContext();
-            mSubtitleController = new SubtitleController(context);
+            SubtitleController.Listener listener = new SubtitleController.Listener() {
+                @Override
+                public void onSubtitleTrackSelected(SubtitleTrack track) {
+                    if (track == null) {
+                        mMediaSession.broadcastCustomCommand(new SessionCommand(
+                                MediaControlView.EVENT_UPDATE_SUBTITLE_DESELECTED, null), null);
+                        return;
+                    }
+                    int indexInSubtitleTrackList = mSubtitleTracks.indexOfValue(track);
+                    if (indexInSubtitleTrackList >= 0) {
+                        int indexInEntireTrackList =
+                                mSubtitleTracks.keyAt(indexInSubtitleTrackList);
+                        mMediaPlayer.selectTrack(indexInEntireTrackList);
+                        mSelectedSubtitleTrackIndex = indexInEntireTrackList;
+                        mSubtitleAnchorView.setVisibility(View.VISIBLE);
+
+                        Bundle data = new Bundle();
+                        data.putInt(MediaControlView.KEY_SELECTED_SUBTITLE_INDEX,
+                                indexInSubtitleTrackList);
+                        mMediaSession.broadcastCustomCommand(new SessionCommand(
+                                MediaControlView.EVENT_UPDATE_SUBTITLE_SELECTED, null), data);
+                    }
+                }
+            };
+            mSubtitleController = new SubtitleController(context, null, listener);
             mSubtitleController.registerRenderer(new ClosedCaptionRenderer(context));
             mSubtitleController.registerRenderer(new Cea708CaptionRenderer(context));
             mSubtitleController.setAnchor(mSubtitleAnchorView);
@@ -728,17 +752,7 @@ public class VideoView extends SelectiveLayout {
         }
         SubtitleTrack track = mSubtitleTracks.get(trackIndex);
         if (track != null) {
-            mMediaPlayer.selectTrack(trackIndex);
             mSubtitleController.selectTrack(track);
-            mSelectedSubtitleTrackIndex = trackIndex;
-            mSubtitleAnchorView.setVisibility(View.VISIBLE);
-
-            Bundle data = new Bundle();
-            data.putInt(MediaControlView.KEY_SELECTED_SUBTITLE_INDEX,
-                    mSubtitleTracks.indexOfKey(trackIndex));
-            mMediaSession.broadcastCustomCommand(
-                    new SessionCommand(MediaControlView.EVENT_UPDATE_SUBTITLE_SELECTED, null),
-                    data);
         }
     }
 
@@ -747,12 +761,9 @@ public class VideoView extends SelectiveLayout {
             return;
         }
         mMediaPlayer.deselectTrack(mSelectedSubtitleTrackIndex);
+        mSubtitleController.selectTrack(null);
         mSelectedSubtitleTrackIndex = INVALID_TRACK_INDEX;
         mSubtitleAnchorView.setVisibility(View.GONE);
-
-        mMediaSession.broadcastCustomCommand(
-                new SessionCommand(MediaControlView.EVENT_UPDATE_SUBTITLE_DESELECTED, null),
-                null);
     }
 
     // TODO: move this method inside callback to make sure it runs inside the callback thread.
@@ -1061,13 +1072,14 @@ public class VideoView extends SelectiveLayout {
             }
             switch (customCommand.getCustomCommand()) {
                 case MediaControlView.COMMAND_SHOW_SUBTITLE:
-                    int subtitleIndex = args != null ? args.getInt(
+                    int indexInSubtitleTrackList = args != null ? args.getInt(
                             MediaControlView.KEY_SELECTED_SUBTITLE_INDEX,
                             INVALID_TRACK_INDEX) : INVALID_TRACK_INDEX;
-                    if (subtitleIndex != INVALID_TRACK_INDEX) {
-                        int subtitleTrackIndex = mSubtitleTracks.keyAt(subtitleIndex);
-                        if (subtitleTrackIndex != mSelectedSubtitleTrackIndex) {
-                            selectSubtitleTrack(subtitleTrackIndex);
+                    if (indexInSubtitleTrackList != INVALID_TRACK_INDEX) {
+                        int indexInEntireTrackList =
+                                mSubtitleTracks.keyAt(indexInSubtitleTrackList);
+                        if (indexInEntireTrackList != mSelectedSubtitleTrackIndex) {
+                            selectSubtitleTrack(indexInEntireTrackList);
                         }
                     }
                     break;
