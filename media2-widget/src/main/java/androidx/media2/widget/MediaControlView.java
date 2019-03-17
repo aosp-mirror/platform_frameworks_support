@@ -516,14 +516,6 @@ public class MediaControlView extends ViewGroup {
     }
 
     @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        // By default, show all bars and hide settings window and overflow view when view size is
-        // changed.
-        showAllBars();
-        hideSettingsAndOverflow();
-    }
-
-    @Override
     public void onVisibilityAggregated(boolean isVisible) {
         super.onVisibilityAggregated(isVisible);
 
@@ -1580,25 +1572,6 @@ public class MediaControlView extends ViewGroup {
         } else {
             // If current seek position is already set, update the next seek position.
             mNextSeekPosition = newPosition;
-        }
-    }
-
-    private void showAllBars() {
-        if (mUxState != UX_STATE_ALL_VISIBLE) {
-            removeCallbacks(mHideMainBars);
-            removeCallbacks(mHideProgressBar);
-            // b/112570875
-            post(mShowMainBars);
-        } else {
-            resetHideCallbacks();
-        }
-    }
-
-    private void hideSettingsAndOverflow() {
-        mSettingsWindow.dismiss();
-        if (mOverflowIsShowing) {
-            mOverflowIsShowing = false;
-            mOverflowHideAnimator.start();
         }
     }
 
