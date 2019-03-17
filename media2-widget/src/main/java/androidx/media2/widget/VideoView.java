@@ -685,7 +685,24 @@ public class VideoView extends SelectiveLayout {
             mMediaPlayer.setMediaItem(mMediaItem);
 
             final Context context = getContext();
-            mSubtitleController = new SubtitleController(context);
+            SubtitleController.Listener listener = new SubtitleController.Listener() {
+                @Override
+                public void onSubtitleTrackSelected(SubtitleTrack track) {
+                    if (track == null) {
+                        mMediaSession.broadcastCustomCommand(new SessionCommand(
+                                MediaControlView.EVENT_UPDATE_SUBTITLE_DESELECTED, null), null);
+                        return;
+                    }
+                    int index = mSubtitleTracks.indexOfValue(track);
+                    if (index >= 0) {
+                        Bundle data = new Bundle();
+                        data.putInt(MediaControlView.KEY_SELECTED_SUBTITLE_INDEX, index);
+                        mMediaSession.broadcastCustomCommand(new SessionCommand(
+                                MediaControlView.EVENT_UPDATE_SUBTITLE_SELECTED, null), data);
+                    }
+                }
+            };
+            mSubtitleController = new SubtitleController(context, null, listener);
             mSubtitleController.registerRenderer(new ClosedCaptionRenderer(context));
             mSubtitleController.registerRenderer(new Cea708CaptionRenderer(context));
             mSubtitleController.setAnchor(mSubtitleAnchorView);
@@ -732,13 +749,6 @@ public class VideoView extends SelectiveLayout {
             mSubtitleController.selectTrack(track);
             mSelectedSubtitleTrackIndex = trackIndex;
             mSubtitleAnchorView.setVisibility(View.VISIBLE);
-
-            Bundle data = new Bundle();
-            data.putInt(MediaControlView.KEY_SELECTED_SUBTITLE_INDEX,
-                    mSubtitleTracks.indexOfKey(trackIndex));
-            mMediaSession.broadcastCustomCommand(
-                    new SessionCommand(MediaControlView.EVENT_UPDATE_SUBTITLE_SELECTED, null),
-                    data);
         }
     }
 
@@ -747,12 +757,9 @@ public class VideoView extends SelectiveLayout {
             return;
         }
         mMediaPlayer.deselectTrack(mSelectedSubtitleTrackIndex);
+        mSubtitleController.selectTrack(null);
         mSelectedSubtitleTrackIndex = INVALID_TRACK_INDEX;
         mSubtitleAnchorView.setVisibility(View.GONE);
-
-        mMediaSession.broadcastCustomCommand(
-                new SessionCommand(MediaControlView.EVENT_UPDATE_SUBTITLE_DESELECTED, null),
-                null);
     }
 
     // TODO: move this method inside callback to make sure it runs inside the callback thread.
