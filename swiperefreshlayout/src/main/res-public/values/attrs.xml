@@ -13,15 +13,10 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
+
+<!-- Definitions of attributes to be exposed as public -->
 <resources>
-
-    <style name="TestActivityTheme" parent="android:Theme.Holo">
-        <item name="android:windowAnimationStyle">@null</item>
-    </style>
-
-    <style name="TestActivityThemeWithBackground" parent="TestActivityTheme">
-        <item name="swipeRefreshLayoutBackgroundColor">#FF808080</item>
-        <item name="swipeRefreshLayoutFillShadowColor">#FFA9A9A9</item>
-        <item name="swipeRefreshLayoutKeyShadowColor">#FF424242</item>
-    </style>
+    <public type="attr" name="swipeRefreshLayoutBackgroundColor" format="color"/>
+    <public type="attr" name="swipeRefreshLayoutFillShadowColor" format="color"/>
+    <public type="attr" name="swipeRefreshLayoutKeyShadowColor" format="color"/>
 </resources>
