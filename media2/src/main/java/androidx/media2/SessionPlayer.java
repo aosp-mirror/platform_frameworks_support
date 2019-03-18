@@ -22,6 +22,7 @@ import android.os.ParcelFileDescriptor;
 import android.os.SystemClock;
 import android.util.Log;
 
+import androidx.annotation.FloatRange;
 import androidx.annotation.GuardedBy;
 import androidx.annotation.IntDef;
 import androidx.annotation.IntRange;
@@ -276,6 +277,9 @@ public abstract class SessionPlayer implements AutoCloseable {
      */
     public static final int SHUFFLE_MODE_GROUP = 2;
 
+    /**
+     * Value indicating the time is unknown
+     */
     public static final long UNKNOWN_TIME = Long.MIN_VALUE;
 
     /**
@@ -341,7 +345,8 @@ public abstract class SessionPlayer implements AutoCloseable {
      * @see #getPlaybackSpeed()
      * @see PlayerCallback#onPlaybackSpeedChanged(SessionPlayer, float)
      */
-    public abstract @NonNull ListenableFuture<PlayerResult> setPlaybackSpeed(float playbackSpeed);
+    public abstract @NonNull ListenableFuture<PlayerResult> setPlaybackSpeed(
+            @FloatRange(from = -1024f, to = 1024f) float playbackSpeed);
 
     /**
      * Sets the {@link AudioAttributesCompat} to be used during the playback of the media.
@@ -407,6 +412,7 @@ public abstract class SessionPlayer implements AutoCloseable {
      *
      * @return the actual playback speed
      */
+    @FloatRange(from = -1024f, to = 1024f)
     public abstract float getPlaybackSpeed();
 
     /**
