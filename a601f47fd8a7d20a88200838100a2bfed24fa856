@@ -16,6 +16,24 @@
       "revId": "a601f47fd8a7d20a88200838100a2bfed24fa856",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1307758_f12ce3e7",
+        "filename": "lifecycle/common/eap/build.gradle",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-18T23:35:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b95ead5d_d075cb89",
+      "revId": "a601f47fd8a7d20a88200838100a2bfed24fa856",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
