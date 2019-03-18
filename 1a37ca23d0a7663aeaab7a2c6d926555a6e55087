@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "4d0fa89f_c1aa57d4",
+        "filename": "activity/src/main/java/androidx/activity/OnBackPressedDispatcher.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-18T23:05:53Z",
+      "side": 1,
+      "message": "Sounds cool to me.",
+      "parentUuid": "25e98a47_be141de5",
+      "revId": "1a37ca23d0a7663aeaab7a2c6d926555a6e55087",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "26ddc7a7_3e1e9bcb",
         "filename": "core/api/current.txt",
         "patchSetId": 3
@@ -66,6 +84,24 @@
       "side": 1,
       "message": "You were suggesting androidx.arch.core.util.Subscription? Or do you recommend a different package?\n\nI chose core because androidx.activity already depends on core (so no dependency change), but I could see where having other things depend on core just to have access to Subscription would be too much.",
       "parentUuid": "26ddc7a7_3e1e9bcb",
+      "revId": "1a37ca23d0a7663aeaab7a2c6d926555a6e55087",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed5ffa66_9c23c8c8",
+        "filename": "core/api/current.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 761,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-18T23:05:53Z",
+      "side": 1,
+      "message": "Yep, either  androidx.arch.core.util.Subscription or its own androidx.subscription.Subscription works for me.  (I don\u0027t have opinion except \"please, please, not core\")\n\nPS I\u0027d better invert dependency between \"core\" and \"activity\" modules. So androidx.core.app.ComponentActivity extends androidx.activity.Component (possibly move putExtra thing on androidx.activity as well)",
+      "parentUuid": "6c1d3ce7_d791df5f",
       "revId": "1a37ca23d0a7663aeaab7a2c6d926555a6e55087",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
