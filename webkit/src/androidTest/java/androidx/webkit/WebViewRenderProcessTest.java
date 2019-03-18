@@ -31,6 +31,7 @@ import androidx.test.filters.SdkSuppress;
 import com.google.common.util.concurrent.ListenableFuture;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -100,6 +101,17 @@ public class WebViewRenderProcessTest {
         });
 
         return future;
+    }
+
+    @Before
+    public void setUp() {
+        // Ensure that any existing renderer still alive after a previous test is terminated.
+        final WebView webView = WebViewOnUiThread.createWebView();
+        final WebViewRenderProcess renderProcess = getRenderProcessOnUiThread(webView);
+        WebViewOnUiThread.destroy(webView);
+        if (renderProcess != null) {
+            terminateRenderProcessOnUiThread(renderProcess);
+        }
     }
 
     @Test
