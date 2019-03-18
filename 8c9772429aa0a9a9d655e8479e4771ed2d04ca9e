@@ -16,6 +16,23 @@
       "revId": "8c9772429aa0a9a9d655e8479e4771ed2d04ca9e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4888bc13_31ba6734",
+        "filename": "benchmark/gradle-plugin/src/test/kotlin/androidx/benchmark/gradle/SdkUtilTest.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-03-18T14:44:07Z",
+      "side": 1,
+      "message": "If we can\u0027t test this without reflection, let\u0027s just not test it.",
+      "revId": "8c9772429aa0a9a9d655e8479e4771ed2d04ca9e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
