@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8e0c4ed6_b049e513",
+        "filename": "media2-widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 765,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-03-18T01:25:48Z",
+      "side": 0,
+      "message": "mSubtitleController will have duplicated tracks if extractTrackInfoData() is called multiple times.\n\nWouldn\u0027t it be better to re-select the already chosen track after reset() instead of removing reset()?",
+      "revId": "17622539bfa98606a9c3b531f634b54973c5ff1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
