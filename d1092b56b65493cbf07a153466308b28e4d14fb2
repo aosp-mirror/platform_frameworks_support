@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "2cf4c641_42bf2424",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-03-18T16:12:53Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "cead309d_abbbbd73",
+      "range": {
+        "startLine": 56,
+        "startChar": 28,
+        "endLine": 56,
+        "endChar": 43
+      },
+      "revId": "d1092b56b65493cbf07a153466308b28e4d14fb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2142fe93_f13610b9",
         "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
         "patchSetId": 1
@@ -86,6 +110,48 @@
       "revId": "d1092b56b65493cbf07a153466308b28e4d14fb2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44093851_9542ced1",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-03-18T16:12:53Z",
+      "side": 1,
+      "message": "Good point. I think the suggestions from Shep and Yigit fixed that",
+      "parentUuid": "2142fe93_f13610b9",
+      "revId": "d1092b56b65493cbf07a153466308b28e4d14fb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4ba2b7c_a80871ca",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-03-18T16:12:53Z",
+      "side": 1,
+      "message": "Re: scroll direction from state variable\nI think you can infer the scroll direction in some cases from the mRemainingScrollHor/Ver variables, but the side where the extra space is added is based on mLayoutState.mLastScrollDelta, which is different (think drags). So we would still need to add the scroll direction for backwards compatibility. That would give us something like\n\n getExtraLayoutSpaceInto(State state, int scrollDirection, int[] extraSpace)\n\n\nComparing with Shep\u0027s suggestion, it looks like `getExtraLayoutSpaceInto` is basically the same as `getExtraLayoutSpaceInternal`. The pros and cons that I can think of are:\n\nPros:\n1. Only one method to override instead of two, for fine-grained control\n2. New method still has state variable: eliminates the risk of breaking existing solutions\n3. Probably easier to make it backwards compatible (although I\u0027m sure we can make both solutions work)\n\nCons:\n4. Complex parameters\n5. Doesn\u0027t make scrolling an explicit use-case\n6. Extra scroll space may inadvertently be removed\n\nAfter discussion with Shep, decided to go for his solution with the state variable added to both new methods. This addresses (2), (3), (4), (5) and (6).",
+      "parentUuid": "a92a5096_2db9e180",
+      "range": {
+        "startLine": 448,
+        "startChar": 18,
+        "endLine": 448,
+        "endChar": 37
+      },
+      "revId": "d1092b56b65493cbf07a153466308b28e4d14fb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
