@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8c3bd899_936e945e",
+        "filename": "media2-widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 751,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-03-18T04:09:15Z",
+      "side": 1,
+      "message": "I\u0027m not 100% sure but it would be better to move these 4 lines except the second one to onSubtitleTrackSelected in order to sync the subtitle selection status between MCV and VV.",
+      "range": {
+        "startLine": 748,
+        "startChar": 0,
+        "endLine": 751,
+        "endChar": 60
+      },
+      "revId": "ebbf88f1db52af46b9244826d659a5415e42b217",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c0f8bd0_5b296a77",
+        "filename": "media2-widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 762,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-03-18T04:09:15Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 759,
+        "startChar": 0,
+        "endLine": 762,
+        "endChar": 53
+      },
+      "revId": "ebbf88f1db52af46b9244826d659a5415e42b217",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
