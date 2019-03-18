@@ -1,0 +1,3 @@
+attr swipeRefreshLayoutBackgroundColor
+attr swipeRefreshLayoutFillShadowColor
+attr swipeRefreshLayoutKeyShadowColor
