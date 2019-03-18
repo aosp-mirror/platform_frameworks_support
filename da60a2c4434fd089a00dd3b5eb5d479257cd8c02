@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c90aa194_664506da",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-03-18T05:03:45Z",
+      "side": 1,
+      "message": "Could you mention about removing SubtitleTrackCount in the commit message?",
+      "range": {
+        "startLine": 11,
+        "startChar": 23,
+        "endLine": 11,
+        "endChar": 24
+      },
+      "revId": "da60a2c4434fd089a00dd3b5eb5d479257cd8c02",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ab9c530_3701e145",
+        "filename": "media2-widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2190,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-03-18T05:03:45Z",
+      "side": 1,
+      "message": "How about removing this field and use mSubtitleDescriptionsList.size() instead?",
+      "range": {
+        "startLine": 2190,
+        "startChar": 28,
+        "endLine": 2190,
+        "endChar": 47
+      },
+      "revId": "da60a2c4434fd089a00dd3b5eb5d479257cd8c02",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
