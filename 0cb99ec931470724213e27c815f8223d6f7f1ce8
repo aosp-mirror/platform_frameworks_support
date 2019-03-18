@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "556cd8b6_8eafef23",
+        "filename": "fragment/src/androidTest/java/androidx/fragment/app/TrackingTransition.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-03-18T16:14:46Z",
+      "side": 1,
+      "message": "This can probably just be a var \"Rect?\" right?",
+      "range": {
+        "startLine": 40,
+        "startChar": 32,
+        "endLine": 40,
+        "endChar": 53
+      },
+      "revId": "0cb99ec931470724213e27c815f8223d6f7f1ce8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
