@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e95ba4f1_508e6cf2",
+        "filename": "preference/src/androidTest/java/androidx/preference/tests/DialogTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1149384
+      },
+      "writtenOn": "2019-03-18T20:11:06Z",
+      "side": 1,
+      "message": "This was key to ensure that the test fails. Maybe support library has some other constant here that it\u0027s using? If this is passing without the fix, try manually increasing this timeout to some large value.",
+      "range": {
+        "startLine": 138,
+        "startChar": 8,
+        "endLine": 138,
+        "endChar": 25
+      },
+      "revId": "c1ad935b20651b21adb7ec74439226c3805d5394",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6230c07e_9aab393c",
+        "filename": "preference/src/androidTest/java/androidx/preference/tests/DialogTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1149384
+      },
+      "writtenOn": "2019-03-18T20:11:06Z",
+      "side": 1,
+      "message": "line length",
+      "range": {
+        "startLine": 176,
+        "startChar": 90,
+        "endLine": 176,
+        "endChar": 99
+      },
+      "revId": "c1ad935b20651b21adb7ec74439226c3805d5394",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
