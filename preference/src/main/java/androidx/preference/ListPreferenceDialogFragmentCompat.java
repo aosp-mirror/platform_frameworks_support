@@ -90,7 +90,7 @@ public class ListPreferenceDialogFragmentCompat extends PreferenceDialogFragment
                         // the dialog.
                         ListPreferenceDialogFragmentCompat.this.onClick(dialog,
                                 DialogInterface.BUTTON_POSITIVE);
-                        dialog.dismiss();
+                        postDismiss();
                     }
                 });
 
