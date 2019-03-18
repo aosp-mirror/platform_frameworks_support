@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "775526fc_d59c74c9",
+        "filename": "media2-widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2079,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-03-18T02:49:53Z",
+      "side": 1,
+      "message": "If seek happens when \"else\" (e.g. animating UX_STATE_ANIMATING), hiding animation won\u0027t start anymore.",
+      "range": {
+        "startLine": 2079,
+        "startChar": 24,
+        "endLine": 2079,
+        "endChar": 25
+      },
+      "revId": "27031e07bde6d48b66bc768e3b62cfedb8da958f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
