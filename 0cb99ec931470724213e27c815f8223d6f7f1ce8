@@ -46,6 +46,30 @@
       "revId": "0cb99ec931470724213e27c815f8223d6f7f1ce8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c25e243b_4937034d",
+        "filename": "fragment/src/androidTest/java/androidx/fragment/app/TrackingTransition.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-03-18T18:17:18Z",
+      "side": 1,
+      "message": "Does anything change if this is @Volatile? I suspect this is a threading issue.",
+      "parentUuid": "17fea38f_4a5a89d4",
+      "range": {
+        "startLine": 40,
+        "startChar": 32,
+        "endLine": 40,
+        "endChar": 53
+      },
+      "revId": "0cb99ec931470724213e27c815f8223d6f7f1ce8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
