@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9dbdc381_2ac1b2eb",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/ExtrasUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2019-03-18T18:20:03Z",
+      "side": 1,
+      "message": "nit: Not available from SDK yet?",
+      "range": {
+        "startLine": 32,
+        "startChar": 32,
+        "endLine": 32,
+        "endChar": 58
+      },
+      "revId": "29729327c8b90716197627bf6e3996d3048c627f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e15d737a_1e65fb05",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/ExtrasUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2019-03-18T18:20:03Z",
+      "side": 1,
+      "message": "Maybe using LocaleListCompat.forLanguageTagCompat?\n\nOtherwise, should we mention no result in devices \u003c L in javadoc?",
+      "revId": "29729327c8b90716197627bf6e3996d3048c627f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
