@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "74e024f9_80205c10",
+        "filename": "activity/src/main/java/androidx/activity/OnBackPressedDispatcher.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-18T22:27:02Z",
+      "side": 1,
+      "message": "just quick question, why do you prefer to add / remove callback instead of wrap callback and return false from it? I slightly prefer wrapping, but not have too much of opinion.",
+      "revId": "1a37ca23d0a7663aeaab7a2c6d926555a6e55087",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "26ddc7a7_3e1e9bcb",
+        "filename": "core/api/current.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 761,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-18T22:27:02Z",
+      "side": 1,
+      "message": "I don\u0027t like core module \u003d( It has some many random totally not \"core\" things. We can move it to :arch:core-common ? it is at least small. Or even move it to its own module.",
+      "revId": "1a37ca23d0a7663aeaab7a2c6d926555a6e55087",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
