@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "97bdd2ae_2d6db4d3",
+        "filename": "room/runtime/api/current.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-18T13:52:54Z",
+      "side": 1,
+      "message": "why don\u0027t you want to have separate methods? So peopl setQueryExecutor won\u0027t be deprecated. Also, people it is a bit easier to use, because when a method receive two params of same type it is hard to tell which is which and easy mess it up",
+      "revId": "e569efbc5e721029dd96feb0f8b6c5266952ed1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a3dda5f_fad11e03",
+        "filename": "room/runtime/src/main/java/androidx/room/TransactionExecutor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-18T13:52:54Z",
+      "side": 1,
+      "message": "Not sure how much we care, but these are some interesting for it\n\nhttps://cs.corp.google.com/piper///depot/google3/third_party/java_src/google_common/current/javatests/com/google/common/util/concurrent/SequentialExecutorTest.java?type\u003dcs\u0026q\u003dSequentialExecutorTest\u0026sq\u003dpackage:piper+file://depot/google3+-file:google3/(experimental%7Cobsolete)\u0026g\u003d0\u0026l\u003d47",
+      "revId": "e569efbc5e721029dd96feb0f8b6c5266952ed1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4591ebaa_8aad3a31",
+        "filename": "room/runtime/src/test/java/androidx/room/TransactionExecutorTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-18T13:52:54Z",
+      "side": 1,
+      "message": "(╯°□°)╯︵ ┻━┻  (It is Yigit\u0027s fault that I\u0027m so allergic to it :D) \n\nBut seriously, don\u0027t: as alternative each runnable can have make CountDownLatch.countDown() and you await for them",
+      "range": {
+        "startLine": 50,
+        "startChar": 8,
+        "endLine": 50,
+        "endChar": 26
+      },
+      "revId": "e569efbc5e721029dd96feb0f8b6c5266952ed1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
