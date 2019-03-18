@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "534c2eef_7d297c15",
+        "filename": "fragment/src/androidTest/java/androidx/fragment/app/FragmentLifecycleTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 823,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-03-18T23:14:04Z",
+      "side": 1,
+      "message": "Use inflater.context",
+      "range": {
+        "startLine": 823,
+        "startChar": 21,
+        "endLine": 823,
+        "endChar": 40
+      },
+      "revId": "412d70a4ed88b9504072c4996d1af9369a72798b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
