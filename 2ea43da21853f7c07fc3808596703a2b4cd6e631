@@ -93,6 +93,208 @@
       "revId": "2ea43da21853f7c07fc3808596703a2b4cd6e631",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23d189e2_11e4a28e",
+        "filename": "lifecycle/livedata/eap/src/main/java/androidx/lifecycle/CoroutineLiveData.kt",
+        "patchSetId": 21
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-18T12:23:38Z",
+      "side": 1,
+      "message": ":facepalm me being stupid",
+      "parentUuid": "070b6787_9479c718",
+      "range": {
+        "startLine": 83,
+        "startChar": 72,
+        "endLine": 83,
+        "endChar": 88
+      },
+      "revId": "2ea43da21853f7c07fc3808596703a2b4cd6e631",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "722836d8_f24708bb",
+        "filename": "lifecycle/livedata/eap/src/test/java/androidx/lifecycle/BuildLiveDataTest.kt",
+        "patchSetId": 21
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-18T12:23:38Z",
+      "side": 1,
+      "message": "but why? you don\u0027t pass it anywhere of course it will be false. I miss something.",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 29
+      },
+      "revId": "2ea43da21853f7c07fc3808596703a2b4cd6e631",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae6871ec_4fde5933",
+        "filename": "lifecycle/livedata/eap/src/test/java/androidx/lifecycle/BuildLiveDataTest.kt",
+        "patchSetId": 21
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-18T12:23:38Z",
+      "side": 1,
+      "message": "I\u0027d better check that there is no child job running (you can pass your own context \u003d\u003e parent job) that wait for 1 second. Having no running job is better signal that awaiting for a random period of time.",
+      "range": {
+        "startLine": 60,
+        "startChar": 26,
+        "endLine": 60,
+        "endChar": 35
+      },
+      "revId": "2ea43da21853f7c07fc3808596703a2b4cd6e631",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04276eed_97ae9ddf",
+        "filename": "lifecycle/livedata/eap/src/test/java/androidx/lifecycle/BuildLiveDataTest.kt",
+        "patchSetId": 21
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-18T12:23:38Z",
+      "side": 1,
+      "message": "use kotlinx.coroutines.sync.Mutex instead: mutex.withLock { yield(3) }. But first time lock is taken",
+      "range": {
+        "startLine": 71,
+        "startChar": 16,
+        "endLine": 71,
+        "endChar": 27
+      },
+      "revId": "2ea43da21853f7c07fc3808596703a2b4cd6e631",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "249f8044_7fa88ae4",
+        "filename": "lifecycle/livedata/eap/src/test/java/androidx/lifecycle/BuildLiveDataTest.kt",
+        "patchSetId": 21
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-18T12:23:38Z",
+      "side": 1,
+      "message": "similarly I\u0027d better check jobs\n\nPS moment when you should unlock.",
+      "range": {
+        "startLine": 75,
+        "startChar": 11,
+        "endLine": 75,
+        "endChar": 21
+      },
+      "revId": "2ea43da21853f7c07fc3808596703a2b4cd6e631",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bfa81c84_dec35d2f",
+        "filename": "lifecycle/livedata/eap/src/test/java/androidx/lifecycle/BuildLiveDataTest.kt",
+        "patchSetId": 21
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-18T12:23:38Z",
+      "side": 1,
+      "message": "similarly do lock",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 27
+      },
+      "revId": "2ea43da21853f7c07fc3808596703a2b4cd6e631",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9168728_18a622a0",
+        "filename": "lifecycle/livedata/eap/src/test/java/androidx/lifecycle/BuildLiveDataTest.kt",
+        "patchSetId": 21
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-18T12:23:38Z",
+      "side": 1,
+      "message": "same, no \"assertFalse\" on countdown latch in any fashion:\nfor example unreached exception on first run instead of yield(2) + await that all job canceled in custom context",
+      "revId": "2ea43da21853f7c07fc3808596703a2b4cd6e631",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3d4eb04_7f362964",
+        "filename": "lifecycle/livedata/eap/src/test/java/androidx/lifecycle/BuildLiveDataTest.kt",
+        "patchSetId": 21
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-18T12:23:38Z",
+      "side": 1,
+      "message": "assert no job are running",
+      "range": {
+        "startLine": 251,
+        "startChar": 0,
+        "endLine": 252,
+        "endChar": 36
+      },
+      "revId": "2ea43da21853f7c07fc3808596703a2b4cd6e631",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc9d37f9_4017851a",
+        "filename": "lifecycle/livedata/eap/src/test/java/androidx/lifecycle/BuildLiveDataTest.kt",
+        "patchSetId": 21
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-18T12:23:38Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 277,
+        "startChar": 0,
+        "endLine": 277,
+        "endChar": 36
+      },
+      "revId": "2ea43da21853f7c07fc3808596703a2b4cd6e631",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
