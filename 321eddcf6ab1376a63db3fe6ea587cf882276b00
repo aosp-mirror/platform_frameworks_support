@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "802312ef_c5f6ba04",
+        "filename": "fragment/src/androidTest/java/androidx/fragment/app/FragmentReorderingTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-03-18T23:06:16Z",
+      "side": 1,
+      "message": "var id: Int",
+      "range": {
+        "startLine": 149,
+        "startChar": 8,
+        "endLine": 149,
+        "endChar": 28
+      },
+      "revId": "321eddcf6ab1376a63db3fe6ea587cf882276b00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
