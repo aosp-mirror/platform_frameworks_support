@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9730b4d5_d11eda88",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dokka/Dokka.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-03-18T17:56:33Z",
+      "side": 1,
+      "message": "\u0027Generates  ${docsType} Kotlin documentation...\u0027",
+      "range": {
+        "startLine": 57,
+        "startChar": 44,
+        "endLine": 57,
+        "endChar": 48
+      },
+      "revId": "26dd3116835133404016296925bdb42096cd995b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
