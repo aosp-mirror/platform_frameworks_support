@@ -304,6 +304,7 @@ package androidx.preference {
     method protected android.view.View! onCreateDialogView(android.content.Context!);
     method public abstract void onDialogClosed(boolean);
     method protected void onPrepareDialogBuilder(androidx.appcompat.app.AlertDialog.Builder!);
+    method protected void postDismiss();
     field protected static final String ARG_KEY = "key";
   }
 

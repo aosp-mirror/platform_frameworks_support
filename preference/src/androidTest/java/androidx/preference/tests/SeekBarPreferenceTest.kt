@@ -51,8 +51,8 @@ import org.junit.runner.RunWith
 /**
  * Test for [androidx.preference.SeekBarPreference].
  */
-@RunWith(AndroidJUnit4::class)
 @LargeTest
+@RunWith(AndroidJUnit4::class)
 class SeekBarPreferenceTest {
 
     @get:Rule
