@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ca9692c7_781d8b5b",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/parser/ParsedQuery.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2019-03-18T06:15:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f4ba60be_d11e18b4",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 17
+      },
+      "revId": "301c12759bcfcbc2b7baaa542583c0958138d5c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a7cce3e0_730808d3",
         "filename": "room/compiler/src/main/kotlin/androidx/room/parser/ParsedQuery.kt",
         "patchSetId": 6
@@ -45,6 +69,30 @@
       "revId": "301c12759bcfcbc2b7baaa542583c0958138d5c8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "814f65c4_5686a501",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/parser/ParsedQuery.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2019-03-18T06:15:44Z",
+      "side": 1,
+      "message": "Done. This is now a private field, and there\u0027s a separate setter method.",
+      "parentUuid": "a7cce3e0_730808d3",
+      "range": {
+        "startLine": 96,
+        "startChar": 8,
+        "endLine": 96,
+        "endChar": 16
+      },
+      "revId": "301c12759bcfcbc2b7baaa542583c0958138d5c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "0b837537_a233fdb3",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/parser/ParsedQuery.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2019-03-18T06:15:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "874e92b7_36e3417e",
+      "range": {
+        "startLine": 112,
+        "startChar": 34,
+        "endLine": 112,
+        "endChar": 40
+      },
+      "revId": "301c12759bcfcbc2b7baaa542583c0958138d5c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "87fe78c6_f032f41a",
         "filename": "room/compiler/src/main/kotlin/androidx/room/parser/ParsedQuery.kt",
         "patchSetId": 6
@@ -91,6 +163,30 @@
       "revId": "301c12759bcfcbc2b7baaa542583c0958138d5c8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9e43ddf_3144ce55",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/parser/ParsedQuery.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2019-03-18T06:15:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "87fe78c6_f032f41a",
+      "range": {
+        "startLine": 173,
+        "startChar": 31,
+        "endLine": 173,
+        "endChar": 72
+      },
+      "revId": "301c12759bcfcbc2b7baaa542583c0958138d5c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "6524b5d9_00a7aed1",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/parser/SqlParser.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2019-03-18T06:15:44Z",
+      "side": 1,
+      "message": "Done. I also changed bindingExpressions as it was also exposing TerminalNode.",
+      "parentUuid": "bdc26529_64c34abf",
+      "range": {
+        "startLine": 38,
+        "startChar": 44,
+        "endLine": 38,
+        "endChar": 77
+      },
+      "revId": "301c12759bcfcbc2b7baaa542583c0958138d5c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0ad93fca_5248ac7b",
         "filename": "room/compiler/src/main/kotlin/androidx/room/parser/SqlParser.kt",
         "patchSetId": 6
@@ -137,6 +257,30 @@
       "revId": "301c12759bcfcbc2b7baaa542583c0958138d5c8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c01e8004_55c62a76",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/parser/SqlParser.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2019-03-18T06:15:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0ad93fca_5248ac7b",
+      "range": {
+        "startLine": 173,
+        "startChar": 24,
+        "endLine": 174,
+        "endChar": 77
+      },
+      "revId": "301c12759bcfcbc2b7baaa542583c0958138d5c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "a70801c7_50aa92d1",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/parser/SqlParser.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2019-03-18T06:15:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a43b48f_62239157",
+      "range": {
+        "startLine": 190,
+        "startChar": 20,
+        "endLine": 192,
+        "endChar": 25
+      },
+      "revId": "301c12759bcfcbc2b7baaa542583c0958138d5c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bb0a87da_2319b95e",
         "filename": "room/compiler/src/main/kotlin/androidx/room/processor/DatabaseProcessor.kt",
         "patchSetId": 6
@@ -186,6 +354,30 @@
     },
     {
       "key": {
+        "uuid": "f397d030_f2f0689e",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/DatabaseProcessor.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2019-03-18T06:15:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bb0a87da_2319b95e",
+      "range": {
+        "startLine": 117,
+        "startChar": 12,
+        "endLine": 117,
+        "endChar": 58
+      },
+      "revId": "301c12759bcfcbc2b7baaa542583c0958138d5c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0a0611b0_6d85f940",
         "filename": "room/compiler/src/test/kotlin/androidx/room/processor/QueryInterpreterTest.kt",
         "patchSetId": 6
@@ -206,6 +398,30 @@
       "revId": "301c12759bcfcbc2b7baaa542583c0958138d5c8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "efdd8e37_6e53931f",
+        "filename": "room/compiler/src/test/kotlin/androidx/room/processor/QueryInterpreterTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1051900
+      },
+      "writtenOn": "2019-03-18T06:15:44Z",
+      "side": 1,
+      "message": "Done. Added 3 tests.",
+      "parentUuid": "0a0611b0_6d85f940",
+      "range": {
+        "startLine": 34,
+        "startChar": 6,
+        "endLine": 34,
+        "endChar": 26
+      },
+      "revId": "301c12759bcfcbc2b7baaa542583c0958138d5c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
