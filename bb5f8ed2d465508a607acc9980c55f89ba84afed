@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c22ca0fa_3cef6c90",
+        "filename": "slices/view/src/main/res/layout/abc_slice_row_selection.xml",
+        "patchSetId": 18
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1004304
+      },
+      "writtenOn": "2019-03-18T17:57:02Z",
+      "side": 1,
+      "message": "*sob*",
+      "parentUuid": "f2145abf_96517463",
+      "range": {
+        "startLine": 3,
+        "startChar": 17,
+        "endLine": 3,
+        "endChar": 18
+      },
+      "revId": "bb5f8ed2d465508a607acc9980c55f89ba84afed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "355266fa_03ac2d23",
         "filename": "slices/view/src/main/res/layout/abc_slice_row_selection_dropdown_text.xml",
         "patchSetId": 18
@@ -45,6 +69,30 @@
       "revId": "bb5f8ed2d465508a607acc9980c55f89ba84afed",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2fd4ae34_c66402fd",
+        "filename": "slices/view/src/main/res/layout/abc_slice_row_selection_dropdown_text.xml",
+        "patchSetId": 18
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1004304
+      },
+      "writtenOn": "2019-03-18T17:57:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "355266fa_03ac2d23",
+      "range": {
+        "startLine": 3,
+        "startChar": 17,
+        "endLine": 3,
+        "endChar": 18
+      },
+      "revId": "bb5f8ed2d465508a607acc9980c55f89ba84afed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "66dda99b_e06e7814",
+        "filename": "slices/view/src/main/res/layout/abc_slice_row_selection_text.xml",
+        "patchSetId": 18
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1004304
+      },
+      "writtenOn": "2019-03-18T17:57:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "665d9cad_eeb1ded1",
+      "range": {
+        "startLine": 3,
+        "startChar": 14,
+        "endLine": 3,
+        "endChar": 18
+      },
+      "revId": "bb5f8ed2d465508a607acc9980c55f89ba84afed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5dbfd59c_0e67302c",
         "filename": "slices/view/src/main/res/layout/abc_slice_row_selection_text.xml",
         "patchSetId": 18
@@ -91,6 +163,30 @@
       "revId": "bb5f8ed2d465508a607acc9980c55f89ba84afed",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5606617c_cc2e2053",
+        "filename": "slices/view/src/main/res/layout/abc_slice_row_selection_text.xml",
+        "patchSetId": 18
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1004304
+      },
+      "writtenOn": "2019-03-18T17:57:02Z",
+      "side": 1,
+      "message": "Yes; it makes the selection value line up with the other text in the slice instead of being indented. If you\u0027d prefer I can leave the indent, but it looked weird to me.\n\nWith that 0dp padding: https://screenshot.googleplex.com/mKbP7F42nt7\nWithout that 0dp padding: https://screenshot.googleplex.com/wubUs8A0tbS",
+      "parentUuid": "5dbfd59c_0e67302c",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 28
+      },
+      "revId": "bb5f8ed2d465508a607acc9980c55f89ba84afed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
