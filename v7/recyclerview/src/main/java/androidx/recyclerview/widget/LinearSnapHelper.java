@@ -17,6 +17,9 @@
 package androidx.recyclerview.widget;
 
 import android.graphics.PointF;
+import android.support.annotation.NonNull;
+import android.support.v7.widget.OrientationHelper;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -39,6 +42,16 @@ public class LinearSnapHelper extends SnapHelper {
     private OrientationHelper mVerticalHelper;
     @Nullable
     private OrientationHelper mHorizontalHelper;
+
+    private float mCenterFocusRatio;
+
+    public LinearSnapHelper2() {
+        mCenterFocusRatio = 0.5f;
+    }
+
+    public LinearSnapHelper2(float centerFocusRatio) {
+        mCenterFocusRatio = centerFocusRatio;
+    }
 
     @Override
     public int[] calculateDistanceToFinalSnap(
@@ -139,14 +152,15 @@ public class LinearSnapHelper extends SnapHelper {
     }
 
     private int distanceToCenter(@NonNull RecyclerView.LayoutManager layoutManager,
-            @NonNull View targetView, OrientationHelper helper) {
-        final int childCenter = helper.getDecoratedStart(targetView)
-                + (helper.getDecoratedMeasurement(targetView) / 2);
+                                 @NonNull View targetView, OrientationHelper helper) {
+        final int childCenter = (int) (helper.getDecoratedStart(targetView)
+                + (helper.getDecoratedMeasurement(targetView) * 0.5));
         final int containerCenter;
         if (layoutManager.getClipToPadding()) {
-            containerCenter = helper.getStartAfterPadding() + helper.getTotalSpace() / 2;
+            containerCenter = (int) (helper.getStartAfterPadding()
+                    + helper.getTotalSpace() * mCenterFocusRatio);
         } else {
-            containerCenter = helper.getEnd() / 2;
+            containerCenter = (int) (helper.getEnd() * mCenterFocusRatio);
         }
         return childCenter - containerCenter;
     }
@@ -185,7 +199,7 @@ public class LinearSnapHelper extends SnapHelper {
      */
     @Nullable
     private View findCenterView(RecyclerView.LayoutManager layoutManager,
-            OrientationHelper helper) {
+                                OrientationHelper helper) {
         int childCount = layoutManager.getChildCount();
         if (childCount == 0) {
             return null;
@@ -194,16 +208,17 @@ public class LinearSnapHelper extends SnapHelper {
         View closestChild = null;
         final int center;
         if (layoutManager.getClipToPadding()) {
-            center = helper.getStartAfterPadding() + helper.getTotalSpace() / 2;
+            center = (int) (helper.getStartAfterPadding()
+                    + helper.getTotalSpace() * mCenterFocusRatio);
         } else {
-            center = helper.getEnd() / 2;
+            center = (int) (helper.getEnd() * mCenterFocusRatio);
         }
         int absClosest = Integer.MAX_VALUE;
 
         for (int i = 0; i < childCount; i++) {
             final View child = layoutManager.getChildAt(i);
             int childCenter = helper.getDecoratedStart(child)
-                    + (helper.getDecoratedMeasurement(child) / 2);
+                    + (int) (helper.getDecoratedMeasurement(child) * 0.5f);
             int absDistance = Math.abs(childCenter - center);
 
             /** if child center is closer than previous closest, set it as closest  **/
