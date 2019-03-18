@@ -14,7 +14,14 @@
      limitations under the License.
 -->
 <resources>
+
     <style name="TestActivityTheme" parent="android:Theme.Holo">
         <item name="android:windowAnimationStyle">@null</item>
+    </style>
+
+    <style name="TestActivityThemeWithBackground" parent="TestActivityTheme">
+        <item name="swipeRefreshLayoutBackgroundColor">#FF808080</item>
+        <item name="swipeRefreshLayoutFillShadowColor">#FFA9A9A9</item>
+        <item name="swipeRefreshLayoutKeyShadowColor">#FF424242</item>
     </style>
 </resources>
