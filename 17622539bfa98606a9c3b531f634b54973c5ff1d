@@ -16,6 +16,24 @@
       "revId": "17622539bfa98606a9c3b531f634b54973c5ff1d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f1ccb1cf_e09746f6",
+        "filename": "media2-widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1165,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-03-18T03:22:15Z",
+      "side": 0,
+      "message": "The main function of resetHideCallbacks is to reset the time for hiding the bars. When it is called here without showing all the bars at the same time, it creates a bug where mHideMainBars is called 2 seconds after the bars start to disappear. Removing this code solves the bug by not changing the existing animations.",
+      "parentUuid": "3ea76550_f161ae4f",
+      "revId": "17622539bfa98606a9c3b531f634b54973c5ff1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
