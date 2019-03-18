@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "3390e3f6_a889e125",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/ExtrasUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2019-03-18T19:19:25Z",
+      "side": 1,
+      "message": "nit: This is not quite accurate as this class also supports parsing intent started by TC.\n\n(Or should we have separate utils for intent and extras from result class?)",
+      "range": {
+        "startLine": 28,
+        "startChar": 43,
+        "endLine": 28,
+        "endChar": 84
+      },
+      "revId": "29729327c8b90716197627bf6e3996d3048c627f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9dbdc381_2ac1b2eb",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/ExtrasUtils.java",
         "patchSetId": 1
@@ -19,6 +42,23 @@
         "endLine": 32,
         "endChar": 58
       },
+      "revId": "29729327c8b90716197627bf6e3996d3048c627f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9dd7689a_d1043a00",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/ExtrasUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2019-03-18T19:19:25Z",
+      "side": 1,
+      "message": "nit: should we explain a bit what this intent is?",
       "revId": "29729327c8b90716197627bf6e3996d3048c627f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
