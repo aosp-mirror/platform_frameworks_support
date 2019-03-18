@@ -29,6 +29,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import android.view.ContextThemeWrapper;
 import android.view.View;
 
 import androidx.swiperefreshlayout.test.R;
@@ -98,6 +99,25 @@ public class SwipeRefreshLayoutTest {
     }
 
     @Test
+    @SmallTest
+    public void testSwipeDown_defaultColors() {
+        assertEquals(mSwipeRefresh.mCircleView.getBackgroundColor(), 0xFFFAFAFA);
+        assertEquals(mSwipeRefresh.mCircleView.getFillShadowColor(), 0x3D000000);
+        assertEquals(mSwipeRefresh.mCircleView.getKeyShadowColor(), 0x1E000000);
+    }
+
+    @Test
+    @SmallTest
+    public void testSwipeDown_colorsFromStyle() {
+        ContextThemeWrapper newContext = new ContextThemeWrapper(
+                mSwipeRefresh.getContext(), R.style.TestActivityThemeWithBackground);
+        SwipeRefreshLayout swipeRefreshLayout = new SwipeRefreshLayout(newContext);
+        assertEquals(swipeRefreshLayout.mCircleView.getBackgroundColor(), 0xFF808080);
+        assertEquals(swipeRefreshLayout.mCircleView.getFillShadowColor(), 0xFFA9A9A9);
+        assertEquals(swipeRefreshLayout.mCircleView.getKeyShadowColor(), 0xFF424242);
+    }
+
+    @Test
     @LargeTest
     public void testSwipeDownToRefresh() throws Throwable {
         assertFalse(mSwipeRefresh.isRefreshing());
@@ -111,13 +131,16 @@ public class SwipeRefreshLayoutTest {
         float density = mSwipeRefresh.getResources().getDisplayMetrics().density;
         assertEquals((int) (SwipeRefreshLayout.CIRCLE_DIAMETER * density),
                 mSwipeRefresh.getProgressCircleDiameter());
-        onView(withId(R.id.swipe_refresh)).perform(SwipeRefreshLayoutActions.setSize(SwipeRefreshLayout.LARGE));
+        onView(withId(R.id.swipe_refresh)).perform(
+                SwipeRefreshLayoutActions.setSize(SwipeRefreshLayout.LARGE));
         assertEquals((int) (SwipeRefreshLayout.CIRCLE_DIAMETER_LARGE * density),
                 mSwipeRefresh.getProgressCircleDiameter());
-        onView(withId(R.id.swipe_refresh)).perform(SwipeRefreshLayoutActions.setSize(SwipeRefreshLayout.DEFAULT));
+        onView(withId(R.id.swipe_refresh)).perform(
+                SwipeRefreshLayoutActions.setSize(SwipeRefreshLayout.DEFAULT));
         assertEquals((int) (SwipeRefreshLayout.CIRCLE_DIAMETER * density),
                 mSwipeRefresh.getProgressCircleDiameter());
-        onView(withId(R.id.swipe_refresh)).perform(SwipeRefreshLayoutActions.setSize(SwipeRefreshLayout.DEFAULT));
+        onView(withId(R.id.swipe_refresh)).perform(
+                SwipeRefreshLayoutActions.setSize(SwipeRefreshLayout.DEFAULT));
         onView(withId(R.id.swipe_refresh)).perform(SwipeRefreshLayoutActions.setSize(INVALID_SIZE));
         assertEquals((int) (SwipeRefreshLayout.CIRCLE_DIAMETER * density),
                 mSwipeRefresh.getProgressCircleDiameter());

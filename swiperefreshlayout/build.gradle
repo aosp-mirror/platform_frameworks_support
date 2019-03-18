@@ -26,6 +26,18 @@ dependencies {
     }
 }
 
+android {
+    sourceSets {
+        main.res.srcDirs = [
+                'src/main/res',
+                'src/main/res-public'
+        ]
+    }
+    buildTypes.all {
+        consumerProguardFiles 'proguard-rules.pro'
+    }
+}
+
 androidx {
     name = "Android Support Library Custom View"
     publish = true
