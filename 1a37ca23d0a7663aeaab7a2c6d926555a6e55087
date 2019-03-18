@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "25e98a47_be141de5",
+        "filename": "activity/src/main/java/androidx/activity/OnBackPressedDispatcher.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-03-18T22:46:32Z",
+      "side": 1,
+      "message": "See our previous (punted) discussion on whether OnBackPressedCallback should have a return value at all.\n\nGenerally, calling add/cancel based on Lifecycle events ensure that nested callbacks are always properly ordered, which is important for cases such as mixing Fragments and NavController.",
+      "parentUuid": "74e024f9_80205c10",
+      "revId": "1a37ca23d0a7663aeaab7a2c6d926555a6e55087",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "26ddc7a7_3e1e9bcb",
         "filename": "core/api/current.txt",
         "patchSetId": 3
@@ -30,6 +48,24 @@
       "writtenOn": "2019-03-18T22:27:02Z",
       "side": 1,
       "message": "I don\u0027t like core module \u003d( It has some many random totally not \"core\" things. We can move it to :arch:core-common ? it is at least small. Or even move it to its own module.",
+      "revId": "1a37ca23d0a7663aeaab7a2c6d926555a6e55087",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c1d3ce7_d791df5f",
+        "filename": "core/api/current.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 761,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-03-18T22:46:32Z",
+      "side": 1,
+      "message": "You were suggesting androidx.arch.core.util.Subscription? Or do you recommend a different package?\n\nI chose core because androidx.activity already depends on core (so no dependency change), but I could see where having other things depend on core just to have access to Subscription would be too much.",
+      "parentUuid": "26ddc7a7_3e1e9bcb",
       "revId": "1a37ca23d0a7663aeaab7a2c6d926555a6e55087",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
