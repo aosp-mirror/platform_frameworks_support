@@ -22,6 +22,30 @@
       "revId": "0cb99ec931470724213e27c815f8223d6f7f1ce8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "17fea38f_4a5a89d4",
+        "filename": "fragment/src/androidTest/java/androidx/fragment/app/TrackingTransition.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1442279
+      },
+      "writtenOn": "2019-03-18T16:32:43Z",
+      "side": 1,
+      "message": "I was having problems with that change.\n\nIf it is \"Rect?\" getCapturedEpicenter() always returns null and causes tests to fail. createAnimator() sets baseEpicenter properly, but getCapturedEpicenter() does not get the same object.\n\nI tried making it a companion object and the crossContainer() test in FragmentTransitionTest fail because two Fragments are sharing that element.",
+      "parentUuid": "556cd8b6_8eafef23",
+      "range": {
+        "startLine": 40,
+        "startChar": 32,
+        "endLine": 40,
+        "endChar": 53
+      },
+      "revId": "0cb99ec931470724213e27c815f8223d6f7f1ce8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
