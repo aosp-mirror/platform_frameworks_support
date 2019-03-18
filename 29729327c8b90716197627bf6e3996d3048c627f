@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "52706808_1b621d64",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/ExtrasUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2019-03-18T21:00:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3390e3f6_a889e125",
+      "range": {
+        "startLine": 28,
+        "startChar": 43,
+        "endLine": 28,
+        "endChar": 84
+      },
+      "revId": "29729327c8b90716197627bf6e3996d3048c627f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9dbdc381_2ac1b2eb",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/ExtrasUtils.java",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "3b3d2ffd_376caefd",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/ExtrasUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2019-03-18T21:00:47Z",
+      "side": 1,
+      "message": "I can\u0027t see it.\nBut even when it appears in the platform APIs, we will still need to condition it based on platform.\nWill leave this here for now and resolve later.\nThanks.",
+      "parentUuid": "9dbdc381_2ac1b2eb",
+      "range": {
+        "startLine": 32,
+        "startChar": 32,
+        "endLine": 32,
+        "endChar": 58
+      },
+      "revId": "29729327c8b90716197627bf6e3996d3048c627f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9dd7689a_d1043a00",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/ExtrasUtils.java",
         "patchSetId": 1
@@ -65,6 +113,24 @@
     },
     {
       "key": {
+        "uuid": "82395520_f5b25f48",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/ExtrasUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2019-03-18T21:00:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9dd7689a_d1043a00",
+      "revId": "29729327c8b90716197627bf6e3996d3048c627f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e15d737a_1e65fb05",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/ExtrasUtils.java",
         "patchSetId": 1
@@ -79,6 +145,24 @@
       "revId": "29729327c8b90716197627bf6e3996d3048c627f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a334cd17_249663b5",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/ExtrasUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2019-03-18T21:00:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e15d737a_1e65fb05",
+      "revId": "29729327c8b90716197627bf6e3996d3048c627f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
