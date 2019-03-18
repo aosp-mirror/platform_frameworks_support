@@ -34,6 +34,24 @@
       "revId": "17622539bfa98606a9c3b531f634b54973c5ff1d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fbd3551b_88641f8b",
+        "filename": "media2-widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1165,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-03-18T04:40:38Z",
+      "side": 0,
+      "message": "Ack",
+      "parentUuid": "f1ccb1cf_e09746f6",
+      "revId": "17622539bfa98606a9c3b531f634b54973c5ff1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
