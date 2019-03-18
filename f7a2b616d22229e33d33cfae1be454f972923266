@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "09eb6fc3_124303bd",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewAssetLoaderTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-03-18T22:15:48Z",
+      "side": 1,
+      "message": "Don\u0027t duplicate the URL. You could either say `opened unregistered URL` or\n\n```\nString url \u003d \"http://foo.bar/\"\nassertNull(\"opened \" + url + \" that isn\u0027t registered...\", shouldInterceptRequest(url));\n```",
+      "range": {
+        "startLine": 112,
+        "startChar": 34,
+        "endLine": 112,
+        "endChar": 53
+      },
+      "revId": "f7a2b616d22229e33d33cfae1be454f972923266",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
