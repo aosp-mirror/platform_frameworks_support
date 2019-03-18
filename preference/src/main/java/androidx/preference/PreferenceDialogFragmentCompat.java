@@ -35,6 +35,7 @@ import android.widget.TextView;
 
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
@@ -71,6 +72,16 @@ public abstract class PreferenceDialogFragmentCompat extends DialogFragment impl
 
     /** Which button was clicked. */
     private int mWhichButtonClicked;
+
+    /** Dismiss the dialog on the UI thread, but not inline with handlers */
+    private final Runnable mDismissRunnable = new Runnable() {
+        @Override
+        public void run() {
+            if (getDialog() != null) {
+                getDialog().dismiss();
+            }
+        }
+    };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -159,6 +170,13 @@ public abstract class PreferenceDialogFragmentCompat extends DialogFragment impl
         if (needInputMethod()) {
             requestInputMethod(dialog);
         }
+
+        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialog) {
+                removeDismissCallbacks();
+            }
+        });
 
         return dialog;
     }
@@ -256,6 +274,36 @@ public abstract class PreferenceDialogFragmentCompat extends DialogFragment impl
         }
     }
 
+    @SuppressWarnings("WeakerAccess") /* synthetic access */
+    void removeDismissCallbacks() {
+        View decorView = getDecorView();
+        if (decorView != null) {
+            decorView.removeCallbacks(mDismissRunnable);
+        }
+    }
+
+    void postDismiss() {
+        removeDismissCallbacks();
+        View decorView = getDecorView();
+        if (decorView != null) {
+            // If decorView is null, the dialog was already dismissed
+            decorView.post(mDismissRunnable);
+        }
+    }
+
+    /**
+     * Gets the root DecorView for this {@link DialogFragment}'s {@link Dialog}, if it is showing.
+     *
+     * @return the root DecorView if it is showing, else {@code null}
+     */
+    @Nullable
+    private View getDecorView() {
+        if (getDialog() != null && getDialog().getWindow() != null) {
+            return getDialog().getWindow().getDecorView();
+        }
+        return null;
+    }
+
     @Override
     public void onClick(DialogInterface dialog, int which) {
         mWhichButtonClicked = which;
@@ -264,6 +312,7 @@ public abstract class PreferenceDialogFragmentCompat extends DialogFragment impl
     @Override
     public void onDismiss(@NonNull DialogInterface dialog) {
         super.onDismiss(dialog);
+        removeDismissCallbacks();
         onDialogClosed(mWhichButtonClicked == DialogInterface.BUTTON_POSITIVE);
     }
 
