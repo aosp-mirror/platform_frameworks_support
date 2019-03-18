@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "61311c86_c94556f1",
+        "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/SdkUtil.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-18T18:09:42Z",
+      "side": 1,
+      "message": "Because androidx project setups local.properties for you (setSdkInLocalPropertiesFile). This happens, because project should use sdk provided in prebuilts. Finally, we need that, because in internal branches code uses features available only in not-yet shipped sdk. \n\nNow, rewind back to setSdkInLocalPropertiesFile. It happends during buildscript { } of top level build.gradle, when android plugin is not yet available.",
+      "parentUuid": "da6a13d5_e52ed27e",
+      "revId": "8c9772429aa0a9a9d655e8479e4771ed2d04ca9e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4888bc13_31ba6734",
         "filename": "benchmark/gradle-plugin/src/test/kotlin/androidx/benchmark/gradle/SdkUtilTest.kt",
         "patchSetId": 15
