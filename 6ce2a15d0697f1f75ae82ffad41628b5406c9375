@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7fa7d8a9_14e24656",
+        "filename": "media2-widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 603,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-03-18T03:16:16Z",
+      "side": 0,
+      "message": "Could you remove the LinearLayout in media_controller.xml as well?",
+      "range": {
+        "startLine": 603,
+        "startChar": 43,
+        "endLine": 603,
+        "endChar": 57
+      },
+      "revId": "6ce2a15d0697f1f75ae82ffad41628b5406c9375",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
