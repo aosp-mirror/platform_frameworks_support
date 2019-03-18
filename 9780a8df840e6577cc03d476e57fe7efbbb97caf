@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4bfc4a17_c857b5a8",
+        "filename": "legacy/v13/src/main/java/androidx/legacy/app/FragmentTabHost.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-03-18T21:38:24Z",
+      "side": 1,
+      "message": "Try linking to https://developer.android.com/guide/navigation/navigation-swipe-view instead, since that\u0027ll be a stable link to our current best practices.",
+      "range": {
+        "startLine": 42,
+        "startChar": 15,
+        "endLine": 42,
+        "endChar": 78
+      },
+      "revId": "9780a8df840e6577cc03d476e57fe7efbbb97caf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
