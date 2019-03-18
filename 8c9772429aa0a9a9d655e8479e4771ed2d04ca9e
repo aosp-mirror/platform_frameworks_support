@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "da6a13d5_e52ed27e",
+        "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/SdkUtil.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-03-18T17:54:14Z",
+      "side": 1,
+      "message": "Sure - any chance you know why the AndroidxPlugin uses a custom SdkHelper?",
+      "parentUuid": "3a2e0049_ed368304",
+      "revId": "8c9772429aa0a9a9d655e8479e4771ed2d04ca9e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4888bc13_31ba6734",
         "filename": "benchmark/gradle-plugin/src/test/kotlin/androidx/benchmark/gradle/SdkUtilTest.kt",
         "patchSetId": 15
@@ -33,6 +51,24 @@
       "revId": "8c9772429aa0a9a9d655e8479e4771ed2d04ca9e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76379b6e_230abedf",
+        "filename": "benchmark/gradle-plugin/src/test/kotlin/androidx/benchmark/gradle/SdkUtilTest.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-03-18T17:54:14Z",
+      "side": 1,
+      "message": "The original issue was that since the util just waterfalls, it\u0027s hard to test without being able to clear the env variable - either way I think this is a non-issue if replace this entire helper with sdkDir from android plugin extensions.",
+      "parentUuid": "4888bc13_31ba6734",
+      "revId": "8c9772429aa0a9a9d655e8479e4771ed2d04ca9e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
