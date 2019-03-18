@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b95ead5d_d075cb89",
+        "filename": "lifecycle/common/eap/build.gradle",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-18T19:20:38Z",
+      "side": 1,
+      "message": "once you land your CL, I\u0027ll update move this code to lifecycle/runtime/eap. Similarly I\u0027ll move lint to :lifecycle-runtime-eap-lint\"",
+      "revId": "a601f47fd8a7d20a88200838100a2bfed24fa856",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
