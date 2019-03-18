@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a2e0049_ed368304",
+        "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/SdkUtil.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-18T12:44:56Z",
+      "side": 1,
+      "message": "you can depend on android gradle plugin directly, then you can grab this info via \n\nhttps://cs.corp.google.com/android/tools/base/build-system/gradle-core/src/main/java/com/android/build/gradle/BaseExtension.java?rcl\u003ded7c655164f0f7bc43db62ecba8603d848e9a4bc\u0026l\u003d883\n\nsee AndroidXPlugin how to work with other Plugins and their extensions.",
+      "revId": "8c9772429aa0a9a9d655e8479e4771ed2d04ca9e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
