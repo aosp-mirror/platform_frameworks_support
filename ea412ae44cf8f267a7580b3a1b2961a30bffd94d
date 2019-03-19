@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "463c7020_625c3d47",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedListView.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 1010674
+      },
+      "writtenOn": "2019-03-19T20:05:30Z",
+      "side": 1,
+      "message": "nit: align",
+      "range": {
+        "startLine": 581,
+        "startChar": 6,
+        "endLine": 581,
+        "endChar": 21
+      },
+      "revId": "ea412ae44cf8f267a7580b3a1b2961a30bffd94d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a35d2087_8c3ba41d",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedListView.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 752,
+      "author": {
+        "id": 1010674
+      },
+      "writtenOn": "2019-03-19T20:05:30Z",
+      "side": 1,
+      "message": "nit: align",
+      "range": {
+        "startLine": 752,
+        "startChar": 6,
+        "endLine": 752,
+        "endChar": 23
+      },
+      "revId": "ea412ae44cf8f267a7580b3a1b2961a30bffd94d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
