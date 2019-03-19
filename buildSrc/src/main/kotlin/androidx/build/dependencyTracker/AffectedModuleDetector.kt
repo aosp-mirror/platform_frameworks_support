@@ -30,7 +30,11 @@ import org.gradle.api.logging.Logger
 /**
  * The subsets we allow the projects to be partitioned into.
  * This is to allow more granular testing. Specifically, to enable running large tests on
- * CHANGED_PROJECTS, and
+ * CHANGED_PROJECTS, while still only running small and medium tests on DEPENDENT_PROJECTS.
+ *
+ * The ProjectSubset specifies which projects we are interested in testing.
+ * The AffectedModuleDetector determines the minimum set of projects that must be built in
+ * order to run all the tests along with their runtime dependencies.
  *
  * The subsets are:
  *  CHANGED_PROJECTS -- The containing projects for any files that were changed in this CL.
@@ -223,6 +227,8 @@ internal class AffectedModuleDetectorImpl constructor(
      * This is because we run all tests including @large on the changed set. So when we must
      * build all, we only want to run @small and @medium tests in the test runner for
      * DEPENDENT_PROJECTS.
+     *
+     * Also detects modules whose tests are codependent at runtime.
      */
     private fun findLocallyAffectedProjects(): Set<Project> {
         val lastMergeSha = git.findPreviousMergeCL() ?: return allProjects
@@ -232,7 +238,7 @@ internal class AffectedModuleDetectorImpl constructor(
 
         val alwaysBuild = rootProject.subprojects.filter { project ->
             ALWAYS_BUILD.any {
-                project.name.contains(it)
+                project.name == it
             }
         }.toSet()
 
@@ -268,13 +274,49 @@ internal class AffectedModuleDetectorImpl constructor(
             }
         }
 
-        return alwaysBuild + when (projectSubset) {
+        val cobuiltTestProjects = lookupProjectSetsFromNames(COBUILT_TEST_NAMES)
+
+        val affectedProjects = when (projectSubset) {
             ProjectSubset.DEPENDENT_PROJECTS
                 -> expandToDependents(containingProjects) - containingProjects.filterNotNull()
             ProjectSubset.CHANGED_PROJECTS
-                -> (containingProjects).filterNotNull().toSet()
+                -> containingProjects.filterNotNull().toSet()
             else -> expandToDependents(containingProjects)
         }
+
+        return alwaysBuild + affectedProjects +
+                getAffectedCobuiltProjects(affectedProjects, cobuiltTestProjects)
+    }
+
+    private fun lookupProjectSetsFromNames(projectNames: Set<Set<String>>): Set<Set<Project>> {
+        val projectSets = mutableSetOf<Set<Project>>()
+        projectNames.forEach { cobuiltTestNameSet ->
+            projectSets.add(
+                rootProject.subprojects.filter { project ->
+                    cobuiltTestNameSet.any {
+                        project.name == it
+                    }
+                }.toSet()
+            )
+        }
+        return projectSets
+    }
+
+    private fun getAffectedCobuiltProjects(
+        affectedProjects: Set<Project>,
+        allCobuiltSets: Set<Set<Project>>
+    ): Set<Project> {
+        val cobuilts = mutableSetOf<Project>()
+        affectedProjects.forEach { project ->
+            allCobuiltSets.forEach { cobuiltSet ->
+                if (cobuiltSet.any {
+                        project == it
+                    }) {
+                    cobuilts.addAll(cobuiltSet)
+                }
+            }
+        }
+        return cobuilts
     }
 
     private fun expandToDependents(containingProjects: List<Project?>): Set<Project> {
@@ -293,5 +335,19 @@ internal class AffectedModuleDetectorImpl constructor(
         // dummy test to ensure no failure due to "no instrumentation. We can eventually remove
         // if we resolve b/127819369
         private val ALWAYS_BUILD = setOf("dumb-test")
+        // Some tests are codependent even if their modules are not. Enable manual bundling of tests
+        private val COBUILT_TEST_NAMES = setOf(
+            // Install media tests together per b/128577735
+            setOf(
+                "support-media-compat-test-client",
+                "support-media-compat-test-service",
+                "support-media-compat-test-client-previous",
+                "isupport-media-compat-test-service-previous"
+            ),
+            setOf(
+                "support-media2-test-client",
+                "support-media2-test-service"
+            )
+        )
     }
 }
