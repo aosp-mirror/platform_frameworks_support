@@ -1,0 +1,404 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7ff4839d_7d5fc4e5",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/RadioButtonListItemTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-03-19T22:30:59Z",
+      "side": 1,
+      "message": "What about a test for if no primary action is set?",
+      "revId": "4424e3fee9ca03e7ef250ada74e44b06f8fac18e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93933d3a_45fde977",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/RadioButtonListItemTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-03-19T22:30:59Z",
+      "side": 1,
+      "message": "I think this should be indented +8 from the previous line.\n\n  int expected \u003d itemView.getRight() - itemView.getPaddingRight()\n          - ApplicationProvider.getApplicationContext().getResources()\n                  .getDimensionPixelSize(R.dimen.car_keyline_1);",
+      "revId": "4424e3fee9ca03e7ef250ada74e44b06f8fac18e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa5f2614_4021471e",
+        "filename": "car/core/src/main/java/androidx/car/app/CarSingleSelectionDialog.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-03-19T22:30:59Z",
+      "side": 1,
+      "message": "Just do \"else if\" here",
+      "range": {
+        "startLine": 202,
+        "startChar": 15,
+        "endLine": 203,
+        "endChar": 14
+      },
+      "revId": "4424e3fee9ca03e7ef250ada74e44b06f8fac18e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "272a27cf_2932a295",
+        "filename": "car/core/src/main/java/androidx/car/app/CarSingleSelectionDialog.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-03-19T22:30:59Z",
+      "side": 1,
+      "message": "Just inline this since it\u0027s only used in one place",
+      "revId": "4424e3fee9ca03e7ef250ada74e44b06f8fac18e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5794bc76_20479ec3",
+        "filename": "car/core/src/main/java/androidx/car/app/CarSingleSelectionDialog.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-03-19T22:30:59Z",
+      "side": 1,
+      "message": "This extra parenthesis is unnecessary.",
+      "range": {
+        "startLine": 332,
+        "startChar": 12,
+        "endLine": 332,
+        "endChar": 13
+      },
+      "revId": "4424e3fee9ca03e7ef250ada74e44b06f8fac18e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "749ec2b8_75d8d3c0",
+        "filename": "car/core/src/main/java/androidx/car/app/CarSingleSelectionDialog.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-03-19T22:30:59Z",
+      "side": 1,
+      "message": "You shouldn\u0027t need to extend ListItemAdapter. I believe you\u0027re mostly using this to get the radio button off the ViewHolder?\n\nAdd a ViewBinder on the RadioButtonListItems in createItem() to accomplish this:\n\n  RadioButtonListItem item \u003d new RadioButtonListItem(getContext());\n  item.addViewBinder(vh -\u003e {\n      vh.getRadioButton().setChecked(mLastCheckedPosition \u003d\u003d position);\n      vh.getRadioButton().setOnCheckedChangeListener(\n              (buttonView, isChecked) -\u003e {\n                  mLastCheckedPosition \u003d position;\n                  // Refresh other radio button list items.\n                  mAdapter.notifyDataSetChanged();\n              });    \n  });\n\nMove the necessary fields out of this into CarSingleSelectionDialog.",
+      "revId": "4424e3fee9ca03e7ef250ada74e44b06f8fac18e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9c079dc_d255534d",
+        "filename": "car/core/src/main/java/androidx/car/app/CarSingleSelectionDialog.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 417,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-03-19T22:30:59Z",
+      "side": 1,
+      "message": "Update javadoc so that you specify it can\u0027t be non-empty.",
+      "revId": "4424e3fee9ca03e7ef250ada74e44b06f8fac18e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74f4eefb_5c81069f",
+        "filename": "car/core/src/main/java/androidx/car/app/CarSingleSelectionDialog.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-03-19T22:30:59Z",
+      "side": 1,
+      "message": "@Nullable",
+      "range": {
+        "startLine": 420,
+        "startChar": 55,
+        "endLine": 420,
+        "endChar": 72
+      },
+      "revId": "4424e3fee9ca03e7ef250ada74e44b06f8fac18e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2065afae_6bb52fff",
+        "filename": "car/core/src/main/java/androidx/car/app/CarSingleSelectionDialog.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-03-19T22:30:59Z",
+      "side": 1,
+      "message": "Add @NonNull",
+      "range": {
+        "startLine": 420,
+        "startChar": 35,
+        "endLine": 420,
+        "endChar": 53
+      },
+      "revId": "4424e3fee9ca03e7ef250ada74e44b06f8fac18e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f911f252_f065c030",
+        "filename": "car/core/src/main/java/androidx/car/app/CarSingleSelectionDialog.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 479,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-03-19T22:30:59Z",
+      "side": 1,
+      "message": "@Nullable?",
+      "range": {
+        "startLine": 479,
+        "startChar": 32,
+        "endLine": 479,
+        "endChar": 50
+      },
+      "revId": "4424e3fee9ca03e7ef250ada74e44b06f8fac18e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "735d0df2_8d1152e7",
+        "filename": "car/core/src/main/java/androidx/car/app/CarSingleSelectionDialog.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-03-19T22:30:59Z",
+      "side": 1,
+      "message": "@Nullable?",
+      "range": {
+        "startLine": 504,
+        "startChar": 35,
+        "endLine": 504,
+        "endChar": 56
+      },
+      "revId": "4424e3fee9ca03e7ef250ada74e44b06f8fac18e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8492a7c7_39d59597",
+        "filename": "car/core/src/main/java/androidx/car/app/CarSingleSelectionDialog.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 529,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-03-19T22:30:59Z",
+      "side": 1,
+      "message": "Since the listener is only called after the positive button is clicked, let\u0027s add a method for individually setting the listener rather than combining it with setItems().\n\nI think putting it in here implies that it\u0027ll get called after any selection.\n\nPutting it in its own method provides clearer separation. Alternatively, you can combine with setPositiveButton",
+      "range": {
+        "startLine": 529,
+        "startChar": 16,
+        "endLine": 529,
+        "endChar": 65
+      },
+      "revId": "4424e3fee9ca03e7ef250ada74e44b06f8fac18e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "271ec056_920f5ede",
+        "filename": "car/core/src/main/java/androidx/car/app/CarSingleSelectionDialog.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 609,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-03-19T22:30:59Z",
+      "side": 1,
+      "message": "@Nullable?",
+      "range": {
+        "startLine": 609,
+        "startChar": 43,
+        "endLine": 609,
+        "endChar": 76
+      },
+      "revId": "4424e3fee9ca03e7ef250ada74e44b06f8fac18e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86d678a0_ee7424e7",
+        "filename": "car/core/src/main/java/androidx/car/app/CarSingleSelectionDialog.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 620,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-03-19T22:30:59Z",
+      "side": 1,
+      "message": "@Nullable?",
+      "range": {
+        "startLine": 620,
+        "startChar": 44,
+        "endLine": 620,
+        "endChar": 79
+      },
+      "revId": "4424e3fee9ca03e7ef250ada74e44b06f8fac18e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "245e9c94_ba10aff3",
+        "filename": "car/core/src/main/java/androidx/car/app/CarSingleSelectionDialog.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 642,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-03-19T22:30:59Z",
+      "side": 1,
+      "message": "Nit: drop this to the next line",
+      "range": {
+        "startLine": 642,
+        "startChar": 85,
+        "endLine": 642,
+        "endChar": 99
+      },
+      "revId": "4424e3fee9ca03e7ef250ada74e44b06f8fac18e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "243b5687_f88fc198",
+        "filename": "car/core/src/main/java/androidx/car/widget/RadioButtonListItem.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-03-19T22:30:59Z",
+      "side": 1,
+      "message": "Forgot this last time. Could you add a @Dimension annotation to this?\n\n @Dimension(unit \u003d Dimension.PX)",
+      "revId": "4424e3fee9ca03e7ef250ada74e44b06f8fac18e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5e33e77_796ef1ef",
+        "filename": "car/core/src/main/java/androidx/car/widget/RadioButtonListItem.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-03-19T22:30:59Z",
+      "side": 1,
+      "message": "Can\u0027t perform this type of check since the value of mTextStartMargin should be a resolved dimension. So it very well can be valid and 0.\n\nRather, if you wanna perform a check like this, probably best to have a boolean flag",
+      "revId": "4424e3fee9ca03e7ef250ada74e44b06f8fac18e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a21b8ca7_17b50b36",
+        "filename": "car/core/src/main/java/androidx/car/widget/RadioButtonListItem.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 453,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-03-19T22:30:59Z",
+      "side": 1,
+      "message": "Add mBody here",
+      "revId": "4424e3fee9ca03e7ef250ada74e44b06f8fac18e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b0abd2c_4673da80",
+        "filename": "car/core/src/main/java/androidx/car/widget/RadioButtonListItem.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 495,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-03-19T22:30:59Z",
+      "side": 1,
+      "message": "The body is also subject to the restriction",
+      "revId": "4424e3fee9ca03e7ef250ada74e44b06f8fac18e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51143607_05701744",
+        "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/RadioButtonListItemActivity.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-03-19T22:30:59Z",
+      "side": 1,
+      "message": "You probably wanna check some list items that have body text.",
+      "revId": "4424e3fee9ca03e7ef250ada74e44b06f8fac18e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

@@ -470,6 +470,24 @@
     },
     {
       "key": {
+        "uuid": "8efea77f_02c5bf8e",
+        "filename": "car/core/src/main/java/androidx/car/app/CarSelectionDialog.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-03-19T22:30:59Z",
+      "side": 1,
+      "message": "Pull out as much as possible that\u0027s common. This won\u0027t be everything. The scroll bar and list are always initialized. You don\u0027t need to pull out the adapter logic; just the layout setup.\n\nI say you can pull out the logic for global layout listener and the scroll bar hookup. \n\nThis helper can probably take an already found PagedListView.\n\n  setUpDialogList(PagedListView list) { .. }\n\n  // And in this dialog, you can simplify initializeList():\n  private void initializeList() {\n      mList \u003d getWindow().findViewById(R.id.list);\n      mList.setAdapter(mAdapter);\n      mList.setDividerVisibilityManager(mAdapter);\n\n      setUpDialogList(mList);\n  }\n\nFeel free to change the method names as you see fit.",
+      "parentUuid": "094079f0_f85bd558",
+      "revId": "fe86c40c9bffd7dbc2fb97dc0f1c1cf6890d0680",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e26b1e83_9b355f7d",
         "filename": "car/core/src/main/java/androidx/car/app/CarSelectionDialog.java",
         "patchSetId": 9
@@ -1138,6 +1156,30 @@
       "writtenOn": "2019-03-19T18:11:08Z",
       "side": 1,
       "message": "hmm should this be renamed to reflect when it\u0027s called, like \"OnPositiveButtonClickedListener\"? \nthis listener is not called when selection is made",
+      "range": {
+        "startLine": 371,
+        "startChar": 21,
+        "endLine": 371,
+        "endChar": 41
+      },
+      "revId": "fe86c40c9bffd7dbc2fb97dc0f1c1cf6890d0680",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2127ee56_206365b6",
+        "filename": "car/core/src/main/java/androidx/car/app/CarSelectionDialog.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-03-19T22:30:59Z",
+      "side": 1,
+      "message": "Agreed. The name should probably be changed. If you\u0027re going to use OnPositiveButtonClickedListener(), then that feels like you should just re-use an OnClickListener. \n\nSo that probably shouldn\u0027t be the new name.",
+      "parentUuid": "70839802_ca27b8ec",
       "range": {
         "startLine": 371,
         "startChar": 21,
