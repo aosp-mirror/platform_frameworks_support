@@ -34,10 +34,12 @@ import org.jetbrains.kotlin.lexer.KtTokens
 import org.jetbrains.uast.UCallExpression
 import org.jetbrains.uast.UClass
 import org.jetbrains.uast.UDeclaration
+import org.jetbrains.uast.UIfExpression
 import org.jetbrains.uast.ULambdaExpression
 import org.jetbrains.uast.UMethod
 import org.jetbrains.uast.UTryExpression
 import org.jetbrains.uast.toUElement
+import org.jetbrains.uast.tryResolve
 import org.jetbrains.uast.visitor.AbstractUastVisitor
 
 private const val CONTINUATION = "kotlin.coroutines.experimental.Continuation<? super kotlin.Unit>"
@@ -94,8 +96,13 @@ internal class LifecycleWhenVisitor(private val context: JavaContext) : Abstract
      * *without*  suspend call.
      *
      * [AFTER_SUSPEND_TRY] -> *previously saved state* after finally / catch block
+     *
+     * [AFTER_SUSPEND_TRY] -> [IN_GUARDED_CHECK] when enter in lifecycle state check
+
+     * [IN_GUARDED_CHECK] -> [AFTER_SUSPEND_TRY] when exit lifecycle state check
      */
-    private enum class State { DEFAULT, IN_TRY, AFTER_SUSPEND_TRY }
+    private enum class State { DEFAULT, IN_TRY, AFTER_SUSPEND_TRY, IN_GUARDED_CHECK }
+
     private var state = State.DEFAULT
     private var hasSuspendCall = false
 
@@ -145,15 +152,33 @@ internal class LifecycleWhenVisitor(private val context: JavaContext) : Abstract
 
     // ignore fun defined inline
     override fun visitDeclaration(node: UDeclaration) = true
+
+    override fun visitIfExpression(node: UIfExpression): Boolean {
+        if (state != State.AFTER_SUSPEND_TRY) return false
+        val method = node.condition.tryResolve() as? PsiMethod ?: return false
+        if (method.isLifecycleisAtLeastMethod(context)) {
+            state = State.IN_GUARDED_CHECK
+            node.thenExpression?.accept(this)
+            state = State.AFTER_SUSPEND_TRY
+            node.elseExpression?.accept(this)
+            return true
+        }
+        return false
+    }
 }
 
 private val DISPATCHER_CLASS_NAME = "androidx.lifecycle.PausingDispatcherKt"
+private val LIFECYCLE_CLASS_NAME = "androidx.lifecycle.Lifecycle"
 private val VIEW_CLASS_NAME = "android.view.View"
 
 private fun PsiMethod.isLifecycleWhenExtension(context: JavaContext): Boolean {
     return name in APPLICABLE_METHOD_NAMES &&
             context.evaluator.isMemberInClass(this, DISPATCHER_CLASS_NAME) &&
             context.evaluator.isStatic(this)
+}
+
+private fun PsiMethod.isLifecycleisAtLeastMethod(context: JavaContext): Boolean {
+    return name == "isAtLeast" && context.evaluator.isMemberInClass(this, LIFECYCLE_CLASS_NAME)
 }
 
 // TODO: find a better way!

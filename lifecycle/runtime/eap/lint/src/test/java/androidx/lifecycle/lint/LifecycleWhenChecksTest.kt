@@ -40,7 +40,12 @@ class LifecycleWhenChecksTest {
 
         import kotlinx.coroutines.CoroutineScope
 
-        interface Lifecycle {}
+        abstract class Lifecycle {
+            enum class State { CREATED, STARTED }
+            fun isAtLeast(state: State): Boolean {
+                return true
+            }
+        }
         interface CoroutineScope {}
 
         suspend fun <T> Lifecycle.whenStarted(block: suspend CoroutineScope.() -> T): T {
@@ -119,6 +124,72 @@ class LifecycleWhenChecksTest {
         """.trimIndent()
 
         check(input.trimIndent()).expect(error(4))
+    }
+
+    @Test
+    fun accessViewInFinallyInLifecycleCheck() {
+        val input = """
+            try {
+                suspendingFun()
+            } finally {
+                if (lifecycle.isAtLeast(Lifecycle.State.STARTED)) {
+                    view.foo()
+                }
+            }
+        """.trimIndent()
+        check(input.trimIndent()).expectClean()
+    }
+
+    @Test
+    fun accessViewInFinallyAfterLifecycleCheck() {
+        val input = """
+            try {
+                suspendingFun()
+            } finally {
+                if (lifecycle.isAtLeast(Lifecycle.State.STARTED)) {
+                } else {
+                    view.foo()
+                }
+            }
+        """.trimIndent()
+        check(input.trimIndent()).expect(error(6, "    view.foo()"))
+    }
+
+    @Test
+    fun accessViewInFinallyWithLifecycleCheckInterrupted() {
+        // it is ok, because suspendingFun in if - check will throw if scope was cancelled,
+        // so view.foo() won't be executed
+        val input = """
+            try {
+                suspendingFun()
+            } finally {
+                if (lifecycle.isAtLeast(Lifecycle.State.STARTED)) {
+                    suspendingFun()
+                    view.foo()
+                }
+            }
+        """.trimIndent()
+        check(input.trimIndent()).expectClean()
+    }
+
+    @Test
+    fun tryInLifecycleCheck() {
+        val input = """
+            try {
+                suspendingFun()
+            } finally {
+                if (lifecycle.isAtLeast(Lifecycle.State.STARTED)) {
+                    try {
+                        suspendingFun()
+                    } finally {
+                        view.foo()
+                    }
+                    view.foo()
+                }
+            }
+        """.trimIndent()
+        check(input.trimIndent()).expect(error(8, "        view.foo()"))
+            .expectErrorCount(1)
     }
 
     @Test
