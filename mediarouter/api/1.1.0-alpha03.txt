@@ -30,6 +30,16 @@ package androidx.mediarouter.app {
     method public boolean showDialog();
   }
 
+  public class MediaRouteCastDialog extends androidx.appcompat.app.AppCompatDialog {
+    ctor public MediaRouteCastDialog(android.content.Context!);
+    ctor public MediaRouteCastDialog(android.content.Context!, int);
+    method public android.support.v4.media.session.MediaSessionCompat.Token! getMediaSession();
+    method public androidx.mediarouter.media.MediaRouteSelector getRouteSelector();
+    method public boolean onFilterRoute(androidx.mediarouter.media.MediaRouter.RouteInfo);
+    method public void onFilterRoutes(java.util.List<androidx.mediarouter.media.MediaRouter.RouteInfo>);
+    method public void setRouteSelector(androidx.mediarouter.media.MediaRouteSelector);
+  }
+
   public class MediaRouteChooserDialog extends androidx.appcompat.app.AppCompatDialog {
     ctor public MediaRouteChooserDialog(android.content.Context!);
     ctor public MediaRouteChooserDialog(android.content.Context!, int);
@@ -61,6 +71,16 @@ package androidx.mediarouter.app {
   public class MediaRouteControllerDialogFragment extends androidx.fragment.app.DialogFragment {
     ctor public MediaRouteControllerDialogFragment();
     method public androidx.mediarouter.app.MediaRouteControllerDialog! onCreateControllerDialog(android.content.Context!, android.os.Bundle!);
+  }
+
+  public class MediaRouteDevicePickerDialog extends androidx.appcompat.app.AppCompatDialog {
+    ctor public MediaRouteDevicePickerDialog(android.content.Context!);
+    ctor public MediaRouteDevicePickerDialog(android.content.Context!, int);
+    method public androidx.mediarouter.media.MediaRouteSelector getRouteSelector();
+    method public boolean onFilterRoute(androidx.mediarouter.media.MediaRouter.RouteInfo);
+    method public void onFilterRoutes(java.util.List<androidx.mediarouter.media.MediaRouter.RouteInfo>);
+    method public void refreshRoutes();
+    method public void setRouteSelector(androidx.mediarouter.media.MediaRouteSelector);
   }
 
   public class MediaRouteDialogFactory {
@@ -343,6 +363,7 @@ package androidx.mediarouter.media {
   public final class MediaRouter {
     method public void addCallback(androidx.mediarouter.media.MediaRouteSelector!, androidx.mediarouter.media.MediaRouter.Callback!);
     method public void addCallback(androidx.mediarouter.media.MediaRouteSelector, androidx.mediarouter.media.MediaRouter.Callback, int);
+    method public void addMemberToSelectedRoute(androidx.mediarouter.media.MediaRouter.RouteInfo!);
     method public void addProvider(androidx.mediarouter.media.MediaRouteProvider);
     method public void addRemoteControlClient(Object);
     method public androidx.mediarouter.media.MediaRouter.RouteInfo! getBluetoothRoute();
@@ -354,6 +375,7 @@ package androidx.mediarouter.media {
     method public androidx.mediarouter.media.MediaRouter.RouteInfo getSelectedRoute();
     method public boolean isRouteAvailable(androidx.mediarouter.media.MediaRouteSelector, int);
     method public void removeCallback(androidx.mediarouter.media.MediaRouter.Callback);
+    method public void removeMemberFromSelectedRoute(androidx.mediarouter.media.MediaRouter.RouteInfo!);
     method public void removeProvider(androidx.mediarouter.media.MediaRouteProvider);
     method public void removeRemoteControlClient(Object);
     method public void selectRoute(androidx.mediarouter.media.MediaRouter.RouteInfo);
@@ -407,9 +429,11 @@ package androidx.mediarouter.media {
     method public java.util.List<android.content.IntentFilter>! getControlFilters();
     method public String? getDescription();
     method public int getDeviceType();
+    method public androidx.mediarouter.media.MediaRouteProvider.DynamicGroupRouteController? getDynamicGroupController();
     method public android.os.Bundle? getExtras();
     method public android.net.Uri! getIconUri();
     method public String getId();
+    method public java.util.List<androidx.mediarouter.media.MediaRouter.RouteInfo> getMemberRoutes();
     method public String! getName();
     method public int getPlaybackStream();
     method public int getPlaybackType();
@@ -424,7 +448,10 @@ package androidx.mediarouter.media {
     method public boolean isDefault();
     method public boolean isDeviceSpeaker();
     method public boolean isEnabled();
+    method public boolean isGroupable();
     method public boolean isSelected();
+    method public boolean isTransferable();
+    method public boolean isUnselectable();
     method public boolean matchesSelector(androidx.mediarouter.media.MediaRouteSelector);
     method public void requestSetVolume(int);
     method public void requestUpdateVolume(int);

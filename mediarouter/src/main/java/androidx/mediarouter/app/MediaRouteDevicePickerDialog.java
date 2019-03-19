@@ -16,8 +16,6 @@
 
 package androidx.mediarouter.app;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
-
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -36,7 +34,6 @@ import android.widget.TextView;
 
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
-import androidx.annotation.RestrictTo;
 import androidx.appcompat.app.AppCompatDialog;
 import androidx.mediarouter.R;
 import androidx.mediarouter.media.MediaRouteSelector;
@@ -58,9 +55,7 @@ import java.util.List;
  *
  * @see MediaRouteButton
  * @see MediaRouteActionProvider
- * @hide
  */
-@RestrictTo(LIBRARY_GROUP_PREFIX)
 public class MediaRouteDevicePickerDialog extends AppCompatDialog {
     private static final String TAG = "MediaRouteDevicePickerDialog";
 
@@ -76,8 +71,10 @@ public class MediaRouteDevicePickerDialog extends AppCompatDialog {
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     boolean mIsSelectingDynamicRoute;
 
+    @SuppressWarnings("WeakerAccess") /* synthetic access */
     Context mContext;
     private MediaRouteSelector mSelector = MediaRouteSelector.EMPTY;
+    @SuppressWarnings("WeakerAccess") /* synthetic access */
     List<MediaRouter.RouteInfo> mRoutes;
     private ImageButton mCloseButton;
     private RecyclerAdapter mAdapter;
@@ -251,7 +248,7 @@ public class MediaRouteDevicePickerDialog extends AppCompatDialog {
         mLastUpdateTime = SystemClock.uptimeMillis();
         mRoutes.clear();
         mRoutes.addAll(routes);
-        mAdapter.rebuildItems();
+        mAdapter.updateItems();
     }
 
     private final class MediaRouterCallback extends MediaRouter.Callback {
@@ -310,11 +307,11 @@ public class MediaRouteDevicePickerDialog extends AppCompatDialog {
             mTvIcon = MediaRouterThemeHelper.getTvDrawableIcon(mContext);
             mSpeakerIcon = MediaRouterThemeHelper.getSpeakerDrawableIcon(mContext);
             mSpeakerGroupIcon = MediaRouterThemeHelper.getSpeakerGroupDrawableIcon(mContext);
-            rebuildItems();
+            updateItems();
         }
 
         // Create a list of items with mMemberRoutes and add them to mItems
-        void rebuildItems() {
+        void updateItems() {
             mItems.clear();
 
             mItems.add(new Item(mContext.getString(R.string.mr_chooser_title)));
@@ -326,7 +323,8 @@ public class MediaRouteDevicePickerDialog extends AppCompatDialog {
         }
 
         @Override
-        public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent,
+                int viewType) {
             View view;
 
             switch (viewType) {
@@ -343,7 +341,7 @@ public class MediaRouteDevicePickerDialog extends AppCompatDialog {
         }
 
         @Override
-        public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
             int viewType = getItemViewType(position);
             Item item = getItem(position);
 
@@ -470,7 +468,7 @@ public class MediaRouteDevicePickerDialog extends AppCompatDialog {
                 MediaRouterThemeHelper.setIndeterminateProgressBarColor(mContext, mProgressBar);
             }
 
-            public void bindRouteView(final Item item) {
+            void bindRouteView(final Item item) {
                 final MediaRouter.RouteInfo route = (MediaRouter.RouteInfo) item.getData();
                 mItemView.setVisibility(View.VISIBLE);
                 mProgressBar.setVisibility(View.INVISIBLE);

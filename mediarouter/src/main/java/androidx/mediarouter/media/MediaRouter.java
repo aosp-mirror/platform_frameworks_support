@@ -450,9 +450,7 @@ public final class MediaRouter {
 
     /**
      * Adds the specified route as a member to the current dynamic group.
-     * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public void addMemberToSelectedRoute(RouteInfo route) {
         checkCallingThread();
         sGlobal.addMemberToSelectedRoute(route);
@@ -460,9 +458,7 @@ public final class MediaRouter {
 
     /**
      * Removes the specified route from the current dynamic group.
-     * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public void removeMemberFromSelectedRoute(RouteInfo route) {
         checkCallingThread();
         sGlobal.removeMemberFromSelectedRoute(route);
@@ -1507,6 +1503,7 @@ public final class MediaRouter {
 
         /**
          * Returns true if the route has one or more members
+         *
          * @hide
          */
         @RestrictTo(LIBRARY_GROUP_PREFIX)
@@ -1516,6 +1513,7 @@ public final class MediaRouter {
 
         /**
          * Returns true if the route is a dynamic group
+         *
          * @hide
          */
         @RestrictTo(LIBRARY_GROUP_PREFIX)
@@ -1525,28 +1523,38 @@ public final class MediaRouter {
         }
 
         /**
-         *
-         * @hide
+         * Returns true if the route can be removed from the current dynamic group.
+         * <p>
+         * For example, a static group has an old build which doesn't support dynamic group.
+         * All its members can't be removed.
+         * </p>
+         * <p>
+         * Only applicable to selected/selecting routes.
+         * </p>
          */
-        @RestrictTo(LIBRARY_GROUP_PREFIX)
         public boolean isUnselectable() {
             return mDynamicDescriptor == null || mDynamicDescriptor.isUnselectable();
         }
 
         /**
-         *
-         * @hide
+         * Returns true if the route can be grouped into the dynamic group route.
+         * <p>
+         * Only applicable to unselected/unselecting routes.
+         * Note that {@link #isGroupable()} and {@link #isTransferable()} are NOT mutually
+         * exclusive.
+         * </p>
          */
-        @RestrictTo(LIBRARY_GROUP_PREFIX)
         public boolean isGroupable() {
             return mDynamicDescriptor != null && mDynamicDescriptor.isGroupable();
         }
 
         /**
-         *
-         * @hide
+         * Returns true if the current dynamic group route can be transferred to this route.
+         * <p>
+         * Only applicable to unselected/unselecting routes.
+         * Note that {@link #isGroupable()} and {@link #isTransferable()} are NOT mutually
+         * exclusive.
          */
-        @RestrictTo(LIBRARY_GROUP_PREFIX)
         public boolean isTransferable() {
             return mDynamicDescriptor != null && mDynamicDescriptor.isTransferable();
         }
@@ -1554,20 +1562,17 @@ public final class MediaRouter {
         /**
          * Returns the routes in this group
          *
-         * @hide
          * @return The list of the routes in this group
          */
-        @RestrictTo(LIBRARY_GROUP_PREFIX)
         @NonNull
         public List<RouteInfo> getMemberRoutes() {
             return Collections.unmodifiableList(mMemberRoutes);
         }
 
         /**
-         *
-         * @hide
+         * Returns dynamic group route controller of the route.
+         * If the route is not dynamic group route, null is returned instead.
          */
-        @RestrictTo(LIBRARY_GROUP_PREFIX)
         @Nullable
         public DynamicGroupRouteController getDynamicGroupController() {
             //TODO: handle multiple controllers case
