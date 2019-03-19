@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "51debb15_4ed99987",
+        "filename": "lifecycle/runtime/eap/lint/build.gradle",
+        "patchSetId": 9
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-19T19:23:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "152b1f39_8ea071d4",
+      "revId": "eed42845fbf64ebde7aa909d405075f48b8537ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ca795b54_6c4ff8e3",
         "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleRuntimeIssueRegistry.kt",
         "patchSetId": 9
@@ -30,6 +48,24 @@
       "writtenOn": "2019-03-19T13:35:12Z",
       "side": 1,
       "message": "If you want to support multiple versions of lint also override minApi",
+      "revId": "eed42845fbf64ebde7aa909d405075f48b8537ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "807b1c8e_63af897c",
+        "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleRuntimeIssueRegistry.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-19T19:23:44Z",
+      "side": 1,
+      "message": "That sounds good. Is there a way to validate that I didn\u0027t call anything new? or the best way is to compile against actually old version and in tests I can depend on newer once?",
+      "parentUuid": "ca795b54_6c4ff8e3",
       "revId": "eed42845fbf64ebde7aa909d405075f48b8537ad",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "b1838b66_c2efe57a",
+        "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleWhenChecks.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-19T19:23:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "74b8dbb9_67865f49",
+      "revId": "eed42845fbf64ebde7aa909d405075f48b8537ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bf7417e3_bc653c38",
         "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleWhenChecks.kt",
         "patchSetId": 9
@@ -67,6 +121,24 @@
       "revId": "eed42845fbf64ebde7aa909d405075f48b8537ad",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75520556_6895bf11",
+        "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleWhenChecks.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-19T19:23:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bf7417e3_bc653c38",
+      "revId": "eed42845fbf64ebde7aa909d405075f48b8537ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "dc9488d3_31dd64b0",
+        "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleWhenChecks.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-19T19:23:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "add75de1_918bc0e4",
+      "revId": "eed42845fbf64ebde7aa909d405075f48b8537ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "57955c4c_2f44f8ed",
         "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleWhenChecks.kt",
         "patchSetId": 9
@@ -104,6 +194,24 @@
     },
     {
       "key": {
+        "uuid": "ebfa6e24_fe28e3ac",
+        "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleWhenChecks.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-19T19:23:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "57955c4c_2f44f8ed",
+      "revId": "eed42845fbf64ebde7aa909d405075f48b8537ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d99652a8_bf076bf5",
         "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleWhenChecks.kt",
         "patchSetId": 9
@@ -118,6 +226,24 @@
       "revId": "eed42845fbf64ebde7aa909d405075f48b8537ad",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86a878bd_d5e0f65d",
+        "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleWhenChecks.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-19T19:23:44Z",
+      "side": 1,
+      "message": "Yeah, currently I keep stack via recursion in \"visitTryExpression\": I save previous state, then call  \"accept\" on inner blocks than restore previous state and update it.  Though, maybe I\u0027ll change it later to actual stack + push / pop + afterVisit. \n\n\nBut yeah, I didn\u0027t take care of inlined classes / function declarations \u003d\u003e Updated that. Added comments.",
+      "parentUuid": "d99652a8_bf076bf5",
+      "revId": "eed42845fbf64ebde7aa909d405075f48b8537ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
