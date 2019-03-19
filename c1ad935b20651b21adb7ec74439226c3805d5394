@@ -45,6 +45,52 @@
       "revId": "c1ad935b20651b21adb7ec74439226c3805d5394",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1c5dcef_4f70c282",
+        "filename": "preference/src/main/java/androidx/preference/PreferenceDialogFragmentCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1149384
+      },
+      "writtenOn": "2019-03-19T15:28:23Z",
+      "side": 1,
+      "message": "Is there any chance this could become null between here  and the next line? Maybe store getDialog in a separate variable?",
+      "range": {
+        "startLine": 80,
+        "startChar": 16,
+        "endLine": 80,
+        "endChar": 27
+      },
+      "revId": "c1ad935b20651b21adb7ec74439226c3805d5394",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "698f6a3c_a4d48b91",
+        "filename": "preference/src/main/java/androidx/preference/PreferenceDialogFragmentCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1149384
+      },
+      "writtenOn": "2019-03-19T15:28:23Z",
+      "side": 1,
+      "message": "Can you explain what this means? It seems fine to make this private?",
+      "range": {
+        "startLine": 277,
+        "startChar": 38,
+        "endLine": 277,
+        "endChar": 60
+      },
+      "revId": "c1ad935b20651b21adb7ec74439226c3805d5394",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
