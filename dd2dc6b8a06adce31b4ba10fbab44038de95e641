@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5f14cb13_f0c8322a",
+        "filename": "benchmark/gradle-plugin/build.gradle",
+        "patchSetId": 18
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-03-19T17:52:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4693b8ae_b47925be",
+      "revId": "dd2dc6b8a06adce31b4ba10fbab44038de95e641",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8df5d1d8_8120f515",
         "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/BenchmarkPlugin.kt",
         "patchSetId": 18
@@ -30,6 +48,24 @@
       "writtenOn": "2019-03-19T16:59:12Z",
       "side": 1,
       "message": "don\u0027t use \"project.extensions.extraProperties\" use instead \ntasks.register​(String name, Class\u003cT\u003e type, Object... constructorArgs)\n\nSee docs: https://docs.gradle.org/current/javadoc/org/gradle/api/tasks/TaskContainer.html#register-java.lang.String-java.lang.Class-java.lang.Object...-",
+      "revId": "dd2dc6b8a06adce31b4ba10fbab44038de95e641",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d363c2b_f4d27f7b",
+        "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/BenchmarkPlugin.kt",
+        "patchSetId": 18
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-03-19T17:52:43Z",
+      "side": 1,
+      "message": "I ended up adding a localized variable to the base task and setting that / throwing an error if it\u0027s not set since I assume you wanted to localize the prop instead of exposing it as a global constant in the project 😊 \n\nLet me know if you\u0027d still rather register a new TrivalStringTask class or something!",
+      "parentUuid": "8df5d1d8_8120f515",
       "revId": "dd2dc6b8a06adce31b4ba10fbab44038de95e641",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
@@ -50,6 +86,24 @@
       "revId": "dd2dc6b8a06adce31b4ba10fbab44038de95e641",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3336ed1_598c086d",
+        "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/ClockTask.kt",
+        "patchSetId": 18
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-03-19T17:52:43Z",
+      "side": 1,
+      "message": "It can\u0027t because it\u0027s the base class for LockClocksTask and UnlockClocksTask, which also need to be open so they can be applied to a project.\n\nOtherwise gradle throws an error: `Cannot create a proxy class for final class \u003cclass_name\u003e`",
+      "parentUuid": "a711b67e_d1f53019",
+      "revId": "dd2dc6b8a06adce31b4ba10fbab44038de95e641",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
