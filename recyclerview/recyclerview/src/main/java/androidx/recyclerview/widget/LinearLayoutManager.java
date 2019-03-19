@@ -145,6 +145,9 @@ public class LinearLayoutManager extends RecyclerView.LayoutManager implements
      */
     private int mInitialPrefetchItemCount = 2;
 
+    // Reusable int array to be passed to method calls that mutate it in order to "return" two ints.
+    private int[] mReusableIntPair = new int[2];
+
     /**
      * Creates a vertical LinearLayoutManager
      *
@@ -434,13 +437,86 @@ public class LinearLayoutManager extends RecyclerView.LayoutManager implements
      * enough to handle it.</p>
      *
      * @return The extra space that should be laid out (in pixels).
+     * @deprecated  Use {@link #getExtraLayoutSpaceForScrolling} instead.
      */
+    @Deprecated
     protected int getExtraLayoutSpace(RecyclerView.State state) {
         if (state.hasTargetScrollPosition()) {
             return mOrientationHelper.getTotalSpace();
         } else {
             return 0;
         }
+    }
+
+    /**
+     * <p>Returns the amount of extra space that should be laid out by LayoutManager during a smooth
+     * scroll in the scroll direction.</p>
+     *
+     * <p>By default, {@link LinearLayoutManager} lays out 1 extra page of items while smooth
+     * scrolling. You can override this method to implement your custom layout pre-cache logic. If
+     * you need extra layout space on both sides of the viewport, and not just in the scroll
+     * direction, then override {@link #getExtraLayoutSpaceAround} instead. The actual amount of
+     * extra layout space added in the scroll direction is the maximum of that value and the value
+     * returned here, they are not additive.</p>
+     *
+     * <p><strong>Note:</strong>Laying out invisible elements generally comes with significant
+     * performance cost. It's typically only desirable in places like smooth scrolling to an unknown
+     * location, where 1) the extra content helps LinearLayoutManager know in advance when its
+     * target is approaching, so it can decelerate early and smoothly and 2) while motion is
+     * continuous.</p>
+     *
+     * <p>Extending the extra layout space is especially expensive if done while the user may change
+     * scrolling direction. Changing direction will cause the extra scrolling layout space to swap
+     * to the opposite side of the viewport, incurring many rebinds/recycles, unless the cache is
+     * large enough to handle it.</p>
+     *
+     * @param state Current State of RecyclerView
+     * @return The extra space that should be laid out in the scroll direction (in pixels).
+     */
+    protected int getExtraLayoutSpaceForScrolling(RecyclerView.State state) {
+        return getExtraLayoutSpace(state);
+    }
+
+    /**
+     * <p>Returns the amount of extra space that should be laid out by LayoutManager on either side
+     * of the viewport.</p>
+     *
+     * <p>By default, {@link LinearLayoutManager} doesn't add extra layout space in both directions
+     * of the viewport, but only in the scroll direction. If you only need to change the extra
+     * layout space in the scroll direction, override {@link #getExtraLayoutSpaceForScrolling}
+     * instead. In the scroll direction, the maximum of {@code getExtraLayoutSpaceForScrolling} and
+     * {@code getExtraLayoutSpaceAround} will be used, the values are not additive.</p>
+     *
+     * <p><strong>Note:</strong>Laying out invisible elements generally comes with significant
+     * performance cost. It's typically only desirable in places like smooth scrolling to an unknown
+     * location, where 1) the extra content helps LinearLayoutManager know in advance when its
+     * target is approaching, so it can decelerate early and smoothly and 2) while motion is
+     * continuous.</p>
+     *
+     * @param state Current State of RecyclerView
+     * @return The extra space that should be laid out on both sides (in pixels). The extra space is
+     *         not divided over the two sides, each side gets the amount returned here.
+     */
+    protected int getExtraLayoutSpaceAround(RecyclerView.State state) {
+        return 0;
+    }
+
+    private void calculateExtraLayoutSpace(RecyclerView.State state, int scrollDirection,
+            int[] extraLayoutSpace) {
+        int extraLayoutSpaceStart = getExtraLayoutSpaceAround(state);
+        int extraLayoutSpaceEnd = extraLayoutSpaceStart;
+
+        if (scrollDirection == LayoutState.LAYOUT_START
+                || scrollDirection == LayoutState.LAYOUT_END) {
+            int extraScrollSpace = getExtraLayoutSpaceForScrolling(state);
+            if (scrollDirection == LayoutState.LAYOUT_START) {
+                extraLayoutSpaceStart = Math.max(extraScrollSpace, extraLayoutSpaceStart);
+            } else {
+                extraLayoutSpaceEnd = Math.max(extraScrollSpace, extraLayoutSpaceEnd);
+            }
+        }
+        extraLayoutSpace[0] = extraLayoutSpaceStart;
+        extraLayoutSpace[1] = extraLayoutSpaceEnd;
     }
 
     @Override
@@ -527,20 +603,14 @@ public class LinearLayoutManager extends RecyclerView.LayoutManager implements
 
         // LLM may decide to layout items for "extra" pixels to account for scrolling target,
         // caching or predictive animations.
-        int extraForStart;
-        int extraForEnd;
-        final int extra = getExtraLayoutSpace(state);
-        // If the previous scroll delta was less than zero, the extra space should be laid out
-        // at the start. Otherwise, it should be at the end.
-        if (mLayoutState.mLastScrollDelta >= 0) {
-            extraForEnd = extra;
-            extraForStart = 0;
-        } else {
-            extraForStart = extra;
-            extraForEnd = 0;
-        }
-        extraForStart += mOrientationHelper.getStartAfterPadding();
-        extraForEnd += mOrientationHelper.getEndPadding();
+
+        int layoutDirection = mLayoutState.mLastScrollDelta >= 0
+                ? LayoutState.LAYOUT_END : LayoutState.LAYOUT_START;
+        mReusableIntPair[0] = 0;
+        mReusableIntPair[1] = 0;
+        calculateExtraLayoutSpace(state, layoutDirection, mReusableIntPair);
+        int extraForStart = mReusableIntPair[0] + mOrientationHelper.getStartAfterPadding();
+        int extraForEnd = mReusableIntPair[1] + mOrientationHelper.getEndPadding();
         if (state.isPreLayout() && mPendingScrollPosition != RecyclerView.NO_POSITION
                 && mPendingScrollPositionOffset != INVALID_OFFSET) {
             // if the child is visible and we are going to move it around, we should layout
@@ -1175,10 +1245,15 @@ public class LinearLayoutManager extends RecyclerView.LayoutManager implements
             boolean canUseExistingSpace, RecyclerView.State state) {
         // If parent provides a hint, don't measure unlimited.
         mLayoutState.mInfinite = resolveIsInfinite();
-        mLayoutState.mExtra = getExtraLayoutSpace(state);
+        boolean layoutToEnd = layoutDirection == LayoutState.LAYOUT_END;
+        mReusableIntPair[0] = 0;
+        mReusableIntPair[1] = 0;
+        calculateExtraLayoutSpace(state, layoutDirection, mReusableIntPair);
+        mLayoutState.mExtra = layoutToEnd ? mReusableIntPair[1] : mReusableIntPair[0];
+        mLayoutState.mExtra2 = layoutToEnd ? mReusableIntPair[0] : mReusableIntPair[1];
         mLayoutState.mLayoutDirection = layoutDirection;
         int scrollingOffset;
-        if (layoutDirection == LayoutState.LAYOUT_END) {
+        if (layoutToEnd) {
             mLayoutState.mExtra += mOrientationHelper.getEndPadding();
             // get the first child in the direction we are going
             final View child = getChildClosestToEnd();
@@ -1384,9 +1459,12 @@ public class LinearLayoutManager extends RecyclerView.LayoutManager implements
      * @param recycler Recycler instance of {@link RecyclerView}
      * @param dt       This can be used to add additional padding to the visible area. This is used
      *                 to detect children that will go out of bounds after scrolling, without
-     *                 actually moving them.
+     * @param extraLayoutSpace Extra space that should be excluded from recycling. This is the space
+     *                         returned from {@link #getExtraLayoutSpaceAround} and not from {@link
+     *                         #getExtraLayoutSpaceForScrolling}.
      */
-    private void recycleViewsFromStart(RecyclerView.Recycler recycler, int dt) {
+    private void recycleViewsFromStart(RecyclerView.Recycler recycler, int dt,
+            int extraLayoutSpace) {
         if (dt < 0) {
             if (DEBUG) {
                 Log.d(TAG, "Called recycle from start with a negative value. This might happen"
@@ -1395,7 +1473,7 @@ public class LinearLayoutManager extends RecyclerView.LayoutManager implements
             return;
         }
         // ignore padding, ViewGroup may not clip children.
-        final int limit = dt;
+        final int limit = dt - extraLayoutSpace;
         final int childCount = getChildCount();
         if (mShouldReverseLayout) {
             for (int i = childCount - 1; i >= 0; i--) {
@@ -1429,9 +1507,12 @@ public class LinearLayoutManager extends RecyclerView.LayoutManager implements
      * @param recycler Recycler instance of {@link RecyclerView}
      * @param dt       This can be used to add additional padding to the visible area. This is used
      *                 to detect children that will go out of bounds after scrolling, without
-     *                 actually moving them.
+     * @param extraLayoutSpace Extra space that should be excluded from recycling. This is the space
+     *                         returned from {@link #getExtraLayoutSpaceAround} and not from {@link
+     *                         #getExtraLayoutSpaceForScrolling}.
      */
-    private void recycleViewsFromEnd(RecyclerView.Recycler recycler, int dt) {
+    private void recycleViewsFromEnd(RecyclerView.Recycler recycler, int dt,
+            int extraLayoutSpace) {
         final int childCount = getChildCount();
         if (dt < 0) {
             if (DEBUG) {
@@ -1440,7 +1521,7 @@ public class LinearLayoutManager extends RecyclerView.LayoutManager implements
             }
             return;
         }
-        final int limit = mOrientationHelper.getEnd() - dt;
+        final int limit = mOrientationHelper.getEnd() - dt + extraLayoutSpace;
         if (mShouldReverseLayout) {
             for (int i = 0; i < childCount; i++) {
                 View child = getChildAt(i);
@@ -1471,8 +1552,8 @@ public class LinearLayoutManager extends RecyclerView.LayoutManager implements
      * @param layoutState Current layout state. Right now, this object does not change but
      *                    we may consider moving it out of this view so passing around as a
      *                    parameter for now, rather than accessing {@link #mLayoutState}
-     * @see #recycleViewsFromStart(RecyclerView.Recycler, int)
-     * @see #recycleViewsFromEnd(RecyclerView.Recycler, int)
+     * @see #recycleViewsFromStart(RecyclerView.Recycler, int, int)
+     * @see #recycleViewsFromEnd(RecyclerView.Recycler, int, int)
      * @see LinearLayoutManager.LayoutState#mLayoutDirection
      */
     private void recycleByLayoutState(RecyclerView.Recycler recycler, LayoutState layoutState) {
@@ -1480,9 +1561,9 @@ public class LinearLayoutManager extends RecyclerView.LayoutManager implements
             return;
         }
         if (layoutState.mLayoutDirection == LayoutState.LAYOUT_START) {
-            recycleViewsFromEnd(recycler, layoutState.mScrollingOffset);
+            recycleViewsFromEnd(recycler, layoutState.mScrollingOffset, layoutState.mExtra2);
         } else {
-            recycleViewsFromStart(recycler, layoutState.mScrollingOffset);
+            recycleViewsFromStart(recycler, layoutState.mScrollingOffset, layoutState.mExtra2);
         }
     }
 
@@ -2181,6 +2262,12 @@ public class LinearLayoutManager extends RecyclerView.LayoutManager implements
          * {@link #mExtra} is not considered to avoid recycling visible children.
          */
         int mExtra = 0;
+
+        /**
+         * Contains the {@link #getExtraLayoutSpaceAround extra layout space} that should be
+         * excluded for recycling.
+         */
+        int mExtra2 = 0;
 
         /**
          * Equal to {@link RecyclerView.State#isPreLayout()}. When consuming scrap, if this value
