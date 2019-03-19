@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0ac6e22f_15570316",
+        "filename": "media2/src/main/java/androidx/media2/MediaPlayer.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 915,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-03-19T20:42:19Z",
+      "side": 1,
+      "message": "Please add @FloatRange annotation for this, too.",
+      "revId": "14420d57ab9248c8c16c2faba45e17fead5746ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
