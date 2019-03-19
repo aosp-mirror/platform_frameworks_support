@@ -17,11 +17,15 @@
 package androidx.lifecycle.lint
 
 import androidx.lifecycle.lint.LifecycleWhenChecks.Companion.ISSUE
+import androidx.lifecycle.lint.LifecycleWhenVisitor.SearchState.DONT_SEARCH
+import androidx.lifecycle.lint.LifecycleWhenVisitor.SearchState.FOUND
+import androidx.lifecycle.lint.LifecycleWhenVisitor.SearchState.SEARCH
 import com.android.tools.lint.detector.api.Category
 import com.android.tools.lint.detector.api.Detector
 import com.android.tools.lint.detector.api.Implementation
 import com.android.tools.lint.detector.api.Issue
 import com.android.tools.lint.detector.api.JavaContext
+import com.android.tools.lint.detector.api.Location
 import com.android.tools.lint.detector.api.Scope
 import com.android.tools.lint.detector.api.Severity
 import com.android.tools.lint.detector.api.SourceCodeScanner
@@ -34,11 +38,15 @@ import org.jetbrains.kotlin.lexer.KtTokens
 import org.jetbrains.uast.UCallExpression
 import org.jetbrains.uast.UClass
 import org.jetbrains.uast.UDeclaration
+import org.jetbrains.uast.UElement
+import org.jetbrains.uast.UIfExpression
 import org.jetbrains.uast.ULambdaExpression
 import org.jetbrains.uast.UMethod
 import org.jetbrains.uast.UTryExpression
 import org.jetbrains.uast.toUElement
+import org.jetbrains.uast.tryResolve
 import org.jetbrains.uast.visitor.AbstractUastVisitor
+import java.util.ArrayDeque
 
 private const val CONTINUATION = "kotlin.coroutines.experimental.Continuation<? super kotlin.Unit>"
 
@@ -83,51 +91,68 @@ internal class LifecycleWhenChecks : Detector(), SourceCodeScanner {
 }
 
 internal class LifecycleWhenVisitor(private val context: JavaContext) : AbstractUastVisitor() {
+    enum class SearchState { DONT_SEARCH, SEARCH, FOUND }
 
-    /**
-     * any state -> [IN_TRY], when we enter in try block  and previous state is saved on stack
-     *
-     * [IN_TRY] -> [AFTER_SUSPEND_TRY] when we enter in finally /catch block after of try block
-     * *with* suspend call.
-     *
-     * [IN_TRY] -> *previously saved state* when we enter in finally /catch block after of try block
-     * *without*  suspend call.
-     *
-     * [AFTER_SUSPEND_TRY] -> *previously saved state* after finally / catch block
-     */
-    private enum class State { DEFAULT, IN_TRY, AFTER_SUSPEND_TRY }
-    private var state = State.DEFAULT
-    private var hasSuspendCall = false
+    data class State(val checkUIAccess: Boolean, val suspendCallSearch: SearchState)
+
+    fun State.foundSuspendCall() = suspendCallSearch == FOUND
+
+    private val states = ArrayDeque<State>()
+
+    init {
+        states.push(State(checkUIAccess = false, suspendCallSearch = DONT_SEARCH))
+    }
+
+    private val currentState: State get() = states.first
+    private val visitedMethods = mutableSetOf<UMethod>()
+
+    fun withNewState(state: State, block: () -> Unit): State {
+        states.push(state)
+        block()
+        val lastState = states.pop()
+        // inner scope found suspend call and current state is looking for it => propagate it up
+        if (currentState.suspendCallSearch == SEARCH && lastState.foundSuspendCall()) {
+            updateSuspendCallSearch(FOUND)
+        }
+        return lastState
+    }
+
+    fun withNewState(suspendCallSearch: SearchState, block: () -> Unit): State {
+        return withNewState(State(currentState.checkUIAccess, suspendCallSearch), block)
+    }
+
+    fun withNewState(checkUIAccess: Boolean, block: () -> Unit): State {
+        return withNewState(State(checkUIAccess, currentState.suspendCallSearch), block)
+    }
 
     override fun visitTryExpression(node: UTryExpression): Boolean {
-        val prevTryState = state
-        val prevHasSuspendCall = hasSuspendCall
-        hasSuspendCall = false
-        state = State.IN_TRY
-        node.tryClause.accept(this)
+        val stateAfterTry = withNewState(SEARCH) { node.tryClause.accept(this) }
+        val checkView = currentState.checkUIAccess || stateAfterTry.foundSuspendCall()
         // TODO: support catch
-        state = if (hasSuspendCall) State.AFTER_SUSPEND_TRY else prevTryState
-        node.finallyClause?.accept(this)
-        state = prevTryState
-        hasSuspendCall = (state != State.DEFAULT) and (hasSuspendCall or prevHasSuspendCall)
+        withNewState(checkView) { node.finallyClause?.accept(this) }
         return true
+    }
+
+    fun updateSuspendCallSearch(newState: SearchState) {
+        val previous = states.pop()
+        states.push(State(previous.checkUIAccess, newState))
     }
 
     override fun visitCallExpression(node: UCallExpression): Boolean {
         val psiMethod = node.resolve() ?: return super.visitCallExpression(node)
 
-        val isSuspend = psiMethod.isSuspend()
-        if (isSuspend) {
+        if (psiMethod.isSuspend()) {
+            updateSuspendCallSearch(FOUND)
             // go inside and check it doesn't access
-            (psiMethod.toUElement() as? UMethod)?.uastBody?.accept(this)
-        }
-        hasSuspendCall = hasSuspendCall or isSuspend
-
-        if (state == State.AFTER_SUSPEND_TRY) {
-            val receiverClass = PsiTypesUtil.getPsiClass(node.receiverType)
-            if (context.evaluator.extendsClass(receiverClass, VIEW_CLASS_NAME, false)) {
-                context.report(ISSUE, node, context.getLocation(node), VIEW_ERROR_MESSAGE)
+            val method = psiMethod.toUElement() as? UMethod
+            if (method != null && method !in visitedMethods) {
+                visitedMethods.add(method)
+                method.uastBody?.accept(this)
             }
+        }
+
+        if (currentState.checkUIAccess) {
+            checkUIAccess(context, node)
         }
         return super.visitCallExpression(node)
     }
@@ -145,15 +170,31 @@ internal class LifecycleWhenVisitor(private val context: JavaContext) : Abstract
 
     // ignore fun defined inline
     override fun visitDeclaration(node: UDeclaration) = true
+
+    override fun visitIfExpression(node: UIfExpression): Boolean {
+        if (!currentState.checkUIAccess) return false
+        val method = node.condition.tryResolve() as? PsiMethod ?: return false
+        if (method.isLifecycleIsAtLeastMethod(context)) {
+            withNewState(checkUIAccess = false) { node.thenExpression?.accept(this) }
+            node.elseExpression?.accept(this)
+            return true
+        }
+        return false
+    }
 }
 
 private val DISPATCHER_CLASS_NAME = "androidx.lifecycle.PausingDispatcherKt"
+private val LIFECYCLE_CLASS_NAME = "androidx.lifecycle.Lifecycle"
 private val VIEW_CLASS_NAME = "android.view.View"
 
 private fun PsiMethod.isLifecycleWhenExtension(context: JavaContext): Boolean {
     return name in APPLICABLE_METHOD_NAMES &&
             context.evaluator.isMemberInClass(this, DISPATCHER_CLASS_NAME) &&
             context.evaluator.isStatic(this)
+}
+
+private fun PsiMethod.isLifecycleIsAtLeastMethod(context: JavaContext): Boolean {
+    return name == "isAtLeast" && context.evaluator.isMemberInClass(this, LIFECYCLE_CLASS_NAME)
 }
 
 // TODO: find a better way!
@@ -175,4 +216,53 @@ private fun ULambdaExpression.isSuspendLambda(context: JavaContext): Boolean {
 private fun PsiMethod.isSuspend(): Boolean {
     val modifiers = modifierList as? KtLightModifierList<*>
     return modifiers?.kotlinOrigin?.hasModifier(KtTokens.SUSPEND_KEYWORD) ?: false
+}
+
+fun checkUIAccess(context: JavaContext, node: UCallExpression) {
+    val checkVisitor = CheckAccessUIVisitor(context)
+    node.accept(checkVisitor)
+    checkVisitor.uiAccessNode?.let { accessNode ->
+        val topLevelLocation = context.getLocation(node)
+        val message = if (accessNode != node) {
+            indirectViewAccessMessage(node, context.getLocation(accessNode))
+        } else {
+            VIEW_ERROR_MESSAGE
+        }
+        context.report(ISSUE, topLevelLocation, message)
+    }
+}
+
+fun indirectViewAccessMessage(node: UCallExpression, access: Location): String {
+    return "$VIEW_ERROR_MESSAGE. \"${node.methodName}\" internally access view at " +
+            "${access.file.name}:${access.start?.line}:${access.start?.column}"
+}
+
+internal class CheckAccessUIVisitor(private val context: JavaContext) : AbstractUastVisitor() {
+    var uiAccessNode: UCallExpression? = null
+    private val visitedMethods = mutableSetOf<UMethod>()
+
+    override fun visitElement(node: UElement) = uiAccessNode != null
+
+    override fun visitCallExpression(node: UCallExpression): Boolean {
+        val receiverClass = PsiTypesUtil.getPsiClass(node.receiverType)
+        if (context.evaluator.extendsClass(receiverClass, VIEW_CLASS_NAME, false)) {
+            uiAccessNode = node
+            return true
+        }
+        val method = node.resolve().toUElement() as? UMethod
+        if (method != null && method !in visitedMethods) {
+            visitedMethods.add(method)
+            method.uastBody?.accept(this)
+        }
+        return super.visitCallExpression(node)
+    }
+
+    // ignore classes defined inline
+    override fun visitClass(node: UClass) = true
+
+    // ignore fun defined inline
+    override fun visitDeclaration(node: UDeclaration) = true
+
+    // issue here, that we ignore calls like .let { } that calls lambda inplace
+    override fun visitLambdaExpression(node: ULambdaExpression) = true
 }
