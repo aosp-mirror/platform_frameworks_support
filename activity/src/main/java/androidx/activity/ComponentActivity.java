@@ -25,6 +25,7 @@ import android.view.Window;
 
 import androidx.annotation.CallSuper;
 import androidx.annotation.ContentView;
+import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.GenericLifecycleObserver;
@@ -38,7 +39,6 @@ import androidx.savedstate.SavedStateRegistry;
 import androidx.savedstate.SavedStateRegistryController;
 import androidx.savedstate.SavedStateRegistryOwner;
 
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -70,9 +70,14 @@ public class ComponentActivity extends androidx.core.app.ComponentActivity imple
     final CopyOnWriteArrayList<LifecycleAwareOnBackPressedCallback> mOnBackPressedCallbacks =
             new CopyOnWriteArrayList<>();
 
-    // Cache the ContentView layoutIds for Activities.
-    private static final HashMap<Class, Integer> sAnnotationIds = new HashMap<>();
+    @LayoutRes
+    private int mContentLayoutId;
 
+    /**
+     * Default constructor for ComponentActivity. All Activities must have a default constructor
+     * for API 27 and lower devices or when using the default
+     * {@link android.app.AppComponentFactory}.
+     */
     public ComponentActivity() {
         Lifecycle lifecycle = getLifecycle();
         //noinspection ConstantConditions
@@ -113,6 +118,22 @@ public class ComponentActivity extends androidx.core.app.ComponentActivity imple
     }
 
     /**
+     * Alternate constructor that can be used to provide a default layout
+     * that will be inflated as part of <code>super.onCreate(savedInstanceState)</code>.
+     *
+     * <p>This should generally be called from your constructor that takes no parameters,
+     * as is required for API 27 and lower or when using the default
+     * {@link android.app.AppComponentFactory}.
+     *
+     * @see #ComponentActivity()
+     */
+    @ContentView
+    public ComponentActivity(@LayoutRes int contentLayoutId) {
+        this();
+        mContentLayoutId = contentLayoutId;
+    }
+
+    /**
      * {@inheritDoc}
      *
      * If your ComponentActivity is annotated with {@link ContentView}, this will
@@ -123,18 +144,8 @@ public class ComponentActivity extends androidx.core.app.ComponentActivity imple
         super.onCreate(savedInstanceState);
         mSavedStateRegistryController.performRestore(savedInstanceState);
         ReportFragment.injectIfNeededIn(this);
-        Class<? extends ComponentActivity> clazz = getClass();
-        if (!sAnnotationIds.containsKey(clazz)) {
-            ContentView annotation = clazz.getAnnotation(ContentView.class);
-            if (annotation != null) {
-                sAnnotationIds.put(clazz, annotation.value());
-            } else {
-                sAnnotationIds.put(clazz, null);
-            }
-        }
-        Integer layoutId = sAnnotationIds.get(clazz);
-        if (layoutId != null && layoutId != 0) {
-            setContentView(layoutId);
+        if (mContentLayoutId != 0) {
+            setContentView(mContentLayoutId);
         }
     }
 

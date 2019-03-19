@@ -20,7 +20,6 @@ import android.content.Intent
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
 import android.os.Bundle
-import androidx.annotation.ContentView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.test.R
@@ -30,8 +29,7 @@ import java.util.concurrent.CountDownLatch
 /**
  * A simple activity used for Fragment Transitions and lifecycle event ordering
  */
-@ContentView(R.layout.activity_content)
-class FragmentTestActivity : FragmentActivity() {
+class FragmentTestActivity : FragmentActivity(R.layout.activity_content) {
     val onDestroyLatch = CountDownLatch(1)
 
     public override fun onCreate(icicle: Bundle?) {
