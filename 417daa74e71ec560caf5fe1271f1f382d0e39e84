@@ -1,0 +1,193 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "16b4db93_b5a865c7",
+        "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleWhenChecks.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-19T01:20:46Z",
+      "side": 1,
+      "message": "add whenResumed \u0026 whenCreated ?",
+      "range": {
+        "startLine": 48,
+        "startChar": 54,
+        "endLine": 48,
+        "endChar": 65
+      },
+      "revId": "417daa74e71ec560caf5fe1271f1f382d0e39e84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be0fa775_bbf6df35",
+        "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleWhenChecks.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-19T01:20:46Z",
+      "side": 1,
+      "message": "or. \nalso, seems like it is better if we could dynamically create this based on the `when` method name ?",
+      "range": {
+        "startLine": 63,
+        "startChar": 43,
+        "endLine": 63,
+        "endChar": 45
+      },
+      "revId": "417daa74e71ec560caf5fe1271f1f382d0e39e84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ba2cada_5a088655",
+        "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleWhenChecks.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-19T01:20:46Z",
+      "side": 1,
+      "message": "result,",
+      "range": {
+        "startLine": 67,
+        "startChar": 56,
+        "endLine": 67,
+        "endChar": 62
+      },
+      "revId": "417daa74e71ec560caf5fe1271f1f382d0e39e84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f37b5cb_9b70e0de",
+        "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleWhenChecks.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-19T01:20:46Z",
+      "side": 1,
+      "message": "block.",
+      "range": {
+        "startLine": 70,
+        "startChar": 52,
+        "endLine": 70,
+        "endChar": 57
+      },
+      "revId": "417daa74e71ec560caf5fe1271f1f382d0e39e84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e082a7e1_8996dd83",
+        "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleWhenChecks.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-19T01:20:46Z",
+      "side": 1,
+      "message": "how about the catch clauses?",
+      "revId": "417daa74e71ec560caf5fe1271f1f382d0e39e84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9106c407_3447ae6f",
+        "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleWhenChecks.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-19T01:20:46Z",
+      "side": 1,
+      "message": "should this be getApplicableMethodNames().contains ?",
+      "range": {
+        "startLine": 148,
+        "startChar": 20,
+        "endLine": 148,
+        "endChar": 31
+      },
+      "revId": "417daa74e71ec560caf5fe1271f1f382d0e39e84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e1324ba_6eac1c7f",
+        "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleWhenChecks.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-19T01:20:46Z",
+      "side": 1,
+      "message": "hmm i thought they received only 1 extra parameter, not 2.",
+      "revId": "417daa74e71ec560caf5fe1271f1f382d0e39e84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4723fdf1_62f13af3",
+        "filename": "lifecycle/runtime/eap/lint/src/test/java/androidx/lifecycle/lint/LifecycleWhenChecksTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-19T01:20:46Z",
+      "side": 1,
+      "message": "don\u0027twe need a runwith annotation here along w/ size ?",
+      "revId": "417daa74e71ec560caf5fe1271f1f382d0e39e84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d15def40_a0f04b91",
+        "filename": "lifecycle/runtime/eap/lint/src/test/java/androidx/lifecycle/lint/LifecycleWhenChecksTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-19T01:20:46Z",
+      "side": 1,
+      "message": "get this from another constant?",
+      "range": {
+        "startLine": 92,
+        "startChar": 52,
+        "endLine": 92,
+        "endChar": 53
+      },
+      "revId": "417daa74e71ec560caf5fe1271f1f382d0e39e84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
