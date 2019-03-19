@@ -127,6 +127,9 @@ import java.util.concurrent.Executors;
  *     <td>This is to handle error</td></tr>
  * </table>
  * <p>
+ * Unless an {@link AudioAttributesCompat} is specified by {@link #setAudioAttributes}, {@code null}
+ * is the default value.
+ * <p>
  * For more information about the audio focus, take a look at
  * <a href="{@docRoot}guide/topics/media-apps/audio-focus.html">Managing audio focus</a>
  * <p>
@@ -1630,13 +1633,7 @@ public class MediaPlayer extends SessionPlayer {
     }
 
     /**
-     * Sets playback rate using {@link PlaybackParams}.
-     * <p>
-     * The player sets its internal PlaybackParams to the given input. This does not change the
-     * player state. For example, if this is called with the speed of 2.0f in
-     * {@link #PLAYER_STATE_PAUSED}, the player will just update internal property and stay paused.
-     * Once the client calls {@link #play()} afterwards, the player will start playback with the
-     * given speed. Calling this with zero speed is not allowed.
+     * Sets playback params using {@link PlaybackParams}.
      *
      * @param params the playback params.
      * @return a {@link ListenableFuture} which represents the pending completion of the command.
