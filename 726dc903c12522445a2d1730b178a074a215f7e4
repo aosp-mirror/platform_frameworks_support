@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b3cd8cfc_3f1aae8e",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-03-19T18:29:50Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ce35ad27_0b07fe3b",
+      "range": {
+        "startLine": 86,
+        "startChar": 28,
+        "endLine": 86,
+        "endChar": 51
+      },
+      "revId": "726dc903c12522445a2d1730b178a074a215f7e4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a376d184_1ca5293e",
         "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
         "patchSetId": 1
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "6303d136_9cc51c03",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 537,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-03-19T18:29:50Z",
+      "side": 1,
+      "message": "Not sure about 0 instead of -1. It might be confused with \"don\u0027t cache anything\". -1 feels more like a sort of undefined state, meaning \"nothing guaranteed, but will probably cache some things\".",
+      "parentUuid": "a376d184_1ca5293e",
+      "revId": "726dc903c12522445a2d1730b178a074a215f7e4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cefb8e06_baba7ff5",
         "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
         "patchSetId": 1
@@ -53,6 +95,24 @@
       "writtenOn": "2019-03-12T16:03:03Z",
       "side": 1,
       "message": "If you trace scrolling with systrace, would item prefetch help? Just want to make sure we\u0027re not losing something here in the common case",
+      "revId": "726dc903c12522445a2d1730b178a074a215f7e4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "741cf832_94373770",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 542,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-03-19T18:29:50Z",
+      "side": 1,
+      "message": "Possibly. I was going for a solution where pages are not cached in the itemViewCache when they are further then the offscreenPageLimit away from the viewport, to guarantee that they are removed when they go beyond the offscreen page limit.\n\nI figured the guarantee is necessary (or at least useful) to make memory consumption predictable. Consider the case where pages are full screen fragments, and prefetch happens to fetch 2 items. Now the itemViewCache\u0027s capacity is increased by 2, and will later be used to cache items that are further then the page limit. As a result, they will stay bound and the fragment stays alive.\n\nNot sure about two things:\n1. Is the guarantee necessary?\n2. Can the extra capacity of the itemViewCache be used for views that are recycled, or is it reserved for prefetch only?",
+      "parentUuid": "cefb8e06_baba7ff5",
       "revId": "726dc903c12522445a2d1730b178a074a215f7e4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
