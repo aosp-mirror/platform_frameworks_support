@@ -45,7 +45,7 @@ import java.util.concurrent.Executor;
  * Modifications to this class should be reflected in that class as necessary. See
  * http://go/modifying-webview-cts.
  */
-class WebViewOnUiThread {
+public class WebViewOnUiThread {
     /**
      * The maximum time, in milliseconds (10 seconds) to wait for a load
      * to be triggered.
@@ -75,6 +75,15 @@ class WebViewOnUiThread {
                 mWebView = new WebView(ApplicationProvider.getApplicationContext());
                 mWebView.setWebViewClient(new WaitForLoadedClient(WebViewOnUiThread.this));
                 mWebView.setWebChromeClient(new WaitForProgressClient(WebViewOnUiThread.this));
+            }
+        });
+    }
+
+    public WebViewOnUiThread(final WebView webView) {
+        WebkitUtils.onMainThreadSync(new Runnable() {
+            @Override
+            public void run() {
+                mWebView = webView;
             }
         });
     }
