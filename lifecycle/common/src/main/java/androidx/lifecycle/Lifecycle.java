@@ -165,7 +165,7 @@ public abstract class Lifecycle {
         /**
          * Destroyed state for a LifecycleOwner. After this event, this Lifecycle will not dispatch
          * any more events. For instance, for an {@link android.app.Activity}, this state is reached
-         * <b>right before</b> Activity's {@link android.app.Activity#onDestroy() onDestroy} call.
+         * after {@link android.app.Activity#onDestroy() onDestroy} is called.
          */
         DESTROYED,
 
@@ -181,7 +181,7 @@ public abstract class Lifecycle {
          * is reached in two cases:
          * <ul>
          *     <li>after {@link android.app.Activity#onCreate(android.os.Bundle) onCreate} call;
-         *     <li><b>right before</b> {@link android.app.Activity#onStop() onStop} call.
+         *     <li>after {@link android.app.Activity#onStop() onStop} call.
          * </ul>
          */
         CREATED,
@@ -191,7 +191,7 @@ public abstract class Lifecycle {
          * is reached in two cases:
          * <ul>
          *     <li>after {@link android.app.Activity#onStart() onStart} call;
-         *     <li><b>right before</b> {@link android.app.Activity#onPause() onPause} call.
+         *     <li>after {@link android.app.Activity#onPause() onPause} call.
          * </ul>
          */
         STARTED,
