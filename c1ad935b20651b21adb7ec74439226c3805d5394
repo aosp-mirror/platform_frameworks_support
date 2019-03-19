@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e8886ed1_7d44d34a",
+        "filename": "preference/src/androidTest/java/androidx/preference/tests/DialogTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-03-19T16:17:35Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e95ba4f1_508e6cf2",
+      "range": {
+        "startLine": 138,
+        "startChar": 8,
+        "endLine": 138,
+        "endChar": 25
+      },
+      "revId": "c1ad935b20651b21adb7ec74439226c3805d5394",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6230c07e_9aab393c",
         "filename": "preference/src/androidTest/java/androidx/preference/tests/DialogTest.kt",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "c1ad935b20651b21adb7ec74439226c3805d5394",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56038682_545c8354",
+        "filename": "preference/src/androidTest/java/androidx/preference/tests/DialogTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-03-19T16:17:35Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "6230c07e_9aab393c",
+      "range": {
+        "startLine": 176,
+        "startChar": 90,
+        "endLine": 176,
+        "endChar": 99
+      },
+      "revId": "c1ad935b20651b21adb7ec74439226c3805d5394",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "53873888_4302a34f",
+        "filename": "preference/src/main/java/androidx/preference/PreferenceDialogFragmentCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-03-19T16:17:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d1c5dcef_4f70c282",
+      "range": {
+        "startLine": 80,
+        "startChar": 16,
+        "endLine": 80,
+        "endChar": 27
+      },
+      "revId": "c1ad935b20651b21adb7ec74439226c3805d5394",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "698f6a3c_a4d48b91",
         "filename": "preference/src/main/java/androidx/preference/PreferenceDialogFragmentCompat.java",
         "patchSetId": 1
@@ -91,6 +163,30 @@
       "revId": "c1ad935b20651b21adb7ec74439226c3805d5394",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "271b9ff2_2100e2ec",
+        "filename": "preference/src/main/java/androidx/preference/PreferenceDialogFragmentCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-03-19T16:17:35Z",
+      "side": 1,
+      "message": "Since this method is called from within an anonymous class in line 177, under the hood the compiler needs to generate another method for the anonymous class to access this method (if it was private). This eats up dex count which is bad for us in AndroidX, so instead we make things package private to avoid this.\n\nHere\u0027s more information from the studio linter:\n\nInspection info:A private inner class which is accessed from the outer class will force the compiler to insert a synthetic accessor; this means that you are causing extra overhead. This is not important in small projects, but is important for large apps running up against the 64K method handle limit, and especially for libraries where you want to make sure your library is as small as possible for the cases where your library is used in an app running up against the 64K limit.",
+      "parentUuid": "698f6a3c_a4d48b91",
+      "range": {
+        "startLine": 277,
+        "startChar": 38,
+        "endLine": 277,
+        "endChar": 60
+      },
+      "revId": "c1ad935b20651b21adb7ec74439226c3805d5394",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
