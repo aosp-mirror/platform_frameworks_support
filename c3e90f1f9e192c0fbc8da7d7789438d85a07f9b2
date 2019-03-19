@@ -1,0 +1,182 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9c49924f_60609977",
+        "filename": "biometric/res/values/strings.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1157913
+      },
+      "writtenOn": "2019-03-19T19:18:52Z",
+      "side": 1,
+      "message": "fingerprint_error_lockout to be consistent with frameworks/base, and move together with other fingerprint_error strings",
+      "revId": "c3e90f1f9e192c0fbc8da7d7789438d85a07f9b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dfe1ce3a_1c5185fa",
+        "filename": "biometric/src/main/java/androidx/biometric/BiometricPrompt.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1157913
+      },
+      "writtenOn": "2019-03-19T19:18:52Z",
+      "side": 1,
+      "message": "nit: line wrap at 100",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 58
+      },
+      "revId": "c3e90f1f9e192c0fbc8da7d7789438d85a07f9b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93f24fc2_294cb77c",
+        "filename": "biometric/src/main/java/androidx/biometric/BiometricPrompt.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 506,
+      "author": {
+        "id": 1157913
+      },
+      "writtenOn": "2019-03-19T19:18:52Z",
+      "side": 1,
+      "message": "maybe just store this in a local variable",
+      "range": {
+        "startLine": 506,
+        "startChar": 50,
+        "endLine": 506,
+        "endChar": 89
+      },
+      "revId": "c3e90f1f9e192c0fbc8da7d7789438d85a07f9b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79ee0e08_0cefeea7",
+        "filename": "biometric/src/main/java/androidx/biometric/FingerprintDialogFragment.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1157913
+      },
+      "writtenOn": "2019-03-19T19:18:52Z",
+      "side": 1,
+      "message": "MSG_DISMISS_DIALOG_ERROR maybe?",
+      "range": {
+        "startLine": 101,
+        "startChar": 21,
+        "endLine": 101,
+        "endChar": 47
+      },
+      "revId": "c3e90f1f9e192c0fbc8da7d7789438d85a07f9b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73dd7116_eec6079a",
+        "filename": "biometric/src/main/java/androidx/biometric/FingerprintDialogFragment.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1157913
+      },
+      "writtenOn": "2019-03-19T19:18:52Z",
+      "side": 1,
+      "message": "handleDismissDialogError to be consistent, same for other new/changed ones",
+      "range": {
+        "startLine": 102,
+        "startChar": 20,
+        "endLine": 102,
+        "endChar": 39
+      },
+      "revId": "c3e90f1f9e192c0fbc8da7d7789438d85a07f9b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d22cbe56_d8106c19",
+        "filename": "biometric/src/main/java/androidx/biometric/FingerprintDialogFragment.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1157913
+      },
+      "writtenOn": "2019-03-19T19:18:52Z",
+      "side": 1,
+      "message": "MSG_DISMISS_DIALOG_AUTHENTICATED maybe?",
+      "range": {
+        "startLine": 104,
+        "startChar": 21,
+        "endLine": 104,
+        "endChar": 47
+      },
+      "revId": "c3e90f1f9e192c0fbc8da7d7789438d85a07f9b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b46e349f_76760142",
+        "filename": "biometric/src/main/java/androidx/biometric/FingerprintDialogFragment.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1157913
+      },
+      "writtenOn": "2019-03-19T19:18:52Z",
+      "side": 1,
+      "message": "I\u0027d put a big healthy comment above this, since it\u0027s the only way to fix this bug",
+      "range": {
+        "startLine": 119,
+        "startChar": 20,
+        "endLine": 119,
+        "endChar": 37
+      },
+      "revId": "c3e90f1f9e192c0fbc8da7d7789438d85a07f9b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5c23f606_fbcf8ffa",
+        "filename": "biometric/src/main/java/androidx/biometric/FingerprintDialogFragment.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 1157913
+      },
+      "writtenOn": "2019-03-19T19:18:52Z",
+      "side": 1,
+      "message": "can you comment what each of these do or make a better function name? it\u0027s not clear what dismissFromDisplay is when compared to dismiss()",
+      "range": {
+        "startLine": 360,
+        "startChar": 7,
+        "endLine": 364,
+        "endChar": 9
+      },
+      "revId": "c3e90f1f9e192c0fbc8da7d7789438d85a07f9b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
