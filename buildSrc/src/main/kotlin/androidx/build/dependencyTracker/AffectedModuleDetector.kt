@@ -223,6 +223,9 @@ internal class AffectedModuleDetectorImpl constructor(
      * This is because we run all tests including @large on the changed set. So when we must
      * build all, we only want to run @small and @medium tests in the test runner for
      * DEPENDENT_PROJECTS.
+     *
+     * Also detects modules whose tests are codependent despite the module themselves not being
+     * dependent.
      */
     private fun findLocallyAffectedProjects(): Set<Project> {
         val lastMergeSha = git.findPreviousMergeCL() ?: return allProjects
@@ -268,13 +271,50 @@ internal class AffectedModuleDetectorImpl constructor(
             }
         }
 
-        return alwaysBuild + when (projectSubset) {
+        val cobuiltTestProjects = lookupCobuiltProjectsFromNames(COBUILT_TEST_NAMES)
+
+        val affectedProjects = when (projectSubset) {
             ProjectSubset.DEPENDENT_PROJECTS
                 -> expandToDependents(containingProjects) - containingProjects.filterNotNull()
             ProjectSubset.CHANGED_PROJECTS
-                -> (containingProjects).filterNotNull().toSet()
+                -> containingProjects.filterNotNull().toSet()
             else -> expandToDependents(containingProjects)
         }
+
+        return alwaysBuild + affectedProjects +
+                getAffectedCobuiltProjects(affectedProjects, cobuiltTestProjects)
+    }
+
+    private fun lookupCobuiltProjectsFromNames(
+        cobuiltTestNames: Set<Set<String>>
+    ): Set<Set<Project>> {
+        val cobuiltTestProjects = mutableSetOf<Set<Project>>()
+        cobuiltTestNames.forEach { cobuiltTestNameSet ->
+            cobuiltTestProjects.add(
+                rootProject.subprojects.filter { project ->
+                    cobuiltTestNameSet.any {
+                        project.name == it
+                    }
+                }.toSet())
+            }
+        return cobuiltTestProjects
+    }
+
+    private fun getAffectedCobuiltProjects(
+        projectSet: Set<Project?>,
+        cobuiltSets: Set<Set<Project>>
+    ): Set<Project> {
+        val cobuilts = mutableSetOf<Project>()
+        projectSet.forEach { project ->
+            cobuiltSets.forEach { cobuiltSet ->
+                if (cobuiltSet.any {
+                        project == it
+                    }) {
+                    cobuilts.addAll(cobuiltSet)
+                }
+            }
+        }
+        return cobuilts
     }
 
     private fun expandToDependents(containingProjects: List<Project?>): Set<Project> {
@@ -293,5 +333,19 @@ internal class AffectedModuleDetectorImpl constructor(
         // dummy test to ensure no failure due to "no instrumentation. We can eventually remove
         // if we resolve b/127819369
         private val ALWAYS_BUILD = setOf("dumb-test")
+        // Some tests are codependent even if their modules are not. Enable manual bundling of tests
+        private val COBUILT_TEST_NAMES = setOf(
+            // These 2 cobuilt sets inspired this capability due to b/128577735
+            setOf(
+                "support-media-compat-test-client",
+                "support-media-compat-test-service",
+                "support-media-compat-test-client-previous",
+                "support-media-compat-test-service-previous"
+            ),
+            setOf(
+                "support-media2-test-client",
+                "support-media2-test-service"
+            )
+        )
     }
 }
