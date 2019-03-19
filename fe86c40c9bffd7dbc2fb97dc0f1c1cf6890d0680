@@ -1098,6 +1098,30 @@
     },
     {
       "key": {
+        "uuid": "fbbec74c_5fcf8c71",
+        "filename": "car/core/src/main/java/androidx/car/app/CarSelectionDialog.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 494,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-03-19T18:14:13Z",
+      "side": 1,
+      "message": "I recommended it be called body to tie it with the other dialogs, but if you feel it should be subtitle, I can be persuaded to change it back.\n\nIf it\u0027s called body, it can reuse the attribute for styling the body, which I think is a better benefits.",
+      "parentUuid": "b903c50c_db3f092a",
+      "range": {
+        "startLine": 494,
+        "startChar": 26,
+        "endLine": 494,
+        "endChar": 34
+      },
+      "revId": "fe86c40c9bffd7dbc2fb97dc0f1c1cf6890d0680",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c6750952_f1c8e233",
         "filename": "car/core/src/main/java/androidx/car/app/CarSelectionDialog.java",
         "patchSetId": 9
