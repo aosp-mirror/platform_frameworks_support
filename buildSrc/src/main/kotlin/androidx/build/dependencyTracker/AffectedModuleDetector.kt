@@ -268,13 +268,45 @@ internal class AffectedModuleDetectorImpl constructor(
             }
         }
 
+        val cobuiltSets = mutableSetOf<Set<Project>>()
+        COBUILT_SETS.forEach { coBuiltSet ->
+            cobuiltSets.add(
+                rootProject.subprojects.filter { project ->
+                    coBuiltSet.any {
+                        project.name.contains(it)
+                }
+            }.toSet())
+        }
+
         return alwaysBuild + when (projectSubset) {
             ProjectSubset.DEPENDENT_PROJECTS
-                -> expandToDependents(containingProjects) - containingProjects.filterNotNull()
+                -> expandToDependents(containingProjects) - containingProjects.filterNotNull() +
+                    getCobuiltProjects(
+            expandToDependents(containingProjects) - containingProjects,
+                    cobuiltSets)
             ProjectSubset.CHANGED_PROJECTS
-                -> (containingProjects).filterNotNull().toSet()
-            else -> expandToDependents(containingProjects)
+                -> containingProjects.filterNotNull().toSet() +
+                    getCobuiltProjects(containingProjects.toSet(), cobuiltSets)
+            else -> expandToDependents(containingProjects) +
+                    getCobuiltProjects(containingProjects.toSet(), cobuiltSets)
         }
+    }
+
+    private fun getCobuiltProjects(
+        projectSet: Set<Project?>,
+        cobuiltSets: Set<Set<Project>>
+    ): Set<Project> {
+        val cobuilts = mutableSetOf<Project>()
+        projectSet.forEach { project ->
+            cobuiltSets.forEach { cobuiltSet ->
+                if (cobuiltSet.any {
+                        project == it
+                    }) {
+                    cobuilts.addAll(cobuiltSet)
+                }
+            }
+        }
+        return cobuilts
     }
 
     private fun expandToDependents(containingProjects: List<Project?>): Set<Project> {
@@ -293,5 +325,19 @@ internal class AffectedModuleDetectorImpl constructor(
         // dummy test to ensure no failure due to "no instrumentation. We can eventually remove
         // if we resolve b/127819369
         private val ALWAYS_BUILD = setOf("dumb-test")
+        // Some tests are codependent even if their modules are not. Enable manual bundling of tests
+        private val COBUILT_SETS = setOf(
+            // These 2 cobuilt sets inspired this capability due to b/128577735
+            setOf(
+                "support-media-compat-test-client",
+                "support-media-compat-test-service",
+                "support-media-compat-test-client-previous",
+                "support-media-compat-test-service-previous"
+            ),
+            setOf(
+                "support-media2-test-client",
+                "support-media2-test-service"
+            )
+        )
     }
 }
