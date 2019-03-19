@@ -1122,6 +1122,30 @@
     },
     {
       "key": {
+        "uuid": "00433444_8284ca09",
+        "filename": "car/core/src/main/java/androidx/car/app/CarSelectionDialog.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 494,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2019-03-19T18:24:19Z",
+      "side": 1,
+      "message": "being able to re-use the body attribute and aligning with existing pattern makes sense to me. \n\na side note... if it\u0027s called body, i assume it\u0027d behave like one - mainly supporting multi-lines of text.",
+      "parentUuid": "fbbec74c_5fcf8c71",
+      "range": {
+        "startLine": 494,
+        "startChar": 26,
+        "endLine": 494,
+        "endChar": 34
+      },
+      "revId": "fe86c40c9bffd7dbc2fb97dc0f1c1cf6890d0680",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c6750952_f1c8e233",
         "filename": "car/core/src/main/java/androidx/car/app/CarSelectionDialog.java",
         "patchSetId": 9
