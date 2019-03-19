@@ -16,8 +16,6 @@
 
 package androidx.mediarouter.app;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
-
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.res.Resources;
@@ -63,8 +61,8 @@ import android.widget.TextView;
 
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
-import androidx.annotation.RestrictTo;
 import androidx.appcompat.app.AppCompatDialog;
 import androidx.core.util.ObjectsCompat;
 import androidx.mediarouter.R;
@@ -95,9 +93,7 @@ import java.util.Map;
  *
  * @see MediaRouteButton
  * @see MediaRouteActionProvider
- * @hide
  */
-@RestrictTo(LIBRARY_GROUP_PREFIX)
 public class MediaRouteCastDialog extends AppCompatDialog {
     private static final String TAG = "MediaRouteCastDialog";
     @SuppressWarnings("WeakerAccess") /* synthetic access */
@@ -212,11 +208,11 @@ public class MediaRouteCastDialog extends AppCompatDialog {
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     int mArtIconBackgroundColor;
 
-    public MediaRouteCastDialog(Context context) {
+    public MediaRouteCastDialog(@NonNull Context context) {
         this(context, 0);
     }
 
-    public MediaRouteCastDialog(Context context, int theme) {
+    public MediaRouteCastDialog(@NonNull Context context, int theme) {
         super(context = MediaRouterThemeHelper.createThemedDialogContext(context, theme, false),
                 MediaRouterThemeHelper.createThemedDialogStyle(context));
         mContext = getContext();
@@ -235,7 +231,7 @@ public class MediaRouteCastDialog extends AppCompatDialog {
      *
      * @param sessionToken The token for the session to use.
      */
-    private void setMediaSession(MediaSessionCompat.Token sessionToken) {
+    private void setMediaSession(@Nullable MediaSessionCompat.Token sessionToken) {
         if (mMediaController != null) {
             mMediaController.unregisterCallback(mControllerCallback);
             mMediaController = null;
@@ -266,6 +262,7 @@ public class MediaRouteCastDialog extends AppCompatDialog {
      *
      * @return The token for the session to use or null if none.
      */
+    @Nullable
     public MediaSessionCompat.Token getMediaSession() {
         return mMediaController == null ? null : mMediaController.getSessionToken();
     }
