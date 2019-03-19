@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8296a67e_6d6ac373",
+        "filename": "viewpager2/integration-tests/testapp/src/main/java/com/example/androidx/viewpager2/BaseCardActivity.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-03-19T13:01:42Z",
+      "side": 1,
+      "message": "see other comment on OrientationTracker",
+      "range": {
+        "startLine": 87,
+        "startChar": 8,
+        "endLine": 87,
+        "endChar": 77
+      },
+      "revId": "e313a94e558f880c86f2b1910861d3db0e2d5304",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3163e05e_28de65dc",
+        "filename": "viewpager2/integration-tests/testapp/src/main/java/com/example/androidx/viewpager2/BrowseActivity.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-03-19T13:01:42Z",
+      "side": 1,
+      "message": "nit: \"with Fake Dragging\" or \"with fakeDrag()\" -- looks more consistent IMO",
+      "range": {
+        "startLine": 52,
+        "startChar": 53,
+        "endLine": 52,
+        "endChar": 66
+      },
+      "revId": "e313a94e558f880c86f2b1910861d3db0e2d5304",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "37528fb3_12ea9c06",
+        "filename": "viewpager2/integration-tests/testapp/src/main/java/com/example/androidx/viewpager2/FakeDragActivity.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-03-19T13:01:42Z",
+      "side": 1,
+      "message": "This is a bit dodgy. Maybe add register() / start() or similar? Otherwise it seems like you\u0027re constructing it and forgetting to make use of it. Recommendation/assumption is not to do work in a constructor.",
+      "range": {
+        "startLine": 41,
+        "startChar": 8,
+        "endLine": 41,
+        "endChar": 77
+      },
+      "revId": "e313a94e558f880c86f2b1910861d3db0e2d5304",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90c4a260_c5726a75",
+        "filename": "viewpager2/integration-tests/testapp/src/main/java/com/example/androidx/viewpager2/OrientationTracker.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-03-19T13:01:42Z",
+      "side": 1,
+      "message": "IllegalArgumentException?",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 24
+      },
+      "revId": "e313a94e558f880c86f2b1910861d3db0e2d5304",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18b57aef_2ae4c07a",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/BaseTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-03-19T13:01:42Z",
+      "side": 1,
+      "message": "private?",
+      "range": {
+        "startLine": 502,
+        "startChar": 0,
+        "endLine": 502,
+        "endChar": 3
+      },
+      "revId": "e313a94e558f880c86f2b1910861d3db0e2d5304",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
