@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9b6834fd_85bdc6bc",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/ExtrasUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-03-19T15:58:11Z",
+      "side": 1,
+      "message": "Pull in the constants from the SDK instead of hard-coding the values here.",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 69
+      },
+      "revId": "bac68ab710943b86f67ede8797f51a2b63a4065e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66dec33a_077bf0ad",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/ExtrasUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-03-19T15:58:11Z",
+      "side": 1,
+      "message": "what does not language mean? Please explain in the javadoc.",
+      "range": {
+        "startLine": 44,
+        "startChar": 19,
+        "endLine": 44,
+        "endChar": 31
+      },
+      "revId": "bac68ab710943b86f67ede8797f51a2b63a4065e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
