@@ -42,6 +42,30 @@
     },
     {
       "key": {
+        "uuid": "30abe96d_5cf300c9",
+        "filename": "media2-widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-03-19T07:15:11Z",
+      "side": 1,
+      "message": "Good point, but Let\u0027s think about it after this change.",
+      "parentUuid": "4c2bd64e_0fbcbed7",
+      "range": {
+        "startLine": 198,
+        "startChar": 0,
+        "endLine": 199,
+        "endChar": 36
+      },
+      "revId": "d47a409cc78eabf680900e74176ddb59fda8eb82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6abb5afc_e29f4e68",
         "filename": "media2-widget/src/main/java/androidx/media2/widget/VideoView.java",
         "patchSetId": 4
@@ -53,6 +77,30 @@
       "writtenOn": "2019-03-18T10:16:36Z",
       "side": 1,
       "message": "Changed variable names to avoid confusion.",
+      "range": {
+        "startLine": 700,
+        "startChar": 24,
+        "endLine": 700,
+        "endChar": 48
+      },
+      "revId": "d47a409cc78eabf680900e74176ddb59fda8eb82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c358668f_cc2210f9",
+        "filename": "media2-widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 700,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-03-19T07:15:11Z",
+      "side": 1,
+      "message": "Ack (Nice change)",
+      "parentUuid": "6abb5afc_e29f4e68",
       "range": {
         "startLine": 700,
         "startChar": 24,
