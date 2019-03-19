@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "95bad851_b23421f0",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewOnUiThread.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-03-19T23:04:12Z",
+      "side": 1,
+      "message": "Without this, I get a presubmit warning that a \"public\" constructor is redundant. IMO this fix is cleaner than dropping the modifier below.",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 6
+      },
+      "revId": "58a6c1ab2ae3df0f4e9386d41971770763fb3ec6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "095d3912_d55643b3",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewOnUiThread.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-03-19T23:04:12Z",
+      "side": 1,
+      "message": "I couldn\u0027t figure out a better way than just documenting this requirement. I can\u0027t pass the clients into this constructor since they need a reference to the WebViewOnUiThread for themselves to be constructed.",
+      "range": {
+        "startLine": 83,
+        "startChar": 77,
+        "endLine": 85,
+        "endChar": 75
+      },
+      "revId": "58a6c1ab2ae3df0f4e9386d41971770763fb3ec6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}

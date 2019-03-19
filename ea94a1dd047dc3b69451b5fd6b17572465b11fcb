@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "641d2074_fe85cb4e",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewAssetLoaderIntegrationTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-03-19T23:04:12Z",
+      "side": 0,
+      "message": "This part was actually a bug. Should\u0027ve been LinkedBlockingQueue, but IMO WebViewOnUiThread is a simpler solution.",
+      "range": {
+        "startLine": 75,
+        "startChar": 68,
+        "endLine": 75,
+        "endChar": 97
+      },
+      "revId": "ea94a1dd047dc3b69451b5fd6b17572465b11fcb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
