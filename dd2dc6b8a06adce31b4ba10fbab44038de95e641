@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4693b8ae_b47925be",
+        "filename": "benchmark/gradle-plugin/build.gradle",
+        "patchSetId": 18
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-19T16:59:12Z",
+      "side": 1,
+      "message": "you don\u0027t have generated resources",
+      "revId": "dd2dc6b8a06adce31b4ba10fbab44038de95e641",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8df5d1d8_8120f515",
+        "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/BenchmarkPlugin.kt",
+        "patchSetId": 18
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-19T16:59:12Z",
+      "side": 1,
+      "message": "don\u0027t use \"project.extensions.extraProperties\" use instead \ntasks.register​(String name, Class\u003cT\u003e type, Object... constructorArgs)\n\nSee docs: https://docs.gradle.org/current/javadoc/org/gradle/api/tasks/TaskContainer.html#register-java.lang.String-java.lang.Class-java.lang.Object...-",
+      "revId": "dd2dc6b8a06adce31b4ba10fbab44038de95e641",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a711b67e_d1f53019",
+        "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/ClockTask.kt",
+        "patchSetId": 18
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-19T16:59:12Z",
+      "side": 1,
+      "message": "can it be final?",
+      "revId": "dd2dc6b8a06adce31b4ba10fbab44038de95e641",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
