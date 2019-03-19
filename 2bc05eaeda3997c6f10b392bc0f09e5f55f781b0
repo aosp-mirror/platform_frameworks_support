@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a1abf38_d8de7333",
+        "filename": "media2/src/main/java/androidx/media2/MediaPlayer.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 920,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-03-19T23:38:30Z",
+      "side": 1,
+      "message": "AFAIK, annotation for return value should be in a separated line.",
+      "revId": "2bc05eaeda3997c6f10b392bc0f09e5f55f781b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
