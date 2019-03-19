@@ -22,6 +22,30 @@
       "revId": "9259d3e2e00f6ac005c7c1f5d76941d1b02fd5b4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ffa755bd_5d76c44e",
+        "filename": "media/src/main/java/androidx/media/MediaBrowserServiceCompat.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1099,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-03-19T07:20:55Z",
+      "side": 1,
+      "message": "Thanks for the findings. Uploaded aosp/930246 for fix.",
+      "parentUuid": "6fe90e70_eab0d4d8",
+      "range": {
+        "startLine": 1099,
+        "startChar": 0,
+        "endLine": 1099,
+        "endChar": 74
+      },
+      "revId": "9259d3e2e00f6ac005c7c1f5d76941d1b02fd5b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
