@@ -296,6 +296,13 @@ abstract public class BaseRecyclerViewInstrumentationTest {
                 latch.await(seconds, TimeUnit.SECONDS));
     }
 
+    public void waitForDraw(int seconds) throws InterruptedException {
+        TestedFrameLayout container = getActivity().getContainer();
+        container.expectDraws(1);
+        container.invalidate();
+        container.waitForDraw(seconds);
+    }
+
     public void waitForIdleScroll(final RecyclerView recyclerView) throws Throwable {
         final CountDownLatch latch = new CountDownLatch(1);
         mActivityRule.runOnUiThread(new Runnable() {
