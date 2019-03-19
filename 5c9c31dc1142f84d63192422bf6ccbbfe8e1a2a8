@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2c9398fa_86b28a45",
+        "filename": "biometric/src/main/java/androidx/biometric/BiometricPrompt.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1157913
+      },
+      "writtenOn": "2019-03-19T20:21:31Z",
+      "side": 1,
+      "message": "prefer to keep unrelated lines unchanged here and below",
+      "range": {
+        "startLine": 81,
+        "startChar": 4,
+        "endLine": 82,
+        "endChar": 5
+      },
+      "revId": "5c9c31dc1142f84d63192422bf6ccbbfe8e1a2a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e97ff40f_ed19cb38",
+        "filename": "biometric/src/main/java/androidx/biometric/BiometricPrompt.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 1157913
+      },
+      "writtenOn": "2019-03-19T20:21:31Z",
+      "side": 1,
+      "message": "nit: final",
+      "range": {
+        "startLine": 517,
+        "startChar": 12,
+        "endLine": 517,
+        "endChar": 19
+      },
+      "revId": "5c9c31dc1142f84d63192422bf6ccbbfe8e1a2a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a27abb7b_df2765c1",
+        "filename": "biometric/src/main/java/androidx/biometric/FingerprintDialogFragment.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1157913
+      },
+      "writtenOn": "2019-03-19T20:21:31Z",
+      "side": 1,
+      "message": "\", i\"",
+      "range": {
+        "startLine": 120,
+        "startChar": 80,
+        "endLine": 120,
+        "endChar": 83
+      },
+      "revId": "5c9c31dc1142f84d63192422bf6ccbbfe8e1a2a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44ba617a_f2283248",
+        "filename": "biometric/src/main/java/androidx/biometric/FingerprintDialogFragment.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1157913
+      },
+      "writtenOn": "2019-03-19T20:21:31Z",
+      "side": 1,
+      "message": "nit: UI",
+      "range": {
+        "startLine": 122,
+        "startChar": 85,
+        "endLine": 122,
+        "endChar": 87
+      },
+      "revId": "5c9c31dc1142f84d63192422bf6ccbbfe8e1a2a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af338a3a_fbeca185",
+        "filename": "biometric/src/main/java/androidx/biometric/FingerprintDialogFragment.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1157913
+      },
+      "writtenOn": "2019-03-19T20:21:31Z",
+      "side": 1,
+      "message": "can\u0027t we just initialize to false (uninitialized), then we don\u0027t need DISPLAYED_FOR_500_MS right? or am I missing something",
+      "range": {
+        "startLine": 125,
+        "startChar": 20,
+        "endLine": 125,
+        "endChar": 44
+      },
+      "revId": "5c9c31dc1142f84d63192422bf6ccbbfe8e1a2a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
