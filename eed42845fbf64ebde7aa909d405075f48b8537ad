@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "152b1f39_8ea071d4",
+        "filename": "lifecycle/runtime/eap/lint/build.gradle",
+        "patchSetId": 9
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2019-03-19T13:35:12Z",
+      "side": 1,
+      "message": "FYI you can instead use a service registry; that\u0027s refactoring-safe etc.\n\nhttps://groups.google.com/d/msg/lint-dev/eCxw9PdTpVI/UA6of9VXAAAJ",
+      "revId": "eed42845fbf64ebde7aa909d405075f48b8537ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca795b54_6c4ff8e3",
+        "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleRuntimeIssueRegistry.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2019-03-19T13:35:12Z",
+      "side": 1,
+      "message": "If you want to support multiple versions of lint also override minApi",
+      "revId": "eed42845fbf64ebde7aa909d405075f48b8537ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74b8dbb9_67865f49",
+        "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleWhenChecks.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2019-03-19T13:35:12Z",
+      "side": 1,
+      "message": "no need to call super.",
+      "revId": "eed42845fbf64ebde7aa909d405075f48b8537ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf7417e3_bc653c38",
+        "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleWhenChecks.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2019-03-19T13:35:12Z",
+      "side": 1,
+      "message": "Maybe flip the order of these checks since I presume the second is much faster",
+      "revId": "eed42845fbf64ebde7aa909d405075f48b8537ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "add75de1_918bc0e4",
+        "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleWhenChecks.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2019-03-19T13:35:12Z",
+      "side": 1,
+      "message": "You can use raw strings here along with \\ at the end to indicate a line continuation. Lint will automatically handle this as well as trim the start. Take a look at builtin lint checks for examples, such as AlarmDetector.kt.",
+      "revId": "eed42845fbf64ebde7aa909d405075f48b8537ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57955c4c_2f44f8ed",
+        "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleWhenChecks.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2019-03-19T13:35:12Z",
+      "side": 1,
+      "message": "add , androidSpecific \u003d true",
+      "revId": "eed42845fbf64ebde7aa909d405075f48b8537ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d99652a8_bf076bf5",
+        "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleWhenChecks.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2019-03-19T13:35:12Z",
+      "side": 1,
+      "message": "I\u0027m not sure exactly what this state machine is doing but it looks like it might be trying to record state while visiting to figure out surrounding context -- that\u0027s sometimes tricky -- note that in the middle of a method, inside a try statement, you can declare a new class and override new methods with their own try statements etc. Doing these kinds of things often require pushing and popping things on/off a stack (And overriding the after* visit methods to know when to pop). I know, vague comment since I\u0027m not sure exactly what this is looking for (might be useful to add a comment here anyway).",
+      "revId": "eed42845fbf64ebde7aa909d405075f48b8537ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
