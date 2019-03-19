@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3f64e21d_6e12ab13",
+        "filename": "media2-widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1626,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-03-19T03:16:37Z",
+      "side": 1,
+      "message": "Does it needed to be called here too? I think line 2021 is enough.",
+      "range": {
+        "startLine": 1626,
+        "startChar": 12,
+        "endLine": 1626,
+        "endChar": 26
+      },
+      "revId": "e596dcf6e88f315dce2695a51c8a142a1221a23b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
