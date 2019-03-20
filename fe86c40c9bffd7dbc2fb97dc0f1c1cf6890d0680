@@ -488,6 +488,24 @@
     },
     {
       "key": {
+        "uuid": "30d0181d_7be316db",
+        "filename": "car/core/src/main/java/androidx/car/app/CarSelectionDialog.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-03-20T04:28:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8efea77f_02c5bf8e",
+      "revId": "fe86c40c9bffd7dbc2fb97dc0f1c1cf6890d0680",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e26b1e83_9b355f7d",
         "filename": "car/core/src/main/java/androidx/car/app/CarSelectionDialog.java",
         "patchSetId": 9
@@ -1180,6 +1198,30 @@
       "side": 1,
       "message": "Agreed. The name should probably be changed. If you\u0027re going to use OnPositiveButtonClickedListener(), then that feels like you should just re-use an OnClickListener. \n\nSo that probably shouldn\u0027t be the new name.",
       "parentUuid": "70839802_ca27b8ec",
+      "range": {
+        "startLine": 371,
+        "startChar": 21,
+        "endLine": 371,
+        "endChar": 41
+      },
+      "revId": "fe86c40c9bffd7dbc2fb97dc0f1c1cf6890d0680",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6dc767ca_05f48034",
+        "filename": "car/core/src/main/java/androidx/car/app/CarSelectionDialog.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-03-20T04:28:49Z",
+      "side": 1,
+      "message": "Drawing a blank on a new name. Do you both feel moving setting the listener alongside with the positive button helps clarify its behavior.",
+      "parentUuid": "2127ee56_206365b6",
       "range": {
         "startLine": 371,
         "startChar": 21,
