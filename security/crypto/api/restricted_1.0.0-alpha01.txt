@@ -2,5 +2,30 @@
 package androidx.security.crypto {
 
 
+  public static class EncryptedFileKeyset.Builder {
+    ctor public EncryptedFileKeyset.Builder(android.content.Context, androidx.security.crypto.MasterKey, androidx.security.crypto.EncryptedFile.FileEncryptionScheme);
+    method public androidx.security.crypto.EncryptedFileKeyset build();
+    method public androidx.security.crypto.EncryptedFileKeyset.Builder setContext(android.content.Context);
+    method public androidx.security.crypto.EncryptedFileKeyset.Builder setFileEncryptionScheme(androidx.security.crypto.EncryptedFile.FileEncryptionScheme);
+    method public androidx.security.crypto.EncryptedFileKeyset.Builder setFileKeysetAlias(String);
+    method public androidx.security.crypto.EncryptedFileKeyset.Builder setKeyFileName(String);
+    method public androidx.security.crypto.EncryptedFileKeyset.Builder setMasterKey(androidx.security.crypto.MasterKey);
+  }
+
+
+  public static class EncryptedSharedPreferencesKeysets.Builder {
+    ctor public EncryptedSharedPreferencesKeysets.Builder(android.content.Context, androidx.security.crypto.MasterKey, androidx.security.content.EncryptedSharedPreferencesCompat.KeyEncryptionScheme, androidx.security.content.EncryptedSharedPreferencesCompat.ValueEncryptionScheme);
+    method public androidx.security.crypto.EncryptedSharedPreferencesKeysets build();
+    method public androidx.security.crypto.EncryptedSharedPreferencesKeysets.Builder setContext(android.content.Context);
+    method public androidx.security.crypto.EncryptedSharedPreferencesKeysets.Builder setKeyEncryptionScheme(androidx.security.content.EncryptedSharedPreferencesCompat.KeyEncryptionScheme);
+    method public androidx.security.crypto.EncryptedSharedPreferencesKeysets.Builder setKeyFileName(String);
+    method public androidx.security.crypto.EncryptedSharedPreferencesKeysets.Builder setKeyKeysetAlias(String);
+    method public androidx.security.crypto.EncryptedSharedPreferencesKeysets.Builder setMasterKey(androidx.security.crypto.MasterKey);
+    method public androidx.security.crypto.EncryptedSharedPreferencesKeysets.Builder setValueEncryptionScheme(androidx.security.content.EncryptedSharedPreferencesCompat.ValueEncryptionScheme);
+    method public androidx.security.crypto.EncryptedSharedPreferencesKeysets.Builder setValueFileName(String);
+    method public androidx.security.crypto.EncryptedSharedPreferencesKeysets.Builder setValueKeysetAlias(String);
+  }
+
+
 }
 
