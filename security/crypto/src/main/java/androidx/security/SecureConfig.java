@@ -40,6 +40,7 @@ public class SecureConfig {
 
     public static final String ANDROID_KEYSTORE = "AndroidKeyStore";
     public static final String ANDROID_CA_STORE = "AndroidCAStore";
+    public static final String MASTER_KEY = "master_key";
     public static final int AES_IV_SIZE_BYTES = 16;
     public static final String SSL_TLS = "TLS";
 

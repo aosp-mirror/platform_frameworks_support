@@ -16,14 +16,25 @@
 
 package androidx.security.crypto;
 
+import android.content.Context;
 import android.os.Build;
 import android.security.keystore.KeyProperties;
 import android.util.Log;
 import android.util.Pair;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RestrictTo;
 import androidx.security.SecureConfig;
 import androidx.security.biometric.BiometricKeyAuthCallback;
+import androidx.security.util.TinkUtil;
+
+import com.google.crypto.tink.Aead;
+import com.google.crypto.tink.DeterministicAead;
+import com.google.crypto.tink.KeysetHandle;
+import com.google.crypto.tink.aead.AeadFactory;
+import com.google.crypto.tink.aead.AeadKeyTemplates;
+import com.google.crypto.tink.daead.DeterministicAeadFactory;
+import com.google.crypto.tink.integration.android.AndroidKeysetManager;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -71,6 +82,16 @@ public class SecureCipher {
          * @param iv the initialization vector used
          */
         void encryptionComplete(@NonNull byte[] cipherText, @NonNull byte[] iv);
+    }
+
+    /**
+     * Listener for encrypting Aead data
+     */
+    public interface AeadEncryptionListener {
+        /**
+         * @param cipherText the encrypted cipher text
+         */
+        void encryptionComplete(@NonNull byte[] cipherText);
     }
 
     /**
@@ -229,6 +250,93 @@ public class SecureCipher {
         } catch (IOException ex) {
             throw new SecurityException(ex);
         }
+    }
+
+    /**
+     * Encrypts Aead data with an existing key alias from the AndroidKeyStore.
+     *
+     * @param clearData The unencrypted data to encrypt
+     * @param aad Associated Data for the encrypted data
+     * @param deterministic true to use deterministic encryption
+     * @return the encrypted data
+     * @hide
+     */
+    @NonNull
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
+    public byte[] encryptAead(
+            @NonNull final Context context,
+            @NonNull final byte[] clearData,
+            @NonNull final byte[] aad,
+            boolean deterministic) {
+        try {
+            // Handle getting proper key set and biometric prompt.
+            TinkUtil.AsyncAead masterKey = TinkUtil.getOrCreateMasterKey(mSecureConfig);
+            AndroidKeysetManager keysetManager = new AndroidKeysetManager.Builder()
+                    .withKeyTemplate(AeadKeyTemplates.AES256_GCM)
+                    .withSharedPref(context, "keys", "key_file")
+                    .withMasterKeyUri(SecureConfig.MASTER_KEY /* Change this to actual key */)
+                    .build();
+            KeysetHandle keysetHandle = keysetManager.getKeysetHandle();
+            byte[] encrypted = new byte[0];
+            if (!deterministic) {
+                Aead aead = AeadFactory.getPrimitive(keysetHandle);
+                encrypted = aead.encrypt(clearData, aad);
+            } else {
+                DeterministicAead daead = DeterministicAeadFactory.getPrimitive(keysetHandle);
+                encrypted = daead.encryptDeterministically(clearData, aad);
+            }
+            // Implement biometric prompt to unlock master key
+            return encrypted;
+        } catch (GeneralSecurityException ex) {
+            ex.printStackTrace();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * Decrypts Aead data with an existing key alias from the AndroidKeyStore.
+     *
+     * @param cipherText The encrypted data
+     * @param aad Associated Data for the encrypted data
+     * @param deterministic true to use deterministic encryption
+     * @return the decrypted data
+     * @hide
+     */
+    @NonNull
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
+    public byte[] decryptAead(
+            @NonNull final Context context,
+            @NonNull final byte[] cipherText,
+            @NonNull final byte[] aad,
+            boolean deterministic) {
+        try {
+            // Handle getting proper key set and biometric prompt.
+            TinkUtil.AsyncAead masterKey = TinkUtil.getOrCreateMasterKey(mSecureConfig);
+            AndroidKeysetManager keysetManager = new AndroidKeysetManager.Builder()
+                    .withKeyTemplate(AeadKeyTemplates.AES256_GCM)
+                    .withSharedPref(context, "keys", "key_file")
+                    .withMasterKeyUri(SecureConfig.MASTER_KEY /* Change this to actual key */)
+                    .build();
+            KeysetHandle keysetHandle = keysetManager.getKeysetHandle();
+            byte[] decrypted = new byte[0];
+            if (!deterministic) {
+                Aead aead = AeadFactory.getPrimitive(keysetHandle);
+                decrypted = aead.decrypt(cipherText, aad);
+            } else {
+                DeterministicAead daead = DeterministicAeadFactory.getPrimitive(keysetHandle);
+                decrypted = daead.decryptDeterministically(cipherText, aad);
+            }
+            // Implement biometric prompt to unlock master key
+            return decrypted;
+
+        } catch (GeneralSecurityException ex) {
+            ex.printStackTrace();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return null;
     }
 
     /**
