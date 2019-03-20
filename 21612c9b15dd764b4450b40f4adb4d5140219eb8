@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1f265090_0f040058",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewOnUiThread.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 522,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-03-20T00:00:09Z",
+      "side": 1,
+      "message": "Sadly, this is not enforced (as far as I can tell) at build/lint time. I tried `./gradlew :webkit:lintDebug` to no success (I suspect something\u0027s misconfigured for running lint within our own gradle project, since the command seems to generally work in the `webkit:integration-tests:testapp:lintDebug` project).",
+      "range": {
+        "startLine": 522,
+        "startChar": 9,
+        "endLine": 522,
+        "endChar": 18
+      },
+      "revId": "21612c9b15dd764b4450b40f4adb4d5140219eb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
