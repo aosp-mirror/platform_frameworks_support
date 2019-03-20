@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "8ed4d79a_0f6e33e8",
+        "filename": "car/core/src/main/java/androidx/car/app/CarDialogUtil.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2019-03-20T18:54:35Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 34,
+        "startChar": 50,
+        "endLine": 34,
+        "endChar": 51
+      },
+      "revId": "1d30f4233cb7303dcc7e8eb2b7ce7b6f9b7e5d58",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "38ef982e_eec88970",
         "filename": "car/core/src/main/java/androidx/car/app/CarDialogUtil.java",
         "patchSetId": 14
@@ -36,6 +59,29 @@
       "writtenOn": "2019-03-20T18:02:26Z",
       "side": 1,
       "message": "Needs a private constructor.",
+      "revId": "1d30f4233cb7303dcc7e8eb2b7ce7b6f9b7e5d58",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8fbce9f0_e5d5d775",
+        "filename": "car/core/src/main/java/androidx/car/app/CarDialogUtil.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2019-03-20T18:54:35Z",
+      "side": 1,
+      "message": "perhaps call out in javadoc this method should only be called once?",
+      "range": {
+        "startLine": 55,
+        "startChar": 16,
+        "endLine": 55,
+        "endChar": 31
+      },
       "revId": "1d30f4233cb7303dcc7e8eb2b7ce7b6f9b7e5d58",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true

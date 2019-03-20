@@ -1234,6 +1234,30 @@
     },
     {
       "key": {
+        "uuid": "47c84723_4e421ca5",
+        "filename": "car/core/src/main/java/androidx/car/app/CarSelectionDialog.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2019-03-20T18:54:35Z",
+      "side": 1,
+      "message": "How about OnSelectionConfirmation?\n\nI have a concern regarding positive button.. it\u0027s the only way to invoke this callback, but in API/UI it\u0027s optional. For example we could create a dialog that is cancelable and has no buttons. A user will make a selection and tap outside to dismiss. Nothing gets selected but it feel likes a selection was made. (though the developer should make sure it doesn\u0027t happen...)\n\nPerhaps this dialog should always show positive button, or give it a default value \"OK\". Thoughts?",
+      "parentUuid": "6dc767ca_05f48034",
+      "range": {
+        "startLine": 371,
+        "startChar": 21,
+        "endLine": 371,
+        "endChar": 41
+      },
+      "revId": "fe86c40c9bffd7dbc2fb97dc0f1c1cf6890d0680",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "41b12e42_76180a9b",
         "filename": "car/core/src/main/java/androidx/car/app/CarSelectionDialog.java",
         "patchSetId": 9
