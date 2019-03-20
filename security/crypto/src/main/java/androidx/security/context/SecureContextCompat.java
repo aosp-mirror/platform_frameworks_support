@@ -20,16 +20,17 @@ package androidx.security.context;
 import android.annotation.TargetApi;
 import android.app.KeyguardManager;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Build;
 
 import androidx.annotation.NonNull;
 import androidx.security.SecureConfig;
+import androidx.security.content.SecureSharedPreferencesCompat;
 import androidx.security.crypto.FileCipher;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.concurrent.Executor;
 
 /**
  * Class that provides access to an encrypted file input and output streams, as well as encrypted
@@ -72,9 +73,8 @@ public class SecureContextCompat {
      * @throws IOException
      */
     public void openEncryptedFileInput(@NonNull String name,
-                                       @NonNull Executor executor,
             @NonNull EncryptedFileInputStreamListener listener) throws IOException {
-        new FileCipher(name, mContext.openFileInput(name), mSecureConfig, executor, listener);
+        new FileCipher(name, mContext.openFileInput(name), mSecureConfig, mContext, listener);
     }
 
     /**
@@ -112,8 +112,23 @@ public class SecureContextCompat {
             @NonNull String keyPairAlias)
             throws IOException {
         FileCipher fileCipher = new FileCipher(keyPairAlias,
-                mContext.openFileOutput(name, mode), mSecureConfig);
+                mContext.openFileOutput(name, mode), mSecureConfig, mContext);
         return fileCipher.getFileOutputStream();
+    }
+
+    /**
+     * Gets a SharedPreferences object that internally handles encryption/decryption.
+     *
+     * @param name The name of the preferences file
+     * @param mode Operating mode, should use MODE_PRIVATE
+     * @return A shared preferences object that handles encryption.
+     */
+    @NonNull
+    public SharedPreferences getSharedPreferences(@NonNull String name, int mode,
+            @NonNull String keyAlias) {
+        return new SecureSharedPreferencesCompat(keyAlias,
+                mContext.getSharedPreferences(name, mode),
+                mSecureConfig, mContext);
     }
 
 

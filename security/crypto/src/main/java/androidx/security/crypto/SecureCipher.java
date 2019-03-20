@@ -16,14 +16,27 @@
 
 package androidx.security.crypto;
 
+import android.content.Context;
 import android.os.Build;
 import android.security.keystore.KeyProperties;
 import android.util.Log;
 import android.util.Pair;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RestrictTo;
 import androidx.security.SecureConfig;
 import androidx.security.biometric.BiometricKeyAuthCallback;
+import androidx.security.util.TinkAndroidKeysetManager;
+import androidx.security.util.TinkUtil;
+
+import com.google.crypto.tink.Aead;
+import com.google.crypto.tink.DeterministicAead;
+import com.google.crypto.tink.KeysetHandle;
+import com.google.crypto.tink.aead.AeadFactory;
+import com.google.crypto.tink.aead.AeadKeyTemplates;
+import com.google.crypto.tink.config.TinkConfig;
+import com.google.crypto.tink.daead.DeterministicAeadFactory;
+import com.google.crypto.tink.daead.DeterministicAeadKeyTemplates;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -51,6 +64,9 @@ public class SecureCipher {
     private static final int FILE_ENCODING_VERSION = 1;
 
     private SecureConfig mSecureConfig;
+    private Context mContext;
+    private TinkAndroidKeysetManager mAeadKeysetManager;
+    private TinkAndroidKeysetManager mDaeadKeysetManager;
 
     /**
      * Listener for encryption that requires biometric prompt
@@ -71,6 +87,16 @@ public class SecureCipher {
          * @param iv the initialization vector used
          */
         void encryptionComplete(@NonNull byte[] cipherText, @NonNull byte[] iv);
+    }
+
+    /**
+     * Listener for encrypting Aead data
+     */
+    public interface AeadEncryptionListener {
+        /**
+         * @param cipherText the encrypted cipher text
+         */
+        void encryptionComplete(@NonNull byte[] cipherText);
     }
 
     /**
@@ -104,41 +130,67 @@ public class SecureCipher {
     }
 
     /**
+     * @param context The context
      * @return The secure cipher
      */
     @NonNull
-    public static SecureCipher getDefault() {
-        return new SecureCipher(SecureConfig.getDefault());
-    }
-
-    /**
-     * @param biometricKeyAuthCallback The callback to use when authenticating a key
-     * @return the cipher using biometric prompt
-     */
-    @NonNull
-    public static SecureCipher getDefault(
-            @NonNull BiometricKeyAuthCallback biometricKeyAuthCallback) {
-        SecureConfig secureConfig = SecureConfig.getDefault();
-        secureConfig.setSymmetricRequireUserAuth(true);
-        secureConfig.setAsymmetricRequireUserAuth(true);
-        secureConfig.setBiometricKeyAuthCallback(biometricKeyAuthCallback);
-        return new SecureCipher(secureConfig);
+    public static SecureCipher getDefault(@NonNull Context context) {
+        return new SecureCipher(SecureConfig.getDefault(), context);
     }
 
     /**
      * Gets an instance using the specified configuration
      *
      * @param secureConfig the config
+     * @param context The context
      * @return the secure cipher
      */
     @NonNull
-    public static SecureCipher getInstance(@NonNull SecureConfig secureConfig) {
-        return new SecureCipher(secureConfig);
+    public static SecureCipher getInstance(@NonNull SecureConfig secureConfig,
+            @NonNull Context context) {
+        return new SecureCipher(secureConfig, context);
     }
 
-
-    public SecureCipher(@NonNull SecureConfig secureConfig) {
+    public SecureCipher(@NonNull SecureConfig secureConfig, @NonNull Context context) {
         this.mSecureConfig = secureConfig;
+        this.mContext = context;
+        try {
+            TinkConfig.register();
+            setupKeys(context);
+        } catch (GeneralSecurityException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private static final String AEAD_KEYS = "aead_keys";
+    private static final String DAEAD_KEYS = "daead_keys";
+
+    private void setupKeys(Context context) {
+        try {
+            TinkUtil.AsyncAead masterKey = TinkUtil.getOrCreateMasterKey(mSecureConfig);
+            mAeadKeysetManager = new TinkAndroidKeysetManager.Builder()
+                    .withKeyTemplate(AeadKeyTemplates.AES256_GCM)
+                    .withSharedPref(context, AEAD_KEYS,
+                            AEAD_KEYS + "_file")
+                    .withMasterKey(masterKey)
+                    .build();
+            mDaeadKeysetManager = new TinkAndroidKeysetManager.Builder()
+                    .withKeyTemplate(DeterministicAeadKeyTemplates.AES256_SIV)
+                    .withSharedPref(context, DAEAD_KEYS,
+                            DAEAD_KEYS + "_file")
+                    .withMasterKey(masterKey)
+                    .build();
+            if (mAeadKeysetManager.isEmpty()) {
+                mAeadKeysetManager.add(AeadKeyTemplates.AES256_GCM);
+            }
+            if (mDaeadKeysetManager.isEmpty()) {
+                mDaeadKeysetManager.add(DeterministicAeadKeyTemplates.AES256_SIV);
+            }
+        } catch (GeneralSecurityException ex) {
+            ex.printStackTrace();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
     /**
@@ -201,7 +253,7 @@ public class SecureCipher {
             cipher.init(Cipher.ENCRYPT_MODE, key);
             byte[] iv = cipher.getIV();
             if (mSecureConfig.getSymmetricRequireUserAuthEnabled()) {
-                mSecureConfig.getBiometricKeyAuthCallback().authenticateKey(cipher,
+                mSecureConfig.getBiometricKeyAuth().authenticateKey(cipher,
                         new SecureAuthListener() {
                             public void authComplete(
                                     BiometricKeyAuthCallback.BiometricStatus status) {
@@ -232,6 +284,82 @@ public class SecureCipher {
     }
 
     /**
+     * Encrypts Aead data with an existing key alias from the AndroidKeyStore.
+     *
+     * @param clearData The unencrypted data to encrypt
+     * @param aad Associated Data for the encrypted data
+     * @param deterministic true to use deterministic encryption
+     * @return the encrypted data
+     * @hide
+     */
+    @NonNull
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
+    public byte[] encryptAead(
+            @NonNull final Context context,
+            @NonNull final byte[] clearData,
+            @NonNull final byte[] aad,
+            boolean deterministic) {
+        try {
+            // Handle getting proper key set and biometric prompt.
+
+            KeysetHandle keysetHandle = deterministic
+                    ? mDaeadKeysetManager.getKeysetHandle()
+                    : mAeadKeysetManager.getKeysetHandle();
+
+            byte[] encrypted = new byte[0];
+            if (!deterministic) {
+                Aead aead = AeadFactory.getPrimitive(keysetHandle);
+                encrypted = aead.encrypt(clearData, aad);
+            } else {
+                DeterministicAead daead = DeterministicAeadFactory.getPrimitive(keysetHandle);
+                encrypted = daead.encryptDeterministically(clearData, aad);
+            }
+            // Implement biometric prompt to unlock master key
+            return encrypted;
+        } catch (GeneralSecurityException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * Decrypts Aead data with an existing key alias from the AndroidKeyStore.
+     *
+     * @param cipherText The encrypted data
+     * @param aad Associated Data for the encrypted data
+     * @param deterministic true to use deterministic encryption
+     * @return the decrypted data
+     * @hide
+     */
+    @NonNull
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
+    public byte[] decryptAead(
+            @NonNull final Context context,
+            @NonNull final byte[] cipherText,
+            @NonNull final byte[] aad,
+            boolean deterministic) {
+        try {
+            KeysetHandle keysetHandle = deterministic
+                    ? mDaeadKeysetManager.getKeysetHandle()
+                    : mAeadKeysetManager.getKeysetHandle();
+            byte[] decrypted = new byte[0];
+            if (!deterministic) {
+                Aead aead = AeadFactory.getPrimitive(keysetHandle);
+                decrypted = aead.decrypt(cipherText, aad);
+            } else {
+                DeterministicAead daead = DeterministicAeadFactory.getPrimitive(keysetHandle);
+                decrypted = daead.decryptDeterministically(cipherText, aad);
+            }
+            // Implement biometric prompt to unlock master key
+            return decrypted;
+
+        } catch (GeneralSecurityException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
      * Signs data based on the specific key that has been generated
      *
      * Uses SecureConfig.getSignatureAlgorithm for algorithm type
@@ -253,7 +381,7 @@ public class SecureCipher {
             signature.initSign(key);
             signature.update(clearData);
             if (mSecureConfig.getAsymmetricRequireUserAuthEnabled()) {
-                mSecureConfig.getBiometricKeyAuthCallback().authenticateKey(signature,
+                mSecureConfig.getBiometricKeyAuth().authenticateKey(signature,
                         new SecureAuthListener() {
                             public void authComplete(
                                     BiometricKeyAuthCallback.BiometricStatus status) {
@@ -438,7 +566,7 @@ public class SecureCipher {
                     mSecureConfig.getSymmetricGcmTagLength(), initializationVector);
             cipher.init(Cipher.DECRYPT_MODE, key, spec);
             if (mSecureConfig.getSymmetricRequireUserAuthEnabled()) {
-                mSecureConfig.getBiometricKeyAuthCallback().authenticateKey(cipher,
+                mSecureConfig.getBiometricKeyAuth().authenticateKey(cipher,
                         new SecureAuthListener() {
                             public void authComplete(
                                     BiometricKeyAuthCallback.BiometricStatus status) {
@@ -492,7 +620,7 @@ public class SecureCipher {
                 cipher.init(Cipher.DECRYPT_MODE, key);
             }
             if (mSecureConfig.getAsymmetricRequireUserAuthEnabled()) {
-                mSecureConfig.getBiometricKeyAuthCallback().authenticateKey(cipher,
+                mSecureConfig.getBiometricKeyAuth().authenticateKey(cipher,
                         new SecureAuthListener() {
                             public void authComplete(
                                     BiometricKeyAuthCallback.BiometricStatus status) {

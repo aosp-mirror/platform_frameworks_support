@@ -16,6 +16,7 @@
 
 package androidx.security.crypto;
 
+import android.content.Context;
 import android.util.Log;
 import android.util.Pair;
 
@@ -30,7 +31,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
 import java.util.Arrays;
-import java.util.concurrent.Executor;
 
 /**
  * Class used to create and read encrypted files. Provides implementations
@@ -44,18 +44,20 @@ public class FileCipher {
     private String mKeyPairAlias;
     private FileInputStream mFileInputStream;
     private FileOutputStream mFileOutputStream;
+    private Context mContext;
 
     private SecureContextCompat.EncryptedFileInputStreamListener mListener;
 
     SecureConfig mSecureConfig;
 
     public FileCipher(@NonNull String fileName, @NonNull FileInputStream fileInputStream,
-                      @NonNull SecureConfig secureConfig, @NonNull Executor executor,
+                      @NonNull SecureConfig secureConfig, @NonNull Context context,
                       @NonNull SecureContextCompat.EncryptedFileInputStreamListener listener)
             throws IOException {
         mFileName = fileName;
         mFileInputStream = fileInputStream;
         mSecureConfig = secureConfig;
+        mContext = context;
         EncryptedFileInputStream encryptedFileInputStream =
                 new EncryptedFileInputStream(mFileInputStream);
         setEncryptedFileInputStreamListener(listener);
@@ -63,11 +65,12 @@ public class FileCipher {
     }
 
     public FileCipher(@NonNull String keyPairAlias, @NonNull FileOutputStream fileOutputStream,
-                      @NonNull SecureConfig secureConfig) {
+                      @NonNull SecureConfig secureConfig, @NonNull Context context) {
         mKeyPairAlias = keyPairAlias;
         mFileOutputStream = new EncryptedFileOutputStream(mFileName, mKeyPairAlias,
                 fileOutputStream);
         mSecureConfig = secureConfig;
+        mContext = context;
     }
 
     /**
@@ -128,7 +131,7 @@ public class FileCipher {
             SecureKeyGenerator secureKeyGenerator = SecureKeyGenerator.getDefault();
             final EphemeralSecretKey secretKey = secureKeyGenerator.generateEphemeralDataKey();
             final SecureCipher secureCipher = SecureCipher
-                    .getDefault(mSecureConfig.getBiometricKeyAuthCallback());
+                    .getInstance(mSecureConfig, mContext);
             final Pair<byte[], byte[]> encryptedData =
                     secureCipher.encryptEphemeralData(secretKey, b);
             secureCipher.encryptAsymmetric(getAsymKeyPairAlias(),
@@ -216,9 +219,8 @@ public class FileCipher {
             if (this.mDecryptedData == null) {
                 try {
                     byte[] encodedData = new byte[mFileInputStream.available()];
+                    SecureCipher secureCipher = SecureCipher.getInstance(mSecureConfig, mContext);
                     mReadStatus = mFileInputStream.read(encodedData);
-                    SecureCipher secureCipher = SecureCipher.getDefault(
-                            mSecureConfig.getBiometricKeyAuthCallback());
                     secureCipher.decryptEncodedData(encodedData,
                             new SecureCipher.SecureDecryptionListener() {
                                 public void decryptionComplete(byte[] clearText) {
