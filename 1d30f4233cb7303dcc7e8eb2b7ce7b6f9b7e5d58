@@ -1,0 +1,124 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e8f9381a_924e02f0",
+        "filename": "car/core/src/main/java/androidx/car/app/CarDialogUtil.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-03-20T18:02:26Z",
+      "side": 1,
+      "message": "Remove this",
+      "range": {
+        "startLine": 34,
+        "startChar": 50,
+        "endLine": 34,
+        "endChar": 51
+      },
+      "revId": "1d30f4233cb7303dcc7e8eb2b7ce7b6f9b7e5d58",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38ef982e_eec88970",
+        "filename": "car/core/src/main/java/androidx/car/app/CarDialogUtil.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-03-20T18:02:26Z",
+      "side": 1,
+      "message": "Needs a private constructor.",
+      "revId": "1d30f4233cb7303dcc7e8eb2b7ce7b6f9b7e5d58",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97f5e47e_6f14a91c",
+        "filename": "car/core/src/main/java/androidx/car/app/CarDialogUtil.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-03-20T18:02:26Z",
+      "side": 1,
+      "message": "Remove the extra parenthesis.",
+      "range": {
+        "startLine": 119,
+        "startChar": 12,
+        "endLine": 119,
+        "endChar": 13
+      },
+      "revId": "1d30f4233cb7303dcc7e8eb2b7ce7b6f9b7e5d58",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc4ccb29_f1a8588d",
+        "filename": "car/core/src/main/java/androidx/car/app/CarDialogUtil.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-03-20T18:02:26Z",
+      "side": 1,
+      "message": "Hmm I know I wrote this invalidate() before, but I\u0027m wondering if it\u0027ll just work if we call mScrollBarView.invalidate() instead? That can save us from having to pass so many parameters.\n\nIf it doesn\u0027t, and we do need the decor view, let\u0027s just have callers pass that instead of the entire dialog.",
+      "revId": "1d30f4233cb7303dcc7e8eb2b7ce7b6f9b7e5d58",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "115740c5_0b63ed41",
+        "filename": "car/core/src/main/java/androidx/car/app/CarSingleSelectionDialog.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-03-20T18:02:26Z",
+      "side": 1,
+      "message": "Do a constructor chain rather than duplicating the code.",
+      "revId": "1d30f4233cb7303dcc7e8eb2b7ce7b6f9b7e5d58",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c257b2ac_97b3f16e",
+        "filename": "car/core/src/main/java/androidx/car/widget/RadioButtonListItem.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-03-20T18:02:26Z",
+      "side": 1,
+      "message": "Hmm mTextStartMargin is initialized to 0, but in your XML, you have a margin start of car_keyline_3. Won\u0027t this override that?\n\nIf it does, you probably just want to set a default value for mTextStartMargin.",
+      "range": {
+        "startLine": 378,
+        "startChar": 48,
+        "endLine": 378,
+        "endChar": 64
+      },
+      "revId": "1d30f4233cb7303dcc7e8eb2b7ce7b6f9b7e5d58",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
