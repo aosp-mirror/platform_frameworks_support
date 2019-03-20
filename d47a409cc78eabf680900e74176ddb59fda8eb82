@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "2fe4374e_6715951f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-03-20T07:38:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "be052f87_0c8c85b7",
+      "revId": "d47a409cc78eabf680900e74176ddb59fda8eb82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4c2bd64e_0fbcbed7",
         "filename": "media2-widget/src/main/java/androidx/media2/widget/VideoView.java",
         "patchSetId": 4
@@ -54,6 +72,30 @@
       "side": 1,
       "message": "Good point, but Let\u0027s think about it after this change.",
       "parentUuid": "4c2bd64e_0fbcbed7",
+      "range": {
+        "startLine": 198,
+        "startChar": 0,
+        "endLine": 199,
+        "endChar": 36
+      },
+      "revId": "d47a409cc78eabf680900e74176ddb59fda8eb82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7c4c0608_0b3b549e",
+        "filename": "media2-widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-03-20T07:38:50Z",
+      "side": 1,
+      "message": "Created b/128958753 for this.",
+      "parentUuid": "30abe96d_5cf300c9",
       "range": {
         "startLine": 198,
         "startChar": 0,
@@ -127,6 +169,24 @@
       "revId": "d47a409cc78eabf680900e74176ddb59fda8eb82",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6215e546_b4c32216",
+        "filename": "media2-widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 777,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-03-20T07:38:50Z",
+      "side": 1,
+      "message": "This is because onSubtitleTrackSelected() resets mSelectedSubtitleTrack to INVALID_TRACK_INDEX.",
+      "parentUuid": "ab9fcbe4_e98aa05d",
+      "revId": "d47a409cc78eabf680900e74176ddb59fda8eb82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
