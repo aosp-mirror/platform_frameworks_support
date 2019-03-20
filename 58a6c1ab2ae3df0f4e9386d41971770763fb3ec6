@@ -45,6 +45,30 @@
       "revId": "58a6c1ab2ae3df0f4e9386d41971770763fb3ec6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dea36b9b_b15ae1a1",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewOnUiThread.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1402701
+      },
+      "writtenOn": "2019-03-20T00:10:02Z",
+      "side": 1,
+      "message": "Well, I was going to suggest to always have a default value and initialize these clients similar to what is done in WebViewOnUiThread constructor and then optionaly when using the class just override it by calling setWebViewClient().\n\nIt\u0027s surely a waste of resources in this particular usecase in these tests and I\u0027m not sure how this would affect test speed.",
+      "parentUuid": "095d3912_d55643b3",
+      "range": {
+        "startLine": 83,
+        "startChar": 77,
+        "endLine": 85,
+        "endChar": 75
+      },
+      "revId": "58a6c1ab2ae3df0f4e9386d41971770763fb3ec6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
