@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "553feac0_b331a4c6",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewAssetLoaderIntegrationTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1101490
+      },
+      "writtenOn": "2019-03-20T11:04:09Z",
+      "side": 1,
+      "message": "sidebar: it would be good if loadUrlAndWaitForCompletion reported whether it successfully loaded the content. I assume that what happens in this case is that we\u0027ll not get onPageFinished, and eventually time out.",
+      "range": {
+        "startLine": 129,
+        "startChar": 20,
+        "endLine": 129,
+        "endChar": 47
+      },
+      "revId": "b4dcbf27d547560ffc9d5f39905cf1fe944df85a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1df7a46_2fb3fe4a",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewAssetLoaderIntegrationTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1101490
+      },
+      "writtenOn": "2019-03-20T11:04:09Z",
+      "side": 1,
+      "message": "I guess this is a proxy for having successfully loaded the content, but it seems like it relies on knowledge about the processing of \u003ctitle\u003e during parsing, so that we can be certain that gains that value before onPageFinished is called. I don\u0027t think it\u0027s racy in any meaningful way (and it\u0027s used in other tests), but it does rely on implementation details that we wouldn\u0027t have to care about if lUAWFC() reported errors.",
+      "range": {
+        "startLine": 131,
+        "startChar": 8,
+        "endLine": 131,
+        "endChar": 27
+      },
+      "revId": "b4dcbf27d547560ffc9d5f39905cf1fe944df85a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85ae5279_8ec11598",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewOnUiThread.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1101490
+      },
+      "writtenOn": "2019-03-20T11:04:09Z",
+      "side": 1,
+      "message": "TODO: We should refactor this in the same way as WebViewSyncLoader in CTS.",
+      "range": {
+        "startLine": 71,
+        "startChar": 11,
+        "endLine": 71,
+        "endChar": 28
+      },
+      "revId": "b4dcbf27d547560ffc9d5f39905cf1fe944df85a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
