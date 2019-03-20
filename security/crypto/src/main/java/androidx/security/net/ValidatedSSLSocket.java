@@ -21,7 +21,6 @@ import android.annotation.TargetApi;
 import android.os.Build;
 
 import androidx.annotation.RestrictTo;
-import androidx.security.SecureConfig;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -31,6 +30,7 @@ import java.net.Socket;
 import java.net.SocketAddress;
 import java.net.SocketException;
 import java.nio.channels.SocketChannel;
+import java.security.GeneralSecurityException;
 
 import javax.net.ssl.HandshakeCompletedListener;
 import javax.net.ssl.SSLParameters;
@@ -43,41 +43,39 @@ import javax.net.ssl.SSLSocket;
  * @hide
  */
 @RestrictTo(RestrictTo.Scope.LIBRARY)
-class ValidatableSSLSocket extends SSLSocket {
+class ValidatedSSLSocket extends SSLSocket {
 
-    private static final String TAG = "ValidatableSSLSocket";
+    private static final String TAG = "ValidatedSSLSocket";
 
     private SSLSocket mSslSocket;
     private String mHostname;
-    private SecureURL mSecureURL;
+    private ValidatedURL mValidatedURL;
     private boolean mHandshakeStarted = false;
-    private SecureConfig mSecureConfig;
+    private String[] mSslCiphers;
 
-    ValidatableSSLSocket(SecureURL secureURL, Socket sslSocket, SecureConfig secureConfig)
+    ValidatedSSLSocket(ValidatedURL validatedURL, Socket sslSocket,
+                       String[] sslCiphers)
             throws IOException {
-        this.mSecureURL = secureURL;
-        this.mHostname = secureURL.getHostname();
-        this.mSslSocket = (SSLSocket) sslSocket;
-        this.mSecureConfig = secureConfig;
+        mValidatedURL = validatedURL;
+        mHostname = validatedURL.getHostname();
+        mSslSocket = (SSLSocket) sslSocket;
+        mSslCiphers = sslCiphers;
         setSecureCiphers();
-        isValid();
+        ensureValid();
     }
 
     private void setSecureCiphers() {
-        if (mSecureConfig.getUseStrongSSLCiphersEnabled()) {
-            this.mSslSocket.setEnabledCipherSuites(mSecureConfig.getStrongSSLCiphers());
+        if (mSslCiphers != null) {
+            this.mSslSocket.setEnabledCipherSuites(mSslCiphers);
         }
     }
 
-    private void isValid() throws IOException {
+    private void ensureValid() throws IOException {
         startHandshake();
         try {
-            if (!mSecureURL.isValid(this.mHostname, this.mSslSocket)) {
-                throw new IOException("Found invalid certificate");
-            }
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            throw new IOException("Found invalid certificate");
+            mValidatedURL.ensureValid(this.mHostname, this.mSslSocket);
+        } catch (GeneralSecurityException ex) {
+            throw new IOException("A security exception was caught, details: " + ex.getMessage());
         }
     }
 
