@@ -1,0 +1,124 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "41d93644_13b613a4",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dependencyTracker/AffectedModuleDetector.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-03-20T20:02:12Z",
+      "side": 1,
+      "message": "cobuiltSets is conceptually the same information as COBUILT_SETS except that it\u0027s a Set\u003cSet\u003cProject\u003e\u003e rather than a Set\u003cSet\u003cString\u003e\u003e, right?\n\nCould we rename the two variables to more easily distinguish them, perhaps calling them \"cobuiltTestProjects\" and COBUILT_NAMES (or actually, \"COBUILT_TEST_NAMES\" because of the other rename below)?",
+      "range": {
+        "startLine": 271,
+        "startChar": 12,
+        "endLine": 271,
+        "endChar": 23
+      },
+      "revId": "7f664822c4a42fea6b5aed1aeead1872c9cfa621",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aaa1911b_9caf8bba",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dependencyTracker/AffectedModuleDetector.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-03-20T20:02:12Z",
+      "side": 1,
+      "message": "I think we want \"project.name \u003d\u003d it\" so that accidentally entering a shorter project name won\u0027t include projects having longer names (or if this intentional, that we\u0027d want to trigger it by a \"*\" character in the name)",
+      "revId": "7f664822c4a42fea6b5aed1aeead1872c9cfa621",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53fb8cbc_2e62cbf0",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dependencyTracker/AffectedModuleDetector.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-03-20T20:02:12Z",
+      "side": 1,
+      "message": "This is converting from a Set\u003cSet\u003cString\u003e\u003e to a Set\u003cSet\u003cProject\u003e\u003e, right?\n\nCould we add a comment saying that, or even better, extract it into a named function, maybe called \"lookupProjects\"",
+      "range": {
+        "startLine": 271,
+        "startChar": 0,
+        "endLine": 279,
+        "endChar": 9
+      },
+      "revId": "7f664822c4a42fea6b5aed1aeead1872c9cfa621",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9635ec6_8bf94b95",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dependencyTracker/AffectedModuleDetector.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-03-20T20:02:12Z",
+      "side": 1,
+      "message": "I think if we remove the call to `getCobuiltProjects` from the individual cases of the `when` statement and install apply it to the return value from the `when` statement then we\u0027d only have to have one call to `getCobuiltProjects`",
+      "revId": "7f664822c4a42fea6b5aed1aeead1872c9cfa621",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3f41291_f332cac0",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dependencyTracker/AffectedModuleDetector.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-03-20T20:02:12Z",
+      "side": 1,
+      "message": "Could we rename \"COBUILT_SETS\" to something that makes it easier to know that this is specifically because of test runtime dependencies, for example, \"COBUILT_TESTS\" (or actually, \"COBUILT_TEST_NAMES\" because of the other rename above)?",
+      "revId": "7f664822c4a42fea6b5aed1aeead1872c9cfa621",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ace69f5b_a55625fc",
+        "filename": "buildSrc/src/test/kotlin/androidx/build/dependencyTracker/AffectedModuleDetectorImplTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-03-20T20:02:12Z",
+      "side": 1,
+      "message": "Is this intentional?",
+      "range": {
+        "startLine": 127,
+        "startChar": 44,
+        "endLine": 127,
+        "endChar": 46
+      },
+      "revId": "7f664822c4a42fea6b5aed1aeead1872c9cfa621",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
