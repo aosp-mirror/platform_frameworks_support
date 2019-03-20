@@ -17,6 +17,7 @@
 package androidx.security.context;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 
 import androidx.annotation.NonNull;
 import androidx.security.SecureConfig;
@@ -98,6 +99,27 @@ public class SecureContextCompatTest {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+    }
+
+    @Test
+    public void testWriteSharedPrefs() {
+        String prefs = "api_keys";
+        String key = "maps_api_key";
+        String value = "ASDASDASDAS";
+        String keyName = "shared_prefs_key";
+
+        SecureContextCompat secureContextCompat = new SecureContextCompat(mContext);
+        SharedPreferences sharedPreferences =
+                secureContextCompat.getSharedPreferences(prefs, Context.MODE_PRIVATE, keyName);
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(key, value);
+        editor.commit();
+
+        String apiKey = sharedPreferences.getString(key, null);
+        Assert.assertNotNull("Object should not be null", apiKey);
+
+
     }
 
 }

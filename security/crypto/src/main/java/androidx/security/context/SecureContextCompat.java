@@ -20,10 +20,12 @@ package androidx.security.context;
 import android.annotation.TargetApi;
 import android.app.KeyguardManager;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Build;
 
 import androidx.annotation.NonNull;
 import androidx.security.SecureConfig;
+import androidx.security.content.SecureSharedPreferencesCompat;
 import androidx.security.crypto.FileCipher;
 
 import java.io.FileInputStream;
@@ -114,6 +116,21 @@ public class SecureContextCompat {
         FileCipher fileCipher = new FileCipher(keyPairAlias,
                 mContext.openFileOutput(name, mode), mSecureConfig);
         return fileCipher.getFileOutputStream();
+    }
+
+    /**
+     * Gets a SharedPreferences object that internally handles encryption/decryption.
+     *
+     * @param name The name of the preferences file
+     * @param mode Operating mode, should use MODE_PRIVATE
+     * @return A shared preferences object that handles encryption.
+     */
+    @NonNull
+    public SharedPreferences getSharedPreferences(@NonNull String name, int mode,
+            @NonNull String keyAlias) {
+        return new SecureSharedPreferencesCompat(keyAlias,
+                mContext.getSharedPreferences(name, mode),
+                mSecureConfig);
     }
 
 
