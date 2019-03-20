@@ -27,17 +27,17 @@ import javax.net.ssl.HttpsURLConnection;
 
 @SuppressWarnings("unchecked")
 @RunWith(JUnit4.class)
-public class SecureURLTest {
+public class RevocableURLTest {
 
     @Test
     public void testValidHttpsUrlConnection() {
         String url = "https://www.google.com";
         try {
-            SecureURL secureURL = new SecureURL(url);
-            HttpsURLConnection connection = (HttpsURLConnection) secureURL.openConnection();
+            RevocableURL revocableURL = new RevocableURL(url);
+            HttpsURLConnection connection = (HttpsURLConnection) revocableURL.openConnection();
 
 
-            boolean valid = secureURL.isValid(connection);
+            boolean valid = revocableURL.isValid(connection);
 
             Assert.assertTrue("Connection to " + url + " should be valid.",
                     valid);
@@ -52,10 +52,10 @@ public class SecureURLTest {
     public void testInValidHttpsUrlConnection() {
         String url = "https://revoked.badssl.com";
         try {
-            SecureURL secureURL = new SecureURL(url);
-            HttpsURLConnection connection = (HttpsURLConnection) secureURL.openConnection();
+            RevocableURL revocableURL = new RevocableURL(url);
+            HttpsURLConnection connection = (HttpsURLConnection) revocableURL.openConnection();
 
-            boolean valid = secureURL.isValid(connection);
+            boolean valid = revocableURL.isValid(connection);
 
             Assert.assertFalse("Connection to " + url
                             + " should be  invalid, revoked cert.",

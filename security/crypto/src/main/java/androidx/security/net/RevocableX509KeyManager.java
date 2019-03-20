@@ -25,7 +25,6 @@ import android.security.KeyChainAliasCallback;
 import android.security.KeyChainException;
 
 import androidx.annotation.NonNull;
-import androidx.security.SecureConfig;
 
 import java.net.Socket;
 import java.security.Principal;
@@ -37,14 +36,14 @@ import javax.net.ssl.X509KeyManager;
 /**
  * Class that helps generate and manage crypto keys
  */
-public class SecureKeyManager implements X509KeyManager, KeyChainAliasCallback {
-    private static final String TAG = "SecureKeyManager";
+public class RevocableX509KeyManager implements X509KeyManager, KeyChainAliasCallback {
+    private static final String TAG = "RevocableX509KeyManager";
 
     private final String mAlias;
     private X509Certificate[] mCertChain;
     private PrivateKey mPrivateKey;
     private static Activity sActivity;
-    private SecureConfig mSecureConfig;
+    private RevocableURLConfig mRevocableURLConfig;
 
     public static void setContext(@NonNull Activity activity) {
         sActivity = activity;
@@ -87,25 +86,17 @@ public class SecureKeyManager implements X509KeyManager, KeyChainAliasCallback {
 
     /**
      * @param alias the key alias
+     * @param revocableURLConfig the configuration
      * @return the key manager
      */
     @NonNull
-    public static SecureKeyManager getDefault(@NonNull String alias) {
-        return getDefault(alias, SecureConfig.getDefault());
-    }
-
-    /**
-     * @param alias the key alias
-     * @param secureConfig the configuration
-     * @return the key manager
-     */
-    @NonNull
-    public static SecureKeyManager getDefault(@NonNull String alias,
-            @NonNull SecureConfig secureConfig) {
-        SecureKeyManager keyManager = new SecureKeyManager(alias, secureConfig);
+    public static RevocableX509KeyManager getInstance(@NonNull String alias,
+                                                      @NonNull RevocableURLConfig
+                                                              revocableURLConfig) {
+        RevocableX509KeyManager keyManager = new RevocableX509KeyManager(alias, revocableURLConfig);
         try {
             KeyChain.choosePrivateKeyAlias(sActivity, keyManager,
-                    secureConfig.getClientCertAlgorithms(),
+                    revocableURLConfig.getClientCertAlgorithms(),
                     null, null, -1, alias);
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -117,14 +108,17 @@ public class SecureKeyManager implements X509KeyManager, KeyChainAliasCallback {
      * @param certType cert mType to install
      * @param certData the cert data in byte[] format
      * @param keyAlias the alias of they key to use
-     * @param secureConfig the crypto config
+     * @param revocableURLConfig the crypto config
      * @return the secure key manager instance
      */
     @NonNull
-    public static SecureKeyManager installCertManually(@NonNull CertType certType,
-            @NonNull byte[] certData, @NonNull String keyAlias,
-            @NonNull SecureConfig secureConfig) {
-        SecureKeyManager keyManager = new SecureKeyManager(keyAlias, secureConfig);
+    public static RevocableX509KeyManager installCertManually(@NonNull CertType certType,
+                                                              @NonNull byte[] certData,
+                                                              @NonNull String keyAlias,
+                                                              @NonNull RevocableURLConfig
+                                                                          revocableURLConfig) {
+        RevocableX509KeyManager keyManager = new RevocableX509KeyManager(keyAlias,
+                revocableURLConfig);
         Intent intent = KeyChain.createInstallIntent();
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         switch (certType) {
@@ -141,9 +135,10 @@ public class SecureKeyManager implements X509KeyManager, KeyChainAliasCallback {
         return keyManager;
     }
 
-    public SecureKeyManager(@NonNull String alias, @NonNull SecureConfig secureConfig) {
+    public RevocableX509KeyManager(@NonNull String alias,
+                                   @NonNull RevocableURLConfig revocableURLConfig) {
         this.mAlias = alias;
-        this.mSecureConfig = secureConfig;
+        this.mRevocableURLConfig = revocableURLConfig;
     }
 
     @Override
