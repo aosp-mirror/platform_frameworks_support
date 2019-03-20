@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "6380cf1a_763899cf",
+        "filename": "biometric/res/values/strings.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1432799
+      },
+      "writtenOn": "2019-03-20T20:54:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9c49924f_60609977",
+      "revId": "c3e90f1f9e192c0fbc8da7d7789438d85a07f9b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dfe1ce3a_1c5185fa",
         "filename": "biometric/src/main/java/androidx/biometric/BiometricPrompt.java",
         "patchSetId": 2
@@ -39,6 +57,30 @@
       "revId": "c3e90f1f9e192c0fbc8da7d7789438d85a07f9b2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "804be0ea_ccba6c76",
+        "filename": "biometric/src/main/java/androidx/biometric/BiometricPrompt.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1432799
+      },
+      "writtenOn": "2019-03-20T20:54:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dfe1ce3a_1c5185fa",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 58
+      },
+      "revId": "c3e90f1f9e192c0fbc8da7d7789438d85a07f9b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "34caa2ea_8a186caa",
+        "filename": "biometric/src/main/java/androidx/biometric/BiometricPrompt.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 506,
+      "author": {
+        "id": 1432799
+      },
+      "writtenOn": "2019-03-20T20:54:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "93f24fc2_294cb77c",
+      "range": {
+        "startLine": 506,
+        "startChar": 50,
+        "endLine": 506,
+        "endChar": 89
+      },
+      "revId": "c3e90f1f9e192c0fbc8da7d7789438d85a07f9b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "79ee0e08_0cefeea7",
         "filename": "biometric/src/main/java/androidx/biometric/FingerprintDialogFragment.java",
         "patchSetId": 2
@@ -85,6 +151,30 @@
       "revId": "c3e90f1f9e192c0fbc8da7d7789438d85a07f9b2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2de068e4_2a704f9c",
+        "filename": "biometric/src/main/java/androidx/biometric/FingerprintDialogFragment.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1432799
+      },
+      "writtenOn": "2019-03-20T20:54:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "79ee0e08_0cefeea7",
+      "range": {
+        "startLine": 101,
+        "startChar": 21,
+        "endLine": 101,
+        "endChar": 47
+      },
+      "revId": "c3e90f1f9e192c0fbc8da7d7789438d85a07f9b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -111,6 +201,30 @@
     },
     {
       "key": {
+        "uuid": "0ee7d635_b29623f8",
+        "filename": "biometric/src/main/java/androidx/biometric/FingerprintDialogFragment.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1432799
+      },
+      "writtenOn": "2019-03-20T20:54:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "73dd7116_eec6079a",
+      "range": {
+        "startLine": 102,
+        "startChar": 20,
+        "endLine": 102,
+        "endChar": 39
+      },
+      "revId": "c3e90f1f9e192c0fbc8da7d7789438d85a07f9b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d22cbe56_d8106c19",
         "filename": "biometric/src/main/java/androidx/biometric/FingerprintDialogFragment.java",
         "patchSetId": 2
@@ -131,6 +245,30 @@
       "revId": "c3e90f1f9e192c0fbc8da7d7789438d85a07f9b2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab6723f4_4686430b",
+        "filename": "biometric/src/main/java/androidx/biometric/FingerprintDialogFragment.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1432799
+      },
+      "writtenOn": "2019-03-20T20:54:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d22cbe56_d8106c19",
+      "range": {
+        "startLine": 104,
+        "startChar": 21,
+        "endLine": 104,
+        "endChar": 47
+      },
+      "revId": "c3e90f1f9e192c0fbc8da7d7789438d85a07f9b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -157,6 +295,30 @@
     },
     {
       "key": {
+        "uuid": "79e264d6_edd0750f",
+        "filename": "biometric/src/main/java/androidx/biometric/FingerprintDialogFragment.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1432799
+      },
+      "writtenOn": "2019-03-20T20:54:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b46e349f_76760142",
+      "range": {
+        "startLine": 119,
+        "startChar": 20,
+        "endLine": 119,
+        "endChar": 37
+      },
+      "revId": "c3e90f1f9e192c0fbc8da7d7789438d85a07f9b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5c23f606_fbcf8ffa",
         "filename": "biometric/src/main/java/androidx/biometric/FingerprintDialogFragment.java",
         "patchSetId": 2
@@ -177,6 +339,30 @@
       "revId": "c3e90f1f9e192c0fbc8da7d7789438d85a07f9b2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98d69625_f4d2862c",
+        "filename": "biometric/src/main/java/androidx/biometric/FingerprintDialogFragment.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 1432799
+      },
+      "writtenOn": "2019-03-20T20:54:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c23f606_fbcf8ffa",
+      "range": {
+        "startLine": 360,
+        "startChar": 7,
+        "endLine": 364,
+        "endChar": 9
+      },
+      "revId": "c3e90f1f9e192c0fbc8da7d7789438d85a07f9b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
