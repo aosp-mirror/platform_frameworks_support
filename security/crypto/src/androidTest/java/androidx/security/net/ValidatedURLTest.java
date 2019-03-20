@@ -22,27 +22,33 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import java.io.IOException;
+import java.security.GeneralSecurityException;
 
 import javax.net.ssl.HttpsURLConnection;
 
 @SuppressWarnings("unchecked")
 @RunWith(JUnit4.class)
-public class SecureURLTest {
+public class ValidatedURLTest {
 
     @Test
     public void testValidHttpsUrlConnection() {
         String url = "https://www.google.com";
         try {
-            SecureURL secureURL = new SecureURL(url);
-            HttpsURLConnection connection = (HttpsURLConnection) secureURL.openConnection();
+            ValidatedURL validatedURL = new ValidatedURL(url);
+            HttpsURLConnection connection = (HttpsURLConnection) validatedURL.openConnection();
 
 
-            boolean valid = secureURL.isValid(connection);
+            validatedURL.ensureValid(connection);
 
             Assert.assertTrue("Connection to " + url + " should be valid.",
-                    valid);
+                    true);
         } catch (IOException ex) {
-            ex.printStackTrace();
+            Assert.assertTrue("Bad URL: " + url,
+                    true);
+        } catch (GeneralSecurityException ex) {
+            Assert.assertTrue("Connection to " + url
+                            + " should be  invalid, revoked cert.",
+                    true);
         }
 
 
@@ -52,18 +58,26 @@ public class SecureURLTest {
     public void testInValidHttpsUrlConnection() {
         String url = "https://revoked.badssl.com";
         try {
-            SecureURL secureURL = new SecureURL(url);
-            HttpsURLConnection connection = (HttpsURLConnection) secureURL.openConnection();
+            ValidatedURL validatedURL = new ValidatedURL(url);
+            HttpsURLConnection connection = (HttpsURLConnection) validatedURL.openConnection();
 
-            boolean valid = secureURL.isValid(connection);
+            validatedURL.ensureValid(connection);
 
-            Assert.assertFalse("Connection to " + url
-                            + " should be  invalid, revoked cert.",
-                    valid);
-
+            Assert.assertTrue("Connection should have be denied: " + url,
+                    false);
         } catch (IOException ex) {
-            ex.printStackTrace();
+            Assert.assertTrue("Bad URL: " + url,
+                    true);
+        } catch (GeneralSecurityException ex) {
+            Assert.assertTrue("Connection to " + url
+                            + " should be  invalid, revoked cert.",
+                    true);
         }
+
+
+
+
+
 
 
     }
