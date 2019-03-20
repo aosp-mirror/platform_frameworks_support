@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9f009be2_b3cddfbf",
+        "filename": "fragment/src/androidTest/java/androidx/fragment/app/TransitionFragment.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1442279
+      },
+      "writtenOn": "2019-03-20T17:11:52Z",
+      "side": 1,
+      "message": "Do we need these?",
+      "range": {
+        "startLine": 62,
+        "startChar": 4,
+        "endLine": 62,
+        "endChar": 40
+      },
+      "revId": "50beefee7ca46d52164da8bebedb8ed7e54bfca1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
