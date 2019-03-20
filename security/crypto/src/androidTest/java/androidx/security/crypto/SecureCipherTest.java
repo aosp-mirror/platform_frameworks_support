@@ -16,10 +16,14 @@
 
 package androidx.security.crypto;
 
+import android.content.Context;
+
 import androidx.annotation.NonNull;
 import androidx.security.SecureConfig;
+import androidx.test.core.app.ApplicationProvider;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
@@ -31,13 +35,22 @@ import java.io.UnsupportedEncodingException;
 @RunWith(JUnit4.class)
 public class SecureCipherTest {
 
+    private Context mContext;
+
+
+    @Before
+    public void setup() {
+        mContext = ApplicationProvider.getApplicationContext();
+    }
+
+
     @Test
     public void testEncryptDecryptSymmetricData() {
         final String keyAlias = "test_signing_key";
         final String original = "It's a secret...";
         try {
             SecureConfig config = SecureConfig.getDefault();
-            final SecureCipher cipher = new SecureCipher(config);
+            final SecureCipher cipher = new SecureCipher(config, mContext);
             SecureKeyGenerator keyGenerator = SecureKeyGenerator.getInstance(config);
             keyGenerator.generateKey(keyAlias);
             cipher.encrypt(keyAlias, original.getBytes("UTF-8"),
@@ -78,7 +91,7 @@ public class SecureCipherTest {
         final String original = "It's a secret...";
         try {
             SecureConfig config = SecureConfig.getDefault();
-            final SecureCipher cipher = new SecureCipher(config);
+            final SecureCipher cipher = new SecureCipher(config, mContext);
             SecureKeyGenerator keyGenerator = SecureKeyGenerator.getInstance(config);
             keyGenerator.generateAsymmetricKeyPair(keyAlias);
             cipher.sign(keyAlias, original.getBytes("UTF-8"),

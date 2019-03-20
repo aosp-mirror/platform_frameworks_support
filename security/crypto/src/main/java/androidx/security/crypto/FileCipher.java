@@ -16,21 +16,18 @@
 
 package androidx.security.crypto;
 
-import android.util.Log;
-import android.util.Pair;
+import android.content.Context;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RestrictTo;
 import androidx.security.SecureConfig;
-import androidx.security.context.SecureContextCompat;
 
-import java.io.FileDescriptor;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.nio.channels.FileChannel;
-import java.util.Arrays;
-import java.util.concurrent.Executor;
 
 /**
  * Class used to create and read encrypted files. Provides implementations
@@ -41,41 +38,29 @@ import java.util.concurrent.Executor;
 public class FileCipher {
 
     private String mFileName;
-    private String mKeyPairAlias;
     private FileInputStream mFileInputStream;
     private FileOutputStream mFileOutputStream;
-
-    private SecureContextCompat.EncryptedFileInputStreamListener mListener;
+    private Context mContext;
 
     SecureConfig mSecureConfig;
 
     public FileCipher(@NonNull String fileName, @NonNull FileInputStream fileInputStream,
-                      @NonNull SecureConfig secureConfig, @NonNull Executor executor,
-                      @NonNull SecureContextCompat.EncryptedFileInputStreamListener listener)
+                      @NonNull SecureConfig secureConfig, @NonNull Context context)
             throws IOException {
         mFileName = fileName;
-        mFileInputStream = fileInputStream;
         mSecureConfig = secureConfig;
-        EncryptedFileInputStream encryptedFileInputStream =
-                new EncryptedFileInputStream(mFileInputStream);
-        setEncryptedFileInputStreamListener(listener);
-        encryptedFileInputStream.decrypt(listener);
+        mContext = context;
+        mFileInputStream = new EncryptedFileInputStream(mFileName, fileInputStream, mContext);
     }
 
-    public FileCipher(@NonNull String keyPairAlias, @NonNull FileOutputStream fileOutputStream,
-                      @NonNull SecureConfig secureConfig) {
-        mKeyPairAlias = keyPairAlias;
-        mFileOutputStream = new EncryptedFileOutputStream(mFileName, mKeyPairAlias,
-                fileOutputStream);
+    public FileCipher(@NonNull String fileName, @NonNull FileOutputStream fileOutputStream,
+                      @NonNull SecureConfig secureConfig, @NonNull Context context)
+            throws IOException {
+        mFileName = fileName;
         mSecureConfig = secureConfig;
-    }
-
-    /**
-     * @param listener the listener to call back on
-     */
-    public void setEncryptedFileInputStreamListener(
-            @NonNull SecureContextCompat.EncryptedFileInputStreamListener listener) {
-        mListener = listener;
+        mContext = context;
+        mFileOutputStream = new EncryptedFileOutputStream(mFileName,
+                fileOutputStream, mContext);
     }
 
     /**
@@ -104,61 +89,39 @@ public class FileCipher {
 
         private static final String TAG = "EncryptedFOS";
 
-        FileOutputStream mFileOutputStream;
-        private String mKeyPairAlias;
+        private FileOutputStream mFileOutputStream;
+        private String mFileName;
+        private OutputStream mEncryptedOutputStream;
+        private Context mContext;
 
-        EncryptedFileOutputStream(String name, String keyPairAlias,
-                FileOutputStream fileOutputStream) {
-            super(new FileDescriptor());
-            this.mKeyPairAlias = keyPairAlias;
-            this.mFileOutputStream = fileOutputStream;
+        EncryptedFileOutputStream(String fileName,
+                FileOutputStream fileOutputStream, Context context) throws IOException {
+            super(fileOutputStream.getFD());
+            mFileOutputStream = fileOutputStream;
+            mFileName = fileName;
+            mContext = context;
+            setupEncryptedStream();
         }
 
-        String getAsymKeyPairAlias() {
-            return this.mKeyPairAlias;
+        private void setupEncryptedStream() {
+            SecureCipher secureCipher = new SecureCipher(mSecureConfig, mContext);
+            mEncryptedOutputStream = secureCipher.createEncryptedStream(mFileOutputStream,
+                    mFileName);
         }
 
         @Override
-        public void write(@NonNull byte[] b) {
-            SecureKeyStore secureKeyStore = SecureKeyStore.getDefault();
-            if (!secureKeyStore.keyExists(getAsymKeyPairAlias())) {
-                SecureKeyGenerator keyGenerator = SecureKeyGenerator.getDefault();
-                keyGenerator.generateAsymmetricKeyPair(getAsymKeyPairAlias());
-            }
-            SecureKeyGenerator secureKeyGenerator = SecureKeyGenerator.getDefault();
-            final EphemeralSecretKey secretKey = secureKeyGenerator.generateEphemeralDataKey();
-            final SecureCipher secureCipher = SecureCipher
-                    .getDefault(mSecureConfig.getBiometricKeyAuthCallback());
-            final Pair<byte[], byte[]> encryptedData =
-                    secureCipher.encryptEphemeralData(secretKey, b);
-            secureCipher.encryptAsymmetric(getAsymKeyPairAlias(),
-                    secretKey.getEncoded(),
-                    new SecureCipher.SecureAsymmetricEncryptionListener() {
-                        public void encryptionComplete(byte[] encryptedEphemeralKey) {
-                            byte[] encodedData = secureCipher.encodeEphemeralData(
-                            getAsymKeyPairAlias().getBytes(), encryptedEphemeralKey,
-                            encryptedData.first, encryptedData.second);
-                            secretKey.destroy();
-                            try {
-                                mFileOutputStream.write(encodedData);
-                            } catch (IOException e) {
-                            Log.e(TAG, "Failed to write secure file.");
-                            e.printStackTrace();
-                        }
-                    }
-                });
+        public void write(@NonNull byte[] b) throws IOException {
+            mEncryptedOutputStream.write(b);
         }
 
         @Override
         public void write(int b) throws IOException {
-            throw new UnsupportedOperationException("For encrypted files, you must write all data "
-                    + "simultaneously. Call #write(byte[]).");
+            mEncryptedOutputStream.write(b);
         }
 
         @Override
         public void write(@NonNull byte[] b, int off, int len) throws IOException {
-            throw new UnsupportedOperationException("For encrypted files, you must write all data "
-                    + "simultaneously. Call #write(byte[]).");
+            mEncryptedOutputStream.write(b, off, len);
         }
 
         @Override
@@ -169,8 +132,8 @@ public class FileCipher {
         @NonNull
         @Override
         public FileChannel getChannel() {
-            throw new UnsupportedOperationException("For encrypted files, you must write all data "
-                    + "simultaneously. Call #write(byte[]).");
+            throw new UnsupportedOperationException("For encrypted files, please open the "
+                    + "relevant FileInput/FileOutputStream.");
         }
 
         @Override
@@ -180,8 +143,9 @@ public class FileCipher {
 
         @Override
         public void flush() throws IOException {
-            mFileOutputStream.flush();
+            mEncryptedOutputStream.flush();
         }
+
     }
 
 
@@ -196,106 +160,79 @@ public class FileCipher {
         private static final String TAG = "EncryptedFIS";
 
         private FileInputStream mFileInputStream;
-        byte[] mDecryptedData;
-        private int mReadStatus = 0;
+        private String mFileName;
+        private InputStream mEncryptedInputStream;
+        private Context mContext;
 
-        EncryptedFileInputStream(FileInputStream fileInputStream) {
-            super(new FileDescriptor());
-            this.mFileInputStream = fileInputStream;
+        EncryptedFileInputStream(String fileName,
+                FileInputStream fileInputStream, Context context) throws IOException {
+            super(fileInputStream.getFD());
+            mFileInputStream = fileInputStream;
+            mFileName = fileName;
+            mContext = context;
+            setupDecryptedStream();
+        }
+
+        private void setupDecryptedStream() {
+            SecureCipher secureCipher = new SecureCipher(mSecureConfig, mContext);
+            mEncryptedInputStream = secureCipher.createDecryptionStream(mFileInputStream,
+                    mFileName);
         }
 
         @Override
         public int read() throws IOException {
-            throw new UnsupportedOperationException("For encrypted files, you must read all data "
-                    + "simultaneously. Call #read(byte[]).");
-        }
-
-        void decrypt(final SecureContextCompat.EncryptedFileInputStreamListener listener)
-                throws IOException {
-            final EncryptedFileInputStream thisStream = this;
-            if (this.mDecryptedData == null) {
-                try {
-                    byte[] encodedData = new byte[mFileInputStream.available()];
-                    mReadStatus = mFileInputStream.read(encodedData);
-                    SecureCipher secureCipher = SecureCipher.getDefault(
-                            mSecureConfig.getBiometricKeyAuthCallback());
-                    secureCipher.decryptEncodedData(encodedData,
-                            new SecureCipher.SecureDecryptionListener() {
-                                public void decryptionComplete(byte[] clearText) {
-                                    thisStream.mDecryptedData = clearText;
-                                    //Binder.clearCallingIdentity();
-                                    listener.onEncryptedFileInput(thisStream);
-                                }
-                            });
-                } catch (IOException ex) {
-                    throw ex;
-                }
-            }
-        }
-
-        private void destroyCache() {
-            if (mDecryptedData != null) {
-                Arrays.fill(mDecryptedData, (byte) 0);
-                mDecryptedData = null;
-            }
+            return mEncryptedInputStream.read();
         }
 
         @Override
-        public int read(@NonNull byte[] b) {
-            System.arraycopy(mDecryptedData, 0, b, 0, mDecryptedData.length);
-            return mReadStatus;
+        public int read(@NonNull byte[] b) throws IOException {
+            return mEncryptedInputStream.read(b);
         }
 
         @Override
         public int read(@NonNull byte[] b, int off, int len) throws IOException {
-            throw new UnsupportedOperationException("For encrypted files, you must read all data "
-                    + "simultaneously. Call #read(byte[]).");
+            return mEncryptedInputStream.read(b, off, len);
         }
 
         @Override
         public long skip(long n) throws IOException {
-            throw new UnsupportedOperationException("For encrypted files, you must read all data "
-                    + "simultaneously. Call #read(byte[]).");
+            return mEncryptedInputStream.skip(n);
         }
 
         @Override
-        public int available() {
-            return mDecryptedData.length;
+        public int available() throws IOException {
+            return mEncryptedInputStream.available();
         }
 
         @Override
         public void close() throws IOException {
-            destroyCache();
-            mFileInputStream.close();
+            mEncryptedInputStream.close();
         }
 
         @Override
         public FileChannel getChannel() {
-            throw new UnsupportedOperationException("For encrypted files, you must read all data "
-                    + "simultaneously. Call #read(byte[]).");
+            throw new UnsupportedOperationException("For encrypted files, please open the "
+                    + "relevant FileInput/FileOutputStream.");
         }
 
         @Override
         protected void finalize() throws IOException {
-            destroyCache();
             super.finalize();
         }
 
         @Override
         public synchronized void mark(int readlimit) {
-            throw new UnsupportedOperationException("For encrypted files, you must read all data "
-                    + "simultaneously. Call #read(byte[]).");
+            mEncryptedInputStream.mark(readlimit);
         }
 
         @Override
         public synchronized void reset() throws IOException {
-            throw new UnsupportedOperationException("For encrypted files, you must read all data "
-                    + "simultaneously. Call #read(byte[]).");
+            mEncryptedInputStream.reset();
         }
 
         @Override
         public boolean markSupported() {
-            return false;
+            return mEncryptedInputStream.markSupported();
         }
 
     }

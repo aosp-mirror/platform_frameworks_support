@@ -1,6 +1,34 @@
 // Signature format: 3.0
+package androidx.security.content {
+
+
+}
+
 package androidx.security.crypto {
 
+
+  public class SecureCipher {
+  }
+
+}
+
+package androidx.security.util {
+
+
+  public static final class TinkAndroidKeysetManager.Builder {
+    ctor public TinkAndroidKeysetManager.Builder();
+    method public androidx.security.util.TinkAndroidKeysetManager! build() throws java.security.GeneralSecurityException, java.io.IOException;
+    method public androidx.security.util.TinkAndroidKeysetManager.Builder! doNotUseKeystore();
+    method public androidx.security.util.TinkAndroidKeysetManager.Builder! withKeyTemplate(com.google.crypto.tink.proto.KeyTemplate!);
+    method public androidx.security.util.TinkAndroidKeysetManager.Builder! withMasterKey(androidx.security.util.TinkUtil.AsyncAead!);
+    method public androidx.security.util.TinkAndroidKeysetManager.Builder! withSharedPref(android.content.Context!, String!, String!) throws java.io.IOException;
+  }
+
+
+
+  public static interface TinkUtil.MasterKeyListener {
+    method public void masterKeyUnlocked(byte[]);
+  }
 
 }
 
