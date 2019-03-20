@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0b87a8df_96f90d94",
+        "filename": "car/core/src/main/java/androidx/car/app/CarListDialog.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-03-20T04:29:29Z",
+      "side": 0,
+      "message": "Is this actually needed?",
+      "revId": "147608ed358181343eae882d719a2e2d3f2904f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
