@@ -69,6 +69,7 @@ package androidx.security {
     field public static final int AES_IV_SIZE_BYTES = 16; // 0x10
     field public static final String ANDROID_CA_STORE = "AndroidCAStore";
     field public static final String ANDROID_KEYSTORE = "AndroidKeyStore";
+    field public static final String MASTER_KEY = "master_key";
     field public static final String SSL_TLS = "TLS";
   }
 
@@ -160,6 +161,7 @@ package androidx.security.context {
     ctor public SecureContextCompat(android.content.Context);
     ctor public SecureContextCompat(android.content.Context, androidx.security.SecureConfig);
     method public boolean deviceLocked();
+    method public android.content.SharedPreferences getSharedPreferences(String, int, String);
     method public void openEncryptedFileInput(String, java.util.concurrent.Executor, androidx.security.context.SecureContextCompat.EncryptedFileInputStreamListener) throws java.io.IOException;
     method public java.io.FileOutputStream openEncryptedFileOutput(String, int) throws java.io.IOException;
     method public java.io.FileOutputStream openEncryptedFileOutput(String, int, String) throws java.io.IOException;
@@ -203,6 +205,10 @@ package androidx.security.crypto {
     method public static androidx.security.crypto.SecureCipher getInstance(androidx.security.SecureConfig);
     method public void sign(String, byte[], androidx.security.crypto.SecureCipher.SecureSignListener);
     method public boolean verify(String, byte[], byte[]);
+  }
+
+  public static interface SecureCipher.AeadEncryptionListener {
+    method public void encryptionComplete(byte[]);
   }
 
   public static interface SecureCipher.SecureAsymmetricEncryptionListener {
