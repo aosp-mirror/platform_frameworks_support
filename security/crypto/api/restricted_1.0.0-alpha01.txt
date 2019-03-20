@@ -1,6 +1,58 @@
 // Signature format: 3.0
+package androidx.security {
+
+  public class EncryptionConfig {
+  }
+
+}
+
+package androidx.security.biometric {
+
+
+
+  public enum BiometricKeyAuthCallback.BiometricStatus {
+    method public static androidx.security.biometric.BiometricKeyAuthCallback.BiometricStatus fromId(int);
+    method public int getType();
+    enum_constant public static final androidx.security.biometric.BiometricKeyAuthCallback.BiometricStatus ERROR;
+    enum_constant public static final androidx.security.biometric.BiometricKeyAuthCallback.BiometricStatus FAILED;
+    enum_constant public static final androidx.security.biometric.BiometricKeyAuthCallback.BiometricStatus SUCCESS;
+  }
+
+}
+
+package androidx.security.content {
+
+
+}
+
 package androidx.security.crypto {
 
+
+  public static interface AeadCipher.SecureAuthListener {
+    method public void authComplete(androidx.security.biometric.BiometricKeyAuthCallback.BiometricStatus);
+  }
+
+
+
+}
+
+package androidx.security.util {
+
+
+  public static final class TinkAndroidKeysetManager.Builder {
+    ctor public TinkAndroidKeysetManager.Builder();
+    method public androidx.security.util.TinkAndroidKeysetManager! build() throws java.security.GeneralSecurityException, java.io.IOException;
+    method public androidx.security.util.TinkAndroidKeysetManager.Builder! doNotUseKeystore();
+    method public androidx.security.util.TinkAndroidKeysetManager.Builder! withKeyTemplate(com.google.crypto.tink.proto.KeyTemplate!);
+    method public androidx.security.util.TinkAndroidKeysetManager.Builder! withMasterKey(androidx.security.util.TinkMasterKeyGenerator.AsyncAead!);
+    method public androidx.security.util.TinkAndroidKeysetManager.Builder! withSharedPref(android.content.Context!, String!, String!) throws java.io.IOException;
+  }
+
+
+
+  public static interface TinkMasterKeyGenerator.MasterKeyListener {
+    method public void masterKeyUnlocked(byte[]);
+  }
 
 }
 

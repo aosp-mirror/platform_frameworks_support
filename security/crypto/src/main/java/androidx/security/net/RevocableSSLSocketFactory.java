@@ -17,10 +17,9 @@
 
 package androidx.security.net;
 
-import static androidx.security.SecureConfig.SSL_TLS;
+import static androidx.security.net.RevocableURLConfig.SSL_TLS;
 
 import androidx.annotation.RestrictTo;
-import androidx.security.SecureConfig;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -46,39 +45,41 @@ import javax.net.ssl.TrustManagerFactory;
  * @hide
  */
 @RestrictTo(RestrictTo.Scope.LIBRARY)
-class ValidatableSSLSocketFactory extends SSLSocketFactory {
+class RevocableSSLSocketFactory extends SSLSocketFactory {
 
-    private static final String TAG = "ValidatableSSLSocketFactory";
+    private static final String TAG = "RevocableSSLSocketFactory";
 
     private SSLSocketFactory mSslSocketFactory;
-    private SecureURL mSecureURL;
+    private RevocableURL mRevocableURL;
     private Socket mSocket;
-    private SecureConfig mSecureConfig;
+    private RevocableURLConfig mRevocableURLConfig;
 
-    ValidatableSSLSocketFactory(SecureURL secureURL, SSLSocketFactory sslSocketFactory,
-            SecureConfig secureConfig) throws IOException {
-        this.mSecureURL = secureURL;
+    RevocableSSLSocketFactory(RevocableURL revocableURL, SSLSocketFactory sslSocketFactory,
+                              RevocableURLConfig revocableURLConfig) throws IOException {
+        this.mRevocableURL = revocableURL;
         this.mSslSocketFactory = sslSocketFactory;
-        this.mSecureConfig = secureConfig;
-        this.mSocket = new ValidatableSSLSocket(secureURL,
-                mSslSocketFactory.createSocket(mSecureURL.getHostname(), mSecureURL.getPort()),
-                mSecureConfig);
+        this.mRevocableURLConfig = revocableURLConfig;
+        this.mSocket = new RevocableSSLSocket(revocableURL,
+                mSslSocketFactory.createSocket(mRevocableURL.getHostname(),
+                        mRevocableURL.getPort()), mRevocableURLConfig);
     }
 
-    ValidatableSSLSocketFactory(SecureURL secureURL, SSLSocketFactory sslSocketFactory)
+    RevocableSSLSocketFactory(RevocableURL revocableURL, SSLSocketFactory sslSocketFactory)
             throws IOException {
-        this(secureURL, sslSocketFactory, SecureConfig.getDefault());
+        this(revocableURL, sslSocketFactory, RevocableURLConfig.getDefault());
     }
 
-    ValidatableSSLSocketFactory(SecureURL secureURL) throws IOException {
-        this(secureURL, (SSLSocketFactory) SSLSocketFactory.getDefault(),
-                SecureConfig.getDefault());
+    RevocableSSLSocketFactory(RevocableURL revocableURL) throws IOException {
+        this(revocableURL, (SSLSocketFactory) SSLSocketFactory.getDefault(),
+                RevocableURLConfig.getDefault());
     }
 
-    ValidatableSSLSocketFactory(SecureURL secureURL,
-            Map<String, InputStream> trustedCAs, SecureConfig secureConfig) throws IOException {
-        this(secureURL, createUserTrustSSLSocketFactory(trustedCAs, secureConfig, secureURL),
-                secureConfig);
+    RevocableSSLSocketFactory(RevocableURL revocableURL,
+                              Map<String, InputStream> trustedCAs,
+                              RevocableURLConfig revocableURLConfig) throws IOException {
+        this(revocableURL, createUserTrustSSLSocketFactory(trustedCAs,
+                revocableURLConfig, revocableURL),
+                revocableURLConfig);
     }
 
     @Override
@@ -95,9 +96,9 @@ class ValidatableSSLSocketFactory extends SSLSocketFactory {
     public Socket createSocket(Socket s, String host, int port, boolean autoClose)
             throws IOException {
         if (mSocket == null) {
-            mSocket = new ValidatableSSLSocket(
-                    mSecureURL, mSslSocketFactory.createSocket(s, host, port, autoClose),
-                    mSecureConfig);
+            mSocket = new RevocableSSLSocket(
+                    mRevocableURL, mSslSocketFactory.createSocket(s, host, port, autoClose),
+                    mRevocableURLConfig);
         }
         return mSocket;
     }
@@ -105,9 +106,9 @@ class ValidatableSSLSocketFactory extends SSLSocketFactory {
     @Override
     public Socket createSocket(String host, int port) throws IOException, UnknownHostException {
         if (mSocket == null) {
-            mSocket = new ValidatableSSLSocket(mSecureURL,
+            mSocket = new RevocableSSLSocket(mRevocableURL,
                     mSslSocketFactory.createSocket(host, port),
-                    mSecureConfig);
+                    mRevocableURLConfig);
         }
         return mSocket;
     }
@@ -116,9 +117,9 @@ class ValidatableSSLSocketFactory extends SSLSocketFactory {
     public Socket createSocket(String host, int port, InetAddress localHost, int localPort)
             throws IOException, UnknownHostException {
         if (mSocket == null) {
-            mSocket = new ValidatableSSLSocket(
-                    mSecureURL, mSslSocketFactory.createSocket(host, port, localHost, localPort),
-                    mSecureConfig);
+            mSocket = new RevocableSSLSocket(
+                    mRevocableURL, mSslSocketFactory.createSocket(host, port, localHost, localPort),
+                    mRevocableURLConfig);
         }
         return mSocket;
     }
@@ -126,9 +127,9 @@ class ValidatableSSLSocketFactory extends SSLSocketFactory {
     @Override
     public Socket createSocket(InetAddress host, int port) throws IOException {
         if (mSocket == null) {
-            mSocket = new ValidatableSSLSocket(mSecureURL, mSslSocketFactory
+            mSocket = new RevocableSSLSocket(mRevocableURL, mSslSocketFactory
                     .createSocket(host, port),
-                    mSecureConfig);
+                    mRevocableURLConfig);
         }
         return mSocket;
     }
@@ -137,36 +138,36 @@ class ValidatableSSLSocketFactory extends SSLSocketFactory {
     public Socket createSocket(InetAddress address, int port, InetAddress localAddress,
             int localPort) throws IOException {
         if (mSocket == null) {
-            mSocket = new ValidatableSSLSocket(
-                    mSecureURL, mSslSocketFactory.createSocket(address, port, localAddress,
+            mSocket = new RevocableSSLSocket(
+                    mRevocableURL, mSslSocketFactory.createSocket(address, port, localAddress,
                     localPort),
-                    mSecureConfig);
+                    mRevocableURLConfig);
         }
         return mSocket;
     }
 
     // TODO Evaluate the need for all of these options
     private static SSLSocketFactory createUserTrustSSLSocketFactory(Map<String, InputStream>
-            trustAnchors, SecureConfig secureConfig, SecureURL secureURL) {
+            trustAnchors, RevocableURLConfig revocableURLConfig, RevocableURL revocableURL) {
         try {
             TrustManagerFactory tmf = TrustManagerFactory.getInstance(
                     TrustManagerFactory.getDefaultAlgorithm());
-            KeyStore clientStore = KeyStore.getInstance(secureConfig.getKeystoreType());
+            KeyStore clientStore = KeyStore.getInstance(RevocableURLConfig.KEYSTORE_TYPE);
             clientStore.load(null, null);
 
             KeyStore trustStore = null;
-            switch (secureConfig.getTrustAnchorOptions()) {
+            switch (revocableURLConfig.getTrustAnchorOptions()) {
                 case USER_ONLY:
                 case USER_SYSTEM:
                 case LIMITED_SYSTEM:
-                    trustStore = KeyStore.getInstance(secureConfig.getKeystoreType());
+                    trustStore = KeyStore.getInstance(RevocableURLConfig.KEYSTORE_TYPE);
                     trustStore.load(null, null);
                     break;
             }
 
-            switch (secureConfig.getTrustAnchorOptions()) {
+            switch (revocableURLConfig.getTrustAnchorOptions()) {
                 case USER_SYSTEM:
-                    KeyStore caStore = KeyStore.getInstance(secureConfig.getAndroidCAStore());
+                    KeyStore caStore = KeyStore.getInstance(RevocableURLConfig.ANDROID_CA_STORE);
                     caStore.load(null, null);
                     Enumeration<String> caAliases = caStore.aliases();
                     while (caAliases.hasMoreElements()) {
@@ -178,7 +179,7 @@ class ValidatableSSLSocketFactory extends SSLSocketFactory {
                 case LIMITED_SYSTEM:
                     for (Map.Entry<String, InputStream> ca : trustAnchors.entrySet()) {
                         CertificateFactory cf = CertificateFactory
-                                .getInstance(secureConfig.getCertPath());
+                                .getInstance(revocableURLConfig.getCertPath());
                         Certificate userCert = cf.generateCertificate(ca.getValue());
                         trustStore.setCertificateEntry(ca.getKey(), userCert);
                     }
@@ -189,8 +190,8 @@ class ValidatableSSLSocketFactory extends SSLSocketFactory {
             SSLContext sslContext = SSLContext.getInstance(SSL_TLS);
 
             KeyManager[] keyManagersArray = new KeyManager[1];
-            keyManagersArray[0] = SecureKeyManager.getDefault(
-                    secureURL.getClientCertAlias(), secureConfig);
+            keyManagersArray[0] = RevocableX509KeyManager.getInstance(
+                    revocableURL.getClientCertAlias(), revocableURLConfig);
             sslContext.init(keyManagersArray, tmf.getTrustManagers(), new SecureRandom());
             return sslContext.getSocketFactory();
         } catch (GeneralSecurityException ex) {

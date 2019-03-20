@@ -26,25 +26,24 @@ public class SecureKeyStoreTest {
 
     @Test
     public void testKeyDoesNotExist() throws Throwable {
-        SecureKeyStore secureKeyStore = SecureKeyStore.getDefault();
-        boolean keyExists = secureKeyStore.keyExists("Not_a_real_key");
+        AeadMasterKeyGenerator keyGenerator = AeadMasterKeyGenerator.getDefault();
+        boolean keyExists = keyGenerator.keyExists("Not_a_real_key");
         Assert.assertFalse("Key has not been created and should not exist!", keyExists);
     }
 
     @Test
     public void testSymmetricKeyExists() throws Throwable {
-        SecureKeyGenerator keyGenerator = SecureKeyGenerator.getDefault();
+        AeadMasterKeyGenerator keyGenerator = AeadMasterKeyGenerator.getDefault();
         keyGenerator.generateKey("symmetric_key");
 
-        SecureKeyStore keyStore = SecureKeyStore.getDefault();
-        boolean keyExists = keyStore.keyExists("symmetric_key");
+        boolean keyExists = keyGenerator.keyExists("symmetric_key");
 
         Assert.assertTrue("Symmetric Key should exist!", keyExists);
     }
 
     @Test
     public void testDeleteSymmetricKey() throws Throwable {
-        SecureKeyStore keyStore = SecureKeyStore.getDefault();
+        AeadMasterKeyGenerator keyStore = AeadMasterKeyGenerator.getDefault();
         keyStore.deleteKey("symmetric_key");
 
         boolean keyExists = keyStore.keyExists("symmetric_key");
@@ -52,25 +51,5 @@ public class SecureKeyStoreTest {
         Assert.assertFalse("Symmetric Key should have been deleted!", keyExists);
     }
 
-    @Test
-    public void testAsymmetricKeyExists() throws Throwable {
-        SecureKeyGenerator keyGenerator = SecureKeyGenerator.getDefault();
-        keyGenerator.generateAsymmetricKeyPair("asymmetric_key_pair");
-
-        SecureKeyStore keyStore = SecureKeyStore.getDefault();
-        boolean keyExists = keyStore.keyExists("asymmetric_key_pair");
-
-        Assert.assertTrue("Asymmetric Key should exist!", keyExists);
-    }
-
-    @Test
-    public void testDeleteAsymmetricKey() throws Throwable {
-        SecureKeyStore keyStore = SecureKeyStore.getDefault();
-        keyStore.deleteKey("asymmetric_key_pair");
-
-        boolean keyExists = keyStore.keyExists("asymmetric_key_pair");
-
-        Assert.assertFalse("Asymmetric Key should have been deleted!", keyExists);
-    }
 
 }
