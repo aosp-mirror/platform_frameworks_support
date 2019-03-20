@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3954bc40_a5e67ff3",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/ExtrasUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2019-03-20T16:01:17Z",
+      "side": 1,
+      "message": "API not yet in AOSP.\nSee related comment in the CL.\nThanks.",
+      "parentUuid": "9b6834fd_85bdc6bc",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 69
+      },
+      "revId": "bac68ab710943b86f67ede8797f51a2b63a4065e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "66dec33a_077bf0ad",
         "filename": "textclassifier/src/main/java/androidx/textclassifier/ExtrasUtils.java",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "bac68ab710943b86f67ede8797f51a2b63a4065e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "619b6204_0384021c",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/ExtrasUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1138403
+      },
+      "writtenOn": "2019-03-20T16:01:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "66dec33a_077bf0ad",
+      "range": {
+        "startLine": 44,
+        "startChar": 19,
+        "endLine": 44,
+        "endChar": 31
+      },
+      "revId": "bac68ab710943b86f67ede8797f51a2b63a4065e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
