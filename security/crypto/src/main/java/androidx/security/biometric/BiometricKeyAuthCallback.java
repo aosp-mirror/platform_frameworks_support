@@ -16,18 +16,13 @@
 package androidx.security.biometric;
 
 import androidx.annotation.NonNull;
-import androidx.security.crypto.SecureCipher;
-
-import java.security.Signature;
-
-import javax.crypto.Cipher;
-
-
+import androidx.annotation.RestrictTo;
 
 /**
  * Callback for Biometric Key auth.
- *
+ * @hide
  */
+@RestrictTo(RestrictTo.Scope.LIBRARY)
 public abstract class BiometricKeyAuthCallback {
 
     /**
@@ -87,19 +82,5 @@ public abstract class BiometricKeyAuthCallback {
      * @param message the message to send
      */
     public abstract void onMessage(@NonNull String message);
-
-    /**
-     * @param cipher The cipher to authenticate
-     * @param listener The listener to call back
-     */
-    public abstract void authenticateKey(@NonNull Cipher cipher,
-            @NonNull SecureCipher.SecureAuthListener listener);
-
-    /**
-     * @param signature The signature to authenticate
-     * @param listener The listener to call back
-     */
-    public abstract void authenticateKey(@NonNull Signature signature,
-            @NonNull SecureCipher.SecureAuthListener listener);
 
 }

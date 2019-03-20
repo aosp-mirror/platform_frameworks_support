@@ -15,7 +15,7 @@
  */
 
 
-package androidx.security.config;
+package androidx.security.net;
 
 import androidx.annotation.NonNull;
 

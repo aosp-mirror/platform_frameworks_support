@@ -19,9 +19,10 @@ package androidx.security.biometric;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RestrictTo;
 import androidx.biometric.BiometricPrompt;
 import androidx.fragment.app.FragmentActivity;
-import androidx.security.crypto.SecureCipher;
+import androidx.security.crypto.AeadCipher;
 
 import java.security.Signature;
 import java.util.concurrent.CountDownLatch;
@@ -31,13 +32,15 @@ import javax.crypto.Cipher;
 
 /**
  * Class that handles authenticating Ciphers using Biometric Prompt.
+ * @hide
  */
+@RestrictTo(RestrictTo.Scope.LIBRARY)
 public class BiometricKeyAuth extends BiometricPrompt.AuthenticationCallback {
 
     private static final String TAG = "BiometricKeyAuth";
 
     private FragmentActivity mActivity;
-    private SecureCipher.SecureAuthListener mSecureAuthListener;
+    private AeadCipher.SecureAuthListener mSecureAuthListener;
     private CountDownLatch mCountDownLatch = null;
     private BiometricKeyAuthCallback mBiometricKeyAuthCallback;
 
@@ -86,7 +89,7 @@ public class BiometricKeyAuth extends BiometricPrompt.AuthenticationCallback {
      */
     public void authenticateKey(@NonNull Cipher cipher,
             @NonNull BiometricPrompt.PromptInfo promptInfo,
-            @NonNull SecureCipher.SecureAuthListener listener) {
+            @NonNull AeadCipher.SecureAuthListener listener) {
         authenticateKeyObject(cipher, promptInfo, listener);
     }
 
@@ -99,13 +102,13 @@ public class BiometricKeyAuth extends BiometricPrompt.AuthenticationCallback {
      */
     public void authenticateKey(@NonNull Signature signature,
             @NonNull BiometricPrompt.PromptInfo promptInfo,
-            @NonNull SecureCipher.SecureAuthListener listener) {
+            @NonNull AeadCipher.SecureAuthListener listener) {
         authenticateKeyObject(signature, promptInfo, listener);
     }
 
     private void authenticateKeyObject(Object crypto,
             BiometricPrompt.PromptInfo promptInfo,
-            SecureCipher.SecureAuthListener listener) {
+            AeadCipher.SecureAuthListener listener) {
         mCountDownLatch = new CountDownLatch(1);
         mSecureAuthListener = listener;
 
@@ -134,7 +137,7 @@ public class BiometricKeyAuth extends BiometricPrompt.AuthenticationCallback {
      * @param listener the listener to call back when complete
      */
     public void authenticateKey(@NonNull Cipher cipher,
-            @NonNull SecureCipher.SecureAuthListener listener) {
+            @NonNull AeadCipher.SecureAuthListener listener) {
         authenticateKeyObject(cipher, listener);
     }
 
@@ -146,12 +149,12 @@ public class BiometricKeyAuth extends BiometricPrompt.AuthenticationCallback {
      * @param listener the listener to call back when complete
      */
     public void authenticateKey(@NonNull Signature signature,
-            @NonNull SecureCipher.SecureAuthListener listener) {
+            @NonNull AeadCipher.SecureAuthListener listener) {
         authenticateKeyObject(signature, listener);
     }
 
     private void authenticateKeyObject(Object crypto,
-            @NonNull SecureCipher.SecureAuthListener listener) {
+            @NonNull AeadCipher.SecureAuthListener listener) {
         authenticateKeyObject(crypto, new BiometricPrompt.PromptInfo.Builder()
                 .setTitle("Please Auth for key usage.")
                 .setSubtitle("Key used for encrypting files")

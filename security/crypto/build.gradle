@@ -29,11 +29,16 @@ dependencies {
     api("androidx.core:core:1.0.0") { transitive = true}
     api("androidx.fragment:fragment:1.0.0") { transitive = true}
     api("androidx.biometric:biometric:1.0.0-alpha03")
+    implementation project(path: ':work:work-runtime')
 
+    api("com.google.crypto.tink:tink-android:1.2.2")
+
+    androidTestImplementation("androidx.test.ext:junit:1.1.0")
     androidTestImplementation(ANDROIDX_TEST_EXT_JUNIT)
     androidTestImplementation(ANDROIDX_TEST_CORE)
     androidTestImplementation(ANDROIDX_TEST_RUNNER)
     androidTestImplementation(MOCKITO_CORE)
+
 }
 
 android {

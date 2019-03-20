@@ -23,8 +23,6 @@ import android.os.Build;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.security.SecureConfig;
-import androidx.security.config.TldConstants;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -57,30 +55,30 @@ import javax.net.ssl.SSLSocket;
  * A URL that provides TLS, certification validity checks, and TLD verification automatically.
  */
 @TargetApi(Build.VERSION_CODES.N)
-public class SecureURL {
+public class RevocableURL {
 
-    private static final String TAG = "SecureURL";
+    private static final String TAG = "RevocableURL";
 
     private URL mUrl;
-    private SecureConfig mSecureConfig;
+    private RevocableURLConfig mRevocableURLConfig;
     private String mClientCertAlias;
 
-    public SecureURL(@NonNull String spec)
+    public RevocableURL(@NonNull String spec)
             throws MalformedURLException {
-        this(spec, null, SecureConfig.getDefault());
+        this(spec, null, RevocableURLConfig.getDefault());
     }
 
-    public SecureURL(@NonNull String spec, @NonNull String clientCertAlias)
+    public RevocableURL(@NonNull String spec, @NonNull String clientCertAlias)
             throws MalformedURLException {
-        this(spec, clientCertAlias, SecureConfig.getDefault());
+        this(spec, clientCertAlias, RevocableURLConfig.getDefault());
     }
 
-    public SecureURL(@NonNull String spec, @NonNull String clientCertAlias,
-            @NonNull SecureConfig secureConfig)
+    public RevocableURL(@NonNull String spec, @NonNull String clientCertAlias,
+                        @NonNull RevocableURLConfig revocableURLConfig)
             throws MalformedURLException {
         this.mUrl = new URL(addProtocol(spec));
         this.mClientCertAlias = clientCertAlias;
-        this.mSecureConfig = secureConfig;
+        this.mRevocableURLConfig = revocableURLConfig;
     }
 
 
@@ -136,7 +134,7 @@ public class SecureURL {
     @NonNull
     public URLConnection openConnection() throws IOException {
         HttpsURLConnection urlConnection = (HttpsURLConnection) this.mUrl.openConnection();
-        urlConnection.setSSLSocketFactory(new ValidatableSSLSocketFactory(this));
+        urlConnection.setSSLSocketFactory(new RevocableSSLSocketFactory(this));
         return urlConnection;
     }
 
@@ -152,17 +150,17 @@ public class SecureURL {
             @NonNull Map<String, InputStream> trustedCAs)
             throws IOException {
         HttpsURLConnection urlConnection = (HttpsURLConnection) this.mUrl.openConnection();
-        urlConnection.setSSLSocketFactory(new ValidatableSSLSocketFactory(this,
-                trustedCAs, mSecureConfig));
+        urlConnection.setSSLSocketFactory(new RevocableSSLSocketFactory(this,
+                trustedCAs, mRevocableURLConfig));
         return urlConnection;
     }
 
     /**
      * Checks the hostname against an open SSLSocket connect to the hostname for validity for certs
-     * and hostname validity. Only used internally by ValidatableSSLSocket.
+     * and hostname validity. Only used internally by RevocableSSLSocket.
      * <p>
      * Example Code:
-     * SSLSocketFactory sf = (SSLSocketFactory) SSLSocketFactory.getDefault();
+     * SSLSocketFactory sf = (SSLSocketFactory) SSLSocketFactory.getAES256GCMConfig();
      * SSLSocket socket = (SSLSocket) sf.createSocket("https://"+hostname, 443);
      * socket.startHandshake();
      * boolean valid = SecurityExt.isValid(hostname, socket);
@@ -184,7 +182,6 @@ public class SecureURL {
                     && validTldWildcards(Arrays.asList(socket.getSession().getPeerCertificates()));
         } catch (SSLPeerUnverifiedException e) {
             Log.i(TAG, "Valid Check failed: " + e.getMessage());
-            e.printStackTrace();
             return false;
         }
     }
@@ -193,7 +190,7 @@ public class SecureURL {
      * Checks the HttpsUrlConnection certificates for validity.
      * <p>
      * Example Code:
-     * SecureURL mUrl = new SecureURL("https://" + host);
+     * RevocableURL mUrl = new RevocableURL("https://" + host);
      * conn = (HttpsURLConnection) mUrl.openConnection();
      * boolean valid = SecurityExt.isValid(conn);
      * </p>
@@ -207,7 +204,6 @@ public class SecureURL {
                     && validTldWildcards(Arrays.asList(conn.getServerCertificates()));
         } catch (SSLPeerUnverifiedException e) {
             Log.i(TAG, "Valid Check failed: " + e.getMessage());
-            e.printStackTrace();
             return false;
         }
     }
@@ -227,16 +223,16 @@ public class SecureURL {
                     leafCerts.add(cert);
                 }
             }
-            CertPath path = CertificateFactory.getInstance(mSecureConfig.getCertPath())
+            CertPath path = CertificateFactory.getInstance(mRevocableURLConfig.getCertPath())
                     .generateCertPath(leafCerts);
-            KeyStore ks = KeyStore.getInstance(mSecureConfig.getAndroidCAStore());
+            KeyStore ks = KeyStore.getInstance(RevocableURLConfig.ANDROID_CA_STORE);
             try {
                 ks.load(null, null);
             } catch (IOException e) {
                 e.printStackTrace();
                 throw new AssertionError(e);
             }
-            CertPathValidator cpv = CertPathValidator.getInstance(mSecureConfig
+            CertPathValidator cpv = CertPathValidator.getInstance(mRevocableURLConfig
                     .getCertPathValidator());
             PKIXParameters params = new PKIXParameters(ks);
             PKIXRevocationChecker checker = (PKIXRevocationChecker) cpv.getRevocationChecker();
@@ -249,10 +245,8 @@ public class SecureURL {
             // network error"
             // Make sure your network security config allows for clear text access of the relevant
             // OCSP mUrl.
-            e.printStackTrace();
             return false;
         } catch (GeneralSecurityException e) {
-            e.printStackTrace();
             return false;
         }
     }

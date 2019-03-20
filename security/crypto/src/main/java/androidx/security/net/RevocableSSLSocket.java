@@ -21,7 +21,6 @@ import android.annotation.TargetApi;
 import android.os.Build;
 
 import androidx.annotation.RestrictTo;
-import androidx.security.SecureConfig;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -43,36 +42,37 @@ import javax.net.ssl.SSLSocket;
  * @hide
  */
 @RestrictTo(RestrictTo.Scope.LIBRARY)
-class ValidatableSSLSocket extends SSLSocket {
+class RevocableSSLSocket extends SSLSocket {
 
-    private static final String TAG = "ValidatableSSLSocket";
+    private static final String TAG = "RevocableSSLSocket";
 
     private SSLSocket mSslSocket;
     private String mHostname;
-    private SecureURL mSecureURL;
+    private RevocableURL mRevocableURL;
     private boolean mHandshakeStarted = false;
-    private SecureConfig mSecureConfig;
+    private RevocableURLConfig mRevocableURLConfig;
 
-    ValidatableSSLSocket(SecureURL secureURL, Socket sslSocket, SecureConfig secureConfig)
+    RevocableSSLSocket(RevocableURL revocableURL, Socket sslSocket,
+                       RevocableURLConfig revocableURLConfig)
             throws IOException {
-        this.mSecureURL = secureURL;
-        this.mHostname = secureURL.getHostname();
+        this.mRevocableURL = revocableURL;
+        this.mHostname = revocableURL.getHostname();
         this.mSslSocket = (SSLSocket) sslSocket;
-        this.mSecureConfig = secureConfig;
+        this.mRevocableURLConfig = revocableURLConfig;
         setSecureCiphers();
         isValid();
     }
 
     private void setSecureCiphers() {
-        if (mSecureConfig.getUseStrongSSLCiphersEnabled()) {
-            this.mSslSocket.setEnabledCipherSuites(mSecureConfig.getStrongSSLCiphers());
+        if (mRevocableURLConfig.getUseStrongSSLCiphersEnabled()) {
+            this.mSslSocket.setEnabledCipherSuites(mRevocableURLConfig.getStrongSSLCiphers());
         }
     }
 
     private void isValid() throws IOException {
         startHandshake();
         try {
-            if (!mSecureURL.isValid(this.mHostname, this.mSslSocket)) {
+            if (!mRevocableURL.isValid(this.mHostname, this.mSslSocket)) {
                 throw new IOException("Found invalid certificate");
             }
         } catch (IOException ex) {
