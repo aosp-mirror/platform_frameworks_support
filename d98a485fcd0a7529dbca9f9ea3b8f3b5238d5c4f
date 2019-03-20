@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "150d5d8a_f62c7f58",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/MavenUploadHelper.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-03-20T21:20:55Z",
+      "side": 1,
+      "message": "I think we\u0027re getting to a point where we should consider making our own pom file writer. Obviously not something for this CL, but maybe consider it for the future.",
+      "range": {
+        "startLine": 109,
+        "startChar": 20,
+        "endLine": 109,
+        "endChar": 33
+      },
+      "revId": "d98a485fcd0a7529dbca9f9ea3b8f3b5238d5c4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
