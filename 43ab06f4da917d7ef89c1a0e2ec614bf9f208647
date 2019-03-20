@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "af977391_c30721a6",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/ExtrasUtils.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-03-20T16:19:19Z",
+      "side": 1,
+      "message": "lint bot found a typo here, two \"the the\"",
+      "range": {
+        "startLine": 57,
+        "startChar": 25,
+        "endLine": 57,
+        "endChar": 33
+      },
+      "revId": "43ab06f4da917d7ef89c1a0e2ec614bf9f208647",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f320fbe_86169ad4",
+        "filename": "textclassifier/src/main/java/androidx/textclassifier/ExtrasUtils.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-03-20T16:19:19Z",
+      "side": 1,
+      "message": "Why is this not in the test code instead?",
+      "range": {
+        "startLine": 100,
+        "startChar": 3,
+        "endLine": 113,
+        "endChar": 5
+      },
+      "revId": "43ab06f4da917d7ef89c1a0e2ec614bf9f208647",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
