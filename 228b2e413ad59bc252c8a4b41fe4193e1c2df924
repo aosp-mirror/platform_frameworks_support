@@ -186,6 +186,30 @@
     },
     {
       "key": {
+        "uuid": "e037777a_5a218af8",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 500,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-20T03:31:24Z",
+      "side": 1,
+      "message": "i think it would be better if this method passed down the int[] and expected start and end being written into it. that way, developer can return custom values for both directions.",
+      "parentUuid": "50dca572_b2d16b4f",
+      "range": {
+        "startLine": 500,
+        "startChar": 18,
+        "endLine": 500,
+        "endChar": 43
+      },
+      "revId": "228b2e413ad59bc252c8a4b41fe4193e1c2df924",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c09f4602_c668cabe",
         "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
         "patchSetId": 1
