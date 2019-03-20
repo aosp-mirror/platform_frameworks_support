@@ -128,7 +128,7 @@ public class FileCipher {
             SecureKeyGenerator secureKeyGenerator = SecureKeyGenerator.getDefault();
             final EphemeralSecretKey secretKey = secureKeyGenerator.generateEphemeralDataKey();
             final SecureCipher secureCipher = SecureCipher
-                    .getDefault(mSecureConfig.getBiometricKeyAuthCallback());
+                    .getDefault(mSecureConfig.getBiometricKeyAuth());
             final Pair<byte[], byte[]> encryptedData =
                     secureCipher.encryptEphemeralData(secretKey, b);
             secureCipher.encryptAsymmetric(getAsymKeyPairAlias(),
@@ -218,7 +218,7 @@ public class FileCipher {
                     byte[] encodedData = new byte[mFileInputStream.available()];
                     mReadStatus = mFileInputStream.read(encodedData);
                     SecureCipher secureCipher = SecureCipher.getDefault(
-                            mSecureConfig.getBiometricKeyAuthCallback());
+                            mSecureConfig.getBiometricKeyAuth());
                     secureCipher.decryptEncodedData(encodedData,
                             new SecureCipher.SecureDecryptionListener() {
                                 public void decryptionComplete(byte[] clearText) {
