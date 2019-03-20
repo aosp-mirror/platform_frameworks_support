@@ -187,6 +187,30 @@
       "revId": "c1ad935b20651b21adb7ec74439226c3805d5394",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e0126de7_ae0db2a4",
+        "filename": "preference/src/main/java/androidx/preference/PreferenceDialogFragmentCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1149384
+      },
+      "writtenOn": "2019-03-20T16:29:19Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "271b9ff2_2100e2ec",
+      "range": {
+        "startLine": 277,
+        "startChar": 38,
+        "endLine": 277,
+        "endChar": 60
+      },
+      "revId": "c1ad935b20651b21adb7ec74439226c3805d5394",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

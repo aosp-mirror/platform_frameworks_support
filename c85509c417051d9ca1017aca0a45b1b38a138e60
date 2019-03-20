@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "152e988e_f0e56513",
+        "filename": "preference/src/androidTest/java/androidx/preference/tests/ListPreferenceDialogDismissTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1149384
+      },
+      "writtenOn": "2019-03-20T16:29:19Z",
+      "side": 1,
+      "message": "can this fit on previous line?",
+      "range": {
+        "startLine": 72,
+        "startChar": 12,
+        "endLine": 72,
+        "endChar": 29
+      },
+      "revId": "c85509c417051d9ca1017aca0a45b1b38a138e60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee6c23f6_109f67ee",
+        "filename": "preference/src/androidTest/java/androidx/preference/tests/ListPreferenceDialogDismissTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1149384
+      },
+      "writtenOn": "2019-03-20T16:29:19Z",
+      "side": 1,
+      "message": "The first comment doesn\u0027t really apply to the next 2 lines of code.\nI think this could be moved into a separate function (like in ag/4560121).\nAlternatively, suggest moving the comments into a single block",
+      "range": {
+        "startLine": 115,
+        "startChar": 7,
+        "endLine": 123,
+        "endChar": 39
+      },
+      "revId": "c85509c417051d9ca1017aca0a45b1b38a138e60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45dc1bf2_b26e0a23",
+        "filename": "preference/src/androidTest/res/values/strings.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1149384
+      },
+      "writtenOn": "2019-03-20T16:29:19Z",
+      "side": 1,
+      "message": "nit: empty line in the beginning of the file",
+      "range": {
+        "startLine": 2,
+        "startChar": 1,
+        "endLine": 2,
+        "endChar": 3
+      },
+      "revId": "c85509c417051d9ca1017aca0a45b1b38a138e60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6b6f168_f9457e11",
+        "filename": "preference/src/main/java/androidx/preference/PreferenceDialogFragmentCompat.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1149384
+      },
+      "writtenOn": "2019-03-20T16:29:19Z",
+      "side": 1,
+      "message": "Can we just implement OnShowListener directly in PreferenceDialogFragmentCompat ?\nWhen I tried doing that previously, the concern was raised that this changes the api. But maybe support library allows this?",
+      "range": {
+        "startLine": 175,
+        "startChar": 8,
+        "endLine": 175,
+        "endChar": 32
+      },
+      "revId": "c85509c417051d9ca1017aca0a45b1b38a138e60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "502c51c1_470d026e",
+        "filename": "preference/src/main/java/androidx/preference/PreferenceDialogFragmentCompat.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1149384
+      },
+      "writtenOn": "2019-03-20T16:29:19Z",
+      "side": 1,
+      "message": "It\u0027s been a while since I\u0027ve seen this code. Is there a reason we can\u0027t just change getDialog().dismiss() to call postDismiss()  instead? And avoid requiring developers to change their code?",
+      "range": {
+        "startLine": 291,
+        "startChar": 14,
+        "endLine": 291,
+        "endChar": 35
+      },
+      "revId": "c85509c417051d9ca1017aca0a45b1b38a138e60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
