@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b74e8ace_5f5989ee",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteExpandCollapseButton.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-03-20T17:02:30Z",
+      "side": 1,
+      "message": "How much are you sure that this will not make any regression?",
+      "range": {
+        "startLine": 34,
+        "startChar": 45,
+        "endLine": 34,
+        "endChar": 66
+      },
+      "revId": "cf34f8cc0bb5aa63d4d81f6970151bd2e9b2f8f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
