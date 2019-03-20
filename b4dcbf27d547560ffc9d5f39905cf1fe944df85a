@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9b546c42_b3b92f1f",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewAssetLoaderIntegrationTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-03-20T17:49:52Z",
+      "side": 1,
+      "message": "Maybe loadUrlAndWaitFor[Success] and loadUrlAndWaitFor[Error]?\n\nI don\u0027t know what happens if this times out. Usually, if the page doesn\u0027t exist, this \"finishes\" with onReceivedError + onPageFinished, which is technically a way of finishing.",
+      "parentUuid": "553feac0_b331a4c6",
+      "range": {
+        "startLine": 129,
+        "startChar": 20,
+        "endLine": 129,
+        "endChar": 47
+      },
+      "revId": "b4dcbf27d547560ffc9d5f39905cf1fe944df85a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c1df7a46_2fb3fe4a",
         "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewAssetLoaderIntegrationTest.java",
         "patchSetId": 4
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "3bb8219e_1baca38e",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewAssetLoaderIntegrationTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-03-20T17:49:52Z",
+      "side": 1,
+      "message": "Yeah, I think it\u0027s OK for this test, but ideally LUAWFC would bee smart enough to only \"finish\" when the intended page finished. Not sure what it would take to make it that smart, since loadUrl() calls and callbacks are not 1:1.",
+      "parentUuid": "c1df7a46_2fb3fe4a",
+      "range": {
+        "startLine": 131,
+        "startChar": 8,
+        "endLine": 131,
+        "endChar": 27
+      },
+      "revId": "b4dcbf27d547560ffc9d5f39905cf1fe944df85a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "85ae5279_8ec11598",
         "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewOnUiThread.java",
         "patchSetId": 4
@@ -68,6 +116,30 @@
       "revId": "b4dcbf27d547560ffc9d5f39905cf1fe944df85a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2a022e7_fe337932",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewOnUiThread.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-03-20T17:49:52Z",
+      "side": 1,
+      "message": "Ack, I think this is still covered by https://b.corp.google.com/issues/120902907",
+      "parentUuid": "85ae5279_8ec11598",
+      "range": {
+        "startLine": 71,
+        "startChar": 11,
+        "endLine": 71,
+        "endChar": 28
+      },
+      "revId": "b4dcbf27d547560ffc9d5f39905cf1fe944df85a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
