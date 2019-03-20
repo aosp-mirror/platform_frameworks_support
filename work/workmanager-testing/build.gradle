@@ -31,7 +31,10 @@ dependencies {
     implementation(ARCH_ROOM_RUNTIME)
     annotationProcessor(ARCH_ROOM_COMPILER)
 
-    androidTestImplementation(ARCH_CORE_TESTING)
+    androidTestImplementation(ARCH_CORE_TESTING) {
+        exclude group: "androidx.annotation"
+        exclude group: "androidx.arch.core"
+    }
     androidTestImplementation(TEST_EXT_JUNIT)
     androidTestImplementation(TEST_CORE)
     androidTestImplementation(TEST_RUNNER)
