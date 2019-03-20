@@ -299,6 +299,30 @@
       "revId": "228b2e413ad59bc252c8a4b41fe4193e1c2df924",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d6f52d4_cdd44e7c",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2270,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-20T03:32:24Z",
+      "side": 1,
+      "message": "+1. we should probably name these mExtraStart and mExtraEnd where extra start is scrolling towards 0 and end is scrolling towards infnity.",
+      "parentUuid": "fa27e9c4_dabc6fd7",
+      "range": {
+        "startLine": 2270,
+        "startChar": 12,
+        "endLine": 2270,
+        "endChar": 19
+      },
+      "revId": "228b2e413ad59bc252c8a4b41fe4193e1c2df924",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
