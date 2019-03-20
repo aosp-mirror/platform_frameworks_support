@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a288053_f27482d9",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-03-20T14:41:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "678b72fd_ca37cbe6",
+      "range": {
+        "startLine": 148,
+        "startChar": 7,
+        "endLine": 148,
+        "endChar": 100
+      },
+      "revId": "228b2e413ad59bc252c8a4b41fe4193e1c2df924",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "82d6d5a9_37f0ddcc",
         "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "228b2e413ad59bc252c8a4b41fe4193e1c2df924",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f1eecc7a_31f374d7",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 452,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-03-20T14:41:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "82d6d5a9_37f0ddcc",
+      "range": {
+        "startLine": 452,
+        "startChar": 71,
+        "endLine": 452,
+        "endChar": 84
+      },
+      "revId": "228b2e413ad59bc252c8a4b41fe4193e1c2df924",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "5c689b39_be6f36c3",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 456,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-03-20T14:41:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cc3ac638_bf2096eb",
+      "range": {
+        "startLine": 456,
+        "startChar": 60,
+        "endLine": 456,
+        "endChar": 94
+      },
+      "revId": "228b2e413ad59bc252c8a4b41fe4193e1c2df924",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "55783959_d0c99649",
         "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
         "patchSetId": 1
@@ -91,6 +163,30 @@
       "revId": "228b2e413ad59bc252c8a4b41fe4193e1c2df924",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a26774d0_8493975b",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 460,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-03-20T14:41:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "55783959_d0c99649",
+      "range": {
+        "startLine": 460,
+        "startChar": 20,
+        "endLine": 460,
+        "endChar": 23
+      },
+      "revId": "228b2e413ad59bc252c8a4b41fe4193e1c2df924",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "9d795ec6_f8fc6e41",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 473,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-03-20T14:41:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "17324a9d_19a354cb",
+      "range": {
+        "startLine": 473,
+        "startChar": 28,
+        "endLine": 473,
+        "endChar": 33
+      },
+      "revId": "228b2e413ad59bc252c8a4b41fe4193e1c2df924",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c93bdbf7_06aeb292",
         "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
         "patchSetId": 1
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "f790b8b1_00824206",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-03-20T14:41:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c93bdbf7_06aeb292",
+      "range": {
+        "startLine": 482,
+        "startChar": 22,
+        "endLine": 482,
+        "endChar": 23
+      },
+      "revId": "228b2e413ad59bc252c8a4b41fe4193e1c2df924",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ff8c01f_f3ef5d08",
         "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
         "patchSetId": 1
@@ -160,6 +304,30 @@
       "revId": "228b2e413ad59bc252c8a4b41fe4193e1c2df924",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e647839_f49332a1",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-03-20T14:41:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ff8c01f_f3ef5d08",
+      "range": {
+        "startLine": 496,
+        "startChar": 28,
+        "endLine": 496,
+        "endChar": 33
+      },
+      "revId": "228b2e413ad59bc252c8a4b41fe4193e1c2df924",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -210,6 +378,30 @@
     },
     {
       "key": {
+        "uuid": "f64b0e3b_1fc7898f",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 500,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-03-20T14:41:38Z",
+      "side": 1,
+      "message": "I\u0027m not opposed to `void getExtraLayoutSpace(RecyclerView.State state, int scrollDirection, int[] extraLayoutSpace)`, but there has been a lot of discussion on this topic already. The latest status is that we decided that having one method means it is easy for developers to accidentally get rid of the extra layout space in the scroll direction, and that we therefore wanted have two methods.\n\nIf think we can probably get to a decision with a 15 minute GVC with the three of us. Sounds acceptable?",
+      "parentUuid": "e037777a_5a218af8",
+      "range": {
+        "startLine": 500,
+        "startChar": 18,
+        "endLine": 500,
+        "endChar": 43
+      },
+      "revId": "228b2e413ad59bc252c8a4b41fe4193e1c2df924",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c09f4602_c668cabe",
         "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
         "patchSetId": 1
@@ -230,6 +422,30 @@
       "revId": "228b2e413ad59bc252c8a4b41fe4193e1c2df924",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5090484_7784bb91",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 510,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-03-20T14:41:38Z",
+      "side": 1,
+      "message": "I left it here in case we decide to call this method without a scroll direction: scrollDirection\u003d0. But we can always add that logic later, you\u0027re right that it doesn\u0027t make sense to keep this while we\u0027re not using it (and don\u0027t plan to use it)",
+      "parentUuid": "c09f4602_c668cabe",
+      "range": {
+        "startLine": 509,
+        "startChar": 8,
+        "endLine": 510,
+        "endChar": 63
+      },
+      "revId": "228b2e413ad59bc252c8a4b41fe4193e1c2df924",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -256,6 +472,30 @@
     },
     {
       "key": {
+        "uuid": "0956a95f_1978a90c",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1514,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-03-20T14:41:38Z",
+      "side": 1,
+      "message": "Yeah, the name of this variable puzzled me a lot, too. I totally agree to rename this!",
+      "parentUuid": "bd342bfc_c3925043",
+      "range": {
+        "startLine": 1514,
+        "startChar": 73,
+        "endLine": 1514,
+        "endChar": 75
+      },
+      "revId": "228b2e413ad59bc252c8a4b41fe4193e1c2df924",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8d71d3f6_705ccf10",
         "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
         "patchSetId": 1
@@ -276,6 +516,30 @@
       "revId": "228b2e413ad59bc252c8a4b41fe4193e1c2df924",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6916bc9e_5203041c",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1560,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-03-20T14:41:38Z",
+      "side": 1,
+      "message": "Planned. I traced all code paths to see when mExtra2 was needed, but I based it on the guards around the invocations of recycleByLayoutState, `layoutState.mScrollingOffset !\u003d LayoutState.SCROLLING_OFFSET_NaN`, and discovered that mScrollingOffset is always set to SCROLLING_OFFSET_NaN in onLayoutChildren.\n\nI definitely agree that it\u0027s hard to follow. I\u0027ll add an explanation to the mExtra2 documentation, and reset the variable to 0 in onLayoutChildren (with comment that it won\u0027t be used). Won\u0027t make the code easier to trace, but with a bit of luck you won\u0027t have to anymore with the new documentation.\n\nMaybe I could also add a check for LayoutState.SCROLLING_OFFSET_NaN in this if condition? It feels like an offset of Integer.MIN_VALUE shouldn\u0027t be processed, especially with the introduction of mExtra2 that should be used for \"extra layout space\".",
+      "parentUuid": "8d71d3f6_705ccf10",
+      "range": {
+        "startLine": 1560,
+        "startChar": 13,
+        "endLine": 1560,
+        "endChar": 33
+      },
+      "revId": "228b2e413ad59bc252c8a4b41fe4193e1c2df924",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     },
     {
       "key": {
@@ -314,6 +578,30 @@
       "side": 1,
       "message": "+1. we should probably name these mExtraStart and mExtraEnd where extra start is scrolling towards 0 and end is scrolling towards infnity.",
       "parentUuid": "fa27e9c4_dabc6fd7",
+      "range": {
+        "startLine": 2270,
+        "startChar": 12,
+        "endLine": 2270,
+        "endChar": 19
+      },
+      "revId": "228b2e413ad59bc252c8a4b41fe4193e1c2df924",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c3c2d4dd_4134bdca",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2270,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-03-20T14:41:38Z",
+      "side": 1,
+      "message": "My apologies, my inspiration was a bit drained, and I have forgotten to revisit the naming question.\n\nWhat about `mExtraScrollHead` and `mExtraScrollTail`?\n\nCurrently, `mExtra` is the extra space in the scroll direction. Changing the semantics to extra space in a fixed direction requires substantial refactoring in onLayoutChildren(), which I think is risky.",
+      "parentUuid": "9d6f52d4_cdd44e7c",
       "range": {
         "startLine": 2270,
         "startChar": 12,
