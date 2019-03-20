@@ -18,4 +18,9 @@
           package="androidx.security.tests">
     <uses-sdk android:targetSdkVersion="${target-sdk-version}"/>
     <uses-permission android:name="android.permission.INTERNET" />
+    <application>
+        <activity
+            android:name="androidx.security.context.SecureContextCompatTest$BiometricActivity" />
+    </application>
+
 </manifest>
