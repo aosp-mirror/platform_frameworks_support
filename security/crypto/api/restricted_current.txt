@@ -1,6 +1,24 @@
 // Signature format: 3.0
+package androidx.security.content {
+
+
+}
+
 package androidx.security.crypto {
 
+
+  public class SecureCipher {
+  }
+
+}
+
+package androidx.security.util {
+
+
+
+  public static interface TinkUtil.MasterKeyListener {
+    method public void masterKeyUnlocked(byte[]);
+  }
 
 }
 

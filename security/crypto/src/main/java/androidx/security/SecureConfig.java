@@ -20,7 +20,7 @@ package androidx.security;
 import android.security.keystore.KeyProperties;
 
 import androidx.annotation.NonNull;
-import androidx.security.biometric.BiometricKeyAuthCallback;
+import androidx.security.biometric.BiometricKeyAuth;
 import androidx.security.config.TrustAnchorOptions;
 
 /**
@@ -40,6 +40,7 @@ public class SecureConfig {
 
     public static final String ANDROID_KEYSTORE = "AndroidKeyStore";
     public static final String ANDROID_CA_STORE = "AndroidCAStore";
+    public static final String MASTER_KEY = "master_key";
     public static final int AES_IV_SIZE_BYTES = 16;
     public static final String SSL_TLS = "TLS";
 
@@ -82,7 +83,7 @@ public class SecureConfig {
     String[] mClientCertAlgorithms;
     TrustAnchorOptions mTrustAnchorOptions;
 
-    BiometricKeyAuthCallback mBiometricKeyAuthCallback;
+    BiometricKeyAuth mBiometricKeyAuth;
 
     String mSignatureAlgorithm;
 
@@ -336,7 +337,7 @@ public class SecureConfig {
         String[] mStrongSSLCiphers;
         String[] mClientCertAlgorithms;
         TrustAnchorOptions mAnchorOptions;
-        BiometricKeyAuthCallback mBiometricKeyAuthCallback;
+        BiometricKeyAuth mBiometricKeyAuth;
         String mSignatureAlgorithm;
 
         /**
@@ -400,13 +401,13 @@ public class SecureConfig {
         }
 
         /**
-         * @param biometricKeyAuthCallback
+         * @param biometricKeyAuth
          * @return The configured builder
          */
         @NonNull
-        public Builder setBiometricKeyAuthCallback(
-                @NonNull BiometricKeyAuthCallback biometricKeyAuthCallback) {
-            this.mBiometricKeyAuthCallback = biometricKeyAuthCallback;
+        public Builder setBiometricKeyAuth(
+                @NonNull BiometricKeyAuth biometricKeyAuth) {
+            this.mBiometricKeyAuth = biometricKeyAuth;
             return this;
         }
 
@@ -464,7 +465,7 @@ public class SecureConfig {
             secureConfig.mStrongSSLCiphers = this.mStrongSSLCiphers;
             secureConfig.mClientCertAlgorithms = this.mClientCertAlgorithms;
             secureConfig.mTrustAnchorOptions = this.mAnchorOptions;
-            secureConfig.mBiometricKeyAuthCallback = this.mBiometricKeyAuthCallback;
+            secureConfig.mBiometricKeyAuth = this.mBiometricKeyAuth;
             secureConfig.mSignatureAlgorithm = this.mSignatureAlgorithm;
             return secureConfig;
         }
@@ -516,7 +517,7 @@ public class SecureConfig {
         builder.mStrongSSLCiphers = null;
         builder.mClientCertAlgorithms = new String[]{"RSA"};
         builder.mAnchorOptions = TrustAnchorOptions.USER_SYSTEM;
-        builder.mBiometricKeyAuthCallback = null;
+        builder.mBiometricKeyAuth = null;
         builder.mSignatureAlgorithm = "SHA256withECDSA";
 
         return builder.build();
@@ -527,12 +528,12 @@ public class SecureConfig {
      *
      * -Insert Link to Spec
      *
-     * @param biometricKeyAuthCallback
+     * @param biometricKeyAuth
      * @return The NIAP compliant configuration
      */
     @NonNull
     public static SecureConfig getNiapConfig(
-            @NonNull BiometricKeyAuthCallback biometricKeyAuthCallback) {
+            @NonNull BiometricKeyAuth biometricKeyAuth) {
         SecureConfig.Builder builder = new SecureConfig.Builder();
         builder.mAndroidKeyStore = SecureConfig.ANDROID_KEYSTORE;
         builder.mAndroidCAStore = SecureConfig.ANDROID_CA_STORE;
@@ -578,7 +579,7 @@ public class SecureConfig {
         };
         builder.mClientCertAlgorithms = new String[]{"RSA"};
         builder.mAnchorOptions = TrustAnchorOptions.USER_SYSTEM;
-        builder.mBiometricKeyAuthCallback = biometricKeyAuthCallback;
+        builder.mBiometricKeyAuth = biometricKeyAuth;
         builder.mSignatureAlgorithm = "SHA512withRSA/PSS";
 
         return builder.build();
@@ -730,7 +731,7 @@ public class SecureConfig {
      * @return
      */
     public boolean getAsymmetricRequireUserAuthEnabled() {
-        return mAsymmetricRequireUserAuth && mBiometricKeyAuthCallback != null;
+        return mAsymmetricRequireUserAuth && mBiometricKeyAuth != null;
     }
 
     /**
@@ -871,7 +872,7 @@ public class SecureConfig {
     }
 
     public boolean getSymmetricRequireUserAuthEnabled() {
-        return mSymmetricRequireUserAuth && mBiometricKeyAuthCallback != null;
+        return mSymmetricRequireUserAuth && mBiometricKeyAuth != null;
     }
 
     /**
@@ -986,16 +987,16 @@ public class SecureConfig {
      * @return
      */
     @NonNull
-    public BiometricKeyAuthCallback getBiometricKeyAuthCallback() {
-        return mBiometricKeyAuthCallback;
+    public BiometricKeyAuth getBiometricKeyAuth() {
+        return mBiometricKeyAuth;
     }
 
     /**
-     * @param biometricKeyAuthCallback
+     * @param biometricKeyAuth
      */
-    public void setBiometricKeyAuthCallback(
-            @NonNull BiometricKeyAuthCallback biometricKeyAuthCallback) {
-        this.mBiometricKeyAuthCallback = biometricKeyAuthCallback;
+    public void setBiometricKeyAuth(
+            @NonNull BiometricKeyAuth biometricKeyAuth) {
+        this.mBiometricKeyAuth = biometricKeyAuth;
     }
 
     /**
