@@ -72,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "8baf3cd9_ec055834",
+        "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleRuntimeIssueRegistry.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2019-03-21T13:35:12Z",
+      "side": 1,
+      "message": "Yes. Or alternatively, you can just place this lint check within lint itself such that it\u0027s bundled. We have a LOT of lint check that are library specific like this, such as checks for RecyclerView. It\u0027s nice that the architecture allows lint checks to be bundled with the individual libraries, but it does mean you have to worry about supporting multiple lint versions which is not the case if you bundle it.",
+      "parentUuid": "807b1c8e_63af897c",
+      "revId": "eed42845fbf64ebde7aa909d405075f48b8537ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "74b8dbb9_67865f49",
         "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleWhenChecks.kt",
         "patchSetId": 9

@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "43adbc23_efb46495",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dependencies/Dependencies.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2019-03-21T13:35:12Z",
+      "side": 1,
+      "message": "at this point you could use rc02",
+      "revId": "a14cee69e6ae209a1d090d49607e1fc0e57bfcb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9d34203_c9f187c7",
+        "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleWhenChecks.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2019-03-21T13:35:12Z",
+      "side": 1,
+      "message": "put backticks around symbol references such that they\u0027re rendered with a terminal font in for example HTML Reports, e.g.\n`Lifecycle.whenStarted` or any similar `Lifecycle.when` method is suspended,",
+      "revId": "a14cee69e6ae209a1d090d49607e1fc0e57bfcb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

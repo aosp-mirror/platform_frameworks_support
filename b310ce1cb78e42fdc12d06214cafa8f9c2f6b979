@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "5a8dc704_9199792f",
+        "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleWhenChecks.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2019-03-21T13:35:12Z",
+      "side": 1,
+      "message": "That\u0027s only true as of Kotlin 1.3.40. Also note that lint will do the trim indent itself only when this is used, which is only when the user selects an issue in the inspections window (or when generating the HTML report).",
+      "parentUuid": "c26e0502_9a714a3a",
+      "range": {
+        "startLine": 67,
+        "startChar": 26,
+        "endLine": 67,
+        "endChar": 27
+      },
+      "revId": "b310ce1cb78e42fdc12d06214cafa8f9c2f6b979",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7544b791_eb6bddab",
         "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleWhenChecks.kt",
         "patchSetId": 11
