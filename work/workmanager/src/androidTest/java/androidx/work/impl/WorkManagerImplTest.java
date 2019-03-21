@@ -1051,6 +1051,40 @@ public class WorkManagerImplTest {
 
     @Test
     @MediumTest
+    public void testGetWorkInfosByTagSyncReturnsUnmodifiableList()
+            throws ExecutionException, InterruptedException {
+        final String firstTag = "first_tag";
+
+        OneTimeWorkRequest work0 = new OneTimeWorkRequest.Builder(TestWorker.class)
+                .addTag(firstTag)
+                .setInitialState(RUNNING)
+                .build();
+        OneTimeWorkRequest work1 = new OneTimeWorkRequest.Builder(TestWorker.class)
+                .addTag(firstTag)
+                .setInitialState(BLOCKED)
+                .build();
+        insertWorkSpecAndTags(work0);
+        insertWorkSpecAndTags(work1);
+
+        WorkInfo workInfo0 = new WorkInfo(
+                work0.getId(),
+                RUNNING,
+                Data.EMPTY,
+                Arrays.asList(TestWorker.class.getName(), firstTag));
+
+        List<WorkInfo> workInfos = mWorkManagerImpl.getWorkInfosByTag(firstTag).get();
+        boolean caughtUnsupportedOperationException = false;
+        try {
+            workInfos.add(workInfo0);
+        } catch (UnsupportedOperationException e) {
+            caughtUnsupportedOperationException = true;
+        } finally {
+            assertThat(caughtUnsupportedOperationException, is(true));
+        }
+    }
+
+    @Test
+    @MediumTest
     public void getWorkInfosByNameSync() throws ExecutionException, InterruptedException {
         final String uniqueName = "myname";
 
