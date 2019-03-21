@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d4372a16_b9dd2cc3",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 492,
+      "author": {
+        "id": 1014545
+      },
+      "writtenOn": "2019-03-21T15:20:06Z",
+      "side": 1,
+      "message": "consider linking the state constants",
+      "revId": "685ce2b8f8157cc2c14e90db493a6ffaef673bd7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc04d7bb_bec10de1",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 495,
+      "author": {
+        "id": 1014545
+      },
+      "writtenOn": "2019-03-21T15:20:06Z",
+      "side": 1,
+      "message": "@IntDef for state constants",
+      "revId": "685ce2b8f8157cc2c14e90db493a6ffaef673bd7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f571cdaa_687e12c4",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 559,
+      "author": {
+        "id": 1014545
+      },
+      "writtenOn": "2019-03-21T15:20:06Z",
+      "side": 1,
+      "message": "By adding @UiThread to some of these methods the implication is that methods without it are thread-safe. Is that the case?\n\nNormally it\u0027s assumed that view methods must be on the window\u0027s UI thread if the view is attached.",
+      "range": {
+        "startLine": 559,
+        "startChar": 5,
+        "endLine": 559,
+        "endChar": 13
+      },
+      "revId": "685ce2b8f8157cc2c14e90db493a6ffaef673bd7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
