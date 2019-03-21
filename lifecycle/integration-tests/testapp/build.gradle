@@ -53,6 +53,8 @@ dependencies {
     testImplementation(JUNIT)
     testImplementation(MOCKITO_CORE)
     testAnnotationProcessor(project(":lifecycle:lifecycle-compiler"))
+    testImplementation "org.gradle:gradle-tooling-api:3.0"
+    testRuntimeOnly 'org.slf4j:slf4j-simple:1.7.10'
 }
 
 tasks['check'].dependsOn(tasks['connectedCheck'])
