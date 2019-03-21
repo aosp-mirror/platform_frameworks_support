@@ -1,0 +1,147 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "21eaccea_3ee45678",
+        "filename": "car/core/src/main/java/androidx/car/app/CarSingleSelectionDialog.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-03-21T21:28:06Z",
+      "side": 1,
+      "message": "Can this be private now?",
+      "revId": "069aa027ef169e064fa319a89e4ae25122371d3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25a880d9_ec68378f",
+        "filename": "car/core/src/main/java/androidx/car/app/CarSingleSelectionDialog.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-03-21T21:28:06Z",
+      "side": 1,
+      "message": "Let\u0027s just shorten this to SelectionItem actually. The common use-case will be:\n\n  CarSingleSelectionDialog.SelectionItem\n\nI think that conveys all the info needed.\n\nFeel free to change to something else if you have a better name.",
+      "range": {
+        "startLine": 259,
+        "startChar": 24,
+        "endLine": 259,
+        "endChar": 43
+      },
+      "revId": "069aa027ef169e064fa319a89e4ae25122371d3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2eab7752_503da8cb",
+        "filename": "car/core/src/main/java/androidx/car/app/CarSingleSelectionDialog.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-03-21T21:28:06Z",
+      "side": 1,
+      "message": "nit: move this above the other constructor.",
+      "revId": "069aa027ef169e064fa319a89e4ae25122371d3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76354882_2e679d15",
+        "filename": "car/core/src/main/java/androidx/car/app/CarSingleSelectionDialog.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-03-21T21:28:06Z",
+      "side": 1,
+      "message": "Add a parameter comment here:\n\n  /* body\u003d */ null",
+      "range": {
+        "startLine": 285,
+        "startChar": 24,
+        "endLine": 285,
+        "endChar": 28
+      },
+      "revId": "069aa027ef169e064fa319a89e4ae25122371d3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5801639d_a6eed8b5",
+        "filename": "car/core/src/main/java/androidx/car/app/CarSingleSelectionDialog.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-03-21T21:28:06Z",
+      "side": 1,
+      "message": "Let\u0027s enforce that this needs to be valid. I don\u0027t see a reason why there needs to be a case where nothing is selected. A user can\u0027t unselect something in the list anyway.\n\nAdd an @IntRange(from \u003d 0) annotation to this as well.\n\nThrow an IllegalArgumentException if it\u0027s out of bounds.",
+      "range": {
+        "startLine": 386,
+        "startChar": 74,
+        "endLine": 386,
+        "endChar": 90
+      },
+      "revId": "069aa027ef169e064fa319a89e4ae25122371d3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9fb0c1ba_6fdae0bc",
+        "filename": "car/core/src/main/java/androidx/car/app/CarSingleSelectionDialog.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-03-21T21:28:06Z",
+      "side": 1,
+      "message": "!TextUtils.isEmpty() instead since empty text will cause the button to not show up as well.",
+      "range": {
+        "startLine": 504,
+        "startChar": 16,
+        "endLine": 504,
+        "endChar": 43
+      },
+      "revId": "069aa027ef169e064fa319a89e4ae25122371d3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b939b29a_3db934cc",
+        "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/CarSingleSelectionDialogDemoActivity.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-03-21T21:28:06Z",
+      "side": 1,
+      "message": "Add @Override",
+      "revId": "069aa027ef169e064fa319a89e4ae25122371d3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

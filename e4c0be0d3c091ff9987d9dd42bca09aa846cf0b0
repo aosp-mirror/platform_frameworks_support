@@ -60,6 +60,24 @@
     },
     {
       "key": {
+        "uuid": "0a729209_4d4a3875",
+        "filename": "car/core/res/layout/car_selction_dialog.xml",
+        "patchSetId": 16
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-03-21T21:28:06Z",
+      "side": 1,
+      "message": "I see. Add a comment here explaining that then.",
+      "parentUuid": "9e223974_55e4879f",
+      "revId": "e4c0be0d3c091ff9987d9dd42bca09aa846cf0b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "896c27cb_fdd01564",
         "filename": "car/core/src/main/java/androidx/car/app/CarDialogUtil.java",
         "patchSetId": 16
