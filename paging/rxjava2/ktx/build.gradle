@@ -42,6 +42,11 @@ dependencies {
     androidTestImplementation(TEST_RUNNER)
     androidTestImplementation(ESPRESSO_CORE)
     androidTestImplementation(ARCH_CORE_TESTING)
+
+    testImplementation(TEST_EXT_JUNIT)
+    testImplementation(TEST_CORE)
+    testImplementation(TEST_RUNNER)
+    testImplementation(ARCH_CORE_TESTING)
 }
 
 supportLibrary {
