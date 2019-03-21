@@ -36,13 +36,16 @@ dependencies {
     api(project(":arch:core-runtime"))
 
     api(RX_JAVA)
+    testImplementation(JUNIT)
+    testImplementation(TEST_EXT_JUNIT)
+    testImplementation(TEST_CORE)
+    testImplementation(TEST_RUNNER)
+    testImplementation(KOTLIN_STDLIB)
+
     androidTestImplementation(JUNIT)
-    androidTestImplementation(MOCKITO_CORE, libs.exclude_bytebuddy) // DexMaker has it"s own MockMaker
-    androidTestImplementation(DEXMAKER_MOCKITO, libs.exclude_bytebuddy) // DexMaker has it"s own MockMaker
     androidTestImplementation(TEST_EXT_JUNIT)
     androidTestImplementation(TEST_CORE)
     androidTestImplementation(TEST_RUNNER)
-    androidTestImplementation(ESPRESSO_CORE)
     androidTestImplementation(KOTLIN_STDLIB)
 }
 
