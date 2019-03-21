@@ -477,6 +477,9 @@ package androidx.car.widget {
     method public void setEnabled(boolean);
     method public void setOnCheckedChangeListener(android.widget.CompoundButton.OnCheckedChangeListener);
     method public void setPrimaryActionIcon(android.graphics.drawable.Icon, int);
+    method public void setPrimaryActionIcon(android.graphics.drawable.Drawable, int);
+    method public void setPrimaryActionIcon(@DrawableRes int, int);
+    method public void setPrimaryActionNoIcon();
     method public void setShowRadioButtonDivider(boolean);
     method public void setText(CharSequence?);
     method public void setTextStartMargin(@DimenRes int);
@@ -507,15 +510,15 @@ package androidx.car.widget {
     method public void setOnSeekBarChangeListener(android.widget.SeekBar.OnSeekBarChangeListener!);
     method public void setPrimaryActionEmptyIcon();
     method public void setPrimaryActionIcon(android.graphics.drawable.Icon);
-    method @Deprecated public void setPrimaryActionIcon(@DrawableRes int);
-    method @Deprecated public void setPrimaryActionIcon(android.graphics.drawable.Drawable!);
+    method public void setPrimaryActionIcon(@DrawableRes int);
+    method public void setPrimaryActionIcon(android.graphics.drawable.Drawable);
     method public void setPrimaryActionIconListener(android.view.View.OnClickListener!);
     method public void setProgress(int);
     method public void setSecondaryProgress(int);
     method public void setSupplementalEmptyIcon(boolean);
     method public void setSupplementalIcon(android.graphics.drawable.Icon, boolean);
-    method @Deprecated public void setSupplementalIcon(@DrawableRes int, boolean);
-    method @Deprecated public void setSupplementalIcon(android.graphics.drawable.Drawable, boolean);
+    method public void setSupplementalIcon(@DrawableRes int, boolean);
+    method public void setSupplementalIcon(android.graphics.drawable.Drawable, boolean);
     method public void setSupplementalIconListener(android.view.View.OnClickListener!);
     method public void setText(CharSequence?);
   }
@@ -568,6 +571,7 @@ package androidx.car.widget {
     method public void setPrimaryActionEmptyIcon();
     method public void setPrimaryActionIcon(android.graphics.drawable.Icon, int);
     method public void setPrimaryActionIcon(android.graphics.drawable.Drawable, int);
+    method public void setPrimaryActionIcon(@DrawableRes int, int);
     method public void setPrimaryActionNoIcon();
     method public void setShowSwitchDivider(boolean);
     method public void setSwitchOnCheckedChangeListener(android.widget.CompoundButton.OnCheckedChangeListener?);
@@ -600,14 +604,14 @@ package androidx.car.widget {
     method public void setOnClickListener(android.view.View.OnClickListener!);
     method public void setPrimaryActionEmptyIcon();
     method public void setPrimaryActionIcon(android.graphics.drawable.Icon, int);
-    method @Deprecated public void setPrimaryActionIcon(@DrawableRes int, int);
-    method @Deprecated public void setPrimaryActionIcon(android.graphics.drawable.Drawable?, int);
+    method public void setPrimaryActionIcon(@DrawableRes int, int);
+    method public void setPrimaryActionIcon(android.graphics.drawable.Drawable?, int);
     method public void setPrimaryActionNoIcon();
     method public void setSupplementalIcon(android.graphics.drawable.Icon, boolean);
-    method @Deprecated public void setSupplementalIcon(int, boolean);
-    method @Deprecated public void setSupplementalIcon(android.graphics.drawable.Drawable!, boolean);
-    method @Deprecated public void setSupplementalIcon(int, boolean, android.view.View.OnClickListener!);
-    method @Deprecated public void setSupplementalIcon(android.graphics.drawable.Drawable!, boolean, android.view.View.OnClickListener!);
+    method public void setSupplementalIcon(int, boolean);
+    method public void setSupplementalIcon(android.graphics.drawable.Drawable!, boolean);
+    method public void setSupplementalIcon(int, boolean, android.view.View.OnClickListener!);
+    method public void setSupplementalIcon(android.graphics.drawable.Drawable!, boolean, android.view.View.OnClickListener!);
     method public void setSupplementalIconOnClickListener(android.view.View.OnClickListener);
     method @Deprecated public void setSwitch(boolean, boolean, android.widget.CompoundButton.OnCheckedChangeListener!);
     method @Deprecated public void setSwitchState(boolean);
