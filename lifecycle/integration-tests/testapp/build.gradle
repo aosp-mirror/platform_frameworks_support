@@ -36,6 +36,10 @@ android {
     }
 }
 
+repositories {
+    maven { url 'https://repo.gradle.org/gradle/libs-releases' }
+}
+
 dependencies {
     // IJ canont figure out transitive dependencies so need to declare them.
     implementation(project(":lifecycle:lifecycle-common"))
@@ -53,6 +57,8 @@ dependencies {
     testImplementation(JUNIT)
     testImplementation(MOCKITO_CORE)
     testAnnotationProcessor(project(":lifecycle:lifecycle-compiler"))
+    testImplementation "org.gradle:gradle-tooling-api:3.0"
+    testImplementation 'org.slf4j:slf4j-simple:1.7.10'
 }
 
 tasks['check'].dependsOn(tasks['connectedCheck'])
