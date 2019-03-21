@@ -41,7 +41,6 @@ import static org.mockito.Mockito.verify;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.graphics.drawable.Icon;
 import android.text.InputFilter;
 import android.text.TextUtils;
 import android.view.View;
@@ -324,17 +323,20 @@ public class SwitchListItemTest {
     public void testPrimaryActionVisible() {
         SwitchListItem largeIcon = new SwitchListItem(mActivity);
         largeIcon.setPrimaryActionIcon(
-                Icon.createWithResource(getContext(), android.R.drawable.sym_def_app_icon),
+                ApplicationProvider.getApplicationContext().getResources().getDrawable(
+                        android.R.drawable.sym_def_app_icon, null),
                 SwitchListItem.PRIMARY_ACTION_ICON_SIZE_LARGE);
 
         SwitchListItem mediumIcon = new SwitchListItem(mActivity);
         mediumIcon.setPrimaryActionIcon(
-                Icon.createWithResource(getContext(), android.R.drawable.sym_def_app_icon),
+                ApplicationProvider.getApplicationContext().getResources().getDrawable(
+                        android.R.drawable.sym_def_app_icon, null),
                 SwitchListItem.PRIMARY_ACTION_ICON_SIZE_MEDIUM);
 
         SwitchListItem smallIcon = new SwitchListItem(mActivity);
         smallIcon.setPrimaryActionIcon(
-                Icon.createWithResource(getContext(), android.R.drawable.sym_def_app_icon),
+                ApplicationProvider.getApplicationContext().getResources().getDrawable(
+                        android.R.drawable.sym_def_app_icon, null),
                 SwitchListItem.PRIMARY_ACTION_ICON_SIZE_SMALL);
 
         List<SwitchListItem> items = Arrays.asList(largeIcon, mediumIcon, smallIcon);
@@ -369,17 +371,20 @@ public class SwitchListItemTest {
     public void testTextStartMarginMatchesPrimaryActionType() {
         SwitchListItem largeIcon = new SwitchListItem(mActivity);
         largeIcon.setPrimaryActionIcon(
-                Icon.createWithResource(getContext(), android.R.drawable.sym_def_app_icon),
+                ApplicationProvider.getApplicationContext().getResources().getDrawable(
+                        android.R.drawable.sym_def_app_icon, null),
                 SwitchListItem.PRIMARY_ACTION_ICON_SIZE_LARGE);
 
         SwitchListItem mediumIcon = new SwitchListItem(mActivity);
         mediumIcon.setPrimaryActionIcon(
-                Icon.createWithResource(getContext(), android.R.drawable.sym_def_app_icon),
+                ApplicationProvider.getApplicationContext().getResources().getDrawable(
+                        android.R.drawable.sym_def_app_icon, null),
                 SwitchListItem.PRIMARY_ACTION_ICON_SIZE_MEDIUM);
 
         SwitchListItem smallIcon = new SwitchListItem(mActivity);
         smallIcon.setPrimaryActionIcon(
-                Icon.createWithResource(getContext(), android.R.drawable.sym_def_app_icon),
+                ApplicationProvider.getApplicationContext().getResources().getDrawable(
+                        android.R.drawable.sym_def_app_icon, null),
                 SwitchListItem.PRIMARY_ACTION_ICON_SIZE_SMALL);
 
         SwitchListItem emptyIcon = new SwitchListItem(mActivity);
@@ -477,7 +482,8 @@ public class SwitchListItemTest {
     public void testSetPrimaryActionIcon_withIcon() {
         SwitchListItem item = new SwitchListItem(mActivity);
         item.setPrimaryActionIcon(
-                Icon.createWithResource(mActivity, android.R.drawable.sym_def_app_icon),
+                ApplicationProvider.getApplicationContext().getResources().getDrawable(
+                        android.R.drawable.sym_def_app_icon, null),
                 SwitchListItem.PRIMARY_ACTION_ICON_SIZE_LARGE);
 
         List<SwitchListItem> items = Arrays.asList(item);
@@ -503,17 +509,20 @@ public class SwitchListItemTest {
     public void testPrimaryIconSizesInIncreasingOrder() {
         SwitchListItem small = new SwitchListItem(mActivity);
         small.setPrimaryActionIcon(
-                Icon.createWithResource(mActivity, android.R.drawable.sym_def_app_icon),
+                ApplicationProvider.getApplicationContext().getResources().getDrawable(
+                        android.R.drawable.sym_def_app_icon, null),
                 SwitchListItem.PRIMARY_ACTION_ICON_SIZE_SMALL);
 
         SwitchListItem medium = new SwitchListItem(mActivity);
         medium.setPrimaryActionIcon(
-                Icon.createWithResource(mActivity, android.R.drawable.sym_def_app_icon),
+                ApplicationProvider.getApplicationContext().getResources().getDrawable(
+                        android.R.drawable.sym_def_app_icon, null),
                 SwitchListItem.PRIMARY_ACTION_ICON_SIZE_MEDIUM);
 
         SwitchListItem large = new SwitchListItem(mActivity);
         large.setPrimaryActionIcon(
-                Icon.createWithResource(mActivity, android.R.drawable.sym_def_app_icon),
+                ApplicationProvider.getApplicationContext().getResources().getDrawable(
+                        android.R.drawable.sym_def_app_icon, null),
                 SwitchListItem.PRIMARY_ACTION_ICON_SIZE_LARGE);
 
         List<SwitchListItem> items = Arrays.asList(small, medium, large);
@@ -533,7 +542,8 @@ public class SwitchListItemTest {
     public void testLargePrimaryIconHasNoStartMargin() {
         SwitchListItem item0 = new SwitchListItem(mActivity);
         item0.setPrimaryActionIcon(
-                Icon.createWithResource(mActivity, android.R.drawable.sym_def_app_icon),
+                ApplicationProvider.getApplicationContext().getResources().getDrawable(
+                        android.R.drawable.sym_def_app_icon, null),
                 SwitchListItem.PRIMARY_ACTION_ICON_SIZE_LARGE);
 
         List<SwitchListItem> items = Arrays.asList(item0);
@@ -548,12 +558,14 @@ public class SwitchListItemTest {
     public void testSmallAndMediumPrimaryIconStartMargin() {
         SwitchListItem item0 = new SwitchListItem(mActivity);
         item0.setPrimaryActionIcon(
-                Icon.createWithResource(mActivity, android.R.drawable.sym_def_app_icon),
+                ApplicationProvider.getApplicationContext().getResources().getDrawable(
+                        android.R.drawable.sym_def_app_icon, null),
                 SwitchListItem.PRIMARY_ACTION_ICON_SIZE_SMALL);
 
         SwitchListItem item1 = new SwitchListItem(mActivity);
         item1.setPrimaryActionIcon(
-                Icon.createWithResource(mActivity, android.R.drawable.sym_def_app_icon),
+                ApplicationProvider.getApplicationContext().getResources().getDrawable(
+                        android.R.drawable.sym_def_app_icon, null),
                 SwitchListItem.PRIMARY_ACTION_ICON_SIZE_MEDIUM);
 
         List<SwitchListItem> items = Arrays.asList(item0, item1);
@@ -581,14 +593,16 @@ public class SwitchListItemTest {
         // Single line item.
         SwitchListItem item0 = new SwitchListItem(mActivity);
         item0.setPrimaryActionIcon(
-                Icon.createWithResource(mActivity, android.R.drawable.sym_def_app_icon),
+                ApplicationProvider.getApplicationContext().getResources().getDrawable(
+                        android.R.drawable.sym_def_app_icon, null),
                 SwitchListItem.PRIMARY_ACTION_ICON_SIZE_SMALL);
         item0.setTitle("one line text");
 
         // Double line item with one line text.
         SwitchListItem item1 = new SwitchListItem(mActivity);
         item1.setPrimaryActionIcon(
-                Icon.createWithResource(mActivity, android.R.drawable.sym_def_app_icon),
+                ApplicationProvider.getApplicationContext().getResources().getDrawable(
+                        android.R.drawable.sym_def_app_icon, null),
                 SwitchListItem.PRIMARY_ACTION_ICON_SIZE_SMALL);
         item1.setTitle("one line text");
         item1.setBody("one line text");
@@ -596,7 +610,8 @@ public class SwitchListItemTest {
         // Double line item with long text.
         SwitchListItem item2 = new SwitchListItem(mActivity);
         item2.setPrimaryActionIcon(
-                Icon.createWithResource(mActivity, android.R.drawable.sym_def_app_icon),
+                ApplicationProvider.getApplicationContext().getResources().getDrawable(
+                        android.R.drawable.sym_def_app_icon, null),
                 SwitchListItem.PRIMARY_ACTION_ICON_SIZE_SMALL);
         item2.setTitle("one line text");
         item2.setBody(longText);
@@ -604,14 +619,16 @@ public class SwitchListItemTest {
         // Body text only - long text.
         SwitchListItem item3 = new SwitchListItem(mActivity);
         item3.setPrimaryActionIcon(
-                Icon.createWithResource(mActivity, android.R.drawable.sym_def_app_icon),
+                ApplicationProvider.getApplicationContext().getResources().getDrawable(
+                        android.R.drawable.sym_def_app_icon, null),
                 SwitchListItem.PRIMARY_ACTION_ICON_SIZE_SMALL);
         item3.setBody(longText);
 
         // Body text only - one line text.
         SwitchListItem item4 = new SwitchListItem(mActivity);
         item4.setPrimaryActionIcon(
-                Icon.createWithResource(mActivity, android.R.drawable.sym_def_app_icon),
+                ApplicationProvider.getApplicationContext().getResources().getDrawable(
+                        android.R.drawable.sym_def_app_icon, null),
                 SwitchListItem.PRIMARY_ACTION_ICON_SIZE_SMALL);
         item4.setBody("one line text");
 
