@@ -42,6 +42,24 @@
     },
     {
       "key": {
+        "uuid": "9e223974_55e4879f",
+        "filename": "car/core/res/layout/car_selction_dialog.xml",
+        "patchSetId": 16
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-03-21T18:43:42Z",
+      "side": 1,
+      "message": "Was my workaround for getting the button bar to show up below the PLV when it\u0027s a long list.",
+      "parentUuid": "c9a0d661_96cf7f48",
+      "revId": "e4c0be0d3c091ff9987d9dd42bca09aa846cf0b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "896c27cb_fdd01564",
         "filename": "car/core/src/main/java/androidx/car/app/CarDialogUtil.java",
         "patchSetId": 16
@@ -56,6 +74,24 @@
       "revId": "e4c0be0d3c091ff9987d9dd42bca09aa846cf0b0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d9c12e76_6227cab1",
+        "filename": "car/core/src/main/java/androidx/car/app/CarDialogUtil.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-03-21T18:43:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "896c27cb_fdd01564",
+      "revId": "e4c0be0d3c091ff9987d9dd42bca09aa846cf0b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -82,6 +118,30 @@
     },
     {
       "key": {
+        "uuid": "e90b5944_273a2e64",
+        "filename": "car/core/src/main/java/androidx/car/app/CarSingleSelectionDialog.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-03-21T18:43:42Z",
+      "side": 1,
+      "message": "yep lol.",
+      "parentUuid": "b1a9b925_4b3f9a55",
+      "range": {
+        "startLine": 246,
+        "startChar": 21,
+        "endLine": 246,
+        "endChar": 52
+      },
+      "revId": "e4c0be0d3c091ff9987d9dd42bca09aa846cf0b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3e314400_b5da62fd",
         "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/RadioButtonListItemActivity.java",
         "patchSetId": 16
@@ -96,6 +156,24 @@
       "revId": "e4c0be0d3c091ff9987d9dd42bca09aa846cf0b0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "925a58bf_ce121aaf",
+        "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/RadioButtonListItemActivity.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-03-21T18:43:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3e314400_b5da62fd",
+      "revId": "e4c0be0d3c091ff9987d9dd42bca09aa846cf0b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -119,6 +197,30 @@
       "revId": "e4c0be0d3c091ff9987d9dd42bca09aa846cf0b0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22e01e35_6db3cdd1",
+        "filename": "samples/SupportCarDemos/src/main/res/layout/selection_dialog_activity.xml",
+        "patchSetId": 16
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-03-21T18:43:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "573d9a4c_30e0d519",
+      "range": {
+        "startLine": 3,
+        "startChar": 14,
+        "endLine": 3,
+        "endChar": 18
+      },
+      "revId": "e4c0be0d3c091ff9987d9dd42bca09aa846cf0b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

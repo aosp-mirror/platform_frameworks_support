@@ -1330,6 +1330,30 @@
     },
     {
       "key": {
+        "uuid": "5675b03b_5b30f1f5",
+        "filename": "car/core/src/main/java/androidx/car/app/CarSelectionDialog.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-03-21T18:43:42Z",
+      "side": 1,
+      "message": "When using DialogInterface.OnClickListener, do you feel it\u0027s strange to have a constant defined in CarSingleSelectionDialog for no item selected (something missing in my current cl as is)?",
+      "parentUuid": "ee9394ca_63864390",
+      "range": {
+        "startLine": 371,
+        "startChar": 21,
+        "endLine": 371,
+        "endChar": 41
+      },
+      "revId": "fe86c40c9bffd7dbc2fb97dc0f1c1cf6890d0680",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "41b12e42_76180a9b",
         "filename": "car/core/src/main/java/androidx/car/app/CarSelectionDialog.java",
         "patchSetId": 9
