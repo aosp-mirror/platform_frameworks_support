@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "58b83781_0ca813dd",
+        "filename": "paging/rxjava2/ktx/src/test/java/androidx/paging/RxItemKeyedDataSourceTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-03-21T17:11:42Z",
+      "side": 1,
+      "message": "when you move the classes to the base rxjava2 module, move these as well to it\u0027s test dir",
+      "revId": "3220d2fff45345be0cb21de7f1e7c18d5af03a00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "063dcf04_9f6308d9",
+        "filename": "paging/rxjava2/ktx/src/test/java/androidx/paging/RxItemKeyedDataSourceTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-03-21T17:11:42Z",
+      "side": 1,
+      "message": "this is hard to read - can you avoid the duplication of params.requestedInitialKey ?:",
+      "revId": "3220d2fff45345be0cb21de7f1e7c18d5af03a00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1447e43e_14d9dee2",
+        "filename": "paging/rxjava2/ktx/src/test/java/androidx/paging/RxItemKeyedDataSourceTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-03-21T17:11:42Z",
+      "side": 1,
+      "message": "you have success, and forever waiting covered, add one for error state",
+      "revId": "3220d2fff45345be0cb21de7f1e7c18d5af03a00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0277b5d5_8f406e5f",
+        "filename": "paging/rxjava2/ktx/src/test/java/androidx/paging/RxItemKeyedDataSourceTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-03-21T17:11:42Z",
+      "side": 1,
+      "message": "The tests as written are mostly just asserting code above - we should be testing that the transformation from RX -\u003e LF works, so our asserts should be all in listenablefuture land.\n\nCall the super classes\u0027 load methods, and verify the expected behavior on the listenablefutures with .get()",
+      "revId": "3220d2fff45345be0cb21de7f1e7c18d5af03a00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7fad90a9_7372733d",
+        "filename": "paging/rxjava2/ktx/src/test/java/androidx/paging/RxPageKeyedDataSourceTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-03-21T17:11:42Z",
+      "side": 1,
+      "message": "add a comment about how you\u0027re using key \u003d\u003d value here",
+      "revId": "3220d2fff45345be0cb21de7f1e7c18d5af03a00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
