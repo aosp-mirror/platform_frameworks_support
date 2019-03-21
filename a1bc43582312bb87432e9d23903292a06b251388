@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b0591c99_802d2bea",
+        "filename": "appcompat/src/androidTest/java/androidx/appcompat/app/NightModeTestCase.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1018893
+      },
+      "writtenOn": "2019-03-21T01:25:29Z",
+      "side": 0,
+      "message": "Removed since the test is actually wrong. Since the Activity will be recreated, it starts in MODE_NIGHT_NO, so nothing changes and thus the onNightModeChanged() is not called (correctly).",
+      "range": {
+        "startLine": 205,
+        "startChar": 8,
+        "endLine": 205,
+        "endChar": 32
+      },
+      "revId": "a1bc43582312bb87432e9d23903292a06b251388",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
