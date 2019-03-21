@@ -1306,6 +1306,30 @@
     },
     {
       "key": {
+        "uuid": "ee9394ca_63864390",
+        "filename": "car/core/src/main/java/androidx/car/app/CarSelectionDialog.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-03-21T18:13:38Z",
+      "side": 1,
+      "message": "I think it\u0027s ok if a developer creates a dialog without a positive button (i.e. no way to save). It\u0027ll be on them to make sure that doesn\u0027t happen, but we don\u0027t need to guard against it.\n\nLet\u0027s just pass this listener along with the positive button setter so the developer has the connection that clicking the positive button will invoke the listener.\n\n  setPositiveButton(CharSequence, DialogInterface.OnClickListener)\n\nNote: re-using the DialogInterface.OnClickListener listener instead of our custom one because if we decide this way, that listener fits better I feel. And yes, we\u0027ll have to make the \"int which\" parameter of the listener be the position of the item clicked. Confusing, but it should be fine since the docs explicitly call this out.",
+      "parentUuid": "007a6528_6fcb9003",
+      "range": {
+        "startLine": 371,
+        "startChar": 21,
+        "endLine": 371,
+        "endChar": 41
+      },
+      "revId": "fe86c40c9bffd7dbc2fb97dc0f1c1cf6890d0680",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "41b12e42_76180a9b",
         "filename": "car/core/src/main/java/androidx/car/app/CarSelectionDialog.java",
         "patchSetId": 9

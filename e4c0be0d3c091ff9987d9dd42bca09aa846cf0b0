@@ -25,6 +25,40 @@
     },
     {
       "key": {
+        "uuid": "c9a0d661_96cf7f48",
+        "filename": "car/core/res/layout/car_selction_dialog.xml",
+        "patchSetId": 16
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-03-21T18:13:38Z",
+      "side": 1,
+      "message": "wrap_content wasn\u0027t working? \n\nSpecifying a weight when the containing layout has a height of wrap_content seems weird.",
+      "revId": "e4c0be0d3c091ff9987d9dd42bca09aa846cf0b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "896c27cb_fdd01564",
+        "filename": "car/core/src/main/java/androidx/car/app/CarDialogUtil.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-03-21T18:13:38Z",
+      "side": 1,
+      "message": "Leave this blank. No need to throw exception\n\nhttp://go/java-practices/utility-classes#subclassing-and-instantiating",
+      "revId": "e4c0be0d3c091ff9987d9dd42bca09aa846cf0b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b1a9b925_4b3f9a55",
         "filename": "car/core/src/main/java/androidx/car/app/CarSingleSelectionDialog.java",
         "patchSetId": 16
