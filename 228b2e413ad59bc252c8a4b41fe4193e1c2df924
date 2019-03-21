@@ -402,6 +402,30 @@
     },
     {
       "key": {
+        "uuid": "5c56c49c_0f98b085",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 500,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-03-21T20:05:54Z",
+      "side": 1,
+      "message": "I\u0027ll try to chat with Yigit today about this.  FYI, I\u0027m OOO tomorrow and Monday.\n\nAs for the name, what about getAdditionalLayoutSpace and getExtraLayoutSpaceForScrolling.  Sure, one uses additional and the other extra... but I don\u0027t think it\u0027s a big deal.",
+      "parentUuid": "f64b0e3b_1fc7898f",
+      "range": {
+        "startLine": 500,
+        "startChar": 18,
+        "endLine": 500,
+        "endChar": 43
+      },
+      "revId": "228b2e413ad59bc252c8a4b41fe4193e1c2df924",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c09f4602_c668cabe",
         "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
         "patchSetId": 1
@@ -543,6 +567,30 @@
     },
     {
       "key": {
+        "uuid": "81a4d006_1cf13bb5",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1560,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-03-21T20:05:54Z",
+      "side": 1,
+      "message": "Extra documentation would be nice, but I wouldn\u0027t worry about adding more checks.  I think extra checks will just feel extra redundancies that will make the code even harder to think about.  \n\nNot for you to do, but I think that minimizing the call sites to higher level state in lower level scopes is very helpful in simplifying the mental model.  Basically decrease the number of possible code paths so that the actual code paths that execute are easier to decipher.  I don\u0027t know if that makes sense.\n\nI\u0027ve done some work in this regard in the past... CLs that don\u0027t change functionality but just try to increase clarity... :)",
+      "parentUuid": "6916bc9e_5203041c",
+      "range": {
+        "startLine": 1560,
+        "startChar": 13,
+        "endLine": 1560,
+        "endChar": 33
+      },
+      "revId": "228b2e413ad59bc252c8a4b41fe4193e1c2df924",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fa27e9c4_dabc6fd7",
         "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
         "patchSetId": 1
@@ -602,6 +650,30 @@
       "side": 1,
       "message": "My apologies, my inspiration was a bit drained, and I have forgotten to revisit the naming question.\n\nWhat about `mExtraScrollHead` and `mExtraScrollTail`?\n\nCurrently, `mExtra` is the extra space in the scroll direction. Changing the semantics to extra space in a fixed direction requires substantial refactoring in onLayoutChildren(), which I think is risky.",
       "parentUuid": "9d6f52d4_cdd44e7c",
+      "range": {
+        "startLine": 2270,
+        "startChar": 12,
+        "endLine": 2270,
+        "endChar": 19
+      },
+      "revId": "228b2e413ad59bc252c8a4b41fe4193e1c2df924",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3c7fbc4_a62a9f0f",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2270,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-03-21T20:05:54Z",
+      "side": 1,
+      "message": "Discussed offline and Jelle and I agreed on: mExtra -\u003e mExtraFillSpace, mExtra2 -\u003e mNoRecycleSpace.\n\nmExtra was only read in \"fill\" and mExtra2 is only used to prevent recycling.",
+      "parentUuid": "c3c2d4dd_4134bdca",
       "range": {
         "startLine": 2270,
         "startChar": 12,
