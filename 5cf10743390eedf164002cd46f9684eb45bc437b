@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ce81b984_da7ed5a8",
+        "filename": "car/core/src/main/java/androidx/car/widget/RadioButtonListItem.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2019-03-21T23:34:21Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 157,
+        "startChar": 19,
+        "endLine": 157,
+        "endChar": 56
+      },
+      "revId": "5cf10743390eedf164002cd46f9684eb45bc437b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "87bfe97f_9dbe84e9",
+        "filename": "car/core/src/main/java/androidx/car/widget/RadioButtonListItem.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2019-03-21T23:34:21Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 175,
+        "startChar": 19,
+        "endLine": 175,
+        "endChar": 59
+      },
+      "revId": "5cf10743390eedf164002cd46f9684eb45bc437b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
