@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "6da53dcf_187e992e",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dependencyTracker/AffectedModuleDetector.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1442661
+      },
+      "writtenOn": "2019-03-21T19:01:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "63651e94_f9198078",
+      "revId": "de7308cab605bc154ef549f4e91bdbf5116f78df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "35a9c7b7_f427f61b",
         "filename": "buildSrc/src/main/kotlin/androidx/build/dependencyTracker/AffectedModuleDetector.kt",
         "patchSetId": 2
@@ -39,6 +57,30 @@
       "revId": "de7308cab605bc154ef549f4e91bdbf5116f78df",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3e7c9cc_310322d9",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dependencyTracker/AffectedModuleDetector.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1442661
+      },
+      "writtenOn": "2019-03-21T19:01:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "35a9c7b7_f427f61b",
+      "range": {
+        "startLine": 227,
+        "startChar": 56,
+        "endLine": 228,
+        "endChar": 17
+      },
+      "revId": "de7308cab605bc154ef549f4e91bdbf5116f78df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "3c9d93d5_c28afdf3",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dependencyTracker/AffectedModuleDetector.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 1442661
+      },
+      "writtenOn": "2019-03-21T19:01:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99a9e31e_1f962d9f",
+      "range": {
+        "startLine": 288,
+        "startChar": 22,
+        "endLine": 288,
+        "endChar": 29
+      },
+      "revId": "de7308cab605bc154ef549f4e91bdbf5116f78df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "536e5f47_a558ac0a",
         "filename": "buildSrc/src/main/kotlin/androidx/build/dependencyTracker/AffectedModuleDetector.kt",
         "patchSetId": 2
@@ -85,6 +151,30 @@
       "revId": "de7308cab605bc154ef549f4e91bdbf5116f78df",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5fcd10e4_7a8470b5",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dependencyTracker/AffectedModuleDetector.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1442661
+      },
+      "writtenOn": "2019-03-21T19:01:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "536e5f47_a558ac0a",
+      "range": {
+        "startLine": 289,
+        "startChar": 15,
+        "endLine": 289,
+        "endChar": 19
+      },
+      "revId": "de7308cab605bc154ef549f4e91bdbf5116f78df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -111,6 +201,30 @@
     },
     {
       "key": {
+        "uuid": "af3641fb_68c856f7",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dependencyTracker/AffectedModuleDetector.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 1442661
+      },
+      "writtenOn": "2019-03-21T19:01:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c5ca0cd1_45b2b4af",
+      "range": {
+        "startLine": 294,
+        "startChar": 16,
+        "endLine": 298,
+        "endChar": 26
+      },
+      "revId": "de7308cab605bc154ef549f4e91bdbf5116f78df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "45b180f7_4280b791",
         "filename": "buildSrc/src/main/kotlin/androidx/build/dependencyTracker/AffectedModuleDetector.kt",
         "patchSetId": 2
@@ -131,6 +245,30 @@
       "revId": "de7308cab605bc154ef549f4e91bdbf5116f78df",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8db72bf3_4b5815ce",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dependencyTracker/AffectedModuleDetector.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 1442661
+      },
+      "writtenOn": "2019-03-21T19:01:34Z",
+      "side": 1,
+      "message": "Used \"affected\" instead of \"modified\", but agreed it deserved clarification.",
+      "parentUuid": "45b180f7_4280b791",
+      "range": {
+        "startLine": 304,
+        "startChar": 8,
+        "endLine": 304,
+        "endChar": 18
+      },
+      "revId": "de7308cab605bc154ef549f4e91bdbf5116f78df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -157,6 +295,30 @@
     },
     {
       "key": {
+        "uuid": "e4270373_181ac8d5",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dependencyTracker/AffectedModuleDetector.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 1442661
+      },
+      "writtenOn": "2019-03-21T19:01:34Z",
+      "side": 1,
+      "message": "Chose b, for reasons discussed offline.",
+      "parentUuid": "e2833d21_d58a2676",
+      "range": {
+        "startLine": 305,
+        "startChar": 8,
+        "endLine": 305,
+        "endChar": 19
+      },
+      "revId": "de7308cab605bc154ef549f4e91bdbf5116f78df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c9a4e63f_f3aead3b",
         "filename": "buildSrc/src/main/kotlin/androidx/build/dependencyTracker/AffectedModuleDetector.kt",
         "patchSetId": 2
@@ -171,6 +333,24 @@
       "revId": "de7308cab605bc154ef549f4e91bdbf5116f78df",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd6c1854_54a5f6aa",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dependencyTracker/AffectedModuleDetector.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 1442661
+      },
+      "writtenOn": "2019-03-21T19:01:34Z",
+      "side": 1,
+      "message": "Agreed.",
+      "parentUuid": "c9a4e63f_f3aead3b",
+      "revId": "de7308cab605bc154ef549f4e91bdbf5116f78df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
