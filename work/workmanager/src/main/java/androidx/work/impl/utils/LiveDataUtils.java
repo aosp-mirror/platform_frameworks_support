@@ -38,10 +38,14 @@ public class LiveDataUtils {
      * Creates a new {@link LiveData} object that maps the values of {@code inputLiveData} using
      * {@code mappingMethod} on a background thread, but only triggers its observers when the mapped
      * values actually change.
+     * <p>
+     * Because this method keeps local copies of the object around for deduplication, it's expected
+     * that the values are immutable.  It's important that {@code mappingMethod} maintain this
+     * contract.
      *
      * @param inputLiveData An input {@link LiveData}
      * @param mappingMethod A {@link Function} that maps input of type {@code In} to output of type
-     *                      {@code Out}
+     *                      {@code Out}; this is expected to be immutable
      * @param workTaskExecutor The {@link TaskExecutor} that will run this operation on a background
      *                         thread
      * @param <In> The type of data for {@code inputLiveData}

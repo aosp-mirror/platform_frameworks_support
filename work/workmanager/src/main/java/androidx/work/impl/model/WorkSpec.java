@@ -42,6 +42,7 @@ import androidx.work.WorkRequest;
 import androidx.work.impl.WorkManagerImpl;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -441,7 +442,7 @@ public class WorkSpec {
                     for (WorkInfoPojo in : input) {
                         output.add(in.toWorkInfo());
                     }
-                    return output;
+                    return Collections.unmodifiableList(output);
                 }
             };
 }
