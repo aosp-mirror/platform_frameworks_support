@@ -48,6 +48,54 @@
     },
     {
       "key": {
+        "uuid": "237e5c93_f7425453",
+        "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleWhenChecks.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-21T12:10:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "704e8d65_78f84fce",
+      "range": {
+        "startLine": 67,
+        "startChar": 59,
+        "endLine": 67,
+        "endChar": 64
+      },
+      "revId": "b310ce1cb78e42fdc12d06214cafa8f9c2f6b979",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c26e0502_9a714a3a",
+        "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleWhenChecks.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-21T12:10:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0d765472_c150002d",
+      "range": {
+        "startLine": 67,
+        "startChar": 26,
+        "endLine": 67,
+        "endChar": 27
+      },
+      "revId": "b310ce1cb78e42fdc12d06214cafa8f9c2f6b979",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7544b791_eb6bddab",
         "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleWhenChecks.kt",
         "patchSetId": 11
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "e12167bf_dc22d9a3",
+        "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleWhenChecks.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-21T12:10:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7544b791_eb6bddab",
+      "range": {
+        "startLine": 122,
+        "startChar": 12,
+        "endLine": 125,
+        "endChar": 13
+      },
+      "revId": "b310ce1cb78e42fdc12d06214cafa8f9c2f6b979",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e67399cd_d7d35f99",
         "filename": "lifecycle/runtime/eap/lint/src/test/java/androidx/lifecycle/lint/LifecycleWhenChecksTest.kt",
         "patchSetId": 11
@@ -88,6 +160,24 @@
     },
     {
       "key": {
+        "uuid": "b252b026_d019caa3",
+        "filename": "lifecycle/runtime/eap/lint/src/test/java/androidx/lifecycle/lint/LifecycleWhenChecksTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-21T12:10:08Z",
+      "side": 1,
+      "message": "inlined the whole thing",
+      "parentUuid": "e67399cd_d7d35f99",
+      "revId": "b310ce1cb78e42fdc12d06214cafa8f9c2f6b979",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ef68169b_342e4056",
         "filename": "lifecycle/runtime/eap/lint/src/test/java/androidx/lifecycle/lint/LifecycleWhenChecksTest.kt",
         "patchSetId": 11
@@ -102,6 +192,24 @@
       "revId": "b310ce1cb78e42fdc12d06214cafa8f9c2f6b979",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60c1a858_2c0433b4",
+        "filename": "lifecycle/runtime/eap/lint/src/test/java/androidx/lifecycle/lint/LifecycleWhenChecksTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-21T12:10:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ef68169b_342e4056",
+      "revId": "b310ce1cb78e42fdc12d06214cafa8f9c2f6b979",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
