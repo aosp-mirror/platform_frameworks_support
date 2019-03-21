@@ -44,8 +44,8 @@ import io.reactivex.schedulers.Schedulers;
  * already be observed on {@link #setNotifyScheduler(Scheduler)}, and will dispatch new PagedLists,
  * as well as their updates to that scheduler.
  *
- * @param <Key> Type of input valued used to load data from the DataSource. Must be integer if
- *             you're using PositionalDataSource.
+ * @param <Key>   Type of input valued used to load data from the DataSource. Must be integer if
+ *                you're using PositionalDataSource.
  * @param <Value> Item type being presented.
  */
 public final class RxPagedListBuilder<Key, Value> {
@@ -62,7 +62,7 @@ public final class RxPagedListBuilder<Key, Value> {
      * Creates a RxPagedListBuilder with required parameters.
      *
      * @param dataSourceFactory DataSource factory providing DataSource generations.
-     * @param config Paging configuration.
+     * @param config            Paging configuration.
      */
     public RxPagedListBuilder(@NonNull DataSource.Factory<Key, Value> dataSourceFactory,
             @NonNull PagedList.Config config) {
@@ -80,7 +80,7 @@ public final class RxPagedListBuilder<Key, Value> {
 
     /**
      * Creates a RxPagedListBuilder with required parameters.
-     * <p>
+     *
      * This method is a convenience for:
      * <pre>
      * RxPagedListBuilder(dataSourceFactory,
@@ -88,7 +88,7 @@ public final class RxPagedListBuilder<Key, Value> {
      * </pre>
      *
      * @param dataSourceFactory DataSource.Factory providing DataSource generations.
-     * @param pageSize Size of pages to load.
+     * @param pageSize          Size of pages to load.
      */
     @SuppressWarnings("unused")
     public RxPagedListBuilder(@NonNull DataSource.Factory<Key, Value> dataSourceFactory,
@@ -98,7 +98,7 @@ public final class RxPagedListBuilder<Key, Value> {
 
     /**
      * First loading key passed to the first PagedList/DataSource.
-     * <p>
+     *
      * When a new PagedList/DataSource pair is created after the first, it acquires a load key from
      * the previous generation so that data is loaded around the position already being observed.
      *
@@ -115,7 +115,7 @@ public final class RxPagedListBuilder<Key, Value> {
     /**
      * Sets a {@link PagedList.BoundaryCallback} on each PagedList created, typically used to load
      * additional data from network when paging from local storage.
-     * <p>
+     *
      * Pass a BoundaryCallback to listen to when the PagedList runs out of data to load. If this
      * method is not called, or {@code null} is passed, you will not be notified when each
      * DataSource runs out of data to provide to its PagedList.
@@ -143,7 +143,7 @@ public final class RxPagedListBuilder<Key, Value> {
     /**
      * Sets scheduler which will be used for observing new PagedLists, as well as loading updates
      * within the PagedLists.
-     * <p>
+     *
      * If not set, defaults to the UI thread.
      * <p>
      * The built observable/flowable will be observed on this scheduler, so that the thread
@@ -158,22 +158,27 @@ public final class RxPagedListBuilder<Key, Value> {
     public RxPagedListBuilder<Key, Value> setNotifyScheduler(
             final @NonNull Scheduler scheduler) {
         mNotifyScheduler = scheduler;
-        final Scheduler.Worker worker = scheduler.createWorker();
-        mNotifyExecutor = new Executor() {
-            @Override
-            public void execute(@NonNull Runnable command) {
-                // We use a worker here since the page load notifications
-                // should not be dispatched in parallel
-                worker.schedule(command);
-            }
-        };
+
+        if (scheduler instanceof Executor) {
+            mNotifyExecutor = (Executor) scheduler;
+        } else {
+            final Scheduler.Worker worker = scheduler.createWorker();
+            mNotifyExecutor = new Executor() {
+                @Override
+                public void execute(@NonNull Runnable command) {
+                    // We use a worker here since the page load notifications
+                    // should not be dispatched in parallel
+                    worker.schedule(command);
+                }
+            };
+        }
         return this;
     }
 
     /**
      * Sets scheduler which will be used for background fetching of PagedLists, as well as on-demand
      * fetching of pages inside.
-     * <p>
+     *
      * If not set, defaults to the Arch components I/O thread pool.
      * <p>
      * The built observable/flowable will be subscribed on this scheduler.
@@ -182,25 +187,30 @@ public final class RxPagedListBuilder<Key, Value> {
      *                  thread pool for e.g. I/O or network loading.
      * @return this
      */
-    @SuppressWarnings({"unused", "WeakerAccess"})
+    @SuppressWarnings("unused")
     @NonNull
     public RxPagedListBuilder<Key, Value> setFetchScheduler(
             final @NonNull Scheduler scheduler) {
-        mFetchExecutor = new Executor() {
-            @Override
-            public void execute(@NonNull Runnable command) {
-                // We use scheduleDirect since the page loads that use
-                // executor are intentionally parallel.
-                scheduler.scheduleDirect(command);
-            }
-        };
         mFetchScheduler = scheduler;
+
+        if (scheduler instanceof Executor) {
+            mFetchExecutor = (Executor) scheduler;
+        } else {
+            mFetchExecutor = new Executor() {
+                @Override
+                public void execute(@NonNull Runnable command) {
+                    // We use scheduleDirect since the page loads that use
+                    // executor are intentionally parallel.
+                    scheduler.scheduleDirect(command);
+                }
+            };
+        }
         return this;
     }
 
     /**
      * Constructs a {@code Observable<PagedList>}.
-     * <p>
+     *
      * The returned Observable will already be observed on the
      * {@link #setNotifyScheduler(Scheduler) notify scheduler}, and subscribed on the
      * {@link #setFetchScheduler(Scheduler) fetch scheduler}.
@@ -224,8 +234,8 @@ public final class RxPagedListBuilder<Key, Value> {
                 mDataSourceFactory,
                 mNotifyExecutor,
                 mFetchExecutor))
-                        .observeOn(mNotifyScheduler)
-                        .subscribeOn(mFetchScheduler);
+                .observeOn(mNotifyScheduler)
+                .subscribeOn(mFetchScheduler);
     }
 
     /**
