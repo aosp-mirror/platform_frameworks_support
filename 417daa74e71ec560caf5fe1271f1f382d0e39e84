@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "49899ec2_779c9344",
+        "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleWhenChecks.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-21T01:25:18Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "733862b6_2f343fe4",
+      "range": {
+        "startLine": 48,
+        "startChar": 54,
+        "endLine": 48,
+        "endChar": 65
+      },
+      "revId": "417daa74e71ec560caf5fe1271f1f382d0e39e84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "be0fa775_bbf6df35",
         "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleWhenChecks.kt",
         "patchSetId": 6
@@ -225,6 +249,24 @@
     },
     {
       "key": {
+        "uuid": "d123bf5a_467ede46",
+        "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleWhenChecks.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-21T01:25:18Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a4fbae74_3d12c85a",
+      "revId": "417daa74e71ec560caf5fe1271f1f382d0e39e84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9106c407_3447ae6f",
         "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleWhenChecks.kt",
         "patchSetId": 6
@@ -301,6 +343,24 @@
       "side": 1,
       "message": "Last param is return type, so it is extra one param + return type",
       "parentUuid": "5e1324ba_6eac1c7f",
+      "revId": "417daa74e71ec560caf5fe1271f1f382d0e39e84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5bc6e48e_25e4b297",
+        "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleWhenChecks.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-21T01:25:18Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d38e10dd_a096b1a9",
       "revId": "417daa74e71ec560caf5fe1271f1f382d0e39e84",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false

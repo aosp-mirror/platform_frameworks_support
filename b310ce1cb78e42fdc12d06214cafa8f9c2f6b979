@@ -1,0 +1,107 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0d765472_c150002d",
+        "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleWhenChecks.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-21T01:25:18Z",
+      "side": 1,
+      "message": "no need for \\\u0027s just do trimIndent at the end. Jake changed them to be compile time processed so there isn\u0027t (won\u0027t be) any cost.",
+      "range": {
+        "startLine": 67,
+        "startChar": 26,
+        "endLine": 67,
+        "endChar": 27
+      },
+      "revId": "b310ce1cb78e42fdc12d06214cafa8f9c2f6b979",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "704e8d65_78f84fce",
+        "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleWhenChecks.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-21T01:25:18Z",
+      "side": 1,
+      "message": "within",
+      "range": {
+        "startLine": 67,
+        "startChar": 59,
+        "endLine": 67,
+        "endChar": 64
+      },
+      "revId": "b310ce1cb78e42fdc12d06214cafa8f9c2f6b979",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7544b791_eb6bddab",
+        "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleWhenChecks.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-21T01:25:18Z",
+      "side": 1,
+      "message": "i like writing these more functional, up to you.\n\n(psiMethod.toUElement as? UMethod)?.uastBody?.accept(this)\n\nor if you want to make it more clear:\n\n(psiMethod.toUElement as? UMethod)?.let {\n    it.uastBody?.accept(this)\n}",
+      "range": {
+        "startLine": 122,
+        "startChar": 12,
+        "endLine": 125,
+        "endChar": 13
+      },
+      "revId": "b310ce1cb78e42fdc12d06214cafa8f9c2f6b979",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e67399cd_d7d35f99",
+        "filename": "lifecycle/runtime/eap/lint/src/test/java/androidx/lifecycle/lint/LifecycleWhenChecksTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-21T01:25:18Z",
+      "side": 1,
+      "message": "probably want trimIndent here",
+      "revId": "b310ce1cb78e42fdc12d06214cafa8f9c2f6b979",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef68169b_342e4056",
+        "filename": "lifecycle/runtime/eap/lint/src/test/java/androidx/lifecycle/lint/LifecycleWhenChecksTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-21T01:25:18Z",
+      "side": 1,
+      "message": "i meant get it from sth like IMPORTS.lines.size ?",
+      "revId": "b310ce1cb78e42fdc12d06214cafa8f9c2f6b979",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
