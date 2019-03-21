@@ -450,6 +450,30 @@
     },
     {
       "key": {
+        "uuid": "5e3f2aa7_8470ffff",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 500,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-21T22:42:19Z",
+      "side": 1,
+      "message": "What shep said.\nIt is good that we have a default behavior but if developer override sthe method, they should make the full decision and we should respect that.\n\nIn the default impl, we shouldn\u0027t call `computeScrollVectorForPosition` because it makes another object. it is probably better to just inline that logic (or create a version of `computeScrollVectorForPosition` that does not return a point and simply just answers which way is the child).\n\nJelle, previously you\u0027ve wanted to add scroll direction to that API but state already has the target scroll position, which is enough to decide the direction for LLM. Thats why we don\u0027t need another parameter. FYI extra layout is only added for smoothScrollToPosition calls hence dragging does not affect it.",
+      "parentUuid": "2a33b050_502451a1",
+      "range": {
+        "startLine": 500,
+        "startChar": 18,
+        "endLine": 500,
+        "endChar": 43
+      },
+      "revId": "228b2e413ad59bc252c8a4b41fe4193e1c2df924",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c09f4602_c668cabe",
         "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
         "patchSetId": 1
