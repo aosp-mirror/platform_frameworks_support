@@ -78,6 +78,24 @@
     },
     {
       "key": {
+        "uuid": "3f247098_553ee150",
+        "filename": "car/core/res/layout/car_selction_dialog.xml",
+        "patchSetId": 16
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-03-21T22:11:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0a729209_4d4a3875",
+      "revId": "e4c0be0d3c091ff9987d9dd42bca09aa846cf0b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "896c27cb_fdd01564",
         "filename": "car/core/src/main/java/androidx/car/app/CarDialogUtil.java",
         "patchSetId": 16

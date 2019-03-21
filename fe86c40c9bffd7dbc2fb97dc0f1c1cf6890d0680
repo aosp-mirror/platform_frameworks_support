@@ -1378,6 +1378,30 @@
     },
     {
       "key": {
+        "uuid": "71f816bb_e0efed35",
+        "filename": "car/core/src/main/java/androidx/car/app/CarSelectionDialog.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-03-21T22:11:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7fdf685b_c41ece79",
+      "range": {
+        "startLine": 371,
+        "startChar": 21,
+        "endLine": 371,
+        "endChar": 41
+      },
+      "revId": "fe86c40c9bffd7dbc2fb97dc0f1c1cf6890d0680",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "41b12e42_76180a9b",
         "filename": "car/core/src/main/java/androidx/car/app/CarSelectionDialog.java",
         "patchSetId": 9
