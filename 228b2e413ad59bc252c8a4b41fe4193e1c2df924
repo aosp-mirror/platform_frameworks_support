@@ -426,6 +426,30 @@
     },
     {
       "key": {
+        "uuid": "2a33b050_502451a1",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 500,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-03-21T22:33:13Z",
+      "side": 1,
+      "message": "... Yigit and I had a long discussion about this, and... he convinced me that ultimately, a cleaner API in these cases is to just have one method that makes these decisions that does the right thing by default, or allows the developer to step in and do what they want.  Having two methods could arguably turn into 3, and how these methods interact behind the scenes is confusing.\n\nSo... this isn\u0027t fun... but, I think we need to end up with:\n\nprotected void calculateExtraLayoutSpace(RecyclerView.State state, int[] extraLayoutSpace) {\n  if (state.hasTargetScrollPosition()) {\n    PointF direction \u003d computeScrollVectorForPosition(state.getTargetScrollPosition());\n\n    int direction \u003d direction.x;\n    if (direction \u003d\u003d 0) direction \u003d direction.y;\n    if (direction \u003d\u003d 0) return;\n\n    if (direction \u003d\u003d -1) {\n      extraLayoutSpace[0] \u003d getExtraLayotSpace(state);\n      extraLayoutSpace[1] \u003d 0;\n    } else {\n      extraLayoutSpace[0] \u003d 0;\n      extraLayoutSpace[1] \u003d getExtraLayotSpace(state);\n    }\n  }\n}\n\n(I may have the directions wrong here... and there may be a deeper level of resolution required)\n\nBasically, state does actually have all of the info that is needed to determine which direction the extra layout space should be in, and if a developer (like you guys for ViewPager2) wants to change the behavior they should override the method and do so.  In your case, you can pretty much do what your existing calculateExtraLayoutSpace does (below) and you can just call super to access the method implemented in this comment.\n\nI hope that is clear enough.  Talk with Yigit if it is not.  \n\nSorry for the thrashing.",
+      "parentUuid": "5c56c49c_0f98b085",
+      "range": {
+        "startLine": 500,
+        "startChar": 18,
+        "endLine": 500,
+        "endChar": 43
+      },
+      "revId": "228b2e413ad59bc252c8a4b41fe4193e1c2df924",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c09f4602_c668cabe",
         "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
         "patchSetId": 1
