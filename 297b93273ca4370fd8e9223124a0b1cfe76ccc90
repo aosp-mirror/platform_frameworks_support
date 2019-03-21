@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8e92c27f_cd17c466",
+        "filename": "activity/src/main/java/androidx/activity/ComponentActivity.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-21T11:12:49Z",
+      "side": 1,
+      "message": "just double checking that this is going away once deprecated method is removed, right?",
+      "revId": "297b93273ca4370fd8e9223124a0b1cfe76ccc90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5968b335_ca322a63",
+        "filename": "activity/src/main/java/androidx/activity/OnBackPressedDispatcher.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-21T11:12:49Z",
+      "side": 1,
+      "message": "Just an idea not necessarily for this patch. We can add Cancellable.CANCELLED, like Bundle.EMPTY, because I expect it to be frequent case",
+      "range": {
+        "startLine": 113,
+        "startChar": 19,
+        "endLine": 122,
+        "endChar": 14
+      },
+      "revId": "297b93273ca4370fd8e9223124a0b1cfe76ccc90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dfb3dff5_c1acf15b",
+        "filename": "core/api/1.1.0-alpha06.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 761,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-21T11:12:49Z",
+      "side": 1,
+      "message": "looks like you need to update api",
+      "revId": "297b93273ca4370fd8e9223124a0b1cfe76ccc90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
