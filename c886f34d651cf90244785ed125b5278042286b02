@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1f06d529_405728e2",
+        "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleWhenChecks.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-21T01:27:38Z",
+      "side": 1,
+      "message": "can we support if it is abstracted to another method?\n\ne.g.\n\nfun isGood() \u003d lifecycle.isAtLeast(STARTED)\nif (isGood()) {\n   acessView()\n}",
+      "revId": "c886f34d651cf90244785ed125b5278042286b02",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
