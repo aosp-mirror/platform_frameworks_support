@@ -1,0 +1,176 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "63651e94_f9198078",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dependencyTracker/AffectedModuleDetector.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-03-21T18:10:19Z",
+      "side": 1,
+      "message": "I guess that now that we\u0027re adjusting the logic about which projects get built under which circumstances, it could be good to update the comment here on ProjectSubset, because technically asking the AffectedModuleDetector for ProjectSubset.CHANGED_PROJECTS now might also return some other tests in the same group as the modified projects as well.\n\nI think it\u0027d be good to somehow clarify that ProjectSubset specifies which projects we\u0027re interested in testing, and that AffectedModuleDetector will return the set of projects that must be built in order to run all of the tests for that subset",
+      "revId": "de7308cab605bc154ef549f4e91bdbf5116f78df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35a9c7b7_f427f61b",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dependencyTracker/AffectedModuleDetector.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-03-21T18:10:19Z",
+      "side": 1,
+      "message": "Suggest replacing with \"at runtime\" to make it that much clearer that there are two types of dependencies",
+      "range": {
+        "startLine": 227,
+        "startChar": 56,
+        "endLine": 228,
+        "endChar": 17
+      },
+      "revId": "de7308cab605bc154ef549f4e91bdbf5116f78df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99a9e31e_1f962d9f",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dependencyTracker/AffectedModuleDetector.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-03-21T18:10:19Z",
+      "side": 1,
+      "message": "This project-lookup function isn\u0027t specific to the concept of cobuilt tests, right? I recommend removing the string \"Cobuilt\" from its name (and the names of its variables too)",
+      "range": {
+        "startLine": 288,
+        "startChar": 22,
+        "endLine": 288,
+        "endChar": 29
+      },
+      "revId": "de7308cab605bc154ef549f4e91bdbf5116f78df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "536e5f47_a558ac0a",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dependencyTracker/AffectedModuleDetector.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-03-21T18:10:19Z",
+      "side": 1,
+      "message": "Technically this supports any set of projects, right? I\u0027d call the parameter \"projectNames\" instead",
+      "range": {
+        "startLine": 289,
+        "startChar": 15,
+        "endLine": 289,
+        "endChar": 19
+      },
+      "revId": "de7308cab605bc154ef549f4e91bdbf5116f78df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5ca0cd1_45b2b4af",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dependencyTracker/AffectedModuleDetector.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-03-21T18:10:19Z",
+      "side": 1,
+      "message": "I think this can be replaced by `rootProject.project(it)`, which would guarantee that each entry in cobuiltTestNames corresponds to exactly one project.\n\nThis would allow us to distinguish between a project having path (logical project path (not filepath)) \":a:runtime\" and a project having path \":b:runtime\" (both of which have a project name (which is all of the characters after the last \":\" in the project\u0027s path) of \"runtime\").",
+      "range": {
+        "startLine": 294,
+        "startChar": 16,
+        "endLine": 298,
+        "endChar": 26
+      },
+      "revId": "de7308cab605bc154ef549f4e91bdbf5116f78df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45b180f7_4280b791",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dependencyTracker/AffectedModuleDetector.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-03-21T18:10:19Z",
+      "side": 1,
+      "message": "Since the term \"project\" appears in the signature of this function a few times, I think it\u0027d be good to clarify that this refers to the projects that were modified - perhaps calling it \"modifiedProjects\"",
+      "range": {
+        "startLine": 304,
+        "startChar": 8,
+        "endLine": 304,
+        "endChar": 18
+      },
+      "revId": "de7308cab605bc154ef549f4e91bdbf5116f78df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2833d21_d58a2676",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dependencyTracker/AffectedModuleDetector.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-03-21T18:10:19Z",
+      "side": 1,
+      "message": "Since the return value of this function is also a set of projects that are being cobuilt, I recommend adjusting the name of this parameter to distinguish it some more. Some ideas:\n\na) \"candidateCobuiltSets\"\nb) \"allCobuiltSets\"\nc) \"cobuildDependencies\"\nd) instead of having it be a parameter it could be a variable attached to the companion object",
+      "range": {
+        "startLine": 305,
+        "startChar": 8,
+        "endLine": 305,
+        "endChar": 19
+      },
+      "revId": "de7308cab605bc154ef549f4e91bdbf5116f78df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9a4e63f_f3aead3b",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dependencyTracker/AffectedModuleDetector.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-03-21T18:10:19Z",
+      "side": 1,
+      "message": "I think we\u0027d like to emphasize less the inspiration for the creating the feature, even though it\u0027s pretty neat, and instead emphasize the motivation for keeping it enabled. I\u0027d instead write \"Install media tests together per b/128577735\"",
+      "revId": "de7308cab605bc154ef549f4e91bdbf5116f78df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
