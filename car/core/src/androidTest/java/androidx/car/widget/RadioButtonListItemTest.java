@@ -89,7 +89,7 @@ public class RadioButtonListItemTest {
     @Test
     public void testSetPrimaryActionIcon_NullIconTextNoOffset() {
         RadioButtonListItem item = new RadioButtonListItem(mActivity);
-        item.setPrimaryActionIcon(null, RadioButtonListItem.PRIMARY_ACTION_ICON_SIZE_SMALL);
+        item.setPrimaryActionIcon((Icon) null, RadioButtonListItem.PRIMARY_ACTION_ICON_SIZE_SMALL);
         item.setText("text");
 
         setupPagedListView(Arrays.asList(item));
@@ -155,7 +155,7 @@ public class RadioButtonListItemTest {
     @Test
     public void testSetTextStartMargin_NoIcon() {
         RadioButtonListItem item = new RadioButtonListItem(mActivity);
-        item.setPrimaryActionIcon(null, RadioButtonListItem.PRIMARY_ACTION_ICON_SIZE_LARGE);
+        item.setPrimaryActionIcon((Icon) null, RadioButtonListItem.PRIMARY_ACTION_ICON_SIZE_LARGE);
         item.setText("text");
         item.setTextStartMargin(R.dimen.car_keyline_1);
 

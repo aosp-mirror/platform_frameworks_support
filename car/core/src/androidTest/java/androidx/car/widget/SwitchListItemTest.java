@@ -41,6 +41,7 @@ import static org.mockito.Mockito.verify;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.Icon;
 import android.text.InputFilter;
 import android.text.TextUtils;
@@ -484,6 +485,22 @@ public class SwitchListItemTest {
         setupPagedListView(items);
 
         assertThat(getViewHolderAtPosition(0).getPrimaryIcon().getDrawable(), is(notNullValue()));
+    }
+
+    @Test
+    public void testPrimaryIconDrawable() {
+        Drawable drawable = ApplicationProvider.getApplicationContext().getResources().getDrawable(
+                android.R.drawable.sym_def_app_icon, null);
+
+        SwitchListItem item = new SwitchListItem(mActivity);
+        item.setPrimaryActionIcon(drawable,
+                TextListItem.PRIMARY_ACTION_ICON_SIZE_LARGE);
+
+        List<SwitchListItem> items = Arrays.asList(item);
+        setupPagedListView(items);
+
+        assertTrue(getViewHolderAtPosition(0).getPrimaryIcon().getDrawable().getConstantState()
+                .equals(drawable.getConstantState()));
     }
 
     @Test
