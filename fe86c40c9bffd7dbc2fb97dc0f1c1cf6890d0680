@@ -1282,6 +1282,30 @@
     },
     {
       "key": {
+        "uuid": "007a6528_6fcb9003",
+        "filename": "car/core/src/main/java/androidx/car/app/CarSelectionDialog.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2019-03-21T17:59:42Z",
+      "side": 1,
+      "message": "how about throwing exception in build() to force positive button? my issue with constructor is that it doesn\u0027t allow future changes - say later we decided neg button is also a must.\n\n(admittedly my lack of long term planning also plays a big part in this fear)",
+      "parentUuid": "e17d563f_d40fd0e0",
+      "range": {
+        "startLine": 371,
+        "startChar": 21,
+        "endLine": 371,
+        "endChar": 41
+      },
+      "revId": "fe86c40c9bffd7dbc2fb97dc0f1c1cf6890d0680",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "41b12e42_76180a9b",
         "filename": "car/core/src/main/java/androidx/car/app/CarSelectionDialog.java",
         "patchSetId": 9

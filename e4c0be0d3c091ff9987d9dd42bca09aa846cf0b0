@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d8d0151e_77be2331",
+        "filename": "car/core/api/1.0.0-alpha7.txt",
+        "patchSetId": 16
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2019-03-21T17:59:42Z",
+      "side": 1,
+      "message": "can you keep consistency in annotation? seems either annotating all or none as @NonNull is fine. \nhttps://cs.corp.google.com/search/?q\u003df:current.txt+package:%5Eaosp-androidx$+Builder\u0026type\u003dcs",
+      "range": {
+        "startLine": 58,
+        "startChar": 54,
+        "endLine": 58,
+        "endChar": 62
+      },
+      "revId": "e4c0be0d3c091ff9987d9dd42bca09aa846cf0b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1a9b925_4b3f9a55",
+        "filename": "car/core/src/main/java/androidx/car/app/CarSingleSelectionDialog.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2019-03-21T17:59:42Z",
+      "side": 1,
+      "message": "was this intended to be named \"OnSelectionConfirmationListener\"?",
+      "range": {
+        "startLine": 246,
+        "startChar": 21,
+        "endLine": 246,
+        "endChar": 52
+      },
+      "revId": "e4c0be0d3c091ff9987d9dd42bca09aa846cf0b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e314400_b5da62fd",
+        "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/RadioButtonListItemActivity.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2019-03-21T17:59:42Z",
+      "side": 1,
+      "message": "nit: extra line",
+      "revId": "e4c0be0d3c091ff9987d9dd42bca09aa846cf0b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "573d9a4c_30e0d519",
+        "filename": "samples/SupportCarDemos/src/main/res/layout/selection_dialog_activity.xml",
+        "patchSetId": 16
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2019-03-21T17:59:42Z",
+      "side": 1,
+      "message": "2019 :)",
+      "range": {
+        "startLine": 3,
+        "startChar": 14,
+        "endLine": 3,
+        "endChar": 18
+      },
+      "revId": "e4c0be0d3c091ff9987d9dd42bca09aa846cf0b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
