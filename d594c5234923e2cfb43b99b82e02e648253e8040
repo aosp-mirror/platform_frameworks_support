@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2922b24f_c41cce7d",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/RadioButtonListItemTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-03-22T17:58:35Z",
+      "side": 1,
+      "message": "For all these tests, it might be easier to use test the method that takes the drawable resource, since it calls the method that takes an actual Drawable under the hood:\n\n  item.setPrimaryActionIcon(android.R.drawable.sym_def_app_icon, ...)",
+      "revId": "d594c5234923e2cfb43b99b82e02e648253e8040",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb60895b_47837215",
+        "filename": "car/core/src/main/java/androidx/car/widget/RadioButtonListItem.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-03-22T17:58:35Z",
+      "side": 1,
+      "message": "Add a \u003cp\u003e to the start of this paragraph\n\nhttp://go/java-style#s7.1.2-javadoc-paragraphs",
+      "revId": "d594c5234923e2cfb43b99b82e02e648253e8040",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
