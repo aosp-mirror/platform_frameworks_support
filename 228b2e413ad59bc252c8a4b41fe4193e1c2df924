@@ -474,6 +474,30 @@
     },
     {
       "key": {
+        "uuid": "49e2688e_cb5e67ca",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 500,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-03-22T12:57:44Z",
+      "side": 1,
+      "message": "(defining some terminology for clarity)\nDynamic \u003d during a smooth scroll, defined as having a target scroll position\nStatic \u003d any other time\n\nOur current implementation of getExtraLayoutSpace(state) indeed only adds extra layout in dynamic situations. However, the method is called in both dynamic _and_ static situations, so other peoples\u0027 implementations may decide to add extra layout for static situations as well. Apps that currently rely on that could suffer if we suddenly stop calling the method in static situations. So, given that I think the method should be called for static situations as well, our implementation of calculateExtraLayoutSpace will need to know on which side (start or end) to add the extra layout space from getExtraLayoutSpace(state) to keep the same behavior as before.\n\nOne way is to add a direction parameter to calculateExtraLayoutSpace, because the callers do know on which side the extra layout space was originally added (in static situations). They used the last known scroll delta (which is in LayoutState, not in RecyclerView.State), which is not a great choice, but it is how things are working now.\n\nAnother way is to change the semantics of the int[]: instead of assigning the meaning \"start\" and \"end\" to respectively item 0 and item 1, we can assign the meaning \"in scroll direction\" and \"in opposite direction\" to item 0 and item 1, respectively. That way, the implementer of calculateExtraLayoutSpace doesn\u0027t need to know if the scroll direction is start or end, it will always be [0]. The downside is that if a dev actually cares about start or end, they won\u0027t be able to find out in static situations.\n\nI prefer the extra parameter, because I think changing the meaning of the int[] is too confusing, and because it gives devs complete control over the behavior in both static and dynamic situations.\n\n\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\n\nOn a higher level, I think this API is kind of a niche market, so if we decide to not care for full backwards compatibility then that\u0027s OK to me, but I\u0027d like us to be on the same page as to what we are or aren\u0027t breaking with.",
+      "parentUuid": "5e3f2aa7_8470ffff",
+      "range": {
+        "startLine": 500,
+        "startChar": 18,
+        "endLine": 500,
+        "endChar": 43
+      },
+      "revId": "228b2e413ad59bc252c8a4b41fe4193e1c2df924",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c09f4602_c668cabe",
         "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
         "patchSetId": 1
@@ -639,6 +663,30 @@
     },
     {
       "key": {
+        "uuid": "bf312a1b_d3ccfbdd",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1560,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-03-22T12:57:44Z",
+      "side": 1,
+      "message": "Ack. I\u0027ll stick with the clarifying comments and docs then.",
+      "parentUuid": "81a4d006_1cf13bb5",
+      "range": {
+        "startLine": 1560,
+        "startChar": 13,
+        "endLine": 1560,
+        "endChar": 33
+      },
+      "revId": "228b2e413ad59bc252c8a4b41fe4193e1c2df924",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa27e9c4_dabc6fd7",
         "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
         "patchSetId": 1
@@ -731,6 +779,30 @@
       "revId": "228b2e413ad59bc252c8a4b41fe4193e1c2df924",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ce5df1c_6f75936a",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2270,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-03-22T12:57:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d3c7fbc4_a62a9f0f",
+      "range": {
+        "startLine": 2270,
+        "startChar": 12,
+        "endLine": 2270,
+        "endChar": 19
+      },
+      "revId": "228b2e413ad59bc252c8a4b41fe4193e1c2df924",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
