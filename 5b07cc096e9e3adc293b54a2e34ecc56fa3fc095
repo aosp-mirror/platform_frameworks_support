@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "98cc0a84_f527215c",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/MavenUploadHelper.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-03-22T00:21:50Z",
+      "side": 1,
+      "message": "Use javadoc style comment.",
+      "range": {
+        "startLine": 166,
+        "startChar": 0,
+        "endLine": 168,
+        "endChar": 93
+      },
+      "revId": "5b07cc096e9e3adc293b54a2e34ecc56fa3fc095",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c50fcead_2a2526c2",
         "filename": "buildSrc/src/main/kotlin/androidx/build/MavenUploadHelper.kt",
         "patchSetId": 3
@@ -37,6 +60,30 @@
       "side": 1,
       "message": "Hmm, strangely enough, if I do that, Gradle says:\n\n  java.lang.ClassCastException: org.apache.maven.model.Dependency cannot be cast to org.apache.maven.model.Dependency\n\nI think that because the Dependency is coming from another plugin, it\u0027s also coming from another classloader. Any suggestions? Is that why the reflection was here already?",
       "parentUuid": "c50fcead_2a2526c2",
+      "range": {
+        "startLine": 175,
+        "startChar": 51,
+        "endLine": 175,
+        "endChar": 61
+      },
+      "revId": "5b07cc096e9e3adc293b54a2e34ecc56fa3fc095",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "873ccf8d_edb3858b",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/MavenUploadHelper.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-03-22T00:21:50Z",
+      "side": 1,
+      "message": "Sorry for dropping the ball on this review. I still think we should move over to the proper class usage now that we are doing a lot of reflections. Can you file a bug to investigate how to move org.apache.maven.model.Dependency?",
+      "parentUuid": "86887bfa_f5f223a2",
       "range": {
         "startLine": 175,
         "startChar": 51,
