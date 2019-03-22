@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0470f28e_41e0f33b",
+        "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleWhenChecks.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-22T03:21:43Z",
+      "side": 1,
+      "message": "not sure about this vs inner visitors but i assume you wen\u0027t through both and decided on this so I\u0027m fine w/ it.",
+      "range": {
+        "startLine": 94,
+        "startChar": 3,
+        "endLine": 97,
+        "endChar": 0
+      },
+      "revId": "18f197599b5da4d58e94f08976350703b095cbca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
