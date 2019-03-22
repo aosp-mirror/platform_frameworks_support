@@ -498,6 +498,30 @@
     },
     {
       "key": {
+        "uuid": "1cc038af_03d9bb65",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 500,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-03-22T15:47:32Z",
+      "side": 1,
+      "message": "As discussed over chat, Yigit explained to me that our default implementation can use mLayoutState.mLastScrollDelta to get the scroll direction as it is done currently. That means we don\u0027t need the scroll direction after all.",
+      "parentUuid": "49e2688e_cb5e67ca",
+      "range": {
+        "startLine": 500,
+        "startChar": 18,
+        "endLine": 500,
+        "endChar": 43
+      },
+      "revId": "228b2e413ad59bc252c8a4b41fe4193e1c2df924",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c09f4602_c668cabe",
         "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
         "patchSetId": 1
