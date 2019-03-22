@@ -1,0 +1,157 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c9d5133d_20dce1fd",
+        "filename": "paging/rxjava2/build.gradle",
+        "patchSetId": 5
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-03-22T16:51:18Z",
+      "side": 1,
+      "message": "not using mockito, remove these, and others you aren\u0027t using (espresso, arch core testing)",
+      "revId": "22e3cf4e8c8f0c6c4cc89bc0469a373de50c265e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31d54ace_e2bbbdc7",
+        "filename": "paging/rxjava2/src/main/java/androidx/paging/RxItemKeyedDataSource.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-03-22T16:51:18Z",
+      "side": 1,
+      "message": "These should extend the ListenableItemKeyedDataSource - that way you can hook up cancellation",
+      "revId": "22e3cf4e8c8f0c6c4cc89bc0469a373de50c265e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e9d06c2_9e666cbb",
+        "filename": "paging/rxjava2/src/main/java/androidx/paging/RxItemKeyedDataSource.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-03-22T16:51:18Z",
+      "side": 1,
+      "message": "Just use the ones from the super class - we only expose the callback ones for legacy API support. (same for other response classes)",
+      "revId": "22e3cf4e8c8f0c6c4cc89bc0469a373de50c265e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b775fab_04f1373b",
+        "filename": "paging/rxjava2/src/main/java/androidx/paging/RxItemKeyedDataSource.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-03-22T16:51:18Z",
+      "side": 1,
+      "message": "Is there a cost to wrapping these executors back as schedulers, especially since they probably were schedulers to begin with? At the very least it\u0027s unnecessary allocations.\n\nHow about when the RxPagedListBuilder creates an executor from a scheduler, it makes it of a specific \u0027SchedulerExecutor\u0027 class, which still holds the scheduler?\n\nThen you can check for that executor type in the constructor of these classes with instanceof SchedulerExecutor, and you can avoid Schedulers.from in most Rx usecases (with schedulers.from as a fallback)",
+      "revId": "22e3cf4e8c8f0c6c4cc89bc0469a373de50c265e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35961588_7fe110cf",
+        "filename": "paging/rxjava2/src/main/java/androidx/paging/RxItemKeyedDataSource.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-03-22T16:51:18Z",
+      "side": 1,
+      "message": "newly defined public methods need javadocs",
+      "revId": "22e3cf4e8c8f0c6c4cc89bc0469a373de50c265e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "853aea14_b273c90b",
+        "filename": "paging/rxjava2/src/main/java/androidx/paging/RxItemKeyedDataSource.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-03-22T16:51:18Z",
+      "side": 1,
+      "message": "since you won\u0027t be using a distinct param from the super class, we\u0027ll need new method names here...\n\nloadAfterSingle?\nonLoadAfter?",
+      "revId": "22e3cf4e8c8f0c6c4cc89bc0469a373de50c265e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c15fbe5a_6e04d387",
+        "filename": "paging/rxjava2/src/test/java/androidx/paging/RxItemKeyedDataSourceTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-03-22T16:51:18Z",
+      "side": 1,
+      "message": "can just use init{} here, since you\u0027re not storing any per-test state (here and in other tests)\n\n\nor actually, just do:\n\n    val trivialDataSource \u003d ...",
+      "revId": "22e3cf4e8c8f0c6c4cc89bc0469a373de50c265e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d12c28fe_cc863e94",
+        "filename": "paging/rxjava2/src/test/java/androidx/paging/RxItemKeyedDataSourceTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-03-22T16:51:18Z",
+      "side": 1,
+      "message": "since paging uses ListenableFutures under the hood, it won\u0027t trigger a dispose directly on the datasource \n\nThis should test that calling dataSource.loadBefore(testParams).cancel() results in the underlying single getting cancelled",
+      "revId": "22e3cf4e8c8f0c6c4cc89bc0469a373de50c265e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90d635b2_85974ae2",
+        "filename": "paging/rxjava2/src/test/java/androidx/paging/RxItemKeyedDataSourceTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-03-22T16:51:18Z",
+      "side": 1,
+      "message": "avoid using \"expected \u003d\" unless it\u0027s a one line test in new code.\n\nAssert the error comes from .get with a try/catch, and assert the cause of the exception if appropriate.",
+      "revId": "22e3cf4e8c8f0c6c4cc89bc0469a373de50c265e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
