@@ -22,6 +22,30 @@
       "revId": "cf34f8cc0bb5aa63d4d81f6970151bd2e9b2f8f3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02dc319e_8830a417",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteExpandCollapseButton.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-03-22T10:41:28Z",
+      "side": 1,
+      "message": "I\u0027ve manually compared the views between ImageButton and AppCompatImageButton by running support-v7-demos which is modified to always show the button, there is no visual difference on J, K, M, N, O, P and Q. I couldn\u0027t test on L (API 21) because I found a bug (I\u0027ll file it on buganizer).",
+      "parentUuid": "b74e8ace_5f5989ee",
+      "range": {
+        "startLine": 34,
+        "startChar": 45,
+        "endLine": 34,
+        "endChar": 66
+      },
+      "revId": "cf34f8cc0bb5aa63d4d81f6970151bd2e9b2f8f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

@@ -22,6 +22,30 @@
       "revId": "4bed375f60c5ec54d585c5fd8a8e46198c64ca55",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2f88a36_2e92dbb1",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteButton.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-03-22T10:41:28Z",
+      "side": 0,
+      "message": "View.jumpDrawablesToCurrentState has called background.jumpToCurrentState() since the API was added (i.e. API 11) http://ag/78143",
+      "parentUuid": "29a04362_ee443332",
+      "range": {
+        "startLine": 443,
+        "startChar": 12,
+        "endLine": 443,
+        "endChar": 63
+      },
+      "revId": "4bed375f60c5ec54d585c5fd8a8e46198c64ca55",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
