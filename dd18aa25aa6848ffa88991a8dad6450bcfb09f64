@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "516bcc96_2a88bb58",
+        "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/BenchmarkPlugin.kt",
+        "patchSetId": 22
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-22T13:08:47Z",
+      "side": 1,
+      "message": "I\u0027d remove it this log.",
+      "revId": "dd18aa25aa6848ffa88991a8dad6450bcfb09f64",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73f65977_aec60b91",
+        "filename": "benchmark/gradle-plugin/src/test/kotlin/androidx/benchmark/gradle/BenchmarkPluginTest.kt",
+        "patchSetId": 22
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-22T13:08:47Z",
+      "side": 1,
+      "message": "add test for library project",
+      "revId": "dd18aa25aa6848ffa88991a8dad6450bcfb09f64",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
