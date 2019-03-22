@@ -73,7 +73,8 @@ public final class MediaTestUtils {
         final List<MediaItem> list = new ArrayList<>();
         String caller = Thread.currentThread().getStackTrace()[1].getMethodName();
         for (int i = 0; i < size; i++) {
-            list.add(new FileMediaItem.Builder(ParcelFileDescriptor.adoptFd(-1))
+            list.add(new MediaItem.Builder()
+                    .setMediaSource(ParcelFileDescriptor.adoptFd(-1))
                     .setMetadata(new MediaMetadata.Builder()
                             .putString(MediaMetadata.METADATA_KEY_MEDIA_ID,
                                     caller + "_item_" + (i + 1)).build())
@@ -89,7 +90,8 @@ public final class MediaTestUtils {
      * @see #createMetadata()
      */
     public static MediaItem createFileMediaItemWithMetadata() {
-        return new FileMediaItem.Builder(ParcelFileDescriptor.adoptFd(-1))
+        return new MediaItem.Builder()
+                .setMediaSource(ParcelFileDescriptor.adoptFd(-1))
                 .setMetadata(createMetadata())
                 .build();
     }

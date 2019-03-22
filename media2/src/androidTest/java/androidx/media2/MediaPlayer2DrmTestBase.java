@@ -302,7 +302,8 @@ public class MediaPlayer2DrmTestBase {
 
         mPlayer.setEventCallback(mExecutor, mECb);
         Log.v(TAG, "playLoadedVideo: setMediaItem()");
-        mPlayer.setMediaItem(new UriMediaItem.Builder(file).build());
+        mPlayer.setMediaItem(
+                new MediaItem.Builder().setMediaSource(file).build());
         mSetDataSourceCallCompleted.waitForSignal();
         if (mCallStatus != MediaPlayer2.CALL_STATUS_NO_ERROR) {
             throw new PrepareFailedException();
@@ -556,7 +557,8 @@ public class MediaPlayer2DrmTestBase {
                 mPlayer.setEventCallback(mExecutor, mECb);
 
                 Log.v(TAG, "playLoadedVideo: setMediaItem()");
-                mPlayer.setMediaItem(new UriMediaItem.Builder(file).build());
+                mPlayer.setMediaItem(
+                        new MediaItem.Builder().setMediaSource(file).build());
 
                 Log.v(TAG, "playLoadedVideo: prepare()");
                 mPlayer.prepare();

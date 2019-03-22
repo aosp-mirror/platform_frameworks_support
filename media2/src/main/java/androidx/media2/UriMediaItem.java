@@ -20,13 +20,10 @@ import android.net.Uri;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.util.Preconditions;
 import androidx.versionedparcelable.NonParcelField;
 import androidx.versionedparcelable.ParcelUtils;
 import androidx.versionedparcelable.VersionedParcelize;
 
-import java.net.CookieHandler;
-import java.net.CookieManager;
 import java.net.HttpCookie;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -42,6 +39,7 @@ import java.util.Map;
  * {@link MediaItem} for detail.
  *
  * @see MediaItem
+ * @hide
  */
 @VersionedParcelize(isCustom = true)
 public class UriMediaItem extends MediaItem {
@@ -65,8 +63,8 @@ public class UriMediaItem extends MediaItem {
     UriMediaItem(Builder builder) {
         super(builder);
         mUri = builder.mUri;
-        mUriHeader = builder.mUriHeader;
-        mUriCookies = builder.mUriCookies;
+        mUriHeader = builder.mHeader;
+        mUriCookies = builder.mCookies;
     }
 
     /**
@@ -97,97 +95,5 @@ public class UriMediaItem extends MediaItem {
             return null;
         }
         return new ArrayList<HttpCookie>(mUriCookies);
-    }
-
-    /**
-     * This Builder class simplifies the creation of a {@link UriMediaItem} object.
-     */
-    public static final class Builder extends MediaItem.Builder {
-
-        @SuppressWarnings("WeakerAccess") /* synthetic access */
-        Uri mUri;
-        @SuppressWarnings("WeakerAccess") /* synthetic access */
-        Map<String, String> mUriHeader;
-        @SuppressWarnings("WeakerAccess") /* synthetic access */
-        List<HttpCookie> mUriCookies;
-
-        /**
-         * Creates a new Builder object with a content Uri.
-         *
-         * @param uri the Content URI of the data you want to play
-         */
-        public Builder(@NonNull Uri uri) {
-            this(uri, null, null);
-        }
-
-        /**
-         * Creates a new Builder object with a content Uri.
-         *
-         * To provide cookies for the subsequent HTTP requests, you can install your own default
-         * cookie handler and use other variants of setMediaItem APIs instead.
-         *
-         * <p><strong>Note</strong> that the cross domain redirection is allowed by default,
-         * but that can be changed with key/value pairs through the headers parameter with
-         * "android-allow-cross-domain-redirect" as the key and "0" or "1" as the value to
-         * disallow or allow cross domain redirection.
-         *
-         * @param uri the Content URI of the data you want to play
-         * @param headers the headers to be sent together with the request for the data
-         *                The headers must not include cookies. Instead, use the cookies param.
-         * @param cookies the cookies to be sent together with the request
-         * @throws IllegalArgumentException if the cookie handler is not of CookieManager type
-         *                                  when cookies are provided.
-         */
-        public Builder(@NonNull Uri uri, @Nullable Map<String, String> headers,
-                @Nullable List<HttpCookie> cookies) {
-            Preconditions.checkNotNull(uri, "uri cannot be null");
-            mUri = uri;
-            if (cookies != null) {
-                CookieHandler cookieHandler = CookieHandler.getDefault();
-                if (cookieHandler != null && !(cookieHandler instanceof CookieManager)) {
-                    throw new IllegalArgumentException(
-                            "The cookie handler has to be of CookieManager type "
-                                    + "when cookies are provided.");
-                }
-            }
-
-            mUri = uri;
-            if (headers != null) {
-                mUriHeader = new HashMap<String, String>(headers);
-            }
-            if (cookies != null) {
-                mUriCookies = new ArrayList<HttpCookie>(cookies);
-            }
-        }
-
-        // Override just to change return type.
-        @NonNull
-        @Override
-        public Builder setMetadata(@Nullable MediaMetadata metadata) {
-            return (Builder) super.setMetadata(metadata);
-        }
-
-        // Override just to change return type.
-        @NonNull
-        @Override
-        public Builder setStartPosition(long position) {
-            return (Builder) super.setStartPosition(position);
-        }
-
-        // Override just to change return type.
-        @NonNull
-        @Override
-        public Builder setEndPosition(long position) {
-            return (Builder) super.setEndPosition(position);
-        }
-
-        /**
-         * @return A new UriMediaItem with values supplied by the Builder.
-         */
-        @NonNull
-        @Override
-        public UriMediaItem build() {
-            return new UriMediaItem(this);
-        }
     }
 }

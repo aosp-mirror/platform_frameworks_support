@@ -26,7 +26,6 @@ import android.os.ParcelFileDescriptor;
 import android.util.Log;
 
 import androidx.media.MediaBrowserServiceCompat.BrowserRoot;
-import androidx.media2.FileMediaItem;
 import androidx.media2.MediaItem;
 import androidx.media2.MediaLibraryService.LibraryParams;
 import androidx.media2.MediaMetadata;
@@ -86,7 +85,8 @@ public final class MediaTestUtils {
     }
 
     public static MediaItem createMediaItem(String id) {
-        return new FileMediaItem.Builder(ParcelFileDescriptor.adoptFd(-1))
+        return new MediaItem.Builder()
+                .setMediaSource(ParcelFileDescriptor.adoptFd(-1))
                 .setMetadata(new MediaMetadata.Builder()
                         .putString(MediaMetadata.METADATA_KEY_MEDIA_ID, id)
                         .putLong(MediaMetadata.METADATA_KEY_BROWSABLE,
@@ -112,7 +112,8 @@ public final class MediaTestUtils {
      * @see #createMetadata()
      */
     public static MediaItem createMediaItemWithMetadata() {
-        return new FileMediaItem.Builder(ParcelFileDescriptor.adoptFd(-1))
+        return new MediaItem.Builder()
+                .setMediaSource(ParcelFileDescriptor.adoptFd(-1))
                 .setMetadata(createMetadata())
                 .build();
     }
@@ -143,7 +144,8 @@ public final class MediaTestUtils {
         if (createItem) {
             for (ParcelImpl parcel : list) {
                 MediaItem item = MediaUtils.fromParcelable(parcel);
-                result.add(new FileMediaItem.Builder(ParcelFileDescriptor.adoptFd(-1))
+                result.add(new MediaItem.Builder()
+                        .setMediaSource(ParcelFileDescriptor.adoptFd(-1))
                         .setMetadata(item.getMetadata())
                         .build());
             }

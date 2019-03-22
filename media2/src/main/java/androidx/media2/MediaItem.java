@@ -19,6 +19,8 @@ package androidx.media2;
 import static androidx.annotation.RestrictTo.Scope.LIBRARY;
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
+import android.net.Uri;
+import android.os.ParcelFileDescriptor;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -32,8 +34,13 @@ import androidx.versionedparcelable.NonParcelField;
 import androidx.versionedparcelable.ParcelField;
 import androidx.versionedparcelable.VersionedParcelize;
 
+import java.net.CookieHandler;
+import java.net.CookieManager;
+import java.net.HttpCookie;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.Executor;
 
 /**
@@ -44,8 +51,8 @@ import java.util.concurrent.Executor;
  * <li>Share media items across the processes.
  * </ul>
  * <p>
- * Subclasses of the session player may only accept certain subclasses of the media items. Check
- * the player documentation that you're interested in.
+ * Subclasses of the session player may only accept the media items which are created by
+ * {@link Builder}. Check the player documentation that you're interested in.
  * <p>
  * When it's shared across the processes, we cannot guarantee that they contain the right values
  * because media items are application dependent especially for the metadata.
@@ -54,8 +61,7 @@ import java.util.concurrent.Executor;
  * {@link MediaSession}/{@link MediaController} or
  * {@link androidx.media2.MediaLibraryService.MediaLibrarySession}/{@link MediaBrowser}, the
  * object will sent as if it's {@link MediaItem}. The recipient cannot get the object with the
- * subclasses' type. This will sanitize process specific information (e.g.
- * {@link java.io.FileDescriptor}, {@link android.content.Context}, etc).
+ * subclasses' type. This will sanitize process specific information.
  * <p>
  * This object is thread safe.
  */
@@ -241,12 +247,39 @@ public class MediaItem extends CustomVersionedParcelable {
      * Builder for {@link MediaItem}.
      */
     public static class Builder {
+        private static final int SOURCE_TYPE_UNKNOWN = 0;
+        private static final int SOURCE_TYPE_URI = 1;
+        private static final int SOURCE_TYPE_FILE = 2;
+        private static final int SOURCE_TYPE_CALLBACK = 3;
+
+        private int mSourceType = SOURCE_TYPE_UNKNOWN;
+
         @SuppressWarnings("WeakerAccess") /* synthetic access */
-                MediaMetadata mMetadata;
+        MediaMetadata mMetadata;
         @SuppressWarnings("WeakerAccess") /* synthetic access */
         long mStartPositionMs = 0;
         @SuppressWarnings("WeakerAccess") /* synthetic access */
         long mEndPositionMs = POSITION_UNKNOWN;
+
+        // For UriMediaItem
+        @SuppressWarnings("WeakerAccess") /* synthetic access */
+        Uri mUri;
+        @SuppressWarnings("WeakerAccess") /* synthetic access */
+        Map<String, String> mHeader;
+        @SuppressWarnings("WeakerAccess") /* synthetic access */
+        List<HttpCookie> mCookies;
+
+        // For FileMediaItem
+        @SuppressWarnings("WeakerAccess") /* synthetic access */
+        ParcelFileDescriptor mPFD;
+        @SuppressWarnings("WeakerAccess") /* synthetic access */
+        long mOffset = 0;
+        @SuppressWarnings("WeakerAccess") /* synthetic access */
+        long mLength = FileMediaItem.FD_LENGTH_UNKNOWN;
+
+        // For CallbackMediaItem
+        @SuppressWarnings("WeakerAccess") /* synthetic access */
+        DataSourceCallback mDataSourceCallback;
 
         /**
          * Default constructor
@@ -296,6 +329,153 @@ public class MediaItem extends CustomVersionedParcelable {
             }
             mEndPositionMs = position;
             return this;
+        }
+
+        /**
+         * Sets the media source as a content Uri.
+         *
+         * @param uri the Content URI of the data you want to play
+         * @return the same Builder instance.
+         * @throws NullPointerException if context or uri is null.
+         */
+        @NonNull
+        public Builder setMediaSource(@NonNull Uri uri) {
+            setSourceType(SOURCE_TYPE_URI);
+            if (uri == null) {
+                throw new NullPointerException("uri cannot be null");
+            }
+            mUri = uri;
+            return this;
+        }
+
+        /**
+         * Sets the data source as a content Uri.
+         *
+         * To provide cookies for the subsequent HTTP requests, you can install your own default
+         * cookie handler and use other variants of setMediaSource APIs instead. Alternatively, you
+         * can use this API to pass the cookies as a list of HttpCookie. If the app has not
+         * installed a CookieHandler already, The implementation of {@link SessionPlayer} would
+         * create a CookieManager and populates its CookieStore with the provided cookies when this
+         * data source is passed to {@link SessionPlayer}. If the app has installed its own handler
+         * already, the handler is required to be of CookieManager type such that
+         * {@link SessionPlayer} can update the manager’s CookieStore.
+         *
+         *  <p><strong>Note</strong> that the cross domain redirection is allowed by default,
+         * but that can be changed with key/value pairs through the headers parameter with
+         * "android-allow-cross-domain-redirect" as the key and "0" or "1" as the value to
+         * disallow or allow cross domain redirection.
+         *
+         * @param uri the Content URI of the data you want to play
+         * @param headers the headers to be sent together with the request for the data
+         *                The headers must not include cookies. Instead, use the cookies param.
+         * @param cookies the cookies to be sent together with the request
+         * @return the same Builder instance.
+         * @throws NullPointerException if context or uri is null.
+         * @throws IllegalArgumentException if the cookie handler is not of CookieManager type
+         *                                  when cookies are provided.
+         */
+        @NonNull
+        public Builder setMediaSource(@NonNull Uri uri, @Nullable Map<String, String> headers,
+                @Nullable List<HttpCookie> cookies) {
+            setSourceType(SOURCE_TYPE_URI);
+            if (uri == null) {
+                throw new NullPointerException("uri cannot be null");
+            }
+            if (cookies != null) {
+                CookieHandler cookieHandler = CookieHandler.getDefault();
+                if (cookieHandler != null && !(cookieHandler instanceof CookieManager)) {
+                    throw new IllegalArgumentException(
+                            "The cookie handler has to be of CookieManager type "
+                                    + "when cookies are provided.");
+                }
+            }
+            mUri = uri;
+            if (headers != null) {
+                mHeader = new HashMap<String, String>(headers);
+            }
+            if (cookies != null) {
+                mCookies = new ArrayList<HttpCookie>(cookies);
+            }
+            return this;
+        }
+
+        /**
+         * Sets the data source (ParcelFileDescriptor) to use. The ParcelFileDescriptor must be
+         * seekable (N.B. a LocalSocket is not seekable). When the {@link MediaItem} created with
+         * this method is passed to {@link SessionPlayer} via {@link SessionPlayer#setMediaItem}
+         * or {@link SessionPlayer#setPlaylist}, the implementations of Sessionplayer would close
+         * the ParcelFileDescriptor.
+         *
+         * @param pfd the ParcelFileDescriptor for the file to play
+         * @return the same Builder instance.
+         * @throws NullPointerException if pfd is null.
+         */
+        @NonNull
+        public Builder setMediaSource(@NonNull ParcelFileDescriptor pfd) {
+            setSourceType(SOURCE_TYPE_FILE);
+            if (pfd == null) {
+                throw new NullPointerException("pfd cannot be null");
+            }
+            mPFD = pfd;
+            return this;
+        }
+
+        /**
+         * Sets the data source (ParcelFileDescriptor) to use. The ParcelFileDescriptor must be
+         * seekable (N.B. a LocalSocket is not seekable). When the {@link MediaItem} created with
+         * this method is passed to {@link SessionPlayer} via {@link SessionPlayer#setMediaItem}
+         * or {@link SessionPlayer#setPlaylist}, the implementations of Sessionplayer would close
+         * the ParcelFileDescriptor.
+         *
+         * Any negative number for offset is treated as 0.
+         * Any negative number for length is treated as maximum length of the data source.
+         *
+         * @param pfd the ParcelFileDescriptor for the file to play
+         * @param offset the offset into the file where the data to be played starts, in bytes
+         * @param length the length in bytes of the data to be played
+         * @return the same Builder instance.
+         * @throws NullPointerException if pfd is null.
+         */
+        @NonNull
+        public Builder setMediaSource(
+                @NonNull ParcelFileDescriptor pfd, long offset, long length) {
+            setSourceType(SOURCE_TYPE_FILE);
+            if (pfd == null) {
+                throw new NullPointerException("pfd cannot be null");
+            }
+            if (offset < 0) {
+                offset = 0;
+            }
+            if (length < 0) {
+                length = FileMediaItem.FD_LENGTH_UNKNOWN;
+            }
+            mPFD = pfd;
+            mOffset = offset;
+            mLength = length;
+            return this;
+        }
+
+        /**
+         * Sets the data source (DataSourceCallback) to use.
+         *
+         * @param dscb the DataSourceCallback for the media to play
+         * @return the same Builder instance.
+         * @throws NullPointerException if dscb is null.
+         */
+        public @NonNull Builder setMediaSource(@NonNull DataSourceCallback dscb) {
+            setSourceType(SOURCE_TYPE_CALLBACK);
+            if (dscb == null) {
+                throw new NullPointerException("dscb cannot be null");
+            }
+            mDataSourceCallback = dscb;
+            return this;
+        }
+
+        private void setSourceType(int type) {
+            if (mSourceType != SOURCE_TYPE_UNKNOWN) {
+                throw new IllegalStateException("Source is already set. type=" + mSourceType);
+            }
+            mSourceType = type;
         }
 
         /**

@@ -116,14 +116,14 @@ abstract class MediaPlayerTestBase extends MediaTestBase {
                 .appendPath(mResources.getResourceEntryName(resId))
                 .build();
 
-        return mPlayer.setMediaItem(new UriMediaItem.Builder(
+        return mPlayer.setMediaItem(new MediaItem.Builder().setMediaSource(
                 testVideoUri).build()).get().getResultCode()
                 == androidx.media2.SessionPlayer.PlayerResult.RESULT_SUCCESS;
     }
 
     boolean loadResource(int resid) throws Exception {
         try (AssetFileDescriptor afd = mResources.openRawResourceFd(resid)) {
-            mPlayer.setMediaItem(new FileMediaItem.Builder(
+            mPlayer.setMediaItem(new MediaItem.Builder().setMediaSource(
                     ParcelFileDescriptor.dup(afd.getFileDescriptor()),
                     afd.getStartOffset(), afd.getLength()).build());
         }
