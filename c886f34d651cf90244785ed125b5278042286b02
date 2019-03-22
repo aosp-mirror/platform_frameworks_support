@@ -33,6 +33,24 @@
       "revId": "c886f34d651cf90244785ed125b5278042286b02",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0d5fde1_48ac7429",
+        "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleWhenChecks.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-22T03:21:09Z",
+      "side": 1,
+      "message": "may Tor has an idea on how to detect it better.",
+      "parentUuid": "8f7ed5f8_7464b0a3",
+      "revId": "c886f34d651cf90244785ed125b5278042286b02",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
