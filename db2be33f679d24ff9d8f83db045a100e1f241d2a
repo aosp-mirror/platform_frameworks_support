@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "15e2b7f2_52187793",
+        "filename": "car/core/src/main/java/androidx/car/widget/TextListItem.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 622,
+      "author": {
+        "id": 1010674
+      },
+      "writtenOn": "2019-03-22T19:34:04Z",
+      "side": 1,
+      "message": "@DrawableRes",
+      "range": {
+        "startLine": 622,
+        "startChar": 36,
+        "endLine": 622,
+        "endChar": 39
+      },
+      "revId": "db2be33f679d24ff9d8f83db045a100e1f241d2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
