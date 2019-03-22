@@ -138,6 +138,7 @@ object Metalava {
                 task.exclusions = ApiViolationExclusions.fromApiLocation(libraryVersionApi)
                 task.dependsOn(metalavaConfiguration)
                 task.checkRestrictedAPIs = extension.trackRestrictedAPIs
+                task.tempDir = generateApi.apiLocation!!.publicApiFile.parentFile
             }
             applyInputs(javaCompileInputs, checkApiRelease)
             checkApi.dependsOn(checkApiRelease)

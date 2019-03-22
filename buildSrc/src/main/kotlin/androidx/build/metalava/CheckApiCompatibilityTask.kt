@@ -33,6 +33,8 @@ open class CheckApiCompatibilityTask : MetalavaTask() {
     // Whether to confirm that no restricted APIs were removed since the previous release
     var checkRestrictedAPIs = false
 
+    var tempDir: File? = null
+
     @InputFiles
     fun getTaskInputs(): List<File> {
         if (checkRestrictedAPIs) {
@@ -51,12 +53,17 @@ open class CheckApiCompatibilityTask : MetalavaTask() {
     fun exec() {
         val referenceApi = checkNotNull(referenceApi) { "referenceApi not set." }
         val exclusions = checkNotNull(exclusions) { "exclusions not set." }
+        val tempDir = checkNotNull(tempDir) { "tempDir not set." }
 
         check(bootClasspath.isNotEmpty()) { "Android boot classpath not set." }
 
         checkApiFile(referenceApi.publicApiFile, exclusions.publicApiFile, false)
         if (checkRestrictedAPIs) {
-            checkApiFile(referenceApi.restrictedApiFile, exclusions.restrictedApiFile, true)
+            // Find all the APIs that were previously accessible from RestrictTo (or unannotated)(or unannotated)  scopes
+            val allRestrictedApisFile = File(tempDir, "publicOrRestricted-" + referenceApi.version() + ".txt")
+            concatenateApiFiles(listOf(referenceApi.publicApiFile, referenceApi.restrictedApiFile), allRestrictedApisFile)
+            // Make sure that those APIs are still accessible from within RestrictTo scopes
+            checkApiFile(allRestrictedApisFile, exclusions.restrictedApiFile, true)
         }
     }
 
@@ -72,6 +79,8 @@ open class CheckApiCompatibilityTask : MetalavaTask() {
                 "--check-compatibility:api:released",
                 apiFile.toString(),
 
+                "--show-unannotated",
+
                 "--warnings-as-errors",
                 "--format=v3"
         )
@@ -82,5 +91,23 @@ open class CheckApiCompatibilityTask : MetalavaTask() {
             args = args + listOf("--show-annotation", "androidx.annotation.RestrictTo")
         }
         runWithArgs(args)
+    }
+
+    // Concatenates the contents of <inputs> and saves the result in <output>
+    fun concatenateApiFiles(inputs: List<File>, output: File) {
+        var builder = StringBuilder()
+        builder.append("// Signature format: 3.0\n")
+        for (input in inputs) {
+            if (input.exists()) {
+                for (line in input.readLines()) {
+                    if (!line.startsWith("// Signature format:")) {
+                        builder.append(line)
+                        builder.append("\n")
+                    }
+                }
+            }
+        }
+        val concatenation = builder.toString()
+        output.writeText(concatenation)
     }
 }
