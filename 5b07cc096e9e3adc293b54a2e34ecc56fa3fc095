@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "bdf6f03b_344764fd",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/MavenUploadHelper.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-03-22T17:47:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "98cc0a84_f527215c",
+      "range": {
+        "startLine": 166,
+        "startChar": 0,
+        "endLine": 168,
+        "endChar": 93
+      },
+      "revId": "5b07cc096e9e3adc293b54a2e34ecc56fa3fc095",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c50fcead_2a2526c2",
         "filename": "buildSrc/src/main/kotlin/androidx/build/MavenUploadHelper.kt",
         "patchSetId": 3
@@ -93,6 +117,30 @@
       "revId": "5b07cc096e9e3adc293b54a2e34ecc56fa3fc095",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "557d9dbe_165b6af4",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/MavenUploadHelper.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-03-22T17:47:31Z",
+      "side": 1,
+      "message": "b/129139156",
+      "parentUuid": "873ccf8d_edb3858b",
+      "range": {
+        "startLine": 175,
+        "startChar": 51,
+        "endLine": 175,
+        "endChar": 61
+      },
+      "revId": "5b07cc096e9e3adc293b54a2e34ecc56fa3fc095",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
