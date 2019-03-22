@@ -44,12 +44,10 @@ import android.view.WindowManager;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
-import androidx.media2.FileMediaItem;
 import androidx.media2.MediaController;
 import androidx.media2.MediaItem;
 import androidx.media2.MediaMetadata;
 import androidx.media2.SessionPlayer;
-import androidx.media2.UriMediaItem;
 import androidx.media2.widget.test.R;
 import androidx.test.annotation.UiThreadTest;
 import androidx.test.core.app.ApplicationProvider;
@@ -282,7 +280,7 @@ public class MediaControlViewTest {
         final String title = "Chimey Phone";
         final String artist = "Android";
         final MediaItem uriMediaItem = createTestMediaItem2(uri);
-        final MediaItem fileMediaItem = new FileMediaItem.Builder(
+        final MediaItem fileMediaItem = new MediaItem.Builder().setMediaSource(
                 ParcelFileDescriptor.dup(afd.getFileDescriptor()),
                 afd.getStartOffset(), afd.getLength()).build();
         afd.close();
@@ -462,7 +460,7 @@ public class MediaControlViewTest {
     }
 
     private MediaItem createTestMediaItem2(Uri uri) {
-        return new UriMediaItem.Builder(uri).build();
+        return new MediaItem.Builder().setMediaSource(uri).build();
     }
 
     private MediaController createController(MediaController.ControllerCallback callback) {

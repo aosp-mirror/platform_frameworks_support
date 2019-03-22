@@ -99,7 +99,7 @@ public class MediaPlayer2TestBase extends MediaTestBase {
             new ActivityTestRule<>(MediaStubActivity.class);
     public PowerManager.WakeLock mScreenLock;
     private KeyguardManager mKeyguardManager;
-    private List<FileMediaItem> mFileMediaItems = new ArrayList<>();
+    private List<MediaItem> mFileMediaItems = new ArrayList<>();
 
     // convenience functions to create MediaPlayer2
     protected MediaPlayer2 createMediaPlayer2(Context context, Uri uri) {
@@ -121,7 +121,7 @@ public class MediaPlayer2TestBase extends MediaTestBase {
                     new AudioAttributesCompat.Builder().build();
             mp.setAudioAttributes(aa);
             mp.setAudioSessionId(audioSessionId);
-            mp.setMediaItem(new UriMediaItem.Builder(uri).build());
+            mp.setMediaItem(new MediaItem.Builder().setMediaSource(uri).build());
             if (holder != null) {
                 mp.setSurface(holder.getSurface());
             }
@@ -172,8 +172,8 @@ public class MediaPlayer2TestBase extends MediaTestBase {
             mp.setAudioAttributes(aa);
             mp.setAudioSessionId(audioSessionId);
 
-            mp.setMediaItem(new FileMediaItem.Builder(
-                    ParcelFileDescriptor.dup(afd.getFileDescriptor()),
+            mp.setMediaItem(new MediaItem.Builder()
+                    .setMediaSource(ParcelFileDescriptor.dup(afd.getFileDescriptor()),
                     afd.getStartOffset(),
                     afd.getLength()).build());
 
@@ -272,8 +272,8 @@ public class MediaPlayer2TestBase extends MediaTestBase {
         }
         mExecutor.shutdown();
         mActivity = null;
-        for (FileMediaItem fitem : mFileMediaItems) {
-            assertTrue(fitem.isClosed());
+        for (MediaItem fitem : mFileMediaItems) {
+            assertTrue(((FileMediaItem) fitem).isClosed());
         }
     }
 
@@ -366,7 +366,7 @@ public class MediaPlayer2TestBase extends MediaTestBase {
         */
 
         try (AssetFileDescriptor afd = mResources.openRawResourceFd(resid)) {
-            FileMediaItem item = new FileMediaItem.Builder(
+            MediaItem item = new MediaItem.Builder().setMediaSource(
                     ParcelFileDescriptor.dup(afd.getFileDescriptor()),
                     afd.getStartOffset(), afd.getLength()).build();
             mFileMediaItems.add(item);
@@ -383,7 +383,7 @@ public class MediaPlayer2TestBase extends MediaTestBase {
         */
 
         try (AssetFileDescriptor afd = mResources.openRawResourceFd(resid)) {
-            FileMediaItem item = new FileMediaItem.Builder(
+            MediaItem item = new MediaItem.Builder().setMediaSource(
                     ParcelFileDescriptor.dup(afd.getFileDescriptor()),
                     afd.getStartOffset(), afd.getLength()).build();
             mFileMediaItems.add(item);
@@ -417,7 +417,7 @@ public class MediaPlayer2TestBase extends MediaTestBase {
         final Uri uri = Uri.parse(path);
         for (int i = 0; i < STREAM_RETRIES; i++) {
             try {
-                mPlayer.setMediaItem(new UriMediaItem.Builder(uri).build());
+                mPlayer.setMediaItem(new MediaItem.Builder().setMediaSource(uri).build());
                 playLoadedVideo(width, height, playTime);
                 playedSuccessfully = true;
                 break;
@@ -449,7 +449,8 @@ public class MediaPlayer2TestBase extends MediaTestBase {
         boolean playedSuccessfully = false;
         for (int i = 0; i < STREAM_RETRIES; i++) {
             try {
-                mPlayer.setMediaItem(new UriMediaItem.Builder(uri, headers, cookies).build());
+                mPlayer.setMediaItem(new MediaItem.Builder()
+                        .setMediaSource(uri, headers, cookies).build());
                 playLoadedVideo(width, height, playTime);
                 playedSuccessfully = true;
                 break;

@@ -81,7 +81,7 @@ public class MediaPlayer2StateTest extends MediaPlayer2TestBase {
     // Used for testing case that operation is called before setDataSourceDesc().
     private static final int MEDIAPLAYER2_STATE_IDLE_NO_DATA_SOURCE = 400001;
 
-    private static final MediaItem sDummyDataSource = new CallbackMediaItem.Builder(
+    private static final MediaItem sDummyDataSource = new MediaItem.Builder().setMediaSource(
             new DataSourceCallback() {
                 @Override
                 public int readAt(long position, byte[] buffer, int offset, int size)
@@ -1055,8 +1055,7 @@ public class MediaPlayer2StateTest extends MediaPlayer2TestBase {
                 public void close() throws IOException {}
             };
             mOnErrorCalled.reset();
-            mPlayer.setMediaItem(new CallbackMediaItem.Builder(invalidDataSource)
-                    .build());
+            mPlayer.setMediaItem(new MediaItem.Builder().setMediaSource(invalidDataSource).build());
             mPlayer.prepare();
             mOnErrorCalled.waitForSignal(1000);
             assertEquals(PLAYER_STATE_ERROR, mPlayer.getState());

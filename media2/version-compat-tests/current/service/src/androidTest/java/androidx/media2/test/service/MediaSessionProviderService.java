@@ -49,7 +49,6 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.media.AudioAttributesCompat;
-import androidx.media2.FileMediaItem;
 import androidx.media2.MediaItem;
 import androidx.media2.MediaMetadata;
 import androidx.media2.MediaSession;
@@ -358,8 +357,8 @@ public class MediaSessionProviderService extends Service {
             MockPlayer player = (MockPlayer) session.getPlayer();
             switch (index) {
                 case INDEX_FOR_UNKONWN_ITEM:
-                    player.notifyCurrentMediaItemChanged(
-                            new FileMediaItem.Builder(ParcelFileDescriptor.adoptFd(-1)).build());
+                    player.notifyCurrentMediaItemChanged(new MediaItem.Builder()
+                            .setMediaSource(ParcelFileDescriptor.adoptFd(-1)).build());
                     break;
                 case INDEX_FOR_NULL_ITEM:
                     player.notifyCurrentMediaItemChanged(null);
@@ -416,7 +415,8 @@ public class MediaSessionProviderService extends Service {
             List<MediaItem> list = new ArrayList<>();
             for (ParcelImpl parcel : playlist) {
                 MediaItem item = MediaUtils.fromParcelable(parcel);
-                list.add(new FileMediaItem.Builder(ParcelFileDescriptor.adoptFd(-1))
+                list.add(new MediaItem.Builder()
+                        .setMediaSource(ParcelFileDescriptor.adoptFd(-1))
                         .setMetadata(item.getMetadata())
                         .build());
             }

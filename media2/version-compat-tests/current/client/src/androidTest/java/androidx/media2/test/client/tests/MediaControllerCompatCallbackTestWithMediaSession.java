@@ -31,7 +31,6 @@ import android.support.v4.media.session.PlaybackStateCompat;
 
 import androidx.media.AudioAttributesCompat;
 import androidx.media.VolumeProviderCompat;
-import androidx.media2.FileMediaItem;
 import androidx.media2.MediaItem;
 import androidx.media2.MediaMetadata;
 import androidx.media2.MediaSession;
@@ -416,7 +415,8 @@ public class MediaControllerCompatCallbackTestWithMediaSession extends MediaSess
         String displayTitle = "displayTitle";
         MediaMetadata metadata = new MediaMetadata.Builder()
                 .putText(MediaMetadata.METADATA_KEY_DISPLAY_TITLE, displayTitle).build();
-        MediaItem currentMediaItem = new FileMediaItem.Builder(ParcelFileDescriptor.adoptFd(-1))
+        MediaItem currentMediaItem = new MediaItem.Builder()
+                .setMediaSource(ParcelFileDescriptor.adoptFd(-1))
                 .setMetadata(metadata)
                 .build();
 

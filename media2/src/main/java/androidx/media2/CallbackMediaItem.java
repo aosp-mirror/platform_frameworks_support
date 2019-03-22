@@ -17,8 +17,6 @@
 package androidx.media2;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.util.Preconditions;
 import androidx.versionedparcelable.NonParcelField;
 import androidx.versionedparcelable.ParcelUtils;
 import androidx.versionedparcelable.VersionedParcelize;
@@ -26,12 +24,14 @@ import androidx.versionedparcelable.VersionedParcelize;
 /**
  * Structure for media item descriptor for {@link DataSourceCallback}.
  * <p>
- * Users should use {@link Builder} to create {@link CallbackMediaItem}.
+ * Users should use {@link MediaItem.Builder#setMediaSource(DataSourceCallback)} to create
+ * {@link CallbackMediaItem}.
  * <p>
  * You cannot directly send this object across the process through {@link ParcelUtils}. See
  * {@link MediaItem} for detail.
  *
  * @see MediaItem
+ * @hide
  */
 @VersionedParcelize(isCustom = true)
 public class CallbackMediaItem extends MediaItem {
@@ -60,53 +60,5 @@ public class CallbackMediaItem extends MediaItem {
      */
     public @NonNull DataSourceCallback getDataSourceCallback() {
         return mDataSourceCallback;
-    }
-
-    /**
-     * This Builder class simplifies the creation of a {@link CallbackMediaItem} object.
-     */
-    public static final class Builder extends MediaItem.Builder {
-
-        @SuppressWarnings("WeakerAccess") /* synthetic access */
-                DataSourceCallback mDataSourceCallback;
-
-        /**
-         * Creates a new Builder object.
-         * @param dsc2 the DataSourceCallback for the media you want to play
-         */
-        public Builder(@NonNull DataSourceCallback dsc2) {
-            Preconditions.checkNotNull(dsc2);
-            mDataSourceCallback = dsc2;
-        }
-
-        // Override just to change return type.
-        @NonNull
-        @Override
-        public Builder setMetadata(@Nullable MediaMetadata metadata) {
-            return (Builder) super.setMetadata(metadata);
-        }
-
-        // Override just to change return type.
-        @NonNull
-        @Override
-        public Builder setStartPosition(long position) {
-            return (Builder) super.setStartPosition(position);
-        }
-
-        // Override just to change return type.
-        @NonNull
-        @Override
-        public Builder setEndPosition(long position) {
-            return (Builder) super.setEndPosition(position);
-        }
-
-        /**
-         * @return A new CallbackMediaItem with values supplied by the Builder.
-         */
-        @NonNull
-        @Override
-        public CallbackMediaItem build() {
-            return new CallbackMediaItem(this);
-        }
     }
 }

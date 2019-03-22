@@ -27,13 +27,10 @@ import android.os.Parcel;
 import android.os.ParcelFileDescriptor;
 
 import androidx.annotation.NonNull;
-import androidx.media2.CallbackMediaItem;
 import androidx.media2.DataSourceCallback;
-import androidx.media2.FileMediaItem;
 import androidx.media2.MediaItem;
 import androidx.media2.MediaMetadata;
 import androidx.media2.MediaUtils;
-import androidx.media2.UriMediaItem;
 import androidx.media2.test.service.MediaTestUtils;
 import androidx.media2.test.service.test.R;
 import androidx.test.core.app.ApplicationProvider;
@@ -48,8 +45,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
 import java.io.IOException;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -61,7 +56,6 @@ import java.util.Collection;
 @SmallTest
 public class MediaItemTest {
     private final MediaItemFactory mItemFactory;
-    private final Class mItemBuilderClass;
     private Context mContext;
     private MediaItem mTestItem;
 
@@ -83,7 +77,8 @@ public class MediaItemTest {
         public MediaItem create(Context context) {
             final MediaMetadata testMetadata = new MediaMetadata.Builder()
                     .putString("MediaItemTest", "MediaItemTest").build();
-            return new UriMediaItem.Builder(Uri.parse("test://test"))
+            return new MediaItem.Builder()
+                    .setMediaSource(Uri.parse("test://test"))
                     .setMetadata(testMetadata)
                     .setStartPosition(1)
                     .setEndPosition(1000)
@@ -113,7 +108,8 @@ public class MediaItemTest {
                     // no-op
                 }
             };
-            return new CallbackMediaItem.Builder(callback)
+            return new MediaItem.Builder()
+                    .setMediaSource(callback)
                     .setMetadata(testMetadata)
                     .setStartPosition(0)
                     .setEndPosition(0)
@@ -126,8 +122,8 @@ public class MediaItemTest {
         public MediaItem create(Context context) {
             int resId = R.raw.midi8sec;
             try (AssetFileDescriptor afd = context.getResources().openRawResourceFd(resId)) {
-                return new FileMediaItem.Builder(
-                        ParcelFileDescriptor.dup(afd.getFileDescriptor())).build();
+                return new MediaItem.Builder()
+                        .setMediaSource(ParcelFileDescriptor.dup(afd.getFileDescriptor())).build();
             } catch (Exception e) {
                 return null;
             }
@@ -137,15 +133,12 @@ public class MediaItemTest {
     @Parameterized.Parameters
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][]{
-                {sMediaItemFactory, MediaItem.Builder.class},
-                {sUriMediaItemFactory, UriMediaItem.Builder.class},
-                {sCallbackMediaItemFactory, CallbackMediaItem.Builder.class},
-                {sFileMediaItemFactory, FileMediaItem.Builder.class}});
+                {sMediaItemFactory}, {sUriMediaItemFactory},
+                {sCallbackMediaItemFactory}, {sFileMediaItemFactory}});
     }
 
-    public MediaItemTest(MediaItemFactory factory, Class builderClass) {
+    public MediaItemTest(MediaItemFactory factory) {
         mItemFactory = factory;
-        mItemBuilderClass = builderClass;
     }
 
     @Before
@@ -198,24 +191,6 @@ public class MediaItemTest {
             assertTrue("Write to parcel should fail for subclass of MediaItem",
                     mTestItem.getClass() == MediaItem.class);
         } catch (Exception e) {
-        }
-    }
-
-    /**
-     * Tests whether the methods in MediaItem.Builder have been hidden in subclasses by overriding
-     * them all.
-     */
-    @Test
-    public void testSubclass_overriddenAllMethods() throws Exception {
-        Method[] mediaItemBuilderMethods = MediaItem.Builder.class.getDeclaredMethods();
-        for (int i = 0; i < mediaItemBuilderMethods.length; i++) {
-            Method mediaItemBuilderMethod = mediaItemBuilderMethods[i];
-            if (!Modifier.isPublic(mediaItemBuilderMethod.getModifiers())) {
-                continue;
-            }
-            Method subclassMethod = mItemBuilderClass.getMethod(
-                    mediaItemBuilderMethod.getName(), mediaItemBuilderMethod.getParameterTypes());
-            assertEquals(subclassMethod.getDeclaringClass(), mItemBuilderClass);
         }
     }
 
