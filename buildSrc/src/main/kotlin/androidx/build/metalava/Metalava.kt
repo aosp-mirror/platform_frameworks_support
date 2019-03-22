@@ -118,6 +118,13 @@ object Metalava {
             task.configuration = metalavaConfiguration
             task.generateRestrictedAPIs = extension.trackRestrictedAPIs
             task.dependsOn(metalavaConfiguration)
+            // any API that can only be used within the same library won't affect binary compatibility
+            task.restrictionScopesToIgnore = listOf("@RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY)")
+            if (extension.mavenGroup!!.requireSameVersion) {
+                // If all libraries in the group will always have the same version, then
+                // APIs that are restricted to that group also won't affect binary compatibility
+                task.restrictionScopesToIgnore = task.restrictionScopesToIgnore + listOf("@RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP)")
+            }
         }
         applyInputs(javaCompileInputs, generateApi)
 
