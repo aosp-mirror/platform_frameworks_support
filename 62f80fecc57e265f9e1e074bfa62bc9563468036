@@ -22,6 +22,30 @@
       "revId": "62f80fecc57e265f9e1e074bfa62bc9563468036",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d6f60a4_698142bc",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/RadioButtonListItemTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1466659
+      },
+      "writtenOn": "2019-03-22T23:57:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b647f226_6a802482",
+      "range": {
+        "startLine": 90,
+        "startChar": 41,
+        "endLine": 90,
+        "endChar": 49
+      },
+      "revId": "62f80fecc57e265f9e1e074bfa62bc9563468036",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
