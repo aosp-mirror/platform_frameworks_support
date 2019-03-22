@@ -28,6 +28,7 @@ open class GenerateApiTask : MetalavaTask() {
     var apiLocation: ApiLocation? = null
 
     var generateRestrictedAPIs = false
+    var restrictionScopesToIgnore: List<String> = listOf()
 
     @OutputFiles
     fun getTaskOutputs(): List<File>? {
@@ -81,17 +82,18 @@ open class GenerateApiTask : MetalavaTask() {
                 "--output-kotlin-nulls=yes"
             )
 
-            removeRestrictToLibraryLines(metalavaRestrictedOutputFile, restrictedApiFile)
+            removeRestrictToLibraryLines(metalavaRestrictedOutputFile, restrictedApiFile, restrictionScopesToIgnore)
         }
     }
 
-    // until b/119617147 is done, remove lines containing "@RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY)"
-    fun removeRestrictToLibraryLines(inputFile: File, outputFile: File) {
+    // Until b/119617147 is done, remove lines containing the specified RestrictTo scopes.
+    // For example, remove "@RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY)"
+    fun removeRestrictToLibraryLines(inputFile: File, outputFile: File, scopesToRemove: List<String>) {
         val outputBuilder = StringBuilder()
         val lines = inputFile.readLines()
         var skipScopeUntil: String? = null
         for (line in lines) {
-            val skip = line.contains("@RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY)")
+            val skip = scopesToRemove.any({scope -> line.contains(scope)})
             if (skip && line.endsWith("{")) {
                 skipScopeUntil = line.commonPrefixWith("    ") + "}"
             }
