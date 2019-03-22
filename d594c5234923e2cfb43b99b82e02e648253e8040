@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "07843909_1d46065d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2019-03-22T18:11:29Z",
+      "side": 1,
+      "message": "can you also update the message about removing icon from api?",
+      "range": {
+        "startLine": 7,
+        "startChar": 15,
+        "endLine": 7,
+        "endChar": 31
+      },
+      "revId": "d594c5234923e2cfb43b99b82e02e648253e8040",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2922b24f_c41cce7d",
         "filename": "car/core/src/androidTest/java/androidx/car/widget/RadioButtonListItemTest.java",
         "patchSetId": 4
@@ -16,6 +39,23 @@
       "revId": "d594c5234923e2cfb43b99b82e02e648253e8040",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "075a399e_606da9db",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/SeekbarListItemTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2019-03-22T18:11:29Z",
+      "side": 1,
+      "message": "application context works, but mActivity should be sufficient, right?",
+      "revId": "d594c5234923e2cfb43b99b82e02e648253e8040",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
