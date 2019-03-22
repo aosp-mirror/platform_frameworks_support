@@ -38,8 +38,8 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 import androidx.media2.MediaController;
+import androidx.media2.MediaItem;
 import androidx.media2.SessionToken;
-import androidx.media2.UriMediaItem;
 import androidx.media2.widget.MediaControlView;
 import androidx.media2.widget.VideoView;
 
@@ -128,7 +128,7 @@ public class VideoPlayerActivity extends FragmentActivity {
         if (intent == null || (videoUri = intent.getData()) == null || !videoUri.isAbsolute()) {
             errorString = "Invalid intent";
         } else {
-            UriMediaItem mediaItem = new UriMediaItem.Builder(this, videoUri).build();
+            MediaItem mediaItem = new MediaItem.Builder().setMediaSource(videoUri).build();
             mVideoView.setMediaItem(mediaItem);
 
             mMediaControlView = new MediaControlView(this);

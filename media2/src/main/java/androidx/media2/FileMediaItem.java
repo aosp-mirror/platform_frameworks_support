@@ -22,10 +22,8 @@ import android.os.ParcelFileDescriptor;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.annotation.VisibleForTesting;
-import androidx.core.util.Preconditions;
 import androidx.versionedparcelable.NonParcelField;
 import androidx.versionedparcelable.ParcelUtils;
 import androidx.versionedparcelable.VersionedParcelize;
@@ -41,6 +39,7 @@ import java.io.IOException;
  * {@link MediaItem} for detail.
  *
  * @see MediaItem
+ * @hide
  */
 @VersionedParcelize(isCustom = true)
 public class FileMediaItem extends MediaItem {
@@ -76,8 +75,8 @@ public class FileMediaItem extends MediaItem {
     FileMediaItem(Builder builder) {
         super(builder);
         mPFD = builder.mPFD;
-        mFDOffset = builder.mFDOffset;
-        mFDLength = builder.mFDLength;
+        mFDOffset = builder.mOffset;
+        mFDLength = builder.mLength;
     }
 
     /**
@@ -166,92 +165,6 @@ public class FileMediaItem extends MediaItem {
                 mPFD.close();
             }
             mClosed = true;
-        }
-    }
-
-    /**
-     * This Builder class simplifies the creation of a {@link FileMediaItem} object.
-     */
-    public static final class Builder extends MediaItem.Builder {
-
-        @SuppressWarnings("WeakerAccess") /* synthetic access */
-        ParcelFileDescriptor mPFD;
-        @SuppressWarnings("WeakerAccess") /* synthetic access */
-        long mFDOffset = 0;
-        @SuppressWarnings("WeakerAccess") /* synthetic access */
-        long mFDLength = FD_LENGTH_UNKNOWN;
-
-        /**
-         * Creates a new Builder object with a media item (ParcelFileDescriptor) to use. The
-         * ParcelFileDescriptor must be seekable (N.B. a LocalSocket is not seekable).
-         * <p>
-         * If {@link FileMediaItem} is passed to {@link MediaPlayer}, {@link MediaPlayer} will
-         * close the ParcelFileDescriptor.
-         *
-         * @param pfd the ParcelFileDescriptor for the file you want to play
-         */
-        public Builder(@NonNull ParcelFileDescriptor pfd) {
-            Preconditions.checkNotNull(pfd);
-            mPFD = pfd;
-            mFDOffset = 0;
-            mFDLength = FD_LENGTH_UNKNOWN;
-        }
-
-        /**
-         * Creates a new Builder object with a media item (ParcelFileDescriptor) to use. The
-         * ParcelFileDescriptor must be seekable (N.B. a LocalSocket is not seekable).
-         * <p>
-         * If {@link FileMediaItem} is passed to {@link MediaPlayer}, {@link MediaPlayer} will
-         * close the ParcelFileDescriptor.
-         * <p>
-         * Any negative number for offset is treated as 0.
-         * Any negative number for length is treated as maximum length of the media item.
-         *
-         * @param pfd the ParcelFileDescriptor for the file you want to play
-         * @param offset the offset into the file where the data to be played starts, in bytes
-         * @param length the length in bytes of the data to be played
-         */
-        public Builder(@NonNull ParcelFileDescriptor pfd, long offset, long length) {
-            Preconditions.checkNotNull(pfd);
-            if (offset < 0) {
-                offset = 0;
-            }
-            if (length < 0) {
-                length = FD_LENGTH_UNKNOWN;
-            }
-            mPFD = pfd;
-            mFDOffset = offset;
-            mFDLength = length;
-        }
-
-        // Override just to change return type.
-        @NonNull
-        @Override
-        public Builder setMetadata(@Nullable MediaMetadata metadata) {
-            return (Builder) super.setMetadata(metadata);
-        }
-
-        // Override just to change return type.
-        @NonNull
-        @Override
-        public Builder setStartPosition(long position) {
-            return (Builder) super.setStartPosition(position);
-        }
-
-        // Override just to change return type.
-        @NonNull
-        @Override
-        public Builder setEndPosition(long position) {
-            return (Builder) super.setEndPosition(position);
-        }
-
-        /**
-         * @return A new FileMediaItem with values supplied by the Builder.
-         */
-        @NonNull
-        @Override
-        public FileMediaItem build() {
-            return new FileMediaItem(this);
         }
     }
 }

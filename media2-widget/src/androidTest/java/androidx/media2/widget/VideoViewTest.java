@@ -51,14 +51,12 @@ import android.view.View;
 import android.view.WindowManager;
 
 import androidx.core.content.ContextCompat;
-import androidx.media2.FileMediaItem;
 import androidx.media2.MediaController;
 import androidx.media2.MediaItem;
 import androidx.media2.SessionCommand;
 import androidx.media2.SessionCommandGroup;
 import androidx.media2.SessionPlayer;
 import androidx.media2.SessionResult;
-import androidx.media2.UriMediaItem;
 import androidx.media2.widget.test.R;
 import androidx.test.annotation.UiThreadTest;
 import androidx.test.core.app.ApplicationProvider;
@@ -180,7 +178,7 @@ public class VideoViewTest {
     public void testPlayVideoWithMediaItemFromFileDescriptor() throws Throwable {
         AssetFileDescriptor afd = mContext.getResources()
                 .openRawResourceFd(R.raw.testvideo_with_2_subtitle_tracks);
-        final MediaItem item = new FileMediaItem.Builder(
+        final MediaItem item = new MediaItem.Builder().setMediaSource(
                 ParcelFileDescriptor.dup(afd.getFileDescriptor()),
                 afd.getStartOffset(),
                 afd.getLength())
@@ -398,7 +396,6 @@ public class VideoViewTest {
         Uri testVideoUri = Uri.parse(
                 "android.resource://" + mContext.getPackageName() + "/"
                         + R.raw.testvideo_with_2_subtitle_tracks);
-        return new UriMediaItem.Builder(mVideoView.getContext(), testVideoUri)
-                .build();
+        return new MediaItem.Builder().setMediaSource(testVideoUri).build();
     }
 }

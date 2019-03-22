@@ -402,7 +402,7 @@ public class MediaPlayerDrmTest {
         mPlayer.registerPlayerCallback(mExecutor, mECb);
         Log.v(TAG, "playLoadedVideo: setMediaItem()");
         ListenableFuture<PlayerResult> future =
-                mPlayer.setMediaItem(new UriMediaItem.Builder(mContext, file).build());
+                mPlayer.setMediaItem(new MediaItem.Builder().setMediaSource(file).build());
         assertEquals(PlayerResult.RESULT_SUCCESS, future.get().getResultCode());
 
         SurfaceHolder surfaceHolder = mActivity.getSurfaceHolder();
@@ -646,7 +646,7 @@ public class MediaPlayerDrmTest {
 
                 Log.v(TAG, "playLoadedVideo: setMediaItem()");
                 mPlayer.setMediaItem(
-                        new UriMediaItem.Builder(mContext, file).build());
+                        new MediaItem.Builder().setMediaSource(file).build());
 
                 Log.v(TAG, "playLoadedVideo: prepare()");
                 ListenableFuture<PlayerResult> future = mPlayer.prepare();
