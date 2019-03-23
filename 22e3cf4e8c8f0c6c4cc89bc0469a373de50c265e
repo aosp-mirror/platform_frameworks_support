@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "d4e6575d_59e6c7d7",
+        "filename": "paging/rxjava2/build.gradle",
+        "patchSetId": 5
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-03-23T06:39:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c9d5133d_20dce1fd",
+      "revId": "22e3cf4e8c8f0c6c4cc89bc0469a373de50c265e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "31d54ace_e2bbbdc7",
         "filename": "paging/rxjava2/src/main/java/androidx/paging/RxItemKeyedDataSource.java",
         "patchSetId": 5
@@ -30,6 +48,24 @@
       "writtenOn": "2019-03-22T16:51:18Z",
       "side": 1,
       "message": "These should extend the ListenableItemKeyedDataSource - that way you can hook up cancellation",
+      "revId": "22e3cf4e8c8f0c6c4cc89bc0469a373de50c265e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba999e8e_3231a9a7",
+        "filename": "paging/rxjava2/src/main/java/androidx/paging/RxItemKeyedDataSource.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-03-23T06:39:53Z",
+      "side": 1,
+      "message": "Isn\u0027t it better to piggyback off the existing ItemKeyedDataSource implementation so there isn\u0027t as much duplicated logic? How does extending off ListenableItemKeyedDataSource give us access to hook up cancellation - don\u0027t we still have access to the disposer here?\n\nI agree I should expose the disposers though through some api that\u0027s intuitive to adapter / pagedlists.",
+      "parentUuid": "31d54ace_e2bbbdc7",
       "revId": "22e3cf4e8c8f0c6c4cc89bc0469a373de50c265e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
@@ -121,6 +157,24 @@
     },
     {
       "key": {
+        "uuid": "63793fc1_2dcbbe4c",
+        "filename": "paging/rxjava2/src/test/java/androidx/paging/RxItemKeyedDataSourceTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-03-23T06:39:53Z",
+      "side": 1,
+      "message": "Done - re: using member intializers over init block. What about the initDataSource call? Does the init block run after or before members are initialized?",
+      "parentUuid": "c15fbe5a_6e04d387",
+      "revId": "22e3cf4e8c8f0c6c4cc89bc0469a373de50c265e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d12c28fe_cc863e94",
         "filename": "paging/rxjava2/src/test/java/androidx/paging/RxItemKeyedDataSourceTest.kt",
         "patchSetId": 5
@@ -132,6 +186,24 @@
       "writtenOn": "2019-03-22T16:51:18Z",
       "side": 1,
       "message": "since paging uses ListenableFutures under the hood, it won\u0027t trigger a dispose directly on the datasource \n\nThis should test that calling dataSource.loadBefore(testParams).cancel() results in the underlying single getting cancelled",
+      "revId": "22e3cf4e8c8f0c6c4cc89bc0469a373de50c265e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d2056ab_3aa590dc",
+        "filename": "paging/rxjava2/src/test/java/androidx/paging/RxItemKeyedDataSourceTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-03-23T06:39:53Z",
+      "side": 1,
+      "message": "I think I understand that testing dispose here just tests the underlying laziness of rx and not the datasource itself, but I\u0027m not too sure what you mean by cancel since loadBefore returns a single here?",
+      "parentUuid": "d12c28fe_cc863e94",
       "revId": "22e3cf4e8c8f0c6c4cc89bc0469a373de50c265e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
@@ -152,6 +224,24 @@
       "revId": "22e3cf4e8c8f0c6c4cc89bc0469a373de50c265e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6366ccf8_fbee13f8",
+        "filename": "paging/rxjava2/src/test/java/androidx/paging/RxItemKeyedDataSourceTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-03-23T06:39:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "90d635b2_85974ae2",
+      "revId": "22e3cf4e8c8f0c6c4cc89bc0469a373de50c265e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
