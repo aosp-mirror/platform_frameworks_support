@@ -26,3 +26,15 @@ inline fun NavController.createGraph(
     @IdRes startDestination: Int,
     builder: NavGraphBuilder.() -> Unit
 ): NavGraph = navigatorProvider.navigation(id, startDestination, builder)
+
+val NavController.viewModelStore
+    get() = NavGraphViewModelGetter(this)
+
+/**
+ * Used to allow array access operator for ViewModel
+ */
+class NavGraphViewModelGetter(val navController: NavController) {
+    operator fun get(@IdRes navGraphId: Int) {
+        navController.getViewModelStore(navGraphId)
+    }
+}

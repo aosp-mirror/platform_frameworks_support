@@ -59,3 +59,34 @@ class ViewModelLazy<VM : ViewModel>(
 
     override fun isInitialized() = cached != null
 }
+
+/**
+ * An implementation of [Lazy] used by [androidx.navigation.NavGraph.viewModels]
+ *
+ * [producer] is a lambda that will be called during initialization, [VM] will be created
+ * in the scope of returned [ViewModelStore].
+ *
+ * [factoryProducer] is a lambda that will be called during initialization,
+ * returned [ViewModelProvider.Factory] will be used for creation of [VM]
+ */
+class ViewModelLazyWithStore<VM : ViewModel>(
+    private val viewModelClass: KClass<VM>,
+    private val producer: () -> ViewModelStore,
+    private val factoryProducer: () -> ViewModelProvider.Factory
+) : Lazy<VM> {
+    private var cached: VM? = null
+
+    override val value: VM
+        get() {
+            val viewModel = cached
+            return if (viewModel == null) {
+                val factory = factoryProducer()
+                val producer = producer()
+                ViewModelProvider(producer, factory).get(viewModelClass.java).also { cached = it }
+            } else {
+                viewModel
+            }
+        }
+
+    override fun isInitialized() = cached != null
+}

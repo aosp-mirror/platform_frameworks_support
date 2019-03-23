@@ -32,6 +32,7 @@ android {
 
 dependencies {
     api(project(":navigation:navigation-common"))
+    api(project(":fragment-testing"))
 
     testImplementation(JUNIT)
     testImplementation(MOCKITO_CORE)

@@ -30,6 +30,7 @@ import androidx.annotation.NavigationRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.TaskStackBuilder;
+import androidx.lifecycle.ViewModelStore;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -80,6 +81,8 @@ public class NavController {
 
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     final Deque<NavBackStackEntry> mBackStack = new ArrayDeque<>();
+
+    private NavControllerViewModel mViewModel;
 
     private final NavigatorProvider mNavigatorProvider = new NavigatorProvider() {
         @Nullable
@@ -306,7 +309,10 @@ public class NavController {
         boolean popped = false;
         for (Navigator navigator : popOperations) {
             if (navigator.popBackStack()) {
-                mBackStack.removeLast();
+                NavBackStackEntry entry = mBackStack.removeLast();
+                if (mViewModel != null && entry != null) {
+                    mViewModel.onCleared(entry.mWho);
+                }
                 popped = true;
             } else {
                 // The pop did not complete successfully, so stop immediately
@@ -960,5 +966,39 @@ public class NavController {
         mNavigatorStateToRestore = navState.getBundle(KEY_NAVIGATOR_STATE);
         mBackStackIdsToRestore = navState.getIntArray(KEY_BACK_STACK_IDS);
         mBackStackArgsToRestore = navState.getParcelableArray(KEY_BACK_STACK_ARGS);
+    }
+
+    /**
+     * Sets the NavControllerViewModel.
+     *
+     * @param viewModelStore used to create the instance of NavControllerViewModel
+     */
+    public void setViewModelStore(@NonNull ViewModelStore viewModelStore) {
+        mViewModel = NavControllerViewModel.getInstance(viewModelStore);
+    }
+
+    /**
+     * Gets the view model for a navGraph. If a view model does not exist it will create and
+     * store one. If the navGraph is not on the back stack, IllegalArgumentException is thrown.
+     *
+     * @param navGraphId id of navGraph to get a ViewModelStore for
+     */
+    @NonNull
+    public ViewModelStore getViewModelStore(@IdRes int navGraphId) {
+        NavBackStackEntry lastFromBackStack = null;
+        Iterator<NavBackStackEntry> iterator = mBackStack.descendingIterator();
+        while (iterator.hasNext()) {
+            NavBackStackEntry entry = iterator.next();
+            NavDestination destination = entry.getDestination();
+            if (destination instanceof NavGraph && destination.getId() == navGraphId) {
+                lastFromBackStack = entry;
+                break;
+            }
+        }
+        if (lastFromBackStack == null) {
+            throw new IllegalArgumentException("No NavGraph with Id " + navGraphId + " is on the "
+                    + "NavController back stack");
+        }
+        return mViewModel.getViewModelStore(lastFromBackStack.mWho);
     }
 }

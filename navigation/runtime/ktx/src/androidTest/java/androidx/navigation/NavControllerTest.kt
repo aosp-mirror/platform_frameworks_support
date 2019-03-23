@@ -16,17 +16,21 @@
 
 package androidx.navigation
 
+import androidx.lifecycle.ViewModelStore
 import androidx.navigation.testing.TestNavigator
 import androidx.navigation.testing.test
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.filters.SmallTest
-import org.junit.Assert.assertTrue
+import com.google.common.truth.Truth.assertThat
+import com.google.common.truth.Truth.assertWithMessage
 import org.junit.Test
 
 @SmallTest
 class NavControllerTest {
     private val navController =
-        NavController(ApplicationProvider.getApplicationContext() as android.content.Context).apply {
+        NavController(
+            ApplicationProvider.getApplicationContext() as android.content.Context
+        ).apply {
         navigatorProvider += TestNavigator()
     }
 
@@ -35,8 +39,21 @@ class NavControllerTest {
         val graph = navController.createGraph(startDestination = DESTINATION_ID) {
             test(DESTINATION_ID)
         }
-        assertTrue("Destination should be added to the graph",
-                DESTINATION_ID in graph)
+        assertWithMessage("Destination should be added to the graph")
+            .that(DESTINATION_ID in graph).isTrue()
+    }
+
+    @Test
+    fun getViewModel() {
+        navController.setViewModelStore(ViewModelStore())
+        val navGraphId = 1
+        navController.graph = navController.createGraph(
+            id = navGraphId,
+            startDestination = DESTINATION_ID
+        ) {
+            test(DESTINATION_ID)
+        }
+        assertThat(navController.viewModelStore[navGraphId]).isNotNull()
     }
 }
 
