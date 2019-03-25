@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "7c3e7ef8_91a23a3b",
+        "filename": "media2-widget/src/androidTest/java/androidx/media2/widget/MediaControlViewTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-03-25T23:02:04Z",
+      "side": 1,
+      "message": "This should be revised since KEY_SUBTITLE_TRACK_COUNT is gone since aosp/930241.",
+      "revId": "6ffcd9bdc9eed90159989c81700bd1a2e42b6d79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "08bda3e0_8e7e04f8",
         "filename": "media2-widget/src/androidTest/java/androidx/media2/widget/MediaControlViewTest.java",
         "patchSetId": 5
@@ -61,6 +78,30 @@
       "side": 1,
       "message": "Because Insun\u0027s comment that it would be better to not rely on the implementation of the media player (currently, MediaPlayer extracts only 1 subtitle track before playing and 1 more when the media starts to play, but this implementation may change, according to Andrew). So instead of making the track count fixed to 2, the test stores the count of the subtitle tracks and uses that count to test whether we should click \"Track 1\" or \"Track 2\".",
       "parentUuid": "54e6ff07_059de1c3",
+      "range": {
+        "startLine": 389,
+        "startChar": 8,
+        "endLine": 389,
+        "endChar": 34
+      },
+      "revId": "6ffcd9bdc9eed90159989c81700bd1a2e42b6d79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c632f9e_c7b5714e",
+        "filename": "media2-widget/src/androidTest/java/androidx/media2/widget/MediaControlViewTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-03-25T23:02:04Z",
+      "side": 1,
+      "message": "I think PS4 style looks better than using Thread.sleep(). Introducing Thread.sleep() doesn\u0027t look quite related with the unrelying-on-implementation things to me.",
+      "parentUuid": "5172534b_1b02eed2",
       "range": {
         "startLine": 389,
         "startChar": 8,
