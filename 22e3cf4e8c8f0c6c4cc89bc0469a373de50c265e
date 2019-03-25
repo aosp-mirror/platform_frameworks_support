@@ -72,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "37c6962f_b48e758c",
+        "filename": "paging/rxjava2/src/main/java/androidx/paging/RxItemKeyedDataSource.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-03-25T15:07:11Z",
+      "side": 1,
+      "message": "I\u0027m talking about cancellation from the side of the paging library. If the paging library cancels a listenablefuture, a subclass of Listenable***DataSource can listen to that event (I think listen for a cancellation exception, double check that). That way if paging says this DataSource is no longer valid, it can cancel any outstanding loads, and if the Rx DataSource has operations that haven\u0027t finished, that cancellation would prevent extra work there.\n\nWe can\u0027t do this in the callback approach, because there\u0027s no way to listen for cancellation with a callback. (Theoretically we could add a \u0027addCancellationListener\u0027 or something similar to the callback class, but we don\u0027t want to do that because it\u0027s awkward to use)",
+      "parentUuid": "ba999e8e_3231a9a7",
+      "revId": "22e3cf4e8c8f0c6c4cc89bc0469a373de50c265e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7e9d06c2_9e666cbb",
         "filename": "paging/rxjava2/src/main/java/androidx/paging/RxItemKeyedDataSource.java",
         "patchSetId": 5
@@ -141,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "2fadd64b_f57258ea",
+        "filename": "paging/rxjava2/src/main/java/androidx/paging/RxItemKeyedDataSource.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-03-25T15:07:11Z",
+      "side": 1,
+      "message": "not done for all classes",
+      "parentUuid": "4d69311d_1fb9ba8a",
+      "revId": "22e3cf4e8c8f0c6c4cc89bc0469a373de50c265e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "853aea14_b273c90b",
         "filename": "paging/rxjava2/src/main/java/androidx/paging/RxItemKeyedDataSource.java",
         "patchSetId": 5
@@ -193,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "0d7dbc7b_8fd0cf82",
+        "filename": "paging/rxjava2/src/test/java/androidx/paging/RxItemKeyedDataSourceTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-03-25T15:07:11Z",
+      "side": 1,
+      "message": "After - it\u0027s equivalent to a constructor.",
+      "parentUuid": "63793fc1_2dcbbe4c",
+      "revId": "22e3cf4e8c8f0c6c4cc89bc0469a373de50c265e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d12c28fe_cc863e94",
         "filename": "paging/rxjava2/src/test/java/androidx/paging/RxItemKeyedDataSourceTest.kt",
         "patchSetId": 5
@@ -222,6 +276,24 @@
       "side": 1,
       "message": "I think I understand that testing dispose here just tests the underlying laziness of rx and not the datasource itself, but I\u0027m not too sure what you mean by cancel since loadBefore returns a single here?",
       "parentUuid": "d12c28fe_cc863e94",
+      "revId": "22e3cf4e8c8f0c6c4cc89bc0469a373de50c265e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "914e3ef9_161e2d88",
+        "filename": "paging/rxjava2/src/test/java/androidx/paging/RxItemKeyedDataSourceTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-03-25T15:07:11Z",
+      "side": 1,
+      "message": "If you call loadBefore(ListenableItemKeyedDataSource.LoadParams()), you\u0027ll get a listenablefuture.\n\nCancel that, and verify that it disposes the subscription",
+      "parentUuid": "5d2056ab_3aa590dc",
       "revId": "22e3cf4e8c8f0c6c4cc89bc0469a373de50c265e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
