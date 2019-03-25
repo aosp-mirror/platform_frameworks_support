@@ -19,6 +19,23 @@
     },
     {
       "key": {
+        "uuid": "e98e26bd_91f9a4d2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-03-25T02:39:16Z",
+      "side": 1,
+      "message": "Also, please run media2:connectedCheck. AFAIK, \"check\" doesn\u0027t run \"connectedCheck\" (unit tests).",
+      "revId": "bfec91423d0e15a6f11e2b8772680373e5ce1f20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4de4d7c9_73e8de6d",
         "filename": "media2/api/current.txt",
         "patchSetId": 2
@@ -104,6 +121,24 @@
       "writtenOn": "2019-03-25T01:18:35Z",
       "side": 1,
       "message": "It doesn\u0027t look clear to me whether you want to remove the subclasses or keep those.\n\nIf you want to use keep the subclasses as hidden, we need to create subclass instances here or somewhere else, according to the source type.",
+      "revId": "bfec91423d0e15a6f11e2b8772680373e5ce1f20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "767921c0_a79b383a",
+        "filename": "media2/src/main/java/androidx/media2/MediaItem.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 488,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-03-25T02:39:16Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "26c985a9_85c9845a",
       "revId": "bfec91423d0e15a6f11e2b8772680373e5ce1f20",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
