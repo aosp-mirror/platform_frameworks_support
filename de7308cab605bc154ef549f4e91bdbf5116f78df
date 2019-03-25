@@ -225,6 +225,30 @@
     },
     {
       "key": {
+        "uuid": "543783ac_772eb89e",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dependencyTracker/AffectedModuleDetector.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 1442661
+      },
+      "writtenOn": "2019-03-25T09:59:25Z",
+      "side": 1,
+      "message": "This new solution didn\u0027t work as intended, I suspect due to something screwy in the way the tests were being set up. I switched to project directory, since those should be guaranteed unique.",
+      "parentUuid": "af3641fb_68c856f7",
+      "range": {
+        "startLine": 294,
+        "startChar": 16,
+        "endLine": 298,
+        "endChar": 26
+      },
+      "revId": "de7308cab605bc154ef549f4e91bdbf5116f78df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "45b180f7_4280b791",
         "filename": "buildSrc/src/main/kotlin/androidx/build/dependencyTracker/AffectedModuleDetector.kt",
         "patchSetId": 2
