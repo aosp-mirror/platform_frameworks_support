@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0d726712_e2d439c8",
+        "filename": "docs-fake/build.gradle",
+        "patchSetId": 6
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-03-25T16:56:01Z",
+      "side": 1,
+      "message": "My guess is that Doclava isn\u0027t checking dependencies that are only in the compileOnly configuration since they\u0027re not supposed to be needed at runtime.\n\nCould you add a comment here saying it\u0027s needed for media2?",
+      "revId": "b93fd4de1d6aa8f4d7cda1e140f8e4136b1b2ee5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
