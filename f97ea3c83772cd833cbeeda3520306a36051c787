@@ -22,6 +22,52 @@
       "revId": "f97ea3c83772cd833cbeeda3520306a36051c787",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23301ff6_efd43600",
+        "filename": "car/core/src/main/java/androidx/car/app/CarSingleSelectionDialog.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-03-25T23:44:16Z",
+      "side": 1,
+      "message": "Should this be final given that we hid the constructor and go through builder?",
+      "range": {
+        "startLine": 53,
+        "startChar": 13,
+        "endLine": 53,
+        "endChar": 37
+      },
+      "revId": "f97ea3c83772cd833cbeeda3520306a36051c787",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "109eba28_151ea10b",
+        "filename": "car/core/src/main/java/androidx/car/app/CarSingleSelectionDialog.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-03-25T23:44:16Z",
+      "side": 1,
+      "message": "@NonNull here and for all other methods in the builder.\n\nMake sure there are no ! (unannotated with @Nullable or @NonNull) in the newly added apis.",
+      "range": {
+        "startLine": 398,
+        "startChar": 15,
+        "endLine": 398,
+        "endChar": 22
+      },
+      "revId": "f97ea3c83772cd833cbeeda3520306a36051c787",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
