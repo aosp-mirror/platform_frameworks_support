@@ -41,7 +41,6 @@ object SupportConfig {
      * code as you would see within Build.VERSIONS.VERSION_CODE (ex. "HONEYCOMB" or "P").
      */
     const val TARGET_SDK_VERSION = "28"
-
     fun getKeystore(project: Project): File {
         val supportRoot = (project.rootProject.property("ext") as ExtraPropertiesExtension)
                 .get("supportRootFolder") as File
