@@ -74,8 +74,8 @@ class BenchmarkStateTest {
             (bundle.get("android.studio.display.benchmark") as String).contains("foo"))
 
         // check attribute presence and naming
-        assertNotNull(bundle.get("foo_min"))
-        assertNotNull(bundle.get("foo_mean"))
-        assertNotNull(bundle.get("foo_count"))
+        assertNotNull(bundle.get("min"))
+        assertNotNull(bundle.get("mean"))
+        assertNotNull(bundle.get("count"))
     }
 }
