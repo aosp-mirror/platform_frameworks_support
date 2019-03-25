@@ -184,7 +184,12 @@ public final class SavedStateHandle {
      */
     @MainThread
     public <T> void set(@NonNull String key, @Nullable T value) {
+        if (value == null) {
+            mRegular.remove(key);
+            return;
+        }
         validateValue(value);
+
         @SuppressWarnings("unchecked")
         MutableLiveData<T> mutableLiveData = (MutableLiveData<T>) mLiveDatas.get(key);
         if (mutableLiveData != null) {
