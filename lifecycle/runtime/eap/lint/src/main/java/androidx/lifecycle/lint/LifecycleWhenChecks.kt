@@ -50,10 +50,10 @@ import java.util.ArrayDeque
 
 private const val CONTINUATION = "kotlin.coroutines.experimental.Continuation<? super kotlin.Unit>"
 
-internal val VIEW_ERROR_MESSAGE =
-    "Unsafe View from finally/catch block inside of Lifecycle.when* scope"
+internal fun errorMessage(whenMethodName: String) =
+    "Unsafe View from finally/catch block inside of Lifecycle.%s scope".format(whenMethodName)
 
-internal val APPLICABLE_METHOD_NAMES = listOf("whenStarted")
+internal val APPLICABLE_METHOD_NAMES = listOf("whenCreated", "whenStarted", "whenResumed")
 
 internal class LifecycleWhenChecks : Detector(), SourceCodeScanner {
 
@@ -64,7 +64,8 @@ internal class LifecycleWhenChecks : Detector(), SourceCodeScanner {
         if (valueArguments.size != 1 || !method.isLifecycleWhenExtension(context)) {
             return
         }
-        (valueArguments[0] as? ULambdaExpression)?.body?.accept(LifecycleWhenVisitor(context))
+        val visitor = LifecycleWhenVisitor(context, method.name)
+        (valueArguments[0] as? ULambdaExpression)?.body?.accept(visitor)
     }
 
     companion object {
@@ -90,7 +91,10 @@ internal class LifecycleWhenChecks : Detector(), SourceCodeScanner {
     }
 }
 
-internal class LifecycleWhenVisitor(private val context: JavaContext) : AbstractUastVisitor() {
+internal class LifecycleWhenVisitor(
+    private val context: JavaContext,
+    private val whenMethodName: String
+) : AbstractUastVisitor() {
     enum class SearchState { DONT_SEARCH, SEARCH, FOUND }
 
     data class State(val checkUIAccess: Boolean, val suspendCallSearch: SearchState)
@@ -152,7 +156,7 @@ internal class LifecycleWhenVisitor(private val context: JavaContext) : Abstract
         }
 
         if (currentState.checkUIAccess) {
-            checkUIAccess(context, node)
+            checkUIAccess(context, node, whenMethodName)
         }
         return super.visitCallExpression(node)
     }
@@ -218,22 +222,26 @@ private fun PsiMethod.isSuspend(): Boolean {
     return modifiers?.kotlinOrigin?.hasModifier(KtTokens.SUSPEND_KEYWORD) ?: false
 }
 
-fun checkUIAccess(context: JavaContext, node: UCallExpression) {
+fun checkUIAccess(context: JavaContext, node: UCallExpression, whenMethodName: String) {
     val checkVisitor = CheckAccessUIVisitor(context)
     node.accept(checkVisitor)
     checkVisitor.uiAccessNode?.let { accessNode ->
         val topLevelLocation = context.getLocation(node)
         val message = if (accessNode != node) {
-            indirectViewAccessMessage(node, context.getLocation(accessNode))
+            indirectViewAccessMessage(node, context.getLocation(accessNode), whenMethodName)
         } else {
-            VIEW_ERROR_MESSAGE
+            errorMessage(whenMethodName)
         }
         context.report(ISSUE, topLevelLocation, message)
     }
 }
 
-fun indirectViewAccessMessage(node: UCallExpression, access: Location): String {
-    return "$VIEW_ERROR_MESSAGE. \"${node.methodName}\" internally access view at " +
+fun indirectViewAccessMessage(
+    node: UCallExpression,
+    access: Location,
+    whenMethodName: String
+): String {
+    return "${errorMessage(whenMethodName)}. \"${node.methodName}\" internally access view at " +
             "${access.file.name}:${access.start?.line}:${access.start?.column}"
 }
 
