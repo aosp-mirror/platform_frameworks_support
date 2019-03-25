@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "5172534b_1b02eed2",
+        "filename": "media2-widget/src/androidTest/java/androidx/media2/widget/MediaControlViewTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-03-25T09:59:39Z",
+      "side": 1,
+      "message": "Because Insun\u0027s comment that it would be better to not rely on the implementation of the media player (currently, MediaPlayer extracts only 1 subtitle track before playing and 1 more when the media starts to play, but this implementation may change, according to Andrew). So instead of making the track count fixed to 2, the test stores the count of the subtitle tracks and uses that count to test whether we should click \"Track 1\" or \"Track 2\".",
+      "parentUuid": "54e6ff07_059de1c3",
+      "range": {
+        "startLine": 389,
+        "startChar": 8,
+        "endLine": 389,
+        "endChar": 34
+      },
+      "revId": "6ffcd9bdc9eed90159989c81700bd1a2e42b6d79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "77f14332_e4b399e9",
         "filename": "media2-widget/src/androidTest/java/androidx/media2/widget/MediaControlViewTest.java",
         "patchSetId": 5
@@ -60,6 +84,30 @@
       "writtenOn": "2019-03-18T05:25:41Z",
       "side": 1,
       "message": "Q) Are we clicking track1 as well as track2 (L402, L407)",
+      "range": {
+        "startLine": 402,
+        "startChar": 12,
+        "endLine": 402,
+        "endChar": 92
+      },
+      "revId": "6ffcd9bdc9eed90159989c81700bd1a2e42b6d79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d07077d_1b50b3b3",
+        "filename": "media2-widget/src/androidTest/java/androidx/media2/widget/MediaControlViewTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-03-25T09:59:39Z",
+      "side": 1,
+      "message": "We\u0027re clicking track1 if there is only one track, track2 if there are two tracks.",
+      "parentUuid": "77f14332_e4b399e9",
       "range": {
         "startLine": 402,
         "startChar": 12,
@@ -92,6 +140,30 @@
       "revId": "6ffcd9bdc9eed90159989c81700bd1a2e42b6d79",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29adb523_ad83ef70",
+        "filename": "media2-widget/src/androidTest/java/androidx/media2/widget/MediaControlViewTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-03-25T09:59:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0f135536_4f8c9a79",
+      "range": {
+        "startLine": 407,
+        "startChar": 28,
+        "endLine": 407,
+        "endChar": 46
+      },
+      "revId": "6ffcd9bdc9eed90159989c81700bd1a2e42b6d79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
