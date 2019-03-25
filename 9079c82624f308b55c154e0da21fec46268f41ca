@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "728e18f6_4a9b8ba5",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dependencyTracker/AffectedModuleDetector.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-03-25T17:58:31Z",
+      "side": 1,
+      "message": "Filtering the projects by filepath would mean that if the user mistypes the filepath and/or moves a project in the future, then it would\u0027t tell them about the misspelling (unless they think to test it and/or read the output).\n\nI think we should confirm that the number of matching projects is equal to 1. I imagine that after doing that, we\u0027d need to either update the tests so they do create a sample project for each entry in COBUILT_TEST_PATHS, or make the COBUILT_TEST_PATHS be a parameter that the tests can change.\n\n(At that point it would also be easy to switch back to specifying project logical path rather than project filepath, but since both are unique, either one seems fine to me)",
+      "range": {
+        "startLine": 295,
+        "startChar": 40,
+        "endLine": 295,
+        "endChar": 46
+      },
+      "revId": "9079c82624f308b55c154e0da21fec46268f41ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a311d9b_ae563dd4",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dependencyTracker/AffectedModuleDetector.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-03-25T17:58:31Z",
+      "side": 1,
+      "message": "If we\u0027re checking the filepath, we\u0027ll want to compute the relative path from the root project to the subproject and then do an equality check on that\n\nI think that checking the absolute filepath would cause all projects to be included if the checkout were located at /usr/local/media/version-compat-tests/current/client/androidx-master-dev/frameworks/support\n\n(alternatively, it also seems reasonable to me to do the lookup by logical project like you\u0027d started)",
+      "range": {
+        "startLine": 298,
+        "startChar": 54,
+        "endLine": 298,
+        "endChar": 62
+      },
+      "revId": "9079c82624f308b55c154e0da21fec46268f41ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
