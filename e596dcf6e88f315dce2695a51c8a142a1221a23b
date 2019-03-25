@@ -2,6 +2,46 @@
   "comments": [
     {
       "key": {
+        "uuid": "4c03ad3d_a3d0ed31",
+        "filename": "media2-widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 949,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-03-25T03:24:46Z",
+      "side": 1,
+      "message": "What about just calling : \n    post(mShowAllBars);\n\nAnd modify mShowAllBars to handle that if-statement logic.\nThen we can remove mShowMainBars.",
+      "range": {
+        "startLine": 945,
+        "startChar": 0,
+        "endLine": 949,
+        "endChar": 9
+      },
+      "revId": "e596dcf6e88f315dce2695a51c8a142a1221a23b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d88f5bcf_dba1e30c",
+        "filename": "media2-widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 965,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-03-25T03:24:46Z",
+      "side": 1,
+      "message": "if (mUxState \u003d\u003d ...) {\n    mShowAllBarsAnimator.start();\n} else if (mUxState \u003d\u003d ) {\n    mShowMainBarsAnimator.start();\n}",
+      "revId": "e596dcf6e88f315dce2695a51c8a142a1221a23b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3f64e21d_6e12ab13",
         "filename": "media2-widget/src/main/java/androidx/media2/widget/MediaControlView.java",
         "patchSetId": 1
@@ -19,6 +59,47 @@
         "endLine": 1626,
         "endChar": 26
       },
+      "revId": "e596dcf6e88f315dce2695a51c8a142a1221a23b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c01a7e03_e563d60c",
+        "filename": "media2-widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1626,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-03-25T03:24:46Z",
+      "side": 1,
+      "message": "Agree.",
+      "parentUuid": "3f64e21d_6e12ab13",
+      "range": {
+        "startLine": 1626,
+        "startChar": 12,
+        "endLine": 1626,
+        "endChar": 26
+      },
+      "revId": "e596dcf6e88f315dce2695a51c8a142a1221a23b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d626974_b1763f3b",
+        "filename": "media2-widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2021,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-03-25T03:24:46Z",
+      "side": 1,
+      "message": "What about just calling:\n                            removeCallbacks(mHideMainBars);\n                            removeCallbacks(mHideProgressBar);\n                            post(mShowAllBars);",
       "revId": "e596dcf6e88f315dce2695a51c8a142a1221a23b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
