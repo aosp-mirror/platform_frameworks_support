@@ -1,0 +1,538 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "917d4d5c_7721e324",
+        "filename": "lifecycle/viewmodel/ktx/src/main/java/androidx/lifecycle/ViewModelProvider.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-03-25T17:57:19Z",
+      "side": 1,
+      "message": "I think this case just be moved into ViewModelLazy, using this as the base constructor and make the ownerProducer one an alternate constructor that does something like\n\n{ ownerProducer().viewModelStore }",
+      "range": {
+        "startLine": 72,
+        "startChar": 6,
+        "endLine": 72,
+        "endChar": 28
+      },
+      "revId": "dd32f719fb7a1cd00b9f051fd3318a73ee4d9ee1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3d1c97b_b6e9f99e",
+        "filename": "navigation/common/src/main/java/androidx/navigation/NavBackStackEntry.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-03-25T17:57:19Z",
+      "side": 1,
+      "message": "Can this just be \"UUID mId\"? Does it need to be a String?",
+      "range": {
+        "startLine": 35,
+        "startChar": 4,
+        "endLine": 35,
+        "endChar": 15
+      },
+      "revId": "dd32f719fb7a1cd00b9f051fd3318a73ee4d9ee1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a242981f_0f8816b7",
+        "filename": "navigation/fragment/src/main/java/androidx/navigation/fragment/NavHostFragment.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-03-25T17:57:19Z",
+      "side": 1,
+      "message": "Do this immediately after the constructor",
+      "range": {
+        "startLine": 208,
+        "startChar": 8,
+        "endLine": 208,
+        "endChar": 62
+      },
+      "revId": "dd32f719fb7a1cd00b9f051fd3318a73ee4d9ee1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f3ad367_d896bd4a",
+        "filename": "navigation/runtime/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-03-25T17:57:19Z",
+      "side": 1,
+      "message": ":lifecycle:lifecycle-viewmodel - also add :lifecycle:lifecycle-viewmodel-ktx to runtime-ktx",
+      "revId": "dd32f719fb7a1cd00b9f051fd3318a73ee4d9ee1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84d1cdb9_e836e169",
+        "filename": "navigation/runtime/ktx/src/main/java/androidx/navigation/NavController.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-03-25T17:57:19Z",
+      "side": 1,
+      "message": "This feels a bit too weird. Let\u0027s just stick with getViewModelStore(int), even for Kotlin users",
+      "revId": "dd32f719fb7a1cd00b9f051fd3318a73ee4d9ee1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "346a7ac1_c80a366e",
+        "filename": "navigation/runtime/ktx/src/main/java/androidx/navigation/NavGraphViewModelLazy.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-03-25T17:57:19Z",
+      "side": 1,
+      "message": "Use an actual example here - R.navigation.main or something",
+      "range": {
+        "startLine": 40,
+        "startChar": 56,
+        "endLine": 40,
+        "endChar": 59
+      },
+      "revId": "dd32f719fb7a1cd00b9f051fd3318a73ee4d9ee1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "324061b1_df0e86f5",
+        "filename": "navigation/runtime/ktx/src/main/java/androidx/navigation/NavGraphViewModelLazy.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-03-25T17:57:19Z",
+      "side": 1,
+      "message": "Just use findNavController()",
+      "range": {
+        "startLine": 53,
+        "startChar": 8,
+        "endLine": 53,
+        "endChar": 40
+      },
+      "revId": "dd32f719fb7a1cd00b9f051fd3318a73ee4d9ee1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a3b3174_84324879",
+        "filename": "navigation/runtime/ktx/src/main/java/androidx/navigation/NavGraphViewModelLazy.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-03-25T17:57:19Z",
+      "side": 1,
+      "message": "Create a new Fragment.createViewModelLazy that takes a () -\u003e ViewModelStore and use that. I don\u0027t want to repeat the AndroidViewModelFactory thing here.",
+      "range": {
+        "startLine": 62,
+        "startChar": 11,
+        "endLine": 62,
+        "endChar": 33
+      },
+      "revId": "dd32f719fb7a1cd00b9f051fd3318a73ee4d9ee1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "039dd1b2_bf169714",
+        "filename": "navigation/runtime/src/androidTest/java/androidx/navigation/NavControllerViewModelTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-03-25T17:57:19Z",
+      "side": 1,
+      "message": "Make this a NavGraph",
+      "range": {
+        "startLine": 42,
+        "startChar": 25,
+        "endLine": 42,
+        "endChar": 39
+      },
+      "revId": "dd32f719fb7a1cd00b9f051fd3318a73ee4d9ee1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e49f1655_38906a2d",
+        "filename": "navigation/runtime/src/androidTest/java/androidx/navigation/NavControllerViewModelTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-03-25T17:57:19Z",
+      "side": 1,
+      "message": "Just pass in a UUID, skip NavBackStackEntry entirely for these tests.",
+      "range": {
+        "startLine": 48,
+        "startChar": 57,
+        "endLine": 48,
+        "endChar": 79
+      },
+      "revId": "dd32f719fb7a1cd00b9f051fd3318a73ee4d9ee1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ae306f5_364f1d25",
+        "filename": "navigation/runtime/src/main/java/androidx/navigation/NavController.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-03-25T17:57:19Z",
+      "side": 1,
+      "message": "This is always going to be true",
+      "range": {
+        "startLine": 313,
+        "startChar": 42,
+        "endLine": 313,
+        "endChar": 55
+      },
+      "revId": "dd32f719fb7a1cd00b9f051fd3318a73ee4d9ee1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea5509db_f78513cb",
+        "filename": "navigation/runtime/src/main/java/androidx/navigation/NavController.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 972,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-03-25T17:57:19Z",
+      "side": 1,
+      "message": "Add \"This is required to call {@link #getViewModelStore} and should generally be called for you by your {@link NavHost}.\"",
+      "range": {
+        "startLine": 972,
+        "startChar": 38,
+        "endLine": 972,
+        "endChar": 39
+      },
+      "revId": "dd32f719fb7a1cd00b9f051fd3318a73ee4d9ee1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6d877ae_c154fd7b",
+        "filename": "navigation/runtime/src/main/java/androidx/navigation/NavController.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 984,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-03-25T17:57:19Z",
+      "side": 1,
+      "message": "NavGraph for all of these instances in the Javadoc here",
+      "range": {
+        "startLine": 984,
+        "startChar": 31,
+        "endLine": 984,
+        "endChar": 39
+      },
+      "revId": "dd32f719fb7a1cd00b9f051fd3318a73ee4d9ee1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3be9a48_8241477e",
+        "filename": "navigation/runtime/src/main/java/androidx/navigation/NavController.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 984,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-03-25T17:57:19Z",
+      "side": 1,
+      "message": "\"ID of a NavGraph that exists on the back stack\"",
+      "range": {
+        "startLine": 984,
+        "startChar": 25,
+        "endLine": 984,
+        "endChar": 67
+      },
+      "revId": "dd32f719fb7a1cd00b9f051fd3318a73ee4d9ee1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93b3bb69_521d058c",
+        "filename": "navigation/runtime/src/main/java/androidx/navigation/NavController.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 985,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-03-25T17:57:19Z",
+      "side": 1,
+      "message": "Add @throw",
+      "range": {
+        "startLine": 985,
+        "startChar": 5,
+        "endLine": 985,
+        "endChar": 6
+      },
+      "revId": "dd32f719fb7a1cd00b9f051fd3318a73ee4d9ee1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71e0b023_009f1881",
+        "filename": "navigation/runtime/src/main/java/androidx/navigation/NavController.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 987,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-03-25T17:57:19Z",
+      "side": 1,
+      "message": "The first thing that this should do is check if (mViewModel \u003d\u003d null) and throw an IllegalStateException saying something like \"You must call setViewModelStore\".",
+      "revId": "dd32f719fb7a1cd00b9f051fd3318a73ee4d9ee1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a089d5e_9e919fbd",
+        "filename": "navigation/runtime/src/main/java/androidx/navigation/NavController.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 999,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-03-25T17:57:19Z",
+      "side": 1,
+      "message": "ID",
+      "range": {
+        "startLine": 999,
+        "startChar": 65,
+        "endLine": 999,
+        "endChar": 67
+      },
+      "revId": "dd32f719fb7a1cd00b9f051fd3318a73ee4d9ee1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b322e637_b3412469",
+        "filename": "navigation/runtime/src/main/java/androidx/navigation/NavController.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1000,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-03-25T17:57:19Z",
+      "side": 1,
+      "message": "NavController\u0027s",
+      "range": {
+        "startLine": 1000,
+        "startChar": 23,
+        "endLine": 1000,
+        "endChar": 36
+      },
+      "revId": "dd32f719fb7a1cd00b9f051fd3318a73ee4d9ee1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4d47155_8842b499",
+        "filename": "navigation/runtime/src/main/java/androidx/navigation/NavControllerViewModel.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-03-25T17:57:19Z",
+      "side": 1,
+      "message": "This needs to have an protected void onCleared() overriden method that clears all of the ViewModelStores. Write a test that tests getInstance(), then calling clear() on the ViewModelStore, confirming that the ViewModelStores are cleared.",
+      "range": {
+        "startLine": 31,
+        "startChar": 13,
+        "endLine": 31,
+        "endChar": 35
+      },
+      "revId": "dd32f719fb7a1cd00b9f051fd3318a73ee4d9ee1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b92eb59_a521d48e",
+        "filename": "navigation/runtime/src/main/java/androidx/navigation/NavControllerViewModel.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-03-25T17:57:19Z",
+      "side": 1,
+      "message": "package private",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 6
+      },
+      "revId": "dd32f719fb7a1cd00b9f051fd3318a73ee4d9ee1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4526c5f_fb984a89",
+        "filename": "navigation/runtime/src/main/java/androidx/navigation/NavControllerViewModel.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-03-25T17:57:19Z",
+      "side": 1,
+      "message": "Change to UUID to match NavBackStackEntry",
+      "range": {
+        "startLine": 49,
+        "startChar": 26,
+        "endLine": 49,
+        "endChar": 32
+      },
+      "revId": "dd32f719fb7a1cd00b9f051fd3318a73ee4d9ee1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a8bfc2f_efb4438b",
+        "filename": "navigation/runtime/src/main/java/androidx/navigation/NavControllerViewModel.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-03-25T17:57:19Z",
+      "side": 1,
+      "message": "clear()",
+      "range": {
+        "startLine": 51,
+        "startChar": 9,
+        "endLine": 51,
+        "endChar": 18
+      },
+      "revId": "dd32f719fb7a1cd00b9f051fd3318a73ee4d9ee1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c81fdc08_eda71fb1",
+        "filename": "navigation/runtime/src/main/java/androidx/navigation/NavControllerViewModel.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-03-25T17:57:19Z",
+      "side": 1,
+      "message": "Just use remove() here",
+      "range": {
+        "startLine": 53,
+        "startChar": 57,
+        "endLine": 53,
+        "endChar": 60
+      },
+      "revId": "dd32f719fb7a1cd00b9f051fd3318a73ee4d9ee1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06e509ca_f9ae3538",
+        "filename": "navigation/runtime/src/main/java/androidx/navigation/NavControllerViewModel.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-03-25T17:57:19Z",
+      "side": 1,
+      "message": "We probably don\u0027t need these",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 5
+      },
+      "revId": "dd32f719fb7a1cd00b9f051fd3318a73ee4d9ee1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
