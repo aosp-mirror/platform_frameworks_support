@@ -38,7 +38,7 @@ open class StrictViewFragment(
         savedInstanceState: Bundle?
     ): View? {
         checkGetActivity()
-        checkState("onCreateView", StrictFragment.CREATED)
+        checkState("onCreateView", State.CREATED)
         var result = super.onCreateView(inflater, container, savedInstanceState)
         if (result == null) {
             result = inflater.inflate(contentLayoutId, container, false)
@@ -49,7 +49,7 @@ open class StrictViewFragment(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         checkGetActivity()
-        checkState("onViewCreated", StrictFragment.CREATED)
+        checkState("onViewCreated", State.CREATED)
         onViewCreatedCalled = true
     }
 
@@ -59,7 +59,7 @@ open class StrictViewFragment(
             .that(view)
             .isNotNull()
         checkGetActivity()
-        checkState("onDestroyView", StrictFragment.CREATED)
+        checkState("onDestroyView", State.CREATED)
         onDestroyViewCalled = true
     }
 }
