@@ -1,0 +1,129 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e64993df_2a5b584c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-03-25T01:18:35Z",
+      "side": 1,
+      "message": "please make sure that you also ran ./gradlew media2-widget:connectedCheck",
+      "revId": "bfec91423d0e15a6f11e2b8772680373e5ce1f20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4de4d7c9_73e8de6d",
+        "filename": "media2/api/current.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 718,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-03-25T01:18:35Z",
+      "side": 1,
+      "message": "Please make sure that you run updateApi after hiding those.",
+      "range": {
+        "startLine": 705,
+        "startChar": 0,
+        "endLine": 718,
+        "endChar": 3
+      },
+      "revId": "bfec91423d0e15a6f11e2b8772680373e5ce1f20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41026efa_0b569b97",
+        "filename": "media2/src/main/java/androidx/media2/CallbackMediaItem.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-03-25T01:18:35Z",
+      "side": 1,
+      "message": "please update this as well",
+      "revId": "bfec91423d0e15a6f11e2b8772680373e5ce1f20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75bb855d_be3c9355",
+        "filename": "media2/src/main/java/androidx/media2/FileMediaItem.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-03-25T01:18:35Z",
+      "side": 1,
+      "message": "Please revise this",
+      "revId": "bfec91423d0e15a6f11e2b8772680373e5ce1f20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be0fee09_92ae77fb",
+        "filename": "media2/src/main/java/androidx/media2/MediaItem.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-03-25T01:18:35Z",
+      "side": 1,
+      "message": "minor) i think it would be slightly better to call setSourceType() right before mUri \u003d uri.",
+      "revId": "bfec91423d0e15a6f11e2b8772680373e5ce1f20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "26c985a9_85c9845a",
+        "filename": "media2/src/main/java/androidx/media2/MediaItem.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 488,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-03-25T01:18:35Z",
+      "side": 1,
+      "message": "It doesn\u0027t look clear to me whether you want to remove the subclasses or keep those.\n\nIf you want to use keep the subclasses as hidden, we need to create subclass instances here or somewhere else, according to the source type.",
+      "revId": "bfec91423d0e15a6f11e2b8772680373e5ce1f20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24670b29_fcb4f08a",
+        "filename": "media2/src/main/java/androidx/media2/UriMediaItem.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-03-25T01:18:35Z",
+      "side": 1,
+      "message": "same here",
+      "revId": "bfec91423d0e15a6f11e2b8772680373e5ce1f20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
