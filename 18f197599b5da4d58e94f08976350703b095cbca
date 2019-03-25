@@ -22,6 +22,30 @@
       "revId": "18f197599b5da4d58e94f08976350703b095cbca",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7011cb5_9f3ea59d",
+        "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleWhenChecks.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-25T12:33:20Z",
+      "side": 1,
+      "message": "Oh it is interesting, as you see I have both this and separate visitors (see CheckUIVisitor). For this case I can\u0027t do separate visitors elegantly, because even if you\u0027re in finally block, you still need to check for  try + suspend call block in that finally, because it is subject of same rules. So if you want to have separate visitors you have to traverse same tree multiple times: \n1. traverse finally for view.** calls\n2. traverse finally for inner try-s\n3. traverse finally for suspend calls \n\nWorst thing that it isn\u0027t simply a constant, if you have try inside of try then you traverse even more (yeah you can optimise some of it, but it isn\u0027t very elegant)\n\nBut I don\u0027t have much experience of writing things like that, so if you have any patterns that you can advise, I\u0027m happy to follow them.",
+      "parentUuid": "0470f28e_41e0f33b",
+      "range": {
+        "startLine": 94,
+        "startChar": 3,
+        "endLine": 97,
+        "endChar": 0
+      },
+      "revId": "18f197599b5da4d58e94f08976350703b095cbca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
