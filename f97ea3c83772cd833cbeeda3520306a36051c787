@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ad06792_85fb6e08",
+        "filename": "car/core/src/main/java/androidx/car/app/CarSingleSelectionDialog.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1010674
+      },
+      "writtenOn": "2019-03-25T22:34:22Z",
+      "side": 1,
+      "message": "why should a developer use a CarSingleSelectionDialog instead of a dialog?",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 54
+      },
+      "revId": "f97ea3c83772cd833cbeeda3520306a36051c787",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
