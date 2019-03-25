@@ -90,6 +90,24 @@
     },
     {
       "key": {
+        "uuid": "8c7f094f_93241134",
+        "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleRuntimeIssueRegistry.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-25T12:29:12Z",
+      "side": 1,
+      "message": "Ok compile against old one and run tests with new one. I think it is nicer to have a next to the library.",
+      "parentUuid": "8baf3cd9_ec055834",
+      "revId": "eed42845fbf64ebde7aa909d405075f48b8537ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "74b8dbb9_67865f49",
         "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleWhenChecks.kt",
         "patchSetId": 9
