@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7ca35d91_a423e759",
+        "filename": "media2-widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 700,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-03-25T22:34:46Z",
+      "side": 1,
+      "message": "now we don\u0027t need this block? (same to other places)",
+      "range": {
+        "startLine": 697,
+        "startChar": 0,
+        "endLine": 700,
+        "endChar": 1
+      },
+      "revId": "e812ea76bc07f5c0859dc3833dfd1f01cc39ba82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "826ed78d_6189ea79",
+        "filename": "media2-widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1649,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-03-25T22:34:46Z",
+      "side": 1,
+      "message": "it\u0027s not used in the code now.",
+      "revId": "e812ea76bc07f5c0859dc3833dfd1f01cc39ba82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
