@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c4d4b9c4_0b9e1b97",
+        "filename": "buildSrc/jetify.gradle",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-03-26T16:03:41Z",
+      "side": 1,
+      "message": "please keep this file alphabetically sorted.",
+      "range": {
+        "startLine": 27,
+        "startChar": 4,
+        "endLine": 27,
+        "endChar": 40
+      },
+      "revId": "c7b00a9955cbe86c386c9438979c57ef96ffd704",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
