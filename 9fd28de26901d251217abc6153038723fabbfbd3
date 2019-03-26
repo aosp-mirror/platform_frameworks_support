@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "41a98c96_3e0a696f",
+        "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleWhenChecks.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-26T18:26:11Z",
+      "side": 1,
+      "message": "format instead of \"$\", why ?",
+      "range": {
+        "startLine": 54,
+        "startChar": 63,
+        "endLine": 54,
+        "endChar": 64
+      },
+      "revId": "9fd28de26901d251217abc6153038723fabbfbd3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f0c8852_dfb55cf1",
+        "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleWhenChecks.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-26T18:26:11Z",
+      "side": 1,
+      "message": "is there any chance that we\u0027ll create the visitor for no reason (below is null).\nIf so, probably better to reverse these:\n\n\n(valueArguments[0] as? ULambdaExpression)?.body?.accept(\n    LifecycleWhenVisitor(context, method.name)\n)",
+      "revId": "9fd28de26901d251217abc6153038723fabbfbd3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
