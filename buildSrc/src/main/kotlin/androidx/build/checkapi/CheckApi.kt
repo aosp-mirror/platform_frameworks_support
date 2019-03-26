@@ -353,11 +353,11 @@ private fun getApiFile(rootDir: File, version: Version): File {
     }
 
     var extra = ""
-    if (version.patch == 0 && version.extra != null) {
+    if (version.extra != null) {
         extra = version.extra
     }
     val apiDir = File(rootDir, "api")
-    return File(apiDir, "${version.major}.${version.minor}.0${extra}.txt")
+    return File(apiDir, "${version.major}.${version.minor}.${version.patch}${extra}.txt")
 }
 
 /**
