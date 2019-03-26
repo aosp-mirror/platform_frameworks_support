@@ -16,6 +16,7 @@
 
 package androidx.viewpager2.adapter;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -31,9 +32,14 @@ import androidx.collection.ArraySet;
 import androidx.collection.LongSparseArray;
 import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleEventObserver;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.ViewPager2;
 
 import java.util.Set;
 
@@ -63,6 +69,7 @@ public abstract class FragmentStateAdapter extends
     private static final long GRACE_WINDOW_TIME_MS = 10_000; // 10 seconds
 
     private final FragmentManager mFragmentManager;
+    private Lifecycle mLifecycle;
 
     // Fragment bookkeeping
     private final LongSparseArray<Fragment> mFragments = new LongSparseArray<>();
@@ -77,7 +84,17 @@ public abstract class FragmentStateAdapter extends
     private Runnable mGracePeriodRunnable;
 
     public FragmentStateAdapter(@NonNull FragmentManager fragmentManager) {
+        this(fragmentManager, null);
+    }
+
+    /**
+     * @param lifecycle of where the {@link ViewPager2} lives. If not provided, the adapter
+     * will try to infer if from {@link RecyclerView.ViewHolder}s.
+     */
+    public FragmentStateAdapter(@NonNull FragmentManager fragmentManager,
+            @Nullable Lifecycle lifecycle) {
         mFragmentManager = fragmentManager;
+        mLifecycle = lifecycle;
         super.setHasStableIds(true);
     }
 
@@ -129,7 +146,7 @@ public abstract class FragmentStateAdapter extends
                         int oldLeft, int oldTop, int oldRight, int oldBottom) {
                     if (container.getParent() != null) {
                         container.removeOnLayoutChangeListener(this);
-                        onViewAttachedToWindow(holder);
+                        placeFragmentInViewHolder(holder);
                     }
                 }
             });
@@ -195,7 +212,15 @@ public abstract class FragmentStateAdapter extends
     }
 
     @Override
-    public final void onViewAttachedToWindow(@NonNull FragmentViewHolder holder) {
+    public final void onViewAttachedToWindow(@NonNull final FragmentViewHolder holder) {
+        placeFragmentInViewHolder(holder);
+    }
+
+    /**
+     * @param holder that has been bound to a Fragment in the {@link #onBindViewHolder} stage.
+     */
+    @SuppressWarnings("WeakerAccess") // to avoid creation of a synthetic accessor
+    void placeFragmentInViewHolder(@NonNull final FragmentViewHolder holder) {
         Fragment fragment = mFragments.get(holder.getItemId());
         if (fragment == null) {
             throw new IllegalStateException("Design assumption violated.");
@@ -247,11 +272,45 @@ public abstract class FragmentStateAdapter extends
         }
 
         // { f:notAdded, v:notCreated, v:notAttached } -> add, create, attach
-        scheduleViewAttach(fragment, container);
-        // TODO(b/122669030): this call might fail, so address with recovery steps
-        mFragmentManager.beginTransaction().add(fragment, "f" + holder.getItemId()).commitNow();
+        if (!shouldDelayFragmentTransactions()) {
+            scheduleViewAttach(fragment, container);
+            mFragmentManager.beginTransaction().add(fragment, "f" + holder.getItemId()).commitNow();
+        } else {
+            if (mFragmentManager.isDestroyed()) {
+                return; // nothing we can do
+            }
+            getLifecycle(holder).addObserver(new LifecycleEventObserver() {
+                @Override
+                public void onStateChanged(@NonNull LifecycleOwner source,
+                        @NonNull Lifecycle.Event event) {
+                    if (shouldDelayFragmentTransactions()) {
+                        return;
+                    }
+                    source.getLifecycle().removeObserver(this);
+                    if (ViewCompat.isAttachedToWindow(holder.getContainer())) {
+                        placeFragmentInViewHolder(holder);
+                    }
+                }
+            });
+        }
 
         gcFragments();
+    }
+
+    private Lifecycle getLifecycle(@NonNull FragmentViewHolder viewHolder) {
+        if (mLifecycle != null) {
+            return mLifecycle;
+        }
+
+        Context context = viewHolder.getContainer().getContext();
+        if (context instanceof FragmentActivity) {
+            FragmentActivity activity = (FragmentActivity) context;
+            return activity.getLifecycle();
+        }
+
+        throw new IllegalStateException(
+                "Cannot secure a Lifecycle from the viewHolder. Please specify Lifecycle "
+                        + "explicitly in the Adapter constructor.");
     }
 
     private void scheduleViewAttach(final Fragment fragment, final FrameLayout container) {
@@ -349,7 +408,8 @@ public abstract class FragmentStateAdapter extends
         mFragments.remove(itemId);
     }
 
-    private boolean shouldDelayFragmentTransactions() {
+    @SuppressWarnings("WeakerAccess") // to avoid creation of a synthetic accessor
+    boolean shouldDelayFragmentTransactions() {
         return mFragmentManager.isStateSaved();
     }
 
