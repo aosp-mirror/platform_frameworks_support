@@ -49,6 +49,7 @@ import androidx.media2.FileMediaItem;
 import androidx.media2.MediaItem;
 import androidx.media2.MediaMetadata;
 import androidx.media2.MediaPlayer;
+import androidx.media2.MediaPlayer.TrackInfo;
 import androidx.media2.MediaSession;
 import androidx.media2.RemoteSessionPlayer;
 import androidx.media2.SessionCommand;
@@ -71,7 +72,10 @@ import androidx.palette.graphics.Palette;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.concurrent.Executor;
 
 /**
@@ -189,13 +193,13 @@ public class VideoView extends SelectiveLayout {
     int mCurrentState = STATE_IDLE;
 
     private ArrayList<Integer> mVideoTrackIndices;
-    ArrayList<Integer> mAudioTrackIndices;
-    SparseArray<SubtitleTrack> mSubtitleTracks;
+    List<TrackInfo> mAudioTrackInfos;
+    Map<TrackInfo, SubtitleTrack> mSubtitleTracks;
     private SubtitleController mSubtitleController;
 
     // selected audio/subtitle track index as MediaPlayer returns
-    int mSelectedAudioTrackIndex;
-    int mSelectedSubtitleTrackIndex;
+    TrackInfo mSelectedAudioTrackInfo;
+    TrackInfo mSelectedSubtitleTrackInfo;
 
     SubtitleAnchorView mSubtitleAnchorView;
 
@@ -324,7 +328,7 @@ public class VideoView extends SelectiveLayout {
     }
 
     private void initialize(Context context, @Nullable AttributeSet attrs) {
-        mSelectedSubtitleTrackIndex = INVALID_TRACK_INDEX;
+        mSelectedSubtitleTrackInfo = null;
 
         mAudioAttributes = new AudioAttributesCompat.Builder()
                 .setUsage(AudioAttributesCompat.USAGE_MEDIA)
@@ -693,20 +697,26 @@ public class VideoView extends SelectiveLayout {
                 @Override
                 public void onSubtitleTrackSelected(SubtitleTrack track) {
                     if (track == null) {
-                        mMediaPlayer.deselectTrack(mSelectedSubtitleTrackIndex);
-                        mSelectedSubtitleTrackIndex = INVALID_TRACK_INDEX;
+                        mMediaPlayer.deselectTrack(mSelectedSubtitleTrackInfo);
+                        mSelectedSubtitleTrackInfo = null;
                         mSubtitleAnchorView.setVisibility(View.GONE);
 
                         mMediaSession.broadcastCustomCommand(new SessionCommand(
                                 MediaControlView.EVENT_UPDATE_SUBTITLE_DESELECTED, null), null);
                         return;
                     }
-                    int indexInSubtitleTrackList = mSubtitleTracks.indexOfValue(track);
-                    if (indexInSubtitleTrackList >= 0) {
-                        int indexInEntireTrackList =
-                                mSubtitleTracks.keyAt(indexInSubtitleTrackList);
-                        mMediaPlayer.selectTrack(indexInEntireTrackList);
-                        mSelectedSubtitleTrackIndex = indexInEntireTrackList;
+                    TrackInfo info = null;
+                    int indexInSubtitleTrackList = 0;
+                    for (Entry<TrackInfo, SubtitleTrack> pair : mSubtitleTracks.entrySet()) {
+                        if (pair.getValue() == track) {
+                            info = pair.getKey();
+                            break;
+                        }
+                        indexInSubtitleTrackList++;
+                    }
+                    if (info != null) {
+                        mMediaPlayer.selectTrack(info);
+                        mSelectedSubtitleTrackInfo = info;
                         mSubtitleAnchorView.setVisibility(View.VISIBLE);
 
                         Bundle data = new Bundle();
@@ -743,8 +753,8 @@ public class VideoView extends SelectiveLayout {
             mSurfaceView.setMediaPlayer(null);
             mCurrentState = STATE_IDLE;
             mTargetState = STATE_IDLE;
-            mSelectedSubtitleTrackIndex = INVALID_TRACK_INDEX;
-            mSelectedAudioTrackIndex = INVALID_TRACK_INDEX;
+            mSelectedSubtitleTrackInfo = null;
+            mSelectedAudioTrackInfo = null;
         }
     }
 
@@ -754,18 +764,18 @@ public class VideoView extends SelectiveLayout {
                 && (mMediaSession.getPlayer() instanceof RemoteSessionPlayer);
     }
 
-    void selectSubtitleTrack(int trackIndex) {
+    void selectSubtitleTrack(TrackInfo trackInfo) {
         if (!isMediaPrepared()) {
             return;
         }
-        SubtitleTrack track = mSubtitleTracks.get(trackIndex);
+        SubtitleTrack track = mSubtitleTracks.get(trackInfo);
         if (track != null) {
             mSubtitleController.selectTrack(track);
         }
     }
 
     void deselectSubtitleTrack() {
-        if (!isMediaPrepared() || mSelectedSubtitleTrackIndex == INVALID_TRACK_INDEX) {
+        if (!isMediaPrepared() || mSelectedSubtitleTrackInfo == null) {
             return;
         }
         mSubtitleController.selectTrack(null);
@@ -775,38 +785,39 @@ public class VideoView extends SelectiveLayout {
     Bundle extractTrackInfoData() {
         List<MediaPlayer.TrackInfo> trackInfos = mMediaPlayer.getTrackInfo();
         mVideoTrackIndices = new ArrayList<>();
-        mAudioTrackIndices = new ArrayList<>();
-        mSubtitleTracks = new SparseArray<>();
+        mAudioTrackInfos = new ArrayList<>();
+        mSubtitleTracks = new LinkedHashMap<>();
         ArrayList<String> subtitleTracksLanguageList = new ArrayList<>();
-        int selectedSubtitleTrackIndex = mSelectedSubtitleTrackIndex;
+        TrackInfo selectedSubtitleTrackInfo = mSelectedSubtitleTrackInfo;
         mSubtitleController.reset();
         for (int i = 0; i < trackInfos.size(); ++i) {
-            int trackType = trackInfos.get(i).getTrackType();
+            final TrackInfo trackInfo = trackInfos.get(i);
+            int trackType = trackInfo.getTrackType();
             if (trackType == MediaPlayer.TrackInfo.MEDIA_TRACK_TYPE_VIDEO) {
                 mVideoTrackIndices.add(i);
             } else if (trackType == MediaPlayer.TrackInfo.MEDIA_TRACK_TYPE_AUDIO) {
-                mAudioTrackIndices.add(i);
+                mAudioTrackInfos.add(trackInfo);
             } else if (trackType == MediaPlayer.TrackInfo.MEDIA_TRACK_TYPE_SUBTITLE) {
-                SubtitleTrack track = mSubtitleController.addTrack(trackInfos.get(i).getFormat());
+                SubtitleTrack track = mSubtitleController.addTrack(trackInfo.getFormat());
                 if (track != null) {
-                    mSubtitleTracks.put(i, track);
-                    String language = trackInfos.get(i).getLanguage().getISO3Language();
+                    mSubtitleTracks.put(trackInfo, track);
+                    String language = trackInfo.getLanguage().getISO3Language();
                     subtitleTracksLanguageList.add(language);
                 }
             }
         }
         // Select first tracks as default
-        if (mAudioTrackIndices.size() > 0) {
-            mSelectedAudioTrackIndex = 0;
+        if (mAudioTrackInfos.size() > 0) {
+            mSelectedAudioTrackInfo = mAudioTrackInfos.get(0);
         }
         // Re-select originally selected subtitle track since SubtitleController has been reset.
-        if (selectedSubtitleTrackIndex != INVALID_TRACK_INDEX) {
-            selectSubtitleTrack(selectedSubtitleTrackIndex);
+        if (selectedSubtitleTrackInfo != null) {
+            selectSubtitleTrack(selectedSubtitleTrackInfo);
         }
 
         Bundle data = new Bundle();
         data.putInt(MediaControlView.KEY_VIDEO_TRACK_COUNT, mVideoTrackIndices.size());
-        data.putInt(MediaControlView.KEY_AUDIO_TRACK_COUNT, mAudioTrackIndices.size());
+        data.putInt(MediaControlView.KEY_AUDIO_TRACK_COUNT, mAudioTrackInfos.size());
         data.putStringArrayList(MediaControlView.KEY_SUBTITLE_TRACK_LANGUAGE_LIST,
                 subtitleTracksLanguageList);
         return data;
@@ -814,7 +825,7 @@ public class VideoView extends SelectiveLayout {
 
     boolean isCurrentItemMusic() {
         return mVideoTrackIndices != null && mVideoTrackIndices.size() == 0
-                && mAudioTrackIndices != null && mAudioTrackIndices.size() > 0;
+                && mAudioTrackInfos != null && mAudioTrackInfos.size() > 0;
     }
 
     void updateMusicView() {
@@ -908,8 +919,10 @@ public class VideoView extends SelectiveLayout {
                 public void onSubtitleData(
                         @NonNull MediaPlayer mp, @NonNull MediaItem dsd,
                         @NonNull SubtitleData data) {
+                    final TrackInfo trackInfo = data.getTrackInfo();
                     if (DEBUG) {
-                        Log.d(TAG, "onSubtitleData(): getTrackIndex: " + data.getTrackIndex()
+                        Log.d(TAG, "onSubtitleData():"
+                                + " getTrackInfo: " + trackInfo
                                 + ", getCurrentPosition: " + mp.getCurrentPosition()
                                 + ", getStartTimeUs(): " + data.getStartTimeUs()
                                 + ", diff: "
@@ -928,11 +941,10 @@ public class VideoView extends SelectiveLayout {
                         }
                         return;
                     }
-                    final int index = data.getTrackIndex();
-                    if (index != mSelectedSubtitleTrackIndex) {
+                    if (!trackInfo.equals(mSelectedSubtitleTrackInfo)) {
                         return;
                     }
-                    SubtitleTrack track = mSubtitleTracks.get(index);
+                    SubtitleTrack track = mSubtitleTracks.get(trackInfo);
                     if (track != null) {
                         track.onData(data);
                     }
@@ -1082,10 +1094,11 @@ public class VideoView extends SelectiveLayout {
                             MediaControlView.KEY_SELECTED_SUBTITLE_INDEX,
                             INVALID_TRACK_INDEX) : INVALID_TRACK_INDEX;
                     if (indexInSubtitleTrackList != INVALID_TRACK_INDEX) {
-                        int indexInEntireTrackList =
-                                mSubtitleTracks.keyAt(indexInSubtitleTrackList);
-                        if (indexInEntireTrackList != mSelectedSubtitleTrackIndex) {
-                            selectSubtitleTrack(indexInEntireTrackList);
+                        final List<TrackInfo> subtitleTracks =
+                                new ArrayList<>(mSubtitleTracks.keySet());
+                        TrackInfo subtitleTrack = subtitleTracks.get(indexInSubtitleTrackList);
+                        if (!subtitleTrack.equals(mSelectedSubtitleTrackInfo)) {
+                            selectSubtitleTrack(subtitleTrack);
                         }
                     }
                     break;
@@ -1097,10 +1110,10 @@ public class VideoView extends SelectiveLayout {
                             ? args.getInt(MediaControlView.KEY_SELECTED_AUDIO_INDEX,
                             INVALID_TRACK_INDEX) : INVALID_TRACK_INDEX;
                     if (audioIndex != INVALID_TRACK_INDEX) {
-                        int audioTrackIndex = mAudioTrackIndices.get(audioIndex);
-                        if (audioTrackIndex != mSelectedAudioTrackIndex) {
-                            mSelectedAudioTrackIndex = audioTrackIndex;
-                            mMediaPlayer.selectTrack(mSelectedAudioTrackIndex);
+                        TrackInfo audioTrackInfo = mAudioTrackInfos.get(audioIndex);
+                        if (!audioTrackInfo.equals(mSelectedAudioTrackInfo)) {
+                            mSelectedAudioTrackInfo = audioTrackInfo;
+                            mMediaPlayer.selectTrack(mSelectedAudioTrackInfo);
                         }
                     }
                     break;
