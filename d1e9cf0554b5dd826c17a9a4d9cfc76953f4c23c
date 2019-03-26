@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1ebd3636_e25a3943",
+        "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleWhenChecks.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-26T18:18:32Z",
+      "side": 1,
+      "message": "this seems like a very common pattern for lint, Tor, is there any abstraction for such caching ?",
+      "revId": "d1e9cf0554b5dd826c17a9a4d9cfc76953f4c23c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

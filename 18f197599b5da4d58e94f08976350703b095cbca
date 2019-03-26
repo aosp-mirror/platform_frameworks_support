@@ -46,6 +46,30 @@
       "revId": "18f197599b5da4d58e94f08976350703b095cbca",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07b277f6_ada67d64",
+        "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleWhenChecks.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-26T18:18:32Z",
+      "side": 1,
+      "message": "sgtm, i don\u0027t have a strong opinion.\ngiven that devs are unhappy w/ lint perf, it probably makes sense to optimize for it.",
+      "parentUuid": "a7011cb5_9f3ea59d",
+      "range": {
+        "startLine": 94,
+        "startChar": 3,
+        "endLine": 97,
+        "endChar": 0
+      },
+      "revId": "18f197599b5da4d58e94f08976350703b095cbca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
