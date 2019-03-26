@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3c68eacf_96936891",
+        "filename": "media2-widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 710,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2019-03-26T21:01:03Z",
+      "side": 1,
+      "message": "nit: how about \u0027pair\u0027 or \u0027keyValuePair\u0027?",
+      "range": {
+        "startLine": 710,
+        "startChar": 57,
+        "endLine": 710,
+        "endChar": 59
+      },
+      "revId": "bf2ca0fc61b0f3c5fe94181a6c3d112e0cf16853",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2d0b4f2_05efe8f2",
+        "filename": "media2/src/main/java/androidx/media2/MediaPlayer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2937,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2019-03-26T21:01:03Z",
+      "side": 1,
+      "message": "One of the reason we went with this option was check if the request is for the current MediaItem and return fail if the track info is for past media item, so we need to keep media item also in the TrackInfo?",
+      "range": {
+        "startLine": 2936,
+        "startChar": 12,
+        "endLine": 2937,
+        "endChar": 29
+      },
+      "revId": "bf2ca0fc61b0f3c5fe94181a6c3d112e0cf16853",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3508f1c_1928fabf",
+        "filename": "media2/src/main/java/androidx/media2/MediaPlayer2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 810,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2019-03-26T21:01:03Z",
+      "side": 1,
+      "message": "Could you make the TrackInfo change also for the MediaPlayer2 class since fwk MediaPlayer2 changed?",
+      "range": {
+        "startLine": 810,
+        "startChar": 11,
+        "endLine": 810,
+        "endChar": 23
+      },
+      "revId": "bf2ca0fc61b0f3c5fe94181a6c3d112e0cf16853",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
