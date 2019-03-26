@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fc941857_40aa17d7",
+        "filename": "lifecycle/viewmodel/ktx/src/main/java/androidx/lifecycle/ViewModelProvider.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-26T10:22:56Z",
+      "side": 1,
+      "message": "I don\u0027t think we need both classes ViewModelLazyFromStore and ViewModelLazy, you can change ViewModelLazy to receive  producer: () -\u003e ViewModelStore",
+      "revId": "bc1605a9aaa8e758517f3d9996b1205193161357",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
