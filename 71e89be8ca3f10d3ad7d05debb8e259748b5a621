@@ -46,6 +46,30 @@
       "revId": "71e89be8ca3f10d3ad7d05debb8e259748b5a621",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e372fd34_f26e34cb",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/RegisteredMediaRouteProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-03-26T23:13:04Z",
+      "side": 1,
+      "message": "Could you confirm that whether updateBinding() is called in a single thread?",
+      "parentUuid": "e8ccb975_b92fb061",
+      "range": {
+        "startLine": 227,
+        "startChar": 12,
+        "endLine": 227,
+        "endChar": 22
+      },
+      "revId": "71e89be8ca3f10d3ad7d05debb8e259748b5a621",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
