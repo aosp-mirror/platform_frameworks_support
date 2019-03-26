@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "391ca4f4_4301adc3",
+        "filename": "navigation/runtime/src/main/java/androidx/navigation/NavController.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 972,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-03-26T20:51:36Z",
+      "side": 1,
+      "message": "This isn\u0027t an exposed class for external developers, so this should probably be changed to something else. Same for the @param.\n\nSuggest something like \"Sets the parent ViewModelStore used by NavController to store ViewModels at the navigation graph level\".",
+      "range": {
+        "startLine": 972,
+        "startChar": 16,
+        "endLine": 972,
+        "endChar": 38
+      },
+      "revId": "be1cf8560a9e2620eae7189530d30ab848946e5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
