@@ -46,6 +46,47 @@
       "revId": "3ba508602c27921ccfa5e098d4793c16028e820a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ad8ed90b_a24d7a64",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dependencyTracker/AffectedModuleDetector.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-03-26T20:06:26Z",
+      "side": 1,
+      "message": "Do you mean that it\u0027s preferred that if an entry in COBUILT_TEST_NAMES doesn\u0027t correspond to a project that it gets ignored?\nI\u0027d expect that it\u0027d be easy for a developer to remove the unneeded entry and that we might as well throw an error to remind them as soon as they make the change rather than later when the tests fail.\nI think that would more closely align with the name of the method, too (\"lookup...\").\n\nYeah, I\u0027m not expecting developers to be typing project names into the command line, just maybe one or two of us to be editing the contents of COBUILT_TEST_NAMES in this file every once in a while.\n\nIf it were a nontrivial transformation to rewrite this function to do a lookup of the individual projects, then yeah, it would seem reasonable to me to leave it as it is.\nYou should be able to just copy-paste the code I typed and fix any mistakes I made (you mention that getProject should be replaced with Project.project(path)).\n\nI\u0027m less concerned about this particular error actually causing a problem in practice, and more interested in the general process of decreasing the cost of defensive coding and/or refactoring via practicing them more.",
+      "parentUuid": "5e8ce912_63f1321c",
+      "range": {
+        "startLine": 295,
+        "startChar": 40,
+        "endLine": 295,
+        "endChar": 46
+      },
+      "revId": "3ba508602c27921ccfa5e098d4793c16028e820a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b727f81a_e685de0d",
+        "filename": "buildSrc/src/test/kotlin/androidx/build/dependencyTracker/AffectedModuleDetectorImplTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-03-26T20:06:26Z",
+      "side": 1,
+      "message": "I also imagine adding a few more test projects here too, and/or making the cobuilt test names into a parameter that tests can modify",
+      "revId": "3ba508602c27921ccfa5e098d4793c16028e820a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
