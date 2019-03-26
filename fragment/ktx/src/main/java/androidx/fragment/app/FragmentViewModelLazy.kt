@@ -19,9 +19,11 @@ package androidx.fragment.app
 import androidx.annotation.MainThread
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelLazy
+import androidx.lifecycle.ViewModelLazyFromStore
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory
 import androidx.lifecycle.ViewModelProvider.Factory
+import androidx.lifecycle.ViewModelStore
 import androidx.lifecycle.ViewModelStoreOwner
 import kotlin.reflect.KClass
 
@@ -77,13 +79,29 @@ inline fun <reified VM : ViewModel> Fragment.activityViewModels(
 ) = createViewModelLazy(VM::class, ::requireActivity, factoryProducer)
 
 /**
+ * Helper method for creation of [ViewModelLazy], that takes a ViewModelStoreOwner producer
+ * and makes it a viewModelStore producer.
+ */
+@MainThread
+@JvmName("viewModelLazyOwner")
+fun <VM : ViewModel> Fragment.createViewModelLazy(
+    viewModelClass: KClass<VM>,
+    ownerProducer: () -> ViewModelStoreOwner,
+    factoryProducer: (() -> Factory)? = null
+) = createViewModelLazy(
+    viewModelClass,
+    producer = { ownerProducer().viewModelStore },
+    factoryProducer = factoryProducer
+)
+
+/**
  * Helper method for creation of [ViewModelLazy], that resolves `null` passed as [factoryProducer]
  * to default factory.
  */
 @MainThread
 fun <VM : ViewModel> Fragment.createViewModelLazy(
     viewModelClass: KClass<VM>,
-    ownerProducer: () -> ViewModelStoreOwner,
+    producer: () -> ViewModelStore,
     factoryProducer: (() -> Factory)? = null
 ): Lazy<VM> {
     val factoryPromise = factoryProducer ?: {
@@ -92,5 +110,5 @@ fun <VM : ViewModel> Fragment.createViewModelLazy(
         )
         AndroidViewModelFactory.getInstance(application)
     }
-    return ViewModelLazy(viewModelClass, ownerProducer, factoryPromise)
+    return ViewModelLazyFromStore(viewModelClass, producer, factoryPromise)
 }
