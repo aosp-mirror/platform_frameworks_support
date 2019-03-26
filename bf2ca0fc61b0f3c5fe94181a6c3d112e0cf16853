@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "bb10a53d_ecb3c42e",
+        "filename": "media2-widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 710,
+      "author": {
+        "id": 1043093
+      },
+      "writtenOn": "2019-03-26T21:40:48Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "3c68eacf_96936891",
+      "range": {
+        "startLine": 710,
+        "startChar": 57,
+        "endLine": 710,
+        "endChar": 59
+      },
+      "revId": "bf2ca0fc61b0f3c5fe94181a6c3d112e0cf16853",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "02a6c045_e6e21636",
         "filename": "media2-widget/src/main/java/androidx/media2/widget/VideoView.java",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2019-03-26T21:04:34Z",
       "side": 1,
       "message": "What is the benefit of using Track instead of index while we are still using index here?\nDo we have to use TrackInfo internally in VideoView?",
+      "range": {
+        "startLine": 723,
+        "startChar": 53,
+        "endLine": 723,
+        "endChar": 80
+      },
+      "revId": "bf2ca0fc61b0f3c5fe94181a6c3d112e0cf16853",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a344f84_3a2299cc",
+        "filename": "media2-widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 723,
+      "author": {
+        "id": 1043093
+      },
+      "writtenOn": "2019-03-26T21:40:48Z",
+      "side": 1,
+      "message": "Could you please help load balance media widget/media session changes to the owners of media widget/media session?\n\nVideoView is using TrackInfo for track selection as part of this change to prevent build break.",
+      "parentUuid": "02a6c045_e6e21636",
       "range": {
         "startLine": 723,
         "startChar": 53,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "8ac2c7ee_90ebd651",
+        "filename": "media2/src/main/java/androidx/media2/MediaPlayer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2937,
+      "author": {
+        "id": 1043093
+      },
+      "writtenOn": "2019-03-26T21:40:48Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c2d0b4f2_05efe8f2",
+      "range": {
+        "startLine": 2936,
+        "startChar": 12,
+        "endLine": 2937,
+        "endChar": 29
+      },
+      "revId": "bf2ca0fc61b0f3c5fe94181a6c3d112e0cf16853",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b3508f1c_1928fabf",
         "filename": "media2/src/main/java/androidx/media2/MediaPlayer2.java",
         "patchSetId": 3
@@ -82,6 +154,30 @@
       "writtenOn": "2019-03-26T21:01:03Z",
       "side": 1,
       "message": "Could you make the TrackInfo change also for the MediaPlayer2 class since fwk MediaPlayer2 changed?",
+      "range": {
+        "startLine": 810,
+        "startChar": 11,
+        "endLine": 810,
+        "endChar": 23
+      },
+      "revId": "bf2ca0fc61b0f3c5fe94181a6c3d112e0cf16853",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce0e073f_1281ccb1",
+        "filename": "media2/src/main/java/androidx/media2/MediaPlayer2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 810,
+      "author": {
+        "id": 1043093
+      },
+      "writtenOn": "2019-03-26T21:40:48Z",
+      "side": 1,
+      "message": "This change is a response to the API review bug which is focused on the public MediaPlayer API surface. Let\u0027s keep MediaPlayer2(Impl) related changes separate.",
+      "parentUuid": "b3508f1c_1928fabf",
       "range": {
         "startLine": 810,
         "startChar": 11,
