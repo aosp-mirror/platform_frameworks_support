@@ -29,6 +29,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -118,6 +119,8 @@ public abstract class PreferenceFragmentCompat extends Fragment implements
     private int mLayoutResId = R.layout.preference_list_fragment;
     private Runnable mSelectPreferenceRunnable;
 
+    private Context mThemedContext;
+
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -136,6 +139,15 @@ public abstract class PreferenceFragmentCompat extends Fragment implements
         }
     };
 
+    @Nullable
+    @Override
+    public Context getContext() {
+        if (mThemedContext == null) {
+            return super.getContext();
+        }
+        return mThemedContext;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -146,7 +158,7 @@ public abstract class PreferenceFragmentCompat extends Fragment implements
             // Fallback to default theme.
             theme = R.style.PreferenceThemeOverlay;
         }
-        getActivity().getTheme().applyStyle(theme, false);
+        mThemedContext = new ContextThemeWrapper(super.getContext(), theme);
 
         mPreferenceManager = new PreferenceManager(getContext());
         mPreferenceManager.setOnNavigateToScreenListener(this);
