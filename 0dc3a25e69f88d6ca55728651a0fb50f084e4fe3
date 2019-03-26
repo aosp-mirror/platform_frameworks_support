@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1d14dd7f_3129cb5a",
+        "filename": "media2/src/main/java/androidx/media2/SessionPlayer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2019-03-26T23:13:36Z",
+      "side": 1,
+      "message": "\"the command completed\" looks more popular.\nhttps://cs.corp.google.com/search/?q\u003dcomment:%22command+completed%22+file:%5E//depot/google3/+package:%5Epiper$\u0026type\u003dcs",
+      "range": {
+        "startLine": 298,
+        "startChar": 82,
+        "endLine": 299,
+        "endChar": 21
+      },
+      "revId": "0dc3a25e69f88d6ca55728651a0fb50f084e4fe3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23bb106e_1840dc17",
+        "filename": "media2/src/main/java/androidx/media2/SessionPlayer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2019-03-26T23:13:36Z",
+      "side": 1,
+      "message": "set?",
+      "range": {
+        "startLine": 489,
+        "startChar": 79,
+        "endLine": 489,
+        "endChar": 83
+      },
+      "revId": "0dc3a25e69f88d6ca55728651a0fb50f084e4fe3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2791e63c_799f853c",
+        "filename": "media2/src/main/java/androidx/media2/SessionPlayer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 554,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2019-03-26T23:13:36Z",
+      "side": 1,
+      "message": "set? or replaced? (depending on the implementation.)",
+      "range": {
+        "startLine": 554,
+        "startChar": 79,
+        "endLine": 554,
+        "endChar": 83
+      },
+      "revId": "0dc3a25e69f88d6ca55728651a0fb50f084e4fe3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
