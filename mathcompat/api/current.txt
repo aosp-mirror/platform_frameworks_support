@@ -1,0 +1,15 @@
+// Signature format: 3.0
+package androidx.mathcompat {
+
+  @AnyThread public final class Math {
+    ctor public Math();
+    field public static final androidx.mathcompat.Math.Companion! Companion;
+  }
+
+  public static final class Math.Companion {
+    method public int minus(int minuend, int subtrahend);
+    method public int plus(int p, int int2);
+  }
+
+}
+

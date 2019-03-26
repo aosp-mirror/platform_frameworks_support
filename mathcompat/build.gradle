@@ -1,0 +1,30 @@
+import static androidx.build.dependencies.DependenciesKt.*
+import androidx.build.LibraryGroups
+import androidx.build.LibraryVersions
+
+plugins {
+    id("SupportAndroidLibraryPlugin")
+}
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+dependencies {
+    api(project(":annotation"))
+    implementation build_libs.kotlin.stdlib
+
+    testImplementation(JUNIT)
+    testImplementation(MOCKITO_CORE)
+}
+
+supportLibrary {
+    name = "Android Support Library Math Compat"
+    publish = true
+    mavenVersion = LibraryVersions.MATH_COMPAT
+    mavenGroup = LibraryGroups.MATH_COMPAT
+    inceptionYear = "2019"
+    description = "A library for backwards compatible maths"
+}
+
+repositories {
+    mavenCentral()
+}

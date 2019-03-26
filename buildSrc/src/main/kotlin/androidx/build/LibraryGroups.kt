@@ -54,6 +54,7 @@ object LibraryGroups {
     val LIFECYCLE = LibraryGroup("androidx.lifecycle", false)
     val LOADER = LibraryGroup("androidx.loader", false)
     val LOCALBROADCASTMANAGER = LibraryGroup("androidx.localbroadcastmanager", false)
+    val MATH_COMPAT = LibraryGroup("androidx.mathcompat", false)
     val MEDIA = LibraryGroup("androidx.media", false)
     val MEDIA2 = LibraryGroup("androidx.media2", false)
     val MEDIAROUTER = LibraryGroup("androidx.mediarouter", false)
