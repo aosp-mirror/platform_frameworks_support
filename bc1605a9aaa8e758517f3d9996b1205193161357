@@ -34,6 +34,24 @@
       "revId": "bc1605a9aaa8e758517f3d9996b1205193161357",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e96a25c8_c0eccd6d",
+        "filename": "lifecycle/viewmodel/ktx/src/main/java/androidx/lifecycle/ViewModelProvider.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-03-26T17:45:10Z",
+      "side": 1,
+      "message": "Let\u0027s write the API we want to have go to beta and document the breaking change for the cases where someone updates ViewModel but doesn\u0027t update Fragments at the same time.",
+      "parentUuid": "e4c24e37_7e2ca77b",
+      "revId": "bc1605a9aaa8e758517f3d9996b1205193161357",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
