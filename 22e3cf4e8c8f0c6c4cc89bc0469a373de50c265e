@@ -160,6 +160,24 @@
     },
     {
       "key": {
+        "uuid": "42257438_472ba7b9",
+        "filename": "paging/rxjava2/src/main/java/androidx/paging/RxItemKeyedDataSource.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-03-26T03:18:59Z",
+      "side": 1,
+      "message": "What do you think about adding a getScheduler() method instead to the base class which caches the scheduler as a member at the same scope as the executor?",
+      "parentUuid": "3b775fab_04f1373b",
+      "revId": "22e3cf4e8c8f0c6c4cc89bc0469a373de50c265e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "35961588_7fe110cf",
         "filename": "paging/rxjava2/src/main/java/androidx/paging/RxItemKeyedDataSource.java",
         "patchSetId": 5
