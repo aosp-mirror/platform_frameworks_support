@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9d98f413_32816b98",
+        "filename": "jetifier/jetifier/migration.config",
+        "patchSetId": 1
+      },
+      "lineNbr": 655,
+      "author": {
+        "id": 1368403
+      },
+      "writtenOn": "2019-03-26T20:40:24Z",
+      "side": 1,
+      "message": "This should be added to rules and not slRules right?",
+      "range": {
+        "startLine": 652,
+        "startChar": 3,
+        "endLine": 655,
+        "endChar": 6
+      },
+      "revId": "7c9b8c0983cb4f4cacb6c1436dcaa280b93eadc1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
