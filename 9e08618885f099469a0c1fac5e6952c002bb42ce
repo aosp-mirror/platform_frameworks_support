@@ -45,6 +45,30 @@
       "revId": "9e08618885f099469a0c1fac5e6952c002bb42ce",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a437ce4_67d70668",
+        "filename": "jetifier/jetifier/migration.config",
+        "patchSetId": 4
+      },
+      "lineNbr": 4162,
+      "author": {
+        "id": 1271745
+      },
+      "writtenOn": "2019-03-26T23:06:59Z",
+      "side": 1,
+      "message": "I accidentally removed core for v13, so adding it back",
+      "parentUuid": "af265244_25ea4b4f",
+      "range": {
+        "startLine": 4161,
+        "startChar": 6,
+        "endLine": 4162,
+        "endChar": 87
+      },
+      "revId": "9e08618885f099469a0c1fac5e6952c002bb42ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
