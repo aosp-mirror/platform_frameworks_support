@@ -22,6 +22,30 @@
       "revId": "3ba508602c27921ccfa5e098d4793c16028e820a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e8ce912_63f1321c",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dependencyTracker/AffectedModuleDetector.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 1442661
+      },
+      "writtenOn": "2019-03-26T19:06:42Z",
+      "side": 1,
+      "message": "I think this might be WAI. \n\nI don\u0027t know if anybody is going to be manually typing in project names in. As far as I know, nobody actually uses the AffectedModuleDetector so much as it gets invoked. \n\nAs to renaming a project, this would cause the team\u0027s co-dependent tests not to be built, and thus to fail. I would rather have their tests failing and have them file a bug against us than have presubmits failing for all presubmit runs, and have a p0 to deal blocking all teams. \n\nAs for using something like getProject(name) instead of matching against name, the closest is Project.project(path). But that would mean another refactor back to path, and if we stick with filter I don\u0027t see a lot of benefit worth the headache. \n\nThis is currently only for media team, just trying to get their presubmits unblocked so they can stop bypassing them on all their runs. If it turns out to have additional use cases beyond this, I\u0027m happy to reevaluate.",
+      "parentUuid": "15fbac3f_03d3ee51",
+      "range": {
+        "startLine": 295,
+        "startChar": 40,
+        "endLine": 295,
+        "endChar": 46
+      },
+      "revId": "3ba508602c27921ccfa5e098d4793c16028e820a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
