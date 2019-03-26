@@ -16,6 +16,24 @@
       "revId": "bc1605a9aaa8e758517f3d9996b1205193161357",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4c24e37_7e2ca77b",
+        "filename": "lifecycle/viewmodel/ktx/src/main/java/androidx/lifecycle/ViewModelProvider.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1442279
+      },
+      "writtenOn": "2019-03-26T17:34:25Z",
+      "side": 1,
+      "message": "I think there was concern about breaking the api during alpha vs when we go from alpha to beta. So we would prefer to support both if we could. What are your thoughts?",
+      "parentUuid": "fc941857_40aa17d7",
+      "revId": "bc1605a9aaa8e758517f3d9996b1205193161357",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
