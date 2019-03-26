@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "58199284_8233993e",
+        "filename": "paging/rxjava2/src/main/java/androidx/paging/RxItemKeyedDataSource.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-03-26T15:30:21Z",
+      "side": 1,
+      "message": "why these two suppress annotations?",
+      "revId": "637e1d5a2bf5c6ff016cbf4e727caae984f6d3c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8264da89_35b831d9",
+        "filename": "paging/rxjava2/src/main/java/androidx/paging/RxItemKeyedDataSource.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-03-26T15:30:21Z",
+      "side": 1,
+      "message": "extract the subscribeOn, doOnDispose and subscribe behavior into a static function that\u0027s shared by all the Rx data sources. Reduces code, and number of anon classes.",
+      "revId": "637e1d5a2bf5c6ff016cbf4e727caae984f6d3c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8656b0cf_d852dd52",
+        "filename": "paging/rxjava2/src/main/java/androidx/paging/RxItemKeyedDataSource.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-03-26T15:30:21Z",
+      "side": 1,
+      "message": "RX users likely won\u0027t care about the parent class, just tell them what the method should do. Also mention the subscribeOn behavior. Suggest:\n\nLoad initial data from the DataSource as a {@link Single}.\n\nThe Single will have {@link subscribedOn()} called with the Scheduler (or Executor) supplied to {@link RxPagedListBuilder#setFetchScheduler(Scheduler)} (or Executor supplied to {@link LivePagedListBuilder#setFetchExecutor(Executor)}).\n\n(Note, there\u0027s probably a clearer way to phrase that without the passive voice, not sure how Rx would normally document that)",
+      "revId": "637e1d5a2bf5c6ff016cbf4e727caae984f6d3c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c413f25_aeb23b82",
+        "filename": "paging/rxjava2/src/main/java/androidx/paging/RxItemKeyedDataSource.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-03-26T15:30:21Z",
+      "side": 1,
+      "message": "annotate all the load methods as @NonNull",
+      "revId": "637e1d5a2bf5c6ff016cbf4e727caae984f6d3c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
