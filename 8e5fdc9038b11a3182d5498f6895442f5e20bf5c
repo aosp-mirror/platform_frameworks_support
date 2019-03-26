@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a469b3af_5d6e42b2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1370655
+      },
+      "writtenOn": "2019-03-26T16:11:33Z",
+      "side": 1,
+      "message": "Add:\nBug: 127325624\nBug: 127325623",
+      "revId": "8e5fdc9038b11a3182d5498f6895442f5e20bf5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
