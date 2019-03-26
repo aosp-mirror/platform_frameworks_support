@@ -54,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "fbd1f328_3178a6ac",
+        "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleRuntimeIssueRegistry.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2019-03-26T21:19:54Z",
+      "side": 1,
+      "message": "Ah I understand now. As long as you don\u0027t accidentally start compiling with 3.5 and now the jar file won\u0027t load in older versions of lint for people using your library.",
+      "parentUuid": "bacc5fcf_2aeb9a36",
+      "revId": "9cc3112253e0e4c4777549df1365c703c8182878",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1d8a5999_8bf8e3bc",
         "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleWhenChecks.kt",
         "patchSetId": 14
