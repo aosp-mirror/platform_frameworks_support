@@ -178,6 +178,24 @@
     },
     {
       "key": {
+        "uuid": "0038b1c7_43d86255",
+        "filename": "paging/rxjava2/src/main/java/androidx/paging/RxItemKeyedDataSource.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-03-26T14:48:42Z",
+      "side": 1,
+      "message": "The base class is in paging-common, so doesn\u0027t have access to the RxJava dependency (because it\u0027s large), so we can\u0027t.",
+      "parentUuid": "42257438_472ba7b9",
+      "revId": "22e3cf4e8c8f0c6c4cc89bc0469a373de50c265e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "35961588_7fe110cf",
         "filename": "paging/rxjava2/src/main/java/androidx/paging/RxItemKeyedDataSource.java",
         "patchSetId": 5
