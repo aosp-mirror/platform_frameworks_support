@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "bacc5fcf_2aeb9a36",
+        "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleRuntimeIssueRegistry.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-26T21:13:17Z",
+      "side": 1,
+      "message": "But I intentionally compile against old version that has version 3. So this value is equal to minApi. I guess it is ok, right?",
+      "parentUuid": "bd57f4e3_d95da094",
+      "revId": "9cc3112253e0e4c4777549df1365c703c8182878",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1d8a5999_8bf8e3bc",
         "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleWhenChecks.kt",
         "patchSetId": 14
