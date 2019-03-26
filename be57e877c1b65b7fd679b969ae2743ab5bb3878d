@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9635348b_286788df",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/adapter/FragmentStateAdapter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 441,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-26T17:54:55Z",
+      "side": 1,
+      "message": "we usually cache / handler runnable.\nAlso I guess better to remove any callbacks that are in-flight. (Handler.removeCallbacks())",
+      "range": {
+        "startLine": 441,
+        "startChar": 8,
+        "endLine": 441,
+        "endChar": 72
+      },
+      "revId": "be57e877c1b65b7fd679b969ae2743ab5bb3878d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e65be67_87b72c67",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/adapter/FragmentStateAdapter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 444,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-26T17:54:55Z",
+      "side": 1,
+      "message": "can be argument of gcFragments()",
+      "range": {
+        "startLine": 444,
+        "startChar": 16,
+        "endLine": 444,
+        "endChar": 40
+      },
+      "revId": "be57e877c1b65b7fd679b969ae2743ab5bb3878d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
