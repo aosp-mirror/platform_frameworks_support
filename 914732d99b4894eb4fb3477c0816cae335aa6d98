@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "950db5e4_c34a5bac",
+        "filename": "navigation/fragment/ktx/src/main/java/androidx/navigation/NavGraphViewModelLazy.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-03-26T20:10:00Z",
+      "side": 1,
+      "message": "There\u0027s no \u0027by default\u0027 here is there? It is always scoped that way.",
+      "revId": "914732d99b4894eb4fb3477c0816cae335aa6d98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
