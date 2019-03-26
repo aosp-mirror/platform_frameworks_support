@@ -72,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "25fff7a7_b0c72970",
+        "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleRuntimeIssueRegistry.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-26T21:23:23Z",
+      "side": 1,
+      "message": "I specifically added MinApiLintTest.kt to prevent accidental bumping (as well as because of shady things I had to do to run test with newer version of lint)",
+      "parentUuid": "fbd1f328_3178a6ac",
+      "revId": "9cc3112253e0e4c4777549df1365c703c8182878",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1d8a5999_8bf8e3bc",
         "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleWhenChecks.kt",
         "patchSetId": 14
