@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4b3a3187_138b68f6",
+        "filename": "lifecycle/runtime/eap/lint/build.gradle",
+        "patchSetId": 14
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2019-03-26T21:02:26Z",
+      "side": 1,
+      "message": "typo",
+      "revId": "9cc3112253e0e4c4777549df1365c703c8182878",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd57f4e3_d95da094",
+        "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleRuntimeIssueRegistry.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2019-03-26T21:02:26Z",
+      "side": 1,
+      "message": "Don\u0027t forget to also override val minApi. If you\u0027re supporting 3.4 and above minApi \u003d 4 (the constants are listed in Api.kt)",
+      "revId": "9cc3112253e0e4c4777549df1365c703c8182878",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d8a5999_8bf8e3bc",
+        "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleWhenChecks.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2019-03-26T21:02:26Z",
+      "side": 1,
+      "message": "Why internal?  (I generally avoid it because of the weird name mangling that it uses to enforce this, which is tied to compilation-invocations (modules are not really clearly spec\u0027ed)",
+      "revId": "9cc3112253e0e4c4777549df1365c703c8182878",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9720371_a5226da1",
+        "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleWhenChecks.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2019-03-26T21:02:26Z",
+      "side": 1,
+      "message": "(No need to add the .trimIndent() call here; lint will do it before showing the string in any presentation.)",
+      "revId": "9cc3112253e0e4c4777549df1365c703c8182878",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21efe3ae_e6dcccab",
+        "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleWhenChecks.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2019-03-26T21:02:26Z",
+      "side": 1,
+      "message": "const",
+      "revId": "9cc3112253e0e4c4777549df1365c703c8182878",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6447f4b1_826a40ac",
+        "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleWhenChecks.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2019-03-26T21:02:26Z",
+      "side": 1,
+      "message": "const -- or just use SdkConstants.CLASS_VIEW",
+      "revId": "9cc3112253e0e4c4777549df1365c703c8182878",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4b1437c_5feb6da4",
+        "filename": "lifecycle/runtime/eap/lint/src/test/java/androidx/lifecycle/lint/LifecycleWhenChecksTest.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2019-03-26T21:02:26Z",
+      "side": 1,
+      "message": "Remove this .trimIndent call (here and elsewhere).  Instead, add .indented() on the next line\n\n(e.g. kt(\"blah blah blah\").indented().within(\"src\"))\n\nThe reason for this is that the .trimIndent() call defeats the nested syntax highlighting support in Kotlin; if you take it out, you\u0027ll get nice handling of the source file while editing the test file, and the .indented() call on the test file will have the same result.",
+      "revId": "9cc3112253e0e4c4777549df1365c703c8182878",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
