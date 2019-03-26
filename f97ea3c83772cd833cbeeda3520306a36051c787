@@ -48,6 +48,54 @@
     },
     {
       "key": {
+        "uuid": "e4163ffe_da4316f0",
+        "filename": "car/core/src/main/java/androidx/car/app/CarSingleSelectionDialog.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-03-26T01:27:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "23301ff6_efd43600",
+      "range": {
+        "startLine": 53,
+        "startChar": 13,
+        "endLine": 53,
+        "endChar": 37
+      },
+      "revId": "f97ea3c83772cd833cbeeda3520306a36051c787",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ce2bfb1a_69998e9f",
+        "filename": "car/core/src/main/java/androidx/car/app/CarSingleSelectionDialog.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-03-26T01:27:56Z",
+      "side": 1,
+      "message": "Uses PLV to set up a list of single choice items for you without having to wire up everything yourself. Do you feel this functionality doesn\u0027t justify its own UI element?",
+      "parentUuid": "5ad06792_85fb6e08",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 54
+      },
+      "revId": "f97ea3c83772cd833cbeeda3520306a36051c787",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "109eba28_151ea10b",
         "filename": "car/core/src/main/java/androidx/car/app/CarSingleSelectionDialog.java",
         "patchSetId": 20
@@ -68,6 +116,30 @@
       "revId": "f97ea3c83772cd833cbeeda3520306a36051c787",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47c82d8e_2c90cb2a",
+        "filename": "car/core/src/main/java/androidx/car/app/CarSingleSelectionDialog.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-03-26T01:27:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "109eba28_151ea10b",
+      "range": {
+        "startLine": 398,
+        "startChar": 15,
+        "endLine": 398,
+        "endChar": 22
+      },
+      "revId": "f97ea3c83772cd833cbeeda3520306a36051c787",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
