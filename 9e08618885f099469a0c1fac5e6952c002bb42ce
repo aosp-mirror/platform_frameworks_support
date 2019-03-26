@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "00c7e910_d431c627",
+        "filename": "jetifier/jetifier/migration.config",
+        "patchSetId": 4
+      },
+      "lineNbr": 649,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-03-26T22:45:38Z",
+      "side": 1,
+      "message": "this can\u0027t work this way. It needs to be inverted - android/support/ first. Also why do you need this? This change affects jetification. For migration you should be using dejetification.",
+      "range": {
+        "startLine": 646,
+        "startChar": 4,
+        "endLine": 649,
+        "endChar": 6
+      },
+      "revId": "9e08618885f099469a0c1fac5e6952c002bb42ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af265244_25ea4b4f",
+        "filename": "jetifier/jetifier/migration.config",
+        "patchSetId": 4
+      },
+      "lineNbr": 4162,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-03-26T22:45:38Z",
+      "side": 1,
+      "message": "Why are these needed?",
+      "range": {
+        "startLine": 4161,
+        "startChar": 6,
+        "endLine": 4162,
+        "endChar": 87
+      },
+      "revId": "9e08618885f099469a0c1fac5e6952c002bb42ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
