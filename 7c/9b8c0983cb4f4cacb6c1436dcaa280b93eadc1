@@ -1,0 +1,8 @@
+Autosubmit+1: Filip Pavlis <pavlis@google.com>
+Presubmit-Ready+1: Filip Pavlis <pavlis@google.com>
+Code-Review+2: Alan Viverette <alanv@google.com>
+Submitted-by: Filip Pavlis <pavlis@google.com>
+Submitted-at: Tue, 26 Mar 2019 19:32:00 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/frameworks/support/+/933807
+Project: platform/frameworks/support
+Branch: refs/heads/androidx-master-dev
