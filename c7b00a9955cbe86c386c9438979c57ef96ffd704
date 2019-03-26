@@ -22,6 +22,29 @@
       "revId": "c7b00a9955cbe86c386c9438979c57ef96ffd704",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b18f78c5_57b180d9",
+        "filename": "buildSrc/jetify.gradle",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-03-26T17:36:58Z",
+      "side": 1,
+      "message": "This is actually not what you want. You want this to select archives that currently exist in the new world to map them to the old world. And paging is not under this dir anymore. To get paging the proper path would be \"m2repository/androidx/paging/**\" This applies to other ones also.",
+      "range": {
+        "startLine": 59,
+        "startChar": 4,
+        "endLine": 59,
+        "endChar": 42
+      },
+      "revId": "c7b00a9955cbe86c386c9438979c57ef96ffd704",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
