@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "00fce452_d30fad31",
+        "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleWhenChecks.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2019-03-26T21:07:53Z",
+      "side": 1,
+      "message": "up to you but at least in the tools codebase we avoid capitalizing acronyms; e.g. this would be named \"checkUiAccess\".",
+      "revId": "d1e9cf0554b5dd826c17a9a4d9cfc76953f4c23c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "674e625e_1517b91d",
+        "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleWhenChecks.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2019-03-26T21:07:53Z",
+      "side": 1,
+      "message": "Lint checks generally do not include position information in the error message. In the text report lint will compute it from the location; in the IDE you don\u0027t want to see it, you just want the range to be highlighted.\n\nIf what you\u0027re trying to do is provide *two* error locations for an error, you can do that with the location API; call setSecondary(Location) on your primary location. (It\u0027s basically a linked list). You can add a description for each location as well. This is for example how the duplicate attribute lint check works; in the IDE, both locations are highlighted. In HTML reports, all the associated locations are listed below the error.",
+      "revId": "d1e9cf0554b5dd826c17a9a4d9cfc76953f4c23c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1ebd3636_e25a3943",
         "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleWhenChecks.kt",
         "patchSetId": 6
@@ -13,6 +47,24 @@
       "writtenOn": "2019-03-26T18:18:32Z",
       "side": 1,
       "message": "this seems like a very common pattern for lint, Tor, is there any abstraction for such caching ?",
+      "revId": "d1e9cf0554b5dd826c17a9a4d9cfc76953f4c23c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2ea65a5_4acc476f",
+        "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleWhenChecks.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2019-03-26T21:07:53Z",
+      "side": 1,
+      "message": "I\u0027m honestly not sure exactly what this is doing...",
+      "parentUuid": "1ebd3636_e25a3943",
       "revId": "d1e9cf0554b5dd826c17a9a4d9cfc76953f4c23c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
