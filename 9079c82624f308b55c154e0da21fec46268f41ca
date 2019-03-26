@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "78bdb6f3_cbf37afe",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dependencyTracker/AffectedModuleDetector.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 1442661
+      },
+      "writtenOn": "2019-03-26T16:38:42Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "728e18f6_4a9b8ba5",
+      "range": {
+        "startLine": 295,
+        "startChar": 40,
+        "endLine": 295,
+        "endChar": 46
+      },
+      "revId": "9079c82624f308b55c154e0da21fec46268f41ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a311d9b_ae563dd4",
         "filename": "buildSrc/src/main/kotlin/androidx/build/dependencyTracker/AffectedModuleDetector.kt",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "9079c82624f308b55c154e0da21fec46268f41ca",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "643d3e1f_105dfc94",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dependencyTracker/AffectedModuleDetector.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 1442661
+      },
+      "writtenOn": "2019-03-26T16:38:42Z",
+      "side": 1,
+      "message": "So, we are getting these project names from the settings.gradle file. I talked to Alan, and duplicate names should be weeded out in the naming process before ever getting to the AffectedModuleDetector. \n\nWorst case scenario there\u0027s an extra module that gets tested against its will. I think this is preferable to the error you described above with the checkout located at that filepath.",
+      "parentUuid": "5a311d9b_ae563dd4",
+      "range": {
+        "startLine": 298,
+        "startChar": 54,
+        "endLine": 298,
+        "endChar": 62
+      },
+      "revId": "9079c82624f308b55c154e0da21fec46268f41ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
