@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6b86025b_9862ed7b",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/utils/CancelWorkRunnable.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-03-26T23:07:44Z",
+      "side": 1,
+      "message": "Use runInTransaction {} since the other methods are deprecated in ToT Room.",
+      "revId": "6033efcc4cb5c2e9c9bbf84a1b7125cf9d662b0f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
