@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "724f3fd1_3457c142",
+        "filename": "media2/src/main/java/androidx/media2/MediaItem.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-03-26T05:37:28Z",
+      "side": 1,
+      "message": "Q) What does this mean? Aren\u0027t all MediaItems created by Builder?",
+      "range": {
+        "startLine": 54,
+        "startChar": 3,
+        "endLine": 55,
+        "endChar": 19
+      },
+      "revId": "eadb959fd86775745afc65fc6888d08ebf0178ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd44ed7a_09f4d340",
+        "filename": "media2/src/main/java/androidx/media2/MediaItem.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-03-26T05:37:28Z",
+      "side": 1,
+      "message": "It sounds like there are (public) subclasses of MediaItem. Let\u0027s rewrite this as:\n  \u0027the process specific information (e.g. ....) will be removed from this media item\u0027.",
+      "range": {
+        "startLine": 62,
+        "startChar": 89,
+        "endLine": 64,
+        "endChar": 69
+      },
+      "revId": "eadb959fd86775745afc65fc6888d08ebf0178ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
