@@ -161,6 +161,30 @@
     },
     {
       "key": {
+        "uuid": "be0b202e_612096f5",
+        "filename": "media2-widget/src/androidTest/java/androidx/media2/widget/MediaControlViewTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-03-26T06:04:05Z",
+      "side": 1,
+      "message": "Let\u0027s talk offline with the device.",
+      "parentUuid": "7d07077d_1b50b3b3",
+      "range": {
+        "startLine": 402,
+        "startChar": 12,
+        "endLine": 402,
+        "endChar": 92
+      },
+      "revId": "6ffcd9bdc9eed90159989c81700bd1a2e42b6d79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0f135536_4f8c9a79",
         "filename": "media2-widget/src/androidTest/java/androidx/media2/widget/MediaControlViewTest.java",
         "patchSetId": 5
