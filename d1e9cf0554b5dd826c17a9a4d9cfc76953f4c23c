@@ -86,6 +86,24 @@
       "revId": "d1e9cf0554b5dd826c17a9a4d9cfc76953f4c23c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "558de19d_91ad289a",
+        "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleWhenChecks.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2019-03-26T21:25:12Z",
+      "side": 1,
+      "message": "Do you have a unit test for this recursive case? I\u0027m asking because the resolve call jumps out of UAST and into PSI, so when you calll toUelement (on line 252) you\u0027re creating a new UAST tree; I\u0027m not 100% certain that calling equals on those nodes will be true for two separate invocations to the same node; you\u0027d need to cache the UElement.psi() source nodes instead.\n\nIt sounds like what you really want is whole program analysis where you get the whole control flow or data flow graph. We do have some support for that (see the interprocedural thread checker) but it\u0027s pretty expensive and something we\u0027re still investigating. It\u0027s probably a good idea to limit your recursion here to just a few levels.",
+      "parentUuid": "d7163b17_fcdf3d4a",
+      "revId": "d1e9cf0554b5dd826c17a9a4d9cfc76953f4c23c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
