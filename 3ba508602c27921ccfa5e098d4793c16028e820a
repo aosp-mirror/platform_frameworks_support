@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "15fbac3f_03d3ee51",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dependencyTracker/AffectedModuleDetector.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-03-26T16:49:43Z",
+      "side": 1,
+      "message": "Using a filter means that if there exists an entry in COBUILT_TEST_NAMES for which there doesn\u0027t exist a matching project, then it won\u0027t fail (so it won\u0027t be as obvious to the user if they mistype the project name or if they rename it).\n\nI imagine it being easy enough to replace this function with something more like:\n\nfun lookupProjectSetsFromNames(allSets: Set\u003cSet\u003cString\u003e\u003e): Set\u003cSet\u003cProject\u003e\u003e {\n    return allSets.map( setNames -\u003e {\n        // given a set of project names, make a set of the projects that it corresponds to\n        setNames.map({ name -\u003e\n            rootProject.getProject(name)\n        })\n    })\n}",
+      "range": {
+        "startLine": 295,
+        "startChar": 40,
+        "endLine": 295,
+        "endChar": 46
+      },
+      "revId": "3ba508602c27921ccfa5e098d4793c16028e820a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
