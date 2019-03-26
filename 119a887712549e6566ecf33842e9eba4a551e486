@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "46fe6346_478f08f4",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/MavenUploadHelper.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-03-26T17:28:49Z",
+      "side": 1,
+      "message": "https://android-review.googlesource.com/c/platform/frameworks/support/+/931551/3..5/buildSrc/src/main/kotlin/androidx/build/MavenUploadHelper.kt#b175\n\nStrangely enough, if I do that, Gradle says:\n\n  java.lang.ClassCastException: org.apache.maven.model.Dependency cannot be cast to org.apache.maven.model.Dependency\n\nI think that because the Dependency is coming from another plugin, it\u0027s also coming from another classloader. Any suggestions? Is that why the reflection was here already?",
+      "parentUuid": "22d12a87_df6a072d",
+      "range": {
+        "startLine": 177,
+        "startChar": 16,
+        "endLine": 177,
+        "endChar": 63
+      },
+      "revId": "119a887712549e6566ecf33842e9eba4a551e486",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f80d1dc3_dccdc571",
         "filename": "buildSrc/src/main/kotlin/androidx/build/MavenUploadHelper.kt",
         "patchSetId": 5
