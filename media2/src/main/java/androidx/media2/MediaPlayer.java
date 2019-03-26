@@ -760,14 +760,17 @@ public class MediaPlayer extends SessionPlayer {
 
     /**
      * Prepares the media items for playback.
-     *
      * <p>
      * After setting the media items and the display surface, you need to call this method.
      * During this preparation, the player may allocate resources required to play, such as audio
      * and video decoders.
+     * <p>
+     * On success, a {@link PlayerResult} is returned with the current media item when the
+     * command was completed.
      *
      * @return a {@link ListenableFuture} which represents the pending completion of the command.
-     * {@link androidx.media2.SessionPlayer.PlayerResult} will be delivered when the command completes.
+     * {@link androidx.media2.SessionPlayer.PlayerResult} will be delivered when the command
+     * completes.
      */
     @Override
     @NonNull
@@ -1546,11 +1549,15 @@ public class MediaPlayer extends SessionPlayer {
      * source, or multiple runs of the same program.  The timestamp is normally
      * monotonically increasing and is unaffected by time-of-day adjustments,
      * but it is reset when the position is set.
+     * <p>
+     * On success, a {@link PlayerResult} is returned with the current media item when the
+     * command was completed.
      *
      * @param surface The {@link Surface} to be used for the video portion of
      * the media.
      * @return a {@link ListenableFuture} which represents the pending completion of the command.
-     * {@link androidx.media2.SessionPlayer.PlayerResult} will be delivered when the command completes.
+     * {@link androidx.media2.SessionPlayer.PlayerResult} will be delivered when the command
+     * completes.
      */
     @NonNull
     public ListenableFuture<PlayerResult> setSurface(@Nullable final Surface surface) {
@@ -1582,10 +1589,14 @@ public class MediaPlayer extends SessionPlayer {
      * gain. See {@link #getMaxPlayerVolume()} for the volume range supported by this player.
      * <p>
      * The default player volume is 1.0f.
+     * <p>
+     * On success, a {@link PlayerResult} is returned with the current media item when the
+     * command was completed.
      *
      * @param volume a value between 0.0f and {@link #getMaxPlayerVolume()}.
      * @return a {@link ListenableFuture} which represents the pending completion of the command.
-     * {@link androidx.media2.SessionPlayer.PlayerResult} will be delivered when the command completes.
+     * {@link androidx.media2.SessionPlayer.PlayerResult} will be delivered when the command
+     * completes.
      */
     @NonNull
     public ListenableFuture<PlayerResult> setPlayerVolume(
@@ -1648,10 +1659,14 @@ public class MediaPlayer extends SessionPlayer {
 
     /**
      * Sets playback params using {@link PlaybackParams}.
+     * <p>
+     * On success, a {@link PlayerResult} is returned with the current media item when the
+     * command was completed.
      *
      * @param params the playback params.
      * @return a {@link ListenableFuture} which represents the pending completion of the command.
-     * {@link androidx.media2.SessionPlayer.PlayerResult} will be delivered when the command completes.
+     * {@link androidx.media2.SessionPlayer.PlayerResult} will be delivered when the command
+     * completes.
      */
     @NonNull
     public ListenableFuture<PlayerResult> setPlaybackParams(@NonNull final PlaybackParams params) {
@@ -1691,6 +1706,9 @@ public class MediaPlayer extends SessionPlayer {
      * is kept. When current seekTo is completed, the queued request will be processed if
      * that request is different from just-finished seekTo operation, i.e., the requested
      * position or mode is different.
+     * <p>
+     * On success, a {@link PlayerResult} is returned with the current media item when the
+     * command was completed.
      *
      * @param position the offset in milliseconds from the start to seek to.
      * When seeking to the given time position, there is no guarantee that the media item
@@ -1761,6 +1779,9 @@ public class MediaPlayer extends SessionPlayer {
      * <p>This method must be called before {@link #setMediaItem} and {@link #setPlaylist} methods.
      * @return a {@link ListenableFuture} which represents the pending completion of the command.
      * {@link androidx.media2.SessionPlayer.PlayerResult} will be delivered when the command completes.
+     * <p>
+     * On success, a {@link PlayerResult} is returned with the current media item when the
+     * command was completed.
      *
      * @see AudioManager#generateAudioSessionId
      */
@@ -1809,6 +1830,9 @@ public class MediaPlayer extends SessionPlayer {
      * @param effectId system wide unique id of the effect to attach
      * @return a {@link ListenableFuture} which represents the pending completion of the command.
      * {@link androidx.media2.SessionPlayer.PlayerResult} will be delivered when the command completes.
+     * <p>
+     * On success, a {@link PlayerResult} is returned with the current media item when the
+     * command was completed.
      */
     @NonNull
     public ListenableFuture<PlayerResult> attachAuxEffect(final int effectId) {
@@ -1841,6 +1865,10 @@ public class MediaPlayer extends SessionPlayer {
      * so an appropriate conversion from linear UI input x to level is:
      * x == 0 -> level = 0
      * 0 < x <= R -> level = 10^(72*(x-R)/20/R)
+     * <p>
+     * On success, a {@link PlayerResult} is returned with the current media item when the
+     * command was completed.
+     *
      * @param level send level scalar
      * @return a {@link ListenableFuture} which represents the pending completion of the command.
      * {@link androidx.media2.SessionPlayer.PlayerResult} will be delivered when the command completes.
@@ -1926,10 +1954,14 @@ public class MediaPlayer extends SessionPlayer {
      * @param index the index of the track to be selected. The valid range of the index
      * is 0..total number of track - 1. The total number of tracks as well as the type of
      * each individual track can be found by calling {@link #getTrackInfo()} method.
+     * <p>
+     * On success, a {@link PlayerResult} is returned with the current media item when the
+     * command was completed.
      *
      * @see #getTrackInfo
      * @return a {@link ListenableFuture} which represents the pending completion of the command.
-     * {@link androidx.media2.SessionPlayer.PlayerResult} will be delivered when the command completes.
+     * {@link androidx.media2.SessionPlayer.PlayerResult} will be delivered when the command
+     * completes.
      */
     @NonNull
     public ListenableFuture<PlayerResult> selectTrack(final int index) {
@@ -1960,10 +1992,14 @@ public class MediaPlayer extends SessionPlayer {
      * @param index the index of the track to be deselected. The valid range of the index
      * is 0..total number of tracks - 1. The total number of tracks as well as the type of
      * each individual track can be found by calling {@link #getTrackInfo()} method.
+     * <p>
+     * On success, a {@link PlayerResult} is returned with the current media item when the
+     * command was completed.
      *
      * @see #getTrackInfo
      * @return a {@link ListenableFuture} which represents the pending completion of the command.
-     * {@link androidx.media2.SessionPlayer.PlayerResult} will be delivered when the command completes.
+     * {@link androidx.media2.SessionPlayer.PlayerResult} will be delivered when the command
+     * completes.
      */
     @NonNull
     public ListenableFuture<PlayerResult> deselectTrack(final int index) {
