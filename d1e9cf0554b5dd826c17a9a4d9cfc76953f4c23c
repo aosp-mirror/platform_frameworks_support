@@ -122,6 +122,24 @@
       "revId": "d1e9cf0554b5dd826c17a9a4d9cfc76953f4c23c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6dffab0d_ddca01b0",
+        "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleWhenChecks.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2019-03-26T21:38:17Z",
+      "side": 1,
+      "message": "No -- WrongThreadInterproceduralDetector",
+      "parentUuid": "1cc86c01_f8f3123a",
+      "revId": "d1e9cf0554b5dd826c17a9a4d9cfc76953f4c23c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
