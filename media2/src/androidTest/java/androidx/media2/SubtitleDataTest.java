@@ -18,6 +18,7 @@ package androidx.media2;
 
 import static junit.framework.Assert.assertEquals;
 
+import androidx.media2.MediaPlayer.TrackInfo;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.SmallTest;
 
@@ -34,8 +35,9 @@ public class SubtitleDataTest extends MediaTestBase {
     @Test
     public void testConstructor() {
         byte[] testData = {4, 3, 2, 1};
-        SubtitleData data = new SubtitleData(2, 123, 456, testData);
-        assertEquals(2, data.getTrackIndex());
+        final TrackInfo info = new TrackInfo(0, null, TrackInfo.MEDIA_TRACK_TYPE_UNKNOWN, null);
+        SubtitleData data = new SubtitleData(info, 123, 456, testData);
+        assertEquals(null, data.getTrackInfo());
         assertEquals(123, data.getStartTimeUs());
         assertEquals(456, data.getDurationUs());
         assertEquals(testData, data.getData());
