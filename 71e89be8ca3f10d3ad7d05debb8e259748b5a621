@@ -22,6 +22,30 @@
       "revId": "71e89be8ca3f10d3ad7d05debb8e259748b5a621",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8ccb975_b92fb061",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/RegisteredMediaRouteProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2019-03-26T23:03:56Z",
+      "side": 1,
+      "message": "Since mBound must be false, nothing happens",
+      "parentUuid": "dfe1834d_b2e47555",
+      "range": {
+        "startLine": 227,
+        "startChar": 12,
+        "endLine": 227,
+        "endChar": 22
+      },
+      "revId": "71e89be8ca3f10d3ad7d05debb8e259748b5a621",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
