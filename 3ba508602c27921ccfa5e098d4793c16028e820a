@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "51630fe5_204be704",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dependencyTracker/AffectedModuleDetector.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-03-26T20:23:46Z",
+      "side": 1,
+      "message": "Also of note, the function Project.project(path) refers to a logical Gradle path (the ones that are separated by the \":\" character) rather than a filesystem filepath. \nSo in this particular case (because these media projects aren\u0027t nested inside other projects according to settings.gradle (unlike, for example, :lifecycle:lifecycle-common)), refactoring the contents of COBUILT_TEST_NAMES from name back to path really just means adding \":\" to the front of each entry",
+      "parentUuid": "ad8ed90b_a24d7a64",
+      "range": {
+        "startLine": 295,
+        "startChar": 40,
+        "endLine": 295,
+        "endChar": 46
+      },
+      "revId": "3ba508602c27921ccfa5e098d4793c16028e820a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b727f81a_e685de0d",
         "filename": "buildSrc/src/test/kotlin/androidx/build/dependencyTracker/AffectedModuleDetectorImplTest.kt",
         "patchSetId": 6
