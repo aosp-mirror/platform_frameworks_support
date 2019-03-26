@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "63688137_600ba546",
+        "filename": "activity/ktx/src/main/java/androidx/activity/ActivityViewModelLazy.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-03-26T19:20:18Z",
+      "side": 1,
+      "message": "Just viewModelStore, no need for the this.",
+      "revId": "d12e12c485de768e8856433aeda26ce7ea072567",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62db6705_b7df26cf",
+        "filename": "fragment/ktx/src/main/java/androidx/fragment/app/FragmentViewModelLazy.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-03-26T19:20:18Z",
+      "side": 1,
+      "message": "Just use requireActivity()",
+      "revId": "d12e12c485de768e8856433aeda26ce7ea072567",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80877dfe_a6a6e0a9",
+        "filename": "fragment/ktx/src/main/java/androidx/fragment/app/FragmentViewModelLazy.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-03-26T19:20:18Z",
+      "side": 1,
+      "message": "Let\u0027s use storeProducer here to be specific on what is being produced",
+      "range": {
+        "startLine": 87,
+        "startChar": 4,
+        "endLine": 87,
+        "endChar": 12
+      },
+      "revId": "d12e12c485de768e8856433aeda26ce7ea072567",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fda96617_00ac170e",
+        "filename": "lifecycle/viewmodel/ktx/src/main/java/androidx/lifecycle/ViewModelProvider.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-03-26T19:20:18Z",
+      "side": 1,
+      "message": "Making this storeProducer would be better to differentiate it from factoryProducer.",
+      "range": {
+        "startLine": 43,
+        "startChar": 16,
+        "endLine": 43,
+        "endChar": 24
+      },
+      "revId": "d12e12c485de768e8856433aeda26ce7ea072567",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
