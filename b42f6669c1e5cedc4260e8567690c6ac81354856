@@ -1,0 +1,199 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f2e6c557_0bf79152",
+        "filename": "navigation/fragment/ktx/src/main/java/androidx/navigation/NavGraphViewModelLazy.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-03-26T19:30:58Z",
+      "side": 1,
+      "message": "scoped to a navigation graph present on the {@link NavController} back stack.",
+      "range": {
+        "startLine": 29,
+        "startChar": 53,
+        "endLine": 29,
+        "endChar": 93
+      },
+      "revId": "b42f6669c1e5cedc4260e8567690c6ac81354856",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4990f5ec_677a5950",
+        "filename": "navigation/fragment/ktx/src/main/java/androidx/navigation/NavGraphViewModelLazy.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-03-26T19:30:58Z",
+      "side": 1,
+      "message": "MainViewModel to match the main name perhaps?",
+      "range": {
+        "startLine": 32,
+        "startChar": 22,
+        "endLine": 32,
+        "endChar": 33
+      },
+      "revId": "b42f6669c1e5cedc4260e8567690c6ac81354856",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "595ab181_ddd38710",
+        "filename": "navigation/fragment/ktx/src/main/java/androidx/navigation/NavGraphViewModelLazy.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-03-26T19:30:58Z",
+      "side": 1,
+      "message": "Same, MainViewModel",
+      "range": {
+        "startLine": 40,
+        "startChar": 22,
+        "endLine": 40,
+        "endChar": 33
+      },
+      "revId": "b42f6669c1e5cedc4260e8567690c6ac81354856",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4f72642_ad2b9ef5",
+        "filename": "navigation/fragment/ktx/src/main/java/androidx/navigation/NavGraphViewModelLazy.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-03-26T19:30:58Z",
+      "side": 1,
+      "message": "storeProducer",
+      "range": {
+        "startLine": 52,
+        "startChar": 8,
+        "endLine": 52,
+        "endChar": 22
+      },
+      "revId": "b42f6669c1e5cedc4260e8567690c6ac81354856",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e473b44_1adf8c18",
+        "filename": "navigation/runtime/src/androidTest/java/androidx/navigation/NavControllerTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 734,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-03-26T19:30:58Z",
+      "side": 1,
+      "message": "store",
+      "range": {
+        "startLine": 734,
+        "startChar": 12,
+        "endLine": 734,
+        "endChar": 17
+      },
+      "revId": "b42f6669c1e5cedc4260e8567690c6ac81354856",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70062529_d33f3726",
+        "filename": "navigation/runtime/src/androidTest/java/androidx/navigation/NavControllerTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 765,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-03-26T19:30:58Z",
+      "side": 1,
+      "message": "use test(2) (see the example in TestNavigatorDestinationBuilderTest)",
+      "range": {
+        "startLine": 765,
+        "startChar": 16,
+        "endLine": 765,
+        "endChar": 84
+      },
+      "revId": "b42f6669c1e5cedc4260e8567690c6ac81354856",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b611965_6b5abd01",
+        "filename": "navigation/runtime/src/androidTest/java/androidx/navigation/NavControllerTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 769,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-03-26T19:30:58Z",
+      "side": 1,
+      "message": "You don\u0027t have a viewStore2, so just make this viewStore",
+      "range": {
+        "startLine": 769,
+        "startChar": 12,
+        "endLine": 769,
+        "endChar": 22
+      },
+      "revId": "b42f6669c1e5cedc4260e8567690c6ac81354856",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b4dec49_602bbb31",
+        "filename": "navigation/runtime/src/androidTest/java/androidx/navigation/NavControllerViewModelTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-03-26T19:30:58Z",
+      "side": 1,
+      "message": "This part is a duplicate of testClear(). Suggest removing this part and let testClear() handle this case.",
+      "revId": "b42f6669c1e5cedc4260e8567690c6ac81354856",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63e6a70e_27878cfe",
+        "filename": "navigation/runtime/src/androidTest/java/androidx/navigation/NavControllerViewModelTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-03-26T19:30:58Z",
+      "side": 1,
+      "message": "You shouldn\u0027t be calling onCleared() directly, but calling clear() on the containing ViewModelStore - you\u0027ll want to make the ViewModelStore() object from the first line into a local variable.",
+      "revId": "b42f6669c1e5cedc4260e8567690c6ac81354856",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
