@@ -25,6 +25,23 @@
     },
     {
       "key": {
+        "uuid": "a3264ffd_3d06aa20",
+        "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleWhenChecks.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2019-03-26T21:09:24Z",
+      "side": 1,
+      "message": "Don\u0027t forget to use markdown-like syntax not just for explanations but error messages too: surround Lifecycle.when with backticks. This is used to format the tooltips shown in the editor etc.",
+      "revId": "9fd28de26901d251217abc6153038723fabbfbd3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6f0c8852_dfb55cf1",
         "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleWhenChecks.kt",
         "patchSetId": 1
