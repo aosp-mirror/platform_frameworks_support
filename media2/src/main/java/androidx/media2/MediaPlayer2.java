@@ -784,6 +784,12 @@ public abstract class MediaPlayer2 {
      */
     public abstract List<TrackInfo> getTrackInfo();
 
+    public androidx.media2.MediaPlayer.TrackInfo getTrackInfo(int i) {
+        List<TrackInfo> tracks = getTrackInfo();
+        TrackInfo info = tracks.get(i);
+        return new androidx.media2.MediaPlayer.TrackInfo(i, null, info.getTrackType(), info.getFormat());
+    }
+
     /**
      * Returns the index of the audio, video, or subtitle track currently selected for playback,
      * The return value is an index into the array returned by {@link #getTrackInfo()}, and can
