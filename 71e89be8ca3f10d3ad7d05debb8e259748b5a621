@@ -70,6 +70,30 @@
       "revId": "71e89be8ca3f10d3ad7d05debb8e259748b5a621",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa1e1c59_eb3c8f33",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/RegisteredMediaRouteProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2019-03-26T23:47:19Z",
+      "side": 1,
+      "message": "Currently, updateBinding() is called from\n\nstart()\nstop()\nonDiscoveryRequestChanged()\nonControllerReleased()\ncreateRouteController()\ncreateDynamicGroupRouteController()\n\nI checked manually to confirm all functions except stop() are called in the main thread.\n(stop() is never called)\n\nscanPackages() in RegisteredMediaRouteProvideWatcher will be called in the main thread.\n(which would call start() and rebindIfDisconnected()).",
+      "parentUuid": "e372fd34_f26e34cb",
+      "range": {
+        "startLine": 227,
+        "startChar": 12,
+        "endLine": 227,
+        "endChar": 22
+      },
+      "revId": "71e89be8ca3f10d3ad7d05debb8e259748b5a621",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
