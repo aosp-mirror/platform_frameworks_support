@@ -34,8 +34,8 @@ public class SubtitleDataTest extends MediaTestBase {
     @Test
     public void testConstructor() {
         byte[] testData = {4, 3, 2, 1};
-        SubtitleData data = new SubtitleData(2, 123, 456, testData);
-        assertEquals(2, data.getTrackIndex());
+        SubtitleData data = new SubtitleData(null, 123, 456, testData);
+        assertEquals(null, data.getTrackInfo());
         assertEquals(123, data.getStartTimeUs());
         assertEquals(456, data.getDurationUs());
         assertEquals(testData, data.getData());
