@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "9885a5ed_281bbd4c",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dependencyTracker/AffectedModuleDetector.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 1442661
+      },
+      "writtenOn": "2019-03-27T15:38:30Z",
+      "side": 1,
+      "message": "Sorry, I was feeling the pressure of getting this bug fixed, and let that cloud my judgment. I\u0027ve made the refactor.",
+      "parentUuid": "51630fe5_204be704",
+      "range": {
+        "startLine": 295,
+        "startChar": 40,
+        "endLine": 295,
+        "endChar": 46
+      },
+      "revId": "3ba508602c27921ccfa5e098d4793c16028e820a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b727f81a_e685de0d",
         "filename": "buildSrc/src/test/kotlin/androidx/build/dependencyTracker/AffectedModuleDetectorImplTest.kt",
         "patchSetId": 6
@@ -111,6 +135,24 @@
       "revId": "3ba508602c27921ccfa5e098d4793c16028e820a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08408a60_4570ffef",
+        "filename": "buildSrc/src/test/kotlin/androidx/build/dependencyTracker/AffectedModuleDetectorImplTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1442661
+      },
+      "writtenOn": "2019-03-27T15:38:30Z",
+      "side": 1,
+      "message": "It was necessary to add 4 more tests projects here, to ensure that they were found upon lookup. If we add more to the cobuilt sets, I imagine we will want to refactor to use a parameter.\n\nIf you\u0027d prefer it refactored sooner than that, could I ask that we push this through to unblock the bug, and I\u0027ll open a separate bug against myself to refactor it first thing when I\u0027m back from London? I\u0027m finding that I have a couple higher priorities that I\u0027d rather spend that time on tomorrow (foremost of which is preparing for a talk I\u0027m giving here), but also feel guilty about not having this unblocked for media team yet.",
+      "parentUuid": "b727f81a_e685de0d",
+      "revId": "3ba508602c27921ccfa5e098d4793c16028e820a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
