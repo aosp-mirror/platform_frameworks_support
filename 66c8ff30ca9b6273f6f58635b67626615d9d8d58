@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d3bad345_c8a8b7e2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-03-27T16:20:05Z",
+      "side": 1,
+      "message": "Change to PagerSnapHelperTest",
+      "range": {
+        "startLine": 9,
+        "startChar": 27,
+        "endLine": 9,
+        "endChar": 42
+      },
+      "revId": "66c8ff30ca9b6273f6f58635b67626615d9d8d58",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
