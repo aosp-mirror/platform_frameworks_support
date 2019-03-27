@@ -30,6 +30,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.test.core.app.ApplicationProvider;
@@ -45,7 +46,7 @@ import java.util.concurrent.Executor;
  * Modifications to this class should be reflected in that class as necessary. See
  * http://go/modifying-webview-cts.
  */
-class WebViewOnUiThread {
+public class WebViewOnUiThread {
     /**
      * The maximum time, in milliseconds (10 seconds) to wait for a load
      * to be triggered.
@@ -69,10 +70,22 @@ class WebViewOnUiThread {
     private WebView mWebView;
 
     public WebViewOnUiThread() {
+        this(WebkitUtils.onMainThreadSync(new Callable<WebView>() {
+            @Override
+            public WebView call() {
+                return new WebView(ApplicationProvider.getApplicationContext());
+            }
+        }));
+    }
+
+    /**
+     * Create a new WebViewOnUiThread wrapping the provided {@link WebView}.
+     */
+    public WebViewOnUiThread(final WebView webView) {
         WebkitUtils.onMainThreadSync(new Runnable() {
             @Override
             public void run() {
-                mWebView = new WebView(ApplicationProvider.getApplicationContext());
+                mWebView = webView;
                 mWebView.setWebViewClient(new WaitForLoadedClient(WebViewOnUiThread.this));
                 mWebView.setWebChromeClient(new WaitForProgressClient(WebViewOnUiThread.this));
             }
@@ -174,47 +187,49 @@ class WebViewOnUiThread {
         });
     }
 
-    public void setWebViewRendererClient(final WebViewRendererClient webViewRendererClient) {
-        setWebViewRendererClient(mWebView, webViewRendererClient);
+    public void setWebViewRenderProcessClient(
+            final WebViewRenderProcessClient webViewRenderProcessClient) {
+        setWebViewRenderProcessClient(mWebView, webViewRenderProcessClient);
     }
 
-    public static void setWebViewRendererClient(
-            final WebView webView, final WebViewRendererClient webViewRendererClient) {
+    public static void setWebViewRenderProcessClient(
+            final WebView webView, final WebViewRenderProcessClient webViewRenderProcessClient) {
         WebkitUtils.onMainThreadSync(new Runnable() {
             @Override
             public void run() {
-                WebViewCompat.setWebViewRendererClient(webView, webViewRendererClient);
+                WebViewCompat.setWebViewRenderProcessClient(webView, webViewRenderProcessClient);
             }
         });
     }
 
-    public void setWebViewRendererClient(
-            final Executor executor, final WebViewRendererClient webViewRendererClient) {
-        setWebViewRendererClient(mWebView, executor, webViewRendererClient);
+    public void setWebViewRenderProcessClient(
+            final Executor executor, final WebViewRenderProcessClient webViewRenderProcessClient) {
+        setWebViewRenderProcessClient(mWebView, executor, webViewRenderProcessClient);
     }
 
-    public static void setWebViewRendererClient(
+    public static void setWebViewRenderProcessClient(
             final WebView webView,
             final Executor executor,
-            final WebViewRendererClient webViewRendererClient) {
+            final WebViewRenderProcessClient webViewRenderProcessClient) {
         WebkitUtils.onMainThreadSync(new Runnable() {
             @Override
             public void run() {
-                WebViewCompat.setWebViewRendererClient(webView, executor, webViewRendererClient);
+                WebViewCompat.setWebViewRenderProcessClient(
+                        webView, executor, webViewRenderProcessClient);
             }
         });
     }
 
-    public WebViewRendererClient getWebViewRendererClient() {
-        return getWebViewRendererClient(mWebView);
+    public WebViewRenderProcessClient getWebViewRenderProcessClient() {
+        return getWebViewRenderProcessClient(mWebView);
     }
 
-    public static WebViewRendererClient getWebViewRendererClient(
+    public static WebViewRenderProcessClient getWebViewRenderProcessClient(
             final WebView webView) {
-        return WebkitUtils.onMainThreadSync(new Callable<WebViewRendererClient>() {
+        return WebkitUtils.onMainThreadSync(new Callable<WebViewRenderProcessClient>() {
             @Override
-            public WebViewRendererClient call() {
-                return WebViewCompat.getWebViewRendererClient(webView);
+            public WebViewRenderProcessClient call() {
+                return WebViewCompat.getWebViewRenderProcessClient(webView);
             }
         });
     }
@@ -518,6 +533,7 @@ class WebViewOnUiThread {
         }
 
         @Override
+        @CallSuper
         public void onProgressChanged(WebView view, int newProgress) {
             super.onProgressChanged(view, newProgress);
             mOnUiThread.onProgressChanged(newProgress);
@@ -539,12 +555,14 @@ class WebViewOnUiThread {
         }
 
         @Override
+        @CallSuper
         public void onPageFinished(WebView view, String url) {
             super.onPageFinished(view, url);
             mOnUiThread.onPageFinished();
         }
 
         @Override
+        @CallSuper
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
             super.onPageStarted(view, url, favicon);
             mOnUiThread.onPageStarted();

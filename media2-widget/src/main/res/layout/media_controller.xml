@@ -19,8 +19,13 @@
         android:id="@+id/center_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/center_view_background"
         android:layoutDirection="ltr">
+
+        <View
+            android:id="@+id/center_view_background"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/center_view_background" />
 
         <include
             android:id="@+id/embedded_transport_controls"
@@ -54,10 +59,10 @@
             <TextView
                 android:id="@+id/title_text"
                 android:gravity="center_vertical"
-                android:ellipsize="end"
+                android:ellipsize="middle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:maxLines="1"
+                android:singleLine="true"
                 android:paddingStart="@dimen/mcv2_embedded_icon_padding"
                 android:paddingEnd="@dimen/mcv2_embedded_icon_padding"
                 android:textSize="15sp"
@@ -205,12 +210,6 @@
         android:orientation="horizontal"
         android:visibility="gone"
         android:layoutDirection="ltr">
-
-        <LinearLayout
-            android:id="@+id/custom_buttons"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" />
 
         <ImageButton
             android:id="@+id/settings"

@@ -37,6 +37,8 @@ import android.view.Window;
 import androidx.activity.ComponentActivity;
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.CallSuper;
+import androidx.annotation.ContentView;
+import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
@@ -107,17 +109,38 @@ public class FragmentActivity extends ComponentActivity implements
     // for startActivityForResult calls where a result has not yet been delivered.
     SparseArrayCompat<String> mPendingFragmentActivityResults;
 
+    /**
+     * Default constructor for FragmentActivity. All Activities must have a default constructor
+     * for API 27 and lower devices or when using the default
+     * {@link android.app.AppComponentFactory}.
+     */
     public FragmentActivity() {
         super();
+        init();
+    }
+
+    /**
+     * Alternate constructor that can be used to provide a default layout
+     * that will be inflated as part of <code>super.onCreate(savedInstanceState)</code>.
+     *
+     * <p>This should generally be called from your constructor that takes no parameters,
+     * as is required for API 27 and lower or when using the default
+     * {@link android.app.AppComponentFactory}.
+     *
+     * @see #FragmentActivity()
+     */
+    @ContentView
+    public FragmentActivity(@LayoutRes int contentLayoutId) {
+        super(contentLayoutId);
+        init();
+    }
+
+    private void init() {
         // Route onBackPressed() callbacks to the FragmentManager
-        addOnBackPressedCallback(new OnBackPressedCallback() {
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback() {
             @Override
             public boolean handleOnBackPressed() {
                 FragmentManager fragmentManager = mFragments.getSupportFragmentManager();
-                if (fragmentManager.isStateSaved()) {
-                    // Cannot pop after state is saved
-                    return false;
-                }
                 return fragmentManager.popBackStackImmediate();
             }
         });
@@ -131,6 +154,7 @@ public class FragmentActivity extends ComponentActivity implements
      * Dispatch incoming result to the correct fragment.
      */
     @Override
+    @CallSuper
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         mFragments.noteStateNotSaved();
         int requestIndex = requestCode>>16;
@@ -256,22 +280,12 @@ public class FragmentActivity extends ComponentActivity implements
     }
 
     /**
-     * Returns the context to be used for inflating any fragment view hierarchies.
-     */
-    @NonNull
-    public Context getThemedContext() {
-        return this;
-    }
-
-    /**
      * Perform initialization of all fragments.
      */
     @SuppressWarnings("deprecation")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         mFragments.attachHost(null /*parent*/);
-
-        super.onCreate(savedInstanceState);
 
         if (savedInstanceState != null) {
             Parcelable p = savedInstanceState.getParcelable(FRAGMENTS_TAG);
@@ -299,6 +313,8 @@ public class FragmentActivity extends ComponentActivity implements
             mPendingFragmentActivityResults = new SparseArrayCompat<>();
             mNextCandidateRequestIndex = 0;
         }
+
+        super.onCreate(savedInstanceState);
 
         mFragments.dispatchCreate();
     }

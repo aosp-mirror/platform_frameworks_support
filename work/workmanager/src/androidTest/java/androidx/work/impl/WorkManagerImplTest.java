@@ -49,12 +49,6 @@ import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-import android.arch.core.executor.ArchTaskExecutor;
-import android.arch.core.executor.TaskExecutor;
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.Observer;
-import android.arch.persistence.db.SupportSQLiteDatabase;
-import android.arch.persistence.db.SupportSQLiteOpenHelper;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.ContextWrapper;
@@ -62,14 +56,21 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+import androidx.arch.core.executor.ArchTaskExecutor;
+import androidx.arch.core.executor.TaskExecutor;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
+import androidx.sqlite.db.SupportSQLiteDatabase;
+import androidx.sqlite.db.SupportSQLiteOpenHelper;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.filters.MediumTest;
 import androidx.test.filters.SdkSuppress;
+import androidx.test.filters.SmallTest;
 import androidx.work.BackoffPolicy;
 import androidx.work.Configuration;
 import androidx.work.Constraints;
@@ -792,7 +793,6 @@ public class WorkManagerImplTest {
                 containsInAnyOrder(appendWork1.getStringId()));
     }
 
-
     @Test
     @MediumTest
     public void testEnqueueUniqueWork_appendsExistingWorkOnAppend()
@@ -1171,7 +1171,7 @@ public class WorkManagerImplTest {
     }
 
     @Test
-    @MediumTest
+    @SmallTest
     public void testCancelWorkById_cancelsDependentWork()
             throws ExecutionException, InterruptedException {
 

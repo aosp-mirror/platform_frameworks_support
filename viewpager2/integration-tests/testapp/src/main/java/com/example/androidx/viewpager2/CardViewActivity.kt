@@ -17,12 +17,8 @@
 package com.example.androidx.viewpager2
 
 import android.os.Bundle
-import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
-
-import com.example.androidx.viewpager2.cards.Card
-import com.example.androidx.viewpager2.cards.CardView
+import com.example.androidx.viewpager2.cards.CardViewAdapter
 
 /**
  * Shows how to use [ViewPager2.setAdapter] with Views.
@@ -30,34 +26,8 @@ import com.example.androidx.viewpager2.cards.CardView
  * @see CardFragmentActivity for an example of using {@link ViewPager2} with Fragments.
  */
 open class CardViewActivity : BaseCardActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        viewPager.adapter = object : RecyclerView.Adapter<CardViewHolder>() {
-            override fun onCreateViewHolder(
-                parent: ViewGroup,
-                viewType: Int
-            ): CardViewHolder {
-                return CardViewHolder(CardView(layoutInflater, parent))
-            }
-
-            override fun onBindViewHolder(holder: CardViewHolder, position: Int) {
-                holder.bind(cards[position])
-            }
-
-            override fun getItemCount(): Int {
-                return cards.size
-            }
-        }
-    }
-
-    class CardViewHolder internal constructor(
-        private val cardView: CardView
-    ) : RecyclerView.ViewHolder(cardView.view) {
-
-        internal fun bind(card: Card) {
-            cardView.bind(card)
-        }
+        viewPager.adapter = CardViewAdapter()
     }
 }
