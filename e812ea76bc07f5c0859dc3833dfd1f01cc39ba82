@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "467e7620_3d5df9c3",
+        "filename": "media2-widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 700,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-03-27T10:33:29Z",
+      "side": 1,
+      "message": "Sorry for the mistake. This block is needed to handle case when playback is paused or completed while animating. I added code to handle (mUxState \u003d\u003d UX_STATE_ANIMATING) case inside mShowAllBars.",
+      "parentUuid": "7ca35d91_a423e759",
+      "range": {
+        "startLine": 697,
+        "startChar": 0,
+        "endLine": 700,
+        "endChar": 1
+      },
+      "revId": "e812ea76bc07f5c0859dc3833dfd1f01cc39ba82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "826ed78d_6189ea79",
         "filename": "media2-widget/src/main/java/androidx/media2/widget/MediaControlView.java",
         "patchSetId": 2
@@ -39,6 +63,24 @@
       "revId": "e812ea76bc07f5c0859dc3833dfd1f01cc39ba82",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5d32f10_f248515d",
+        "filename": "media2-widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1649,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-03-27T10:33:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "826ed78d_6189ea79",
+      "revId": "e812ea76bc07f5c0859dc3833dfd1f01cc39ba82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
