@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "34783d0d_4241fea6",
+        "filename": "appcompat/src/main/java/androidx/appcompat/app/AppCompatDelegate.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 543,
+      "author": {
+        "id": 1018893
+      },
+      "writtenOn": "2019-03-27T22:38:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c9f93f81_e7d4e63d",
+      "range": {
+        "startLine": 543,
+        "startChar": 20,
+        "endLine": 543,
+        "endChar": 57
+      },
+      "revId": "0bc79b6babf06bfbd07d8806e1e0ac200faa4df3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a5d46dbc_8b1033bb",
         "filename": "appcompat/src/main/java/androidx/appcompat/app/AppCompatDelegate.java",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "0bc79b6babf06bfbd07d8806e1e0ac200faa4df3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec257dbe_7f2e1bde",
+        "filename": "appcompat/src/main/java/androidx/appcompat/app/AppCompatDelegate.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 628,
+      "author": {
+        "id": 1018893
+      },
+      "writtenOn": "2019-03-27T22:38:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a5d46dbc_8b1033bb",
+      "range": {
+        "startLine": 628,
+        "startChar": 4,
+        "endLine": 628,
+        "endChar": 49
+      },
+      "revId": "0bc79b6babf06bfbd07d8806e1e0ac200faa4df3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
