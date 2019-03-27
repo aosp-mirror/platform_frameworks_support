@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "fb242786_e8294f65",
+        "filename": "media2-widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-03-27T07:17:14Z",
+      "side": 1,
+      "message": "remove",
+      "revId": "dedb8e1a394edaf7d93d7ef2abb31780997800b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1c95adac_d7c6ff88",
         "filename": "media2-widget/src/main/java/androidx/media2/widget/VideoView.java",
         "patchSetId": 6
@@ -19,6 +36,91 @@
         "endLine": 200,
         "endChar": 42
       },
+      "revId": "dedb8e1a394edaf7d93d7ef2abb31780997800b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98177f49_c992e3dc",
+        "filename": "media2/src/main/java/androidx/media2/MediaPlayer.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 2925,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-03-27T07:17:14Z",
+      "side": 1,
+      "message": "Add @RestrictTo?",
+      "revId": "dedb8e1a394edaf7d93d7ef2abb31780997800b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ffdabbd_0a287b2a",
+        "filename": "media2/src/main/java/androidx/media2/MediaPlayer.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 2973,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-03-27T07:17:14Z",
+      "side": 1,
+      "message": "could you merge this line into 2972, or use curly braces? (same to other places)",
+      "revId": "dedb8e1a394edaf7d93d7ef2abb31780997800b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "440d578c_4eab90aa",
+        "filename": "media2/src/main/java/androidx/media2/MediaPlayer2.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 787,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-03-27T07:17:14Z",
+      "side": 1,
+      "message": "Need java doc",
+      "revId": "dedb8e1a394edaf7d93d7ef2abb31780997800b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65c1956d_5fff83e7",
+        "filename": "media2/src/main/java/androidx/media2/MediaPlayer2.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 791,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-03-27T07:17:14Z",
+      "side": 1,
+      "message": "Line is too long",
+      "revId": "dedb8e1a394edaf7d93d7ef2abb31780997800b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9ef8361_4d7140e0",
+        "filename": "media2/src/main/java/androidx/media2/SubtitleData.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-03-27T07:17:14Z",
+      "side": 1,
+      "message": "could you reorder the import lines in alphabetical order?",
       "revId": "dedb8e1a394edaf7d93d7ef2abb31780997800b0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
