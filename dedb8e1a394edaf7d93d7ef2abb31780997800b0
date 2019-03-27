@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1c95adac_d7c6ff88",
+        "filename": "media2-widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-03-27T05:25:29Z",
+      "side": 1,
+      "message": "Could you revise this comment, please?",
+      "range": {
+        "startLine": 200,
+        "startChar": 37,
+        "endLine": 200,
+        "endChar": 42
+      },
+      "revId": "dedb8e1a394edaf7d93d7ef2abb31780997800b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "992539ac_8d63cb04",
+        "filename": "media2/src/main/java/androidx/media2/SubtitleData.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-03-27T05:25:29Z",
+      "side": 1,
+      "message": "As it is @NonNull, I think the parameter in the constructor should also be marked as @NonNull. And in SubtitleDataTest.java, a SubtitleData instance should be passed instead of null.",
+      "range": {
+        "startLine": 106,
+        "startChar": 4,
+        "endLine": 106,
+        "endChar": 12
+      },
+      "revId": "dedb8e1a394edaf7d93d7ef2abb31780997800b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
