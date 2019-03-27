@@ -46,6 +46,30 @@
       "revId": "81e0434bf722b8bafb37e1793ea2b9fd31e54005",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c0bb1017_73e081c3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-03-27T19:59:33Z",
+      "side": 1,
+      "message": "So why does moveToState(Lifecycle.Event) not change the lifecycle to that Event? That seems like a real issue and it seems like it should be ActivityScenario, etc. that should be handling any API specific changes, not something you\u0027re having to work around here.",
+      "parentUuid": "fbafe93c_d1bbc40b",
+      "range": {
+        "startLine": 11,
+        "startChar": 3,
+        "endLine": 13,
+        "endChar": 68
+      },
+      "revId": "81e0434bf722b8bafb37e1793ea2b9fd31e54005",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
