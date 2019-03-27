@@ -180,6 +180,30 @@
     },
     {
       "key": {
+        "uuid": "3e83b349_d9e500f2",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 631,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-03-27T21:31:44Z",
+      "side": 1,
+      "message": "See my comment below.",
+      "parentUuid": "3fc03025_9c10d705",
+      "range": {
+        "startLine": 631,
+        "startChar": 21,
+        "endLine": 631,
+        "endChar": 36
+      },
+      "revId": "6634f2bd0b3934a3b10d4ca0ccb96304a264ae5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "15be1914_ad275a6f",
         "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
         "patchSetId": 5
@@ -191,6 +215,24 @@
       "writtenOn": "2019-03-27T21:09:27Z",
       "side": 1,
       "message": "why don\u0027t we just name these start and end ?\nthats basically what extra fill space does anyways, unless i\u0027m missing something.\n\nthen we wouldn\u0027t need to pass these values around to the recycle methods either.",
+      "revId": "6634f2bd0b3934a3b10d4ca0ccb96304a264ae5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47320062_57bf771f",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2254,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-03-27T21:31:44Z",
+      "side": 1,
+      "message": "During onLayoutChildren, mExtraFillSpace is used for both start and end direction (it is set to start and then end values for laying out in one direction and then the other) and mNoRecycleSpace isn\u0027t used at all.\n\nDuring scrolling (and other related scrolling like tasks) mExtraFillSpace is only used to fill in in the appropriate direction, and then mNoRecycleSpace is used to prevent recycling in the opposite direction.  \n\nChanging the names to start and end would actually be incorrect given the usage of the fields.",
+      "parentUuid": "15be1914_ad275a6f",
       "revId": "6634f2bd0b3934a3b10d4ca0ccb96304a264ae5b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
