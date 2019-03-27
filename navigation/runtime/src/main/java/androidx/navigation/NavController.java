@@ -975,7 +975,7 @@ public class NavController {
      *
      * @param viewModelStore ViewModelStore used to store ViewModels at the navigation graph level
      */
-    public void setViewModelStore(@NonNull ViewModelStore viewModelStore) {
+    public void setParentViewModelStore(@NonNull ViewModelStore viewModelStore) {
         mViewModel = NavControllerViewModel.getInstance(viewModelStore);
     }
 
@@ -984,7 +984,7 @@ public class NavController {
      * store one.
      *
      * @param navGraphId ID of a NavGraph that exists on the back stack
-     * @throws IllegalStateException if called before {@link #setViewModelStore}.
+     * @throws IllegalStateException if called before {@link #setParentViewModelStore}.
      * @throws IllegalArgumentException if the NavGraph is not on the back stack
      */
     @NonNull
