@@ -114,6 +114,86 @@
       "revId": "6634f2bd0b3934a3b10d4ca0ccb96304a264ae5b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "05b6158c_424e9ea4",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 460,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-27T21:09:27Z",
+      "side": 1,
+      "message": "how about RTL?\n\ndo we want this to be start/end instead?\nleft right might be confusing for RTL.\n\nIf we don\u0027t handle RTL here and developer wants to have more space towards the end of the list all the time, they\u0027ll need to think about RTL.\n\n\ni need to take a longer look at this, as far as i can see, START just means left-top and END just means right-bottom as LLM works in absolute coordinates but still wanted to double check with you.\n\nWe should at least extend the documentation to mention that RTL is also ignored sp values might be absolute.",
+      "range": {
+        "startLine": 459,
+        "startChar": 22,
+        "endLine": 460,
+        "endChar": 94
+      },
+      "revId": "6634f2bd0b3934a3b10d4ca0ccb96304a264ae5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc08775a_0df40b51",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 586,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-27T21:09:27Z",
+      "side": 1,
+      "message": "what happens if developer puts negative values there, by mistake?\nwe should probably set them back to 0 if they are negative (we could alternatively crash but i don\u0027t see the value of crashing for something we can fix? ).\n\nWe should also add that behavior to the docs of calculateExtra",
+      "revId": "6634f2bd0b3934a3b10d4ca0ccb96304a264ae5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3fc03025_9c10d705",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 631,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-27T21:09:27Z",
+      "side": 1,
+      "message": "see comments below but seems like it is better to separate extra-start extra-end (instead of extra vs noRecycle).\nthey are constant during the layout so we should be able to just read it form layout state when we need them ?",
+      "range": {
+        "startLine": 631,
+        "startChar": 21,
+        "endLine": 631,
+        "endChar": 36
+      },
+      "revId": "6634f2bd0b3934a3b10d4ca0ccb96304a264ae5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15be1914_ad275a6f",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2254,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-27T21:09:27Z",
+      "side": 1,
+      "message": "why don\u0027t we just name these start and end ?\nthats basically what extra fill space does anyways, unless i\u0027m missing something.\n\nthen we wouldn\u0027t need to pass these values around to the recycle methods either.",
+      "revId": "6634f2bd0b3934a3b10d4ca0ccb96304a264ae5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
