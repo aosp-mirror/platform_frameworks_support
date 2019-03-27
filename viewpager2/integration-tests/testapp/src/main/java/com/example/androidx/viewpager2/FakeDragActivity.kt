@@ -24,6 +24,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.example.androidx.viewpager2.cards.CardViewAdapter
 
+// foo
 class FakeDragActivity : FragmentActivity() {
 
     private lateinit var viewPager: ViewPager2
