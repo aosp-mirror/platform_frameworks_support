@@ -22,6 +22,30 @@
       "revId": "ceed42fc34f3e55973bfd20c4892bd085478f152",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8af7dfc_367d47ad",
+        "filename": "leanback-preference/src/main/java/androidx/leanback/preference/BaseLeanbackPreferenceFragmentCompat.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1020538
+      },
+      "writtenOn": "2019-03-27T22:20:10Z",
+      "side": 1,
+      "message": "Checked Fragment source code, it would not work.\nonAttach(Context conext) does not save context as a member of Fragment.\n\nFragment.getContext() uses mHost\u0027s context. mHost is package private and assigned by fragment transaction.",
+      "parentUuid": "a5a92c2e_d862826d",
+      "range": {
+        "startLine": 69,
+        "startChar": 8,
+        "endLine": 69,
+        "endChar": 76
+      },
+      "revId": "ceed42fc34f3e55973bfd20c4892bd085478f152",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
