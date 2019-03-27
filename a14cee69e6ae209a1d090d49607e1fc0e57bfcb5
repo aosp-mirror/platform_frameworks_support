@@ -87,6 +87,24 @@
       "revId": "a14cee69e6ae209a1d090d49607e1fc0e57bfcb5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b36a6651_3344740f",
+        "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleWhenChecks.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2019-03-27T18:21:18Z",
+      "side": 1,
+      "message": "If you put in newlines, lint will treat that as a \u003cbr\u003e !  If you want paragraph formatting, which you do, you should use \\ to continue lines.\n\nThe trimIndent is unnecessary here because lint will perform a trimIndent anyway before presenting it. That\u0027s true for all 350 built in checks and many external so that behavior won\u0027t go away and you won\u0027t need it here ever.",
+      "parentUuid": "110a39a3_b8912df0",
+      "revId": "a14cee69e6ae209a1d090d49607e1fc0e57bfcb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
