@@ -42,6 +42,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.core.content.res.FontResourcesParserCompat.FamilyResourceEntry;
+import androidx.core.graphics.FutureUtil;
 import androidx.core.graphics.TypefaceCompat;
 import androidx.core.provider.FontsContractCompat.FontRequestCallback;
 import androidx.core.provider.FontsContractCompat.FontRequestCallback.FontRequestFailReason;
@@ -50,6 +51,7 @@ import androidx.core.util.Preconditions;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
+import java.util.concurrent.Future;
 
 /**
  * Helper for accessing features in {@link android.content.res.Resources}.
@@ -434,6 +436,57 @@ public final class ResourcesCompat {
         if (fontCallback != null) {
             fontCallback.callbackFailAsync(
                     FontRequestCallback.FAIL_REASON_FONT_LOAD_ERROR, handler);
+        }
+        return null;
+    }
+
+    /**
+     * Used by TintTypedArray.
+     *
+     * @hide
+     */
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    public static Future<Typeface> getFontFuture(@NonNull Context context, int id,
+            TypedValue value, int style) throws NotFoundException {
+        final Resources wrapper = context.getResources();
+        wrapper.getValue(id, value, true);
+        if (context.isRestricted()) {
+            return null;
+        }
+        if (value.string == null) {
+            throw new NotFoundException("Resource \"" + wrapper.getResourceName(id) + "\" ("
+                    + Integer.toHexString(id) + ") is not a Font: " + value);
+        }
+
+        final String file = value.string.toString();
+        if (!file.startsWith("res/")) {
+            // Early exit if the specified string is unlikely to be a resource path.
+            return null;
+        }
+        Typeface typeface = TypefaceCompat.findFromCache(wrapper, id, style);
+
+        if (typeface != null) {
+            return new FutureUtil.CompletedFuture<>(typeface);
+        }
+
+        try {
+            if (file.toLowerCase().endsWith(".xml")) {
+                final XmlResourceParser rp = wrapper.getXml(id);
+                final FamilyResourceEntry familyEntry =
+                        FontResourcesParserCompat.parse(rp, wrapper);
+                if (familyEntry == null) {
+                    Log.e(TAG, "Failed to find font-family tag");
+                    return null;
+                }
+                return TypefaceCompat.getTypefaceFuture(context, familyEntry, wrapper, id, style);
+            }
+            typeface = TypefaceCompat.createFromResourcesFontFile(
+                    context, wrapper, id, file, style);
+            return new FutureUtil.CompletedFuture<>(typeface);
+        } catch (XmlPullParserException e) {
+            Log.e(TAG, "Failed to parse xml resource " + file, e);
+        } catch (IOException e) {
+            Log.e(TAG, "Failed to read xml resource " + file, e);
         }
         return null;
     }

@@ -33,15 +33,19 @@ import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.widget.TextView;
 
+import androidx.annotation.GuardedBy;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.appcompat.R;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.core.widget.TextViewCompat;
 
 import java.lang.ref.WeakReference;
 import java.util.Locale;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 class AppCompatTextHelper {
 
@@ -52,7 +56,9 @@ class AppCompatTextHelper {
     private static final int SERIF = 2;
     private static final int MONOSPACE = 3;
 
-    private final TextView mView;
+    /** @hide */
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    public final TextView mView; // Visible for callback access
 
     private TintInfo mDrawableLeftTint;
     private TintInfo mDrawableTopTint;
@@ -65,10 +71,15 @@ class AppCompatTextHelper {
     @NonNull
     private final AppCompatTextViewAutoSizeHelper mAutoSizeTextHelper;
 
-    private int mStyle = Typeface.NORMAL;
-    private int mFontWeight = TEXT_FONT_WEIGHT_UNSPECIFIED;
-    private Typeface mFontTypeface;
-    private boolean mAsyncFontPending;
+    public int mStyle = Typeface.NORMAL;  // Visible for callback access
+    public int mFontWeight = TEXT_FONT_WEIGHT_UNSPECIFIED;  // Visible for callback access
+
+    public Typeface mFontTypeface;  // Visible for callback access
+
+    private static final Object sLock = new Object();
+
+    @GuardedBy("sLock")
+    private static Executor sExecutor;
 
     AppCompatTextHelper(TextView view) {
         mView = view;
@@ -329,6 +340,72 @@ class AppCompatTextHelper {
         }
     }
 
+    private static class UpdateTypefaceTask implements Runnable {
+
+        private static class ApplyTextViewCallback implements Runnable {
+            final WeakReference<AppCompatTextHelper> mCaller;
+            final Typeface mTypeface;
+
+            ApplyTextViewCallback(@NonNull AppCompatTextHelper caller, @NonNull Typeface typeface) {
+                mCaller = new WeakReference<>(caller);
+                mTypeface = typeface;
+            }
+
+            @Override
+            public void run() {
+                final AppCompatTextHelper caller = mCaller.get();
+                if (caller == null) {
+                    // The caller already gone. Do nothing.
+                    return;
+                }
+
+                caller.mFontTypeface = mTypeface;
+                caller.mView.setTypeface(mTypeface);
+            }
+        }
+
+        final WeakReference<AppCompatTextHelper> mCaller;
+        final Future<Typeface> mFuture;
+
+        UpdateTypefaceTask(@NonNull AppCompatTextHelper caller, @NonNull Future<Typeface> future) {
+            mCaller = new WeakReference<>(caller);
+            mFuture = future;
+        }
+
+        @Override
+        public void run() {
+            Typeface typeface;
+            try {
+                typeface = mFuture.get();
+            } catch (ExecutionException | InterruptedException e) {
+                // Unrecoverable
+                return;
+            }
+
+            if (typeface == null) {
+                // Failed to retrieve font. Unrecoverable in layout inflation.
+                return;
+            }
+
+            final AppCompatTextHelper caller = mCaller.get();
+            if (caller == null) {
+                // The caller already gone. Do nothing.
+                return;
+            }
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P
+                    && caller.mFontWeight != TEXT_FONT_WEIGHT_UNSPECIFIED) {
+                typeface = Typeface.create(
+                        Typeface.create(typeface, Typeface.NORMAL), caller.mFontWeight,
+                        (caller.mStyle & Typeface.ITALIC) != 0);
+            }
+
+            caller.mView.post(new ApplyTextViewCallback(caller, typeface));
+        }
+    }
+
+
+
     private void updateTypefaceAndStyle(Context context, TintTypedArray a) {
         mStyle = a.getInt(R.styleable.TextAppearance_android_textStyle, mStyle);
 
@@ -349,39 +426,38 @@ class AppCompatTextHelper {
             final int fontWeight = mFontWeight;
             final int style = mStyle;
             if (!context.isRestricted()) {
-                final WeakReference<TextView> textViewWeak = new WeakReference<>(mView);
-                ResourcesCompat.FontCallback replyCallback = new ResourcesCompat.FontCallback() {
-                    @Override
-                    public void onFontRetrieved(@NonNull Typeface typeface) {
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                            if (fontWeight != TEXT_FONT_WEIGHT_UNSPECIFIED) {
-                                typeface = Typeface.create(typeface, fontWeight,
-                                        (style & Typeface.ITALIC) != 0);
-                            }
-                        }
-                        onAsyncTypefaceReceived(textViewWeak, typeface);
-                    }
-
-                    @Override
-                    public void onFontRetrievalFailed(int reason) {
-                        // Do nothing.
-                    }
-                };
                 try {
                     // Note the callback will be triggered on the UI thread.
-                    final Typeface typeface = a.getFont(fontFamilyId, mStyle, replyCallback);
-                    if (typeface != null) {
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P
-                                && mFontWeight != TEXT_FONT_WEIGHT_UNSPECIFIED) {
-                            mFontTypeface = Typeface.create(
-                                    Typeface.create(typeface, Typeface.NORMAL), mFontWeight,
-                                    (mStyle & Typeface.ITALIC) != 0);
-                        } else {
-                            mFontTypeface = typeface;
+                    final Future<Typeface> future = a.getFontFuture(fontFamilyId, mStyle);
+
+                    if (future == null) {
+                        mFontTypeface = null;
+                    } else if (future.isDone()) {
+                        // The future is already completed. Likely font resource file.
+                        final Typeface typeface = future.get();
+                        if (typeface != null) {
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P
+                                    && mFontWeight != TEXT_FONT_WEIGHT_UNSPECIFIED) {
+                                mFontTypeface = Typeface.create(
+                                        Typeface.create(typeface, Typeface.NORMAL), mFontWeight,
+                                        (mStyle & Typeface.ITALIC) != 0);
+                            } else {
+                                mFontTypeface = typeface;
+                            }
                         }
+                    } else {
+                        // Unable to fetch Typeface synchronously, apply once it is retried.
+                        if (sExecutor == null) {
+                            synchronized (sLock) {
+                                if (sExecutor == null) {
+                                    sExecutor = Executors.newFixedThreadPool(1);
+                                }
+                            }
+                        }
+                        sExecutor.execute(new UpdateTypefaceTask(this, future));
                     }
-                    // If this call gave us an immediate result, ignore any pending callbacks.
-                    mAsyncFontPending = mFontTypeface == null;
+                } catch (ExecutionException | InterruptedException e) {
+                    // Unrecoverable
                 } catch (UnsupportedOperationException | Resources.NotFoundException e) {
                     // Expected if it is not a font resource.
                 }
@@ -404,8 +480,6 @@ class AppCompatTextHelper {
         }
 
         if (a.hasValue(R.styleable.TextAppearance_android_typeface)) {
-            // Ignore previous pending fonts
-            mAsyncFontPending = false;
             int typefaceIndex = a.getInt(R.styleable.TextAppearance_android_typeface, SANS);
             switch (typefaceIndex) {
                 case SANS:
@@ -419,17 +493,6 @@ class AppCompatTextHelper {
                 case MONOSPACE:
                     mFontTypeface = Typeface.MONOSPACE;
                     break;
-            }
-        }
-    }
-
-    @SuppressWarnings("WeakerAccess") /* synthetic access */
-    void onAsyncTypefaceReceived(WeakReference<TextView> textViewWeak, Typeface typeface) {
-        if (mAsyncFontPending) {
-            mFontTypeface = typeface;
-            final TextView textView = textViewWeak.get();
-            if (textView != null) {
-                textView.setTypeface(typeface, mStyle);
             }
         }
     }

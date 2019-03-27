@@ -16,6 +16,7 @@
 
 package androidx.core.provider;
 
+import static androidx.annotation.RestrictTo.Scope.LIBRARY;
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
 import android.annotation.SuppressLint;
@@ -176,8 +177,10 @@ public class FontsContractCompat {
             new SelfDestructiveThread("fonts", Process.THREAD_PRIORITY_BACKGROUND,
                     BACKGROUND_THREAD_KEEP_ALIVE_DURATION_MS);
 
+    /** @hide */
+    @RestrictTo(LIBRARY)
     @NonNull
-    static TypefaceResult getFontInternal(final Context context, final FontRequest request,
+    public static TypefaceResult getFontInternal(final Context context, final FontRequest request,
             int style) {
         FontFamilyResult result;
         try {
@@ -203,9 +206,11 @@ public class FontsContractCompat {
     static final SimpleArrayMap<String, ArrayList<ReplyCallback<TypefaceResult>>>
             sPendingReplies = new SimpleArrayMap<>();
 
-    private static final class TypefaceResult {
-        final Typeface mTypeface;
-        @FontRequestCallback.FontRequestFailReason final int mResult;
+    /** @hide */
+    @RestrictTo(LIBRARY)
+    public static final class TypefaceResult {
+        public final Typeface mTypeface;
+        public @FontRequestCallback.FontRequestFailReason final int mResult;
 
         TypefaceResult(@Nullable Typeface typeface,
                 @FontRequestCallback.FontRequestFailReason int result) {
