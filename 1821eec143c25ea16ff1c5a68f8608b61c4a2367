@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3ceb622c_e70904be",
+        "filename": "core/src/main/java/androidx/core/content/FileProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 1059543
+      },
+      "writtenOn": "2019-03-27T01:33:51Z",
+      "side": 1,
+      "message": "Use @GuardedBy, like above. Also, please declare a dedicated lock object - we don\u0027t know what subclassers might be doing with the instance lock.",
+      "range": {
+        "startLine": 362,
+        "startChar": 4,
+        "endLine": 362,
+        "endChar": 11
+      },
+      "revId": "1821eec143c25ea16ff1c5a68f8608b61c4a2367",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
