@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a5a92c2e_d862826d",
+        "filename": "leanback-preference/src/main/java/androidx/leanback/preference/BaseLeanbackPreferenceFragmentCompat.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-03-27T16:07:47Z",
+      "side": 1,
+      "message": "Could this occur in onAttach when the Context is initially passed in? You could then pass the wrapped context to super and avoid keeping a separate themed context object.",
+      "range": {
+        "startLine": 69,
+        "startChar": 8,
+        "endLine": 69,
+        "endChar": 76
+      },
+      "revId": "ceed42fc34f3e55973bfd20c4892bd085478f152",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
