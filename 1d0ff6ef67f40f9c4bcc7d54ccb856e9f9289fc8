@@ -22,6 +22,30 @@
       "revId": "1d0ff6ef67f40f9c4bcc7d54ccb856e9f9289fc8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cda59b3b_c9aa7ced",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/PublishDocsRules.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-27T23:41:53Z",
+      "side": 1,
+      "message": "I didn\u0027t touch this touch line and currently gerrit doesn\u0027t complain about merge conflict, so I\u0027m think it is okay",
+      "parentUuid": "8772162c_0b6b4cc2",
+      "range": {
+        "startLine": 69,
+        "startChar": 4,
+        "endLine": 69,
+        "endChar": 10
+      },
+      "revId": "1d0ff6ef67f40f9c4bcc7d54ccb856e9f9289fc8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

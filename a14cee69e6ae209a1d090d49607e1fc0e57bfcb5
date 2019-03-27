@@ -123,6 +123,24 @@
       "revId": "a14cee69e6ae209a1d090d49607e1fc0e57bfcb5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4f9ccfe0_4a8ee15b",
+        "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleWhenChecks.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-27T23:41:53Z",
+      "side": 1,
+      "message": "removed trimIndent",
+      "parentUuid": "8fa65fb9_437c0f6b",
+      "revId": "a14cee69e6ae209a1d090d49607e1fc0e57bfcb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
