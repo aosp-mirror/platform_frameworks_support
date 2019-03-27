@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e0da39e5_83f7eb2c",
+        "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleWhenChecks.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-27T21:37:35Z",
+      "side": 1,
+      "message": "dropped the `.` ?",
+      "range": {
+        "startLine": 55,
+        "startChar": 68,
+        "endLine": 55,
+        "endChar": 69
+      },
+      "revId": "b1ff15aacee7eb6ef22ffe1494b327d640d1dbc1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
