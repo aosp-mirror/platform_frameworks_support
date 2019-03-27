@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c9f93f81_e7d4e63d",
+        "filename": "appcompat/src/main/java/androidx/appcompat/app/AppCompatDelegate.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 543,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-03-27T15:21:51Z",
+      "side": 1,
+      "message": "Push synchronization block into method.",
+      "range": {
+        "startLine": 543,
+        "startChar": 20,
+        "endLine": 543,
+        "endChar": 57
+      },
+      "revId": "0bc79b6babf06bfbd07d8806e1e0ac200faa4df3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5d46dbc_8b1033bb",
+        "filename": "appcompat/src/main/java/androidx/appcompat/app/AppCompatDelegate.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 628,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-03-27T15:21:51Z",
+      "side": 1,
+      "message": "Either document or name method such that it\u0027s obvious which object we need to synchronize on.\n\nOr just add a synchronization block to this method -- it won\u0027t hurt to double-wrap in markStarted().",
+      "range": {
+        "startLine": 628,
+        "startChar": 4,
+        "endLine": 628,
+        "endChar": 49
+      },
+      "revId": "0bc79b6babf06bfbd07d8806e1e0ac200faa4df3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
