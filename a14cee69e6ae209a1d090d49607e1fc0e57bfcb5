@@ -69,6 +69,24 @@
       "revId": "a14cee69e6ae209a1d090d49607e1fc0e57bfcb5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "110a39a3_b8912df0",
+        "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleWhenChecks.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-27T18:12:58Z",
+      "side": 1,
+      "message": "i don\u0027t get why we are adding \\ and also using trimIndent().\ni think we should just get rid of `\\`, i don\u0027t see any point in saving 1 trimindent call (that will disappear in the next kotlin) when a class is initialized.",
+      "parentUuid": "1e6e6b7b_0837326b",
+      "revId": "a14cee69e6ae209a1d090d49607e1fc0e57bfcb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
