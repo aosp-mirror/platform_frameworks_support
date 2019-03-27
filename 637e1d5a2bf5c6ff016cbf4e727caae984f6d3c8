@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "2f0892f6_e8f95094",
+        "filename": "paging/rxjava2/src/main/java/androidx/paging/RxItemKeyedDataSource.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-03-27T20:47:48Z",
+      "side": 1,
+      "message": "I guess they\u0027re not technically necessary, but AS throws lint errors for the unused result from onLoadInitial(..)....subscribe();\n\nI can remove them if you think that\u0027s better. (They\u0027re in the resulting util now).",
+      "parentUuid": "58199284_8233993e",
+      "revId": "637e1d5a2bf5c6ff016cbf4e727caae984f6d3c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8264da89_35b831d9",
         "filename": "paging/rxjava2/src/main/java/androidx/paging/RxItemKeyedDataSource.java",
         "patchSetId": 9
@@ -67,6 +85,24 @@
       "revId": "637e1d5a2bf5c6ff016cbf4e727caae984f6d3c8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6dc0cb2_a5937ca1",
+        "filename": "paging/rxjava2/src/main/java/androidx/paging/RxItemKeyedDataSource.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-03-27T20:47:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2c413f25_aeb23b82",
+      "revId": "637e1d5a2bf5c6ff016cbf4e727caae984f6d3c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
