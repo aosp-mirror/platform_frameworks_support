@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "a53092cf_ad071cc9",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/MavenUploadHelper.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-03-27T15:33:12Z",
+      "side": 1,
+      "message": "Yeah, that would be why. LGTM.",
+      "parentUuid": "46fe6346_478f08f4",
+      "range": {
+        "startLine": 177,
+        "startChar": 16,
+        "endLine": 177,
+        "endChar": 63
+      },
+      "revId": "119a887712549e6566ecf33842e9eba4a551e486",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f80d1dc3_dccdc571",
         "filename": "buildSrc/src/main/kotlin/androidx/build/MavenUploadHelper.kt",
         "patchSetId": 5
