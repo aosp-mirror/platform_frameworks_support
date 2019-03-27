@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "40a91a2f_c5cad485",
+        "filename": "lifecycle/runtime/eap/lint/build.gradle",
+        "patchSetId": 14
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-27T12:21:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4b3a3187_138b68f6",
+      "revId": "9cc3112253e0e4c4777549df1365c703c8182878",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bd57f4e3_d95da094",
         "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleRuntimeIssueRegistry.kt",
         "patchSetId": 14
@@ -90,6 +108,24 @@
     },
     {
       "key": {
+        "uuid": "81ecb240_5adebf54",
+        "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleRuntimeIssueRegistry.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-27T12:21:52Z",
+      "side": 1,
+      "message": "I think it is done",
+      "parentUuid": "25fff7a7_b0c72970",
+      "revId": "9cc3112253e0e4c4777549df1365c703c8182878",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1d8a5999_8bf8e3bc",
         "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleWhenChecks.kt",
         "patchSetId": 14
@@ -104,6 +140,24 @@
       "revId": "9cc3112253e0e4c4777549df1365c703c8182878",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "948bbc81_2e955ea0",
+        "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleWhenChecks.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-27T12:21:52Z",
+      "side": 1,
+      "message": "Removed internal, it is just general habit of making things not public by default, though in this case it doesn\u0027t matter",
+      "parentUuid": "1d8a5999_8bf8e3bc",
+      "revId": "9cc3112253e0e4c4777549df1365c703c8182878",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -141,6 +195,24 @@
     },
     {
       "key": {
+        "uuid": "8309bf39_c22c6afa",
+        "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleWhenChecks.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-27T12:21:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "21efe3ae_e6dcccab",
+      "revId": "9cc3112253e0e4c4777549df1365c703c8182878",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6447f4b1_826a40ac",
         "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleWhenChecks.kt",
         "patchSetId": 14
@@ -158,6 +230,24 @@
     },
     {
       "key": {
+        "uuid": "d66384d6_8ebc25be",
+        "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleWhenChecks.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-27T12:21:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6447f4b1_826a40ac",
+      "revId": "9cc3112253e0e4c4777549df1365c703c8182878",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f4b1437c_5feb6da4",
         "filename": "lifecycle/runtime/eap/lint/src/test/java/androidx/lifecycle/lint/LifecycleWhenChecksTest.kt",
         "patchSetId": 14
@@ -172,6 +262,24 @@
       "revId": "9cc3112253e0e4c4777549df1365c703c8182878",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed39e587_07a0ab27",
+        "filename": "lifecycle/runtime/eap/lint/src/test/java/androidx/lifecycle/lint/LifecycleWhenChecksTest.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-27T12:21:52Z",
+      "side": 1,
+      "message": "wow. done for all stubs (things that are inside of kt(...))\n\nIn followup I\u0027ll try to make it for other code snippets that aren\u0027t wrapped in kt(...) function",
+      "parentUuid": "f4b1437c_5feb6da4",
+      "revId": "9cc3112253e0e4c4777549df1365c703c8182878",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
