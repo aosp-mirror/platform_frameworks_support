@@ -47,6 +47,7 @@ import androidx.media2.exoplayer.external.C;
 import androidx.media2.exoplayer.external.DefaultLoadControl;
 import androidx.media2.exoplayer.external.ExoPlaybackException;
 import androidx.media2.exoplayer.external.ExoPlayerFactory;
+import androidx.media2.exoplayer.external.Format;
 import androidx.media2.exoplayer.external.Player;
 import androidx.media2.exoplayer.external.SimpleExoPlayer;
 import androidx.media2.exoplayer.external.analytics.AnalyticsCollector;
@@ -56,6 +57,7 @@ import androidx.media2.exoplayer.external.audio.AudioListener;
 import androidx.media2.exoplayer.external.audio.AudioProcessor;
 import androidx.media2.exoplayer.external.audio.AuxEffectInfo;
 import androidx.media2.exoplayer.external.audio.DefaultAudioSink;
+import androidx.media2.exoplayer.external.decoder.DecoderCounters;
 import androidx.media2.exoplayer.external.metadata.Metadata;
 import androidx.media2.exoplayer.external.metadata.MetadataOutput;
 import androidx.media2.exoplayer.external.source.ClippingMediaSource;
@@ -69,7 +71,7 @@ import androidx.media2.exoplayer.external.upstream.DefaultBandwidthMeter;
 import androidx.media2.exoplayer.external.upstream.DefaultDataSourceFactory;
 import androidx.media2.exoplayer.external.util.MimeTypes;
 import androidx.media2.exoplayer.external.util.Util;
-import androidx.media2.exoplayer.external.video.VideoListener;
+import androidx.media2.exoplayer.external.video.VideoRendererEventListener;
 
 import java.io.FileDescriptor;
 import java.io.IOException;
@@ -162,6 +164,7 @@ import java.util.Map;
     private final Runnable mPollBufferRunnable;
 
     private SimpleExoPlayer mPlayer;
+    private Handler mPlayerHandler;
     private DefaultAudioSink mAudioSink;
     private TrackSelector mTrackSelector;
     private MediaItemQueue mMediaItemQueue;
@@ -321,9 +324,10 @@ import java.util.Map;
     public void setAudioAttributes(AudioAttributesCompat audioAttributes) {
         mHasAudioAttributes = true;
         mPlayer.setAudioAttributes(ExoPlayerUtils.getAudioAttributes(audioAttributes));
+
         // Reset the audio session ID, as it gets cleared by setting audio attributes.
         if (mAudioSessionId != C.AUDIO_SESSION_ID_UNSET) {
-            mAudioSink.setAudioSessionId(mAudioSessionId);
+            updatePlayerAudioSessionId(mPlayerHandler, mAudioSink, mAudioSessionId);
         }
     }
 
@@ -334,7 +338,9 @@ import java.util.Map;
 
     public void setAudioSessionId(int audioSessionId) {
         mAudioSessionId = audioSessionId;
-        mAudioSink.setAudioSessionId(mAudioSessionId);
+        if (mPlayer != null) {
+            updatePlayerAudioSessionId(mPlayerHandler, mAudioSink, mAudioSessionId);
+        }
     }
 
     public int getAudioSessionId() {
@@ -463,9 +469,11 @@ import java.util.Map;
                 mBandwidthMeter,
                 new AnalyticsCollector.Factory(),
                 mLooper);
+        mPlayerHandler = new Handler(mPlayer.getPlaybackLooper());
         mMediaItemQueue = new MediaItemQueue(mContext, mPlayer, mListener);
         mPlayer.addListener(listener);
-        mPlayer.addVideoListener(listener);
+        // TODO(b/80232248): Switch to AnalyticsListener once default methods work.
+        mPlayer.setVideoDebugListener(listener);
         mPlayer.addMetadataOutput(listener);
         mVideoWidth = 0;
         mVideoHeight = 0;
@@ -538,10 +546,7 @@ import java.util.Map;
                 maybeNotifyReadyEvents();
                 break;
             case Player.STATE_ENDED:
-                if (playWhenReady) {
-                    mMediaItemQueue.onPlayerEnded();
-                    mPlayer.setPlayWhenReady(false);
-                }
+                maybeNotifyEndedEvents();
                 break;
             case Player.STATE_IDLE:
                 // Do nothing.
@@ -672,9 +677,22 @@ import java.util.Map;
         }
     }
 
+    private void maybeNotifyEndedEvents() {
+        if (mPendingSeek) {
+            // The seek operation resulted in transitioning to the ended state.
+            mPendingSeek = false;
+            mListener.onSeekCompleted();
+        }
+        if (mPlayer.getPlayWhenReady()) {
+            mMediaItemQueue.onPlayerEnded();
+            mPlayer.setPlayWhenReady(false);
+        }
+    }
+
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     final class ComponentListener extends Player.DefaultEventListener
-            implements VideoListener, AudioListener, TextRenderer.Output, MetadataOutput {
+            implements VideoRendererEventListener, AudioListener,
+            TextRenderer.Output, MetadataOutput {
 
         // DefaultEventListener implementation.
 
@@ -704,7 +722,7 @@ import java.util.Map;
             handlePlayerError(error);
         }
 
-        // VideoListener implementation.
+        // VideoRendererEventListener implementation.
 
         @Override
         public void onVideoSizeChanged(
@@ -716,12 +734,29 @@ import java.util.Map;
         }
 
         @Override
-        public void onRenderedFirstFrame() {
+        public void onVideoInputFormatChanged(Format format) {
+            if (MimeTypes.isVideo(format.sampleMimeType)) {
+                handleVideoSizeChanged(format.width, format.height, format.pixelWidthHeightRatio);
+            }
+        }
+
+        @Override
+        public void onRenderedFirstFrame(@Nullable Surface surface) {
             handleRenderedFirstFrame();
         }
 
         @Override
-        public void onSurfaceSizeChanged(int width, int height) {}
+        public void onVideoEnabled(DecoderCounters counters) {}
+
+        @Override
+        public void onVideoDecoderInitialized(String decoderName, long initializedTimestampMs,
+                long initializationDurationMs) {}
+
+        @Override
+        public void onDroppedFrames(int count, long elapsedMs) {}
+
+        @Override
+        public void onVideoDisabled(DecoderCounters counters) {}
 
         // AudioListener implementation.
 
@@ -763,6 +798,19 @@ import java.util.Map;
         public void run() {
             updateBufferingAndScheduleNextPollBuffer();
         }
+    }
+
+    private static void updatePlayerAudioSessionId(
+            Handler playerHandler,
+            final DefaultAudioSink audioSink,
+            final int audioSessionId) {
+        // DefaultAudioSink is not thread-safe, so post the update to the playback thread.
+        playerHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                audioSink.setAudioSessionId(audioSessionId);
+            }
+        });
     }
 
     private static final class MediaItemInfo {

@@ -325,13 +325,7 @@ class AppCompatDelegateImpl extends AppCompatDelegate
 
         // We lazily fetch the Window for Activities, to allow DayNight to apply in
         // attachBaseContext
-        if (mWindow == null && mHost instanceof Activity) {
-            attachToWindow(((Activity) mHost).getWindow());
-        }
-
-        if (mWindow == null) {
-            throw new IllegalStateException("We have not been given a Window");
-        }
+        ensureWindow();
 
         if (mHost instanceof Activity) {
             String parentActivityName = null;
@@ -591,8 +585,19 @@ class AppCompatDelegateImpl extends AppCompatDelegate
     }
 
     @Override
-    public void onSetTheme(@StyleRes int themeResId) {
+    public void setTheme(@StyleRes int themeResId) {
         mThemeResId = themeResId;
+    }
+
+    private void ensureWindow() {
+        // We lazily fetch the Window for Activities, to allow DayNight to apply in
+        // attachBaseContext
+        if (mWindow == null && mHost instanceof Activity) {
+            attachToWindow(((Activity) mHost).getWindow());
+        }
+        if (mWindow == null) {
+            throw new IllegalStateException("We have not been given a Window");
+        }
     }
 
     private void attachToWindow(@NonNull Window window) {
@@ -672,6 +677,7 @@ class AppCompatDelegateImpl extends AppCompatDelegate
         a.recycle();
 
         // Now let's make sure that the Window has installed its decor by retrieving it
+        ensureWindow();
         mWindow.getDecorView();
 
         final LayoutInflater inflater = LayoutInflater.from(mContext);
@@ -2191,6 +2197,9 @@ class AppCompatDelegateImpl extends AppCompatDelegate
             final boolean allowRecreation) {
         boolean handled = false;
 
+        final int applicationNightMode = mContext.getApplicationContext()
+                .getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+
         int newNightMode;
         switch (mode) {
             case MODE_NIGHT_YES:
@@ -2203,16 +2212,14 @@ class AppCompatDelegateImpl extends AppCompatDelegate
             case MODE_NIGHT_FOLLOW_SYSTEM:
                 // If we're following the system, we just use the system default from the
                 // application context
-                newNightMode = mContext.getApplicationContext()
-                        .getResources()
-                        .getConfiguration()
-                        .uiMode & Configuration.UI_MODE_NIGHT_MASK;
+                newNightMode = applicationNightMode;
                 break;
         }
 
         final boolean activityHandlingUiMode = isActivityManifestHandlingUiMode();
 
-        if (!activityHandlingUiMode && Build.VERSION.SDK_INT >= 17 && !mBaseContextAttached
+        if (newNightMode != applicationNightMode && !activityHandlingUiMode
+                && Build.VERSION.SDK_INT >= 17 && !mBaseContextAttached
                 && mHost instanceof android.view.ContextThemeWrapper) {
             // If we're here then we can try and apply an override configuration on the Context.
             final Configuration conf = new Configuration();

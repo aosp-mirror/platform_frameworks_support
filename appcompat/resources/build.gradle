@@ -25,11 +25,18 @@ plugins {
 
 dependencies {
     api(project(":annotation"))
+<<<<<<< HEAD   (65a31c Merge "Merge cherrypicks of [926294] into androidx-master-re)
 
     api("androidx.core:core:1.0.1")
     implementation("androidx.collection:collection:1.0.0")
     api("androidx.vectordrawable:vectordrawable:1.0.1")
     api("androidx.vectordrawable:vectordrawable-animated:1.0.0")
+=======
+    api("androidx.core:core:1.0.1")
+    implementation("androidx.collection:collection:1.0.0")
+    api(project(":vectordrawable"))
+    api(project(":vectordrawable-animated"))
+>>>>>>> BRANCH (ede286 Merge "Improve documentation for CoroutineWorker" into andro)
 
     androidTestImplementation(TEST_EXT_JUNIT)
     androidTestImplementation(TEST_CORE)

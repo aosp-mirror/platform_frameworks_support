@@ -22,6 +22,7 @@ import androidx.build.SupportConfig.TARGET_SDK_VERSION
 import androidx.build.SupportConfig.DEFAULT_MIN_SDK_VERSION
 import androidx.build.SupportConfig.INSTRUMENTATION_RUNNER
 import androidx.build.checkapi.ApiType
+import androidx.build.checkapi.getCurrentApiLocation
 import androidx.build.checkapi.getLastReleasedApiFileFromDir
 import androidx.build.checkapi.hasApiFolder
 import androidx.build.dependencyTracker.AffectedModuleDetector
@@ -85,6 +86,7 @@ class AndroidXPlugin : Plugin<Project> {
                         sourceCompatibility = VERSION_1_7
                         targetCompatibility = VERSION_1_7
                     }
+                    project.hideJavadocTask()
                     val verifyDependencyVersionsTask = project.createVerifyDependencyVersionsTask()
                     verifyDependencyVersionsTask.configure {
                         it.dependsOn(project.tasks.named(JavaPlugin.COMPILE_JAVA_TASK_NAME))
@@ -197,6 +199,10 @@ class AndroidXPlugin : Plugin<Project> {
 
         val jacocoUberJar = Jacoco.createUberJarTask(this)
         buildOnServerTask.dependsOn(jacocoUberJar)
+        val checkSameVersionLibraryGroupsTask = project.tasks.register(
+            CHECK_SAME_VERSION_LIBRARY_GROUPS,
+            CheckSameVersionLibraryGroupsTask::class.java)
+        buildOnServerTask.dependsOn(checkSameVersionLibraryGroupsTask)
 
         project.createClockLockTasks()
 
@@ -357,12 +363,25 @@ class AndroidXPlugin : Plugin<Project> {
         const val BUILD_TEST_APKS = "buildTestApks"
         const val CHECK_RELEASE_READY_TASK = "checkReleaseReady"
         const val CHECK_NO_WARNINGS_TASK = "checkNoWarnings"
+        const val CHECK_SAME_VERSION_LIBRARY_GROUPS = "checkSameVersionLibraryGroups"
     }
 }
 
 fun Project.isBenchmark(): Boolean {
     // benchmark convention is to end name with "-benchmark"
     return name.endsWith("-benchmark")
+}
+
+fun Project.hideJavadocTask() {
+    // Most tasks named "javadoc" are unused
+    // So, few tasks named "javadoc" are interesting to developers
+    // So, we don't want "javadoc" to appear in the output of `./gradlew tasks`
+    // So, we set the group to null for any task named "javadoc"
+    project.tasks.all { task ->
+        if (task.name == "javadoc") {
+            task.group = null
+        }
+    }
 }
 
 fun Project.addToProjectMap(group: String?) {
@@ -385,7 +404,7 @@ private fun Project.createCheckResourceApiTask(): DefaultTask {
     return project.tasks.createWithConfig("checkResourceApi",
             CheckResourceApiTask::class.java) {
         newApiFile = getGenerateResourceApiFile()
-        oldApiFile = File(project.projectDir, "api/res-${project.version}.txt")
+        oldApiFile = project.getCurrentApiLocation().resourceFile
     }
 }
 
@@ -402,6 +421,7 @@ private fun Project.createUpdateResourceApiTask(): DefaultTask {
         newApiFile = getGenerateResourceApiFile()
         oldApiFile = getLastReleasedApiFileFromDir(File(project.projectDir, "api/"),
                 project.version(), true, false, ApiType.RESOURCEAPI)
+        destApiFile = project.getCurrentApiLocation().resourceFile
     }
 }
 

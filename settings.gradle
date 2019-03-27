@@ -47,6 +47,7 @@ includeProject(":arch:core-testing", "arch/core-testing")
 includeProject(":arch:core-runtime", "arch/core-runtime")
 includeProject(":asynclayoutinflater", "asynclayoutinflater")
 includeProject(":benchmark", "benchmark")
+includeProject(":benchmark:benchmark-gradle-plugin", "benchmark/gradle-plugin")
 includeProject(":biometric", "biometric")
 includeProject(":browser", "browser")
 includeProject(":car", "car/core")
@@ -95,10 +96,12 @@ includeProject(":lifecycle:lifecycle-livedata-core", "lifecycle/livedata-core")
 includeProject(":lifecycle:lifecycle-livedata-core-ktx", "lifecycle/livedata-core/ktx")
 includeProject(":lifecycle:lifecycle-livedata", "lifecycle/livedata")
 includeProject(":lifecycle:lifecycle-livedata-ktx", "lifecycle/livedata/ktx")
+includeProject(":lifecycle:lifecycle-livedata-eap", "lifecycle/livedata/eap")
 includeProject(":lifecycle:lifecycle-process", "lifecycle/process")
 includeProject(":lifecycle:lifecycle-reactivestreams", "lifecycle/reactivestreams")
 includeProject(":lifecycle:lifecycle-reactivestreams-ktx", "lifecycle/reactivestreams/ktx")
 includeProject(":lifecycle:lifecycle-runtime", "lifecycle/runtime")
+includeProject(":lifecycle:lifecycle-runtime-eap", "lifecycle/runtime/eap") // temporary
 includeProject(":lifecycle:lifecycle-service", "lifecycle/service")
 includeProject(":lifecycle:lifecycle-viewmodel", "lifecycle/viewmodel")
 includeProject(":lifecycle:lifecycle-viewmodel-ktx", "lifecycle/viewmodel/ktx")
@@ -146,6 +149,7 @@ includeProject(":room:integration-tests:room-testapp", "room/integration-tests/t
 includeProject(":room:integration-tests:room-testapp-kotlin", "room/integration-tests/kotlintestapp")
 includeProject(":room:room-benchmark", "room/benchmark")
 includeProject(":room:room-common", "room/common")
+includeProject(":room:room-common-java8", "room/common-java8")
 includeProject(":room:room-compiler", "room/compiler")
 includeProject(":room:room-guava", "room/guava")
 includeProject(":room:room-ktx", "room/ktx")
@@ -271,6 +275,7 @@ includeProject(":webview-support-interfaces", new File(externalRoot, "webview_su
 // we need real android project to generate R.java, aidl etc files that mentioned in sources
 if (!startParameter.projectProperties.containsKey('android.injected.invoked.from.ide')) {
     // we don't need it in ide, so we don't configure it there
+    includeProject(":docs-fake", "docs-fake")
     includeProject(":docs-runner", "docs-runner")
 }
 

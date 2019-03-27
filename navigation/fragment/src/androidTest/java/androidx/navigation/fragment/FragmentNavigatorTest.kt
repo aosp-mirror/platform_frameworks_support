@@ -17,7 +17,9 @@
 package androidx.navigation.fragment
 
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentFactory
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.NavOptions
@@ -83,6 +85,31 @@ class FragmentNavigatorTest {
                 EmptyFragment::class.java, fragment!!::class.java)
         assertEquals("Fragment should be the primary navigation Fragment",
                 fragment, fragmentManager.primaryNavigationFragment)
+    }
+
+    @UiThreadTest
+    @Test
+    fun testNavigateWithFragmentFactory() {
+        fragmentManager.fragmentFactory = NonEmptyFragmentFactory()
+        val fragmentNavigator = FragmentNavigator(emptyActivity, fragmentManager, R.id.container)
+        val destination = fragmentNavigator.createDestination().apply {
+            id = INITIAL_FRAGMENT
+            className = NonEmptyConstructorFragment::class.java.name
+        }
+
+        assertThat(fragmentNavigator.navigate(destination, null, null, null))
+            .isEqualTo(destination)
+        fragmentManager.executePendingTransactions()
+        val fragment = fragmentManager.findFragmentById(R.id.container)
+        assertWithMessage("Fragment should be added")
+            .that(fragment)
+            .isNotNull()
+        assertWithMessage("Fragment should be the correct type")
+            .that(fragment)
+            .isInstanceOf(NonEmptyConstructorFragment::class.java)
+        assertWithMessage("Fragment should be the primary navigation Fragment")
+            .that(fragment)
+            .isSameAs(fragmentManager.primaryNavigationFragment)
     }
 
     @UiThreadTest
@@ -200,6 +227,7 @@ class FragmentNavigatorTest {
         fragmentManager.executePendingTransactions()
         val fragment = fragmentManager.findFragmentById(R.id.container)
         assertNotNull("Fragment should be added", fragment)
+        val lifecycle = fragment!!.lifecycle
 
         assertThat(fragmentNavigator.navigate(destination, null,
                 NavOptions.Builder().setLaunchSingleTop(true).build(), null))
@@ -214,7 +242,7 @@ class FragmentNavigatorTest {
         assertNotEquals("Replacement should be a new instance", fragment,
                 replacementFragment)
         assertEquals("Old instance should be destroyed", Lifecycle.State.DESTROYED,
-                fragment!!.lifecycle.currentState)
+                lifecycle.currentState)
     }
 
     @UiThreadTest
@@ -244,6 +272,7 @@ class FragmentNavigatorTest {
         assertWithMessage("Fragment should be added")
             .that(fragment)
             .isNotNull()
+        val lifecycle = fragment!!.lifecycle
 
         assertThat(fragmentNavigator.navigate(destination, null,
                 NavOptions.Builder().setLaunchSingleTop(true).build(), null))
@@ -263,7 +292,7 @@ class FragmentNavigatorTest {
             .that(replacementFragment)
             .isNotSameAs(fragment)
         assertWithMessage("Old instance should be destroyed")
-            .that(fragment!!.lifecycle.currentState)
+            .that(lifecycle.currentState)
             .isEqualTo(Lifecycle.State.DESTROYED)
 
         assertThat(fragmentNavigator.popBackStack())
@@ -272,10 +301,9 @@ class FragmentNavigatorTest {
         assertWithMessage("Initial Fragment should be on top of back stack after pop")
             .that(fragmentManager.findFragmentById(R.id.container))
             .isSameAs(initialFragment)
-        // TODO enable after fixing b/124332597 and moving to depend on AndroidX
-        /*assertWithMessage("Initial Fragment should be the primary navigation Fragment")
+        assertWithMessage("Initial Fragment should be the primary navigation Fragment")
             .that(fragmentManager.primaryNavigationFragment)
-            .isSameAs(initialFragment)*/
+            .isSameAs(initialFragment)
     }
 
     @UiThreadTest
@@ -679,5 +707,18 @@ class EmptyActivity : FragmentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.empty_activity)
+    }
+}
+
+class NonEmptyConstructorFragment(val test: String) : Fragment()
+
+class NonEmptyFragmentFactory : FragmentFactory() {
+    override fun instantiate(
+        classLoader: ClassLoader,
+        className: String
+    ) = if (className == NonEmptyConstructorFragment::class.java.name) {
+        NonEmptyConstructorFragment("test")
+    } else {
+        super.instantiate(classLoader, className)
     }
 }

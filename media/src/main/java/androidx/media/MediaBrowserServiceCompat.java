@@ -17,6 +17,7 @@
 package androidx.media;
 
 import static androidx.annotation.RestrictTo.Scope.LIBRARY;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 import static androidx.media.MediaBrowserProtocol.CLIENT_MSG_ADD_SUBSCRIPTION;
 import static androidx.media.MediaBrowserProtocol.CLIENT_MSG_CONNECT;
@@ -1102,7 +1103,9 @@ public abstract class MediaBrowserServiceCompat extends Service {
                     mConnections.remove(b);
 
                     ConnectionRecord connection = null;
-                    for (ConnectionRecord pendingConnection : mPendingConnections) {
+                    Iterator<ConnectionRecord> iter = mPendingConnections.iterator();
+                    while (iter.hasNext()) {
+                        ConnectionRecord pendingConnection = iter.next();
                         // Note: We cannot use Map/Set for mPendingConnections but List because
                         // multiple MediaBrowserCompats with the same UID can request connect.
                         if (pendingConnection.uid == uid) {
@@ -1114,7 +1117,7 @@ public abstract class MediaBrowserServiceCompat extends Service {
                                         pendingConnection.pid, pendingConnection.uid,
                                         rootHints, callbacks);
                             }
-                            mPendingConnections.remove(pendingConnection);
+                            iter.remove();
                         }
                     }
                     if (connection == null) {
@@ -1301,7 +1304,7 @@ public abstract class MediaBrowserServiceCompat extends Service {
      *
      * @hide
      */
-    @RestrictTo(LIBRARY)
+    @RestrictTo(LIBRARY_GROUP)
     public void attachToBaseContext(Context base) {
         attachBaseContext(base);
     }

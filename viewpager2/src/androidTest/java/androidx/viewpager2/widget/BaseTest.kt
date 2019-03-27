@@ -25,6 +25,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.ViewInteraction
 import androidx.test.espresso.action.CoordinatesProvider
 import androidx.test.espresso.action.GeneralLocation
 import androidx.test.espresso.action.GeneralSwipeAction
@@ -35,18 +36,22 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isAssignableFrom
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers.withParent
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.rule.ActivityTestRule
-import androidx.testutils.FragmentActivityUtils
+import androidx.testutils.AppCompatActivityUtils
 import androidx.testutils.FragmentActivityUtils.waitForActivityDrawn
 import androidx.viewpager2.LocaleTestUtils
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.test.R
 import androidx.viewpager2.widget.ViewPager2.ORIENTATION_HORIZONTAL
+import androidx.viewpager2.widget.ViewPager2.SCROLL_STATE_DRAGGING
 import androidx.viewpager2.widget.ViewPager2.SCROLL_STATE_IDLE
+import androidx.viewpager2.widget.ViewPager2.SCROLL_STATE_SETTLING
 import androidx.viewpager2.widget.swipe.FragmentAdapter
 import androidx.viewpager2.widget.swipe.PageSwiper
 import androidx.viewpager2.widget.swipe.PageSwiperEspresso
+import androidx.viewpager2.widget.swipe.PageSwiperFakeDrag
 import androidx.viewpager2.widget.swipe.PageSwiperManual
 import androidx.viewpager2.widget.swipe.SelfChecking
 import androidx.viewpager2.widget.swipe.TestActivity
@@ -115,7 +120,7 @@ open class BaseTest {
                 viewPager.adapter = adapterProvider(activity)
                 onCreateCallback(viewPager)
             }
-            activity = FragmentActivityUtils.recreateActivity(activityTestRule, activity)
+            activity = AppCompatActivityUtils.recreateActivity(activityTestRule, activity)
             TestActivity.onCreateCallback = { }
             waitForActivityDrawn(activity)
         }
@@ -143,7 +148,8 @@ open class BaseTest {
 
         enum class SwipeMethod {
             ESPRESSO,
-            MANUAL
+            MANUAL,
+            FAKE_DRAG
         }
 
         fun swipe(currentPageIx: Int, nextPageIx: Int, method: SwipeMethod = SwipeMethod.ESPRESSO) {
@@ -190,11 +196,9 @@ open class BaseTest {
 
         private fun swiper(method: SwipeMethod = SwipeMethod.ESPRESSO): PageSwiper {
             return when (method) {
-                SwipeMethod.ESPRESSO -> PageSwiperEspresso(
-                    viewPager.orientation,
-                    isRtl
-                )
+                SwipeMethod.ESPRESSO -> PageSwiperEspresso(viewPager.orientation, isRtl)
                 SwipeMethod.MANUAL -> PageSwiperManual(viewPager, isRtl)
+                SwipeMethod.FAKE_DRAG -> PageSwiperFakeDrag(viewPager)
             }
         }
 
@@ -279,11 +283,15 @@ open class BaseTest {
     }
 
     fun ViewPager2.addWaitForIdleLatch(): CountDownLatch {
+        return addWaitForStateLatch(SCROLL_STATE_IDLE)
+    }
+
+    fun ViewPager2.addWaitForStateLatch(targetState: Int): CountDownLatch {
         val latch = CountDownLatch(1)
 
         registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageScrollStateChanged(state: Int) {
-                if (state == SCROLL_STATE_IDLE) {
+                if (state == targetState) {
                     latch.countDown()
                     post { unregisterOnPageChangeCallback(this) }
                 }
@@ -331,14 +339,16 @@ open class BaseTest {
     /**
      * Checks:
      * 1. Expected page is the current ViewPager2 page
-     * 2. Expected text is displayed
-     * 3. Internal activity state is valid (as per activity self-test)
+     * 2. Expected state is SCROLL_STATE_IDLE
+     * 3. Expected text is displayed
+     * 4. Internal activity state is valid (as per activity self-test)
      */
     fun Context.assertBasicState(pageIx: Int, value: String = pageIx.toString()) {
         assertThat<Int>(
             "viewPager.getCurrentItem() should return $pageIx",
             viewPager.currentItem, equalTo(pageIx)
         )
+        assertThat(viewPager.scrollState, equalTo(SCROLL_STATE_IDLE))
         onView(allOf<View>(withId(R.id.text_view), isDisplayed())).check(
             matches(withText(value))
         )
@@ -372,6 +382,13 @@ open class BaseTest {
     enum class SortOrder(val sign: Int) {
         ASC(1),
         DESC(-1)
+    }
+
+    fun onPage(childMatcher: Matcher<View>): ViewInteraction {
+        return onView(allOf(
+            withParent(withParent(isAssignableFrom(ViewPager2::class.java))),
+            childMatcher
+        ))
     }
 
     fun <T, R : Comparable<R>> List<T>.assertSorted(selector: (T) -> R) {
@@ -481,3 +498,19 @@ val AdapterProviderForItems.supportsMutations: Boolean
     get() {
         return this == fragmentAdapterProvider
     }
+
+fun scrollStateToString(@ViewPager2.ScrollState state: Int): String {
+    return when (state) {
+        SCROLL_STATE_IDLE -> "IDLE"
+        SCROLL_STATE_DRAGGING -> "DRAGGING"
+        SCROLL_STATE_SETTLING -> "SETTLING"
+        else -> throw IllegalArgumentException("Scroll state $state doesn't exist")
+    }
+}
+
+fun scrollStateGlossary(): String {
+    return "Scroll states: " +
+            "$SCROLL_STATE_IDLE=${scrollStateToString(SCROLL_STATE_IDLE)}, " +
+            "$SCROLL_STATE_DRAGGING=${scrollStateToString(SCROLL_STATE_DRAGGING)}, " +
+            "$SCROLL_STATE_SETTLING=${scrollStateToString(SCROLL_STATE_SETTLING)})"
+}
