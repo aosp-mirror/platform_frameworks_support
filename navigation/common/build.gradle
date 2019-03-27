@@ -31,8 +31,8 @@ android {
 }
 
 dependencies {
-    api(NAV_SUPPORT_COMPAT)
-    implementation(NAV_SUPPORT_COLLECTIONS)
+    api("androidx.core:core:1.0.1")
+    implementation(ANDROIDX_COLLECTION)
 
     testImplementation(JUNIT)
     testImplementation(MOCKITO_CORE)

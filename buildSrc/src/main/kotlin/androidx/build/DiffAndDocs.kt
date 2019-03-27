@@ -20,7 +20,6 @@ import androidx.build.Strategy.Prebuilts
 import androidx.build.Strategy.TipOfTree
 import androidx.build.checkapi.ApiXmlConversionTask
 import androidx.build.checkapi.CheckApiTasks
-import androidx.build.checkapi.hasApiTasks
 import androidx.build.checkapi.initializeApiChecksForProject
 import androidx.build.doclava.ChecksConfig
 import androidx.build.doclava.DEFAULT_DOCLAVA_CONFIG
@@ -121,7 +120,8 @@ class DiffAndDocs private constructor(
 
         root.tasks.create("generateDocs") { task ->
             task.group = JavaBasePlugin.DOCUMENTATION_GROUP
-            task.description = "Generates distribution artifact for d.android.com-style docs."
+            task.description = "Generates documentation (both Java and Kotlin) from tip-of-tree " +
+                "sources, in the style of those used in d.android.com."
             task.dependsOn(docsTasks[TIP_OF_TREE.name])
         }
 
@@ -323,21 +323,6 @@ class DiffAndDocs private constructor(
         }
 
         registerJavaProjectForDocsTask(generateDiffsTask, compileJava)
-        if (!hasApiTasks(project, extension)) {
-            return
-        }
-
-        val tasks = initializeApiChecksForProject(project,
-                aggregateOldApiTxtsTask, aggregateNewApiTxtsTask)
-        registerJavaProjectForDocsTask(tasks.generateApi, compileJava)
-        setupApiVersioningInDocsTasks(extension, tasks)
-        addCheckApiTasksToGraph(tasks)
-        registerJavaProjectForDocsTask(tasks.generateLocalDiffs, compileJava)
-        val generateApiDiffsArchiveTask = createGenerateLocalApiDiffsArchiveTask(project,
-                tasks.generateLocalDiffs)
-        generateApiDiffsArchiveTask.configure {
-            it.dependsOn(tasks.generateLocalDiffs)
-        }
     }
 
     /**
@@ -364,21 +349,6 @@ class DiffAndDocs private constructor(
 
                 tipOfTreeTasks(extension) { task ->
                     registerAndroidProjectForDocsTask(task, variant)
-                }
-
-                if (!hasApiTasks(project, extension)) {
-                    return@all
-                }
-                val tasks = initializeApiChecksForProject(project, aggregateOldApiTxtsTask,
-                        aggregateNewApiTxtsTask)
-                registerAndroidProjectForDocsTask(tasks.generateApi, variant)
-                setupApiVersioningInDocsTasks(extension, tasks)
-                addCheckApiTasksToGraph(tasks)
-                registerAndroidProjectForDocsTask(tasks.generateLocalDiffs, variant)
-                val generateApiDiffsArchiveTask = createGenerateLocalApiDiffsArchiveTask(project,
-                        tasks.generateLocalDiffs)
-                generateApiDiffsArchiveTask.configure {
-                    it.dependsOn(tasks.generateLocalDiffs)
                 }
             }
         }
@@ -541,14 +511,15 @@ private fun createDistDocsTask(
 ): TaskProvider<Zip> = project.tasks.register("dist${ruleName}Docs", Zip::class.java) {
     it.apply {
         dependsOn(generateDocs)
-        group = JavaBasePlugin.DOCUMENTATION_GROUP
-        description = "Generates distribution artifact for d.android.com-style documentation."
         from(generateDocs.map {
             it.destinationDir
         })
         baseName = "android-support-$ruleName-docs"
         version = getBuildId()
         destinationDir = project.getDistributionDirectory()
+        group = JavaBasePlugin.DOCUMENTATION_GROUP
+        description = "Zips ${ruleName} Java documentation (generated via Doclava in the " +
+            "style of d.android.com) into ${archivePath}"
         doLast {
             logger.lifecycle("'Wrote API reference to $archivePath")
         }
@@ -596,9 +567,10 @@ private fun createGenerateDocsTask(
 ): TaskProvider<GenerateDocsTask> =
         project.tasks.register(taskName, GenerateDocsTask::class.java) {
             it.apply {
+                exclude("**/R.java")
                 dependsOn(generateSdkApiTask, doclavaConfig)
                 group = JavaBasePlugin.DOCUMENTATION_GROUP
-                description = "Generates d.android.com-style documentation. To generate offline " +
+                description = "Generates Java documentation in the style of d.android.com. To generate offline " +
                         "docs use \'-PofflineDocs=true\' parameter."
 
                 setDocletpath(doclavaConfig.resolve())

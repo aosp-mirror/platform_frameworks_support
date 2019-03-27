@@ -422,7 +422,7 @@ final class BackStackRecord extends FragmentTransaction implements
                         + name + "' has already been added to the transaction.");
             } else if (mSharedElementSourceNames.contains(transitionName)) {
                 throw new IllegalArgumentException("A shared element with the source name '"
-                        + transitionName + " has already been added to the transaction.");
+                        + transitionName + "' has already been added to the transaction.");
             }
 
             mSharedElementSourceNames.add(transitionName);
@@ -872,7 +872,7 @@ final class BackStackRecord extends FragmentTransaction implements
      * @return the new oldPrimaryNav fragment after this record's ops would be popped
      */
     Fragment trackAddedFragmentsInPop(ArrayList<Fragment> added, Fragment oldPrimaryNav) {
-        for (int opNum = 0; opNum < mOps.size(); opNum++) {
+        for (int opNum = mOps.size() - 1; opNum >= 0; opNum--) {
             final Op op = mOps.get(opNum);
             switch (op.cmd) {
                 case OP_ADD:

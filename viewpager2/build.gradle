@@ -25,10 +25,11 @@ plugins {
 
 dependencies {
     api(project(":fragment"))
-    api(project(":recyclerview"))
-    implementation(project(":appcompat"))
+    // TODO: Change back to api(project(":recyclerview")) after april 3rd release
+    api("androidx.recyclerview:recyclerview:1.1.0-alpha03")
     implementation(project(":collection"))
 
+    androidTestImplementation(project(":appcompat"))
     androidTestImplementation(TEST_EXT_JUNIT)
     androidTestImplementation(TEST_CORE)
     androidTestImplementation(TEST_RUNNER)

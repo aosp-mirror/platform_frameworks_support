@@ -115,24 +115,26 @@ import java.util.concurrent.Executor;
  *         performed from an <a href="#InvalidStates">invalid state</a>. In these cases the player
  *         may transition to this state.
  * </ol>
+ * Subclasses may have extra methods to reset the player state to {@link #PLAYER_STATE_IDLE} from
+ * other states. Take a look at documentations of specific subclass that you're interested in.
  * <p>
  *
  * <h3 id="InvalidStates">Invalid method calls</h3>
  * The only method you safely call from the {@link #PLAYER_STATE_ERROR} is {@link #close()}.
- * Any other methods might throw an exception or return meaningless data.
+ * Any other methods might return meaningless data.
  * <p>
  * Subclasses of the SessionPlayer may have extra methods that are safe to be called in the error
  * state and/or provide a method to recover from the error state. Take a look at documentations of
- * specific class that you're interested in.
+ * specific subclass that you're interested in.
  * <p>
- * Most methods can be called from any non-Error state. They will either perform their work or
- * silently have no effect. The following table lists the methods that aren't guaranteed to
- * successfully running if they're called from the associated invalid states.
+ * Most methods can be called from any non-Error state. In case they're called in invalid state,
+ * the implementation should ignore and would return {@link PlayerResult} with
+ * {@link PlayerResult#RESULT_ERROR_INVALID_STATE}. The following table lists the methods that
+ * aren't guaranteed to successfully running if they're called from the associated invalid states.
  * <p>
  * <table>
  * <tr><th>Method Name</th> <th>Invalid States</th></tr>
- * <tr><td>setMediaItem</td> <td>{Paused, Playing}</td></tr>
- * <tr><td>setPlaylist</td> <td>{Paused, Playing}</td></tr>
+ * <tr><td>setAudioAttributes</td> <td>{Paused, Playing}</td></tr>
  * <tr><td>prepare</td> <td>{Paused, Playing}</td></tr>
  * <tr><td>play</td> <td>{Idle}</td></tr>
  * <tr><td>pause</td> <td>{Idle}</td></tr>
@@ -274,7 +276,10 @@ public abstract class SessionPlayer implements AutoCloseable {
      */
     public static final int SHUFFLE_MODE_GROUP = 2;
 
-    public static final long UNKNOWN_TIME = -1;
+    /**
+     * Value indicating the time is unknown
+     */
+    public static final long UNKNOWN_TIME = Long.MIN_VALUE;
 
     /**
      * Media item index is invalid. This value will be returned when the corresponding media item
@@ -287,23 +292,47 @@ public abstract class SessionPlayer implements AutoCloseable {
     private final List<Pair<PlayerCallback, Executor>> mCallbacks = new ArrayList<>();
 
     /**
-     * Plays the playback.
+     * Starts or resumes playback.
+     * <p>
+     * On success, this transfers the player state to {@link #PLAYER_STATE_PLAYING} and
+     * a {@link PlayerResult} should be returned with the current media item when the command
+     * was completed. If it is called in {@link #PLAYER_STATE_IDLE} or {@link #PLAYER_STATE_ERROR},
+     * it should be ignored and a {@link PlayerResult} should be returned with
+     * {@link PlayerResult#RESULT_ERROR_INVALID_STATE}.
      */
     public abstract @NonNull ListenableFuture<PlayerResult> play();
 
     /**
      * Pauses playback.
+     * <p>
+     * On success, this transfers the player state to {@link #PLAYER_STATE_PAUSED} and
+     * a {@link PlayerResult} should be returned with the current media item when the command
+     * was completed. If it is called in {@link #PLAYER_STATE_IDLE} or {@link #PLAYER_STATE_ERROR},
+     * it should be ignored and a {@link PlayerResult} should be returned with
+     * {@link PlayerResult#RESULT_ERROR_INVALID_STATE}.
      */
     public abstract @NonNull ListenableFuture<PlayerResult> pause();
 
     /**
      * Prepares the media items for playback. During this time, the player may allocate resources
-     * required to play, such as audio and video decoders.
+     * required to play, such as audio and video decoders. Before calling this API, sets media
+     * item(s) through either {@link #setMediaItem} or {@link #setPlaylist}.
+     * <p>
+     * On success, this transfers the player state from {@link #PLAYER_STATE_IDLE} to
+     * {@link #PLAYER_STATE_PAUSED} and a {@link PlayerResult} should be returned with the prepared
+     * media item when the command completed. If it's not called in {@link #PLAYER_STATE_IDLE},
+     * it is ignored and {@link PlayerResult} should be returned with
+     * {@link PlayerResult#RESULT_ERROR_INVALID_STATE}.
      */
     public abstract @NonNull ListenableFuture<PlayerResult> prepare();
 
     /**
      * Seeks to the specified position. Moves the playback head to the specified position.
+     * <p>
+     * On success, a {@link PlayerResult} should be returned with the current media item when the
+     * command completed. If it's called in {@link #PLAYER_STATE_IDLE}, it is ignored and
+     * a {@link PlayerResult} should be returned with
+     * {@link PlayerResult#RESULT_ERROR_INVALID_STATE}.
      *
      * @param position the new playback position in ms. The value should be in the range of start
      * and end positions defined in {@link MediaItem}.
@@ -311,12 +340,18 @@ public abstract class SessionPlayer implements AutoCloseable {
     public abstract @NonNull ListenableFuture<PlayerResult> seekTo(long position);
 
     /**
-     * Sets the playback speed. A value of {@code 1.0f} is the default playback value.
+     * Sets the playback speed. A value of {@code 1.0f} is the default playback value, and a
+     * negative value indicates reverse playback.
      * <p>
-     * After changing the playback speed, it is recommended to query the actual speed supported
-     * by the player, see {@link #getPlaybackSpeed()}.
+     * Supported playback speed range may differ per player. So it is recommended to query the
+     * actual speed supported by the player after changing the playback speed.
+     * <p>
+     * On success, a {@link PlayerResult} should be returned with the current media item when the
+     * command completed.
      *
      * @param playbackSpeed playback speed
+     * @see #getPlaybackSpeed()
+     * @see PlayerCallback#onPlaybackSpeedChanged(SessionPlayer, float)
      */
     public abstract @NonNull ListenableFuture<PlayerResult> setPlaybackSpeed(float playbackSpeed);
 
@@ -324,7 +359,11 @@ public abstract class SessionPlayer implements AutoCloseable {
      * Sets the {@link AudioAttributesCompat} to be used during the playback of the media.
      * <p>
      * You must call this method in {@link #PLAYER_STATE_IDLE} in order for the audio attributes to
-     * become effective thereafter.
+     * become effective thereafter. Otherwise, the call would be ignored and {@link PlayerResult}
+     * should be returned with {@link PlayerResult#RESULT_ERROR_INVALID_STATE}.
+     * <p>
+     * On success, a {@link PlayerResult} should be returned with the current media item when the
+     * command completed.
      *
      * @param attributes non-null <code>AudioAttributes</code>.
      */
@@ -358,13 +397,15 @@ public abstract class SessionPlayer implements AutoCloseable {
     public abstract long getDuration();
 
     /**
-     * Gets the buffered position of current playback, or {@link #UNKNOWN_TIME} if unknown.
+     * Gets the position for how much has been buffered, or {@link #UNKNOWN_TIME} if unknown.
+     *
      * @return the buffered position in ms, or {@link #UNKNOWN_TIME}.
      */
     public abstract long getBufferedPosition();
 
     /**
      * Returns the current buffering state of the player.
+     * <p>
      * During the buffering, see {@link #getBufferedPosition()} for the quantifying the amount
      * already buffered.
      *
@@ -374,7 +415,8 @@ public abstract class SessionPlayer implements AutoCloseable {
     public abstract @BuffState int getBufferingState();
 
     /**
-     * Gets the actual playback speed to be used by the player when playing.
+     * Gets the actual playback speed to be used by the player when playing. A value of {@code 1.0f}
+     * is the default playback value, and a negative value indicates reverse playback.
      * <p>
      * Note that it may differ from the speed set in {@link #setPlaybackSpeed(float)}.
      *
@@ -385,6 +427,9 @@ public abstract class SessionPlayer implements AutoCloseable {
     /**
      * Sets a list of {@link MediaItem} with metadata. Use this or {@link #setMediaItem} to specify
      * which items to play.
+     * <p>
+     * This can be called multiple times in any states other than {@link #PLAYER_STATE_ERROR}. This
+     * would override previous {@link #setMediaItem} or {@link #setPlaylist} calls.
      * <p>
      * Ensure uniqueness of each {@link MediaItem} in the playlist so the session can uniquely
      * identity individual items. All {@link MediaItem}s shouldn't be {@code null} as well.
@@ -400,6 +445,9 @@ public abstract class SessionPlayer implements AutoCloseable {
      * <p>
      * The implementation must close the {@link ParcelFileDescriptor} in the {@link FileMediaItem}
      * when a media item in the playlist is a {@link FileMediaItem}.
+     * <p>
+     * On success, a {@link PlayerResult} should be returned with the first media item of the
+     * playlist when the command completed.
      *
      * @param list A list of {@link MediaItem} objects to set as a play list.
      * @throws IllegalArgumentException if the given list is {@code null} or empty, or has
@@ -423,6 +471,9 @@ public abstract class SessionPlayer implements AutoCloseable {
      * {@link #skipToPlaylistItem}, {@link #skipToNextPlaylistItem}, or
      * {@link #skipToPreviousPlaylistItem} instead of this method.
      * <p>
+     * This can be called multiple times in any states other than {@link #PLAYER_STATE_ERROR}. This
+     * would override previous {@link #setMediaItem} or {@link #setPlaylist} calls.
+     * <p>
      * It's recommended to fill {@link MediaMetadata} in {@link MediaItem} especially for the
      * duration information with the key {@link MediaMetadata#METADATA_KEY_DURATION}. Without the
      * duration information in the metadata, session will do extra work to get the duration and send
@@ -434,6 +485,8 @@ public abstract class SessionPlayer implements AutoCloseable {
      * <p>
      * The implementation must close the {@link ParcelFileDescriptor} in the {@link FileMediaItem}
      * if the given media item is a {@link FileMediaItem}.
+     * <p>
+     * On success, a {@link PlayerResult} should be returned with {@code item} set.
      *
      * @param item the descriptor of media item you want to play
      * @return a {@link ListenableFuture} which represents the pending completion of the command.
@@ -460,6 +513,8 @@ public abstract class SessionPlayer implements AutoCloseable {
      * <p>
      * The implementation must close the {@link ParcelFileDescriptor} in the {@link FileMediaItem}
      * if the given media item is a {@link FileMediaItem}.
+     * <p>
+     * On success, a {@link PlayerResult} should be returned with {@code item} added.
      *
      * @param index the index of the item you want to add in the playlist
      * @param item the media item you want to add
@@ -476,6 +531,8 @@ public abstract class SessionPlayer implements AutoCloseable {
      * The implementation must notify registered callbacks with
      * {@link PlayerCallback#onPlaylistChanged(SessionPlayer, List, MediaMetadata)} when it's
      * completed.
+     * <p>
+     * On success, a {@link PlayerResult} should be returned with {@code item} removed.
      *
      * @param index the index of the item you want to remove in the playlist
      * @see PlayerCallback#onPlaylistChanged(SessionPlayer, List, MediaMetadata)
@@ -493,6 +550,8 @@ public abstract class SessionPlayer implements AutoCloseable {
      * <p>
      * The implementation must close the {@link ParcelFileDescriptor} in the {@link FileMediaItem}
      * if the given media item is a {@link FileMediaItem}.
+     * <p>
+     * On success, a {@link PlayerResult} should be returned with {@code item} set.
      *
      * @param index the index of the item to replace in the playlist
      * @param item the new item
@@ -507,6 +566,9 @@ public abstract class SessionPlayer implements AutoCloseable {
      * The implementation must notify registered callbacks with
      * {@link PlayerCallback#onCurrentMediaItemChanged(SessionPlayer, MediaItem)} when it's
      * completed.
+     * <p>
+     * On success, a {@link PlayerResult} should be returned with the current media item when the
+     * command completed.
      *
      * @see PlayerCallback#onCurrentMediaItemChanged(SessionPlayer, MediaItem)
      */
@@ -518,6 +580,9 @@ public abstract class SessionPlayer implements AutoCloseable {
      * The implementation must notify registered callbacks with
      * {@link PlayerCallback#onCurrentMediaItemChanged(SessionPlayer, MediaItem)} when it's
      * completed.
+     * <p>
+     * On success, a {@link PlayerResult} should be returned with the current media item when the
+     * command completed.
      *
      * @see PlayerCallback#onCurrentMediaItemChanged(SessionPlayer, MediaItem)
      */
@@ -529,6 +594,9 @@ public abstract class SessionPlayer implements AutoCloseable {
      * The implementation must notify registered callbacks with
      * {@link PlayerCallback#onCurrentMediaItemChanged(SessionPlayer, MediaItem)} when it's
      * completed.
+     * <p>
+     * On success, a {@link PlayerResult} should be returned with the current media item when the
+     * command completed.
      *
      * @param index The index of the item you want to play in the playlist
      * @see PlayerCallback#onCurrentMediaItemChanged(SessionPlayer, MediaItem)
@@ -542,6 +610,9 @@ public abstract class SessionPlayer implements AutoCloseable {
      * The implementation must notify registered callbacks with
      * {@link PlayerCallback#onPlaylistMetadataChanged(SessionPlayer, MediaMetadata)} when it's
      * completed.
+     * <p>
+     * On success, a {@link PlayerResult} should be returned with the current media item when the
+     * command completed.
      *
      * @param metadata metadata of the playlist
      * @see PlayerCallback#onPlaylistMetadataChanged(SessionPlayer, MediaMetadata)
@@ -554,6 +625,9 @@ public abstract class SessionPlayer implements AutoCloseable {
      * <p>
      * The implementation must notify registered callbacks with
      * {@link PlayerCallback#onRepeatModeChanged(SessionPlayer, int)} when it's completed.
+     * <p>
+     * On success, a {@link PlayerResult} should be returned with the current media item when the
+     * command completed.
      *
      * @param repeatMode repeat mode
      * @see #REPEAT_MODE_NONE
@@ -570,6 +644,9 @@ public abstract class SessionPlayer implements AutoCloseable {
      * <p>
      * The implementation must notify registered callbacks with
      * {@link PlayerCallback#onShuffleModeChanged(SessionPlayer, int)} when it's completed.
+     * <p>
+     * On success, a {@link PlayerResult} should be returned with the current media item when the
+     * command completed.
      *
      * @param shuffleMode The shuffle mode
      * @see #SHUFFLE_MODE_NONE
@@ -911,7 +988,7 @@ public abstract class SessionPlayer implements AutoCloseable {
          * Constructor that uses the current system clock as the completion time.
          *
          * @param resultCode result code. Recommends to use the standard code defined here.
-         * @param item media item when the command is completed
+         * @param item media item when the command completed
          */
         // Note: resultCode is intentionally not annotated for subclass to return extra error codes.
         public PlayerResult(int resultCode, @Nullable MediaItem item) {
@@ -952,7 +1029,7 @@ public abstract class SessionPlayer implements AutoCloseable {
 
         /**
          * Gets the completion time of the command. Being more specific, it's the same as
-         * {@link android.os.SystemClock#elapsedRealtime()} when the command is completed.
+         * {@link android.os.SystemClock#elapsedRealtime()} when the command completed.
          *
          * @return completion time of the command
          */
@@ -964,9 +1041,9 @@ public abstract class SessionPlayer implements AutoCloseable {
         /**
          * Gets the {@link MediaItem} for which the command was executed. In other words, this is
          * the item sent as an argument of the command if any, otherwise the current media item when
-         * the command was completed.
+         * the command completed.
          *
-         * @return media item when the command is completed. Can be {@code null} for an error, or
+         * @return media item when the command completed. Can be {@code null} for an error, or
          *         the current media item was {@code null}.
          */
         @Override
