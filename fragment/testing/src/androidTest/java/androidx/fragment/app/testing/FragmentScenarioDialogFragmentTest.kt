@@ -16,16 +16,18 @@
 
 package androidx.fragment.app.testing
 
+import android.os.Build
 import androidx.core.os.BuildCompat.isAtLeastQ
 import androidx.lifecycle.Lifecycle.State
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.assertion.ViewAssertions.doesNotExist
 import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.matcher.RootMatchers.isDialog
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import com.google.common.truth.Truth.assertThat
+import org.hamcrest.CoreMatchers.not
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -43,7 +45,7 @@ class FragmentScenarioDialogFragmentTest {
                 assertThat(fragment.dialog).isNotNull()
                 assertThat(fragment.requireDialog().isShowing).isTrue()
             }
-            onView(withText("my button")).check(matches(isDisplayed()))
+            onView(withText("my button")).inRoot(isDialog()).check(matches(isDisplayed()))
         }
     }
 
@@ -55,7 +57,7 @@ class FragmentScenarioDialogFragmentTest {
                 // We show SimpleDialogFragment in container so dialog is not created.
                 assertThat(fragment.dialog).isNull()
             }
-            onView(withText("my button")).check(matches(isDisplayed()))
+            onView(withText("my button")).inRoot(not(isDialog())).check(matches(isDisplayed()))
         }
     }
 
@@ -79,6 +81,10 @@ class FragmentScenarioDialogFragmentTest {
 
     @Test
     fun fromResumedToStarted() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+            // Moving to STARTED is not supported on pre-N devices.
+            return
+        }
         with(launchFragment<SimpleDialogFragment>()) {
             moveToState(State.STARTED)
             onFragment { fragment ->
@@ -129,6 +135,10 @@ class FragmentScenarioDialogFragmentTest {
 
     @Test
     fun fromCreatedToStarted() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+            // Moving to STARTED is not supported on pre-N devices.
+            return
+        }
         with(launchFragment<SimpleDialogFragment>()) {
             moveToState(State.CREATED)
             moveToState(State.STARTED)
@@ -163,6 +173,10 @@ class FragmentScenarioDialogFragmentTest {
 
     @Test
     fun fromStartedToCreated() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+            // Moving to STARTED is not supported on pre-N devices.
+            return
+        }
         with(launchFragment<SimpleDialogFragment>()) {
             moveToState(State.STARTED)
             moveToState(State.CREATED)
@@ -182,6 +196,10 @@ class FragmentScenarioDialogFragmentTest {
 
     @Test
     fun fromStartedToStarted() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+            // Moving to STARTED is not supported on pre-N devices.
+            return
+        }
         with(launchFragment<SimpleDialogFragment>()) {
             moveToState(State.STARTED)
             moveToState(State.STARTED)
@@ -195,6 +213,10 @@ class FragmentScenarioDialogFragmentTest {
 
     @Test
     fun fromStartedToResumed() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+            // Moving to STARTED is not supported on pre-N devices.
+            return
+        }
         with(launchFragment<SimpleDialogFragment>()) {
             moveToState(State.STARTED)
             moveToState(State.RESUMED)
@@ -208,6 +230,10 @@ class FragmentScenarioDialogFragmentTest {
 
     @Test
     fun fromStartedToDestroyed() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+            // Moving to STARTED is not supported on pre-N devices.
+            return
+        }
         with(launchFragment<SimpleDialogFragment>()) {
             moveToState(State.STARTED)
             moveToState(State.DESTROYED)
@@ -249,6 +275,10 @@ class FragmentScenarioDialogFragmentTest {
 
     @Test
     fun recreateStartedFragment() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+            // Moving to STARTED is not supported on pre-N devices.
+            return
+        }
         var numOfInstantiation = 0
         with(launchFragment {
             ++numOfInstantiation
@@ -296,6 +326,5 @@ class FragmentScenarioDialogFragmentTest {
                 assertThat(fragment.dialog).isNull()
             }
         }
-        onView(withText("my button")).check(doesNotExist())
     }
 }

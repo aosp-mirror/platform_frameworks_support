@@ -18,6 +18,7 @@ package androidx.fragment.app.testing
 
 import android.app.UiModeManager
 import android.content.res.Configuration
+import android.os.Build
 import android.os.Bundle
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.FragmentFactory
@@ -27,11 +28,6 @@ import androidx.lifecycle.GenericLifecycleObserver
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Lifecycle.State
 import androidx.test.core.app.ApplicationProvider.getApplicationContext
-import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu
-import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
-import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import com.google.common.truth.Truth.assertThat
@@ -232,6 +228,10 @@ class FragmentScenarioTest {
 
     @Test
     fun fromResumedToStarted() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+            // Moving to STARTED is not supported on pre-N devices.
+            return
+        }
         with(launchFragmentInContainer<StateRecordingFragment>()) {
             moveToState(State.STARTED)
             onFragment { fragment ->
@@ -273,6 +273,10 @@ class FragmentScenarioTest {
 
     @Test
     fun fromCreatedToStarted() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+            // Moving to STARTED is not supported on pre-N devices.
+            return
+        }
         with(launchFragmentInContainer<StateRecordingFragment>()) {
             moveToState(State.CREATED)
             moveToState(State.STARTED)
@@ -305,6 +309,10 @@ class FragmentScenarioTest {
 
     @Test
     fun fromStartedToCreated() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+            // Moving to STARTED is not supported on pre-N devices.
+            return
+        }
         with(launchFragmentInContainer<StateRecordingFragment>()) {
             moveToState(State.STARTED)
             moveToState(State.CREATED)
@@ -317,6 +325,10 @@ class FragmentScenarioTest {
 
     @Test
     fun fromStartedToStarted() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+            // Moving to STARTED is not supported on pre-N devices.
+            return
+        }
         with(launchFragmentInContainer<StateRecordingFragment>()) {
             moveToState(State.STARTED)
             moveToState(State.STARTED)
@@ -329,6 +341,10 @@ class FragmentScenarioTest {
 
     @Test
     fun fromStartedToResumed() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+            // Moving to STARTED is not supported on pre-N devices.
+            return
+        }
         with(launchFragmentInContainer<StateRecordingFragment>()) {
             moveToState(State.STARTED)
             moveToState(State.RESUMED)
@@ -341,6 +357,10 @@ class FragmentScenarioTest {
 
     @Test
     fun fromStartedToDestroyed() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+            // Moving to STARTED is not supported on pre-N devices.
+            return
+        }
         with(launchFragmentInContainer<StateRecordingFragment>()) {
             moveToState(State.STARTED)
             moveToState(State.DESTROYED)
@@ -369,6 +389,10 @@ class FragmentScenarioTest {
 
     @Test
     fun recreateStartedFragment() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+            // Moving to STARTED is not supported on pre-N devices.
+            return
+        }
         with(launchFragmentInContainer<StateRecordingFragment>()) {
             moveToState(State.STARTED)
             recreate()
@@ -440,10 +464,8 @@ class FragmentScenarioTest {
             return
         }
 
-        with(launchFragment<OptionsMenuFragment>()) {
-            openActionBarOverflowOrOptionsMenu(getApplicationContext())
-            onFragment { fragment -> fragment.requireActivity().openOptionsMenu() }
-            onView(withText("Item1")).check(matches(isDisplayed()))
+        launchFragment<OptionsMenuFragment>().onFragment { fragment ->
+            assertThat(fragment.hasOptionsMenu()).isTrue()
         }
     }
 }
