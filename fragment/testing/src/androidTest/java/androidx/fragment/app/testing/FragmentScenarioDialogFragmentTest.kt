@@ -19,13 +19,14 @@ package androidx.fragment.app.testing
 import androidx.core.os.BuildCompat.isAtLeastQ
 import androidx.lifecycle.Lifecycle.State
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.assertion.ViewAssertions.doesNotExist
 import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.matcher.RootMatchers.isDialog
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import com.google.common.truth.Truth.assertThat
+import org.hamcrest.CoreMatchers.not
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -39,11 +40,11 @@ class FragmentScenarioDialogFragmentTest {
     fun launchFragment() {
         with(launchFragment<SimpleDialogFragment>()) {
             onFragment { fragment ->
-                assertThat(fragment.lifecycle.currentState).isEqualTo(State.RESUMED)
+                assertThat(fragment.mCurrentState).isEqualTo(State.RESUMED)
                 assertThat(fragment.dialog).isNotNull()
                 assertThat(fragment.requireDialog().isShowing).isTrue()
             }
-            onView(withText("my button")).check(matches(isDisplayed()))
+            onView(withText("my button")).inRoot(isDialog()).check(matches(isDisplayed()))
         }
     }
 
@@ -51,11 +52,11 @@ class FragmentScenarioDialogFragmentTest {
     fun launchFragmentInContainer() {
         with(launchFragmentInContainer<SimpleDialogFragment>()) {
             onFragment { fragment ->
-                assertThat(fragment.lifecycle.currentState).isEqualTo(State.RESUMED)
+                assertThat(fragment.mCurrentState).isEqualTo(State.RESUMED)
                 // We show SimpleDialogFragment in container so dialog is not created.
                 assertThat(fragment.dialog).isNull()
             }
-            onView(withText("my button")).check(matches(isDisplayed()))
+            onView(withText("my button")).inRoot(not(isDialog())).check(matches(isDisplayed()))
         }
     }
 
@@ -64,7 +65,7 @@ class FragmentScenarioDialogFragmentTest {
         with(launchFragment<SimpleDialogFragment>()) {
             moveToState(State.CREATED)
             onFragment { fragment ->
-                assertThat(fragment.lifecycle.currentState).isEqualTo(State.CREATED)
+                assertThat(fragment.mCurrentState).isEqualTo(State.CREATED)
                 assertThat(fragment.dialog).isNotNull()
                 if (isAtLeastQ()) {
                     assertThat(fragment.requireDialog().isShowing).isFalse()
@@ -82,7 +83,7 @@ class FragmentScenarioDialogFragmentTest {
         with(launchFragment<SimpleDialogFragment>()) {
             moveToState(State.STARTED)
             onFragment { fragment ->
-                assertThat(fragment.lifecycle.currentState).isEqualTo(State.STARTED)
+                assertThat(fragment.mCurrentState).isEqualTo(State.STARTED)
                 assertThat(fragment.dialog).isNotNull()
                 assertThat(fragment.requireDialog().isShowing).isTrue()
             }
@@ -94,7 +95,7 @@ class FragmentScenarioDialogFragmentTest {
         with(launchFragment<SimpleDialogFragment>()) {
             moveToState(State.RESUMED)
             onFragment { fragment ->
-                assertThat(fragment.lifecycle.currentState).isEqualTo(State.RESUMED)
+                assertThat(fragment.mCurrentState).isEqualTo(State.RESUMED)
                 assertThat(fragment.dialog).isNotNull()
                 assertThat(fragment.requireDialog().isShowing).isTrue()
             }
@@ -114,7 +115,7 @@ class FragmentScenarioDialogFragmentTest {
             moveToState(State.CREATED)
             moveToState(State.CREATED)
             onFragment { fragment ->
-                assertThat(fragment.lifecycle.currentState).isEqualTo(State.CREATED)
+                assertThat(fragment.mCurrentState).isEqualTo(State.CREATED)
                 assertThat(fragment.dialog).isNotNull()
                 if (isAtLeastQ()) {
                     assertThat(fragment.requireDialog().isShowing).isFalse()
@@ -133,7 +134,7 @@ class FragmentScenarioDialogFragmentTest {
             moveToState(State.CREATED)
             moveToState(State.STARTED)
             onFragment { fragment ->
-                assertThat(fragment.lifecycle.currentState).isEqualTo(State.STARTED)
+                assertThat(fragment.mCurrentState).isEqualTo(State.STARTED)
                 assertThat(fragment.dialog).isNotNull()
                 assertThat(fragment.requireDialog().isShowing).isTrue()
             }
@@ -146,7 +147,7 @@ class FragmentScenarioDialogFragmentTest {
             moveToState(State.CREATED)
             moveToState(State.RESUMED)
             onFragment { fragment ->
-                assertThat(fragment.lifecycle.currentState).isEqualTo(State.RESUMED)
+                assertThat(fragment.mCurrentState).isEqualTo(State.RESUMED)
                 assertThat(fragment.dialog).isNotNull()
                 assertThat(fragment.requireDialog().isShowing).isTrue()
             }
@@ -167,7 +168,7 @@ class FragmentScenarioDialogFragmentTest {
             moveToState(State.STARTED)
             moveToState(State.CREATED)
             onFragment { fragment ->
-                assertThat(fragment.lifecycle.currentState).isEqualTo(State.CREATED)
+                assertThat(fragment.mCurrentState).isEqualTo(State.CREATED)
                 assertThat(fragment.dialog).isNotNull()
                 if (isAtLeastQ()) {
                     assertThat(fragment.requireDialog().isShowing).isFalse()
@@ -186,7 +187,7 @@ class FragmentScenarioDialogFragmentTest {
             moveToState(State.STARTED)
             moveToState(State.STARTED)
             onFragment { fragment ->
-                assertThat(fragment.lifecycle.currentState).isEqualTo(State.STARTED)
+                assertThat(fragment.mCurrentState).isEqualTo(State.STARTED)
                 assertThat(fragment.dialog).isNotNull()
                 assertThat(fragment.requireDialog().isShowing).isTrue()
             }
@@ -199,7 +200,7 @@ class FragmentScenarioDialogFragmentTest {
             moveToState(State.STARTED)
             moveToState(State.RESUMED)
             onFragment { fragment ->
-                assertThat(fragment.lifecycle.currentState).isEqualTo(State.RESUMED)
+                assertThat(fragment.mCurrentState).isEqualTo(State.RESUMED)
                 assertThat(fragment.dialog).isNotNull()
                 assertThat(fragment.requireDialog().isShowing).isTrue()
             }
@@ -234,7 +235,7 @@ class FragmentScenarioDialogFragmentTest {
             recreate()
             assertThat(numOfInstantiation).isEqualTo(2)
             onFragment { fragment ->
-                assertThat(fragment.lifecycle.currentState).isEqualTo(State.CREATED)
+                assertThat(fragment.mCurrentState).isEqualTo(State.CREATED)
                 assertThat(fragment.dialog).isNotNull()
                 if (isAtLeastQ()) {
                     assertThat(fragment.requireDialog().isShowing).isFalse()
@@ -259,7 +260,7 @@ class FragmentScenarioDialogFragmentTest {
             recreate()
             assertThat(numOfInstantiation).isEqualTo(2)
             onFragment { fragment ->
-                assertThat(fragment.lifecycle.currentState).isEqualTo(State.STARTED)
+                assertThat(fragment.mCurrentState).isEqualTo(State.STARTED)
                 assertThat(fragment.dialog).isNotNull()
                 assertThat(fragment.requireDialog().isShowing).isTrue()
             }
@@ -277,7 +278,7 @@ class FragmentScenarioDialogFragmentTest {
             recreate()
             assertThat(numOfInstantiation).isEqualTo(2)
             onFragment { fragment ->
-                assertThat(fragment.lifecycle.currentState).isEqualTo(State.RESUMED)
+                assertThat(fragment.mCurrentState).isEqualTo(State.RESUMED)
                 assertThat(fragment.dialog).isNotNull()
                 assertThat(fragment.requireDialog().isShowing).isTrue()
             }
@@ -288,7 +289,7 @@ class FragmentScenarioDialogFragmentTest {
     fun dismissDialog() {
         with(launchFragment<SimpleDialogFragment>()) {
             onFragment { fragment ->
-                assertThat(fragment.lifecycle.currentState).isEqualTo(State.RESUMED)
+                assertThat(fragment.mCurrentState).isEqualTo(State.RESUMED)
                 assertThat(fragment.dialog).isNotNull()
                 assertThat(fragment.requireDialog().isShowing).isTrue()
                 fragment.dismiss()
@@ -296,6 +297,5 @@ class FragmentScenarioDialogFragmentTest {
                 assertThat(fragment.dialog).isNull()
             }
         }
-        onView(withText("my button")).check(doesNotExist())
     }
 }
