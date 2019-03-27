@@ -22,6 +22,30 @@
       "revId": "81e0434bf722b8bafb37e1793ea2b9fd31e54005",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fbafe93c_d1bbc40b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1300185
+      },
+      "writtenOn": "2019-03-27T18:39:42Z",
+      "side": 1,
+      "message": "This is not a DialogFragment specific issue but a host side issue namely ComponentActivity. ComponentActivity overrides onSaveInstanceState and marks itself as created state (*1). This behavior does not match to Lifecycle.State enum\u0027s definition because of the timing of onSaveInstanceState callback (when the state transitions to CREATED onStop callback never be invoked). This problem was fixed at API 24 (*2).\n\n(*1) https://android.git.corp.google.com/platform/frameworks/support/+/2f634eec2143acd6a4ea19a375a6e3877cdcc2ed/activity/src/main/java/androidx/activity/ComponentActivity.java#160\n\n(*2) https://docs.google.com/document/d/1MZQQp4c-Y-6NCNrY-QlPUjkPIGcm4BAYuBKtS5Gdofk/edit",
+      "parentUuid": "824f6341_8e0ccd89",
+      "range": {
+        "startLine": 11,
+        "startChar": 3,
+        "endLine": 13,
+        "endChar": 68
+      },
+      "revId": "81e0434bf722b8bafb37e1793ea2b9fd31e54005",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
