@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "824f6341_8e0ccd89",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-03-27T03:40:28Z",
+      "side": 1,
+      "message": "Why does this matter for DialogFragment? If you\u0027re moving the Fragment to a particular Lifecycle.State, it must be in that state afterwards or there\u0027s something that needs fixing in ActivityScenario/FragmentScenario, correct?",
+      "range": {
+        "startLine": 11,
+        "startChar": 3,
+        "endLine": 13,
+        "endChar": 68
+      },
+      "revId": "81e0434bf722b8bafb37e1793ea2b9fd31e54005",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
