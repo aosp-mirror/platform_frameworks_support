@@ -27,6 +27,7 @@ import static androidx.media2.widget.MediaControlView.KEY_SELECTED_SUBTITLE_INDE
 import static androidx.media2.widget.MediaControlView.KEY_SUBTITLE_TRACK_LANGUAGE_LIST;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.ArgumentMatchers.eq;
@@ -50,6 +51,8 @@ import android.os.ParcelFileDescriptor;
 import android.view.View;
 import android.view.WindowManager;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.media2.FileMediaItem;
 import androidx.media2.MediaController;
@@ -274,12 +277,34 @@ public class VideoViewTest {
 
     @Test
     public void testSubtitleSelection() throws Throwable {
+        MediaController.ControllerCallback controllerCallback =
+                new MediaController.ControllerCallback() {
+                    @NonNull
+                    @Override
+                    public SessionResult onCustomCommand(@NonNull MediaController controller,
+                            @NonNull SessionCommand command, @Nullable Bundle args) {
+                        if (command.getCustomCommand().equals(EVENT_UPDATE_TRACK_STATUS)) {
+                            List<String> subtitleLangList = args.getStringArrayList(
+                                    KEY_SUBTITLE_TRACK_LANGUAGE_LIST);
+                            for (String lang : subtitleLangList) {
+                                assertTrue("'und' should be replaced with empty string.",
+                                        !lang.equals("und"));
+                            }
+                        }
+                        return new SessionResult(SessionResult.RESULT_SUCCESS, null);
+                    }
+                };
+
+        MediaController controller = new MediaController(mVideoView.getContext(),
+                mVideoView.getSessionToken(), mMainHandlerExecutor, controllerCallback);
+
         mActivityRule.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 mVideoView.setMediaItem(mMediaItem);
             }
         });
+
         verify(mControllerCallback, timeout(TIME_OUT).atLeastOnce()).onConnected(
                 any(MediaController.class), any(SessionCommandGroup.class));
         mController.play();

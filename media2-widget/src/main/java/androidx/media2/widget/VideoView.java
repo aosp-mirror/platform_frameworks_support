@@ -35,7 +35,6 @@ import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.util.SparseArray;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -192,7 +191,7 @@ public class VideoView extends SelectiveLayout {
     int mTargetState = STATE_IDLE;
     int mCurrentState = STATE_IDLE;
 
-    private ArrayList<Integer> mVideoTrackIndices;
+    private int mVideoTrackCount;
     List<TrackInfo> mAudioTrackInfos;
     Map<TrackInfo, SubtitleTrack> mSubtitleTracks;
     private SubtitleController mSubtitleController;
@@ -784,7 +783,7 @@ public class VideoView extends SelectiveLayout {
     // TODO: move this method inside callback to make sure it runs inside the callback thread.
     Bundle extractTrackInfoData() {
         List<MediaPlayer.TrackInfo> trackInfos = mMediaPlayer.getTrackInfo();
-        mVideoTrackIndices = new ArrayList<>();
+        mVideoTrackCount = 0;
         mAudioTrackInfos = new ArrayList<>();
         mSubtitleTracks = new LinkedHashMap<>();
         ArrayList<String> subtitleTracksLanguageList = new ArrayList<>();
@@ -794,7 +793,7 @@ public class VideoView extends SelectiveLayout {
             final TrackInfo trackInfo = trackInfos.get(i);
             int trackType = trackInfo.getTrackType();
             if (trackType == MediaPlayer.TrackInfo.MEDIA_TRACK_TYPE_VIDEO) {
-                mVideoTrackIndices.add(i);
+                mVideoTrackCount++;
             } else if (trackType == MediaPlayer.TrackInfo.MEDIA_TRACK_TYPE_AUDIO) {
                 mAudioTrackInfos.add(trackInfo);
             } else if (trackType == MediaPlayer.TrackInfo.MEDIA_TRACK_TYPE_SUBTITLE) {
@@ -802,6 +801,9 @@ public class VideoView extends SelectiveLayout {
                 if (track != null) {
                     mSubtitleTracks.put(trackInfo, track);
                     String language = trackInfo.getLanguage().getISO3Language();
+                    if (language.equals(SUBTITLE_TRACK_LANG_UNDEFINED)) {
+                        language = "";
+                    }
                     subtitleTracksLanguageList.add(language);
                 }
             }
@@ -816,7 +818,7 @@ public class VideoView extends SelectiveLayout {
         }
 
         Bundle data = new Bundle();
-        data.putInt(MediaControlView.KEY_VIDEO_TRACK_COUNT, mVideoTrackIndices.size());
+        data.putInt(MediaControlView.KEY_VIDEO_TRACK_COUNT, mVideoTrackCount);
         data.putInt(MediaControlView.KEY_AUDIO_TRACK_COUNT, mAudioTrackInfos.size());
         data.putStringArrayList(MediaControlView.KEY_SUBTITLE_TRACK_LANGUAGE_LIST,
                 subtitleTracksLanguageList);
@@ -824,8 +826,7 @@ public class VideoView extends SelectiveLayout {
     }
 
     boolean isCurrentItemMusic() {
-        return mVideoTrackIndices != null && mVideoTrackIndices.size() == 0
-                && mAudioTrackInfos != null && mAudioTrackInfos.size() > 0;
+        return mVideoTrackCount == 0 && mAudioTrackInfos != null && mAudioTrackInfos.size() > 0;
     }
 
     void updateMusicView() {
