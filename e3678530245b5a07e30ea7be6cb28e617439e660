@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4fd36cfb_8d1ab9b8",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 465,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-03-27T11:26:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "149fe135_ec3afbd7",
+      "range": {
+        "startLine": 465,
+        "startChar": 74,
+        "endLine": 465,
+        "endChar": 95
+      },
+      "revId": "e3678530245b5a07e30ea7be6cb28e617439e660",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "95d3a93e_09c36d5d",
         "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "e3678530245b5a07e30ea7be6cb28e617439e660",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ceac89c_9c33cb48",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 467,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-03-27T11:26:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "95d3a93e_09c36d5d",
+      "range": {
+        "startLine": 466,
+        "startChar": 72,
+        "endLine": 467,
+        "endChar": 16
+      },
+      "revId": "e3678530245b5a07e30ea7be6cb28e617439e660",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "1750c587_5feb281b",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-03-27T11:26:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa70625a_ef6c0d81",
+      "range": {
+        "startLine": 469,
+        "startChar": 43,
+        "endLine": 469,
+        "endChar": 61
+      },
+      "revId": "e3678530245b5a07e30ea7be6cb28e617439e660",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aa146db6_c6108c83",
         "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
         "patchSetId": 4
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "b1e8b04f_0a86eaad",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 632,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-03-27T11:26:41Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "aa146db6_c6108c83",
+      "range": {
+        "startLine": 630,
+        "startChar": 8,
+        "endLine": 632,
+        "endChar": 41
+      },
+      "revId": "e3678530245b5a07e30ea7be6cb28e617439e660",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "845cb658_92718985",
         "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
         "patchSetId": 4
@@ -114,6 +210,30 @@
       "revId": "e3678530245b5a07e30ea7be6cb28e617439e660",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02319279_e3fc535b",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1228,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-03-27T11:26:41Z",
+      "side": 1,
+      "message": "Reusable int pair\u0027s follow a strict pattern of five lines that make their correct usage easy to verify:\n1/2: reset pair\n3: populate pair\n4/5: use pair\nI didn\u0027t want to interrupt this pattern with the layoutToEnd declaration. On the other hand, I see how keeping the declaration close to its use is also important. I\u0027ll keep it like this for now, unless you prefer otherwise",
+      "parentUuid": "845cb658_92718985",
+      "range": {
+        "startLine": 1228,
+        "startChar": 8,
+        "endLine": 1228,
+        "endChar": 72
+      },
+      "revId": "e3678530245b5a07e30ea7be6cb28e617439e660",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
