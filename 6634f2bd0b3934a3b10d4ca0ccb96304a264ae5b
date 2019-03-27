@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "39993bb4_c4fb3af5",
+        "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/LinearLayoutManagerExtraLayoutSpaceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-03-27T21:07:14Z",
+      "side": 1,
+      "message": "This comma followed by semicolon strikes me as weird.  Can\u0027t you just remove the comma and replace it with a semicolon?",
+      "range": {
+        "startLine": 54,
+        "startChar": 19,
+        "endLine": 55,
+        "endChar": 9
+      },
+      "revId": "6634f2bd0b3934a3b10d4ca0ccb96304a264ae5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ee49b82_282a9354",
+        "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/LinearLayoutManagerExtraLayoutSpaceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-03-27T21:07:14Z",
+      "side": 1,
+      "message": "Minor point, but instead of nested loops and then filtering out certain combinations, I think it would be clearer to the reader if you simply made 2 loops that required no filtering.\n\nif (!config.mWrap) {\n  for (int extraLegacySpace : new int[] {0, 200}) {\n    result.add(new Object[]{config, extraLegacySpace, -1});\n  }\n  for (int extraLayoutSpace : new int[] {100, 200}) {\n    result.add(new Object[]{config, -1, extraLayoutSpace});\n  }\n  result.add(new Object[]{config, -1, -1});\n}\n\nYour call, just thought that might be more direct.",
+      "range": {
+        "startLine": 89,
+        "startChar": 41,
+        "endLine": 89,
+        "endChar": 91
+      },
+      "revId": "6634f2bd0b3934a3b10d4ca0ccb96304a264ae5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9204d61c_f5936dc4",
+        "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/LinearLayoutManagerExtraLayoutSpaceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-03-27T21:07:14Z",
+      "side": 1,
+      "message": "Minor nit: instead of having an special case in this method, does it make sense to extract out the special case out of the method completely.  Seems like you would just change the first scrollToPositionAndVerify call in test() to:\n\nmLayoutManager.recordNextExtraLayoutSpace();\nwaitForFirstLayout();\n// alignment of TOWARDS_END is actually irrelevant.\nverify(getExpectedExtraSpace(false), getAvailableSpace(TOWARDS_END))",
+      "range": {
+        "startLine": 131,
+        "startChar": 12,
+        "endLine": 131,
+        "endChar": 75
+      },
+      "revId": "6634f2bd0b3934a3b10d4ca0ccb96304a264ae5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2de8d409_7ddc30fe",
+        "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/LinearLayoutManagerExtraLayoutSpaceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-03-27T21:07:14Z",
+      "side": 1,
+      "message": "So, is it possible that this test would pass if you intended to display an extra 100px and an extra 200px was actually displayed?\n\nGiven that you are defining the height of children, seems like you could test for the exact expected mObservedStart (that would be ideal) or that the top child falls within a range that is limited on one end by what you said, and on the other by what you said minus the item height.",
+      "range": {
+        "startLine": 223,
+        "startChar": 8,
+        "endLine": 224,
+        "endChar": 94
+      },
+      "revId": "6634f2bd0b3934a3b10d4ca0ccb96304a264ae5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6e68562_04e1fa22",
+        "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/LinearLayoutManagerExtraLayoutSpaceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-03-27T21:07:14Z",
+      "side": 1,
+      "message": "This seems to prove that each child is in the correct order, but it doesn\u0027t seem to prove that the children are contiguously laid out (as in there are no gaps in between them).  Can you make this \"mBounds[i - 1][1] \u003d\u003d mBounds[i][0] + 1\"?  That seems like it would test true contiguousness.  \n\nAlso, not sure you need to actually test for this here.  The fact that the children are laid out contiguously strikes me as something some other test should be responsible for?",
+      "range": {
+        "startLine": 331,
+        "startChar": 32,
+        "endLine": 331,
+        "endChar": 66
+      },
+      "revId": "6634f2bd0b3934a3b10d4ca0ccb96304a264ae5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

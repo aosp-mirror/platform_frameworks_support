@@ -234,6 +234,30 @@
       "revId": "e3678530245b5a07e30ea7be6cb28e617439e660",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4a7f873c_d9179f2c",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1228,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-03-27T21:07:14Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "02319279_e3fc535b",
+      "range": {
+        "startLine": 1228,
+        "startChar": 8,
+        "endLine": 1228,
+        "endChar": 72
+      },
+      "revId": "e3678530245b5a07e30ea7be6cb28e617439e660",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
