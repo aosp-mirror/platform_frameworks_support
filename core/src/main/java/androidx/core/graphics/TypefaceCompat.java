@@ -25,6 +25,7 @@ import android.os.Build;
 import android.os.CancellationSignal;
 import android.os.Handler;
 
+import androidx.annotation.GuardedBy;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
@@ -34,8 +35,15 @@ import androidx.core.content.res.FontResourcesParserCompat.FamilyResourceEntry;
 import androidx.core.content.res.FontResourcesParserCompat.FontFamilyFilesResourceEntry;
 import androidx.core.content.res.FontResourcesParserCompat.ProviderResourceEntry;
 import androidx.core.content.res.ResourcesCompat;
+import androidx.core.provider.FontRequest;
 import androidx.core.provider.FontsContractCompat;
 import androidx.core.provider.FontsContractCompat.FontInfo;
+
+import java.util.concurrent.Callable;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.FutureTask;
 
 /**
  * Helper for accessing features in {@link Typeface}.
@@ -86,6 +94,81 @@ public class TypefaceCompat {
      */
     private static String createResourceUid(final Resources resources, int id, int style) {
         return resources.getResourcePackageName(id) + "-" + id + "-" + style;
+    }
+
+    private static final Object sLock = new Object();
+
+    @GuardedBy("sLock")
+    private static Executor sExecutor;
+
+    /**
+     * A helper class for fetching font file in background
+     */
+    private static class FontFetchFutureTask extends FutureTask<Typeface> {
+        private static class FontFetchCallback implements Callable<Typeface> {
+            private FontRequest mRequest;
+            private Context mAppContext;
+            private int mStyle;
+
+            FontFetchCallback(@NonNull Context appContext, @NonNull FontRequest request,
+                    int style) {
+                mAppContext = appContext;
+                mRequest = request;
+                mStyle = style;
+            }
+
+            @Override
+            public Typeface call() throws Exception {
+                // Ignore the result code.
+                return FontsContractCompat.getFontInternal(mAppContext, mRequest, mStyle).mTypeface;
+            }
+        }
+
+        FontFetchFutureTask(@NonNull Context appContext, @NonNull FontRequest request, int style) {
+            super(new FontFetchCallback(appContext, request, style));
+        }
+    }
+
+    private static Future<Typeface> getFontFetchFuture(@NonNull Context context,
+            @NonNull FontRequest request, int style, @Nullable Executor executor) {
+        final FontFetchFutureTask task = new FontFetchFutureTask(context.getApplicationContext(),
+                request, style);
+        if (executor == null) {
+            synchronized (sLock) {
+                if (sExecutor == null) {
+                    sExecutor = Executors.newFixedThreadPool(1);
+                }
+                executor = sExecutor;
+            }
+        }
+        executor.execute(task);
+        return task;
+    }
+
+    /**
+     * Create Typeface from XML resource which root node is font-family.
+     *
+     * @return null if failed to create.
+     * @hide
+     */
+    @Nullable
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    public static Future<Typeface> getTypefaceFuture(
+            @NonNull Context context, @NonNull FamilyResourceEntry entry,
+            @NonNull Resources resources, int id, int style) {
+        Typeface typeface;
+        if (entry instanceof ProviderResourceEntry) {
+            ProviderResourceEntry providerEntry = (ProviderResourceEntry) entry;
+            return getFontFetchFuture(context, providerEntry.getRequest(), style,
+                    null /* executor */);
+        } else {
+            typeface = sTypefaceCompatImpl.createFromFontFamilyFilesResourceEntry(
+                    context, (FontFamilyFilesResourceEntry) entry, resources, style);
+            if (typeface != null) {
+                sTypefaceCache.put(createResourceUid(resources, id, style), typeface);
+            }
+            return new FutureUtil.CompletedFuture<>(typeface);
+        }
     }
 
     /**

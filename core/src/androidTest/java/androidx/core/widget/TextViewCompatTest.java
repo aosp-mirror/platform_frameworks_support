@@ -54,6 +54,7 @@ import android.support.v4.testutils.TestUtils;
 import android.text.Layout;
 import android.text.TextDirectionHeuristics;
 import android.view.ActionMode;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -67,6 +68,7 @@ import androidx.core.view.ViewCompat;
 import androidx.test.annotation.UiThreadTest;
 import androidx.test.filters.LargeTest;
 import androidx.test.filters.SdkSuppress;
+import androidx.test.platform.app.InstrumentationRegistry;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -76,6 +78,7 @@ import org.mockito.stubbing.Answer;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 @LargeTest
 public class TextViewCompatTest extends BaseInstrumentationTestCase<TextViewTestActivity> {
@@ -785,5 +788,31 @@ public class TextViewCompatTest extends BaseInstrumentationTestCase<TextViewTest
         // set different params to text view for checking IlleaglArgumentException.
         mTextView.setTextScaleX(params.getTextPaint().getTextScaleX() * 2.0f + 1.0f);
         TextViewCompat.setPrecomputedText(mTextView, precomptued);
+    }
+
+    @UiThreadTest
+    @Test
+    public void backgroundThreadLayoutAsyncFontLoadingTest() throws Exception {
+        final AtomicReference<Exception> exception = new AtomicReference<>();
+        final Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    final Context ctx =
+                            InstrumentationRegistry.getInstrumentation().getTargetContext();
+                    LayoutInflater inflater = LayoutInflater.from(ctx);
+                    inflater.inflate(R.layout.async_font_textview, null /* root */);
+                } catch (Exception e) {
+                    exception.set(e);
+                }
+            }
+        });
+
+        thread.start();
+        thread.join();
+
+        if (exception.get() != null) {
+            throw exception.get();
+        }
     }
 }

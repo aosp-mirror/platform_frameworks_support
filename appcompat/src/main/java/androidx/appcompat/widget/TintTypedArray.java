@@ -35,6 +35,8 @@ import androidx.annotation.StyleableRes;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.res.ResourcesCompat;
 
+import java.util.concurrent.Future;
+
 /**
  * A class that wraps a {@link android.content.res.TypedArray} and provides the same public API
  * surface. The purpose of this class is so that we can intercept calls to new APIs.
@@ -117,6 +119,22 @@ public class TintTypedArray {
             mTypedValue = new TypedValue();
         }
         return ResourcesCompat.getFont(mContext, resourceId, mTypedValue, style, fontCallback);
+    }
+
+    /**
+     * @hide
+     */
+    @Nullable
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    public Future<Typeface> getFontFuture(@StyleableRes int index, int style) {
+        final int resourceId = mWrapped.getResourceId(index, 0);
+        if (resourceId == 0) {
+            return null;
+        }
+        if (mTypedValue == null) {
+            mTypedValue = new TypedValue();
+        }
+        return ResourcesCompat.getFontFuture(mContext, resourceId, mTypedValue, style);
     }
 
     public int length() {
