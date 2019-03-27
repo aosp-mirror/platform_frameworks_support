@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ca351a68_ab5f2e0c",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/GenerateApiTask.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-03-27T15:26:29Z",
+      "side": 1,
+      "message": "Can this be a Set (unless we need an explicit ordering)?",
+      "range": {
+        "startLine": 31,
+        "startChar": 35,
+        "endLine": 31,
+        "endChar": 47
+      },
+      "revId": "57acdcda19815dd4f1553a21ed57757b1248b5ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b6b6f2d_bc36c3c7",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/GenerateApiTask.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-03-27T15:26:29Z",
+      "side": 1,
+      "message": "wrap line at 100 chars",
+      "range": {
+        "startLine": 85,
+        "startChar": 0,
+        "endLine": 85,
+        "endChar": 116
+      },
+      "revId": "57acdcda19815dd4f1553a21ed57757b1248b5ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b52a7170_d6ad0ffe",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/Metalava.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-03-27T15:26:29Z",
+      "side": 1,
+      "message": "wrap lines at 100 chars",
+      "revId": "57acdcda19815dd4f1553a21ed57757b1248b5ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
