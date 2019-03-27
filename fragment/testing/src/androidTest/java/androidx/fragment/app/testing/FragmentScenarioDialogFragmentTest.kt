@@ -25,6 +25,7 @@ import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
+import androidx.test.filters.SdkSuppress
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -77,6 +78,7 @@ class FragmentScenarioDialogFragmentTest {
         }
     }
 
+    @SdkSuppress(minSdkVersion = 24) // Moving to STARTED is not supported on pre-N devices.
     @Test
     fun fromResumedToStarted() {
         with(launchFragment<SimpleDialogFragment>()) {
@@ -127,6 +129,7 @@ class FragmentScenarioDialogFragmentTest {
         }
     }
 
+    @SdkSuppress(minSdkVersion = 24) // Moving to STARTED is not supported on pre-N devices.
     @Test
     fun fromCreatedToStarted() {
         with(launchFragment<SimpleDialogFragment>()) {
@@ -161,6 +164,7 @@ class FragmentScenarioDialogFragmentTest {
         }
     }
 
+    @SdkSuppress(minSdkVersion = 24) // Moving to STARTED is not supported on pre-N devices.
     @Test
     fun fromStartedToCreated() {
         with(launchFragment<SimpleDialogFragment>()) {
@@ -180,6 +184,7 @@ class FragmentScenarioDialogFragmentTest {
         }
     }
 
+    @SdkSuppress(minSdkVersion = 24) // Moving to STARTED is not supported on pre-N devices.
     @Test
     fun fromStartedToStarted() {
         with(launchFragment<SimpleDialogFragment>()) {
@@ -193,6 +198,7 @@ class FragmentScenarioDialogFragmentTest {
         }
     }
 
+    @SdkSuppress(minSdkVersion = 24) // Moving to STARTED is not supported on pre-N devices.
     @Test
     fun fromStartedToResumed() {
         with(launchFragment<SimpleDialogFragment>()) {
@@ -206,6 +212,7 @@ class FragmentScenarioDialogFragmentTest {
         }
     }
 
+    @SdkSuppress(minSdkVersion = 24) // Moving to STARTED is not supported on pre-N devices.
     @Test
     fun fromStartedToDestroyed() {
         with(launchFragment<SimpleDialogFragment>()) {
@@ -247,6 +254,7 @@ class FragmentScenarioDialogFragmentTest {
         }
     }
 
+    @SdkSuppress(minSdkVersion = 24) // Moving to STARTED is not supported on pre-N devices.
     @Test
     fun recreateStartedFragment() {
         var numOfInstantiation = 0
