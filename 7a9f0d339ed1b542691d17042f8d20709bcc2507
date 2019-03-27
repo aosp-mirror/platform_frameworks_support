@@ -22,6 +22,30 @@
       "revId": "7a9f0d339ed1b542691d17042f8d20709bcc2507",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64bc46f9_39398c54",
+        "filename": "enterprise/feedback/src/test/java/androidx/enterprise/feedback/KeyedAppStateTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 1411450
+      },
+      "writtenOn": "2019-03-27T15:32:11Z",
+      "side": 1,
+      "message": "The style for androidx is { }:\n\n[platform/frameworks/support] enterprise/feedback/src/test/java/androidx/enterprise/feedback/KeyedAppStateTest.java:283:51: \u0027{\u0027 is not followed by whitespace.",
+      "parentUuid": "e531923a_67a1c3f6",
+      "range": {
+        "startLine": 283,
+        "startChar": 49,
+        "endLine": 283,
+        "endChar": 52
+      },
+      "revId": "7a9f0d339ed1b542691d17042f8d20709bcc2507",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
