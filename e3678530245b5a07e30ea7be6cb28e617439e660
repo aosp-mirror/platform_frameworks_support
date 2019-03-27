@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "149fe135_ec3afbd7",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 465,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-03-27T00:09:10Z",
+      "side": 1,
+      "message": "a smooth scroll to a position is in progress",
+      "range": {
+        "startLine": 465,
+        "startChar": 74,
+        "endLine": 465,
+        "endChar": 95
+      },
+      "revId": "e3678530245b5a07e30ea7be6cb28e617439e660",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "95d3a93e_09c36d5d",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 467,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-03-27T00:09:10Z",
+      "side": 1,
+      "message": "which item it is scrolling to.",
+      "range": {
+        "startLine": 466,
+        "startChar": 72,
+        "endLine": 467,
+        "endChar": 16
+      },
+      "revId": "e3678530245b5a07e30ea7be6cb28e617439e660",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa70625a_ef6c0d81",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-03-27T00:09:10Z",
+      "side": 1,
+      "message": "change to \"extra items\" (invisible sounds like View.INVISIBLE)",
+      "range": {
+        "startLine": 469,
+        "startChar": 43,
+        "endLine": 469,
+        "endChar": 61
+      },
+      "revId": "e3678530245b5a07e30ea7be6cb28e617439e660",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa146db6_c6108c83",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 632,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-03-27T00:09:10Z",
+      "side": 1,
+      "message": "Thanks for this!  Very helpful to call this out!",
+      "range": {
+        "startLine": 630,
+        "startChar": 8,
+        "endLine": 632,
+        "endChar": 41
+      },
+      "revId": "e3678530245b5a07e30ea7be6cb28e617439e660",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "845cb658_92718985",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1228,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-03-27T00:09:10Z",
+      "side": 1,
+      "message": "nit: move to be just before the first use of layoutToEnd?",
+      "range": {
+        "startLine": 1228,
+        "startChar": 8,
+        "endLine": 1228,
+        "endChar": 72
+      },
+      "revId": "e3678530245b5a07e30ea7be6cb28e617439e660",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
