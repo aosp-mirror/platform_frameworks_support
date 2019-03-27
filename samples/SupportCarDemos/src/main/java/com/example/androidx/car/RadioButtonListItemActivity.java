@@ -141,7 +141,7 @@ public class RadioButtonListItemActivity extends Activity {
 
         RadioButtonSelectionAdapter(Context context, ListItemProvider itemProvider,
                 boolean isSingleSelection) {
-            super(context, itemProvider, ListItemAdapter.BackgroundStyle.PANEL);
+            super(context, itemProvider, ListItemAdapter.BACKGROUND_STYLE_PANEL);
             mSelectionController = createSelectionController(isSingleSelection);
         }
 

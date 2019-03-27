@@ -328,7 +328,7 @@ package androidx.car.widget {
 
   public class ListItemAdapter extends androidx.recyclerview.widget.RecyclerView.Adapter<androidx.car.widget.ListItem.ViewHolder> implements androidx.car.widget.PagedListView.DividerVisibilityManager androidx.car.widget.PagedListView.ItemCap {
     ctor public ListItemAdapter(android.content.Context, androidx.car.widget.ListItemProvider);
-    ctor public ListItemAdapter(android.content.Context, androidx.car.widget.ListItemProvider, int);
+    ctor public ListItemAdapter(android.content.Context, androidx.car.widget.ListItemProvider, @androidx.car.widget.ListItemAdapter.ListBackgroundStyle int);
     method public android.content.Context getContext();
     method public int getItemCount();
     method public boolean getShowDivider(@IntRange(from=0) int);
@@ -338,13 +338,13 @@ package androidx.car.widget {
     method public void setMaxItems(int);
     method public void start();
     method public void stop();
+    field public static final int BACKGROUND_STYLE_CARD = 2; // 0x2
+    field public static final int BACKGROUND_STYLE_NONE = 1; // 0x1
+    field public static final int BACKGROUND_STYLE_PANEL = 3; // 0x3
+    field public static final int BACKGROUND_STYLE_SOLID = 0; // 0x0
   }
 
-  public static final class ListItemAdapter.BackgroundStyle {
-    field public static final int CARD = 2; // 0x2
-    field public static final int NONE = 1; // 0x1
-    field public static final int PANEL = 3; // 0x3
-    field public static final int SOLID = 0; // 0x0
+  @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) @IntDef({androidx.car.widget.ListItemAdapter.BACKGROUND_STYLE_SOLID, androidx.car.widget.ListItemAdapter.BACKGROUND_STYLE_NONE, androidx.car.widget.ListItemAdapter.BACKGROUND_STYLE_CARD, androidx.car.widget.ListItemAdapter.BACKGROUND_STYLE_PANEL}) public static @interface ListItemAdapter.ListBackgroundStyle {
   }
 
   public abstract class ListItemProvider<VH extends androidx.car.widget.ListItem.ViewHolder> {
