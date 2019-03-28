@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 The Android Open Source Project
+ * Copyright 2019 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,18 +14,12 @@
  * limitations under the License.
  */
 
-package com.example.android.leanback;
+package androidx.lifecycle.lint
 
-import android.os.Bundle;
+import com.android.tools.lint.client.api.IssueRegistry
+import com.android.tools.lint.detector.api.CURRENT_API
 
-import androidx.fragment.app.FragmentActivity;
-
-
-public class SettingsActivity extends FragmentActivity {
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.settings);
-    }
+class LifecycleRuntimeIssueRegistry : IssueRegistry() {
+    override val api = CURRENT_API
+    override val issues get() = listOf(LifecycleWhenChecks.ISSUE)
 }
