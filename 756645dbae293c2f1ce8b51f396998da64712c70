@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "510177ef_38ddffa6",
+        "filename": "lifecycle/runtime/eap/src/main/java/androidx/lifecycle/Lifecycle.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-28T23:52:23Z",
+      "side": 1,
+      "message": "returned :)",
+      "range": {
+        "startLine": 67,
+        "startChar": 11,
+        "endLine": 67,
+        "endChar": 17
+      },
+      "revId": "756645dbae293c2f1ce8b51f396998da64712c70",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
