@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "86963087_5fd2e32d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-03-28T15:13:41Z",
+      "side": 1,
+      "message": "add another line here:\n\nAfter discussing with ART team, just letting JIT run is simpler, (avoids this gradle hackery) often faster (since it avoids full-APK compilation), and more representative of real, release app behavior.",
+      "revId": "093ee03c98b8f13a6b133459823629c2a9042a0e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
