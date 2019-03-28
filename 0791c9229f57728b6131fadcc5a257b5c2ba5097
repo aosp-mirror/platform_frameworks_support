@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bee77dc0_adf8dccf",
+        "filename": "media2/src/main/java/androidx/media2/SessionCommandGroup.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-03-28T23:39:22Z",
+      "side": 1,
+      "message": "Q) Do we have any reason not to address the TODOs for removing these? If not, it would be nice if we address them this time.",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 96,
+        "endChar": 5
+      },
+      "revId": "0791c9229f57728b6131fadcc5a257b5c2ba5097",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
