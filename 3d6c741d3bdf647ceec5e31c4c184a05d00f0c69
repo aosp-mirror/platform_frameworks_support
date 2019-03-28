@@ -1,0 +1,124 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "343a06e7_16de19bd",
+        "filename": "car/core/api/current.txt",
+        "patchSetId": 22
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-28T00:02:30Z",
+      "side": 1,
+      "message": "nullability",
+      "range": {
+        "startLine": 17,
+        "startChar": 2,
+        "endLine": 17,
+        "endChar": 59
+      },
+      "revId": "3d6c741d3bdf647ceec5e31c4c184a05d00f0c69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "87800be4_6d435032",
+        "filename": "car/core/api/current.txt",
+        "patchSetId": 22
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-28T00:02:30Z",
+      "side": 1,
+      "message": "DO you need to expose this class? As well as CarListDialog / CarAlertDialog? Because these types are just Dialogs without any new functionality, so create() methods can simply return Dialog class.  \n\nName, I suggest to call it CarSingleChoiceDialog, because this is how it is called in system\u0027s  AlertDialog.",
+      "revId": "3d6c741d3bdf647ceec5e31c4c184a05d00f0c69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9d6590d_bccfffd4",
+        "filename": "car/core/api/current.txt",
+        "patchSetId": 22
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-28T00:02:30Z",
+      "side": 1,
+      "message": "CarAlertDialog.Builder has `setBody` method. It would be name them in one manner if they do similar thing. If they do different things it would be nice to name more distinctly.",
+      "revId": "3d6c741d3bdf647ceec5e31c4c184a05d00f0c69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c5dd34a_f73b0746",
+        "filename": "car/core/api/current.txt",
+        "patchSetId": 22
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-28T00:02:30Z",
+      "side": 1,
+      "message": "A lot of those are repetitive between Builders. Don\u0027t you wan to introduce some kind of inheritance here?",
+      "range": {
+        "startLine": 59,
+        "startChar": 102,
+        "endLine": 66,
+        "endChar": 92
+      },
+      "revId": "3d6c741d3bdf647ceec5e31c4c184a05d00f0c69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "571d0587_dc428396",
+        "filename": "car/core/src/main/java/androidx/car/app/CarSingleSelectionDialog.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-28T00:02:30Z",
+      "side": 1,
+      "message": "subtitle?",
+      "revId": "3d6c741d3bdf647ceec5e31c4c184a05d00f0c69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bfcb17d0_449da17b",
+        "filename": "car/core/src/main/java/androidx/car/app/CarSingleSelectionDialog.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-28T00:02:30Z",
+      "side": 1,
+      "message": "title?",
+      "range": {
+        "startLine": 349,
+        "startChar": 56,
+        "endLine": 349,
+        "endChar": 61
+      },
+      "revId": "3d6c741d3bdf647ceec5e31c4c184a05d00f0c69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
