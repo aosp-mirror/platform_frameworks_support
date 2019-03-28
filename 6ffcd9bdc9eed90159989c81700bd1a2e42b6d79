@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "a01b0bec_5b60dca2",
+        "filename": "media2-widget/src/androidTest/java/androidx/media2/widget/MediaControlViewTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-03-28T14:11:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c3e7ef8_91a23a3b",
+      "revId": "6ffcd9bdc9eed90159989c81700bd1a2e42b6d79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "08bda3e0_8e7e04f8",
         "filename": "media2-widget/src/androidTest/java/androidx/media2/widget/MediaControlViewTest.java",
         "patchSetId": 5
@@ -114,6 +132,30 @@
     },
     {
       "key": {
+        "uuid": "47089268_ea9c385d",
+        "filename": "media2-widget/src/androidTest/java/androidx/media2/widget/MediaControlViewTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-03-28T14:11:37Z",
+      "side": 1,
+      "message": "Reverted to PS4 and made sure two tracks will appear by playing the media file",
+      "parentUuid": "1c632f9e_c7b5714e",
+      "range": {
+        "startLine": 389,
+        "startChar": 8,
+        "endLine": 389,
+        "endChar": 34
+      },
+      "revId": "6ffcd9bdc9eed90159989c81700bd1a2e42b6d79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "77f14332_e4b399e9",
         "filename": "media2-widget/src/androidTest/java/androidx/media2/widget/MediaControlViewTest.java",
         "patchSetId": 5
@@ -182,6 +224,30 @@
       "revId": "6ffcd9bdc9eed90159989c81700bd1a2e42b6d79",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db79afd5_e537d0d5",
+        "filename": "media2-widget/src/androidTest/java/androidx/media2/widget/MediaControlViewTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-03-28T14:11:37Z",
+      "side": 1,
+      "message": "Changed so that media is always played--this way, there will always be two tracks returned in the callback. And only track1 will be selected for testing purposes.",
+      "parentUuid": "be0b202e_612096f5",
+      "range": {
+        "startLine": 402,
+        "startChar": 12,
+        "endLine": 402,
+        "endChar": 92
+      },
+      "revId": "6ffcd9bdc9eed90159989c81700bd1a2e42b6d79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
