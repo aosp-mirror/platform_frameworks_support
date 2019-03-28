@@ -22,6 +22,30 @@
       "revId": "1f01181e2631591771ff63afaaaace5bf8e81907",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10395b14_8a86e0bd",
+        "filename": "lifecycle/runtime/eap/lint/src/main/java/androidx/lifecycle/lint/LifecycleWhenChecks.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-28T11:31:42Z",
+      "side": 1,
+      "message": "Honestly, I think it is more than enough. I expect pattern like:\n\nwhenStarted {\n    try {\n       suspendingFoo()\n    } finally {\n        updateUi()\n    }\n}\n\nthat updateUI won\u0027t need additional hops (so having 2 is good)\n\nNote: this thing works depths first, but speculatively it is better to do it width first:\n\nfun updateUi(data: Data) {\n    check1(data.first)\n    check2(data.second)\n    view.setData(...)\n}\n\nso currently I\u0027ll go deep in check1 without actual need \u003d|",
+      "parentUuid": "ed0b6c41_7fd47633",
+      "range": {
+        "startLine": 258,
+        "startChar": 16,
+        "endLine": 258,
+        "endChar": 38
+      },
+      "revId": "1f01181e2631591771ff63afaaaace5bf8e81907",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
