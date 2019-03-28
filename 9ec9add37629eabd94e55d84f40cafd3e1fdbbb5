@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5caa1323_df4baaed",
+        "filename": "car/core/src/main/java/androidx/car/widget/ListItemAdapter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2019-03-28T17:34:16Z",
+      "side": 1,
+      "message": "you could also add prefix \nhttps://cs.corp.google.com/android/frameworks/base/core/java/android/content/Intent.java?type\u003dcs\u0026q\u003dintdef+prefix\u0026sq\u003dpackage:android\u0026g\u003d0\u0026l\u003d9622",
+      "range": {
+        "startLine": 64,
+        "startChar": 5,
+        "endLine": 64,
+        "endChar": 11
+      },
+      "revId": "9ec9add37629eabd94e55d84f40cafd3e1fdbbb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "430d80f1_5ccc0cc0",
+        "filename": "car/core/src/main/java/androidx/car/widget/ListItemAdapter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2019-03-28T17:34:16Z",
+      "side": 1,
+      "message": "it\u0027s linking a private class in java doc. I\u0027m not sure what happens but it doesn\u0027t seem right..",
+      "range": {
+        "startLine": 120,
+        "startChar": 17,
+        "endLine": 120,
+        "endChar": 42
+      },
+      "revId": "9ec9add37629eabd94e55d84f40cafd3e1fdbbb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
