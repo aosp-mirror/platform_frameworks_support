@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "aa4ecf26_a5534e71",
+        "filename": "buildSrc/jetify.gradle",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1271745
+      },
+      "writtenOn": "2019-03-28T18:40:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4d4b9c4_0b9e1b97",
+      "range": {
+        "startLine": 27,
+        "startChar": 4,
+        "endLine": 27,
+        "endChar": 40
+      },
+      "revId": "c7b00a9955cbe86c386c9438979c57ef96ffd704",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b18f78c5_57b180d9",
         "filename": "buildSrc/jetify.gradle",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "c7b00a9955cbe86c386c9438979c57ef96ffd704",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba9589e3_580192fb",
+        "filename": "buildSrc/jetify.gradle",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1271745
+      },
+      "writtenOn": "2019-03-28T18:40:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b18f78c5_57b180d9",
+      "range": {
+        "startLine": 59,
+        "startChar": 4,
+        "endLine": 59,
+        "endChar": 42
+      },
+      "revId": "c7b00a9955cbe86c386c9438979c57ef96ffd704",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
