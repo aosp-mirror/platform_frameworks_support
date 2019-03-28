@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "abdd4513_cb44d290",
+        "filename": "car/core/src/main/java/androidx/car/widget/ListItemAdapter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-03-28T20:29:01Z",
+      "side": 1,
+      "message": "Android Studio didn\u0027t seem to recognize that parameter even when I copied the exact syntax from that file.\n\nhttps://developer.android.com/reference/android/support/annotation/IntDef also doesn\u0027t seem to list that value. Am I just missing something?",
+      "parentUuid": "5caa1323_df4baaed",
+      "range": {
+        "startLine": 64,
+        "startChar": 5,
+        "endLine": 64,
+        "endChar": 11
+      },
+      "revId": "9ec9add37629eabd94e55d84f40cafd3e1fdbbb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "430d80f1_5ccc0cc0",
         "filename": "car/core/src/main/java/androidx/car/widget/ListItemAdapter.java",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "9ec9add37629eabd94e55d84f40cafd3e1fdbbb5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "215d7d9c_bac85752",
+        "filename": "car/core/src/main/java/androidx/car/widget/ListItemAdapter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-03-28T20:29:01Z",
+      "side": 1,
+      "message": "Forgot to make ListBackgroundStyle public.",
+      "parentUuid": "430d80f1_5ccc0cc0",
+      "range": {
+        "startLine": 120,
+        "startChar": 17,
+        "endLine": 120,
+        "endChar": 42
+      },
+      "revId": "9ec9add37629eabd94e55d84f40cafd3e1fdbbb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
