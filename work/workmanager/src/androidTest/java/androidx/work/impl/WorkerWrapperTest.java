@@ -272,7 +272,7 @@ public class WorkerWrapperTest extends DatabaseTest {
     }
 
     @Test
-    @SmallTest
+    @LargeTest
     public void testFailedOnDeepHierarchy() {
         OneTimeWorkRequest work = new OneTimeWorkRequest.Builder(FailureWorker.class).build();
         insertWork(work);

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 The Android Open Source Project
+ * Copyright 2019 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,18 +14,21 @@
  * limitations under the License.
  */
 
-package com.example.android.leanback;
+package androidx.lifecycle.lint
 
-import android.os.Bundle;
+import org.junit.Assert
+import org.junit.Test
+import org.junit.runner.RunWith
+import org.junit.runners.JUnit4
 
-import androidx.fragment.app.FragmentActivity;
+@RunWith(JUnit4::class)
+class MinApiLintTest {
 
-
-public class SettingsActivity extends FragmentActivity {
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.settings);
+    @Test
+    fun minApiCheck() {
+        val registry = LifecycleRuntimeIssueRegistry()
+        // Intentionally Fails in IDE, because we use different API version in
+        // studio and command line
+        Assert.assertEquals(3, registry.minApi)
     }
 }
