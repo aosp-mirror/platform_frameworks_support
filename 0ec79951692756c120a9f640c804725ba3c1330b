@@ -16,6 +16,24 @@
       "revId": "0ec79951692756c120a9f640c804725ba3c1330b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f089384_53edeabe",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2019-03-28T22:00:17Z",
+      "side": 1,
+      "message": "loading drawable requires a context :(\n\nhttps://developer.android.com/reference/android/graphics/drawable/Icon#loadDrawable(android.content.Context)",
+      "parentUuid": "5eb0281a_aedcda62",
+      "revId": "0ec79951692756c120a9f640c804725ba3c1330b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
