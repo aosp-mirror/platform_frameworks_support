@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "86111e95_ec600a18",
+        "filename": "concurrent/futures/build.gradle",
+        "patchSetId": 7
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-28T22:46:35Z",
+      "side": 1,
+      "message": "why project ?",
+      "revId": "79878a51e49ab62ad500be15cfbfcf623fa58460",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
