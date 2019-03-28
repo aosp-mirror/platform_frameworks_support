@@ -1251,9 +1251,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
                 AnimationOrAnimator anim = loadAnimation(f, f.getNextTransition(), true,
                         f.getNextTransitionStyle());
                 if (anim != null && anim.animation != null) {
-                    Animation animation = setHwLayerAnimationListenerIfAlpha(f.mView,
-                            anim.animation);
-                    f.mView.startAnimation(animation);
+                    f.mView.startAnimation(anim.animation);
                 } else if (anim != null) {
                     anim.animator.setTarget(f.mView);
                     setHwLayerAnimatorListenerIfAlpha(f.mView, anim.animator);
