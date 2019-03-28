@@ -7,7 +7,7 @@ plugins {
 }
 
 dependencies {
-    api(project(":core"))
+    api("androidx.core:core:1.1.0-alpha05")
     api(project(":collection"))
     api(project(":legacy-support-core-utils"))
 
