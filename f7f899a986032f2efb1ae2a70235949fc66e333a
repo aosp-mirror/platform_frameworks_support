@@ -1,0 +1,130 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d441cbc8_88fffe47",
+        "filename": "lifecycle/runtime/eap/api/1.0.0-alpha01.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-28T21:40:16Z",
+      "side": 1,
+      "message": "add all 3 ?",
+      "revId": "f7f899a986032f2efb1ae2a70235949fc66e333a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a13382c6_382a4049",
+        "filename": "lifecycle/runtime/eap/src/androidTest/java/androidx/lifecycle/PausingDispatcherTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 493,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-28T21:40:16Z",
+      "side": 1,
+      "message": "lets move these to helper methods so that the test looks easier to read. (like finish, pause etc that already exists)",
+      "range": {
+        "startLine": 493,
+        "startChar": 0,
+        "endLine": 493,
+        "endChar": 8
+      },
+      "revId": "f7f899a986032f2efb1ae2a70235949fc66e333a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78c49e72_e13f0006",
+        "filename": "lifecycle/runtime/eap/src/androidTest/java/androidx/lifecycle/PausingDispatcherTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 497,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-28T21:40:16Z",
+      "side": 1,
+      "message": "ditto, use finish",
+      "revId": "f7f899a986032f2efb1ae2a70235949fc66e333a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7d3b043_09f5fe8c",
+        "filename": "lifecycle/runtime/eap/src/androidTest/java/androidx/lifecycle/PausingDispatcherTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 518,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-28T21:40:16Z",
+      "side": 1,
+      "message": "ditto for all of these.",
+      "range": {
+        "startLine": 518,
+        "startChar": 8,
+        "endLine": 518,
+        "endChar": 19
+      },
+      "revId": "f7f899a986032f2efb1ae2a70235949fc66e333a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "008c43b1_9a0e87a5",
+        "filename": "lifecycle/runtime/eap/src/main/java/androidx/lifecycle/Lifecycle.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-28T21:40:16Z",
+      "side": 1,
+      "message": "cancelled",
+      "range": {
+        "startLine": 54,
+        "startChar": 22,
+        "endLine": 54,
+        "endChar": 30
+      },
+      "revId": "f7f899a986032f2efb1ae2a70235949fc66e333a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "321ec9de_7ddd37c9",
+        "filename": "lifecycle/runtime/eap/src/main/java/androidx/lifecycle/PausingDispatcher.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-28T21:40:16Z",
+      "side": 1,
+      "message": "since scope is defined in this module, why don\u0027t we make these just regular member functions ?",
+      "range": {
+        "startLine": 178,
+        "startChar": 4,
+        "endLine": 178,
+        "endChar": 27
+      },
+      "revId": "f7f899a986032f2efb1ae2a70235949fc66e333a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
