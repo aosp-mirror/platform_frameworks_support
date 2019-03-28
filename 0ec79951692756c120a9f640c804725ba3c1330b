@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5eb0281a_aedcda62",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-03-28T20:29:07Z",
+      "side": 1,
+      "message": "Let\u0027s call loadDrawable() on the icon and pass it to setIcon(drawable). Then you can simplify the logic in this class to just handle drawables.",
+      "revId": "0ec79951692756c120a9f640c804725ba3c1330b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
