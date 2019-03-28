@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e61cc7ec_88039d6c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1101693
+      },
+      "writtenOn": "2019-03-28T12:59:35Z",
+      "side": 1,
+      "message": "Depending on your confidence level (or how thoroughly we have tested this feature), we might need to consider putting this behind a flag.",
+      "revId": "107c1ca3be3eb8fdbcdafae32babc9f484a3c60a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7be510e5_06ad187f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1101693
+      },
+      "writtenOn": "2019-03-28T12:59:35Z",
+      "side": 1,
+      "message": "nit: Add the public bug as well",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 14
+      },
+      "revId": "107c1ca3be3eb8fdbcdafae32babc9f484a3c60a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef39c4f8_da1a6748",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1101693
+      },
+      "writtenOn": "2019-03-28T12:59:35Z",
+      "side": 1,
+      "message": "Like Ivan said, we\u0027ll need some tests for this.\n\n\u003e I am thinking adding some integration tests on AGP side to take advantage of existing test infrastructure.\n\nI think it\u0027s better to add tests in Lifecycle as (1) the AGP is not responsible for this change, and (2) the test will help Lifecycle detect any potential regressions early before it is released.\n\nWe won\u0027t need much testing infrastructure as I imagine we just need to compare timestamps to see what files have been recompiled/re-generated.",
+      "range": {
+        "startLine": 10,
+        "startChar": 6,
+        "endLine": 10,
+        "endChar": 12
+      },
+      "revId": "107c1ca3be3eb8fdbcdafae32babc9f484a3c60a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
