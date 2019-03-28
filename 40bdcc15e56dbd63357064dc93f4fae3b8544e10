@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f64a58e9_0356af0e",
+        "filename": "media2-widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 804,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-03-28T02:52:04Z",
+      "side": 1,
+      "message": "Wouldn\u0027t it be better to check it in MCV instead of VV? In my opinion, the the language list should have meaningful langauge codes, and replacing with empty string should be done by components who are in charge of displaying the data. (Although it was done by VV before http://aosp/924593)",
+      "range": {
+        "startLine": 804,
+        "startChar": 20,
+        "endLine": 804,
+        "endChar": 73
+      },
+      "revId": "40bdcc15e56dbd63357064dc93f4fae3b8544e10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
