@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "faf06477_8304f28f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-03-28T14:49:22Z",
+      "side": 1,
+      "message": "minro) Let\u0027s add some more explanation, something like:\n\nRemove add/removeCommand(int) in Session2CommandGroup.Builder",
+      "range": {
+        "startLine": 7,
+        "startChar": 36,
+        "endLine": 7,
+        "endChar": 43
+      },
+      "revId": "0024ed169e7e29bd5763ae28c6b5c24a84ab52dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
