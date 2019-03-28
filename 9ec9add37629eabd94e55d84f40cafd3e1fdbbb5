@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "46959547_9f2c9762",
+        "filename": "car/core/src/main/java/androidx/car/widget/ListItemAdapter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-03-28T20:34:47Z",
+      "side": 1,
+      "message": "\"prefix\" is a property only on the framework version of @IntDef, unfortunately. So we can\u0027t use it.",
+      "parentUuid": "abdd4513_cb44d290",
+      "range": {
+        "startLine": 64,
+        "startChar": 5,
+        "endLine": 64,
+        "endChar": 11
+      },
+      "revId": "9ec9add37629eabd94e55d84f40cafd3e1fdbbb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "430d80f1_5ccc0cc0",
         "filename": "car/core/src/main/java/androidx/car/widget/ListItemAdapter.java",
         "patchSetId": 1
