@@ -20,7 +20,7 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":appcompat"))
+    implementation("androidx.appcompat:appcompat:1.0.1")
     implementation(project(":webkit"))
 }
 
