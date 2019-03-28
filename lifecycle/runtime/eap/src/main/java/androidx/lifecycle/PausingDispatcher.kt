@@ -21,6 +21,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.Runnable
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlin.coroutines.CoroutineContext
 
@@ -165,6 +166,50 @@ suspend fun <T> Lifecycle.whenStateAtLeast(
     }
 }
 
+/**
+ * Launch and runs the given block when the [Lifecycle] controlling this [LifecycleCoroutineScope]
+ * is at least in [Lifecycle.State.CREATED] state.
+ *
+ * The return [Job] will be cancelled when the [Lifecycle] is destroyed.
+ * @see Lifecycle.whenCreated,
+ * @see Lifecycle.coroutineScope
+ */
+
+fun LifecycleCoroutineScope.launchWhenCreated(block: suspend CoroutineScope.() -> Unit): Job {
+    return launch {
+        lifecycle.whenCreated(block)
+    }
+}
+
+/**
+ * Launch and runs the given block when the [Lifecycle] controlling this [LifecycleCoroutineScope]
+ * is at least in [Lifecycle.State.STARTED] state.
+ *
+ * The return [Job] will be cancelled when the [Lifecycle] is destroyed.
+ * @see Lifecycle.whenStarted,
+ * @see Lifecycle.coroutineScope
+ */
+
+fun LifecycleCoroutineScope.launchWhenStarted(block: suspend CoroutineScope.() -> Unit): Job {
+    return launch {
+        lifecycle.whenStarted(block)
+    }
+}
+
+/**
+ * Launch and runs the given block when the [Lifecycle] controlling this [LifecycleCoroutineScope]
+ * is at least in [Lifecycle.State.RESUMED] state.
+ *
+ * The return [Job] will be cancelled when the [Lifecycle] is destroyed.
+ * @see Lifecycle.whenResumed,
+ * @see Lifecycle.coroutineScope
+ */
+
+fun LifecycleCoroutineScope.launchWhenResumed(block: suspend CoroutineScope.() -> Unit): Job {
+    return launch {
+        lifecycle.whenResumed(block)
+    }
+}
 /**
  * A [CoroutineDispatcher] implementation that maintains a dispatch queue to be able to pause
  * execution of coroutines.

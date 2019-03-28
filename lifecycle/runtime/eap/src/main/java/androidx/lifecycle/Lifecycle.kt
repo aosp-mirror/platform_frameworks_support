@@ -28,16 +28,16 @@ import kotlin.coroutines.CoroutineContext
  *
  * This scope will be canceled when the [Lifecycle] is destroyed.
  *
- * This scope is bound to  [Dispatchers.Main]
+ * This scope is bound to [Dispatchers.Main]
  */
-val Lifecycle.coroutineScope: CoroutineScope
+val Lifecycle.coroutineScope: LifecycleCoroutineScope
     get() {
         while (true) {
-            val existing = mInternalScopeRef.get() as LifecycleCoroutineScope?
+            val existing = mInternalScopeRef.get() as LifecycleCoroutineScopeImpl?
             if (existing != null) {
                 return existing
             }
-            val newScope = LifecycleCoroutineScope(
+            val newScope = LifecycleCoroutineScopeImpl(
                 this,
                 SupervisorJob() + Dispatchers.Main
             )
@@ -48,10 +48,22 @@ val Lifecycle.coroutineScope: CoroutineScope
         }
     }
 
-internal class LifecycleCoroutineScope(
-    private val lifecycle: Lifecycle,
+/**
+ * [CoroutineScope] tied to a [Lifecycle] and [Dispatchers.Main]
+ *
+ * This scope will be canceled when the [Lifecycle] is destroyed.
+ *
+ * This scope provides specialised versions of `launch`: [launchWhenCreated], [launchWhenStarted],
+ * [launchWhenResumed]
+ */
+abstract class LifecycleCoroutineScope internal constructor() : CoroutineScope {
+    internal abstract val lifecycle: Lifecycle
+}
+
+internal class LifecycleCoroutineScopeImpl(
+    override val lifecycle: Lifecycle,
     override val coroutineContext: CoroutineContext
-) : CoroutineScope, LifecycleEventObserver {
+) : LifecycleCoroutineScope(), LifecycleEventObserver {
     init {
         // in case we are initialized on a non-main thread, make a best effort check before
         // we return the scope. This is not sync but if developer is launching on a non-main
@@ -65,7 +77,7 @@ internal class LifecycleCoroutineScope(
         // TODO use Main.Immediate once it is graduated out of experimental.
         launch(Dispatchers.Main) {
             if (lifecycle.currentState >= Lifecycle.State.INITIALIZED) {
-                lifecycle.addObserver(this@LifecycleCoroutineScope)
+                lifecycle.addObserver(this@LifecycleCoroutineScopeImpl)
             } else {
                 coroutineContext.cancel()
             }

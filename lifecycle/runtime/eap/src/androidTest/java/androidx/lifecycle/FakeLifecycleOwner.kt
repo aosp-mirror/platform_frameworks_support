@@ -33,7 +33,7 @@ class FakeLifecycleOwner(initialState: Lifecycle.State? = null) : LifecycleOwner
     override fun getLifecycle(): Lifecycle = registry
 
     fun setState(state: Lifecycle.State) {
-        registry.markState(state)
+        registry.currentState = state
     }
 
     suspend fun awaitExactObserverCount(count: Int, timeout: Long = 1000L): Boolean =
