@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c9edb0f4_c2b200be",
+        "filename": "lifecycle/runtime/eap/src/main/java/androidx/lifecycle/Lifecycle.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-28T23:36:18Z",
+      "side": 1,
+      "message": "launches (ditto for others)",
+      "range": {
+        "startLine": 64,
+        "startChar": 7,
+        "endLine": 64,
+        "endChar": 13
+      },
+      "revId": "841c062887928a73675f07f25f5791236c02c957",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "12abf802_1a057687",
+        "filename": "lifecycle/runtime/eap/src/main/java/androidx/lifecycle/Lifecycle.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-28T23:36:18Z",
+      "side": 1,
+      "message": "rm comma ?",
+      "range": {
+        "startLine": 68,
+        "startChar": 32,
+        "endLine": 68,
+        "endChar": 34
+      },
+      "revId": "841c062887928a73675f07f25f5791236c02c957",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
