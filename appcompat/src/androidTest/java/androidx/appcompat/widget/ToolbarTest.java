@@ -150,4 +150,25 @@ public class ToolbarTest {
         assertNotEquals(0, menu.size());
         assertNotNull(menu.findItem(R.id.action_search));
     }
+<<<<<<< HEAD   (60b11c Merge "Merge empty history for sparse-5338950-L0630000027955)
+=======
+
+    @Test
+    public void testToolbarOverflowIconWithThemedCSL() {
+        final Toolbar toolbar = mActivity.findViewById(R.id.toolbar_themedcsl_colorcontrolnormal);
+
+        // Assert that the overflow icon is tinted magenta, as per the theme
+        final Drawable icon = toolbar.getOverflowIcon();
+        assertNotNull(icon);
+        assertCenterPixelOfColor(
+                "Overflow icon is not tinted",
+                icon,
+                icon.getIntrinsicWidth(),
+                icon.getIntrinsicHeight(),
+                false,
+                0xFFFF00FF,
+                10,
+                false);
+    }
+>>>>>>> BRANCH (e95ebf Merge "Merge cherrypicks of [936611, 936612] into sparse-541)
 }

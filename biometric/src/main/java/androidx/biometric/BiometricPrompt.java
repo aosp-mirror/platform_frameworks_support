@@ -21,6 +21,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -52,6 +53,9 @@ public class BiometricPrompt implements BiometricConstants {
 
     private static final String TAG = "BiometricPromptCompat";
     private static final boolean DEBUG = false;
+    // In order to keep consistent behavior between versions, we need to send
+    // FingerprintDialogFragment a message indicating whether or not to dismiss the UI instantly.
+    private static final int DELAY_MILLIS = 500;
 
     static final String DIALOG_FRAGMENT_TAG = "FingerprintDialogFragment";
     static final String FINGERPRINT_HELPER_FRAGMENT_TAG = "FingerprintHelperFragment";
@@ -499,8 +503,17 @@ public class BiometricPrompt implements BiometricConstants {
                 mFingerprintHelperFragment = FingerprintHelperFragment.newInstance();
                 mFingerprintHelperFragment.setCallback(mExecutor, mAuthenticationCallback);
             }
+<<<<<<< HEAD   (60b11c Merge "Merge empty history for sparse-5338950-L0630000027955)
             mFingerprintHelperFragment.setHandler(mFingerprintDialogFragment.getHandler());
+=======
+            mFingerprintHelperFragment.setCallback(mExecutor, mAuthenticationCallback);
+            final Handler fingerprintDialogHandler = mFingerprintDialogFragment.getHandler();
+            mFingerprintHelperFragment.setHandler(fingerprintDialogHandler);
+>>>>>>> BRANCH (e95ebf Merge "Merge cherrypicks of [936611, 936612] into sparse-541)
             mFingerprintHelperFragment.setCryptoObject(crypto);
+            fingerprintDialogHandler.sendMessageDelayed(
+                    fingerprintDialogHandler.obtainMessage(
+                            FingerprintDialogFragment.DISPLAYED_FOR_500_MS), DELAY_MILLIS);
 
             if (fragmentManager.findFragmentByTag(FINGERPRINT_HELPER_FRAGMENT_TAG) == null) {
                 // If the fragment hasn't been added before, add it. It will also start the

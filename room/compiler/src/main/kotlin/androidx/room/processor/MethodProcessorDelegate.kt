@@ -188,9 +188,10 @@ class SuspendMethodProcessorDelegate(
         adapter = context.typeAdapterStore.findPreparedQueryResultAdapter(returnType, query)
     ) { callableImpl, dbField ->
         addStatement(
-            "return $T.execute($N, $L, $N)",
+            "return $T.execute($N, $L, $L, $N)",
             RoomCoroutinesTypeNames.COROUTINES_ROOM,
             dbField,
+            "true", // inTransaction
             callableImpl,
             continuationParam.simpleName.toString()
         )
@@ -204,9 +205,10 @@ class SuspendMethodProcessorDelegate(
         adapter = context.typeAdapterStore.findInsertAdapter(returnType, params)
     ) { callableImpl, dbField ->
         addStatement(
-            "return $T.execute($N, $L, $N)",
+            "return $T.execute($N, $L, $L, $N)",
             RoomCoroutinesTypeNames.COROUTINES_ROOM,
             dbField,
+            "true", // inTransaction
             callableImpl,
             continuationParam.simpleName.toString()
         )
@@ -218,9 +220,10 @@ class SuspendMethodProcessorDelegate(
             adapter = context.typeAdapterStore.findDeleteOrUpdateAdapter(returnType)
         ) { callableImpl, dbField ->
             addStatement(
-                "return $T.execute($N, $L, $N)",
+                "return $T.execute($N, $L, $L, $N)",
                 RoomCoroutinesTypeNames.COROUTINES_ROOM,
                 dbField,
+                "true", // inTransaction
                 callableImpl,
                 continuationParam.simpleName.toString()
             )

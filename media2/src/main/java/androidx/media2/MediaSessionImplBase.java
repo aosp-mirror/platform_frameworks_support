@@ -137,7 +137,56 @@ class MediaSessionImplBase implements MediaSessionImpl {
         String sessionCompatId = TextUtils.join(DEFAULT_MEDIA_SESSION_TAG_DELIM,
                 new String[] {DEFAULT_MEDIA_SESSION_TAG_PREFIX, id});
 
+<<<<<<< HEAD   (60b11c Merge "Merge empty history for sparse-5338950-L0630000027955)
         mSessionCompat = new MediaSessionCompat(context, sessionCompatId, mSessionToken);
+=======
+        ComponentName mbrComponent = null;
+        synchronized (STATIC_LOCK) {
+            if (!sComponentNamesInitialized) {
+                sServiceComponentName = getServiceComponentByAction(
+                        MediaLibraryService.SERVICE_INTERFACE);
+                if (sServiceComponentName == null) {
+                    sServiceComponentName = getServiceComponentByAction(
+                            MediaSessionService.SERVICE_INTERFACE);
+                }
+                sComponentNamesInitialized = true;
+            }
+            mbrComponent = sServiceComponentName;
+        }
+        if (mbrComponent == null) {
+            // No service to revive playback after it's dead.
+            // Create a PendingIntent that points to the runtime broadcast receiver.
+            Intent intent = new Intent(Intent.ACTION_MEDIA_BUTTON, mSessionUri);
+            intent.setPackage(context.getPackageName());
+            mMediaButtonIntent = PendingIntent.getBroadcast(
+                    context, 0 /* requestCode */, intent, 0 /* flags */);
+
+            // Creates a dummy ComponentName for MediaSessionCompat in pre-L.
+            // TODO: Replace this with the MediaButtonReceiver class.
+            mbrComponent = new ComponentName(context, context.getClass());
+
+            // Create and register a BroadcastReceiver for receiving PendingIntent.
+            // TODO: Introduce MediaButtonReceiver in AndroidManifest instead of this,
+            //       or register only one receiver for all sessions.
+            mBroadcastReceiver = new MediaButtonReceiver();
+            IntentFilter filter = new IntentFilter(Intent.ACTION_MEDIA_BUTTON);
+            filter.addDataScheme(mSessionUri.getScheme());
+            context.registerReceiver(mBroadcastReceiver, filter);
+        } else {
+            // Has MediaSessionService to revive playback after it's dead.
+            Intent intent = new Intent(Intent.ACTION_MEDIA_BUTTON, mSessionUri);
+            intent.setComponent(mbrComponent);
+            if (Build.VERSION.SDK_INT >= 26) {
+                mMediaButtonIntent = PendingIntent.getForegroundService(mContext, 0, intent, 0);
+            } else {
+                mMediaButtonIntent = PendingIntent.getService(mContext, 0, intent, 0);
+            }
+            mBroadcastReceiver = null;
+        }
+
+        mSessionCompat = new MediaSessionCompat(context, sessionCompatId, mbrComponent,
+                mMediaButtonIntent, mSessionToken);
+>>>>>>> BRANCH (e95ebf Merge "Merge cherrypicks of [936611, 936612] into sparse-541)
         // NOTE: mSessionLegacyStub should be created after mSessionCompat created.
         mSessionLegacyStub = new MediaSessionLegacyStub(this);
 
@@ -1336,7 +1385,6 @@ class MediaSessionImplBase implements MediaSessionImpl {
             session.dispatchRemoteControllerTaskWithoutReturn(task);
         }
 
-        @SuppressLint("RestrictedApi")
         private void updateDurationIfNeeded(@NonNull final SessionPlayer player,
                 @Nullable final MediaItem item) {
             if (item == null) {

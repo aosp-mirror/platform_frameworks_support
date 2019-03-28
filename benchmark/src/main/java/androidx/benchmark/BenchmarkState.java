@@ -1,3 +1,4 @@
+<<<<<<< HEAD   (60b11c Merge "Merge empty history for sparse-5338950-L0630000027955)
 /*
  * Copyright (C) 2016 The Android Open Source Project
  *
@@ -309,3 +310,5 @@ public final class BenchmarkState {
         instrumentation.sendStatus(Activity.RESULT_OK, status);
     }
 }
+=======
+>>>>>>> BRANCH (e95ebf Merge "Merge cherrypicks of [936611, 936612] into sparse-541)

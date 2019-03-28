@@ -22,18 +22,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import java.util.concurrent.atomic.AtomicInteger
 
 private const val ARG_KEY = "key"
 
 class FragmentAdapter(
-    fragmentManager: FragmentManager,
+    fragmentActivity: FragmentActivity,
     private val items: List<String>
+<<<<<<< HEAD   (60b11c Merge "Merge empty history for sparse-5338950-L0630000027955)
 ) : FragmentStateAdapter(fragmentManager) {
     val attachCount = AtomicInteger(0)
     val destroyCount = AtomicInteger(0)
+=======
+) : FragmentStateAdapter(fragmentActivity), SelfChecking {
+    private val attachCount = AtomicInteger(0)
+    private val destroyCount = AtomicInteger(0)
+>>>>>>> BRANCH (e95ebf Merge "Merge cherrypicks of [936611, 936612] into sparse-541)
 
     override fun getItem(position: Int): Fragment = PageFragment().apply {
         arguments = Bundle(1).apply { putString(ARG_KEY, items[position]) }

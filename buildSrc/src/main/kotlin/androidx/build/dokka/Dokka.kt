@@ -26,7 +26,11 @@ import androidx.build.getDistributionDirectory
 import androidx.build.java.JavaCompileInputs
 import com.android.build.gradle.LibraryExtension
 import org.gradle.api.Project
+<<<<<<< HEAD   (60b11c Merge "Merge empty history for sparse-5338950-L0630000027955)
 import org.gradle.api.plugins.JavaPluginConvention
+=======
+import org.gradle.api.plugins.JavaBasePlugin
+>>>>>>> BRANCH (e95ebf Merge "Merge cherrypicks of [936611, 936612] into sparse-541)
 import org.gradle.api.tasks.bundling.Zip
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.getPlugin
@@ -35,6 +39,7 @@ import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.dokka.gradle.PackageOptions
 
 object Dokka {
+<<<<<<< HEAD   (60b11c Merge "Merge empty history for sparse-5338950-L0630000027955)
     private val RUNNER_TASK_NAME = "dokka"
     public val ARCHIVE_TASK_NAME: String = "distDokkaDocs" // TODO(b/72330103) make "generateDocs" be the only archive task once Doclava is fully removed
     private val ALTERNATE_ARCHIVE_TASK_NAME: String = "generateDocs"
@@ -67,6 +72,32 @@ object Dokka {
         if (runnerProject.tasks.findByName(Dokka.RUNNER_TASK_NAME) == null) {
             project.apply<DokkaPlugin>()
             val docsTask = project.tasks.getByName(Dokka.RUNNER_TASK_NAME) as DokkaTask
+=======
+    fun generatorTaskNameForType(docsType: String): String {
+        return "dokka${docsType}Docs"
+    }
+    fun archiveTaskNameForType(docsType: String): String {
+        return "dist${docsType}DokkaDocs"
+    }
+    fun createDocsTask(
+        docsType: String, // "public" or "tipOfTree"
+        project: Project,
+        hiddenPackages: List<String>
+    ) {
+        val taskName = generatorTaskNameForType(docsType)
+        val archiveTaskName = archiveTaskNameForType(docsType)
+        project.apply<DokkaAndroidPlugin>()
+        // We don't use the `dokka` task, but it normally appears in `./gradlew tasks`
+        // so replace it with a new task that doesn't show up and doesn't do anything
+        project.tasks.replace("dokka")
+        if (project.name != "support" && project.name != "docs-runner") {
+            throw Exception("Illegal project passed to createDocsTask: " + project.name)
+        }
+        val docsTask = project.tasks.create(taskName, DokkaAndroidTask::class.java) { docsTask ->
+            docsTask.description = "Generates ${docsType} Kotlin documentation in the style of d.android.com"
+            docsTask.moduleName = project.name
+            docsTask.outputDirectory = File(project.buildDir, taskName).absolutePath
+>>>>>>> BRANCH (e95ebf Merge "Merge cherrypicks of [936611, 936612] into sparse-541)
             docsTask.outputFormat = "dac"
             for (hiddenPackage in hiddenPackages) {
                 val opts = PackageOptions()
@@ -74,6 +105,7 @@ object Dokka {
                 opts.suppress = true
                 docsTask.perPackageOptions.add(opts)
             }
+<<<<<<< HEAD   (60b11c Merge "Merge empty history for sparse-5338950-L0630000027955)
             val archiveTask = project.tasks.create(ARCHIVE_TASK_NAME, Zip::class.java) { task ->
                 task.dependsOn(docsTask)
                 task.description =
@@ -82,11 +114,28 @@ object Dokka {
                 task.baseName = "android-support-dokka-docs"
                 task.version = getBuildId()
                 task.destinationDir = project.getDistributionDirectory()
+=======
+        }
+
+        project.tasks.create(archiveTaskName, Zip::class.java) { zipTask ->
+            zipTask.dependsOn(docsTask)
+            zipTask.from(docsTask.outputDirectory) { copySpec ->
+                copySpec.into("reference/kotlin")
+>>>>>>> BRANCH (e95ebf Merge "Merge cherrypicks of [936611, 936612] into sparse-541)
             }
+<<<<<<< HEAD   (60b11c Merge "Merge empty history for sparse-5338950-L0630000027955)
             if (project.tasks.findByName(ALTERNATE_ARCHIVE_TASK_NAME) == null) {
                 project.tasks.create(ALTERNATE_ARCHIVE_TASK_NAME)
             }
             project.tasks.getByName(ALTERNATE_ARCHIVE_TASK_NAME).dependsOn(archiveTask)
+=======
+            zipTask.baseName = taskName
+            zipTask.version = getBuildId()
+            zipTask.destinationDir = project.getDistributionDirectory()
+            zipTask.description = "Zips ${docsType} Kotlin documentation (generated via "+
+                "Dokka in the style of d.android.com) into ${zipTask.archivePath}"
+            zipTask.group = JavaBasePlugin.DOCUMENTATION_GROUP
+>>>>>>> BRANCH (e95ebf Merge "Merge cherrypicks of [936611, 936612] into sparse-541)
         }
         return runnerProject.tasks.getByName(Dokka.RUNNER_TASK_NAME) as DokkaTask
     }
@@ -96,6 +145,7 @@ object Dokka {
         library: LibraryExtension,
         extension: SupportLibraryExtension
     ) {
+<<<<<<< HEAD   (60b11c Merge "Merge empty history for sparse-5338950-L0630000027955)
         if (extension.toolingProject) {
             project.logger.info("Project ${project.name} is tooling project; ignoring API tasks.")
             return
@@ -109,12 +159,21 @@ object Dokka {
             }
         }
         DiffAndDocs.get(project).registerPrebuilts(extension)
+=======
+        if (project.name != "docs-runner") {
+            DiffAndDocs.get(project).registerAndroidProject(project, library, extension)
+        }
+
+        DokkaPublicDocs.registerProject(project, extension)
+        DokkaSourceDocs.registerAndroidProject(project, library, extension)
+>>>>>>> BRANCH (e95ebf Merge "Merge cherrypicks of [936611, 936612] into sparse-541)
     }
 
     fun registerJavaProject(
         project: Project,
         extension: SupportLibraryExtension
     ) {
+<<<<<<< HEAD   (60b11c Merge "Merge empty history for sparse-5338950-L0630000027955)
         if (extension.toolingProject) {
             project.logger.info("Project ${project.name} is tooling project; ignoring API tasks.")
             return
@@ -134,5 +193,12 @@ object Dokka {
         docsTask.classpath =
                 docsTask.classpath.plus(inputs.dependencyClasspath).plus(inputs.bootClasspath)
         docsTask.dependsOn(inputs.dependencyClasspath)
+=======
+        if (project.name != "docs-runner") {
+            DiffAndDocs.get(project).registerJavaProject(project, extension)
+        }
+        DokkaPublicDocs.registerProject(project, extension)
+        DokkaSourceDocs.registerJavaProject(project, extension)
+>>>>>>> BRANCH (e95ebf Merge "Merge cherrypicks of [936611, 936612] into sparse-541)
     }
 }

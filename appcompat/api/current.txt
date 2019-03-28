@@ -218,6 +218,7 @@ package androidx.appcompat.app {
 
   public class AppCompatActivity extends androidx.fragment.app.FragmentActivity implements androidx.appcompat.app.ActionBarDrawerToggle.DelegateProvider androidx.appcompat.app.AppCompatCallback androidx.core.app.TaskStackBuilder.SupportParentable {
     ctor public AppCompatActivity();
+    ctor @ContentView public AppCompatActivity(@LayoutRes int);
     method public androidx.appcompat.app.AppCompatDelegate getDelegate();
     method public androidx.appcompat.app.ActionBarDrawerToggle.Delegate? getDrawerToggleDelegate();
     method public androidx.appcompat.app.ActionBar? getSupportActionBar();
@@ -274,7 +275,6 @@ package androidx.appcompat.app {
     method public abstract void onPostCreate(android.os.Bundle!);
     method public abstract void onPostResume();
     method public abstract void onSaveInstanceState(android.os.Bundle!);
-    method public void onSetTheme(@StyleRes int);
     method public abstract void onStart();
     method public abstract void onStop();
     method public abstract boolean requestWindowFeature(int);
@@ -286,6 +286,7 @@ package androidx.appcompat.app {
     method public abstract void setHandleNativeActionModesEnabled(boolean);
     method public abstract void setLocalNightMode(int);
     method public abstract void setSupportActionBar(androidx.appcompat.widget.Toolbar?);
+    method public void setTheme(@StyleRes int);
     method public abstract void setTitle(CharSequence?);
     method public abstract androidx.appcompat.view.ActionMode? startSupportActionMode(androidx.appcompat.view.ActionMode.Callback);
     field public static final int FEATURE_ACTION_MODE_OVERLAY = 10; // 0xa

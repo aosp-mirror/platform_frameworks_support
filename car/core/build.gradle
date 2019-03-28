@@ -15,7 +15,7 @@ dependencies {
     api(project(":gridlayout"))
     api(project(":preference"))
     api(CONSTRAINT_LAYOUT, { transitive = true })
-    api(SUPPORT_DESIGN, libs.exclude_for_material)
+    api(MATERIAL)
 
     androidTestImplementation(TEST_EXT_JUNIT)
     androidTestImplementation(TEST_CORE)

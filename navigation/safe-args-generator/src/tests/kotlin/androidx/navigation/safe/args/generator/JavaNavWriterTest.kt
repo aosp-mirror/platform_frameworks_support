@@ -67,10 +67,22 @@ class JavaNavWriterTest {
     private fun assertCompilesWithoutError(javaFileObject: JavaFileObject) {
         JavaSourcesSubject.assertThat(
                 loadSourceFileObject("a.b.R", "a/b"),
+<<<<<<< HEAD   (60b11c Merge "Merge empty history for sparse-5338950-L0630000027955)
                 JavaFileObjects.forSourceString("android.support.annotation.NonNull",
                         "package android.support.annotation; public @interface NonNull {}"),
                 JavaFileObjects.forSourceString("android.support.annotation.Nullable",
                         "package android.support.annotation; public @interface Nullable {}"),
+=======
+                loadSourceFileObject("a.b.secondreallyreallyreallyreallyreallyreally" +
+                        "reallyreallyreallyreallyreallyreallyreallyreallyreallyreally" +
+                        "longpackage.R", "a/b/secondreallyreallyreallyreallyreallyreally" +
+                        "reallyreallyreallyreallyreallyreallyreallyreallyreallyreally" +
+                        "longpackage"),
+                JavaFileObjects.forSourceString("androidx.annotation.NonNull",
+                        "package androidx.annotation; public @interface NonNull {}"),
+                JavaFileObjects.forSourceString("androidx.annotation.Nullable",
+                        "package androidx.annotation; public @interface Nullable {}"),
+>>>>>>> BRANCH (e95ebf Merge "Merge cherrypicks of [936611, 936612] into sparse-541)
                 javaFileObject
         ).compilesWithoutError()
     }
@@ -140,6 +152,25 @@ class JavaNavWriterTest {
 
         val actual = generateDirectionsCodeFile(dest, emptyList(), false).toJavaFileObject()
         JavaSourcesSubject.assertThat(actual).parsesAs("a.b.MainFragmentDirections")
+        assertCompilesWithoutError(actual)
+    }
+
+    @Test
+    fun testDirectionsClassGeneration_longPackage() {
+        val funAction = Action(ResReference("a.b.secondreallyreallyreallyreally" +
+                "reallyreallyreallyreallyreallyreallyreallyreallyreallyreallyreallyreally" +
+                "longpackage", "id", "next"), id("destA"),
+            listOf())
+
+        val dest = Destination(null, ClassName.get("a.b.reallyreallyreallyreally" +
+                "reallyreallyreallyreallyreallyreallyreallyreallyreallyreallyreallyreally" +
+                "longpackage", "LongPackageFragment"), "fragment", listOf(),
+            listOf(funAction))
+
+        val actual = generateDirectionsCodeFile(dest, emptyList(), true).toJavaFileObject()
+        JavaSourcesSubject.assertThat(actual).parsesAs("a.b.reallyreallyreallyreallyreally" +
+                "reallyreallyreallyreallyreallyreallyreallyreallyreallyreallyreally" +
+                "longpackage.LongPackageFragmentDirections")
         assertCompilesWithoutError(actual)
     }
 

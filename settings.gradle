@@ -47,6 +47,7 @@ includeProject(":arch:core-testing", "arch/core-testing")
 includeProject(":arch:core-runtime", "arch/core-runtime")
 includeProject(":asynclayoutinflater", "asynclayoutinflater")
 includeProject(":benchmark", "benchmark")
+includeProject(":benchmark:benchmark-gradle-plugin", "benchmark/gradle-plugin")
 includeProject(":biometric", "biometric")
 includeProject(":browser", "browser")
 includeProject(":car", "car/core")
@@ -93,10 +94,13 @@ includeProject(":lifecycle:lifecycle-livedata-core", "lifecycle/livedata-core")
 includeProject(":lifecycle:lifecycle-livedata-core-ktx", "lifecycle/livedata-core/ktx")
 includeProject(":lifecycle:lifecycle-livedata", "lifecycle/livedata")
 includeProject(":lifecycle:lifecycle-livedata-ktx", "lifecycle/livedata/ktx")
+includeProject(":lifecycle:lifecycle-livedata-eap", "lifecycle/livedata/eap")
 includeProject(":lifecycle:lifecycle-process", "lifecycle/process")
 includeProject(":lifecycle:lifecycle-reactivestreams", "lifecycle/reactivestreams")
 includeProject(":lifecycle:lifecycle-reactivestreams-ktx", "lifecycle/reactivestreams/ktx")
 includeProject(":lifecycle:lifecycle-runtime", "lifecycle/runtime")
+includeProject(":lifecycle:lifecycle-runtime-eap", "lifecycle/runtime/eap") // temporary
+includeProject(":lifecycle:lifecycle-runtime-eap-lint", "lifecycle/runtime/eap/lint")
 includeProject(":lifecycle:lifecycle-service", "lifecycle/service")
 includeProject(":lifecycle:lifecycle-viewmodel", "lifecycle/viewmodel")
 includeProject(":lifecycle:lifecycle-viewmodel-ktx", "lifecycle/viewmodel/ktx")
@@ -144,6 +148,7 @@ includeProject(":room:integration-tests:room-testapp", "room/integration-tests/t
 includeProject(":room:integration-tests:room-testapp-kotlin", "room/integration-tests/kotlintestapp")
 includeProject(":room:room-benchmark", "room/benchmark")
 includeProject(":room:room-common", "room/common")
+includeProject(":room:room-common-java8", "room/common-java8")
 includeProject(":room:room-compiler", "room/compiler")
 includeProject(":room:room-coroutines", "room/coroutines")
 includeProject(":room:room-guava", "room/guava")
@@ -270,6 +275,10 @@ includeProject(":webview-support-interfaces", new File(externalRoot, "webview_su
 if (!startParameter.projectProperties.containsKey('android.injected.invoked.from.ide')) {
     // we don't need it in ide, so we don't configure it there
     includeProject(":docs-fake", "docs-fake")
+<<<<<<< HEAD   (60b11c Merge "Merge empty history for sparse-5338950-L0630000027955)
+=======
+    includeProject(":docs-runner", "docs-runner")
+>>>>>>> BRANCH (e95ebf Merge "Merge cherrypicks of [936611, 936612] into sparse-541)
 }
 
 // dumb test project that has a test for each size to ensure that at least one test is run

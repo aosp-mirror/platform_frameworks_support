@@ -144,10 +144,15 @@ public class RowView extends SliceChildView implements View.OnClickListener {
     Handler mHandler;
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     long mLastSentRangeUpdate;
+    // TODO: mRangeValue is in 0..(mRangeMaxValue-mRangeMinValue) at initialization, and in
+    //       mRangeMinValue..mRangeMaxValue after user interaction. As far as I know, this doesn't
+    //       cause any incorrect behavior, but it is confusing and error-prone.
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     int mRangeValue;
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     int mRangeMinValue;
+    @SuppressWarnings("WeakerAccess") /* synthetic access */
+    int mRangeMaxValue;
     private SliceItem mRangeItem;
 
     private int mImageSize;
@@ -235,10 +240,7 @@ public class RowView extends SliceChildView implements View.OnClickListener {
     @Override
     public void setInsets(int l, int t, int r, int b) {
         super.setInsets(l, t, r, b);
-        mRootView.setPadding(l, t, r, b);
-        if (mRangeBar != null) {
-            updateRangePadding();
-        }
+        setPadding(l, t, r, b);
     }
 
     /**
@@ -290,18 +292,21 @@ public class RowView extends SliceChildView implements View.OnClickListener {
         }
     }
 
+    private void measureChildWithExactHeight(View child, int widthMeasureSpec, int childHeight) {
+        int heightMeasureSpec = MeasureSpec.makeMeasureSpec(childHeight + mInsetTop + mInsetBottom,
+                MeasureSpec.EXACTLY);
+        measureChild(child, widthMeasureSpec, heightMeasureSpec);
+    }
+
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        int totalHeight = mRowContent != null
-                ? mRowContent.getHeight(mSliceStyle, mViewPolicy) : 0;
         int childWidth = 0;
 
         int rowHeight = getRowContentHeight();
         if (rowHeight != 0) {
             // Might be gone if we have range / progress but nothing else
             mRootView.setVisibility(View.VISIBLE);
-            heightMeasureSpec = MeasureSpec.makeMeasureSpec(rowHeight, MeasureSpec.EXACTLY);
-            measureChild(mRootView, widthMeasureSpec, heightMeasureSpec);
+            measureChildWithExactHeight(mRootView, widthMeasureSpec, rowHeight);
 
             childWidth = mRootView.getMeasuredWidth();
         } else {
@@ -310,32 +315,37 @@ public class RowView extends SliceChildView implements View.OnClickListener {
         if (mRangeBar != null) {
             // If we're on a platform where SeekBar can't be stretched vertically, find out the
             // exact size it would like to be so we can honor that in onLayout.
-            int rangeMeasureSpec = sCanSpecifyLargerRangeBarHeight
-                    ? MeasureSpec.makeMeasureSpec(mIdealRangeHeight, MeasureSpec.EXACTLY)
-                    : MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED);
-            measureChild(mRangeBar, widthMeasureSpec, rangeMeasureSpec);
+            if (sCanSpecifyLargerRangeBarHeight) {
+                measureChildWithExactHeight(mRangeBar, widthMeasureSpec, mIdealRangeHeight);
+            } else {
+                measureChild(mRangeBar, widthMeasureSpec,
+                        MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
+            }
             // Remember the measured height later for onLayout, since super.onMeasure will overwrite
             // it.
             mMeasuredRangeHeight = mRangeBar.getMeasuredHeight();
             childWidth = Math.max(childWidth, mRangeBar.getMeasuredWidth());
         }
 
-        childWidth = Math.max(childWidth, getSuggestedMinimumWidth());
-        setMeasuredDimension(resolveSizeAndState(childWidth, widthMeasureSpec, 0), totalHeight);
+        childWidth = Math.max(childWidth + mInsetStart + mInsetEnd, getSuggestedMinimumWidth());
+        int totalHeight = mRowContent != null ? mRowContent.getHeight(mSliceStyle, mViewPolicy) : 0;
+        setMeasuredDimension(resolveSizeAndState(childWidth, widthMeasureSpec, 0),
+                totalHeight + mInsetTop + mInsetBottom);
     }
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
-        int insets = mInsetStart + mInsetEnd;
-        mRootView.layout(0, 0, mRootView.getMeasuredWidth() + insets, getRowContentHeight());
+        int leftPadding = getPaddingLeft();
+        mRootView.layout(leftPadding, mInsetTop, mRootView.getMeasuredWidth() + leftPadding,
+                getRowContentHeight() + mInsetTop);
         if (mRangeBar != null) {
             // If we're on aa platform where SeekBar can't be stretched vertically, then
             // mMeasuredRangeHeight can (and probably will) be smaller than mIdealRangeHeight, so we
             // need to add some padding to make mRangeBar look like it's the larger size.
             int verticalPadding = (mIdealRangeHeight - mMeasuredRangeHeight) / 2;
-            int top = getRowContentHeight() + verticalPadding;
+            int top = getRowContentHeight() + verticalPadding + mInsetTop;
             int bottom = top + mMeasuredRangeHeight;
-            mRangeBar.layout(0, top, mRangeBar.getMeasuredWidth(), bottom);
+            mRangeBar.layout(leftPadding, top, mRangeBar.getMeasuredWidth() + leftPadding, bottom);
         }
     }
 
@@ -422,12 +432,10 @@ public class RowView extends SliceChildView implements View.OnClickListener {
             if (mRowAction != null) {
                 setViewClickable(mRootView, true);
             }
+            mRangeItem = range;
             if (!skipSliderUpdate) {
-                determineRangeValues(range);
-                addRange(range);
-            } else {
-                // Even if we're skipping the update, we should still update the range item
-                mRangeItem = range;
+                setRangeBounds();
+                addRange();
             }
             return;
         }
@@ -597,14 +605,7 @@ public class RowView extends SliceChildView implements View.OnClickListener {
         }
     }
 
-    private void determineRangeValues(SliceItem rangeItem) {
-        if (rangeItem == null) {
-            mRangeMinValue = 0;
-            mRangeValue = 0;
-            return;
-        }
-        mRangeItem = rangeItem;
-
+    private void setRangeBounds() {
         SliceItem min = SliceQuery.findSubtype(mRangeItem, FORMAT_INT, SUBTYPE_MIN);
         int minValue = 0;
         if (min != null) {
@@ -612,18 +613,27 @@ public class RowView extends SliceChildView implements View.OnClickListener {
         }
         mRangeMinValue = minValue;
 
-        SliceItem progress = SliceQuery.findSubtype(mRangeItem, FORMAT_INT, SUBTYPE_VALUE);
-        if (progress != null) {
-            mRangeValue = progress.getInt() - minValue;
+        SliceItem max = SliceQuery.findSubtype(mRangeItem, FORMAT_INT, SUBTYPE_MAX);
+        int maxValue = 100;  // TODO: This default shouldn't be hardcoded here.
+        if (max != null) {
+            maxValue = max.getInt();
         }
+        mRangeMaxValue = maxValue;
+
+        SliceItem progress = SliceQuery.findSubtype(mRangeItem, FORMAT_INT, SUBTYPE_VALUE);
+        int progressValue = 0;
+        if (progress != null) {
+            progressValue = progress.getInt() - minValue;
+        }
+        mRangeValue = progressValue;
     }
 
-    private void addRange(final SliceItem range) {
+    private void addRange() {
         if (mHandler == null) {
             mHandler = new Handler();
         }
 
-        final boolean isSeekBar = FORMAT_ACTION.equals(range.getFormat());
+        final boolean isSeekBar = FORMAT_ACTION.equals(mRangeItem.getFormat());
         final ProgressBar progressBar = isSeekBar
                 ? new SeekBar(getContext())
                 : new ProgressBar(getContext(), null, android.R.attr.progressBarStyleHorizontal);
@@ -632,10 +642,9 @@ public class RowView extends SliceChildView implements View.OnClickListener {
             DrawableCompat.setTint(progressDrawable, mTintColor);
             progressBar.setProgressDrawable(progressDrawable);
         }
-        SliceItem max = SliceQuery.findSubtype(range, FORMAT_INT, SUBTYPE_MAX);
-        if (max != null) {
-            progressBar.setMax(max.getInt() - mRangeMinValue);
-        }
+        // N.B. We don't use progressBar.setMin because it doesn't work properly in backcompat
+        //      and/or sliders.
+        progressBar.setMax(mRangeMaxValue - mRangeMinValue);
         progressBar.setProgress(mRangeValue);
         progressBar.setVisibility(View.VISIBLE);
         addView(progressBar);
@@ -656,46 +665,26 @@ public class RowView extends SliceChildView implements View.OnClickListener {
             }
             seekBar.setOnSeekBarChangeListener(mSeekBarChangeListener);
         }
-        updateRangePadding();
-    }
-
-    private void updateRangePadding() {
-        if (mRangeBar != null) {
-            int thumbSize = mRangeBar instanceof SeekBar
-                    ? ((SeekBar) mRangeBar).getThumb().getIntrinsicWidth() : 0;
-            int topInsetPadding = mRowContent != null
-                    ? mRowContent.getLineCount() > 0 ? 0 : mInsetTop
-                    : mInsetTop;
-            // Check if the app defined inset is large enough for the drawable
-            if (thumbSize != 0 && mInsetStart >= thumbSize / 2 && mInsetEnd >= thumbSize / 2) {
-                // If row content has text then the top inset gets applied to mContent layout
-                // not the range layout.
-                mRangeBar.setPadding(mInsetStart, topInsetPadding, mInsetEnd, mInsetBottom);
-            } else {
-                // App defined inset not bug enough; we need to apply one
-                int thumbPadding = thumbSize != 0 ? thumbSize / 2 : 0;
-                mRangeBar.setPadding(mInsetStart + thumbPadding, topInsetPadding,
-                        mInsetEnd + thumbPadding, mInsetBottom);
-            }
-        }
     }
 
     void sendSliderValue() {
-        if (mRangeItem != null) {
-            try {
-                mLastSentRangeUpdate = System.currentTimeMillis();
-                mRangeItem.fireAction(getContext(),
-                        new Intent().addFlags(Intent.FLAG_RECEIVER_FOREGROUND)
-                                .putExtra(EXTRA_RANGE_VALUE, mRangeValue));
-                if (mObserver != null) {
-                    EventInfo info = new EventInfo(getMode(), ACTION_TYPE_SLIDER, ROW_TYPE_SLIDER,
-                            mRowIndex);
-                    info.state = mRangeValue;
-                    mObserver.onSliceAction(info, mRangeItem);
-                }
-            } catch (CanceledException e) {
-                Log.e(TAG, "PendingIntent for slice cannot be sent", e);
+        if (mRangeItem == null) {
+            return;
+        }
+
+        try {
+            mLastSentRangeUpdate = System.currentTimeMillis();
+            mRangeItem.fireAction(getContext(),
+                    new Intent().addFlags(Intent.FLAG_RECEIVER_FOREGROUND)
+                            .putExtra(EXTRA_RANGE_VALUE, mRangeValue));
+            if (mObserver != null) {
+                EventInfo info = new EventInfo(getMode(), ACTION_TYPE_SLIDER, ROW_TYPE_SLIDER,
+                        mRowIndex);
+                info.state = mRangeValue;
+                mObserver.onSliceAction(info, mRangeItem);
             }
+        } catch (CanceledException e) {
+            Log.e(TAG, "PendingIntent for slice cannot be sent", e);
         }
     }
 
@@ -863,6 +852,11 @@ public class RowView extends SliceChildView implements View.OnClickListener {
                 try {
                     mShowActionSpinner =
                             mRowAction.getActionItem().fireActionInternal(getContext(), null);
+                    if (mObserver != null) {
+                        EventInfo info = new EventInfo(getMode(), EventInfo.ACTION_TYPE_CONTENT,
+                                EventInfo.ROW_TYPE_LIST, mRowIndex);
+                        mObserver.onSliceAction(info, mRowAction.getSliceItem());
+                    }
                     if (mShowActionSpinner && mLoadingListener != null) {
                         mLoadingListener.onSliceActionLoading(mRowAction.getSliceItem(), mRowIndex);
                         mLoadingActions.add(mRowAction.getSliceItem());
@@ -916,6 +910,7 @@ public class RowView extends SliceChildView implements View.OnClickListener {
         mRangeHasPendingUpdate = false;
         mRangeItem = null;
         mRangeMinValue = 0;
+        mRangeMaxValue = 0;
         mRangeValue = 0;
         mLastSentRangeUpdate = 0;
         mHandler = null;

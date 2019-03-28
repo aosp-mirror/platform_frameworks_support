@@ -131,6 +131,7 @@ public class MediaSessionCompatCallbackTest {
 
     // The maximum time to wait for an operation.
     private static final long TIME_OUT_MS = 3000L;
+    private static final long VOLUME_CHANGE_TIMEOUT_MS = 5000L;
     private static final long WAIT_TIME_FOR_NO_RESPONSE_MS = 300L;
 
     private static final long TEST_POSITION = 1000000L;
@@ -847,7 +848,9 @@ public class MediaSessionCompatCallbackTest {
         // 'Do Not Disturb' or 'Volume limit'.
         final int stream = AudioManager.STREAM_ALARM;
         final int maxVolume = mAudioManager.getStreamMaxVolume(stream);
-        final int minVolume = 1;
+        final int minVolume =
+                Build.VERSION.SDK_INT >= 28 ? mAudioManager.getStreamMinVolume(stream) : 0;
+        Log.d(TAG, "maxVolume=" + maxVolume + ", minVolume=" + minVolume);
         if (maxVolume <= minVolume) {
             return;
         }
@@ -857,10 +860,11 @@ public class MediaSessionCompatCallbackTest {
         final int originalVolume = mAudioManager.getStreamVolume(stream);
         final int targetVolume = originalVolume == minVolume
                 ? originalVolume + 1 : originalVolume - 1;
+        Log.d(TAG, "originalVolume=" + originalVolume + ", targetVolume=" + targetVolume);
 
         callMediaControllerMethod(SET_VOLUME_TO, targetVolume, getApplicationContext(),
                 mSession.getSessionToken());
-        new PollingCheck(TIME_OUT_MS) {
+        new PollingCheck(VOLUME_CHANGE_TIMEOUT_MS) {
             @Override
             protected boolean check() {
                 return targetVolume == mAudioManager.getStreamVolume(stream);
@@ -883,7 +887,9 @@ public class MediaSessionCompatCallbackTest {
         // 'Do Not Disturb' or 'Volume limit'.
         final int stream = AudioManager.STREAM_ALARM;
         final int maxVolume = mAudioManager.getStreamMaxVolume(stream);
-        final int minVolume = 1;
+        final int minVolume =
+                Build.VERSION.SDK_INT >= 28 ? mAudioManager.getStreamMinVolume(stream) : 0;
+        Log.d(TAG, "maxVolume=" + maxVolume + ", minVolume=" + minVolume);
         if (maxVolume <= minVolume) {
             return;
         }
@@ -894,10 +900,11 @@ public class MediaSessionCompatCallbackTest {
         final int direction = originalVolume == minVolume
                 ? AudioManager.ADJUST_RAISE : AudioManager.ADJUST_LOWER;
         final int targetVolume = originalVolume + direction;
+        Log.d(TAG, "originalVolume=" + originalVolume + ", targetVolume=" + targetVolume);
 
         callMediaControllerMethod(ADJUST_VOLUME, direction, getApplicationContext(),
                 mSession.getSessionToken());
-        new PollingCheck(TIME_OUT_MS) {
+        new PollingCheck(VOLUME_CHANGE_TIMEOUT_MS) {
             @Override
             protected boolean check() {
                 return targetVolume == mAudioManager.getStreamVolume(stream);

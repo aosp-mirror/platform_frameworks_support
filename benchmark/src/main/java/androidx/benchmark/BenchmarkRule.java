@@ -1,3 +1,4 @@
+<<<<<<< HEAD   (60b11c Merge "Merge empty history for sparse-5338950-L0630000027955)
 /*
  * Copyright 2018 The Android Open Source Project
  *
@@ -102,3 +103,5 @@ public class BenchmarkRule implements TestRule {
     }
 }
 
+=======
+>>>>>>> BRANCH (e95ebf Merge "Merge cherrypicks of [936611, 936612] into sparse-541)

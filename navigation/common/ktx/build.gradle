@@ -38,6 +38,11 @@ android {
 
 dependencies {
     api(project(":navigation:navigation-common"))
+<<<<<<< HEAD   (60b11c Merge "Merge empty history for sparse-5338950-L0630000027955)
+=======
+    implementation(ANDROIDX_COLLECTION)
+
+>>>>>>> BRANCH (e95ebf Merge "Merge cherrypicks of [936611, 936612] into sparse-541)
     api(KOTLIN_STDLIB)
     testImplementation(JUNIT)
     testImplementation(TEST_EXT_JUNIT)

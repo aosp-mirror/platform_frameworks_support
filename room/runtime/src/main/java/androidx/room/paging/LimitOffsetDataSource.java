@@ -107,10 +107,43 @@ public abstract class LimitOffsetDataSource<T> extends PositionalDataSource<T> {
     @Override
     public void loadInitial(@NonNull LoadInitialParams params,
             @NonNull LoadInitialCallback<T> callback) {
+<<<<<<< HEAD   (60b11c Merge "Merge empty history for sparse-5338950-L0630000027955)
         int totalCount = countItems();
         if (totalCount == 0) {
             callback.onResult(Collections.<T>emptyList(), 0, 0);
             return;
+=======
+        List<T> list = Collections.emptyList();
+        int totalCount = 0;
+        int firstLoadPosition = 0;
+        RoomSQLiteQuery sqLiteQuery = null;
+        Cursor cursor = null;
+        //noinspection deprecation
+        mDb.beginTransaction();
+        try {
+            totalCount = countItems();
+            if (totalCount != 0) {
+                // bound the size requested, based on known count
+                firstLoadPosition = computeInitialLoadPosition(params, totalCount);
+                int firstLoadSize = computeInitialLoadSize(params, firstLoadPosition, totalCount);
+
+                sqLiteQuery = getSQLiteQuery(firstLoadPosition, firstLoadSize);
+                cursor = mDb.query(sqLiteQuery);
+                List<T> rows = convertRows(cursor);
+                //noinspection deprecation
+                mDb.setTransactionSuccessful();
+                list = rows;
+            }
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            //noinspection deprecation
+            mDb.endTransaction();
+            if (sqLiteQuery != null) {
+                sqLiteQuery.release();
+            }
+>>>>>>> BRANCH (e95ebf Merge "Merge cherrypicks of [936611, 936612] into sparse-541)
         }
 
         // bound the size requested, based on known count

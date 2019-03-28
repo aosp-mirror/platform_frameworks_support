@@ -8,9 +8,9 @@ plugins {
 
 dependencies {
     api(project(":media"))
-    api(project(":appcompat"))
-    api("androidx.palette:palette:1.0.0")
-    api(project(":recyclerview"))
+    implementation("androidx.appcompat:appcompat:1.0.2")
+    implementation("androidx.palette:palette:1.0.0")
+    implementation("androidx.recyclerview:recyclerview:1.0.0")
 
     androidTestImplementation(TEST_EXT_JUNIT)
     androidTestImplementation(TEST_CORE)
@@ -27,6 +27,10 @@ android {
                 'jellybean-mr2',
                 'api24'
         ]
+    }
+
+    buildTypes.all {
+        consumerProguardFiles 'proguard-rules.pro'
     }
 }
 

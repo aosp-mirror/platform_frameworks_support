@@ -106,6 +106,39 @@ class KotlinNavWriterTest {
     }
 
     @Test
+<<<<<<< HEAD   (60b11c Merge "Merge empty history for sparse-5338950-L0630000027955)
+=======
+    fun testDirectionsClassGeneration_withKeywordId() {
+        val funAction = Action(ResReference("fun.is.in", "id", "next"), id("destA"),
+            listOf())
+
+        val dest = Destination(null, ClassName.get("a.b", "FunFragment"), "fragment", listOf(),
+            listOf(funAction))
+
+        val actual = generateDirectionsCodeFile(dest, emptyList(), false)
+        assertThat(actual.toString()).parsesAs("a.b.FunFragmentDirections")
+    }
+
+    @Test
+    fun testDirectionsClassGeneration_longPackage() {
+        val funAction = Action(ResReference("a.b.secondreallyreallyreallyreally" +
+                "reallyreallyreallyreallyreallyreallyreallyreallyreallyreallyreallyreally" +
+                "longpackage", "id", "next"), id("destA"),
+            listOf())
+
+        val dest = Destination(null, ClassName.get("a.b.reallyreallyreallyreally" +
+                "reallyreallyreallyreallyreallyreallyreallyreallyreallyreallyreallyreally" +
+                "longpackage", "LongPackageFragment"), "fragment", listOf(),
+            listOf(funAction))
+
+        val actual = generateDirectionsCodeFile(dest, emptyList(), false)
+        assertThat(actual.toString()).parsesAs("a.b.reallyreallyreallyreallyreally" +
+                "reallyreallyreallyreallyreallyreallyreallyreallyreallyreallyreally" +
+                "longpackage.LongPackageFragmentDirections")
+    }
+
+    @Test
+>>>>>>> BRANCH (e95ebf Merge "Merge cherrypicks of [936611, 936612] into sparse-541)
     fun testArgumentsClassGeneration() {
         val dest = Destination(null, ClassName.get("a.b", "MainFragment"), "fragment", listOf(
             Argument("main", StringType),

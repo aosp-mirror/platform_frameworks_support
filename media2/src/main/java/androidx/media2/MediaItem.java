@@ -20,7 +20,6 @@ import static androidx.annotation.RestrictTo.Scope.LIBRARY;
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
-import android.annotation.SuppressLint;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -62,7 +61,6 @@ import java.util.concurrent.Executor;
  * This object is thread safe.
  */
 @VersionedParcelize(isCustom = true)
-@SuppressLint("RestrictedApi")
 public class MediaItem extends CustomVersionedParcelable {
     private static final String TAG = "MediaItem";
 
@@ -328,7 +326,6 @@ public class MediaItem extends CustomVersionedParcelable {
      */
     @RestrictTo(LIBRARY)
     @Override
-    @SuppressLint("RestrictedApi")
     public void onPreParceling(boolean isStream) {
         if (getClass() != MediaItem.class) {
             throw new RuntimeException("MediaItem's subclasses shouldn't be parcelized."

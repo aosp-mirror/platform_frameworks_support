@@ -185,16 +185,31 @@ internal class AffectedModuleDetectorImpl constructor(
      * Finds all modules that are affected by current changes.
      *
      * If it cannot determine the containing module for a file (e.g. buildSrc or root), it
-     * defaults to all projects unless [ignoreUnknownProjects] is set to true.
+     * defaults to all projects unless [ignoreUnknownProjects] is set to true. However,
+     * with param changedProjects, it only returns the dumb-test (see companion object below).
+     * This is because we run all tests including @large on the changed set. So when we must
+     * build all, we only want to run @small and @medium tests in the test runner for
+     * DEPENDENT_PROJECTS.
      */
     private fun findLocallyAffectedProjects(): Set<Project> {
         val lastMergeSha = git.findPreviousMergeCL() ?: return allProjects
         val changedFiles = git.findChangedFilesSince(
                 sha = lastMergeSha,
                 includeUncommitted = true)
+
+        val alwaysBuild = rootProject.subprojects.filter { project ->
+            ALWAYS_BUILD.any {
+                project.name.contains(it)
+            }
+        }.toSet()
+
         if (changedFiles.isEmpty()) {
             logger?.info("Cannot find any changed files after last merge, will run all")
-            return allProjects
+            return when (projectSubset) {
+                ProjectSubset.DEPENDENT_PROJECTS -> allProjects
+                ProjectSubset.CHANGED_PROJECTS -> alwaysBuild
+                ProjectSubset.ALL_AFFECTED_PROJECTS -> allProjects
+            }
         }
         val containingProjects = changedFiles
                 .map(::findContainingProject)
@@ -213,12 +228,22 @@ internal class AffectedModuleDetectorImpl constructor(
                         ${expandToDependants(containingProjects.filterNotNull())}
                     """.trimIndent()
             )
-            return allProjects
-        }
-        val alwaysBuild = rootProject.subprojects.filter { project ->
-            ALWAYS_BUILD.any {
-                project.name.contains(it)
+            return when (projectSubset) {
+                ProjectSubset.DEPENDENT_PROJECTS -> allProjects
+                ProjectSubset.CHANGED_PROJECTS -> alwaysBuild
+                ProjectSubset.ALL_AFFECTED_PROJECTS -> allProjects
             }
+<<<<<<< HEAD   (60b11c Merge "Merge empty history for sparse-5338950-L0630000027955)
+=======
+        }
+
+        return alwaysBuild + when (projectSubset) {
+            ProjectSubset.DEPENDENT_PROJECTS
+                -> expandToDependents(containingProjects) - containingProjects.filterNotNull()
+            ProjectSubset.CHANGED_PROJECTS
+                -> (containingProjects).filterNotNull().toSet()
+            else -> expandToDependents(containingProjects)
+>>>>>>> BRANCH (e95ebf Merge "Merge cherrypicks of [936611, 936612] into sparse-541)
         }
         // expand the list to all of their dependants
         return expandToDependants(containingProjects + alwaysBuild)
@@ -237,7 +262,13 @@ internal class AffectedModuleDetectorImpl constructor(
     }
 
     companion object {
+<<<<<<< HEAD   (60b11c Merge "Merge empty history for sparse-5338950-L0630000027955)
         // list of projects that should always be built
         private val ALWAYS_BUILD = arrayOf("dumb-test", "wear", "media-compat-test", "media2-test")
+=======
+        // dummy test to ensure no failure due to "no instrumentation. We can eventually remove
+        // if we resolve b/127819369
+        private val ALWAYS_BUILD = setOf("dumb-test")
+>>>>>>> BRANCH (e95ebf Merge "Merge cherrypicks of [936611, 936612] into sparse-541)
     }
 }

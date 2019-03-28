@@ -6,9 +6,16 @@ set -e
 
 
 function getStudioUrl() {
+<<<<<<< HEAD   (60b11c Merge "Merge empty history for sparse-5338950-L0630000027955)
   version="3.4.0.9"
   ideaMajorVersion="183"
   buildNumber="5202479"
+=======
+  propertiesFile="${scriptDir}/buildSrc/studio_versions.properties"
+  version="$(grep "studio_version=" ${propertiesFile} | sed 's/[^=]*=//')"
+  ideaMajorVersion="$(grep "idea_major_version=" ${propertiesFile} | sed 's/[^=]*=//')"
+  buildNumber="$(grep "studio_build_number=" ${propertiesFile} | sed 's/[^=]*=//')"
+>>>>>>> BRANCH (e95ebf Merge "Merge cherrypicks of [936611, 936612] into sparse-541)
   osName="$1"
   studioUrl="https://dl.google.com/dl/android/studio/ide-zips/${version}/android-studio-ide-${ideaMajorVersion}.${buildNumber}-${osName}.zip"
   echo "${studioUrl}"

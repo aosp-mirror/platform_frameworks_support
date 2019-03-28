@@ -73,7 +73,43 @@ class AffectedModuleDetectorImplTest {
                         changedFiles = emptyList())
         )
         MatcherAssert.assertThat(detector.affectedProjects, CoreMatchers.`is`(
+<<<<<<< HEAD   (60b11c Merge "Merge empty history for sparse-5338950-L0630000027955)
                 setOf(p1, p2)
+=======
+                setOf(p1, p2, p3, p4, p5, p6, p7)
+        ))
+    }
+
+    @Test
+    fun noChangeCLsOnlyDependent() {
+        val detector = AffectedModuleDetectorImpl(
+                rootProject = root,
+                logger = logger,
+                ignoreUnknownProjects = false,
+                projectSubset = ProjectSubset.DEPENDENT_PROJECTS,
+                injectedGitClient = MockGitClient(
+                        lastMergeSha = "foo",
+                        changedFiles = emptyList())
+                )
+        MatcherAssert.assertThat(detector.affectedProjects, CoreMatchers.`is`(
+                setOf(p1, p2, p3, p4, p5, p6, p7)
+        ))
+    }
+
+    @Test
+    fun noChangeCLsOnlyDirectlyAffected() {
+        val detector = AffectedModuleDetectorImpl(
+            rootProject = root,
+            logger = logger,
+            ignoreUnknownProjects = false,
+            projectSubset = ProjectSubset.CHANGED_PROJECTS,
+            injectedGitClient = MockGitClient(
+                lastMergeSha = "foo",
+                changedFiles = emptyList())
+        )
+        MatcherAssert.assertThat(detector.affectedProjects, CoreMatchers.`is`(
+            setOf()
+>>>>>>> BRANCH (e95ebf Merge "Merge cherrypicks of [936611, 936612] into sparse-541)
         ))
     }
 
@@ -120,7 +156,43 @@ class AffectedModuleDetectorImplTest {
                         changedFiles = listOf("foo.java"))
         )
         MatcherAssert.assertThat(detector.affectedProjects, CoreMatchers.`is`(
+<<<<<<< HEAD   (60b11c Merge "Merge empty history for sparse-5338950-L0630000027955)
                 setOf(p1, p2)
+=======
+                setOf(p1, p2, p3, p4, p5, p6, p7)
+        ))
+    }
+
+    @Test
+    fun changeInRootOnlyDependent() {
+        val detector = AffectedModuleDetectorImpl(
+            rootProject = root,
+            logger = logger,
+            ignoreUnknownProjects = false,
+            projectSubset = ProjectSubset.DEPENDENT_PROJECTS,
+            injectedGitClient = MockGitClient(
+                lastMergeSha = "foo",
+                changedFiles = listOf("foo.java"))
+        )
+        MatcherAssert.assertThat(detector.affectedProjects, CoreMatchers.`is`(
+            setOf(p1, p2, p3, p4, p5, p6, p7)
+        ))
+    }
+
+    @Test
+    fun changeInRootOnlyDirectlyAffected() {
+        val detector = AffectedModuleDetectorImpl(
+            rootProject = root,
+            logger = logger,
+            ignoreUnknownProjects = false,
+            projectSubset = ProjectSubset.CHANGED_PROJECTS,
+            injectedGitClient = MockGitClient(
+                lastMergeSha = "foo",
+                changedFiles = listOf("foo.java"))
+        )
+        MatcherAssert.assertThat(detector.affectedProjects, CoreMatchers.`is`(
+            setOf()
+>>>>>>> BRANCH (e95ebf Merge "Merge cherrypicks of [936611, 936612] into sparse-541)
         ))
     }
 

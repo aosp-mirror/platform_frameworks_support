@@ -4,7 +4,11 @@ package androidx.navigation.fragment {
   @androidx.navigation.Navigator.Name("fragment") public class FragmentNavigator extends androidx.navigation.Navigator<androidx.navigation.fragment.FragmentNavigator.Destination> {
     ctor public FragmentNavigator(android.content.Context, android.support.v4.app.FragmentManager, int);
     method public androidx.navigation.fragment.FragmentNavigator.Destination createDestination();
+<<<<<<< HEAD   (60b11c Merge "Merge empty history for sparse-5338950-L0630000027955)
     method public android.support.v4.app.Fragment instantiateFragment(android.content.Context, android.support.v4.app.FragmentManager, String, android.os.Bundle?);
+=======
+    method @Deprecated public androidx.fragment.app.Fragment instantiateFragment(android.content.Context, androidx.fragment.app.FragmentManager, String, android.os.Bundle?);
+>>>>>>> BRANCH (e95ebf Merge "Merge cherrypicks of [936611, 936612] into sparse-541)
     method public androidx.navigation.NavDestination? navigate(androidx.navigation.fragment.FragmentNavigator.Destination, android.os.Bundle?, androidx.navigation.NavOptions?, androidx.navigation.Navigator.Extras?);
     method public boolean popBackStack();
   }
