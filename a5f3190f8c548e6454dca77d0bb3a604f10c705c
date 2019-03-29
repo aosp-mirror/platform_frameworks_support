@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2533ae2e_e7b57ded",
+        "filename": "fragment/testing/src/androidTest/java/androidx/fragment/app/testing/FragmentScenarioDialogFragmentTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-03-29T22:53:15Z",
+      "side": 0,
+      "message": "Is there some other mechanism we can use here to confirm that the dialog is dismissed? Or do you think the check above is enough?",
+      "range": {
+        "startLine": 299,
+        "startChar": 8,
+        "endLine": 299,
+        "endChar": 59
+      },
+      "revId": "a5f3190f8c548e6454dca77d0bb3a604f10c705c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99409ed6_1ccd864d",
+        "filename": "fragment/testing/src/androidTest/java/androidx/fragment/app/testing/FragmentScenarioTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 447,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-03-29T22:53:15Z",
+      "side": 0,
+      "message": "Can you create a blocked bug for re-enabling this type of test (perhaps leave the code in but commented out with a link to the bug) for when https://issuetracker.google.com/issues/69656506 is fixed?",
+      "range": {
+        "startLine": 443,
+        "startChar": 8,
+        "endLine": 447,
+        "endChar": 9
+      },
+      "revId": "a5f3190f8c548e6454dca77d0bb3a604f10c705c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

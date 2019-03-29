@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ee6374d0_9871356e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-03-29T22:53:15Z",
+      "side": 1,
+      "message": "I think you should consider renaming the CL if we\u0027re also changing the behavior of moveToState() in this same CL. I\u0027d also be okay if you want to make this two different CLs (one for the overflow and one for the moveToState change).",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 64
+      },
+      "revId": "0f389c302a34f419272257706eba4cc5092433a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "604a73c2_e45aa45c",
+        "filename": "fragment/testing/src/main/java/androidx/fragment/app/testing/FragmentScenario.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-03-29T22:53:15Z",
+      "side": 1,
+      "message": "issuetracker.google.com so that public users can click on the link",
+      "revId": "0f389c302a34f419272257706eba4cc5092433a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
