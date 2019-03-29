@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "45fba130_db6125eb",
+        "filename": "fragment/testing/src/androidTest/java/androidx/fragment/app/testing/FragmentScenarioDialogFragmentTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 1300185
+      },
+      "writtenOn": "2019-03-29T23:18:26Z",
+      "side": 0,
+      "message": "Yes, I think the above check is enough and this extra check just makes the test slow and flaky.",
+      "parentUuid": "2533ae2e_e7b57ded",
+      "range": {
+        "startLine": 299,
+        "startChar": 8,
+        "endLine": 299,
+        "endChar": 59
+      },
+      "revId": "a5f3190f8c548e6454dca77d0bb3a604f10c705c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "99409ed6_1ccd864d",
         "filename": "fragment/testing/src/androidTest/java/androidx/fragment/app/testing/FragmentScenarioTest.kt",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "a5f3190f8c548e6454dca77d0bb3a604f10c705c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "afa44101_32c225b8",
+        "filename": "fragment/testing/src/androidTest/java/androidx/fragment/app/testing/FragmentScenarioTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 447,
+      "author": {
+        "id": 1300185
+      },
+      "writtenOn": "2019-03-29T23:18:26Z",
+      "side": 0,
+      "message": "Done in aosp/937280",
+      "parentUuid": "99409ed6_1ccd864d",
+      "range": {
+        "startLine": 443,
+        "startChar": 8,
+        "endLine": 447,
+        "endChar": 9
+      },
+      "revId": "a5f3190f8c548e6454dca77d0bb3a604f10c705c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

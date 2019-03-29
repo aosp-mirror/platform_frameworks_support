@@ -70,6 +70,30 @@
       "revId": "81e0434bf722b8bafb37e1793ea2b9fd31e54005",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a5b86cf_9f0ab98c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1300185
+      },
+      "writtenOn": "2019-03-29T23:18:26Z",
+      "side": 1,
+      "message": "As we discussed offline, the real issue is in pre-N framework. Updated commit message to explain this issue in more detail.",
+      "parentUuid": "c0bb1017_73e081c3",
+      "range": {
+        "startLine": 11,
+        "startChar": 3,
+        "endLine": 13,
+        "endChar": 68
+      },
+      "revId": "81e0434bf722b8bafb37e1793ea2b9fd31e54005",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
