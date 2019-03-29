@@ -134,8 +134,10 @@ public class WebViewRenderProcessTest {
     @SuppressLint("NewApi")
     @SdkSuppress(minSdkVersion = Build.VERSION_CODES.O)
     public void testGetWebViewRenderProcess() throws Throwable {
-        // TODO(tobiasjs) some O devices are not multiprocess, and multiprocess can also be disabled
-        // manually. This test should handle those scenarios.
+        WebkitUtils.checkFeature(WebViewFeature.MULTI_PROCESS_QUERY);
+        if (!WebViewCompat.isMultiProcessEnabled()) {
+            return;
+        }
 
         final WebView webView = WebViewOnUiThread.createWebView();
 
