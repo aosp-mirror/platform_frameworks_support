@@ -84,6 +84,24 @@
     },
     {
       "key": {
+        "uuid": "aac18e29_efe639ca",
+        "filename": "car/core/api/current.txt",
+        "patchSetId": 22
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-29T17:15:00Z",
+      "side": 1,
+      "message": "What do you mean by \"calling certain methods on the dialog class\" won\u0027t work as expected?\n\nThe fact that you have subclass doesn\u0027t help with that anyhow. It is still a Dialog, so developers won\u0027t know that they work with specific instance that does something else on \"setCanceledOnTouchOnOutside\".\n\n\nOr do you mean that you simply need override \"setCanceledOnTouchOnOutside\"? That is fine, you can extend Dialog but it doesn\u0027t have to be a public api. Builder would return a Dialog class, returned instance would be CarSingleSelectionDialogImpl, that is package private.",
+      "parentUuid": "5a2c8c2c_387840ce",
+      "revId": "3d6c741d3bdf647ceec5e31c4c184a05d00f0c69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e9d6590d_bccfffd4",
         "filename": "car/core/api/current.txt",
         "patchSetId": 22
@@ -154,6 +172,30 @@
       "side": 1,
       "message": "Originally went the route of avoiding inheritance to reduce coupling (though the repetition did have be rethinking that). Also the common ones between all three builders would only be (setOnDismissListener(), setOnCancelLisntener, setCancelable()).\n\nDo you feel abstract base class w/ builder would be cleaner here?",
       "parentUuid": "6c5dd34a_f73b0746",
+      "range": {
+        "startLine": 59,
+        "startChar": 102,
+        "endLine": 66,
+        "endChar": 92
+      },
+      "revId": "3d6c741d3bdf647ceec5e31c4c184a05d00f0c69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6503638_d5b70d90",
+        "filename": "car/core/api/current.txt",
+        "patchSetId": 22
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-29T17:15:00Z",
+      "side": 1,
+      "message": "I don\u0027t have very strict opinion here. But having a common structure would help to keep APIs aligned. One of examples: CarAlertDialog.Builder allows to add headerIcon. But other car dialogs don\u0027t. It looks quite arbitrary.",
+      "parentUuid": "2002d0cb_4c3729a9",
       "range": {
         "startLine": 59,
         "startChar": 102,
