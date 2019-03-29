@@ -656,6 +656,24 @@
       "revId": "6634f2bd0b3934a3b10d4ca0ccb96304a264ae5b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0a0ccbc6_89140b62",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2254,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-03-29T20:39:54Z",
+      "side": 1,
+      "message": "\"sgtlm: Sounds good to layout manager\", and me too.  :)",
+      "parentUuid": "9333c676_32b09d19",
+      "revId": "6634f2bd0b3934a3b10d4ca0ccb96304a264ae5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
