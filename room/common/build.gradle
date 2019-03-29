@@ -22,12 +22,16 @@ import androidx.build.AndroidXExtension;
 plugins {
     id("AndroidXPlugin")
     id("java")
+    id("kotlin")
 }
 
 dependencies {
     compile(ANDROIDX_ANNOTATION)
+    compile(KOTLIN_STDLIB)
+    compile(KOTLIN_METADATA_JVM)
     testCompile(JUNIT)
     testCompile(MOCKITO_CORE)
+    testCompile(GUAVA)
 }
 
 androidx {
