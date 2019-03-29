@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "47f6815f_250911d1",
+        "filename": "car/core/src/main/java/androidx/car/widget/CarMenuItem.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-03-29T17:08:44Z",
+      "side": 1,
+      "message": "I think we can leave off /* package */ because we don\u0027t use it anywhere else.",
+      "range": {
+        "startLine": 190,
+        "startChar": 4,
+        "endLine": 190,
+        "endChar": 18
+      },
+      "revId": "41ff1eaaeed5d79d2aa621733dccae361d8c68b8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
