@@ -22,6 +22,30 @@
       "revId": "a28110abcc45290d8f10d14be1b32b2d81fc0cf8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4a0b326_4c4eb672",
+        "filename": "lifecycle/runtime/eap/src/main/java/androidx/lifecycle/Lifecycle.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-03-29T11:02:29Z",
+      "side": 1,
+      "message": "I started with exactly that actually. But once I tried it, it has one big flaw: once you in suspend function in Activity/Fragment, you can easily call it and it\u0027s bad. It is bad because, you break structured concurrency. \n\nI don\u0027t want to solve it with lint, because lint is kinda of bandaid. So it is ok to use to flag cornercases, but this doesn\u0027t feel like a cornercase. \n\nSo then I tried to play with different apis. Then I remembered, that you can\u0027t actually run `launch` in suspend function normally, it requires CoroutineScope, so I decided it is best place to put these functions, because it creates very nice symmetry with KotlinApis, it makes obvious that you shouldn\u0027t simply run those in suspend fun, because you use completely different scope",
+      "parentUuid": "ee59a52e_188423ed",
+      "range": {
+        "startLine": 84,
+        "startChar": 8,
+        "endLine": 84,
+        "endChar": 25
+      },
+      "revId": "a28110abcc45290d8f10d14be1b32b2d81fc0cf8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
