@@ -1,0 +1,320 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6fa06ea0_20f2a8ae",
+        "filename": "work/workmanager-gcm/proguard-rules.pro",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-03-29T20:24:06Z",
+      "side": 1,
+      "message": "I think you probably want to add keep rules for the Scheduler.",
+      "revId": "d45adafb14a82d54445e04afad1221cc6e781e46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28a60da3_6972546a",
+        "filename": "work/workmanager-gcm/src/androidTest/java/androidx/work/impl/background/gcm/GcmTaskConverterTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-03-29T20:24:06Z",
+      "side": 1,
+      "message": "Needs a more descriptive name.",
+      "range": {
+        "startLine": 85,
+        "startChar": 8,
+        "endLine": 85,
+        "endChar": 58
+      },
+      "revId": "d45adafb14a82d54445e04afad1221cc6e781e46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "961af0d4_3efd3139",
+        "filename": "work/workmanager-gcm/src/androidTest/java/androidx/work/impl/background/gcm/GcmTaskConverterTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-03-29T20:24:06Z",
+      "side": 1,
+      "message": "You should have access to setRunAttemptCount here.",
+      "range": {
+        "startLine": 132,
+        "startChar": 22,
+        "endLine": 132,
+        "endChar": 47
+      },
+      "revId": "d45adafb14a82d54445e04afad1221cc6e781e46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3c1c973_0613eb52",
+        "filename": "work/workmanager-gcm/src/main/AndroidManifest.xml",
+        "patchSetId": 6
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-03-29T20:24:06Z",
+      "side": 1,
+      "message": "android:directBootAware\u003d\"false\"\n            tools:targetApi\u003d\"n\"",
+      "range": {
+        "startLine": 24,
+        "startChar": 34,
+        "endLine": 24,
+        "endChar": 36
+      },
+      "revId": "d45adafb14a82d54445e04afad1221cc6e781e46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4133757d_4bbad618",
+        "filename": "work/workmanager-gcm/src/main/java/androidx/work/impl/background/gcm/GcmTaskConverter.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-03-29T20:24:06Z",
+      "side": 1,
+      "message": "What is this?  A 5 second execution window?  The Javadoc is not clear what you\u0027re doing here.",
+      "range": {
+        "startLine": 43,
+        "startChar": 29,
+        "endLine": 43,
+        "endChar": 50
+      },
+      "revId": "d45adafb14a82d54445e04afad1221cc6e781e46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5f3a513_5dad61e9",
+        "filename": "work/workmanager-gcm/src/main/java/androidx/work/impl/background/gcm/GcmTaskConverter.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-03-29T20:24:06Z",
+      "side": 1,
+      "message": "This does not need its own method.",
+      "range": {
+        "startLine": 68,
+        "startChar": 16,
+        "endLine": 68,
+        "endChar": 19
+      },
+      "revId": "d45adafb14a82d54445e04afad1221cc6e781e46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db22e162_ad1540ed",
+        "filename": "work/workmanager-gcm/src/main/java/androidx/work/impl/background/gcm/WorkManagerGcmService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-03-29T20:24:06Z",
+      "side": 1,
+      "message": "Handling?",
+      "range": {
+        "startLine": 72,
+        "startChar": 47,
+        "endLine": 72,
+        "endChar": 54
+      },
+      "revId": "d45adafb14a82d54445e04afad1221cc6e781e46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4d9ffc3_36cdce62",
+        "filename": "work/workmanager-gcm/src/main/java/androidx/work/impl/background/gcm/WorkManagerGcmService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-03-29T20:24:06Z",
+      "side": 1,
+      "message": "Can this method be called twice in a row?  Aren\u0027t you blocking the thread?  Is there a unique thread per call?  If so, document this.",
+      "range": {
+        "startLine": 86,
+        "startChar": 32,
+        "endLine": 86,
+        "endChar": 37
+      },
+      "revId": "d45adafb14a82d54445e04afad1221cc6e781e46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5990365_0d4aabc3",
+        "filename": "work/workmanager-gcm/src/main/java/androidx/work/impl/background/gcm/WorkManagerGcmService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-03-29T20:24:06Z",
+      "side": 1,
+      "message": "Cache this value.",
+      "range": {
+        "startLine": 91,
+        "startChar": 25,
+        "endLine": 91,
+        "endChar": 37
+      },
+      "revId": "d45adafb14a82d54445e04afad1221cc6e781e46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1646f822_786ab9b6",
+        "filename": "work/workmanager-gcm/src/main/java/androidx/work/impl/background/gcm/WorkManagerGcmService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-03-29T20:24:06Z",
+      "side": 1,
+      "message": "Please don\u0027t use the word tag (which is an id in WorkManager).  If it\u0027s representing an id, please use id.  Do this for the entire file where it makes sense.",
+      "range": {
+        "startLine": 115,
+        "startChar": 43,
+        "endLine": 115,
+        "endChar": 46
+      },
+      "revId": "d45adafb14a82d54445e04afad1221cc6e781e46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "549f452f_9de7899e",
+        "filename": "work/workmanager-gcm/src/main/java/androidx/work/impl/background/gcm/WorkManagerGcmService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-03-29T20:24:06Z",
+      "side": 1,
+      "message": "Here and earlier, change to \"Returning [status] for %s\".",
+      "range": {
+        "startLine": 134,
+        "startChar": 47,
+        "endLine": 134,
+        "endChar": 77
+      },
+      "revId": "d45adafb14a82d54445e04afad1221cc6e781e46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b499646c_7dd066e6",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/Schedulers.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-03-29T20:24:06Z",
+      "side": 1,
+      "message": "Unused.",
+      "range": {
+        "startLine": 52,
+        "startChar": 32,
+        "endLine": 52,
+        "endChar": 48
+      },
+      "revId": "d45adafb14a82d54445e04afad1221cc6e781e46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f88a603_c66eba6e",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/Schedulers.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-03-29T20:24:06Z",
+      "side": 1,
+      "message": "tryCreate",
+      "range": {
+        "startLine": 124,
+        "startChar": 29,
+        "endLine": 124,
+        "endChar": 49
+      },
+      "revId": "d45adafb14a82d54445e04afad1221cc6e781e46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bedb1478_d4fbec45",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/Schedulers.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-03-29T20:24:06Z",
+      "side": 1,
+      "message": "Move log *after* creation.",
+      "range": {
+        "startLine": 127,
+        "startChar": 12,
+        "endLine": 127,
+        "endChar": 16
+      },
+      "revId": "d45adafb14a82d54445e04afad1221cc6e781e46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
