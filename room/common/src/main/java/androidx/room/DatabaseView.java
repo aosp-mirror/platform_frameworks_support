@@ -51,7 +51,7 @@ import java.lang.annotation.Target;
  * @see Embedded
  */
 @Target(ElementType.TYPE)
-@Retention(RetentionPolicy.CLASS)
+@Retention(RetentionPolicy.CLASS) // For Room to be incremental, this can't be SOURCE.
 public @interface DatabaseView {
 
     /**

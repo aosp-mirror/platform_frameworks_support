@@ -100,7 +100,7 @@ import java.lang.annotation.Target;
  * public or have a public setter.
  */
 @Target({ElementType.FIELD, ElementType.METHOD})
-@Retention(RetentionPolicy.CLASS)
+@Retention(RetentionPolicy.CLASS) // For Room to be incremental, this can't be SOURCE.
 public @interface Relation {
     /**
      * The entity or view to fetch the item from. You don't need to set this if the entity or view

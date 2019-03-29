@@ -42,6 +42,6 @@ import java.lang.annotation.Target;
  * @see Insert
  */
 @Target(ElementType.TYPE)
-@Retention(RetentionPolicy.CLASS)
+@Retention(RetentionPolicy.CLASS) // For Room to be incremental, this can't be SOURCE.
 public @interface Dao {
 }

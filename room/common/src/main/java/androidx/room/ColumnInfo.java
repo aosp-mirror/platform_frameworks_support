@@ -30,7 +30,7 @@ import java.lang.annotation.Target;
  * For example, you can specify a column name for the field or change the column's type affinity.
  */
 @Target({ElementType.FIELD, ElementType.METHOD})
-@Retention(RetentionPolicy.CLASS)
+@Retention(RetentionPolicy.CLASS) // For Room to be incremental, this can't be SOURCE.
 public @interface ColumnInfo {
     /**
      * Name of the column in the database. Defaults to the field name if not set.
@@ -114,6 +114,7 @@ public @interface ColumnInfo {
      * The SQLite column type constants that can be used in {@link #typeAffinity()}
      */
     @IntDef({UNDEFINED, TEXT, INTEGER, REAL, BLOB})
+    @Retention(RetentionPolicy.CLASS) // For Room to be incremental, this can't be SOURCE.
     @interface SQLiteTypeAffinity {
     }
 
@@ -158,6 +159,7 @@ public @interface ColumnInfo {
     int UNICODE = 6;
 
     @IntDef({UNSPECIFIED, BINARY, NOCASE, RTRIM, LOCALIZED, UNICODE})
+    @Retention(RetentionPolicy.CLASS) // For Room to be incremental, this can't be SOURCE.
     @interface Collate {
     }
 }

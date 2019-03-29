@@ -79,7 +79,7 @@ import java.lang.annotation.Target;
  * @see ColumnInfo
  */
 @Target(ElementType.TYPE)
-@Retention(RetentionPolicy.CLASS)
+@Retention(RetentionPolicy.CLASS) // For Room to be incremental, this can't be SOURCE.
 @RequiresApi(16)
 public @interface Fts4 {
 

@@ -41,7 +41,7 @@ import java.lang.annotation.Target;
  * {@link Entity#inheritSuperIndices()} to {@code true}.
  * */
 @Target({})
-@Retention(RetentionPolicy.CLASS)
+@Retention(RetentionPolicy.CLASS) // For Room to be incremental, this can't be SOURCE.
 public @interface Index {
     /**
      * List of column names in the Index.

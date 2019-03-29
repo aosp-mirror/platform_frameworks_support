@@ -82,6 +82,6 @@ import java.lang.annotation.Target;
  * and executed on a first come, first serve order.
  */
 @Target({ElementType.METHOD})
-@Retention(RetentionPolicy.CLASS)
+@Retention(RetentionPolicy.CLASS) // For Room to be incremental, this can't be SOURCE.
 public @interface Transaction {
 }

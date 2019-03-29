@@ -36,7 +36,7 @@ import java.lang.annotation.Target;
  * fields).
  */
 @Target({ElementType.FIELD, ElementType.METHOD})
-@Retention(RetentionPolicy.CLASS)
+@Retention(RetentionPolicy.CLASS) // For Room to be incremental, this can't be SOURCE.
 public @interface PrimaryKey {
     /**
      * Set to true to let SQLite generate the unique id.
