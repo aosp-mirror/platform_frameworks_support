@@ -47,6 +47,6 @@ import java.lang.annotation.Target;
  * @see TypeConverters
  */
 @Target({ElementType.METHOD})
-@Retention(RetentionPolicy.CLASS)
+@Retention(RetentionPolicy.CLASS) // For Room to be incremental, this can't be SOURCE.
 public @interface TypeConverter {
 }

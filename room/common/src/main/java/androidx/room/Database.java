@@ -60,7 +60,7 @@ import java.lang.annotation.Target;
  * @see androidx.room.RoomDatabase RoomDatabase
  */
 @Target(ElementType.TYPE)
-@Retention(RetentionPolicy.CLASS)
+@Retention(RetentionPolicy.CLASS) // For Room to be incremental, this can't be SOURCE.
 public @interface Database {
     /**
      * The list of entities included in the database. Each entity turns into a table in the
