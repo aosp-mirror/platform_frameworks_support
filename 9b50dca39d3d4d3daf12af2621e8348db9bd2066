@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aa3149ac_b3f74c38",
+        "filename": "work/workmanager/src/main/java/androidx/work/Data.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 739,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-03-29T22:55:19Z",
+      "side": 1,
+      "message": "|| valueType\u003d\u003dByte[].class",
+      "range": {
+        "startLine": 739,
+        "startChar": 27,
+        "endLine": 739,
+        "endChar": 54
+      },
+      "revId": "9b50dca39d3d4d3daf12af2621e8348db9bd2066",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
