@@ -46,7 +46,7 @@ import java.lang.annotation.Target;
  * @see Delete
  */
 @Target({ElementType.METHOD})
-@Retention(RetentionPolicy.CLASS)
+@Retention(RetentionPolicy.CLASS) // For Room to be incremental, this can't be SOURCE.
 public @interface Insert {
     /**
      * What to do if a conflict happens.

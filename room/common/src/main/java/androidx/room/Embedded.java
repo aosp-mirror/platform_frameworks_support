@@ -70,7 +70,7 @@ import java.lang.annotation.Target;
  * {@link androidx.annotation.NonNull}.
  */
 @Target({ElementType.FIELD, ElementType.METHOD})
-@Retention(RetentionPolicy.CLASS)
+@Retention(RetentionPolicy.CLASS) // For Room to be incremental, this can't be SOURCE.
 public @interface Embedded {
     /**
      * Specifies a prefix to prepend the column names of the fields in the embedded fields.

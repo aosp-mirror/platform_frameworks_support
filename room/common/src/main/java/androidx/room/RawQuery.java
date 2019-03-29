@@ -135,7 +135,7 @@ import java.lang.annotation.Target;
  * </pre>
  */
 @Target(ElementType.METHOD)
-@Retention(RetentionPolicy.CLASS)
+@Retention(RetentionPolicy.CLASS) // For Room to be incremental, this can't be SOURCE.
 public @interface RawQuery {
     /**
      * Denotes the list of entities which are accessed in the provided query and should be observed
