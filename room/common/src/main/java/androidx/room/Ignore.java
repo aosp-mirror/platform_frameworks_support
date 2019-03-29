@@ -28,6 +28,6 @@ import java.lang.annotation.Target;
  * add it to a field of an {@link Entity} and Room will not persist that field.
  */
 @Target({ElementType.METHOD, ElementType.FIELD, ElementType.CONSTRUCTOR})
-@Retention(RetentionPolicy.CLASS)
+@Retention(RetentionPolicy.CLASS) // For Room to be incremental, this can't be SOURCE.
 public @interface Ignore {
 }

@@ -103,7 +103,7 @@ import java.lang.annotation.Target;
  * {@link RoomWarnings#CURSOR_MISMATCH} warning and sets as many fields as it can.
  */
 @Target(ElementType.METHOD)
-@Retention(RetentionPolicy.CLASS)
+@Retention(RetentionPolicy.CLASS) // For Room to be incremental, this can't be SOURCE.
 public @interface Query {
     /**
      * The SQLite query to be run.

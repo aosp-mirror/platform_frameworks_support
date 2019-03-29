@@ -68,7 +68,7 @@ import java.lang.annotation.Target;
  * @see Index
  */
 @Target(ElementType.TYPE)
-@Retention(RetentionPolicy.CLASS)
+@Retention(RetentionPolicy.CLASS) // For Room to be incremental, this can't be SOURCE.
 public @interface Entity {
     /**
      * The table name in the SQLite database. If not set, defaults to the class name.
