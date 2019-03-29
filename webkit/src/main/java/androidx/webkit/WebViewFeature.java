@@ -385,11 +385,7 @@ public class WebViewFeature {
      * This feature covers
      * {@link WebSettingsCompat#willSuppressErrorPage(WebSettings)} and
      * {@link WebSettingsCompat#setWillSuppressErrorPage(WebSettings, boolean)}.
-     *
-     * TODO(cricke): unhide
-     * @hide
      */
-    @RestrictTo(RestrictTo.Scope.LIBRARY)
     public static final String SUPPRESS_ERROR_PAGE = "SUPPRESS_ERROR_PAGE";
 
 

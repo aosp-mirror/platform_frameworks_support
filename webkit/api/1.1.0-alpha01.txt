@@ -120,6 +120,8 @@ package androidx.webkit {
     method @RequiresFeature(name=androidx.webkit.WebViewFeature.DISABLED_ACTION_MODE_MENU_ITEMS, enforcement="androidx.webkit.WebViewFeature#isFeatureSupported") public static void setDisabledActionModeMenuItems(android.webkit.WebSettings!, int);
     method @RequiresFeature(name=androidx.webkit.WebViewFeature.OFF_SCREEN_PRERASTER, enforcement="androidx.webkit.WebViewFeature#isFeatureSupported") public static void setOffscreenPreRaster(android.webkit.WebSettings!, boolean);
     method @RequiresFeature(name=androidx.webkit.WebViewFeature.SAFE_BROWSING_ENABLE, enforcement="androidx.webkit.WebViewFeature#isFeatureSupported") public static void setSafeBrowsingEnabled(android.webkit.WebSettings!, boolean);
+    method @RequiresFeature(name=androidx.webkit.WebViewFeature.SUPPRESS_ERROR_PAGE, enforcement="androidx.webkit.WebViewFeature#isFeatureSupported") public static void setWillSuppressErrorPage(android.webkit.WebSettings!, boolean);
+    method @RequiresFeature(name=androidx.webkit.WebViewFeature.SUPPRESS_ERROR_PAGE, enforcement="androidx.webkit.WebViewFeature#isFeatureSupported") public static boolean willSuppressErrorPage(android.webkit.WebSettings!);
   }
 
   public class WebViewAssetLoader {
@@ -196,6 +198,7 @@ package androidx.webkit {
     field public static final String SERVICE_WORKER_SHOULD_INTERCEPT_REQUEST = "SERVICE_WORKER_SHOULD_INTERCEPT_REQUEST";
     field public static final String SHOULD_OVERRIDE_WITH_REDIRECTS = "SHOULD_OVERRIDE_WITH_REDIRECTS";
     field public static final String START_SAFE_BROWSING = "START_SAFE_BROWSING";
+    field public static final String SUPPRESS_ERROR_PAGE = "SUPPRESS_ERROR_PAGE";
     field public static final String TRACING_CONTROLLER_BASIC_USAGE = "TRACING_CONTROLLER_BASIC_USAGE";
     field public static final String VISUAL_STATE_CALLBACK = "VISUAL_STATE_CALLBACK";
     field public static final String WEB_MESSAGE_CALLBACK_ON_MESSAGE = "WEB_MESSAGE_CALLBACK_ON_MESSAGE";
