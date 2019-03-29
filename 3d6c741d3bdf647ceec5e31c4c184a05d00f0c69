@@ -102,6 +102,24 @@
     },
     {
       "key": {
+        "uuid": "8ffe2ff3_3966958b",
+        "filename": "car/core/api/current.txt",
+        "patchSetId": 22
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-03-29T18:04:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aac18e29_efe639ca",
+      "revId": "3d6c741d3bdf647ceec5e31c4c184a05d00f0c69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e9d6590d_bccfffd4",
         "filename": "car/core/api/current.txt",
         "patchSetId": 22
@@ -196,6 +214,30 @@
       "side": 1,
       "message": "I don\u0027t have very strict opinion here. But having a common structure would help to keep APIs aligned. One of examples: CarAlertDialog.Builder allows to add headerIcon. But other car dialogs don\u0027t. It looks quite arbitrary.",
       "parentUuid": "2002d0cb_4c3729a9",
+      "range": {
+        "startLine": 59,
+        "startChar": 102,
+        "endLine": 66,
+        "endChar": 92
+      },
+      "revId": "3d6c741d3bdf647ceec5e31c4c184a05d00f0c69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e825cc2f_24e82161",
+        "filename": "car/core/api/current.txt",
+        "patchSetId": 22
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-03-29T18:04:39Z",
+      "side": 1,
+      "message": "I don\u0027t think the APIs are supposed to be aligned. My understanding is we wanted to be restrictive with the functionality each type of dialog offered (following https://guidelines.googleplex.com/aauto/embedded-components/dialogs.html)",
+      "parentUuid": "c6503638_d5b70d90",
       "range": {
         "startLine": 59,
         "startChar": 102,
