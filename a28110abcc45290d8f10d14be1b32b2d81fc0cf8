@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ee59a52e_188423ed",
+        "filename": "lifecycle/runtime/eap/src/main/java/androidx/lifecycle/Lifecycle.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-29T02:07:26Z",
+      "side": 1,
+      "message": "`lifecycle.coroutineScope.launchWhenStarted` is kind of ugly :/\nwhy don\u0027t we add LifecycleOwner.launchWhenStarted  so i can just put:\n\n`launchWhenStarted` ?",
+      "range": {
+        "startLine": 84,
+        "startChar": 8,
+        "endLine": 84,
+        "endChar": 25
+      },
+      "revId": "a28110abcc45290d8f10d14be1b32b2d81fc0cf8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
