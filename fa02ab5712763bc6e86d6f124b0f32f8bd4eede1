@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d00fbc82_2f981e4d",
+        "filename": "work/workmanager-gcm/src/main/java/androidx/work/impl/background/gcm/GcmTaskConverter.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-03-29T21:49:05Z",
+      "side": 1,
+      "message": "What are the units?  Put that in the name of the constant.",
+      "range": {
+        "startLine": 40,
+        "startChar": 7,
+        "endLine": 45,
+        "endChar": 79
+      },
+      "revId": "fa02ab5712763bc6e86d6f124b0f32f8bd4eede1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99cec0af_a7aa62ff",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkManagerImpl.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-03-29T21:49:05Z",
+      "side": 1,
+      "message": "Can you move this logic to the one place where you use it?  getSchedulers is already the same visibility as this, and it seems silly to put this functionality here.",
+      "range": {
+        "startLine": 273,
+        "startChar": 19,
+        "endLine": 273,
+        "endChar": 32
+      },
+      "revId": "fa02ab5712763bc6e86d6f124b0f32f8bd4eede1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
