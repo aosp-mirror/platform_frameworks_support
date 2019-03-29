@@ -187,7 +187,7 @@ public class CarMenuItem {
      * Returns the {@link OnClickListener} of the {@code CarMenuItem}.
      */
     @Nullable
-    public OnClickListener getOnClickListener() {
+    /* package */ OnClickListener getOnClickListener() {
         return mOnClickListener;
     }
 
