@@ -338,6 +338,30 @@
     },
     {
       "key": {
+        "uuid": "a4122783_006f3bc2",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 460,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-29T01:34:48Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "47becf3a_6472434a",
+      "range": {
+        "startLine": 459,
+        "startChar": 22,
+        "endLine": 460,
+        "endChar": 94
+      },
+      "revId": "6634f2bd0b3934a3b10d4ca0ccb96304a264ae5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dc08775a_0df40b51",
         "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
         "patchSetId": 5
@@ -386,6 +410,24 @@
       "side": 1,
       "message": "Actually, I\u0027m pretty sure that negative margins is not something that is universally allowed.  I think most of the time setting negative margins enters into \"undefined territory\".  It is my understand that where it works correctly, third party devs just got lucky, and we since have tried not to break it.\n\nI think Yigit may be right here that it should be something guarded against.",
       "parentUuid": "a30283e9_f564f8bc",
+      "revId": "6634f2bd0b3934a3b10d4ca0ccb96304a264ae5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d069d39_d2e39521",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 586,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-29T01:34:48Z",
+      "side": 1,
+      "message": "yea, Adam had a nice saying about this. If negative margins are your solution, there is a bigger problem :).\nSo we should just not allow to be on the consistent side of things. Also, negative margins expand the area vs negative extra will collapse it, which might be very unexpected.",
+      "parentUuid": "579d1761_671b4c4c",
       "revId": "6634f2bd0b3934a3b10d4ca0ccb96304a264ae5b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
@@ -515,6 +557,24 @@
       "revId": "6634f2bd0b3934a3b10d4ca0ccb96304a264ae5b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0241bbd0_b7784b56",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2254,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-03-29T01:34:48Z",
+      "side": 1,
+      "message": "i think we should fix that too if we can ? make LLM pick the right value based on the direction ? would that be a big change?",
+      "parentUuid": "a23e427b_aec35b69",
+      "revId": "6634f2bd0b3934a3b10d4ca0ccb96304a264ae5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
