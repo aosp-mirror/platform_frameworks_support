@@ -235,11 +235,7 @@ public class WebSettingsCompat {
      * returns true for {@link WebViewFeature#SUPPRESS_ERROR_PAGE}.
      *
      * @param suppressed whether the WebView should suppress its internal error page
-     *
-     * TODO(cricke): unhide
-     * @hide
      */
-    @RestrictTo(RestrictTo.Scope.LIBRARY)
     @SuppressLint("NewApi")
     @RequiresFeature(name = WebViewFeature.SUPPRESS_ERROR_PAGE,
             enforcement = "androidx.webkit.WebViewFeature#isFeatureSupported")
@@ -264,11 +260,7 @@ public class WebSettingsCompat {
      *
      * @return true if the WebView will suppress its internal error page
      * @see #setWillSuppressErrorPage
-     *
-     * TODO(cricke): unhide
-     * @hide
      */
-    @RestrictTo(RestrictTo.Scope.LIBRARY)
     @SuppressLint("NewApi")
     @RequiresFeature(name = WebViewFeature.SUPPRESS_ERROR_PAGE,
             enforcement = "androidx.webkit.WebViewFeature#isFeatureSupported")
