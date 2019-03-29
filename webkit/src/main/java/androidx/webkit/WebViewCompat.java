@@ -613,6 +613,21 @@ public class WebViewCompat {
         }
     }
 
+    /**
+     * Returns true if {@link WebView} is running in multi process mode.
+     */
+    @RequiresFeature(name = WebViewFeature.MULTI_PROCESS_QUERY,
+            enforcement = "androidx.webkit.WebViewFeature#isFeatureSupported")
+    public static boolean isMultiProcessEnabled() {
+        final WebViewFeatureInternal feature = WebViewFeatureInternal.getFeature(
+                WebViewFeature.MULTI_PROCESS_QUERY);
+        if (feature.isSupportedByWebView()) {
+            return getFactory().getStatics().isMultiProcessEnabled();
+        } else {
+            throw WebViewFeatureInternal.getUnsupportedOperationException();
+        }
+    }
+
     private static WebViewProviderFactory getFactory() {
         return WebViewGlueCommunicator.getFactory();
     }
