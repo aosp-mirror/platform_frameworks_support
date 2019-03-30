@@ -278,8 +278,9 @@ public class DefaultSelectionTracker<K> extends SelectionTracker<K> {
         }
 
         if (DEBUG) Log.i(TAG, "Extending provision range to position: " + position);
-        checkState(isRangeActive(), "Range start point not set.");
-        extendRange(position, Range.TYPE_PROVISIONAL);
+        if (isRangeActive()) {
+            extendRange(position, Range.TYPE_PROVISIONAL);
+        }
     }
 
     /**
