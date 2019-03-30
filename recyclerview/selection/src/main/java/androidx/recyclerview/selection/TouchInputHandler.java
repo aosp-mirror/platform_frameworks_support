@@ -83,7 +83,7 @@ final class TouchInputHandler<K> extends MotionInputHandler<K> {
 
         ItemDetails<K> item = mDetailsLookup.getItemDetails(e);
         // Should really not be null at this point, but...
-        if (item == null) {
+        if (item == null || item.inIgnoreRegion(e)) {
             return false;
         }
 
@@ -115,7 +115,7 @@ final class TouchInputHandler<K> extends MotionInputHandler<K> {
 
         ItemDetails<K> item = mDetailsLookup.getItemDetails(e);
         // Should really not be null at this point, but...
-        if (item == null) {
+        if (item == null || item.inIgnoreRegion(e)) {
             return;
         }
 
