@@ -27,6 +27,7 @@ public final class TestItemDetails extends ItemDetails<String> {
     private String mSelectionKey;
     private boolean mInDragRegion;
     private boolean mInSelectionHotspot;
+    private boolean mInIgnoreRegion;
 
     public TestItemDetails() {
         mPosition = RecyclerView.NO_POSITION;
@@ -37,6 +38,7 @@ public final class TestItemDetails extends ItemDetails<String> {
         mSelectionKey = source.mSelectionKey;
         mInDragRegion = source.mInDragRegion;
         mInSelectionHotspot = source.mInSelectionHotspot;
+        mInIgnoreRegion = source.mInIgnoreRegion;
     }
 
     public void at(int position) {
@@ -52,6 +54,10 @@ public final class TestItemDetails extends ItemDetails<String> {
 
     public void setInItemSelectRegion(boolean over) {
         mInSelectionHotspot = over;
+    }
+
+    public void setInItemIgnoreRegion(boolean over) {
+        mInIgnoreRegion = over;
     }
 
     @Override
@@ -92,5 +98,10 @@ public final class TestItemDetails extends ItemDetails<String> {
     @Override
     public boolean inSelectionHotspot(MotionEvent e) {
         return mInSelectionHotspot;
+    }
+
+    @Override
+    public boolean inIgnoreRegion(MotionEvent e) {
+        return mInIgnoreRegion;
     }
 }

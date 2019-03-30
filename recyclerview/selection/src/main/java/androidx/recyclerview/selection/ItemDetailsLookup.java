@@ -88,15 +88,6 @@ public abstract class ItemDetailsLookup<K> {
     }
 
     /**
-     * @return true if the event coordinates are in a "selection hot spot"
-     * region of an item. Contact in these regions result in immediate
-     * selection, even when there is no existing selection.
-     */
-    final boolean inItemSelectRegion(@NonNull MotionEvent e) {
-        return overItem(e) && getItemDetails(e).inSelectionHotspot(e);
-    }
-
-    /**
      * @return the adapter position of the item at the event coordinates.
      */
     final int getItemPosition(@NonNull MotionEvent e) {
@@ -108,10 +99,6 @@ public abstract class ItemDetailsLookup<K> {
 
     private static boolean hasSelectionKey(@Nullable ItemDetails<?> item) {
         return item != null && item.getSelectionKey() != null;
-    }
-
-    private static boolean hasPosition(@Nullable ItemDetails<?> item) {
-        return item != null && item.getPosition() != RecyclerView.NO_POSITION;
     }
 
     /**
@@ -207,6 +194,18 @@ public abstract class ItemDetailsLookup<K> {
          * selection.
          */
         public boolean inSelectionHotspot(@NonNull MotionEvent e) {
+            return false;
+        }
+
+        /**
+         * Sometimes it may be useful to exclude regions of a view from selection.
+         * These regions won't be processed by the library and are thus freed up for
+         * alternative actions that may require special attention.
+         *
+         * @return true if the event is in an area of the item that should be
+         * ignored and <i>not</i> processed by the library, false otherwise
+         */
+        public boolean inIgnoreRegion(@NonNull MotionEvent e) {
             return false;
         }
 

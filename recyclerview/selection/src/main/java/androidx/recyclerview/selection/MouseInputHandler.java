@@ -106,13 +106,18 @@ final class MouseInputHandler<K> extends MotionInputHandler<K> {
             return false;
         }
 
+        ItemDetails<K> item = mDetailsLookup.getItemDetails(e);
+        if (item == null || item.inIgnoreRegion(e)) {
+            return false;
+        }
+
         if (MotionEvents.isTertiaryMouseButtonPressed(e)) {
             if (DEBUG) Log.d(TAG, "Ignoring middle click");
             return false;
         }
 
         if (mSelectionTracker.hasSelection()) {
-            onItemClick(e, mDetailsLookup.getItemDetails(e));
+            onItemClick(e, item);
             mHandledTapUp = true;
             return true;
         }
@@ -168,7 +173,7 @@ final class MouseInputHandler<K> extends MotionInputHandler<K> {
         }
 
         @Nullable ItemDetails<K> item = mDetailsLookup.getItemDetails(e);
-        if (item == null || !item.hasSelectionKey()) {
+        if (item == null || !item.hasSelectionKey() || item.inIgnoreRegion(e)) {
             return false;
         }
 
@@ -190,19 +195,24 @@ final class MouseInputHandler<K> extends MotionInputHandler<K> {
             return false;
         }
 
+        ItemDetails<K> item = mDetailsLookup.getItemDetails(e);
+        if (item == null || item.inIgnoreRegion(e)) {
+            return false;
+        }
+
         if (MotionEvents.isTertiaryMouseButtonPressed(e)) {
             if (DEBUG) Log.d(TAG, "Ignoring middle click");
             return false;
         }
 
-        ItemDetails<K> item = mDetailsLookup.getItemDetails(e);
-        return (item != null) && mOnItemActivatedListener.onItemActivated(item, e);
+        return mOnItemActivatedListener.onItemActivated(item, e);
     }
 
     private boolean onRightClick(@NonNull MotionEvent e) {
         if (mDetailsLookup.overItemWithSelectionKey(e)) {
             @Nullable ItemDetails<K> item = mDetailsLookup.getItemDetails(e);
-            if (item != null && !mSelectionTracker.isSelected(item.getSelectionKey())) {
+            if (item != null && !item.inIgnoreRegion(e)
+                    && !mSelectionTracker.isSelected(item.getSelectionKey())) {
                 mSelectionTracker.clearSelection();
                 selectItem(item);
             }

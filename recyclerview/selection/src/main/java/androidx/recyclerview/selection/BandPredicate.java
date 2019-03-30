@@ -133,7 +133,7 @@ public abstract class BandPredicate {
             }
 
             @Nullable ItemDetailsLookup.ItemDetails details = mDetailsLookup.getItemDetails(e);
-            return (details == null) || !details.inDragRegion(e);
+            return (details == null) || (!details.inDragRegion(e) && !details.inIgnoreRegion(e));
         }
     }
 }

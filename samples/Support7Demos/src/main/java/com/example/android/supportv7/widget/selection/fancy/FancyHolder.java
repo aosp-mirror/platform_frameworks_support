@@ -18,9 +18,12 @@ package com.example.android.supportv7.widget.selection.fancy;
 import android.graphics.Rect;
 import android.net.Uri;
 import android.view.MotionEvent;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.selection.ItemDetailsLookup.ItemDetails;
 import androidx.recyclerview.widget.RecyclerView;
@@ -32,6 +35,7 @@ final class FancyHolder extends RecyclerView.ViewHolder {
     private final LinearLayout mContainer;
     public final TextView mSelector;
     public final TextView mLabel;
+    public final TextView mCustomAction;
     private final ItemDetails<Uri> mDetails;
 
     private @Nullable Uri mKey;
@@ -41,6 +45,7 @@ final class FancyHolder extends RecyclerView.ViewHolder {
         mContainer = layout.findViewById(R.id.container);
         mSelector = layout.findViewById(R.id.selector);
         mLabel = layout.findViewById(R.id.label);
+        mCustomAction = layout.findViewById(R.id.custom_action);
         mDetails = new ItemDetails<Uri>() {
             @Override
             public int getPosition() {
@@ -61,7 +66,20 @@ final class FancyHolder extends RecyclerView.ViewHolder {
             public boolean inSelectionHotspot(MotionEvent e) {
                 return FancyHolder.this.inSelectRegion(e);
             }
+
+            @Override
+            public boolean inIgnoreRegion(@NonNull MotionEvent e) {
+                return FancyHolder.this.inIgnoreRegion(e);
+            }
         };
+
+        mCustomAction.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Toast.makeText(v.getContext(), "And... Action!", Toast.LENGTH_SHORT).show();
+                return true;
+            }
+        });
     }
 
     void update(Uri key, String label, boolean selected) {
@@ -102,6 +120,12 @@ final class FancyHolder extends RecyclerView.ViewHolder {
     boolean inSelectRegion(MotionEvent e) {
         Rect iconRect = new Rect();
         mSelector.getGlobalVisibleRect(iconRect);
+        return iconRect.contains((int) e.getRawX(), (int) e.getRawY());
+    }
+
+    boolean inIgnoreRegion(MotionEvent e) {
+        Rect iconRect = new Rect();
+        mCustomAction.getGlobalVisibleRect(iconRect);
         return iconRect.contains((int) e.getRawX(), (int) e.getRawY());
     }
 
