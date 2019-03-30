@@ -99,6 +99,13 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
         mDivider = drawable;
     }
 
+    /**
+     * @return the {@link Drawable} for this divider
+     */
+    public Drawable getDrawable() {
+        return mDivider;
+    }
+
     @Override
     public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
         if (parent.getLayoutManager() == null || mDivider == null) {
