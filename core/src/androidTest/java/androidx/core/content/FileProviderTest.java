@@ -364,6 +364,16 @@ public class FileProviderTest {
         }
     }
 
+    @Test
+    public void testNonExistentAuthority() {
+        File file = buildPath(mContext.getFilesDir(), "file.test");
+        try {
+            FileProvider.getUriForFile(mContext, "com.example.nonexistent", file);
+            fail("Expected exception for non-existent authority");
+        } catch (IllegalArgumentException e) {
+        }
+    }
+
     private void assertContentsEquals(byte[] expected, Uri actual) throws Exception {
         final InputStream in = mResolver.openInputStream(actual);
         try {
