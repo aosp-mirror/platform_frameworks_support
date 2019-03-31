@@ -27,7 +27,20 @@ final class NavBackStackEntry {
     private final NavDestination mDestination;
     private final Bundle mArgs;
 
+<<<<<<< HEAD   (83c4fa Merge "Merge empty history for sparse-5415233-L5520000028794)
+=======
+    // Internal unique name for this navBackStackEntry;
+    @NonNull
+    final UUID mId;
+
+>>>>>>> BRANCH (f961db Merge "Merge cherrypicks of [937285] into sparse-5418436-L09)
     NavBackStackEntry(@NonNull NavDestination destination, @Nullable Bundle args) {
+        this(UUID.randomUUID(), destination, args);
+    }
+
+    NavBackStackEntry(@NonNull UUID uuid, @NonNull NavDestination destination,
+            @Nullable Bundle args) {
+        mId = uuid;
         mDestination = destination;
         mArgs = args;
     }

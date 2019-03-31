@@ -131,12 +131,138 @@ public abstract class FragmentStateAdapter extends
     }
 
     @Override
+<<<<<<< HEAD   (83c4fa Merge "Merge empty history for sparse-5415233-L5520000028794)
     public final void onViewAttachedToWindow(@NonNull FragmentViewHolder holder) {
         if (holder.mFragment.isAdded()) {
+=======
+    public final void onViewAttachedToWindow(@NonNull final FragmentViewHolder holder) {
+        placeFragmentInViewHolder(holder);
+        gcFragments();
+    }
+
+    /**
+     * @param holder that has been bound to a Fragment in the {@link #onBindViewHolder} stage.
+     */
+    @SuppressWarnings("WeakerAccess") // to avoid creation of a synthetic accessor
+    void placeFragmentInViewHolder(@NonNull final FragmentViewHolder holder) {
+        Fragment fragment = mFragments.get(holder.getItemId());
+        if (fragment == null) {
+            throw new IllegalStateException("Design assumption violated.");
+        }
+        FrameLayout container = holder.getContainer();
+        View view = fragment.getView();
+
+        /*
+        possible states:
+        - fragment: { added, notAdded }
+        - view: { created, notCreated }
+        - view: { attached, notAttached }
+
+        combinations:
+        - { f:added, v:created, v:attached } -> check if attached to the right container
+        - { f:added, v:created, v:notAttached} -> attach view to container
+        - { f:added, v:notCreated, v:attached } -> impossible
+        - { f:added, v:notCreated, v:notAttached} -> schedule callback for when created
+        - { f:notAdded, v:created, v:attached } -> illegal state
+        - { f:notAdded, v:created, v:notAttached } -> illegal state
+        - { f:notAdded, v:notCreated, v:attached } -> impossible
+        - { f:notAdded, v:notCreated, v:notAttached } -> add, create, attach
+         */
+
+        // { f:notAdded, v:created, v:attached } -> illegal state
+        // { f:notAdded, v:created, v:notAttached } -> illegal state
+        if (!fragment.isAdded() && view != null) {
+            throw new IllegalStateException("Design assumption violated.");
+        }
+
+        // { f:added, v:notCreated, v:notAttached} -> schedule callback for when created
+        if (fragment.isAdded() && view == null) {
+            scheduleViewAttach(fragment, container);
+>>>>>>> BRANCH (f961db Merge "Merge cherrypicks of [937285] into sparse-5418436-L09)
             return;
         }
+<<<<<<< HEAD   (83c4fa Merge "Merge empty history for sparse-5415233-L5520000028794)
         mFragmentManager.beginTransaction().add(holder.getContainer().getId(),
                 holder.mFragment).commit(); // TODO(122669030): review transaction commit type usage
+=======
+
+        // { f:added, v:created, v:attached } -> check if attached to the right container
+        if (fragment.isAdded() && view.getParent() != null) {
+            if (view.getParent() != container) {
+                addViewToContainer(view, container);
+            }
+            return;
+        }
+
+        // { f:added, v:created, v:notAttached} -> attach view to container
+        if (fragment.isAdded()) {
+            addViewToContainer(view, container);
+            return;
+        }
+
+        // { f:notAdded, v:notCreated, v:notAttached } -> add, create, attach
+        if (!shouldDelayFragmentTransactions()) {
+            scheduleViewAttach(fragment, container);
+            mFragmentManager.beginTransaction().add(fragment, "f" + holder.getItemId()).commitNow();
+        } else {
+            if (mFragmentManager.isDestroyed()) {
+                return; // nothing we can do
+            }
+            mLifecycle.addObserver(new LifecycleEventObserver() {
+                @Override
+                public void onStateChanged(@NonNull LifecycleOwner source,
+                        @NonNull Lifecycle.Event event) {
+                    if (shouldDelayFragmentTransactions()) {
+                        return;
+                    }
+                    source.getLifecycle().removeObserver(this);
+                    if (ViewCompat.isAttachedToWindow(holder.getContainer())) {
+                        placeFragmentInViewHolder(holder);
+                    }
+                }
+            });
+        }
+    }
+
+    private void scheduleViewAttach(final Fragment fragment, final FrameLayout container) {
+        // After a config change, Fragments that were in FragmentManager will be recreated. Since
+        // ViewHolder container ids are dynamically generated, we opted to manually handle
+        // attaching Fragment views to containers. For consistency, we use the same mechanism for
+        // all Fragment views.
+        mFragmentManager.registerFragmentLifecycleCallbacks(
+                new FragmentManager.FragmentLifecycleCallbacks() {
+                    @Override
+                    public void onFragmentViewCreated(@NonNull FragmentManager fm,
+                            @NonNull Fragment f, @NonNull View v,
+                            @Nullable Bundle savedInstanceState) {
+                        if (f == fragment) {
+                            fm.unregisterFragmentLifecycleCallbacks(this);
+                            addViewToContainer(v, container);
+                        }
+                    }
+                }, false);
+    }
+
+    @SuppressWarnings("WeakerAccess") // to avoid creation of a synthetic accessor
+    void addViewToContainer(@NonNull View v, FrameLayout container) {
+        if (container.getChildCount() > 1) {
+            throw new IllegalStateException("Design assumption violated.");
+        }
+
+        if (v.getParent() == container) {
+            return;
+        }
+
+        if (container.getChildCount() > 0) {
+            container.removeAllViews();
+        }
+
+        if (v.getParent() != null) {
+            ((ViewGroup) v.getParent()).removeView(v);
+        }
+
+        container.addView(v);
+>>>>>>> BRANCH (f961db Merge "Merge cherrypicks of [937285] into sparse-5418436-L09)
     }
 
     @Override
