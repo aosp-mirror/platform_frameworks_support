@@ -650,6 +650,33 @@ public class SystemAlarmDispatcherTest extends DatabaseTest {
         assertThat(numExecutionCompleted, is(2));
     }
 
+    @Test
+    @LargeTest
+    @RepeatRule.Repeat(times = 1)
+    public void testDelayMet_withUnMetConstraintShouldNotCrashOnDestroy()
+            throws InterruptedException {
+        when(mBatteryChargingTracker.getInitialState()).thenReturn(false);
+        OneTimeWorkRequest work = new OneTimeWorkRequest.Builder(TestWorker.class)
+                .setPeriodStartTime(System.currentTimeMillis(), TimeUnit.MILLISECONDS)
+                .setConstraints(new Constraints.Builder()
+                        .setRequiresCharging(true)
+                        .build())
+                .build();
+
+        insertWork(work);
+
+        Intent delayMet = CommandHandler.createDelayMetIntent(mContext, work.getStringId());
+        mSpyDispatcher.postOnMainThread(
+                new SystemAlarmDispatcher.AddRunnable(mSpyDispatcher, delayMet, START_ID));
+
+        mLatch.await(TEST_TIMEOUT, TimeUnit.SECONDS);
+        assertThat(mLatch.getCount(), is(0L));
+
+        // Should not crash after we destroy the dispatcher
+        mDispatcher.onDestroy();
+        mBatteryChargingTracker.setState(true);
+    }
+
     // Marking it public for mocking
     public static class CommandInterceptingSystemDispatcher extends SystemAlarmDispatcher {
         private final List<Intent> mCommands;
