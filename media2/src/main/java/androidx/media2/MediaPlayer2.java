@@ -243,7 +243,7 @@ public abstract class MediaPlayer2 {
         if (Build.VERSION.SDK_INT <= 27 || DEBUG_USE_EXOPLAYER) {
             return new ExoPlayerMediaPlayer2Impl(context);
         } else {
-            return new MediaPlayer2Impl();
+            return new MediaPlayer2Impl(context);
         }
     }
 
@@ -283,8 +283,7 @@ public abstract class MediaPlayer2 {
      * Starts or resumes playback. If playback had previously been paused,
      * playback will continue from where it was paused. If playback had
      * reached end of stream and been paused, or never started before,
-     * playback will start at the beginning. If the source had not been
-     * prepared, the player will prepare the source and play.
+     * playback will start at the beginning.
      *
      * @return a token which can be used to cancel the operation later with {@link #cancel}.
      */
@@ -519,9 +518,8 @@ public abstract class MediaPlayer2 {
     /**
      * Returns the width of the video.
      *
-     * @return the width of the video, or 0 if there is no video,
-     * no display surface was set, or the width has not been determined
-     * yet. The {@link EventCallback} can be registered via
+     * @return the width of the video, or 0 if there is no video or the width has not been
+     * determined yet. The {@link EventCallback} can be registered via
      * {@link #setEventCallback(Executor, EventCallback)} to provide a
      * notification {@link EventCallback#onVideoSizeChanged} when the width
      * is available.
@@ -531,9 +529,8 @@ public abstract class MediaPlayer2 {
     /**
      * Returns the height of the video.
      *
-     * @return the height of the video, or 0 if there is no video,
-     * no display surface was set, or the height has not been determined
-     * yet. The {@link EventCallback} can be registered via
+     * @return the height of the video, or 0 if there is no video or the height has not been
+     * determined yet. The {@link EventCallback} can be registered via
      * {@link #setEventCallback(Executor, EventCallback)} to provide a
      * notification {@link EventCallback#onVideoSizeChanged} when the height is
      * available.
@@ -786,6 +783,23 @@ public abstract class MediaPlayer2 {
      * addTimedTextSource method is called.
      */
     public abstract List<TrackInfo> getTrackInfo();
+
+    /**
+     * Returns information of track at {@code index}.
+     *
+     * Note that a {@link TrackInfo} will be converted to a
+     * {@link androidx.media2.MediaPlayer.TrackInfo} by this method.
+     *
+     * @param index into {@link #getTrackInfo()}
+     * @return track information
+     */
+    public androidx.media2.MediaPlayer.TrackInfo getTrackInfo(int index) {
+        List<TrackInfo> tracks = getTrackInfo();
+        TrackInfo info = tracks.get(index);
+        MediaItem item = getCurrentMediaItem();
+        return new androidx.media2.MediaPlayer.TrackInfo(
+                index, item , info.getTrackType(), info.getFormat());
+    }
 
     /**
      * Returns the index of the audio, video, or subtitle track currently selected for playback,

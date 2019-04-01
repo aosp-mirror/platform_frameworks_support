@@ -7,7 +7,7 @@ plugins {
 }
 
 dependencies {
-    api(project(":core"))
+    api("androidx.core:core:1.1.0-alpha05")
     implementation("androidx.collection:collection:1.0.0")
 
     androidTestImplementation(TEST_EXT_JUNIT)
@@ -30,7 +30,7 @@ android {
     }
 }
 
-supportLibrary {
+androidx {
     name = "Android Support Library media compat"
     publish = true
     mavenVersion = LibraryVersions.MEDIA

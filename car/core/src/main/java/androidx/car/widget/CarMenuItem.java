@@ -16,8 +16,11 @@
 
 package androidx.car.widget;
 
+import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.Icon;
 
+import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
@@ -42,7 +45,7 @@ import androidx.car.R;
  * after creation, and as such, have setters in the class and the builder.
  *
  */
-public class CarMenuItem {
+public final class CarMenuItem {
     /**
      * Interface definition for a callback to be invoked when a {@code CarMenuItem} is clicked.
      */
@@ -84,14 +87,17 @@ public class CarMenuItem {
     private final OnClickListener mOnClickListener;
     @Nullable
     private final Icon mIcon;
+    private final Drawable mIconDrawable;
+
     private final boolean mIsCheckable;
     private final DisplayBehavior mDisplayBehavior;
 
     CarMenuItem(Builder builder) {
         mTitle = builder.mTitle;
         mOnClickListener = builder.mOnClickListener;
-        mIcon = builder.mIcon;
         mStyleResId = builder.mStyleResId;
+        mIcon = builder.mIcon;
+        mIconDrawable = builder.mIconDrawable;
         mIsEnabled = builder.mIsEnabled;
         mIsChecked = builder.mIsChecked;
         mIsCheckable = builder.mIsCheckable;
@@ -134,8 +140,8 @@ public class CarMenuItem {
      * Returns the icon of the {@code CarMenuItem}.
      */
     @Nullable
-    public Icon getIcon() {
-        return mIcon;
+    public Drawable getIcon() {
+        return mIconDrawable;
     }
 
     /**
@@ -187,7 +193,7 @@ public class CarMenuItem {
      * Returns the {@link OnClickListener} of the {@code CarMenuItem}.
      */
     @Nullable
-    public OnClickListener getOnClickListener() {
+    OnClickListener getOnClickListener() {
         return mOnClickListener;
     }
 
@@ -200,6 +206,8 @@ public class CarMenuItem {
         OnClickListener mOnClickListener;
         @Nullable
         Icon mIcon;
+        @Nullable
+        Drawable mIconDrawable;
         @StyleRes
         int mStyleResId = R.style.Widget_Car_ActionButton_Light;
         boolean mIsEnabled = true;
@@ -249,10 +257,38 @@ public class CarMenuItem {
          *
          * @param icon Icon of the {@code CarMenuItem}.
          * @return This {@code Builder} object to allow call chaining.
+         *
+         * @deprecated Use {@link #setIcon(Context, int)} instead.
          */
+        @Deprecated
         @NonNull
         public Builder setIcon(@NonNull Icon icon) {
             mIcon = icon;
+            return this;
+        }
+
+        /**
+         * Sets the icon of the {@code CarMenuItem}.
+         *
+         * @param icon Icon of the {@code CarMenuItem}.
+         * @return This {@code Builder} object to allow call chaining.
+         */
+        @NonNull
+        public Builder setIcon(@NonNull Drawable icon) {
+            mIconDrawable = icon;
+            return this;
+        }
+
+        /**
+         * Sets the icon of the {@code CarMenuItem}.
+         *
+         * @param context Context to load the drawble resource with.
+         * @param iconResId Resource id of icon of the {@code CarMenuItem}.
+         * @return This {@code Builder} object to allow call chaining.
+         */
+        @NonNull
+        public Builder setIcon(@NonNull Context context, @DrawableRes int iconResId) {
+            mIconDrawable = context.getDrawable(iconResId);
             return this;
         }
 

@@ -51,20 +51,19 @@ import java.util.concurrent.TimeUnit
  * @see BenchmarkRule#getState()
  */
 class BenchmarkState internal constructor() {
-    /* used by keepRunningInline() */
-    @JvmField
-    @PublishedApi
-    internal var iteration = 0
+    private var warmupIteration = 0 // increasing iteration count during warmup
 
-    /* used by keepRunningInline() */
-    @JvmField
+    /**
+     * Decreasing iteration count used when [state] == [RUNNING], used to determine when main
+     * measurement loop finishes.
+     */
+    @JvmField /* Used by [BenchmarkState.keepRunningInline()] */
     @PublishedApi
-    internal var maxIterations = 0
+    internal var iterationsRemaining = -1
 
-    /* used by keepRunningInline() */
-    @JvmField
-    @PublishedApi
-    internal var state = NOT_STARTED // Current benchmark state.
+    private var maxIterations = 0
+
+    private var state = NOT_STARTED // Current benchmark state.
 
     private val warmupManager = WarmupManager()
 
@@ -93,8 +92,17 @@ class BenchmarkState internal constructor() {
      */
     internal val stats: Stats
         get() {
+            if (state == NOT_STARTED) {
+                throw IllegalStateException("The benchmark wasn't started! Every test in a class " +
+                        "with a BenchmarkRule must contain a benchmark. In Kotlin, call " +
+                        "benchmarkRule.measureRepeated {}, or in Java, call " +
+                        "benchmarkRule.getState().keepRunning() to run your benchmark.")
+            }
             if (state != FINISHED) {
-                throw IllegalStateException("The benchmark hasn't finished")
+                throw IllegalStateException("The benchmark hasn't finished! In Java, use " +
+                        "while(BenchmarkState.keepRunning()) to ensure keepRunning() returns " +
+                        "false before ending your test. In Kotlin, just use " +
+                        "benchmarkRule.measureRepeated {} to avoid the problem.")
             }
             return internalStats!!
         }
@@ -166,7 +174,7 @@ class BenchmarkState internal constructor() {
 
     private fun beginWarmup() {
         startTimeNs = System.nanoTime()
-        iteration = 0
+        warmupIteration = 0
         state = WARMUP
     }
 
@@ -187,7 +195,7 @@ class BenchmarkState internal constructor() {
             Math.max(idealIterations, MIN_TEST_ITERATIONS)
         )
         pausedDurationNs = 0
-        iteration = 0
+        iterationsRemaining = maxIterations
         repeatCount = 0
         state = RUNNING
         startTimeNs = System.nanoTime()
@@ -206,7 +214,7 @@ class BenchmarkState internal constructor() {
             return false
         }
         pausedDurationNs = 0
-        iteration = 0
+        iterationsRemaining = maxIterations
         startTimeNs = System.nanoTime()
         return true
     }
@@ -214,7 +222,7 @@ class BenchmarkState internal constructor() {
     /**
      * Inline fast-path function for inner benchmark loop.
      *
-     * Kotlin users should use [BenchmarkRule.measure]
+     * Kotlin users should use [BenchmarkRule.measureRepeated]
      *
      * This codepath uses exclusively @JvmField/const members, so there are no method calls at all
      * in the inlined loop. On recent Android Platform versions, ART inlines these accessors anyway,
@@ -224,20 +232,11 @@ class BenchmarkState internal constructor() {
      */
     @Suppress("NOTHING_TO_INLINE")
     inline fun keepRunningInline(): Boolean {
-        if (state == RUNNING && iteration < maxIterations) {
-            iteration++
+        if (iterationsRemaining > 0) {
+            iterationsRemaining--
             return true
         }
-        return keepRunning()
-    }
-
-    private fun throwIfPaused() {
-        if (paused) {
-            throw IllegalStateException(
-                "Benchmark step finished with paused state." +
-                        " Resume the benchmark before finishing each step."
-            )
-        }
+        return keepRunningInternal()
     }
 
     /**
@@ -251,13 +250,22 @@ class BenchmarkState internal constructor() {
      * ```
      */
     fun keepRunning(): Boolean {
+        if (iterationsRemaining > 0) {
+            iterationsRemaining--
+            return true
+        }
+        return keepRunningInternal()
+    }
+
+    @PublishedApi
+    internal fun keepRunningInternal(): Boolean {
         when (state) {
             NOT_STARTED -> {
                 beginWarmup()
                 return true
             }
             WARMUP -> {
-                iteration++
+                warmupIteration++
                 // Only check nanoTime on every iteration in WARMUP since we
                 // don't yet have a target iteration count.
                 val time = System.nanoTime()
@@ -270,8 +278,8 @@ class BenchmarkState internal constructor() {
                 return true
             }
             RUNNING -> {
-                iteration++
-                if (iteration >= maxIterations) {
+                iterationsRemaining--
+                if (iterationsRemaining <= 0) {
                     throwIfPaused() // only check at end of loop to save cycles
                     return startNextTestRun()
                 }
@@ -279,6 +287,15 @@ class BenchmarkState internal constructor() {
             }
             FINISHED -> throw IllegalStateException("The benchmark has finished.")
             else -> throw IllegalStateException("The benchmark is in unknown state.")
+        }
+    }
+
+    private fun throwIfPaused() {
+        if (paused) {
+            throw IllegalStateException(
+                "Benchmark step finished with paused state." +
+                        " Resume the benchmark before finishing each step."
+            )
         }
     }
 
@@ -291,6 +308,22 @@ class BenchmarkState internal constructor() {
     private fun standardDeviation(): Long = stats.standardDeviation.toLong()
 
     private fun count(): Long = maxIterations.toLong()
+
+    internal data class Report(
+        val nanos: Long,
+        val data: List<Long>,
+        val repeatIterations: Int,
+        val warmupIterations: Int
+    )
+
+    internal fun getReport(): Report {
+        return Report(
+            nanos = min(),
+            data = results,
+            repeatIterations = maxIterations,
+            warmupIterations = warmupIteration
+        )
+    }
 
     private fun summaryLine() = "Summary: " +
             "median=${median()}ns, " +
@@ -330,11 +363,13 @@ class BenchmarkState internal constructor() {
         Log.i(TAG, key + summaryLine())
         Log.i(CSV_TAG, results.joinToString(prefix = "$key, ", separator = ", "))
         val status = Bundle()
-        status.putLong("${key}_median", median())
-        status.putLong("${key}_mean", mean())
-        status.putLong("${key}_min", min())
-        status.putLong("${key}_standardDeviation", standardDeviation())
-        status.putLong("${key}_count", count())
+
+        val prefix = WarningState.WARNING_PREFIX
+        status.putLong("${prefix}median", median())
+        status.putLong("${prefix}mean", mean())
+        status.putLong("${prefix}min", min())
+        status.putLong("${prefix}standardDeviation", standardDeviation())
+        status.putLong("${prefix}count", count())
         status.putString(
             STUDIO_OUTPUT_KEY_PREFIX + STUDIO_OUTPUT_KEY_ID,
             ideSummaryLineWrapped(key)
@@ -353,8 +388,7 @@ class BenchmarkState internal constructor() {
 
         private const val NOT_STARTED = 0 // The benchmark has not started yet.
         private const val WARMUP = 1 // The benchmark is warming up.
-        @PublishedApi
-        internal const val RUNNING = 2 // The benchmark is running. (used by keepRunningInternal()
+        private const val RUNNING = 2 // The benchmark is running.
         private const val FINISHED = 3 // The benchmark has stopped.
 
         // values determined empirically

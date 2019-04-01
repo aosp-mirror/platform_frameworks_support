@@ -103,6 +103,23 @@ public class SwitchListItemActivity extends Activity {
             mItems.add(item);
 
             item = new SwitchListItem(mContext);
+            item.setPrimaryActionIcon(android.R.drawable.sym_def_app_icon,
+                    SwitchListItem.PRIMARY_ACTION_ICON_SIZE_SMALL);
+            item.setTitle("Switch with Icon");
+            item.setBody(longText);
+            item.setSwitchOnCheckedChangeListener(mListener);
+            mItems.add(item);
+
+            item = new SwitchListItem(mContext);
+            item.setTitle("Switch with Drawable");
+            item.setPrimaryActionIcon(
+                    mContext.getDrawable(android.R.drawable.sym_def_app_icon),
+                    SwitchListItem.PRIMARY_ACTION_ICON_SIZE_SMALL);
+            item.setBody(longText);
+            item.setSwitchOnCheckedChangeListener(mListener);
+            mItems.add(item);
+
+            item = new SwitchListItem(mContext);
             item.setTitle("Clicking item toggles switch");
             item.setClickable(true);
             item.setSwitchOnCheckedChangeListener(mListener);

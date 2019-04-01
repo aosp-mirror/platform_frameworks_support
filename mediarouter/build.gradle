@@ -10,7 +10,7 @@ dependencies {
     api(project(":media"))
     implementation("androidx.appcompat:appcompat:1.0.2")
     implementation("androidx.palette:palette:1.0.0")
-    implementation(project(":recyclerview"))
+    implementation("androidx.recyclerview:recyclerview:1.0.0")
 
     androidTestImplementation(TEST_EXT_JUNIT)
     androidTestImplementation(TEST_CORE)
@@ -28,9 +28,13 @@ android {
                 'api24'
         ]
     }
+
+    buildTypes.all {
+        consumerProguardFiles 'proguard-rules.pro'
+    }
 }
 
-supportLibrary {
+androidx {
     name = "Android MediaRouter Support Library"
     publish = true
     mavenVersion = LibraryVersions.MEDIAROUTER

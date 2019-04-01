@@ -27,7 +27,6 @@ import androidx.build.Strategy.TipOfTree
 val RELEASE_RULE = docsRules("public", false) {
     prebuilts(LibraryGroups.ACTIVITY, "1.0.0-alpha05")
     prebuilts(LibraryGroups.ANNOTATION, "1.1.0-alpha02")
-    ignore(LibraryGroups.APPCOMPAT.group, "appcompat-resources")
     prebuilts(LibraryGroups.APPCOMPAT, "1.1.0-alpha03")
     prebuilts(LibraryGroups.ARCH_CORE, "2.0.0")
     prebuilts(LibraryGroups.ASYNCLAYOUTINFLATER, "1.0.0")
@@ -65,20 +64,22 @@ val RELEASE_RULE = docsRules("public", false) {
     ignore(LibraryGroups.LIFECYCLE.group, "lifecycle-livedata-ktx")
     ignore(LibraryGroups.LIFECYCLE.group, "lifecycle-livedata-core-ktx")
     ignore(LibraryGroups.LIFECYCLE.group, "lifecycle-compiler")
-    ignore(LibraryGroups.LIFECYCLE.group, "lifecycle-common-eap")
+    ignore(LibraryGroups.LIFECYCLE.group, "lifecycle-runtime-eap")
+    ignore(LibraryGroups.LIFECYCLE.group, "lifecycle-livedata-eap")
+    ignore(LibraryGroups.LIFECYCLE.group, "lifecycle-runtime-eap-lint")
     prebuilts(LibraryGroups.LIFECYCLE, "lifecycle-viewmodel-savedstate", "1.0.0-alpha01")
     prebuilts(LibraryGroups.LIFECYCLE, "2.1.0-alpha03")
     prebuilts(LibraryGroups.LOADER, "1.1.0-beta01")
     prebuilts(LibraryGroups.LOCALBROADCASTMANAGER, "1.1.0-alpha01")
-    prebuilts(LibraryGroups.MEDIA, "media", "1.1.0-alpha02")
+    prebuilts(LibraryGroups.MEDIA, "media", "1.1.0-alpha03")
     // TODO: Rename media-widget to media2-widget after 1.0.0-alpha06
     prebuilts(LibraryGroups.MEDIA, "media-widget", "1.0.0-alpha06")
     ignore(LibraryGroups.MEDIA2.group, "media2-widget")
     ignore(LibraryGroups.MEDIA2.group, "media2-exoplayer")
-    prebuilts(LibraryGroups.MEDIA2, "1.0.0-alpha03")
+    prebuilts(LibraryGroups.MEDIA2, "1.0.0-alpha04")
     prebuilts(LibraryGroups.MEDIAROUTER, "1.1.0-alpha02")
     ignore(LibraryGroups.NAVIGATION.group, "navigation-testing")
-    prebuilts(LibraryGroups.NAVIGATION, "2.0.0-rc02")
+    prebuilts(LibraryGroups.NAVIGATION, "2.1.0-alpha01")
     prebuilts(LibraryGroups.PAGING, "2.1.0")
     prebuilts(LibraryGroups.PALETTE, "1.0.0")
     prebuilts(LibraryGroups.PERCENTLAYOUT, "1.0.0")
@@ -90,7 +91,8 @@ val RELEASE_RULE = docsRules("public", false) {
     prebuilts(LibraryGroups.RECYCLERVIEW, "recyclerview", "1.1.0-alpha03")
     prebuilts(LibraryGroups.RECYCLERVIEW, "recyclerview-selection", "1.1.0-alpha01")
     prebuilts(LibraryGroups.REMOTECALLBACK, "1.0.0-alpha01")
-    prebuilts(LibraryGroups.ROOM, "2.1.0-alpha05")
+    ignore(LibraryGroups.ROOM.group, "room-common-java8")
+    prebuilts(LibraryGroups.ROOM, "2.1.0-alpha06")
     prebuilts(LibraryGroups.SAVEDSTATE, "1.0.0-alpha02")
     prebuilts(LibraryGroups.SHARETARGET, "1.0.0-alpha01")
     prebuilts(LibraryGroups.SLICE, "slice-builders", "1.0.0")
@@ -113,7 +115,8 @@ val RELEASE_RULE = docsRules("public", false) {
     prebuilts(LibraryGroups.WEAR, "1.0.0")
             .addStubs("wear/wear_stubs/com.google.android.wearable-stubs.jar")
     prebuilts(LibraryGroups.WEBKIT, "1.0.0")
-    ignore(LibraryGroups.WORKMANAGER.group, "2.0.0-rc01")
+    ignore(LibraryGroups.WORKMANAGER.group, "work-gcm")
+    prebuilts(LibraryGroups.WORKMANAGER, "2.0.1-rc01")
     default(Ignore)
 }
 
@@ -248,14 +251,14 @@ sealed class Strategy {
         }
 
         override fun toString() = "Prebuilts(\"$version\")"
-        fun dependency(extension: SupportLibraryExtension): String {
+        fun dependency(extension: AndroidXExtension): String {
             return "${extension.mavenGroup?.group}:${extension.project.name}:$version"
         }
     }
 }
 
 class PublishDocsRules(val name: String, val offline: Boolean, private val rules: List<DocsRule>) {
-    fun resolve(extension: SupportLibraryExtension): DocsRule? {
+    fun resolve(extension: AndroidXExtension): DocsRule? {
         val mavenGroup = extension.mavenGroup
         return if (mavenGroup == null) null else resolve(mavenGroup.group, extension.project.name)
     }
