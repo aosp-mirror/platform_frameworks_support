@@ -667,6 +667,12 @@ public class VideoView extends SelectiveLayout {
         if (DEBUG) {
             Log.d(TAG, "openVideo()");
         }
+        // Run extractMetadata() in another thread to prevent StrictMode violation.
+        // extractMetadata() contains file IO indirectly,
+        // via MediaMetadataRetriever.
+        MetadataExtractTask task = new MetadataExtractTask(mMediaItem, getContext());
+        task.execute();
+
         if (mMediaItem != null) {
             resetPlayer();
             if (isRemotePlayback()) {
@@ -992,14 +998,6 @@ public class VideoView extends SelectiveLayout {
                                     new SessionCommand(MediaControlView.EVENT_UPDATE_TRACK_STATUS,
                                             null), data);
                         }
-
-                        // Run extractMetadata() in another thread to prevent StrictMode violation.
-                        // extractMetadata() contains file IO indirectly,
-                        // via MediaMetadataRetriever.
-                        boolean isMusic = isCurrentItemMusic();
-                        MetadataExtractTask task = new MetadataExtractTask(mMediaItem, isMusic,
-                                getContext());
-                        task.execute();
                     }
 
                     if (mMediaControlView != null) {
@@ -1147,15 +1145,14 @@ public class VideoView extends SelectiveLayout {
         private boolean mIsMusic;
         private Context mContext;
 
-        MetadataExtractTask(MediaItem mediaItem, boolean isMusic, Context context) {
+        MetadataExtractTask(MediaItem mediaItem, Context context) {
             mItem = mediaItem;
-            mIsMusic = isMusic;
             mContext = context;
         }
 
         @Override
         protected MediaMetadata doInBackground(Void... params) {
-            return extractMetadata(mItem, mIsMusic);
+            return extractMetadata(mItem);
         }
 
         @Override
@@ -1174,7 +1171,7 @@ public class VideoView extends SelectiveLayout {
             }
         }
 
-        MediaMetadata extractMetadata(MediaItem mediaItem, boolean isMusic) {
+        MediaMetadata extractMetadata(MediaItem mediaItem) {
             MediaMetadataRetriever retriever = null;
             String path = "";
             try {
@@ -1205,6 +1202,7 @@ public class VideoView extends SelectiveLayout {
             }
 
             MediaMetadata metadata = mediaItem.getMetadata();
+            mIsMusic = extractIsMusic(retriever);
 
             // Do not extract metadata of a media item which is not the current item.
             if (mediaItem != mMediaItem) {
@@ -1213,7 +1211,7 @@ public class VideoView extends SelectiveLayout {
                 }
                 return null;
             }
-            if (!isMusic) {
+            if (!mIsMusic) {
                 mTitle = extractString(metadata,
                         MediaMetadata.METADATA_KEY_TITLE, retriever,
                         MediaMetadataRetriever.METADATA_KEY_TITLE, path);
@@ -1239,7 +1237,7 @@ public class VideoView extends SelectiveLayout {
             // Set duration and title values as MediaMetadata for MediaControlView
             MediaMetadata.Builder builder = new MediaMetadata.Builder();
 
-            if (isMusic) {
+            if (mIsMusic) {
                 builder.putString(MediaMetadata.METADATA_KEY_ARTIST, mMusicArtistText);
             }
             builder.putString(MediaMetadata.METADATA_KEY_TITLE, mTitle);
@@ -1291,6 +1289,14 @@ public class VideoView extends SelectiveLayout {
                 return new BitmapDrawable(getResources(), bitmap);
             }
             return defaultDrawable;
+        }
+
+        private boolean extractIsMusic(MediaMetadataRetriever retriever) {
+            boolean hasAudio = "yes".equals(
+                    retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_HAS_AUDIO));
+            boolean hasVideo = "yes".equals(
+                    retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_HAS_VIDEO));
+            return hasAudio && !hasVideo;
         }
     }
 
