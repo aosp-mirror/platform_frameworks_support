@@ -34,8 +34,13 @@ import java.lang.annotation.Target;
  * It is strongly recommended that components that support this annotation specifically call
  * it out in their documentation.
  *
+<<<<<<< HEAD   (7eb44d Merge "Merge empty history for sparse-5424210-L8230000028925)
  * @see androidx.activity.ComponentActivity#onCreate(android.os.Bundle)
  * @see androidx.fragment.app.Fragment#onCreateView
+=======
+ * see androidx.activity.ComponentActivity#ComponentActivity(int)
+ * @see androidx.fragment.app.Fragment#Fragment(int)
+>>>>>>> BRANCH (6e7e5e Merge "Merge cherrypicks of [937293, 937294, 937295] into sp)
  */
 @Retention(RUNTIME)
 @Target({TYPE})
