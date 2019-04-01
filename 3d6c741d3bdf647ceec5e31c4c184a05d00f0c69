@@ -250,6 +250,30 @@
     },
     {
       "key": {
+        "uuid": "87901c58_665ae6e8",
+        "filename": "car/core/api/current.txt",
+        "patchSetId": 22
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-04-01T16:28:42Z",
+      "side": 1,
+      "message": "Did you explicitly ask about it? I\u0027d say that designers simply didn\u0027t create all possible variations: Title style \"X\" + content style \"Y\". I\u0027d find be very surprise if you actually want to restrict icons in headers for only \"non\" list contents.",
+      "parentUuid": "e825cc2f_24e82161",
+      "range": {
+        "startLine": 59,
+        "startChar": 102,
+        "endLine": 66,
+        "endChar": 92
+      },
+      "revId": "3d6c741d3bdf647ceec5e31c4c184a05d00f0c69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "571d0587_dc428396",
         "filename": "car/core/src/main/java/androidx/car/app/CarSingleSelectionDialog.java",
         "patchSetId": 22
