@@ -27,8 +27,8 @@ dependencies {
     api(project(":annotation"))
     api("androidx.core:core:1.0.1")
     implementation("androidx.collection:collection:1.0.0")
-    api(project(":vectordrawable"))
-    api(project(":vectordrawable-animated"))
+    api("androidx.vectordrawable:vectordrawable:1.1.0-alpha01")
+    api("androidx.vectordrawable:vectordrawable-animated:1.1.0-alpha01")
 
     androidTestImplementation(TEST_EXT_JUNIT)
     androidTestImplementation(TEST_CORE)
@@ -40,6 +40,7 @@ dependencies {
     androidTestImplementation(DEXMAKER_MOCKITO, libs.exclude_bytebuddy) // DexMaker has it"s own MockMaker
     androidTestImplementation project(':internal-testutils'), {
         exclude group: 'androidx.appcompat', module: 'appcompat-resources'
+        exclude group: 'androidx.core', module: 'core'
     }
 }
 
