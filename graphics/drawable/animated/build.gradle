@@ -8,7 +8,7 @@ plugins {
 
 dependencies {
     api(project(":vectordrawable"))
-    implementation(project(":interpolator"))
+    implementation("androidx.interpolator:interpolator:1.0.0")
     implementation(project(":collection"))
 
     androidTestImplementation(TEST_EXT_JUNIT)
@@ -33,7 +33,7 @@ android {
     }
 }
 
-supportLibrary {
+androidx {
     name = "Android Support AnimatedVectorDrawable"
     publish = true
     mavenVersion = LibraryVersions.VECTORDRAWABLE_ANIMATED
