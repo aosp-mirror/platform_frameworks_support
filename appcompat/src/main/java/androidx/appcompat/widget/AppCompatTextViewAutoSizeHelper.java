@@ -569,9 +569,13 @@ class AppCompatTextViewAutoSizeHelper {
                 TEMP_RECTF.setEmpty();
                 TEMP_RECTF.right = availableWidth;
                 TEMP_RECTF.bottom = availableHeight;
-                final float optimalTextSize = findLargestTextSizeWhichFits(TEMP_RECTF);
-                if (optimalTextSize != mTextView.getTextSize()) {
-                    setTextSizeInternal(TypedValue.COMPLEX_UNIT_PX, optimalTextSize);
+                try {
+                    final float optimalTextSize = findLargestTextSizeWhichFits(TEMP_RECTF);
+                    if (optimalTextSize != mTextView.getTextSize()) {
+                        setTextSizeInternal(TypedValue.COMPLEX_UNIT_PX, optimalTextSize);
+                    }
+                } catch (Exception e) {
+                    Log.w(TAG, "autoSizeText() failed due to exception: " + e.getMessage());
                 }
             }
         }
