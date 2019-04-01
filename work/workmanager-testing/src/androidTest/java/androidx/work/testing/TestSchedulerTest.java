@@ -48,13 +48,14 @@ import java.util.concurrent.TimeUnit;
 @LargeTest
 public class TestSchedulerTest {
 
+    private Context mContext;
     private TestDriver mTestDriver;
 
     @Before
     public void setUp() {
-        Context context = ApplicationProvider.getApplicationContext();
-        WorkManagerTestInitHelper.initializeTestWorkManager(context);
-        mTestDriver = WorkManagerTestInitHelper.getTestDriver();
+        mContext = ApplicationProvider.getApplicationContext();
+        WorkManagerTestInitHelper.initializeTestWorkManager(mContext);
+        mTestDriver = WorkManagerTestInitHelper.getTestDriver(mContext);
         CountingTestWorker.COUNT.set(0);
     }
 
@@ -64,7 +65,7 @@ public class TestSchedulerTest {
 
         WorkRequest request = createWorkRequest();
         // TestWorkManagerImpl is a subtype of WorkManagerImpl.
-        WorkManagerImpl workManagerImpl = WorkManagerImpl.getInstance();
+        WorkManagerImpl workManagerImpl = WorkManagerImpl.getInstance(mContext);
         workManagerImpl.enqueue(Collections.singletonList(request)).getResult().get();
         WorkInfo status = workManagerImpl.getWorkInfoById(request.getId()).get();
         assertThat(status.getState().isFinished(), is(true));
