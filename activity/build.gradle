@@ -15,13 +15,18 @@ android {
 
 dependencies {
     api(project(":annotation"))
+<<<<<<< HEAD   (091df4 Merge "Merge empty history for sparse-5424517-L3840000028929)
     api(project(":core")) {
+=======
+    api(project(":arch:core-common"))
+    api("androidx.core:core:1.1.0-alpha05") {
+>>>>>>> BRANCH (883485 Merge "Merge cherrypicks of [938141, 938142, 938143, 938144])
         exclude group: 'androidx.annotation'
         exclude group: 'com.google.guava', module: 'listenablefuture'
     }
     api(project(":lifecycle:lifecycle-runtime"), libs.exclude_annotations_transitive)
     api(project(":lifecycle:lifecycle-viewmodel"), libs.exclude_annotations_transitive)
-    api(project(":savedstate"))
+    api("androidx.savedstate:savedstate:1.0.0-alpha02")
 
     androidTestImplementation(KOTLIN_STDLIB)
     androidTestImplementation(TEST_EXT_JUNIT)
