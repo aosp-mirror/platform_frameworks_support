@@ -274,6 +274,30 @@
     },
     {
       "key": {
+        "uuid": "f37cfcdd_7a041c4b",
+        "filename": "car/core/api/current.txt",
+        "patchSetId": 22
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-04-01T23:51:29Z",
+      "side": 1,
+      "message": "Reached out to the design team, and whether we we want to be heavy handed in the styles we offer for the car classes vs allowing more options/ customization is being discussed. Will revisit once that decision is made.",
+      "parentUuid": "87901c58_665ae6e8",
+      "range": {
+        "startLine": 59,
+        "startChar": 102,
+        "endLine": 66,
+        "endChar": 92
+      },
+      "revId": "3d6c741d3bdf647ceec5e31c4c184a05d00f0c69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "571d0587_dc428396",
         "filename": "car/core/src/main/java/androidx/car/app/CarSingleSelectionDialog.java",
         "patchSetId": 22
