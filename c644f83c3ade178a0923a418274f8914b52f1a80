@@ -22,6 +22,30 @@
       "revId": "c644f83c3ade178a0923a418274f8914b52f1a80",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35cc5c02_40c9b39f",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 478,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-04-01T11:04:09Z",
+      "side": 1,
+      "message": "I\u0027ve put it in the first paragraph",
+      "parentUuid": "e4fd0b2f_6becee71",
+      "range": {
+        "startLine": 478,
+        "startChar": 17,
+        "endLine": 478,
+        "endChar": 57
+      },
+      "revId": "c644f83c3ade178a0923a418274f8914b52f1a80",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
