@@ -703,6 +703,90 @@ class NavControllerTest {
         verifyNoMoreInteractions(onDestinationChangedListener)
     }
 
+<<<<<<< HEAD   (b71d1d Merge "Merge empty history for sparse-5418436-L4700000028919)
+=======
+    @Test
+    fun testGetViewModelStore() {
+        val navController = createNavController()
+        navController.setHostViewModelStore(ViewModelStore())
+        val navGraph = navController.navigatorProvider.navigation(
+            id = 1,
+            startDestination = R.id.start_test
+        ) {
+            test(R.id.start_test)
+        }
+        navController.setGraph(navGraph, null)
+
+        val store = navController.getViewModelStore(navGraph.id)
+        assertThat(store).isNotNull()
+    }
+
+    @Test
+    fun testSaveRestoreGetViewModelStore() {
+        val hostStore = ViewModelStore()
+        val navController = createNavController()
+        navController.setHostViewModelStore(hostStore)
+        val navGraph = navController.navigatorProvider.navigation(
+            id = 1,
+            startDestination = R.id.start_test
+        ) {
+            test(R.id.start_test)
+        }
+        navController.setGraph(navGraph, null)
+
+        val store = navController.getViewModelStore(navGraph.id)
+        assertThat(store).isNotNull()
+
+        val savedState = navController.saveState()
+        val restoredNavController = createNavController()
+        restoredNavController.setHostViewModelStore(hostStore)
+        restoredNavController.restoreState(savedState)
+        restoredNavController.graph = navGraph
+
+        assertWithMessage("Restored NavController should return the same ViewModelStore")
+            .that(restoredNavController.getViewModelStore(navGraph.id))
+            .isSameAs(store)
+    }
+
+    @Test
+    fun testGetViewModelStoreNoGraph() {
+        val navController = createNavController()
+        navController.setHostViewModelStore(ViewModelStore())
+        val navGraphId = 1
+
+        try {
+            navController.getViewModelStore(navGraphId)
+            fail(
+                "Attempting to get ViewModelStore for navGraph not on back stack should throw " +
+                        "IllegalArgumentException"
+            )
+        } catch (e: IllegalArgumentException) {
+            assertThat(e)
+                .hasMessageThat().contains(
+                    "No NavGraph with ID $navGraphId is on the NavController's back stack"
+                )
+        }
+    }
+
+    @Test
+    fun testGetViewModelStoreSameGraph() {
+        val navController = createNavController()
+        navController.setHostViewModelStore(ViewModelStore())
+        val provider = navController.navigatorProvider
+        val graph = provider.navigation(1, startDestination = 1) {
+            navigation(1, startDestination = 2) {
+                test(2)
+            }
+        }
+
+        navController.setGraph(graph, null)
+        val viewStore = navController.getViewModelStore(graph.id)
+
+        assertThat(viewStore).isNotNull()
+        assertThat(navController.getViewModelStore(graph.id)).isSameAs(viewStore)
+    }
+
+>>>>>>> BRANCH (36b8b1 Merge "Merge cherrypicks of [937288, 937289] into sparse-542)
     private fun createNavController(): NavController {
         val navController = NavController(ApplicationProvider.getApplicationContext())
         val navigator = TestNavigator()
