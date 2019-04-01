@@ -15,13 +15,13 @@
  */
 
 // This file sets up building public docs from source jars
-// TODO: after DiffAndDocs and Doclava are fully obsoleted and removed, rename this from DokkaPublicDocs to just PublicDocs
+// TODO: after DiffAndDocs and Doclava are fully obsoleted and removed, rename this from DokkaPublicDocs to just publicDocs
 package androidx.build.dokka
 
 import java.io.File
 import androidx.build.androidJarFile
 import androidx.build.java.JavaCompileInputs
-import androidx.build.SupportLibraryExtension
+import androidx.build.AndroidXExtension
 import androidx.build.RELEASE_RULE
 import androidx.build.Strategy.Ignore
 import androidx.build.Strategy.Prebuilts
@@ -35,8 +35,8 @@ import org.gradle.api.tasks.util.PatternFilterable
 import org.jetbrains.dokka.gradle.DokkaTask
 
 object DokkaPublicDocs {
-    public val ARCHIVE_TASK_NAME: String = "distPublicDokkaDocs"
-    private val RUNNER_TASK_NAME = "dokkaPublicDocs"
+    public val ARCHIVE_TASK_NAME: String = Dokka.archiveTaskNameForType("Public")
+    private val RUNNER_TASK_NAME = Dokka.generatorTaskNameForType("Public")
     private val UNZIP_DEPS_TASK_NAME = "unzipDokkaPublicDocsDeps"
 
     public val hiddenPackages = listOf(
@@ -77,10 +77,9 @@ object DokkaPublicDocs {
     @Synchronized fun TaskContainer.getOrCreateDocsTask(runnerProject: Project): DokkaTask {
         val tasks = this
         if (tasks.findByName(RUNNER_TASK_NAME) == null) {
-            Dokka.createDocsTask(RUNNER_TASK_NAME,
+            Dokka.createDocsTask("Public",
                 runnerProject,
-                hiddenPackages,
-                ARCHIVE_TASK_NAME)
+                hiddenPackages)
             val docsTask = runnerProject.tasks.getByName(RUNNER_TASK_NAME) as DokkaTask
             tasks.create(UNZIP_DEPS_TASK_NAME, LocateJarsTask::class.java) { unzipTask ->
                 unzipTask.doLast {
@@ -99,7 +98,7 @@ object DokkaPublicDocs {
     // specifies that <project> exists and might need us to generate documentation for it
     fun registerProject(
         project: Project,
-        extension: SupportLibraryExtension
+        extension: AndroidXExtension
     ) {
         if (tryGetRunnerProject(project) == null) {
             return
@@ -149,7 +148,7 @@ object DokkaPublicDocs {
             configuration.resolvedConfiguration.resolvedArtifacts
         } catch (e: ResolveException) {
             runnerProject.logger.error("DokkaPublicDocs failed to find prebuilts for $mavenId. " +
-                    "specified in PublichDocsRules.kt ." +
+                    "specified in publichDocsRules.kt ." +
                     "You should either add a prebuilt sources jar, " +
                     "or add an overriding \"ignore\" rule into PublishDocsRules.kt")
             throw e

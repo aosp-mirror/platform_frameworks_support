@@ -27,6 +27,7 @@ package androidx.fragment.app {
 
   public class Fragment implements android.content.ComponentCallbacks androidx.lifecycle.LifecycleOwner androidx.savedstate.SavedStateRegistryOwner android.view.View.OnCreateContextMenuListener androidx.lifecycle.ViewModelStoreOwner {
     ctor public Fragment();
+    ctor @ContentView public Fragment(@LayoutRes int);
     method public void dump(String, java.io.FileDescriptor?, java.io.PrintWriter, String[]?);
     method public final boolean equals(Object?);
     method public final androidx.fragment.app.FragmentActivity? getActivity();
@@ -157,9 +158,9 @@ package androidx.fragment.app {
 
   public class FragmentActivity extends androidx.activity.ComponentActivity implements androidx.core.app.ActivityCompat.OnRequestPermissionsResultCallback androidx.core.app.ActivityCompat.RequestPermissionsRequestCodeValidator {
     ctor public FragmentActivity();
+    ctor @ContentView public FragmentActivity(@LayoutRes int);
     method public androidx.fragment.app.FragmentManager getSupportFragmentManager();
     method @Deprecated public androidx.loader.app.LoaderManager getSupportLoaderManager();
-    method public android.content.Context getThemedContext();
     method public void onAttachFragment(androidx.fragment.app.Fragment);
     method @CallSuper public void onMultiWindowModeChanged(boolean);
     method @CallSuper public void onPictureInPictureModeChanged(boolean);
@@ -230,7 +231,8 @@ package androidx.fragment.app {
 
   public class FragmentFactory {
     ctor public FragmentFactory();
-    method public androidx.fragment.app.Fragment instantiate(ClassLoader, String, android.os.Bundle?);
+    method @Deprecated public androidx.fragment.app.Fragment instantiate(ClassLoader, String, android.os.Bundle?);
+    method public androidx.fragment.app.Fragment instantiate(ClassLoader, String);
     method public static Class<? extends androidx.fragment.app.Fragment> loadFragmentClass(ClassLoader, String);
   }
 
@@ -331,14 +333,13 @@ package androidx.fragment.app {
     method public boolean isViewFromObject(android.view.View, Object);
   }
 
-  public class FragmentTabHost extends android.widget.TabHost implements android.widget.TabHost.OnTabChangeListener {
-    ctor public FragmentTabHost(android.content.Context);
-    ctor public FragmentTabHost(android.content.Context, android.util.AttributeSet?);
-    method public void addTab(android.widget.TabHost.TabSpec, Class<?>, android.os.Bundle?);
-    method public void onTabChanged(String?);
-    method @Deprecated public void setup();
-    method public void setup(android.content.Context, androidx.fragment.app.FragmentManager);
-    method public void setup(android.content.Context, androidx.fragment.app.FragmentManager, int);
+  @Deprecated public class FragmentTabHost extends android.widget.TabHost implements android.widget.TabHost.OnTabChangeListener {
+    ctor @Deprecated public FragmentTabHost(android.content.Context);
+    ctor @Deprecated public FragmentTabHost(android.content.Context, android.util.AttributeSet?);
+    method @Deprecated public void addTab(android.widget.TabHost.TabSpec, Class<?>, android.os.Bundle?);
+    method @Deprecated public void onTabChanged(String?);
+    method @Deprecated public void setup(android.content.Context, androidx.fragment.app.FragmentManager);
+    method @Deprecated public void setup(android.content.Context, androidx.fragment.app.FragmentManager, int);
   }
 
   public abstract class FragmentTransaction {

@@ -17,6 +17,7 @@
 package androidx.fragment.app.testing
 
 import android.os.Bundle
+import androidx.annotation.StyleRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentFactory
@@ -34,7 +35,7 @@ import androidx.fragment.testing.R
  */
 inline fun <reified F : Fragment> launchFragment(
     fragmentArgs: Bundle? = null,
-    themeResId: Int = R.style.FragmentScenarioEmptyFragmentActivityTheme,
+    @StyleRes themeResId: Int = R.style.FragmentScenarioEmptyFragmentActivityTheme,
     factory: FragmentFactory? = null
 ) = FragmentScenario.launch(F::class.java, fragmentArgs, themeResId, factory)
 
@@ -50,16 +51,15 @@ inline fun <reified F : Fragment> launchFragment(
  */
 inline fun <reified F : Fragment> launchFragment(
     fragmentArgs: Bundle? = null,
-    themeResId: Int = R.style.FragmentScenarioEmptyFragmentActivityTheme,
-    crossinline instantiate: (args: Bundle?) -> F
+    @StyleRes themeResId: Int = R.style.FragmentScenarioEmptyFragmentActivityTheme,
+    crossinline instantiate: () -> F
 ) = FragmentScenario.launch(F::class.java, fragmentArgs, themeResId, object : FragmentFactory() {
     override fun instantiate(
         classLoader: ClassLoader,
-        className: String,
-        args: Bundle?
+        className: String
     ) = when (className) {
-        F::class.java.name -> instantiate(args)
-        else -> super.instantiate(classLoader, className, args)
+        F::class.java.name -> instantiate()
+        else -> super.instantiate(classLoader, className)
     }
 })
 
@@ -76,7 +76,7 @@ inline fun <reified F : Fragment> launchFragment(
  */
 inline fun <reified F : Fragment> launchFragmentInContainer(
     fragmentArgs: Bundle? = null,
-    themeResId: Int = R.style.FragmentScenarioEmptyFragmentActivityTheme,
+    @StyleRes themeResId: Int = R.style.FragmentScenarioEmptyFragmentActivityTheme,
     factory: FragmentFactory? = null
 ) = FragmentScenario.launchInContainer(F::class.java, fragmentArgs, themeResId, factory)
 
@@ -96,16 +96,15 @@ inline fun <reified F : Fragment> launchFragmentInContainer(
  */
 inline fun <reified F : Fragment> launchFragmentInContainer(
     fragmentArgs: Bundle? = null,
-    themeResId: Int = R.style.FragmentScenarioEmptyFragmentActivityTheme,
-    crossinline instantiate: (args: Bundle?) -> F
+    @StyleRes themeResId: Int = R.style.FragmentScenarioEmptyFragmentActivityTheme,
+    crossinline instantiate: () -> F
 ) = FragmentScenario.launchInContainer(F::class.java, fragmentArgs, themeResId,
     object : FragmentFactory() {
         override fun instantiate(
             classLoader: ClassLoader,
-            className: String,
-            args: Bundle?
+            className: String
         ) = when (className) {
-            F::class.java.name -> instantiate(args)
-            else -> super.instantiate(classLoader, className, args)
+            F::class.java.name -> instantiate()
+            else -> super.instantiate(classLoader, className)
         }
     })

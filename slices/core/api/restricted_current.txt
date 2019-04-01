@@ -75,11 +75,8 @@ package androidx.slice {
   }
 
   public abstract class SliceProvider extends android.content.ContentProvider implements androidx.core.app.CoreComponentFactory.CompatWrapped {
-    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX) @RequiresApi(19) public static android.app.PendingIntent! createPermissionIntent(android.content.Context!, android.net.Uri!, String!);
-    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX) @RequiresApi(19) public static androidx.slice.Slice! createPermissionSlice(android.content.Context!, android.net.Uri!, String!);
     method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) @RequiresApi(19) public static androidx.slice.Clock! getClock();
     method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX) @RequiresApi(19) public static java.util.Set<androidx.slice.SliceSpec>! getCurrentSpecs();
-    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX) @RequiresApi(19) public static CharSequence! getPermissionString(android.content.Context!, String!);
   }
 
   public abstract class SliceProviderWithCallbacks<T extends androidx.slice.SliceProviderWithCallbacks> extends androidx.slice.SliceProvider implements androidx.remotecallback.CallbackBase<T> androidx.remotecallback.CallbackReceiver<T> {
@@ -201,7 +198,7 @@ package androidx.slice.core {
   @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX) @RequiresApi(19) public class SliceHints {
     field public static final String HINT_ACTIVITY = "activity";
     field public static final String HINT_CACHED = "cached";
-    field public static final String HINT_SELECTION_OPTION_VALUE = "selection_option_value";
+    field public static final String HINT_SELECTION_OPTION = "selection_option";
     field public static final int ICON_IMAGE = 0; // 0x0
     field public static final long INFINITY = -1L; // 0xffffffffffffffffL
     field public static final int LARGE_IMAGE = 2; // 0x2
@@ -211,6 +208,7 @@ package androidx.slice.core {
     field public static final String SUBTYPE_MIN = "min";
     field public static final String SUBTYPE_SELECTION = "selection";
     field public static final String SUBTYPE_SELECTION_OPTION_KEY = "selection_option_key";
+    field public static final String SUBTYPE_SELECTION_OPTION_VALUE = "selection_option_value";
     field public static final int UNKNOWN_IMAGE = 3; // 0x3
   }
 

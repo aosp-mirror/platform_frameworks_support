@@ -62,6 +62,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
@@ -126,6 +127,10 @@ import java.util.concurrent.Executors;
  *     <td>No audio focus handling, and sets the player volume to {@code 0}</td>
  *     <td>This is to handle error</td></tr>
  * </table>
+ * <p>
+ * If an {@link AudioAttributesCompat} is not specified by {@link #setAudioAttributes},
+ * {@link #getAudioAttributes} will return {@code null} and the default audio focus behavior will
+ * follow the {@code null} case on the table above.
  * <p>
  * For more information about the audio focus, take a look at
  * <a href="{@docRoot}guide/topics/media-apps/audio-focus.html">Managing audio focus</a>
@@ -425,6 +430,13 @@ public class MediaPlayer extends SessionPlayer {
     @Retention(RetentionPolicy.SOURCE)
     @RestrictTo(LIBRARY_GROUP_PREFIX)
     public @interface SeekMode {}
+
+    /**
+     * The return value of {@link #getSelectedTrack} when there is no selected track for the given
+     * type.
+     * @see #getSelectedTrack(int)
+     */
+    public static final int NO_TRACK_SELECTED = Integer.MIN_VALUE;
 
     private static final int CALL_COMPLETE_PLAYLIST_BASE = -1000;
     private static final int END_OF_PLAYLIST = -1;
@@ -748,14 +760,17 @@ public class MediaPlayer extends SessionPlayer {
 
     /**
      * Prepares the media items for playback.
-     *
      * <p>
      * After setting the media items and the display surface, you need to call this method.
      * During this preparation, the player may allocate resources required to play, such as audio
      * and video decoders.
+     * <p>
+     * On success, a {@link androidx.media2.SessionPlayer.PlayerResult} is returned with
+     * the current media item when the command completed.
      *
      * @return a {@link ListenableFuture} which represents the pending completion of the command.
-     * {@link PlayerResult} will be delivered when the command completes.
+     * {@link androidx.media2.SessionPlayer.PlayerResult} will be delivered when the command
+     * completed.
      */
     @Override
     @NonNull
@@ -805,7 +820,8 @@ public class MediaPlayer extends SessionPlayer {
     @Override
     @NonNull
     public ListenableFuture<PlayerResult> setPlaybackSpeed(
-            @FloatRange(from = 0, to = 1) final float playbackSpeed) {
+            @FloatRange(from = 0.0f, to = Float.MAX_VALUE, fromInclusive = false)
+            final float playbackSpeed) {
         PendingFuture<PlayerResult> pendingFuture = new PendingFuture<PlayerResult>(mExecutor) {
             @Override
             List<ResolvableFuture<PlayerResult>> onExecute() {
@@ -849,7 +865,8 @@ public class MediaPlayer extends SessionPlayer {
     }
 
     @Override
-    public @PlayerState int getPlayerState() {
+    @PlayerState
+    public int getPlayerState() {
         synchronized (mStateLock) {
             return mState;
         }
@@ -895,7 +912,8 @@ public class MediaPlayer extends SessionPlayer {
     }
 
     @Override
-    public @BuffState int getBufferingState() {
+    @BuffState
+    public int getBufferingState() {
         Integer buffState;
         synchronized (mStateLock) {
             buffState = mMediaItemToBuffState.get(mPlayer.getCurrentMediaItem());
@@ -904,6 +922,7 @@ public class MediaPlayer extends SessionPlayer {
     }
 
     @Override
+    @FloatRange(from = 0.0f, to = Float.MAX_VALUE, fromInclusive = false)
     public float getPlaybackSpeed() {
         try {
             return mPlayer.getPlaybackParams().getSpeed();
@@ -1530,11 +1549,15 @@ public class MediaPlayer extends SessionPlayer {
      * source, or multiple runs of the same program.  The timestamp is normally
      * monotonically increasing and is unaffected by time-of-day adjustments,
      * but it is reset when the position is set.
+     * <p>
+     * On success, a {@link androidx.media2.SessionPlayer.PlayerResult} is returned with
+     * the current media item when the command completed.
      *
      * @param surface The {@link Surface} to be used for the video portion of
      * the media.
      * @return a {@link ListenableFuture} which represents the pending completion of the command.
-     * {@link PlayerResult} will be delivered when the command completes.
+     * {@link androidx.media2.SessionPlayer.PlayerResult} will be delivered when the command
+     * completed.
      */
     @NonNull
     public ListenableFuture<PlayerResult> setSurface(@Nullable final Surface surface) {
@@ -1566,10 +1589,14 @@ public class MediaPlayer extends SessionPlayer {
      * gain. See {@link #getMaxPlayerVolume()} for the volume range supported by this player.
      * <p>
      * The default player volume is 1.0f.
+     * <p>
+     * On success, a {@link androidx.media2.SessionPlayer.PlayerResult} is returned with
+     * the current media item when the command completed.
      *
      * @param volume a value between 0.0f and {@link #getMaxPlayerVolume()}.
      * @return a {@link ListenableFuture} which represents the pending completion of the command.
-     * {@link PlayerResult} will be delivered when the command completes.
+     * {@link androidx.media2.SessionPlayer.PlayerResult} will be delivered when the command
+     * completed.
      */
     @NonNull
     public ListenableFuture<PlayerResult> setPlayerVolume(
@@ -1605,13 +1632,14 @@ public class MediaPlayer extends SessionPlayer {
     /**
      * Returns the size of the video.
      *
-     * @return the size of the video. The width and height of size could be 0 if there is no video,
-     * no display surface was set, or the size has not been determined yet.
+     * @return the size of the video. The width and height of size could be 0 if there is no video
+     * or the size has not been determined yet.
      * The {@link PlayerCallback} can be registered via {@link #registerPlayerCallback} to
      * receive a notification {@link PlayerCallback#onVideoSizeChanged} when the size
      * is available.
      */
-    public @NonNull VideoSize getVideoSize() {
+    @NonNull
+    public VideoSize getVideoSize() {
         return new VideoSize(mPlayer.getVideoWidth(), mPlayer.getVideoHeight());
     }
 
@@ -1630,17 +1658,15 @@ public class MediaPlayer extends SessionPlayer {
     }
 
     /**
-     * Sets playback rate using {@link PlaybackParams}.
+     * Sets playback params using {@link PlaybackParams}.
      * <p>
-     * The player sets its internal PlaybackParams to the given input. This does not change the
-     * player state. For example, if this is called with the speed of 2.0f in
-     * {@link #PLAYER_STATE_PAUSED}, the player will just update internal property and stay paused.
-     * Once the client calls {@link #play()} afterwards, the player will start playback with the
-     * given speed. Calling this with zero speed is not allowed.
+     * On success, a {@link androidx.media2.SessionPlayer.PlayerResult} is returned with
+     * the current media item when the command completed.
      *
      * @param params the playback params.
      * @return a {@link ListenableFuture} which represents the pending completion of the command.
-     * {@link PlayerResult} will be delivered when the command completes.
+     * {@link androidx.media2.SessionPlayer.PlayerResult} will be delivered when the command
+     * completed.
      */
     @NonNull
     public ListenableFuture<PlayerResult> setPlaybackParams(@NonNull final PlaybackParams params) {
@@ -1680,6 +1706,9 @@ public class MediaPlayer extends SessionPlayer {
      * is kept. When current seekTo is completed, the queued request will be processed if
      * that request is different from just-finished seekTo operation, i.e., the requested
      * position or mode is different.
+     * <p>
+     * On success, a {@link androidx.media2.SessionPlayer.PlayerResult} is returned with
+     * the current media item when the command completed.
      *
      * @param position the offset in milliseconds from the start to seek to.
      * When seeking to the given time position, there is no guarantee that the media item
@@ -1687,7 +1716,8 @@ public class MediaPlayer extends SessionPlayer {
      * The value should be in the range of start and end positions defined in {@link MediaItem}.
      * @param mode the mode indicating where exactly to seek to.
      * @return a {@link ListenableFuture} which represents the pending completion of the command.
-     * {@link PlayerResult} will be delivered when the command completes.
+     * {@link androidx.media2.SessionPlayer.PlayerResult} will be delivered when the command
+     * completed.
      */
     @NonNull
     public ListenableFuture<PlayerResult> seekTo(final long position, @SeekMode final int mode) {
@@ -1749,7 +1779,11 @@ public class MediaPlayer extends SessionPlayer {
      * by calling this method.
      * <p>This method must be called before {@link #setMediaItem} and {@link #setPlaylist} methods.
      * @return a {@link ListenableFuture} which represents the pending completion of the command.
-     * {@link PlayerResult} will be delivered when the command completes.
+     * {@link androidx.media2.SessionPlayer.PlayerResult} will be delivered when the command
+     * completed.
+     * <p>
+     * On success, a {@link androidx.media2.SessionPlayer.PlayerResult} is returned with
+     * the current media item when the command completed.
      *
      * @see AudioManager#generateAudioSessionId
      */
@@ -1797,7 +1831,11 @@ public class MediaPlayer extends SessionPlayer {
      * <p>This method must be called before {@link #setMediaItem} and {@link #setPlaylist} methods.
      * @param effectId system wide unique id of the effect to attach
      * @return a {@link ListenableFuture} which represents the pending completion of the command.
-     * {@link PlayerResult} will be delivered when the command completes.
+     * {@link androidx.media2.SessionPlayer.PlayerResult} will be delivered when the command
+     * completed.
+     * <p>
+     * On success, a {@link androidx.media2.SessionPlayer.PlayerResult} is returned with
+     * the current media item when the command completed.
      */
     @NonNull
     public ListenableFuture<PlayerResult> attachAuxEffect(final int effectId) {
@@ -1830,9 +1868,14 @@ public class MediaPlayer extends SessionPlayer {
      * so an appropriate conversion from linear UI input x to level is:
      * x == 0 -> level = 0
      * 0 < x <= R -> level = 10^(72*(x-R)/20/R)
+     * <p>
+     * On success, a {@link androidx.media2.SessionPlayer.PlayerResult} is returned with
+     * the current media item when the command completed.
+     *
      * @param level send level scalar
      * @return a {@link ListenableFuture} which represents the pending completion of the command.
-     * {@link PlayerResult} will be delivered when the command completes.
+     * {@link androidx.media2.SessionPlayer.PlayerResult} will be delivered when the command
+     * completed.
      */
     @NonNull
     public ListenableFuture<PlayerResult> setAuxEffectSendLevel(
@@ -1864,8 +1907,8 @@ public class MediaPlayer extends SessionPlayer {
     public List<TrackInfo> getTrackInfo() {
         List<MediaPlayer2.TrackInfo> list = mPlayer.getTrackInfo();
         List<TrackInfo> trackList = new ArrayList<>();
-        for (MediaPlayer2.TrackInfo info : list) {
-            trackList.add(new TrackInfo(info.getTrackType(), info.getFormat()));
+        for (int i = 0; i < list.size(); i++) {
+            trackList.add(mPlayer.getTrackInfo(i));
         }
         return trackList;
     }
@@ -1873,29 +1916,31 @@ public class MediaPlayer extends SessionPlayer {
     /**
      * Returns the index of the audio, video, or subtitle track currently selected for playback,
      * The return value is an index into the array returned by {@link #getTrackInfo()}, and can
-     * be used in calls to {@link #selectTrack(int)} or {@link #deselectTrack(int)}.
+     * be used in calls to {@link #selectTrack(TrackInfo)} or {@link #deselectTrack(TrackInfo)}.
      *
      * @param trackType should be one of {@link TrackInfo#MEDIA_TRACK_TYPE_VIDEO},
      * {@link TrackInfo#MEDIA_TRACK_TYPE_AUDIO}, or
      * {@link TrackInfo#MEDIA_TRACK_TYPE_SUBTITLE}
-     * @return index of the audio, video, or subtitle track currently selected for playback;
-     * a negative integer is returned when there is no selected track for {@code trackType} or
+     * @return metadata corresponding to the audio, video, or subtitle track currently selected for
+     * playback; {@code null} is returned when there is no selected track for {@code trackType} or
      * when {@code trackType} is not one of audio, video, or subtitle.
      * @throws IllegalStateException if called after {@link #close()}
      *
      * @see #getTrackInfo()
-     * @see #selectTrack(int)
-     * @see #deselectTrack(int)
+     * @see #selectTrack(TrackInfo)
+     * @see #deselectTrack(TrackInfo)
      */
-    public int getSelectedTrack(int trackType) {
-        return mPlayer.getSelectedTrack(trackType);
+    @Nullable
+    public TrackInfo getSelectedTrack(@TrackInfo.MediaTrackType int trackType) {
+        final int ret = mPlayer.getSelectedTrack(trackType);
+        return ret < 0 ? null : mPlayer.getTrackInfo(ret);
     }
 
     /**
      * Selects a track.
      * <p>
-     * If the player is in invalid state, {@link PlayerResult#RESULT_ERROR_INVALID_STATE} will be
-     * reported with {@link PlayerResult}.
+     * If the player is in invalid state, {@link androidx.media2.SessionPlayer.PlayerResult#RESULT_ERROR_INVALID_STATE} will be
+     * reported with {@link androidx.media2.SessionPlayer.PlayerResult}.
      * If a player is in <em>Playing</em> state, the selected track is presented immediately.
      * If a player is not in Playing state, it just marks the track to be played.
      * </p>
@@ -1911,23 +1956,27 @@ public class MediaPlayer extends SessionPlayer {
      * <p>
      * Currently, only timed text tracks or audio tracks can be selected via this method.
      * </p>
-     * @param index the index of the track to be selected. The valid range of the index
-     * is 0..total number of track - 1. The total number of tracks as well as the type of
-     * each individual track can be found by calling {@link #getTrackInfo()} method.
+     * @param trackInfo metadata corresponding to the track to be selected. A {@code trackInfo}
+     * object can be obtained from {@link #getTrackInfo()}.
+     * <p>
+     * On success, a {@link androidx.media2.SessionPlayer.PlayerResult} is returned with
+     * the current media item when the command completed.
      *
      * @see #getTrackInfo
      * @return a {@link ListenableFuture} which represents the pending completion of the command.
-     * {@link PlayerResult} will be delivered when the command completes.
+     * {@link androidx.media2.SessionPlayer.PlayerResult} will be delivered when the command
+     * completed.
      */
     @NonNull
-    public ListenableFuture<PlayerResult> selectTrack(final int index) {
+    public ListenableFuture<PlayerResult> selectTrack(@NonNull final TrackInfo trackInfo) {
+        final int trackId = trackInfo.mId;
         PendingFuture<PlayerResult> pendingFuture = new PendingFuture<PlayerResult>(mExecutor) {
             @Override
             List<ResolvableFuture<PlayerResult>> onExecute() {
                 ArrayList<ResolvableFuture<PlayerResult>> futures = new ArrayList<>();
                 ResolvableFuture<PlayerResult> future = ResolvableFuture.create();
                 synchronized (mPendingCommands) {
-                    Object token = mPlayer.selectTrack(index);
+                    Object token = mPlayer.selectTrack(trackId);
                     addPendingCommandLocked(MediaPlayer2.CALL_COMPLETED_SELECT_TRACK,
                             future, token);
                 }
@@ -1945,23 +1994,27 @@ public class MediaPlayer extends SessionPlayer {
      * Currently, the track must be a timed text track and no audio or video tracks can be
      * deselected.
      * </p>
-     * @param index the index of the track to be deselected. The valid range of the index
-     * is 0..total number of tracks - 1. The total number of tracks as well as the type of
-     * each individual track can be found by calling {@link #getTrackInfo()} method.
+     * @param trackInfo metadata corresponding to the track to be selected. A {@code trackInfo}
+     * object can be obtained from {@link #getTrackInfo()}.
+     * <p>
+     * On success, a {@link androidx.media2.SessionPlayer.PlayerResult} is returned with
+     * the current media item when the command completed.
      *
      * @see #getTrackInfo
      * @return a {@link ListenableFuture} which represents the pending completion of the command.
-     * {@link PlayerResult} will be delivered when the command completes.
+     * {@link androidx.media2.SessionPlayer.PlayerResult} will be delivered when the command
+     * completed.
      */
     @NonNull
-    public ListenableFuture<PlayerResult> deselectTrack(final int index) {
+    public ListenableFuture<PlayerResult> deselectTrack(@NonNull final TrackInfo trackInfo) {
+        final int trackId = trackInfo.mId;
         PendingFuture<PlayerResult> pendingFuture = new PendingFuture<PlayerResult>(mExecutor) {
             @Override
             List<ResolvableFuture<PlayerResult>> onExecute() {
                 ArrayList<ResolvableFuture<PlayerResult>> futures = new ArrayList<>();
                 ResolvableFuture<PlayerResult> future = ResolvableFuture.create();
                 synchronized (mPendingCommands) {
-                    Object token = mPlayer.deselectTrack(index);
+                    Object token = mPlayer.deselectTrack(trackId);
                     addPendingCommandLocked(MediaPlayer2.CALL_COMPLETED_DESELECT_TRACK,
                             future, token);
                 }
@@ -1971,6 +2024,29 @@ public class MediaPlayer extends SessionPlayer {
         };
         addPendingFuture(pendingFuture);
         return pendingFuture;
+    }
+
+    /**
+     * Register {@link PlayerCallback} to listen changes.
+     *
+     * @param executor a callback Executor
+     * @param callback a PlayerCallback
+     * @throws IllegalArgumentException if executor or callback is {@code null}.
+     */
+    public void registerPlayerCallback(
+            @NonNull /*@CallbackExecutor*/ Executor executor,
+            @NonNull PlayerCallback callback) {
+        super.registerPlayerCallback(executor, callback);
+    }
+
+    /**
+     * Unregister the previously registered {@link PlayerCallback}.
+     *
+     * @param callback the callback to be removed
+     * @throws IllegalArgumentException if the callback is {@code null}.
+     */
+    public void unregisterPlayerCallback(@NonNull PlayerCallback callback) {
+        super.unregisterPlayerCallback(callback);
     }
 
     /**
@@ -2007,7 +2083,7 @@ public class MediaPlayer extends SessionPlayer {
      * from the source through {#link getDrmInfo} or registering
      * {@link PlayerCallback#onDrmInfo}.
      * @return a {@link ListenableFuture} which represents the pending completion of the command.
-     * {@link DrmResult} will be delivered when the command completes.
+     * {@link DrmResult} will be delivered when the command completed.
      * @hide
      */
     @RestrictTo(LIBRARY_GROUP_PREFIX)
@@ -2793,6 +2869,22 @@ public class MediaPlayer extends SessionPlayer {
         public static final int MEDIA_TRACK_TYPE_SUBTITLE = 4;
         public static final int MEDIA_TRACK_TYPE_METADATA = 5;
 
+        /**
+         * @hide
+         */
+        @IntDef(flag = false, /*prefix = "PLAYER_ERROR",*/ value = {
+                MEDIA_TRACK_TYPE_UNKNOWN,
+                MEDIA_TRACK_TYPE_VIDEO,
+                MEDIA_TRACK_TYPE_AUDIO,
+                MEDIA_TRACK_TYPE_SUBTITLE,
+                MEDIA_TRACK_TYPE_METADATA,
+        })
+        @Retention(RetentionPolicy.SOURCE)
+        @RestrictTo(LIBRARY_GROUP_PREFIX)
+        public @interface MediaTrackType {}
+
+        final int mId;
+        private final MediaItem mItem;
         private final int mTrackType;
         private final MediaFormat mFormat;
 
@@ -2800,20 +2892,21 @@ public class MediaPlayer extends SessionPlayer {
          * Gets the track type.
          * @return TrackType which indicates if the track is video, audio, timed text.
          */
-        public int getTrackType() {
+        public @MediaTrackType int getTrackType() {
             return mTrackType;
         }
 
         /**
          * Gets the language code of the track.
-         * @return a language code in either way of ISO-639-1 or ISO-639-2.
-         * When the language is unknown or could not be determined,
-         * ISO-639-2 language code, "und", is returned.
+         * @return {@link Locale} which includes the language information.
          */
         @NonNull
-        public String getLanguage() {
-            String language = mFormat.getString(MediaFormat.KEY_LANGUAGE);
-            return language == null ? "und" : language;
+        public Locale getLanguage() {
+            String language = mFormat != null ? mFormat.getString(MediaFormat.KEY_LANGUAGE) : null;
+            if (language == null) {
+                language = "und";
+            }
+            return new Locale(language);
         }
 
         /**
@@ -2829,7 +2922,11 @@ public class MediaPlayer extends SessionPlayer {
             return null;
         }
 
-        TrackInfo(int type, MediaFormat format) {
+        /** @hide */
+        @RestrictTo(LIBRARY_GROUP_PREFIX)
+        public TrackInfo(int id, MediaItem item, int type, MediaFormat format) {
+            mId = id;
+            mItem = item;
             mTrackType = type;
             mFormat = format;
         }
@@ -2838,6 +2935,7 @@ public class MediaPlayer extends SessionPlayer {
         public String toString() {
             StringBuilder out = new StringBuilder(128);
             out.append(getClass().getName());
+            out.append('#').append(mId);
             out.append('{');
             switch (mTrackType) {
                 case MEDIA_TRACK_TYPE_VIDEO:
@@ -2859,6 +2957,38 @@ public class MediaPlayer extends SessionPlayer {
             out.append(", " + mFormat.toString());
             out.append("}");
             return out.toString();
+        }
+
+        @Override
+        public int hashCode() {
+            final int prime = 31;
+            int result = 1;
+            result = prime * result + mId;
+            result = prime * result + ((mItem == null) ? 0 : mItem.hashCode());
+            return result;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj)
+                return true;
+            if (obj == null)
+                return false;
+            if (getClass() != obj.getClass()) {
+                return false;
+            }
+            TrackInfo other = (TrackInfo) obj;
+            if (mId != other.mId) {
+                return false;
+            }
+            if (mItem == null) {
+                if (other.mItem != null) {
+                    return false;
+                }
+            } else if (!mItem.equals(other.mItem)) {
+                return false;
+            }
+            return true;
         }
     }
 
