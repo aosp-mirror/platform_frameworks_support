@@ -216,6 +216,7 @@ public class VersionedParcelProcessor extends AbstractProcessor {
                 .build();
         TypeSpec.Builder genClass = TypeSpec
                 .classBuilder(versionedParcelable.getSimpleName() + GEN_SUFFIX)
+                .addOriginatingElement(versionedParcelable)
                 .addJavadoc("@hide\n")
                 .addAnnotation(restrictTo)
                 .addModifiers(Modifier.PUBLIC);
