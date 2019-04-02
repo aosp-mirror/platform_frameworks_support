@@ -216,6 +216,7 @@ public class VersionedParcelProcessor extends AbstractProcessor {
                 .build();
         TypeSpec.Builder genClass = TypeSpec
                 .classBuilder(versionedParcelable.getSimpleName() + GEN_SUFFIX)
+                .addOriginatingElement(versionedParcelable)
                 .addJavadoc("@hide\n")
                 .addAnnotation(restrictTo)
                 .addModifiers(Modifier.PUBLIC);
@@ -313,6 +314,7 @@ public class VersionedParcelProcessor extends AbstractProcessor {
                 TypeSpec.Builder jetifyClass = TypeSpec
                         .classBuilder(jetifyAs.substring(index + 1, jetifyAs.length() - 1)
                                 + GEN_SUFFIX)
+                        .addOriginatingElement(versionedParcelable)
                         .addJavadoc("@hide\n")
                         .addAnnotation(restrictTo)
                         .addModifiers(Modifier.PUBLIC, Modifier.FINAL)
