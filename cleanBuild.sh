@@ -14,6 +14,10 @@ goals="$@"
 function usage() {
   echo "Usage: $0 <tasks>"
   echo "Runs a clean build of <tasks>"
+  echo
+  echo "For example:"
+  echo
+  echo "  $0 assembleDebug"
   exit 1
 }
 
