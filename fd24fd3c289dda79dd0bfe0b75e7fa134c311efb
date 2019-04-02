@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a5c999dc_9e1c53d8",
+        "filename": "recyclerview/selection/src/main/java/androidx/recyclerview/selection/ToolHandlerRegistry.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1086769
+      },
+      "writtenOn": "2019-04-02T20:57:01Z",
+      "side": 1,
+      "message": "Inline the annotation since this is saying a \"@Nullable T\".",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 66,
+        "endChar": 13
+      },
+      "revId": "fd24fd3c289dda79dd0bfe0b75e7fa134c311efb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4ac8c84_63f0d721",
+        "filename": "recyclerview/selection/src/main/java/androidx/recyclerview/selection/TouchEventRouter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1086769
+      },
+      "writtenOn": "2019-04-02T20:57:01Z",
+      "side": 1,
+      "message": "This needs a null check now.",
+      "revId": "fd24fd3c289dda79dd0bfe0b75e7fa134c311efb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1473ce3_5ed5fb2d",
+        "filename": "recyclerview/selection/src/main/java/androidx/recyclerview/selection/TouchEventRouter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1086769
+      },
+      "writtenOn": "2019-04-02T20:57:01Z",
+      "side": 1,
+      "message": "This needs a null check now.",
+      "revId": "fd24fd3c289dda79dd0bfe0b75e7fa134c311efb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
