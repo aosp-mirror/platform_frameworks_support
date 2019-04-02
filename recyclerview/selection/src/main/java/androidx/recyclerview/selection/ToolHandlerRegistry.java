@@ -43,12 +43,8 @@ final class ToolHandlerRegistry<T> {
     private static final int NUM_INPUT_TYPES = MotionEvent.TOOL_TYPE_ERASER + 1;
 
     private final List<T> mHandlers = Arrays.asList(null, null, null, null, null);
-    private final T mDefault;
 
-    ToolHandlerRegistry(@NonNull T defaultDelegate) {
-        checkArgument(defaultDelegate != null);
-        mDefault = defaultDelegate;
-
+    ToolHandlerRegistry() {
         // Initialize all values to null.
         for (int i = 0; i < NUM_INPUT_TYPES; i++) {
             mHandlers.set(i, null);
@@ -67,8 +63,8 @@ final class ToolHandlerRegistry<T> {
         mHandlers.set(toolType, delegate);
     }
 
+    @Nullable
     T get(@NonNull MotionEvent e) {
-        T d = mHandlers.get(e.getToolType(0));
-        return d != null ? d : mDefault;
+        return mHandlers.get(e.getToolType(0));
     }
 }

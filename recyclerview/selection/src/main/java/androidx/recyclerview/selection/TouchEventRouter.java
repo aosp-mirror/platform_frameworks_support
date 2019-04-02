@@ -42,38 +42,10 @@ final class TouchEventRouter implements OnItemTouchListener {
     private final GestureDetector mDetector;
     private final ToolHandlerRegistry<OnItemTouchListener> mDelegates;
 
-    TouchEventRouter(
-            @NonNull GestureDetector detector, @NonNull OnItemTouchListener defaultDelegate) {
-
-        checkArgument(detector != null);
-        checkArgument(defaultDelegate != null);
-
-        mDetector = detector;
-        mDelegates = new ToolHandlerRegistry<>(defaultDelegate);
-    }
-
     TouchEventRouter(@NonNull GestureDetector detector) {
-        this(
-                detector,
-                // Supply a fallback listener does nothing...because the caller
-                // didn't supply a fallback.
-                new OnItemTouchListener() {
-                    @Override
-                    public boolean onInterceptTouchEvent(
-                            @NonNull RecyclerView unused, @NonNull MotionEvent e) {
-
-                        return false;
-                    }
-
-                    @Override
-                    public void onTouchEvent(
-                            @NonNull RecyclerView unused, @NonNull MotionEvent e) {
-                    }
-
-                    @Override
-                    public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
-                    }
-                });
+        checkArgument(detector != null);
+        mDetector = detector;
+        mDelegates = new ToolHandlerRegistry<>();
     }
 
     /**

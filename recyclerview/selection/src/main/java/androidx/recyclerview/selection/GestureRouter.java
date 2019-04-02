@@ -16,11 +16,9 @@
 
 package androidx.recyclerview.selection;
 
-import static androidx.core.util.Preconditions.checkArgument;
 
 import android.view.GestureDetector.OnDoubleTapListener;
 import android.view.GestureDetector.OnGestureListener;
-import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.MotionEvent;
 
 import androidx.annotation.NonNull;
@@ -38,13 +36,8 @@ final class GestureRouter<T extends OnGestureListener & OnDoubleTapListener>
 
     private final ToolHandlerRegistry<T> mDelegates;
 
-    GestureRouter(@NonNull T defaultDelegate) {
-        checkArgument(defaultDelegate != null);
-        mDelegates = new ToolHandlerRegistry<>(defaultDelegate);
-    }
-
     GestureRouter() {
-        this((T) new SimpleOnGestureListener());
+        mDelegates = new ToolHandlerRegistry<>();
     }
 
     /**
@@ -57,48 +50,61 @@ final class GestureRouter<T extends OnGestureListener & OnDoubleTapListener>
 
     @Override
     public boolean onSingleTapConfirmed(@NonNull MotionEvent e) {
-        return mDelegates.get(e).onSingleTapConfirmed(e);
+        T delegate = mDelegates.get(e);
+        return delegate != null && delegate.onSingleTapConfirmed(e);
     }
 
     @Override
     public boolean onDoubleTap(@NonNull MotionEvent e) {
-        return mDelegates.get(e).onDoubleTap(e);
+        T delegate = mDelegates.get(e);
+        return delegate != null && delegate.onDoubleTap(e);
     }
 
     @Override
     public boolean onDoubleTapEvent(@NonNull MotionEvent e) {
-        return mDelegates.get(e).onDoubleTapEvent(e);
+        T delegate = mDelegates.get(e);
+        return delegate != null && delegate.onDoubleTapEvent(e);
     }
 
     @Override
     public boolean onDown(@NonNull MotionEvent e) {
-        return mDelegates.get(e).onDown(e);
+        T delegate = mDelegates.get(e);
+        return delegate != null && delegate.onDown(e);
     }
 
     @Override
     public void onShowPress(@NonNull MotionEvent e) {
-        mDelegates.get(e).onShowPress(e);
+        T delegate = mDelegates.get(e);
+        if (delegate != null) {
+            delegate.onShowPress(e);
+        }
     }
 
     @Override
     public boolean onSingleTapUp(@NonNull MotionEvent e) {
-        return mDelegates.get(e).onSingleTapUp(e);
+        T delegate = mDelegates.get(e);
+        return delegate != null && delegate.onSingleTapUp(e);
     }
 
     @Override
     public boolean onScroll(@NonNull MotionEvent e1, @NonNull MotionEvent e2,
             float distanceX, float distanceY) {
-        return mDelegates.get(e2).onScroll(e1, e2, distanceX, distanceY);
+        T delegate = mDelegates.get(e2);
+        return delegate != null && delegate.onScroll(e1, e2, distanceX, distanceY);
     }
 
     @Override
     public void onLongPress(@NonNull MotionEvent e) {
-        mDelegates.get(e).onLongPress(e);
+        T delegate = mDelegates.get(e);
+        if (delegate != null) {
+            delegate.onLongPress(e);
+        }
     }
 
     @Override
     public boolean onFling(@NonNull MotionEvent e1, @NonNull MotionEvent e2,
             float velocityX, float velocityY) {
-        return mDelegates.get(e2).onFling(e1, e2, velocityX, velocityY);
+        T delegate = mDelegates.get(e2);
+        return delegate != null && delegate.onFling(e1, e2, velocityX, velocityY);
     }
 }

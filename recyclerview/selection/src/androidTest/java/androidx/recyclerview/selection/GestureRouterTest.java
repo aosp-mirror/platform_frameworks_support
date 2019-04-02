@@ -93,39 +93,6 @@ public final class GestureRouterTest {
     }
 
     @Test
-    public void testFallsback() {
-        mRouter = new GestureRouter<>(mAlt);
-        mRouter.register(MotionEvent.TOOL_TYPE_MOUSE, mHandler);
-
-        mRouter.onDown(Touch.TAP);
-        mAlt.assertCalled_onDown(Touch.TAP);
-
-        mRouter.onShowPress(Touch.TAP);
-        mAlt.assertCalled_onShowPress(Touch.TAP);
-
-        mRouter.onSingleTapUp(Touch.TAP);
-        mAlt.assertCalled_onSingleTapUp(Touch.TAP);
-
-        mRouter.onScroll(null, Touch.TAP, -1, -1);
-        mAlt.assertCalled_onScroll(null, Touch.TAP, -1, -1);
-
-        mRouter.onLongPress(Touch.TAP);
-        mAlt.assertCalled_onLongPress(Touch.TAP);
-
-        mRouter.onFling(null, Touch.TAP, -1, -1);
-        mAlt.assertCalled_onFling(null, Touch.TAP, -1, -1);
-
-        mRouter.onSingleTapConfirmed(Touch.TAP);
-        mAlt.assertCalled_onSingleTapConfirmed(Touch.TAP);
-
-        mRouter.onDoubleTap(Touch.TAP);
-        mAlt.assertCalled_onDoubleTap(Touch.TAP);
-
-        mRouter.onDoubleTapEvent(Touch.TAP);
-        mAlt.assertCalled_onDoubleTapEvent(Touch.TAP);
-    }
-
-    @Test
     public void testEatsEventsWhenNoFallback() {
         mRouter = new GestureRouter<>();
         // Register the the delegate on mouse so touch events don't get handled.
