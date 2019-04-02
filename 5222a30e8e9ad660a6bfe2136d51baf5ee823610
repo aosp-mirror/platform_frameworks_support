@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f1bdf019_1bdec846",
+        "filename": "development/update_studio_versions.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-04-02T18:29:41Z",
+      "side": 1,
+      "message": "If you make this script executable (`chmod u+x update_studio_versions.py` and recommit) then because of line #1, it will automatically run via python3 when you run `./development/update_studio_versions.py myVersion`",
+      "range": {
+        "startLine": 77,
+        "startChar": 26,
+        "endLine": 77,
+        "endChar": 34
+      },
+      "revId": "5222a30e8e9ad660a6bfe2136d51baf5ee823610",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
