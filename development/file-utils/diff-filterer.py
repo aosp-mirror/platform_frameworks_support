@@ -263,9 +263,10 @@ def filesStateFromTree(rootPath):
 class DiffRunner(object):
   def __init__(self, failingPath, passingPath, shellCommand, tempPath, workPath, assumeNoSideEffects, tryFail):
     # some simple params
-    self.workPath = os.path.abspath(workPath)
-    if self.workPath is None:
+    if workPath is None:
       self.workPath = fileIo.join(tempPath, "work")
+    else:
+      self.workPath = os.path.abspath(workPath)
     self.bestState_path = fileIo.join(tempPath, "bestResults")
     self.shellCommand = shellCommand
     self.originalPassingPath = os.path.abspath(passingPath)
