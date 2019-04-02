@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "35f44ed4_e29a11cd",
+        "filename": "security/crypto/src/main/java/androidx/security/content/SecureSharedPreferencesCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1060006
+      },
+      "writtenOn": "2019-04-02T16:39:30Z",
+      "side": 1,
+      "message": "String/Integer pad the length of each string byte array.\n\nFor each string, convert to byte[], prepend with the padded integer length for each string.\n\nEncrypt, encode with base64 to string to save in shared prefs.",
+      "range": {
+        "startLine": 85,
+        "startChar": 8,
+        "endLine": 85,
+        "endChar": 76
+      },
+      "revId": "a702d5c4165e1aa3e56fb4568798e90b6107aaed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "408ee0b4_cd442fea",
+        "filename": "security/crypto/src/main/java/androidx/security/content/SecureSharedPreferencesCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1060006
+      },
+      "writtenOn": "2019-04-02T16:39:30Z",
+      "side": 1,
+      "message": "Change keys to \n\ndeterministic encyrpted key + \":\" + class.getName() - type.",
+      "range": {
+        "startLine": 171,
+        "startChar": 9,
+        "endLine": 171,
+        "endChar": 83
+      },
+      "revId": "a702d5c4165e1aa3e56fb4568798e90b6107aaed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
