@@ -3,7 +3,13 @@ set -e
 cd $(dirname $0)
 
 echo "IF THIS SCRIPT FIXES YOUR BUILD; OPEN A BUG."
-echo "(in nearly all cases, it should not be necessary to run a clean build)."
+echo "In nearly all cases, it should not be necessary to run a clean build."
+echo
+echo "You may be more interested in running:"
+echo
+echo "  ./development/diagnose-build-failure/diagnose-build-failure.sh $*"
+echo
+echo "which attempts to diagnose more details about build failures"
 # one case where it is convenient to have a clean build is for double-checking that a build failure isn't due to an incremental build failure
 # another case where it is convenient to have a clean build is for performance testing
 # another case where it is convenient to have a clean build is when you're modifying the build and may have introduced some errors but haven't shared your changes yet (at which point you should have fixed the errors)
