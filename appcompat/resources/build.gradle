@@ -23,12 +23,19 @@ plugins {
 
 dependencies {
     api(project(":annotation"))
+<<<<<<< HEAD   (680477 Merge "Merge empty history for sparse-5426175-L1130000028956)
 
     api(project(":core"))
     api(project(":collection"))
     api("androidx.cursoradapter:cursoradapter:1.0.0")
     api("androidx.vectordrawable:vectordrawable:1.0.1")
     api("androidx.vectordrawable:vectordrawable-animated:1.0.0")
+=======
+    api("androidx.core:core:1.0.1")
+    implementation("androidx.collection:collection:1.0.0")
+    api("androidx.vectordrawable:vectordrawable:1.1.0-alpha01")
+    api("androidx.vectordrawable:vectordrawable-animated:1.1.0-alpha01")
+>>>>>>> BRANCH (05ecdf Merge "Merge cherrypicks of [937933] into sparse-5425228-L51)
 
     androidTestImplementation(TEST_EXT_JUNIT)
     androidTestImplementation(TEST_CORE)
@@ -40,6 +47,7 @@ dependencies {
     androidTestImplementation(DEXMAKER_MOCKITO, libs.exclude_bytebuddy) // DexMaker has it"s own MockMaker
     androidTestImplementation project(':internal-testutils'), {
         exclude group: 'androidx.appcompat', module: 'appcompat-resources'
+        exclude group: 'androidx.core', module: 'core'
     }
 }
 

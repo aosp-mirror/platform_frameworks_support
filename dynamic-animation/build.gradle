@@ -9,7 +9,7 @@ plugins {
 dependencies {
     api(project(":core"))
     api(project(":collection"))
-    api(project(":legacy-support-core-utils"))
+    api("androidx.legacy:legacy-support-core-utils:1.0.0")
 
     androidTestImplementation(TEST_EXT_JUNIT)
     androidTestImplementation(TEST_CORE)
