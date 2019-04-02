@@ -16,7 +16,7 @@
 #
 
 
-import datetime, filecmp, os, shutil, subprocess, sys
+import datetime, filecmp, math, os, shutil, subprocess, sys
 from collections import OrderedDict
 
 def usage():
@@ -263,9 +263,10 @@ def filesStateFromTree(rootPath):
 class DiffRunner(object):
   def __init__(self, failingPath, passingPath, shellCommand, tempPath, workPath, assumeNoSideEffects, tryFail):
     # some simple params
-    self.workPath = os.path.abspath(workPath)
-    if self.workPath is None:
+    if workPath is None:
       self.workPath = fileIo.join(tempPath, "work")
+    else:
+      self.workPath = os.path.abspath(workPath)
     self.bestState_path = fileIo.join(tempPath, "bestResults")
     self.shellCommand = shellCommand
     self.originalPassingPath = os.path.abspath(passingPath)
@@ -297,6 +298,8 @@ class DiffRunner(object):
     return (commandSucceeded != self.tryFail)
 
   def run(self):
+    start = datetime.datetime.now()
+    numIterationsCompleted = 0
     print("Testing that given failing state actually fails")
     fileIo.removePath(self.workPath)
     fileIo.ensureDirExists(self.workPath)
@@ -321,7 +324,7 @@ class DiffRunner(object):
     print("Starting")
     print("(You can inspect " + self.bestState_path + " while this process runs, to observe the best state discovered so far)")
     print("")
-
+    numFailuresDuringCurrentWindowSize = 0
     # decrease the window size until it reaches 0
     while self.windowSize > 0:
       # scan the state until reaching the end
@@ -330,6 +333,8 @@ class DiffRunner(object):
       succeededDuringThisScan = False
       # if we encounter only successes for this window size, then check all windows except the last (because if all other windows pass, then the last must fail)
       # if we encounter any failure for this window size, then check all windows
+      numFailuresDuringPreviousWindowSize = numFailuresDuringCurrentWindowSize
+      numFailuresDuringCurrentWindowSize = 0
       while (windowMax > self.windowSize) or (windowMax > 0 and failedDuringThisScan):
         # determine which changes to test
         windowMin = max(0, windowMax - self.windowSize)
@@ -341,6 +346,22 @@ class DiffRunner(object):
           print("Resetting " + str(self.workPath))
           fileIo.removePath(self.workPath)
           self.full_resetTo_state.apply(self.workPath)
+
+        # estimate time remaining
+        currentTime = datetime.datetime.now()
+        elapsedDuration = currentTime - start
+        estimatedNumInvalidFiles = numFailuresDuringPreviousWindowSize
+        if estimatedNumInvalidFiles < 1:
+          estimatedNumInvalidFiles = 1
+        estimatedNumValidFilesPerInvalidFile = self.resetTo_state.size() / estimatedNumInvalidFiles
+        estimatedNumWindowShrinkages = math.log(estimatedNumValidFilesPerInvalidFile, 3)
+        estimatedNumTestsPerWindow = estimatedNumWindowShrinkages * 3 + 1
+        estimatedNumIterationsRemaining = estimatedNumTestsPerWindow * estimatedNumInvalidFiles
+        numIterationsCompleted += 1
+        estimatedRemainingDuration = datetime.timedelta(seconds=(elapsedDuration.total_seconds() * estimatedNumIterationsRemaining / numIterationsCompleted))
+        print("Estimated remaining duration = " + str(estimatedRemainingDuration) + " and remaining num iterations = "  + str(estimatedNumIterationsRemaining))
+        print("")
+
         # test the state
         if self.test(testState):
           print("Accepted updated state having " + str(currentWindowSize) + " changes")
@@ -353,7 +374,9 @@ class DiffRunner(object):
           succeededDuringThisScan = True
         else:
           print("Rejected updated state having " + str(currentWindowSize) + " changes")
+
           failedDuringThisScan = True
+          numFailuresDuringCurrentWindowSize += 1
         # shift the window
         windowMax -= self.windowSize
       # we checked every file once; now shrink the window
