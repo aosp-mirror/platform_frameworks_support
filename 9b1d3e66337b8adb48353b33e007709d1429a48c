@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5bd27525_0f6256f3",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1237442
+      },
+      "writtenOn": "2019-04-02T23:46:51Z",
+      "side": 1,
+      "message": "This is Nullable (if setFormattedEta is never called).",
+      "range": {
+        "startLine": 81,
+        "startChar": 13,
+        "endLine": 81,
+        "endChar": 20
+      },
+      "revId": "9b1d3e66337b8adb48353b33e007709d1429a48c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "531c5311_6a590dfd",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1237442
+      },
+      "writtenOn": "2019-04-02T23:46:51Z",
+      "side": 1,
+      "message": "nit: I\u0027d move this up to be just below setEta, since they\u0027re so closely related",
+      "revId": "9b1d3e66337b8adb48353b33e007709d1429a48c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e5f0dd9_7463a2c1",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1237442
+      },
+      "writtenOn": "2019-04-02T23:46:51Z",
+      "side": 1,
+      "message": "It does feel strange to me to have both a formatted and ZonedDateTime ETA. Roberto/Mark, any recollection of why we opted for the ZonedDateTime ETA in the first place? A formatted one seems more consistent with the intention of the API.",
+      "revId": "9b1d3e66337b8adb48353b33e007709d1429a48c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
