@@ -69,14 +69,14 @@ public final class ShareCompat {
      * or {@link IntentReader#getCallingPackage()}.
      */
     public static final String EXTRA_CALLING_PACKAGE =
-            "androidx.core.app.EXTRA_CALLING_PACKAGE";
+            "android.support.v4.app.EXTRA_CALLING_PACKAGE";
 
     /**
      * Intent extra that stores the {@link ComponentName} of the calling activity for
      * an ACTION_SEND intent.
      */
     public static final String EXTRA_CALLING_ACTIVITY =
-            "androidx.core.app.EXTRA_CALLING_ACTIVITY";
+            "android.support.v4.app.EXTRA_CALLING_ACTIVITY";
 
     private static final String HISTORY_FILENAME_PREFIX = ".sharecompat_";
 
