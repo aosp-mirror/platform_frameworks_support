@@ -26,7 +26,6 @@ import android.view.GestureDetector.OnGestureListener;
 import android.view.MotionEvent;
 
 import androidx.recyclerview.selection.testing.TestEvents.Mouse;
-import androidx.recyclerview.selection.testing.TestEvents.Touch;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.SmallTest;
 
@@ -89,73 +88,6 @@ public final class GestureRouterTest {
 
         mRouter.onDoubleTapEvent(Mouse.CLICK);
         mHandler.assertCalled_onDoubleTapEvent(Mouse.CLICK);
-        mAlt.assertNotCalled_onDoubleTapEvent();
-    }
-
-    @Test
-    public void testFallsback() {
-        mRouter = new GestureRouter<>(mAlt);
-        mRouter.register(MotionEvent.TOOL_TYPE_MOUSE, mHandler);
-
-        mRouter.onDown(Touch.TAP);
-        mAlt.assertCalled_onDown(Touch.TAP);
-
-        mRouter.onShowPress(Touch.TAP);
-        mAlt.assertCalled_onShowPress(Touch.TAP);
-
-        mRouter.onSingleTapUp(Touch.TAP);
-        mAlt.assertCalled_onSingleTapUp(Touch.TAP);
-
-        mRouter.onScroll(null, Touch.TAP, -1, -1);
-        mAlt.assertCalled_onScroll(null, Touch.TAP, -1, -1);
-
-        mRouter.onLongPress(Touch.TAP);
-        mAlt.assertCalled_onLongPress(Touch.TAP);
-
-        mRouter.onFling(null, Touch.TAP, -1, -1);
-        mAlt.assertCalled_onFling(null, Touch.TAP, -1, -1);
-
-        mRouter.onSingleTapConfirmed(Touch.TAP);
-        mAlt.assertCalled_onSingleTapConfirmed(Touch.TAP);
-
-        mRouter.onDoubleTap(Touch.TAP);
-        mAlt.assertCalled_onDoubleTap(Touch.TAP);
-
-        mRouter.onDoubleTapEvent(Touch.TAP);
-        mAlt.assertCalled_onDoubleTapEvent(Touch.TAP);
-    }
-
-    @Test
-    public void testEatsEventsWhenNoFallback() {
-        mRouter = new GestureRouter<>();
-        // Register the the delegate on mouse so touch events don't get handled.
-        mRouter.register(MotionEvent.TOOL_TYPE_MOUSE, mHandler);
-
-        mRouter.onDown(Touch.TAP);
-        mAlt.assertNotCalled_onDown();
-
-        mRouter.onShowPress(Touch.TAP);
-        mAlt.assertNotCalled_onShowPress();
-
-        mRouter.onSingleTapUp(Touch.TAP);
-        mAlt.assertNotCalled_onSingleTapUp();
-
-        mRouter.onScroll(null, Touch.TAP, -1, -1);
-        mAlt.assertNotCalled_onScroll();
-
-        mRouter.onLongPress(Touch.TAP);
-        mAlt.assertNotCalled_onLongPress();
-
-        mRouter.onFling(null, Touch.TAP, -1, -1);
-        mAlt.assertNotCalled_onFling();
-
-        mRouter.onSingleTapConfirmed(Touch.TAP);
-        mAlt.assertNotCalled_onSingleTapConfirmed();
-
-        mRouter.onDoubleTap(Touch.TAP);
-        mAlt.assertNotCalled_onDoubleTap();
-
-        mRouter.onDoubleTapEvent(Touch.TAP);
         mAlt.assertNotCalled_onDoubleTapEvent();
     }
 
