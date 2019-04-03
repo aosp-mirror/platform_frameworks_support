@@ -22,6 +22,30 @@
       "revId": "3272a7d352dc53fb752d08f7d4bc4da70f31aa20",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8674c20_a50f89c9",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 444,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-04-03T09:29:25Z",
+      "side": 1,
+      "message": "It\u0027s called intentionally from calculateExtraLayoutSpace to provide backwards compatibility",
+      "parentUuid": "9420ec20_b46ab465",
+      "range": {
+        "startLine": 444,
+        "startChar": 4,
+        "endLine": 444,
+        "endChar": 46
+      },
+      "revId": "3272a7d352dc53fb752d08f7d4bc4da70f31aa20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
