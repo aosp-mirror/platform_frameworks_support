@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d556e225_b0ad4a98",
+        "filename": "scripts/checkInvalidSuppress.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-04-03T20:21:20Z",
+      "side": 1,
+      "message": "You do this best practice for building scripts that can also be included as a library by others but then store global state for errors! :D\n\nObviously don\u0027t bother fixing it, but hopefully your IDE/editor at least generated this boilerplate for you.",
+      "revId": "908cd990209de8ffed459caa88649bc4500c2c8f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
