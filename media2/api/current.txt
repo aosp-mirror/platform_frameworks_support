@@ -756,7 +756,7 @@ package androidx.media2 {
     method public androidx.media2.UriMediaItem.Builder setStartPosition(long);
   }
 
-  public final class VideoSize {
+  public final class VideoSize implements androidx.versionedparcelable.VersionedParcelable {
     method public int getHeight();
     method public int getWidth();
   }
