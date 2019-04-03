@@ -88,6 +88,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
 
     ArrayList<OpGenerator> mPendingActions;
     boolean mExecutingActions;
+    boolean mIsPendingPostpone;
 
     int mNextFragmentIndex = 0;
 
@@ -1619,6 +1620,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
             didSomething = true;
         }
 
+        addPendingPostponedTransactions();
         doPendingDeferredStart();
         burpActive();
 
@@ -1654,6 +1656,22 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
                     listener.cancelTransaction();
                 } else {
                     listener.completeTransaction();
+                }
+            }
+        }
+    }
+
+    /**
+     * Promote the pending transaction to the next lifecycle state.
+     */
+    private void addPendingPostponedTransactions() {
+        if (mPostponedTransactions != null) {
+            for (StartEnterTransitionListener start : mPostponedTransactions) {
+                BackStackRecord record = start.mRecord;
+                if (mIsPendingPostpone) {
+                    enqueueAction(record, false);
+                    mPostponedTransactions.remove(start);
+                    mIsPendingPostpone = false;
                 }
             }
         }
@@ -1830,6 +1848,12 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
                         new StartEnterTransitionListener(record, isPop);
                 mPostponedTransactions.add(listener);
                 record.setOnStartPostponedListener(listener);
+
+                // make sure the transaction also happens in the started state
+                if (mCurState < Fragment.STARTED) {
+                    mIsPendingPostpone = true;
+                    record.setOnStartPostponedListener(null);
+                }
 
                 // roll back the transaction
                 if (isPop) {

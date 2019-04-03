@@ -22,6 +22,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.test.FragmentTestActivity
 import androidx.fragment.test.R
+import androidx.lifecycle.ViewModelStore
+import androidx.test.annotation.UiThreadTest
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import androidx.test.filters.SdkSuppress
@@ -786,6 +788,39 @@ class PostponedTransitionTest {
                     .hasMessageThat().contains("FragmentManager is already executing transactions")
             }
         }
+    }
+
+    // A fragment that uses postponedEnterTransition should still go through onStart
+    @Test
+    @UiThreadTest
+    fun postponedEnterTransitionOnStart() {
+        val viewModelStore = ViewModelStore()
+        val fc = FragmentController.createController(
+            FragmentTestUtil.HostCallbacks(activityRule.activity, viewModelStore)
+        )
+        fc.attachHost(null)
+        fc.dispatchCreate()
+
+        val fm = fc.supportFragmentManager
+
+        val fragment = PostponedFragment1()
+        fm.beginTransaction()
+            .replace(R.id.fragmentContainer, fragment)
+            .setReorderingAllowed(true)
+            .commit()
+
+        fc.dispatchActivityCreated()
+        fc.dispatchStart()
+
+        assertPostponed(fragment)
+
+        assertThat(fragment.calledOnStart).isTrue()
+    }
+
+    private fun assertPostponed(fragment: PostponedFragment1) {
+        assertThat(fragment.onCreateViewCalled).isTrue()
+        assertThat(fragment.requireView().visibility).isEqualTo(View.VISIBLE)
+        assertThat(fragment.requireView().alpha).isWithin(0f).of(0f)
     }
 
     private fun assertPostponedTransition(
