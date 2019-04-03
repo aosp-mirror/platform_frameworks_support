@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "794a37cc_0c68b8ed",
+        "filename": "development/diagnose-build-failure/diagnose-build-failure.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-04-03T21:26:08Z",
+      "side": 1,
+      "message": "Good point",
+      "parentUuid": "38f78a0d_8161a6a2",
+      "revId": "4af3a612e985c7030a8e0c8b8903199fc180bc88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7d2fc9e2_60752d0e",
         "filename": "development/diagnose-build-failure/diagnose-build-failure.sh",
         "patchSetId": 3
@@ -47,6 +65,24 @@
       "writtenOn": "2019-04-03T20:50:39Z",
       "side": 1,
       "message": "These seem slightly redundant with the same checks in diff-filterer.py.  These seem more helpful, but maybe worth disabling the checks in diff-filterer.py via a flag?",
+      "revId": "4af3a612e985c7030a8e0c8b8903199fc180bc88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a42f809_ef67946f",
+        "filename": "development/diagnose-build-failure/diagnose-build-failure.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-04-03T21:26:08Z",
+      "side": 1,
+      "message": "Good point.\n\nI\u0027m hoping that we can count on diff-filterer.py\u0027s sanity checks to be fast, since $tempDir/prev and $tempDir/clean should contain all of the generated files from having just run Gradle (and so the corresponding Gradle builds should be essentially no-ops).\n\nTechnically, it\u0027s possible that the second clean build in a row might not pass because the backup on line 141 is a backup of the result of the first clean build, whereas the build that passed actually started with an empty state on line 135.\n\nWe could explicitly check that in this script too and then promise diff-filterer.py via a flag that the given states do in fact pass or fail like they\u0027re supposed to.\n\nAlthough I guess that then if the build does happen to be nondeterministic (which is more likely to affect diff-filterer.py because it runs more builds), then if diff-filterer.py detects a problem, it might not detect that the build is nondeterministic and might instead just print that the caller was wrong to have passed the flag to disable the checks, which seems to me that it could be confusing.\n\nThoughts?",
+      "parentUuid": "7d2fc9e2_60752d0e",
       "revId": "4af3a612e985c7030a8e0c8b8903199fc180bc88",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
@@ -84,6 +120,24 @@
       "revId": "4af3a612e985c7030a8e0c8b8903199fc180bc88",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7731fcba_53e5b2a2",
+        "filename": "development/diagnose-build-failure/impl/restore-state.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-04-03T21:26:08Z",
+      "side": 1,
+      "message": "Oops, thanks, I must\u0027ve forgotten to update that after moving this script",
+      "parentUuid": "c0d716e3_e4a16f09",
+      "revId": "4af3a612e985c7030a8e0c8b8903199fc180bc88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
