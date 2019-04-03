@@ -92,6 +92,24 @@
       "revId": "9b1d3e66337b8adb48353b33e007709d1429a48c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86869735_8c3c46bb",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2019-04-03T00:42:19Z",
+      "side": 1,
+      "message": "I didn\u0027t think much about zoned date time vs formatted time at the start, sending both is kinda consistent with the rest of the API. I guess we just did zoneddatetime because the FSD/PRD said ETA, but we didn\u0027t think much more of it?\n\nAnyway, I\u0027m on board with sending both - empowers OEMs to be consistent and also do their own thing.",
+      "parentUuid": "ca7ffcfa_125fbbb8",
+      "revId": "9b1d3e66337b8adb48353b33e007709d1429a48c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
