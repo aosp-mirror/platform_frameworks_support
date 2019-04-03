@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dcbd3fab_5eec571a",
+        "filename": "gradlew",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-04-03T04:22:08Z",
+      "side": 1,
+      "message": "oops, probably want to undo this part",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 42
+      },
+      "revId": "ec3573e580fdad7434348d5fc96f204f89419345",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
