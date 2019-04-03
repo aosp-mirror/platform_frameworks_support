@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "44a993dd_7152d151",
+        "filename": "development/update_studio_versions.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-04-03T20:15:46Z",
+      "side": 1,
+      "message": "Nit: stability *suffix*",
+      "revId": "cb8caad4b295d2027b48a5c476e7244831384cdd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9f0faf1_cd7a370c",
+        "filename": "development/update_studio_versions.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-04-03T20:15:46Z",
+      "side": 1,
+      "message": "Nit: this method would break if we ever have a two-digit patch number. It\u0027d probably be more straightforward/reliable to just do this whole thing with a regex like r\u0027^(?P\u003cmajor_version\u003e\\d+\\.\\d+)\\.\\d+(?:-(?P\u003crelease_type\u003ealpha|beta|canary|rc)(?P\u003cminor_version\u003e\\d+))?$\u0027\n\nI tried to replicate your logic as closely as possible.  For easy testing that I didn\u0027t mess that up: https://pythex.org/?regex\u003d%5E(%3FP%3Cmajor_version%3E%5Cd%2B%5C.%5Cd%2B)%5C.%5Cd%2B(%3F%3A-(%3FP%3Crelease_type%3Ealpha%7Cbeta%7Ccanary%7Crc)(%3FP%3Cminor_version%3E%5Cd%2B))%3F%24\u0026test_string\u003d3.4.0-beta1\u0026ignorecase\u003d0\u0026multiline\u003d0\u0026dotall\u003d0\u0026verbose\u003d0",
+      "revId": "cb8caad4b295d2027b48a5c476e7244831384cdd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
