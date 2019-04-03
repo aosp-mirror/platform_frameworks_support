@@ -40,6 +40,7 @@ def archivesToDejetify = [
     "m2repository/androidx/drawerlayout/**",
     "m2repository/androidx/dynamicanimation/**",
     "m2repository/androidx/emoji/**",
+    "m2repository/androidx/navigation/**",
     "m2repository/androidx/exifinterface/**",
     "m2repository/androidx/fragment/fragment/**",
     "m2repository/androidx/gridlayout/**",
