@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5c996b22_1c3eccfe",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-04-03T20:33:09Z",
+      "side": 1,
+      "message": "I think this is saying (all of the following):\n\nThere are two requirements for the VersionedParcelProcessor to run incrementally:\na) It must use the Filer API (it already does)\nb) It must specify an originating element to the source files that it generates (this change adds that)\n\nIs that correct?\nMaybe clarify some more",
+      "range": {
+        "startLine": 20,
+        "startChar": 43,
+        "endLine": 23,
+        "endChar": 70
+      },
+      "revId": "7a63b37216155bde2905a5530024a4464def7f2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "132eb5bb_3a9f9398",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-04-03T20:33:09Z",
+      "side": 1,
+      "message": "Did you do double-check that the incremental builds still work correctly?\n\nI\u0027m imagining having a line in the commit message saying something to the effect of:\n\n  \"Test: ./gradlew :slice:slice-core:assembleDebug \u0026\u0026 sed -i \u0027s/someString/someOtherString/\u0027 someSourceFile \u0026\u0026 mv ../../out ../../out-old \u0026\u0026 git add . \u0026\u0026 git commit -m \"modify source\" \u0026\u0026 git revert HEAD^^ \u0026\u0026 ./gradlew :slice:slice-core:assembleDebug \u0026\u0026 diff -r ../../out-old ../../out\"\n\nAlthough since diff-ing the out/ dirs would probably detect a bunch of timestamp changes in some intermediate files and be less convenient than we\u0027d like, it might be more convenient to do something more like:\n\n  \"Test: sed -i \u0027s/someString/someOtherString/\u0027 someSourceFile \u0026\u0026 git add -u \u0026\u0026 git commit -m \"modify source\" \u0026\u0026 git revert HEAD^ \u0026\u0026 git revert HEAD \u0026\u0026 ./development/validateRefactor.sh HEAD^\"\n\n(We could even extract the diffing logic out of validateRefactor.sh but that sounds like probably more effort than you\u0027d want to do for this)",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 4
+      },
+      "revId": "7a63b37216155bde2905a5530024a4464def7f2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
