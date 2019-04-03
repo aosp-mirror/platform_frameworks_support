@@ -1,0 +1,9 @@
+// Signature format: 3.0
+package androidx.security.niap.config {
+
+  public final class TldConstants {
+    field public static final java.util.List<java.lang.String> VALID_TLDS;
+  }
+
+}
+
