@@ -20,13 +20,13 @@ import androidx.navigation.contains
 import androidx.navigation.get
 import androidx.navigation.navigation
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.filters.LargeTest
+import androidx.test.filters.SmallTest
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
 
-@LargeTest
+@SmallTest
 @RunWith(AndroidJUnit4::class)
 class TestNavigatorDestinationBuilderTest {
     private val provider = TestNavigatorProvider()

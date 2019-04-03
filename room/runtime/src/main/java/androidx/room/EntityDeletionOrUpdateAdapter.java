@@ -27,7 +27,7 @@ import androidx.sqlite.db.SupportSQLiteStatement;
  * @param <T> The type parameter of the entity to be deleted
  * @hide
  */
-@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
+@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 @SuppressWarnings({"WeakerAccess", "unused"})
 public abstract class EntityDeletionOrUpdateAdapter<T> extends SharedSQLiteStatement {
     /**

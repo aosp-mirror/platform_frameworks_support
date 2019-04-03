@@ -13,7 +13,7 @@
  */
 package androidx.leanback.widget;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.util.Log;
 import android.view.KeyEvent;
@@ -41,7 +41,7 @@ import java.util.List;
  * {@link GuidedActionAdapter.ClickListener} and {@link GuidedActionAdapter.FocusListener}.
  * @hide
  */
-@RestrictTo(LIBRARY_GROUP_PREFIX)
+@RestrictTo(LIBRARY_GROUP)
 public class GuidedActionAdapter extends RecyclerView.Adapter {
     static final String TAG = "GuidedActionAdapter";
     static final boolean DEBUG = false;
@@ -279,7 +279,7 @@ public class GuidedActionAdapter extends RecyclerView.Adapter {
      * Used for serialization only.
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     public List<GuidedAction> getActions() {
         return new ArrayList<GuidedAction>(mActions);
     }

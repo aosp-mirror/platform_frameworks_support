@@ -31,7 +31,6 @@ import static org.junit.Assert.assertThat;
 
 import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
-import android.os.SystemClock;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.ColorRes;
@@ -42,6 +41,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.test.filters.LargeTest;
 import androidx.test.filters.MediumTest;
+import androidx.test.filters.SmallTest;
 
 import org.hamcrest.Matcher;
 import org.junit.After;
@@ -51,7 +51,7 @@ import org.junit.Test;
  * In addition to all tinting-related tests done by the base class, this class provides
  * tests specific to {@link AppCompatSpinner} class.
  */
-@LargeTest
+@SmallTest
 public class AppCompatSpinnerTest
         extends AppCompatBaseViewTest<AppCompatSpinnerActivity, AppCompatSpinner> {
     private static final String EARTH = "Earth";
@@ -69,18 +69,12 @@ public class AppCompatSpinnerTest
     @Override
     public void setUp() {
         super.setUp();
-        if (mActivity.getRequestedOrientation() != ActivityInfo.SCREEN_ORIENTATION_PORTRAIT) {
-            mActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-            SystemClock.sleep(250);
-        }
+        mActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
 
     @After
     public void cleanUp() {
-        if (mActivity.getRequestedOrientation() != ActivityInfo.SCREEN_ORIENTATION_PORTRAIT) {
-            mActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-            SystemClock.sleep(250);
-        }
+        mActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
 
     /**
@@ -169,13 +163,13 @@ public class AppCompatSpinnerTest
         assertThat(dialogPopup.mPopup, instanceOf(AlertDialog.class));
     }
 
-    @LargeTest
+    @MediumTest
     @Test
     public void testChangeOrientationDialogPopupPersists() {
         verifyChangeOrientationPopupPersists(R.id.spinner_dialog_popup);
     }
 
-    @LargeTest
+    @MediumTest
     @Test
     public void testChangeOrientationDropdownPopupPersists() {
         verifyChangeOrientationPopupPersists(R.id.spinner_dropdown_popup);

@@ -44,7 +44,6 @@ interface IRemoteMediaControllerCompat {
     void pause(String controllerId);
     void stop(String controllerId);
     void seekTo(String controllerId, long pos);
-    void setPlaybackSpeed(String controllerId, float speed);
     void fastForward(String controllerId);
     void skipToNext(String controllerId);
     void rewind(String controllerId);

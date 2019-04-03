@@ -17,11 +17,11 @@
 package androidx.appcompat.app;
 
 import androidx.test.annotation.UiThreadTest;
-import androidx.test.filters.LargeTest;
+import androidx.test.filters.SmallTest;
 
 import org.junit.Test;
 
-@LargeTest
+@SmallTest
 public class BasicsTestCaseWithWindowDecor extends BaseBasicsTestCase<WindowDecorAppCompatActivity> {
     public BasicsTestCaseWithWindowDecor() {
         super(WindowDecorAppCompatActivity.class);

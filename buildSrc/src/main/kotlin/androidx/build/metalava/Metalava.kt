@@ -19,7 +19,6 @@ package androidx.build.metalava
 import androidx.build.AndroidXPlugin.Companion.BUILD_ON_SERVER_TASK
 import androidx.build.SupportLibraryExtension
 import androidx.build.checkapi.ApiLocation
-import androidx.build.checkapi.ApiViolationExclusions
 import androidx.build.checkapi.getCurrentApiLocation
 import androidx.build.checkapi.getRequiredCompatibilityApiLocation
 import androidx.build.checkapi.hasApiFolder
@@ -37,7 +36,7 @@ import java.io.File
 object Metalava {
     private fun Project.createMetalavaConfiguration(): Configuration {
         return configurations.create("metalava") {
-            val dependency = dependencies.create("com.android:metalava:1.2.5-SNAPSHOT:shadow@jar")
+            val dependency = dependencies.create("com.android:metalava:1.1.2-SNAPSHOT:shadow@jar")
             it.dependencies.add(dependency)
         }
     }
@@ -116,7 +115,6 @@ object Metalava {
             task.description = "Generates API files from source"
             task.apiLocation = builtApiLocation
             task.configuration = metalavaConfiguration
-            task.generateRestrictedAPIs = extension.trackRestrictedAPIs
             task.dependsOn(metalavaConfiguration)
         }
         applyInputs(javaCompileInputs, generateApi)
@@ -133,23 +131,13 @@ object Metalava {
         val lastReleasedApiFile = project.getRequiredCompatibilityApiLocation()
         if (lastReleasedApiFile != null) {
             val checkApiRelease = project.tasks.create("checkApiRelease", CheckApiCompatibilityTask::class.java) { task ->
-                task.configuration = metalavaConfiguration
-                task.referenceApi = lastReleasedApiFile
-                task.exclusions = ApiViolationExclusions.fromApiLocation(libraryVersionApi)
-                task.dependsOn(metalavaConfiguration)
-                task.checkRestrictedAPIs = extension.trackRestrictedAPIs
-            }
-            applyInputs(javaCompileInputs, checkApiRelease)
-            checkApi.dependsOn(checkApiRelease)
-
-            val updateApiTrackingExceptions = project.tasks.create("ignoreApiChanges", IgnoreApiChangesTask::class.java) { task ->
-                task.configuration = metalavaConfiguration
-                task.referenceApi = checkApiRelease.referenceApi
-                task.exclusions = checkApiRelease.exclusions
-                task.processRestrictedAPIs = extension.trackRestrictedAPIs
-                task.intermediateExclusionsFile = File(project.docsDir(), "release/${project.name}/api-changes.ignore")
-            }
-            applyInputs(javaCompileInputs, updateApiTrackingExceptions)
+                 task.configuration = metalavaConfiguration
+                 task.apiLocation = lastReleasedApiFile
+                 task.dependsOn(metalavaConfiguration)
+                 task.checkRestrictedAPIs = extension.trackRestrictedAPIs
+             }
+             applyInputs(javaCompileInputs, checkApiRelease)
+             checkApi.dependsOn(checkApiRelease)
         }
 
         project.tasks.create("updateApi", UpdateApiTask::class.java) { task ->

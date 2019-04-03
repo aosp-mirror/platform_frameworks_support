@@ -18,7 +18,7 @@ import java.util.concurrent.Callable;
 import javax.annotation.Generated;
 
 @Generated("androidx.room.RoomProcessor")
-@SuppressWarnings({"unchecked", "deprecation"})
+@SuppressWarnings("unchecked")
 public final class UpdateDao_Impl implements UpdateDao {
   private final RoomDatabase __db;
 
@@ -118,7 +118,6 @@ public final class UpdateDao_Impl implements UpdateDao {
 
   @Override
   public void updateUser(final User user) {
-    __db.assertNotSuspendingTransaction();
     __db.beginTransaction();
     try {
       __updateAdapterOfUser.handle(user);
@@ -130,7 +129,6 @@ public final class UpdateDao_Impl implements UpdateDao {
 
   @Override
   public void updateUsers(final User user1, final List<User> others) {
-    __db.assertNotSuspendingTransaction();
     __db.beginTransaction();
     try {
       __updateAdapterOfUser.handle(user1);
@@ -143,7 +141,6 @@ public final class UpdateDao_Impl implements UpdateDao {
 
   @Override
   public void updateArrayOfUsers(final User[] users) {
-    __db.assertNotSuspendingTransaction();
     __db.beginTransaction();
     try {
       __updateAdapterOfUser.handleMultiple(users);
@@ -155,7 +152,6 @@ public final class UpdateDao_Impl implements UpdateDao {
 
   @Override
   public int updateUserAndReturnCount(final User user) {
-    __db.assertNotSuspendingTransaction();
     int _total = 0;
     __db.beginTransaction();
     try {
@@ -169,7 +165,6 @@ public final class UpdateDao_Impl implements UpdateDao {
 
   @Override
   public int updateUserAndReturnCount(final User user1, final List<User> others) {
-    __db.assertNotSuspendingTransaction();
     int _total = 0;
     __db.beginTransaction();
     try {
@@ -184,7 +179,6 @@ public final class UpdateDao_Impl implements UpdateDao {
 
   @Override
   public int updateUserAndReturnCount(final User[] users) {
-    __db.assertNotSuspendingTransaction();
     int _total = 0;
     __db.beginTransaction();
     try {
@@ -198,7 +192,6 @@ public final class UpdateDao_Impl implements UpdateDao {
 
   @Override
   public Integer updateUserAndReturnCountObject(final User user) {
-    __db.assertNotSuspendingTransaction();
     int _total = 0;
     __db.beginTransaction();
     try {
@@ -265,7 +258,6 @@ public final class UpdateDao_Impl implements UpdateDao {
 
   @Override
   public int multiPKey(final MultiPKeyEntity entity) {
-    __db.assertNotSuspendingTransaction();
     int _total = 0;
     __db.beginTransaction();
     try {
@@ -279,7 +271,6 @@ public final class UpdateDao_Impl implements UpdateDao {
 
   @Override
   public void updateUserAndBook(final User user, final Book book) {
-    __db.assertNotSuspendingTransaction();
     __db.beginTransaction();
     try {
       __updateAdapterOfUser.handle(user);
@@ -303,7 +294,6 @@ public final class UpdateDao_Impl implements UpdateDao {
 
   @Override
   public void ageUserByUid(final String uid) {
-    __db.assertNotSuspendingTransaction();
     final SupportSQLiteStatement _stmt = __preparedStmtOfAgeUserByUid.acquire();
     int _argIndex = 1;
     if (uid == null) {
@@ -323,7 +313,6 @@ public final class UpdateDao_Impl implements UpdateDao {
 
   @Override
   public void ageUserAll() {
-    __db.assertNotSuspendingTransaction();
     final SupportSQLiteStatement _stmt = __preparedStmtOfAgeUserAll.acquire();
     __db.beginTransaction();
     try {
@@ -337,10 +326,10 @@ public final class UpdateDao_Impl implements UpdateDao {
 
   @Override
   public Completable ageUserAllCompletable() {
+    final SupportSQLiteStatement _stmt = __preparedStmtOfAgeUserAll.acquire();
     return Completable.fromCallable(new Callable<Void>() {
       @Override
       public Void call() throws Exception {
-        final SupportSQLiteStatement _stmt = __preparedStmtOfAgeUserAll.acquire();
         __db.beginTransaction();
         try {
           _stmt.executeUpdateDelete();
@@ -356,10 +345,10 @@ public final class UpdateDao_Impl implements UpdateDao {
 
   @Override
   public Single<Integer> ageUserAllSingle() {
+    final SupportSQLiteStatement _stmt = __preparedStmtOfAgeUserAll.acquire();
     return Single.fromCallable(new Callable<Integer>() {
       @Override
       public Integer call() throws Exception {
-        final SupportSQLiteStatement _stmt = __preparedStmtOfAgeUserAll.acquire();
         __db.beginTransaction();
         try {
           final java.lang.Integer _result = _stmt.executeUpdateDelete();
@@ -375,10 +364,10 @@ public final class UpdateDao_Impl implements UpdateDao {
 
   @Override
   public Maybe<Integer> ageUserAllMaybe() {
+    final SupportSQLiteStatement _stmt = __preparedStmtOfAgeUserAll.acquire();
     return Maybe.fromCallable(new Callable<Integer>() {
       @Override
       public Integer call() throws Exception {
-        final SupportSQLiteStatement _stmt = __preparedStmtOfAgeUserAll.acquire();
         __db.beginTransaction();
         try {
           final java.lang.Integer _result = _stmt.executeUpdateDelete();

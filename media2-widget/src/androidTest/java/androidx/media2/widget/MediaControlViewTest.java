@@ -20,13 +20,8 @@ import static android.content.Context.KEYGUARD_SERVICE;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
-import static androidx.test.espresso.assertion.ViewAssertions.matches;
-import static androidx.test.espresso.matcher.ViewMatchers.isCompletelyDisplayed;
-import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
-import static org.hamcrest.CoreMatchers.allOf;
-import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -150,7 +145,7 @@ public class MediaControlViewTest {
             }
         });
         assertTrue(latchForPausedState.await(WAIT_TIME_MS, TimeUnit.MILLISECONDS));
-        onView(allOf(withId(R.id.pause), isCompletelyDisplayed())).perform(click());
+        onView(withId(R.id.pause)).perform(click());
         assertTrue(latchForPlayingState.await(WAIT_TIME_MS, TimeUnit.MILLISECONDS));
     }
 
@@ -183,7 +178,7 @@ public class MediaControlViewTest {
             }
         });
         assertTrue(latchForPausedState.await(WAIT_TIME_MS, TimeUnit.MILLISECONDS));
-        onView(allOf(withId(R.id.ffwd), isCompletelyDisplayed())).perform(click());
+        onView(withId(R.id.ffwd)).perform(click());
         assertTrue(latchForFfwd.await(WAIT_TIME_MS, TimeUnit.MILLISECONDS));
     }
 
@@ -191,39 +186,34 @@ public class MediaControlViewTest {
     public void testRewButtonClick() throws Throwable {
         final CountDownLatch latchForFfwd = new CountDownLatch(1);
         final CountDownLatch latchForRew = new CountDownLatch(1);
-        createController(new MediaController.ControllerCallback() {
-            long mExpectedPosition = FFWD_MS;
-            final long mDelta = 1000L;
+        final MediaController controller =
+                createController(new MediaController.ControllerCallback() {
+                    long mExpectedPosition;
+                    final long mDelta = 1000L;
+                    @Override
+                    public void onPlayerStateChanged(@NonNull MediaController controller,
+                            int state) {
+                        if (state == SessionPlayer.PLAYER_STATE_PAUSED) {
+                            mExpectedPosition = FFWD_MS;
+                            controller.seekTo(mExpectedPosition);
+                        }
+                    }
+                    @Override
+                    public void onSeekCompleted(@NonNull MediaController controller,
+                            long position) {
+                        assertTrue(equalsSeekPosition(mExpectedPosition, position, mDelta));
+                        if (mExpectedPosition == FFWD_MS) {
+                            mExpectedPosition = position - REW_MS;
+                            latchForFfwd.countDown();
+                        } else {
+                            latchForRew.countDown();
+                        }
+                    }
 
-            @Override
-            public void onPlayerStateChanged(@NonNull MediaController controller,
-                    int state) {
-                if (state == SessionPlayer.PLAYER_STATE_PAUSED) {
-                    mExpectedPosition = FFWD_MS;
-                    controller.seekTo(mExpectedPosition);
-                }
-            }
-
-            @Override
-            public void onSeekCompleted(@NonNull MediaController controller,
-                    long position) {
-                // Ignore the initial seek. Internal MediaPlayer behavior can be changed.
-                if (position == 0 && mExpectedPosition == FFWD_MS) {
-                    return;
-                }
-                assertTrue(equalsSeekPosition(mExpectedPosition, position, mDelta));
-                if (mExpectedPosition == FFWD_MS) {
-                    mExpectedPosition = position - REW_MS;
-                    latchForFfwd.countDown();
-                } else {
-                    latchForRew.countDown();
-                }
-            }
-
-            private boolean equalsSeekPosition(long expected, long actual, long delta) {
-                return (actual < expected + delta) && (actual > expected - delta);
-            }
-        });
+                    private boolean equalsSeekPosition(long expected, long actual, long delta) {
+                        return (actual < expected + delta) && (actual > expected - delta);
+                    }
+                });
         mActivityRule.runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -231,7 +221,7 @@ public class MediaControlViewTest {
             }
         });
         assertTrue(latchForFfwd.await(WAIT_TIME_MS, TimeUnit.MILLISECONDS));
-        onView(allOf(withId(R.id.rew), isCompletelyDisplayed())).perform(click());
+        onView(withId(R.id.rew)).perform(click());
         assertTrue(latchForRew.await(WAIT_TIME_MS, TimeUnit.MILLISECONDS));
     }
 
@@ -356,45 +346,6 @@ public class MediaControlViewTest {
     @Test
     public void testCheckMediaItemIsFromFile() throws Throwable {
         testCheckMediaItemIsFromNetwork(Uri.parse("file:///dummy.mp4"), false);
-    }
-
-    @Test
-    public void testFullScreenListener() throws Throwable {
-        onView(withId(R.id.fullscreen)).check(matches(not(isDisplayed())));
-
-        final CountDownLatch latchOn = new CountDownLatch(1);
-        final CountDownLatch latchOff = new CountDownLatch(1);
-
-        mActivityRule.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                mVideoView.getMediaControlView().setOnFullScreenListener(
-                        new MediaControlView.OnFullScreenListener() {
-                            @Override
-                            public void onFullScreen(@NonNull View view, boolean fullScreen) {
-                                if (fullScreen) {
-                                    latchOn.countDown();
-                                } else {
-                                    latchOff.countDown();
-                                }
-                            }
-                        });
-            }
-        });
-        onView(withId(R.id.fullscreen)).check(matches(isDisplayed()));
-
-        onView(withId(R.id.fullscreen)).perform(click());
-        assertTrue(latchOn.await(WAIT_TIME_MS, TimeUnit.MILLISECONDS));
-        onView(withId(R.id.fullscreen)).perform(click());
-        assertTrue(latchOff.await(WAIT_TIME_MS, TimeUnit.MILLISECONDS));
-
-        mActivityRule.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                mVideoView.getMediaControlView().setOnFullScreenListener(null);
-            }
-        });
-        onView(withId(R.id.fullscreen)).check(matches(not(isDisplayed())));
     }
 
     private void testCheckMediaItemIsFromNetwork(Uri uri, boolean isNetwork) throws Throwable {

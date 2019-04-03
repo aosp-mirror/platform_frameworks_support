@@ -24,7 +24,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-import androidx.savedstate.SavedStateRegistryOwner;
+import androidx.savedstate.SavedStateRegistry;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -69,7 +69,8 @@ public final class SavedStateVMFactory extends AbstractSavedStateVMFactory {
      * miss a value by such key.
      */
     public SavedStateVMFactory(@NonNull Fragment fragment, @Nullable Bundle defaultArgs) {
-        this(checkApplication(checkActivity(fragment)), fragment, defaultArgs);
+        this(checkApplication(checkActivity(fragment)),
+                fragment.getBundleSavedStateRegistry(), defaultArgs);
     }
 
     /**
@@ -96,7 +97,7 @@ public final class SavedStateVMFactory extends AbstractSavedStateVMFactory {
      * misses a value by such key.
      */
     public SavedStateVMFactory(@NonNull FragmentActivity activity, @Nullable Bundle defaultArgs) {
-        this(checkApplication(activity), activity, defaultArgs);
+        this(checkApplication(activity), activity.getBundleSavedStateRegistry(), defaultArgs);
     }
 
     /**
@@ -106,16 +107,15 @@ public final class SavedStateVMFactory extends AbstractSavedStateVMFactory {
      * the given {@code activity}.
      *
      * @param application an application
-     * @param owner {@link SavedStateRegistryOwner} that will provide restored state for created
-     * {@link ViewModel ViewModels}
+     * @param savedStateRegistry registry to retrieve saved state from and later to contribute
      * @param defaultArgs values from this {@code Bundle} will be used as defaults by
      * {@link SavedStateHandle} if there is no previously saved state or previously saved state
      * misses a value by such key.
      */
     public SavedStateVMFactory(@NonNull Application application,
-            @NonNull SavedStateRegistryOwner owner,
+            @NonNull SavedStateRegistry<Bundle> savedStateRegistry,
             @Nullable Bundle defaultArgs) {
-        super(owner, defaultArgs);
+        super(application, savedStateRegistry, defaultArgs);
         mApplication = application;
         mFactory = ViewModelProvider.AndroidViewModelFactory.getInstance(application);
     }

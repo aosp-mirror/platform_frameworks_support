@@ -23,7 +23,7 @@ import static android.graphics.drawable.Icon.TYPE_RESOURCE;
 import static android.graphics.drawable.Icon.TYPE_URI;
 
 import static androidx.annotation.RestrictTo.Scope.LIBRARY;
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.app.ActivityManager;
 import android.content.ContentResolver;
@@ -122,7 +122,7 @@ public class IconCompat extends CustomVersionedParcelable {
     /**
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY)
     @ParcelField(value = 1,
             defaultValue = "androidx.core.graphics.drawable.IconCompat.TYPE_UNKNOWN")
     public int mType = TYPE_UNKNOWN;
@@ -201,7 +201,7 @@ public class IconCompat extends CustomVersionedParcelable {
     /**
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY)
     public static IconCompat createWithResource(Resources r, String pkg, @DrawableRes int resId) {
         if (pkg == null) {
             throw new IllegalArgumentException("Package must not be null.");
@@ -372,7 +372,7 @@ public class IconCompat extends CustomVersionedParcelable {
      *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     @Nullable
     public Bitmap getBitmap() {
         if (mType == TYPE_UNKNOWN && Build.VERSION.SDK_INT >= 23) {
@@ -484,7 +484,7 @@ public class IconCompat extends CustomVersionedParcelable {
     /**
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     public void checkResource(Context context) {
         if (mType == TYPE_RESOURCE) {
             String resPackage = (String) mObj1;
@@ -611,7 +611,7 @@ public class IconCompat extends CustomVersionedParcelable {
     /**
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     @SuppressWarnings("deprecation")
     public void addToShortcutIntent(@NonNull Intent outIntent, @Nullable Drawable badge,
             @NonNull Context c) {
@@ -887,7 +887,7 @@ public class IconCompat extends CustomVersionedParcelable {
      * Creates an IconCompat from an Icon.
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     @RequiresApi(23)
     @Nullable
     public static IconCompat createFromIcon(@NonNull Icon icon) {

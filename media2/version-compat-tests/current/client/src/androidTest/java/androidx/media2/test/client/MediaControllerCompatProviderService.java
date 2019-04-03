@@ -240,12 +240,6 @@ public class MediaControllerCompatProviderService extends Service {
         }
 
         @Override
-        public void setPlaybackSpeed(String controllerId, float speed) throws RemoteException {
-            MediaControllerCompat controller = mMediaControllerCompatMap.get(controllerId);
-            controller.getTransportControls().setPlaybackSpeed(speed);
-        }
-
-        @Override
         public void fastForward(String controllerId) throws RemoteException {
             MediaControllerCompat controller = mMediaControllerCompatMap.get(controllerId);
             controller.getTransportControls().fastForward();

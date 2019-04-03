@@ -18,14 +18,13 @@ package androidx.media2;
 
 import static androidx.media2.LibraryResult.RESULT_ERROR_BAD_VALUE;
 import static androidx.media2.LibraryResult.RESULT_ERROR_SESSION_DISCONNECTED;
-import static androidx.media2.LibraryResult.RESULT_ERROR_UNKNOWN;
+import static androidx.media2.LibraryResult.RESULT_ERROR_UNKNOWN_ERROR;
 import static androidx.media2.LibraryResult.RESULT_SUCCESS;
 import static androidx.media2.MediaMetadata.BROWSABLE_TYPE_MIXED;
 import static androidx.media2.MediaMetadata.METADATA_KEY_BROWSABLE;
 import static androidx.media2.MediaMetadata.METADATA_KEY_MEDIA_ID;
 import static androidx.media2.MediaMetadata.METADATA_KEY_PLAYABLE;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.media.MediaBrowserCompat;
@@ -200,7 +199,7 @@ class MediaBrowserImplLegacy extends MediaControllerImplLegacy implements MediaB
                 getCallbackExecutor().execute(new Runnable() {
                     @Override
                     public void run() {
-                        result.set(new LibraryResult(RESULT_ERROR_UNKNOWN));
+                        result.set(new LibraryResult(RESULT_ERROR_UNKNOWN_ERROR));
                     }
                 });
             }
@@ -283,7 +282,7 @@ class MediaBrowserImplLegacy extends MediaControllerImplLegacy implements MediaB
                 getCallbackExecutor().execute(new Runnable() {
                     @Override
                     public void run() {
-                        future.set(new LibraryResult(RESULT_ERROR_UNKNOWN));
+                        future.set(new LibraryResult(RESULT_ERROR_UNKNOWN_ERROR));
                     }
                 });
             }
@@ -341,7 +340,7 @@ class MediaBrowserImplLegacy extends MediaControllerImplLegacy implements MediaB
             }
             if (browserCompat == null) {
                 // Shouldn't be happen. Internal error?
-                mResult.set(new LibraryResult(RESULT_ERROR_UNKNOWN));
+                mResult.set(new LibraryResult(RESULT_ERROR_UNKNOWN_ERROR));
             } else {
                 mResult.set(new LibraryResult(RESULT_SUCCESS,
                         createRootMediaItem(browserCompat),
@@ -382,7 +381,6 @@ class MediaBrowserImplLegacy extends MediaControllerImplLegacy implements MediaB
         }
 
         @Override
-        @SuppressLint("RestrictedApi")
         public void onChildrenLoaded(final String parentId,
                 List<MediaBrowserCompat.MediaItem> children, final Bundle options) {
             if (TextUtils.isEmpty(parentId)) {
@@ -426,12 +424,12 @@ class MediaBrowserImplLegacy extends MediaControllerImplLegacy implements MediaB
 
         @Override
         public void onError(String parentId) {
-            mFuture.set(new LibraryResult(RESULT_ERROR_UNKNOWN));
+            mFuture.set(new LibraryResult(RESULT_ERROR_UNKNOWN_ERROR));
         }
 
         @Override
         public void onError(String parentId, Bundle options) {
-            mFuture.set(new LibraryResult(RESULT_ERROR_UNKNOWN));
+            mFuture.set(new LibraryResult(RESULT_ERROR_UNKNOWN_ERROR));
         }
 
         @Override
@@ -456,7 +454,7 @@ class MediaBrowserImplLegacy extends MediaControllerImplLegacy implements MediaB
             final List<MediaItem> items = new ArrayList<>();
             if (children == null) {
                 // list are non-Null, so it must be internal error.
-                mFuture.set(new LibraryResult(RESULT_ERROR_UNKNOWN));
+                mFuture.set(new LibraryResult(RESULT_ERROR_UNKNOWN_ERROR));
             } else {
                 for (int i = 0; i < children.size(); i++) {
                     items.add(MediaUtils.convertToMediaItem(children.get(i)));

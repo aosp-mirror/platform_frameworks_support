@@ -16,7 +16,7 @@
 
 package androidx.navigation.fragment
 
-import androidx.fragment.app.Fragment
+import android.support.v4.app.Fragment
 import androidx.navigation.NavController
 
 /**

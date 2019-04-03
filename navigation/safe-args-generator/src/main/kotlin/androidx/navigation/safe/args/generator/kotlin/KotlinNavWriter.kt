@@ -23,6 +23,7 @@ import androidx.navigation.safe.args.generator.ext.toCamelCase
 import androidx.navigation.safe.args.generator.ext.toCamelCaseAsVar
 import androidx.navigation.safe.args.generator.models.Action
 import androidx.navigation.safe.args.generator.models.Destination
+import androidx.navigation.safe.args.generator.models.accessor
 import com.squareup.kotlinpoet.AnnotationSpec
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.FileSpec
@@ -33,7 +34,7 @@ import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeSpec
 import com.squareup.kotlinpoet.asTypeName
 
-class KotlinNavWriter(private val useAndroidX: Boolean = true) : NavWriter<KotlinCodeFile> {
+class KotlinNavWriter(private val useAndroidX: Boolean = false) : NavWriter<KotlinCodeFile> {
 
     override fun generateDirectionsCodeFile(
         destination: Destination,
@@ -128,7 +129,7 @@ class KotlinNavWriter(private val useAndroidX: Boolean = true) : NavWriter<Kotli
         val getActionIdFunSpec = FunSpec.builder("getActionId")
             .addModifiers(KModifier.OVERRIDE)
             .returns(Int::class)
-            .addStatement("return %L", action.id.accessor())
+            .addStatement("return %N", action.id.accessor())
             .build()
 
         val getArgumentsFunSpec = FunSpec.builder("getArguments").apply {

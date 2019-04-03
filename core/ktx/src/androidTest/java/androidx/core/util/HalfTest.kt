@@ -16,14 +16,12 @@
 
 package androidx.core.util
 
-import android.util.Half
 import androidx.test.filters.SdkSuppress
-import androidx.test.filters.SmallTest
+import android.util.Half
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
 @SdkSuppress(minSdkVersion = 26)
-@SmallTest
 class HalfTest {
     @Test fun shortToHalf() = assertEquals(Half(1.toShort()), 1.toShort().toHalf())
 

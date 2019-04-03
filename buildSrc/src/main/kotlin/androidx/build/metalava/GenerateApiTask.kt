@@ -17,7 +17,12 @@
 package androidx.build.metalava
 
 import androidx.build.checkapi.ApiLocation
-import org.gradle.api.GradleException
+import com.android.build.gradle.BaseExtension
+import com.android.build.gradle.api.BaseVariant
+import com.google.common.io.Files
+import org.gradle.api.attributes.Attribute
+import org.gradle.api.file.FileCollection
+import org.gradle.api.tasks.InputFiles
 import org.gradle.api.tasks.OutputFiles
 import org.gradle.api.tasks.TaskAction
 import java.io.File
@@ -57,7 +62,8 @@ open class GenerateApiTask : MetalavaTask() {
             "--api",
             publicApiFile.toString(),
 
-            "--format=v3",
+            "--compatible-output=no",
+            "--omit-common-packages=yes",
             "--output-kotlin-nulls=yes"
         )
 
@@ -77,7 +83,8 @@ open class GenerateApiTask : MetalavaTask() {
                 "--show-annotation",
                 "androidx.annotation.RestrictTo",
 
-                "--format=v3",
+                "--compatible-output=no",
+                "--omit-common-packages=yes",
                 "--output-kotlin-nulls=yes"
             )
 
@@ -89,22 +96,11 @@ open class GenerateApiTask : MetalavaTask() {
     fun removeRestrictToLibraryLines(inputFile: File, outputFile: File) {
         val outputBuilder = StringBuilder()
         val lines = inputFile.readLines()
-        var skipScopeUntil: String? = null
         for (line in lines) {
-            val skip = line.contains("@RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY)")
-            if (skip && line.endsWith("{")) {
-                skipScopeUntil = line.commonPrefixWith("    ") + "}"
-            }
-            if (!skip && skipScopeUntil == null) {
+            if (!line.contains("@RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY)")) {
                 outputBuilder.append(line)
                 outputBuilder.append("\n")
             }
-            if (line == skipScopeUntil) {
-                skipScopeUntil = null
-            }
-        }
-        if (skipScopeUntil != null) {
-            throw GradleException("Skipping until `$skipScopeUntil`, but found EOF")
         }
         outputFile.writeText(outputBuilder.toString())
     }

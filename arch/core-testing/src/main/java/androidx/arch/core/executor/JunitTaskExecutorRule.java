@@ -32,7 +32,7 @@ import java.util.List;
  *
  * @hide
  */
-@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
+@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public class JunitTaskExecutorRule implements TestRule {
     private final TaskExecutorWithFakeMainThread mTaskExecutor;
 

@@ -16,7 +16,7 @@
 
 package androidx.slice.core;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
@@ -30,7 +30,7 @@ import java.lang.annotation.Retention;
  * Temporary class to contain hint constants for slices to be used.
  * @hide
  */
-@RestrictTo(LIBRARY_GROUP_PREFIX)
+@RestrictTo(LIBRARY_GROUP)
 @RequiresApi(19)
 public class SliceHints {
 

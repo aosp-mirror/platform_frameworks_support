@@ -16,12 +16,13 @@
 
 package androidx.textclassifier.widget;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.res.TypedArray;
@@ -84,7 +85,7 @@ import java.util.Objects;
  *
  * @hide
  */
-@RestrictTo(LIBRARY_GROUP_PREFIX)
+@RestrictTo(LIBRARY_GROUP)
 @RequiresApi(Build.VERSION_CODES.M)
 final class FloatingToolbar {
 
@@ -133,7 +134,7 @@ final class FloatingToolbar {
                 int oldLeft, int oldRight, int oldTop, int oldBottom) {
             mNewRect.set(newLeft, newRight, newTop, newBottom);
             mOldRect.set(oldLeft, oldRight, oldTop, oldBottom);
-            if (mPopup.isShowing() && (mNewRect.width() != mOldRect.width())) {
+            if (mPopup.isShowing() && !mNewRect.equals(mOldRect)) {
                 mWidthChanged = true;
                 updateLayout();
             }
@@ -184,6 +185,7 @@ final class FloatingToolbar {
     /**
      * Initializes a floating toolbar.
      */
+    @SuppressLint("RestrictedApi")
     FloatingToolbar(View view) {
         // TODO(b/65172902): Pass context in constructor when DecorView (and other callers)
         // supports multi-display.
@@ -203,6 +205,7 @@ final class FloatingToolbar {
      * NOTE: Call {@link #updateLayout()} or {@link #show()} to effect visual changes to the
      * toolbar.
      */
+    @SuppressLint("RestrictedApi")
     public void setMenu(SupportMenu menu) {
         mMenu = Preconditions.checkNotNull(menu);
     }
@@ -233,6 +236,7 @@ final class FloatingToolbar {
      * NOTE: Call {@link #updateLayout()} or {@link #show()} to effect visual changes to the
      * toolbar.
      */
+    @SuppressLint("RestrictedApi")
     public void setContentRect(Rect rect) {
         mContentRect.set(Preconditions.checkNotNull(rect));
     }
@@ -319,12 +323,12 @@ final class FloatingToolbar {
         List<SupportMenuItem> menuItems = getVisibleAndEnabledMenuItems(mMenu);
         Collections.sort(menuItems, mMenuItemComparator);
         if (!isCurrentlyShowing(menuItems) || mWidthChanged) {
-            mPopup.hide();
+            mPopup.dismiss();
             mPopup.layoutMenuItems(menuItems, mMenuItemClickListener, mSuggestedWidth);
             mShowingMenuItems = menuItems;
         }
         if (menuItems.isEmpty()) {
-            mPopup.dismiss();
+            // don't update or show the toolbar.
         } else if (!mPopup.isShowing()) {
             mPopup.show(mContentRect);
         } else if (!mPreviousContentRect.equals(mContentRect)) {
@@ -489,6 +493,7 @@ final class FloatingToolbar {
         /* Outside touch handling */
         final Runnable mDismissRunnable;
         final View.OnClickListener mOnOutsideTouchHandler;
+        PopupWindow.OnDismissListener mOnDismiss;
 
         boolean mOpenOverflowUpwards;  // Whether the overflow opens upwards or downwards.
         boolean mIsOverflowOpen;
@@ -501,6 +506,7 @@ final class FloatingToolbar {
          * @param parent  A parent view to get the {@link android.view.View#getWindowToken()} token
          *      from.
          */
+        @SuppressLint("RestrictedApi")
         FloatingToolbarPopup(
                 Context context, View parent, Runnable dismissRunnable) {
             mParent = Preconditions.checkNotNull(parent);
@@ -512,6 +518,9 @@ final class FloatingToolbar {
                 public void onClick(View v) {
                     hide();
                     mDismissRunnable.run();
+                    if (mOnDismiss != null) {
+                        mOnDismiss.onDismiss();
+                    }
                 }
             };
             mPopupWindow = createPopupWindow(mContentContainer, mOnOutsideTouchHandler);
@@ -586,6 +595,7 @@ final class FloatingToolbar {
          * Sets the floating popup's onDismissListener.
          */
         public void setOnDismissListener(@Nullable final PopupWindow.OnDismissListener onDismiss) {
+            mOnDismiss = onDismiss;
             mPopupWindow.setOnDismissListener(onDismiss);
         }
 
@@ -620,6 +630,7 @@ final class FloatingToolbar {
          * Shows this popup at the specified coordinates.
          * The specified coordinates may be adjusted to make sure the popup is entirely on-screen.
          */
+        @SuppressLint("RestrictedApi")
         public void show(Rect contentRectOnScreen) {
             Preconditions.checkNotNull(contentRectOnScreen);
 
@@ -689,6 +700,7 @@ final class FloatingToolbar {
          * The specified coordinates may be adjusted to make sure the popup is entirely on-screen.
          * This is a no-op if this popup is not showing.
          */
+        @SuppressLint("RestrictedApi")
         void updateCoordinates(Rect contentRectOnScreen) {
             Preconditions.checkNotNull(contentRectOnScreen);
 
@@ -1177,6 +1189,7 @@ final class FloatingToolbar {
          *
          * @return The menu items that are not included in this main panel.
          */
+        @SuppressLint("RestrictedApi")
         List<SupportMenuItem> layoutMainPanelItems(
                 List<SupportMenuItem> menuItems, final int toolbarWidth) {
             Preconditions.checkNotNull(menuItems);
@@ -1524,6 +1537,7 @@ final class FloatingToolbar {
             return listener;
         }
 
+        @SuppressLint("RestrictedApi")
         private static Size measure(View view) {
             Preconditions.checkState(view.getParent() == null);
             view.measure(MeasureSpec.UNSPECIFIED, MeasureSpec.UNSPECIFIED);
@@ -1578,6 +1592,7 @@ final class FloatingToolbar {
 
             private final FloatingToolbarPopup mPopup;
 
+            @SuppressLint("RestrictedApi")
             OverflowPanel(FloatingToolbarPopup popup) {
                 super(Preconditions.checkNotNull(popup).mContext);
                 this.mPopup = popup;
@@ -1639,6 +1654,7 @@ final class FloatingToolbar {
 
             private final Context mContext;
 
+            @SuppressLint("RestrictedApi")
             OverflowPanelViewHelper(Context context, int iconTextSpacing) {
                 mContext = Preconditions.checkNotNull(context);
                 mIconTextSpacing = iconTextSpacing;
@@ -1647,6 +1663,7 @@ final class FloatingToolbar {
                 mCalculator = createMenuButton(null);
             }
 
+            @SuppressLint("RestrictedApi")
             public View getView(SupportMenuItem menuItem, int minimumWidth, View convertView) {
                 Preconditions.checkNotNull(menuItem);
                 if (convertView != null) {
@@ -1753,10 +1770,7 @@ final class FloatingToolbar {
         popupWindow.setOutsideTouchable(true);
         popupWindow.setWindowLayoutType(WindowManager.LayoutParams.TYPE_APPLICATION_SUB_PANEL);
         popupWindow.setAnimationStyle(0);
-        int color = Color.TRANSPARENT;
-        // Want to see the floating window? Uncomment the next line.
-        //color = Color.argb(50, 0, 0, 0);
-        popupWindow.setBackgroundDrawable(new ColorDrawable(color));
+        popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         content.setLayoutParams(new ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         popupContentHolder.addView(content);
@@ -1793,6 +1807,7 @@ final class FloatingToolbar {
     }
 
     // TODO: Replace with SupportMenuItem method when those are implemented.
+    @SuppressLint("RestrictedApi")
     static boolean requiresOverflow(SupportMenuItem menuItem) {
         if (menuItem instanceof MenuItemImpl) {
             final MenuItemImpl impl = (MenuItemImpl) menuItem;
@@ -1802,6 +1817,7 @@ final class FloatingToolbar {
     }
 
     // TODO: Replace with SupportMenuItem method when those are implemented.
+    @SuppressLint("RestrictedApi")
     static boolean requiresActionButton(SupportMenuItem menuItem) {
         return menuItem instanceof MenuItemImpl
                 && ((MenuItemImpl) menuItem).requiresActionButton();

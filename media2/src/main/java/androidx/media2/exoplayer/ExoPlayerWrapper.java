@@ -16,7 +16,7 @@
 
 package androidx.media2.exoplayer;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 import static androidx.media2.MediaPlayer2.MEDIA_ERROR_UNKNOWN;
 import static androidx.media2.MediaPlayer2.TrackInfo.MEDIA_TRACK_TYPE_SUBTITLE;
 
@@ -88,7 +88,7 @@ import java.util.Map;
  *
  * @hide
  */
-@RestrictTo(LIBRARY_GROUP_PREFIX)
+@RestrictTo(LIBRARY_GROUP)
 @SuppressLint("RestrictedApi") // TODO(b/68398926): Remove once RestrictedApi checks are fixed.
 /* package */ final class ExoPlayerWrapper {
 
@@ -538,10 +538,7 @@ import java.util.Map;
                 maybeNotifyReadyEvents();
                 break;
             case Player.STATE_ENDED:
-                if (playWhenReady) {
-                    mMediaItemQueue.onPlayerEnded();
-                    mPlayer.setPlayWhenReady(false);
-                }
+                mMediaItemQueue.onPlayerEnded();
                 break;
             case Player.STATE_IDLE:
                 // Do nothing.
@@ -661,8 +658,7 @@ import java.util.Map;
             // start position.
             mPendingSeek = false;
             mListener.onSeekCompleted();
-        }
-        if (mRebuffering) {
+        } else if (mRebuffering) {
             mRebuffering = false;
             if (mMediaItemQueue.getCurrentMediaItemIsRemote()) {
                 mListener.onBandwidthSample(

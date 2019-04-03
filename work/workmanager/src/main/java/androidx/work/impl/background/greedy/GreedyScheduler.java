@@ -91,7 +91,6 @@ public class GreedyScheduler implements Scheduler, WorkConstraintsCallback, Exec
                         constrainedWorkSpecIds.add(workSpec.id);
                     }
                 } else {
-                    Logger.get().debug(TAG, String.format("Starting work for %s", workSpec.id));
                     mWorkManagerImpl.startWork(workSpec.id);
                 }
             }

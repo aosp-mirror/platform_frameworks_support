@@ -22,6 +22,5 @@
     <application>
         <activity android:name="androidx.navigation.ActivityNavigatorActivity"/>
         <activity android:name="androidx.navigation.TargetActivity"/>
-        <activity android:name="androidx.navigation.NavControllerActivity"/>
     </application>
 </manifest>

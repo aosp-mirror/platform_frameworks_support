@@ -15,7 +15,7 @@
  */
 package androidx.tvprovider.media.tv;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -186,7 +186,7 @@ public class PreviewChannel {
     /**
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     boolean isLogoChanged() {
         return mLogoChanged;
     }
@@ -194,7 +194,7 @@ public class PreviewChannel {
     /**
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     Uri getLogoUri() {
         return mLogoUri;
     }
@@ -292,7 +292,7 @@ public class PreviewChannel {
      *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     public ContentValues toContentValues() {
         ContentValues values = new ContentValues(mValues);
         return values;
@@ -301,7 +301,7 @@ public class PreviewChannel {
     /**
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     public static class Columns {
         public static final String[] PROJECTION = {
                 Channels._ID,
@@ -366,7 +366,7 @@ public class PreviewChannel {
          * @return This Builder object to allow for chaining of calls to builder methods.
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP_PREFIX)
+        @RestrictTo(LIBRARY_GROUP)
         Builder setPackageName(String packageName) {
             mValues.put(Channels.COLUMN_PACKAGE_NAME, packageName);
             return this;

@@ -17,7 +17,7 @@
 package androidx.core.provider;
 
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -39,7 +39,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * finished.
  * @hide
  */
-@RestrictTo(LIBRARY_GROUP_PREFIX)
+@RestrictTo(LIBRARY_GROUP)
 public class SelfDestructiveThread {
     private final Object mLock = new Object();
 

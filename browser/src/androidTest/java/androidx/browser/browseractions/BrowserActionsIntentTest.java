@@ -62,8 +62,7 @@ public final class BrowserActionsIntentTest {
         assertEquals(BrowserActionsIntent.URL_TYPE_NONE,
                 intent.getIntExtra(BrowserActionsIntent.EXTRA_TYPE, 0));
         assertTrue(intent.hasExtra(BrowserActionsIntent.EXTRA_APP_ID));
-        assertEquals(mContext.getPackageName(),
-                BrowserActionsIntent.getUntrustedCreatorPackageName(intent));
+        assertEquals(mContext.getPackageName(), BrowserActionsIntent.getCreatorPackageName(intent));
         assertFalse(intent.hasExtra(BrowserActionsIntent.EXTRA_SELECTED_ACTION_PENDING_INTENT));
     }
 

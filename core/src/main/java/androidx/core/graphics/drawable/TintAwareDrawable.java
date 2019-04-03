@@ -16,7 +16,7 @@
 
 package androidx.core.graphics.drawable;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.content.res.ColorStateList;
 import android.graphics.PorterDuff;
@@ -30,7 +30,7 @@ import androidx.annotation.RestrictTo;
  *
  * @hide
  */
-@RestrictTo(LIBRARY_GROUP_PREFIX)
+@RestrictTo(LIBRARY_GROUP)
 public interface TintAwareDrawable {
     void setTint(@ColorInt int tint);
     void setTintList(ColorStateList tint);

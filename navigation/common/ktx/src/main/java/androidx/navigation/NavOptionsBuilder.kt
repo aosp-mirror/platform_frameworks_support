@@ -16,9 +16,9 @@
 
 package androidx.navigation
 
-import androidx.annotation.AnimRes
-import androidx.annotation.AnimatorRes
-import androidx.annotation.IdRes
+import android.support.annotation.AnimRes
+import android.support.annotation.AnimatorRes
+import android.support.annotation.IdRes
 
 @DslMarker
 annotation class NavOptionsDsl
@@ -50,7 +50,7 @@ class NavOptionsBuilder {
      * from the back stack until this destination is found.
      */
     @IdRes
-    var popUpTo: Int = -1
+    var popUpTo: Int = 0
         set(value) {
             field = value
             inclusive = false

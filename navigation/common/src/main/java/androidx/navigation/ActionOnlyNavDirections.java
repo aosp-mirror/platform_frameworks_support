@@ -17,8 +17,7 @@
 package androidx.navigation;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
+import android.support.annotation.NonNull;
 
 /**
  * An implementation of {@link NavDirections} without any arguments.

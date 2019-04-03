@@ -50,7 +50,6 @@ public class RxJava2WithInstantTaskExecutorTest {
                 .build();
     }
 
-    @SuppressWarnings("deprecation")
     @Test
     public void testFlowableInTransaction() {
         // When subscribing to the emissions of the user

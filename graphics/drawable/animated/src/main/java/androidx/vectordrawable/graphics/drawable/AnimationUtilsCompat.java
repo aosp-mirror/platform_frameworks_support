@@ -16,7 +16,7 @@
 
 package androidx.vectordrawable.graphics.drawable;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -52,7 +52,7 @@ import java.io.IOException;
  * Defines common utilities for working with animations.
  * @hide
  */
-@RestrictTo(LIBRARY_GROUP_PREFIX)
+@RestrictTo(LIBRARY_GROUP)
 public class AnimationUtilsCompat {
     /**
      * Loads an {@link Interpolator} object from a resource

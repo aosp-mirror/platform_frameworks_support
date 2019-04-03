@@ -17,7 +17,6 @@
 package androidx.work.impl.background.systemalarm;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -39,6 +38,7 @@ import android.util.Log;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
+import androidx.test.filters.MediumTest;
 import androidx.work.Configuration;
 import androidx.work.Constraints;
 import androidx.work.DatabaseTest;
@@ -59,7 +59,6 @@ import androidx.work.impl.utils.RepeatRule;
 import androidx.work.impl.utils.SynchronousExecutor;
 import androidx.work.impl.utils.taskexecutor.InstantWorkTaskExecutor;
 import androidx.work.impl.utils.taskexecutor.TaskExecutor;
-import androidx.work.worker.RetryWorker;
 import androidx.work.worker.SleepTestWorker;
 import androidx.work.worker.TestWorker;
 
@@ -82,7 +81,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 @RunWith(AndroidJUnit4.class)
-@LargeTest
+@MediumTest
 public class SystemAlarmDispatcherTest extends DatabaseTest {
 
     @Rule
@@ -289,37 +288,6 @@ public class SystemAlarmDispatcherTest extends DatabaseTest {
     }
 
     @Test
-    public void testDelayMet_withAlwaysRetryWorker() throws InterruptedException {
-        OneTimeWorkRequest work = new OneTimeWorkRequest.Builder(RetryWorker.class)
-                .setPeriodStartTime(System.currentTimeMillis(), TimeUnit.MILLISECONDS)
-                .build();
-
-        insertWork(work);
-        String workSpecId = work.getStringId();
-
-        final Intent scheduleWork = CommandHandler.createDelayMetIntent(mContext, workSpecId);
-        mSpyDispatcher.postOnMainThread(
-                new SystemAlarmDispatcher.AddRunnable(mSpyDispatcher, scheduleWork, START_ID));
-        mLatch.await(TEST_TIMEOUT, TimeUnit.SECONDS);
-
-        assertThat(mLatch.getCount(), is(0L));
-        verify(mSpyProcessor, times(1)).startWork(workSpecId);
-        List<String> intentActions = mSpyDispatcher.getIntentActions();
-        assertThat(intentActions,
-                IsIterableContainingInOrder.contains(
-                        CommandHandler.ACTION_DELAY_MET,
-                        CommandHandler.ACTION_EXECUTION_COMPLETED,
-                        CommandHandler.ACTION_SCHEDULE_WORK));
-
-        WorkSpecDao workSpecDao = mDatabase.workSpecDao();
-        WorkSpec workSpec = workSpecDao.getWorkSpec(work.getStringId());
-
-        assertThat(workSpec.state, is(WorkInfo.State.ENQUEUED));
-        // It should be scheduled
-        assertThat(workSpec.scheduleRequestedAt, is(not(WorkSpec.SCHEDULE_NOT_REQUESTED_YET)));
-    }
-
-    @Test
     public void testSchedule_withConstraints() throws InterruptedException {
         when(mBatteryChargingTracker.getInitialState()).thenReturn(true);
         OneTimeWorkRequest work = new OneTimeWorkRequest.Builder(TestWorker.class)
@@ -378,7 +346,7 @@ public class SystemAlarmDispatcherTest extends DatabaseTest {
 
         mLatch.await(TEST_TIMEOUT, TimeUnit.SECONDS);
         assertThat(mLatch.getCount(), is(0L));
-        verify(mSpyProcessor, times(1)).startWork(workSpecId);
+        verify(mSpyProcessor, times(0)).startWork(workSpecId);
     }
 
     @Test
@@ -584,13 +552,11 @@ public class SystemAlarmDispatcherTest extends DatabaseTest {
                 .build();
 
         OneTimeWorkRequest noConstraints = new OneTimeWorkRequest.Builder(TestWorker.class)
-                .setScheduleRequestedAt(System.currentTimeMillis(), TimeUnit.MILLISECONDS)
                 .setPeriodStartTime(System.currentTimeMillis(), TimeUnit.MILLISECONDS)
                 .build();
 
         OneTimeWorkRequest workWithConstraints = new OneTimeWorkRequest.Builder(TestWorker.class)
                 .setPeriodStartTime(System.currentTimeMillis(), TimeUnit.MILLISECONDS)
-                .setScheduleRequestedAt(System.currentTimeMillis(), TimeUnit.MILLISECONDS)
                 .setConstraints(new Constraints.Builder()
                         .setRequiresCharging(true)
                         .build())
@@ -599,7 +565,6 @@ public class SystemAlarmDispatcherTest extends DatabaseTest {
         long hourFromNow = System.currentTimeMillis() + TimeUnit.HOURS.toMillis(1);
         OneTimeWorkRequest workInTheFuture = new OneTimeWorkRequest.Builder(TestWorker.class)
                 .setPeriodStartTime(hourFromNow, TimeUnit.MILLISECONDS)
-                .setScheduleRequestedAt(System.currentTimeMillis(), TimeUnit.MILLISECONDS)
                 .build();
 
         insertWork(failed);

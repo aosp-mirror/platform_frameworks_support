@@ -81,7 +81,7 @@ import java.util.Set;
 
 /**
  * Row item is in small template format and can be used to construct list items for use
- * with {@link TemplateView}.
+ * with {@link LargeTemplateView}.
  *
  * @hide
  */
@@ -156,6 +156,7 @@ public class RowView extends SliceChildView implements View.OnClickListener {
     private int mIdealRangeHeight;
     // How big mRangeBar wants to be.
     private int mMeasuredRangeHeight;
+    private int mMaxSmallHeight;
 
     public RowView(Context context) {
         super(context);
@@ -179,57 +180,6 @@ public class RowView extends SliceChildView implements View.OnClickListener {
 
         mIdealRangeHeight = context.getResources().getDimensionPixelSize(
                 R.dimen.abc_slice_row_range_height);
-    }
-
-    @Override
-    public void setStyle(SliceStyle styles) {
-        super.setStyle(styles);
-        applyRowStyle();
-    }
-
-    private void applyRowStyle() {
-        if (mSliceStyle == null || mSliceStyle.getRowStyle() == null) {
-            return;
-        }
-
-        final RowStyle rowStyle = mSliceStyle.getRowStyle();
-        setViewPaddingEnd(mStartContainer, rowStyle.getTitleItemEndPadding());
-        setViewSidePaddings(mContent,
-                rowStyle.getContentStartPadding(), rowStyle.getContentEndPadding());
-        setViewSidePaddings(mEndContainer,
-                rowStyle.getEndItemStartPadding(), rowStyle.getEndItemEndPadding());
-        setViewSideMargins(mBottomDivider,
-                rowStyle.getBottomDividerStartPadding(), rowStyle.getBottomDividerEndPadding());
-        setViewHeight(mActionDivider, rowStyle.getActionDividerHeight());
-    }
-
-    private void setViewPaddingEnd(View v, int end) {
-        if (v != null && end >= 0) {
-            v.setPaddingRelative(v.getPaddingStart(), v.getPaddingTop(), end, v.getPaddingBottom());
-        }
-    }
-
-    private void setViewSidePaddings(View v, int start, int end) {
-        if (v != null && start >= 0 && end >= 0) {
-            v.setPaddingRelative(start, v.getPaddingTop(), end, v.getPaddingBottom());
-        }
-    }
-
-    private void setViewSideMargins(View v, int start, int end) {
-        if (v != null && start >= 0 && end >= 0) {
-            final MarginLayoutParams params = (MarginLayoutParams) v.getLayoutParams();
-            params.setMarginStart(start);
-            params.setMarginEnd(end);
-            mBottomDivider.setLayoutParams(params);
-        }
-    }
-
-    private void setViewHeight(View v, int height) {
-        if (v != null && height >= 0) {
-            final ViewGroup.LayoutParams params = v.getLayoutParams();
-            params.height = height;
-            v.setLayoutParams(params);
-        }
     }
 
     @Override
@@ -294,16 +244,12 @@ public class RowView extends SliceChildView implements View.OnClickListener {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int totalHeight = mRowContent != null
                 ? mRowContent.getHeight(mSliceStyle, mViewPolicy) : 0;
-        int childWidth = 0;
-
         int rowHeight = getRowContentHeight();
         if (rowHeight != 0) {
             // Might be gone if we have range / progress but nothing else
             mRootView.setVisibility(View.VISIBLE);
             heightMeasureSpec = MeasureSpec.makeMeasureSpec(rowHeight, MeasureSpec.EXACTLY);
             measureChild(mRootView, widthMeasureSpec, heightMeasureSpec);
-
-            childWidth = mRootView.getMeasuredWidth();
         } else {
             mRootView.setVisibility(View.GONE);
         }
@@ -317,11 +263,10 @@ public class RowView extends SliceChildView implements View.OnClickListener {
             // Remember the measured height later for onLayout, since super.onMeasure will overwrite
             // it.
             mMeasuredRangeHeight = mRangeBar.getMeasuredHeight();
-            childWidth = Math.max(childWidth, mRangeBar.getMeasuredWidth());
         }
 
-        childWidth = Math.max(childWidth, getSuggestedMinimumWidth());
-        setMeasuredDimension(resolveSizeAndState(childWidth, widthMeasureSpec, 0), totalHeight);
+        int totalHeightSpec = MeasureSpec.makeMeasureSpec(totalHeight, MeasureSpec.EXACTLY);
+        super.onMeasure(widthMeasureSpec, totalHeightSpec);
     }
 
     @Override
@@ -403,7 +348,18 @@ public class RowView extends SliceChildView implements View.OnClickListener {
 
         addSubtitle(titleItem != null /* hasTitle */);
 
-        mBottomDivider.setVisibility(mRowContent.hasBottomDivider() ? View.VISIBLE : View.GONE);
+        if (mRowContent.hasBottomDivider()) {
+            if (mSliceStyle != null) {
+                final int padding = mSliceStyle.getHeaderDividerPadding();
+                LinearLayout.LayoutParams lp =
+                        (LinearLayout.LayoutParams) mBottomDivider.getLayoutParams();
+                lp.setMargins(padding, 0, padding, 0);
+                mBottomDivider.setLayoutParams(lp);
+            }
+            mBottomDivider.setVisibility(View.VISIBLE);
+        } else {
+            mBottomDivider.setVisibility(View.GONE);
+        }
 
         SliceItem primaryAction = mRowContent.getPrimaryAction();
         if (primaryAction != null && primaryAction != mStartItem) {
@@ -856,7 +812,7 @@ public class RowView extends SliceChildView implements View.OnClickListener {
         } else {
             if (mRowIndex == 0) {
                 // Header clicks are a little weird and SliceView needs to know about them to
-                // maintain loading state; this is hooked up in SliceAdapter -- it will call
+                // maintain loading state; this is hooked up in LargeSliceAdapter -- it will call
                 // through to SliceView parent which has the info to perform the click.
                 performClick();
             } else {

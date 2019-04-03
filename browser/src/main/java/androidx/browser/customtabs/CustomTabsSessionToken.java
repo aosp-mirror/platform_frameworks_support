@@ -25,7 +25,6 @@ import android.support.customtabs.ICustomTabsCallback;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.browser.customtabs.CustomTabsService.Relation;
 import androidx.core.app.BundleCompat;
 
 /**
@@ -53,7 +52,7 @@ public class CustomTabsSessionToken {
         public void onPostMessage(String message, Bundle extras) {}
 
         @Override
-        public void onRelationshipValidationResult(@Relation int relation, Uri requestedOrigin,
+        public void onRelationshipValidationResult(@CustomTabsService.Relation int relation, Uri requestedOrigin,
                 boolean result, Bundle extras) {}
 
         @Override
@@ -128,8 +127,8 @@ public class CustomTabsSessionToken {
             }
 
             @Override
-            public void onRelationshipValidationResult(@Relation int relation, Uri origin,
-                    boolean result, Bundle extras) {
+            public void onRelationshipValidationResult(@CustomTabsService.Relation int relation, Uri origin,
+                                                       boolean result, Bundle extras) {
                 try {
                     mCallbackBinder.onRelationshipValidationResult(
                             relation, origin, result, extras);

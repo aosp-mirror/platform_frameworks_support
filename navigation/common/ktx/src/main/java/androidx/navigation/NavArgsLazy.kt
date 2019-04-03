@@ -17,7 +17,7 @@
 package androidx.navigation
 
 import android.os.Bundle
-import androidx.collection.ArrayMap
+import android.support.v4.util.ArrayMap
 import java.lang.reflect.Method
 import kotlin.reflect.KClass
 

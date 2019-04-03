@@ -16,7 +16,7 @@
 
 package androidx.appcompat.widget;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.os.SystemClock;
 import android.view.MotionEvent;
@@ -32,7 +32,7 @@ import androidx.appcompat.view.menu.ShowableListMenu;
  *
  * @hide
  */
-@RestrictTo(LIBRARY_GROUP_PREFIX)
+@RestrictTo(LIBRARY_GROUP)
 public abstract class ForwardingListener
         implements View.OnTouchListener, View.OnAttachStateChangeListener {
 

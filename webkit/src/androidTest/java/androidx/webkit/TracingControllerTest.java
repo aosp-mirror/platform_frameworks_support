@@ -17,7 +17,8 @@
 package androidx.webkit;
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.filters.LargeTest;
+import androidx.test.filters.SmallTest;
+import androidx.test.platform.app.InstrumentationRegistry;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -38,7 +39,7 @@ import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
-@LargeTest
+@SmallTest
 @RunWith(AndroidJUnit4.class)
 public class TracingControllerTest {
     private TracingController mTracingController;

@@ -16,8 +16,9 @@
 
 package androidx.preference;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
@@ -44,6 +45,7 @@ public class CheckBoxPreference extends TwoStatePreference {
     public CheckBoxPreference(Context context, AttributeSet attrs, int defStyleAttr) {
         this(context, attrs, defStyleAttr, 0);
     }
+    @SuppressLint("RestrictedApi")
     public CheckBoxPreference(
             Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
@@ -63,6 +65,7 @@ public class CheckBoxPreference extends TwoStatePreference {
 
         a.recycle();
     }
+    @SuppressLint("RestrictedApi")
     public CheckBoxPreference(Context context, AttributeSet attrs) {
         this(context, attrs, TypedArrayUtils.getAttr(context, R.attr.checkBoxPreferenceStyle,
                 android.R.attr.checkBoxPreferenceStyle));
@@ -84,7 +87,7 @@ public class CheckBoxPreference extends TwoStatePreference {
     /**
      * @hide
      */
-    @RestrictTo(LIBRARY)
+    @RestrictTo(LIBRARY_GROUP)
     @Override
     protected void performClick(View view) {
         super.performClick(view);

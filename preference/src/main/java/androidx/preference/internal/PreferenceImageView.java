@@ -16,7 +16,7 @@
 
 package androidx.preference.internal;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -30,11 +30,9 @@ import androidx.preference.R;
 /**
  * Extension of {@link ImageView} that correctly applies maxWidth and maxHeight.
  *
- * Used by Car.
- *
  * @hide
  */
-@RestrictTo(LIBRARY_GROUP_PREFIX)
+@RestrictTo(LIBRARY_GROUP)
 @SuppressLint("AppCompatCustomView")
 public class PreferenceImageView extends ImageView {
 

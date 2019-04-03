@@ -28,7 +28,7 @@ import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.test.filters.SmallTest;
+import androidx.test.filters.MediumTest;
 
 import org.hamcrest.CoreMatchers;
 import org.junit.Test;
@@ -39,7 +39,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RunWith(Parameterized.class)
-@SmallTest
+@MediumTest
 public class LinearLayoutManagerWrapContentWithAspectRatioTest
         extends BaseWrapContentWithAspectRatioTest {
 

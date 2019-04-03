@@ -28,10 +28,6 @@ android {
     lintOptions {
         fatal("UnknownNullness")
     }
-
-    buildTypes.all {
-        consumerProguardFiles 'proguard-rules.pro'
-    }
 }
 
 dependencies {
@@ -51,6 +47,7 @@ dependencies {
     androidTestImplementation(TEST_CORE)
     androidTestImplementation(TEST_RUNNER)
     androidTestImplementation(TRUTH)
+    androidTestImplementation(ESPRESSO_CORE, libs.exclude_for_espresso)
     androidTestImplementation(MOCKITO_CORE, libs.exclude_bytebuddy) // DexMaker has it"s own MockMaker
     androidTestImplementation(DEXMAKER_MOCKITO, libs.exclude_bytebuddy) // DexMaker has it"s own MockMaker
 }

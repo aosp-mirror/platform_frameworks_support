@@ -211,18 +211,18 @@ class WebViewOnUiThread {
 
     public static WebViewRendererClient getWebViewRendererClient(
             final WebView webView) {
-        return WebkitUtils.onMainThreadSync(new Callable<WebViewRendererClient>() {
+        return getValue(new ValueGetter<WebViewRendererClient>() {
             @Override
-            public WebViewRendererClient call() {
+            public WebViewRendererClient capture() {
                 return WebViewCompat.getWebViewRendererClient(webView);
             }
         });
     }
 
     public WebMessagePortCompat[] createWebMessageChannelCompat() {
-        return WebkitUtils.onMainThreadSync(new Callable<WebMessagePortCompat[]>() {
+        return getValue(new ValueGetter<WebMessagePortCompat[]>() {
             @Override
-            public WebMessagePortCompat[] call() {
+            public WebMessagePortCompat[] capture() {
                 return WebViewCompat.createWebMessageChannel(mWebView);
             }
         });
@@ -325,27 +325,27 @@ class WebViewOnUiThread {
     }
 
     public String getTitle() {
-        return WebkitUtils.onMainThreadSync(new Callable<String>() {
+        return getValue(new ValueGetter<String>() {
             @Override
-            public String call() {
+            public String capture() {
                 return mWebView.getTitle();
             }
         });
     }
 
     public WebSettings getSettings() {
-        return WebkitUtils.onMainThreadSync(new Callable<WebSettings>() {
+        return getValue(new ValueGetter<WebSettings>() {
             @Override
-            public WebSettings call() {
+            public WebSettings capture() {
                 return mWebView.getSettings();
             }
         });
     }
 
     public String getUrl() {
-        return WebkitUtils.onMainThreadSync(new Callable<String>() {
+        return getValue(new ValueGetter<String>() {
             @Override
-            public String call() {
+            public String capture() {
                 return mWebView.getUrl();
             }
         });
@@ -375,9 +375,9 @@ class WebViewOnUiThread {
     }
 
     public static WebViewClient getWebViewClient(final WebView webView) {
-        return WebkitUtils.onMainThreadSync(new Callable<WebViewClient>() {
+        return getValue(new ValueGetter<WebViewClient>() {
             @Override
-            public WebViewClient call() {
+            public WebViewClient capture() {
                 return WebViewCompat.getWebViewClient(webView);
             }
         });
@@ -388,9 +388,9 @@ class WebViewOnUiThread {
     }
 
     public static WebChromeClient getWebChromeClient(final WebView webView) {
-        return WebkitUtils.onMainThreadSync(new Callable<WebChromeClient>() {
+        return getValue(new ValueGetter<WebChromeClient>() {
             @Override
-            public WebChromeClient call() {
+            public WebChromeClient capture() {
                 return WebViewCompat.getWebChromeClient(webView);
             }
         });
@@ -398,6 +398,26 @@ class WebViewOnUiThread {
 
     WebView getWebViewOnCurrentThread() {
         return mWebView;
+    }
+
+    private static <T> T getValue(ValueGetter<T> getter) {
+        WebkitUtils.onMainThreadSync(getter);
+        return getter.getValue();
+    }
+
+    private abstract static class ValueGetter<T> implements Runnable {
+        private T mValue;
+
+        @Override
+        public void run() {
+            mValue = capture();
+        }
+
+        protected abstract T capture();
+
+        public T getValue() {
+            return mValue;
+        }
     }
 
     /**

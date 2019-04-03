@@ -20,5 +20,4 @@
     <!-- Layouts for the drawer -->
     <public type="layout" name="car_drawer" />
     <public type="layout" name="car_drawer_activity" />
-    <public type="layout" name="car_tab_view" />
 </resources>

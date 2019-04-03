@@ -42,47 +42,8 @@ class NavDestinationAndroidTest {
             .isNotNull()
 
         assertWithMessage("Deep link should extract id argument correctly")
-            .that(match?.matchingArgs?.getInt("id"))
+            .that(match?.second?.getInt("id"))
             .isEqualTo(43)
-    }
-
-    @Test
-    fun matchDeepLinkBestMatchExact() {
-        val destination = NoOpNavigator().createDestination()
-
-        destination.addDeepLink("www.example.com/users/index.html")
-
-        val idArgument = NavArgument.Builder()
-            .setType(NavType.StringType)
-            .build()
-        destination.addArgument("id", idArgument)
-        destination.addDeepLink("www.example.com/users/{name}")
-
-        val match = destination.matchDeepLink(
-            Uri.parse("https://www.example.com/users/index.html"))
-
-        assertWithMessage("Deep link should match")
-            .that(match)
-            .isNotNull()
-        assertWithMessage("Deep link should pick the exact match")
-            .that(match?.matchingArgs?.size())
-            .isEqualTo(0)
-    }
-
-    @Test
-    fun matchDotStar() {
-        val destination = NoOpNavigator().createDestination()
-
-        destination.addDeepLink("www.example.com/.*")
-        destination.addDeepLink("www.example.com/{name}")
-
-        val match = destination.matchDeepLink(Uri.parse("https://www.example.com/foo"))
-        assertWithMessage("Deep link should match")
-            .that(match)
-            .isNotNull()
-        assertWithMessage("Deep link should pick name over .*")
-            .that(match?.matchingArgs?.size())
-            .isEqualTo(1)
     }
 
     @Test
@@ -108,13 +69,13 @@ class NavDestinationAndroidTest {
             .that(match)
             .isNotNull()
         assertWithMessage("Deep link should pick the argument with more matching arguments")
-            .that(match?.matchingArgs?.size())
+            .that(match?.second?.size())
             .isEqualTo(2)
         assertWithMessage("Deep link should extract id argument correctly")
-            .that(match?.matchingArgs?.getInt("id"))
+            .that(match?.second?.getInt("id"))
             .isEqualTo(43)
         assertWithMessage("Deep link should extract postId argument correctly")
-            .that(match?.matchingArgs?.getInt("postId"))
+            .that(match?.second?.getInt("postId"))
             .isEqualTo(99)
     }
 

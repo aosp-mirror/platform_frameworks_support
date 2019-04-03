@@ -30,7 +30,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
  *
  * @hide
  */
-@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
+@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public class ViewInfo {
 
     /**

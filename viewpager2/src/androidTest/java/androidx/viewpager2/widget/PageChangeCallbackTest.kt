@@ -39,7 +39,6 @@ import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.CoreMatchers.not
 import org.hamcrest.CoreMatchers.nullValue
 import org.hamcrest.Matchers.allOf
-import org.hamcrest.Matchers.greaterThan
 import org.hamcrest.Matchers.greaterThanOrEqualTo
 import org.junit.Assert.assertThat
 import org.junit.Test
@@ -119,7 +118,7 @@ class PageChangeCallbackTest(private val config: TestConfig) : BaseTest() {
                 latch.await(1, SECONDS)
 
                 // then
-                assertBasicState(targetPage)
+                assertBasicState(targetPage, "$targetPage")
 
                 callback.apply {
                     // verify all events
@@ -180,7 +179,7 @@ class PageChangeCallbackTest(private val config: TestConfig) : BaseTest() {
                 latch.await(2, SECONDS)
 
                 // then
-                assertBasicState(targetPage)
+                assertBasicState(targetPage, "$targetPage")
 
                 if (targetPage == initialPage && edgePages.contains(targetPage)) {
                     callback.apply {
@@ -719,7 +718,7 @@ class PageChangeCallbackTest(private val config: TestConfig) : BaseTest() {
             val callback = test.viewPager.addNewRecordingCallback()
 
             // when
-            test.viewPager.setCurrentItemSync(targetPage, false, 2, SECONDS, false)
+            test.viewPager.setCurrentItemSync(targetPage, false, 2, SECONDS)
 
             // then
             assertThat(test.viewPager.currentItem, equalTo(0))
@@ -740,23 +739,22 @@ class PageChangeCallbackTest(private val config: TestConfig) : BaseTest() {
             // given
             val initialPage = test.viewPager.currentItem
             val callback = test.viewPager.addNewRecordingCallback()
-            val targetBoundary = if (targetPage <= 0) 0 else n - 1
-            // only expect events when we're going to the boundary on the other side
-            val expectEvents = initialPage != targetBoundary
 
             // when
-            test.viewPager.setCurrentItemSync(targetPage, smoothScroll, 2, SECONDS, expectEvents)
+            test.viewPager.setCurrentItemSync(targetPage, smoothScroll, 2, SECONDS)
 
             // then the viewpager must have scrolled to the respective boundary
-            assertThat(test.viewPager.currentItem, equalTo(targetBoundary))
-            if (!expectEvents) {
+            val boundary = if (targetPage <= 0) 0 else n - 1
+            assertThat(test.viewPager.currentItem, equalTo(boundary))
+            if (initialPage == boundary) {
+                // when it was already there, no events should have been fired
                 assertThat(callback.eventCount, equalTo(0))
             } else {
-                // make sure the page select events and scroll events are correct
+                // otherwise, make sure the page select events and scroll events are correct
                 val pageSize = test.viewPager.pageSize
-                callback.scrollEvents.assertValueSanity(initialPage, targetBoundary, pageSize)
-                callback.scrollEvents.assertLastCorrect(targetBoundary)
-                callback.assertAllPagesSelected(listOf(targetBoundary))
+                callback.scrollEvents.assertValueSanity(initialPage, boundary, pageSize)
+                callback.scrollEvents.assertLastCorrect(boundary)
+                callback.assertAllPagesSelected(listOf(boundary))
             }
             test.viewPager.unregisterOnPageChangeCallback(callback)
         }
@@ -897,7 +895,6 @@ class PageChangeCallbackTest(private val config: TestConfig) : BaseTest() {
 
     private fun RecordingCallback.assertTargetReachedAfterMarker(targetPage: Int, marker: Int) {
         val finalEvents = eventsAfter(marker)
-        assertThat(finalEvents.size, greaterThan(0))
         assertThat(finalEvents[0], equalTo(OnPageScrolledEvent(targetPage, 0f, 0) as Event))
         assertThat(
             finalEvents[1],

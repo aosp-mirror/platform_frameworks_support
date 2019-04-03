@@ -39,7 +39,7 @@ class Main {
         val OPTION_INPUT = createOption(
             argName = "i",
             argNameLong = "input",
-            desc = "Input library path (jar, aar, zip), or source file (java, xml)",
+            desc = "Input library path (jar, aar, zip)",
             isRequired = true
         )
         val OPTION_OUTPUT = createOption(
@@ -83,14 +83,6 @@ class Main {
             hasArgs = false,
             isRequired = false
         )
-        val OPTION_STRIP_SIGNATURES = createOption(
-            argName = "stripSignatures",
-            argNameLong = "stripSignatures",
-            desc = "Don't throw an error when jetifying a signed library and instead strip " +
-                    "the signature files.",
-            hasArgs = false,
-            isRequired = false
-        )
 
         private fun createOption(
             argName: String,
@@ -119,12 +111,17 @@ class Main {
 
         Log.setLevel(cmd.getOptionValue(OPTION_LOG_LEVEL.opt))
 
-        val input = File(cmd.getOptionValue(OPTION_INPUT.opt))
+        val inputLibrary = File(cmd.getOptionValue(OPTION_INPUT.opt))
         val output = cmd.getOptionValue(OPTION_OUTPUT.opt)
         val rebuildTopOfTree = cmd.hasOption(OPTION_REBUILD_TOP_OF_TREE.opt)
-        val isReversed = cmd.hasOption(OPTION_REVERSED.opt)
-        val isStrict = cmd.hasOption(OPTION_STRICT.opt)
-        val shouldStripSignatures = cmd.hasOption(OPTION_STRIP_SIGNATURES.opt)
+
+        val fileMappings = mutableSetOf<FileMapping>()
+        if (rebuildTopOfTree) {
+            val tempFile = createTempFile(suffix = "zip")
+            fileMappings.add(FileMapping(inputLibrary, tempFile))
+        } else {
+            fileMappings.add(FileMapping(inputLibrary, File(output)))
+        }
 
         val config = if (cmd.hasOption(OPTION_CONFIG.opt)) {
             val configPath = Paths.get(cmd.getOptionValue(OPTION_CONFIG.opt))
@@ -139,19 +136,13 @@ class Main {
             return
         }
 
-        val fileMappings = mutableSetOf<FileMapping>()
-        if (rebuildTopOfTree) {
-            val tempFile = createTempFile(suffix = "zip")
-            fileMappings.add(FileMapping(input, tempFile))
-        } else {
-            fileMappings.add(FileMapping(input, File(output)))
-        }
+        val isReversed = cmd.hasOption(OPTION_REVERSED.opt)
+        val isStrict = cmd.hasOption(OPTION_STRICT.opt)
 
-        val processor = Processor.createProcessor3(
+        val processor = Processor.createProcessor2(
             config = config,
             reversedMode = isReversed,
             rewritingSupportLib = rebuildTopOfTree,
-            stripSignatures = shouldStripSignatures,
             useFallbackIfTypeIsMissing = !isStrict)
         processor.transform(fileMappings)
 

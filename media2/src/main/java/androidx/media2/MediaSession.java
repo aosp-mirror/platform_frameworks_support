@@ -16,7 +16,7 @@
 
 package androidx.media2;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 import static androidx.media2.SessionResult.RESULT_ERROR_NOT_SUPPORTED;
 import static androidx.media2.SessionResult.RESULT_SUCCESS;
 
@@ -50,7 +50,7 @@ import androidx.versionedparcelable.VersionedParcelize;
 
 import com.google.common.util.concurrent.ListenableFuture;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executor;
 
@@ -130,23 +130,20 @@ import java.util.concurrent.Executor;
 public class MediaSession implements AutoCloseable {
     static final String TAG = "MediaSession";
 
-    // It's better to have private static lock instead of using MediaSession.class because the
-    // private lock object isn't exposed.
-    private static final Object STATIC_LOCK = new Object();
     // Note: This checks the uniqueness of a session ID only in single process.
     // When the framework becomes able to check the uniqueness, this logic should be removed.
-    @GuardedBy("STATIC_LOCK")
-    private static final HashMap<String, MediaSession> SESSION_ID_TO_SESSION_MAP = new HashMap<>();
+    @GuardedBy("MediaSession.class")
+    private static final List<String> SESSION_ID_LIST = new ArrayList<>();
 
     private final MediaSessionImpl mImpl;
 
     MediaSession(Context context, String id, SessionPlayer player,
             PendingIntent sessionActivity, Executor callbackExecutor, SessionCallback callback) {
-        synchronized (STATIC_LOCK) {
-            if (SESSION_ID_TO_SESSION_MAP.containsKey(id)) {
+        synchronized (MediaSession.class) {
+            if (SESSION_ID_LIST.contains(id)) {
                 throw new IllegalStateException("Session ID must be unique. ID=" + id);
             }
-            SESSION_ID_TO_SESSION_MAP.put(id, this);
+            SESSION_ID_LIST.add(id);
         }
         mImpl = createImpl(context, id, player, sessionActivity, callbackExecutor,
                 callback);
@@ -165,17 +162,6 @@ public class MediaSession implements AutoCloseable {
         return mImpl;
     }
 
-    static MediaSession getSession(Uri sessionUri) {
-        synchronized (STATIC_LOCK) {
-            for (MediaSession session : SESSION_ID_TO_SESSION_MAP.values()) {
-                if (ObjectsCompat.equals(session.getUri(), sessionUri)) {
-                    return session;
-                }
-            }
-        }
-        return null;
-    }
-
     /**
      * Updates the underlying {@link SessionPlayer} for this session to dispatch incoming event to.
      *
@@ -191,8 +177,8 @@ public class MediaSession implements AutoCloseable {
     @Override
     public void close() {
         try {
-            synchronized (STATIC_LOCK) {
-                SESSION_ID_TO_SESSION_MAP.remove(mImpl.getId());
+            synchronized (MediaSession.class) {
+                SESSION_ID_LIST.remove(mImpl.getId());
             }
             mImpl.close();
         } catch (Exception e) {
@@ -203,7 +189,7 @@ public class MediaSession implements AutoCloseable {
     /**
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     public boolean isClosed() {
         return mImpl.isClosed();
     }
@@ -357,7 +343,7 @@ public class MediaSession implements AutoCloseable {
      * @hide
      * @return Bundle
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     public MediaSessionCompat getSessionCompat() {
         return mImpl.getSessionCompat();
     }
@@ -377,11 +363,6 @@ public class MediaSession implements AutoCloseable {
 
     IBinder getLegacyBrowerServiceBinder() {
         return mImpl.getLegacyBrowserServiceBinder();
-    }
-
-    @NonNull
-    private Uri getUri() {
-        return mImpl.getUri();
     }
 
     /**
@@ -577,7 +558,7 @@ public class MediaSession implements AutoCloseable {
          * @see SessionCommand#COMMAND_CODE_SESSION_PLAY_FROM_MEDIA_ID
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP_PREFIX)
+        @RestrictTo(LIBRARY_GROUP)
         @ResultCode
         public int onPlayFromMediaId(@NonNull MediaSession session,
                 @NonNull ControllerInfo controller, @NonNull String mediaId,
@@ -596,7 +577,7 @@ public class MediaSession implements AutoCloseable {
          * @see SessionCommand#COMMAND_CODE_SESSION_PLAY_FROM_SEARCH
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP_PREFIX)
+        @RestrictTo(LIBRARY_GROUP)
         @ResultCode
         public int onPlayFromSearch(@NonNull MediaSession session,
                 @NonNull ControllerInfo controller, @NonNull String query,
@@ -615,7 +596,7 @@ public class MediaSession implements AutoCloseable {
          * @see SessionCommand#COMMAND_CODE_SESSION_PLAY_FROM_URI
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP_PREFIX)
+        @RestrictTo(LIBRARY_GROUP)
         @ResultCode
         public int onPlayFromUri(@NonNull MediaSession session,
                 @NonNull ControllerInfo controller, @NonNull Uri uri,
@@ -644,7 +625,7 @@ public class MediaSession implements AutoCloseable {
          * @see SessionCommand#COMMAND_CODE_SESSION_PREPARE_FROM_MEDIA_ID
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP_PREFIX)
+        @RestrictTo(LIBRARY_GROUP)
         @ResultCode
         public int onPrepareFromMediaId(@NonNull MediaSession session,
                 @NonNull ControllerInfo controller, @NonNull String mediaId,
@@ -673,7 +654,7 @@ public class MediaSession implements AutoCloseable {
          * @see SessionCommand#COMMAND_CODE_SESSION_PREPARE_FROM_SEARCH
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP_PREFIX)
+        @RestrictTo(LIBRARY_GROUP)
         @ResultCode
         public int onPrepareFromSearch(@NonNull MediaSession session,
                 @NonNull ControllerInfo controller, @NonNull String query,
@@ -702,7 +683,7 @@ public class MediaSession implements AutoCloseable {
          * @see SessionCommand#COMMAND_CODE_SESSION_PREPARE_FROM_URI
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP_PREFIX)
+        @RestrictTo(LIBRARY_GROUP)
         @ResultCode
         public int onPrepareFromUri(@NonNull MediaSession session,
                 @NonNull ControllerInfo controller, @NonNull Uri uri, @Nullable Bundle extras) {
@@ -850,7 +831,7 @@ public class MediaSession implements AutoCloseable {
          *           SessionCallback#onConnected().
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP_PREFIX)
+        @RestrictTo(LIBRARY_GROUP)
         ControllerInfo(@NonNull RemoteUserInfo remoteUserInfo, boolean trusted,
                 @Nullable ControllerCb cb) {
             mRemoteUserInfo = remoteUserInfo;
@@ -861,7 +842,7 @@ public class MediaSession implements AutoCloseable {
         /**
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP_PREFIX)
+        @RestrictTo(LIBRARY_GROUP)
         public @NonNull RemoteUserInfo getRemoteUserInfo() {
             return mRemoteUserInfo;
         }
@@ -890,7 +871,7 @@ public class MediaSession implements AutoCloseable {
          * @return {@code true} if the controller is trusted.
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP_PREFIX)
+        @RestrictTo(LIBRARY_GROUP)
         public boolean isTrusted() {
             return mIsTrusted;
         }
@@ -1136,7 +1117,6 @@ public class MediaSession implements AutoCloseable {
         void updatePlayer(@NonNull SessionPlayer player);
         @NonNull SessionPlayer getPlayer();
         @NonNull String getId();
-        @NonNull Uri getUri();
         @NonNull SessionToken getToken();
         @NonNull List<ControllerInfo> getConnectedControllers();
         boolean isConnected(@NonNull ControllerInfo controller);
@@ -1180,7 +1160,7 @@ public class MediaSession implements AutoCloseable {
      *              T, U, C extends androidx.media2.MediaSession.SessionCallback>, C></pre>
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     abstract static class BuilderBase
             <T extends MediaSession, U extends BuilderBase<T, U, C>, C extends SessionCallback> {
         final Context mContext;

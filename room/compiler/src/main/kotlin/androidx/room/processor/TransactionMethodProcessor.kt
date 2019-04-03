@@ -38,7 +38,6 @@ class TransactionMethodProcessor(
     val context = baseContext.fork(executableElement)
 
     fun process(): TransactionMethod {
-        val delegate = MethodProcessorDelegate.createFor(context, containing, executableElement)
         val kotlinDefaultImpl =
                 executableElement.findKotlinDefaultImpl(context.processingEnv.typeUtils)
         context.checker.check(
@@ -46,12 +45,11 @@ class TransactionMethodProcessor(
                         (!executableElement.hasAnyOf(ABSTRACT) || kotlinDefaultImpl != null),
                 executableElement, ProcessorErrors.TRANSACTION_METHOD_MODIFIERS)
 
-        val returnType = delegate.extractReturnType()
-        val erasureReturnType = context.processingEnv.typeUtils.erasure(returnType)
+        val returnType = context.processingEnv.typeUtils.erasure(executableElement.returnType)
 
         DEFERRED_TYPES.firstOrNull { className ->
             context.processingEnv.elementUtils.getTypeElement(className.toString())?.asType()?.let {
-                context.processingEnv.typeUtils.isAssignable(it, erasureReturnType)
+                context.processingEnv.typeUtils.isAssignable(it, returnType)
             } ?: false
         }?.let { returnTypeName ->
             context.logger.e(
@@ -71,10 +69,8 @@ class TransactionMethodProcessor(
 
         return TransactionMethod(
                 element = executableElement,
-                returnType = returnType,
-                parameterNames = delegate.extractParams().map { it.simpleName.toString() },
-                callType = callType,
-                methodBinder = delegate.findTransactionMethodBinder(callType))
+                name = executableElement.simpleName.toString(),
+                callType = callType)
     }
 
     companion object {

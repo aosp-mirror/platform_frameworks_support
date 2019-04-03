@@ -16,7 +16,7 @@
 
 package androidx.core.graphics;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -41,7 +41,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * Implementation of the Typeface compat methods for API 14 and above.
  * @hide
  */
-@RestrictTo(LIBRARY_GROUP_PREFIX)
+@RestrictTo(LIBRARY_GROUP)
 class TypefaceCompatBaseImpl {
     private static final String TAG = "TypefaceCompatBaseImpl";
     private static final int INVALID_KEY = 0;

@@ -37,7 +37,7 @@ import java.util.concurrent.Executor;
  *
  * @hide
  */
-@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
+@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 @SuppressWarnings("unused") // Used in GuavaListenableFutureQueryResultBinder code generation.
 @SuppressLint("RestrictedAPI") // ArchTaskExecutor can only be called from androidx.arch.core
 public class GuavaRoom {

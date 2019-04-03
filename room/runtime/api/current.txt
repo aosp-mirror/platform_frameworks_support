@@ -1,4 +1,4 @@
-// Signature format: 3.0
+// Signature format: 2.0
 package androidx.room {
 
   public class DatabaseConfiguration {
@@ -38,13 +38,13 @@ package androidx.room {
 
   public abstract class RoomDatabase {
     ctor public RoomDatabase();
-    method @Deprecated public void beginTransaction();
+    method public void beginTransaction();
     method @WorkerThread public abstract void clearAllTables();
     method public void close();
     method public androidx.sqlite.db.SupportSQLiteStatement! compileStatement(String);
     method protected abstract androidx.room.InvalidationTracker createInvalidationTracker();
     method protected abstract androidx.sqlite.db.SupportSQLiteOpenHelper createOpenHelper(androidx.room.DatabaseConfiguration!);
-    method @Deprecated public void endTransaction();
+    method public void endTransaction();
     method public androidx.room.InvalidationTracker getInvalidationTracker();
     method public androidx.sqlite.db.SupportSQLiteOpenHelper getOpenHelper();
     method public java.util.concurrent.Executor getQueryExecutor();
@@ -56,7 +56,7 @@ package androidx.room {
     method public android.database.Cursor! query(androidx.sqlite.db.SupportSQLiteQuery!);
     method public void runInTransaction(Runnable);
     method public <V> V! runInTransaction(java.util.concurrent.Callable<V>);
-    method @Deprecated public void setTransactionSuccessful();
+    method public void setTransactionSuccessful();
     field @Deprecated protected java.util.List<androidx.room.RoomDatabase.Callback>? mCallbacks;
     field @Deprecated protected volatile androidx.sqlite.db.SupportSQLiteDatabase! mDatabase;
   }
@@ -81,7 +81,7 @@ package androidx.room {
     method public void onOpen(androidx.sqlite.db.SupportSQLiteDatabase);
   }
 
-  public enum RoomDatabase.JournalMode {
+  public static enum RoomDatabase.JournalMode {
     enum_constant public static final androidx.room.RoomDatabase.JournalMode AUTOMATIC;
     enum_constant public static final androidx.room.RoomDatabase.JournalMode TRUNCATE;
     enum_constant @RequiresApi(android.os.Build.VERSION_CODES.JELLY_BEAN) public static final androidx.room.RoomDatabase.JournalMode WRITE_AHEAD_LOGGING;

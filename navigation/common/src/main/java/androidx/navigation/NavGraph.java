@@ -19,12 +19,14 @@ package androidx.navigation;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.net.Uri;
+import android.os.Bundle;
+import android.support.annotation.IdRes;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.util.Pair;
+import android.support.v4.util.SparseArrayCompat;
 import android.util.AttributeSet;
 
-import androidx.annotation.IdRes;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.collection.SparseArrayCompat;
 import androidx.navigation.common.R;
 
 import java.util.Collection;
@@ -71,14 +73,14 @@ public class NavGraph extends NavDestination implements Iterable<NavDestination>
 
     @Override
     @Nullable
-    DeepLinkMatch matchDeepLink(@NonNull Uri uri) {
+    Pair<NavDestination, Bundle> matchDeepLink(@NonNull Uri uri) {
         // First search through any deep links directly added to this NavGraph
-        DeepLinkMatch bestMatch = super.matchDeepLink(uri);
+        Pair<NavDestination, Bundle> bestMatch = super.matchDeepLink(uri);
         // Then search through all child destinations for a matching deep link
         for (NavDestination child : this) {
-            DeepLinkMatch childBestMatch = child.matchDeepLink(uri);
+            Pair<NavDestination, Bundle> childBestMatch = child.matchDeepLink(uri);
             if (childBestMatch != null && (bestMatch == null
-                    || childBestMatch.compareTo(bestMatch) > 0)) {
+                    || childBestMatch.second.size() > bestMatch.second.size())) {
                 bestMatch = childBestMatch;
             }
         }

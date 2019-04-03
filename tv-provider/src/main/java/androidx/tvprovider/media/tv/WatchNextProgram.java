@@ -15,7 +15,7 @@
  */
 package androidx.tvprovider.media.tv;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -81,7 +81,7 @@ public final class WatchNextProgram extends BasePreviewProgram {
     /**
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     public static final String[] PROJECTION = getProjection();
 
     private static final long INVALID_LONG_VALUE = -1;
@@ -96,7 +96,7 @@ public final class WatchNextProgram extends BasePreviewProgram {
             WatchNextPrograms.WATCH_NEXT_TYPE_WATCHLIST,
     })
     @Retention(RetentionPolicy.SOURCE)
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     public @interface WatchNextType {
     }
 
@@ -173,7 +173,7 @@ public final class WatchNextProgram extends BasePreviewProgram {
      * @param includeProtectedFields Whether the fields protected by system is included or not.
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     @Override
     public ContentValues toContentValues(boolean includeProtectedFields) {
         ContentValues values = super.toContentValues(includeProtectedFields);

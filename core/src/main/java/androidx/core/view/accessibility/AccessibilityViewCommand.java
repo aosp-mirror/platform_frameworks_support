@@ -16,7 +16,7 @@
 
 package androidx.core.view.accessibility;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.os.Bundle;
 import android.view.View;
@@ -51,7 +51,7 @@ public interface AccessibilityViewCommand {
         /**
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP_PREFIX)
+        @RestrictTo(LIBRARY_GROUP)
         public void setBundle(Bundle bundle) {
             mBundle = bundle;
         }

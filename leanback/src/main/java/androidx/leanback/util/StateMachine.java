@@ -13,7 +13,7 @@
  */
 package androidx.leanback.util;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.util.Log;
 
@@ -35,7 +35,7 @@ import java.util.ArrayList;
  * is executed and {@link Transition#mCondition} passes.
  * @hide
  */
-@RestrictTo(LIBRARY_GROUP_PREFIX)
+@RestrictTo(LIBRARY_GROUP)
 public final class StateMachine {
 
     static final boolean DEBUG = false;

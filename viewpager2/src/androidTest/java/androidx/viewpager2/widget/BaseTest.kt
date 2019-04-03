@@ -48,7 +48,6 @@ import androidx.viewpager2.widget.swipe.FragmentAdapter
 import androidx.viewpager2.widget.swipe.PageSwiper
 import androidx.viewpager2.widget.swipe.PageSwiperEspresso
 import androidx.viewpager2.widget.swipe.PageSwiperManual
-import androidx.viewpager2.widget.swipe.SelfChecking
 import androidx.viewpager2.widget.swipe.TestActivity
 import androidx.viewpager2.widget.swipe.ViewAdapter
 import org.hamcrest.CoreMatchers.equalTo
@@ -334,7 +333,7 @@ open class BaseTest {
      * 2. Expected text is displayed
      * 3. Internal activity state is valid (as per activity self-test)
      */
-    fun Context.assertBasicState(pageIx: Int, value: String = pageIx.toString()) {
+    fun Context.assertBasicState(pageIx: Int, value: String) {
         assertThat<Int>(
             "viewPager.getCurrentItem() should return $pageIx",
             viewPager.currentItem, equalTo(pageIx)
@@ -343,8 +342,14 @@ open class BaseTest {
             matches(withText(value))
         )
 
-        if (viewPager.adapter is SelfChecking) {
-            (viewPager.adapter as SelfChecking).selfCheck()
+        // FIXME: too tight coupling
+        if (viewPager.adapter is FragmentAdapter) {
+            val adapter = viewPager.adapter as FragmentAdapter
+            assertThat(
+                "Number of fragment attaches minus fragment destroys must be " +
+                        "between 1 and 4 (inclusive)",
+                adapter.attachCount.get() - adapter.destroyCount.get(), isBetweenInIn(1, 4)
+            )
         }
     }
 
@@ -352,20 +357,11 @@ open class BaseTest {
         targetPage: Int,
         smoothScroll: Boolean,
         timeout: Long,
-        unit: TimeUnit,
-        expectEvents: Boolean = (targetPage != currentItem)
+        unit: TimeUnit
     ) {
-        val latch =
-                if (expectEvents)
-                    addWaitForScrolledLatch(targetPage, smoothScroll)
-                else
-                    CountDownLatch(1)
-        post {
-            setCurrentItem(targetPage, smoothScroll)
-            if (!expectEvents) {
-                latch.countDown()
-            }
-        }
+        if (currentItem == targetPage) return
+        val latch = addWaitForScrolledLatch(targetPage, smoothScroll)
+        post { setCurrentItem(targetPage, smoothScroll) }
         latch.await(timeout, unit)
     }
 

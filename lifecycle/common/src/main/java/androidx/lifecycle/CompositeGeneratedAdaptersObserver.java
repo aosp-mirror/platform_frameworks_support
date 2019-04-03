@@ -17,7 +17,13 @@
 package androidx.lifecycle;
 
 
-class CompositeGeneratedAdaptersObserver implements LifecycleEventObserver {
+import androidx.annotation.RestrictTo;
+
+/**
+ * @hide
+ */
+@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+public class CompositeGeneratedAdaptersObserver implements LifecycleEventObserver {
 
     private final GeneratedAdapter[] mGeneratedAdapters;
 

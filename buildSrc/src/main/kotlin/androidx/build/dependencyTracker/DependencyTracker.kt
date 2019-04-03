@@ -29,7 +29,7 @@ internal class DependencyTracker constructor(
     private val rootProject: Project,
     private val logger: Logger?
 ) {
-    private val dependentList: Map<Project, Set<Project>> by lazy {
+    private val dependantList: Map<Project, Set<Project>> by lazy {
         val result = mutableMapOf<Project, MutableSet<Project>>()
         rootProject.subprojects.forEach { project ->
             logger?.info("checking ${project.path} for dependencies")
@@ -49,16 +49,16 @@ internal class DependencyTracker constructor(
         result
     }
 
-    fun findAllDependents(project: Project): Set<Project> {
-        logger?.info("finding dependents of ${project.path}")
+    fun findAllDependants(project: Project): Set<Project> {
+        logger?.info("finding dependants of ${project.path}")
         val result = mutableSetOf<Project>()
-        fun addAllDependents(project: Project) {
+        fun addAllDependants(project: Project) {
             if (result.add(project)) {
-                dependentList[project]?.forEach(::addAllDependents)
+                dependantList[project]?.forEach(::addAllDependants)
             }
         }
-        addAllDependents(project)
-        logger?.info("dependents of ${project.path} is ${result.map {
+        addAllDependants(project)
+        logger?.info("dependants of ${project.path} is ${result.map {
             it.path
         }}")
         return result

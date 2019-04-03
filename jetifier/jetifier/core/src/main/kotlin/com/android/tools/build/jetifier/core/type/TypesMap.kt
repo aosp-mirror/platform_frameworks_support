@@ -151,9 +151,5 @@ data class TypesMap(private val types: Map<JavaType, JavaType>) {
                     .toMap())
         }
     }
-
-    fun getClassMappings(): Map<JavaType, JavaType> {
-        // Create new map to avoid mutation.
-        return HashMap<JavaType, JavaType>(types)
-    }
 }
+

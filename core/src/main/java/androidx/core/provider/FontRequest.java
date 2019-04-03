@@ -16,7 +16,7 @@
 
 package androidx.core.provider;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.util.Base64;
 
@@ -138,7 +138,7 @@ public final class FontRequest {
     }
 
     /** @hide */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     public String getIdentifier() {
         return mIdentifier;
     }

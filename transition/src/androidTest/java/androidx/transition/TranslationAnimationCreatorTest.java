@@ -25,12 +25,12 @@ import android.view.View;
 import android.view.animation.LinearInterpolator;
 
 import androidx.test.annotation.UiThreadTest;
-import androidx.test.filters.LargeTest;
+import androidx.test.filters.SmallTest;
 
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 
-@LargeTest
+@SmallTest
 public class TranslationAnimationCreatorTest extends BaseTest {
 
     @Test

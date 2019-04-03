@@ -26,7 +26,7 @@ fun SafeArgsGenerator(
     applicationId: String,
     navigationXml: File,
     outputDir: File,
-    useAndroidX: Boolean = true,
+    useAndroidX: Boolean,
     generateKotlin: Boolean
 ) = NavSafeArgsGenerator(
     rFilePackage,
