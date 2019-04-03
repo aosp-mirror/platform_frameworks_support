@@ -56,6 +56,24 @@
       "revId": "9b1d3e66337b8adb48353b33e007709d1429a48c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2c04bff_0ff6e5dc",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2019-04-03T00:04:52Z",
+      "side": 1,
+      "message": "This was following the same pattern as Distance (with meters and formatted+unit pair). Having both allows OEMs to adjust rendering to their own space and preferences. If all we provide is formatted values, then we will end up in the situation we have right now with \"step cues\" (where we can\u0027t properly format it for them).",
+      "parentUuid": "6e5f0dd9_7463a2c1",
+      "revId": "9b1d3e66337b8adb48353b33e007709d1429a48c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
