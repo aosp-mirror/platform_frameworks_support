@@ -36,8 +36,6 @@ import androidx.test.filters.LargeTest;
 import androidx.test.platform.app.InstrumentationRegistry;
 
 import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
 import org.mockito.verification.VerificationMode;
 
 @LargeTest
@@ -82,8 +80,8 @@ public class ExplodeTest extends BaseTransitionTest {
         });
     }
 
-    @Ignore("Temporarily disabled due to b/112005299")
-    @Test
+    // Temporarily disabled due to b/118137165.
+    // @Test
     public void testExplode() throws Throwable {
         rule.runOnUiThread(new Runnable() {
             @Override
@@ -117,8 +115,8 @@ public class ExplodeTest extends BaseTransitionTest {
         assertEquals(View.INVISIBLE, mYellowSquare.getVisibility());
     }
 
-    @Ignore("Temporarily disabled due to b/112005299")
-    @Test
+    // Temporarily disabled due to b/112005299.
+    // @Test
     public void testImplode() throws Throwable {
         rule.runOnUiThread(new Runnable() {
             @Override

@@ -18,7 +18,4 @@ package androidx.navigation.testapp
 
 import java.io.Serializable
 
-class MyClass : Serializable {
-
-    class InnerClass : Serializable
-}
+class MyClass : Serializable

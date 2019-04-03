@@ -70,6 +70,7 @@
         <SeekBarPreference
                 android:key="seekbar"
                 android:title="@string/title_seekbar_preference"
+                android:summary="@string/summary_seekbar_preference"
                 android:max="10"
                 android:defaultValue="5"/>
     </PreferenceCategory>

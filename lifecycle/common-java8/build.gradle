@@ -28,7 +28,7 @@ targetCompatibility = JavaVersion.VERSION_1_8
 
 dependencies {
     compile(project(":lifecycle:lifecycle-common"))
-    compile(project(":annotation"))
+    compile(SUPPORT_ANNOTATIONS)
 
     testCompile(JUNIT)
     testCompile(MOCKITO_CORE)

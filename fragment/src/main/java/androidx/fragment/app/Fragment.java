@@ -16,7 +16,7 @@
 
 package androidx.fragment.app;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.animation.Animator;
 import android.annotation.SuppressLint;
@@ -66,13 +66,12 @@ import androidx.lifecycle.ViewModelStore;
 import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.loader.app.LoaderManager;
 import androidx.savedstate.SavedStateRegistry;
-import androidx.savedstate.SavedStateRegistryController;
-import androidx.savedstate.SavedStateRegistryOwner;
+import androidx.savedstate.bundle.BundleSavedStateRegistry;
+import androidx.savedstate.bundle.BundleSavedStateRegistryOwner;
 
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
 import java.lang.reflect.InvocationTargetException;
-import java.util.HashMap;
 import java.util.UUID;
 
 /**
@@ -91,7 +90,7 @@ import java.util.UUID;
  *
  */
 public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener, LifecycleOwner,
-        ViewModelStoreOwner, SavedStateRegistryOwner {
+        ViewModelStoreOwner, BundleSavedStateRegistryOwner {
 
     static final Object USE_DEFAULT_TRANSITION = new Object();
 
@@ -248,10 +247,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
     @Nullable FragmentViewLifecycleOwner mViewLifecycleOwner;
     MutableLiveData<LifecycleOwner> mViewLifecycleOwnerLiveData = new MutableLiveData<>();
 
-    SavedStateRegistryController mSavedStateRegistryController;
-
-    // Cache the ContentView layoutIds for Fragments.
-    private static final HashMap<Class, Integer> sAnnotationIds = new HashMap<>();
+    BundleSavedStateRegistry mSavedStateRegistry = new BundleSavedStateRegistry();
 
     /**
      * {@inheritDoc}
@@ -348,8 +344,8 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
 
     @NonNull
     @Override
-    public final SavedStateRegistry getSavedStateRegistry() {
-        return mSavedStateRegistryController.getSavedStateRegistry();
+    public final SavedStateRegistry<Bundle> getBundleSavedStateRegistry() {
+        return mSavedStateRegistry;
     }
 
     /**
@@ -434,7 +430,6 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
 
     private void initLifecycle() {
         mLifecycleRegistry = new LifecycleRegistry(this);
-        mSavedStateRegistryController = SavedStateRegistryController.create(this);
         if (Build.VERSION.SDK_INT >= 19) {
             mLifecycleRegistry.addObserver(new GenericLifecycleObserver() {
                 @Override
@@ -545,6 +540,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
     }
 
     @Override
+    @SuppressLint({"UnknownNullness", "RestrictedApi"})
     public String toString() {
         StringBuilder sb = new StringBuilder(128);
         DebugUtils.buildShortClassTag(this, sb);
@@ -1006,13 +1002,13 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
     }
 
     /** @hide */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     final public boolean hasOptionsMenu() {
         return mHasMenu;
     }
 
     /** @hide */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     final public boolean isMenuVisible() {
         return mMenuVisible;
     }
@@ -1400,7 +1396,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
      */
     @Deprecated
     @NonNull
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     public LayoutInflater getLayoutInflater(@Nullable Bundle savedFragmentState) {
         if (mHost == null) {
             throw new IllegalStateException("onGetLayoutInflater() cannot be executed until the "
@@ -1577,6 +1573,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
     @CallSuper
     public void onCreate(@Nullable Bundle savedInstanceState) {
         mCalled = true;
+        mSavedStateRegistry.performRestore(savedInstanceState);
         restoreChildFragmentState(savedInstanceState);
         if (mChildFragmentManager != null
                 && !mChildFragmentManager.isStateAtLeast(Fragment.CREATED)) {
@@ -1637,18 +1634,12 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
     @Nullable
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
-        Class<? extends Fragment> clazz = getClass();
-        if (!sAnnotationIds.containsKey(clazz)) {
-            ContentView annotation = clazz.getAnnotation(ContentView.class);
-            if (annotation != null) {
-                sAnnotationIds.put(clazz, annotation.value());
-            } else {
-                sAnnotationIds.put(clazz, null);
+        ContentView annotation = getClass().getAnnotation(ContentView.class);
+        if (annotation != null) {
+            int layoutId = annotation.value();
+            if (layoutId != 0) {
+                return inflater.inflate(layoutId, container, false);
             }
-        }
-        Integer layoutId = sAnnotationIds.get(clazz);
-        if (layoutId != null && layoutId != 0) {
-            return inflater.inflate(layoutId, container, false);
         }
         return null;
     }
@@ -1852,6 +1843,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
      */
     void initState() {
         initLifecycle();
+        mSavedStateRegistry = new BundleSavedStateRegistry();
         mWho = UUID.randomUUID().toString();
         mAdded = false;
         mRemoving = false;
@@ -2519,7 +2511,6 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
         }
         mState = CREATED;
         mCalled = false;
-        mSavedStateRegistryController.performRestore(savedInstanceState);
         onCreate(savedInstanceState);
         mIsCreated = true;
         if (!mCalled) {
@@ -2724,7 +2715,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
 
     void performSaveInstanceState(Bundle outState) {
         onSaveInstanceState(outState);
-        mSavedStateRegistryController.performSave(outState);
+        mSavedStateRegistry.performSave(outState);
         if (mChildFragmentManager != null) {
             Parcelable p = mChildFragmentManager.saveAllState();
             if (p != null) {

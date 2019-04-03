@@ -20,6 +20,7 @@ import android.os.Binder;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.util.Log;
 import android.util.Size;
 import android.util.SizeF;
 import android.util.SparseArray;
@@ -45,28 +46,6 @@ public final class SavedStateHandle {
 
     private static final String VALUES = "values";
     private static final String KEYS = "keys";
-
-    private final SavedStateProvider mSavedStateProvider = new SavedStateProvider() {
-        @SuppressWarnings("unchecked")
-        @NonNull
-        @Override
-        public Bundle saveState() {
-            Set<String> keySet = mRegular.keySet();
-            ArrayList keys = new ArrayList(keySet.size());
-            ArrayList value = new ArrayList(keys.size());
-            for (String key : keySet) {
-                keys.add(key);
-                value.add(mRegular.get(key));
-            }
-
-            Bundle res = new Bundle();
-            // "parcelable" arraylists - lol
-            res.putParcelableArrayList("keys", keys);
-            res.putParcelableArrayList("values", value);
-            return res;
-        }
-    };
-
 
     /**
      * Creates a handle with the given initial arguments.
@@ -102,7 +81,7 @@ public final class SavedStateHandle {
         ArrayList keys = restoredState.getParcelableArrayList(KEYS);
         ArrayList values = restoredState.getParcelableArrayList(VALUES);
         if (keys == null || values == null || keys.size() != values.size()) {
-            throw new IllegalStateException("Invalid bundle passed as restored state");
+            Log.e("SavedStateAccessor", "Invalid bundle passed to the restoration phase");
         }
         for (int i = 0; i < keys.size(); i++) {
             state.put((String) keys.get(i), values.get(i));
@@ -111,8 +90,27 @@ public final class SavedStateHandle {
     }
 
     @NonNull
-    SavedStateProvider savedStateProvider() {
-        return mSavedStateProvider;
+    SavedStateProvider<Bundle> savedStateProvider() {
+        return new SavedStateProvider<Bundle>() {
+            @SuppressWarnings("unchecked")
+            @NonNull
+            @Override
+            public Bundle saveState() {
+                Set<String> keySet = mRegular.keySet();
+                ArrayList keys = new ArrayList(keySet.size());
+                ArrayList value = new ArrayList(keys.size());
+                for (String key : keySet) {
+                    keys.add(key);
+                    value.add(mRegular.get(key));
+                }
+
+                Bundle res = new Bundle();
+                // "parcelable" arraylists - lol
+                res.putParcelableArrayList("keys", keys);
+                res.putParcelableArrayList("values", value);
+                return res;
+            }
+        };
     }
 
     /**

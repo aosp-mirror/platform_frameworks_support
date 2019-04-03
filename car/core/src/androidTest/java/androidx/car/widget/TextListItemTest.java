@@ -56,7 +56,7 @@ import androidx.test.core.app.ApplicationProvider;
 import androidx.test.espresso.UiController;
 import androidx.test.espresso.ViewAction;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.filters.LargeTest;
+import androidx.test.filters.SmallTest;
 import androidx.test.rule.ActivityTestRule;
 
 import org.hamcrest.Matcher;
@@ -76,7 +76,7 @@ import java.util.Locale;
 * Tests the layout configuration in {@link TextListItem}.
  */
 @RunWith(AndroidJUnit4.class)
-@LargeTest
+@SmallTest
 public class TextListItemTest {
 
     @Rule
@@ -920,7 +920,7 @@ public class TextListItemTest {
     }
 
     @Test
-    public void testClickInterceptor_ClickableIfSupplementalIconClickable() {
+    public void testClickInterceptor_ClickableIfSupplmentalIconClickable() {
         TextListItem item = new TextListItem(mActivity);
         item.setEnabled(true);
 
@@ -934,7 +934,7 @@ public class TextListItemTest {
     }
 
     @Test
-    public void testClickInterceptor_VisibleIfSupplementalIconClickable() {
+    public void testClickInterceptor_VisibleIfSupplmentalIconClickable() {
         TextListItem item = new TextListItem(mActivity);
         item.setEnabled(true);
 
@@ -948,7 +948,7 @@ public class TextListItemTest {
     }
 
     @Test
-    public void testClickInterceptor_NotClickableIfSupplementalIconNotClickable() {
+    public void testClickInterceptor_NotClickableIfSupplmentalIconNotClickable() {
         TextListItem item = new TextListItem(mActivity);
         item.setEnabled(true);
 
@@ -962,7 +962,7 @@ public class TextListItemTest {
     }
 
     @Test
-    public void testClickInterceptor_GoneIfSupplementalIconClickable() {
+    public void testClickInterceptor_GoneIfSupplmentalIconClickable() {
         TextListItem item = new TextListItem(mActivity);
         item.setEnabled(true);
 

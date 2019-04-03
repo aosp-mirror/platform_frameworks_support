@@ -16,16 +16,15 @@
 
 package androidx.benchmark
 
-import androidx.test.filters.LargeTest
+import androidx.test.filters.SmallTest
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 import java.util.concurrent.TimeUnit
 
-@LargeTest
+@SmallTest
 @RunWith(JUnit4::class)
 class BenchmarkStateTest {
     private fun ms2ns(ms: Long): Long = TimeUnit.MILLISECONDS.toNanos(ms)
@@ -60,23 +59,5 @@ class BenchmarkStateTest {
 
         assertEquals(summary1.indexOf("foo"),
             summary2.indexOf("foo"))
-    }
-
-    @Test
-    fun bundle() {
-        val bundle = BenchmarkState().apply {
-            while (keepRunning()) {
-                // nothing, we're ignoring numbers
-            }
-        }.getFullStatusReport("foo")
-        val expectedLabel = WarningState.WARNING_PREFIX + "foo"
-
-        assertTrue(
-            (bundle.get("android.studio.display.benchmark") as String).contains(expectedLabel))
-
-        // check attribute presence and naming
-        assertNotNull(bundle.get(expectedLabel + "_min"))
-        assertNotNull(bundle.get(expectedLabel + "_mean"))
-        assertNotNull(bundle.get(expectedLabel + "_count"))
     }
 }

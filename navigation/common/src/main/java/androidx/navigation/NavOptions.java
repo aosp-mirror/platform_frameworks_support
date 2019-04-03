@@ -16,10 +16,10 @@
 
 package androidx.navigation;
 
-import androidx.annotation.AnimRes;
-import androidx.annotation.AnimatorRes;
-import androidx.annotation.IdRes;
-import androidx.annotation.NonNull;
+import android.support.annotation.AnimRes;
+import android.support.annotation.AnimatorRes;
+import android.support.annotation.IdRes;
+import android.support.annotation.NonNull;
 
 /**
  * NavOptions stores special options for navigate actions
@@ -126,7 +126,7 @@ public final class NavOptions {
     public static final class Builder {
         boolean mSingleTop;
         @IdRes
-        int mPopUpTo = -1;
+        int mPopUpTo;
         boolean mPopUpToInclusive;
         @AnimRes @AnimatorRes
         int mEnterAnim = -1;

@@ -16,13 +16,12 @@
 
 package androidx.media2;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.os.ParcelFileDescriptor;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.annotation.VisibleForTesting;
 import androidx.core.util.Preconditions;
@@ -110,7 +109,7 @@ public class FileMediaItem extends MediaItem {
      * Increases reference count for underlying ParcelFileDescriptor.
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     public void increaseRefCount() {
         synchronized (mRefCount) {
             if (mClosed) {
@@ -126,7 +125,7 @@ public class FileMediaItem extends MediaItem {
      * be closed when the count becomes zero.
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     public void decreaseRefCount() {
         synchronized (mRefCount) {
             if (mClosed) {
@@ -172,7 +171,7 @@ public class FileMediaItem extends MediaItem {
     /**
      * This Builder class simplifies the creation of a {@link FileMediaItem} object.
      */
-    public static final class Builder extends MediaItem.Builder {
+    public static final class Builder extends BuilderBase<Builder> {
 
         @SuppressWarnings("WeakerAccess") /* synthetic access */
         ParcelFileDescriptor mPFD;
@@ -224,33 +223,11 @@ public class FileMediaItem extends MediaItem {
             mFDLength = length;
         }
 
-        // Override just to change return type.
-        @NonNull
-        @Override
-        public Builder setMetadata(@Nullable MediaMetadata metadata) {
-            return (Builder) super.setMetadata(metadata);
-        }
-
-        // Override just to change return type.
-        @NonNull
-        @Override
-        public Builder setStartPosition(long position) {
-            return (Builder) super.setStartPosition(position);
-        }
-
-        // Override just to change return type.
-        @NonNull
-        @Override
-        public Builder setEndPosition(long position) {
-            return (Builder) super.setEndPosition(position);
-        }
-
         /**
          * @return A new FileMediaItem with values supplied by the Builder.
          */
-        @NonNull
         @Override
-        public FileMediaItem build() {
+        public @NonNull FileMediaItem build() {
             return new FileMediaItem(this);
         }
     }

@@ -22,7 +22,6 @@ import androidx.room.testing.MigrationTestHelper
 import androidx.room.util.TableInfo
 import androidx.sqlite.db.SupportSQLiteDatabase
 import androidx.sqlite.db.framework.FrameworkSQLiteOpenHelperFactory
-import androidx.test.filters.MediumTest
 import androidx.test.platform.app.InstrumentationRegistry
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.containsString
@@ -34,7 +33,6 @@ import org.junit.Test
 import java.io.FileNotFoundException
 import java.io.IOException
 
-@MediumTest
 class MigrationKotlinTest {
 
     @get:Rule
@@ -98,7 +96,6 @@ class MigrationKotlinTest {
         assertThat(entity2s.size, `is`(2))
     }
 
-    @Suppress("DEPRECATION")
     private fun getLatestDb(): MigrationDbKotlin {
         val db = Room.databaseBuilder(
                 InstrumentationRegistry.getInstrumentation().targetContext,

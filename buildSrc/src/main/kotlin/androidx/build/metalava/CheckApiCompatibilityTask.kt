@@ -17,52 +17,58 @@
 package androidx.build.metalava
 
 import androidx.build.checkapi.ApiLocation
-import androidx.build.checkapi.ApiViolationExclusions
+import com.android.build.gradle.BaseExtension
+import com.android.build.gradle.api.BaseVariant
+import org.gradle.api.attributes.Attribute
+import org.gradle.api.file.FileCollection
 import org.gradle.api.tasks.InputFiles
 import org.gradle.api.tasks.OutputFiles
 import org.gradle.api.tasks.TaskAction
 import java.io.File
 
-// Validate an API signature text file against a set of source files.
+/** Validate an API signature text file against a set of source files. */
 open class CheckApiCompatibilityTask : MetalavaTask() {
-    // Text file from which the API signatures will be obtained.
-    var referenceApi: ApiLocation? = null
-    // Text file listing violations that should be ignored
-    var exclusions: ApiViolationExclusions? = null
+    /**
+     * Text file from which the API signatures will be obtained.
+     */
+    var apiLocation: ApiLocation? = null
 
-    // Whether to confirm that no restricted APIs were removed since the previous release
+    /**
+     * Whether to confirm that no restricted APIs were removed since the previous release
+     */
     var checkRestrictedAPIs = false
 
     @InputFiles
-    fun getTaskInputs(): List<File> {
+    fun getTaskInputs(): List<File>? {
         if (checkRestrictedAPIs) {
-            return referenceApi!!.files() + exclusions!!.files()
+            return apiLocation?.files()
         }
-        return listOf(referenceApi!!.publicApiFile, exclusions!!.publicApiFile)
+        return listOf(apiLocation!!.publicApiFile)
     }
 
-    // Declaring outputs prevents Gradle from rerunning this task if the inputs haven't changed
+    /**
+     * Declaring outputs prevents Gradle from rerunning this task if the inputs haven't changed
+     */
     @OutputFiles
-    fun getTaskOutputs(): List<File> {
-        return listOf(referenceApi!!.publicApiFile)
+    fun getTaskOutputs(): List<File>? {
+        return getTaskInputs()
     }
 
     @TaskAction
     fun exec() {
-        val referenceApi = checkNotNull(referenceApi) { "referenceApi not set." }
-        val exclusions = checkNotNull(exclusions) { "exclusions not set." }
+        val publicApiFile = checkNotNull(apiLocation?.publicApiFile) { "publicApiFile not set." }
+        val restrictedApiFile = checkNotNull(apiLocation?.restrictedApiFile) { "restrictedApiFile not set." }
 
         check(bootClasspath.isNotEmpty()) { "Android boot classpath not set." }
 
-        checkApiFile(referenceApi.publicApiFile, exclusions.publicApiFile, false)
+        checkApiFile(publicApiFile, false)
         if (checkRestrictedAPIs) {
-            checkApiFile(referenceApi.restrictedApiFile, exclusions.restrictedApiFile, true)
+            checkApiFile(restrictedApiFile, true)
         }
     }
 
-    // Confirms that the public API of this library (or the restricted API, if <checkRestrictedAPIs> is set
-    // is compatible with <apiFile> except for any exclusions listed in <exclusionsFile>
-    fun checkApiFile(apiFile: File, exclusionsFile: File, checkRestrictedAPIs: Boolean) {
+
+    fun checkApiFile(apiFile: File, checkRestrictedApis: Boolean) {
         var args = listOf("--classpath",
                 (bootClasspath + dependencyClasspath!!.files).joinToString(File.pathSeparator),
 
@@ -72,13 +78,11 @@ open class CheckApiCompatibilityTask : MetalavaTask() {
                 "--check-compatibility:api:released",
                 apiFile.toString(),
 
-                "--warnings-as-errors",
-                "--format=v3"
+                "--compatible-output=no",
+                "--omit-common-packages=yes",
+                "--input-kotlin-nulls=yes"
         )
-        if (exclusionsFile.exists()) {
-            args = args + listOf("--baseline", exclusionsFile.toString())
-        }
-        if (checkRestrictedAPIs) {
+        if (checkRestrictedApis) {
             args = args + listOf("--show-annotation", "androidx.annotation.RestrictTo")
         }
         runWithArgs(args)

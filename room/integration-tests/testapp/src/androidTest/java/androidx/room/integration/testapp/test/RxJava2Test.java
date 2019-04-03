@@ -530,7 +530,6 @@ public class RxJava2Test extends TestDatabaseTest {
         });
     }
 
-    @SuppressWarnings("deprecation")
     @Test
     public void updateInTransaction_Flowable() throws InterruptedException {
         // When subscribing to the emissions of the user
@@ -554,7 +553,6 @@ public class RxJava2Test extends TestDatabaseTest {
         userTestSubscriber.assertValueCount(1);
     }
 
-    @SuppressWarnings("deprecation")
     @Test
     public void updateInTransaction_Observable() throws InterruptedException {
         // When subscribing to the emissions of the user

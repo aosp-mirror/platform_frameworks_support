@@ -16,7 +16,7 @@
 package androidx.slice.widget;
 
 import static androidx.annotation.RestrictTo.Scope.LIBRARY;
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.app.PendingIntent;
 import android.content.Context;
@@ -123,7 +123,7 @@ public final class SliceLiveData {
      * Version for testing
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     @NonNull
     public static CachedSliceLiveData fromStream(@NonNull Context context,
             SliceViewManager manager, @NonNull InputStream input, OnErrorListener listener) {

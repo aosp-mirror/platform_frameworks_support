@@ -16,14 +16,13 @@
 
 package androidx.viewpager2.widget.swipe
 
-import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 
-open class ViewAdapter(private val items: List<String>) : RecyclerView.Adapter<ViewHolder>() {
+class ViewAdapter(private val items: List<String>) : RecyclerView.Adapter<ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
-        object : ViewHolder(PageView.inflatePage(LayoutInflater.from(parent.context), parent)) {}
+            object : ViewHolder(PageView.inflatePage(parent)) {}
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         PageView.setPageText(holder.itemView, items[position])

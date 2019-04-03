@@ -16,8 +16,9 @@
 
 package androidx.preference;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
+import android.annotation.SuppressLint;
 import android.app.DialogFragment;
 import android.app.Fragment;
 import android.content.Context;
@@ -91,7 +92,6 @@ import androidx.recyclerview.widget.RecyclerView;
  *
  * @deprecated Use {@link PreferenceFragmentCompat} instead
  */
-@SuppressWarnings("deprecation")
 @Deprecated
 public abstract class PreferenceFragment extends Fragment implements
         PreferenceManager.OnPreferenceTreeClickListener,
@@ -183,6 +183,7 @@ public abstract class PreferenceFragment extends Fragment implements
     public abstract void onCreatePreferences(Bundle savedInstanceState, String rootKey);
 
     @Override
+    @SuppressLint("RestrictedApi")
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
 
@@ -514,11 +515,11 @@ public abstract class PreferenceFragment extends Fragment implements
     }
 
     /** @hide */
-    @RestrictTo(LIBRARY)
+    @RestrictTo(LIBRARY_GROUP)
     protected void onBindPreferences() {}
 
     /** @hide */
-    @RestrictTo(LIBRARY)
+    @RestrictTo(LIBRARY_GROUP)
     protected void onUnbindPreferences() {}
 
     /**
@@ -645,7 +646,7 @@ public abstract class PreferenceFragment extends Fragment implements
      * @return The {@link Fragment} to possibly use as a callback
      * @hide
      */
-    @RestrictTo(LIBRARY)
+    @RestrictTo(LIBRARY_GROUP)
     public Fragment getCallbackFragment() {
         return null;
     }

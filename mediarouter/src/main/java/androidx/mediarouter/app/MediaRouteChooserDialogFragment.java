@@ -16,7 +16,7 @@
 
 package androidx.mediarouter.app;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -122,7 +122,7 @@ public class MediaRouteChooserDialogFragment extends DialogFragment {
      * Called when the device picker dialog is being created.
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     public MediaRouteDevicePickerDialog onCreateDevicePickerDialog(Context context) {
         return new MediaRouteDevicePickerDialog(context);
     }

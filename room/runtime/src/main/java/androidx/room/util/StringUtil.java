@@ -30,7 +30,7 @@ import java.util.StringTokenizer;
  *
  * String utilities for Room
  */
-@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
+@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public class StringUtil {
 
     @SuppressWarnings("unused")

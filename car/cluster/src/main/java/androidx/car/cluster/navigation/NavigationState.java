@@ -16,7 +16,7 @@
 
 package androidx.car.cluster.navigation;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -74,14 +74,14 @@ public final class NavigationState implements VersionedParcelable {
 
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     NavigationState() {
     }
 
     /**
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     NavigationState(@NonNull List<Step> steps,
             @NonNull List<Destination> destinations,
             @Nullable Segment currentSegment,

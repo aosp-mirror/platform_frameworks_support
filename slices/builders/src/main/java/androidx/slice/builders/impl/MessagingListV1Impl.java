@@ -35,13 +35,13 @@ import androidx.slice.SliceSpec;
 @RequiresApi(19)
 public class MessagingListV1Impl extends TemplateBuilderImpl implements MessagingBuilder{
 
-    private final ListBuilderImpl mListBuilder;
+    private final ListBuilderV1Impl mListBuilder;
 
     /**
      */
     public MessagingListV1Impl(Slice.Builder b, SliceSpec spec) {
         super(b, spec);
-        mListBuilder = new ListBuilderImpl(b, spec);
+        mListBuilder = new ListBuilderV1Impl(b, spec);
         mListBuilder.setTtl(INFINITY);
     }
 
@@ -71,7 +71,7 @@ public class MessagingListV1Impl extends TemplateBuilderImpl implements Messagin
      */
     public static final class MessageBuilder extends TemplateBuilderImpl
             implements MessagingBuilder.MessageBuilder {
-        final ListBuilderImpl.RowBuilderImpl mListBuilder;
+        final ListBuilderV1Impl.RowBuilderImpl mListBuilder;
 
         /**
          */
@@ -81,7 +81,7 @@ public class MessagingListV1Impl extends TemplateBuilderImpl implements Messagin
 
         private MessageBuilder(Slice.Builder builder) {
             super(builder, null);
-            mListBuilder = new ListBuilderImpl.RowBuilderImpl(builder);
+            mListBuilder = new ListBuilderV1Impl.RowBuilderImpl(builder);
         }
 
         /**

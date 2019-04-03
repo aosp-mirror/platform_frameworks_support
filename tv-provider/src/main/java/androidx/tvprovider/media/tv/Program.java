@@ -15,7 +15,7 @@
  */
 package androidx.tvprovider.media.tv;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -75,7 +75,7 @@ public final class Program extends BaseProgram implements Comparable<Program> {
     /**
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     public static final String[] PROJECTION = getProjection();
 
     private static final long INVALID_LONG_VALUE = -1;

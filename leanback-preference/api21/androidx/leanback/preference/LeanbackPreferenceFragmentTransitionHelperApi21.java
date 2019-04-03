@@ -16,7 +16,7 @@
 
 package androidx.leanback.preference;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.app.Fragment;
 import android.transition.Transition;
@@ -29,8 +29,9 @@ import androidx.leanback.transition.FadeAndShortSlide;
 /**
  * @hide
  */
+@SuppressWarnings("RestrictedApi")
 @RequiresApi(21)
-@RestrictTo(LIBRARY_GROUP_PREFIX)
+@RestrictTo(LIBRARY_GROUP)
 public class LeanbackPreferenceFragmentTransitionHelperApi21 {
 
     public static void addTransitions(Fragment f) {

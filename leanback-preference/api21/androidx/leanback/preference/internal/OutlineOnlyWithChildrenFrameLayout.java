@@ -16,7 +16,7 @@
 
 package androidx.leanback.preference.internal;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.content.Context;
 import android.graphics.Outline;
@@ -35,7 +35,7 @@ import androidx.annotation.RestrictTo;
  * @hide
  */
 @RequiresApi(21)
-@RestrictTo(LIBRARY_GROUP_PREFIX)
+@RestrictTo(LIBRARY_GROUP)
 public class OutlineOnlyWithChildrenFrameLayout extends FrameLayout {
 
     private ViewOutlineProvider mMagicalOutlineProvider;

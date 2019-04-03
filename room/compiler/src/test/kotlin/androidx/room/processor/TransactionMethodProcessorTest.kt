@@ -164,9 +164,6 @@ class TransactionMethodProcessorTest {
             )
     }
 
-    private val TransactionMethod.name: String
-        get() = element.simpleName.toString()
-
     private fun singleTransactionMethod(
         vararg input: String,
         handler: (TransactionMethod, TestInvocation) -> Unit

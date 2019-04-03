@@ -41,7 +41,7 @@ public class CallbackHandlerRegistry {
     /**
      * @hide
      */
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
     public static final CallbackHandlerRegistry sInstance = new CallbackHandlerRegistry();
     private static final String TAG = "CallbackHandlerRegistry";
 
@@ -52,7 +52,7 @@ public class CallbackHandlerRegistry {
      * @hide
      */
     @SuppressWarnings("TypeParameterUnusedInFormals")
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
     public <T extends CallbackReceiver> T getAndResetStub(Class<? extends CallbackReceiver> cls,
             Context context, String authority) {
         ensureInitialized(cls);

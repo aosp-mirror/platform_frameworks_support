@@ -17,7 +17,7 @@
 package a.b;
 
 import android.os.Bundle;
-import androidx.annotation.NonNull;
+import android.support.annotation.NonNull;
 import androidx.navigation.NavDirections;
 import java.lang.IllegalArgumentException;
 import java.lang.Object;
@@ -90,7 +90,7 @@ public class MainFragmentDirections {
 
         @Override
         public int getActionId() {
-            return R.id.previous;
+            return a.b.R.id.previous;
         }
 
         @SuppressWarnings("unchecked")
@@ -196,7 +196,7 @@ public class MainFragmentDirections {
 
         @Override
         public int getActionId() {
-            return R.id.next;
+            return a.b.R.id.next;
         }
 
         @SuppressWarnings("unchecked")

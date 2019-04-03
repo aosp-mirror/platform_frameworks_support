@@ -26,7 +26,7 @@ import com.google.gson.annotations.SerializedName;
  *
  * @hide
  */
-@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
+@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public class FieldBundle implements SchemaEquality<FieldBundle> {
     @SerializedName("fieldPath")
     private String mFieldPath;

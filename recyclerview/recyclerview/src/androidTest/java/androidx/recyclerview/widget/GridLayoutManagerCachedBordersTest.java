@@ -23,7 +23,7 @@ import static org.junit.Assert.assertEquals;
 
 import android.view.View;
 
-import androidx.test.filters.SmallTest;
+import androidx.test.filters.MediumTest;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,7 +32,7 @@ import org.junit.runners.Parameterized;
 import java.util.ArrayList;
 import java.util.List;
 
-@SmallTest
+@MediumTest
 @RunWith(Parameterized.class)
 public class GridLayoutManagerCachedBordersTest extends BaseGridLayoutManagerTest {
 

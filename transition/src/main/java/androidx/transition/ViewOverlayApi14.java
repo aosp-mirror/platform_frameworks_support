@@ -16,7 +16,7 @@
 
 package androidx.transition;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -135,8 +135,6 @@ class ViewOverlayApi14 implements ViewOverlayImpl {
          */
         ViewOverlayApi14 mViewOverlay;
 
-        private boolean mDisposed;
-
         OverlayViewGroup(Context context, ViewGroup hostView, View requestingView,
                 ViewOverlayApi14 viewOverlay) {
             super(context);
@@ -155,7 +153,6 @@ class ViewOverlayApi14 implements ViewOverlayImpl {
         }
 
         public void add(Drawable drawable) {
-            assertNotDisposed();
             if (mDrawables == null) {
 
                 mDrawables = new ArrayList<>();
@@ -173,7 +170,6 @@ class ViewOverlayApi14 implements ViewOverlayImpl {
                 mDrawables.remove(drawable);
                 invalidate(drawable.getBounds());
                 drawable.setCallback(null);
-                disposeIfEmpty();
             }
         }
 
@@ -183,7 +179,6 @@ class ViewOverlayApi14 implements ViewOverlayImpl {
         }
 
         public void add(View child) {
-            assertNotDisposed();
             if (child.getParent() instanceof ViewGroup) {
                 ViewGroup parent = (ViewGroup) child.getParent();
                 if (parent != mHostView && parent.getParent() != null
@@ -207,26 +202,19 @@ class ViewOverlayApi14 implements ViewOverlayImpl {
                     parent.removeView(child);
                 }
             }
-            super.addView(child);
+            super.addView(child, getChildCount() - 1);
         }
 
         public void remove(View view) {
             super.removeView(view);
-            disposeIfEmpty();
-        }
-
-        private void assertNotDisposed() {
-            if (mDisposed) {
-                throw new IllegalStateException("This overlay was disposed already. "
-                        + "Please use a new one via ViewGroupUtils.getOverlay()");
-            }
-        }
-
-        private void disposeIfEmpty() {
-            if (getChildCount() == 0 && (mDrawables == null || mDrawables.size() == 0)) {
-                mDisposed = true;
+            if (isEmpty()) {
                 mHostView.removeView(this);
             }
+        }
+
+        boolean isEmpty() {
+            return getChildCount() == 0
+                    && (mDrawables == null || mDrawables.size() == 0);
         }
 
         @Override
@@ -277,7 +265,7 @@ class ViewOverlayApi14 implements ViewOverlayImpl {
         /**
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP_PREFIX)
+        @RestrictTo(LIBRARY_GROUP)
         protected ViewParent invalidateChildInParentFast(int left, int top, Rect dirty) {
             if (mHostView instanceof ViewGroup && sInvalidateChildInParentFastMethod != null) {
                 try {

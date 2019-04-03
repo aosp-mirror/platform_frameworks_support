@@ -21,7 +21,8 @@ import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 
 import androidx.concurrent.futures.ResolvableFuture;
-import androidx.test.filters.LargeTest;
+import androidx.test.InstrumentationRegistry;
+import androidx.test.filters.MediumTest;
 import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.After;
@@ -34,7 +35,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executor;
 import java.util.concurrent.atomic.AtomicInteger;
 
-@LargeTest
+@MediumTest
 @RunWith(AndroidJUnit4.class)
 public class WebViewRendererClientTest {
     WebViewOnUiThread mWebViewOnUiThread;
@@ -85,27 +86,18 @@ public class WebViewRendererClientTest {
     }
 
     private void blockRenderer(final JSBlocker blocker) {
-        WebkitUtils.onMainThreadSync(new Runnable() {
+        InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable() {
             @Override
             public void run() {
                 WebView webView = mWebViewOnUiThread.getWebViewOnCurrentThread();
+                webView.getSettings().setJavaScriptEnabled(true);
+                webView.addJavascriptInterface(blocker, "blocker");
                 webView.evaluateJavascript("blocker.block();", null);
                 blocker.waitForBlocked();
                 // Sending an input event that does not get acknowledged will cause
                 // the unresponsive renderer event to fire.
                 webView.dispatchKeyEvent(
                         new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_ENTER));
-            }
-        });
-    }
-
-    private void addJsBlockerInterface(final JSBlocker blocker) {
-        WebkitUtils.onMainThreadSync(new Runnable() {
-            @Override
-            public void run() {
-                WebView webView = mWebViewOnUiThread.getWebViewOnCurrentThread();
-                webView.getSettings().setJavaScriptEnabled(true);
-                webView.addJavascriptInterface(blocker, "blocker");
             }
         });
     }
@@ -134,7 +126,6 @@ public class WebViewRendererClientTest {
             mWebViewOnUiThread.setWebViewRendererClient(executor, client);
         }
 
-        addJsBlockerInterface(blocker);
         mWebViewOnUiThread.loadUrlAndWaitForCompletion("about:blank");
         blockRenderer(blocker);
         WebkitUtils.waitForFuture(rendererUnblocked);

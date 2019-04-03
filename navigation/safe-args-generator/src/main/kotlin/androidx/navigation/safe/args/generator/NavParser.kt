@@ -163,18 +163,8 @@ internal class NavParser(
             LongType -> parseLongValue(defaultValue)
             FloatType -> parseFloatValue(defaultValue)
             BoolType -> parseBoolean(defaultValue)
-            ReferenceType -> {
-                when (defaultValue) {
-                    VALUE_NULL -> {
-                        context.logger.error(NavParserErrors.nullDefaultValueReference(name),
-                            xmlPosition)
-                        return context.createStubArg()
-                    }
-                    "0" -> IntValue("0")
-                    else -> parseReference(defaultValue, rFilePackage)?.let {
-                        ReferenceValue(it)
-                    }
-                }
+            ReferenceType -> parseReference(defaultValue, rFilePackage)?.let {
+                ReferenceValue(it)
             }
             StringType -> {
                 if (defaultValue == VALUE_NULL) {

@@ -16,6 +16,7 @@
 
 package androidx.textclassifier;
 
+import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -73,6 +74,7 @@ final class LegacyTextClassifier extends TextClassifier {
     private final MatchMaker mMatchMaker;
 
     @VisibleForTesting()
+    @SuppressLint("RestrictedApi")
     LegacyTextClassifier(MatchMaker matchMaker) {
         mMatchMaker = Preconditions.checkNotNull(matchMaker);
     }
@@ -188,6 +190,7 @@ final class LegacyTextClassifier extends TextClassifier {
                     createPermissionsChecker(context));
         }
 
+        @SuppressLint("RestrictedApi")
         MatchMakerImpl(
                 Context context,
                 PackageManager packageManager,
@@ -329,6 +332,7 @@ final class LegacyTextClassifier extends TextClassifier {
         }
 
         @Nullable
+        @SuppressLint("RestrictedApi")
         private RemoteActionCompat createRemoteAction(
                 Intent intent, String title, String description, int requestCode) {
             final ResolveInfo resolveInfo = mPackageManager.resolveActivity(intent, 0);

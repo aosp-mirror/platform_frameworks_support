@@ -27,6 +27,7 @@ import androidx.mediarouter.test.R;
 import androidx.test.annotation.UiThreadTest;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
+import androidx.test.filters.SmallTest;
 import androidx.test.rule.ActivityTestRule;
 
 import org.junit.Before;
@@ -52,7 +53,7 @@ public class MediaRouteChooserDialogTest {
     }
 
     @Test
-    @LargeTest
+    @SmallTest
     @UiThreadTest
     public void testWindowNoTitle() {
         final Context context = mActivityTestRule.getActivity();

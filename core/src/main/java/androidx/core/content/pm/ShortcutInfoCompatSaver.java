@@ -16,7 +16,7 @@
 
 package androidx.core.content.pm;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import androidx.annotation.AnyThread;
 import androidx.annotation.RestrictTo;
@@ -34,7 +34,7 @@ import java.util.List;
  *
  * @hide
  */
-@RestrictTo(LIBRARY_GROUP_PREFIX)
+@RestrictTo(LIBRARY_GROUP)
 public class ShortcutInfoCompatSaver {
     @AnyThread
     public ListenableFuture<Void> addShortcuts(List<ShortcutInfoCompat> shortcuts) {

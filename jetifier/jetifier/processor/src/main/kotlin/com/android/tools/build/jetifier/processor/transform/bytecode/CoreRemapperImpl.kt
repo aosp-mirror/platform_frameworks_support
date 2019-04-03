@@ -88,8 +88,8 @@ class CoreRemapperImpl(
 
         // Verify that we did not make an ambiguous mapping, see b/116745353
         if (!context.allowAmbiguousPackages && AMBIGUOUS_STRINGS.contains(type)) {
-            throw AmbiguousStringJetifierException("The given artifact contains a string literal " +
-                "with a package reference '$value' that cannot be safely rewritten. Libraries " +
+            throw IllegalArgumentException("The given artifact contains a string literal with" +
+                " a package reference '$value' that cannot be safely rewritten. Libraries " +
                 "using reflection such as annotation processors need to be updated manually " +
                 "to add support for androidx.")
         }
@@ -148,8 +148,3 @@ class CoreRemapperImpl(
         return path
     }
 }
-
-/**
- * Thrown when jetifier finds a string reference to a package that has ambiguous mapping.
- */
-class AmbiguousStringJetifierException(message: String) : Exception(message)

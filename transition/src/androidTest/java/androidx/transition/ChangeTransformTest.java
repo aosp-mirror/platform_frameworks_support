@@ -23,12 +23,12 @@ import static org.mockito.Mockito.verify;
 
 import android.view.View;
 
-import androidx.test.filters.LargeTest;
+import androidx.test.filters.MediumTest;
 import androidx.transition.test.R;
 
 import org.junit.Test;
 
-@LargeTest
+@MediumTest
 public class ChangeTransformTest extends BaseTransitionTest {
 
     @Override

@@ -30,14 +30,14 @@ import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.test.annotation.UiThreadTest;
-import androidx.test.filters.LargeTest;
+import androidx.test.filters.MediumTest;
 import androidx.transition.test.R;
 
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;
 import org.junit.Test;
 
-@LargeTest
+@MediumTest
 public class ChangeBoundsTest extends BaseTransitionTest {
 
     @Override

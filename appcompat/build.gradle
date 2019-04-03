@@ -11,9 +11,10 @@ dependencies {
 
     api(project(":core"))
     implementation(project(":collection"))
-    api(project(":cursoradapter"))
+    api("androidx.cursoradapter:cursoradapter:1.0.0")
     api(project(":fragment"))
-    api(project(":appcompat:appcompat-resources"))
+    api("androidx.vectordrawable:vectordrawable:1.0.1")
+    api("androidx.vectordrawable:vectordrawable-animated:1.0.0")
     api("androidx.drawerlayout:drawerlayout:1.0.0")
 
     androidTestImplementation(TEST_EXT_JUNIT)
@@ -58,5 +59,4 @@ supportLibrary {
     description = "The Support Library is a static library that you can add to your Android application in order to use APIs that are either not available for older platform versions or utility APIs that aren\'t a part of the framework APIs. Compatible on devices running API 14 or later."
     failOnUncheckedWarnings = false
     failOnDeprecationWarnings = false
-    trackRestrictedAPIs = false
 }

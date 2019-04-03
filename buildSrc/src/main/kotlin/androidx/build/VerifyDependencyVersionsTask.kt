@@ -41,12 +41,10 @@ open class VerifyDependencyVersionsTask : DefaultTask() {
     @TaskAction
     fun verifyDependencyVersions() {
         project.configurations.all { configuration ->
-            if (!configuration.name.toLowerCase().contains("androidtest")) {
-                configuration.allDependencies.forEach { dep ->
-                    if (dep.group != null && dep.group.toString().startsWith("androidx.") &&
+            configuration.allDependencies.forEach { dep ->
+                if (dep.group != null && dep.group.toString().startsWith("androidx.") &&
                         !dep.group.toString().startsWith("androidx.test")) {
-                        verifyDependencyVersion(dep)
-                    }
+                    verifyDependencyVersion(dep)
                 }
             }
         }

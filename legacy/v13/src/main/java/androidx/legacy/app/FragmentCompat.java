@@ -192,7 +192,7 @@ public class FragmentCompat {
      * @deprecated Use {@link androidx.fragment.app.Fragment} instead of the framework
      * {@link Fragment}.
      */
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
     @Deprecated
     public static PermissionCompatDelegate getPermissionCompatDelegate() {
         return sDelegate;

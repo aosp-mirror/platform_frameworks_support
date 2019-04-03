@@ -25,7 +25,6 @@ plugins {
 dependencies {
     implementation(project(":slice-core"))
     implementation(project(":recyclerview"))
-    implementation(project(":collection"))
     api(ARCH_LIFECYCLE_LIVEDATA_CORE, libs.exclude_annotations_transitive)
 
     androidTestImplementation(project(":slice-builders"))
@@ -48,5 +47,4 @@ supportLibrary {
     description = "A library that handles rendering of slice content into supported templates"
     failOnUncheckedWarnings = false
     failOnDeprecationWarnings = false
-    trackRestrictedAPIs = false
 }

@@ -18,6 +18,7 @@ package androidx.mediarouter.media;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.media.AudioManager;
 import android.os.Build;
 import android.util.Log;
 
@@ -117,6 +118,19 @@ final class MediaRouterJellybean {
 
     public static Object createVolumeCallback(VolumeCallback callback) {
         return new VolumeCallbackProxy<VolumeCallback>(callback);
+    }
+
+    static boolean checkRoutedToBluetooth(Context context) {
+        try {
+            AudioManager audioManager = (AudioManager) context.getSystemService(
+                    Context.AUDIO_SERVICE);
+            Method method = audioManager.getClass().getDeclaredMethod(
+                    "getDevicesForStream", int.class);
+            int device = (Integer) method.invoke(audioManager, AudioManager.STREAM_MUSIC);
+            return (device & DEVICE_OUT_BLUETOOTH) != 0;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public static final class RouteInfo {

@@ -1,6 +1,6 @@
 package foo.flavor;
 
-import androidx.annotation.NonNull;
+import android.support.annotation.NonNull;
 import foo.SettingsDirections;
 
 public class SettingsFragmentDirections {

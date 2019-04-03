@@ -17,7 +17,6 @@
 package androidx.slice.builders;
 
 import static androidx.annotation.RestrictTo.Scope.LIBRARY;
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 import static androidx.slice.builders.ListBuilder.ICON_IMAGE;
 
 import android.app.PendingIntent;
@@ -104,7 +103,7 @@ public class SliceAction implements androidx.slice.core.SliceAction {
      * @see ListBuilder#LARGE_IMAGE
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY)
     public SliceAction(@NonNull PendingIntent action, @NonNull IconCompat actionIcon,
             @ListBuilder.ImageMode int imageMode, @NonNull CharSequence actionTitle) {
         mSliceAction = new SliceActionImpl(action, actionIcon, imageMode, actionTitle);
@@ -121,7 +120,7 @@ public class SliceAction implements androidx.slice.core.SliceAction {
      * @param isChecked the state of the toggle.
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY)
     public SliceAction(@NonNull PendingIntent action, @NonNull IconCompat actionIcon,
             @NonNull CharSequence actionTitle, boolean isChecked) {
         mSliceAction = new SliceActionImpl(action, actionIcon, actionTitle, isChecked);
@@ -136,7 +135,7 @@ public class SliceAction implements androidx.slice.core.SliceAction {
      * @param isChecked the state of the toggle.
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY)
     public SliceAction(@NonNull PendingIntent action, @NonNull CharSequence actionTitle,
             boolean isChecked) {
         mSliceAction = new SliceActionImpl(action, actionTitle, isChecked);

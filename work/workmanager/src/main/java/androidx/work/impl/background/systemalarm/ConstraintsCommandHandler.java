@@ -58,9 +58,14 @@ class ConstraintsCommandHandler {
 
     @WorkerThread
     void handleConstraintsChanged() {
+        int schedulerLimit = mDispatcher
+                .getWorkManager()
+                .getConfiguration()
+                .getMaxSchedulerLimit();
+
         List<WorkSpec> candidates = mDispatcher.getWorkManager().getWorkDatabase()
                 .workSpecDao()
-                .getScheduledWork();
+                .getEligibleWorkForScheduling(schedulerLimit);
 
         // Update constraint proxy to potentially disable proxies for previously
         // completed WorkSpecs.

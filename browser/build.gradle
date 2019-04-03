@@ -8,7 +8,7 @@ plugins {
 
 android {
     defaultConfig {
-        minSdkVersion 16
+        minSdkVersion 15
     }
 }
 
@@ -18,8 +18,6 @@ dependencies {
     api(project(":interpolator"))
     api(project(":collection"))
     api(project(":legacy-support-core-ui"))
-
-    implementation(project(":concurrent:concurrent-futures"))
 
     androidTestImplementation(TEST_EXT_JUNIT)
     androidTestImplementation(TEST_CORE)

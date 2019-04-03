@@ -16,7 +16,7 @@
 
 package androidx.preference;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -199,7 +199,7 @@ public abstract class PreferenceFragmentCompat extends Fragment implements
 
         final View rawListContainer = view.findViewById(AndroidResources.ANDROID_R_LIST_CONTAINER);
         if (!(rawListContainer instanceof ViewGroup)) {
-            throw new IllegalStateException("Content has view with id attribute "
+            throw new RuntimeException("Content has view with id attribute "
                     + "'android.R.id.list_container' that is not a ViewGroup class");
         }
 
@@ -457,8 +457,7 @@ public abstract class PreferenceFragmentCompat extends Fragment implements
 
     @Override
     @SuppressWarnings("TypeParameterUnusedInFormals")
-    @Nullable
-    public <T extends Preference> T findPreference(@NonNull CharSequence key) {
+    public <T extends Preference> T findPreference(CharSequence key) {
         if (mPreferenceManager == null) {
             return null;
         }
@@ -495,18 +494,12 @@ public abstract class PreferenceFragmentCompat extends Fragment implements
         onUnbindPreferences();
     }
 
-    /**
-     * Used by Settings.
-     * @hide
-     */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    /** @hide */
+    @RestrictTo(LIBRARY_GROUP)
     protected void onBindPreferences() {}
 
-    /**
-     * Used by Settings.
-     * @hide
-     */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    /** @hide */
+    @RestrictTo(LIBRARY_GROUP)
     protected void onUnbindPreferences() {}
 
     public final RecyclerView getListView() {
@@ -617,7 +610,7 @@ public abstract class PreferenceFragmentCompat extends Fragment implements
      * @return The {@link Fragment} to possibly use as a callback
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     public Fragment getCallbackFragment() {
         return null;
     }

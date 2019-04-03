@@ -17,7 +17,7 @@
 
 package androidx.appcompat.widget;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.graphics.drawable.Drawable;
 import android.os.Parcelable;
@@ -34,7 +34,7 @@ import androidx.appcompat.view.menu.MenuPresenter;
  *
  * @hide
  */
-@RestrictTo(LIBRARY_GROUP_PREFIX)
+@RestrictTo(LIBRARY_GROUP)
 public interface DecorContentParent {
     void setWindowCallback(Window.Callback cb);
     void setWindowTitle(CharSequence title);

@@ -123,6 +123,7 @@ public class AsyncPagedListDiffer<T> {
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     final AsyncDifferConfig<T> mConfig;
 
+    @SuppressWarnings("RestrictedApi")
     Executor mMainThreadExecutor = ArchTaskExecutor.getMainThreadExecutor();
 
     /**

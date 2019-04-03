@@ -46,8 +46,7 @@ data class FtsOptions(
 
     fun databaseDefinition(includeTokenizer: Boolean = true): List<String> {
         return mutableListOf<String>().apply {
-            if (includeTokenizer && (tokenizer != androidx.room.FtsOptions.TOKENIZER_SIMPLE ||
-                        tokenizerArgs.isNotEmpty())) {
+            if (includeTokenizer && tokenizer != androidx.room.FtsOptions.TOKENIZER_SIMPLE) {
                 val tokenizeAndArgs = listOf("tokenize=$tokenizer") +
                         tokenizerArgs.map { "`$it`" }
                 add(tokenizeAndArgs.joinToString(separator = " "))

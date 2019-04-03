@@ -43,7 +43,7 @@ import java.io.UnsupportedEncodingException;
  *
  * @hide
  */
-@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
+@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public class SchemaBundle implements SchemaEquality<SchemaBundle> {
 
     @SerializedName("formatVersion")
@@ -80,7 +80,7 @@ public class SchemaBundle implements SchemaEquality<SchemaBundle> {
     /**
      * @hide
      */
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
     public static SchemaBundle deserialize(InputStream fis)
             throws UnsupportedEncodingException {
         InputStreamReader is = new InputStreamReader(fis, CHARSET);
@@ -95,7 +95,7 @@ public class SchemaBundle implements SchemaEquality<SchemaBundle> {
     /**
      * @hide
      */
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
     public static void serialize(SchemaBundle bundle, File file) throws IOException {
         FileOutputStream fos = new FileOutputStream(file, false);
         OutputStreamWriter osw = new OutputStreamWriter(fos, CHARSET);

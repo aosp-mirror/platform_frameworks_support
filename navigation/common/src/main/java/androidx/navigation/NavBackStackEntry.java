@@ -17,9 +17,8 @@
 package androidx.navigation;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 /**
  * Representation of an entry in the back stack of a {@link NavController}.

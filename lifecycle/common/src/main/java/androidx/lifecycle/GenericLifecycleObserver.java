@@ -25,6 +25,6 @@ import androidx.annotation.RestrictTo;
  * @deprecated and it is scheduled to be removed in lifecycle 3.0
  */
 @Deprecated
-@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
+@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public interface GenericLifecycleObserver extends LifecycleEventObserver {
 }

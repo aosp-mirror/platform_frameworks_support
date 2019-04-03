@@ -24,7 +24,7 @@ import java.util.Set;
 import javax.annotation.Generated;
 
 @Generated("androidx.room.RoomProcessor")
-@SuppressWarnings({"unchecked", "deprecation"})
+@SuppressWarnings("unchecked")
 public final class ComplexDatabase_Impl extends ComplexDatabase {
     private volatile ComplexDao _complexDao;
 

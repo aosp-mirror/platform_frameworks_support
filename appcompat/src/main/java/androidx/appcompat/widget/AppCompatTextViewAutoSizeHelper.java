@@ -16,7 +16,7 @@
 
 package androidx.appcompat.widget;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -199,7 +199,7 @@ class AppCompatTextViewAutoSizeHelper {
      *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     void setAutoSizeTextTypeWithDefaults(@TextViewCompat.AutoSizeTextType int autoSizeTextType) {
         if (supportsAutoSizeText()) {
             switch (autoSizeTextType) {
@@ -262,7 +262,7 @@ class AppCompatTextViewAutoSizeHelper {
      *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     void setAutoSizeTextTypeUniformWithConfiguration(
             int autoSizeMinTextSize,
             int autoSizeMaxTextSize,
@@ -308,7 +308,7 @@ class AppCompatTextViewAutoSizeHelper {
      *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     void setAutoSizeTextTypeUniformWithPresetSizes(@NonNull int[] presetSizes, int unit)
             throws IllegalArgumentException {
         if (supportsAutoSizeText()) {
@@ -358,7 +358,7 @@ class AppCompatTextViewAutoSizeHelper {
      *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     @TextViewCompat.AutoSizeTextType
     int getAutoSizeTextType() {
         return mAutoSizeTextType;
@@ -373,7 +373,7 @@ class AppCompatTextViewAutoSizeHelper {
      *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     int getAutoSizeStepGranularity() {
         return Math.round(mAutoSizeStepGranularityInPx);
     }
@@ -389,7 +389,7 @@ class AppCompatTextViewAutoSizeHelper {
      *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     int getAutoSizeMinTextSize() {
         return Math.round(mAutoSizeMinTextSizeInPx);
     }
@@ -405,7 +405,7 @@ class AppCompatTextViewAutoSizeHelper {
      *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     int getAutoSizeMaxTextSize() {
         return Math.round(mAutoSizeMaxTextSizeInPx);
     }
@@ -418,7 +418,7 @@ class AppCompatTextViewAutoSizeHelper {
      *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     int[] getAutoSizeTextAvailableSizes() {
         return mAutoSizeTextSizesInPx;
     }
@@ -541,7 +541,7 @@ class AppCompatTextViewAutoSizeHelper {
      *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     void autoSizeText() {
         if (!isAutoSizeEnabled()) {
             return;
@@ -590,7 +590,7 @@ class AppCompatTextViewAutoSizeHelper {
     }
 
     /** @hide */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     void setTextSizeInternal(int unit, float size) {
         Resources res = mContext == null
                 ? Resources.getSystem()
@@ -855,7 +855,7 @@ class AppCompatTextViewAutoSizeHelper {
      *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     boolean isAutoSizeEnabled() {
         return supportsAutoSizeText()
                 && mAutoSizeTextType != TextViewCompat.AUTO_SIZE_TEXT_TYPE_NONE;

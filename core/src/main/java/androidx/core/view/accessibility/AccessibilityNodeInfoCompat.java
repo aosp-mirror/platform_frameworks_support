@@ -16,7 +16,7 @@
 
 package androidx.core.view.accessibility;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.graphics.Rect;
 import android.os.Build;
@@ -510,7 +510,7 @@ public class AccessibilityNodeInfoCompat {
         /**
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP_PREFIX)
+        @RestrictTo(LIBRARY_GROUP)
         protected final AccessibilityViewCommand mCommand;
 
         /**
@@ -531,7 +531,7 @@ public class AccessibilityNodeInfoCompat {
          * @param command The command performed when the service requests the action
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP_PREFIX)
+        @RestrictTo(LIBRARY_GROUP)
         public AccessibilityActionCompat(int actionId, CharSequence label,
                 AccessibilityViewCommand command) {
             this(null, actionId, label, command, null);
@@ -594,7 +594,7 @@ public class AccessibilityNodeInfoCompat {
          * @param arguments Optional action arguments.
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP_PREFIX)
+        @RestrictTo(LIBRARY_GROUP)
         public boolean perform(View view, Bundle arguments) {
             if (mCommand != null) {
                 CommandArguments viewCommandArgument = null;
@@ -618,7 +618,7 @@ public class AccessibilityNodeInfoCompat {
         /**
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP_PREFIX)
+        @RestrictTo(LIBRARY_GROUP)
         public AccessibilityActionCompat createReplacementAction(CharSequence label,
                 AccessibilityViewCommand command) {
             return new AccessibilityActionCompat(null, mId, label, command,
@@ -1040,7 +1040,7 @@ public class AccessibilityNodeInfoCompat {
      *
      *  @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     public int mParentVirtualDescendantId = -1;
 
     // Actions introduced in IceCreamSandwich
@@ -2472,7 +2472,7 @@ public class AccessibilityNodeInfoCompat {
     /**
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     public void addSpansToExtras(CharSequence text, View view) {
         if (Build.VERSION.SDK_INT >= 19 && Build.VERSION.SDK_INT < 26) {
             clearExtrasSpans();
@@ -2508,7 +2508,7 @@ public class AccessibilityNodeInfoCompat {
     /**
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     public static ClickableSpan[] getClickableSpans(CharSequence text) {
         if (text instanceof Spanned) {
             Spanned spanned = (Spanned) text;

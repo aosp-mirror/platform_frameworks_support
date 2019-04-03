@@ -1,7 +1,7 @@
 package foo;
 
 import android.os.Bundle;
-import androidx.annotation.NonNull;
+import android.support.annotation.NonNull;
 import androidx.navigation.NavDirections;
 import java.lang.IllegalArgumentException;
 import java.lang.Object;
@@ -48,7 +48,7 @@ public class SettingsDirections {
 
         @Override
         public int getActionId() {
-            return R.id.exit;
+            return foo.R.id.exit;
         }
 
         @SuppressWarnings("unchecked")

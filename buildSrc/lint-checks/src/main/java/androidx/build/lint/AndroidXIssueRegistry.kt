@@ -23,7 +23,6 @@ class AndroidXIssueRegistry : IssueRegistry() {
             BanParcelableUsage.ISSUE,
             BanKeepAnnotation.ISSUE,
             BanTargetApiAnnotation.ISSUE,
-            MissingTestSizeAnnotation.ISSUE,
             ObsoleteBuildCompatUsageDetector.ISSUE
     )
 }

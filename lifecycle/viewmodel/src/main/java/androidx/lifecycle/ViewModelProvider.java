@@ -57,7 +57,7 @@ public class ViewModelProvider {
      * This is more advanced version of {@link Factory} that receives a key specified for requested
      * {@link ViewModel}.
      */
-    abstract static class KeyedFactory implements Factory {
+    public interface KeyedFactory {
         /**
          * Creates a new instance of the given {@code Class}.
          *
@@ -67,18 +67,10 @@ public class ViewModelProvider {
          * @return a newly created ViewModel
          */
         @NonNull
-        public abstract <T extends ViewModel> T create(@NonNull String key,
-                @NonNull Class<T> modelClass);
-
-        @NonNull
-        @Override
-        public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-            throw new UnsupportedOperationException("create(String, Class<?>) must be called on "
-                    + "implementaions of KeyedFactory");
-        }
+        <T extends ViewModel> T create(@NonNull String key, @NonNull Class<T> modelClass);
     }
 
-    private final Factory mFactory;
+    private final KeyedFactory mFactory;
     private final ViewModelStore mViewModelStore;
 
     /**
@@ -103,6 +95,31 @@ public class ViewModelProvider {
      *                new {@code ViewModels}
      */
     public ViewModelProvider(@NonNull ViewModelStore store, @NonNull Factory factory) {
+        this(store, new FactoryWrapper(factory));
+    }
+
+    /**
+`     * Creates {@code ViewModelProvider}, which will create {@code ViewModels} via the given
+     * {@code Factory} and retain them in a store of the given {@code ViewModelStoreOwner}.
+     *
+     * @param owner   a {@code ViewModelStoreOwner} whose {@link ViewModelStore} will be used to
+     *                retain {@code ViewModels}
+     * @param factory a {@code KeyedFactory} which will be used to instantiate
+     *                new {@code ViewModels}
+     */
+    public ViewModelProvider(@NonNull ViewModelStoreOwner owner, @NonNull KeyedFactory factory) {
+        this(owner.getViewModelStore(), factory);
+    }
+
+    /**
+     * Creates {@code ViewModelProvider}, which will create {@code ViewModels} via the given
+     * {@code Factory} and retain them in the given {@code store}.
+     *
+     * @param store   {@code ViewModelStore} where ViewModels will be stored.
+     * @param factory factory a {@code Factory} which will be used to instantiate
+     *                new {@code ViewModels}
+     */
+    public ViewModelProvider(@NonNull ViewModelStore store, @NonNull KeyedFactory factory) {
         mFactory = factory;
         mViewModelStore = store;
     }
@@ -158,11 +175,8 @@ public class ViewModelProvider {
                 // TODO: log a warning.
             }
         }
-        if (mFactory instanceof KeyedFactory) {
-            viewModel = ((KeyedFactory) (mFactory)).create(key, modelClass);
-        } else {
-            viewModel = (mFactory).create(modelClass);
-        }
+
+        viewModel = mFactory.create(key, modelClass);
         mViewModelStore.put(key, viewModel);
         //noinspection unchecked
         return (T) viewModel;
@@ -239,6 +253,19 @@ public class ViewModelProvider {
                 }
             }
             return super.create(modelClass);
+        }
+    }
+
+    private static class FactoryWrapper implements KeyedFactory {
+        private final Factory mFactory;
+
+        FactoryWrapper(Factory factory) {
+            mFactory = factory;
+        }
+
+        @Override
+        public <T extends ViewModel> T create(String key, Class<T> modelClass) {
+            return mFactory.create(modelClass);
         }
     }
 }

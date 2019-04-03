@@ -16,7 +16,7 @@
 
 package androidx.core.view;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.os.Build;
 import android.os.Bundle;
@@ -142,7 +142,7 @@ public class AccessibilityDelegateCompat {
     /**
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     public AccessibilityDelegateCompat(AccessibilityDelegate originalDelegate) {
         mOriginalDelegate = originalDelegate;
         mBridge = new AccessibilityDelegateAdapter(this);

@@ -16,7 +16,7 @@
 
 package androidx.fragment.app;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -46,8 +46,6 @@ import java.util.List;
  * {@link FragmentActivity#getSupportFragmentManager}.
  */
 public abstract class FragmentManager {
-    static final FragmentFactory DEFAULT_FACTORY = new FragmentFactory();
-
     /**
      * Representation of an entry on the fragment back stack, as created
      * with {@link FragmentTransaction#addToBackStack(String)
@@ -114,8 +112,6 @@ public abstract class FragmentManager {
         public void onBackStackChanged();
     }
 
-    private FragmentFactory mFragmentFactory = null;
-
     /**
      * Start a series of edit operations on the Fragments associated with
      * this FragmentManager.
@@ -136,7 +132,7 @@ public abstract class FragmentManager {
      * @hide -- remove once prebuilts are in.
      * @deprecated
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     @Deprecated
     @NonNull
     public FragmentTransaction openTransaction() {
@@ -393,13 +389,13 @@ public abstract class FragmentManager {
 
     /**
      * Set a {@link FragmentFactory} for this FragmentManager that will be used
-     * to create new Fragment instances from this point onward.
+     * to create new Fragment instances from this point onward. Any child
+     * FragmentManager that does not have a custom FragmentFactory set will also use
+     * this same FragmentFactory.
      *
      * @param fragmentFactory the factory to use to create new Fragment instances
      */
-    public void setFragmentFactory(@NonNull FragmentFactory fragmentFactory) {
-        mFragmentFactory = fragmentFactory;
-    }
+    public abstract void setFragmentFactory(@NonNull FragmentFactory fragmentFactory);
 
     /**
      * Gets the current {@link FragmentFactory} used to instantiate new Fragment instances.
@@ -407,12 +403,7 @@ public abstract class FragmentManager {
      * @return the current FragmentFactory
      */
     @NonNull
-    public FragmentFactory getFragmentFactory() {
-        if (mFragmentFactory == null) {
-            mFragmentFactory = DEFAULT_FACTORY;
-        }
-        return mFragmentFactory;
-    }
+    public abstract FragmentFactory getFragmentFactory();
 
     /**
      * Print the FragmentManager's state into the given stream.

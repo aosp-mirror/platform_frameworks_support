@@ -26,7 +26,6 @@
         <activity android:name="androidx.activity.OnBackPressedComponentActivity"/>
         <activity android:name="androidx.activity.SavedStateActivity"/>
         <activity android:name="androidx.activity.ContentViewActivity"/>
-        <activity android:name="androidx.activity.AutoRestarterActivity"/>
     </application>
 
 </manifest>

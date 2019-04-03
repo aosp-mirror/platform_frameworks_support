@@ -1,4 +1,4 @@
-// Signature format: 3.0
+// Signature format: 2.0
 package androidx.core.accessibilityservice {
 
   public final class AccessibilityServiceInfoCompat {
@@ -31,7 +31,6 @@ package androidx.core.app {
     method public static android.net.Uri? getReferrer(android.app.Activity);
     method @Deprecated public static boolean invalidateOptionsMenu(android.app.Activity!);
     method public static void postponeEnterTransition(android.app.Activity);
-    method public static void recreate(android.app.Activity);
     method public static androidx.core.view.DragAndDropPermissionsCompat? requestDragAndDropPermissions(android.app.Activity!, android.view.DragEvent!);
     method public static void requestPermissions(android.app.Activity, String[], @IntRange(from=0) int);
     method public static <T extends android.view.View> T requireViewById(android.app.Activity, @IdRes int);
@@ -1133,14 +1132,6 @@ package androidx.core.hardware.fingerprint {
     method @Deprecated public javax.crypto.Cipher? getCipher();
     method @Deprecated public javax.crypto.Mac? getMac();
     method @Deprecated public java.security.Signature? getSignature();
-  }
-
-}
-
-package androidx.core.location {
-
-  public final class LocationManagerCompat {
-    method public static boolean isLocationEnabled(android.location.LocationManager);
   }
 
 }
@@ -2821,13 +2812,13 @@ package androidx.core.widget {
     ctor public NestedScrollView(android.content.Context, android.util.AttributeSet?);
     ctor public NestedScrollView(android.content.Context, android.util.AttributeSet?, int);
     method public boolean arrowScroll(int);
-    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX) public int computeHorizontalScrollExtent();
-    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX) public int computeHorizontalScrollOffset();
-    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX) public int computeHorizontalScrollRange();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public int computeHorizontalScrollExtent();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public int computeHorizontalScrollOffset();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public int computeHorizontalScrollRange();
     method protected int computeScrollDeltaToGetChildRectOnScreen(android.graphics.Rect!);
-    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX) public int computeVerticalScrollExtent();
-    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX) public int computeVerticalScrollOffset();
-    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX) public int computeVerticalScrollRange();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public int computeVerticalScrollExtent();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public int computeVerticalScrollOffset();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public int computeVerticalScrollRange();
     method public boolean dispatchNestedPreScroll(int, int, int[]!, int[]!, int);
     method public void dispatchNestedScroll(int, int, int, int, int[]?, int, int[]);
     method public boolean dispatchNestedScroll(int, int, int, int, int[]!, int);
@@ -2898,8 +2889,6 @@ package androidx.core.widget {
     method public static int getAutoSizeStepGranularity(android.widget.TextView);
     method public static int[] getAutoSizeTextAvailableSizes(android.widget.TextView);
     method public static int getAutoSizeTextType(android.widget.TextView);
-    method public static android.content.res.ColorStateList? getCompoundDrawableTintList(android.widget.TextView);
-    method public static android.graphics.PorterDuff.Mode? getCompoundDrawableTintMode(android.widget.TextView);
     method public static android.graphics.drawable.Drawable[] getCompoundDrawablesRelative(android.widget.TextView);
     method public static int getFirstBaselineToTopHeight(android.widget.TextView);
     method public static int getLastBaselineToBottomHeight(android.widget.TextView);
@@ -2909,8 +2898,6 @@ package androidx.core.widget {
     method public static void setAutoSizeTextTypeUniformWithConfiguration(android.widget.TextView, int, int, int, int) throws java.lang.IllegalArgumentException;
     method public static void setAutoSizeTextTypeUniformWithPresetSizes(android.widget.TextView, int[], int) throws java.lang.IllegalArgumentException;
     method public static void setAutoSizeTextTypeWithDefaults(android.widget.TextView, int);
-    method public static void setCompoundDrawableTintList(android.widget.TextView, android.content.res.ColorStateList?);
-    method public static void setCompoundDrawableTintMode(android.widget.TextView, android.graphics.PorterDuff.Mode?);
     method public static void setCompoundDrawablesRelative(android.widget.TextView, android.graphics.drawable.Drawable?, android.graphics.drawable.Drawable?, android.graphics.drawable.Drawable?, android.graphics.drawable.Drawable?);
     method public static void setCompoundDrawablesRelativeWithIntrinsicBounds(android.widget.TextView, android.graphics.drawable.Drawable?, android.graphics.drawable.Drawable?, android.graphics.drawable.Drawable?, android.graphics.drawable.Drawable?);
     method public static void setCompoundDrawablesRelativeWithIntrinsicBounds(android.widget.TextView, @DrawableRes int, @DrawableRes int, @DrawableRes int, @DrawableRes int);
@@ -2930,13 +2917,6 @@ package androidx.core.widget {
     method public android.graphics.PorterDuff.Mode? getSupportButtonTintMode();
     method public void setSupportButtonTintList(android.content.res.ColorStateList?);
     method public void setSupportButtonTintMode(android.graphics.PorterDuff.Mode?);
-  }
-
-  public interface TintableCompoundDrawablesView {
-    method public android.content.res.ColorStateList? getSupportCompoundDrawablesTintList();
-    method public android.graphics.PorterDuff.Mode? getSupportCompoundDrawablesTintMode();
-    method public void setSupportCompoundDrawablesTintList(android.content.res.ColorStateList?);
-    method public void setSupportCompoundDrawablesTintMode(android.graphics.PorterDuff.Mode?);
   }
 
 }

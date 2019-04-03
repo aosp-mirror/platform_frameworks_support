@@ -37,8 +37,8 @@ import androidx.media2.SessionPlayer;
 import androidx.media2.test.service.MockPlayer;
 import androidx.media2.test.service.R;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.filters.LargeTest;
 import androidx.test.filters.SdkSuppress;
+import androidx.test.filters.SmallTest;
 
 import org.junit.After;
 import org.junit.Before;
@@ -53,9 +53,9 @@ import java.util.concurrent.TimeUnit;
  * In order to get the media key events, the player state is set to 'Playing' before every test
  * method.
  */
-@SdkSuppress(minSdkVersion = Build.VERSION_CODES.KITKAT)
+@SdkSuppress(minSdkVersion = Build.VERSION_CODES.LOLLIPOP)
 @RunWith(AndroidJUnit4.class)
-@LargeTest
+@SmallTest
 public class MediaSession_KeyEventTest extends MediaSessionTestBase {
     private static String sExpectedControllerPackageName;
 
@@ -65,7 +65,7 @@ public class MediaSession_KeyEventTest extends MediaSessionTestBase {
     private TestSessionCallback mSessionCallback;
 
     static {
-        if (Build.VERSION.SDK_INT >= 28 || Build.VERSION.SDK_INT < 21) {
+        if (Build.VERSION.SDK_INT >= 28) {
             sExpectedControllerPackageName = SERVICE_PACKAGE_NAME;
         } else if (Build.VERSION.SDK_INT >= 24) {
             // KeyEvent from system service has the package name "android".
