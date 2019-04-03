@@ -19,11 +19,15 @@ package androidx.media2;
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
 import androidx.annotation.RestrictTo;
+import androidx.versionedparcelable.ParcelField;
+import androidx.versionedparcelable.VersionedParcelable;
+import androidx.versionedparcelable.VersionedParcelize;
 
 /**
  * Immutable class for describing video size.
  */
-public final class VideoSize {
+@VersionedParcelize
+public final class VideoSize implements VersionedParcelable {
     /**
      * Creates a new immutable VideoSize instance.
      *
@@ -35,6 +39,12 @@ public final class VideoSize {
     public VideoSize(int width, int height) {
         mWidth = width;
         mHeight = height;
+    }
+
+    /**
+     * Used for VersionedParcelable
+     */
+    VideoSize() {
     }
 
     /**
@@ -94,6 +104,8 @@ public final class VideoSize {
         return mHeight ^ ((mWidth << (Integer.SIZE / 2)) | (mWidth >>> (Integer.SIZE / 2)));
     }
 
-    private final int mWidth;
-    private final int mHeight;
+    @ParcelField(1)
+    int mWidth;
+    @ParcelField(2)
+    int mHeight;
 }
