@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9cdf16a5_3b0c3087",
+        "filename": "cleanBuild.sh",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-04-04T00:53:37Z",
+      "side": 1,
+      "message": "Though once they see this, it\u0027s too late...maybe pause/prompt if it\u0027s an interactive session?  Or maybe sleep ~5 seconds to give a chance to hit Ctrl+C?  Not sure if this is called from any other scripts.",
+      "revId": "39e68ec4a550f0fa87410aa53c7f5617a239ce3e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0fd1ef7_661ffaa8",
+        "filename": "development/diagnose-build-failure/diagnose-build-failure.sh",
+        "patchSetId": 4
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-04-04T00:53:37Z",
+      "side": 1,
+      "message": "I wonder if we could get away with set -u if we ran all the build commands in a subshell or something, or just turned it back off before running user commands... (disclaimer: not a lot of Bash experience here)",
+      "revId": "39e68ec4a550f0fa87410aa53c7f5617a239ce3e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

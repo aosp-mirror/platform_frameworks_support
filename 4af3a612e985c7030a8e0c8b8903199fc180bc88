@@ -89,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "f60bb44d_abfbe2c6",
+        "filename": "development/diagnose-build-failure/diagnose-build-failure.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-04-04T00:53:37Z",
+      "side": 1,
+      "message": "I\u0027m not sure there\u0027s a lot we can do to produce reasonable results in the face of nondeterministic behavior.  It\u0027ll always be possible for it to be nondeterministic in just the wrong way.  So on that basis, I wouldn\u0027t worry too much about the non-deterministic case (unless we wanted to add deflake options, but that sounds like a v2...).  In any case, I would expect that diff-filterer.py wouldn\u0027t be able to detect that you were wrong to pass the flag to disable the checks, since in order to determine that, it would have to run the checks that you disabled, right?",
+      "parentUuid": "4a42f809_ef67946f",
+      "revId": "4af3a612e985c7030a8e0c8b8903199fc180bc88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c8dd77f1_123fc4af",
         "filename": "development/diagnose-build-failure/diagnose-build-failure.sh",
         "patchSetId": 3
