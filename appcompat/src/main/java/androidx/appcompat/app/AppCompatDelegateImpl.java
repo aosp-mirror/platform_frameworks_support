@@ -269,6 +269,10 @@ class AppCompatDelegateImpl extends AppCompatDelegate
         this(dialog.getContext(), dialog.getWindow(), callback, dialog);
     }
 
+    AppCompatDelegateImpl(Context context, Activity activity, AppCompatCallback callback) {
+        this(context, null, callback, activity);
+    }
+
     AppCompatDelegateImpl(Context context, Window window, AppCompatCallback callback) {
         this(context, window, callback, context);
     }
