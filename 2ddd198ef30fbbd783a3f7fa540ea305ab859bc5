@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4bde173d_5063bf81",
+        "filename": "appcompat/src/main/java/androidx/appcompat/app/AppCompatDelegate.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1018893
+      },
+      "writtenOn": "2019-04-04T23:06:45Z",
+      "side": 1,
+      "message": "Let\u0027s create this as a new factory method, instead of replacing the existing.",
+      "range": {
+        "startLine": 234,
+        "startChar": 4,
+        "endLine": 237,
+        "endChar": 5
+      },
+      "revId": "2ddd198ef30fbbd783a3f7fa540ea305ab859bc5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

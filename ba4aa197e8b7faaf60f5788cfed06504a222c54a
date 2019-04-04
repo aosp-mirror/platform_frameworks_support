@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0c45edcc_e801f109",
+        "filename": "appcompat/src/main/java/androidx/appcompat/app/AppCompatDelegate.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1018893
+      },
+      "writtenOn": "2019-04-04T23:06:45Z",
+      "side": 0,
+      "message": "I\u0027m not sure we should remove this.",
+      "range": {
+        "startLine": 234,
+        "startChar": 4,
+        "endLine": 238,
+        "endChar": 5
+      },
+      "revId": "ba4aa197e8b7faaf60f5788cfed06504a222c54a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
