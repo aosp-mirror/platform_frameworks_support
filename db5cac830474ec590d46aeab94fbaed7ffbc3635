@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a5ba9b7d_b08313ac",
+        "filename": "samples/SupportDesignDemos/build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-04-04T22:06:51Z",
+      "side": 1,
+      "message": "We should just pull in kotlin stdlib from Dependencies.kt here instead of the additional constant.",
+      "range": {
+        "startLine": 21,
+        "startChar": 20,
+        "endLine": 21,
+        "endChar": 71
+      },
+      "revId": "db5cac830474ec590d46aeab94fbaed7ffbc3635",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
