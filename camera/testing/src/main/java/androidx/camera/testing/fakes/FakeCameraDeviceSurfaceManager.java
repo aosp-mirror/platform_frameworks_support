@@ -33,6 +33,10 @@ public class FakeCameraDeviceSurfaceManager implements CameraDeviceSurfaceManage
     private static final Size MAX_OUTPUT_SIZE = new Size(0, 0);
     private static final Size PREVIEW_SIZE = new Size(1920, 1080);
 
+    private Map<UseCase, Size> mSuggestedResolutions;
+    private Map<Integer, Size> mMaxResolutions;
+    private Size mMaxOutputSize = MAX_OUTPUT_SIZE;
+
     @Override
     public boolean checkSupported(String cameraId, List<SurfaceConfig> surfaceConfigList) {
         return false;
@@ -46,12 +50,19 @@ public class FakeCameraDeviceSurfaceManager implements CameraDeviceSurfaceManage
     @Nullable
     @Override
     public Size getMaxOutputSize(String cameraId, int imageFormat) {
+        if (mMaxOutputSize != null) {
+            return mMaxResolutions.get(imageFormat);
+        }
         return MAX_OUTPUT_SIZE;
     }
 
     @Override
     public Map<UseCase, Size> getSuggestedResolutions(
             String cameraId, List<UseCase> originalUseCases, List<UseCase> newUseCases) {
+        if (mSuggestedResolutions != null) {
+            return mSuggestedResolutions;
+        }
+
         Map<UseCase, Size> suggestedSizes = new HashMap<>();
         for (UseCase useCase : newUseCases) {
             suggestedSizes.put(useCase, MAX_OUTPUT_SIZE);
@@ -63,5 +74,13 @@ public class FakeCameraDeviceSurfaceManager implements CameraDeviceSurfaceManage
     @Override
     public Size getPreviewSize() {
         return PREVIEW_SIZE;
+    }
+
+    public void setMaxOutputSize(Map<Integer, Size> maxOutputSizeForFormat) {
+        mMaxResolutions = maxOutputSizeForFormat;
+    }
+
+    public void setSuggestedResolutions(Map<UseCase, Size> suggestedResolutions) {
+        mSuggestedResolutions = suggestedResolutions;
     }
 }

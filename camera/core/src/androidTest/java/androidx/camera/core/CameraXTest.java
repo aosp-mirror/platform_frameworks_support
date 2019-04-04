@@ -22,6 +22,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 
 import android.content.Context;
+import android.graphics.ImageFormat;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.util.Size;
@@ -46,6 +47,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -71,6 +73,7 @@ public final class CameraXTest {
     private CountDownLatch mLatch;
     private HandlerThread mHandlerThread;
     private Handler mHandler;
+    private FakeCameraDeviceSurfaceManager mSurfaceManager;
 
     private static String getCameraIdUnchecked(LensFacing lensFacing) {
         try {
@@ -84,7 +87,7 @@ public final class CameraXTest {
     @Before
     public void setUp() {
         Context context = ApplicationProvider.getApplicationContext();
-        CameraDeviceSurfaceManager surfaceManager = new FakeCameraDeviceSurfaceManager();
+        mSurfaceManager = new FakeCameraDeviceSurfaceManager();
         ExtendableUseCaseConfigFactory defaultConfigFactory = new ExtendableUseCaseConfigFactory();
         defaultConfigFactory.installDefaultProvider(FakeUseCaseConfig.class,
                 new ConfigProvider<FakeUseCaseConfig>() {
@@ -96,7 +99,7 @@ public final class CameraXTest {
         AppConfig.Builder appConfigBuilder =
                 new AppConfig.Builder()
                         .setCameraFactory(sCameraFactory)
-                        .setDeviceSurfaceManager(surfaceManager)
+                        .setDeviceSurfaceManager(mSurfaceManager)
                         .setUseCaseConfigFactory(defaultConfigFactory);
 
         // CameraX.init will actually init just once across all test cases. However we need to get
@@ -254,6 +257,41 @@ public final class CameraXTest {
     public void canGetCameraXContext() {
         Context context = CameraX.getContext();
         assertThat(context).isNotNull();
+    }
+
+    @Test
+    public void bypassExcludesSuggestedSizeLookup() {
+        ImageCaptureConfig imageCaptureConfig = new ImageCaptureConfig.Builder()
+                .setCaptureMode(ImageCapture.CaptureMode.MAX_QUALITY)
+                .setBufferFormat(ImageFormat.RAW10)
+                .setBypassSuggestedResolution(true)
+                .setFlashMode(FlashMode.AUTO)
+                .setCallbackHandler(mHandler)
+                .setOptionUnpacker(mock(SessionConfig.OptionUnpacker.class))
+                .setLensFacing(LensFacing.BACK)
+                .build();
+        ImageCapture ic = new ImageCapture(imageCaptureConfig);
+        FakeUseCaseConfig fakeConfig1 = new FakeUseCaseConfig.Builder().setTargetName("u1").build();
+        FakeUseCase useCase1 = new FakeUseCase(fakeConfig1);
+        Size useCase1Size = new Size(1, 1);
+        FakeUseCaseConfig fakeConfig2 = new FakeUseCaseConfig.Builder().setTargetName("u2").build();
+        FakeUseCase useCase2 = new FakeUseCase(fakeConfig2);
+        Size useCase2Size = new Size(2, 2);
+        Map<UseCase, Size> suggestedSizeMap = new HashMap<>();
+        suggestedSizeMap.put(useCase1, useCase1Size);
+        suggestedSizeMap.put(useCase2, useCase2Size);
+        suggestedSizeMap.put(ic, new Size(0, 0));
+        mSurfaceManager.setSuggestedResolutions(suggestedSizeMap);
+        Map<Integer, Size> maxSizeMap = new HashMap<>();
+        maxSizeMap.put(ImageFormat.RAW10, new Size(3, 3));
+        mSurfaceManager.setMaxOutputSize(maxSizeMap);
+
+        CameraX.bindToLifecycle(mLifecycle, ic, useCase1, useCase2);
+
+        assertThat(useCase1.getSuggestedResolutionMap().values()).contains(useCase1Size);
+        assertThat(useCase2.getSuggestedResolutionMap().values()).contains(useCase2Size);
+        assertThat(ic.mImageReader.getHeight()).isEqualTo(3);
+        assertThat(ic.mImageReader.getWidth()).isEqualTo(3);
     }
 
     private static class CountingErrorListener implements ErrorListener {

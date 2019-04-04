@@ -30,6 +30,7 @@ import java.util.Map;
  */
 public class FakeUseCase extends UseCase {
     private volatile boolean mIsCleared = false;
+    private Map<String, Size> mSuggestedResolutionMap;
 
     /**
      * Creates a new instance of a {@link FakeUseCase} with a given configuration.
@@ -66,6 +67,7 @@ public class FakeUseCase extends UseCase {
     @Override
     protected Map<String, Size> onSuggestedResolutionUpdated(
             Map<String, Size> suggestedResolutionMap) {
+        mSuggestedResolutionMap = suggestedResolutionMap;
         return suggestedResolutionMap;
     }
 
@@ -74,5 +76,9 @@ public class FakeUseCase extends UseCase {
      */
     public boolean isCleared() {
         return mIsCleared;
+    }
+
+    public Map<String, Size> getSuggestedResolutionMap() {
+        return mSuggestedResolutionMap;
     }
 }

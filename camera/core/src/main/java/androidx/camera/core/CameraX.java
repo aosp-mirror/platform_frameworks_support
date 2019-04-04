@@ -411,6 +411,12 @@ public final class CameraX {
         for (UseCaseGroupLifecycleController controller : controllers) {
             UseCaseGroup useCaseGroup = controller.getUseCaseGroup();
             for (UseCase useCase : useCaseGroup.getUseCases()) {
+                if (useCase.getUseCaseConfig()
+                        .retrieveOption(
+                                ImageCaptureConfig.OPTION_BYPASS_SUGGESTED_RESOLUTION, false)) {
+                    continue;
+                }
+
                 for (String cameraId : useCase.getAttachedCameraIds()) {
                     List<UseCase> useCaseList = originalCameraIdUseCaseMap.get(cameraId);
                     if (useCaseList == null) {
@@ -422,8 +428,17 @@ public final class CameraX {
             }
         }
 
+        List<UseCase> bypassedUseCases = new ArrayList<>();
+
         // Collect new use cases for different camera devices
         for (UseCase useCase : useCases) {
+            if (useCase.getUseCaseConfig()
+                    .retrieveOption(
+                            ImageCaptureConfig.OPTION_BYPASS_SUGGESTED_RESOLUTION, false)) {
+                bypassedUseCases.add(useCase);
+                continue;
+            }
+
             String cameraId = null;
             LensFacing lensFacing =
                     useCase.getUseCaseConfig()
@@ -450,6 +465,12 @@ public final class CameraX {
                                     cameraId,
                                     originalCameraIdUseCaseMap.get(cameraId),
                                     newCameraIdUseCaseMap.get(cameraId));
+
+            for (UseCase useCase : bypassedUseCases) {
+                suggestResolutionsMap.put(
+                        useCase,
+                        getSurfaceManager().getMaxOutputSize(cameraId, useCase.getImageFormat()));
+            }
 
             for (UseCase useCase : useCases) {
                 Size resolution = suggestResolutionsMap.get(useCase);
