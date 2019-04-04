@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9277dc03_5c37f441",
+        "filename": "jetifier/jetifier/migration.config",
+        "patchSetId": 7
+      },
+      "lineNbr": 659,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-04T20:21:28Z",
+      "side": 1,
+      "message": "This needs to be removed since we need the identity rule to apply below",
+      "range": {
+        "startLine": 656,
+        "startChar": 4,
+        "endLine": 659,
+        "endChar": 6
+      },
+      "revId": "7ae909ddce095cd5711089a0cea410dd91fd389a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc07d691_c440779e",
+        "filename": "jetifier/jetifier/migration.config",
+        "patchSetId": 7
+      },
+      "lineNbr": 985,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-04T20:21:28Z",
+      "side": 1,
+      "message": "This is duplicated below , so this can be removed",
+      "range": {
+        "startLine": 982,
+        "startChar": 4,
+        "endLine": 985,
+        "endChar": 6
+      },
+      "revId": "7ae909ddce095cd5711089a0cea410dd91fd389a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b77d564_79df15fc",
+        "filename": "jetifier/jetifier/migration.config",
+        "patchSetId": 7
+      },
+      "lineNbr": 1077,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-04T20:21:28Z",
+      "side": 1,
+      "message": "This isn\u0027t needed - all of the navigation-common classes are in the root navigation package.",
+      "range": {
+        "startLine": 1074,
+        "startChar": 4,
+        "endLine": 1077,
+        "endChar": 6
+      },
+      "revId": "7ae909ddce095cd5711089a0cea410dd91fd389a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc658f1a_0e1ca91c",
+        "filename": "jetifier/jetifier/migration.config",
+        "patchSetId": 7
+      },
+      "lineNbr": 1085,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-04T20:21:28Z",
+      "side": 1,
+      "message": "Same here, all of the navigation-runtime classes are in the root navigation package",
+      "range": {
+        "startLine": 1082,
+        "startChar": 4,
+        "endLine": 1085,
+        "endChar": 6
+      },
+      "revId": "7ae909ddce095cd5711089a0cea410dd91fd389a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46d360a8_6525963f",
+        "filename": "jetifier/jetifier/migration.config",
+        "patchSetId": 7
+      },
+      "lineNbr": 1398,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-04T20:21:28Z",
+      "side": 1,
+      "message": "android.arch.navigation, same for all of these artifacts",
+      "range": {
+        "startLine": 1398,
+        "startChar": 21,
+        "endLine": 1398,
+        "endChar": 40
+      },
+      "revId": "7ae909ddce095cd5711089a0cea410dd91fd389a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ad789fd_acb1acba",
+        "filename": "jetifier/jetifier/migration.config",
+        "patchSetId": 7
+      },
+      "lineNbr": 1400,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-04T20:21:28Z",
+      "side": 1,
+      "message": "oldNavigationVersion, same for all of these artifacts",
+      "range": {
+        "startLine": 1400,
+        "startChar": 22,
+        "endLine": 1400,
+        "endChar": 42
+      },
+      "revId": "7ae909ddce095cd5711089a0cea410dd91fd389a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7de65bb0_2ca079be",
+        "filename": "jetifier/jetifier/migration.config",
+        "patchSetId": 7
+      },
+      "lineNbr": 1938,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-04T20:21:28Z",
+      "side": 1,
+      "message": "These should be grouped with the other Navigation artifacts",
+      "revId": "7ae909ddce095cd5711089a0cea410dd91fd389a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
