@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "824218dd_de01a8c7",
+        "filename": "buildSrc/build.gradle",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-04-04T09:18:49Z",
+      "side": 1,
+      "message": "You don\u0027t need this. out.gradle does not use it.",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 53
+      },
+      "revId": "9b0053f77adcb14080e3282c9f8b9884b563a40b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96678fd6_858a5626",
+        "filename": "buildSrc/out.gradle",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-04-04T09:18:49Z",
+      "side": 1,
+      "message": "We don\u0027t use this variable in here. Delete this.",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 1
+      },
+      "revId": "9b0053f77adcb14080e3282c9f8b9884b563a40b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e465e9e_9881e8c1",
+        "filename": "buildSrc/out.gradle",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-04-04T09:18:49Z",
+      "side": 1,
+      "message": "I kept meaning to clean this up, remove this. It is legacy for when we wanted to avoid clashing with make files. It should just be $project.name/build",
+      "range": {
+        "startLine": 29,
+        "startChar": 47,
+        "endLine": 29,
+        "endChar": 64
+      },
+      "revId": "9b0053f77adcb14080e3282c9f8b9884b563a40b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "363408ab_9c7a0fb6",
+        "filename": "cleanBuild.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-04-04T09:18:49Z",
+      "side": 1,
+      "message": "remove whitespace.",
+      "range": {
+        "startLine": 30,
+        "startChar": 16,
+        "endLine": 30,
+        "endChar": 17
+      },
+      "revId": "9b0053f77adcb14080e3282c9f8b9884b563a40b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db8a00e7_ef99dc1d",
+        "filename": "gradlew",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-04-04T09:18:49Z",
+      "side": 1,
+      "message": "Now that you set it, you need to update https://cs.corp.google.com/search/?q\u003dOUT_DIR+file:buildSrc+package:%5Eaosp-androidx$\u0026m\u003d100\u0026type\u003dcs\n\nWe no longer should check for OUT_DIR being null as it will always be set.\n\nDist dir is the only trigger now for knowing if we are on a build server.",
+      "range": {
+        "startLine": 17,
+        "startChar": 11,
+        "endLine": 17,
+        "endChar": 18
+      },
+      "revId": "9b0053f77adcb14080e3282c9f8b9884b563a40b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
