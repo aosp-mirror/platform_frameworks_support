@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6caa29e5_860e5046",
+        "filename": "jetifier/jetifier/migration.config",
+        "patchSetId": 3
+      },
+      "lineNbr": 661,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-04T22:42:08Z",
+      "side": 1,
+      "message": "Was there a reason this was moved higher up? Please restore it back to the previous place (the lines you deleted) to avoid unnecessary changes.",
+      "range": {
+        "startLine": 661,
+        "startChar": 6,
+        "endLine": 661,
+        "endChar": 41
+      },
+      "revId": "948cd854d14e99cbf76c2357bee814982fbaca65",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24fb2421_bc566596",
+        "filename": "jetifier/jetifier/migration.config",
+        "patchSetId": 3
+      },
+      "lineNbr": 1389,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-04T22:42:08Z",
+      "side": 1,
+      "message": "nit: extra space",
+      "range": {
+        "startLine": 1389,
+        "startChar": 16,
+        "endLine": 1389,
+        "endChar": 17
+      },
+      "revId": "948cd854d14e99cbf76c2357bee814982fbaca65",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
