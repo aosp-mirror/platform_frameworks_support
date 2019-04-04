@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7f90dc22_08659ffb",
+        "filename": "jetifier/jetifier/migration.config",
+        "patchSetId": 4
+      },
+      "lineNbr": 1415,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-04T23:07:13Z",
+      "side": 1,
+      "message": "navigation-ui-ktx",
+      "revId": "cf52902ec50b70980fcaad7f773a86ea0802b920",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
