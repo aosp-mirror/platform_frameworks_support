@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "15befdd7_7915b038",
+        "filename": "preference/src/main/java/androidx/preference/Preference.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 591,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-04-04T18:03:16Z",
+      "side": 1,
+      "message": "What if developers have some custom background set?",
+      "range": {
+        "startLine": 591,
+        "startChar": 12,
+        "endLine": 591,
+        "endChar": 53
+      },
+      "revId": "d445604d6c0bc2a13e0541fe86330483ec965418",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
