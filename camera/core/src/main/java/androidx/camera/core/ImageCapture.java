@@ -155,10 +155,15 @@ public class ImageCapture extends UseCase {
 
         mCaptureProcessor = mConfig.getCaptureProcessor(null);
 
-        if (mCaptureProcessor != null) {
-            setImageFormat(ImageFormat.YUV_420_888);
+        Integer bufferFormat = mConfig.getBufferFormat(null);
+        if (bufferFormat != null) {
+            setImageFormat(bufferFormat);
         } else {
-            setImageFormat(ImageReaderFormatRecommender.chooseCombo().imageCaptureFormat());
+            if (mCaptureProcessor != null) {
+                setImageFormat(ImageFormat.YUV_420_888);
+            } else {
+                setImageFormat(ImageReaderFormatRecommender.chooseCombo().imageCaptureFormat());
+            }
         }
 
         mCaptureBundle = mConfig.getCaptureBundle(CaptureBundles.singleDefaultCaptureBundle());
