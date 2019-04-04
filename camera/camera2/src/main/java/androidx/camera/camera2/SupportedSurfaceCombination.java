@@ -900,15 +900,17 @@ final class SupportedSurfaceCombination {
         maximumSizeMap.put(ImageFormat.JPEG, getMaxOutputSizeByFormat(ImageFormat.JPEG));
         maximumSizeMap.put(
                 ImageFormat.YUV_420_888, getMaxOutputSizeByFormat(ImageFormat.YUV_420_888));
+        maximumSizeMap.put(
+                ImageFormat.RAW_SENSOR, getMaxOutputSizeByFormat(ImageFormat.RAW_SENSOR));
         /**
-         * Except for ImageFormat.JPEG or ImageFormat.YUV, other image formats like {@link
-         * android.graphics.SurfaceTexture} or {@link android.media.MediaCodec} classes will be
-         * mapped to internal defined format HAL_PIXEL_FORMAT_IMPLEMENTATION_DEFINED (0x22) in
-         * StreamConfigurationMap.java. 0x22 is also the code for ImageFormat.PRIVATE that is public
-         * after Android level 23.Before Android level 23, there is same internal code 0x22 for
-         * internal defined format HAL_PIXEL_FORMAT_IMPLEMENTATION_DEFINED. Therefore, using the
-         * code 0x22 to store maximum size for Preview or VideoCapture use cases since they will
-         * finally map to this code.
+         * Except for ImageFormat.JPEG, ImageFormat.YUV, and ImageFormat.RAW_SENSOR other image
+         * formats like {@link android.graphics.SurfaceTexture} or {@link android.media.MediaCodec}
+         * classes will be mapped to internal defined format HAL_PIXEL_FORMAT_IMPLEMENTATION_DEFINED
+         * (0x22) in StreamConfigurationMap.java. 0x22 is also the code for ImageFormat.PRIVATE that
+         * is public after Android level 23.Before Android level 23, there is same internal code
+         * 0x22 for internal defined format HAL_PIXEL_FORMAT_IMPLEMENTATION_DEFINED. Therefore,
+         * using the code 0x22 to store maximum size for Preview or VideoCapture use cases since
+         * they will finally map to this code.
          */
         maximumSizeMap.put(
                 ImageFormatConstants.INTERNAL_DEFINED_IMAGE_FORMAT_PRIVATE,

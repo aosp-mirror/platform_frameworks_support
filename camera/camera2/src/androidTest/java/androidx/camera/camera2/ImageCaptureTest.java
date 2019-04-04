@@ -27,7 +27,9 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
+import android.Manifest;
 import android.content.Context;
+import android.graphics.ImageFormat;
 import android.hardware.camera2.CameraCaptureSession;
 import android.hardware.camera2.CaptureRequest;
 import android.hardware.camera2.TotalCaptureResult;
@@ -58,9 +60,11 @@ import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.FlakyTest;
 import androidx.test.filters.SmallTest;
+import androidx.test.rule.GrantPermissionRule;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
@@ -75,6 +79,11 @@ import java.util.concurrent.Semaphore;
 @SmallTest
 @RunWith(AndroidJUnit4.class)
 public final class ImageCaptureTest {
+
+    @Rule
+    public GrantPermissionRule mRuntimePermissionRule = GrantPermissionRule.grant(
+            Manifest.permission.CAMERA);
+
     // Use most supported resolution for different supported hardware level devices,
     // especially for legacy devices.
     private static final Size DEFAULT_RESOLUTION = new Size(640, 480);
@@ -493,5 +502,28 @@ public final class ImageCaptureTest {
         CaptureRequest captureRequest = requestCaptor.getValue(); // Obtains the last value.
         assertThat(captureRequest.get(CaptureRequest.CONTROL_CAPTURE_INTENT))
                 .isEqualTo(CaptureRequest.CONTROL_CAPTURE_INTENT_STILL_CAPTURE);
+    }
+
+    @Test
+    public void takePicture_withBufferFormat() throws InterruptedException {
+        ImageCaptureConfig config =
+                new ImageCaptureConfig.Builder()
+                        .setBufferFormat(ImageFormat.RAW10)
+                        .build();
+        ImageCapture useCase = new ImageCapture(config);
+        Map<String, Size> suggestedResolutionMap = new HashMap<>();
+        suggestedResolutionMap.put(mCameraId, DEFAULT_RESOLUTION);
+        useCase.updateSuggestedResolution(suggestedResolutionMap);
+        CameraUtil.openCameraWithUseCase(mCameraId, mCamera, useCase, mRepeatingUseCase);
+        useCase.addStateChangeListener(mCamera);
+
+        useCase.takePicture(mOnImageCapturedListener);
+
+        // Wait for the signal that the image has been saved.
+        mSemaphore.acquire();
+
+        ArgumentCaptor<ImageProxy> imageProxyCaptor = ArgumentCaptor.forClass(ImageProxy.class);
+        verify(mOnImageCapturedListener).onCaptureSuccess(imageProxyCaptor.capture(), anyInt());
+        assertThat(imageProxyCaptor.getValue().getFormat()).isEqualTo(ImageFormat.RAW10);
     }
 }
