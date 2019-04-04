@@ -807,8 +807,9 @@ public class RecyclerViewFocusRecoveryTest extends BaseRecyclerViewInstrumentati
 
     private <T extends FocusViewHolder> T cast(RecyclerView.ViewHolder vh) {
         assertThat(vh, instanceOf(FocusViewHolder.class));
-        //noinspection unchecked
-        return (T) vh;
+        @SuppressWarnings("unchecked")
+        T viewHolder = (T) vh;
+        return viewHolder;
     }
 
     private class FocusTestAdapter extends TestAdapter {
