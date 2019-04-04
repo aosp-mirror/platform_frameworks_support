@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "4bfda7b4_8f49e99a",
+        "filename": "development/update_studio_versions.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-04-04T12:07:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "44a993dd_7152d151",
+      "revId": "cb8caad4b295d2027b48a5c476e7244831384cdd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e9f0faf1_cd7a370c",
         "filename": "development/update_studio_versions.py",
         "patchSetId": 4
@@ -33,6 +51,24 @@
       "revId": "cb8caad4b295d2027b48a5c476e7244831384cdd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7b77388_db886396",
+        "filename": "development/update_studio_versions.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-04-04T12:07:26Z",
+      "side": 1,
+      "message": "Thanks for the regex! In the case that Studio changes their versioning policy, we\u0027ll also have to change the formatted string - I feel like many other things will break before this happens, so I\u0027m happy to keep it easier to read and fix it when it breaks :)",
+      "parentUuid": "e9f0faf1_cd7a370c",
+      "revId": "cb8caad4b295d2027b48a5c476e7244831384cdd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
