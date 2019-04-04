@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b196c8da_0620a6b0",
+        "filename": "jetifier/jetifier/migration.config",
+        "patchSetId": 3
+      },
+      "lineNbr": 661,
+      "author": {
+        "id": 1271745
+      },
+      "writtenOn": "2019-04-04T23:06:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6caa29e5_860e5046",
+      "range": {
+        "startLine": 661,
+        "startChar": 6,
+        "endLine": 661,
+        "endChar": 41
+      },
+      "revId": "948cd854d14e99cbf76c2357bee814982fbaca65",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "24fb2421_bc566596",
         "filename": "jetifier/jetifier/migration.config",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "948cd854d14e99cbf76c2357bee814982fbaca65",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca4f1d40_a40443eb",
+        "filename": "jetifier/jetifier/migration.config",
+        "patchSetId": 3
+      },
+      "lineNbr": 1389,
+      "author": {
+        "id": 1271745
+      },
+      "writtenOn": "2019-04-04T23:06:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "24fb2421_bc566596",
+      "range": {
+        "startLine": 1389,
+        "startChar": 16,
+        "endLine": 1389,
+        "endChar": 17
+      },
+      "revId": "948cd854d14e99cbf76c2357bee814982fbaca65",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
