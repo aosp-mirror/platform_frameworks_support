@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7e2b1f77_4111a925",
+        "filename": "jetifier/jetifier/migration.config",
+        "patchSetId": 7
+      },
+      "lineNbr": 659,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-04T22:23:30Z",
+      "side": 1,
+      "message": "Scratch that, you do need this in the slRules section",
+      "parentUuid": "9277dc03_5c37f441",
+      "range": {
+        "startLine": 656,
+        "startChar": 4,
+        "endLine": 659,
+        "endChar": 6
+      },
+      "revId": "7ae909ddce095cd5711089a0cea410dd91fd389a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bc07d691_c440779e",
         "filename": "jetifier/jetifier/migration.config",
         "patchSetId": 7

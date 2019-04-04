@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1976095c_849f12a7",
+        "filename": "jetifier/jetifier/migration.config",
+        "patchSetId": 7
+      },
+      "lineNbr": 841,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-04T22:23:30Z",
+      "side": 0,
+      "message": "Was there a reason you deleted the lines from here and moved them farther up? I think just leaving them here would have been fine.",
+      "revId": "e14c634da813d31289f576b4072b203948fa5ecc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
