@@ -28,7 +28,6 @@ import android.util.Log;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 
 import androidx.annotation.IdRes;
 import androidx.annotation.IntDef;
@@ -227,14 +226,14 @@ public abstract class AppCompatDelegate {
 
     /**
      * Create an {@link androidx.appcompat.app.AppCompatDelegate} to use with a {@code context}
-     * and a {@code window}.
+     * and hosted by an {@code Activity}.
      *
      * @param callback An optional callback for AppCompat specific events
      */
     @NonNull
-    public static AppCompatDelegate create(@NonNull Context context, @NonNull Window window,
+    public static AppCompatDelegate create(@NonNull Context context, @NonNull Activity activity,
             @Nullable AppCompatCallback callback) {
-        return new AppCompatDelegateImpl(context, window, callback);
+        return new AppCompatDelegateImpl(context, activity, callback);
     }
 
     /**
