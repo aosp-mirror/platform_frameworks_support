@@ -46,6 +46,30 @@
       "revId": "37ea1682c0ec826549fbb51cdb3b6576c718a93d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80c3ae4a_4606d291",
+        "filename": "car/core/src/main/java/androidx/car/widget/ListItemAdapter.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1010674
+      },
+      "writtenOn": "2019-04-04T18:05:52Z",
+      "side": 1,
+      "message": "I actually don\u0027t know our policy well on support library - but for frameworks we do hide intdef annotations. will ask somebody who may know.",
+      "parentUuid": "f75bf819_87e6a39b",
+      "range": {
+        "startLine": 64,
+        "startChar": 4,
+        "endLine": 64,
+        "endChar": 5
+      },
+      "revId": "37ea1682c0ec826549fbb51cdb3b6576c718a93d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
