@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "29a374f5_a1c2534c",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-04-04T18:41:35Z",
+      "side": 1,
+      "message": "I guess we don\u0027t have any Turkish developers?",
+      "revId": "c85b6148049d2efa04dfb624f867646cdd1fc091",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
