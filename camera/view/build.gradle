@@ -14,9 +14,11 @@
  * limitations under the License.
  */
 
-import static androidx.build.dependencies.DependenciesKt.*
-import androidx.build.LibraryVersions
+
 import androidx.build.LibraryGroups
+import androidx.build.LibraryVersions
+
+import static androidx.build.dependencies.DependenciesKt.*
 
 plugins {
     id("AndroidXPlugin")
@@ -32,6 +34,12 @@ dependencies {
 android {
     defaultConfig {
         minSdkVersion 21
+    }
+
+    buildTypes {
+        debug {
+            testCoverageEnabled false
+        }
     }
 }
 androidx {
