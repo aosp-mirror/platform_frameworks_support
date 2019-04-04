@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "06dd19e3_3e769fef",
+        "filename": "biometric/src/main/java/androidx/biometric/BiometricPrompt.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 1157913
+      },
+      "writtenOn": "2019-04-04T20:09:56Z",
+      "side": 1,
+      "message": "Is it possible to have a new bundle, and if so, will the elements on UI be correct?",
+      "range": {
+        "startLine": 498,
+        "startChar": 39,
+        "endLine": 498,
+        "endChar": 48
+      },
+      "revId": "a54ae2473759af617a23a4b3693b54e0e652cfca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
