@@ -462,6 +462,24 @@
     },
     {
       "key": {
+        "uuid": "ba3fd35f_89cec380",
+        "filename": "paging/rxjava2/src/test/java/androidx/paging/RxItemKeyedDataSourceTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-04-04T02:10:50Z",
+      "side": 1,
+      "message": "So I actually ended up removing this dispose test as it just tests rx functionality which is not very useful.\n\nInstead I actually fixed the cancel callbacks and made sure that dispose is called with a blocking executor. So now... done!",
+      "parentUuid": "bb7409ef_bbffdea8",
+      "revId": "22e3cf4e8c8f0c6c4cc89bc0469a373de50c265e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "90d635b2_85974ae2",
         "filename": "paging/rxjava2/src/test/java/androidx/paging/RxItemKeyedDataSourceTest.kt",
         "patchSetId": 5
