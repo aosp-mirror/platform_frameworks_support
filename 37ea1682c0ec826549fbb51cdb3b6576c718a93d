@@ -22,6 +22,30 @@
       "revId": "37ea1682c0ec826549fbb51cdb3b6576c718a93d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f75bf819_87e6a39b",
+        "filename": "car/core/src/main/java/androidx/car/widget/ListItemAdapter.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-04-04T18:01:11Z",
+      "side": 1,
+      "message": "Not sure I understand why should we should be hiding this.",
+      "parentUuid": "9d3e1f93_d616375f",
+      "range": {
+        "startLine": 64,
+        "startChar": 4,
+        "endLine": 64,
+        "endChar": 5
+      },
+      "revId": "37ea1682c0ec826549fbb51cdb3b6576c718a93d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
