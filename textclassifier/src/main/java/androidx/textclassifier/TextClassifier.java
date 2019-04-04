@@ -16,6 +16,7 @@
 
 package androidx.textclassifier;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
 
@@ -27,6 +28,7 @@ import androidx.annotation.StringDef;
 import androidx.annotation.WorkerThread;
 import androidx.collection.ArraySet;
 import androidx.core.util.Preconditions;
+import androidx.versionedparcelable.ParcelUtils;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -242,17 +244,21 @@ public abstract class TextClassifier {
         private static final String EXTRA_INCLUDED_ENTITY_TYPES = "included";
         private static final String EXTRA_INCLUDE_ENTITY_TYPES_FROM_TC =
                 "include_entity_types_from_tc";
+        private static final String EXTRA_PLATFORM_ENTITY_CONFIG = "platform_entity_config";
 
         private final Collection<String> mHints;
         private final Collection<String> mExcludedEntityTypes;
         private final Collection<String> mIncludedEntityTypes;
         private final boolean mIncludeDefaultEntityTypes;
+        @Nullable
+        private final PlatformEntityConfigWrapper mPlatformEntityConfigWrapper;
 
         EntityConfig(
-                Collection<String> includedEntityTypes,
-                Collection<String> excludedEntityTypes,
-                Collection<String> hints,
-                boolean includeDefaultEntityTypes) {
+                @Nullable Collection<String> includedEntityTypes,
+                @Nullable Collection<String> excludedEntityTypes,
+                @Nullable Collection<String> hints,
+                boolean includeDefaultEntityTypes,
+                @Nullable PlatformEntityConfigWrapper platformEntityConfigWrapper) {
             mIncludedEntityTypes = includedEntityTypes == null
                     ? Collections.<String>emptyList() : new ArraySet<>(includedEntityTypes);
             mExcludedEntityTypes = excludedEntityTypes == null
@@ -261,6 +267,15 @@ public abstract class TextClassifier {
                     ? Collections.<String>emptyList()
                     : Collections.unmodifiableCollection(new ArraySet<>(hints));
             mIncludeDefaultEntityTypes = includeDefaultEntityTypes;
+            mPlatformEntityConfigWrapper = platformEntityConfigWrapper;
+        }
+
+        /**
+         * Creates an androidX {@link EntityConfig} object by wrapping the platform
+         * {@link android.view.textclassifier.TextClassifier.EntityConfig} object.
+         */
+        private EntityConfig(@NonNull PlatformEntityConfigWrapper platformEntityConfigWrapper) {
+            this(null, null, null, false, Preconditions.checkNotNull(platformEntityConfigWrapper));
         }
 
         /**
@@ -274,6 +289,9 @@ public abstract class TextClassifier {
         public Collection<String> resolveEntityTypes(
                 @Nullable Collection<String> defaultEntityTypes) {
             Set<String> entityTypes = new ArraySet<>();
+            if (mPlatformEntityConfigWrapper != null && Build.VERSION.SDK_INT >= 28) {
+                return mPlatformEntityConfigWrapper.resolveEntityTypes(defaultEntityTypes);
+            }
             if (mIncludeDefaultEntityTypes && defaultEntityTypes != null) {
                 entityTypes.addAll(defaultEntityTypes);
             }
@@ -289,6 +307,9 @@ public abstract class TextClassifier {
          */
         @NonNull
         public Collection<String> getHints() {
+            if (mPlatformEntityConfigWrapper != null && Build.VERSION.SDK_INT >= 28) {
+                return mPlatformEntityConfigWrapper.getHints();
+            }
             return mHints;
         }
 
@@ -302,6 +323,9 @@ public abstract class TextClassifier {
          * @see #resolveEntityTypes(Collection)
          */
         public boolean shouldIncludeDefaultEntityTypes() {
+            if (mPlatformEntityConfigWrapper != null && Build.VERSION.SDK_INT >= 28) {
+                return mPlatformEntityConfigWrapper.shouldIncludeDefaultEntityTypes();
+            }
             return mIncludeDefaultEntityTypes;
         }
 
@@ -319,6 +343,8 @@ public abstract class TextClassifier {
                     new ArrayList<>(mExcludedEntityTypes));
             bundle.putBoolean(EXTRA_INCLUDE_ENTITY_TYPES_FROM_TC,
                     mIncludeDefaultEntityTypes);
+            ParcelUtils.putVersionedParcelable(
+                    bundle, EXTRA_PLATFORM_ENTITY_CONFIG, mPlatformEntityConfigWrapper);
             return bundle;
         }
 
@@ -327,11 +353,17 @@ public abstract class TextClassifier {
          */
         @NonNull
         public static EntityConfig createFromBundle(@NonNull Bundle bundle) {
+            PlatformEntityConfigWrapper platformEntityConfigWrapper =
+                    ParcelUtils.getVersionedParcelable(bundle, EXTRA_PLATFORM_ENTITY_CONFIG);
+            if (platformEntityConfigWrapper != null) {
+                return new EntityConfig(platformEntityConfigWrapper);
+            }
             return new EntityConfig(
                     bundle.getStringArrayList(EXTRA_INCLUDED_ENTITY_TYPES),
                     bundle.getStringArrayList(EXTRA_EXCLUDED_ENTITY_TYPES),
                     bundle.getStringArrayList(EXTRA_HINTS),
-                    bundle.getBoolean(EXTRA_INCLUDE_ENTITY_TYPES_FROM_TC));
+                    bundle.getBoolean(EXTRA_INCLUDE_ENTITY_TYPES_FROM_TC),
+                    null);
         }
 
         /**
@@ -395,7 +427,8 @@ public abstract class TextClassifier {
                         mIncludedEntityTypes,
                         mExcludedEntityTypes,
                         mHints,
-                        mIncludeDefaultEntityTypes);
+                        mIncludeDefaultEntityTypes,
+                        null);
             }
         }
 
@@ -415,6 +448,18 @@ public abstract class TextClassifier {
             entitiesSet.removeAll(mExcludedEntityTypes);
             return android.view.textclassifier.TextClassifier.EntityConfig
                     .createWithExplicitEntityList(new ArrayList<>(entitiesSet));
+        }
+
+        /** @hide */
+        @RestrictTo(RestrictTo.Scope.LIBRARY)
+        @RequiresApi(28)
+        @Nullable
+        public static EntityConfig fromPlatform(
+                @Nullable android.view.textclassifier.TextClassifier.EntityConfig entityConfig) {
+            if (entityConfig == null) {
+                return null;
+            }
+            return new EntityConfig(new PlatformEntityConfigWrapper(entityConfig));
         }
     }
 }

@@ -18,6 +18,8 @@ package androidx.textclassifier;
 
 import static com.google.common.truth.Truth.assertThat;
 
+import android.os.Bundle;
+
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.SdkSuppress;
 import androidx.test.filters.SmallTest;
@@ -27,6 +29,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 /** Instrumentation unit tests for {@link TextClassifier}. */
 @SmallTest
@@ -112,5 +115,79 @@ public class TextClassifierTest {
         assertThat(platformEntityConfig.getHints()).containsExactly("hint");
         assertThat(platformEntityConfig.resolveEntityListModifications(Arrays.asList("extra")))
                 .containsExactly("included", "extra");
+    }
+
+
+    @Test
+    @SdkSuppress(minSdkVersion = 28)
+    public void testEntityConfig_fromPlatform_createWithHints() {
+        android.view.textclassifier.TextClassifier.EntityConfig platformEntityConfig =
+                android.view.textclassifier.TextClassifier.EntityConfig.createWithHints(
+                        Collections.singletonList("hints"));
+
+        TextClassifier.EntityConfig entityConfig =
+                TextClassifier.EntityConfig.fromPlatform(platformEntityConfig);
+
+
+        assertThat(entityConfig.getHints()).containsExactly("hints");
+        assertThat(entityConfig.shouldIncludeDefaultEntityTypes()).isTrue();
+        assertThat(entityConfig.resolveEntityTypes(Collections.singleton("default")))
+                .containsExactly("default");
+    }
+
+    @Test
+    @SdkSuppress(minSdkVersion = 28)
+    public void testEntityConfig_fromPlatform_createWithExplicitEntityList() {
+        android.view.textclassifier.TextClassifier.EntityConfig platformEntityConfig =
+                android.view.textclassifier.TextClassifier.EntityConfig
+                        .createWithExplicitEntityList(
+                                Collections.singletonList("explicit"));
+
+        TextClassifier.EntityConfig entityConfig =
+                TextClassifier.EntityConfig.fromPlatform(platformEntityConfig);
+
+        assertThat(entityConfig.getHints()).isEmpty();
+        assertThat(entityConfig.shouldIncludeDefaultEntityTypes()).isFalse();
+        assertThat(entityConfig.resolveEntityTypes(Collections.singleton("default")))
+                .containsExactly("explicit");
+    }
+
+    @Test
+    @SdkSuppress(minSdkVersion = 28)
+    public void testEntityConfig_fromPlatform_create() {
+        android.view.textclassifier.TextClassifier.EntityConfig platformEntityConfig =
+                android.view.textclassifier.TextClassifier.EntityConfig.create(
+                        Collections.singleton("hints"),
+                        Collections.singleton("included"),
+                        Collections.singleton("excluded"));
+
+        TextClassifier.EntityConfig entityConfig =
+                TextClassifier.EntityConfig.fromPlatform(platformEntityConfig);
+
+        assertThat(entityConfig.getHints()).containsExactly("hints");
+        assertThat(entityConfig.shouldIncludeDefaultEntityTypes()).isTrue();
+        assertThat(entityConfig.resolveEntityTypes(Arrays.asList("default", "excluded")))
+                .containsExactly("default", "included");
+    }
+
+    @Test
+    @SdkSuppress(minSdkVersion = 28)
+    public void testEntityConfig_fromPlatform_toBundle() {
+        android.view.textclassifier.TextClassifier.EntityConfig platformEntityConfig =
+                android.view.textclassifier.TextClassifier.EntityConfig.create(
+                        Collections.singleton("hints"),
+                        Collections.singleton("included"),
+                        Collections.singleton("excluded"));
+
+        TextClassifier.EntityConfig entityConfig =
+                TextClassifier.EntityConfig.fromPlatform(platformEntityConfig);
+        Bundle bundle = entityConfig.toBundle();
+        TextClassifier.EntityConfig recovered =
+                TextClassifier.EntityConfig.createFromBundle(bundle);
+
+        assertThat(recovered.getHints()).containsExactly("hints");
+        assertThat(recovered.shouldIncludeDefaultEntityTypes()).isTrue();
+        assertThat(recovered.resolveEntityTypes(Arrays.asList("default", "excluded")))
+                .containsExactly("default", "included");
     }
 }
