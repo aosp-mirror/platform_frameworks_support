@@ -114,6 +114,23 @@
       "revId": "9b0053f77adcb14080e3282c9f8b9884b563a40b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "429f9e84_72d58315",
+        "filename": "gradlew",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-04-05T19:53:08Z",
+      "side": 1,
+      "message": "I guess that if we\u0027re removing the \"/frameworks/\" directory from the output filepath in https://android-review.googlesource.com/c/platform/frameworks/support/+/938816/3/buildSrc/out.gradle#29 that we probably want to remove \"/host\" here too",
+      "revId": "9b0053f77adcb14080e3282c9f8b9884b563a40b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
