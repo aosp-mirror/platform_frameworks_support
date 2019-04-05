@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "39891659_54e93e31",
+        "filename": "car/core/src/main/java/androidx/car/widget/ListItemAdapter.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-04-05T09:33:17Z",
+      "side": 1,
+      "message": "This needs to be @hide and @RestrictTo(LIBRARY). @IntDef cannot be made public. Explanation why here (go/android-annotations). Lint will continue to work even with it being @hide.",
+      "range": {
+        "startLine": 63,
+        "startChar": 3,
+        "endLine": 70,
+        "endChar": 43
+      },
+      "revId": "e468d33808f5354f71746213940dbdede05ca6f1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
