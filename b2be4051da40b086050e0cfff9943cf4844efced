@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "718e5f9f_81964b1c",
+        "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/RecyclerViewFocusRecoveryTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 810,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-04-05T18:54:21Z",
+      "side": 1,
+      "message": "Good point!  Fixed.",
+      "parentUuid": "aaaa52f2_1590129d",
+      "revId": "b2be4051da40b086050e0cfff9943cf4844efced",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a9e17f23_58c539c6",
         "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2019-04-05T18:18:14Z",
       "side": 1,
       "message": "this is disabling the check on a different bit of code...?",
+      "revId": "b2be4051da40b086050e0cfff9943cf4844efced",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6606657b_78799990",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 6331,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-04-05T18:54:21Z",
+      "side": 1,
+      "message": "I should have left a comment for you.  The previous //noinspection unchecked was actually off.  The unchecked cast is actually happening on \"mAdapter.onFailedToRecycleView(holder)\".",
+      "parentUuid": "a9e17f23_58c539c6",
       "revId": "b2be4051da40b086050e0cfff9943cf4844efced",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
