@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e72eaba5_7cacde2b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-05T23:51:17Z",
+      "side": 1,
+      "message": "This would have to be a 3.0 since it would be a breaking change, correct?",
+      "range": {
+        "startLine": 9,
+        "startChar": 2,
+        "endLine": 10,
+        "endChar": 19
+      },
+      "revId": "44b1e449d2934b4177137b5caa7696578e6ea45e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c44180a_8053e8e5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-05T23:51:17Z",
+      "side": 1,
+      "message": "Can you explain why this change helps the testing story? Why wouldn\u0027t the testing support do the runBlocking(worker.coroutineContext) { doWork() } for developers?",
+      "revId": "44b1e449d2934b4177137b5caa7696578e6ea45e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
