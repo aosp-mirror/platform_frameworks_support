@@ -22,6 +22,30 @@
       "revId": "afd3f6044f81976f86d4f9a56a1867934cfbfc87",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e04dd6e_dbecc86c",
+        "filename": "versionedparcelable/annotation/src/main/java/androidx/versionedparcelable/compiler/VersionedParcelProcessor.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 1345241
+      },
+      "writtenOn": "2019-04-05T20:06:25Z",
+      "side": 1,
+      "message": "Good catch, thank you",
+      "parentUuid": "ab9fec79_c29622c2",
+      "range": {
+        "startLine": 337,
+        "startChar": 36,
+        "endLine": 337,
+        "endChar": 47
+      },
+      "revId": "afd3f6044f81976f86d4f9a56a1867934cfbfc87",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
