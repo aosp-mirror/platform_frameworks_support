@@ -16,6 +16,24 @@
       "revId": "cf7b27a57dc69fb5562f2649c85593115b08dd5c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d842f078_33d64cc4",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/DiffAndDocs.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 619,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-04-05T15:50:22Z",
+      "side": 1,
+      "message": "Undid the change.",
+      "parentUuid": "4b073390_94f47605",
+      "revId": "cf7b27a57dc69fb5562f2649c85593115b08dd5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
