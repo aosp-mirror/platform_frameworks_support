@@ -34,7 +34,7 @@ open class ListProjectDependencyVersionsTask : DefaultTask() {
     init {
         group = "Help"
         description = "Creates a json file of the project-specificndependency information in " +
-                getProjectDependencyGraphFileName()
+            getProjectDependencyGraphFileName().replace(project.name.toString(), "myproject")
     }
 
     // Output Dependency Graph File
@@ -143,7 +143,7 @@ open class ListProjectDependencyVersionsTask : DefaultTask() {
 open class DependencyGraphFileTask : DefaultTask() {
     init {
         group = "Help"
-        description = "Creates a json file of the AndroidX dependency graph in" +
+        description = "Creates a json file of the AndroidX dependency graph in " +
                 getDependencyGraphFileName()
     }
 
