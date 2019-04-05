@@ -22,6 +22,30 @@
       "revId": "d445604d6c0bc2a13e0541fe86330483ec965418",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29a20961_81539fd9",
+        "filename": "preference/src/main/java/androidx/preference/Preference.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 591,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-04-05T11:33:12Z",
+      "side": 1,
+      "message": "Any custom background they set should be some form of ripple or state list drawable, or else there won\u0027t be any touch feedback on the preference. So removing that is expected in this case.",
+      "parentUuid": "15befdd7_7915b038",
+      "range": {
+        "startLine": 591,
+        "startChar": 12,
+        "endLine": 591,
+        "endChar": 53
+      },
+      "revId": "d445604d6c0bc2a13e0541fe86330483ec965418",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
