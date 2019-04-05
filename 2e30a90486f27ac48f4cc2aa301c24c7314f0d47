@@ -1,0 +1,271 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5dc74206_5a5d6fc5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-04-05T16:06:23Z",
+      "side": 1,
+      "message": "Don\u0027t comment about what each patchset does, only how it differs from the base.",
+      "revId": "2e30a90486f27ac48f4cc2aa301c24c7314f0d47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f38864b6_76963154",
+        "filename": "paging/rxjava2/build.gradle",
+        "patchSetId": 14
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-04-05T16:06:23Z",
+      "side": 1,
+      "message": "TEST_ are all android test libraries - they shouldn\u0027t be used in TestImplementation (though that\u0027s super unclear naming, please filing a bug to the root AndroidX component)\n\nIf you want to use regular src/test directories, I\u0027m all for it, but I think we should move the whole library\u0027s tests all at once, since they don\u0027t seem to need android (and then we just drop the runner / test size annotation).\n\nMind making that a follow up, and just keeping the tests in androidSrc for now?",
+      "revId": "2e30a90486f27ac48f4cc2aa301c24c7314f0d47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6327e36e_9b5ad0e9",
+        "filename": "paging/rxjava2/src/main/java/androidx/paging/RxDataSourceUtil.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-04-05T16:06:23Z",
+      "side": 1,
+      "message": "why is this needed?",
+      "revId": "2e30a90486f27ac48f4cc2aa301c24c7314f0d47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69b83979_ea106053",
+        "filename": "paging/rxjava2/src/main/java/androidx/paging/RxDataSourceUtil.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-04-05T16:06:23Z",
+      "side": 1,
+      "message": "use an \u0027else\u0027 here - the future will ignore the set after setException, so code here should make it clear that only one makes it through",
+      "revId": "2e30a90486f27ac48f4cc2aa301c24c7314f0d47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac4bdf1f_41c09ad1",
+        "filename": "paging/rxjava2/src/main/java/androidx/paging/RxItemKeyedDataSource.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-04-05T16:06:23Z",
+      "side": 1,
+      "message": "instead of storing this as an executor, store this as a scheduler.\n\nthen modify RxPagedListBuilder to use create something like a \u0027ScheduledExecutor\u0027 instead of the anonymous ones it does now in setFetchScheduler/setNotifyScheduler.\n\nThen, change \u0027getScheduledExecutor\u0027 to \u0027getScheduler\u0027 and do a instanceof ScheduledExecutor to see if you can just get the underlying scheduler. If not, Schedulers.from(executor)",
+      "revId": "2e30a90486f27ac48f4cc2aa301c24c7314f0d47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc9ae791_a88094ef",
+        "filename": "paging/rxjava2/src/main/java/androidx/paging/RxItemKeyedDataSource.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-04-05T16:06:23Z",
+      "side": 1,
+      "message": "move these \u0027rx extension\u0027 parts to be the 2nd paragraph.\n\nonly the first paragraph will show up as a summary, and that\u0027s the important one",
+      "revId": "2e30a90486f27ac48f4cc2aa301c24c7314f0d47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a62dc09_f0dc755f",
+        "filename": "paging/rxjava2/src/main/java/androidx/paging/RxItemKeyedDataSource.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-04-05T16:06:23Z",
+      "side": 1,
+      "message": "convention (at least in paging) is no \u003cp\u003e after the first paragraph, in order to highlight that it\u0027s the summary line",
+      "revId": "2e30a90486f27ac48f4cc2aa301c24c7314f0d47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d70e47d_5a9c437d",
+        "filename": "paging/rxjava2/src/main/java/androidx/paging/RxItemKeyedDataSource.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-04-05T16:06:23Z",
+      "side": 1,
+      "message": "Invoked to load initial data from this DataSource as an Single\u003c\u003e",
+      "range": {
+        "startLine": 70,
+        "startChar": 7,
+        "endLine": 70,
+        "endChar": 71
+      },
+      "revId": "2e30a90486f27ac48f4cc2aa301c24c7314f0d47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c1910b5_8fae727c",
+        "filename": "paging/rxjava2/src/test/java/androidx/paging/PagedListTestUtil.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-04-05T16:06:23Z",
+      "side": 1,
+      "message": "Add a comment here: initialize data source and trigger initial load.\n\nI don\u0027t think the name is clear though, how about DataSource.performInitialLoad()?\n\nNot sure why you\u0027re not returning a ListenableFuture, so you can observe the result",
+      "revId": "2e30a90486f27ac48f4cc2aa301c24c7314f0d47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "950df548_747523f5",
+        "filename": "paging/rxjava2/src/test/java/androidx/paging/PagedListTestUtil.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-04-05T16:06:23Z",
+      "side": 1,
+      "message": "Avoid baking in Configs like this outside of the test file itself, it makes it very hard to read the test and know e.g. how big the initial load will be. (even if you\u0027re not testing for that, those tests will often get added)\n\nAlso, suggest a page size of 2 when you don\u0027t need anything bigger - it makes debugging easier when you can compare smaller lists.",
+      "revId": "2e30a90486f27ac48f4cc2aa301c24c7314f0d47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b25fc12e_ed284bb0",
+        "filename": "paging/rxjava2/src/test/java/androidx/paging/RxItemKeyedDataSourceTest.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-04-05T16:06:23Z",
+      "side": 1,
+      "message": "if you\u0027re just initializing the executor, just call dataSource.initExecutor",
+      "revId": "2e30a90486f27ac48f4cc2aa301c24c7314f0d47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1cd7dd76_c0097c13",
+        "filename": "paging/rxjava2/src/test/java/androidx/paging/RxItemKeyedDataSourceTest.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-04-05T16:06:23Z",
+      "side": 1,
+      "message": "Don\u0027t feel super strongly, but I\u0027d prefer against hamcrest matchers - I find them slightly harder to read (especially with `is` in kotlin).",
+      "revId": "2e30a90486f27ac48f4cc2aa301c24c7314f0d47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d75ec5e_d10c6b09",
+        "filename": "paging/rxjava2/src/test/java/androidx/paging/RxItemKeyedDataSourceTest.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-04-05T16:06:23Z",
+      "side": 1,
+      "message": "make the load sizes smaller - I\u0027d recommend 5 at most\n\nIt\u0027s always nicer to read a failed assert of smaller list sizes :)",
+      "range": {
+        "startLine": 128,
+        "startChar": 46,
+        "endLine": 128,
+        "endChar": 48
+      },
+      "revId": "2e30a90486f27ac48f4cc2aa301c24c7314f0d47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d287da0e_ed29a0fd",
+        "filename": "paging/rxjava2/src/test/java/androidx/paging/RxItemKeyedDataSourceTest.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-04-05T16:06:23Z",
+      "side": 1,
+      "message": "put a \u0027fail()\u0027 after these gets that should throw",
+      "revId": "2e30a90486f27ac48f4cc2aa301c24c7314f0d47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d5d504a_fea7d6ac",
+        "filename": "paging/rxjava2/src/test/java/androidx/paging/TestExecutor.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-04-05T16:06:23Z",
+      "side": 1,
+      "message": "Good follow up would be to move this to an internal test-only artifact, (along with ListDataSource, I think), since it should just be shared by tests.",
+      "revId": "2e30a90486f27ac48f4cc2aa301c24c7314f0d47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
