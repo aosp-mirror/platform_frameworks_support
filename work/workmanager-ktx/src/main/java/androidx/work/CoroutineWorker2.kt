@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 The Android Open Source Project
+ * Copyright 2019 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,28 +20,22 @@ import android.content.Context
 import androidx.work.impl.utils.futures.SettableFuture
 import com.google.common.util.concurrent.ListenableFuture
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.asCoroutineDispatcher
 import kotlinx.coroutines.launch
+import kotlin.coroutines.CoroutineContext
 
 /**
  * A [ListenableWorker] implementation that provides interop with Kotlin Coroutines.  Override
  * the [doWork] function to do your suspending work.
  * <p>
- * By default, CoroutineWorker runs on [Dispatchers.Default]; this can be modified by
- * overriding [coroutineContext].
+ * By default, CoroutineWorker runs on the executor defined in [Configuration.Builder.setExecutor]
+ * this can be modified by overriding [coroutineContext].
  * <p>
  * A CoroutineWorker is given a maximum of ten minutes to finish its execution and return a
  * [ListenableWorker.Result].  After this time has expired, the worker will be signalled to stop.
  */
-@Deprecated(
-    message = "Use CoroutineWorker2 instead",
-    replaceWith = ReplaceWith(
-        "CoroutineWorker2",
-        imports = arrayOf("androidx.worker.CoroutineWorker2")
-    )
-)
-abstract class CoroutineWorker(
+abstract class CoroutineWorker2(
     appContext: Context,
     params: WorkerParameters
 ) : ListenableWorker(appContext, params) {
@@ -61,9 +55,10 @@ abstract class CoroutineWorker(
     }
 
     /**
-     * The coroutine context on which [doWork] will run. By default, this is [Dispatchers.Default].
+     * The coroutine context on which [doWork] will run. By default, this is defined in
+     * [Configuration.Builder.setExecutor].
      */
-    open val coroutineContext = Dispatchers.Default
+    open val coroutineContext: CoroutineContext = backgroundExecutor.asCoroutineDispatcher()
 
     final override fun startWork(): ListenableFuture<Result> {
 
@@ -82,7 +77,8 @@ abstract class CoroutineWorker(
 
     /**
      * A suspending method to do your work.  This function runs on the coroutine context specified
-     * by [coroutineContext].
+     * by [coroutineContext]. The receiver inside the [doWork] method is the [coroutineContext]
+     * used.
      * <p>
      * A CoroutineWorker is given a maximum of ten minutes to finish its execution and return a
      * [ListenableWorker.Result].  After this time has expired, the worker will be signalled to
@@ -91,7 +87,7 @@ abstract class CoroutineWorker(
      * @return The [ListenableWorker.Result] of the result of the background work; note that
      * dependent work will not execute if you return [ListenableWorker.Result.failure]
      */
-    abstract suspend fun doWork(): Result
+    abstract suspend fun CoroutineScope.doWork(): Result
 
     final override fun onStopped() {
         super.onStopped()
