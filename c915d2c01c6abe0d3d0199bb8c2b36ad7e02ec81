@@ -22,6 +22,30 @@
       "revId": "c915d2c01c6abe0d3d0199bb8c2b36ad7e02ec81",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bff3c724_608780cb",
+        "filename": "buildSrc/src/test/kotlin/androidx/build/dependencyTracker/AffectedModuleDetectorImplTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1442661
+      },
+      "writtenOn": "2019-04-05T17:38:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e79c9beb_08100159",
+      "range": {
+        "startLine": 52,
+        "startChar": 16,
+        "endLine": 52,
+        "endChar": 21
+      },
+      "revId": "c915d2c01c6abe0d3d0199bb8c2b36ad7e02ec81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
