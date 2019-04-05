@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a8ae82bb_09a45542",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/DiffAndDocs.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-04-05T11:27:35Z",
+      "side": 1,
+      "message": "This was supposed to be previous.xml, not txt, cannot reuse the variable.",
+      "range": {
+        "startLine": 142,
+        "startChar": 34,
+        "endLine": 142,
+        "endChar": 46
+      },
+      "revId": "0af3cd427be87920480f995ffda6294bf7e8177b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
