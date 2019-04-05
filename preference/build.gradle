@@ -23,11 +23,18 @@ plugins {
 }
 
 dependencies {
+<<<<<<< HEAD   (69f76e Merge "Merge empty history for sparse-5425228-L6310000028962)
     api(project(":annotation"))
     api("androidx.appcompat:appcompat:1.1.0-alpha02")
     api(project(":core"))
+=======
+    // TODO: change to 1.1.0-alpha02 after release
+    api(project(":appcompat"))
+    api("androidx.core:core:1.1.0-alpha01")
+>>>>>>> BRANCH (bf79df Merge "Merge cherrypicks of [940699] into sparse-5433600-L95)
     implementation("androidx.collection:collection:1.0.0")
-    api("androidx.fragment:fragment:1.1.0-alpha04")
+    // TODO: change to 1.1.0-alpha04 after release
+    api(project(":fragment"))
     api("androidx.recyclerview:recyclerview:1.0.0")
 
     androidTestImplementation(TEST_EXT_JUNIT)
@@ -59,6 +66,6 @@ supportLibrary {
     mavenGroup = LibraryGroups.PREFERENCE
     inceptionYear = "2015"
     description = "AndroidX Preference"
-    // TODO: remove when PreferenceFragment / PreferenceDialogFragment are removed
+    failOnUncheckedWarnings = false
     failOnDeprecationWarnings = false
 }

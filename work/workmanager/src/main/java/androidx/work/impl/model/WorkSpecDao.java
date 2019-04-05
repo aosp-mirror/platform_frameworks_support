@@ -292,6 +292,7 @@ public interface WorkSpecDao {
     List<WorkSpec> getEligibleWorkForScheduling(int schedulerLimit);
 
     /**
+<<<<<<< HEAD   (69f76e Merge "Merge empty history for sparse-5425228-L6310000028962)
      * @return The List of {@link WorkSpec}s that are unfinished and scheduled.
      */
     @Query("SELECT * FROM workspec WHERE "
@@ -303,6 +304,8 @@ public interface WorkSpecDao {
     List<WorkSpec> getScheduledWork();
 
     /**
+=======
+>>>>>>> BRANCH (bf79df Merge "Merge cherrypicks of [940699] into sparse-5433600-L95)
      * Immediately prunes eligible work from the database meeting the following criteria:
      * - Is finished (succeeded, failed, or cancelled)
      * - Has zero unfinished dependents

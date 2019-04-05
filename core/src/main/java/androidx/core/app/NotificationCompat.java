@@ -16,7 +16,7 @@
 
 package androidx.core.app;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
@@ -457,7 +457,7 @@ public class NotificationCompat {
     public static final int COLOR_DEFAULT = Color.TRANSPARENT;
 
     /** @hide */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     @IntDef({AudioManager.STREAM_VOICE_CALL, AudioManager.STREAM_SYSTEM, AudioManager.STREAM_RING,
             AudioManager.STREAM_MUSIC, AudioManager.STREAM_ALARM, AudioManager.STREAM_NOTIFICATION,
             AudioManager.STREAM_DTMF, AudioManager.STREAM_ACCESSIBILITY})
@@ -465,7 +465,7 @@ public class NotificationCompat {
     public @interface StreamType {}
 
     /** @hide */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     @Retention(SOURCE)
     @IntDef({VISIBILITY_PUBLIC, VISIBILITY_PRIVATE, VISIBILITY_SECRET})
     public @interface NotificationVisibility {}
@@ -576,7 +576,7 @@ public class NotificationCompat {
 
     /** @hide */
     @Retention(RetentionPolicy.SOURCE)
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     @IntDef({BADGE_ICON_NONE, BADGE_ICON_SMALL, BADGE_ICON_LARGE})
     public @interface BadgeIconType {}
     /**
@@ -598,7 +598,7 @@ public class NotificationCompat {
 
     /** @hide */
     @Retention(RetentionPolicy.SOURCE)
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     @IntDef({GROUP_ALERT_ALL, GROUP_ALERT_SUMMARY, GROUP_ALERT_CHILDREN})
     public @interface GroupAlertBehavior {}
 
@@ -667,11 +667,11 @@ public class NotificationCompat {
         // extender.
 
         /** @hide */
-        @RestrictTo(LIBRARY_GROUP_PREFIX)
+        @RestrictTo(LIBRARY_GROUP)
         public Context mContext;
 
         /** @hide */
-        @RestrictTo(LIBRARY_GROUP_PREFIX)
+        @RestrictTo(LIBRARY_GROUP)
         public ArrayList<Action> mActions = new ArrayList<>();
 
         // Invisible actions are stored in the CarExtender bundle without actually being owned by
@@ -1601,7 +1601,7 @@ public class NotificationCompat {
         /**
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP_PREFIX)
+        @RestrictTo(LIBRARY_GROUP)
         public RemoteViews getContentView() {
             return mContentView;
         }
@@ -1609,7 +1609,7 @@ public class NotificationCompat {
         /**
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP_PREFIX)
+        @RestrictTo(LIBRARY_GROUP)
         public RemoteViews getBigContentView() {
             return mBigContentView;
         }
@@ -1617,7 +1617,7 @@ public class NotificationCompat {
         /**
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP_PREFIX)
+        @RestrictTo(LIBRARY_GROUP)
         public RemoteViews getHeadsUpContentView() {
             return mHeadsUpContentView;
         }
@@ -1627,7 +1627,7 @@ public class NotificationCompat {
          *
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP_PREFIX)
+        @RestrictTo(LIBRARY_GROUP)
         public long getWhenIfShowing() {
             return mShowWhen ? mNotification.when : 0;
         }
@@ -1637,7 +1637,7 @@ public class NotificationCompat {
          *
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP_PREFIX)
+        @RestrictTo(LIBRARY_GROUP)
         public int getPriority() {
             return mPriority;
         }
@@ -1647,7 +1647,7 @@ public class NotificationCompat {
          *
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP_PREFIX)
+        @RestrictTo(LIBRARY_GROUP)
         public int getColor() {
             return mColor;
         }
@@ -1664,7 +1664,7 @@ public class NotificationCompat {
         /**
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP_PREFIX)
+        @RestrictTo(LIBRARY_GROUP)
         protected Builder mBuilder;
         CharSequence mBigContentTitle;
         CharSequence mSummaryText;
@@ -1693,7 +1693,7 @@ public class NotificationCompat {
          *
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP_PREFIX)
+        @RestrictTo(LIBRARY_GROUP)
         // TODO: implement for all styles
         public void apply(NotificationBuilderWithBuilderAccessor builder) {
         }
@@ -1701,7 +1701,7 @@ public class NotificationCompat {
         /**
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP_PREFIX)
+        @RestrictTo(LIBRARY_GROUP)
         public RemoteViews makeContentView(NotificationBuilderWithBuilderAccessor builder) {
             return null;
         }
@@ -1709,7 +1709,7 @@ public class NotificationCompat {
         /**
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP_PREFIX)
+        @RestrictTo(LIBRARY_GROUP)
         public RemoteViews makeBigContentView(NotificationBuilderWithBuilderAccessor builder) {
             return null;
         }
@@ -1717,7 +1717,7 @@ public class NotificationCompat {
         /**
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP_PREFIX)
+        @RestrictTo(LIBRARY_GROUP)
         public RemoteViews makeHeadsUpContentView(NotificationBuilderWithBuilderAccessor builder) {
             return null;
         }
@@ -1725,7 +1725,7 @@ public class NotificationCompat {
         /**
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP_PREFIX)
+        @RestrictTo(LIBRARY_GROUP)
         // TODO: implement for all styles
         public void addCompatExtras(Bundle extras) {
         }
@@ -1733,7 +1733,7 @@ public class NotificationCompat {
         /**
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP_PREFIX)
+        @RestrictTo(LIBRARY_GROUP)
         // TODO: implement for all styles
         protected void restoreFromCompatExtras(Bundle extras) {
         }
@@ -1741,7 +1741,7 @@ public class NotificationCompat {
         /**
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP_PREFIX)
+        @RestrictTo(LIBRARY_GROUP)
         public RemoteViews applyStandardTemplate(boolean showSmallIcon,
                 int resId, boolean fitIn1U) {
             Resources res = mBuilder.mContext.getResources();
@@ -1889,7 +1889,7 @@ public class NotificationCompat {
         /**
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP_PREFIX)
+        @RestrictTo(LIBRARY_GROUP)
         public Bitmap createColoredBitmap(int iconId, int color) {
             return createColoredBitmap(iconId, color, 0);
         }
@@ -1926,7 +1926,7 @@ public class NotificationCompat {
         /**
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP_PREFIX)
+        @RestrictTo(LIBRARY_GROUP)
         public void buildIntoRemoteViews(RemoteViews outerView,
                 RemoteViews innerView) {
             // this needs to be done fore the other calls, since otherwise we might hide the wrong
@@ -2036,7 +2036,7 @@ public class NotificationCompat {
         /**
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP_PREFIX)
+        @RestrictTo(LIBRARY_GROUP)
         @Override
         public void apply(NotificationBuilderWithBuilderAccessor builder) {
             if (Build.VERSION.SDK_INT >= 16) {
@@ -2115,7 +2115,7 @@ public class NotificationCompat {
         /**
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP_PREFIX)
+        @RestrictTo(LIBRARY_GROUP)
         @Override
         public void apply(NotificationBuilderWithBuilderAccessor builder) {
             if (Build.VERSION.SDK_INT >= 16) {
@@ -2380,7 +2380,7 @@ public class NotificationCompat {
         /**
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP_PREFIX)
+        @RestrictTo(LIBRARY_GROUP)
         @Override
         public void apply(NotificationBuilderWithBuilderAccessor builder) {
             // This is called because we need to apply legacy logic before writing MessagingInfo
@@ -2559,7 +2559,7 @@ public class NotificationCompat {
         /**
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP_PREFIX)
+        @RestrictTo(LIBRARY_GROUP)
         @Override
         protected void restoreFromCompatExtras(Bundle extras) {
             mMessages.clear();
@@ -2888,7 +2888,7 @@ public class NotificationCompat {
         /**
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP_PREFIX)
+        @RestrictTo(LIBRARY_GROUP)
         @Override
         public void apply(NotificationBuilderWithBuilderAccessor builder) {
             if (Build.VERSION.SDK_INT >= 16) {
@@ -2943,7 +2943,7 @@ public class NotificationCompat {
         /**
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP_PREFIX)
+        @RestrictTo(LIBRARY_GROUP)
         @Override
         public void apply(NotificationBuilderWithBuilderAccessor builder) {
             if (Build.VERSION.SDK_INT >= 24) {
@@ -2954,7 +2954,7 @@ public class NotificationCompat {
         /**
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP_PREFIX)
+        @RestrictTo(LIBRARY_GROUP)
         @Override
         public RemoteViews makeContentView(NotificationBuilderWithBuilderAccessor builder) {
             if (Build.VERSION.SDK_INT >= 24) {
@@ -2971,7 +2971,7 @@ public class NotificationCompat {
         /**
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP_PREFIX)
+        @RestrictTo(LIBRARY_GROUP)
         @Override
         public RemoteViews makeBigContentView(NotificationBuilderWithBuilderAccessor builder) {
             if (Build.VERSION.SDK_INT >= 24) {
@@ -2992,7 +2992,7 @@ public class NotificationCompat {
         /**
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP_PREFIX)
+        @RestrictTo(LIBRARY_GROUP)
         @Override
         public RemoteViews makeHeadsUpContentView(NotificationBuilderWithBuilderAccessor builder) {
             if (Build.VERSION.SDK_INT >= 24) {
@@ -4655,13 +4655,13 @@ public class NotificationCompat {
      */
     public static final class CarExtender implements Extender {
         /** @hide **/
-        @RestrictTo(LIBRARY_GROUP_PREFIX)
+        @RestrictTo(LIBRARY_GROUP)
         static final String EXTRA_CAR_EXTENDER = "android.car.EXTENSIONS";
         private static final String EXTRA_LARGE_ICON = "large_icon";
         private static final String EXTRA_CONVERSATION = "car_conversation";
         private static final String EXTRA_COLOR = "app_color";
         /** @hide **/
-        @RestrictTo(LIBRARY_GROUP_PREFIX)
+        @RestrictTo(LIBRARY_GROUP)
         static final String EXTRA_INVISIBLE_ACTIONS = "invisible_actions";
 
         private static final String KEY_AUTHOR = "author";

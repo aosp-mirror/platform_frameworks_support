@@ -1,4 +1,4 @@
-// Signature format: 3.0
+// Signature format: 2.0
 package androidx.navigation.fragment {
 
   public final class FragmentKt {
@@ -8,7 +8,10 @@ package androidx.navigation.fragment {
 
   public final class FragmentNavArgsLazyKt {
     ctor public FragmentNavArgsLazyKt();
+<<<<<<< HEAD   (69f76e Merge "Merge empty history for sparse-5425228-L6310000028962)
     method @MainThread public static inline <reified Args extends androidx.navigation.NavArgs> androidx.navigation.NavArgsLazy<Args>! navArgs(android.support.v4.app.Fragment);
+=======
+>>>>>>> BRANCH (bf79df Merge "Merge cherrypicks of [940699] into sparse-5433600-L95)
   }
 
   public final class FragmentNavigatorDestinationBuilder extends androidx.navigation.NavDestinationBuilder<androidx.navigation.fragment.FragmentNavigator.Destination> {
@@ -18,8 +21,11 @@ package androidx.navigation.fragment {
 
   public final class FragmentNavigatorDestinationBuilderKt {
     ctor public FragmentNavigatorDestinationBuilderKt();
+<<<<<<< HEAD   (69f76e Merge "Merge empty history for sparse-5425228-L6310000028962)
     method public static inline <reified F extends android.support.v4.app.Fragment> void fragment(androidx.navigation.NavGraphBuilder, @IdRes int id);
     method public static inline <reified F extends android.support.v4.app.Fragment> void fragment(androidx.navigation.NavGraphBuilder, @IdRes int id, kotlin.jvm.functions.Function1<? super androidx.navigation.fragment.FragmentNavigatorDestinationBuilder,kotlin.Unit>! builder);
+=======
+>>>>>>> BRANCH (bf79df Merge "Merge cherrypicks of [940699] into sparse-5433600-L95)
   }
 
   public final class FragmentNavigatorExtrasKt {

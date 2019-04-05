@@ -83,14 +83,6 @@ class Main {
             hasArgs = false,
             isRequired = false
         )
-        val OPTION_STRIP_SIGNATURES = createOption(
-            argName = "stripSignatures",
-            argNameLong = "stripSignatures",
-            desc = "Don't throw an error when jetifying a signed library and instead strip " +
-                    "the signature files.",
-            hasArgs = false,
-            isRequired = false
-        )
 
         private fun createOption(
             argName: String,
@@ -146,13 +138,15 @@ class Main {
 
         val isReversed = cmd.hasOption(OPTION_REVERSED.opt)
         val isStrict = cmd.hasOption(OPTION_STRICT.opt)
+<<<<<<< HEAD   (69f76e Merge "Merge empty history for sparse-5425228-L6310000028962)
         val shouldStripSignatures = cmd.hasOption(OPTION_STRIP_SIGNATURES.opt)
+=======
+>>>>>>> BRANCH (bf79df Merge "Merge cherrypicks of [940699] into sparse-5433600-L95)
 
-        val processor = Processor.createProcessor3(
+        val processor = Processor.createProcessor2(
             config = config,
             reversedMode = isReversed,
             rewritingSupportLib = rebuildTopOfTree,
-            stripSignatures = shouldStripSignatures,
             useFallbackIfTypeIsMissing = !isStrict)
         processor.transform(fileMappings)
 

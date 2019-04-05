@@ -16,7 +16,7 @@
 
 package androidx.media2.subtitle;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import androidx.annotation.RestrictTo;
 
@@ -24,7 +24,7 @@ import androidx.annotation.RestrictTo;
 /**
  * @hide
  */
-@RestrictTo(LIBRARY_GROUP_PREFIX)
+@RestrictTo(LIBRARY_GROUP)
 public interface MediaTimeProvider {
     // we do not allow negative media time
     /**

@@ -16,7 +16,7 @@
 
 package androidx.emoji.widget;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -32,7 +32,7 @@ import androidx.emoji.R;
  *
  * @hide
  */
-@RestrictTo(LIBRARY_GROUP_PREFIX)
+@RestrictTo(LIBRARY_GROUP)
 public class EditTextAttributeHelper {
     static final int MAX_EMOJI_COUNT = Integer.MAX_VALUE;
     private int mMaxEmojiCount;

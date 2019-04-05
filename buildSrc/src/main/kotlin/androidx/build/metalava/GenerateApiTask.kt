@@ -17,6 +17,15 @@
 package androidx.build.metalava
 
 import androidx.build.checkapi.ApiLocation
+<<<<<<< HEAD   (69f76e Merge "Merge empty history for sparse-5425228-L6310000028962)
+=======
+import com.android.build.gradle.BaseExtension
+import com.android.build.gradle.api.BaseVariant
+import com.google.common.io.Files
+import org.gradle.api.attributes.Attribute
+import org.gradle.api.file.FileCollection
+import org.gradle.api.tasks.InputFiles
+>>>>>>> BRANCH (bf79df Merge "Merge cherrypicks of [940699] into sparse-5433600-L95)
 import org.gradle.api.tasks.OutputFiles
 import org.gradle.api.tasks.TaskAction
 import java.io.File
@@ -56,7 +65,8 @@ open class GenerateApiTask : MetalavaTask() {
             "--api",
             publicApiFile.toString(),
 
-            "--format=v3",
+            "--compatible-output=no",
+            "--omit-common-packages=yes",
             "--output-kotlin-nulls=yes"
         )
 
@@ -76,7 +86,8 @@ open class GenerateApiTask : MetalavaTask() {
                 "--show-annotation",
                 "androidx.annotation.RestrictTo",
 
-                "--format=v3",
+                "--compatible-output=no",
+                "--omit-common-packages=yes",
                 "--output-kotlin-nulls=yes"
             )
 

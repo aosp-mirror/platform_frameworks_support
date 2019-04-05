@@ -29,7 +29,7 @@ lintOptions {
 }
 
 dependencies {
-    compile(project(":annotation"))
+    compile(SUPPORT_ANNOTATIONS)
     compile(ARCH_CORE_COMMON)
 
     testCompile(JUNIT)

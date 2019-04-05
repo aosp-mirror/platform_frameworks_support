@@ -46,16 +46,6 @@ interface ArchiveItem {
     val wasChanged: Boolean
 
     /**
-     * Whether to exclude this item from the generated output.
-     */
-    var markedForRemoval: Boolean
-
-    /**
-     * Finds all the files satisfying the given [selector] and adds them to [result].
-     */
-    fun findAllFiles(selector: (ArchiveFile) -> Boolean, result: FileSearchResult)
-
-    /**
      * Accepts visitor.
      */
     fun accept(visitor: ArchiveItemVisitor)
@@ -65,13 +55,14 @@ interface ArchiveItem {
      */
     fun writeSelfTo(outputStream: OutputStream)
 
-    fun isPomFile() = fileName.equals("pom.xml", ignoreCase = true) ||
-            fileName.endsWith(".pom", ignoreCase = true)
+    fun isPomFile() = fileName.equals("pom.xml", ignoreCase = true)
+            || fileName.endsWith(".pom", ignoreCase = true)
 
     fun isClassFile() = fileName.endsWith(".class", ignoreCase = true)
 
     fun isXmlFile() = fileName.endsWith(".xml", ignoreCase = true)
 
+<<<<<<< HEAD   (69f76e Merge "Merge empty history for sparse-5425228-L6310000028962)
     fun isProGuardFile() = fileName.equals("proguard.txt", ignoreCase = true)
 }
 
@@ -87,4 +78,7 @@ class FileSearchResult {
     fun addFile(file: ArchiveFile) {
         all.add(file)
     }
+=======
+    fun isProGuardFile () = fileName.equals("proguard.txt", ignoreCase = true)
+>>>>>>> BRANCH (bf79df Merge "Merge cherrypicks of [940699] into sparse-5433600-L95)
 }

@@ -20,6 +20,7 @@ import android.os.Bundle
 import androidx.fragment.app.FragmentFactory
 import androidx.fragment.testing.test.R.style.ThemedFragmentTheme
 import androidx.lifecycle.Lifecycle.State
+<<<<<<< HEAD   (69f76e Merge "Merge empty history for sparse-5425228-L6310000028962)
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -28,6 +29,9 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.filters.LargeTest
+=======
+import androidx.test.ext.junit.runners.AndroidJUnit4
+>>>>>>> BRANCH (bf79df Merge "Merge cherrypicks of [940699] into sparse-5433600-L95)
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -48,7 +52,6 @@ private class NoDefaultConstructorFragmentFactory(val arg: String) : FragmentFac
  * Verifies FragmentScenario API works consistently across different Android framework versions.
  */
 @RunWith(AndroidJUnit4::class)
-@LargeTest
 class FragmentScenarioTest {
     @Test
     fun launchFragment() {
@@ -399,6 +402,7 @@ class FragmentScenarioTest {
             }
         }
     }
+<<<<<<< HEAD   (69f76e Merge "Merge empty history for sparse-5425228-L6310000028962)
 
     @Test
     fun fragmentWithOptionsMenu() {
@@ -406,4 +410,6 @@ class FragmentScenarioTest {
         openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext())
         onView(withText("Item1")).check(matches(isDisplayed()))
     }
+=======
+>>>>>>> BRANCH (bf79df Merge "Merge cherrypicks of [940699] into sparse-5433600-L95)
 }

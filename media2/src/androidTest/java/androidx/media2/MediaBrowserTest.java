@@ -47,6 +47,7 @@ import androidx.media2.MediaSession.ControllerInfo;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.filters.SdkSuppress;
+import androidx.test.filters.SmallTest;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -65,7 +66,7 @@ import java.util.concurrent.atomic.AtomicReference;
 // TODO(jaewan): Implement host-side test so browser and service can run in different processes.
 @SdkSuppress(minSdkVersion = Build.VERSION_CODES.JELLY_BEAN)
 @RunWith(AndroidJUnit4.class)
-@LargeTest
+@SmallTest
 public class MediaBrowserTest extends MediaControllerTest {
     private static final String TAG = "MediaBrowserTest";
 

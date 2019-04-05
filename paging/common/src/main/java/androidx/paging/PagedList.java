@@ -760,7 +760,7 @@ public abstract class PagedList<T> extends AbstractList<T> {
     }
 
     /** @hide */
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
     void offsetAccessIndices(int offset) {
         // update last loadAround index
         mLastLoad += offset;

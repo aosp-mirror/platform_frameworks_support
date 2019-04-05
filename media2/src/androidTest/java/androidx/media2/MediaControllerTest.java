@@ -52,6 +52,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.FlakyTest;
 import androidx.test.filters.LargeTest;
 import androidx.test.filters.SdkSuppress;
+import androidx.test.filters.SmallTest;
 import androidx.testutils.PollingCheck;
 
 import org.junit.After;
@@ -73,7 +74,7 @@ import java.util.concurrent.atomic.AtomicReference;
 // TODO(jaeawn): Revisit create/close session in the sHandler. It's no longer necessary.
 @SdkSuppress(minSdkVersion = Build.VERSION_CODES.JELLY_BEAN)
 @RunWith(AndroidJUnit4.class)
-@LargeTest
+@SmallTest
 @FlakyTest
 public class MediaControllerTest extends MediaSessionTestBase {
     private static final String TAG = "MediaControllerTest";

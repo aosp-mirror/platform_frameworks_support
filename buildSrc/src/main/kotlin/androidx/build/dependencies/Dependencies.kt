@@ -27,11 +27,11 @@ const val CONSTRAINT_LAYOUT = "androidx.constraintlayout:constraintlayout:1.1.0@
 const val DEXMAKER_MOCKITO = "com.linkedin.dexmaker:dexmaker-mockito:2.19.0"
 const val ESPRESSO_CONTRIB = "androidx.test.espresso:espresso-contrib:3.1.0"
 const val ESPRESSO_CORE = "androidx.test.espresso:espresso-core:3.1.0"
-const val FINDBUGS = "com.google.code.findbugs:jsr305:3.0.2"
+const val FINDBUGS = "com.google.code.findbugs:jsr305:2.0.1"
 const val GOOGLE_COMPILE_TESTING = "com.google.testing.compile:compile-testing:0.11"
 const val GSON = "com.google.code.gson:gson:2.8.0"
-const val GUAVA = "com.google.guava:guava:27.0.1-jre"
-const val GUAVA_ANDROID = "com.google.guava:guava:27.0.1-android"
+const val GUAVA = "com.google.guava:guava:23.5-jre"
+const val GUAVA_ANDROID = "com.google.guava:guava:23.6-android"
 const val GUAVA_LISTENABLE_FUTURE = "com.google.guava:listenablefuture:1.0"
 const val INTELLIJ_ANNOTATIONS = "com.intellij:annotations:12.0"
 const val JAVAPOET = "com.squareup:javapoet:1.8.0"
@@ -94,8 +94,13 @@ const val ARCH_CORE_COMMON = "androidx.arch.core:core-common:2.0.0@jar"
 const val ARCH_CORE_RUNTIME = "androidx.arch.core:core-runtime:2.0.0"
 const val ARCH_CORE_TESTING = "androidx.arch.core:core-testing:2.0.0"
 
+<<<<<<< HEAD   (69f76e Merge "Merge empty history for sparse-5425228-L6310000028962)
 const val SAFE_ARGS_ANDROID_GRADLE_PLUGIN = "com.android.tools.build:gradle:3.3.0"
 const val SAFE_ARGS_KOTLIN_GRADLE_PLUGIN = "org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.20"
+=======
+const val SAFE_ARGS_ANDROID_GRADLE_PLUGIN = "com.android.tools.build:gradle:3.2.1"
+const val SAFE_ARGS_KOTLIN_GRADLE_PLUGIN = "org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.0"
+>>>>>>> BRANCH (bf79df Merge "Merge cherrypicks of [940699] into sparse-5433600-L95)
 const val SAFE_ARGS_NAVIGATION_COMMON = "android.arch.navigation:navigation-common:1.0.0-alpha10"
 
 const val ARCH_PAGING_COMMON = "androidx.paging:paging-common:2.0.0"

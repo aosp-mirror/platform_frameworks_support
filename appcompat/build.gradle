@@ -11,9 +11,10 @@ dependencies {
 
     api(project(":core"))
     implementation(project(":collection"))
-    api(project(":cursoradapter"))
+    api("androidx.cursoradapter:cursoradapter:1.0.0")
     api(project(":fragment"))
-    api(project(":appcompat:appcompat-resources"))
+    api("androidx.vectordrawable:vectordrawable:1.0.1")
+    api("androidx.vectordrawable:vectordrawable-animated:1.0.0")
     api("androidx.drawerlayout:drawerlayout:1.0.0")
 
     androidTestImplementation(TEST_EXT_JUNIT)

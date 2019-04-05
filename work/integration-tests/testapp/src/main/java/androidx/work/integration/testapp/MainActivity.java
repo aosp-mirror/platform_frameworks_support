@@ -187,23 +187,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        findViewById(R.id.enqueue_periodic_work_flex).setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Data input = new Data.Builder()
-                                .putString(ToastWorker.ARG_MESSAGE, "Periodic work with Flex")
-                                .build();
-                        PeriodicWorkRequest request =
-                                new PeriodicWorkRequest.Builder(ToastWorker.class, 15,
-                                        TimeUnit.MINUTES, 10,
-                                        TimeUnit.MINUTES)
-                                        .setInputData(input)
-                                        .build();
-                        WorkManager.getInstance().enqueue(request);
-                    }
-                });
-
         findViewById(R.id.begin_unique_work_loop)
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -293,16 +276,6 @@ public class MainActivity extends AppCompatActivity {
                         ExistingWorkPolicy.REPLACE,
                         OneTimeWorkRequest.from(TestWorker.class)).enqueue();
 
-            }
-        });
-
-        findViewById(R.id.run_retry_worker).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                OneTimeWorkRequest request = new OneTimeWorkRequest.Builder(
-                        RetryWorker.class).build();
-
-                WorkManager.getInstance().enqueueUniqueWork(RetryWorker.TAG, REPLACE, request);
             }
         });
 

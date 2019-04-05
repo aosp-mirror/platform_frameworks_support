@@ -47,9 +47,6 @@ import org.robolectric.annotation.internal.DoNotInstrument;
 import org.robolectric.shadow.api.Shadow;
 import org.robolectric.shadows.ShadowContextWrapper;
 
-import java.util.List;
-import java.util.concurrent.Executor;
-
 /** Tests {@link BufferedServiceConnection}. */
 @RunWith(RobolectricTestRunner.class)
 @DoNotInstrument
@@ -64,11 +61,9 @@ public class BufferedServiceConnectionTest {
     private final Intent mBindIntent = new Intent();
     private final int mFlags = 0;
 
-    private final Executor mExecutor = new TestExecutor();
-
     private final TestHandler mTestHandler = new TestHandler();
     private final BufferedServiceConnection mBufferedServiceConnection =
-            new BufferedServiceConnection(mExecutor, mContext, mBindIntent, mFlags);
+            new BufferedServiceConnection(mContext, mBindIntent, mFlags);
 
     private final ComponentName mTestComponentName = new ComponentName("test_package", "");
     private final ComponentName mNotPhoneskyComponentName = mTestComponentName;
@@ -83,18 +78,9 @@ public class BufferedServiceConnectionTest {
 
     @Test
     @SmallTest
-    public void construct_nullExecutor_throwsNullPointerException() {
-        try {
-            new BufferedServiceConnection(null, mContext, mBindIntent, mFlags);
-            fail();
-        } catch (NullPointerException expected) { }
-    }
-
-    @Test
-    @SmallTest
     public void construct_nullContext_throwsNullPointerException() {
         try {
-            new BufferedServiceConnection(mExecutor, null, mBindIntent, mFlags);
+            new BufferedServiceConnection(null, mBindIntent, mFlags);
             fail();
         } catch (NullPointerException expected) { }
     }
@@ -103,7 +89,7 @@ public class BufferedServiceConnectionTest {
     @SmallTest
     public void construct_nullBindIntent_throwsNullPointerException() {
         try {
-            new BufferedServiceConnection(mExecutor, mContext, null, mFlags);
+            new BufferedServiceConnection(mContext, null, mFlags);
             fail();
         } catch (NullPointerException expected) { }
     }
@@ -121,38 +107,11 @@ public class BufferedServiceConnectionTest {
 
     @Test
     @SmallTest
-    public void bind_bindingExists() {
-        mBufferedServiceConnection.bindService();
-
-        assertThat(getBoundServiceConnections()).isNotEmpty();
-    }
-
-    @Test
-    @SmallTest
     public void bind_alreadyBound_throwsIllegalStateException() {
         mBufferedServiceConnection.bindService();
 
         try {
             mBufferedServiceConnection.bindService();
-            fail();
-        } catch (IllegalStateException expected) { }
-    }
-
-    @Test
-    @SmallTest
-    public void unbind_bindingDoesNotExist() {
-        mBufferedServiceConnection.bindService();
-
-        mBufferedServiceConnection.unbind();
-
-        assertThat(getBoundServiceConnections()).isEmpty();
-    }
-
-    @Test
-    @SmallTest
-    public void unbind_hasntBound_throwsIllegalStateException() {
-        try {
-            mBufferedServiceConnection.unbind();
             fail();
         } catch (IllegalStateException expected) { }
     }
@@ -369,10 +328,6 @@ public class BufferedServiceConnectionTest {
     }
 
     private ServiceConnection getServiceConnection() {
-        return getBoundServiceConnections().get(0);
-    }
-
-    private List<ServiceConnection> getBoundServiceConnections() {
-        return shadowOf((Application) mContext).getBoundServiceConnections();
+        return shadowOf((Application) mContext).getBoundServiceConnections().get(0);
     }
 }

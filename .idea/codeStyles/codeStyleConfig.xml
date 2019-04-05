@@ -1,5 +1,9 @@
 <component name="ProjectCodeStyleConfiguration">
   <state>
+<<<<<<< HEAD   (69f76e Merge "Merge empty history for sparse-5425228-L6310000028962)
     <option name="USE_PER_PROJECT_SETTINGS" value="true" />
+=======
+    <option name="PREFERRED_PROJECT_CODE_STYLE" value="AndroidStyle" />
+>>>>>>> BRANCH (bf79df Merge "Merge cherrypicks of [940699] into sparse-5433600-L95)
   </state>
 </component>

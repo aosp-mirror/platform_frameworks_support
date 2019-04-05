@@ -41,7 +41,10 @@ import androidx.navigation.safe.args.generator.models.Argument
 import androidx.navigation.safe.args.generator.ReferenceValue
 import androidx.navigation.safe.args.generator.StringValue
 import androidx.navigation.safe.args.generator.WritableValue
+<<<<<<< HEAD   (69f76e Merge "Merge empty history for sparse-5425228-L6310000028962)
 import androidx.navigation.safe.args.generator.ext.toClassNameParts
+=======
+>>>>>>> BRANCH (bf79df Merge "Merge cherrypicks of [940699] into sparse-5433600-L95)
 import androidx.navigation.safe.args.generator.models.accessor
 import com.squareup.javapoet.ArrayTypeName
 import com.squareup.javapoet.ClassName
@@ -58,7 +61,6 @@ internal val HASHMAP_CLASSNAME: ClassName = ClassName.get("java.util", "HashMap"
 internal val BUNDLE_CLASSNAME: ClassName = ClassName.get("android.os", "Bundle")
 internal val PARCELABLE_CLASSNAME = ClassName.get("android.os", "Parcelable")
 internal val SERIALIZABLE_CLASSNAME = ClassName.get("java.io", "Serializable")
-internal val SYSTEM_CLASSNAME = ClassName.get("java.lang", "System")
 
 internal abstract class Annotations {
     abstract val NULLABLE_CLASSNAME: ClassName
@@ -109,22 +111,10 @@ internal fun NavType.addBundleGetStatement(
             )
         }.endControlFlow()
     }
-    is ObjectArrayType -> builder.apply {
-        val arrayName = "__array"
-        val baseType = (arg.type.typeName() as ArrayTypeName).componentType
-        addStatement("$T[] $N = $N.$N($S)",
-            PARCELABLE_CLASSNAME, arrayName, bundle, bundleGetMethod(), arg.name)
-        beginControlFlow("if ($N != null)", arrayName).apply {
-            addStatement("$N = new $T[$N.length]", lValue, baseType, arrayName)
-            addStatement("$T.arraycopy($N, 0, $N, 0, $N.length)",
-                SYSTEM_CLASSNAME, arrayName, lValue, arrayName
-            )
-        }
-        nextControlFlow("else").apply {
-            addStatement("$N = null", lValue)
-        }
-        endControlFlow()
-    }
+    is ObjectArrayType -> builder.addStatement(
+        "$N = ($T) $N.$N($S)",
+        lValue, typeName(), bundle, bundleGetMethod(), arg.name
+    )
     else -> builder.addStatement(
         "$N = $N.$N($S)",
         lValue,
@@ -187,13 +177,20 @@ internal fun NavType.typeName(): TypeName = when (this) {
     BoolArrayType -> ArrayTypeName.of(TypeName.BOOLEAN)
     ReferenceType -> TypeName.INT
     ReferenceArrayType -> ArrayTypeName.of(TypeName.INT)
-    is ObjectType -> canonicalName.toClassNameParts().let { (packageName, simpleName, innerNames) ->
-        ClassName.get(packageName, simpleName, *innerNames)
+    is ObjectType -> canonicalName.let {
+        ClassName.get(
+            it.substringBeforeLast('.', ""),
+            it.substringAfterLast('.')
+        )
     }
-    is ObjectArrayType -> ArrayTypeName.of(
-        canonicalName.toClassNameParts().let { (packageName, simpleName, innerNames) ->
-            ClassName.get(packageName, simpleName, *innerNames)
-        })
+    is ObjectArrayType -> canonicalName.let {
+        ArrayTypeName.of(
+            ClassName.get(
+                it.substringBeforeLast('.', ""),
+                it.substringAfterLast('.')
+            )
+        )
+    }
     else -> throw IllegalStateException("Unknown type: $this")
 }
 

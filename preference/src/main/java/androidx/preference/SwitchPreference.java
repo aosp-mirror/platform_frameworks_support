@@ -16,8 +16,13 @@
 
 package androidx.preference;
 
+<<<<<<< HEAD   (69f76e Merge "Merge empty history for sparse-5425228-L6310000028962)
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+=======
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+>>>>>>> BRANCH (bf79df Merge "Merge cherrypicks of [940699] into sparse-5433600-L95)
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
@@ -60,6 +65,7 @@ public class SwitchPreference extends TwoStatePreference {
      *                     for the view, used only if defStyleAttr is 0 or can not be found in the
      *                     theme. Can be 0 to not look for defaults.
      */
+    @SuppressLint("RestrictedApi")
     public SwitchPreference(Context context, AttributeSet attrs, int defStyleAttr,
             int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
@@ -107,6 +113,7 @@ public class SwitchPreference extends TwoStatePreference {
      * @param context The {@link Context} that will style this preference
      * @param attrs   Style attributes that differ from the default
      */
+    @SuppressLint("RestrictedApi")
     public SwitchPreference(Context context, AttributeSet attrs) {
         this(context, attrs, TypedArrayUtils.getAttr(context,
                 androidx.preference.R.attr.switchPreferenceStyle,
@@ -189,7 +196,11 @@ public class SwitchPreference extends TwoStatePreference {
     /**
      * @hide
      */
+<<<<<<< HEAD   (69f76e Merge "Merge empty history for sparse-5425228-L6310000028962)
     @RestrictTo(LIBRARY_GROUP_PREFIX)
+=======
+    @RestrictTo(LIBRARY_GROUP)
+>>>>>>> BRANCH (bf79df Merge "Merge cherrypicks of [940699] into sparse-5433600-L95)
     @Override
     protected void performClick(View view) {
         super.performClick(view);

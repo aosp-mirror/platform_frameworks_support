@@ -20,8 +20,8 @@ import java.io.File
 
 import androidx.build.Version
 
-// An ApiLocation contains the filepath of a public API and restricted API of a library
-data class ApiLocation(
+// A ApiLocation contains the filepath of a public API and restricted API of a library
+data class ApiLocation (
     // file specifying the public API of the library
     val publicApiFile: File,
     // file specifying the restricted API (marked by the RestrictTo annotation) of the library
@@ -44,6 +44,7 @@ data class ApiLocation(
         }
     }
 }
+<<<<<<< HEAD   (69f76e Merge "Merge empty history for sparse-5425228-L6310000028962)
 
 // An ApiViolationExclusions contains the paths of the API exclusions files for an API
 data class ApiViolationExclusions(
@@ -61,3 +62,5 @@ data class ApiViolationExclusions(
         }
     }
 }
+=======
+>>>>>>> BRANCH (bf79df Merge "Merge cherrypicks of [940699] into sparse-5433600-L95)

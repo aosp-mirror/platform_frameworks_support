@@ -47,7 +47,6 @@ class NavParserTest {
                         Argument("myarg2", StringType),
                         Argument("randomArgument", StringType),
                         Argument("intArgument", IntType, IntValue("261")),
-                        Argument("referenceZeroDefaultValue", ReferenceType, IntValue("0")),
                         Argument(
                                 "activityInfo",
                                 ObjectType("android.content.pm.ActivityInfo")
@@ -75,10 +74,6 @@ class NavParserTest {
                         Argument(
                             "objectRelativeArg2",
                             ObjectType("a.b.ClassName")
-                        ),
-                        Argument(
-                            "objectRelativeArg3",
-                            ObjectType("a.b.OuterClass\$InnerClass")
                         )
                 ))))
 

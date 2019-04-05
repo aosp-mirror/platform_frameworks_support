@@ -36,6 +36,7 @@ import androidx.core.view.ViewCompat;
 import androidx.fragment.app.test.FragmentTestActivity;
 import androidx.fragment.test.R;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
+<<<<<<< HEAD   (69f76e Merge "Merge empty history for sparse-5425228-L6310000028962)
 import androidx.test.filters.SmallTest;
 import androidx.test.rule.ActivityTestRule;
 
@@ -48,6 +49,20 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 @SmallTest
+=======
+import androidx.test.filters.MediumTest;
+import androidx.test.rule.ActivityTestRule;
+
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
+
+@MediumTest
+>>>>>>> BRANCH (bf79df Merge "Merge cherrypicks of [940699] into sparse-5433600-L95)
 @RunWith(AndroidJUnit4.class)
 public class FragmentAnimatorTest {
     // These are pretend resource IDs for animators. We don't need real ones since we

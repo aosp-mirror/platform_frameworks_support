@@ -32,7 +32,11 @@ import androidx.savedstate.SavedStateRegistry;
 public abstract class AbstractSavedStateVMFactory implements ViewModelProvider.KeyedFactory {
     static final String TAG_SAVED_STATE_HANDLE = "androidx.lifecycle.savedstate.vm.tag";
 
+<<<<<<< HEAD   (69f76e Merge "Merge empty history for sparse-5425228-L6310000028962)
     private final SavedStateRegistry mSavedStateRegistry;
+=======
+    private final SavedStateRegistry<Bundle> mSavedStateRegistry;
+>>>>>>> BRANCH (bf79df Merge "Merge cherrypicks of [940699] into sparse-5433600-L95)
     private final Bundle mDefaultArgs;
 
     /**
@@ -40,7 +44,11 @@ public abstract class AbstractSavedStateVMFactory implements ViewModelProvider.K
      */
     public AbstractSavedStateVMFactory(
             @NonNull Application application,
+<<<<<<< HEAD   (69f76e Merge "Merge empty history for sparse-5425228-L6310000028962)
             @NonNull SavedStateRegistry savedStateRegistry,
+=======
+            @NonNull SavedStateRegistry<Bundle> savedStateRegistry,
+>>>>>>> BRANCH (bf79df Merge "Merge cherrypicks of [940699] into sparse-5433600-L95)
             @Nullable Bundle defaultArgs) {
         mSavedStateRegistry = savedStateRegistry;
         mDefaultArgs = defaultArgs;

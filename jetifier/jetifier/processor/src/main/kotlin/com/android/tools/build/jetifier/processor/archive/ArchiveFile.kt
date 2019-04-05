@@ -34,17 +34,18 @@ class ArchiveFile(relativePath: Path, data: ByteArray) : ArchiveItem {
     override var wasChanged: Boolean = false
         private set
 
-    override var markedForRemoval: Boolean = false
-
     var data: ByteArray = data
         private set
 
+<<<<<<< HEAD   (69f76e Merge "Merge empty history for sparse-5425228-L6310000028962)
     override fun findAllFiles(selector: (ArchiveFile) -> Boolean, result: FileSearchResult) {
         if (selector(this)) {
             result.addFile(this)
         }
     }
 
+=======
+>>>>>>> BRANCH (bf79df Merge "Merge cherrypicks of [940699] into sparse-5433600-L95)
     override fun accept(visitor: ArchiveItemVisitor) {
         visitor.visit(this)
     }

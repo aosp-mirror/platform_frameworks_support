@@ -1,3 +1,4 @@
+<<<<<<< HEAD   (69f76e Merge "Merge empty history for sparse-5425228-L6310000028962)
 /*
  * Copyright 2017 The Android Open Source Project
  *
@@ -16,6 +17,26 @@
 
 import static androidx.build.dependencies.DependenciesKt.KOTLIN_STDLIB
 import static androidx.build.dependencies.DependenciesKt.SUPPORT_DESIGN
+=======
+import static androidx.build.dependencies.DependenciesKt.KOTLIN_STDLIB
+import static androidx.build.dependencies.DependenciesKt.SUPPORT_DESIGN
+
+/*
+ * Copyright (C) 2017 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+>>>>>>> BRANCH (bf79df Merge "Merge cherrypicks of [940699] into sparse-5433600-L95)
 
 plugins {
     id("AndroidXPlugin")

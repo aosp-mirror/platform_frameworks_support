@@ -16,7 +16,7 @@
 
 package androidx.car.util;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.view.View;
 
@@ -33,7 +33,7 @@ import androidx.recyclerview.widget.RecyclerView;
  *
  * @hide
  */
-@RestrictTo(LIBRARY_GROUP_PREFIX)
+@RestrictTo(LIBRARY_GROUP)
 public class GridLayoutManagerUtils {
     private GridLayoutManagerUtils() {}
 

@@ -34,6 +34,7 @@ import androidx.fragment.app.test.FragmentResultActivity;
 import androidx.fragment.app.test.FragmentTestActivity;
 import androidx.fragment.test.R;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
+<<<<<<< HEAD   (69f76e Merge "Merge empty history for sparse-5425228-L6310000028962)
 import androidx.test.filters.MediumTest;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
@@ -107,6 +108,85 @@ public class FragmentReceiveResultTest {
     }
 
     @Test
+=======
+import androidx.test.filters.SmallTest;
+import androidx.test.platform.app.InstrumentationRegistry;
+import androidx.test.rule.ActivityTestRule;
+
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
+
+/**
+ * Tests for Fragment startActivityForResult and startIntentSenderForResult.
+ */
+@RunWith(AndroidJUnit4.class)
+public class FragmentReceiveResultTest {
+    @Rule
+    public ActivityTestRule<FragmentTestActivity> mActivityRule =
+            new ActivityTestRule<FragmentTestActivity>(FragmentTestActivity.class);
+
+    private FragmentTestActivity mActivity;
+    private TestFragment mFragment;
+
+
+    @Before
+    public void setup() throws Throwable {
+        mActivity = mActivityRule.getActivity();
+        mFragment = attachTestFragment();
+    }
+
+    @Test
+    @SmallTest
+    public void testStartActivityForResultOk() throws Throwable {
+        startActivityForResult(10, Activity.RESULT_OK, "content 10");
+
+        assertTrue("Fragment should receive result", mFragment.mHasResult);
+        assertEquals(10, mFragment.mRequestCode);
+        assertEquals(Activity.RESULT_OK, mFragment.mResultCode);
+        assertEquals("content 10", mFragment.mResultContent);
+    }
+
+    @Test
+    @SmallTest
+    public void testStartActivityForResultCanceled() throws Throwable {
+        startActivityForResult(20, Activity.RESULT_CANCELED, "content 20");
+
+        assertTrue("Fragment should receive result", mFragment.mHasResult);
+        assertEquals(20, mFragment.mRequestCode);
+        assertEquals(Activity.RESULT_CANCELED, mFragment.mResultCode);
+        assertEquals("content 20", mFragment.mResultContent);
+    }
+
+    @Test
+    @SmallTest
+    public void testStartIntentSenderForResultOk() throws Throwable {
+        startIntentSenderForResult(30, Activity.RESULT_OK, "content 30");
+
+        assertTrue("Fragment should receive result", mFragment.mHasResult);
+        assertEquals(30, mFragment.mRequestCode);
+        assertEquals(Activity.RESULT_OK, mFragment.mResultCode);
+        assertEquals("content 30", mFragment.mResultContent);
+    }
+
+    @Test
+    @SmallTest
+    public void testStartIntentSenderForResultCanceled() throws Throwable {
+        startIntentSenderForResult(40, Activity.RESULT_CANCELED, "content 40");
+
+        assertTrue("Fragment should receive result", mFragment.mHasResult);
+        assertEquals(40, mFragment.mRequestCode);
+        assertEquals(Activity.RESULT_CANCELED, mFragment.mResultCode);
+        assertEquals("content 40", mFragment.mResultContent);
+    }
+
+    @Test
+    @SmallTest
+>>>>>>> BRANCH (bf79df Merge "Merge cherrypicks of [940699] into sparse-5433600-L95)
     public void testActivityResult_withDelegate() {
         ActivityCompat.PermissionCompatDelegate
                 delegate = mock(ActivityCompat.PermissionCompatDelegate.class);

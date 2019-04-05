@@ -37,15 +37,11 @@ import android.view.ViewConfiguration;
 import androidx.annotation.NonNull;
 import androidx.core.test.R;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.filters.LargeTest;
-import androidx.test.filters.SmallTest;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Rule;
-import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentMatcher;
 import org.mockito.InOrder;
@@ -166,8 +162,14 @@ public class DragStartHelperTest {
         mDragSource = mActivityRule.getActivity().findViewById(R.id.drag_source);
     }
 
+<<<<<<< HEAD   (69f76e Merge "Merge empty history for sparse-5425228-L6310000028962)
     @SmallTest
     @Test
+=======
+    // Temporarily disabled due to b/110483469
+    // @SmallTest
+    // @Test
+>>>>>>> BRANCH (bf79df Merge "Merge cherrypicks of [940699] into sparse-5433600-L95)
     public void mouseClick() throws Throwable {
         final DragStartListener listener = createListener(true);
         final DragStartHelper helper = createDragStartHelper(listener);
@@ -180,8 +182,14 @@ public class DragStartHelperTest {
         verifyNoMoreInteractions(listener);
     }
 
+<<<<<<< HEAD   (69f76e Merge "Merge empty history for sparse-5425228-L6310000028962)
     @SmallTest
     @Test
+=======
+    // Temporarily disabled due to b/110483469
+    // @SmallTest
+    // @Test
+>>>>>>> BRANCH (bf79df Merge "Merge cherrypicks of [940699] into sparse-5433600-L95)
     public void mousePressWithSecondaryButton() throws Throwable {
         final DragStartListener listener = createListener(true);
         final DragStartHelper helper = createDragStartHelper(listener);
@@ -196,8 +204,14 @@ public class DragStartHelperTest {
         verifyNoMoreInteractions(listener);
     }
 
+<<<<<<< HEAD   (69f76e Merge "Merge empty history for sparse-5425228-L6310000028962)
     @SmallTest
     @Test
+=======
+    // Temporarily disabled due to b/110483469
+    // @SmallTest
+    // @Test
+>>>>>>> BRANCH (bf79df Merge "Merge cherrypicks of [940699] into sparse-5433600-L95)
     public void mouseDrag() throws Throwable {
         final DragStartListener listener = createListener(true);
         final DragStartHelper helper = createDragStartHelper(listener);
@@ -214,8 +228,14 @@ public class DragStartHelperTest {
         verifyNoMoreInteractions(listener);
     }
 
+<<<<<<< HEAD   (69f76e Merge "Merge empty history for sparse-5425228-L6310000028962)
     @SmallTest
     @Test
+=======
+    // Temporarily disabled due to b/110483469
+    // @SmallTest
+    // @Test
+>>>>>>> BRANCH (bf79df Merge "Merge cherrypicks of [940699] into sparse-5433600-L95)
     public void mouseDragWithNonprimaryButton() throws Throwable {
         final DragStartListener listener = createListener(true);
         final DragStartHelper helper = createDragStartHelper(listener);
@@ -233,8 +253,14 @@ public class DragStartHelperTest {
         verifyNoMoreInteractions(listener);
     }
 
+<<<<<<< HEAD   (69f76e Merge "Merge empty history for sparse-5425228-L6310000028962)
     @SmallTest
     @Test
+=======
+    // Temporarily disabled due to b/110483469
+    // @SmallTest
+    // @Test
+>>>>>>> BRANCH (bf79df Merge "Merge cherrypicks of [940699] into sparse-5433600-L95)
     public void mouseDragUsingTouchListener() throws Throwable {
         final DragStartListener listener = createListener(true);
         final DragStartHelper helper = createDragStartHelper(listener);
@@ -258,8 +284,14 @@ public class DragStartHelperTest {
         verifyNoMoreInteractions(listener);
     }
 
+<<<<<<< HEAD   (69f76e Merge "Merge empty history for sparse-5425228-L6310000028962)
     @SmallTest
     @Test
+=======
+    // Temporarily disabled due to b/110483469
+    // @SmallTest
+    // @Test
+>>>>>>> BRANCH (bf79df Merge "Merge cherrypicks of [940699] into sparse-5433600-L95)
     public void mouseDragWhenListenerReturnsFalse() throws Throwable {
         final DragStartListener listener = createListener(false);
         final DragStartHelper helper = createDragStartHelper(listener);
@@ -281,8 +313,14 @@ public class DragStartHelperTest {
         inOrder.verifyNoMoreInteractions();
     }
 
+<<<<<<< HEAD   (69f76e Merge "Merge empty history for sparse-5425228-L6310000028962)
     @LargeTest
     @Test
+=======
+    // Temporarily disabled due to b/110483469
+    // @LargeTest
+    // @Test
+>>>>>>> BRANCH (bf79df Merge "Merge cherrypicks of [940699] into sparse-5433600-L95)
     public void mouseLongPress() throws Throwable {
         final DragStartListener listener = createListener(true);
         final DragStartHelper helper = createDragStartHelper(listener);
@@ -297,8 +335,14 @@ public class DragStartHelperTest {
         verifyNoMoreInteractions(listener);
     }
 
+<<<<<<< HEAD   (69f76e Merge "Merge empty history for sparse-5425228-L6310000028962)
     @SmallTest
     @Test
+=======
+    // Temporarily disabled due to b/110483469
+    // @SmallTest
+    // @Test
+>>>>>>> BRANCH (bf79df Merge "Merge cherrypicks of [940699] into sparse-5433600-L95)
     public void touchDrag() throws Throwable {
         final DragStartListener listener = createListener(false);
         final DragStartHelper helper = createDragStartHelper(listener);
@@ -313,8 +357,14 @@ public class DragStartHelperTest {
         verifyNoMoreInteractions(listener);
     }
 
+<<<<<<< HEAD   (69f76e Merge "Merge empty history for sparse-5425228-L6310000028962)
     @SmallTest
     @Test
+=======
+    // Temporarily disabled due to b/110483469
+    // @SmallTest
+    // @Test
+>>>>>>> BRANCH (bf79df Merge "Merge cherrypicks of [940699] into sparse-5433600-L95)
     public void touchTap() throws Throwable {
         final DragStartListener listener = createListener(false);
         final DragStartHelper helper = createDragStartHelper(listener);
@@ -327,8 +377,14 @@ public class DragStartHelperTest {
         verifyNoMoreInteractions(listener);
     }
 
+<<<<<<< HEAD   (69f76e Merge "Merge empty history for sparse-5425228-L6310000028962)
     @LargeTest
     @Test
+=======
+    // Temporarily disabled due to b/110483469
+    // @LargeTest
+    // @Test
+>>>>>>> BRANCH (bf79df Merge "Merge cherrypicks of [940699] into sparse-5433600-L95)
     public void touchLongPress() throws Throwable {
         final DragStartListener listener = createListener(true);
         final DragStartHelper helper = createDragStartHelper(listener);
@@ -343,8 +399,14 @@ public class DragStartHelperTest {
         verifyNoMoreInteractions(listener);
     }
 
+<<<<<<< HEAD   (69f76e Merge "Merge empty history for sparse-5425228-L6310000028962)
     @LargeTest
     @Test
+=======
+    // Temporarily disabled due to b/110483469
+    // @LargeTest
+    // @Test
+>>>>>>> BRANCH (bf79df Merge "Merge cherrypicks of [940699] into sparse-5433600-L95)
     public void touchLongPressUsingLongClickListener() throws Throwable {
         final DragStartListener listener = createListener(true);
 

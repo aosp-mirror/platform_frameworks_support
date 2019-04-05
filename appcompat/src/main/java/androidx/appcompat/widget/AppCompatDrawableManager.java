@@ -16,7 +16,7 @@
 
 package androidx.appcompat.widget;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 import static androidx.appcompat.content.res.AppCompatResources.getColorStateList;
 import static androidx.appcompat.widget.ThemeUtils.getDisabledThemeAttrColor;
 import static androidx.appcompat.widget.ThemeUtils.getThemeAttrColor;
@@ -42,7 +42,7 @@ import androidx.core.graphics.drawable.DrawableCompat;
 /**
  * @hide
  */
-@RestrictTo(LIBRARY_GROUP_PREFIX)
+@RestrictTo(LIBRARY_GROUP)
 public final class AppCompatDrawableManager {
     private static final String TAG = "AppCompatDrawableManag";
     private static final boolean DEBUG = false;
@@ -56,8 +56,8 @@ public final class AppCompatDrawableManager {
     public static synchronized AppCompatDrawableManager get() {
         if (INSTANCE == null) {
             INSTANCE = new AppCompatDrawableManager();
-            INSTANCE.mResourceManager = ResourceManagerInternal.get();
-            INSTANCE.mResourceManager.setHooks(new ResourceManagerInternal.ResourceManagerHooks() {
+            INSTANCE.mResourceManager = ResourceManager.get();
+            INSTANCE.mResourceManager.setHooks(new ResourceManager.ResourceManagerHooks() {
                 /**
                  * Drawables which should be tinted with the value of
                  * {@code R.attr.colorControlNormal}, using the default mode using a raw color
@@ -230,7 +230,7 @@ public final class AppCompatDrawableManager {
                 }
 
                 @Override
-                public Drawable createDrawableFor(@NonNull ResourceManagerInternal resourceManager,
+                public Drawable createDrawableFor(@NonNull ResourceManager resourceManager,
                         @NonNull Context context, int resId) {
                     if (resId == R.drawable.abc_cab_background_top_material) {
                         return new LayerDrawable(new Drawable[]{
@@ -394,7 +394,7 @@ public final class AppCompatDrawableManager {
         return INSTANCE;
     }
 
-    private ResourceManagerInternal mResourceManager;
+    private ResourceManager mResourceManager;
 
     public synchronized Drawable getDrawable(@NonNull Context context, @DrawableRes int resId) {
         return mResourceManager.getDrawable(context, resId);
@@ -424,11 +424,11 @@ public final class AppCompatDrawableManager {
     }
 
     static void tintDrawable(Drawable drawable, TintInfo tint, int[] state) {
-        ResourceManagerInternal.tintDrawable(drawable, tint, state);
+        ResourceManager.tintDrawable(drawable, tint, state);
     }
 
     public static synchronized PorterDuffColorFilter getPorterDuffColorFilter(
             int color, PorterDuff.Mode mode) {
-        return ResourceManagerInternal.getPorterDuffColorFilter(color, mode);
+        return ResourceManager.getPorterDuffColorFilter(color, mode);
     }
 }

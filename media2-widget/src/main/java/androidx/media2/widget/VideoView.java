@@ -16,7 +16,8 @@
 
 package androidx.media2.widget;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 import static androidx.media2.SessionResult.RESULT_ERROR_INVALID_STATE;
 import static androidx.media2.SessionResult.RESULT_SUCCESS;
 
@@ -126,9 +127,9 @@ import java.util.concurrent.Executor;
  * {@link androidx.media2.widget.R.attr#enableControlView}
  * {@link androidx.media2.widget.R.attr#viewType}
  */
-public class VideoView extends SelectiveLayout {
+public class VideoView extends SelectiveLayout implements VideoViewInterface.SurfaceListener {
     /** @hide */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     @IntDef({
             VIEW_TYPE_TEXTUREVIEW,
             VIEW_TYPE_SURFACEVIEW
@@ -167,7 +168,7 @@ public class VideoView extends SelectiveLayout {
 
     private AudioAttributesCompat mAudioAttributes;
 
-    VideoView.OnViewTypeChangedListener mViewTypeChangedListener;
+    private VideoView.OnViewTypeChangedListener mViewTypeChangedListener;
 
     VideoViewInterface mCurrentView;
     VideoViewInterface mTargetView;
@@ -178,12 +179,12 @@ public class VideoView extends SelectiveLayout {
     MediaItem mMediaItem;
     MediaControlView mMediaControlView;
     MediaSession mMediaSession;
-    String mTitle;
+    private String mTitle;
     Executor mCallbackExecutor;
 
     MusicView mMusicView;
-    Drawable mMusicAlbumDrawable;
-    String mMusicArtistText;
+    private Drawable mMusicAlbumDrawable;
+    private String mMusicArtistText;
 
     int mDominantColor;
 
@@ -253,67 +254,6 @@ public class VideoView extends SelectiveLayout {
         }
     };
 
-    private final VideoViewInterface.SurfaceListener mSurfaceListener =
-            new VideoViewInterface.SurfaceListener() {
-        @Override
-        public void onSurfaceCreated(View view, int width, int height) {
-            if (DEBUG) {
-                Log.d(TAG, "onSurfaceCreated(). mCurrentState=" + mCurrentState
-                        + ", mTargetState=" + mTargetState
-                        + ", width/height: " + width + "/" + height
-                        + ", " + view.toString());
-            }
-            if (view == mTargetView) {
-                ((VideoViewInterface) view).takeOver();
-            }
-            if (needToStart()) {
-                mMediaSession.getPlayer().play();
-            }
-        }
-
-        @Override
-        public void onSurfaceDestroyed(View view) {
-            if (DEBUG) {
-                Log.d(TAG, "onSurfaceDestroyed(). mCurrentState=" + mCurrentState
-                        + ", mTargetState=" + mTargetState + ", " + view.toString());
-            }
-        }
-
-        @Override
-        public void onSurfaceChanged(View view, int width, int height) {
-            if (DEBUG) {
-                Log.d(TAG, "onSurfaceChanged(). width/height: " + width + "/" + height
-                        + ", " + view.toString());
-            }
-        }
-
-        @Override
-        public void onSurfaceTakeOverDone(VideoViewInterface view) {
-            if (view != mTargetView) {
-                if (DEBUG) {
-                    Log.d(TAG, "onSurfaceTakeOverDone(). view is not targetView. ignore.: " + view);
-                }
-                return;
-            }
-            if (DEBUG) {
-                Log.d(TAG, "onSurfaceTakeOverDone(). Now current view is: " + view);
-            }
-            if (mCurrentState != STATE_PLAYING && mMediaSession != null) {
-                mMediaSession.getPlayer().seekTo(mMediaSession.getPlayer().getCurrentPosition());
-            }
-            if (view != mCurrentView) {
-                ((View) mCurrentView).setVisibility(View.GONE);
-                mCurrentView = view;
-                if (mViewTypeChangedListener != null) {
-                    mViewTypeChangedListener.onViewTypeChanged(VideoView.this, view.getViewType());
-                }
-            }
-
-            if (needToStart()) {
-                mMediaSession.getPlayer().play();
-            }
-        }
-    };
 
     public VideoView(@NonNull Context context) {
         this(context, null);
@@ -343,8 +283,8 @@ public class VideoView extends SelectiveLayout {
 
         mTextureView = new VideoTextureView(context);
         mSurfaceView = new VideoSurfaceView(context);
-        mTextureView.setSurfaceListener(mSurfaceListener);
-        mSurfaceView.setSurfaceListener(mSurfaceListener);
+        mTextureView.setSurfaceListener(this);
+        mSurfaceView.setSurfaceListener(this);
 
         addView(mTextureView);
         addView(mSurfaceView);
@@ -405,7 +345,7 @@ public class VideoView extends SelectiveLayout {
      */
     public void setMediaControlView(@NonNull MediaControlView mediaControlView, long intervalMs) {
         mMediaControlView = mediaControlView;
-        mMediaControlView.setDelayedAnimationInterval(intervalMs);
+        mMediaControlView.setShowControllerInterval(intervalMs);
 
         if (isAttachedToWindow()) {
             attachMediaControlView();
@@ -608,6 +548,76 @@ public class VideoView extends SelectiveLayout {
     }
 
     ///////////////////////////////////////////////////
+    // Implements VideoViewInterface.SurfaceListener
+    ///////////////////////////////////////////////////
+
+    /** @hide */
+    @RestrictTo(LIBRARY)
+    @Override
+    public void onSurfaceCreated(View view, int width, int height) {
+        if (DEBUG) {
+            Log.d(TAG, "onSurfaceCreated(). mCurrentState=" + mCurrentState
+                    + ", mTargetState=" + mTargetState + ", width/height: " + width + "/" + height
+                    + ", " + view.toString());
+        }
+        if (view == mTargetView) {
+            ((VideoViewInterface) view).takeOver();
+        }
+        if (needToStart()) {
+            mMediaSession.getPlayer().play();
+        }
+    }
+
+    /** @hide */
+    @RestrictTo(LIBRARY)
+    @Override
+    public void onSurfaceDestroyed(View view) {
+        if (DEBUG) {
+            Log.d(TAG, "onSurfaceDestroyed(). mCurrentState=" + mCurrentState
+                    + ", mTargetState=" + mTargetState + ", " + view.toString());
+        }
+    }
+
+    /** @hide */
+    @RestrictTo(LIBRARY)
+    @Override
+    public void onSurfaceChanged(View view, int width, int height) {
+        if (DEBUG) {
+            Log.d(TAG, "onSurfaceChanged(). width/height: " + width + "/" + height
+                    + ", " + view.toString());
+        }
+    }
+
+    /** @hide */
+    @RestrictTo(LIBRARY)
+    @Override
+    public void onSurfaceTakeOverDone(VideoViewInterface view) {
+        if (view != mTargetView) {
+            if (DEBUG) {
+                Log.d(TAG, "onSurfaceTakeOverDone(). view is not targetView. ignore.: " + view);
+            }
+            return;
+        }
+        if (DEBUG) {
+            Log.d(TAG, "onSurfaceTakeOverDone(). Now current view is: " + view);
+        }
+        if (mCurrentState != STATE_PLAYING && mMediaSession != null) {
+            mMediaSession.getPlayer().seekTo(mMediaSession.getPlayer().getCurrentPosition());
+        }
+        if (view != mCurrentView) {
+            ((View) mCurrentView).setVisibility(View.GONE);
+            mCurrentView = view;
+            if (mViewTypeChangedListener != null) {
+                mViewTypeChangedListener.onViewTypeChanged(this, view.getViewType());
+            }
+        }
+
+        if (needToStart()) {
+            mMediaSession.getPlayer().play();
+        }
+    }
+
+    ///////////////////////////////////////////////////
     // Protected or private methods
     ///////////////////////////////////////////////////
     private void attachMediaControlView() {
@@ -791,6 +801,128 @@ public class VideoView extends SelectiveLayout {
         return data;
     }
 
+    MediaMetadata extractMetadata(MediaItem mediaItem, boolean isMusic) {
+        MediaMetadataRetriever retriever = null;
+        String path = "";
+        try {
+            if (mediaItem == null) {
+                return null;
+            } else if (mediaItem instanceof UriMediaItem) {
+                Uri uri = ((UriMediaItem) mediaItem).getUri();
+
+                // Save file name as title since the file may not have a title Metadata.
+                if (UriUtil.isFromNetwork(uri)) {
+                    path = uri.getPath();
+                } else if ("file".equals(uri.getScheme())) {
+                    path = uri.getLastPathSegment();
+                } else {
+                    // TODO: needs default title. b/120515913
+                }
+                retriever = new MediaMetadataRetriever();
+                retriever.setDataSource(getContext(), uri);
+            } else if (mediaItem instanceof FileMediaItem) {
+                retriever = new MediaMetadataRetriever();
+                retriever.setDataSource(
+                        ((FileMediaItem) mediaItem).getParcelFileDescriptor().getFileDescriptor(),
+                        ((FileMediaItem) mediaItem).getFileDescriptorOffset(),
+                        ((FileMediaItem) mediaItem).getFileDescriptorLength());
+            }
+        } catch (IllegalArgumentException e) {
+            Log.v(TAG, "Cannot retrieve metadata for this media file.");
+            retriever = null;
+        }
+
+        MediaMetadata metadata = mediaItem.getMetadata();
+
+        // Do not extract metadata of a media item which is not the current item.
+        if (mediaItem != mMediaItem) {
+            if (retriever != null) {
+                retriever.release();
+            }
+            return null;
+        }
+        if (!isMusic) {
+            mTitle = extractString(metadata,
+                    MediaMetadata.METADATA_KEY_TITLE, retriever,
+                    MediaMetadataRetriever.METADATA_KEY_TITLE, path);
+        } else {
+            Resources resources = getResources();
+            mTitle = extractString(metadata,
+                    MediaMetadata.METADATA_KEY_TITLE, retriever,
+                    MediaMetadataRetriever.METADATA_KEY_TITLE,
+                    resources.getString(R.string.mcv2_music_title_unknown_text));
+            mMusicArtistText = extractString(metadata,
+                    MediaMetadata.METADATA_KEY_ARTIST,
+                    retriever,
+                    MediaMetadataRetriever.METADATA_KEY_ARTIST,
+                    resources.getString(R.string.mcv2_music_artist_unknown_text));
+            mMusicAlbumDrawable = extractAlbumArt(metadata, retriever,
+                    resources.getDrawable(R.drawable.ic_default_album_image));
+        }
+
+        if (retriever != null) {
+            retriever.release();
+        }
+
+        // Set duration and title values as MediaMetadata for MediaControlView
+        MediaMetadata.Builder builder = new MediaMetadata.Builder();
+
+        if (isMusic) {
+            builder.putString(MediaMetadata.METADATA_KEY_ARTIST, mMusicArtistText);
+        }
+        builder.putString(MediaMetadata.METADATA_KEY_TITLE, mTitle);
+        builder.putLong(
+                MediaMetadata.METADATA_KEY_DURATION, mMediaSession.getPlayer().getDuration());
+        builder.putString(
+                MediaMetadata.METADATA_KEY_MEDIA_ID, mediaItem.getMediaId());
+        builder.putLong(MediaMetadata.METADATA_KEY_PLAYABLE, 1);
+        return builder.build();
+    }
+
+    // TODO: move this method inside callback to make sure it runs inside the callback thread.
+    private String extractString(MediaMetadata metadata, String stringKey,
+            MediaMetadataRetriever retriever, int intKey, String defaultValue) {
+        String value = null;
+
+        if (metadata != null) {
+            value = metadata.getString(stringKey);
+            if (value != null && !value.isEmpty()) {
+                return value;
+            }
+        }
+        if (retriever != null) {
+            value = retriever.extractMetadata(intKey);
+        }
+        return value == null ? defaultValue : value;
+    }
+
+    // TODO: move this method inside callback to make sure it runs inside the callback thread.
+    private Drawable extractAlbumArt(MediaMetadata metadata, MediaMetadataRetriever retriever,
+            Drawable defaultDrawable) {
+        Bitmap bitmap = null;
+
+        if (metadata != null && metadata.containsKey(MediaMetadata.METADATA_KEY_ALBUM_ART)) {
+            bitmap = metadata.getBitmap(MediaMetadata.METADATA_KEY_ALBUM_ART);
+        } else if (retriever != null) {
+            byte[] album = retriever.getEmbeddedPicture();
+            if (album != null) {
+                bitmap = BitmapFactory.decodeByteArray(album, 0, album.length);
+            }
+        }
+        if (bitmap != null) {
+            Palette.Builder builder = Palette.from(bitmap);
+            builder.generate(new Palette.PaletteAsyncListener() {
+                @Override
+                public void onGenerated(Palette palette) {
+                    mDominantColor = palette.getDominantColor(0);
+                    mMusicView.setBackgroundColor(mDominantColor);
+                }
+            });
+            return new BitmapDrawable(getResources(), bitmap);
+        }
+        return defaultDrawable;
+    }
+
     boolean isCurrentItemMusic() {
         return mVideoTrackIndices != null && mVideoTrackIndices.size() == 0
                 && mAudioTrackIndices != null && mAudioTrackIndices.size() > 0;
@@ -957,12 +1089,13 @@ public class VideoView extends SelectiveLayout {
                         // extractMetadata() contains file IO indirectly,
                         // via MediaMetadataRetriever.
                         boolean isMusic = isCurrentItemMusic();
-                        MetadataExtractTask task = new MetadataExtractTask(mMediaItem, isMusic,
-                                getContext());
+                        MetadataExtractTask task = new MetadataExtractTask(mMediaItem, isMusic);
                         task.execute();
                     }
 
                     if (mMediaControlView != null) {
+                        mMediaControlView.setEnabled(true);
+
                         Uri uri = (mMediaItem instanceof UriMediaItem)
                                 ? ((UriMediaItem) mMediaItem).getUri() : null;
                         if (uri != null && UriUtil.isFromNetwork(uri)) {
@@ -1090,12 +1223,10 @@ public class VideoView extends SelectiveLayout {
     private class MetadataExtractTask extends AsyncTask<Void, Void, MediaMetadata> {
         private MediaItem mItem;
         private boolean mIsMusic;
-        private Context mContext;
 
-        MetadataExtractTask(MediaItem mediaItem, boolean isMusic, Context context) {
+        MetadataExtractTask(MediaItem mediaItem, boolean isMusic) {
             mItem = mediaItem;
             mIsMusic = isMusic;
-            mContext = context;
         }
 
         @Override
@@ -1117,128 +1248,6 @@ public class VideoView extends SelectiveLayout {
             } else {
                 mMusicView.setVisibility(View.GONE);
             }
-        }
-
-        @SuppressLint("RestrictedApi")
-        MediaMetadata extractMetadata(MediaItem mediaItem, boolean isMusic) {
-            MediaMetadataRetriever retriever = null;
-            String path = "";
-            try {
-                if (mediaItem == null) {
-                    return null;
-                } else if (mediaItem instanceof UriMediaItem) {
-                    Uri uri = ((UriMediaItem) mediaItem).getUri();
-
-                    // Save file name as title since the file may not have a title Metadata.
-                    if (UriUtil.isFromNetwork(uri)) {
-                        path = uri.getPath();
-                    } else if ("file".equals(uri.getScheme())) {
-                        path = uri.getLastPathSegment();
-                    } else {
-                        // TODO: needs default title. b/120515913
-                    }
-                    retriever = new MediaMetadataRetriever();
-                    retriever.setDataSource(mContext, uri);
-                } else if (mediaItem instanceof FileMediaItem) {
-                    retriever = new MediaMetadataRetriever();
-                    retriever.setDataSource(
-                            ((FileMediaItem) mediaItem).getParcelFileDescriptor()
-                                    .getFileDescriptor(),
-                            ((FileMediaItem) mediaItem).getFileDescriptorOffset(),
-                            ((FileMediaItem) mediaItem).getFileDescriptorLength());
-                }
-            } catch (IllegalArgumentException e) {
-                Log.v(TAG, "Cannot retrieve metadata for this media file.");
-                retriever = null;
-            }
-
-            MediaMetadata metadata = mediaItem.getMetadata();
-
-            // Do not extract metadata of a media item which is not the current item.
-            if (mediaItem != mMediaItem) {
-                if (retriever != null) {
-                    retriever.release();
-                }
-                return null;
-            }
-            if (!isMusic) {
-                mTitle = extractString(metadata,
-                        MediaMetadata.METADATA_KEY_TITLE, retriever,
-                        MediaMetadataRetriever.METADATA_KEY_TITLE, path);
-            } else {
-                Resources resources = getResources();
-                mTitle = extractString(metadata,
-                        MediaMetadata.METADATA_KEY_TITLE, retriever,
-                        MediaMetadataRetriever.METADATA_KEY_TITLE,
-                        resources.getString(R.string.mcv2_music_title_unknown_text));
-                mMusicArtistText = extractString(metadata,
-                        MediaMetadata.METADATA_KEY_ARTIST,
-                        retriever,
-                        MediaMetadataRetriever.METADATA_KEY_ARTIST,
-                        resources.getString(R.string.mcv2_music_artist_unknown_text));
-                mMusicAlbumDrawable = extractAlbumArt(metadata, retriever,
-                        resources.getDrawable(R.drawable.ic_default_album_image));
-            }
-
-            if (retriever != null) {
-                retriever.release();
-            }
-
-            // Set duration and title values as MediaMetadata for MediaControlView
-            MediaMetadata.Builder builder = new MediaMetadata.Builder();
-
-            if (isMusic) {
-                builder.putString(MediaMetadata.METADATA_KEY_ARTIST, mMusicArtistText);
-            }
-            builder.putString(MediaMetadata.METADATA_KEY_TITLE, mTitle);
-            builder.putLong(
-                    MediaMetadata.METADATA_KEY_DURATION, mMediaSession.getPlayer().getDuration());
-            builder.putString(
-                    MediaMetadata.METADATA_KEY_MEDIA_ID, mediaItem.getMediaId());
-            builder.putLong(MediaMetadata.METADATA_KEY_PLAYABLE, 1);
-            return builder.build();
-        }
-
-        private String extractString(MediaMetadata metadata, String stringKey,
-                MediaMetadataRetriever retriever, int intKey, String defaultValue) {
-            String value = null;
-
-            if (metadata != null) {
-                value = metadata.getString(stringKey);
-                if (value != null && !value.isEmpty()) {
-                    return value;
-                }
-            }
-            if (retriever != null) {
-                value = retriever.extractMetadata(intKey);
-            }
-            return value == null ? defaultValue : value;
-        }
-
-        private Drawable extractAlbumArt(MediaMetadata metadata, MediaMetadataRetriever retriever,
-                Drawable defaultDrawable) {
-            Bitmap bitmap = null;
-
-            if (metadata != null && metadata.containsKey(MediaMetadata.METADATA_KEY_ALBUM_ART)) {
-                bitmap = metadata.getBitmap(MediaMetadata.METADATA_KEY_ALBUM_ART);
-            } else if (retriever != null) {
-                byte[] album = retriever.getEmbeddedPicture();
-                if (album != null) {
-                    bitmap = BitmapFactory.decodeByteArray(album, 0, album.length);
-                }
-            }
-            if (bitmap != null) {
-                Palette.Builder builder = Palette.from(bitmap);
-                builder.generate(new Palette.PaletteAsyncListener() {
-                    @Override
-                    public void onGenerated(Palette palette) {
-                        mDominantColor = palette.getDominantColor(0);
-                        mMusicView.setBackgroundColor(mDominantColor);
-                    }
-                });
-                return new BitmapDrawable(getResources(), bitmap);
-            }
-            return defaultDrawable;
         }
     }
 

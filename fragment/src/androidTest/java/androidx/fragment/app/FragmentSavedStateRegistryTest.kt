@@ -23,7 +23,7 @@ import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.savedstate.SavedStateRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.filters.LargeTest
+import androidx.test.filters.SmallTest
 import androidx.test.rule.ActivityTestRule
 import androidx.testutils.FragmentActivityUtils.recreateActivity
 import androidx.testutils.RecreatedActivity
@@ -33,7 +33,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
-@LargeTest
+@SmallTest
 class FragmentSavedStateRegistryTest {
 
     @get:Rule
@@ -45,7 +45,7 @@ class FragmentSavedStateRegistryTest {
             fragmentManager.beginTransaction().add(testFragment, FRAGMENT_TAG).commitNow()
             assertThat(fragmentManager.findFragmentByTag(FRAGMENT_TAG)).isNotNull()
             assertThat(testFragment.lifecycle.currentState.isAtLeast(CREATED)).isTrue()
-            val registry = testFragment.savedStateRegistry
+            val registry = testFragment.bundleSavedStateRegistry
             val savedState = registry.consumeRestoredStateForKey(CALLBACK_KEY)
             assertThat(savedState).isNull()
             registry.registerSavedStateProvider(CALLBACK_KEY, DefaultProvider())
@@ -58,7 +58,7 @@ class FragmentSavedStateRegistryTest {
         val recreated = recreateActivity(activityRule, activityRule.activity)
         activityRule.runOnUiThread {
             assertThat(recreated.fragment().lifecycle.currentState.isAtLeast(CREATED)).isTrue()
-            checkDefaultSavedState(recreated.fragment().savedStateRegistry)
+            checkDefaultSavedState(recreated.fragment().bundleSavedStateRegistry)
         }
     }
 
@@ -70,7 +70,7 @@ class FragmentSavedStateRegistryTest {
             recreated.fragment().lifecycle.addObserver(object : LifecycleObserver {
                 @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
                 fun onResume() {
-                    checkDefaultSavedState(recreated.fragment().savedStateRegistry)
+                    checkDefaultSavedState(recreated.fragment().bundleSavedStateRegistry)
                 }
             })
         }
@@ -83,7 +83,7 @@ class FragmentSavedStateRegistryTest {
     }
 }
 
-private fun checkDefaultSavedState(store: SavedStateRegistry) {
+private fun checkDefaultSavedState(store: SavedStateRegistry<Bundle>) {
     val savedState = store.consumeRestoredStateForKey(CALLBACK_KEY)
     assertThat(savedState).isNotNull()
     assertThat(savedState!!.getString(KEY)).isEqualTo(VALUE)
@@ -98,12 +98,12 @@ class OnCreateCheckingFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (savedInstanceState != null) {
-            checkDefaultSavedState(savedStateRegistry)
+            checkDefaultSavedState(bundleSavedStateRegistry)
         }
     }
 }
 
-private class DefaultProvider : SavedStateRegistry.SavedStateProvider {
+private class DefaultProvider : SavedStateRegistry.SavedStateProvider<Bundle> {
     override fun saveState() = Bundle().apply { putString(KEY, VALUE) }
 }
 

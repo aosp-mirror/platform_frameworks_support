@@ -26,7 +26,11 @@ import java.util.concurrent.Callable
  *
  * @hide
  */
+<<<<<<< HEAD   (69f76e Merge "Merge empty history for sparse-5425228-L6310000028962)
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
+=======
+@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+>>>>>>> BRANCH (bf79df Merge "Merge cherrypicks of [940699] into sparse-5433600-L95)
 class CoroutinesRoom {
 
     companion object {

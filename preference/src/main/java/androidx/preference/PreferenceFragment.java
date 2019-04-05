@@ -16,8 +16,13 @@
 
 package androidx.preference;
 
+<<<<<<< HEAD   (69f76e Merge "Merge empty history for sparse-5425228-L6310000028962)
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+=======
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+>>>>>>> BRANCH (bf79df Merge "Merge cherrypicks of [940699] into sparse-5433600-L95)
 
+import android.annotation.SuppressLint;
 import android.app.DialogFragment;
 import android.app.Fragment;
 import android.content.Context;
@@ -91,7 +96,6 @@ import androidx.recyclerview.widget.RecyclerView;
  *
  * @deprecated Use {@link PreferenceFragmentCompat} instead
  */
-@SuppressWarnings("deprecation")
 @Deprecated
 public abstract class PreferenceFragment extends Fragment implements
         PreferenceManager.OnPreferenceTreeClickListener,
@@ -183,6 +187,7 @@ public abstract class PreferenceFragment extends Fragment implements
     public abstract void onCreatePreferences(Bundle savedInstanceState, String rootKey);
 
     @Override
+    @SuppressLint("RestrictedApi")
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
 
@@ -514,11 +519,19 @@ public abstract class PreferenceFragment extends Fragment implements
     }
 
     /** @hide */
+<<<<<<< HEAD   (69f76e Merge "Merge empty history for sparse-5425228-L6310000028962)
     @RestrictTo(LIBRARY_GROUP_PREFIX)
+=======
+    @RestrictTo(LIBRARY_GROUP)
+>>>>>>> BRANCH (bf79df Merge "Merge cherrypicks of [940699] into sparse-5433600-L95)
     protected void onBindPreferences() {}
 
     /** @hide */
+<<<<<<< HEAD   (69f76e Merge "Merge empty history for sparse-5425228-L6310000028962)
     @RestrictTo(LIBRARY_GROUP_PREFIX)
+=======
+    @RestrictTo(LIBRARY_GROUP)
+>>>>>>> BRANCH (bf79df Merge "Merge cherrypicks of [940699] into sparse-5433600-L95)
     protected void onUnbindPreferences() {}
 
     /**
@@ -645,7 +658,11 @@ public abstract class PreferenceFragment extends Fragment implements
      * @return The {@link Fragment} to possibly use as a callback
      * @hide
      */
+<<<<<<< HEAD   (69f76e Merge "Merge empty history for sparse-5425228-L6310000028962)
     @RestrictTo(LIBRARY_GROUP_PREFIX)
+=======
+    @RestrictTo(LIBRARY_GROUP)
+>>>>>>> BRANCH (bf79df Merge "Merge cherrypicks of [940699] into sparse-5433600-L95)
     public Fragment getCallbackFragment() {
         return null;
     }

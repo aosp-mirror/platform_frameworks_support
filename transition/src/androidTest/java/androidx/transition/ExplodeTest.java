@@ -36,8 +36,6 @@ import androidx.test.filters.LargeTest;
 import androidx.test.platform.app.InstrumentationRegistry;
 
 import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
 import org.mockito.verification.VerificationMode;
 
 @Ignore("Temporarily disabled due to b/112005299")
@@ -83,7 +81,12 @@ public class ExplodeTest extends BaseTransitionTest {
         });
     }
 
+<<<<<<< HEAD   (69f76e Merge "Merge empty history for sparse-5425228-L6310000028962)
     @Test
+=======
+    // Temporarily disabled due to b/118137165.
+    // @Test
+>>>>>>> BRANCH (bf79df Merge "Merge cherrypicks of [940699] into sparse-5433600-L95)
     public void testExplode() throws Throwable {
         rule.runOnUiThread(new Runnable() {
             @Override
@@ -117,7 +120,12 @@ public class ExplodeTest extends BaseTransitionTest {
         assertEquals(View.INVISIBLE, mYellowSquare.getVisibility());
     }
 
+<<<<<<< HEAD   (69f76e Merge "Merge empty history for sparse-5425228-L6310000028962)
     @Test
+=======
+    // Temporarily disabled due to b/112005299.
+    // @Test
+>>>>>>> BRANCH (bf79df Merge "Merge cherrypicks of [940699] into sparse-5433600-L95)
     public void testImplode() throws Throwable {
         rule.runOnUiThread(new Runnable() {
             @Override

@@ -16,7 +16,7 @@
 
 package androidx.appcompat.view.menu;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -35,7 +35,7 @@ import androidx.appcompat.widget.TintTypedArray;
  *
  * @hide
  */
-@RestrictTo(LIBRARY_GROUP_PREFIX)
+@RestrictTo(LIBRARY_GROUP)
 public final class ExpandedMenuView extends ListView
         implements ItemInvoker, MenuView, OnItemClickListener {
 

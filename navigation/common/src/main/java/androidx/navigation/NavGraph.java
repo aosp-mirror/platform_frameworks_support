@@ -19,9 +19,17 @@ package androidx.navigation;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.net.Uri;
+<<<<<<< HEAD   (69f76e Merge "Merge empty history for sparse-5425228-L6310000028962)
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+=======
+import android.os.Bundle;
+import android.support.annotation.IdRes;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.util.Pair;
+>>>>>>> BRANCH (bf79df Merge "Merge cherrypicks of [940699] into sparse-5433600-L95)
 import android.support.v4.util.SparseArrayCompat;
 import android.util.AttributeSet;
 
@@ -71,14 +79,14 @@ public class NavGraph extends NavDestination implements Iterable<NavDestination>
 
     @Override
     @Nullable
-    DeepLinkMatch matchDeepLink(@NonNull Uri uri) {
+    Pair<NavDestination, Bundle> matchDeepLink(@NonNull Uri uri) {
         // First search through any deep links directly added to this NavGraph
-        DeepLinkMatch bestMatch = super.matchDeepLink(uri);
+        Pair<NavDestination, Bundle> bestMatch = super.matchDeepLink(uri);
         // Then search through all child destinations for a matching deep link
         for (NavDestination child : this) {
-            DeepLinkMatch childBestMatch = child.matchDeepLink(uri);
+            Pair<NavDestination, Bundle> childBestMatch = child.matchDeepLink(uri);
             if (childBestMatch != null && (bestMatch == null
-                    || childBestMatch.compareTo(bestMatch) > 0)) {
+                    || childBestMatch.second.size() > bestMatch.second.size())) {
                 bestMatch = childBestMatch;
             }
         }

@@ -125,7 +125,6 @@ public class MediaRouteButton extends View {
     private int mMinHeight;
 
     private boolean mUseDynamicGroup;
-    private boolean mAlwaysVisible;
 
     // The checked state is used when connected to a remote route.
     private static final int[] CHECKED_STATE_SET = {
@@ -183,8 +182,7 @@ public class MediaRouteButton extends View {
             if (remoteIndicatorStaticState != null) {
                 setRemoteIndicatorDrawableInternal(remoteIndicatorStaticState.newDrawable());
             } else {
-                mRemoteIndicatorLoader = new RemoteIndicatorLoader(remoteIndicatorStaticResId,
-                        getContext());
+                mRemoteIndicatorLoader = new RemoteIndicatorLoader(remoteIndicatorStaticResId);
                 mRemoteIndicatorLoader.executeOnExecutor(AsyncTask.SERIAL_EXECUTOR);
             }
         }
@@ -399,6 +397,7 @@ public class MediaRouteButton extends View {
         setRemoteIndicatorDrawableInternal(d);
     }
 
+<<<<<<< HEAD   (69f76e Merge "Merge empty history for sparse-5425228-L6310000028962)
     /**
      * Sets weather the button is visible when no routes are available.
      * When true, the button is visible even if there are no routes to connect.
@@ -416,6 +415,8 @@ public class MediaRouteButton extends View {
         }
     }
 
+=======
+>>>>>>> BRANCH (bf79df Merge "Merge cherrypicks of [940699] into sparse-5433600-L95)
     @Override
     protected boolean verifyDrawable(Drawable who) {
         return super.verifyDrawable(who) || who == mRemoteIndicator;
@@ -535,8 +536,7 @@ public class MediaRouteButton extends View {
             if (mRemoteIndicatorLoader != null) {
                 mRemoteIndicatorLoader.cancel(false);
             }
-            mRemoteIndicatorLoader = new RemoteIndicatorLoader(mRemoteIndicatorResIdToLoad,
-                    getContext());
+            mRemoteIndicatorLoader = new RemoteIndicatorLoader(mRemoteIndicatorResIdToLoad);
             mRemoteIndicatorResIdToLoad = 0;
             mRemoteIndicatorLoader.executeOnExecutor(AsyncTask.SERIAL_EXECUTOR);
         }
@@ -580,8 +580,7 @@ public class MediaRouteButton extends View {
     }
 
     void refreshVisibility() {
-        super.setVisibility(mVisibility == VISIBLE
-                && !(mAlwaysVisible || sConnectivityReceiver.isConnected())
+        super.setVisibility(mVisibility == VISIBLE && !sConnectivityReceiver.isConnected()
                 ? INVISIBLE : mVisibility);
         if (mRemoteIndicator != null) {
             mRemoteIndicator.setVisible(getVisibility() == VISIBLE, false);
@@ -610,7 +609,7 @@ public class MediaRouteButton extends View {
         }
 
         if (mAttachedToWindow) {
-            setEnabled(mAlwaysVisible || mRouter.isRouteAvailable(mSelector,
+            setEnabled(mRouter.isRouteAvailable(mSelector,
                     MediaRouter.AVAILABILITY_FLAG_IGNORE_DEFAULT_ROUTE));
         }
         if (mRemoteIndicator != null
@@ -696,18 +695,16 @@ public class MediaRouteButton extends View {
 
     private final class RemoteIndicatorLoader extends AsyncTask<Void, Void, Drawable> {
         private final int mResId;
-        private final Context mContext;
 
-        RemoteIndicatorLoader(int resId, Context context) {
+        RemoteIndicatorLoader(int resId) {
             mResId = resId;
-            mContext = context;
         }
 
         @Override
         protected Drawable doInBackground(Void... params) {
             Drawable.ConstantState remoteIndicatorState = sRemoteIndicatorCache.get(mResId);
             if (remoteIndicatorState == null) {
-                return mContext.getResources().getDrawable(mResId);
+                return getContext().getResources().getDrawable(mResId);
             } else {
                 return null;
             }

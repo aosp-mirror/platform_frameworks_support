@@ -128,9 +128,7 @@ open class ArgumentsGenerationTask : DefaultTask() {
         modified.flatMap { it.javaFiles }
                 .filter { name -> name !in newJavaFiles }
                 .forEach { javaName ->
-                    val fileExtension = if (generateKotlin) { ".kt" } else { ".java" }
-                    val fileName =
-                        "${javaName.replace('.', File.separatorChar)}$fileExtension"
+                    val fileName = "${javaName.replace('.', File.separatorChar)}.java"
                     val file = File(outputDir, fileName)
                     if (file.exists()) {
                         file.delete()

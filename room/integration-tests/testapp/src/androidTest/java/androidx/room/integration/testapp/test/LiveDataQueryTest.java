@@ -45,6 +45,7 @@ import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.MediumTest;
 import androidx.test.filters.SdkSuppress;
+import androidx.test.filters.SmallTest;
 import androidx.test.platform.app.InstrumentationRegistry;
 
 import org.junit.Rule;
@@ -65,7 +66,7 @@ import java.util.concurrent.atomic.AtomicReference;
 /**
  * Tests invalidation tracking.
  */
-@MediumTest
+@SmallTest
 @RunWith(AndroidJUnit4.class)
 public class LiveDataQueryTest extends TestDatabaseTest {
     @Rule

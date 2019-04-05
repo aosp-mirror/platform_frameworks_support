@@ -62,7 +62,6 @@ import java.util.concurrent.Executor;
  * This object is thread safe.
  */
 @VersionedParcelize(isCustom = true)
-@SuppressLint("RestrictedApi")
 public class MediaItem extends CustomVersionedParcelable {
     private static final String TAG = "MediaItem";
 
@@ -210,7 +209,7 @@ public class MediaItem extends CustomVersionedParcelable {
      * @hide
      */
     // TODO: Remove
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY)
     public @Nullable String getMediaId() {
         synchronized (mLock) {
             return mMetadata != null
@@ -246,7 +245,11 @@ public class MediaItem extends CustomVersionedParcelable {
      * @param <T> builder class
      * @hide
      */
+<<<<<<< HEAD   (69f76e Merge "Merge empty history for sparse-5425228-L6310000028962)
     @RestrictTo(LIBRARY_GROUP_PREFIX)
+=======
+    @RestrictTo(LIBRARY_GROUP)
+>>>>>>> BRANCH (bf79df Merge "Merge cherrypicks of [940699] into sparse-5433600-L95)
     public static class BuilderBase<T extends BuilderBase> {
         @SuppressWarnings("WeakerAccess") /* synthetic access */
                 MediaMetadata mMetadata;

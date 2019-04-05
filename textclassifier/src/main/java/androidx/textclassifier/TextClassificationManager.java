@@ -16,6 +16,7 @@
 
 package androidx.textclassifier;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
 
@@ -27,7 +28,6 @@ import androidx.annotation.RestrictTo;
 import androidx.annotation.VisibleForTesting;
 import androidx.core.util.Preconditions;
 
-import java.lang.ref.WeakReference;
 import java.util.WeakHashMap;
 
 /**
@@ -35,9 +35,8 @@ import java.util.WeakHashMap;
  */
 public final class TextClassificationManager {
     private static final Object sLock = new Object();
-    // The value has to be wrapped by a WeakReference as it is holding a reference to the key.
     @GuardedBy("sLock")
-    private static final WeakHashMap<Context, WeakReference<TextClassificationManager>> sMapping =
+    private static final WeakHashMap<Context, TextClassificationManager> sMapping =
             new WeakHashMap<>();
 
     private final Context mContext;
@@ -49,6 +48,7 @@ public final class TextClassificationManager {
     /** @hide **/
     @RestrictTo(RestrictTo.Scope.LIBRARY)
     @VisibleForTesting
+    @SuppressLint("RestrictedApi")
     TextClassificationManager(@NonNull Context context) {
         mContext = Preconditions.checkNotNull(context);
         mDefaultTextClassifier = defaultTextClassifier(context);
@@ -58,21 +58,17 @@ public final class TextClassificationManager {
      * Returns an instance of {@link TextClassificationManager} for the specified context.
      * Each context has its own {@link TextClassificationManager}.
      */
+    @SuppressLint("RestrictedApi")
     public static TextClassificationManager of(@NonNull Context context) {
         Preconditions.checkNotNull(context);
-        TextClassificationManager textClassificationManager = null;
         synchronized (sLock) {
-            WeakReference<TextClassificationManager> textClassificationManagerWeakReference =
-                    sMapping.get(context);
-            if (textClassificationManagerWeakReference != null) {
-                textClassificationManager = textClassificationManagerWeakReference.get();
-            }
+            TextClassificationManager textClassificationManager = sMapping.get(context);
             if (textClassificationManager == null) {
                 textClassificationManager = new TextClassificationManager(context);
-                sMapping.put(context, new WeakReference<>(textClassificationManager));
+                sMapping.put(context, textClassificationManager);
             }
+            return textClassificationManager;
         }
-        return textClassificationManager;
     }
 
     /**

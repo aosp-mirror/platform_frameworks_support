@@ -1,3 +1,4 @@
+<<<<<<< HEAD   (69f76e Merge "Merge empty history for sparse-5425228-L6310000028962)
 /*
  * Copyright 2019 The Android Open Source Project
  *
@@ -178,3 +179,5 @@ public final class SavedStateRegistry {
         Bundle saveState();
     }
 }
+=======
+>>>>>>> BRANCH (bf79df Merge "Merge cherrypicks of [940699] into sparse-5433600-L95)

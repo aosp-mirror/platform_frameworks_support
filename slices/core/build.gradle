@@ -26,7 +26,6 @@ plugins {
 dependencies {
     implementation project(":annotation")
     implementation project(":appcompat")
-    api project(":collection")
     api(project(":remotecallback"))
 
     androidTestImplementation(TEST_EXT_JUNIT)

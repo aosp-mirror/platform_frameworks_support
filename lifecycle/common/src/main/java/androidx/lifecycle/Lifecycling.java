@@ -33,7 +33,7 @@ import java.util.Map;
  *
  * @hide
  */
-@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
+@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public class Lifecycling {
 
     private static final int REFLECTIVE_CALLBACK = 1;

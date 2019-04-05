@@ -25,12 +25,12 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import androidx.test.annotation.UiThreadTest;
-import androidx.test.filters.SmallTest;
+import androidx.test.filters.MediumTest;
 import androidx.transition.test.R;
 
 import org.junit.Test;
 
-@SmallTest
+@MediumTest
 public class SceneTest extends BaseTransitionTest {
 
     @Test

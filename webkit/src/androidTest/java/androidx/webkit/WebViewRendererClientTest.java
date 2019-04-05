@@ -22,7 +22,11 @@ import android.webkit.WebView;
 
 import androidx.concurrent.futures.ResolvableFuture;
 import androidx.test.InstrumentationRegistry;
+<<<<<<< HEAD   (69f76e Merge "Merge empty history for sparse-5425228-L6310000028962)
 import androidx.test.filters.LargeTest;
+=======
+import androidx.test.filters.MediumTest;
+>>>>>>> BRANCH (bf79df Merge "Merge cherrypicks of [940699] into sparse-5433600-L95)
 import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.After;
@@ -35,7 +39,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executor;
 import java.util.concurrent.atomic.AtomicInteger;
 
-@LargeTest
+@MediumTest
 @RunWith(AndroidJUnit4.class)
 public class WebViewRendererClientTest {
     WebViewOnUiThread mWebViewOnUiThread;

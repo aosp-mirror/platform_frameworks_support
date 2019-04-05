@@ -16,7 +16,7 @@
 
 package androidx.core.graphics;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.content.ContentResolver;
 import android.content.Context;
@@ -45,7 +45,7 @@ import java.nio.channels.FileChannel;
  * Utility methods for TypefaceCompat.
  * @hide
  */
-@RestrictTo(LIBRARY_GROUP_PREFIX)
+@RestrictTo(LIBRARY_GROUP)
 public class TypefaceCompatUtil {
     private static final String TAG = "TypefaceCompatUtil";
 

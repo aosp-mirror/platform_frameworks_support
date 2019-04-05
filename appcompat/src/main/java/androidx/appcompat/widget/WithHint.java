@@ -16,7 +16,7 @@
 
 package androidx.appcompat.widget;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
@@ -24,7 +24,7 @@ import androidx.annotation.RestrictTo;
 /**
  * @hide
  */
-@RestrictTo(LIBRARY_GROUP_PREFIX)
+@RestrictTo(LIBRARY_GROUP)
 public interface WithHint {
     /**
      * Returns the hint which is displayed in the floating label, if enabled.

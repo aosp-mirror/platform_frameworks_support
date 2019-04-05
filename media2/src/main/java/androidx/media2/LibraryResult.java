@@ -17,9 +17,8 @@
 package androidx.media2;
 
 import static androidx.annotation.RestrictTo.Scope.LIBRARY;
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
-import android.annotation.SuppressLint;
 import android.os.SystemClock;
 
 import androidx.annotation.IntDef;
@@ -42,7 +41,6 @@ import java.util.List;
  * {@link androidx.media2.MediaLibraryService.MediaLibrarySession} and {@link MediaBrowser}.
  */
 @VersionedParcelize(isCustom = true)
-@SuppressLint("RestrictedApi")
 public class LibraryResult extends CustomVersionedParcelable implements RemoteResult {
     /**
      * @hide
@@ -65,7 +63,7 @@ public class LibraryResult extends CustomVersionedParcelable implements RemoteRe
             RESULT_ERROR_SESSION_SKIP_LIMIT_REACHED,
             RESULT_ERROR_SESSION_SETUP_REQUIRED})
     @Retention(RetentionPolicy.SOURCE)
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     public @interface ResultCode {}
 
     @ParcelField(1)

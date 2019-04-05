@@ -50,6 +50,7 @@ class VMSavedStateInitializer implements Application.ActivityLifecycleCallbacks 
                 public void onStateChanged(LifecycleOwner source, Lifecycle.Event event) {
                     // next event is going to be created....
                     if (!fragmentActivity.getViewModelStore().keys().isEmpty()) {
+<<<<<<< HEAD   (69f76e Merge "Merge empty history for sparse-5425228-L6310000028962)
                         attach(fragmentActivity.getSavedStateRegistry(), fragmentActivity);
                     }
                     source.getLifecycle().removeObserver(this);
@@ -109,6 +110,67 @@ class VMSavedStateInitializer implements Application.ActivityLifecycleCallbacks 
                 @NonNull Fragment fragment, @NonNull Context context) {
             if (!fragment.getViewModelStore().keys().isEmpty()) {
                 attach(fragment.getSavedStateRegistry(), fragment);
+=======
+                        attach(fragmentActivity.getBundleSavedStateRegistry(), fragmentActivity);
+                    }
+                    source.getLifecycle().removeObserver(this);
+                }
+            });
+
+        }
+    }
+
+    @Override
+    public void onActivityStarted(Activity activity) {
+
+    }
+
+    @Override
+    public void onActivityResumed(Activity activity) {
+
+    }
+
+    @Override
+    public void onActivityPaused(Activity activity) {
+
+    }
+
+    @Override
+    public void onActivityStopped(Activity activity) {
+
+    }
+
+    @Override
+    public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
+
+    }
+
+    @Override
+    public void onActivityDestroyed(Activity activity) {
+
+    }
+
+    @SuppressWarnings("WeakerAccess")
+    static void attach(SavedStateRegistry<Bundle> savedStateStore, ViewModelStoreOwner store) {
+        ViewModelStore viewModelStore = store.getViewModelStore();
+        for (String key : viewModelStore.keys()) {
+            ViewModel viewModel = viewModelStore.get(key);
+            SavedStateHandle handle = viewModel
+                    .getTag(AbstractSavedStateVMFactory.TAG_SAVED_STATE_HANDLE);
+            if (handle != null) {
+                savedStateStore.unregisterSavedStateProvider(key);
+                savedStateStore.registerSavedStateProvider(key, handle.savedStateProvider());
+            }
+        }
+    }
+
+    static class FragmentCallbacks extends FragmentManager.FragmentLifecycleCallbacks {
+        @Override
+        public void onFragmentAttached(@NonNull FragmentManager fm,
+                @NonNull Fragment fragment, @NonNull Context context) {
+            if (!fragment.getViewModelStore().keys().isEmpty()) {
+                attach(fragment.getBundleSavedStateRegistry(), fragment);
+>>>>>>> BRANCH (bf79df Merge "Merge cherrypicks of [940699] into sparse-5433600-L95)
             }
         }
     }

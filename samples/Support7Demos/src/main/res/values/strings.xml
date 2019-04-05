@@ -214,20 +214,17 @@
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
 
-    <string name="mode_night_follow_system">MODE_NIGHT_FOLLOW_SYSTEM</string>
     <string name="mode_night_yes">MODE_NIGHT_YES</string>
     <string name="mode_night_no">MODE_NIGHT_NO</string>
-    <string name="mode_night_auto_time">MODE_NIGHT_AUTO_TIME</string>
-    <string name="mode_night_auto_battery">MODE_NIGHT_AUTO_BATTERY</string>
+    <string name="mode_night_auto">MODE_NIGHT_AUTO</string>
     <string name="mode_night_activity_title">AppCompat/DayNight/Activity Usage</string>
     <string name="mode_night_dialog_title">AppCompat/DayNight/Dialog Usage</string>
     <string name="mode_night_alertdialog_title">AppCompat/DayNight/AlertDialog Usage</string>
 
     <string name="list_popup_window_activity">AppCompat/List popup window</string>
-    <string name="list_popup_window_summary">This activity illustrates the use of list popup windows. The popup window is shown by clicking the button above. The checkboxes controls the modality and transition epicenter bounds. The text area below logs various events - it should log a tap on itself when a non-modal popup window is dismissed by tapping on the log area.</string>
+    <string name="list_popup_window_summary">This activity illustrates the use of list popup windows. The popup window is shown by clicking the button above. The checkbox controls the modality. The text area below logs various events - it should log a tap on itself when a non-modal popup window is dismissed by tapping on the log area.</string>
     <string name="list_popup_window_button">Show popup!</string>
-    <string name="list_popup_window_is_modal">Is modal</string>
-    <string name="list_popup_window_use_epicenter">Custom Epicenter</string>
+    <string name="list_popup_window_is_modal">is modal</string>
 
     <string name="popup_menu_activity">AppCompat/Popup menu</string>
     <string name="popup_menu_summary">This activity illustrates the use of popup menus. The popup menu is shown by clicking the button above. The text area below logs various events.</string>

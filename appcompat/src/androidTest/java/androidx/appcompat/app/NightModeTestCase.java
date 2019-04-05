@@ -17,7 +17,10 @@
 package androidx.appcompat.app;
 
 import static androidx.appcompat.app.NightModeActivity.TOP_ACTIVITY;
+<<<<<<< HEAD   (69f76e Merge "Merge empty history for sparse-5425228-L6310000028962)
 import static androidx.appcompat.testutils.NightModeUtils.assertConfigurationNightModeEquals;
+=======
+>>>>>>> BRANCH (bf79df Merge "Merge cherrypicks of [940699] into sparse-5433600-L95)
 import static androidx.appcompat.testutils.NightModeUtils.setLocalNightModeAndWait;
 import static androidx.appcompat.testutils.TestUtilsActions.rotateScreenOrientation;
 import static androidx.appcompat.testutils.TestUtilsMatchers.isBackground;
@@ -27,13 +30,14 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 import static org.junit.Assert.assertEquals;
+<<<<<<< HEAD   (69f76e Merge "Merge empty history for sparse-5425228-L6310000028962)
 import static org.junit.Assert.assertNotSame;
+=======
+>>>>>>> BRANCH (bf79df Merge "Merge cherrypicks of [940699] into sparse-5433600-L95)
 import static org.junit.Assert.assertTrue;
 
 import android.app.Activity;
 import android.app.Instrumentation;
-import android.content.res.Configuration;
-import android.webkit.WebView;
 
 import androidx.appcompat.test.R;
 import androidx.core.content.ContextCompat;
@@ -80,16 +84,20 @@ public class NightModeTestCase {
         // Now force the local night mode to be yes (aka night mode)
         setLocalNightModeAndWaitForRecreate(
                 mActivityTestRule.getActivity(), AppCompatDelegate.MODE_NIGHT_YES);
+<<<<<<< HEAD   (69f76e Merge "Merge empty history for sparse-5425228-L6310000028962)
 
         // Assert that the new local night mode is returned
         assertEquals(AppCompatDelegate.MODE_NIGHT_YES,
                 mActivityTestRule.getActivity().getDelegate().getLocalNightMode());
+=======
+>>>>>>> BRANCH (bf79df Merge "Merge cherrypicks of [940699] into sparse-5433600-L95)
 
         // Now check the text has changed, signifying that night resources are being used
         onView(withId(R.id.text_night_mode)).check(matches(withText(STRING_NIGHT)));
     }
 
     @Test
+<<<<<<< HEAD   (69f76e Merge "Merge empty history for sparse-5425228-L6310000028962)
     public void testSwitchingYesToFollowSystem() throws Throwable {
         // Verify first that we're in day mode
         onView(withId(R.id.text_night_mode))
@@ -113,6 +121,8 @@ public class NightModeTestCase {
     }
 
     @Test
+=======
+>>>>>>> BRANCH (bf79df Merge "Merge cherrypicks of [940699] into sparse-5433600-L95)
     public void testColorConvertedDrawableChangesWithNightMode() throws Throwable {
         final NightModeActivity activity = mActivityTestRule.getActivity();
         final int dayColor = ContextCompat.getColor(activity, R.color.color_sky_day);
@@ -135,7 +145,7 @@ public class NightModeTestCase {
     }
 
     @Test
-    public void testNightModeAutoTimeRecreatesOnTimeChange() throws Throwable {
+    public void testNightModeAutoRecreatesOnTimeChange() throws Throwable {
         // Create a fake TwilightManager and set it as the app instance
         final FakeTwilightManager twilightManager = new FakeTwilightManager();
         TwilightManager.setInstance(twilightManager);
@@ -146,8 +156,13 @@ public class NightModeTestCase {
         onView(withId(R.id.text_night_mode)).check(matches(withText(STRING_DAY)));
 
         // Set MODE_NIGHT_AUTO so that we will change to night mode automatically
+<<<<<<< HEAD   (69f76e Merge "Merge empty history for sparse-5425228-L6310000028962)
         final NightModeActivity newActivity = setLocalNightModeAndWaitForRecreate(activity,
                         AppCompatDelegate.MODE_NIGHT_AUTO_TIME);
+=======
+        final NightModeActivity newActivity =
+                setLocalNightModeAndWaitForRecreate(activity, AppCompatDelegate.MODE_NIGHT_AUTO);
+>>>>>>> BRANCH (bf79df Merge "Merge cherrypicks of [940699] into sparse-5433600-L95)
         final AppCompatDelegateImpl newDelegate =
                 (AppCompatDelegateImpl) newActivity.getDelegate();
 
@@ -156,13 +171,17 @@ public class NightModeTestCase {
             @Override
             public void run() {
                 twilightManager.setIsNight(true);
-                newDelegate.getAutoTimeNightModeManager().onChange();
+                newDelegate.getAutoNightModeManager().dispatchTimeChanged();
             }
         });
 
         RecreatedAppCompatActivity.sResumed = new CountDownLatch(1);
         assertTrue(RecreatedAppCompatActivity.sResumed.await(1, TimeUnit.SECONDS));
+<<<<<<< HEAD   (69f76e Merge "Merge empty history for sparse-5425228-L6310000028962)
         // At this point recreate that has been triggered by onChange call
+=======
+        // At this point recreate that has been triggered by dispatchTimeChanged call
+>>>>>>> BRANCH (bf79df Merge "Merge cherrypicks of [940699] into sparse-5433600-L95)
         // has completed
 
         // Check that the text has changed, signifying that night resources are being used
@@ -170,36 +189,42 @@ public class NightModeTestCase {
     }
 
     @Test
-    public void testNightModeAutoTimeRecreatesOnResume() throws Throwable {
+    public void testNightModeAutoRecreatesOnResume() throws Throwable {
         // Create a fake TwilightManager and set it as the app instance
         final FakeTwilightManager twilightManager = new FakeTwilightManager();
         TwilightManager.setInstance(twilightManager);
 
+<<<<<<< HEAD   (69f76e Merge "Merge empty history for sparse-5425228-L6310000028962)
         // Set MODE_NIGHT_AUTO_TIME so that we will change to night mode automatically
         setLocalNightModeAndWaitForRecreate(mActivityTestRule.getActivity(),
                 AppCompatDelegate.MODE_NIGHT_AUTO_TIME);
+=======
+        NightModeActivity activity = mActivityTestRule.getActivity();
+>>>>>>> BRANCH (bf79df Merge "Merge cherrypicks of [940699] into sparse-5433600-L95)
 
+        // Set MODE_NIGHT_AUTO so that we will change to night mode automatically
+        activity = setLocalNightModeAndWaitForRecreate(activity, AppCompatDelegate.MODE_NIGHT_AUTO);
         // Verify that we're currently in day mode
         onView(withId(R.id.text_night_mode)).check(matches(withText(STRING_DAY)));
 
+        final NightModeActivity toTest = activity;
         final CountDownLatch resumeCompleteLatch = new CountDownLatch(1);
 
         mActivityTestRule.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                final NightModeActivity activity = mActivityTestRule.getActivity();
                 final Instrumentation instrumentation =
                         InstrumentationRegistry.getInstrumentation();
                 // Now fool the Activity into thinking that it has gone into the background
-                instrumentation.callActivityOnPause(activity);
-                instrumentation.callActivityOnStop(activity);
+                instrumentation.callActivityOnPause(toTest);
+                instrumentation.callActivityOnStop(toTest);
 
                 // Now update the twilight manager while the Activity is in the 'background'
                 twilightManager.setIsNight(true);
 
                 // Now tell the Activity that it has gone into the foreground again
-                instrumentation.callActivityOnStart(activity);
-                instrumentation.callActivityOnResume(activity);
+                instrumentation.callActivityOnStart(toTest);
+                instrumentation.callActivityOnResume(toTest);
 
                 resumeCompleteLatch.countDown();
             }
@@ -225,6 +250,7 @@ public class NightModeTestCase {
                 mActivityTestRule.getActivity().getLastNightModeAndReset());
     }
 
+<<<<<<< HEAD   (69f76e Merge "Merge empty history for sparse-5425228-L6310000028962)
     @Test
     public void testRotateRecreatesActivity() throws Throwable {
         // Set local night mode to YES
@@ -290,6 +316,8 @@ public class NightModeTestCase {
                 activity.getResources().getConfiguration());
     }
 
+=======
+>>>>>>> BRANCH (bf79df Merge "Merge cherrypicks of [940699] into sparse-5433600-L95)
     private static class FakeTwilightManager extends TwilightManager {
         private boolean mIsNight;
 

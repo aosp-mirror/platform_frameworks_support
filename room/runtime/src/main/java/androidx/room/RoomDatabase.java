@@ -68,7 +68,7 @@ public abstract class RoomDatabase {
      *
      * @hide
      */
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
     public static final int MAX_BIND_PARAMETER_CNT = 999;
     /**
      * Set by the generated open helper.
@@ -218,7 +218,7 @@ public abstract class RoomDatabase {
      * @hide
      */
     @SuppressWarnings("WeakerAccess")
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
     // used in generated code
     public void assertNotMainThread() {
         if (mAllowMainThreadQueries) {
@@ -687,6 +687,7 @@ public abstract class RoomDatabase {
          * @return A new database instance.
          */
         @NonNull
+        @SuppressLint("RestrictedApi")
         public T build() {
             //noinspection ConstantConditions
             if (mContext == null) {

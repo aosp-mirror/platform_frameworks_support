@@ -103,10 +103,13 @@ class JavaNavWriterTest {
                         Argument(
                                 "parcelable",
                                 ObjectType("android.content.pm.ActivityInfo")
+<<<<<<< HEAD   (69f76e Merge "Merge empty history for sparse-5425228-L6310000028962)
                         ),
                         Argument(
                                 "innerData",
                                 ObjectType("android.content.pm.ActivityInfo\$WindowLayout")
+=======
+>>>>>>> BRANCH (bf79df Merge "Merge cherrypicks of [940699] into sparse-5433600-L95)
                         ))), false)
         val actual = toJavaFileObject(actionSpec)
         JavaSourcesSubject.assertThat(actual).parsesAs("a.b.Next")
@@ -170,7 +173,6 @@ class JavaNavWriterTest {
                 Argument("optional", IntType, IntValue("-1")),
                 Argument("reference", ReferenceType, ReferenceValue(ResReference("a.b", "drawable",
                         "background"))),
-                Argument("referenceZeroDefaultValue", ReferenceType, IntValue("0")),
                 Argument("floatArg", FloatType, FloatValue("1")),
                 Argument("floatArrayArg", FloatArrayType),
                 Argument("objectArrayArg", ObjectArrayType(

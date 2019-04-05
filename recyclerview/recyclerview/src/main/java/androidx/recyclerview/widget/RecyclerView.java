@@ -17,7 +17,7 @@
 
 package androidx.recyclerview.widget;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 import static androidx.core.view.ViewCompat.TYPE_NON_TOUCH;
 import static androidx.core.view.ViewCompat.TYPE_TOUCH;
 
@@ -262,7 +262,7 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
     static final boolean DISPATCH_TEMP_DETACH = false;
 
     /** @hide */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     @IntDef({HORIZONTAL, VERTICAL})
     @Retention(RetentionPolicy.SOURCE)
     public @interface Orientation {}
@@ -288,8 +288,6 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
      * widgets that snap to a page or other coarse-grained barrier.
      */
     public static final int TOUCH_SLOP_PAGING = 1;
-
-    static final int UNDEFINED_DURATION = Integer.MIN_VALUE;
 
     static final int MAX_SCROLL_DURATION = 2000;
 
@@ -2330,7 +2328,7 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
             dy = 0;
         }
         if (dx != 0 || dy != 0) {
-            mViewFlinger.smoothScrollBy(dx, dy, UNDEFINED_DURATION, interpolator);
+            mViewFlinger.smoothScrollBy(dx, dy, interpolator);
         }
     }
 
@@ -5321,39 +5319,12 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
             postOnAnimation();
         }
 
-        public void smoothScrollBy(int dx, int dy, int duration,
-                @Nullable Interpolator interpolator) {
+        public void smoothScrollBy(int dx, int dy) {
+            smoothScrollBy(dx, dy, 0, 0);
+        }
 
-            // Handle cases where parameter values aren't defined.
-            if (duration == UNDEFINED_DURATION) {
-                duration = computeScrollDuration(dx, dy, 0, 0);
-            }
-            if (interpolator == null) {
-                interpolator = sQuinticInterpolator;
-            }
-
-            // If the Interpolator has changed, create a new OverScroller with the new
-            // interpolator.
-            if (mInterpolator != interpolator) {
-                mInterpolator = interpolator;
-                mOverScroller = new OverScroller(getContext(), interpolator);
-            }
-
-            // Reset the last fling information.
-            mLastFlingX = mLastFlingY = 0;
-
-            // Set to settling state and start scrolling.
-            setScrollState(SCROLL_STATE_SETTLING);
-            mOverScroller.startScroll(0, 0, dx, dy, duration);
-
-            if (Build.VERSION.SDK_INT < 23) {
-                // b/64931938 before API 23, startScroll() does not reset getCurX()/getCurY()
-                // to start values, which causes fillRemainingScrollValues() put in obsolete values
-                // for LayoutManager.onLayoutChildren().
-                mOverScroller.computeScrollOffset();
-            }
-
-            postOnAnimation();
+        public void smoothScrollBy(int dx, int dy, int vx, int vy) {
+            smoothScrollBy(dx, dy, computeScrollDuration(dx, dy, vx, vy));
         }
 
         private float distanceInfluenceForSnapDuration(float f) {
@@ -5382,6 +5353,32 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
                 duration = (int) (((absDelta / containerSize) + 1) * 300);
             }
             return Math.min(duration, MAX_SCROLL_DURATION);
+        }
+
+        public void smoothScrollBy(int dx, int dy, int duration) {
+            smoothScrollBy(dx, dy, duration, sQuinticInterpolator);
+        }
+
+        public void smoothScrollBy(int dx, int dy, Interpolator interpolator) {
+            smoothScrollBy(dx, dy, computeScrollDuration(dx, dy, 0, 0),
+                    interpolator == null ? sQuinticInterpolator : interpolator);
+        }
+
+        public void smoothScrollBy(int dx, int dy, int duration, Interpolator interpolator) {
+            if (mInterpolator != interpolator) {
+                mInterpolator = interpolator;
+                mOverScroller = new OverScroller(getContext(), interpolator);
+            }
+            setScrollState(SCROLL_STATE_SETTLING);
+            mLastFlingX = mLastFlingY = 0;
+            mOverScroller.startScroll(0, 0, dx, dy, duration);
+            if (Build.VERSION.SDK_INT < 23) {
+                // b/64931938 before API 23, startScroll() does not reset getCurX()/getCurY()
+                // to start values, which causes fillRemainingScrollValues() put in obsolete values
+                // for LayoutManager.onLayoutChildren().
+                mOverScroller.computeScrollOffset();
+            }
+            postOnAnimation();
         }
 
         public void stop() {
@@ -6189,6 +6186,14 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
                     ViewCompat.setImportantForAccessibility(itemView,
                             ViewCompat.IMPORTANT_FOR_ACCESSIBILITY_YES);
                 }
+<<<<<<< HEAD   (69f76e Merge "Merge empty history for sparse-5425228-L6310000028962)
+=======
+                if (!ViewCompat.hasAccessibilityDelegate(itemView)) {
+                    holder.addFlags(ViewHolder.FLAG_SET_A11Y_ITEM_DELEGATE);
+                    ViewCompat.setAccessibilityDelegate(itemView,
+                            mAccessibilityDelegate.getItemDelegate());
+                }
+>>>>>>> BRANCH (bf79df Merge "Merge cherrypicks of [940699] into sparse-5433600-L95)
             }
         }
 
@@ -11901,7 +11906,7 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
          */
         public static class Action {
 
-            public static final int UNDEFINED_DURATION = RecyclerView.UNDEFINED_DURATION;
+            public static final int UNDEFINED_DURATION = Integer.MIN_VALUE;
 
             private int mDx;
 
@@ -11984,7 +11989,16 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
                 }
                 if (mChanged) {
                     validate();
-                    recyclerView.mViewFlinger.smoothScrollBy(mDx, mDy, mDuration, mInterpolator);
+                    if (mInterpolator == null) {
+                        if (mDuration == UNDEFINED_DURATION) {
+                            recyclerView.mViewFlinger.smoothScrollBy(mDx, mDy);
+                        } else {
+                            recyclerView.mViewFlinger.smoothScrollBy(mDx, mDy, mDuration);
+                        }
+                    } else {
+                        recyclerView.mViewFlinger.smoothScrollBy(
+                                mDx, mDy, mDuration, mInterpolator);
+                    }
                     mConsecutiveUpdates++;
                     if (mConsecutiveUpdates > 10) {
                         // A new action is being set in every animation step. This looks like a bad
@@ -12157,7 +12171,7 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
      * This is public so that the CREATOR can be accessed on cold launch.
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     public static class SavedState extends AbsSavedState {
 
         Parcelable mLayoutState;

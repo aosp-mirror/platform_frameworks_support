@@ -49,6 +49,7 @@
             android:minHeight="?attr/actionBarSize"
             app:titleTextColor="#FF00FF"
             app:subtitleTextColor="#FF00FF"/>
+<<<<<<< HEAD   (69f76e Merge "Merge empty history for sparse-5425228-L6310000028962)
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_menu"
@@ -57,5 +58,7 @@
         android:minHeight="?attr/actionBarSize"
         app:title="Title"
         app:menu="@menu/sample_actions" />
+=======
+>>>>>>> BRANCH (bf79df Merge "Merge cherrypicks of [940699] into sparse-5433600-L95)
 
 </LinearLayout>

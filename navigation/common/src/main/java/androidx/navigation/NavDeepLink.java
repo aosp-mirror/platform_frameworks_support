@@ -34,7 +34,6 @@ class NavDeepLink {
 
     private final ArrayList<String> mArguments = new ArrayList<>();
     private final Pattern mPattern;
-    private final boolean mExactDeepLink;
 
     /**
      * NavDestinations should be created via {@link Navigator#createDestination}.
@@ -48,8 +47,6 @@ class NavDeepLink {
         Pattern fillInPattern = Pattern.compile("\\{(.+?)\\}");
         Matcher matcher = fillInPattern.matcher(uri);
         int appendPos = 0;
-        // Track whether this is an exact deep link
-        boolean exactDeepLink = !uri.contains(".*");
         while (matcher.find()) {
             String argName = matcher.group(1);
             mArguments.add(argName);
@@ -57,7 +54,6 @@ class NavDeepLink {
             uriRegex.append(Pattern.quote(uri.substring(appendPos, matcher.start())));
             uriRegex.append("(.+?)");
             appendPos = matcher.end();
-            exactDeepLink = false;
         }
         if (appendPos < uri.length()) {
             // Use Pattern.quote() to treat the input string as a literal
@@ -68,15 +64,10 @@ class NavDeepLink {
         // they are still treated as wildcards in our final regex
         String finalRegex = uriRegex.toString().replace(".*", "\\E.*\\Q");
         mPattern = Pattern.compile(finalRegex);
-        mExactDeepLink = exactDeepLink;
     }
 
     boolean matches(@NonNull Uri deepLink) {
         return mPattern.matcher(deepLink.toString()).matches();
-    }
-
-    boolean isExactDeepLink() {
-        return mExactDeepLink;
     }
 
     @Nullable

@@ -16,7 +16,7 @@
 
 package androidx.mediarouter.media;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.content.ComponentName;
 import android.content.Context;
@@ -283,7 +283,7 @@ public abstract class MediaRouteProvider {
      * cannot be controlled using the route controller interface.
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     @Nullable
     public RouteController onCreateRouteController(@NonNull String routeId,
             @NonNull String routeGroupId) {
@@ -541,7 +541,7 @@ public abstract class MediaRouteProvider {
             /**
              * @hide
              */
-            @RestrictTo(LIBRARY_GROUP_PREFIX)
+            @RestrictTo(LIBRARY_GROUP)
             @IntDef({
                     UNSELECTING,
                     UNSELECTED,

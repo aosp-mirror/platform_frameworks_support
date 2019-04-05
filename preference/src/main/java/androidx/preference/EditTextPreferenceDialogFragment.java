@@ -16,7 +16,11 @@
 
 package androidx.preference;
 
+<<<<<<< HEAD   (69f76e Merge "Merge empty history for sparse-5425228-L6310000028962)
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+=======
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+>>>>>>> BRANCH (bf79df Merge "Merge cherrypicks of [940699] into sparse-5433600-L95)
 
 import android.os.Bundle;
 import android.view.View;
@@ -94,7 +98,11 @@ public class EditTextPreferenceDialogFragment extends PreferenceDialogFragment {
     }
 
     /** @hide */
+<<<<<<< HEAD   (69f76e Merge "Merge empty history for sparse-5425228-L6310000028962)
     @RestrictTo(LIBRARY_GROUP_PREFIX)
+=======
+    @RestrictTo(LIBRARY_GROUP)
+>>>>>>> BRANCH (bf79df Merge "Merge cherrypicks of [940699] into sparse-5433600-L95)
     @Override
     protected boolean needInputMethod() {
         // We want the input method to show, if possible, when dialog is displayed

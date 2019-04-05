@@ -16,7 +16,7 @@
 
 package androidx.core.graphics;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -46,7 +46,7 @@ import java.util.List;
  * Implementation of the Typeface compat methods for API 24 and above.
  * @hide
  */
-@RestrictTo(LIBRARY_GROUP_PREFIX)
+@RestrictTo(LIBRARY_GROUP)
 @RequiresApi(24)
 class TypefaceCompatApi24Impl extends TypefaceCompatBaseImpl {
     private static final String TAG = "TypefaceCompatApi24Impl";

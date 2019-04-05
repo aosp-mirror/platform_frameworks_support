@@ -16,7 +16,7 @@
 
 package androidx.appcompat.view.menu;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.content.Context;
 import android.content.Intent;
@@ -43,7 +43,7 @@ import java.lang.reflect.Method;
  * Wraps a support {@link SupportMenuItem} as a framework {@link android.view.MenuItem}
  * @hide
  */
-@RestrictTo(LIBRARY_GROUP_PREFIX)
+@RestrictTo(LIBRARY_GROUP)
 public class MenuItemWrapperICS extends BaseMenuWrapper implements MenuItem {
     static final String LOG_TAG = "MenuItemWrapper";
 

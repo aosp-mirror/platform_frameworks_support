@@ -16,14 +16,22 @@
 
 package androidx.preference;
 
+<<<<<<< HEAD   (69f76e Merge "Merge empty history for sparse-5425228-L6310000028962)
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+=======
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+>>>>>>> BRANCH (bf79df Merge "Merge cherrypicks of [940699] into sparse-5433600-L95)
 
 import androidx.annotation.RestrictTo;
 
 /**
  * @hide
  */
+<<<<<<< HEAD   (69f76e Merge "Merge empty history for sparse-5425228-L6310000028962)
 @RestrictTo(LIBRARY_GROUP_PREFIX)
+=======
+@RestrictTo(LIBRARY_GROUP)
+>>>>>>> BRANCH (bf79df Merge "Merge cherrypicks of [940699] into sparse-5433600-L95)
 public class AndroidResources {
 
     public static final int ANDROID_R_ICON_FRAME = android.R.id.icon_frame;

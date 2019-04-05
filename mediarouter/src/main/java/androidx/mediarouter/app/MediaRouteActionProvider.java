@@ -138,7 +138,6 @@ public class MediaRouteActionProvider extends ActionProvider {
     private MediaRouteDialogFactory mDialogFactory = MediaRouteDialogFactory.getDefault();
     private MediaRouteButton mButton;
     private boolean mUseDynamicGroup;
-    private boolean mAlwaysVisible;
 
     /**
      * Creates the action provider.
@@ -208,6 +207,7 @@ public class MediaRouteActionProvider extends ActionProvider {
     }
 
     /**
+<<<<<<< HEAD   (69f76e Merge "Merge empty history for sparse-5425228-L6310000028962)
      * Sets weather {@link MediaRouteButton} is visible when no routes are available.
      * When true, the button is visible even if there are no routes to connect.
      *
@@ -226,6 +226,8 @@ public class MediaRouteActionProvider extends ActionProvider {
     }
 
     /**
+=======
+>>>>>>> BRANCH (bf79df Merge "Merge cherrypicks of [940699] into sparse-5433600-L95)
      * Gets the media route dialog factory to use when showing the route chooser
      * or controller dialog.
      *
@@ -289,7 +291,6 @@ public class MediaRouteActionProvider extends ActionProvider {
         if (mUseDynamicGroup) {
             mButton.enableDynamicGroup();
         }
-        mButton.setAlwaysVisible(mAlwaysVisible);
         mButton.setDialogFactory(mDialogFactory);
         mButton.setLayoutParams(new ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT,
@@ -312,7 +313,7 @@ public class MediaRouteActionProvider extends ActionProvider {
 
     @Override
     public boolean isVisible() {
-        return mAlwaysVisible || mRouter.isRouteAvailable(mSelector,
+        return mRouter.isRouteAvailable(mSelector,
                 MediaRouter.AVAILABILITY_FLAG_IGNORE_DEFAULT_ROUTE);
     }
 

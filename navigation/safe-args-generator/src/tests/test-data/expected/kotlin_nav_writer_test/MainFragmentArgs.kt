@@ -21,7 +21,10 @@ data class MainFragmentArgs(
     val main: String,
     val optional: Int = -1,
     val reference: Int = a.b.R.drawable.background,
+<<<<<<< HEAD   (69f76e Merge "Merge empty history for sparse-5425228-L6310000028962)
     val referenceZeroDefaultValue: Int = 0,
+=======
+>>>>>>> BRANCH (bf79df Merge "Merge cherrypicks of [940699] into sparse-5433600-L95)
     val floatArg: Float = 1F,
     val floatArrayArg: FloatArray,
     val objectArrayArg: Array<ActivityInfo>,
@@ -35,7 +38,6 @@ data class MainFragmentArgs(
         result.putString("main", this.main)
         result.putInt("optional", this.optional)
         result.putInt("reference", this.reference)
-        result.putInt("referenceZeroDefaultValue", this.referenceZeroDefaultValue)
         result.putFloat("floatArg", this.floatArg)
         result.putFloatArray("floatArrayArg", this.floatArrayArg)
         result.putParcelableArray("objectArrayArg", this.objectArrayArg)
@@ -78,12 +80,15 @@ data class MainFragmentArgs(
                 __reference = bundle.getInt("reference")
             } else {
                 __reference = a.b.R.drawable.background
+<<<<<<< HEAD   (69f76e Merge "Merge empty history for sparse-5425228-L6310000028962)
             }
             val __referenceZeroDefaultValue : Int
             if (bundle.containsKey("referenceZeroDefaultValue")) {
                 __referenceZeroDefaultValue = bundle.getInt("referenceZeroDefaultValue")
             } else {
                 __referenceZeroDefaultValue = 0
+=======
+>>>>>>> BRANCH (bf79df Merge "Merge cherrypicks of [940699] into sparse-5433600-L95)
             }
             val __floatArg : Float
             if (bundle.containsKey("floatArg")) {
@@ -102,8 +107,8 @@ data class MainFragmentArgs(
             }
             val __objectArrayArg : Array<ActivityInfo>?
             if (bundle.containsKey("objectArrayArg")) {
-                __objectArrayArg = bundle.getParcelableArray("objectArrayArg")?.map { it as
-                        ActivityInfo }?.toTypedArray()
+                __objectArrayArg = bundle.getParcelableArray("objectArrayArg") as
+                        Array<ActivityInfo>?
                 if (__objectArrayArg == null) {
                     throw IllegalArgumentException("Argument \"objectArrayArg\" is marked as non-null but was passed a null value.")
                 }
@@ -143,9 +148,8 @@ data class MainFragmentArgs(
             } else {
                 __enumArg = AccessMode.READ
             }
-            return MainFragmentArgs(__main, __optional, __reference, __referenceZeroDefaultValue,
-                    __floatArg, __floatArrayArg, __objectArrayArg, __boolArg, __optionalParcelable,
-                    __enumArg)
+            return MainFragmentArgs(__main, __optional, __reference, __floatArg, __floatArrayArg,
+                    __objectArrayArg, __boolArg, __optionalParcelable, __enumArg)
         }
     }
 }

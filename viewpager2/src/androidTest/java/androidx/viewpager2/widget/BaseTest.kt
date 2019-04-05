@@ -333,7 +333,7 @@ open class BaseTest {
      * 2. Expected text is displayed
      * 3. Internal activity state is valid (as per activity self-test)
      */
-    fun Context.assertBasicState(pageIx: Int, value: String = pageIx.toString()) {
+    fun Context.assertBasicState(pageIx: Int, value: String) {
         assertThat<Int>(
             "viewPager.getCurrentItem() should return $pageIx",
             viewPager.currentItem, equalTo(pageIx)
@@ -357,20 +357,11 @@ open class BaseTest {
         targetPage: Int,
         smoothScroll: Boolean,
         timeout: Long,
-        unit: TimeUnit,
-        expectEvents: Boolean = (targetPage != currentItem)
+        unit: TimeUnit
     ) {
-        val latch =
-                if (expectEvents)
-                    addWaitForScrolledLatch(targetPage, smoothScroll)
-                else
-                    CountDownLatch(1)
-        post {
-            setCurrentItem(targetPage, smoothScroll)
-            if (!expectEvents) {
-                latch.countDown()
-            }
-        }
+        if (currentItem == targetPage) return
+        val latch = addWaitForScrolledLatch(targetPage, smoothScroll)
+        post { setCurrentItem(targetPage, smoothScroll) }
         latch.await(timeout, unit)
     }
 

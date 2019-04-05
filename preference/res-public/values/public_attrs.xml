@@ -49,7 +49,6 @@
     <public type="attr" name="positiveButtonText" />
     <public type="attr" name="preferenceActivityStyle" />
     <public type="attr" name="preferenceCategoryStyle" />
-    <public type="attr" name="preferenceCategoryTitleTextAppearance" />
     <public type="attr" name="preferenceFragmentCompatStyle" />
     <public type="attr" name="preferenceFragmentListStyle" />
     <public type="attr" name="preferenceFragmentPaddingSide" />

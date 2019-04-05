@@ -56,7 +56,7 @@ public class WebViewClientCompat extends WebViewClient implements WebViewClientB
     };
 
     /** @hide */
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
     @IntDef(value = {
             WebViewClient.SAFE_BROWSING_THREAT_UNKNOWN,
             WebViewClient.SAFE_BROWSING_THREAT_MALWARE,
@@ -73,7 +73,7 @@ public class WebViewClientCompat extends WebViewClient implements WebViewClientB
      * @hide
      */
     @Override
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
     public final String[] getSupportedFeatures() {
         return sSupportedFeatures;
     }
@@ -120,7 +120,7 @@ public class WebViewClientCompat extends WebViewClient implements WebViewClientB
      *
      * @hide
      */
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
     @Override
     @RequiresApi(21)
     public final void onReceivedError(@NonNull WebView view, @NonNull WebResourceRequest request,
@@ -136,7 +136,11 @@ public class WebViewClientCompat extends WebViewClient implements WebViewClientB
     // Invoked by chromium (in legacy, pre-67 WebView APKs) for the {@code onReceivedError} event on
     // {@link Build.VERSION_CODES.M} and above. This delegates the callback to the non-final method,
     // which the app may have overridden.
+<<<<<<< HEAD   (69f76e Merge "Merge empty history for sparse-5425228-L6310000028962)
     @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
+=======
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+>>>>>>> BRANCH (bf79df Merge "Merge cherrypicks of [940699] into sparse-5433600-L95)
     @Override
     @RequiresApi(23)
     public final void onReceivedError(@NonNull WebView view, @NonNull WebResourceRequest request,
@@ -204,7 +208,7 @@ public class WebViewClientCompat extends WebViewClient implements WebViewClientB
      *
      * @hide
      */
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
     @Override
     public final void onSafeBrowsingHit(@NonNull WebView view, @NonNull WebResourceRequest request,
             @SafeBrowsingThreat int threatType,
@@ -220,7 +224,11 @@ public class WebViewClientCompat extends WebViewClient implements WebViewClientB
     // Invoked by chromium (in legacy, pre-67 WebView APKs) for the {@code onSafeBrowsingHit} event
     // on {@link Build.VERSION_CODES.O_MR1} and above. This delegates the callback to the non-final
     // method, which the app may have overridden.
+<<<<<<< HEAD   (69f76e Merge "Merge empty history for sparse-5425228-L6310000028962)
     @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
+=======
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+>>>>>>> BRANCH (bf79df Merge "Merge cherrypicks of [940699] into sparse-5433600-L95)
     @Override
     @RequiresApi(27)
     public final void onSafeBrowsingHit(@NonNull WebView view, @NonNull WebResourceRequest request,

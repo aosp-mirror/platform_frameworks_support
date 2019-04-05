@@ -27,7 +27,6 @@ dependencies {
     api(project(":fragment"))
     api(project(":recyclerview"))
     implementation(project(":appcompat"))
-    implementation(project(":collection"))
 
     androidTestImplementation(TEST_EXT_JUNIT)
     androidTestImplementation(TEST_CORE)

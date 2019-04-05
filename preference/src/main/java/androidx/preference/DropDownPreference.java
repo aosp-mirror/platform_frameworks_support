@@ -16,7 +16,11 @@
 
 package androidx.preference;
 
+<<<<<<< HEAD   (69f76e Merge "Merge empty history for sparse-5425228-L6310000028962)
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+=======
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+>>>>>>> BRANCH (bf79df Merge "Merge cherrypicks of [940699] into sparse-5433600-L95)
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -101,7 +105,6 @@ public class DropDownPreference extends ListPreference {
         return new ArrayAdapter<>(mContext, android.R.layout.simple_spinner_dropdown_item);
     }
 
-    @SuppressWarnings("unchecked")
     private void updateEntries() {
         mAdapter.clear();
         if (getEntries() != null) {
@@ -119,7 +122,11 @@ public class DropDownPreference extends ListPreference {
     /**
      * @hide
      */
+<<<<<<< HEAD   (69f76e Merge "Merge empty history for sparse-5425228-L6310000028962)
     @RestrictTo(LIBRARY_GROUP_PREFIX)
+=======
+    @RestrictTo(LIBRARY_GROUP)
+>>>>>>> BRANCH (bf79df Merge "Merge cherrypicks of [940699] into sparse-5433600-L95)
     public int findSpinnerIndexOfValue(String value) {
         CharSequence[] entryValues = getEntryValues();
         if (value != null && entryValues != null) {

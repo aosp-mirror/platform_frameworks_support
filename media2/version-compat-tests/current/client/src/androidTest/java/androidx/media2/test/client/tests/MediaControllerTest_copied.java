@@ -17,6 +17,7 @@
 package androidx.media2.test.client.tests;
 
 import androidx.media2.MediaController;
+<<<<<<< HEAD   (69f76e Merge "Merge empty history for sparse-5425228-L6310000028962)
 import androidx.test.filters.LargeTest;
 
 import org.junit.Ignore;
@@ -26,6 +27,15 @@ import org.junit.Ignore;
  */
 @Ignore("b/111487997")
 @LargeTest
+=======
+
+import org.junit.Ignore;
+
+/**
+ * Tests {@link MediaController}.
+ */
+@Ignore("b/111487997")
+>>>>>>> BRANCH (bf79df Merge "Merge cherrypicks of [940699] into sparse-5433600-L95)
 public class MediaControllerTest_copied extends MediaSessionTestBase {
     private static final String TAG = "MediaControllerTest_copied";
 

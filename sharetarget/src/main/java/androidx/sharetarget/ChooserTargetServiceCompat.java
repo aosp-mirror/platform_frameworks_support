@@ -16,7 +16,7 @@
 
 package androidx.sharetarget;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.content.ComponentName;
 import android.content.Context;
@@ -44,7 +44,7 @@ import java.util.List;
  * @hide
  */
 @RequiresApi(23)
-@RestrictTo(LIBRARY_GROUP_PREFIX)
+@RestrictTo(LIBRARY_GROUP)
 public class ChooserTargetServiceCompat extends ChooserTargetService {
 
     static final String TAG = "ChooserServiceCompat";

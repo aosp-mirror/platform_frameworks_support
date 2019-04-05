@@ -6,9 +6,15 @@ set -e
 
 
 function getStudioUrl() {
+<<<<<<< HEAD   (69f76e Merge "Merge empty history for sparse-5425228-L6310000028962)
   version="3.4.0.9"
   ideaMajorVersion="183"
   buildNumber="5202479"
+=======
+  version="3.3.0.17"
+  ideaMajorVersion="182"
+  buildNumber="5138683"
+>>>>>>> BRANCH (bf79df Merge "Merge cherrypicks of [940699] into sparse-5433600-L95)
   osName="$1"
   studioUrl="https://dl.google.com/dl/android/studio/ide-zips/${version}/android-studio-ide-${ideaMajorVersion}.${buildNumber}-${osName}.zip"
   echo "${studioUrl}"
@@ -43,21 +49,9 @@ function downloadFile() {
   mv "${tempPath}" "${destPath}"
 }
 
-function findStudioMacAppPath() {
-  echo "$(find "${studioUnzippedPath}" -type d -depth 1 -name "Android Studio*.app")"
-}
-
-function getLicensePath() {
-  if [ "${osName}" == "mac" ]; then
-    appPath="$(findStudioMacAppPath)"
-    echo "${appPath}/Contents/Resources/LICENSE.txt"
-  else
-    echo "${studioUnzippedPath}/android-studio/LICENSE.txt"
-  fi
-}
-
 function checkLicenseAgreement() {
   # TODO: Is there a more official way to check that the user accepts the license?
+<<<<<<< HEAD   (69f76e Merge "Merge empty history for sparse-5425228-L6310000028962)
 
   licenseAcceptedPath="${studioUnzippedPath}/STUDIOW_LICENSE_ACCEPTED"
 
@@ -69,6 +63,12 @@ function checkLicenseAgreement() {
       echo "If you do, then rerun this script with a '-y' argument"
       exit 1
     fi
+=======
+  if [ "${acceptsLicenseAgreement}" != "-y" ]; then
+    echo "Do you accept the license agreement at ${studioUnzippedPath}/android-studio/LICENSE.txt ?"
+    echo "If you do, then rerun this script with a '-y' argument"
+    exit 1
+>>>>>>> BRANCH (bf79df Merge "Merge cherrypicks of [940699] into sparse-5433600-L95)
   fi
 }
 
@@ -99,11 +99,11 @@ function runStudioLinux() {
 }
 
 function runStudioMac() {
-  appPath="$(findStudioMacAppPath)"
-  echo "open ${appPath}"
+  studioPath="${studioUnzippedPath}/Android Studio.app"
+  echo "open ${studioPath}"
   env STUDIO_PROPERTIES="${projectDir}/development/studio/idea.properties" \
       STUDIO_VM_OPTIONS="${projectDir}/development/studio/studio.vmoptions" \
-      open -a "${appPath}" "${projectDir}"
+      open -a "${studioPath}" "${projectDir}"
 }
 
 function runStudio() {

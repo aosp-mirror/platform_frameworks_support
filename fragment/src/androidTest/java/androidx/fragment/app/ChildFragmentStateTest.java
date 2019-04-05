@@ -23,6 +23,7 @@ import androidx.fragment.app.test.FragmentTestActivity;
 import androidx.fragment.app.test.FragmentTestActivity.ParentFragment;
 import androidx.test.annotation.UiThreadTest;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
+<<<<<<< HEAD   (69f76e Merge "Merge empty history for sparse-5425228-L6310000028962)
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 
@@ -32,6 +33,17 @@ import org.junit.runner.RunWith;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
+=======
+import androidx.test.filters.SmallTest;
+import androidx.test.rule.ActivityTestRule;
+
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
+@RunWith(AndroidJUnit4.class)
+@SmallTest
+>>>>>>> BRANCH (bf79df Merge "Merge cherrypicks of [940699] into sparse-5433600-L95)
 public class ChildFragmentStateTest {
     @Rule
     public ActivityTestRule<FragmentTestActivity> mActivityRule =

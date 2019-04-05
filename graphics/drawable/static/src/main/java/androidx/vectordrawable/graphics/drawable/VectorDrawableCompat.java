@@ -22,7 +22,7 @@ import static android.graphics.Paint.Join;
 import static android.graphics.Paint.Style.FILL;
 import static android.graphics.Paint.Style.STROKE;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.annotation.SuppressLint;
 import android.content.res.ColorStateList;
@@ -613,7 +613,7 @@ public class VectorDrawableCompat extends VectorDrawableCommon {
      *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     public float getPixelSize() {
         if (mVectorState == null || mVectorState.mVPathRenderer == null
                 || mVectorState.mVPathRenderer.mBaseWidth == 0

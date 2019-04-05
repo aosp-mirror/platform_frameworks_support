@@ -34,9 +34,12 @@ dependencies {
     api(project(":room:room-common"))
     api(project(":sqlite:sqlite-framework"))
     api(project(":sqlite:sqlite"))
+<<<<<<< HEAD   (69f76e Merge "Merge empty history for sparse-5425228-L6310000028962)
     implementation(project(":arch:core-runtime"))
+=======
+    implementation(ARCH_CORE_RUNTIME)
+>>>>>>> BRANCH (bf79df Merge "Merge cherrypicks of [940699] into sparse-5433600-L95)
     implementation(ANDROIDX_CORE)
-    implementation(ANDROIDX_COLLECTION)
     compileOnly(ARCH_PAGING_COMMON)
     compileOnly(ARCH_LIFECYCLE_LIVEDATA_CORE)
     implementation(ANDROIDX_COLLECTION)
@@ -61,8 +64,8 @@ android.libraryVariants.all { variant ->
     def name = variant.name
     def suffix = name.capitalize()
     project.tasks.create(name: "jar${suffix}", type: Jar){
-        dependsOn variant.javaCompileProvider.get()
-        from variant.javaCompileProvider.get().destinationDir
+        dependsOn variant.javaCompile
+        from variant.javaCompile.destinationDir
         destinationDir new File(project.buildDir, "libJar")
     }
 }

@@ -90,8 +90,13 @@ public final class SavedStateHandle {
     }
 
     @NonNull
+<<<<<<< HEAD   (69f76e Merge "Merge empty history for sparse-5425228-L6310000028962)
     SavedStateProvider savedStateProvider() {
         return new SavedStateProvider() {
+=======
+    SavedStateProvider<Bundle> savedStateProvider() {
+        return new SavedStateProvider<Bundle>() {
+>>>>>>> BRANCH (bf79df Merge "Merge cherrypicks of [940699] into sparse-5433600-L95)
             @SuppressWarnings("unchecked")
             @NonNull
             @Override

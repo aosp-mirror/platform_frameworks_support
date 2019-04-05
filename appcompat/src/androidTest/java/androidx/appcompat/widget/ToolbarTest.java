@@ -17,21 +17,18 @@
 package androidx.appcompat.widget;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
 
 import android.app.Activity;
 import android.app.Instrumentation;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.test.R;
 import androidx.appcompat.testutils.TestUtils;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.filters.LargeTest;
+import androidx.test.filters.SmallTest;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 
@@ -43,7 +40,7 @@ import org.junit.runner.RunWith;
 /**
  * Test {@link Toolbar}.
  */
-@LargeTest
+@SmallTest
 @RunWith(AndroidJUnit4.class)
 public class ToolbarTest {
 
@@ -141,6 +138,7 @@ public class ToolbarTest {
         assertEquals(expectedColor, toolbar.getTitleTextView().getCurrentTextColor());
         assertEquals(expectedColor, toolbar.getSubtitleTextView().getCurrentTextColor());
     }
+<<<<<<< HEAD   (69f76e Merge "Merge empty history for sparse-5425228-L6310000028962)
 
     @Test
     public void testToolbarMenuFromXml() {
@@ -150,4 +148,6 @@ public class ToolbarTest {
         assertNotEquals(0, menu.size());
         assertNotNull(menu.findItem(R.id.action_search));
     }
+=======
+>>>>>>> BRANCH (bf79df Merge "Merge cherrypicks of [940699] into sparse-5433600-L95)
 }

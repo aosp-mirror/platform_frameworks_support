@@ -27,23 +27,20 @@ import android.content.pm.ServiceInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Message;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.concurrent.Executor;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 
 /**
  * A reporter of keyed app states to enable communication between an app and an EMM (enterprise
@@ -105,44 +102,6 @@ public class KeyedAppStatesReporter {
 
     private final Map<String, BufferedServiceConnection> mServiceConnections = new HashMap<>();
 
-    private static final int EXECUTOR_IDLE_ALIVE_TIME_SECS = 20;
-    private final Executor mExecutor;
-
-    /**
-     * Creates an {@link ExecutorService} which has no persistent background thread, and ensures
-     * tasks will run in submit order.
-     */
-    private static ExecutorService createExecutorService() {
-        return new ThreadPoolExecutor(
-                /* corePoolSize= */ 0,
-                /* maximumPoolSize= */ 1,
-                EXECUTOR_IDLE_ALIVE_TIME_SECS,
-                TimeUnit.SECONDS,
-                new LinkedBlockingQueue<Runnable>() /* Not used */);
-    }
-
-    /**
-     * Sets executor used to construct the singleton.
-     *
-     * <p>If required, this method must be called before calling {@link #getInstance(Context)}.
-     *
-     * <p>If this method is not called, the reporter will run on a newly-created thread.
-     * This newly-created thread will be cleaned up and recreated as necessary when idle.
-     */
-    public static void initialize(@NonNull Context context, @NonNull Executor executor) {
-        if (context == null || executor == null) {
-            throw new NullPointerException();
-        }
-        synchronized (KeyedAppStatesReporter.class) {
-            if (sSingleton != null) {
-                throw new IllegalStateException(
-                        "initialize can only be called once and must be called before "
-                            + "calling getInstance.");
-            }
-            initializeSingleton(context, executor);
-        }
-    }
-
     /**
      * Returns an instance of the reporter.
      *
@@ -156,16 +115,12 @@ public class KeyedAppStatesReporter {
         if (sSingleton == null) {
             synchronized (KeyedAppStatesReporter.class) {
                 if (sSingleton == null) {
-                    initializeSingleton(context, createExecutorService());
+                    sSingleton = new KeyedAppStatesReporter(context);
+                    sSingleton.bind();
                 }
             }
         }
         return sSingleton;
-    }
-
-    private static void initializeSingleton(@NonNull Context context, @NonNull Executor executor) {
-        sSingleton = new KeyedAppStatesReporter(context, executor);
-        sSingleton.bind();
     }
 
     @VisibleForTesting
@@ -175,9 +130,8 @@ public class KeyedAppStatesReporter {
         }
     }
 
-    private KeyedAppStatesReporter(Context context, Executor executor) {
+    private KeyedAppStatesReporter(Context context) {
         this.mContext = context.getApplicationContext();
-        this.mExecutor = executor;
     }
 
     /**
@@ -207,20 +161,16 @@ public class KeyedAppStatesReporter {
         set(states, false);
     }
 
-    private void set(final Collection<KeyedAppState> states, final boolean immediate) {
-        mExecutor.execute(new Runnable() {
-            @Override
-            public void run() {
-                if (states.isEmpty()) {
-                    return;
-                }
+    private void set(Collection<KeyedAppState> states, boolean immediate) {
+        if (states.isEmpty()) {
+            Log.i(LOG_TAG, "states provided was empty");
+            return;
+        }
 
-                unbindOldBindings();
-                bind();
+        unbindOldBindings();
+        bind();
 
-                send(buildStatesBundle(states), immediate);
-            }
-        });
+        send(buildStatesBundle(states), immediate);
     }
 
     /**
@@ -235,8 +185,7 @@ public class KeyedAppStatesReporter {
         set(states, true);
     }
 
-    @SuppressWarnings("WeakerAccess") /* synthetic access */
-    void bind() {
+    private void bind() {
         Collection<String> acceptablePackageNames = getDeviceOwnerAndProfileOwnerPackageNames();
         acceptablePackageNames.add(PHONESKY_PACKAGE_NAME);
         bind(acceptablePackageNames);
@@ -263,8 +212,7 @@ public class KeyedAppStatesReporter {
             bindIntent.setComponent(new ComponentName(serviceInfo.packageName, serviceInfo.name));
 
             BufferedServiceConnection bufferedServiceConnection =
-                    new BufferedServiceConnection(
-                        mExecutor, mContext, bindIntent, Context.BIND_AUTO_CREATE);
+                    new BufferedServiceConnection(mContext, bindIntent, Context.BIND_AUTO_CREATE);
             bufferedServiceConnection.bindService();
 
             mServiceConnections.put(serviceInfo.packageName, bufferedServiceConnection);
@@ -277,7 +225,7 @@ public class KeyedAppStatesReporter {
         Collection<ComponentName> activeAdmins = devicePolicyManager.getActiveAdmins();
 
         if (activeAdmins == null) {
-            return new ArrayList<>();
+            return Collections.emptyList();
         }
 
         Collection<String> deviceOwnerProfileOwnerPackageNames = new ArrayList<>();
@@ -292,8 +240,7 @@ public class KeyedAppStatesReporter {
         return deviceOwnerProfileOwnerPackageNames;
     }
 
-    @SuppressWarnings("WeakerAccess") /* synthetic access */
-    void unbindOldBindings() {
+    private void unbindOldBindings() {
         Iterator<Entry<String, BufferedServiceConnection>> iterator =
                 mServiceConnections.entrySet().iterator();
 
@@ -347,8 +294,7 @@ public class KeyedAppStatesReporter {
         return validServiceInfo;
     }
 
-    @SuppressWarnings("WeakerAccess") /* synthetic access */
-    static Bundle buildStatesBundle(Collection<KeyedAppState> keyedAppStates) {
+    private static Bundle buildStatesBundle(Collection<KeyedAppState> keyedAppStates) {
         Bundle bundle = new Bundle();
         bundle.putParcelableArrayList(APP_STATES, buildStateBundles(keyedAppStates));
         return bundle;
@@ -363,8 +309,7 @@ public class KeyedAppStatesReporter {
         return bundles;
     }
 
-    @SuppressWarnings("WeakerAccess") /* synthetic access */
-    void send(Bundle appStatesBundle, boolean immediate) {
+    private void send(Bundle appStatesBundle, boolean immediate) {
         for (BufferedServiceConnection serviceConnection : mServiceConnections.values()) {
             // Messages cannot be reused so we create a copy for each service connection.
             serviceConnection.send(createStateMessage(appStatesBundle, immediate));

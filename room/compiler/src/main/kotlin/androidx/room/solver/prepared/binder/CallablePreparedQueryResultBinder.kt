@@ -47,7 +47,7 @@ class CallablePreparedQueryResultBinder private constructor(
     }
 
     override fun executeAndReturn(
-        prepareQueryStmtBlock: CodeGenScope.() -> String,
+        stmtQueryVal: String,
         preparedStmtField: String?,
         dbField: FieldSpec,
         scope: CodeGenScope
@@ -55,7 +55,7 @@ class CallablePreparedQueryResultBinder private constructor(
         val binderScope = scope.fork()
         val callableImpl = CallableTypeSpecBuilder(returnType.typeName()) {
             adapter?.executeAndReturn(
-                binderScope.prepareQueryStmtBlock(),
+                stmtQueryVal,
                 preparedStmtField,
                 dbField,
                 binderScope)

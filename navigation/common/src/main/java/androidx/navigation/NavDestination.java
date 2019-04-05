@@ -29,6 +29,10 @@ import android.support.annotation.CallSuper;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+<<<<<<< HEAD   (69f76e Merge "Merge empty history for sparse-5425228-L6310000028962)
+=======
+import android.support.v4.util.Pair;
+>>>>>>> BRANCH (bf79df Merge "Merge cherrypicks of [940699] into sparse-5433600-L95)
 import android.support.v4.util.SparseArrayCompat;
 import android.util.AttributeSet;
 
@@ -69,43 +73,6 @@ public class NavDestination {
     @SuppressWarnings("UnknownNullness") // TODO https://issuetracker.google.com/issues/112185120
     public @interface ClassType {
         Class value();
-    }
-
-    static class DeepLinkMatch implements Comparable<DeepLinkMatch> {
-        @NonNull
-        private final NavDestination mDestination;
-        @NonNull
-        private final Bundle mMatchingArgs;
-        private final boolean mIsExactDeepLink;
-
-        DeepLinkMatch(@NonNull NavDestination destination, @NonNull Bundle matchingArgs,
-                boolean isExactDeepLink) {
-            mDestination = destination;
-            mMatchingArgs = matchingArgs;
-            mIsExactDeepLink = isExactDeepLink;
-        }
-
-        @NonNull
-        NavDestination getDestination() {
-            return mDestination;
-        }
-
-        @NonNull
-        Bundle getMatchingArgs() {
-            return mMatchingArgs;
-        }
-
-        @Override
-        public int compareTo(DeepLinkMatch other) {
-            // Prefer exact deep links
-            if (mIsExactDeepLink && !other.mIsExactDeepLink) {
-                return 1;
-            } else if (!mIsExactDeepLink && other.mIsExactDeepLink) {
-                return -1;
-            }
-            // Prefer matches with more matching arguments
-            return mMatchingArgs.size() - other.mMatchingArgs.size();
-        }
     }
 
     private static final HashMap<String, Class> sClasses = new HashMap<>();
@@ -336,22 +303,19 @@ public class NavDestination {
      * extracted from the Uri, or null if no match was found.
      */
     @Nullable
-    DeepLinkMatch matchDeepLink(@NonNull Uri uri) {
+    Pair<NavDestination, Bundle> matchDeepLink(@NonNull Uri uri) {
         if (mDeepLinks == null) {
             return null;
         }
-        DeepLinkMatch bestMatch = null;
+        Bundle bestMatchingArguments = null;
         for (NavDeepLink deepLink : mDeepLinks) {
             Bundle matchingArguments = deepLink.getMatchingArguments(uri, getArguments());
-            if (matchingArguments != null) {
-                DeepLinkMatch newMatch = new DeepLinkMatch(this, matchingArguments,
-                        deepLink.isExactDeepLink());
-                if (bestMatch == null || newMatch.compareTo(bestMatch) > 0) {
-                    bestMatch = newMatch;
-                }
+            if (matchingArguments != null && (bestMatchingArguments == null
+                    || matchingArguments.size() > bestMatchingArguments.size())) {
+                bestMatchingArguments = matchingArguments;
             }
         }
-        return bestMatch;
+        return bestMatchingArguments != null ? new Pair<>(this, bestMatchingArguments) : null;
     }
 
     /**

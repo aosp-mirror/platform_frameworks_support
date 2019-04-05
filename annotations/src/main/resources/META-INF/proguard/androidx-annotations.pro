@@ -1,13 +1,17 @@
+<<<<<<< HEAD   (69f76e Merge "Merge empty history for sparse-5425228-L6310000028962)
 -keep @androidx.annotation.Keep class * {*;}
+=======
+-keep @android.support.annotation.Keep class * {*;}
+>>>>>>> BRANCH (bf79df Merge "Merge cherrypicks of [940699] into sparse-5433600-L95)
 
 -keepclasseswithmembers class * {
-    @androidx.annotation.Keep <methods>;
+    @android.support.annotation.Keep <methods>;
 }
 
 -keepclasseswithmembers class * {
-    @androidx.annotation.Keep <fields>;
+    @android.support.annotation.Keep <fields>;
 }
 
 -keepclasseswithmembers class * {
-    @androidx.annotation.Keep <init>(...);
+    @android.support.annotation.Keep <init>(...);
 }

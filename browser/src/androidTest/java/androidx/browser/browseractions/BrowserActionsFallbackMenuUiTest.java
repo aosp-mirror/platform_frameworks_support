@@ -29,9 +29,8 @@ import android.widget.TextView;
 import androidx.browser.R;
 import androidx.browser.customtabs.TestActivity;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.filters.LargeTest;
+import androidx.test.filters.SmallTest;
 import androidx.test.rule.ActivityTestRule;
-import androidx.testutils.PollingCheck;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -45,7 +44,7 @@ import java.util.concurrent.TimeUnit;
 
 /** Unit tests for {@link BrowserActionsFallbackMenuUi}. */
 @RunWith(AndroidJUnit4.class)
-@LargeTest
+@SmallTest
 public class BrowserActionsFallbackMenuUiTest {
     private static final String TEST_URL = "http://www.example.com";
     private static final String CUSTOM_ITEM_TITLE_1 = "Open url";
@@ -55,18 +54,11 @@ public class BrowserActionsFallbackMenuUiTest {
             new ActivityTestRule<>(TestActivity.class);
     private Context mContext;
     private List<BrowserActionItem> mMenuItems;
-    private List<String> mMenuItemTitles;
 
     @Before
     public void setup() {
         mContext = mActivityTestRule.getActivity();
         mMenuItems = createMenuItems();
-        mMenuItemTitles = new ArrayList<>();
-        mMenuItemTitles.add(mContext.getString(R.string.fallback_menu_item_open_in_browser));
-        mMenuItemTitles.add(mContext.getString(R.string.fallback_menu_item_copy_link));
-        mMenuItemTitles.add(mContext.getString(R.string.fallback_menu_item_share_link));
-        mMenuItemTitles.add(CUSTOM_ITEM_TITLE_1);
-        mMenuItemTitles.add(CUSTOM_ITEM_TITLE_2);
     }
 
     private List<BrowserActionItem> createMenuItems() {
@@ -138,19 +130,15 @@ public class BrowserActionsFallbackMenuUiTest {
                 (TextView) contentView.findViewById(R.id.browser_actions_header_text);
         assertNotNull(urlTextView);
         assertEquals(TEST_URL, urlTextView.getText());
-        final ListView menuListView =
+        ListView menuListView =
                 (ListView) contentView.findViewById(R.id.browser_actions_menu_items);
         assertNotNull(menuListView);
-        PollingCheck.waitFor(new PollingCheck.PollingCheckCondition() {
-            @Override
-            public boolean canProceed() {
-                return mMenuItemTitles.size() == menuListView.getCount();
-            }
-        });
-        for (int i = 0; i < mMenuItemTitles.size(); i++) {
-            TextView menuItemTitleView = (TextView) menuListView.getChildAt(i).findViewById(
-                    R.id.browser_actions_menu_item_text);
-            assertEquals(mMenuItemTitles.get(i), menuItemTitleView.getText());
-        }
+        assertEquals(2, menuListView.getCount());
+        TextView menuItemTitleView1 = (TextView) menuListView.getChildAt(0).findViewById(
+                R.id.browser_actions_menu_item_text);
+        assertEquals(CUSTOM_ITEM_TITLE_1, menuItemTitleView1.getText());
+        TextView menuItemTitleView2 = (TextView) menuListView.getChildAt(1).findViewById(
+                R.id.browser_actions_menu_item_text);
+        assertEquals(CUSTOM_ITEM_TITLE_2, menuItemTitleView2.getText());
     }
 }

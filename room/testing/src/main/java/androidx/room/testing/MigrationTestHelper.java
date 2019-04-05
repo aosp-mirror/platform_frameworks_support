@@ -135,6 +135,7 @@ public class MigrationTestHelper extends TestWatcher {
      * @throws IOException If it cannot find the schema description in the assets folder.
      */
     @SuppressWarnings("SameParameterValue")
+    @SuppressLint("RestrictedApi")
     public SupportSQLiteDatabase createDatabase(String name, int version) throws IOException {
         File dbPath = mInstrumentation.getTargetContext().getDatabasePath(name);
         if (dbPath.exists()) {

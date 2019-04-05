@@ -183,17 +183,14 @@ class MediaControllerImplBase implements MediaControllerImpl {
             }
         };
 
-        boolean connectionRequested;
+        IMediaSession iSession = IMediaSession.Stub.asInterface((IBinder) mToken.getBinder());
         if (mToken.getType() == SessionToken.TYPE_SESSION) {
             // Session
             mServiceConnection = null;
-            connectionRequested = requestConnectToSession();
+            connectToSession();
         } else {
             mServiceConnection = new SessionServiceConnection();
-            connectionRequested = requestConnectToService();
-        }
-        if (!connectionRequested) {
-            mInstance.close();
+            connectToService();
         }
     }
 
@@ -793,7 +790,7 @@ class MediaControllerImplBase implements MediaControllerImpl {
         return mInstance;
     }
 
-    private boolean requestConnectToService() {
+    private void connectToService() {
         // Service. Needs to get fresh binder whenever connection is needed.
         final Intent intent = new Intent(MediaSessionService.SERVICE_INTERFACE);
         intent.setClassName(mToken.getPackageName(), mToken.getServiceName());
@@ -817,16 +814,13 @@ class MediaControllerImplBase implements MediaControllerImpl {
                     intent, mServiceConnection, Context.BIND_AUTO_CREATE);
             if (!result) {
                 Log.w(TAG, "bind to " + mToken + " failed");
-                return false;
+            } else if (DEBUG) {
+                Log.d(TAG, "bind to " + mToken + " succeeded");
             }
         }
-        if (DEBUG) {
-            Log.d(TAG, "bind to " + mToken + " succeeded");
-        }
-        return true;
     }
 
-    private boolean requestConnectToSession() {
+    private void connectToSession() {
         IMediaSession iSession = IMediaSession.Stub.asInterface((IBinder) mToken.getBinder());
         int seq = mSequencedFutureManager.obtainNextSequenceNumber();
         ConnectionRequest request =
@@ -834,10 +828,9 @@ class MediaControllerImplBase implements MediaControllerImpl {
         try {
             iSession.connect(mControllerStub, seq, MediaUtils.toParcelable(request));
         } catch (RemoteException e) {
-            Log.w(TAG, "Failed to call connection request.", e);
-            return false;
+            Log.w(TAG, "Failed to call connection request. Framework will retry"
+                    + " automatically");
         }
-        return true;
     }
 
     // Returns session interface if the controller can send the command.
@@ -1209,46 +1202,39 @@ class MediaControllerImplBase implements MediaControllerImpl {
 
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-            boolean connectionRequested = false;
+            // Note that it's always main-thread.
+            if (DEBUG) {
+                Log.d(TAG, "onServiceConnected " + name + " " + this);
+            }
+            // Sanity check
+            if (!mToken.getPackageName().equals(name.getPackageName())) {
+                Log.wtf(TAG, "Expected connection to " + mToken.getPackageName() + " but is"
+                        + " connected to " + name);
+                return;
+            }
+            IMediaSessionService iService = IMediaSessionService.Stub.asInterface(service);
+            if (iService == null) {
+                Log.wtf(TAG, "Service interface is missing.");
+                return;
+            }
+            ConnectionRequest request =
+                    new ConnectionRequest(getContext().getPackageName(), Process.myPid());
             try {
-                // Note that it's always main-thread.
-                if (DEBUG) {
-                    Log.d(TAG, "onServiceConnected " + name + " " + this);
-                }
-                // Sanity check
-                if (!mToken.getPackageName().equals(name.getPackageName())) {
-                    Log.wtf(TAG, "Expected connection to " + mToken.getPackageName() + " but is"
-                            + " connected to " + name);
-                    return;
-                }
-                IMediaSessionService iService = IMediaSessionService.Stub.asInterface(service);
-                if (iService == null) {
-                    Log.wtf(TAG, "Service interface is missing.");
-                    return;
-                }
-                ConnectionRequest request =
-                        new ConnectionRequest(getContext().getPackageName(), Process.myPid());
+
                 iService.connect(mControllerStub, MediaUtils.toParcelable(request));
-                connectionRequested = true;
             } catch (RemoteException e) {
                 Log.w(TAG, "Service " + name + " has died prematurely");
-            } finally {
-                if (!connectionRequested) {
-                    mInstance.close();
-                }
+                mInstance.close();
             }
         }
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
             // Temporal lose of the binding because of the service crash. System will automatically
-            // rebind, but we'd better to close() here. Otherwise ControllerCallback#onConnected()
-            // would be called multiple times, and the controller would be connected to the
-            // different session everytime.
+            // rebind, so just no-op.
             if (DEBUG) {
                 Log.w(TAG, "Session service " + name + " is disconnected.");
             }
-            mInstance.close();
         }
 
         @Override
@@ -1256,7 +1242,7 @@ class MediaControllerImplBase implements MediaControllerImpl {
             // Permanent lose of the binding because of the service package update or removed.
             // This SessionServiceRecord will be removed accordingly, but forget session binder here
             // for sure.
-            mInstance.close();
+            close();
         }
     }
 }

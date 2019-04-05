@@ -16,7 +16,7 @@
 
 package androidx.appcompat.widget;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.view.MenuItem;
 
@@ -30,7 +30,7 @@ import androidx.appcompat.view.menu.MenuBuilder;
  *
  * @hide
  */
-@RestrictTo(LIBRARY_GROUP_PREFIX)
+@RestrictTo(LIBRARY_GROUP)
 public interface MenuItemHoverListener {
     /**
      * Called when hover exits a menu item.

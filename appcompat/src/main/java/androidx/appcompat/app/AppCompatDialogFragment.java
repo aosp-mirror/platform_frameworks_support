@@ -17,7 +17,7 @@
 package androidx.appcompat.app;
 
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.app.Dialog;
 import android.os.Bundle;
@@ -44,7 +44,7 @@ public class AppCompatDialogFragment extends DialogFragment {
     }
 
     /** @hide */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     @Override
     public void setupDialog(@NonNull Dialog dialog, int style) {
         if (dialog instanceof AppCompatDialog) {

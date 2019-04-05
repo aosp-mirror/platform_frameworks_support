@@ -63,6 +63,7 @@ import androidx.media2.test.service.MockRemotePlayer;
 import androidx.media2.test.service.RemoteMediaControllerCompat;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
+<<<<<<< HEAD   (69f76e Merge "Merge empty history for sparse-5425228-L6310000028962)
 
 import org.junit.After;
 import org.junit.Before;
@@ -79,6 +80,25 @@ import java.util.concurrent.TimeUnit;
  */
 @RunWith(AndroidJUnit4.class)
 @LargeTest
+=======
+import androidx.test.filters.SmallTest;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
+
+/**
+ * Tests {@link SessionCallback} working with {@link MediaControllerCompat}.
+ */
+@RunWith(AndroidJUnit4.class)
+@SmallTest
+>>>>>>> BRANCH (bf79df Merge "Merge cherrypicks of [940699] into sparse-5433600-L95)
 public class MediaSessionLegacyCallbackTest extends MediaSessionTestBase {
     private static final String TAG = "MediaSessionLegacyCallbackTest";
 
