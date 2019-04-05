@@ -22,6 +22,30 @@
       "revId": "099b9d9643de032d01a67ec6dcae8bad647044d1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d57f6a9b_0d600704",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3647,
+      "author": {
+        "id": 1344572
+      },
+      "writtenOn": "2019-04-05T23:16:54Z",
+      "side": 1,
+      "message": "Kind of, the ViewGroup implementation also had each of the children populate the ViewGroups event, which is behavior we don\u0027t want here.",
+      "parentUuid": "d835656f_09e6d6c4",
+      "range": {
+        "startLine": 3647,
+        "startChar": 15,
+        "endLine": 3647,
+        "endChar": 19
+      },
+      "revId": "099b9d9643de032d01a67ec6dcae8bad647044d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
