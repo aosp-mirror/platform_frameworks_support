@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "d5c8379b_294834d6",
+        "filename": "paging/rxjava2/build.gradle",
+        "patchSetId": 14
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-04-05T16:10:16Z",
+      "side": 1,
+      "message": "actually, double check this part - I\u0027m not sure what we use arch:core-runtime for.\n\nIf it\u0027s RxPagedListBuilder, then this is fine as is.",
+      "parentUuid": "f38864b6_76963154",
+      "revId": "2e30a90486f27ac48f4cc2aa301c24c7314f0d47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6327e36e_9b5ad0e9",
         "filename": "paging/rxjava2/src/main/java/androidx/paging/RxDataSourceUtil.java",
         "patchSetId": 14
