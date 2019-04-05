@@ -56,11 +56,12 @@ abstract class CoroutineWorker(
     /**
      * The coroutine context on which [doWork] will run. By default, this is [Dispatchers.Default].
      */
+    @Deprecated(message = "use withContext(...) inside doWork() instead.")
     open val coroutineContext = Dispatchers.Default
 
     final override fun startWork(): ListenableFuture<Result> {
-
         val coroutineScope = CoroutineScope(coroutineContext + job)
+
         coroutineScope.launch {
             try {
                 val result = doWork()
