@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aaaa52f2_1590129d",
+        "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/RecyclerViewFocusRecoveryTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 810,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-04-05T18:18:14Z",
+      "side": 1,
+      "message": "this makes sense as an annotation on the method - all the method does is assert the class and cast. fine either way.",
+      "revId": "b2be4051da40b086050e0cfff9943cf4844efced",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a9e17f23_58c539c6",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 6331,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-04-05T18:18:14Z",
+      "side": 1,
+      "message": "this is disabling the check on a different bit of code...?",
+      "revId": "b2be4051da40b086050e0cfff9943cf4844efced",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
