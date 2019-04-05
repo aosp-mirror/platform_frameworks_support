@@ -26,6 +26,7 @@ import androidx.test.filters.SmallTest
 import androidx.work.impl.WorkDatabase
 import androidx.work.impl.WorkManagerImpl
 import androidx.work.impl.utils.taskexecutor.TaskExecutor
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.asCoroutineDispatcher
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.instanceOf
@@ -164,9 +165,9 @@ class CoroutineWorkerTest {
     }
 
     class SynchronousCoroutineWorker(context: Context, params: WorkerParameters) :
-        CoroutineWorker(context, params) {
+        CoroutineWorker2(context, params) {
 
-        override suspend fun doWork(): Result {
+        override suspend fun CoroutineScope.doWork(): Result {
             return Result.success(workDataOf("output" to 999L))
         }
 
