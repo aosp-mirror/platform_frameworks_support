@@ -22,6 +22,30 @@
       "revId": "ba4aa197e8b7faaf60f5788cfed06504a222c54a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f33d5414_057b77a3",
+        "filename": "appcompat/src/main/java/androidx/appcompat/app/AppCompatDelegate.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1048646
+      },
+      "writtenOn": "2019-04-05T01:50:34Z",
+      "side": 0,
+      "message": "Just FYI, this was added specifically for chimera (ag/4263128), and it\u0027s mostly broken now due to the lazy population of mWindow in AppCompatDelegateImpl.",
+      "parentUuid": "0c45edcc_e801f109",
+      "range": {
+        "startLine": 234,
+        "startChar": 4,
+        "endLine": 238,
+        "endChar": 5
+      },
+      "revId": "ba4aa197e8b7faaf60f5788cfed06504a222c54a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
