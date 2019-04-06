@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "7a3b572b_f556526f",
+        "filename": "cleanBuild.sh",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-04-06T00:23:55Z",
+      "side": 1,
+      "message": "Hmm that\u0027s true. I guess that ideally we\u0027d like for anyone that doesn\u0027t know this to see it but that anyone that already knows it probably doesn\u0027t want to wait.\n\nI was originally going to put it in the usage menu but then moved it here since that seems to me to be strictly more informative.\n\nMaybe the way to go is to put in a sleep 5 for a while and then remove it in a few months?",
+      "parentUuid": "9cdf16a5_3b0c3087",
+      "revId": "39e68ec4a550f0fa87410aa53c7f5617a239ce3e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c0fd1ef7_661ffaa8",
         "filename": "development/diagnose-build-failure/diagnose-build-failure.sh",
         "patchSetId": 4
@@ -30,6 +48,24 @@
       "writtenOn": "2019-04-04T00:53:37Z",
       "side": 1,
       "message": "I wonder if we could get away with set -u if we ran all the build commands in a subshell or something, or just turned it back off before running user commands... (disclaimer: not a lot of Bash experience here)",
+      "revId": "39e68ec4a550f0fa87410aa53c7f5617a239ce3e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5ffaaab_c86b2705",
+        "filename": "development/diagnose-build-failure/diagnose-build-failure.sh",
+        "patchSetId": 4
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-04-06T00:23:55Z",
+      "side": 1,
+      "message": "Thanks",
+      "parentUuid": "c0fd1ef7_661ffaa8",
       "revId": "39e68ec4a550f0fa87410aa53c7f5617a239ce3e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true

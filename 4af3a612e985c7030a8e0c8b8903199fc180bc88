@@ -107,6 +107,24 @@
     },
     {
       "key": {
+        "uuid": "e5d5fb9d_6ffbf1f3",
+        "filename": "development/diagnose-build-failure/diagnose-build-failure.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-04-06T00:23:55Z",
+      "side": 1,
+      "message": "Some more ideas that we talked about offline:\n\nA) diff-filterer.py could return a return code encoding the different states\nB) diff-filterer.py could take parameters telling the messages to use for each of these situations\nC) We could leave these checks in since technically it\u0027s possible that the act of having run the passing build or the failing build might have affected some state in the out/ dir and caused the build to no longer be passing or failing, respectively.",
+      "parentUuid": "f60bb44d_abfbe2c6",
+      "revId": "4af3a612e985c7030a8e0c8b8903199fc180bc88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c8dd77f1_123fc4af",
         "filename": "development/diagnose-build-failure/diagnose-build-failure.sh",
         "patchSetId": 3
