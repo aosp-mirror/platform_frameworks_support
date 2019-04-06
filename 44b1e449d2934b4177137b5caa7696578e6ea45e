@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "cdcf6e7f_f91084a3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-06T00:18:12Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "6335dc71_639e3f9e",
+      "range": {
+        "startLine": 9,
+        "startChar": 2,
+        "endLine": 10,
+        "endChar": 19
+      },
+      "revId": "44b1e449d2934b4177137b5caa7696578e6ea45e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0c44180a_8053e8e5",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -78,6 +102,24 @@
       "side": 1,
       "message": "Right now the work-testing swaps Configuration.getExecutor() with a SynchronousExecutor by default. For us to do this with CoroutineWorker we will have to subclass / wrap CoroutineWorker which I am trying to avoid.\n\nThe other way is to swap Dispatchers.Default, which is something Jetbrains is planning on supporting soon for testing.",
       "parentUuid": "0c44180a_8053e8e5",
+      "revId": "44b1e449d2934b4177137b5caa7696578e6ea45e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1622b191_1b99a0b3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-06T00:18:12Z",
+      "side": 1,
+      "message": "So why do developers need to do withContext() instead of CoroutineWorker doing that work for them? Couldn\u0027t startWork() unconditionally launch using Dispatchers.Default, then withContext(coroutineContext)?",
+      "parentUuid": "5fca6f58_01b19224",
       "revId": "44b1e449d2934b4177137b5caa7696578e6ea45e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
