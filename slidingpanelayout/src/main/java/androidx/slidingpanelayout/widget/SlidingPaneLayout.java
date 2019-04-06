@@ -46,6 +46,7 @@ import androidx.core.view.AccessibilityDelegateCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
 import androidx.customview.view.AbsSavedState;
+import androidx.customview.widget.Openable;
 import androidx.customview.widget.ViewDragHelper;
 
 import java.lang.reflect.Field;
@@ -91,7 +92,7 @@ import java.util.ArrayList;
  * indicates that the pane should be sized to fill all available space except a small minimum strip
  * that the user may use to grab the slideable view and pull it back over into a closed state.</p>
  */
-public class SlidingPaneLayout extends ViewGroup {
+public class SlidingPaneLayout extends ViewGroup implements Openable {
     private static final String TAG = "SlidingPaneLayout";
 
     /**
@@ -880,6 +881,15 @@ public class SlidingPaneLayout extends ViewGroup {
     /**
      * Open the sliding pane if it is currently slideable. If first layout
      * has already completed this will animate.
+     */
+    @Override
+    public void open() {
+        openPane();
+    }
+
+    /**
+     * Open the sliding pane if it is currently slideable. If first layout
+     * has already completed this will animate.
      *
      * @return true if the pane was slideable and is now open/in the process of opening
      */
@@ -898,6 +908,15 @@ public class SlidingPaneLayout extends ViewGroup {
     /**
      * Close the sliding pane if it is currently slideable. If first layout
      * has already completed this will animate.
+     */
+    @Override
+    public void close() {
+        closePane();
+    }
+
+    /**
+     * Close the sliding pane if it is currently slideable. If first layout
+     * has already completed this will animate.
      *
      * @return true if the pane was slideable and is now closed/in the process of closing
      */
@@ -906,11 +925,27 @@ public class SlidingPaneLayout extends ViewGroup {
     }
 
     /**
+     * Toggle the pane if it is currently slideable. If first layout
+     * has already completed this will animate.
+     */
+    @Override
+    public void toggle() {
+        if (isSlideable()) {
+            if (isOpen()) {
+                closePane();
+            } else {
+                openPane();
+            }
+        }
+    }
+
+    /**
      * Check if the layout is completely open. It can be open either because the slider
      * itself is open revealing the left pane, or if all content fits without sliding.
      *
      * @return true if sliding panels are completely open
      */
+    @Override
     public boolean isOpen() {
         return !mCanSlide || mSlideOffset == 1;
     }
