@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6335dc71_639e3f9e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2019-04-06T00:04:33Z",
+      "side": 1,
+      "message": "Yes, that is correct.",
+      "parentUuid": "e72eaba5_7cacde2b",
+      "range": {
+        "startLine": 9,
+        "startChar": 2,
+        "endLine": 10,
+        "endChar": 19
+      },
+      "revId": "44b1e449d2934b4177137b5caa7696578e6ea45e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0c44180a_8053e8e5",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -36,6 +60,24 @@
       "writtenOn": "2019-04-05T23:51:17Z",
       "side": 1,
       "message": "Can you explain why this change helps the testing story? Why wouldn\u0027t the testing support do the runBlocking(worker.coroutineContext) { doWork() } for developers?",
+      "revId": "44b1e449d2934b4177137b5caa7696578e6ea45e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5fca6f58_01b19224",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2019-04-06T00:04:33Z",
+      "side": 1,
+      "message": "Right now the work-testing swaps Configuration.getExecutor() with a SynchronousExecutor by default. For us to do this with CoroutineWorker we will have to subclass / wrap CoroutineWorker which I am trying to avoid.\n\nThe other way is to swap Dispatchers.Default, which is something Jetbrains is planning on supporting soon for testing.",
+      "parentUuid": "0c44180a_8053e8e5",
       "revId": "44b1e449d2934b4177137b5caa7696578e6ea45e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
