@@ -111,12 +111,48 @@ open class BaseTest {
     }
 
     data class Context(val activityTestRule: ActivityTestRule<TestActivity>) {
-        fun recreateActivity(
-            adapterProvider: AdapterProvider,
-            onCreateCallback: ((ViewPager2) -> Unit) = { }
-        ) {
+        var activity: TestActivity = activityTestRule.activity
+            private set(value) {
+                field = value
+            }
+
+        val viewPager: ViewPager2 get() = activity.findViewById(R.id.view_pager)
+
+        val isRtl
+            get() = ViewCompat.getLayoutDirection(viewPager) ==
+                    ViewCompat.LAYOUT_DIRECTION_RTL
+
+        lateinit var adapterProvider: AdapterProvider
+
+        fun setAdapterSync(adapterProvider: AdapterProvider) {
+            this.adapterProvider = adapterProvider
+            lateinit var renderLatch: CountDownLatch
+
+            activityTestRule.runOnUiThread {
+                renderLatch = CountDownLatch(1).also {
+                    viewPager.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
+                        it.countDown()
+                    }
+                }
+                viewPager.adapter = adapterProvider(activity)
+            }
+
+            renderLatch.await(5, TimeUnit.SECONDS)
+
+            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
+                // Give slow devices some time to warm up,
+                // to prevent severe frame drops in the smooth scroll
+                Thread.sleep(1000)
+            }
+        }
+
+        fun recreateActivity(onCreateCallback: ((ViewPager2) -> Unit) = { }) {
+            val orientation = viewPager.orientation
+            val isUserInputEnabled = viewPager.isUserInputEnabled
             TestActivity.onCreateCallback = { activity ->
                 val viewPager = activity.findViewById<ViewPager2>(R.id.view_pager)
+                viewPager.orientation = orientation
+                viewPager.isUserInputEnabled = isUserInputEnabled
                 viewPager.adapter = adapterProvider(activity)
                 onCreateCallback(viewPager)
             }
@@ -125,18 +161,29 @@ open class BaseTest {
             waitForActivityDrawn(activity)
         }
 
-        var activity: TestActivity = activityTestRule.activity
-            private set(value) {
-                field = value
+        /**
+         * Checks:
+         * 1. Expected page is the current ViewPager2 page
+         * 2. Expected state is SCROLL_STATE_IDLE
+         * 3. Expected text is displayed
+         * 4. Internal activity state is valid (as per activity self-test)
+         */
+        fun assertBasicState(pageIx: Int, value: String = pageIx.toString()) {
+            assertThat<Int>(
+                "viewPager.getCurrentItem() should return $pageIx",
+                viewPager.currentItem, equalTo(pageIx)
+            )
+            assertThat(viewPager.scrollState, equalTo(SCROLL_STATE_IDLE))
+            onView(allOf<View>(withId(R.id.text_view), isDisplayed())).check(
+                matches(withText(value))
+            )
+
+            if (viewPager.adapter is SelfChecking) {
+                (viewPager.adapter as SelfChecking).selfCheck()
             }
+        }
 
         fun runOnUiThread(f: () -> Unit) = activity.runOnUiThread(f)
-
-        val viewPager: ViewPager2 get() = activity.findViewById(R.id.view_pager)
-
-        val isRtl
-            get() = ViewCompat.getLayoutDirection(viewPager) ==
-                    ViewCompat.LAYOUT_DIRECTION_RTL
 
         fun peekForward() {
             peek(adjustForRtl(-50f))
@@ -260,28 +307,6 @@ open class BaseTest {
         return latch
     }
 
-    fun Context.setAdapterSync(adapterProvider: AdapterProvider) {
-        val waitForRenderLatch = viewPager.addWaitForLayoutChangeLatch()
-
-        runOnUiThread {
-            viewPager.adapter = adapterProvider(activity)
-        }
-
-        waitForRenderLatch.await(5, TimeUnit.SECONDS)
-
-        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
-            // Give slow devices some time to warm up,
-            // to prevent severe frame drops in the smooth scroll
-            Thread.sleep(1000)
-        }
-    }
-
-    fun ViewPager2.addWaitForLayoutChangeLatch(): CountDownLatch {
-        return CountDownLatch(1).also {
-            addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ -> it.countDown() }
-        }
-    }
-
     fun ViewPager2.addWaitForIdleLatch(): CountDownLatch {
         return addWaitForStateLatch(SCROLL_STATE_IDLE)
     }
@@ -335,28 +360,6 @@ open class BaseTest {
                 .layoutManager as LinearLayoutManager)
                 .findFirstCompletelyVisibleItemPosition()
         }
-
-    /**
-     * Checks:
-     * 1. Expected page is the current ViewPager2 page
-     * 2. Expected state is SCROLL_STATE_IDLE
-     * 3. Expected text is displayed
-     * 4. Internal activity state is valid (as per activity self-test)
-     */
-    fun Context.assertBasicState(pageIx: Int, value: String = pageIx.toString()) {
-        assertThat<Int>(
-            "viewPager.getCurrentItem() should return $pageIx",
-            viewPager.currentItem, equalTo(pageIx)
-        )
-        assertThat(viewPager.scrollState, equalTo(SCROLL_STATE_IDLE))
-        onView(allOf<View>(withId(R.id.text_view), isDisplayed())).check(
-            matches(withText(value))
-        )
-
-        if (viewPager.adapter is SelfChecking) {
-            (viewPager.adapter as SelfChecking).selfCheck()
-        }
-    }
 
     fun ViewPager2.setCurrentItemSync(
         targetPage: Int,

@@ -59,7 +59,7 @@ class SwipeTest(private val testConfig: TestConfig) : BaseTest() {
 
                     // config change
                     if (configChangeSteps.contains(currentStep)) {
-                        recreateActivity(adapter)
+                        recreateActivity()
                         assertBasicState(currentPage, expectedValues[currentPage])
                     }
 

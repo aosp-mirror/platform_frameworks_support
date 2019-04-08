@@ -607,7 +607,7 @@ class PageChangeCallbackTest(private val config: TestConfig) : BaseTest() {
             runOnUiThread { viewPager.setCurrentItem(targetPage, true) }
             delayCallback(viewPager)
 
-            recreateActivity(adapterProvider) { newViewPager ->
+            recreateActivity { newViewPager ->
                 // mark the config change in the callback
                 callback.markEvent(marker)
                 // viewPager is recreated, so need to reattach callback

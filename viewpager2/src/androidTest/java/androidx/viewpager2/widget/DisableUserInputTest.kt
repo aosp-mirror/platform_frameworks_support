@@ -150,9 +150,8 @@ class DisableUserInputTest(private val config: TestConfig) : BaseTest() {
     }
 
     private fun doConfigChangeAndVerify(page: Int) {
-        test.recreateActivity(adapterProvider)
+        test.recreateActivity()
         test.assertBasicState(page)
-        assertThat(test.viewPager.isUserInputEnabled, equalTo(false))
     }
 
     private fun ViewPager2.addNewRecordingCallback(): RecordingCallback {
