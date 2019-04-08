@@ -97,5 +97,9 @@ object LibraryVersions {
     val VIEWPAGER2 = Version("1.0.0-alpha02")
     val WEAR = Version("1.1.0-alpha01")
     val WEBKIT = Version("1.1.0-alpha01")
+<<<<<<< HEAD   (5fb2e3 Merge "Merge empty history for sparse-5433600-L9570000029195)
     val WORKMANAGER = Version("1.0.0-rc01")
+=======
+    val WORKMANAGER = Version("1.0.1")
+>>>>>>> BRANCH (da8ecf Merge "Merge cherrypicks of [941272] into sparse-5426435-L24)
 }
