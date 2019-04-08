@@ -45,8 +45,7 @@ fun Project.configureErrorProneForAndroid(variants: DomainObjectSet<out BaseVari
     variants.all { variant ->
         if (variant.buildType.name == BuilderConstants.DEBUG) {
             val task = variant.javaCompileProvider
-
-            log.info("Configuring error-prone for ${variant.name}'s java compile")
+            log.info("Configuring error-prone for ${project.path} ${variant.name}'s java compile")
             makeErrorProneTask(task, toolChain)
         }
     }
@@ -64,7 +63,6 @@ private fun Project.createErrorProneToolChain(): ErrorProneToolChain {
 // Given an existing JavaCompile task, reconfigures the task to use the ErrorProne compiler
 private fun JavaCompile.configureWithErrorProne(toolChain: ErrorProneToolChain) {
     this.toolChain = toolChain
-
     val compilerArgs = this.options.compilerArgs
     compilerArgs += listOf(
             "-XDcompilePolicy=simple", // Workaround for b/36098770
@@ -127,6 +125,9 @@ private fun Project.makeErrorProneTask(
         },
         onRegister = { errorProneProvider ->
             tasks.named("check").configure {
+                it.dependsOn(errorProneProvider)
+            }
+            project.rootProject.tasks.named(AndroidXPlugin.BUILD_ON_SERVER_TASK).configure {
                 it.dependsOn(errorProneProvider)
             }
         }

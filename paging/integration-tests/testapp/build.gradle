@@ -23,6 +23,16 @@ plugins {
     id("kotlin-kapt")
 }
 
+android {
+    defaultConfig {
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
+            }
+        }
+    }
+}
+
 dependencies {
     implementation(ARCH_CORE_RUNTIME)
     implementation(ARCH_ROOM_RUNTIME)
@@ -32,8 +42,6 @@ dependencies {
     implementation(project(":paging:paging-common-ktx"))
     implementation(project(":paging:paging-runtime"))
     implementation(project(":paging:paging-rxjava2"))
-
-    kapt(ARCH_ROOM_COMPILER)
 
     implementation(MULTIDEX)
     implementation(SUPPORT_RECYCLERVIEW, libs.support_exclude_config)
