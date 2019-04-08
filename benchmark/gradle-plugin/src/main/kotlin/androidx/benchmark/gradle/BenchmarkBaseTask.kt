@@ -21,15 +21,30 @@ import org.gradle.api.GradleException
 import org.gradle.api.logging.LogLevel
 import java.util.concurrent.TimeUnit
 
-open class ClockTask(private val sdkPath: String) : DefaultTask() {
+open class BenchmarkBaseTask(private val adbPath: String) : DefaultTask() {
+    data class ProcessResult(
+        val process: Process,
+        val stdout: String,
+        val stderr: String
+    )
+
     init {
         group = "Android"
     }
 
-    fun execAdbSync(adbCmd: Array<String>, shouldThrow: Boolean = true): Process {
-        val cmd = arrayOf("$sdkPath/platform-tools/adb", *adbCmd)
+    fun execAdbSync(
+        adbCmd: Array<String>,
+        shouldThrow: Boolean = true,
+        deviceId: String? = null
+    ): ProcessResult {
+        val cmd: Array<String>
+        if (!deviceId.isNullOrEmpty()) {
+            cmd = arrayOf(adbPath, "-s", deviceId, *adbCmd)
+        } else {
+            cmd = arrayOf(adbPath, *adbCmd)
+        }
 
-        logger.log(LogLevel.QUIET, cmd.joinToString(" "))
+        logger.log(LogLevel.INFO, cmd.joinToString(" "))
         val process = Runtime.getRuntime().exec(cmd)
 
         if (!process.waitFor(5, TimeUnit.SECONDS)) {
@@ -46,6 +61,6 @@ open class ClockTask(private val sdkPath: String) : DefaultTask() {
             throw GradleException(stderr)
         }
 
-        return process
+        return ProcessResult(process, stdout, stderr)
     }
 }
