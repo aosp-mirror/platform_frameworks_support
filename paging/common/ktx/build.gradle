@@ -29,9 +29,9 @@ dependencies {
     compile(KOTLIN_STDLIB)
 
     testImplementation(JUNIT)
-    testImplementation(TEST_EXT_JUNIT)
-    testImplementation(TEST_CORE)
-    testImplementation(TEST_RUNNER)
+    testImplementation(ANDROIDX_TEST_EXT_JUNIT)
+    testImplementation(ANDROIDX_TEST_CORE)
+    testImplementation(ANDROIDX_TEST_RUNNER)
 }
 
 androidx {
