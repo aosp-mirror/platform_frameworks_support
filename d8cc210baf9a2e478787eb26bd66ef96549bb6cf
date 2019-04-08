@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7ac21db9_69bfaee4",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1470382
+      },
+      "writtenOn": "2019-04-08T17:04:04Z",
+      "side": 1,
+      "message": "Switching from looping over all tasks to find ones with specific names, we can just look up the tasks by name. There isn\u0027t a good way to check for existence though. \n\nOpen bug against gradle: https://github.com/gradle/gradle/issues/8057\nOther plugins catching the exception: https://github.com/square/wire/pull/883/files/3154e25bcfe8e6eb95f248c4c05f52940097fb58#diff-f319b2d408c7971142a73be5b983d194R181\n\nI\u0027m open to making this more elegant. Could be a method like maybeDependsOn(task, task) that handles the exception, or a method that takes a block and handles handles the exception like doCatchingUnknownDomainObject {}",
+      "revId": "d8cc210baf9a2e478787eb26bd66ef96549bb6cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
