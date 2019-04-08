@@ -52,9 +52,9 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.Task
 import org.gradle.api.logging.configuration.ShowStacktrace
+import org.gradle.api.UnknownDomainObjectException
 import org.gradle.api.plugins.JavaLibraryPlugin
 import org.gradle.api.plugins.JavaPlugin
-import org.gradle.api.plugins.JavaPluginConvention
 import org.gradle.api.tasks.TaskProvider
 import org.gradle.api.tasks.bundling.Jar
 import org.gradle.api.tasks.bundling.Zip
@@ -62,7 +62,6 @@ import org.gradle.api.tasks.testing.Test
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.extra
-import org.gradle.kotlin.dsl.getPlugin
 import org.gradle.kotlin.dsl.withType
 import org.gradle.testing.jacoco.plugins.JacocoPluginExtension
 import org.gradle.testing.jacoco.tasks.JacocoReport
@@ -101,15 +100,13 @@ class AndroidXPlugin : Plugin<Project> {
                 is JavaLibraryPlugin -> {
                     project.configureErrorProneForJava()
                     project.configureSourceJarForJava()
-                    project.convention.getPlugin<JavaPluginConvention>().apply {
-                        sourceCompatibility = VERSION_1_7
-                        targetCompatibility = VERSION_1_7
-                    }
+
                     project.hideJavadocTask()
                     val verifyDependencyVersionsTask = project.createVerifyDependencyVersionsTask()
                     verifyDependencyVersionsTask.configure { task ->
                         task.dependsOn(project.tasks.named(JavaPlugin.COMPILE_JAVA_TASK_NAME))
                     }
+
                     project.addCreateLibraryBuildInfoFileTask(androidXExtension)
                     project.createCheckReleaseReadyTask(listOf(verifyDependencyVersionsTask))
                     project.configureNonAndroidProjectForLint(androidXExtension)
@@ -131,14 +128,17 @@ class AndroidXPlugin : Plugin<Project> {
                     project.configureResourceApiChecks()
                     project.addCreateLibraryBuildInfoFileTask(androidXExtension)
                     val verifyDependencyVersionsTask = project.createVerifyDependencyVersionsTask()
-                    val checkNoWarningsTask = project.tasks.register(CHECK_NO_WARNINGS_TASK)
+                    val checkNoWarningsTask = project.tasks.register(CHECK_NO_WARNINGS_TASK) {
+                        extension.libraryVariants.all { libraryVariant ->
+                            it.dependsOn(libraryVariant.javaCompileProvider)
+                        }
+                    }
                     project.createCheckReleaseReadyTask(listOf(verifyDependencyVersionsTask,
                         checkNoWarningsTask))
                     extension.libraryVariants.all { libraryVariant ->
                         verifyDependencyVersionsTask.configure { task ->
                             task.dependsOn(libraryVariant.javaCompileProvider)
                         }
-                        checkNoWarningsTask.dependsOn(libraryVariant.javaCompileProvider)
                         project.gradle.taskGraph.whenReady { executionGraph ->
                             if (executionGraph.hasTask(checkNoWarningsTask.get())) {
                                 libraryVariant.javaCompileProvider.configure { task ->
@@ -197,63 +197,76 @@ class AndroidXPlugin : Plugin<Project> {
         if (isRunningOnBuildServer()) {
             gradle.startParameter.showStacktrace = ShowStacktrace.ALWAYS
         }
-        val createLibraryBuildInfoFilesTask =
-            tasks.register(CREATE_LIBRARY_BUILD_INFO_FILES_TASK)
-        val buildOnServerTask = tasks.create(BUILD_ON_SERVER_TASK)
-        buildOnServerTask.dependsOn(createLibraryBuildInfoFilesTask)
 
-        val projectModules = ConcurrentHashMap<String, String>()
-        extra.set("projects", projectModules)
-        tasks.all { task ->
-            if (task.name.startsWith(Release.DIFF_TASK_PREFIX) ||
-                    "distDocs" == task.name ||
-                    "partiallyDejetifyArchive" == task.name ||
-                    CheckExternalDependencyLicensesTask.TASK_NAME == task.name) {
-                buildOnServerTask.dependsOn(task)
-            }
-        }
-        subprojects { project ->
-            if (project.path == ":docs-runner") {
-                project.tasks.all { task ->
-                    if (DokkaPublicDocs.ARCHIVE_TASK_NAME == task.name ||
-                        DokkaSourceDocs.ARCHIVE_TASK_NAME == task.name) {
-                        buildOnServerTask.dependsOn(task)
-                    }
-                }
-                return@subprojects
-            }
-            project.tasks.all { task ->
-                if ("assembleAndroidTest" == task.name ||
-                        "assembleDebug" == task.name ||
-                        ERROR_PRONE_TASK == task.name ||
-                    "verifyDependencyVersions" == task.name ||
-                        ("lintDebug" == task.name &&
-                        !project.rootProject.hasProperty("useMaxDepVersions"))) {
-                    buildOnServerTask.dependsOn(task)
-                }
-            }
-        }
+        val createLibraryBuildInfoFilesTask = tasks
+            .register(CREATE_LIBRARY_BUILD_INFO_FILES_TASK)
 
         val createCoverageJarTask = Jacoco.createCoverageJarTask(this)
-        buildOnServerTask.dependsOn(createCoverageJarTask)
+        val jacocoUberJar = Jacoco.createUberJarTask(this)
+        val allDocsTask = DiffAndDocs.configureDiffAndDocs(this, projectDir,
+            DacOptions("androidx", "ANDROIDX_DATA"),
+            listOf(RELEASE_RULE))
+
+        val checkSameVersionLibraryGroupsTask = project.tasks.register(
+            CHECK_SAME_VERSION_LIBRARY_GROUPS,
+            CheckSameVersionLibraryGroupsTask::class.java)
+
+        tasks.register(BUILD_ON_SERVER_TASK) { buildOnServerTask ->
+            buildOnServerTask.dependsOn(createLibraryBuildInfoFilesTask)
+            buildOnServerTask.dependsOn(createCoverageJarTask)
+            buildOnServerTask.dependsOn(allDocsTask)
+            buildOnServerTask.dependsOn(jacocoUberJar)
+            buildOnServerTask.dependsOn(checkSameVersionLibraryGroupsTask)
+            val dependencyTasks = arrayOf(
+                "distDocs",
+                "partiallyDejetifyArchive",
+                CheckExternalDependencyLicensesTask.TASK_NAME
+            )
+            dependencyTasks.forEach {
+                try {
+                    buildOnServerTask.dependsOn(project.tasks.named(it))
+                    System.out.println("$it found on ${project.name}")
+                } catch (
+                    e: UnknownDomainObjectException
+                ) {
+                    System.out.println("$it NOT FOUND on ${project.name}")
+                }
+            }
+
+            subprojects { project ->
+                project.afterEvaluate {
+                    if (project.path == ":docs-runner") {
+                        buildOnServerTask
+                            .dependsOn(project.tasks.named(DokkaPublicDocs.ARCHIVE_TASK_NAME))
+                        buildOnServerTask
+                            .dependsOn(project.tasks.named(DokkaSourceDocs.ARCHIVE_TASK_NAME))
+                    } else {
+
+                        if (!project.rootProject.hasProperty("useMaxDepVersions")) {
+                            try {
+                                buildOnServerTask.dependsOn(project.tasks.named("lintDebug"))
+                                System.out.println("lintDebug found on ${project.name}")
+                            } catch (
+                                e: UnknownDomainObjectException
+                            ) {
+                                System.out.println("lintDebug NOT FOUND on ${project.name}")
+                            }
+                        }
+                        buildOnServerTask.dependsOn(Release.getGlobalFullZipTask(project))
+                        buildOnServerTask.dependsOn(Release.getGlobalReleaseZipTask(project))
+                    }
+                }
+            }
+        }
 
         tasks.register(BUILD_TEST_APKS) { it ->
             it.dependsOn(createCoverageJarTask)
         }
 
+        val projectModules = ConcurrentHashMap<String, String>()
+        extra.set("projects", projectModules)
         extra.set("versionChecker", GMavenVersionChecker(logger))
         Release.createGlobalArchiveTask(this)
-        val allDocsTask = DiffAndDocs.configureDiffAndDocs(this, projectDir,
-                DacOptions("androidx", "ANDROIDX_DATA"),
-                listOf(RELEASE_RULE))
-        buildOnServerTask.dependsOn(allDocsTask)
-
-        val jacocoUberJar = Jacoco.createUberJarTask(this)
-        buildOnServerTask.dependsOn(jacocoUberJar)
-        val checkSameVersionLibraryGroupsTask = tasks.register(
-            CHECK_SAME_VERSION_LIBRARY_GROUPS,
-            CheckSameVersionLibraryGroupsTask::class.java)
-        buildOnServerTask.dependsOn(checkSameVersionLibraryGroupsTask)
 
         createClockLockTasks()
 
@@ -267,18 +280,18 @@ class AndroidXPlugin : Plugin<Project> {
             evaluationDependsOnChildren()
             subprojects { project ->
                 project.configurations.all { configuration ->
-                    project.afterEvaluate {
-                        val androidXExtension =
-                            project.extensions.getByType(AndroidXExtension::class.java)
-                        // Substitute only for debug configurations/tasks only because we can not
-                        // change release dependencies after evaluation. Test hooks, buildOnServer
-                        // and buildTestApks use the debug configurations as well.
-                        if (androidXExtension.publish && configuration.name
-                                .toLowerCase().contains("debug")
-                        ) {
-                            configuration.resolutionStrategy.dependencySubstitution.apply {
-                                for (e in projectModules) {
-                                    substitute(module(e.key)).with(project(e.value))
+                    if (configuration.name.toLowerCase().contains("debug")) {
+                        project.afterEvaluate {
+                            val androidXExtension =
+                                project.extensions.getByType(AndroidXExtension::class.java)
+                            // Substitute only for debug configurations/tasks only because we can not
+                            // change release dependencies after evaluation. Test hooks, buildOnServer
+                            // and buildTestApks use the debug configurations as well.
+                            if (androidXExtension.publish) {
+                                configuration.resolutionStrategy.dependencySubstitution.apply {
+                                    for (e in projectModules) {
+                                        substitute(module(e.key)).with(project(e.value))
+                                    }
                                 }
                             }
                         }
@@ -364,8 +377,15 @@ class AndroidXPlugin : Plugin<Project> {
         Jacoco.registerClassFilesTask(project, extension)
 
         val buildTestApksTask = rootProject.tasks.named(BUILD_TEST_APKS)
+        val buildOnServerTask = rootProject.tasks.named(BUILD_ON_SERVER_TASK)
+
         extension.testVariants.all { variant ->
-            buildTestApksTask.dependsOn(variant.assembleProvider)
+            buildOnServerTask.configure {
+                it.dependsOn(variant.assembleProvider)
+            }
+            buildTestApksTask.configure {
+                it.dependsOn(variant.assembleProvider)
+            }
             variant.configureApkCopy(project, extension, true)
         }
     }
@@ -425,14 +445,14 @@ class AndroidXPlugin : Plugin<Project> {
             sourceCompatibility = VERSION_1_7
             targetCompatibility = VERSION_1_7
         }
-
         project.configurations.all { config ->
             // Remove strict constraints on listenablefuture:1.0
             config.dependencyConstraints.configureEach { dependencyConstraint ->
                 dependencyConstraint.apply {
                     if (group == "com.google.guava" &&
                         name == "listenablefuture" &&
-                        version == "1.0") {
+                        version == "1.0"
+                    ) {
                         version { versionConstraint ->
                             versionConstraint.strictly("")
                         }
@@ -455,6 +475,7 @@ class AndroidXPlugin : Plugin<Project> {
             extension.libraryVariants.all { libraryVariant ->
                 if (libraryVariant.buildType.name == "debug") {
                     libraryVariant.javaCompileProvider.configure { javaCompile ->
+
                         if (androidXExtension.failOnUncheckedWarnings) {
                             javaCompile.options.compilerArgs.add("-Xlint:unchecked")
                         }
@@ -489,9 +510,16 @@ class AndroidXPlugin : Plugin<Project> {
         }
 
         val buildTestApksTask = rootProject.tasks.named(BUILD_TEST_APKS)
+        val buildOnServerTask = rootProject.tasks.named(BUILD_ON_SERVER_TASK)
+
         extension.applicationVariants.all { variant ->
             if (variant.buildType.name == "debug") {
-                buildTestApksTask.dependsOn(variant.assembleProvider)
+                buildTestApksTask.configure {
+                    it.dependsOn(variant.assembleProvider)
+                }
+                buildOnServerTask.configure {
+                    it.dependsOn(variant.assembleProvider)
+                }
             }
             variant.configureApkCopy(project, extension, false)
         }
@@ -499,8 +527,11 @@ class AndroidXPlugin : Plugin<Project> {
 
     private fun Project.createVerifyDependencyVersionsTask():
             TaskProvider<VerifyDependencyVersionsTask> {
-        return project.tasks.register("verifyDependencyVersions",
+        val verifyDependencyVersionsTask = project.tasks.register("verifyDependencyVersions",
                 VerifyDependencyVersionsTask::class.java)
+        project.rootProject.tasks.named(AndroidXPlugin.BUILD_ON_SERVER_TASK)
+            .dependsOn(verifyDependencyVersionsTask)
+        return verifyDependencyVersionsTask
     }
 
     // Task that creates a json file of a project's dependencies
