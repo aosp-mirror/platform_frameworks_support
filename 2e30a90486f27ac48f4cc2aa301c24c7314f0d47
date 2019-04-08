@@ -108,6 +108,24 @@
     },
     {
       "key": {
+        "uuid": "0fa00f87_684f7957",
+        "filename": "paging/rxjava2/build.gradle",
+        "patchSetId": 14
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-04-08T17:54:06Z",
+      "side": 1,
+      "message": "Here\u0027s the promised CL: https://android-review.googlesource.com/c/platform/frameworks/support/+/941140\n\nWaiting to get presubmit to pass before opening up to review / discussion.",
+      "parentUuid": "7b82362d_59c41527",
+      "revId": "2e30a90486f27ac48f4cc2aa301c24c7314f0d47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6327e36e_9b5ad0e9",
         "filename": "paging/rxjava2/src/main/java/androidx/paging/RxDataSourceUtil.java",
         "patchSetId": 14
