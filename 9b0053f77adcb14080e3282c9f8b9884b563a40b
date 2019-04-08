@@ -245,6 +245,30 @@
       "revId": "9b0053f77adcb14080e3282c9f8b9884b563a40b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5e412b7f_4fbe3fa5",
+        "filename": "gradlew",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-04-08T11:45:28Z",
+      "side": 1,
+      "message": "Ack.",
+      "parentUuid": "db8a00e7_ef99dc1d",
+      "range": {
+        "startLine": 17,
+        "startChar": 11,
+        "endLine": 17,
+        "endChar": 18
+      },
+      "revId": "9b0053f77adcb14080e3282c9f8b9884b563a40b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
