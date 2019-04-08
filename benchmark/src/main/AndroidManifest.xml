@@ -14,4 +14,11 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-<manifest package="androidx.benchmark"/>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="androidx.benchmark">
+
+    <!-- This is needed to write benchmark report data to an external directory during instrumented
+    tests to allow the accompanying androidx.benchmark gradle plugin to pull the reports onto host
+     machine after the tests are done running. -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+</manifest>

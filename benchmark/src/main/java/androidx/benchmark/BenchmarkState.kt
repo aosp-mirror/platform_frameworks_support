@@ -57,7 +57,7 @@ class BenchmarkState internal constructor() {
      * Decreasing iteration count used when [state] == [RUNNING], used to determine when main
      * measurement loop finishes.
      */
-    @JvmField /* Used by [BenchmarkState.keepRunningInline()] */
+    @JvmField // Used by [BenchmarkState.keepRunningInline()]
     @PublishedApi
     internal var iterationsRemaining = -1
 
@@ -93,16 +93,20 @@ class BenchmarkState internal constructor() {
     internal val stats: Stats
         get() {
             if (state == NOT_STARTED) {
-                throw IllegalStateException("The benchmark wasn't started! Every test in a class " +
-                        "with a BenchmarkRule must contain a benchmark. In Kotlin, call " +
-                        "benchmarkRule.measureRepeated {}, or in Java, call " +
-                        "benchmarkRule.getState().keepRunning() to run your benchmark.")
+                throw IllegalStateException(
+                    "The benchmark wasn't started! Every test in a class " +
+                            "with a BenchmarkRule must contain a benchmark. In Kotlin, call " +
+                            "benchmarkRule.measureRepeated {}, or in Java, call " +
+                            "benchmarkRule.getState().keepRunning() to run your benchmark."
+                )
             }
             if (state != FINISHED) {
-                throw IllegalStateException("The benchmark hasn't finished! In Java, use " +
-                        "while(BenchmarkState.keepRunning()) to ensure keepRunning() returns " +
-                        "false before ending your test. In Kotlin, just use " +
-                        "benchmarkRule.measureRepeated {} to avoid the problem.")
+                throw IllegalStateException(
+                    "The benchmark hasn't finished! In Java, use " +
+                            "while(BenchmarkState.keepRunning()) to ensure keepRunning() returns " +
+                            "false before ending your test. In Kotlin, just use " +
+                            "benchmarkRule.measureRepeated {} to avoid the problem."
+                )
             }
             return internalStats!!
         }
