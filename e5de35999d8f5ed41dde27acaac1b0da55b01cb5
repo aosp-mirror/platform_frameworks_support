@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "8a89c281_0f70958c",
+        "filename": "recyclerview/selection/src/main/java/androidx/recyclerview/selection/GestureSelectionHelper.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-04-08T20:29:51Z",
+      "side": 1,
+      "message": "Sorry. Because your below Log message includes \"out of sync\", I read assumed this check here was protecting against a hard to track down error in the internal state of the library.  Assuming that, I was just commenting that it would be nice to cleanup the code such that it was possibly easier to be able to reason that internal accidental inconsistencies were not possible.\n\nIs this check here to protect against potentially avoidable internal inconsistencies or is this a case where the inconsistencies are unavoidable due to external state changes that are outside of the control of the library?",
+      "parentUuid": "48456c41_5cfe6565",
+      "range": {
+        "startLine": 135,
+        "startChar": 13,
+        "endLine": 135,
+        "endChar": 42
+      },
+      "revId": "e5de35999d8f5ed41dde27acaac1b0da55b01cb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2e686152_8f413dec",
         "filename": "recyclerview/selection/src/main/java/androidx/recyclerview/selection/TouchInputHandler.java",
         "patchSetId": 7
@@ -96,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "54df5b30_74f275e5",
+        "filename": "recyclerview/selection/src/main/java/androidx/recyclerview/selection/TouchInputHandler.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-04-08T20:29:51Z",
+      "side": 1,
+      "message": "Looks good! Thanks.",
+      "parentUuid": "1ce1a266_3a3d31f2",
+      "range": {
+        "startLine": 124,
+        "startChar": 12,
+        "endLine": 124,
+        "endChar": 28
+      },
+      "revId": "e5de35999d8f5ed41dde27acaac1b0da55b01cb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "12e470f8_e680627c",
         "filename": "recyclerview/selection/src/main/java/androidx/recyclerview/selection/TouchInputHandler.java",
         "patchSetId": 7
@@ -140,6 +188,30 @@
       "revId": "e5de35999d8f5ed41dde27acaac1b0da55b01cb5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "025fe462_6eb40821",
+        "filename": "recyclerview/selection/src/main/java/androidx/recyclerview/selection/TouchInputHandler.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-04-08T20:29:51Z",
+      "side": 1,
+      "message": "Ok sounds good.  Thanks!",
+      "parentUuid": "f18773ab_09b8f002",
+      "range": {
+        "startLine": 128,
+        "startChar": 12,
+        "endLine": 130,
+        "endChar": 60
+      },
+      "revId": "e5de35999d8f5ed41dde27acaac1b0da55b01cb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
