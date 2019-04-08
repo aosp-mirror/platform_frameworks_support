@@ -15,6 +15,7 @@
  */
 package androidx.build
 
+import androidx.build.AndroidXPlugin.Companion.BUILD_ON_SERVER_TASK
 import androidx.build.gmaven.GMavenVersionChecker
 import org.gradle.api.Action
 import org.gradle.api.Project
@@ -260,10 +261,12 @@ object Release {
      */
     private fun getGlobalReleaseZipTask(project: Project): TaskProvider<GMavenZipTask> {
         val taskName = "${DIFF_TASK_PREFIX}ForAll"
+        val named = project.rootProject.tasks.named(BUILD_ON_SERVER_TASK)
         return project.rootProject.maybeRegister(
             name = taskName,
             onConfigure = {
                 GMavenZipTask.ConfigAction(getParams(project)).execute(it)
+                project.rootProject.tasks.named(BUILD_ON_SERVER_TASK).get().dependsOn(it)
             },
             onRegister = {
             }
@@ -283,6 +286,7 @@ object Release {
                         includeMetadata = true
                     )
                 ).execute(it)
+                project.rootProject.tasks.named(BUILD_ON_SERVER_TASK).get().dependsOn(it)
             },
             onRegister = {
             }
