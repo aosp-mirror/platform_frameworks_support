@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4fb74ebf_fb985662",
+        "filename": "recyclerview/selection/src/main/java/androidx/recyclerview/selection/GestureSelectionHelper.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-04-08T15:55:09Z",
+      "side": 1,
+      "message": "Seems like it would be nice to see if the code can be simplified such that it is easier to verify that this is guaranteed?",
+      "range": {
+        "startLine": 135,
+        "startChar": 13,
+        "endLine": 135,
+        "endChar": 42
+      },
+      "revId": "e5de35999d8f5ed41dde27acaac1b0da55b01cb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2e686152_8f413dec",
+        "filename": "recyclerview/selection/src/main/java/androidx/recyclerview/selection/TouchInputHandler.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-04-08T15:55:09Z",
+      "side": 1,
+      "message": "Can we change this to \"isRequestingRangeExtension\"?  I had to look at the method to understand what it was doing because \"Is this MotionEvent a range extension\" didn\u0027t make immediate sense to me.",
+      "range": {
+        "startLine": 124,
+        "startChar": 12,
+        "endLine": 124,
+        "endChar": 28
+      },
+      "revId": "e5de35999d8f5ed41dde27acaac1b0da55b01cb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "12e470f8_e680627c",
+        "filename": "recyclerview/selection/src/main/java/androidx/recyclerview/selection/TouchInputHandler.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-04-08T15:55:09Z",
+      "side": 1,
+      "message": "This logic isn\u0027t the same as before.  Before onDragInitiated could be called if the item was currently selected or it can\u0027t be selected.  Now it\u0027s just if it is currently selected.  Is this  current code correct?  (Are there tests that prevent this behavior from accidentally changing?)",
+      "range": {
+        "startLine": 128,
+        "startChar": 12,
+        "endLine": 130,
+        "endChar": 60
+      },
+      "revId": "e5de35999d8f5ed41dde27acaac1b0da55b01cb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
