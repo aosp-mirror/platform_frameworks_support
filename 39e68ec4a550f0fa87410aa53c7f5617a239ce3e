@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "83f46efb_801e1af1",
+        "filename": "cleanBuild.sh",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-04-08T18:39:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a3b572b_f556526f",
+      "revId": "39e68ec4a550f0fa87410aa53c7f5617a239ce3e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c0fd1ef7_661ffaa8",
         "filename": "development/diagnose-build-failure/diagnose-build-failure.sh",
         "patchSetId": 4
@@ -69,6 +87,24 @@
       "revId": "39e68ec4a550f0fa87410aa53c7f5617a239ce3e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "acffbb60_fdc4e4e3",
+        "filename": "development/diagnose-build-failure/diagnose-build-failure.sh",
+        "patchSetId": 4
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-04-08T18:39:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e5ffaaab_c86b2705",
+      "revId": "39e68ec4a550f0fa87410aa53c7f5617a239ce3e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
