@@ -91,7 +91,7 @@ public abstract class RxWorker extends ListenableWorker {
      *
      * @return The default {@link Scheduler}.
      */
-    protected Scheduler getBackgroundScheduler() {
+    protected @NonNull Scheduler getBackgroundScheduler() {
         return Schedulers.from(getBackgroundExecutor());
     }
 
@@ -115,10 +115,10 @@ public abstract class RxWorker extends ListenableWorker {
      * @return a {@code Single<Result>} that represents the work.
      */
     @MainThread
-    public abstract Single<Result> createWork();
+    public abstract @NonNull Single<Result> createWork();
 
     @Override
-    public void onStopped() {
+    public final void onStopped() {
         super.onStopped();
         final SingleFutureAdapter observer = mSingleFutureObserverAdapter;
         if (observer != null) {
