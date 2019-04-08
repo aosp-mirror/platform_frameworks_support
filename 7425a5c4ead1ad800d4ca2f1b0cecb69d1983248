@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "f3e77acb_125f0a05",
+        "filename": "testutils/src/main/java/androidx/testutils/SwipeToLocation.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-04-08T13:04:16Z",
+      "side": 1,
+      "message": "Nit: Must not? May is quite flexible.",
+      "range": {
+        "startLine": 192,
+        "startChar": 65,
+        "endLine": 192,
+        "endChar": 72
+      },
+      "revId": "7425a5c4ead1ad800d4ca2f1b0cecb69d1983248",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "45f6b3f8_65df1226",
         "filename": "testutils/src/main/java/androidx/testutils/SwipeToLocation.java",
         "patchSetId": 2
@@ -48,6 +71,30 @@
     },
     {
       "key": {
+        "uuid": "6cddf842_0aa76352",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageTransformerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-04-08T13:04:16Z",
+      "side": 1,
+      "message": "This comment applies to swipeExactlyToPage method in DragWhileSmoothScrollTest. Not sure how it got published here instead.",
+      "parentUuid": "8f284981_04176bd2",
+      "range": {
+        "startLine": 148,
+        "startChar": 16,
+        "endLine": 148,
+        "endChar": 34
+      },
+      "revId": "7425a5c4ead1ad800d4ca2f1b0cecb69d1983248",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "73cfd552_127b7df8",
         "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageTransformerTest.kt",
         "patchSetId": 2
@@ -59,6 +106,30 @@
       "writtenOn": "2019-04-08T12:37:43Z",
       "side": 1,
       "message": "Nit: it\u0027s a bit easier to follow when it\u0027s int SDK values, see BaseTest",
+      "range": {
+        "startLine": 150,
+        "startChar": 43,
+        "endLine": 150,
+        "endChar": 67
+      },
+      "revId": "7425a5c4ead1ad800d4ca2f1b0cecb69d1983248",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9416759_0262ddd7",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageTransformerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-04-08T13:04:16Z",
+      "side": 1,
+      "message": "This comment applies to \u0027Build.VERSION.SDK_INT \u003e\u003d Build.VERSION_CODES.JELLY_BEAN\u0027 inside DragWhileSmoothScrollTest. Not sure how it got published here instead.",
+      "parentUuid": "73cfd552_127b7df8",
       "range": {
         "startLine": 150,
         "startChar": 43,
