@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fd109e97_98c19b9a",
+        "filename": "buildSrc/build.gradle",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-04-08T11:45:06Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "824218dd_de01a8c7",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 53
+      },
+      "revId": "9b0053f77adcb14080e3282c9f8b9884b563a40b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "96678fd6_858a5626",
         "filename": "buildSrc/out.gradle",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "9b0053f77adcb14080e3282c9f8b9884b563a40b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dfbd78e4_1f64a385",
+        "filename": "buildSrc/out.gradle",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-04-08T11:45:06Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "96678fd6_858a5626",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 1
+      },
+      "revId": "9b0053f77adcb14080e3282c9f8b9884b563a40b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "0ef1d621_37213861",
+        "filename": "buildSrc/out.gradle",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-04-08T11:45:06Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2e465e9e_9881e8c1",
+      "range": {
+        "startLine": 29,
+        "startChar": 47,
+        "endLine": 29,
+        "endChar": 64
+      },
+      "revId": "9b0053f77adcb14080e3282c9f8b9884b563a40b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "363408ab_9c7a0fb6",
         "filename": "cleanBuild.sh",
         "patchSetId": 3
@@ -91,6 +163,30 @@
       "revId": "9b0053f77adcb14080e3282c9f8b9884b563a40b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b401a185_b473d019",
+        "filename": "cleanBuild.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-04-08T11:45:06Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "363408ab_9c7a0fb6",
+      "range": {
+        "startLine": 30,
+        "startChar": 16,
+        "endLine": 30,
+        "endChar": 17
+      },
+      "revId": "9b0053f77adcb14080e3282c9f8b9884b563a40b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -131,6 +227,24 @@
       "revId": "9b0053f77adcb14080e3282c9f8b9884b563a40b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1477315b_671f2d26",
+        "filename": "gradlew",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-04-08T11:45:06Z",
+      "side": 1,
+      "message": "Yep.",
+      "parentUuid": "429f9e84_72d58315",
+      "revId": "9b0053f77adcb14080e3282c9f8b9884b563a40b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
