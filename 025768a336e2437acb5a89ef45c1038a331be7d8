@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ff89e820_71286f6c",
+        "filename": "paging/rxjava2/src/main/java/androidx/paging/RxItemKeyedDataSource.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-04-08T16:32:02Z",
+      "side": 1,
+      "message": "nit: paren on end of param in java. should be like in RxPageKeyedDataSource (param fully on own line is the kotlin style)",
+      "revId": "025768a336e2437acb5a89ef45c1038a331be7d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4967e60d_bdb528ab",
+        "filename": "paging/rxjava2/src/main/java/androidx/paging/RxPageKeyedDataSource.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-04-08T16:32:02Z",
+      "side": 1,
+      "message": "missing space before this?",
+      "range": {
+        "startLine": 72,
+        "startChar": 6,
+        "endLine": 72,
+        "endChar": 35
+      },
+      "revId": "025768a336e2437acb5a89ef45c1038a331be7d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e74c016_37d3c50e",
+        "filename": "paging/rxjava2/src/test/java/androidx/paging/RxItemKeyedDataSourceTest.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-04-08T16:32:02Z",
+      "side": 1,
+      "message": "reverse the param order - assertEquals(expected, actual)\n\n(generally matters only when reading failed assert statements)",
+      "revId": "025768a336e2437acb5a89ef45c1038a331be7d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

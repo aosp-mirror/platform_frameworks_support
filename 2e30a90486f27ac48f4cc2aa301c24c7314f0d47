@@ -213,6 +213,24 @@
     },
     {
       "key": {
+        "uuid": "68c7efc5_78cf6bff",
+        "filename": "paging/rxjava2/src/main/java/androidx/paging/RxItemKeyedDataSource.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-04-08T16:32:02Z",
+      "side": 1,
+      "message": "What do you mean developer sanity? You mean the complexity in the method:\n\n    abstract Scheduler retrieveScheduler(Executor executor) {\n        if (executor instanceof SchedulerExecutor) {\n            // Minor optimization avoiding a wrapper -\n            // Root object was a scheduler, retrieve it.\n            return ((SchedulerExecutor) executor).scheduler();\n        } else {\n            return Schedulers.of(executor);\n        }\n    }\n\nMy goal was to avoid avoiding going from scheduler to executor, back to scheduler. It\u0027s extra wrappers, and I assume (though maybe you know) loses some features of rx scheduler semantics, like being able to easily schedule multiple tasks on a single thread.\n\nThe problem is that RxPagedListBuilder doesn\u0027t know what type of DataSource it\u0027s dealing with, and the DataSource base class can\u0027t use an RxJava type internally.\n\nWe could avoid the instanceof by having all datasources have a \u0027Object mScheduler\u0027 that can be overridden by initExecutor(), and otherwise ignored. (Or some variant of that idea). I think the simplicity of the above method is better though, since checking \u0027instanceof SomeClass\u0027 is much cheaper that \u0027instanceof SomeInterface\u0027, so I don\u0027t think it\u0027s not that bad.",
+      "parentUuid": "3f93c1ea_ee761077",
+      "revId": "2e30a90486f27ac48f4cc2aa301c24c7314f0d47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cc9ae791_a88094ef",
         "filename": "paging/rxjava2/src/main/java/androidx/paging/RxItemKeyedDataSource.java",
         "patchSetId": 14
@@ -467,6 +485,24 @@
       "side": 1,
       "message": "By artifact do you mean module?\n\nTracked here: https://b.corp.google.com/issues/130065661",
       "parentUuid": "9d5d504a_fea7d6ac",
+      "revId": "2e30a90486f27ac48f4cc2aa301c24c7314f0d47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa411f51_56e11925",
+        "filename": "paging/rxjava2/src/test/java/androidx/paging/TestExecutor.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-04-08T16:32:02Z",
+      "side": 1,
+      "message": "Yep",
+      "parentUuid": "821a6385_57c3bb1c",
       "revId": "2e30a90486f27ac48f4cc2aa301c24c7314f0d47",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
