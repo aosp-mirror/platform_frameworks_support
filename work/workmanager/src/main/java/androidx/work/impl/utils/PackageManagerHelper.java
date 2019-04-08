@@ -45,15 +45,21 @@ public class PackageManagerHelper {
             boolean enabled) {
         try {
             PackageManager packageManager = context.getPackageManager();
-            ComponentName componentName = new ComponentName(context, klazz.getName());
-            packageManager.setComponentEnabledSetting(componentName,
-                    enabled
-                            ? PackageManager.COMPONENT_ENABLED_STATE_ENABLED
-                            : PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
-                    PackageManager.DONT_KILL_APP);
+            // Explicitly adding a null check because a lot of our tests don't require
+            // enabling and disabling components. So we don't provide a mocked PackageManager in
+            // those cases.
+            if (packageManager != null) {
+                ComponentName componentName = new ComponentName(context, klazz.getName());
+                packageManager.setComponentEnabledSetting(componentName,
+                        enabled
+                                ? PackageManager.COMPONENT_ENABLED_STATE_ENABLED
+                                : PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                        PackageManager.DONT_KILL_APP);
 
-            Logger.get().debug(TAG,
-                    String.format("%s %s", klazz.getName(), (enabled ? "enabled" : "disabled")));
+                Logger.get().debug(TAG,
+                        String.format("%s %s", klazz.getName(),
+                                (enabled ? "enabled" : "disabled")));
+            }
         } catch (Exception exception) {
             Logger.get().debug(TAG, String.format("%s could not be %s", klazz.getName(),
                     (enabled ? "enabled" : "disabled")), exception);
@@ -76,6 +82,12 @@ public class PackageManagerHelper {
      */
     public static boolean isComponentExplicitlyEnabled(Context context, String className) {
         PackageManager packageManager = context.getPackageManager();
+        // Explicitly adding a null check because a lot of our tests don't require
+        // enabling and disabling components. So we don't provide a mocked PackageManager in
+        // those cases.
+        if (packageManager == null) {
+            return false;
+        }
         ComponentName componentName = new ComponentName(context, className);
         int state = packageManager.getComponentEnabledSetting(componentName);
         return state == PackageManager.COMPONENT_ENABLED_STATE_ENABLED;
