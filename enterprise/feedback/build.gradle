@@ -10,9 +10,7 @@ dependencies {
     api("androidx.annotation:annotation:1.0.1")
     api(AUTO_VALUE_ANNOTATIONS)
     annotationProcessor(AUTO_VALUE)
-    testImplementation(TEST_CORE)
     testImplementation(JUNIT)
-    testImplementation(TEST_RUNNER)
     testImplementation(TRUTH)
     testImplementation(ROBOLECTRIC)
 }
