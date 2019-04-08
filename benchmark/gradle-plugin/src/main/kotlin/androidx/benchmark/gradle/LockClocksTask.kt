@@ -22,7 +22,7 @@ import java.nio.file.Paths
 import java.nio.file.StandardCopyOption
 import javax.inject.Inject
 
-open class LockClocksTask @Inject constructor(sdkPath: String) : ClockTask(sdkPath) {
+open class LockClocksTask @Inject constructor(adbPath: String) : BenchmarkBaseTask(adbPath) {
     init {
         description = "locks clocks of connected, supported, rooted device"
     }
@@ -31,7 +31,7 @@ open class LockClocksTask @Inject constructor(sdkPath: String) : ClockTask(sdkPa
     @TaskAction
     fun exec() {
         // Skip "adb root" if already rooted as it will fail.
-        if (execAdbSync(arrayOf("shell", "su exit"), false).exitValue() != 0) {
+        if (execAdbSync(arrayOf("shell", "su exit"), false).process.exitValue() != 0) {
             execAdbSync(arrayOf("root"))
         }
 
