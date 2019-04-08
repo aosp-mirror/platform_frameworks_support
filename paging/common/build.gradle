@@ -25,6 +25,11 @@ plugins {
     id("kotlin")
 }
 
+compileJava {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
 lintOptions {
     fatal("UnknownNullness")
 }

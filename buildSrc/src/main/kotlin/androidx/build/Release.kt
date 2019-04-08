@@ -258,7 +258,7 @@ object Release {
     /**
      * Creates and returns the task that generates the combined gmaven diff file for all projects.
      */
-    private fun getGlobalReleaseZipTask(project: Project): TaskProvider<GMavenZipTask> {
+    fun getGlobalReleaseZipTask(project: Project): TaskProvider<GMavenZipTask> {
         val taskName = "${DIFF_TASK_PREFIX}ForAll"
         return project.rootProject.maybeRegister(
             name = taskName,
@@ -273,7 +273,7 @@ object Release {
     /**
      * Creates and returns the task that includes all projects regardless of their release status.
      */
-    private fun getGlobalFullZipTask(project: Project): TaskProvider<GMavenZipTask> {
+    fun getGlobalFullZipTask(project: Project): TaskProvider<GMavenZipTask> {
         return project.rootProject.maybeRegister(
             name = FULL_ARCHIVE_TASK_NAME,
             onConfigure = {
