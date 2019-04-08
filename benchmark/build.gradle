@@ -25,11 +25,12 @@ plugins {
 }
 
 dependencies {
-    implementation(SUPPORT_ANNOTATIONS)
     implementation(ANDROIDX_TEST_RUNNER)
+    implementation(ANDROIDX_TEST_RULES)
+    implementation(KOTLIN_STDLIB)
+    implementation(SUPPORT_ANNOTATIONS)
 
     androidTestImplementation(JUNIT)
-    implementation(KOTLIN_STDLIB)
 }
 
 androidx {

@@ -25,26 +25,32 @@ import org.gradle.api.Project
 import org.gradle.api.tasks.StopExecutionException
 
 class BenchmarkPlugin : Plugin<Project> {
+
     override fun apply(project: Project) {
-        var sdkPath: String? = null
+        var adbPath: String? = null
         project.plugins.all {
             when (it) {
                 is LibraryPlugin -> {
                     val extension = project.extensions.getByType(LibraryExtension::class.java)
-                    sdkPath = extension.sdkDirectory.path
+                    adbPath = extension.adbExecutable.absolutePath
                 }
                 is AppPlugin -> {
                     val extension = project.extensions.getByType(AppExtension::class.java)
-                    sdkPath = extension.sdkDirectory.path
+                    adbPath = extension.adbExecutable.absolutePath
                 }
             }
         }
 
-        if (sdkPath.isNullOrEmpty()) {
+        if (adbPath.isNullOrEmpty()) {
             throw StopExecutionException("Unable to find Android SDK")
         }
 
-        project.tasks.create("lockClocks", LockClocksTask::class.java, sdkPath)
-        project.tasks.create("unlockClocks", UnlockClocksTask::class.java, sdkPath)
+        project.tasks.register("lockClocks", LockClocksTask::class.java, adbPath)
+        project.tasks.register("unlockClocks", UnlockClocksTask::class.java, adbPath)
+        project.tasks.register("benchmarkReport", BenchmarkReportTask::class.java, adbPath)
+            .configure {
+                it.dependsOn("connectedAndroidTest")
+                it.outputs.upToDateWhen { false }
+            }
     }
 }
