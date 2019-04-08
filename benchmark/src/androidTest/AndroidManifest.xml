@@ -18,8 +18,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="androidx.benchmark.test">
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <!-- Important: disable debuggable for accurate performance results -->
     <application
         android:debuggable="false"
-        tools:replace="android:debuggable"/>
+        tools:replace="android:debuggable" />
 </manifest>
