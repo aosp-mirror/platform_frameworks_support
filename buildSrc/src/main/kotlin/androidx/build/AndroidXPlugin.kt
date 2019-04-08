@@ -42,7 +42,6 @@ import com.android.build.gradle.AppPlugin
 import com.android.build.gradle.LibraryExtension
 import com.android.build.gradle.LibraryPlugin
 import com.android.build.gradle.TestedExtension
-import com.android.build.gradle.internal.tasks.factory.dependsOn
 import org.gradle.api.DefaultTask
 import org.gradle.api.JavaVersion.VERSION_1_7
 import org.gradle.api.JavaVersion.VERSION_1_8
@@ -50,6 +49,7 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.Task
 import org.gradle.api.artifacts.ComponentModuleMetadataDetails
+import org.gradle.api.UnknownDomainObjectException
 import org.gradle.api.plugins.JavaLibraryPlugin
 import org.gradle.api.plugins.JavaPlugin
 import org.gradle.api.plugins.JavaPluginConvention
@@ -128,14 +128,17 @@ class AndroidXPlugin : Plugin<Project> {
                     project.configureResourceApiChecks()
                     project.addCreateLibraryBuildInfoFileTask(androidXExtension)
                     val verifyDependencyVersionsTask = project.createVerifyDependencyVersionsTask()
-                    val checkNoWarningsTask = project.tasks.register(CHECK_NO_WARNINGS_TASK)
+                    val checkNoWarningsTask = project.tasks.register(CHECK_NO_WARNINGS_TASK) {
+                        extension.libraryVariants.all { libraryVariant ->
+                            it.dependsOn(libraryVariant.javaCompileProvider)
+                        }
+                    }
                     project.createCheckReleaseReadyTask(listOf(verifyDependencyVersionsTask,
                         checkNoWarningsTask))
                     extension.libraryVariants.all { libraryVariant ->
                         verifyDependencyVersionsTask.configure { task ->
                             task.dependsOn(libraryVariant.javaCompileProvider)
                         }
-                        checkNoWarningsTask.dependsOn(libraryVariant.javaCompileProvider)
                         project.gradle.taskGraph.whenReady { executionGraph ->
                             if (executionGraph.hasTask(checkNoWarningsTask.get())) {
                                 libraryVariant.javaCompileProvider.configure { task ->
@@ -193,64 +196,96 @@ class AndroidXPlugin : Plugin<Project> {
     private fun Project.configureRootProject() {
         val createLibraryBuildInfoFilesTask = project.tasks
             .register(CREATE_LIBRARY_BUILD_INFO_FILES_TASK)
-        val buildOnServerTask = tasks.create(BUILD_ON_SERVER_TASK)
-        buildOnServerTask.dependsOn(createLibraryBuildInfoFilesTask)
-        val buildTestApksTask = tasks.create(BUILD_TEST_APKS)
-        val projectModules = ConcurrentHashMap<String, String>()
-        project.extra.set("projects", projectModules)
-        tasks.all { task ->
-            if (task.name.startsWith(Release.DIFF_TASK_PREFIX) ||
-                    "distDocs" == task.name ||
-                    "partiallyDejetifyArchive" == task.name ||
-                    CheckExternalDependencyLicensesTask.TASK_NAME == task.name) {
-                buildOnServerTask.dependsOn(task)
-            }
-        }
-        subprojects { project ->
-            if (project.path == ":docs-runner") {
-                project.tasks.all { task ->
-                    if (DokkaPublicDocs.ARCHIVE_TASK_NAME == task.name ||
-                        DokkaSourceDocs.ARCHIVE_TASK_NAME == task.name) {
-                        buildOnServerTask.dependsOn(task)
-                    }
-                }
-                return@subprojects
-            }
-            project.tasks.all { task ->
-                // TODO remove androidTest from buildOnServer once test runners do not
-                // expect them anymore. (wait for master)
-                if ("assembleAndroidTest" == task.name ||
-                        "assembleDebug" == task.name ||
-                        ERROR_PRONE_TASK == task.name ||
-                    "verifyDependencyVersions" == task.name ||
-                        ("lintDebug" == task.name &&
-                        !project.rootProject.hasProperty("useMaxDepVersions"))) {
-                    buildOnServerTask.dependsOn(task)
-                }
-                if ("assembleAndroidTest" == task.name ||
-                        "assembleDebug" == task.name) {
-                    buildTestApksTask.dependsOn(task)
-                }
-            }
-        }
 
         val createCoverageJarTask = Jacoco.createCoverageJarTask(this)
-        buildOnServerTask.dependsOn(createCoverageJarTask)
-        buildTestApksTask.dependsOn(createCoverageJarTask)
-
-        Release.createGlobalArchiveTask(this)
-        val allDocsTask = DiffAndDocs.configureDiffAndDocs(this, projectDir,
-                DacOptions("androidx", "ANDROIDX_DATA"),
-                listOf(RELEASE_RULE))
-        buildOnServerTask.dependsOn(allDocsTask)
-
         val jacocoUberJar = Jacoco.createUberJarTask(this)
-        buildOnServerTask.dependsOn(jacocoUberJar)
+        val allDocsTask = DiffAndDocs.configureDiffAndDocs(this, projectDir,
+            DacOptions("androidx", "ANDROIDX_DATA"),
+            listOf(RELEASE_RULE))
+
         val checkSameVersionLibraryGroupsTask = project.tasks.register(
             CHECK_SAME_VERSION_LIBRARY_GROUPS,
             CheckSameVersionLibraryGroupsTask::class.java)
-        buildOnServerTask.dependsOn(checkSameVersionLibraryGroupsTask)
 
+        tasks.register(BUILD_ON_SERVER_TASK) { buildOnServerTask ->
+            buildOnServerTask.dependsOn(createLibraryBuildInfoFilesTask)
+            buildOnServerTask.dependsOn(createCoverageJarTask)
+            buildOnServerTask.dependsOn(allDocsTask)
+            buildOnServerTask.dependsOn(jacocoUberJar)
+            buildOnServerTask.dependsOn(checkSameVersionLibraryGroupsTask)
+            val dependencyTasks = arrayOf("distDocs",
+                "partiallyDejetifyArchive",
+                CheckExternalDependencyLicensesTask.TASK_NAME)
+            dependencyTasks.forEach {
+                try { buildOnServerTask.dependsOn(project.tasks.named(it)) } catch (
+                    e: UnknownDomainObjectException
+                ) { }
+            }
+
+            subprojects { project ->
+                project.afterEvaluate {
+                    if (project.path == ":docs-runner") {
+                        val dokkaArchiveTasks = arrayOf(
+                            DokkaPublicDocs.ARCHIVE_TASK_NAME,
+                            DokkaSourceDocs.ARCHIVE_TASK_NAME)
+                        dokkaArchiveTasks.forEach {
+                            try { buildOnServerTask.dependsOn(project.tasks.named(it)) } catch (
+                                e: UnknownDomainObjectException
+                            ) { }
+                        }
+                    } else {
+                        // TODO remove androidTest from buildOnServer once test runners do not
+                        //  expect them anymore. (wait for master)
+                        val projectDependencyTasks = arrayOf(
+                            "verifyDependencyVersions",
+                            "assembleAndroidTest",
+                            "assembleDebug",
+                            ERROR_PRONE_TASK
+                        )
+
+                        projectDependencyTasks.forEach {
+                            try {
+                                buildOnServerTask.dependsOn(project.tasks.named(it))
+                            } catch (
+                                e: UnknownDomainObjectException
+                            ) { }
+                        }
+
+                        if (!project.rootProject.hasProperty("useMaxDepVersions")) {
+                            try {
+                                buildOnServerTask.dependsOn(project.tasks.named("lintDebug"))
+                            } catch (
+                                e: UnknownDomainObjectException
+                            ) { }
+                        }
+                        buildOnServerTask.dependsOn(Release.getGlobalFullZipTask(project))
+                        buildOnServerTask.dependsOn(Release.getGlobalReleaseZipTask(project))
+                    }
+                }
+            }
+        }
+
+        tasks.register(BUILD_TEST_APKS) { buildTestApksTask ->
+            buildTestApksTask.dependsOn(createCoverageJarTask)
+            val projectDependencyTasks = arrayOf("assembleAndroidTest", "assembleDebug")
+
+            subprojects { project ->
+                // TODO remove androidTest from buildOnServer once test runners do not
+                //  expect them anymore. (wait for master)
+                project.afterEvaluate {
+                    projectDependencyTasks.forEach {
+                        try { buildTestApksTask.dependsOn(project.tasks.named(it)) } catch (
+                            e: UnknownDomainObjectException
+                        ) { }
+                    }
+                }
+            }
+        }
+
+        val projectModules = ConcurrentHashMap<String, String>()
+        project.extra.set("projects", projectModules)
+
+        Release.createGlobalArchiveTask(this)
         project.createClockLockTasks()
 
         AffectedModuleDetector.configure(gradle, this)
