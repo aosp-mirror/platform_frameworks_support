@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d2e1d3fe_5cee0f41",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-04-08T14:02:53Z",
+      "side": 1,
+      "message": "nit: than",
+      "range": {
+        "startLine": 11,
+        "startChar": 58,
+        "endLine": 11,
+        "endChar": 62
+      },
+      "revId": "8a84699fa91db3aa3d9f13043747d902a4a38ce7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe0b6358_51c9d4bc",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/BaseTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-04-08T14:02:53Z",
+      "side": 1,
+      "message": "why the need to allow false?",
+      "range": {
+        "startLine": 364,
+        "startChar": 12,
+        "endLine": 364,
+        "endChar": 28
+      },
+      "revId": "8a84699fa91db3aa3d9f13043747d902a4a38ce7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4cc0a899_8e08211a",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/OffscreenPageLimitTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-04-08T14:02:53Z",
+      "side": 1,
+      "message": "?",
+      "range": {
+        "startLine": 79,
+        "startChar": 13,
+        "endLine": 79,
+        "endChar": 16
+      },
+      "revId": "8a84699fa91db3aa3d9f13043747d902a4a38ce7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c84551b5_37c03557",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/OffscreenPageLimitTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-04-08T14:02:53Z",
+      "side": 1,
+      "message": "assert as you go?",
+      "range": {
+        "startLine": 99,
+        "startChar": 8,
+        "endLine": 99,
+        "endChar": 9
+      },
+      "revId": "8a84699fa91db3aa3d9f13043747d902a4a38ce7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b5a5931_b9f6722a",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/OffscreenPageLimitTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-04-08T14:02:53Z",
+      "side": 1,
+      "message": "These values are close to what RV does by default. Could we try with something that definitely enforces that this works, e.g. 5 to make sure we\u0027re not just getting the right behaviour by luck?",
+      "range": {
+        "startLine": 211,
+        "startChar": 23,
+        "endLine": 211,
+        "endChar": 27
+      },
+      "revId": "8a84699fa91db3aa3d9f13043747d902a4a38ce7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f020027d_0ef863bf",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 651,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-04-08T14:02:53Z",
+      "side": 1,
+      "message": "default?",
+      "range": {
+        "startLine": 651,
+        "startChar": 55,
+        "endLine": 651,
+        "endChar": 63
+      },
+      "revId": "8a84699fa91db3aa3d9f13043747d902a4a38ce7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99593f96_39868e5c",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 656,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-04-08T14:02:53Z",
+      "side": 1,
+      "message": "magic value",
+      "range": {
+        "startLine": 656,
+        "startChar": 84,
+        "endLine": 656,
+        "endChar": 85
+      },
+      "revId": "8a84699fa91db3aa3d9f13043747d902a4a38ce7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
