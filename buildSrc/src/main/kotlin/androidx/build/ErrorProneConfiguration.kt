@@ -46,7 +46,7 @@ fun Project.configureErrorProneForAndroid(variants: DomainObjectSet<out BaseVari
         if (variant.buildType.name == BuilderConstants.DEBUG) {
             val task = variant.javaCompileProvider
 
-            log.info("Configuring error-prone for ${variant.name}'s java compile")
+            log.info("Configuring error-prone for ${project.path} ${variant.name}'s java compile")
             makeErrorProneTask(task, toolChain)
         }
     }
