@@ -143,6 +143,24 @@
     },
     {
       "key": {
+        "uuid": "fa260d59_912e9f22",
+        "filename": "paging/rxjava2/src/main/java/androidx/paging/RxDataSourceUtil.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-04-08T16:35:43Z",
+      "side": 1,
+      "message": "Paging expects errors to flow *from* the DataSource as exceptions, but doesn\u0027t have an opinion on how cancellation flows out to the DataSource - if synchronous cancellation is RX standard, SGTM.\n\nAdd some comments for how these parts all fit together - probably in the singleToListenableFuture method",
+      "parentUuid": "1d59c12b_cda0c698",
+      "revId": "2e30a90486f27ac48f4cc2aa301c24c7314f0d47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "69b83979_ea106053",
         "filename": "paging/rxjava2/src/main/java/androidx/paging/RxDataSourceUtil.java",
         "patchSetId": 14
