@@ -187,7 +187,8 @@ class BenchmarkRule : TestRule {
                 )
 
                 ResultWriter.appendStats(
-                    invokeMethodName, description.className, internalState.getReport())
+                    invokeMethodName, description.className, internalState.getReport()
+                )
             }
         }
     }

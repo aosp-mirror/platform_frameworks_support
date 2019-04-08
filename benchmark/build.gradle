@@ -25,16 +25,16 @@ plugins {
 }
 
 dependencies {
-    implementation(SUPPORT_ANNOTATIONS)
     implementation(ANDROIDX_TEST_RUNNER)
+    implementation(KOTLIN_STDLIB)
+    implementation(SUPPORT_ANNOTATIONS)
 
     androidTestImplementation(JUNIT)
-    implementation(KOTLIN_STDLIB)
 }
 
 androidx {
     name = "Android Benchmark"
-    publish = false
+    publish = true
     mavenVersion = LibraryVersions.BENCHMARK
     mavenGroup = LibraryGroups.BENCHMARK
     inceptionYear = "2018"
