@@ -52,7 +52,7 @@ gradlePlugin {
 
 androidx {
     name = "Android Benchmark Gradle Plugin"
-    publish = true
+    publish = false
     toolingProject = true
     mavenVersion = LibraryVersions.BENCHMARK
     mavenGroup = LibraryGroups.BENCHMARK

@@ -16,19 +16,10 @@
 
 package androidx.benchmark.gradle
 
-import org.gradle.api.logging.LogLevel
-import org.gradle.api.tasks.TaskAction
-import javax.inject.Inject
+import org.gradle.api.DefaultTask
 
-open class UnlockClocksTask @Inject constructor(private val adbPath: String) : BenchmarkBaseTask() {
+open class BenchmarkBaseTask : DefaultTask() {
     init {
-        description = "unlocks clocks of device by rebooting"
-    }
-
-    @Suppress("unused")
-    @TaskAction
-    fun exec() {
-        project.logger.log(LogLevel.LIFECYCLE, "Rebooting device to reset clocks")
-        AdbUtil.execSync(adbPath, "reboot", logger)
+        group = "Android"
     }
 }
