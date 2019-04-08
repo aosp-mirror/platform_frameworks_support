@@ -15,7 +15,9 @@
  */
 package androidx.build
 
+import androidx.build.AndroidXPlugin.Companion.BUILD_ON_SERVER_TASK
 import androidx.build.gmaven.GMavenVersionChecker
+import com.android.build.gradle.internal.tasks.factory.dependsOn
 import org.gradle.api.Action
 import org.gradle.api.Project
 import org.gradle.api.tasks.TaskProvider
@@ -266,6 +268,7 @@ object Release {
                 GMavenZipTask.ConfigAction(getParams(project)).execute(it)
             },
             onRegister = {
+                project.rootProject.tasks.named(BUILD_ON_SERVER_TASK).dependsOn(it)
             }
         )
     }
@@ -285,6 +288,7 @@ object Release {
                 ).execute(it)
             },
             onRegister = {
+                project.rootProject.tasks.named(BUILD_ON_SERVER_TASK).dependsOn(it)
             }
         )
     }
