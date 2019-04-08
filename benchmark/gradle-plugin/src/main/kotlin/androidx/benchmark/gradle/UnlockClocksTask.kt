@@ -20,7 +20,7 @@ import org.gradle.api.logging.LogLevel
 import org.gradle.api.tasks.TaskAction
 import javax.inject.Inject
 
-open class UnlockClocksTask @Inject constructor(sdkPath: String) : ClockTask(sdkPath) {
+open class UnlockClocksTask @Inject constructor(sdkPath: String) : BenchmarkBaseTask(sdkPath) {
     init {
         description = "unlocks clocks of device by rebooting"
     }

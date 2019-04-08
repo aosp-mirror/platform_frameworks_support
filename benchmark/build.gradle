@@ -30,6 +30,7 @@ dependencies {
     implementation(SUPPORT_ANNOTATIONS)
     implementation(ANDROIDX_TEST_CORE)
     implementation(ANDROIDX_TEST_RUNNER)
+    implementation(ANDROIDX_TEST_RULES)
     implementation(KOTLIN_STDLIB)
 
     androidTestImplementation(JUNIT)
