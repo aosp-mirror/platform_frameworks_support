@@ -57,13 +57,6 @@ public final class ViewAutoScrollerTest {
         mHost.assertNotScrolled();
     }
 
-//    @Test
-//    public void testNoScrollWhenDisabled() {
-//        mScroller.reset();
-//        mScroller.scroll(mEvent.location(0, TOP_Y_POINT).build());
-//        mHost.assertNotScrolled();
-//    }
-
     @Test
     public void testMotionThreshold() {
         mScroller.scroll(new Point(0, TOP_Y_POINT));

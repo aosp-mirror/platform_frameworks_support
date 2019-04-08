@@ -53,36 +53,35 @@ public final class MouseInputHandlerTest {
 
     private MouseInputHandler mInputDelegate;
 
-    private TestOnContextClickListener mMouseCallbacks;
-    private TestOnItemActivatedListener mActivationCallbacks;
-    private TestFocusDelegate mFocusCallbacks;
+    private TestOnContextClickListener mContextClickCallback;
+    private TestOnItemActivatedListener<String> mItemActivatedListener;
 
     private TestItemDetailsLookup mDetailsLookup;
     private SelectionProbe mSelection;
-    private SelectionTracker mSelectionMgr;
+    private TestFocusDelegate<String> mFocusDelegate;
 
     private TestEvents.Builder mEvent;
 
     @Before
     public void setUp() {
-
-        mSelectionMgr = SelectionTrackers.createStringTracker("mouse-input-test", 100);
+        SelectionTracker<String> selectionTracker = SelectionTrackers.createStringTracker(
+                "mouse-input-test", 100);
         mDetailsLookup = new TestItemDetailsLookup();
-        mSelection = new SelectionProbe(mSelectionMgr);
+        mSelection = new SelectionProbe(selectionTracker);
 
-        mMouseCallbacks = new TestOnContextClickListener();
-        mActivationCallbacks = new TestOnItemActivatedListener();
-        mFocusCallbacks = new TestFocusDelegate();
+        mContextClickCallback = new TestOnContextClickListener();
+        mItemActivatedListener = new TestOnItemActivatedListener<>();
 
-        mInputDelegate = new MouseInputHandler(
-                mSelectionMgr,
-                new TestItemKeyProvider(
+        mFocusDelegate = new TestFocusDelegate<>();
+        mInputDelegate = new MouseInputHandler<>(
+                selectionTracker,
+                new TestItemKeyProvider<>(
                         ItemKeyProvider.SCOPE_MAPPED,
-                        new TestAdapter(TestData.createStringData(100))),
+                        new TestAdapter<>(TestData.createStringData(100))),
                 mDetailsLookup,
-                mMouseCallbacks,
-                mActivationCallbacks,
-                mFocusCallbacks);
+                mContextClickCallback,
+                mItemActivatedListener,
+                mFocusDelegate);
 
         mEvent = TestEvents.builder().mouse();
         mDetailsLookup.initAt(RecyclerView.NO_POSITION);
@@ -125,14 +124,14 @@ public final class MouseInputHandlerTest {
     public void testRightClickDown_StartsContextMenu() {
         mInputDelegate.onDown(SECONDARY_CLICK);
 
-        mMouseCallbacks.assertLastEvent(SECONDARY_CLICK);
+        mContextClickCallback.assertLastEvent(SECONDARY_CLICK);
     }
 
     @Test
     public void testAltClickDown_StartsContextMenu() {
         mInputDelegate.onDown(ALT_CLICK);
 
-        mMouseCallbacks.assertLastEvent(ALT_CLICK);
+        mContextClickCallback.assertLastEvent(ALT_CLICK);
     }
 
     @Test
@@ -180,7 +179,7 @@ public final class MouseInputHandlerTest {
     @Test
     public void testConfirmedShiftClick_ExtendsSelectionFromFocus() {
         TestItemDetails item = mDetailsLookup.initAt(7);
-        mFocusCallbacks.focusItem(item);
+        mFocusDelegate.focusItem(item);
 
         // There should be no selected item at this point, just focus on "7".
         mDetailsLookup.initAt(11);
@@ -238,7 +237,7 @@ public final class MouseInputHandlerTest {
         TestItemDetails doc = mDetailsLookup.initAt(11);
         mInputDelegate.onDoubleTap(CLICK);
 
-        mActivationCallbacks.assertActivated(doc);
+        mItemActivatedListener.assertActivated(doc);
     }
 
     @Test
@@ -265,19 +264,19 @@ public final class MouseInputHandlerTest {
         mDetailsLookup.initAt(11).setInItemSelectRegion(false);
         mInputDelegate.onSingleTapConfirmed(CLICK);
 
-        mFocusCallbacks.assertHasFocus(true);
-        mFocusCallbacks.assertFocused("11");
+        mFocusDelegate.assertHasFocus(true);
+        mFocusDelegate.assertFocused("11");
     }
 
     @Test
     public void testClickOff_ClearsFocus() {
         mDetailsLookup.initAt(11).setInItemSelectRegion(false);
         mInputDelegate.onSingleTapConfirmed(CLICK);
-        mFocusCallbacks.assertHasFocus(true);
+        mFocusDelegate.assertHasFocus(true);
 
         mDetailsLookup.initAt(RecyclerView.NO_POSITION);
         mInputDelegate.onSingleTapUp(CLICK);
-        mFocusCallbacks.assertHasFocus(false);
+        mFocusDelegate.assertHasFocus(false);
     }
 
     @Test
@@ -293,7 +292,7 @@ public final class MouseInputHandlerTest {
         mDetailsLookup.initAt(11);
         mInputDelegate.onSingleTapUp(CLICK);
 
-        mFocusCallbacks.assertFocused("11");
+        mFocusDelegate.assertFocused("11");
         mSelection.assertNoSelection();
     }
 }

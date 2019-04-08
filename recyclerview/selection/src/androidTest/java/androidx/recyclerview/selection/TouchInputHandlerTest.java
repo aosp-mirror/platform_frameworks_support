@@ -48,38 +48,38 @@ public final class TouchInputHandlerTest {
 
     private static final List<String> ITEMS = TestData.createStringData(100);
 
-    private TouchInputHandler mInputDelegate;
-    private SelectionTracker mSelectionMgr;
-    private TestSelectionPredicate mSelectionPredicate;
+    private TouchInputHandler<String> mInputDelegate;
+    private SelectionTracker<String> mSelectionTracker;
+    private TestSelectionPredicate<String> mSelectionPredicate;
     private TestRunnable mGestureStarted;
     private TestRunnable mHapticPerformer;
-    private TestOnItemActivatedListener mActivationCallbacks;
+    private TestOnItemActivatedListener<String> mItemActivatedListener;
     private TestItemDetailsLookup mDetailsLookup;
     private SelectionProbe mSelection;
     private TestDragListener mDragInitiatedListener;
 
     @Before
     public void setUp() {
-        mSelectionMgr = SelectionTrackers.createStringTracker("input-handler-test", 100);
+        mSelectionTracker = SelectionTrackers.createStringTracker("input-handler-test", 100);
         mDetailsLookup = new TestItemDetailsLookup();
-        mSelectionPredicate = new TestSelectionPredicate();
-        mSelection = new SelectionProbe(mSelectionMgr);
+        mSelectionPredicate = new TestSelectionPredicate<>();
+        mSelection = new SelectionProbe(mSelectionTracker);
         mGestureStarted = new TestRunnable();
         mHapticPerformer = new TestRunnable();
-        mActivationCallbacks = new TestOnItemActivatedListener();
+        mItemActivatedListener = new TestOnItemActivatedListener<>();
         mDragInitiatedListener = new TestDragListener();
 
-        mInputDelegate = new TouchInputHandler(
-                mSelectionMgr,
-                new TestItemKeyProvider(
+        mInputDelegate = new TouchInputHandler<>(
+                mSelectionTracker,
+                new TestItemKeyProvider<>(
                         ItemKeyProvider.SCOPE_MAPPED,
-                        new TestAdapter(TestData.createStringData(100))),
+                        new TestAdapter<>(TestData.createStringData(100))),
                 mDetailsLookup,
                 mSelectionPredicate,
                 mGestureStarted,
                 mDragInitiatedListener,
-                mActivationCallbacks,
-                new TestFocusDelegate(),
+                mItemActivatedListener,
+                new TestFocusDelegate<String>(),
                 mHapticPerformer);
     }
 
@@ -89,7 +89,7 @@ public final class TouchInputHandlerTest {
 
         mInputDelegate.onSingleTapUp(TAP);
 
-        mActivationCallbacks.assertActivated(doc);
+        mItemActivatedListener.assertActivated(doc);
     }
 
     @Test
@@ -140,7 +140,7 @@ public final class TouchInputHandlerTest {
     @Test
     public void testLongPress_SelectedItem_InitiatesDrag() {
         mSelectionPredicate.setReturnValue(true);
-        mSelectionMgr.select("7");
+        mSelectionTracker.select("7");
         mDetailsLookup.initAt(7);
 
         mInputDelegate.onLongPress(TAP);
@@ -151,7 +151,7 @@ public final class TouchInputHandlerTest {
     @Test
     public void testLongPress_SelectedItem_PerformsHapticFeedback() {
         mSelectionPredicate.setReturnValue(true);
-        mSelectionMgr.select("7");
+        mSelectionTracker.select("7");
         mDetailsLookup.initAt(7);
 
         mInputDelegate.onLongPress(TAP);
@@ -171,7 +171,7 @@ public final class TouchInputHandlerTest {
 
     @Test
     public void testTapSelectionHotspot_SelectedItem_Unselected() {
-        mSelectionMgr.select("11");
+        mSelectionTracker.select("11");
 
         mDetailsLookup.initAt(11).setInItemSelectRegion(true);
         mInputDelegate.onSingleTapUp(TAP);
@@ -197,7 +197,7 @@ public final class TouchInputHandlerTest {
 
     @Test
     public void testTap_UnselectsSelectedItem() {
-        mSelectionMgr.select("11");
+        mSelectionTracker.select("11");
 
         mDetailsLookup.initAt(11);
         mInputDelegate.onSingleTapUp(TAP);
@@ -207,12 +207,12 @@ public final class TouchInputHandlerTest {
 
     @Test
     public void testTapOff_ClearsSelection() {
-        mSelectionMgr.select("7");
+        mSelectionTracker.select("7");
         mDetailsLookup.initAt(7);
 
         mInputDelegate.onLongPress(TAP);
 
-        mSelectionMgr.select("11");
+        mSelectionTracker.select("11");
         mDetailsLookup.initAt(11);
         mInputDelegate.onSingleTapUp(TAP);
 
