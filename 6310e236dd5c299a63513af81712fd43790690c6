@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5c92981e_33393d63",
+        "filename": "gradlew",
+        "patchSetId": 5
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-04-08T18:07:24Z",
+      "side": 1,
+      "message": "Thanks",
+      "range": {
+        "startLine": 89,
+        "startChar": 26,
+        "endLine": 89,
+        "endChar": 34
+      },
+      "revId": "6310e236dd5c299a63513af81712fd43790690c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
