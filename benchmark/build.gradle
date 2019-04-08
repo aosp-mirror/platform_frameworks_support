@@ -29,6 +29,7 @@ android.defaultConfig.testInstrumentationRunner "androidx.benchmark.AndroidBench
 dependencies {
     implementation(SUPPORT_ANNOTATIONS)
     implementation(ANDROIDX_TEST_CORE)
+    implementation(ANDROIDX_TEST_RULES)
     implementation(ANDROIDX_TEST_RUNNER)
     implementation(KOTLIN_STDLIB)
 
