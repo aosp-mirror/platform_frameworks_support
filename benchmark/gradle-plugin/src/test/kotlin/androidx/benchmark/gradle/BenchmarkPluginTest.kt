@@ -34,16 +34,14 @@ class BenchmarkPluginTest {
     @get:Rule
     val testProjectDir = TemporaryFolder()
 
-    private lateinit var localPropFile: File
     private lateinit var project: Project
 
     @Before
     fun setUp() {
         testProjectDir.root.mkdirs()
 
-        localPropFile = File(testProjectDir.root, "local.properties")
-        localPropFile.createNewFile()
-        localPropFile.writeText("sdk.dir=/usr/test/android/home")
+        val localPropFile = File("../../local.properties")
+        localPropFile.copyTo(File(testProjectDir.root, "local.properties"), overwrite = true)
 
         project = ProjectBuilder.builder()
             .withProjectDir(testProjectDir.root)

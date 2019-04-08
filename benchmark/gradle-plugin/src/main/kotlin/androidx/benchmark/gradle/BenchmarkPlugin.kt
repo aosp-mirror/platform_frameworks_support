@@ -18,33 +18,56 @@ package androidx.benchmark.gradle
 
 import com.android.build.gradle.AppExtension
 import com.android.build.gradle.AppPlugin
+import com.android.build.gradle.BasePlugin
 import com.android.build.gradle.LibraryExtension
 import com.android.build.gradle.LibraryPlugin
+import com.android.build.gradle.internal.tasks.factory.dependsOn
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.tasks.StopExecutionException
 
 class BenchmarkPlugin : Plugin<Project> {
+
     override fun apply(project: Project) {
-        var sdkPath: String? = null
+        var adbPath: String? = null
         project.plugins.all {
             when (it) {
-                is LibraryPlugin -> {
-                    val extension = project.extensions.getByType(LibraryExtension::class.java)
-                    sdkPath = extension.sdkDirectory.path
-                }
-                is AppPlugin -> {
-                    val extension = project.extensions.getByType(AppExtension::class.java)
-                    sdkPath = extension.sdkDirectory.path
+                is BasePlugin<*> -> {
+                    adbPath = it.extension.adbExecutable.absolutePath
                 }
             }
         }
 
-        if (sdkPath.isNullOrEmpty()) {
+        if (adbPath.isNullOrEmpty()) {
             throw StopExecutionException("Unable to find Android SDK")
         }
 
-        project.tasks.create("lockClocks", LockClocksTask::class.java, sdkPath)
-        project.tasks.create("unlockClocks", UnlockClocksTask::class.java, sdkPath)
+        project.tasks.register("lockClocks", LockClocksTask::class.java, adbPath)
+        project.tasks.register("unlockClocks", UnlockClocksTask::class.java, adbPath)
+        val benchmarkReportTask =
+            project.tasks.register("benchmarkReport", BenchmarkReportTask::class.java, adbPath!!)
+        benchmarkReportTask.dependsOn("connectedAndroidTest")
+
+        val basePlugin = project.plugins.first {
+            it is AppPlugin || it is LibraryPlugin
+        }
+        when (basePlugin) {
+            is AppPlugin -> {
+                val extension = project.extensions.getByType(AppExtension::class.java)
+                extension.applicationVariants.all {
+                    project.tasks.named("connectedAndroidTest").configure { cAT ->
+                        cAT.finalizedBy("benchmarkReport")
+                    }
+                }
+            }
+            is LibraryPlugin -> {
+                val extension = project.extensions.getByType(LibraryExtension::class.java)
+                extension.libraryVariants.all {
+                    project.tasks.named("connectedAndroidTest").configure { cAT ->
+                        cAT.finalizedBy("benchmarkReport")
+                    }
+                }
+            }
+        }
     }
 }
