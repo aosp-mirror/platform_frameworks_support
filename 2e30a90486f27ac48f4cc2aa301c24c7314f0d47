@@ -179,6 +179,24 @@
     },
     {
       "key": {
+        "uuid": "e8b2bfa6_2ce76b47",
+        "filename": "paging/rxjava2/src/main/java/androidx/paging/RxDataSourceUtil.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-04-08T17:06:07Z",
+      "side": 1,
+      "message": "So when we cancel listening for updates, it\u0027s up to the details of the impl of the Single that you passed whether to stop doing work, right? That sounds like what we want.\n\nBasically, if you have a network request that then gets mapped into something else, and we cancel before the network request completes, we\u0027d like extra transformations after the still-ongoing network request to not be performed.",
+      "parentUuid": "925986ec_d4ac5598",
+      "revId": "2e30a90486f27ac48f4cc2aa301c24c7314f0d47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "69b83979_ea106053",
         "filename": "paging/rxjava2/src/main/java/androidx/paging/RxDataSourceUtil.java",
         "patchSetId": 14
