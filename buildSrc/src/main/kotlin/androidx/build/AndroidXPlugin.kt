@@ -105,6 +105,7 @@ class AndroidXPlugin : Plugin<Project> {
                     verifyDependencyVersionsTask.configure { task ->
                         task.dependsOn(project.tasks.named(JavaPlugin.COMPILE_JAVA_TASK_NAME))
                     }
+                    project.addCreateLibraryBuildInfoFileTask(androidXExtension)
                     project.createCheckReleaseReadyTask(listOf(verifyDependencyVersionsTask))
                     project.configureNonAndroidProjectForLint(androidXExtension)
                     project.configureJavaProjectForDokka(androidXExtension)
@@ -123,7 +124,7 @@ class AndroidXPlugin : Plugin<Project> {
                     project.configureAndroidLibraryOptions(extension, androidXExtension)
                     project.configureVersionFileWriter(extension)
                     project.configureResourceApiChecks()
-                    project.createDumpDependenciesTask(androidXExtension)
+                    project.addCreateLibraryBuildInfoFileTask(androidXExtension)
                     val verifyDependencyVersionsTask = project.createVerifyDependencyVersionsTask()
                     val checkNoWarningsTask = project.tasks.register(CHECK_NO_WARNINGS_TASK)
                     project.createCheckReleaseReadyTask(listOf(verifyDependencyVersionsTask,
@@ -165,7 +166,7 @@ class AndroidXPlugin : Plugin<Project> {
     private fun Project.configureRootProject() {
         val buildOnServerTask = tasks.create(BUILD_ON_SERVER_TASK)
         val buildTestApksTask = tasks.create(BUILD_TEST_APKS)
-        project.configureDependencyGraphFileTask()
+        project.createGlobalLibraryBuildInfoFileCreationTask()
         val projectModules = ConcurrentHashMap<String, String>()
         project.extra.set("projects", projectModules)
         tasks.all { task ->
@@ -197,11 +198,10 @@ class AndroidXPlugin : Plugin<Project> {
                     buildOnServerTask.dependsOn(task)
                 }
                 if ("assembleAndroidTest" == task.name ||
-                        "assembleDebug" == task.name) {
+                        "assembleDebug" == task.name ||
+                    "verifyDependencyVersions" == task.name ||
+                    "createLibraryBuildInfoFile" == task.name) {
                     buildTestApksTask.dependsOn(task)
-                }
-                if ("verifyDependencyVersions" == task.name) {
-                    buildOnServerTask.dependsOn(task)
                 }
             }
         }
@@ -403,27 +403,26 @@ class AndroidXPlugin : Plugin<Project> {
     }
 
     // Task that creates a json file of a project's dependencies
-    private fun Project.createDumpDependenciesTask(extension: AndroidXExtension) {
+    private fun Project.addCreateLibraryBuildInfoFileTask(extension: AndroidXExtension) {
         afterEvaluate {
-            if (extension.publish) { // Only dump dependencies of published projects
+            if (extension.publish) { // Only generate build info files for published libraries.
                 project.tasks.register(
-                    "dumpDependencies",
-                    ListProjectDependencyVersionsTask::class.java
+                    "createLibraryBuildInfoFile",
+                    CreateLibraryBuildInfoFileTask::class.java
                 )
             }
         }
     }
 
-    // Task that creates a json file of the AndroidX dependency graph (all projects)
-    private fun Project.configureDependencyGraphFileTask() {
-        project.tasks.register("createDependencyGraphFile",
-            DependencyGraphFileTask::class.java) { depGraphTask ->
+    private fun Project.createGlobalLibraryBuildInfoFileCreationTask() {
+        project.tasks.register("createLibraryBuildInfoFiles",
+            DefaultTask::class.java) { globalLibraryBuildInfoFileCreationTask ->
             subprojects { project ->
-                project.tasks.all { dumpDepTask ->
-                    if ("dumpDependencies" == dumpDepTask.name &&
-                        dumpDepTask is ListProjectDependencyVersionsTask) {
-                        depGraphTask.dependsOn(dumpDepTask)
-                        depGraphTask.projectDepDumpFiles.add(dumpDepTask.outputDepFile)
+                project.tasks.all { createLibraryBuildInfoFileTask ->
+                    if ("createLibraryBuildInfoFile" == createLibraryBuildInfoFileTask.name &&
+                        createLibraryBuildInfoFileTask is CreateLibraryBuildInfoFileTask) {
+                        globalLibraryBuildInfoFileCreationTask
+                            .dependsOn(createLibraryBuildInfoFileTask)
                     }
                 }
             }
