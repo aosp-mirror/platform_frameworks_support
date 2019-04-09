@@ -44,4 +44,10 @@ class OneTimeWorkRequestTest {
         assertEquals(request.workSpec.inputMergerClassName,
                 OverwritingInputMerger::class.java.name)
     }
+
+    @Test
+    fun testOneTimeWorkRequestFrom() {
+        val request = OneTimeWorkRequestFrom<TestWorker>()
+        assertEquals(request.workSpec.workerClassName, TestWorker::class.java.name)
+    }
 }
