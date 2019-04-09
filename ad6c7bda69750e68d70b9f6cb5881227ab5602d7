@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ffcad32f_56e8cde9",
+        "filename": "work/workmanager-gcm/src/main/java/androidx/work/impl/background/gcm/WorkManagerGcmDispatcher.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-04-09T16:53:23Z",
+      "side": 1,
+      "message": "This tag might be too long.",
+      "range": {
+        "startLine": 46,
+        "startChar": 52,
+        "endLine": 46,
+        "endChar": 76
+      },
+      "revId": "ad6c7bda69750e68d70b9f6cb5881227ab5602d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f3c8191_d2ea5dac",
+        "filename": "work/workmanager-gcm/src/main/java/androidx/work/impl/background/gcm/WorkManagerGcmDispatcher.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-04-09T16:53:23Z",
+      "side": 1,
+      "message": "Nit: can we call this mWorkManagerImpl?",
+      "range": {
+        "startLine": 51,
+        "startChar": 20,
+        "endLine": 51,
+        "endChar": 32
+      },
+      "revId": "ad6c7bda69750e68d70b9f6cb5881227ab5602d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
