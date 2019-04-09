@@ -16,6 +16,8 @@
 
 package com.example.androidx.media;
 
+import static androidx.media2.SessionResult.RESULT_SUCCESS;
+
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
@@ -26,6 +28,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -35,6 +38,15 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.media2.MediaController;
+import androidx.media2.MediaPlayer;
+import androidx.media2.MediaSession;
+import androidx.media2.SessionCommand;
+import androidx.media2.SessionCommandGroup;
+import androidx.media2.SessionResult;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -42,6 +54,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.TreeMap;
+import java.util.concurrent.Executor;
 
 /**
  * Start activity for the VideoViewTest application.  This class manages the UI
@@ -97,16 +110,83 @@ public class VideoSelectorActivity extends Activity {
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent launch = createLaunchIntent(
-                        VideoSelectorActivity.this,
-                        mUrlText.getText().toString());
-                startActivity(launch);
+                String s = mUrlText.getText().toString();
+                int count = Integer.parseInt(s);
+                experiment(count);
             }
         });
         mLoopingCheckbox = findViewById(R.id.looping_checkbox);
         mLoopingCheckbox.setChecked(false);
         mAdvertisementCheckBox = findViewById(R.id.media_type_advertisement);
         mAdvertisementCheckBox.setChecked(false);
+    }
+
+    int mCount;
+    int mIter;
+    long mStartTime;
+    SessionCommand mCommand = new SessionCommand("test_custom_command", null);
+    Bundle mArgs = new Bundle();
+    MediaSession.SessionCallback mSessionCallback =
+            new MediaSession.SessionCallback() {
+                @Override
+                public SessionCommandGroup onConnect(@NonNull MediaSession session,
+                        @NonNull MediaSession.ControllerInfo controller) {
+                    SessionCommandGroup commands =
+                            new SessionCommandGroup.Builder(super.onConnect(session, controller))
+                                    .addCommand(mCommand)
+                                    .build();
+                    return commands;
+                }
+
+                @Override
+                public SessionResult onCustomCommand(@NonNull MediaSession session,
+                        @NonNull MediaSession.ControllerInfo controller,
+                        @NonNull SessionCommand customCommand, Bundle args) {
+                    if (args != mArgs) {
+                        Log.wtf("SGM", "different reference found");
+                    }
+                    mIter++;
+                    if (mIter < mCount) {
+                        sendCommand();
+                    } else {
+                        long endTime = System.nanoTime();
+                        long avgUs = (endTime - mStartTime) / mCount / 1000;
+                        Log.d("SGM", "avg. time overhead (us) = " + avgUs);
+                        mController.close();
+                    }
+                    return new SessionResult(RESULT_SUCCESS, null);
+                }
+            };
+    MediaController.ControllerCallback mControllerCallback =
+            new MediaController.ControllerCallback() {
+                @Override
+                public void onConnected(@NonNull MediaController controller,
+                        @NonNull SessionCommandGroup allowedCommands) {
+                    mIter = 0;
+                    mStartTime = System.nanoTime();
+                    sendCommand();
+                }
+            };
+    Executor mExecutor;
+    MediaPlayer mPlayer;
+    MediaSession mSession;
+    MediaController mController;
+
+    void experiment(int count) {
+        mCount = count;
+        if (mExecutor == null) {
+            mExecutor = ContextCompat.getMainExecutor(this);
+            mPlayer = new MediaPlayer(this);
+            mSession = new MediaSession.Builder(this, mPlayer)
+                    .setSessionCallback(mExecutor, mSessionCallback)
+                    .build();
+        }
+        mController = new MediaController(this, mSession.getToken(), mExecutor,
+                mControllerCallback);
+    }
+
+    void sendCommand() {
+        mController.sendCustomCommand(mCommand, mArgs);
     }
 
     @Override
