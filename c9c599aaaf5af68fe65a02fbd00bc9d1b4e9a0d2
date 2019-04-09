@@ -16,6 +16,24 @@
       "revId": "c9c599aaaf5af68fe65a02fbd00bc9d1b4e9a0d2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2e4338b_291f399b",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/jacoco/Jacoco.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-04-09T14:42:58Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "cd5eb3cf_ce34f170",
+      "revId": "c9c599aaaf5af68fe65a02fbd00bc9d1b4e9a0d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
