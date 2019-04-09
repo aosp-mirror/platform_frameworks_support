@@ -16,6 +16,24 @@
       "revId": "532383e513fc879fd847f5e894fcc5b864468dcb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34636555_41ff5634",
+        "filename": "core/src/main/java/androidx/core/app/ShareCompat.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-04-09T17:43:28Z",
+      "side": 1,
+      "message": "💰",
+      "parentUuid": "57cc0d1c_12505ccd",
+      "revId": "532383e513fc879fd847f5e894fcc5b864468dcb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
