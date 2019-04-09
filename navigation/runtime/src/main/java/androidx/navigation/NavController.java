@@ -20,6 +20,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
@@ -770,6 +771,29 @@ public class NavController {
     @SuppressWarnings("deprecation")
     public void navigate(@IdRes int resId, @Nullable Bundle args, @Nullable NavOptions navOptions,
             @Nullable Navigator.Extras navigatorExtras) {
+        navigate(resId, null, args, navOptions, navigatorExtras);
+    }
+
+    /**
+     * Navigate via the given {@link Uri}
+     *
+     * @param deepLink deepLink to the destination reachable from the current NavGraph
+     */
+    public void navigate(@NonNull Uri deepLink) {
+        NavDestination.DeepLinkMatch deepLinkMatch = mGraph.matchDeepLink(deepLink);
+        if (deepLinkMatch != null) {
+            int resId = deepLinkMatch.getDestination().getId();
+            Bundle args = deepLinkMatch.getMatchingArgs();
+            navigate(resId, deepLinkMatch, args, null, null);
+        } else {
+            throw new IllegalArgumentException("navigation destination with deepLink "
+                    + deepLink + " is unknown to this NavController");
+        }
+    }
+
+    private void navigate(@IdRes int resId, @Nullable NavDestination.DeepLinkMatch deepLinkMatch,
+            @Nullable Bundle args, @Nullable NavOptions navOptions,
+            @Nullable Navigator.Extras navigatorExtras) {
         NavDestination currentNode = mBackStack.isEmpty()
                 ? mGraph
                 : mBackStack.getLast().getDestination();
@@ -808,14 +832,18 @@ public class NavController {
                     + " in conjunction with a valid navOptions.popUpTo");
         }
 
-        NavDestination node = findDestination(destId);
-        if (node == null) {
-            final String dest = NavDestination.getDisplayName(mContext, destId);
-            throw new IllegalArgumentException("navigation destination " + dest
-                    + (navAction != null
-                    ? " referenced from action " + NavDestination.getDisplayName(mContext, resId)
-                    : "")
-                    + " is unknown to this NavController");
+        NavDestination node;
+        if (deepLinkMatch == null) {
+            node = findDestination(destId);
+            if (node == null) {
+                final String dest = NavDestination.getDisplayName(mContext, destId);
+                throw new IllegalArgumentException("navigation destination " + dest
+                        + (navAction != null ? " referenced from action "
+                        + NavDestination.getDisplayName(mContext, resId) : "") + " is unknown to"
+                        + " this NavController");
+            }
+        } else {
+            node = deepLinkMatch.getDestination();
         }
         navigate(node, combinedArgs, navOptions, navigatorExtras);
     }
