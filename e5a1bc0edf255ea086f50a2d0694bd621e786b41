@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8ec30bc7_99836857",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentManagerImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1672,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-04-09T20:52:05Z",
+      "side": 1,
+      "message": "This seems weird. Why are you executing the postponed transaction now? Aren\u0027t these postponed for a reason?",
+      "range": {
+        "startLine": 1672,
+        "startChar": 20,
+        "endLine": 1672,
+        "endChar": 33
+      },
+      "revId": "e5a1bc0edf255ea086f50a2d0694bd621e786b41",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48c894d7_b7c821ac",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentManagerImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1674,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-04-09T20:52:05Z",
+      "side": 1,
+      "message": "Do you have this loop right? It looks like you are iterating over all of them, but only acting on the first one.",
+      "range": {
+        "startLine": 1674,
+        "startChar": 20,
+        "endLine": 1674,
+        "endChar": 38
+      },
+      "revId": "e5a1bc0edf255ea086f50a2d0694bd621e786b41",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a658d84_336f18e4",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentManagerImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1853,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-04-09T20:52:05Z",
+      "side": 1,
+      "message": "It seems to me that if you\u0027re doing this, you may want to avoid postponed transactions completely when mCurState \u003c Fragment.STARTED. There\u0027s no animation reason to postpone.",
+      "range": {
+        "startLine": 1853,
+        "startChar": 20,
+        "endLine": 1853,
+        "endChar": 48
+      },
+      "revId": "e5a1bc0edf255ea086f50a2d0694bd621e786b41",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
