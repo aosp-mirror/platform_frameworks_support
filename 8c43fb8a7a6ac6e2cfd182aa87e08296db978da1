@@ -52,6 +52,24 @@
       "revId": "8c43fb8a7a6ac6e2cfd182aa87e08296db978da1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd5080b4_90e2940a",
+        "filename": "leanback/src/main/java/androidx/leanback/app/RowsSupportFragment.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1020538
+      },
+      "writtenOn": "2019-04-09T21:33:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e7f7ee26_d611d039",
+      "revId": "8c43fb8a7a6ac6e2cfd182aa87e08296db978da1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
