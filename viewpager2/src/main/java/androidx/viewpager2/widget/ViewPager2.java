@@ -76,6 +76,8 @@ public final class ViewPager2 extends ViewGroup {
     public static final int SCROLL_STATE_DRAGGING = 1;
     public static final int SCROLL_STATE_SETTLING = 2;
 
+    private static final int NO_POSITION = RecyclerView.NO_POSITION;
+
     // reused in layout(...)
     private final Rect mTmpContainerRect = new Rect();
     private final Rect mTmpChildRect = new Rect();
@@ -84,13 +86,13 @@ public final class ViewPager2 extends ViewGroup {
             new CompositeOnPageChangeCallback(3);
 
     int mCurrentItem;
+    private int mPendingCurrentItem = NO_POSITION;
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
     private PagerSnapHelper mPagerSnapHelper;
     private ScrollEventAdapter mScrollEventAdapter;
     private FakeDrag mFakeDragger;
     private PageTransformerAdapter mPageTransformerAdapter;
-    private CompositeOnPageChangeCallback mPageChangeEventDispatcher;
     private boolean mUserInputEnabled = true;
 
     public ViewPager2(@NonNull Context context) {
@@ -138,8 +140,9 @@ public final class ViewPager2 extends ViewGroup {
         // don't want to respond on the events sent out during the attach process
         mRecyclerView.addOnScrollListener(mScrollEventAdapter);
 
-        mPageChangeEventDispatcher = new CompositeOnPageChangeCallback(3);
-        mScrollEventAdapter.setOnPageChangeCallback(mPageChangeEventDispatcher);
+        CompositeOnPageChangeCallback pageChangeEventDispatcher =
+                new CompositeOnPageChangeCallback(3);
+        mScrollEventAdapter.setOnPageChangeCallback(pageChangeEventDispatcher);
 
         // Callback that updates mCurrentItem after swipes. Also triggered in other cases, but in
         // all those cases mCurrentItem will only be overwritten with the same value.
@@ -152,13 +155,13 @@ public final class ViewPager2 extends ViewGroup {
 
         // Add currentItemUpdater before mExternalPageChangeCallbacks, because we need to update
         // internal state first
-        mPageChangeEventDispatcher.addOnPageChangeCallback(currentItemUpdater);
-        mPageChangeEventDispatcher.addOnPageChangeCallback(mExternalPageChangeCallbacks);
+        pageChangeEventDispatcher.addOnPageChangeCallback(currentItemUpdater);
+        pageChangeEventDispatcher.addOnPageChangeCallback(mExternalPageChangeCallbacks);
 
         // Add mPageTransformerAdapter after mExternalPageChangeCallbacks, because page transform
         // events must be fired after scroll events
         mPageTransformerAdapter = new PageTransformerAdapter(mLayoutManager);
-        mPageChangeEventDispatcher.addOnPageChangeCallback(mPageTransformerAdapter);
+        pageChangeEventDispatcher.addOnPageChangeCallback(mPageTransformerAdapter);
 
         attachViewToParent(mRecyclerView, 0, mRecyclerView.getLayoutParams());
     }
@@ -198,16 +201,14 @@ public final class ViewPager2 extends ViewGroup {
         }
     }
 
-    @Nullable
+    @NonNull
     @Override
     protected Parcelable onSaveInstanceState() {
         Parcelable superState = super.onSaveInstanceState();
         SavedState ss = new SavedState(superState);
 
         ss.mRecyclerViewId = mRecyclerView.getId();
-        ss.mCurrentItem = mCurrentItem;
-        ss.mScrollInProgress =
-                mLayoutManager.findFirstCompletelyVisibleItemPosition() != mCurrentItem;
+        ss.mCurrentItem = mPendingCurrentItem == NO_POSITION ? mCurrentItem : mPendingCurrentItem;
 
         Adapter adapter = mRecyclerView.getAdapter();
         if (adapter instanceof StatefulAdapter) {
@@ -226,28 +227,7 @@ public final class ViewPager2 extends ViewGroup {
 
         SavedState ss = (SavedState) state;
         super.onRestoreInstanceState(ss.getSuperState());
-        mCurrentItem = ss.mCurrentItem;
-        if (ss.mScrollInProgress) {
-            // A scroll was in progress, so the RecyclerView is not at mCurrentItem right now. Move
-            // it to mCurrentItem instantly in the _next_ frame, as RecyclerView is not yet fired up
-            // at this moment. Remove the event dispatcher during this time, as it will fire a
-            // scroll event for the current position, which has already been fired before the config
-            // change.
-            final ScrollEventAdapter scrollEventAdapter = mScrollEventAdapter;
-            final OnPageChangeCallback eventDispatcher = mPageChangeEventDispatcher;
-            scrollEventAdapter.setOnPageChangeCallback(null);
-            final RecyclerView recyclerView = mRecyclerView; // to avoid a synthetic accessor
-            recyclerView.post(new Runnable() {
-                @Override
-                public void run() {
-                    scrollEventAdapter.setOnPageChangeCallback(eventDispatcher);
-                    scrollEventAdapter.notifyRestoreCurrentItem(mCurrentItem);
-                    recyclerView.scrollToPosition(mCurrentItem);
-                }
-            });
-        } else {
-            mScrollEventAdapter.notifyRestoreCurrentItem(mCurrentItem);
-        }
+        mPendingCurrentItem = ss.mCurrentItem;
 
         if (ss.mAdapterState != null) {
             Adapter adapter = mRecyclerView.getAdapter();
@@ -255,6 +235,21 @@ public final class ViewPager2 extends ViewGroup {
                 ((StatefulAdapter) adapter).restoreState(ss.mAdapterState);
             }
         }
+    }
+
+    private void restoreCurrentItem() {
+        if (mPendingCurrentItem == NO_POSITION) {
+            return;
+        }
+        Adapter adapter = getAdapter();
+        if (adapter == null) {
+            return;
+        }
+        // Now we have an adapter, we can clamp the pending current item and set it
+        mCurrentItem = Math.max(0, Math.min(mPendingCurrentItem, adapter.getItemCount() - 1));
+        mPendingCurrentItem = NO_POSITION;
+        mRecyclerView.scrollToPosition(mCurrentItem);
+        mScrollEventAdapter.notifyRestoreCurrentItem(mCurrentItem);
     }
 
     @Override
@@ -269,12 +264,14 @@ public final class ViewPager2 extends ViewGroup {
         }
 
         super.dispatchRestoreInstanceState(container);
+
+        // State of ViewPager2 and its child (RecyclerView) has been restored now
+        restoreCurrentItem();
     }
 
     static class SavedState extends BaseSavedState {
         int mRecyclerViewId;
         int mCurrentItem;
-        boolean mScrollInProgress;
         Parcelable mAdapterState;
 
         @RequiresApi(24)
@@ -295,7 +292,6 @@ public final class ViewPager2 extends ViewGroup {
         private void readValues(Parcel source, ClassLoader loader) {
             mRecyclerViewId = source.readInt();
             mCurrentItem = source.readInt();
-            mScrollInProgress = source.readByte() != 0;
             mAdapterState = source.readParcelable(loader);
         }
 
@@ -304,7 +300,6 @@ public final class ViewPager2 extends ViewGroup {
             super.writeToParcel(out, flags);
             out.writeInt(mRecyclerViewId);
             out.writeInt(mCurrentItem);
-            out.writeByte((byte) (mScrollInProgress ? 1 : 0));
             out.writeParcelable(mAdapterState, flags);
         }
 
@@ -334,6 +329,7 @@ public final class ViewPager2 extends ViewGroup {
      */
     public void setAdapter(@Nullable Adapter adapter) {
         mRecyclerView.setAdapter(adapter);
+        restoreCurrentItem();
     }
 
     public @Nullable Adapter getAdapter() {
@@ -420,16 +416,27 @@ public final class ViewPager2 extends ViewGroup {
      * @param smoothScroll True to smoothly scroll to the new item, false to transition immediately
      */
     public void setCurrentItem(int item, boolean smoothScroll) {
+
+        // 1. Preprocessing (check state, validate item, decide if update is necessary, etc)
+
         if (isFakeDragging()) {
             throw new IllegalStateException("Cannot change current item when ViewPager2 is fake "
                     + "dragging");
         }
         Adapter adapter = getAdapter();
-        if (adapter == null || adapter.getItemCount() <= 0) {
+        if (adapter == null) {
+            // Update the pending current item if we're still waiting for the adapter
+            if (mPendingCurrentItem != NO_POSITION) {
+                mPendingCurrentItem = Math.max(item, 0);
+            }
             return;
         }
         item = Math.max(item, 0);
         item = Math.min(item, adapter.getItemCount() - 1);
+        if (item < 0) {
+            // Adapter is empty
+            return;
+        }
 
         if (item == mCurrentItem && mScrollEventAdapter.isIdle()) {
             // Already at the correct page
@@ -441,6 +448,8 @@ public final class ViewPager2 extends ViewGroup {
             return;
         }
 
+        // 2. Update the item internally
+
         float previousItem = mCurrentItem;
         mCurrentItem = item;
 
@@ -448,6 +457,8 @@ public final class ViewPager2 extends ViewGroup {
             // Scroll in progress, overwrite previousItem with actual current position
             previousItem = mScrollEventAdapter.getRelativeScrollPosition();
         }
+
+        // 3. Perform the necessary scroll actions on RecyclerView
 
         mScrollEventAdapter.notifyProgrammaticScroll(item, smoothScroll);
         if (!smoothScroll) {
