@@ -59,6 +59,8 @@ class ScrollBenchmark {
             // offset by 50 to ensure we are 50% through the first item
             rv.scrollBy(0, 50)
         }
+        // sleep for a bit, so the locking is obvious in a trace, and to work around locking delay
+        Thread.sleep(4000)
     }
 
     @UiThreadTest
