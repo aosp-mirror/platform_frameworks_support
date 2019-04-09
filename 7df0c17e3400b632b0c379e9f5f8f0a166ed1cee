@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c6c2ad72_9bca4f89",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/ext/javapoet_ext.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1274960
+      },
+      "writtenOn": "2019-04-09T21:57:13Z",
+      "side": 1,
+      "message": "Throw. Silently ignoring an error is very confusing when trying to write a configuration.",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 48
+      },
+      "revId": "7df0c17e3400b632b0c379e9f5f8f0a166ed1cee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
