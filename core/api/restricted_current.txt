@@ -84,11 +84,18 @@ package androidx.core.app {
     field @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX) protected androidx.core.app.NotificationCompat.Builder! mBuilder;
   }
 
-  public class Person {
+  public class Person implements androidx.versionedparcelable.VersionedParcelable {
+    ctor @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public Person();
     method @RequiresApi(28) @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX) public static androidx.core.app.Person fromAndroidPerson(android.app.Person);
     method @RequiresApi(22) @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX) public static androidx.core.app.Person fromPersistableBundle(android.os.PersistableBundle);
     method @RequiresApi(28) @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX) public android.app.Person toAndroidPerson();
     method @RequiresApi(22) @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX) public android.os.PersistableBundle toPersistableBundle();
+    field @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public androidx.core.graphics.drawable.IconCompat? mIcon;
+    field @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public boolean mIsBot;
+    field @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public boolean mIsImportant;
+    field @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public String? mKey;
+    field @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public CharSequence? mName;
+    field @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public String? mUri;
   }
 
   public final class RemoteActionCompat implements androidx.versionedparcelable.VersionedParcelable {
