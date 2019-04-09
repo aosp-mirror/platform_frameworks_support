@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "90b7aaac_d028c857",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-04-09T11:36:36Z",
+      "side": 1,
+      "message": "Either b/129860274 or a URL that works for non-googlers as well",
+      "range": {
+        "startLine": 9,
+        "startChar": 17,
+        "endLine": 9,
+        "endChar": 35
+      },
+      "revId": "d872fce76baba81e1e192593129a2726da56464b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
