@@ -488,19 +488,31 @@ class FragmentLifecycleTest {
         fm.beginTransaction().add(fragment1, "1").addToBackStack(null).commit()
         fm.executePendingTransactions()
 
+        val retainedFragment = StrictFragment()
+        retainedFragment.retainInstance = true
+        fm.beginTransaction().add(retainedFragment, "retained").commit()
+        fm.executePendingTransactions()
+
         val child = StrictFragment()
         child.retainInstance = true
         fragment1.childFragmentManager.beginTransaction().add(child, "child").commit()
         fragment1.childFragmentManager.executePendingTransactions()
 
         val fragment2 = StrictFragment()
-        fm.beginTransaction().remove(fragment1).add(fragment2, "2").addToBackStack(null).commit()
+        fm.beginTransaction()
+            .remove(fragment1)
+            .remove(retainedFragment)
+            .add(fragment2, "2")
+            .addToBackStack(null)
+            .commit()
         fm.executePendingTransactions()
 
         fc = fc.restart(activityRule, viewModelStore, false)
         fc = fc.restart(activityRule, viewModelStore, false)
         fm = fc.supportFragmentManager
         fm.popBackStackImmediate()
+        assertThat(fm.findFragmentByTag("retained"))
+            .isSameAs(retainedFragment)
         val retainedChild = fm.findFragmentByTag("1")!!
             .childFragmentManager.findFragmentByTag("child")
         assertThat(retainedChild).isEqualTo(child)
