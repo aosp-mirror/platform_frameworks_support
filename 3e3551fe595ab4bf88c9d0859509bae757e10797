@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "056e501e_90a3e371",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-04-09T01:13:14Z",
+      "side": 1,
+      "message": "I\u0027d suggest rephrasing this in past-tense - I assume your patch fixes the bugs, rather than causing the bugs.",
+      "range": {
+        "startLine": 10,
+        "startChar": 58,
+        "endLine": 10,
+        "endChar": 72
+      },
+      "revId": "3e3551fe595ab4bf88c9d0859509bae757e10797",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
