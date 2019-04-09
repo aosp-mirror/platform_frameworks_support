@@ -42,6 +42,30 @@
     },
     {
       "key": {
+        "uuid": "24fe67b8_934dc963",
+        "filename": "paging/rxjava2/src/main/java/androidx/paging/RxPageKeyedDataSource.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-04-09T22:57:57Z",
+      "side": 1,
+      "message": "Our shared formatter in AS actually deletes this space because of unknown reasons, but I assume it\u0027s related to being a code continuation from within a comment block.\n\nI added the space back, but not sure if you now no longer want the space after knowing the above :)",
+      "parentUuid": "4967e60d_bdb528ab",
+      "range": {
+        "startLine": 72,
+        "startChar": 6,
+        "endLine": 72,
+        "endChar": 35
+      },
+      "revId": "025768a336e2437acb5a89ef45c1038a331be7d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2e74c016_37d3c50e",
         "filename": "paging/rxjava2/src/test/java/androidx/paging/RxItemKeyedDataSourceTest.kt",
         "patchSetId": 15
@@ -56,6 +80,24 @@
       "revId": "025768a336e2437acb5a89ef45c1038a331be7d8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23bd16b1_46d19241",
+        "filename": "paging/rxjava2/src/test/java/androidx/paging/RxItemKeyedDataSourceTest.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-04-09T22:57:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2e74c016_37d3c50e",
+      "revId": "025768a336e2437acb5a89ef45c1038a331be7d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
