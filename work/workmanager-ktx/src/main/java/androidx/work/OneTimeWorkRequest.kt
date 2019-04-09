@@ -29,6 +29,12 @@ inline fun <reified W : ListenableWorker> OneTimeWorkRequestBuilder() =
         OneTimeWorkRequest.Builder(W::class.java)
 
 /**
+ * Creates a [OneTimeWorkRequest] with defaults from a [ListenableWorker] class name.
+ */
+inline fun <reified W : ListenableWorker> OneTimeWorkRequestFrom() =
+        OneTimeWorkRequest.from(W::class.java)
+
+/**
  * Sets an [InputMerger] on the [OneTimeWorkRequest.Builder].
  */
 inline fun OneTimeWorkRequest.Builder.setInputMerger(
