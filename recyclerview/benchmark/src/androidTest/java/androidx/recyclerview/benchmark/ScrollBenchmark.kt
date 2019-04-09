@@ -59,6 +59,7 @@ class ScrollBenchmark {
             // offset by 50 to ensure we are 50% through the first item
             rv.scrollBy(0, 50)
         }
+        Thread.sleep(4000)
     }
 
     @UiThreadTest

@@ -23,6 +23,17 @@ plugins {
     id("kotlin-android")
 }
 
+
+/*
+android {
+    defaultConfig {
+        testInstrumentationRunner "androidx.benchmark.AndroidBenchmarkRunner"
+    }
+}
+*/
+
+android.defaultConfig.testInstrumentationRunner "androidx.benchmark.AndroidBenchmarkRunner"
+
 dependencies {
     implementation(SUPPORT_ANNOTATIONS)
     implementation(TEST_RUNNER)
