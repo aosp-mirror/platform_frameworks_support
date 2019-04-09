@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cd5eb3cf_ce34f170",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/jacoco/Jacoco.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-04-09T14:11:54Z",
+      "side": 1,
+      "message": "nit: `isNotEmpty()`",
+      "revId": "c9c599aaaf5af68fe65a02fbd00bc9d1b4e9a0d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
