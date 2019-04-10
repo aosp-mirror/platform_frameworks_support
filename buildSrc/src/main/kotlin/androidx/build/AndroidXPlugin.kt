@@ -42,6 +42,7 @@ import com.android.build.gradle.AppPlugin
 import com.android.build.gradle.LibraryExtension
 import com.android.build.gradle.LibraryPlugin
 import com.android.build.gradle.TestedExtension
+import com.android.build.gradle.api.ApkVariant
 import com.android.build.gradle.internal.tasks.factory.dependsOn
 import org.gradle.api.DefaultTask
 import org.gradle.api.JavaVersion.VERSION_1_7
@@ -50,6 +51,7 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.Task
 import org.gradle.api.artifacts.ComponentModuleMetadataDetails
+import org.gradle.api.file.SourceDirectorySet
 import org.gradle.api.plugins.JavaLibraryPlugin
 import org.gradle.api.plugins.JavaPlugin
 import org.gradle.api.plugins.JavaPluginConvention
@@ -358,6 +360,64 @@ class AndroidXPlugin : Plugin<Project> {
         }
 
         Jacoco.registerClassFilesTask(project, extension)
+
+        extension.testVariants.all { variant ->
+            variant.configureApkCopy(project, extension, true)
+        }
+    }
+
+    private fun hasSourceCode(extension: TestedExtension): Boolean {
+        val source = extension.sourceSets.findByName("androidTest") ?: return false
+        val hasJava = !source.java.sourceFiles.isEmpty
+        return try {
+            val kotlinGetter =
+                source::class.java.getDeclaredMethod("getProperty", String::class.java)
+            // Reflect into kotlin property on AndroidSourceSet that Kotlin plugin magically
+            // injects when it applies.
+            val set = kotlinGetter.invoke(source, "kotlin") as SourceDirectorySet
+            val hasKotlin = !set.files.isEmpty()
+            hasKotlin || hasJava
+        } catch (exception: Exception) {
+            hasJava
+        }
+    }
+
+    private fun ApkVariant.configureApkCopy(
+        project: Project,
+        extension: TestedExtension,
+        testApk: Boolean
+    ) {
+        packageApplicationProvider.configure { packageTask ->
+            AffectedModuleDetector.configureTaskGuard(packageTask)
+            packageTask.doLast {
+                // Skip copying AndroidTest apks if they have no source code (no tests to run).
+                if (testApk && !hasSourceCode(extension)) return@doLast
+
+                project.copy {
+                    it.from(packageTask.outputDirectory)
+                    it.include("*.apk")
+                    it.into(project.getDistributionDirectory())
+                    it.rename { fileName ->
+                        if (fileName.contains("media-compat-test") ||
+                            fileName.contains("media2-test")) {
+                            // Exclude media-compat-test-* and media2-test-* modules from
+                            // existing support library presubmit tests.
+                            fileName.replace("-debug-androidTest", "")
+                        } else if (fileName.contains("-benchmark-debug-androidTest")) {
+                            // Exclude '-benchmark' modules from correctness tests, and
+                            // remove '-debug' from the APK name, since it's incorrect
+                            fileName.replace("-debug-androidTest", "-androidBenchmark")
+                        } else {
+                            // multiple modules may have the same name so prefix the name with
+                            // the module's path to ensure it is unique.
+                            // e.g. palette-v7-debug-androidTest.apk becomes
+                            // support-palette-v7_palette-v7-debug-androidTest.apk
+                            "${project.path.replace(':', '-').substring(1)}_$fileName"
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private fun Project.configureAndroidLibraryOptions(
@@ -421,6 +481,10 @@ class AndroidXPlugin : Plugin<Project> {
             if (baseline.exists()) {
                 baseline(baseline)
             }
+        }
+
+        extension.applicationVariants.all { variant ->
+            variant.configureApkCopy(project, extension, false)
         }
     }
 
