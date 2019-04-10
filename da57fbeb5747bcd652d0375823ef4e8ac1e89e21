@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4bccb095_f7d717c6",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/ext/javapoet_ext.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-04-10T19:48:41Z",
+      "side": 1,
+      "message": "hmm would be nice to support qualified classes as well but maybe we don\u0027t have that case. (i would do that if we don\u0027t)",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 44
+      },
+      "revId": "da57fbeb5747bcd652d0375823ef4e8ac1e89e21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "132f22eb_0d324bd3",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/ext/javapoet_ext.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-04-10T19:48:41Z",
+      "side": 1,
+      "message": "i think there is a way to do this as toMap (x to y) but i might be wrong)",
+      "range": {
+        "startLine": 60,
+        "startChar": 17,
+        "endLine": 60,
+        "endChar": 26
+      },
+      "revId": "da57fbeb5747bcd652d0375823ef4e8ac1e89e21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ae13c9d_c68d41de",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/ext/javapoet_ext.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-04-10T19:48:41Z",
+      "side": 1,
+      "message": "these are just ugly to pass down itself as a default. can we just make this 1 argument and consider others as overrides ?",
+      "range": {
+        "startLine": 67,
+        "startChar": 61,
+        "endLine": 67,
+        "endChar": 96
+      },
+      "revId": "da57fbeb5747bcd652d0375823ef4e8ac1e89e21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
