@@ -22,6 +22,30 @@
       "revId": "94740fcd2e24d32bca8ed6d3a27f04dd73dae866",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7031bea5_c7b510b9",
+        "filename": "core/src/main/java/androidx/core/app/NavUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-10T22:24:35Z",
+      "side": 1,
+      "message": "Yep.",
+      "parentUuid": "187940f2_8f294524",
+      "range": {
+        "startLine": 244,
+        "startChar": 8,
+        "endLine": 248,
+        "endChar": 9
+      },
+      "revId": "94740fcd2e24d32bca8ed6d3a27f04dd73dae866",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
