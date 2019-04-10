@@ -79,13 +79,13 @@ public class PlaybackSupportFragmentTest extends SingleSupportFragmentTestBase {
         activityTestRule.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                activity.finish();
+                activity.getSupportFragmentManager().beginTransaction().remove(fragment).commit();
             }
         });
-        PollingCheck.waitFor(new PollingCheck.PollingCheckCondition() {
+        // wait one more cycle for fragment destroyed
+        activityTestRule.runOnUiThread(new Runnable() {
             @Override
-            public boolean canProceed() {
-                return fragment.mDestroyCalled;
+            public void run() {
             }
         });
         assertNull(glue.getHost());
