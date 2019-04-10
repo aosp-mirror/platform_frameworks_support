@@ -254,7 +254,6 @@ public final class ViewPager2 extends ViewGroup {
         mCurrentItem = Math.max(0, Math.min(mPendingCurrentItem, adapter.getItemCount() - 1));
         mPendingCurrentItem = NO_POSITION;
         mRecyclerView.scrollToPosition(mCurrentItem);
-        mScrollEventAdapter.notifyRestoreCurrentItem(mCurrentItem);
     }
 
     @Override
