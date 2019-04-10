@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "13e6d66c_742ab588",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-04-10T09:08:28Z",
+      "side": 1,
+      "message": "I assume this is supposed to be user visible string? go/android-api-guidelines states that we want such strings to be CharSequence. Same with other strings returned in this class.",
+      "range": {
+        "startLine": 238,
+        "startChar": 11,
+        "endLine": 238,
+        "endChar": 17
+      },
+      "revId": "e0ee5b298bd8caa47e1728c25f05ef3e6e6268a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
