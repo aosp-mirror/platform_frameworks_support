@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e2c5f9dc_7e341150",
+        "filename": "webkit/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-04-10T01:47:59Z",
+      "side": 1,
+      "message": "It\u0027s not really obvious why espresso includes hamcrest matchers, but I couldn\u0027t find another import. I copy-pasted car/core/build.gradle",
+      "range": {
+        "startLine": 38,
+        "startChar": 4,
+        "endLine": 38,
+        "endChar": 74
+      },
+      "revId": "56b931ee247f9364da7d8b70c1e7a36763f206bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
