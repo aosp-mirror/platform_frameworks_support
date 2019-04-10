@@ -353,7 +353,7 @@ public class PagedListView extends FrameLayout {
 
             @Override
             public void onAlphaJump() {
-                showAlphaJump();
+                setAlphaJumpVisible(true);
             }
         });
 
@@ -1306,22 +1306,41 @@ public class PagedListView extends FrameLayout {
 
     /**
      * Show the Alpha Jump Overlay.
+     *
+     * @deprecated Use {@link #setAlphaJumpVisible(boolean)} with argument {@code true} to show the
+     * Alpha Jump Overlay.
      */
+    @Deprecated
     public void showAlphaJump() {
-        if (mAlphaJumpView == null && mAdapter instanceof AlphaJumpAdapter) {
-            mAlphaJumpView = new AlphaJumpOverlayView(getContext());
-            mAlphaJumpView.init(this, (AlphaJumpAdapter) mAdapter);
-            addView(mAlphaJumpView);
-        }
-
-        mAlphaJumpView.show();
+        setAlphaJumpVisible(true);
     }
 
     /**
      * Hide the Alpha Jump Overlay.
+     *
+     * @deprecated Use {@link #setAlphaJumpVisible(boolean)} with argument {@code false} to hide the
+     * Alpha Jump Overlay.
      */
+    @Deprecated
     public void hideAlphaJump() {
-        if (mAlphaJumpView != null) {
+        setAlphaJumpVisible(false);
+    }
+
+    /**
+     * Sets whether the Alpha Jump Overlay is visible.
+     *
+     * @param visible {code true} to show the Alpha Jump Overlay or {@code false} to hide it.
+     */
+    public void setAlphaJumpVisible(boolean visible) {
+        if (visible) {
+            if (mAlphaJumpView == null && mAdapter instanceof AlphaJumpAdapter) {
+                mAlphaJumpView = new AlphaJumpOverlayView(getContext());
+                mAlphaJumpView.init(this, (AlphaJumpAdapter) mAdapter);
+                addView(mAlphaJumpView);
+            }
+
+            mAlphaJumpView.show();
+        } else if (mAlphaJumpView != null) {
             mAlphaJumpView.hide();
         }
     }
