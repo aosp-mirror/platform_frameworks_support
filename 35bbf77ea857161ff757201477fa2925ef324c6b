@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9f8d6aa9_02d3c3dc",
+        "filename": "car/core/src/main/java/androidx/car/widget/SwitchListItem.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-04-10T00:16:15Z",
+      "side": 1,
+      "message": "Just call setChecked from this method.",
+      "revId": "35bbf77ea857161ff757201477fa2925ef324c6b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ad7bab7_0fadee0b",
+        "filename": "car/core/src/main/java/androidx/car/widget/SwitchListItem.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-04-10T00:16:15Z",
+      "side": 1,
+      "message": "nit: \n\n  Sets whether the switch is checked.",
+      "range": {
+        "startLine": 295,
+        "startChar": 12,
+        "endLine": 295,
+        "endChar": 32
+      },
+      "revId": "35bbf77ea857161ff757201477fa2925ef324c6b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73e944fe_1e57ca83",
+        "filename": "car/core/src/main/java/androidx/car/widget/SwitchListItem.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-04-10T00:16:15Z",
+      "side": 1,
+      "message": "Too complicated :P\n\nI think \"{@code true} if the switch is checked\" or something similar is good enough.",
+      "range": {
+        "startLine": 297,
+        "startChar": 24,
+        "endLine": 297,
+        "endChar": 83
+      },
+      "revId": "35bbf77ea857161ff757201477fa2925ef324c6b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
