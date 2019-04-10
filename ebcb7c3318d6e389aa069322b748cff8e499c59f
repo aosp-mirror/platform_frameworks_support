@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a8a0b0c9_387457e8",
+        "filename": "buildSrc/jetpad-integration/build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2019-04-10T17:31:44Z",
+      "side": 1,
+      "message": "Not big, but I was reluctant to mixing java and kotlin source, and a separate project would isolate it from unwanted changes.",
+      "parentUuid": "17e2f302_7da32b75",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 19
+      },
+      "revId": "ebcb7c3318d6e389aa069322b748cff8e499c59f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "113433dc_2c8657ed",
         "filename": "buildSrc/jetpad-integration/src/main/java/androidx/build/jetpad/LibraryBuildInfoFile.java",
         "patchSetId": 2
@@ -72,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "7122ef5f_96f6112d",
+        "filename": "buildSrc/jetpad-integration/src/main/java/androidx/build/jetpad/LibraryBuildInfoFile.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2019-04-10T17:31:44Z",
+      "side": 1,
+      "message": "@Jeff I did not want to be too descriptive since this was public, but since there seems to be no objection it\u0027s done.\n\n@Aurimas wouldn\u0027t people with top level owners still be able to modify it though? The same exact people who can modify buildSrc anyways?",
+      "parentUuid": "d5c54d49_28dfcbcb",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 16
+      },
+      "revId": "ebcb7c3318d6e389aa069322b748cff8e499c59f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ff3deec2_ad14c4ac",
         "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
         "patchSetId": 2
@@ -92,6 +140,30 @@
       "revId": "ebcb7c3318d6e389aa069322b748cff8e499c59f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "414e88e2_cf665843",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2019-04-10T17:31:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ff3deec2_ad14c4ac",
+      "range": {
+        "startLine": 419,
+        "startChar": 12,
+        "endLine": 419,
+        "endChar": 35
+      },
+      "revId": "ebcb7c3318d6e389aa069322b748cff8e499c59f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -118,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "8c65a6ad_6332c6a1",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2019-04-10T17:31:44Z",
+      "side": 1,
+      "message": "Done. I saw this coming but comforted myself in the fact that it\u0027s already being done like this, nope.",
+      "parentUuid": "7918961e_e989e64e",
+      "range": {
+        "startLine": 421,
+        "startChar": 16,
+        "endLine": 421,
+        "endChar": 33
+      },
+      "revId": "ebcb7c3318d6e389aa069322b748cff8e499c59f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cdd86370_7ead6ed9",
         "filename": "buildSrc/src/main/kotlin/androidx/build/CreateLibraryBuildInfoFileTask.kt",
         "patchSetId": 2
@@ -132,6 +228,24 @@
       "revId": "ebcb7c3318d6e389aa069322b748cff8e499c59f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "369ef78e_27b7ba7d",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/CreateLibraryBuildInfoFileTask.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2019-04-10T17:31:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cdd86370_7ead6ed9",
+      "revId": "ebcb7c3318d6e389aa069322b748cff8e499c59f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -158,6 +272,30 @@
     },
     {
       "key": {
+        "uuid": "13bf8882_5cfe1146",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/CreateLibraryBuildInfoFileTask.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2019-04-10T17:31:44Z",
+      "side": 1,
+      "message": "The input is not serializable since it\u0027s actually the configurations we need to iterate over and check dependencies. Marked the output file.",
+      "parentUuid": "e7bf9fd9_520b0375",
+      "range": {
+        "startLine": 35,
+        "startChar": 11,
+        "endLine": 35,
+        "endChar": 41
+      },
+      "revId": "ebcb7c3318d6e389aa069322b748cff8e499c59f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f507c3a1_2e953cc8",
         "filename": "buildSrc/src/main/kotlin/androidx/build/CreateLibraryBuildInfoFileTask.kt",
         "patchSetId": 2
@@ -172,6 +310,24 @@
       "revId": "ebcb7c3318d6e389aa069322b748cff8e499c59f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef66b5b3_011decdd",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/CreateLibraryBuildInfoFileTask.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2019-04-10T17:31:44Z",
+      "side": 1,
+      "message": "Thanks!",
+      "parentUuid": "f507c3a1_2e953cc8",
+      "revId": "ebcb7c3318d6e389aa069322b748cff8e499c59f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -198,6 +354,30 @@
     },
     {
       "key": {
+        "uuid": "774f00ee_2b226eda",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/CreateLibraryBuildInfoFileTask.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2019-04-10T17:31:44Z",
+      "side": 1,
+      "message": "Staaaaaaahp, I\u0027ll do it I\u0027ll do it.",
+      "parentUuid": "def30a8b_27a16013",
+      "range": {
+        "startLine": 77,
+        "startChar": 41,
+        "endLine": 77,
+        "endChar": 45
+      },
+      "revId": "ebcb7c3318d6e389aa069322b748cff8e499c59f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d16d3a43_dabf8481",
         "filename": "buildSrc/src/main/kotlin/androidx/build/CreateLibraryBuildInfoFileTask.kt",
         "patchSetId": 2
@@ -212,6 +392,24 @@
       "revId": "ebcb7c3318d6e389aa069322b748cff8e499c59f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a6664e6_e21cd887",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/CreateLibraryBuildInfoFileTask.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2019-04-10T17:31:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d16d3a43_dabf8481",
+      "revId": "ebcb7c3318d6e389aa069322b748cff8e499c59f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
