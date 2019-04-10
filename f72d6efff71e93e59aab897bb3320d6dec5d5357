@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "448878c9_c4860352",
+        "filename": "buildSrc/jetpad-integration/src/main/java/androidx/build/jetpad/LibraryBuildInfoFile.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-04-10T18:57:50Z",
+      "side": 1,
+      "message": "Technically, if someone modifies the class in Jetpad, then it\u0027s required to modify this file too, right? :)",
+      "revId": "f72d6efff71e93e59aab897bb3320d6dec5d5357",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
