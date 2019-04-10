@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9fbdd7ac_27182910",
+        "filename": "buildSrc/jetpad-integration/src/main/java/androidx/build/jetpad/LibraryBuildInfoFile.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2019-04-10T18:36:19Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "da0c65d9_162f4371",
+      "range": {
+        "startLine": 24,
+        "startChar": 3,
+        "endLine": 25,
+        "endChar": 17
+      },
+      "revId": "5d11ed6d205c5c6e5bbf97ba983f01da042c4c75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0a15803b_95ab61af",
         "filename": "buildSrc/jetpad-integration/src/main/java/androidx/build/jetpad/LibraryBuildInfoFile.java",
         "patchSetId": 3
@@ -39,6 +63,24 @@
       "revId": "5d11ed6d205c5c6e5bbf97ba983f01da042c4c75",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b339fcd_5847a06b",
+        "filename": "buildSrc/jetpad-integration/src/main/java/androidx/build/jetpad/LibraryBuildInfoFile.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1354330
+      },
+      "writtenOn": "2019-04-10T18:36:19Z",
+      "side": 1,
+      "message": "Again, I did not want to discuss any internal implementation details publicly, but I guess since it\u0027s already been said, I\u0027ll add it.",
+      "parentUuid": "0a15803b_95ab61af",
+      "revId": "5d11ed6d205c5c6e5bbf97ba983f01da042c4c75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
