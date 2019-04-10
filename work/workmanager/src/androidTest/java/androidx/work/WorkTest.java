@@ -88,7 +88,8 @@ public class WorkTest extends WorkManagerTest {
     @Test
     public void testBuild_setBackoffCriteria_exceedMaxBackoffDuration() {
         final long backoffDuration = WorkRequest.MAX_BACKOFF_MILLIS + 123L;
-        OneTimeWorkRequest work = mBuilder
+        OneTimeWorkRequest work =
+                new OneTimeWorkRequest.Builder(TestWorker.class.getName())
                 .setBackoffCriteria(
                         BackoffPolicy.EXPONENTIAL,
                         backoffDuration,

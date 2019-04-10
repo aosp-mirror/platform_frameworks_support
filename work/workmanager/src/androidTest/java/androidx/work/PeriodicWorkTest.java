@@ -43,7 +43,7 @@ public class PeriodicWorkTest extends WorkManagerTest {
     public void testBuild_backoffAndIdleMode_throwsIllegalArgumentException() {
         mThrown.expect(IllegalArgumentException.class);
         new PeriodicWorkRequest.Builder(
-                TestWorker.class,
+                TestWorker.class.getName(),
                 PeriodicWorkRequest.MIN_PERIODIC_INTERVAL_MILLIS,
                 TimeUnit.MILLISECONDS)
                 .setBackoffCriteria(BackoffPolicy.EXPONENTIAL, 20000, TimeUnit.MILLISECONDS)
