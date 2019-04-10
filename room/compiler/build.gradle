@@ -27,10 +27,15 @@ plugins {
 }
 
 def antlrOut = "$buildDir/generated/antlr/grammar-gen/"
+def generatedResources = "$buildDir/generated/resources"
+def prebuiltsRoot = "${project.projectDir.getParentFile()}/../../../prebuilts"
+def debugKeystore = "${project.projectDir.getParentFile()}/../development/keystore/debug.keystore"
+
 sourceSets {
     main.java.srcDirs += 'src/main/grammar-gen'
-    test.java.srcDirs += 'src/tests/kotlin'
     main.java.srcDirs += antlrOut
+    test.java.srcDirs += 'src/tests/kotlin'
+    test.resources.srcDirs += generatedResources
 }
 
 // Temporary hack to stop AS to adding two guavas into test's classpath
@@ -67,6 +72,7 @@ dependencies {
     testCompile fileTree(dir: "${new File(project(":sqlite:sqlite").buildDir, "libJar")}",
             include : "*.jar")
     testCompile files(org.gradle.internal.jvm.Jvm.current().getToolsJar())
+    testCompile gradleTestKit()
 }
 
 def generateAntlrTask = task('generateAntlrGrammar', type: JavaExec) {
@@ -79,9 +85,28 @@ def generateAntlrTask = task('generateAntlrGrammar', type: JavaExec) {
             "-package", "androidx.room.parser"
 }
 
+task generateSdkResource() {
+    inputs.property("prebuiltsRoot", prebuiltsRoot)
+    inputs.property("compileSdkVersion", SupportConfig.TARGET_SDK_VERSION)
+    inputs.property("buildToolsVersion", SupportConfig.BUILD_TOOLS_VERSION)
+    inputs.property("minSdkVersion", SupportConfig.DEFAULT_MIN_SDK_VERSION)
+    inputs.property("debugKeystore", debugKeystore)
+    outputs.dir(generatedResources)
+    doLast {
+        new File(generatedResources, "sdk.prop").withWriter('UTF-8') { writer ->
+            writer.write("prebuiltsRepo=$prebuiltsRoot\n")
+            writer.write("compileSdkVersion=$SupportConfig.TARGET_SDK_VERSION\n")
+            writer.write("buildToolsVersion=$SupportConfig.BUILD_TOOLS_VERSION\n")
+            writer.write("minSdkVersion=$SupportConfig.DEFAULT_MIN_SDK_VERSION\n")
+            writer.write("debugKeystore=$debugKeystore\n")
+        }
+    }
+}
+
 tasks.findByName("compileKotlin").dependsOn(generateAntlrTask)
 tasks.findByName("compileKotlin").dependsOn(":room:room-runtime:jarDebug")
 tasks.findByName("compileKotlin").dependsOn(":sqlite:sqlite:jarDebug")
+tasks.findByName("compileTestKotlin").dependsOn(generateSdkResource)
 
 androidx {
     name = "Android Room Compiler"
