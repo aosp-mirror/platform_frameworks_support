@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "113433dc_2c8657ed",
+        "filename": "buildSrc/jetpad-integration/src/main/java/androidx/build/jetpad/LibraryBuildInfoFile.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-04-10T00:45:31Z",
+      "side": 1,
+      "message": "I\u0027d suggest describing what it\u0027s for and why not to touch it; something like:\n\n\"Will be parsed by Jetpad\"",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 16
+      },
+      "revId": "ebcb7c3318d6e389aa069322b748cff8e499c59f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cdd86370_7ead6ed9",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/CreateLibraryBuildInfoFileTask.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-04-10T00:45:31Z",
+      "side": 1,
+      "message": "I think we\u0027d like to sort the \"import\" lines",
+      "revId": "ebcb7c3318d6e389aa069322b748cff8e499c59f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f507c3a1_2e953cc8",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/CreateLibraryBuildInfoFileTask.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-04-10T00:45:31Z",
+      "side": 1,
+      "message": "I think this is some leftover debugging",
+      "revId": "ebcb7c3318d6e389aa069322b748cff8e499c59f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "def30a8b_27a16013",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/CreateLibraryBuildInfoFileTask.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-04-10T00:45:31Z",
+      "side": 1,
+      "message": "(I\u0027m still unenthusiastic about the term \"releaseCheckboxes\" (which describes a visual box onscreen) given that \"releaseChecks\" is also an option)",
+      "range": {
+        "startLine": 77,
+        "startChar": 41,
+        "endLine": 77,
+        "endChar": 45
+      },
+      "revId": "ebcb7c3318d6e389aa069322b748cff8e499c59f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d16d3a43_dabf8481",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/CreateLibraryBuildInfoFileTask.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-04-10T00:45:31Z",
+      "side": 1,
+      "message": "It\u0027d be neat to refactor this into a method so that if we remove it in the future, all future calls will be compile errors",
+      "revId": "ebcb7c3318d6e389aa069322b748cff8e499c59f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
