@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "dd57228e_1a714700",
+        "filename": "leanback/src/androidTest/java/androidx/leanback/app/BrowseFragmentTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1020538
+      },
+      "writtenOn": "2019-04-10T18:00:31Z",
+      "side": 1,
+      "message": "file is generated",
+      "parentUuid": "78cdf08f_80cfdf31",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 28
+      },
+      "revId": "9e5450403af94082d2116ffceebf54771b5d9017",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b43b6a2b_742a3b28",
         "filename": "leanback/src/androidTest/java/androidx/leanback/testutils/PollingCheck.java",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2019-04-10T05:05:56Z",
       "side": 1,
       "message": "is it possible that the activity is paused instead of stopped?",
+      "range": {
+        "startLine": 151,
+        "startChar": 19,
+        "endLine": 151,
+        "endChar": 47
+      },
+      "revId": "9e5450403af94082d2116ffceebf54771b5d9017",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d9bdba7f_a25a037e",
+        "filename": "leanback/src/androidTest/java/androidx/leanback/testutils/PollingCheck.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1020538
+      },
+      "writtenOn": "2019-04-10T18:00:31Z",
+      "side": 1,
+      "message": "doesn\u0027t matter for the test uses this",
+      "parentUuid": "b43b6a2b_742a3b28",
       "range": {
         "startLine": 151,
         "startChar": 19,
