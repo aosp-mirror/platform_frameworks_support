@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9d87723e_080d7c56",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dependencies/Dependencies.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-04-10T09:00:29Z",
+      "side": 1,
+      "message": "Please alpha sort these to the top of the file.",
+      "range": {
+        "startLine": 61,
+        "startChar": 0,
+        "endLine": 66,
+        "endChar": 83
+      },
+      "revId": "3979d96937e945201359c48c6d992447ef7ef79c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f61b478_db110b62",
+        "filename": "car/cluster/build.gradle",
+        "patchSetId": 6
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-04-10T09:00:29Z",
+      "side": 1,
+      "message": "They have no host side tests, remove this as well.",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 29
+      },
+      "revId": "3979d96937e945201359c48c6d992447ef7ef79c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c6680ef_372a118e",
+        "filename": "car/moderator/build.gradle",
+        "patchSetId": 6
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-04-10T09:00:29Z",
+      "side": 1,
+      "message": "Remove these, they have no host side tests.",
+      "range": {
+        "startLine": 37,
+        "startChar": 4,
+        "endLine": 38,
+        "endChar": 36
+      },
+      "revId": "3979d96937e945201359c48c6d992447ef7ef79c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83e06fa7_9d947b57",
+        "filename": "navigation/fragment/build.gradle",
+        "patchSetId": 6
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-04-10T09:00:29Z",
+      "side": 1,
+      "message": "Remove these. There are no hostside tests on this library.",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 36
+      },
+      "revId": "3979d96937e945201359c48c6d992447ef7ef79c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d102d433_28297ebb",
+        "filename": "navigation/runtime/build.gradle",
+        "patchSetId": 6
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-04-10T09:00:29Z",
+      "side": 1,
+      "message": "Remove these. There are no hostside tests in this library.",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 36
+      },
+      "revId": "3979d96937e945201359c48c6d992447ef7ef79c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca64b072_2765d554",
+        "filename": "navigation/ui/build.gradle",
+        "patchSetId": 6
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-04-10T09:00:29Z",
+      "side": 1,
+      "message": "Remove. Unused, no host tests.",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 36
+      },
+      "revId": "3979d96937e945201359c48c6d992447ef7ef79c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
