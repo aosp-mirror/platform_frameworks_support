@@ -152,6 +152,14 @@ class VersionedParcelParcel extends VersionedParcel {
     }
 
     @Override
+    protected void writeLongObject(Long val) {
+        mParcel.writeInt(val == null ? 0 : 1);
+        if (val != null) {
+            mParcel.writeLong(val);
+        }
+    }
+
+    @Override
     public void writeFloat(float val) {
         mParcel.writeFloat(val);
     }
@@ -209,6 +217,11 @@ class VersionedParcelParcel extends VersionedParcel {
     @Override
     public long readLong() {
         return mParcel.readLong();
+    }
+
+    @Override
+    protected Long readLongObject() {
+        return mParcel.readInt() == 1 ? mParcel.readLong() : null;
     }
 
     @Override

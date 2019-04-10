@@ -244,7 +244,18 @@ class VersionedParcelStream extends VersionedParcel {
         } catch (IOException e) {
             throw new ParcelException(e);
         }
+    }
 
+    @Override
+    protected void writeLongObject(Long val) {
+        try {
+            mCurrentOutput.writeInt(val == null ? 0 : 1);
+            if (val != null) {
+                mCurrentOutput.writeLong(val);
+            }
+        } catch (IOException e) {
+            throw new ParcelException(e);
+        }
     }
 
     @Override
@@ -336,6 +347,15 @@ class VersionedParcelStream extends VersionedParcel {
     public long readLong() {
         try {
             return mCurrentInput.readLong();
+        } catch (IOException e) {
+            throw new ParcelException(e);
+        }
+    }
+
+    @Override
+    protected Long readLongObject() {
+        try {
+            return mCurrentInput.readInt() == 1 ? mCurrentInput.readLong() : null;
         } catch (IOException e) {
             throw new ParcelException(e);
         }

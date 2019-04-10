@@ -63,6 +63,8 @@ package androidx.versionedparcelable {
     method public long readLong(long, int);
     method public long[]! readLongArray(long[]!, int);
     method protected long[]! readLongArray();
+    method protected abstract Long! readLongObject();
+    method public Long! readLongObject(Long!, int);
     method public <K, V> java.util.Map<K,V>! readMap(java.util.Map<K,V>!, int);
     method protected abstract <T extends android.os.Parcelable> T! readParcelable();
     method public <T extends android.os.Parcelable> T! readParcelable(T!, int);
@@ -113,6 +115,8 @@ package androidx.versionedparcelable {
     method public void writeLong(long, int);
     method public void writeLongArray(long[]!, int);
     method protected void writeLongArray(long[]!);
+    method protected abstract void writeLongObject(Long!);
+    method public void writeLongObject(Long!, int);
     method public <K, V> void writeMap(java.util.Map<K,V>!, int);
     method protected void writeNoException();
     method protected abstract void writeParcelable(android.os.Parcelable!);
