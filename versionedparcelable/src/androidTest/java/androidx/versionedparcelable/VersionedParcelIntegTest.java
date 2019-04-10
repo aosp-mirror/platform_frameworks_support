@@ -299,6 +299,22 @@ public class VersionedParcelIntegTest {
         assertEquivalent(obj.mSparseBooleanArray, other.mSparseBooleanArray);
     }
 
+    @Test
+    public void testLongObject() {
+        ParcelizableImpl obj = new ParcelizableImpl();
+        obj.mLongObj = 42L;
+        ParcelizableImpl other = parcelCopy(obj);
+        assertEquals(obj.mLongObj, other.mLongObj);
+    }
+
+    @Test
+    public void testLongObjectNull() {
+        ParcelizableImpl obj = new ParcelizableImpl();
+        obj.mLongObj = null;
+        ParcelizableImpl other = parcelCopy(obj);
+        assertNull(other.mLongObj);
+    }
+
     private void assertEquivalent(SparseBooleanArray first, SparseBooleanArray second) {
         assertEquals(first.size(), second.size());
         for (int i = 0; i < first.size(); i++) {
@@ -529,6 +545,8 @@ public class VersionedParcelIntegTest {
         public CharSequence mCharSequence;
         @ParcelField(33)
         public GenericType<String> mGenericType;
+        @ParcelField(34)
+        public Long mLongObj;
 
         @NonParcelField
         private boolean mPreParcelled;

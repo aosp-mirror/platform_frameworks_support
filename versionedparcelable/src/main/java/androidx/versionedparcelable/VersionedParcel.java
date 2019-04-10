@@ -140,6 +140,12 @@ public abstract class VersionedParcel {
     protected abstract void writeLong(long val);
 
     /**
+     * Write a Long object into the parcel at the current dataPosition(),
+     * growing dataCapacity() if needed.
+     */
+    protected abstract void writeLongObject(Long val);
+
+    /**
      * Write a floating point value into the parcel at the current
      * dataPosition(), growing dataCapacity() if needed.
      */
@@ -199,6 +205,11 @@ public abstract class VersionedParcel {
      * Read a long integer value from the parcel at the current dataPosition().
      */
     protected abstract long readLong();
+
+    /**
+     * Read a Long object from the parcel at the current dataPosition().
+     */
+    protected abstract Long readLongObject();
 
     /**
      * Read a floating point value from the parcel at the current
@@ -345,6 +356,15 @@ public abstract class VersionedParcel {
     }
 
     /**
+     * Write a Long object into the parcel at the current dataPosition(),
+     * growing dataCapacity() if needed.
+     */
+    public void writeLongObject(Long val, int fieldId) {
+        setOutputField(fieldId);
+        writeLongObject(val);
+    }
+
+    /**
      * Write a floating point value into the parcel at the current
      * dataPosition(), growing dataCapacity() if needed.
      */
@@ -420,6 +440,16 @@ public abstract class VersionedParcel {
             return def;
         }
         return readLong();
+    }
+
+    /**
+     * Read a Long object from the parcel at the current dataPosition().
+     */
+    public Long readLongObject(Long def, int fieldId) {
+        if (!readField(fieldId)) {
+            return def;
+        }
+        return readLongObject();
     }
 
     /**
