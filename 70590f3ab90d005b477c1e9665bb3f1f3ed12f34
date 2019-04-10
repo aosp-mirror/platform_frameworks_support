@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cd834489_27edac0b",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-04-10T17:36:36Z",
+      "side": 1,
+      "message": "nit: static import instead?",
+      "range": {
+        "startLine": 79,
+        "startChar": 29,
+        "endLine": 79,
+        "endChar": 67
+      },
+      "revId": "70590f3ab90d005b477c1e9665bb3f1f3ed12f34",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0b51ce4_4339d1f0",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-04-10T17:36:36Z",
+      "side": 1,
+      "message": "Maybe this one should start with NO_POSITION as well?\nLet\u0027s pick an invariant it respects and write a comment of what the invariant is.",
+      "range": {
+        "startLine": 88,
+        "startChar": 4,
+        "endLine": 88,
+        "endChar": 21
+      },
+      "revId": "70590f3ab90d005b477c1e9665bb3f1f3ed12f34",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae9d1432_c96bc1ea",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-04-10T17:36:36Z",
+      "side": 1,
+      "message": "nit: not sure if in this CL",
+      "revId": "70590f3ab90d005b477c1e9665bb3f1f3ed12f34",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e01eeb61_8d7224ec",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-04-10T17:36:36Z",
+      "side": 1,
+      "message": "Should we add mPendingAdapterState analogous to mPendingCurrentItem?\n\nCan be under a different CL, just wondering if resuming it here doesn\u0027t result in the same problem.",
+      "range": {
+        "startLine": 233,
+        "startChar": 0,
+        "endLine": 237,
+        "endChar": 0
+      },
+      "revId": "70590f3ab90d005b477c1e9665bb3f1f3ed12f34",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9233399_9d80d4b0",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-04-10T17:36:36Z",
+      "side": 1,
+      "message": "It\u0027s quite a convoluted way of saying `adapter.getItemCount() \u003c\u003d 0`. Can we move above line 434?",
+      "range": {
+        "startLine": 436,
+        "startChar": 12,
+        "endLine": 436,
+        "endChar": 20
+      },
+      "revId": "70590f3ab90d005b477c1e9665bb3f1f3ed12f34",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
