@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "17e2f302_7da32b75",
+        "filename": "buildSrc/jetpad-integration/build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-04-10T09:22:01Z",
+      "side": 1,
+      "message": "How big is this going to get? Does it really need to be its own library?",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 19
+      },
+      "revId": "ebcb7c3318d6e389aa069322b748cff8e499c59f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "113433dc_2c8657ed",
         "filename": "buildSrc/jetpad-integration/src/main/java/androidx/build/jetpad/LibraryBuildInfoFile.java",
         "patchSetId": 2
@@ -25,6 +48,76 @@
     },
     {
       "key": {
+        "uuid": "d5c54d49_28dfcbcb",
+        "filename": "buildSrc/jetpad-integration/src/main/java/androidx/build/jetpad/LibraryBuildInfoFile.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-04-10T09:22:01Z",
+      "side": 1,
+      "message": "Also if you worry about people touching, add OWNERS file next to it.",
+      "parentUuid": "113433dc_2c8657ed",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 16
+      },
+      "revId": "ebcb7c3318d6e389aa069322b748cff8e499c59f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff3deec2_ad14c4ac",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-04-10T09:22:01Z",
+      "side": 1,
+      "message": "I was under impression that this was the default if you don\u0027t specify it at all?",
+      "range": {
+        "startLine": 419,
+        "startChar": 12,
+        "endLine": 419,
+        "endChar": 35
+      },
+      "revId": "ebcb7c3318d6e389aa069322b748cff8e499c59f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7918961e_e989e64e",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-04-10T09:22:01Z",
+      "side": 1,
+      "message": "This is bad, it causes every task to be created. Can we instead reverse this and make each createLibraryBuildInfoFile that we create per project set itself as a dependency for the global task on root project?\n\nhttps://docs.gradle.org/current/userguide/task_configuration_avoidance.html\n\nAlso file a bug for migrating away the uses of project.tasks.all and assign it to asfalcone@",
+      "range": {
+        "startLine": 421,
+        "startChar": 16,
+        "endLine": 421,
+        "endChar": 33
+      },
+      "revId": "ebcb7c3318d6e389aa069322b748cff8e499c59f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cdd86370_7ead6ed9",
         "filename": "buildSrc/src/main/kotlin/androidx/build/CreateLibraryBuildInfoFileTask.kt",
         "patchSetId": 2
@@ -36,6 +129,29 @@
       "writtenOn": "2019-04-10T00:45:31Z",
       "side": 1,
       "message": "I think we\u0027d like to sort the \"import\" lines",
+      "revId": "ebcb7c3318d6e389aa069322b748cff8e499c59f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7bf9fd9_520b0375",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/CreateLibraryBuildInfoFileTask.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-04-10T09:22:01Z",
+      "side": 1,
+      "message": "You need to mark your inputs and outputs otherwise gradle cannot cache your task and always has to run it.",
+      "range": {
+        "startLine": 35,
+        "startChar": 11,
+        "endLine": 35,
+        "endChar": 41
+      },
       "revId": "ebcb7c3318d6e389aa069322b748cff8e499c59f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
