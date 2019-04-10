@@ -48,6 +48,12 @@ class MissingTestSizeAnnotation : Detector(), SourceCodeScanner {
             if (runWith.attributeValues[0].expression.asRenderString() == JUNIT_RUNNER) {
                 return
             }
+            // If class is not an instrumented androidTest, then the test size annotation is
+            // ignored.
+            if (!node.containingFile.virtualFile.path.contains("/androidTest/")) {
+                return
+            }
+
             node.methods.filter {
                 it.hasAnnotation(TEST_ANNOTATION)
             }.forEach { method ->
