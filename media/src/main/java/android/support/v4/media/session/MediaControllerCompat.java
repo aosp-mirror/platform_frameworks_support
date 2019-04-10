@@ -85,9 +85,11 @@ import java.util.concurrent.ConcurrentHashMap;
  * {@link MediaBrowserCompat}:
  * <ul>
  * <li>{@link #getPlaybackState()}.{@link PlaybackStateCompat#getExtras() getExtras()}</li>
- * <li>{@link #isCaptioningEnabled()}</li>
+ * <li>{@link #getRatingType()}</li>
  * <li>{@link #getRepeatMode()}</li>
+ * <li>{@link #getSessionInfo()}</li>
  * <li>{@link #getShuffleMode()}</li>
+ * <li>{@link #isCaptioningEnabled()}</li>
  * </ul></p>
  *
  * <div class="special reference">
@@ -658,6 +660,7 @@ public final class MediaControllerCompat {
      * <li>{@link #getPlaybackState()}</li>
      * <li>{@link #getRatingType()}</li>
      * <li>{@link #getRepeatMode()}</li>
+     * <li>{@link #getSessionInfo()}</li>
      * <li>{@link #getShuffleMode()}</li>
      * <li>{@link #isCaptioningEnabled()}</li>
      * </ul>
@@ -676,6 +679,21 @@ public final class MediaControllerCompat {
      */
     public String getPackageName() {
         return mImpl.getPackageName();
+    }
+
+    /**
+     * Gets the additional session information which was set when the session was created.
+     *
+     * @return The additional session information, or {@link Bundle#EMPTY} if the session
+     *         didn't set the information or if the session is not ready.
+     * @see #isSessionReady
+     * @see Callback#onSessionReady
+     * @hide
+     */
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @NonNull
+    public Bundle getSessionInfo() {
+        return mImpl.getSessionInfo();
     }
 
     /**
@@ -1503,12 +1521,14 @@ public final class MediaControllerCompat {
 
         boolean isSessionReady();
         String getPackageName();
+        Bundle getSessionInfo();
         Object getMediaController();
     }
 
     static class MediaControllerImplBase implements MediaControllerImpl {
         private IMediaSession mBinder;
         private TransportControls mTransportControls;
+        private Bundle mSessionInfo;
 
         public MediaControllerImplBase(MediaSessionCompat.Token token) {
             mBinder = IMediaSession.Stub.asInterface((IBinder) token.getToken());
@@ -1773,6 +1793,16 @@ public final class MediaControllerCompat {
         }
 
         @Override
+        public Bundle getSessionInfo() {
+            try {
+                mSessionInfo = mBinder.getSessionInfo();
+            } catch (RemoteException e) {
+                Log.d(TAG, "Dead object in getSessionInfo.", e);
+            }
+            return mSessionInfo == null ? Bundle.EMPTY : new Bundle(mSessionInfo);
+        }
+
+        @Override
         public Object getMediaController() {
             return null;
         }
@@ -2010,6 +2040,8 @@ public final class MediaControllerCompat {
 
         private HashMap<Callback, ExtraCallback> mCallbackMap = new HashMap<>();
 
+        private Bundle mSessionInfo;
+
         final MediaSessionCompat.Token mSessionToken;
 
         public MediaControllerImplApi21(Context context, MediaSessionCompat.Token sessionToken)
@@ -2240,6 +2272,19 @@ public final class MediaControllerCompat {
         @Override
         public String getPackageName() {
             return mControllerFwk.getPackageName();
+        }
+
+        @Override
+        public Bundle getSessionInfo() {
+            // TODO(b/130282718): Use framework MediaController#getSessionInfo() from Q.
+            if (mSessionToken.getExtraBinder() != null) {
+                try {
+                    mSessionInfo = mSessionToken.getExtraBinder().getSessionInfo();
+                } catch (RemoteException e) {
+                    Log.e(TAG, "Dead object in getSessionInfo.", e);
+                }
+            }
+            return mSessionInfo == null ? Bundle.EMPTY : new Bundle(mSessionInfo);
         }
 
         @Override
