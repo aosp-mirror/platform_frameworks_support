@@ -205,6 +205,9 @@ class NotificationCompatBuilder implements NotificationBuilderWithBuilderAccesso
                         .setVibrate(null);
             }
         }
+        if (Build.VERSION.SDK_INT >= 29 && b.getBubbleMetadata() != null) {
+
+        }
     }
 
     @Override
