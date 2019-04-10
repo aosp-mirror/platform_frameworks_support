@@ -25,6 +25,35 @@ plugins {
     id("kotlin")
 }
 
+ext.prebuiltsRoot = "${project.projectDir.getParentFile()}/../../../../../prebuilts"
+ext.generatedResources = "$buildDir/generated/resources"
+
+sourceSets {
+    test.resources.srcDirs += generatedResources
+}
+
+task generateSdkResource() {
+    inputs.property("prebuiltsRoot", prebuiltsRoot)
+    outputs.dir(generatedResources)
+    doLast {
+        // Properties.write will have a timestamp, that invalidates the task,
+        // so we don't use it and write a file manually
+        String osName = System.getProperty("os.name").toLowerCase()
+        boolean isMacOsX = osName.contains("mac os x") || osName.contains("darwin") ||
+                osName.contains("osx")
+        String platform = isMacOsX ? "darwin" : "linux"
+        // Making an assumption that prebuilts directory is in ../../prebuilts/
+        String sdkDir = "$prebuiltsRoot/fullsdk-$platform"
+
+        // it may be different sdk than is used for compilation of real android modules
+        // but we need sdk only for test lint
+        new File(generatedResources, "sdk.prop").withWriter('UTF-8') { writer ->
+            writer.write("sdk.dir=$prebuiltsRoot/fullsdk-$platform\n")
+        }
+    }
+}
+
+tasks["compileTestJava"].dependsOn generateSdkResource
 
 dependencies {
     // compileOnly because we use lintChecks and it doesn't allow other types of deps
