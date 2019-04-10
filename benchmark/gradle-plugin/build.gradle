@@ -35,7 +35,7 @@ dependencies {
     implementation gradleApi()
     implementation(build_libs.gradle)
     implementation(KOTLIN_STDLIB)
-    implementation(ANDROIDX_TEST_RUNNER)
+    implementation(TEST_RUNNER)
 
     testImplementation gradleTestKit()
     testImplementation(JUNIT)
