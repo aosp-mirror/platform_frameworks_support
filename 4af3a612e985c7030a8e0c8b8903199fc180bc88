@@ -125,6 +125,24 @@
     },
     {
       "key": {
+        "uuid": "a82d0cd2_2240687b",
+        "filename": "development/diagnose-build-failure/diagnose-build-failure.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-04-10T17:59:54Z",
+      "side": 1,
+      "message": "It turned out as part of using this that I encountered a case where `./gradlew --no-daemon someTasks` passed but `./gradlew --no-daemon someTasks \u0026\u0026 ./gradlew --no-daemon someTasks` failed, so I ended up having to implement support to do the binary search in that case too rather than to just detect it and fail. That meant having diagnose-build-failure.sh running the extra builds that diff-filterer.py had been running, so I ended up implementing the flag in diff-filterer.py to disable the extra checks.",
+      "parentUuid": "e5d5fb9d_6ffbf1f3",
+      "revId": "4af3a612e985c7030a8e0c8b8903199fc180bc88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c8dd77f1_123fc4af",
         "filename": "development/diagnose-build-failure/diagnose-build-failure.sh",
         "patchSetId": 3
