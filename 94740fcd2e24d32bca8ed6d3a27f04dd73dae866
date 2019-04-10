@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "187940f2_8f294524",
+        "filename": "core/src/main/java/androidx/core/app/NavUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-04-10T21:22:00Z",
+      "side": 1,
+      "message": "These are the same value (512). You don\u0027t need a Build.VERSION.SDK_INT check. Are you doing this for compiler warning reasons?",
+      "range": {
+        "startLine": 244,
+        "startChar": 8,
+        "endLine": 248,
+        "endChar": 9
+      },
+      "revId": "94740fcd2e24d32bca8ed6d3a27f04dd73dae866",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
