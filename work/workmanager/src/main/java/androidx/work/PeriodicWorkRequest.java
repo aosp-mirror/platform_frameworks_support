@@ -91,6 +91,29 @@ public final class PeriodicWorkRequest extends WorkRequest {
          * {@link PeriodicWorkRequest} can be restricted to a flex period within an interval (see
          * {@code #Builder(Class, long, TimeUnit, long, TimeUnit)}).
          *
+         * @param workerClassName The qualified class name of the {@link ListenableWorker} class
+         *        to run for this work
+         * @param repeatInterval The repeat interval in {@code repeatIntervalTimeUnit} units
+         * @param repeatIntervalTimeUnit The {@link TimeUnit} for {@code repeatInterval}
+         */
+        public Builder(
+                @NonNull String workerClassName,
+                long repeatInterval,
+                @NonNull TimeUnit repeatIntervalTimeUnit) {
+            super(workerClassName);
+            mWorkSpec.setPeriodic(repeatIntervalTimeUnit.toMillis(repeatInterval));
+        }
+
+        /**
+         * Creates a {@link PeriodicWorkRequest} to run periodically once every interval period. The
+         * {@link PeriodicWorkRequest} is guaranteed to run exactly one time during this interval
+         * (subject to OS battery optimizations, such as doze mode). The {@code intervalMillis} must
+         * be greater than or equal to {@link PeriodicWorkRequest#MIN_PERIODIC_INTERVAL_MILLIS}. It
+         * may run immediately, at the end of the period, or any time in between so long as the
+         * other conditions are satisfied at the time. The run time of the
+         * {@link PeriodicWorkRequest} can be restricted to a flex period within an interval (see
+         * {@code #Builder(Class, long, TimeUnit, long, TimeUnit)}).
+         *
          * @param workerClass The {@link ListenableWorker} class to run for this work
          * @param repeatInterval The repeat interval in {@code repeatIntervalTimeUnit} units
          * @param repeatIntervalTimeUnit The {@link TimeUnit} for {@code repeatInterval}
@@ -99,8 +122,7 @@ public final class PeriodicWorkRequest extends WorkRequest {
                 @NonNull Class<? extends ListenableWorker> workerClass,
                 long repeatInterval,
                 @NonNull TimeUnit repeatIntervalTimeUnit) {
-            super(workerClass);
-            mWorkSpec.setPeriodic(repeatIntervalTimeUnit.toMillis(repeatInterval));
+            this(workerClass.getName(), repeatInterval, repeatIntervalTimeUnit);
         }
 
         /**
