@@ -120,10 +120,14 @@ public abstract class WorkRequest {
         WorkSpec mWorkSpec;
         Set<String> mTags = new HashSet<>();
 
-        Builder(@NonNull Class<? extends ListenableWorker> workerClass) {
+        Builder(@NonNull String workerClassName) {
             mId = UUID.randomUUID();
-            mWorkSpec = new WorkSpec(mId.toString(), workerClass.getName());
-            addTag(workerClass.getName());
+            mWorkSpec = new WorkSpec(mId.toString(), workerClassName);
+            addTag(workerClassName);
+        }
+
+        Builder(@NonNull Class<? extends ListenableWorker> workerClass) {
+            this(workerClass.getName());
         }
 
         /**

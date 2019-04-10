@@ -76,11 +76,21 @@ public final class OneTimeWorkRequest extends WorkRequest {
         /**
          * Creates a {@link OneTimeWorkRequest}.
          *
+         * @param workerClassName The qualified class name of the {@link ListenableWorker} class
+         *        to run for this work
+         */
+        public Builder(@NonNull String workerClassName) {
+            super(workerClassName);
+            mWorkSpec.inputMergerClassName = OverwritingInputMerger.class.getName();
+        }
+
+        /**
+         * Creates a {@link OneTimeWorkRequest}.
+         *
          * @param workerClass The {@link ListenableWorker} class to run for this work
          */
         public Builder(@NonNull Class<? extends ListenableWorker> workerClass) {
-            super(workerClass);
-            mWorkSpec.inputMergerClassName = OverwritingInputMerger.class.getName();
+            this(workerClass.getName());
         }
 
         /**
