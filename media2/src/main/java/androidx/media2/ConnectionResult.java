@@ -75,6 +75,8 @@ class ConnectionResult extends CustomVersionedParcelable {
     int mPreviousMediaItemIndex;
     @ParcelField(16)
     int mNextMediaItemIndex;
+    @ParcelField(17)
+    VideoSize mVideoSize;
 
     // For versioned parcelable
     ConnectionResult() {
@@ -97,6 +99,7 @@ class ConnectionResult extends CustomVersionedParcelable {
         mCurrentMediaItemIndex = sessionImpl.getCurrentMediaItemIndex();
         mPreviousMediaItemIndex = sessionImpl.getPreviousMediaItemIndex();
         mNextMediaItemIndex = sessionImpl.getNextMediaItemIndex();
+        mVideoSize = sessionImpl.getVideoSize();
         if (allowedCommands != null
                 && allowedCommands.hasCommand(SessionCommand.COMMAND_CODE_PLAYER_GET_PLAYLIST)) {
             List<MediaItem> playlist = sessionImpl.getPlaylist();
@@ -174,6 +177,10 @@ class ConnectionResult extends CustomVersionedParcelable {
 
     public int getNextMediaItemIndex() {
         return mNextMediaItemIndex;
+    }
+
+    public VideoSize getVideoSize() {
+        return mVideoSize;
     }
 
     @Override
