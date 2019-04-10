@@ -22,6 +22,30 @@
       "revId": "e0ee5b298bd8caa47e1728c25f05ef3e6e6268a6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e8611e9_c975f624",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1404402
+      },
+      "writtenOn": "2019-04-10T20:42:29Z",
+      "side": 1,
+      "message": "Strings in other classes in car-cluster have this problem as well. I think it would make more sense to change everything in another CL",
+      "parentUuid": "13e6d66c_742ab588",
+      "range": {
+        "startLine": 238,
+        "startChar": 11,
+        "endLine": 238,
+        "endChar": 17
+      },
+      "revId": "e0ee5b298bd8caa47e1728c25f05ef3e6e6268a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
