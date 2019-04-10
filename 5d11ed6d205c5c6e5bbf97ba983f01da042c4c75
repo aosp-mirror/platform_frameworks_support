@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da0c65d9_162f4371",
+        "filename": "buildSrc/jetpad-integration/src/main/java/androidx/build/jetpad/LibraryBuildInfoFile.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-04-10T17:56:09Z",
+      "side": 1,
+      "message": "It seems to me that it\u0027s reasonable to expect that the reader knows what this class is for, since the next sentence says what it\u0027s for",
+      "range": {
+        "startLine": 24,
+        "startChar": 3,
+        "endLine": 25,
+        "endChar": 17
+      },
+      "revId": "5d11ed6d205c5c6e5bbf97ba983f01da042c4c75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a15803b_95ab61af",
+        "filename": "buildSrc/jetpad-integration/src/main/java/androidx/build/jetpad/LibraryBuildInfoFile.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-04-10T17:56:09Z",
+      "side": 1,
+      "message": "I think we want another word in \"be parsed Jetpad\", maybe \"by\".\n\nAlthough it occurs to me now that technically the message I recommended on a prior patchset was less accurate than it could be since technically it\u0027s the serialization of this file that will be parsed by Jetpad.\n\nYou could replace the sentence with something like \"This file should match the corresponding class in Jetpad because this object will be serialized to json and the result will be parsed by Jetpad\" which I guess means we could remove the line that says \"This object will be serialized to json\" too",
+      "revId": "5d11ed6d205c5c6e5bbf97ba983f01da042c4c75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb79b67c_a23969bb",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/MavenUploadHelper.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-04-10T17:56:09Z",
+      "side": 1,
+      "message": "Thanks",
+      "revId": "5d11ed6d205c5c6e5bbf97ba983f01da042c4c75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
