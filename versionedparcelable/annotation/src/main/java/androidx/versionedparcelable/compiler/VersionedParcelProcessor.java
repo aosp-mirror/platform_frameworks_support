@@ -20,7 +20,6 @@ import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
-import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 
 import java.io.IOException;
@@ -214,8 +213,10 @@ public class VersionedParcelProcessor extends AbstractProcessor {
         AnnotationSpec restrictTo = AnnotationSpec.builder(RESTRICT_TO)
                 .addMember("value", "$T.LIBRARY", RESTRICT_TO_SCOPE)
                 .build();
+        ClassName type = ClassName.get((TypeElement) versionedParcelable);
+        String generatedClassName = String.join("$", type.simpleNames()) + GEN_SUFFIX;
         TypeSpec.Builder genClass = TypeSpec
-                .classBuilder(versionedParcelable.getSimpleName() + GEN_SUFFIX)
+                .classBuilder(generatedClassName)
                 .addJavadoc("@hide\n")
                 .addAnnotation(restrictTo)
                 .addModifiers(Modifier.PUBLIC);
@@ -226,7 +227,6 @@ public class VersionedParcelProcessor extends AbstractProcessor {
         ArrayList<VariableElement> parcelFields = new ArrayList<>();
         findFields(fields, parcelFields);
 
-        TypeName type = ClassName.get((TypeElement) versionedParcelable);
         AnnotationSpec suppressUncheckedWarning = AnnotationSpec.builder(
                 ClassName.get("java.lang", "SuppressWarnings"))
                 .addMember("value", "$S", "unchecked")
@@ -309,7 +309,7 @@ public class VersionedParcelProcessor extends AbstractProcessor {
             if (jetifyAs != null && jetifyAs.length() > 0) {
                 int index = jetifyAs.lastIndexOf('.');
                 String jetPkg = jetifyAs.substring(1, index);
-                String superCls = pkg + "." + versionedParcelable.getSimpleName() + GEN_SUFFIX;
+                String superCls = pkg + "." + generatedClassName;
                 TypeSpec.Builder jetifyClass = TypeSpec
                         .classBuilder(jetifyAs.substring(index + 1, jetifyAs.length() - 1)
                                 + GEN_SUFFIX)
