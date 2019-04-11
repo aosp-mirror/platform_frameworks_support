@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "bca87956_5ef9b715",
+        "filename": "versionedparcelable/annotation/src/main/java/androidx/versionedparcelable/compiler/VersionedParcelProcessor.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1345241
+      },
+      "writtenOn": "2019-04-11T18:19:21Z",
+      "side": 1,
+      "message": "My interpretation of http://go/java-practices/codegen#identifiers is that the name of a generated companion class that is not intended to be called from hand-written code should be named either start with \"$\" or contain \"$$\" to prevent any possible collision with hand written code. I\u0027ve used \"$$\" in the past, but re-reading the guide, I think the clearest might be $FooParcelizer, ($Foo$BarParcelizer for nested classes) as the initial $ should prevent IDEs from showing it in autocomplete, but it does have the disadvantage of needing a little bit more string manipulation at runtime to look up the generated class.\n\nI\u0027ve definitely cheated a bit on this in the past, but if we\u0027re going to make a change, I think we should probably follow the style guide here.\n\nExample classname builder for $FooParcelizer:\n\n    private String getGeneratedClassName(Class cls) {\n        final String className \u003d cls.getName();\n        final int lastDot \u003d className.lastIndexOf(\".\");\n\n        if (lastDot \u003c 0) {\n            return String.format(\"$%sParcelizer\", className);\n        } else {\n                return String.format(\n                \"%s.$%sParcelizer\",\n                    className.substring(0, lastDot),\n                    className.substring(lastDot + 1);\n        }\n    }",
+      "parentUuid": "fdf1cd24_2b92bf23",
+      "revId": "07fcdba868cda084ac726e25186562fbb4b6f206",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2dd3b708_e8c2b0e8",
         "filename": "versionedparcelable/src/main/java/androidx/versionedparcelable/VersionedParcel.java",
         "patchSetId": 5
@@ -66,6 +84,24 @@
       "side": 1,
       "message": "ah, I see. Done.",
       "parentUuid": "2dd3b708_e8c2b0e8",
+      "revId": "07fcdba868cda084ac726e25186562fbb4b6f206",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b516971b_18067283",
+        "filename": "versionedparcelable/src/main/java/androidx/versionedparcelable/VersionedParcel.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1630,
+      "author": {
+        "id": 1345241
+      },
+      "writtenOn": "2019-04-11T18:19:21Z",
+      "side": 1,
+      "message": "lgtm, but I\u0027m probably going to tweak this code after merge when I tackle b/130222199",
+      "parentUuid": "bb886d37_f955957f",
       "revId": "07fcdba868cda084ac726e25186562fbb4b6f206",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
