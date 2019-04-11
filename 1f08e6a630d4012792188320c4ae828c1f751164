@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a2ea8bb6_524d2e21",
+        "filename": "viewpager2/api/1.0.0-alpha04.txt",
+        "patchSetId": 7
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-04-11T17:55:28Z",
+      "side": 1,
+      "message": "The PageTransformer is only called on scroll events. But if the internal state of a PageTransformer changes and no scroll is happening, it may be possible that the appearance of the current and/or adjacent pages should change nonetheless.\n\nSimilar to requestLayout(), a dev should be able to request that its PageTransformer is invoked if state has changed.",
+      "parentUuid": "0722db9a_c47e9be1",
+      "range": {
+        "startLine": 48,
+        "startChar": 23,
+        "endLine": 48,
+        "endChar": 39
+      },
+      "revId": "1f08e6a630d4012792188320c4ae828c1f751164",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b5c42f37_035e6188",
         "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
         "patchSetId": 7
