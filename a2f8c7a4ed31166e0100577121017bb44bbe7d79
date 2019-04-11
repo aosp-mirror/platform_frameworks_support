@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c801919e_e6c46104",
+        "filename": "work/workmanager-ktx/src/main/java/androidx/work/OneTimeWorkRequest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2019-04-11T19:28:53Z",
+      "side": 1,
+      "message": "Just make this OneTimeWorkRequest(). Drop the From, its cleaner :)",
+      "range": {
+        "startLine": 34,
+        "startChar": 42,
+        "endLine": 34,
+        "endChar": 64
+      },
+      "revId": "a2f8c7a4ed31166e0100577121017bb44bbe7d79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
