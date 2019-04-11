@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "90091210_a3d1d22b",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/DragWhileSmoothScrollTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-04-11T18:48:06Z",
+      "side": 1,
+      "message": "Nit: Does it make more sense to make this a local val and to pass it to swipeExactlyToPage?",
+      "range": {
+        "startLine": 70,
+        "startChar": 4,
+        "endLine": 70,
+        "endChar": 38
+      },
+      "revId": "6c1744d31a6039bb8ec3d1f620a90c0bf0611c8f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
