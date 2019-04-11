@@ -1657,8 +1657,7 @@ public abstract class VersionedParcel {
             throws ClassNotFoundException {
         Class ret = mParcelizerCache.get(cls.getName());
         if (ret == null) {
-            String pkg = cls.getPackage().getName();
-            String c = String.format("%s.%sParcelizer", pkg, cls.getSimpleName());
+            String c = String.format("%sParcelizer", cls.getName());
             ret = Class.forName(c, false, cls.getClassLoader());
             mParcelizerCache.put(cls.getName(), ret);
         }

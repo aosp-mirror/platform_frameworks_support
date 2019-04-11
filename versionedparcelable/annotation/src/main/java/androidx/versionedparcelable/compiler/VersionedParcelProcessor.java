@@ -20,7 +20,6 @@ import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
-import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 
 import java.io.IOException;
@@ -215,8 +214,9 @@ public class VersionedParcelProcessor extends AbstractProcessor {
         AnnotationSpec restrictTo = AnnotationSpec.builder(RESTRICT_TO)
                 .addMember("value", "$T.LIBRARY", RESTRICT_TO_SCOPE)
                 .build();
+        ClassName type = ClassName.get((TypeElement) versionedParcelable);
         TypeSpec.Builder genClass = TypeSpec
-                .classBuilder(versionedParcelable.getSimpleName() + GEN_SUFFIX)
+                .classBuilder(String.join("$", type.simpleNames()) + GEN_SUFFIX)
                 .addJavadoc("@hide\n")
                 .addAnnotation(restrictTo)
                 .addModifiers(Modifier.PUBLIC);
@@ -227,7 +227,6 @@ public class VersionedParcelProcessor extends AbstractProcessor {
         ArrayList<VariableElement> parcelFields = new ArrayList<>();
         findFields(fields, parcelFields);
 
-        TypeName type = ClassName.get((TypeElement) versionedParcelable);
         AnnotationSpec suppressUncheckedWarning = AnnotationSpec.builder(
                 ClassName.get("java.lang", "SuppressWarnings"))
                 .addMember("value", "$S", "unchecked")
