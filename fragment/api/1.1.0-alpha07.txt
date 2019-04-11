@@ -110,6 +110,8 @@ package androidx.fragment.app {
     method public void onViewCreated(android.view.View, android.os.Bundle?);
     method @CallSuper public void onViewStateRestored(android.os.Bundle?);
     method public void postponeEnterTransition();
+    method public void postponeEnterTransition(long, java.util.concurrent.TimeUnit);
+    method @RequiresApi(26) public void postponeEnterTransition(java.time.Duration);
     method public void registerForContextMenu(android.view.View);
     method public final void requestPermissions(String[], int);
     method public final androidx.fragment.app.FragmentActivity requireActivity();
