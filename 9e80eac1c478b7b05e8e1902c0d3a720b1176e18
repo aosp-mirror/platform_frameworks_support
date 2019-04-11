@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c24e9456_27b56c36",
+        "filename": "work/workmanager-testing/api/current.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-11T23:06:47Z",
+      "side": 1,
+      "message": "This feels weird, it seems like developers should just be able to do WorkParametersBuilder() to construct an instance.",
+      "range": {
+        "startLine": 11,
+        "startChar": 64,
+        "endLine": 11,
+        "endChar": 90
+      },
+      "revId": "9e80eac1c478b7b05e8e1902c0d3a720b1176e18",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a174872_244b949f",
+        "filename": "work/workmanager-testing/src/androidTest/java/androidx/work/testing/WorkerParametersBuilderTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-11T23:06:47Z",
+      "side": 1,
+      "message": "Please rewrite in Kotlin",
+      "range": {
+        "startLine": 47,
+        "startChar": 13,
+        "endLine": 47,
+        "endChar": 40
+      },
+      "revId": "9e80eac1c478b7b05e8e1902c0d3a720b1176e18",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a71a355e_b9f9442a",
+        "filename": "work/workmanager-testing/src/androidTest/java/androidx/work/testing/WorkerParametersBuilderTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-11T23:06:47Z",
+      "side": 1,
+      "message": "Replace this with the public equivalent",
+      "range": {
+        "startLine": 60,
+        "startChar": 8,
+        "endLine": 60,
+        "endChar": 42
+      },
+      "revId": "9e80eac1c478b7b05e8e1902c0d3a720b1176e18",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
