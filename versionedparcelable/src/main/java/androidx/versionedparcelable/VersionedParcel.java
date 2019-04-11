@@ -1623,16 +1623,38 @@ public abstract class VersionedParcel {
         return m;
     }
 
+    private String getGeneratedClassName(Class cls) {
+        final String className = cls.getName();
+        final int lastDot = className.lastIndexOf(".");
+        if (lastDot < 0) {
+            return String.format("$%sParcelizer", className);
+        } else {
+            return String.format(
+                    "%s.$%sParcelizer",
+                    className.substring(0, lastDot),
+                    className.substring(lastDot + 1));
+        }
+    }
+
     private Class findParcelClass(Class<? extends VersionedParcelable> cls)
             throws ClassNotFoundException {
         Class ret = mParcelizerCache.get(cls.getName());
         if (ret == null) {
-            String pkg = cls.getPackage().getName();
-            String c = String.format("%s.%sParcelizer", pkg, cls.getSimpleName());
-            ret = Class.forName(c, false, cls.getClassLoader());
+            try {
+                ret = Class.forName(getGeneratedClassName(cls), false, cls.getClassLoader());
+            } catch (ClassNotFoundException ex) {
+                ret = findOldParcelClass(cls);
+            }
             mParcelizerCache.put(cls.getName(), ret);
         }
         return ret;
+    }
+
+    private Class findOldParcelClass(Class<? extends VersionedParcelable> cls)
+            throws ClassNotFoundException {
+        String pkg = cls.getPackage().getName();
+        String c = String.format("%s.%sParcelizer", pkg, cls.getSimpleName());
+        return Class.forName(c, false, cls.getClassLoader());
     }
 
     /**
