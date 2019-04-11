@@ -16,6 +16,8 @@
 
 package androidx.fragment.app;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModel;
@@ -83,6 +85,9 @@ class FragmentManagerViewModel extends ViewModel {
 
     @Override
     protected void onCleared() {
+        if (FragmentManagerImpl.DEBUG) {
+            Log.d(FragmentManagerImpl.TAG, "onCleared called for " + this);
+        }
         mHasBeenCleared = true;
     }
 
@@ -140,6 +145,9 @@ class FragmentManagerViewModel extends ViewModel {
     }
 
     void clearNonConfigState(@NonNull Fragment f) {
+        if (FragmentManagerImpl.DEBUG) {
+            Log.d(FragmentManagerImpl.TAG, "Clearing non-config state for " + f);
+        }
         // Clear and remove the Fragment's child non config state
         FragmentManagerViewModel childNonConfig = mChildNonConfigs.get(f.mWho);
         if (childNonConfig != null) {
