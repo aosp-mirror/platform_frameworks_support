@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "57aefc45_e395a886",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1010674
+      },
+      "writtenOn": "2019-04-11T20:50:01Z",
+      "side": 1,
+      "message": "nit: too long titles do not fit on the screen. \nsimply say:\n\nAdd setOverflowMenuShown and deprecate hide/show OverflowMenu methods",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 8,
+        "endChar": 37
+      },
+      "revId": "785091df2360b59be8a6532eac392fa2e449bebb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
