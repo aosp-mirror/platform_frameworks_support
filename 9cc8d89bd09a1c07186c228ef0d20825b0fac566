@@ -70,6 +70,30 @@
       "revId": "9cc8d89bd09a1c07186c228ef0d20825b0fac566",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e86c0509_71b91aa0",
+        "filename": "media2/src/main/java/androidx/media2/MediaPlayer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2008,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-04-11T08:22:48Z",
+      "side": 1,
+      "message": "Q) Is it okay not to have @RestrictTo annotation?",
+      "parentUuid": "899c8e68_b4136002",
+      "range": {
+        "startLine": 2008,
+        "startChar": 7,
+        "endLine": 2008,
+        "endChar": 12
+      },
+      "revId": "9cc8d89bd09a1c07186c228ef0d20825b0fac566",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
