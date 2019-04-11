@@ -46,6 +46,30 @@
       "revId": "56b931ee247f9364da7d8b70c1e7a36763f206bd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ac639a48_8468d0b8",
+        "filename": "webkit/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-04-11T19:04:48Z",
+      "side": 1,
+      "message": "I\u0027ll leave as-is. We might potentially run into trouble hard-coding a hamcrest version. OTOH it\u0027s probably not so bad to depend upon more than we need",
+      "parentUuid": "01328446_0e5d1ace",
+      "range": {
+        "startLine": 38,
+        "startChar": 4,
+        "endLine": 38,
+        "endChar": 74
+      },
+      "revId": "56b931ee247f9364da7d8b70c1e7a36763f206bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
