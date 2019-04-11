@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4869fcdd_f9cc8bd0",
+        "filename": "car/core/api/current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2019-04-11T17:40:44Z",
+      "side": 1,
+      "message": "it doesn\u0027t seem like this method is being used (probably because overflow menu is less likely to be requested to pop up programmatically)",
+      "range": {
+        "startLine": 295,
+        "startChar": 35,
+        "endLine": 295,
+        "endChar": 51
+      },
+      "revId": "c611d0d426ea012e4f837a938c339f02546ae626",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
