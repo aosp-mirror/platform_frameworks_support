@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "71e14d44_c1669ac2",
+        "filename": "work/workmanager-ktx/api/current.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-04-11T16:51:49Z",
+      "side": 1,
+      "message": "This indicates that the return type is nullable.  Can we explicitly declare it to be non-nullable?  (And then re-generate this file.)",
+      "range": {
+        "startLine": 25,
+        "startChar": 115,
+        "endLine": 25,
+        "endChar": 116
+      },
+      "revId": "6b48fb34d9d0a6d8f57cdd0c61e92f3a9fa1358b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8f4d7d74_4cc52243",
         "filename": "work/workmanager-ktx/src/main/java/androidx/work/OneTimeWorkRequest.kt",
         "patchSetId": 3
