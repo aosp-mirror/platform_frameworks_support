@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0f83f253_ac016305",
+        "filename": "media2/src/main/java/androidx/media2/VideoSize.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-04-11T07:49:37Z",
+      "side": 1,
+      "message": "There is a annotation @IntRange for describing the allowed value.\n\nhttps://cs.corp.google.com/aosp-androidx/media2/src/main/java/androidx/media2/MediaController.java?rcl\u003d9a84478fc03104190a62b24320d57254ca60a598\u0026l\u003d887",
+      "range": {
+        "startLine": 39,
+        "startChar": 21,
+        "endLine": 39,
+        "endChar": 42
+      },
+      "revId": "01aa240528999d125f284ac1f276cdc9f50263dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
