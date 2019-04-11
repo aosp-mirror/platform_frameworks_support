@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b8afe674_4a62cf40",
+        "filename": "fragment/src/main/java/androidx/fragment/app/BackStackRecord.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-11T16:27:12Z",
+      "side": 1,
+      "message": "We can\u0027t move Fragments back to INITIALIZED either, so this should be CREATED",
+      "range": {
+        "startLine": 393,
+        "startChar": 45,
+        "endLine": 393,
+        "endChar": 56
+      },
+      "revId": "72e224bb5f2beb42ce847df65b71a42cfbbbf083",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a1177e45_ab5f91f1",
+        "filename": "fragment/src/main/java/androidx/fragment/app/BackStackRecord.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-11T16:27:12Z",
+      "side": 1,
+      "message": "You can\u0027t do this here - you\u0027ll need to handle this as part of executeOps and ensure that you\u0027re keeping the old state such that you can change it back when popped.",
+      "range": {
+        "startLine": 397,
+        "startChar": 8,
+        "endLine": 400,
+        "endChar": 9
+      },
+      "revId": "72e224bb5f2beb42ce847df65b71a42cfbbbf083",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a37d1857_d2882b99",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentTransaction.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-11T16:27:12Z",
+      "side": 1,
+      "message": "Instead of throwing an exception, can you make this just Log.w() saying that this must be overridden to pass the lifecycle onto the FragmentManager.\n\nI think the correct solution might be to restructure the relationship between FragmentTransaction and BackStackRecord so that these don\u0027t need to be abstract methods.",
+      "range": {
+        "startLine": 200,
+        "startChar": 8,
+        "endLine": 200,
+        "endChar": 81
+      },
+      "revId": "72e224bb5f2beb42ce847df65b71a42cfbbbf083",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
