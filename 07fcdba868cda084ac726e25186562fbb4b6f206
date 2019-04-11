@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "fdf1cd24_2b92bf23",
+        "filename": "versionedparcelable/annotation/src/main/java/androidx/versionedparcelable/compiler/VersionedParcelProcessor.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2019-04-11T17:29:34Z",
+      "side": 1,
+      "message": "mmm, not sure do I follow it :)\n\nYou mean the case if the original class has the \u0027Parcelizer\u0027 suffix? \nThen we will generate class like {SomethingParcelizer}Parcelizer, which is fine?\n\nThanks.",
+      "parentUuid": "0d715892_29a9eb24",
+      "revId": "07fcdba868cda084ac726e25186562fbb4b6f206",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2dd3b708_e8c2b0e8",
         "filename": "versionedparcelable/src/main/java/androidx/versionedparcelable/VersionedParcel.java",
         "patchSetId": 5
@@ -33,6 +51,24 @@
       "revId": "07fcdba868cda084ac726e25186562fbb4b6f206",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb886d37_f955957f",
+        "filename": "versionedparcelable/src/main/java/androidx/versionedparcelable/VersionedParcel.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1630,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2019-04-11T17:29:34Z",
+      "side": 1,
+      "message": "ah, I see. Done.",
+      "parentUuid": "2dd3b708_e8c2b0e8",
+      "revId": "07fcdba868cda084ac726e25186562fbb4b6f206",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
