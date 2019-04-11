@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "faccc048_2b94b2ac",
+        "filename": "work/workmanager-ktx/api/current.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1367449
+      },
+      "writtenOn": "2019-04-11T19:36:20Z",
+      "side": 1,
+      "message": "From go/metalava:\nthe signature format now uses a suffix of `?` for nullable, `!` for not yet annotated, and nothing for non-null.\n\nSo, in this case there\u0027s a missing annotation, but it seems to me more of an issue in Metalava than a really missing annotation.\nI\u0027ve tried specifying a non-null return type to the function, but the API it\u0027s still generated with the \"!\":\n\ninline fun \u003creified W : ListenableWorker\u003e OneTimeWorkRequestFrom() : OneTimeWorkRequest \u003d\n        OneTimeWorkRequest.from(W::class.java)",
+      "parentUuid": "71e14d44_c1669ac2",
+      "range": {
+        "startLine": 25,
+        "startChar": 115,
+        "endLine": 25,
+        "endChar": 116
+      },
+      "revId": "6b48fb34d9d0a6d8f57cdd0c61e92f3a9fa1358b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8f4d7d74_4cc52243",
         "filename": "work/workmanager-ktx/src/main/java/androidx/work/OneTimeWorkRequest.kt",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2019-04-11T15:57:17Z",
       "side": 1,
       "message": "I think this can be just OneTimeWorkRequest(). It\u0027s cleaner and it looks like a constructor.",
+      "range": {
+        "startLine": 34,
+        "startChar": 42,
+        "endLine": 34,
+        "endChar": 64
+      },
+      "revId": "6b48fb34d9d0a6d8f57cdd0c61e92f3a9fa1358b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "696eb26b_5de6f8fa",
+        "filename": "work/workmanager-ktx/src/main/java/androidx/work/OneTimeWorkRequest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1367449
+      },
+      "writtenOn": "2019-04-11T19:36:20Z",
+      "side": 1,
+      "message": "Having something like OneTimeWorkRequest\u003cTestWorker\u003e() works but confuses AndroidStudio linter (\"No Type arguments expected for constructo OneTimeWorkRequest()\"):\n\nhttps://drive.google.com/file/d/1Rput-JMwvfyfVx_Sp9AcNbbP1gckFdBQ/view?usp\u003dsharing\n\nand I don\u0027t like much that this is shadowing the real constructor",
+      "parentUuid": "8f4d7d74_4cc52243",
       "range": {
         "startLine": 34,
         "startChar": 42,
