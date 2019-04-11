@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "abe6c36a_8b5fbd71",
+        "filename": "work/workmanager-testing/api/current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-11T16:15:03Z",
+      "side": 1,
+      "message": "drainUntilFinished would match WorkInfo.State.isFinished() and make it more clear what state you\u0027ll be afterwards.",
+      "range": {
+        "startLine": 10,
+        "startChar": 23,
+        "endLine": 10,
+        "endChar": 28
+      },
+      "revId": "0e4a3aa70149d5e23544e6322c522a23aadcd2fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
