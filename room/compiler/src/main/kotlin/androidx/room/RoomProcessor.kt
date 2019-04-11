@@ -17,6 +17,7 @@
 package androidx.room
 
 import androidx.room.checker.AutoValueTargetChecker
+import androidx.room.ext.parsePackageOverrideConfig
 import androidx.room.processor.Context
 import androidx.room.processor.DatabaseProcessor
 import androidx.room.processor.MissingTypeException
@@ -55,7 +56,8 @@ class RoomProcessor : BasicAnnotationProcessor() {
         override fun process(
             elementsByAnnotation: SetMultimap<Class<out Annotation>, Element>
         ): MutableSet<Element> {
-            val context = Context(processingEnv)
+            val context = Context(processingEnv).also {
+                it.packageOverrideConfig?.let { file -> parsePackageOverrideConfig(file) } }
             val rejectedElements = mutableSetOf<Element>()
             val databases = elementsByAnnotation[Database::class.java]
                     ?.mapNotNull {
