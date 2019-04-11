@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ea0af3ca_0c14c166",
+        "filename": "fragment/src/main/java/androidx/fragment/app/BackStackRecord.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-11T23:39:33Z",
+      "side": 1,
+      "message": "Generally, we try to do super calls first. I think in this case it doesn\u0027t matter, so let\u0027s swap the ordering here.",
+      "range": {
+        "startLine": 177,
+        "startChar": 8,
+        "endLine": 178,
+        "endChar": 61
+      },
+      "revId": "d8ae51ded6077f68009fa15116a4a448f0d34ce7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "770de2c9_443261a6",
+        "filename": "fragment/src/main/java/androidx/fragment/app/BackStackRecord.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-11T23:39:33Z",
+      "side": 1,
+      "message": "return super.remove(fragment);\n\nSame for all of the others",
+      "range": {
+        "startLine": 189,
+        "startChar": 8,
+        "endLine": 190,
+        "endChar": 20
+      },
+      "revId": "d8ae51ded6077f68009fa15116a4a448f0d34ce7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
