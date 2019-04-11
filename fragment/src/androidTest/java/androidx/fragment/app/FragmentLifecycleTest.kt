@@ -42,6 +42,7 @@ import org.junit.runner.RunWith
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.times
 import org.mockito.Mockito.verify
+import java.lang.IllegalArgumentException
 
 @RunWith(AndroidJUnit4::class)
 @MediumTest
@@ -243,6 +244,114 @@ class FragmentLifecycleTest {
             .that(newView1).isNotSameAs(origView1)
         assertWithMessage("fragment 1's view not attached")
             .that(ViewCompat.isAttachedToWindow(newView1)).isTrue()
+    }
+
+    @Test
+    @UiThreadTest
+    fun setMaxLifecycle() {
+        val viewModelStore = ViewModelStore()
+        val fc = FragmentController.createController(
+            ControllerHostCallbacks(activityRule.activity, viewModelStore)
+        )
+        fc.attachHost(null)
+        fc.dispatchCreate()
+
+        val fm = fc.supportFragmentManager
+
+        val fragment = StrictViewFragment()
+        fm.beginTransaction()
+            .add(android.R.id.content, fragment)
+            .setMaxLifecycle(fragment, Lifecycle.State.STARTED)
+            .commit()
+
+        fc.dispatchActivityCreated()
+        fc.dispatchStart()
+        fc.dispatchResume()
+
+        assertThat(fragment.lifecycle.currentState).isEqualTo(Lifecycle.State.STARTED)
+    }
+
+    @Test
+    @UiThreadTest
+    fun setMaxLifecycleForceState() {
+        val viewModelStore = ViewModelStore()
+        val fc = FragmentController.createController(
+            ControllerHostCallbacks(activityRule.activity, viewModelStore)
+        )
+        fc.attachHost(null)
+        fc.dispatchCreate()
+        fc.dispatchActivityCreated()
+
+        val fm = fc.supportFragmentManager
+
+        val fragment = StrictViewFragment()
+        fm.beginTransaction()
+            .add(android.R.id.content, fragment)
+            .commit()
+
+        fc.dispatchStart()
+        fc.dispatchResume()
+        assertThat(fragment.lifecycle.currentState).isEqualTo(Lifecycle.State.RESUMED)
+
+        fm.beginTransaction()
+            .setMaxLifecycle(fragment, Lifecycle.State.INITIALIZED)
+            .commit()
+        assertThat(fragment.lifecycle.currentState).isEqualTo(Lifecycle.State.INITIALIZED)
+    }
+
+    @Test
+    @UiThreadTest
+    fun setMaxLifecycleWrongFragmentManager() {
+        val viewModelStore = ViewModelStore()
+        val fc = FragmentController.createController(
+            ControllerHostCallbacks(activityRule.activity, viewModelStore)
+        )
+        fc.attachHost(null)
+        fc.dispatchCreate()
+        fc.dispatchActivityCreated()
+
+        val fm = fc.supportFragmentManager
+
+        val fragment = StrictViewFragment()
+        try {
+            fm.beginTransaction()
+                .setMaxLifecycle(fragment, Lifecycle.State.DESTROYED)
+                .commit()
+            fail("setting maxLifecycle on fragment not attached to fragment manager should throw" +
+                    " IllegalArgumentException")
+        } catch (e: IllegalArgumentException) {
+            assertThat(e)
+                .hasMessageThat()
+                .contains("Cannot setMaxLifecycle for Fragment not attached to" +
+                        " FragmentManager $fm")
+        }
+    }
+
+    @Test
+    @UiThreadTest
+    fun setMaxLifecycleDestroyed() {
+        val viewModelStore = ViewModelStore()
+        val fc = FragmentController.createController(
+            ControllerHostCallbacks(activityRule.activity, viewModelStore)
+        )
+        fc.attachHost(null)
+        fc.dispatchCreate()
+        fc.dispatchActivityCreated()
+
+        val fm = fc.supportFragmentManager
+
+        val fragment = StrictViewFragment()
+        try {
+            fm.beginTransaction()
+                .add(android.R.id.content, fragment)
+                .setMaxLifecycle(fragment, Lifecycle.State.DESTROYED)
+                .commit()
+            fail("setting maxLifecycle state to destroyed should throw IllegalArgumentException")
+        } catch (e: IllegalArgumentException) {
+            assertThat(e)
+                .hasMessageThat()
+                .contains("Cannot setMaxLifecycle to DESTROYED")
+        }
     }
 
     /**

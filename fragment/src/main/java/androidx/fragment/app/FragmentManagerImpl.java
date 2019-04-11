@@ -51,6 +51,7 @@ import androidx.collection.ArraySet;
 import androidx.core.util.DebugUtils;
 import androidx.core.util.LogWriter;
 import androidx.core.view.OneShotPreDrawListener;
+import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.ViewModelStore;
 import androidx.lifecycle.ViewModelStoreOwner;
 
@@ -1127,6 +1128,14 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
                 nextState = Math.min(nextState, Fragment.INITIALIZING);
             }
         }
+        // Lifecycle state initialized is 1 more that fragment state initialized
+        // so we adjust the state to ensure fragments can go to initialized.
+        if (f.mMaxState == Lifecycle.State.INITIALIZED) {
+            nextState = 0;
+        } else {
+            nextState = Math.min(nextState, f.mMaxState.ordinal());
+        }
+
         moveToState(f, nextState, f.getNextTransition(), f.getNextTransitionStyle(), false);
 
         if (f.mView != null) {
