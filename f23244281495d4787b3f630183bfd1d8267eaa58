@@ -22,6 +22,30 @@
       "revId": "f23244281495d4787b3f630183bfd1d8267eaa58",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b8e3f16_f9245cab",
+        "filename": "fragment/src/main/java/androidx/fragment/app/BackStackRecord.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1442279
+      },
+      "writtenOn": "2019-04-11T22:38:22Z",
+      "side": 1,
+      "message": "I am moving Op over to FragmentTransactions as post of aosp/943726. Repohooks were giving me problems, so I split this into another change.",
+      "parentUuid": "ca8b914d_9f669053",
+      "range": {
+        "startLine": 52,
+        "startChar": 12,
+        "endLine": 52,
+        "endChar": 16
+      },
+      "revId": "f23244281495d4787b3f630183bfd1d8267eaa58",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
