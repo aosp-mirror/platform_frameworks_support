@@ -22,6 +22,30 @@
       "revId": "56b931ee247f9364da7d8b70c1e7a36763f206bd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "01328446_0e5d1ace",
+        "filename": "webkit/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1101490
+      },
+      "writtenOn": "2019-04-11T18:06:03Z",
+      "side": 1,
+      "message": "Looks like you could use \"org.hamcrest:hamcrest-library:1.3\" based upon what\u0027s here: https://cs.corp.google.com/piper///depot/google3/third_party/android/androidx_test/espresso/core/java/androidx/test/espresso/BUILD?rcl\u003d242723327\u0026l\u003d315 - up to you.",
+      "parentUuid": "e2c5f9dc_7e341150",
+      "range": {
+        "startLine": 38,
+        "startChar": 4,
+        "endLine": 38,
+        "endChar": 74
+      },
+      "revId": "56b931ee247f9364da7d8b70c1e7a36763f206bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
