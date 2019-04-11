@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0d715892_29a9eb24",
+        "filename": "versionedparcelable/annotation/src/main/java/androidx/versionedparcelable/compiler/VersionedParcelProcessor.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1345241
+      },
+      "writtenOn": "2019-04-11T16:55:59Z",
+      "side": 1,
+      "message": "What are your thoughts on separating the suffix to reduce the likelihood that it clashes with a top-level class, for example \"Outer$Inner$Parcelizer\" (psuedo-inner class) or \"Outer$Inner$$Parcelizer\" (not a name the compiler will normally make)?",
+      "revId": "07fcdba868cda084ac726e25186562fbb4b6f206",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2dd3b708_e8c2b0e8",
+        "filename": "versionedparcelable/src/main/java/androidx/versionedparcelable/VersionedParcel.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1630,
+      "author": {
+        "id": 1345241
+      },
+      "writtenOn": "2019-04-11T16:55:59Z",
+      "side": 1,
+      "message": "Because of transitive dependencies, it\u0027s possible for an app developer to have one dependency on an artifact compiled with the old version of the processor, and another on an artifact compiled with the new version of the processor, so there will be a mix of old generated class names and new generated class names in the runtime classpath. The newest version of the runtime depended on by the two artifacts will get used.\n\nWe\u0027ll need to support a fallback to the old generated class names indefinitely. I\u0027d recommend trying to load the class once with the new name, and then once with the old name if loading with the new name fails.",
+      "revId": "07fcdba868cda084ac726e25186562fbb4b6f206",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
