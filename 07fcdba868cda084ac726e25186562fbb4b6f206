@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "bbeff4fc_70aa35b3",
+        "filename": "versionedparcelable/annotation/src/main/java/androidx/versionedparcelable/compiler/VersionedParcelProcessor.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1060841
+      },
+      "writtenOn": "2019-04-11T18:54:31Z",
+      "side": 1,
+      "message": "Gotcha.\n\nAnd I stole your code :)\n\nThanks.",
+      "parentUuid": "bca87956_5ef9b715",
+      "revId": "07fcdba868cda084ac726e25186562fbb4b6f206",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2dd3b708_e8c2b0e8",
         "filename": "versionedparcelable/src/main/java/androidx/versionedparcelable/VersionedParcel.java",
         "patchSetId": 5
