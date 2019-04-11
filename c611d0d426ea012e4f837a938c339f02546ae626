@@ -22,6 +22,30 @@
       "revId": "c611d0d426ea012e4f837a938c339f02546ae626",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "622fcafc_0ea0aa48",
+        "filename": "car/core/api/current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-04-11T20:24:58Z",
+      "side": 1,
+      "message": "You\u0027re right, looks like these methods were never actually used anywhere. Removing.",
+      "parentUuid": "4869fcdd_f9cc8bd0",
+      "range": {
+        "startLine": 295,
+        "startChar": 35,
+        "endLine": 295,
+        "endChar": 51
+      },
+      "revId": "c611d0d426ea012e4f837a938c339f02546ae626",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
