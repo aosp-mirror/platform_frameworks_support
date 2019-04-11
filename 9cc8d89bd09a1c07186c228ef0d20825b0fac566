@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d8eafeb5_0d65aaa5",
+        "filename": "media2/src/main/java/androidx/media2/MediaPlayer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2008,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-04-11T03:57:17Z",
+      "side": 1,
+      "message": "This API is not hidden in this CL?",
+      "range": {
+        "startLine": 2008,
+        "startChar": 7,
+        "endLine": 2008,
+        "endChar": 12
+      },
+      "revId": "9cc8d89bd09a1c07186c228ef0d20825b0fac566",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
