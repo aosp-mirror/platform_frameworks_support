@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "dc8ef5a4_49345e9d",
+        "filename": "media2/src/main/java/androidx/media2/VideoSize.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-04-11T08:32:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0f83f253_ac016305",
+      "range": {
+        "startLine": 39,
+        "startChar": 21,
+        "endLine": 39,
+        "endChar": 42
+      },
+      "revId": "01aa240528999d125f284ac1f276cdc9f50263dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "064d03f3_a98f9631",
         "filename": "media2/src/main/java/androidx/media2/VideoSize.java",
         "patchSetId": 2
@@ -39,6 +63,24 @@
       "revId": "01aa240528999d125f284ac1f276cdc9f50263dc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97691c9a_682bdf94",
+        "filename": "media2/src/main/java/androidx/media2/VideoSize.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-04-11T08:32:15Z",
+      "side": 1,
+      "message": "@IntRange is added by the previous CL.",
+      "parentUuid": "064d03f3_a98f9631",
+      "revId": "01aa240528999d125f284ac1f276cdc9f50263dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -62,6 +104,30 @@
       "revId": "01aa240528999d125f284ac1f276cdc9f50263dc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27b385d0_20549f2b",
+        "filename": "media2/src/main/java/androidx/media2/VideoSize.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-04-11T08:32:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "58cadb4f_729bff68",
+      "range": {
+        "startLine": 60,
+        "startChar": 11,
+        "endLine": 60,
+        "endChar": 15
+      },
+      "revId": "01aa240528999d125f284ac1f276cdc9f50263dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
