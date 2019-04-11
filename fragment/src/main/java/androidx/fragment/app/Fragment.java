@@ -29,6 +29,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Looper;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -52,6 +53,7 @@ import androidx.annotation.LayoutRes;
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.annotation.RestrictTo;
 import androidx.annotation.StringRes;
 import androidx.core.app.SharedElementCallback;
@@ -73,7 +75,9 @@ import androidx.savedstate.SavedStateRegistryOwner;
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
 import java.lang.reflect.InvocationTargetException;
+import java.time.Duration;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Static library support version of the framework's {@link android.app.Fragment}.
@@ -2364,6 +2368,98 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
      */
     public void postponeEnterTransition() {
         ensureAnimationInfo().mEnterTransitionPostponed = true;
+    }
+
+    /**
+     * Postpone the entering Fragment transition for a given amount of time and then call
+     * {@link #startPostponedEnterTransition()}.
+     * <p>
+     * This method gives the Fragment the ability to delay Fragment animations for a given amount
+     * of time. Until then, the added, shown, and attached Fragments will be INVISIBLE and removed,
+     * hidden, and detached Fragments won't be have their Views removed. The transaction runs when
+     * all postponed added Fragments in the transaction have called
+     * {@link #startPostponedEnterTransition()}.
+     * <p>
+     * This method should be called before being added to the FragmentTransaction or
+     * in {@link #onCreate(Bundle)}, {@link #onAttach(Context)}, or
+     * {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}}.
+     * <p>
+     * When a FragmentTransaction is started that may affect a postponed FragmentTransaction,
+     * based on which containers are in their operations, the postponed FragmentTransaction
+     * will have its start triggered. The early triggering may result in faulty or nonexistent
+     * animations in the postponed transaction. FragmentTransactions that operate only on
+     * independent containers will not interfere with each other's postponement.
+     * <p>
+     * Calling postponeEnterTransition on Fragments with a null View will not postpone the
+     * transition. Likewise, postponement only works if
+     * {@link FragmentTransaction#setReorderingAllowed(boolean) FragmentTransaction reordering} is
+     * enabled.
+     *
+     * @param duration The length of the delay in {@code timeUnit} units
+     * @param timeUnit The units of time for {@code duration}
+     * @see Activity#postponeEnterTransition()
+     * @see FragmentTransaction#setReorderingAllowed(boolean)
+     */
+    public void postponeEnterTransition(long duration, @NonNull TimeUnit timeUnit) {
+        ensureAnimationInfo().mEnterTransitionPostponed = true;
+        Handler handler;
+        if (mFragmentManager != null) {
+            handler = mFragmentManager.mHost.getHandler();
+        } else {
+            handler = new Handler(Looper.getMainLooper());
+        }
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                startPostponedEnterTransition();
+            }
+        }, timeUnit.toMillis(duration));
+    }
+
+    /**
+     * Postpone the entering Fragment transition for a given duration and then call
+     * {@link #startPostponedEnterTransition()}.
+     * <p>
+     * This method gives the Fragment the ability to delay Fragment animations for a duration
+     * of time. Until then, the added, shown, and attached Fragments will be INVISIBLE and removed,
+     * hidden, and detached Fragments won't be have their Views removed. The transaction runs when
+     * all postponed added Fragments in the transaction have called
+     * {@link #startPostponedEnterTransition()}.
+     * <p>
+     * This method should be called before being added to the FragmentTransaction or
+     * in {@link #onCreate(Bundle)}, {@link #onAttach(Context)}, or
+     * {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}}.
+     * <p>
+     * When a FragmentTransaction is started that may affect a postponed FragmentTransaction,
+     * based on which containers are in their operations, the postponed FragmentTransaction
+     * will have its start triggered. The early triggering may result in faulty or nonexistent
+     * animations in the postponed transaction. FragmentTransactions that operate only on
+     * independent containers will not interfere with each other's postponement.
+     * <p>
+     * Calling postponeEnterTransition on Fragments with a null View will not postpone the
+     * transition. Likewise, postponement only works if
+     * {@link FragmentTransaction#setReorderingAllowed(boolean) FragmentTransaction reordering} is
+     * enabled.
+     *
+     * @param duration The length of the delay
+     * @see Activity#postponeEnterTransition()
+     * @see FragmentTransaction#setReorderingAllowed(boolean)
+     */
+    @RequiresApi(26)
+    public void postponeEnterTransition(@NonNull Duration duration) {
+        ensureAnimationInfo().mEnterTransitionPostponed = true;
+        Handler handler;
+        if (mFragmentManager != null) {
+            handler = mFragmentManager.mHost.getHandler();
+        } else {
+            handler = new Handler(Looper.getMainLooper());
+        }
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                startPostponedEnterTransition();
+            }
+        }, duration.toMillis());
     }
 
     /**
