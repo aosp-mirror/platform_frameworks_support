@@ -93,6 +93,30 @@
       "revId": "6b48fb34d9d0a6d8f57cdd0c61e92f3a9fa1358b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66277388_8d89a9b0",
+        "filename": "work/workmanager-ktx/src/main/java/androidx/work/OneTimeWorkRequest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2019-04-11T21:17:13Z",
+      "side": 1,
+      "message": "That is actually a common pattern with Jetbrains kotlin libraries. Job() in Couroutines is for e.g a factory function and is not a real constructor.\n\nOneTimeWorkRequestFrom\u003c\u003e is essentially OneTimeWorkRequestBuilder\u003c\u003e.build().\n\nHow about OneTimeWorkRequestOf\u003c\u003e if you can\u0027t use OneTimeWorkRequest\u003c\u003e() ?",
+      "parentUuid": "696eb26b_5de6f8fa",
+      "range": {
+        "startLine": 34,
+        "startChar": 42,
+        "endLine": 34,
+        "endChar": 64
+      },
+      "revId": "6b48fb34d9d0a6d8f57cdd0c61e92f3a9fa1358b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
