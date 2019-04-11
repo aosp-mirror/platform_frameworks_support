@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0722db9a_c47e9be1",
+        "filename": "viewpager2/api/1.0.0-alpha04.txt",
+        "patchSetId": 7
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-04-11T17:41:39Z",
+      "side": 1,
+      "message": "Could you explain why we are adding this one?",
+      "range": {
+        "startLine": 48,
+        "startChar": 23,
+        "endLine": 48,
+        "endChar": 39
+      },
+      "revId": "1f08e6a630d4012792188320c4ae828c1f751164",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5c42f37_035e6188",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 621,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-04-11T17:41:39Z",
+      "side": 1,
+      "message": "(s)",
+      "range": {
+        "startLine": 621,
+        "startChar": 11,
+        "endLine": 621,
+        "endChar": 12
+      },
+      "revId": "1f08e6a630d4012792188320c4ae828c1f751164",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83062a7d_084abdac",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 639,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-04-11T17:41:39Z",
+      "side": 1,
+      "message": "can be removed for improved readability",
+      "range": {
+        "startLine": 639,
+        "startChar": 72,
+        "endLine": 639,
+        "endChar": 89
+      },
+      "revId": "1f08e6a630d4012792188320c4ae828c1f751164",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "112b1fe3_c178702f",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 692,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-04-11T17:41:39Z",
+      "side": 1,
+      "message": "nit: early return if transformer \u003d\u003d mPageTransofrmerAdapter.getPageTransformer()",
+      "range": {
+        "startLine": 692,
+        "startChar": 74,
+        "endLine": 692,
+        "endChar": 75
+      },
+      "revId": "1f08e6a630d4012792188320c4ae828c1f751164",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b62c172_df108de9",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 792,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-04-11T17:41:39Z",
+      "side": 1,
+      "message": "return after super invocation",
+      "range": {
+        "startLine": 792,
+        "startChar": 16,
+        "endLine": 792,
+        "endChar": 73
+      },
+      "revId": "1f08e6a630d4012792188320c4ae828c1f751164",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aea10f77_ec2eae77",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 794,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-04-11T17:41:39Z",
+      "side": 1,
+      "message": "can be removed?",
+      "range": {
+        "startLine": 794,
+        "startChar": 39,
+        "endLine": 794,
+        "endChar": 55
+      },
+      "revId": "1f08e6a630d4012792188320c4ae828c1f751164",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
