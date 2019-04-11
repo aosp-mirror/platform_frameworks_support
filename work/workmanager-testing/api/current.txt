@@ -7,6 +7,8 @@ package androidx.work.testing {
   }
 
   public interface TestDriver {
+    method public void drain(java.util.UUID) throws java.lang.InterruptedException;
+    method public void drainAll() throws java.lang.InterruptedException;
     method public void setAllConstraintsMet(java.util.UUID);
     method public void setInitialDelayMet(java.util.UUID);
     method public void setPeriodDelayMet(java.util.UUID);

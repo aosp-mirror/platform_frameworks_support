@@ -34,6 +34,7 @@ import androidx.work.WorkManager;
 import androidx.work.WorkRequest;
 import androidx.work.impl.WorkManagerImpl;
 import androidx.work.testing.workers.CountingTestWorker;
+import androidx.work.testing.workers.TestListenableWorker;
 import androidx.work.testing.workers.TestWorker;
 
 import org.junit.Before;
@@ -159,6 +160,57 @@ public class TestSchedulerTest {
             WorkInfo requestStatus = workManager.getWorkInfoById(request.getId()).get();
             assertThat(requestStatus.getState().isFinished(), is(false));
         }
+    }
+
+    @Test
+    public void testListenableWorker_drain() throws InterruptedException, ExecutionException {
+        OneTimeWorkRequest request = createListenableWorkerRequest();
+        WorkManager workManager = WorkManager.getInstance(mContext);
+        workManager.enqueue(request);
+        mTestDriver.drain(request.getId());
+        WorkInfo requestStatus = workManager.getWorkInfoById(request.getId()).get();
+        assertThat(requestStatus.getState().isFinished(), is(true));
+    }
+
+    @Test
+    public void testListenableWorker_drain_alreadyCompleted()
+            throws InterruptedException, ExecutionException {
+        OneTimeWorkRequest request = createWorkRequest();
+        WorkManager workManager = WorkManager.getInstance(mContext);
+        workManager.enqueue(request);
+        mTestDriver.drain(request.getId());
+        WorkInfo requestStatus = workManager.getWorkInfoById(request.getId()).get();
+        assertThat(requestStatus.getState().isFinished(), is(true));
+    }
+
+    @Test
+    public void testListenableWorker_drain_whenCancel()
+            throws InterruptedException, ExecutionException {
+        OneTimeWorkRequest request = createListenableWorkerRequest();
+        WorkManager workManager = WorkManager.getInstance(mContext);
+        workManager.enqueue(request);
+        workManager.cancelWorkById(request.getId());
+        mTestDriver.drain(request.getId());
+        WorkInfo requestStatus = workManager.getWorkInfoById(request.getId()).get();
+        assertThat(requestStatus.getState().isFinished(), is(true));
+    }
+
+    @Test
+    public void testListenableWorker_drainAll() throws InterruptedException, ExecutionException {
+        OneTimeWorkRequest first = createListenableWorkerRequest();
+        OneTimeWorkRequest second = createListenableWorkerRequest();
+        WorkManager workManager = WorkManager.getInstance(mContext);
+        workManager.enqueue(first);
+        workManager.enqueue(second);
+        mTestDriver.drainAll();
+        WorkInfo firstStatus = workManager.getWorkInfoById(first.getId()).get();
+        WorkInfo secondStatus = workManager.getWorkInfoById(first.getId()).get();
+        assertThat(firstStatus.getState().isFinished(), is(true));
+        assertThat(secondStatus.getState().isFinished(), is(true));
+    }
+
+    private static OneTimeWorkRequest createListenableWorkerRequest() {
+        return new OneTimeWorkRequest.Builder(TestListenableWorker.class).build();
     }
 
     private static OneTimeWorkRequest createWorkRequest() {

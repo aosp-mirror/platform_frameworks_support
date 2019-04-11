@@ -55,4 +55,21 @@ public interface TestDriver {
      * @throws IllegalArgumentException if {@code workSpecId} is not enqueued
      */
     void setPeriodDelayMet(@NonNull UUID workSpecId);
+
+    /**
+     * Tells {@link TestDriver} to block until a {@link androidx.work.OneTimeWorkRequest} with a
+     * given workSpecId is {@link androidx.work.WorkInfo.State#isFinished()}
+     *
+     * @param workSpecId The {@link androidx.work.OneTimeWorkRequest}'s id
+     * @throws InterruptedException if the current thread is interrupted while waiting
+     */
+    void drain(@NonNull UUID workSpecId) throws InterruptedException;
+
+    /**
+     * Tells {@link TestDriver} to block until all {@link androidx.work.OneTimeWorkRequest}s are
+     * {@link androidx.work.WorkInfo.State#isFinished()}
+     *
+     * @throws InterruptedException if the current thread is interrupted while waiting
+     */
+    void drainAll() throws InterruptedException;
 }
