@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ca8b914d_9f669053",
+        "filename": "fragment/src/main/java/androidx/fragment/app/BackStackRecord.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-04-11T22:20:04Z",
+      "side": 1,
+      "message": "This was really borderline. public fields don\u0027t use the \u0027m\u0027 prefix. This isn\u0027t a public class and the fields are as public as the class. So, it may be ok to leave as-is.",
+      "range": {
+        "startLine": 52,
+        "startChar": 12,
+        "endLine": 52,
+        "endChar": 16
+      },
+      "revId": "f23244281495d4787b3f630183bfd1d8267eaa58",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
