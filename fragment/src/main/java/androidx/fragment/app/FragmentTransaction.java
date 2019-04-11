@@ -30,6 +30,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.annotation.StringRes;
 import androidx.annotation.StyleRes;
+import androidx.lifecycle.Lifecycle;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -180,6 +181,21 @@ public abstract class FragmentTransaction {
      */
     @NonNull
     public abstract FragmentTransaction setPrimaryNavigationFragment(@Nullable Fragment fragment);
+
+    /**
+     * Set a ceiling for the state of an active fragment in this FragmentManager. If fragment is
+     * already above the received state, it will be forced down to the correct state.
+     *
+     * <p>The fragment provided must currently be added to the FragmentManager to have it's
+     * Lifecycle state capped, or previously added as part of this transaction.</p>
+     *
+     * @param fragment the fragment to have it's state capped.
+     * @param state the ceiling state for the fragment.
+     * @return the same FragmentTransaction instance
+     */
+    @NonNull
+    public abstract FragmentTransaction setMaxLifecycle(@NonNull Fragment fragment,
+            @NonNull Lifecycle.State state);
 
     /**
      * @return <code>true</code> if this transaction contains no operations,

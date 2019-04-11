@@ -23,6 +23,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.util.LogWriter;
 import androidx.core.view.ViewCompat;
+import androidx.lifecycle.Lifecycle;
 
 import java.io.PrintWriter;
 import java.lang.reflect.Modifier;
@@ -378,6 +379,25 @@ final class BackStackRecord extends FragmentTransaction implements
         }
         addOp(new Op(OP_SET_PRIMARY_NAV, fragment));
 
+        return this;
+    }
+
+    @NonNull
+    @Override
+    public FragmentTransaction setMaxLifecycle(@NonNull Fragment fragment,
+            @NonNull Lifecycle.State state) {
+        if (fragment.mFragmentManager != mManager) {
+            throw new IllegalArgumentException("Cannot setMaxLifecycle for Fragment not attached to"
+                    + " FragmentManager " + mManager);
+        }
+        if (!state.isAtLeast(Lifecycle.State.INITIALIZED)) {
+            throw new IllegalArgumentException("Cannot setMaxLifecycle to "
+                    + Lifecycle.State.DESTROYED);
+        }
+        fragment.mMaxState = state;
+        if (fragment.mState > state.ordinal()) {
+            mManager.moveFragmentToExpectedState(fragment);
+        }
         return this;
     }
 
