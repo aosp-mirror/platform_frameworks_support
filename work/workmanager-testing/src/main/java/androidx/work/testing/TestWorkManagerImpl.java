@@ -21,7 +21,10 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.annotation.RestrictTo;
 import androidx.work.Configuration;
+import androidx.work.ListenableWorker;
 import androidx.work.WorkManager;
+import androidx.work.WorkerFactory;
+import androidx.work.WorkerParameters;
 import androidx.work.impl.Scheduler;
 import androidx.work.impl.WorkManagerImpl;
 import androidx.work.impl.utils.taskexecutor.TaskExecutor;
@@ -87,8 +90,9 @@ class TestWorkManagerImpl extends WorkManagerImpl implements TestDriver {
         getProcessor().addExecutionListener(mScheduler);
     }
 
+    @NonNull
     @Override
-    public @NonNull List<Scheduler> createSchedulers(Context context) {
+    public List<Scheduler> createSchedulers(Context context) {
         mScheduler = new TestScheduler(context);
         return Collections.singletonList((Scheduler) mScheduler);
     }
@@ -106,5 +110,39 @@ class TestWorkManagerImpl extends WorkManagerImpl implements TestDriver {
     @Override
     public void setPeriodDelayMet(@NonNull UUID workSpecId) {
         mScheduler.setPeriodDelayMet(workSpecId);
+    }
+
+    @NonNull
+    @Override
+    public WorkerParametersBuilder newWorkerParametersBuilder() {
+        WorkerParametersBuilder builder = new WorkerParametersBuilder();
+        Configuration configuration = getConfiguration();
+        return builder.setBackgroundExector(configuration.getExecutor())
+                .setWorkerFactory(configuration.getWorkerFactory())
+                .setTaskExecutor(getWorkTaskExecutor());
+    }
+
+    @NonNull
+    @Override
+    @SuppressWarnings("unchecked")
+    public <T extends ListenableWorker> T newWorker(
+            @NonNull Class<T> workerKlass,
+            @NonNull WorkerParameters workerParameters) {
+
+        WorkerFactory factory = workerParameters.getWorkerFactory();
+
+        ListenableWorker worker = factory.createWorkerWithDefaultFallback(
+                getApplicationContext(),
+                workerKlass.getName(),
+                workerParameters);
+
+        if (worker == null) {
+            throw new IllegalArgumentException(
+                    String.format("Worker %s could not be instantiated.", workerKlass.getName()));
+        } else if (!workerKlass.isInstance(worker)) {
+            throw new IllegalArgumentException(
+                    String.format("Worker cannot be cast to %s", workerKlass.getName()));
+        }
+        return (T) worker;
     }
 }
