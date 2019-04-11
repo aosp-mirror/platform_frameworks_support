@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b0a55a3d_6c27f51d",
+        "filename": "lifecycle/runtime/eap/lint/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-04-11T20:05:37Z",
+      "side": 1,
+      "message": "use rootProject.projectDir. actually, i think we alreadh have a constant coming from buildSrc for prebuilts directory, we are better off using that if possible (so that if prebuilts move, this won\u0027t break).\nIf it is not exposed from buildSrc, lets expose it.",
+      "range": {
+        "startLine": 28,
+        "startChar": 23,
+        "endLine": 28,
+        "endChar": 41
+      },
+      "revId": "7e6b2f176530194543471756a9f4b6cfda760912",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "320ac43e_3dcf01c6",
+        "filename": "lifecycle/runtime/eap/lint/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-04-11T20:05:37Z",
+      "side": 1,
+      "message": "lets name this less generic, more specific? maybe sdkResourcesForTest sth like that ?",
+      "range": {
+        "startLine": 29,
+        "startChar": 46,
+        "endLine": 29,
+        "endChar": 55
+      },
+      "revId": "7e6b2f176530194543471756a9f4b6cfda760912",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a464b3a_7cf2f903",
+        "filename": "lifecycle/runtime/eap/lint/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-04-11T20:05:37Z",
+      "side": 1,
+      "message": "this logic should exists someone in the buildSrc as well, lets export from there and re-use",
+      "range": {
+        "startLine": 41,
+        "startChar": 8,
+        "endLine": 46,
+        "endChar": 58
+      },
+      "revId": "7e6b2f176530194543471756a9f4b6cfda760912",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
