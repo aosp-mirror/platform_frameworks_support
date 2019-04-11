@@ -107,4 +107,14 @@ class TestWorkManagerImpl extends WorkManagerImpl implements TestDriver {
     public void setPeriodDelayMet(@NonNull UUID workSpecId) {
         mScheduler.setPeriodDelayMet(workSpecId);
     }
+
+    @Override
+    public void drain(@NonNull UUID workSpecId) throws InterruptedException {
+        mScheduler.getTracker().await(new Drainable.DrainWorkSpec(workSpecId.toString()));
+    }
+
+    @Override
+    public void drainAll() throws InterruptedException {
+        mScheduler.getTracker().await(new Drainable.DrainAll());
+    }
 }
