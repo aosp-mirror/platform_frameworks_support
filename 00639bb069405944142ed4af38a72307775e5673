@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a3adb9d_7677dea8",
+        "filename": "fragment/api/current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-11T23:08:13Z",
+      "side": 1,
+      "message": "This should probably remain on BackStackRecord and not be moved over.",
+      "range": {
+        "startLine": 366,
+        "startChar": 4,
+        "endLine": 366,
+        "endChar": 46
+      },
+      "revId": "00639bb069405944142ed4af38a72307775e5673",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "523f38eb_da07017d",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentTransaction.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-11T23:08:13Z",
+      "side": 1,
+      "message": "I\u0027d really prefer if FragmentTransaction doesn\u0027t know about a FragmentManagerImpl / FragmentManager.\n\nWould it be possible to move the work that relies on FragmentManager to @Override versions of the methods in BackStackRecord?",
+      "range": {
+        "startLine": 101,
+        "startChar": 4,
+        "endLine": 107,
+        "endChar": 5
+      },
+      "revId": "00639bb069405944142ed4af38a72307775e5673",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
