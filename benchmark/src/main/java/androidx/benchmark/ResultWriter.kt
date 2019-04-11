@@ -63,8 +63,8 @@ internal object ResultWriter {
         val separator: String? = null,
         val reportFormatter: (BenchmarkState.Report, String, String) -> String
     ) {
-        val context = InstrumentationRegistry.getInstrumentation().targetContext!!
-        val file = File("${context.filesDir}/benchmarkdata.$extension")
+        private val context = InstrumentationRegistry.getInstrumentation().targetContext!!
+        val file = File("${context.filesDir}/benchmark_reports/benchmarkdata.$extension")
         var currentContent = initial
 
         val fullFileContent: String
@@ -103,6 +103,7 @@ internal object ResultWriter {
             fileManager.append(report, WarningState.WARNING_PREFIX + name, className)
             fileManager.file.run {
                 if (!exists()) {
+                    parentFile.mkdirs()
                     createNewFile()
                 }
                 // Currently, we just overwrite the whole file
