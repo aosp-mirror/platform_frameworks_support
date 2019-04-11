@@ -16,13 +16,14 @@
 
 package androidx.room.ext
 
-import androidx.room.RoomProcessor
+import java.io.File
 
 /**
- * Map of dejetified packages names. Useful for letting Room know which packages names to use
- * when generating code in a dejetified environment. To use this map add a resource file named
- * 'dejetifier.config' containing one key-value pair per line separated by '=' where the key is
- * the androidx package name to dejetify and the value is the dejetified package name.
+ * Map of overridden packages names. Useful for letting Room know which packages names to use
+ * when generating code in a dejetified environment. To use this map pass to the annotation
+ * processor parameter 'room.packageOverrideConfig' with the file location of a file containing
+ * one key-value pair per line separated by '=' where the key is the androidx package name to
+ * override and the value is the dejetified package name.
  *
  * Example of a typical config:
  * ```
@@ -33,21 +34,21 @@ import androidx.room.RoomProcessor
  * androidx.collection = com.android.support
  * ```
  */
-private val PACKAGE_NAME_OVERRIDES: Map<String, String> by lazy {
-    RoomProcessor::class.java.classLoader.getResourceAsStream("dejetifier.config")?.reader()?.use {
-        try {
+private val PACKAGE_NAME_OVERRIDES: MutableMap<String, String> = mutableMapOf()
+internal fun parsePackageOverrideConfig(file: File) {
+    try {
+        file.bufferedReader().use {
             it.readLines()
                 .filterNot { it.startsWith('#') }
-                .associate { it.split('=').let { split -> split[0].trim() to split[1].trim() } }
-        } catch (ex: Exception) {
-            throw RuntimeException("Malformed dejetifier.config file.", ex)
-        }
-    } ?: emptyMap()
+                .map { it.split('=').let { split -> split[0].trim() to split[1].trim() } }
+        }.let { PACKAGE_NAME_OVERRIDES.putAll(it) }
+    } catch (ex: Exception) {
+        throw RuntimeException("Unable to parse package override config file.", ex)
+    }
 }
+val SQLITE_PACKAGE: String by lazyGetOrDefault("androidx.sqlite")
+val ROOM_PACKAGE: String by lazyGetOrDefault("androidx.room")
+val PAGING_PACKAGE: String by lazyGetOrDefault("androidx.paging")
+val COLLECTION_PACKAGE: String by lazyGetOrDefault("androidx.collection")
 
-val SQLITE_PACKAGE = getOrDefault("androidx.sqlite")
-val ROOM_PACKAGE = getOrDefault("androidx.room")
-val PAGING_PACKAGE = getOrDefault("androidx.paging")
-val COLLECTION_PACKAGE = getOrDefault("androidx.collection")
-
-private fun getOrDefault(key: String) = PACKAGE_NAME_OVERRIDES.getOrDefault(key, key)
+private fun lazyGetOrDefault(key: String) = lazy { PACKAGE_NAME_OVERRIDES.getOrDefault(key, key) }

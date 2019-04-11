@@ -75,7 +75,16 @@ class Context private constructor(
 
     val schemaOutFolder by lazy {
         val arg = processingEnv.options[ProcessorOptions.OPTION_SCHEMA_FOLDER.argName]
-        if (arg?.isNotEmpty() ?: false) {
+        if (arg?.isNotEmpty() == true) {
+            File(arg)
+        } else {
+            null
+        }
+    }
+
+    val packageOverrideConfig by lazy {
+        val arg = processingEnv.options[ProcessorOptions.OPTION_PACKAGE_OVERRIDE_CONFIG.argName]
+        if (arg?.isNotEmpty() == true) {
             File(arg)
         } else {
             null
@@ -117,6 +126,7 @@ class Context private constructor(
     }
 
     enum class ProcessorOptions(val argName: String) {
-        OPTION_SCHEMA_FOLDER("room.schemaLocation")
+        OPTION_SCHEMA_FOLDER("room.schemaLocation"),
+        OPTION_PACKAGE_OVERRIDE_CONFIG("room.packageOverrideConfig")
     }
 }
