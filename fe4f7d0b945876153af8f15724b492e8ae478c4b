@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "086bfb45_dd559d2c",
+        "filename": "car/core/api/1.0.0-alpha8.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2019-04-11T17:33:17Z",
+      "side": 1,
+      "message": "there doesn\u0027t seem to be anyone using this method. how about removing it?",
+      "range": {
+        "startLine": 403,
+        "startChar": 12,
+        "endLine": 403,
+        "endChar": 22
+      },
+      "revId": "fe4f7d0b945876153af8f15724b492e8ae478c4b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "12c29ada_bff6fcaf",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedListView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1340,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2019-04-11T17:33:17Z",
+      "side": 1,
+      "message": "how about adding a method named ensureAlphaJumpView() to make it more readable?\n\ntoolbar has a bunch of ensure*View()\nhttps://cs.corp.google.com/aosp-androidx/appcompat/src/main/java/androidx/appcompat/widget/Toolbar.java?q\u003df:toolbar.java\u0026sq\u003dpackage:android\u0026dr\u0026l\u003d1480",
+      "range": {
+        "startLine": 1336,
+        "startChar": 12,
+        "endLine": 1340,
+        "endChar": 13
+      },
+      "revId": "fe4f7d0b945876153af8f15724b492e8ae478c4b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
