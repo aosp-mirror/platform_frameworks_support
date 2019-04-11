@@ -7,6 +7,8 @@ package androidx.work.testing {
   }
 
   public interface TestDriver {
+    method public <T extends androidx.work.ListenableWorker> T newWorker(Class<T>, androidx.work.WorkerParameters);
+    method public androidx.work.testing.WorkerParametersBuilder newWorkerParameterBuilder();
     method public void setAllConstraintsMet(java.util.UUID);
     method public void setInitialDelayMet(java.util.UUID);
     method public void setPeriodDelayMet(java.util.UUID);
@@ -17,6 +19,17 @@ package androidx.work.testing {
     method public static androidx.work.testing.TestDriver? getTestDriver(android.content.Context);
     method public static void initializeTestWorkManager(android.content.Context);
     method public static void initializeTestWorkManager(android.content.Context, androidx.work.Configuration);
+  }
+
+  public class WorkerParametersBuilder {
+    method public androidx.work.WorkerParameters build();
+    method public androidx.work.testing.WorkerParametersBuilder setId(java.util.UUID);
+    method public androidx.work.testing.WorkerParametersBuilder setInputData(androidx.work.Data);
+    method @RequiresApi(28) public androidx.work.testing.WorkerParametersBuilder! setNetwork(android.net.Network);
+    method public androidx.work.testing.WorkerParametersBuilder setRunAttemptCount(int);
+    method public androidx.work.testing.WorkerParametersBuilder setTags(java.util.List<java.lang.String>);
+    method @RequiresApi(24) public androidx.work.testing.WorkerParametersBuilder setTriggeredContentAuthorities(java.util.List<java.lang.String>);
+    method @RequiresApi(24) public androidx.work.testing.WorkerParametersBuilder setTriggeredContentUris(java.util.List<android.net.Uri>);
   }
 
 }

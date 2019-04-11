@@ -17,6 +17,8 @@
 package androidx.work.testing;
 
 import androidx.annotation.NonNull;
+import androidx.work.ListenableWorker;
+import androidx.work.WorkerParameters;
 
 import java.util.UUID;
 
@@ -55,4 +57,24 @@ public interface TestDriver {
      * @throws IllegalArgumentException if {@code workSpecId} is not enqueued
      */
     void setPeriodDelayMet(@NonNull UUID workSpecId);
+
+    /**
+     * @return The instance of {@link WorkerParametersBuilder} that can be used to build
+     * {@link androidx.work.WorkerParameters} for testing {@link androidx.work.ListenableWorker}
+     */
+    @NonNull
+    WorkerParametersBuilder newWorkerParameterBuilder();
+
+    /**
+     * Creates an instance of {@link ListenableWorker} which can be used for testing.
+     *
+     * @param <T>              The type extending {@link ListenableWorker}
+     * @param workerKlass      The class extending {@link ListenableWorker}
+     * @param workerParameters The {@link WorkerParameters} to be used when creating the instance
+     *                         of {@link ListenableWorker}
+     * @return The instance of {@link ListenableWorker}
+     */
+    @NonNull
+    <T extends ListenableWorker> T newWorker(
+            @NonNull Class<T> workerKlass, @NonNull WorkerParameters workerParameters);
 }
