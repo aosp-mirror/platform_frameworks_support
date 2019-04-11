@@ -783,6 +783,25 @@ class PostponedTransitionTest {
         }
     }
 
+    @Test
+    fun testTimedPostpone() {
+        val fm = activityRule.activity.supportFragmentManager
+
+        val fragment = PostponedFragment3()
+        fm.beginTransaction()
+            .replace(R.id.fragmentContainer, fragment)
+            .setReorderingAllowed(true)
+            .addToBackStack(null)
+            .commit()
+
+        activityRule.waitForExecution()
+
+        // should be postponed now
+        assertPostponedTransition(beginningFragment, fragment)
+
+        assertThat(fragment.onStartCountDownLatch.count).isEqualTo(0)
+    }
+
     private fun assertPostponedTransition(
         fromFragment: TransitionFragment,
         toFragment: TransitionFragment,
@@ -917,6 +936,22 @@ class PostponedTransitionTest {
             savedInstanceState: Bundle?
         ) = super.onCreateView(inflater, container, savedInstanceState).also {
             postponeEnterTransition()
+        }
+    }
+
+    class PostponedFragment3 : TransitionFragment(R.layout.scene2) {
+        val onStartCountDownLatch = CountDownLatch(1)
+        override fun onCreateView(
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
+        ) = super.onCreateView(inflater, container, savedInstanceState).also {
+            postponeEnterTransition(300)
+        }
+
+        override fun onStart() {
+            super.onStart()
+            onStartCountDownLatch.countDown()
         }
     }
 
