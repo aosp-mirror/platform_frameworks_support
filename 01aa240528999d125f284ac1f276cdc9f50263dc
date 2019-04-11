@@ -22,6 +22,46 @@
       "revId": "01aa240528999d125f284ac1f276cdc9f50263dc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "064d03f3_a98f9631",
+        "filename": "media2/src/main/java/androidx/media2/VideoSize.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-04-11T07:54:58Z",
+      "side": 1,
+      "message": "@IntRange() here too\n\nhttps://cs.corp.google.com/aosp-androidx/core/src/main/java/androidx/core/util/Preconditions.java?rcl\u003d9a84478fc03104190a62b24320d57254ca60a598\u0026l\u003d119",
+      "revId": "01aa240528999d125f284ac1f276cdc9f50263dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58cadb4f_729bff68",
+        "filename": "media2/src/main/java/androidx/media2/VideoSize.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-04-11T07:54:58Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 60,
+        "startChar": 11,
+        "endLine": 60,
+        "endChar": 15
+      },
+      "revId": "01aa240528999d125f284ac1f276cdc9f50263dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
