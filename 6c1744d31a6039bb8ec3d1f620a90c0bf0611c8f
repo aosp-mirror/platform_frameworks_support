@@ -22,6 +22,30 @@
       "revId": "6c1744d31a6039bb8ec3d1f620a90c0bf0611c8f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ab18dde_6cec1069",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/DragWhileSmoothScrollTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-04-12T09:32:44Z",
+      "side": 1,
+      "message": "I\u0027d say the test context should be available to all members in the test class without having to receive it through a parameter. I could be wrong though, it\u0027s a good candidate for a nice philosophical discussion on a late Sunday afternoon with a glass of whiskey on a porch.\n\nDoesn\u0027t matter that much for test code though, and taking the +2 into account, I think it\u0027s OK to mark this as resolved regardless, right? I can follow-up with another CL if needed :)",
+      "parentUuid": "90091210_a3d1d22b",
+      "range": {
+        "startLine": 70,
+        "startChar": 4,
+        "endLine": 70,
+        "endChar": 38
+      },
+      "revId": "6c1744d31a6039bb8ec3d1f620a90c0bf0611c8f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
