@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bd3c0828_6c153bdb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-04-12T13:52:32Z",
+      "side": 1,
+      "message": "and adapter state\n\nThe CL scope got expanded",
+      "range": {
+        "startLine": 7,
+        "startChar": 14,
+        "endLine": 7,
+        "endChar": 26
+      },
+      "revId": "94cdff90f964fedd3ab31ea58596e7f72c9188a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41d7a4ab_daead747",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-04-12T13:52:32Z",
+      "side": 1,
+      "message": "Could this result in a bug when we don\u0027t have a pending current item, but we do have adapter state? If not, could you add a comment why this is fine?\n\nIgnore the below if the code is correct and a comment will suffice.\n\n\nOtherwise, maybe it\u0027d be simpler if we had a data structure \u0027PendingState\u0027 that would contain adapter state and current item?\n\nAlternatively, you could have:\n# if (adapter \u003d\u003d null || adapter.isEmpty()) -\u003e early return\n# if (mPendingCurrItem) -\u003e { // block that deals with it, no early return }\n# if (mPendingAdapterState) -\u003e { // block that deals with it, no early return }\n# RV instructions",
+      "range": {
+        "startLine": 241,
+        "startChar": 12,
+        "endLine": 241,
+        "endChar": 18
+      },
+      "revId": "94cdff90f964fedd3ab31ea58596e7f72c9188a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
