@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f5c66a26_e4be0b70",
+        "filename": "core/src/androidTest/java/androidx/core/view/inputmethod/EditorInfoCompatTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-04-12T15:54:56Z",
+      "side": 1,
+      "message": "Missed this one too.",
+      "range": {
+        "startLine": 67,
+        "startChar": 8,
+        "endLine": 67,
+        "endChar": 42
+      },
+      "revId": "db53f230d6a259a2d3882fce4a3650b4dc9f3a5d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
