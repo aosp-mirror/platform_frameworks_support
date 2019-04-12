@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "87bb5ec3_0d70e09c",
+        "filename": "media/src/main/java/android/support/v4/media/session/MediaControllerCompat.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 692,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-04-12T02:42:25Z",
+      "side": 1,
+      "message": "Shouldn\u0027t it be nullable?",
+      "range": {
+        "startLine": 692,
+        "startChar": 5,
+        "endLine": 692,
+        "endChar": 12
+      },
+      "revId": "2c925b315401e8c67c55a79641eb5dd6e3879ae6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
