@@ -73,28 +73,28 @@ public class KeyedAppStatesReporter {
     /**
      * The name for the keyed app state key for a given bundle in {@link #APP_STATES}.
      *
-     * @see KeyedAppState#key()
+     * @see KeyedAppState#getKey()
      */
     static final String APP_STATE_KEY = "androidx.enterprise.feedback.APP_STATE_KEY";
 
     /**
      * The name for the severity of the app state.
      *
-     * @see KeyedAppState#severity()
+     * @see KeyedAppState#getSeverity()
      */
     static final String APP_STATE_SEVERITY = "androidx.enterprise.feedback.APP_STATE_SEVERITY";
 
     /**
      * The name for the optional app state message for a given bundle in {@link #APP_STATES}.
      *
-     * @see KeyedAppState#message()
+     * @see KeyedAppState#getMessage()
      */
     static final String APP_STATE_MESSAGE = "androidx.enterprise.feedback.APP_STATE_MESSAGE";
 
     /**
      * The name for the optional app state data for a given bundle in {@link #APP_STATES}.
      *
-     * @see KeyedAppState#data()
+     * @see KeyedAppState#getData()
      */
     static final String APP_STATE_DATA = "androidx.enterprise.feedback.APP_STATE_DATA";
 
