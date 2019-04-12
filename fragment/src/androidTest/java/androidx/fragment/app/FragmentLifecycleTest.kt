@@ -42,6 +42,7 @@ import org.junit.runner.RunWith
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.times
 import org.mockito.Mockito.verify
+import java.lang.IllegalArgumentException
 
 @RunWith(AndroidJUnit4::class)
 @MediumTest
@@ -243,6 +244,193 @@ class FragmentLifecycleTest {
             .that(newView1).isNotSameAs(origView1)
         assertWithMessage("fragment 1's view not attached")
             .that(ViewCompat.isAttachedToWindow(newView1)).isTrue()
+    }
+
+    @Test
+    @UiThreadTest
+    fun setMaxLifecycle() {
+        val viewModelStore = ViewModelStore()
+        val fc = FragmentController.createController(
+            ControllerHostCallbacks(activityRule.activity, viewModelStore)
+        )
+        fc.attachHost(null)
+        fc.dispatchCreate()
+
+        val fm = fc.supportFragmentManager
+
+        val fragment = StrictViewFragment()
+        fm.beginTransaction()
+            .add(android.R.id.content, fragment)
+            .setMaxLifecycle(fragment, Lifecycle.State.STARTED)
+            .commit()
+
+        fc.dispatchActivityCreated()
+        fc.dispatchStart()
+        fc.dispatchResume()
+
+        assertThat(fragment.lifecycle.currentState).isEqualTo(Lifecycle.State.STARTED)
+    }
+
+    @Test
+    @UiThreadTest
+    fun setMaxLifecycleForceState() {
+        val viewModelStore = ViewModelStore()
+        val fc = FragmentController.createController(
+            ControllerHostCallbacks(activityRule.activity, viewModelStore)
+        )
+        fc.attachHost(null)
+        fc.dispatchCreate()
+        fc.dispatchActivityCreated()
+
+        val fm = fc.supportFragmentManager
+
+        val fragment = StrictViewFragment()
+        fm.beginTransaction()
+            .add(android.R.id.content, fragment)
+            .commit()
+
+        fc.dispatchStart()
+        fc.dispatchResume()
+        assertThat(fragment.lifecycle.currentState).isEqualTo(Lifecycle.State.RESUMED)
+
+        fm.beginTransaction()
+            .setMaxLifecycle(fragment, Lifecycle.State.CREATED)
+            .commit()
+        executePendingTransactions(fm)
+
+        assertThat(fragment.lifecycle.currentState).isEqualTo(Lifecycle.State.CREATED)
+    }
+
+    @Test
+    @UiThreadTest
+    fun setMaxLifecyclePop() {
+        val viewModelStore = ViewModelStore()
+        val fc = FragmentController.createController(
+            ControllerHostCallbacks(activityRule.activity, viewModelStore)
+        )
+        fc.attachHost(null)
+        fc.dispatchCreate()
+
+        val fm = fc.supportFragmentManager
+
+        val fragment = StrictViewFragment()
+        fm.beginTransaction()
+            .add(android.R.id.content, fragment)
+            .setMaxLifecycle(fragment, Lifecycle.State.CREATED)
+            .commit()
+
+        fc.dispatchActivityCreated()
+        fc.dispatchStart()
+        fc.dispatchResume()
+
+        assertThat(fragment.lifecycle.currentState).isEqualTo(Lifecycle.State.CREATED)
+
+        fm.beginTransaction()
+            .setMaxLifecycle(fragment, Lifecycle.State.STARTED)
+            .addToBackStack(null)
+            .commit()
+        executePendingTransactions(fm)
+
+        assertThat(fragment.lifecycle.currentState).isEqualTo(Lifecycle.State.STARTED)
+
+        fm.popBackStack()
+        executePendingTransactions(fm)
+
+        assertThat(fragment.lifecycle.currentState).isEqualTo(Lifecycle.State.CREATED)
+    }
+
+    @Test
+    @UiThreadTest
+    fun setMaxLifecycleOnDifferentFragments() {
+        val viewModelStore = ViewModelStore()
+        val fc = FragmentController.createController(
+            ControllerHostCallbacks(activityRule.activity, viewModelStore)
+        )
+        fc.attachHost(null)
+        fc.dispatchCreate()
+
+        val fm = fc.supportFragmentManager
+
+        val fragment1 = StrictViewFragment()
+        val fragment2 = StrictViewFragment()
+        fm.beginTransaction()
+            .add(android.R.id.content, fragment1)
+            .add(android.R.id.content, fragment2)
+            .setMaxLifecycle(fragment1, Lifecycle.State.STARTED)
+            .setMaxLifecycle(fragment2, Lifecycle.State.CREATED)
+            .commit()
+
+        fc.dispatchActivityCreated()
+        fc.dispatchStart()
+        fc.dispatchResume()
+
+        assertThat(fragment1.lifecycle.currentState).isEqualTo(Lifecycle.State.STARTED)
+        assertThat(fragment2.lifecycle.currentState).isEqualTo(Lifecycle.State.CREATED)
+    }
+
+    @Test
+    @UiThreadTest
+    fun setMaxLifecycleWrongFragmentManager() {
+        val viewModelStore = ViewModelStore()
+        val fc1 = FragmentController.createController(
+            ControllerHostCallbacks(activityRule.activity, viewModelStore)
+        )
+        val fc2 = FragmentController.createController(
+            ControllerHostCallbacks(activityRule.activity, viewModelStore)
+        )
+        fc1.attachHost(null)
+        fc1.dispatchCreate()
+        fc2.attachHost(null)
+        fc2.dispatchCreate()
+
+        val fm1 = fc1.supportFragmentManager
+        val fm2 = fc2.supportFragmentManager
+
+        val fragment = StrictViewFragment()
+        fm1.beginTransaction()
+            .add(android.R.id.content, fragment)
+            .commit()
+
+        try {
+            fm2.beginTransaction()
+                .setMaxLifecycle(fragment, Lifecycle.State.STARTED)
+                .commit()
+            fail("setting maxLifecycle on fragment not attached to fragment manager should throw" +
+                    " IllegalArgumentException")
+        } catch (e: IllegalArgumentException) {
+            assertThat(e)
+                .hasMessageThat()
+                .contains("Cannot setMaxLifecycle for Fragment not attached to" +
+                        " FragmentManager $fm2")
+        }
+    }
+
+    @Test
+    @UiThreadTest
+    fun setMaxLifecycleInitialized() {
+        val viewModelStore = ViewModelStore()
+        val fc = FragmentController.createController(
+            ControllerHostCallbacks(activityRule.activity, viewModelStore)
+        )
+        fc.attachHost(null)
+        fc.dispatchCreate()
+        fc.dispatchActivityCreated()
+
+        val fm = fc.supportFragmentManager
+
+        val fragment = StrictViewFragment()
+        try {
+            fm.beginTransaction()
+                .add(android.R.id.content, fragment)
+                .setMaxLifecycle(fragment, Lifecycle.State.INITIALIZED)
+                .commit()
+            fail("setting maxLifecycle state to state lower than created should throw" +
+                    " IllegalArgumentException")
+        } catch (e: IllegalArgumentException) {
+            assertThat(e)
+                .hasMessageThat()
+                .contains("Cannot set maximum Lifecycle below CREATED")
+        }
     }
 
     /**
