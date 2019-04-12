@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "22c5daca_f556014b",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatTextViewAutoSizeHelper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 573,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-04-12T17:43:50Z",
+      "side": 1,
+      "message": "this does not cancel the autosize operation afaik. If we don\u0027t have a backup plan other than canceling autosize, it is better to check if all the required functions exist in the platform before autosizing and if not all what we need is there we should cancel autosize as a whole. In this state it is hard to know what the behavior will be, and we can have the same problem with other reflections which will make the behavior problem worse.",
+      "range": {
+        "startLine": 572,
+        "startChar": 16,
+        "endLine": 573,
+        "endChar": 27
+      },
+      "revId": "81f4e535d4c6a03f6213a34acb7417b0d36cbc0f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
