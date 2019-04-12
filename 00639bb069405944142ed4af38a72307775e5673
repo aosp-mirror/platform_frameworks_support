@@ -95,6 +95,30 @@
       "revId": "00639bb069405944142ed4af38a72307775e5673",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "293e3fef_76354fde",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentTransaction.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-04-12T12:53:32Z",
+      "side": 1,
+      "message": "I\u0027m not sure that I completely agree with that, but in this way the CL is simpler from API perspective, so ok. Let\u0027s go with the current version, we can reiterate later if needed",
+      "parentUuid": "76bb4f0d_f8e9f149",
+      "range": {
+        "startLine": 101,
+        "startChar": 4,
+        "endLine": 107,
+        "endChar": 5
+      },
+      "revId": "00639bb069405944142ed4af38a72307775e5673",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
