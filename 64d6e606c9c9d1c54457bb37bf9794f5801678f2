@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "60438cbb_143cb9a2",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedListView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1307,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-04-12T21:17:21Z",
+      "side": 1,
+      "message": "Method needs a word in it describing what is being \"ensured.\" So something like: \"ensureAlphaJumpViewIsChildView()\"",
+      "range": {
+        "startLine": 1307,
+        "startChar": 17,
+        "endLine": 1307,
+        "endChar": 36
+      },
+      "revId": "64d6e606c9c9d1c54457bb37bf9794f5801678f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
