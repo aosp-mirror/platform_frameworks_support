@@ -117,6 +117,30 @@
       "revId": "6b48fb34d9d0a6d8f57cdd0c61e92f3a9fa1358b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a17ae7e6_7ad5c125",
+        "filename": "work/workmanager-ktx/src/main/java/androidx/work/OneTimeWorkRequest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1367449
+      },
+      "writtenOn": "2019-04-12T11:18:55Z",
+      "side": 1,
+      "message": "Having done few iterations of this, I\u0027m not sure that this is such an improvement to the API.\nI\u0027ve updated it to OneTimeWorkRequestOf\u003c\u003e() and it looks ok to me.\n\nFrom:\n\n        // Add WorkRequest to Cleanup temporary images\n        var continuation \u003d workManager\n                .beginUniqueWork(\n                        IMAGE_MANIPULATION_WORK_NAME,\n                        ExistingWorkPolicy.REPLACE,\n                        OneTimeWorkRequest.from(CleanupWorker::class.java)\n                )\n\nTo:\n\n\n        // Add WorkRequest to Cleanup temporary images\n        var continuation \u003d workManager\n                .beginUniqueWork(\n                        IMAGE_MANIPULATION_WORK_NAME,\n                        ExistingWorkPolicy.REPLACE,\n                        OneTimeWorkRequestOf\u003cCleanupWorker\u003e()\n                )\n\nI\u0027m ok to simply abandon this CL, was a good learning for me, but is it really so much better than the original to justify an new API to maintain?",
+      "parentUuid": "66277388_8d89a9b0",
+      "range": {
+        "startLine": 34,
+        "startChar": 42,
+        "endLine": 34,
+        "endChar": 64
+      },
+      "revId": "6b48fb34d9d0a6d8f57cdd0c61e92f3a9fa1358b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
