@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "86d84542_3a099e25",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-04-12T15:26:41Z",
+      "side": 1,
+      "message": "Add a comment of the relationship with setEta. If you set one, are you required to set the other?",
+      "range": {
+        "startLine": 152,
+        "startChar": 67,
+        "endLine": 152,
+        "endChar": 88
+      },
+      "revId": "a43ef7ced3ea866321ad0bed47167443d6233e2d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
