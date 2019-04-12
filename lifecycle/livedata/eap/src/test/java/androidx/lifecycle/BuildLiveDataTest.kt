@@ -299,6 +299,52 @@ class BuildLiveDataTest {
     }
 
     @Test
+    fun yieldSource_dispose() {
+        val doneOddsYield = Mutex(true)
+        val odds = liveData {
+            (1..9 step 2).forEach {
+                emit(it)
+            }
+            doneOddsYield.lock()
+            emit(2)
+        }
+        val ld = liveData {
+            val disposable = emitSource(odds)
+            triggerAllActions()
+            assertThat(odds.hasActiveObservers()).isEqualTo(true)
+            disposable.dispose()
+            triggerAllActions()
+            assertThat(odds.hasActiveObservers()).isEqualTo(false)
+            doneOddsYield.unlock()
+        }
+        ld.addObserver().apply {
+            assertItems(1, 3, 5, 7, 9)
+        }
+    }
+
+    @Test
+    fun yieldSource_disposeTwice() {
+        val odds = liveData {
+            (1..9 step 2).forEach {
+                emit(it)
+            }
+        }
+        val ld = liveData {
+            val disposable = emitSource(odds)
+            triggerAllActions()
+            disposable.dispose()
+            triggerAllActions()
+            assertThat(odds.hasActiveObservers()).isEqualTo(false)
+            disposable.dispose()
+            triggerAllActions()
+            assertThat(odds.hasActiveObservers()).isEqualTo(false)
+        }
+        ld.addObserver().apply {
+            assertItems(1, 3, 5, 7, 9)
+        }
+    }
+
+    @Test
     fun blockThrows() {
         // use an exception handler instead of the test context exception handler to ensure that
         // we do not re-run the block if its exception is gracefully caught
