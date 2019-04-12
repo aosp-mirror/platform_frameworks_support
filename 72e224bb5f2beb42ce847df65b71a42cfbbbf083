@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "63ccbacc_2c32fd21",
+        "filename": "fragment/src/main/java/androidx/fragment/app/BackStackRecord.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-04-12T17:50:44Z",
+      "side": 1,
+      "message": "I don\u0027t think this is the case in the current fragment transaction. I expect that you\u0027re missing a test.",
+      "range": {
+        "startLine": 389,
+        "startChar": 12,
+        "endLine": 389,
+        "endChar": 49
+      },
+      "revId": "72e224bb5f2beb42ce847df65b71a42cfbbbf083",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b8afe674_4a62cf40",
         "filename": "fragment/src/main/java/androidx/fragment/app/BackStackRecord.java",
         "patchSetId": 2
@@ -25,6 +48,29 @@
     },
     {
       "key": {
+        "uuid": "bd2da57c_61a3893a",
+        "filename": "fragment/src/main/java/androidx/fragment/app/BackStackRecord.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-04-12T17:50:44Z",
+      "side": 1,
+      "message": "This wasn\u0027t documented and it should be.",
+      "range": {
+        "startLine": 394,
+        "startChar": 12,
+        "endLine": 395,
+        "endChar": 49
+      },
+      "revId": "72e224bb5f2beb42ce847df65b71a42cfbbbf083",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a1177e45_ab5f91f1",
         "filename": "fragment/src/main/java/androidx/fragment/app/BackStackRecord.java",
         "patchSetId": 2
@@ -41,6 +87,98 @@
         "startChar": 8,
         "endLine": 400,
         "endChar": 9
+      },
+      "revId": "72e224bb5f2beb42ce847df65b71a42cfbbbf083",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81267cc4_885dbd08",
+        "filename": "fragment/src/main/java/androidx/fragment/app/Fragment.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-04-12T17:50:44Z",
+      "side": 1,
+      "message": "I recommend that you use Fragment state constants. It may be the same as Lifecycle.State, but it isn\u0027t clear that it is.\n\nIf it is, please move the Fragment state constants to be assigned from the ordinals of Lifecycle.State.",
+      "range": {
+        "startLine": 245,
+        "startChar": 4,
+        "endLine": 245,
+        "endChar": 55
+      },
+      "revId": "72e224bb5f2beb42ce847df65b71a42cfbbbf083",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9c379eb_0a3c48d1",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentManagerImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1134,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-04-12T17:50:44Z",
+      "side": 1,
+      "message": "what is 0? Is that Fragment.INITIALIZED?",
+      "range": {
+        "startLine": 1134,
+        "startChar": 24,
+        "endLine": 1134,
+        "endChar": 25
+      },
+      "revId": "72e224bb5f2beb42ce847df65b71a42cfbbbf083",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a7fd167_d83a4315",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentManagerImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1136,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-04-12T17:50:44Z",
+      "side": 1,
+      "message": "I\u0027m still not sure why this isn\u0027t the only case. Why is INITIALIZED special?",
+      "range": {
+        "startLine": 1136,
+        "startChar": 24,
+        "endLine": 1136,
+        "endChar": 66
+      },
+      "revId": "72e224bb5f2beb42ce847df65b71a42cfbbbf083",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92bc2118_839f76bc",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentTransaction.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-04-12T17:50:44Z",
+      "side": 1,
+      "message": "Not sure what this means. calling this without overriding what?",
+      "range": {
+        "startLine": 190,
+        "startChar": 80,
+        "endLine": 191,
+        "endChar": 86
       },
       "revId": "72e224bb5f2beb42ce847df65b71a42cfbbbf083",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
