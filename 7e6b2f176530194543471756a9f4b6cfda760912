@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "97fb1161_f436317a",
+        "filename": "lifecycle/runtime/eap/lint/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-04-12T14:49:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b0a55a3d_6c27f51d",
+      "range": {
+        "startLine": 28,
+        "startChar": 23,
+        "endLine": 28,
+        "endChar": 41
+      },
+      "revId": "7e6b2f176530194543471756a9f4b6cfda760912",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "320ac43e_3dcf01c6",
         "filename": "lifecycle/runtime/eap/lint/build.gradle",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "7e6b2f176530194543471756a9f4b6cfda760912",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6da5c1e_c5cfdd58",
+        "filename": "lifecycle/runtime/eap/lint/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-04-12T14:49:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "320ac43e_3dcf01c6",
+      "range": {
+        "startLine": 29,
+        "startChar": 46,
+        "endLine": 29,
+        "endChar": 55
+      },
+      "revId": "7e6b2f176530194543471756a9f4b6cfda760912",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -92,6 +140,30 @@
       "revId": "7e6b2f176530194543471756a9f4b6cfda760912",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e0ab402_4f893383",
+        "filename": "lifecycle/runtime/eap/lint/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-04-12T14:49:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "43f17d05_c23f14c7",
+      "range": {
+        "startLine": 41,
+        "startChar": 8,
+        "endLine": 46,
+        "endChar": 58
+      },
+      "revId": "7e6b2f176530194543471756a9f4b6cfda760912",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
