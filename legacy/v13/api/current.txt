@@ -7,7 +7,7 @@ package androidx.legacy.app {
 
   @Deprecated public class FragmentCompat {
     ctor @Deprecated public FragmentCompat();
-    method @Deprecated public static void requestPermissions(android.app.Fragment, String[], int);
+    method @Deprecated public static void requestPermissions(android.app.Fragment, String![], int);
     method @Deprecated public static void setMenuVisibility(android.app.Fragment!, boolean);
     method @Deprecated public static void setPermissionCompatDelegate(androidx.legacy.app.FragmentCompat.PermissionCompatDelegate!);
     method @Deprecated public static void setUserVisibleHint(android.app.Fragment!, boolean);
@@ -15,11 +15,11 @@ package androidx.legacy.app {
   }
 
   @Deprecated public static interface FragmentCompat.OnRequestPermissionsResultCallback {
-    method @Deprecated public void onRequestPermissionsResult(int, String[], int[]);
+    method @Deprecated public void onRequestPermissionsResult(int, String![], int[]);
   }
 
   @Deprecated public static interface FragmentCompat.PermissionCompatDelegate {
-    method @Deprecated public boolean requestPermissions(android.app.Fragment!, String[]!, int);
+    method @Deprecated public boolean requestPermissions(android.app.Fragment!, String![]!, int);
   }
 
   @Deprecated public abstract class FragmentPagerAdapter extends androidx.viewpager.widget.PagerAdapter {

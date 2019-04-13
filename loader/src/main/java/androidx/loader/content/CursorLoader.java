@@ -233,6 +233,13 @@ public class CursorLoader extends AsyncTaskLoader<Cursor> {
         mSortOrder = sortOrder;
     }
 
+    /**
+     * Dumps a point-in-time snapshot that is only visible when a developer specifically calls
+     *
+     *   adb shell dumpsys activity top
+     *
+     * @deprecated instead, enable the LoaderManager logging via enableDebugLogging(true).
+     */
     @SuppressWarnings("deprecation")
     @Override
     @Deprecated
