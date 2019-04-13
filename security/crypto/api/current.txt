@@ -16,13 +16,13 @@ package androidx.security {
     method public androidx.security.biometric.BiometricKeyAuthCallback getBiometricKeyAuthCallback();
     method public String getCertPath();
     method public String getCertPathValidator();
-    method public String[] getClientCertAlgorithms();
+    method public String![] getClientCertAlgorithms();
     method public static androidx.security.SecureConfig getDefault();
     method public String getKeystoreType();
     method public static androidx.security.SecureConfig getNiapConfig();
     method public static androidx.security.SecureConfig getNiapConfig(androidx.security.biometric.BiometricKeyAuthCallback);
     method public String getSignatureAlgorithm();
-    method public String[] getStrongSSLCiphers();
+    method public String![] getStrongSSLCiphers();
     method public String getSymmetricBlockModes();
     method public String getSymmetricCipherTransformation();
     method public int getSymmetricGcmTagLength();
@@ -50,10 +50,10 @@ package androidx.security {
     method public void setBiometricKeyAuthCallback(androidx.security.biometric.BiometricKeyAuthCallback);
     method public void setCertPath(String);
     method public void setCertPathValidator(String);
-    method public void setClientCertAlgorithms(String[]);
+    method public void setClientCertAlgorithms(String![]);
     method public void setKeystoreType(String);
     method public void setSignatureAlgorithm(String);
-    method public void setStrongSSLCiphers(String[]);
+    method public void setStrongSSLCiphers(String![]);
     method public void setSymmetricBlockModes(String);
     method public void setSymmetricCipherTransformation(String);
     method public void setSymmetricGcmTagLength(int);
@@ -88,9 +88,9 @@ package androidx.security {
     method public androidx.security.SecureConfig.Builder setBiometricKeyAuthCallback(androidx.security.biometric.BiometricKeyAuthCallback);
     method public androidx.security.SecureConfig.Builder setCertPath(String);
     method public androidx.security.SecureConfig.Builder setCertPathValidator(String);
-    method public androidx.security.SecureConfig.Builder setClientCertAlgorithms(String[]);
+    method public androidx.security.SecureConfig.Builder setClientCertAlgorithms(String![]);
     method public androidx.security.SecureConfig.Builder setSignatureAlgorithm(String);
-    method public androidx.security.SecureConfig.Builder setStrongSSLCiphers(String[]);
+    method public androidx.security.SecureConfig.Builder setStrongSSLCiphers(String![]);
     method public androidx.security.SecureConfig.Builder setSymmetricBlockModes(String);
     method public androidx.security.SecureConfig.Builder setSymmetricCipherTransformation(String);
     method public androidx.security.SecureConfig.Builder setSymmetricGcmTagLength(int);
@@ -140,7 +140,7 @@ package androidx.security.biometric {
 package androidx.security.config {
 
   public final class TldConstants {
-    field public static final java.util.List<java.lang.String> VALID_TLDS;
+    field public static final java.util.List<java.lang.String!> VALID_TLDS;
   }
 
   public enum TrustAnchorOptions {
@@ -197,7 +197,7 @@ package androidx.security.crypto {
     method public byte[] encodeSymmetricData(byte[], byte[], byte[]);
     method public void encrypt(String, byte[], androidx.security.crypto.SecureCipher.SecureSymmetricEncryptionListener);
     method public void encryptAsymmetric(String, byte[], androidx.security.crypto.SecureCipher.SecureAsymmetricEncryptionListener);
-    method public android.util.Pair<byte[],byte[]> encryptEphemeralData(androidx.security.crypto.EphemeralSecretKey, byte[]);
+    method public android.util.Pair<byte[]!,byte[]!> encryptEphemeralData(androidx.security.crypto.EphemeralSecretKey, byte[]);
     method public static androidx.security.crypto.SecureCipher getDefault();
     method public static androidx.security.crypto.SecureCipher getDefault(androidx.security.biometric.BiometricKeyAuthCallback);
     method public static androidx.security.crypto.SecureCipher getInstance(androidx.security.SecureConfig);
@@ -258,16 +258,16 @@ package androidx.security.net {
   public class SecureKeyManager implements android.security.KeyChainAliasCallback javax.net.ssl.X509KeyManager {
     ctor public SecureKeyManager(String, androidx.security.SecureConfig);
     method public void alias(String);
-    method public String chooseClientAlias(String[], java.security.Principal[], java.net.Socket);
-    method public final String chooseServerAlias(String, java.security.Principal[], java.net.Socket);
-    method public java.security.cert.X509Certificate[] getCertificateChain(String);
-    method public final String[] getClientAliases(String, java.security.Principal[]);
+    method public String chooseClientAlias(String![], java.security.Principal![], java.net.Socket);
+    method public final String chooseServerAlias(String, java.security.Principal![], java.net.Socket);
+    method public java.security.cert.X509Certificate![] getCertificateChain(String);
+    method public final String![] getClientAliases(String, java.security.Principal![]);
     method public static androidx.security.net.SecureKeyManager getDefault(String);
     method public static androidx.security.net.SecureKeyManager getDefault(String, androidx.security.SecureConfig);
     method public java.security.PrivateKey getPrivateKey(String);
-    method public final String[] getServerAliases(String, java.security.Principal[]);
+    method public final String![] getServerAliases(String, java.security.Principal![]);
     method public static androidx.security.net.SecureKeyManager installCertManually(androidx.security.net.SecureKeyManager.CertType, byte[], String, androidx.security.SecureConfig);
-    method public void setCertChain(java.security.cert.X509Certificate[]);
+    method public void setCertChain(java.security.cert.X509Certificate![]);
     method public static void setContext(android.app.Activity);
     method public void setPrivateKey(java.security.PrivateKey);
   }
@@ -289,7 +289,7 @@ package androidx.security.net {
     method public int getPort();
     method public boolean isValid(javax.net.ssl.HttpsURLConnection);
     method public java.net.URLConnection openConnection() throws java.io.IOException;
-    method public java.net.URLConnection openUserTrustedCertConnection(java.util.Map<java.lang.String,java.io.InputStream>) throws java.io.IOException;
+    method public java.net.URLConnection openUserTrustedCertConnection(java.util.Map<java.lang.String!,java.io.InputStream!>) throws java.io.IOException;
   }
 
 }

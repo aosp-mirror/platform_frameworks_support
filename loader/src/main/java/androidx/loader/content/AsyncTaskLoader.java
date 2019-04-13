@@ -328,6 +328,13 @@ public abstract class AsyncTaskLoader<D> extends Loader<D> {
         return AsyncTask.THREAD_POOL_EXECUTOR;
     }
 
+    /**
+     * Dumps a point-in-time snapshot that is only visible when a developer specifically calls
+     *
+     *   adb shell dumpsys activity top
+     *
+     * @deprecated instead, enable the LoaderManager logging via enableDebugLogging(true).
+     */
     @SuppressWarnings("deprecation")
     @Override
     @Deprecated

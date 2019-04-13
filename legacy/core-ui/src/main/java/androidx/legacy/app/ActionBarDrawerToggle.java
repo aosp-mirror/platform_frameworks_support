@@ -45,6 +45,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import java.lang.reflect.Method;
 
 /**
+ * @deprecated Please use ActionBarDrawerToggle in androidx.appcompat
+ *
  * This class provides a handy way to tie together the functionality of
  * {@link DrawerLayout} and the framework <code>ActionBar</code> to implement the recommended
  * design for navigation drawers.
