@@ -31,6 +31,8 @@ import androidx.concurrent.futures.CallbackToFutureAdapter;
 import com.google.common.util.concurrent.ListenableFuture;
 
 import java.nio.IntBuffer;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Executor;
 
 /**
@@ -39,6 +41,7 @@ import java.util.concurrent.Executor;
  */
 final class CheckedSurfaceTexture extends DeferrableSurface {
     private final OnTextureChangedListener mOutputChangedListener;
+    private final List<Surface> mSurfaceToReleaseList = new ArrayList<>();
     @Nullable
     SurfaceTexture mSurfaceTexture;
     @Nullable
@@ -154,6 +157,9 @@ final class CheckedSurfaceTexture extends DeferrableSurface {
                 // To fix the incorrect preview orientation for devices running on legacy camera,
                 // it needs to attach a new Surface instance to the newly created camera capture
                 // session.
+                if (mSurface != null) {
+                    mSurfaceToReleaseList.add(mSurface);
+                }
                 mSurface = new Surface(mSurfaceTexture);
             }
         });
@@ -162,13 +168,16 @@ final class CheckedSurfaceTexture extends DeferrableSurface {
     @UiThread
     void release() {
         if (mSurface != null) {
-            // Release surface will also release surface texture.
             mSurface.release();
-        } else if (mSurfaceTexture != null) {
-            mSurfaceTexture.release();
+            mSurface = null;
         }
-        mSurface = null;
-        mSurfaceTexture = null;
+
+        if (!mSurfaceToReleaseList.isEmpty()) {
+            for (Surface surface : mSurfaceToReleaseList) {
+                surface.release();
+            }
+            mSurfaceToReleaseList.clear();
+        }
     }
 
     void runOnMainThread(Runnable runnable) {
