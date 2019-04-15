@@ -18,7 +18,13 @@ package androidx.room
 
 import androidx.annotation.RestrictTo
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.asCoroutineDispatcher
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.withContext
 import java.util.concurrent.Callable
 import kotlin.coroutines.coroutineContext
@@ -51,6 +57,42 @@ class CoroutinesRoom private constructor() {
                 callable.call()
             }
         }
+
+        @JvmStatic
+        @FlowPreview
+        @ExperimentalCoroutinesApi
+        fun <R> createFlow(
+            db: RoomDatabase,
+            inTransaction: Boolean,
+            tableNames: Array<String>,
+            callable: Callable<R>
+        ): Flow<@JvmSuppressWildcards R> {
+            val context = if (inTransaction) db.transactionDispatcher else db.queryDispatcher
+            return flow {
+                // Observer channel receives signals from the invalidation tracker to emit queries.
+                val observerChannel = Channel<Unit>(Channel.CONFLATED)
+                val observer = object : InvalidationTracker.Observer(tableNames) {
+                    override fun onInvalidated(tables: MutableSet<String>) {
+                        if (!observerChannel.isClosedForSend) {
+                            observerChannel.offer(Unit)
+                        }
+                    }
+                }
+
+                observerChannel.offer(Unit) // Initial signal to perform first query.
+                db.invalidationTracker.addObserver(observer)
+                try {
+                    // Iterate until cancelled, transforming observer signals to query results to
+                    // be emitted.
+                    for (signal in observerChannel) {
+                        emit(callable.call())
+                    }
+                } finally {
+                    observerChannel.cancel()
+                    db.invalidationTracker.removeObserver(observer)
+                }
+            }.flowOn(context)
+        }
     }
 }
 
@@ -71,5 +113,5 @@ internal val RoomDatabase.queryDispatcher: CoroutineDispatcher
  */
 internal val RoomDatabase.transactionDispatcher: CoroutineDispatcher
     get() = backingFieldMap.getOrPut("TransactionDispatcher") {
-        queryExecutor.asCoroutineDispatcher()
+        transactionExecutor.asCoroutineDispatcher()
     } as CoroutineDispatcher

@@ -21,6 +21,7 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.RawQuery
 import androidx.room.Update
+import androidx.room.ext.KotlinTypeNames
 import androidx.room.ext.RoomTypeNames
 import androidx.room.ext.SupportDbTypeNames
 import androidx.room.parser.QueryType
@@ -642,4 +643,9 @@ object ProcessorErrors {
                     "or int (the number of deleted rows).")
         }
     }.toString()
+
+    fun invalidChannelType(typeName: String) = "'$typeName' is not supported as a return type. " +
+            "Instead declare return type as ${KotlinTypeNames.FLOW} and use Flow transforming " +
+            "functions that take a CoroutineScope and converts the Flow into a Channel, such as " +
+            "Flow.produceIn()."
 }
