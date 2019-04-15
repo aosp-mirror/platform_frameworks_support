@@ -46,6 +46,30 @@
       "revId": "7cf77aaa65536ff7c3f3a8a3b6a5d16be86f1d20",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "95d5505e_4a068bb4",
+        "filename": "core/src/main/java/androidx/core/graphics/TypefaceCompatBaseImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2019-04-15T17:14:11Z",
+      "side": 1,
+      "message": "@Clara nope, it was actually not enough, I double checked because it does look very weird\n\n@Nona thanks! Didn\u0027t know you could do that",
+      "parentUuid": "792f7af4_d20bf762",
+      "range": {
+        "startLine": 89,
+        "startChar": 29,
+        "endLine": 89,
+        "endChar": 35
+      },
+      "revId": "7cf77aaa65536ff7c3f3a8a3b6a5d16be86f1d20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
