@@ -170,7 +170,16 @@ final class CaptureSession {
                 case INITIALIZED:
                     List<DeferrableSurface> surfaces = sessionConfig.getSurfaces();
 
-                    // Before creating capture session, some surfaces may need to refresh.
+                    // Before creating capture session, some surfaces may need to refresh. There
+                    // are couple issues rely on refresh() to be executed.
+                    //
+                    // *) To fix the black screen when pause/resume activity for some devices
+                    // running on legacy camera, it needs to create a new SurfaceTexture instance
+                    // and callback the SurfaceTexture to attach to View.
+                    //
+                    // *) To fix the incorrect preview orientation for devices running on legacy
+                    // camera, it needs to attach a new Surface instance to the newly created
+                    // camera capture session.
                     DeferrableSurfaces.refresh(surfaces);
 
                     mConfiguredDeferrableSurfaces = new ArrayList<>(surfaces);
