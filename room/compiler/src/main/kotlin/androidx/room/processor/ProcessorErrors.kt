@@ -21,6 +21,7 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.RawQuery
 import androidx.room.Update
+import androidx.room.ext.KotlinTypeNames
 import androidx.room.ext.RoomTypeNames
 import androidx.room.ext.SupportDbTypeNames
 import androidx.room.parser.QueryType
@@ -642,4 +643,7 @@ object ProcessorErrors {
                     "or int (the number of deleted rows).")
         }
     }.toString()
+
+    fun invalidChannelType(typeName: String) = "'$typeName' is an invalid channel return type. " +
+            "Return type should be ${KotlinTypeNames.RECEIVE_CHANNEL}."
 }
