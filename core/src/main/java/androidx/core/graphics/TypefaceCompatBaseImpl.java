@@ -49,7 +49,7 @@ class TypefaceCompatBaseImpl {
     /**
      * Maps a unique identifier from a Typeface to it's family
      */
-    private ConcurrentHashMap<Integer, FontFamilyFilesResourceEntry> mFontFamilies =
+    private ConcurrentHashMap<Long, FontFamilyFilesResourceEntry> mFontFamilies =
             new ConcurrentHashMap<>();
 
     private interface StyleExtractor<T> {
@@ -76,7 +76,7 @@ class TypefaceCompatBaseImpl {
         return best;
     }
 
-    private static int getUniqueKey(@Nullable final Typeface typeface) {
+    private static long getUniqueKey(@Nullable final Typeface typeface) {
         if (typeface == null) {
             return INVALID_KEY;
         }
@@ -84,7 +84,11 @@ class TypefaceCompatBaseImpl {
         try {
             final Field field = Typeface.class.getDeclaredField("native_instance");
             field.setAccessible(true);
-            return (int) field.get(typeface);
+            final Object result = field.get(typeface);
+            if (result instanceof Integer) {
+                return (long) (int) result;
+            }
+            return (long) result;
         } catch (NoSuchFieldException e) {
             Log.e(TAG, "Could not retrieve font from family.", e);
             return INVALID_KEY;
@@ -207,7 +211,7 @@ class TypefaceCompatBaseImpl {
      */
     @Nullable
     FontFamilyFilesResourceEntry getFontFamily(final Typeface typeface) {
-        final int key = getUniqueKey(typeface);
+        final long key = getUniqueKey(typeface);
         if (key == INVALID_KEY) {
             return null;
         }
@@ -215,7 +219,7 @@ class TypefaceCompatBaseImpl {
     }
 
     private void addFontFamily(final Typeface typeface, final FontFamilyFilesResourceEntry entry) {
-        final int key = getUniqueKey(typeface);
+        final long key = getUniqueKey(typeface);
         if (key != INVALID_KEY) {
             mFontFamilies.put(key, entry);
         }
