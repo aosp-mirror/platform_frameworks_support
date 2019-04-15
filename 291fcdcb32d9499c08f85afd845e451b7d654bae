@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b7bcbe96_ad698757",
+        "filename": "fragment/src/androidTest/java/androidx/fragment/app/BackStackStateTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-15T22:45:25Z",
+      "side": 1,
+      "message": "Just fail",
+      "range": {
+        "startLine": 251,
+        "startChar": 12,
+        "endLine": 251,
+        "endChar": 23
+      },
+      "revId": "291fcdcb32d9499c08f85afd845e451b7d654bae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f63fe76_846ac608",
+        "filename": "fragment/src/androidTest/java/androidx/fragment/app/BackStackStateTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-15T22:45:25Z",
+      "side": 1,
+      "message": "Just fail",
+      "range": {
+        "startLine": 277,
+        "startChar": 12,
+        "endLine": 277,
+        "endChar": 23
+      },
+      "revId": "291fcdcb32d9499c08f85afd845e451b7d654bae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "88960eb4_e1c189d2",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentTransaction.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-15T22:45:25Z",
+      "side": 1,
+      "message": "{@link Lifecycle.State#CREATED}",
+      "range": {
+        "startLine": 338,
+        "startChar": 58,
+        "endLine": 338,
+        "endChar": 65
+      },
+      "revId": "291fcdcb32d9499c08f85afd845e451b7d654bae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
