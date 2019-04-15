@@ -19,9 +19,9 @@ package androidx.car.widget;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -31,32 +31,17 @@ import androidx.car.uxrestrictions.CarUxRestrictions;
 import androidx.constraintlayout.widget.Guideline;
 
 /**
- * Class to build a list item with {@link Switch}.
+ * Class to build a list item with {@link CheckBox}.
  *
- * <p>An item supports primary action and a switch as supplemental action.
- *
- * <p>An item visually composes of 3 parts; each part may contain multiple views.
+ * <p>A checkbox list item visually composes of 4 parts.
  * <ul>
- * <li>{@code Primary Action}: represented by an icon of following types.
- * <ul>
- * <li>Primary Icon - icon size could be large or small.
- * <li>No Icon - no icon is shown.
- * <li>Empty Icon - {@code Text} offsets start space as if there was an icon.
+ * <li>optional {@code Primary Action Icon}.
+ * <li>optional {@code Title}.
+ * <li>optional {@code Body}.
+ * <li>A {@link CheckBox}.
  * </ul>
- * <li>{@code Text}: supports any combination of the following text views.
- * <ul>
- * <li>Title
- * <li>Body
- * </ul>
- * <li>{@code Supplemental Action}: represented by {@link Switch}.
- * </ul>
- *
- * <p>{@code SwitchListItem} binds data to {@link ViewHolder} based on components selected.
- *
- * <p>When conflicting setter methods are called (e.g. setting primary action to both primary icon
- * and no icon), the last called method wins.
  */
-public class SwitchListItem extends CompoundButtonListItem<SwitchListItem.ViewHolder> {
+public class CheckBoxListItem extends CompoundButtonListItem<CheckBoxListItem.ViewHolder> {
 
     /**
      * Creates a {@link ViewHolder}.
@@ -66,20 +51,20 @@ public class SwitchListItem extends CompoundButtonListItem<SwitchListItem.ViewHo
         return new ViewHolder(itemView);
     }
 
+    public CheckBoxListItem(@NonNull Context context) {
+        super(context);
+    }
+
     /**
      * Used by {@link ListItemAdapter} to choose layout to inflate for view holder.
      */
     @Override
     public int getViewType() {
-        return ListItemAdapter.LIST_ITEM_TYPE_SWITCH;
-    }
-
-    public SwitchListItem(@NonNull Context context) {
-        super(context);
+        return ListItemAdapter.LIST_ITEM_TYPE_CHECK_BOX;
     }
 
     /**
-     * ViewHolder that contains necessary widgets for {@link SwitchListItem}.
+     * ViewHolder that contains necessary widgets for {@link CheckBoxListItem}.
      */
     public static final class ViewHolder extends CompoundButtonListItem.ViewHolder {
 
@@ -97,7 +82,6 @@ public class SwitchListItem extends CompoundButtonListItem<SwitchListItem.ViewHo
         private CompoundButton mCompoundButton;
         private View mCompoundButtonDivider;
 
-
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -110,8 +94,8 @@ public class SwitchListItem extends CompoundButtonListItem<SwitchListItem.ViewHo
 
             mSupplementalGuideline = itemView.findViewById(R.id.supplemental_actions_guideline);
 
-            mCompoundButton = itemView.findViewById(R.id.switch_widget);
-            mCompoundButtonDivider = itemView.findViewById(R.id.switch_divider);
+            mCompoundButton = itemView.findViewById(R.id.checkbox_widget);
+            mCompoundButtonDivider = itemView.findViewById(R.id.checkbox_divider);
 
             int minTouchSize = itemView.getContext().getResources()
                     .getDimensionPixelSize(R.dimen.car_touch_target_size);

@@ -25,25 +25,15 @@
     android:minHeight="@dimen/car_single_line_list_item_height"
     android:foreground="@drawable/car_card_ripple_background" >
 
-    <!-- Radio button with divider. -->
-    <RadioButton
-        android:id="@+id/radiobutton_widget"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/car_keyline_1"
-        app:layout_constraintTop_toTopOf="@+id/supplemental_actions_guideline"
-        app:layout_constraintBottom_toBottomOf="@+id/supplemental_actions_guideline"
-        app:layout_constraintStart_toStartOf="parent"
-        style="?attr/radioButtonStyle" />
-
-    <View
-        android:id="@+id/radiobutton_divider"
-        android:background="?attr/listItemActionDividerColor"
-        app:layout_constraintTop_toTopOf="@+id/supplemental_actions_guideline"
-        app:layout_constraintBottom_toBottomOf="@+id/supplemental_actions_guideline"
-        app:layout_constraintStart_toEndOf="@+id/radiobutton_widget"
-        android:layout_marginEnd="@dimen/car_padding_4"
-        style="@style/CarListVerticalDivider"/>
+    <!-- Primary Action. -->
+    <ImageView
+        android:id="@+id/primary_icon"
+        android:layout_width="@dimen/car_single_line_list_item_height"
+        android:layout_height="@dimen/car_single_line_list_item_height"
+        android:tint="?attr/listItemPrimaryIconTint"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <!-- Text. -->
     <TextView
@@ -69,14 +59,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/barrier"/>
 
-    <!-- A barrier between the text and icon. -->
+    <!-- A barrier between the text and checkbox. -->
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/barrier"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:barrierDirection="start"
         app:barrierAllowsGoneWidgets="false"
-        app:constraint_referenced_ids="primary_icon" />
+        app:constraint_referenced_ids="checkbox_divider,checkbox_widget" />
 
     <!-- Guideline that the checkbox is centered upon. -->
     <androidx.constraintlayout.widget.Guideline
@@ -86,15 +76,23 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.5" />
 
-    <!-- Primary Action. -->
-    <ImageView
-        android:id="@+id/primary_icon"
-        android:layout_width="@dimen/car_single_line_list_item_height"
-        android:layout_height="@dimen/car_single_line_list_item_height"
-        android:tint="?attr/listItemPrimaryIconTint"
-        android:layout_marginEnd="@dimen/car_keyline_1"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+    <!-- Checkbox with divider. -->
+    <View
+        android:id="@+id/checkbox_divider"
+        android:background="?attr/listItemActionDividerColor"
+        android:layout_marginEnd="@dimen/car_padding_4"
+        app:layout_constraintTop_toTopOf="@+id/supplemental_actions_guideline"
+        app:layout_constraintBottom_toBottomOf="@+id/supplemental_actions_guideline"
+        app:layout_constraintEnd_toStartOf="@+id/checkbox_widget"
+        style="@style/CarListVerticalDivider"/>
 
+    <CheckBox
+        android:id="@+id/checkbox_widget"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/car_keyline_1"
+        app:layout_constraintTop_toTopOf="@+id/supplemental_actions_guideline"
+        app:layout_constraintBottom_toBottomOf="@+id/supplemental_actions_guideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        style="?attr/checkboxStyle" />
 </androidx.constraintlayout.widget.ConstraintLayout>
