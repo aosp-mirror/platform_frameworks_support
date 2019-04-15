@@ -52,6 +52,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 
+import java.util.Collections;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executor;
 import java.util.concurrent.TimeUnit;
@@ -215,7 +216,8 @@ public final class CaptureSessionTest {
 
         assertThat(captureSession.getState()).isEqualTo(State.OPENED);
 
-        captureSession.issueSingleCaptureRequest(mTestParameters0.mCaptureConfig);
+        captureSession.issueCaptureRequest(
+                Collections.singletonList(mTestParameters0.mCaptureConfig));
 
         mTestParameters0.waitForCameraCaptureCallback();
 
@@ -230,7 +232,8 @@ public final class CaptureSessionTest {
         CaptureSession captureSession = new CaptureSession(mTestParameters0.mHandler);
         captureSession.setSessionConfig(mTestParameters0.mSessionConfig);
 
-        captureSession.issueSingleCaptureRequest(mTestParameters0.mCaptureConfig);
+        captureSession.issueCaptureRequest(
+                Collections.singletonList(mTestParameters0.mCaptureConfig));
         captureSession.open(mTestParameters0.mSessionConfig, mCameraDevice);
 
         mTestParameters0.waitForCameraCaptureCallback();
@@ -247,7 +250,8 @@ public final class CaptureSessionTest {
         captureSession.close();
 
         // Should throw IllegalStateException
-        captureSession.issueSingleCaptureRequest(mTestParameters0.mCaptureConfig);
+        captureSession.issueCaptureRequest(
+                Collections.singletonList(mTestParameters0.mCaptureConfig));
     }
 
     @Test

@@ -546,7 +546,7 @@ final class Camera implements BaseCamera {
         // capture
         // requests will still be in request queue and will need to be passed to the next capture
         // session.
-        mCaptureSession.issueSingleCaptureRequests(unissuedCaptureConfigs);
+        mCaptureSession.issueCaptureRequest(unissuedCaptureConfigs);
     }
 
     private CameraDevice.StateCallback createDeviceStateCallback() {
@@ -602,37 +602,43 @@ final class Camera implements BaseCamera {
     }
 
     /**
-     * Submits single request
+     * Submits capture request
      *
-     * @param captureConfig capture configuration used for creating CaptureRequest
+     * @param captureConfigs capture configuration used for creating CaptureRequest
      * @hide
      */
     @RestrictTo(Scope.LIBRARY_GROUP)
-    public void submitSingleRequest(final CaptureConfig captureConfig) {
+    public void submitCaptureRequest(final List<CaptureConfig> captureConfigs) {
         if (Looper.myLooper() != mHandler.getLooper()) {
             mHandler.post(new Runnable() {
                 @Override
                 public void run() {
-                    Camera.this.submitSingleRequest(captureConfig);
+                    Camera.this.submitCaptureRequest(captureConfigs);
                 }
             });
             return;
         }
 
-        // Recreates the Builder to add extra config needed
-        CaptureConfig.Builder builder = CaptureConfig.Builder.from(captureConfig);
+        List<CaptureConfig> captureConfigsWithSurface = new ArrayList<>();
+        for (CaptureConfig captureConfig : captureConfigs) {
+            // Recreates the Builder to add extra config needed
+            CaptureConfig.Builder builder =
+                    CaptureConfig.Builder.from(captureConfig);
 
-        if (captureConfig.getSurfaces().isEmpty() && captureConfig.isUseRepeatingSurface()) {
-            // Checks and attaches if there's valid repeating surface. If there's no, skip this
-            // single request.
-            if (!checkAndAttachRepeatingSurface(builder)) {
-                return;
+            if (captureConfig.getSurfaces().isEmpty()
+                    && captureConfig.isUseRepeatingSurface()) {
+                // Checks and attaches if there's valid repeating surface. If there's no, skip this
+                // single request.
+                if (!checkAndAttachRepeatingSurface(builder)) {
+                    return;
+                }
             }
+            captureConfigsWithSurface.add(builder.build());
         }
 
-        Log.d(TAG, "issue single capture request for camera " + mCameraId);
+        Log.d(TAG, "issue capture request for camera " + mCameraId);
 
-        mCaptureSession.issueSingleCaptureRequest(builder.build());
+        mCaptureSession.issueCaptureRequest(captureConfigsWithSurface);
     }
 
     /** {@inheritDoc} */
@@ -644,8 +650,8 @@ final class Camera implements BaseCamera {
 
     /** {@inheritDoc} */
     @Override
-    public void onCameraControlSingleRequest(CaptureConfig captureConfig) {
-        submitSingleRequest(captureConfig);
+    public void onCameraControlCaptureRequest(List<CaptureConfig> captureConfigs) {
+        submitCaptureRequest(captureConfigs);
     }
 
     enum State {
