@@ -70,6 +70,30 @@
       "revId": "8c270f979c8a624a71cd0220d2259c5e01989591",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7262d81d_1d8d43d9",
+        "filename": "cleanBuild.sh",
+        "patchSetId": 9
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-04-15T18:55:34Z",
+      "side": 1,
+      "message": "How about \"Press \u003cEnter\u003e to run a clean build or Ctrl-C to cancel\"?",
+      "parentUuid": "8e2cf505_cf5fd8c2",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 7
+      },
+      "revId": "8c270f979c8a624a71cd0220d2259c5e01989591",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
