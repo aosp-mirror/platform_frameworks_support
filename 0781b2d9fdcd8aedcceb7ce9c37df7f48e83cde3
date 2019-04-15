@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e6ef0f60_978b38a6",
+        "filename": "camera/core/src/main/java/androidx/camera/core/PreviewConfig.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 497,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-15T23:11:57Z",
+      "side": 1,
+      "message": "perhaps we should change \"view finder\" to \"preview?",
+      "revId": "0781b2d9fdcd8aedcceb7ce9c37df7f48e83cde3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "100fc2e4_9b57988b",
+        "filename": "camera/core/src/main/java/androidx/camera/core/UseCase.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-15T23:11:57Z",
+      "side": 1,
+      "message": "UseCaseConfig instead of UseCaseConfiguration?",
+      "revId": "0781b2d9fdcd8aedcceb7ce9c37df7f48e83cde3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
