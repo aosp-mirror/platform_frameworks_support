@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "52ea28e3_e97bfbd6",
+        "filename": "core/src/main/java/androidx/core/view/accessibility/AccessibilityNodeInfoCompat.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 3674,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-04-15T15:09:16Z",
+      "side": 1,
+      "message": "Is that correct? It seems to always set and return the property.",
+      "range": {
+        "startLine": 3674,
+        "startChar": 10,
+        "endLine": 3674,
+        "endChar": 48
+      },
+      "revId": "0c9527f4079a3eeeed9c6dfa45f92e43f74d32ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
