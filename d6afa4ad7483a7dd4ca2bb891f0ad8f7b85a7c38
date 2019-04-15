@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dcb26df9_419860e9",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageTransformerTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-04-15T14:46:47Z",
+      "side": 1,
+      "message": "consider when?",
+      "range": {
+        "startLine": 215,
+        "startChar": 20,
+        "endLine": 215,
+        "endChar": 22
+      },
+      "revId": "d6afa4ad7483a7dd4ca2bb891f0ad8f7b85a7c38",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98d4f146_3e0343ff",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageTransformerTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-04-15T14:46:47Z",
+      "side": 1,
+      "message": "else fail",
+      "range": {
+        "startLine": 219,
+        "startChar": 0,
+        "endLine": 219,
+        "endChar": 21
+      },
+      "revId": "d6afa4ad7483a7dd4ca2bb891f0ad8f7b85a7c38",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a1ff647b_776d4057",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/PageTransformerTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-04-15T14:46:47Z",
+      "side": 1,
+      "message": "assertSnappedRelativeToPage?",
+      "range": {
+        "startLine": 265,
+        "startChar": 28,
+        "endLine": 265,
+        "endChar": 47
+      },
+      "revId": "d6afa4ad7483a7dd4ca2bb891f0ad8f7b85a7c38",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
