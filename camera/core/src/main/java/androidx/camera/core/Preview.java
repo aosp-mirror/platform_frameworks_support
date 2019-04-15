@@ -149,6 +149,7 @@ public class Preview extends UseCase {
         } else if (oldListener != null && oldListener != newListener) {
             if (mLatestPreviewOutput != null) {
                 mCheckedSurfaceTexture.resetSurfaceTexture();
+                notifyReset();
             }
         }
     }
@@ -363,12 +364,6 @@ public class Preview extends UseCase {
             }
 
             if (outputListener != null) {
-                // If we have a listener, then we should be active and we require a reset if the
-                // SurfaceTexture changed.
-                if (textureChanged) {
-                    notifyReset();
-                }
-
                 mSurfaceDispatched = true;
                 outputListener.onUpdated(newOutput);
             }
