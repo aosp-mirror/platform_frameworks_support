@@ -151,6 +151,10 @@ final class CheckedSurfaceTexture extends DeferrableSurface {
                     // Reset the surface texture and notify the listener
                     CheckedSurfaceTexture.this.resetSurfaceTexture();
                 }
+                // To fix the black screen when pause/resume activity for some devices running on
+                // legacy camera, it needs to create a new SurfaceTexture instance and callback
+                // the SurfaceTexture to attach to View.
+                CheckedSurfaceTexture.this.resetSurfaceTexture();
                 // To fix the incorrect preview orientation for devices running on legacy camera,
                 // it needs to attach a new Surface instance to the newly created camera capture
                 // session.
