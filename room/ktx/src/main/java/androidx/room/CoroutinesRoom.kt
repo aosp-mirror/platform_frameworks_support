@@ -18,7 +18,15 @@ package androidx.room
 
 import androidx.annotation.RestrictTo
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.asCoroutineDispatcher
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.channels.ReceiveChannel
+import kotlinx.coroutines.channels.map
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import java.util.concurrent.Callable
 import kotlin.coroutines.coroutineContext
@@ -49,6 +57,56 @@ class CoroutinesRoom private constructor() {
                 ?: if (inTransaction) db.transactionDispatcher else db.queryDispatcher
             return withContext(context) {
                 callable.call()
+            }
+        }
+
+        @JvmStatic
+        @ExperimentalCoroutinesApi
+        fun <R> createChannel(
+            db: RoomDatabase,
+            inTransaction: Boolean,
+            tableNames: Array<String>,
+            callable: Callable<R>
+        ): ReceiveChannel<@JvmSuppressWildcards R> {
+            val channel = Channel<Unit>(Channel.CONFLATED)
+            val observer = object : InvalidationTracker.Observer(tableNames) {
+                override fun onInvalidated(tables: MutableSet<String>) {
+                    if (!channel.isClosedForSend) {
+                        channel.offer(Unit)
+                    }
+                }
+            }
+
+            if (!channel.isClosedForSend) {
+                // TODO: Do in bg thread
+                db.invalidationTracker.addObserver(observer)
+                channel.invokeOnClose {
+                    // TODO: Do in bg thread
+                    db.invalidationTracker.removeObserver(observer)
+                }
+                channel.offer(Unit)
+            }
+
+            val context = if (inTransaction) db.transactionDispatcher else db.queryDispatcher
+            return channel.map(context) { callable.call() }
+        }
+
+        @JvmStatic
+        @FlowPreview
+        @ExperimentalCoroutinesApi
+        fun <R> createFlow(
+            db: RoomDatabase,
+            inTransaction: Boolean,
+            tableNames: Array<String>,
+            callable: Callable<R>
+        ): Flow<@JvmSuppressWildcards R> = flow {
+            val channel = createChannel(db, inTransaction, tableNames, callable)
+            try {
+                for (result in channel) {
+                    emit(result)
+                }
+            } finally {
+                channel.cancel()
             }
         }
     }

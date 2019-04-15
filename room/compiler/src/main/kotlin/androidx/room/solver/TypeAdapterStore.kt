@@ -28,9 +28,11 @@ import androidx.room.processor.Context
 import androidx.room.processor.EntityProcessor
 import androidx.room.processor.FieldProcessor
 import androidx.room.processor.PojoProcessor
+import androidx.room.solver.binderprovider.CoroutineChannelResultBinderProvider
 import androidx.room.solver.binderprovider.CursorQueryResultBinderProvider
 import androidx.room.solver.binderprovider.DataSourceFactoryQueryResultBinderProvider
 import androidx.room.solver.binderprovider.DataSourceQueryResultBinderProvider
+import androidx.room.solver.binderprovider.CoroutineFlowResultBinderProvider
 import androidx.room.solver.binderprovider.GuavaListenableFutureQueryResultBinderProvider
 import androidx.room.solver.binderprovider.InstantQueryResultBinderProvider
 import androidx.room.solver.binderprovider.LiveDataQueryResultBinderProvider
@@ -173,6 +175,8 @@ class TypeAdapterStore private constructor(
             RxSingleQueryResultBinderProvider(context),
             DataSourceQueryResultBinderProvider(context),
             DataSourceFactoryQueryResultBinderProvider(context),
+            CoroutineChannelResultBinderProvider(context),
+            CoroutineFlowResultBinderProvider(context),
             InstantQueryResultBinderProvider(context)
     )
 
