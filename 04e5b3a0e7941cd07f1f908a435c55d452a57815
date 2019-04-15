@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "abeb5fb6_00094aee",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-04-15T23:14:47Z",
+      "side": 1,
+      "message": "Hmm, when I added a reflective call recently, you requested filing a bug to investigate removing the reflection :p\n\nYou might be able to call the confusingly-named `BaseVariant.getSourceFolders` like in https://android-review.googlesource.com/c/platform/frameworks/support/+/941798/1/buildSrc/src/main/kotlin/androidx/build/DiffAndDocs.kt#436",
+      "revId": "04e5b3a0e7941cd07f1f908a435c55d452a57815",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
