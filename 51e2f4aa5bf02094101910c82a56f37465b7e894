@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "20cbe826_e76e4a64",
+        "filename": "jetifier/jetifier/migration.config",
+        "patchSetId": 1
+      },
+      "lineNbr": 647,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-04-15T09:54:48Z",
+      "side": 0,
+      "message": "Why is this also removed if the CL should affect only preferences?",
+      "range": {
+        "startLine": 644,
+        "startChar": 4,
+        "endLine": 647,
+        "endChar": 6
+      },
+      "revId": "51e2f4aa5bf02094101910c82a56f37465b7e894",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
