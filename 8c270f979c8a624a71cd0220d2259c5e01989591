@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7eaa5db7_f7cd5605",
+        "filename": "cleanBuild.sh",
+        "patchSetId": 9
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-04-15T18:12:57Z",
+      "side": 1,
+      "message": "Should we ask if they want to continue instead? (Y/n) kind of thing.",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 7
+      },
+      "revId": "8c270f979c8a624a71cd0220d2259c5e01989591",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
