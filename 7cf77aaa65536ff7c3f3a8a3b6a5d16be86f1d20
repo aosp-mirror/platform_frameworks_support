@@ -22,6 +22,30 @@
       "revId": "7cf77aaa65536ff7c3f3a8a3b6a5d16be86f1d20",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "792f7af4_d20bf762",
+        "filename": "core/src/main/java/androidx/core/graphics/TypefaceCompatBaseImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1062848
+      },
+      "writtenOn": "2019-04-15T16:56:07Z",
+      "side": 1,
+      "message": "I prefer\n\n  final Number num \u003d (Number) field.get(typeface);\n  return num.longValue();",
+      "parentUuid": "4fe2e9a6_4f0b4300",
+      "range": {
+        "startLine": 89,
+        "startChar": 29,
+        "endLine": 89,
+        "endChar": 35
+      },
+      "revId": "7cf77aaa65536ff7c3f3a8a3b6a5d16be86f1d20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
