@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2ac9fe77_3167729f",
+        "filename": "buildSrc/init.gradle",
+        "patchSetId": 5
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-04-15T22:02:40Z",
+      "side": 1,
+      "message": "Why did we do this here? Just move it to where the task is created. I am trying to remove all the code from init.gradle.",
+      "range": {
+        "startLine": 114,
+        "startChar": 12,
+        "endLine": 122,
+        "endChar": 13
+      },
+      "revId": "bef69dbfdde160613cf2ac4103d6eb9bcb49ae53",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
