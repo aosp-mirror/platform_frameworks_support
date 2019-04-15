@@ -33,6 +33,7 @@ dependencies {
     api(KOTLIN_COROUTINES)
     testImplementation(JUNIT)
     testImplementation(MOCKITO_CORE)
+    testImplementation(TRUTH)
 }
 
 androidx {

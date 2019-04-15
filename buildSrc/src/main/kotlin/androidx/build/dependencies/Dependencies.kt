@@ -56,10 +56,10 @@ const val KOTLIN_COMPOSE_REFLECT = "org.jetbrains.kotlin:kotlin-reflect:$COMPOSE
 
 const val KOTLIN_METADATA = "me.eugeniomarletti.kotlin.metadata:kotlin-metadata:1.4.0"
 const val KOTLIN_METADATA_JVM = "org.jetbrains.kotlinx:kotlinx-metadata-jvm:0.0.5"
-const val KOTLIN_COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.1.1"
+const val KOTLIN_COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.0-M1"
 const val KOTLIN_COMPOSE_COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.1.1"
-const val KOTLIN_COROUTINES_CORE = "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1"
-const val KOTLIN_COROUTINES_TEST = "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.1.1"
+const val KOTLIN_COROUTINES_CORE = "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.0-M1"
+const val KOTLIN_COROUTINES_TEST = "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.3.0-M1"
 const val LEAKCANARY_INSTRUMENTATION =
         "com.squareup.leakcanary:leakcanary-android-instrumentation:1.6.2"
 const val LINT_API_MIN = "com.android.tools.lint:lint-api:26.3.0"

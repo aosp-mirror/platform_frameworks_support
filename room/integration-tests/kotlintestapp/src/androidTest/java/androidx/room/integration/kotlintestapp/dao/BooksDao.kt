@@ -43,6 +43,8 @@ import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Maybe
 import io.reactivex.Single
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.Flow
 import java.util.Date
 
 @Dao
@@ -376,4 +378,13 @@ interface BooksDao {
             insertBookSuspend(book)
         }
     }
+
+    @ExperimentalCoroutinesApi
+    @Query("SELECT * FROM book")
+    fun getBooksFlow(): Flow<List<Book>>
+
+    @ExperimentalCoroutinesApi
+    @Transaction
+    @Query("SELECT * FROM book")
+    fun getBooksFlowInTransaction(): Flow<List<Book>>
 }
