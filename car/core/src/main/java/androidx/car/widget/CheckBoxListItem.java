@@ -19,9 +19,9 @@ package androidx.car.widget;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
-import android.widget.RadioButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -31,18 +31,18 @@ import androidx.car.uxrestrictions.CarUxRestrictions;
 import androidx.constraintlayout.widget.Guideline;
 
 /**
- * Class to build a list item with {@link RadioButton}.
+ * Class to build a list item with {@link CheckBox}.
  *
- * <p>A radio button list item is visually composed of 5 parts.
+ * <p>A checkbox list item is visually composed of 5 parts.
  * <ul>
- * <li>A {@link RadioButton}.
- * <li>optional {@code Divider}.
  * <li>optional {@code Primary Action Icon}.
  * <li>optional {@code Title}.
  * <li>optional {@code Body}.
+ * <li>optional {@code Divider}.
+ * <li>A {@link CheckBox}.
  * </ul>
  */
-public class RadioButtonListItem extends CompoundButtonListItem<RadioButtonListItem.ViewHolder> {
+public class CheckBoxListItem extends CompoundButtonListItem<CheckBoxListItem.ViewHolder> {
 
     /**
      * Creates a {@link ViewHolder}.
@@ -52,13 +52,8 @@ public class RadioButtonListItem extends CompoundButtonListItem<RadioButtonListI
         return new ViewHolder(itemView);
     }
 
-    public RadioButtonListItem(@NonNull Context context) {
+    public CheckBoxListItem(@NonNull Context context) {
         super(context);
-    }
-
-    @Override
-    protected boolean isCompoundButtonPositionEnd() {
-        return false;
     }
 
     /**
@@ -66,11 +61,11 @@ public class RadioButtonListItem extends CompoundButtonListItem<RadioButtonListI
      */
     @Override
     public int getViewType() {
-        return ListItemAdapter.LIST_ITEM_TYPE_RADIO;
+        return ListItemAdapter.LIST_ITEM_TYPE_CHECK_BOX;
     }
 
     /**
-     * ViewHolder that contains necessary widgets for {@link RadioButtonListItem}.
+     * ViewHolder that contains necessary widgets for {@link CheckBoxListItem}.
      */
     public static final class ViewHolder extends CompoundButtonListItem.ViewHolder {
 
@@ -88,7 +83,6 @@ public class RadioButtonListItem extends CompoundButtonListItem<RadioButtonListI
         private CompoundButton mCompoundButton;
         private View mCompoundButtonDivider;
 
-
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -101,8 +95,8 @@ public class RadioButtonListItem extends CompoundButtonListItem<RadioButtonListI
 
             mSupplementalGuideline = itemView.findViewById(R.id.supplemental_actions_guideline);
 
-            mCompoundButton = itemView.findViewById(R.id.radiobutton_widget);
-            mCompoundButtonDivider = itemView.findViewById(R.id.radiobutton_divider);
+            mCompoundButton = itemView.findViewById(R.id.checkbox_widget);
+            mCompoundButtonDivider = itemView.findViewById(R.id.checkbox_divider);
 
             int minTouchSize = itemView.getContext().getResources()
                     .getDimensionPixelSize(R.dimen.car_touch_target_size);
