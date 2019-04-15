@@ -18,7 +18,15 @@ package androidx.room
 
 import androidx.annotation.RestrictTo
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.asCoroutineDispatcher
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.channels.ReceiveChannel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.concurrent.Callable
 import kotlin.coroutines.coroutineContext
@@ -51,6 +59,70 @@ class CoroutinesRoom private constructor() {
                 callable.call()
             }
         }
+
+        @JvmStatic
+        @ExperimentalCoroutinesApi
+        fun <R> createChannel(
+            db: RoomDatabase,
+            inTransaction: Boolean,
+            tableNames: Array<String>,
+            callable: Callable<R>
+        ): ReceiveChannel<@JvmSuppressWildcards R> {
+            val context = if (inTransaction) db.transactionDispatcher else db.queryDispatcher
+            val channel = Channel<R>(Channel.CONFLATED)
+            val job = GlobalScope.launch(context) {
+                if (channel.isClosedForSend) {
+                    // Channel got closed even before this coroutine started, just complete early.
+                    return@launch
+                }
+
+                // Observer channel receives signals from the invalidation tracker to perform query.
+                val observerChannel = Channel<Unit>(Channel.CONFLATED)
+                val observer = object : InvalidationTracker.Observer(tableNames) {
+                    override fun onInvalidated(tables: MutableSet<String>) {
+                        if (!channel.isClosedForSend) {
+                            observerChannel.offer(Unit)
+                        }
+                    }
+                }
+
+                db.invalidationTracker.addObserver(observer)
+                observerChannel.offer(Unit) // Initial signal to perform first query.
+                try {
+                    // Iterate until cancelled, transforming observer signals to query results and
+                    // sending them to the receiver channel.
+                    for (signal in observerChannel) {
+                        channel.offer(callable.call())
+                    }
+                } finally {
+                    db.invalidationTracker.removeObserver(observer)
+                }
+            }
+            channel.invokeOnClose {
+                job.cancel()
+            }
+            return channel
+        }
+
+        @JvmStatic
+        @FlowPreview
+        @ExperimentalCoroutinesApi
+        fun <R> createFlow(
+            db: RoomDatabase,
+            inTransaction: Boolean,
+            tableNames: Array<String>,
+            callable: Callable<R>
+        ): Flow<@JvmSuppressWildcards R> = flow {
+            val channel = createChannel(db, inTransaction, tableNames, callable)
+            try {
+                // Iterate until cancelled emitting query channel received results.
+                for (result in channel) {
+                    emit(result)
+                }
+            } finally {
+                channel.cancel()
+            }
+        }
     }
 }
 
@@ -71,5 +143,5 @@ internal val RoomDatabase.queryDispatcher: CoroutineDispatcher
  */
 internal val RoomDatabase.transactionDispatcher: CoroutineDispatcher
     get() = backingFieldMap.getOrPut("TransactionDispatcher") {
-        queryExecutor.asCoroutineDispatcher()
+        transactionExecutor.asCoroutineDispatcher()
     } as CoroutineDispatcher
