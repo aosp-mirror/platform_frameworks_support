@@ -16,6 +16,24 @@
       "revId": "811861960a4ab55b141a2ba7b0e3ec1fc1dd5f88",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a74a887_94bf68c3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-04-15T01:46:53Z",
+      "side": 1,
+      "message": "MediaControllerCompat#getSessionInfo() and \nMediaSessionCompat\u0027s constructor are marked with @hide.",
+      "parentUuid": "c09004e8_bd58cbd9",
+      "revId": "811861960a4ab55b141a2ba7b0e3ec1fc1dd5f88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
