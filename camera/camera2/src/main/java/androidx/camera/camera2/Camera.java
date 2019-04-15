@@ -191,27 +191,38 @@ final class Camera implements BaseCamera {
 
                 resetCaptureSession();
 
-                SurfaceTexture surfaceTexture = new SurfaceTexture(0);
+                final SurfaceTexture surfaceTexture = new SurfaceTexture(0);
                 surfaceTexture.setDefaultBufferSize(640, 480);
+                final Surface surface = new Surface(surfaceTexture);
+                final Runnable surfaceReleaseRunner = new Runnable() {
+                    @Override
+                    public void run() {
+                        surface.release();
+                        surfaceTexture.release();
+                    }
+                };
 
                 SessionConfig.Builder builder = new SessionConfig.Builder();
-                builder.addNonRepeatingSurface(new ImmediateSurface(new Surface(surfaceTexture)));
+                builder.addNonRepeatingSurface(new ImmediateSurface(surface));
                 builder.setTemplateType(CameraDevice.TEMPLATE_PREVIEW);
                 builder.addSessionStateCallback(new CameraCaptureSession.StateCallback() {
 
                     @Override
                     public void onConfigured(CameraCaptureSession session) {
                         session.close();
+                        surfaceReleaseRunner.run();
                     }
 
                     @Override
                     public void onConfigureFailed(CameraCaptureSession session) {
                         closeCameraResource();
+                        surfaceReleaseRunner.run();
                     }
 
                     @Override
                     public void onClosed(CameraCaptureSession session) {
                         closeCameraResource();
+                        surfaceReleaseRunner.run();
                     }
                 });
 
@@ -221,6 +232,7 @@ final class Camera implements BaseCamera {
                 } catch (CameraAccessException e) {
                     Log.d(TAG, "Unable to configure camera " + mCameraId + " due to "
                             + e.getMessage());
+                    surfaceReleaseRunner.run();
                 }
 
                 break;
