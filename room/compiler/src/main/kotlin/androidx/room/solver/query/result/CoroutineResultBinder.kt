@@ -32,7 +32,7 @@ import javax.lang.model.type.TypeMirror
 /**
  * Binds the result of a of a Kotlin coroutine suspend function.
  */
-class CoroutineResultBinder(
+open class CoroutineResultBinder(
     val typeArg: TypeMirror,
     private val continuationParamName: String,
     adapter: QueryResultAdapter?
@@ -66,7 +66,7 @@ class CoroutineResultBinder(
         }
     }
 
-    private fun createRunQueryAndReturnStatements(
+    protected fun createRunQueryAndReturnStatements(
         builder: MethodSpec.Builder,
         roomSQLiteQueryVar: String,
         canReleaseQuery: Boolean,

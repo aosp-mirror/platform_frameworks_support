@@ -43,6 +43,10 @@ import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Maybe
 import io.reactivex.Single
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.channels.ReceiveChannel
+import kotlinx.coroutines.flow.Flow
 import java.util.Date
 
 @Dao
@@ -376,4 +380,23 @@ interface BooksDao {
             insertBookSuspend(book)
         }
     }
+
+    @ExperimentalCoroutinesApi
+    @Query("SELECT * FROM book")
+    suspend fun getBooksReceiveChannel(): ReceiveChannel<List<Book>>
+
+    @FlowPreview
+    @Query("SELECT * FROM book")
+    suspend fun getBooksFlow(): Flow<List<Book>>
+
+//    Not Valid?:
+//
+//    @Query("SELECT * FROM book")
+//    suspend fun getBooksChannel(): Channel<Book>
+//
+//    @Query("SELECT * FROM book")
+//    suspend fun getBooksSendChannel(): SendChannel<Book>
+//
+//    @Query("SELECT * FROM book")
+//    fun getBooksSendChannel(): ReceiveChannel<Book>
 }

@@ -18,7 +18,17 @@ package androidx.room
 
 import androidx.annotation.RestrictTo
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.asCoroutineDispatcher
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.channels.ReceiveChannel
+import kotlinx.coroutines.channels.map
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import java.util.concurrent.Callable
 import kotlin.coroutines.coroutineContext
@@ -50,6 +60,56 @@ class CoroutinesRoom private constructor() {
             return withContext(context) {
                 callable.call()
             }
+        }
+
+        @JvmStatic
+        @ExperimentalCoroutinesApi
+        suspend fun <R> createChannel(
+            db: RoomDatabase,
+            inTransaction: Boolean,
+            tableNames: Array<String>,
+            callable: Callable<R>
+        ): ReceiveChannel<@JvmSuppressWildcards R> {
+            val channel = Channel<Unit>(Channel.CONFLATED)
+            val observer = object : InvalidationTracker.Observer(tableNames) {
+                override fun onInvalidated(tables: MutableSet<String>) {
+                    if (!channel.isClosedForSend) {
+                        channel.offer(Unit)
+                    }
+                }
+            }
+
+            val job = coroutineContext[Job]
+            if (job?.isActive == true) {
+                job.invokeOnCompletion {
+                    channel.close()
+                }
+            }
+
+            if (!channel.isClosedForSend) {
+                db.invalidationTracker.addObserver(observer)
+                channel.invokeOnClose {
+                    db.invalidationTracker.removeObserver(observer)
+                }
+                channel.offer(Unit)
+            }
+
+            val context = if (inTransaction) db.transactionDispatcher else db.queryDispatcher
+            return channel.map(context) { callable.call() }
+        }
+
+        @JvmStatic
+        @FlowPreview
+        @ExperimentalCoroutinesApi
+        suspend fun <R> createFlow(
+            db: RoomDatabase,
+            inTransaction: Boolean,
+            callable: Callable<R>
+        ): Flow<@JvmSuppressWildcards R> {
+            val context = if (inTransaction) db.transactionDispatcher else db.queryDispatcher
+            return flow {
+                emit(callable.call())
+            }.flowOn(context)
         }
     }
 }

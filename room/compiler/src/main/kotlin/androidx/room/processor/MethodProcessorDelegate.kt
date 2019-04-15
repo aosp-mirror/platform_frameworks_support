@@ -21,11 +21,14 @@ import androidx.room.ext.L
 import androidx.room.ext.N
 import androidx.room.ext.RoomCoroutinesTypeNames
 import androidx.room.ext.T
+import androidx.room.ext.extendsBoundOrSelf
 import androidx.room.ext.getSuspendFunctionReturnType
 import androidx.room.kotlin.KotlinMetadataElement
 import androidx.room.parser.ParsedQuery
 import androidx.room.solver.prepared.binder.CallablePreparedQueryResultBinder.Companion.createPreparedBinder
 import androidx.room.solver.prepared.binder.PreparedQueryResultBinder
+import androidx.room.solver.query.result.CoroutineChannelResultBinder
+import androidx.room.solver.query.result.CoroutineFlowResultBinder
 import androidx.room.solver.query.result.CoroutineResultBinder
 import androidx.room.solver.query.result.QueryResultBinder
 import androidx.room.solver.shortcut.binder.CallableDeleteOrUpdateMethodBinder.Companion.createDeleteOrUpdateBinder
@@ -181,17 +184,60 @@ class SuspendMethodProcessorDelegate(
         }
     }
 
+    private val channelTypes: Array<TypeMirror> by lazy {
+        val elementUtils = context.processingEnv.elementUtils
+        arrayOf(
+            elementUtils.getTypeElement(KotlinTypeNames.CHANNEL.toString()).asType(),
+            elementUtils.getTypeElement(KotlinTypeNames.RECEIVE_CHANNEL.toString()).asType())
+    }
+
+    private val flowType: TypeMirror by lazy {
+        context.processingEnv.elementUtils.getTypeElement(KotlinTypeNames.FLOW.toString()).asType()
+    }
+
     override fun extractReturnType() = executableElement.getSuspendFunctionReturnType()
 
     override fun extractParams() =
         executableElement.parameters.filterNot { it == continuationParam }
 
-    override fun findResultBinder(returnType: TypeMirror, query: ParsedQuery) =
-        CoroutineResultBinder(
-            typeArg = returnType,
-            adapter = context.typeAdapterStore.findQueryResultAdapter(returnType, query),
-            continuationParamName = continuationParam.simpleName.toString()
-        )
+    override fun findResultBinder(returnType: TypeMirror, query: ParsedQuery): QueryResultBinder {
+        val typeUtils = context.processingEnv.typeUtils
+        val declared = MoreTypes.asDeclared(returnType)
+        val erasure = typeUtils.erasure(declared)
+
+        return if (channelTypes.any { typeUtils.isAssignable(erasure, it) }) {
+            // TODO: Complain that type must be ReceiveChannel and not Channel (nor SendChannel)
+            val extractedReturnType = declared.typeArguments.first().extendsBoundOrSelf()
+            val adapter =
+                context.typeAdapterStore.findQueryResultAdapter(extractedReturnType, query)
+            val tableNames = ((adapter?.accessedTableNames() ?: emptyList()) +
+                    query.tables.map { it.name }).toSet()
+            if (tableNames.isEmpty()) {
+                context.logger.e(ProcessorErrors.OBSERVABLE_QUERY_NOTHING_TO_OBSERVE)
+            }
+            CoroutineChannelResultBinder(
+                typeArg = extractedReturnType,
+                tableNames = tableNames,
+                adapter = adapter,
+                continuationParamName = continuationParam.simpleName.toString()
+            )
+        } else if (typeUtils.isAssignable(erasure, flowType)) {
+            val extractedReturnType = declared.typeArguments.first().extendsBoundOrSelf()
+            val adapter =
+                context.typeAdapterStore.findQueryResultAdapter(extractedReturnType, query)
+            CoroutineFlowResultBinder(
+                typeArg = extractedReturnType,
+                adapter = adapter,
+                continuationParamName = continuationParam.simpleName.toString()
+            )
+        } else {
+            CoroutineResultBinder(
+                typeArg = returnType,
+                adapter = context.typeAdapterStore.findQueryResultAdapter(returnType, query),
+                continuationParamName = continuationParam.simpleName.toString()
+            )
+        }
+    }
 
     override fun findPreparedResultBinder(
         returnType: TypeMirror,
