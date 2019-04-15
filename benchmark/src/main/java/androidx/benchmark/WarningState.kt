@@ -101,6 +101,8 @@ internal object WarningState {
         return cpuClocksAreLocked
     }
 
+    val clocksAreKnownLocked: Boolean
+
     init {
         val appInfo = InstrumentationRegistry.getInstrumentation().targetContext
             .applicationInfo
@@ -137,16 +139,21 @@ internal object WarningState {
                 |    benchmarking. Use a '-user' or '-userdebug' system image.
             """.trimMarginWrapNewlines()
         }
-
-        if (isDeviceRooted && !isCpuLocked()) {
-            warningPrefix += "UNLOCKED_"
-            warningString += """
+        if (isDeviceRooted) {
+            val rootedUnlockedClocksWarning = """
                 |WARNING: Unstable CPU clocks
                 |    Benchmark appears to be running on a rooted device with unlocked CPU
                 |    clocks. Unlocked CPU clocks can lead to inconsistent results due to
-                |    dynamic frequency scaling, and thermal throttling. On a rooted
-                |    device, lock your device clocks to a stable frequency with lockClocks.sh
+                |    dynamic frequency scaling, and thermal throttling. On a rooted device,
+                |    lock your device clocks to a stable frequency with './gradlew lockClocks'
             """.trimMarginWrapNewlines()
+            clocksAreKnownLocked = isCpuLocked()
+            if (!clocksAreKnownLocked) {
+                warningPrefix += "UNLOCKED_"
+                warningString += rootedUnlockedClocksWarning
+            }
+        } else {
+            clocksAreKnownLocked = false
         }
 
         WARNING_PREFIX = warningPrefix

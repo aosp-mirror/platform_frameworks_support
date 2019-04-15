@@ -82,6 +82,9 @@ class BenchmarkState internal constructor() {
     // Individual duration in nano seconds.
     private val results = ArrayList<Long>()
 
+    internal var performThrottleChecks = true
+    private var throttleRemainingRetries = 3
+
     /**
      * Get the end of run benchmark statistics.
      *
@@ -203,8 +206,21 @@ class BenchmarkState internal constructor() {
 
     private fun startNextTestRun(): Boolean {
         val currentTime = System.nanoTime()
-        results.add((currentTime - startTimeNs - pausedDurationNs) / maxIterations)
-        repeatCount++
+
+        if (performThrottleChecks &&
+                throttleRemainingRetries > 0 &&
+                ThrottleDetector.checkIfNeedsRetry()) {
+            System.out.println("THERMAL THROTTLE DETECTED, SLEEPING")
+            Thread.sleep(THROTTLE_BACKOFF_MS)
+            // System appears to be in thermal throttle - retry benchmark!
+            throttleRemainingRetries -= 1
+            results.clear()
+            repeatCount = 0
+        } else {
+            results.add((currentTime - startTimeNs - pausedDurationNs) / maxIterations)
+            repeatCount++
+        }
+
         if (repeatCount >= REPEAT_COUNT) {
             if (ENABLE_PROFILING) {
                 Debug.stopMethodTracing()
@@ -261,6 +277,9 @@ class BenchmarkState internal constructor() {
     internal fun keepRunningInternal(): Boolean {
         when (state) {
             NOT_STARTED -> {
+                if (performThrottleChecks) {
+                    ThrottleDetector.tryInit()
+                }
                 beginWarmup()
                 return true
             }
@@ -396,6 +415,8 @@ class BenchmarkState internal constructor() {
         private const val MAX_TEST_ITERATIONS = 1000000
         private const val MIN_TEST_ITERATIONS = 10
         private const val REPEAT_COUNT = 5
+
+        private val THROTTLE_BACKOFF_MS = TimeUnit.SECONDS.toMillis(90)
 
         init {
             Log.i(CSV_TAG, (0 until REPEAT_COUNT).joinToString(
