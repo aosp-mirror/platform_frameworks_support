@@ -51,6 +51,7 @@ final class CheckedSurfaceTexture extends DeferrableSurface {
     Surface mSurface;
     @Nullable
     private Size mResolution;
+    private boolean mIsSurfaceAttached = false;
 
     Object mLock = new Object();
 
@@ -86,6 +87,12 @@ final class CheckedSurfaceTexture extends DeferrableSurface {
 
     @UiThread
     void resetSurfaceTexture() {
+        mIsSurfaceAttached = false;
+        resetSurfaceTextureInternal();
+    }
+
+    @UiThread
+    void resetSurfaceTextureInternal() {
         if (mResolution == null) {
             throw new IllegalStateException(
                     "setResolution() must be called before resetSurfaceTexture()");
@@ -96,7 +103,6 @@ final class CheckedSurfaceTexture extends DeferrableSurface {
         mSurfaceTexture = createDetachedSurfaceTexture(mResolution);
         mOutputChangedListener.onTextureChanged(mSurfaceTexture, mResolution);
     }
-
 
     @UiThread
     boolean isSurfaceTextureReleasing(FixedSizeSurfaceTexture surfaceTexture) {
@@ -166,13 +172,14 @@ final class CheckedSurfaceTexture extends DeferrableSurface {
         runOnMainThread(new Runnable() {
             @Override
             public void run() {
-                if (isSurfaceTextureReleasing(mSurfaceTexture)) {
-                    // Reset the surface texture and notify the listener
-                    CheckedSurfaceTexture.this.resetSurfaceTexture();
+                // Skip the first refresh() after the resetSurfaceTexture() called since the
+                // Surface is not attached yet.
+                if (!mIsSurfaceAttached && mSurfaceTexture != null) {
+                    mIsSurfaceAttached = true;
+                    return;
                 }
-                // To fix the incorrect preview orientation for devices running on legacy camera,
-                // it needs to attach a new Surface instance to the newly created camera capture
-                // session.
+                // Recreate the SurfaceTexture and Surface.
+                resetSurfaceTextureInternal();
                 mSurface = createSurfaceFrom(mSurfaceTexture);
             }
         });
