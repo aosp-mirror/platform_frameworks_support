@@ -117,4 +117,21 @@ public final class UseCaseGroupRepositoryTest {
         // Should throw IllegalArgumentException
         mRepository.getOrCreateUseCaseGroup(mLifecycle);
     }
+
+    @Test
+    public void useCaseGroupIsStopped_whenNewLifecycleIsStarted() {
+        // Starts first lifecycle and check UseCaseGroup active state is true.
+        UseCaseGroupLifecycleController firstController = mRepository.getOrCreateUseCaseGroup(
+                mLifecycle);
+        mLifecycle.start();
+        assertThat(firstController.getUseCaseGroup().isActive()).isTrue();
+
+        // Starts second lifecycle and check previous UseCaseGroup is stopped.
+        FakeLifecycleOwner secondLifecycle = new FakeLifecycleOwner();
+        UseCaseGroupLifecycleController secondController = mRepository.getOrCreateUseCaseGroup(
+                secondLifecycle);
+        secondLifecycle.start();
+        assertThat(secondController.getUseCaseGroup().isActive()).isTrue();
+        assertThat(firstController.getUseCaseGroup().isActive()).isFalse();
+    }
 }
