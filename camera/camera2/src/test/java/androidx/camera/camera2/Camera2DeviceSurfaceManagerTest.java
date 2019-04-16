@@ -36,7 +36,6 @@ import android.view.WindowManager;
 import androidx.camera.core.AppConfig;
 import androidx.camera.core.CameraDeviceSurfaceManager;
 import androidx.camera.core.CameraFactory;
-import androidx.camera.core.CameraX;
 import androidx.camera.core.CameraX.LensFacing;
 import androidx.camera.core.ExtendableUseCaseConfigFactory;
 import androidx.camera.core.ImageAnalysisConfig;
@@ -442,6 +441,7 @@ public final class Camera2DeviceSurfaceManagerTest {
                         LEGACY_CAMERA_ID, ImageFormat.JPEG, mRecordSize);
         SurfaceConfig expectedSurfaceConfig =
                 SurfaceConfig.create(ConfigType.JPEG, ConfigSize.RECORD);
+
         assertEquals(expectedSurfaceConfig, surfaceConfig);
     }
 
@@ -523,8 +523,7 @@ public final class Camera2DeviceSurfaceManagerTest {
 
     private void initCameraX() {
         AppConfig appConfig = createFakeAppConfig();
-        CameraX.init(mContext, appConfig);
-        mSurfaceManager = CameraX.getSurfaceManager();
+        mSurfaceManager = new Camera2DeviceSurfaceManager(mContext, mMockCamcorderProfileHelper);
     }
 
     private AppConfig createFakeAppConfig() {
