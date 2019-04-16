@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "38806bb6_6b4d02d8",
+        "filename": "lifecycle/integration-tests/gradletest/src/test/kotlin/androidx/lifecycle/IncrementalAnnotationProcessingTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1323892
+      },
+      "writtenOn": "2019-04-16T20:46:40Z",
+      "side": 1,
+      "message": "These two lines are temporary. Will be removed at the end of the CL.",
+      "range": {
+        "startLine": 99,
+        "startChar": 0,
+        "endLine": 100,
+        "endChar": 42
+      },
+      "revId": "a2d610903ed7333d3ac331db2ff502b666caa449",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
