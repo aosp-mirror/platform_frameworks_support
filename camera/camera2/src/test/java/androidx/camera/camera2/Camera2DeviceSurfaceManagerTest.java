@@ -524,7 +524,6 @@ public final class Camera2DeviceSurfaceManagerTest {
     private void initCameraX() {
         AppConfig appConfig = createFakeAppConfig();
         CameraX.init(mContext, appConfig);
-        mSurfaceManager = CameraX.getSurfaceManager();
     }
 
     private AppConfig createFakeAppConfig() {
@@ -533,8 +532,7 @@ public final class Camera2DeviceSurfaceManagerTest {
         CameraFactory cameraFactory = new Camera2CameraFactory(mContext);
 
         // Create the DeviceSurfaceManager for Camera2
-        CameraDeviceSurfaceManager surfaceManager =
-                new Camera2DeviceSurfaceManager(mContext, mMockCamcorderProfileHelper);
+        mSurfaceManager = new Camera2DeviceSurfaceManager(mContext, mMockCamcorderProfileHelper);
 
         // Create default configuration factory
         ExtendableUseCaseConfigFactory configFactory = new ExtendableUseCaseConfigFactory();
@@ -554,7 +552,7 @@ public final class Camera2DeviceSurfaceManagerTest {
         AppConfig.Builder appConfigBuilder =
                 new AppConfig.Builder()
                         .setCameraFactory(cameraFactory)
-                        .setDeviceSurfaceManager(surfaceManager)
+                        .setDeviceSurfaceManager(mSurfaceManager)
                         .setUseCaseConfigFactory(configFactory);
 
         return appConfigBuilder.build();
