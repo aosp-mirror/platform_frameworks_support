@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "524eb74e_4a5fac8e",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-04-16T02:08:31Z",
+      "side": 1,
+      "message": "nit: isNotEmpty",
+      "revId": "e087aaa99143fb964b77ad6a584b63f9fe03d9db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
