@@ -114,7 +114,7 @@ public class MediaControllerTest extends MediaSessionTestBase {
                 })
                 .setSessionActivity(mIntent)
                 .setId(TAG).build();
-        mController = createController(mSession.getToken());
+        mController = createController(mSession.getSessionToken());
         mAudioManager = (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);
         TestServiceRegistry.getInstance().setHandler(sHandler);
     }
@@ -236,7 +236,7 @@ public class MediaControllerTest extends MediaSessionTestBase {
         mPlayer.mPlaybackSpeed = speed;
         mPlayer.mCurrentMediaItem = currentMediaItem;
 
-        MediaController controller = createController(mSession.getToken());
+        MediaController controller = createController(mSession.getSessionToken());
         controller.setTimeDiff(timeDiff);
         assertEquals(state, controller.getPlayerState());
         assertEquals(bufferedPosition, controller.getBufferedPosition());
@@ -253,7 +253,7 @@ public class MediaControllerTest extends MediaSessionTestBase {
         final AudioAttributesCompat testAudioAttributes = new AudioAttributesCompat.Builder()
                 .setLegacyStreamType(AudioManager.STREAM_RING).build();
         final CountDownLatch latch = new CountDownLatch(3);
-        mController = createController(mSession.getToken(), true, new ControllerCallback() {
+        mController = createController(mSession.getSessionToken(), true, new ControllerCallback() {
             @Override
             public void onPlayerStateChanged(MediaController controller, int state) {
                 assertEquals(mController, controller);
@@ -351,7 +351,7 @@ public class MediaControllerTest extends MediaSessionTestBase {
                 latch.countDown();
             }
         };
-        MediaController controller = createController(mSession.getToken(), true, callback);
+        MediaController controller = createController(mSession.getSessionToken(), true, callback);
         mPlayer.mPlaylist = testList;
         mPlayer.mMetadata = testMetadata;
         mPlayer.notifyPlaylistChanged();
@@ -384,7 +384,7 @@ public class MediaControllerTest extends MediaSessionTestBase {
                 latch.countDown();
             }
         };
-        MediaController controller = createController(mSession.getToken(), true, callback);
+        MediaController controller = createController(mSession.getSessionToken(), true, callback);
         mPlayer.mPlaylist = testList;
         mPlayer.mMetadata = testMetadata;
         mPlayer.notifyPlaylistChanged();
@@ -427,7 +427,8 @@ public class MediaControllerTest extends MediaSessionTestBase {
                 .setId("testGetPlaylistMetadata")
                 .setSessionCallback(sHandlerExecutor, new SessionCallback() {})
                 .build()) {
-            MediaController controller = createController(session.getToken(), true, callback);
+            MediaController controller = createController(session.getSessionToken(), true,
+                    callback);
             mPlayer.notifyPlaylistMetadataChanged();
             assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
             assertEquals(metadataFromCallback.get().getMediaId(),
@@ -458,7 +459,7 @@ public class MediaControllerTest extends MediaSessionTestBase {
 
         final CountDownLatch latch = new CountDownLatch(1);
         final MediaController controller =
-                createController(mSession.getToken(), true, new ControllerCallback() {
+                createController(mSession.getSessionToken(), true, new ControllerCallback() {
                     @Override
                     public void onPlaybackSpeedChanged(MediaController controller,
                             float speedOut) {
@@ -514,7 +515,8 @@ public class MediaControllerTest extends MediaSessionTestBase {
                 .setId("testControllerCallback_onPlaylistMetadataChanged")
                 .setSessionCallback(sHandlerExecutor, sessionCallback)
                 .build()) {
-            MediaController controller = createController(session.getToken(), true, callback);
+            MediaController controller = createController(session.getSessionToken(), true,
+                    callback);
             mPlayer.notifyPlaylistChanged();
             assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         }
@@ -535,7 +537,8 @@ public class MediaControllerTest extends MediaSessionTestBase {
                 latch.countDown();
             }
         };
-        final MediaController controller = createController(mSession.getToken(), true, callback);
+        final MediaController controller = createController(mSession.getSessionToken(), true,
+                callback);
         mPlayer.mCurrentPosition = testPosition;
         mPlayer.mLastPlayerState = SessionPlayer.PLAYER_STATE_PAUSED;
         mPlayer.notifySeekCompleted(testSeekPosition);
@@ -568,7 +571,8 @@ public class MediaControllerTest extends MediaSessionTestBase {
                 latch.countDown();
             }
         };
-        final MediaController controller = createController(mSession.getToken(), true, callback);
+        final MediaController controller = createController(mSession.getSessionToken(), true,
+                callback);
         mSession.getPlayer().setPlaylist(testPlaylist, null);
         mPlayer.mBufferedPosition = testBufferingPosition;
         mPlayer.notifyBufferingStateChanged(testItem, testBufferingState);
@@ -596,7 +600,8 @@ public class MediaControllerTest extends MediaSessionTestBase {
                 latch.countDown();
             }
         };
-        final MediaController controller = createController(mSession.getToken(), true, callback);
+        final MediaController controller = createController(mSession.getSessionToken(), true,
+                callback);
         mPlayer.mCurrentPosition = testPosition;
         mPlayer.notifyPlayerStateChanged(testPlayerState);
         assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
@@ -619,7 +624,7 @@ public class MediaControllerTest extends MediaSessionTestBase {
         final MediaItem unknownItem = TestUtils.createMediaItemWithMetadata();
         final CountDownLatch latch = new CountDownLatch(3);
         final MediaController controller =
-                createController(mSession.getToken(), true, new ControllerCallback() {
+                createController(mSession.getSessionToken(), true, new ControllerCallback() {
                     @Override
                     public void onCurrentMediaItemChanged(MediaController controller,
                             MediaItem item) {
@@ -676,7 +681,7 @@ public class MediaControllerTest extends MediaSessionTestBase {
         // Recreate controller for sending removePlaylistItem.
         // It's easier to ensure that MediaController.getPlaylist() returns the playlist from the
         // player.
-        MediaController controller = createController(mSession.getToken());
+        MediaController controller = createController(mSession.getSessionToken());
         int targetIndex = 0;
         controller.removePlaylistItem(targetIndex);
         assertTrue(mPlayer.mCountDownLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
@@ -720,7 +725,7 @@ public class MediaControllerTest extends MediaSessionTestBase {
         List<MediaItem> playlist = TestUtils.createMediaItems(2);
         int targetIndex = 1;
         mPlayer.mPlaylist = playlist;
-        MediaController controller = createController(mSession.getToken());
+        MediaController controller = createController(mSession.getSessionToken());
         controller.skipToPlaylistItem(targetIndex);
         assertTrue(mPlayer.mCountDownLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
 
@@ -744,7 +749,7 @@ public class MediaControllerTest extends MediaSessionTestBase {
                 latch.countDown();
             }
         };
-        MediaController controller = createController(mSession.getToken(), true, callback);
+        MediaController controller = createController(mSession.getSessionToken(), true, callback);
         mPlayer.notifyShuffleModeChanged();
         assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         assertEquals(testShuffleMode, controller.getShuffleMode());
@@ -777,7 +782,7 @@ public class MediaControllerTest extends MediaSessionTestBase {
                 latch.countDown();
             }
         };
-        MediaController controller = createController(mSession.getToken(), true, callback);
+        MediaController controller = createController(mSession.getSessionToken(), true, callback);
         mPlayer.notifyRepeatModeChanged();
         assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         assertEquals(testRepeatMode, controller.getRepeatMode());
@@ -815,7 +820,7 @@ public class MediaControllerTest extends MediaSessionTestBase {
                 latch.countDown();
             }
         };
-        MediaController controller = createController(mSession.getToken(), true, callback);
+        MediaController controller = createController(mSession.getSessionToken(), true, callback);
 
         mPlayer.mPrevMediaItemIndex = currentIndex;
         mPlayer.mRepeatMode = noneRepeatMode;
@@ -853,7 +858,7 @@ public class MediaControllerTest extends MediaSessionTestBase {
                 latch.countDown();
             }
         };
-        MediaController controller = createController(mSession.getToken(), true, callback);
+        MediaController controller = createController(mSession.getSessionToken(), true, callback);
 
         mPlayer.mPrevMediaItemIndex = currentIndex;
         mPlayer.mShuffleMode = noneShuffleMode;
@@ -878,7 +883,7 @@ public class MediaControllerTest extends MediaSessionTestBase {
                 new MockRemotePlayer(volumeControlType, maxVolume, currentVolume);
 
         mSession.updatePlayer(remotePlayer);
-        final MediaController controller = createController(mSession.getToken(), true, null);
+        final MediaController controller = createController(mSession.getSessionToken(), true, null);
 
         final int targetVolume = 50;
         controller.setVolumeTo(targetVolume, 0 /* flags */);
@@ -897,7 +902,7 @@ public class MediaControllerTest extends MediaSessionTestBase {
                 new MockRemotePlayer(volumeControlType, maxVolume, currentVolume);
 
         mSession.updatePlayer(remotePlayer);
-        final MediaController controller = createController(mSession.getToken(), true, null);
+        final MediaController controller = createController(mSession.getSessionToken(), true, null);
 
         final int direction = AudioManager.ADJUST_RAISE;
         controller.adjustVolume(direction, 0 /* flags */);
@@ -1001,10 +1006,10 @@ public class MediaControllerTest extends MediaSessionTestBase {
     }
 
     @Test
-    public void testSendCustomCommand() throws InterruptedException {
+    public void testSendSessionCommand() throws InterruptedException {
         prepareLooper();
         // TODO(jaewan): Need to revisit with the permission.
-        final String command = "test_custom_command";
+        final String command = "test_session_command";
         final Bundle testArgs = new Bundle();
         testArgs.putString("args", "test_args");
         final SessionCommand testCommand = new SessionCommand(command, null);
@@ -1022,10 +1027,10 @@ public class MediaControllerTest extends MediaSessionTestBase {
             }
 
             @Override
-            public SessionResult onCustomCommand(MediaSession session,
-                    ControllerInfo controller, SessionCommand customCommand, Bundle args) {
+            public SessionResult onSessionCommand(MediaSession session,
+                    ControllerInfo controller, SessionCommand sessionCommand, Bundle args) {
                 assertEquals(mContext.getPackageName(), controller.getPackageName());
-                assertEquals(command, customCommand.getCustomCommand());
+                assertEquals(command, sessionCommand.getCustomAction());
                 assertTrue(TestUtils.equals(testArgs, args));
                 latch.countDown();
                 return new SessionResult(RESULT_SUCCESS, null);
@@ -1034,8 +1039,8 @@ public class MediaControllerTest extends MediaSessionTestBase {
         mSession.close();
         mSession = new MediaSession.Builder(mContext, mPlayer)
                 .setSessionCallback(sHandlerExecutor, callback).setId(TAG).build();
-        final MediaController controller = createController(mSession.getToken());
-        controller.sendCustomCommand(testCommand, testArgs);
+        final MediaController controller = createController(mSession.getSessionToken());
+        controller.sendSessionCommand(testCommand, testArgs);
         assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
     }
 
@@ -1044,7 +1049,7 @@ public class MediaControllerTest extends MediaSessionTestBase {
         prepareLooper();
         // createController() uses controller callback to wait until the controller becomes
         // available.
-        MediaController controller = createController(mSession.getToken());
+        MediaController controller = createController(mSession.getSessionToken());
         assertNotNull(controller);
     }
 
@@ -1067,7 +1072,7 @@ public class MediaControllerTest extends MediaSessionTestBase {
             }
         });
         MediaController controller =
-                createController(mSession.getToken(), false, null);
+                createController(mSession.getSessionToken(), false, null);
         assertNotNull(controller);
         waitForConnect(controller, false);
         waitForDisconnect(controller, true);
@@ -1102,7 +1107,7 @@ public class MediaControllerTest extends MediaSessionTestBase {
         try (MediaSession session = new MediaSession.Builder(mContext, mPlayer)
                 .setSessionCallback(sHandlerExecutor, callback)
                 .setId("testFastForward").build()) {
-            MediaController controller = createController(session.getToken());
+            MediaController controller = createController(session.getSessionToken());
             controller.fastForward();
             assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         }
@@ -1123,7 +1128,7 @@ public class MediaControllerTest extends MediaSessionTestBase {
         try (MediaSession session = new MediaSession.Builder(mContext, mPlayer)
                 .setSessionCallback(sHandlerExecutor, callback)
                 .setId("testRewind").build()) {
-            MediaController controller = createController(session.getToken());
+            MediaController controller = createController(session.getSessionToken());
             controller.rewind();
             assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         }
@@ -1151,7 +1156,7 @@ public class MediaControllerTest extends MediaSessionTestBase {
         try (MediaSession session = new MediaSession.Builder(mContext, mPlayer)
                 .setSessionCallback(sHandlerExecutor, callback)
                 .setId("testPlayFromSearch").build()) {
-            MediaController controller = createController(session.getToken());
+            MediaController controller = createController(session.getSessionToken());
             controller.playFromSearch(request, bundle);
             assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         }
@@ -1178,7 +1183,7 @@ public class MediaControllerTest extends MediaSessionTestBase {
         try (MediaSession session = new MediaSession.Builder(mContext, mPlayer)
                 .setSessionCallback(sHandlerExecutor, callback)
                 .setId("testPlayFromUri").build()) {
-            MediaController controller = createController(session.getToken());
+            MediaController controller = createController(session.getSessionToken());
             controller.playFromUri(request, bundle);
             assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         }
@@ -1205,7 +1210,7 @@ public class MediaControllerTest extends MediaSessionTestBase {
         try (MediaSession session = new MediaSession.Builder(mContext, mPlayer)
                 .setSessionCallback(sHandlerExecutor, callback)
                 .setId("testPlayFromMediaId").build()) {
-            MediaController controller = createController(session.getToken());
+            MediaController controller = createController(session.getSessionToken());
             controller.playFromMediaId(request, bundle);
             assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         }
@@ -1232,7 +1237,7 @@ public class MediaControllerTest extends MediaSessionTestBase {
         try (MediaSession session = new MediaSession.Builder(mContext, mPlayer)
                 .setSessionCallback(sHandlerExecutor, callback)
                 .setId("testPrepareFromSearch").build()) {
-            MediaController controller = createController(session.getToken());
+            MediaController controller = createController(session.getSessionToken());
             controller.prepareFromSearch(request, bundle);
             assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         }
@@ -1259,7 +1264,7 @@ public class MediaControllerTest extends MediaSessionTestBase {
         try (MediaSession session = new MediaSession.Builder(mContext, mPlayer)
                 .setSessionCallback(sHandlerExecutor, callback)
                 .setId("testPrepareFromUri").build()) {
-            MediaController controller = createController(session.getToken());
+            MediaController controller = createController(session.getSessionToken());
             controller.prepareFromUri(request, bundle);
             assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         }
@@ -1286,7 +1291,7 @@ public class MediaControllerTest extends MediaSessionTestBase {
         try (MediaSession session = new MediaSession.Builder(mContext, mPlayer)
                 .setSessionCallback(sHandlerExecutor, callback)
                 .setId("testPrepareFromMediaId").build()) {
-            MediaController controller = createController(session.getToken());
+            MediaController controller = createController(session.getSessionToken());
             controller.prepareFromMediaId(request, bundle);
             assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         }
@@ -1315,7 +1320,7 @@ public class MediaControllerTest extends MediaSessionTestBase {
         try (MediaSession session = new MediaSession.Builder(mContext, mPlayer)
                 .setSessionCallback(sHandlerExecutor, callback)
                 .setId("testSetRating").build()) {
-            MediaController controller = createController(session.getToken());
+            MediaController controller = createController(session.getSessionToken());
             controller.setRating(mediaId, rating);
             assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         }
@@ -1367,7 +1372,7 @@ public class MediaControllerTest extends MediaSessionTestBase {
                             .setId("testDeadlock").build();
                 }
             });
-            final MediaController controller = createController(mSession.getToken());
+            final MediaController controller = createController(mSession.getSessionToken());
             testHandler.post(new Runnable() {
                 @Override
                 public void run() {
@@ -1463,7 +1468,7 @@ public class MediaControllerTest extends MediaSessionTestBase {
         mController = createController(TestUtils.getServiceToken(mContext, id), true,
                 new ControllerCallback() {
                     @Override
-                    public SessionResult onCustomCommand(
+                    public SessionResult onSessionCommand(
                             MediaController controller, SessionCommand command, Bundle args) {
                         if (testCommand.equals(command)) {
                             controllerLatch.countDown();
@@ -1480,7 +1485,7 @@ public class MediaControllerTest extends MediaSessionTestBase {
         assertTrue(mPlayer.mPlayCalled);
 
         // Test command from session service to controller.
-        mSession.broadcastCustomCommand(testCommand, null);
+        mSession.broadcastSessionCommand(testCommand, null);
         assertTrue(controllerLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
     }
 
@@ -1503,7 +1508,7 @@ public class MediaControllerTest extends MediaSessionTestBase {
     public void testClose_beforeConnected() throws InterruptedException {
         prepareLooper();
         MediaController controller =
-                createController(mSession.getToken(), false, null);
+                createController(mSession.getSessionToken(), false, null);
         controller.close();
     }
 
@@ -1566,7 +1571,7 @@ public class MediaControllerTest extends MediaSessionTestBase {
                 latch.countDown();
             }
         };
-        MediaController controller = createController(mSession.getToken(), true, callback);
+        MediaController controller = createController(mSession.getSessionToken(), true, callback);
         controller.setTimeDiff(timeDiff);
         mPlayer.notifyPlayerStateChanged(pausedState);
         assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
@@ -1600,7 +1605,7 @@ public class MediaControllerTest extends MediaSessionTestBase {
                 latch.countDown();
             }
         };
-        MediaController controller = createController(mSession.getToken(), true, callback);
+        MediaController controller = createController(mSession.getSessionToken(), true, callback);
         mPlayer.setMediaItem(item);
         mPlayer.notifyCurrentMediaItemChanged(item);
         assertFalse(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
@@ -1636,7 +1641,7 @@ public class MediaControllerTest extends MediaSessionTestBase {
                 latch.countDown();
             }
         };
-        MediaController controller = createController(mSession.getToken(), true, callback);
+        MediaController controller = createController(mSession.getSessionToken(), true, callback);
         mPlayer.setPlaylist(list, null);
         mPlayer.skipToPlaylistItem(currentItemIdx);
         mPlayer.notifyPlaylistChanged();
@@ -1693,16 +1698,16 @@ public class MediaControllerTest extends MediaSessionTestBase {
 
         // Calls from the session to controller shouldn't be delivered.
         final CountDownLatch latch = new CountDownLatch(1);
-        setRunnableForOnCustomCommand(mController, new Runnable() {
+        setRunnableForOnSessionCommand(mController, new Runnable() {
             @Override
             public void run() {
                 latch.countDown();
             }
         });
-        SessionCommand customCommand = new SessionCommand("testNoInteraction", null);
-        mSession.broadcastCustomCommand(customCommand, null);
+        SessionCommand sessionCommand = new SessionCommand("testNoInteraction", null);
+        mSession.broadcastSessionCommand(sessionCommand, null);
         assertFalse(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
-        setRunnableForOnCustomCommand(mController, null);
+        setRunnableForOnSessionCommand(mController, null);
     }
 
     // TODO(jaewan): Add  test for service connect rejection, when we differentiate session

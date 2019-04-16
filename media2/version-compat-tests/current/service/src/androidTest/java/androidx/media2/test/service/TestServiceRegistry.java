@@ -123,7 +123,7 @@ public class TestServiceRegistry {
                     Log.d(TAG, "setServiceInstance(): service=" + service + ", session size="
                             + service.getSessions().size());
                     for (MediaSession session : service.getSessions()) {
-                        Log.d(TAG, "   session id=" + session.getId());
+                        Log.d(TAG, "   session id=" + session.getSessionId());
                     }
                 } else {
                     Log.d(TAG, "setServiceInstance, service=" + service);
@@ -149,7 +149,7 @@ public class TestServiceRegistry {
                     Log.d(TAG, "cleanUp(): service=" + mService + ", session size="
                             + mService.getSessions().size());
                     for (MediaSession session : mService.getSessions()) {
-                        Log.d(TAG, "   session id=" + session.getId());
+                        Log.d(TAG, "   session id=" + session.getSessionId());
                     }
                 }
                 // TODO(jaewan): Remove this, and override SessionService#onDestroy() to do this

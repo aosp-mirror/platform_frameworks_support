@@ -89,14 +89,14 @@ public class MockControllerCallback extends MediaController.ControllerCallback
     }
 
     @Override
-    public SessionResult onCustomCommand(MediaController controller,
+    public SessionResult onSessionCommand(MediaController controller,
             SessionCommand command, Bundle args) {
         synchronized (this) {
             if (mOnCustomCommandRunnable != null) {
                 mOnCustomCommandRunnable.run();
             }
         }
-        return mCallbackProxy.onCustomCommand(controller, command, args);
+        return mCallbackProxy.onSessionCommand(controller, command, args);
     }
 
     @Override

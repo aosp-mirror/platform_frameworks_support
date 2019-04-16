@@ -179,7 +179,7 @@ public class MediaSessionProviderService extends Service {
         public ParcelImpl getToken(String sessionId) throws RemoteException {
             MediaSession session = mSessionMap.get(sessionId);
             return session != null
-                    ? MediaUtils.toParcelable(session.getToken()) : null;
+                    ? MediaUtils.toParcelable(session.getSessionToken()) : null;
         }
 
         @Override
@@ -236,7 +236,7 @@ public class MediaSessionProviderService extends Service {
         public void broadcastCustomCommand(String sessionId, ParcelImpl command, Bundle args)
                 throws RemoteException {
             MediaSession session = mSessionMap.get(sessionId);
-            session.broadcastCustomCommand(
+            session.broadcastSessionCommand(
                     (SessionCommand) MediaUtils.fromParcelable(command), args);
         }
 
@@ -245,7 +245,7 @@ public class MediaSessionProviderService extends Service {
                 Bundle args) throws RemoteException {
             MediaSession session = mSessionMap.get(sessionId);
             ControllerInfo info = MediaTestUtils.getTestControllerInfo(session);
-            session.sendCustomCommand(info, (SessionCommand) MediaUtils.fromParcelable(command),
+            session.sendSessionCommand(info, (SessionCommand) MediaUtils.fromParcelable(command),
                     args);
         }
 

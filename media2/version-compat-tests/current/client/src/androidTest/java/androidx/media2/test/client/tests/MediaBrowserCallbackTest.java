@@ -533,7 +533,7 @@ public class MediaBrowserCallbackTest extends MediaControllerCallbackTest {
         SessionCommand command = new SessionCommand(CUSTOM_ACTION_ASSERT_PARAMS, null);
         Bundle args = new Bundle();
         ParcelUtils.putVersionedParcelable(args, CUSTOM_ACTION_ASSERT_PARAMS, params);
-        SessionResult result = browser.sendCustomCommand(command, args)
+        SessionResult result = browser.sendSessionCommand(command, args)
                 .get(TIMEOUT_MS, TimeUnit.MILLISECONDS);
         assertEquals(SessionResult.RESULT_SUCCESS, result.getResultCode());
     }
@@ -590,14 +590,14 @@ public class MediaBrowserCallbackTest extends MediaControllerCallbackTest {
         }
 
         @Override
-        public SessionResult onCustomCommand(MediaController controller,
+        public SessionResult onSessionCommand(MediaController controller,
                 SessionCommand command, Bundle args) {
             synchronized (this) {
                 if (mOnCustomCommandRunnable != null) {
                     mOnCustomCommandRunnable.run();
                 }
             }
-            return mCallbackProxy.onCustomCommand(controller, command, args);
+            return mCallbackProxy.onSessionCommand(controller, command, args);
         }
 
         @Override
