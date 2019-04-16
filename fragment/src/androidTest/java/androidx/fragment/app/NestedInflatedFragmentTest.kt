@@ -22,6 +22,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.test.FragmentTestActivity
 import androidx.fragment.test.R
+import androidx.lifecycle.Lifecycle
 import androidx.test.annotation.UiThreadTest
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
@@ -65,10 +66,11 @@ class NestedInflatedFragmentTest {
 
         // Add a UserVisibleHintParentFragment
         var fragment = UserVisibleHintParentFragment()
-        fm.beginTransaction().add(android.R.id.content, fragment).commit()
+        fm.beginTransaction()
+            .add(android.R.id.content, fragment)
+            .setMaxLifecycle(fragment, Lifecycle.State.STARTED)
+            .commit()
         fm.executePendingTransactions()
-
-        fragment.userVisibleHint = false
 
         val state = fm.saveFragmentInstanceState(fragment)
         fm.beginTransaction().remove(fragment).commit()
@@ -76,14 +78,17 @@ class NestedInflatedFragmentTest {
 
         fragment = UserVisibleHintParentFragment()
         fragment.setInitialSavedState(state)
-        fragment.userVisibleHint = true
 
-        fm.beginTransaction().add(android.R.id.content, fragment).commit()
+        fm.beginTransaction()
+            .add(android.R.id.content, fragment)
+            .setMaxLifecycle(fragment, Lifecycle.State.RESUMED)
+            .commit()
         fm.executePendingTransactions()
     }
 
     open class ParentFragment : Fragment(R.layout.nested_inflated_fragment_parent)
 
+    @SuppressWarnings("deprecation")
     class UserVisibleHintParentFragment : ParentFragment() {
         override fun setUserVisibleHint(isVisibleToUser: Boolean) {
             super.setUserVisibleHint(isVisibleToUser)
