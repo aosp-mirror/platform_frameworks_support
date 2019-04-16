@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7c335cbd_b64669ba",
+        "filename": "fragment/src/androidTest/java/androidx/fragment/app/NestedInflatedFragmentTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-16T22:02:02Z",
+      "side": 1,
+      "message": "You should leave this test as is to ensure that we don\u0027t regress setUserVisibleHint.",
+      "range": {
+        "startLine": 64,
+        "startChar": 8,
+        "endLine": 64,
+        "endChar": 32
+      },
+      "revId": "0e788b0cafffafa523a4fae3b7fbc9fd5398b5a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
