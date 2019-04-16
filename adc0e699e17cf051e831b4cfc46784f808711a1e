@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b25ff1df_c3a54306",
+        "filename": "camera/core/src/main/java/androidx/camera/core/UseCaseGroupLifecycleController.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-16T23:28:37Z",
+      "side": 1,
+      "message": "Controlling the UseCaseGroups globally like this will be very difficult to reason about.\n\nBecause this means that we are letting different UseCaseGroupLifecycleControllers control the same UseCaseGroup.\n\nIf we want to enforce this policy it should be done at the CameraX.java level.",
+      "revId": "adc0e699e17cf051e831b4cfc46784f808711a1e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
