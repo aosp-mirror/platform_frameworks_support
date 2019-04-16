@@ -141,7 +141,7 @@ public final class CameraX {
             }
         }
 
-        calculateSuggestedResolutions(useCases);
+        calculateSuggestedResolutions(lifecycleOwner, useCases);
 
         for (UseCase useCase : useCases) {
             useCaseGroupToBind.addUseCase(useCase);
@@ -401,24 +401,25 @@ public final class CameraX {
         camera.removeOnlineUseCase(useCases);
     }
 
-    private static void calculateSuggestedResolutions(UseCase... useCases) {
-        Collection<UseCaseGroupLifecycleController> controllers =
-                INSTANCE.mUseCaseGroupRepository.getUseCaseGroups();
+    private static void calculateSuggestedResolutions(LifecycleOwner lifecycleOwner,
+            UseCase... useCases) {
+        // There will only one lifecycleOwner active. Therefore, only collect use cases belong to
+        // same lifecycleOwner and calculate the suggested resolutions.
+        UseCaseGroupLifecycleController useCaseGroupLifecycleController =
+                INSTANCE.getOrCreateUseCaseGroup(lifecycleOwner);
+        UseCaseGroup useCaseGroupToBind = useCaseGroupLifecycleController.getUseCaseGroup();
         Map<String, List<UseCase>> originalCameraIdUseCaseMap = new HashMap<>();
         Map<String, List<UseCase>> newCameraIdUseCaseMap = new HashMap<>();
 
         // Collect original use cases for different camera devices
-        for (UseCaseGroupLifecycleController controller : controllers) {
-            UseCaseGroup useCaseGroup = controller.getUseCaseGroup();
-            for (UseCase useCase : useCaseGroup.getUseCases()) {
-                for (String cameraId : useCase.getAttachedCameraIds()) {
-                    List<UseCase> useCaseList = originalCameraIdUseCaseMap.get(cameraId);
-                    if (useCaseList == null) {
-                        useCaseList = new ArrayList<>();
-                        originalCameraIdUseCaseMap.put(cameraId, useCaseList);
-                    }
-                    useCaseList.add(useCase);
+        for (UseCase useCase : useCaseGroupToBind.getUseCases()) {
+            for (String cameraId : useCase.getAttachedCameraIds()) {
+                List<UseCase> useCaseList = originalCameraIdUseCaseMap.get(cameraId);
+                if (useCaseList == null) {
+                    useCaseList = new ArrayList<>();
+                    originalCameraIdUseCaseMap.put(cameraId, useCaseList);
                 }
+                useCaseList.add(useCase);
             }
         }
 

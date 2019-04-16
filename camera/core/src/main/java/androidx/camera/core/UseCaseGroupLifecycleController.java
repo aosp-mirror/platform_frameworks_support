@@ -23,8 +23,12 @@ import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.OnLifecycleEvent;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /** A {@link UseCaseGroup} whose starting and stopping is controlled by a {@link Lifecycle}. */
 final class UseCaseGroupLifecycleController implements LifecycleObserver {
+    private static final List<UseCaseGroup> USE_CASE_GROUPS = new ArrayList<>();
     private final Object mUseCaseGroupLock = new Object();
 
     @GuardedBy("mUseCaseGroupLock")
@@ -43,11 +47,19 @@ final class UseCaseGroupLifecycleController implements LifecycleObserver {
         this.mUseCaseGroup = useCaseGroup;
         this.mLifecycle = lifecycle;
         lifecycle.addObserver(this);
+        USE_CASE_GROUPS.add(mUseCaseGroup);
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     public void onStart(LifecycleOwner lifecycleOwner) {
         synchronized (mUseCaseGroupLock) {
+            // Only keep the last UseCaseGroup active. Stop the others.
+            for (UseCaseGroup useCaseGroup : USE_CASE_GROUPS) {
+                if (!useCaseGroup.equals(mUseCaseGroup)) {
+                    useCaseGroup.stop();
+                }
+            }
+
             mUseCaseGroup.start();
         }
     }
@@ -63,6 +75,7 @@ final class UseCaseGroupLifecycleController implements LifecycleObserver {
     public void onDestroy(LifecycleOwner lifecycleOwner) {
         synchronized (mUseCaseGroupLock) {
             mUseCaseGroup.clear();
+            USE_CASE_GROUPS.remove(mUseCaseGroup);
         }
     }
 
