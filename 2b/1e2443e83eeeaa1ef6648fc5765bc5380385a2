@@ -1,0 +1,8 @@
+Autosubmit+1: Chris Banes <chrisbanes@google.com>
+Presubmit-Ready+1: Chris Banes <chrisbanes@google.com>
+Code-Review+2: Aurimas Liutikas <aurimas@google.com>
+Submitted-by: Chris Banes <chrisbanes@google.com>
+Submitted-at: Tue, 16 Apr 2019 03:48:57 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/frameworks/support/+/944756
+Project: platform/frameworks/support
+Branch: refs/heads/androidx-master-dev
