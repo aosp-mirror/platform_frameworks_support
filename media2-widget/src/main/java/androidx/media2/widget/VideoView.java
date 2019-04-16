@@ -429,7 +429,7 @@ public class VideoView extends SelectiveLayout {
         if (mMediaSession == null) {
             throw new IllegalStateException("MediaSession instance is not available.");
         }
-        return mMediaSession.getToken();
+        return mMediaSession.getSessionToken();
     }
 
     /**
@@ -622,7 +622,7 @@ public class VideoView extends SelectiveLayout {
         if (mMediaControlView == null) return;
 
         // Get MediaController from MediaSession and set it inside MediaControlView
-        mMediaControlView.setSessionToken(mMediaSession.getToken());
+        mMediaControlView.setSessionToken(mMediaSession.getSessionToken());
 
         SelectiveLayout.LayoutParams params = new SelectiveLayout.LayoutParams();
         params.forceMatchParent = true;
@@ -1080,7 +1080,7 @@ public class VideoView extends SelectiveLayout {
         @NonNull
         public SessionResult onCustomCommand(@NonNull MediaSession session,
                 @NonNull MediaSession.ControllerInfo controller,
-                @NonNull SessionCommand customCommand, @Nullable Bundle args) {
+                @NonNull SessionCommand command, @Nullable Bundle args) {
             if (session != mMediaSession) {
                 if (DEBUG) {
                     Log.w(TAG, "onCustomCommand() is ignored. session is already gone.");
@@ -1090,7 +1090,7 @@ public class VideoView extends SelectiveLayout {
                 // TODO: call mRoutePlayer.onCommand()
                 return new SessionResult(RESULT_SUCCESS, null);
             }
-            switch (customCommand.getCustomCommand()) {
+            switch (command.getCustomAction()) {
                 case MediaControlView.COMMAND_SHOW_SUBTITLE:
                     int indexInSubtitleTrackList = args != null ? args.getInt(
                             MediaControlView.KEY_SELECTED_SUBTITLE_INDEX,

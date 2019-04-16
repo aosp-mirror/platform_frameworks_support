@@ -149,14 +149,14 @@ public class MediaSession_PermissionTest extends MediaSessionTestBase {
     private void testOnCommandRequest(int commandCode, PermissionTestTask runnable)
             throws InterruptedException {
         createSessionWithAllowedActions(createCommandGroupWith(commandCode));
-        runnable.run(createRemoteController(mSession.getToken()));
+        runnable.run(createRemoteController(mSession.getSessionToken()));
 
         assertTrue(mCallback.mCountDownLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         assertTrue(mCallback.mOnCommandRequestCalled);
         assertEquals(commandCode, mCallback.mCommand.getCommandCode());
 
         createSessionWithAllowedActions(createCommandGroupWithout(commandCode));
-        runnable.run(createRemoteController(mSession.getToken()));
+        runnable.run(createRemoteController(mSession.getSessionToken()));
 
         assertFalse(mCallback.mCountDownLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         assertFalse(mCallback.mOnCommandRequestCalled);
@@ -334,14 +334,14 @@ public class MediaSession_PermissionTest extends MediaSessionTestBase {
         prepareLooper();
         createSessionWithAllowedActions(
                 createCommandGroupWith(COMMAND_CODE_SESSION_FAST_FORWARD));
-        createRemoteController(mSession.getToken()).fastForward();
+        createRemoteController(mSession.getSessionToken()).fastForward();
 
         assertTrue(mCallback.mCountDownLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         assertTrue(mCallback.mOnFastForwardCalled);
 
         createSessionWithAllowedActions(
                 createCommandGroupWithout(COMMAND_CODE_SESSION_FAST_FORWARD));
-        createRemoteController(mSession.getToken()).fastForward();
+        createRemoteController(mSession.getSessionToken()).fastForward();
         assertFalse(mCallback.mCountDownLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         assertFalse(mCallback.mOnFastForwardCalled);
     }
@@ -351,14 +351,14 @@ public class MediaSession_PermissionTest extends MediaSessionTestBase {
         prepareLooper();
         createSessionWithAllowedActions(
                 createCommandGroupWith(COMMAND_CODE_SESSION_REWIND));
-        createRemoteController(mSession.getToken()).rewind();
+        createRemoteController(mSession.getSessionToken()).rewind();
 
         assertTrue(mCallback.mCountDownLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         assertTrue(mCallback.mOnRewindCalled);
 
         createSessionWithAllowedActions(
                 createCommandGroupWithout(COMMAND_CODE_SESSION_REWIND));
-        createRemoteController(mSession.getToken()).rewind();
+        createRemoteController(mSession.getSessionToken()).rewind();
         assertFalse(mCallback.mCountDownLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         assertFalse(mCallback.mOnRewindCalled);
     }
@@ -368,14 +368,14 @@ public class MediaSession_PermissionTest extends MediaSessionTestBase {
         prepareLooper();
         createSessionWithAllowedActions(
                 createCommandGroupWith(COMMAND_CODE_SESSION_SKIP_FORWARD));
-        createRemoteController(mSession.getToken()).skipForward();
+        createRemoteController(mSession.getSessionToken()).skipForward();
 
         assertTrue(mCallback.mCountDownLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         assertTrue(mCallback.mOnSkipForwardCalled);
 
         createSessionWithAllowedActions(
                 createCommandGroupWithout(COMMAND_CODE_SESSION_SKIP_FORWARD));
-        createRemoteController(mSession.getToken()).skipForward();
+        createRemoteController(mSession.getSessionToken()).skipForward();
         assertFalse(mCallback.mCountDownLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         assertFalse(mCallback.mOnSkipForwardCalled);
     }
@@ -385,14 +385,14 @@ public class MediaSession_PermissionTest extends MediaSessionTestBase {
         prepareLooper();
         createSessionWithAllowedActions(
                 createCommandGroupWith(COMMAND_CODE_SESSION_SKIP_BACKWARD));
-        createRemoteController(mSession.getToken()).skipBackward();
+        createRemoteController(mSession.getSessionToken()).skipBackward();
 
         assertTrue(mCallback.mCountDownLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         assertTrue(mCallback.mOnSkipBackwardCalled);
 
         createSessionWithAllowedActions(
                 createCommandGroupWithout(COMMAND_CODE_SESSION_SKIP_BACKWARD));
-        createRemoteController(mSession.getToken()).skipBackward();
+        createRemoteController(mSession.getSessionToken()).skipBackward();
         assertFalse(mCallback.mCountDownLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         assertFalse(mCallback.mOnSkipBackwardCalled);
     }
@@ -403,7 +403,7 @@ public class MediaSession_PermissionTest extends MediaSessionTestBase {
         final String mediaId = "testPlayFromMediaId";
         createSessionWithAllowedActions(
                 createCommandGroupWith(COMMAND_CODE_SESSION_PLAY_FROM_MEDIA_ID));
-        createRemoteController(mSession.getToken()).playFromMediaId(mediaId, null);
+        createRemoteController(mSession.getSessionToken()).playFromMediaId(mediaId, null);
 
         assertTrue(mCallback.mCountDownLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         assertTrue(mCallback.mOnPlayFromMediaIdCalled);
@@ -412,7 +412,7 @@ public class MediaSession_PermissionTest extends MediaSessionTestBase {
 
         createSessionWithAllowedActions(
                 createCommandGroupWithout(COMMAND_CODE_SESSION_PLAY_FROM_MEDIA_ID));
-        createRemoteController(mSession.getToken()).playFromMediaId(mediaId, null);
+        createRemoteController(mSession.getSessionToken()).playFromMediaId(mediaId, null);
         assertFalse(mCallback.mCountDownLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         assertFalse(mCallback.mOnPlayFromMediaIdCalled);
     }
@@ -423,7 +423,7 @@ public class MediaSession_PermissionTest extends MediaSessionTestBase {
         final Uri uri = Uri.parse("play://from.uri");
         createSessionWithAllowedActions(
                 createCommandGroupWith(COMMAND_CODE_SESSION_PLAY_FROM_URI));
-        createRemoteController(mSession.getToken()).playFromUri(uri, null);
+        createRemoteController(mSession.getSessionToken()).playFromUri(uri, null);
 
         assertTrue(mCallback.mCountDownLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         assertTrue(mCallback.mOnPlayFromUriCalled);
@@ -432,7 +432,7 @@ public class MediaSession_PermissionTest extends MediaSessionTestBase {
 
         createSessionWithAllowedActions(
                 createCommandGroupWithout(COMMAND_CODE_SESSION_PLAY_FROM_URI));
-        createRemoteController(mSession.getToken()).playFromUri(uri, null);
+        createRemoteController(mSession.getSessionToken()).playFromUri(uri, null);
         assertFalse(mCallback.mCountDownLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         assertFalse(mCallback.mOnPlayFromUriCalled);
     }
@@ -443,7 +443,7 @@ public class MediaSession_PermissionTest extends MediaSessionTestBase {
         final String query = "testPlayFromSearch";
         createSessionWithAllowedActions(
                 createCommandGroupWith(COMMAND_CODE_SESSION_PLAY_FROM_SEARCH));
-        createRemoteController(mSession.getToken()).playFromSearch(query, null);
+        createRemoteController(mSession.getSessionToken()).playFromSearch(query, null);
 
         assertTrue(mCallback.mCountDownLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         assertTrue(mCallback.mOnPlayFromSearchCalled);
@@ -452,7 +452,7 @@ public class MediaSession_PermissionTest extends MediaSessionTestBase {
 
         createSessionWithAllowedActions(
                 createCommandGroupWithout(COMMAND_CODE_SESSION_PLAY_FROM_SEARCH));
-        createRemoteController(mSession.getToken()).playFromSearch(query, null);
+        createRemoteController(mSession.getSessionToken()).playFromSearch(query, null);
         assertFalse(mCallback.mCountDownLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         assertFalse(mCallback.mOnPlayFromSearchCalled);
     }
@@ -463,7 +463,7 @@ public class MediaSession_PermissionTest extends MediaSessionTestBase {
         final String mediaId = "testPrepareFromMediaId";
         createSessionWithAllowedActions(
                 createCommandGroupWith(COMMAND_CODE_SESSION_PREPARE_FROM_MEDIA_ID));
-        createRemoteController(mSession.getToken()).prepareFromMediaId(mediaId, null);
+        createRemoteController(mSession.getSessionToken()).prepareFromMediaId(mediaId, null);
 
         assertTrue(mCallback.mCountDownLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         assertTrue(mCallback.mOnPrepareFromMediaIdCalled);
@@ -472,7 +472,7 @@ public class MediaSession_PermissionTest extends MediaSessionTestBase {
 
         createSessionWithAllowedActions(
                 createCommandGroupWithout(COMMAND_CODE_SESSION_PREPARE_FROM_MEDIA_ID));
-        createRemoteController(mSession.getToken()).prepareFromMediaId(mediaId, null);
+        createRemoteController(mSession.getSessionToken()).prepareFromMediaId(mediaId, null);
         assertFalse(mCallback.mCountDownLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         assertFalse(mCallback.mOnPrepareFromMediaIdCalled);
     }
@@ -483,7 +483,7 @@ public class MediaSession_PermissionTest extends MediaSessionTestBase {
         final Uri uri = Uri.parse("prepare://from.uri");
         createSessionWithAllowedActions(
                 createCommandGroupWith(COMMAND_CODE_SESSION_PREPARE_FROM_URI));
-        createRemoteController(mSession.getToken()).prepareFromUri(uri, null);
+        createRemoteController(mSession.getSessionToken()).prepareFromUri(uri, null);
 
         assertTrue(mCallback.mCountDownLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         assertTrue(mCallback.mOnPrepareFromUriCalled);
@@ -492,7 +492,7 @@ public class MediaSession_PermissionTest extends MediaSessionTestBase {
 
         createSessionWithAllowedActions(
                 createCommandGroupWithout(COMMAND_CODE_SESSION_PREPARE_FROM_URI));
-        createRemoteController(mSession.getToken()).prepareFromUri(uri, null);
+        createRemoteController(mSession.getSessionToken()).prepareFromUri(uri, null);
         assertFalse(mCallback.mCountDownLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         assertFalse(mCallback.mOnPrepareFromUriCalled);
     }
@@ -503,7 +503,7 @@ public class MediaSession_PermissionTest extends MediaSessionTestBase {
         final String query = "testPrepareFromSearch";
         createSessionWithAllowedActions(
                 createCommandGroupWith(COMMAND_CODE_SESSION_PREPARE_FROM_SEARCH));
-        createRemoteController(mSession.getToken()).prepareFromSearch(query, null);
+        createRemoteController(mSession.getSessionToken()).prepareFromSearch(query, null);
 
         assertTrue(mCallback.mCountDownLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         assertTrue(mCallback.mOnPrepareFromSearchCalled);
@@ -512,7 +512,7 @@ public class MediaSession_PermissionTest extends MediaSessionTestBase {
 
         createSessionWithAllowedActions(
                 createCommandGroupWithout(COMMAND_CODE_SESSION_PREPARE_FROM_SEARCH));
-        createRemoteController(mSession.getToken()).prepareFromSearch(query, null);
+        createRemoteController(mSession.getSessionToken()).prepareFromSearch(query, null);
         assertFalse(mCallback.mCountDownLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         assertFalse(mCallback.mOnPrepareFromSearchCalled);
     }
@@ -524,7 +524,7 @@ public class MediaSession_PermissionTest extends MediaSessionTestBase {
         final Rating rating = new StarRating(5, 3.5f);
         createSessionWithAllowedActions(
                 createCommandGroupWith(COMMAND_CODE_SESSION_SET_RATING));
-        createRemoteController(mSession.getToken()).setRating(mediaId, rating);
+        createRemoteController(mSession.getSessionToken()).setRating(mediaId, rating);
 
         assertTrue(mCallback.mCountDownLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         assertTrue(mCallback.mOnSetRatingCalled);
@@ -533,7 +533,7 @@ public class MediaSession_PermissionTest extends MediaSessionTestBase {
 
         createSessionWithAllowedActions(
                 createCommandGroupWithout(COMMAND_CODE_SESSION_SET_RATING));
-        createRemoteController(mSession.getToken()).setRating(mediaId, rating);
+        createRemoteController(mSession.getSessionToken()).setRating(mediaId, rating);
         assertFalse(mCallback.mCountDownLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         assertFalse(mCallback.mOnSetRatingCalled);
     }
@@ -544,7 +544,7 @@ public class MediaSession_PermissionTest extends MediaSessionTestBase {
         final String query = "testChangingPermissionWithSetAllowedCommands";
         createSessionWithAllowedActions(
                 createCommandGroupWith(COMMAND_CODE_SESSION_PREPARE_FROM_SEARCH));
-        RemoteMediaController controller = createRemoteController(mSession.getToken());
+        RemoteMediaController controller = createRemoteController(mSession.getSessionToken());
 
         controller.prepareFromSearch(query, null);
         assertTrue(mCallback.mCountDownLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));

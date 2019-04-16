@@ -622,7 +622,7 @@ class MediaSessionLegacyStub extends MediaSessionCompat.Callback {
         }
 
         @Override
-        void sendCustomCommand(int seq, SessionCommand command, Bundle args)
+        void sendSessionCommand(int seq, SessionCommand command, Bundle args)
                 throws RemoteException {
             // no-op
         }
@@ -762,7 +762,7 @@ class MediaSessionLegacyStub extends MediaSessionCompat.Callback {
         }
 
         @Override
-        void sendCustomCommand(int seq, SessionCommand command, Bundle args)
+        void sendSessionCommand(int seq, SessionCommand command, Bundle args)
                 throws RemoteException {
             // no-op
         }
