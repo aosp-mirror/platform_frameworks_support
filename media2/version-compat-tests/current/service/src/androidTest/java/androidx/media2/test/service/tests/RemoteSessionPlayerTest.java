@@ -72,7 +72,7 @@ public class RemoteSessionPlayerTest extends MediaSessionTestBase {
                 .setId("RemoteSessionPlayerTest")
                 .build();
         // Create a default MediaController in client app.
-        mController = createRemoteController(mSession.getToken());
+        mController = createRemoteController(mSession.getSessionToken());
     }
 
     @After

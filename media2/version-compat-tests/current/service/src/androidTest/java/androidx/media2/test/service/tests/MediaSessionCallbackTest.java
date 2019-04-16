@@ -95,7 +95,7 @@ public class MediaSessionCallbackTest extends MediaSessionTestBase {
         try (MediaSession session = new MediaSession.Builder(mContext, mPlayer)
                 .setSessionCallback(sHandlerExecutor, callback)
                 .setId("testOnPostConnect_afterConnected").build()) {
-            RemoteMediaController controller = createRemoteController(session.getToken());
+            RemoteMediaController controller = createRemoteController(session.getSessionToken());
             assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         }
     }
@@ -119,7 +119,7 @@ public class MediaSessionCallbackTest extends MediaSessionTestBase {
         try (MediaSession session = new MediaSession.Builder(mContext, mPlayer)
                 .setSessionCallback(sHandlerExecutor, callback)
                 .setId("testOnPostConnect_afterConnectionRejected").build()) {
-            RemoteMediaController controller = createRemoteController(session.getToken());
+            RemoteMediaController controller = createRemoteController(session.getSessionToken());
             assertFalse(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         }
     }
@@ -134,7 +134,7 @@ public class MediaSessionCallbackTest extends MediaSessionTestBase {
                 .setSessionCallback(sHandlerExecutor, callback)
                 .setId("testOnCommandRequest")
                 .build()) {
-            RemoteMediaController controller = createRemoteController(session.getToken());
+            RemoteMediaController controller = createRemoteController(session.getSessionToken());
 
             controller.pause();
             assertFalse(mPlayer.mCountDownLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
@@ -178,7 +178,7 @@ public class MediaSessionCallbackTest extends MediaSessionTestBase {
                 .setSessionCallback(sHandlerExecutor, callback)
                 .setId("testOnCreateMediaItem")
                 .build()) {
-            RemoteMediaController controller = createRemoteController(session.getToken());
+            RemoteMediaController controller = createRemoteController(session.getSessionToken());
 
             controller.setPlaylist(list, null);
             assertTrue(mPlayer.mCountDownLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
@@ -217,10 +217,10 @@ public class MediaSessionCallbackTest extends MediaSessionTestBase {
 
             @Override
             public SessionResult onCustomCommand(MediaSession session,
-                    MediaSession.ControllerInfo controller, SessionCommand customCommand,
+                    MediaSession.ControllerInfo controller, SessionCommand sessionCommand,
                     Bundle args) {
                 assertEquals(CLIENT_PACKAGE_NAME, controller.getPackageName());
-                assertEquals(testCommand, customCommand);
+                assertEquals(testCommand, sessionCommand);
                 assertTrue(TestUtils.equals(testArgs, args));
                 latch.countDown();
                 return new SessionResult(RESULT_SUCCESS, null);
@@ -231,7 +231,7 @@ public class MediaSessionCallbackTest extends MediaSessionTestBase {
                 .setSessionCallback(sHandlerExecutor, callback)
                 .setId("testOnCustomCommand")
                 .build()) {
-            RemoteMediaController controller = createRemoteController(session.getToken());
+            RemoteMediaController controller = createRemoteController(session.getSessionToken());
             controller.sendCustomCommand(testCommand, testArgs);
             assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         }
@@ -252,7 +252,7 @@ public class MediaSessionCallbackTest extends MediaSessionTestBase {
         try (MediaSession session = new MediaSession.Builder(mContext, mPlayer)
                 .setSessionCallback(sHandlerExecutor, callback)
                 .setId("testOnFastForward").build()) {
-            RemoteMediaController controller = createRemoteController(session.getToken());
+            RemoteMediaController controller = createRemoteController(session.getSessionToken());
             controller.fastForward();
             assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         }
@@ -273,7 +273,7 @@ public class MediaSessionCallbackTest extends MediaSessionTestBase {
         try (MediaSession session = new MediaSession.Builder(mContext, mPlayer)
                 .setSessionCallback(sHandlerExecutor, callback)
                 .setId("testOnRewind").build()) {
-            RemoteMediaController controller = createRemoteController(session.getToken());
+            RemoteMediaController controller = createRemoteController(session.getSessionToken());
             controller.rewind();
             assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         }
@@ -294,7 +294,7 @@ public class MediaSessionCallbackTest extends MediaSessionTestBase {
         try (MediaSession session = new MediaSession.Builder(mContext, mPlayer)
                 .setSessionCallback(sHandlerExecutor, callback)
                 .setId("testOnSkipForward").build()) {
-            RemoteMediaController controller = createRemoteController(session.getToken());
+            RemoteMediaController controller = createRemoteController(session.getSessionToken());
             controller.skipForward();
             assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         }
@@ -315,7 +315,7 @@ public class MediaSessionCallbackTest extends MediaSessionTestBase {
         try (MediaSession session = new MediaSession.Builder(mContext, mPlayer)
                 .setSessionCallback(sHandlerExecutor, callback)
                 .setId("testOnSkipBackward").build()) {
-            RemoteMediaController controller = createRemoteController(session.getToken());
+            RemoteMediaController controller = createRemoteController(session.getSessionToken());
             controller.skipBackward();
             assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         }
@@ -341,7 +341,7 @@ public class MediaSessionCallbackTest extends MediaSessionTestBase {
         try (MediaSession session = new MediaSession.Builder(mContext, mPlayer)
                 .setSessionCallback(sHandlerExecutor, callback)
                 .setId("testOnPlayFromSearch").build()) {
-            RemoteMediaController controller = createRemoteController(session.getToken());
+            RemoteMediaController controller = createRemoteController(session.getSessionToken());
 
             controller.playFromSearch(testQuery, testExtras);
             assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
@@ -369,7 +369,7 @@ public class MediaSessionCallbackTest extends MediaSessionTestBase {
                 .setSessionCallback(sHandlerExecutor, callback)
                 .setId("testOnPlayFromUri")
                 .build()) {
-            RemoteMediaController controller = createRemoteController(session.getToken());
+            RemoteMediaController controller = createRemoteController(session.getSessionToken());
 
             controller.playFromUri(testUri, testExtras);
             assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
@@ -396,7 +396,7 @@ public class MediaSessionCallbackTest extends MediaSessionTestBase {
         try (MediaSession session = new MediaSession.Builder(mContext, mPlayer)
                 .setSessionCallback(sHandlerExecutor, callback)
                 .setId("testOnPlayFromMediaId").build()) {
-            RemoteMediaController controller = createRemoteController(session.getToken());
+            RemoteMediaController controller = createRemoteController(session.getSessionToken());
 
             controller.playFromMediaId(testMediaId, testExtras);
             assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
@@ -423,7 +423,7 @@ public class MediaSessionCallbackTest extends MediaSessionTestBase {
         try (MediaSession session = new MediaSession.Builder(mContext, mPlayer)
                 .setSessionCallback(sHandlerExecutor, callback)
                 .setId("testOnPrepareFromSearch").build()) {
-            RemoteMediaController controller = createRemoteController(session.getToken());
+            RemoteMediaController controller = createRemoteController(session.getSessionToken());
 
             controller.prepareFromSearch(testQuery, testExtras);
             assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
@@ -450,7 +450,7 @@ public class MediaSessionCallbackTest extends MediaSessionTestBase {
         try (MediaSession session = new MediaSession.Builder(mContext, mPlayer)
                 .setSessionCallback(sHandlerExecutor, callback)
                 .setId("testOnPrepareFromUri").build()) {
-            RemoteMediaController controller = createRemoteController(session.getToken());
+            RemoteMediaController controller = createRemoteController(session.getSessionToken());
 
             controller.prepareFromUri(testUri, testExtras);
             assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
@@ -477,7 +477,7 @@ public class MediaSessionCallbackTest extends MediaSessionTestBase {
         try (MediaSession session = new MediaSession.Builder(mContext, mPlayer)
                 .setSessionCallback(sHandlerExecutor, callback)
                 .setId("testOnPrepareFromMediaId").build()) {
-            RemoteMediaController controller = createRemoteController(session.getToken());
+            RemoteMediaController controller = createRemoteController(session.getSessionToken());
 
             controller.prepareFromMediaId(testMediaId, testExtras);
             assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
@@ -507,7 +507,7 @@ public class MediaSessionCallbackTest extends MediaSessionTestBase {
         try (MediaSession session = new MediaSession.Builder(mContext, mPlayer)
                 .setSessionCallback(sHandlerExecutor, callback)
                 .setId("testOnSetRating").build()) {
-            RemoteMediaController controller = createRemoteController(session.getToken());
+            RemoteMediaController controller = createRemoteController(session.getSessionToken());
 
             controller.setRating(testMediaId, testRating);
             assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
@@ -533,7 +533,7 @@ public class MediaSessionCallbackTest extends MediaSessionTestBase {
                     }
                 }).build()) {
             RemoteMediaController controller = createRemoteController(
-                    session.getToken(), false /* waitForConnection */);
+                    session.getSessionToken(), false /* waitForConnection */);
             assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         }
     }
@@ -553,7 +553,7 @@ public class MediaSessionCallbackTest extends MediaSessionTestBase {
                         latch.countDown();
                     }
                 }).build()) {
-            RemoteMediaController controller = createRemoteController(session.getToken());
+            RemoteMediaController controller = createRemoteController(session.getSessionToken());
             controller.close();
             assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         }
