@@ -101,7 +101,7 @@ public class SessionTokenTest extends MediaTestBase {
                 .setExtras(testTokenExtras)
                 .build();
         mSessions.add(session);
-        SessionToken token = session.getToken();
+        SessionToken token = session.getSessionToken();
 
         assertEquals(mContext.getPackageName(), token.getPackageName());
         assertEquals(Process.myUid(), token.getUid());

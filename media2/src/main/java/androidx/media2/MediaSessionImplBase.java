@@ -355,7 +355,8 @@ class MediaSessionImplBase implements MediaSessionImpl {
                 return;
             }
             if (DEBUG) {
-                Log.d(TAG, "Closing session, id=" + getId() + ", token=" + getToken());
+                Log.d(TAG, "Closing session, id=" + getSessionId() + ", token="
+                        + getSessionToken());
             }
             mPlayer.unregisterPlayerCallback(mPlayerCallback);
             mSessionCompat.release();
@@ -389,7 +390,7 @@ class MediaSessionImplBase implements MediaSessionImpl {
     }
 
     @Override
-    public String getId() {
+    public String getSessionId() {
         return mSessionId;
     }
 
@@ -399,7 +400,7 @@ class MediaSessionImplBase implements MediaSessionImpl {
     }
 
     @Override
-    public @NonNull SessionToken getToken() {
+    public @NonNull SessionToken getSessionToken() {
         return mSessionToken;
     }
 
