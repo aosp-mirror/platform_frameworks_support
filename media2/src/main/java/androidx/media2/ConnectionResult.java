@@ -100,7 +100,7 @@ class ConnectionResult extends CustomVersionedParcelable {
         mCurrentMediaItemIndex = sessionImpl.getCurrentMediaItemIndex();
         mPreviousMediaItemIndex = sessionImpl.getPreviousMediaItemIndex();
         mNextMediaItemIndex = sessionImpl.getNextMediaItemIndex();
-        mTokenExtras = sessionImpl.getToken().getExtras();
+        mTokenExtras = sessionImpl.getSessionToken().getExtras();
         if (allowedCommands != null
                 && allowedCommands.hasCommand(SessionCommand.COMMAND_CODE_PLAYER_GET_PLAYLIST)) {
             List<MediaItem> playlist = sessionImpl.getPlaylist();

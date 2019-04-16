@@ -178,7 +178,8 @@ public class MediaSessionTest extends MediaSessionTestBase {
 
         mSession.updatePlayer(player);
 
-        final MediaController controller = createController(mSession.getToken(), true, callback);
+        final MediaController controller = createController(mSession.getSessionToken(), true,
+                callback);
         PlaybackInfo info = controller.getPlaybackInfo();
         assertNotNull(info);
         assertEquals(PlaybackInfo.PLAYBACK_TYPE_LOCAL, info.getPlaybackType());
@@ -435,7 +436,7 @@ public class MediaSessionTest extends MediaSessionTestBase {
                         .setSessionCallback(sHandlerExecutor, callback).build();
             }
         });
-        MediaController controller = createController(mSession.getToken());
+        MediaController controller = createController(mSession.getSessionToken());
         controller.pause();
         assertFalse(mPlayer.mCountDownLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         assertFalse(mPlayer.mPauseCalled);
@@ -464,7 +465,7 @@ public class MediaSessionTest extends MediaSessionTestBase {
                         .setSessionCallback(sHandlerExecutor, sessionCallback).build();
             }
         });
-        MediaController controller = createController(mSession.getToken(), false, null);
+        MediaController controller = createController(mSession.getSessionToken(), false, null);
         assertNotNull(controller);
         waitForConnect(controller, false);
         waitForDisconnect(controller, true);
@@ -484,7 +485,7 @@ public class MediaSessionTest extends MediaSessionTestBase {
                         latch.countDown();
                     }
                 }).build()) {
-            MediaController controller = createController(session.getToken());
+            MediaController controller = createController(session.getSessionToken());
             controller.close();
             assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         }
@@ -529,7 +530,8 @@ public class MediaSessionTest extends MediaSessionTestBase {
                     return RESULT_SUCCESS;
                 }
             };
-            MediaController controller = createController(session.getToken(), true, callback);
+            MediaController controller = createController(session.getSessionToken(), true,
+                    callback);
             session.setCustomLayout(mTestControllerInfo, customLayout);
             assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         }
@@ -561,7 +563,8 @@ public class MediaSessionTest extends MediaSessionTestBase {
             }
         };
 
-        final MediaController controller = createController(mSession.getToken(), true, callback);
+        final MediaController controller = createController(mSession.getSessionToken(), true,
+                callback);
         ControllerInfo controllerInfo = getTestControllerInfo();
         assertNotNull(controllerInfo);
 
@@ -570,7 +573,7 @@ public class MediaSessionTest extends MediaSessionTestBase {
     }
 
     @Test
-    public void testSendCustomCommand() throws InterruptedException {
+    public void testsendSessionCommand() throws InterruptedException {
         prepareLooper();
         final SessionCommand testCommand = new SessionCommand(
                 SessionCommand.COMMAND_CODE_PLAYER_PREPARE);
@@ -589,7 +592,7 @@ public class MediaSessionTest extends MediaSessionTestBase {
             }
         };
         final MediaController controller =
-                createController(mSession.getToken(), true, callback);
+                createController(mSession.getSessionToken(), true, callback);
         // TODO(jaewan): Test with multiple controllers
         mSession.broadcastCustomCommand(testCommand, testArgs);
 
@@ -601,10 +604,11 @@ public class MediaSessionTest extends MediaSessionTestBase {
     }
 
     /**
-     * Test expected failure of sendCustomCommand() when it's called in SessionCallback#onConnect().
+     * Test expected failure of sendCustomCommand() when it's called in
+     * SessionCallback#onConnect().
      */
     @Test
-    public void testSendCustomCommand_onConnect() throws InterruptedException {
+    public void testsendSessionCommand_onConnect() throws InterruptedException {
         prepareLooper();
         final CountDownLatch latch = new CountDownLatch(1);
         final SessionCommand testCommand = new SessionCommand("test", null);
@@ -622,7 +626,7 @@ public class MediaSessionTest extends MediaSessionTestBase {
             @Override
             public SessionResult onCustomCommand(@NonNull MediaController controller,
                     @NonNull SessionCommand command, @Nullable Bundle args) {
-                if (TextUtils.equals(testCommand.getCustomCommand(), command.getCustomCommand())) {
+                if (TextUtils.equals(testCommand.getCustomAction(), command.getCustomAction())) {
                     latch.countDown();
                 }
                 return super.onCustomCommand(controller, command, args);
@@ -630,7 +634,7 @@ public class MediaSessionTest extends MediaSessionTestBase {
         };
         try (MediaSession session = new MediaSession.Builder(mContext, mPlayer)
                 .setSessionCallback(sHandlerExecutor, testSessionCallback).build()) {
-            MediaController controller = createController(session.getToken(), true,
+            MediaController controller = createController(session.getSessionToken(), true,
                     testControllerCallback);
             assertFalse(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         }
@@ -641,7 +645,7 @@ public class MediaSessionTest extends MediaSessionTestBase {
      * SessionCallback#onPostConnect().
      */
     @Test
-    public void testSendCustomCommand_onPostConnect() throws InterruptedException {
+    public void testsendSessionCommand_onPostConnect() throws InterruptedException {
         prepareLooper();
         final CountDownLatch latch = new CountDownLatch(1);
         final SessionCommand testCommand = new SessionCommand("test", null);
@@ -666,7 +670,7 @@ public class MediaSessionTest extends MediaSessionTestBase {
             @Override
             public SessionResult onCustomCommand(@NonNull MediaController controller,
                     @NonNull SessionCommand command, @Nullable Bundle args) {
-                if (TextUtils.equals(testCommand.getCustomCommand(), command.getCustomCommand())) {
+                if (TextUtils.equals(testCommand.getCustomAction(), command.getCustomAction())) {
                     latch.countDown();
                 }
                 return super.onCustomCommand(controller, command, args);
@@ -674,7 +678,7 @@ public class MediaSessionTest extends MediaSessionTestBase {
         };
         try (MediaSession session = new MediaSession.Builder(mContext, mPlayer)
                 .setSessionCallback(sHandlerExecutor, testSessionCallback).build()) {
-            MediaController controller = createController(session.getToken(), true,
+            MediaController controller = createController(session.getSessionToken(), true,
                     testControllerCallback);
             assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         }

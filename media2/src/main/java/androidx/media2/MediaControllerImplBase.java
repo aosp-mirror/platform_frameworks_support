@@ -1165,7 +1165,7 @@ class MediaControllerImplBase implements MediaControllerImpl {
 
     void onCustomCommand(final int seq, final SessionCommand command, final Bundle args) {
         if (DEBUG) {
-            Log.d(TAG, "onCustomCommand cmd=" + command.getCustomCommand());
+            Log.d(TAG, "onCustomCommand cmd=" + command.getCustomAction());
         }
         mCallbackExecutor.execute(new Runnable() {
             @Override
@@ -1174,7 +1174,7 @@ class MediaControllerImplBase implements MediaControllerImpl {
                 if (result == null) {
                     if (THROW_EXCEPTION_FOR_NULL_RESULT) {
                         throw new RuntimeException("ControllerCallback#onCustomCommand() has"
-                                + " returned null, command=" + command.getCustomCommand());
+                                + " returned null, command=" + command.getCustomAction());
                     } else {
                         result = new SessionResult(RESULT_ERROR_UNKNOWN);
                     }

@@ -1259,7 +1259,7 @@ class MediaSessionStub extends IMediaSession.Stub {
         }
 
         @Override
-        void sendCustomCommand(int seq, SessionCommand command, Bundle args)
+        void sendSessionCommand(int seq, SessionCommand command, Bundle args)
                 throws RemoteException {
             mIControllerCallback.onCustomCommand(seq, MediaUtils.toParcelable(command), args);
         }
