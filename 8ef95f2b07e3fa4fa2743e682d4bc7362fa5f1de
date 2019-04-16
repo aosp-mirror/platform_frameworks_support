@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "62107d24_7a6fbab7",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/Camera.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 605,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-16T00:28:39Z",
+      "side": 1,
+      "message": "Submits capture request -\u003e Submits capture requests",
+      "revId": "8ef95f2b07e3fa4fa2743e682d4bc7362fa5f1de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "544520eb_dead8a1d",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/Camera.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 612,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-16T00:28:39Z",
+      "side": 1,
+      "message": "submitCaptureRequest -\u003e submitCaptureRequests",
+      "revId": "8ef95f2b07e3fa4fa2743e682d4bc7362fa5f1de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "484dd530_c4e94150",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/Camera.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 633,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-16T00:28:39Z",
+      "side": 1,
+      "message": "There is potential problem if the recreation of the CaptureSession removes one of the Surfaces. This means that all CaptureRequests that were previously unissued will now be dropped due the one CaptureRequest.\n\nI believe in order to retain the current behavior it would be better to have continue instead of return. @scottnien thoughts?",
+      "revId": "8ef95f2b07e3fa4fa2743e682d4bc7362fa5f1de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b03c985_252ff14e",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/CameraBurstCaptureCallback.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-16T00:28:39Z",
+      "side": 1,
+      "message": "nit:remove additional extra newlines. Only one is needed here",
+      "revId": "8ef95f2b07e3fa4fa2743e682d4bc7362fa5f1de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "578bd9df_9b1500aa",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/CaptureSession.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-16T00:28:39Z",
+      "side": 1,
+      "message": "issueCaptureRequest -\u003e issueCaptureRequests",
+      "revId": "8ef95f2b07e3fa4fa2743e682d4bc7362fa5f1de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1e509de_384c6828",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CameraControl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-16T00:28:39Z",
+      "side": 1,
+      "message": "submitCaptureRequest -\u003e submitCaptureRequests",
+      "revId": "8ef95f2b07e3fa4fa2743e682d4bc7362fa5f1de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
