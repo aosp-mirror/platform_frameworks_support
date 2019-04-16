@@ -86,7 +86,7 @@ public class SessionPlayerTest extends MediaSessionTestBase {
                 }).build();
 
         // Create a default MediaController in client app.
-        mController = createRemoteController(mSession.getToken());
+        mController = createRemoteController(mSession.getSessionToken());
     }
 
     @After

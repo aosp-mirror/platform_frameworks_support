@@ -399,9 +399,9 @@ package androidx.media2 {
     method public void broadcastCustomCommand(androidx.media2.SessionCommand, android.os.Bundle?);
     method public void close();
     method public java.util.List<androidx.media2.MediaSession.ControllerInfo> getConnectedControllers();
-    method public String getId();
     method public androidx.media2.SessionPlayer getPlayer();
-    method public androidx.media2.SessionToken getToken();
+    method public String getSessionId();
+    method public androidx.media2.SessionToken getSessionToken();
     method public com.google.common.util.concurrent.ListenableFuture<androidx.media2.SessionResult> sendCustomCommand(androidx.media2.MediaSession.ControllerInfo, androidx.media2.SessionCommand, android.os.Bundle?);
     method public void setAllowedCommands(androidx.media2.MediaSession.ControllerInfo, androidx.media2.SessionCommandGroup);
     method public com.google.common.util.concurrent.ListenableFuture<androidx.media2.SessionResult> setCustomLayout(androidx.media2.MediaSession.ControllerInfo, java.util.List<androidx.media2.MediaSession.CommandButton>);
@@ -534,8 +534,8 @@ package androidx.media2 {
     ctor public SessionCommand(int);
     ctor public SessionCommand(String, android.os.Bundle?);
     method public int getCommandCode();
-    method public String? getCustomCommand();
-    method public android.os.Bundle? getExtras();
+    method public String? getCustomAction();
+    method public android.os.Bundle? getCustomExtras();
     field public static final int COMMAND_CODE_CUSTOM = 0; // 0x0
     field public static final int COMMAND_CODE_LIBRARY_GET_CHILDREN = 50003; // 0xc353
     field public static final int COMMAND_CODE_LIBRARY_GET_ITEM = 50004; // 0xc354
