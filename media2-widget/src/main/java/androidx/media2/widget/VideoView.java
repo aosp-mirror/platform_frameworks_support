@@ -429,7 +429,7 @@ public class VideoView extends SelectiveLayout {
         if (mMediaSession == null) {
             throw new IllegalStateException("MediaSession instance is not available.");
         }
-        return mMediaSession.getToken();
+        return mMediaSession.getSessionToken();
     }
 
     /**
@@ -622,7 +622,7 @@ public class VideoView extends SelectiveLayout {
         if (mMediaControlView == null) return;
 
         // Get MediaController from MediaSession and set it inside MediaControlView
-        mMediaControlView.setSessionToken(mMediaSession.getToken());
+        mMediaControlView.setSessionToken(mMediaSession.getSessionToken());
 
         SelectiveLayout.LayoutParams params = new SelectiveLayout.LayoutParams();
         params.forceMatchParent = true;
@@ -698,7 +698,7 @@ public class VideoView extends SelectiveLayout {
                         mSelectedSubtitleTrackInfo = null;
                         mSubtitleAnchorView.setVisibility(View.GONE);
 
-                        mMediaSession.broadcastCustomCommand(new SessionCommand(
+                        mMediaSession.broadcastSessionCommand(new SessionCommand(
                                 MediaControlView.EVENT_UPDATE_SUBTITLE_DESELECTED, null), null);
                         return;
                     }
@@ -719,7 +719,7 @@ public class VideoView extends SelectiveLayout {
                         Bundle data = new Bundle();
                         data.putInt(MediaControlView.KEY_SELECTED_SUBTITLE_INDEX,
                                 indexInSubtitleTrackList);
-                        mMediaSession.broadcastCustomCommand(new SessionCommand(
+                        mMediaSession.broadcastSessionCommand(new SessionCommand(
                                 MediaControlView.EVENT_UPDATE_SUBTITLE_SELECTED, null), data);
                     }
                 }
@@ -879,7 +879,7 @@ public class VideoView extends SelectiveLayout {
                     if (what == MediaPlayer.MEDIA_INFO_METADATA_UPDATE) {
                         Bundle data = extractTrackInfoData();
                         if (data != null) {
-                            mMediaSession.broadcastCustomCommand(
+                            mMediaSession.broadcastSessionCommand(
                                     new SessionCommand(MediaControlView.EVENT_UPDATE_TRACK_STATUS,
                                             null), data);
                         }
@@ -988,7 +988,7 @@ public class VideoView extends SelectiveLayout {
                     if (mMediaSession != null) {
                         Bundle data = extractTrackInfoData();
                         if (data != null) {
-                            mMediaSession.broadcastCustomCommand(
+                            mMediaSession.broadcastSessionCommand(
                                     new SessionCommand(MediaControlView.EVENT_UPDATE_TRACK_STATUS,
                                             null), data);
                         }
@@ -1069,7 +1069,7 @@ public class VideoView extends SelectiveLayout {
             if (isMediaPrepared()) {
                 Bundle data = extractTrackInfoData();
                 if (data != null) {
-                    mMediaSession.broadcastCustomCommand(new SessionCommand(
+                    mMediaSession.broadcastSessionCommand(new SessionCommand(
                             MediaControlView.EVENT_UPDATE_TRACK_STATUS, null), data);
                 }
             }
@@ -1077,19 +1077,19 @@ public class VideoView extends SelectiveLayout {
 
         @Override
         @NonNull
-        public SessionResult onCustomCommand(@NonNull MediaSession session,
+        public SessionResult onSessionCommand(@NonNull MediaSession session,
                 @NonNull MediaSession.ControllerInfo controller,
-                @NonNull SessionCommand customCommand, @Nullable Bundle args) {
+                @NonNull SessionCommand command, @Nullable Bundle args) {
             if (session != mMediaSession) {
                 if (DEBUG) {
-                    Log.w(TAG, "onCustomCommand() is ignored. session is already gone.");
+                    Log.w(TAG, "onSessionCommand() is ignored. session is already gone.");
                 }
             }
             if (isRemotePlayback()) {
                 // TODO: call mRoutePlayer.onCommand()
                 return new SessionResult(RESULT_SUCCESS, null);
             }
-            switch (customCommand.getCustomCommand()) {
+            switch (command.getCustomAction()) {
                 case MediaControlView.COMMAND_SHOW_SUBTITLE:
                     int indexInSubtitleTrackList = args != null ? args.getInt(
                             MediaControlView.KEY_SELECTED_SUBTITLE_INDEX,

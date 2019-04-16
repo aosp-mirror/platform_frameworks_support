@@ -117,7 +117,7 @@ public class VideoViewTest {
         checkAttachedToWindow();
 
         mControllerCallback = mock(MediaController.ControllerCallback.class);
-        when(mControllerCallback.onCustomCommand(
+        when(mControllerCallback.onSessionCommand(
                 nullable(MediaController.class),
                 nullable(SessionCommand.class),
                 nullable(Bundle.class))).thenReturn(
@@ -286,7 +286,7 @@ public class VideoViewTest {
         mController.play();
 
         // Verify the subtitle track count
-        verify(mControllerCallback, timeout(TIME_OUT).atLeastOnce()).onCustomCommand(
+        verify(mControllerCallback, timeout(TIME_OUT).atLeastOnce()).onSessionCommand(
                 any(MediaController.class),
                 argThat(new CommandMatcher(EVENT_UPDATE_TRACK_STATUS)),
                 argThat(new CommandArgumentListMatcher(KEY_SUBTITLE_TRACK_LANGUAGE_LIST, 2)));
@@ -294,26 +294,26 @@ public class VideoViewTest {
         // Select the first subtitle track
         Bundle extra = new Bundle();
         extra.putInt(KEY_SELECTED_SUBTITLE_INDEX, 0);
-        mController.sendCustomCommand(
+        mController.sendSessionCommand(
                 new SessionCommand(COMMAND_SHOW_SUBTITLE, null), extra);
-        verify(mControllerCallback, timeout(TIME_OUT).atLeastOnce()).onCustomCommand(
+        verify(mControllerCallback, timeout(TIME_OUT).atLeastOnce()).onSessionCommand(
                 any(MediaController.class),
                 argThat(new CommandMatcher(EVENT_UPDATE_SUBTITLE_SELECTED)),
                 argThat(new CommandArgumentMatcher(KEY_SELECTED_SUBTITLE_INDEX, 0)));
 
         // Select the second subtitle track
         extra.putInt(KEY_SELECTED_SUBTITLE_INDEX, 1);
-        mController.sendCustomCommand(
+        mController.sendSessionCommand(
                 new SessionCommand(COMMAND_SHOW_SUBTITLE, null), extra);
-        verify(mControllerCallback, timeout(TIME_OUT).atLeastOnce()).onCustomCommand(
+        verify(mControllerCallback, timeout(TIME_OUT).atLeastOnce()).onSessionCommand(
                 any(MediaController.class),
                 argThat(new CommandMatcher(EVENT_UPDATE_SUBTITLE_SELECTED)),
                 argThat(new CommandArgumentMatcher(KEY_SELECTED_SUBTITLE_INDEX, 1)));
 
         // Deselect subtitle track
-        mController.sendCustomCommand(
+        mController.sendSessionCommand(
                 new SessionCommand(COMMAND_HIDE_SUBTITLE, null), null);
-        verify(mControllerCallback, timeout(TIME_OUT).atLeastOnce()).onCustomCommand(
+        verify(mControllerCallback, timeout(TIME_OUT).atLeastOnce()).onSessionCommand(
                 any(MediaController.class),
                 argThat(new CommandMatcher(EVENT_UPDATE_SUBTITLE_DESELECTED)),
                 nullable(Bundle.class));
@@ -328,7 +328,7 @@ public class VideoViewTest {
 
         @Override
         public boolean matches(SessionCommand command) {
-            return mExpectedCommand.equals(command.getCustomCommand());
+            return mExpectedCommand.equals(command.getCustomAction());
         }
     }
 

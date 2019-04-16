@@ -576,7 +576,7 @@ class MediaControllerImplLegacy implements MediaController.MediaControllerImpl {
     }
 
     @Override
-    public ListenableFuture<SessionResult> sendCustomCommand(@NonNull SessionCommand command,
+    public ListenableFuture<SessionResult> sendSessionCommand(@NonNull SessionCommand command,
             @Nullable Bundle args) {
         synchronized (mLock) {
             if (!mConnected) {
@@ -585,7 +585,7 @@ class MediaControllerImplLegacy implements MediaController.MediaControllerImpl {
             }
             if (mAllowedCommands.hasCommand(command)) {
                 mControllerCompat.getTransportControls().sendCustomAction(
-                        command.getCustomCommand(), args);
+                        command.getCustomAction(), args);
                 return createFutureWithResult(RESULT_SUCCESS);
             }
             final ResolvableFuture<SessionResult> result = ResolvableFuture.create();
@@ -595,7 +595,7 @@ class MediaControllerImplLegacy implements MediaController.MediaControllerImpl {
                     result.set(new SessionResult(resultCode, resultData));
                 }
             };
-            mControllerCompat.sendCommand(command.getCustomCommand(), args, cb);
+            mControllerCompat.sendCommand(command.getCustomAction(), args, cb);
             return result;
         }
     }
@@ -1065,7 +1065,7 @@ class MediaControllerImplLegacy implements MediaController.MediaControllerImpl {
                 @Override
                 public void run() {
                     // Ignore return because legacy session cannot get result back.
-                    mCallback.onCustomCommand(mInstance, new SessionCommand(event, null), extras);
+                    mCallback.onSessionCommand(mInstance, new SessionCommand(event, null), extras);
                 }
             });
         }
@@ -1292,7 +1292,7 @@ class MediaControllerImplLegacy implements MediaController.MediaControllerImpl {
             mCallbackExecutor.execute(new Runnable() {
                 @Override
                 public void run() {
-                    mCallback.onCustomCommand(mInstance, new SessionCommand(
+                    mCallback.onSessionCommand(mInstance, new SessionCommand(
                             SESSION_COMMAND_ON_EXTRAS_CHANGED, null), extras);
                 }
             });
@@ -1325,7 +1325,7 @@ class MediaControllerImplLegacy implements MediaController.MediaControllerImpl {
                 public void run() {
                     Bundle args = new Bundle();
                     args.putBoolean(MediaConstants.ARGUMENT_CAPTIONING_ENABLED, enabled);
-                    mCallback.onCustomCommand(mInstance, new SessionCommand(
+                    mCallback.onSessionCommand(mInstance, new SessionCommand(
                             SESSION_COMMAND_ON_CAPTIONING_ENABLED_CHANGED, null), args);
                 }
             });

@@ -335,7 +335,7 @@ class MediaLibraryServiceLegacyStub extends MediaSessionServiceLegacyStub {
                     }
                     return;
                 }
-                SessionResult sessionResult = mLibrarySessionImpl.getCallback().onCustomCommand(
+                SessionResult sessionResult = mLibrarySessionImpl.getCallback().onSessionCommand(
                         mLibrarySessionImpl.getInstance(), controller, command, extras);
                 if (sessionResult != null) {
                     result.sendResult(sessionResult.getCustomCommandResult());
@@ -413,7 +413,7 @@ class MediaLibraryServiceLegacyStub extends MediaSessionServiceLegacyStub {
         }
 
         @Override
-        final void sendCustomCommand(int seq, SessionCommand command, Bundle args)
+        final void sendSessionCommand(int seq, SessionCommand command, Bundle args)
                 throws RemoteException {
             // No-op. BrowserCompat doesn't understand Controller features.
         }

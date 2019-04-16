@@ -108,13 +108,13 @@ class MediaSessionServiceImplBase implements MediaSessionServiceImpl {
     public void addSession(final MediaSession session) {
         final MediaSession old;
         synchronized (mLock) {
-            old = mSessions.get(session.getId());
+            old = mSessions.get(session.getSessionId());
             if (old != null && old != session) {
                 // TODO(b/112114183): Also check the uniqueness before sessions're returned by
                 //                    onGetPrimarySession.
                 throw new IllegalArgumentException("Session ID should be unique.");
             }
-            mSessions.put(session.getId(), session);
+            mSessions.put(session.getSessionId(), session);
         }
         if (old == null) {
             // Session has returned for the first time. Register callbacks.
@@ -131,7 +131,7 @@ class MediaSessionServiceImplBase implements MediaSessionServiceImpl {
     @Override
     public void removeSession(MediaSession session) {
         synchronized (mLock) {
-            mSessions.remove(session.getId());
+            mSessions.remove(session.getSessionId());
         }
     }
 
