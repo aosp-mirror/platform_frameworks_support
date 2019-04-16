@@ -47,11 +47,11 @@ public class RichTextTest {
         RichTextElement element = new RichTextElement.Builder().setText(TEST_TEXT_ELEMENT).build();
 
         assertEquals(expected, createSampleRichText());
-        assertNotEquals(expected, new RichText.Builder().build(TEST_TEXT));
-        assertNotEquals(expected, new RichText.Builder()
+        assertNotEquals(expected, new RichText.Builder(TEST_TEXT).build());
+        assertNotEquals(expected, new RichText.Builder(TEST_TEXT)
                 .addElement(element)
                 .addElement(element)
-                .build(TEST_TEXT));
+                .build());
 
         assertEquals(expected.hashCode(), createSampleRichText().hashCode());
     }
@@ -61,7 +61,7 @@ public class RichTextTest {
      */
     @Test
     public void immutability() {
-        assertImmutable(new RichText.Builder().build(TEST_TEXT).getElements());
+        assertImmutable(new RichText.Builder(TEST_TEXT).build().getElements());
         assertImmutable(new RichText().getElements());
     }
 
@@ -79,7 +79,7 @@ public class RichTextTest {
      */
     @Test(expected = NullPointerException.class)
     public void builder_textIsMandatory() {
-        new RichText.Builder().build(null);
+        new RichText.Builder(null).build();
     }
 
     /**
@@ -87,15 +87,15 @@ public class RichTextTest {
      */
     @Test(expected = NullPointerException.class)
     public void builder_elementsCantBeNull() {
-        new RichText.Builder().addElement(null);
+        new RichText.Builder(TEST_TEXT).addElement(null);
     }
 
     /**
      * Returns a sample {@link RichText} instance for testing.
      */
     public static RichText createSampleRichText() {
-        return new RichText.Builder()
+        return new RichText.Builder(TEST_TEXT)
                 .addElement(new RichTextElement.Builder().setText(TEST_TEXT_ELEMENT).build())
-                .build(TEST_TEXT);
+                .build();
     }
 }
