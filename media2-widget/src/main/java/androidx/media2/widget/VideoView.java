@@ -947,7 +947,7 @@ public class VideoView extends SelectiveLayout {
                 }
 
                 @Override
-                public void onPlayerStateChanged(@NonNull SessionPlayer player,
+                public void onPlayerStateChanged(@NonNull MediaPlayer player,
                         @SessionPlayer.PlayerState int state) {
                     switch (state) {
                         case SessionPlayer.PLAYER_STATE_IDLE:
@@ -969,7 +969,7 @@ public class VideoView extends SelectiveLayout {
                 }
 
                 @Override
-                public void onPlaybackCompleted(@NonNull SessionPlayer player) {
+                public void onPlaybackCompleted(@NonNull MediaPlayer player) {
                     if (player != mMediaPlayer) {
                         Log.d(TAG, "onPlaybackCompleted() is ignored. player is already gone.");
                     }
@@ -977,7 +977,7 @@ public class VideoView extends SelectiveLayout {
                     mTargetState = STATE_PLAYBACK_COMPLETED;
                 }
 
-                private void onPrepared(SessionPlayer player) {
+                private void onPrepared(MediaPlayer player) {
                     if (DEBUG) {
                         Log.d(TAG, "OnPreparedListener(): "
                                 + ", mCurrentState=" + mCurrentState

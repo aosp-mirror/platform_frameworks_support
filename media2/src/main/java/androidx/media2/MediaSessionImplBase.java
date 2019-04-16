@@ -1225,7 +1225,7 @@ class MediaSessionImplBase implements MediaSessionImpl {
         void run(ControllerCb controller, int seq) throws RemoteException;
     }
 
-    private static class SessionPlayerCallback extends SessionPlayer.PlayerCallback {
+    private static class SessionPlayerCallback extends SessionPlayer.PlayerCallback<SessionPlayer> {
         private final WeakReference<MediaSessionImplBase> mSession;
         private MediaItem mMediaItem;
         private List<MediaItem> mList;

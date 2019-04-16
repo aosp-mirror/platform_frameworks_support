@@ -1021,7 +1021,7 @@ public class MediaPlayer extends SessionPlayer {
                 notifySessionPlayerCallback(new SessionPlayerCallbackNotifier() {
                     @Override
                     public void callCallback(
-                            SessionPlayer.PlayerCallback callback) {
+                            SessionPlayer.PlayerCallback<SessionPlayer> callback) {
                         callback.onPlaylistChanged(MediaPlayer.this, playlist, metadata);
                     }
                 });
@@ -1079,7 +1079,7 @@ public class MediaPlayer extends SessionPlayer {
                 notifySessionPlayerCallback(new SessionPlayerCallbackNotifier() {
                     @Override
                     public void callCallback(
-                            SessionPlayer.PlayerCallback callback) {
+                            SessionPlayer.PlayerCallback<SessionPlayer> callback) {
                         callback.onPlaylistChanged(MediaPlayer.this, playlist, metadata);
                     }
                 });
@@ -1129,7 +1129,7 @@ public class MediaPlayer extends SessionPlayer {
                 notifySessionPlayerCallback(new SessionPlayerCallbackNotifier() {
                     @Override
                     public void callCallback(
-                            SessionPlayer.PlayerCallback callback) {
+                            SessionPlayer.PlayerCallback<SessionPlayer> callback) {
                         callback.onPlaylistChanged(MediaPlayer.this, playlist, metadata);
                     }
                 });
@@ -1191,7 +1191,7 @@ public class MediaPlayer extends SessionPlayer {
                 notifySessionPlayerCallback(new SessionPlayerCallbackNotifier() {
                     @Override
                     public void callCallback(
-                            SessionPlayer.PlayerCallback callback) {
+                            SessionPlayer.PlayerCallback<SessionPlayer> callback) {
                         callback.onPlaylistChanged(MediaPlayer.this, playlist, metadata);
                     }
                 });
@@ -1323,7 +1323,7 @@ public class MediaPlayer extends SessionPlayer {
                 notifySessionPlayerCallback(new SessionPlayerCallbackNotifier() {
                     @Override
                     public void callCallback(
-                            SessionPlayer.PlayerCallback callback) {
+                            SessionPlayer.PlayerCallback<SessionPlayer> callback) {
                         callback.onPlaylistMetadataChanged(MediaPlayer.this, metadata);
                     }
                 });
@@ -1354,7 +1354,7 @@ public class MediaPlayer extends SessionPlayer {
                     notifySessionPlayerCallback(new SessionPlayerCallbackNotifier() {
                         @Override
                         public void callCallback(
-                                SessionPlayer.PlayerCallback callback) {
+                                SessionPlayer.PlayerCallback<SessionPlayer> callback) {
                             callback.onRepeatModeChanged(MediaPlayer.this, repeatMode);
                         }
                     });
@@ -1386,7 +1386,7 @@ public class MediaPlayer extends SessionPlayer {
                     notifySessionPlayerCallback(new SessionPlayerCallbackNotifier() {
                         @Override
                         public void callCallback(
-                                SessionPlayer.PlayerCallback callback) {
+                                SessionPlayer.PlayerCallback<SessionPlayer> callback) {
                             callback.onShuffleModeChanged(MediaPlayer.this, shuffleMode);
                         }
                     });
@@ -2306,7 +2306,7 @@ public class MediaPlayer extends SessionPlayer {
         if (needToNotify) {
             notifySessionPlayerCallback(new SessionPlayerCallbackNotifier() {
                 @Override
-                public void callCallback(SessionPlayer.PlayerCallback callback) {
+                public void callCallback(SessionPlayer.PlayerCallback<SessionPlayer> callback) {
                     callback.onPlayerStateChanged(MediaPlayer.this, state);
                 }
             });
@@ -2322,7 +2322,7 @@ public class MediaPlayer extends SessionPlayer {
         if (previousState == null || previousState.intValue() != state) {
             notifySessionPlayerCallback(new SessionPlayerCallbackNotifier() {
                 @Override
-                public void callCallback(SessionPlayer.PlayerCallback callback) {
+                public void callCallback(SessionPlayer.PlayerCallback<SessionPlayer> callback) {
                     callback.onBufferingStateChanged(MediaPlayer.this, item, state);
                 }
             });
@@ -2336,6 +2336,7 @@ public class MediaPlayer extends SessionPlayer {
             final SessionPlayer.PlayerCallback callback = pair.first;
             pair.second.execute(new Runnable() {
                 @Override
+                @SuppressWarnings("unchecked")
                 public void run() {
                     notifier.callCallback(callback);
                 }
@@ -2360,7 +2361,7 @@ public class MediaPlayer extends SessionPlayer {
     }
 
     private interface SessionPlayerCallbackNotifier {
-        void callCallback(SessionPlayer.PlayerCallback callback);
+        void callCallback(SessionPlayer.PlayerCallback<SessionPlayer> callback);
     }
 
     private interface MediaPlayerCallbackNotifier {
@@ -2551,7 +2552,7 @@ public class MediaPlayer extends SessionPlayer {
                     notifySessionPlayerCallback(new SessionPlayerCallbackNotifier() {
                         @Override
                         public void callCallback(
-                                SessionPlayer.PlayerCallback callback) {
+                                SessionPlayer.PlayerCallback<SessionPlayer> callback) {
                             callback.onSeekCompleted(MediaPlayer.this, pos);
                         }
                     });
@@ -2560,7 +2561,7 @@ public class MediaPlayer extends SessionPlayer {
                     notifySessionPlayerCallback(new SessionPlayerCallbackNotifier() {
                         @Override
                         public void callCallback(
-                                SessionPlayer.PlayerCallback callback) {
+                                SessionPlayer.PlayerCallback<SessionPlayer> callback) {
                             callback.onCurrentMediaItemChanged(MediaPlayer.this, item);
                         }
                     });
@@ -2571,7 +2572,7 @@ public class MediaPlayer extends SessionPlayer {
                     notifySessionPlayerCallback(new SessionPlayerCallbackNotifier() {
                         @Override
                         public void callCallback(
-                                SessionPlayer.PlayerCallback callback) {
+                                SessionPlayer.PlayerCallback<SessionPlayer> callback) {
                             callback.onPlaybackSpeedChanged(MediaPlayer.this, speed);
                         }
                     });
@@ -2580,7 +2581,8 @@ public class MediaPlayer extends SessionPlayer {
                     final AudioAttributesCompat attr = mPlayer.getAudioAttributes();
                     notifySessionPlayerCallback(new SessionPlayerCallbackNotifier() {
                         @Override
-                        public void callCallback(SessionPlayer.PlayerCallback callback) {
+                        public void callCallback(
+                                SessionPlayer.PlayerCallback<SessionPlayer> callback) {
                             callback.onAudioAttributesChanged(MediaPlayer.this, attr);
                         }
                     });
@@ -2699,7 +2701,8 @@ public class MediaPlayer extends SessionPlayer {
                     setState(PLAYER_STATE_PAUSED);
                     notifySessionPlayerCallback(new SessionPlayerCallbackNotifier() {
                         @Override
-                        public void callCallback(SessionPlayer.PlayerCallback callback) {
+                        public void callCallback(
+                                SessionPlayer.PlayerCallback<SessionPlayer> callback) {
                             callback.onPlaybackCompleted(MediaPlayer.this);
                         }
                     });
@@ -2753,7 +2756,7 @@ public class MediaPlayer extends SessionPlayer {
      * Interface definition for callbacks to be invoked when the player has the corresponding
      * events.
      */
-    public abstract static class PlayerCallback extends SessionPlayer.PlayerCallback {
+    public abstract static class PlayerCallback extends SessionPlayer.PlayerCallback<MediaPlayer> {
         /**
          * Called to indicate the video size
          * <p>
