@@ -16,6 +16,7 @@
 
 package androidx.build
 
+import androidx.build.SupportConfig.BENCHMARK_INSTRUMENTATION_RUNNER
 import androidx.build.SupportConfig.BUILD_TOOLS_VERSION
 import androidx.build.SupportConfig.COMPILE_SDK_VERSION
 import androidx.build.SupportConfig.DEFAULT_MIN_SDK_VERSION
@@ -302,7 +303,8 @@ class AndroidXPlugin : Plugin<Project> {
         extension.defaultConfig.addManifestPlaceholders(
                 mapOf("target-sdk-version" to TARGET_SDK_VERSION))
 
-        extension.defaultConfig.testInstrumentationRunner = INSTRUMENTATION_RUNNER
+        extension.defaultConfig.testInstrumentationRunner =
+            if (isBenchmark()) BENCHMARK_INSTRUMENTATION_RUNNER else INSTRUMENTATION_RUNNER
         extension.testOptions.unitTests.isReturnDefaultValues = true
 
         extension.defaultConfig.minSdkVersion(DEFAULT_MIN_SDK_VERSION)
@@ -535,7 +537,8 @@ class AndroidXPlugin : Plugin<Project> {
 
 fun Project.isBenchmark(): Boolean {
     // benchmark convention is to end name with "-benchmark"
-    return name.endsWith("-benchmark")
+    // Note: also match benchmark/src/androidTest, so it gets the BENCHMARK_INSTRUMENTATION_RUNNER
+    return name.endsWith("-benchmark") || name == "benchmark"
 }
 
 fun Project.hideJavadocTask() {
