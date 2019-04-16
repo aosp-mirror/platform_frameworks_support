@@ -53,6 +53,7 @@ class PomRewriteInZipTest {
     @Test fun rewritePomInZip_rewritingSL_shouldRewrite() {
         val inputZipPath = "/pomRefactorTest/pomTest.zip"
 
+        @Suppress("deprecation")
         val processor = Processor.createProcessor(
             TEST_CONFIG,
             rewritingSupportLib = true,
@@ -87,6 +88,7 @@ class PomRewriteInZipTest {
     @Test fun rewritePomInZip_notRewritingSL_shouldStillRewrite() {
         val inputZipPath = "/pomRefactorTest/pomTest.zip"
 
+        @Suppress("deprecation")
         val processor = Processor.createProcessor(
             TEST_CONFIG,
             rewritingSupportLib = false,

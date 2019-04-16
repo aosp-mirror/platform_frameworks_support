@@ -31,6 +31,7 @@ class ProcessorTest {
 
     @Test
     fun processor_getDependenciesMap_checkNoVariablesLeft() {
+        @Suppress("deprecation")
         val processor = Processor.createProcessor(
                 ConfigParser.loadDefaultConfig()!!,
                 dataBindingVersion = "1.0.0")
@@ -49,6 +50,7 @@ class ProcessorTest {
 
     @Test
     fun processor_getDependenciesMap_filterOutBaseLibrary() {
+        @Suppress("deprecation")
         val processor = Processor.createProcessor(
                 ConfigParser.loadDefaultConfig()!!,
                 dataBindingVersion = "1.0.0")
@@ -60,7 +62,7 @@ class ProcessorTest {
 
     @Test
     fun processor_isOldOrNewDependencyFile_shouldDetectProperly() {
-
+        @Suppress("deprecation")
         val processor = Processor.createProcessor(
             Config.fromOptional(
                 pomRewriteRules = setOf(PomRewriteRule(
@@ -114,6 +116,7 @@ class ProcessorTest {
      */
     @Test
     fun processor_xmlEncodingAutoDetectionFail_shouldRecover() {
+        @Suppress("deprecation")
         val processor = Processor.createProcessor(ConfigParser.loadDefaultConfig()!!)
 
         val fromFile = File(javaClass.getResource("/encodingTest/android.jar").file)

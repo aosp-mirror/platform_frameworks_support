@@ -32,9 +32,9 @@ class TasksCommon {
         var configFilePath: Path? = null
 
         fun processFiles(
-                config: Config,
-                filesToProcess: Set<FileMapping>,
-                logger: Logger
+            config: Config,
+            filesToProcess: Set<FileMapping>,
+            logger: Logger
         ): Set<File> {
             logger.log(LogLevel.DEBUG, "Jetifier will now process the following files:")
             filesToProcess.forEach {
@@ -44,6 +44,7 @@ class TasksCommon {
             // Hook to the gradle logger
             Log.logConsumer = JetifierLoggerAdapter(logger)
 
+            @Suppress("deprecation")
             val processor = Processor.createProcessor(config)
             return processor.transform(filesToProcess)
         }

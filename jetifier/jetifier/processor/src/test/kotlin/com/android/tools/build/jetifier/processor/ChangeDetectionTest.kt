@@ -203,6 +203,7 @@ class ChangeDetectionTest {
         val sourceArchive = archive.writeSelfToFile(Files.createTempFile("test", ".zip"))
 
         val expectedFileIfRefactored = Files.createTempFile("testRefactored", ".zip")
+        @Suppress("deprecation")
         val processor = Processor.createProcessor(config)
         val resultFiles = processor.transform(
             setOf(FileMapping(sourceArchive, expectedFileIfRefactored.toFile())),
