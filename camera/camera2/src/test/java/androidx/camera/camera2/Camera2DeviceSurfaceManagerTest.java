@@ -16,8 +16,6 @@
 
 package androidx.camera.camera2;
 
-import static com.google.common.truth.Truth.assertThat;
-
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
@@ -70,7 +68,6 @@ import org.robolectric.shadows.ShadowCameraManager;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /** Robolectric test for {@link Camera2DeviceSurfaceManager} class */
 @SmallTest
@@ -338,37 +335,6 @@ public final class Camera2DeviceSurfaceManagerTest {
     }
 
     @Test
-    public void getSuggestedResolutionsForMixedUseCaseInLimitedDevice() {
-        Rational aspectRatio = new Rational(16, 9);
-        PreviewConfig.Builder previewConfigBuilder = new PreviewConfig.Builder();
-        VideoCaptureConfig.Builder videoCaptureConfigBuilder = new VideoCaptureConfig.Builder();
-        ImageCaptureConfig.Builder imageCaptureConfigBuilder = new ImageCaptureConfig.Builder();
-
-        previewConfigBuilder.setTargetAspectRatio(aspectRatio);
-        videoCaptureConfigBuilder.setTargetAspectRatio(aspectRatio);
-        imageCaptureConfigBuilder.setTargetAspectRatio(aspectRatio);
-
-        imageCaptureConfigBuilder.setLensFacing(LensFacing.BACK);
-        ImageCapture imageCapture = new ImageCapture(imageCaptureConfigBuilder.build());
-        videoCaptureConfigBuilder.setLensFacing(LensFacing.BACK);
-        VideoCapture videoCapture = new VideoCapture(videoCaptureConfigBuilder.build());
-        previewConfigBuilder.setLensFacing(LensFacing.BACK);
-        Preview preview = new Preview(previewConfigBuilder.build());
-
-        List<UseCase> useCases = new ArrayList<>();
-        useCases.add(imageCapture);
-        useCases.add(videoCapture);
-        useCases.add(preview);
-        Map<UseCase, Size> suggestedResolutionMap =
-                mSurfaceManager.getSuggestedResolutions(LIMITED_CAMERA_ID, null, useCases);
-
-        // (PRIV, PREVIEW) + (PRIV, RECORD) + (JPEG, RECORD)
-        assertThat(suggestedResolutionMap).containsEntry(imageCapture, mRecordSize);
-        assertThat(suggestedResolutionMap).containsEntry(videoCapture, mMaximumVideoSize);
-        assertThat(suggestedResolutionMap).containsEntry(preview, mPreviewSize);
-    }
-
-    @Test
     public void transformSurfaceConfigWithYUVAnalysisSize() {
         SurfaceConfig surfaceConfig = mSurfaceManager.transformSurfaceConfig(
                         LEGACY_CAMERA_ID, ImageFormat.YUV_420_888, mAnalysisSize);
@@ -383,15 +349,6 @@ public final class Camera2DeviceSurfaceManagerTest {
                         LEGACY_CAMERA_ID, ImageFormat.YUV_420_888, mPreviewSize);
         SurfaceConfig expectedSurfaceConfig =
                 SurfaceConfig.create(ConfigType.YUV, ConfigSize.PREVIEW);
-        assertEquals(expectedSurfaceConfig, surfaceConfig);
-    }
-
-    @Test
-    public void transformSurfaceConfigWithYUVRecordSize() {
-        SurfaceConfig surfaceConfig = mSurfaceManager.transformSurfaceConfig(
-                        LEGACY_CAMERA_ID, ImageFormat.YUV_420_888, mRecordSize);
-        SurfaceConfig expectedSurfaceConfig =
-                SurfaceConfig.create(ConfigType.YUV, SurfaceConfig.ConfigSize.RECORD);
         assertEquals(expectedSurfaceConfig, surfaceConfig);
     }
 
@@ -432,16 +389,6 @@ public final class Camera2DeviceSurfaceManagerTest {
                         LEGACY_CAMERA_ID, ImageFormat.JPEG, mPreviewSize);
         SurfaceConfig expectedSurfaceConfig =
                 SurfaceConfig.create(ConfigType.JPEG, ConfigSize.PREVIEW);
-        assertEquals(expectedSurfaceConfig, surfaceConfig);
-    }
-
-    @Test
-    public void transformSurfaceConfigWithJPEGRecordSize() {
-        SurfaceConfig surfaceConfig =
-                mSurfaceManager.transformSurfaceConfig(
-                        LEGACY_CAMERA_ID, ImageFormat.JPEG, mRecordSize);
-        SurfaceConfig expectedSurfaceConfig =
-                SurfaceConfig.create(ConfigType.JPEG, ConfigSize.RECORD);
         assertEquals(expectedSurfaceConfig, surfaceConfig);
     }
 
