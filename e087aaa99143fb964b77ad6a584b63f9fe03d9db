@@ -16,6 +16,24 @@
       "revId": "e087aaa99143fb964b77ad6a584b63f9fe03d9db",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4f058eb_509bedd8",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-04-16T02:28:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "524eb74e_4a5fac8e",
+      "revId": "e087aaa99143fb964b77ad6a584b63f9fe03d9db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
