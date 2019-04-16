@@ -156,7 +156,7 @@ class MediaControllerImplBase implements MediaControllerImpl {
     private volatile IMediaSession mISession;
 
     MediaControllerImplBase(Context context, MediaController instance, SessionToken token,
-            Executor executor, ControllerCallback callback) {
+            @Nullable Bundle connectionHints, Executor executor, ControllerCallback callback) {
         mInstance = instance;
         if (context == null) {
             throw new IllegalArgumentException("context shouldn't be null");
@@ -187,9 +187,9 @@ class MediaControllerImplBase implements MediaControllerImpl {
         if (mToken.getType() == SessionToken.TYPE_SESSION) {
             // Session
             mServiceConnection = null;
-            connectionRequested = requestConnectToSession();
+            connectionRequested = requestConnectToSession(connectionHints);
         } else {
-            mServiceConnection = new SessionServiceConnection();
+            mServiceConnection = new SessionServiceConnection(connectionHints);
             connectionRequested = requestConnectToService();
         }
         if (!connectionRequested) {
@@ -826,11 +826,11 @@ class MediaControllerImplBase implements MediaControllerImpl {
         return true;
     }
 
-    private boolean requestConnectToSession() {
+    private boolean requestConnectToSession(@Nullable Bundle connectionHints) {
         IMediaSession iSession = IMediaSession.Stub.asInterface((IBinder) mToken.getBinder());
         int seq = mSequencedFutureManager.obtainNextSequenceNumber();
         ConnectionRequest request =
-                new ConnectionRequest(mContext.getPackageName(), Process.myPid());
+                new ConnectionRequest(mContext.getPackageName(), Process.myPid(), connectionHints);
         try {
             iSession.connect(mControllerStub, seq, MediaUtils.toParcelable(request));
         } catch (RemoteException e) {
@@ -1206,7 +1206,10 @@ class MediaControllerImplBase implements MediaControllerImpl {
 
     // This will be called on the main thread.
     private class SessionServiceConnection implements ServiceConnection {
-        SessionServiceConnection() {
+        private final Bundle mConnectionHints;
+
+        SessionServiceConnection(@Nullable Bundle connectionHints) {
+            mConnectionHints = connectionHints;
         }
 
         @Override
@@ -1228,8 +1231,8 @@ class MediaControllerImplBase implements MediaControllerImpl {
                     Log.wtf(TAG, "Service interface is missing.");
                     return;
                 }
-                ConnectionRequest request =
-                        new ConnectionRequest(getContext().getPackageName(), Process.myPid());
+                ConnectionRequest request = new ConnectionRequest(
+                        getContext().getPackageName(), Process.myPid(), mConnectionHints);
                 iService.connect(mControllerStub, MediaUtils.toParcelable(request));
                 connectionRequested = true;
             } catch (RemoteException e) {

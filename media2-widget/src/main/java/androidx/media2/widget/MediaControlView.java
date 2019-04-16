@@ -1772,7 +1772,7 @@ public class MediaControlView extends ViewGroup {
             if (mController != null) {
                 mController.close();
             }
-            mController = new MediaController(getContext(), token, mCallbackExecutor,
+            mController = new MediaController(getContext(), token, null, mCallbackExecutor,
                     new MediaControllerCallback());
             mPlaybackState = mController.getPlayerState();
             MediaItem currentItem = mController.getCurrentMediaItem();

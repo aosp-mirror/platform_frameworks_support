@@ -94,7 +94,8 @@ public class MediaControllerProviderService extends Service {
     private class RemoteMediaControllerStub extends IRemoteMediaController.Stub {
         @Override
         public void create(final boolean isBrowser, final String controllerId,
-                ParcelImpl tokenParcelable, boolean waitForConnection) throws RemoteException {
+                ParcelImpl tokenParcelable, final Bundle connectionHints, boolean waitForConnection)
+                throws RemoteException {
             final SessionToken token = MediaUtils.fromParcelable(tokenParcelable);
             final TestControllerCallback callback = new TestControllerCallback();
 
@@ -105,10 +106,10 @@ public class MediaControllerProviderService extends Service {
                         MediaController controller;
                         if (isBrowser) {
                             controller = new MediaBrowser(MediaControllerProviderService.this,
-                                    token, mExecutor, callback);
+                                    token, connectionHints, mExecutor, callback);
                         } else {
                             controller = new MediaController(MediaControllerProviderService.this,
-                                    token, mExecutor, callback);
+                                    token, connectionHints, mExecutor, callback);
                         }
                         mMediaControllerMap.put(controllerId, controller);
                     }

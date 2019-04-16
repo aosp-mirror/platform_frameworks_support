@@ -17,12 +17,15 @@
 package androidx.media2;
 
 import android.content.Context;
+import android.os.Bundle;
+import android.support.v4.media.session.MediaSessionCompat;
 import android.text.TextUtils;
 import android.util.Log;
 
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.media2.MediaLibraryService.LibraryParams;
 import androidx.media2.MediaLibraryService.MediaLibrarySession;
 
@@ -88,9 +91,9 @@ public class MediaBrowser extends MediaController {
      * <li>Connected to a {@link SessionToken#TYPE_SESSION_SERVICE} or
      * {@link SessionToken#TYPE_LIBRARY_SERVICE}
      * <p>The browser connects to the session provided by the
-     * {@link MediaSessionService#onGetPrimarySession()}. It's up to the service's decision which
-     * session would be returned for the connection. Use the {@link #getConnectedSessionToken()} to
-     * know the connected session.
+     * {@link MediaSessionService#onGetSession(MediaSession.ControllerInfo)}.
+     * It's up to the service's decision which  session would be returned for the connection.
+     * Use the {@link #getConnectedSessionToken()} to know the connected session.
      * <p>
      * This can be used regardless of the session app is running or not. The browser would bind
      * to the service while connected to wake up and keep the service process running.</li>
@@ -98,25 +101,34 @@ public class MediaBrowser extends MediaController {
      *
      * @param context Context
      * @param token token to connect to
+     * @param connectionHints a session-specific argument to send to the session when connecting.
+     *                        The contents of this bundle may affect the connection result.
      * @param executor executor to run callbacks on.
      * @param callback browser callback to receive changes in
-     * @see MediaSessionService#onGetPrimarySession()
+     * @see MediaSessionService#onGetSession(MediaSession.ControllerInfo)
      * @see #getConnectedSessionToken()
      */
     public MediaBrowser(@NonNull Context context, @NonNull SessionToken token,
-            @NonNull /*@CallbackExecutor*/ Executor executor, @NonNull BrowserCallback callback) {
+            @Nullable Bundle connectionHints, @NonNull Executor executor,
+            @NonNull ControllerCallback callback) {
+        super(context, token, connectionHints, executor, callback);
+    }
+
+    MediaBrowser(@NonNull Context context, @NonNull MediaSessionCompat.Token token,
+            @NonNull Executor executor, @NonNull ControllerCallback callback) {
         super(context, token, executor, callback);
     }
 
     @Override
     MediaBrowserImpl createImpl(@NonNull Context context, @NonNull SessionToken token,
-            @NonNull Executor executor, @NonNull MediaController.ControllerCallback callback) {
+            @Nullable Bundle connectionHints, @NonNull Executor executor,
+            @NonNull ControllerCallback callback) {
         if (token.isLegacySession()) {
             return new MediaBrowserImplLegacy(
                     context, this, token, executor, (BrowserCallback) callback);
         } else {
-            return new MediaBrowserImplBase(
-                    context, this, token, executor, (BrowserCallback) callback);
+            return new MediaBrowserImplBase(context, this, token, connectionHints,
+                    executor, (BrowserCallback) callback);
         }
     }
 
@@ -288,6 +300,69 @@ public class MediaBrowser extends MediaController {
             return getImpl().getSearchResult(query, page, pageSize, params);
         }
         return createDisconnectedFuture();
+    }
+
+    /**
+     * Builder for {@link MediaController}.
+     * <p>
+     * To set the token of the session for the controller to connect to, one of the
+     * {@link #setSessionToken(SessionToken)} or
+     * {@link #setSessionCompatToken(MediaSessionCompat.Token)} should be called.
+     * Otherwise, the {@link #build()} will throw an {@link IllegalArgumentException}.
+     * <p>
+     * Any incoming event from the {@link MediaSession} will be handled on the callback
+     * executor. If it's not set, {@link Context#getMainExecutor()} will be used by default.
+     */
+    public static final class Builder extends BuilderBase<MediaBrowser, MediaBrowser.Builder,
+            BrowserCallback> {
+        public Builder(@NonNull Context context) {
+            super(context);
+        }
+
+        @Override
+        @NonNull
+        public Builder setSessionToken(@NonNull SessionToken token) {
+            return super.setSessionToken(token);
+        }
+
+        @Override
+        @NonNull
+        public Builder setSessionCompatToken(@NonNull MediaSessionCompat.Token compatToken) {
+            return super.setSessionCompatToken(compatToken);
+        }
+
+        @Override
+        @NonNull
+        public Builder setConnectionHints(@NonNull Bundle connectionHints) {
+            return super.setConnectionHints(connectionHints);
+        }
+
+        @Override
+        @NonNull
+        public Builder setControllerCallback(@NonNull Executor executor,
+                @NonNull BrowserCallback callback) {
+            return super.setControllerCallback(executor, callback);
+        }
+
+        @Override
+        @NonNull
+        public MediaBrowser build() {
+            if (mToken == null && mCompatToken == null) {
+                throw new IllegalArgumentException("token and compat token shouldn't be both null");
+            }
+            if (mCallbackExecutor == null) {
+                mCallbackExecutor = ContextCompat.getMainExecutor(mContext);
+            }
+            if (mCallback == null) {
+                mCallback = new BrowserCallback() {};
+            }
+            if (mToken != null) {
+                return new MediaBrowser(
+                        mContext, mToken, mConnectionHints, mCallbackExecutor, mCallback);
+            } else {
+                return new MediaBrowser(mContext, mCompatToken, mCallbackExecutor, mCallback);
+            }
+        }
     }
 
     private static ListenableFuture<LibraryResult> createDisconnectedFuture() {

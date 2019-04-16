@@ -20,6 +20,7 @@ import static android.app.Service.START_STICKY;
 
 import android.content.Intent;
 import android.os.Binder;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.RemoteException;
@@ -29,6 +30,9 @@ import android.view.KeyEvent;
 import androidx.annotation.GuardedBy;
 import androidx.collection.ArrayMap;
 import androidx.media.MediaBrowserServiceCompat;
+import androidx.media.MediaSessionManager;
+import androidx.media.MediaSessionManager.RemoteUserInfo;
+import androidx.media2.MediaSession.ControllerInfo;
 import androidx.media2.MediaSessionService.MediaNotification;
 import androidx.media2.MediaSessionService.MediaSessionServiceImpl;
 import androidx.versionedparcelable.ParcelImpl;
@@ -79,7 +83,17 @@ class MediaSessionServiceImplBase implements MediaSessionServiceImpl {
                 return getServiceBinder();
             }
             case MediaBrowserServiceCompat.SERVICE_INTERFACE: {
-                final MediaSession session = service.onGetPrimarySession();
+                String packageName = MediaBrowserServiceCompat.SERVICE_INTERFACE;
+                RemoteUserInfo remoteUserInfo = new RemoteUserInfo(packageName,
+                        0 /* pid */, 0 /* uid */);
+                ControllerInfo controllerInfo = new ControllerInfo(remoteUserInfo,
+                        false /* isTrusted */, null /* ControllerCb */,
+                        null /* connectionHints */);
+                final MediaSession session = service.onGetSession(controllerInfo);
+                if (session == null) {
+                    // Legacy MediaBrowser(Compat) cannot connect to this service.
+                    return null;
+                }
                 addSession(session);
                 // Return a specific session's legacy binder although the Android framework caches
                 // the returned binder here and next binding request may reuse cached binder even
@@ -111,7 +125,7 @@ class MediaSessionServiceImplBase implements MediaSessionServiceImpl {
             old = mSessions.get(session.getId());
             if (old != null && old != session) {
                 // TODO(b/112114183): Also check the uniqueness before sessions're returned by
-                //                    onGetPrimarySession.
+                //                    onGetSession.
                 throw new IllegalArgumentException("Session ID should be unique.");
             }
             mSessions.put(session.getId(), session);
@@ -148,7 +162,13 @@ class MediaSessionServiceImplBase implements MediaSessionServiceImpl {
                 }
                 MediaSession session = MediaSession.getSession(intent.getData());
                 if (session == null) {
-                    session = instance.onGetPrimarySession();
+                    String packageName = Intent.ACTION_MEDIA_BUTTON;
+                    RemoteUserInfo remoteUserInfo = new RemoteUserInfo(packageName,
+                            0 /* pid */, 0 /* uid */);
+                    ControllerInfo controllerInfo = new ControllerInfo(remoteUserInfo,
+                            false /* isTrusted */, null /* ControllerCb */,
+                            null /* connectionHints */);
+                    session = instance.onGetSession(controllerInfo);
                 }
                 if (session == null) {
                     Log.w(TAG, "No session for handling media key");
@@ -204,10 +224,13 @@ class MediaSessionServiceImplBase implements MediaSessionServiceImpl {
         final WeakReference<MediaSessionServiceImplBase> mServiceImpl;
         @SuppressWarnings("WeakerAccess") /* synthetic access */
         final Handler mHandler;
+        @SuppressWarnings("WeakerAccess") /* synthetic access */
+        final MediaSessionManager mMediaSessionManager;
 
         MediaSessionServiceStub(final MediaSessionServiceImplBase serviceImpl) {
             mServiceImpl = new WeakReference<>(serviceImpl);
             mHandler = new Handler(serviceImpl.getInstance().getMainLooper());
+            mMediaSessionManager = MediaSessionManager.getSessionManager(serviceImpl.getInstance());
         }
 
         @Override
@@ -225,6 +248,8 @@ class MediaSessionServiceImplBase implements MediaSessionServiceImpl {
             final ConnectionRequest request = MediaUtils.fromParcelable(connectionRequest);
             final int pid = (callingPid != 0) ? callingPid : request.getPid();
             final String packageName = connectionRequest == null ? null : request.getPackageName();
+            final Bundle connectionHints = connectionRequest == null ? null :
+                    request.getConnectionHints();
             try {
                 mHandler.post(new Runnable() {
                     @Override
@@ -252,12 +277,19 @@ class MediaSessionServiceImplBase implements MediaSessionServiceImpl {
                             }
                             final MediaSession session;
                             try {
-                                session = service.onGetPrimarySession();
+                                RemoteUserInfo remoteUserInfo = new RemoteUserInfo(
+                                        packageName, pid, uid);
+                                boolean isTrusted = mMediaSessionManager.isTrustedForMediaControl(
+                                        remoteUserInfo);
+                                ControllerInfo controllerInfo = new ControllerInfo(remoteUserInfo,
+                                        isTrusted, null /* controllerCb */, connectionHints);
+
+                                session = service.onGetSession(controllerInfo);
                                 service.addSession(session);
                                 shouldNotifyDisconnected = false;
 
                                 session.handleControllerConnectionFromService(caller, packageName,
-                                        pid, uid);
+                                        pid, uid, connectionHints);
                             } catch (Exception e) {
                                 // Don't propagate exception in service to the controller.
                                 Log.w(TAG, "Failed to add a session to session service", e);
