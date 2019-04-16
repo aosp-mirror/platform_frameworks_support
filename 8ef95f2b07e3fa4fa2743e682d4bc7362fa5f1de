@@ -53,6 +53,24 @@
     },
     {
       "key": {
+        "uuid": "1d5fa139_61e307d0",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/Camera.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 633,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-04-16T17:00:19Z",
+      "side": 1,
+      "message": "Only request that has no surface attached and isUseRepeatingSurface() \u003d true will go here. This is supposed to be the request that issues 3A control which surface output is not relevant. \n\nMy thought is for a burst request, we might want all of request is valid (with surface) so that we can process the multiple outputs correctly ?  If only partial request is valid , then the result probably is not what we want .   so maybe simply return here is ok.",
+      "parentUuid": "484dd530_c4e94150",
+      "revId": "8ef95f2b07e3fa4fa2743e682d4bc7362fa5f1de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6b03c985_252ff14e",
         "filename": "camera/camera2/src/main/java/androidx/camera/camera2/CameraBurstCaptureCallback.java",
         "patchSetId": 1
