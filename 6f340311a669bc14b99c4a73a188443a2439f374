@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7ba23468_9ae4bc7e",
+        "filename": "activity/src/main/java/androidx/activity/OnBackPressedDispatcher.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-04-16T08:09:13Z",
+      "side": 1,
+      "message": "Just a dumb question -- why does order matter? Wouldn\u0027t a simple for loop be easier?",
+      "range": {
+        "startLine": 135,
+        "startChar": 8,
+        "endLine": 135,
+        "endChar": 16
+      },
+      "revId": "6f340311a669bc14b99c4a73a188443a2439f374",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
