@@ -22,6 +22,30 @@
       "revId": "6f340311a669bc14b99c4a73a188443a2439f374",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5531cad_666f9cd3",
+        "filename": "activity/src/main/java/androidx/activity/OnBackPressedDispatcher.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-16T17:43:38Z",
+      "side": 1,
+      "message": "The callbacks represent a stack, with the last one being at the top of the stack. I want to evaluate them in the same order that they\u0027ll be called in onBackPressed() to ensure that the topmost callback receives a callback to isEnabled() prior to handleOnBackPressed().",
+      "parentUuid": "7ba23468_9ae4bc7e",
+      "range": {
+        "startLine": 135,
+        "startChar": 8,
+        "endLine": 135,
+        "endChar": 16
+      },
+      "revId": "6f340311a669bc14b99c4a73a188443a2439f374",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
