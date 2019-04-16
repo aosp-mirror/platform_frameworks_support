@@ -16,6 +16,24 @@
       "revId": "bbb0496b3fe37cd53658eefa3a3851740a77d283",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f965896b_4e88e5d3",
+        "filename": "camera/integration-tests/extensionstestlib/src/main/java/androidx/camera/extensions/impl/BokehImageCaptureExtenderImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-16T20:55:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dd97a11b_4f7a4b89",
+      "revId": "bbb0496b3fe37cd53658eefa3a3851740a77d283",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
