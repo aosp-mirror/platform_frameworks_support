@@ -23,7 +23,6 @@ import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
@@ -67,7 +66,6 @@ class ViewModelTest {
         runBlocking {
             try {
                 failingDeferred.await()
-                Assert.fail()
             } catch (e: Error) {
             }
             Truth.assertThat(delayingDeferred.isActive).isTrue()

@@ -110,7 +110,7 @@ class SavedStateRegistryTest {
 
     @Test
     fun autoRecreatedThrowOnMissingDefaultConstructor() {
-        class InvalidConstructorClass(unused: Int) : SavedStateRegistry.AutoRecreated {
+        class InvalidConstructorClass : SavedStateRegistry.AutoRecreated {
             override fun onRecreated(owner: SavedStateRegistryOwner) {
                 TODO("not implemented")
             }
