@@ -194,7 +194,7 @@ public class MediaSession implements AutoCloseable {
     public void close() {
         try {
             synchronized (STATIC_LOCK) {
-                SESSION_ID_TO_SESSION_MAP.remove(mImpl.getId());
+                SESSION_ID_TO_SESSION_MAP.remove(mImpl.getSessionId());
             }
             mImpl.close();
         } catch (Exception e) {
@@ -226,15 +226,15 @@ public class MediaSession implements AutoCloseable {
      *
      * @return
      */
-    public @NonNull String getId() {
-        return mImpl.getId();
+    public @NonNull String getSessionId() {
+        return mImpl.getSessionId();
     }
 
     /**
      * Returns the {@link SessionToken} for creating {@link MediaController}.
      */
-    public @NonNull SessionToken getToken() {
-        return mImpl.getToken();
+    public @NonNull SessionToken getSessionToken() {
+        return mImpl.getSessionToken();
     }
 
     @NonNull Context getContext() {
@@ -324,6 +324,8 @@ public class MediaSession implements AutoCloseable {
      * <p>
      * This is synchronous call and doesn't wait for result from the controller. Use
      * {@link #sendCustomCommand(ControllerInfo, SessionCommand, Bundle)} for getting the result.
+     * <p>
+     * A command is not accepted if it is not a custom command.
      *
      * @param command a command
      * @param args optional argument
@@ -331,13 +333,18 @@ public class MediaSession implements AutoCloseable {
      */
     public void broadcastCustomCommand(@NonNull SessionCommand command, @Nullable Bundle args) {
         if (command == null) {
-            throw new IllegalArgumentException("command shouldn't be null");
+            throw new NullPointerException("command shouldn't be null");
+        }
+        if (command.getCommandCode() != SessionCommand.COMMAND_CODE_CUSTOM) {
+            throw new IllegalArgumentException("command should be a custom command");
         }
         mImpl.broadcastCustomCommand(command, args);
     }
 
     /**
      * Send custom command to a specific controller.
+     * <p>
+     * A command is not accepted if it is not a custom command.
      *
      * @param command a command
      * @param args optional argument
@@ -352,7 +359,10 @@ public class MediaSession implements AutoCloseable {
         if (command == null) {
             throw new IllegalArgumentException("command shouldn't be null");
         }
-        return mImpl.sendCustomCommand(controller, command, args);
+        if (command.getCommandCode() != SessionCommand.COMMAND_CODE_CUSTOM) {
+            throw new IllegalArgumentException("command should be a custom command");
+        }
+        return mImpl.sendSessionCommand(controller, command, args);
     }
 
     /**
@@ -1107,7 +1117,7 @@ public class MediaSession implements AutoCloseable {
         // Mostly matched with the methods in MediaController.ControllerCallback
         abstract void setCustomLayout(int seq, @NonNull List<CommandButton> layout)
                 throws RemoteException;
-        abstract void sendCustomCommand(int seq, @NonNull SessionCommand command,
+        abstract void sendSessionCommand(int seq, @NonNull SessionCommand command,
                 @Nullable Bundle args) throws RemoteException;
         abstract void onPlaybackInfoChanged(int seq, @NonNull PlaybackInfo info)
                 throws RemoteException;
@@ -1150,9 +1160,9 @@ public class MediaSession implements AutoCloseable {
                 @Nullable SessionPlayer playlistAgent);
         void updatePlayer(@NonNull SessionPlayer player);
         @NonNull SessionPlayer getPlayer();
-        @NonNull String getId();
+        @NonNull String getSessionId();
         @NonNull Uri getUri();
-        @NonNull SessionToken getToken();
+        @NonNull SessionToken getSessionToken();
         @NonNull List<ControllerInfo> getConnectedControllers();
         boolean isConnected(@NonNull ControllerInfo controller);
 
@@ -1161,7 +1171,7 @@ public class MediaSession implements AutoCloseable {
         void setAllowedCommands(@NonNull ControllerInfo controller,
                 @NonNull SessionCommandGroup commands);
         void broadcastCustomCommand(@NonNull SessionCommand command, @Nullable Bundle args);
-        ListenableFuture<SessionResult> sendCustomCommand(@NonNull ControllerInfo controller,
+        ListenableFuture<SessionResult> sendSessionCommand(@NonNull ControllerInfo controller,
                 @NonNull SessionCommand command, @Nullable Bundle args);
 
         // Internally used methods

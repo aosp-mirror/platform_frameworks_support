@@ -414,7 +414,7 @@ class MediaLibraryServiceLegacyStub extends MediaSessionServiceLegacyStub {
         }
 
         @Override
-        final void sendCustomCommand(int seq, SessionCommand command, Bundle args)
+        final void sendSessionCommand(int seq, SessionCommand command, Bundle args)
                 throws RemoteException {
             // No-op. BrowserCompat doesn't understand Controller features.
         }
