@@ -912,7 +912,7 @@ public class MediaPlayerTest extends MediaPlayerTestBase {
         final Monitor onCompletionCalled = new Monitor();
         MediaPlayer.PlayerCallback callback = new MediaPlayer.PlayerCallback() {
             @Override
-            public void onPlaybackCompleted(SessionPlayer player) {
+            public void onPlaybackCompleted(MediaPlayer player) {
                 onCompletionCalled.signal();
             }
         };
@@ -1064,26 +1064,26 @@ public class MediaPlayerTest extends MediaPlayerTestBase {
 
         MediaPlayer.PlayerCallback callback = new MediaPlayer.PlayerCallback() {
             @Override
-            public void onPlayerStateChanged(SessionPlayer player, int state) {
+            public void onPlayerStateChanged(MediaPlayer player, int state) {
                 playerState.set(state);
                 onPlayerStateChangedCalled.signal();
             }
 
             @Override
-            public void onBufferingStateChanged(SessionPlayer player, MediaItem item,
+            public void onBufferingStateChanged(MediaPlayer player, MediaItem item,
                     int buffState) {
                 bufferingState.set(buffState);
                 onBufferingStateChangedCalled.signal();
             }
 
             @Override
-            public void onPlaybackSpeedChanged(SessionPlayer player, float speed) {
+            public void onPlaybackSpeedChanged(MediaPlayer player, float speed) {
                 playbackSpeed.set(speed);
                 onPlaybackSpeedChanged.signal();
             }
 
             @Override
-            public void onSeekCompleted(SessionPlayer player, long position) {
+            public void onSeekCompleted(MediaPlayer player, long position) {
                 onSeekCompleteCalled.signal();
             }
         };
@@ -1230,7 +1230,7 @@ public class MediaPlayerTest extends MediaPlayerTestBase {
         final TestUtils.Monitor onShuffleModeChangedMonitor = new TestUtils.Monitor();
         MediaPlayer.PlayerCallback callback = new MediaPlayer.PlayerCallback() {
             @Override
-            public void onShuffleModeChanged(SessionPlayer player, int shuffleMode) {
+            public void onShuffleModeChanged(MediaPlayer player, int shuffleMode) {
                 mPlayerCbArg1 = player;
                 mPlayerCbArg2 = new Integer(shuffleMode);
                 onShuffleModeChangedMonitor.signal();
@@ -1287,7 +1287,7 @@ public class MediaPlayerTest extends MediaPlayerTestBase {
         final TestUtils.Monitor onRepeatModeChangedMonitor = new TestUtils.Monitor();
         MediaPlayer.PlayerCallback callback = new MediaPlayer.PlayerCallback() {
             @Override
-            public void onRepeatModeChanged(SessionPlayer player, int repeatMode) {
+            public void onRepeatModeChanged(MediaPlayer player, int repeatMode) {
                 mPlayerCbArg1 = player;
                 mPlayerCbArg2 = new Integer(repeatMode);
                 onRepeatModeChangedMonitor.signal();
@@ -1570,7 +1570,7 @@ public class MediaPlayerTest extends MediaPlayerTestBase {
         final TestUtils.Monitor onCurrentMediaItemChangedMonitor = new TestUtils.Monitor();
         MediaPlayer.PlayerCallback callback = new MediaPlayer.PlayerCallback() {
             @Override
-            public void onCurrentMediaItemChanged(SessionPlayer player, MediaItem item) {
+            public void onCurrentMediaItemChanged(MediaPlayer player, MediaItem item) {
                 assertEquals(currentIdx, mPlayer.getCurrentMediaItemIndex());
                 onCurrentMediaItemChangedMonitor.signal();
             }
@@ -1593,7 +1593,7 @@ public class MediaPlayerTest extends MediaPlayerTestBase {
         final TestUtils.Monitor onCurrentMediaItemChangedMonitor = new TestUtils.Monitor();
         MediaPlayer.PlayerCallback callback = new MediaPlayer.PlayerCallback() {
             @Override
-            public void onCurrentMediaItemChanged(SessionPlayer player, MediaItem item) {
+            public void onCurrentMediaItemChanged(MediaPlayer player, MediaItem item) {
                 assertEquals(currentIdx, mPlayer.getCurrentMediaItemIndex());
                 onCurrentMediaItemChangedMonitor.signal();
             }

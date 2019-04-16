@@ -807,8 +807,10 @@ public abstract class SessionPlayer implements AutoCloseable {
     /**
      * A callback class to receive notifications for events on the session player. See
      * {@link #registerPlayerCallback(Executor, PlayerCallback)} to register this callback.
+     *
+     * @param <Player> a subclass of SessionPlayer that invokes the callback methods
      */
-    public abstract static class PlayerCallback {
+    public abstract static class PlayerCallback<Player extends SessionPlayer> {
         /**
          * Called when the state of the player has changed.
          *
@@ -816,7 +818,7 @@ public abstract class SessionPlayer implements AutoCloseable {
          * @param playerState the new state of the player.
          * @see #getPlayerState() ()
          */
-        public void onPlayerStateChanged(@NonNull SessionPlayer player,
+        public void onPlayerStateChanged(@NonNull Player player,
                 @PlayerState int playerState) {
         }
 
@@ -828,7 +830,7 @@ public abstract class SessionPlayer implements AutoCloseable {
          * @param buffState the new buffering state.
          * @see #getBufferingState()
          */
-        public void onBufferingStateChanged(@NonNull SessionPlayer player,
+        public void onBufferingStateChanged(@NonNull Player player,
                 @Nullable MediaItem item, @BuffState int buffState) {
         }
 
@@ -839,7 +841,7 @@ public abstract class SessionPlayer implements AutoCloseable {
          * @param playbackSpeed the new playback speed.
          * @see #getPlaybackSpeed()
          */
-        public void onPlaybackSpeedChanged(@NonNull SessionPlayer player,
+        public void onPlaybackSpeedChanged(@NonNull Player player,
                 float playbackSpeed) {
         }
 
@@ -850,7 +852,7 @@ public abstract class SessionPlayer implements AutoCloseable {
          * @param position the previous seeking request.
          * @see #getCurrentPosition()
          */
-        public void onSeekCompleted(@NonNull SessionPlayer player, long position) {
+        public void onSeekCompleted(@NonNull Player player, long position) {
         }
 
         /**
@@ -863,7 +865,7 @@ public abstract class SessionPlayer implements AutoCloseable {
          * @see #getPlaylist()
          * @see #getPlaylistMetadata()
          */
-        public void onPlaylistChanged(@NonNull SessionPlayer player,
+        public void onPlaylistChanged(@NonNull Player player,
                 @Nullable List<MediaItem> list, @Nullable MediaMetadata metadata) {
         }
 
@@ -874,7 +876,7 @@ public abstract class SessionPlayer implements AutoCloseable {
          * @param metadata new metadata
          * @see #getPlaylistMetadata()
          */
-        public void onPlaylistMetadataChanged(@NonNull SessionPlayer player,
+        public void onPlaylistMetadataChanged(@NonNull Player player,
                 @Nullable MediaMetadata metadata) {
         }
 
@@ -892,7 +894,7 @@ public abstract class SessionPlayer implements AutoCloseable {
          * @see #SHUFFLE_MODE_GROUP
          * @see #getShuffleMode()
          */
-        public void onShuffleModeChanged(@NonNull SessionPlayer player,
+        public void onShuffleModeChanged(@NonNull Player player,
                 @ShuffleMode int shuffleMode) {
         }
 
@@ -911,7 +913,7 @@ public abstract class SessionPlayer implements AutoCloseable {
          * @see #REPEAT_MODE_GROUP
          * @see #getRepeatMode()
          */
-        public void onRepeatModeChanged(@NonNull SessionPlayer player,
+        public void onRepeatModeChanged(@NonNull Player player,
                 @RepeatMode int repeatMode) {
         }
 
@@ -923,7 +925,7 @@ public abstract class SessionPlayer implements AutoCloseable {
          * @param item the new current media item.
          * @see #getCurrentMediaItem()
          */
-        public void onCurrentMediaItemChanged(@NonNull SessionPlayer player,
+        public void onCurrentMediaItemChanged(@NonNull Player player,
                 @NonNull MediaItem item) {
         }
 
@@ -936,7 +938,7 @@ public abstract class SessionPlayer implements AutoCloseable {
          * @param player the player whose playback is completed.
          * @see #REPEAT_MODE_NONE
          */
-        public void onPlaybackCompleted(@NonNull SessionPlayer player) {
+        public void onPlaybackCompleted(@NonNull Player player) {
         }
 
         /**
@@ -946,7 +948,7 @@ public abstract class SessionPlayer implements AutoCloseable {
          * @param attributes the new current audio attributes
          * @see #getAudioAttributes()
          */
-        public void onAudioAttributesChanged(@NonNull SessionPlayer player,
+        public void onAudioAttributesChanged(@NonNull Player player,
                 @Nullable AudioAttributesCompat attributes) {
         }
     }

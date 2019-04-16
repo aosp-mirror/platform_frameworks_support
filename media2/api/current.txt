@@ -374,7 +374,7 @@ package androidx.media2 {
     field public static final int SEEK_PREVIOUS_SYNC = 0; // 0x0
   }
 
-  public abstract static class MediaPlayer.PlayerCallback extends androidx.media2.SessionPlayer.PlayerCallback {
+  public abstract static class MediaPlayer.PlayerCallback extends androidx.media2.SessionPlayer.PlayerCallback<androidx.media2.MediaPlayer> {
     ctor public MediaPlayer.PlayerCallback();
     method public void onError(androidx.media2.MediaPlayer, androidx.media2.MediaItem, int, int);
     method public void onInfo(androidx.media2.MediaPlayer, androidx.media2.MediaItem, int, int);
@@ -645,19 +645,19 @@ package androidx.media2 {
     field public static final long UNKNOWN_TIME = -9223372036854775808L; // 0x8000000000000000L
   }
 
-  public abstract static class SessionPlayer.PlayerCallback {
+  public abstract static class SessionPlayer.PlayerCallback<P extends androidx.media2.SessionPlayer> {
     ctor public SessionPlayer.PlayerCallback();
-    method public void onAudioAttributesChanged(androidx.media2.SessionPlayer, androidx.media.AudioAttributesCompat?);
-    method public void onBufferingStateChanged(androidx.media2.SessionPlayer, androidx.media2.MediaItem?, int);
-    method public void onCurrentMediaItemChanged(androidx.media2.SessionPlayer, androidx.media2.MediaItem);
-    method public void onPlaybackCompleted(androidx.media2.SessionPlayer);
-    method public void onPlaybackSpeedChanged(androidx.media2.SessionPlayer, float);
-    method public void onPlayerStateChanged(androidx.media2.SessionPlayer, int);
-    method public void onPlaylistChanged(androidx.media2.SessionPlayer, java.util.List<androidx.media2.MediaItem>?, androidx.media2.MediaMetadata?);
-    method public void onPlaylistMetadataChanged(androidx.media2.SessionPlayer, androidx.media2.MediaMetadata?);
-    method public void onRepeatModeChanged(androidx.media2.SessionPlayer, int);
-    method public void onSeekCompleted(androidx.media2.SessionPlayer, long);
-    method public void onShuffleModeChanged(androidx.media2.SessionPlayer, int);
+    method public void onAudioAttributesChanged(P, androidx.media.AudioAttributesCompat?);
+    method public void onBufferingStateChanged(P, androidx.media2.MediaItem?, int);
+    method public void onCurrentMediaItemChanged(P, androidx.media2.MediaItem);
+    method public void onPlaybackCompleted(P);
+    method public void onPlaybackSpeedChanged(P, float);
+    method public void onPlayerStateChanged(P, int);
+    method public void onPlaylistChanged(P, java.util.List<androidx.media2.MediaItem>?, androidx.media2.MediaMetadata?);
+    method public void onPlaylistMetadataChanged(P, androidx.media2.MediaMetadata?);
+    method public void onRepeatModeChanged(P, int);
+    method public void onSeekCompleted(P, long);
+    method public void onShuffleModeChanged(P, int);
   }
 
   public static class SessionPlayer.PlayerResult {
