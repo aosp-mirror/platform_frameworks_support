@@ -29,6 +29,7 @@ import androidx.test.espresso.IdlingResource;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.FlakyTest;
 import androidx.test.filters.SmallTest;
+import androidx.test.filters.Suppress;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.rule.GrantPermissionRule;
@@ -42,7 +43,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 // Tests basic UI operation when using CoreTest app.
-@FlakyTest
+@FlakyTest(bugId = 130580574)
+@Suppress
 @RunWith(AndroidJUnit4.class)
 @SmallTest
 public final class BasicUITest {
