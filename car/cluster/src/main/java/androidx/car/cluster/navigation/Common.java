@@ -48,6 +48,14 @@ final class Common {
     }
 
     /**
+     * Returns the given charsequence, or an empty string if the value is null.
+     */
+    @NonNull
+    public static CharSequence nonNullOrEmpty(@Nullable CharSequence value) {
+        return value != null ? value : "";
+    }
+
+    /**
      * Returns an immutable view of the given list, or an empty one if the list is null, or if any
      * of its elements is null.
      */
