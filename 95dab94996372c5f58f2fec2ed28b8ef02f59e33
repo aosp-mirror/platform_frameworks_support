@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b74e33a8_584256df",
+        "filename": "car/cluster/src/androidTest/java/androidx/car/cluster/navigation/RichTextTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2019-04-16T21:41:39Z",
+      "side": 1,
+      "message": "I\u0027m thinking that throwing NullPointerException here would be surprising for the developer.\nInstead, I think we should throw IllegalStateException, with an explanation on what is missing (e.g. \"Text representation is mandatory\", or something similar).",
+      "revId": "95dab94996372c5f58f2fec2ed28b8ef02f59e33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
