@@ -93,7 +93,7 @@ public class RemoteMediaController {
         try {
             return MediaUtils.fromParcelable(mBinder.getConnectedSessionToken(mControllerId));
         } catch (RemoteException ex) {
-            Log.e(TAG, "Failed to call getConnectedSessionToken()");
+            Log.e(TAG, "Failed to call getConnectedToken()");
             return null;
         }
     }

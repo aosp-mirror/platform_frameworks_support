@@ -89,7 +89,7 @@ public class MediaBrowser extends MediaController {
      * {@link SessionToken#TYPE_LIBRARY_SERVICE}
      * <p>The browser connects to the session provided by the
      * {@link MediaSessionService#onGetPrimarySession()}. It's up to the service's decision which
-     * session would be returned for the connection. Use the {@link #getConnectedSessionToken()} to
+     * session would be returned for the connection. Use the {@link #getConnectedToken()} to
      * know the connected session.
      * <p>
      * This can be used regardless of the session app is running or not. The browser would bind
@@ -101,7 +101,7 @@ public class MediaBrowser extends MediaController {
      * @param executor executor to run callbacks on.
      * @param callback browser callback to receive changes in
      * @see MediaSessionService#onGetPrimarySession()
-     * @see #getConnectedSessionToken()
+     * @see #getConnectedToken()
      */
     public MediaBrowser(@NonNull Context context, @NonNull SessionToken token,
             @NonNull /*@CallbackExecutor*/ Executor executor, @NonNull BrowserCallback callback) {

@@ -178,7 +178,8 @@ public class MediaSessionTest extends MediaSessionTestBase {
 
         mSession.updatePlayer(player);
 
-        final MediaController controller = createController(mSession.getToken(), true, callback);
+        final MediaController controller = createController(mSession.getToken(), true,
+                callback);
         PlaybackInfo info = controller.getPlaybackInfo();
         assertNotNull(info);
         assertEquals(PlaybackInfo.PLAYBACK_TYPE_LOCAL, info.getPlaybackType());
@@ -529,7 +530,8 @@ public class MediaSessionTest extends MediaSessionTestBase {
                     return RESULT_SUCCESS;
                 }
             };
-            MediaController controller = createController(session.getToken(), true, callback);
+            MediaController controller = createController(session.getToken(), true,
+                    callback);
             session.setCustomLayout(mTestControllerInfo, customLayout);
             assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         }
@@ -561,7 +563,8 @@ public class MediaSessionTest extends MediaSessionTestBase {
             }
         };
 
-        final MediaController controller = createController(mSession.getToken(), true, callback);
+        final MediaController controller = createController(mSession.getToken(), true,
+                callback);
         ControllerInfo controllerInfo = getTestControllerInfo();
         assertNotNull(controllerInfo);
 
@@ -572,8 +575,7 @@ public class MediaSessionTest extends MediaSessionTestBase {
     @Test
     public void testSendCustomCommand() throws InterruptedException {
         prepareLooper();
-        final SessionCommand testCommand = new SessionCommand(
-                SessionCommand.COMMAND_CODE_PLAYER_PREPARE);
+        final SessionCommand testCommand = new SessionCommand("test_command_code", null);
         final Bundle testArgs = new Bundle();
         testArgs.putString("args", "testSendCustomAction");
 
@@ -601,7 +603,8 @@ public class MediaSessionTest extends MediaSessionTestBase {
     }
 
     /**
-     * Test expected failure of sendCustomCommand() when it's called in SessionCallback#onConnect().
+     * Test expected failure of sendCustomCommand() when it's called in
+     * SessionCallback#onConnect().
      */
     @Test
     public void testSendCustomCommand_onConnect() throws InterruptedException {
@@ -622,7 +625,7 @@ public class MediaSessionTest extends MediaSessionTestBase {
             @Override
             public SessionResult onCustomCommand(@NonNull MediaController controller,
                     @NonNull SessionCommand command, @Nullable Bundle args) {
-                if (TextUtils.equals(testCommand.getCustomCommand(), command.getCustomCommand())) {
+                if (TextUtils.equals(testCommand.getCustomAction(), command.getCustomAction())) {
                     latch.countDown();
                 }
                 return super.onCustomCommand(controller, command, args);
@@ -666,7 +669,7 @@ public class MediaSessionTest extends MediaSessionTestBase {
             @Override
             public SessionResult onCustomCommand(@NonNull MediaController controller,
                     @NonNull SessionCommand command, @Nullable Bundle args) {
-                if (TextUtils.equals(testCommand.getCustomCommand(), command.getCustomCommand())) {
+                if (TextUtils.equals(testCommand.getCustomAction(), command.getCustomAction())) {
                     latch.countDown();
                 }
                 return super.onCustomCommand(controller, command, args);
