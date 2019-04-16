@@ -253,7 +253,7 @@ public class MediaControllerTest extends MediaSessionTestBase {
         final AudioAttributesCompat testAudioAttributes = new AudioAttributesCompat.Builder()
                 .setLegacyStreamType(AudioManager.STREAM_RING).build();
         final CountDownLatch latch = new CountDownLatch(3);
-        mController = createController(mSession.getToken(), true, new ControllerCallback() {
+        mController = createController(mSession.getToken(), true, null, new ControllerCallback() {
             @Override
             public void onPlayerStateChanged(MediaController controller, int state) {
                 assertEquals(mController, controller);
@@ -351,7 +351,7 @@ public class MediaControllerTest extends MediaSessionTestBase {
                 latch.countDown();
             }
         };
-        MediaController controller = createController(mSession.getToken(), true, callback);
+        MediaController controller = createController(mSession.getToken(), true, null, callback);
         mPlayer.mPlaylist = testList;
         mPlayer.mMetadata = testMetadata;
         mPlayer.notifyPlaylistChanged();
@@ -384,7 +384,7 @@ public class MediaControllerTest extends MediaSessionTestBase {
                 latch.countDown();
             }
         };
-        MediaController controller = createController(mSession.getToken(), true, callback);
+        MediaController controller = createController(mSession.getToken(), true, null, callback);
         mPlayer.mPlaylist = testList;
         mPlayer.mMetadata = testMetadata;
         mPlayer.notifyPlaylistChanged();
@@ -427,7 +427,7 @@ public class MediaControllerTest extends MediaSessionTestBase {
                 .setId("testGetPlaylistMetadata")
                 .setSessionCallback(sHandlerExecutor, new SessionCallback() {})
                 .build()) {
-            MediaController controller = createController(session.getToken(), true, callback);
+            MediaController controller = createController(session.getToken(), true, null, callback);
             mPlayer.notifyPlaylistMetadataChanged();
             assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
             assertEquals(metadataFromCallback.get().getMediaId(),
@@ -458,7 +458,7 @@ public class MediaControllerTest extends MediaSessionTestBase {
 
         final CountDownLatch latch = new CountDownLatch(1);
         final MediaController controller =
-                createController(mSession.getToken(), true, new ControllerCallback() {
+                createController(mSession.getToken(), true, null, new ControllerCallback() {
                     @Override
                     public void onPlaybackSpeedChanged(MediaController controller,
                             float speedOut) {
@@ -514,7 +514,7 @@ public class MediaControllerTest extends MediaSessionTestBase {
                 .setId("testControllerCallback_onPlaylistMetadataChanged")
                 .setSessionCallback(sHandlerExecutor, sessionCallback)
                 .build()) {
-            MediaController controller = createController(session.getToken(), true, callback);
+            MediaController controller = createController(session.getToken(), true, null, callback);
             mPlayer.notifyPlaylistChanged();
             assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         }
@@ -535,7 +535,8 @@ public class MediaControllerTest extends MediaSessionTestBase {
                 latch.countDown();
             }
         };
-        final MediaController controller = createController(mSession.getToken(), true, callback);
+        final MediaController controller = createController(mSession.getToken(), true, null,
+                callback);
         mPlayer.mCurrentPosition = testPosition;
         mPlayer.mLastPlayerState = SessionPlayer.PLAYER_STATE_PAUSED;
         mPlayer.notifySeekCompleted(testSeekPosition);
@@ -568,7 +569,8 @@ public class MediaControllerTest extends MediaSessionTestBase {
                 latch.countDown();
             }
         };
-        final MediaController controller = createController(mSession.getToken(), true, callback);
+        final MediaController controller = createController(mSession.getToken(), true, null,
+                callback);
         mSession.getPlayer().setPlaylist(testPlaylist, null);
         mPlayer.mBufferedPosition = testBufferingPosition;
         mPlayer.notifyBufferingStateChanged(testItem, testBufferingState);
@@ -596,7 +598,8 @@ public class MediaControllerTest extends MediaSessionTestBase {
                 latch.countDown();
             }
         };
-        final MediaController controller = createController(mSession.getToken(), true, callback);
+        final MediaController controller = createController(mSession.getToken(), true, null,
+                callback);
         mPlayer.mCurrentPosition = testPosition;
         mPlayer.notifyPlayerStateChanged(testPlayerState);
         assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
@@ -619,7 +622,7 @@ public class MediaControllerTest extends MediaSessionTestBase {
         final MediaItem unknownItem = TestUtils.createMediaItemWithMetadata();
         final CountDownLatch latch = new CountDownLatch(3);
         final MediaController controller =
-                createController(mSession.getToken(), true, new ControllerCallback() {
+                createController(mSession.getToken(), true, null, new ControllerCallback() {
                     @Override
                     public void onCurrentMediaItemChanged(MediaController controller,
                             MediaItem item) {
@@ -744,7 +747,7 @@ public class MediaControllerTest extends MediaSessionTestBase {
                 latch.countDown();
             }
         };
-        MediaController controller = createController(mSession.getToken(), true, callback);
+        MediaController controller = createController(mSession.getToken(), true, null, callback);
         mPlayer.notifyShuffleModeChanged();
         assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         assertEquals(testShuffleMode, controller.getShuffleMode());
@@ -777,7 +780,7 @@ public class MediaControllerTest extends MediaSessionTestBase {
                 latch.countDown();
             }
         };
-        MediaController controller = createController(mSession.getToken(), true, callback);
+        MediaController controller = createController(mSession.getToken(), true, null, callback);
         mPlayer.notifyRepeatModeChanged();
         assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         assertEquals(testRepeatMode, controller.getRepeatMode());
@@ -815,7 +818,7 @@ public class MediaControllerTest extends MediaSessionTestBase {
                 latch.countDown();
             }
         };
-        MediaController controller = createController(mSession.getToken(), true, callback);
+        MediaController controller = createController(mSession.getToken(), true, null, callback);
 
         mPlayer.mPrevMediaItemIndex = currentIndex;
         mPlayer.mRepeatMode = noneRepeatMode;
@@ -853,7 +856,7 @@ public class MediaControllerTest extends MediaSessionTestBase {
                 latch.countDown();
             }
         };
-        MediaController controller = createController(mSession.getToken(), true, callback);
+        MediaController controller = createController(mSession.getToken(), true, null, callback);
 
         mPlayer.mPrevMediaItemIndex = currentIndex;
         mPlayer.mShuffleMode = noneShuffleMode;
@@ -878,7 +881,7 @@ public class MediaControllerTest extends MediaSessionTestBase {
                 new MockRemotePlayer(volumeControlType, maxVolume, currentVolume);
 
         mSession.updatePlayer(remotePlayer);
-        final MediaController controller = createController(mSession.getToken(), true, null);
+        final MediaController controller = createController(mSession.getToken(), true, null, null);
 
         final int targetVolume = 50;
         controller.setVolumeTo(targetVolume, 0 /* flags */);
@@ -897,7 +900,7 @@ public class MediaControllerTest extends MediaSessionTestBase {
                 new MockRemotePlayer(volumeControlType, maxVolume, currentVolume);
 
         mSession.updatePlayer(remotePlayer);
-        final MediaController controller = createController(mSession.getToken(), true, null);
+        final MediaController controller = createController(mSession.getToken(), true, null, null);
 
         final int direction = AudioManager.ADJUST_RAISE;
         controller.adjustVolume(direction, 0 /* flags */);
@@ -1067,7 +1070,7 @@ public class MediaControllerTest extends MediaSessionTestBase {
             }
         });
         MediaController controller =
-                createController(mSession.getToken(), false, null);
+                createController(mSession.getToken(), false, null, null);
         assertNotNull(controller);
         waitForConnect(controller, false);
         waitForDisconnect(controller, true);
@@ -1461,7 +1464,7 @@ public class MediaControllerTest extends MediaSessionTestBase {
         final SessionCommand testCommand = new SessionCommand("testConnectToService", null);
         final CountDownLatch controllerLatch = new CountDownLatch(1);
         mController = createController(TestUtils.getServiceToken(mContext, id), true,
-                new ControllerCallback() {
+                null, new ControllerCallback() {
                     @Override
                     public SessionResult onCustomCommand(
                             MediaController controller, SessionCommand command, Bundle args) {
@@ -1503,7 +1506,7 @@ public class MediaControllerTest extends MediaSessionTestBase {
     public void testClose_beforeConnected() throws InterruptedException {
         prepareLooper();
         MediaController controller =
-                createController(mSession.getToken(), false, null);
+                createController(mSession.getToken(), false, null, null);
         controller.close();
     }
 
@@ -1566,7 +1569,7 @@ public class MediaControllerTest extends MediaSessionTestBase {
                 latch.countDown();
             }
         };
-        MediaController controller = createController(mSession.getToken(), true, callback);
+        MediaController controller = createController(mSession.getToken(), true, null, callback);
         controller.setTimeDiff(timeDiff);
         mPlayer.notifyPlayerStateChanged(pausedState);
         assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
@@ -1600,7 +1603,7 @@ public class MediaControllerTest extends MediaSessionTestBase {
                 latch.countDown();
             }
         };
-        MediaController controller = createController(mSession.getToken(), true, callback);
+        MediaController controller = createController(mSession.getToken(), true, null, callback);
         mPlayer.setMediaItem(item);
         mPlayer.notifyCurrentMediaItemChanged(item);
         assertFalse(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
@@ -1636,7 +1639,7 @@ public class MediaControllerTest extends MediaSessionTestBase {
                 latch.countDown();
             }
         };
-        MediaController controller = createController(mSession.getToken(), true, callback);
+        MediaController controller = createController(mSession.getToken(), true, null, callback);
         mPlayer.setPlaylist(list, null);
         mPlayer.skipToPlaylistItem(currentItemIdx);
         mPlayer.notifyPlaylistChanged();

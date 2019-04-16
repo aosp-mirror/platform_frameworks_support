@@ -172,13 +172,14 @@ abstract class MediaSessionTestBase {
 
     final MediaController createController(@NonNull SessionToken token)
             throws InterruptedException {
-        return createController(token, true, null);
+        return createController(token, true, null, null);
     }
 
     final MediaController createController(@NonNull SessionToken token,
-            boolean waitForConnect, @Nullable ControllerCallback callback)
+            boolean waitForConnect, @NonNull Bundle connectionHints,
+            @Nullable ControllerCallback callback)
             throws InterruptedException {
-        TestControllerInterface instance = onCreateController(token, callback);
+        TestControllerInterface instance = onCreateController(token, connectionHints, callback);
         if (!(instance instanceof MediaController)) {
             throw new RuntimeException("Test has a bug. Expected MediaController but returned "
                     + instance);
@@ -240,7 +241,8 @@ abstract class MediaSessionTestBase {
     }
 
     TestControllerInterface onCreateController(final @NonNull SessionToken token,
-            @Nullable ControllerCallback callback) throws InterruptedException {
+            final @NonNull Bundle connectionHints, @Nullable ControllerCallback callback)
+            throws InterruptedException {
         final ControllerCallback controllerCallback =
                 callback != null ? callback : new ControllerCallback() {};
         final AtomicReference<TestControllerInterface> controller = new AtomicReference<>();
@@ -250,8 +252,8 @@ abstract class MediaSessionTestBase {
                 // Create controller on the test handler, for changing MediaBrowserCompat's Handler
                 // Looper. Otherwise, MediaBrowserCompat will post all the commands to the handler
                 // and commands wouldn't be run if tests codes waits on the test handler.
-                controller.set(new TestMediaController(
-                        mContext, token, new TestControllerCallback(controllerCallback)));
+                controller.set(new TestMediaController(mContext, token, connectionHints,
+                        new TestControllerCallback(controllerCallback)));
             }
         });
         return controller.get();
@@ -408,8 +410,8 @@ abstract class MediaSessionTestBase {
         }
 
         TestMediaController(@NonNull Context context, @NonNull SessionToken token,
-                @NonNull ControllerCallback callback) {
-            super(context, token, sHandlerExecutor, callback);
+                @NonNull Bundle connectionHints, @NonNull ControllerCallback callback) {
+            super(context, token, connectionHints, sHandlerExecutor, callback);
             mCallback = callback;
         }
 

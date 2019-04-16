@@ -19,6 +19,7 @@ package androidx.media2.test.client;
 import static androidx.media2.test.common.CommonConstants.ACTION_MEDIA2_CONTROLLER;
 
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -94,7 +95,8 @@ public class MediaControllerProviderService extends Service {
     private class RemoteMediaControllerStub extends IRemoteMediaController.Stub {
         @Override
         public void create(final boolean isBrowser, final String controllerId,
-                ParcelImpl tokenParcelable, boolean waitForConnection) throws RemoteException {
+                ParcelImpl tokenParcelable, final Bundle connectionHints, boolean waitForConnection)
+                throws RemoteException {
             final SessionToken token = MediaUtils.fromParcelable(tokenParcelable);
             final TestControllerCallback callback = new TestControllerCallback();
 
@@ -102,13 +104,25 @@ public class MediaControllerProviderService extends Service {
                 mHandler.postAndSync(new Runnable() {
                     @Override
                     public void run() {
+                        Context context = MediaControllerProviderService.this;
                         MediaController controller;
                         if (isBrowser) {
-                            controller = new MediaBrowser(MediaControllerProviderService.this,
-                                    token, mExecutor, callback);
+                            MediaBrowser.Builder builder = new MediaBrowser.Builder(context)
+                                    .setSessionToken(token)
+                                    .setControllerCallback(mExecutor, callback);
+                            if (connectionHints != null) {
+                                builder.setConnectionHints(connectionHints);
+                            }
+                            controller = builder.build();
+
                         } else {
-                            controller = new MediaController(MediaControllerProviderService.this,
-                                    token, mExecutor, callback);
+                            MediaController.Builder builder = new MediaController.Builder(context)
+                                    .setSessionToken(token)
+                                    .setControllerCallback(mExecutor, callback);
+                            if (connectionHints != null) {
+                                builder.setConnectionHints(connectionHints);
+                            }
+                            controller = builder.build();
                         }
                         mMediaControllerMap.put(controllerId, controller);
                     }

@@ -121,7 +121,7 @@ public class MediaControllerCallbackTest extends MediaSessionTestBase {
                 createRemoteMediaSession(TEST_CONTROLLER_CALLBACK_SESSION_REJECTS);
 
         MediaController controller = createController(session.getToken(),
-                false /* waitForConnect */, null);
+                false /* waitForConnect */, null, null);
         assertNotNull(controller);
         waitForConnect(controller, false /* expected */);
         waitForDisconnect(controller, true /* expected */);
@@ -188,15 +188,17 @@ public class MediaControllerCallbackTest extends MediaSessionTestBase {
         mRemoteSession2.getMockPlayer().createAndSetDummyPlaylist(playlistSize);
 
         final CountDownLatch latch = new CountDownLatch(1);
-        MediaController controller = new MediaController(mContext, mRemoteSession2.getToken(),
-                sHandlerExecutor, new MediaController.ControllerCallback() {
+        MediaController controller = new MediaController.Builder(mContext)
+                .setSessionToken(mRemoteSession2.getToken())
+                .setControllerCallback(sHandlerExecutor, new MediaController.ControllerCallback() {
                     @Override
                     public void onConnected(MediaController controller,
                             SessionCommandGroup allowedCommands) {
                         super.onConnected(controller, allowedCommands);
                         latch.countDown();
                     }
-                });
+                })
+                .build();
         assertNotNull(controller);
         assertTrue(latch.await(10, TimeUnit.SECONDS));
 
@@ -218,7 +220,7 @@ public class MediaControllerCallbackTest extends MediaSessionTestBase {
                 .setLegacyStreamType(AudioManager.STREAM_RING).build();
         final CountDownLatch latch = new CountDownLatch(3);
         mController = createController(mRemoteSession2.getToken(),
-                true /* waitForConnect */, new MediaController.ControllerCallback() {
+                true /* waitForConnect */, null, new MediaController.ControllerCallback() {
                     @Override
                     public void onPlayerStateChanged(MediaController controller, int state) {
                         assertEquals(mController, controller);
@@ -265,7 +267,7 @@ public class MediaControllerCallbackTest extends MediaSessionTestBase {
         final MediaItem currentItem = list.get(currentItemIndex);
         final CountDownLatch latchForControllerCallback = new CountDownLatch(3);
         MediaController controller = createController(
-                mRemoteSession2.getToken(), true, new MediaController.ControllerCallback() {
+                mRemoteSession2.getToken(), true, null, new MediaController.ControllerCallback() {
                     @Override
                     public void onCurrentMediaItemChanged(MediaController controller,
                             MediaItem item) {
@@ -305,7 +307,7 @@ public class MediaControllerCallbackTest extends MediaSessionTestBase {
 
         final CountDownLatch latchForControllerCallback = new CountDownLatch(1);
         MediaController controller = createController(
-                mRemoteSession2.getToken(), true, new MediaController.ControllerCallback() {
+                mRemoteSession2.getToken(), true, null, new MediaController.ControllerCallback() {
                     @Override
                     public void onPlaybackSpeedChanged(MediaController controller,
                             float speedOut) {
@@ -345,7 +347,8 @@ public class MediaControllerCallbackTest extends MediaSessionTestBase {
                 latch.countDown();
             }
         };
-        MediaController controller = createController(mRemoteSession2.getToken(), true, callback);
+        MediaController controller = createController(mRemoteSession2.getToken(), true, null,
+                callback);
 
         Bundle playerConfig = RemoteMediaSession.createMockPlayerConnectorConfig(
                 volumeControlType, maxVolume, currentVolume, attrs);
@@ -379,7 +382,8 @@ public class MediaControllerCallbackTest extends MediaSessionTestBase {
                         latch.countDown();
                     }
                 };
-        MediaController controller = createController(mRemoteSession2.getToken(), true, callback);
+        MediaController controller = createController(mRemoteSession2.getToken(), true, null,
+                callback);
         mRemoteSession2.getMockPlayer().notifyAudioAttributesChanged(attrs);
         assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
     }
@@ -405,7 +409,8 @@ public class MediaControllerCallbackTest extends MediaSessionTestBase {
                         latch.countDown();
                     }
                 };
-        MediaController controller = createController(mRemoteSession2.getToken(), true, callback);
+        MediaController controller = createController(mRemoteSession2.getToken(), true, null,
+                callback);
 
         mRemoteSession2.getMockPlayer().setPlaylist(testList);
         mRemoteSession2.getMockPlayer().notifyPlaylistChanged();
@@ -435,7 +440,8 @@ public class MediaControllerCallbackTest extends MediaSessionTestBase {
                         latch.countDown();
                     }
                 };
-        MediaController controller = createController(mRemoteSession2.getToken(), true, callback);
+        MediaController controller = createController(mRemoteSession2.getToken(), true, null,
+                callback);
         mRemoteSession2.getMockPlayer().createAndSetDummyPlaylist(listSize);
         mRemoteSession2.getMockPlayer().notifyPlaylistChanged();
 
@@ -466,7 +472,8 @@ public class MediaControllerCallbackTest extends MediaSessionTestBase {
         RemoteMediaSession.RemoteMockPlayer player = mRemoteSession2.getMockPlayer();
         player.setPlaylistMetadata(testMetadata);
 
-        MediaController controller = createController(mRemoteSession2.getToken(), true, callback);
+        MediaController controller = createController(mRemoteSession2.getToken(), true, null,
+                callback);
         player.notifyPlaylistMetadataChanged();
         assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         assertEquals(metadataFromCallback.get().getMediaId(),
@@ -502,7 +509,8 @@ public class MediaControllerCallbackTest extends MediaSessionTestBase {
         RemoteMediaSession.RemoteMockPlayer player = mRemoteSession2.getMockPlayer();
         player.setPlaylistMetadataWithLargeBitmaps(imageCount, originalWidth, originalHeight);
 
-        MediaController controller = createController(mRemoteSession2.getToken(), true, callback);
+        MediaController controller = createController(mRemoteSession2.getToken(), true, null,
+                callback);
         player.notifyPlaylistMetadataChanged();
         if (Build.VERSION.SDK_INT <= 19) {
             // Due to the GC, time takes longer than expected.
@@ -532,7 +540,8 @@ public class MediaControllerCallbackTest extends MediaSessionTestBase {
         RemoteMediaSession.RemoteMockPlayer player = mRemoteSession2.getMockPlayer();
         player.setShuffleMode(testShuffleMode);
 
-        MediaController controller = createController(mRemoteSession2.getToken(), true, callback);
+        MediaController controller = createController(mRemoteSession2.getToken(), true, null,
+                callback);
         player.notifyShuffleModeChanged();
         assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         assertEquals(testShuffleMode, controller.getShuffleMode());
@@ -558,7 +567,8 @@ public class MediaControllerCallbackTest extends MediaSessionTestBase {
         RemoteMediaSession.RemoteMockPlayer player = mRemoteSession2.getMockPlayer();
         player.setRepeatMode(testRepeatMode);
 
-        MediaController controller = createController(mRemoteSession2.getToken(), true, callback);
+        MediaController controller = createController(mRemoteSession2.getToken(), true, null,
+                callback);
         player.notifyRepeatModeChanged();
         assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
         assertEquals(testRepeatMode, controller.getRepeatMode());
@@ -578,7 +588,8 @@ public class MediaControllerCallbackTest extends MediaSessionTestBase {
 
         RemoteMediaSession.RemoteMockPlayer player = mRemoteSession2.getMockPlayer();
 
-        MediaController controller = createController(mRemoteSession2.getToken(), true, callback);
+        MediaController controller = createController(mRemoteSession2.getToken(), true, null,
+                callback);
         player.notifyPlaybackCompleted();
         assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
     }
@@ -603,7 +614,8 @@ public class MediaControllerCallbackTest extends MediaSessionTestBase {
         mRemoteSession2.getMockPlayer().setPlayerState(SessionPlayer.PLAYER_STATE_PAUSED);
         mRemoteSession2.getMockPlayer().setCurrentPosition(testPosition);
 
-        MediaController controller = createController(mRemoteSession2.getToken(), true, callback);
+        MediaController controller = createController(mRemoteSession2.getToken(), true, null,
+                callback);
         mRemoteSession2.getMockPlayer().notifySeekCompleted(testSeekPosition);
         assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
     }
@@ -643,7 +655,8 @@ public class MediaControllerCallbackTest extends MediaSessionTestBase {
         player.setCurrentPosition(testPosition);
         player.setPlayerState(SessionPlayer.PLAYER_STATE_PLAYING);
 
-        MediaController controller = createController(mRemoteSession2.getToken(), true, callback);
+        MediaController controller = createController(mRemoteSession2.getToken(), true, null,
+                callback);
         // Since we cannot pass the DataSourceDesc directly, send the item index so that the player
         // can select which item's state change should be notified.
         player.notifyBufferingStateChanged(targetItemIndex, testBufferingState);
@@ -685,7 +698,8 @@ public class MediaControllerCallbackTest extends MediaSessionTestBase {
         player.setCurrentPosition(testPosition);
         player.setPlayerState(SessionPlayer.PLAYER_STATE_PLAYING);
 
-        MediaController controller = createController(mRemoteSession2.getToken(), true, callback);
+        MediaController controller = createController(mRemoteSession2.getToken(), true, null,
+                callback);
         // Since we cannot pass the DataSourceDesc directly, send the item index so that the player
         // can select which item's state change should be notified.
         player.notifyBufferingStateChanged(targetItemIndex, testBufferingState);
@@ -713,7 +727,8 @@ public class MediaControllerCallbackTest extends MediaSessionTestBase {
 
         mRemoteSession2.getMockPlayer().setCurrentPosition(testPosition);
 
-        MediaController controller = createController(mRemoteSession2.getToken(), true, callback);
+        MediaController controller = createController(mRemoteSession2.getToken(), true, null,
+                callback);
         mRemoteSession2.getMockPlayer().notifyPlayerStateChanged(testPlayerState);
         assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
     }
@@ -739,7 +754,8 @@ public class MediaControllerCallbackTest extends MediaSessionTestBase {
 
         mRemoteSession2.getMockPlayer().setCurrentPosition(testPosition);
 
-        MediaController controller = createController(mRemoteSession2.getToken(), true, callback);
+        MediaController controller = createController(mRemoteSession2.getToken(), true, null,
+                callback);
         mRemoteSession2.getMockPlayer().notifyPlayerStateChanged(testPlayerState);
         assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
     }
@@ -770,7 +786,8 @@ public class MediaControllerCallbackTest extends MediaSessionTestBase {
             }
         };
 
-        MediaController controller = createController(mRemoteSession2.getToken(), true, callback);
+        MediaController controller = createController(mRemoteSession2.getToken(), true, null,
+                callback);
         mRemoteSession2.setAllowedCommands(TEST_CONTROLLER_INFO, commands);
         assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
     }
@@ -794,7 +811,8 @@ public class MediaControllerCallbackTest extends MediaSessionTestBase {
                 return new SessionResult(RESULT_SUCCESS, null);
             }
         };
-        MediaController controller = createController(mRemoteSession2.getToken(), true, callback);
+        MediaController controller = createController(mRemoteSession2.getToken(), true, null,
+                callback);
 
         // TODO(jaewan): Test with multiple controllers
         mRemoteSession2.broadcastCustomCommand(testCommand, testArgs);
@@ -831,7 +849,7 @@ public class MediaControllerCallbackTest extends MediaSessionTestBase {
             }
         };
         final MediaController controller =
-                createController(mRemoteSession2.getToken(), true, callback);
+                createController(mRemoteSession2.getToken(), true, null, callback);
         mRemoteSession2.setCustomLayout(TEST_CONTROLLER_INFO, buttons);
         assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
     }
@@ -852,7 +870,8 @@ public class MediaControllerCallbackTest extends MediaSessionTestBase {
                     }
                 };
 
-        MediaController controller = createController(mRemoteSession2.getToken(), true, callback);
+        MediaController controller = createController(mRemoteSession2.getToken(), true, null,
+                callback);
         mRemoteSession2.getMockPlayer().notifyVideoSizeChanged(testSize);
         assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
     }
