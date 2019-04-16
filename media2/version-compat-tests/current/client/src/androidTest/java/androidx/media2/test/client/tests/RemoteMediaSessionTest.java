@@ -77,7 +77,7 @@ public class RemoteMediaSessionTest {
     public void testCreatingController() {
         SessionToken token = mRemoteSession2.getToken();
         assertNotNull(token);
-        MediaController controller = new MediaController(mContext, token, new Executor() {
+        MediaController controller = new MediaController(mContext, token, null, new Executor() {
             @Override
             public void execute(Runnable command) {
                 command.run();

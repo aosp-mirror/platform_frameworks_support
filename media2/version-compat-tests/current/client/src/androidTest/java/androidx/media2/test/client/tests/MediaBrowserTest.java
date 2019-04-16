@@ -21,6 +21,7 @@ import static junit.framework.Assert.assertTrue;
 
 import android.content.Context;
 import android.os.Build;
+import android.os.Bundle;
 
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
@@ -50,7 +51,8 @@ public class MediaBrowserTest extends MediaControllerTest {
 
     @Override
     TestControllerInterface onCreateController(final @NonNull SessionToken token,
-            final @Nullable ControllerCallback callback) throws InterruptedException {
+            final @Nullable Bundle connectionHints, final @Nullable ControllerCallback callback)
+            throws InterruptedException {
         final AtomicReference<TestControllerInterface> controller = new AtomicReference<>();
         sHandler.postAndSync(new Runnable() {
             @Override
@@ -58,7 +60,8 @@ public class MediaBrowserTest extends MediaControllerTest {
                 // Create controller on the test handler, for changing MediaBrowserCompat's Handler
                 // Looper. Otherwise, MediaBrowserCompat will post all the commands to the handler
                 // and commands wouldn't be run if tests codes waits on the test handler.
-                controller.set(new TestMediaBrowser(mContext, token, new TestBrowserCallback()));
+                controller.set(new TestMediaBrowser(mContext, token, connectionHints,
+                        new TestBrowserCallback()));
             }
         });
         return controller.get();
@@ -110,8 +113,8 @@ public class MediaBrowserTest extends MediaControllerTest {
         private final BrowserCallback mCallback;
 
         public TestMediaBrowser(@NonNull Context context, @NonNull SessionToken token,
-                @NonNull BrowserCallback callback) {
-            super(context, token, sHandlerExecutor, callback);
+                @Nullable Bundle connectionHints, @NonNull BrowserCallback callback) {
+            super(context, token, connectionHints, sHandlerExecutor, callback);
             mCallback = callback;
         }
 

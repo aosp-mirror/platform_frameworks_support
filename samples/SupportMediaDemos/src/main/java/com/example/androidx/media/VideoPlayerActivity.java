@@ -138,7 +138,7 @@ public class VideoPlayerActivity extends FragmentActivity {
 
             Executor executor = ContextCompat.getMainExecutor(this);
             mMediaController = new MediaController(
-                    this, token, executor, new ControllerCallback());
+                    this, token, null, executor, new ControllerCallback());
         }
         if (errorString != null) {
             showErrorDialog(errorString);

@@ -128,16 +128,16 @@ abstract class MediaSessionTestBase extends MediaTestBase {
 
     final RemoteMediaController createRemoteController(@NonNull SessionToken token,
             boolean waitForConnection) throws InterruptedException {
-        RemoteMediaController controller =
-                new RemoteMediaController(mContext, token, waitForConnection);
+        RemoteMediaController controller = new RemoteMediaController(
+                mContext, token, null /* connectionHints */, waitForConnection);
         mControllers.add(controller);
         return controller;
     }
 
-    final RemoteMediaBrowser createRemoteBrowser2(SessionToken token)
+    final RemoteMediaBrowser createRemoteBrowser2(@NonNull SessionToken token)
             throws InterruptedException {
-        RemoteMediaBrowser browser =
-                new RemoteMediaBrowser(mContext, token, true /* waitForConnection */);
+        RemoteMediaBrowser browser = new RemoteMediaBrowser(
+                mContext, token, null /* connectionHints */, true /* waitForConnection */);
         mControllers.add(browser);
         return browser;
     }

@@ -34,6 +34,7 @@ import static org.junit.Assert.assertNotEquals;
 
 import android.content.Context;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Process;
 
 import androidx.annotation.NonNull;
@@ -71,7 +72,8 @@ public class MediaBrowserTest extends MediaControllerTest {
 
     @Override
     TestControllerInterface onCreateController(final @NonNull SessionToken token,
-            final @Nullable ControllerCallback callback) throws InterruptedException {
+            final @Nullable Bundle connectionHints, final @Nullable ControllerCallback callback)
+            throws InterruptedException {
         final AtomicReference<TestControllerInterface> controller = new AtomicReference<>();
         sHandler.postAndSync(new Runnable() {
             @Override
@@ -79,21 +81,21 @@ public class MediaBrowserTest extends MediaControllerTest {
                 // Create controller on the test handler, for changing MediaBrowserCompat's Handler
                 // Looper. Otherwise, MediaBrowserCompat will post all the commands to the handler
                 // and commands wouldn't be run if tests codes waits on the test handler.
-                controller.set(new TestMediaBrowser(
-                        mContext, token, new MockBrowserCallback(callback)));
+                controller.set(new TestMediaBrowser(mContext, token, connectionHints,
+                        new MockBrowserCallback(callback)));
             }
         });
         return controller.get();
     }
 
     final MediaBrowser createBrowser() throws InterruptedException {
-        return createBrowser(null);
+        return createBrowser(null, null);
     }
 
-    final MediaBrowser createBrowser(@Nullable BrowserCallback callback)
-            throws InterruptedException {
+    final MediaBrowser createBrowser(@Nullable BrowserCallback callback,
+            @Nullable Bundle connectionHints) throws InterruptedException {
         return (MediaBrowser) createController(MockMediaLibraryService.getToken(mContext),
-                true, callback);
+                true, connectionHints, callback);
     }
 
     /**
@@ -209,7 +211,7 @@ public class MediaBrowserTest extends MediaControllerTest {
 
         // Request the search.
         MockMediaLibraryService.setAssertLibraryParams(params);
-        MediaBrowser browser = createBrowser(callback);
+        MediaBrowser browser = createBrowser(callback, null);
         LibraryResult result = browser.search(query, params)
                 .get(TIMEOUT_MS, TimeUnit.MILLISECONDS);
         assertEquals(RESULT_SUCCESS, result.getResultCode());
@@ -245,7 +247,7 @@ public class MediaBrowserTest extends MediaControllerTest {
         };
 
         MockMediaLibraryService.setAssertLibraryParams(params);
-        LibraryResult result = createBrowser(callback).search(query, params)
+        LibraryResult result = createBrowser(callback, null).search(query, params)
                 .get(TIMEOUT_MS, TimeUnit.MILLISECONDS);
         assertEquals(RESULT_SUCCESS, result.getResultCode());
         assertTrue(latch.await(
@@ -271,7 +273,7 @@ public class MediaBrowserTest extends MediaControllerTest {
         };
 
         MockMediaLibraryService.setAssertLibraryParams(params);
-        LibraryResult result = createBrowser(callback).search(query, params)
+        LibraryResult result = createBrowser(callback, null).search(query, params)
                 .get(TIMEOUT_MS, TimeUnit.MILLISECONDS);
         assertEquals(RESULT_SUCCESS, result.getResultCode());
         assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
@@ -369,7 +371,7 @@ public class MediaBrowserTest extends MediaControllerTest {
         };
 
         TestServiceRegistry.getInstance().setSessionCallback(sessionCallback);
-        LibraryResult result = createBrowser(controllerCallbackProxy)
+        LibraryResult result = createBrowser(controllerCallbackProxy, null)
                 .subscribe(subscribedMediaId, null)
                 .get(TIMEOUT_MS, TimeUnit.MILLISECONDS);
         // Subscribe itself is success because onSubscribe() returned SUCCESS.
@@ -423,7 +425,7 @@ public class MediaBrowserTest extends MediaControllerTest {
 
         TestServiceRegistry.getInstance().setSessionCallback(sessionCallback);
         MockMediaLibraryService.setAssertLibraryParams(testParams);
-        createBrowser(controllerCallbackProxy).subscribe(expectedParentId, testParams);
+        createBrowser(controllerCallbackProxy, null).subscribe(expectedParentId, testParams);
 
         // onChildrenChanged() should be called.
         assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
@@ -473,7 +475,7 @@ public class MediaBrowserTest extends MediaControllerTest {
 
         TestServiceRegistry.getInstance().setSessionCallback(sessionCallback);
 
-        LibraryResult result = createBrowser(controllerCallbackProxy)
+        LibraryResult result = createBrowser(controllerCallbackProxy, null)
                 .subscribe(subscribedMediaId, null)
                 .get(TIMEOUT_MS, TimeUnit.MILLISECONDS);
 
@@ -527,7 +529,7 @@ public class MediaBrowserTest extends MediaControllerTest {
         };
 
         TestServiceRegistry.getInstance().setSessionCallback(sessionCallback);
-        createBrowser(controllerCallbackProxy).subscribe(expectedParentId, null);
+        createBrowser(controllerCallbackProxy, null).subscribe(expectedParentId, null);
 
         // onChildrenChanged() should be called.
         assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
@@ -537,8 +539,8 @@ public class MediaBrowserTest extends MediaControllerTest {
         private final BrowserCallback mCallback;
 
         public TestMediaBrowser(@NonNull Context context, @NonNull SessionToken token,
-                @NonNull BrowserCallback callback) {
-            super(context, token, sHandlerExecutor, callback);
+                @Nullable Bundle connectionHints, @NonNull BrowserCallback callback) {
+            super(context, token, connectionHints, sHandlerExecutor, callback);
             mCallback = callback;
         }
 

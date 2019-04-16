@@ -32,6 +32,7 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.media2.LibraryResult.ResultCode;
 import androidx.media2.MediaLibraryService.MediaLibrarySession.Builder;
+import androidx.media2.MediaSession.ControllerInfo;
 import androidx.versionedparcelable.ParcelField;
 import androidx.versionedparcelable.VersionedParcelable;
 import androidx.versionedparcelable.VersionedParcelize;
@@ -67,7 +68,7 @@ public abstract class MediaLibraryService extends MediaSessionService {
 
     /**
      * Session for the {@link MediaLibraryService}. Build this object with
-     * {@link Builder} and return in {@link #onGetPrimarySession()}.
+     * {@link Builder} and return in {@link MediaSessionService#onGetSession(ControllerInfo)}.
      */
     public static final class MediaLibrarySession extends MediaSession {
         /**
@@ -452,9 +453,11 @@ public abstract class MediaLibraryService extends MediaSessionService {
      * @return a new library session
      * @see Builder
      * @see #getSessions()
+     * @param controllerInfo
      */
     @Override
-    public @NonNull abstract MediaLibrarySession onGetPrimarySession();
+    @NonNull
+    public abstract MediaLibrarySession onGetSession(ControllerInfo controllerInfo);
 
     /**
      * Contains information that the library service needs to send to the client.

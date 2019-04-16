@@ -528,7 +528,7 @@ public class MediaControlViewTest {
 
     private MediaController createController(MediaController.ControllerCallback callback) {
         MediaController controller = new MediaController(mVideoView.getContext(),
-                mVideoView.getSessionToken(), mMainHandlerExecutor, callback);
+                mVideoView.getSessionToken(), null, mMainHandlerExecutor, callback);
         mControllers.add(controller);
         return controller;
     }
