@@ -71,6 +71,7 @@ public class RichText implements VersionedParcelable {
      */
     public static final class Builder {
         private List<RichTextElement> mElements = new ArrayList<>();
+        private String mText;
 
         /**
          * Adds a graphic element to the rich text sequence.
@@ -85,11 +86,23 @@ public class RichText implements VersionedParcelable {
         }
 
         /**
+         * Sets the textual representation of {@link RichText#getElements()}
+         *
+         * @param text textual representation to use
+         * @return this object for chaining
+         */
+        @NonNull
+        public Builder setText(@NonNull String text) {
+            mText = Preconditions.checkNotNull(text);
+            return this;
+        }
+
+        /**
          * Returns a {@link RichText} built with the provided information.
          */
         @NonNull
-        public RichText build(@NonNull String text) {
-            return new RichText(Preconditions.checkNotNull(text), mElements);
+        public RichText build() {
+            return new RichText(Preconditions.checkNotNull(mText), mElements);
         }
     }
 
