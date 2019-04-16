@@ -33,6 +33,12 @@ android {
     defaultConfig {
         minSdkVersion 21
     }
+
+    buildTypes {
+        debug {
+            testCoverageEnabled false
+        }
+    }
 }
 
 androidx {

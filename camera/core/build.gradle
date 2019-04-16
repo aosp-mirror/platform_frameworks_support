@@ -62,6 +62,12 @@ android {
         minSdkVersion 21
     }
 
+    buildTypes {
+        debug {
+            testCoverageEnabled false
+        }
+    }
+
     // Use Robolectric 4.+
     testOptions.unitTests.includeAndroidResources = true
 
