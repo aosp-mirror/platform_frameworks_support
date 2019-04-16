@@ -200,9 +200,9 @@ package androidx.car.cluster.navigation {
   }
 
   public static final class RichText.Builder {
-    ctor public RichText.Builder();
+    ctor public RichText.Builder(String);
     method public androidx.car.cluster.navigation.RichText.Builder addElement(androidx.car.cluster.navigation.RichTextElement);
-    method public androidx.car.cluster.navigation.RichText build(String);
+    method public androidx.car.cluster.navigation.RichText build();
   }
 
   public class RichTextElement implements androidx.versionedparcelable.VersionedParcelable {
