@@ -67,6 +67,8 @@ import org.gradle.kotlin.dsl.withType
 import org.gradle.testing.jacoco.plugins.JacocoPluginExtension
 import org.gradle.testing.jacoco.tasks.JacocoReport
 import org.jetbrains.kotlin.gradle.dsl.KotlinProjectExtension
+import org.jetbrains.kotlin.gradle.plugin.KotlinBasePluginWrapper
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.io.File
 import java.util.concurrent.ConcurrentHashMap
 
@@ -156,6 +158,20 @@ class AndroidXPlugin : Plugin<Project> {
                     val extension = project.extensions.getByType<AppExtension>()
                     project.configureAndroidCommonOptions(extension, androidXExtension)
                     project.configureAndroidApplicationOptions(extension)
+                }
+                is KotlinBasePluginWrapper -> {
+                    if (project.name == "lifecycle-livedata-eap" || // b/130585490
+                        project.name == "lifecycle-runtime-eap" ||
+                        project.name == "work-runtime-ktx" || // b/130582237
+                        project.name == "room-compiler" || // b/130580662
+                        project.name == "activity" ||
+                        project.name == "fragment" || // b/130586088
+                        project.name == "fragment-testing") {
+                        return@all
+                    }
+                    project.tasks.withType(KotlinCompile::class.java).configureEach { compile ->
+                        compile.kotlinOptions.allWarningsAsErrors = true
+                    }
                 }
             }
         }
