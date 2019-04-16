@@ -1,0 +1,181 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d61d8a4b_352036c8",
+        "filename": "car/core/res/layout/car_list_item_check_box_content.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-04-16T00:25:45Z",
+      "side": 1,
+      "message": "Needed? I think we should solve any missing constraints",
+      "revId": "edc5bd61143ed432e9f2031cc027553992c2456e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2d8576b_acdc34cc",
+        "filename": "car/core/res/layout/car_list_item_check_box_content.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-04-16T00:25:45Z",
+      "side": 1,
+      "message": "Might want to make this configurable by an attribute",
+      "range": {
+        "startLine": 26,
+        "startChar": 34,
+        "endLine": 26,
+        "endChar": 60
+      },
+      "revId": "edc5bd61143ed432e9f2031cc027553992c2456e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a82c6f43_2e54efea",
+        "filename": "car/core/res/layout/car_list_item_check_box_content.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-04-16T00:25:45Z",
+      "side": 1,
+      "message": "This is shared between all the compound button list items? You can probably put into a common layout to avoid having to write it all the time.\n\nMight have some issues with the compound button being on different sides",
+      "range": {
+        "startLine": 28,
+        "startChar": 3,
+        "endLine": 60,
+        "endChar": 59
+      },
+      "revId": "edc5bd61143ed432e9f2031cc027553992c2456e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9290e54_4b9e19e9",
+        "filename": "car/core/res/layout/car_list_item_radio_content.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-04-16T00:25:45Z",
+      "side": 1,
+      "message": "Same here",
+      "revId": "edc5bd61143ed432e9f2031cc027553992c2456e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93276a87_f2ccf75a",
+        "filename": "car/core/src/main/java/androidx/car/widget/CheckBoxListItem.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-04-16T00:25:45Z",
+      "side": 1,
+      "message": "Also divider right?",
+      "revId": "edc5bd61143ed432e9f2031cc027553992c2456e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "179b8a63_05942bc2",
+        "filename": "car/core/src/main/java/androidx/car/widget/CompoundButtonListItem.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-04-16T00:25:45Z",
+      "side": 1,
+      "message": "Remove extra new line.",
+      "revId": "edc5bd61143ed432e9f2031cc027553992c2456e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92672b54_88f76f59",
+        "filename": "car/core/src/main/java/androidx/car/widget/CompoundButtonListItem.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-04-16T00:25:45Z",
+      "side": 1,
+      "message": "nit: name isEnabled",
+      "range": {
+        "startLine": 170,
+        "startChar": 35,
+        "endLine": 170,
+        "endChar": 42
+      },
+      "revId": "edc5bd61143ed432e9f2031cc027553992c2456e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "096ed3a4_2c067a3b",
+        "filename": "car/core/src/main/java/androidx/car/widget/CompoundButtonListItem.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-04-16T00:25:45Z",
+      "side": 1,
+      "message": "Maybe need to set the primary icon back to GONE?",
+      "revId": "edc5bd61143ed432e9f2031cc027553992c2456e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b03b6744_d078a5b7",
+        "filename": "car/core/src/main/java/androidx/car/widget/CompoundButtonListItem.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-04-16T00:25:45Z",
+      "side": 1,
+      "message": "Boolean methods should have \"is\" prepended to it.\n\nI\u0027m also a little confused as to what this method means. Is it true if there\u0027s a button on the right?\n\nMight want to name is \"end\" instead of \"right\"",
+      "range": {
+        "startLine": 332,
+        "startChar": 22,
+        "endLine": 332,
+        "endChar": 49
+      },
+      "revId": "edc5bd61143ed432e9f2031cc027553992c2456e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
