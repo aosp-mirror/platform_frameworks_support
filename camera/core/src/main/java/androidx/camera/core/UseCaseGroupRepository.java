@@ -107,7 +107,7 @@ final class UseCaseGroupRepository {
 
         UseCaseGroupLifecycleController useCaseGroupLifecycleController =
                 new UseCaseGroupLifecycleController(lifecycleOwner.getLifecycle());
-        lifecycleOwner.getLifecycle().addObserver(createRemoveOnDestroyObserver());
+        lifecycleOwner.getLifecycle().addObserver(createLifecyleObserver());
         synchronized (mUseCasesLock) {
             mLifecycleToUseCaseGroupControllerMap.put(lifecycleOwner,
                     useCaseGroupLifecycleController);
@@ -116,20 +116,41 @@ final class UseCaseGroupRepository {
     }
 
     /**
-     * Creates a {@link LifecycleObserver} which removes any {@link
-     * UseCaseGroupLifecycleController} associated with a {@link LifecycleOwner} from this
-     * repository when that lifecycle is destroyed.
+     * Creates a {@link LifecycleObserver} to monitor state change of {@link LifecycleOwner}.
      *
      * @return a new {@link LifecycleObserver}
      */
-    private LifecycleObserver createRemoveOnDestroyObserver() {
+    private LifecycleObserver createLifecyleObserver() {
         return new LifecycleObserver() {
+            /**
+             * Monitors which {@link LifecycleOwner} becomes ON_DESTROY and then removes any
+             * {@link UseCaseGroupLifecycleController} associated with it from this repository
+             * when that lifecycle is destroyed.
+             */
             @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
             public void onDestroy(LifecycleOwner lifecycleOwner) {
                 synchronized (mUseCasesLock) {
                     mLifecycleToUseCaseGroupControllerMap.remove(lifecycleOwner);
                 }
                 lifecycleOwner.getLifecycle().removeObserver(this);
+            }
+
+            /**
+             * Monitors which {@link LifecycleOwner} becomes ON_START and then stop others
+             * {@link UseCaseGroup} to keep only one active at a time.
+             */
+            @OnLifecycleEvent(Lifecycle.Event.ON_START)
+            public void onStart(LifecycleOwner lifecycleOwner) {
+                // Only keep the last {@link LifecycleOwner} active. Stop the others.
+                for (Map.Entry<LifecycleOwner, UseCaseGroupLifecycleController> entry :
+                        mLifecycleToUseCaseGroupControllerMap.entrySet()) {
+                    if (entry.getKey() != lifecycleOwner) {
+                        UseCaseGroup useCaseGroup = entry.getValue().getUseCaseGroup();
+                        if (useCaseGroup.isActive()) {
+                            useCaseGroup.stop();
+                        }
+                    }
+                }
             }
         };
     }
