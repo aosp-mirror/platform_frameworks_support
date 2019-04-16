@@ -575,7 +575,7 @@ class MediaControllerImplBase implements MediaControllerImpl {
     }
 
     @Override
-    public ListenableFuture<SessionResult> sendCustomCommand(
+    public ListenableFuture<SessionResult> sendSessionCommand(
             final @NonNull SessionCommand command, final @Nullable Bundle args) {
         return dispatchRemoteSessionTask(command, new RemoteSessionTask() {
             @Override
@@ -1163,16 +1163,16 @@ class MediaControllerImplBase implements MediaControllerImpl {
 
     void onCustomCommand(final int seq, final SessionCommand command, final Bundle args) {
         if (DEBUG) {
-            Log.d(TAG, "onCustomCommand cmd=" + command.getCustomCommand());
+            Log.d(TAG, "onCustomCommand cmd=" + command.getCustomAction());
         }
         mCallbackExecutor.execute(new Runnable() {
             @Override
             public void run() {
-                SessionResult result = mCallback.onCustomCommand(mInstance, command, args);
+                SessionResult result = mCallback.onSessionCommand(mInstance, command, args);
                 if (result == null) {
                     if (THROW_EXCEPTION_FOR_NULL_RESULT) {
                         throw new RuntimeException("ControllerCallback#onCustomCommand() has"
-                                + " returned null, command=" + command.getCustomCommand());
+                                + " returned null, command=" + command.getCustomAction());
                     } else {
                         result = new SessionResult(RESULT_ERROR_UNKNOWN);
                     }

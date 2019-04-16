@@ -157,7 +157,7 @@ abstract class MediaSessionTestBase extends MediaTestBase {
         getTestControllerCallbackInterface(controller).waitForDisconnect(expected);
     }
 
-    public static void setRunnableForOnCustomCommand(MediaController controller,
+    public static void setRunnableForOnSessionCommand(MediaController controller,
             Runnable runnable) {
         getTestControllerCallbackInterface(controller).setRunnableForOnCustomCommand(runnable);
     }

@@ -273,7 +273,7 @@ public class MediaControllerProviderService extends Service {
         public void sendCustomCommand(String controllerId, ParcelImpl command, Bundle args)
                 throws RemoteException {
             MediaController controller = mMediaControllerMap.get(controllerId);
-            controller.sendCustomCommand((SessionCommand) MediaUtils.fromParcelable(command),
+            controller.sendSessionCommand((SessionCommand) MediaUtils.fromParcelable(command),
                     args);
         }
 

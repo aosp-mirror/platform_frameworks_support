@@ -192,7 +192,7 @@ public class MediaSession implements AutoCloseable {
     public void close() {
         try {
             synchronized (STATIC_LOCK) {
-                SESSION_ID_TO_SESSION_MAP.remove(mImpl.getId());
+                SESSION_ID_TO_SESSION_MAP.remove(mImpl.getSessionId());
             }
             mImpl.close();
         } catch (Exception e) {
@@ -224,15 +224,15 @@ public class MediaSession implements AutoCloseable {
      *
      * @return
      */
-    public @NonNull String getId() {
-        return mImpl.getId();
+    public @NonNull String getSessionId() {
+        return mImpl.getSessionId();
     }
 
     /**
      * Returns the {@link SessionToken} for creating {@link MediaController}.
      */
-    public @NonNull SessionToken getToken() {
-        return mImpl.getToken();
+    public @NonNull SessionToken getSessionToken() {
+        return mImpl.getSessionToken();
     }
 
     @NonNull Context getContext() {
@@ -318,30 +318,30 @@ public class MediaSession implements AutoCloseable {
     }
 
     /**
-     * Broadcasts custom command to all connected controllers.
+     * Broadcasts session command to all connected controllers.
      * <p>
      * This is synchronous call and doesn't wait for result from the controller. Use
-     * {@link #sendCustomCommand(ControllerInfo, SessionCommand, Bundle)} for getting the result.
+     * {@link #sendSessionCommand(ControllerInfo, SessionCommand, Bundle)} for getting the result.
      *
      * @param command a command
      * @param args optional argument
-     * @see #sendCustomCommand(ControllerInfo, SessionCommand, Bundle)
+     * @see #sendSessionCommand(ControllerInfo, SessionCommand, Bundle)
      */
-    public void broadcastCustomCommand(@NonNull SessionCommand command, @Nullable Bundle args) {
+    public void broadcastSessionCommand(@NonNull SessionCommand command, @Nullable Bundle args) {
         if (command == null) {
             throw new IllegalArgumentException("command shouldn't be null");
         }
-        mImpl.broadcastCustomCommand(command, args);
+        mImpl.broadcastSessionCommand(command, args);
     }
 
     /**
-     * Send custom command to a specific controller.
+     * Send session command to a specific controller.
      *
      * @param command a command
      * @param args optional argument
-     * @see #broadcastCustomCommand(SessionCommand, Bundle)
+     * @see #broadcastSessionCommand(SessionCommand, Bundle)
      */
-    public @NonNull ListenableFuture<SessionResult> sendCustomCommand(
+    public @NonNull ListenableFuture<SessionResult> sendSessionCommand(
             @NonNull ControllerInfo controller, @NonNull SessionCommand command,
             @Nullable Bundle args) {
         if (controller == null) {
@@ -350,7 +350,7 @@ public class MediaSession implements AutoCloseable {
         if (command == null) {
             throw new IllegalArgumentException("command shouldn't be null");
         }
-        return mImpl.sendCustomCommand(controller, command, args);
+        return mImpl.sendSessionCommand(controller, command, args);
     }
 
     /**
@@ -402,7 +402,7 @@ public class MediaSession implements AutoCloseable {
          * cannot be used.
          * <p>
          * The controller hasn't connected yet in this method, so calls to the controller
-         * (e.g. {@link #sendCustomCommand}, {@link #setCustomLayout}) would be ignored. Override
+         * (e.g. {@link #sendSessionCommand}, {@link #setCustomLayout}) would be ignored. Override
          * {@link #onPostConnect} for the custom initialization for the controller instead.
          *
          * @param session the session for this event
@@ -422,7 +422,7 @@ public class MediaSession implements AutoCloseable {
          * Called immediately after a controller is connected. This is a convenient method to add
          * custom initialization between the session and a controller.
          * <p>
-         * Note that calls to the controller (e.g. {@link #sendCustomCommand},
+         * Note that calls to the controller (e.g. {@link #sendSessionCommand},
          * {@link #setCustomLayout}) work here but don't work in {@link #onConnect} because the
          * controller hasn't connected yet in {@link #onConnect}.
          *
@@ -549,24 +549,24 @@ public class MediaSession implements AutoCloseable {
         }
 
         /**
-         * Called when a controller sent a custom command through
-         * {@link MediaController#sendCustomCommand(SessionCommand, Bundle)}.
+         * Called when a controller sent a session command through
+         * {@link MediaController#sendSessionCommand(SessionCommand, Bundle)}.
          * <p>
          * Interoperability: This would be also called by {@link
          * android.support.v4.media.MediaBrowserCompat
          * #sendCustomAction(String, Bundle, CustomActionCallback)}. If so, extra from
-         * sendCustomAction will be considered as args and customCommand would have null extra.
+         * sendCustomAction will be considered as args and sessionCommand would have null extra.
          *
          * @param session the session for this event
          * @param controller controller information
-         * @param customCommand custom command.
+         * @param sessionCommand session command.
          * @param args optional arguments
-         * @return result of handling custom command. A runtime exception will be thrown if
+         * @return result of handling session command. A runtime exception will be thrown if
          *         {@code null} is returned.
          * @see SessionCommand#COMMAND_CODE_CUSTOM
          */
-        public @NonNull SessionResult onCustomCommand(@NonNull MediaSession session,
-                @NonNull ControllerInfo controller, @NonNull SessionCommand customCommand,
+        public @NonNull SessionResult onSessionCommand(@NonNull MediaSession session,
+                @NonNull ControllerInfo controller, @NonNull SessionCommand sessionCommand,
                 @Nullable Bundle args) {
             return new SessionResult(RESULT_ERROR_NOT_SUPPORTED, null);
         }
@@ -1099,7 +1099,7 @@ public class MediaSession implements AutoCloseable {
         // Mostly matched with the methods in MediaController.ControllerCallback
         abstract void setCustomLayout(int seq, @NonNull List<CommandButton> layout)
                 throws RemoteException;
-        abstract void sendCustomCommand(int seq, @NonNull SessionCommand command,
+        abstract void sendSessionCommand(int seq, @NonNull SessionCommand command,
                 @Nullable Bundle args) throws RemoteException;
         abstract void onPlaybackInfoChanged(int seq, @NonNull PlaybackInfo info)
                 throws RemoteException;
@@ -1140,9 +1140,9 @@ public class MediaSession implements AutoCloseable {
                 @Nullable SessionPlayer playlistAgent);
         void updatePlayer(@NonNull SessionPlayer player);
         @NonNull SessionPlayer getPlayer();
-        @NonNull String getId();
+        @NonNull String getSessionId();
         @NonNull Uri getUri();
-        @NonNull SessionToken getToken();
+        @NonNull SessionToken getSessionToken();
         @NonNull List<ControllerInfo> getConnectedControllers();
         boolean isConnected(@NonNull ControllerInfo controller);
 
@@ -1150,8 +1150,8 @@ public class MediaSession implements AutoCloseable {
                 @NonNull List<CommandButton> layout);
         void setAllowedCommands(@NonNull ControllerInfo controller,
                 @NonNull SessionCommandGroup commands);
-        void broadcastCustomCommand(@NonNull SessionCommand command, @Nullable Bundle args);
-        ListenableFuture<SessionResult> sendCustomCommand(@NonNull ControllerInfo controller,
+        void broadcastSessionCommand(@NonNull SessionCommand command, @Nullable Bundle args);
+        ListenableFuture<SessionResult> sendSessionCommand(@NonNull ControllerInfo controller,
                 @NonNull SessionCommand command, @Nullable Bundle args);
 
         // Internally used methods

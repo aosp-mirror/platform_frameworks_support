@@ -77,7 +77,7 @@ public class MediaSessionServiceTest extends MediaSessionTestBase {
                                 .setSessionCallback(sHandlerExecutor,
                                         new MediaSession.SessionCallback() {})
                                 .setId("testOnGetSession" + System.currentTimeMillis()).build();
-                        tokens.add(session.getToken());
+                        tokens.add(session.getSessionToken());
                         return session;
                     }
                 });

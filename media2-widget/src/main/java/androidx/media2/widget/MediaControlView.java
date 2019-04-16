@@ -1875,7 +1875,7 @@ public class MediaControlView extends ViewGroup {
             if (mController != null) {
                 Bundle extra = new Bundle();
                 extra.putInt(KEY_SELECTED_AUDIO_INDEX, trackIndex);
-                mController.sendCustomCommand(
+                mController.sendSessionCommand(
                         new SessionCommand(COMMAND_SELECT_AUDIO_TRACK, null),
                         extra);
             }
@@ -1885,14 +1885,14 @@ public class MediaControlView extends ViewGroup {
             if (mController != null) {
                 Bundle extra = new Bundle();
                 extra.putInt(KEY_SELECTED_SUBTITLE_INDEX, trackIndex);
-                mController.sendCustomCommand(
+                mController.sendSessionCommand(
                         new SessionCommand(COMMAND_SHOW_SUBTITLE, null), extra);
             }
         }
 
         void hideSubtitle() {
             if (mController != null) {
-                mController.sendCustomCommand(
+                mController.sendSessionCommand(
                         new SessionCommand(COMMAND_HIDE_SUBTITLE, null), null);
             }
         }
@@ -2130,13 +2130,13 @@ public class MediaControlView extends ViewGroup {
 
             @Override
             @NonNull
-            public SessionResult onCustomCommand(
+            public SessionResult onSessionCommand(
                     @NonNull MediaController controller, @NonNull SessionCommand command,
                     @Nullable Bundle args) {
                 if (DEBUG) {
                     Log.d(TAG, "onCustomCommand(): command: " + command);
                 }
-                switch (command.getCustomCommand()) {
+                switch (command.getCustomAction()) {
                     case EVENT_UPDATE_TRACK_STATUS:
                         mVideoTrackCount = (args != null) ? args.getInt(KEY_VIDEO_TRACK_COUNT) : 0;
                         // If there is one or more audio tracks, and this information has not been

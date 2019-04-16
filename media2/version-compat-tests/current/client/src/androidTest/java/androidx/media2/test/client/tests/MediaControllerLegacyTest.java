@@ -549,9 +549,9 @@ public class MediaControllerLegacyTest extends MediaSessionTestBase {
         final CountDownLatch latch = new CountDownLatch(1);
         final ControllerCallback callback = new ControllerCallback() {
             @Override
-            public SessionResult onCustomCommand(MediaController controller,
+            public SessionResult onSessionCommand(MediaController controller,
                     SessionCommand command, Bundle args) {
-                assertEquals(event, command.getCustomCommand());
+                assertEquals(event, command.getCustomAction());
                 assertTrue(TestUtils.equals(extras, args));
                 latch.countDown();
                 return null;
@@ -580,13 +580,13 @@ public class MediaControllerLegacyTest extends MediaSessionTestBase {
                 switch ((int) latch.getCount()) {
                     case 2:
                         assertEquals(testCustomAction1.getAction(),
-                                button.getCommand().getCustomCommand());
+                                button.getCommand().getCustomAction());
                         assertEquals(testCustomAction1.getName(), button.getDisplayName());
                         assertEquals(testCustomAction1.getIcon(), button.getIconResId());
                         break;
                     case 1:
                         assertEquals(testCustomAction2.getAction(),
-                                button.getCommand().getCustomCommand());
+                                button.getCommand().getCustomAction());
                         assertEquals(testCustomAction2.getName(), button.getDisplayName());
                         assertEquals(testCustomAction2.getIcon(), button.getIconResId());
                         break;
@@ -694,9 +694,9 @@ public class MediaControllerLegacyTest extends MediaSessionTestBase {
         final CountDownLatch latch = new CountDownLatch(1);
         final ControllerCallback callback = new ControllerCallback() {
             @Override
-            public SessionResult onCustomCommand(MediaController controller,
+            public SessionResult onSessionCommand(MediaController controller,
                     SessionCommand command, Bundle args) {
-                assertEquals(sessionCommandOnCaptioningEnabledChanged, command.getCustomCommand());
+                assertEquals(sessionCommandOnCaptioningEnabledChanged, command.getCustomAction());
                 assertEquals(true, args.getBoolean(argumentCaptioningEnabled, false));
                 latch.countDown();
                 return new SessionResult(SessionResult.RESULT_SUCCESS, null);

@@ -635,7 +635,7 @@ class MediaSessionStub extends IMediaSession.Stub {
         dispatchSessionTask(caller, seq, sessionCommand, new SessionCallbackTask<SessionResult>() {
             @Override
             public SessionResult run(final ControllerInfo controller) {
-                SessionResult result = mSessionImpl.getCallback().onCustomCommand(
+                SessionResult result = mSessionImpl.getCallback().onSessionCommand(
                         mSessionImpl.getInstance(), controller, sessionCommand, args);
                 if (result == null) {
                     if (RETHROW_EXCEPTION) {
@@ -1259,7 +1259,7 @@ class MediaSessionStub extends IMediaSession.Stub {
         }
 
         @Override
-        void sendCustomCommand(int seq, SessionCommand command, Bundle args)
+        void sendSessionCommand(int seq, SessionCommand command, Bundle args)
                 throws RemoteException {
             mIControllerCallback.onCustomCommand(seq, MediaUtils.toParcelable(command), args);
         }

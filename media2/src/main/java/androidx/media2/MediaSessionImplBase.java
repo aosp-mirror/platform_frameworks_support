@@ -354,7 +354,8 @@ class MediaSessionImplBase implements MediaSessionImpl {
                 return;
             }
             if (DEBUG) {
-                Log.d(TAG, "Closing session, id=" + getId() + ", token=" + getToken());
+                Log.d(TAG, "Closing session, id=" + getSessionId() + ", token="
+                        + getSessionToken());
             }
             mPlayer.unregisterPlayerCallback(mPlayerCallback);
             mSessionCompat.release();
@@ -388,7 +389,7 @@ class MediaSessionImplBase implements MediaSessionImpl {
     }
 
     @Override
-    public String getId() {
+    public String getSessionId() {
         return mSessionId;
     }
 
@@ -398,7 +399,7 @@ class MediaSessionImplBase implements MediaSessionImpl {
     }
 
     @Override
-    public @NonNull SessionToken getToken() {
+    public @NonNull SessionToken getSessionToken() {
         return mSessionToken;
     }
 
@@ -454,24 +455,24 @@ class MediaSessionImplBase implements MediaSessionImpl {
     }
 
     @Override
-    public void broadcastCustomCommand(@NonNull final SessionCommand command,
+    public void broadcastSessionCommand(@NonNull final SessionCommand command,
             @Nullable final Bundle args) {
         dispatchRemoteControllerTaskWithoutReturn(new RemoteControllerTask() {
             @Override
             public void run(ControllerCb controller, int seq) throws RemoteException {
-                controller.sendCustomCommand(seq, command, args);
+                controller.sendSessionCommand(seq, command, args);
             }
         });
     }
 
     @Override
-    public ListenableFuture<SessionResult> sendCustomCommand(
+    public ListenableFuture<SessionResult> sendSessionCommand(
             @NonNull ControllerInfo controller, @NonNull final SessionCommand command,
             @Nullable final Bundle args) {
         return dispatchRemoteControllerTask(controller, new RemoteControllerTask() {
             @Override
             public void run(ControllerCb controller, int seq) throws RemoteException {
-                controller.sendCustomCommand(seq, command, args);
+                controller.sendSessionCommand(seq, command, args);
             }
         });
     }

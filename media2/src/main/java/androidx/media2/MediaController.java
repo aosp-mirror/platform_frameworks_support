@@ -737,7 +737,7 @@ public class MediaController implements AutoCloseable {
     }
 
     /**
-     * Send custom command to the session
+     * Send session command to the session
      * <p>
      * Interoperability: When connected to
      * {@link android.support.v4.media.session.MediaSessionCompat},
@@ -745,11 +745,11 @@ public class MediaController implements AutoCloseable {
      * {@link ResultReceiver#onReceiveResult(int, Bundle)} instead of the standard result codes
      * defined in the {@link SessionResult}.
      *
-     * @param command custom command
+     * @param command session command
      * @param args optional argument
      */
     @NonNull
-    public ListenableFuture<SessionResult> sendCustomCommand(@NonNull SessionCommand command,
+    public ListenableFuture<SessionResult> sendSessionCommand(@NonNull SessionCommand command,
             @Nullable Bundle args) {
         if (command == null) {
             throw new IllegalArgumentException("command shouldn't be null");
@@ -758,7 +758,7 @@ public class MediaController implements AutoCloseable {
             throw new IllegalArgumentException("command should be a custom command");
         }
         if (isConnected()) {
-            return getImpl().sendCustomCommand(command, args);
+            return getImpl().sendSessionCommand(command, args);
         }
         return createDisconnectedFuture();
     }
@@ -1160,7 +1160,7 @@ public class MediaController implements AutoCloseable {
         @Nullable PlaybackInfo getPlaybackInfo();
         ListenableFuture<SessionResult> setRating(@NonNull String mediaId,
                 @NonNull Rating rating);
-        ListenableFuture<SessionResult> sendCustomCommand(@NonNull SessionCommand command,
+        ListenableFuture<SessionResult> sendSessionCommand(@NonNull SessionCommand command,
                 @Nullable Bundle args);
         @Nullable List<MediaItem> getPlaylist();
         ListenableFuture<SessionResult> setPlaylist(@NonNull List<String> list,
@@ -1270,7 +1270,7 @@ public class MediaController implements AutoCloseable {
                 @NonNull SessionCommandGroup commands) {}
 
         /**
-         * Called when the session sent a custom command. Returns a {@link SessionResult} for
+         * Called when the session sent a session command. Returns a {@link SessionResult} for
          * session to get notification back. If the {@code null} is returned,
          * {@link SessionResult#RESULT_ERROR_UNKNOWN} will be returned.
          * <p>
@@ -1279,10 +1279,10 @@ public class MediaController implements AutoCloseable {
          * @param controller the controller for this event
          * @param command
          * @param args
-         * @return result of handling custom command
+         * @return result of handling session command
          */
         @NonNull
-        public SessionResult onCustomCommand(@NonNull MediaController controller,
+        public SessionResult onSessionCommand(@NonNull MediaController controller,
                 @NonNull SessionCommand command, @Nullable Bundle args) {
             return new SessionResult(SessionResult.RESULT_ERROR_NOT_SUPPORTED);
         }
