@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "03d66aef_57799ba5",
+        "filename": "activity/api/current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-04-16T11:24:05Z",
+      "side": 0,
+      "message": "let\u0027s remove Cancellable from API since it is not used anymore",
+      "range": {
+        "startLine": 27,
+        "startChar": 54,
+        "endLine": 27,
+        "endChar": 65
+      },
+      "revId": "6f340311a669bc14b99c4a73a188443a2439f374",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

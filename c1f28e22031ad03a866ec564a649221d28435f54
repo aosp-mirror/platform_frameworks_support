@@ -22,6 +22,30 @@
       "revId": "c1f28e22031ad03a866ec564a649221d28435f54",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bbd80c4a_901886f2",
+        "filename": "activity/api/current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-04-16T11:24:05Z",
+      "side": 1,
+      "message": "No, we don\u0027t want to go this way, because it makes very hard to compose these callbacks: in this  exact case it is composition with lifecycle.",
+      "parentUuid": "19d53751_4938b00f",
+      "range": {
+        "startLine": 23,
+        "startChar": 35,
+        "endLine": 23,
+        "endChar": 49
+      },
+      "revId": "c1f28e22031ad03a866ec564a649221d28435f54",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
