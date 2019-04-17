@@ -94,6 +94,52 @@
     },
     {
       "key": {
+        "uuid": "7ed22744_7827c6b1",
+        "filename": "work/workmanager-testing/src/main/java/androidx/work/testing/ListenableWorkerBuilder.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-04-17T23:26:48Z",
+      "side": 1,
+      "message": "TestListenableWorkerBuilder.",
+      "range": {
+        "startLine": 42,
+        "startChar": 13,
+        "endLine": 42,
+        "endChar": 36
+      },
+      "revId": "a7ea683b9a5d6791ad9b56e836746f5f0443033e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "387238fc_0708afba",
+        "filename": "work/workmanager-testing/src/main/java/androidx/work/testing/ListenableWorkerBuilder.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-04-17T23:26:48Z",
+      "side": 1,
+      "message": "Class.",
+      "range": {
+        "startLine": 52,
+        "startChar": 65,
+        "endLine": 52,
+        "endChar": 91
+      },
+      "revId": "a7ea683b9a5d6791ad9b56e836746f5f0443033e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "32d61ea8_e53515ff",
         "filename": "work/workmanager-testing/src/main/java/androidx/work/testing/ListenableWorkerBuilder.java",
         "patchSetId": 6
@@ -110,6 +156,29 @@
         "startChar": 77,
         "endLine": 268,
         "endChar": 93
+      },
+      "revId": "a7ea683b9a5d6791ad9b56e836746f5f0443033e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da6f86d5_d02b1fe2",
+        "filename": "work/workmanager-testing/src/main/java/androidx/work/testing/WorkerBuilder.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-04-17T23:26:48Z",
+      "side": 1,
+      "message": "Class.",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 39
       },
       "revId": "a7ea683b9a5d6791ad9b56e836746f5f0443033e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
@@ -163,6 +232,29 @@
     },
     {
       "key": {
+        "uuid": "1e834e01_c9f57050",
+        "filename": "work/workmanager-testing/src/main/java/androidx/work/testing/WorkerBuilder.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-04-17T23:26:48Z",
+      "side": 1,
+      "message": "This needs to be optional, right?",
+      "range": {
+        "startLine": 106,
+        "startChar": 12,
+        "endLine": 106,
+        "endChar": 38
+      },
+      "revId": "a7ea683b9a5d6791ad9b56e836746f5f0443033e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "279163c2_295e35dd",
         "filename": "work/workmanager-testing/src/main/java/androidx/work/testing/WorkerBuilder.java",
         "patchSetId": 6
@@ -179,6 +271,29 @@
         "startChar": 21,
         "endLine": 111,
         "endChar": 78
+      },
+      "revId": "a7ea683b9a5d6791ad9b56e836746f5f0443033e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f52f2d0_cdc5f85b",
+        "filename": "work/workmanager-testing/src/main/java/androidx/work/testing/WorkerBuilder.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-04-17T23:26:48Z",
+      "side": 1,
+      "message": "Remove, as per earlier comments.",
+      "range": {
+        "startLine": 121,
+        "startChar": 27,
+        "endLine": 121,
+        "endChar": 40
       },
       "revId": "a7ea683b9a5d6791ad9b56e836746f5f0443033e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
