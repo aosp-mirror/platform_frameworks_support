@@ -70,6 +70,30 @@
       "revId": "3d8b07e4208ae7799c11444948b41642f98bac0f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c50a99c_6b60037d",
+        "filename": "benchmark/src/main/java/androidx/benchmark/AndroidBenchmarkRunner.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-04-17T23:42:13Z",
+      "side": 1,
+      "message": "Discussed this further in chat.\n\nWe can\u0027t put the launch inside the rule constructor. We don\u0027t know the ordering of our rule\u0027s construction vs an ActivityTestRule - we don\u0027t want to launch an activity after it does.\n\nwaitForActivitiesToComplete is actually quite nice as an entry point that runs on the test thread, before and after the entire test method (including activity rule launch and finish) is run.\n\nFor that reason, I\u0027m leaving this as is. Will look to expand waitForActivitiesToComplete usage later on, to re-launch the activity as necessary.\n\nIt is a pretty gross way to use this API though - will talk to test library team about getting an API for a proper way to do this.",
+      "parentUuid": "4f06de36_ec310234",
+      "range": {
+        "startLine": 46,
+        "startChar": 77,
+        "endLine": 46,
+        "endChar": 98
+      },
+      "revId": "3d8b07e4208ae7799c11444948b41642f98bac0f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
