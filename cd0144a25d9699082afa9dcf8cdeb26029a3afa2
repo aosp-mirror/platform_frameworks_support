@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8e82c859_b803cde9",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CheckedSurfaceTexture.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-04-17T20:09:00Z",
+      "side": 1,
+      "message": "This is pointing out an issue related to a specific use of the surface texture. CheckedSurfaceTexture doesn\u0027t have anything to do with a \"screen\", so it shouldn\u0027t be in the comment.\n\nInstead, I would just comment the refresh() method to say it will recreate the SurfaceTexture and Surface. You can then move the comments about what issue you\u0027re working around to the usage of refresh().",
+      "range": {
+        "startLine": 169,
+        "startChar": 30,
+        "endLine": 169,
+        "endChar": 42
+      },
+      "revId": "cd0144a25d9699082afa9dcf8cdeb26029a3afa2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
