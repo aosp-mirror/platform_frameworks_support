@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d8e12dad_d1ea6994",
+        "filename": "car/core/src/main/java/androidx/car/widget/CompoundButtonListItem.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-04-17T18:35:44Z",
+      "side": 1,
+      "message": "You should still expose an attribute for this since this means someone can\u0027t set the drawable via the theme. Which is something they can do to customize other parts of the ListItem:\n\nhttp://cs/aosp-androidx/car/core/res/values/themes.xml?l\u003d73\u0026rcl\u003db494ad8ef0ae84439057dbe5627aec4274f9e6a7\n\nAlso, it\u0027s weird that only the CompoundButtonListItem allows the setting of the foreground. How about you keep setting the foreground explicitly for now and we migrate all the ListItems to use an attribute in a separate CL?",
+      "revId": "b90d303d617c12339c49617e35cdc5effd753d0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cbea1cd4_31373af1",
+        "filename": "car/core/src/main/java/androidx/car/widget/CompoundButtonListItem.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-04-17T18:35:44Z",
+      "side": 1,
+      "message": "mForegroundDrawable is specifically made to be non-null, so you shouldn\u0027t have to specify a default value of \"null\" here. This call shouldn\u0027t fail.",
+      "range": {
+        "startLine": 131,
+        "startChar": 85,
+        "endLine": 131,
+        "endChar": 89
+      },
+      "revId": "b90d303d617c12339c49617e35cdc5effd753d0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

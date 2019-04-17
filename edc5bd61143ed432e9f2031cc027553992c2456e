@@ -131,6 +131,30 @@
     },
     {
       "key": {
+        "uuid": "ce2cb998_1fcc438e",
+        "filename": "car/core/res/layout/car_list_item_check_box_content.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-04-17T18:35:44Z",
+      "side": 1,
+      "message": "Yeah.. figured.",
+      "parentUuid": "6c8b093b_768cad64",
+      "range": {
+        "startLine": 28,
+        "startChar": 3,
+        "endLine": 60,
+        "endChar": 59
+      },
+      "revId": "edc5bd61143ed432e9f2031cc027553992c2456e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e9290e54_4b9e19e9",
         "filename": "car/core/res/layout/car_list_item_radio_content.xml",
         "patchSetId": 2
@@ -353,6 +377,30 @@
       "side": 1,
       "message": "Yep. It was a workaround for capturing if additional margin was required for the TextViews when icons are on the right. Feel this should be done differently?",
       "parentUuid": "b03b6744_d078a5b7",
+      "range": {
+        "startLine": 332,
+        "startChar": 22,
+        "endLine": 332,
+        "endChar": 49
+      },
+      "revId": "edc5bd61143ed432e9f2031cc027553992c2456e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "633429ae_431fb279",
+        "filename": "car/core/src/main/java/androidx/car/widget/CompoundButtonListItem.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-04-17T18:35:44Z",
+      "side": 1,
+      "message": "Hmm this is the reason why I was hesitant about making ListItems subclass each other. The layouts can change significantly and then your base class will just have a bunch of branching logic.\n\nI guess it\u0027s fine for now since the change is small, but something to keep in mind.",
+      "parentUuid": "4334dc8e_0515250a",
       "range": {
         "startLine": 332,
         "startChar": 22,
