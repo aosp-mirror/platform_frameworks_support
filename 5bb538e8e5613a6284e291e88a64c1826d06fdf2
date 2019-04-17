@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "380b80cd_41f5720b",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/AnimateLayoutChangeDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-04-17T14:27:01Z",
+      "side": 1,
+      "message": "nit: expand comment",
+      "revId": "5bb538e8e5613a6284e291e88a64c1826d06fdf2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3393f9f9_07bdd7b9",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ScrollEventAdapter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-04-17T14:27:01Z",
+      "side": 1,
+      "message": "remove \u0027",
+      "range": {
+        "startLine": 248,
+        "startChar": 77,
+        "endLine": 248,
+        "endChar": 78
+      },
+      "revId": "5bb538e8e5613a6284e291e88a64c1826d06fdf2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e437ecbf_bd3c5f2b",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-04-17T14:27:01Z",
+      "side": 1,
+      "message": "Nit: could be slightly simplified, e.g. if you\u0027re planning to use Fragments as pages, use FragmentStateAdapter; if you\u0027re pages are Views, provide a RecyclerView.Adapter.",
+      "range": {
+        "startLine": 333,
+        "startChar": 6,
+        "endLine": 337,
+        "endChar": 81
+      },
+      "revId": "5bb538e8e5613a6284e291e88a64c1826d06fdf2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
