@@ -16,7 +16,9 @@
 
 package androidx.camera.extensions.impl;
 
+import android.content.Context;
 import android.hardware.camera2.CameraCharacteristics;
+import android.util.Size;
 
 /**
  * Provides abstract methods that the OEM needs to implement to enable extensions in the view
@@ -42,4 +44,64 @@ public interface PreviewExtenderImpl {
 
     /** The set of parameters required to produce the effect on images. */
     CaptureStageImpl getCaptureStage();
+
+    /**
+     * Notify to initial of the extension.
+     *
+     * @param cameraId              The camera id string of the camera.
+     * @param cameraCharacteristics The {@link CameraCharacteristics} of the camera.
+     * @param context               The {@link Context} used for CameraX.
+     */
+    void onInit(String cameraId, CameraCharacteristics cameraCharacteristics, Context context);
+
+    /**
+     * Notify to de-initial of the extension.
+     */
+    void onDeInit();
+
+    /**
+     * This would be invoked before create capture session of Camera2. The returned parameter in
+     * CaptureStage will be passed to the camera device as part of the capture session
+     * initialization via setSessionParameters(). The valid parameter is a subset of the
+     * available capture request parameters.
+     *
+     * @return The request information to set the session wide camera parameters.
+     */
+    CaptureStageImpl onPresetSession();
+
+    /**
+     * This would be invoked once after a Camera2 capture session was created. The returned
+     * parameter in CaptureStage will be used to generate a single request to the current
+     * configured camera device. The generated request would be submitted to camera before process
+     * other single request.
+     *
+     * @return The request information to create a single capture request to camera device.
+     */
+    CaptureStageImpl onEnableSession();
+
+    /**
+     * This would be invoked once before the Camera2 capture session was going to close. The
+     * returned parameter in CaptureStage will be used to generate a single request to the current
+     * configured camera device. The generated request would be submitted to camera before the
+     * capture session was closed.
+     *
+     * @return The request information to customize the session.
+     */
+    CaptureStageImpl onDisableSession();
+
+    /**
+     * This callback would be invoked when CameraX going to change the configured surface with
+     * a resolution.
+     *
+     * @param size for the surface.
+     */
+    void onResolutionUpdate(Size size);
+
+    /**
+     * This callback would be invoked when the image format was updated.
+     *
+     * @param imageFormat for the surface.
+     */
+    void onImageFormatUpdate(int imageFormat);
+
 }
