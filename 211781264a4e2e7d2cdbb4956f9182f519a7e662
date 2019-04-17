@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "578b2324_4e224a14",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentPagerAdapter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-17T19:53:06Z",
+      "side": 1,
+      "message": "\"This is the equivalent of calling {@link #FragmentPagerAdapter(FragmentManager, boolean)} and passing in \u003ccode\u003efalse\u003c/code\u003e.\n\u003cp\u003e\nFragments will have {@link Fragment#setUserVisibleHint(boolean)} called whenever the current Fragment changes.\"",
+      "range": {
+        "startLine": 75,
+        "startChar": 98,
+        "endLine": 75,
+        "endChar": 99
+      },
+      "revId": "211781264a4e2e7d2cdbb4956f9182f519a7e662",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eba3ec4f_ac12d749",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentPagerAdapter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-17T19:53:06Z",
+      "side": 1,
+      "message": "This isn\u0027t quite the right terminology we want to use here, since you can set a margin that means that Fragments that are not the current item are still on screen.",
+      "range": {
+        "startLine": 84,
+        "startChar": 94,
+        "endLine": 85,
+        "endChar": 16
+      },
+      "revId": "211781264a4e2e7d2cdbb4956f9182f519a7e662",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb36bebc_73035666",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentPagerAdapter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-17T19:53:06Z",
+      "side": 1,
+      "message": "I think you need to make it more clear what will happen whenever the current Fragment changes - either they\u0027ll get a callback to setUserVisibleHint() OR the lifecycle will be capped at STARTED for all Fragments that aren\u0027t the current Fragment",
+      "range": {
+        "startLine": 85,
+        "startChar": 70,
+        "endLine": 85,
+        "endChar": 71
+      },
+      "revId": "211781264a4e2e7d2cdbb4956f9182f519a7e662",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc7baea2_ed6af524",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentPagerAdapter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-17T19:53:06Z",
+      "side": 1,
+      "message": "This is the opposite of what the name is (hidden fragments can also be resumed if this is *false*, not true). Again, we don\u0027t want to use the term hidden Fragment here, but focus on the current Fragment wording.",
+      "range": {
+        "startLine": 88,
+        "startChar": 40,
+        "endLine": 88,
+        "endChar": 99
+      },
+      "revId": "211781264a4e2e7d2cdbb4956f9182f519a7e662",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
