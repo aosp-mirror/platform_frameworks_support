@@ -16,6 +16,7 @@
 
 package androidx.camera.core;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RestrictTo;
 import androidx.annotation.RestrictTo.Scope;
 
@@ -42,7 +43,10 @@ public interface CaptureStage {
         private final CaptureConfig mCaptureConfig;
 
         DefaultCaptureStage() {
-            CaptureConfig.Builder builder = new CaptureConfig.Builder();
+            this(new CaptureConfig.Builder());
+        }
+
+        DefaultCaptureStage(@NonNull CaptureConfig.Builder builder) {
             mCaptureConfig = builder.build();
         }
 
