@@ -132,7 +132,8 @@ public class EnqueueRunnable implements Runnable {
         Schedulers.schedule(
                 workManager.getConfiguration(),
                 workManager.getWorkDatabase(),
-                workManager.getSchedulers());
+                workManager.getSchedulers(),
+                workManager.getForegroundSchedulers());
     }
 
     private static boolean processContinuation(@NonNull WorkContinuationImpl workContinuation) {

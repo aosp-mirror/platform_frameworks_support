@@ -60,7 +60,8 @@ public final class WorkInfo {
      *
      * @return The identifier of a {@link WorkRequest}
      */
-    public @NonNull UUID getId() {
+    @NonNull
+    public UUID getId() {
         return mId;
     }
 
@@ -69,7 +70,8 @@ public final class WorkInfo {
      *
      * @return The current {@link State} of the {@link WorkRequest}
      */
-    public @NonNull State getState() {
+    @NonNull
+    public State getState() {
         return mState;
     }
 
@@ -79,7 +81,8 @@ public final class WorkInfo {
      *
      * @return The output {@link Data} of the {@link WorkRequest}
      */
-    public @NonNull Data getOutputData() {
+    @NonNull
+    public Data getOutputData() {
         return mOutputData;
     }
 
@@ -88,7 +91,8 @@ public final class WorkInfo {
      *
      * @return The {@link Set} of tags associated with the {@link WorkRequest}
      */
-    public @NonNull Set<String> getTags() {
+    @NonNull
+    public Set<String> getTags() {
         return mTags;
     }
 
@@ -129,10 +133,10 @@ public final class WorkInfo {
     @Override
     public String toString() {
         return "WorkInfo{"
-                +   "mId='" + mId + '\''
-                +   ", mState=" + mState
-                +   ", mOutputData=" + mOutputData
-                +   ", mTags=" + mTags
+                + "mId='" + mId + '\''
+                + ", mState=" + mState
+                + ", mOutputData=" + mOutputData
+                + ", mTags=" + mTags
                 + '}';
     }
 
@@ -181,10 +185,30 @@ public final class WorkInfo {
          * Returns {@code true} if this State is considered finished.
          *
          * @return {@code true} for {@link #SUCCEEDED}, {@link #FAILED}, and * {@link #CANCELLED}
-         *         states
+         * states
          */
         public boolean isFinished() {
             return (this == SUCCEEDED || this == FAILED || this == CANCELLED);
         }
+    }
+
+    /**
+     * Represents the affinity for a given {@link WorkRequest}.
+     */
+    public enum Affinity {
+        /**
+         * Used to indicate that a {@link WorkRequest} is only eligible to run in the background.
+         */
+        BACKGROUND,
+
+        /**
+         * Used to indicate that a {@link WorkRequest} is only eligible to run in the foreground.
+         */
+        FOREGROUND,
+        /**
+         * Used to indicate that a {@link WorkRequest} is only eligible to run in the foreground
+         * or in the background.
+         */
+        ALL
     }
 }

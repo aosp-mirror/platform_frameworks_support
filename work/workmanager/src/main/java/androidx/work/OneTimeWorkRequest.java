@@ -126,6 +126,17 @@ public final class OneTimeWorkRequest extends WorkRequest {
             return this;
         }
 
+        /**
+         * Specifies the {@link WorkInfo.Affinity} for this {@link OneTimeWorkRequest}.
+         *
+         * @param workerAffinity The {@link WorkInfo.Affinity}
+         * @return The current {@link Builder}
+         */
+        public @NonNull Builder setAffinity(@NonNull WorkInfo.Affinity workerAffinity) {
+            mWorkSpec.workerAffinity = workerAffinity;
+            return this;
+        }
+
         @Override
         @NonNull OneTimeWorkRequest buildInternal() {
             if (mBackoffCriteriaSet

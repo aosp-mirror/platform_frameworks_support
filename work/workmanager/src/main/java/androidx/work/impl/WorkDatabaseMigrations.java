@@ -45,6 +45,7 @@ public class WorkDatabaseMigrations {
     public static final int VERSION_3 = 3;
     public static final int VERSION_4 = 4;
     public static final int VERSION_5 = 5;
+    public static final int VERSION_6 = 6;
 
     private static final String CREATE_SYSTEM_ID_INFO =
             "CREATE TABLE IF NOT EXISTS `SystemIdInfo` (`work_spec_id` TEXT NOT NULL, `system_id`"
@@ -70,6 +71,9 @@ public class WorkDatabaseMigrations {
     private static final String WORKSPEC_ADD_TRIGGER_MAX_CONTENT_DELAY =
             "ALTER TABLE workspec ADD COLUMN `trigger_max_content_delay` INTEGER NOT NULL DEFAULT"
                     + " -1";
+
+    private static final String WORKSPEC_ADD_AFFINITY =
+            "ALTER TABLE workspec ADD COLUMN `worker_affinity` INTEGER DEFAULT 0";
 
     /**
      * Removes the {@code alarmInfo} table and substitutes it for a more general
@@ -126,6 +130,16 @@ public class WorkDatabaseMigrations {
         public void migrate(@NonNull SupportSQLiteDatabase database) {
             database.execSQL(WORKSPEC_ADD_TRIGGER_UPDATE_DELAY);
             database.execSQL(WORKSPEC_ADD_TRIGGER_MAX_CONTENT_DELAY);
+        }
+    };
+
+    /**
+     * Adds the {@code Affinity} to the WorkSpec table.
+     */
+    public static Migration MIGRATION_5_6 = new Migration(VERSION_5, VERSION_6) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            database.execSQL(WORKSPEC_ADD_AFFINITY);
         }
     };
 }

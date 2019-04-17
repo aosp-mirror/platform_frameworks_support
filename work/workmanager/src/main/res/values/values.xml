@@ -17,6 +17,15 @@
 
 <resources>
     <bool name="enable_system_alarm_service_default">true</bool>
+    <bool name="enable_system_foreground_service_default">true</bool>
     <bool name="enable_system_job_service_default">false</bool>
     <bool name="workmanager_test_configuration">false</bool>
+    <!-- Foreground service support -->
+    <string name="channel_id">10</string>
+    <integer name="channel_importance">3</integer>
+    <string name="channel_name">WorkManager</string>
+    <string name="channel_description">Background work</string>
+    <integer name="notification_id">1</integer>
+    <string name="notification_title">Working</string>
+    <string name="notification_content">Tasks being executed</string>
 </resources>

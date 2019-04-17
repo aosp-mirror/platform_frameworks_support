@@ -82,7 +82,8 @@ public abstract class CancelWorkRunnable implements Runnable {
         Schedulers.schedule(
                 workManagerImpl.getConfiguration(),
                 workManagerImpl.getWorkDatabase(),
-                workManagerImpl.getSchedulers());
+                workManagerImpl.getSchedulers(),
+                workManagerImpl.getForegroundSchedulers());
     }
 
     private void iterativelyCancelWorkAndDependents(WorkDatabase workDatabase, String workSpecId) {

@@ -149,6 +149,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(TAG, "Enqueuing job with delay of " + delay + " ms");
                 WorkManager.getInstance(MainActivity.this).enqueue(ToastWorker
                         .create("Delayed Job Ran!")
+                        .setAffinity(WorkInfo.Affinity.FOREGROUND)
                         .setInitialDelay(delay, TimeUnit.MILLISECONDS)
                         .build());
             }
@@ -166,6 +167,7 @@ public class MainActivity extends AppCompatActivity {
                         .build();
                 WorkManager.getInstance(MainActivity.this).enqueue(
                         new OneTimeWorkRequest.Builder(CoroutineSleepWorker.class)
+                                .setAffinity(WorkInfo.Affinity.FOREGROUND)
                                 .setInputData(inputData)
                                 .addTag("coroutine_sleep")
                                 .build());

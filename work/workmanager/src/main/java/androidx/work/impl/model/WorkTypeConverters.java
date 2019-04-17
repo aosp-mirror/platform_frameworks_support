@@ -60,6 +60,15 @@ public class WorkTypeConverters {
     }
 
     /**
+     * Integer identifiers that map to {@link androidx.work.WorkInfo.Affinity}.
+     */
+    public interface AffinityIds {
+        int BACKGROUND = 0;
+        int FOREGROUND = 1;
+        int ALL = 2;
+    }
+
+    /**
      * Integer identifiers that map to {@link BackoffPolicy}.
      */
     public interface BackoffPolicyIds {
@@ -112,6 +121,27 @@ public class WorkTypeConverters {
     }
 
     /**
+     * Typeconverter that maps the affinity to an int.
+     *
+     * @param affinity the input Affinity
+     * @return The associated int constant
+     */
+    @TypeConverter
+    public static int affinityToInt(WorkInfo.Affinity affinity) {
+        switch (affinity) {
+            case BACKGROUND:
+                return AffinityIds.BACKGROUND;
+            case FOREGROUND:
+                return AffinityIds.FOREGROUND;
+            case ALL:
+                return AffinityIds.ALL;
+            default:
+                throw new IllegalArgumentException(
+                        "Could not convert " + affinity + " to int");
+        }
+    }
+
+    /**
      * TypeConverter for an int to a State.
      *
      * @param value The input integer
@@ -141,6 +171,27 @@ public class WorkTypeConverters {
             default:
                 throw new IllegalArgumentException(
                         "Could not convert " + value + " to State");
+        }
+    }
+
+    /**
+     * TypeConverter for an int to Affinity.
+     *
+     * @param value The input integer
+     * @return The associated Affinity enum value
+     */
+    @TypeConverter
+    public static WorkInfo.Affinity intToAffinity(int value) {
+        switch (value) {
+            case AffinityIds.BACKGROUND:
+                return WorkInfo.Affinity.BACKGROUND;
+            case AffinityIds.FOREGROUND:
+                return WorkInfo.Affinity.FOREGROUND;
+            case AffinityIds.ALL:
+                return WorkInfo.Affinity.ALL;
+            default:
+                throw new IllegalArgumentException(
+                        "Could not convert " + value + " to Affinity");
         }
     }
 
@@ -248,6 +299,7 @@ public class WorkTypeConverters {
 
     /**
      * Converts a list of {@link ContentUriTriggers.Trigger}s to byte array representation
+     *
      * @param triggers the list of {@link ContentUriTriggers.Trigger}s to convert
      * @return corresponding byte array representation
      */
@@ -286,6 +338,7 @@ public class WorkTypeConverters {
 
     /**
      * Converts a byte array to list of {@link ContentUriTriggers.Trigger}s
+     *
      * @param bytes byte array representation to convert
      * @return list of {@link ContentUriTriggers.Trigger}s
      */

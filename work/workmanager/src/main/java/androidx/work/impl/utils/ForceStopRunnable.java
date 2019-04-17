@@ -100,7 +100,8 @@ public class ForceStopRunnable implements Runnable {
                     Schedulers.schedule(
                             mWorkManager.getConfiguration(),
                             workDatabase,
-                            mWorkManager.getSchedulers());
+                            mWorkManager.getSchedulers(),
+                            mWorkManager.getForegroundSchedulers());
                 }
                 workDatabase.setTransactionSuccessful();
             } finally {

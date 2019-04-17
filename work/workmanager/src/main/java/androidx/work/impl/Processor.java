@@ -49,6 +49,7 @@ public class Processor implements ExecutionListener {
     private WorkDatabase mWorkDatabase;
     private Map<String, WorkerWrapper> mEnqueuedWorkMap;
     private List<Scheduler> mSchedulers;
+    private List<Scheduler> mForegroundSchedulers;
 
     private Set<String> mCancelledIds;
 
@@ -60,13 +61,15 @@ public class Processor implements ExecutionListener {
             Configuration configuration,
             TaskExecutor workTaskExecutor,
             WorkDatabase workDatabase,
-            List<Scheduler> schedulers) {
+            List<Scheduler> schedulers,
+            List<Scheduler> foregroundSchedulers) {
         mAppContext = appContext;
         mConfiguration = configuration;
         mWorkTaskExecutor = workTaskExecutor;
         mWorkDatabase = workDatabase;
         mEnqueuedWorkMap = new HashMap<>();
         mSchedulers = schedulers;
+        mForegroundSchedulers = schedulers;
         mCancelledIds = new HashSet<>();
         mOuterListeners = new ArrayList<>();
         mLock = new Object();
@@ -109,6 +112,7 @@ public class Processor implements ExecutionListener {
                             mWorkDatabase,
                             id)
                             .withSchedulers(mSchedulers)
+                            .withForegroundSchedulers(mForegroundSchedulers)
                             .withRuntimeExtras(runtimeExtras)
                             .build();
             ListenableFuture<Boolean> future = workWrapper.getFuture();
