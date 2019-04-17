@@ -23,6 +23,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.Lifecycle;
 import androidx.viewpager.widget.PagerAdapter;
 
 /**
@@ -68,9 +69,15 @@ public abstract class FragmentPagerAdapter extends PagerAdapter {
     private final FragmentManager mFragmentManager;
     private FragmentTransaction mCurTransaction = null;
     private Fragment mCurrentPrimaryItem = null;
+    private boolean mResumeOnlyCurrentFragment = false;
 
     public FragmentPagerAdapter(@NonNull FragmentManager fm) {
         mFragmentManager = fm;
+    }
+
+    public FragmentPagerAdapter(@NonNull FragmentManager fm, boolean resumeOnlyCurrentFragment) {
+        this(fm);
+        mResumeOnlyCurrentFragment = resumeOnlyCurrentFragment;
     }
 
     /**
@@ -139,6 +146,10 @@ public abstract class FragmentPagerAdapter extends PagerAdapter {
             fragment.setMenuVisibility(true);
             fragment.setUserVisibleHint(true);
             mCurrentPrimaryItem = fragment;
+
+            if (mCurTransaction != null && mResumeOnlyCurrentFragment) {
+                mCurTransaction.setMaxLifecycle(fragment, Lifecycle.State.RESUMED);
+            }
         }
     }
 

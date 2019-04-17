@@ -24,6 +24,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.Lifecycle;
 import androidx.viewpager.widget.PagerAdapter;
 
 import java.util.ArrayList;
@@ -74,9 +75,16 @@ public abstract class FragmentStatePagerAdapter extends PagerAdapter {
     private ArrayList<Fragment.SavedState> mSavedState = new ArrayList<Fragment.SavedState>();
     private ArrayList<Fragment> mFragments = new ArrayList<Fragment>();
     private Fragment mCurrentPrimaryItem = null;
+    private boolean mResumeOnlyCurrentFragment = false;
 
     public FragmentStatePagerAdapter(@NonNull FragmentManager fm) {
         mFragmentManager = fm;
+    }
+
+    public FragmentStatePagerAdapter(@NonNull FragmentManager fm,
+            boolean resumeOnlyCurrentFragment) {
+        this(fm);
+        mResumeOnlyCurrentFragment = resumeOnlyCurrentFragment;
     }
 
     /**
@@ -128,6 +136,10 @@ public abstract class FragmentStatePagerAdapter extends PagerAdapter {
         mFragments.set(position, fragment);
         mCurTransaction.add(container.getId(), fragment);
 
+        if (mResumeOnlyCurrentFragment) {
+            mCurTransaction.setMaxLifecycle(fragment, Lifecycle.State.STARTED);
+        }
+
         return fragment;
     }
 
@@ -162,6 +174,10 @@ public abstract class FragmentStatePagerAdapter extends PagerAdapter {
             fragment.setMenuVisibility(true);
             fragment.setUserVisibleHint(true);
             mCurrentPrimaryItem = fragment;
+
+            if (mCurTransaction != null && mResumeOnlyCurrentFragment) {
+                mCurTransaction.setMaxLifecycle(fragment, Lifecycle.State.RESUMED);
+            }
         }
     }
 
