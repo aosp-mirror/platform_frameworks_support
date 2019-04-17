@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "01e33f81_acad566c",
+        "filename": "work/workmanager-testing/src/androidTest/java/androidx/work/testing/WorkerBuilderTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-17T23:13:38Z",
+      "side": 1,
+      "message": "Just context",
+      "range": {
+        "startLine": 40,
+        "startChar": 25,
+        "endLine": 40,
+        "endChar": 33
+      },
+      "revId": "a7ea683b9a5d6791ad9b56e836746f5f0443033e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2242df28_b5030c2d",
+        "filename": "work/workmanager-testing/src/androidTest/java/androidx/work/testing/WorkerBuilderTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-17T23:13:38Z",
+      "side": 1,
+      "message": "Just executor",
+      "range": {
+        "startLine": 41,
+        "startChar": 25,
+        "endLine": 41,
+        "endChar": 34
+      },
+      "revId": "a7ea683b9a5d6791ad9b56e836746f5f0443033e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb42059c_7f8a3f6a",
+        "filename": "work/workmanager-testing/src/androidTest/java/androidx/work/testing/WorkerBuilderTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-17T23:13:38Z",
+      "side": 1,
+      "message": "This was the reason I was suggesting switching to Truth :)",
+      "range": {
+        "startLine": 55,
+        "startChar": 27,
+        "endLine": 55,
+        "endChar": 31
+      },
+      "revId": "a7ea683b9a5d6791ad9b56e836746f5f0443033e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce0ddc03_1c4b77e3",
+        "filename": "work/workmanager-testing/src/androidTest/java/androidx/work/testing/workers/TestListenableWorker.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-17T23:13:38Z",
+      "side": 1,
+      "message": "This could be in the same file as WorkerBuilderTest if you\u0027re only planning on using it in that file.",
+      "range": {
+        "startLine": 28,
+        "startChar": 13,
+        "endLine": 28,
+        "endChar": 33
+      },
+      "revId": "a7ea683b9a5d6791ad9b56e836746f5f0443033e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32d61ea8_e53515ff",
+        "filename": "work/workmanager-testing/src/main/java/androidx/work/testing/ListenableWorkerBuilder.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-17T23:13:38Z",
+      "side": 1,
+      "message": "getWorkerName()",
+      "range": {
+        "startLine": 268,
+        "startChar": 77,
+        "endLine": 268,
+        "endChar": 93
+      },
+      "revId": "a7ea683b9a5d6791ad9b56e836746f5f0443033e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a296650_3e6c91de",
+        "filename": "work/workmanager-testing/src/main/java/androidx/work/testing/WorkerBuilder.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-17T23:13:38Z",
+      "side": 1,
+      "message": "Seems like there is a lot of common code between this and ListenableWorkerBuilder.build(). Would it make sense to have a internalBuild(Executor?) that these can both call into?",
+      "range": {
+        "startLine": 66,
+        "startChar": 18,
+        "endLine": 66,
+        "endChar": 25
+      },
+      "revId": "a7ea683b9a5d6791ad9b56e836746f5f0443033e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc596571_b23947f9",
+        "filename": "work/workmanager-testing/src/main/java/androidx/work/testing/WorkerBuilder.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-17T23:13:38Z",
+      "side": 1,
+      "message": "getWorkerName()",
+      "range": {
+        "startLine": 88,
+        "startChar": 77,
+        "endLine": 88,
+        "endChar": 83
+      },
+      "revId": "a7ea683b9a5d6791ad9b56e836746f5f0443033e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "279163c2_295e35dd",
+        "filename": "work/workmanager-testing/src/main/java/androidx/work/testing/WorkerBuilder.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-17T23:13:38Z",
+      "side": 1,
+      "message": "Could this be two separate error messages? include the workerClassName in the exception.",
+      "range": {
+        "startLine": 111,
+        "startChar": 21,
+        "endLine": 111,
+        "endChar": 78
+      },
+      "revId": "a7ea683b9a5d6791ad9b56e836746f5f0443033e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
