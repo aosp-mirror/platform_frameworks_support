@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "13738253_71c4eafe",
+        "filename": "media2/common/src/main/java/androidx/media2/MediaMetadata.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-04-17T06:31:22Z",
+      "side": 1,
+      "message": "MediaLibraryService",
+      "range": {
+        "startLine": 97,
+        "startChar": 30,
+        "endLine": 97,
+        "endChar": 49
+      },
+      "revId": "05cae5bb29e6cbfff3565ad513b71d1f3d92625a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
