@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "08bb4def_95ac9503",
+        "filename": "fragment/src/androidTest/java/androidx/fragment/app/SaveStateFragmentTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 540,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-17T17:18:23Z",
+      "side": 1,
+      "message": "Was this supposed to be attached to the new test?",
+      "range": {
+        "startLine": 540,
+        "startChar": 7,
+        "endLine": 540,
+        "endChar": 97
+      },
+      "revId": "9a5c1ba4bd0297232bdaf747db1c47f69abca8dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
