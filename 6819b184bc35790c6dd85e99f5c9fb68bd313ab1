@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "efe165e8_9cf1e620",
+        "filename": "camera/extensions-stub/build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-04-17T17:44:18Z",
+      "side": 1,
+      "message": "You can remove this, it is not needed.",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 1
+      },
+      "revId": "6819b184bc35790c6dd85e99f5c9fb68bd313ab1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
