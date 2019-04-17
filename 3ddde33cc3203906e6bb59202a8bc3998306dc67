@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c599d432_b039b539",
+        "filename": "camera/camera2/src/test/java/androidx/camera/camera2/Camera2DeviceSurfaceManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 526,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-04-17T19:55:02Z",
+      "side": 0,
+      "message": "Looks like you still need to init CameraX.",
+      "range": {
+        "startLine": 526,
+        "startChar": 8,
+        "endLine": 526,
+        "endChar": 42
+      },
+      "revId": "3ddde33cc3203906e6bb59202a8bc3998306dc67",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
