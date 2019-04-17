@@ -505,6 +505,30 @@
     },
     {
       "key": {
+        "uuid": "f8fe8072_557befe0",
+        "filename": "work/workmanager-testing/src/main/java/androidx/work/testing/WorkerBuilder.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2019-04-17T23:43:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1e834e01_c9f57050",
+      "range": {
+        "startLine": 106,
+        "startChar": 12,
+        "endLine": 106,
+        "endChar": 38
+      },
+      "revId": "a7ea683b9a5d6791ad9b56e836746f5f0443033e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "279163c2_295e35dd",
         "filename": "work/workmanager-testing/src/main/java/androidx/work/testing/WorkerBuilder.java",
         "patchSetId": 6
