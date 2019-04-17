@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5b5040c6_7302ebbe",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/AnimateLayoutChangeDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-04-17T14:55:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "380b80cd_41f5720b",
+      "revId": "5bb538e8e5613a6284e291e88a64c1826d06fdf2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3393f9f9_07bdd7b9",
         "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ScrollEventAdapter.java",
         "patchSetId": 2
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "3a24c367_a09a6eac",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ScrollEventAdapter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-04-17T14:55:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3393f9f9_07bdd7b9",
+      "range": {
+        "startLine": 248,
+        "startChar": 77,
+        "endLine": 248,
+        "endChar": 78
+      },
+      "revId": "5bb538e8e5613a6284e291e88a64c1826d06fdf2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e437ecbf_bd3c5f2b",
         "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
         "patchSetId": 2
@@ -62,6 +104,30 @@
       "revId": "5bb538e8e5613a6284e291e88a64c1826d06fdf2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db1cf0ce_2462f98e",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 1347655
+      },
+      "writtenOn": "2019-04-17T14:55:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e437ecbf_bd3c5f2b",
+      "range": {
+        "startLine": 333,
+        "startChar": 6,
+        "endLine": 337,
+        "endChar": 81
+      },
+      "revId": "5bb538e8e5613a6284e291e88a64c1826d06fdf2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
