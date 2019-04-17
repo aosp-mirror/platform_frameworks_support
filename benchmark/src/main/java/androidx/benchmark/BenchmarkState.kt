@@ -349,8 +349,9 @@ class BenchmarkState internal constructor() {
     internal fun ideSummaryLine(key: String) = String.format(
         // 13 is used for alignment here, because it's enough that 9.99sec will still
         // align with any other output, without moving data too far to the right
-        "%13s ns %s",
+        "min = %13s ns, σ = %13d ns %s",
         NumberFormat.getNumberInstance().format(min()),
+        standardDeviation(),
         key
     )
 
