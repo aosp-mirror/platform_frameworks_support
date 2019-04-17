@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c7835735_d5e1dce8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-04-17T04:50:44Z",
+      "side": 1,
+      "message": "FYI,\nString Local.toLanguageTag()\nLocale.forLanguageTag(String)\nLocal.Builder.setLanguageTag(String)",
+      "range": {
+        "startLine": 9,
+        "startChar": 5,
+        "endLine": 9,
+        "endChar": 38
+      },
+      "revId": "46089185a9cdc3363b416e66d9563979d6aa704f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2b0bbf7_2a2f900a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-04-17T04:50:44Z",
+      "side": 1,
+      "message": "I don\u0027t understand why it should return peaceable only?\nMediaPlayer is not an API for passing data to other processes.",
+      "range": {
+        "startLine": 10,
+        "startChar": 33,
+        "endLine": 10,
+        "endChar": 43
+      },
+      "revId": "46089185a9cdc3363b416e66d9563979d6aa704f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
