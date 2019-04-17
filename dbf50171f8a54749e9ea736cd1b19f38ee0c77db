@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cbc35a00_563d820a",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentPagerAdapter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-17T18:07:52Z",
+      "side": 1,
+      "message": "Add Javadoc for both constructors",
+      "range": {
+        "startLine": 78,
+        "startChar": 11,
+        "endLine": 78,
+        "endChar": 31
+      },
+      "revId": "dbf50171f8a54749e9ea736cd1b19f38ee0c77db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c296d7c_cac9b2d2",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentPagerAdapter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-17T18:07:52Z",
+      "side": 1,
+      "message": "You need to set the previous item to STARTED here",
+      "range": {
+        "startLine": 142,
+        "startChar": 45,
+        "endLine": 142,
+        "endChar": 46
+      },
+      "revId": "dbf50171f8a54749e9ea736cd1b19f38ee0c77db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0afa9228_5dfa515e",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentPagerAdapter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-17T18:07:52Z",
+      "side": 1,
+      "message": "I\u0027d do this before mCurrentPrimaryItem \u003d fragment to match when setUserVisibleHint was called.",
+      "range": {
+        "startLine": 150,
+        "startChar": 12,
+        "endLine": 152,
+        "endChar": 13
+      },
+      "revId": "dbf50171f8a54749e9ea736cd1b19f38ee0c77db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
