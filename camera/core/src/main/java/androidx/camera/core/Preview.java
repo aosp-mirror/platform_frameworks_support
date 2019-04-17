@@ -18,6 +18,7 @@ package androidx.camera.core;
 
 import android.graphics.Rect;
 import android.graphics.SurfaceTexture;
+import android.hardware.camera2.CameraDevice;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
@@ -32,9 +33,12 @@ import androidx.annotation.RestrictTo.Scope;
 import androidx.annotation.UiThread;
 import androidx.camera.core.CameraX.LensFacing;
 import androidx.camera.core.ImageOutputConfig.RotationValue;
+import androidx.camera.core.impl.utils.executor.CameraXExecutors;
 
 import com.google.auto.value.AutoValue;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -63,6 +67,8 @@ public class Preview extends UseCase {
             };
     final CheckedSurfaceTexture mCheckedSurfaceTexture =
             new CheckedSurfaceTexture(mSurfaceTextureListener);
+    final SessionEventListener mSessionEventListener;
+    final CaptureRequestInfo mCaptureRequestInfoProvider;
     private final PreviewConfig.Builder mUseCaseConfigBuilder;
     @Nullable
     private OnPreviewOutputUpdateListener mSubscribedPreviewOutputListener;
@@ -79,6 +85,8 @@ public class Preview extends UseCase {
     public Preview(PreviewConfig config) {
         super(config);
         mUseCaseConfigBuilder = PreviewConfig.Builder.fromConfig(config);
+        mSessionEventListener = config.getSessionEventListener(null);
+        mCaptureRequestInfoProvider = config.getCaptureRequestInfoProvider(null);
     }
 
     private static SessionConfig.Builder createFrom(
@@ -269,6 +277,10 @@ public class Preview extends UseCase {
         removePreviewOutputListener();
         notifyInactive();
 
+        if (mSessionEventListener != null) {
+            mSessionEventListener.onDeInit(CameraXExecutors.mainThreadExecutor());
+        }
+
         SurfaceTexture oldTexture =
                 (mLatestPreviewOutput == null)
                         ? null
@@ -301,6 +313,67 @@ public class Preview extends UseCase {
         mCheckedSurfaceTexture.resetSurfaceTexture();
 
         SessionConfig.Builder sessionConfigBuilder = createFrom(config, mCheckedSurfaceTexture);
+        if (mSessionEventListener != null) {
+            sessionConfigBuilder.addSessionEventCallback(new SessionEventCallback() {
+
+                // Update the surface when session start.
+                ImmediateSurface mEnabledSurface;
+
+                @Override
+                public List<CaptureConfig> onPresetSession() {
+                    mEnabledSurface = new ImmediateSurface(mCheckedSurfaceTexture.mSurface);
+                    CaptureStage captureStage = mSessionEventListener.onPresetSession();
+                    if (captureStage != null) {
+                        return Arrays.asList(captureStage.getCaptureConfig());
+                    }
+                    return null;
+                }
+
+                @Override
+                public List<CaptureConfig> onEnableSession() {
+                    return createCaptureStageList(mSessionEventListener.onEnableSession());
+                }
+
+                @Override
+                public List<CaptureConfig> onRepeating() {
+                    if (mCaptureRequestInfoProvider != null
+                            && getOnPreviewOutputUpdateListener() != null) {
+
+                        CaptureBundle captureBundle =
+                                mCaptureRequestInfoProvider.getCaptureBundle();
+                        if (captureBundle != null) {
+                            List<CaptureStage> list = captureBundle.getCaptureStages();
+                            if (list != null && list.size() == 1) {
+                                return createCaptureStageList(list.get(0));
+                            }
+                        }
+
+                    }
+                    return null;
+                }
+
+                @Override
+                public List<CaptureConfig> onDisableSession() {
+                    return createCaptureStageList(mSessionEventListener.onDisableSession());
+                }
+
+                private List<CaptureConfig> createCaptureStageList(CaptureStage captureStage) {
+                    if (captureStage != null && mEnabledSurface != null) {
+                        CaptureConfig.Builder configBuilder = CaptureConfig.Builder.from(
+                                captureStage.getCaptureConfig());
+                        configBuilder.addSurface(mEnabledSurface);
+                        configBuilder.setTemplateType(CameraDevice.TEMPLATE_PREVIEW);
+                        return Arrays.asList(configBuilder.build());
+                    }
+                    return null;
+                }
+            });
+
+            mSessionEventListener.onInit(cameraId);
+            mSessionEventListener.onResolutionUpdate(
+                    new Size(resolution.getWidth(), resolution.getHeight()));
+            mSessionEventListener.onImageFormatUpdate(getImageFormat());
+        }
         attachToCamera(cameraId, sessionConfigBuilder.build());
 
         return suggestedResolutionMap;
