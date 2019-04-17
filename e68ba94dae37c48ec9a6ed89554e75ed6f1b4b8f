@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2b752805_fe2fa3bc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-17T23:04:13Z",
+      "side": 1,
+      "message": "I\u0027d suggest a more descriptive title: \"Get Biometric Fragments from FragmentManager\" or something along those lines",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 27
+      },
+      "revId": "e68ba94dae37c48ec9a6ed89554e75ed6f1b4b8f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
