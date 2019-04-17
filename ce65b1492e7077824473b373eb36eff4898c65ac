@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "01dcfbcc_eeda3a60",
+        "filename": "room/ktx/src/main/java/androidx/room/CoroutinesRoom.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-04-17T16:08:48Z",
+      "side": 1,
+      "message": "adamp@ if there is one file for you to look at it is this one. Thanks!",
+      "range": {
+        "startLine": 65,
+        "startChar": 16,
+        "endLine": 65,
+        "endChar": 29
+      },
+      "revId": "ce65b1492e7077824473b373eb36eff4898c65ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
