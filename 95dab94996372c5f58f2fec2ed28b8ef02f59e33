@@ -16,6 +16,24 @@
       "revId": "95dab94996372c5f58f2fec2ed28b8ef02f59e33",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c0d1112_f82001f8",
+        "filename": "car/cluster/src/androidTest/java/androidx/car/cluster/navigation/RichTextTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1404402
+      },
+      "writtenOn": "2019-04-17T23:36:11Z",
+      "side": 1,
+      "message": "Thowing a NPE here is consistent with the rest of the API. Maybe we should consider a global change",
+      "parentUuid": "b74e33a8_584256df",
+      "revId": "95dab94996372c5f58f2fec2ed28b8ef02f59e33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
