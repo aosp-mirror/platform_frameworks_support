@@ -57,6 +57,7 @@ import com.google.common.util.concurrent.ListenableFuture;
 import java.io.File;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -115,7 +116,10 @@ public class ImageCapture extends UseCase {
     private final CaptureMode mCaptureMode;
 
     /** The set of requests that will be sent to the camera for the final captured image. */
-    private final CaptureBundle mCaptureBundle;
+    private CaptureBundle mCaptureBundle;
+    private final int mMaxCaptureStages;
+
+    final SessionEventListener mSessionEventListener;
 
     /**
      * Processing that gets done to the mCaptureBundle to produce the final image that is produced
@@ -154,19 +158,17 @@ public class ImageCapture extends UseCase {
         mFlashMode = mConfig.getFlashMode();
 
         mCaptureProcessor = mConfig.getCaptureProcessor(null);
+        mSessionEventListener = mConfig.getSessionEventListener(null);
 
         if (mCaptureProcessor != null) {
             setImageFormat(ImageFormat.YUV_420_888);
+            mMaxCaptureStages = mCaptureProcessor.getMaxCaptureStage();
         } else {
             setImageFormat(ImageReaderFormatRecommender.chooseCombo().imageCaptureFormat());
+            mMaxCaptureStages = MAX_IMAGES;
         }
 
         mCaptureBundle = mConfig.getCaptureBundle(CaptureBundles.singleDefaultCaptureBundle());
-
-        if (mCaptureBundle.getCaptureStages().size() > 1 && mCaptureProcessor == null) {
-            throw new IllegalArgumentException(
-                    "ImageCaptureConfig has no CaptureProcess set with CaptureBundle size > 1.");
-        }
 
         if (mCaptureMode == CaptureMode.MAX_QUALITY) {
             mEnableCheck3AConverged = true; // check 3A convergence in MAX_QUALITY mode
@@ -508,6 +510,10 @@ public class ImageCapture extends UseCase {
     @RestrictTo(Scope.LIBRARY_GROUP)
     @Override
     public void clear() {
+        if (mSessionEventListener != null) {
+            mSessionEventListener.onDeInit();
+        }
+
         if (mDeferrableSurface != null) {
             mDeferrableSurface.setOnSurfaceDetachedListener(
                     CameraXExecutors.mainThreadExecutor(),
@@ -556,13 +562,13 @@ public class ImageCapture extends UseCase {
                     new ProcessingImageReader(
                             resolution.getWidth(),
                             resolution.getHeight(),
-                            getImageFormat(), MAX_IMAGES,
+                            getImageFormat(), mMaxCaptureStages,
                             mHandler, mCaptureBundle, mCaptureProcessor);
             mMetadataMatchingCaptureCallback = processingImageReader.getCameraCaptureCallback();
             mImageReader = processingImageReader;
         } else {
             MetadataImageReader metadataImageReader = new MetadataImageReader(resolution.getWidth(),
-                    resolution.getHeight(), getImageFormat(), MAX_IMAGES, mHandler);
+                    resolution.getHeight(), getImageFormat(), mMaxCaptureStages, mHandler);
             mMetadataMatchingCaptureCallback = metadataImageReader.getCameraCaptureCallback();
             mImageReader = metadataImageReader;
         }
@@ -611,6 +617,45 @@ public class ImageCapture extends UseCase {
 
         mDeferrableSurface = new ImmediateSurface(mImageReader.getSurface());
         mSessionConfigBuilder.addNonRepeatingSurface(mDeferrableSurface);
+
+        if (mSessionEventListener != null) {
+            mSessionConfigBuilder.addSessionEventCallback(new SessionEventCallback() {
+                @Override
+                public List<CaptureStage> onPresetSession() {
+                    CaptureStage captureStage = mSessionEventListener.onPresetSession();
+                    if (captureStage != null) {
+                        return Arrays.asList(captureStage);
+                    }
+                    return null;
+                }
+
+                @Override
+                public List<CaptureStage> onEnableSession() {
+                    return createCatpureStageList(mSessionEventListener.onEnableSession());
+                }
+
+                @Override
+                public List<CaptureStage> onDisableSession() {
+                    return createCatpureStageList(mSessionEventListener.onDisableSession());
+                }
+
+                private List<CaptureStage> createCatpureStageList(CaptureStage captureStage) {
+                    if (captureStage != null) {
+                        CaptureConfig.Builder configBuilder = CaptureConfig.Builder.from(
+                                captureStage.getCaptureConfig());
+                        configBuilder.addSurface(new ImmediateSurface(mImageReader.getSurface()));
+                        configBuilder.setTemplateType(CameraDevice.TEMPLATE_PREVIEW);
+                        CaptureStage ret = new CaptureStage.DefaultCaptureStage(configBuilder);
+                        return Arrays.asList(ret);
+                    }
+                    return null;
+                }
+            });
+
+            mSessionEventListener.onInit(cameraId);
+            mSessionEventListener.onResolutionUpdate(
+                    new Size(resolution.getWidth(), resolution.getHeight()), getImageFormat());
+        }
 
         attachToCamera(cameraId, mSessionConfigBuilder.build());
 
@@ -821,6 +866,8 @@ public class ImageCapture extends UseCase {
     ListenableFuture<Void> issueTakePicture() {
         final List<ListenableFuture<Void>> futureList = new ArrayList<>();
 
+        notifyImageCaptureStart();
+
         for (final CaptureStage captureStage : mCaptureBundle.getCaptureStages()) {
             final CaptureConfig.Builder builder = new CaptureConfig.Builder();
             builder.addAllCameraCaptureCallbacks(
@@ -889,6 +936,48 @@ public class ImageCapture extends UseCase {
                 return "issueTakePicture";
             }
         });
+    }
+
+    private void notifyImageCaptureStart() {
+        // Before actually issuing a take picture request, we need to notify to extender.
+        // So, it can update the CaptureState, CaptureProcessor as well.
+
+        List<CaptureStage> newCaptureStages = null;
+
+        if (mCaptureProcessor != null) {
+            newCaptureStages = mCaptureProcessor.getCaptureStages();
+        }
+
+        if (newCaptureStages == null) {
+            throw new IllegalArgumentException("CaptureStage list must not null.");
+        }
+
+        CaptureBundle newCaptureBundle = new CaptureBundle();
+        for (CaptureStage captureStage : newCaptureStages) {
+            newCaptureBundle.addCaptureStage(captureStage);
+        }
+
+        if (newCaptureBundle.getCaptureStages().isEmpty()) {
+            throw new IllegalArgumentException(
+                    "ImageCaptureUseCaseExtender sets empty CaptureStage list.");
+        }
+
+        if (newCaptureBundle.getCaptureStages().size() > 1 && mCaptureProcessor == null) {
+            throw new IllegalArgumentException(
+                    "ImageCaptureUseCaseConfiguration has no CaptureProcess set with "
+                            + "CaptureBundle size > 1.");
+        }
+
+        if (newCaptureBundle.getCaptureStages().size() > mMaxCaptureStages) {
+            throw new IllegalArgumentException(
+                    "ImageCaptureUseCaseConfiguration has CaptureStages > Max CaptureStage size");
+        }
+
+        mCaptureBundle = newCaptureBundle;
+
+        if (mCaptureProcessor != null) {
+            ((ProcessingImageReader) mImageReader).setCaptureBundle(mCaptureBundle);
+        }
     }
 
     /**
