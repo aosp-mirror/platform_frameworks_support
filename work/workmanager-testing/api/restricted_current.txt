@@ -1,1 +1,9 @@
 // Signature format: 3.0
+package androidx.work.testing {
+
+  public class TestListenableWorkerBuilder<B extends androidx.work.testing.TestListenableWorkerBuilder> {
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public B setExecutor(java.util.concurrent.Executor);
+  }
+
+}
+
