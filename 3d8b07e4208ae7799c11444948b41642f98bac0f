@@ -46,6 +46,30 @@
       "revId": "3d8b07e4208ae7799c11444948b41642f98bac0f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f06de36_ec310234",
+        "filename": "benchmark/src/main/java/androidx/benchmark/AndroidBenchmarkRunner.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1010103
+      },
+      "writtenOn": "2019-04-17T22:54:31Z",
+      "side": 1,
+      "message": "Do you need launchActivitySync? Can you instead startActivity and let it be asynchronous, with a hook that has BenchmarkState block on the RESUMED status of IsolatedActivity if it\u0027s not on the main thread?\n\nRelying on the rule to not be on the main thread should be safe, and you can at least trivially verify that assumption with a Looper.myLooper() \u003d\u003d Looper.getMainLooper()",
+      "parentUuid": "0742257c_e34d55a5",
+      "range": {
+        "startLine": 46,
+        "startChar": 77,
+        "endLine": 46,
+        "endChar": 98
+      },
+      "revId": "3d8b07e4208ae7799c11444948b41642f98bac0f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
