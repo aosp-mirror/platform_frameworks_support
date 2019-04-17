@@ -18,6 +18,7 @@ package androidx.camera.core;
 
 import android.graphics.Rect;
 import android.graphics.SurfaceTexture;
+import android.hardware.camera2.CameraDevice;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
@@ -35,6 +36,8 @@ import androidx.camera.core.ImageOutputConfig.RotationValue;
 
 import com.google.auto.value.AutoValue;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -63,6 +66,8 @@ public class Preview extends UseCase {
             };
     final CheckedSurfaceTexture mCheckedSurfaceTexture =
             new CheckedSurfaceTexture(mSurfaceTextureListener);
+    final SessionEventListener mSessionEventListener;
+    final CaptureRequestInfo mCaptureRequestInfoProvider;
     private final PreviewConfig.Builder mUseCaseConfigBuilder;
     @Nullable
     private OnPreviewOutputUpdateListener mSubscribedPreviewOutputListener;
@@ -79,6 +84,8 @@ public class Preview extends UseCase {
     public Preview(PreviewConfig config) {
         super(config);
         mUseCaseConfigBuilder = PreviewConfig.Builder.fromConfig(config);
+        mSessionEventListener = config.getSessionEventListener(null);
+        mCaptureRequestInfoProvider = config.getCaptureRequestInfoProvider(null);
     }
 
     private static SessionConfig.Builder createFrom(
@@ -269,6 +276,10 @@ public class Preview extends UseCase {
         removePreviewOutputListener();
         notifyInactive();
 
+        if (mSessionEventListener != null) {
+            mSessionEventListener.onDeInit();
+        }
+
         SurfaceTexture oldTexture =
                 (mLatestPreviewOutput == null)
                         ? null
@@ -301,6 +312,59 @@ public class Preview extends UseCase {
         mCheckedSurfaceTexture.resetSurfaceTexture();
 
         SessionConfig.Builder sessionConfigBuilder = createFrom(config, mCheckedSurfaceTexture);
+        if (mSessionEventListener != null) {
+            sessionConfigBuilder.addSessionEventCallback(new SessionEventCallback() {
+
+                // Update the surface when session start.
+                ImmediateSurface mEnabledSurface;
+
+                @Override
+                public List<CaptureStage> onPresetSession() {
+                    mEnabledSurface = new ImmediateSurface(mCheckedSurfaceTexture.mSurface);
+                    CaptureStage captureStage = mSessionEventListener.onPresetSession();
+                    if (captureStage != null) {
+                        return Arrays.asList(captureStage);
+                    }
+                    return null;
+                }
+
+                @Override
+                public List<CaptureStage> onEnableSession() {
+                    return createCaptureStageList(mSessionEventListener.onEnableSession());
+                }
+
+                @Override
+                public List<CaptureStage> onRepeating() {
+                    if (mCaptureRequestInfoProvider != null
+                            && getOnPreviewOutputUpdateListener() != null) {
+                        return createCaptureStageList(
+                                mCaptureRequestInfoProvider.getCaptureStage());
+                    }
+                    return null;
+                }
+
+                @Override
+                public List<CaptureStage> onDisableSession() {
+                    return createCaptureStageList(mSessionEventListener.onDisableSession());
+                }
+
+                private List<CaptureStage> createCaptureStageList(CaptureStage captureStage) {
+                    if (captureStage != null && mEnabledSurface != null) {
+                        CaptureConfig.Builder configBuilder = CaptureConfig.Builder.from(
+                                captureStage.getCaptureConfig());
+                        configBuilder.addSurface(mEnabledSurface);
+                        configBuilder.setTemplateType(CameraDevice.TEMPLATE_PREVIEW);
+                        CaptureStage ret = new CaptureStage.DefaultCaptureStage(configBuilder);
+                        return Arrays.asList(ret);
+                    }
+                    return null;
+                }
+            });
+
+            mSessionEventListener.onInit(cameraId);
+            mSessionEventListener.onResolutionUpdate(
+                    new Size(resolution.getWidth(), resolution.getHeight()), getImageFormat());
+        }
         attachToCamera(cameraId, sessionConfigBuilder.build());
 
         return suggestedResolutionMap;
