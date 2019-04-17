@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7aadc5f2_ef834d17",
+        "filename": "benchmark/src/main/java/androidx/benchmark/AndroidBenchmarkRunner.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1010103
+      },
+      "writtenOn": "2019-04-17T22:41:45Z",
+      "side": 1,
+      "message": "waitForActivitiesToComplete() happens _before_ any tests are run? Are you sure about that? Seems like a questionable thing to rely on though.\n\nCould instead this runner in onCreate inject a pre-test hook in BenchmarkState to trigger the activity launch if it\u0027s not already in the RESUMED state?",
+      "range": {
+        "startLine": 46,
+        "startChar": 77,
+        "endLine": 46,
+        "endChar": 98
+      },
+      "revId": "3d8b07e4208ae7799c11444948b41642f98bac0f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
