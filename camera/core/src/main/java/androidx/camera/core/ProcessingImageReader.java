@@ -136,12 +136,11 @@ class ProcessingImageReader implements ImageReaderProxy {
     ProcessingImageReader(int width, int height, int format, int maxImages,
             @Nullable Handler handler,
             @NonNull CaptureBundle captureBundle, @NonNull CaptureProcessor captureProcessor) {
-        int captureBundleSize = captureBundle.getCaptureStages().size();
         mInputImageReader = new MetadataImageReader(
                 width,
                 height,
                 format,
-                maxImages >= captureBundleSize ? maxImages : captureBundleSize,
+                maxImages,
                 handler);
         mOutputImageReader = ImageReader.newInstance(width, height, format, maxImages);
 
@@ -260,6 +259,18 @@ class ProcessingImageReader implements ImageReaderProxy {
         }
     }
 
+    /** Sets a CaptureBundle */
+    public void setCaptureBundle(@NonNull CaptureBundle captureBundle) {
+        synchronized (mLock) {
+            if (mInputImageReader.getMaxImages() < captureBundle.getCaptureStages().size()) {
+                throw new IllegalArgumentException(
+                        "CaptureBundle is lager than InputImageReader.");
+            }
+
+            setupSettableImageProxyBundle(captureBundle);
+        }
+    }
+
     /** Returns necessary camera callbacks to retrieve metadata from camera result. */
     @Nullable
     CameraCaptureCallback getCameraCaptureCallback() {
@@ -272,6 +283,8 @@ class ProcessingImageReader implements ImageReaderProxy {
 
     private void setupSettableImageProxyBundle(CaptureBundle captureBundle) {
         if (captureBundle != null) {
+            mCaptureIdList.clear();
+
             for (CaptureStage captureStage : captureBundle.getCaptureStages()) {
                 if (captureStage != null) {
                     mCaptureIdList.add(captureStage.getId());
