@@ -22,6 +22,30 @@
       "revId": "237f31cd196a2d4df195c2cf284dfd856a043e00",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a07f54d_018cbff0",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/PagedListViewTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 545,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-04-17T18:23:33Z",
+      "side": 1,
+      "message": "Agreed, if this test is failing, then we need to look why the given gutter size isn\u0027t be set correctly.\n\nWhatever value we\u0027re passing as \"gutterSize\" should be the one that matches margin start unless something relating to this logic has changed. Did the width of the scroll view get wider recently?\n\n@Yao, the linked change doesn\u0027t change this value. Were you looking at the \"testSetGutterSizeNone\" test instead? For that test, it\u0027s trying to assert that a given gutter size does not take affect if the gutter is NONE; it should match the width of the scroll view.",
+      "parentUuid": "42f416a2_8c1dee2d",
+      "range": {
+        "startLine": 545,
+        "startChar": 25,
+        "endLine": 545,
+        "endChar": 28
+      },
+      "revId": "237f31cd196a2d4df195c2cf284dfd856a043e00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
