@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "42f416a2_8c1dee2d",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/PagedListViewTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 545,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2019-04-17T18:14:33Z",
+      "side": 1,
+      "message": "i think the fix should be updating this value to ensure gutter is wider than the container. there\u0027s another testSetScrollBarContainerWidth_WithGutter() that verifies the other case.\n\nit looks like the change was made in aosp/839515. just curious do you know what caused the failure?",
+      "range": {
+        "startLine": 545,
+        "startChar": 25,
+        "endLine": 545,
+        "endChar": 28
+      },
+      "revId": "237f31cd196a2d4df195c2cf284dfd856a043e00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
