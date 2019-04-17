@@ -49,6 +49,7 @@ import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.FlakyTest;
 import androidx.test.filters.SmallTest;
+import androidx.test.filters.Suppress;
 import androidx.test.rule.GrantPermissionRule;
 
 import org.junit.After;
@@ -64,6 +65,8 @@ import java.util.concurrent.Semaphore;
  * Contains tests for {@link androidx.camera.core.CameraX} which varies use case combinations to
  * run.
  */
+@Suppress
+@FlakyTest(bugId = 130652885)
 @SmallTest
 @RunWith(AndroidJUnit4.class)
 public final class UseCaseCombinationTest {
