@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e396fd95_6e6f8345",
+        "filename": "webkit/integration-tests/testapp/src/main/res/layout/activity_small_interstitial.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-04-17T02:17:44Z",
+      "side": 1,
+      "message": "My previous attempt didn\u0027t work (I got a \"medium\" interstitial rather than \"small\") so I copied the original test app (which testers never complained about)",
+      "range": {
+        "startLine": 28,
+        "startChar": 4,
+        "endLine": 28,
+        "endChar": 117
+      },
+      "revId": "e3a741a739b04d22578bc6357b11f1e77562a6f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b195522d_0ccc9f65",
+        "filename": "webkit/integration-tests/testapp/src/main/res/values/colors.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-04-17T02:17:44Z",
+      "side": 1,
+      "message": "Arbitrarily chosen. This is dark gray (contrasts nicely with the light-gray interstitial) with a tint of blue (which themes nicely with the blue title bar)",
+      "range": {
+        "startLine": 22,
+        "startChar": 35,
+        "endLine": 22,
+        "endChar": 41
+      },
+      "revId": "e3a741a739b04d22578bc6357b11f1e77562a6f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
