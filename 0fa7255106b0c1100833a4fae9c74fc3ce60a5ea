@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2bdf84ae_fe9126bc",
+        "filename": "lifecycle/integration-tests/gradletest/src/test/kotlin/androidx/lifecycle/IncrementalAnnotationProcessingTest.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1106303
+      },
+      "writtenOn": "2019-04-17T18:09:52Z",
+      "side": 1,
+      "message": "In case the test fails, connection will remain open. Maybe move this to @After?",
+      "range": {
+        "startLine": 128,
+        "startChar": 8,
+        "endLine": 128,
+        "endChar": 33
+      },
+      "revId": "0fa7255106b0c1100833a4fae9c74fc3ce60a5ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
