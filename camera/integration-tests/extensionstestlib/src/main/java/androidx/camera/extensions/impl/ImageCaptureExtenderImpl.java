@@ -16,7 +16,9 @@
 
 package androidx.camera.extensions.impl;
 
+import android.content.Context;
 import android.hardware.camera2.CameraCharacteristics;
+import android.util.Size;
 
 import java.util.List;
 
@@ -41,12 +43,84 @@ public interface ImageCaptureExtenderImpl {
      */
     void enableExtension(String cameraId, CameraCharacteristics cameraCharacteristics);
 
-    /** The set of captures that are needed to create an image with the effect. */
-    List<CaptureStageImpl> getCaptureStages();
-
     /**
      * The processing that will be done on a set of captures to create and image with the effect.
      */
     CaptureProcessorImpl getCaptureProcessor();
+
+    /** The set of captures that are needed to create an image with the effect. */
+    List<CaptureStageImpl> getCaptureStages();
+
+    /**
+     * Notify to initial of the extension. It would be called after bindToLifeCycle. This is
+     * where the use case is started and would be able to allocate resources here. After onInit() is
+     * called, the camera ID, cameraCharacteristics and context will not change until onDeInit()
+     * has been called.
+     *
+     * @param cameraId The camera2 id string of the camera.
+     * @param cameraCharacteristics The {@link CameraCharacteristics} of the camera.
+     * @param context The {@link Context} used for CameraX.
+     */
+    void onInit(String cameraId, CameraCharacteristics cameraCharacteristics, Context context);
+
+    /**
+     * Notify to de-initialize of the extension. This callback would be invoked after unbind.
+     * After onDeInit() was called, it is expected that the camera ID, cameraCharacteristics will
+     * no longer hold, this should be where to clear all resources allocated for this use case.
+     */
+    void onDeInit();
+
+    /**
+     * This would be invoked before create capture session of Camera2. The returned parameter in
+     * CaptureStage will be passed to the camera device as part of the capture session
+     * initialization via setSessionParameters(). The valid parameter is a subset of the
+     * available capture request parameters.
+     *
+     * @return The request information to set the session wide camera parameters.
+     */
+    CaptureStageImpl onPresetSession();
+
+    /**
+     * This would be invoked once after a Camera2 capture session was created. The returned
+     * parameter in CaptureStage will be used to generate a single request to the current
+     * configured camera device. The generated request would be submitted to camera before process
+     * other single request.
+     *
+     * @return The request information to create a single capture request to camera device.
+     */
+    CaptureStageImpl onEnableSession();
+
+    /**
+     * This would be invoked once before the Camera2 capture session was going to close. The
+     * returned parameter in CaptureStage will be used to generate a single request to the current
+     * configured camera device. The generated request would be submitted to camera before the
+     * capture session was closed.
+     *
+     * @return The request information to customize the session.
+     */
+    CaptureStageImpl onDisableSession();
+
+    /**
+     * This callback would be invoked when CameraX going to change the configured surface with
+     * a resolution.
+     *
+     * @param size for the surface.
+     */
+    void onResolutionUpdate(Size size);
+
+    /**
+     * This callback would be invoked when the image format was updated.
+     *
+     * @param imageFormat for the surface.
+     */
+    void onImageFormatUpdate(int imageFormat);
+
+
+    /**
+     * To get a maximum capture stage count to capture.
+     * @return the maximum count.
+     */
+    Integer getMaxCaptureStage();
+
 }
 
