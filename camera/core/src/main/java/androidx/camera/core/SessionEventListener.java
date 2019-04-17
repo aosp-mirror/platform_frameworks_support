@@ -20,6 +20,8 @@ import android.util.Size;
 
 import androidx.annotation.RestrictTo;
 
+import java.util.concurrent.Executor;
+
 /**
  * CameraX session event interface.
  *
@@ -36,8 +38,9 @@ public interface SessionEventListener {
 
     /**
      * Notify to de-initial of the extension.
+     * @param executor to execute the deInit.
      */
-    void onDeInit();
+    void onDeInit(Executor executor);
 
     /**
      * This method would need to invoke before every session start.

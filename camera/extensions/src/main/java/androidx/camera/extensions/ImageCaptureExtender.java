@@ -19,6 +19,7 @@ package androidx.camera.extensions;
 import android.hardware.camera2.CameraCharacteristics;
 import android.util.Size;
 
+import androidx.annotation.GuardedBy;
 import androidx.camera.core.CameraX;
 import androidx.camera.core.CaptureBundle;
 import androidx.camera.core.CaptureRequestInfo;
@@ -31,6 +32,8 @@ import androidx.camera.extensions.impl.ImageCaptureExtenderImpl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executor;
+
 /**
  * Class for using an OEM provided extension on image capture.
  */
@@ -82,6 +85,12 @@ abstract class ImageCaptureExtender {
 
         private final ImageCaptureExtenderImpl mImpl;
 
+        private final Object mLock = new Object();
+        @GuardedBy("mLock")
+        private volatile int mEnabledSessionCount = 0;
+        @GuardedBy("mLock")
+        private Executor mExecutor = null;
+
         ImageCaptureAdapter(ImageCaptureExtenderImpl impl) {
             mImpl = impl;
         }
@@ -94,8 +103,29 @@ abstract class ImageCaptureExtender {
         }
 
         @Override
-        public void onDeInit() {
-            mImpl.onDeInit();
+        public void onDeInit(Executor executor) {
+            boolean callNow = false;
+            synchronized (mLock) {
+                mExecutor = executor;
+                if (mEnabledSessionCount == 0) {
+                    callNow = true;
+                }
+            }
+
+            if (callNow) {
+                callDeInit(executor);
+            }
+        }
+
+        private void callDeInit(Executor executor) {
+            if (executor != null) {
+                executor.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        mImpl.onDeInit();
+                    }
+                });
+            }
         }
 
         @Override
@@ -110,22 +140,39 @@ abstract class ImageCaptureExtender {
 
         @Override
         public CaptureStage onEnableSession() {
-            CaptureStageImpl captureStageImpl = mImpl.onEnableSession();
-            if (captureStageImpl != null) {
-                return new AdaptingCaptureStage(captureStageImpl);
-            }
+            try {
+                CaptureStageImpl captureStageImpl = mImpl.onEnableSession();
+                if (captureStageImpl != null) {
+                    return new AdaptingCaptureStage(captureStageImpl);
+                }
 
-            return null;
+                return null;
+            } finally {
+                synchronized (mLock) {
+                    mEnabledSessionCount++;
+                }
+            }
         }
 
         @Override
         public CaptureStage onDisableSession() {
-            CaptureStageImpl captureStageImpl = mImpl.onDisableSession();
-            if (captureStageImpl != null) {
-                return new AdaptingCaptureStage(captureStageImpl);
-            }
+            try {
+                CaptureStageImpl captureStageImpl = mImpl.onDisableSession();
+                if (captureStageImpl != null) {
+                    return new AdaptingCaptureStage(captureStageImpl);
+                }
 
-            return null;
+                return null;
+            } finally {
+                Executor executor = null;
+                synchronized (mLock) {
+                    mEnabledSessionCount--;
+                    if (mEnabledSessionCount == 0) {
+                        executor = mExecutor;
+                    }
+                }
+                callDeInit(executor);
+            }
         }
 
         @Override
