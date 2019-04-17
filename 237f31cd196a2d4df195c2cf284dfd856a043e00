@@ -46,6 +46,30 @@
       "revId": "237f31cd196a2d4df195c2cf284dfd856a043e00",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d3333b8_349a4dfb",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/PagedListViewTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 545,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2019-04-17T21:08:56Z",
+      "side": 1,
+      "message": "i meant aosp/839515 made recycler view start margin uses the greater one between gutter size and scrollbar width, which IIUC is what this fix is trying to do.\n\nthe start gutter size should be greater than scrollbar width to take effect. would setting it to 200 fix the test?",
+      "parentUuid": "5a07f54d_018cbff0",
+      "range": {
+        "startLine": 545,
+        "startChar": 25,
+        "endLine": 545,
+        "endChar": 28
+      },
+      "revId": "237f31cd196a2d4df195c2cf284dfd856a043e00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
