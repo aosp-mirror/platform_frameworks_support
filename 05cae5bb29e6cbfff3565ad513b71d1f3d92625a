@@ -22,6 +22,30 @@
       "revId": "05cae5bb29e6cbfff3565ad513b71d1f3d92625a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b06f8a58_4bc02c6a",
+        "filename": "media2/common/src/main/java/androidx/media2/MediaMetadata.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-04-17T07:48:01Z",
+      "side": 1,
+      "message": "Done Thanks Gyumin!",
+      "parentUuid": "13738253_71c4eafe",
+      "range": {
+        "startLine": 97,
+        "startChar": 30,
+        "endLine": 97,
+        "endChar": 49
+      },
+      "revId": "05cae5bb29e6cbfff3565ad513b71d1f3d92625a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
