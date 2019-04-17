@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1d7802eb_9e9b8c84",
+        "filename": "work/workmanager-testing/src/androidTest/java/androidx/work/testing/TestWorkerBuilderTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-17T23:57:07Z",
+      "side": 1,
+      "message": "Would be nice to have a Kotlin helper where you could write:\n\nval worker \u003d TestListenableWorker(context, request,\n  runAttemptCount \u003d 2,\n  triggeredContentAuthorities \u003d authorities,\n  triggeredContentUris \u003d contentUris)",
+      "range": {
+        "startLine": 81,
+        "startChar": 8,
+        "endLine": 85,
+        "endChar": 20
+      },
+      "revId": "cc4547d00fe2921535d9acc9aebc286a49418e6a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
