@@ -2905,7 +2905,10 @@ public class MediaPlayer extends SessionPlayer {
         /**
          * Gets the language code of the track.
          * @return {@link Locale} which includes the language information.
+         *
+         * @hide
          */
+        @RestrictTo(LIBRARY_GROUP_PREFIX)
         @NonNull
         public Locale getLanguage() {
             String language = mFormat != null ? mFormat.getString(MediaFormat.KEY_LANGUAGE) : null;
@@ -2918,7 +2921,10 @@ public class MediaPlayer extends SessionPlayer {
         /**
          * Gets the {@link MediaFormat} of the track.  If the format is
          * unknown or could not be determined, null is returned.
+         *
+         * @hide
          */
+        @RestrictTo(LIBRARY_GROUP_PREFIX)
         @Nullable
         public MediaFormat getFormat() {
             if (mTrackType == MEDIA_TRACK_TYPE_TIMEDTEXT
