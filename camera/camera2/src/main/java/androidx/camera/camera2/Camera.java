@@ -247,6 +247,7 @@ final class Camera implements BaseCamera {
 
     void closeCameraResource() {
         mCaptureSession.close();
+        mCaptureSession.release();
         mCameraDevice.close();
         mCaptureSession.notifyCameraDeviceClose();
         resetCaptureSession();
@@ -549,6 +550,7 @@ final class Camera implements BaseCamera {
         SessionConfig previousSessionConfig = mCaptureSession.getSessionConfig();
 
         mCaptureSession.close();
+        mCaptureSession.release();
 
         List<CaptureConfig> unissuedCaptureConfigs = mCaptureSession.getCaptureConfigs();
         mCaptureSession = new CaptureSession(mHandler);
