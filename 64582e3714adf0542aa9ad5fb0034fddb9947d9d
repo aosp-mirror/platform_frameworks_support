@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9684f35f_2500fd8d",
+        "filename": "work/workmanager-testing/src/androidTest/java/androidx/work/testing/WorkerBuilderTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2019-04-17T23:02:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f39ce14b_f6a15eb8",
+      "range": {
+        "startLine": 42,
+        "startChar": 13,
+        "endLine": 42,
+        "endChar": 30
+      },
+      "revId": "64582e3714adf0542aa9ad5fb0034fddb9947d9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f89da778_9ab79369",
         "filename": "work/workmanager-testing/src/androidTest/java/androidx/work/testing/WorkerBuilderTest.java",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "64582e3714adf0542aa9ad5fb0034fddb9947d9d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3cf4fcf3_622eea3a",
+        "filename": "work/workmanager-testing/src/androidTest/java/androidx/work/testing/WorkerBuilderTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2019-04-17T23:02:41Z",
+      "side": 1,
+      "message": "Will do that for all tests next.",
+      "parentUuid": "f89da778_9ab79369",
+      "range": {
+        "startLine": 59,
+        "startChar": 8,
+        "endLine": 59,
+        "endChar": 48
+      },
+      "revId": "64582e3714adf0542aa9ad5fb0034fddb9947d9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
