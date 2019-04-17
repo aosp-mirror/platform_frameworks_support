@@ -45,6 +45,52 @@
       "revId": "46089185a9cdc3363b416e66d9563979d6aa704f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e837ff9f_93979eea",
+        "filename": "media2/src/main/java/androidx/media2/MediaPlayer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2911,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-04-17T04:57:29Z",
+      "side": 1,
+      "message": "Could you use LIBRARY_GROUP instead of LIBRARY_GROUP_PREFIX? We are going to repleace all the LIBRARY_GROUP_PREFIX to LIBRARY_GROUP soon. b/130690748",
+      "range": {
+        "startLine": 2911,
+        "startChar": 20,
+        "endLine": 2911,
+        "endChar": 40
+      },
+      "revId": "46089185a9cdc3363b416e66d9563979d6aa704f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b27889e_d5a5993d",
+        "filename": "media2/src/main/java/androidx/media2/MediaPlayer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2927,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-04-17T04:57:29Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 2927,
+        "startChar": 20,
+        "endLine": 2927,
+        "endChar": 40
+      },
+      "revId": "46089185a9cdc3363b416e66d9563979d6aa704f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
