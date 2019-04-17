@@ -93,6 +93,30 @@
       "revId": "9257a42215d7e1cf4fa182893c1a40dfeaa10f59",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ed4a5bbf_b0488445",
+        "filename": "media2/src/main/java/androidx/media2/MediaController.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 755,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-04-17T07:36:47Z",
+      "side": 1,
+      "message": "I thought the convention is throwing IllegalArgumentException, but it seems there is a newly added rule for throwing NullPointerException.\n\nFYI)\nhttps://docs.google.com/document/d/1GAzXERdykuhyubY-KEXNcaNB1KW-Vw4Qen8_4DulrT0/edit#heading\u003dh.h90wutwtk0lv",
+      "parentUuid": "bc9bb0f8_6e2a167d",
+      "range": {
+        "startLine": 755,
+        "startChar": 22,
+        "endLine": 755,
+        "endChar": 46
+      },
+      "revId": "9257a42215d7e1cf4fa182893c1a40dfeaa10f59",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

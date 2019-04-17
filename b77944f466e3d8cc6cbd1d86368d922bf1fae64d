@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f0dec4e5_de2bbfca",
+        "filename": "media2/api/1.0.0-alpha05.txt",
+        "patchSetId": 7
+      },
+      "lineNbr": 415,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-04-17T07:36:47Z",
+      "side": 1,
+      "message": "If we are going to change the getId() to getSessionId(), then let\u0027s change here too.",
+      "range": {
+        "startLine": 415,
+        "startChar": 55,
+        "endLine": 415,
+        "endChar": 61
+      },
+      "revId": "b77944f466e3d8cc6cbd1d86368d922bf1fae64d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
