@@ -70,6 +70,30 @@
       "revId": "237f31cd196a2d4df195c2cf284dfd856a043e00",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9a89eb8_8e3496fd",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/PagedListViewTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 545,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-04-17T23:47:39Z",
+      "side": 1,
+      "message": "It would. But I\u0027m not sure I understand why that is better than checking for the max between those scrollbar and the gutter size since that\u0027s the expected logic for the sizing (in #setGutterSize). Isn\u0027t setting a value of 200 strictly relying on 200 being larger value than scrollbar width?",
+      "parentUuid": "6d3333b8_349a4dfb",
+      "range": {
+        "startLine": 545,
+        "startChar": 25,
+        "endLine": 545,
+        "endChar": 28
+      },
+      "revId": "237f31cd196a2d4df195c2cf284dfd856a043e00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
