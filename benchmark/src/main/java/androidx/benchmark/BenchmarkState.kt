@@ -21,7 +21,6 @@ import android.os.Bundle
 import android.os.Debug
 import android.util.Log
 import androidx.test.platform.app.InstrumentationRegistry
-
 import java.io.File
 import java.text.NumberFormat
 import java.util.ArrayList
@@ -307,6 +306,8 @@ class BenchmarkState internal constructor() {
 
     private fun standardDeviation(): Long = stats.standardDeviation.toLong()
 
+    private fun percentile20ConfidenceEstimate(): Double = stats.percentile20ConfidenceEstimate
+
     private fun count(): Long = maxIterations.toLong()
 
     internal data class Report(
@@ -349,8 +350,9 @@ class BenchmarkState internal constructor() {
     internal fun ideSummaryLine(key: String) = String.format(
         // 13 is used for alignment here, because it's enough that 9.99sec will still
         // align with any other output, without moving data too far to the right
-        "%13s ns %s",
+        "%13s ns +%.2f%%~ %s",
         NumberFormat.getNumberInstance().format(min()),
+        percentile20ConfidenceEstimate(),
         key
     )
 

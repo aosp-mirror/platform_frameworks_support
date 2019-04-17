@@ -28,7 +28,7 @@ import java.util.List;
  */
 final class Stats {
     private long mMedian, mMin, mMax, mPercentile90, mPercentile95;
-    private double mMean, mStandardDeviation;
+    private double mPercentile20ConfidenceEstimate, mMean, mStandardDeviation;
 
     /* Calculate stats in constructor. */
     public Stats(@NonNull List<Long> values) {
@@ -61,6 +61,8 @@ final class Stats {
             mStandardDeviation += tmp * tmp;
         }
         mStandardDeviation = Math.sqrt(mStandardDeviation / (double) (size - 1));
+
+        mPercentile20ConfidenceEstimate = ((float) (values.get(1) - mMin) / 4) / mMin;
     }
 
     public double getMean() {
@@ -89,6 +91,10 @@ final class Stats {
 
     public long getPercentile95() {
         return mPercentile95;
+    }
+
+    public double getPercentile20ConfidenceEstimate() {
+        return mPercentile20ConfidenceEstimate;
     }
 
     private static long getPercentile(List<Long> values, int percentile) {
