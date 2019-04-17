@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "937b8cc8_544ba6a9",
+        "filename": "media2/src/main/java/androidx/media2/MediaController.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 752,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-04-17T07:21:35Z",
+      "side": 1,
+      "message": "Done. Also changed MediaControllerCallbackTest#testOnCustomCommand accordingly.",
+      "parentUuid": "20bcc0f9_04e2c03e",
+      "range": {
+        "startLine": 752,
+        "startChar": 86,
+        "endLine": 752,
+        "endChar": 93
+      },
+      "revId": "9257a42215d7e1cf4fa182893c1a40dfeaa10f59",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7f1d32bc_97caa311",
         "filename": "media2/src/main/java/androidx/media2/MediaController.java",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "9257a42215d7e1cf4fa182893c1a40dfeaa10f59",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc9bb0f8_6e2a167d",
+        "filename": "media2/src/main/java/androidx/media2/MediaController.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 755,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-04-17T07:21:35Z",
+      "side": 1,
+      "message": "Ack. Created a bug for this since there seems to be multiple instances of this in Media2.\nb/130694010",
+      "parentUuid": "7f1d32bc_97caa311",
+      "range": {
+        "startLine": 755,
+        "startChar": 22,
+        "endLine": 755,
+        "endChar": 46
+      },
+      "revId": "9257a42215d7e1cf4fa182893c1a40dfeaa10f59",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
