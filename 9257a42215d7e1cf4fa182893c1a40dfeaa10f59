@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "20bcc0f9_04e2c03e",
+        "filename": "media2/src/main/java/androidx/media2/MediaController.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 752,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-04-17T00:03:16Z",
+      "side": 1,
+      "message": "Sorry, for asking to make a change for this.\nUnlike the framework APIs, this should be a custom session command (see L757).\nLet\u0027s keep the name of sendCustomCommand, and add a doc that if the SessionCommand is not a custom command, it will throw IAE.",
+      "range": {
+        "startLine": 752,
+        "startChar": 86,
+        "endLine": 752,
+        "endChar": 93
+      },
+      "revId": "9257a42215d7e1cf4fa182893c1a40dfeaa10f59",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f1d32bc_97caa311",
+        "filename": "media2/src/main/java/androidx/media2/MediaController.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 755,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-04-17T00:03:16Z",
+      "side": 1,
+      "message": "Not related with this CL, just FYI, for null check, we throws NPE instead.",
+      "range": {
+        "startLine": 755,
+        "startChar": 22,
+        "endLine": 755,
+        "endChar": 46
+      },
+      "revId": "9257a42215d7e1cf4fa182893c1a40dfeaa10f59",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
