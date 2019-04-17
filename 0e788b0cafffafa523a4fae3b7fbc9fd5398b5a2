@@ -22,6 +22,29 @@
       "revId": "0e788b0cafffafa523a4fae3b7fbc9fd5398b5a2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c69ba95_6db05270",
+        "filename": "fragment/src/androidTest/java/androidx/fragment/app/SaveStateFragmentTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-04-17T08:23:10Z",
+      "side": 1,
+      "message": "It seems like there\u0027s a need for additional testing around save state and the new max lifecycle. Did you already add a test for that?",
+      "range": {
+        "startLine": 46,
+        "startChar": 8,
+        "endLine": 46,
+        "endChar": 28
+      },
+      "revId": "0e788b0cafffafa523a4fae3b7fbc9fd5398b5a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
