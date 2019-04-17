@@ -21,6 +21,7 @@ import android.media.Image;
 import android.media.ImageWriter;
 import android.os.Build;
 import android.util.Log;
+import android.util.Size;
 import android.view.Surface;
 
 import java.nio.ByteBuffer;
@@ -40,6 +41,7 @@ public final class HdrImageCaptureExtenderImpl implements ImageCaptureExtenderIm
     private static final int UNDER_STAGE_ID = 0;
     private static final int NORMAL_STAGE_ID = 1;
     private static final int OVER_STAGE_ID = 2;
+    private static final int SESSION_STAGE_ID = 101;
 
     public HdrImageCaptureExtenderImpl() {
     }
@@ -52,33 +54,6 @@ public final class HdrImageCaptureExtenderImpl implements ImageCaptureExtenderIm
             CameraCharacteristics cameraCharacteristics) {
         // Requires API 23 for ImageWriter
         return android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M;
-    }
-
-    @Override
-    public List<CaptureStageImpl> getCaptureStages() {
-        // Under exposed capture stage
-        SettableCaptureStage captureStageUnder = new SettableCaptureStage(UNDER_STAGE_ID);
-        // Turn off AE so that ISO sensitivity can be controlled
-        captureStageUnder.addCaptureRequestParameters(CaptureRequest.CONTROL_AE_MODE,
-                CaptureRequest.CONTROL_AE_MODE_OFF);
-        captureStageUnder.addCaptureRequestParameters(CaptureRequest.SENSOR_EXPOSURE_TIME,
-                TimeUnit.MILLISECONDS.toNanos(8));
-
-        // Normal exposed capture stage
-        SettableCaptureStage captureStageNormal = new SettableCaptureStage(NORMAL_STAGE_ID);
-        captureStageNormal.addCaptureRequestParameters(CaptureRequest.SENSOR_EXPOSURE_TIME,
-                TimeUnit.MILLISECONDS.toNanos(16));
-
-        // Over exposed capture stage
-        SettableCaptureStage captureStageOver = new SettableCaptureStage(OVER_STAGE_ID);
-        captureStageOver.addCaptureRequestParameters(CaptureRequest.SENSOR_EXPOSURE_TIME,
-                TimeUnit.MILLISECONDS.toNanos(32));
-
-        List<CaptureStageImpl> captureStages = new ArrayList<>();
-        captureStages.add(captureStageUnder);
-        captureStages.add(captureStageNormal);
-        captureStages.add(captureStageOver);
-        return captureStages;
     }
 
     @Override
@@ -143,7 +118,95 @@ public final class HdrImageCaptureExtenderImpl implements ImageCaptureExtenderIm
 
                         Log.d(TAG, "Completed HDR CaptureProcessor");
                     }
+
+                    @Override
+                    public List<CaptureStageImpl> getCaptureStages() {
+                        // Under exposed capture stage
+                        SettableCaptureStage captureStageUnder = new SettableCaptureStage(
+                                UNDER_STAGE_ID);
+                        // Turn off AE so that ISO sensitivity can be controlled
+                        captureStageUnder.addCaptureRequestParameters(
+                                CaptureRequest.CONTROL_AE_MODE,
+                                CaptureRequest.CONTROL_AE_MODE_OFF);
+                        captureStageUnder.addCaptureRequestParameters(
+                                CaptureRequest.SENSOR_EXPOSURE_TIME,
+                                TimeUnit.MILLISECONDS.toNanos(8));
+
+                        // Normal exposed capture stage
+                        SettableCaptureStage captureStageNormal = new SettableCaptureStage(
+                                NORMAL_STAGE_ID);
+                        captureStageNormal.addCaptureRequestParameters(
+                                CaptureRequest.SENSOR_EXPOSURE_TIME,
+                                TimeUnit.MILLISECONDS.toNanos(16));
+
+                        // Over exposed capture stage
+                        SettableCaptureStage captureStageOver = new SettableCaptureStage(
+                                OVER_STAGE_ID);
+                        captureStageOver.addCaptureRequestParameters(
+                                CaptureRequest.SENSOR_EXPOSURE_TIME,
+                                TimeUnit.MILLISECONDS.toNanos(32));
+
+                        List<CaptureStageImpl> captureStages = new ArrayList<>();
+                        captureStages.add(captureStageUnder);
+                        captureStages.add(captureStageNormal);
+                        captureStages.add(captureStageOver);
+                        return captureStages;
+                    }
+
+                    @Override
+                    public int getMaxCaptureStage() {
+                        return 3;
+                    }
                 };
         return captureProcessor;
     }
+
+    @Override
+    public void onInit(String cameraId, CameraCharacteristics cameraCharacteristics) {
+
+    }
+
+    @Override
+    public void onDeInit() {
+
+    }
+
+    @Override
+    public CaptureStageImpl onPresetSession() {
+        // Set the necessary CaptureRequest parameters via CaptureStage, here we use some
+        // placeholder set of CaptureRequest.Key values
+        SettableCaptureStage captureStage = new SettableCaptureStage(SESSION_STAGE_ID);
+        captureStage.addCaptureRequestParameters(CaptureRequest.CONTROL_EFFECT_MODE,
+                CaptureRequest.CONTROL_EFFECT_MODE_SEPIA);
+
+        return captureStage;
+    }
+
+    @Override
+    public CaptureStageImpl onEnableSession() {
+        // Set the necessary CaptureRequest parameters via CaptureStage, here we use some
+        // placeholder set of CaptureRequest.Key values
+        SettableCaptureStage captureStage = new SettableCaptureStage(SESSION_STAGE_ID);
+        captureStage.addCaptureRequestParameters(CaptureRequest.CONTROL_EFFECT_MODE,
+                CaptureRequest.CONTROL_EFFECT_MODE_SEPIA);
+
+        return captureStage;
+    }
+
+    @Override
+    public CaptureStageImpl onDisableSession() {
+        // Set the necessary CaptureRequest parameters via CaptureStage, here we use some
+        // placeholder set of CaptureRequest.Key values
+        SettableCaptureStage captureStage = new SettableCaptureStage(SESSION_STAGE_ID);
+        captureStage.addCaptureRequestParameters(CaptureRequest.CONTROL_EFFECT_MODE,
+                CaptureRequest.CONTROL_EFFECT_MODE_SEPIA);
+
+        return captureStage;
+    }
+
+    @Override
+    public void onResolutionUpdate(Size size, int imageFormat) {
+
+    }
+
 }
