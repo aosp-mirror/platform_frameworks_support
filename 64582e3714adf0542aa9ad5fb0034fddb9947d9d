@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f39ce14b_f6a15eb8",
+        "filename": "work/workmanager-testing/src/androidTest/java/androidx/work/testing/WorkerBuilderTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-17T22:29:14Z",
+      "side": 1,
+      "message": "Write tests in Kotlin",
+      "range": {
+        "startLine": 42,
+        "startChar": 13,
+        "endLine": 42,
+        "endChar": 30
+      },
+      "revId": "64582e3714adf0542aa9ad5fb0034fddb9947d9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f89da778_9ab79369",
+        "filename": "work/workmanager-testing/src/androidTest/java/androidx/work/testing/WorkerBuilderTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-17T22:29:14Z",
+      "side": 1,
+      "message": "Consider using Truth over hamcrest - assertThat(result).isEqualTo(Result.success())",
+      "range": {
+        "startLine": 59,
+        "startChar": 8,
+        "endLine": 59,
+        "endChar": 48
+      },
+      "revId": "64582e3714adf0542aa9ad5fb0034fddb9947d9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
