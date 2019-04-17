@@ -32,9 +32,12 @@ import static androidx.testutils.LifecycleOwnerUtils.waitUntilState;
 import static org.junit.Assert.assertEquals;
 
 import android.app.Instrumentation;
+import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.webkit.WebView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.test.R;
 import androidx.appcompat.testutils.NightModeUtils.NightSetMode;
 import androidx.core.content.ContextCompat;
@@ -147,9 +150,8 @@ public class NightModeTestCase {
 
     @Test
     public void testNightModeAutoTimeRecreatesOnTimeChange() throws Throwable {
-        // Create a fake TwilightManager and set it as the app instance
-        final FakeTwilightManager twilightManager = new FakeTwilightManager();
-        TwilightManager.setInstance(twilightManager);
+        // Set the fake auto night mode manager factory
+        setFakeAutoNightModeManagerFactory();
 
         // Verify that we're currently in day mode
         onView(withId(R.id.text_night_mode)).check(matches(withText(STRING_DAY)));
@@ -163,8 +165,11 @@ public class NightModeTestCase {
         mActivityTestRule.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                twilightManager.setIsNight(true);
-                newDelegate.getAutoTimeNightModeManager().onChange();
+                FakeAutoNightModeManager manager =
+                        (FakeAutoNightModeManager) newDelegate.getAutoTimeNightModeManager();
+
+                // Now update the twilight manager while the Activity is in the 'background'
+                manager.setModeToApply(MODE_NIGHT_YES);
             }
         });
 
@@ -177,9 +182,8 @@ public class NightModeTestCase {
 
     @Test
     public void testNightModeAutoTimeRecreatesOnResume() throws Throwable {
-        // Create a fake TwilightManager and set it as the app instance
-        final FakeTwilightManager twilightManager = new FakeTwilightManager();
-        TwilightManager.setInstance(twilightManager);
+        // Set the fake auto night mode manager factory
+        setFakeAutoNightModeManagerFactory();
 
         // Set MODE_NIGHT_AUTO_TIME so that we will change to night mode automatically
         setNightModeAndWait(mActivityTestRule, AppCompatDelegate.MODE_NIGHT_AUTO_TIME, mSetMode);
@@ -199,8 +203,12 @@ public class NightModeTestCase {
                 instrumentation.callActivityOnPause(activity);
                 instrumentation.callActivityOnStop(activity);
 
-                // Now update the twilight manager while the Activity is in the 'background'
-                twilightManager.setIsNight(true);
+                AppCompatDelegateImpl delegate = (AppCompatDelegateImpl) activity.getDelegate();
+                FakeAutoNightModeManager manager =
+                        (FakeAutoNightModeManager) delegate.getAutoTimeNightModeManager();
+
+                // Now update the manager while the Activity is in the 'background'
+                manager.setModeToApply(MODE_NIGHT_YES);
 
                 // Now tell the Activity that it has gone into the foreground again
                 instrumentation.callActivityOnStart(activity);
@@ -272,24 +280,44 @@ public class NightModeTestCase {
 
     @After
     public void cleanup() throws Throwable {
-        // Reset the default night mode
+        // Reset the default night mode and auto night mode managers
+        AutoNightModeManagers.setFactory(null);
         setNightModeAndWait(mActivityTestRule, MODE_NIGHT_NO, NightSetMode.DEFAULT);
     }
 
-    private static class FakeTwilightManager extends TwilightManager {
-        private boolean mIsNight;
+    private static void setFakeAutoNightModeManagerFactory() {
+        AutoNightModeManagers.setFactory(new AutoNightModeManagers.AutoNightModeManagerFactory() {
+            @Override
+            public AutoNightModeManager createManagerForMode(
+                    @NonNull AppCompatDelegateImpl delegate, int mode) {
+                return new FakeAutoNightModeManager(delegate);
+            }
+        });
+    }
 
-        FakeTwilightManager() {
-            super(null, null);
+    private static class FakeAutoNightModeManager extends AutoNightModeManager {
+        private int mModeToApply;
+
+        FakeAutoNightModeManager(AppCompatDelegateImpl delegate) {
+            super(delegate);
+        }
+
+        void setModeToApply(int modeToApply) {
+            if (mModeToApply != modeToApply) {
+                mModeToApply = modeToApply;
+                onChange();
+            }
         }
 
         @Override
-        boolean isNight() {
-            return mIsNight;
+        int getApplyableNightMode() {
+            return mModeToApply;
         }
 
-        void setIsNight(boolean night) {
-            mIsNight = night;
+        @Nullable
+        @Override
+        IntentFilter createIntentFilterForBroadcastReceiver() {
+            return null;
         }
     }
 }

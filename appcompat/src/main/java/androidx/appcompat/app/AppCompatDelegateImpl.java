@@ -26,7 +26,6 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.UiModeManager;
-import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.ContextWrapper;
@@ -77,7 +76,6 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.RestrictTo;
 import androidx.annotation.StyleRes;
-import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.R;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.view.ActionMode;
@@ -2339,15 +2337,21 @@ class AppCompatDelegateImpl extends AppCompatDelegate
     @RestrictTo(LIBRARY)
     final AutoNightModeManager getAutoTimeNightModeManager() {
         if (mAutoTimeNightModeManager == null) {
-            mAutoTimeNightModeManager = new AutoTimeNightModeManager(
-                    TwilightManager.getInstance(mContext));
+            mAutoTimeNightModeManager = AutoNightModeManagers.createManagerForMode(
+                    this, MODE_NIGHT_AUTO_TIME);
         }
         return mAutoTimeNightModeManager;
     }
 
-    private AutoNightModeManager getAutoBatteryNightModeManager() {
+    /**
+     * @hide
+     */
+    @NonNull
+    @RestrictTo(LIBRARY)
+    AutoNightModeManager getAutoBatteryNightModeManager() {
         if (mAutoBatteryNightModeManager == null) {
-            mAutoBatteryNightModeManager = new AutoBatteryNightModeManager(mContext);
+            mAutoBatteryNightModeManager = AutoNightModeManagers.createManagerForMode(
+                    this, MODE_NIGHT_AUTO_BATTERY);
         }
         return mAutoBatteryNightModeManager;
     }
@@ -2885,110 +2889,6 @@ class AppCompatDelegateImpl extends AppCompatDelegate
                 // If we don't have a menu, jump pass through the original instead
                 super.onProvideKeyboardShortcuts(data, menu, deviceId);
             }
-        }
-    }
-
-    /**
-     * @hide
-     */
-    @VisibleForTesting
-    @RestrictTo(LIBRARY)
-    abstract class AutoNightModeManager {
-        private BroadcastReceiver mReceiver;
-
-        @ApplyableNightMode
-        abstract int getApplyableNightMode();
-
-        abstract void onChange();
-
-        void setup() {
-            cleanup();
-
-            final IntentFilter filter = createIntentFilterForBroadcastReceiver();
-            if (filter == null || filter.countActions() == 0) {
-                // Null or empty IntentFilter, skip
-                return;
-            }
-
-            if (mReceiver == null) {
-                mReceiver = new BroadcastReceiver() {
-                    @Override
-                    public void onReceive(Context context, Intent intent) {
-                        onChange();
-                    }
-                };
-            }
-            mContext.registerReceiver(mReceiver, filter);
-        }
-
-        @Nullable
-        abstract IntentFilter createIntentFilterForBroadcastReceiver();
-
-        void cleanup() {
-            if (mReceiver != null) {
-                mContext.unregisterReceiver(mReceiver);
-                mReceiver = null;
-            }
-        }
-    }
-
-    private class AutoTimeNightModeManager extends AutoNightModeManager {
-        private final TwilightManager mTwilightManager;
-
-        AutoTimeNightModeManager(@NonNull TwilightManager twilightManager) {
-            mTwilightManager = twilightManager;
-        }
-
-        @ApplyableNightMode
-        @Override
-        public int getApplyableNightMode() {
-            return mTwilightManager.isNight() ? MODE_NIGHT_YES : MODE_NIGHT_NO;
-        }
-
-        @Override
-        public void onChange() {
-            applyDayNight();
-        }
-
-        @Override
-        IntentFilter createIntentFilterForBroadcastReceiver() {
-            IntentFilter filter = new IntentFilter();
-            filter.addAction(Intent.ACTION_TIME_CHANGED);
-            filter.addAction(Intent.ACTION_TIMEZONE_CHANGED);
-            filter.addAction(Intent.ACTION_TIME_TICK);
-            return filter;
-        }
-    }
-
-    private class AutoBatteryNightModeManager extends AutoNightModeManager {
-        private final PowerManager mPowerManager;
-
-        AutoBatteryNightModeManager(@NonNull Context context) {
-            mPowerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-        }
-
-        @ApplyableNightMode
-        @Override
-        public int getApplyableNightMode() {
-            if (Build.VERSION.SDK_INT >= 21) {
-                return mPowerManager.isPowerSaveMode() ? MODE_NIGHT_YES : MODE_NIGHT_NO;
-            }
-            return MODE_NIGHT_NO;
-        }
-
-        @Override
-        public void onChange() {
-            applyDayNight();
-        }
-
-        @Override
-        IntentFilter createIntentFilterForBroadcastReceiver() {
-            if (Build.VERSION.SDK_INT >= 21) {
-                IntentFilter filter = new IntentFilter();
-                filter.addAction(PowerManager.ACTION_POWER_SAVE_MODE_CHANGED);
-                return filter;
-            }
-            return null;
         }
     }
 
