@@ -21,6 +21,7 @@ import android.media.Image;
 import android.media.ImageWriter;
 import android.os.Build;
 import android.util.Log;
+import android.util.Size;
 import android.view.Surface;
 
 import java.nio.ByteBuffer;
@@ -37,6 +38,7 @@ import java.util.Map;
 public final class BokehImageCaptureExtenderImpl implements ImageCaptureExtenderImpl {
     private static final String TAG = "BokehICExtender";
     private static final int DEFAULT_STAGE_ID = 0;
+    private static final int SESSION_STAGE_ID = 101;
 
     public BokehImageCaptureExtenderImpl() {
     }
@@ -50,17 +52,6 @@ public final class BokehImageCaptureExtenderImpl implements ImageCaptureExtender
             CameraCharacteristics cameraCharacteristics) {
         // Requires API 23 for ImageWriter
         return android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M;
-    }
-
-    @Override
-    public List<CaptureStageImpl> getCaptureStages() {
-        // Placeholder set of CaptureRequest.Key values
-        SettableCaptureStage captureStage = new SettableCaptureStage(DEFAULT_STAGE_ID);
-        captureStage.addCaptureRequestParameters(CaptureRequest.CONTROL_EFFECT_MODE,
-                CaptureRequest.CONTROL_EFFECT_MODE_SEPIA);
-        List<CaptureStageImpl> captureStages = new ArrayList<>();
-        captureStages.add(captureStage);
-        return captureStages;
     }
 
     @Override
@@ -107,7 +98,73 @@ public final class BokehImageCaptureExtenderImpl implements ImageCaptureExtender
 
                         Log.d(TAG, "Completed bokeh CaptureProcessor");
                     }
+
+                    @Override
+                    public List<CaptureStageImpl> getCaptureStages() {
+                        // Placeholder set of CaptureRequest.Key values
+                        SettableCaptureStage captureStage = new SettableCaptureStage(
+                                DEFAULT_STAGE_ID);
+                        captureStage.addCaptureRequestParameters(CaptureRequest.CONTROL_EFFECT_MODE,
+                                CaptureRequest.CONTROL_EFFECT_MODE_SEPIA);
+                        List<CaptureStageImpl> captureStages = new ArrayList<>();
+                        captureStages.add(captureStage);
+                        return captureStages;
+                    }
+
+                    @Override
+                    public int getMaxCaptureStage() {
+                        return 3;
+                    }
                 };
         return captureProcessor;
     }
+
+    @Override
+    public void onInit(String cameraId, CameraCharacteristics cameraCharacteristics) {
+
+    }
+
+    @Override
+    public void onDeInit() {
+
+    }
+
+    @Override
+    public CaptureStageImpl onPresetSession() {
+        // Set the necessary CaptureRequest parameters via CaptureStage, here we use some
+        // placeholder set of CaptureRequest.Key values
+        SettableCaptureStage captureStage = new SettableCaptureStage(SESSION_STAGE_ID);
+        captureStage.addCaptureRequestParameters(CaptureRequest.CONTROL_EFFECT_MODE,
+                CaptureRequest.CONTROL_EFFECT_MODE_SEPIA);
+
+        return captureStage;
+    }
+
+    @Override
+    public CaptureStageImpl onEnableSession() {
+        // Set the necessary CaptureRequest parameters via CaptureStage, here we use some
+        // placeholder set of CaptureRequest.Key values
+        SettableCaptureStage captureStage = new SettableCaptureStage(SESSION_STAGE_ID);
+        captureStage.addCaptureRequestParameters(CaptureRequest.CONTROL_EFFECT_MODE,
+                CaptureRequest.CONTROL_EFFECT_MODE_SEPIA);
+
+        return captureStage;
+    }
+
+    @Override
+    public CaptureStageImpl onDisableSession() {
+        // Set the necessary CaptureRequest parameters via CaptureStage, here we use some
+        // placeholder set of CaptureRequest.Key values
+        SettableCaptureStage captureStage = new SettableCaptureStage(SESSION_STAGE_ID);
+        captureStage.addCaptureRequestParameters(CaptureRequest.CONTROL_EFFECT_MODE,
+                CaptureRequest.CONTROL_EFFECT_MODE_SEPIA);
+
+        return captureStage;
+    }
+
+    @Override
+    public void onResolutionUpdate(Size size, int imageFormat) {
+
+    }
+
 }
