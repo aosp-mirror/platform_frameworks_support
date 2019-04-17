@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a2b5b6bd_1159281d",
+        "filename": "media2/common/build.gradle",
+        "patchSetId": 9
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-04-17T21:39:25Z",
+      "side": 1,
+      "message": "restricted_current.txt is generated in common, session, player. But @androidx.media2.SessionPlayer.ShuffleMode annotation is still shown in MediaController\u0027s apis.",
+      "parentUuid": "8594a153_c66ad9fc",
+      "range": {
+        "startLine": 41,
+        "startChar": 4,
+        "endLine": 41,
+        "endChar": 31
+      },
+      "revId": "b92c5fc9a1e7e374ddbad8abb965b0df6f39d300",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6139e39e_f49b0ba8",
         "filename": "media2/session/api/current.txt",
         "patchSetId": 9
