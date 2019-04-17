@@ -23,6 +23,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.Lifecycle;
 import androidx.viewpager.widget.PagerAdapter;
 
 /**
@@ -68,9 +69,27 @@ public abstract class FragmentPagerAdapter extends PagerAdapter {
     private final FragmentManager mFragmentManager;
     private FragmentTransaction mCurTransaction = null;
     private Fragment mCurrentPrimaryItem = null;
+    private boolean mResumeOnlyCurrentFragment = false;
 
+    /**
+     * Constructor for {@link FragmentPagerAdapter} that sets the fragment manager for the adapter.
+     *
+     * @param fm fragment manager that will interact with this adapter
+     */
     public FragmentPagerAdapter(@NonNull FragmentManager fm) {
         mFragmentManager = fm;
+    }
+
+    /**
+     * Secondary constructor for {@link FragmentPagerAdapter} that offers the ability to keep unseen
+     * fragments from being in a {@link Lifecycle.State#RESUMED} state.
+     *
+     * @param fm fragment manager that will interact with this adapter
+     * @param resumeOnlyCurrentFragment determines if hidden fragments can also be in resumed state
+     */
+    public FragmentPagerAdapter(@NonNull FragmentManager fm, boolean resumeOnlyCurrentFragment) {
+        this(fm);
+        mResumeOnlyCurrentFragment = resumeOnlyCurrentFragment;
     }
 
     /**
@@ -111,7 +130,11 @@ public abstract class FragmentPagerAdapter extends PagerAdapter {
         }
         if (fragment != mCurrentPrimaryItem) {
             fragment.setMenuVisibility(false);
-            fragment.setUserVisibleHint(false);
+            if (mResumeOnlyCurrentFragment) {
+                mCurTransaction.setMaxLifecycle(fragment, Lifecycle.State.STARTED);
+            } else {
+                fragment.setUserVisibleHint(false);
+            }
         }
 
         return fragment;
@@ -130,14 +153,27 @@ public abstract class FragmentPagerAdapter extends PagerAdapter {
     @SuppressWarnings({"ReferenceEquality", "deprecation"})
     @Override
     public void setPrimaryItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
+        if (mCurTransaction == null) {
+            mCurTransaction = mFragmentManager.beginTransaction();
+        }
+
         Fragment fragment = (Fragment)object;
         if (fragment != mCurrentPrimaryItem) {
             if (mCurrentPrimaryItem != null) {
                 mCurrentPrimaryItem.setMenuVisibility(false);
-                mCurrentPrimaryItem.setUserVisibleHint(false);
+                if (mResumeOnlyCurrentFragment) {
+                    mCurTransaction.setMaxLifecycle(mCurrentPrimaryItem, Lifecycle.State.STARTED);
+                } else {
+                    fragment.setUserVisibleHint(false);
+                }
             }
             fragment.setMenuVisibility(true);
-            fragment.setUserVisibleHint(true);
+            if (mResumeOnlyCurrentFragment) {
+                mCurTransaction.setMaxLifecycle(fragment, Lifecycle.State.RESUMED);
+            } else {
+                fragment.setUserVisibleHint(true);
+            }
+
             mCurrentPrimaryItem = fragment;
         }
     }
