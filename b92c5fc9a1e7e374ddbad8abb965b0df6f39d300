@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6139e39e_f49b0ba8",
+        "filename": "media2/session/api/current.txt",
+        "patchSetId": 9
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-04-17T07:08:25Z",
+      "side": 1,
+      "message": "Aurimas and others,\n\nI don\u0027t know why this hidden interface (and RepeatMode, BuffState) is exposed after separating the library. Should we change MediaController.java to remove this? What would be the right change?",
+      "range": {
+        "startLine": 80,
+        "startChar": 11,
+        "endLine": 80,
+        "endChar": 53
+      },
+      "revId": "b92c5fc9a1e7e374ddbad8abb965b0df6f39d300",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
