@@ -22,6 +22,30 @@
       "revId": "3d8b07e4208ae7799c11444948b41642f98bac0f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0742257c_e34d55a5",
+        "filename": "benchmark/src/main/java/androidx/benchmark/AndroidBenchmarkRunner.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-04-17T22:47:56Z",
+      "side": 1,
+      "message": "It does - it happens before and after each test. I agree it\u0027s a questionable thing to rely on, I\u0027m planning on talking with the AndroidX Test folks about a better alternative.\n\nonCreate itself is on the UI thread, so I can\u0027t call launchActivitySync there. I thought about posting a runnable to do it, but I want to ensure the work is done before the first test starts.\n\nThe problem with injecting an activity launch inside the BenchmarkState is that it may be too late - if the first test happens to be @UiThreadTest, we\u0027ll be blocking the UI thread by the time we\u0027re running any code in BenchmarkState.\n\nI guess one other alternative would be to use the Rule/BenchmarkState\u0027s constructor - do you think that\u0027s preferable? Seems like making another assumption though - that the test class isn\u0027t constructed on the UI thread. May be a safer assumption though.",
+      "parentUuid": "7aadc5f2_ef834d17",
+      "range": {
+        "startLine": 46,
+        "startChar": 77,
+        "endLine": 46,
+        "endChar": 98
+      },
+      "revId": "3d8b07e4208ae7799c11444948b41642f98bac0f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
