@@ -1,6 +1,19 @@
 // Signature format: 3.0
 package androidx.work.testing {
 
+  public class ListenableWorkerBuilder<B extends androidx.work.testing.ListenableWorkerBuilder> {
+    method public androidx.work.ListenableWorker build();
+    method public static androidx.work.testing.ListenableWorkerBuilder from(android.content.Context, androidx.work.WorkRequest);
+    method public B setId(java.util.UUID);
+    method public B setInputData(androidx.work.Data);
+    method @RequiresApi(28) public B setNetwork(android.net.Network);
+    method public B! setRunAttemptCount(int);
+    method public B setTags(java.util.List<java.lang.String>);
+    method @RequiresApi(24) public B setTriggeredContentAuthorities(java.util.List<java.lang.String>);
+    method @RequiresApi(24) public B setTriggeredContentUris(java.util.List<android.net.Uri>);
+    method public B setWorkerFactory(androidx.work.WorkerFactory);
+  }
+
   public class SynchronousExecutor implements java.util.concurrent.Executor {
     ctor public SynchronousExecutor();
     method public void execute(Runnable);
@@ -17,6 +30,11 @@ package androidx.work.testing {
     method public static androidx.work.testing.TestDriver? getTestDriver(android.content.Context);
     method public static void initializeTestWorkManager(android.content.Context);
     method public static void initializeTestWorkManager(android.content.Context, androidx.work.Configuration);
+  }
+
+  public class WorkerBuilder extends androidx.work.testing.ListenableWorkerBuilder<androidx.work.testing.WorkerBuilder> {
+    method public androidx.work.Worker build();
+    method public static androidx.work.testing.WorkerBuilder! from(android.content.Context, androidx.work.WorkRequest, java.util.concurrent.Executor);
   }
 
 }
