@@ -48,7 +48,7 @@ import androidx.camera.core.SessionConfig;
 import androidx.test.annotation.UiThreadTest;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.filters.FlakyTest;
+import androidx.test.filters.SdkSuppress;
 import androidx.test.filters.SmallTest;
 
 import org.junit.Before;
@@ -100,7 +100,6 @@ public final class PreviewTest {
         mDefaultConfig = Preview.DEFAULT_CONFIG.getConfig(null);
     }
 
-    @FlakyTest
     @Test
     @UiThreadTest
     public void useCaseIsConstructedWithDefaultConfiguration() {
@@ -114,7 +113,6 @@ public final class PreviewTest {
         assertThat(surfaces.get(0).isValid()).isTrue();
     }
 
-    @FlakyTest
     @Test
     @UiThreadTest
     public void useCaseIsConstructedWithCustomConfiguration() {
@@ -178,15 +176,11 @@ public final class PreviewTest {
         assertThat(useCase.isTorchOn()).isTrue();
     }
 
-    @FlakyTest
     @Test
     @UiThreadTest
+    @SdkSuppress(minSdkVersion = Build.VERSION_CODES.O)
     public void surfaceTextureIsNotReleased()
             throws InterruptedException, ExecutionException, TimeoutException {
-        // This test only target SDK >= 26
-        if (Build.VERSION.SDK_INT < 26) {
-            return;
-        }
         Preview useCase = new Preview(mDefaultConfig);
 
         final SurfaceTextureCallable surfaceTextureCallable0 = new SurfaceTextureCallable();
@@ -224,12 +218,9 @@ public final class PreviewTest {
 
     @Test
     @UiThreadTest
+    @SdkSuppress(minSdkVersion = Build.VERSION_CODES.O)
     public void listenedSurfaceTextureIsNotReleased_whenCleared()
             throws InterruptedException, ExecutionException, TimeoutException {
-        // This test only target SDK >= 26
-        if (Build.VERSION.SDK_INT <= 26) {
-            return;
-        }
         Preview useCase = new Preview(mDefaultConfig);
 
         final SurfaceTextureCallable surfaceTextureCallable = new SurfaceTextureCallable();
@@ -292,7 +283,6 @@ public final class PreviewTest {
         assertThat(surfaceTexture0).isNotSameAs(surfaceTexture1);
     }
 
-    @FlakyTest
     @Test
     @UiThreadTest
     public void updateSessionConfigWithSuggestedResolution() {
@@ -395,7 +385,6 @@ public final class PreviewTest {
     }
 
     // Must not run on main thread
-    @FlakyTest
     @Test
     public void previewOutput_isResetByReleasedSurface()
             throws InterruptedException, ExecutionException {
