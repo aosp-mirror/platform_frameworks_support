@@ -18,6 +18,9 @@ package androidx.work.impl.model;
 
 import static androidx.work.PeriodicWorkRequest.MIN_PERIODIC_FLEX_MILLIS;
 import static androidx.work.PeriodicWorkRequest.MIN_PERIODIC_INTERVAL_MILLIS;
+import static androidx.work.WorkInfo.Affinity.ALL;
+import static androidx.work.WorkInfo.Affinity.BACKGROUND;
+import static androidx.work.WorkInfo.Affinity.FOREGROUND;
 import static androidx.work.WorkInfo.State.ENQUEUED;
 import static androidx.work.WorkRequest.MAX_BACKOFF_MILLIS;
 import static androidx.work.WorkRequest.MIN_BACKOFF_MILLIS;
@@ -105,6 +108,9 @@ public class WorkSpec {
     @ColumnInfo(name = "backoff_delay_duration")
     public long backoffDelayDuration = WorkRequest.DEFAULT_BACKOFF_DELAY_MILLIS;
 
+    @ColumnInfo(name = "worker_affinity")
+    public WorkInfo.Affinity workerAffinity = BACKGROUND;
+
     /**
      * For one-off work, this is the time that the work was unblocked by prerequisites.
      * For periodic work, this is the time that the period started.
@@ -172,6 +178,22 @@ public class WorkSpec {
 
     public boolean isBackedOff() {
         return state == ENQUEUED && runAttemptCount > 0;
+    }
+
+    /**
+     * @return {@code true} if the {@link WorkSpec} needs to be scheduled using a foreground
+     * scheduler.
+     */
+    public boolean hasForegroundAffinity() {
+        return workerAffinity == FOREGROUND || workerAffinity == ALL;
+    }
+
+    /**
+     * @return {@code true} if the {@link WorkSpec} needs to be scheduled using a background
+     * scheduler.
+     */
+    public boolean hasBackgroundAffinity() {
+        return workerAffinity == BACKGROUND || workerAffinity == ALL;
     }
 
     /**

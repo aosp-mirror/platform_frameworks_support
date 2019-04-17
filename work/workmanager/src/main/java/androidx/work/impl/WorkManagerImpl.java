@@ -40,6 +40,7 @@ import androidx.work.WorkRequest;
 import androidx.work.WorkerParameters;
 import androidx.work.impl.background.greedy.GreedyScheduler;
 import androidx.work.impl.background.systemjob.SystemJobScheduler;
+import androidx.work.impl.foreground.SystemForegroundScheduler;
 import androidx.work.impl.model.WorkSpec;
 import androidx.work.impl.model.WorkSpecDao;
 import androidx.work.impl.utils.CancelWorkRunnable;
@@ -77,6 +78,7 @@ public class WorkManagerImpl extends WorkManager {
     private WorkDatabase mWorkDatabase;
     private TaskExecutor mWorkTaskExecutor;
     private List<Scheduler> mSchedulers;
+    private List<Scheduler> mForegroundSchedulers;
     private Processor mProcessor;
     private Preferences mPreferences;
     private boolean mForceStopRunnableCompleted;
@@ -227,13 +229,24 @@ public class WorkManagerImpl extends WorkManager {
         WorkDatabase database = WorkDatabase.create(applicationContext, useTestDatabase);
         Logger.setLogger(new Logger.LogcatLogger(configuration.getMinimumLoggingLevel()));
         List<Scheduler> schedulers = createSchedulers(applicationContext);
+        List<Scheduler> foregroundSchedulers = createForegroundSchedulers(applicationContext);
+
         Processor processor = new Processor(
                 context,
                 configuration,
                 workTaskExecutor,
                 database,
-                schedulers);
-        internalInit(context, configuration, workTaskExecutor, database, schedulers, processor);
+                schedulers,
+                foregroundSchedulers);
+
+        internalInit(
+                context,
+                configuration,
+                workTaskExecutor,
+                database,
+                schedulers,
+                foregroundSchedulers,
+                processor);
     }
 
     /**
@@ -254,8 +267,16 @@ public class WorkManagerImpl extends WorkManager {
             @NonNull TaskExecutor workTaskExecutor,
             @NonNull WorkDatabase workDatabase,
             @NonNull List<Scheduler> schedulers,
+            @NonNull List<Scheduler> foregroundSchedulers,
             @NonNull Processor processor) {
-        internalInit(context, configuration, workTaskExecutor, workDatabase, schedulers, processor);
+        internalInit(
+                context,
+                configuration,
+                workTaskExecutor,
+                workDatabase,
+                schedulers,
+                foregroundSchedulers,
+                processor);
     }
 
     /**
@@ -294,6 +315,15 @@ public class WorkManagerImpl extends WorkManager {
     @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
     public @NonNull List<Scheduler> getSchedulers() {
         return mSchedulers;
+    }
+
+    /**
+     * @return The foreground {@link Scheduler}s associated with this WorkManager.
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+    public @NonNull List<Scheduler> getForegroundSchedulers() {
+        return mForegroundSchedulers;
     }
 
     /**
@@ -583,7 +613,11 @@ public class WorkManagerImpl extends WorkManager {
         // Delegate to the WorkManager's schedulers.
         // Using getters here so we can use from a mocked instance
         // of WorkManagerImpl.
-        Schedulers.schedule(getConfiguration(), getWorkDatabase(), getSchedulers());
+        Schedulers.schedule(
+                getConfiguration(),
+                getWorkDatabase(),
+                getSchedulers(),
+                getForegroundSchedulers());
     }
 
     /**
@@ -636,6 +670,7 @@ public class WorkManagerImpl extends WorkManager {
             @NonNull TaskExecutor workTaskExecutor,
             @NonNull WorkDatabase workDatabase,
             @NonNull List<Scheduler> schedulers,
+            @NonNull List<Scheduler> foregroundSchedulers,
             @NonNull Processor processor) {
 
         context = context.getApplicationContext();
@@ -644,6 +679,7 @@ public class WorkManagerImpl extends WorkManager {
         mWorkTaskExecutor = workTaskExecutor;
         mWorkDatabase = workDatabase;
         mSchedulers = schedulers;
+        mForegroundSchedulers = foregroundSchedulers;
         mProcessor = processor;
         mPreferences = new Preferences(mContext);
         mForceStopRunnableCompleted = false;
@@ -660,5 +696,14 @@ public class WorkManagerImpl extends WorkManager {
         return Arrays.asList(
                 Schedulers.createBestAvailableBackgroundScheduler(context, this),
                 new GreedyScheduler(context, this));
+    }
+
+    /**
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+    public @NonNull List<Scheduler> createForegroundSchedulers(Context context) {
+        Scheduler scheduler = new SystemForegroundScheduler(context);
+        return Collections.singletonList(scheduler);
     }
 }

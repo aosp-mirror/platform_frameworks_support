@@ -54,7 +54,6 @@ public class WorkManagerGcmDispatcher {
         mWorkManagerImpl = WorkManagerImpl.getInstance(context);
     }
 
-
     /**
      * Handles {@link WorkManagerGcmService#onInitializeTasks()}.
      */
@@ -145,7 +144,8 @@ public class WorkManagerGcmDispatcher {
             Schedulers.schedule(
                     mWorkManagerImpl.getConfiguration(),
                     mWorkManagerImpl.getWorkDatabase(),
-                    mWorkManagerImpl.getSchedulers());
+                    mWorkManagerImpl.getSchedulers(),
+                    mWorkManagerImpl.getForegroundSchedulers());
             workDatabase.setTransactionSuccessful();
         } finally {
             workDatabase.endTransaction();

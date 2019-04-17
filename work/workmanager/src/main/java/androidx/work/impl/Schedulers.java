@@ -34,6 +34,7 @@ import androidx.work.impl.background.systemjob.SystemJobService;
 import androidx.work.impl.model.WorkSpec;
 import androidx.work.impl.model.WorkSpecDao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -59,25 +60,37 @@ public class Schedulers {
     public static void schedule(
             @NonNull Configuration configuration,
             @NonNull WorkDatabase workDatabase,
-            List<Scheduler> schedulers) {
+            List<Scheduler> schedulers,
+            List<Scheduler> foregroundSchedulers) {
+
         if (schedulers == null || schedulers.size() == 0) {
             return;
         }
 
         WorkSpecDao workSpecDao = workDatabase.workSpecDao();
-        List<WorkSpec> eligibleWorkSpecs;
+        List<WorkSpec> backgroundWorkSpecs = null;
+        List<WorkSpec> foregroundWorkSpecs = null;
 
         workDatabase.beginTransaction();
         try {
-            eligibleWorkSpecs = workSpecDao.getEligibleWorkForScheduling(
+            List<WorkSpec> workSpecs = workSpecDao.getEligibleWorkForScheduling(
                     configuration.getMaxSchedulerLimit());
-            if (eligibleWorkSpecs != null && eligibleWorkSpecs.size() > 0) {
-                long now = System.currentTimeMillis();
 
+            if (workSpecs != null && !workSpecs.isEmpty()) {
+                backgroundWorkSpecs = new ArrayList<>(workSpecs.size());
+                foregroundWorkSpecs = new ArrayList<>(workSpecs.size());
+                for (WorkSpec workSpec : workSpecs) {
+                    if (workSpec.hasBackgroundAffinity()) {
+                        backgroundWorkSpecs.add(workSpec);
+                    } else if (workSpec.hasForegroundAffinity()) {
+                        foregroundWorkSpecs.add(workSpec);
+                    }
+                }
+                long now = System.currentTimeMillis();
                 // Mark all the WorkSpecs as scheduled.
                 // Calls to Scheduler#schedule() could potentially result in more schedules
                 // on a separate thread. Therefore, this needs to be done first.
-                for (WorkSpec workSpec : eligibleWorkSpecs) {
+                for (WorkSpec workSpec : backgroundWorkSpecs) {
                     workSpecDao.markWorkSpecScheduled(workSpec.id, now);
                 }
             }
@@ -86,10 +99,18 @@ public class Schedulers {
             workDatabase.endTransaction();
         }
 
-        if (eligibleWorkSpecs != null && eligibleWorkSpecs.size() > 0) {
-            WorkSpec[] eligibleWorkSpecsArray = eligibleWorkSpecs.toArray(new WorkSpec[0]);
+        if (backgroundWorkSpecs != null && backgroundWorkSpecs.size() > 0) {
+            WorkSpec[] eligibleWorkSpecsArray = backgroundWorkSpecs.toArray(new WorkSpec[0]);
             // Delegate to the underlying scheduler.
             for (Scheduler scheduler : schedulers) {
+                scheduler.schedule(eligibleWorkSpecsArray);
+            }
+        }
+
+        if (foregroundWorkSpecs != null && foregroundWorkSpecs.size() > 0) {
+            WorkSpec[] eligibleWorkSpecsArray = foregroundWorkSpecs.toArray(new WorkSpec[0]);
+            // Delegate to the underlying foreground scheduler.
+            for (Scheduler scheduler : foregroundSchedulers) {
                 scheduler.schedule(eligibleWorkSpecsArray);
             }
         }

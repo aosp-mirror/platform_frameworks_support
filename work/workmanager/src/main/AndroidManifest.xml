@@ -21,6 +21,7 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application>
         <provider
@@ -29,6 +30,12 @@
             android:exported="false"
             android:multiprocess="true"
             android:directBootAware="false"
+            tools:targetApi="n"/>
+        <service
+            android:name=".impl.foreground.SystemForegroundService"
+            android:exported="false"
+            android:directBootAware="false"
+            android:enabled="@bool/enable_system_foreground_service_default"
             tools:targetApi="n"/>
         <service
             android:name="androidx.work.impl.background.systemalarm.SystemAlarmService"

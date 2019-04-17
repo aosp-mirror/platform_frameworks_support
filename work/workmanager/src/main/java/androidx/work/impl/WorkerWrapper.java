@@ -74,6 +74,7 @@ public class WorkerWrapper implements Runnable {
     private Context mAppContext;
     private String mWorkSpecId;
     private List<Scheduler> mSchedulers;
+    private List<Scheduler> mForegroundSchedulers;
     private WorkerParameters.RuntimeExtras mRuntimeExtras;
     // Avoid Synthetic accessor
     WorkSpec mWorkSpec;
@@ -106,6 +107,7 @@ public class WorkerWrapper implements Runnable {
         mWorkTaskExecutor = builder.mWorkTaskExecutor;
         mWorkSpecId = builder.mWorkSpecId;
         mSchedulers = builder.mSchedulers;
+        mForegroundSchedulers = builder.mForegroundSchedulers;
         mRuntimeExtras = builder.mRuntimeExtras;
         mWorker = builder.mWorker;
 
@@ -356,8 +358,11 @@ public class WorkerWrapper implements Runnable {
                 for (Scheduler scheduler : mSchedulers) {
                     scheduler.cancel(mWorkSpecId);
                 }
+                for (Scheduler scheduler : mForegroundSchedulers) {
+                    scheduler.cancel(mWorkSpecId);
+                }
             }
-            Schedulers.schedule(mConfiguration, mWorkDatabase, mSchedulers);
+            Schedulers.schedule(mConfiguration, mWorkDatabase, mSchedulers, mForegroundSchedulers);
         }
     }
 
@@ -632,6 +637,7 @@ public class WorkerWrapper implements Runnable {
         @NonNull WorkDatabase mWorkDatabase;
         @NonNull String mWorkSpecId;
         List<Scheduler> mSchedulers;
+        List<Scheduler> mForegroundSchedulers;
         @NonNull
         WorkerParameters.RuntimeExtras mRuntimeExtras = new WorkerParameters.RuntimeExtras();
 
@@ -653,6 +659,16 @@ public class WorkerWrapper implements Runnable {
          */
         public Builder withSchedulers(List<Scheduler> schedulers) {
             mSchedulers = schedulers;
+            return this;
+        }
+
+        /**
+         * @param schedulers The list of foreground {@link Scheduler}s used for scheduling
+         * {@link Worker}s.
+         * @return The instance of {@link Builder} for chaining.
+         */
+        public Builder withForegroundSchedulers(List<Scheduler> schedulers) {
+            mForegroundSchedulers = schedulers;
             return this;
         }
 
