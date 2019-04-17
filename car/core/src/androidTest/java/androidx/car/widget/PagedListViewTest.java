@@ -540,6 +540,8 @@ public final class PagedListViewTest {
         // Just need enough items to ensure the scroll bar is showing.
         setUpPagedListView(ITEMS_PER_PAGE * 10);
 
+        int scrollBarContainerWidth =
+                mPagedListView.findViewById(R.id.paged_scroll_view).getLayoutParams().width;
         int gutterSize = 120;
 
         mActivityRule.runOnUiThread(() -> {
@@ -549,7 +551,8 @@ public final class PagedListViewTest {
 
         waitForIdleSync();
 
-        assertThat(mRecyclerViewLayoutParams.getMarginStart(), is(equalTo(gutterSize)));
+        assertThat(mRecyclerViewLayoutParams.getMarginStart(),
+                is(equalTo(Math.max(gutterSize, scrollBarContainerWidth))));
         assertThat(mRecyclerViewLayoutParams.getMarginEnd(), is(equalTo(0)));
     }
 
@@ -579,6 +582,8 @@ public final class PagedListViewTest {
         // Just need enough items to ensure the scroll bar is showing.
         setUpPagedListView(ITEMS_PER_PAGE * 10);
 
+        int scrollBarContainerWidth =
+                mPagedListView.findViewById(R.id.paged_scroll_view).getLayoutParams().width;
         int gutterSize = 120;
 
         mActivityRule.runOnUiThread(() -> {
@@ -588,7 +593,8 @@ public final class PagedListViewTest {
 
         waitForIdleSync();
 
-        assertThat(mRecyclerViewLayoutParams.getMarginStart(), is(equalTo(gutterSize)));
+        assertThat(mRecyclerViewLayoutParams.getMarginStart(),
+                is(equalTo(Math.max(gutterSize, scrollBarContainerWidth))));
         assertThat(mRecyclerViewLayoutParams.getMarginEnd(), is(equalTo(gutterSize)));
     }
 
@@ -764,7 +770,7 @@ public final class PagedListViewTest {
         int limit = 10;
         for (int pageCount = 0; pageCount < limit
                 && orientationHelper.getDecoratedEnd(longItem)
-                        > mPagedListView.getRecyclerView().getBottom();
+                > mPagedListView.getRecyclerView().getBottom();
                 pageCount++) {
             onView(withId(R.id.page_down)).perform(click());
         }
