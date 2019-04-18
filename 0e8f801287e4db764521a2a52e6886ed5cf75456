@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "750b6d0c_ccababea",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-04-18T22:17:12Z",
+      "side": 1,
+      "message": "I couldn\u0027t find any reason to introduce a builder class with this CL. Why don\u0027t you add \"bundle connectionHints\" with the CL?",
+      "range": {
+        "startLine": 7,
+        "startChar": 17,
+        "endLine": 7,
+        "endChar": 40
+      },
+      "revId": "0e8f801287e4db764521a2a52e6886ed5cf75456",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
