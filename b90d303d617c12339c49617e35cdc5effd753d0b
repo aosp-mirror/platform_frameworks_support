@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "a0cd5623_1aa6ac1e",
+        "filename": "car/core/src/main/java/androidx/car/widget/CompoundButtonListItem.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-04-18T00:17:16Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d8e12dad_d1ea6994",
+      "revId": "b90d303d617c12339c49617e35cdc5effd753d0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cbea1cd4_31373af1",
         "filename": "car/core/src/main/java/androidx/car/widget/CompoundButtonListItem.java",
         "patchSetId": 4
@@ -39,6 +57,30 @@
       "revId": "b90d303d617c12339c49617e35cdc5effd753d0b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b7182d30_9709081d",
+        "filename": "car/core/src/main/java/androidx/car/widget/CompoundButtonListItem.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-04-18T00:17:16Z",
+      "side": 1,
+      "message": "Removed ability to set foreground through an API. reverted it an explicit value in layout that will be made a attribute across all list items in a separate CL.",
+      "parentUuid": "cbea1cd4_31373af1",
+      "range": {
+        "startLine": 131,
+        "startChar": 85,
+        "endLine": 131,
+        "endChar": 89
+      },
+      "revId": "b90d303d617c12339c49617e35cdc5effd753d0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
