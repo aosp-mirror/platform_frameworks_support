@@ -46,6 +46,30 @@
       "revId": "cd0144a25d9699082afa9dcf8cdeb26029a3afa2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a229bb53_6a63f6da",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CheckedSurfaceTexture.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1481635
+      },
+      "writtenOn": "2019-04-18T08:57:39Z",
+      "side": 1,
+      "message": "Thanks for the suggestion, move the comment to CaptureSession.java",
+      "parentUuid": "8d8f9aa9_5f960d57",
+      "range": {
+        "startLine": 169,
+        "startChar": 30,
+        "endLine": 169,
+        "endChar": 42
+      },
+      "revId": "cd0144a25d9699082afa9dcf8cdeb26029a3afa2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

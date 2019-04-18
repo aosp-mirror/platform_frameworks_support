@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "671987d8_834b6488",
+        "filename": "camera/core/src/main/java/androidx/camera/core/Preview.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 1481635
+      },
+      "writtenOn": "2019-04-18T08:57:39Z",
+      "side": 0,
+      "message": "Call notifyReset() in updateOutput() will cause loop.\ne.g. updateOutput() -\u003e notifyReset() -\u003e before create capture session, call CheckedSurfaceTexture.refresh() -\u003e updateOutput() -\u003e ...",
+      "range": {
+        "startLine": 369,
+        "startChar": 20,
+        "endLine": 369,
+        "endChar": 34
+      },
+      "revId": "93ce8a187834f667f369c818f129c3a8526bb10c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
