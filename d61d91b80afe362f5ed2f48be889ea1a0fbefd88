@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2ec856d9_74558916",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentPagerAdapter.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-04-18T17:51:38Z",
+      "side": 1,
+      "message": "Very nit: it would make more sense if this constructor delegated to the other one with the second argument as false.  Otherwise it\u0027s a bit hard to read (you have to look at the variable declaration to find out the default for resmeOnlyCurrentFragment is false).",
+      "range": {
+        "startLine": 84,
+        "startChar": 11,
+        "endLine": 84,
+        "endChar": 31
+      },
+      "revId": "d61d91b80afe362f5ed2f48be889ea1a0fbefd88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
