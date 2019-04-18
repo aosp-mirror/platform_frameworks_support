@@ -94,6 +94,30 @@
       "revId": "fee193bdaa7331b6f2ee86ae0fd628e5dfb9ede8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7b9e36f7_5a0447cb",
+        "filename": "work/workmanager-testing/src/main/java/androidx/work/testing/TestListenableWorkerBuilder.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2019-04-18T18:07:49Z",
+      "side": 1,
+      "message": "Actually you are right. I fixed it.",
+      "parentUuid": "69160b33_538edb3f",
+      "range": {
+        "startLine": 273,
+        "startChar": 4,
+        "endLine": 273,
+        "endChar": 10
+      },
+      "revId": "fee193bdaa7331b6f2ee86ae0fd628e5dfb9ede8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
