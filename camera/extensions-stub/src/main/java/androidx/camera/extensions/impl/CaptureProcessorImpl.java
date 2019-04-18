@@ -44,4 +44,5 @@ public interface CaptureProcessorImpl {
      *               should be kept.
      */
     void process(Map<Integer, Image> images);
+
 }

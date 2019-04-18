@@ -14,50 +14,33 @@
  * limitations under the License.
  */
 
-package androidx.camera.extensions.impl;
+package androidx.camera.core;
 
-import android.content.Context;
-import android.hardware.camera2.CameraCharacteristics;
 import android.util.Size;
 
+import androidx.annotation.RestrictTo;
+
+import java.util.concurrent.Executor;
+
 /**
- * Provides abstract methods that the OEM needs to implement to enable extensions in the view
- * finder.
+ * CameraX session event interface.
+ *
+ * @hide
  */
-public interface PreviewExtenderImpl {
-    /**
-     * Indicates whether the extension is supported on the device.
-     *
-     * @param cameraId              The camera2 id string of the camera.
-     * @param cameraCharacteristics The {@link CameraCharacteristics} of the camera.
-     * @return true if the extension is supported, otherwise false
-     */
-    boolean isExtensionAvailable(String cameraId, CameraCharacteristics cameraCharacteristics);
-
-    /**
-     * Enable the extension if available. If not available then acts a no-op.
-     *
-     * @param cameraId              The camera2 id string of the camera.
-     * @param cameraCharacteristics The {@link CameraCharacteristics} of the camera.
-     */
-    void enableExtension(String cameraId, CameraCharacteristics cameraCharacteristics);
-
-    /** The set of parameters required to produce the effect on images. */
-    CaptureStageImpl getCaptureStage();
+@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+public interface SessionEventListener {
 
     /**
      * Notify to initial of the extension.
-     *
-     * @param cameraId              The camera2 id string of the camera.
-     * @param cameraCharacteristics The {@link CameraCharacteristics} of the camera.
-     * @param context               The {@link Context} used for CameraX.
+     * @param cameraId that current used.
      */
-    void onInit(String cameraId, CameraCharacteristics cameraCharacteristics, Context context);
+    void onInit(String cameraId);
 
     /**
      * Notify to de-initial of the extension.
+     * @param executor to execute the deInit.
      */
-    void onDeInit();
+    void onDeInit(Executor executor);
 
     /**
      * This would be invoked before create capture session of Camera2. The returned parameter in
@@ -67,7 +50,7 @@ public interface PreviewExtenderImpl {
      *
      * @return The request information to set the session wide camera parameters.
      */
-    CaptureStageImpl onPresetSession();
+    CaptureStage onPresetSession();
 
     /**
      * This would be invoked once after a Camera2 capture session was created. The returned
@@ -77,7 +60,7 @@ public interface PreviewExtenderImpl {
      *
      * @return The request information to create a single capture request to camera device.
      */
-    CaptureStageImpl onEnableSession();
+    CaptureStage onEnableSession();
 
     /**
      * This would be invoked once before the Camera2 capture session was going to close. The
@@ -87,7 +70,7 @@ public interface PreviewExtenderImpl {
      *
      * @return The request information to customize the session.
      */
-    CaptureStageImpl onDisableSession();
+    CaptureStage onDisableSession();
 
     /**
      * This callback would be invoked when CameraX going to change the configured surface with
