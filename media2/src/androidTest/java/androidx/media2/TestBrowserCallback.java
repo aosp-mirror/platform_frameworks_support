@@ -24,6 +24,7 @@ import android.os.Bundle;
 import androidx.annotation.CallSuper;
 import androidx.annotation.GuardedBy;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.media2.MediaController.ControllerCallback;
 import androidx.media2.MediaSession.CommandButton;
 import androidx.media2.MediaSessionTestBase.TestControllerCallbackInterface;
@@ -33,10 +34,10 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Mock {@link MediaController.ControllerCallback} that implements
+ * A proxy class for {@link MediaBrowser.BrowserCallback} which implements
  * {@link TestControllerCallbackInterface}
  */
-public class MockControllerCallback extends MediaController.ControllerCallback
+public class TestBrowserCallback extends MediaBrowser.BrowserCallback
         implements TestControllerCallbackInterface {
 
     public final ControllerCallback mCallbackProxy;
@@ -45,11 +46,8 @@ public class MockControllerCallback extends MediaController.ControllerCallback
     @GuardedBy("this")
     private Runnable mOnCustomCommandRunnable;
 
-    MockControllerCallback(@NonNull ControllerCallback callbackProxy) {
-        if (callbackProxy == null) {
-            throw new IllegalArgumentException("Callback proxy shouldn't be null. Test bug");
-        }
-        mCallbackProxy = callbackProxy;
+    TestBrowserCallback(@Nullable ControllerCallback callbackProxy) {
+        mCallbackProxy = callbackProxy == null ? new ControllerCallback() {} : callbackProxy;
     }
 
     @CallSuper
@@ -173,6 +171,20 @@ public class MockControllerCallback extends MediaController.ControllerCallback
     public void onVideoSizeChanged(@NonNull MediaController controller, @NonNull MediaItem item,
             @NonNull VideoSize videoSize) {
         mCallbackProxy.onVideoSizeChanged(controller, item, videoSize);
+    }
+
+    @Override
+    public void onChildrenChanged(@NonNull MediaBrowser browser, @NonNull String parentId,
+            int itemCount, @Nullable MediaLibraryService.LibraryParams params) {
+        ((MediaBrowser.BrowserCallback) mCallbackProxy).onChildrenChanged(
+                browser, parentId, itemCount, params);
+    }
+
+    @Override
+    public void onSearchResultChanged(@NonNull MediaBrowser browser, @NonNull String query,
+            int itemCount, @Nullable MediaLibraryService.LibraryParams params) {
+        ((MediaBrowser.BrowserCallback) mCallbackProxy).onSearchResultChanged(
+                browser, query, itemCount, params);
     }
 
     @Override
