@@ -162,6 +162,30 @@
     },
     {
       "key": {
+        "uuid": "809c9aef_4cbce6c0",
+        "filename": "benchmark/src/main/java/androidx/benchmark/AndroidBenchmarkRunner.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-04-18T19:54:59Z",
+      "side": 1,
+      "message": "Blarg, so two problems with removing the runner from experiments:\n\n1) We still want to override waitForActivitiesToComplete to not call super, to avoid sleeping for 2 seconds before and after each test method, because our IsolationActivity isn\u0027t finished. We could avoid this problem by closing and reopening the activity each time, in between each test, but in my local tests, that causes two problems:\n\n1a) flickering and status bar redraw - the device is constantly animating window transitions (even if I disable exit animation), and re-launching the launcher. https://screenshot.googleplex.com/dcy24ATiUMm (screenshot showing \u003e 50% of CPU used on irrelevant stuff, causing bench to be descheduled)\n\n1b) latency - another ~75ms per test, and that\u0027s *without* me adding an extra long sleep to wait for animations and launcher launch work to finish. Would probably be 500ms+ for that...\n\n\n2) TestRule is an interface, ClassRule is an annotation. We could ask that everyone annotate our rule, but it\u0027s an extra line of code that\u0027s easy to miss.",
+      "parentUuid": "5182a0c5_fb50f431",
+      "range": {
+        "startLine": 46,
+        "startChar": 77,
+        "endLine": 46,
+        "endChar": 98
+      },
+      "revId": "3d8b07e4208ae7799c11444948b41642f98bac0f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ad9f30e2_d9d428ab",
         "filename": "benchmark/src/main/java/androidx/benchmark/IsolationActivity.kt",
         "patchSetId": 1
