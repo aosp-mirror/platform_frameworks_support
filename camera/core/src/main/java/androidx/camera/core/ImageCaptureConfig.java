@@ -34,7 +34,8 @@ public final class ImageCaptureConfig
         implements UseCaseConfig<ImageCapture>,
         ImageOutputConfig,
         CameraDeviceConfig,
-        ThreadConfig {
+        ThreadConfig,
+        SessionEventConfig {
 
     // Option Declarations:
     // *********************************************************************************************
@@ -48,6 +49,8 @@ public final class ImageCaptureConfig
             Option.create("camerax.core.imageCapture.captureBundle", CaptureBundle.class);
     static final Option<CaptureProcessor> OPTION_CAPTURE_PROCESSOR =
             Option.create("camerax.core.imageCapture.captureProcessor", CaptureProcessor.class);
+    static final Option<Integer> OPTION_MAX_CAPTURE_STAGES =
+            Option.create("camerax.core.imageCapture.maxNumberOfCaptureStage", Integer.class);
 
     // *********************************************************************************************
 
@@ -153,6 +156,32 @@ public final class ImageCaptureConfig
     @RestrictTo(Scope.LIBRARY_GROUP)
     public CaptureProcessor getCaptureProcessor() {
         return retrieveOption(OPTION_CAPTURE_PROCESSOR);
+    }
+
+    /**
+     * Returns the max number of {@link CaptureStage}.
+     *
+     * @param valueIfMissing The value to return if this configuration option has not been set.
+     * @return The stored value or <code>valueIfMissing</code> if the value does not exist in
+     * this configuration.
+     * @hide
+     */
+    @RestrictTo(Scope.LIBRARY_GROUP)
+    @Nullable
+    public int getMaxCaptureStages(int valueIfMissing) {
+        return retrieveOption(OPTION_MAX_CAPTURE_STAGES, valueIfMissing);
+    }
+
+    /**
+     * Returns the max number of {@link CaptureStage}.
+     *
+     * @return The stored value, if it exists in this configuration.
+     * @throws IllegalArgumentException if the option does not exist in this configuration.
+     * @hide
+     */
+    @RestrictTo(Scope.LIBRARY_GROUP)
+    public int getMaxCaptureStages() {
+        return retrieveOption(OPTION_MAX_CAPTURE_STAGES);
     }
 
     // Start of the default implementation of Config
@@ -456,6 +485,42 @@ public final class ImageCaptureConfig
         return retrieveOption(OPTION_SURFACE_OCCUPANCY_PRIORITY);
     }
 
+    // Implementations of SessionEventConfig default methods
+
+    /** @hide */
+    @RestrictTo(Scope.LIBRARY_GROUP)
+    @Nullable
+    @Override
+    public SessionEventListener getSessionEventListener(
+            @Nullable SessionEventListener valueIfMissing) {
+        return retrieveOption(OPTION_SESSION_EVENT_LISTENER, valueIfMissing);
+    }
+
+    /** @hide */
+    @RestrictTo(Scope.LIBRARY_GROUP)
+    @Nullable
+    @Override
+    public SessionEventListener getSessionEventListener() {
+        return retrieveOption(OPTION_SESSION_EVENT_LISTENER);
+    }
+
+    /** @hide */
+    @RestrictTo(Scope.LIBRARY_GROUP)
+    @Nullable
+    @Override
+    public CaptureRequestInfo getCaptureRequestInfoProvider(
+            @Nullable CaptureRequestInfo valueIfMissing) {
+        return retrieveOption(OPTION_CORE_CAPTURE_REQUTEST_INFO, valueIfMissing);
+    }
+
+    /** @hide */
+    @RestrictTo(Scope.LIBRARY_GROUP)
+    @Nullable
+    @Override
+    public CaptureRequestInfo getCaptureRequestInfoProvider() {
+        return retrieveOption(OPTION_CORE_CAPTURE_REQUTEST_INFO);
+    }
+
     // End of the default implementation of Config
     // *********************************************************************************************
 
@@ -465,7 +530,8 @@ public final class ImageCaptureConfig
             ImageCapture, ImageCaptureConfig, ImageCaptureConfig.Builder>,
             ImageOutputConfig.Builder<ImageCaptureConfig.Builder>,
             CameraDeviceConfig.Builder<ImageCaptureConfig.Builder>,
-            ThreadConfig.Builder<ImageCaptureConfig.Builder> {
+            ThreadConfig.Builder<ImageCaptureConfig.Builder>,
+            SessionEventConfig.Builder<ImageCaptureConfig.Builder> {
 
         private final MutableOptionsBundle mMutableConfig;
 
@@ -569,6 +635,19 @@ public final class ImageCaptureConfig
         @RestrictTo(Scope.LIBRARY_GROUP)
         public Builder setCaptureProcessor(CaptureProcessor captureProcessor) {
             getMutableConfig().insertOption(OPTION_CAPTURE_PROCESSOR, captureProcessor);
+            return this;
+        }
+
+        /**
+         * Sets the max number of {@link CaptureStage}.
+         *
+         * @param maxCaptureStages The max CaptureStage number.
+         * @return The current Builder.
+         * @hide
+         */
+        @RestrictTo(Scope.LIBRARY_GROUP)
+        public Builder setMaxCaptureStages(int maxCaptureStages) {
+            getMutableConfig().insertOption(OPTION_MAX_CAPTURE_STAGES, maxCaptureStages);
             return this;
         }
 
@@ -720,6 +799,24 @@ public final class ImageCaptureConfig
         @Override
         public Builder setSurfaceOccupancyPriority(int priority) {
             getMutableConfig().insertOption(OPTION_SURFACE_OCCUPANCY_PRIORITY, priority);
+            return this;
+        }
+
+        // Implementations of SessionEventConfig.Builder default methods
+
+        /** @hide */
+        @RestrictTo(Scope.LIBRARY_GROUP)
+        @Override
+        public Builder setSessionEventListener(SessionEventListener sessionEventListener) {
+            getMutableConfig().insertOption(OPTION_SESSION_EVENT_LISTENER, sessionEventListener);
+            return this;
+        }
+
+        /** @hide */
+        @RestrictTo(Scope.LIBRARY_GROUP)
+        @Override
+        public Builder setCaptureRequestInfoProvider(CaptureRequestInfo captureRequestInfo) {
+            getMutableConfig().insertOption(OPTION_CORE_CAPTURE_REQUTEST_INFO, captureRequestInfo);
             return this;
         }
     }

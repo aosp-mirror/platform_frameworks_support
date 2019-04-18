@@ -16,7 +16,9 @@
 
 package androidx.camera.extensions.impl;
 
+import android.content.Context;
 import android.hardware.camera2.CameraCharacteristics;
+import android.util.Size;
 
 /**
  * Stub implementation for HDR view finder use case.
@@ -40,6 +42,42 @@ public final class HdrPreviewExtenderImpl implements PreviewExtenderImpl {
 
     @Override
     public CaptureStageImpl getCaptureStage() {
+        throw new RuntimeException("Stub, replace with implementation.");
+    }
+
+    @Override
+    public void onInit(String cameraId, CameraCharacteristics cameraCharacteristics,
+            Context context) {
+        throw new RuntimeException("Stub, replace with implementation.");
+    }
+
+    @Override
+    public void onDeInit() {
+        throw new RuntimeException("Stub, replace with implementation.");
+    }
+
+    @Override
+    public CaptureStageImpl onPresetSession() {
+        throw new RuntimeException("Stub, replace with implementation.");
+    }
+
+    @Override
+    public CaptureStageImpl onEnableSession() {
+        throw new RuntimeException("Stub, replace with implementation.");
+    }
+
+    @Override
+    public CaptureStageImpl onDisableSession() {
+        throw new RuntimeException("Stub, replace with implementation.");
+    }
+
+    @Override
+    public void onResolutionUpdate(Size size) {
+        throw new RuntimeException("Stub, replace with implementation.");
+    }
+
+    @Override
+    public void onImageFormatUpdate(int imageFormat) {
         throw new RuntimeException("Stub, replace with implementation.");
     }
 }
