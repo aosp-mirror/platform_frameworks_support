@@ -22,6 +22,30 @@
       "revId": "b77944f466e3d8cc6cbd1d86368d922bf1fae64d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94db3c71_e3891950",
+        "filename": "media2/api/1.0.0-alpha05.txt",
+        "patchSetId": 7
+      },
+      "lineNbr": 415,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-04-18T09:18:19Z",
+      "side": 1,
+      "message": "Talked offline and decided to revert changing getId to getSessionId.",
+      "parentUuid": "f0dec4e5_de2bbfca",
+      "range": {
+        "startLine": 415,
+        "startChar": 55,
+        "endLine": 415,
+        "endChar": 61
+      },
+      "revId": "b77944f466e3d8cc6cbd1d86368d922bf1fae64d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
