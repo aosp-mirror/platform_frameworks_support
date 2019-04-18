@@ -51,7 +51,6 @@ import org.gradle.api.JavaVersion.VERSION_1_8
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.Task
-import org.gradle.api.artifacts.ComponentModuleMetadataDetails
 import org.gradle.api.logging.configuration.ShowStacktrace
 import org.gradle.api.plugins.JavaLibraryPlugin
 import org.gradle.api.plugins.JavaPlugin
@@ -294,6 +293,7 @@ class AndroidXPlugin : Plugin<Project> {
         extension: TestedExtension,
         androidXExtension: AndroidXExtension
     ) {
+
         // Force AGP to use our version of JaCoCo
         extension.jacoco.version = Jacoco.VERSION
         extension.compileSdkVersion(COMPILE_SDK_VERSION)
