@@ -17,7 +17,9 @@
 package androidx.camera.extensions;
 
 import android.util.Log;
+import android.util.Size;
 
+import androidx.camera.core.CaptureStage;
 import androidx.camera.core.PreviewConfig;
 import androidx.camera.extensions.impl.HdrPreviewExtenderImpl;
 
@@ -54,6 +56,28 @@ public class HdrPreviewExtender extends PreviewExtender {
 
         @Override
         public void enableExtension() {
+        }
+
+        public void onInit(String cameraId) {
+        }
+
+        public void onDeInit() {
+        }
+
+        public CaptureStage onPresetSession() {
+            return null;
+        }
+
+        public CaptureStage onEnableSession() {
+            return null;
+        }
+
+        public CaptureStage onDisableSession() {
+            return null;
+        }
+
+
+        public void onResolutionUpdate(Size size, int imageFormat) {
         }
     }
 
