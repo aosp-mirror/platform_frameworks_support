@@ -48,4 +48,10 @@ public interface CaptureProcessor {
      *               no references to them should be kept.
      */
     void process(ImageProxyBundle bundle);
+
+    /**
+     * To get a maximum capture stage count to capture.
+     * @return the maximum count.
+     */
+    int getMaxCaptureStage();
 }

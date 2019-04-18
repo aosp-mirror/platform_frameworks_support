@@ -16,7 +16,9 @@
 
 package androidx.camera.extensions.impl;
 
+import android.content.Context;
 import android.hardware.camera2.CameraCharacteristics;
+import android.util.Size;
 
 import java.util.List;
 
@@ -41,11 +43,55 @@ public interface ImageCaptureExtenderImpl {
      */
     void enableExtension(String cameraId, CameraCharacteristics cameraCharacteristics);
 
-    /** The set of captures that are needed to create an image with the effect. */
-    List<CaptureStageImpl> getCaptureStages();
-
     /**
      * The processing that will be done on a set of captures to create and image with the effect.
      */
     CaptureProcessorImpl getCaptureProcessor();
+
+    /** The set of captures that are needed to create an image with the effect. */
+    List<CaptureStageImpl> getCaptureStages();
+
+    /**
+     * Notify to initial of the extension.
+     * @param cameraId The camera2 id string of the camera.
+     * @param cameraCharacteristics The {@link CameraCharacteristics} of the camera.
+     * @param context The {@link Context} used for CameraX.
+     */
+    void onInit(String cameraId, CameraCharacteristics cameraCharacteristics, Context context);
+
+    /**
+     * Notify to de-initial of the extension.
+     */
+    void onDeInit();
+
+    /**
+     * This method would be invoked before every session start.
+     * @return The request information to customize the session.
+     */
+    CaptureStageImpl onPresetSession();
+
+    /**
+     * This method would be invoked after every session start.
+     * @return The request information to customize the session.
+     */
+    CaptureStageImpl onEnableSession();
+
+    /**
+     * This method would be invoked before every session close.
+     * @return The request information to customize the session.
+     */
+    CaptureStageImpl onDisableSession();
+
+    /**
+     * This method would be invoked every resolution update.
+     * @param size for the surface.
+     */
+    void onResolutionUpdate(Size size);
+
+    /**
+     * This method would be invoked every image format update.
+     * @param imageFormat for the surface.
+     */
+    void onImageFormatUpdate(int imageFormat);
+
 }

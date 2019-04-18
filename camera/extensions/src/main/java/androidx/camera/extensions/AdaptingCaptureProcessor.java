@@ -69,4 +69,9 @@ final class AdaptingCaptureProcessor implements CaptureProcessor {
 
         mImpl.process(bundleMap);
     }
+
+    @Override
+    public int getMaxCaptureStage() {
+        return mImpl.getMaxCaptureStage();
+    }
 }

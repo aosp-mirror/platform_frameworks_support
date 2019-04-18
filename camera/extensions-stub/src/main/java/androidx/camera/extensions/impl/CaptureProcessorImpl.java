@@ -44,4 +44,10 @@ public interface CaptureProcessorImpl {
      *               should be kept.
      */
     void process(Map<Integer, Image> images);
+
+    /**
+     * To get a maximum capture stage count to capture.
+     * @return the maximum count.
+     */
+    int getMaxCaptureStage();
 }
