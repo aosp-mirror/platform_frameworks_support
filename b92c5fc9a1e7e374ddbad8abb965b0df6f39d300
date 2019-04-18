@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "63f899ea_8046313b",
+        "filename": "media2/common/build.gradle",
+        "patchSetId": 9
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-04-18T00:45:30Z",
+      "side": 1,
+      "message": "Removed this flag which is introduced at aosp/904535, after changing SubtitleTrack.Cue as (restricted hidden) public from package private.",
+      "parentUuid": "a2b5b6bd_1159281d",
+      "range": {
+        "startLine": 41,
+        "startChar": 4,
+        "endLine": 41,
+        "endChar": 31
+      },
+      "revId": "b92c5fc9a1e7e374ddbad8abb965b0df6f39d300",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6139e39e_f49b0ba8",
         "filename": "media2/session/api/current.txt",
         "patchSetId": 9
