@@ -19,6 +19,7 @@ package androidx.camera.extensions.impl;
 import android.media.Image;
 import android.view.Surface;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -44,4 +45,13 @@ public interface CaptureProcessorImpl {
      *               should be kept.
      */
     void process(Map<Integer, Image> images);
+
+    /** The set of captures that are needed to create an image with the effect. */
+    List<CaptureStageImpl> getCaptureStages();
+
+    /**
+     * To get a maximum capture stage count to capture.
+     * @return the maximum count.
+     */
+    int getMaxCaptureStage();
 }
