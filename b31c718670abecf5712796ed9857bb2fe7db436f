@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "857d46d2_85cdb4b3",
+        "filename": "media2/common/src/main/java/androidx/media2/MediaParcelUtils.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-04-18T03:15:03Z",
+      "side": 1,
+      "message": "The duplication of toParcelable things (MediaUtils in session and this class) might be problematic if the logic of one of them is changed. I think it would be nice to remove the same methods from MediaUtils and use MediaParcelUtils\u0027s method instead.",
+      "revId": "b31c718670abecf5712796ed9857bb2fe7db436f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
