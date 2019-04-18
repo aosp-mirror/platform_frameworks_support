@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "31b88bc0_4b4c3119",
+        "filename": "benchmark/src/main/java/androidx/benchmark/AndroidBenchmarkRunner.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-04-18T12:11:46Z",
+      "side": 1,
+      "message": "I\u0027d a bit more docs about what it does (maybe just copy from IsolatedActivity)",
+      "revId": "3d8b07e4208ae7799c11444948b41642f98bac0f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7aadc5f2_ef834d17",
         "filename": "benchmark/src/main/java/androidx/benchmark/AndroidBenchmarkRunner.kt",
         "patchSetId": 1
@@ -90,6 +107,76 @@
         "startChar": 77,
         "endLine": 46,
         "endChar": 98
+      },
+      "revId": "3d8b07e4208ae7799c11444948b41642f98bac0f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a30b88b9_a7581738",
+        "filename": "benchmark/src/main/java/androidx/benchmark/AndroidBenchmarkRunner.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-04-18T12:11:46Z",
+      "side": 1,
+      "message": "\u003e We don\u0027t know the ordering of our rule\u0027s construction vs an ActivityTestRule - we don\u0027t want to launch an activity after it does.\n\nwhat if you make your custom rule @ClassRule instead of @TestRule, then you\u0027ll have a guarantee to be called before ActivityTestRule? It is hack as well, but I think it is less gross than this one.\n\nMy concern: providing your own AndroidJUnitRunner composes badly, for example internally in google we have custom runner.",
+      "parentUuid": "1c50a99c_6b60037d",
+      "range": {
+        "startLine": 46,
+        "startChar": 77,
+        "endLine": 46,
+        "endChar": 98
+      },
+      "revId": "3d8b07e4208ae7799c11444948b41642f98bac0f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad9f30e2_d9d428ab",
+        "filename": "benchmark/src/main/java/androidx/benchmark/IsolationActivity.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-04-18T12:11:46Z",
+      "side": 1,
+      "message": "is this log and one below useful for developers? (We don\u0027t usually log, but this is test, so I guess it is bit different story)",
+      "range": {
+        "startLine": 79,
+        "startChar": 22,
+        "endLine": 79,
+        "endChar": 44
+      },
+      "revId": "3d8b07e4208ae7799c11444948b41642f98bac0f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cbca3b9d_4aaab1eb",
+        "filename": "slices/benchmark/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-04-18T12:11:46Z",
+      "side": 1,
+      "message": "let\u0027s move it to AndroidXPlugin? So it is automatically done for every benchmark project",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 91
       },
       "revId": "3d8b07e4208ae7799c11444948b41642f98bac0f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
