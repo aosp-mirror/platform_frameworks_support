@@ -21,6 +21,8 @@ import android.view.Surface;
 import androidx.annotation.RestrictTo;
 import androidx.annotation.RestrictTo.Scope;
 
+import java.util.List;
+
 /**
  * A processing step of the image capture pipeline.
  *
@@ -48,4 +50,16 @@ public interface CaptureProcessor {
      *               no references to them should be kept.
      */
     void process(ImageProxyBundle bundle);
+
+
+    /** The set of captures that are needed to create an image with the effect.
+     *  @return a set of captureStages.
+     */
+    List<CaptureStage> getCaptureStages();
+
+    /**
+     * To get a maximum capture stage count to capture.
+     * @return the maximum count.
+     */
+    int getMaxCaptureStage();
 }

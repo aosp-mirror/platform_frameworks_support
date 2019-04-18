@@ -20,12 +20,15 @@ import android.media.Image;
 import android.view.Surface;
 
 import androidx.camera.core.CaptureProcessor;
+import androidx.camera.core.CaptureStage;
 import androidx.camera.core.ImageProxy;
 import androidx.camera.core.ImageProxyBundle;
 import androidx.camera.extensions.impl.CaptureProcessorImpl;
+import androidx.camera.extensions.impl.CaptureStageImpl;
 
 import com.google.common.util.concurrent.ListenableFuture;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -68,5 +71,24 @@ final class CaptureProcessorAdaptor implements CaptureProcessor {
         }
 
         mImpl.process(bundleMap);
+    }
+
+    @Override
+    public List<CaptureStage> getCaptureStages() {
+        List<CaptureStage> ret = new ArrayList<>();
+
+        List<CaptureStageImpl> captureStageImplList = mImpl.getCaptureStages();
+        if (captureStageImplList != null && !captureStageImplList.isEmpty()) {
+            for (CaptureStageImpl s : captureStageImplList) {
+                ret.add(new CaptureStageAdaptor(s));
+            }
+        }
+
+        return ret;
+    }
+
+    @Override
+    public int getMaxCaptureStage() {
+        return mImpl.getMaxCaptureStage();
     }
 }

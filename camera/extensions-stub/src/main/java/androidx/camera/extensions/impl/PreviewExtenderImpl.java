@@ -17,6 +17,7 @@
 package androidx.camera.extensions.impl;
 
 import android.hardware.camera2.CameraCharacteristics;
+import android.util.Size;
 
 /**
  * Provides abstract methods that the OEM needs to implement to enable extensions in the view
@@ -42,4 +43,41 @@ public interface PreviewExtenderImpl {
 
     /** The set of parameters required to produce the effect on images. */
     CaptureStageImpl getCaptureStage();
+
+    /**
+     * Notify to initial of the extension.
+     * @param cameraId The camera id string of the camera.
+     * @param cameraCharacteristics The {@link CameraCharacteristics} of the camera.
+     */
+    void onInit(String cameraId, CameraCharacteristics cameraCharacteristics);
+
+    /**
+     * Notify to de-initial of the extension.
+     */
+    void onDeInit();
+
+    /**
+     * This method would be invoked before every session start.
+     * @return The request information to customize the session.
+     */
+    CaptureStageImpl onPresetSession();
+
+    /**
+     * This method would be invoked after every session start.
+     * @return The request information to customize the session.
+     */
+    CaptureStageImpl onEnableSession();
+
+    /**
+     * This method would be invoked before every session close.
+     * @return The request information to customize the session.
+     */
+    CaptureStageImpl onDisableSession();
+
+    /**
+     * This method would be invoked when every resolution updates.
+     * @param size for the surface.
+     * @param imageFormat for the surface.
+     */
+    void onResolutionUpdate(Size size, int imageFormat);
 }
