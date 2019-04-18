@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "57425b36_9c27edc8",
+        "filename": "biometric/src/main/java/androidx/biometric/BiometricPrompt.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 1157913
+      },
+      "writtenOn": "2019-04-18T02:54:26Z",
+      "side": 0,
+      "message": "is there a reason this comment is gone here, but still exists on line 494?",
+      "range": {
+        "startLine": 519,
+        "startChar": 16,
+        "endLine": 519,
+        "endChar": 64
+      },
+      "revId": "055f125639481b44f20d6bcd0ef6a83098c8197b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
