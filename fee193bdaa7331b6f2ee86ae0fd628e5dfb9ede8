@@ -22,6 +22,30 @@
       "revId": "fee193bdaa7331b6f2ee86ae0fd628e5dfb9ede8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92bdb8a8_45fd14ff",
+        "filename": "work/workmanager-testing/src/main/java/androidx/work/testing/TestListenableWorkerBuilder.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2019-04-18T17:51:52Z",
+      "side": 1,
+      "message": "We expose a setExecutor on TestWorkerBuilder to switch executors, and call build() again. So its public in TestWorkerBuilder, which is a subclass of TestListenableWorkerBuilder. I think the subclass cannot be less restrictive than the parent.",
+      "parentUuid": "2d3d7acc_7914eb00",
+      "range": {
+        "startLine": 273,
+        "startChar": 4,
+        "endLine": 273,
+        "endChar": 10
+      },
+      "revId": "fee193bdaa7331b6f2ee86ae0fd628e5dfb9ede8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
