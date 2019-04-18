@@ -11,7 +11,7 @@ function getStudioUrl() {
   ideaMajorVersion="$(grep "idea_major_version=" ${propertiesFile} | sed 's/[^=]*=//')"
   buildNumber="$(grep "studio_build_number=" ${propertiesFile} | sed 's/[^=]*=//')"
   osName="$1"
-  studioUrl="https://dl.google.com/dl/android/studio/ide-zips/${version}/android-studio-ide-${ideaMajorVersion}.${buildNumber}-${osName}.zip"
+  studioUrl="https://dl.google.com/dl/android/studio/ide-zips/${version}/android-studio-ide-${ideaMajorVersion}.${buildNumber}-${osName}.tar.gz"
   echo "${studioUrl}"
 }
 
@@ -33,7 +33,7 @@ osName="$(getOsName)"
 studioUrl="$(getStudioUrl $osName)"
 studioDestName="$(basename ${studioUrl})"
 studioZipPath="${tempDir}/${studioDestName}"
-studioUnzippedPath="$(echo ${studioZipPath} | sed 's/\.zip$//')"
+studioUnzippedPath="$(echo ${studioZipPath} | sed 's/\.tar.gz$//')"
 
 function downloadFile() {
   fromUrl="$1"
