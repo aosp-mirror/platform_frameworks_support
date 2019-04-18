@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3e1c664b_b119d94c",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/PublishDocsRules.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-04-18T21:23:09Z",
+      "side": 1,
+      "message": "Is there a bug tracking to reenable this?",
+      "range": {
+        "startLine": 79,
+        "startChar": 3,
+        "endLine": 81,
+        "endChar": 55
+      },
+      "revId": "f838a23fcc611affd3daa4006be437a52575f630",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d45757a3_9c8b2710",
+        "filename": "media2/common/src/main/AndroidManifest.xml",
+        "patchSetId": 12
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-04-18T21:23:09Z",
+      "side": 1,
+      "message": "Your each library should have a unique package. It can be a subpackage like androidx.media2.common. This is so that if we add resources in the future they all have unique R packages.",
+      "range": {
+        "startLine": 16,
+        "startChar": 19,
+        "endLine": 16,
+        "endChar": 34
+      },
+      "revId": "f838a23fcc611affd3daa4006be437a52575f630",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b75d86f3_b570eb69",
+        "filename": "media2/player/build.gradle",
+        "patchSetId": 12
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-04-18T21:23:09Z",
+      "side": 1,
+      "message": "File a move to remove these. Your libraries should not have these warnings.",
+      "range": {
+        "startLine": 48,
+        "startChar": 4,
+        "endLine": 49,
+        "endChar": 37
+      },
+      "revId": "f838a23fcc611affd3daa4006be437a52575f630",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
