@@ -155,6 +155,30 @@
     },
     {
       "key": {
+        "uuid": "aaa0383d_f5c788aa",
+        "filename": "car/core/res/layout/car_list_item_check_box_content.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1483859
+      },
+      "writtenOn": "2019-04-18T07:21:18Z",
+      "side": 1,
+      "message": "vang..hinh",
+      "parentUuid": "ce2cb998_1fcc438e",
+      "range": {
+        "startLine": 28,
+        "startChar": 3,
+        "endLine": 60,
+        "endChar": 59
+      },
+      "revId": "edc5bd61143ed432e9f2031cc027553992c2456e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e9290e54_4b9e19e9",
         "filename": "car/core/res/layout/car_list_item_radio_content.xml",
         "patchSetId": 2
