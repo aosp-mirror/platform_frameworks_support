@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6e27bb5a_8f534aff",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CheckedSurfaceTexture.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1061247
+      },
+      "writtenOn": "2019-04-18T16:34:01Z",
+      "side": 1,
+      "message": "The if-check for empty list can be removed. The for-loop and clear call also work for empty list.",
+      "range": {
+        "startLine": 202,
+        "startChar": 13,
+        "endLine": 202,
+        "endChar": 34
+      },
+      "revId": "c5441d2fe8eb1e7eb507235a49094bf5d734383c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
