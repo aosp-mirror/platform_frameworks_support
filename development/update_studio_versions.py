@@ -29,9 +29,9 @@ def get_studio_version_string(agp_version):
     # Remove the patch number as this is not used by Studio outside of stable releases
     major_version = prefix[:-2]
 
-    suffix = suffix.replace("alpha", "Alpha")
+    # Studio uses canary instead of alpha
+    suffix = suffix.replace("alpha", "Canary")
     suffix = suffix.replace("beta", "Beta")
-    suffix = suffix.replace("canary", "Canary")
     suffix = suffix.replace("rc", "RC")
 
     release_type = suffix[:-2]
