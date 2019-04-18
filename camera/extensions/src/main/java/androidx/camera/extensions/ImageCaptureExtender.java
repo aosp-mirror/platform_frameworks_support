@@ -26,7 +26,6 @@ import androidx.camera.extensions.impl.CaptureStageImpl;
 import androidx.camera.extensions.impl.ImageCaptureExtenderImpl;
 
 import java.util.List;
-
 /**
  * Class for using an OEM provided extension on image capture.
  */
@@ -53,11 +52,11 @@ abstract class ImageCaptureExtender {
         mImpl.enableExtension(cameraId, cameraCharacteristics);
 
         CaptureProcessorImpl captureProcessor = mImpl.getCaptureProcessor();
+        List<CaptureStageImpl> captureStages = null;
         if (captureProcessor != null) {
             mBuilder.setCaptureProcessor(new AdaptingCaptureProcessor(captureProcessor));
+            captureStages = captureProcessor.getCaptureStages();
         }
-
-        List<CaptureStageImpl> captureStages = mImpl.getCaptureStages();
 
         if (captureStages != null && !captureStages.isEmpty()) {
             CaptureBundle captureBundle = new CaptureBundle();
@@ -67,5 +66,9 @@ abstract class ImageCaptureExtender {
             }
             mBuilder.setCaptureBundle(captureBundle);
         }
+
+        mBuilder.setSessionEventListener(new ImageCaptureAdapter(mImpl));
     }
+
+
 }

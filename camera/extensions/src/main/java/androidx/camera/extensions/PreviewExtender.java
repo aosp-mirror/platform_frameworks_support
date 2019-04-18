@@ -76,5 +76,11 @@ public abstract class PreviewExtender {
             mBuilder.getMutableConfig().insertOption(objectOpt,
                     camera2Config.retrieveOption(objectOpt));
         }
+
+        PreviewExtenderAdapter previewExtenderAdapter = new PreviewExtenderAdapter(mImpl);
+
+        mBuilder.setSessionEventListener(previewExtenderAdapter);
+        mBuilder.setCaptureRequestInfoProvider(previewExtenderAdapter);
     }
+
 }
