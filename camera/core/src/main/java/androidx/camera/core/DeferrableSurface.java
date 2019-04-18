@@ -72,6 +72,11 @@ public abstract class DeferrableSurface {
     public void refresh() {
     }
 
+    /** Frees the unused surfaces in the {@link DeferrableSurface} if needed. */
+    public void freeUnusedSurfaces() {
+
+    }
+
     /** Notifies this surface is attached */
     public void notifySurfaceAttached() {
         synchronized (mLock) {
@@ -161,6 +166,7 @@ public abstract class DeferrableSurface {
         });
     }
 
+    /** Test purpose to get the attached count. */
     @VisibleForTesting
     public int getAttachedCount() {
         synchronized (mLock) {
