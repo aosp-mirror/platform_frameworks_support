@@ -119,6 +119,37 @@ class NavDestinationAndroidTest {
     }
 
     @Test
+    fun testIsValidDeepLinkValidLinkExact() {
+        val destination = NoOpNavigator().createDestination()
+        val deepLink = Uri.parse("android-app://androidx.navigation.test/test")
+        destination.addDeepLink(deepLink.toString())
+
+        assertThat(destination.hasDeepLink(deepLink)).isTrue()
+    }
+
+    @Test
+    fun testIsValidDeepLinkValidLinkPattern() {
+        val destination = NoOpNavigator().createDestination()
+        val stringArgument = NavArgument.Builder()
+            .setType(NavType.StringType)
+            .build()
+        destination.addArgument("testString", stringArgument)
+        destination.addDeepLink("android-app://androidx.navigation.test/{testString}")
+        val deepLink = Uri.parse("android-app://androidx.navigation.test/test")
+        destination.addDeepLink(deepLink.toString())
+
+        assertThat(destination.hasDeepLink(deepLink)).isTrue()
+    }
+
+    @Test
+    fun testIsValidDeepLinkInvalidLink() {
+        val destination = NoOpNavigator().createDestination()
+
+        val deepLink = Uri.parse("android-app://androidx.navigation.test/invalid")
+        assertThat(destination.hasDeepLink(deepLink)).isFalse()
+    }
+
+    @Test
     fun addInDefaultArgs() {
         val destination = NoOpNavigator().createDestination()
         val stringArgument = NavArgument.Builder()
