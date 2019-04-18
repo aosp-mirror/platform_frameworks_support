@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "73f48f0f_dd18e738",
+        "filename": "biometric/src/main/java/androidx/biometric/BiometricPrompt.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 1432799
+      },
+      "writtenOn": "2019-04-18T19:43:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8c5ae466_b402b1ec",
+      "range": {
+        "startLine": 474,
+        "startChar": 30,
+        "endLine": 474,
+        "endChar": 62
+      },
+      "revId": "4aa7995980e7b32564b53c7cc30c9141c21c2e57",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "76e7fdaf_9d7f53ce",
         "filename": "biometric/src/main/java/androidx/biometric/BiometricPrompt.java",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "4aa7995980e7b32564b53c7cc30c9141c21c2e57",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "568cc8d2_b831ab48",
+        "filename": "biometric/src/main/java/androidx/biometric/BiometricPrompt.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 499,
+      "author": {
+        "id": 1432799
+      },
+      "writtenOn": "2019-04-18T19:43:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "76e7fdaf_9d7f53ce",
+      "range": {
+        "startLine": 499,
+        "startChar": 38,
+        "endLine": 499,
+        "endChar": 67
+      },
+      "revId": "4aa7995980e7b32564b53c7cc30c9141c21c2e57",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
