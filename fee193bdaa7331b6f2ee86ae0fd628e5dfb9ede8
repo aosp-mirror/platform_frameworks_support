@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2d3d7acc_7914eb00",
+        "filename": "work/workmanager-testing/src/main/java/androidx/work/testing/TestListenableWorkerBuilder.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-18T17:43:53Z",
+      "side": 1,
+      "message": "Is there a reason this needs to be public? Or can it also be package private?",
+      "range": {
+        "startLine": 273,
+        "startChar": 4,
+        "endLine": 273,
+        "endChar": 10
+      },
+      "revId": "fee193bdaa7331b6f2ee86ae0fd628e5dfb9ede8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
