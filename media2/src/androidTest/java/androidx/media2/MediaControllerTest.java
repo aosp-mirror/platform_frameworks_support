@@ -42,6 +42,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.media.AudioAttributesCompat;
 import androidx.media.VolumeProviderCompat;
+import androidx.media2.MediaBrowser.BrowserCallback;
 import androidx.media2.MediaController.ControllerCallback;
 import androidx.media2.MediaController.PlaybackInfo;
 import androidx.media2.MediaLibraryService.MediaLibrarySession.MediaLibrarySessionCallback;
@@ -136,18 +137,20 @@ public class MediaControllerTest extends MediaSessionTestBase {
     }
 
     /**
-     * Test if the {@link MockControllerCallback} wraps the callback proxy
-     * without missing any method.
+     * Test if the {@link TestBrowserCallback} wraps the callback proxy without missing any method.
      */
     @Test
-    public void testTestControllerCallback() {
+    public void testTestBrowserCallback() {
         prepareLooper();
-        Method[] methods = MockControllerCallback.class.getMethods();
+        Method[] methods = TestBrowserCallback.class.getMethods();
         assertNotNull(methods);
         for (int i = 0; i < methods.length; i++) {
-            // For any methods in the controller callback, TestControllerCallback should have
+            // For any methods in the controller callback, TestBrowserCallback should have
             // overriden the method and call matching API in the callback proxy.
-            assertNotEquals("TestControllerCallback should override " + methods[i]
+            assertNotEquals("TestBrowserCallback should override " + methods[i]
+                            + " and call callback proxy",
+                    BrowserCallback.class, methods[i].getDeclaringClass());
+            assertNotEquals("TestBrowserCallback should override " + methods[i]
                             + " and call callback proxy",
                     ControllerCallback.class, methods[i].getDeclaringClass());
         }

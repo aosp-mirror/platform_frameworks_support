@@ -24,7 +24,6 @@ import static androidx.media2.TestUtils.assertMediaItemWithId;
 import static androidx.media2.TestUtils.createLibraryParams;
 
 import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertNull;
 import static junit.framework.Assert.assertTrue;
 import static junit.framework.Assert.fail;
@@ -32,14 +31,12 @@ import static junit.framework.Assert.fail;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 
-import android.content.Context;
 import android.os.Build;
 import android.os.Process;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.media2.MediaBrowser.BrowserCallback;
-import androidx.media2.MediaController.ControllerCallback;
 import androidx.media2.MediaLibraryService.LibraryParams;
 import androidx.media2.MediaLibraryService.MediaLibrarySession;
 import androidx.media2.MediaLibraryService.MediaLibrarySession.MediaLibrarySessionCallback;
@@ -51,7 +48,6 @@ import androidx.test.filters.SdkSuppress;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.lang.reflect.Method;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
@@ -70,17 +66,19 @@ public class MediaBrowserTest extends MediaControllerTest {
     private static final String TAG = "MediaBrowserTest";
 
     @Override
-    TestControllerInterface onCreateController(final @NonNull SessionToken token,
-            final @Nullable ControllerCallback callback) throws InterruptedException {
-        final AtomicReference<TestControllerInterface> controller = new AtomicReference<>();
+    MediaController onCreateController(final @NonNull SessionToken token,
+            final @Nullable TestBrowserCallback callback) throws InterruptedException {
+        final AtomicReference<MediaController> controller = new AtomicReference<>();
         sHandler.postAndSync(new Runnable() {
             @Override
             public void run() {
                 // Create controller on the test handler, for changing MediaBrowserCompat's Handler
                 // Looper. Otherwise, MediaBrowserCompat will post all the commands to the handler
                 // and commands wouldn't be run if tests codes waits on the test handler.
-                controller.set(new TestMediaBrowser(
-                        mContext, token, new MockBrowserCallback(callback)));
+                controller.set(new MediaBrowser.Builder(mContext)
+                        .setSessionToken(token)
+                        .setControllerCallback(sHandlerExecutor, callback)
+                        .build());
             }
         });
         return controller.get();
@@ -94,23 +92,6 @@ public class MediaBrowserTest extends MediaControllerTest {
             throws InterruptedException {
         return (MediaBrowser) createController(MockMediaLibraryService.getToken(mContext),
                 true, callback);
-    }
-
-    /**
-     * Test if the {@link MockBrowserCallback} wraps the callback proxy without missing any method.
-     */
-    @Test
-    public void testTestBrowserCallback() {
-        prepareLooper();
-        Method[] methods = MockBrowserCallback.class.getMethods();
-        assertNotNull(methods);
-        for (int i = 0; i < methods.length; i++) {
-            // For any methods in the controller callback, TestControllerCallback should have
-            // overriden the method and call matching API in the callback proxy.
-            assertNotEquals("TestBrowserCallback should override " + methods[i]
-                            + " and call callback proxy",
-                    BrowserCallback.class, methods[i].getDeclaringClass());
-        }
     }
 
     @Test
@@ -531,20 +512,5 @@ public class MediaBrowserTest extends MediaControllerTest {
 
         // onChildrenChanged() should be called.
         assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
-    }
-
-    public class TestMediaBrowser extends MediaBrowser implements TestControllerInterface {
-        private final BrowserCallback mCallback;
-
-        public TestMediaBrowser(@NonNull Context context, @NonNull SessionToken token,
-                @NonNull BrowserCallback callback) {
-            super(context, token, sHandlerExecutor, callback);
-            mCallback = callback;
-        }
-
-        @Override
-        public BrowserCallback getCallback() {
-            return mCallback;
-        }
     }
 }
