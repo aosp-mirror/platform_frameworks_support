@@ -34,7 +34,8 @@ public final class ImageCaptureConfig
         implements UseCaseConfig<ImageCapture>,
         ImageOutputConfig,
         CameraDeviceConfig,
-        ThreadConfig {
+        ThreadConfig,
+        SessionEventConfig {
 
     // Option Declarations:
     // *********************************************************************************************
@@ -456,6 +457,25 @@ public final class ImageCaptureConfig
         return retrieveOption(OPTION_SURFACE_OCCUPANCY_PRIORITY);
     }
 
+    // Implementations of SessionEventConfig default methods
+
+    /** @hide */
+    @RestrictTo(Scope.LIBRARY_GROUP)
+    @Nullable
+    @Override
+    public SessionEventListener getSessionEventListener(
+            @Nullable SessionEventListener valueIfMissing) {
+        return retrieveOption(OPTION_SESSION_EVENT_LISTENER, valueIfMissing);
+    }
+
+    /** @hide */
+    @RestrictTo(Scope.LIBRARY_GROUP)
+    @Nullable
+    @Override
+    public SessionEventListener getSessionEventListener() {
+        return retrieveOption(OPTION_SESSION_EVENT_LISTENER);
+    }
+
     // End of the default implementation of Config
     // *********************************************************************************************
 
@@ -465,7 +485,8 @@ public final class ImageCaptureConfig
             ImageCapture, ImageCaptureConfig, ImageCaptureConfig.Builder>,
             ImageOutputConfig.Builder<ImageCaptureConfig.Builder>,
             CameraDeviceConfig.Builder<ImageCaptureConfig.Builder>,
-            ThreadConfig.Builder<ImageCaptureConfig.Builder> {
+            ThreadConfig.Builder<ImageCaptureConfig.Builder>,
+            SessionEventConfig.Builder<ImageCaptureConfig.Builder> {
 
         private final MutableOptionsBundle mMutableConfig;
 
@@ -720,6 +741,16 @@ public final class ImageCaptureConfig
         @Override
         public Builder setSurfaceOccupancyPriority(int priority) {
             getMutableConfig().insertOption(OPTION_SURFACE_OCCUPANCY_PRIORITY, priority);
+            return this;
+        }
+
+        // Implementations of SessionEventConfig.Builder default methods
+
+        /** @hide */
+        @RestrictTo(Scope.LIBRARY_GROUP)
+        @Override
+        public Builder setSessionEventListener(SessionEventListener sessionEventListener) {
+            getMutableConfig().insertOption(OPTION_SESSION_EVENT_LISTENER, sessionEventListener);
             return this;
         }
     }

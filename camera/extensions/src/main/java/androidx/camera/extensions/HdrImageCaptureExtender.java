@@ -17,7 +17,9 @@
 package androidx.camera.extensions;
 
 import android.util.Log;
+import android.util.Size;
 
+import androidx.camera.core.CaptureStage;
 import androidx.camera.core.ImageCaptureConfig;
 import androidx.camera.extensions.impl.HdrImageCaptureExtenderImpl;
 /**
@@ -53,6 +55,27 @@ public class HdrImageCaptureExtender extends ImageCaptureExtender {
 
         @Override
         public void enableExtension() {
+        }
+
+        public void onInit(String cameraId) {
+        }
+
+        public void onDeInit() {
+        }
+
+        public CaptureStage onPresetSession() {
+            return null;
+        }
+
+        public CaptureStage onEnableSession() {
+            return null;
+        }
+
+        public CaptureStage onDisableSession() {
+            return null;
+        }
+
+        public void onResolutionUpdate(Size size, int imageFormat) {
         }
     }
 
