@@ -16,11 +16,13 @@
 package androidx.ui.engine.text.platform
 
 import android.os.Build
+import android.text.Layout
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.TextPaint
 import android.text.TextUtils
 import android.text.style.AbsoluteSizeSpan
+import android.text.style.AlignmentSpan
 import android.text.style.BackgroundColorSpan
 import android.text.style.ForegroundColorSpan
 import android.text.style.LeadingMarginSpan
@@ -354,6 +356,20 @@ internal class ParagraphAndroid constructor(
                 )
             }
 
+            style.textAlign?.let { align ->
+                val (spanStart, spanEnd) = adjustSpanPosition(text, start, end)
+                // Filter out invalid result.
+                if (spanStart >= spanEnd) return@let
+
+                // TODO(haoyuchang): Support TextAlign.JUSTIFY
+                spannableString.setSpan(
+                    AlignmentSpan.Standard(TextAlignmentAdapter.get(align)),
+                    spanStart,
+                    spanEnd,
+                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
+            }
+
             // Be aware that SuperscriptSpan needs to be applied before all other spans which
             // affect FontMetrics
             style.baselineShift?.let {
@@ -495,5 +511,41 @@ internal class ParagraphAndroid constructor(
             }
         }
         return spannableString
+    }
+}
+
+internal object TextAlignmentAdapter {
+    val ALIGN_LEFT_FRAMEWORK: Layout.Alignment
+    val ALIGN_RIGHT_FRAMEWORK: Layout.Alignment
+
+    init {
+        val values = Layout.Alignment.values()
+        var alignLeft = Layout.Alignment.ALIGN_NORMAL
+        var alignRight = Layout.Alignment.ALIGN_NORMAL
+        for (value in values) {
+            if (value.name.equals("ALIGN_LEFT")) {
+                alignLeft = value
+                continue
+            }
+
+            if (value.name.equals("ALIGN_RIGHT")) {
+                alignRight = value
+                continue
+            }
+        }
+
+        ALIGN_LEFT_FRAMEWORK = alignLeft
+        ALIGN_RIGHT_FRAMEWORK = alignRight
+    }
+
+    fun get(textAlign: TextAlign): Layout.Alignment {
+        return when (textAlign) {
+            TextAlign.LEFT -> ALIGN_LEFT_FRAMEWORK
+            TextAlign.RIGHT -> ALIGN_RIGHT_FRAMEWORK
+            TextAlign.CENTER -> Layout.Alignment.ALIGN_CENTER
+            TextAlign.END -> Layout.Alignment.ALIGN_OPPOSITE
+            TextAlign.START -> Layout.Alignment.ALIGN_NORMAL
+            else -> Layout.Alignment.ALIGN_NORMAL
+        }
     }
 }
