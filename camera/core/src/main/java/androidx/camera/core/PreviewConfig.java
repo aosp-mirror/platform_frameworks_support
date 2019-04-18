@@ -33,7 +33,17 @@ public final class PreviewConfig
         implements UseCaseConfig<Preview>,
         ImageOutputConfig,
         CameraDeviceConfig,
-        ThreadConfig {
+        ThreadConfig,
+        SessionEventConfig {
+
+    /**
+     * Option: camerax.core.captureRequestInfo
+     *
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+    static final Config.Option<CaptureRequestInfo> OPTION_CORE_CAPTURE_REQUTEST_INFO =
+            Config.Option.create("camerax.core.captureRequestInfo", CaptureRequestInfo.class);
 
     private final OptionsBundle mConfig;
 
@@ -257,6 +267,33 @@ public final class PreviewConfig
         return retrieveOption(ImageOutputConfig.OPTION_TARGET_RESOLUTION);
     }
 
+    /**
+     * Returns the {@link CaptureRequestInfo}.
+     *
+     * @param valueIfMissing The value to return if this configuration option has not been set.
+     * @return The stored value or <code>valueIfMissing</code> if the value does not exist in
+     * this
+     * configuration.
+     * @hide
+     */
+    @RestrictTo(Scope.LIBRARY_GROUP)
+    @Nullable
+    public CaptureRequestInfo getCaptureRequestInfoProvider(
+            @Nullable CaptureRequestInfo valueIfMissing) {
+        return retrieveOption(OPTION_CORE_CAPTURE_REQUTEST_INFO, valueIfMissing);
+    }
+
+    /**
+     * Returns the {@link CaptureRequestInfo}.
+     *
+     * @return The stored value, if it exists in this configuration.
+     * @hide
+     */
+    @RestrictTo(Scope.LIBRARY_GROUP)
+    public CaptureRequestInfo getCaptureRequestInfoProvider() {
+        return retrieveOption(OPTION_CORE_CAPTURE_REQUTEST_INFO);
+    }
+
     /** @hide */
     @RestrictTo(Scope.LIBRARY_GROUP)
     @Override
@@ -343,6 +380,25 @@ public final class PreviewConfig
         return retrieveOption(OPTION_SURFACE_OCCUPANCY_PRIORITY);
     }
 
+    // Implementations of SessionEventConfig default methods
+
+    /** @hide */
+    @Nullable
+    @Override
+    @RestrictTo(Scope.LIBRARY_GROUP)
+    public SessionEventListener getSessionEventListener(
+            @Nullable SessionEventListener valueIfMissing) {
+        return retrieveOption(OPTION_SESSION_EVENT_LISTENER, valueIfMissing);
+    }
+
+    /** @hide */
+    @Nullable
+    @Override
+    @RestrictTo(Scope.LIBRARY_GROUP)
+    public SessionEventListener getSessionEventListener() {
+        return retrieveOption(OPTION_SESSION_EVENT_LISTENER);
+    }
+
     // End of the default implementation of Config
     // *********************************************************************************************
 
@@ -351,7 +407,8 @@ public final class PreviewConfig
             implements UseCaseConfig.Builder<Preview, PreviewConfig, PreviewConfig.Builder>,
             ImageOutputConfig.Builder<PreviewConfig.Builder>,
             CameraDeviceConfig.Builder<PreviewConfig.Builder>,
-            ThreadConfig.Builder<PreviewConfig.Builder> {
+            ThreadConfig.Builder<PreviewConfig.Builder>,
+            SessionEventConfig.Builder<PreviewConfig.Builder> {
 
         private final MutableOptionsBundle mMutableConfig;
 
@@ -511,6 +568,19 @@ public final class PreviewConfig
             return this;
         }
 
+        /**
+         * Sets the {@link CaptureRequestInfo}.
+         *
+         * @param captureRequestInfo The CaptureRequestInfo for extension.
+         * @return The current Builder.
+         * @hide
+         */
+        @RestrictTo(Scope.LIBRARY_GROUP)
+        public Builder setCaptureRequestInfoProvider(CaptureRequestInfo captureRequestInfo) {
+            getMutableConfig().insertOption(OPTION_CORE_CAPTURE_REQUTEST_INFO, captureRequestInfo);
+            return this;
+        }
+
         /** @hide */
         @RestrictTo(Scope.LIBRARY_GROUP)
         @Override
@@ -556,6 +626,16 @@ public final class PreviewConfig
         @Override
         public Builder setSurfaceOccupancyPriority(int priority) {
             getMutableConfig().insertOption(OPTION_SURFACE_OCCUPANCY_PRIORITY, priority);
+            return this;
+        }
+
+        // Implementations of SessionEventConfig.Builder default methods
+
+        /** @hide */
+        @RestrictTo(Scope.LIBRARY_GROUP)
+        @Override
+        public Builder setSessionEventListener(SessionEventListener sessionEventListener) {
+            getMutableConfig().insertOption(OPTION_SESSION_EVENT_LISTENER, sessionEventListener);
             return this;
         }
 
