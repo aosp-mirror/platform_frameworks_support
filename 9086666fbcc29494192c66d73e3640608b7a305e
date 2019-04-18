@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ea4b5f52_120419e2",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/BokehImageCaptureExtender.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1061247
+      },
+      "writtenOn": "2019-04-18T16:06:18Z",
+      "side": 1,
+      "message": "\"Loads\"",
+      "range": {
+        "startLine": 25,
+        "startChar": 3,
+        "endLine": 25,
+        "endChar": 7
+      },
+      "revId": "9086666fbcc29494192c66d73e3640608b7a305e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1235ee5e_b4fc7611",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/BokehImageCaptureExtender.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1061247
+      },
+      "writtenOn": "2019-04-18T16:06:18Z",
+      "side": 1,
+      "message": "nit: move to bottom",
+      "range": {
+        "startLine": 30,
+        "startChar": 12,
+        "endLine": 30,
+        "endChar": 37
+      },
+      "revId": "9086666fbcc29494192c66d73e3640608b7a305e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00dedddb_bb4f37e0",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/BokehImageCaptureExtender.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1061247
+      },
+      "writtenOn": "2019-04-18T16:06:18Z",
+      "side": 1,
+      "message": "\"Creates\"",
+      "range": {
+        "startLine": 33,
+        "startChar": 7,
+        "endLine": 33,
+        "endChar": 13
+      },
+      "revId": "9086666fbcc29494192c66d73e3640608b7a305e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa896eb6_c072dc21",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/BokehImageCaptureExtender.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1061247
+      },
+      "writtenOn": "2019-04-18T16:06:18Z",
+      "side": 1,
+      "message": "private final BokehImageCaptureExtendedImpl;",
+      "range": {
+        "startLine": 64,
+        "startChar": 16,
+        "endLine": 64,
+        "endChar": 45
+      },
+      "revId": "9086666fbcc29494192c66d73e3640608b7a305e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab09fcf3_fa50f0d0",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/BokehPreviewExtender.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1061247
+      },
+      "writtenOn": "2019-04-18T16:06:18Z",
+      "side": 1,
+      "message": "nit: could this be final?",
+      "range": {
+        "startLine": 27,
+        "startChar": 7,
+        "endLine": 27,
+        "endChar": 12
+      },
+      "revId": "9086666fbcc29494192c66d73e3640608b7a305e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30795a8d_d6453729",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/CaptureStageAdaptor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1061247
+      },
+      "writtenOn": "2019-04-18T16:06:18Z",
+      "side": 1,
+      "message": "Adaptor --\u003e Delegate?\nsince this class delegates the actual operations to the vendor implementation class",
+      "range": {
+        "startLine": 28,
+        "startChar": 12,
+        "endLine": 28,
+        "endChar": 31
+      },
+      "revId": "9086666fbcc29494192c66d73e3640608b7a305e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1a4ae07_a9c1a143",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/HdrPreviewExtender.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1061247
+      },
+      "writtenOn": "2019-04-18T16:06:18Z",
+      "side": 1,
+      "message": "nit: move to bottom",
+      "range": {
+        "startLine": 30,
+        "startChar": 12,
+        "endLine": 30,
+        "endChar": 30
+      },
+      "revId": "9086666fbcc29494192c66d73e3640608b7a305e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "099512ea_adbbbb78",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/HdrPreviewExtender.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1061247
+      },
+      "writtenOn": "2019-04-18T16:06:18Z",
+      "side": 1,
+      "message": "final",
+      "range": {
+        "startLine": 64,
+        "startChar": 16,
+        "endLine": 64,
+        "endChar": 38
+      },
+      "revId": "9086666fbcc29494192c66d73e3640608b7a305e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
