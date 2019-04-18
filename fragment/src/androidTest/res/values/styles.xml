@@ -14,10 +14,6 @@
      limitations under the License.
 -->
 <resources>
-    <style name="TestActivityTheme">
-        <item name="android:windowAnimationStyle">@null</item>
-    </style>
-
     <style name="DialogTheme" parent="@android:style/Theme.Dialog">
         <item name="android:windowAnimationStyle">@null</item>
     </style>

@@ -24,8 +24,7 @@
     <uses-permission android:name="android.permission.WRITE_CONTACTS"/>
 
     <application
-        android:supportsRtl="true"
-        android:theme="@style/TestActivityTheme">
+        android:supportsRtl="true">
         <activity android:name="androidx.fragment.app.test.FragmentTestActivity"/>
 
         <activity android:name="androidx.fragment.app.test.EmptyFragmentTestActivity"/>
