@@ -22,6 +22,30 @@
       "revId": "d61d91b80afe362f5ed2f48be889ea1a0fbefd88",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e16beafb_b4d4daa9",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentPagerAdapter.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1442279
+      },
+      "writtenOn": "2019-04-18T17:59:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2ec856d9_74558916",
+      "range": {
+        "startLine": 84,
+        "startChar": 11,
+        "endLine": 84,
+        "endChar": 31
+      },
+      "revId": "d61d91b80afe362f5ed2f48be889ea1a0fbefd88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
