@@ -115,20 +115,20 @@ public class ImageCapture extends UseCase {
     private final CaptureMode mCaptureMode;
 
     /** The set of requests that will be sent to the camera for the final captured image. */
-    private final CaptureBundle mCaptureBundle;
+    final CaptureBundle mCaptureBundle;
 
     /**
      * Processing that gets done to the mCaptureBundle to produce the final image that is produced
      * by {@link #takePicture(OnImageCapturedListener)}
      */
-    private final CaptureProcessor mCaptureProcessor;
+    final CaptureProcessor mCaptureProcessor;
     private final ImageCaptureConfig.Builder mUseCaseConfigBuilder;
     @SuppressWarnings("WeakerAccess") /* synthetic accessor */
             ImageReaderProxy mImageReader;
     /** Callback used to match the {@link ImageProxy} with the {@link ImageInfo}. */
-    private CameraCaptureCallback mMetadataMatchingCaptureCallback;
+    CameraCaptureCallback mMetadataMatchingCaptureCallback;
     private ImageCaptureConfig mConfig;
-    private DeferrableSurface mDeferrableSurface;
+    private DeferredImageReaderSurface mDeferrableSurface;
     /**
      * A flag to check 3A converged or not.
      *
@@ -525,6 +525,86 @@ public class ImageCapture extends UseCase {
         super.clear();
     }
 
+    // To fix (b/129520942) jpeg format changed by camera shim layer for devices running on legacy
+    // camera, it needs to attach a new image reader surface to the newly created camera capture
+    // session.
+    private final DeferredImageReaderSurface.SurfaceCreator mImageReaderSurfaceCreator =
+            new DeferredImageReaderSurface.SurfaceCreator() {
+                @Override
+                public Surface create(Size resolution) {
+                    Log.i(TAG, "Recreate ImageReader via OnImageReaderRefreshListener.");
+                    if (mImageReader != null) {
+                        mImageReader.close();
+                        mImageReader = null;
+                    }
+
+                    // Setup the ImageReader to do processing
+                    if (mCaptureProcessor != null) {
+                        ProcessingImageReader processingImageReader =
+                                new ProcessingImageReader(
+                                        resolution.getWidth(),
+                                        resolution.getHeight(),
+                                        getImageFormat(), MAX_IMAGES,
+                                        mHandler, mCaptureBundle, mCaptureProcessor);
+                        mMetadataMatchingCaptureCallback =
+                                processingImageReader.getCameraCaptureCallback();
+                        mImageReader = processingImageReader;
+                    } else {
+                        MetadataImageReader metadataImageReader = new MetadataImageReader(
+                                resolution.getWidth(),
+                                resolution.getHeight(), getImageFormat(), MAX_IMAGES, mHandler);
+                        mMetadataMatchingCaptureCallback =
+                                metadataImageReader.getCameraCaptureCallback();
+                        mImageReader = metadataImageReader;
+                    }
+                    mImageReader.setOnImageAvailableListener(
+                            new ImageReaderProxy.OnImageAvailableListener() {
+                                @Override
+                                public void onImageAvailable(ImageReaderProxy imageReader) {
+                                    // Call the listener so that the captured image can be
+                                    // processed.
+                                    ImageCaptureRequest imageCaptureRequest =
+                                            mImageCaptureRequests.peek();
+                                    if (imageCaptureRequest != null) {
+                                        ImageProxy image = null;
+                                        try {
+                                            image = imageReader.acquireLatestImage();
+                                        } catch (IllegalStateException e) {
+                                            Log.e(TAG, "Failed to acquire latest image.", e);
+                                        } finally {
+                                            if (image != null) {
+                                                // Remove the first listener from the queue
+                                                mImageCaptureRequests.poll();
+
+                                                // Inform the listener
+                                                imageCaptureRequest.dispatchImage(image);
+
+                                                ImageCapture.this
+                                                        .issueImageCaptureRequests();
+                                            }
+                                        }
+                                    } else {
+                                        // Flush the queue if we have no requests
+                                        ImageProxy image = null;
+                                        try {
+                                            image = imageReader.acquireLatestImage();
+                                        } catch (IllegalStateException e) {
+                                            Log.e(TAG, "Failed to acquire latest image.", e);
+                                        } finally {
+                                            if (image != null) {
+                                                image.close();
+                                            }
+                                        }
+                                    }
+                                }
+                            }, mMainHandler);
+
+                    return mImageReader.getSurface();
+                }
+
+            };
+
+
     /**
      * {@inheritDoc}
      *
@@ -541,75 +621,8 @@ public class ImageCapture extends UseCase {
                     "Suggested resolution map missing resolution for camera " + cameraId);
         }
 
-        if (mImageReader != null) {
-            if (mImageReader.getHeight() == resolution.getHeight()
-                    && mImageReader.getWidth() == resolution.getWidth()) {
-                // Resolution does not need to be updated. Return early.
-                return suggestedResolutionMap;
-            }
-            mImageReader.close();
-        }
-
-        // Setup the ImageReader to do processing
-        if (mCaptureProcessor != null) {
-            ProcessingImageReader processingImageReader =
-                    new ProcessingImageReader(
-                            resolution.getWidth(),
-                            resolution.getHeight(),
-                            getImageFormat(), MAX_IMAGES,
-                            mHandler, mCaptureBundle, mCaptureProcessor);
-            mMetadataMatchingCaptureCallback = processingImageReader.getCameraCaptureCallback();
-            mImageReader = processingImageReader;
-        } else {
-            MetadataImageReader metadataImageReader = new MetadataImageReader(resolution.getWidth(),
-                    resolution.getHeight(), getImageFormat(), MAX_IMAGES, mHandler);
-            mMetadataMatchingCaptureCallback = metadataImageReader.getCameraCaptureCallback();
-            mImageReader = metadataImageReader;
-        }
-
-        mImageReader.setOnImageAvailableListener(
-                new ImageReaderProxy.OnImageAvailableListener() {
-                    @Override
-                    public void onImageAvailable(ImageReaderProxy imageReader) {
-                        // Call the listener so that the captured image can be processed.
-                        ImageCaptureRequest imageCaptureRequest = mImageCaptureRequests.peek();
-                        if (imageCaptureRequest != null) {
-                            ImageProxy image = null;
-                            try {
-                                image = imageReader.acquireLatestImage();
-                            } catch (IllegalStateException e) {
-                                Log.e(TAG, "Failed to acquire latest image.", e);
-                            } finally {
-                                if (image != null) {
-                                    // Remove the first listener from the queue
-                                    mImageCaptureRequests.poll();
-
-                                    // Inform the listener
-                                    imageCaptureRequest.dispatchImage(image);
-
-                                    ImageCapture.this.issueImageCaptureRequests();
-                                }
-                            }
-                        } else {
-                            // Flush the queue if we have no requests
-                            ImageProxy image = null;
-                            try {
-                                image = imageReader.acquireLatestImage();
-                            } catch (IllegalStateException e) {
-                                Log.e(TAG, "Failed to acquire latest image.", e);
-                            } finally {
-                                if (image != null) {
-                                    image.close();
-                                }
-                            }
-                        }
-                    }
-                },
-                mMainHandler);
-
         mSessionConfigBuilder.clearSurfaces();
-
-        mDeferrableSurface = new ImmediateSurface(mImageReader.getSurface());
+        mDeferrableSurface = new DeferredImageReaderSurface(resolution, mImageReaderSurfaceCreator);
         mSessionConfigBuilder.addNonRepeatingSurface(mDeferrableSurface);
 
         attachToCamera(cameraId, mSessionConfigBuilder.build());
@@ -825,7 +838,13 @@ public class ImageCapture extends UseCase {
             final CaptureConfig.Builder builder = new CaptureConfig.Builder();
             builder.addAllCameraCaptureCallbacks(
                     mSessionConfigBuilder.getSingleCameraCaptureCallbacks());
-            builder.addSurface(new ImmediateSurface(mImageReader.getSurface()));
+
+            if (mImageReader != null) {
+                builder.addSurface(new ImmediateSurface(mImageReader.getSurface()));
+            } else {
+                throw new IllegalStateException("ImageReader is not ready!");
+            }
+
             builder.setTemplateType(CameraDevice.TEMPLATE_STILL_CAPTURE);
 
             applyPixelHdrPlusChangeForCaptureMode(mCaptureMode, builder);
