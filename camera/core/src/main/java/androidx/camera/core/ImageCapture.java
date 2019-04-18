@@ -115,20 +115,20 @@ public class ImageCapture extends UseCase {
     private final CaptureMode mCaptureMode;
 
     /** The set of requests that will be sent to the camera for the final captured image. */
-    private final CaptureBundle mCaptureBundle;
+    final CaptureBundle mCaptureBundle;
 
     /**
      * Processing that gets done to the mCaptureBundle to produce the final image that is produced
      * by {@link #takePicture(OnImageCapturedListener)}
      */
-    private final CaptureProcessor mCaptureProcessor;
+    final CaptureProcessor mCaptureProcessor;
     private final ImageCaptureConfig.Builder mUseCaseConfigBuilder;
     @SuppressWarnings("WeakerAccess") /* synthetic accessor */
             ImageReaderProxy mImageReader;
     /** Callback used to match the {@link ImageProxy} with the {@link ImageInfo}. */
-    private CameraCaptureCallback mMetadataMatchingCaptureCallback;
+    CameraCaptureCallback mMetadataMatchingCaptureCallback;
     private ImageCaptureConfig mConfig;
-    private DeferrableSurface mDeferrableSurface;
+    DeferredImageReaderSurface mDeferrableSurface;
     /**
      * A flag to check 3A converged or not.
      *
@@ -518,48 +518,31 @@ public class ImageCapture extends UseCase {
     @RestrictTo(Scope.LIBRARY_GROUP)
     @Override
     public void clear() {
-        if (mDeferrableSurface != null) {
-            mDeferrableSurface.setOnSurfaceDetachedListener(
-                    CameraXExecutors.mainThreadExecutor(),
-                    new DeferrableSurface.OnSurfaceDetachedListener() {
-                        @Override
-                        public void onSurfaceDetached() {
-                            if (mImageReader != null) {
-                                mImageReader.close();
-                                mImageReader = null;
-                            }
-                        }
-                    });
-        }
+        // The mImageReader close is handled by mDeferrableSurface.onSurfaceDetached
         mExecutor.shutdown();
         super.clear();
     }
 
-    /**
-     * {@inheritDoc}
+    // To fix (b/129520942) jpeg format changed by camera shim layer for devices running on legacy
+    // camera, it needs to attach a new image reader surface to the newly created camera capture
+    // session.
+    private final DeferredImageReaderSurface.ImageReaderCreator mImageReaderCreator =
+            new DeferredImageReaderSurface.ImageReaderCreator() {
+                @Override
+                public ImageReaderProxy create(Size resolution) {
+                    return setupImageReader(resolution);
+                }
+
+            };
+
+
+    /** Setup a new ImageReader.
      *
-     * @hide
-     */
-    @Override
-    @RestrictTo(Scope.LIBRARY_GROUP)
-    protected Map<String, Size> onSuggestedResolutionUpdated(
-            Map<String, Size> suggestedResolutionMap) {
-        String cameraId = getCameraIdUnchecked(mConfig.getLensFacing());
-        Size resolution = suggestedResolutionMap.get(cameraId);
-        if (resolution == null) {
-            throw new IllegalArgumentException(
-                    "Suggested resolution map missing resolution for camera " + cameraId);
-        }
-
-        if (mImageReader != null) {
-            if (mImageReader.getHeight() == resolution.getHeight()
-                    && mImageReader.getWidth() == resolution.getWidth()) {
-                // Resolution does not need to be updated. Return early.
-                return suggestedResolutionMap;
-            }
-            mImageReader.close();
-        }
-
+     * @param resolution the resolustion size for ImageReader
+     * @return the {@link ImageReaderProxy}.
+     *
+     * */
+    ImageReaderProxy setupImageReader(Size resolution) {
         // Setup the ImageReader to do processing
         if (mCaptureProcessor != null) {
             ProcessingImageReader processingImageReader =
@@ -576,7 +559,6 @@ public class ImageCapture extends UseCase {
             mMetadataMatchingCaptureCallback = metadataImageReader.getCameraCaptureCallback();
             mImageReader = metadataImageReader;
         }
-
         mImageReader.setOnImageAvailableListener(
                 new ImageReaderProxy.OnImageAvailableListener() {
                     @Override
@@ -614,12 +596,30 @@ public class ImageCapture extends UseCase {
                             }
                         }
                     }
-                },
-                mMainHandler);
+                }, mMainHandler);
+
+        return mImageReader;
+    }
+
+
+    /**
+     * {@inheritDoc}
+     *
+     * @hide
+     */
+    @Override
+    @RestrictTo(Scope.LIBRARY_GROUP)
+    protected Map<String, Size> onSuggestedResolutionUpdated(
+            Map<String, Size> suggestedResolutionMap) {
+        String cameraId = getCameraIdUnchecked(mConfig.getLensFacing());
+        Size resolution = suggestedResolutionMap.get(cameraId);
+        if (resolution == null) {
+            throw new IllegalArgumentException(
+                    "Suggested resolution map missing resolution for camera " + cameraId);
+        }
 
         mSessionConfigBuilder.clearSurfaces();
-
-        mDeferrableSurface = new ImmediateSurface(mImageReader.getSurface());
+        mDeferrableSurface = new DeferredImageReaderSurface(resolution, mImageReaderCreator);
         mSessionConfigBuilder.addNonRepeatingSurface(mDeferrableSurface);
 
         attachToCamera(cameraId, mSessionConfigBuilder.build());
@@ -836,7 +836,13 @@ public class ImageCapture extends UseCase {
             final CaptureConfig.Builder builder = new CaptureConfig.Builder();
             builder.addAllCameraCaptureCallbacks(
                     mSessionConfigBuilder.getSingleCameraCaptureCallbacks());
-            builder.addSurface(new ImmediateSurface(mImageReader.getSurface()));
+
+            if (mImageReader != null) {
+                builder.addSurface(new ImmediateSurface(mImageReader.getSurface()));
+            } else {
+                throw new IllegalStateException("ImageReader is not ready!");
+            }
+
             builder.setTemplateType(CameraDevice.TEMPLATE_STILL_CAPTURE);
 
             applyPixelHdrPlusChangeForCaptureMode(mCaptureMode, builder);
