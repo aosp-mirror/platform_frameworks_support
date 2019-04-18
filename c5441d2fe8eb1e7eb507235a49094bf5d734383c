@@ -22,6 +22,30 @@
       "revId": "c5441d2fe8eb1e7eb507235a49094bf5d734383c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d17266e1_f6572552",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CheckedSurfaceTexture.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1481635
+      },
+      "writtenOn": "2019-04-18T17:14:43Z",
+      "side": 1,
+      "message": "Thanks for review, remove the if check.",
+      "parentUuid": "6e27bb5a_8f534aff",
+      "range": {
+        "startLine": 202,
+        "startChar": 13,
+        "endLine": 202,
+        "endChar": 34
+      },
+      "revId": "c5441d2fe8eb1e7eb507235a49094bf5d734383c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
