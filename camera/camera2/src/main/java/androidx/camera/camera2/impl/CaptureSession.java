@@ -274,9 +274,10 @@ final class CaptureSession {
     }
 
     // Notify the surface is detached from current capture session.
-    void notifySurfaceDetached() {
+    void notifySurfaceDetachedAndFreeUnusedSurfaces() {
         synchronized (mConfiguredDeferrableSurfaces) {
             for (DeferrableSurface deferredSurface : mConfiguredDeferrableSurfaces) {
+                deferredSurface.freeUnusedSurfaces();
                 deferredSurface.notifySurfaceDetached();
             }
             // Clears the mConfiguredDeferrableSurfaces to prevent from duplicate
@@ -284,6 +285,7 @@ final class CaptureSession {
             mConfiguredDeferrableSurfaces.clear();
         }
     }
+
 
     /**
      * Issues capture requests.
@@ -529,6 +531,7 @@ final class CaptureSession {
                     default:
                 }
                 Log.d(TAG, "CameraCaptureSession.onReady()");
+
             }
         }
 
@@ -545,7 +548,8 @@ final class CaptureSession {
                 }
                 Log.d(TAG, "CameraCaptureSession.onClosed()");
 
-                notifySurfaceDetached();
+                // Notify SurfaceDetached and free unused Surfaces.
+                notifySurfaceDetachedAndFreeUnusedSurfaces();
 
             }
         }
@@ -576,6 +580,7 @@ final class CaptureSession {
 
     /** Also notify the surface detach event if receives camera device close event */
     public void notifyCameraDeviceClose() {
-        notifySurfaceDetached();
+        // Notify SurfaceDetached and free unused Surfaces.
+        notifySurfaceDetachedAndFreeUnusedSurfaces();
     }
 }
