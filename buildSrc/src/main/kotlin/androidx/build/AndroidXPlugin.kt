@@ -51,7 +51,6 @@ import org.gradle.api.JavaVersion.VERSION_1_8
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.Task
-import org.gradle.api.artifacts.ComponentModuleMetadataDetails
 import org.gradle.api.logging.configuration.ShowStacktrace
 import org.gradle.api.plugins.JavaLibraryPlugin
 import org.gradle.api.plugins.JavaPlugin
@@ -77,6 +76,20 @@ import java.util.concurrent.ConcurrentHashMap
  */
 class AndroidXPlugin : Plugin<Project> {
     override fun apply(project: Project) {
+
+        // Remove strict constraints on problematic libraries.
+        project.configurations.all { config ->
+            config.dependencyConstraints.configureEach { dependencyConstraint ->
+                dependencyConstraint.apply {
+                    if (group == "com.google.guava" || group == "com.google.auto.value") {
+                        version { versionConstraint ->
+                            versionConstraint.strictly("")
+                        }
+                    }
+                }
+            }
+        }
+
         // This has to be first due to bad behavior by DiffAndDocs which is triggered on the root
         // project. It calls evaluationDependsOn on each subproject. This eagerly causes evaluation
         // *during* the root build.gradle evaluation. The subproject then applies this plugin (while
@@ -294,6 +307,7 @@ class AndroidXPlugin : Plugin<Project> {
         extension: TestedExtension,
         androidXExtension: AndroidXExtension
     ) {
+
         // Force AGP to use our version of JaCoCo
         extension.jacoco.version = Jacoco.VERSION
         extension.compileSdkVersion(COMPILE_SDK_VERSION)
@@ -424,12 +438,6 @@ class AndroidXPlugin : Plugin<Project> {
         extension.compileOptions.apply {
             sourceCompatibility = VERSION_1_7
             targetCompatibility = VERSION_1_7
-        }
-
-        // Workaround for concurrentfuture
-        project.dependencies.modules.module("com.google.guava:listenablefuture") {
-            (it as ComponentModuleMetadataDetails).replacedBy(
-                "com.google.guava:guava", "guava contains listenablefuture")
         }
 
         afterEvaluate {

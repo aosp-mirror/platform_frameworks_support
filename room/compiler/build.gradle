@@ -20,6 +20,7 @@ import androidx.build.LibraryGroups
 import androidx.build.LibraryVersions
 import androidx.build.SupportConfig
 import androidx.build.AndroidXExtension
+import androidx.build.SdkHelperKt
 
 plugins {
     id("AndroidXPlugin")
@@ -41,9 +42,6 @@ configurations.all {
 }
 
 dependencies {
-    // taken from ButterKnife
-    def logger = new com.android.build.gradle.internal.LoggerWrapper(project.logger)
-    def sdkHandler = new com.android.build.gradle.internal.SdkHandler(project, logger)
     compile(project(":room:room-common"))
     compile(project(":room:room-migration"))
     compile(KOTLIN_STDLIB)
@@ -60,7 +58,7 @@ dependencies {
     testCompile(INTELLIJ_ANNOTATIONS)
     testCompile(JSR250)
     testCompile(MOCKITO_CORE)
-    testCompile fileTree(dir: "${sdkHandler.sdkFolder}/platforms/$SupportConfig.COMPILE_SDK_VERSION/",
+    testCompile fileTree(dir: "${SdkHelperKt.getSdkPath(project.rootDir)}/platforms/$SupportConfig.COMPILE_SDK_VERSION/",
             include : "android.jar")
     testCompile fileTree(dir: "${new File(project(":room:room-runtime").buildDir, "libJar")}",
             include : "*.jar")
