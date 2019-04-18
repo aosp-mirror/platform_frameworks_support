@@ -537,6 +537,23 @@ public class NavController {
     }
 
     /**
+     * Checks the given deep link, and determines whether it is reachable from the current NavGraph.
+     * It returns <code>true</code> if the deep link can be reached from the NavGraph, and false
+     * otherwise.
+     *
+     * <p>
+     * This should be called prior to {@link #navigate(Uri)} to ensure the deep link can be
+     * navigated to.
+     * </p>
+     *
+     * @param deepLink to the destination reachable from the current NavGraph
+     * @return True if the navigation controller found a valid deep link.
+     */
+    public boolean isValidDeepLink(@NonNull Uri deepLink) {
+        return mGraph.matchDeepLink(deepLink) != null;
+    }
+
+    /**
      * Checks the given Intent for a Navigation deep link and navigates to the deep link if present.
      * This is called automatically for you the first time you set the graph if you've passed in an
      * {@link Activity} as the context when constructing this NavController, but should be manually
@@ -822,7 +839,9 @@ public class NavController {
     }
 
     /**
-     * Navigate to a destination via the given deep link {@link Uri}.
+     * Navigate to a destination via the given deep link {@link Uri}. {@link #isValidDeepLink(Uri)}
+     * should be called prior, to check if the deep link is valid. If an invalid deep link is given,
+     * an {@link IllegalArgumentException} will be thrown.
      *
      * @param deepLink deepLink to the destination reachable from the current NavGraph
      */
@@ -831,17 +850,22 @@ public class NavController {
     }
 
     /**
-     * Navigate to a destination via the given deep link {@link Uri}.
+     * Navigate to a destination via the given deep link {@link Uri}. {@link #isValidDeepLink(Uri)}
+     * should be called prior, to check if the deep link is valid. If an invalid deep link is given,
+     * an {@link IllegalArgumentException} will be thrown.
      *
      * @param deepLink deepLink to the destination reachable from the current NavGraph
      * @param navOptions special options for this navigation operation
+
      */
     public void navigate(@NonNull Uri deepLink, @Nullable NavOptions navOptions) {
         navigate(deepLink, navOptions, null);
     }
 
     /**
-     * Navigate to a destination via the given deep link {@link Uri}.
+     * Navigate to a destination via the given deep link {@link Uri}. {@link #isValidDeepLink(Uri)}
+     * should be called prior, to check if the deep link is valid. If an invalid deep link is given,
+     * an {@link IllegalArgumentException} will be thrown.
      *
      * @param deepLink deepLink to the destination reachable from the current NavGraph
      * @param navOptions special options for this navigation operation

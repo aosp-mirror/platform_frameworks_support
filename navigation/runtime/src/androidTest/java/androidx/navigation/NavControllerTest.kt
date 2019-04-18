@@ -750,6 +750,24 @@ class NavControllerTest {
     }
 
     @Test
+    fun testIsValidDeepLinkValidLink() {
+        val navController = createNavController()
+        navController.setGraph(R.navigation.nav_simple)
+
+        val deepLink = Uri.parse("android-app://androidx.navigation.test/test")
+        assertThat(navController.isValidDeepLink(deepLink)).isTrue()
+    }
+
+    @Test
+    fun testIsValidDeepLinkInvalidLink() {
+        val navController = createNavController()
+        navController.setGraph(R.navigation.nav_simple)
+
+        val deepLink = Uri.parse("android-app://androidx.navigation.test/invalid")
+        assertThat(navController.isValidDeepLink(deepLink)).isFalse()
+    }
+
+    @Test
     fun testHandleDeepLinkValid() {
         val navController = createNavController()
         navController.setGraph(R.navigation.nav_simple)
