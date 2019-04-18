@@ -138,6 +138,30 @@
     },
     {
       "key": {
+        "uuid": "5182a0c5_fb50f431",
+        "filename": "benchmark/src/main/java/androidx/benchmark/AndroidBenchmarkRunner.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-04-18T17:39:11Z",
+      "side": 1,
+      "message": "The ClassRule change sounds better in some ways, but we still have the problem that in a follow up, we want to hook into launch of all activities via Instrumentation.callActivityOnStart so we can set a flag on the window: http://b/129282573\n\nIs there a better way to hook into that? If so, we don\u0027t need the runner for now.",
+      "parentUuid": "a30b88b9_a7581738",
+      "range": {
+        "startLine": 46,
+        "startChar": 77,
+        "endLine": 46,
+        "endChar": 98
+      },
+      "revId": "3d8b07e4208ae7799c11444948b41642f98bac0f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ad9f30e2_d9d428ab",
         "filename": "benchmark/src/main/java/androidx/benchmark/IsolationActivity.kt",
         "patchSetId": 1
