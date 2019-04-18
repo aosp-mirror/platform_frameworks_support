@@ -19,18 +19,22 @@ package androidx.camera.extensions;
 import android.hardware.camera2.CameraCharacteristics;
 import android.hardware.camera2.CaptureRequest;
 import android.util.Pair;
+import android.util.Size;
 
 import androidx.camera.camera2.Camera2Config;
 import androidx.camera.core.CameraX;
+import androidx.camera.core.CaptureRequestInfo;
+import androidx.camera.core.CaptureStage;
 import androidx.camera.core.Config;
 import androidx.camera.core.PreviewConfig;
+import androidx.camera.core.SessionEventListener;
 import androidx.camera.extensions.impl.CaptureStageImpl;
 import androidx.camera.extensions.impl.PreviewExtenderImpl;
 
 /**
  * Class for using an OEM provided extension on view finder.
  */
-public abstract class PreviewExtender {
+public abstract class PreviewExtender implements SessionEventListener, CaptureRequestInfo {
     private PreviewConfig.Builder mBuilder;
     private PreviewExtenderImpl mImpl;
 
@@ -76,5 +80,67 @@ public abstract class PreviewExtender {
             mBuilder.getMutableConfig().insertOption(objectOpt,
                     camera2Config.retrieveOption(objectOpt));
         }
+
+        mBuilder.setSessionEventListener(this);
+        mBuilder.setCaptureRequestInfoProvider(this);
     }
+
+    @Override
+    public void onInit(String cameraId) {
+        CameraCharacteristics cameraCharacteristics =
+                CameraUtil.getCameraCharacteristics(cameraId);
+        mImpl.onInit(cameraId, cameraCharacteristics);
+    }
+
+    @Override
+    public void onDeInit() {
+        mImpl.onDeInit();
+    }
+
+    @Override
+    public CaptureStage onPresetSession() {
+        CaptureStageImpl captureStageImpl = mImpl.onPresetSession();
+        if (captureStageImpl != null) {
+            return new AdaptingCaptureStage(captureStageImpl);
+        }
+
+        return null;
+    }
+
+    @Override
+    public CaptureStage onEnableSession() {
+
+        CaptureStageImpl captureStageImpl = mImpl.onEnableSession();
+        if (captureStageImpl != null) {
+            return new AdaptingCaptureStage(captureStageImpl);
+        }
+
+        return null;
+    }
+
+    @Override
+    public CaptureStage onDisableSession() {
+        CaptureStageImpl captureStageImpl = mImpl.onDisableSession();
+        if (captureStageImpl != null) {
+            return new AdaptingCaptureStage(captureStageImpl);
+        }
+
+        return null;
+    }
+
+    @Override
+    public void onResolutionUpdate(Size size, int imageFormat) {
+        mImpl.onResolutionUpdate(size, imageFormat);
+    }
+
+    @Override
+    public CaptureStage getCaptureStage() {
+        CaptureStageImpl captureStageImpl = mImpl.getCaptureStage();
+        if (captureStageImpl != null) {
+            return new AdaptingCaptureStage(captureStageImpl);
+        }
+
+        return null;
+    }
+
 }
