@@ -16,11 +16,13 @@
 package androidx.ui.engine.text.platform
 
 import android.os.Build
+import android.text.Layout
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.TextPaint
 import android.text.TextUtils
 import android.text.style.AbsoluteSizeSpan
+import android.text.style.AlignmentSpan
 import android.text.style.BackgroundColorSpan
 import android.text.style.ForegroundColorSpan
 import android.text.style.LeadingMarginSpan
@@ -278,7 +280,7 @@ internal class ParagraphAndroid constructor(
      * @param end the exclusive end position of the paragraph span.
      * @return a pair of indices which represent the adjusted position of the paragraph span.
      */
-    private fun adjustSpanPosition(
+    private fun adjustSpanPositionForParagraph(
         text: StringBuilder,
         start: Int,
         end: Int
@@ -336,7 +338,7 @@ internal class ParagraphAndroid constructor(
 
             style.textIndent?. let { indent ->
                 if (indent.firstLine == 0.px && indent.restLine == 0.px) return@let
-                val (spanStart, spanEnd) = adjustSpanPosition(text, start, end)
+                val (spanStart, spanEnd) = adjustSpanPositionForParagraph(text, start, end)
                 // Filter out invalid result.
                 if (spanStart >= spanEnd) return@let
                 spannableString.setSpan(
@@ -344,6 +346,20 @@ internal class ParagraphAndroid constructor(
                         indent.firstLine.value.toInt(),
                         indent.restLine.value.toInt()
                     ),
+                    spanStart,
+                    spanEnd,
+                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
+            }
+
+            style.textAlign?.let { align ->
+                val (spanStart, spanEnd) = adjustSpanPositionForParagraph(text, start, end)
+                // Filter out invalid result.
+                if (spanStart >= spanEnd) return@let
+
+                // TODO(haoyuchang): Support TextAlign.JUSTIFY
+                spannableString.setSpan(
+                    AlignmentSpan.Standard(TextAlignmentAdapter.get(align)),
                     spanStart,
                     spanEnd,
                     Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
@@ -491,5 +507,43 @@ internal class ParagraphAndroid constructor(
             }
         }
         return spannableString
+    }
+}
+
+// TODO move this to android-text module
+internal object TextAlignmentAdapter {
+    val ALIGN_LEFT_FRAMEWORK: Layout.Alignment
+    val ALIGN_RIGHT_FRAMEWORK: Layout.Alignment
+
+    init {
+        val values = Layout.Alignment.values()
+        var alignLeft = Layout.Alignment.ALIGN_NORMAL
+        var alignRight = Layout.Alignment.ALIGN_NORMAL
+        // ALIGN_LEFT and ALIGH_RIGHT are hidden.
+        for (value in values) {
+            if (value.name.equals("ALIGN_LEFT")) {
+                alignLeft = value
+                continue
+            }
+
+            if (value.name.equals("ALIGN_RIGHT")) {
+                alignRight = value
+                continue
+            }
+        }
+
+        ALIGN_LEFT_FRAMEWORK = alignLeft
+        ALIGN_RIGHT_FRAMEWORK = alignRight
+    }
+
+    fun get(textAlign: TextAlign): Layout.Alignment {
+        return when (textAlign) {
+            TextAlign.LEFT -> ALIGN_LEFT_FRAMEWORK
+            TextAlign.RIGHT -> ALIGN_RIGHT_FRAMEWORK
+            TextAlign.CENTER -> Layout.Alignment.ALIGN_CENTER
+            TextAlign.END -> Layout.Alignment.ALIGN_OPPOSITE
+            TextAlign.START -> Layout.Alignment.ALIGN_NORMAL
+            else -> Layout.Alignment.ALIGN_NORMAL
+        }
     }
 }
