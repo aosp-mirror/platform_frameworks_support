@@ -17,16 +17,18 @@
 package androidx.camera.extensions;
 
 import android.hardware.camera2.CameraCharacteristics;
+import android.util.Size;
 
 import androidx.camera.core.CameraX;
 import androidx.camera.core.CaptureBundle;
+import androidx.camera.core.CaptureStage;
 import androidx.camera.core.ImageCaptureConfig;
+import androidx.camera.core.SessionEventListener;
 import androidx.camera.extensions.impl.CaptureProcessorImpl;
 import androidx.camera.extensions.impl.CaptureStageImpl;
 import androidx.camera.extensions.impl.ImageCaptureExtenderImpl;
 
 import java.util.List;
-
 /**
  * Class for using an OEM provided extension on image capture.
  */
@@ -53,11 +55,11 @@ abstract class ImageCaptureExtender {
         mImpl.enableExtension(cameraId, cameraCharacteristics);
 
         CaptureProcessorImpl captureProcessor = mImpl.getCaptureProcessor();
+        List<CaptureStageImpl> captureStages = null;
         if (captureProcessor != null) {
             mBuilder.setCaptureProcessor(new AdaptingCaptureProcessor(captureProcessor));
+            captureStages = captureProcessor.getCaptureStages();
         }
-
-        List<CaptureStageImpl> captureStages = mImpl.getCaptureStages();
 
         if (captureStages != null && !captureStages.isEmpty()) {
             CaptureBundle captureBundle = new CaptureBundle();
@@ -67,5 +69,67 @@ abstract class ImageCaptureExtender {
             }
             mBuilder.setCaptureBundle(captureBundle);
         }
+
+        mBuilder.setSessionEventListener(new ImageCaptureAdapter(mImpl));
     }
+
+    /**
+     * An implementation to adapt the OEM provided extension to CameraX.
+     */
+    static class ImageCaptureAdapter implements SessionEventListener {
+
+        private final ImageCaptureExtenderImpl mImpl;
+
+        ImageCaptureAdapter(ImageCaptureExtenderImpl impl) {
+            mImpl = impl;
+        }
+
+        @Override
+        public void onInit(String cameraId) {
+            CameraCharacteristics cameraCharacteristics = CameraUtil.getCameraCharacteristics(
+                    cameraId);
+            mImpl.onInit(cameraId, cameraCharacteristics);
+        }
+
+        @Override
+        public void onDeInit() {
+            mImpl.onDeInit();
+        }
+
+        @Override
+        public CaptureStage onPresetSession() {
+            CaptureStageImpl captureStageImpl = mImpl.onPresetSession();
+            if (captureStageImpl != null) {
+                return new AdaptingCaptureStage(captureStageImpl);
+            }
+
+            return null;
+        }
+
+        @Override
+        public CaptureStage onEnableSession() {
+            CaptureStageImpl captureStageImpl = mImpl.onEnableSession();
+            if (captureStageImpl != null) {
+                return new AdaptingCaptureStage(captureStageImpl);
+            }
+
+            return null;
+        }
+
+        @Override
+        public CaptureStage onDisableSession() {
+            CaptureStageImpl captureStageImpl = mImpl.onDisableSession();
+            if (captureStageImpl != null) {
+                return new AdaptingCaptureStage(captureStageImpl);
+            }
+
+            return null;
+        }
+
+        @Override
+        public void onResolutionUpdate(Size size, int imageFormat) {
+            mImpl.onResolutionUpdate(size, imageFormat);
+        }
+    }
+
 }
