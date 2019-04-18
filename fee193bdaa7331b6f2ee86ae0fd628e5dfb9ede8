@@ -70,6 +70,30 @@
       "revId": "fee193bdaa7331b6f2ee86ae0fd628e5dfb9ede8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69160b33_538edb3f",
+        "filename": "work/workmanager-testing/src/main/java/androidx/work/testing/TestListenableWorkerBuilder.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2019-04-18T18:00:35Z",
+      "side": 1,
+      "message": "I want the setExecutor() on the subclass to be public (so its accessible to developers). So the opposite of what is allowed.",
+      "parentUuid": "f9d9e39d_5b8fd631",
+      "range": {
+        "startLine": 273,
+        "startChar": 4,
+        "endLine": 273,
+        "endChar": 10
+      },
+      "revId": "fee193bdaa7331b6f2ee86ae0fd628e5dfb9ede8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
