@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 The Android Open Source Project
+ * Copyright 2019 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package androidx.media2;
+package androidx.media2.session;
 
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
@@ -25,10 +25,12 @@ import androidx.annotation.CallSuper;
 import androidx.annotation.GuardedBy;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.media2.MediaBrowser.BrowserCallback;
-import androidx.media2.MediaController.ControllerCallback;
-import androidx.media2.MediaSession.CommandButton;
-import androidx.media2.MediaSessionTestBase.TestControllerCallbackInterface;
+import androidx.media2.common.MediaItem;
+import androidx.media2.common.MediaMetadata;
+import androidx.media2.session.MediaBrowser.BrowserCallback;
+import androidx.media2.session.MediaController.ControllerCallback;
+import androidx.media2.session.MediaSession.CommandButton;
+import androidx.media2.session.MediaSessionTestBase.TestControllerCallbackInterface;
 
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
