@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "867a0682_95f93bf7",
+        "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/BenchmarkPlugin.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-04-19T17:14:15Z",
+      "side": 1,
+      "message": "Filip - are we going to run into problems with requiring apps to define \u0027android.useAndroidX\u003dtrue\u0027? Are there (or will there be) androidx apps that don\u0027t bother to define that, since all their dependencies use androidX?\n\nAre other tools requiring that as well?",
+      "revId": "bf590396bf4f40b9bd5676f17d71f68e072f18de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7405a53_85265fc7",
+        "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/BenchmarkPlugin.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-04-19T17:14:15Z",
+      "side": 1,
+      "message": "consider putting \"\"\" on its own line, that way the wrapping you see here will match what\u0027s in studio.\n\nright now, the wrapping looks a bit weird in your screenshot (the first line is shorter than the rest))",
+      "revId": "bf590396bf4f40b9bd5676f17d71f68e072f18de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c42a0ced_dc50a076",
+        "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/BenchmarkPlugin.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-04-19T17:14:15Z",
+      "side": 1,
+      "message": "remove usage of \u0027|\u0027 and use trimIndent\n\ntrimMargin is only needed if you want to preserve leading spaces (like in our warnings, where the 2nd+ lines are indented)",
+      "range": {
+        "startLine": 39,
+        "startChar": 21,
+        "endLine": 39,
+        "endChar": 31
+      },
+      "revId": "bf590396bf4f40b9bd5676f17d71f68e072f18de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
