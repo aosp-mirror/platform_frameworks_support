@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c507731f_73ae1c59",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CheckedImageReader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-04-19T00:52:09Z",
+      "side": 1,
+      "message": "CheckedImageReader is probably not the best name for this. Even CheckedSurfaceTexture no longer \"checks\" the surface texture. Maybe something like \"DeferredImageReaderSurface\" would be more appropriate.",
+      "range": {
+        "startLine": 40,
+        "startChar": 12,
+        "endLine": 40,
+        "endChar": 30
+      },
+      "revId": "1995d3ce30c0f2ea65303122f385b8b69e9887d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "625823a6_153cca7a",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CheckedImageReader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-04-19T00:52:09Z",
+      "side": 1,
+      "message": "This should be the last argument in the argument list, because kotlin ;)",
+      "range": {
+        "startLine": 50,
+        "startChar": 23,
+        "endLine": 50,
+        "endChar": 78
+      },
+      "revId": "1995d3ce30c0f2ea65303122f385b8b69e9887d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d244015_6d1185b6",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CheckedImageReader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-04-19T00:52:09Z",
+      "side": 1,
+      "message": "I wouldn\u0027t call this a listener if the method contains a return value.\n\nMaybe change the name to \"SurfaceCreator\" and change onImageReaderRefresh(...) to create(...).",
+      "range": {
+        "startLine": 107,
+        "startChar": 14,
+        "endLine": 107,
+        "endChar": 42
+      },
+      "revId": "1995d3ce30c0f2ea65303122f385b8b69e9887d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
