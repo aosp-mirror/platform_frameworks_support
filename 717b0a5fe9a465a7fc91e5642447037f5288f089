@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1b7f6a76_2b0050de",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CameraX.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 1483725
+      },
+      "writtenOn": "2019-04-19T17:31:29Z",
+      "side": 1,
+      "message": "Currently the bypass only exists for ImageCaptureConfig. To do this, we will need to do one of:\n- check instance\n- move bypass to usecase level\n\nIf we move to use case level, always using max resolution may be inadequate.",
+      "parentUuid": "904e2d96_e1f197de",
+      "range": {
+        "startLine": 414,
+        "startChar": 20,
+        "endLine": 416,
+        "endChar": 93
+      },
+      "revId": "717b0a5fe9a465a7fc91e5642447037f5288f089",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c71f17a9_fcbdb485",
         "filename": "camera/core/src/main/java/androidx/camera/core/ImageCaptureConfig.java",
         "patchSetId": 3
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "f3b5907f_27ed3574",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCaptureConfig.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1483725
+      },
+      "writtenOn": "2019-04-19T17:31:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c71f17a9_fcbdb485",
+      "range": {
+        "startLine": 173,
+        "startChar": 19,
+        "endLine": 173,
+        "endChar": 68
+      },
+      "revId": "717b0a5fe9a465a7fc91e5642447037f5288f089",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "89227b8c_14b949ba",
         "filename": "camera/core/src/main/java/androidx/camera/core/ImageCaptureConfig.java",
         "patchSetId": 3
@@ -68,6 +116,30 @@
       "revId": "717b0a5fe9a465a7fc91e5642447037f5288f089",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f17f84a1_7cef1a0f",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCaptureConfig.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 617,
+      "author": {
+        "id": 1483725
+      },
+      "writtenOn": "2019-04-19T17:31:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "89227b8c_14b949ba",
+      "range": {
+        "startLine": 617,
+        "startChar": 23,
+        "endLine": 617,
+        "endChar": 86
+      },
+      "revId": "717b0a5fe9a465a7fc91e5642447037f5288f089",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
