@@ -174,7 +174,7 @@ public abstract class FragmentPagerAdapter extends PagerAdapter {
                 if (mResumeOnlyCurrentFragment) {
                     mCurTransaction.setMaxLifecycle(mCurrentPrimaryItem, Lifecycle.State.STARTED);
                 } else {
-                    fragment.setUserVisibleHint(false);
+                    mCurrentPrimaryItem.setUserVisibleHint(false);
                 }
             }
             fragment.setMenuVisibility(true);
