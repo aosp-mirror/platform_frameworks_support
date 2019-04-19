@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "814068fb_834c462c",
+        "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/BenchmarkPlugin.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-04-19T17:01:50Z",
+      "side": 1,
+      "message": "Hmm.. that\u0027s a good point about separate task - I was just worried in case people try to run the other subset of cAT style tasks and I forget to hook into one of them. Although this brings up a point about which build variant of connected tasks we should be running here and forwarding arguments to cAT... let me look into this a bit..",
+      "parentUuid": "6baed25c_0d563f7e",
+      "revId": "c4935edf2691ba6418e7c5884a5d3e3d3aa55a8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "343ffbeb_f0cb8d28",
         "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/BenchmarkReportTask.kt",
         "patchSetId": 8
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "e7242866_794ffeaf",
+        "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/BenchmarkReportTask.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-04-19T17:01:50Z",
+      "side": 1,
+      "message": "Normally test results are in:\n\n$SRC/\u003cproject_dir\u003e/\u003cmodule\u003e/build/outputs/androidTest-results/connect/\u003cdevice_name\u003e/...\n\nBenchmark reports are dumped into:\n\n$SRC/\u003cproject_dir\u003e/\u003cmodule\u003e/build/benchmark_reports/\u003cdevice_serial\u003e/...\n\nJaCoCo code coverage reports are generally in:\n\n$SRC/\u003cproject_dir\u003e/\u003cmodule\u003e/build/reports/...\n\nSo it\u0027s somewhat matching? Let me know if there\u0027s something you would like to change, I\u0027m open to ideas for sure.",
+      "parentUuid": "343ffbeb_f0cb8d28",
+      "revId": "c4935edf2691ba6418e7c5884a5d3e3d3aa55a8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "429b65bd_abab4f2c",
         "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/BenchmarkReportTask.kt",
         "patchSetId": 8
@@ -47,6 +83,24 @@
       "writtenOn": "2019-04-19T16:09:19Z",
       "side": 1,
       "message": "getting reports from all devices seems strange - is that what connected check would normally do (get test output from all connected devices?)\n\nis there another ADB_SERIAL thing we should be checking",
+      "revId": "c4935edf2691ba6418e7c5884a5d3e3d3aa55a8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "676c422d_c7c613c2",
+        "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/BenchmarkReportTask.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-04-19T17:01:50Z",
+      "side": 1,
+      "message": "cC dependsOn cAT, which runs on all available devices.\n\nbenchmarkReport currently depends on cAT directly though as we don\u0027t run non-instrumented tests currently. Did we want to run junit / tests in regular test dir as well?",
+      "parentUuid": "429b65bd_abab4f2c",
       "revId": "c4935edf2691ba6418e7c5884a5d3e3d3aa55a8a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "daef120d_f4f9bb5a",
+        "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/BenchmarkReportTask.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-04-19T17:01:50Z",
+      "side": 1,
+      "message": "They\u0027re output in a directory by deviceId so they won\u0027t overwrite each other",
+      "parentUuid": "6b78b793_7d0946c7",
+      "revId": "c4935edf2691ba6418e7c5884a5d3e3d3aa55a8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "381fccf8_a722c50f",
         "filename": "benchmark/src/main/AndroidManifest.xml",
         "patchSetId": 8
@@ -84,6 +156,24 @@
       "revId": "c4935edf2691ba6418e7c5884a5d3e3d3aa55a8a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c9c9ad7_3f82a127",
+        "filename": "benchmark/src/main/AndroidManifest.xml",
+        "patchSetId": 8
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-04-19T17:01:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "381fccf8_a722c50f",
+      "revId": "c4935edf2691ba6418e7c5884a5d3e3d3aa55a8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -104,6 +194,24 @@
     },
     {
       "key": {
+        "uuid": "ee2e1cb8_ee881d4f",
+        "filename": "benchmark/src/main/java/androidx/benchmark/BenchmarkState.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-04-19T17:01:50Z",
+      "side": 1,
+      "message": "Done (yes it was autoformat, I keep forgetting to split this diff with git add -p)",
+      "parentUuid": "740976f8_fd7c0352",
+      "revId": "c4935edf2691ba6418e7c5884a5d3e3d3aa55a8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a34caaf_9813dbe3",
         "filename": "benchmark/src/main/java/androidx/benchmark/BenchmarkState.kt",
         "patchSetId": 8
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "4d7407c7_763f6657",
+        "filename": "benchmark/src/main/java/androidx/benchmark/BenchmarkState.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-04-19T17:01:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a34caaf_9813dbe3",
+      "revId": "c4935edf2691ba6418e7c5884a5d3e3d3aa55a8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1198054c_3d8faec2",
         "filename": "benchmark/src/main/java/androidx/benchmark/ResultWriter.kt",
         "patchSetId": 8
@@ -135,6 +261,24 @@
       "revId": "c4935edf2691ba6418e7c5884a5d3e3d3aa55a8a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44445cfe_9c27237d",
+        "filename": "benchmark/src/main/java/androidx/benchmark/ResultWriter.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-04-19T17:01:50Z",
+      "side": 1,
+      "message": "Uh woops, this was while testing something - didn\u0027t mean to commit it. In fact you never even saw this and I have no idea what you\u0027re talking about.",
+      "parentUuid": "1198054c_3d8faec2",
+      "revId": "c4935edf2691ba6418e7c5884a5d3e3d3aa55a8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
