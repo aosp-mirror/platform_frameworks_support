@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "030b1137_c992dec8",
+        "filename": "work/workmanager-testing/src/main/java/androidx/work/testing/TestListenableWorkerBuilder.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-04-19T16:35:37Z",
+      "side": 1,
+      "message": "Hang on, wouldn\u0027t this mean if you\u0027re using a TestWorkerBuilder, and you call setId, suddenly you\u0027ve got a TestListenableWorkerBuilder being returned and you can no longer call TestWorkerBuilder methods?",
+      "range": {
+        "startLine": 169,
+        "startChar": 11,
+        "endLine": 169,
+        "endChar": 38
+      },
+      "revId": "8e8042cf84b669234097eb6805eb064f364250c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b712664e_afd6dff5",
+        "filename": "work/workmanager-testing/src/main/java/androidx/work/testing/TestListenableWorkerBuilder.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-04-19T16:35:37Z",
+      "side": 1,
+      "message": "Why is this catch even necessary?  Just have this throw.",
+      "range": {
+        "startLine": 344,
+        "startChar": 12,
+        "endLine": 344,
+        "endChar": 70
+      },
+      "revId": "8e8042cf84b669234097eb6805eb064f364250c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ca46cd4_3fb17902",
+        "filename": "work/workmanager-testing/src/main/java/androidx/work/testing/TestWorkerBuilder.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-04-19T16:35:37Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this try to at least go to the WorkerFactory?  What if they\u0027ve customized this?",
+      "range": {
+        "startLine": 92,
+        "startChar": 36,
+        "endLine": 92,
+        "endChar": 50
+      },
+      "revId": "8e8042cf84b669234097eb6805eb064f364250c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
