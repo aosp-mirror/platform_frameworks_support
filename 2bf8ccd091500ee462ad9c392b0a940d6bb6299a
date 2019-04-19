@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "05430128_ccc4179d",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentPagerAdapter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1442279
+      },
+      "writtenOn": "2019-04-19T21:59:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7598805c_40b3d66e",
+      "range": {
+        "startLine": 171,
+        "startChar": 20,
+        "endLine": 171,
+        "endChar": 74
+      },
+      "revId": "2bf8ccd091500ee462ad9c392b0a940d6bb6299a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "03359a55_a756f79d",
         "filename": "fragment/src/main/java/androidx/fragment/app/FragmentPagerAdapter.java",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "2bf8ccd091500ee462ad9c392b0a940d6bb6299a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1bffd8f8_7754800d",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentPagerAdapter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1442279
+      },
+      "writtenOn": "2019-04-19T21:59:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "03359a55_a756f79d",
+      "range": {
+        "startLine": 179,
+        "startChar": 16,
+        "endLine": 179,
+        "endChar": 31
+      },
+      "revId": "2bf8ccd091500ee462ad9c392b0a940d6bb6299a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
