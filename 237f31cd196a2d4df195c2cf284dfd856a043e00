@@ -94,6 +94,30 @@
       "revId": "237f31cd196a2d4df195c2cf284dfd856a043e00",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4dbdbd87_ac7a0b2c",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/PagedListViewTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 545,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-04-19T01:35:09Z",
+      "side": 1,
+      "message": "There should be two tests: one that tests if you set a value less than the width of the scrollbar, and one that sets it to be more.\n\nSo I\u0027m fine if you want to dynamically generate the gutter size (doesn\u0027t need to be hardcoded to 200). But the test itself shouldn\u0027t have a Math.max() within the assertion. The assertion should resolve to one value that is expected.\n\nTests in general shouldn\u0027t have two values that might be correct; only one.",
+      "parentUuid": "e9a89eb8_8e3496fd",
+      "range": {
+        "startLine": 545,
+        "startChar": 25,
+        "endLine": 545,
+        "endChar": 28
+      },
+      "revId": "237f31cd196a2d4df195c2cf284dfd856a043e00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
