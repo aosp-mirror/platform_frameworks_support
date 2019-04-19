@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "314715e6_7135f619",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CheckedImageReader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1482725
+      },
+      "writtenOn": "2019-04-19T04:35:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c507731f_73ae1c59",
+      "range": {
+        "startLine": 40,
+        "startChar": 12,
+        "endLine": 40,
+        "endChar": 30
+      },
+      "revId": "1995d3ce30c0f2ea65303122f385b8b69e9887d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "625823a6_153cca7a",
         "filename": "camera/core/src/main/java/androidx/camera/core/CheckedImageReader.java",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "3d3ce901_af3b9a4b",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CheckedImageReader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1482725
+      },
+      "writtenOn": "2019-04-19T04:35:08Z",
+      "side": 1,
+      "message": "Really thank the remind, learned this.",
+      "parentUuid": "625823a6_153cca7a",
+      "range": {
+        "startLine": 50,
+        "startChar": 23,
+        "endLine": 50,
+        "endChar": 78
+      },
+      "revId": "1995d3ce30c0f2ea65303122f385b8b69e9887d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1d244015_6d1185b6",
         "filename": "camera/core/src/main/java/androidx/camera/core/CheckedImageReader.java",
         "patchSetId": 1
@@ -68,6 +116,30 @@
       "revId": "1995d3ce30c0f2ea65303122f385b8b69e9887d2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7623e0a9_daca7b26",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CheckedImageReader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1482725
+      },
+      "writtenOn": "2019-04-19T04:35:08Z",
+      "side": 1,
+      "message": "Thank the suggestion.",
+      "parentUuid": "1d244015_6d1185b6",
+      "range": {
+        "startLine": 107,
+        "startChar": 14,
+        "endLine": 107,
+        "endChar": 42
+      },
+      "revId": "1995d3ce30c0f2ea65303122f385b8b69e9887d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
