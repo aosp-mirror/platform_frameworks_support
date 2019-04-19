@@ -16,6 +16,7 @@
 
 package androidx.camera.testing.fakes;
 
+import android.hardware.camera2.CameraCharacteristics;
 import android.view.Surface;
 
 import androidx.annotation.Nullable;
@@ -33,14 +34,17 @@ public final class FakeCameraInfo implements CameraInfo {
 
     private final int mSensorRotation;
     private final LensFacing mLensFacing;
+    private final int mHardwareLevel;
 
     public FakeCameraInfo() {
-        this(/*sensorRotation=*/ 0, /*lensFacing=*/ LensFacing.BACK);
+        this(/*sensorRotation=*/ 0, /*lensFacing=*/ LensFacing.BACK,
+                /*hardwareLevel=*/ CameraCharacteristics.INFO_SUPPORTED_HARDWARE_LEVEL_3);
     }
 
-    public FakeCameraInfo(int sensorRotation, LensFacing lensFacing) {
+    public FakeCameraInfo(int sensorRotation, LensFacing lensFacing, int hardwareLevel) {
         mSensorRotation = sensorRotation;
         mLensFacing = lensFacing;
+        mHardwareLevel = hardwareLevel;
     }
 
     @Nullable
@@ -61,6 +65,11 @@ public final class FakeCameraInfo implements CameraInfo {
                 relativeRotationDegrees,
                 mSensorRotation,
                 isOppositeFacingScreen);
+    }
+
+    @Override
+    public int getSupportedHardwareLevel() {
+        return mHardwareLevel;
     }
 
     @Override

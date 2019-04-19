@@ -16,11 +16,16 @@
 
 package androidx.camera.core;
 
+import static android.graphics.ImageFormat.JPEG;
+
 import android.graphics.Rect;
 import android.graphics.SurfaceTexture;
+import android.hardware.camera2.CameraCharacteristics;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+import android.util.Rational;
 import android.util.Size;
 import android.view.Display;
 import android.view.Surface;
@@ -328,6 +333,53 @@ public class Preview extends UseCase {
         }
 
         return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @hide
+     */
+    @Override
+    @RestrictTo(Scope.LIBRARY_GROUP)
+    protected void updateUseCaseConfig(UseCaseConfig<?> useCaseConfig) {
+        super.updateUseCaseConfig(useCaseConfig);
+        /**
+         * The Camera2 LEGACY mode API always sends the HAL a configure call for a preview
+         * resolution with the same aspect ratio as the maximum JPEG resolution, and do the
+         * cropping/scaling before returning the output. There is a bug because of a flipped
+         * scaling factor in the intermediate texture transform matrix, and it was fixed in L
+         * MR1.
+         */
+        PreviewConfig config = (PreviewConfig) getUseCaseConfig();
+        String cameraId = getCameraIdUnchecked(config.getLensFacing());
+        try {
+            CameraInfo cameraInfo = CameraX.getCameraInfo(cameraId);
+            int hardwareLevel = cameraInfo.getSupportedHardwareLevel();
+
+            // If the device is LEGACY + Android 5.0, then set the same aspect ratio as
+            // maximum JPEG resolution to preview
+            if (hardwareLevel == CameraCharacteristics.INFO_SUPPORTED_HARDWARE_LEVEL_LEGACY
+                    && Build.VERSION.SDK_INT == 21) {
+                Size maxJpegSize = CameraX.getSurfaceManager().getMaxOutputSize(cameraId, JPEG);
+                int targetRotation = config.getTargetRotation();
+                int sensorRotationDegrees = cameraInfo.getSensorRotationDegrees(targetRotation);
+                boolean needReverse =
+                        sensorRotationDegrees == 90 || sensorRotationDegrees == 270;
+                int width = needReverse ? maxJpegSize.getHeight() : maxJpegSize.getWidth();
+                int height = needReverse ? maxJpegSize.getWidth() : maxJpegSize.getHeight();
+                Rational aspectRatio = new Rational(width, height);
+
+                Rational oldRatio = config.getTargetAspectRatio(null);
+                if (!aspectRatio.equals(oldRatio)) {
+                    PreviewConfig.Builder configBuilder = PreviewConfig.Builder.fromConfig(config);
+                    configBuilder.setTargetAspectRatio(aspectRatio);
+                    super.updateUseCaseConfig(configBuilder.build());
+                }
+            }
+        } catch (CameraInfoUnavailableException e) {
+            Log.e(TAG, "Unable to retrieve camera info.", e);
+        }
     }
 
     /**
