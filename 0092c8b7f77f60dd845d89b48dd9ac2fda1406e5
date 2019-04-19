@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "20c6b6ee_017b5cec",
+        "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/BenchmarkPlugin.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-04-19T01:17:00Z",
+      "side": 1,
+      "message": "why don\u0027t we read local.properties instead? that way, order of plugins won\u0027t matter.\nyou can get local.proprties from project.rootProject.projectDir",
+      "range": {
+        "startLine": 27,
+        "startChar": 8,
+        "endLine": 34,
+        "endChar": 9
+      },
+      "revId": "0092c8b7f77f60dd845d89b48dd9ac2fda1406e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69ad6037_72b93b41",
+        "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/BenchmarkReportTask.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-04-19T01:17:00Z",
+      "side": 1,
+      "message": "must declare this as task output.",
+      "range": {
+        "startLine": 37,
+        "startChar": 12,
+        "endLine": 37,
+        "endChar": 30
+      },
+      "revId": "0092c8b7f77f60dd845d89b48dd9ac2fda1406e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
