@@ -46,6 +46,30 @@
       "revId": "1f7e66e6bc39fb97f3a2507ed2f3ddf851badc13",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2fedadc5_d988a198",
+        "filename": "work/workmanager-testing/src/main/java/androidx/work/testing/TestWorkerBuilder.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2019-04-19T23:20:11Z",
+      "side": 1,
+      "message": "Discussed offline. Removed this overridden from() in favor of API symmetry in Kotlin and Java.",
+      "parentUuid": "ff822468_f260b054",
+      "range": {
+        "startLine": 56,
+        "startChar": 36,
+        "endLine": 56,
+        "endChar": 40
+      },
+      "revId": "1f7e66e6bc39fb97f3a2507ed2f3ddf851badc13",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
