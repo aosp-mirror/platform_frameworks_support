@@ -34,6 +34,24 @@
       "revId": "95dab94996372c5f58f2fec2ed28b8ef02f59e33",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d6a0e13_8b50bbd6",
+        "filename": "car/cluster/src/androidTest/java/androidx/car/cluster/navigation/RichTextTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2019-04-19T19:57:25Z",
+      "side": 1,
+      "message": "I was referring to the case \"builder_textMustBeSet\".\nIf the developer does \"new RichText.Builder().build()\" it would get a NullPointerException even though no \"null\" pointer was ever given. This would be very surprising if the exception doesn\u0027t provide any explanation.\nThis is different than when doing \"new RichText.Builder().addElement(null)\" or \"new RichText.Builder().setText(null)\".\nThat\u0027s why I feel for this case, NullPointerException is not the right exception and I think IllegalStateException is a better one.",
+      "parentUuid": "6c0d1112_f82001f8",
+      "revId": "95dab94996372c5f58f2fec2ed28b8ef02f59e33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
