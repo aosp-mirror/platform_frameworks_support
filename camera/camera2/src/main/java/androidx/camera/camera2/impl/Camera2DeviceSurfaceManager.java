@@ -20,6 +20,7 @@ import android.content.Context;
 import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraManager;
 import android.media.CamcorderProfile;
+import android.util.Rational;
 import android.util.Size;
 
 import androidx.annotation.RestrictTo;
@@ -30,6 +31,7 @@ import androidx.camera.core.CameraDeviceSurfaceManager;
 import androidx.camera.core.CameraX;
 import androidx.camera.core.SurfaceConfig;
 import androidx.camera.core.UseCase;
+import androidx.camera.core.UseCaseConfig;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -151,15 +153,7 @@ public final class Camera2DeviceSurfaceManager implements CameraDeviceSurfaceMan
 
         if (originalUseCases != null) {
             for (UseCase useCase : originalUseCases) {
-                CameraDeviceConfig config = (CameraDeviceConfig) useCase.getUseCaseConfig();
-                String useCaseCameraId;
-                try {
-                    useCaseCameraId =
-                            CameraX.getCameraWithLensFacing(config.getLensFacing());
-                } catch (Exception e) {
-                    throw new IllegalArgumentException(
-                            "Unable to get camera ID for use case " + useCase.getName(), e);
-                }
+                String useCaseCameraId = getCameraIdFromUseCase(useCase.getUseCaseConfig());
                 Size resolution = useCase.getAttachedSurfaceResolution(useCaseCameraId);
 
                 surfaceConfigs.add(
@@ -256,6 +250,63 @@ public final class Camera2DeviceSurfaceManager implements CameraDeviceSurfaceMan
         }
 
         return previewSize;
+    }
+
+    /**
+     * Checks whether the use case requires a corrected aspect ratio due to device constraints.
+     *
+     * @param useCaseConfig to check aspect ratio
+     * @return the check result that whether aspect ratio need to be corrected
+     */
+    @Override
+    public boolean requiresCorrectedAspectRatio(UseCaseConfig<?> useCaseConfig) {
+        if (!mIsInitialized) {
+            throw new IllegalStateException("CameraDeviceSurfaceManager is not initialized.");
+        }
+        String cameraId = getCameraIdFromUseCase(useCaseConfig);
+        SupportedSurfaceCombination supportedSurfaceCombination =
+                mCameraSupportedSurfaceCombinationMap.get(cameraId);
+
+        if (supportedSurfaceCombination == null) {
+            throw new IllegalArgumentException(
+                    "Fail to find supported surface info - CameraId:" + cameraId);
+        }
+        return supportedSurfaceCombination.requiresCorrectedAspectRatio();
+    }
+
+    /**
+     * Returns the corrected aspect ratio for the given use case configuration or {@code null} if
+     * no correction is needed.
+     *
+     * @param useCaseConfig to check aspect ratio
+     * @return the corrected aspect ratio for the use case
+     */
+    @Override
+    public Rational getCorrectedAspectRatio(UseCaseConfig<?> useCaseConfig) {
+        if (!mIsInitialized) {
+            throw new IllegalStateException("CameraDeviceSurfaceManager is not initialized.");
+        }
+        String cameraId = getCameraIdFromUseCase(useCaseConfig);
+        SupportedSurfaceCombination supportedSurfaceCombination =
+                mCameraSupportedSurfaceCombinationMap.get(cameraId);
+
+        if (supportedSurfaceCombination == null) {
+            throw new IllegalArgumentException(
+                    "Fail to find supported surface info - CameraId:" + cameraId);
+        }
+        return supportedSurfaceCombination.getCorrectedAspectRatio(useCaseConfig);
+    }
+
+    private String getCameraIdFromUseCase(UseCaseConfig<?> useCaseConfig) {
+        CameraDeviceConfig config = (CameraDeviceConfig) useCaseConfig;
+        String cameraId;
+        try {
+            cameraId = CameraX.getCameraWithLensFacing(config.getLensFacing());
+        } catch (Exception e) {
+            throw new IllegalArgumentException(
+                    "Unable to get camera ID for use case " + useCaseConfig.getTargetName(), e);
+        }
+        return cameraId;
     }
 
     enum Operation {
