@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "72f94413_1534ec7d",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteDynamicChooserDialog.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-04-19T06:20:29Z",
+      "side": 1,
+      "message": "MRDynamicChooserDialog?",
+      "range": {
+        "startLine": 65,
+        "startChar": 39,
+        "endLine": 65,
+        "endChar": 62
+      },
+      "revId": "624da11836e45b7c14f4be71f776ac0f3cb41bfb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c63c75ec_9f90b4bd",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteDynamicControllerDialog.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 588,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-04-19T06:20:29Z",
+      "side": 1,
+      "message": "getDynamicGroupState() !\u003d null?",
+      "range": {
+        "startLine": 588,
+        "startChar": 27,
+        "endLine": 588,
+        "endChar": 47
+      },
+      "revId": "624da11836e45b7c14f4be71f776ac0f3cb41bfb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
