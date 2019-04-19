@@ -263,6 +263,30 @@
       "revId": "0e6e22507f5c62d9029fae0c087719565431d1cf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a0223ea_6a328187",
+        "filename": "work/workmanager-testing/src/main/java/androidx/work/testing/TestWorkerBuilder.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2019-04-19T22:33:32Z",
+      "side": 1,
+      "message": "Okay.. I made the corresponding Java API @NonNull.",
+      "parentUuid": "55adf79c_d0b480de",
+      "range": {
+        "startLine": 42,
+        "startChar": 14,
+        "endLine": 42,
+        "endChar": 22
+      },
+      "revId": "0e6e22507f5c62d9029fae0c087719565431d1cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
