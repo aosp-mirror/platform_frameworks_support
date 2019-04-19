@@ -16,6 +16,13 @@
 
 package androidx.camera.core;
 
+import static android.graphics.ImageFormat.JPEG;
+
+import android.content.Context;
+import android.hardware.camera2.CameraAccessException;
+import android.hardware.camera2.CameraCharacteristics;
+import android.hardware.camera2.CameraManager;
+import android.os.Build;
 import android.os.Handler;
 import android.util.Rational;
 import android.util.Size;
@@ -403,6 +410,46 @@ public final class PreviewConfig
          * @return A {@link PreviewConfig} populated with the current state.
          */
         public PreviewConfig build() {
+            /**
+             * The Camera2 LEGACY mode API always send the HAL a configure call for a preview
+             * resolution with the same aspect ratio as the maximum JPEG resolution, and do the
+             * cropping/scaling before returning the output. There is a bug because of a flipped
+             * scaling factor in the intermediate texture transform matrix, and it was fixed in L
+             * MR1.
+             */
+            CameraManager cameraManager =
+                    (CameraManager) CameraX.getContext().getSystemService(Context.CAMERA_SERVICE);
+            try {
+                CameraX.LensFacing lensFacing = mMutableConfig.retrieveOption(
+                        OPTION_LENS_FACING);
+                String cameraId = CameraX.getCameraWithLensFacing(lensFacing);
+                CameraCharacteristics characteristics =
+                        cameraManager.getCameraCharacteristics(cameraId);
+                int hardwareLevel = characteristics.get(
+                        CameraCharacteristics.INFO_SUPPORTED_HARDWARE_LEVEL);
+
+                // If the device is LEGACY + Android 5.0, then set the same aspect ratio as
+                // maximum JPEG resolution to preview
+                if (hardwareLevel == CameraCharacteristics.INFO_SUPPORTED_HARDWARE_LEVEL_LEGACY
+                        && Build.VERSION.SDK_INT == 21) {
+                    Size maxJpegSize = CameraX.getSurfaceManager().getMaxOutputSize(cameraId, JPEG);
+                    int targetRotation = mMutableConfig.retrieveOption(OPTION_TARGET_ROTATION);
+                    int sensorRotationDegrees = CameraX.getCameraInfo(
+                            cameraId).getSensorRotationDegrees(targetRotation);
+                    boolean needReverse =
+                            sensorRotationDegrees == 90 || sensorRotationDegrees == 270;
+                    int width = needReverse ? maxJpegSize.getHeight() : maxJpegSize.getWidth();
+                    int height = needReverse ? maxJpegSize.getWidth() : maxJpegSize.getHeight();
+                    mMutableConfig.insertOption(OPTION_TARGET_ASPECT_RATIO,
+                            new Rational(width, height));
+                }
+            } catch (CameraAccessException e) {
+                e.printStackTrace();
+            } catch (CameraInfoUnavailableException e) {
+                e.printStackTrace();
+            } catch (IllegalArgumentException e) {
+                e.printStackTrace();
+            }
             return new PreviewConfig(OptionsBundle.from(mMutableConfig));
         }
 
