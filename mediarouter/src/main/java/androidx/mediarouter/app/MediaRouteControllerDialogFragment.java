@@ -114,7 +114,7 @@ public class MediaRouteControllerDialogFragment extends DialogFragment {
 
             if (mDialog != null) {
                 if (mUseDynamicGroup) {
-                    ((MediaRouteCastDialog) mDialog).setRouteSelector(selector);
+                    ((MediaRouteDynamicControllerDialog) mDialog).setRouteSelector(selector);
                 }
             }
         }
@@ -125,8 +125,8 @@ public class MediaRouteControllerDialogFragment extends DialogFragment {
      * @hide
      */
     @RestrictTo(LIBRARY_GROUP_PREFIX)
-    public MediaRouteCastDialog onCreateCastDialog(Context context) {
-        return new MediaRouteCastDialog(context);
+    public MediaRouteDynamicControllerDialog onCreateCastDialog(Context context) {
+        return new MediaRouteDynamicControllerDialog(context);
     }
 
     /**
@@ -144,7 +144,7 @@ public class MediaRouteControllerDialogFragment extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         if (mUseDynamicGroup) {
             mDialog = onCreateCastDialog(getContext());
-            ((MediaRouteCastDialog) mDialog).setRouteSelector(mSelector);
+            ((MediaRouteDynamicControllerDialog) mDialog).setRouteSelector(mSelector);
         } else {
             mDialog = onCreateControllerDialog(getContext(), savedInstanceState);
         }
@@ -164,7 +164,7 @@ public class MediaRouteControllerDialogFragment extends DialogFragment {
         super.onConfigurationChanged(newConfig);
         if (mDialog != null) {
             if (mUseDynamicGroup) {
-                ((MediaRouteCastDialog) mDialog).updateLayout();
+                ((MediaRouteDynamicControllerDialog) mDialog).updateLayout();
             } else {
                 ((MediaRouteControllerDialog) mDialog).updateLayout();
             }

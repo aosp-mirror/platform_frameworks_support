@@ -12,12 +12,12 @@ package androidx.mediarouter.app {
   }
 
   public class MediaRouteChooserDialogFragment extends androidx.fragment.app.DialogFragment {
-    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX) public androidx.mediarouter.app.MediaRouteDevicePickerDialog! onCreateDevicePickerDialog(android.content.Context!);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX) public androidx.mediarouter.app.MediaRouteDynamicChooserDialog! onCreateDevicePickerDialog(android.content.Context!);
   }
 
   public class MediaRouteControllerDialogFragment extends androidx.fragment.app.DialogFragment {
     method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX) public androidx.mediarouter.media.MediaRouteSelector! getRouteSelector();
-    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX) public androidx.mediarouter.app.MediaRouteCastDialog! onCreateCastDialog(android.content.Context!);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX) public androidx.mediarouter.app.MediaRouteDynamicControllerDialog! onCreateCastDialog(android.content.Context!);
     method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX) public void setRouteSelector(androidx.mediarouter.media.MediaRouteSelector!);
   }
 
