@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dceada46_7f66825b",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 535,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-04-19T06:18:44Z",
+      "side": 1,
+      "message": "OnImageReaderRefreshListener  -\u003e  SurfaceCreator",
+      "range": {
+        "startLine": 535,
+        "startChar": 0,
+        "endLine": 535,
+        "endChar": 89
+      },
+      "revId": "2fa738b242674cbf29b486a6707cc1c0f2cc9e36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0489ae02_ff329ee7",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 537,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-04-19T06:18:44Z",
+      "side": 1,
+      "message": "The previous ImageReader surface could be still in CameraCaptureSession, which means closing it could cause 4 seconds delay. Please refer to CheckedSurfaceTexture to ensure closing it when the DeferrableSurface is detached.",
+      "range": {
+        "startLine": 537,
+        "startChar": 0,
+        "endLine": 537,
+        "endChar": 45
+      },
+      "revId": "2fa738b242674cbf29b486a6707cc1c0f2cc9e36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
