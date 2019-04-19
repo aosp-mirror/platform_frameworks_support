@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "904e2d96_e1f197de",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CameraX.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 1482091
+      },
+      "writtenOn": "2019-04-19T15:45:30Z",
+      "side": 1,
+      "message": "Refer to other API in ImageCaptureConfig. There should be getter function to retrieve the value outside it.",
+      "range": {
+        "startLine": 414,
+        "startChar": 20,
+        "endLine": 416,
+        "endChar": 93
+      },
+      "revId": "717b0a5fe9a465a7fc91e5642447037f5288f089",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c71f17a9_fcbdb485",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCaptureConfig.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1482091
+      },
+      "writtenOn": "2019-04-19T15:45:30Z",
+      "side": 1,
+      "message": "Refer to other API, there will be another API without valueIfMissing and may throw IllegalArgumentException when no option value exists.",
+      "range": {
+        "startLine": 173,
+        "startChar": 19,
+        "endLine": 173,
+        "endChar": 68
+      },
+      "revId": "717b0a5fe9a465a7fc91e5642447037f5288f089",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89227b8c_14b949ba",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCaptureConfig.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 617,
+      "author": {
+        "id": 1482091
+      },
+      "writtenOn": "2019-04-19T15:45:30Z",
+      "side": 1,
+      "message": "Please add getter function.",
+      "range": {
+        "startLine": 617,
+        "startChar": 23,
+        "endLine": 617,
+        "endChar": 86
+      },
+      "revId": "717b0a5fe9a465a7fc91e5642447037f5288f089",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
