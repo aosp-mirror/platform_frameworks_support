@@ -21,6 +21,7 @@ import android.graphics.SurfaceTexture;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+import android.util.Rational;
 import android.util.Size;
 import android.view.Display;
 import android.view.Surface;
@@ -328,6 +329,25 @@ public class Preview extends UseCase {
         }
 
         return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @hide
+     */
+    @Override
+    @RestrictTo(Scope.LIBRARY_GROUP)
+    protected void updateUseCaseConfig(UseCaseConfig<?> useCaseConfig) {
+        PreviewConfig config = (PreviewConfig) useCaseConfig;
+        // Check the device constraints and get the corrected aspect ratio.
+        if (CameraX.getSurfaceManager().requiresCorrectedAspectRatio(config)) {
+            Rational resultRatio = CameraX.getSurfaceManager().getCorrectedAspectRatio(config);
+            PreviewConfig.Builder configBuilder = PreviewConfig.Builder.fromConfig(config);
+            configBuilder.setTargetAspectRatio(resultRatio);
+            config = configBuilder.build();
+        }
+        super.updateUseCaseConfig(config);
     }
 
     /**
