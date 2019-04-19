@@ -23,9 +23,9 @@ import static org.junit.Assert.assertTrue;
 
 import android.content.ComponentName;
 
-import androidx.media2.MediaSession;
-import androidx.media2.MediaSessionService;
-import androidx.media2.SessionToken;
+import androidx.media2.session.MediaSession;
+import androidx.media2.session.MediaSessionService;
+import androidx.media2.session.SessionToken;
 import androidx.media2.test.service.MockMediaSessionService;
 import androidx.media2.test.service.MockPlayer;
 import androidx.media2.test.service.RemoteMediaController;
