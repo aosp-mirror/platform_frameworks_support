@@ -86,7 +86,7 @@ class DiffAndDocs private constructor(
         doclavaConfiguration.dependencies.add(root.dependencies.create(root.files(
                 (ToolProvider.getSystemToolClassLoader() as URLClassLoader).urLs)))
 
-        rules = additionalRules + TIP_OF_TREE
+        rules = additionalRules + TIP_OF_TREE + CAMERA
         docsProject = root.findProject(":docs-fake")
         anchorTask = root.tasks.register("anchorDocsTask")
         val generateSdkApiTask = createGenerateSdkApiTask(root, doclavaConfiguration)
