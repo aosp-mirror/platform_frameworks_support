@@ -126,6 +126,14 @@ val TIP_OF_TREE = docsRules("tipOfTree", true) {
     default(TipOfTree)
 }
 
+val CAMERA = docsRules("camera", true) {
+    ignore(LibraryGroups.CAMERA.group, "camera-extensions")
+    ignore(LibraryGroups.CAMERA.group, "camera-testing")
+    ignore(LibraryGroups.CAMERA.group, "camera-view")
+    tipOfTree(LibraryGroups.CAMERA.group)
+    default(Ignore)
+}
+
 /**
  * Rules are resolved in addition order. So if you have two rules that specify how docs should be
  * built for a module, first defined rule wins.
