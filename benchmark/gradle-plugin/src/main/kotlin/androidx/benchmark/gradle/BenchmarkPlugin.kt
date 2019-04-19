@@ -20,12 +20,28 @@ import com.android.build.gradle.AppExtension
 import com.android.build.gradle.AppPlugin
 import com.android.build.gradle.LibraryExtension
 import com.android.build.gradle.LibraryPlugin
+import org.gradle.api.GradleException
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.tasks.StopExecutionException
 
 class BenchmarkPlugin : Plugin<Project> {
     override fun apply(project: Project) {
+        project.exec {
+            if (project.properties["android.useAndroidX"] != "true") {
+                throw GradleException(
+                    """androidx.benchmark can only be used in AndroidX enabled
+                        | projects! To enable AndroidX, add android.useAndroidX=true to your
+                        | project's gradle.properties file. If your project has dependencies on
+                        | legacy artifacts that need to be migrated to AndroidX, you can enable the
+                        | Jetifier to do so by adding android.enableJetifier=true to your project's
+                        | gradle.properties file. For more information, visit
+                        | https://developer.android.com/jetpack/androidx/migrate."""
+                        .trimMargin()
+                )
+            }
+        }
+
         var sdkPath: String? = null
         project.plugins.all {
             when (it) {
