@@ -16,10 +16,12 @@
 
 package androidx.camera.testing.fakes;
 
+import android.util.Rational;
 import android.util.Size;
 
 import androidx.annotation.Nullable;
 import androidx.camera.core.CameraDeviceSurfaceManager;
+import androidx.camera.core.ImageOutputConfig;
 import androidx.camera.core.SurfaceConfig;
 import androidx.camera.core.UseCase;
 
@@ -89,5 +91,12 @@ public final class FakeCameraDeviceSurfaceManager implements CameraDeviceSurface
     @Override
     public Size getPreviewSize() {
         return PREVIEW_SIZE;
+    }
+
+    @Override
+    public Rational checkPreviewAspectRatio(UseCase useCase) {
+        ImageOutputConfig config = (ImageOutputConfig) useCase.getUseCaseConfig();
+        Rational aspectRatio = config.getTargetAspectRatio(null);
+        return aspectRatio;
     }
 }

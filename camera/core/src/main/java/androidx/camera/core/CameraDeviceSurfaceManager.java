@@ -16,6 +16,7 @@
 
 package androidx.camera.core;
 
+import android.util.Rational;
 import android.util.Size;
 
 import androidx.annotation.Nullable;
@@ -80,4 +81,14 @@ public interface CameraDeviceSurfaceManager {
      * @return the size used for the on screen preview
      */
     Size getPreviewSize();
+
+    /**
+     * Check the target aspect ratio and return the suggested aspect ratio for specific camera
+     * device.
+     *
+     * @param useCase     the preview use case
+     * @return the suggested aspect ratio for the preview
+     */
+    @Nullable
+    Rational checkPreviewAspectRatio(UseCase useCase);
 }
