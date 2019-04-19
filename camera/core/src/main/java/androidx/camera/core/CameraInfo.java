@@ -63,4 +63,11 @@ public interface CameraInfo {
      * @return The sensor orientation in degrees.
      */
     int getSensorRotationDegrees(@RotationValue int relativeRotation);
+
+    /**
+     * Returns the supported hardware level of this camera.
+     *
+     * @return The supported hardware level.
+     */
+    int getSupportedHardwareLevel();
 }

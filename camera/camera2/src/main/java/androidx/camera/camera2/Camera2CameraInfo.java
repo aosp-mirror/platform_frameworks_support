@@ -85,7 +85,8 @@ final class Camera2CameraInfo implements CameraInfo {
                 isOppositeFacingScreen);
     }
 
-    int getSupportedHardwareLevel() {
+    @Override
+    public int getSupportedHardwareLevel() {
         Integer deviceLevel =
                 mCameraCharacteristics.get(CameraCharacteristics.INFO_SUPPORTED_HARDWARE_LEVEL);
         Preconditions.checkNotNull(deviceLevel);
