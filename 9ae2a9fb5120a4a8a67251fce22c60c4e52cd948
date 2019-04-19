@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6b7eb740_30bb2402",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentPagerAdapter.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-19T22:01:28Z",
+      "side": 1,
+      "message": "This can\u0027t be part of this if statement. It needs to be the same type of if check as the above one since there are definitely cases where mCurrentPrimaryItem \u003d\u003d null and we don\u0027t go through the above code, but still need to create the Transaction here.",
+      "range": {
+        "startLine": 180,
+        "startChar": 16,
+        "endLine": 180,
+        "endChar": 39
+      },
+      "revId": "9ae2a9fb5120a4a8a67251fce22c60c4e52cd948",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5a134ef_96bd5aae",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentStatePagerAdapter.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-19T22:01:28Z",
+      "side": 1,
+      "message": "This isn\u0027t what you want here either. This needs to be a separate if check.",
+      "range": {
+        "startLine": 207,
+        "startChar": 16,
+        "endLine": 207,
+        "endChar": 39
+      },
+      "revId": "9ae2a9fb5120a4a8a67251fce22c60c4e52cd948",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
