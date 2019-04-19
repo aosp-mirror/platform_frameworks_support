@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1ab20e5e_98df6eca",
+        "filename": "work/workmanager-testing/src/main/java/androidx/work/testing/TestListenableWorkerBuilder.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2019-04-19T16:42:46Z",
+      "side": 1,
+      "message": "It would not matter. All the setters are on the base class anyway.\n\nThe build() method returns the right generic sub type.",
+      "parentUuid": "030b1137_c992dec8",
+      "range": {
+        "startLine": 169,
+        "startChar": 11,
+        "endLine": 169,
+        "endChar": 38
+      },
+      "revId": "8e8042cf84b669234097eb6805eb064f364250c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b712664e_afd6dff5",
         "filename": "work/workmanager-testing/src/main/java/androidx/work/testing/TestListenableWorkerBuilder.java",
         "patchSetId": 3
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "4da92949_ae58f591",
+        "filename": "work/workmanager-testing/src/main/java/androidx/work/testing/TestListenableWorkerBuilder.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2019-04-19T16:42:46Z",
+      "side": 1,
+      "message": "Rethrowing as a RuntimeException so we don\u0027t have to declare that the method throws a ClassNotFoundException.",
+      "parentUuid": "b712664e_afd6dff5",
+      "range": {
+        "startLine": 344,
+        "startChar": 12,
+        "endLine": 344,
+        "endChar": 70
+      },
+      "revId": "8e8042cf84b669234097eb6805eb064f364250c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ca46cd4_3fb17902",
         "filename": "work/workmanager-testing/src/main/java/androidx/work/testing/TestWorkerBuilder.java",
         "patchSetId": 3
@@ -59,6 +107,30 @@
       "writtenOn": "2019-04-19T16:35:37Z",
       "side": 1,
       "message": "Shouldn\u0027t this try to at least go to the WorkerFactory?  What if they\u0027ve customized this?",
+      "range": {
+        "startLine": 92,
+        "startChar": 36,
+        "endLine": 92,
+        "endChar": 50
+      },
+      "revId": "8e8042cf84b669234097eb6805eb064f364250c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be029573_86c5539a",
+        "filename": "work/workmanager-testing/src/main/java/androidx/work/testing/TestWorkerBuilder.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2019-04-19T16:42:46Z",
+      "side": 1,
+      "message": "I think that\u0027s something that will be really hard to test anyway. They will need to construct a WorkRequest (for which they need a real Class\u003c? extends ListenableWorker\u003e reference). \n\nAlso WorkerFactory cannot map the old class name to the new class name, it can only construct instances of the ListenableWorker. So, constructing a WorkRequest for a class which you don\u0027t have a strong reference to is almost impossible.",
+      "parentUuid": "5ca46cd4_3fb17902",
       "range": {
         "startLine": 92,
         "startChar": 36,
