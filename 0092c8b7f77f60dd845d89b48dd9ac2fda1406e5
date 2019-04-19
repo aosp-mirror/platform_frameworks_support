@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e0c37e2b_8b015799",
+        "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/BenchmarkPlugin.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-04-19T02:14:47Z",
+      "side": 1,
+      "message": "Isn\u0027t local.properties technically optional because it can be replaced by ANDROID_HOME environment variable? It seems relevant especially for CI / non-local development setups.",
+      "parentUuid": "20c6b6ee_017b5cec",
+      "range": {
+        "startLine": 27,
+        "startChar": 8,
+        "endLine": 34,
+        "endChar": 9
+      },
+      "revId": "0092c8b7f77f60dd845d89b48dd9ac2fda1406e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "69ad6037_72b93b41",
         "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/BenchmarkReportTask.kt",
         "patchSetId": 6
@@ -45,6 +69,30 @@
       "revId": "0092c8b7f77f60dd845d89b48dd9ac2fda1406e5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e813b00_99e405b6",
+        "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/BenchmarkReportTask.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-04-19T02:14:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "69ad6037_72b93b41",
+      "range": {
+        "startLine": 37,
+        "startChar": 12,
+        "endLine": 37,
+        "endChar": 30
+      },
+      "revId": "0092c8b7f77f60dd845d89b48dd9ac2fda1406e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
