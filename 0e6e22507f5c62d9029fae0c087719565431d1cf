@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "07470e53_6f8570d0",
+        "filename": "work/workmanager-testing/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-19T20:13:57Z",
+      "side": 1,
+      "message": "You\u0027re not using coroutines in the library itself, so this can be removed (or moved back to androidTestImplementation if your tests are using coroutines).",
+      "range": {
+        "startLine": 32,
+        "startChar": 4,
+        "endLine": 32,
+        "endChar": 26
+      },
+      "revId": "0e6e22507f5c62d9029fae0c087719565431d1cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e918dc73_db2f090d",
+        "filename": "work/workmanager-testing/src/androidTest/java/androidx/work/testing/TestWorkerBuilderTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-19T20:13:57Z",
+      "side": 1,
+      "message": "You should either remove this or remove the explicit type on worker - only one of the two is needed.",
+      "range": {
+        "startLine": 121,
+        "startChar": 60,
+        "endLine": 121,
+        "endChar": 72
+      },
+      "revId": "0e6e22507f5c62d9029fae0c087719565431d1cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60daa5aa_f28a3f24",
+        "filename": "work/workmanager-testing/src/androidTest/java/androidx/work/testing/TestWorkerBuilderTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-19T20:13:57Z",
+      "side": 1,
+      "message": "Same here on removing the unnecessary \u003cTestWorker\u003e",
+      "range": {
+        "startLine": 130,
+        "startChar": 29,
+        "endLine": 130,
+        "endChar": 41
+      },
+      "revId": "0e6e22507f5c62d9029fae0c087719565431d1cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "95777838_b69b4822",
+        "filename": "work/workmanager-testing/src/main/java/androidx/work/testing/TestListenableWorkerBuilder.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-19T20:13:57Z",
+      "side": 1,
+      "message": "Do you think it makes sense to have this in the Kotlin helper? If you\u0027re returning the builder, devs can call setId() if they really need this.",
+      "range": {
+        "startLine": 40,
+        "startChar": 4,
+        "endLine": 40,
+        "endChar": 31
+      },
+      "revId": "0e6e22507f5c62d9029fae0c087719565431d1cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "115d6d78_23d40cf9",
+        "filename": "work/workmanager-testing/src/main/java/androidx/work/testing/TestWorkerBuilder.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-19T20:13:57Z",
+      "side": 1,
+      "message": "No default value? Last I saw, TestWorkerBuilder takes a nullable executor - does that need to be corrected to a @NonNull executor?",
+      "range": {
+        "startLine": 42,
+        "startChar": 14,
+        "endLine": 42,
+        "endChar": 22
+      },
+      "revId": "0e6e22507f5c62d9029fae0c087719565431d1cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
