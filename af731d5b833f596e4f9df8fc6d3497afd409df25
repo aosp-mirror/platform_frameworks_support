@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cb73d45a_e8f3b169",
+        "filename": "work/workmanager-testing/src/main/java/androidx/work/testing/TestWorkerBuilder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-19T00:23:42Z",
+      "side": 1,
+      "message": "Write the equivalent for this for the from() that takes a Class",
+      "range": {
+        "startLine": 56,
+        "startChar": 36,
+        "endLine": 56,
+        "endChar": 40
+      },
+      "revId": "af731d5b833f596e4f9df8fc6d3497afd409df25",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2c3544d_3ba47e53",
+        "filename": "work/workmanager-testing/src/main/java/androidx/work/testing/TestWorkerBuilder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-19T00:23:42Z",
+      "side": 1,
+      "message": "Is there a particular reason this is even a setter available if it is something you pass into from() as well?",
+      "range": {
+        "startLine": 70,
+        "startChar": 29,
+        "endLine": 70,
+        "endChar": 40
+      },
+      "revId": "af731d5b833f596e4f9df8fc6d3497afd409df25",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5cd1bb89_22758b1c",
+        "filename": "work/workmanager-testing/src/main/java/androidx/work/testing/TestWorkerBuilder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-19T00:23:42Z",
+      "side": 1,
+      "message": "Should this be TestWorkerBuilder\u003cWorker\u003e? Or TestWorkerBuilder\u003c? extends Worker\u003e or whatever Java requires.",
+      "range": {
+        "startLine": 85,
+        "startChar": 18,
+        "endLine": 85,
+        "endChar": 35
+      },
+      "revId": "af731d5b833f596e4f9df8fc6d3497afd409df25",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
