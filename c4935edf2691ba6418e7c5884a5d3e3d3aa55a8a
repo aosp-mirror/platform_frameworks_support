@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6baed25c_0d563f7e",
+        "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/BenchmarkPlugin.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-04-19T16:09:19Z",
+      "side": 1,
+      "message": "first, do we want a separate task for this? can we not do a doAfter (or whatever the opposite of doFirst is) on the regular connectedAndroidTest? is it just the difficulty of discovering that adb path from a doAfter clause?\n\nif we do want the task:\n\n1 - lockClocks and unlockClocks are global - is benchmarkReport only supported as `./gradlew \u003cmodulename\u003e:benchmarkReport` ?\n\n\n2 - naming - if this runs the benchmark, and copies out results, how about one of the following (maybe cmw@ has ideas):\n\nconnectedBenchmark\nconnectedAndroidBenchmark",
+      "revId": "c4935edf2691ba6418e7c5884a5d3e3d3aa55a8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "343ffbeb_f0cb8d28",
+        "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/BenchmarkReportTask.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-04-19T16:09:19Z",
+      "side": 1,
+      "message": "what\u0027s the test output directory, and does this match it?",
+      "revId": "c4935edf2691ba6418e7c5884a5d3e3d3aa55a8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "429b65bd_abab4f2c",
+        "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/BenchmarkReportTask.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-04-19T16:09:19Z",
+      "side": 1,
+      "message": "getting reports from all devices seems strange - is that what connected check would normally do (get test output from all connected devices?)\n\nis there another ADB_SERIAL thing we should be checking",
+      "revId": "c4935edf2691ba6418e7c5884a5d3e3d3aa55a8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b78b793_7d0946c7",
+        "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/BenchmarkReportTask.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-04-19T16:09:19Z",
+      "side": 1,
+      "message": "with multiple devices connected, will these pulls overwrite one another?\n\nshould we bake device into the file path? How do tests do this?",
+      "revId": "c4935edf2691ba6418e7c5884a5d3e3d3aa55a8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "381fccf8_a722c50f",
+        "filename": "benchmark/src/main/AndroidManifest.xml",
+        "patchSetId": 8
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-04-19T16:09:19Z",
+      "side": 1,
+      "message": "add a comment for why we need this",
+      "revId": "c4935edf2691ba6418e7c5884a5d3e3d3aa55a8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "740976f8_fd7c0352",
+        "filename": "benchmark/src/main/java/androidx/benchmark/BenchmarkState.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-04-19T16:09:19Z",
+      "side": 1,
+      "message": "is this auto-format\u0027s doing?\n\nthis should line up with the annotation it\u0027s annotating - maybe use single line // comments, to avoid autoformat misaligning this?",
+      "revId": "c4935edf2691ba6418e7c5884a5d3e3d3aa55a8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a34caaf_9813dbe3",
+        "filename": "benchmark/src/main/java/androidx/benchmark/BenchmarkState.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-04-19T16:09:19Z",
+      "side": 1,
+      "message": "why are you printing the file here?\n\n(if this is just for testing, consider reverting this file)",
+      "revId": "c4935edf2691ba6418e7c5884a5d3e3d3aa55a8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1198054c_3d8faec2",
+        "filename": "benchmark/src/main/java/androidx/benchmark/ResultWriter.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-04-19T16:09:19Z",
+      "side": 1,
+      "message": "?\n\nthis looks suspicious, only reporting one of the file locations",
+      "revId": "c4935edf2691ba6418e7c5884a5d3e3d3aa55a8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
