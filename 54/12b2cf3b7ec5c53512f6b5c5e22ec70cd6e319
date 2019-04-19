@@ -1,0 +1,9 @@
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+API-Review+1: Sergey Vasilinets <sergeyv@google.com>
+Code-Review+2: Sergey Vasilinets <sergeyv@google.com>
+Code-Review+2: John Reck <jreck@google.com>
+Submitted-by: Chris Craik <ccraik@google.com>
+Submitted-at: Fri, 19 Apr 2019 23:28:42 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/frameworks/support/+/946708
+Project: platform/frameworks/support
+Branch: refs/heads/androidx-master-dev
