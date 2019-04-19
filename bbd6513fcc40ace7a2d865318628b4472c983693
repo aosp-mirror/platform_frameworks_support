@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3c960cc9_dda34599",
+        "filename": "media2/player/src/main/java/androidx/media2/MediaPlayer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1542,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-04-19T06:47:40Z",
+      "side": 1,
+      "message": "Let\u0027s just remove this comment.",
+      "range": {
+        "startLine": 1542,
+        "startChar": 7,
+        "endLine": 1542,
+        "endChar": 72
+      },
+      "revId": "bbd6513fcc40ace7a2d865318628b4472c983693",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
