@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8c13572f_67323c86",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/PublishDocsRules.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-04-19T01:29:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3e1c664b_b119d94c",
+      "range": {
+        "startLine": 79,
+        "startChar": 3,
+        "endLine": 81,
+        "endChar": 55
+      },
+      "revId": "f838a23fcc611affd3daa4006be437a52575f630",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d45757a3_9c8b2710",
         "filename": "media2/common/src/main/AndroidManifest.xml",
         "patchSetId": 12
@@ -36,6 +60,30 @@
       "writtenOn": "2019-04-18T21:23:09Z",
       "side": 1,
       "message": "Your each library should have a unique package. It can be a subpackage like androidx.media2.common. This is so that if we add resources in the future they all have unique R packages.",
+      "range": {
+        "startLine": 16,
+        "startChar": 19,
+        "endLine": 16,
+        "endChar": 34
+      },
+      "revId": "f838a23fcc611affd3daa4006be437a52575f630",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91213679_a74bdc47",
+        "filename": "media2/common/src/main/AndroidManifest.xml",
+        "patchSetId": 12
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-04-19T01:29:22Z",
+      "side": 1,
+      "message": "I will handle it in the following CL.",
+      "parentUuid": "d45757a3_9c8b2710",
       "range": {
         "startLine": 16,
         "startChar": 19,
@@ -68,6 +116,30 @@
       "revId": "f838a23fcc611affd3daa4006be437a52575f630",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "276890d9_2a0e18f0",
+        "filename": "media2/player/build.gradle",
+        "patchSetId": 12
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-04-19T01:29:22Z",
+      "side": 1,
+      "message": "Filed a bug.",
+      "parentUuid": "b75d86f3_b570eb69",
+      "range": {
+        "startLine": 48,
+        "startChar": 4,
+        "endLine": 49,
+        "endChar": 37
+      },
+      "revId": "f838a23fcc611affd3daa4006be437a52575f630",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
