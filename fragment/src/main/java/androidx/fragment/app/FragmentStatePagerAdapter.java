@@ -189,15 +189,12 @@ public abstract class FragmentStatePagerAdapter extends PagerAdapter {
     @Override
     @SuppressWarnings({"ReferenceEquality", "deprecation"})
     public void setPrimaryItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
-        if (mCurTransaction == null) {
-            mCurTransaction = mFragmentManager.beginTransaction();
-        }
-
         Fragment fragment = (Fragment)object;
         if (fragment != mCurrentPrimaryItem) {
             if (mCurrentPrimaryItem != null) {
                 mCurrentPrimaryItem.setMenuVisibility(false);
                 if (mResumeOnlyCurrentFragment) {
+                    mCurTransaction = mFragmentManager.beginTransaction();
                     mCurTransaction.setMaxLifecycle(mCurrentPrimaryItem, Lifecycle.State.STARTED);
                 } else {
                     fragment.setUserVisibleHint(false);
