@@ -20,6 +20,7 @@ import android.content.Context;
 import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraManager;
 import android.media.CamcorderProfile;
+import android.util.Rational;
 import android.util.Size;
 
 import androidx.annotation.RestrictTo;
@@ -256,6 +257,33 @@ public final class Camera2DeviceSurfaceManager implements CameraDeviceSurfaceMan
         }
 
         return previewSize;
+    }
+
+    /**
+     * Check the target aspect ratio and return the suggested aspect ratio for specific camera
+     * device.
+     *
+     * @param cameraId    the camera Id
+     * @param useCase     the preview use case
+     * @param aspectRatio new target aspect ratio
+     * @return the suggested aspect ratio for the preview
+     */
+    @Override
+    public Rational checkPreviewAspectRatio(String cameraId, UseCase useCase,
+            Rational aspectRatio) {
+        if (!mIsInitialized) {
+            throw new IllegalStateException("CameraDeviceSurfaceManager is not initialized.");
+        }
+
+        SupportedSurfaceCombination supportedSurfaceCombination =
+                mCameraSupportedSurfaceCombinationMap.get(cameraId);
+
+        if (supportedSurfaceCombination == null) {
+            throw new IllegalArgumentException(
+                    "Fail to find supported surface info - CameraId:" + cameraId);
+        }
+
+        return supportedSurfaceCombination.checkPreviewAspectRatio(useCase, aspectRatio);
     }
 
     enum Operation {
