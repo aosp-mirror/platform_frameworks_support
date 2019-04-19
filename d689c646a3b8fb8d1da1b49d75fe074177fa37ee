@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "0d1cdf33_08d9baa9",
+        "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/BenchmarkPlugin.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-04-19T16:58:47Z",
+      "side": 1,
+      "message": "Ah yeah - I pasted the error in the commit message but here\u0027s a screenshot in Studio.\n\nIt prevents gradle sync + rebuild, etc from succeeding.\n\nhttps://drive.google.com/file/d/1x6223fge3RBGkE0fpl_Zo8W9FtQIT-Z6/view?usp\u003dsharing",
+      "parentUuid": "dacd8a5f_c649eeea",
+      "revId": "d689c646a3b8fb8d1da1b49d75fe074177fa37ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f0919a37_3248e689",
         "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/BenchmarkPlugin.kt",
         "patchSetId": 3
@@ -39,6 +57,30 @@
       "revId": "d689c646a3b8fb8d1da1b49d75fe074177fa37ee",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f7ad275_ebd0b73e",
+        "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/BenchmarkPlugin.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-04-19T16:58:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f0919a37_3248e689",
+      "range": {
+        "startLine": 34,
+        "startChar": 16,
+        "endLine": 34,
+        "endChar": 17
+      },
+      "revId": "d689c646a3b8fb8d1da1b49d75fe074177fa37ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
