@@ -69,6 +69,7 @@ final class SupportedSurfaceCombination {
     private static final Size QUALITY_1080P_SIZE = new Size(1920, 1080);
     private static final Size QUALITY_720P_SIZE = new Size(1280, 720);
     private static final Size QUALITY_480P_SIZE = new Size(720, 480);
+    private static final float ASPECT_RATIO_TOLERANCE = 0.01f;
     private final List<SurfaceCombination> mSurfaceCombinations = new ArrayList<>();
     private String mCameraId;
     private CameraCharacteristics mCharacteristics;
@@ -333,9 +334,12 @@ final class SupportedSurfaceCombination {
         }
 
         // Rearrange the supported size to put the ones with the same aspect ratio in the front
-        // of the list and put others in the end from large to small. Some low end devices may
-        // not able to get an supported resolution that match the preferred aspect ratio.
+        // of the list, and put the ones with the difference less than ASPECT_RATIO_TOLERANCE
+        // for mod16 resolution like 1920x1088, at last put others in the end from large to small.
+        // Some low end devices may not able to get an supported resolution that match the
+        // preferred aspect ratio.
         List<Size> sizesMatchAspectRatio = new ArrayList<>();
+        List<Size> sizesSimilarAspectRatio = new ArrayList<>();
         List<Size> sizesNotMatchAspectRatio = new ArrayList<>();
 
         // Get target rotation value to calibrate the target resolution and aspect ratio
@@ -359,10 +363,18 @@ final class SupportedSurfaceCombination {
         }
 
         for (Size outputSize : outputSizeCandidates) {
-            // If target aspect ratio is set, moves the matched results to the front of the list.
-            if (aspectRatio != null && aspectRatio.equals(
-                    new Rational(outputSize.getWidth(), outputSize.getHeight()))) {
-                sizesMatchAspectRatio.add(outputSize);
+            // If target aspect ratio is set, moves the matched results to the front of the list
+            if (aspectRatio != null) {
+                float outputAspectRatio = outputSize.getWidth() * 1.0f / outputSize.getHeight();
+                if (aspectRatio.equals(
+                        new Rational(outputSize.getWidth(), outputSize.getHeight()))) {
+                    sizesMatchAspectRatio.add(outputSize);
+                } else if (Math.abs(aspectRatio.floatValue() - outputAspectRatio)
+                        < ASPECT_RATIO_TOLERANCE) {
+                    sizesSimilarAspectRatio.add(outputSize);
+                } else {
+                    sizesNotMatchAspectRatio.add(outputSize);
+                }
             } else {
                 sizesNotMatchAspectRatio.add(outputSize);
             }
@@ -371,6 +383,7 @@ final class SupportedSurfaceCombination {
         List<Size> supportedResolutions = new ArrayList<>();
         // No need to sort again since the source list has been sorted previously
         supportedResolutions.addAll(sizesMatchAspectRatio);
+        supportedResolutions.addAll(sizesSimilarAspectRatio);
         supportedResolutions.addAll(sizesNotMatchAspectRatio);
 
         // If there is no available size for the conditions and default resolution is in the
