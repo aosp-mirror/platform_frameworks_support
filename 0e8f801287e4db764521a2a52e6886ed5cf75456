@@ -46,6 +46,30 @@
       "revId": "0e8f801287e4db764521a2a52e6886ed5cf75456",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8a4fa170_06b62309",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-04-19T06:54:40Z",
+      "side": 1,
+      "message": "Correction: b/130019578\nBundle connectionHints will be added in the next CL. Thanks!",
+      "parentUuid": "ac4a4792_289b11f7",
+      "range": {
+        "startLine": 7,
+        "startChar": 17,
+        "endLine": 7,
+        "endChar": 40
+      },
+      "revId": "0e8f801287e4db764521a2a52e6886ed5cf75456",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
