@@ -22,9 +22,9 @@ import android.os.Handler;
 import android.util.Log;
 
 import androidx.annotation.GuardedBy;
-import androidx.media2.MediaLibraryService.MediaLibrarySession.MediaLibrarySessionCallback;
-import androidx.media2.MediaSession;
-import androidx.media2.MediaSessionService;
+import androidx.media2.session.MediaLibraryService.MediaLibrarySession.MediaLibrarySessionCallback;
+import androidx.media2.session.MediaSession;
+import androidx.media2.session.MediaSessionService;
 import androidx.media2.test.common.TestUtils.SyncHandler;
 
 import java.util.List;
