@@ -22,6 +22,30 @@
       "revId": "0e8f801287e4db764521a2a52e6886ed5cf75456",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac4a4792_289b11f7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-04-19T04:21:10Z",
+      "side": 1,
+      "message": "First of all, this is for the consistency with the framework\u0027s change (b/6949338). \n\nSecondly, this is for future extensions where the arguments of constructors are added more and more. As more arguments are added, then too many constructors will be needed.",
+      "parentUuid": "750b6d0c_ccababea",
+      "range": {
+        "startLine": 7,
+        "startChar": 17,
+        "endLine": 7,
+        "endChar": 40
+      },
+      "revId": "0e8f801287e4db764521a2a52e6886ed5cf75456",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
