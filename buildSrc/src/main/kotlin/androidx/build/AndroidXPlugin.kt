@@ -202,7 +202,7 @@ class AndroidXPlugin : Plugin<Project> {
             tasks.register(CREATE_LIBRARY_BUILD_INFO_FILES_TASK)
         val buildOnServerTask = tasks.create(BUILD_ON_SERVER_TASK)
         buildOnServerTask.dependsOn(createLibraryBuildInfoFilesTask)
-        val buildTestApksTask = tasks.create(BUILD_TEST_APKS)
+
         val projectModules = ConcurrentHashMap<String, String>()
         extra.set("projects", projectModules)
         tasks.all { task ->
@@ -232,16 +232,15 @@ class AndroidXPlugin : Plugin<Project> {
                         !project.rootProject.hasProperty("useMaxDepVersions"))) {
                     buildOnServerTask.dependsOn(task)
                 }
-                if ("assembleAndroidTest" == task.name ||
-                        "assembleDebug" == task.name) {
-                    buildTestApksTask.dependsOn(task)
-                }
             }
         }
 
         val createCoverageJarTask = Jacoco.createCoverageJarTask(this)
         buildOnServerTask.dependsOn(createCoverageJarTask)
-        buildTestApksTask.dependsOn(createCoverageJarTask)
+
+        val buildTestApksTask = tasks.register(BUILD_TEST_APKS) { it ->
+            it.dependsOn(createCoverageJarTask)
+        }
 
         extra.set("versionChecker", GMavenVersionChecker(logger))
         Release.createGlobalArchiveTask(this)
@@ -336,8 +335,8 @@ class AndroidXPlugin : Plugin<Project> {
 
         // Disable generating BuildConfig.java
         // TODO remove after https://issuetracker.google.com/72050365
-        extension.variants.all {
-            it.generateBuildConfigProvider.configure {
+        extension.variants.all { variant ->
+            variant.generateBuildConfigProvider.configure {
                 it.enabled = false
             }
         }
@@ -365,6 +364,8 @@ class AndroidXPlugin : Plugin<Project> {
 
         Jacoco.registerClassFilesTask(project, extension)
 
+        val buildTestApksTask = rootProject.tasks.named(BUILD_TEST_APKS)
+        buildTestApksTask.dependsOn(project.tasks.named("assembleAndroidTest"))
         extension.testVariants.all { variant ->
             variant.configureApkCopy(project, extension, true)
         }
@@ -461,7 +462,6 @@ class AndroidXPlugin : Plugin<Project> {
     private fun Project.configureAndroidApplicationOptions(extension: AppExtension) {
         extension.defaultConfig.apply {
             targetSdkVersion(TARGET_SDK_VERSION)
-
             versionCode = 1
             versionName = "1.0"
         }
@@ -480,7 +480,11 @@ class AndroidXPlugin : Plugin<Project> {
             }
         }
 
+        val buildTestApksTask = rootProject.tasks.named(BUILD_TEST_APKS)
         extension.applicationVariants.all { variant ->
+            if (variant.buildType.name == "debug") {
+                buildTestApksTask.dependsOn(variant.assembleProvider)
+            }
             variant.configureApkCopy(project, extension, false)
         }
     }
