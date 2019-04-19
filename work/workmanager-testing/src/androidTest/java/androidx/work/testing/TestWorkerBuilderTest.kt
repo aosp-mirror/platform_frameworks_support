@@ -115,4 +115,20 @@ class TestWorkerBuilderTest {
         assertThat(listenableWorker, notNullValue())
         assertThat(worker, notNullValue())
     }
+
+    @Test
+    fun testListenableWorkerBuilder_usesExtension() {
+        val worker: TestWorker = TestListenableWorkerBuilder<TestWorker>(context).build()
+        val result = worker.doWork()
+        assertThat(result, `is`(Result.success()))
+    }
+
+    @Test
+    fun testWorkerBuilder_usesExtension() {
+        val singleThreadedExecutor = Executors.newSingleThreadExecutor()
+        val worker: TestWorker =
+            TestWorkerBuilder<TestWorker>(context, singleThreadedExecutor).build()
+        val result = worker.doWork()
+        assertThat(result, `is`(Result.success()))
+    }
 }
