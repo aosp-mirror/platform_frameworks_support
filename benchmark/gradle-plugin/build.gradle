@@ -18,6 +18,7 @@
 import androidx.build.CompilationTarget
 import androidx.build.LibraryGroups
 import androidx.build.LibraryVersions
+import androidx.build.SupportConfig
 
 import static androidx.build.dependencies.DependenciesKt.*
 
@@ -27,9 +28,45 @@ plugins {
     id("java-gradle-plugin")
 }
 
+ext.generatedResources = "$buildDir/generated/resources"
+ext.prebuiltsRoot = "${project.projectDir.getParentFile()}/../../../prebuilts"
+
 sourceSets {
     test.java.srcDirs += 'src/main/kotlin'
+    test.resources.srcDirs += generatedResources
 }
+
+task createClasspathManifest() {
+    inputs.files sourceSets.main.runtimeClasspath
+    outputs.dir(generatedResources)
+
+    doLast {
+        new File(generatedResources, "plugin-classpath.txt").withWriter('UTF-8') {
+            it.write(sourceSets.main.runtimeClasspath.join("\n"))
+        }
+    }
+}
+
+task generateSdkResource() {
+    inputs.property("prebuiltsRoot", prebuiltsRoot)
+    inputs.property("compileSdkVersion", SupportConfig.TARGET_SDK_VERSION)
+    inputs.property("buildToolsVersion", SupportConfig.BUILD_TOOLS_VERSION)
+    inputs.property("minSdkVersion", SupportConfig.DEFAULT_MIN_SDK_VERSION)
+    outputs.dir(generatedResources)
+    doLast {
+        // Properties.write will have a timestamp, that invalidates the task,
+        // so we don't use it and write a file manually
+        new File(generatedResources, "sdk.prop").withWriter('UTF-8') {
+            it.write("prebuiltsRepo=$prebuiltsRoot\n")
+            it.write("compileSdkVersion=$SupportConfig.TARGET_SDK_VERSION\n")
+            it.write("buildToolsVersion=$SupportConfig.BUILD_TOOLS_VERSION\n")
+            it.write("minSdkVersion=$SupportConfig.DEFAULT_MIN_SDK_VERSION\n")
+        }
+    }
+}
+
+tasks["compileTestKotlin"].dependsOn createClasspathManifest
+tasks["compileTestKotlin"].dependsOn generateSdkResource
 
 dependencies {
     implementation gradleApi()
