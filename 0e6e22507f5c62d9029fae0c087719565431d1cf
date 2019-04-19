@@ -239,6 +239,30 @@
       "revId": "0e6e22507f5c62d9029fae0c087719565431d1cf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55adf79c_d0b480de",
+        "filename": "work/workmanager-testing/src/main/java/androidx/work/testing/TestWorkerBuilder.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-19T21:51:26Z",
+      "side": 1,
+      "message": "I think this is extremely confusing and breaks the symmetry between the Kotlin helpers and the Java API, forcing Kotlin users to use the TestListenableWorkerBuilder if they want the default executor.\n\nI think it is fine to say that developers should use TestListenableWorkerBuilder if they don\u0027t want a custom Executor, but that needs to be enforced on the Java API as well.",
+      "parentUuid": "d00970ce_8d623613",
+      "range": {
+        "startLine": 42,
+        "startChar": 14,
+        "endLine": 42,
+        "endChar": 22
+      },
+      "revId": "0e6e22507f5c62d9029fae0c087719565431d1cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
