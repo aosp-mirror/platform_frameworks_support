@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dacd8a5f_c649eeea",
+        "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/BenchmarkPlugin.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-04-19T16:42:10Z",
+      "side": 1,
+      "message": "how does the gradleexception show up in the studio UI? can you link me a screenshot? (want to make sure error is nicely visible)",
+      "revId": "d689c646a3b8fb8d1da1b49d75fe074177fa37ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0919a37_3248e689",
+        "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/BenchmarkPlugin.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-04-19T16:42:10Z",
+      "side": 1,
+      "message": "did you mean to indent this more?",
+      "range": {
+        "startLine": 34,
+        "startChar": 16,
+        "endLine": 34,
+        "endChar": 17
+      },
+      "revId": "d689c646a3b8fb8d1da1b49d75fe074177fa37ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
