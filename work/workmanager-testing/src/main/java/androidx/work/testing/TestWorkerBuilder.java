@@ -56,7 +56,7 @@ public class TestWorkerBuilder<W extends Worker> extends TestListenableWorkerBui
     public static TestWorkerBuilder from(
             @NonNull Context context,
             @NonNull WorkRequest workRequest) {
-        return from(context, workRequest, null);
+        return from(context, workRequest, new SynchronousExecutor());
     }
 
     /**
@@ -72,7 +72,7 @@ public class TestWorkerBuilder<W extends Worker> extends TestListenableWorkerBui
     public static TestWorkerBuilder<? extends Worker> from(
             @NonNull Context context,
             @NonNull WorkRequest workRequest,
-            @Nullable Executor executor) {
+            @NonNull Executor executor) {
         WorkSpec workSpec = workRequest.getWorkSpec();
         String name = workSpec.workerClassName;
 
@@ -109,7 +109,7 @@ public class TestWorkerBuilder<W extends Worker> extends TestListenableWorkerBui
     public static <W extends Worker> TestWorkerBuilder<W> from(
             @NonNull Context context,
             @NonNull Class<W> workerClass,
-            @Nullable Executor executor) {
+            @NonNull Executor executor) {
         return new TestWorkerBuilder<>(context, workerClass, executor);
     }
 
