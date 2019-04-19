@@ -51,6 +51,7 @@ import org.gradle.api.JavaVersion.VERSION_1_8
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.Task
+import org.gradle.api.UnknownDomainObjectException
 import org.gradle.api.artifacts.ComponentModuleMetadataDetails
 import org.gradle.api.logging.configuration.ShowStacktrace
 import org.gradle.api.plugins.JavaLibraryPlugin
@@ -202,7 +203,7 @@ class AndroidXPlugin : Plugin<Project> {
             tasks.register(CREATE_LIBRARY_BUILD_INFO_FILES_TASK)
         val buildOnServerTask = tasks.create(BUILD_ON_SERVER_TASK)
         buildOnServerTask.dependsOn(createLibraryBuildInfoFilesTask)
-        val buildTestApksTask = tasks.create(BUILD_TEST_APKS)
+
         val projectModules = ConcurrentHashMap<String, String>()
         extra.set("projects", projectModules)
         tasks.all { task ->
@@ -232,17 +233,35 @@ class AndroidXPlugin : Plugin<Project> {
                         !project.rootProject.hasProperty("useMaxDepVersions"))) {
                     buildOnServerTask.dependsOn(task)
                 }
-                if ("assembleAndroidTest" == task.name ||
-                        "assembleDebug" == task.name) {
-                    buildTestApksTask.dependsOn(task)
-                }
             }
         }
 
         val createCoverageJarTask = Jacoco.createCoverageJarTask(this)
         buildOnServerTask.dependsOn(createCoverageJarTask)
-        buildTestApksTask.dependsOn(createCoverageJarTask)
 
+        tasks.register(BUILD_TEST_APKS) { buildTestApksTask ->
+            buildTestApksTask.dependsOn(createCoverageJarTask)
+            val projectDependencyTasks = arrayOf("assembleAndroidTest", "assembleDebug")
+
+            subprojects { project ->
+                project.afterEvaluate {
+                    if (project.name.contains("testapp")) {
+                        project.tasks.all {
+                            System.out.println("${project.name} ${project.path} ${it.name}")
+                        }
+                    }
+                    projectDependencyTasks.forEach {
+                        try {
+                            buildTestApksTask.dependsOn(project.tasks.named(it))
+                        } catch (
+                            e: UnknownDomainObjectException
+                        ) {
+                            System.out.println("${project.name} ${project.path} $it does not exist")
+                        }
+                    }
+                }
+            }
+        }
         extra.set("versionChecker", GMavenVersionChecker(logger))
         Release.createGlobalArchiveTask(this)
         val allDocsTask = DiffAndDocs.configureDiffAndDocs(this, projectDir,
