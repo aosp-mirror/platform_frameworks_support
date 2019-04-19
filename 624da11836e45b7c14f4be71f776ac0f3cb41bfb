@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "09c8daef_8e943996",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteDynamicChooserDialog.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2019-04-19T07:29:58Z",
+      "side": 1,
+      "message": "I intended to make it the same as MediaRouteChooserDialog.",
+      "parentUuid": "72f94413_1534ec7d",
+      "range": {
+        "startLine": 65,
+        "startChar": 39,
+        "endLine": 65,
+        "endChar": 62
+      },
+      "revId": "624da11836e45b7c14f4be71f776ac0f3cb41bfb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c63c75ec_9f90b4bd",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteDynamicControllerDialog.java",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "624da11836e45b7c14f4be71f776ac0f3cb41bfb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56d8ba52_9af6c213",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteDynamicControllerDialog.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 588,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2019-04-19T07:29:58Z",
+      "side": 1,
+      "message": "I removed the function and changed it.",
+      "parentUuid": "c63c75ec_9f90b4bd",
+      "range": {
+        "startLine": 588,
+        "startChar": 27,
+        "endLine": 588,
+        "endChar": 47
+      },
+      "revId": "624da11836e45b7c14f4be71f776ac0f3cb41bfb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
