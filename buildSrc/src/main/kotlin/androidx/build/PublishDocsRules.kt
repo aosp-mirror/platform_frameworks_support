@@ -124,7 +124,7 @@ val RELEASE_RULE = docsRules("public", false) {
     default(Ignore)
 }
 
-val TIP_OF_TREE = docsRules("tipOfTree", true) {
+val TIP_OF_TREE = docsRules("tipOfTree", false) {
     // TODO: remove once we'll figure out our strategy about it
     ignore(LibraryGroups.CONCURRENT.group)
     default(TipOfTree)
