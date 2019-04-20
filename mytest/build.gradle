@@ -1,0 +1,8 @@
+plugins {
+    id("AndroidXPlugin")
+    id("com.android.application")
+}
+
+dependencies {
+	implementation(project(":core"))
+}

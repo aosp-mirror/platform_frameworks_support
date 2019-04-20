@@ -33,6 +33,8 @@ def includeProject(name, filePath) {
 //
 /////////////////////////////
 
+include ":mytest"
+
 includeProject(":activity", "activity")
 includeProject(":activity-ktx", "activity/ktx")
 includeProject(":activity:integration-tests:testapp", "activity/integration-tests/testapp")

@@ -28,6 +28,7 @@ android {
                 arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
             }
         }
+        multiDexEnabled true
     }
     sourceSets {
         androidTest.assets.srcDirs += files("$projectDir/schemas".toString())
