@@ -62,6 +62,7 @@ object Dokka {
             docsTask.outlineRoot = "androidx/"
             docsTask.dacRoot = "/reference/kotlin"
             docsTask.moduleName = ""
+            docsTask.includes = listOf("/usr/local/google/home/nickanthonys/androidx-master-dev/frameworks/support/leanback/src/main/java/androidx/leanback/leanback-package.md")
             for (hiddenPackage in hiddenPackages) {
                 val opts = PackageOptions()
                 opts.prefix = hiddenPackage
