@@ -25,6 +25,13 @@ import android.util.Size;
  * finder.
  */
 public interface PreviewExtenderImpl {
+    /** The different types of the preview processing. */
+    enum PreviewProcessorType {
+        /** Processing which only updates the {@link CaptureStageImpl}. */
+        PREVIEW_PROCESSOR_TYPE_REQUEST_UPDATE_ONLY,
+        PREVIEW_PROCESSOR_TYPE_NONE
+    }
+
     /**
      * Indicates whether the extension is supported on the device.
      *
@@ -42,7 +49,16 @@ public interface PreviewExtenderImpl {
      */
     void enableExtension(String cameraId, CameraCharacteristics cameraCharacteristics);
 
-    /** The set of parameters required to produce the effect on images. */
+    /**
+     * The set of parameters required to produce the effect on the preview stream.
+     *
+     * <p> This will be the initial set of parameters used for the preview
+     * {@link android.hardware.camera2.CaptureRequest}. Once the {@link RequestUpdateProcessorImpl}
+     * from {@link #getRequestUpdatePreviewProcessor()} has been called, this should be updated to
+     * reflect the new {@link CaptureStageImpl}. If the processing step returns a {@code null},
+     * meaning the required parameters has not changed, then calling this will return the previous
+     * non-null value.
+     */
     CaptureStageImpl getCaptureStage();
 
     /**
@@ -109,4 +125,9 @@ public interface PreviewExtenderImpl {
      */
     void onImageFormatUpdate(int imageFormat);
 
+    /** The type of preview processing to use. */
+    PreviewProcessorType getPreviewProcessorType();
+
+    /** Returns a processor which only updates the {@link CaptureStageImpl}. */
+    RequestUpdateProcessorImpl getRequestUpdatePreviewProcessor();
 }

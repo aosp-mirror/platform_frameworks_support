@@ -80,4 +80,14 @@ public final class HdrPreviewExtenderImpl implements PreviewExtenderImpl {
     public void onImageFormatUpdate(int imageFormat) {
         throw new RuntimeException("Stub, replace with implementation.");
     }
+
+    @Override
+    public PreviewProcessorType getPreviewProcessorType() {
+        throw new RuntimeException("Stub, replace with implementation.");
+    }
+
+    @Override
+    public RequestUpdateProcessorImpl getRequestUpdatePreviewProcessor() {
+        throw new RuntimeException("Stub, replace with implementation.");
+    }
 }
