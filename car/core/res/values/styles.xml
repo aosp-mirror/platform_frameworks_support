@@ -218,6 +218,71 @@ limitations under the License.
     <!-- ======= -->
     <eat-comment />
 
+    <!-- ============== -->
+    <!-- TextView Style -->
+    <!-- ============== -->
+    <eat-comment />
+
+    <style name="Widget.Car.TextView.Display1" parent="android:Widget">
+        <item name="android:textAppearance">@style/TextAppearance.Car.Display1</item>
+        <item name="android:lineSpacingExtra">@dimen/car_display_text_line_spacing_extra_size</item>
+    </style>
+
+    <style name="Widget.Car.TextView.Display2" parent="android:Widget">
+        <item name="android:textAppearance">@style/TextAppearance.Car.Display2</item>
+        <item name="android:lineSpacingExtra">@dimen/car_display_text_line_spacing_extra_size</item>
+    </style>
+
+    <style name="Widget.Car.TextView.Display3" parent="android:Widget">
+        <item name="android:textAppearance">@style/TextAppearance.Car.Display3</item>
+        <item name="android:lineSpacingExtra">@dimen/car_display_text_line_spacing_extra_size</item>
+    </style>
+
+    <style name="Widget.Car.TextView.Body1" parent="android:Widget">
+        <item name="android:textAppearance">@style/TextAppearance.Car.Body1</item>
+        <item name="android:lineSpacingExtra">@dimen/car_body_text_line_spacing_extra_size</item>
+    </style>
+
+    <style name="Widget.Car.TextView.Body2" parent="android:Widget">
+        <item name="android:textAppearance">@style/TextAppearance.Car.Body2</item>
+        <item name="android:lineSpacingExtra">@dimen/car_body_text_line_spacing_extra_size</item>
+    </style>
+
+    <style name="Widget.Car.TextView.Body3" parent="android:Widget">
+        <item name="android:textAppearance">@style/TextAppearance.Car.Body3</item>
+        <item name="android:lineSpacingExtra">@dimen/car_body_text_line_spacing_extra_size</item>
+    </style>
+
+    <style name="Widget.Car.TextView.Body4" parent="android:Widget">
+        <item name="android:textAppearance">@style/TextAppearance.Car.Body4</item>
+        <item name="android:lineSpacingExtra">@dimen/car_body_text_line_spacing_extra_size</item>
+    </style>
+
+    <style name="Widget.Car.TextView.SubText1" parent="android:Widget">
+        <item name="android:textAppearance">@style/TextAppearance.Car.SubText1</item>
+        <item name="android:lineSpacingExtra">@dimen/car_subtext_line_spacing_extra_size</item>
+    </style>
+
+    <style name="Widget.Car.TextView.SubText2" parent="android:Widget">
+        <item name="android:textAppearance">@style/TextAppearance.Car.SubText2</item>
+        <item name="android:lineSpacingExtra">@dimen/car_subtext_line_spacing_extra_size</item>
+    </style>
+
+    <style name="Widget.Car.TextView.SubText3" parent="android:Widget">
+        <item name="android:textAppearance">@style/TextAppearance.Car.SubText3</item>
+        <item name="android:lineSpacingExtra">@dimen/car_subtext_line_spacing_extra_size</item>
+    </style>
+
+    <style name="Widget.Car.TextView.SubText4" parent="android:Widget">
+        <item name="android:textAppearance">@style/TextAppearance.Car.SubText4</item>
+        <item name="android:lineSpacingExtra">@dimen/car_subtext_line_spacing_extra_size</item>
+    </style>
+
+    <style name="Widget.Car.TextView.SubText5" parent="android:Widget">
+        <item name="android:textAppearance">@style/TextAppearance.Car.SubText5</item>
+        <item name="android:lineSpacingExtra">@dimen/car_subtext_line_spacing_extra_size</item>
+    </style>
+
     <!-- ================ -->
     <!-- CarToolbar Style -->
     <!-- ================ -->
