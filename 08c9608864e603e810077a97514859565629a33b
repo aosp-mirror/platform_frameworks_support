@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dcdcac35_07fcc95e",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CaptureProcessor.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-22T21:14:38Z",
+      "side": 1,
+      "message": "update comment formatting from\n\n/** The ...\n * ...\n */\n\nto\n\n/**\n * The ...\n * ...\n */",
+      "revId": "08c9608864e603e810077a97514859565629a33b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9110dba2_e2162a0b",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CaptureProcessor.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-22T21:14:38Z",
+      "side": 1,
+      "message": "In CameraX we can use CaptureBundle instead of List\u003cCaptureStage\u003e. This way we pass around CaptureBundles instead of List\u003cCaptureStage\u003es. We only use List\u003cCaptureStage\u003e in the impl.",
+      "revId": "08c9608864e603e810077a97514859565629a33b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4dd78d9_c046c3b8",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CaptureRequestInfo.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-22T21:14:38Z",
+      "side": 1,
+      "message": "Its not exactly clear to me what the purpose of CaptureRequestInfo.\n\nIt seems like it is just a wrapper around a CaptureStage. Is there a reason why the CaptureStage is insufficient?",
+      "revId": "08c9608864e603e810077a97514859565629a33b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06200f10_c9d36aed",
+        "filename": "camera/core/src/main/java/androidx/camera/core/SessionEventListener.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-22T21:14:38Z",
+      "side": 1,
+      "message": "Does this need to be part of core?\n\nBecause it would seem to me this might make sense to split into the core and camera2 parts of the interface:\n\ncore: onInit(), onDeInit(), onResolutionUpdate()\nsince this is necessary in general\n\ncamera2: onPresetSession(), onEnableSession(), onDisableSession().\nsince they deal specifically with how camera2 runs.",
+      "revId": "08c9608864e603e810077a97514859565629a33b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4650958b_4202f03e",
+        "filename": "camera/extensions-stub/src/main/java/androidx/camera/extensions/impl/PreviewExtenderImpl.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-22T21:14:38Z",
+      "side": 1,
+      "message": "We can be a little bit more specific about calling out camera2 classes. For example saying that this will be used to call setSessionParameter() (or part of the repeating request). As opposed to onEnableSession() will only be called once as a single request.\n\nOtherwise it isn\u0027t clear what a sessions is.",
+      "revId": "08c9608864e603e810077a97514859565629a33b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80efb347_cc6732aa",
+        "filename": "camera/extensions-stub/src/main/java/androidx/camera/extensions/impl/PreviewExtenderImpl.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-22T21:14:38Z",
+      "side": 1,
+      "message": "We should split this into onResolutionUpdate and onImageFormatUpdate.\n\nOtherwise it should be renamed to something similar to onInputParameterUpdate(). Not sure about the exact name, but it should be enough to imply that both are being updated.",
+      "revId": "08c9608864e603e810077a97514859565629a33b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
