@@ -35,6 +35,14 @@ public final class PreviewConfig
         CameraDeviceConfig,
         ThreadConfig {
 
+    // Option Declarations:
+    // *********************************************************************************************
+
+    static final Option<FocusMode> OPTION_FOCUS_MODE =
+            Option.create("camerax.core.preview.focusMode", FocusMode.class);
+
+    // *********************************************************************************************
+
     private final OptionsBundle mConfig;
 
     /** Creates a new configuration instance. */
@@ -44,6 +52,28 @@ public final class PreviewConfig
 
     // Start of the default implementation of Config
     // *********************************************************************************************
+
+    /**
+     /**
+     * Returns the {@link FocusMode}.
+     *
+     * @return The stored value, if it exists in this configuration.
+     * @throws IllegalArgumentException if the option does not exist in this configuration.
+     */
+    @Nullable
+    public FocusMode getFocusMode(@Nullable FocusMode valueIfMissing) {
+        return retrieveOption(OPTION_FOCUS_MODE, valueIfMissing);
+    }
+
+    /**
+     * Returns the {@link FocusMode}.
+     *
+     * @return The stored value, if it exists in this configuration.
+     * @throws IllegalArgumentException if the option does not exist in this configuration.
+     */
+    public FocusMode getFocusMode() {
+        return retrieveOption(OPTION_FOCUS_MODE);
+    }
 
     // Implementations of Config default methods
 
@@ -404,6 +434,17 @@ public final class PreviewConfig
          */
         public PreviewConfig build() {
             return new PreviewConfig(OptionsBundle.from(mMutableConfig));
+        }
+
+        /**
+         * Sets the {@link FocusMode}.
+         *
+         * @param focusMode The requested focus mode.
+         * @return The current Builder.
+         */
+        public Builder setFocusMode(FocusMode focusMode) {
+            getMutableConfig().insertOption(OPTION_FOCUS_MODE, focusMode);
+            return this;
         }
 
         // Implementations of TargetConfig.Builder default methods

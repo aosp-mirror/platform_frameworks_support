@@ -23,6 +23,7 @@ import android.util.Pair;
 import androidx.camera.camera2.Camera2Config;
 import androidx.camera.core.CameraX;
 import androidx.camera.core.Config;
+import androidx.camera.core.FocusMode;
 import androidx.camera.core.PreviewConfig;
 import androidx.camera.extensions.impl.CaptureStageImpl;
 import androidx.camera.extensions.impl.PreviewExtenderImpl;
@@ -60,8 +61,7 @@ public abstract class PreviewExtender {
 
         CaptureStageImpl captureStage = mImpl.getCaptureStage();
 
-        Camera2Config.Builder camera2ConfigurationBuilder =
-                new Camera2Config.Builder();
+        Camera2Config.Builder camera2ConfigurationBuilder = new Camera2Config.Builder();
 
         for (Pair<CaptureRequest.Key, Object> captureParameter : captureStage.getParameters()) {
             camera2ConfigurationBuilder.setCaptureRequestOption(captureParameter.first,
@@ -76,5 +76,8 @@ public abstract class PreviewExtender {
             mBuilder.getMutableConfig().insertOption(objectOpt,
                     camera2Config.retrieveOption(objectOpt));
         }
+
+        // For preview focus delay issue, set the FocusMode to not to trigger AF scan.
+        mBuilder.setFocusMode(FocusMode.SET_REGION_ONLY);
     }
 }

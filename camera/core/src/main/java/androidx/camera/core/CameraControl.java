@@ -82,6 +82,16 @@ public interface CameraControl {
      */
     void setFlashMode(FlashMode flashMode);
 
+    /** Returns the current focus mode. */
+    FocusMode getFocusMode();
+
+    /**
+     * Sets current focus mode
+     *
+     * @param focusMode the {@link FocusMode}.
+     */
+    void setFocusMode(FocusMode focusMode);
+
     /**
      * Enable the torch or disable the torch
      *
@@ -132,6 +142,15 @@ public interface CameraControl {
 
         @Override
         public void setFlashMode(FlashMode flashMode) {
+        }
+
+        @Override
+        public FocusMode getFocusMode() {
+            return null;
+        }
+
+        @Override
+        public void setFocusMode(FocusMode focusMode) {
         }
 
         @Override

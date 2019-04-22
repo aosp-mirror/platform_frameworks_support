@@ -306,6 +306,13 @@ public class Preview extends UseCase {
         return suggestedResolutionMap;
     }
 
+    @Override
+    protected void onCameraControlReady(String cameraId) {
+        PreviewConfig config = (PreviewConfig) getUseCaseConfig();
+
+        getCurrentCameraControl().setFocusMode(config.getFocusMode(FocusMode.TRIGGER_AF_SCAN));
+    }
+
     @UiThread
     private void invalidateMetadata() {
         if (mLatestPreviewOutput != null) {

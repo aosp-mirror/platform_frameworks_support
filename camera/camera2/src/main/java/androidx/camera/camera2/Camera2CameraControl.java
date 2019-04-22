@@ -36,6 +36,7 @@ import androidx.camera.core.CameraControl;
 import androidx.camera.core.CaptureConfig;
 import androidx.camera.core.Config;
 import androidx.camera.core.FlashMode;
+import androidx.camera.core.FocusMode;
 import androidx.camera.core.OnFocusListener;
 import androidx.camera.core.SessionConfig;
 
@@ -60,6 +61,7 @@ public final class Camera2CameraControl implements CameraControl {
     private volatile boolean mIsTorchOn = false;
     private volatile boolean mIsFocusLocked = false;
     private volatile FlashMode mFlashMode = FlashMode.OFF;
+    private volatile FocusMode mFocusMode = FocusMode.TRIGGER_AF_SCAN;
     private volatile Rect mCropRect = null;
     volatile MeteringRectangle mAfRect;
     private volatile MeteringRectangle mAeRect;
@@ -195,7 +197,10 @@ public final class Camera2CameraControl implements CameraControl {
         }
         updateSessionConfig();
 
-        triggerAf();
+        if (mFocusMode == FocusMode.TRIGGER_AF_SCAN) {
+            triggerAf();
+        }
+
         if (FOCUS_TIMEOUT != 0) {
             mHandler.postDelayed(mHandleFocusTimeoutRunnable, FOCUS_TIMEOUT);
         }
@@ -233,15 +238,9 @@ public final class Camera2CameraControl implements CameraControl {
         mAeRect = zeroRegion;
         mAwbRect = zeroRegion;
 
-        // Send a single request to cancel af process
-        CaptureConfig.Builder singleRequestBuilder = createCaptureBuilderWithSharedOptions();
-        singleRequestBuilder.setTemplateType(getDefaultTemplate());
-        singleRequestBuilder.setUseRepeatingSurface(true);
-        Camera2Config.Builder configBuilder = new Camera2Config.Builder();
-        configBuilder.setCaptureRequestOption(CaptureRequest.CONTROL_AF_TRIGGER,
-                CaptureRequest.CONTROL_AF_TRIGGER_CANCEL);
-        singleRequestBuilder.addImplementationOptions(configBuilder.build());
-        notifySingleRequest(singleRequestBuilder.build());
+        if (mFocusMode == FocusMode.TRIGGER_AF_SCAN) {
+            cancelAfAeTrigger(true, false);
+        }
 
         mIsFocusLocked = false;
         updateSessionConfig();
@@ -259,6 +258,16 @@ public final class Camera2CameraControl implements CameraControl {
         mFlashMode = flashMode;
 
         updateSessionConfig();
+    }
+
+    @Override
+    public FocusMode getFocusMode() {
+        return mFocusMode;
+    }
+
+    @Override
+    public void setFocusMode(FocusMode focusMode) {
+        mFocusMode = focusMode;
     }
 
     /** {@inheritDoc} */
@@ -462,11 +471,18 @@ public final class Camera2CameraControl implements CameraControl {
         builder.setCaptureRequestOption(
                 CaptureRequest.CONTROL_MODE, CaptureRequest.CONTROL_MODE_AUTO);
 
-        builder.setCaptureRequestOption(
-                CaptureRequest.CONTROL_AF_MODE,
-                isFocusLocked()
-                        ? CaptureRequest.CONTROL_AF_MODE_AUTO
-                        : CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE);
+        int afMode = CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE;
+        if (isFocusLocked()) {
+            switch (mFocusMode) {
+                case TRIGGER_AF_SCAN:
+                    afMode = CaptureRequest.CONTROL_AF_MODE_AUTO;
+                    break;
+                case SET_REGION_ONLY:
+                    afMode = CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE;
+                    break;
+            }
+        }
+        builder.setCaptureRequestOption(CaptureRequest.CONTROL_AF_MODE, afMode);
 
         int aeMode = CaptureRequest.CONTROL_AE_MODE_ON;
         if (mIsTorchOn) {
