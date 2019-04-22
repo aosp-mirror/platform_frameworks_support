@@ -143,6 +143,24 @@
       "revId": "c098d7bc94bf071cfcf6955e3c4d1a5d23a048c8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "206ecf46_65ed8728",
+        "filename": "benchmark/src/main/java/androidx/benchmark/Clocks.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-04-22T23:08:27Z",
+      "side": 1,
+      "message": "resolving",
+      "parentUuid": "2c4dba84_570a7eb3",
+      "revId": "c098d7bc94bf071cfcf6955e3c4d1a5d23a048c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
