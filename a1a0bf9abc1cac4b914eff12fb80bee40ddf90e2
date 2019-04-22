@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b877a20b_4191d0f9",
+        "filename": "media2-widget/api/1.0.0-alpha5.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-04-22T06:16:38Z",
+      "side": 1,
+      "message": "Do we change previously release api txt?",
+      "range": {
+        "startLine": 30,
+        "startChar": 52,
+        "endLine": 30,
+        "endChar": 58
+      },
+      "revId": "a1a0bf9abc1cac4b914eff12fb80bee40ddf90e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
