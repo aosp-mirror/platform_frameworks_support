@@ -456,6 +456,18 @@ public class CameraExtensionsActivity extends AppCompatActivity
         }
     }
 
+    public Preview getPreview() {
+        return mPreview;
+    }
+
+    public ImageCapture getImageCapture() {
+        return mImageCapture;
+    }
+
+    public ImageCaptureType getCurrentImageCaptureType() {
+        return mCurrentImageCaptureType;
+    }
+
     @Override
     public void onRequestPermissionsResult(
             int requestCode, String[] permissions, int[] grantResults) {
