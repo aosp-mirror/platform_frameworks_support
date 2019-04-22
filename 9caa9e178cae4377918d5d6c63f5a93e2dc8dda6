@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "94099ded_f611b4d5",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentPagerAdapter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-22T23:00:57Z",
+      "side": 1,
+      "message": "This is already scoped to FragmentPagerAdapter, so the FragmentPagerAdapter prefix isn\u0027t needed. \u0027Option\u0027 could mean anything, let\u0027s use Behavior instead.",
+      "range": {
+        "startLine": 75,
+        "startChar": 22,
+        "endLine": 75,
+        "endChar": 48
+      },
+      "revId": "9caa9e178cae4377918d5d6c63f5a93e2dc8dda6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e28dfa70_edd1f28c",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentPagerAdapter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-22T23:00:57Z",
+      "side": 1,
+      "message": "Leave this out here and in other comments, this name is part of the public API.\n\nYou can use @see #FragmentPagerAdapter(FragmentManager, int)",
+      "range": {
+        "startLine": 78,
+        "startChar": 7,
+        "endLine": 78,
+        "endChar": 35
+      },
+      "revId": "9caa9e178cae4377918d5d6c63f5a93e2dc8dda6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "402d9a5f_f71c649d",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentPagerAdapter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-22T23:00:57Z",
+      "side": 1,
+      "message": "Deprecate this to give a strong signal that developers should use the other option.",
+      "range": {
+        "startLine": 81,
+        "startChar": 28,
+        "endLine": 81,
+        "endChar": 53
+      },
+      "revId": "9caa9e178cae4377918d5d6c63f5a93e2dc8dda6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a8d1cb9_c2c8820b",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentPagerAdapter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-22T23:00:57Z",
+      "side": 1,
+      "message": "Does distDocs pass with this? I suspect this should be int",
+      "range": {
+        "startLine": 103,
+        "startChar": 68,
+        "endLine": 103,
+        "endChar": 94
+      },
+      "revId": "9caa9e178cae4377918d5d6c63f5a93e2dc8dda6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c922649_bf528986",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentPagerAdapter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-22T23:00:57Z",
+      "side": 1,
+      "message": "I\u0027d add \u0027with {@link #RESUME_ONLY_CURRENT_FRAGMENT}`",
+      "range": {
+        "startLine": 103,
+        "startChar": 95,
+        "endLine": 103,
+        "endChar": 96
+      },
+      "revId": "9caa9e178cae4377918d5d6c63f5a93e2dc8dda6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9130b3b_a00f2b87",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentPagerAdapter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-22T23:00:57Z",
+      "side": 1,
+      "message": "let\u0027s use behavior instead of option",
+      "range": {
+        "startLine": 124,
+        "startChar": 44,
+        "endLine": 124,
+        "endChar": 50
+      },
+      "revId": "9caa9e178cae4377918d5d6c63f5a93e2dc8dda6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "95a08375_54120420",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentPagerAdapter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-22T23:00:57Z",
+      "side": 1,
+      "message": "This seems like unnecessary code golf. Can you switch it back to the if check? Here and below.",
+      "range": {
+        "startLine": 195,
+        "startChar": 20,
+        "endLine": 196,
+        "endChar": 84
+      },
+      "revId": "9caa9e178cae4377918d5d6c63f5a93e2dc8dda6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
