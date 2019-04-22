@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "391f2d15_f402e008",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-04-22T21:06:33Z",
+      "side": 1,
+      "message": "We don\u0027t seem to be using this variable?",
+      "range": {
+        "startLine": 241,
+        "startChar": 7,
+        "endLine": 241,
+        "endChar": 30
+      },
+      "revId": "5db00c3870163828659566285aa58880c30ff4f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1369cf98_73e7794e",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-04-22T21:06:33Z",
+      "side": 1,
+      "message": "You should be able to do the same thing you did below and just use testVariants. Test variant also has variant.assembleProvider that should be the thing that generates the test apks.",
+      "range": {
+        "startLine": 368,
+        "startChar": 36,
+        "endLine": 368,
+        "endChar": 78
+      },
+      "revId": "5db00c3870163828659566285aa58880c30ff4f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
