@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "099155bd_38e3fadc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2019-04-22T10:39:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "48722384_a6953aac",
+      "range": {
+        "startLine": 7,
+        "startChar": 18,
+        "endLine": 7,
+        "endChar": 39
+      },
+      "revId": "f5ccd33a86f63150c9c020db681db63c89a78d28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "97d42973_66b3b46d",
         "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouteProvider.java",
         "patchSetId": 6
@@ -36,6 +60,30 @@
       "writtenOn": "2019-04-22T10:26:34Z",
       "side": 1,
       "message": "I think we can simply call the onRouteChanged callback when the listener is registered.\nThen we don\u0027t need to keep mPendingRoutes and just call notifyDynamicRoutesChanged() here will work.",
+      "range": {
+        "startLine": 544,
+        "startChar": 20,
+        "endLine": 544,
+        "endChar": 35
+      },
+      "revId": "f5ccd33a86f63150c9c020db681db63c89a78d28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d375c6ae_ef58327d",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouteProvider.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2019-04-22T10:39:28Z",
+      "side": 1,
+      "message": "Currently, MediaRouteProvider or DGRouteController don\u0027t know when they should begin to update dynamic route descriptors. (Should we add a callback for that?)\n\nMoreover, the provider can set their dynamic route descriptors before a listener is registered. (Should we no-op in that case?)",
+      "parentUuid": "97d42973_66b3b46d",
       "range": {
         "startLine": 544,
         "startChar": 20,
