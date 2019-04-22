@@ -16,6 +16,8 @@
 
 package androidx.camera.camera2;
 
+import static com.google.common.truth.Truth.assertThat;
+
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.timeout;
@@ -36,6 +38,7 @@ import androidx.camera.core.CameraX.LensFacing;
 import androidx.camera.core.ImmediateSurface;
 import androidx.camera.core.SessionConfig;
 import androidx.camera.core.UseCase;
+import androidx.camera.testing.CameraUtil;
 import androidx.camera.testing.fakes.FakeUseCase;
 import androidx.camera.testing.fakes.FakeUseCaseConfig;
 import androidx.test.core.app.ApplicationProvider;
@@ -49,9 +52,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.Semaphore;
 
 @SmallTest
 @RunWith(AndroidJUnit4.class)
@@ -201,6 +206,163 @@ public final class CameraTest {
         mCamera.onUseCaseActive(mFakeUseCase);
 
         verify(mMockOnImageAvailableListener, never()).onImageAvailable(any(ImageReader.class));
+    }
+
+    Semaphore mSemaphore;
+    HandlerThread mCameraHandlerThread;
+    Handler mCameraHandler;
+
+    private void setupAggregateTest() {
+        mCameraHandlerThread = new HandlerThread("cameraThread");
+        mCameraHandlerThread.start();
+        mCameraHandler = new Handler(mCameraHandlerThread.getLooper());
+        mSemaphore = new Semaphore(0);
+        //Block the handler until semaphore is released.
+        blockHandler();
+    }
+
+    private void blockHandler() {
+        mCameraHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    mSemaphore.acquire();
+                } catch (InterruptedException e) {
+
+                }
+            }
+        });
+    }
+
+    private void tearDownAggregateTest() {
+        mCameraHandlerThread.quitSafely();
+
+    }
+
+    @Test
+    public void addOnlineAggregate() throws InterruptedException {
+
+        setupAggregateTest();
+        Camera camera = new Camera(CameraUtil.getCameraManager(), mCameraId, mCameraHandler);
+
+        UseCase useCase = createUseCase();
+        camera.addOnlineUseCase(Arrays.asList(useCase));
+        camera.addOnlineUseCase(Arrays.asList(useCase));
+
+        assertThat(camera.mPendingAddOnline).containsExactly(useCase);
+        assertThat(camera.isUseCaseOnline(useCase)).isFalse();
+
+        UseCase useCase2 = createUseCase();
+        camera.addOnlineUseCase(Arrays.asList(useCase2));
+
+        assertThat(camera.mPendingAddOnline).containsExactly(useCase, useCase2);
+
+        UseCase useCase3 = createUseCase();
+        camera.addOnlineUseCase(Arrays.asList(useCase3));
+
+        assertThat(camera.mPendingAddOnline).containsExactly(useCase, useCase2, useCase3);
+
+        mSemaphore.release();
+        Thread.sleep(10);
+        assertThat(camera.mPendingAddOnline).isEmpty();
+
+        assertThat(camera.isUseCaseOnline(useCase)).isTrue();
+        assertThat(camera.isUseCaseOnline(useCase2)).isTrue();
+        assertThat(camera.isUseCaseOnline(useCase3)).isTrue();
+
+        tearDownAggregateTest();
+    }
+
+    @Test
+    public void removeOnlineAggregate() throws InterruptedException {
+
+        setupAggregateTest();
+        Camera camera = new Camera(CameraUtil.getCameraManager(), mCameraId, mCameraHandler);
+
+        UseCase useCase = createUseCase();
+        camera.addOnlineUseCase(Arrays.asList(useCase));
+        UseCase useCase2 = createUseCase();
+
+        camera.removeOnlineUseCase(Arrays.asList(useCase2));
+        // useCase2 is not online , should not be added to mPendingRemoveOnline
+        assertThat(camera.mPendingRemoveOnline).isEmpty();
+
+        camera.addOnlineUseCase(Arrays.asList(useCase2));
+        UseCase useCase3 = createUseCase();
+        camera.addOnlineUseCase(Arrays.asList(useCase3));
+
+        camera.removeOnlineUseCase(Arrays.asList(useCase));
+        assertThat(camera.mPendingRemoveOnline).isEmpty();  //useCase is still pending, not online.
+        assertThat(camera.mPendingAddOnline).containsExactly(useCase2, useCase3);
+
+        mSemaphore.release();
+        Thread.sleep(10);
+
+        assertThat(camera.mPendingRemoveOnline).isEmpty();  //useCase is still pending, not online.
+        assertThat(camera.mPendingAddOnline).isEmpty();
+        assertThat(camera.isUseCaseOnline(useCase)).isFalse();
+        assertThat(camera.isUseCaseOnline(useCase2)).isTrue();
+        assertThat(camera.isUseCaseOnline(useCase3)).isTrue();
+
+        blockHandler();
+
+        camera.removeOnlineUseCase(Arrays.asList(useCase2));
+        camera.removeOnlineUseCase(Arrays.asList(useCase2));
+        camera.removeOnlineUseCase(Arrays.asList(useCase3));
+
+        assertThat(camera.mPendingRemoveOnline).containsExactly(useCase2, useCase3);
+
+        mSemaphore.release();
+        Thread.sleep(10);
+        assertThat(camera.mPendingRemoveOnline.size()).isEqualTo(0);
+        assertThat(camera.mPendingAddOnline.size()).isEqualTo(0);
+        assertThat(camera.isUseCaseOnline(useCase)).isFalse();
+        assertThat(camera.isUseCaseOnline(useCase2)).isFalse();
+        assertThat(camera.isUseCaseOnline(useCase3)).isFalse();
+
+
+        tearDownAggregateTest();
+    }
+
+    @Test
+    public void removeAndAddOnlineAggregate() throws InterruptedException {
+
+        setupAggregateTest();
+        Camera camera = new Camera(CameraUtil.getCameraManager(), mCameraId, mCameraHandler);
+
+        UseCase useCase = createUseCase();
+        camera.addOnlineUseCase(Arrays.asList(useCase));
+        mSemaphore.release();
+        Thread.sleep(10);
+
+        blockHandler();
+
+        camera.removeOnlineUseCase(Arrays.asList(useCase));
+        camera.addOnlineUseCase(Arrays.asList(useCase));
+
+        assertThat(camera.mPendingRemoveOnline).isEmpty();
+        assertThat(camera.mPendingAddOnline).isEmpty();
+
+        mSemaphore.release();
+        Thread.sleep(10);
+
+        assertThat(camera.isUseCaseOnline(useCase)).isTrue();
+
+        tearDownAggregateTest();
+    }
+
+    private UseCase createUseCase() {
+        FakeUseCaseConfig config =
+                new FakeUseCaseConfig.Builder()
+                        .setTargetName("UseCase")
+                        .setLensFacing(DEFAULT_LENS_FACING)
+                        .build();
+
+        TestUseCase testUseCase = new TestUseCase(config, mMockOnImageAvailableListener);
+        Map<String, Size> suggestedResolutionMap = new HashMap<>();
+        suggestedResolutionMap.put(mCameraId, new Size(640, 480));
+        testUseCase.updateSuggestedResolution(suggestedResolutionMap);
+        return testUseCase;
     }
 
     private static class TestUseCase extends FakeUseCase {

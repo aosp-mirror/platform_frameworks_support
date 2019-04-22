@@ -33,6 +33,7 @@ import androidx.annotation.GuardedBy;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.annotation.RestrictTo.Scope;
+import androidx.annotation.VisibleForTesting;
 import androidx.camera.core.BaseCamera;
 import androidx.camera.core.CameraControl;
 import androidx.camera.core.CameraDeviceStateCallbacks;
@@ -65,6 +66,7 @@ import java.util.concurrent.atomic.AtomicReference;
  * state.
  */
 final class Camera implements BaseCamera {
+    private static final boolean DEBUG = false;
     private static final String TAG = "Camera";
 
     private final Object mAttachedUseCaseLock = new Object();
@@ -104,6 +106,19 @@ final class Camera implements BaseCamera {
     private CaptureSession mCaptureSession = new CaptureSession(null);
     /** The session configuration of camera control. */
     private SessionConfig mCameraControlSessionConfig = SessionConfig.defaultEmptySessionConfig();
+
+    // Lock for aggregating addOnline / removeOnline actions.
+    private Object mAggregationLock = new Object();
+
+    // Pending UseCases to addOnline
+    @GuardedBy("mAggregationLock")
+    @VisibleForTesting
+    List<UseCase> mPendingAddOnline = new ArrayList<>();
+
+    // Pending UseCases to removeOnline
+    @GuardedBy("mAggregationLock")
+    @VisibleForTesting
+    List<UseCase> mPendingRemoveOnline = new ArrayList<>();
 
     /**
      * Constructor for a camera.
@@ -378,29 +393,107 @@ final class Camera implements BaseCamera {
         openCaptureSession();
     }
 
+    private void addAttachCountToUseCaseSurfaces(UseCase useCase) {
+        for (DeferrableSurface surface : useCase.getSessionConfig(
+                mCameraId).getSurfaces()) {
+            surface.notifySurfaceAttached();
+        }
+    }
+
+    private void reduceAttachCountToUseCaseSurfaces(UseCase useCase) {
+        for (DeferrableSurface surface : useCase.getSessionConfig(
+                mCameraId).getSurfaces()) {
+            surface.notifySurfaceDetached();
+        }
+    }
+
+    public boolean isUseCaseOnline(UseCase useCase) {
+        synchronized (mAttachedUseCaseLock) {
+            return mUseCaseAttachState.isUseCaseOnline(useCase);
+        }
+    }
+
     /**
      * Sets the use case to be in the state where the capture session will be configured to handle
      * capture requests from the use case.
+     *
+     * If called in thread other than mHandler, operation will be aggregated to perform the
+     * necessary action only.
      */
     @Override
     public void addOnlineUseCase(final Collection<UseCase> useCases) {
+        if (DEBUG) {
+            Log.d(TAG, "addOnlineUseCase " + useCases);
+        }
+
         if (useCases.isEmpty()) {
             return;
         }
 
-        if (Looper.myLooper() != mHandler.getLooper()) {
-            mHandler.post(new Runnable() {
-                @Override
-                public void run() {
-                    Camera.this.addOnlineUseCase(useCases);
+        // Aggregates the changes into the latest state: mPendingAddOnline / mPendingRemoveOnline
+        synchronized (mAggregationLock) {
+            for (UseCase useCase : useCases) {
+
+                // Filters out use cases that are not necessary (already online or is in
+                // mPendingAddOnline).
+                if (!mPendingAddOnline.contains(useCase)) {
+                    if (!isUseCaseOnline(useCase)) {
+                        if (DEBUG) {
+                            Log.d(TAG, "Pending addOnline: " + useCase);
+                        }
+                        mPendingAddOnline.add(useCase);
+
+                        // UseCase.clear() could be called prior to the addOnline operation in
+                        // camera thread. Thus we need to add attach count to the surfaces in
+                        // usecase to protect them immediate.  when usecases are removeOnline in
+                        // camera thread, it'll reduces the attach count.
+                        addAttachCountToUseCaseSurfaces(useCase);
+                    }
                 }
-            });
-            return;
+
+                // In case the use case is also being removed from Online, we no longer need to do
+                // it. Hence remove it from mPendingRemoveOnline.
+                if (mPendingRemoveOnline.contains(useCase)) {
+                    if (DEBUG) {
+                        Log.d(TAG, "remove from pending removeOnline: " + useCase);
+                    }
+
+                    mPendingRemoveOnline.remove(useCase);
+
+                    // UseCases in mPendingRemoveOnline were already added attach count when
+                    // addOnline(), so removing it also requires reducing the attach count.
+                    reduceAttachCountToUseCaseSurfaces(useCase);
+                }
+
+            }
         }
 
-        Log.d(TAG, "Use cases " + useCases + " ONLINE for camera " + mCameraId);
+
+        if (Looper.myLooper() != mHandler.getLooper()) {
+            mHandler.removeCallbacks(mAddOnlineUseCaseRunnable);
+            mHandler.post(mAddOnlineUseCaseRunnable);
+            return;
+        } else {
+            doAddOnlineUseCase();
+        }
+
+    }
+
+    // Perform the addOnlineUseCase in camera thread. It will process the aggregated result.
+    private void doAddOnlineUseCase() {
+        Log.d(TAG, "Use cases " + mPendingAddOnline + " ONLINE for camera " + mCameraId);
+
+        List<UseCase> useCasesToAdd;
+        synchronized (mAggregationLock) {
+            if (mPendingAddOnline.size() == 0) {
+                return;
+            }
+            useCasesToAdd = new ArrayList<>(mPendingAddOnline);
+            mPendingAddOnline.clear();
+        }
+
         synchronized (mAttachedUseCaseLock) {
-            for (UseCase useCase : useCases) {
+            for (UseCase useCase : useCasesToAdd) {
                 mUseCaseAttachState.setUseCaseOnline(useCase);
             }
         }
@@ -410,57 +503,134 @@ final class Camera implements BaseCamera {
         openCaptureSession();
     }
 
+    Runnable mAddOnlineUseCaseRunnable = new Runnable() {
+        @Override
+        public void run() {
+            doAddOnlineUseCase();
+        }
+    };
+
+    Runnable mRemoveOnlineUseCaseRunnable = new Runnable() {
+        @Override
+        public void run() {
+            doRemoveOnlineUseCase();
+        }
+    };
+
+
     /**
      * Removes the use case to be in the state where the capture session will be configured to
      * handle capture requests from the use case.
+     *
+     * If called in thread other than mHandler, operation will be aggregated to perform the
+     * necessary action only.
      */
     @Override
     public void removeOnlineUseCase(final Collection<UseCase> useCases) {
+        if (DEBUG) {
+            Log.d(TAG, "removeOnlineUseCase " + useCases);
+        }
+
         if (useCases.isEmpty()) {
             return;
         }
 
-        if (Looper.myLooper() != mHandler.getLooper()) {
-            mHandler.post(new Runnable() {
-                @Override
-                public void run() {
-                    Camera.this.removeOnlineUseCase(useCases);
+        // Aggregates the changes into the latest state: mPendingRemoveOnline/ mPendingAddOnline.
+        synchronized (mAggregationLock) {
+            for (UseCase useCase : useCases) {
+                // Filter out use cases that are offline already or is in mPendingRemoveOnline.
+                if (!mPendingRemoveOnline.contains(useCase)) {
+                    if (isUseCaseOnline(useCase)) {
+                        if (DEBUG) {
+                            Log.d(TAG, "Pending removeOnline: " + useCase);
+                        }
+
+                        mPendingRemoveOnline.add(useCase);
+                    }
                 }
-            });
+
+                // In case the use case is also being added to Online, we no longer need to do
+                // it. Hence remove it from mPendingAddOnline.
+                if (mPendingAddOnline.contains(useCase)) {
+                    if (DEBUG) {
+                        Log.d(TAG, "remove from pending addOnline: " + useCase);
+                    }
+                    mPendingAddOnline.remove(useCase);
+
+                    // Remove use case from mPendingAddOnline also requires reduce the attach count
+                    // since the attach count is added when it is added to mPendingAddOnline.
+                    reduceAttachCountToUseCaseSurfaces(useCase);
+                }
+            }
+        }
+
+        if (Looper.myLooper() != mHandler.getLooper()) {
+            mHandler.removeCallbacks(mRemoveOnlineUseCaseRunnable);
+            mHandler.post(mRemoveOnlineUseCaseRunnable);
+            return;
+        } else {
+            doRemoveOnlineUseCase();
+        }
+    }
+
+    // Perform the removeOnlineUseCase in camera thread. It will process the aggregated result.
+    private void doRemoveOnlineUseCase() {
+        if (DEBUG) {
+            Log.d(TAG, "doRemoveOnlineUseCase " + mPendingRemoveOnline);
+        }
+
+        List<UseCase> useCasesToRemove;
+        synchronized (mAggregationLock) {
+            useCasesToRemove = new ArrayList<>(mPendingRemoveOnline);
+            mPendingRemoveOnline.clear();
+        }
+
+        if (useCasesToRemove.size() == 0) {
             return;
         }
 
-        Log.d(TAG, "Use cases " + useCases + " OFFLINE for camera " + mCameraId);
-        synchronized (mAttachedUseCaseLock) {
-            for (UseCase useCase : useCases) {
-                mUseCaseAttachState.setUseCaseOffline(useCase);
+        try {
+            synchronized (mAttachedUseCaseLock) {
+                for (UseCase useCase : useCasesToRemove) {
+                    mUseCaseAttachState.setUseCaseOffline(useCase);
+                }
+
+                if (mUseCaseAttachState.getOnlineUseCases().isEmpty()) {
+
+                    boolean isLegacyDevice = false;
+                    try {
+                        Camera2CameraInfo camera2CameraInfo =
+                                (Camera2CameraInfo) getCameraInfo();
+                        isLegacyDevice = camera2CameraInfo.getSupportedHardwareLevel()
+                                == CameraCharacteristics.INFO_SUPPORTED_HARDWARE_LEVEL_LEGACY;
+                    } catch (CameraInfoUnavailableException e) {
+                        Log.w(TAG, "Check legacy device failed.", e);
+                    }
+
+                    if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M
+                            && !BuildCompat.isAtLeastQ()
+                            && isLegacyDevice) {
+                        // To configure surface again before close camera. This step would
+                        // disconnect
+                        // previous connected surface in some legacy device to prevent exception.
+                        configAndClose();
+                    } else {
+                        close();
+                    }
+                    return;
+                }
             }
 
-            if (mUseCaseAttachState.getOnlineUseCases().isEmpty()) {
+            openCaptureSession();
+            updateCaptureSessionConfig();
+        } finally {
 
-                boolean isLegacyDevice = false;
-                try {
-                    Camera2CameraInfo camera2CameraInfo = (Camera2CameraInfo) getCameraInfo();
-                    isLegacyDevice = camera2CameraInfo.getSupportedHardwareLevel()
-                            == CameraCharacteristics.INFO_SUPPORTED_HARDWARE_LEVEL_LEGACY;
-                } catch (CameraInfoUnavailableException e) {
-                    Log.w(TAG, "Check legacy device failed.", e);
-                }
-
-                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M && !BuildCompat.isAtLeastQ()
-                        && isLegacyDevice) {
-                    // To configure surface again before close camera. This step would disconnect
-                    // previous connected surface in some legacy device to prevent exception.
-                    configAndClose();
-                } else {
-                    close();
-                }
-                return;
+            // Reduce the attach count of surfaces in use case when we are done with removing
+            // online.
+            for (UseCase useCase : useCasesToRemove) {
+                reduceAttachCountToUseCaseSurfaces(useCase);
             }
         }
-
-        openCaptureSession();
-        updateCaptureSessionConfig();
     }
 
     /** Returns an interface to retrieve characteristics of the camera. */
@@ -515,6 +685,9 @@ final class Camera implements BaseCamera {
      * <p>The previously opened session will be safely disposed of before the new session opened.
      */
     void openCaptureSession() {
+        if (mState.get() == State.REOPENING) {
+            return;
+        }
         ValidatingBuilder validatingBuilder;
         synchronized (mAttachedUseCaseLock) {
             validatingBuilder = mUseCaseAttachState.getOnlineBuilder();
@@ -543,7 +716,7 @@ final class Camera implements BaseCamera {
      * session with a new session initialized with the old session's configuration.
      */
     void resetCaptureSession() {
-        Log.d(TAG, "Closing Capture Session");
+        Log.d(TAG, "resetCaptureSession");
 
         // Recreate an initialized (but not opened) capture session from the previous configuration
         SessionConfig previousSessionConfig = mCaptureSession.getSessionConfig();
