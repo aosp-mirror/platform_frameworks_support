@@ -199,12 +199,13 @@ public final class ImageAnalysisTest {
         final int imageFormat = ImageFormat.YUV_420_888;
         final Size[] sizes = {SECONDARY_RESOLUTION, DEFAULT_RESOLUTION};
 
-        ImageAnalysisConfig config =
-                new ImageAnalysisConfig.Builder().setCallbackHandler(mHandler).build();
-        ImageAnalysis useCase = new ImageAnalysis(config);
-        useCase.setAnalyzer(mAnalyzer);
 
         for (Size size : sizes) {
+            ImageAnalysisConfig config =
+                    new ImageAnalysisConfig.Builder().setCallbackHandler(mHandler).build();
+            ImageAnalysis useCase = new ImageAnalysis(config);
+            useCase.setAnalyzer(mAnalyzer);
+
             Map<String, Size> suggestedResolutionMap = new HashMap<>();
             suggestedResolutionMap.put(mCameraId, size);
             useCase.updateSuggestedResolution(suggestedResolutionMap);
