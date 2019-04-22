@@ -16,6 +16,7 @@
 
 package androidx.camera.camera2;
 
+import android.Manifest;
 import android.content.Context;
 import android.graphics.ImageFormat;
 import android.hardware.camera2.CameraDevice;
@@ -38,9 +39,11 @@ import androidx.camera.testing.fakes.FakeUseCaseConfig;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.SmallTest;
+import androidx.test.rule.GrantPermissionRule;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -72,6 +75,10 @@ public final class ImageReaderProxysTest {
             }
         };
     }
+
+    @Rule
+    public GrantPermissionRule mRuntimePermissionRule = GrantPermissionRule.grant(
+            Manifest.permission.CAMERA);
 
     @Before
     public void setUp() {
