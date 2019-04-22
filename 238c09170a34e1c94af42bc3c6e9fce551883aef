@@ -22,6 +22,30 @@
       "revId": "238c09170a34e1c94af42bc3c6e9fce551883aef",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7ae8b12_4996a767",
+        "filename": "navigation/fragment/src/main/java/androidx/navigation/fragment/NavHostFragment.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-22T21:34:53Z",
+      "side": 1,
+      "message": "They can override any of the default Navigators by adding a Navigator of the same name after they call super.onCreateNavController().",
+      "parentUuid": "ffb779be_65d1303d",
+      "range": {
+        "startLine": 254,
+        "startChar": 5,
+        "endLine": 254,
+        "endChar": 14
+      },
+      "revId": "238c09170a34e1c94af42bc3c6e9fce551883aef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
