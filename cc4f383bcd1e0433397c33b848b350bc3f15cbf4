@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ff12f986_a9a60ffb",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1486234
+      },
+      "writtenOn": "2019-04-22T22:33:41Z",
+      "side": 0,
+      "message": "We may want to keep this check.\n\nAnother thought is changing mCaptureBundle into mCaptureStage. So the logic becomes, if extender needs bundle, query it from processor on every capture. If extender doesn\u0027t need processor but needs a single CaptureStage, set this config.",
+      "revId": "cc4f383bcd1e0433397c33b848b350bc3f15cbf4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

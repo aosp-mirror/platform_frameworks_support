@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "b9e54def_06b02fcb",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 942,
+      "author": {
+        "id": 1486234
+      },
+      "writtenOn": "2019-04-22T22:33:41Z",
+      "side": 1,
+      "message": "Maybe just return here if there\u0027s no CaptureProcessor? And which part notifies extender about capture start?",
+      "revId": "70378b2355f1c3239c1b8e88869c74149f1fb377",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea88a9f1_cd2bf37e",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 948,
+      "author": {
+        "id": 1486234
+      },
+      "writtenOn": "2019-04-22T22:33:41Z",
+      "side": 1,
+      "message": "It\u0027s a bit confused to me that we have these capture stages in CaptureProcessor, and also another CaptureBundle in use case. Can we remove the CaptureBundle inside use case, then pull the newest CaptureBundle from processor before every capture?\n\nAnd for the case it doesn\u0027t need processor but still want a single CaptureStage, we then query it from config as it doesn\u0027t need to be dynamically updated.",
+      "revId": "70378b2355f1c3239c1b8e88869c74149f1fb377",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "75cbb301_facd80c8",
         "filename": "camera/core/src/main/java/androidx/camera/core/ProcessingImageReader.java",
         "patchSetId": 6
