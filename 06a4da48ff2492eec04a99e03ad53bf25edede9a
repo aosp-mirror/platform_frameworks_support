@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "991317be_bd7b5274",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/app/MediaRouteControllerDialogFragment.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-04-22T07:29:24Z",
+      "side": 1,
+      "message": "Q) why not LIBRARY_GROUP? Where is this called outside of Media2 group?",
+      "range": {
+        "startLine": 99,
+        "startChar": 29,
+        "endLine": 99,
+        "endChar": 36
+      },
+      "revId": "06a4da48ff2492eec04a99e03ad53bf25edede9a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
