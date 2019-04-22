@@ -31,6 +31,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.camera.core.CameraX;
 import androidx.camera.core.CameraX.LensFacing;
@@ -51,6 +52,7 @@ import androidx.camera.extensions.NightImageCaptureExtender;
 import androidx.camera.extensions.NightPreviewExtender;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.test.espresso.idling.CountingIdlingResource;
 
 import java.io.File;
 import java.text.Format;
@@ -80,6 +82,10 @@ public class CameraExtensionsActivity extends AppCompatActivity
     private Preview mPreview;
     private ImageCapture mImageCapture;
     private ImageCaptureType mCurrentImageCaptureType = ImageCaptureType.IMAGE_CAPTURE_TYPE_HDR;
+
+    // Espresso testing variables
+    @VisibleForTesting
+    CountingIdlingResource mTakePictureIdlingResource = new CountingIdlingResource("TakePicture");
 
     /**
      * Creates a preview use case.
@@ -286,6 +292,7 @@ public class CameraExtensionsActivity extends AppCompatActivity
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        mTakePictureIdlingResource.increment();
                         mImageCapture.takePicture(
                                 new File(
                                         dir,
@@ -296,6 +303,10 @@ public class CameraExtensionsActivity extends AppCompatActivity
                                     @Override
                                     public void onImageSaved(File file) {
                                         Log.d(TAG, "Saved image to " + file);
+
+                                        if (!mTakePictureIdlingResource.isIdleNow()) {
+                                            mTakePictureIdlingResource.decrement();
+                                        }
 
                                         // Trigger MediaScanner to scan the file
                                         Intent intent = new Intent(
@@ -318,6 +329,7 @@ public class CameraExtensionsActivity extends AppCompatActivity
                                 });
                     }
                 });
+        captureButton.setVisibility(View.VISIBLE);
     }
 
     void disableImageCapture() {
@@ -327,6 +339,7 @@ public class CameraExtensionsActivity extends AppCompatActivity
         }
 
         Button button = findViewById(R.id.Picture);
+        button.setVisibility(View.INVISIBLE);
         button.setOnClickListener(null);
     }
 
@@ -454,6 +467,18 @@ public class CameraExtensionsActivity extends AppCompatActivity
         } else {
             return new String[0];
         }
+    }
+
+    public Preview getPreview() {
+        return mPreview;
+    }
+
+    public ImageCapture getImageCapture() {
+        return mImageCapture;
+    }
+
+    public ImageCaptureType getCurrentImageCaptureType() {
+        return mCurrentImageCaptureType;
     }
 
     @Override
