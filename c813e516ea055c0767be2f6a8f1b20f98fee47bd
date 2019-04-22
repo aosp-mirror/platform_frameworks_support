@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1b4650e8_8117ae78",
+        "filename": "benchmark/src/main/java/androidx/benchmark/AndroidBenchmarkRunner.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-04-22T23:04:02Z",
+      "side": 1,
+      "message": "Have you tested this with R8? I\u0027m surprised this doesn\u0027t get optimized away.",
+      "revId": "c813e516ea055c0767be2f6a8f1b20f98fee47bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
