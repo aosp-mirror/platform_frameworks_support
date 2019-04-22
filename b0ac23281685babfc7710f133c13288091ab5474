@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "73e698b7_1920b164",
+        "filename": "core/src/main/java/androidx/core/provider/FontsContractCompat.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-04-22T18:55:27Z",
+      "side": 1,
+      "message": "add what this lock is used for. \ncurrently it is guarding multiple accesses which does not sound to be related.",
+      "range": {
+        "startLine": 208,
+        "startChar": 4,
+        "endLine": 208,
+        "endChar": 45
+      },
+      "revId": "b0ac23281685babfc7710f133c13288091ab5474",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e58dbe7_b22609c2",
+        "filename": "core/src/main/java/androidx/core/provider/FontsContractCompat.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-04-22T18:55:27Z",
+      "side": 1,
+      "message": "the logic here is too complicated. shall we move the singleton creation to another function?\n\nI feel like executor\u003d\u003dnull is being as a signal. Shall we use a variable or something like that instead?",
+      "range": {
+        "startLine": 362,
+        "startChar": 2,
+        "endLine": 372,
+        "endChar": 9
+      },
+      "revId": "b0ac23281685babfc7710f133c13288091ab5474",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
