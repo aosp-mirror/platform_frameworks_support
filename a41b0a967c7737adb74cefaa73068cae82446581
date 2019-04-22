@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c5099767_8e6fe0d0",
+        "filename": "navigation/fragment/src/main/java/androidx/navigation/fragment/DialogFragmentNavigator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-04-22T23:47:28Z",
+      "side": 1,
+      "message": "Why not work with classes?",
+      "range": {
+        "startLine": 203,
+        "startChar": 46,
+        "endLine": 203,
+        "endChar": 71
+      },
+      "revId": "a41b0a967c7737adb74cefaa73068cae82446581",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
