@@ -22,6 +22,30 @@
       "revId": "81f4e535d4c6a03f6213a34acb7417b0d36cbc0f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a0fcf29_0708e85f",
+        "filename": "appcompat/src/main/java/androidx/appcompat/widget/AppCompatTextViewAutoSizeHelper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 573,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-04-22T17:02:09Z",
+      "side": 1,
+      "message": "talked offline, I misunderstood the location of the change.",
+      "parentUuid": "22c5daca_f556014b",
+      "range": {
+        "startLine": 572,
+        "startChar": 16,
+        "endLine": 573,
+        "endChar": 27
+      },
+      "revId": "81f4e535d4c6a03f6213a34acb7417b0d36cbc0f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
