@@ -50,4 +50,14 @@ public final class BokehPreviewExtenderImpl implements PreviewExtenderImpl {
 
         return captureStage;
     }
+
+    @Override
+    public PreviewProcessorType getPreviewProcessorType() {
+        return PreviewProcessorType.PREVIEW_PROCESSOR_TYPE_REQUEST_UPDATE_ONLY;
+    }
+
+    @Override
+    public RequestUpdateProcessorImpl getRequestUpdatePreviewProcessor() {
+        return RequestUpdateProcessorImpls.noUpdateProcessor();
+    }
 }
