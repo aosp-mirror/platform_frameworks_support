@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "91b4043c_c7fb77e0",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentPagerAdapter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-22T23:34:46Z",
+      "side": 1,
+      "message": "I think you can just say \"Indicates that setUserVisibleHint will be called\" and skip the \u0027the\u0027 and \u0027callback\u0027",
+      "range": {
+        "startLine": 79,
+        "startChar": 7,
+        "endLine": 79,
+        "endChar": 94
+      },
+      "revId": "a00a0b7c8d052bddc02f490b133eec5507d9f57d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83ad7b47_7e3cff26",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentPagerAdapter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-22T23:34:46Z",
+      "side": 1,
+      "message": "I\u0027d say something like \"This behavior relies on the deprecated {@link Fragment#setUserVisibleHint(boolean)} API. Use {@link #RESUME_ONLY_CURRENT_FRAGMENT} to switch to its replacement, {@link FragmentTransaction#setMaxLifecycle}\"",
+      "range": {
+        "startLine": 82,
+        "startChar": 19,
+        "endLine": 82,
+        "endChar": 68
+      },
+      "revId": "a00a0b7c8d052bddc02f490b133eec5507d9f57d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "deedee40_7bb2c5f6",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentPagerAdapter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-22T23:34:46Z",
+      "side": 1,
+      "message": "Add \"All other Fragments are capped at {@link Lifecycle.State#STARTED}.\"",
+      "range": {
+        "startLine": 90,
+        "startChar": 12,
+        "endLine": 90,
+        "endChar": 13
+      },
+      "revId": "a00a0b7c8d052bddc02f490b133eec5507d9f57d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5535307c_9e336836",
+        "filename": "samples/Support4Demos/src/main/java/com/example/android/supportv4/app/FragmentPagerSupport.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-22T23:34:46Z",
+      "side": 1,
+      "message": "Do you need to specifically call out the constant if you\u0027re within that class? I would have thought that RESUME_ONLY_CURRENT_FRAGMENT would work as well.",
+      "range": {
+        "startLine": 77,
+        "startChar": 22,
+        "endLine": 77,
+        "endChar": 43
+      },
+      "revId": "a00a0b7c8d052bddc02f490b133eec5507d9f57d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
