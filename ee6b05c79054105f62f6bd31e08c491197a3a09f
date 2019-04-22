@@ -22,6 +22,30 @@
       "revId": "ee6b05c79054105f62f6bd31e08c491197a3a09f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df836ba1_56f9db95",
+        "filename": "work/workmanager-testing/api/current.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2019-04-22T17:38:31Z",
+      "side": 1,
+      "message": "This is a tooling issue apparently.",
+      "parentUuid": "3b3de5dc_83608ad7",
+      "range": {
+        "startLine": 41,
+        "startChar": 300,
+        "endLine": 41,
+        "endChar": 301
+      },
+      "revId": "ee6b05c79054105f62f6bd31e08c491197a3a09f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
