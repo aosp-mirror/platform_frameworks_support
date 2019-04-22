@@ -122,8 +122,10 @@ public class VideoViewTest {
                 nullable(SessionCommand.class),
                 nullable(Bundle.class))).thenReturn(
                         new SessionResult(SessionResult.RESULT_SUCCESS, null));
-        mController = new MediaController(mVideoView.getContext(),
-                mVideoView.getSessionToken(), mMainHandlerExecutor, mControllerCallback);
+        mController = new MediaController.Builder(mVideoView.getContext())
+                .setSessionToken(mVideoView.getSessionToken())
+                .setControllerCallback(mMainHandlerExecutor, mControllerCallback)
+                .build();
     }
 
     @After
@@ -328,7 +330,7 @@ public class VideoViewTest {
 
         @Override
         public boolean matches(SessionCommand command) {
-            return mExpectedCommand.equals(command.getCustomCommand());
+            return mExpectedCommand.equals(command.getCustomAction());
         }
     }
 

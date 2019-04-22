@@ -31,6 +31,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -71,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        WorkManager.getInstance().enqueue(
+                        WorkManager.getInstance(MainActivity.this).enqueue(
                                 new OneTimeWorkRequest.Builder(InfiniteWorker.class)
                                         .setConstraints(new Constraints.Builder()
                                                 .setRequiresCharging(true)
@@ -84,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        WorkManager.getInstance().enqueue(
+                        WorkManager.getInstance(MainActivity.this).enqueue(
                                 new OneTimeWorkRequest.Builder(InfiniteWorker.class)
                                         .setConstraints(new Constraints.Builder()
                                                 .setRequiredNetworkType(NetworkType.CONNECTED)
@@ -98,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        WorkManager.getInstance().enqueue(
+                        WorkManager.getInstance(MainActivity.this).enqueue(
                                 new OneTimeWorkRequest.Builder(TestWorker.class)
                                         .setConstraints(new Constraints.Builder()
                                                 .setRequiresBatteryNotLow(true)
@@ -128,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
 
-                WorkManager.getInstance().enqueue(ToastWorker
+                WorkManager.getInstance(MainActivity.this).enqueue(ToastWorker
                         .create("Image URI Updated!")
                         .setConstraints(new Constraints.Builder()
                                 .addContentUriTrigger(
@@ -146,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
                 String delayString = delayInMs.getText().toString();
                 long delay = Long.parseLong(delayString);
                 Log.d(TAG, "Enqueuing job with delay of " + delay + " ms");
-                WorkManager.getInstance().enqueue(ToastWorker
+                WorkManager.getInstance(MainActivity.this).enqueue(ToastWorker
                         .create("Delayed Job Ran!")
                         .setInitialDelay(delay, TimeUnit.MILLISECONDS)
                         .build());
@@ -163,7 +164,7 @@ public class MainActivity extends AppCompatActivity {
                 Data inputData = new Data.Builder()
                         .put("sleep_time", delay)
                         .build();
-                WorkManager.getInstance().enqueue(
+                WorkManager.getInstance(MainActivity.this).enqueue(
                         new OneTimeWorkRequest.Builder(CoroutineSleepWorker.class)
                                 .setInputData(inputData)
                                 .addTag("coroutine_sleep")
@@ -174,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.coroutine_cancel).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                WorkManager.getInstance().cancelAllWorkByTag("coroutine_sleep");
+                WorkManager.getInstance(MainActivity.this).cancelAllWorkByTag("coroutine_sleep");
             }
         });
 
@@ -188,7 +189,7 @@ public class MainActivity extends AppCompatActivity {
                         new PeriodicWorkRequest.Builder(ToastWorker.class, 15, TimeUnit.MINUTES)
                                 .setInputData(input)
                                 .build();
-                WorkManager.getInstance().enqueue(request);
+                WorkManager.getInstance(MainActivity.this).enqueue(request);
             }
         });
 
@@ -205,7 +206,7 @@ public class MainActivity extends AppCompatActivity {
                                         TimeUnit.MINUTES)
                                         .setInputData(input)
                                         .build();
-                        WorkManager.getInstance().enqueue(request);
+                        WorkManager.getInstance(MainActivity.this).enqueue(request);
                     }
                 });
 
@@ -216,7 +217,7 @@ public class MainActivity extends AppCompatActivity {
                         CheckBox keep = findViewById(R.id.keep);
                         ExistingWorkPolicy policy = keep.isChecked() ? KEEP : REPLACE;
                         for (int i = 0; i < 50; i += 1) {
-                            WorkManager.getInstance()
+                            WorkManager.getInstance(MainActivity.this)
                                     .beginUniqueWork(UNIQUE_WORK_NAME,
                                             policy,
                                             OneTimeWorkRequest.from(SleepWorker.class))
@@ -231,7 +232,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         for (int i = 0; i < NUM_WORKERS; i += 1) {
                             // Exceed Scheduler.MAX_SCHEDULER_LIMIT (100)
-                            WorkManager.getInstance()
+                            WorkManager.getInstance(MainActivity.this)
                                     .beginWith(OneTimeWorkRequest.from(SleepWorker.class))
                                     .enqueue();
                         }
@@ -241,7 +242,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.exploding_work).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                WorkManager wm = WorkManager.getInstance();
+                WorkManager wm = WorkManager.getInstance(MainActivity.this);
                 List<WorkContinuation> leaves = new ArrayList<>();
                 for (int i = 0; i < 10; ++i) {
                     OneTimeWorkRequest workRequest = createTestWorker();
@@ -266,7 +267,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.replace_completed_work).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                WorkManager workManager = WorkManager.getInstance();
+                WorkManager workManager = WorkManager.getInstance(MainActivity.this);
                 workManager.getWorkInfosForUniqueWorkLiveData(REPLACE_COMPLETED_WORK)
                         .observe(MainActivity.this, new Observer<List<WorkInfo>>() {
                             private int mCount;
@@ -307,7 +308,22 @@ public class MainActivity extends AppCompatActivity {
                 OneTimeWorkRequest request = new OneTimeWorkRequest.Builder(
                         RetryWorker.class).build();
 
-                WorkManager.getInstance().enqueueUniqueWork(RetryWorker.TAG, REPLACE, request);
+                WorkManager.getInstance(MainActivity.this)
+                        .enqueueUniqueWork(RetryWorker.TAG, REPLACE, request);
+                WorkManager.getInstance(MainActivity.this).getWorkInfoByIdLiveData(request.getId())
+                        .observe(MainActivity.this, new Observer<WorkInfo>() {
+                            @Override
+                            public void onChanged(WorkInfo workInfo) {
+                                if (workInfo == null) {
+                                    return;
+                                }
+                                Toast.makeText(
+                                        MainActivity.this,
+                                        "Run attempt count #" + workInfo.getRunAttemptCount(),
+                                        Toast.LENGTH_SHORT)
+                                        .show();
+                            }
+                        });
             }
         });
 
@@ -319,7 +335,7 @@ public class MainActivity extends AppCompatActivity {
                                 .addTag(RecursiveWorker.TAG)
                                 .build();
 
-                WorkManager.getInstance().enqueue(request);
+                WorkManager.getInstance(MainActivity.this).enqueue(request);
             }
         });
 
@@ -331,7 +347,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     JobScheduler jobScheduler =
                             (JobScheduler) v.getContext().getSystemService(JOB_SCHEDULER_SERVICE);
-                    WorkManager.getInstance().cancelAllWork();
+                    WorkManager.getInstance(MainActivity.this).cancelAllWork();
                     jobScheduler.cancelAll();
                     for (int i = 0; i < 101; ++i) {
                         jobScheduler.schedule(
@@ -342,7 +358,7 @@ public class MainActivity extends AppCompatActivity {
                                         .build());
                     }
                     for (int i = 0; i < 100; ++i) {
-                        WorkManager.getInstance().enqueue(
+                        WorkManager.getInstance(MainActivity.this).enqueue(
                                 new OneTimeWorkRequest.Builder(TestWorker.class)
                                         .setInitialDelay(10L, TimeUnit.MINUTES)
                                         .build());

@@ -18,15 +18,14 @@ package androidx.build.jacoco
 
 import androidx.build.getDistributionDirectory
 import androidx.build.gradle.isRoot
+import com.android.build.gradle.TestedExtension
 import com.google.common.base.Preconditions
 import org.gradle.api.Project
-import org.gradle.api.Task
 import org.gradle.api.tasks.TaskProvider
 import org.gradle.api.tasks.bundling.Jar
-import org.gradle.kotlin.dsl.create
 
 object Jacoco {
-    private const val VERSION = "0.7.8"
+    public const val VERSION = "0.8.3"
     const val CORE_DEPENDENCY = "org.jacoco:org.jacoco.core:$VERSION"
     private const val ANT_DEPENDENCY = "org.jacoco:org.jacoco.ant:$VERSION"
 
@@ -40,23 +39,43 @@ object Jacoco {
         val task = project.tasks.register("jacocoAntUberJar", Jar::class.java) {
             it.inputs.files(config)
             val resolvedArtifacts = config.resolvedConfiguration.resolvedArtifacts
-            it.from(resolvedArtifacts.map { project.zipTree(it.file) }) {
-                it.exclude("META-INF/*.SF")
-                it.exclude("META-INF/*.DSA")
-                it.exclude("META-INF/*.RSA")
+            it.from(resolvedArtifacts.map { project.zipTree(it.file) }) { copySpec ->
+                copySpec.exclude("META-INF/*.SF")
+                copySpec.exclude("META-INF/*.DSA")
+                copySpec.exclude("META-INF/*.RSA")
             }
-            it.destinationDir = project.getDistributionDirectory()
-            it.archiveName = "jacocoant.jar"
+            it.destinationDirectory.set(project.getDistributionDirectory())
+            it.archiveFileName.set("jacocoant.jar")
         }
         return task
     }
 
     @JvmStatic
-    fun registerClassFilesTask(project: Project, provider: TaskProvider<out Task>) {
-        project.rootProject.tasks.named("packageAllClassFilesForCoverageReport", Jar::class.java)
-            .configure {
-                it.from(provider)
+    fun registerClassFilesTask(project: Project, extension: TestedExtension) {
+        extension.testVariants.all { v ->
+            if (v.buildType.isTestCoverageEnabled &&
+                v.sourceSets.any { it.javaDirectories.isNotEmpty()}) {
+                val jarifyTask = project.tasks.register(
+                    "package${v.name.capitalize()}ClassFilesForCoverageReport",
+                    Jar::class.java
+                ) {
+                    it.dependsOn(v.testedVariant.javaCompileProvider)
+                    // using get() here forces task configuration, but is necessary
+                    // to obtain a valid value for destinationDir
+                    it.from(v.testedVariant.javaCompileProvider.get().destinationDir)
+                    it.exclude("**/R.class", "**/R\$*.class", "**/BuildConfig.class")
+                    it.destinationDirectory.set(project.getDistributionDirectory())
+                    it.archiveFileName.set("${project.name}-${v.baseName}-allclasses.jar")
+                }
+                project.rootProject.tasks.named(
+                    "packageAllClassFilesForCoverageReport",
+                    Jar::class.java
+                ).configure { it.from(jarifyTask) }
+                v.assembleProvider.configure {
+                    it.dependsOn(jarifyTask)
+                }
             }
+        }
     }
 
     fun createCoverageJarTask(project: Project): TaskProvider<Jar> {
@@ -66,8 +85,8 @@ object Jacoco {
             "packageAllClassFilesForCoverageReport",
             Jar::class.java
         ) {
-            it.destinationDir = project.getDistributionDirectory()
-            it.archiveName = "jacoco-report-classes-all.jar"
+            it.destinationDirectory.set(project.getDistributionDirectory())
+            it.archiveFileName.set("jacoco-report-classes-all.jar")
         }
     }
 }

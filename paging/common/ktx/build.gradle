@@ -20,7 +20,7 @@ import androidx.build.LibraryVersions
 import androidx.build.AndroidXExtension
 
 plugins {
-    id("SupportJavaLibraryPlugin")
+    id("AndroidXPlugin")
     id("kotlin")
 }
 
@@ -29,9 +29,6 @@ dependencies {
     compile(KOTLIN_STDLIB)
 
     testImplementation(JUNIT)
-    testImplementation(TEST_EXT_JUNIT)
-    testImplementation(TEST_CORE)
-    testImplementation(TEST_RUNNER)
 }
 
 androidx {
@@ -41,5 +38,4 @@ androidx {
     mavenGroup = LibraryGroups.PAGING
     inceptionYear = "2018"
     description = "Kotlin extensions for 'paging-common' artifact"
-    useMetalava = true
 }
