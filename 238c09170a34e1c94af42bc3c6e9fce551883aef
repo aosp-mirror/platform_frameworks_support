@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ffb779be_65d1303d",
+        "filename": "navigation/fragment/src/main/java/androidx/navigation/fragment/NavHostFragment.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-04-22T21:26:40Z",
+      "side": 1,
+      "message": "With CallSuper, you intend to not allow overriding the createFragmentNavigator() behavior. Was this intended? The documentation states \"By default...\" which indicates to me that you intend for developers to be able to change this behavior.",
+      "range": {
+        "startLine": 254,
+        "startChar": 5,
+        "endLine": 254,
+        "endChar": 14
+      },
+      "revId": "238c09170a34e1c94af42bc3c6e9fce551883aef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
