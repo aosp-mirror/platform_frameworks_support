@@ -515,6 +515,14 @@ final class Camera implements BaseCamera {
      * <p>The previously opened session will be safely disposed of before the new session opened.
      */
     void openCaptureSession() {
+        switch (mState.get()) {
+            case CLOSING:
+            case REOPENING:
+                Log.d(TAG, "openCaptureSession() ignored due to being in state: " + mState.get());
+                return;
+            default:
+        }
+
         ValidatingBuilder validatingBuilder;
         synchronized (mAttachedUseCaseLock) {
             validatingBuilder = mUseCaseAttachState.getOnlineBuilder();
