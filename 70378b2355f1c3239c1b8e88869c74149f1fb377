@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "75cbb301_facd80c8",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ProcessingImageReader.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1486234
+      },
+      "writtenOn": "2019-04-22T20:24:06Z",
+      "side": 1,
+      "message": "We could combine setupSettableImageProxyBundle and setCaptureBundle, then call setCaptureBundle here for checking inputImageReader capacity.",
+      "revId": "70378b2355f1c3239c1b8e88869c74149f1fb377",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
