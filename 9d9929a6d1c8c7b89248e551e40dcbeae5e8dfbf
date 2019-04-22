@@ -22,6 +22,30 @@
       "revId": "9d9929a6d1c8c7b89248e551e40dcbeae5e8dfbf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "755d0d58_ae8973e8",
+        "filename": "media2/player/src/main/java/androidx/media2/VideoSize.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-04-22T08:19:48Z",
+      "side": 1,
+      "message": "I wanted to keep LIBRARY_GROUP_PREFIX as it was LIBRARY_GROUP_PREFIX before the CL.",
+      "parentUuid": "4e1a9b86_930e4066",
+      "range": {
+        "startLine": 34,
+        "startChar": 16,
+        "endLine": 34,
+        "endChar": 36
+      },
+      "revId": "9d9929a6d1c8c7b89248e551e40dcbeae5e8dfbf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
