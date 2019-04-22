@@ -40,8 +40,8 @@ import androidx.slice.SliceProvider;
 import androidx.slice.SliceSpec;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.LargeTest;
 import androidx.test.filters.SdkSuppress;
-import androidx.test.filters.SmallTest;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -49,7 +49,7 @@ import org.junit.runner.RunWith;
 import java.util.Collections;
 
 @RunWith(AndroidJUnit4.class)
-@SmallTest
+@LargeTest
 @SdkSuppress(minSdkVersion = 19)
 public class SliceProviderCompatTest {
 
@@ -67,6 +67,7 @@ public class SliceProviderCompatTest {
                 .build();
 
         SliceProvider provider = spy(new SliceProviderImpl());
+        provider.attachInfo(mContext, null);
         CompatPermissionManager permissions = mock(CompatPermissionManager.class);
         when(permissions.checkSlicePermission(any(Uri.class), anyInt(), anyInt()))
                 .thenReturn(PERMISSION_GRANTED);
@@ -100,6 +101,7 @@ public class SliceProviderCompatTest {
                 .build();
 
         SliceProvider provider = spy(new SliceProviderImpl());
+        provider.attachInfo(mContext, null);
         CompatPermissionManager permissions = mock(CompatPermissionManager.class);
         when(permissions.checkSlicePermission(any(Uri.class), anyInt(), anyInt()))
                 .thenReturn(PERMISSION_DENIED);

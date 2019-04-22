@@ -17,7 +17,7 @@
 
 package androidx.drawerlayout.widget;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -191,6 +191,10 @@ public class DrawerLayout extends ViewGroup {
     /** Whether the drawer shadow comes from setting elevation on the drawer. */
     private static final boolean SET_DRAWER_SHADOW_FROM_ELEVATION =
             Build.VERSION.SDK_INT >= 21;
+
+    /** Class name may be obfuscated by Proguard. Hardcode the string for accessibility usage. */
+    private static final String ACCESSIBILITY_CLASS_NAME =
+            "androidx.drawerlayout.widget.DrawerLayout";
 
     private final ChildAccessibilityDelegate mChildAccessibilityDelegate =
             new ChildAccessibilityDelegate();
@@ -399,7 +403,7 @@ public class DrawerLayout extends ViewGroup {
      * @hide Internal use only; called to apply window insets when configured
      * with fitsSystemWindows="true"
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public void setChildInsets(Object insets, boolean draw) {
         mLastInsets = insets;
         mDrawStatusBarBackground = draw;
@@ -2352,11 +2356,12 @@ public class DrawerLayout extends ViewGroup {
                 addChildrenForAccessibility(info, (ViewGroup) host);
             }
 
-            info.setClassName(DrawerLayout.class.getName());
+            info.setClassName(ACCESSIBILITY_CLASS_NAME);
 
             // This view reports itself as focusable so that it can intercept
             // the back button, but we should prevent this view from reporting
             // itself as focusable to accessibility services.
+            info.setFocusable(false);
             info.setFocused(false);
             info.removeAction(AccessibilityActionCompat.ACTION_FOCUS);
             info.removeAction(AccessibilityActionCompat.ACTION_CLEAR_FOCUS);
@@ -2366,7 +2371,7 @@ public class DrawerLayout extends ViewGroup {
         public void onInitializeAccessibilityEvent(View host, AccessibilityEvent event) {
             super.onInitializeAccessibilityEvent(host, event);
 
-            event.setClassName(DrawerLayout.class.getName());
+            event.setClassName(ACCESSIBILITY_CLASS_NAME);
         }
 
         @Override

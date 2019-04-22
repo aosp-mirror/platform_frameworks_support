@@ -41,10 +41,12 @@ open class VerifyDependencyVersionsTask : DefaultTask() {
     @TaskAction
     fun verifyDependencyVersions() {
         project.configurations.all { configuration ->
-            configuration.allDependencies.forEach { dep ->
-                if (dep.group != null && dep.group.toString().startsWith("androidx.") &&
+            if (!configuration.name.toLowerCase().contains("androidtest")) {
+                configuration.allDependencies.forEach { dep ->
+                    if (dep.group != null && dep.group.toString().startsWith("androidx.") &&
                         !dep.group.toString().startsWith("androidx.test")) {
-                    verifyDependencyVersion(dep)
+                        verifyDependencyVersion(dep)
+                    }
                 }
             }
         }
@@ -54,9 +56,11 @@ open class VerifyDependencyVersionsTask : DefaultTask() {
         // If the version is unspecified then treat as an alpha version. If the depending project's
         // version is unspecified then it won't matter, and if the dependency's version is
         // unspecified then any non alpha project won't be able to depend on it to ensure safety.
-        val projectVersionExtra = if (project.version == "unspecified") "-alpha01"
+        val projectVersionExtra = if (project.version ==
+            AndroidXExtension.DEFAULT_UNSPECIFIED_VERSION) "-alpha01"
             else Version(project.version.toString()).extra ?: ""
-        val dependencyVersionExtra = if (dependency.version!! == "unspecified") "-alpha01" else
+        val dependencyVersionExtra = if (dependency.version!! ==
+            AndroidXExtension.DEFAULT_UNSPECIFIED_VERSION) "-alpha01" else
             Version(dependency.version!!).extra ?: ""
         val projectReleasePhase = releasePhase(projectVersionExtra)
         if (projectReleasePhase < 0) {

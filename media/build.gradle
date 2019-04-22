@@ -3,17 +3,17 @@ import androidx.build.LibraryGroups
 import androidx.build.LibraryVersions
 
 plugins {
-    id("SupportAndroidLibraryPlugin")
+    id("AndroidXPlugin")
+    id("com.android.library")
 }
 
 dependencies {
-    api("androidx.annotation:annotation:1.0.1")
-    api(project(":core"))
-    api("androidx.versionedparcelable:versionedparcelable:1.1.0-alpha01")
+    api("androidx.core:core:1.1.0-alpha05")
+    implementation("androidx.collection:collection:1.0.0")
 
-    androidTestImplementation(TEST_EXT_JUNIT)
-    androidTestImplementation(TEST_CORE)
-    androidTestImplementation(TEST_RUNNER)
+    androidTestImplementation(ANDROIDX_TEST_EXT_JUNIT)
+    androidTestImplementation(ANDROIDX_TEST_CORE)
+    androidTestImplementation(ANDROIDX_TEST_RUNNER)
     androidTestImplementation(ESPRESSO_CORE, libs.exclude_for_espresso)
     androidTestImplementation project(':internal-testutils')
     annotationProcessor(project(":versionedparcelable-annotation"))
@@ -31,7 +31,7 @@ android {
     }
 }
 
-supportLibrary {
+androidx {
     name = "Android Support Library media compat"
     publish = true
     mavenVersion = LibraryVersions.MEDIA
@@ -40,4 +40,5 @@ supportLibrary {
     description = "The Support Library is a static library that you can add to your Android application in order to use APIs that are either not available for older platform versions or utility APIs that aren't a part of the framework APIs. Compatible on devices running API 14 or later."
     failOnUncheckedWarnings = false
     failOnDeprecationWarnings = false
+    trackRestrictedAPIs = false
 }

@@ -54,6 +54,8 @@ class Archive(
 
     override val fileName: String = relativePath.fileName.toString()
 
+    override var markedForRemoval: Boolean = false
+
     private var targetPath: Path = relativePath
 
     override val wasChanged: Boolean
@@ -64,6 +66,10 @@ class Archive(
      */
     fun setTargetPath(path: Path) {
         targetPath = path
+    }
+
+    override fun findAllFiles(selector: (ArchiveFile) -> Boolean, result: FileSearchResult) {
+        files.forEach { it.findAllFiles(selector, result) }
     }
 
     override fun accept(visitor: ArchiveItemVisitor) {
@@ -97,7 +103,7 @@ class Archive(
         }
 
         // Create directories if they don't exist yet
-        if (outputPath.parent != null) {
+        if (outputPath.parent == null) {
             Files.createDirectories(outputPath.parent)
         }
 
@@ -115,6 +121,10 @@ class Archive(
         val out = ZipOutputStream(outputStream)
 
         for (file in files) {
+            if (file.markedForRemoval) {
+                continue
+            }
+
             Log.v(TAG, "Writing file: %s", file.relativePath)
             // Make sure we always use '/' as separator in ZipOutputStream otherwise we might end
             // up with a corrupted zip file on a non-Unix OS (b/109738608).

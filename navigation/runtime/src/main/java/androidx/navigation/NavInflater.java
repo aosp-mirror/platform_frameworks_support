@@ -22,12 +22,13 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.content.res.XmlResourceParser;
 import android.os.Bundle;
-import android.support.annotation.NavigationRes;
-import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.util.Xml;
+
+import androidx.annotation.NavigationRes;
+import androidx.annotation.NonNull;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -42,7 +43,7 @@ public final class NavInflater {
     private static final String TAG_DEEP_LINK = "deepLink";
     private static final String TAG_ACTION = "action";
     private static final String TAG_INCLUDE = "include";
-    private static final String APPLICATION_ID_PLACEHOLDER = "${applicationId}";
+    static final String APPLICATION_ID_PLACEHOLDER = "${applicationId}";
 
     private static final ThreadLocal<TypedValue> sTmpValue = new ThreadLocal<>();
 
@@ -182,17 +183,31 @@ public final class NavInflater {
         }
 
         if (a.getValue(R.styleable.NavArgument_android_defaultValue, value)) {
-            if (navType == NavType.StringType) {
-                defaultValue = a.getString(R.styleable.NavArgument_android_defaultValue);
-            } else if (navType == NavType.ReferenceType) {
+            if (navType == NavType.ReferenceType) {
                 if (value.resourceId != 0) {
                     defaultValue = value.resourceId;
+                } else if (value.type == TypedValue.TYPE_FIRST_INT && value.data == 0) {
+                    // Support "0" as a default value for reference types
+                    defaultValue = 0;
                 } else {
                     throw new XmlPullParserException(
                             "unsupported value '" + value.string
                                     + "' for " + navType.getName()
                                     + ". Must be a reference to a resource.");
                 }
+            } else if (value.resourceId != 0) {
+                if (navType == null) {
+                    navType = NavType.ReferenceType;
+                    defaultValue = value.resourceId;
+                } else {
+                    throw new XmlPullParserException(
+                            "unsupported value '" + value.string
+                                    + "' for " + navType.getName()
+                                    + ". You must use a \"" + NavType.ReferenceType.getName()
+                                    + "\" type to reference other resources.");
+                }
+            } else if (navType == NavType.StringType) {
+                defaultValue = a.getString(R.styleable.NavArgument_android_defaultValue);
             } else {
                 switch (value.type) {
                     case TypedValue.TYPE_STRING:
@@ -211,11 +226,6 @@ public final class NavInflater {
                         navType = checkNavType(value, navType, NavType.FloatType,
                                 argType, "float");
                         defaultValue = value.getFloat();
-                        break;
-                    case TypedValue.TYPE_REFERENCE:
-                        navType = checkNavType(value, navType, NavType.IntType,
-                                argType, "reference");
-                        defaultValue = value.data;
                         break;
                     case TypedValue.TYPE_INT_BOOLEAN:
                         navType = checkNavType(value, navType, NavType.BoolType,
@@ -278,7 +288,7 @@ public final class NavInflater {
 
         NavOptions.Builder builder = new NavOptions.Builder();
         builder.setLaunchSingleTop(a.getBoolean(R.styleable.NavAction_launchSingleTop, false));
-        builder.setPopUpTo(a.getResourceId(R.styleable.NavAction_popUpTo, 0),
+        builder.setPopUpTo(a.getResourceId(R.styleable.NavAction_popUpTo, -1),
                 a.getBoolean(R.styleable.NavAction_popUpToInclusive, false));
         builder.setEnterAnim(a.getResourceId(R.styleable.NavAction_enterAnim, -1));
         builder.setExitAnim(a.getResourceId(R.styleable.NavAction_exitAnim, -1));

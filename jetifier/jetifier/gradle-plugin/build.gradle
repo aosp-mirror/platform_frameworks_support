@@ -21,7 +21,8 @@ import androidx.build.LibraryVersions
 import static androidx.build.dependencies.DependenciesKt.KOTLIN_STDLIB
 
 plugins {
-  id("SupportKotlinLibraryPlugin")
+    id("AndroidXPlugin")
+    id("kotlin")
 }
 
 dependencies {
@@ -31,7 +32,7 @@ dependencies {
 }
 
 
-supportLibrary {
+androidx {
     name = "Android Jetifier Gradle Plugin"
     publish = false
     mavenVersion = LibraryVersions.JETIFIER

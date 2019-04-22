@@ -27,12 +27,12 @@ import static androidx.work.impl.model.WorkSpec.SCHEDULE_NOT_REQUESTED_YET;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.RestrictTo;
-import android.support.annotation.VisibleForTesting;
-import android.support.annotation.WorkerThread;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RestrictTo;
+import androidx.annotation.VisibleForTesting;
+import androidx.annotation.WorkerThread;
 import androidx.work.Configuration;
 import androidx.work.Data;
 import androidx.work.InputMerger;
@@ -53,6 +53,7 @@ import androidx.work.impl.utils.taskexecutor.TaskExecutor;
 import com.google.common.util.concurrent.ListenableFuture;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.CancellationException;
@@ -67,13 +68,15 @@ import java.util.concurrent.ExecutionException;
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public class WorkerWrapper implements Runnable {
 
-    private static final String TAG = Logger.tagWithPrefix("WorkerWrapper");
+    // Avoid Synthetic accessor
+    static final String TAG = Logger.tagWithPrefix("WorkerWrapper");
 
     private Context mAppContext;
     private String mWorkSpecId;
     private List<Scheduler> mSchedulers;
     private WorkerParameters.RuntimeExtras mRuntimeExtras;
-    private WorkSpec mWorkSpec;
+    // Avoid Synthetic accessor
+    WorkSpec mWorkSpec;
     ListenableWorker mWorker;
 
     // Package-private for synthetic accessor.
@@ -146,6 +149,9 @@ public class WorkerWrapper implements Runnable {
             if (mWorkSpec.state != ENQUEUED) {
                 resolveIncorrectStatus();
                 mWorkDatabase.setTransactionSuccessful();
+                Logger.get().debug(TAG,
+                        String.format("%s is not in ENQUEUED state. Nothing more to do.",
+                                mWorkSpec.workerClassName));
                 return;
             }
 
@@ -162,8 +168,26 @@ public class WorkerWrapper implements Runnable {
 
             if (mWorkSpec.isPeriodic() || mWorkSpec.isBackedOff()) {
                 long now = System.currentTimeMillis();
-                if (now < mWorkSpec.calculateNextRunTime()) {
-                    resolve(false);
+                // Allow first run of a PeriodicWorkRequest when flex is applicable
+                // (when using AlarmManager) to go through. This is because when periodStartTime=0;
+                // calculateNextRunTime() always > now. We are being overly cautious with the
+                // SDK_INT check and the intervalDuration != flexDuration check.
+                // For more information refer to b/124274584
+                boolean isFirstRunWhenFlexApplicable =
+                        Build.VERSION.SDK_INT < WorkManagerImpl.MIN_JOB_SCHEDULER_API_LEVEL
+                                && mWorkSpec.intervalDuration != mWorkSpec.flexDuration
+                                && mWorkSpec.periodStartTime == 0;
+
+                if (!isFirstRunWhenFlexApplicable && now < mWorkSpec.calculateNextRunTime()) {
+                    Logger.get().debug(TAG,
+                            String.format(
+                                    "Delaying execution for %s because it is being executed "
+                                            + "before schedule.",
+                                    mWorkSpec.workerClassName));
+                    // For AlarmManager implementation we need to reschedule this kind  of Work.
+                    // This is not a problem for JobScheduler because we will only reschedule
+                    // work if JobScheduler is unaware of a jobId.
+                    resolve(true);
                     return;
                 }
             }
@@ -244,6 +268,8 @@ public class WorkerWrapper implements Runnable {
                         @Override
                         public void run() {
                             try {
+                                Logger.get().debug(TAG, String.format("Starting work for %s",
+                                        mWorkSpec.workerClassName));
                                 mInnerFuture = mWorker.startWork();
                                 future.setFuture(mInnerFuture);
                             } catch (Throwable e) {
@@ -267,6 +293,8 @@ public class WorkerWrapper implements Runnable {
                                     "%s returned a null result. Treating it as a failure.",
                                     mWorkSpec.workerClassName));
                         } else {
+                            Logger.get().debug(TAG, String.format("%s returned a %s result.",
+                                    mWorkSpec.workerClassName, result));
                             mResult = result;
                         }
                     } catch (CancellationException exception) {
@@ -455,10 +483,11 @@ public class WorkerWrapper implements Runnable {
         return setToRunning;
     }
 
-    private void setFailedAndResolve() {
+    @VisibleForTesting
+    void setFailedAndResolve() {
         mWorkDatabase.beginTransaction();
         try {
-            recursivelyFailWorkAndDependents(mWorkSpecId);
+            iterativelyFailWorkAndDependents(mWorkSpecId);
             ListenableWorker.Result.Failure failure = (ListenableWorker.Result.Failure) mResult;
             // Update Data as necessary.
             Data output = failure.getOutputData();
@@ -470,15 +499,16 @@ public class WorkerWrapper implements Runnable {
         }
     }
 
-    private void recursivelyFailWorkAndDependents(String workSpecId) {
-        List<String> dependentIds = mDependencyDao.getDependentWorkIds(workSpecId);
-        for (String id : dependentIds) {
-            recursivelyFailWorkAndDependents(id);
-        }
-
-        // Don't fail already cancelled work.
-        if (mWorkSpecDao.getState(workSpecId) != CANCELLED) {
-            mWorkSpecDao.setState(FAILED, workSpecId);
+    private void iterativelyFailWorkAndDependents(String workSpecId) {
+        LinkedList<String> idsToProcess = new LinkedList<>();
+        idsToProcess.add(workSpecId);
+        while (!idsToProcess.isEmpty()) {
+            String id = idsToProcess.remove();
+            // Don't fail already cancelled work.
+            if (mWorkSpecDao.getState(id) != CANCELLED) {
+                mWorkSpecDao.setState(FAILED, id);
+            }
+            idsToProcess.addAll(mDependencyDao.getDependentWorkIds(id));
         }
     }
 
@@ -507,15 +537,11 @@ public class WorkerWrapper implements Runnable {
     private void resetPeriodicAndResolve() {
         mWorkDatabase.beginTransaction();
         try {
-            long currentPeriodStartTime = mWorkSpec.periodStartTime;
-            long now = System.currentTimeMillis();
-            long potentialNextStartTime = currentPeriodStartTime + mWorkSpec.intervalDuration;
-            // The system clock may have been changed such that the potentialNextStartTime is still
-            // in the past. When this happens, we need to move the nextPeriodStartTime to the
-            // present. This way, the Schedulers will correctly schedule the next instance of the
-            // PeriodicWork in the future.
-            long nextPeriodStartTime = Math.max(now, potentialNextStartTime);
-            mWorkSpecDao.setPeriodStartTime(mWorkSpecId, nextPeriodStartTime);
+            // The system clock may have been changed such that the periodStartTime was in the past.
+            // Therefore we always use the current time to determine the next run time of a Worker.
+            // This way, the Schedulers will correctly schedule the next instance of the
+            // PeriodicWork in the future. This happens in calculateNextRunTime() in WorkSpec.
+            mWorkSpecDao.setPeriodStartTime(mWorkSpecId, System.currentTimeMillis());
             mWorkSpecDao.setState(ENQUEUED, mWorkSpecId);
             mWorkSpecDao.resetWorkSpecRunAttemptCount(mWorkSpecId);
             if (Build.VERSION.SDK_INT < WorkManagerImpl.MIN_JOB_SCHEDULER_API_LEVEL) {

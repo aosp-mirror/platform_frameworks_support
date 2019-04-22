@@ -25,10 +25,10 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 /**
- * A {@link ListenableWorker} implementation that provides interop with Kotlin Coroutines.  Override
+ * A [ListenableWorker] implementation that provides interop with Kotlin Coroutines.  Override
  * the [doWork] function to do your suspending work.
  * <p>
- * By default, CoroutineWorker runs on {@link Dispatchers#Default}; this can be modified by
+ * By default, CoroutineWorker runs on [Dispatchers.Default]; this can be modified by
  * overriding [coroutineContext].
  * <p>
  * A CoroutineWorker is given a maximum of ten minutes to finish its execution and return a
@@ -56,6 +56,7 @@ abstract class CoroutineWorker(
     /**
      * The coroutine context on which [doWork] will run. By default, this is [Dispatchers.Default].
      */
+    @Deprecated(message = "use withContext(...) inside doWork() instead.")
     open val coroutineContext = Dispatchers.Default
 
     final override fun startWork(): ListenableFuture<Result> {
@@ -63,8 +64,8 @@ abstract class CoroutineWorker(
         val coroutineScope = CoroutineScope(coroutineContext + job)
         coroutineScope.launch {
             try {
-                val payload = doWork()
-                future.set(payload)
+                val result = doWork()
+                future.set(result)
             } catch (t: Throwable) {
                 future.setException(t)
             }
@@ -82,7 +83,7 @@ abstract class CoroutineWorker(
      * stop.
      *
      * @return The [ListenableWorker.Result] of the result of the background work; note that
-     *         dependent work will not execute if you return [Result.failure]
+     * dependent work will not execute if you return [ListenableWorker.Result.failure]
      */
     abstract suspend fun doWork(): Result
 

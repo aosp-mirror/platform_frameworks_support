@@ -1,10 +1,11 @@
 import static androidx.build.dependencies.DependenciesKt.*
 import androidx.build.LibraryGroups
 import androidx.build.LibraryVersions
-import androidx.build.SupportLibraryExtension
+import androidx.build.AndroidXExtension
 
 plugins {
-    id("SupportAndroidLibraryPlugin")
+    id("AndroidXPlugin")
+    id("com.android.library")
 }
 
 android {
@@ -21,24 +22,24 @@ dependencies {
     api(project(":lifecycle:lifecycle-common"))
     api(project(":arch:core-common"))
     // necessary for IJ to resolve dependencies.
-    api(SUPPORT_ANNOTATIONS)
+    api(project(":annotation"))
 
     testImplementation(JUNIT)
     testImplementation(MOCKITO_CORE)
 
     androidTestImplementation(JUNIT)
-    androidTestImplementation(TEST_EXT_JUNIT)
-    androidTestImplementation(TEST_CORE)
-    androidTestImplementation(TEST_RUNNER)
+    androidTestImplementation(ANDROIDX_TEST_EXT_JUNIT)
+    androidTestImplementation(ANDROIDX_TEST_CORE)
+    androidTestImplementation(ANDROIDX_TEST_RUNNER)
 }
 
-supportLibrary {
+androidx {
     name 'Android Lifecycle Runtime'
     publish true
     mavenVersion = LibraryVersions.LIFECYCLE
     mavenGroup LibraryGroups.LIFECYCLE
     inceptionYear '2017'
     description "Android Lifecycle Runtime"
-    url SupportLibraryExtension.ARCHITECTURE_URL
+    url AndroidXExtension.ARCHITECTURE_URL
     failOnDeprecationWarnings = false
 }

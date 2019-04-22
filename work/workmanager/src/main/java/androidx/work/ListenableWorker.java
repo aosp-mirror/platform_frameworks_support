@@ -20,13 +20,13 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.Network;
 import android.net.Uri;
-import android.support.annotation.Keep;
-import android.support.annotation.MainThread;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
-import android.support.annotation.RestrictTo;
 
+import androidx.annotation.Keep;
+import androidx.annotation.MainThread;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.annotation.RestrictTo;
 import androidx.work.impl.utils.taskexecutor.TaskExecutor;
 
 import com.google.common.util.concurrent.ListenableFuture;
@@ -389,6 +389,11 @@ public abstract class ListenableWorker {
                 String name = Success.class.getName();
                 return 31 * name.hashCode() + mOutputData.hashCode();
             }
+
+            @Override
+            public String toString() {
+                return "Success {" + "mOutputData=" + mOutputData + '}';
+            }
         }
 
         /**
@@ -439,6 +444,11 @@ public abstract class ListenableWorker {
                 String name = Failure.class.getName();
                 return 31 * name.hashCode() + mOutputData.hashCode();
             }
+
+            @Override
+            public String toString() {
+                return "Failure {" +  "mOutputData=" + mOutputData +  '}';
+            }
         }
 
         /**
@@ -465,6 +475,11 @@ public abstract class ListenableWorker {
             public int hashCode() {
                 String name = Retry.class.getName();
                 return name.hashCode();
+            }
+
+            @Override
+            public String toString() {
+                return "Retry";
             }
         }
     }

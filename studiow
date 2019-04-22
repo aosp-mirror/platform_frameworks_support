@@ -6,9 +6,10 @@ set -e
 
 
 function getStudioUrl() {
-  version="3.3.0.17"
-  ideaMajorVersion="182"
-  buildNumber="5138683"
+  propertiesFile="${scriptDir}/buildSrc/studio_versions.properties"
+  version="$(grep "studio_version=" ${propertiesFile} | sed 's/[^=]*=//')"
+  ideaMajorVersion="$(grep "idea_major_version=" ${propertiesFile} | sed 's/[^=]*=//')"
+  buildNumber="$(grep "studio_build_number=" ${propertiesFile} | sed 's/[^=]*=//')"
   osName="$1"
   studioUrl="https://dl.google.com/dl/android/studio/ide-zips/${version}/android-studio-ide-${ideaMajorVersion}.${buildNumber}-${osName}.zip"
   echo "${studioUrl}"
@@ -43,12 +44,44 @@ function downloadFile() {
   mv "${tempPath}" "${destPath}"
 }
 
+function findStudioMacAppPath() {
+  echo "$(find "${studioUnzippedPath}" -type d -depth 1 -name "Android Studio*.app")"
+}
+
+function getLicensePath() {
+  if [ "${osName}" == "mac" ]; then
+    appPath="$(findStudioMacAppPath)"
+    echo "${appPath}/Contents/Resources/LICENSE.txt"
+  else
+    echo "${studioUnzippedPath}/android-studio/LICENSE.txt"
+  fi
+}
+
 function checkLicenseAgreement() {
   # TODO: Is there a more official way to check that the user accepts the license?
-  if [ "${acceptsLicenseAgreement}" != "-y" ]; then
-    echo "Do you accept the license agreement at ${studioUnzippedPath}/android-studio/LICENSE.txt ?"
-    echo "If you do, then rerun this script with a '-y' argument"
-    exit 1
+
+  licenseAcceptedPath="${studioUnzippedPath}/STUDIOW_LICENSE_ACCEPTED"
+
+  if [ ! -f "${licenseAcceptedPath}" ]; then
+    if [ "${acceptsLicenseAgreement}" == "-y" ]; then
+      touch "${licenseAcceptedPath}"
+    else
+      read -r -n 1 -p "Do you accept the license agreement at $(getLicensePath) [Y/n]? " reply
+
+      if [ ! -z "${reply}" ]; then
+	# Fix missing newline
+        echo
+      fi
+
+      case "${reply}" in
+        [yY]|"")
+          touch "${licenseAcceptedPath}"
+          ;;
+        *)
+          exit 1
+          ;;
+      esac
+    fi
   fi
 }
 
@@ -79,11 +112,11 @@ function runStudioLinux() {
 }
 
 function runStudioMac() {
-  studioPath="${studioUnzippedPath}/Android Studio.app"
-  echo "open ${studioPath}"
+  appPath="$(findStudioMacAppPath)"
+  echo "open ${appPath}"
   env STUDIO_PROPERTIES="${projectDir}/development/studio/idea.properties" \
       STUDIO_VM_OPTIONS="${projectDir}/development/studio/studio.vmoptions" \
-      open -a "${studioPath}" "${projectDir}"
+      open -a "${appPath}" "${projectDir}"
 }
 
 function runStudio() {

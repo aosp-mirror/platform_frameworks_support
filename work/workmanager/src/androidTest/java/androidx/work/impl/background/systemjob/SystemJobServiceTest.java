@@ -23,25 +23,25 @@ import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
 
 import android.app.job.JobParameters;
-import android.arch.core.executor.ArchTaskExecutor;
-import android.arch.core.executor.TaskExecutor;
 import android.content.Context;
 import android.net.Network;
 import android.net.Uri;
 import android.os.Build;
 import android.os.PersistableBundle;
-import android.support.annotation.NonNull;
 
+import androidx.annotation.NonNull;
+import androidx.arch.core.executor.ArchTaskExecutor;
+import androidx.arch.core.executor.TaskExecutor;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.filters.SdkSuppress;
-import androidx.test.filters.SmallTest;
 import androidx.work.Configuration;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkInfo;
@@ -119,6 +119,7 @@ public class SystemJobServiceTest extends WorkManagerTest {
                 context, configuration, taskExecutor, mDatabase, schedulers, mProcessor);
         WorkManagerImpl.setDelegate(mWorkManagerImpl);
         mSystemJobServiceSpy = spy(new SystemJobService());
+        doReturn(context).when(mSystemJobServiceSpy).getApplicationContext();
         doNothing().when(mSystemJobServiceSpy).onExecuted(anyString(), anyBoolean());
         mSystemJobServiceSpy.onCreate();
     }
@@ -162,7 +163,7 @@ public class SystemJobServiceTest extends WorkManagerTest {
     }
 
     @Test
-    @SmallTest
+    @LargeTest
     public void testOnStopJob_ReschedulesWhenNotCancelled() {
         // TODO: Remove after we figure out why these tests execute on API 17 emulators.
         if (Build.VERSION.SDK_INT < WorkManagerImpl.MIN_JOB_SCHEDULER_API_LEVEL) {
@@ -190,12 +191,12 @@ public class SystemJobServiceTest extends WorkManagerTest {
 
         JobParameters mockParams = createMockJobParameters(work.getStringId());
         assertThat(mSystemJobServiceSpy.onStartJob(mockParams), is(true));
-        WorkManagerImpl.getInstance().cancelWorkById(work.getId());
+        mWorkManagerImpl.cancelWorkById(work.getId());
         assertThat(mSystemJobServiceSpy.onStopJob(mockParams), is(false));
     }
 
     @Test
-    @SmallTest
+    @LargeTest
     public void testStartJob_ReturnsFalseWithDuplicateJob() {
         // TODO: Remove after we figure out why these tests execute on API 17 emulators.
         if (Build.VERSION.SDK_INT < WorkManagerImpl.MIN_JOB_SCHEDULER_API_LEVEL) {

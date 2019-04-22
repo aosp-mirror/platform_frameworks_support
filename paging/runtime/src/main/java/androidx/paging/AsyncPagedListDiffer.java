@@ -123,7 +123,6 @@ public class AsyncPagedListDiffer<T> {
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     final AsyncDifferConfig<T> mConfig;
 
-    @SuppressWarnings("RestrictedApi")
     Executor mMainThreadExecutor = ArchTaskExecutor.getMainThreadExecutor();
 
     /**
@@ -470,12 +469,7 @@ public class AsyncPagedListDiffer<T> {
         if (mPagedList != null) {
             mPagedList.addWeakLoadStateListener(listener);
         } else {
-            listener.onLoadStateChanged(PagedList.LoadType.REFRESH, mLoadStateManager.getRefresh(),
-                    mLoadStateManager.getRefreshError());
-            listener.onLoadStateChanged(PagedList.LoadType.START, mLoadStateManager.getStart(),
-                    mLoadStateManager.getStartError());
-            listener.onLoadStateChanged(PagedList.LoadType.END, mLoadStateManager.getEnd(),
-                    mLoadStateManager.getEndError());
+            mLoadStateManager.dispatchCurrentLoadState(listener);
         }
         mLoadStateListeners.add(listener);
     }

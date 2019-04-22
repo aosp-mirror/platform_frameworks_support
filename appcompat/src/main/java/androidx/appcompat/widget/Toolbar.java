@@ -16,7 +16,7 @@
 
 package androidx.appcompat.widget;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 import static androidx.annotation.RestrictTo.Scope.TESTS;
 
 import android.content.Context;
@@ -122,7 +122,7 @@ import java.util.List;
  * {@link androidx.appcompat.R.attr#contentInsetStart}
  * {@link androidx.appcompat.R.attr#contentInsetStartWithNavigation}
  * {@link androidx.appcompat.R.attr#contentInsetEndWithActions}
- * {@link androidx.appcompat.R.attr#android_gravity}
+ * {@link android.R.attr#gravity}
  * {@link androidx.appcompat.R.attr#logo}
  * {@link androidx.appcompat.R.attr#logoDescription}
  * {@link androidx.appcompat.R.attr#maxButtonHeight}
@@ -140,6 +140,7 @@ import java.util.List;
  * {@link androidx.appcompat.R.attr#titleMarginTop}
  * {@link androidx.appcompat.R.attr#titleTextAppearance}
  * {@link androidx.appcompat.R.attr#titleTextColor}
+ * {@link androidx.appcompat.R.attr#menu}
  */
 public class Toolbar extends ViewGroup {
     private static final String TAG = "Toolbar";
@@ -341,6 +342,11 @@ public class Toolbar extends ViewGroup {
         if (a.hasValue(R.styleable.Toolbar_subtitleTextColor)) {
             setSubtitleTextColor(a.getColorStateList(R.styleable.Toolbar_subtitleTextColor));
         }
+
+        if (a.hasValue(R.styleable.Toolbar_menu)) {
+            inflateMenu(a.getResourceId(R.styleable.Toolbar_menu, 0));
+        }
+
         a.recycle();
     }
 
@@ -504,7 +510,7 @@ public class Toolbar extends ViewGroup {
     }
 
     /** @hide */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public boolean canShowOverflowMenu() {
         return getVisibility() == VISIBLE && mMenuView != null && mMenuView.isOverflowReserved();
     }
@@ -520,7 +526,7 @@ public class Toolbar extends ViewGroup {
     }
 
     /** @hide */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public boolean isOverflowMenuShowPending() {
         return mMenuView != null && mMenuView.isOverflowMenuShowPending();
     }
@@ -544,7 +550,7 @@ public class Toolbar extends ViewGroup {
     }
 
     /** @hide */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public void setMenu(MenuBuilder menu, ActionMenuPresenter outerPresenter) {
         if (menu == null && mMenuView == null) {
             return;
@@ -590,7 +596,7 @@ public class Toolbar extends ViewGroup {
     }
 
     /** @hide */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public boolean isTitleTruncated() {
         if (mTitleTextView == null) {
             return false;
@@ -1114,6 +1120,7 @@ public class Toolbar extends ViewGroup {
      * an XML menu resource, use {@link #inflateMenu(int)}.</p>
      *
      * @return The toolbar's Menu
+     * {@link androidx.appcompat.R.attr#menu}
      */
     public Menu getMenu() {
         ensureMenu();
@@ -1178,6 +1185,7 @@ public class Toolbar extends ViewGroup {
      * be modified or removed.</p>
      *
      * @param resId ID of a menu resource to inflate
+     * {@link androidx.appcompat.R.attr#menu}
      */
     public void inflateMenu(@MenuRes int resId) {
         getMenuInflater().inflate(resId, getMenu());
@@ -2218,7 +2226,7 @@ public class Toolbar extends ViewGroup {
     }
 
     /** @hide */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public DecorToolbar getWrapper() {
         if (mWrapper == null) {
             mWrapper = new ToolbarWidgetWrapper(this, true);
@@ -2257,7 +2265,7 @@ public class Toolbar extends ViewGroup {
      * it could be considered "empty" (no visible elements with nonzero measured size)
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public void setCollapsible(boolean collapsible) {
         mCollapsible = collapsible;
         requestLayout();
@@ -2267,7 +2275,7 @@ public class Toolbar extends ViewGroup {
      * Must be called before the menu is accessed
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public void setMenuCallbacks(MenuPresenter.Callback pcb, MenuBuilder.Callback mcb) {
         mActionMenuPresenterCallback = pcb;
         mMenuBuilderCallback = mcb;

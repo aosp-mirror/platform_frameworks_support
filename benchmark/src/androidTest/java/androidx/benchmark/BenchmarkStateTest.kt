@@ -16,15 +16,17 @@
 
 package androidx.benchmark
 
-import androidx.test.filters.SmallTest
+import androidx.test.filters.LargeTest
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
+import org.junit.Assert.fail
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 import java.util.concurrent.TimeUnit
 
-@SmallTest
+@LargeTest
 @RunWith(JUnit4::class)
 class BenchmarkStateTest {
     private fun ms2ns(ms: Long): Long = TimeUnit.MILLISECONDS.toNanos(ms)
@@ -59,5 +61,48 @@ class BenchmarkStateTest {
 
         assertEquals(summary1.indexOf("foo"),
             summary2.indexOf("foo"))
+    }
+
+    @Test
+    fun bundle() {
+        val bundle = BenchmarkState().apply {
+            while (keepRunning()) {
+                // nothing, we're ignoring numbers
+            }
+        }.getFullStatusReport("foo")
+
+        assertTrue(
+            (bundle.get("android.studio.display.benchmark") as String).contains("foo"))
+
+        // check attribute presence and naming
+        val prefix = WarningState.WARNING_PREFIX
+        assertNotNull(bundle.get("${prefix}min"))
+        assertNotNull(bundle.get("${prefix}mean"))
+        assertNotNull(bundle.get("${prefix}count"))
+    }
+
+    @Test
+    fun notStarted() {
+        try {
+            BenchmarkState().stats
+            fail("expected exception")
+        } catch (e: IllegalStateException) {
+            assertTrue(e.message!!.contains("wasn't started"))
+            assertTrue(e.message!!.contains("benchmarkRule.measureRepeated {}"))
+        }
+    }
+
+    @Test
+    fun notFinished() {
+        try {
+            BenchmarkState().run {
+                keepRunning()
+                stats
+            }
+            fail("expected exception")
+        } catch (e: IllegalStateException) {
+            assertTrue(e.message!!.contains("hasn't finished"))
+            assertTrue(e.message!!.contains("benchmarkRule.measureRepeated {}"))
+        }
     }
 }

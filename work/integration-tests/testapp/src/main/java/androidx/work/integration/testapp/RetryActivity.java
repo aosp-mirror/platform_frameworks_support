@@ -16,17 +16,17 @@
 
 package androidx.work.integration.testapp;
 
-import android.arch.lifecycle.Observer;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.work.BackoffPolicy;
 import androidx.work.Constraints;
 import androidx.work.Data;
@@ -65,7 +65,7 @@ public class RetryActivity extends AppCompatActivity {
             }
         });
 
-        WorkManager.getInstance().getWorkInfosByTagLiveData("test")
+        WorkManager.getInstance(RetryActivity.this).getWorkInfosByTagLiveData("test")
                 .observe(this, new Observer<List<WorkInfo>>() {
                     @Override
                     public void onChanged(@Nullable List<WorkInfo> workInfos) {
@@ -102,7 +102,7 @@ public class RetryActivity extends AppCompatActivity {
                 .setBackoffCriteria(BackoffPolicy.LINEAR, 10, TimeUnit.SECONDS)
                 .build();
 
-        WorkManager.getInstance()
+        WorkManager.getInstance(RetryActivity.this)
                 .beginUniqueWork(name, ExistingWorkPolicy.KEEP, workRequest)
                 .enqueue();
     }

@@ -17,20 +17,20 @@
 package androidx.navigation.ui
 
 import android.content.Context
-import android.support.v4.widget.DrawerLayout
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.createGraph
 import androidx.navigation.plusAssign
 import androidx.navigation.testing.TestNavigator
 import androidx.navigation.testing.test
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.filters.SmallTest
+import androidx.test.filters.LargeTest
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mockito.mock
 
-@SmallTest
+@LargeTest
 @RunWith(AndroidJUnit4::class)
 class AppBarConfigurationTest {
 

@@ -16,7 +16,7 @@
 
 package androidx.appcompat.app;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -40,11 +40,14 @@ import androidx.annotation.StyleRes;
 import androidx.appcompat.view.ActionMode;
 import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.widget.VectorEnabledTintResources;
+import androidx.collection.ArraySet;
 import androidx.core.view.WindowCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.lang.ref.WeakReference;
+import java.util.Iterator;
 
 /**
  * This class represents a delegate which you can use to extend AppCompat's support to any
@@ -91,49 +94,82 @@ public abstract class AppCompatDelegate {
     static final String TAG = "AppCompatDelegate";
 
     /**
-     * Mode which means to not use night mode, and therefore prefer {@code notnight} qualified
-     * resources where available, regardless of the time.
-     *
-     * @see #setLocalNightMode(int)
-     */
-    public static final int MODE_NIGHT_NO = 1;
-
-    /**
-     * Mode which means to always use night mode, and therefore prefer {@code night} qualified
-     * resources where available, regardless of the time.
-     *
-     * @see #setLocalNightMode(int)
-     */
-    public static final int MODE_NIGHT_YES = 2;
-
-    /**
-     * Mode which means to use night mode when it is determined that it is night or not.
-     *
-     * <p>The calculation used to determine whether it is night or not makes use of the location
-     * APIs (if this app has the necessary permissions). This allows us to generate accurate
-     * sunrise and sunset times. If this app does not have permission to access the location APIs
-     * then we use hardcoded times which will be less accurate.</p>
-     *
-     * @see #setLocalNightMode(int)
-     */
-    public static final int MODE_NIGHT_AUTO = 0;
-
-    /**
      * Mode which uses the system's night mode setting to determine if it is night or not.
      *
      * @see #setLocalNightMode(int)
      */
     public static final int MODE_NIGHT_FOLLOW_SYSTEM = -1;
 
-    static final int MODE_NIGHT_UNSPECIFIED = -100;
+    /**
+     * Night mode which switches between dark and light mode depending on the time of day
+     * (dark at night, light in the day).
+     *
+     * <p>The calculation used to determine whether it is night or not makes use of the location
+     * APIs (if this app has the necessary permissions). This allows us to generate accurate
+     * sunrise and sunset times. If this app does not have permission to access the location APIs
+     * then we use hardcoded times which will be less accurate.</p>
+     *
+     * @deprecated Automatic switching of dark/light based on the current time is deprecated.
+     * Considering using an explicit setting, or {@link #MODE_NIGHT_AUTO_BATTERY}.
+     */
+    @Deprecated
+    public static final int MODE_NIGHT_AUTO_TIME = 0;
+
+    /**
+     * @deprecated Use {@link AppCompatDelegate#MODE_NIGHT_AUTO_TIME} instead
+     */
+    @Deprecated
+    public static final int MODE_NIGHT_AUTO = MODE_NIGHT_AUTO_TIME;
+
+    /**
+     * Night mode which uses always uses a light mode, enabling {@code notnight} qualified
+     * resources regardless of the time.
+     *
+     * @see #setLocalNightMode(int)
+     */
+    public static final int MODE_NIGHT_NO = 1;
+
+    /**
+     * Night mode which uses always uses a dark mode, enabling {@code night} qualified
+     * resources regardless of the time.
+     *
+     * @see #setLocalNightMode(int)
+     */
+    public static final int MODE_NIGHT_YES = 2;
+
+    /**
+     * Night mode which uses a dark mode when the system's 'Battery Saver' feature is enabled,
+     * otherwise it uses a 'light mode'. This mode can help the device to decrease power usage,
+     * depending on the display technology in the device.
+     *
+     * <em>Please note: this mode should only be used when running on devices which do not
+     * provide a similar device-wide setting.</em>
+     *
+     * @see #setLocalNightMode(int)
+     */
+    public static final int MODE_NIGHT_AUTO_BATTERY = 3;
+
+    /**
+     * An unspecified mode for night mode. This is primarily used with
+     * {@link #setLocalNightMode(int)}, to allow the default night mode to be used.
+     * If both the default and local night modes are set to this value, then the default value of
+     * {@link #MODE_NIGHT_FOLLOW_SYSTEM} is applied.
+     *
+     * @see AppCompatDelegate#setDefaultNightMode(int)
+     */
+    public static final int MODE_NIGHT_UNSPECIFIED = -100;
 
     @NightMode
-    private static int sDefaultNightMode = MODE_NIGHT_FOLLOW_SYSTEM;
+    private static int sDefaultNightMode = MODE_NIGHT_UNSPECIFIED;
+
+    private static final ArraySet<WeakReference<AppCompatDelegate>> sActiveDelegates =
+            new ArraySet<>();
+    private static final Object sActiveDelegatesLock = new Object();
 
     /** @hide */
-    @RestrictTo(LIBRARY_GROUP)
-    @IntDef({MODE_NIGHT_NO, MODE_NIGHT_YES, MODE_NIGHT_AUTO, MODE_NIGHT_FOLLOW_SYSTEM,
-            MODE_NIGHT_UNSPECIFIED})
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @IntDef({MODE_NIGHT_NO, MODE_NIGHT_YES, MODE_NIGHT_AUTO_TIME, MODE_NIGHT_FOLLOW_SYSTEM,
+            MODE_NIGHT_UNSPECIFIED, MODE_NIGHT_AUTO_BATTERY})
     @Retention(RetentionPolicy.SOURCE)
     public @interface NightMode {}
 
@@ -179,8 +215,10 @@ public abstract class AppCompatDelegate {
      *
      * @param callback An optional callback for AppCompat specific events
      */
-    public static AppCompatDelegate create(Activity activity, AppCompatCallback callback) {
-        return new AppCompatDelegateImpl(activity, activity.getWindow(), callback);
+    @NonNull
+    public static AppCompatDelegate create(@NonNull Activity activity,
+            @Nullable AppCompatCallback callback) {
+        return new AppCompatDelegateImpl(activity, callback);
     }
 
     /**
@@ -188,8 +226,10 @@ public abstract class AppCompatDelegate {
      *
      * @param callback An optional callback for AppCompat specific events
      */
-    public static AppCompatDelegate create(Dialog dialog, AppCompatCallback callback) {
-        return new AppCompatDelegateImpl(dialog.getContext(), dialog.getWindow(), callback);
+    @NonNull
+    public static AppCompatDelegate create(@NonNull Dialog dialog,
+            @Nullable AppCompatCallback callback) {
+        return new AppCompatDelegateImpl(dialog, callback);
     }
 
     /**
@@ -198,9 +238,22 @@ public abstract class AppCompatDelegate {
      *
      * @param callback An optional callback for AppCompat specific events
      */
-    public static AppCompatDelegate create(Context context, Window window,
-            AppCompatCallback callback) {
+    @NonNull
+    public static AppCompatDelegate create(@NonNull Context context, @NonNull Window window,
+            @Nullable AppCompatCallback callback) {
         return new AppCompatDelegateImpl(context, window, callback);
+    }
+
+    /**
+     * Create an {@link androidx.appcompat.app.AppCompatDelegate} to use with a {@code context}
+     * and hosted by an {@code Activity}.
+     *
+     * @param callback An optional callback for AppCompat specific events
+     */
+    @NonNull
+    public static AppCompatDelegate create(@NonNull Context context, @NonNull Activity activity,
+            @Nullable AppCompatCallback callback) {
+        return new AppCompatDelegateImpl(context, activity, callback);
     }
 
     /**
@@ -282,7 +335,7 @@ public abstract class AppCompatDelegate {
      * This should be called from {@link Activity#setTheme(int)} to notify AppCompat of what
      * the current theme resource id is.
      */
-    public void onSetTheme(@StyleRes int themeResId) {
+    public void setTheme(@StyleRes int themeResId) {
     }
 
     /**
@@ -316,6 +369,12 @@ public abstract class AppCompatDelegate {
      * {@link Activity#addContentView(android.view.View, android.view.ViewGroup.LayoutParams)}}
      */
     public abstract void addContentView(View v, ViewGroup.LayoutParams lp);
+
+    /**
+     * Should be called from {@link Activity#attachBaseContext(Context)}
+     */
+    public void attachBaseContext(Context context) {
+    }
 
     /**
      * Should be called from {@link Activity#onTitleChanged(CharSequence, int)}}
@@ -424,25 +483,15 @@ public abstract class AppCompatDelegate {
     public abstract void onSaveInstanceState(Bundle outState);
 
     /**
-     * Allow AppCompat to apply the {@code night} and {@code notnight} resource qualifiers.
+     * Applies the currently selected night mode to this delegate's host component.
      *
-     * <p>Doing this enables the
+     * <p>This enables the
      * {@link
      * androidx.appcompat.R.style#Theme_AppCompat_DayNight Theme.AppCompat.DayNight}
-     * family of themes to work, using the computed twilight to automatically select a dark or
-     * light theme.</p>
+     * family of themes to work, using the specified mode.</p>
      *
-     * <p>You can override the night mode using {@link #setLocalNightMode(int)}.</p>
-     *
-     * <p>This only works on devices running
-     * {@link android.os.Build.VERSION_CODES#ICE_CREAM_SANDWICH ICE_CREAM_SANDWICH} and above.</p>
-     *
-     * <p>If this is called after the host component has been created, the component will either be
-     * automatically recreated or its {@link Configuration} updated. Which one depends on how
-     * the component is setup (via {@code android:configChanges} or similar).</p>
-     *
-     * <p>You can notified when the night changes by overriding the
-     * {@link AppCompatCallback#onNightModeChanged(int)} method.</p>
+     * <p>You can be notified when the night changes by overriding the
+     * {@link AppCompatActivity#onNightModeChanged(int)} method.</p>
      *
      * @see #setDefaultNightMode(int)
      * @see #setLocalNightMode(int)
@@ -452,34 +501,59 @@ public abstract class AppCompatDelegate {
     public abstract boolean applyDayNight();
 
     /**
-     * Override the night mode used for this delegate's host component. This method only takes
-     * effect for those situations where {@link #applyDayNight()} works.
+     * Override the night mode used for this delegate's host component.
      *
-     * <p>As this will call {@link #applyDayNight()}, the host component might be
-     * recreated automatically.</p>
+     * <p>When setting an mode to be used across an entire app, the
+     * {@link #setDefaultNightMode(int)} method is preferred.</p>
+     *
+     * <p>If this is called after the host component has been created, a {@code uiMode}
+     * configuration change will occur, which may result in the component being recreated.</p>
+     *
+     * <p>It is not recommended to use this method on a delegate attached to a {@link Dialog}.
+     * Dialogs use the host Activity as their context, resulting in the dialog's night mode
+     * overriding the Activity's night mode.
+     *
+     * @see #getLocalNightMode()
+     * @see #setDefaultNightMode(int)
      */
     public abstract void setLocalNightMode(@NightMode int mode);
 
     /**
-     * Sets the default night mode. This is used across all activities/dialogs but can be overridden
-     * locally via {@link #setLocalNightMode(int)}.
+     * Returns the night mode previously set via {@link #getLocalNightMode()}.
+     */
+    @NightMode
+    public int getLocalNightMode() {
+        return MODE_NIGHT_UNSPECIFIED;
+    }
+
+    /**
+     * Sets the default night mode. This is the default value used for all components, but can
+     * be overridden locally via {@link #setLocalNightMode(int)}.
      *
-     * <p>This method only takes effect for those situations where {@link #applyDayNight()} works.
-     * Defaults to {@link #MODE_NIGHT_FOLLOW_SYSTEM}.</p>
+     * <p>This is the primary method to control the DayNight functionality, since it allows
+     * the delegates to avoid unnecessary recreations when possible.</p>
      *
-     * <p>This only takes effect for components which are created after the call. Any components
-     * which are already open will not be updated.</p>
+     * <p>If this method is called after any host components with attached
+     * {@link AppCompatDelegate}s have been 'started', a {@code uiMode} configuration change
+     * will occur in each. This may result in those components being recreated, depending
+     * on their manifest configuration.</p>
+     *
+     * <p>Defaults to {@link #MODE_NIGHT_FOLLOW_SYSTEM}.</p>
      *
      * @see #setLocalNightMode(int)
      * @see #getDefaultNightMode()
      */
     public static void setDefaultNightMode(@NightMode int mode) {
         switch (mode) {
-            case MODE_NIGHT_AUTO:
             case MODE_NIGHT_NO:
             case MODE_NIGHT_YES:
             case MODE_NIGHT_FOLLOW_SYSTEM:
-                sDefaultNightMode = mode;
+            case MODE_NIGHT_AUTO_TIME:
+            case MODE_NIGHT_AUTO_BATTERY:
+                if (sDefaultNightMode != mode) {
+                    sDefaultNightMode = mode;
+                    applyDayNightToActiveDelegates();
+                }
                 break;
             default:
                 Log.d(TAG, "setDefaultNightMode() called with an unknown mode");
@@ -542,5 +616,47 @@ public abstract class AppCompatDelegate {
      */
     public static boolean isCompatVectorFromResourcesEnabled() {
         return VectorEnabledTintResources.isCompatVectorFromResourcesEnabled();
+    }
+
+    static void markStarted(@NonNull AppCompatDelegate delegate) {
+        synchronized (sActiveDelegatesLock) {
+            // Remove any existing records pointing to the delegate.
+            // There should not be any, but we'll make sure
+            removeDelegateFromActives(delegate);
+            // Add a new record to the set
+            sActiveDelegates.add(new WeakReference<>(delegate));
+        }
+    }
+
+    static void markStopped(@NonNull AppCompatDelegate delegate) {
+        synchronized (sActiveDelegatesLock) {
+            // Remove any WeakRef records pointing to the delegate in the set
+            removeDelegateFromActives(delegate);
+        }
+    }
+
+    private static void removeDelegateFromActives(@NonNull AppCompatDelegate toRemove) {
+        synchronized (sActiveDelegatesLock) {
+            final Iterator<WeakReference<AppCompatDelegate>> i = sActiveDelegates.iterator();
+            while (i.hasNext()) {
+                final AppCompatDelegate delegate = i.next().get();
+                if (delegate == toRemove || delegate == null) {
+                    // If the delegate is the one to remove, or it is null (because of the WeakRef),
+                    // remove it from the set
+                    i.remove();
+                }
+            }
+        }
+    }
+
+    private static void applyDayNightToActiveDelegates() {
+        synchronized (sActiveDelegatesLock) {
+            for (WeakReference<AppCompatDelegate> activeDelegate : sActiveDelegates) {
+                final AppCompatDelegate delegate = activeDelegate.get();
+                if (delegate != null) {
+                    delegate.applyDayNight();
+                }
+            }
+        }
     }
 }

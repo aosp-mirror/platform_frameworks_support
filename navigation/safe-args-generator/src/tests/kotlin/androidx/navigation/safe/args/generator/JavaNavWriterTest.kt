@@ -67,10 +67,15 @@ class JavaNavWriterTest {
     private fun assertCompilesWithoutError(javaFileObject: JavaFileObject) {
         JavaSourcesSubject.assertThat(
                 loadSourceFileObject("a.b.R", "a/b"),
-                JavaFileObjects.forSourceString("android.support.annotation.NonNull",
-                        "package android.support.annotation; public @interface NonNull {}"),
-                JavaFileObjects.forSourceString("android.support.annotation.Nullable",
-                        "package android.support.annotation; public @interface Nullable {}"),
+                loadSourceFileObject("a.b.secondreallyreallyreallyreallyreallyreally" +
+                        "reallyreallyreallyreallyreallyreallyreallyreallyreallyreally" +
+                        "longpackage.R", "a/b/secondreallyreallyreallyreallyreallyreally" +
+                        "reallyreallyreallyreallyreallyreallyreallyreallyreallyreally" +
+                        "longpackage"),
+                JavaFileObjects.forSourceString("androidx.annotation.NonNull",
+                        "package androidx.annotation; public @interface NonNull {}"),
+                JavaFileObjects.forSourceString("androidx.annotation.Nullable",
+                        "package androidx.annotation; public @interface Nullable {}"),
                 javaFileObject
         ).compilesWithoutError()
     }
@@ -80,10 +85,10 @@ class JavaNavWriterTest {
 
     private fun compileFiles(vararg javaFileObject: JavaFileObject) = javac()
             .compile(loadSourceFileObject("a.b.R", "a/b"),
-                    JavaFileObjects.forSourceString("android.support.annotation.NonNull",
-                            "package android.support.annotation; public @interface NonNull {}"),
-                    JavaFileObjects.forSourceString("android.support.annotation.Nullable",
-                            "package android.support.annotation; public @interface Nullable {}"),
+                    JavaFileObjects.forSourceString("androidx.annotation.NonNull",
+                            "package androidx.annotation; public @interface NonNull {}"),
+                    JavaFileObjects.forSourceString("androidx.annotation.Nullable",
+                            "package androidx.annotation; public @interface Nullable {}"),
                     *javaFileObject)
 
     @Test
@@ -103,7 +108,11 @@ class JavaNavWriterTest {
                         Argument(
                                 "parcelable",
                                 ObjectType("android.content.pm.ActivityInfo")
-                        ))), false)
+                        ),
+                        Argument(
+                                "innerData",
+                                ObjectType("android.content.pm.ActivityInfo\$WindowLayout")
+                        ))), true)
         val actual = toJavaFileObject(actionSpec)
         JavaSourcesSubject.assertThat(actual).parsesAs("a.b.Next")
         // actions spec must be inner class to be compiled, because of static modifier on class
@@ -112,7 +121,7 @@ class JavaNavWriterTest {
 
     @Test
     fun testDirectionNoIdClassGeneration() {
-        val actionSpec = generateDirectionsTypeSpec(Action(id("finish"), null, emptyList()), false)
+        val actionSpec = generateDirectionsTypeSpec(Action(id("finish"), null, emptyList()), true)
         val actual = toJavaFileObject(actionSpec)
         JavaSourcesSubject.assertThat(actual).parsesAs("a.b.Finish")
         // actions spec must be inner class to be compiled, because of static modifier on class
@@ -134,8 +143,27 @@ class JavaNavWriterTest {
         val dest = Destination(null, ClassName.get("a.b", "MainFragment"), "fragment", listOf(),
                 listOf(prevAction, nextAction))
 
-        val actual = generateDirectionsCodeFile(dest, emptyList(), false).toJavaFileObject()
+        val actual = generateDirectionsCodeFile(dest, emptyList(), true).toJavaFileObject()
         JavaSourcesSubject.assertThat(actual).parsesAs("a.b.MainFragmentDirections")
+        assertCompilesWithoutError(actual)
+    }
+
+    @Test
+    fun testDirectionsClassGeneration_longPackage() {
+        val funAction = Action(ResReference("a.b.secondreallyreallyreallyreally" +
+                "reallyreallyreallyreallyreallyreallyreallyreallyreallyreallyreallyreally" +
+                "longpackage", "id", "next"), id("destA"),
+            listOf())
+
+        val dest = Destination(null, ClassName.get("a.b.reallyreallyreallyreally" +
+                "reallyreallyreallyreallyreallyreallyreallyreallyreallyreallyreallyreally" +
+                "longpackage", "LongPackageFragment"), "fragment", listOf(),
+            listOf(funAction))
+
+        val actual = generateDirectionsCodeFile(dest, emptyList(), true).toJavaFileObject()
+        JavaSourcesSubject.assertThat(actual).parsesAs("a.b.reallyreallyreallyreallyreally" +
+                "reallyreallyreallyreallyreallyreallyreallyreallyreallyreallyreally" +
+                "longpackage.LongPackageFragmentDirections")
         assertCompilesWithoutError(actual)
     }
 
@@ -154,7 +182,7 @@ class JavaNavWriterTest {
         val dest = Destination(null, ClassName.get("a.b", "SanitizedMainFragment"),
                 "fragment", listOf(), listOf(prevAction, nextAction))
 
-        val actual = generateDirectionsCodeFile(dest, emptyList(), false).toJavaFileObject()
+        val actual = generateDirectionsCodeFile(dest, emptyList(), true).toJavaFileObject()
         JavaSourcesSubject.assertThat(actual).parsesAs("a.b.SanitizedMainFragmentDirections")
         assertCompilesWithoutError(actual)
     }
@@ -166,6 +194,7 @@ class JavaNavWriterTest {
                 Argument("optional", IntType, IntValue("-1")),
                 Argument("reference", ReferenceType, ReferenceValue(ResReference("a.b", "drawable",
                         "background"))),
+                Argument("referenceZeroDefaultValue", ReferenceType, IntValue("0")),
                 Argument("floatArg", FloatType, FloatValue("1")),
                 Argument("floatArrayArg", FloatArrayType),
                 Argument("objectArrayArg", ObjectArrayType(
@@ -185,7 +214,7 @@ class JavaNavWriterTest {
                 )),
                 listOf())
 
-        val actual = generateArgsCodeFile(dest, false).toJavaFileObject()
+        val actual = generateArgsCodeFile(dest, true).toJavaFileObject()
         JavaSourcesSubject.assertThat(actual).parsesAs("a.b.MainFragmentArgs")
         assertCompilesWithoutError(actual)
     }
@@ -199,7 +228,7 @@ class JavaNavWriterTest {
                 Argument("name with spaces", IntType)),
                 listOf())
 
-        val actual = generateArgsCodeFile(dest, false).toJavaFileObject()
+        val actual = generateArgsCodeFile(dest, true).toJavaFileObject()
         JavaSourcesSubject.assertThat(actual).parsesAs("a.b.SanitizedMainFragmentArgs")
         assertCompilesWithoutError(actual)
     }
@@ -211,7 +240,7 @@ class JavaNavWriterTest {
                 Argument("mainArg", StringType)),
             listOf())
 
-        val actual = generateArgsCodeFile(dest, false).toJavaFileObject()
+        val actual = generateArgsCodeFile(dest, true).toJavaFileObject()
         JavaSourcesSubject.assertThat(actual).parsesAs("a.b.MainFragment\$InnerFragmentArgs")
         assertCompilesWithoutError(actual)
     }
@@ -222,7 +251,7 @@ class JavaNavWriterTest {
         val dest = Destination(null, ClassName.get("a.b", "MainFragment"), "fragment", listOf(),
             listOf(nextAction))
 
-        val actual = generateDirectionsCodeFile(dest, emptyList(), false).toJavaFileObject()
+        val actual = generateDirectionsCodeFile(dest, emptyList(), true).toJavaFileObject()
 
         val generatedFiles = compileFiles(actual).generatedFiles()
         val loader = InMemoryGeneratedClassLoader(generatedFiles)
@@ -245,7 +274,7 @@ class JavaNavWriterTest {
         val dest = Destination(null, ClassName.get("a.b", "MainFragment"), "fragment", listOf(),
             listOf(nextAction))
 
-        val actual = generateDirectionsCodeFile(dest, emptyList(), false).toJavaFileObject()
+        val actual = generateDirectionsCodeFile(dest, emptyList(), true).toJavaFileObject()
 
         val generatedFiles = compileFiles(actual).generatedFiles()
         val loader = InMemoryGeneratedClassLoader(generatedFiles)

@@ -24,7 +24,7 @@ import static androidx.media2.widget.MediaControlView.EVENT_UPDATE_SUBTITLE_DESE
 import static androidx.media2.widget.MediaControlView.EVENT_UPDATE_SUBTITLE_SELECTED;
 import static androidx.media2.widget.MediaControlView.EVENT_UPDATE_TRACK_STATUS;
 import static androidx.media2.widget.MediaControlView.KEY_SELECTED_SUBTITLE_INDEX;
-import static androidx.media2.widget.MediaControlView.KEY_SUBTITLE_TRACK_COUNT;
+import static androidx.media2.widget.MediaControlView.KEY_SUBTITLE_TRACK_LANGUAGE_LIST;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -74,6 +74,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentMatcher;
 
+import java.util.List;
 import java.util.concurrent.Executor;
 
 /**
@@ -121,8 +122,10 @@ public class VideoViewTest {
                 nullable(SessionCommand.class),
                 nullable(Bundle.class))).thenReturn(
                         new SessionResult(SessionResult.RESULT_SUCCESS, null));
-        mController = new MediaController(mVideoView.getContext(),
-                mVideoView.getSessionToken(), mMainHandlerExecutor, mControllerCallback);
+        mController = new MediaController.Builder(mVideoView.getContext())
+                .setSessionToken(mVideoView.getSessionToken())
+                .setControllerCallback(mMainHandlerExecutor, mControllerCallback)
+                .build();
     }
 
     @After
@@ -252,10 +255,23 @@ public class VideoViewTest {
 
         verify(mControllerCallback, timeout(TIME_OUT).atLeastOnce()).onConnected(
                 any(MediaController.class), any(SessionCommandGroup.class));
-        verify(mControllerCallback, timeout(TIME_OUT).atLeast(1)).onPlayerStateChanged(
+        // TIME_OUT multiplied by the number of operations.
+        verify(mControllerCallback, timeout(TIME_OUT * 5).atLeast(1)).onPlayerStateChanged(
                 any(MediaController.class), eq(SessionPlayer.PLAYER_STATE_PAUSED));
-
         assertEquals(mVideoView.getViewType(), mVideoView.VIEW_TYPE_SURFACEVIEW);
+
+        mController.play();
+        verify(mControllerCallback, timeout(TIME_OUT).atLeastOnce()).onPlayerStateChanged(
+                any(MediaController.class), eq(SessionPlayer.PLAYER_STATE_PLAYING));
+
+        mActivityRule.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mVideoView.setViewType(mVideoView.VIEW_TYPE_TEXTUREVIEW);
+            }
+        });
+        verify(mockViewTypeListener, timeout(TIME_OUT))
+                .onViewTypeChanged(mVideoView, VideoView.VIEW_TYPE_TEXTUREVIEW);
     }
 
     @Test
@@ -266,6 +282,7 @@ public class VideoViewTest {
                 mVideoView.setMediaItem(mMediaItem);
             }
         });
+
         verify(mControllerCallback, timeout(TIME_OUT).atLeastOnce()).onConnected(
                 any(MediaController.class), any(SessionCommandGroup.class));
         mController.play();
@@ -274,7 +291,7 @@ public class VideoViewTest {
         verify(mControllerCallback, timeout(TIME_OUT).atLeastOnce()).onCustomCommand(
                 any(MediaController.class),
                 argThat(new CommandMatcher(EVENT_UPDATE_TRACK_STATUS)),
-                argThat(new CommandArgumentMatcher(KEY_SUBTITLE_TRACK_COUNT, 2)));
+                argThat(new CommandArgumentListMatcher(KEY_SUBTITLE_TRACK_LANGUAGE_LIST, 2)));
 
         // Select the first subtitle track
         Bundle extra = new Bundle();
@@ -332,6 +349,23 @@ public class VideoViewTest {
         }
     }
 
+    class CommandArgumentListMatcher implements ArgumentMatcher<Bundle> {
+        final String mKey;
+        final int mExpectedSize;
+
+        CommandArgumentListMatcher(String key, int expectedSize) {
+            mKey = key;
+            mExpectedSize = expectedSize;
+        }
+
+        @Override
+        public boolean matches(Bundle argument) {
+            List<String> list = argument.getStringArrayList(mKey);
+            return (list == null && mExpectedSize == 0)
+                    || (list != null && list.size() == mExpectedSize);
+        }
+    }
+
     private void setKeepScreenOn() throws Throwable {
         mActivityRule.runOnUiThread(new Runnable() {
             @Override
@@ -367,7 +401,6 @@ public class VideoViewTest {
         Uri testVideoUri = Uri.parse(
                 "android.resource://" + mContext.getPackageName() + "/"
                         + R.raw.testvideo_with_2_subtitle_tracks);
-        return new UriMediaItem.Builder(mVideoView.getContext(), testVideoUri)
-                .build();
+        return new UriMediaItem.Builder(testVideoUri).build();
     }
 }

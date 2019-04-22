@@ -19,16 +19,17 @@ import androidx.build.LibraryGroups
 import androidx.build.LibraryVersions
 
 plugins {
-    id("SupportJavaLibraryPlugin")
+    id("AndroidXPlugin")
+    id("java")
 }
 
 dependencies {
-    compile("androidx.annotation:annotation:1.0.0")
+    compile(project(":annotation"))
     annotationProcessor(NULLAWAY)
     testCompile(JUNIT)
 }
 
-supportLibrary {
+androidx {
     name = "Android Support Library collections"
     publish = true
     mavenVersion = LibraryVersions.COLLECTION

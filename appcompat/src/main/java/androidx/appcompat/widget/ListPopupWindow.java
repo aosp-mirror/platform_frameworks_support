@@ -16,7 +16,7 @@
 
 package androidx.appcompat.widget;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -346,7 +346,7 @@ public class ListPopupWindow implements ShowableListMenu {
      *
      * @hide Used only by AutoCompleteTextView to handle some internal special cases.
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public void setForceIgnoreOutsideTouch(boolean forceIgnoreOutsideTouch) {
         mForceIgnoreOutsideTouch = forceIgnoreOutsideTouch;
     }
@@ -362,7 +362,7 @@ public class ListPopupWindow implements ShowableListMenu {
      *
      * @hide Only used by AutoCompleteTextView under special conditions.
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public void setDropDownAlwaysVisible(boolean dropDownAlwaysVisible) {
         mDropDownAlwaysVisible = dropDownAlwaysVisible;
     }
@@ -372,7 +372,7 @@ public class ListPopupWindow implements ShowableListMenu {
      *
      * @hide Only used by AutoCompleteTextView under special conditions.
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public boolean isDropDownAlwaysVisible() {
         return mDropDownAlwaysVisible;
     }
@@ -501,15 +501,25 @@ public class ListPopupWindow implements ShowableListMenu {
     }
 
     /**
-     * Specifies the anchor-relative bounds of the popup's transition
+     * Specifies the custom anchor-relative bounds of the popup's transition
      * epicenter.
      *
-     * @param bounds anchor-relative bounds
-     * @hide
+     * @param bounds anchor-relative bounds or {@code null} to use default epicenter
+     * @see #getEpicenterBounds()
      */
-    @RestrictTo(LIBRARY_GROUP)
-    public void setEpicenterBounds(Rect bounds) {
-        mEpicenterBounds = bounds;
+    public void setEpicenterBounds(@Nullable Rect bounds) {
+        mEpicenterBounds = bounds != null ? new Rect(bounds) : null;
+    }
+
+    /**
+     * Return custom anchor-relative bounds of the popup's transition epicenter
+     *
+     * @return anchor-relative bounds, or @{@code null} if not set
+     * @see #setEpicenterBounds(Rect)
+     */
+    @Nullable
+    public Rect getEpicenterBounds() {
+        return mEpicenterBounds != null ? new Rect(mEpicenterBounds) : null;
     }
 
     /**
@@ -1313,7 +1323,7 @@ public class ListPopupWindow implements ShowableListMenu {
      * @hide Only used by {@link androidx.appcompat.view.menu.CascadingMenuPopup} to position
      * a submenu correctly.
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public void setOverlapAnchor(boolean overlapAnchor) {
         mOverlapAnchorSet = true;
         mOverlapAnchor = overlapAnchor;

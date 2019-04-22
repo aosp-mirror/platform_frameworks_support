@@ -42,7 +42,7 @@ open class ArgumentsGenerationTask : DefaultTask() {
     var applicationId: String? = null // null on AGP 3.3.0 and above
 
     @get:Input
-    var useAndroidX: Boolean = false
+    var useAndroidX: Boolean = true
 
     @get:Input
     var generateKotlin: Boolean = false
@@ -128,7 +128,9 @@ open class ArgumentsGenerationTask : DefaultTask() {
         modified.flatMap { it.javaFiles }
                 .filter { name -> name !in newJavaFiles }
                 .forEach { javaName ->
-                    val fileName = "${javaName.replace('.', File.separatorChar)}.java"
+                    val fileExtension = if (generateKotlin) { ".kt" } else { ".java" }
+                    val fileName =
+                        "${javaName.replace('.', File.separatorChar)}$fileExtension"
                     val file = File(outputDir, fileName)
                     if (file.exists()) {
                         file.delete()

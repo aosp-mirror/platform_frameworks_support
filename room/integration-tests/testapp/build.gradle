@@ -40,8 +40,8 @@ dependencies {
     implementation(project(":room:room-runtime"))
     implementation(project(":sqlite:sqlite"))
     implementation(project(":sqlite:sqlite-framework"))
-    implementation(ARCH_CORE_RUNTIME)
-    implementation(ARCH_LIFECYCLE_EXTENSIONS)
+    implementation(project(":arch:core-runtime"))
+    implementation(project(":lifecycle:lifecycle-extensions"))
 
     // FINDBUGS dependency resolves an app/testapp version conflict.
     implementation(FINDBUGS)
@@ -62,10 +62,10 @@ dependencies {
     androidTestImplementation(FINDBUGS)
     androidTestImplementation(GUAVA_ANDROID)
     androidTestImplementation(RX_JAVA)
-    androidTestImplementation(TEST_EXT_JUNIT)
-    androidTestImplementation(TEST_CORE)
-    androidTestImplementation(TEST_RUNNER)
-    androidTestImplementation(TEST_RULES)
+    androidTestImplementation(ANDROIDX_TEST_EXT_JUNIT)
+    androidTestImplementation(ANDROIDX_TEST_CORE)
+    androidTestImplementation(ANDROIDX_TEST_RUNNER)
+    androidTestImplementation(ANDROIDX_TEST_RULES)
     androidTestImplementation(ESPRESSO_CORE)
     androidTestImplementation(MOCKITO_CORE, libs.exclude_bytebuddy) // DexMaker has it's own MockMaker
     androidTestImplementation(DEXMAKER_MOCKITO, libs.exclude_bytebuddy) // DexMaker has it's own MockMaker

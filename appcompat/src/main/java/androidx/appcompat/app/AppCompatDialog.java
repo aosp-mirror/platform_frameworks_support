@@ -16,7 +16,7 @@
 
 package androidx.appcompat.app;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -56,11 +56,15 @@ public class AppCompatDialog extends Dialog implements AppCompatCallback {
     public AppCompatDialog(Context context, int theme) {
         super(context, getThemeResId(context, theme));
 
+        final AppCompatDelegate delegate = getDelegate();
+        // Make sure we provide the delegate with the current theme res id
+        delegate.setTheme(getThemeResId(context, theme));
+
         // This is a bit weird, but Dialog's are typically created and setup before being shown,
         // which means that we can't rely on onCreate() being called before a content view is set.
         // To workaround this, we call onCreate(null) in the ctor, and then again as usual in
         // onCreate().
-        getDelegate().onCreate(null);
+        delegate.onCreate(null);
     }
 
     protected AppCompatDialog(Context context, boolean cancelable,
@@ -153,7 +157,7 @@ public class AppCompatDialog extends Dialog implements AppCompatCallback {
      * @hide
      */
     @Override
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public void invalidateOptionsMenu() {
         getDelegate().invalidateOptionsMenu();
     }

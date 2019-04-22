@@ -17,10 +17,10 @@
 package androidx.work;
 
 import android.content.Context;
-import android.support.annotation.MainThread;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 
+import androidx.annotation.MainThread;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.work.impl.utils.SynchronousExecutor;
 import androidx.work.impl.utils.futures.SettableFuture;
 
@@ -38,7 +38,7 @@ import io.reactivex.schedulers.Schedulers;
  * RxJava2 interoperability Worker implementation.
  * <p>
  * When invoked by the {@link WorkManager}, it will call @{@link #createWork()} to get a
- * {@code Single<Payload>} subscribe to it.
+ * {@code Single<Result>} subscribe to it.
  * <p>
  * By default, RxWorker will subscribe on the thread pool that runs {@link WorkManager}
  * {@link Worker}s. You can change this behavior by overriding {@link #getBackgroundScheduler()}
@@ -91,7 +91,7 @@ public abstract class RxWorker extends ListenableWorker {
      *
      * @return The default {@link Scheduler}.
      */
-    protected Scheduler getBackgroundScheduler() {
+    protected @NonNull Scheduler getBackgroundScheduler() {
         return Schedulers.from(getBackgroundExecutor());
     }
 
@@ -115,7 +115,7 @@ public abstract class RxWorker extends ListenableWorker {
      * @return a {@code Single<Result>} that represents the work.
      */
     @MainThread
-    public abstract Single<Result> createWork();
+    public abstract @NonNull Single<Result> createWork();
 
     @Override
     public void onStopped() {

@@ -24,13 +24,14 @@ import android.content.Intent;
 import android.content.res.TypedArray;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.CallSuper;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+
+import androidx.annotation.CallSuper;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.ActivityOptionsCompat;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -77,7 +78,7 @@ public class ActivityNavigator extends Navigator<ActivityNavigator.Destination> 
             return;
         }
         int popEnterAnim = intent.getIntExtra(EXTRA_POP_ENTER_ANIM, -1);
-        int popExitAnim = intent.getIntExtra(EXTRA_POP_ENTER_ANIM, -1);
+        int popExitAnim = intent.getIntExtra(EXTRA_POP_EXIT_ANIM, -1);
         if (popEnterAnim != -1 || popExitAnim != -1) {
             popEnterAnim = popEnterAnim != -1 ? popEnterAnim : 0;
             popExitAnim = popExitAnim != -1 ? popExitAnim : 0;
@@ -229,10 +230,18 @@ public class ActivityNavigator extends Navigator<ActivityNavigator.Destination> 
             super.onInflate(context, attrs);
             TypedArray a = context.getResources().obtainAttributes(attrs,
                     R.styleable.ActivityNavigator);
+            String targetPackage = a.getString(R.styleable.ActivityNavigator_targetPackage);
+            if (targetPackage != null) {
+                targetPackage = targetPackage.replace(NavInflater.APPLICATION_ID_PLACEHOLDER,
+                        context.getPackageName());
+            }
+            setTargetPackage(targetPackage);
             String className = a.getString(R.styleable.ActivityNavigator_android_name);
             if (className != null) {
-                setComponentName(new ComponentName(context,
-                        parseClassFromName(context, className, Activity.class)));
+                if (className.charAt(0) == '.') {
+                    className = context.getPackageName() + className;
+                }
+                setComponentName(new ComponentName(context, className));
             }
             setAction(a.getString(R.styleable.ActivityNavigator_action));
             String data = a.getString(R.styleable.ActivityNavigator_data);
@@ -261,6 +270,36 @@ public class ActivityNavigator extends Navigator<ActivityNavigator.Destination> 
         @Nullable
         public final Intent getIntent() {
             return mIntent;
+        }
+
+        /**
+         * Set an explicit application package name that limits
+         * the components this destination will navigate to.
+         * <p>
+         * When inflated from XML, you can use <code>${applicationId}</code> as the
+         * package name to automatically use {@link Context#getPackageName()}.
+         *
+         * @param packageName packageName to set
+         * @return this {@link Destination}
+         */
+        @NonNull
+        public final Destination setTargetPackage(@Nullable String packageName) {
+            if (mIntent == null) {
+                mIntent = new Intent();
+            }
+            mIntent.setPackage(packageName);
+            return this;
+        }
+
+        /**
+         * Get the explicit application package name associated with this destination, if any
+         */
+        @Nullable
+        public final String getTargetPackage() {
+            if (mIntent == null) {
+                return null;
+            }
+            return mIntent.getPackage();
         }
 
         /**

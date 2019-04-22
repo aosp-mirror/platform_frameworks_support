@@ -16,7 +16,7 @@
 
 package androidx.appcompat.view;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
 import android.app.Activity;
 import android.content.Context;
@@ -65,7 +65,7 @@ import java.lang.reflect.Method;
  *
  * @hide
  */
-@RestrictTo(LIBRARY_GROUP)
+@RestrictTo(LIBRARY_GROUP_PREFIX)
 public class SupportMenuInflater extends MenuInflater {
     static final String LOG_TAG = "SupportMenuInflater";
 
@@ -547,7 +547,7 @@ public class SupportMenuInflater extends MenuInflater {
         private <T> T newInstance(String className, Class<?>[] constructorSignature,
                 Object[] arguments) {
             try {
-                Class<?> clazz = mContext.getClassLoader().loadClass(className);
+                Class<?> clazz = Class.forName(className, false, mContext.getClassLoader());
                 Constructor<?> constructor = clazz.getConstructor(constructorSignature);
                 constructor.setAccessible(true);
                 return (T) constructor.newInstance(arguments);

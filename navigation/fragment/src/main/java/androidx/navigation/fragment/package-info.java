@@ -17,8 +17,8 @@
 /**
  * The {@link androidx.navigation.fragment.NavHostFragment} provides a
  * {@link androidx.navigation.NavHost} suitable for using
- * {@link android.support.v4.app.Fragment Fragments} as destinations in your navigation graphs via
- * &lt;fragment%gt; elements. Navigating to a Fragment will replace the contents of the
+ * {@link androidx.fragment.app.Fragment Fragments} as destinations in your navigation graphs via
+ * &lt;fragment&gt; elements. Navigating to a Fragment will replace the contents of the
  * NavHostFragment.
  * <p>
  * Below is a minimal implementation.

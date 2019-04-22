@@ -16,7 +16,7 @@
 
 package androidx.core.graphics;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -41,7 +41,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * Implementation of the Typeface compat methods for API 14 and above.
  * @hide
  */
-@RestrictTo(LIBRARY_GROUP)
+@RestrictTo(LIBRARY_GROUP_PREFIX)
 class TypefaceCompatBaseImpl {
     private static final String TAG = "TypefaceCompatBaseImpl";
     private static final int INVALID_KEY = 0;
@@ -49,7 +49,7 @@ class TypefaceCompatBaseImpl {
     /**
      * Maps a unique identifier from a Typeface to it's family
      */
-    private ConcurrentHashMap<Integer, FontFamilyFilesResourceEntry> mFontFamilies =
+    private ConcurrentHashMap<Long, FontFamilyFilesResourceEntry> mFontFamilies =
             new ConcurrentHashMap<>();
 
     private interface StyleExtractor<T> {
@@ -76,7 +76,7 @@ class TypefaceCompatBaseImpl {
         return best;
     }
 
-    private static int getUniqueKey(@Nullable final Typeface typeface) {
+    private static long getUniqueKey(@Nullable final Typeface typeface) {
         if (typeface == null) {
             return INVALID_KEY;
         }
@@ -84,7 +84,8 @@ class TypefaceCompatBaseImpl {
         try {
             final Field field = Typeface.class.getDeclaredField("native_instance");
             field.setAccessible(true);
-            return (int) field.get(typeface);
+            final Number num = (Number) field.get(typeface);
+            return num.longValue();
         } catch (NoSuchFieldException e) {
             Log.e(TAG, "Could not retrieve font from family.", e);
             return INVALID_KEY;
@@ -207,7 +208,7 @@ class TypefaceCompatBaseImpl {
      */
     @Nullable
     FontFamilyFilesResourceEntry getFontFamily(final Typeface typeface) {
-        final int key = getUniqueKey(typeface);
+        final long key = getUniqueKey(typeface);
         if (key == INVALID_KEY) {
             return null;
         }
@@ -215,7 +216,7 @@ class TypefaceCompatBaseImpl {
     }
 
     private void addFontFamily(final Typeface typeface, final FontFamilyFilesResourceEntry entry) {
-        final int key = getUniqueKey(typeface);
+        final long key = getUniqueKey(typeface);
         if (key != INVALID_KEY) {
             mFontFamilies.put(key, entry);
         }

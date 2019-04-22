@@ -55,8 +55,8 @@ import androidx.slice.widget.EventInfo;
 import androidx.slice.widget.SliceLiveData;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.MediumTest;
 import androidx.test.filters.SdkSuppress;
-import androidx.test.filters.SmallTest;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -74,7 +74,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * Tests for {@link SliceMetadata}.
  */
 @RunWith(AndroidJUnit4.class)
-@SmallTest
+@MediumTest
 @SdkSuppress(minSdkVersion = 19)
 public class SliceMetadataTest {
 
@@ -485,6 +485,16 @@ public class SliceMetadataTest {
     }
 
     @Test
+    public void testGetToggleEmptySlice() {
+        Uri uri = Uri.parse("content://pkg/slice");
+
+        ListBuilder lb = new ListBuilder(mContext, uri, ListBuilder.INFINITY);
+        Slice rowSlice = lb.build();
+        SliceMetadata rowInfo = SliceMetadata.from(mContext, rowSlice);
+        assertTrue(rowInfo.getToggles().isEmpty());
+    }
+
+    @Test
     public void testSendToggleAction() {
         final AtomicBoolean toggleState = new AtomicBoolean(true);
         final CountDownLatch latch = new CountDownLatch(3);
@@ -782,8 +792,10 @@ public class SliceMetadataTest {
     @Test
     public void testIsPermissionSlice() {
         Uri uri = Uri.parse("content://pkg/slice");
-        Slice permissionSlice =
-                SliceProvider.createPermissionSlice(mContext, uri, mContext.getPackageName());
+        SliceProvider provider = new SliceViewManagerTest.TestSliceProvider();
+        provider.attachInfo(mContext, null);
+        Slice permissionSlice = provider.createPermissionSlice(
+                uri, mContext.getPackageName());
 
         SliceMetadata metadata = SliceMetadata.from(mContext, permissionSlice);
         assertEquals(true, metadata.isPermissionSlice());

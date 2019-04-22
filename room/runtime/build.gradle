@@ -17,10 +17,11 @@
 import static androidx.build.dependencies.DependenciesKt.*
 import androidx.build.LibraryGroups
 import androidx.build.LibraryVersions
-import androidx.build.SupportLibraryExtension
+import androidx.build.AndroidXExtension
 
 plugins {
-    id("SupportAndroidLibraryPlugin")
+    id("AndroidXPlugin")
+    id("com.android.library")
     id("kotlin-android")
 }
 
@@ -32,10 +33,15 @@ android {
 
 dependencies {
     api(project(":room:room-common"))
-    api(project(":sqlite:sqlite-framework"))
-    api(project(":sqlite:sqlite"))
+    implementation fileTree(
+            dir: "${new File(project(":room:room-common-java8").buildDir, "libs")}",
+            include : "*.jar"
+    )
+    api(ANDROIDX_SQLITE_FRAMEWORK)
+    api(ANDROIDX_SQLITE)
     implementation(ARCH_CORE_RUNTIME)
     implementation(ANDROIDX_CORE)
+    implementation(ANDROIDX_COLLECTION)
     compileOnly(ARCH_PAGING_COMMON)
     compileOnly(ARCH_LIFECYCLE_LIVEDATA_CORE)
     implementation(ANDROIDX_COLLECTION)
@@ -45,33 +51,40 @@ dependencies {
     testImplementation(MOCKITO_CORE)
     testImplementation(ARCH_LIFECYCLE_EXTENSIONS)
     testImplementation(KOTLIN_STDLIB)
+    testImplementation(TRUTH)
 
     androidTestImplementation(JUNIT)
-    androidTestImplementation(TEST_EXT_JUNIT)
-    androidTestImplementation(TEST_CORE)
-    androidTestImplementation(TEST_RUNNER)
+    androidTestImplementation(ANDROIDX_TEST_EXT_JUNIT)
+    androidTestImplementation(ANDROIDX_TEST_CORE)
+    androidTestImplementation(ANDROIDX_TEST_RUNNER)
     androidTestImplementation(ESPRESSO_CORE)
     androidTestImplementation(MOCKITO_CORE, libs.exclude_bytebuddy) // DexMaker has it"s own MockMaker
     androidTestImplementation(DEXMAKER_MOCKITO, libs.exclude_bytebuddy) // DexMaker has it"s own MockMaker
 }
 
-// Used by testCompile in room-compiler
 android.libraryVariants.all { variant ->
     def name = variant.name
     def suffix = name.capitalize()
+
+    // Create jar<variant> task for testCompile in room-compiler.
     project.tasks.create(name: "jar${suffix}", type: Jar){
-        dependsOn variant.javaCompile
-        from variant.javaCompile.destinationDir
+        dependsOn variant.javaCompileProvider.get()
+        from variant.javaCompileProvider.get().destinationDir
         destinationDir new File(project.buildDir, "libJar")
+    }
+
+    // Make javaCompile task depend on room-common-java8 jar task.
+    variant.javaCompileProvider.configure { task ->
+        task.dependsOn(":room:room-common-java8:jar")
     }
 }
 
-supportLibrary {
+androidx {
     name = "Android Room-Runtime"
     publish = true
     mavenVersion = LibraryVersions.ROOM
     mavenGroup = LibraryGroups.ROOM
     inceptionYear = "2017"
     description = "Android Room-Runtime"
-    url = SupportLibraryExtension.ARCHITECTURE_URL
+    url = AndroidXExtension.ARCHITECTURE_URL
 }

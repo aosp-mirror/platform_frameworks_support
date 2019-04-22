@@ -25,6 +25,7 @@ import androidx.room.RawQuery
 import androidx.room.Transaction
 import androidx.room.TypeConverters
 import androidx.room.Update
+import androidx.room.integration.kotlintestapp.vo.AnswerConverter
 import androidx.room.integration.kotlintestapp.vo.Author
 import androidx.room.integration.kotlintestapp.vo.Book
 import androidx.room.integration.kotlintestapp.vo.BookAuthor
@@ -45,7 +46,7 @@ import io.reactivex.Single
 import java.util.Date
 
 @Dao
-@TypeConverters(DateConverter::class)
+@TypeConverters(DateConverter::class, AnswerConverter::class)
 interface BooksDao {
 
     @Insert
@@ -68,6 +69,9 @@ interface BooksDao {
 
     @Insert
     fun addPublisherMaybe(publisher: Publisher): Maybe<Long>
+
+    @Insert
+    fun addPublisherSuspend(publisher: Publisher)
 
     @Delete
     fun deletePublishers(vararg publishers: Publisher)
@@ -101,6 +105,9 @@ interface BooksDao {
 
     @Insert
     fun addAuthors(vararg authors: Author)
+
+    @Insert
+    suspend fun addAuthorsSuspend(vararg authors: Author)
 
     @Query("SELECT * FROM author WHERE authorId = :authorId")
     fun getAuthor(authorId: String): Author
@@ -330,4 +337,43 @@ interface BooksDao {
 
     @Query("SELECT dateOfBirth FROM author WHERE authorId = :authorId")
     suspend fun getAuthorDateOfBirths(authorId: String): Date
+
+    @Query("SELECT * FROM author WHERE dateOfBirth IN (:dates)")
+    fun getAuthorsWithBirthDatesList(dates: List<Date>): List<Author>
+
+    @Query("SELECT * FROM author WHERE dateOfBirth IN (:dates)")
+    fun getAuthorsWithBirthDatesVararg(vararg dates: Date): List<Author>
+
+    // see: b/123767877, suspend function with inner class as parameter issues.
+    @Query("SELECT 0 FROM book WHERE bookId = :param")
+    suspend fun getZero(param: AnswerConverter.Answer): Int
+
+    // see: b/123767877, suspend function with inner class as parameter issues.
+    @Query("SELECT 'YES' FROM book")
+    suspend fun getAnswer(): AnswerConverter.Answer
+
+    @Transaction
+    suspend fun insertBookAndAuthorSuspend(book: Book, author: Author) {
+        addBooks(book)
+        addAuthors(author)
+    }
+
+    @Query("SELECT * FROM book WHERE salesCnt = :count")
+    suspend fun getBooksSalesCountSuspend(count: Int): List<Book>
+
+    @Transaction
+    suspend fun deleteBooksWithZeroSales(): List<Book> {
+        val books = getBooksSalesCountSuspend(0)
+        deleteBookWithIds(*books.map { it.bookId }.toTypedArray())
+        return books
+    }
+
+    @Transaction
+    suspend fun addAuthorPublisherBooks(author: Author, publisher: Publisher, vararg books: Book) {
+        addAuthorsSuspend(author)
+        addPublisherSuspend(publisher)
+        for (book in books) {
+            insertBookSuspend(book)
+        }
+    }
 }

@@ -47,7 +47,7 @@ public class FragmentFactory {
         Class<?> clazz = sClassMap.get(className);
         if (clazz == null) {
             // Class not found in the cache, see if it's real, and try to add it
-            clazz = classLoader.loadClass(className);
+            clazz = Class.forName(className, false, classLoader);
             sClassMap.put(className, clazz);
         }
         return clazz;
@@ -73,7 +73,7 @@ public class FragmentFactory {
 
     /**
      * Parse a Fragment Class from the given class name. The resulting Class is kept in a global
-     * cache, bypassing the {@link ClassLoader#loadClass(String)} calls when passed the same
+     * cache, bypassing the {@link Class#forName(String)} calls when passed the same
      * class name again.
      *
      * @param classLoader The default classloader to use for loading the Class
@@ -115,10 +115,29 @@ public class FragmentFactory {
      * @throws InstantiationException If there is a failure in instantiating
      * the given fragment class.  This is a runtime exception; it is not
      * normally expected to happen.
+     * @deprecated Use {@link #instantiate(ClassLoader, String)}.
      */
+    @Deprecated
     @NonNull
     public Fragment instantiate(@NonNull ClassLoader classLoader, @NonNull String className,
-                                @SuppressWarnings("unused") @Nullable Bundle args) {
+            @SuppressWarnings("unused") @Nullable Bundle args) {
+        return instantiate(classLoader, className);
+    }
+
+    /**
+     * Create a new instance of a Fragment with the given class name. This uses
+     * {@link #loadFragmentClass(ClassLoader, String)} and the empty
+     * constructor of the resulting Class by default.
+     *
+     * @param classLoader The default classloader to use for instantiation
+     * @param className The class name of the fragment to instantiate.
+     * @return Returns a new fragment instance.
+     * @throws Fragment.InstantiationException If there is a failure in instantiating
+     * the given fragment class.  This is a runtime exception; it is not
+     * normally expected to happen.
+     */
+    @NonNull
+    public Fragment instantiate(@NonNull ClassLoader classLoader, @NonNull String className) {
         try {
             Class<? extends Fragment> cls = loadFragmentClass(classLoader, className);
             return cls.getConstructor().newInstance();

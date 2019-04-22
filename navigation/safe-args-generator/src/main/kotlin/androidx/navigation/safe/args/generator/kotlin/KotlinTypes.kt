@@ -40,8 +40,9 @@ import androidx.navigation.safe.args.generator.StringArrayType
 import androidx.navigation.safe.args.generator.StringType
 import androidx.navigation.safe.args.generator.StringValue
 import androidx.navigation.safe.args.generator.WritableValue
+import androidx.navigation.safe.args.generator.ext.toClassNameParts
 import androidx.navigation.safe.args.generator.models.Argument
-import androidx.navigation.safe.args.generator.models.accessor
+import androidx.navigation.safe.args.generator.models.ResReference
 import com.squareup.kotlinpoet.ARRAY
 import com.squareup.kotlinpoet.BOOLEAN
 import com.squareup.kotlinpoet.ClassName
@@ -50,6 +51,7 @@ import com.squareup.kotlinpoet.FLOAT
 import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.INT
 import com.squareup.kotlinpoet.LONG
+import com.squareup.kotlinpoet.ParameterizedTypeName
 import com.squareup.kotlinpoet.TypeName
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.asTypeName
@@ -90,10 +92,12 @@ internal fun NavType.addBundleGetStatement(
         )
         endControlFlow()
     }
-    is ObjectArrayType -> builder.addStatement(
-        "%L = %L.%L(%S) as %T",
-        lValue, bundle, bundleGetMethod(), arg.name, arg.type.typeName().copy(nullable = true)
-    )
+    is ObjectArrayType -> builder.apply {
+        val baseType = (arg.type.typeName() as ParameterizedTypeName).typeArguments.first()
+        addStatement(
+            "%L = %L.%L(%S)?.map { it as %T }?.toTypedArray()",
+            lValue, bundle, bundleGetMethod(), arg.name, baseType)
+    }
     else -> builder.addStatement(
         "%L = %L.%L(%S)",
         lValue,
@@ -161,14 +165,20 @@ internal fun NavType.typeName(): TypeName = when (this) {
     BoolArrayType -> BooleanArray::class.asTypeName()
     ReferenceType -> INT
     ReferenceArrayType -> IntArray::class.asTypeName()
-    is ObjectType -> ClassName.bestGuess(canonicalName)
-    is ObjectArrayType -> ARRAY.parameterizedBy(ClassName.bestGuess(canonicalName))
+    is ObjectType -> canonicalName.toClassNameParts().let { (packageName, simpleName, innerNames) ->
+        ClassName(packageName, simpleName, *innerNames)
+    }
+    is ObjectArrayType -> ARRAY.parameterizedBy(
+        canonicalName.toClassNameParts().let { (packageName, simpleName, innerNames) ->
+            ClassName(packageName, simpleName, *innerNames)
+        }
+    )
     else -> throw IllegalStateException("Unknown type: $this")
 }
 
 internal fun WritableValue.write(): CodeBlock {
     return when (this) {
-        is ReferenceValue -> CodeBlock.of(resReference.accessor())
+        is ReferenceValue -> resReference.accessor()
         is StringValue -> CodeBlock.of("%S", value)
         is IntValue -> CodeBlock.of(value)
         is LongValue -> CodeBlock.of(value)
@@ -179,3 +189,7 @@ internal fun WritableValue.write(): CodeBlock {
         else -> throw IllegalStateException("Unknown value: $this")
     }
 }
+
+internal fun ResReference?.accessor() = this?.let {
+    CodeBlock.of("%T.%N", ClassName(packageName, "R", resType), javaIdentifier)
+} ?: CodeBlock.of("0")

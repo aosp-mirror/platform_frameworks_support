@@ -21,13 +21,13 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.PowerManager;
-import android.support.annotation.MainThread;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.RestrictTo;
-import android.support.annotation.VisibleForTesting;
 import android.text.TextUtils;
 
+import androidx.annotation.MainThread;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RestrictTo;
+import androidx.annotation.VisibleForTesting;
 import androidx.work.Logger;
 import androidx.work.impl.ExecutionListener;
 import androidx.work.impl.Processor;
@@ -81,7 +81,7 @@ public class SystemAlarmDispatcher implements ExecutionListener {
         mContext = context.getApplicationContext();
         mCommandHandler = new CommandHandler(mContext);
         mWorkTimer = new WorkTimer();
-        mWorkManager = workManager != null ? workManager : WorkManagerImpl.getInstance();
+        mWorkManager = workManager != null ? workManager : WorkManagerImpl.getInstance(context);
         mProcessor = processor != null ? processor : mWorkManager.getProcessor();
         mProcessor.addExecutionListener(this);
         // a list of pending intents which need to be processed
@@ -93,6 +93,7 @@ public class SystemAlarmDispatcher implements ExecutionListener {
 
     void onDestroy() {
         mProcessor.removeExecutionListener(this);
+        mWorkTimer.onDestroy();
         mCompletedListener = null;
     }
 

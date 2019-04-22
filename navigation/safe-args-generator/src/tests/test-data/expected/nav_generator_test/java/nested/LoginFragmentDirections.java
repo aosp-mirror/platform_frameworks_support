@@ -16,10 +16,11 @@
 
 package foo.flavor.account;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import androidx.navigation.ActionOnlyNavDirections;
 import androidx.navigation.NavDirections;
 import foo.LoginDirections;
+import foo.R;
 
 public class LoginFragmentDirections {
     private LoginFragmentDirections() {
@@ -27,7 +28,7 @@ public class LoginFragmentDirections {
 
     @NonNull
     public static NavDirections register() {
-        return new ActionOnlyNavDirections(foo.R.id.register);
+        return new ActionOnlyNavDirections(R.id.register);
     }
 
     @NonNull

@@ -3,17 +3,19 @@ import androidx.build.LibraryGroups
 import androidx.build.LibraryVersions
 
 plugins {
-    id("SupportAndroidLibraryPlugin")
+    id("AndroidXPlugin")
+    id("com.android.library")
 }
 
 dependencies {
-    api("androidx.annotation:annotation:1.0.0")
+    api(project(":annotation"))
     api(project(":core"))
+    implementation(project(":collection"))
 
-    androidTestImplementation(TEST_EXT_JUNIT)
-    androidTestImplementation(TEST_CORE)
-    androidTestImplementation(TEST_RUNNER)
-    androidTestImplementation(TEST_RULES)
+    androidTestImplementation(ANDROIDX_TEST_EXT_JUNIT)
+    androidTestImplementation(ANDROIDX_TEST_CORE)
+    androidTestImplementation(ANDROIDX_TEST_RUNNER)
+    androidTestImplementation(ANDROIDX_TEST_RULES)
 }
 
 android {
@@ -27,7 +29,7 @@ android {
     }
 }
 
-supportLibrary {
+androidx {
     name = "Android Support VectorDrawable"
     publish = true
     mavenVersion = LibraryVersions.VECTORDRAWABLE

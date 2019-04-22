@@ -22,22 +22,24 @@ import static androidx.work.WorkInfo.State.ENQUEUED;
 import static androidx.work.WorkRequest.MAX_BACKOFF_MILLIS;
 import static androidx.work.WorkRequest.MIN_BACKOFF_MILLIS;
 
-import android.arch.core.util.Function;
-import android.arch.persistence.room.ColumnInfo;
-import android.arch.persistence.room.Embedded;
-import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.Index;
-import android.arch.persistence.room.PrimaryKey;
-import android.arch.persistence.room.Relation;
-import android.support.annotation.NonNull;
-import android.support.annotation.RestrictTo;
+import android.os.Build;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.RestrictTo;
+import androidx.arch.core.util.Function;
+import androidx.room.ColumnInfo;
+import androidx.room.Embedded;
+import androidx.room.Entity;
+import androidx.room.Index;
+import androidx.room.PrimaryKey;
+import androidx.room.Relation;
 import androidx.work.BackoffPolicy;
 import androidx.work.Constraints;
 import androidx.work.Data;
 import androidx.work.Logger;
 import androidx.work.WorkInfo;
 import androidx.work.WorkRequest;
+import androidx.work.impl.WorkManagerImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -248,7 +250,36 @@ public class WorkSpec {
                     : (long) Math.scalb(backoffDelayDuration, runAttemptCount - 1);
             return periodStartTime + Math.min(WorkRequest.MAX_BACKOFF_MILLIS, delay);
         } else if (isPeriodic()) {
-            return periodStartTime + intervalDuration - flexDuration;
+            if (Build.VERSION.SDK_INT <= WorkManagerImpl.MAX_PRE_JOB_SCHEDULER_API_LEVEL) {
+                // Flex is only applicable when it's different from interval duration for
+                // the AlarmManager implementation.
+                boolean isFlexApplicable = flexDuration != intervalDuration;
+                if (isFlexApplicable) {
+                    // When a PeriodicWorkRequest is being scheduled for the first time,
+                    // the periodStartTime will be 0. To correctly emulate flex, we need to set it
+                    // to now, so the PeriodicWorkRequest has an initial delay of
+                    // (interval - flex).
+
+                    // The subsequent runs will only add the interval duration and no flex.
+                    // This gives us the following behavior:
+                    // 1 => now + (interval - flex) = firstRunTime
+                    // 2 => firstRunTime + 2 * interval - flex
+                    // 3 => firstRunTime + 3 * interval - flex
+
+                    long offset = periodStartTime == 0 ? (-1 * flexDuration) : 0;
+                    long start =
+                            periodStartTime == 0 ? System.currentTimeMillis() : periodStartTime;
+                    return start + intervalDuration + offset;
+                } else {
+                    // Don't use flexDuration for determining next run time for PeriodicWork
+                    // Schedulers <= API 22. This is because intervalDuration could equal
+                    // flexDuration.
+                    return periodStartTime + intervalDuration;
+                }
+
+            } else {
+                return periodStartTime + intervalDuration - flexDuration;
+            }
         } else {
             return periodStartTime + initialDelay;
         }
@@ -347,7 +378,7 @@ public class WorkSpec {
     }
 
     /**
-     * A POJO containing the ID, state, output, and tags of a WorkSpec.
+     * A POJO containing the ID, state, output, tags, and run attempt count of a WorkSpec.
      */
     public static class WorkInfoPojo {
 
@@ -359,6 +390,9 @@ public class WorkSpec {
 
         @ColumnInfo(name = "output")
         public Data output;
+
+        @ColumnInfo(name = "run_attempt_count")
+        public int runAttemptCount;
 
         @Relation(
                 parentColumn = "id",
@@ -373,7 +407,7 @@ public class WorkSpec {
          * @return The {@link WorkInfo} represented by this POJO
          */
         public WorkInfo toWorkInfo() {
-            return new WorkInfo(UUID.fromString(id), state, output, tags);
+            return new WorkInfo(UUID.fromString(id), state, output, tags, runAttemptCount);
         }
 
         @Override
@@ -383,6 +417,7 @@ public class WorkSpec {
 
             WorkInfoPojo that = (WorkInfoPojo) o;
 
+            if (runAttemptCount != that.runAttemptCount) return false;
             if (id != null ? !id.equals(that.id) : that.id != null) return false;
             if (state != that.state) return false;
             if (output != null ? !output.equals(that.output) : that.output != null) return false;
@@ -394,6 +429,7 @@ public class WorkSpec {
             int result = id != null ? id.hashCode() : 0;
             result = 31 * result + (state != null ? state.hashCode() : 0);
             result = 31 * result + (output != null ? output.hashCode() : 0);
+            result = 31 * result + runAttemptCount;
             result = 31 * result + (tags != null ? tags.hashCode() : 0);
             return result;
         }
