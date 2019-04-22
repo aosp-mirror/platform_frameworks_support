@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "48722384_a6953aac",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-04-22T10:26:34Z",
+      "side": 1,
+      "message": "please update the commit message",
+      "range": {
+        "startLine": 7,
+        "startChar": 18,
+        "endLine": 7,
+        "endChar": 39
+      },
+      "revId": "f5ccd33a86f63150c9c020db681db63c89a78d28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97d42973_66b3b46d",
+        "filename": "mediarouter/src/main/java/androidx/mediarouter/media/MediaRouteProvider.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-04-22T10:26:34Z",
+      "side": 1,
+      "message": "I think we can simply call the onRouteChanged callback when the listener is registered.\nThen we don\u0027t need to keep mPendingRoutes and just call notifyDynamicRoutesChanged() here will work.",
+      "range": {
+        "startLine": 544,
+        "startChar": 20,
+        "endLine": 544,
+        "endChar": 35
+      },
+      "revId": "f5ccd33a86f63150c9c020db681db63c89a78d28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
