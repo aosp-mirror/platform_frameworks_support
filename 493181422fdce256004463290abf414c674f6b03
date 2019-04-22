@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d4b47089_dd2e414f",
+        "filename": "appcompat/src/main/java/androidx/appcompat/app/AppCompatDelegateImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2260,
+      "author": {
+        "id": 1061051
+      },
+      "writtenOn": "2019-04-22T19:49:46Z",
+      "side": 1,
+      "message": "Small typo - its",
+      "range": {
+        "startLine": 2260,
+        "startChar": 81,
+        "endLine": 2260,
+        "endChar": 85
+      },
+      "revId": "493181422fdce256004463290abf414c674f6b03",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
