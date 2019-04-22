@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8a8d18fa_2664b64f",
+        "filename": "camera/integration-tests/timingtestapp/app/.gitignore",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-04-22T22:06:24Z",
+      "side": 1,
+      "message": "You can delete this file. The frameworks/support/.gitignore will already handle this.",
+      "revId": "8aa3853725b3959e8fcd7c99f8119b78b1a08200",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8c24091_daa394e8",
+        "filename": "camera/integration-tests/timingtestapp/app/src/main/AndroidManifest.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-04-22T22:06:24Z",
+      "side": 1,
+      "message": "androidx.camera.integration.timing is probably what we want to use here.",
+      "range": {
+        "startLine": 18,
+        "startChar": 13,
+        "endLine": 18,
+        "endChar": 35
+      },
+      "revId": "8aa3853725b3959e8fcd7c99f8119b78b1a08200",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d04302e_d189fe28",
+        "filename": "camera/integration-tests/timingtestapp/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-04-22T22:06:24Z",
+      "side": 1,
+      "message": "This file should use the same build pattern as all the other integration test apps in androidx. See frameworks/support/paging/integration-tests/testapp/build.gradle for an example of a kotlin integration test app.\n\nframeworks/support/camera/integration-tests/viewtestapp/build.gradle is another example of a non-kotlin integration test app but it includes the same dependencies you\u0027ll need for antelope.",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 1
+      },
+      "revId": "8aa3853725b3959e8fcd7c99f8119b78b1a08200",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e2bb653_7d17dd0e",
+        "filename": "camera/integration-tests/timingtestapp/core/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-04-22T22:06:24Z",
+      "side": 1,
+      "message": "You should be depending directly on the other project artifacts in androidx. This will allow us to use antelope to test the most recent changes made to CameraX.",
+      "revId": "8aa3853725b3959e8fcd7c99f8119b78b1a08200",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6c2c232_c980aa77",
+        "filename": "camera/integration-tests/timingtestapp/gradlew",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-04-22T22:06:24Z",
+      "side": 1,
+      "message": "This file and all other gradle files are already included as part of the androidx repository. Please delete.",
+      "revId": "8aa3853725b3959e8fcd7c99f8119b78b1a08200",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
