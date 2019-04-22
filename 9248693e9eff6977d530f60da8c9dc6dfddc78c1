@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "522076a2_95144612",
+        "filename": "gradlew",
+        "patchSetId": 1
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-04-22T18:02:48Z",
+      "side": 1,
+      "message": "should we do it only on build server? It is just build noise for local builds.",
+      "revId": "9248693e9eff6977d530f60da8c9dc6dfddc78c1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
