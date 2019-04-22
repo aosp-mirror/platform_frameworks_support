@@ -556,9 +556,14 @@ public abstract class MediaRouteProvider {
         }
 
         /**
-         * Sets the dynamic descriptors of routes published by the provider.
+         * Sets the dynamic route descriptors for routes.
+         * <p>
+         * The dynamic group controller must call this method to notify the current
+         * dynamic group state of routes.
+         * </p>
+         * @param routes The dynamic route descriptors for published routes.
          */
-        final void notifyDynamicRoutesChanged(
+        public final void notifyDynamicRoutesChanged(
                 final Collection<DynamicRouteDescriptor> routes) {
             synchronized (mLock) {
                 if (mExecutor != null) {
