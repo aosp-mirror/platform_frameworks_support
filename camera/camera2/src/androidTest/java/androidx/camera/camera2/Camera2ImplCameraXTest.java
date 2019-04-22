@@ -44,7 +44,6 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.filters.FlakyTest;
 import androidx.test.filters.SmallTest;
 import androidx.test.rule.GrantPermissionRule;
 
@@ -61,7 +60,6 @@ import java.util.concurrent.atomic.AtomicLong;
  * Contains tests for {@link androidx.camera.core.CameraX} which require an actual implementation to
  * run.
  */
-@FlakyTest
 @SmallTest
 @RunWith(AndroidJUnit4.class)
 public final class Camera2ImplCameraXTest {
