@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dcaa90a4_80b4bf2e",
+        "filename": "fragment/src/main/java/androidx/fragment/app/Fragment.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2398,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-22T20:51:37Z",
+      "side": 1,
+      "message": "This should take a long duration, TimeUnit timeUnit\n\nSee OneTimeWorkRequest.Builder#setInitialDelay for an example (let\u0027s not add the Duration version as of yet).",
+      "range": {
+        "startLine": 2398,
+        "startChar": 40,
+        "endLine": 2398,
+        "endChar": 56
+      },
+      "revId": "8913ada1fc43df55715d3baf6106e1f034cdd3be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
