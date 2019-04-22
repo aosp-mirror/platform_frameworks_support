@@ -3,33 +3,31 @@ import androidx.build.LibraryGroups
 import androidx.build.LibraryVersions
 
 plugins {
-    id("SupportAndroidLibraryPlugin")
+    id("AndroidXPlugin")
+    id("com.android.library")
 }
 
 dependencies {
     api(project(":appcompat"))
-    api(project(":cardview"))
-    api(project(":coordinatorlayout"))
+    api("androidx.cardview:cardview:1.0.0")
+    api("androidx.coordinatorlayout:coordinatorlayout:1.0.0")
     api(project(":annotation"))
     api(project(":recyclerview"))
-    api(project(":gridlayout"))
-    api(project(":preference"))
+    api("androidx.gridlayout:gridlayout:1.0.0")
+    api("androidx.preference:preference:1.0.0")
     api(CONSTRAINT_LAYOUT, { transitive = true })
-    api(SUPPORT_DESIGN, libs.exclude_for_material)
+    api(MATERIAL)
 
-    androidTestImplementation(TEST_EXT_JUNIT)
-    androidTestImplementation(TEST_CORE)
-    androidTestImplementation(TEST_RUNNER)
-    androidTestImplementation(TEST_RULES)
+    androidTestImplementation(ANDROIDX_TEST_EXT_JUNIT)
+    androidTestImplementation(ANDROIDX_TEST_CORE)
+    androidTestImplementation(ANDROIDX_TEST_RUNNER)
+    androidTestImplementation(ANDROIDX_TEST_RULES)
     androidTestImplementation(ESPRESSO_CORE, libs.exclude_for_espresso)
     androidTestImplementation(ESPRESSO_CONTRIB, libs.exclude_for_espresso)
     androidTestImplementation(MOCKITO_CORE, libs.exclude_bytebuddy) // DexMaker has it"s own MockMaker
     androidTestImplementation(DEXMAKER_MOCKITO, libs.exclude_bytebuddy) // DexMaker has it"s own MockMaker
 
     testImplementation(JUNIT)
-    testImplementation(TEST_EXT_JUNIT)
-    testImplementation(TEST_CORE)
-    testImplementation(TEST_RUNNER)
     testImplementation(MOCKITO_CORE)
 
     compileOnly fileTree(dir: '../stubs', include: ['android.car.jar'])
@@ -52,7 +50,7 @@ android {
     }
 }
 
-supportLibrary {
+androidx {
     name = "Android Car Support UI"
     publish = true
     mavenVersion = LibraryVersions.CAR

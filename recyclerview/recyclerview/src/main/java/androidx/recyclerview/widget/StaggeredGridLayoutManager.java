@@ -17,7 +17,7 @@
 package androidx.recyclerview.widget;
 
 import static androidx.annotation.RestrictTo.Scope.LIBRARY;
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -3147,7 +3147,7 @@ public class StaggeredGridLayoutManager extends RecyclerView.LayoutManager imple
     /**
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     @SuppressLint("BanParcelableUsage")
     public static class SavedState implements Parcelable {
 
@@ -3182,9 +3182,10 @@ public class StaggeredGridLayoutManager extends RecyclerView.LayoutManager imple
             mReverseLayout = in.readInt() == 1;
             mAnchorLayoutFromEnd = in.readInt() == 1;
             mLastLayoutRTL = in.readInt() == 1;
-            //noinspection unchecked
-            mFullSpanItems = in.readArrayList(
-                    LazySpanLookup.FullSpanItem.class.getClassLoader());
+            @SuppressWarnings("unchecked")
+            List<LazySpanLookup.FullSpanItem> fullSpanItems =
+                    in.readArrayList(LazySpanLookup.FullSpanItem.class.getClassLoader());
+            mFullSpanItems = fullSpanItems;
         }
 
         public SavedState(SavedState other) {

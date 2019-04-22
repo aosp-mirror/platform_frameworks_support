@@ -30,14 +30,16 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import android.arch.core.executor.ArchTaskExecutor;
-import android.arch.lifecycle.Lifecycle;
 import android.content.Context;
-import android.support.annotation.NonNull;
 
+import androidx.annotation.NonNull;
+import androidx.arch.core.executor.ArchTaskExecutor;
+import androidx.arch.core.executor.TaskExecutor;
+import androidx.lifecycle.Lifecycle;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
+import androidx.test.filters.MediumTest;
 import androidx.test.filters.SmallTest;
 import androidx.work.Configuration;
 import androidx.work.Data;
@@ -69,7 +71,7 @@ import java.util.concurrent.ExecutionException;
 
 
 @RunWith(AndroidJUnit4.class)
-@SmallTest
+@MediumTest
 public class WorkContinuationImplTest extends WorkManagerTest {
 
     private Configuration mConfiguration;
@@ -79,7 +81,7 @@ public class WorkContinuationImplTest extends WorkManagerTest {
 
     @Before
     public void setUp() {
-        ArchTaskExecutor.getInstance().setDelegate(new android.arch.core.executor.TaskExecutor() {
+        ArchTaskExecutor.getInstance().setDelegate(new TaskExecutor() {
             @Override
             public void executeOnDiskIO(@NonNull Runnable runnable) {
                 runnable.run();

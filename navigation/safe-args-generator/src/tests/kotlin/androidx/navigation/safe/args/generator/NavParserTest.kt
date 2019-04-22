@@ -47,6 +47,7 @@ class NavParserTest {
                         Argument("myarg2", StringType),
                         Argument("randomArgument", StringType),
                         Argument("intArgument", IntType, IntValue("261")),
+                        Argument("referenceZeroDefaultValue", ReferenceType, IntValue("0")),
                         Argument(
                                 "activityInfo",
                                 ObjectType("android.content.pm.ActivityInfo")
@@ -74,8 +75,14 @@ class NavParserTest {
                         Argument(
                             "objectRelativeArg2",
                             ObjectType("a.b.ClassName")
-                        )
-                ))))
+                        ),
+                        Argument(
+                            "objectRelativeArg3",
+                            ObjectType("a.b.OuterClass\$InnerClass")
+                        ),
+                        Argument("implicitNullString", StringType, NullValue, true),
+                        Argument("explicitNullString", StringType, NullValue, true)
+                    ))))
 
         val expectedNext = Destination(id("next_fragment"), nameNext, "fragment",
                 listOf(Argument("myarg2", StringType)),
@@ -192,6 +199,7 @@ class NavParserTest {
         val longArg = { value: String -> Argument("foo", LongType, LongValue(value)) }
         val floatArg = { value: String -> Argument("foo", FloatType, FloatValue(value)) }
         val stringArg = { value: String -> Argument("foo", StringType, StringValue(value)) }
+        val nullStringArg = Argument("foo", StringType, NullValue, true)
         val boolArg = { value: String -> Argument("foo", BoolType, BooleanValue(value)) }
         val referenceArg = { pName: String, type: String, value: String ->
             Argument("foo", ReferenceType, ReferenceValue(ResReference(pName, type, value)))
@@ -201,6 +209,8 @@ class NavParserTest {
         }
 
         assertThat(infer("spb"), `is`(stringArg("spb")))
+        assertThat(infer("@null"), `is`(nullStringArg))
+        assertThat(infer("null"), `is`(stringArg("null")))
         assertThat(infer("10"), `is`(intArg("10")))
         assertThat(infer("0x10"), `is`(intArg("0x10")))
         assertThat(infer("@android:id/some_la"), `is`(referenceArg("android", "id", "some_la")))

@@ -2,15 +2,17 @@ import androidx.build.LibraryGroups
 import androidx.build.LibraryVersions
 
 plugins {
-    id("SupportAndroidLibraryPlugin")
+    id("AndroidXPlugin")
+    id("com.android.library")
 }
 
 dependencies {
+    api(project(":annotation"))
     implementation("androidx.collection:collection:1.0.0")
     api("androidx.appcompat:appcompat:1.0.0")
     api("androidx.recyclerview:recyclerview:1.0.0")
-    api("androidx.preference:preference:1.0.0")
-    api("androidx.leanback:leanback:1.0.0")
+    api(project(":preference"))
+    api(project(":leanback"))
 }
 
 android {
@@ -25,7 +27,7 @@ android {
     }
 }
 
-supportLibrary {
+androidx {
     name = "AndroidX Leanback Preference"
     publish = true
     mavenVersion = LibraryVersions.LEANBACK_PREFERENCE

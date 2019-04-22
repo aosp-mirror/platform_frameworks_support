@@ -24,14 +24,14 @@ import androidx.room.ext.T
 import androidx.room.processor.OnConflictProcessor
 import androidx.room.solver.CodeGenScope
 import androidx.room.vo.Dao
-import androidx.room.vo.ReadQueryMethod
 import androidx.room.vo.Entity
 import androidx.room.vo.InsertionMethod
-import androidx.room.vo.WriteQueryMethod
 import androidx.room.vo.QueryMethod
 import androidx.room.vo.RawQueryMethod
+import androidx.room.vo.ReadQueryMethod
 import androidx.room.vo.ShortcutMethod
 import androidx.room.vo.TransactionMethod
+import androidx.room.vo.WriteQueryMethod
 import com.google.auto.common.MoreTypes
 import com.squareup.javapoet.ClassName
 import com.squareup.javapoet.CodeBlock
@@ -40,7 +40,6 @@ import com.squareup.javapoet.MethodSpec
 import com.squareup.javapoet.ParameterSpec
 import com.squareup.javapoet.TypeName
 import com.squareup.javapoet.TypeSpec
-import me.eugeniomarletti.kotlin.metadata.shadow.load.java.JvmAbi
 import stripNonJava
 import javax.annotation.processing.ProcessingEnvironment
 import javax.lang.model.element.ElementKind
@@ -49,7 +48,6 @@ import javax.lang.model.element.Modifier.FINAL
 import javax.lang.model.element.Modifier.PRIVATE
 import javax.lang.model.element.Modifier.PUBLIC
 import javax.lang.model.type.DeclaredType
-import javax.lang.model.type.TypeKind
 
 /**
  * Creates the implementation for a class annotated with Dao.
@@ -143,23 +141,22 @@ class DaoWriter(val dao: Dao, val processingEnv: ProcessingEnvironment)
         queryWriter: QueryWriter
     ): MethodSpec {
         val scope = CodeGenScope(this)
-        val methodBuilder = overrideWithoutAnnotations(method.element, declaredDao).apply {
-            val stmtName = scope.getTmpVar("_stmt")
-            addStatement("final $T $L = $N.acquire()",
-                    SupportDbTypeNames.SQLITE_STMT, stmtName, preparedStmtField)
-            val bindScope = scope.fork()
-            queryWriter.bindArgs(stmtName, emptyList(), bindScope)
-            addCode(bindScope.builder().build())
-
-            val binderScope = scope.fork()
-            method.preparedQueryResultBinder.executeAndReturn(
-                stmtQueryVal = stmtName,
-                preparedStmtField = preparedStmtField.name,
-                dbField = dbField,
-                scope = binderScope)
-            addCode(binderScope.builder().build())
-        }
-        return methodBuilder.build()
+        method.preparedQueryResultBinder.executeAndReturn(
+            prepareQueryStmtBlock = {
+                val stmtName = getTmpVar("_stmt")
+                builder().apply {
+                    addStatement("final $T $L = $N.acquire()",
+                        SupportDbTypeNames.SQLITE_STMT, stmtName, preparedStmtField)
+                }
+                queryWriter.bindArgs(stmtName, emptyList(), this)
+                stmtName
+            },
+            preparedStmtField = preparedStmtField.name,
+            dbField = dbField,
+            scope = scope)
+        return overrideWithoutAnnotations(method.element, declaredDao)
+            .addCode(scope.generate())
+            .build()
     }
 
     private fun createTransactionMethods(): List<PreparedStmtQuery> {
@@ -170,71 +167,16 @@ class DaoWriter(val dao: Dao, val processingEnv: ProcessingEnvironment)
 
     private fun createTransactionMethodBody(method: TransactionMethod): MethodSpec {
         val scope = CodeGenScope(this)
-        val methodBuilder = overrideWithoutAnnotations(method.element, declaredDao).apply {
-            addStatement("$N.beginTransaction()", dbField)
-            beginControlFlow("try").apply {
-                val returnsValue = method.element.returnType.kind != TypeKind.VOID
-                val resultVar = if (returnsValue) {
-                    scope.getTmpVar("_result")
-                } else {
-                    null
-                }
-                addDelegateToSuperStatement(method.element, method.callType, resultVar)
-                addStatement("$N.setTransactionSuccessful()", dbField)
-                if (returnsValue) {
-                    addStatement("return $N", resultVar)
-                }
-            }
-            nextControlFlow("finally").apply {
-                addStatement("$N.endTransaction()", dbField)
-            }
-            endControlFlow()
-        }
-        return methodBuilder.build()
-    }
-
-    private fun MethodSpec.Builder.addDelegateToSuperStatement(
-        element: ExecutableElement,
-        callType: TransactionMethod.CallType,
-        result: String?
-    ) {
-        val params: MutableList<Any> = mutableListOf()
-        val format = buildString {
-            if (result != null) {
-                append("$T $L = ")
-                params.add(element.returnType)
-                params.add(result)
-            }
-            when (callType) {
-                TransactionMethod.CallType.CONCRETE -> {
-                    append("super.$N(")
-                    params.add(element.simpleName)
-                }
-                TransactionMethod.CallType.DEFAULT_JAVA8 -> {
-                    append("$N.super.$N(")
-                    params.add(element.enclosingElement.simpleName)
-                    params.add(element.simpleName)
-                }
-                TransactionMethod.CallType.DEFAULT_KOTLIN -> {
-                    append("$N.$N.$N(this")
-                    params.add(element.enclosingElement.simpleName)
-                    params.add(JvmAbi.DEFAULT_IMPLS_CLASS_NAME)
-                    params.add(element.simpleName)
-                }
-            }
-            var first = callType != TransactionMethod.CallType.DEFAULT_KOTLIN
-            element.parameters.forEach {
-                if (first) {
-                    first = false
-                } else {
-                    append(", ")
-                }
-                append(L)
-                params.add(it.simpleName)
-            }
-            append(")")
-        }
-        addStatement(format, *params.toTypedArray())
+        method.methodBinder.executeAndReturn(
+            returnType = method.returnType,
+            parameterNames = method.parameterNames,
+            daoName = dao.typeName,
+            daoImplName = dao.implTypeName,
+            dbField = dbField,
+            scope = scope)
+        return overrideWithoutAnnotations(method.element, declaredDao)
+            .addCode(scope.generate())
+            .build()
     }
 
     private fun createConstructor(
@@ -434,25 +376,26 @@ class DaoWriter(val dao: Dao, val processingEnv: ProcessingEnvironment)
     }
 
     private fun createPreparedQueryMethodBody(method: WriteQueryMethod): CodeBlock {
-        val queryWriter = QueryWriter(method)
         val scope = CodeGenScope(this)
-        val sqlVar = scope.getTmpVar("_sql")
-        val stmtVar = scope.getTmpVar("_stmt")
-        val listSizeArgs = queryWriter.prepareQuery(sqlVar, scope)
-        scope.builder().apply {
-            addStatement("$T $L = $N.compileStatement($L)",
-                    SupportDbTypeNames.SQLITE_STMT, stmtVar, dbField, sqlVar)
-            queryWriter.bindArgs(stmtVar, listSizeArgs, scope)
-
-            val binderScope = scope.fork()
-            method.preparedQueryResultBinder.executeAndReturn(
-                stmtQueryVal = stmtVar,
-                preparedStmtField = null,
-                dbField = dbField,
-                scope = binderScope)
-            add(binderScope.builder().build())
-        }
-        return scope.builder().build()
+        method.preparedQueryResultBinder.executeAndReturn(
+            prepareQueryStmtBlock = {
+                val queryWriter = QueryWriter(method)
+                val sqlVar = getTmpVar("_sql")
+                val stmtVar = getTmpVar("_stmt")
+                val listSizeArgs = queryWriter.prepareQuery(sqlVar, this)
+                builder().apply {
+                    addStatement(
+                        "final $T $L = $N.compileStatement($L)",
+                        SupportDbTypeNames.SQLITE_STMT, stmtVar, dbField, sqlVar
+                    )
+                }
+                queryWriter.bindArgs(stmtVar, listSizeArgs, this)
+                stmtVar
+            },
+            preparedStmtField = null,
+            dbField = dbField,
+            scope = scope)
+        return scope.generate()
     }
 
     private fun createQueryMethodBody(method: ReadQueryMethod): CodeBlock {

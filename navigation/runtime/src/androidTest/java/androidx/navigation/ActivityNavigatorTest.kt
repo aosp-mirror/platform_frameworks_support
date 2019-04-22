@@ -23,11 +23,11 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.support.v4.app.ActivityOptionsCompat
 import android.view.View
+import androidx.core.app.ActivityOptionsCompat
 import androidx.test.annotation.UiThreadTest
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.filters.MediumTest
+import androidx.test.filters.LargeTest
 import androidx.test.filters.SdkSuppress
 import androidx.test.rule.ActivityTestRule
 import org.junit.After
@@ -48,7 +48,7 @@ import org.mockito.Mockito.timeout
 import org.mockito.Mockito.verify
 import org.mockito.Mockito.verifyNoMoreInteractions
 
-@MediumTest
+@LargeTest
 @RunWith(AndroidJUnit4::class)
 class ActivityNavigatorTest {
     companion object {

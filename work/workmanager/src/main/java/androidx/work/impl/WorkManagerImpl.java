@@ -16,15 +16,15 @@
 
 package androidx.work.impl;
 
-import android.arch.core.util.Function;
-import android.arch.lifecycle.LiveData;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.RestrictTo;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RestrictTo;
+import androidx.arch.core.util.Function;
+import androidx.lifecycle.LiveData;
 import androidx.work.Configuration;
 import androidx.work.ExistingPeriodicWorkPolicy;
 import androidx.work.ExistingWorkPolicy;
@@ -106,7 +106,9 @@ public class WorkManagerImpl extends WorkManager {
      *
      * @return The singleton instance of {@link WorkManagerImpl}
      * @hide
+     * @deprecated Call {@link WorkManagerImpl#getInstance(Context)} instead.
      */
+    @Deprecated
     @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
     public static @Nullable WorkManagerImpl getInstance() {
         synchronized (sLock) {
@@ -115,6 +117,36 @@ public class WorkManagerImpl extends WorkManager {
             }
 
             return sDefaultInstance;
+        }
+    }
+
+    /**
+     * Retrieves the singleton instance of {@link WorkManagerImpl}.
+     *
+     * @param context A context for on-demand initialization.
+     * @return The singleton instance of {@link WorkManagerImpl}
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+    public static @NonNull WorkManagerImpl getInstance(@NonNull Context context) {
+        synchronized (sLock) {
+            WorkManagerImpl instance = getInstance();
+            if (instance == null) {
+                Context appContext = context.getApplicationContext();
+                if (appContext instanceof Configuration.Provider) {
+                    WorkManager.initialize(
+                            appContext,
+                            ((Configuration.Provider) appContext).getWorkManagerConfiguration());
+                    instance = getInstance();
+                } else {
+                    throw new IllegalStateException("WorkManager is not initialized properly.  You "
+                            + "have explicitly disabled WorkManagerInitializer in your manifest, "
+                            + "have not manually called WorkManager#initialize at this point, and "
+                            + "your Application does not implement Configuration.Provider.");
+                }
+            }
+
+            return instance;
         }
     }
 

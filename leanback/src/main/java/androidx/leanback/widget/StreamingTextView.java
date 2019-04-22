@@ -72,6 +72,10 @@ class StreamingTextView extends EditText {
         }
     };
 
+    /** Class name may be obfuscated by Proguard. Hardcode the string for accessibility usage. */
+    private static final String ACCESSIBILITY_CLASS_NAME =
+            "androidx.leanback.widget.StreamingTextView";
+
     final Random mRandom = new Random();
 
     Bitmap mOneDot;
@@ -230,7 +234,7 @@ class StreamingTextView extends EditText {
     @Override
     public void onInitializeAccessibilityNodeInfo(AccessibilityNodeInfo info) {
         super.onInitializeAccessibilityNodeInfo(info);
-        info.setClassName(StreamingTextView.class.getCanonicalName());
+        info.setClassName(ACCESSIBILITY_CLASS_NAME);
     }
 
     private class DottySpan extends ReplacementSpan {
@@ -297,9 +301,8 @@ class StreamingTextView extends EditText {
 
     /**
      * See
-     * {@link TextViewCompat#setCustomSelectionActionModeCallback(TextView, ActionMode.Callback)}
+     * {@link androidx.core.widget.TextViewCompat#setCustomSelectionActionModeCallback(TextView, ActionMode.Callback)}
      */
-    @SuppressWarnings("RestrictedApi")
     @Override
     public void setCustomSelectionActionModeCallback(ActionMode.Callback actionModeCallback) {
         super.setCustomSelectionActionModeCallback(TextViewCompat

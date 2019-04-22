@@ -16,7 +16,7 @@
 
 package androidx.core.graphics;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
 import android.content.ContentResolver;
 import android.content.Context;
@@ -45,7 +45,7 @@ import java.nio.channels.FileChannel;
  * Utility methods for TypefaceCompat.
  * @hide
  */
-@RestrictTo(LIBRARY_GROUP)
+@RestrictTo(LIBRARY_GROUP_PREFIX)
 public class TypefaceCompatUtil {
     private static final String TAG = "TypefaceCompatUtil";
 
@@ -60,9 +60,14 @@ public class TypefaceCompatUtil {
      */
     @Nullable
     public static File getTempFile(Context context) {
+        File cacheDir = context.getCacheDir();
+        if (cacheDir == null) {
+            return null;
+        }
+
         final String prefix = CACHE_FILE_PREFIX + Process.myPid() + "-" + Process.myTid() + "-";
         for (int i = 0; i < 100; ++i) {
-            final File file = new File(context.getCacheDir(), prefix + i);
+            final File file = new File(cacheDir, prefix + i);
             try {
                 if (file.createNewFile()) {
                     return file;

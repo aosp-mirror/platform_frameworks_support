@@ -44,7 +44,7 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.filters.SmallTest;
+import androidx.test.filters.MediumTest;
 import androidx.test.platform.app.InstrumentationRegistry;
 
 import org.junit.Before;
@@ -64,7 +64,7 @@ import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
 
-@SmallTest
+@MediumTest
 @RunWith(AndroidJUnit4.class)
 public class InvalidationTrackerTest {
     @Rule
@@ -125,7 +125,7 @@ public class InvalidationTrackerTest {
     public void createLiveData() throws ExecutionException, InterruptedException, TimeoutException {
         final LiveData<Item> liveData = mDb
                 .getInvalidationTracker()
-                .createLiveData(new String[]{"Item"}, () -> mDb.getItemDao().itemById(1));
+                .createLiveData(new String[]{"Item"}, false, () -> mDb.getItemDao().itemById(1));
 
         mDb.getItemDao().insert(new Item(1, "v1"));
 
@@ -147,7 +147,7 @@ public class InvalidationTrackerTest {
             throws ExecutionException, InterruptedException, TimeoutException {
         LiveData<Item> liveData = mDb
                 .getInvalidationTracker()
-                .createLiveData(new String[]{"Item"}, () -> mDb.getItemDao().itemById(1));
+                .createLiveData(new String[]{"Item"}, false, () -> mDb.getItemDao().itemById(1));
 
         mDb.getItemDao().insert(new Item(1, "v1"));
 

@@ -17,16 +17,17 @@
 package androidx.navigation
 
 import androidx.benchmark.BenchmarkRule
+import androidx.benchmark.measureRepeated
 import androidx.navigation.testing.TestNavigatorProvider
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.filters.MediumTest
+import androidx.test.filters.LargeTest
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
-@MediumTest
+@LargeTest
 class NavInflaterBenchmark {
 
     @get:Rule
@@ -38,16 +39,14 @@ class NavInflaterBenchmark {
 
     @Test
     fun inflateSimple() {
-        val state = benchmarkRule.state
-        while (state.keepRunning()) {
+        benchmarkRule.measureRepeated {
             navInflater.inflate(androidx.navigation.benchmark.test.R.navigation.nav_simple)
         }
     }
 
     @Test
     fun inflateDeepLink() {
-        val state = benchmarkRule.state
-        while (state.keepRunning()) {
+        benchmarkRule.measureRepeated {
             navInflater.inflate(androidx.navigation.benchmark.test.R.navigation.nav_deep_link)
         }
     }

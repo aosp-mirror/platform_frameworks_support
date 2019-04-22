@@ -19,19 +19,19 @@
 
 package androidx.leanback.app;
 
-import android.app.Fragment;
 import android.os.Bundle;
 
+import android.app.Fragment;
 import androidx.leanback.widget.ArrayObjectAdapter;
 import androidx.leanback.widget.VerticalGridPresenter;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.filters.MediumTest;
+import androidx.test.filters.LargeTest;
 import androidx.test.platform.app.InstrumentationRegistry;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-@MediumTest
+@LargeTest
 @RunWith(AndroidJUnit4.class)
 public class VerticalGridFragmentTest extends SingleFragmentTestBase {
 

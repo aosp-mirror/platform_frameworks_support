@@ -20,7 +20,6 @@ import androidx.build.dependencyTracker.AffectedModuleDetector.Companion.ENABLE_
 import androidx.build.getDistributionDirectory
 import androidx.build.gradle.isRoot
 import androidx.build.isRunningOnBuildServer
-import com.android.annotations.VisibleForTesting
 import org.gradle.BuildAdapter
 import org.gradle.api.GradleException
 import org.gradle.api.Project
@@ -29,10 +28,35 @@ import org.gradle.api.invocation.Gradle
 import org.gradle.api.logging.Logger
 
 /**
+ * The subsets we allow the projects to be partitioned into.
+ * This is to allow more granular testing. Specifically, to enable running large tests on
+ * CHANGED_PROJECTS, while still only running small and medium tests on DEPENDENT_PROJECTS.
+ *
+ * The ProjectSubset specifies which projects we are interested in testing.
+ * The AffectedModuleDetector determines the minimum set of projects that must be built in
+ * order to run all the tests along with their runtime dependencies.
+ *
+ * The subsets are:
+ *  CHANGED_PROJECTS -- The containing projects for any files that were changed in this CL.
+ *
+ *  DEPENDENT_PROJECTS -- Any projects that have a dependency on any of the projects
+ *      in the CHANGED_PROJECTS set.
+ *
+ *  ALL_AFFECTED_PROJECTS -- The union of CHANGED_PROJECTS and DEPENDENT_PROJECTS,
+ *      which encompasses all projects that could possibly break due to the changes.
+ */
+internal enum class ProjectSubset { DEPENDENT_PROJECTS, CHANGED_PROJECTS, ALL_AFFECTED_PROJECTS }
+
+/**
  * A utility class that can discover which files are changed based on git history.
  *
  * To enable this, you need to pass [ENABLE_ARG] into the build as a command line parameter
  * (-P<name>)
+ *
+ * Passing [DEPENDENT_PROJECTS_ARG] will result in only DEPENDENT_PROJECTS being returned (see enum)
+ * Passing [CHANGED_PROJECTS_ARG] will behave likewise.
+ *
+ * If neither of those are passed, [ALL_AFFECTED_PROJECTS] is returned.
  *
  * Currently, it checks git logs to find last merge CL to discover where the anchor CL is.
  *
@@ -51,9 +75,17 @@ abstract class AffectedModuleDetector {
         private const val ROOT_PROP_NAME = "affectedModuleDetector"
         private const val LOG_FILE_NAME = "affected_module_detector_log.txt"
         private const val ENABLE_ARG = "androidx.enableAffectedModuleDetection"
+        private const val DEPENDENT_PROJECTS_ARG = "androidx.dependentProjects"
+        private const val CHANGED_PROJECTS_ARG = "androidx.changedProjects"
         @JvmStatic
         fun configure(gradle: Gradle, rootProject: Project) {
             val enabled = rootProject.hasProperty(ENABLE_ARG)
+            val subset = when {
+                rootProject.hasProperty(DEPENDENT_PROJECTS_ARG) -> ProjectSubset.DEPENDENT_PROJECTS
+                rootProject.hasProperty(CHANGED_PROJECTS_ARG)
+                    -> ProjectSubset.CHANGED_PROJECTS
+                else -> ProjectSubset.ALL_AFFECTED_PROJECTS
+            }
             val inBuildServer = isRunningOnBuildServer()
             if (!enabled && !inBuildServer) {
                 setInstance(rootProject, AcceptAll())
@@ -74,7 +106,8 @@ abstract class AffectedModuleDetector {
                     AffectedModuleDetectorImpl(
                             rootProject = rootProject,
                             logger = logger,
-                            ignoreUnknownProjects = false
+                            ignoreUnknownProjects = false,
+                            projectSubset = subset
                     ).also {
                         if (!enabled) {
                             logger.info("swapping with accept all")
@@ -147,12 +180,13 @@ private class AcceptAll(
  *
  * When a file in a module is changed, all modules that depend on it are considered as changed.
  */
-@VisibleForTesting
 internal class AffectedModuleDetectorImpl constructor(
     private val rootProject: Project,
     private val logger: Logger?,
         // used for debugging purposes when we want to ignore non module files
     private val ignoreUnknownProjects: Boolean = false,
+    private val projectSubset: ProjectSubset = ProjectSubset.ALL_AFFECTED_PROJECTS,
+    private val cobuiltTestPaths: Set<Set<String>> = COBUILT_TEST_PATHS,
     private val injectedGitClient: GitClient? = null
 ) : AffectedModuleDetector() {
     private val git by lazy {
@@ -182,19 +216,38 @@ internal class AffectedModuleDetectorImpl constructor(
     }
 
     /**
-     * Finds all modules that are affected by current changes.
+     * By default, finds all modules that are affected by current changes
+     *
+     * With param dependentProjects, finds only modules dependent on directly changed modules
+     *
+     * With param changedProjects, finds only directly changed modules
      *
      * If it cannot determine the containing module for a file (e.g. buildSrc or root), it
-     * defaults to all projects unless [ignoreUnknownProjects] is set to true.
+     * defaults to all projects unless [ignoreUnknownProjects] is set to true. However,
+     * with param changedProjects, it only returns the dumb-test (see companion object below).
+     * This is because we run all tests including @large on the changed set. So when we must
+     * build all, we only want to run @small and @medium tests in the test runner for
+     * DEPENDENT_PROJECTS.
+     *
+     * Also detects modules whose tests are codependent at runtime.
      */
     private fun findLocallyAffectedProjects(): Set<Project> {
         val lastMergeSha = git.findPreviousMergeCL() ?: return allProjects
         val changedFiles = git.findChangedFilesSince(
                 sha = lastMergeSha,
                 includeUncommitted = true)
+
+        val alwaysBuild = ALWAYS_BUILD.map { path ->
+            rootProject.project(path)
+        }.toSet()
+
         if (changedFiles.isEmpty()) {
             logger?.info("Cannot find any changed files after last merge, will run all")
-            return allProjects
+            return when (projectSubset) {
+                ProjectSubset.DEPENDENT_PROJECTS -> allProjects
+                ProjectSubset.CHANGED_PROJECTS -> alwaysBuild
+                ProjectSubset.ALL_AFFECTED_PROJECTS -> allProjects
+            }
         }
         val containingProjects = changedFiles
                 .map(::findContainingProject)
@@ -206,27 +259,62 @@ internal class AffectedModuleDetectorImpl constructor(
                     }
                 }
         if (containingProjects.any { it == null }) {
-            logger?.info("couldn't find containing file for some projects, returning ALL")
+            logger?.info("couldn't find containing file for some projects, returning all projects")
             logger?.info(
                     """
                         if i was going to check for what i've found, i would've returned
-                        ${expandToDependants(containingProjects.filterNotNull())}
+                        ${expandToDependents(containingProjects.filterNotNull())}
                     """.trimIndent()
             )
-            return allProjects
-        }
-        val alwaysBuild = rootProject.subprojects.filter { project ->
-            ALWAYS_BUILD.any {
-                project.name.contains(it)
+            return when (projectSubset) {
+                ProjectSubset.DEPENDENT_PROJECTS -> allProjects
+                ProjectSubset.CHANGED_PROJECTS -> alwaysBuild
+                ProjectSubset.ALL_AFFECTED_PROJECTS -> allProjects
             }
         }
-        // expand the list to all of their dependants
-        return expandToDependants(containingProjects + alwaysBuild)
+
+        val cobuiltTestProjects = lookupProjectSetsFromPaths(cobuiltTestPaths)
+
+        val affectedProjects = when (projectSubset) {
+            ProjectSubset.DEPENDENT_PROJECTS
+                -> expandToDependents(containingProjects) - containingProjects.filterNotNull()
+            ProjectSubset.CHANGED_PROJECTS
+                -> containingProjects.filterNotNull().toSet()
+            else -> expandToDependents(containingProjects)
+        }
+
+        return alwaysBuild + affectedProjects +
+                getAffectedCobuiltProjects(affectedProjects, cobuiltTestProjects)
     }
 
-    private fun expandToDependants(containingProjects: List<Project?>): Set<Project> {
+    private fun lookupProjectSetsFromPaths(allSets: Set<Set<String>>): Set<Set<Project>> {
+        return allSets.map { setPaths ->
+            setPaths.map { path ->
+                rootProject.project(path)
+            }.toSet()
+        }.toSet()
+    }
+
+    private fun getAffectedCobuiltProjects(
+        affectedProjects: Set<Project>,
+        allCobuiltSets: Set<Set<Project>>
+    ): Set<Project> {
+        val cobuilts = mutableSetOf<Project>()
+        affectedProjects.forEach { project ->
+            allCobuiltSets.forEach { cobuiltSet ->
+                if (cobuiltSet.any {
+                        project == it
+                    }) {
+                    cobuilts.addAll(cobuiltSet)
+                }
+            }
+        }
+        return cobuilts
+    }
+
+    private fun expandToDependents(containingProjects: List<Project?>): Set<Project> {
         return containingProjects.flatMapTo(mutableSetOf()) {
-            dependencyTracker.findAllDependants(it!!)
+            dependencyTracker.findAllDependents(it!!)
         }
     }
 
@@ -237,7 +325,22 @@ internal class AffectedModuleDetectorImpl constructor(
     }
 
     companion object {
-        // list of projects that should always be built
-        private val ALWAYS_BUILD = arrayOf("dumb-test", "wear", "media-compat-test", "media2-test")
+        // dummy test to ensure no failure due to "no instrumentation. We can eventually remove
+        // if we resolve b/127819369
+        private val ALWAYS_BUILD = setOf(":dumb-tests")
+        // Some tests are codependent even if their modules are not. Enable manual bundling of tests
+        private val COBUILT_TEST_PATHS = setOf(
+            // Install media tests together per b/128577735
+            setOf(
+                ":support-media-compat-test-client",
+                ":support-media-compat-test-service",
+                ":support-media-compat-test-client-previous",
+                ":support-media-compat-test-service-previous"
+            ),
+            setOf(
+                ":support-media2-test-client",
+                ":support-media2-test-service"
+            )
+        )
     }
 }

@@ -16,7 +16,7 @@
 
 package androidx.core.app;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
@@ -457,7 +457,7 @@ public class NotificationCompat {
     public static final int COLOR_DEFAULT = Color.TRANSPARENT;
 
     /** @hide */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     @IntDef({AudioManager.STREAM_VOICE_CALL, AudioManager.STREAM_SYSTEM, AudioManager.STREAM_RING,
             AudioManager.STREAM_MUSIC, AudioManager.STREAM_ALARM, AudioManager.STREAM_NOTIFICATION,
             AudioManager.STREAM_DTMF, AudioManager.STREAM_ACCESSIBILITY})
@@ -465,7 +465,7 @@ public class NotificationCompat {
     public @interface StreamType {}
 
     /** @hide */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     @Retention(SOURCE)
     @IntDef({VISIBILITY_PUBLIC, VISIBILITY_PRIVATE, VISIBILITY_SECRET})
     public @interface NotificationVisibility {}
@@ -576,7 +576,7 @@ public class NotificationCompat {
 
     /** @hide */
     @Retention(RetentionPolicy.SOURCE)
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     @IntDef({BADGE_ICON_NONE, BADGE_ICON_SMALL, BADGE_ICON_LARGE})
     public @interface BadgeIconType {}
     /**
@@ -598,7 +598,7 @@ public class NotificationCompat {
 
     /** @hide */
     @Retention(RetentionPolicy.SOURCE)
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     @IntDef({GROUP_ALERT_ALL, GROUP_ALERT_SUMMARY, GROUP_ALERT_CHILDREN})
     public @interface GroupAlertBehavior {}
 
@@ -667,11 +667,11 @@ public class NotificationCompat {
         // extender.
 
         /** @hide */
-        @RestrictTo(LIBRARY_GROUP)
+        @RestrictTo(LIBRARY_GROUP_PREFIX)
         public Context mContext;
 
         /** @hide */
-        @RestrictTo(LIBRARY_GROUP)
+        @RestrictTo(LIBRARY_GROUP_PREFIX)
         public ArrayList<Action> mActions = new ArrayList<>();
 
         // Invisible actions are stored in the CarExtender bundle without actually being owned by
@@ -1601,7 +1601,7 @@ public class NotificationCompat {
         /**
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP)
+        @RestrictTo(LIBRARY_GROUP_PREFIX)
         public RemoteViews getContentView() {
             return mContentView;
         }
@@ -1609,7 +1609,7 @@ public class NotificationCompat {
         /**
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP)
+        @RestrictTo(LIBRARY_GROUP_PREFIX)
         public RemoteViews getBigContentView() {
             return mBigContentView;
         }
@@ -1617,7 +1617,7 @@ public class NotificationCompat {
         /**
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP)
+        @RestrictTo(LIBRARY_GROUP_PREFIX)
         public RemoteViews getHeadsUpContentView() {
             return mHeadsUpContentView;
         }
@@ -1627,7 +1627,7 @@ public class NotificationCompat {
          *
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP)
+        @RestrictTo(LIBRARY_GROUP_PREFIX)
         public long getWhenIfShowing() {
             return mShowWhen ? mNotification.when : 0;
         }
@@ -1637,7 +1637,7 @@ public class NotificationCompat {
          *
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP)
+        @RestrictTo(LIBRARY_GROUP_PREFIX)
         public int getPriority() {
             return mPriority;
         }
@@ -1647,7 +1647,7 @@ public class NotificationCompat {
          *
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP)
+        @RestrictTo(LIBRARY_GROUP_PREFIX)
         public int getColor() {
             return mColor;
         }
@@ -1664,7 +1664,7 @@ public class NotificationCompat {
         /**
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP)
+        @RestrictTo(LIBRARY_GROUP_PREFIX)
         protected Builder mBuilder;
         CharSequence mBigContentTitle;
         CharSequence mSummaryText;
@@ -1693,7 +1693,7 @@ public class NotificationCompat {
          *
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP)
+        @RestrictTo(LIBRARY_GROUP_PREFIX)
         // TODO: implement for all styles
         public void apply(NotificationBuilderWithBuilderAccessor builder) {
         }
@@ -1701,7 +1701,7 @@ public class NotificationCompat {
         /**
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP)
+        @RestrictTo(LIBRARY_GROUP_PREFIX)
         public RemoteViews makeContentView(NotificationBuilderWithBuilderAccessor builder) {
             return null;
         }
@@ -1709,7 +1709,7 @@ public class NotificationCompat {
         /**
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP)
+        @RestrictTo(LIBRARY_GROUP_PREFIX)
         public RemoteViews makeBigContentView(NotificationBuilderWithBuilderAccessor builder) {
             return null;
         }
@@ -1717,7 +1717,7 @@ public class NotificationCompat {
         /**
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP)
+        @RestrictTo(LIBRARY_GROUP_PREFIX)
         public RemoteViews makeHeadsUpContentView(NotificationBuilderWithBuilderAccessor builder) {
             return null;
         }
@@ -1725,7 +1725,7 @@ public class NotificationCompat {
         /**
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP)
+        @RestrictTo(LIBRARY_GROUP_PREFIX)
         // TODO: implement for all styles
         public void addCompatExtras(Bundle extras) {
         }
@@ -1733,7 +1733,7 @@ public class NotificationCompat {
         /**
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP)
+        @RestrictTo(LIBRARY_GROUP_PREFIX)
         // TODO: implement for all styles
         protected void restoreFromCompatExtras(Bundle extras) {
         }
@@ -1741,7 +1741,7 @@ public class NotificationCompat {
         /**
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP)
+        @RestrictTo(LIBRARY_GROUP_PREFIX)
         public RemoteViews applyStandardTemplate(boolean showSmallIcon,
                 int resId, boolean fitIn1U) {
             Resources res = mBuilder.mContext.getResources();
@@ -1889,7 +1889,7 @@ public class NotificationCompat {
         /**
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP)
+        @RestrictTo(LIBRARY_GROUP_PREFIX)
         public Bitmap createColoredBitmap(int iconId, int color) {
             return createColoredBitmap(iconId, color, 0);
         }
@@ -1926,7 +1926,7 @@ public class NotificationCompat {
         /**
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP)
+        @RestrictTo(LIBRARY_GROUP_PREFIX)
         public void buildIntoRemoteViews(RemoteViews outerView,
                 RemoteViews innerView) {
             // this needs to be done fore the other calls, since otherwise we might hide the wrong
@@ -2036,7 +2036,7 @@ public class NotificationCompat {
         /**
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP)
+        @RestrictTo(LIBRARY_GROUP_PREFIX)
         @Override
         public void apply(NotificationBuilderWithBuilderAccessor builder) {
             if (Build.VERSION.SDK_INT >= 16) {
@@ -2115,7 +2115,7 @@ public class NotificationCompat {
         /**
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP)
+        @RestrictTo(LIBRARY_GROUP_PREFIX)
         @Override
         public void apply(NotificationBuilderWithBuilderAccessor builder) {
             if (Build.VERSION.SDK_INT >= 16) {
@@ -2380,7 +2380,7 @@ public class NotificationCompat {
         /**
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP)
+        @RestrictTo(LIBRARY_GROUP_PREFIX)
         @Override
         public void apply(NotificationBuilderWithBuilderAccessor builder) {
             // This is called because we need to apply legacy logic before writing MessagingInfo
@@ -2559,7 +2559,7 @@ public class NotificationCompat {
         /**
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP)
+        @RestrictTo(LIBRARY_GROUP_PREFIX)
         @Override
         protected void restoreFromCompatExtras(Bundle extras) {
             mMessages.clear();
@@ -2888,7 +2888,7 @@ public class NotificationCompat {
         /**
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP)
+        @RestrictTo(LIBRARY_GROUP_PREFIX)
         @Override
         public void apply(NotificationBuilderWithBuilderAccessor builder) {
             if (Build.VERSION.SDK_INT >= 16) {
@@ -2943,7 +2943,7 @@ public class NotificationCompat {
         /**
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP)
+        @RestrictTo(LIBRARY_GROUP_PREFIX)
         @Override
         public void apply(NotificationBuilderWithBuilderAccessor builder) {
             if (Build.VERSION.SDK_INT >= 24) {
@@ -2954,7 +2954,7 @@ public class NotificationCompat {
         /**
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP)
+        @RestrictTo(LIBRARY_GROUP_PREFIX)
         @Override
         public RemoteViews makeContentView(NotificationBuilderWithBuilderAccessor builder) {
             if (Build.VERSION.SDK_INT >= 24) {
@@ -2971,7 +2971,7 @@ public class NotificationCompat {
         /**
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP)
+        @RestrictTo(LIBRARY_GROUP_PREFIX)
         @Override
         public RemoteViews makeBigContentView(NotificationBuilderWithBuilderAccessor builder) {
             if (Build.VERSION.SDK_INT >= 24) {
@@ -2992,7 +2992,7 @@ public class NotificationCompat {
         /**
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP)
+        @RestrictTo(LIBRARY_GROUP_PREFIX)
         @Override
         public RemoteViews makeHeadsUpContentView(NotificationBuilderWithBuilderAccessor builder) {
             if (Build.VERSION.SDK_INT >= 24) {
@@ -3553,6 +3553,8 @@ public class NotificationCompat {
              *
              * @param label the label to display while the action is being prepared to execute
              * @return this object for method chaining
+             *
+             * @deprecated This method has no effect starting with Wear 2.0.
              */
             @Deprecated
             public WearableExtender setInProgressLabel(CharSequence label) {
@@ -3565,6 +3567,8 @@ public class NotificationCompat {
              * the action. This is usually a 'ing' verb ending in ellipsis like "Sending..."
              *
              * @return the label to display while the action is being prepared to execute
+             *
+             * @deprecated This method has no effect starting with Wear 2.0.
              */
             @Deprecated
             public CharSequence getInProgressLabel() {
@@ -3577,6 +3581,8 @@ public class NotificationCompat {
              *
              * @param label the label to confirm the action should be executed
              * @return this object for method chaining
+             *
+             * @deprecated This method has no effect starting with Wear 2.0.
              */
             @Deprecated
             public WearableExtender setConfirmLabel(CharSequence label) {
@@ -3589,6 +3595,8 @@ public class NotificationCompat {
              * This is usually an imperative verb like "Send".
              *
              * @return the label to confirm the action should be executed
+             *
+             * @deprecated This method has no effect starting with Wear 2.0.
              */
             @Deprecated
             public CharSequence getConfirmLabel() {
@@ -3601,6 +3609,8 @@ public class NotificationCompat {
              *
              * @param label the label to display to cancel the action
              * @return this object for method chaining
+             *
+             * @deprecated This method has no effect starting with Wear 2.0.
              */
             @Deprecated
             public WearableExtender setCancelLabel(CharSequence label) {
@@ -3613,6 +3623,8 @@ public class NotificationCompat {
              * This is usually an imperative verb like "Cancel".
              *
              * @return the label to display to cancel the action
+             *
+             * @deprecated This method has no effect starting with Wear 2.0.
              */
             @Deprecated
             public CharSequence getCancelLabel() {
@@ -4248,6 +4260,8 @@ public class NotificationCompat {
 
         /**
          * Set an icon that goes with the content of this notification.
+         *
+         * @deprecated This method has no effect starting with Wear 2.0.
          */
         @Deprecated
         public WearableExtender setContentIcon(int icon) {
@@ -4257,6 +4271,8 @@ public class NotificationCompat {
 
         /**
          * Get an icon that goes with the content of this notification.
+         *
+         * @deprecated This method has no effect starting with Wear 2.0.
          */
         @Deprecated
         public int getContentIcon() {
@@ -4268,6 +4284,8 @@ public class NotificationCompat {
          * Supported values include {@link android.view.Gravity#START} and
          * {@link android.view.Gravity#END}. The default value is {@link android.view.Gravity#END}.
          * @see #setContentIcon
+         *
+         * @deprecated This method has no effect starting with Wear 2.0.
          */
         @Deprecated
         public WearableExtender setContentIconGravity(int contentIconGravity) {
@@ -4280,6 +4298,8 @@ public class NotificationCompat {
          * Supported values include {@link android.view.Gravity#START} and
          * {@link android.view.Gravity#END}. The default value is {@link android.view.Gravity#END}.
          * @see #getContentIcon
+         *
+         * @deprecated This method has no effect starting with Wear 2.0.
          */
         @Deprecated
         public int getContentIconGravity() {
@@ -4319,6 +4339,8 @@ public class NotificationCompat {
          * Supported values include {@link android.view.Gravity#TOP},
          * {@link android.view.Gravity#CENTER_VERTICAL} and {@link android.view.Gravity#BOTTOM}.
          * The default value is {@link android.view.Gravity#BOTTOM}.
+         *
+         * @deprecated This method has no effect starting with Wear 2.0.
          */
         @Deprecated
         public WearableExtender setGravity(int gravity) {
@@ -4331,6 +4353,8 @@ public class NotificationCompat {
          * Supported values include {@link android.view.Gravity#TOP},
          * {@link android.view.Gravity#CENTER_VERTICAL} and {@link android.view.Gravity#BOTTOM}.
          * The default value is {@link android.view.Gravity#BOTTOM}.
+         *
+         * @deprecated This method has no effect starting with Wear 2.0.
          */
         @Deprecated
         public int getGravity() {
@@ -4345,6 +4369,8 @@ public class NotificationCompat {
          * using {@link NotificationCompat.WearableExtender#setDisplayIntent}. Check the
          * documentation for the preset in question. See also
          * {@link #setCustomContentHeight} and {@link #getCustomSizePreset}.
+         *
+         * @deprecated This method has no effect starting with Wear 2.0.
          */
         @Deprecated
         public WearableExtender setCustomSizePreset(int sizePreset) {
@@ -4359,6 +4385,8 @@ public class NotificationCompat {
          * <p>Some custom size presets are only applicable for custom display notifications created
          * using {@link #setDisplayIntent}. Check the documentation for the preset in question.
          * See also {@link #setCustomContentHeight} and {@link #setCustomSizePreset}.
+         *
+         * @deprecated This method has no effect starting with Wear 2.0.
          */
         @Deprecated
         public int getCustomSizePreset() {
@@ -4371,6 +4399,8 @@ public class NotificationCompat {
          * using {@link NotificationCompat.WearableExtender#setDisplayIntent}. See also
          * {@link NotificationCompat.WearableExtender#setCustomSizePreset} and
          * {@link #getCustomContentHeight}.
+         *
+         * @deprecated This method has no effect starting with Wear 2.0.
          */
         @Deprecated
         public WearableExtender setCustomContentHeight(int height) {
@@ -4383,6 +4413,8 @@ public class NotificationCompat {
          * <p>This option is only available for custom display notifications created
          * using {@link #setDisplayIntent}. See also {@link #setCustomSizePreset} and
          * {@link #setCustomContentHeight}.
+         *
+         * @deprecated This method has no effect starting with Wear 2.0.
          */
         @Deprecated
         public int getCustomContentHeight() {
@@ -4434,6 +4466,8 @@ public class NotificationCompat {
          * Set a hint that this notification's icon should not be displayed.
          * @param hintHideIcon {@code true} to hide the icon, {@code false} otherwise.
          * @return this object for method chaining
+         *
+         * @deprecated This method has no effect starting with Wear 2.0.
          */
         @Deprecated
         public WearableExtender setHintHideIcon(boolean hintHideIcon) {
@@ -4445,6 +4479,8 @@ public class NotificationCompat {
          * Get a hint that this notification's icon should not be displayed.
          * @return {@code true} if this icon should not be displayed, false otherwise.
          * The default value is {@code false} if this was never set.
+         *
+         * @deprecated This method has no effect starting with Wear 2.0.
          */
         @Deprecated
         public boolean getHintHideIcon() {
@@ -4455,6 +4491,8 @@ public class NotificationCompat {
          * Set a visual hint that only the background image of this notification should be
          * displayed, and other semantic content should be hidden. This hint is only applicable
          * to sub-pages added using {@link #addPage}.
+         *
+         * @deprecated This method has no effect starting with Wear 2.0.
          */
         @Deprecated
         public WearableExtender setHintShowBackgroundOnly(boolean hintShowBackgroundOnly) {
@@ -4466,6 +4504,8 @@ public class NotificationCompat {
          * Get a visual hint that only the background image of this notification should be
          * displayed, and other semantic content should be hidden. This hint is only applicable
          * to sub-pages added using {@link NotificationCompat.WearableExtender#addPage}.
+         *
+         * @deprecated This method has no effect starting with Wear 2.0.
          */
         @Deprecated
         public boolean getHintShowBackgroundOnly() {
@@ -4478,6 +4518,8 @@ public class NotificationCompat {
          * ratio of the image. This can be useful for images like barcodes or qr codes.
          * @param hintAvoidBackgroundClipping {@code true} to avoid clipping if possible.
          * @return this object for method chaining
+         *
+         * @deprecated This method has no effect starting with Wear 2.0.
          */
         @Deprecated
         public WearableExtender setHintAvoidBackgroundClipping(
@@ -4492,6 +4534,8 @@ public class NotificationCompat {
          * ratio of the image. This can be useful for images like barcodes or qr codes.
          * @return {@code true} if it's ok if the background is clipped on the screen, false
          * otherwise. The default value is {@code false} if this was never set.
+         *
+         * @deprecated This method has no effect starting with Wear 2.0.
          */
         @Deprecated
         public boolean getHintAvoidBackgroundClipping() {
@@ -4504,6 +4548,8 @@ public class NotificationCompat {
          * @param timeout The requested screen timeout in milliseconds. Can also be either
          *     {@link #SCREEN_TIMEOUT_SHORT} or {@link #SCREEN_TIMEOUT_LONG}.
          * @return this object for method chaining
+         *
+         * @deprecated This method has no effect.
          */
         @Deprecated
         public WearableExtender setHintScreenTimeout(int timeout) {
@@ -4516,6 +4562,8 @@ public class NotificationCompat {
          * when this notification is displayed.
          * @return the duration in milliseconds if > 0, or either one of the sentinel values
          *     {@link #SCREEN_TIMEOUT_SHORT} or {@link #SCREEN_TIMEOUT_LONG}.
+         *
+         * @deprecated This method has no effect starting with Wear 2.0.
          */
         @Deprecated
         public int getHintScreenTimeout() {
@@ -4655,13 +4703,13 @@ public class NotificationCompat {
      */
     public static final class CarExtender implements Extender {
         /** @hide **/
-        @RestrictTo(LIBRARY_GROUP)
+        @RestrictTo(LIBRARY_GROUP_PREFIX)
         static final String EXTRA_CAR_EXTENDER = "android.car.EXTENSIONS";
         private static final String EXTRA_LARGE_ICON = "large_icon";
         private static final String EXTRA_CONVERSATION = "car_conversation";
         private static final String EXTRA_COLOR = "app_color";
         /** @hide **/
-        @RestrictTo(LIBRARY_GROUP)
+        @RestrictTo(LIBRARY_GROUP_PREFIX)
         static final String EXTRA_INVISIBLE_ACTIONS = "invisible_actions";
 
         private static final String KEY_AUTHOR = "author";

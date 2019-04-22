@@ -19,17 +19,17 @@ package androidx.navigation.fragment;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Bundle;
-import android.support.annotation.CallSuper;
-import android.support.annotation.NavigationRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
+import androidx.annotation.CallSuper;
+import androidx.annotation.NavigationRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.NavGraph;
 import androidx.navigation.NavHost;
@@ -43,7 +43,7 @@ import androidx.navigation.Navigator;
  * defining your app's chrome around it, e.g.:</p>
  *
  * <pre class="prettyprint">
- * &lt;android.support.v4.widget.DrawerLayout
+ * &lt;androidx.drawerlayout.widget.DrawerLayout
  *        xmlns:android="http://schemas.android.com/apk/res/android"
  *        xmlns:app="http://schemas.android.com/apk/res-auto"
  *        android:layout_width="match_parent"
@@ -53,13 +53,13 @@ import androidx.navigation.Navigator;
  *            android:layout_height="match_parent"
  *            android:id="@+id/my_nav_host_fragment"
  *            android:name="androidx.navigation.fragment.NavHostFragment"
- *            app:navGraph="@xml/nav_sample"
+ *            app:navGraph="@navigation/nav_sample"
  *            app:defaultNavHost="true" /&gt;
  *    &lt;android.support.design.widget.NavigationView
  *            android:layout_width="wrap_content"
  *            android:layout_height="match_parent"
  *            android:layout_gravity="start"/&gt;
- * &lt;/android.support.v4.widget.DrawerLayout&gt;
+ * &lt;/androidx.drawerlayout.widget.DrawerLayout&gt;
  * </pre>
  *
  * <p>Each NavHostFragment has a {@link NavController} that defines valid navigation within
@@ -204,6 +204,7 @@ public class NavHostFragment extends Fragment implements NavHost {
         final Context context = requireContext();
 
         mNavController = new NavController(context);
+        mNavController.setHostViewModelStore(getViewModelStore());
         mNavController.getNavigatorProvider().addNavigator(createFragmentNavigator());
 
         Bundle navState = null;

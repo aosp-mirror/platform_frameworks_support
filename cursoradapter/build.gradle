@@ -2,14 +2,15 @@ import androidx.build.LibraryGroups
 import androidx.build.LibraryVersions
 
 plugins {
-    id("SupportAndroidLibraryPlugin")
+    id("AndroidXPlugin")
+    id("com.android.library")
 }
 
 dependencies {
     api(project(":annotation"))
 }
 
-supportLibrary {
+androidx {
     name = "Android Support Library Cursor Adapter"
     publish = true
     mavenVersion = LibraryVersions.CURSORADAPTER
@@ -17,4 +18,5 @@ supportLibrary {
     inceptionYear = "2018"
     description = "The Support Library is a static library that you can add to your Android application in order to use APIs that are either not available for older platform versions or utility APIs that aren't a part of the framework APIs. Compatible on devices running API 14 or later."
     failOnDeprecationWarnings = false
+    trackRestrictedAPIs = false
 }

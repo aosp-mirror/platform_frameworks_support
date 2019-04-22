@@ -3,7 +3,8 @@ import androidx.build.LibraryGroups
 import androidx.build.LibraryVersions
 
 plugins {
-    id("SupportAndroidLibraryPlugin")
+    id("AndroidXPlugin")
+    id("com.android.library")
     id("kotlin-android")
 }
 
@@ -15,26 +16,27 @@ android {
 
 dependencies {
     api(project(":annotation"))
-    api("androidx.core:core:1.0.0") {
+    api(project(":arch:core-common"))
+    api(project(":core")) {
         exclude group: 'androidx.annotation'
         exclude group: 'com.google.guava', module: 'listenablefuture'
     }
-    api(ARCH_LIFECYCLE_RUNTIME, libs.exclude_annotations_transitive)
+    api(project(":lifecycle:lifecycle-runtime"), libs.exclude_annotations_transitive)
     api(project(":lifecycle:lifecycle-viewmodel"), libs.exclude_annotations_transitive)
-    api(project(":savedstate:savedstate-bundle"))
+    api(project(":savedstate"))
 
     androidTestImplementation(KOTLIN_STDLIB)
-    androidTestImplementation(TEST_EXT_JUNIT)
-    androidTestImplementation(TEST_CORE)
-    androidTestImplementation(TEST_RUNNER)
-    androidTestImplementation(TEST_RULES)
+    androidTestImplementation(ANDROIDX_TEST_EXT_JUNIT)
+    androidTestImplementation(ANDROIDX_TEST_CORE)
+    androidTestImplementation(ANDROIDX_TEST_RUNNER)
+    androidTestImplementation(ANDROIDX_TEST_RULES)
     androidTestImplementation(TRUTH)
     androidTestImplementation(ESPRESSO_CORE, libs.exclude_for_espresso)
     androidTestImplementation(MOCKITO_CORE, libs.exclude_bytebuddy) // DexMaker has it"s own MockMaker
     androidTestImplementation(DEXMAKER_MOCKITO, libs.exclude_bytebuddy) // DexMaker has it"s own MockMaker
 }
 
-supportLibrary {
+androidx {
     name = "Activity"
     publish = true
     mavenVersion = LibraryVersions.ACTIVITY

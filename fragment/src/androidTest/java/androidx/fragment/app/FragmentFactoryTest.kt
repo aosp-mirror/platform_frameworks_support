@@ -17,12 +17,11 @@
 package androidx.fragment.app
 
 import android.os.Bundle
-import androidx.annotation.ContentView
 import androidx.fragment.app.test.EmptyFragmentTestActivity
 import androidx.fragment.test.R
 import androidx.test.annotation.UiThreadTest
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.filters.SmallTest
+import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -31,7 +30,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
-@SmallTest
+@LargeTest
 class FragmentFactoryTest {
 
     @get:Rule
@@ -87,8 +86,7 @@ class FragmentFactoryTest {
     }
 }
 
-@ContentView(R.layout.nested_inflated_fragment_parent)
-class ParentFragment : Fragment() {
+class ParentFragment : Fragment(R.layout.nested_inflated_fragment_parent) {
     var factory: FragmentFactory? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -102,8 +100,8 @@ class ParentFragment : Fragment() {
 class TestFragmentFactory : FragmentFactory() {
     var instantiateCount = 0
 
-    override fun instantiate(classLoader: ClassLoader, className: String, args: Bundle?): Fragment {
+    override fun instantiate(classLoader: ClassLoader, className: String): Fragment {
         instantiateCount++
-        return super.instantiate(classLoader, className, args)
+        return super.instantiate(classLoader, className)
     }
 }

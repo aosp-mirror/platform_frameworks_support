@@ -16,11 +16,12 @@
 
 package androidx.transition;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.TimeInterpolator;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.content.res.XmlResourceParser;
@@ -149,7 +150,7 @@ public abstract class Transition implements Cloneable {
     private static final int MATCH_LAST = MATCH_ITEM_ID;
 
     /** @hide */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     @IntDef({MATCH_INSTANCE, MATCH_NAME, MATCH_ID, MATCH_ITEM_ID})
     @Retention(RetentionPolicy.SOURCE)
     public @interface MatchOrder {
@@ -271,6 +272,8 @@ public abstract class Transition implements Cloneable {
      *                access the current theme, resources, etc.
      * @param attrs   The attributes of the XML tag that is inflating the transition.
      */
+    @SuppressLint("RestrictedApi") // remove once core lib would be released with the new
+    // LIBRARY_GROUP_PREFIX restriction. tracking in b/127286008
     public Transition(Context context, AttributeSet attrs) {
         TypedArray a = context.obtainStyledAttributes(attrs, Styleable.TRANSITION);
         XmlResourceParser parser = (XmlResourceParser) attrs;
@@ -697,7 +700,7 @@ public abstract class Transition implements Cloneable {
      *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     protected void createAnimators(ViewGroup sceneRoot, TransitionValuesMaps startValues,
             TransitionValuesMaps endValues, ArrayList<TransitionValues> startValuesList,
             ArrayList<TransitionValues> endValuesList) {
@@ -867,7 +870,7 @@ public abstract class Transition implements Cloneable {
      *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     protected void runAnimators() {
         if (DBG) {
             Log.d(LOG_TAG, "runAnimators() on " + this);
@@ -1710,7 +1713,7 @@ public abstract class Transition implements Cloneable {
      *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public void pause(View sceneRoot) {
         if (!mEnded) {
             ArrayMap<Animator, AnimationInfo> runningAnimators = getRunningAnimators();
@@ -1742,7 +1745,7 @@ public abstract class Transition implements Cloneable {
      *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public void resume(View sceneRoot) {
         if (mPaused) {
             if (!mEnded) {
@@ -1889,7 +1892,7 @@ public abstract class Transition implements Cloneable {
      * @param animator The Animator to be run during this transition.
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     protected void animate(Animator animator) {
         // TODO: maybe pass auto-end as a boolean parameter?
         if (animator == null) {
@@ -1922,7 +1925,7 @@ public abstract class Transition implements Cloneable {
      *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     protected void start() {
         if (mNumInstances == 0) {
             if (mListeners != null && mListeners.size() > 0) {
@@ -1949,7 +1952,7 @@ public abstract class Transition implements Cloneable {
      *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     protected void end() {
         --mNumInstances;
         if (mNumInstances == 0) {
@@ -1982,7 +1985,7 @@ public abstract class Transition implements Cloneable {
      *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     void forceToEnd(ViewGroup sceneRoot) {
         ArrayMap<Animator, AnimationInfo> runningAnimators = getRunningAnimators();
         int numOldAnims = runningAnimators.size();
@@ -2003,7 +2006,7 @@ public abstract class Transition implements Cloneable {
      *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     protected void cancel() {
         int numAnimators = mCurrentAnimators.size();
         for (int i = numAnimators - 1; i >= 0; i--) {

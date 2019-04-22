@@ -79,6 +79,10 @@ class KotlinNavWriterTest {
                 Argument(
                     "parcelable",
                     ObjectType("android.content.pm.ActivityInfo")
+                ),
+                Argument(
+                    "innerData",
+                    ObjectType("android.content.pm.ActivityInfo\$WindowLayout")
                 )))
         val actual = generateDirectionsTypeSpec(action, false)
         assertThat(wrappedInnerClass(actual).toString()).parsesAs("a.b.Next")
@@ -102,12 +106,43 @@ class KotlinNavWriterTest {
     }
 
     @Test
+    fun testDirectionsClassGeneration_withKeywordId() {
+        val funAction = Action(ResReference("fun.is.in", "id", "next"), id("destA"),
+            listOf())
+
+        val dest = Destination(null, ClassName.get("a.b", "FunFragment"), "fragment", listOf(),
+            listOf(funAction))
+
+        val actual = generateDirectionsCodeFile(dest, emptyList(), false)
+        assertThat(actual.toString()).parsesAs("a.b.FunFragmentDirections")
+    }
+
+    @Test
+    fun testDirectionsClassGeneration_longPackage() {
+        val funAction = Action(ResReference("a.b.secondreallyreallyreallyreally" +
+                "reallyreallyreallyreallyreallyreallyreallyreallyreallyreallyreallyreally" +
+                "longpackage", "id", "next"), id("destA"),
+            listOf())
+
+        val dest = Destination(null, ClassName.get("a.b.reallyreallyreallyreally" +
+                "reallyreallyreallyreallyreallyreallyreallyreallyreallyreallyreallyreally" +
+                "longpackage", "LongPackageFragment"), "fragment", listOf(),
+            listOf(funAction))
+
+        val actual = generateDirectionsCodeFile(dest, emptyList(), false)
+        assertThat(actual.toString()).parsesAs("a.b.reallyreallyreallyreallyreally" +
+                "reallyreallyreallyreallyreallyreallyreallyreallyreallyreallyreally" +
+                "longpackage.LongPackageFragmentDirections")
+    }
+
+    @Test
     fun testArgumentsClassGeneration() {
         val dest = Destination(null, ClassName.get("a.b", "MainFragment"), "fragment", listOf(
             Argument("main", StringType),
             Argument("optional", IntType, IntValue("-1")),
             Argument("reference", ReferenceType, ReferenceValue(ResReference("a.b", "drawable",
                 "background"))),
+            Argument("referenceZeroDefaultValue", ReferenceType, IntValue("0")),
             Argument("floatArg", FloatType, FloatValue("1")),
             Argument("floatArrayArg", FloatArrayType),
             Argument("objectArrayArg", ObjectArrayType("android.content.pm.ActivityInfo")),

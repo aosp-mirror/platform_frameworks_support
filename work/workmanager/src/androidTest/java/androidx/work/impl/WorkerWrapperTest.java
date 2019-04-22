@@ -35,7 +35,6 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -110,7 +109,7 @@ public class WorkerWrapperTest extends DatabaseTest {
                 .setMinimumLoggingLevel(Log.VERBOSE)
                 .build();
         mWorkTaskExecutor = new InstantWorkTaskExecutor();
-        mWorkSpecDao = spy(mDatabase.workSpecDao());
+        mWorkSpecDao = mDatabase.workSpecDao();
         mDependencyDao = mDatabase.dependencyDao();
         mMockScheduler = mock(Scheduler.class);
     }
@@ -270,6 +269,25 @@ public class WorkerWrapperTest extends DatabaseTest {
         workerWrapper.run();
         assertThat(listener.mResult, is(false));
         assertThat(mWorkSpecDao.getState(work.getStringId()), is(FAILED));
+    }
+
+    @Test
+    @LargeTest
+    public void testFailedOnDeepHierarchy() {
+        OneTimeWorkRequest work = new OneTimeWorkRequest.Builder(FailureWorker.class).build();
+        insertWork(work);
+        String previousId = work.getStringId();
+        String firstWorkId = previousId;
+        for (int i = 0; i < 500; ++i) {
+            work = new OneTimeWorkRequest.Builder(FailureWorker.class).build();
+            insertWork(work);
+            mDependencyDao.insertDependency(new Dependency(work.getStringId(), previousId));
+            previousId = work.getStringId();
+        }
+        WorkerWrapper workerWrapper = createBuilder(firstWorkId).build();
+        workerWrapper.setFailedAndResolve();
+        assertThat(mWorkSpecDao.getState(firstWorkId), is(FAILED));
+        assertThat(mWorkSpecDao.getState(previousId), is(FAILED));
     }
 
     @Test
@@ -555,13 +573,11 @@ public class WorkerWrapperTest extends DatabaseTest {
     public void testRun_periodicWork_success_updatesPeriodStartTime() {
         long intervalDuration = PeriodicWorkRequest.MIN_PERIODIC_INTERVAL_MILLIS;
         long periodStartTime = System.currentTimeMillis();
-        long expectedNextPeriodStartTime = periodStartTime + intervalDuration;
 
         PeriodicWorkRequest periodicWork = new PeriodicWorkRequest.Builder(
                 TestWorker.class, intervalDuration, TimeUnit.MILLISECONDS).build();
 
         getWorkSpec(periodicWork).periodStartTime = periodStartTime;
-
         insertWork(periodicWork);
 
         createBuilder(periodicWork.getStringId())
@@ -569,7 +585,7 @@ public class WorkerWrapperTest extends DatabaseTest {
                 .run();
 
         WorkSpec updatedWorkSpec = mWorkSpecDao.getWorkSpec(periodicWork.getStringId());
-        assertThat(updatedWorkSpec.periodStartTime, is(expectedNextPeriodStartTime));
+        assertThat(updatedWorkSpec.calculateNextRunTime(), greaterThan(periodStartTime));
     }
 
     @Test
@@ -577,13 +593,11 @@ public class WorkerWrapperTest extends DatabaseTest {
     public void testRun_periodicWork_failure_updatesPeriodStartTime() {
         long intervalDuration = PeriodicWorkRequest.MIN_PERIODIC_INTERVAL_MILLIS;
         long periodStartTime = System.currentTimeMillis();
-        long expectedNextPeriodStartTime = periodStartTime + intervalDuration;
 
         PeriodicWorkRequest periodicWork = new PeriodicWorkRequest.Builder(
                 FailureWorker.class, intervalDuration, TimeUnit.MILLISECONDS).build();
 
         getWorkSpec(periodicWork).periodStartTime = periodStartTime;
-
         insertWork(periodicWork);
 
         createBuilder(periodicWork.getStringId())
@@ -591,7 +605,7 @@ public class WorkerWrapperTest extends DatabaseTest {
                 .run();
 
         WorkSpec updatedWorkSpec = mWorkSpecDao.getWorkSpec(periodicWork.getStringId());
-        assertThat(updatedWorkSpec.periodStartTime, is(expectedNextPeriodStartTime));
+        assertThat(updatedWorkSpec.calculateNextRunTime(), greaterThan(periodStartTime));
     }
 
     @Test
@@ -686,6 +700,29 @@ public class WorkerWrapperTest extends DatabaseTest {
         WorkerWrapper workerWrapper = createBuilder(periodicWorkId).build();
         FutureListener listener = createAndAddFutureListener(workerWrapper);
         workerWrapper.run();
+        // Should get rescheduled
+        assertThat(listener.mResult, is(true));
+    }
+
+    @Test
+    @SmallTest
+    public void testPeriodic_firstRun_flexApplied_noDedupe() {
+        PeriodicWorkRequest periodicWork = new PeriodicWorkRequest.Builder(
+                TestWorker.class,
+                PeriodicWorkRequest.MIN_PERIODIC_INTERVAL_MILLIS,
+                TimeUnit.MILLISECONDS,
+                PeriodicWorkRequest.MIN_PERIODIC_FLEX_MILLIS,
+                TimeUnit.MILLISECONDS)
+                .build();
+
+        final String periodicWorkId = periodicWork.getStringId();
+        final WorkSpec workSpec = periodicWork.getWorkSpec();
+        workSpec.periodStartTime = 0;
+        insertWork(periodicWork);
+        WorkerWrapper workerWrapper = createBuilder(periodicWorkId).build();
+        FutureListener listener = createAndAddFutureListener(workerWrapper);
+        workerWrapper.run();
+        // Should not get rescheduled
         assertThat(listener.mResult, is(false));
     }
 
@@ -1053,6 +1090,19 @@ public class WorkerWrapperTest extends DatabaseTest {
     public void testWorkerThatReturnsNullResult() {
         OneTimeWorkRequest work =
                 new OneTimeWorkRequest.Builder(ReturnNullResultWorker.class).build();
+        insertWork(work);
+        WorkerWrapper workerWrapper = createBuilder(work.getStringId()).build();
+        FutureListener listener = createAndAddFutureListener(workerWrapper);
+        workerWrapper.run();
+        assertThat(listener.mResult, is(false));
+        assertThat(mWorkSpecDao.getState(work.getStringId()), is(FAILED));
+    }
+
+    @Test
+    @SmallTest
+    public void testWorkerThatThrowsAnException() {
+        OneTimeWorkRequest work =
+                new OneTimeWorkRequest.Builder(ExceptionWorker.class).build();
         insertWork(work);
         WorkerWrapper workerWrapper = createBuilder(work.getStringId()).build();
         FutureListener listener = createAndAddFutureListener(workerWrapper);

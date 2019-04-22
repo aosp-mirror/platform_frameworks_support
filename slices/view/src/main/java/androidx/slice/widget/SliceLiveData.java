@@ -16,7 +16,7 @@
 package androidx.slice.widget;
 
 import static androidx.annotation.RestrictTo.Scope.LIBRARY;
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
 import android.app.PendingIntent;
 import android.content.Context;
@@ -78,7 +78,8 @@ public final class SliceLiveData {
      */
     @RestrictTo(LIBRARY)
     public static final Set<SliceSpec> SUPPORTED_SPECS = new ArraySet<>(
-            Arrays.asList(SliceSpecs.BASIC, SliceSpecs.LIST, OLD_BASIC, OLD_LIST));
+            Arrays.asList(SliceSpecs.BASIC, SliceSpecs.LIST, SliceSpecs.LIST_V2, OLD_BASIC,
+                    OLD_LIST));
 
     /**
      * Produces a {@link LiveData} that tracks a Slice for a given Uri. To use
@@ -123,7 +124,7 @@ public final class SliceLiveData {
      * Version for testing
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     @NonNull
     public static CachedSliceLiveData fromStream(@NonNull Context context,
             SliceViewManager manager, @NonNull InputStream input, OnErrorListener listener) {

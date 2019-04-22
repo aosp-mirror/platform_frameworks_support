@@ -51,7 +51,6 @@ import androidx.leanback.widget.SparseArrayObjectAdapter;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.FlakyTest;
 import androidx.test.filters.LargeTest;
-import androidx.test.filters.MediumTest;
 import androidx.test.filters.Suppress;
 
 import org.junit.Test;
@@ -59,7 +58,7 @@ import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 
-@MediumTest
+@LargeTest
 @RunWith(AndroidJUnit4.class)
 public class PlaybackSupportFragmentTest extends SingleSupportFragmentTestBase {
 
@@ -80,13 +79,13 @@ public class PlaybackSupportFragmentTest extends SingleSupportFragmentTestBase {
         activityTestRule.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                activity.finish();
+                activity.getSupportFragmentManager().beginTransaction().remove(fragment).commit();
             }
         });
-        PollingCheck.waitFor(new PollingCheck.PollingCheckCondition() {
+        // wait one more cycle for fragment destroyed
+        activityTestRule.runOnUiThread(new Runnable() {
             @Override
-            public boolean canProceed() {
-                return fragment.mDestroyCalled;
+            public void run() {
             }
         });
         assertNull(glue.getHost());
@@ -518,7 +517,7 @@ public class PlaybackSupportFragmentTest extends SingleSupportFragmentTestBase {
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            mGlue = new PlaybackTransportControlGlue<>(getContext(), new PlayerAdapterSample());
+            mGlue = new PlaybackTransportControlGlue<>(getActivity(), new PlayerAdapterSample());
             mGlue.setHost(mHost);
             mGlue.setControlsOverlayAutoHideEnabled(false);
         }
@@ -561,7 +560,7 @@ public class PlaybackSupportFragmentTest extends SingleSupportFragmentTestBase {
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            mGlue = new PlaybackTransportControlGlue<>(getContext(), new PlayerAdapterSample());
+            mGlue = new PlaybackTransportControlGlue<>(getActivity(), new PlayerAdapterSample());
             mGlue.setHost(mHost);
             setShowOrHideControlsOverlayOnUserInteraction(false);
         }

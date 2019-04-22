@@ -902,6 +902,28 @@
         <attr name="drawableBottomCompat" format="reference" />
         <attr name="drawableStartCompat" format="reference" />
         <attr name="drawableEndCompat" format="reference" />
+        <!-- Tint to apply to the compound (left, top, etc.) drawables. -->
+        <attr name="drawableTint" format="color" />
+        <!-- Blending mode used to apply the compound (left, top, etc.) drawables tint. -->
+        <attr name="drawableTintMode">
+            <!-- The tint is drawn on top of the drawable.
+                 [Sa + (1 - Sa)*Da, Rc = Sc + (1 - Sa)*Dc] -->
+            <enum name="src_over" value="3" />
+            <!-- The tint is masked by the alpha channel of the drawable. The drawable’s
+                 color channels are thrown out. [Sa * Da, Sc * Da] -->
+            <enum name="src_in" value="5" />
+            <!-- The tint is drawn above the drawable, but with the drawable’s alpha
+                 channel masking the result. [Da, Sc * Da + (1 - Sa) * Dc] -->
+            <enum name="src_atop" value="9" />
+            <!-- Multiplies the color and alpha channels of the drawable with those of
+                 the tint. [Sa * Da, Sc * Dc] -->
+            <enum name="multiply" value="14" />
+            <!-- [Sa + Da - Sa * Da, Sc + Dc - Sc * Dc] -->
+            <enum name="screen" value="15" />
+            <!-- Combines the tint and drawable color and alpha channels, clamping the
+                 result to valid color values. Saturate(S + D) -->
+            <enum name="add" value="16" />
+        </attr>
     </declare-styleable>
 
     <declare-styleable name="LinearLayoutCompat">
@@ -1012,6 +1034,8 @@
         <!-- A color to apply to the subtitle string. -->
         <attr name="subtitleTextColor" format="color" />
         <attr name="android:minHeight" />
+        <!-- Menu resource to inflate to be shown in the toolbar -->
+        <attr name="menu" format="reference" />
     </declare-styleable>
 
     <declare-styleable name="PopupWindowBackgroundState">
@@ -1278,95 +1302,6 @@
         <attr name="paddingBottomNoButtons" format="dimension" />
         <!-- Top padding to use when no title is present. -->
         <attr name="paddingTopNoTitle" format="dimension" />
-    </declare-styleable>
-
-    <!-- Drawable used to render several states. Each state is represented by
-         a child drawable. -->
-    <declare-styleable name="StateListDrawable">
-        <!-- Indicates whether the drawable should be initially visible. -->
-        <attr name="android:visible" />
-        <!-- If true, allows the drawable's padding to change based on the
-             current state that is selected.  If false, the padding will
-             stay the same (based on the maximum padding of all the states).
-             Enabling this feature requires that the owner of the drawable
-             deal with performing layout when the state changes, which is
-             often not supported. -->
-        <attr name="android:variablePadding" />
-        <!-- If true, the drawable's reported internal size will remain
-             constant as the state changes; the size is the maximum of all
-             of the states.  If false, the size will vary based on the
-             current state. -->
-        <attr name="android:constantSize" />
-        <!-- Enables or disables dithering of the bitmap if the bitmap does not have the
-             same pixel configuration as the screen (for instance: a ARGB 8888 bitmap with
-             an RGB 565 screen). -->
-        <attr name="android:dither" />
-        <!-- Amount of time (in milliseconds) to fade in a new state drawable. -->
-        <attr name="android:enterFadeDuration" />
-        <!-- Amount of time (in milliseconds) to fade out an old state drawable. -->
-        <attr name="android:exitFadeDuration" />
-        <!-- Indicates if the drawable needs to be mirrored when its layout direction is
-             RTL (right-to-left). -->
-        <!--<attr name="autoMirrored"/>-->
-    </declare-styleable>
-
-    <!-- Represents a single state inside a StateListDrawable. -->
-    <declare-styleable name="StateListDrawableItem">
-        <!-- Reference to a drawable resource to use for the state. If not
-             given, the drawable must be defined by the first child tag. -->
-        <attr name="android:drawable" />
-    </declare-styleable>
-
-    <!-- Drawable used to render several states with animated transitions. Each state
-         is represented by a child drawable with an optional keyframe ID. -->
-    <declare-styleable name="AnimatedStateListDrawableCompat">
-        <!-- Indicates whether the drawable should be initially visible. -->
-        <attr name="android:visible" />
-        <!-- If true, allows the drawable's padding to change based on the
-             current state that is selected.  If false, the padding will
-             stay the same (based on the maximum padding of all the states).
-             Enabling this feature requires that the owner of the drawable
-             deal with performing layout when the state changes, which is
-             often not supported. -->
-        <attr name="android:variablePadding" />
-        <!-- If true, the drawable's reported internal size will remain
-             constant as the state changes; the size is the maximum of all
-             of the states.  If false, the size will vary based on the
-             current state. -->
-        <attr name="android:constantSize" />
-        <!-- Enables or disables dithering of the bitmap if the bitmap does not have the
-             same pixel configuration as the screen (for instance: a ARGB 8888 bitmap with
-             an RGB 565 screen). -->
-        <attr name="android:dither" />
-        <!-- Amount of time (in milliseconds) to fade in a new state drawable. -->
-        <attr name="android:enterFadeDuration" />
-        <!-- Amount of time (in milliseconds) to fade out an old state drawable. -->
-        <attr name="android:exitFadeDuration" />
-        <!-- Indicates if the drawable needs to be mirrored when its layout direction is
-             RTL (right-to-left). -->
-        <!--<attr name="autoMirrored"/>-->
-    </declare-styleable>
-
-    <!-- Transition used to animate between states with keyframe IDs. -->
-    <declare-styleable name="AnimatedStateListDrawableItem">
-        <!-- Reference to a drawable resource to use for the frame.  If not
-             given, the drawable must be defined by the first child tag. -->
-        <attr name="android:drawable" />
-        <!-- Keyframe identifier for use in specifying transitions. -->
-        <attr name="android:id" />
-    </declare-styleable>
-
-    <!-- Transition used to animate between states with keyframe IDs. -->
-    <declare-styleable name="AnimatedStateListDrawableTransition">
-        <!-- Keyframe identifier for the starting state. -->
-        <attr name="android:fromId" />
-        <!-- Keyframe identifier for the ending state. -->
-        <attr name="android:toId" />
-        <!-- Reference to a animation drawable resource to use for the frame.  If not
-             given, the animation drawable must be defined by the first child tag. -->
-        <attr name="android:drawable" />
-        <!-- Whether this transition is reversible. -->
-        <attr name="android:reversible" />
     </declare-styleable>
 
 </resources>

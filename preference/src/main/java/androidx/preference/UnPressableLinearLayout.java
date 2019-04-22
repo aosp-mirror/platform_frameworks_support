@@ -16,7 +16,7 @@
 
 package androidx.preference;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -29,9 +29,11 @@ import androidx.annotation.RestrictTo;
  * By default, the pressed state is propagated to all the children that are not clickable
  * or long-clickable.
  *
+ * Used by Leanback and Car.
+ *
  * @hide
  */
-@RestrictTo(LIBRARY_GROUP)
+@RestrictTo(LIBRARY_GROUP_PREFIX)
 public class UnPressableLinearLayout extends LinearLayout {
     public UnPressableLinearLayout(Context context) {
         this(context, null);

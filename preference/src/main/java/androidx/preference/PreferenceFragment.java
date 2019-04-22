@@ -16,9 +16,8 @@
 
 package androidx.preference;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY;
 
-import android.annotation.SuppressLint;
 import android.app.DialogFragment;
 import android.app.Fragment;
 import android.content.Context;
@@ -92,6 +91,7 @@ import androidx.recyclerview.widget.RecyclerView;
  *
  * @deprecated Use {@link PreferenceFragmentCompat} instead
  */
+@SuppressWarnings("deprecation")
 @Deprecated
 public abstract class PreferenceFragment extends Fragment implements
         PreferenceManager.OnPreferenceTreeClickListener,
@@ -183,7 +183,6 @@ public abstract class PreferenceFragment extends Fragment implements
     public abstract void onCreatePreferences(Bundle savedInstanceState, String rootKey);
 
     @Override
-    @SuppressLint("RestrictedApi")
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
 
@@ -245,7 +244,7 @@ public abstract class PreferenceFragment extends Fragment implements
      * call {@link #setDividerHeight(int)}.
      *
      * @param divider The drawable to use
-     * {@link R.attr#android_divider}
+     * {@link android.R.attr#divider}
      *
      * @deprecated Use {@link PreferenceFragmentCompat} instead
      */
@@ -259,7 +258,7 @@ public abstract class PreferenceFragment extends Fragment implements
      * this will override the intrinsic height as set by {@link #setDivider(Drawable)}.
      *
      * @param height The new height of the divider in pixels
-     * {@link R.attr#android_dividerHeight}
+     * {@link android.R.attr#dividerHeight}
      *
      * @deprecated Use {@link PreferenceFragmentCompat} instead
      */
@@ -515,11 +514,11 @@ public abstract class PreferenceFragment extends Fragment implements
     }
 
     /** @hide */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY)
     protected void onBindPreferences() {}
 
     /** @hide */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY)
     protected void onUnbindPreferences() {}
 
     /**
@@ -646,7 +645,7 @@ public abstract class PreferenceFragment extends Fragment implements
      * @return The {@link Fragment} to possibly use as a callback
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY)
     public Fragment getCallbackFragment() {
         return null;
     }

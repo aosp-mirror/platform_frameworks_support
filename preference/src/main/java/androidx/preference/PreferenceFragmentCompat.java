@@ -16,7 +16,7 @@
 
 package androidx.preference;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -199,7 +199,7 @@ public abstract class PreferenceFragmentCompat extends Fragment implements
 
         final View rawListContainer = view.findViewById(AndroidResources.ANDROID_R_LIST_CONTAINER);
         if (!(rawListContainer instanceof ViewGroup)) {
-            throw new RuntimeException("Content has view with id attribute "
+            throw new IllegalStateException("Content has view with id attribute "
                     + "'android.R.id.list_container' that is not a ViewGroup class");
         }
 
@@ -237,7 +237,7 @@ public abstract class PreferenceFragmentCompat extends Fragment implements
      * call {@link #setDividerHeight(int)}.
      *
      * @param divider The drawable to use
-     * {@link R.attr#android_divider}
+     * {@link android.R.attr#divider}
      */
     public void setDivider(Drawable divider) {
         mDividerDecoration.setDivider(divider);
@@ -248,7 +248,7 @@ public abstract class PreferenceFragmentCompat extends Fragment implements
      * this will override the intrinsic height as set by {@link #setDivider(Drawable)}.
      *
      * @param height The new height of the divider in pixels
-     * {@link R.attr#android_dividerHeight}
+     * {@link android.R.attr#dividerHeight}
      */
     public void setDividerHeight(int height) {
         mDividerDecoration.setDividerHeight(height);
@@ -417,7 +417,7 @@ public abstract class PreferenceFragmentCompat extends Fragment implements
                         .getSupportFragmentManager();
                 final Bundle args = preference.getExtras();
                 final Fragment fragment = fragmentManager.getFragmentFactory().instantiate(
-                        requireActivity().getClassLoader(), preference.getFragment(), args);
+                        requireActivity().getClassLoader(), preference.getFragment());
                 fragment.setArguments(args);
                 fragment.setTargetFragment(this, 0);
                 fragmentManager.beginTransaction()
@@ -457,7 +457,8 @@ public abstract class PreferenceFragmentCompat extends Fragment implements
 
     @Override
     @SuppressWarnings("TypeParameterUnusedInFormals")
-    public <T extends Preference> T findPreference(CharSequence key) {
+    @Nullable
+    public <T extends Preference> T findPreference(@NonNull CharSequence key) {
         if (mPreferenceManager == null) {
             return null;
         }
@@ -494,12 +495,18 @@ public abstract class PreferenceFragmentCompat extends Fragment implements
         onUnbindPreferences();
     }
 
-    /** @hide */
-    @RestrictTo(LIBRARY_GROUP)
+    /**
+     * Used by Settings.
+     * @hide
+     */
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     protected void onBindPreferences() {}
 
-    /** @hide */
-    @RestrictTo(LIBRARY_GROUP)
+    /**
+     * Used by Settings.
+     * @hide
+     */
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     protected void onUnbindPreferences() {}
 
     public final RecyclerView getListView() {
@@ -597,8 +604,11 @@ public abstract class PreferenceFragmentCompat extends Fragment implements
         } else if (preference instanceof MultiSelectListPreference) {
             f = MultiSelectListPreferenceDialogFragmentCompat.newInstance(preference.getKey());
         } else {
-            throw new IllegalArgumentException("Tried to display dialog for unknown " +
-                    "preference type. Did you forget to override onDisplayPreferenceDialog()?");
+            throw new IllegalArgumentException(
+                    "Cannot display dialog for an unknown Preference type: "
+                            + preference.getClass().getSimpleName()
+                            + ". Make sure to implement onPreferenceDisplayDialog() to handle "
+                            + "displaying a custom dialog for this Preference.");
         }
         f.setTargetFragment(this, 0);
         f.show(getFragmentManager(), DIALOG_FRAGMENT_TAG);
@@ -610,7 +620,7 @@ public abstract class PreferenceFragmentCompat extends Fragment implements
      * @return The {@link Fragment} to possibly use as a callback
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public Fragment getCallbackFragment() {
         return null;
     }

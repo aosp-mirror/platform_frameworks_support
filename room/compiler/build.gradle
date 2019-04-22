@@ -19,10 +19,11 @@ import androidx.build.CompilationTarget
 import androidx.build.LibraryGroups
 import androidx.build.LibraryVersions
 import androidx.build.SupportConfig
-import androidx.build.SupportLibraryExtension
+import androidx.build.AndroidXExtension
 
 plugins {
-    id("SupportKotlinLibraryPlugin")
+    id("AndroidXPlugin")
+    id("kotlin")
 }
 
 def antlrOut = "$buildDir/generated/antlr/grammar-gen/"
@@ -51,7 +52,7 @@ dependencies {
     compile(JAVAPOET)
     compile(ANTLR)
     compile(XERIAL)
-    compile(KOTLIN_METADATA)
+    compile(KOTLIN_METADATA_JVM)
     compile(APACHE_COMMONS_CODEC)
     testCompile(GOOGLE_COMPILE_TESTING)
     testCompile project(":paging:paging-common")
@@ -82,7 +83,7 @@ tasks.findByName("compileKotlin").dependsOn(generateAntlrTask)
 tasks.findByName("compileKotlin").dependsOn(":room:room-runtime:jarDebug")
 tasks.findByName("compileKotlin").dependsOn(":sqlite:sqlite:jarDebug")
 
-supportLibrary {
+androidx {
     name = "Android Room Compiler"
     publish = true
     toolingProject = true
@@ -90,6 +91,6 @@ supportLibrary {
     mavenGroup = LibraryGroups.ROOM
     inceptionYear = "2017"
     description = "Android Room annotation processor"
-    url = SupportLibraryExtension.ARCHITECTURE_URL
+    url = AndroidXExtension.ARCHITECTURE_URL
     compilationTarget = CompilationTarget.HOST
 }

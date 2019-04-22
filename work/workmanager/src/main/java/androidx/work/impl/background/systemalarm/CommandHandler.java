@@ -19,13 +19,12 @@ package androidx.work.impl.background.systemalarm;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.RestrictTo;
-import android.support.annotation.WorkerThread;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RestrictTo;
+import androidx.annotation.WorkerThread;
 import androidx.work.Logger;
-import androidx.work.WorkInfo;
 import androidx.work.impl.ExecutionListener;
 import androidx.work.impl.WorkDatabase;
 import androidx.work.impl.WorkManagerImpl;
@@ -119,7 +118,6 @@ public class CommandHandler implements ExecutionListener {
 
     @Override
     public void onExecuted(@NonNull String workSpecId, boolean needsReschedule) {
-
         synchronized (mLock) {
             // This listener is only necessary for knowing when a pending work is complete.
             // Delegate to the underlying execution listener itself.
@@ -211,22 +209,28 @@ public class CommandHandler implements ExecutionListener {
                         "Skipping scheduling " + workSpecId + " because it's no longer in "
                         + "the DB");
                 return;
-            } else if (workSpec.state != WorkInfo.State.ENQUEUED) {
+            } else if (workSpec.state.isFinished()) {
+                // We need to schedule the Alarms, even when the Worker is RUNNING. This is because
+                // if the process gets killed, the Alarm is necessary to pick up the execution of
+                // Work.
                 Logger.get().warning(TAG,
-                        "Skipping scheduling " + workSpecId + " because it is no longer "
-                        + "enqueued");
+                        "Skipping scheduling " + workSpecId + "because it is finished.");
                 return;
             }
 
+            // Note: The first instance of PeriodicWorker getting scheduled will set an alarm in the
+            // past. This is because periodStartTime = 0.
             long triggerAt = workSpec.calculateNextRunTime();
 
             if (!workSpec.hasConstraints()) {
-                Logger.get().debug(TAG, String.format("Setting up Alarms for %s", workSpecId));
+                Logger.get().debug(TAG,
+                        String.format("Setting up Alarms for %s at %s", workSpecId, triggerAt));
                 Alarms.setAlarm(mContext, dispatcher.getWorkManager(), workSpecId, triggerAt);
             } else {
                 // Schedule an alarm irrespective of whether all constraints matched.
                 Logger.get().debug(TAG,
-                        String.format("Opportunistically setting an alarm for %s", workSpecId));
+                        String.format("Opportunistically setting an alarm for %s at %s", workSpecId,
+                                triggerAt));
                 Alarms.setAlarm(
                         mContext,
                         dispatcher.getWorkManager(),
@@ -258,10 +262,19 @@ public class CommandHandler implements ExecutionListener {
         synchronized (mLock) {
             String workSpecId = extras.getString(KEY_WORKSPEC_ID);
             Logger.get().debug(TAG, String.format("Handing delay met for %s", workSpecId));
-            DelayMetCommandHandler delayMetCommandHandler =
-                    new DelayMetCommandHandler(mContext, startId, workSpecId, dispatcher);
-            mPendingDelayMet.put(workSpecId, delayMetCommandHandler);
-            delayMetCommandHandler.handleProcessWork();
+
+            // Check to see if we are already handling an ACTION_DELAY_MET for the WorkSpec.
+            // If we are, then there is nothing for us to do.
+            if (!mPendingDelayMet.containsKey(workSpecId)) {
+                DelayMetCommandHandler delayMetCommandHandler =
+                        new DelayMetCommandHandler(mContext, startId, workSpecId, dispatcher);
+                mPendingDelayMet.put(workSpecId, delayMetCommandHandler);
+                delayMetCommandHandler.handleProcessWork();
+            } else {
+                Logger.get().debug(TAG,
+                        String.format("WorkSpec %s is already being handled for ACTION_DELAY_MET",
+                                workSpecId));
+            }
         }
     }
 

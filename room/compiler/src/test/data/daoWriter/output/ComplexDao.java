@@ -19,7 +19,7 @@ import java.util.concurrent.Callable;
 import javax.annotation.Generated;
 
 @Generated("androidx.room.RoomProcessor")
-@SuppressWarnings("unchecked")
+@SuppressWarnings({"unchecked", "deprecation"})
 public final class ComplexDao_Impl extends ComplexDao {
     private final RoomDatabase __db;
 
@@ -32,7 +32,7 @@ public final class ComplexDao_Impl extends ComplexDao {
     public boolean transactionMethod(final int i, final String s, final long l) {
         __db.beginTransaction();
         try {
-            boolean _result = super.transactionMethod(i, s, l);
+            boolean _result = ComplexDao_Impl.super.transactionMethod(i, s, l);
             __db.setTransactionSuccessful();
             return _result;
         } finally {
@@ -46,6 +46,7 @@ public final class ComplexDao_Impl extends ComplexDao {
         final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
         int _argIndex = 1;
         _statement.bindLong(_argIndex, id);
+        __db.assertNotSuspendingTransaction();
         final Cursor _cursor = DBUtil.query(__db, _statement, false);
         try {
             final int _cursorIndexOfFullName = CursorUtil.getColumnIndexOrThrow(_cursor, "fullName");
@@ -71,6 +72,7 @@ public final class ComplexDao_Impl extends ComplexDao {
         final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
         int _argIndex = 1;
         _statement.bindLong(_argIndex, id);
+        __db.assertNotSuspendingTransaction();
         final Cursor _cursor = DBUtil.query(__db, _statement, false);
         try {
             final int _cursorIndexOfUid = CursorUtil.getColumnIndexOrThrow(_cursor, "uid");
@@ -112,6 +114,7 @@ public final class ComplexDao_Impl extends ComplexDao {
         } else {
             _statement.bindString(_argIndex, lastName);
         }
+        __db.assertNotSuspendingTransaction();
         final Cursor _cursor = DBUtil.query(__db, _statement, false);
         try {
             final int _cursorIndexOfUid = CursorUtil.getColumnIndexOrThrow(_cursor, "uid");
@@ -152,6 +155,7 @@ public final class ComplexDao_Impl extends ComplexDao {
             _statement.bindLong(_argIndex, _item);
             _argIndex ++;
         }
+        __db.assertNotSuspendingTransaction();
         final Cursor _cursor = DBUtil.query(__db, _statement, false);
         try {
             final int _cursorIndexOfUid = CursorUtil.getColumnIndexOrThrow(_cursor, "uid");
@@ -183,6 +187,7 @@ public final class ComplexDao_Impl extends ComplexDao {
         final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
         int _argIndex = 1;
         _statement.bindLong(_argIndex, id);
+        __db.assertNotSuspendingTransaction();
         final Cursor _cursor = DBUtil.query(__db, _statement, false);
         try {
             final int _result;
@@ -213,6 +218,7 @@ public final class ComplexDao_Impl extends ComplexDao {
             _statement.bindLong(_argIndex, _item);
             _argIndex ++;
         }
+        __db.assertNotSuspendingTransaction();
         final Cursor _cursor = DBUtil.query(__db, _statement, false);
         try {
             final int[] _result = new int[_cursor.getCount()];
@@ -249,6 +255,7 @@ public final class ComplexDao_Impl extends ComplexDao {
             }
             _argIndex ++;
         }
+        __db.assertNotSuspendingTransaction();
         final Cursor _cursor = DBUtil.query(__db, _statement, false);
         try {
             final List<Integer> _result = new ArrayList<Integer>(_cursor.getCount());
@@ -274,7 +281,7 @@ public final class ComplexDao_Impl extends ComplexDao {
         final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
         int _argIndex = 1;
         _statement.bindLong(_argIndex, id);
-        return __db.getInvalidationTracker().createLiveData(new String[]{"user"}, new Callable<User>() {
+        return __db.getInvalidationTracker().createLiveData(new String[]{"user"}, false, new Callable<User>() {
             @Override
             public User call() throws Exception {
                 final Cursor _cursor = DBUtil.query(__db, _statement, false);
@@ -323,7 +330,7 @@ public final class ComplexDao_Impl extends ComplexDao {
             _statement.bindLong(_argIndex, _item);
             _argIndex ++;
         }
-        return __db.getInvalidationTracker().createLiveData(new String[]{"user"}, new Callable<List<User>>() {
+        return __db.getInvalidationTracker().createLiveData(new String[]{"user"}, false, new Callable<List<User>>() {
             @Override
             public List<User> call() throws Exception {
                 final Cursor _cursor = DBUtil.query(__db, _statement, false);
@@ -393,6 +400,7 @@ public final class ComplexDao_Impl extends ComplexDao {
             _statement.bindLong(_argIndex, _item_2);
             _argIndex ++;
         }
+        __db.assertNotSuspendingTransaction();
         final Cursor _cursor = DBUtil.query(__db, _statement, false);
         try {
             final List<Integer> _result = new ArrayList<Integer>(_cursor.getCount());
@@ -416,6 +424,7 @@ public final class ComplexDao_Impl extends ComplexDao {
     public List<Child1> getChild1List() {
         final String _sql = "SELECT * FROM Child1";
         final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
+        __db.assertNotSuspendingTransaction();
         final Cursor _cursor = DBUtil.query(__db, _statement, false);
         try {
             final int _cursorIndexOfId = CursorUtil.getColumnIndexOrThrow(_cursor, "id");
@@ -451,6 +460,7 @@ public final class ComplexDao_Impl extends ComplexDao {
     public List<Child2> getChild2List() {
         final String _sql = "SELECT * FROM Child2";
         final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
+        __db.assertNotSuspendingTransaction();
         final Cursor _cursor = DBUtil.query(__db, _statement, false);
         try {
             final int _cursorIndexOfId = CursorUtil.getColumnIndexOrThrow(_cursor, "id");

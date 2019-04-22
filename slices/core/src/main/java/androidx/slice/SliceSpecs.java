@@ -23,7 +23,7 @@ import androidx.annotation.RestrictTo;
  * Constants for each of the slice specs
  * @hide
  */
-@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
 @RequiresApi(19)
 public class SliceSpecs {
 
@@ -37,6 +37,11 @@ public class SliceSpecs {
      * Also supports grid rows.
      */
     public static final SliceSpec LIST = new SliceSpec("androidx.slice.LIST", 1);
+
+    /**
+     * Same as LIST, but also supports selection rows.
+     */
+    public static final SliceSpec LIST_V2 = new SliceSpec("androidx.slice.LIST", 2);
 
     /**
      * Messaging template. Each message contains a timestamp and a message, it optionally contains

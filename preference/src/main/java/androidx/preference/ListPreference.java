@@ -16,7 +16,6 @@
 
 package androidx.preference;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Parcel;
@@ -46,7 +45,6 @@ public class ListPreference extends DialogPreference {
     private String mSummary;
     private boolean mValueSet;
 
-    @SuppressLint("RestrictedApi")
     public ListPreference(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
 
@@ -80,7 +78,6 @@ public class ListPreference extends DialogPreference {
         this(context, attrs, defStyleAttr, 0);
     }
 
-    @SuppressLint("RestrictedApi")
     public ListPreference(Context context, AttributeSet attrs) {
         this(context, attrs, TypedArrayUtils.getAttr(context, R.attr.dialogPreferenceStyle,
                 android.R.attr.dialogPreferenceStyle));
@@ -158,6 +155,7 @@ public class ListPreference extends DialogPreference {
         }
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public CharSequence getSummary() {
         if (getSummaryProvider() != null) {
@@ -169,7 +167,7 @@ public class ListPreference extends DialogPreference {
             return summary;
         }
         String formattedString = String.format(mSummary, entry == null ? "" : entry);
-        if (formattedString.contentEquals(summary)) {
+        if (TextUtils.equals(formattedString, summary)) {
             return summary;
         }
         Log.w(TAG,

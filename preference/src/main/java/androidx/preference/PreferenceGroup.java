@@ -16,9 +16,9 @@
 
 package androidx.preference;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Bundle;
@@ -78,7 +78,6 @@ public abstract class PreferenceGroup extends Preference {
         }
     };
 
-    @SuppressLint("RestrictedApi")
     public PreferenceGroup(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
 
@@ -144,7 +143,7 @@ public abstract class PreferenceGroup extends Preference {
      * correctly persist state.
      *
      * @param expandedCount The number of children that is initially shown
-     * {@link R.attr#initialExpandedChildrenCount}
+     * {@link androidx.preference.R.attr#initialExpandedChildrenCount}
      */
     public void setInitialExpandedChildrenCount(int expandedCount) {
         if (expandedCount != Integer.MAX_VALUE && !hasKey()) {
@@ -158,7 +157,7 @@ public abstract class PreferenceGroup extends Preference {
      * Gets the maximal number of children that are initially shown.
      *
      * @return The maximal number of children that are initially shown
-     * {@link R.attr#initialExpandedChildrenCount}
+     * {@link androidx.preference.R.attr#initialExpandedChildrenCount}
      */
     public int getInitialExpandedChildrenCount() {
         return mInitialExpandedChildrenCount;
@@ -354,18 +353,20 @@ public abstract class PreferenceGroup extends Preference {
 
     /**
      * Finds a {@link Preference} based on its key. If two {@link Preference}s share the same key
-     * (not recommended), the first to appear will be returned (to retrieve the other preference
-     * with the same key, call this method on the first preference). If this preference has the
-     * key, it will not be returned.
+     * (not recommended), the first to appear will be returned.
      *
-     * <p>This will recursively search for the preference into children that are also
+     * <p>This will recursively search for the {@link Preference} in any children that are also
      * {@link PreferenceGroup}s.
      *
-     * @param key The key of the preference to retrieve
-     * @return The {@link Preference} with the key, or null
+     * @param key The key of the {@link Preference} to retrieve
+     * @return The {@link Preference} with the key, or {@code null}
      */
-    @SuppressWarnings("TypeParameterUnusedInFormals")
-    public <T extends Preference> T findPreference(CharSequence key) {
+    @SuppressWarnings({"TypeParameterUnusedInFormals", "unchecked"})
+    @Nullable
+    public <T extends Preference> T findPreference(@NonNull CharSequence key) {
+        if (key == null) {
+            throw new IllegalArgumentException("Key cannot be null");
+        }
         if (TextUtils.equals(getKey(), key)) {
             return (T) this;
         }
@@ -374,7 +375,7 @@ public abstract class PreferenceGroup extends Preference {
             final Preference preference = getPreference(i);
             final String curKey = preference.getKey();
 
-            if (curKey != null && curKey.contentEquals(key)) {
+            if (TextUtils.equals(curKey, key)) {
                 return (T) preference;
             }
 
@@ -385,7 +386,6 @@ public abstract class PreferenceGroup extends Preference {
                 }
             }
         }
-
         return null;
     }
 
@@ -405,7 +405,7 @@ public abstract class PreferenceGroup extends Preference {
      *
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY)
     public boolean isAttached() {
         return mAttachedToHierarchy;
     }
@@ -413,11 +413,13 @@ public abstract class PreferenceGroup extends Preference {
     /**
      * Sets the callback to be invoked when the expand button is clicked.
      *
+     * Used by Settings.
+     *
      * @param onExpandButtonClickListener The callback to be invoked
      * @see #setInitialExpandedChildrenCount(int)
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public void setOnExpandButtonClickListener(
             @Nullable OnExpandButtonClickListener onExpandButtonClickListener) {
         mOnExpandButtonClickListener = onExpandButtonClickListener;
@@ -426,10 +428,12 @@ public abstract class PreferenceGroup extends Preference {
     /**
      * Returns the callback to be invoked when the expand button is clicked.
      *
+     * Used by Settings.
+     *
      * @return The callback to be invoked when the expand button is clicked.
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     @Nullable
     public OnExpandButtonClickListener getOnExpandButtonClickListener() {
         return mOnExpandButtonClickListener;
@@ -551,10 +555,13 @@ public abstract class PreferenceGroup extends Preference {
 
     /**
      * Definition for a callback to be invoked when the expand button is clicked.
+     *
+     * Used by Settings.
+     *
      * @see #setInitialExpandedChildrenCount(int)
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public interface OnExpandButtonClickListener {
         /**
          * Called when the expand button is clicked.

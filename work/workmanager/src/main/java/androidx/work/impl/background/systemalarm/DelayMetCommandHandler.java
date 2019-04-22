@@ -19,11 +19,11 @@ package androidx.work.impl.background.systemalarm;
 import android.content.Context;
 import android.content.Intent;
 import android.os.PowerManager;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.RestrictTo;
-import android.support.annotation.WorkerThread;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RestrictTo;
+import androidx.annotation.WorkerThread;
 import androidx.work.Logger;
 import androidx.work.impl.ExecutionListener;
 import androidx.work.impl.constraints.WorkConstraintsCallback;
@@ -111,6 +111,14 @@ public class DelayMetCommandHandler implements
         Logger.get().debug(TAG, String.format("onExecuted %s, %s", workSpecId, needsReschedule));
 
         cleanUp();
+
+        if (needsReschedule) {
+            // We need to reschedule the WorkSpec. WorkerWrapper may also call Scheduler.schedule()
+            // but given that we will only consider WorkSpecs that are eligible that it safe.
+            Intent reschedule = CommandHandler.createScheduleWorkIntent(mContext, mWorkSpecId);
+            mDispatcher.postOnMainThread(
+                    new SystemAlarmDispatcher.AddRunnable(mDispatcher, reschedule, mStartId));
+        }
 
         if (mHasConstraints) {
             // The WorkSpec had constraints. Once the execution of the worker is complete,
@@ -217,6 +225,8 @@ public class DelayMetCommandHandler implements
         // * It could also happen on the onExecutionCompleted() pass of the bgProcessor.
         // To avoid calling mWakeLock.release() twice, we are synchronizing here.
         synchronized (mLock) {
+            // clean up constraint trackers
+            mWorkConstraintsTracker.reset();
             // stop timers
             mDispatcher.getWorkTimer().stopTimer(mWorkSpecId);
 

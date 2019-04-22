@@ -19,17 +19,19 @@ import androidx.build.LibraryVersions
 import androidx.build.LibraryGroups
 
 plugins {
-    id("SupportAndroidLibraryPlugin")
+    id("AndroidXPlugin")
+    id("com.android.library")
 }
 
 dependencies {
     implementation(project(":slice-core"))
     api(project(":remotecallback"))
     implementation project(":annotation")
-    implementation project(path: ':core')
+    implementation project(':core')
+    implementation project(':collection')
 }
 
-supportLibrary {
+androidx {
     name = "Slice builders"
     publish = true
     mavenVersion = LibraryVersions.SLICE

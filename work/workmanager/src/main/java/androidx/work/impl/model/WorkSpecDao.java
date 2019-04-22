@@ -16,17 +16,15 @@
 
 package androidx.work.impl.model;
 
-import static android.arch.persistence.room.OnConflictStrategy.IGNORE;
-
+import static androidx.room.OnConflictStrategy.IGNORE;
 import static androidx.work.impl.model.WorkTypeConverters.StateIds.COMPLETED_STATES;
 
-import android.arch.lifecycle.LiveData;
-import android.arch.persistence.room.Dao;
-import android.arch.persistence.room.Insert;
-import android.arch.persistence.room.Query;
-import android.arch.persistence.room.Transaction;
-import android.support.annotation.NonNull;
-
+import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
+import androidx.room.Dao;
+import androidx.room.Insert;
+import androidx.room.Query;
+import androidx.room.Transaction;
 import androidx.work.Data;
 import androidx.work.WorkInfo;
 
@@ -148,7 +146,7 @@ public interface WorkSpecDao {
      * @return A list of {@link WorkSpec.WorkInfoPojo}
      */
     @Transaction
-    @Query("SELECT id, state, output FROM workspec WHERE id=:id")
+    @Query("SELECT id, state, output, run_attempt_count FROM workspec WHERE id=:id")
     WorkSpec.WorkInfoPojo getWorkStatusPojoForId(String id);
 
     /**
@@ -159,7 +157,7 @@ public interface WorkSpecDao {
      * @return A {@link List} of {@link WorkSpec.WorkInfoPojo}
      */
     @Transaction
-    @Query("SELECT id, state, output FROM workspec WHERE id IN (:ids)")
+    @Query("SELECT id, state, output, run_attempt_count FROM workspec WHERE id IN (:ids)")
     List<WorkSpec.WorkInfoPojo> getWorkStatusPojoForIds(List<String> ids);
 
     /**
@@ -170,7 +168,7 @@ public interface WorkSpecDao {
      * @return A {@link LiveData} list of {@link WorkSpec.WorkInfoPojo}
      */
     @Transaction
-    @Query("SELECT id, state, output FROM workspec WHERE id IN (:ids)")
+    @Query("SELECT id, state, output, run_attempt_count FROM workspec WHERE id IN (:ids)")
     LiveData<List<WorkSpec.WorkInfoPojo>> getWorkStatusPojoLiveDataForIds(List<String> ids);
 
     /**
@@ -180,7 +178,7 @@ public interface WorkSpecDao {
      * @return A list of {@link WorkSpec.WorkInfoPojo}
      */
     @Transaction
-    @Query("SELECT id, state, output FROM workspec WHERE id IN "
+    @Query("SELECT id, state, output, run_attempt_count FROM workspec WHERE id IN "
             + "(SELECT work_spec_id FROM worktag WHERE tag=:tag)")
     List<WorkSpec.WorkInfoPojo> getWorkStatusPojoForTag(String tag);
 
@@ -192,7 +190,7 @@ public interface WorkSpecDao {
      * @return A {@link LiveData} list of {@link WorkSpec.WorkInfoPojo}
      */
     @Transaction
-    @Query("SELECT id, state, output FROM workspec WHERE id IN "
+    @Query("SELECT id, state, output, run_attempt_count FROM workspec WHERE id IN "
             + "(SELECT work_spec_id FROM worktag WHERE tag=:tag)")
     LiveData<List<WorkSpec.WorkInfoPojo>> getWorkStatusPojoLiveDataForTag(String tag);
 
@@ -203,7 +201,7 @@ public interface WorkSpecDao {
      * @return A list of {@link WorkSpec.WorkInfoPojo}
      */
     @Transaction
-    @Query("SELECT id, state, output FROM workspec WHERE id IN "
+    @Query("SELECT id, state, output, run_attempt_count FROM workspec WHERE id IN "
             + "(SELECT work_spec_id FROM workname WHERE name=:name)")
     List<WorkSpec.WorkInfoPojo> getWorkStatusPojoForName(String name);
 
@@ -215,7 +213,7 @@ public interface WorkSpecDao {
      * @return A {@link LiveData} list of {@link WorkSpec.WorkInfoPojo}
      */
     @Transaction
-    @Query("SELECT id, state, output FROM workspec WHERE id IN "
+    @Query("SELECT id, state, output, run_attempt_count FROM workspec WHERE id IN "
             + "(SELECT work_spec_id FROM workname WHERE name=:name)")
     LiveData<List<WorkSpec.WorkInfoPojo>> getWorkStatusPojoLiveDataForName(String name);
 
@@ -290,6 +288,26 @@ public interface WorkSpecDao {
                 + ")"
     )
     List<WorkSpec> getEligibleWorkForScheduling(int schedulerLimit);
+
+    /**
+     * @return The List of {@link WorkSpec}s that are unfinished and scheduled.
+     */
+    @Query("SELECT * FROM workspec WHERE "
+            // Unfinished work
+            + "state=" + WorkTypeConverters.StateIds.ENQUEUED
+            // We only want WorkSpecs which have been scheduled.
+            + " AND schedule_requested_at<>" + WorkSpec.SCHEDULE_NOT_REQUESTED_YET
+    )
+    List<WorkSpec> getScheduledWork();
+
+    /**
+     * @return The List of {@link WorkSpec}s that are unfinished and scheduled.
+     */
+    @Query("SELECT * FROM workspec WHERE "
+            // Unfinished work
+            + "state=" + WorkTypeConverters.StateIds.ENQUEUED
+    )
+    List<WorkSpec> getEnqueuedWork();
 
     /**
      * Immediately prunes eligible work from the database meeting the following criteria:

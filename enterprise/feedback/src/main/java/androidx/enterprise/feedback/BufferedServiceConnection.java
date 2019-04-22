@@ -18,7 +18,6 @@ package androidx.enterprise.feedback;
 
 import static androidx.enterprise.feedback.KeyedAppStatesReporter.canPackageReceiveAppStates;
 
-import android.annotation.SuppressLint;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -33,6 +32,7 @@ import androidx.annotation.VisibleForTesting;
 
 import java.util.ArrayDeque;
 import java.util.Queue;
+import java.util.concurrent.Executor;
 
 /**
  * A wrapper around {@link ServiceConnection} and {@link Messenger} which will buffer messages sent
@@ -40,6 +40,8 @@ import java.util.Queue;
  *
  * <p>Each instance is single-use. After being unbound either manually (using {@link #unbind()} or
  * due to an error it will become "dead" (see {@link #isDead()} and cannot be used further.
+ *
+ * <p>Instances are not thread safe, so avoid using on multiple different threads.
  */
 class BufferedServiceConnection {
 
@@ -61,14 +63,27 @@ class BufferedServiceConnection {
     private boolean mHasBound = false;
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     final Queue<Message> mBuffer = new ArrayDeque<>();
+    @SuppressWarnings("WeakerAccess") /* synthetic access */
+    final Executor mExecutor;
 
-    BufferedServiceConnection(Context context, Intent bindIntent, int flags) {
+    /**
+     * Create a {@link BufferedServiceConnection}.
+     *
+     * <p>The {@link Executor} must execute serially on the same thread as all calls to
+     * this instance.
+     */
+    BufferedServiceConnection(
+            Executor executor, Context context, Intent bindIntent, int flags) {
+        if (executor == null) {
+            throw new NullPointerException("executor must not be null");
+        }
         if (context == null) {
-            throw new NullPointerException("Context must not be null");
+            throw new NullPointerException("context must not be null");
         }
         if (bindIntent == null) {
             throw new NullPointerException("bindIntent must not be null");
         }
+        this.mExecutor = executor;
         this.mContext = context;
         this.mBindIntent = bindIntent;
         this.mFlags = flags;
@@ -80,8 +95,6 @@ class BufferedServiceConnection {
      *
      * <p>This can only be called once per instance.
      */
-    @SuppressLint("UntrackedBindService")
-    // Not dependent on GMS
     void bindService() {
         if (mHasBound) {
             throw new IllegalStateException(
@@ -92,29 +105,45 @@ class BufferedServiceConnection {
     }
 
     void unbind() {
-        mContext.unbindService(mConnection);
+        if (!mHasBound) {
+            throw new IllegalStateException("bindService must be called before unbind");
+        }
         mIsDead = true;
+        mContext.unbindService(mConnection);
     }
 
     private final ServiceConnection mConnection =
             new ServiceConnection() {
                 @Override
                 public void onBindingDied(ComponentName name) {
-                    mIsDead = true;
+                    mExecutor.execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            mIsDead = true;
+                        }
+                    });
                 }
 
                 @Override
-                public void onServiceConnected(ComponentName componentName, IBinder service) {
-                    mHasBeenDisconnected = false;
-                    if (canPackageReceiveAppStates(mContext, componentName.getPackageName())) {
-                        mMessenger = new Messenger(service);
-                        sendBufferedMessages();
-                    } else {
-                        mIsDead = true;
-                    }
+                public void onServiceConnected(final ComponentName componentName,
+                        final IBinder service) {
+                    mExecutor.execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            mHasBeenDisconnected = false;
+                            if (canPackageReceiveAppStates(
+                                    mContext, componentName.getPackageName())) {
+                                mMessenger = new Messenger(service);
+                                sendBufferedMessages();
+                            } else {
+                                mIsDead = true;
+                            }
+                        }
+                    });
                 }
 
-                private void sendBufferedMessages() {
+                @SuppressWarnings("WeakerAccess") /* synthetic access */
+                void sendBufferedMessages() {
                     while (!mBuffer.isEmpty()) {
                         trySendMessage(mBuffer.poll());
                     }
@@ -122,8 +151,13 @@ class BufferedServiceConnection {
 
                 @Override
                 public void onServiceDisconnected(ComponentName componentName) {
-                    mHasBeenDisconnected = true;
-                    mMessenger = null;
+                    mExecutor.execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            mHasBeenDisconnected = true;
+                            mMessenger = null;
+                        }
+                    });
                 }
             };
 

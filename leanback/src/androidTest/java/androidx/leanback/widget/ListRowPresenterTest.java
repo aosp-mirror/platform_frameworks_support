@@ -32,14 +32,14 @@ import android.widget.FrameLayout;
 import androidx.core.view.ViewCompat;
 import androidx.leanback.R;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.filters.SmallTest;
+import androidx.test.filters.LargeTest;
 import androidx.test.platform.app.InstrumentationRegistry;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(AndroidJUnit4.class)
-@SmallTest
+@LargeTest
 public class ListRowPresenterTest {
 
     static final float DELTA = 1f;
@@ -143,6 +143,33 @@ public class ListRowPresenterTest {
                 }
             }
         }
+    }
+
+    @Test
+    public void noOnFocusChangeListenerWhenZoomDisabled() {
+        final ArrayObjectAdapter arrayAdapter = new ArrayObjectAdapter(
+                new DummyPresenter(100, 213));
+        arrayAdapter.add("abc");
+        mListRowPresenter = new ListRowPresenter(FocusHighlight.ZOOM_FACTOR_NONE);
+        mRow = new ListRow(arrayAdapter);
+        InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable() {
+            @Override
+            public void run() {
+                final ViewGroup parent = new FrameLayout(mContext);
+                Presenter.ViewHolder containerVh = mListRowPresenter.onCreateViewHolder(parent);
+                parent.addView(containerVh.view, 1000, 1000);
+                mListVh = (ListRowPresenter.ViewHolder) mListRowPresenter.getRowViewHolder(
+                        containerVh);
+                mListRowPresenter.onBindViewHolder(mListVh, mRow);
+                mListVh.view.measure(
+                        View.MeasureSpec.makeMeasureSpec(1000, View.MeasureSpec.UNSPECIFIED),
+                        View.MeasureSpec.makeMeasureSpec(1000, View.MeasureSpec.UNSPECIFIED));
+                mListVh.view.layout(0, 0, 1000, 1000);
+            }
+        });
+        // no onFocusChangeListener should be set for ZOOM_FACTOR_NONE
+        assertEquals(null, mListVh.getGridView().getChildAt(0)
+                .findViewById(R.id.lb_action_button).getOnFocusChangeListener());
     }
 
     @Test

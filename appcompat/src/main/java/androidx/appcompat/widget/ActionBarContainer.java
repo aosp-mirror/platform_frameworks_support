@@ -16,11 +16,12 @@
 
 package androidx.appcompat.widget;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -36,7 +37,7 @@ import androidx.core.view.ViewCompat;
  * It applies special styles as needed to help handle animated transitions between them.
  * @hide
  */
-@RestrictTo(LIBRARY_GROUP)
+@RestrictTo(LIBRARY_GROUP_PREFIX)
 public class ActionBarContainer extends FrameLayout {
     private boolean mIsTransitioning;
     private View mTabContainer;
@@ -101,6 +102,9 @@ public class ActionBarContainer extends FrameLayout {
         setWillNotDraw(mIsSplit ? mSplitBackground == null :
                 mBackground == null && mStackedBackground == null);
         invalidate();
+        if (Build.VERSION.SDK_INT >= 21) {
+            invalidateOutline();
+        }
     }
 
     public void setStackedBackground(Drawable bg) {
@@ -119,6 +123,9 @@ public class ActionBarContainer extends FrameLayout {
         setWillNotDraw(mIsSplit ? mSplitBackground == null :
                 mBackground == null && mStackedBackground == null);
         invalidate();
+        if (Build.VERSION.SDK_INT >= 21) {
+            invalidateOutline();
+        }
     }
 
     public void setSplitBackground(Drawable bg) {
@@ -136,6 +143,9 @@ public class ActionBarContainer extends FrameLayout {
         setWillNotDraw(mIsSplit ? mSplitBackground == null :
                 mBackground == null && mStackedBackground == null);
         invalidate();
+        if (Build.VERSION.SDK_INT >= 21) {
+            invalidateOutline();
+        }
     }
 
     @Override

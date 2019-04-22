@@ -17,7 +17,7 @@
 package a.b;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import androidx.navigation.NavDirections;
 import java.lang.Object;
 import java.lang.Override;
@@ -41,7 +41,7 @@ public static class Finish implements NavDirections {
 
     @Override
     public int getActionId() {
-        return a.b.R.id.finish;
+        return R.id.finish;
     }
 
     @Override

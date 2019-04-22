@@ -16,17 +16,17 @@
 
 package androidx.work.integration.testapp.imageprocessing;
 
-import android.arch.lifecycle.Observer;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 import androidx.work.integration.testapp.R;
@@ -81,7 +81,7 @@ public class ImageProcessingActivity extends AppCompatActivity {
         findViewById(R.id.clear_all).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                WorkManager.getInstance()
+                WorkManager.getInstance(ImageProcessingActivity.this)
                         .enqueue(OneTimeWorkRequest.from(ImageCleanupWorker.class));
             }
         });
@@ -100,7 +100,7 @@ public class ImageProcessingActivity extends AppCompatActivity {
                 setupWork[i] = ImageSetupWorker.createWork(uriString);
                 processingWork[i] = ImageProcessingWorker.createWork(uriString);
             }
-            WorkManager.getInstance()
+            WorkManager.getInstance(ImageProcessingActivity.this)
                     .beginWith(Arrays.asList(setupWork))
                     .then(Arrays.asList(processingWork))
                     .enqueue();
@@ -110,7 +110,7 @@ public class ImageProcessingActivity extends AppCompatActivity {
             String uriString = data.getData().toString();
             OneTimeWorkRequest setupWork = ImageSetupWorker.createWork(uriString);
             OneTimeWorkRequest processingWork = ImageProcessingWorker.createWork(uriString);
-            WorkManager.getInstance()
+            WorkManager.getInstance(ImageProcessingActivity.this)
                     .beginWith(setupWork)
                     .then(processingWork)
                     .enqueue();

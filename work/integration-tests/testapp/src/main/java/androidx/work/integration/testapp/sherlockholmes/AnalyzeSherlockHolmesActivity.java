@@ -20,12 +20,12 @@ import static androidx.work.WorkInfo.State.FAILED;
 import static androidx.work.WorkInfo.State.SUCCEEDED;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.work.ArrayCreatingInputMerger;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
@@ -70,7 +70,7 @@ public class AnalyzeSherlockHolmesActivity extends AppCompatActivity {
     }
 
     private void enqueueWork() {
-        WorkManager workManager = WorkManager.getInstance();
+        WorkManager workManager = WorkManager.getInstance(AnalyzeSherlockHolmesActivity.this);
 
         // Cancelling all work just to make it easier to track what is happening here and make it
         // more insulated.

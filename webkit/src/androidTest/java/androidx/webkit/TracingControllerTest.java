@@ -16,9 +16,11 @@
 
 package androidx.webkit;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.greaterThan;
+
 import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.filters.SmallTest;
-import androidx.test.platform.app.InstrumentationRegistry;
+import androidx.test.filters.LargeTest;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -39,7 +41,7 @@ import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
-@SmallTest
+@LargeTest
 @RunWith(AndroidJUnit4.class)
 public class TracingControllerTest {
     private TracingController mTracingController;
@@ -92,8 +94,8 @@ public class TracingControllerTest {
         });
         PollingCheck.check("Tracing did not complete", POLLING_TIMEOUT,
                 tracingReceiver.getCompleteCallable());
-        Assert.assertTrue(tracingReceiver.getNbChunks() > 0);
-        Assert.assertTrue(tracingReceiver.getOutputStream().size() > 0);
+        assertThat(tracingReceiver.getNbChunks(), greaterThan(0));
+        assertThat(tracingReceiver.getOutputStream().size(), greaterThan(0));
     }
 
     /**
@@ -108,8 +110,8 @@ public class TracingControllerTest {
         runTracingTestWithCallbacks(tracingReceiver, mSingleThreadExecutor);
         PollingCheck.check("Tracing did not complete", POLLING_TIMEOUT,
                 tracingReceiver.getCompleteCallable());
-        Assert.assertTrue(tracingReceiver.getNbChunks() > 0);
-        Assert.assertTrue(tracingReceiver.getOutputStream().size() > 0);
+        assertThat(tracingReceiver.getNbChunks(), greaterThan(0));
+        assertThat(tracingReceiver.getOutputStream().size(), greaterThan(0));
     }
 
     /**

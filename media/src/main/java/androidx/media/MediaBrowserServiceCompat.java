@@ -18,6 +18,7 @@ package androidx.media;
 
 import static androidx.annotation.RestrictTo.Scope.LIBRARY;
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 import static androidx.media.MediaBrowserProtocol.CLIENT_MSG_ADD_SUBSCRIPTION;
 import static androidx.media.MediaBrowserProtocol.CLIENT_MSG_CONNECT;
 import static androidx.media.MediaBrowserProtocol.CLIENT_MSG_DISCONNECT;
@@ -1102,7 +1103,9 @@ public abstract class MediaBrowserServiceCompat extends Service {
                     mConnections.remove(b);
 
                     ConnectionRecord connection = null;
-                    for (ConnectionRecord pendingConnection : mPendingConnections) {
+                    Iterator<ConnectionRecord> iter = mPendingConnections.iterator();
+                    while (iter.hasNext()) {
+                        ConnectionRecord pendingConnection = iter.next();
                         // Note: We cannot use Map/Set for mPendingConnections but List because
                         // multiple MediaBrowserCompats with the same UID can request connect.
                         if (pendingConnection.uid == uid) {
@@ -1114,7 +1117,7 @@ public abstract class MediaBrowserServiceCompat extends Service {
                                         pendingConnection.pid, pendingConnection.uid,
                                         rootHints, callbacks);
                             }
-                            mPendingConnections.remove(pendingConnection);
+                            iter.remove();
                         }
                     }
                     if (connection == null) {
@@ -1301,7 +1304,7 @@ public abstract class MediaBrowserServiceCompat extends Service {
      *
      * @hide
      */
-    @RestrictTo(LIBRARY)
+    @RestrictTo(LIBRARY_GROUP)
     public void attachToBaseContext(Context base) {
         attachBaseContext(base);
     }
@@ -1419,7 +1422,7 @@ public abstract class MediaBrowserServiceCompat extends Service {
      * @param option option
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public void onSubscribe(String id, Bundle option) {
     }
 
@@ -1429,7 +1432,7 @@ public abstract class MediaBrowserServiceCompat extends Service {
      * @param id
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public void onUnsubscribe(String id) {
     }
 
@@ -1613,7 +1616,7 @@ public abstract class MediaBrowserServiceCompat extends Service {
      *            contain the information about the change.
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP)
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public void notifyChildrenChanged(@NonNull RemoteUserInfo remoteUserInfo,
             @NonNull String parentId, @NonNull Bundle options) {
         if (remoteUserInfo == null) {

@@ -19,8 +19,8 @@ package a.b;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.navigation.NavArgs;
 import java.io.Serializable;
 import java.lang.IllegalArgumentException;
@@ -28,6 +28,7 @@ import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
+import java.lang.System;
 import java.nio.file.AccessMode;
 import java.util.HashMap;
 
@@ -66,6 +67,11 @@ public class MainFragmentArgs implements NavArgs {
             reference = bundle.getInt("reference");
             __result.arguments.put("reference", reference);
         }
+        if (bundle.containsKey("referenceZeroDefaultValue")) {
+            int referenceZeroDefaultValue;
+            referenceZeroDefaultValue = bundle.getInt("referenceZeroDefaultValue");
+            __result.arguments.put("referenceZeroDefaultValue", referenceZeroDefaultValue);
+        }
         if (bundle.containsKey("floatArg")) {
             float floatArg;
             floatArg = bundle.getFloat("floatArg");
@@ -83,7 +89,13 @@ public class MainFragmentArgs implements NavArgs {
         }
         if (bundle.containsKey("objectArrayArg")) {
             ActivityInfo[] objectArrayArg;
-            objectArrayArg = (ActivityInfo[]) bundle.getParcelableArray("objectArrayArg");
+            Parcelable[] __array = bundle.getParcelableArray("objectArrayArg");
+            if (__array != null) {
+                objectArrayArg = new ActivityInfo[__array.length];
+                System.arraycopy(__array, 0, objectArrayArg, 0, __array.length);
+            } else {
+                objectArrayArg = null;
+            }
             if (objectArrayArg == null) {
                 throw new IllegalArgumentException("Argument \"objectArrayArg\" is marked as non-null but was passed a null value.");
             }
@@ -137,6 +149,11 @@ public class MainFragmentArgs implements NavArgs {
     }
 
     @SuppressWarnings("unchecked")
+    public int getReferenceZeroDefaultValue() {
+        return (int) arguments.get("referenceZeroDefaultValue");
+    }
+
+    @SuppressWarnings("unchecked")
     public float getFloatArg() {
         return (float) arguments.get("floatArg");
     }
@@ -185,6 +202,10 @@ public class MainFragmentArgs implements NavArgs {
         if (arguments.containsKey("reference")) {
             int reference = (int) arguments.get("reference");
             __result.putInt("reference", reference);
+        }
+        if (arguments.containsKey("referenceZeroDefaultValue")) {
+            int referenceZeroDefaultValue = (int) arguments.get("referenceZeroDefaultValue");
+            __result.putInt("referenceZeroDefaultValue", referenceZeroDefaultValue);
         }
         if (arguments.containsKey("floatArg")) {
             float floatArg = (float) arguments.get("floatArg");
@@ -252,6 +273,12 @@ public class MainFragmentArgs implements NavArgs {
         if (getReference() != that.getReference()) {
             return false;
         }
+        if (arguments.containsKey("referenceZeroDefaultValue") != that.arguments.containsKey("referenceZeroDefaultValue")) {
+            return false;
+        }
+        if (getReferenceZeroDefaultValue() != that.getReferenceZeroDefaultValue()) {
+            return false;
+        }
         if (arguments.containsKey("floatArg") != that.arguments.containsKey("floatArg")) {
             return false;
         }
@@ -297,6 +324,7 @@ public class MainFragmentArgs implements NavArgs {
         result = 31 * result + (getMain() != null ? getMain().hashCode() : 0);
         result = 31 * result + getOptional();
         result = 31 * result + getReference();
+        result = 31 * result + getReferenceZeroDefaultValue();
         result = 31 * result + Float.floatToIntBits(getFloatArg());
         result = 31 * result + java.util.Arrays.hashCode(getFloatArrayArg());
         result = 31 * result + java.util.Arrays.hashCode(getObjectArrayArg());
@@ -312,6 +340,7 @@ public class MainFragmentArgs implements NavArgs {
                 + "main=" + getMain()
                 + ", optional=" + getOptional()
                 + ", reference=" + getReference()
+                + ", referenceZeroDefaultValue=" + getReferenceZeroDefaultValue()
                 + ", floatArg=" + getFloatArg()
                 + ", floatArrayArg=" + getFloatArrayArg()
                 + ", objectArrayArg=" + getObjectArrayArg()
@@ -368,6 +397,12 @@ public class MainFragmentArgs implements NavArgs {
         @NonNull
         public Builder setReference(int reference) {
             this.arguments.put("reference", reference);
+            return this;
+        }
+
+        @NonNull
+        public Builder setReferenceZeroDefaultValue(int referenceZeroDefaultValue) {
+            this.arguments.put("referenceZeroDefaultValue", referenceZeroDefaultValue);
             return this;
         }
 
@@ -430,6 +465,11 @@ public class MainFragmentArgs implements NavArgs {
         @SuppressWarnings("unchecked")
         public int getReference() {
             return (int) arguments.get("reference");
+        }
+
+        @SuppressWarnings("unchecked")
+        public int getReferenceZeroDefaultValue() {
+            return (int) arguments.get("referenceZeroDefaultValue");
         }
 
         @SuppressWarnings("unchecked")

@@ -15,7 +15,7 @@
   ~ limitations under the License.
   -->
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <style name="FragmentScenarioEmptyFragmentActivityTheme" parent="android:Theme">
+    <style name="FragmentScenarioEmptyFragmentActivityTheme" parent="android:Theme.WithActionBar">
         <item name="android:windowIsFloating">false</item>
     </style>
 </resources>

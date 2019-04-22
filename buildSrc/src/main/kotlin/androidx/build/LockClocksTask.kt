@@ -67,7 +67,8 @@ open class LockClocksTask : ClockTask() {
     @Suppress("unused")
     @TaskAction
     fun exec() {
-        val source = project.projectDir.path + "/benchmark/lockClocks.sh"
+        val source = project.projectDir.path +
+                "/benchmark/gradle-plugin/src/main/resources/scripts/lockClocks.sh"
         val dest = "/data/local/tmp/lockClocks.sh"
         runAdb(arrayOf("root"), "Failed to run 'adb root'")
         runAdb(arrayOf("push", source, dest), "Failed to push locking script")
@@ -75,6 +76,7 @@ open class LockClocksTask : ClockTask() {
         runAdb(arrayOf("shell", "rm", dest), "Failed to remove clock locking script")
     }
 }
+
 open class UnlockClocksTask : ClockTask() {
     init {
         description = "unlocks clocks of device by rebooting"

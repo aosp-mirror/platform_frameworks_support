@@ -20,11 +20,11 @@ import android.app.job.JobScheduler;
 import android.content.Context;
 import android.os.Build;
 import android.os.PersistableBundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
-import android.support.annotation.RestrictTo;
-import android.support.annotation.VisibleForTesting;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.annotation.RestrictTo;
+import androidx.annotation.VisibleForTesting;
 import androidx.work.Logger;
 import androidx.work.WorkInfo;
 import androidx.work.impl.Scheduler;
@@ -35,6 +35,7 @@ import androidx.work.impl.model.WorkSpec;
 import androidx.work.impl.utils.IdGenerator;
 
 import java.util.List;
+import java.util.Locale;
 
 /**
  * A class that schedules work using {@link android.app.job.JobScheduler}.
@@ -103,6 +104,17 @@ public class SystemJobScheduler implements Scheduler {
                 SystemIdInfo info = workDatabase.systemIdInfoDao()
                         .getSystemIdInfo(workSpec.id);
 
+                if (info != null) {
+                    JobInfo jobInfo = getPendingJobInfo(mJobScheduler, workSpec.id);
+                    if (jobInfo != null) {
+                        Logger.get().debug(TAG, String.format(
+                                "Skipping scheduling %s because JobScheduler is aware of it "
+                                        + "already.",
+                                workSpec.id));
+                        continue;
+                    }
+                }
+
                 int jobId = info != null ? info.systemId : mIdGenerator.nextJobSchedulerIdWithRange(
                         mWorkManager.getConfiguration().getMinJobSchedulerId(),
                         mWorkManager.getConfiguration().getMaxJobSchedulerId());
@@ -147,7 +159,35 @@ public class SystemJobScheduler implements Scheduler {
         Logger.get().debug(
                 TAG,
                 String.format("Scheduling work ID %s Job ID %s", workSpec.id, jobId));
-        mJobScheduler.schedule(jobInfo);
+        try {
+            mJobScheduler.schedule(jobInfo);
+        } catch (IllegalStateException e) {
+            // This only gets thrown if we exceed 100 jobs.  Let's figure out if WorkManager is
+            // responsible for all these jobs.
+            int numWorkManagerJobs = 0;
+            List<JobInfo> allJobInfos = mJobScheduler.getAllPendingJobs();
+            if (allJobInfos != null) {  // Apparently this CAN be null on API 23?
+                for (JobInfo currentJobInfo : allJobInfos) {
+                    if (currentJobInfo.getExtras().getString(
+                            SystemJobInfoConverter.EXTRA_WORK_SPEC_ID) != null) {
+                        ++numWorkManagerJobs;
+                    }
+                }
+            }
+
+            String message = String.format(Locale.getDefault(),
+                    "JobScheduler 100 job limit exceeded.  We count %d WorkManager "
+                            + "jobs in JobScheduler; we have %d tracked jobs in our DB; "
+                            + "our Configuration limit is %d.",
+                    numWorkManagerJobs,
+                    mWorkManager.getWorkDatabase().workSpecDao().getScheduledWork().size(),
+                    mWorkManager.getConfiguration().getMaxSchedulerLimit());
+
+            Logger.get().error(TAG, message);
+
+            // Rethrow a more verbose exception.
+            throw new IllegalStateException(message, e);
+        }
     }
 
     @Override
@@ -197,5 +237,26 @@ public class SystemJobScheduler implements Scheduler {
                 }
             }
         }
+    }
+
+    private static JobInfo getPendingJobInfo(
+            @NonNull JobScheduler jobScheduler,
+            @NonNull String workSpecId) {
+
+        List<JobInfo> jobInfos = jobScheduler.getAllPendingJobs();
+        // Apparently this CAN be null on API 23?
+        if (jobInfos != null) {
+            for (JobInfo jobInfo : jobInfos) {
+                PersistableBundle extras = jobInfo.getExtras();
+                if (extras != null
+                        && extras.containsKey(SystemJobInfoConverter.EXTRA_WORK_SPEC_ID)) {
+                    if (workSpecId.equals(
+                            extras.getString(SystemJobInfoConverter.EXTRA_WORK_SPEC_ID))) {
+                        return jobInfo;
+                    }
+                }
+            }
+        }
+        return null;
     }
 }
