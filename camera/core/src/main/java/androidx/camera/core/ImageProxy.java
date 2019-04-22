@@ -26,7 +26,8 @@ import java.nio.ByteBuffer;
 /** An image proxy which has an analogous interface as {@link android.media.Image}. */
 public interface ImageProxy extends AutoCloseable {
     /**
-     * Closes the image.
+     * Closes the underlying {@link android.media.Image}.  This will occur on return from the
+     * {@link ImageAnalysis.Analyzer} function.
      *
      * <p>@see {@link android.media.Image#close()}.
      */
@@ -130,8 +131,11 @@ public interface ImageProxy extends AutoCloseable {
      * {@link Image}. It is possible for an ImageProxy to wrap something that isn't an
      * {@link Image}. If that's the case then it will return null.
      *
-     * <p>The returned image should not be closed by the application on finishing using it,
-     * instead it should be closed by the ImageProxy.
+     * <p>The returned image should not be closed by the application. Instead it should be closed by
+     * the ImageProxy, which happens, for example, on return from the {@link ImageAnalysis.Analyzer}
+     * function.  Note that lifecycle transitions and unbinding {@link ImageAnalysis} may close the
+     * underlying {@link android.media.ImageReader} and calls on {@link Image} Image will behave as
+     * such @see {@link Image#close()}}.
      *
      * @return the android image.
      */
