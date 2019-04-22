@@ -273,15 +273,15 @@ class AppCompatDelegateImpl extends AppCompatDelegate
         this(context, window, callback, context);
     }
 
+    AppCompatDelegateImpl(Context context, Activity activity, AppCompatCallback callback) {
+        this(context, null, callback, activity);
+    }
+
     private AppCompatDelegateImpl(Context context, Window window, AppCompatCallback callback,
             Object host) {
         mContext = context;
         mAppCompatCallback = callback;
         mHost = host;
-
-        if (window != null) {
-            attachToWindow(window);
-        }
 
         if (mLocalNightMode == MODE_NIGHT_UNSPECIFIED && mHost instanceof Dialog) {
             final AppCompatActivity activity = tryUnwrapContext();
@@ -304,6 +304,10 @@ class AppCompatDelegateImpl extends AppCompatDelegate
             }
         }
 
+        if (window != null) {
+            attachToWindow(window);
+        }
+
         // Preload appcompat-specific handling of drawables that should be handled in a special
         // way (for tinting etc). After the following line completes, calls from AppCompatResources
         // to ResourceManagerInternal (in appcompat-resources) will handle those internal drawable
@@ -322,6 +326,8 @@ class AppCompatDelegateImpl extends AppCompatDelegate
         // attachBaseContext will only be called from an Activity, so make sure we switch this for
         // Dialogs, etc
         mBaseContextAttached = true;
+
+        applyDayNight();
 
         // We lazily fetch the Window for Activities, to allow DayNight to apply in
         // attachBaseContext
@@ -344,16 +350,6 @@ class AppCompatDelegateImpl extends AppCompatDelegate
                 }
             }
         }
-
-        applyDayNight();
-
-        final TintTypedArray a = TintTypedArray.obtainStyledAttributes(
-                mContext, null, sWindowBackgroundStyleable);
-        final Drawable winBg = a.getDrawableIfKnown(0);
-        if (winBg != null) {
-            mWindow.setBackgroundDrawable(winBg);
-        }
-        a.recycle();
 
         mCreated = true;
     }
@@ -494,10 +490,14 @@ class AppCompatDelegateImpl extends AppCompatDelegate
         // This will apply day/night if the time has changed, it will also call through to
         // setupAutoNightModeIfNeeded()
         applyDayNight();
+
+        markStarted(this);
     }
 
     @Override
     public void onStop() {
+        markStopped(this);
+
         ActionBar ab = getSupportActionBar();
         if (ab != null) {
             ab.setShowHideAnimationEnabled(false);
@@ -565,6 +565,9 @@ class AppCompatDelegateImpl extends AppCompatDelegate
 
     @Override
     public void onDestroy() {
+        // There are cases where onStop is not called on all API levels. We make sure here.
+        markStopped(this);
+
         if (mInvalidatePanelMenuPosted) {
             mWindow.getDecorView().removeCallbacks(mInvalidatePanelMenuRunnable);
         }
@@ -614,6 +617,15 @@ class AppCompatDelegateImpl extends AppCompatDelegate
         mAppCompatWindowCallback = new AppCompatWindowCallback(callback);
         // Now install the new callback
         window.setCallback(mAppCompatWindowCallback);
+
+        final TintTypedArray a = TintTypedArray.obtainStyledAttributes(
+                mContext, null, sWindowBackgroundStyleable);
+        final Drawable winBg = a.getDrawableIfKnown(0);
+        if (winBg != null) {
+            // Now set the background drawable
+            window.setBackgroundDrawable(winBg);
+        }
+        a.recycle();
 
         mWindow = window;
     }
@@ -2124,15 +2136,26 @@ class AppCompatDelegateImpl extends AppCompatDelegate
     }
 
     private boolean applyDayNight(final boolean recreateIfNeeded) {
+        if (mIsDestroyed) {
+            // If we're destroyed, ignore the call
+            return false;
+        }
+
         @NightMode final int nightMode = calculateNightMode();
         @ApplyableNightMode final int modeToApply = mapNightMode(nightMode);
         final boolean applied = updateForNightMode(modeToApply, recreateIfNeeded);
 
         if (nightMode == MODE_NIGHT_AUTO_TIME) {
-            // If we're already been started, we may need to setup auto mode again
             getAutoTimeNightModeManager().setup();
-        } else if (nightMode == MODE_NIGHT_AUTO_BATTERY) {
+        } else if (mAutoTimeNightModeManager != null) {
+            // Make sure we clean up the existing manager
+            mAutoTimeNightModeManager.cleanup();
+        }
+        if (nightMode == MODE_NIGHT_AUTO_BATTERY) {
             getAutoBatteryNightModeManager().setup();
+        } else if (mAutoBatteryNightModeManager != null) {
+            // Make sure we clean up the existing manager
+            mAutoBatteryNightModeManager.cleanup();
         }
 
         return applied;
@@ -2332,10 +2355,16 @@ class AppCompatDelegateImpl extends AppCompatDelegate
     private boolean isActivityManifestHandlingUiMode() {
         if (!mActivityHandlesUiModeChecked && mHost instanceof Activity) {
             final PackageManager pm = mContext.getPackageManager();
+            if (pm == null) {
+                // If we don't have a PackageManager, return false. Don't set
+                // the checked flag though so we still check again later
+                return false;
+            }
             try {
                 final ActivityInfo info = pm.getActivityInfo(
                         new ComponentName(mContext, mHost.getClass()), 0);
-                mActivityHandlesUiMode = (info.configChanges & ActivityInfo.CONFIG_UI_MODE) != 0;
+                mActivityHandlesUiMode = info != null
+                        && (info.configChanges & ActivityInfo.CONFIG_UI_MODE) != 0;
             } catch (PackageManager.NameNotFoundException e) {
                 // This shouldn't happen but let's not crash because of it, we'll just log and
                 // return false (since most apps won't be handling it)
@@ -2903,7 +2932,12 @@ class AppCompatDelegateImpl extends AppCompatDelegate
 
         void cleanup() {
             if (mReceiver != null) {
-                mContext.unregisterReceiver(mReceiver);
+                try {
+                    mContext.unregisterReceiver(mReceiver);
+                } catch (IllegalArgumentException e) {
+                    // If the receiver has already been unregistered, unregisterReceiver() will
+                    // throw an exception. Just ignore and carry-on...
+                }
                 mReceiver = null;
             }
         }

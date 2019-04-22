@@ -364,7 +364,7 @@ public class MediaControlViewTest {
                     @Override
                     public SessionResult onCustomCommand(@NonNull MediaController controller,
                             @NonNull SessionCommand command, @Nullable Bundle args) {
-                        if (TextUtils.equals(command.getCustomCommand(),
+                        if (TextUtils.equals(command.getCustomAction(),
                                 MediaControlView.EVENT_UPDATE_TRACK_STATUS)) {
                             List<String> list = (args != null)
                                     ? args.getStringArrayList(KEY_SUBTITLE_TRACK_LANGUAGE_LIST)
@@ -372,7 +372,7 @@ public class MediaControlViewTest {
                             if (list != null && list.size() == subtitleTrackCount) {
                                 latchForTrackUpdate.countDown();
                             }
-                        } else if (TextUtils.equals(command.getCustomCommand(),
+                        } else if (TextUtils.equals(command.getCustomAction(),
                                 MediaControlView.EVENT_UPDATE_SUBTITLE_SELECTED)) {
                             int subtitleIndex = args != null ? args.getInt(
                                     MediaControlView.KEY_SELECTED_SUBTITLE_INDEX) : -1;
@@ -527,8 +527,10 @@ public class MediaControlViewTest {
     }
 
     private MediaController createController(MediaController.ControllerCallback callback) {
-        MediaController controller = new MediaController(mVideoView.getContext(),
-                mVideoView.getSessionToken(), mMainHandlerExecutor, callback);
+        MediaController controller = new MediaController.Builder(mVideoView.getContext())
+                .setSessionToken(mVideoView.getSessionToken())
+                .setControllerCallback(mMainHandlerExecutor, callback)
+                .build();
         mControllers.add(controller);
         return controller;
     }

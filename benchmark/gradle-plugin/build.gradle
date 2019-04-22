@@ -21,8 +21,11 @@ import androidx.build.LibraryVersions
 
 import static androidx.build.dependencies.DependenciesKt.*
 
-apply plugin: androidx.build.SupportKotlinLibraryPlugin
-apply plugin: 'java-gradle-plugin'
+plugins {
+    id("AndroidXPlugin")
+    id("kotlin")
+    id("java-gradle-plugin")
+}
 
 sourceSets {
     test.java.srcDirs += 'src/main/kotlin'
@@ -32,7 +35,7 @@ dependencies {
     implementation gradleApi()
     implementation(build_libs.gradle)
     implementation(KOTLIN_STDLIB)
-    implementation(TEST_RUNNER)
+    implementation(ANDROIDX_TEST_RUNNER)
 
     testImplementation gradleTestKit()
     testImplementation(JUNIT)
