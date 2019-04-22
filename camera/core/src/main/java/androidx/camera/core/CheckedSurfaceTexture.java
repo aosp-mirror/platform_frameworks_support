@@ -185,6 +185,7 @@ final class CheckedSurfaceTexture extends DeferrableSurface {
     @UiThread
     void release() {
         if (mSurface == null && mSurfaceTexture == null) {
+            clearUpWhenDetached();
             return;
         }
 
@@ -210,6 +211,10 @@ final class CheckedSurfaceTexture extends DeferrableSurface {
             resource.setReleasing(true);
         }
 
+        clearUpWhenDetached();
+    }
+
+    void clearUpWhenDetached() {
         setOnSurfaceDetachedListener(CameraXExecutors.mainThreadExecutor(),
                 new OnSurfaceDetachedListener() {
                     @Override

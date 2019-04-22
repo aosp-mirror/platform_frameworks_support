@@ -21,6 +21,7 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.timeout;
 import static org.mockito.Mockito.verify;
 
+import android.Manifest;
 import android.graphics.ImageFormat;
 import android.hardware.camera2.CameraDevice;
 import android.media.ImageReader;
@@ -41,10 +42,12 @@ import androidx.camera.testing.fakes.FakeUseCaseConfig;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.SmallTest;
+import androidx.test.rule.GrantPermissionRule;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -64,6 +67,10 @@ public final class CameraTest {
     TestUseCase mFakeUseCase;
     OnImageAvailableListener mMockOnImageAvailableListener;
     String mCameraId;
+
+    @Rule
+    public GrantPermissionRule mRuntimePermissionRule = GrantPermissionRule.grant(
+            Manifest.permission.CAMERA);
 
     private static String getCameraIdForLensFacingUnchecked(LensFacing lensFacing) {
         try {
