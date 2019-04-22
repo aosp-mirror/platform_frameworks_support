@@ -16,6 +16,7 @@
 
 package androidx.camera.core;
 
+import android.graphics.ImageFormat;
 import android.media.Image;
 import android.media.ImageReader;
 import android.os.Handler;
@@ -126,10 +127,10 @@ class ProcessingImageReader implements ImageReaderProxy {
      * @param height           Height of the ImageReader
      * @param format           Image format
      * @param maxImages        Maximum Image number the ImageReader can hold. The capacity should
-     *                        be greater than the captureBundle size in order to hold all the
+     *                         be greater than the captureBundle size in order to hold all the
      *                         Images needed with this processing.
      * @param handler          Handler for executing
-     * {@link ImageReaderProxy.OnImageAvailableListener}
+     *                         {@link ImageReaderProxy.OnImageAvailableListener}
      * @param captureBundle    The {@link CaptureBundle} includes the processing information
      * @param captureProcessor The {@link CaptureProcessor} to be invoked when the Images are ready
      */
@@ -143,7 +144,10 @@ class ProcessingImageReader implements ImageReaderProxy {
                 format,
                 maxImages >= captureBundleSize ? maxImages : captureBundleSize,
                 handler);
-        mOutputImageReader = ImageReader.newInstance(width, height, format, maxImages);
+        // Output format should always be YUV as ImageWriter only accepts YUV. CaptureProcessor
+        // should be responsible of correcting the format.
+        mOutputImageReader = ImageReader.newInstance(width, height, ImageFormat.YUV_420_888,
+                maxImages);
 
         init(handler, captureBundle, captureProcessor);
     }
@@ -156,8 +160,10 @@ class ProcessingImageReader implements ImageReaderProxy {
                     "MetadataImageReader is smaller than CaptureBundle.");
         }
         mInputImageReader = imageReader;
+        // Output format should always be YUV as ImageWriter only accepts YUV. CaptureProcessor
+        // should be responsible of correcting the format.
         mOutputImageReader = ImageReader.newInstance(imageReader.getWidth(),
-                imageReader.getHeight(), imageReader.getImageFormat(), imageReader.getMaxImages());
+                imageReader.getHeight(), ImageFormat.YUV_420_888, imageReader.getMaxImages());
 
         init(handler, captureBundle, captureProcessor);
     }

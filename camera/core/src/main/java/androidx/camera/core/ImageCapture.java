@@ -156,7 +156,8 @@ public class ImageCapture extends UseCase {
         mCaptureProcessor = mConfig.getCaptureProcessor(null);
 
         if (mCaptureProcessor != null) {
-            setImageFormat(ImageFormat.YUV_420_888);
+            // Force JPG source when CaptureProcessor is used.
+            setImageFormat(ImageFormat.JPEG);
         } else {
             setImageFormat(ImageReaderFormatRecommender.chooseCombo().imageCaptureFormat());
         }
