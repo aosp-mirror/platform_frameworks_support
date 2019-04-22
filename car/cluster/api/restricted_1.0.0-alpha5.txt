@@ -1,0 +1,16 @@
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
+=======
+// Signature format: 3.0
+package androidx.car.cluster.navigation {
+
+  public class ImageReference implements androidx.versionedparcelable.VersionedParcelable {
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX) public String getRawContentUri();
+  }
+
+  public class RichTextElement implements androidx.versionedparcelable.VersionedParcelable {
+    ctor @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX) public RichTextElement(String?, androidx.car.cluster.navigation.ImageReference?);
+  }
+
+}
+
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)

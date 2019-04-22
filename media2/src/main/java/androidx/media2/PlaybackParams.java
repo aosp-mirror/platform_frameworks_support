@@ -1,3 +1,4 @@
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
 /*
  * Copyright 2018 The Android Open Source Project
  *
@@ -250,3 +251,5 @@ public final class PlaybackParams {
         }
     }
 }
+=======
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)

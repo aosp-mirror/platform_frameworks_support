@@ -21,6 +21,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -52,6 +53,9 @@ public class BiometricPrompt implements BiometricConstants {
 
     private static final String TAG = "BiometricPromptCompat";
     private static final boolean DEBUG = false;
+    // In order to keep consistent behavior between versions, we need to send
+    // FingerprintDialogFragment a message indicating whether or not to dismiss the UI instantly.
+    private static final int DELAY_MILLIS = 500;
 
     static final String DIALOG_FRAGMENT_TAG = "FingerprintDialogFragment";
     static final String FINGERPRINT_HELPER_FRAGMENT_TAG = "FingerprintHelperFragment";
@@ -466,8 +470,13 @@ public class BiometricPrompt implements BiometricConstants {
         final FragmentManager fragmentManager = mFragmentActivity.getSupportFragmentManager();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            // Create the fragment that wraps BiometricPrompt once.
-            if (mBiometricFragment == null) {
+
+            BiometricFragment biometricFragment =
+                    (BiometricFragment) fragmentManager.findFragmentByTag(
+                            BIOMETRIC_FRAGMENT_TAG);
+            if (biometricFragment != null) {
+                mBiometricFragment = biometricFragment;
+            } else {
                 mBiometricFragment = BiometricFragment.newInstance();
                 mBiometricFragment.setCallbacks(mExecutor, mNegativeButtonListener,
                         mAuthenticationCallback);
@@ -476,38 +485,68 @@ public class BiometricPrompt implements BiometricConstants {
             mBiometricFragment.setCryptoObject(crypto);
             mBiometricFragment.setBundle(bundle);
 
-            if (fragmentManager.findFragmentByTag(BIOMETRIC_FRAGMENT_TAG) == null) {
+            if (biometricFragment == null) {
                 // If the fragment hasn't been added before, add it. It will also start the
                 // authentication.
                 fragmentManager.beginTransaction().add(mBiometricFragment, BIOMETRIC_FRAGMENT_TAG)
                         .commit();
-            } else {
+            } else if (mBiometricFragment.isDetached()) {
                 // If it's been added before, just re-attach it.
                 fragmentManager.beginTransaction().attach(mBiometricFragment).commit();
             }
         } else {
             // Create the UI
-            if (mFingerprintDialogFragment == null) {
+            FingerprintDialogFragment fingerprintDialogFragment =
+                    (FingerprintDialogFragment) fragmentManager.findFragmentByTag(
+                            DIALOG_FRAGMENT_TAG);
+            if (fingerprintDialogFragment != null) {
+                mFingerprintDialogFragment = fingerprintDialogFragment;
+            } else {
                 mFingerprintDialogFragment = FingerprintDialogFragment.newInstance();
                 mFingerprintDialogFragment.setNegativeButtonListener(mNegativeButtonListener);
             }
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
+=======
+
+            mFingerprintDialogFragment.setNegativeButtonListener(mNegativeButtonListener);
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
             mFingerprintDialogFragment.setBundle(bundle);
-            mFingerprintDialogFragment.show(fragmentManager, DIALOG_FRAGMENT_TAG);
+            if (fingerprintDialogFragment == null) {
+                mFingerprintDialogFragment.show(fragmentManager, DIALOG_FRAGMENT_TAG);
+            } else if (mFingerprintDialogFragment.isDetached()) {
+                fragmentManager.beginTransaction().attach(mFingerprintDialogFragment).commit();
+            }
 
             // Create the connection to FingerprintManager
-            if (mFingerprintHelperFragment == null) {
+            FingerprintHelperFragment fingerprintHelperFragment =
+                    (FingerprintHelperFragment) fragmentManager.findFragmentByTag(
+                            FINGERPRINT_HELPER_FRAGMENT_TAG);
+            if (fingerprintHelperFragment != null) {
+                mFingerprintHelperFragment = fingerprintHelperFragment;
+            } else {
                 mFingerprintHelperFragment = FingerprintHelperFragment.newInstance();
                 mFingerprintHelperFragment.setCallback(mExecutor, mAuthenticationCallback);
             }
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
             mFingerprintHelperFragment.setHandler(mFingerprintDialogFragment.getHandler());
             mFingerprintHelperFragment.setCryptoObject(crypto);
+=======
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
 
-            if (fragmentManager.findFragmentByTag(FINGERPRINT_HELPER_FRAGMENT_TAG) == null) {
+            mFingerprintHelperFragment.setCallback(mExecutor, mAuthenticationCallback);
+            final Handler fingerprintDialogHandler = mFingerprintDialogFragment.getHandler();
+            mFingerprintHelperFragment.setHandler(fingerprintDialogHandler);
+            mFingerprintHelperFragment.setCryptoObject(crypto);
+            fingerprintDialogHandler.sendMessageDelayed(
+                    fingerprintDialogHandler.obtainMessage(
+                            FingerprintDialogFragment.DISPLAYED_FOR_500_MS), DELAY_MILLIS);
+
+            if (fingerprintHelperFragment == null) {
                 // If the fragment hasn't been added before, add it. It will also start the
                 // authentication.
                 fragmentManager.beginTransaction()
                         .add(mFingerprintHelperFragment, FINGERPRINT_HELPER_FRAGMENT_TAG).commit();
-            } else {
+            } else if (mFingerprintHelperFragment.isDetached()) {
                 // If it's been added before, just re-attach it.
                 fragmentManager.beginTransaction().attach(mFingerprintHelperFragment).commit();
             }

@@ -31,13 +31,13 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 
 /**
- * {@link ViewModelProvider.KeyedFactory} that can create ViewModels accessing and contributing
+ * {@link androidx.lifecycle.ViewModelProvider.Factory} that can create ViewModels accessing and contributing
  * to a saved state via {@link SavedStateHandle} received in a constructor. If {@code defaultArgs}
  * bundle was passed in {@link #SavedStateVMFactory(Fragment, Bundle)}
  * or {@link #SavedStateVMFactory(FragmentActivity, Bundle)}, it will provide default values in
  * {@code SavedStateHandle}.
  * <p>
- * If ViewModel is instance of {@link AndroidViewModel}, it looks for a constructor that
+ * If ViewModel is instance of {@link androidx.lifecycle.AndroidViewModel}, it looks for a constructor that
  * receives an {@link Application} and {@link SavedStateHandle} (in this order), otherwise
  * it looks for a constructor that receives {@link SavedStateHandle} only.
  */
@@ -48,7 +48,7 @@ public final class SavedStateVMFactory extends AbstractSavedStateVMFactory {
     /**
      * Creates {@link SavedStateVMFactory}.
      * <p>
-     * {@link ViewModel} created with this factory can access to saved state scoped to
+     * {@link androidx.lifecycle.ViewModel} created with this factory can access to saved state scoped to
      * the given {@code fragment}.
      *
      * @param fragment scope of this fragment will be used for state saving
@@ -60,7 +60,7 @@ public final class SavedStateVMFactory extends AbstractSavedStateVMFactory {
     /**
      * Creates {@link SavedStateVMFactory}.
      * <p>
-     * {@link ViewModel} created with this factory can access to saved state scoped to
+     * {@link androidx.lifecycle.ViewModel} created with this factory can access to saved state scoped to
      * the given {@code fragment}.
      *
      * @param fragment scope of this fragment will be used for state saving
@@ -76,7 +76,7 @@ public final class SavedStateVMFactory extends AbstractSavedStateVMFactory {
     /**
      * Creates {@link SavedStateVMFactory}.
      * <p>
-     * {@link ViewModel} created with this factory can access to saved state scoped to
+     * {@link androidx.lifecycle.ViewModel} created with this factory can access to saved state scoped to
      * the given {@code activity}.
      *
      * @param activity scope of this activity will be used for state saving
@@ -88,7 +88,7 @@ public final class SavedStateVMFactory extends AbstractSavedStateVMFactory {
     /**
      * Creates {@link SavedStateVMFactory}.
      * <p>
-     * {@link ViewModel} created with this factory can access to saved state scoped to
+     * {@link androidx.lifecycle.ViewModel} created with this factory can access to saved state scoped to
      * the given {@code activity}.
      *
      * @param activity scope of this activity will be used for state saving
@@ -103,11 +103,16 @@ public final class SavedStateVMFactory extends AbstractSavedStateVMFactory {
     /**
      * Creates {@link SavedStateVMFactory}.
      * <p>
-     * {@link ViewModel} created with this factory can access to saved state scoped to
+     * {@link androidx.lifecycle.ViewModel} created with this factory can access to saved state scoped to
      * the given {@code activity}.
      *
      * @param application an application
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
      * @param savedStateRegistry registry to retrieve saved state from and later to contribute
+=======
+     * @param owner {@link SavedStateRegistryOwner} that will provide restored state for created
+     * {@link androidx.lifecycle.ViewModel ViewModels}
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
      * @param defaultArgs values from this {@code Bundle} will be used as defaults by
      * {@link SavedStateHandle} if there is no previously saved state or previously saved state
      * misses a value by such key.

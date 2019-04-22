@@ -22,18 +22,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import java.util.concurrent.atomic.AtomicInteger
 
 private const val ARG_KEY = "key"
 
 class FragmentAdapter(
-    fragmentManager: FragmentManager,
+    fragmentActivity: FragmentActivity,
     private val items: List<String>
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
 ) : FragmentStateAdapter(fragmentManager) {
     val attachCount = AtomicInteger(0)
     val destroyCount = AtomicInteger(0)
+=======
+) : FragmentStateAdapter(fragmentActivity), SelfChecking {
+    private val attachCount = AtomicInteger(0)
+    private val destroyCount = AtomicInteger(0)
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
 
     override fun getItem(position: Int): Fragment = PageFragment().apply {
         arguments = Bundle(1).apply { putString(ARG_KEY, items[position]) }

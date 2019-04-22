@@ -218,6 +218,7 @@ package androidx.appcompat.app {
 
   public class AppCompatActivity extends androidx.fragment.app.FragmentActivity implements androidx.appcompat.app.ActionBarDrawerToggle.DelegateProvider androidx.appcompat.app.AppCompatCallback androidx.core.app.TaskStackBuilder.SupportParentable {
     ctor public AppCompatActivity();
+    ctor @ContentView public AppCompatActivity(@LayoutRes int);
     method public androidx.appcompat.app.AppCompatDelegate getDelegate();
     method public androidx.appcompat.app.ActionBarDrawerToggle.Delegate? getDrawerToggleDelegate();
     method public androidx.appcompat.app.ActionBar? getSupportActionBar();
@@ -252,9 +253,17 @@ package androidx.appcompat.app {
   public abstract class AppCompatDelegate {
     method public abstract void addContentView(android.view.View!, android.view.ViewGroup.LayoutParams!);
     method public abstract boolean applyDayNight();
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
     method public static androidx.appcompat.app.AppCompatDelegate! create(android.app.Activity!, androidx.appcompat.app.AppCompatCallback!);
     method public static androidx.appcompat.app.AppCompatDelegate! create(android.app.Dialog!, androidx.appcompat.app.AppCompatCallback!);
     method public static androidx.appcompat.app.AppCompatDelegate! create(android.content.Context!, android.view.Window!, androidx.appcompat.app.AppCompatCallback!);
+=======
+    method public void attachBaseContext(android.content.Context!);
+    method public static androidx.appcompat.app.AppCompatDelegate create(android.app.Activity, androidx.appcompat.app.AppCompatCallback?);
+    method public static androidx.appcompat.app.AppCompatDelegate create(android.app.Dialog, androidx.appcompat.app.AppCompatCallback?);
+    method public static androidx.appcompat.app.AppCompatDelegate create(android.content.Context, android.view.Window, androidx.appcompat.app.AppCompatCallback?);
+    method public static androidx.appcompat.app.AppCompatDelegate create(android.content.Context, android.app.Activity, androidx.appcompat.app.AppCompatCallback?);
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
     method public abstract android.view.View! createView(android.view.View?, String!, android.content.Context, android.util.AttributeSet);
     method public abstract <T extends android.view.View> T! findViewById(@IdRes int);
     method public static int getDefaultNightMode();
@@ -272,7 +281,6 @@ package androidx.appcompat.app {
     method public abstract void onPostCreate(android.os.Bundle!);
     method public abstract void onPostResume();
     method public abstract void onSaveInstanceState(android.os.Bundle!);
-    method public void onSetTheme(@StyleRes int);
     method public abstract void onStart();
     method public abstract void onStop();
     method public abstract boolean requestWindowFeature(int);
@@ -284,6 +292,7 @@ package androidx.appcompat.app {
     method public abstract void setHandleNativeActionModesEnabled(boolean);
     method public abstract void setLocalNightMode(int);
     method public abstract void setSupportActionBar(androidx.appcompat.widget.Toolbar?);
+    method public void setTheme(@StyleRes int);
     method public abstract void setTitle(CharSequence?);
     method public abstract androidx.appcompat.view.ActionMode? startSupportActionMode(androidx.appcompat.view.ActionMode.Callback);
     field public static final int FEATURE_ACTION_MODE_OVERLAY = 10; // 0xa

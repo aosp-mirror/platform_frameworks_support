@@ -20,11 +20,11 @@ import static androidx.work.impl.Scheduler.MAX_SCHEDULER_LIMIT;
 
 import android.content.Context;
 import android.os.Build;
-import android.support.annotation.IntRange;
-import android.support.annotation.NonNull;
-import android.support.annotation.RestrictTo;
 import android.util.Log;
 
+import androidx.annotation.IntRange;
+import androidx.annotation.NonNull;
+import androidx.annotation.RestrictTo;
 import androidx.work.impl.Scheduler;
 import androidx.work.impl.utils.IdGenerator;
 
@@ -210,12 +210,18 @@ public final class Configuration {
         /**
          * Specifies the maximum number of system requests made by {@link WorkManager}
          * when using {@link android.app.job.JobScheduler} or {@link android.app.AlarmManager}.
-         * When the application exceeds this limit, {@link WorkManager} maintains an internal queue
-         * of {@link WorkRequest}s, and schedules them when slots become free.
          * <p>
-         * {@link WorkManager} requires a minimum of {@link Configuration#MIN_SCHEDULER_LIMIT}
-         * slots; this is also the default value. The total number of slots also cannot exceed
-         * {@code 50}.
+         * By default, WorkManager might schedule a large number of alarms or JobScheduler
+         * jobs.  If your app uses JobScheduler or AlarmManager directly, this might exhaust the
+         * OS-enforced limit on the number of jobs or alarms an app is allowed to schedule.  To help
+         * manage this situation, you can use this method to reduce the number of underlying jobs
+         * and alarms that WorkManager might schedule.
+         * <p>
+         * When the application exceeds this limit, WorkManager maintains an internal queue of
+         * {@link WorkRequest}s, and schedules them when slots become free.
+         * <p>
+         * WorkManager requires a minimum of {@link Configuration#MIN_SCHEDULER_LIMIT} slots; this
+         * is also the default value. The total number of slots also cannot exceed {@code 50}.
          *
          * @param maxSchedulerLimit The total number of jobs which can be enqueued by
          *                          {@link WorkManager} when using
@@ -257,5 +263,19 @@ public final class Configuration {
         public @NonNull Configuration build() {
             return new Configuration(this);
         }
+    }
+
+    /**
+     * A class that can provide the {@link Configuration} for WorkManager.  If your
+     * {@link android.app.Application} class implements this interface and you have disabled
+     * automatic initialization ({@link WorkManager#initialize(Context, Configuration)}, WorkManager
+     * can automatically create and configure itself on-demand.
+     */
+    public interface Provider {
+
+        /**
+         * @return The {@link Configuration} used to initialize WorkManager
+         */
+        @NonNull Configuration getWorkManagerConfiguration();
     }
 }

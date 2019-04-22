@@ -41,6 +41,7 @@
             app:subtitleTextColor="@color/color_state_lilac_alpha"/>
 
     <androidx.appcompat.widget.Toolbar
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
             android:id="@+id/toolbar_textcolor_hex"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
@@ -49,5 +50,33 @@
             android:minHeight="?attr/actionBarSize"
             app:titleTextColor="#FF00FF"
             app:subtitleTextColor="#FF00FF"/>
+=======
+        android:id="@+id/toolbar_textcolor_hex"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize"
+        app:subtitle="Subtitle"
+        app:subtitleTextColor="#FF00FF"
+        app:title="Title"
+        app:titleTextColor="#FF00FF" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_themedcsl_colorcontrolnormal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.ThemedCslMagenta"
+        app:menu="@menu/popup_menu"
+        app:subtitle="Subtitle"
+        app:title="Title" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize"
+        app:title="Title"
+        app:menu="@menu/sample_actions" />
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
 
 </LinearLayout>

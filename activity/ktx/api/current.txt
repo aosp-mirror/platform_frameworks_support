@@ -5,5 +5,10 @@ package androidx.activity {
     ctor public ActivityViewModelLazyKt();
   }
 
+  public final class OnBackPressedDispatcherKt {
+    ctor public OnBackPressedDispatcherKt();
+    method public static androidx.activity.OnBackPressedCallback addCallback(androidx.activity.OnBackPressedDispatcher, androidx.lifecycle.LifecycleOwner? owner = null, boolean enabled = true, kotlin.jvm.functions.Function1<? super androidx.activity.OnBackPressedCallback,kotlin.Unit> onBackPressed);
+  }
+
 }
 

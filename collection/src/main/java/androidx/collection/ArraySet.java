@@ -16,11 +16,13 @@
 
 package androidx.collection;
 
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
+=======
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RestrictTo;
 
 import java.lang.reflect.Array;
 import java.util.Collection;
@@ -406,6 +408,7 @@ public final class ArraySet<E> implements Collection<E>, Set<E> {
     }
 
     /**
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
      * Special fast path for appending items to the end of the array without validation.
      * The array must already be large enough to contain the item.
      * @hide
@@ -435,6 +438,8 @@ public final class ArraySet<E> implements Collection<E>, Set<E> {
     }
 
     /**
+=======
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
      * Perform a {@link #add(Object)} of all values in <var>array</var>
      * @param array The array whose contents are to be retrieved.
      */

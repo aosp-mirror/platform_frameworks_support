@@ -1,0 +1,17 @@
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
+=======
+// Signature format: 3.0
+package androidx.room {
+
+  @RestrictTo({RestrictTo.Scope.LIBRARY_GROUP_PREFIX}) public final class CoroutinesRoom {
+    method public static suspend <R> Object? execute(androidx.room.RoomDatabase p, boolean db, java.util.concurrent.Callable<R> inTransaction, kotlin.coroutines.experimental.Continuation<? super R> callable);
+    field public static final androidx.room.CoroutinesRoom.Companion! Companion;
+  }
+
+  public static final class CoroutinesRoom.Companion {
+    method public suspend <R> Object? execute(androidx.room.RoomDatabase db, boolean inTransaction, java.util.concurrent.Callable<R> callable, kotlin.coroutines.experimental.Continuation<? super R> p);
+  }
+
+}
+
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)

@@ -29,6 +29,10 @@ package androidx.work {
     method public androidx.work.Configuration.Builder setWorkerFactory(androidx.work.WorkerFactory);
   }
 
+  public static interface Configuration.Provider {
+    method public androidx.work.Configuration getWorkManagerConfiguration();
+  }
+
   public final class Constraints {
     ctor public Constraints(androidx.work.Constraints);
     method public androidx.work.NetworkType getRequiredNetworkType();
@@ -58,6 +62,8 @@ package androidx.work {
     ctor public Data(androidx.work.Data);
     method public boolean getBoolean(String, boolean);
     method public boolean[]? getBooleanArray(String);
+    method public byte getByte(String, byte);
+    method public byte[]? getByteArray(String);
     method public double getDouble(String, double);
     method public double[]? getDoubleArray(String);
     method public float getFloat(String, float);
@@ -80,6 +86,8 @@ package androidx.work {
     method public androidx.work.Data.Builder putAll(java.util.Map<java.lang.String,java.lang.Object>);
     method public androidx.work.Data.Builder putBoolean(String, boolean);
     method public androidx.work.Data.Builder putBooleanArray(String, boolean[]);
+    method public androidx.work.Data.Builder putByte(String, byte);
+    method public androidx.work.Data.Builder putByteArray(String, byte[]);
     method public androidx.work.Data.Builder putDouble(String, double);
     method public androidx.work.Data.Builder putDoubleArray(String, double[]);
     method public androidx.work.Data.Builder putFloat(String, float);
@@ -153,7 +161,7 @@ package androidx.work {
 
   public interface Operation {
     method public com.google.common.util.concurrent.ListenableFuture<androidx.work.Operation.State.SUCCESS> getResult();
-    method public android.arch.lifecycle.LiveData<androidx.work.Operation.State> getState();
+    method public androidx.lifecycle.LiveData<androidx.work.Operation.State> getState();
   }
 
   public abstract static class Operation.State {
@@ -192,7 +200,7 @@ package androidx.work {
     method public static androidx.work.WorkContinuation combine(java.util.List<androidx.work.WorkContinuation>);
     method public abstract androidx.work.Operation enqueue();
     method public abstract com.google.common.util.concurrent.ListenableFuture<java.util.List<androidx.work.WorkInfo>> getWorkInfos();
-    method public abstract android.arch.lifecycle.LiveData<java.util.List<androidx.work.WorkInfo>> getWorkInfosLiveData();
+    method public abstract androidx.lifecycle.LiveData<java.util.List<androidx.work.WorkInfo>> getWorkInfosLiveData();
     method public final androidx.work.WorkContinuation then(androidx.work.OneTimeWorkRequest);
     method public abstract androidx.work.WorkContinuation then(java.util.List<androidx.work.OneTimeWorkRequest>);
   }
@@ -200,6 +208,7 @@ package androidx.work {
   public final class WorkInfo {
     method public java.util.UUID getId();
     method public androidx.work.Data getOutputData();
+    method public int getRunAttemptCount();
     method public androidx.work.WorkInfo.State getState();
     method public java.util.Set<java.lang.String> getTags();
   }
@@ -228,15 +237,16 @@ package androidx.work {
     method public abstract androidx.work.Operation enqueueUniquePeriodicWork(String, androidx.work.ExistingPeriodicWorkPolicy, androidx.work.PeriodicWorkRequest);
     method public androidx.work.Operation enqueueUniqueWork(String, androidx.work.ExistingWorkPolicy, androidx.work.OneTimeWorkRequest);
     method public abstract androidx.work.Operation enqueueUniqueWork(String, androidx.work.ExistingWorkPolicy, java.util.List<androidx.work.OneTimeWorkRequest>);
-    method public static androidx.work.WorkManager getInstance();
+    method @Deprecated public static androidx.work.WorkManager getInstance();
+    method public static androidx.work.WorkManager getInstance(android.content.Context);
     method public abstract com.google.common.util.concurrent.ListenableFuture<java.lang.Long> getLastCancelAllTimeMillis();
-    method public abstract android.arch.lifecycle.LiveData<java.lang.Long> getLastCancelAllTimeMillisLiveData();
+    method public abstract androidx.lifecycle.LiveData<java.lang.Long> getLastCancelAllTimeMillisLiveData();
     method public abstract com.google.common.util.concurrent.ListenableFuture<androidx.work.WorkInfo> getWorkInfoById(java.util.UUID);
-    method public abstract android.arch.lifecycle.LiveData<androidx.work.WorkInfo> getWorkInfoByIdLiveData(java.util.UUID);
+    method public abstract androidx.lifecycle.LiveData<androidx.work.WorkInfo> getWorkInfoByIdLiveData(java.util.UUID);
     method public abstract com.google.common.util.concurrent.ListenableFuture<java.util.List<androidx.work.WorkInfo>> getWorkInfosByTag(String);
-    method public abstract android.arch.lifecycle.LiveData<java.util.List<androidx.work.WorkInfo>> getWorkInfosByTagLiveData(String);
+    method public abstract androidx.lifecycle.LiveData<java.util.List<androidx.work.WorkInfo>> getWorkInfosByTagLiveData(String);
     method public abstract com.google.common.util.concurrent.ListenableFuture<java.util.List<androidx.work.WorkInfo>> getWorkInfosForUniqueWork(String);
-    method public abstract android.arch.lifecycle.LiveData<java.util.List<androidx.work.WorkInfo>> getWorkInfosForUniqueWorkLiveData(String);
+    method public abstract androidx.lifecycle.LiveData<java.util.List<androidx.work.WorkInfo>> getWorkInfosForUniqueWorkLiveData(String);
     method public static void initialize(android.content.Context, androidx.work.Configuration);
     method public abstract androidx.work.Operation pruneWork();
   }

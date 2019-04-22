@@ -22,6 +22,7 @@ import static androidx.work.WorkInfo.State.ENQUEUED;
 import static androidx.work.WorkRequest.MAX_BACKOFF_MILLIS;
 import static androidx.work.WorkRequest.MIN_BACKOFF_MILLIS;
 
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
 import android.arch.core.util.Function;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Embedded;
@@ -31,7 +32,19 @@ import android.arch.persistence.room.PrimaryKey;
 import android.arch.persistence.room.Relation;
 import android.support.annotation.NonNull;
 import android.support.annotation.RestrictTo;
+=======
+import android.os.Build;
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
 
+import androidx.annotation.NonNull;
+import androidx.annotation.RestrictTo;
+import androidx.arch.core.util.Function;
+import androidx.room.ColumnInfo;
+import androidx.room.Embedded;
+import androidx.room.Entity;
+import androidx.room.Index;
+import androidx.room.PrimaryKey;
+import androidx.room.Relation;
 import androidx.work.BackoffPolicy;
 import androidx.work.Constraints;
 import androidx.work.Data;
@@ -347,7 +360,7 @@ public class WorkSpec {
     }
 
     /**
-     * A POJO containing the ID, state, output, and tags of a WorkSpec.
+     * A POJO containing the ID, state, output, tags, and run attempt count of a WorkSpec.
      */
     public static class WorkInfoPojo {
 
@@ -359,6 +372,9 @@ public class WorkSpec {
 
         @ColumnInfo(name = "output")
         public Data output;
+
+        @ColumnInfo(name = "run_attempt_count")
+        public int runAttemptCount;
 
         @Relation(
                 parentColumn = "id",
@@ -373,7 +389,7 @@ public class WorkSpec {
          * @return The {@link WorkInfo} represented by this POJO
          */
         public WorkInfo toWorkInfo() {
-            return new WorkInfo(UUID.fromString(id), state, output, tags);
+            return new WorkInfo(UUID.fromString(id), state, output, tags, runAttemptCount);
         }
 
         @Override
@@ -383,6 +399,7 @@ public class WorkSpec {
 
             WorkInfoPojo that = (WorkInfoPojo) o;
 
+            if (runAttemptCount != that.runAttemptCount) return false;
             if (id != null ? !id.equals(that.id) : that.id != null) return false;
             if (state != that.state) return false;
             if (output != null ? !output.equals(that.output) : that.output != null) return false;
@@ -394,6 +411,7 @@ public class WorkSpec {
             int result = id != null ? id.hashCode() : 0;
             result = 31 * result + (state != null ? state.hashCode() : 0);
             result = 31 * result + (output != null ? output.hashCode() : 0);
+            result = 31 * result + runAttemptCount;
             result = 31 * result + (tags != null ? tags.hashCode() : 0);
             return result;
         }

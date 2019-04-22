@@ -1,14 +1,24 @@
 // Signature format: 2.0
 package androidx.browser.browseractions {
 
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
   public class BrowserActionItem {
     ctor public BrowserActionItem(String, android.app.PendingIntent, @DrawableRes int);
     ctor public BrowserActionItem(String, android.app.PendingIntent);
     method public android.app.PendingIntent! getAction();
     method public int getIconId();
     method public String! getTitle();
+=======
+  @Deprecated public class BrowserActionItem {
+    ctor @Deprecated public BrowserActionItem(String, android.app.PendingIntent, @DrawableRes int);
+    ctor @Deprecated public BrowserActionItem(String, android.app.PendingIntent);
+    method @Deprecated public android.app.PendingIntent getAction();
+    method @Deprecated public int getIconId();
+    method @Deprecated public String getTitle();
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
   }
 
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
   public class BrowserActionsIntent {
     method public static String! getCreatorPackageName(android.content.Intent!);
     method public android.content.Intent getIntent();
@@ -37,15 +47,46 @@ package androidx.browser.browseractions {
     field public static final int URL_TYPE_NONE = 0; // 0x0
     field public static final int URL_TYPE_PLUGIN = 5; // 0x5
     field public static final int URL_TYPE_VIDEO = 2; // 0x2
+=======
+  @Deprecated public class BrowserActionsIntent {
+    method @Deprecated public static String? getCreatorPackageName(android.content.Intent);
+    method @Deprecated public android.content.Intent getIntent();
+    method @Deprecated public static String? getUntrustedCreatorPackageName(android.content.Intent);
+    method @Deprecated public static void launchIntent(android.content.Context!, android.content.Intent!);
+    method @Deprecated public static void openBrowserAction(android.content.Context!, android.net.Uri!);
+    method @Deprecated public static void openBrowserAction(android.content.Context!, android.net.Uri!, int, java.util.ArrayList<androidx.browser.browseractions.BrowserActionItem>!, android.app.PendingIntent!);
+    method @Deprecated public static java.util.List<androidx.browser.browseractions.BrowserActionItem>! parseBrowserActionItems(java.util.ArrayList<android.os.Bundle>!);
+    field @Deprecated public static final String ACTION_BROWSER_ACTIONS_OPEN = "androidx.browser.browseractions.browser_action_open";
+    field @Deprecated public static final String EXTRA_APP_ID = "androidx.browser.browseractions.APP_ID";
+    field @Deprecated public static final String EXTRA_MENU_ITEMS = "androidx.browser.browseractions.extra.MENU_ITEMS";
+    field @Deprecated public static final String EXTRA_SELECTED_ACTION_PENDING_INTENT = "androidx.browser.browseractions.extra.SELECTED_ACTION_PENDING_INTENT";
+    field @Deprecated public static final String EXTRA_TYPE = "androidx.browser.browseractions.extra.TYPE";
+    field @Deprecated public static final int ITEM_COPY = 3; // 0x3
+    field @Deprecated public static final int ITEM_DOWNLOAD = 2; // 0x2
+    field @Deprecated public static final int ITEM_INVALID_ITEM = -1; // 0xffffffff
+    field @Deprecated public static final int ITEM_OPEN_IN_INCOGNITO = 1; // 0x1
+    field @Deprecated public static final int ITEM_OPEN_IN_NEW_TAB = 0; // 0x0
+    field @Deprecated public static final int ITEM_SHARE = 4; // 0x4
+    field @Deprecated public static final String KEY_ACTION = "androidx.browser.browseractions.ACTION";
+    field @Deprecated public static final String KEY_ICON_ID = "androidx.browser.browseractions.ICON_ID";
+    field @Deprecated public static final String KEY_TITLE = "androidx.browser.browseractions.TITLE";
+    field @Deprecated public static final int MAX_CUSTOM_ITEMS = 5; // 0x5
+    field @Deprecated public static final int URL_TYPE_AUDIO = 3; // 0x3
+    field @Deprecated public static final int URL_TYPE_FILE = 4; // 0x4
+    field @Deprecated public static final int URL_TYPE_IMAGE = 1; // 0x1
+    field @Deprecated public static final int URL_TYPE_NONE = 0; // 0x0
+    field @Deprecated public static final int URL_TYPE_PLUGIN = 5; // 0x5
+    field @Deprecated public static final int URL_TYPE_VIDEO = 2; // 0x2
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
   }
 
-  public static final class BrowserActionsIntent.Builder {
-    ctor public BrowserActionsIntent.Builder(android.content.Context!, android.net.Uri!);
-    method public androidx.browser.browseractions.BrowserActionsIntent! build();
-    method public androidx.browser.browseractions.BrowserActionsIntent.Builder! setCustomItems(java.util.ArrayList<androidx.browser.browseractions.BrowserActionItem>!);
-    method public androidx.browser.browseractions.BrowserActionsIntent.Builder! setCustomItems(androidx.browser.browseractions.BrowserActionItem...!);
-    method public androidx.browser.browseractions.BrowserActionsIntent.Builder! setOnItemSelectedAction(android.app.PendingIntent!);
-    method public androidx.browser.browseractions.BrowserActionsIntent.Builder! setUrlType(int);
+  @Deprecated public static final class BrowserActionsIntent.Builder {
+    ctor @Deprecated public BrowserActionsIntent.Builder(android.content.Context!, android.net.Uri!);
+    method @Deprecated public androidx.browser.browseractions.BrowserActionsIntent! build();
+    method @Deprecated public androidx.browser.browseractions.BrowserActionsIntent.Builder! setCustomItems(java.util.ArrayList<androidx.browser.browseractions.BrowserActionItem>!);
+    method @Deprecated public androidx.browser.browseractions.BrowserActionsIntent.Builder! setCustomItems(androidx.browser.browseractions.BrowserActionItem...!);
+    method @Deprecated public androidx.browser.browseractions.BrowserActionsIntent.Builder! setOnItemSelectedAction(android.app.PendingIntent!);
+    method @Deprecated public androidx.browser.browseractions.BrowserActionsIntent.Builder! setUrlType(int);
   }
 
 }

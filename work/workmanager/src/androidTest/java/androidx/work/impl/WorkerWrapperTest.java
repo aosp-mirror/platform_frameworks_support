@@ -35,7 +35,6 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -110,7 +109,7 @@ public class WorkerWrapperTest extends DatabaseTest {
                 .setMinimumLoggingLevel(Log.VERBOSE)
                 .build();
         mWorkTaskExecutor = new InstantWorkTaskExecutor();
-        mWorkSpecDao = spy(mDatabase.workSpecDao());
+        mWorkSpecDao = mDatabase.workSpecDao();
         mDependencyDao = mDatabase.dependencyDao();
         mMockScheduler = mock(Scheduler.class);
     }
@@ -270,6 +269,25 @@ public class WorkerWrapperTest extends DatabaseTest {
         workerWrapper.run();
         assertThat(listener.mResult, is(false));
         assertThat(mWorkSpecDao.getState(work.getStringId()), is(FAILED));
+    }
+
+    @Test
+    @LargeTest
+    public void testFailedOnDeepHierarchy() {
+        OneTimeWorkRequest work = new OneTimeWorkRequest.Builder(FailureWorker.class).build();
+        insertWork(work);
+        String previousId = work.getStringId();
+        String firstWorkId = previousId;
+        for (int i = 0; i < 500; ++i) {
+            work = new OneTimeWorkRequest.Builder(FailureWorker.class).build();
+            insertWork(work);
+            mDependencyDao.insertDependency(new Dependency(work.getStringId(), previousId));
+            previousId = work.getStringId();
+        }
+        WorkerWrapper workerWrapper = createBuilder(firstWorkId).build();
+        workerWrapper.setFailedAndResolve();
+        assertThat(mWorkSpecDao.getState(firstWorkId), is(FAILED));
+        assertThat(mWorkSpecDao.getState(previousId), is(FAILED));
     }
 
     @Test

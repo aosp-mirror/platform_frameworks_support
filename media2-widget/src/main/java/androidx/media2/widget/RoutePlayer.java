@@ -16,7 +16,10 @@
 
 package androidx.media2.widget;
 
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+=======
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
 import static androidx.media2.SessionPlayer.PlayerResult.RESULT_ERROR_BAD_VALUE;
 import static androidx.media2.SessionPlayer.PlayerResult.RESULT_ERROR_INVALID_STATE;
 import static androidx.media2.SessionPlayer.PlayerResult.RESULT_ERROR_UNKNOWN_ERROR;
@@ -28,7 +31,7 @@ import android.os.SystemClock;
 import android.text.TextUtils;
 import android.util.Log;
 
-import androidx.annotation.RestrictTo;
+import androidx.annotation.NonNull;
 import androidx.concurrent.futures.ResolvableFuture;
 import androidx.core.util.Pair;
 import androidx.media.AudioAttributesCompat;
@@ -37,6 +40,7 @@ import androidx.media2.MediaMetadata;
 import androidx.media2.RemoteSessionPlayer;
 import androidx.media2.SessionPlayer;
 import androidx.media2.UriMediaItem;
+import androidx.media2.VideoSize;
 import androidx.mediarouter.media.MediaItemStatus;
 import androidx.mediarouter.media.MediaRouteSelector;
 import androidx.mediarouter.media.MediaRouter;
@@ -53,11 +57,15 @@ import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Future;
 
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
 /**
  * @hide
  */
 @RestrictTo(LIBRARY_GROUP)
 public class RoutePlayer extends RemoteSessionPlayer {
+=======
+/* package */ class RoutePlayer extends RemoteSessionPlayer {
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
     private static final String TAG = "RoutePlayer";
     static final boolean DEBUG = Log.isLoggable(TAG, Log.DEBUG);
     private static final int ITEM_NONE = -1;
@@ -433,6 +441,12 @@ public class RoutePlayer extends RemoteSessionPlayer {
     @Override
     public int getShuffleMode() {
         return SessionPlayer.SHUFFLE_MODE_NONE;
+    }
+
+    @Override
+    @NonNull
+    public VideoSize getVideoSize() {
+        return new VideoSize(0, 0);
     }
 
     @Override

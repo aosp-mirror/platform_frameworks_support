@@ -17,11 +17,11 @@
 package androidx.viewpager2.widget.swipe
 
 import android.os.Bundle
-import androidx.testutils.RecreatedActivity
+import androidx.testutils.RecreatedAppCompatActivity
 import androidx.viewpager2.LocaleTestUtils
 import androidx.viewpager2.test.R
 
-class TestActivity : RecreatedActivity() {
+class TestActivity : RecreatedAppCompatActivity() {
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (intent?.hasExtra(EXTRA_LANGUAGE) == true) {
@@ -32,6 +32,16 @@ class TestActivity : RecreatedActivity() {
 
         /** hacky way of configuring this instance from test code */
         onCreateCallback(this)
+
+        // disable enter animation.
+        overridePendingTransition(0, 0)
+    }
+
+    override fun finish() {
+        super.finish()
+
+        // disable exit animation
+        overridePendingTransition(0, 0)
     }
 
     companion object {

@@ -16,7 +16,7 @@
 
 package androidx.build.checkapi
 
-import androidx.build.SupportLibraryExtension
+import androidx.build.AndroidXExtension
 import androidx.build.Version
 import androidx.build.androidJarFile
 import androidx.build.createWithConfig
@@ -214,7 +214,7 @@ private fun createNewApiXmlTask(
 
 fun Project.hasApiFolder() = File(projectDir, "api").exists()
 
-fun hasApiTasks(project: Project, extension: SupportLibraryExtension): Boolean {
+fun hasApiTasks(project: Project, extension: AndroidXExtension): Boolean {
     if (extension.toolingProject) {
         project.logger.info("Project ${project.name} is tooling project ignoring API tasks.")
         return false
@@ -322,8 +322,19 @@ fun Project.getRequiredCompatibilityApiLocation(): ApiLocation? {
  * @return the API file of this version
  */
 private fun getApiFile(rootDir: File, version: Version): File {
+    if (version.patch != 0 && (version.isAlpha() || version.isBeta())) {
+        val suggestedVersion = Version("${version.major}.${version.minor}.${version.patch}-rc01")
+        throw GradleException("Illegal version $version . It is not allowed to have a nonzero " +
+                "patch number and be alpha or beta at the same time.\n" +
+                "Did you mean $suggestedVersion?")
+    }
+
+    var extra = ""
+    if (version.patch == 0 && version.extra != null) {
+        extra = version.extra
+    }
     val apiDir = File(rootDir, "api")
-    return File(apiDir, "${version.major}.${version.minor}.0${version.extra ?: ""}.txt")
+    return File(apiDir, "${version.major}.${version.minor}.0$extra.txt")
 }
 
 /**

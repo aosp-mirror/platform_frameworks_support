@@ -36,8 +36,13 @@ import androidx.recyclerview.widget.RecyclerView;
  *
  * @hide
  */
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public class DropShadowScrollListener extends PagedListView.OnScrollListener {
+=======
+@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
+public class DropShadowScrollListener extends RecyclerView.OnScrollListener {
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
     private static final String TAG = "DropShadowScrollListener";
     private static final int ANIMATION_DURATION_MS = 100;
 

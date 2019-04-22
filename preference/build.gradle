@@ -19,7 +19,13 @@ import androidx.build.LibraryGroups
 import androidx.build.LibraryVersions
 
 plugins {
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
     id("SupportAndroidLibraryPlugin")
+=======
+    id("AndroidXPlugin")
+    id("com.android.library")
+    id("kotlin-android")
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
 }
 
 dependencies {
@@ -27,14 +33,17 @@ dependencies {
     api(project(":appcompat"))
     api("androidx.core:core:1.1.0-alpha01")
     implementation("androidx.collection:collection:1.0.0")
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
     // TODO: change to 1.1.0-alpha04 after release
+=======
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
     api(project(":fragment"))
     api("androidx.recyclerview:recyclerview:1.0.0")
 
-    androidTestImplementation(TEST_EXT_JUNIT)
-    androidTestImplementation(TEST_CORE)
-    androidTestImplementation(TEST_RUNNER)
-    androidTestImplementation(TEST_RULES)
+    androidTestImplementation(ANDROIDX_TEST_EXT_JUNIT)
+    androidTestImplementation(ANDROIDX_TEST_CORE)
+    androidTestImplementation(ANDROIDX_TEST_RUNNER)
+    androidTestImplementation(ANDROIDX_TEST_RULES)
     androidTestImplementation(ESPRESSO_CORE, libs.exclude_for_espresso)
     androidTestImplementation(MOCKITO_CORE, libs.exclude_bytebuddy) // DexMaker has it"s own MockMaker
     androidTestImplementation(DEXMAKER_MOCKITO, libs.exclude_bytebuddy) // DexMaker has it"s own MockMaker
@@ -48,12 +57,16 @@ android {
         ]
     }
 
+    defaultConfig {
+        vectorDrawables.useSupportLibrary = true
+    }
+
     buildTypes.all {
         consumerProguardFiles 'proguard-rules.pro'
     }
 }
 
-supportLibrary {
+androidx {
     name = "AndroidX Preference"
     publish = true
     mavenVersion = LibraryVersions.PREFERENCE

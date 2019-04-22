@@ -19,20 +19,24 @@ import androidx.build.LibraryGroups
 import androidx.build.LibraryVersions
 
 plugins {
-    id("SupportAndroidLibraryPlugin")
+    id("AndroidXPlugin")
+    id("com.android.library")
     id("kotlin-android")
 }
 
-dependencies {
-    api(project(":annotation"))
+android.defaultConfig.testInstrumentationRunner "androidx.benchmark.AndroidBenchmarkRunner"
 
-    implementation(TEST_RUNNER)
+dependencies {
+    implementation(SUPPORT_ANNOTATIONS)
+    implementation(ANDROIDX_TEST_CORE)
+    implementation(ANDROIDX_TEST_RUNNER)
+    implementation(KOTLIN_STDLIB)
 
     androidTestImplementation(JUNIT)
-    androidTestImplementation(KOTLIN_STDLIB)
+    androidTestImplementation(ANDROIDX_TEST_RULES)
 }
 
-supportLibrary {
+androidx {
     name = "Android Benchmark"
     publish = false
     mavenVersion = LibraryVersions.BENCHMARK

@@ -128,7 +128,7 @@ public class VideoPlayerActivity extends FragmentActivity {
         if (intent == null || (videoUri = intent.getData()) == null || !videoUri.isAbsolute()) {
             errorString = "Invalid intent";
         } else {
-            UriMediaItem mediaItem = new UriMediaItem.Builder(this, videoUri).build();
+            UriMediaItem mediaItem = new UriMediaItem.Builder(videoUri).build();
             mVideoView.setMediaItem(mediaItem);
 
             mMediaControlView = new MediaControlView(this);
@@ -137,8 +137,10 @@ public class VideoPlayerActivity extends FragmentActivity {
             SessionToken token = mVideoView.getSessionToken();
 
             Executor executor = ContextCompat.getMainExecutor(this);
-            mMediaController = new MediaController(
-                    this, token, executor, new ControllerCallback());
+            mMediaController = new MediaController.Builder(this)
+                    .setSessionToken(token)
+                    .setControllerCallback(executor, new ControllerCallback())
+                    .build();
         }
         if (errorString != null) {
             showErrorDialog(errorString);

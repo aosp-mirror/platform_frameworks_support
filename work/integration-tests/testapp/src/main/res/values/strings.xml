@@ -21,5 +21,11 @@
     <string name="enqueue_lots_of_work">Add Lots of Work</string>
     <string name="exploding_work">Test Exploding Work</string>
     <string name="replace_completed_work">Test Replacing Completed Work</string>
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
+=======
+    <string name="run_retry_worker">Run Retry Worker</string>
+    <string name="run_recursive_worker">Run Recursive Worker</string>
+    <string name="create_hundred_job_exception">Create 100 Job Exception</string>
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
     <string name="keep">Use KEEP</string>
 </resources>

@@ -1,3 +1,4 @@
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
 /*
  * Copyright 2018 The Android Open Source Project
  *
@@ -56,3 +57,5 @@ interface IRemoteMediaControllerCompat {
     void sendCustomAction(String controllerId, in Bundle customAction, in Bundle args);
     void sendCustomActionWithName(String controllerId, String action, in Bundle args);
 }
+=======
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)

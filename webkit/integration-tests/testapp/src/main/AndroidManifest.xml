@@ -35,5 +35,18 @@
         </activity>
         <activity android:name=".SafeBrowsingActivity"
           android:exported="true" />
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
+=======
+        <activity android:name=".SmallInterstitialActivity"
+          android:exported="true" />
+        <activity android:name=".ProxyOverrideActivity"
+          android:exported="true" />
+        <activity android:name=".AssetLoaderListActivity"
+          android:exported="true" />
+        <activity android:name=".AssetLoaderSimpleActivity"
+          android:exported="true" />
+        <activity android:name=".AssetLoaderAjaxActivity"
+          android:exported="true" />
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
     </application>
 </manifest>

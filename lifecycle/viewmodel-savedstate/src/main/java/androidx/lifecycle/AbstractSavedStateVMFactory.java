@@ -21,13 +21,14 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RestrictTo;
 import androidx.savedstate.SavedStateRegistry;
 
 /**
- * Skeleton of {@link androidx.lifecycle.ViewModelProvider.KeyedFactory}
- * that creates {@link SavedStateHandle} for every requested {@link ViewModel}. The subclasses
+ * Skeleton of androidx.lifecycle.ViewModelProvider.KeyedFactory
+ * that creates {@link SavedStateHandle} for every requested {@link androidx.lifecycle.ViewModel}. The subclasses
  * implement {@link #create(String, Class, SavedStateHandle)} to actually instantiate
- * {@code ViewModels}.
+ * {@code androidx.lifecycle.ViewModel}s.
  */
 public abstract class AbstractSavedStateVMFactory implements ViewModelProvider.KeyedFactory {
     static final String TAG_SAVED_STATE_HANDLE = "androidx.lifecycle.savedstate.vm.tag";
@@ -37,6 +38,16 @@ public abstract class AbstractSavedStateVMFactory implements ViewModelProvider.K
 
     /**
      * Constructs this factory.
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
+=======
+     *
+     * @param owner {@link SavedStateRegistryOwner} that will provide restored state for created
+     * {@link androidx.lifecycle.ViewModel ViewModels}
+     * @param defaultArgs values from this {@code Bundle} will be used as defaults by
+     *                    {@link SavedStateHandle} passed in {@link ViewModel ViewModels}
+     *                    if there is no previously saved state
+     *                    or previously saved state misses a value by such key
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
      */
     public AbstractSavedStateVMFactory(
             @NonNull Application application,
@@ -47,6 +58,11 @@ public abstract class AbstractSavedStateVMFactory implements ViewModelProvider.K
         VMSavedStateInitializer.initializeIfNeeded(application);
     }
 
+    // TODO: make KeyedFactory#create(String, Class) package private
+    /**
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
     @NonNull
     @Override
     public final <T extends ViewModel> T create(@NonNull String key, @NonNull Class<T> modelClass) {
@@ -58,6 +74,22 @@ public abstract class AbstractSavedStateVMFactory implements ViewModelProvider.K
         return viewmodel;
     }
 
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
+=======
+    @NonNull
+    @Override
+    public final <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
+        // ViewModelProvider calls correct create that support same modelClass with different keys
+        // If a developer manually calls this method, there is no "key" in picture, so factory
+        // simply uses classname internally as as key.
+        String canonicalName = modelClass.getCanonicalName();
+        if (canonicalName == null) {
+            throw new IllegalArgumentException("Local and anonymous classes can not be ViewModels");
+        }
+        return create(canonicalName, modelClass);
+    }
+
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
     /**
      * Creates a new instance of the given {@code Class}.
      * <p>

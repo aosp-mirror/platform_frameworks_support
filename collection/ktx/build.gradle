@@ -19,7 +19,8 @@ import androidx.build.LibraryGroups
 import androidx.build.LibraryVersions
 
 plugins {
-    id("SupportKotlinLibraryPlugin")
+    id("AndroidXPlugin")
+    id("kotlin")
 }
 
 dependencies {
@@ -30,7 +31,7 @@ dependencies {
     testCompile(project(":internal-testutils-ktx"))
 }
 
-supportLibrary {
+androidx {
     name = "Collections Kotlin Extensions"
     publish = true
     mavenVersion = LibraryVersions.COLLECTION

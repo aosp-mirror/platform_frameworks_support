@@ -27,14 +27,21 @@ import static android.app.slice.SliceItem.FORMAT_IMAGE;
 import static android.app.slice.SliceItem.FORMAT_INT;
 import static android.app.slice.SliceItem.FORMAT_LONG;
 import static android.app.slice.SliceItem.FORMAT_SLICE;
+import static android.app.slice.SliceItem.FORMAT_TEXT;
 
+import static androidx.slice.Slice.EXTRA_SELECTION;
+import static androidx.slice.core.SliceHints.HINT_SELECTION_OPTION;
 import static androidx.slice.core.SliceHints.ICON_IMAGE;
 import static androidx.slice.core.SliceHints.SMALL_IMAGE;
 import static androidx.slice.core.SliceHints.SUBTYPE_MIN;
+import static androidx.slice.core.SliceHints.SUBTYPE_SELECTION_OPTION_KEY;
+import static androidx.slice.core.SliceHints.SUBTYPE_SELECTION_OPTION_VALUE;
 import static androidx.slice.widget.EventInfo.ACTION_TYPE_BUTTON;
+import static androidx.slice.widget.EventInfo.ACTION_TYPE_SELECTION;
 import static androidx.slice.widget.EventInfo.ACTION_TYPE_SLIDER;
 import static androidx.slice.widget.EventInfo.ACTION_TYPE_TOGGLE;
 import static androidx.slice.widget.EventInfo.ROW_TYPE_LIST;
+import static androidx.slice.widget.EventInfo.ROW_TYPE_SELECTION;
 import static androidx.slice.widget.EventInfo.ROW_TYPE_SLIDER;
 import static androidx.slice.widget.EventInfo.ROW_TYPE_TOGGLE;
 import static androidx.slice.widget.SliceView.MODE_SMALL;
@@ -56,11 +63,14 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.ColorInt;
@@ -75,6 +85,7 @@ import androidx.slice.core.SliceActionImpl;
 import androidx.slice.core.SliceQuery;
 import androidx.slice.view.R;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -87,7 +98,8 @@ import java.util.Set;
  */
 @RestrictTo(RestrictTo.Scope.LIBRARY)
 @RequiresApi(19)
-public class RowView extends SliceChildView implements View.OnClickListener {
+public class RowView extends SliceChildView implements View.OnClickListener,
+        AdapterView.OnItemSelectedListener {
 
     private static final String TAG = "RowView";
 
@@ -119,6 +131,7 @@ public class RowView extends SliceChildView implements View.OnClickListener {
     protected Set<SliceItem> mLoadingActions = new HashSet<>();
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     boolean mShowActionSpinner;
+    private Spinner mSelectionSpinner;
 
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     int mRowIndex;
@@ -144,16 +157,22 @@ public class RowView extends SliceChildView implements View.OnClickListener {
     Handler mHandler;
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     long mLastSentRangeUpdate;
+    // TODO: mRangeValue is in 0..(mRangeMaxValue-mRangeMinValue) at initialization, and in
+    //       mRangeMinValue..mRangeMaxValue after user interaction. As far as I know, this doesn't
+    //       cause any incorrect behavior, but it is confusing and error-prone.
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     int mRangeValue;
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     int mRangeMinValue;
+    @SuppressWarnings("WeakerAccess") /* synthetic access */
+    int mRangeMaxValue;
     private SliceItem mRangeItem;
+    private SliceItem mSelectionItem;
+    private ArrayList<String> mSelectionOptionKeys;
+    private ArrayList<CharSequence> mSelectionOptionValues;
 
     private int mImageSize;
     private int mIconSize;
-    // How big the RowView wants mRangeBar to be.
-    private int mIdealRangeHeight;
     // How big mRangeBar wants to be.
     private int mMeasuredRangeHeight;
     private int mMaxSmallHeight;
@@ -177,18 +196,12 @@ public class RowView extends SliceChildView implements View.OnClickListener {
         mActionSpinner = findViewById(R.id.action_sent_indicator);
         SliceViewUtil.tintIndeterminateProgressBar(getContext(), mActionSpinner);
         mEndContainer = (LinearLayout) findViewById(android.R.id.widget_frame);
-
-        mIdealRangeHeight = context.getResources().getDimensionPixelSize(
-                R.dimen.abc_slice_row_range_height);
     }
 
     @Override
     public void setInsets(int l, int t, int r, int b) {
         super.setInsets(l, t, r, b);
-        mRootView.setPadding(l, t, r, b);
-        if (mRangeBar != null) {
-            updateRangePadding();
-        }
+        setPadding(l, t, r, b);
     }
 
     /**
@@ -197,7 +210,10 @@ public class RowView extends SliceChildView implements View.OnClickListener {
     private int getRowContentHeight() {
         int rowHeight = mRowContent.getHeight(mSliceStyle, mViewPolicy);
         if (mRangeBar != null) {
-            rowHeight -= mIdealRangeHeight;
+            rowHeight -= mSliceStyle.getRowRangeHeight();
+        }
+        if (mSelectionSpinner != null) {
+            rowHeight -= mSliceStyle.getRowSelectionHeight();
         }
         return rowHeight;
     }
@@ -240,47 +256,88 @@ public class RowView extends SliceChildView implements View.OnClickListener {
         }
     }
 
+    private void measureChildWithExactHeight(View child, int widthMeasureSpec, int childHeight) {
+        int heightMeasureSpec = MeasureSpec.makeMeasureSpec(childHeight + mInsetTop + mInsetBottom,
+                MeasureSpec.EXACTLY);
+        measureChild(child, widthMeasureSpec, heightMeasureSpec);
+    }
+
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
         int totalHeight = mRowContent != null
                 ? mRowContent.getHeight(mSliceStyle, mViewPolicy) : 0;
+=======
+        int childWidth = 0;
+
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
         int rowHeight = getRowContentHeight();
         if (rowHeight != 0) {
             // Might be gone if we have range / progress but nothing else
             mRootView.setVisibility(View.VISIBLE);
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
             heightMeasureSpec = MeasureSpec.makeMeasureSpec(rowHeight, MeasureSpec.EXACTLY);
             measureChild(mRootView, widthMeasureSpec, heightMeasureSpec);
+=======
+            measureChildWithExactHeight(mRootView, widthMeasureSpec, rowHeight);
+
+            childWidth = mRootView.getMeasuredWidth();
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
         } else {
             mRootView.setVisibility(View.GONE);
         }
         if (mRangeBar != null) {
             // If we're on a platform where SeekBar can't be stretched vertically, find out the
             // exact size it would like to be so we can honor that in onLayout.
-            int rangeMeasureSpec = sCanSpecifyLargerRangeBarHeight
-                    ? MeasureSpec.makeMeasureSpec(mIdealRangeHeight, MeasureSpec.EXACTLY)
-                    : MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED);
-            measureChild(mRangeBar, widthMeasureSpec, rangeMeasureSpec);
+            if (sCanSpecifyLargerRangeBarHeight) {
+                measureChildWithExactHeight(mRangeBar, widthMeasureSpec,
+                        mSliceStyle.getRowRangeHeight());
+            } else {
+                measureChild(mRangeBar, widthMeasureSpec,
+                        MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
+            }
             // Remember the measured height later for onLayout, since super.onMeasure will overwrite
             // it.
             mMeasuredRangeHeight = mRangeBar.getMeasuredHeight();
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
+=======
+            childWidth = Math.max(childWidth, mRangeBar.getMeasuredWidth());
+        } else if (mSelectionSpinner != null) {
+            measureChildWithExactHeight(mSelectionSpinner, widthMeasureSpec,
+                    mSliceStyle.getRowSelectionHeight());
+            childWidth = Math.max(childWidth, mSelectionSpinner.getMeasuredWidth());
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
         }
 
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
         int totalHeightSpec = MeasureSpec.makeMeasureSpec(totalHeight, MeasureSpec.EXACTLY);
         super.onMeasure(widthMeasureSpec, totalHeightSpec);
+=======
+        childWidth = Math.max(childWidth + mInsetStart + mInsetEnd, getSuggestedMinimumWidth());
+        int totalHeight = mRowContent != null ? mRowContent.getHeight(mSliceStyle, mViewPolicy) : 0;
+        setMeasuredDimension(resolveSizeAndState(childWidth, widthMeasureSpec, 0),
+                totalHeight + mInsetTop + mInsetBottom);
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
     }
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
-        int insets = mInsetStart + mInsetEnd;
-        mRootView.layout(0, 0, mRootView.getMeasuredWidth() + insets, getRowContentHeight());
+        int leftPadding = getPaddingLeft();
+        mRootView.layout(leftPadding, mInsetTop, mRootView.getMeasuredWidth() + leftPadding,
+                getRowContentHeight() + mInsetTop);
         if (mRangeBar != null) {
-            // If we're on aa platform where SeekBar can't be stretched vertically, then
-            // mMeasuredRangeHeight can (and probably will) be smaller than mIdealRangeHeight, so we
+            // If we're on a platform where SeekBar can't be stretched vertically, then
+            // mMeasuredRangeHeight can (and probably will) be smaller than the ideal height, so we
             // need to add some padding to make mRangeBar look like it's the larger size.
-            int verticalPadding = (mIdealRangeHeight - mMeasuredRangeHeight) / 2;
-            int top = getRowContentHeight() + verticalPadding;
+            int verticalPadding = (mSliceStyle.getRowRangeHeight() - mMeasuredRangeHeight) / 2;
+            int top = getRowContentHeight() + verticalPadding + mInsetTop;
             int bottom = top + mMeasuredRangeHeight;
-            mRangeBar.layout(0, top, mRangeBar.getMeasuredWidth(), bottom);
+            mRangeBar.layout(leftPadding, top, mRangeBar.getMeasuredWidth() + leftPadding, bottom);
+        } else if (mSelectionSpinner != null) {
+            int top = getRowContentHeight() + mInsetTop;
+            int bottom = top + mSelectionSpinner.getMeasuredHeight();
+            mSelectionSpinner.layout(leftPadding, top,
+                    mSelectionSpinner.getMeasuredWidth() + leftPadding, bottom);
         }
     }
 
@@ -378,15 +435,21 @@ public class RowView extends SliceChildView implements View.OnClickListener {
             if (mRowAction != null) {
                 setViewClickable(mRootView, true);
             }
+            mRangeItem = range;
             if (!skipSliderUpdate) {
-                determineRangeValues(range);
-                addRange(range);
-            } else {
-                // Even if we're skipping the update, we should still update the range item
-                mRangeItem = range;
+                setRangeBounds();
+                addRange();
             }
             return;
         }
+
+        final SliceItem selection = mRowContent.getSelection();
+        if (selection != null) {
+            mSelectionItem = selection;
+            addSelection(selection);
+            return;
+        }
+
         updateEndItems();
         updateActionSpinner();
     }
@@ -553,14 +616,7 @@ public class RowView extends SliceChildView implements View.OnClickListener {
         }
     }
 
-    private void determineRangeValues(SliceItem rangeItem) {
-        if (rangeItem == null) {
-            mRangeMinValue = 0;
-            mRangeValue = 0;
-            return;
-        }
-        mRangeItem = rangeItem;
-
+    private void setRangeBounds() {
         SliceItem min = SliceQuery.findSubtype(mRangeItem, FORMAT_INT, SUBTYPE_MIN);
         int minValue = 0;
         if (min != null) {
@@ -568,18 +624,27 @@ public class RowView extends SliceChildView implements View.OnClickListener {
         }
         mRangeMinValue = minValue;
 
-        SliceItem progress = SliceQuery.findSubtype(mRangeItem, FORMAT_INT, SUBTYPE_VALUE);
-        if (progress != null) {
-            mRangeValue = progress.getInt() - minValue;
+        SliceItem max = SliceQuery.findSubtype(mRangeItem, FORMAT_INT, SUBTYPE_MAX);
+        int maxValue = 100;  // TODO: This default shouldn't be hardcoded here.
+        if (max != null) {
+            maxValue = max.getInt();
         }
+        mRangeMaxValue = maxValue;
+
+        SliceItem progress = SliceQuery.findSubtype(mRangeItem, FORMAT_INT, SUBTYPE_VALUE);
+        int progressValue = 0;
+        if (progress != null) {
+            progressValue = progress.getInt() - minValue;
+        }
+        mRangeValue = progressValue;
     }
 
-    private void addRange(final SliceItem range) {
+    private void addRange() {
         if (mHandler == null) {
             mHandler = new Handler();
         }
 
-        final boolean isSeekBar = FORMAT_ACTION.equals(range.getFormat());
+        final boolean isSeekBar = FORMAT_ACTION.equals(mRangeItem.getFormat());
         final ProgressBar progressBar = isSeekBar
                 ? new SeekBar(getContext())
                 : new ProgressBar(getContext(), null, android.R.attr.progressBarStyleHorizontal);
@@ -588,10 +653,9 @@ public class RowView extends SliceChildView implements View.OnClickListener {
             DrawableCompat.setTint(progressDrawable, mTintColor);
             progressBar.setProgressDrawable(progressDrawable);
         }
-        SliceItem max = SliceQuery.findSubtype(range, FORMAT_INT, SUBTYPE_MAX);
-        if (max != null) {
-            progressBar.setMax(max.getInt() - mRangeMinValue);
-        }
+        // N.B. We don't use progressBar.setMin because it doesn't work properly in backcompat
+        //      and/or sliders.
+        progressBar.setMax(mRangeMaxValue - mRangeMinValue);
         progressBar.setProgress(mRangeValue);
         progressBar.setVisibility(View.VISIBLE);
         addView(progressBar);
@@ -612,47 +676,69 @@ public class RowView extends SliceChildView implements View.OnClickListener {
             }
             seekBar.setOnSeekBarChangeListener(mSeekBarChangeListener);
         }
-        updateRangePadding();
-    }
-
-    private void updateRangePadding() {
-        if (mRangeBar != null) {
-            int thumbSize = mRangeBar instanceof SeekBar
-                    ? ((SeekBar) mRangeBar).getThumb().getIntrinsicWidth() : 0;
-            int topInsetPadding = mRowContent != null
-                    ? mRowContent.getLineCount() > 0 ? 0 : mInsetTop
-                    : mInsetTop;
-            // Check if the app defined inset is large enough for the drawable
-            if (thumbSize != 0 && mInsetStart >= thumbSize / 2 && mInsetEnd >= thumbSize / 2) {
-                // If row content has text then the top inset gets applied to mContent layout
-                // not the range layout.
-                mRangeBar.setPadding(mInsetStart, topInsetPadding, mInsetEnd, mInsetBottom);
-            } else {
-                // App defined inset not bug enough; we need to apply one
-                int thumbPadding = thumbSize != 0 ? thumbSize / 2 : 0;
-                mRangeBar.setPadding(mInsetStart + thumbPadding, topInsetPadding,
-                        mInsetEnd + thumbPadding, mInsetBottom);
-            }
-        }
     }
 
     void sendSliderValue() {
-        if (mRangeItem != null) {
-            try {
-                mLastSentRangeUpdate = System.currentTimeMillis();
-                mRangeItem.fireAction(getContext(),
-                        new Intent().addFlags(Intent.FLAG_RECEIVER_FOREGROUND)
-                                .putExtra(EXTRA_RANGE_VALUE, mRangeValue));
-                if (mObserver != null) {
-                    EventInfo info = new EventInfo(getMode(), ACTION_TYPE_SLIDER, ROW_TYPE_SLIDER,
-                            mRowIndex);
-                    info.state = mRangeValue;
-                    mObserver.onSliceAction(info, mRangeItem);
-                }
-            } catch (CanceledException e) {
-                Log.e(TAG, "PendingIntent for slice cannot be sent", e);
-            }
+        if (mRangeItem == null) {
+            return;
         }
+
+        try {
+            mLastSentRangeUpdate = System.currentTimeMillis();
+            mRangeItem.fireAction(getContext(),
+                    new Intent().addFlags(Intent.FLAG_RECEIVER_FOREGROUND)
+                            .putExtra(EXTRA_RANGE_VALUE, mRangeValue));
+            if (mObserver != null) {
+                EventInfo info = new EventInfo(getMode(), ACTION_TYPE_SLIDER, ROW_TYPE_SLIDER,
+                        mRowIndex);
+                info.state = mRangeValue;
+                mObserver.onSliceAction(info, mRangeItem);
+            }
+        } catch (CanceledException e) {
+            Log.e(TAG, "PendingIntent for slice cannot be sent", e);
+        }
+    }
+
+    private void addSelection(final SliceItem selection) {
+        if (mHandler == null) {
+            mHandler = new Handler();
+        }
+
+        mSelectionOptionKeys = new ArrayList<String>();
+        mSelectionOptionValues = new ArrayList<CharSequence>();
+
+        final List<SliceItem> optionItems = selection.getSlice().getItems();
+
+        for (int i = 0; i < optionItems.size(); i++) {
+            final SliceItem optionItem = optionItems.get(i);
+            if (!optionItem.hasHint(HINT_SELECTION_OPTION)) {
+                continue;
+            }
+
+            final SliceItem optionKeyItem =
+                    SliceQuery.findSubtype(optionItem, FORMAT_TEXT, SUBTYPE_SELECTION_OPTION_KEY);
+            final SliceItem optionValueItem =
+                    SliceQuery.findSubtype(optionItem, FORMAT_TEXT, SUBTYPE_SELECTION_OPTION_VALUE);
+            if (optionKeyItem == null || optionValueItem == null) {
+                continue;
+            }
+
+            mSelectionOptionKeys.add(optionKeyItem.getText().toString());
+            mSelectionOptionValues.add(optionValueItem.getSanitizedText());
+        }
+
+        mSelectionSpinner = (Spinner) LayoutInflater.from(getContext()).inflate(
+                R.layout.abc_slice_row_selection, this, false);
+
+        final ArrayAdapter<CharSequence> adapter = new ArrayAdapter<>(
+                getContext(), R.layout.abc_slice_row_selection_text, mSelectionOptionValues);
+        adapter.setDropDownViewResource(R.layout.abc_slice_row_selection_dropdown_text);
+        mSelectionSpinner.setAdapter(adapter);
+
+        addView(mSelectionSpinner);
+        // XXX: onItemSelected is called automatically.
+
+        mSelectionSpinner.setOnItemSelectedListener(this);
     }
 
     /**
@@ -819,6 +905,11 @@ public class RowView extends SliceChildView implements View.OnClickListener {
                 try {
                     mShowActionSpinner =
                             mRowAction.getActionItem().fireActionInternal(getContext(), null);
+                    if (mObserver != null) {
+                        EventInfo info = new EventInfo(getMode(), EventInfo.ACTION_TYPE_CONTENT,
+                                EventInfo.ROW_TYPE_LIST, mRowIndex);
+                        mObserver.onSliceAction(info, mRowAction.getSliceItem());
+                    }
                     if (mShowActionSpinner && mLoadingListener != null) {
                         mLoadingListener.onSliceActionLoading(mRowAction.getSliceItem(), mRowIndex);
                         mLoadingActions.add(mRowAction.getSliceItem());
@@ -829,6 +920,46 @@ public class RowView extends SliceChildView implements View.OnClickListener {
                 }
             }
         }
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        if (mSelectionItem == null
+                || parent != mSelectionSpinner
+                || position < 0
+                || position >= mSelectionOptionKeys.size()) {
+            return;
+        }
+
+        if (mObserver != null) {
+            EventInfo info = new EventInfo(getMode(), ACTION_TYPE_SELECTION, ROW_TYPE_SELECTION,
+                    mRowIndex);
+            // TODO: Record selected item somehow?
+            mObserver.onSliceAction(info, mSelectionItem);
+        }
+
+        final String optionKey = mSelectionOptionKeys.get(position);
+
+        try {
+            final boolean loading = mSelectionItem.fireActionInternal(getContext(),
+                    new Intent().addFlags(Intent.FLAG_RECEIVER_FOREGROUND)
+                            .putExtra(EXTRA_SELECTION, optionKey));
+            if (loading) {
+                mShowActionSpinner = true;
+                if (mLoadingListener != null) {
+                    mLoadingListener.onSliceActionLoading(mRowAction.getSliceItem(), mRowIndex);
+                    mLoadingActions.add(mRowAction.getSliceItem());
+                }
+                updateActionSpinner();
+            }
+        } catch (CanceledException e) {
+            Log.e(TAG, "PendingIntent for slice cannot be sent", e);
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 
     private void setViewClickable(View layout, boolean isClickable) {
@@ -872,6 +1003,7 @@ public class RowView extends SliceChildView implements View.OnClickListener {
         mRangeHasPendingUpdate = false;
         mRangeItem = null;
         mRangeMinValue = 0;
+        mRangeMaxValue = 0;
         mRangeValue = 0;
         mLastSentRangeUpdate = 0;
         mHandler = null;
@@ -880,6 +1012,11 @@ public class RowView extends SliceChildView implements View.OnClickListener {
             mRangeBar = null;
         }
         mActionSpinner.setVisibility(GONE);
+        if (mSelectionSpinner != null) {
+            removeView(mSelectionSpinner);
+            mSelectionSpinner = null;
+        }
+        mSelectionItem = null;
     }
 
     Runnable mRangeUpdater = new Runnable() {

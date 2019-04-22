@@ -16,9 +16,19 @@
 
 def build_versions = [:]
 
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
 build_versions.kotlin = '1.3.0'
 build_versions.lint = '26.3.0-rc01'
 build_versions.dokka = "0.9.17-g20181009"
+=======
+build_versions.kotlin = '1.3.20'
+build_versions.lint = '26.4.0-beta03'
+build_versions.dokka = '0.9.17-g001'
+
+build_versions.studio = new Properties()
+new File(buildscript.sourceFile.parentFile, "studio_versions.properties").withInputStream { build_versions.studio.load(it) }
+
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
 
 rootProject.ext['build_versions'] = build_versions
 
@@ -32,7 +42,11 @@ if (androidPluginVersionOverride != null) {
     logger.warn("USING OVERRIDDEN ANDROID GRADLE PLUGIN DEPENDENCY OF " + build_libs.gradle)
 } else {
     // Keep gradle plugin version in sync with ub_supportlib-master manifest.
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
     build_libs.gradle = 'com.android.tools.build:gradle:3.3.0-rc01'
+=======
+    build_libs.gradle = "com.android.tools.build:gradle:${build_versions.studio.agp}"
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
 }
 
 build_libs.lint = [

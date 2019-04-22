@@ -18,10 +18,14 @@ package androidx.leanback.preference;
 
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.util.TypedValue;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.fragment.app.Fragment;
 import androidx.leanback.widget.VerticalGridView;
@@ -35,7 +39,37 @@ import androidx.recyclerview.widget.RecyclerView;
  */
 public abstract class BaseLeanbackPreferenceFragmentCompat extends PreferenceFragmentCompat {
 
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
     @SuppressWarnings("RestrictedApi")
+=======
+    private Context mThemedContext;
+
+    @Nullable
+    @Override
+    public Context getContext() {
+        if (mThemedContext == null && getActivity() != null) {
+            final TypedValue tv = new TypedValue();
+            getActivity().getTheme().resolveAttribute(R.attr.preferenceTheme, tv, true);
+            int theme = tv.resourceId;
+            if (theme == 0) {
+                // Fallback to default theme.
+                theme = R.style.PreferenceThemeOverlayLeanback;
+            }
+            // aosp/821989 has forced PreferenceFragment to use the theme of activity and only
+            // override theme attribute value when it's not defined in activity theme.
+            // However, a side panel preference fragment can use different values than main content.
+            // So a ContextThemeWrapper is required, overrides getContext() before
+            // super.onCreate() call to use the ContextThemeWrapper in creating PreferenceManager
+            // and onCreateView().
+            // super.onCreate() will apply() the theme to activity in non-force way, which shouldn't
+            // affect activity as the theme attributes of PreferenceThemeOverlayLeanback is already
+            // in the activity's theme (in framework)
+            mThemedContext = new ContextThemeWrapper(super.getContext(), theme);
+        }
+        return mThemedContext;
+    }
+
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
     @Override
     public RecyclerView onCreateRecyclerView(LayoutInflater inflater, ViewGroup parent,
             Bundle savedInstanceState) {

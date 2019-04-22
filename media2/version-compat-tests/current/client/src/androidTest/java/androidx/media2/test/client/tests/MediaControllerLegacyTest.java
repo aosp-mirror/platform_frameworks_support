@@ -1,3 +1,4 @@
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
 /*
  * Copyright 2018 The Android Open Source Project
  *
@@ -707,3 +708,5 @@ public class MediaControllerLegacyTest extends MediaSessionTestBase {
         assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
     }
 }
+=======
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)

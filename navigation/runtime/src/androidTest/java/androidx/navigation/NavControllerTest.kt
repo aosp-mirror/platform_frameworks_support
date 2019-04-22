@@ -17,8 +17,14 @@
 package androidx.navigation
 
 import android.content.Context
+import android.net.Uri
 import android.os.Bundle
 import android.os.Parcel
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
+=======
+import android.os.Parcelable
+import androidx.lifecycle.ViewModelStore
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
 import androidx.navigation.test.R
 import androidx.navigation.testing.TestNavigator
 import androidx.navigation.testing.test
@@ -177,6 +183,75 @@ class NavControllerTest {
     }
 
     @Test
+    fun testInvalidNavigateViaDeepLink() {
+        val navController = createNavController()
+        navController.setGraph(R.navigation.nav_simple)
+        val deepLink = Uri.parse("android-app://androidx.navigation.test/invalid")
+
+        try {
+            navController.navigate(deepLink)
+            fail("navController.navigate must throw")
+        } catch (e: IllegalArgumentException) {
+            assertThat(e)
+                .hasMessageThat().contains(
+                    "navigation destination with deepLink $deepLink is unknown to this" +
+                            " NavController"
+                )
+        }
+    }
+
+    @Test
+    fun testNavigateViaDeepLink() {
+        val navController = createNavController()
+        navController.setGraph(R.navigation.nav_simple)
+        val navigator = navController.navigatorProvider.getNavigator(TestNavigator::class.java)
+        val deepLink = Uri.parse("android-app://androidx.navigation.test/test")
+
+        navController.navigate(deepLink)
+        assertThat(navController.currentDestination?.id ?: 0).isEqualTo(R.id.second_test)
+        assertThat(navigator.backStack.size).isEqualTo(2)
+    }
+
+    @Test
+    fun testNavigationViaDeepLinkPopUpTo() {
+        val navController = createNavController()
+        navController.setGraph(R.navigation.nav_simple)
+        val navigator = navController.navigatorProvider.getNavigator(TestNavigator::class.java)
+        val deepLink = Uri.parse("android-app://androidx.navigation.test/test")
+
+        navController.navigate(deepLink, navOptions {
+            popUpTo(0) { inclusive = true }
+        })
+        assertThat(navController.currentDestination?.id ?: 0).isEqualTo(R.id.second_test)
+        assertThat(navigator.backStack.size).isEqualTo(1)
+    }
+
+    @Test
+    fun testNavigateToDifferentGraphViaDeepLink() {
+        val navController = createNavController()
+        navController.setGraph(R.navigation.nav_multiple_navigation)
+        val navigator = navController.navigatorProvider.getNavigator(TestNavigator::class.java)
+        assertThat(navController.currentDestination?.id ?: 0)
+            .isEqualTo(R.id.simple_child_start_test)
+        assertThat(navigator.backStack.size).isEqualTo(1)
+
+        val deepLink = Uri.parse("android-app://androidx.navigation.test/test")
+
+        navController.navigate(deepLink)
+        assertThat(navController.currentDestination?.id ?: 0)
+            .isEqualTo(R.id.deep_link_child_second_test)
+        assertThat(navigator.backStack.size).isEqualTo(2)
+
+        val popped = navController.popBackStack()
+        assertWithMessage("NavController should return true when popping a non-root destination")
+            .that(popped)
+            .isTrue()
+        assertThat(navController.currentDestination?.id ?: 0)
+            .isEqualTo(R.id.simple_child_start_test)
+        assertThat(navigator.backStack.size).isEqualTo(1)
+    }
+
+    @Test
     fun testSaveRestoreStateXml() {
         val context = ApplicationProvider.getApplicationContext() as Context
         var navController = NavController(context)
@@ -227,6 +302,87 @@ class NavControllerTest {
     }
 
     @Test
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
+=======
+    fun testSaveRestoreStateBundleParceled() {
+        val context = ApplicationProvider.getApplicationContext() as Context
+        var navController = NavController(context)
+        val navigator = SaveStateTestNavigator()
+        navController.navigatorProvider.addNavigator(navigator)
+        navController.setGraph(R.navigation.nav_simple)
+
+        navigator.customParcel = CustomTestParcelable(TEST_ARG_VALUE)
+
+        val savedState = navController.saveState()
+
+        val parcel = Parcel.obtain()
+        savedState?.writeToParcel(parcel, 0)
+        parcel.setDataPosition(0)
+
+        val restoredState = Bundle.CREATOR.createFromParcel(parcel)
+
+        navController = NavController(context)
+        navController.navigatorProvider.addNavigator(navigator)
+
+        navController.restoreState(restoredState)
+        navController.setGraph(R.navigation.nav_simple)
+
+        // Ensure custom parcelable is present and can be read
+        assertThat(navigator.customParcel?.name).isEqualTo(TEST_ARG_VALUE)
+    }
+
+    @Test
+    fun testBackstackArgsBundleParceled() {
+        val context = ApplicationProvider.getApplicationContext() as Context
+        var navController = NavController(context)
+        val navigator = SaveStateTestNavigator()
+        navController.navigatorProvider.addNavigator(navigator)
+
+        val backStackArg1 = Bundle()
+        backStackArg1.putParcelable(TEST_ARG, CustomTestParcelable(TEST_ARG_VALUE))
+        navController.setGraph(R.navigation.nav_arguments)
+        navController.navigate(R.id.second_test, backStackArg1)
+
+        val savedState = navController.saveState()
+
+        val parcel = Parcel.obtain()
+        savedState?.writeToParcel(parcel, 0)
+        parcel.setDataPosition(0)
+
+        val restoredState = Bundle.CREATOR.createFromParcel(parcel)
+
+        navController = NavController(context)
+        navController.navigatorProvider.addNavigator(navigator)
+
+        navController.restoreState(restoredState)
+        navController.setGraph(R.navigation.nav_arguments)
+
+        navController.addOnDestinationChangedListener { _, _, arguments ->
+            assertThat(arguments?.getParcelable<CustomTestParcelable>(TEST_ARG)?.name)
+                .isEqualTo(TEST_ARG_VALUE)
+        }
+    }
+
+    @Test
+    fun testNavigateArgs() {
+        val navController = createNavController()
+        navController.setGraph(R.navigation.nav_arguments)
+
+        val navigator = navController.navigatorProvider.getNavigator(TestNavigator::class.java)
+        val returnedArgs = navigator.current.second
+        assertThat(returnedArgs).isNotNull()
+        assertThat(returnedArgs!!["test_start_default"])
+            .isEqualTo("default")
+
+        navController.addOnDestinationChangedListener { _, _, arguments ->
+            assertThat(arguments).isNotNull()
+            assertThat(arguments!!["test_start_default"])
+                .isEqualTo("default")
+        }
+    }
+
+    @Test
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
     fun testNavigateWithNoDefaultValue() {
         val returnedArgs = navigateWithArgs(null)
 
@@ -630,6 +786,87 @@ class NavControllerTest {
             .isFalse()
 
         verifyNoMoreInteractions(onDestinationChangedListener)
+    }
+
+    @Test
+    fun testGetViewModelStore() {
+        val navController = createNavController()
+        navController.setHostViewModelStore(ViewModelStore())
+        val navGraph = navController.navigatorProvider.navigation(
+            id = 1,
+            startDestination = R.id.start_test
+        ) {
+            test(R.id.start_test)
+        }
+        navController.setGraph(navGraph, null)
+
+        val store = navController.getViewModelStore(navGraph.id)
+        assertThat(store).isNotNull()
+    }
+
+    @Test
+    fun testSaveRestoreGetViewModelStore() {
+        val hostStore = ViewModelStore()
+        val navController = createNavController()
+        navController.setHostViewModelStore(hostStore)
+        val navGraph = navController.navigatorProvider.navigation(
+            id = 1,
+            startDestination = R.id.start_test
+        ) {
+            test(R.id.start_test)
+        }
+        navController.setGraph(navGraph, null)
+
+        val store = navController.getViewModelStore(navGraph.id)
+        assertThat(store).isNotNull()
+
+        val savedState = navController.saveState()
+        val restoredNavController = createNavController()
+        restoredNavController.setHostViewModelStore(hostStore)
+        restoredNavController.restoreState(savedState)
+        restoredNavController.graph = navGraph
+
+        assertWithMessage("Restored NavController should return the same ViewModelStore")
+            .that(restoredNavController.getViewModelStore(navGraph.id))
+            .isSameAs(store)
+    }
+
+    @Test
+    fun testGetViewModelStoreNoGraph() {
+        val navController = createNavController()
+        navController.setHostViewModelStore(ViewModelStore())
+        val navGraphId = 1
+
+        try {
+            navController.getViewModelStore(navGraphId)
+            fail(
+                "Attempting to get ViewModelStore for navGraph not on back stack should throw " +
+                        "IllegalArgumentException"
+            )
+        } catch (e: IllegalArgumentException) {
+            assertThat(e)
+                .hasMessageThat().contains(
+                    "No NavGraph with ID $navGraphId is on the NavController's back stack"
+                )
+        }
+    }
+
+    @Test
+    fun testGetViewModelStoreSameGraph() {
+        val navController = createNavController()
+        navController.setHostViewModelStore(ViewModelStore())
+        val provider = navController.navigatorProvider
+        val graph = provider.navigation(1, startDestination = 1) {
+            navigation(1, startDestination = 2) {
+                test(2)
+            }
+        }
+
+        navController.setGraph(graph, null)
+        val viewStore = navController.getViewModelStore(graph.id)
+
+        assertThat(viewStore).isNotNull()
+        assertThat(navController.getViewModelStore(graph.id)).isSameAs(viewStore)
     }
 
     private fun createNavController(): NavController {

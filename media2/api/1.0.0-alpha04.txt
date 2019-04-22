@@ -1,3 +1,4 @@
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
 // Signature format: 2.0
 package androidx.media2 {
 
@@ -742,3 +743,5 @@ package androidx.media2 {
 
 }
 
+=======
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)

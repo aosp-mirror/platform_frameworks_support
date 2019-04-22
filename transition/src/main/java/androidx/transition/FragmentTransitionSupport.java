@@ -18,6 +18,7 @@ package androidx.transition;
 
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
+import android.annotation.SuppressLint;
 import android.graphics.Rect;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,7 +36,13 @@ import java.util.List;
  */
 // This is instantiated in androidx.fragment.app.FragmentTransition
 @SuppressWarnings("unused")
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
 @RestrictTo(LIBRARY_GROUP)
+=======
+@RestrictTo(LIBRARY_GROUP_PREFIX)
+@SuppressLint("RestrictedApi") // remove once fragment lib would be released with the new
+// LIBRARY_GROUP_PREFIX restriction. tracking in b/127286008
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
 public class FragmentTransitionSupport extends FragmentTransitionImpl {
 
     @Override

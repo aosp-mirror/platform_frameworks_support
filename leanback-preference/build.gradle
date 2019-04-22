@@ -2,7 +2,8 @@ import androidx.build.LibraryGroups
 import androidx.build.LibraryVersions
 
 plugins {
-    id("SupportAndroidLibraryPlugin")
+    id("AndroidXPlugin")
+    id("com.android.library")
 }
 
 dependencies {
@@ -25,7 +26,7 @@ android {
     }
 }
 
-supportLibrary {
+androidx {
     name = "AndroidX Leanback Preference"
     publish = true
     mavenVersion = LibraryVersions.LEANBACK_PREFERENCE

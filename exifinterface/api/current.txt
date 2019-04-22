@@ -8,8 +8,10 @@ package androidx.exifinterface.media {
     method public void flipVertically();
     method public double getAltitude(double);
     method public String? getAttribute(String);
+    method public byte[]? getAttributeBytes(String);
     method public double getAttributeDouble(String, double);
     method public int getAttributeInt(String, int);
+    method public long[]? getAttributeRange(String);
     method @Deprecated public boolean getLatLong(float[]!);
     method public double[]? getLatLong();
     method public int getRotationDegrees();
@@ -17,6 +19,7 @@ package androidx.exifinterface.media {
     method public android.graphics.Bitmap? getThumbnailBitmap();
     method public byte[]? getThumbnailBytes();
     method public long[]? getThumbnailRange();
+    method public boolean hasAttribute(String);
     method public boolean hasThumbnail();
     method public boolean isFlipped();
     method public boolean isThumbnailCompressed();
@@ -317,6 +320,7 @@ package androidx.exifinterface.media {
     field public static final String TAG_USER_COMMENT = "UserComment";
     field public static final String TAG_WHITE_BALANCE = "WhiteBalance";
     field public static final String TAG_WHITE_POINT = "WhitePoint";
+    field public static final String TAG_XMP = "Xmp";
     field public static final String TAG_X_RESOLUTION = "XResolution";
     field public static final String TAG_Y_CB_CR_COEFFICIENTS = "YCbCrCoefficients";
     field public static final String TAG_Y_CB_CR_POSITIONING = "YCbCrPositioning";

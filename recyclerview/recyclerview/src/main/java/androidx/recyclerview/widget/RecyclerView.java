@@ -791,7 +791,8 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
                         classLoader = context.getClassLoader();
                     }
                     Class<? extends LayoutManager> layoutManagerClass =
-                            classLoader.loadClass(className).asSubclass(LayoutManager.class);
+                            Class.forName(className, false, classLoader)
+                                    .asSubclass(LayoutManager.class);
                     Constructor<? extends LayoutManager> constructor;
                     Object[] constructorArgs = null;
                     try {
@@ -3021,10 +3022,10 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
         // 3. All other MotionEvents should be passed to either onInterceptTouchEvent or
         // onTouchEvent, not both.
 
-        // Side Note: If we are to truly mimic how MotionEvents work in the view system, for every
-        // MotionEvent, any OnItemTouchListener that is before the intercepting OnItemTouchEvent
-        // should still have a chance to intercept, and if it does, the previously intercepting
-        // OnItemTouchEvent should get an ACTION_CANCEL event.
+        // Side Note: We don't currently perfectly mimic how MotionEvents work in the view system.
+        // If we were to do so, for every MotionEvent, any OnItemTouchListener that is before the
+        // intercepting OnItemTouchEvent should still have a chance to intercept, and if it does,
+        // the previously intercepting OnItemTouchEvent should get an ACTION_CANCEL event.
 
         if (mInterceptingOnItemTouchListener == null) {
             if (e.getAction() == MotionEvent.ACTION_DOWN) {
@@ -3044,10 +3045,12 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
     /**
      * Looks for an OnItemTouchListener that wants to intercept.
      *
-     * <p>Passes the MotionEvent to all registered OnItemTouchListeners one at a time. If one wants
-     * to intercept and the action is not ACTION_UP or ACTION_CANCEL, saves the intercepting
-     * OnItemTouchListener and immediately returns true. If none want to intercept
-     * or the action is ACTION_UP or ACTION_CANCEL, returns false.
+     * <p>Calls {@link OnItemTouchListener#onInterceptTouchEvent(RecyclerView, MotionEvent)} on each
+     * of the registered {@link OnItemTouchListener}s, passing in the
+     * MotionEvent. If one returns true and the action is not ACTION_CANCEL, saves the intercepting
+     * OnItemTouchListener to be called for future {@link RecyclerView#onTouchEvent(MotionEvent)}
+     * and immediately returns true. If none want to intercept or the action is ACTION_CANCEL,
+     * returns false.
      *
      * @param e The MotionEvent
      * @return true if an OnItemTouchListener is saved as intercepting.
@@ -3057,8 +3060,7 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
         final int listenerCount = mOnItemTouchListeners.size();
         for (int i = 0; i < listenerCount; i++) {
             final OnItemTouchListener listener = mOnItemTouchListeners.get(i);
-            if (listener.onInterceptTouchEvent(this, e)
-                    && action != MotionEvent.ACTION_UP && action != MotionEvent.ACTION_CANCEL) {
+            if (listener.onInterceptTouchEvent(this, e) && action != MotionEvent.ACTION_CANCEL) {
                 mInterceptingOnItemTouchListener = listener;
                 return true;
             }
@@ -3635,6 +3637,12 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
             return;
         }
         super.sendAccessibilityEventUnchecked(event);
+    }
+
+    @Override
+    public boolean dispatchPopulateAccessibilityEvent(AccessibilityEvent event) {
+        onPopulateAccessibilityEvent(event);
+        return true;
     }
 
     /**
@@ -6317,9 +6325,9 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
                         + " should first call stopIgnoringView(view) before calling recycle."
                         + exceptionLabel());
             }
-            //noinspection unchecked
             final boolean transientStatePreventsRecycling = holder
                     .doesTransientStatePreventRecycling();
+            @SuppressWarnings("unchecked")
             final boolean forceRecycle = mAdapter != null
                     && transientStatePreventsRecycling
                     && mAdapter.onFailedToRecycleView(holder);
@@ -10484,7 +10492,7 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
         /**
          * Parse the xml attributes to get the most common properties used by layout managers.
          *
-         * {@link androidx.recyclerview.R.attr#android_orientation}
+         * {@link android.R.attr#orientation}
          * {@link androidx.recyclerview.R.attr#spanCount}
          * {@link androidx.recyclerview.R.attr#reverseLayout}
          * {@link androidx.recyclerview.R.attr#stackFromEnd}
@@ -10543,7 +10551,7 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
          * Some general properties that a LayoutManager may want to use.
          */
         public static class Properties {
-            /** {@link androidx.recyclerview.R.attr#android_orientation} */
+            /** {@link android.R.attr#orientation} */
             public int orientation;
             /** {@link androidx.recyclerview.R.attr#spanCount} */
             public int spanCount;

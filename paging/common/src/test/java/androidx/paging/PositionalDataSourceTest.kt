@@ -16,6 +16,7 @@
 
 package androidx.paging
 
+import androidx.paging.futures.DirectExecutor
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Assert.fail
@@ -85,6 +86,7 @@ class PositionalDataSourceTest {
                 totalCount = 100))
     }
 
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
     @Test
     fun fullLoadWrappedAsContiguous() {
         // verify that prepend / append work correctly with a PositionalDataSource, made contiguous
@@ -112,6 +114,53 @@ class PositionalDataSourceTest {
             testExecutor.executeAll()
             assertEquals((0..i * 10 + 9).toList(), pagedList)
         }
+=======
+    private fun validatePositionOffset(enablePlaceholders: Boolean) {
+        val config = PagedList.Config.Builder()
+                .setPageSize(10)
+                .setEnablePlaceholders(enablePlaceholders)
+                .build()
+        val success = mutableListOf(false)
+        val dataSource = object : PositionalDataSource<String>() {
+            override fun loadInitial(
+                params: LoadInitialParams,
+                callback: LoadInitialCallback<String>
+            ) {
+                if (enablePlaceholders) {
+                    // 36 - ((10 * 3) / 2) = 21, round down to 20
+                    assertEquals(20, params.requestedStartPosition)
+                } else {
+                    // 36 - ((10 * 3) / 2) = 21, no rounding
+                    assertEquals(21, params.requestedStartPosition)
+                }
+
+                callback.onResult(listOf("a", "b"), 0, 2)
+                success[0] = true
+            }
+
+            override fun loadRange(params: LoadRangeParams, callback: LoadRangeCallback<String>) {
+                fail("loadRange not expected")
+            }
+        }
+
+        @Suppress("DEPRECATION")
+        PagedList.Builder(dataSource, config)
+                .setFetchExecutor { it.run() }
+                .setNotifyExecutor { it.run() }
+                .setInitialKey(36)
+                .build()
+        assertTrue(success[0])
+    }
+
+    @Test
+    fun initialPositionOffset() {
+        validatePositionOffset(true)
+    }
+
+    @Test
+    fun initialPositionOffsetAsContiguous() {
+        validatePositionOffset(false)
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
     }
 
     private fun performLoadInitial(
@@ -140,19 +189,23 @@ class PositionalDataSourceTest {
                 .setPageSize(10)
                 .setEnablePlaceholders(enablePlaceholders)
                 .build()
-        if (enablePlaceholders) {
-            TiledPagedList(dataSource, FailExecutor(), FailExecutor(), null, config, 0)
-        } else {
-            ContiguousPagedList(dataSource.wrapAsContiguousWithoutPlaceholders(),
-                    FailExecutor(), FailExecutor(), null, config, null,
-                    ContiguousPagedList.LAST_LOAD_UNSPECIFIED)
-        }
+
+        dataSource.initExecutor(DirectExecutor.INSTANCE)
+
+        dataSource.loadInitial(PositionalDataSource.LoadInitialParams(
+            0, config.initialLoadSizeHint, config.pageSize, config.enablePlaceholders)).get()
     }
 
     @Test
     fun initialLoadCallbackSuccess() = performLoadInitial {
         // LoadInitialCallback correct usage
         it.onResult(listOf("a", "b"), 0, 2)
+    }
+
+    @Test(expected = IllegalStateException::class)
+    fun initialLoadCallbackRequireTotalCount() = performLoadInitial(enablePlaceholders = true) {
+        // LoadInitialCallback requires 3 args when placeholders enabled
+        it.onResult(listOf("a", "b"), 0)
     }
 
     @Test(expected = IllegalArgumentException::class)
@@ -184,12 +237,6 @@ class PositionalDataSourceTest {
     fun initialLoadCallbackEmptyCannotHavePlaceholders() = performLoadInitial {
         // LoadInitialCallback can't accept empty result unless data set is empty
         it.onResult(emptyList(), 0, 2)
-    }
-
-    @Test(expected = IllegalStateException::class)
-    fun initialLoadCallbackRequireTotalCount() = performLoadInitial(enablePlaceholders = true) {
-        // LoadInitialCallback requires 3 args when placeholders enabled
-        it.onResult(listOf("a", "b"), 0)
     }
 
     @Test
@@ -253,10 +300,6 @@ class PositionalDataSourceTest {
                 override fun onError(error: Throwable) {
                     callback.onError(error)
                 }
-
-                override fun onRetryableError(error: Throwable) {
-                    callback.onRetryableError(error)
-                }
             })
         }
 
@@ -268,10 +311,6 @@ class PositionalDataSourceTest {
 
                 override fun onError(error: Throwable) {
                     callback.onError(error)
-                }
-
-                override fun onRetryableError(error: Throwable) {
-                    callback.onRetryableError(error)
                 }
             })
         }
@@ -390,6 +429,14 @@ class PositionalDataSourceTest {
     }
 
     @Test
+    fun testGetKey() {
+        val source = ListDataSource(listOf("a", "b"))
+        assertEquals(null, source.getKey("a"))
+        assertEquals(1, source.getKey(1, "a"))
+        assertEquals(1, source.getKey(1, null))
+    }
+
+    @Test
     fun testInvalidateToWrapper() {
         val orig = ListDataSource(listOf(0, 1, 2))
         val wrapper = orig.map { it.toString() }
@@ -402,24 +449,6 @@ class PositionalDataSourceTest {
     fun testInvalidateFromWrapper() {
         val orig = ListDataSource(listOf(0, 1, 2))
         val wrapper = orig.map { it.toString() }
-
-        wrapper.invalidate()
-        assertTrue(orig.isInvalid)
-    }
-
-    @Test
-    fun testInvalidateToWrapper_contiguous() {
-        val orig = ListDataSource(listOf(0, 1, 2))
-        val wrapper = orig.wrapAsContiguousWithoutPlaceholders()
-
-        orig.invalidate()
-        assertTrue(wrapper.isInvalid)
-    }
-
-    @Test
-    fun testInvalidateFromWrapper_contiguous() {
-        val orig = ListDataSource(listOf(0, 1, 2))
-        val wrapper = orig.wrapAsContiguousWithoutPlaceholders()
 
         wrapper.invalidate()
         assertTrue(orig.isInvalid)

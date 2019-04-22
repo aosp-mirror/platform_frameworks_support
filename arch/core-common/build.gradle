@@ -17,10 +17,11 @@
 import static androidx.build.dependencies.DependenciesKt.*
 import androidx.build.LibraryGroups
 import androidx.build.LibraryVersions
-import androidx.build.SupportLibraryExtension;
+import androidx.build.AndroidXExtension
 
 plugins {
-    id("SupportJavaLibraryPlugin")
+    id("AndroidXPlugin")
+    id("java")
 }
 
 dependencies {
@@ -30,12 +31,18 @@ dependencies {
     testCompile(MOCKITO_CORE)
 }
 
-supportLibrary {
+androidx {
     name = "Android Arch-Common"
     publish = true
     mavenVersion = LibraryVersions.ARCH_CORE
     mavenGroup = LibraryGroups.ARCH_CORE
     inceptionYear = "2017"
     description = "Android Arch-Common"
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
     url = SupportLibraryExtension.ARCHITECTURE_URL
 }
+=======
+    url = AndroidXExtension.ARCHITECTURE_URL
+    trackRestrictedAPIs = false
+}
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)

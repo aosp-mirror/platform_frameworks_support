@@ -107,7 +107,7 @@ open class GMavenZipTask : Zip() {
                         """.trimIndent()
                 task.versionChecker = gMavenVersionChecker
                 task.from(supportRepoOut)
-                task.destinationDir = distDir
+                task.destinationDirectory.set(distDir)
                 task.includeReleased = params.includeReleased
                 task.includeMetadata = params.includeMetadata
                 task.into("m2repository")
@@ -119,11 +119,11 @@ open class GMavenZipTask : Zip() {
                             .joinToString("-")
                 } + "-$buildNumber"
                 if (includeReleased) {
-                    task.baseName = "top-of-tree-m2repository-$fileSuffix"
+                    task.archiveBaseName.set("top-of-tree-m2repository-$fileSuffix")
                 } else {
-                    task.baseName = "gmaven-diff-$fileSuffix"
+                    task.archiveBaseName.set("gmaven-diff-$fileSuffix")
                 }
-                task.onlyIf { _ ->
+                task.onlyIf {
                     task.setupIncludes()
                 }
             }
@@ -189,14 +189,14 @@ object Release {
     /**
      * Registers the project to be included in its group's zip file as well as the global zip files.
      */
-    fun register(project: Project, extension: SupportLibraryExtension) {
+    fun register(project: Project, extension: AndroidXExtension) {
         if (!extension.publish) {
             throw IllegalArgumentException(
                     "Cannot register ${project.path} into the release" +
                             " because publish is false!"
             )
         }
-        val mavenGroup = extension.mavenGroup ?: throw IllegalArgumentException(
+        val mavenGroup = extension.mavenGroup?.group ?: throw IllegalArgumentException(
                 "Cannot register a project to release if it does not have a mavenGroup set up"
         )
         val version = extension.mavenVersion ?: throw IllegalArgumentException(

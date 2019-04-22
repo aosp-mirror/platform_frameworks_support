@@ -18,11 +18,11 @@ package androidx.paging;
 
 import android.annotation.SuppressLint;
 
-import androidx.annotation.AnyThread;
+import android.annotation.SuppressLint;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.arch.core.executor.ArchTaskExecutor;
-import androidx.lifecycle.ComputableLiveData;
 import androidx.lifecycle.LiveData;
 
 import java.util.concurrent.Executor;
@@ -42,7 +42,11 @@ public final class LivePagedListBuilder<Key, Value> {
     private Key mInitialLoadKey;
     private PagedList.Config mConfig;
     private DataSource.Factory<Key, Value> mDataSourceFactory;
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
     private PagedList.BoundaryCallback mBoundaryCallback;
+=======
+    private PagedList.BoundaryCallback<Value> mBoundaryCallback;
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
     @SuppressLint("RestrictedApi")
     private Executor mFetchExecutor = ArchTaskExecutor.getIOThreadExecutor();
 
@@ -151,13 +155,14 @@ public final class LivePagedListBuilder<Key, Value> {
      *
      * @return The LiveData of PagedLists
      */
+    @SuppressLint("RestrictedApi")
     @NonNull
     @SuppressLint("RestrictedApi")
     public LiveData<PagedList<Value>> build() {
-        return create(mInitialLoadKey, mConfig, mBoundaryCallback, mDataSourceFactory,
+        return new LivePagedList<>(mInitialLoadKey, mConfig, mBoundaryCallback, mDataSourceFactory,
                 ArchTaskExecutor.getMainThreadExecutor(), mFetchExecutor);
-    }
 
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
     @AnyThread
     @NonNull
     @SuppressLint("RestrictedApi")
@@ -208,5 +213,7 @@ public final class LivePagedListBuilder<Key, Value> {
                 return mList;
             }
         }.getLiveData();
+=======
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
     }
 }

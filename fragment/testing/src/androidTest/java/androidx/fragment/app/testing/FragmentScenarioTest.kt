@@ -20,7 +20,16 @@ import android.os.Bundle
 import androidx.fragment.app.FragmentFactory
 import androidx.fragment.testing.test.R.style.ThemedFragmentTheme
 import androidx.lifecycle.Lifecycle.State
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
+=======
+import androidx.test.core.app.ApplicationProvider.getApplicationContext
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
 import androidx.test.ext.junit.runners.AndroidJUnit4
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
+=======
+import androidx.test.filters.LargeTest
+import androidx.test.filters.SdkSuppress
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -28,11 +37,10 @@ import org.junit.runner.RunWith
 private class NoDefaultConstructorFragmentFactory(val arg: String) : FragmentFactory() {
     override fun instantiate(
         classLoader: ClassLoader,
-        className: String,
-        args: Bundle?
+        className: String
     ) = when (className) {
         NoDefaultConstructorFragment::class.java.name -> NoDefaultConstructorFragment(arg)
-        else -> super.instantiate(classLoader, className, args)
+        else -> super.instantiate(classLoader, className)
     }
 }
 
@@ -190,6 +198,7 @@ class FragmentScenarioTest {
         }
     }
 
+    @SdkSuppress(minSdkVersion = 24) // Moving to STARTED is not supported on pre-N devices.
     @Test
     fun fromResumedToStarted() {
         with(launchFragmentInContainer<StateRecordingFragment>()) {
@@ -231,6 +240,7 @@ class FragmentScenarioTest {
         }
     }
 
+    @SdkSuppress(minSdkVersion = 24) // Moving to STARTED is not supported on pre-N devices.
     @Test
     fun fromCreatedToStarted() {
         with(launchFragmentInContainer<StateRecordingFragment>()) {
@@ -263,6 +273,7 @@ class FragmentScenarioTest {
         }
     }
 
+    @SdkSuppress(minSdkVersion = 24) // Moving to STARTED is not supported on pre-N devices.
     @Test
     fun fromStartedToCreated() {
         with(launchFragmentInContainer<StateRecordingFragment>()) {
@@ -275,6 +286,7 @@ class FragmentScenarioTest {
         }
     }
 
+    @SdkSuppress(minSdkVersion = 24) // Moving to STARTED is not supported on pre-N devices.
     @Test
     fun fromStartedToStarted() {
         with(launchFragmentInContainer<StateRecordingFragment>()) {
@@ -287,6 +299,7 @@ class FragmentScenarioTest {
         }
     }
 
+    @SdkSuppress(minSdkVersion = 24) // Moving to STARTED is not supported on pre-N devices.
     @Test
     fun fromStartedToResumed() {
         with(launchFragmentInContainer<StateRecordingFragment>()) {
@@ -299,6 +312,7 @@ class FragmentScenarioTest {
         }
     }
 
+    @SdkSuppress(minSdkVersion = 24) // Moving to STARTED is not supported on pre-N devices.
     @Test
     fun fromStartedToDestroyed() {
         with(launchFragmentInContainer<StateRecordingFragment>()) {
@@ -327,6 +341,7 @@ class FragmentScenarioTest {
         }
     }
 
+    @SdkSuppress(minSdkVersion = 24) // Moving to STARTED is not supported on pre-N devices.
     @Test
     fun recreateStartedFragment() {
         with(launchFragmentInContainer<StateRecordingFragment>()) {
@@ -391,4 +406,25 @@ class FragmentScenarioTest {
             }
         }
     }
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
+=======
+
+    @Test
+    fun fragmentWithOptionsMenu() {
+        val uiModeManager = getSystemService(getApplicationContext(), UiModeManager::class.java)!!
+        if (uiModeManager.currentModeType == Configuration.UI_MODE_TYPE_TELEVISION) {
+            // Android TV does not support action bar.
+            return
+        }
+
+        launchFragment<OptionsMenuFragment>().onFragment { fragment ->
+            assertThat(fragment.hasOptionsMenu()).isTrue()
+        }
+
+        // TODO: Re-enable following checks once openActionBarOverflowOrOptionsMenu() is fixed.
+        // https://issuetracker.google.com/issues/69656506
+        // openActionBarOverflowOrOptionsMenu(getApplicationContext())
+        // onView(withText("Item1")).check(matches(isDisplayed()))
+    }
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
 }

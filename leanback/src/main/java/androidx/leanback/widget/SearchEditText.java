@@ -38,7 +38,7 @@ public class SearchEditText extends StreamingTextView {
         public void onKeyboardDismiss();
     }
 
-    private OnKeyboardDismissListener mKeyboardDismissListener;
+    OnKeyboardDismissListener mKeyboardDismissListener;
 
     public SearchEditText(Context context) {
         this(context, null);
@@ -56,8 +56,21 @@ public class SearchEditText extends StreamingTextView {
     public boolean onKeyPreIme(int keyCode, KeyEvent event) {
         if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
             if (DEBUG) Log.v(TAG, "Keyboard being dismissed");
+            // Delay focus on result because focus to result in EditText.onKeyPreIme(KEYCODE_BACK).
+            // If set focus too early, the activity will be closed.
             if (mKeyboardDismissListener != null) {
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
                 mKeyboardDismissListener.onKeyboardDismiss();
+=======
+                post(new Runnable() {
+                         @Override
+                         public void run() {
+                             if (mKeyboardDismissListener != null) {
+                                 mKeyboardDismissListener.onKeyboardDismiss();
+                             }
+                         }
+                     });
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
             }
             return false;
         }

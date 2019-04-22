@@ -19,6 +19,7 @@ package androidx.benchmark
 import androidx.test.filters.SmallTest
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
+import org.junit.Assert.fail
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
@@ -60,4 +61,50 @@ class BenchmarkStateTest {
         assertEquals(summary1.indexOf("foo"),
             summary2.indexOf("foo"))
     }
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
+=======
+
+    @Test
+    fun bundle() {
+        val bundle = BenchmarkState().apply {
+            while (keepRunning()) {
+                // nothing, we're ignoring numbers
+            }
+        }.getFullStatusReport("foo")
+
+        assertTrue(
+            (bundle.get("android.studio.display.benchmark") as String).contains("foo"))
+
+        // check attribute presence and naming
+        val prefix = WarningState.WARNING_PREFIX
+        assertNotNull(bundle.get("${prefix}min"))
+        assertNotNull(bundle.get("${prefix}mean"))
+        assertNotNull(bundle.get("${prefix}count"))
+    }
+
+    @Test
+    fun notStarted() {
+        try {
+            BenchmarkState().stats
+            fail("expected exception")
+        } catch (e: IllegalStateException) {
+            assertTrue(e.message!!.contains("wasn't started"))
+            assertTrue(e.message!!.contains("benchmarkRule.measureRepeated {}"))
+        }
+    }
+
+    @Test
+    fun notFinished() {
+        try {
+            BenchmarkState().run {
+                keepRunning()
+                stats
+            }
+            fail("expected exception")
+        } catch (e: IllegalStateException) {
+            assertTrue(e.message!!.contains("hasn't finished"))
+            assertTrue(e.message!!.contains("benchmarkRule.measureRepeated {}"))
+        }
+    }
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
 }

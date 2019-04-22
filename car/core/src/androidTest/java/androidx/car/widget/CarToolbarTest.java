@@ -42,7 +42,6 @@ import static org.junit.Assert.assertEquals;
 
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.Icon;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -314,7 +313,7 @@ public class CarToolbarTest {
                 .Builder()
                 .setTitle(actionItemText)
                 .setDisplayBehavior(CarMenuItem.DisplayBehavior.ALWAYS) // Action item
-                .setIcon(Icon.createWithResource(mActivity, android.R.drawable.sym_def_app_icon))
+                .setIcon(mActivity, android.R.drawable.sym_def_app_icon)
                 .build();
 
         mActivityRule.runOnUiThread(() ->
@@ -524,10 +523,19 @@ public class CarToolbarTest {
                 .setTitle(overflowItemText)
                 .build();
 
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
         mActivityRule.runOnUiThread(() -> {
             mToolbar.setMenuItems(Collections.singletonList(overflowItem));
             mToolbar.showOverflowMenu();
         });
+=======
+        mActivityRule.runOnUiThread(() ->
+                mToolbar.setMenuItems(Collections.singletonList(overflowItem)));
+
+        // Since overflow items are set in onMeasure, need to wait for the views to be laid out.
+        InstrumentationRegistry.getInstrumentation().waitForIdleSync();
+        mActivityRule.runOnUiThread(() -> mToolbar.setOverflowMenuShown(true));
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
 
         onView(withText(overflowItemText)).inRoot(isDialog()).check(matches(isDisplayed()));
     }
@@ -543,8 +551,8 @@ public class CarToolbarTest {
 
         mActivityRule.runOnUiThread(() -> {
             mToolbar.setMenuItems(Collections.singletonList(overflowItem));
-            mToolbar.showOverflowMenu();
-            mToolbar.hideOverflowMenu();
+            mToolbar.setOverflowMenuShown(true);
+            mToolbar.setOverflowMenuShown(false);
         });
 
         onView(withText(overflowItemText)).check(doesNotExist());
@@ -572,6 +580,141 @@ public class CarToolbarTest {
         assertTrue(clicked[0]);
     }
 
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
+=======
+    @Test
+    public void testIfRoomItemDisplayedInOrderProvided() throws Throwable {
+        List<CarMenuItem> items = new ArrayList<>();
+        String action1Text = "action_item_1";
+        items.add(new CarMenuItem
+                .Builder()
+                .setTitle(action1Text)
+                .setDisplayBehavior(CarMenuItem.DisplayBehavior.ALWAYS)
+                .build());
+
+        String ifRoomItemText = "if_room_item_text";
+        items.add(new CarMenuItem
+                .Builder()
+                .setTitle(ifRoomItemText)
+                .setDisplayBehavior(CarMenuItem.DisplayBehavior.IF_ROOM)
+                .build());
+
+        String action2Text = "action_item_2";
+        items.add(new CarMenuItem
+                .Builder()
+                .setTitle(action2Text)
+                .setDisplayBehavior(CarMenuItem.DisplayBehavior.ALWAYS)
+                .build());
+
+
+        mActivityRule.runOnUiThread(() -> mToolbar.setMenuItems(items));
+
+        onView(withText(ifRoomItemText)).check(isCompletelyLeftOf(withText(action1Text)));
+        onView(withText(ifRoomItemText)).check(isCompletelyRightOf(withText(action2Text)));
+    }
+
+    @Test
+    public void testIfRoomItemDisplayedIfRoomAvailable() throws Throwable {
+        String ifRoomItemText = "if_room_item_text";
+        CarMenuItem ifRoomItem = new CarMenuItem
+                .Builder()
+                .setTitle(ifRoomItemText)
+                .setDisplayBehavior(CarMenuItem.DisplayBehavior.IF_ROOM)
+                .build();
+
+        mActivityRule.runOnUiThread(() ->
+                mToolbar.setMenuItems(Collections.singletonList(ifRoomItem)));
+
+        onView(withText(ifRoomItemText)).check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void testIfRoomItemAddedToOverflowIfOverCountLimit() throws Throwable {
+        List<CarMenuItem> items = new ArrayList<>();
+        for (int i = 0; i < CarToolbar.ACTION_ITEM_COUNT_LIMIT; i++) {
+            items.add(new CarMenuItem
+                    .Builder()
+                    .setDisplayBehavior(CarMenuItem.DisplayBehavior.ALWAYS)
+                    .build());
+        }
+
+        String ifRoomItemText = "if_room_item_text";
+        items.add(new CarMenuItem
+                .Builder()
+                .setTitle(ifRoomItemText)
+                .setDisplayBehavior(CarMenuItem.DisplayBehavior.IF_ROOM)
+                .build());
+
+        mActivityRule.runOnUiThread(() -> mToolbar.setMenuItems(items));
+
+        onView(withText(ifRoomItemText)).check(doesNotExist());
+
+        // Open overflow menu.
+        onView(withId(R.id.overflow_menu)).perform(click());
+
+        onView(withText(ifRoomItemText)).check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void testIfRoomItemAddedToOverflowIfOverWidthPercentageLimit() throws Throwable {
+        // Add just one ALWAYS item with long text so that ACTION_ITEM_COUNT_LIMIT is not reached.
+        String longText = mActivity.getString(R.string.over_uxr_text_length_limit);
+        List<CarMenuItem> items = new ArrayList<>();
+        items.add(new CarMenuItem
+                .Builder()
+                .setTitle(longText)
+                .setDisplayBehavior(CarMenuItem.DisplayBehavior.ALWAYS)
+                .build());
+        InstrumentationRegistry.getInstrumentation().waitForIdleSync();
+
+        String ifRoomItemText = "if_room_item_text";
+        items.add(new CarMenuItem
+                .Builder()
+                .setTitle(ifRoomItemText)
+                .setDisplayBehavior(CarMenuItem.DisplayBehavior.IF_ROOM)
+                .build());
+
+        mActivityRule.runOnUiThread(() -> mToolbar.setMenuItems(items));
+
+        onView(withText(ifRoomItemText)).check(doesNotExist());
+
+        mActivityRule.runOnUiThread(() -> mToolbar.setOverflowMenuShown(true));
+
+        onView(withText(ifRoomItemText)).check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void testIfRoomItemPushedFromActionToOverflowIfLimitExceeded() throws Throwable {
+        List<CarMenuItem> items = new ArrayList<>();
+        items.add(new CarMenuItem
+                .Builder()
+                .setDisplayBehavior(CarMenuItem.DisplayBehavior.ALWAYS)
+                .build());
+
+        String ifRoomItemText = "if_room_item_text";
+        items.add(new CarMenuItem
+                .Builder()
+                .setTitle(ifRoomItemText)
+                .setDisplayBehavior(CarMenuItem.DisplayBehavior.IF_ROOM)
+                .build());
+
+        mActivityRule.runOnUiThread(() -> mToolbar.setMenuItems(items));
+
+        onView(withText(ifRoomItemText)).check(matches(isDisplayed()));
+
+        for (int i = 0; i < CarToolbar.ACTION_ITEM_COUNT_LIMIT - 1; i++) {
+            items.add(new CarMenuItem
+                    .Builder()
+                    .setDisplayBehavior(CarMenuItem.DisplayBehavior.ALWAYS)
+                    .build());
+        }
+        mActivityRule.runOnUiThread(() -> mToolbar.setMenuItems(items));
+
+        onView(withText(ifRoomItemText)).check(doesNotExist());
+        onView(withId(R.id.overflow_menu)).check(matches(isDisplayed()));
+    }
+
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
     private TextView getTitleView() {
         return mActivity.findViewById(R.id.title);
     }

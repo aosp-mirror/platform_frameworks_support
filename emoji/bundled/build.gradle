@@ -2,7 +2,8 @@ import androidx.build.LibraryGroups
 import androidx.build.LibraryVersions
 
 plugins {
-    id("SupportAndroidLibraryPlugin")
+    id("AndroidXPlugin")
+    id("com.android.library")
 }
 
 ext {
@@ -19,7 +20,7 @@ dependencies {
     api(project(":emoji"))
 }
 
-supportLibrary {
+androidx {
     name = "Android Emoji Compat"
     publish = true
     mavenVersion = LibraryVersions.EMOJI

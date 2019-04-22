@@ -48,6 +48,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.res.TypedArrayUtils;
+import androidx.core.view.ViewCompat;
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
 
 import java.util.ArrayList;
@@ -502,8 +503,23 @@ public class Preference implements Comparable<Preference> {
      *               returns.
      */
     public void onBindViewHolder(PreferenceViewHolder holder) {
-        holder.itemView.setOnClickListener(mClickListener);
-        holder.itemView.setId(mViewId);
+        View itemView = holder.itemView;
+        Integer summaryTextColor = null;
+
+        itemView.setOnClickListener(mClickListener);
+        itemView.setId(mViewId);
+
+        final TextView summaryView = (TextView) holder.findViewById(android.R.id.summary);
+        if (summaryView != null) {
+            final CharSequence summary = getSummary();
+            if (!TextUtils.isEmpty(summary)) {
+                summaryView.setText(summary);
+                summaryView.setVisibility(View.VISIBLE);
+                summaryTextColor = summaryView.getCurrentTextColor();
+            } else {
+                summaryView.setVisibility(View.GONE);
+            }
+        }
 
         final TextView titleView = (TextView) holder.findViewById(android.R.id.title);
         if (titleView != null) {
@@ -514,19 +530,13 @@ public class Preference implements Comparable<Preference> {
                 if (mHasSingleLineTitleAttr) {
                     titleView.setSingleLine(mSingleLineTitle);
                 }
+                // If this Preference is not selectable, but still enabled, we should set the
+                // title text colour to the same colour used for the summary text
+                if (!isSelectable() && isEnabled() && summaryTextColor != null) {
+                    titleView.setTextColor(summaryTextColor);
+                }
             } else {
                 titleView.setVisibility(View.GONE);
-            }
-        }
-
-        final TextView summaryView = (TextView) holder.findViewById(android.R.id.summary);
-        if (summaryView != null) {
-            final CharSequence summary = getSummary();
-            if (!TextUtils.isEmpty(summary)) {
-                summaryView.setText(summary);
-                summaryView.setVisibility(View.VISIBLE);
-            } else {
-                summaryView.setVisibility(View.GONE);
             }
         }
 
@@ -560,24 +570,41 @@ public class Preference implements Comparable<Preference> {
         }
 
         if (mShouldDisableView) {
-            setEnabledStateOnViews(holder.itemView, isEnabled());
+            setEnabledStateOnViews(itemView, isEnabled());
         } else {
-            setEnabledStateOnViews(holder.itemView, true);
+            setEnabledStateOnViews(itemView, true);
         }
 
         final boolean selectable = isSelectable();
-        holder.itemView.setFocusable(selectable);
-        holder.itemView.setClickable(selectable);
+        itemView.setFocusable(selectable);
+        itemView.setClickable(selectable);
 
         holder.setDividerAllowedAbove(mAllowDividerAbove);
         holder.setDividerAllowedBelow(mAllowDividerBelow);
 
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
         if (isCopyingEnabled()) {
             if (mOnCopyListener == null) {
                 mOnCopyListener = new OnPreferenceCopyListener(this);
             }
             holder.itemView.setOnCreateContextMenuListener(mOnCopyListener);
+=======
+        final boolean copyingEnabled = isCopyingEnabled();
+
+        if (copyingEnabled && mOnCopyListener == null) {
+            mOnCopyListener = new OnPreferenceCopyListener(this);
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
         }
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
+=======
+        itemView.setOnCreateContextMenuListener(copyingEnabled ? mOnCopyListener : null);
+        itemView.setLongClickable(copyingEnabled);
+
+        // Remove touch ripple if the view isn't selectable
+        if (copyingEnabled && !selectable) {
+            ViewCompat.setBackground(itemView, null);
+        }
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
     }
 
     /**
@@ -839,7 +866,7 @@ public class Preference implements Comparable<Preference> {
      * the group is visible.
      *
      * @param visible Set false if this preference should be hidden from the user
-     * {@link R.attr#isPreferenceVisible}
+     *                {@link androidx.preference.R.attr#isPreferenceVisible}
      * @see #isShown()
      */
     public final void setVisible(boolean visible) {
@@ -1001,7 +1028,7 @@ public class Preference implements Comparable<Preference> {
      * letting it wrap onto multiple lines.
      *
      * @param singleLineTitle Set {@code true} if the title should be constrained to one line
-     * {@link R.attr#android_singleLineTitle}
+     *                        {@link android.R.attr#singleLineTitle}
      */
     public void setSingleLineTitle(boolean singleLineTitle) {
         mHasSingleLineTitleAttr = true;
@@ -1012,7 +1039,7 @@ public class Preference implements Comparable<Preference> {
      * Gets whether the title of this preference is constrained to a single line.
      *
      * @return {@code true} if the title of this preference is constrained to a single line
-     * {@link R.attr#android_singleLineTitle}
+     * {@link android.R.attr#singleLineTitle}
      * @see #setSingleLineTitle(boolean)
      */
     public boolean isSingleLineTitle() {
@@ -1025,7 +1052,7 @@ public class Preference implements Comparable<Preference> {
      * other preferences having icons.
      *
      * @param iconSpaceReserved Set {@code true} if the space for the icon view should be reserved
-     * {@link R.attr#android_iconSpaceReserved}
+     *                          {@link android.R.attr#iconSpaceReserved}
      */
     public void setIconSpaceReserved(boolean iconSpaceReserved) {
         if (mIconSpaceReserved != iconSpaceReserved) {
@@ -1038,7 +1065,7 @@ public class Preference implements Comparable<Preference> {
      * Returns whether the space of this preference icon view is reserved.
      *
      * @return {@code true} if the space of this preference icon view is reserved
-     * {@link R.attr#android_iconSpaceReserved}
+     * {@link android.R.attr#iconSpaceReserved}
      * @see #setIconSpaceReserved(boolean)
      */
     public boolean isIconSpaceReserved() {
@@ -1073,7 +1100,7 @@ public class Preference implements Comparable<Preference> {
      * is requested. Set {@code null} to remove the existing SummaryProvider.
      *
      * @param summaryProvider The {@link SummaryProvider} that will be invoked whenever the
-     *                         summary of this preference is requested
+     *                        summary of this preference is requested
      * @see SummaryProvider
      */
     public final void setSummaryProvider(@Nullable SummaryProvider summaryProvider) {
@@ -1160,7 +1187,7 @@ public class Preference implements Comparable<Preference> {
     @RestrictTo(LIBRARY_GROUP)
     public void performClick() {
 
-        if (!isEnabled()) {
+        if (!isEnabled() || !isSelectable()) {
             return;
         }
 

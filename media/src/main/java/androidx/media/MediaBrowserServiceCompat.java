@@ -18,6 +18,10 @@ package androidx.media;
 
 import static androidx.annotation.RestrictTo.Scope.LIBRARY;
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
+=======
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
 import static androidx.media.MediaBrowserProtocol.CLIENT_MSG_ADD_SUBSCRIPTION;
 import static androidx.media.MediaBrowserProtocol.CLIENT_MSG_CONNECT;
 import static androidx.media.MediaBrowserProtocol.CLIENT_MSG_DISCONNECT;
@@ -1102,7 +1106,9 @@ public abstract class MediaBrowserServiceCompat extends Service {
                     mConnections.remove(b);
 
                     ConnectionRecord connection = null;
-                    for (ConnectionRecord pendingConnection : mPendingConnections) {
+                    Iterator<ConnectionRecord> iter = mPendingConnections.iterator();
+                    while (iter.hasNext()) {
+                        ConnectionRecord pendingConnection = iter.next();
                         // Note: We cannot use Map/Set for mPendingConnections but List because
                         // multiple MediaBrowserCompats with the same UID can request connect.
                         if (pendingConnection.uid == uid) {
@@ -1114,7 +1120,7 @@ public abstract class MediaBrowserServiceCompat extends Service {
                                         pendingConnection.pid, pendingConnection.uid,
                                         rootHints, callbacks);
                             }
-                            mPendingConnections.remove(pendingConnection);
+                            iter.remove();
                         }
                     }
                     if (connection == null) {
@@ -1301,7 +1307,7 @@ public abstract class MediaBrowserServiceCompat extends Service {
      *
      * @hide
      */
-    @RestrictTo(LIBRARY)
+    @RestrictTo(LIBRARY_GROUP)
     public void attachToBaseContext(Context base) {
         attachBaseContext(base);
     }

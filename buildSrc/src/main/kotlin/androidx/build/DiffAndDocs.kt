@@ -20,8 +20,6 @@ import androidx.build.Strategy.Prebuilts
 import androidx.build.Strategy.TipOfTree
 import androidx.build.checkapi.ApiXmlConversionTask
 import androidx.build.checkapi.CheckApiTasks
-import androidx.build.checkapi.hasApiTasks
-import androidx.build.checkapi.initializeApiChecksForProject
 import androidx.build.doclava.ChecksConfig
 import androidx.build.doclava.DEFAULT_DOCLAVA_CONFIG
 import androidx.build.doclava.DoclavaTask
@@ -32,6 +30,7 @@ import androidx.build.jdiff.JDiffTask
 import com.android.build.gradle.AppExtension
 import com.android.build.gradle.LibraryExtension
 import com.android.build.gradle.api.BaseVariant
+import com.android.build.gradle.api.SourceKind;
 import com.google.common.base.Preconditions
 import org.gradle.api.GradleException
 import org.gradle.api.Project
@@ -115,39 +114,66 @@ class DiffAndDocs private constructor(
             anchorTask.dependsOn(createDistDocsTask(root, task, it.name))
         }
 
-        root.tasks.create("generateDocs") { task ->
+        root.tasks.register("generateDocs") { task ->
             task.group = JavaBasePlugin.DOCUMENTATION_GROUP
-            task.description = "Generates distribution artifact for d.android.com-style docs."
+            task.description = "Generates documentation (both Java and Kotlin) from tip-of-tree " +
+                "sources, in the style of those used in d.android.com."
             task.dependsOn(docsTasks[TIP_OF_TREE.name])
         }
 
         val docletClasspath = doclavaConfiguration.resolve()
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
 
         aggregateOldApiTxtsTask = root.tasks.create("aggregateOldApiTxts",
             ConcatenateFilesTask::class.java)
         aggregateOldApiTxtsTask.Output = File(root.docsDir(), "previous.txt")
+=======
+        val oldOutputTxt = File(root.docsDir(), "previous.txt")
+        aggregateOldApiTxtsTask = root.tasks.register("aggregateOldApiTxts",
+            ConcatenateFilesTask::class.java) {
+            it.Output = oldOutputTxt
+        }
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
 
         val oldApisTask = root.tasks.createWithConfig("oldApisXml",
             ApiXmlConversionTask::class.java) {
             classpath = root.files(docletClasspath)
             dependsOn(doclavaConfiguration)
 
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
             inputApiFile = aggregateOldApiTxtsTask.Output
             dependsOn(aggregateOldApiTxtsTask)
+=======
+            it.inputApiFile = oldOutputTxt
+            it.dependsOn(aggregateOldApiTxtsTask)
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
 
             outputApiXmlFile = File(root.docsDir(), "previous.xml")
         }
 
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
         aggregateNewApiTxtsTask = root.tasks.create("aggregateNewApiTxts",
             ConcatenateFilesTask::class.java)
         aggregateNewApiTxtsTask.Output = File(root.docsDir(), newVersion)
+=======
+        val newApiTxt = File(root.docsDir(), newVersion)
+        aggregateNewApiTxtsTask = root.tasks.register("aggregateNewApiTxts",
+            ConcatenateFilesTask::class.java) {
+            it.Output = newApiTxt
+        }
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
 
         val newApisTask = root.tasks.createWithConfig("newApisXml",
             ApiXmlConversionTask::class.java) {
             classpath = root.files(docletClasspath)
 
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
             inputApiFile = aggregateNewApiTxtsTask.Output
             dependsOn(aggregateNewApiTxtsTask)
+=======
+            it.inputApiFile = newApiTxt
+            it.dependsOn(aggregateNewApiTxtsTask)
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
 
             outputApiXmlFile = File(root.docsDir(), "$newVersion.xml")
         }
@@ -266,7 +292,7 @@ class DiffAndDocs private constructor(
         }
     }
 
-    fun registerPrebuilts(extension: SupportLibraryExtension) =
+    fun registerPrebuilts(extension: AndroidXExtension) =
             docsProject?.afterEvaluate { docs ->
         val depHandler = docs.dependencies
         val root = docs.rootProject
@@ -285,7 +311,14 @@ class DiffAndDocs private constructor(
         }
     }
 
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
     private fun tipOfTreeTasks(extension: SupportLibraryExtension, setup: (DoclavaTask) -> Unit) {
+=======
+    private fun tipOfTreeTasks(
+        extension: AndroidXExtension,
+        setup: (TaskProvider<out DoclavaTask>) -> Unit
+    ) {
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
         rules.filter { rule -> rule.resolve(extension)?.strategy == TipOfTree }
                 .mapNotNull { rule -> docsTasks[rule.name] }
                 .forEach(setup)
@@ -295,8 +328,13 @@ class DiffAndDocs private constructor(
      * Registers a Java project to be included in docs generation, local API file generation, and
      * local API diff generation tasks.
      */
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
     fun registerJavaProject(project: Project, extension: SupportLibraryExtension) {
         val compileJava = project.properties["compileJava"] as JavaCompile
+=======
+    fun registerJavaProject(project: Project, extension: AndroidXExtension) {
+        val compileJava = project.tasks.named("compileJava", JavaCompile::class.java)
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
 
         registerPrebuilts(extension)
 
@@ -305,6 +343,7 @@ class DiffAndDocs private constructor(
         }
 
         registerJavaProjectForDocsTask(generateDiffsTask, compileJava)
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
         if (!hasApiTasks(project, extension)) {
             return
         }
@@ -318,6 +357,8 @@ class DiffAndDocs private constructor(
         val generateApiDiffsArchiveTask = createGenerateLocalApiDiffsArchiveTask(project,
                 tasks.generateLocalDiffs)
         generateApiDiffsArchiveTask.dependsOn(tasks.generateLocalDiffs)
+=======
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
     }
 
     /**
@@ -325,9 +366,8 @@ class DiffAndDocs private constructor(
      * generation, and local API diff generation tasks.
      */
     fun registerAndroidProject(
-        project: Project,
         library: LibraryExtension,
-        extension: SupportLibraryExtension
+        extension: AndroidXExtension
     ) {
 
         registerPrebuilts(extension)
@@ -343,6 +383,7 @@ class DiffAndDocs private constructor(
                 tipOfTreeTasks(extension) { task ->
                     registerAndroidProjectForDocsTask(task, variant)
                 }
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
 
                 if (!hasApiTasks(project, extension)) {
                     return@all
@@ -356,12 +397,14 @@ class DiffAndDocs private constructor(
                 val generateApiDiffsArchiveTask = createGenerateLocalApiDiffsArchiveTask(project,
                         tasks.generateLocalDiffs)
                 generateApiDiffsArchiveTask.dependsOn(tasks.generateLocalDiffs)
+=======
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
             }
         }
     }
 
     private fun setupApiVersioningInDocsTasks(
-        extension: SupportLibraryExtension,
+        extension: AndroidXExtension,
         checkApiTasks: CheckApiTasks
     ) {
         rules.forEach { rules ->
@@ -416,10 +459,25 @@ private fun registerJavaProjectForDocsTask(task: Javadoc, javaCompileTask: JavaC
 private fun registerAndroidProjectForDocsTask(task: Javadoc, releaseVariant: BaseVariant) {
     // This code makes a number of unsafe assumptions about Android Gradle Plugin,
     // and there's a good chance that this will break in the near future.
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
     @Suppress("DEPRECATION")
     task.dependsOn(releaseVariant.javaCompile)
     task.include { fileTreeElement ->
         fileTreeElement.name != "R.java" || fileTreeElement.path.endsWith(releaseVariant.rFile())
+=======
+    val javaCompileProvider = releaseVariant.javaCompileProvider
+    task.configure {
+        it.dependsOn(javaCompileProvider)
+        it.include { fileTreeElement ->
+            fileTreeElement.name != "R.java" ||
+                    fileTreeElement.path.endsWith(releaseVariant.rFile())
+        }
+        releaseVariant.getSourceFolders(SourceKind.JAVA).forEach { sourceSet ->
+            it.source(sourceSet)
+        }
+        it.classpath += releaseVariant.getCompileClasspath(null) +
+                it.project.files(javaCompileProvider.get().destinationDir)
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
     }
     @Suppress("DEPRECATION")
     task.source(releaseVariant.javaCompile.source)
@@ -492,6 +550,7 @@ private fun createDistDocsTask(
     project: Project,
     generateDocs: DoclavaTask,
     ruleName: String = ""
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
 ): Zip = project.tasks.createWithConfig("dist${ruleName}Docs", Zip::class.java) {
     dependsOn(generateDocs)
     group = JavaBasePlugin.DOCUMENTATION_GROUP
@@ -502,6 +561,23 @@ private fun createDistDocsTask(
     destinationDir = project.getDistributionDirectory()
     doLast {
         logger.lifecycle("'Wrote API reference to $archivePath")
+=======
+): TaskProvider<Zip> = project.tasks.register("dist${ruleName}Docs", Zip::class.java) {
+    it.apply {
+        dependsOn(generateDocs)
+        from(generateDocs.map {
+            it.destinationDir
+        })
+        archiveBaseName.set("android-support-$ruleName-docs")
+        archiveVersion.set(getBuildId())
+        destinationDirectory.set(project.getDistributionDirectory())
+        group = JavaBasePlugin.DOCUMENTATION_GROUP
+        description = "Zips $ruleName Java documentation (generated via Doclava in the " +
+            "style of d.android.com) into $archivePath"
+        doLast {
+            logger.lifecycle("'Wrote API reference to $archivePath")
+        }
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
     }
 }
 
@@ -543,12 +619,23 @@ private fun createGenerateDocsTask(
     destDir: File,
     taskName: String = "generateDocs",
     offline: Boolean
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
 ): GenerateDocsTask =
         project.tasks.createWithConfig(taskName, GenerateDocsTask::class.java) {
             dependsOn(generateSdkApiTask, doclavaConfig)
             group = JavaBasePlugin.DOCUMENTATION_GROUP
             description = "Generates d.android.com-style documentation. To generate offline docs " +
                     "use \'-PofflineDocs=true\' parameter."
+=======
+): TaskProvider<GenerateDocsTask> =
+        project.tasks.register(taskName, GenerateDocsTask::class.java) {
+            it.apply {
+                exclude("**/R.java")
+                dependsOn(generateSdkApiTask, doclavaConfig)
+                group = JavaBasePlugin.DOCUMENTATION_GROUP
+                description = "Generates Java documentation in the style of d.android.com. To " +
+                        "generate offline docs use \'-PofflineDocs=true\' parameter."
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
 
             setDocletpath(doclavaConfig.resolve())
             destinationDir = File(destDir, if (offline) "offline" else "online")
@@ -590,9 +677,17 @@ private fun createGenerateLocalApiDiffsArchiveTask(
     diffTask: JDiffTask
 ): Zip = project.tasks.createWithConfig("generateLocalApiDiffsArchive", Zip::class.java) {
     val docsDir = project.rootProject.docsDir()
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
     from(diffTask.destinationDir)
     destinationDir = File(docsDir, "online/sdk/support_api_diff/${project.name}")
     to("${project.version}.zip")
+=======
+    it.from(diffTask.map {
+        it.destinationDir
+    })
+    it.destinationDirectory.set(File(docsDir, "online/sdk/support_api_diff/${project.name}"))
+    it.to("${project.version}.zip")
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
 }
 
 private fun sdkApiFile(project: Project) = File(project.docsDir(), "release/sdk_current.txt")

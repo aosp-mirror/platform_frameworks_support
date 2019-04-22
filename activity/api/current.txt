@@ -1,20 +1,51 @@
 // Signature format: 2.0
 package androidx.activity {
 
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
   public class ComponentActivity extends androidx.core.app.ComponentActivity implements androidx.savedstate.bundle.BundleSavedStateRegistryOwner androidx.lifecycle.LifecycleOwner androidx.lifecycle.ViewModelStoreOwner {
+=======
+  public class ComponentActivity extends androidx.core.app.ComponentActivity implements androidx.lifecycle.LifecycleOwner androidx.activity.OnBackPressedDispatcherOwner androidx.savedstate.SavedStateRegistryOwner androidx.lifecycle.ViewModelStoreOwner {
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
     ctor public ComponentActivity();
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
     method public void addOnBackPressedCallback(androidx.activity.OnBackPressedCallback);
     method public void addOnBackPressedCallback(androidx.lifecycle.LifecycleOwner, androidx.activity.OnBackPressedCallback);
     method public final androidx.savedstate.SavedStateRegistry<android.os.Bundle> getBundleSavedStateRegistry();
+=======
+    ctor @ContentView public ComponentActivity(@LayoutRes int);
+    method @Deprecated public void addOnBackPressedCallback(androidx.activity.OnBackPressedCallback);
+    method @Deprecated public void addOnBackPressedCallback(androidx.lifecycle.LifecycleOwner, androidx.activity.OnBackPressedCallback);
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
     method @Deprecated public Object? getLastCustomNonConfigurationInstance();
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
+=======
+    method public androidx.lifecycle.Lifecycle getLifecycle();
+    method public final androidx.activity.OnBackPressedDispatcher getOnBackPressedDispatcher();
+    method public final androidx.savedstate.SavedStateRegistry getSavedStateRegistry();
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
     method public androidx.lifecycle.ViewModelStore getViewModelStore();
     method @Deprecated public Object? onRetainCustomNonConfigurationInstance();
     method public final Object? onRetainNonConfigurationInstance();
-    method public void removeOnBackPressedCallback(androidx.activity.OnBackPressedCallback);
+    method @Deprecated public void removeOnBackPressedCallback(androidx.activity.OnBackPressedCallback);
   }
 
-  public interface OnBackPressedCallback {
-    method public boolean handleOnBackPressed();
+  public abstract class OnBackPressedCallback {
+    ctor public OnBackPressedCallback(boolean);
+    method @MainThread public abstract void handleOnBackPressed();
+    method @MainThread public boolean isEnabled();
+    method @MainThread public void remove();
+    method @MainThread public void setEnabled(boolean);
+  }
+
+  public final class OnBackPressedDispatcher {
+    method @MainThread public void addCallback(androidx.activity.OnBackPressedCallback);
+    method @MainThread public void addCallback(androidx.lifecycle.LifecycleOwner, androidx.activity.OnBackPressedCallback);
+    method @MainThread public boolean hasEnabledCallbacks();
+    method @MainThread public void onBackPressed();
+  }
+
+  public interface OnBackPressedDispatcherOwner extends androidx.lifecycle.LifecycleOwner {
+    method public androidx.activity.OnBackPressedDispatcher getOnBackPressedDispatcher();
   }
 
 }

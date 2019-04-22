@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import androidx.paging.Config
-import androidx.paging.PagedList
-import androidx.paging.PositionalDataSource
+package androidx.paging
+
+import androidx.paging.futures.DirectExecutor
 import org.junit.Assert.assertEquals
+import org.junit.Assert.fail
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
-import java.util.concurrent.Executor
 
 @RunWith(JUnit4::class)
 class PagedListTest {
@@ -30,8 +30,8 @@ class PagedListTest {
         val pagedList = PagedList(
                 dataSource = dataSource,
                 config = config,
-                fetchExecutor = executor,
-                notifyExecutor = executor
+                fetchExecutor = DirectExecutor.INSTANCE,
+                notifyExecutor = DirectExecutor.INSTANCE
         )
 
         assertEquals(dataSource, pagedList.dataSource)
@@ -44,14 +44,14 @@ class PagedListTest {
                 params: LoadInitialParams,
                 callback: LoadInitialCallback<String>
             ) {
+                callback.onResult(listOf("a"), 0, 1)
             }
 
             override fun loadRange(params: LoadRangeParams, callback: LoadRangeCallback<String>) {
+                fail()
             }
         }
 
         private val config = Config(10)
-
-        private val executor = Executor { runnable -> runnable.run() }
     }
 }

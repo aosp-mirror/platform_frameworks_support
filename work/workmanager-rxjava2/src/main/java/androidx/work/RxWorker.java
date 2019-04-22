@@ -17,10 +17,10 @@
 package androidx.work;
 
 import android.content.Context;
-import android.support.annotation.MainThread;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 
+import androidx.annotation.MainThread;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.work.impl.utils.SynchronousExecutor;
 import androidx.work.impl.utils.futures.SettableFuture;
 
@@ -91,7 +91,7 @@ public abstract class RxWorker extends ListenableWorker {
      *
      * @return The default {@link Scheduler}.
      */
-    protected Scheduler getBackgroundScheduler() {
+    protected @NonNull Scheduler getBackgroundScheduler() {
         return Schedulers.from(getBackgroundExecutor());
     }
 
@@ -115,7 +115,7 @@ public abstract class RxWorker extends ListenableWorker {
      * @return a {@code Single<Result>} that represents the work.
      */
     @MainThread
-    public abstract Single<Result> createWork();
+    public abstract @NonNull Single<Result> createWork();
 
     @Override
     public void onStopped() {

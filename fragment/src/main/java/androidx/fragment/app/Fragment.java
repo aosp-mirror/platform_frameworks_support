@@ -48,6 +48,7 @@ import android.widget.AdapterView;
 
 import androidx.annotation.CallSuper;
 import androidx.annotation.ContentView;
+import androidx.annotation.LayoutRes;
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -240,6 +241,9 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
     // track it separately.
     boolean mIsCreated;
 
+    // Max Lifecycle state this Fragment can achieve.
+    Lifecycle.State mMaxState = Lifecycle.State.RESUMED;
+
     LifecycleRegistry mLifecycleRegistry;
 
     // This is initialized in performCreateView and unavailable outside of the
@@ -247,7 +251,14 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
     @Nullable FragmentViewLifecycleOwner mViewLifecycleOwner;
     MutableLiveData<LifecycleOwner> mViewLifecycleOwnerLiveData = new MutableLiveData<>();
 
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
     BundleSavedStateRegistry mSavedStateRegistry = new BundleSavedStateRegistry();
+=======
+    SavedStateRegistryController mSavedStateRegistryController;
+
+    @LayoutRes
+    private int mContentLayoutId;
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
 
     /**
      * {@inheritDoc}
@@ -399,7 +410,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
     }
 
     /**
-     * Thrown by {@link FragmentFactory#instantiate(ClassLoader, String, Bundle)} when
+     * Thrown by {@link FragmentFactory#instantiate(ClassLoader, String)} when
      * there is an instantiation failure.
      */
     @SuppressWarnings("JavaLangClash")
@@ -410,13 +421,14 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
     }
 
     /**
-     * Default constructor.  <strong>Every</strong> fragment must have an
-     * empty constructor, so it can be instantiated when restoring its
-     * activity's state.  It is strongly recommended that subclasses do not
-     * have other constructors with parameters, since these constructors
-     * will not be called when the fragment is re-instantiated; instead,
-     * arguments can be supplied by the caller with {@link #setArguments}
-     * and later retrieved by the Fragment with {@link #getArguments}.
+     * Constructor used by the default {@link FragmentFactory}. You must
+     * {@link FragmentManager#setFragmentFactory(FragmentFactory) set a custom FragmentFactory}
+     * if you want to use a non-default constructor to ensure that your constructor
+     * is called when the fragment is re-instantiated.
+     *
+     * <p>It is strongly recommended to supply arguments with {@link #setArguments}
+     * and later retrieved by the Fragment with {@link #getArguments}. These arguments
+     * are automatically saved and restored alongside the Fragment.
      *
      * <p>Applications should generally not implement a constructor. Prefer
      * {@link #onAttach(Context)} instead. It is the first place application code can run where
@@ -426,6 +438,19 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
      */
     public Fragment() {
         initLifecycle();
+    }
+
+    /**
+     * Alternate constructor that can be used to provide a default layout
+     * that will be inflated by {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}.
+     *
+     * @see #Fragment()
+     * @see #onCreateView(LayoutInflater, ViewGroup, Bundle)
+     */
+    @ContentView
+    public Fragment(@LayoutRes int contentLayoutId) {
+        this();
+        mContentLayoutId = contentLayoutId;
     }
 
     private void initLifecycle() {
@@ -448,7 +473,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
      * Like {@link #instantiate(Context, String, Bundle)} but with a null
      * argument Bundle.
      * @deprecated Use {@link FragmentManager#getFragmentFactory()} and
-     * {@link FragmentFactory#instantiate(ClassLoader, String, Bundle)}
+     * {@link FragmentFactory#instantiate(ClassLoader, String)}
      */
     @SuppressWarnings("deprecation")
     @Deprecated
@@ -472,7 +497,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
      * the given fragment class.  This is a runtime exception; it is not
      * normally expected to happen.
      * @deprecated Use {@link FragmentManager#getFragmentFactory()} and
-     * {@link FragmentFactory#instantiate(ClassLoader, String, Bundle)}, manually calling
+     * {@link FragmentFactory#instantiate(ClassLoader, String)}, manually calling
      * {@link #setArguments(Bundle)} on the returned Fragment.
      */
     @Deprecated
@@ -682,8 +707,10 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
         } else if (mFragmentManager != null && fragment.mFragmentManager != null) {
             // Just save the reference to the Fragment
             mTargetWho = fragment.mWho;
+            mTarget = null;
         } else {
             // Save the Fragment itself, waiting until we're attached
+            mTargetWho = null;
             mTarget = fragment;
         }
         mTargetRequestCode = requestCode;
@@ -1101,7 +1128,11 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
      *
      * @param isVisibleToUser true if this fragment's UI is currently visible to the user (default),
      *                        false if it is not.
+     *
+     * @deprecated Use {@link FragmentTransaction#setMaxLifecycle(Fragment, Lifecycle.State)}
+     * instead.
      */
+    @Deprecated
     public void setUserVisibleHint(boolean isVisibleToUser) {
         if (!mUserVisibleHint && isVisibleToUser && mState < STARTED
                 && mFragmentManager != null && isAdded() && mIsCreated) {
@@ -1119,7 +1150,11 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
     /**
      * @return The current value of the user-visible hint on this fragment.
      * @see #setUserVisibleHint(boolean)
+     *
+     * @deprecated Use {@link FragmentTransaction#setMaxLifecycle(Fragment, Lifecycle.State)}
+     * instead.
      */
+    @Deprecated
     public boolean getUserVisibleHint() {
         return mUserVisibleHint;
     }
@@ -1611,9 +1646,8 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
      * Called to have the fragment instantiate its user interface view.
      * This is optional, and non-graphical fragments can return null. This will be called between
      * {@link #onCreate(Bundle)} and {@link #onActivityCreated(Bundle)}.
-     * <p>The default implementation looks for an {@link ContentView} annotation, inflating
-     * and returning that layout. If the annotation is not found or has an invalid layout resource
-     * id, this method returns null.
+     * <p>A default View can be returned by calling {@link #Fragment(int)} in your
+     * constructor. Otherwise, this method returns null.
      *
      * <p>It is recommended to <strong>only</strong> inflate the layout in this method and move
      * logic that operates on the returned View to {@link #onViewCreated(View, Bundle)}.
@@ -1634,12 +1668,17 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
     @Nullable
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
         ContentView annotation = getClass().getAnnotation(ContentView.class);
         if (annotation != null) {
             int layoutId = annotation.value();
             if (layoutId != 0) {
                 return inflater.inflate(layoutId, container, false);
             }
+=======
+        if (mContentLayoutId != 0) {
+            return inflater.inflate(mContentLayoutId, container, false);
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
         }
         return null;
     }
@@ -2080,7 +2119,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
      * @param transition The Transition to use to move Views out of the Scene when the Fragment
      *         is preparing to close. <code>transition</code> must be an
      *         {@link android.transition.Transition android.transition.Transition} or
-     *         {@link androidx.transition.Transition androidx.transition.Transition}.
+     *         {@link androidx.transition.Transition}.
      */
     public void setReturnTransition(@Nullable Object transition) {
         ensureAnimationInfo().mReturnTransition = transition;
@@ -2485,7 +2524,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
 
     void instantiateChildFragmentManager() {
         if (mHost == null) {
-            throw new IllegalStateException("Fragment has not been attached yet.");
+            throw new IllegalStateException("Fragment " + this + " has not been attached yet.");
         }
         mChildFragmentManager = new FragmentManagerImpl();
         mChildFragmentManager.attachController(mHost, new FragmentContainer() {
@@ -2493,7 +2532,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
             @Nullable
             public View onFindViewById(int id) {
                 if (mView == null) {
-                    throw new IllegalStateException("Fragment does not have a view");
+                    throw new IllegalStateException("Fragment " + this + " does not have a view");
                 }
                 return mView.findViewById(id);
             }

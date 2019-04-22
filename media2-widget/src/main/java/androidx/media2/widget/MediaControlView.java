@@ -28,8 +28,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
 import android.graphics.Point;
 import android.graphics.drawable.ScaleDrawable;
+=======
+import android.graphics.drawable.ColorDrawable;
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.AttributeSet;
@@ -116,7 +120,6 @@ public class MediaControlView extends BaseLayout {
 
     static final String KEY_VIDEO_TRACK_COUNT = "VideoTrackCount";
     static final String KEY_AUDIO_TRACK_COUNT = "AudioTrackCount";
-    static final String KEY_SUBTITLE_TRACK_COUNT = "SubtitleTrackCount";
     static final String KEY_SUBTITLE_TRACK_LANGUAGE_LIST = "SubtitleTrackLanguageList";
     static final String KEY_SELECTED_AUDIO_INDEX = "SelectedAudioIndex";
     static final String KEY_SELECTED_SUBTITLE_INDEX = "SelectedSubtitleIndex";
@@ -190,7 +193,6 @@ public class MediaControlView extends BaseLayout {
     private int mIconSize;
     int mVideoTrackCount;
     int mAudioTrackCount;
-    int mSubtitleTrackCount;
     int mSettingsMode;
     int mSelectedSubtitleTrackIndex;
     int mSelectedAudioTrackIndex;
@@ -206,11 +208,12 @@ public class MediaControlView extends BaseLayout {
     long mNextSeekPosition;
     boolean mDragging;
     boolean mIsFullScreen;
+    boolean mIsShowingReplayButton;
     boolean mOverflowIsShowing;
-    boolean mIsStopped;
     boolean mSeekAvailable;
     boolean mIsAdvertisement;
     boolean mNeedToHideBars;
+    boolean mNeedToShowBars;
     boolean mWasPlaying;
 
     // Relating to Title Bar View
@@ -222,6 +225,7 @@ public class MediaControlView extends BaseLayout {
     private MediaRouteSelector mRouteSelector;
 
     // Relating to Center View
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
     private ViewGroup mCenterView;
     View mTransportControls;
     ImageButton mPlayPauseButton;
@@ -231,6 +235,12 @@ public class MediaControlView extends BaseLayout {
     // item in the playlist. (b/119159436)
     private ImageButton mNextButton;
     private ImageButton mPrevButton;
+=======
+    ViewGroup mCenterView;
+    private View mCenterViewBackground;
+    private View mEmbeddedTransportControls;
+    private View mMinimalTransportControls;
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
 
     // Relating to Minimal Size Fullscreen View
     private LinearLayout mMinimalSizeFullScreenView;
@@ -256,7 +266,6 @@ public class MediaControlView extends BaseLayout {
     private ViewGroup mBottomBarRightView;
     ViewGroup mBasicControls;
     ViewGroup mExtraControls;
-    ViewGroup mCustomButtons;
     ImageButton mSubtitleButton;
     ImageButton mFullScreenButton;
     ImageButton mOverflowShowButton;
@@ -427,6 +436,7 @@ public class MediaControlView extends BaseLayout {
         if (mFfwdButton != null) {
             mFfwdButton.setEnabled(enabled);
         }
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
         if (mRewButton != null) {
             mRewButton.setEnabled(enabled);
         }
@@ -461,6 +471,71 @@ public class MediaControlView extends BaseLayout {
             mRouteButton.setEnabled(enabled);
         }
         disableUnsupportedButtons();
+=======
+
+        mTitleBar.setVisibility(
+                sizeType != SIZE_TYPE_MINIMAL ? View.VISIBLE : View.INVISIBLE);
+        mCenterViewBackground.setVisibility(
+                sizeType != SIZE_TYPE_FULL ? View.VISIBLE : View.INVISIBLE);
+        mEmbeddedTransportControls.setVisibility(
+                sizeType == SIZE_TYPE_EMBEDDED ? View.VISIBLE : View.INVISIBLE);
+        mMinimalTransportControls.setVisibility(
+                sizeType == SIZE_TYPE_MINIMAL ? View.VISIBLE : View.INVISIBLE);
+        mBottomBarBackground.setVisibility(
+                sizeType != SIZE_TYPE_MINIMAL ? View.VISIBLE : View.INVISIBLE);
+        mBottomBarLeft.setVisibility(
+                sizeType == SIZE_TYPE_FULL ? View.VISIBLE : View.INVISIBLE);
+        mTimeView.setVisibility(
+                sizeType != SIZE_TYPE_MINIMAL ? View.VISIBLE : View.INVISIBLE);
+        mBasicControls.setVisibility(
+                sizeType != SIZE_TYPE_MINIMAL ? View.VISIBLE : View.INVISIBLE);
+        mMinimalFullScreenButton.setVisibility(
+                sizeType == SIZE_TYPE_MINIMAL ? View.VISIBLE : View.INVISIBLE);
+
+        final int childLeft = getPaddingLeft();
+        final int childRight = childLeft + width;
+        final int childTop = getPaddingTop();
+        final int childBottom = childTop + height;
+
+        layoutChild(mTitleBar,
+                childLeft,
+                childTop);
+        layoutChild(mCenterView,
+                childLeft,
+                childTop);
+        layoutChild(mBottomBarBackground,
+                childLeft,
+                childBottom - mBottomBarBackground.getMeasuredHeight());
+        layoutChild(mBottomBarLeft,
+                childLeft,
+                childBottom - mBottomBarLeft.getMeasuredHeight());
+        layoutChild(mTimeView,
+                sizeType == SIZE_TYPE_FULL
+                        ? childRight - mBasicControls.getMeasuredWidth()
+                                - mTimeView.getMeasuredWidth()
+                        : childLeft,
+                childBottom - mTimeView.getMeasuredHeight());
+        layoutChild(mBasicControls,
+                childRight - mBasicControls.getMeasuredWidth(),
+                childBottom - mBasicControls.getMeasuredHeight());
+        layoutChild(mExtraControls,
+                childRight,
+                childBottom - mExtraControls.getMeasuredHeight());
+        layoutChild(mProgressBar,
+                childLeft,
+                sizeType == SIZE_TYPE_MINIMAL
+                        ? childBottom - mProgressBar.getMeasuredHeight()
+                        : childBottom - mProgressBar.getMeasuredHeight()
+                                - mResources.getDimensionPixelSize(
+                                        R.dimen.mcv2_custom_progress_margin_bottom));
+        layoutChild(mMinimalFullScreenView,
+                childLeft,
+                childBottom - mMinimalFullScreenView.getMeasuredHeight());
+    }
+
+    private void layoutChild(View child, int left, int top) {
+        child.layout(left, top, left + child.getMeasuredWidth(), top + child.getMeasuredHeight());
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
     }
 
     @Override
@@ -526,9 +601,16 @@ public class MediaControlView extends BaseLayout {
         mRouteButton = v.findViewById(R.id.cast);
 
         // Relating to Center View
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
         mCenterView = v.findViewById(R.id.center_view);
         mTransportControls = inflateTransportControls(R.layout.embedded_transport_controls);
         mCenterView.addView(mTransportControls);
+=======
+        mCenterView = findViewById(R.id.center_view);
+        mCenterViewBackground = findViewById(R.id.center_view_background);
+        mEmbeddedTransportControls = initTransportControls(R.id.embedded_transport_controls);
+        mMinimalTransportControls = initTransportControls(R.id.minimal_transport_controls);
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
 
         // Relating to Minimal Size FullScreen View. This view is visible only when the current
         // size type is Minimal and it is a view that stretches from left to right end
@@ -571,6 +653,7 @@ public class MediaControlView extends BaseLayout {
         mFormatter = new Formatter(mFormatBuilder, Locale.getDefault());
 
         // Relating to Bottom Bar Right View
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
         mBasicControls = v.findViewById(R.id.basic_controls);
         mExtraControls = v.findViewById(R.id.extra_controls);
         mCustomButtons = v.findViewById(R.id.custom_buttons);
@@ -599,6 +682,21 @@ public class MediaControlView extends BaseLayout {
             mVideoQualityButton.setOnClickListener(mVideoQualityListener);
         }
         mAdRemainingView = v.findViewById(R.id.ad_remaining);
+=======
+        mBasicControls = findViewById(R.id.basic_controls);
+        mExtraControls = findViewById(R.id.extra_controls);
+        mSubtitleButton = findViewById(R.id.subtitle);
+        mSubtitleButton.setOnClickListener(mSubtitleListener);
+        mFullScreenButton = findViewById(R.id.fullscreen);
+        mFullScreenButton.setOnClickListener(mFullScreenListener);
+        ImageButton overflowShowButton = findViewById(R.id.overflow_show);
+        overflowShowButton.setOnClickListener(mOverflowShowListener);
+        ImageButton overflowHideButton = findViewById(R.id.overflow_hide);
+        overflowHideButton.setOnClickListener(mOverflowHideListener);
+        ImageButton settingsButton = findViewById(R.id.settings);
+        settingsButton.setOnClickListener(mSettingsButtonListener);
+        mAdRemainingView = findViewById(R.id.ad_remaining);
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
 
         // Relating to Settings List View
         initializeSettingsLists();
@@ -619,6 +717,7 @@ public class MediaControlView extends BaseLayout {
                 R.dimen.mcv2_settings_offset);
         mSettingsWindow = new PopupWindow(mSettingsListView, mEmbeddedSettingsItemWidth,
                 LayoutParams.WRAP_CONTENT, true);
+        mSettingsWindow.setBackgroundDrawable(new ColorDrawable());
         mSettingsWindow.setOnDismissListener(mSettingsDismissListener);
 
         int titleBarTranslateY =
@@ -669,6 +768,7 @@ public class MediaControlView extends BaseLayout {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 float alpha = (float) animation.getAnimatedValue();
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
                 SeekBar seekBar = (SeekBar) mProgress;
                 if (mSizeType != SIZE_TYPE_MINIMAL) {
                     ScaleDrawable thumb = (ScaleDrawable) seekBar.getThumb();
@@ -693,6 +793,20 @@ public class MediaControlView extends BaseLayout {
                         mProgressBar.setVisibility(View.VISIBLE);
                     }
                 }
+=======
+                int scaleLevel = mSizeType == SIZE_TYPE_MINIMAL ? 0 : MAX_SCALE_LEVEL;
+                mProgress.getThumb().setLevel((int) (scaleLevel * alpha));
+
+                mCenterView.setAlpha(alpha);
+                mMinimalFullScreenView.setAlpha(alpha);
+            }
+        });
+        fadeInAnimator.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                mCenterView.setVisibility(View.VISIBLE);
+                mMinimalFullScreenView.setVisibility(View.VISIBLE);
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
             }
         });
 
@@ -714,12 +828,24 @@ public class MediaControlView extends BaseLayout {
                         mUxState = UX_STATE_ANIMATING;
                     }
 
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
                     @Override
                     public void onAnimationEnd(Animator animation) {
                         setEnabled(true);
                         mUxState = UX_STATE_ONLY_PROGRESS_VISIBLE;
                     }
                 });
+=======
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                mUxState = UX_STATE_ONLY_PROGRESS_VISIBLE;
+                if (mNeedToShowBars) {
+                    post(mShowAllBars);
+                    mNeedToShowBars = false;
+                }
+            }
+        });
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
 
         mHideProgressBarAnimator = new AnimatorSet();
         mHideProgressBarAnimator
@@ -736,12 +862,24 @@ public class MediaControlView extends BaseLayout {
                         mUxState = UX_STATE_ANIMATING;
                     }
 
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
                     @Override
                     public void onAnimationEnd(Animator animation) {
                         setEnabled(true);
                         mUxState = UX_STATE_NONE_VISIBLE;
                     }
                 });
+=======
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                mUxState = UX_STATE_NONE_VISIBLE;
+                if (mNeedToShowBars) {
+                    post(mShowAllBars);
+                    mNeedToShowBars = false;
+                }
+            }
+        });
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
 
         mHideAllBarsAnimator = new AnimatorSet();
         mHideAllBarsAnimator
@@ -764,6 +902,10 @@ public class MediaControlView extends BaseLayout {
             public void onAnimationEnd(Animator animation) {
                 setEnabled(true);
                 mUxState = UX_STATE_NONE_VISIBLE;
+                if (mNeedToShowBars) {
+                    post(mShowAllBars);
+                    mNeedToShowBars = false;
+                }
             }
         });
 
@@ -992,7 +1134,7 @@ public class MediaControlView extends BaseLayout {
             mPlayPauseButton.setContentDescription(
                     mResources.getString(R.string.mcv2_play_button_desc));
         } else {
-            if (mIsStopped) {
+            if (mIsShowingReplayButton) {
                 mController.seekTo(0);
             }
             mController.play();
@@ -1010,6 +1152,7 @@ public class MediaControlView extends BaseLayout {
         }
         removeCallbacks(mHideMainBars);
         removeCallbacks(mHideProgressBar);
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
 
         switch (mUxState) {
             case UX_STATE_NONE_VISIBLE:
@@ -1022,18 +1165,45 @@ public class MediaControlView extends BaseLayout {
                 post(mHideAllBars);
                 break;
         }
+=======
+        post(mShowAllBars);
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
     }
 
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
     private final Runnable mShowAllBars = new Runnable() {
+=======
+    private void hideMediaControlView() {
+        if (shouldNotHideBars() || mUxState == UX_STATE_ANIMATING) {
+            return;
+        }
+        removeCallbacks(mHideMainBars);
+        removeCallbacks(mHideProgressBar);
+        post(mHideAllBars);
+    }
+
+    final Runnable mShowAllBars = new Runnable() {
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
         @Override
         public void run() {
-            mShowAllBarsAnimator.start();
+            switch (mUxState) {
+                case UX_STATE_NONE_VISIBLE:
+                    mShowAllBarsAnimator.start();
+                    break;
+                case UX_STATE_ONLY_PROGRESS_VISIBLE:
+                    mShowMainBarsAnimator.start();
+                    break;
+                case UX_STATE_ANIMATING:
+                    mNeedToShowBars = true;
+            }
+
             if (mController.isPlaying()) {
                 postDelayed(mHideMainBars, mShowControllerIntervalMs);
             }
         }
     };
 
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
     private final Runnable mShowMainBars = new Runnable() {
         @Override
         public void run() {
@@ -1042,6 +1212,8 @@ public class MediaControlView extends BaseLayout {
         }
     };
 
+=======
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
     private final Runnable mHideAllBars = new Runnable() {
         @Override
         public void run() {
@@ -1104,8 +1276,8 @@ public class MediaControlView extends BaseLayout {
 
             // Check if playback is currently stopped. In this case, update the pause button to
             // show the play image instead of the replay image.
-            if (mIsStopped) {
-                updateForStoppedState(false);
+            if (mIsShowingReplayButton) {
+                updateReplayButton(false);
             }
 
             if (isCurrentMediaItemFromNetwork() && mController.isPlaying()) {
@@ -1171,6 +1343,7 @@ public class MediaControlView extends BaseLayout {
             resetHideCallbacks();
             removeCallbacks(mUpdateProgress);
 
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
             long latestSeekPosition = getLatestSeekPosition();
             if (mIsStopped && mDuration != 0) {
                 // If the media is currently stopped, rewinding will start the media from the
@@ -1179,6 +1352,15 @@ public class MediaControlView extends BaseLayout {
                 updateForStoppedState(false);
             } else {
                 seekTo(Math.max(latestSeekPosition - REWIND_TIME_MS, 0), true);
+=======
+            // If replay button is shown, seek to 10 seconds before the end of the media.
+            boolean stoppedWithDuration = mIsShowingReplayButton && mDuration != 0;
+            long currentPosition = stoppedWithDuration ? mDuration : getLatestSeekPosition();
+            long seekPosition = Math.max(currentPosition - REWIND_TIME_MS, 0);
+            seekTo(seekPosition, /* shouldSeekNow= */ true);
+            if (stoppedWithDuration) {
+                updateReplayButton(/* toBeShown */ false);
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
             }
         }
     };
@@ -1191,11 +1373,12 @@ public class MediaControlView extends BaseLayout {
 
             long latestSeekPosition = getLatestSeekPosition();
             seekTo(Math.min(latestSeekPosition + FORWARD_TIME_MS, mDuration), true);
-            if (latestSeekPosition + FORWARD_TIME_MS >= mDuration) {
-                // If the media is currently paused, fast-forwarding beyond the duration value will
-                // not return a callback that updates the play/pause and ffwd buttons. Thus,
-                // update the buttons manually here.
-                updateForStoppedState(true);
+
+            // Note: In some edge cases, mDuration might be less than actual duration of
+            // the stream. If controller is in playing state, it should not show replay
+            // button even when the seekPosition >= mDuration.
+            if (latestSeekPosition + FORWARD_TIME_MS >= mDuration && !mController.isPlaying()) {
+                updateReplayButton(/* toBeShown */ true);
             }
         }
     };
@@ -1245,8 +1428,6 @@ public class MediaControlView extends BaseLayout {
     private final OnClickListener mFullScreenListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
-            resetHideCallbacks();
-
             if (mOnFullScreenListener == null) {
                 return;
             }
@@ -1336,16 +1517,8 @@ public class MediaControlView extends BaseLayout {
                     if (position != mSelectedSubtitleTrackIndex) {
                         if (position > 0) {
                             mController.showSubtitle(position - 1);
-                            mSubtitleButton.setImageDrawable(
-                                    mResources.getDrawable(R.drawable.ic_subtitle_on));
-                            mSubtitleButton.setContentDescription(
-                                    mResources.getString(R.string.mcv2_cc_is_on));
                         } else {
                             mController.hideSubtitle();
-                            mSubtitleButton.setImageDrawable(
-                                    mResources.getDrawable(R.drawable.ic_subtitle_off));
-                            mSubtitleButton.setContentDescription(
-                                    mResources.getString(R.string.mcv2_cc_is_off));
                         }
                     }
                     dismissSettingsWindow();
@@ -1586,6 +1759,7 @@ public class MediaControlView extends BaseLayout {
         }
         mTimeView.setLayoutParams(timeViewParams);
 
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
         // Update play/pause and ffwd buttons based on whether the media is currently stopped or
         // not.
         updateForStoppedState(mIsStopped);
@@ -1597,6 +1771,11 @@ public class MediaControlView extends BaseLayout {
             mFullScreenButton.setImageDrawable(
                     mResources.getDrawable(R.drawable.ic_fullscreen));
         }
+=======
+        // Update play/pause and ffwd buttons based on whether currently the replay button is shown
+        // or not.
+        updateReplayButton(mIsShowingReplayButton);
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
     }
 
     private View inflateTransportControls(int layoutId) {
@@ -1869,6 +2048,7 @@ public class MediaControlView extends BaseLayout {
         }
     }
 
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
     private void showAllBars() {
         if (mUxState != UX_STATE_ALL_VISIBLE) {
             removeCallbacks(mHideMainBars);
@@ -1887,6 +2067,8 @@ public class MediaControlView extends BaseLayout {
         }
     }
 
+=======
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
     long getLatestSeekPosition() {
         if (mNextSeekPosition != SEEK_POSITION_NOT_SET) {
             return mNextSeekPosition;
@@ -1909,11 +2091,21 @@ public class MediaControlView extends BaseLayout {
         mSubSettingsAdapter.setCheckPosition(mSelectedSpeedIndex);
     }
 
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
     void updateForStoppedState(boolean isStopped) {
         if (isStopped) {
             mIsStopped = true;
             if (mPlayPauseButton != null) {
                 mPlayPauseButton.setImageDrawable(
+=======
+    void updateReplayButton(boolean toBeShown) {
+        ImageButton playPauseButton = findControlButton(mSizeType, R.id.pause);
+        ImageButton ffwdButton = findControlButton(mSizeType, R.id.ffwd);
+        if (toBeShown) {
+            mIsShowingReplayButton = true;
+            if (playPauseButton != null) {
+                playPauseButton.setImageDrawable(
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
                         mResources.getDrawable(R.drawable.ic_replay_circle_filled));
                 mPlayPauseButton.setContentDescription(
                         mResources.getString(R.string.mcv2_replay_button_desc));
@@ -1923,8 +2115,13 @@ public class MediaControlView extends BaseLayout {
                 mFfwdButton.setEnabled(false);
             }
         } else {
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
             mIsStopped = false;
             if (mPlayPauseButton != null) {
+=======
+            mIsShowingReplayButton = false;
+            if (playPauseButton != null) {
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
                 if (mController.isPlaying()) {
                     mPlayPauseButton.setImageDrawable(
                             mResources.getDrawable(R.drawable.ic_pause_circle_filled));
@@ -1954,20 +2151,6 @@ public class MediaControlView extends BaseLayout {
             mMainTexts = mainTexts;
             mSubTexts = subTexts;
             mIconIds = iconIds;
-        }
-
-        public void updateSubTexts(List<String> subTexts) {
-            mSubTexts = subTexts;
-            notifyDataSetChanged();
-        }
-
-        public String getMainText(int position) {
-            if (mMainTexts != null) {
-                if (position < mMainTexts.size()) {
-                    return mMainTexts.get(position);
-                }
-            }
-            return RESOURCE_EMPTY;
         }
 
         @Override
@@ -2105,8 +2288,10 @@ public class MediaControlView extends BaseLayout {
             if (mController != null) {
                 mController.close();
             }
-            mController = new MediaController(getContext(), token, mCallbackExecutor,
-                    new MediaControllerCallback());
+            mController = new MediaController.Builder(getContext())
+                    .setSessionToken(token)
+                    .setControllerCallback(mCallbackExecutor, new MediaControllerCallback())
+                    .build();
             mPlaybackState = mController.getPlayerState();
             MediaItem currentItem = mController.getCurrentMediaItem();
             mMediaMetadata = currentItem != null ? currentItem.getMetadata() : null;
@@ -2295,7 +2480,7 @@ public class MediaControlView extends BaseLayout {
                             removeCallbacks(mUpdateProgress);
                             post(mUpdateProgress);
                             resetHideCallbacks();
-                            updateForStoppedState(false);
+                            updateReplayButton(false);
                             break;
                         case SessionPlayer.PLAYER_STATE_PAUSED:
                             mPlayPauseButton.setImageDrawable(
@@ -2303,6 +2488,9 @@ public class MediaControlView extends BaseLayout {
                             mPlayPauseButton.setContentDescription(
                                     mResources.getString(R.string.mcv2_play_button_desc));
                             removeCallbacks(mUpdateProgress);
+                            removeCallbacks(mHideMainBars);
+                            removeCallbacks(mHideProgressBar);
+                            post(mShowAllBars);
                             break;
                         case SessionPlayer.PLAYER_STATE_ERROR:
                             MediaControlView.this.setEnabled(false);
@@ -2332,7 +2520,7 @@ public class MediaControlView extends BaseLayout {
             }
 
             @Override
-            public void onSeekCompleted(MediaController controller, long position) {
+            public void onSeekCompleted(@NonNull MediaController controller, long position) {
                 if (DEBUG) {
                     Log.d(TAG, "onSeekCompleted(): " + position);
                 }
@@ -2351,11 +2539,22 @@ public class MediaControlView extends BaseLayout {
                 } else {
                     mCurrentSeekPosition = SEEK_POSITION_NOT_SET;
 
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
                     // If the next seek position is not set, start to update progress.
                     removeCallbacks(mUpdateProgress);
                     removeCallbacks(mHideMainBars);
                     post(mUpdateProgress);
                     postDelayed(mHideMainBars, mShowControllerIntervalMs);
+=======
+                    // If the next seek position is not set and the progress bar thumb is not being
+                    // dragged, start to update progress.
+                    if (!mDragging) {
+                        removeCallbacks(mUpdateProgress);
+                        removeCallbacks(mHideMainBars);
+                        post(mUpdateProgress);
+                        postDelayedRunnable(mHideMainBars, mDelayedAnimationIntervalMs);
+                    }
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
                 }
             }
 
@@ -2372,11 +2571,11 @@ public class MediaControlView extends BaseLayout {
             }
 
             @Override
-            public void onPlaybackCompleted(MediaController controller) {
+            public void onPlaybackCompleted(@NonNull MediaController controller) {
                 if (DEBUG) {
                     Log.d(TAG, "onPlaybackCompleted()");
                 }
-                updateForStoppedState(true);
+                updateReplayButton(true);
                 // The progress bar and current time text may not have been updated.
                 mProgress.setProgress(MAX_PROGRESS);
                 mCurrentTime.setText(stringForTime(mDuration));
@@ -2405,7 +2604,7 @@ public class MediaControlView extends BaseLayout {
 
             @Override
             public void onPlaylistChanged(@NonNull MediaController controller,
-                    @NonNull List<MediaItem> list,
+                    @Nullable List<MediaItem> list,
                     @Nullable MediaMetadata metadata) {
                 if (DEBUG) {
                     Log.d(TAG, "onPlaylistChanged(): list: " + list);
@@ -2456,6 +2655,7 @@ public class MediaControlView extends BaseLayout {
             }
 
             @Override
+            @NonNull
             public SessionResult onCustomCommand(
                     @NonNull MediaController controller, @NonNull SessionCommand command,
                     @Nullable Bundle args) {
@@ -2487,31 +2687,29 @@ public class MediaControlView extends BaseLayout {
                         if (mVideoTrackCount == 0 && mAudioTrackCount > 0) {
                             mMediaType = MEDIA_TYPE_MUSIC;
                         }
-                        mSubtitleTrackCount = (args != null)
-                                ? args.getInt(KEY_SUBTITLE_TRACK_COUNT) : 0;
-                        List<String> subtitleTracksLanguageList = (args != null)
+                        List<String> subtitleTracksList = (args != null)
                                 ? args.getStringArrayList(KEY_SUBTITLE_TRACK_LANGUAGE_LIST) : null;
-                        mSubtitleDescriptionsList = new ArrayList<String>();
-                        if (mSubtitleTrackCount > 0) {
-                            mSubtitleButton.setAlpha(1.0f);
-                            mSubtitleButton.setEnabled(true);
+                        if (subtitleTracksList != null) {
+                            mSubtitleDescriptionsList = new ArrayList<String>();
                             mSubtitleDescriptionsList.add(mResources.getString(
                                     R.string.MediaControlView_subtitle_off_text));
-                            for (int i = 0; i < mSubtitleTrackCount; i++) {
-                                String lang = subtitleTracksLanguageList.get(i);
-                                String track;
-                                if (lang.equals("")) {
-                                    track = mResources.getString(
+                            for (int i = 0; i < subtitleTracksList.size(); i++) {
+                                String lang = subtitleTracksList.get(i);
+                                String trackDescription;
+                                if (lang.equals("und")) {
+                                    trackDescription = mResources.getString(
                                             R.string.MediaControlView_subtitle_track_number_text,
                                             i + 1);
                                 } else {
-                                    track = mResources.getString(
+                                    trackDescription = mResources.getString(
                                             R.string
                                             .MediaControlView_subtitle_track_number_and_lang_text,
                                             i + 1, lang);
                                 }
-                                mSubtitleDescriptionsList.add(track);
+                                mSubtitleDescriptionsList.add(trackDescription);
                             }
+                            mSubtitleButton.setAlpha(1.0f);
+                            mSubtitleButton.setEnabled(true);
                         } else {
                             if (mMediaType == MEDIA_TYPE_MUSIC) {
                                 mSubtitleButton.setVisibility(View.GONE);
@@ -2533,7 +2731,8 @@ public class MediaControlView extends BaseLayout {
                         int selectedTrackIndex = args != null
                                 ? args.getInt(KEY_SELECTED_SUBTITLE_INDEX, -1)
                                 : -1;
-                        if (selectedTrackIndex < 0 || selectedTrackIndex >= mSubtitleTrackCount) {
+                        if (selectedTrackIndex < 0
+                                || selectedTrackIndex >= mSubtitleDescriptionsList.size()) {
                             Log.w(TAG, "Selected subtitle track index (" + selectedTrackIndex
                                     + ") is out of range.");
                             break;
@@ -2542,12 +2741,20 @@ public class MediaControlView extends BaseLayout {
                         if (mSettingsMode == SETTINGS_MODE_SUBTITLE_TRACK) {
                             mSubSettingsAdapter.setCheckPosition(mSelectedSubtitleTrackIndex);
                         }
+                        mSubtitleButton.setImageDrawable(
+                                mResources.getDrawable(R.drawable.ic_subtitle_on));
+                        mSubtitleButton.setContentDescription(
+                                mResources.getString(R.string.mcv2_cc_is_on));
                         break;
                     case EVENT_UPDATE_SUBTITLE_DESELECTED:
                         mSelectedSubtitleTrackIndex = 0;
                         if (mSettingsMode == SETTINGS_MODE_SUBTITLE_TRACK) {
                             mSubSettingsAdapter.setCheckPosition(mSelectedSubtitleTrackIndex);
                         }
+                        mSubtitleButton.setImageDrawable(
+                                mResources.getDrawable(R.drawable.ic_subtitle_off));
+                        mSubtitleButton.setContentDescription(
+                                mResources.getString(R.string.mcv2_cc_is_off));
                         break;
                     default:
                         return new SessionResult(

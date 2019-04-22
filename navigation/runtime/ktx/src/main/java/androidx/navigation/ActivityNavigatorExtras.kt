@@ -23,7 +23,7 @@ import android.support.v4.app.ActivityOptionsCompat
  * instance and/or any `Intent.FLAG_ACTIVITY_` flags.
  *
  * @param activityOptions Optional [ActivityOptionsCompat] to pass through to
- * [android.support.v4.app.ActivityCompat.startActivity].
+ * [androidx.core.app.ActivityCompat.startActivity].
  * @param flags `Intent.FLAG_ACTIVITY_` flags to add to the Intent.
  */
 @Suppress("FunctionName")

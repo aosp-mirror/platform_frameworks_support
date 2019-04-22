@@ -3,11 +3,16 @@ package androidx.work {
 
   public abstract class CoroutineWorker extends androidx.work.ListenableWorker {
     ctor public CoroutineWorker(android.content.Context appContext, androidx.work.WorkerParameters params);
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
     method public abstract Object? doWork(kotlin.coroutines.experimental.Continuation<? super androidx.work.ListenableWorker.Result> p);
     method public kotlinx.coroutines.CoroutineDispatcher getCoroutineContext();
+=======
+    method public abstract suspend Object? doWork(kotlin.coroutines.experimental.Continuation<? super androidx.work.ListenableWorker.Result> p);
+    method @Deprecated public kotlinx.coroutines.CoroutineDispatcher getCoroutineContext();
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
     method public final void onStopped();
     method public final com.google.common.util.concurrent.ListenableFuture<androidx.work.ListenableWorker.Result> startWork();
-    property public kotlinx.coroutines.CoroutineDispatcher coroutineContext;
+    property @Deprecated public kotlinx.coroutines.CoroutineDispatcher coroutineContext;
   }
 
   public final class DataKt {

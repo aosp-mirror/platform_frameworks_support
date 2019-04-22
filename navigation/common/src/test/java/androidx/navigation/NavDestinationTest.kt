@@ -17,8 +17,12 @@
 package androidx.navigation
 
 import android.content.Context
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
 import android.support.annotation.IdRes
 import androidx.test.filters.SmallTest
+=======
+import androidx.annotation.IdRes
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
 import com.google.common.truth.Truth.assertThat
 import org.junit.Assert.fail
 import org.junit.Test
@@ -28,7 +32,6 @@ import org.mockito.Mockito.`when`
 import org.mockito.Mockito.mock
 
 @RunWith(JUnit4::class)
-@SmallTest
 class NavDestinationTest {
 
     companion object {

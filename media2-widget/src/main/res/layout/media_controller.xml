@@ -14,10 +14,40 @@
      limitations under the License.
 -->
 
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+=======
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+    <FrameLayout
+        android:id="@+id/center_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layoutDirection="ltr">
+
+        <View
+            android:id="@+id/center_view_background"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/center_view_background" />
+
+        <include
+            android:id="@+id/embedded_transport_controls"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            layout="@layout/embedded_transport_controls" />
+
+        <include
+            android:id="@+id/minimal_transport_controls"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            layout="@layout/minimal_transport_controls" />
+    </FrameLayout>
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
 
     <LinearLayout
         android:id="@+id/title_bar"
@@ -36,10 +66,10 @@
             <TextView
                 android:id="@+id/title_text"
                 android:gravity="center_vertical"
-                android:ellipsize="end"
+                android:ellipsize="middle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:maxLines="1"
+                android:singleLine="true"
                 android:paddingStart="@dimen/mcv2_embedded_icon_padding"
                 android:paddingEnd="@dimen/mcv2_embedded_icon_padding"
                 android:textSize="15sp"
@@ -111,7 +141,110 @@
             style="@style/BottomBarButton.FullScreen" />
     </LinearLayout>
 
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
     <RelativeLayout
+=======
+    <View
+        android:id="@+id/bottom_bar_background"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/mcv2_bottom_bar_height"
+        android:background="@color/bottom_bar_background"
+        android:layoutDirection="ltr" />
+
+    <LinearLayout
+        android:id="@+id/bottom_bar_left"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/mcv2_bottom_bar_height"
+        android:layoutDirection="ltr">
+
+        <include
+            android:id="@+id/full_transport_controls"
+            layout="@layout/full_transport_controls" />
+
+        <TextView
+            android:id="@+id/ad_skip_time"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="4dp"
+            android:gravity="center"
+            android:textColor="#FFFFFF"
+            android:textSize="12sp"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/mcv2_bottom_bar_height"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:layoutDirection="ltr">
+
+        <TextView
+            android:id="@+id/time_current"
+            style="@style/TimeText.Current" />
+
+        <TextView
+            android:id="@+id/time_interpunct"
+            style="@style/TimeText.Interpunct" />
+
+        <TextView
+            android:id="@+id/time_end"
+            style="@style/TimeText.End" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/basic_controls"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layoutDirection="ltr">
+
+        <TextView
+            android:id="@+id/ad_remaining"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="#FFFFFF"
+            android:textSize="12sp"
+            android:visibility="gone" />
+
+        <ImageButton
+            android:id="@+id/subtitle"
+            style="@style/BottomBarButton.CC"
+            android:alpha="0.5"
+            android:scaleType="fitCenter"
+            android:visibility="gone" />
+
+        <ImageButton
+            android:id="@+id/fullscreen"
+            style="@style/BottomBarButton.FullScreen"
+            android:visibility="gone" />
+
+        <ImageButton
+                android:id="@+id/overflow_show"
+                style="@style/BottomBarButton.OverflowShow" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/extra_controls"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        android:layoutDirection="ltr">
+
+        <ImageButton
+            android:id="@+id/settings"
+            style="@style/BottomBarButton.Settings" />
+
+        <ImageButton
+                android:id="@+id/overflow_hide"
+                style="@style/BottomBarButton.OverflowHide" />
+    </LinearLayout>
+
+    <FrameLayout
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
         android:id="@+id/progress_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/mcv2_custom_progress_thumb_size"

@@ -30,8 +30,6 @@ import androidx.annotation.RestrictTo;
 import androidx.annotation.StringDef;
 import androidx.webkit.internal.WebViewFeatureInternal;
 
-import org.chromium.support_lib_boundary.util.Features;
-
 import java.io.OutputStream;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -88,6 +86,8 @@ public class WebViewFeature {
             WEB_VIEW_RENDERER_TERMINATE,
             WEB_VIEW_RENDERER_CLIENT_BASIC_USAGE,
             PROXY_OVERRIDE,
+            SUPPRESS_ERROR_PAGE,
+            MULTI_PROCESS_QUERY,
     })
     @Retention(RetentionPolicy.SOURCE)
     @Target({ElementType.PARAMETER, ElementType.METHOD})
@@ -101,7 +101,7 @@ public class WebViewFeature {
      * WebViewClientCompat#onPageCommitVisible(
      * android.webkit.WebView, String)}.
      */
-    public static final String VISUAL_STATE_CALLBACK = Features.VISUAL_STATE_CALLBACK;
+    public static final String VISUAL_STATE_CALLBACK = "VISUAL_STATE_CALLBACK";
 
     /**
      * Feature for {@link #isFeatureSupported(String)}.
@@ -109,7 +109,7 @@ public class WebViewFeature {
      * {@link androidx.webkit.WebSettingsCompat#getOffscreenPreRaster(WebSettings)}, and
      * {@link androidx.webkit.WebSettingsCompat#setOffscreenPreRaster(WebSettings, boolean)}.
      */
-    public static final String OFF_SCREEN_PRERASTER = Features.OFF_SCREEN_PRERASTER;
+    public static final String OFF_SCREEN_PRERASTER = "OFF_SCREEN_PRERASTER";
 
     /**
      * Feature for {@link #isFeatureSupported(String)}.
@@ -117,7 +117,7 @@ public class WebViewFeature {
      * {@link androidx.webkit.WebSettingsCompat#getSafeBrowsingEnabled(WebSettings)}, and
      * {@link androidx.webkit.WebSettingsCompat#setSafeBrowsingEnabled(WebSettings, boolean)}.
      */
-    public static final String SAFE_BROWSING_ENABLE = Features.SAFE_BROWSING_ENABLE;
+    public static final String SAFE_BROWSING_ENABLE = "SAFE_BROWSING_ENABLE";
 
     /**
      * Feature for {@link #isFeatureSupported(String)}.
@@ -126,36 +126,36 @@ public class WebViewFeature {
      * {@link androidx.webkit.WebSettingsCompat#setDisabledActionModeMenuItems(WebSettings, int)}.
      */
     public static final String DISABLED_ACTION_MODE_MENU_ITEMS =
-            Features.DISABLED_ACTION_MODE_MENU_ITEMS;
+            "DISABLED_ACTION_MODE_MENU_ITEMS";
 
     /**
      * Feature for {@link #isFeatureSupported(String)}.
      * This feature covers
      * {@link androidx.webkit.WebViewCompat#startSafeBrowsing(Context, ValueCallback)}.
      */
-    public static final String START_SAFE_BROWSING = Features.START_SAFE_BROWSING;
+    public static final String START_SAFE_BROWSING = "START_SAFE_BROWSING";
 
     /**
      * Feature for {@link #isFeatureSupported(String)}.
      * This feature covers
      * {@link androidx.webkit.WebViewCompat#setSafeBrowsingWhitelist(List, ValueCallback)}.
      */
-    public static final String SAFE_BROWSING_WHITELIST = Features.SAFE_BROWSING_WHITELIST;
+    public static final String SAFE_BROWSING_WHITELIST = "SAFE_BROWSING_WHITELIST";
 
     /**
      * Feature for {@link #isFeatureSupported(String)}.
      * This feature covers
-     * {@link WebViewCompat#getSafeBrowsingPrivacyPolicyUrl()}.
+     * {@link androidx.webkit.WebViewCompat#getSafeBrowsingPrivacyPolicyUrl()}.
      */
     public static final String SAFE_BROWSING_PRIVACY_POLICY_URL =
-            Features.SAFE_BROWSING_PRIVACY_POLICY_URL;
+            "SAFE_BROWSING_PRIVACY_POLICY_URL";
 
     /**
      * Feature for {@link #isFeatureSupported(String)}.
      * This feature covers
      * {@link ServiceWorkerControllerCompat#getInstance()}.
      */
-    public static final String SERVICE_WORKER_BASIC_USAGE = Features.SERVICE_WORKER_BASIC_USAGE;
+    public static final String SERVICE_WORKER_BASIC_USAGE = "SERVICE_WORKER_BASIC_USAGE";
 
     /**
      * Feature for {@link #isFeatureSupported(String)}.
@@ -163,7 +163,7 @@ public class WebViewFeature {
      * {@link ServiceWorkerWebSettingsCompat#getCacheMode()}, and
      * {@link ServiceWorkerWebSettingsCompat#setCacheMode(int)}.
      */
-    public static final String SERVICE_WORKER_CACHE_MODE = Features.SERVICE_WORKER_CACHE_MODE;
+    public static final String SERVICE_WORKER_CACHE_MODE = "SERVICE_WORKER_CACHE_MODE";
 
     /**
      * Feature for {@link #isFeatureSupported(String)}.
@@ -172,7 +172,7 @@ public class WebViewFeature {
      * {@link ServiceWorkerWebSettingsCompat#setAllowContentAccess(boolean)}.
      */
     public static final String SERVICE_WORKER_CONTENT_ACCESS =
-            Features.SERVICE_WORKER_CONTENT_ACCESS;
+            "SERVICE_WORKER_CONTENT_ACCESS";
 
     /**
      * Feature for {@link #isFeatureSupported(String)}.
@@ -180,7 +180,7 @@ public class WebViewFeature {
      * {@link ServiceWorkerWebSettingsCompat#getAllowFileAccess()}, and
      * {@link ServiceWorkerWebSettingsCompat#setAllowFileAccess(boolean)}.
      */
-    public static final String SERVICE_WORKER_FILE_ACCESS = Features.SERVICE_WORKER_FILE_ACCESS;
+    public static final String SERVICE_WORKER_FILE_ACCESS = "SERVICE_WORKER_FILE_ACCESS";
 
     /**
      * Feature for {@link #isFeatureSupported(String)}.
@@ -189,7 +189,7 @@ public class WebViewFeature {
      * {@link ServiceWorkerWebSettingsCompat#setBlockNetworkLoads(boolean)}.
      */
     public static final String SERVICE_WORKER_BLOCK_NETWORK_LOADS =
-            Features.SERVICE_WORKER_BLOCK_NETWORK_LOADS;
+            "SERVICE_WORKER_BLOCK_NETWORK_LOADS";
 
     /**
      * Feature for {@link #isFeatureSupported(String)}.
@@ -197,7 +197,7 @@ public class WebViewFeature {
      * {@link ServiceWorkerClientCompat#shouldInterceptRequest(WebResourceRequest)}.
      */
     public static final String SERVICE_WORKER_SHOULD_INTERCEPT_REQUEST =
-            Features.SERVICE_WORKER_SHOULD_INTERCEPT_REQUEST;
+            "SERVICE_WORKER_SHOULD_INTERCEPT_REQUEST";
 
     /**
      * Feature for {@link #isFeatureSupported(String)}.
@@ -205,7 +205,7 @@ public class WebViewFeature {
      * {@link WebViewClientCompat#onReceivedError(android.webkit.WebView, WebResourceRequest,
      * WebResourceErrorCompat)}.
      */
-    public static final String RECEIVE_WEB_RESOURCE_ERROR = Features.RECEIVE_WEB_RESOURCE_ERROR;
+    public static final String RECEIVE_WEB_RESOURCE_ERROR = "RECEIVE_WEB_RESOURCE_ERROR";
 
     /**
      * Feature for {@link #isFeatureSupported(String)}.
@@ -213,7 +213,7 @@ public class WebViewFeature {
      * {@link WebViewClientCompat#onReceivedHttpError(android.webkit.WebView, WebResourceRequest,
      * WebResourceResponse)}.
      */
-    public static final String RECEIVE_HTTP_ERROR = Features.RECEIVE_HTTP_ERROR;
+    public static final String RECEIVE_HTTP_ERROR = "RECEIVE_HTTP_ERROR";
 
     /**
      * Feature for {@link #isFeatureSupported(String)}.
@@ -222,7 +222,7 @@ public class WebViewFeature {
      * WebResourceRequest)}.
      */
     public static final String SHOULD_OVERRIDE_WITH_REDIRECTS =
-            Features.SHOULD_OVERRIDE_WITH_REDIRECTS;
+            "SHOULD_OVERRIDE_WITH_REDIRECTS";
 
     /**
      * Feature for {@link #isFeatureSupported(String)}.
@@ -230,7 +230,7 @@ public class WebViewFeature {
      * {@link WebViewClientCompat#onSafeBrowsingHit(android.webkit.WebView,
      * WebResourceRequest, int, SafeBrowsingResponseCompat)}.
      */
-    public static final String SAFE_BROWSING_HIT = Features.SAFE_BROWSING_HIT;
+    public static final String SAFE_BROWSING_HIT = "SAFE_BROWSING_HIT";
 
     /**
      * Feature for {@link #isFeatureSupported(String)}.
@@ -241,7 +241,7 @@ public class WebViewFeature {
      * {@link TracingController#stop(OutputStream, Executor)}.
      */
     public static final String TRACING_CONTROLLER_BASIC_USAGE =
-            Features.TRACING_CONTROLLER_BASIC_USAGE;
+            "TRACING_CONTROLLER_BASIC_USAGE";
 
     /**
      * Feature for {@link #isFeatureSupported(String)}.
@@ -249,7 +249,7 @@ public class WebViewFeature {
      * {@link WebResourceRequestCompat#isRedirect(WebResourceRequest)}.
      */
     public static final String WEB_RESOURCE_REQUEST_IS_REDIRECT =
-            Features.WEB_RESOURCE_REQUEST_IS_REDIRECT;
+            "WEB_RESOURCE_REQUEST_IS_REDIRECT";
 
     /**
      * Feature for {@link #isFeatureSupported(String)}.
@@ -257,7 +257,7 @@ public class WebViewFeature {
      * {@link WebResourceErrorCompat#getDescription()}.
      */
     public static final String WEB_RESOURCE_ERROR_GET_DESCRIPTION =
-            Features.WEB_RESOURCE_ERROR_GET_DESCRIPTION;
+            "WEB_RESOURCE_ERROR_GET_DESCRIPTION";
 
     /**
      * Feature for {@link #isFeatureSupported(String)}.
@@ -265,7 +265,7 @@ public class WebViewFeature {
      * {@link WebResourceErrorCompat#getErrorCode()}.
      */
     public static final String WEB_RESOURCE_ERROR_GET_CODE =
-            Features.WEB_RESOURCE_ERROR_GET_CODE;
+            "WEB_RESOURCE_ERROR_GET_CODE";
 
     /**
      * Feature for {@link #isFeatureSupported(String)}.
@@ -273,7 +273,7 @@ public class WebViewFeature {
      * {@link SafeBrowsingResponseCompat#backToSafety(boolean)}.
      */
     public static final String SAFE_BROWSING_RESPONSE_BACK_TO_SAFETY =
-            Features.SAFE_BROWSING_RESPONSE_BACK_TO_SAFETY;
+            "SAFE_BROWSING_RESPONSE_BACK_TO_SAFETY";
 
     /**
      * Feature for {@link #isFeatureSupported(String)}.
@@ -281,7 +281,7 @@ public class WebViewFeature {
      * {@link SafeBrowsingResponseCompat#proceed(boolean)}.
      */
     public static final String SAFE_BROWSING_RESPONSE_PROCEED =
-            Features.SAFE_BROWSING_RESPONSE_PROCEED;
+            "SAFE_BROWSING_RESPONSE_PROCEED";
 
     /**
      * Feature for {@link #isFeatureSupported(String)}.
@@ -289,7 +289,7 @@ public class WebViewFeature {
      * {@link SafeBrowsingResponseCompat#showInterstitial(boolean)}.
      */
     public static final String SAFE_BROWSING_RESPONSE_SHOW_INTERSTITIAL =
-            Features.SAFE_BROWSING_RESPONSE_SHOW_INTERSTITIAL;
+            "SAFE_BROWSING_RESPONSE_SHOW_INTERSTITIAL";
 
     /**
      * Feature for {@link #isFeatureSupported(String)}.
@@ -297,14 +297,14 @@ public class WebViewFeature {
      * {@link androidx.webkit.WebMessagePortCompat#postMessage(WebMessageCompat)}.
      */
     public static final String WEB_MESSAGE_PORT_POST_MESSAGE =
-            Features.WEB_MESSAGE_PORT_POST_MESSAGE;
+            "WEB_MESSAGE_PORT_POST_MESSAGE";
 
     /**
      * Feature for {@link #isFeatureSupported(String)}.
      * This feature covers
      * {@link androidx.webkit.WebMessagePortCompat#close()}.
      */
-    public static final String WEB_MESSAGE_PORT_CLOSE = Features.WEB_MESSAGE_PORT_CLOSE;
+    public static final String WEB_MESSAGE_PORT_CLOSE = "WEB_MESSAGE_PORT_CLOSE";
 
     /**
      * Feature for {@link #isFeatureSupported(String)}.
@@ -315,21 +315,21 @@ public class WebViewFeature {
      * WebMessagePortCompat.WebMessageCallbackCompat)}.
      */
     public static final String WEB_MESSAGE_PORT_SET_MESSAGE_CALLBACK =
-            Features.WEB_MESSAGE_PORT_SET_MESSAGE_CALLBACK;
+            "WEB_MESSAGE_PORT_SET_MESSAGE_CALLBACK";
 
     /**
      * Feature for {@link #isFeatureSupported(String)}.
      * This feature covers
-     * {@link WebViewCompat#createWebMessageChannel(WebView)}.
+     * {@link androidx.webkit.WebViewCompat#createWebMessageChannel(WebView)}.
      */
-    public static final String CREATE_WEB_MESSAGE_CHANNEL = Features.CREATE_WEB_MESSAGE_CHANNEL;
+    public static final String CREATE_WEB_MESSAGE_CHANNEL = "CREATE_WEB_MESSAGE_CHANNEL";
 
     /**
      * Feature for {@link #isFeatureSupported(String)}.
      * This feature covers
-     * {@link WebViewCompat#postWebMessage(WebView, WebMessageCompat, Uri)}.
+     * {@link androidx.webkit.WebViewCompat#postWebMessage(WebView, WebMessageCompat, Uri)}.
      */
-    public static final String POST_WEB_MESSAGE = Features.POST_WEB_MESSAGE;
+    public static final String POST_WEB_MESSAGE = "POST_WEB_MESSAGE";
 
     /**
      * Feature for {@link #isFeatureSupported(String)}.
@@ -338,55 +338,75 @@ public class WebViewFeature {
      * WebMessageCompat)}.
      */
     public static final String WEB_MESSAGE_CALLBACK_ON_MESSAGE =
-            Features.WEB_MESSAGE_CALLBACK_ON_MESSAGE;
+            "WEB_MESSAGE_CALLBACK_ON_MESSAGE";
 
     /**
      * Feature for {@link #isFeatureSupported(String)}.
-     * This feature covers {@link WebViewCompat#getWebViewClient(WebView)}
+     * This feature covers {@link androidx.webkit.WebViewCompat#getWebViewClient(WebView)}
      */
-    public static final String GET_WEB_VIEW_CLIENT = Features.GET_WEB_VIEW_CLIENT;
+    public static final String GET_WEB_VIEW_CLIENT = "GET_WEB_VIEW_CLIENT";
 
     /**
      * Feature for {@link #isFeatureSupported(String)}.
-     * This feature covers {@link WebViewCompat#getWebChromeClient(WebView)}
+     * This feature covers {@link androidx.webkit.WebViewCompat#getWebChromeClient(WebView)}
      */
-    public static final String GET_WEB_CHROME_CLIENT = Features.GET_WEB_CHROME_CLIENT;
+    public static final String GET_WEB_CHROME_CLIENT = "GET_WEB_CHROME_CLIENT";
 
     /**
      * Feature for {@link #isFeatureSupported(String)}.
-     * This feature covers {@link WebViewCompat#getWebViewRenderer(WebView)}
+     * This feature covers {@link androidx.webkit.WebViewCompat#getWebViewRenderProcess(WebView)}
      */
-    public static final String GET_WEB_VIEW_RENDERER = Features.GET_WEB_VIEW_RENDERER;
+    public static final String GET_WEB_VIEW_RENDERER = "GET_WEB_VIEW_RENDERER";
 
     /**
      * Feature for {@link #isFeatureSupported(String)}.
-     * This feature covers {@link WebViewRenderer#terminate()}
+     * This feature covers {@link WebViewRenderProcess#terminate()}
      */
-    public static final String WEB_VIEW_RENDERER_TERMINATE = Features.WEB_VIEW_RENDERER_TERMINATE;
+    public static final String WEB_VIEW_RENDERER_TERMINATE = "WEB_VIEW_RENDERER_TERMINATE";
 
     /**
-     * Feature for {@link #isFeatureSupported(String)}.
+     i* Feature for {@link #isFeatureSupported(String)}.
      * This feature covers
-     * {@link WebViewCompat#getWebViewRendererClient()},
-     * {@link WebViewCompat#setWebViewRendererClient(WebViewRendererClient)},
-     * {@link WebViewRendererClient#onRendererUnresponsive(WebView,WebViewRenderer)},
-     * {@link WebViewRendererClient#onRendererResponsive(WebView,WebViewRenderer)}
+     * {@link androidx.webkit.WebViewCompat#getWebViewRenderProcessClient(WebView)},
+     * {@link androidx.webkit.WebViewCompat#setWebViewRenderProcessClient(WebView, WebViewRenderProcessClient)},
      */
     public static final String WEB_VIEW_RENDERER_CLIENT_BASIC_USAGE =
-            Features.WEB_VIEW_RENDERER_CLIENT_BASIC_USAGE;
+            "WEB_VIEW_RENDERER_CLIENT_BASIC_USAGE";
 
     /**
      * Feature for {@link #isFeatureSupported(String)}.
      * This feature covers
      * {@link ProxyController#setProxyOverride(ProxyConfig, Executor, Runnable)},
-     * {@link ProxyController#setProxyOverride(ProxyConfig, Runnable)},
      * {@link ProxyController#clearProxyOverride(Executor, Runnable)}, and
-     * {@link ProxyController#clearProxyOverride(Runnable)}.
-     * TODO(laisminchillo): unhide this when we're ready to expose this
+     */
+    public static final String PROXY_OVERRIDE = "PROXY_OVERRIDE";
+
+    /**
+     * Feature for {@link #isFeatureSupported(String)}.
+     * This feature covers
+     * {@link WebSettingsCompat#willSuppressErrorPage(WebSettings)} and
+     * {@link WebSettingsCompat#setWillSuppressErrorPage(WebSettings, boolean)}.
+     *
+     * TODO(cricke): unhide
      * @hide
      */
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
     @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
     public static final String PROXY_OVERRIDE = Features.PROXY_OVERRIDE;
+=======
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
+    public static final String SUPPRESS_ERROR_PAGE = "SUPPRESS_ERROR_PAGE";
+
+    /**
+     * Feature for {@link #isFeatureSupported(String)}.
+     * This feature covers {@link WebViewCompat#isMultiProcessEnabled()}
+     *
+     * TODO(laisminchillo): unhide
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
+    public static final String MULTI_PROCESS_QUERY = "MULTI_PROCESS_QUERY";
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
 
     /**
      * Return whether a feature is supported at run-time. On devices running Android version {@link

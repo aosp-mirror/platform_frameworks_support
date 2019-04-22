@@ -1,0 +1,15 @@
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
+=======
+// Signature format: 3.0
+package androidx.room {
+
+  public class RxRoom {
+    method @Deprecated @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX) public static <T> io.reactivex.Flowable<T>! createFlowable(androidx.room.RoomDatabase!, String[]!, java.util.concurrent.Callable<T>!);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX) public static <T> io.reactivex.Flowable<T>! createFlowable(androidx.room.RoomDatabase!, boolean, String[]!, java.util.concurrent.Callable<T>!);
+    method @Deprecated @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX) public static <T> io.reactivex.Observable<T>! createObservable(androidx.room.RoomDatabase!, String[]!, java.util.concurrent.Callable<T>!);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX) public static <T> io.reactivex.Observable<T>! createObservable(androidx.room.RoomDatabase!, boolean, String[]!, java.util.concurrent.Callable<T>!);
+  }
+
+}
+
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)

@@ -26,6 +26,7 @@ import android.view.Window;
 
 import androidx.annotation.CallSuper;
 import androidx.annotation.ContentView;
+import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.GenericLifecycleObserver;
@@ -39,9 +40,12 @@ import androidx.savedstate.SavedStateRegistry;
 import androidx.savedstate.bundle.BundleSavedStateRegistry;
 import androidx.savedstate.bundle.BundleSavedStateRegistryOwner;
 
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
 import java.util.Iterator;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+=======
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
 /**
  * Base class for activities that enables composition of higher level components.
  * <p>
@@ -52,7 +56,12 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class ComponentActivity extends androidx.core.app.ComponentActivity implements
         LifecycleOwner,
         ViewModelStoreOwner,
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
         BundleSavedStateRegistryOwner {
+=======
+        SavedStateRegistryOwner,
+        OnBackPressedDispatcherOwner {
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
 
     static final class NonConfigurationInstances {
         Object custom;
@@ -65,10 +74,19 @@ public class ComponentActivity extends androidx.core.app.ComponentActivity imple
     // Lazily recreated from NonConfigurationInstances by getViewModelStore()
     private ViewModelStore mViewModelStore;
 
-    @SuppressWarnings("WeakerAccess") /* synthetic access */
-    final CopyOnWriteArrayList<LifecycleAwareOnBackPressedCallback> mOnBackPressedCallbacks =
-            new CopyOnWriteArrayList<>();
+    private final OnBackPressedDispatcher mOnBackPressedDispatcher = new OnBackPressedDispatcher();
 
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
+=======
+    @LayoutRes
+    private int mContentLayoutId;
+
+    /**
+     * Default constructor for ComponentActivity. All Activities must have a default constructor
+     * for API 27 and lower devices or when using the default
+     * {@link android.app.AppComponentFactory}.
+     */
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
     public ComponentActivity() {
         Lifecycle lifecycle = getLifecycle();
         //noinspection ConstantConditions
@@ -109,6 +127,22 @@ public class ComponentActivity extends androidx.core.app.ComponentActivity imple
     }
 
     /**
+     * Alternate constructor that can be used to provide a default layout
+     * that will be inflated as part of <code>super.onCreate(savedInstanceState)</code>.
+     *
+     * <p>This should generally be called from your constructor that takes no parameters,
+     * as is required for API 27 and lower or when using the default
+     * {@link android.app.AppComponentFactory}.
+     *
+     * @see #ComponentActivity()
+     */
+    @ContentView
+    public ComponentActivity(@LayoutRes int contentLayoutId) {
+        this();
+        mContentLayoutId = contentLayoutId;
+    }
+
+    /**
      * {@inheritDoc}
      *
      * If your ComponentActivity is annotated with {@link ContentView}, this will
@@ -120,12 +154,17 @@ public class ComponentActivity extends androidx.core.app.ComponentActivity imple
         super.onCreate(savedInstanceState);
         mSavedStateRegistry.performRestore(savedInstanceState);
         ReportFragment.injectIfNeededIn(this);
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
         ContentView annotation = getClass().getAnnotation(ContentView.class);
         if (annotation != null) {
             int layoutId = annotation.value();
             if (layoutId != 0) {
                 setContentView(layoutId);
             }
+=======
+        if (mContentLayoutId != 0) {
+            setContentView(mContentLayoutId);
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
         }
     }
 
@@ -250,23 +289,32 @@ public class ComponentActivity extends androidx.core.app.ComponentActivity imple
 
     /**
      * Called when the activity has detected the user's press of the back
-     * key. Any {@link OnBackPressedCallback} added via
-     * {@link #addOnBackPressedCallback(LifecycleOwner, OnBackPressedCallback)} will be given a
+     * key. The {@link #getOnBackPressedDispatcher() OnBackPressedDispatcher} will be given a
      * chance to handle the back button before the default behavior of
      * {@link android.app.Activity#onBackPressed()} is invoked.
      *
-     * @see #addOnBackPressedCallback(LifecycleOwner, OnBackPressedCallback)
+     * @see #getOnBackPressedDispatcher()
      */
     @Override
     public void onBackPressed() {
-        for (OnBackPressedCallback onBackPressedCallback : mOnBackPressedCallbacks) {
-            if (onBackPressedCallback.handleOnBackPressed()) {
-                return;
-            }
+        if (mOnBackPressedDispatcher.hasEnabledCallbacks()) {
+            mOnBackPressedDispatcher.onBackPressed();
+            return;
         }
-        // If none of the registered OnBackPressedCallbacks handled the back button,
+        // If the OnBackPressedDispatcher doesn't handle the back button,
         // delegate to the super implementation
         super.onBackPressed();
+    }
+
+    /**
+     * Retrieve the {@link OnBackPressedDispatcher} that will be triggered when
+     * {@link #onBackPressed()} is called.
+     * @return The {@link OnBackPressedDispatcher} associated with this ComponentActivity.
+     */
+    @NonNull
+    @Override
+    public final OnBackPressedDispatcher getOnBackPressedDispatcher() {
+        return mOnBackPressedDispatcher;
     }
 
     /**
@@ -287,9 +335,13 @@ public class ComponentActivity extends androidx.core.app.ComponentActivity imple
      *
      * @see #onBackPressed()
      * @see #removeOnBackPressedCallback(OnBackPressedCallback)
+     * @deprecated Use {@link #getOnBackPressedDispatcher() and
+     * {@link OnBackPressedDispatcher#addCallback(LifecycleOwner, OnBackPressedCallback)}},
+     * explicitly passing in this Activity object as the {@link LifecycleOwner}.
      */
+    @Deprecated
     public void addOnBackPressedCallback(@NonNull OnBackPressedCallback onBackPressedCallback) {
-        addOnBackPressedCallback(this, onBackPressedCallback);
+        getOnBackPressedDispatcher().addCallback(this, onBackPressedCallback);
     }
 
     /**
@@ -311,18 +363,13 @@ public class ComponentActivity extends androidx.core.app.ComponentActivity imple
      *
      * @see #onBackPressed()
      * @see #removeOnBackPressedCallback(OnBackPressedCallback)
+     * @deprecated Use {@link #getOnBackPressedDispatcher() and
+     * {@link OnBackPressedDispatcher#addCallback(LifecycleOwner, OnBackPressedCallback)}}.
      */
+    @Deprecated
     public void addOnBackPressedCallback(@NonNull LifecycleOwner owner,
             @NonNull OnBackPressedCallback onBackPressedCallback) {
-        Lifecycle lifecycle = owner.getLifecycle();
-        if (lifecycle.getCurrentState() == Lifecycle.State.DESTROYED) {
-            // Already destroyed, nothing to do
-            return;
-        }
-        // Add new callbacks to the front of the list so that
-        // the most recently added callbacks get priority
-        mOnBackPressedCallbacks.add(0, new LifecycleAwareOnBackPressedCallback(
-                lifecycle, onBackPressedCallback));
+        getOnBackPressedDispatcher().addCallback(owner, onBackPressedCallback);
     }
 
     /**
@@ -337,71 +384,16 @@ public class ComponentActivity extends androidx.core.app.ComponentActivity imple
      *
      * @param onBackPressedCallback The callback to remove
      * @see #addOnBackPressedCallback(LifecycleOwner, OnBackPressedCallback)
+     * @deprecated Use {@link OnBackPressedCallback#remove()}
      */
+    @Deprecated
     public void removeOnBackPressedCallback(@NonNull OnBackPressedCallback onBackPressedCallback) {
-        Iterator<LifecycleAwareOnBackPressedCallback> iterator =
-                mOnBackPressedCallbacks.iterator();
-        LifecycleAwareOnBackPressedCallback callbackToRemove = null;
-        while (iterator.hasNext()) {
-            LifecycleAwareOnBackPressedCallback callback = iterator.next();
-            if (callback.getOnBackPressedCallback().equals(onBackPressedCallback)) {
-                callbackToRemove = callback;
-                break;
-            }
-        }
-        if (callbackToRemove != null) {
-            callbackToRemove.onRemoved();
-            mOnBackPressedCallbacks.remove(callbackToRemove);
-        }
+        onBackPressedCallback.remove();
     }
 
     @NonNull
     @Override
     public final SavedStateRegistry<Bundle> getBundleSavedStateRegistry() {
         return mSavedStateRegistry;
-    }
-
-    private class LifecycleAwareOnBackPressedCallback implements
-            OnBackPressedCallback,
-            GenericLifecycleObserver {
-        private final Lifecycle mLifecycle;
-        private final OnBackPressedCallback mOnBackPressedCallback;
-
-        LifecycleAwareOnBackPressedCallback(@NonNull Lifecycle lifecycle,
-                @NonNull OnBackPressedCallback onBackPressedCallback) {
-            mLifecycle = lifecycle;
-            mOnBackPressedCallback = onBackPressedCallback;
-            mLifecycle.addObserver(this);
-        }
-
-        Lifecycle getLifecycle() {
-            return mLifecycle;
-        }
-
-        OnBackPressedCallback getOnBackPressedCallback() {
-            return mOnBackPressedCallback;
-        }
-
-        @Override
-        public boolean handleOnBackPressed() {
-            if (mLifecycle.getCurrentState().isAtLeast(Lifecycle.State.STARTED)) {
-                return mOnBackPressedCallback.handleOnBackPressed();
-            }
-            return false;
-        }
-
-        @Override
-        public void onStateChanged(LifecycleOwner source, Lifecycle.Event event) {
-            if (event == Lifecycle.Event.ON_DESTROY) {
-                synchronized (mOnBackPressedCallbacks) {
-                    mLifecycle.removeObserver(this);
-                    mOnBackPressedCallbacks.remove(this);
-                }
-            }
-        }
-
-        public void onRemoved() {
-            mLifecycle.removeObserver(this);
-        }
     }
 }

@@ -33,6 +33,10 @@ import static org.junit.Assert.assertThat;
 
 import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
+=======
+import android.os.SystemClock;
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
 import android.view.View;
 
 import androidx.annotation.ColorInt;

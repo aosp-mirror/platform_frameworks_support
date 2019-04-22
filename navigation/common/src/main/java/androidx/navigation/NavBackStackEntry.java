@@ -20,6 +20,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import java.util.UUID;
+
 /**
  * Representation of an entry in the back stack of a {@link NavController}.
  */
@@ -27,7 +29,17 @@ final class NavBackStackEntry {
     private final NavDestination mDestination;
     private final Bundle mArgs;
 
+    // Internal unique name for this navBackStackEntry;
+    @NonNull
+    final UUID mId;
+
     NavBackStackEntry(@NonNull NavDestination destination, @Nullable Bundle args) {
+        this(UUID.randomUUID(), destination, args);
+    }
+
+    NavBackStackEntry(@NonNull UUID uuid, @NonNull NavDestination destination,
+            @Nullable Bundle args) {
+        mId = uuid;
         mDestination = destination;
         mArgs = args;
     }

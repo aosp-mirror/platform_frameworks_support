@@ -45,8 +45,15 @@ import java.util.List;
  *
  * <p>
  * <strong>Note:</strong> The constants below are public for the browser implementation's benefit.
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
  * You are strongly encouraged to use {@link BrowserActionsIntent.Builder}.</p>
+=======
+ * You are strongly encouraged to use {@link BrowserActionsIntent.Builder}.
+ *
+ * @deprecated Browser Actions are deprecated as of release 1.2.0.
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
  */
+@Deprecated
 public class BrowserActionsIntent {
     private static final String TAG = "BrowserActions";
     // Used to verify that an URL intent handler exists.

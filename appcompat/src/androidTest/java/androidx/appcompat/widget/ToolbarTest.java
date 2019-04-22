@@ -138,4 +138,34 @@ public class ToolbarTest {
         assertEquals(expectedColor, toolbar.getTitleTextView().getCurrentTextColor());
         assertEquals(expectedColor, toolbar.getSubtitleTextView().getCurrentTextColor());
     }
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
+=======
+
+    @Test
+    public void testToolbarMenuFromXml() {
+        final Toolbar toolbar = mActivity.findViewById(R.id.toolbar_menu);
+        final Menu menu = toolbar.getMenu();
+
+        assertNotEquals(0, menu.size());
+        assertNotNull(menu.findItem(R.id.action_search));
+    }
+
+    @Test
+    public void testToolbarOverflowIconWithThemedCSL() {
+        final Toolbar toolbar = mActivity.findViewById(R.id.toolbar_themedcsl_colorcontrolnormal);
+
+        // Assert that the overflow icon is tinted magenta, as per the theme
+        final Drawable icon = toolbar.getOverflowIcon();
+        assertNotNull(icon);
+        assertCenterPixelOfColor(
+                "Overflow icon is not tinted",
+                icon,
+                icon.getIntrinsicWidth(),
+                icon.getIntrinsicHeight(),
+                false,
+                0xFFFF00FF,
+                10,
+                false);
+    }
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
 }

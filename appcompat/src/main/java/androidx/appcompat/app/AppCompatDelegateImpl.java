@@ -247,10 +247,23 @@ class AppCompatDelegateImpl extends AppCompatDelegate
     private AppCompatViewInflater mAppCompatViewInflater;
 
     AppCompatDelegateImpl(Context context, Window window, AppCompatCallback callback) {
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
+=======
+        this(context, window, callback, context);
+    }
+
+    AppCompatDelegateImpl(Context context, Activity activity, AppCompatCallback callback) {
+        this(context, null, callback, activity);
+    }
+
+    private AppCompatDelegateImpl(Context context, Window window, AppCompatCallback callback,
+            Object host) {
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
         mContext = context;
         mWindow = window;
         mAppCompatCallback = callback;
 
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
         mOriginalWindowCallback = mWindow.getCallback();
         if (mOriginalWindowCallback instanceof AppCompatWindowCallback) {
             throw new IllegalStateException(
@@ -265,13 +278,67 @@ class AppCompatDelegateImpl extends AppCompatDelegate
         final Drawable winBg = a.getDrawableIfKnown(0);
         if (winBg != null) {
             mWindow.setBackgroundDrawable(winBg);
+=======
+        if (mLocalNightMode == MODE_NIGHT_UNSPECIFIED && mHost instanceof Dialog) {
+            final AppCompatActivity activity = tryUnwrapContext();
+            if (activity != null) {
+                // This code path is used to detect when this Delegate is a child Delegate from
+                // an Activity, primarily for Dialogs. Dialogs use the Activity as it's Context,
+                // so we want to make sure that the this 'child' delegate does not interfere
+                // with the Activity config. The simplest way to do that is to match the
+                // outer Activity's local night mode
+                mLocalNightMode = activity.getDelegate().getLocalNightMode();
+            }
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
         }
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
         a.recycle();
+=======
+        if (mLocalNightMode == MODE_NIGHT_UNSPECIFIED) {
+            // Try and read the current night mode from our static store
+            final Integer value = sLocalNightModes.get(mHost.getClass());
+            if (value != null) {
+                mLocalNightMode = value;
+                // Finally remove the value
+                sLocalNightModes.remove(mHost.getClass());
+            }
+        }
+
+        if (window != null) {
+            attachToWindow(window);
+        }
+
+        // Preload appcompat-specific handling of drawables that should be handled in a special
+        // way (for tinting etc). After the following line completes, calls from AppCompatResources
+        // to ResourceManagerInternal (in appcompat-resources) will handle those internal drawable
+        // paths correctly without having to go through AppCompatDrawableManager APIs.
+        AppCompatDrawableManager.preload();
+    }
+
+    @Override
+    public void attachBaseContext(Context context) {
+        applyDayNight();
+        mBaseContextAttached = true;
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
         if (mOriginalWindowCallback instanceof Activity) {
+=======
+        // attachBaseContext will only be called from an Activity, so make sure we switch this for
+        // Dialogs, etc
+        mBaseContextAttached = true;
+
+        applyDayNight();
+
+        // We lazily fetch the Window for Activities, to allow DayNight to apply in
+        // attachBaseContext
+        ensureWindow();
+
+        if (mHost instanceof Activity) {
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
             String parentActivityName = null;
             try {
                 parentActivityName = NavUtils.getParentActivityName(
@@ -290,6 +357,7 @@ class AppCompatDelegateImpl extends AppCompatDelegate
             }
         }
 
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
         if (savedInstanceState != null && mLocalNightMode == MODE_NIGHT_UNSPECIFIED) {
             // If we have a icicle and we haven't had a local night mode set yet, try and read
             // it from the icicle
@@ -299,6 +367,8 @@ class AppCompatDelegateImpl extends AppCompatDelegate
 
         applyDayNight();
 
+=======
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
         mCreated = true;
     }
 
@@ -438,10 +508,14 @@ class AppCompatDelegateImpl extends AppCompatDelegate
         // This will apply day/night if the time has changed, it will also call through to
         // setupAutoNightModeIfNeeded()
         applyDayNight();
+
+        markStarted(this);
     }
 
     @Override
     public void onStop() {
+        markStopped(this);
+
         ActionBar ab = getSupportActionBar();
         if (ab != null) {
             ab.setShowHideAnimationEnabled(false);
@@ -506,6 +580,9 @@ class AppCompatDelegateImpl extends AppCompatDelegate
 
     @Override
     public void onDestroy() {
+        // There are cases where onStop is not called on all API levels. We make sure here.
+        markStopped(this);
+
         if (mInvalidatePanelMenuPosted) {
             mWindow.getDecorView().removeCallbacks(mInvalidatePanelMenuRunnable);
         }
@@ -523,10 +600,51 @@ class AppCompatDelegateImpl extends AppCompatDelegate
     }
 
     @Override
-    public void onSetTheme(@StyleRes int themeResId) {
+    public void setTheme(@StyleRes int themeResId) {
         mThemeResId = themeResId;
     }
 
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
+=======
+    private void ensureWindow() {
+        // We lazily fetch the Window for Activities, to allow DayNight to apply in
+        // attachBaseContext
+        if (mWindow == null && mHost instanceof Activity) {
+            attachToWindow(((Activity) mHost).getWindow());
+        }
+        if (mWindow == null) {
+            throw new IllegalStateException("We have not been given a Window");
+        }
+    }
+
+    private void attachToWindow(@NonNull Window window) {
+        if (mWindow != null) {
+            throw new IllegalStateException(
+                    "AppCompat has already installed itself into the Window");
+        }
+
+        final Window.Callback callback = window.getCallback();
+        if (callback instanceof AppCompatWindowCallback) {
+            throw new IllegalStateException(
+                    "AppCompat has already installed itself into the Window");
+        }
+        mAppCompatWindowCallback = new AppCompatWindowCallback(callback);
+        // Now install the new callback
+        window.setCallback(mAppCompatWindowCallback);
+
+        final TintTypedArray a = TintTypedArray.obtainStyledAttributes(
+                mContext, null, sWindowBackgroundStyleable);
+        final Drawable winBg = a.getDrawableIfKnown(0);
+        if (winBg != null) {
+            // Now set the background drawable
+            window.setBackgroundDrawable(winBg);
+        }
+        a.recycle();
+
+        mWindow = window;
+    }
+
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
     private void ensureSubDecor() {
         if (!mSubDecorInstalled) {
             mSubDecor = createSubDecor();
@@ -586,6 +704,7 @@ class AppCompatDelegateImpl extends AppCompatDelegate
         a.recycle();
 
         // Now let's make sure that the Window has installed its decor by retrieving it
+        ensureWindow();
         mWindow.getDecorView();
 
         final LayoutInflater inflater = LayoutInflater.from(mContext);
@@ -2015,16 +2134,40 @@ class AppCompatDelegateImpl extends AppCompatDelegate
     public boolean applyDayNight() {
         boolean applied = false;
 
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
         @NightMode final int nightMode = getNightMode();
+=======
+    private boolean applyDayNight(final boolean recreateIfNeeded) {
+        if (mIsDestroyed) {
+            // If we're destroyed, ignore the call
+            return false;
+        }
+
+        @NightMode final int nightMode = calculateNightMode();
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
         @ApplyableNightMode final int modeToApply = mapNightMode(nightMode);
         if (modeToApply != MODE_NIGHT_FOLLOW_SYSTEM) {
             applied = updateForNightMode(modeToApply);
         }
 
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
         if (nightMode == MODE_NIGHT_AUTO) {
             // If we're already been started, we may need to setup auto mode again
             ensureAutoNightModeManager();
             mAutoNightModeManager.setup();
+=======
+        if (nightMode == MODE_NIGHT_AUTO_TIME) {
+            getAutoTimeNightModeManager().setup();
+        } else if (mAutoTimeNightModeManager != null) {
+            // Make sure we clean up the existing manager
+            mAutoTimeNightModeManager.cleanup();
+        }
+        if (nightMode == MODE_NIGHT_AUTO_BATTERY) {
+            getAutoBatteryNightModeManager().setup();
+        } else if (mAutoBatteryNightModeManager != null) {
+            // Make sure we clean up the existing manager
+            mAutoBatteryNightModeManager.cleanup();
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
         }
 
         return applied;
@@ -2094,12 +2237,46 @@ class AppCompatDelegateImpl extends AppCompatDelegate
 
         boolean handled = false;
 
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
         if (currentNightMode != newNightMode) {
             final boolean manifestHandlingUiMode = isActivityManifestHandlingUiMode();
             final boolean shouldRecreateOnNightModeChange =
                     !manifestHandlingUiMode && mCreated && mContext instanceof Activity;
+=======
+        final int applicationNightMode = mContext.getApplicationContext()
+                .getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
 
+        int newNightMode;
+        switch (mode) {
+            case MODE_NIGHT_YES:
+                newNightMode = Configuration.UI_MODE_NIGHT_YES;
+                break;
+            case MODE_NIGHT_NO:
+                newNightMode = Configuration.UI_MODE_NIGHT_NO;
+                break;
+            default:
+            case MODE_NIGHT_FOLLOW_SYSTEM:
+                // If we're following the system, we just use the system default from the
+                // application context
+                newNightMode = applicationNightMode;
+                break;
+        }
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
+
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
             if (shouldRecreateOnNightModeChange) {
+=======
+        final boolean activityHandlingUiMode = isActivityManifestHandlingUiMode();
+
+        if (newNightMode != applicationNightMode && !activityHandlingUiMode
+                && Build.VERSION.SDK_INT >= 17 && !mBaseContextAttached
+                && mHost instanceof android.view.ContextThemeWrapper) {
+            // If we're here then we can try and apply an override configuration on the Context.
+            final Configuration conf = new Configuration();
+            conf.uiMode = newNightMode | (conf.uiMode & ~Configuration.UI_MODE_NIGHT_MASK);
+
+            try {
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
                 if (DEBUG) {
                     Log.d(TAG, "updateForNightMode. Night mode changed, recreating Activity");
                 }
@@ -2166,10 +2343,21 @@ class AppCompatDelegateImpl extends AppCompatDelegate
     private boolean isActivityManifestHandlingUiMode() {
         if (!mActivityHandlesUiModeChecked && mContext instanceof Activity) {
             final PackageManager pm = mContext.getPackageManager();
+            if (pm == null) {
+                // If we don't have a PackageManager, return false. Don't set
+                // the checked flag though so we still check again later
+                return false;
+            }
             try {
                 final ActivityInfo info = pm.getActivityInfo(
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
                         new ComponentName(mContext, mContext.getClass()), 0);
                 mActivityHandlesUiMode = (info.configChanges & ActivityInfo.CONFIG_UI_MODE) != 0;
+=======
+                        new ComponentName(mContext, mHost.getClass()), 0);
+                mActivityHandlesUiMode = info != null
+                        && (info.configChanges & ActivityInfo.CONFIG_UI_MODE) != 0;
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
             } catch (PackageManager.NameNotFoundException e) {
                 // This shouldn't happen but let's not crash because of it, we'll just log and
                 // return false (since most apps won't be handling it)
@@ -2753,9 +2941,20 @@ class AppCompatDelegateImpl extends AppCompatDelegate
         }
 
         void cleanup() {
+<<<<<<< HEAD   (8c94d4 Merge "Fix spinner widget scroll" into androidx-g3-release)
             if (mAutoTimeChangeReceiver != null) {
                 mContext.unregisterReceiver(mAutoTimeChangeReceiver);
                 mAutoTimeChangeReceiver = null;
+=======
+            if (mReceiver != null) {
+                try {
+                    mContext.unregisterReceiver(mReceiver);
+                } catch (IllegalArgumentException e) {
+                    // If the receiver has already been unregistered, unregisterReceiver() will
+                    // throw an exception. Just ignore and carry-on...
+                }
+                mReceiver = null;
+>>>>>>> BRANCH (04abd8 Merge "Ignore tests on Q emulator while we stabilize them" i)
             }
         }
     }
