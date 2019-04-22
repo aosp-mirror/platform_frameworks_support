@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0097349a_14a04698",
+        "filename": "benchmark/src/main/java/androidx/benchmark/Clocks.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-04-22T22:57:51Z",
+      "side": 1,
+      "message": "The regex constructor is 3 less characters :D",
+      "revId": "c098d7bc94bf071cfcf6955e3c4d1a5d23a048c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60baac8e_410a5be5",
+        "filename": "benchmark/src/main/java/androidx/benchmark/Clocks.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-04-22T22:57:51Z",
+      "side": 1,
+      "message": "I\u0027m not sure if this is ever necessary, but adding trim() before the split or filter { !isBlank() } here would help protect against newlines",
+      "revId": "c098d7bc94bf071cfcf6955e3c4d1a5d23a048c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e424c227_26b18399",
+        "filename": "benchmark/src/main/java/androidx/benchmark/Clocks.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-04-22T22:57:51Z",
+      "side": 1,
+      "message": "Is it impossible for an online core to have a frequency of 0? i.e., what happens when a cpu is halted by random software for power saving?\n\nI think it would be slightly more accurate to make this -1 / constant or make a note here since we have checks that are dependent on it.",
+      "revId": "c098d7bc94bf071cfcf6955e3c4d1a5d23a048c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df1838dc_fbb4a296",
+        "filename": "benchmark/src/main/java/androidx/benchmark/Clocks.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-04-22T22:57:51Z",
+      "side": 1,
+      "message": "Did you mean to commit these log messages?",
+      "revId": "c098d7bc94bf071cfcf6955e3c4d1a5d23a048c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
