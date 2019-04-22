@@ -18,8 +18,13 @@ package androidx.benchmark
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
+import android.os.Build
 import android.os.Bundle
+import android.os.PowerManager
+import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.runner.AndroidJUnitRunner
+import java.lang.IllegalStateException
 
 /**
  * Instrumentation runner for benchmarks, used to increase stability of measurements and minimize
@@ -64,10 +69,14 @@ import androidx.test.runner.AndroidJUnitRunner
  */
 @Suppress("unused") // Note: not referenced by code
 class AndroidBenchmarkRunner : AndroidJUnitRunner() {
+    var sustainedPerfMode = false
+
     override fun onCreate(arguments: Bundle?) {
         super.onCreate(arguments)
+        setRunnerInUse()
 
-        if (Clocks.lockState == Clocks.LockState.SUSTAINED_PERFORMANCE_MODE) {
+        sustainedPerfMode = isSustainedPerformanceInUse()
+        if (sustainedPerfMode) {
             // Keep at least one core busy. Together with a single threaded benchmark, this makes
             // the process get multi-threaded setSustainedPerformanceMode.
             //
@@ -87,8 +96,8 @@ class AndroidBenchmarkRunner : AndroidJUnitRunner() {
     override fun callActivityOnStart(activity: Activity) {
         super.callActivityOnStart(activity)
 
-        @SuppressLint("NewApi") // window API guarded by [Clocks.lockState]
-        if (Clocks.lockState == Clocks.LockState.SUSTAINED_PERFORMANCE_MODE) {
+        @SuppressLint("NewApi") // window API guarded by [sustainedPerfMode]
+        if (sustainedPerfMode) {
             activity.window.setSustainedPerformanceMode(true)
         }
     }
@@ -116,5 +125,38 @@ class AndroidBenchmarkRunner : AndroidJUnitRunner() {
         IsolationActivity.finishSingleton()
         super.waitForActivitiesToComplete()
         super.onDestroy()
+    }
+
+    internal companion object {
+        var inUse = false
+        var inUseRead = false
+
+        @Synchronized
+        fun isRunnerInUse(): Boolean {
+            inUseRead = true
+            return inUse
+        }
+
+        @Synchronized
+        fun setRunnerInUse() {
+            if (inUseRead) {
+                throw IllegalStateException("BenchmarkRunner initialized too late," +
+                        " after runner presence was queried!")
+            }
+            inUse = true
+        }
+
+        fun isSustainedPerformanceInUse() = !Clocks.areLocked &&
+                isRunnerInUse() &&
+                isSustainedPerformanceModeSupported()
+
+        fun isSustainedPerformanceModeSupported(): Boolean =
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                val context = InstrumentationRegistry.getInstrumentation().targetContext
+                val powerManager = context.getSystemService(Context.POWER_SERVICE) as PowerManager
+                powerManager.isSustainedPerformanceModeSupported
+            } else {
+                false
+            }
     }
 }

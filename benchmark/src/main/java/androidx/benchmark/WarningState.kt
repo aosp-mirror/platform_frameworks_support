@@ -94,7 +94,7 @@ internal object WarningState {
             """.trimMarginWrapNewlines()
         }
 
-        if (isDeviceRooted && Clocks.lockState != Clocks.LockState.LOCKED) {
+        if (isDeviceRooted && !Clocks.areLocked) {
             warningPrefix += "UNLOCKED_"
             warningString += """
                 |WARNING: Unlocked CPU clocks
@@ -102,6 +102,30 @@ internal object WarningState {
                 |    clocks. Unlocked CPU clocks can lead to inconsistent results due to
                 |    dynamic frequency scaling, and thermal throttling. On a rooted device,
                 |    lock your device clocks to a stable frequency with `./gradlew lockClocks`
+            """.trimMarginWrapNewlines()
+        } else if (
+            AndroidBenchmarkRunner.isSustainedPerformanceModeSupported() &&
+            !AndroidBenchmarkRunner.isSustainedPerformanceInUse()
+        ) {
+            warningPrefix += "UNSUSTAINED-RUNNER-MISSING_"
+            warningString += """
+                |WARNING: Cannot use SustainedPerformanceMode without AndroidBenchmarkRunner
+                |    Benchmark running on device that supports Window.setSustainedPerformanceMode,
+                |    but not using the AndroidBenchmarkRunner. This runner is required to limit
+                |    CPU clock max frequency, to prevent thermal throttling. To fix this, add the
+                |    following to your benchmark module-level build.gradle:
+                |        android.defaultConfig.testInstrumentationRunner
+                |            = "androidx.benchmark.AndroidBenchmarkRunner"
+            """.trimMarginWrapNewlines()
+        } else if (!AndroidBenchmarkRunner.isRunnerInUse()) {
+            warningPrefix += "RUNNER-MISSING_"
+            warningString += """
+                |WARNING: Not using AndroidBenchmarkRunner
+                |    AndroidBenchmarkRunner should be used to isolate benchmarks from interference
+                |    from other visible apps. To fix this, add the following to your module-level
+                |    build.gradle:
+                |        android.defaultConfig.testInstrumentationRunner
+                |            = "androidx.benchmark.AndroidBenchmarkRunner"
             """.trimMarginWrapNewlines()
         }
 
@@ -117,14 +141,5 @@ internal object WarningState {
      */
     private fun String.trimMarginWrapNewlines(): String {
         return "\n" + trimMargin() + " \n"
-    }
-
-    /**
-     * Read the text of a file as a String, null if file doesn't exist.
-     */
-    private fun readFileTextOrNull(path: String): String? {
-        File(path).run {
-            return if (exists()) readText().trim() else null
-        }
     }
 }
