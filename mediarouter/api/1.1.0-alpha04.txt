@@ -249,7 +249,7 @@ package androidx.mediarouter.media {
     method public abstract void onAddMemberRoute(String);
     method public abstract void onRemoveMemberRoute(String!);
     method public abstract void onUpdateMemberRoutes(java.util.List<java.lang.String>?);
-    method public abstract void setOnDynamicRoutesChangedListener(java.util.concurrent.Executor, androidx.mediarouter.media.MediaRouteProvider.DynamicGroupRouteController.OnDynamicRoutesChangedListener);
+    method public void setOnDynamicRoutesChangedListener(java.util.concurrent.Executor, androidx.mediarouter.media.MediaRouteProvider.DynamicGroupRouteController.OnDynamicRoutesChangedListener);
   }
 
   public static final class MediaRouteProvider.DynamicGroupRouteController.DynamicRouteDescriptor {
