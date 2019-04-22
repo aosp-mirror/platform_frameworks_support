@@ -22,6 +22,30 @@
       "revId": "850e0b59492628e634f9880a999a13156eb0f94e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73f350b6_f2f3495b",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/RichText.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1404402
+      },
+      "writtenOn": "2019-04-22T19:14:56Z",
+      "side": 1,
+      "message": "Yes. RichText requires a plain text representation as a fallback, but optional rich text representation.",
+      "parentUuid": "5dad09e1_799983cd",
+      "range": {
+        "startLine": 95,
+        "startChar": 23,
+        "endLine": 95,
+        "endChar": 30
+      },
+      "revId": "850e0b59492628e634f9880a999a13156eb0f94e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }

@@ -52,6 +52,24 @@
       "revId": "95dab94996372c5f58f2fec2ed28b8ef02f59e33",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7367cdc8_eae6e9cb",
+        "filename": "car/cluster/src/androidTest/java/androidx/car/cluster/navigation/RichTextTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1404402
+      },
+      "writtenOn": "2019-04-22T19:14:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0d6a0e13_8b50bbd6",
+      "revId": "95dab94996372c5f58f2fec2ed28b8ef02f59e33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
