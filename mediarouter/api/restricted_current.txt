@@ -53,7 +53,15 @@ package androidx.mediarouter.media {
     method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX) public androidx.mediarouter.media.MediaRouteProvider.RouteController? onCreateRouteController(String, String);
   }
 
+  public abstract static class MediaRouteProvider.DynamicGroupRouteController extends androidx.mediarouter.media.MediaRouteProvider.RouteController {
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public final void setOnDynamicRoutesChangedListener(java.util.concurrent.Executor, androidx.mediarouter.media.MediaRouteProvider.DynamicGroupRouteController.OnDynamicRoutesChangedListener);
+  }
+
   @IntDef({androidx.mediarouter.media.MediaRouteProvider.DynamicGroupRouteController.DynamicRouteDescriptor.UNSELECTING, androidx.mediarouter.media.MediaRouteProvider.DynamicGroupRouteController.DynamicRouteDescriptor.UNSELECTED, androidx.mediarouter.media.MediaRouteProvider.DynamicGroupRouteController.DynamicRouteDescriptor.SELECTING, androidx.mediarouter.media.MediaRouteProvider.DynamicGroupRouteController.DynamicRouteDescriptor.SELECTED}) @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) public static @interface MediaRouteProvider.DynamicGroupRouteController.DynamicRouteDescriptor.SelectionState {
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public static interface MediaRouteProvider.DynamicGroupRouteController.OnDynamicRoutesChangedListener {
+    method public void onRoutesChanged(androidx.mediarouter.media.MediaRouteProvider.DynamicGroupRouteController!, java.util.Collection<androidx.mediarouter.media.MediaRouteProvider.DynamicGroupRouteController.DynamicRouteDescriptor>!);
   }
 
   public final class MediaRouter {
