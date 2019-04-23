@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a92ba345_c38f587a",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/ImageCaptureTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-04-23T03:27:54Z",
+      "side": 1,
+      "message": "Should we add this to all other androidTest ?",
+      "revId": "d041c78c12d3bfca7d29471bdb5918cfd9847d97",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
