@@ -84,6 +84,29 @@
       "revId": "ce9bd450b8b6ea654f001e152541b4829f27dd36",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92dee01b_4e6ec233",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/ImageCaptureExtender.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1482458
+      },
+      "writtenOn": "2019-04-23T21:55:22Z",
+      "side": 1,
+      "message": "It seems that the mBuilder.setCaptureRequestInfoProvider part is missing.",
+      "range": {
+        "startLine": 75,
+        "startChar": 8,
+        "endLine": 75,
+        "endChar": 73
+      },
+      "revId": "ce9bd450b8b6ea654f001e152541b4829f27dd36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
