@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "75ac6dad_e94e7e52",
+        "filename": "camera/core/src/main/java/androidx/camera/core/SessionEventCallback.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-23T22:38:31Z",
+      "side": 1,
+      "message": "This looks like it belongs in the camera2 module.\n\nThis controls the camera2 specific operations because they revolve around the operation of the CameraCaptureSession\n\nIf thats the case then it would be make sense to document more clearly what is happening in each of the call. For example \"invoked after every session start\" can be change to \"invoked after every CameraCaptureSession has been opened\".",
+      "revId": "019789e9c252523715f3e84c1e7ebb0ba044906d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
