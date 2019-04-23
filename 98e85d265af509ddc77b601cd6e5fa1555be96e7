@@ -45,6 +45,30 @@
       "revId": "98e85d265af509ddc77b601cd6e5fa1555be96e7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b314784_a14990c8",
+        "filename": "fragment/src/main/java/androidx/fragment/app/Fragment.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2406,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-04-23T20:46:08Z",
+      "side": 1,
+      "message": "Elsewhere in the code it is:\nmFragmentManager.mHost.getHandler()",
+      "parentUuid": "f65bf977_2ffa871c",
+      "range": {
+        "startLine": 2406,
+        "startChar": 20,
+        "endLine": 2406,
+        "endChar": 38
+      },
+      "revId": "98e85d265af509ddc77b601cd6e5fa1555be96e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
