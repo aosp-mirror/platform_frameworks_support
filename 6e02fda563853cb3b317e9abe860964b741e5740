@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1ec9f7ac_51d7236b",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentPagerAdapter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-23T05:05:12Z",
+      "side": 1,
+      "message": "Just \"int\"",
+      "range": {
+        "startLine": 105,
+        "startChar": 86,
+        "endLine": 105,
+        "endChar": 98
+      },
+      "revId": "6e02fda563853cb3b317e9abe860964b741e5740",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "296b2dcd_c602102d",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentStatePagerAdapter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-23T05:05:12Z",
+      "side": 1,
+      "message": "Just \"int\"",
+      "range": {
+        "startLine": 111,
+        "startChar": 57,
+        "endLine": 111,
+        "endChar": 69
+      },
+      "revId": "6e02fda563853cb3b317e9abe860964b741e5740",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
