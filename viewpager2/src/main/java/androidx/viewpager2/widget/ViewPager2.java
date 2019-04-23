@@ -16,6 +16,7 @@
 
 package androidx.viewpager2.widget;
 
+import static androidx.annotation.RestrictTo.Scope.LIBRARY;
 import static androidx.recyclerview.widget.RecyclerView.NO_POSITION;
 
 import static java.lang.annotation.RetentionPolicy.SOURCE;
@@ -41,6 +42,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.Px;
 import androidx.annotation.RequiresApi;
+import androidx.annotation.RestrictTo;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat;
@@ -416,7 +418,9 @@ public final class ViewPager2 extends ViewGroup {
                 mTmpChildRect.bottom);
     }
 
-    int getPageSize() {
+    /** @hide */
+    @RestrictTo(LIBRARY)
+    public int getPageSize() {
         return getOrientation() == ORIENTATION_HORIZONTAL
                 ? getWidth() - getPaddingLeft() - getPaddingRight()
                 : getHeight() - getPaddingTop() - getPaddingBottom();

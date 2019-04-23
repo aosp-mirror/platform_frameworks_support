@@ -33,15 +33,6 @@ class PageSwiperFakeDrag(private val viewPager: ViewPager2) : PageSwiper {
         private const val FLING_DURATION_MS = 100L
     }
 
-    private val ViewPager2.pageSize: Int
-        get() {
-            return if (orientation == ORIENTATION_HORIZONTAL) {
-                measuredWidth - paddingLeft - paddingRight
-            } else {
-                measuredHeight - paddingTop - paddingBottom
-            }
-        }
-
     private val needsRtlModifier
         get() = viewPager.orientation == ORIENTATION_HORIZONTAL &&
                 ViewCompat.getLayoutDirection(viewPager) == ViewCompat.LAYOUT_DIRECTION_RTL
