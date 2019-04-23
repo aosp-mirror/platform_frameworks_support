@@ -22,6 +22,30 @@
       "revId": "141becfc2ec8231efb0d064bdb6345974879baa0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06fd4197_36c01db0",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1470382
+      },
+      "writtenOn": "2019-04-23T21:00:24Z",
+      "side": 1,
+      "message": "Looking back to the change I made just before this, https://android-review.googlesource.com/c/platform/frameworks/support/+/948286/4/buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt#b235 I *think* it was applied to all projects before as well since it was in a subprojects {} block.\n\nI will give your suggestion a try and see if not looping on subprojects and hooking on to afterEvaluate is more performant",
+      "parentUuid": "f3cea80b_7eb323a5",
+      "range": {
+        "startLine": 245,
+        "startChar": 16,
+        "endLine": 245,
+        "endChar": 39
+      },
+      "revId": "141becfc2ec8231efb0d064bdb6345974879baa0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
