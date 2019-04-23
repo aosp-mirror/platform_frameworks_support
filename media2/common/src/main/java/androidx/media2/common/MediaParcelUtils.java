@@ -50,6 +50,9 @@ public class MediaParcelUtils {
      */
     @SuppressWarnings("TypeParameterUnusedInFormals")
     public static <T extends VersionedParcelable> T fromParcelable(ParcelImpl p) {
+        if (p == null) {
+            return null;
+        }
         return ParcelUtils.<T>fromParcelable(p);
     }
 
