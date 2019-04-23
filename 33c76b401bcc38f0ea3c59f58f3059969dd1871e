@@ -22,6 +22,30 @@
       "revId": "33c76b401bcc38f0ea3c59f58f3059969dd1871e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dcfad268_d01a22fc",
+        "filename": "room/integration-tests/kotlintestapp/src/androidTest/java/androidx/room/integration/kotlintestapp/test/SuspendingQueryTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 683,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-04-23T20:18:43Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "752def55_8f20884b",
+      "range": {
+        "startLine": 683,
+        "startChar": 4,
+        "endLine": 683,
+        "endChar": 9
+      },
+      "revId": "33c76b401bcc38f0ea3c59f58f3059969dd1871e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
