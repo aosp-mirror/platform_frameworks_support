@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d0a44fb8_eeac460f",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CaptureProcessor.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-23T20:57:29Z",
+      "side": 1,
+      "message": "Might want to move this directly to the ImageCaptureConfig because getCaptureStages is defined there.",
+      "revId": "ce9bd450b8b6ea654f001e152541b4829f27dd36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6778c54c_62df7317",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CaptureRequestInfo.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-23T20:57:29Z",
+      "side": 1,
+      "message": "Whats the difference between this and a CaptureBundle?\n\nCan CaptureBundle be made an interface and then have different implementations of CaptureBundle if there is something different?",
+      "revId": "ce9bd450b8b6ea654f001e152541b4829f27dd36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b17af0d_339362e2",
+        "filename": "camera/extensions-stub/src/main/java/androidx/camera/extensions/impl/CaptureProcessorImpl.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-23T20:57:29Z",
+      "side": 1,
+      "message": "Might want to move this to the ExtenderImpl instead of in the CaptureProcessor since the ExtenderImpl is where getCaptureStage is defined",
+      "revId": "ce9bd450b8b6ea654f001e152541b4829f27dd36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca09ef99_403f367a",
+        "filename": "camera/extensions-stub/src/main/java/androidx/camera/extensions/impl/PreviewExtenderImpl.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-23T20:57:29Z",
+      "side": 1,
+      "message": "Needs to more details on the expected behavior.\n\nFor example, after onInit() is called the camera id, cameraCharacteristics, context will not change until onDeInit() has been called. This way the implementer can know what to expect will happen.",
+      "revId": "ce9bd450b8b6ea654f001e152541b4829f27dd36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7b0d273_cd08243c",
+        "filename": "camera/extensions-stub/src/main/java/androidx/camera/extensions/impl/PreviewExtenderImpl.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-23T20:57:29Z",
+      "side": 1,
+      "message": "Need more details on expected behavior.\n\nFor example, after onDeinit() it is expected that the cameraId, cameraCharacteristics will no longer hold, this should be where all resource deallocation should be done, if onDisableSession will be called before/after this due to threading, etc.",
+      "revId": "ce9bd450b8b6ea654f001e152541b4829f27dd36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
