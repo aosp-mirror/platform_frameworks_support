@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "d19a45b3_3931c43a",
+        "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/BenchmarkPlugin.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1101693
+      },
+      "writtenOn": "2019-04-23T16:57:39Z",
+      "side": 1,
+      "message": "useAndroidX is required when users want to use AndroidX dependencies.\n\nWe have a bug and a pending CL for Android Studio/AGP to enforce this (together with an IDE quick fix): http://b/130286699, http://ag/7089992\n\nIf you can wait for the Android Studio change, then this CL won\u0027t be necessary. (It\u0027s also slightly unideal that a plugin needs to control an AGP property.)",
+      "parentUuid": "2d948b2c_6e925d11",
+      "revId": "bf590396bf4f40b9bd5676f17d71f68e072f18de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f7405a53_85265fc7",
         "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/BenchmarkPlugin.kt",
         "patchSetId": 5
