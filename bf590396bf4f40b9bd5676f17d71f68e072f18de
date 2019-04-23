@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "2d948b2c_6e925d11",
+        "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/BenchmarkPlugin.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-04-23T16:06:58Z",
+      "side": 1,
+      "message": "I think that useAndroidX is not required, especially for projects created from scratch it might not be present.\n\nHung can you confirm if this is the case?",
+      "parentUuid": "867a0682_95f93bf7",
+      "revId": "bf590396bf4f40b9bd5676f17d71f68e072f18de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f7405a53_85265fc7",
         "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/BenchmarkPlugin.kt",
         "patchSetId": 5
