@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b32dfe3c_2a4e8916",
+        "filename": "car/core/res/values/dimens.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-04-23T17:18:45Z",
+      "side": 0,
+      "message": "body4 is used by embeddedkitchensync and carsetupwizard (which i imagine is going away). Wanted to get thoughts on removing these values since they don\u0027t match up with published guidelines before cleaning those up.",
+      "range": {
+        "startLine": 60,
+        "startChar": 17,
+        "endLine": 60,
+        "endChar": 31
+      },
+      "revId": "9ae52916197e8b7038da6bd9ed1ee3bd39224f9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
