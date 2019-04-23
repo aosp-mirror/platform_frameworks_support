@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "35b041d0_298b6acc",
+        "filename": "car/cluster/api/current.txt",
+        "patchSetId": 8
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1010674
+      },
+      "writtenOn": "2019-04-23T01:00:07Z",
+      "side": 1,
+      "message": "if this text is visible to user, it has to be a CharSequence.",
+      "range": {
+        "startLine": 203,
+        "startChar": 32,
+        "endLine": 203,
+        "endChar": 33
+      },
+      "revId": "9c633bd1c679f28740315d10626eaa7a40929347",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
