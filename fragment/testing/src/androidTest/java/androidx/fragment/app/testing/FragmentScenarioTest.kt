@@ -27,13 +27,9 @@ import androidx.lifecycle.GenericLifecycleObserver
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Lifecycle.State
 import androidx.test.core.app.ApplicationProvider.getApplicationContext
-import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu
-import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
-import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
+import androidx.test.filters.SdkSuppress
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -230,6 +226,7 @@ class FragmentScenarioTest {
         }
     }
 
+    @SdkSuppress(minSdkVersion = 24) // Moving to STARTED is not supported on pre-N devices.
     @Test
     fun fromResumedToStarted() {
         with(launchFragmentInContainer<StateRecordingFragment>()) {
@@ -271,6 +268,7 @@ class FragmentScenarioTest {
         }
     }
 
+    @SdkSuppress(minSdkVersion = 24) // Moving to STARTED is not supported on pre-N devices.
     @Test
     fun fromCreatedToStarted() {
         with(launchFragmentInContainer<StateRecordingFragment>()) {
@@ -303,6 +301,7 @@ class FragmentScenarioTest {
         }
     }
 
+    @SdkSuppress(minSdkVersion = 24) // Moving to STARTED is not supported on pre-N devices.
     @Test
     fun fromStartedToCreated() {
         with(launchFragmentInContainer<StateRecordingFragment>()) {
@@ -315,6 +314,7 @@ class FragmentScenarioTest {
         }
     }
 
+    @SdkSuppress(minSdkVersion = 24) // Moving to STARTED is not supported on pre-N devices.
     @Test
     fun fromStartedToStarted() {
         with(launchFragmentInContainer<StateRecordingFragment>()) {
@@ -327,6 +327,7 @@ class FragmentScenarioTest {
         }
     }
 
+    @SdkSuppress(minSdkVersion = 24) // Moving to STARTED is not supported on pre-N devices.
     @Test
     fun fromStartedToResumed() {
         with(launchFragmentInContainer<StateRecordingFragment>()) {
@@ -339,6 +340,7 @@ class FragmentScenarioTest {
         }
     }
 
+    @SdkSuppress(minSdkVersion = 24) // Moving to STARTED is not supported on pre-N devices.
     @Test
     fun fromStartedToDestroyed() {
         with(launchFragmentInContainer<StateRecordingFragment>()) {
@@ -367,6 +369,7 @@ class FragmentScenarioTest {
         }
     }
 
+    @SdkSuppress(minSdkVersion = 24) // Moving to STARTED is not supported on pre-N devices.
     @Test
     fun recreateStartedFragment() {
         with(launchFragmentInContainer<StateRecordingFragment>()) {
@@ -440,10 +443,13 @@ class FragmentScenarioTest {
             return
         }
 
-        with(launchFragment<OptionsMenuFragment>()) {
-            openActionBarOverflowOrOptionsMenu(getApplicationContext())
-            onFragment { fragment -> fragment.requireActivity().openOptionsMenu() }
-            onView(withText("Item1")).check(matches(isDisplayed()))
+        launchFragment<OptionsMenuFragment>().onFragment { fragment ->
+            assertThat(fragment.hasOptionsMenu()).isTrue()
         }
+
+        // TODO: Re-enable following checks once openActionBarOverflowOrOptionsMenu() is fixed.
+        // https://issuetracker.google.com/issues/69656506
+        // openActionBarOverflowOrOptionsMenu(getApplicationContext())
+        // onView(withText("Item1")).check(matches(isDisplayed()))
     }
 }

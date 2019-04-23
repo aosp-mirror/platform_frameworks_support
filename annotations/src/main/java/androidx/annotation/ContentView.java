@@ -37,7 +37,7 @@ import java.lang.annotation.Target;
  * }
  * </pre>
  *
- * see androidx.activity.ComponentActivity#ComponentActivity(int)
+ * @see androidx.activity.ComponentActivity#ComponentActivity(int)
  * @see androidx.fragment.app.Fragment#Fragment(int)
  */
 @Retention(CLASS)
