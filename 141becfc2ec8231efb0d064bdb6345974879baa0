@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f3cea80b_7eb323a5",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-04-23T20:35:27Z",
+      "side": 1,
+      "message": "This now applies to every project, not just one the ones that apply Android Gradle Plugin. Keep the code below was it was, but change from:\nval buildTestApksTask \u003d rootProject.tasks.named(BUILD_TEST_APKS)\nextension.testVariants.all { variant -\u003e\n    buildTestApksTask.dependsOn(variant.assembleProvider)\n    variant.configureApkCopy(project, extension, true)\n}\n\nto:\n\nval buildTestApksTask \u003d rootProject.tasks.named(BUILD_TEST_APKS)\nextension.testVariants.all { variant -\u003e\n    buildTestApksTask.configure {\n        it.dependsOn(variant.assembleProvider)\n    }\n    variant.configureApkCopy(project, extension, true)\n}\n\n?",
+      "range": {
+        "startLine": 245,
+        "startChar": 16,
+        "endLine": 245,
+        "endChar": 39
+      },
+      "revId": "141becfc2ec8231efb0d064bdb6345974879baa0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
