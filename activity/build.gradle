@@ -3,7 +3,8 @@ import androidx.build.LibraryGroups
 import androidx.build.LibraryVersions
 
 plugins {
-    id("SupportAndroidLibraryPlugin")
+    id("AndroidXPlugin")
+    id("com.android.library")
     id("kotlin-android")
 }
 
@@ -15,8 +16,12 @@ android {
 
 dependencies {
     api(project(":annotation"))
+<<<<<<< HEAD   (0fe9a8 Merge "Merge cherrypicks of [937089] into androidx-master-re)
     api(project(":arch:core-common"))
     api("androidx.core:core:1.1.0-alpha05") {
+=======
+    api(project(":core")) {
+>>>>>>> BRANCH (1d1a92 Merge "Ensure Fragment back callback executes pending action)
         exclude group: 'androidx.annotation'
         exclude group: 'com.google.guava', module: 'listenablefuture'
     }
@@ -25,17 +30,17 @@ dependencies {
     api("androidx.savedstate:savedstate:1.0.0-alpha02")
 
     androidTestImplementation(KOTLIN_STDLIB)
-    androidTestImplementation(TEST_EXT_JUNIT)
-    androidTestImplementation(TEST_CORE)
-    androidTestImplementation(TEST_RUNNER)
-    androidTestImplementation(TEST_RULES)
+    androidTestImplementation(ANDROIDX_TEST_EXT_JUNIT)
+    androidTestImplementation(ANDROIDX_TEST_CORE)
+    androidTestImplementation(ANDROIDX_TEST_RUNNER)
+    androidTestImplementation(ANDROIDX_TEST_RULES)
     androidTestImplementation(TRUTH)
     androidTestImplementation(ESPRESSO_CORE, libs.exclude_for_espresso)
     androidTestImplementation(MOCKITO_CORE, libs.exclude_bytebuddy) // DexMaker has it"s own MockMaker
     androidTestImplementation(DEXMAKER_MOCKITO, libs.exclude_bytebuddy) // DexMaker has it"s own MockMaker
 }
 
-supportLibrary {
+androidx {
     name = "Activity"
     publish = true
     mavenVersion = LibraryVersions.ACTIVITY

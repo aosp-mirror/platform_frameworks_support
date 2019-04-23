@@ -19,7 +19,8 @@ import androidx.build.LibraryGroups
 import androidx.build.LibraryVersions
 
 plugins {
-    id("SupportKotlinLibraryPlugin")
+    id("AndroidXPlugin")
+    id("kotlin")
 }
 
 dependencies {
@@ -33,7 +34,7 @@ dependencies {
     testCompile(TRUTH)
 }
 
-supportLibrary {
+androidx {
     name = "Android Jetifier Processor"
     publish = true
     mavenVersion = LibraryVersions.JETIFIER

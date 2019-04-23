@@ -2,14 +2,15 @@ import androidx.build.LibraryGroups
 import androidx.build.LibraryVersions
 
 plugins {
-    id("SupportAndroidLibraryPlugin")
+    id("AndroidXPlugin")
+    id("com.android.library")
 }
 
 dependencies {
     api(project(":annotation"))
 }
 
-supportLibrary {
+androidx {
     name = "Android Support Library Interpolators"
     publish = true
     mavenVersion = LibraryVersions.INTERPOLATOR
