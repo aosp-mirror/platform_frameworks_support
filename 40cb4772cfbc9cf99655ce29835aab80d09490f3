@@ -22,6 +22,30 @@
       "revId": "40cb4772cfbc9cf99655ce29835aab80d09490f3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "327bd62d_5e552610",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2019-04-23T04:28:04Z",
+      "side": 1,
+      "message": "They\u0027re the same.",
+      "parentUuid": "cb8a2aa9_b7616e53",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 14
+      },
+      "revId": "40cb4772cfbc9cf99655ce29835aab80d09490f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
