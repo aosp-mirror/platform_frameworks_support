@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ae62a943_77e54690",
+        "filename": "fragment/api/current.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-04-23T17:17:32Z",
+      "side": 1,
+      "message": "Are there Kotlin extensions that will automatically use the non-deprecated version for you?  This is a strange change because you\u0027re essentially saying \"Use the other version, and pass in only this one flag\".  Maybe you should have that new flag be the default on a differently-named class/method?  Something like static FragmentStagePagerAdapter.createResumeOnlyCurrent (or a much better version of that name).",
+      "range": {
+        "startLine": 342,
+        "startChar": 4,
+        "endLine": 342,
+        "endChar": 75
+      },
+      "revId": "a3a06d11f42afb5d4f891a71046d49fcca387576",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
