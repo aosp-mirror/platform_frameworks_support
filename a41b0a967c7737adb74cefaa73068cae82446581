@@ -46,6 +46,30 @@
       "revId": "a41b0a967c7737adb74cefaa73068cae82446581",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc408e00_91fc9d46",
+        "filename": "navigation/fragment/src/main/java/androidx/navigation/fragment/DialogFragmentNavigator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-23T18:21:49Z",
+      "side": 1,
+      "message": "Marking as resolved",
+      "parentUuid": "e8197bd5_01822904",
+      "range": {
+        "startLine": 203,
+        "startChar": 46,
+        "endLine": 203,
+        "endChar": 71
+      },
+      "revId": "a41b0a967c7737adb74cefaa73068cae82446581",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
