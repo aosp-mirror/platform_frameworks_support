@@ -73,6 +73,24 @@
     },
     {
       "key": {
+        "uuid": "d2211672_f6ffb40b",
+        "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/BenchmarkPlugin.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-04-23T17:54:23Z",
+      "side": 1,
+      "message": "Yes let\u0027s just let AGP handle this then - I should\u0027ve looked into putting this change into AGP directly actually and seen that change before starting this.",
+      "parentUuid": "fb12fef4_3b8b9a85",
+      "revId": "bf590396bf4f40b9bd5676f17d71f68e072f18de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f7405a53_85265fc7",
         "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/BenchmarkPlugin.kt",
         "patchSetId": 5
