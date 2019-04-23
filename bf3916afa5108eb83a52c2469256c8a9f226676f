@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4bf25847_388ee096",
+        "filename": "fragment/src/main/java/androidx/fragment/app/Fragment.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2402,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-04-23T21:12:27Z",
+      "side": 1,
+      "message": "ok, now that I said that, you can call postponeEnterTransition in the constructor. This may cause a problem.",
+      "range": {
+        "startLine": 2402,
+        "startChar": 8,
+        "endLine": 2402,
+        "endChar": 55
+      },
+      "revId": "bf3916afa5108eb83a52c2469256c8a9f226676f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
