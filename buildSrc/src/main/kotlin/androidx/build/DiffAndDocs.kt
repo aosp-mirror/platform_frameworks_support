@@ -20,7 +20,6 @@ import androidx.build.Strategy.Prebuilts
 import androidx.build.Strategy.TipOfTree
 import androidx.build.checkapi.ApiXmlConversionTask
 import androidx.build.checkapi.CheckApiTasks
-import androidx.build.checkapi.initializeApiChecksForProject
 import androidx.build.doclava.ChecksConfig
 import androidx.build.doclava.DEFAULT_DOCLAVA_CONFIG
 import androidx.build.doclava.DoclavaTask
@@ -31,6 +30,7 @@ import androidx.build.jdiff.JDiffTask
 import com.android.build.gradle.AppExtension
 import com.android.build.gradle.LibraryExtension
 import com.android.build.gradle.api.BaseVariant
+import com.android.build.gradle.api.SourceKind;
 import com.google.common.base.Preconditions
 import org.gradle.api.GradleException
 import org.gradle.api.Project
@@ -118,7 +118,7 @@ class DiffAndDocs private constructor(
             }
         }
 
-        root.tasks.create("generateDocs") { task ->
+        root.tasks.register("generateDocs") { task ->
             task.group = JavaBasePlugin.DOCUMENTATION_GROUP
             task.description = "Generates documentation (both Java and Kotlin) from tip-of-tree " +
                 "sources, in the style of those used in d.android.com."
@@ -126,10 +126,10 @@ class DiffAndDocs private constructor(
         }
 
         val docletClasspath = doclavaConfiguration.resolve()
-
+        val oldOutputTxt = File(root.docsDir(), "previous.txt")
         aggregateOldApiTxtsTask = root.tasks.register("aggregateOldApiTxts",
             ConcatenateFilesTask::class.java) {
-            it.Output = File(root.docsDir(), "previous.txt")
+            it.Output = oldOutputTxt
         }
 
         val oldApisTask = root.tasks.register("oldApisXml",
@@ -137,22 +137,23 @@ class DiffAndDocs private constructor(
             it.classpath = root.files(docletClasspath)
             it.dependsOn(doclavaConfiguration)
 
-            it.inputApiFile = aggregateOldApiTxtsTask.get().Output
+            it.inputApiFile = oldOutputTxt
             it.dependsOn(aggregateOldApiTxtsTask)
 
             it.outputApiXmlFile = File(root.docsDir(), "previous.xml")
         }
 
+        val newApiTxt = File(root.docsDir(), newVersion)
         aggregateNewApiTxtsTask = root.tasks.register("aggregateNewApiTxts",
             ConcatenateFilesTask::class.java) {
-            it.Output = File(root.docsDir(), newVersion)
+            it.Output = newApiTxt
         }
 
         val newApisTask = root.tasks.register("newApisXml",
             ApiXmlConversionTask::class.java) {
             it.classpath = root.files(docletClasspath)
 
-            it.inputApiFile = aggregateNewApiTxtsTask.get().Output
+            it.inputApiFile = newApiTxt
             it.dependsOn(aggregateNewApiTxtsTask)
 
             it.outputApiXmlFile = File(root.docsDir(), "$newVersion.xml")
@@ -280,7 +281,7 @@ class DiffAndDocs private constructor(
         }
     }
 
-    fun registerPrebuilts(extension: SupportLibraryExtension) =
+    fun registerPrebuilts(extension: AndroidXExtension) =
             docsProject?.afterEvaluate { docs ->
         val depHandler = docs.dependencies
         val root = docs.rootProject
@@ -301,7 +302,7 @@ class DiffAndDocs private constructor(
     }
 
     private fun tipOfTreeTasks(
-        extension: SupportLibraryExtension,
+        extension: AndroidXExtension,
         setup: (TaskProvider<out DoclavaTask>) -> Unit
     ) {
         rules.filter { rule -> rule.resolve(extension)?.strategy == TipOfTree }
@@ -313,7 +314,7 @@ class DiffAndDocs private constructor(
      * Registers a Java project to be included in docs generation, local API file generation, and
      * local API diff generation tasks.
      */
-    fun registerJavaProject(project: Project, extension: SupportLibraryExtension) {
+    fun registerJavaProject(project: Project, extension: AndroidXExtension) {
         val compileJava = project.tasks.named("compileJava", JavaCompile::class.java)
 
         registerPrebuilts(extension)
@@ -330,9 +331,8 @@ class DiffAndDocs private constructor(
      * generation, and local API diff generation tasks.
      */
     fun registerAndroidProject(
-        project: Project,
         library: LibraryExtension,
-        extension: SupportLibraryExtension
+        extension: AndroidXExtension
     ) {
 
         registerPrebuilts(extension)
@@ -355,7 +355,7 @@ class DiffAndDocs private constructor(
     }
 
     private fun setupApiVersioningInDocsTasks(
-        extension: SupportLibraryExtension,
+        extension: AndroidXExtension,
         checkApiTasks: CheckApiTasks
     ) {
         rules.forEach { rules ->
@@ -433,9 +433,9 @@ private fun registerAndroidProjectForDocsTask(
             fileTreeElement.name != "R.java" ||
                     fileTreeElement.path.endsWith(releaseVariant.rFile())
         }
-        it.source(javaCompileProvider.map {
-            it.source
-        })
+        releaseVariant.getSourceFolders(SourceKind.JAVA).forEach { sourceSet ->
+            it.source(sourceSet)
+        }
         it.classpath += releaseVariant.getCompileClasspath(null) +
                 it.project.files(javaCompileProvider.get().destinationDir)
     }
@@ -514,12 +514,12 @@ private fun createDistDocsTask(
         from(generateDocs.map {
             it.destinationDir
         })
-        baseName = "android-support-$ruleName-docs"
-        version = getBuildId()
-        destinationDir = project.getDistributionDirectory()
+        archiveBaseName.set("android-support-$ruleName-docs")
+        archiveVersion.set(getBuildId())
+        destinationDirectory.set(project.getDistributionDirectory())
         group = JavaBasePlugin.DOCUMENTATION_GROUP
-        description = "Zips ${ruleName} Java documentation (generated via Doclava in the " +
-            "style of d.android.com) into ${archivePath}"
+        description = "Zips $ruleName Java documentation (generated via Doclava in the " +
+            "style of d.android.com) into $archivePath"
         doLast {
             logger.lifecycle("'Wrote API reference to $archivePath")
         }
@@ -570,8 +570,8 @@ private fun createGenerateDocsTask(
                 exclude("**/R.java")
                 dependsOn(generateSdkApiTask, doclavaConfig)
                 group = JavaBasePlugin.DOCUMENTATION_GROUP
-                description = "Generates Java documentation in the style of d.android.com. To generate offline " +
-                        "docs use \'-PofflineDocs=true\' parameter."
+                description = "Generates Java documentation in the style of d.android.com. To " +
+                        "generate offline docs use \'-PofflineDocs=true\' parameter."
 
                 setDocletpath(doclavaConfig.resolve())
                 destinationDir = File(destDir, if (offline) "offline" else "online")
@@ -617,7 +617,7 @@ private fun createGenerateLocalApiDiffsArchiveTask(
     it.from(diffTask.map {
         it.destinationDir
     })
-    it.destinationDir = File(docsDir, "online/sdk/support_api_diff/${project.name}")
+    it.destinationDirectory.set(File(docsDir, "online/sdk/support_api_diff/${project.name}"))
     it.to("${project.version}.zip")
 }
 

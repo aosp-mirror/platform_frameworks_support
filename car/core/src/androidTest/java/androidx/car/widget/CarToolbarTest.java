@@ -43,7 +43,6 @@ import static org.junit.Assert.assertEquals;
 
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.Icon;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -337,7 +336,7 @@ public class CarToolbarTest {
                 .Builder()
                 .setTitle(actionItemText)
                 .setDisplayBehavior(CarMenuItem.DisplayBehavior.ALWAYS) // Action item
-                .setIcon(Icon.createWithResource(mActivity, android.R.drawable.sym_def_app_icon))
+                .setIcon(mActivity, android.R.drawable.sym_def_app_icon)
                 .build();
 
         mActivityRule.runOnUiThread(() ->
@@ -552,7 +551,7 @@ public class CarToolbarTest {
 
         // Since overflow items are set in onMeasure, need to wait for the views to be laid out.
         InstrumentationRegistry.getInstrumentation().waitForIdleSync();
-        mActivityRule.runOnUiThread(() -> mToolbar.showOverflowMenu());
+        mActivityRule.runOnUiThread(() -> mToolbar.setOverflowMenuShown(true));
 
         onView(withText(overflowItemText)).inRoot(isDialog()).check(matches(isDisplayed()));
     }
@@ -568,8 +567,8 @@ public class CarToolbarTest {
 
         mActivityRule.runOnUiThread(() -> {
             mToolbar.setMenuItems(Collections.singletonList(overflowItem));
-            mToolbar.showOverflowMenu();
-            mToolbar.hideOverflowMenu();
+            mToolbar.setOverflowMenuShown(true);
+            mToolbar.setOverflowMenuShown(false);
         });
 
         onView(withText(overflowItemText)).check(doesNotExist());
@@ -693,7 +692,7 @@ public class CarToolbarTest {
 
         onView(withText(ifRoomItemText)).check(doesNotExist());
 
-        mActivityRule.runOnUiThread(() -> mToolbar.showOverflowMenu());
+        mActivityRule.runOnUiThread(() -> mToolbar.setOverflowMenuShown(true));
 
         onView(withText(ifRoomItemText)).check(matches(isDisplayed()));
     }

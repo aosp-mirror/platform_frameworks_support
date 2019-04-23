@@ -21,7 +21,8 @@ import androidx.build.LibraryGroups
 import androidx.build.LibraryVersions
 
 plugins {
-    id("SupportJavaLibraryPlugin")
+    id("AndroidXPlugin")
+    id("java")
 }
 
 sourceCompatibility = JavaVersion.VERSION_1_8
@@ -31,7 +32,7 @@ dependencies {
     compile(JAVAPOET)
 }
 
-supportLibrary {
+androidx {
     name = "Remote Callback Compiler"
     publish = true
     toolingProject = true

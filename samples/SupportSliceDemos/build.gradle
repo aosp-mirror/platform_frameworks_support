@@ -29,7 +29,6 @@ dependencies {
     implementation(project(":transition"))
     implementation(project(":recyclerview"))
     implementation(project(":appcompat"))
-    implementation(project(":core"))
     implementation(project(":cardview"))
     api(ARCH_LIFECYCLE_EXTENSIONS, libs.exclude_annotations_transitive = {
         exclude group: 'androidx.annotation'

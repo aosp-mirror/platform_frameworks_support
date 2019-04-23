@@ -4,23 +4,24 @@ import androidx.build.LibraryVersions
 import static androidx.build.dependencies.DependenciesKt.*
 
 plugins {
-    id("SupportAndroidLibraryPlugin")
+    id("AndroidXPlugin")
+    id("com.android.library")
 }
 
 dependencies {
     api(project(":annotation"))
 
-    api("androidx.core:core:1.1.0-alpha05")
+    api(project(":core"))
     implementation("androidx.collection:collection:1.0.0")
     api("androidx.cursoradapter:cursoradapter:1.0.0")
     api(project(":fragment"))
     api(project(":appcompat:appcompat-resources"))
     api("androidx.drawerlayout:drawerlayout:1.0.0")
 
-    androidTestImplementation(TEST_EXT_JUNIT)
-    androidTestImplementation(TEST_CORE)
-    androidTestImplementation(TEST_RUNNER)
-    androidTestImplementation(TEST_RULES)
+    androidTestImplementation(ANDROIDX_TEST_EXT_JUNIT)
+    androidTestImplementation(ANDROIDX_TEST_CORE)
+    androidTestImplementation(ANDROIDX_TEST_RUNNER)
+    androidTestImplementation(ANDROIDX_TEST_RULES)
     androidTestImplementation(TRUTH)
     androidTestImplementation(ESPRESSO_CORE, libs.exclude_for_espresso)
     androidTestImplementation(MOCKITO_CORE, libs.exclude_bytebuddy) // DexMaker has it"s own MockMaker
@@ -50,7 +51,7 @@ android {
     }
 }
 
-supportLibrary {
+androidx {
     name = "Android AppCompat Library v7"
     publish = true
     mavenVersion = LibraryVersions.APPCOMPAT

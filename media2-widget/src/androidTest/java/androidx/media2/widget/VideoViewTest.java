@@ -51,14 +51,14 @@ import android.view.View;
 import android.view.WindowManager;
 
 import androidx.core.content.ContextCompat;
-import androidx.media2.FileMediaItem;
-import androidx.media2.MediaController;
-import androidx.media2.MediaItem;
-import androidx.media2.SessionCommand;
-import androidx.media2.SessionCommandGroup;
-import androidx.media2.SessionPlayer;
-import androidx.media2.SessionResult;
-import androidx.media2.UriMediaItem;
+import androidx.media2.common.FileMediaItem;
+import androidx.media2.common.MediaItem;
+import androidx.media2.common.SessionPlayer;
+import androidx.media2.common.UriMediaItem;
+import androidx.media2.session.MediaController;
+import androidx.media2.session.SessionCommand;
+import androidx.media2.session.SessionCommandGroup;
+import androidx.media2.session.SessionResult;
 import androidx.media2.widget.test.R;
 import androidx.test.annotation.UiThreadTest;
 import androidx.test.core.app.ApplicationProvider;
@@ -122,8 +122,10 @@ public class VideoViewTest {
                 nullable(SessionCommand.class),
                 nullable(Bundle.class))).thenReturn(
                         new SessionResult(SessionResult.RESULT_SUCCESS, null));
-        mController = new MediaController(mVideoView.getContext(),
-                mVideoView.getSessionToken(), mMainHandlerExecutor, mControllerCallback);
+        mController = new MediaController.Builder(mVideoView.getContext())
+                .setSessionToken(mVideoView.getSessionToken())
+                .setControllerCallback(mMainHandlerExecutor, mControllerCallback)
+                .build();
     }
 
     @After
@@ -280,6 +282,7 @@ public class VideoViewTest {
                 mVideoView.setMediaItem(mMediaItem);
             }
         });
+
         verify(mControllerCallback, timeout(TIME_OUT).atLeastOnce()).onConnected(
                 any(MediaController.class), any(SessionCommandGroup.class));
         mController.play();
@@ -327,7 +330,7 @@ public class VideoViewTest {
 
         @Override
         public boolean matches(SessionCommand command) {
-            return mExpectedCommand.equals(command.getCustomCommand());
+            return mExpectedCommand.equals(command.getCustomAction());
         }
     }
 

@@ -46,6 +46,10 @@ class AffectedModuleDetectorImplTest {
     private lateinit var p5: Project
     private lateinit var p6: Project
     private lateinit var p7: Project
+    private lateinit var p8: Project
+    private lateinit var p9: Project
+    private lateinit var p10: Project
+    private val cobuiltTestPaths = setOf(setOf("cobuilt1", "cobuilt2"))
 
     @Before
     fun init() {
@@ -55,17 +59,17 @@ class AffectedModuleDetectorImplTest {
 
         Dummy project file tree:
 
-               root
-              / |  \
-            p1  p7  p2
+               root --------------
+              / |  \     |   |   |
+            p1  p7  p2  p8   p9 p10
            /         \
           p3          p5
          /  \
        p4   p6
 
-        Dependency tree:
+        Dependency forest:
 
-            p1    p2
+            p1    p2    p8  p9 p10
            /  \  /  \
           p3   p5   p6
          /
@@ -121,6 +125,21 @@ class AffectedModuleDetectorImplTest {
             .withName("p7")
             .withParent(root)
             .build()
+        p8 = ProjectBuilder.builder()
+            .withProjectDir(tmpDir.resolve("p8"))
+            .withName("cobuilt1")
+            .withParent(root)
+            .build()
+        p9 = ProjectBuilder.builder()
+            .withProjectDir(tmpDir.resolve("p9"))
+            .withName("cobuilt2")
+            .withParent(root)
+            .build()
+        p10 = ProjectBuilder.builder()
+            .withProjectDir(tmpDir.resolve("p10"))
+            .withName("dumb-tests")
+            .withParent(root)
+            .build()
     }
 
     @Test
@@ -130,12 +149,13 @@ class AffectedModuleDetectorImplTest {
                 logger = logger,
                 ignoreUnknownProjects = false,
                 projectSubset = ProjectSubset.ALL_AFFECTED_PROJECTS,
+                cobuiltTestPaths = cobuiltTestPaths,
                 injectedGitClient = MockGitClient(
-                        lastMergeSha = "foo",
-                        changedFiles = emptyList())
+                    lastMergeSha = "foo",
+                    changedFiles = emptyList())
         )
         MatcherAssert.assertThat(detector.affectedProjects, CoreMatchers.`is`(
-                setOf(p1, p2, p3, p4, p5, p6, p7)
+                setOf(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10)
         ))
     }
 
@@ -146,28 +166,30 @@ class AffectedModuleDetectorImplTest {
                 logger = logger,
                 ignoreUnknownProjects = false,
                 projectSubset = ProjectSubset.DEPENDENT_PROJECTS,
+                cobuiltTestPaths = cobuiltTestPaths,
                 injectedGitClient = MockGitClient(
-                        lastMergeSha = "foo",
-                        changedFiles = emptyList())
+                    lastMergeSha = "foo",
+                    changedFiles = emptyList())
                 )
         MatcherAssert.assertThat(detector.affectedProjects, CoreMatchers.`is`(
-                setOf(p1, p2, p3, p4, p5, p6, p7)
+                setOf(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10)
         ))
     }
 
     @Test
-    fun noChangeCLsOnlyDirectlyAffected() {
+    fun noChangeCLsOnlyChanged() {
         val detector = AffectedModuleDetectorImpl(
             rootProject = root,
             logger = logger,
             ignoreUnknownProjects = false,
             projectSubset = ProjectSubset.CHANGED_PROJECTS,
+            cobuiltTestPaths = cobuiltTestPaths,
             injectedGitClient = MockGitClient(
                 lastMergeSha = "foo",
                 changedFiles = emptyList())
         )
         MatcherAssert.assertThat(detector.affectedProjects, CoreMatchers.`is`(
-            setOf()
+            setOf(p10)
         ))
     }
 
@@ -177,13 +199,14 @@ class AffectedModuleDetectorImplTest {
                 rootProject = root,
                 logger = logger,
                 ignoreUnknownProjects = false,
-            projectSubset = ProjectSubset.ALL_AFFECTED_PROJECTS,
+                projectSubset = ProjectSubset.ALL_AFFECTED_PROJECTS,
+                cobuiltTestPaths = cobuiltTestPaths,
                 injectedGitClient = MockGitClient(
-                        lastMergeSha = "foo",
-                        changedFiles = listOf(convertToFilePath("p1", "foo.java")))
+                    lastMergeSha = "foo",
+                    changedFiles = listOf(convertToFilePath("p1", "foo.java")))
         )
         MatcherAssert.assertThat(detector.affectedProjects, CoreMatchers.`is`(
-                setOf(p1, p3, p4, p5)
+                setOf(p1, p3, p4, p5, p10)
         ))
     }
 
@@ -194,46 +217,49 @@ class AffectedModuleDetectorImplTest {
             logger = logger,
             ignoreUnknownProjects = false,
             projectSubset = ProjectSubset.DEPENDENT_PROJECTS,
+            cobuiltTestPaths = cobuiltTestPaths,
             injectedGitClient = MockGitClient(
                 lastMergeSha = "foo",
                 changedFiles = listOf(convertToFilePath("p1", "foo.java")))
         )
         MatcherAssert.assertThat(detector.affectedProjects, CoreMatchers.`is`(
-            setOf(p3, p4, p5)
+            setOf(p3, p4, p5, p10)
         ))
     }
 
     @Test
-    fun changeInOneOnlyDirectlyAffected() {
+    fun changeInOneOnlyChanged() {
         val detector = AffectedModuleDetectorImpl(
             rootProject = root,
             logger = logger,
             ignoreUnknownProjects = false,
             projectSubset = ProjectSubset.CHANGED_PROJECTS,
+            cobuiltTestPaths = cobuiltTestPaths,
             injectedGitClient = MockGitClient(
                 lastMergeSha = "foo",
                 changedFiles = listOf(convertToFilePath("p1", "foo.java")))
         )
         MatcherAssert.assertThat(detector.affectedProjects, CoreMatchers.`is`(
-            setOf(p1)
+            setOf(p1, p10)
         ))
     }
 
     @Test
     fun changeInTwo() {
         val detector = AffectedModuleDetectorImpl(
-                rootProject = root,
-                logger = logger,
-                ignoreUnknownProjects = false,
-                projectSubset = ProjectSubset.ALL_AFFECTED_PROJECTS,
-                injectedGitClient = MockGitClient(
-                        lastMergeSha = "foo",
-                        changedFiles = listOf(
-                                convertToFilePath("p1", "foo.java"),
-                                convertToFilePath("p2", "bar.java")))
+            rootProject = root,
+            logger = logger,
+            ignoreUnknownProjects = false,
+            projectSubset = ProjectSubset.ALL_AFFECTED_PROJECTS,
+            cobuiltTestPaths = cobuiltTestPaths,
+            injectedGitClient = MockGitClient(
+                lastMergeSha = "foo",
+                changedFiles = listOf(
+                    convertToFilePath("p1", "foo.java"),
+                    convertToFilePath("p2", "bar.java")))
         )
         MatcherAssert.assertThat(detector.affectedProjects, CoreMatchers.`is`(
-                setOf(p1, p2, p3, p4, p5, p6)
+                setOf(p1, p2, p3, p4, p5, p6, p10)
         ))
     }
 
@@ -244,6 +270,7 @@ class AffectedModuleDetectorImplTest {
             logger = logger,
             ignoreUnknownProjects = false,
             projectSubset = ProjectSubset.DEPENDENT_PROJECTS,
+            cobuiltTestPaths = cobuiltTestPaths,
             injectedGitClient = MockGitClient(
                 lastMergeSha = "foo",
                 changedFiles = listOf(
@@ -251,17 +278,18 @@ class AffectedModuleDetectorImplTest {
                     convertToFilePath("p2", "bar.java")))
         )
         MatcherAssert.assertThat(detector.affectedProjects, CoreMatchers.`is`(
-            setOf(p3, p4, p5, p6)
+            setOf(p3, p4, p5, p6, p10)
         ))
     }
 
     @Test
-    fun changeInTwoOnlyDirectlyAffected() {
+    fun changeInTwoOnlyChanged() {
         val detector = AffectedModuleDetectorImpl(
             rootProject = root,
             logger = logger,
             ignoreUnknownProjects = false,
             projectSubset = ProjectSubset.CHANGED_PROJECTS,
+            cobuiltTestPaths = cobuiltTestPaths,
             injectedGitClient = MockGitClient(
                 lastMergeSha = "foo",
                 changedFiles = listOf(
@@ -269,23 +297,24 @@ class AffectedModuleDetectorImplTest {
                     convertToFilePath("p2", "bar.java")))
         )
         MatcherAssert.assertThat(detector.affectedProjects, CoreMatchers.`is`(
-            setOf(p1, p2)
+            setOf(p1, p2, p10)
         ))
     }
 
     @Test
     fun changeInRoot() {
         val detector = AffectedModuleDetectorImpl(
-                rootProject = root,
-                logger = logger,
-                ignoreUnknownProjects = false,
-                projectSubset = ProjectSubset.ALL_AFFECTED_PROJECTS,
-                injectedGitClient = MockGitClient(
-                        lastMergeSha = "foo",
-                        changedFiles = listOf("foo.java"))
+            rootProject = root,
+            logger = logger,
+            ignoreUnknownProjects = false,
+            projectSubset = ProjectSubset.ALL_AFFECTED_PROJECTS,
+            cobuiltTestPaths = cobuiltTestPaths,
+            injectedGitClient = MockGitClient(
+                lastMergeSha = "foo",
+                changedFiles = listOf("foo.java"))
         )
         MatcherAssert.assertThat(detector.affectedProjects, CoreMatchers.`is`(
-                setOf(p1, p2, p3, p4, p5, p6, p7)
+                setOf(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10)
         ))
     }
 
@@ -296,28 +325,84 @@ class AffectedModuleDetectorImplTest {
             logger = logger,
             ignoreUnknownProjects = false,
             projectSubset = ProjectSubset.DEPENDENT_PROJECTS,
+            cobuiltTestPaths = cobuiltTestPaths,
             injectedGitClient = MockGitClient(
                 lastMergeSha = "foo",
                 changedFiles = listOf("foo.java"))
         )
         MatcherAssert.assertThat(detector.affectedProjects, CoreMatchers.`is`(
-            setOf(p1, p2, p3, p4, p5, p6, p7)
+            setOf(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10)
         ))
     }
 
     @Test
-    fun changeInRootOnlyDirectlyAffected() {
+    fun changeInRootOnlyChanged() {
         val detector = AffectedModuleDetectorImpl(
             rootProject = root,
             logger = logger,
             ignoreUnknownProjects = false,
             projectSubset = ProjectSubset.CHANGED_PROJECTS,
+            cobuiltTestPaths = cobuiltTestPaths,
             injectedGitClient = MockGitClient(
                 lastMergeSha = "foo",
                 changedFiles = listOf("foo.java"))
         )
         MatcherAssert.assertThat(detector.affectedProjects, CoreMatchers.`is`(
-            setOf()
+            setOf(p10)
+        ))
+    }
+
+    @Test
+    fun changeInCobuilt() {
+        val detector = AffectedModuleDetectorImpl(
+            rootProject = root,
+            logger = logger,
+            ignoreUnknownProjects = false,
+            projectSubset = ProjectSubset.ALL_AFFECTED_PROJECTS,
+            cobuiltTestPaths = cobuiltTestPaths,
+            injectedGitClient = MockGitClient(
+                lastMergeSha = "foo",
+                changedFiles = listOf(convertToFilePath(
+                    "p8", "foo.java")))
+        )
+        MatcherAssert.assertThat(detector.affectedProjects, CoreMatchers.`is`(
+            setOf(p8, p9, p10)
+        ))
+    }
+
+    @Test
+    fun changeInCobuiltOnlyDependent() {
+        val detector = AffectedModuleDetectorImpl(
+            rootProject = root,
+            logger = logger,
+            ignoreUnknownProjects = false,
+            projectSubset = ProjectSubset.DEPENDENT_PROJECTS,
+            cobuiltTestPaths = cobuiltTestPaths,
+            injectedGitClient = MockGitClient(
+                lastMergeSha = "foo",
+                changedFiles = listOf(convertToFilePath(
+                    "p8", "foo.java")))
+        )
+        MatcherAssert.assertThat(detector.affectedProjects, CoreMatchers.`is`(
+            setOf(p10)
+        ))
+    }
+
+    @Test
+    fun changeInCobuiltOnlyChanged() {
+        val detector = AffectedModuleDetectorImpl(
+            rootProject = root,
+            logger = logger,
+            ignoreUnknownProjects = false,
+            projectSubset = ProjectSubset.CHANGED_PROJECTS,
+            cobuiltTestPaths = cobuiltTestPaths,
+            injectedGitClient = MockGitClient(
+                lastMergeSha = "foo",
+                changedFiles = listOf(convertToFilePath(
+                    "p8", "foo.java")))
+        )
+        MatcherAssert.assertThat(detector.affectedProjects, CoreMatchers.`is`(
+            setOf(p8, p9, p10)
         ))
     }
 

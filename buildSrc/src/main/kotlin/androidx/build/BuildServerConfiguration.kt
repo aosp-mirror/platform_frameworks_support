@@ -20,7 +20,7 @@ import androidx.build.gradle.isRoot
 import org.gradle.api.Project
 import java.io.File
 
-fun isRunningOnBuildServer() = System.getenv("DIST_DIR") != null && System.getenv("OUT_DIR") != null
+fun isRunningOnBuildServer() = System.getenv("DIST_DIR") != null
 
 /**
  * @return build id string for current build
@@ -49,6 +49,12 @@ fun Project.getDistributionDirectory(): File {
  */
 fun Project.getHostTestResultDirectory(): File =
         File(getDistributionDirectory(), "host-test-reports")
+
+/**
+ * Directory to put host test coverage results so they can be consumed by the testing dashboard.
+ */
+fun Project.getHostTestCoverageDirectory(): File =
+    File(getDistributionDirectory(), "host-test-coverage")
 
 private fun getRootDirectory(project: Project): File {
     val actualRootProject = if (project.isRoot) project else project.rootProject
