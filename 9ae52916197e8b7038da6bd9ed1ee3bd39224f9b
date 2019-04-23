@@ -22,6 +22,30 @@
       "revId": "9ae52916197e8b7038da6bd9ed1ee3bd39224f9b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fddf8bab_2f83e65b",
+        "filename": "car/core/res/values/dimens.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-04-23T21:25:45Z",
+      "side": 0,
+      "message": "Generally speaking, if you remove it before migrating those apps, you\u0027ll just have to do it all at once. It\u0027ll block the drop efforts since the drops are usually made by another team. I\u0027d just keep the values for now until you remove their usage.\n\nCarSetupWizard is in google3 and still compiling against the support lib. So it blocks the google3 drop.\n\nYou can just point car_body4_* values to car_subtext1_*. Or whatever the closest mapping should be.",
+      "parentUuid": "b32dfe3c_2a4e8916",
+      "range": {
+        "startLine": 60,
+        "startChar": 17,
+        "endLine": 60,
+        "endChar": 31
+      },
+      "revId": "9ae52916197e8b7038da6bd9ed1ee3bd39224f9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
