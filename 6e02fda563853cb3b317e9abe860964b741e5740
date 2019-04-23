@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "0351a73e_d38a56ce",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentPagerAdapter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1442279
+      },
+      "writtenOn": "2019-04-23T05:24:58Z",
+      "side": 1,
+      "message": "\"int\" failed on presubmit the first time. Any idea what else it might need to be?",
+      "parentUuid": "1ec9f7ac_51d7236b",
+      "range": {
+        "startLine": 105,
+        "startChar": 86,
+        "endLine": 105,
+        "endChar": 98
+      },
+      "revId": "6e02fda563853cb3b317e9abe860964b741e5740",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "296b2dcd_c602102d",
         "filename": "fragment/src/main/java/androidx/fragment/app/FragmentStatePagerAdapter.java",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "6e02fda563853cb3b317e9abe860964b741e5740",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dab0fc8f_8d55b1f7",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentStatePagerAdapter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1442279
+      },
+      "writtenOn": "2019-04-23T05:24:58Z",
+      "side": 1,
+      "message": "failed on previous presubmit.",
+      "parentUuid": "296b2dcd_c602102d",
+      "range": {
+        "startLine": 111,
+        "startChar": 57,
+        "endLine": 111,
+        "endChar": 69
+      },
+      "revId": "6e02fda563853cb3b317e9abe860964b741e5740",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
