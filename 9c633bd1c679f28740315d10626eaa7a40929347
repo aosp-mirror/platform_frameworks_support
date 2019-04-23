@@ -22,6 +22,30 @@
       "revId": "9c633bd1c679f28740315d10626eaa7a40929347",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "648d5243_913b1583",
+        "filename": "car/cluster/api/current.txt",
+        "patchSetId": 8
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1404402
+      },
+      "writtenOn": "2019-04-23T01:13:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "35b041d0_298b6acc",
+      "range": {
+        "startLine": 203,
+        "startChar": 32,
+        "endLine": 203,
+        "endChar": 33
+      },
+      "revId": "9c633bd1c679f28740315d10626eaa7a40929347",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
