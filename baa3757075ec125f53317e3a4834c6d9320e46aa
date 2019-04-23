@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2dd94292_638d2a5e",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageProxy.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1061247
+      },
+      "writtenOn": "2019-04-23T00:45:49Z",
+      "side": 1,
+      "message": "Since ImageCapture also uses ImageProxy instances (https://android.googlesource.com/platform/frameworks/support/+/refs/heads/androidx-master-dev/camera/core/src/main/java/androidx/camera/core/ImageCapture.java#393), maybe change to the following to avoid tying this class specifically to ImageAnalysis:\n\n\u003cp\u003eFor example, after an {@link ImageAnalysis.Analyzer} analyzes the image, the image can be closed to make room in the queue for newer images.",
+      "range": {
+        "startLine": 29,
+        "startChar": 59,
+        "endLine": 29,
+        "endChar": 63
+      },
+      "revId": "baa3757075ec125f53317e3a4834c6d9320e46aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f02e972f_96dadbe6",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageProxy.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1061247
+      },
+      "writtenOn": "2019-04-23T00:45:49Z",
+      "side": 1,
+      "message": "\u003cp\u003eNote that lifecycle transitions and unbinding {@link ImageAnalysis} may close the underlying {@link android.media.ImageReader}. So, an {@link Image} instance obtained with this method may become invalid after lifecycle transitions and unbinding, similar to what happens after {@link Image#close()} is called.",
+      "range": {
+        "startLine": 136,
+        "startChar": 18,
+        "endLine": 138,
+        "endChar": 40
+      },
+      "revId": "baa3757075ec125f53317e3a4834c6d9320e46aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
