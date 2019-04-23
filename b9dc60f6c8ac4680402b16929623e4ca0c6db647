@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3eda22cd_97b91d03",
+        "filename": "media/src/main/java/androidx/media/AudioAttributesCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-04-23T09:04:13Z",
+      "side": 0,
+      "message": "toBundle/fromBundle are in use from version-compat-tests. (androidx.media2.test.client.*)",
+      "revId": "b9dc60f6c8ac4680402b16929623e4ca0c6db647",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
