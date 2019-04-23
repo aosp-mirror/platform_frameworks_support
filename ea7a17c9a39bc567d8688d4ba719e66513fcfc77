@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0430f5a0_cd293c84",
+        "filename": "samples/SupportMediaDemos/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-04-23T17:52:31Z",
+      "side": 1,
+      "message": "It would great if we also moved this app into media2 if this is a testapp for it. You can see an example of it in room/integration-tests/testapp/. We put the testapp along side, we use our library and we can even write tests for that app getting a sense of what external developer tests will look like.",
+      "revId": "ea7a17c9a39bc567d8688d4ba719e66513fcfc77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
