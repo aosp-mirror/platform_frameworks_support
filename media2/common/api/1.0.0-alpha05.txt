@@ -28,8 +28,9 @@ package androidx.media2.common {
 
   public static final class FileMediaItem.Builder extends androidx.media2.common.MediaItem.Builder {
     ctor public FileMediaItem.Builder(android.os.ParcelFileDescriptor);
-    ctor public FileMediaItem.Builder(android.os.ParcelFileDescriptor, long, long);
     method public androidx.media2.common.FileMediaItem build();
+    method public androidx.media2.common.FileMediaItem.Builder! setDataLength(long);
+    method public androidx.media2.common.FileMediaItem.Builder! setDataOffset(long);
     method public androidx.media2.common.FileMediaItem.Builder setEndPosition(long);
     method public androidx.media2.common.FileMediaItem.Builder setMetadata(androidx.media2.common.MediaMetadata?);
     method public androidx.media2.common.FileMediaItem.Builder setStartPosition(long);
