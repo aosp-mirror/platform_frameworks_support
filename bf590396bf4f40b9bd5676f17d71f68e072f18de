@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "fb12fef4_3b8b9a85",
+        "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/BenchmarkPlugin.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-04-23T17:44:58Z",
+      "side": 1,
+      "message": "Thanks Hung,\n\nDustin, should we abandon this CL then? I don\u0027t think it makes sense for our plugin to push devs to use \u0027useAndroidX\u0027 if they\u0027re starting new projects, if Studio already has a plan for it.",
+      "parentUuid": "d19a45b3_3931c43a",
+      "revId": "bf590396bf4f40b9bd5676f17d71f68e072f18de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f7405a53_85265fc7",
         "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/BenchmarkPlugin.kt",
         "patchSetId": 5
