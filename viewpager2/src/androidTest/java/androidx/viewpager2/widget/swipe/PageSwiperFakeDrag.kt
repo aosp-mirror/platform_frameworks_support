@@ -59,25 +59,57 @@ class PageSwiperFakeDrag(private val viewPager: ViewPager2) : PageSwiper {
         duration: Long = FLING_DURATION_MS,
         interpolator: Interpolator = LinearInterpolator()
     ) {
-        // Generate the deltas to feed to fakeDragBy()
+        // Calculate the actual distance that fakeDragBy() will cover
         val rtlModifier = if (needsRtlModifier) -1 else 1
         val steps = max(1, (duration / FRAME_LENGTH_MS.toFloat()).roundToInt())
         val distancePx = viewPager.pageSize * -relativeDragDistance * rtlModifier
-        val deltas = List(steps) { i ->
-            val currDistance = interpolator.getInterpolation((i + 1f) / steps) * distancePx
-            val prevDistance = interpolator.getInterpolation((i + 0f) / steps) * distancePx
-            currDistance - prevDistance
-        }
 
         // Send the fakeDrag events
-        var eventTime = SystemClock.uptimeMillis()
-        val delayMs = { eventTime - SystemClock.uptimeMillis() }
-        viewPager.post { viewPager.beginFakeDrag() }
-        for (delta in deltas) {
-            eventTime += FRAME_LENGTH_MS
-            viewPager.postDelayed({ viewPager.fakeDragBy(delta) }, delayMs())
+        // Needs to be done from the UI thread, but the time when our scheduled
+        // callbacks are run is unpredictable. Therefore, dynamically decide the
+        // drag delta and whether to send an event at all.
+        val fakeDragDispatcher = FakeDragDispatcher(viewPager, distancePx, steps, interpolator)
+        fakeDragDispatcher.postCallbacks()
+    }
+
+    private class FakeDragDispatcher(
+        private val viewPager: ViewPager2,
+        private val distancePx: Float,
+        private val steps: Int,
+        private val interpolator: Interpolator
+    ) {
+        private val dragTime = steps * FRAME_LENGTH_MS
+        private var startTime = 0L
+        private var endTime = 0L
+        private var lastOffset = 0f
+
+        fun postCallbacks() {
+            var postTimeMs = SystemClock.uptimeMillis()
+            val postDelayMs = { postTimeMs - SystemClock.uptimeMillis() }
+            viewPager.post { beginFakeDrag() }
+            repeat(steps) {
+                postTimeMs += FRAME_LENGTH_MS
+                viewPager.postDelayed({ fakeDragStep() }, postDelayMs())
+            }
+            postTimeMs++
+            viewPager.postDelayed({ endFakeDrag() }, postDelayMs())
         }
-        eventTime++
-        viewPager.postDelayed({ viewPager.endFakeDrag() }, delayMs())
+
+        fun beginFakeDrag() {
+            startTime = SystemClock.uptimeMillis()
+            endTime = startTime + dragTime
+            viewPager.beginFakeDrag()
+        }
+
+        fun fakeDragStep() {
+            val x = (SystemClock.uptimeMillis() - startTime).toFloat() / dragTime
+            val currOffset = interpolator.getInterpolation(x) * distancePx
+            viewPager.fakeDragBy(currOffset - lastOffset)
+            lastOffset = currOffset
+        }
+
+        fun endFakeDrag() {
+            viewPager.endFakeDrag()
+        }
     }
 }
