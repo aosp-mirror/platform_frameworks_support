@@ -22,6 +22,30 @@
       "revId": "a3a06d11f42afb5d4f891a71046d49fcca387576",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40dc8585_3a40f15f",
+        "filename": "fragment/api/current.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-04-23T19:08:16Z",
+      "side": 1,
+      "message": "Discussed offline; this constructor is needed since the class is subclassed.",
+      "parentUuid": "ae62a943_77e54690",
+      "range": {
+        "startLine": 342,
+        "startChar": 4,
+        "endLine": 342,
+        "endChar": 75
+      },
+      "revId": "a3a06d11f42afb5d4f891a71046d49fcca387576",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
