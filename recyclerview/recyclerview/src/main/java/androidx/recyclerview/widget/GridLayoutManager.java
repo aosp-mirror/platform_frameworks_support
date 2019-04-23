@@ -161,7 +161,6 @@ public class GridLayoutManager extends LinearLayoutManager {
                     spanGroupIndex , 1,
                     glp.getSpanIndex(), glp.getSpanSize(), false, false));
         }
-        info.setHeading(mSpanCount > 1 && glp.getSpanSize() == mSpanCount);
     }
 
     @Override

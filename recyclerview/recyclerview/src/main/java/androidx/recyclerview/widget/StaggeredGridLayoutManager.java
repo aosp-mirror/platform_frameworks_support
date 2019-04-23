@@ -1296,7 +1296,6 @@ public class StaggeredGridLayoutManager extends RecyclerView.LayoutManager imple
                     -1, -1,
                     sglp.getSpanIndex(), sglp.mFullSpan ? mSpanCount : 1, false, false));
         }
-        info.setHeading(sglp.mFullSpan);
     }
 
     @Override
