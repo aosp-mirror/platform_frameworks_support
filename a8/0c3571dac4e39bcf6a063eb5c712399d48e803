@@ -1,0 +1,7 @@
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Code-Review+2: Sam Gilbert <sjgilbert@google.com>
+Submitted-by: Andrea Falcone <asfalcone@google.com>
+Submitted-at: Wed, 24 Apr 2019 15:20:35 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/frameworks/support/+/950496
+Project: platform/frameworks/support
+Branch: refs/heads/androidx-master-dev
