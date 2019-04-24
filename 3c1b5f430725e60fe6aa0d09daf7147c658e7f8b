@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "26c9b79b_d971e125",
+        "filename": "benchmark/src/main/java/androidx/benchmark/BenchmarkState.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-04-24T20:06:37Z",
+      "side": 1,
+      "message": "I think otherwise defaults to VisibleForTesting.PRIVATE - you don\u0027t need to specify it",
+      "revId": "3c1b5f430725e60fe6aa0d09daf7147c658e7f8b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
