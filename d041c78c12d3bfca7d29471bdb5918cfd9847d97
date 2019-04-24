@@ -16,6 +16,24 @@
       "revId": "d041c78c12d3bfca7d29471bdb5918cfd9847d97",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28995351_57bed866",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/ImageCaptureTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1452466
+      },
+      "writtenOn": "2019-04-24T06:17:08Z",
+      "side": 1,
+      "message": "If test will open camera, it should grant permission respectively.",
+      "parentUuid": "a92ba345_c38f587a",
+      "revId": "d041c78c12d3bfca7d29471bdb5918cfd9847d97",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
