@@ -1,3 +1,4 @@
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
 /*
  * Copyright 2018 The Android Open Source Project
  *
@@ -1382,3 +1383,5 @@ class MediaSessionStub extends IMediaSession.Stub {
         }
     }
 }
+=======
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)

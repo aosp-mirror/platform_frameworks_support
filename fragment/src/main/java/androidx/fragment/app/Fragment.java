@@ -241,6 +241,9 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
     // track it separately.
     boolean mIsCreated;
 
+    // Max Lifecycle state this Fragment can achieve.
+    Lifecycle.State mMaxState = Lifecycle.State.RESUMED;
+
     LifecycleRegistry mLifecycleRegistry;
 
     // This is initialized in performCreateView and unavailable outside of the
@@ -1104,7 +1107,11 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
      *
      * @param isVisibleToUser true if this fragment's UI is currently visible to the user (default),
      *                        false if it is not.
+     *
+     * @deprecated Use {@link FragmentTransaction#setMaxLifecycle(Fragment, Lifecycle.State)}
+     * instead.
      */
+    @Deprecated
     public void setUserVisibleHint(boolean isVisibleToUser) {
         if (!mUserVisibleHint && isVisibleToUser && mState < STARTED
                 && mFragmentManager != null && isAdded() && mIsCreated) {
@@ -1122,7 +1129,11 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
     /**
      * @return The current value of the user-visible hint on this fragment.
      * @see #setUserVisibleHint(boolean)
+     *
+     * @deprecated Use {@link FragmentTransaction#setMaxLifecycle(Fragment, Lifecycle.State)}
+     * instead.
      */
+    @Deprecated
     public boolean getUserVisibleHint() {
         return mUserVisibleHint;
     }

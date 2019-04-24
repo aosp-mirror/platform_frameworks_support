@@ -55,7 +55,7 @@ public class RadioButtonListItemActivity extends Activity {
         mPagedListView.setMaxPages(PagedListView.UNLIMITED_PAGES);
 
         new CarListDialog.Builder(this)
-                .setItems(new String[] {"single selection", "multiple selection"},
+                .setItems(new String[]{"single selection", "multiple selection"},
                         (dialog, position) -> adapter.setIsSingleSelection(position == 0))
                 .create()
                 .show();
@@ -67,22 +67,16 @@ public class RadioButtonListItemActivity extends Activity {
         RadioButtonListItem item;
 
         item = new RadioButtonListItem(this);
-        item.setPrimaryActionIcon(null, RadioButtonListItem.PRIMARY_ACTION_ICON_SIZE_SMALL);
+        item.setPrimaryActionNoIcon();
         item.setTextStartMargin(R.dimen.car_keyline_3);
-        item.setText("Empty icon");
-        items.add(item);
-
-        item = new RadioButtonListItem(this);
-        item.setPrimaryActionIcon(null, RadioButtonListItem.PRIMARY_ACTION_ICON_SIZE_SMALL);
-        item.setTextStartMargin(R.dimen.car_keyline_1);
-        item.setText("No icon");
+        item.setTitle("No icon");
         items.add(item);
 
         item = new RadioButtonListItem(this);
         item.setPrimaryActionIcon(
                 Icon.createWithResource(this, android.R.drawable.sym_def_app_icon),
                 RadioButtonListItem.PRIMARY_ACTION_ICON_SIZE_SMALL);
-        item.setText("Small icon - with action divider");
+        item.setTitle("Small icon - with action divider");
         item.setShowRadioButtonDivider(true);
         items.add(item);
 
@@ -90,15 +84,24 @@ public class RadioButtonListItemActivity extends Activity {
         item.setPrimaryActionIcon(
                 Icon.createWithResource(this, android.R.drawable.sym_def_app_icon),
                 RadioButtonListItem.PRIMARY_ACTION_ICON_SIZE_MEDIUM);
-        item.setText("Avatar sized icon - with action divider");
+        item.setTitle("Medium icon - with body text");
+        item.setBody("Sample body text");
         item.setShowRadioButtonDivider(true);
         items.add(item);
 
         item = new RadioButtonListItem(this);
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
         item.setPrimaryActionIcon(
                 Icon.createWithResource(this, android.R.drawable.sym_def_app_icon),
+=======
+        item.setBody("Only body text - No title, no divider, no icon.");
+        items.add(item);
+
+        item = new RadioButtonListItem(this);
+        item.setPrimaryActionIcon(android.R.drawable.sym_def_app_icon,
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
                 RadioButtonListItem.PRIMARY_ACTION_ICON_SIZE_LARGE);
-        item.setText("Large icon");
+        item.setTitle("Large icon");
         items.add(item);
 
         return items;
@@ -110,6 +113,7 @@ public class RadioButtonListItemActivity extends Activity {
             static final int UNCHECKED = -1;
 
             abstract void setChecked(int position);
+
             abstract boolean isChecked(int position);
         }
 
@@ -130,6 +134,7 @@ public class RadioButtonListItemActivity extends Activity {
 
         static class MultiSelectionController extends SelectionController {
             private Set<Integer> mChecked = new HashSet<>();
+
             @Override
             void setChecked(int position) {
                 mChecked.add(position);
@@ -145,7 +150,7 @@ public class RadioButtonListItemActivity extends Activity {
 
         RadioButtonSelectionAdapter(Context context, ListItemProvider itemProvider,
                 boolean isSingleSelection) {
-            super(context, itemProvider, ListItemAdapter.BackgroundStyle.PANEL);
+            super(context, itemProvider, ListItemAdapter.BACKGROUND_STYLE_PANEL);
             mSelectionController = createSelectionController(isSingleSelection);
         }
 

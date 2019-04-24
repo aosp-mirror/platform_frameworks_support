@@ -2,7 +2,8 @@ import androidx.build.LibraryGroups
 import androidx.build.LibraryVersions
 
 plugins {
-    id("SupportAndroidLibraryPlugin")
+    id("AndroidXPlugin")
+    id("com.android.library")
 }
 
 dependencies {
@@ -11,7 +12,7 @@ dependencies {
     api(project(":viewpager"))
 }
 
-supportLibrary {
+androidx {
     name = "Android Support Library v13"
     publish = true
     mavenVersion = LibraryVersions.LEGACY

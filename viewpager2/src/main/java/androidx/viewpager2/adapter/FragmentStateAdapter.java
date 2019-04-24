@@ -28,7 +28,13 @@ import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
 import androidx.fragment.app.FragmentTransaction;
+=======
+import androidx.lifecycle.GenericLifecycleObserver;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleOwner;
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -135,8 +141,88 @@ public abstract class FragmentStateAdapter extends
         if (holder.mFragment.isAdded()) {
             return;
         }
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
         mFragmentManager.beginTransaction().add(holder.getContainer().getId(),
                 holder.mFragment).commit(); // TODO(122669030): review transaction commit type usage
+=======
+
+        // { f:added, v:created, v:attached } -> check if attached to the right container
+        if (fragment.isAdded() && view.getParent() != null) {
+            if (view.getParent() != container) {
+                addViewToContainer(view, container);
+            }
+            return;
+        }
+
+        // { f:added, v:created, v:notAttached} -> attach view to container
+        if (fragment.isAdded()) {
+            addViewToContainer(view, container);
+            return;
+        }
+
+        // { f:notAdded, v:notCreated, v:notAttached } -> add, create, attach
+        if (!shouldDelayFragmentTransactions()) {
+            scheduleViewAttach(fragment, container);
+            mFragmentManager.beginTransaction().add(fragment, "f" + holder.getItemId()).commitNow();
+        } else {
+            if (mFragmentManager.isDestroyed()) {
+                return; // nothing we can do
+            }
+            mLifecycle.addObserver(new GenericLifecycleObserver() {
+                @Override
+                public void onStateChanged(@NonNull LifecycleOwner source,
+                        @NonNull Lifecycle.Event event) {
+                    if (shouldDelayFragmentTransactions()) {
+                        return;
+                    }
+                    source.getLifecycle().removeObserver(this);
+                    if (ViewCompat.isAttachedToWindow(holder.getContainer())) {
+                        placeFragmentInViewHolder(holder);
+                    }
+                }
+            });
+        }
+    }
+
+    private void scheduleViewAttach(final Fragment fragment, final FrameLayout container) {
+        // After a config change, Fragments that were in FragmentManager will be recreated. Since
+        // ViewHolder container ids are dynamically generated, we opted to manually handle
+        // attaching Fragment views to containers. For consistency, we use the same mechanism for
+        // all Fragment views.
+        mFragmentManager.registerFragmentLifecycleCallbacks(
+                new FragmentManager.FragmentLifecycleCallbacks() {
+                    @Override
+                    public void onFragmentViewCreated(@NonNull FragmentManager fm,
+                            @NonNull Fragment f, @NonNull View v,
+                            @Nullable Bundle savedInstanceState) {
+                        if (f == fragment) {
+                            fm.unregisterFragmentLifecycleCallbacks(this);
+                            addViewToContainer(v, container);
+                        }
+                    }
+                }, false);
+    }
+
+    @SuppressWarnings("WeakerAccess") // to avoid creation of a synthetic accessor
+    void addViewToContainer(@NonNull View v, FrameLayout container) {
+        if (container.getChildCount() > 1) {
+            throw new IllegalStateException("Design assumption violated.");
+        }
+
+        if (v.getParent() == container) {
+            return;
+        }
+
+        if (container.getChildCount() > 0) {
+            container.removeAllViews();
+        }
+
+        if (v.getParent() != null) {
+            ((ViewGroup) v.getParent()).removeView(v);
+        }
+
+        container.addView(v);
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
     }
 
     @Override
@@ -269,7 +355,43 @@ public abstract class FragmentStateAdapter extends
             for (int ix = 0; ix < keys.length; ix++) {
                 long itemId = keys[ix];
                 if (containsItem(itemId)) {
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
                     mSavedStates.put(itemId, values[ix]);
+=======
+                    mSavedStates.put(itemId, state);
+                }
+                continue;
+            }
+
+            throw new IllegalArgumentException("Unexpected key in savedState: " + key);
+        }
+
+        if (!mFragments.isEmpty()) {
+            mHasStaleFragments = true;
+            mIsInGracePeriod = true;
+            gcFragments();
+            scheduleGracePeriodEnd();
+        }
+    }
+
+    private void scheduleGracePeriodEnd() {
+        final Handler handler = new Handler(Looper.getMainLooper());
+        final Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                mIsInGracePeriod = false;
+                gcFragments(); // good opportunity to GC
+            }
+        };
+
+        mLifecycle.addObserver(new GenericLifecycleObserver() {
+            @Override
+            public void onStateChanged(@NonNull LifecycleOwner source,
+                    @NonNull Lifecycle.Event event) {
+                if (event == Lifecycle.Event.ON_DESTROY) {
+                    handler.removeCallbacks(runnable);
+                    source.getLifecycle().removeObserver(this);
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
                 }
             }
         } catch (Exception ex) {

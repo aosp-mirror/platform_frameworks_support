@@ -19,20 +19,34 @@ import androidx.build.LibraryGroups
 import androidx.build.LibraryVersions
 
 plugins {
-    id("SupportAndroidLibraryPlugin")
+    id("AndroidXPlugin")
+    id("com.android.library")
     id("kotlin-android")
 }
 
+android.defaultConfig.testInstrumentationRunner "androidx.benchmark.AndroidBenchmarkRunner"
+
 dependencies {
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
     api(project(":annotation"))
 
     implementation(TEST_RUNNER)
+=======
+    implementation(SUPPORT_ANNOTATIONS)
+    implementation(ANDROIDX_TEST_CORE)
+    implementation(ANDROIDX_TEST_RUNNER)
+    implementation(KOTLIN_STDLIB)
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
 
     androidTestImplementation(JUNIT)
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
     androidTestImplementation(KOTLIN_STDLIB)
+=======
+    androidTestImplementation(ANDROIDX_TEST_RULES)
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
 }
 
-supportLibrary {
+androidx {
     name = "Android Benchmark"
     publish = false
     mavenVersion = LibraryVersions.BENCHMARK

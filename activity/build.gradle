@@ -3,7 +3,8 @@ import androidx.build.LibraryGroups
 import androidx.build.LibraryVersions
 
 plugins {
-    id("SupportAndroidLibraryPlugin")
+    id("AndroidXPlugin")
+    id("com.android.library")
     id("kotlin-android")
 }
 
@@ -14,27 +15,38 @@ android {
 }
 
 dependencies {
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
     api(project(":annotation"))
     api(project(":core")) {
+=======
+    api("androidx.annotation:annotation:1.1.0-beta01")
+    api("androidx.core:core:1.1.0-alpha05") {
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
         exclude group: 'androidx.annotation'
         exclude group: 'com.google.guava', module: 'listenablefuture'
     }
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
     api(project(":lifecycle:lifecycle-runtime"), libs.exclude_annotations_transitive)
     api(project(":lifecycle:lifecycle-viewmodel"), libs.exclude_annotations_transitive)
     api(project(":savedstate"))
+=======
+    api("androidx.lifecycle:lifecycle-runtime:2.1.0-alpha04", libs.exclude_annotations_transitive)
+    api("androidx.lifecycle:lifecycle-viewmodel:2.1.0-alpha04", libs.exclude_annotations_transitive)
+    api("androidx.savedstate:savedstate:1.0.0-alpha02")
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
 
     androidTestImplementation(KOTLIN_STDLIB)
-    androidTestImplementation(TEST_EXT_JUNIT)
-    androidTestImplementation(TEST_CORE)
-    androidTestImplementation(TEST_RUNNER)
-    androidTestImplementation(TEST_RULES)
+    androidTestImplementation(ANDROIDX_TEST_EXT_JUNIT)
+    androidTestImplementation(ANDROIDX_TEST_CORE)
+    androidTestImplementation(ANDROIDX_TEST_RUNNER)
+    androidTestImplementation(ANDROIDX_TEST_RULES)
     androidTestImplementation(TRUTH)
     androidTestImplementation(ESPRESSO_CORE, libs.exclude_for_espresso)
     androidTestImplementation(MOCKITO_CORE, libs.exclude_bytebuddy) // DexMaker has it"s own MockMaker
     androidTestImplementation(DEXMAKER_MOCKITO, libs.exclude_bytebuddy) // DexMaker has it"s own MockMaker
 }
 
-supportLibrary {
+androidx {
     name = "Activity"
     publish = true
     mavenVersion = LibraryVersions.ACTIVITY

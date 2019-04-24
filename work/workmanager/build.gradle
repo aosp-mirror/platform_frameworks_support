@@ -17,12 +17,13 @@
 
 import androidx.build.LibraryGroups
 import androidx.build.LibraryVersions
-import androidx.build.SupportLibraryExtension
+import androidx.build.AndroidXExtension
 
 import static androidx.build.dependencies.DependenciesKt.*
 
 plugins {
-    id("SupportAndroidLibraryPlugin")
+    id("AndroidXPlugin")
+    id("com.android.library")
 }
 
 android {
@@ -46,6 +47,7 @@ dependencies {
     // https://github.com/gradle/gradle/issues/3170
     api("android.arch.lifecycle:extensions:1.1.0@aar") { transitive = true }
     api(GUAVA_LISTENABLE_FUTURE)
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
     implementation("android.arch.persistence.room:runtime:1.1.1@aar") { transitive = true }
     annotationProcessor("android.arch.persistence.room:compiler:1.1.1")
     androidTestImplementation("android.arch.core:core-testing:1.1.0")
@@ -53,6 +55,12 @@ dependencies {
     androidTestImplementation(TEST_EXT_JUNIT)
     androidTestImplementation(TEST_CORE)
     androidTestImplementation(TEST_RUNNER)
+=======
+    androidTestImplementation(ANDROIDX_TEST_EXT_JUNIT)
+    androidTestImplementation(ANDROIDX_TEST_CORE)
+    androidTestImplementation(WORK_ARCH_CORE_TESTING)
+    androidTestImplementation(ANDROIDX_TEST_RUNNER)
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
     androidTestImplementation(ESPRESSO_CORE)
     androidTestImplementation(MOCKITO_CORE, libs.exclude_bytebuddy) // DexMaker has its own MockMaker
     androidTestImplementation(DEXMAKER_MOCKITO, libs.exclude_bytebuddy) // DexMaker has its own MockMaker
@@ -60,14 +68,14 @@ dependencies {
     testImplementation(JUNIT)
 }
 
-supportLibrary {
+androidx {
     name = "Android WorkManager Runtime"
     publish = true
     mavenVersion = LibraryVersions.WORKMANAGER
     mavenGroup = LibraryGroups.WORKMANAGER
     inceptionYear = "2018"
     description = "Android WorkManager runtime library"
-    url = SupportLibraryExtension.ARCHITECTURE_URL
+    url = AndroidXExtension.ARCHITECTURE_URL
     failOnUncheckedWarnings = false
     failOnDeprecationWarnings = false
 }

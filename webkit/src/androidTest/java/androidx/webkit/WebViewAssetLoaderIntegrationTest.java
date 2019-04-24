@@ -112,8 +112,12 @@ public class WebViewAssetLoaderIntegrationTest {
     @MediumTest
     public void testAssetHosting() throws Exception {
         final TestActivity activity = mActivityRule.getActivity();
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
         final String test_with_title_path = "www/test_with_title.html";
+=======
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
 
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
         String url = WebkitUtils.onMainThreadSync(new Callable<String>() {
             @Override
             public String call() {
@@ -122,6 +126,14 @@ public class WebViewAssetLoaderIntegrationTest {
                 Uri.Builder testPath =
                         assetLoader.getAssetsHttpPrefix().buildUpon()
                                 .appendPath(test_with_title_path);
+=======
+        String url =
+                mAssetLoader.getAssetsHttpsPrefix().buildUpon()
+                        .appendPath("www")
+                        .appendPath("test_with_title.html")
+                        .build()
+                        .toString();
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
 
                 String url = testPath.toString();
                 activity.getWebView().loadUrl(url);
@@ -146,8 +158,12 @@ public class WebViewAssetLoaderIntegrationTest {
     @MediumTest
     public void testResourcesHosting() throws Exception {
         final TestActivity activity = mActivityRule.getActivity();
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
         final String test_with_title_path = "test_with_title.html";
+=======
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
 
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
         String url = WebkitUtils.onMainThreadSync(new Callable<String>() {
             @Override
             public String call() {
@@ -157,6 +173,14 @@ public class WebViewAssetLoaderIntegrationTest {
                         assetLoader.getResourcesHttpPrefix().buildUpon()
                         .appendPath("raw")
                         .appendPath(test_with_title_path);
+=======
+        String url =
+                mAssetLoader.getResourcesHttpsPrefix().buildUpon()
+                .appendPath("raw")
+                .appendPath("test_with_title.html")
+                .build()
+                .toString();
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
 
                 String url = testPath.toString();
                 activity.getWebView().loadUrl(url);

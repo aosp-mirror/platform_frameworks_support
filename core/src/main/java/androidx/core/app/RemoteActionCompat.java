@@ -59,6 +59,16 @@ public final class RemoteActionCompat {
     }
 
     /**
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
+=======
+     * Used for VersionedParcelable.
+     * @hide
+     */
+    @RestrictTo(LIBRARY_GROUP)
+    public RemoteActionCompat() {}
+
+    /**
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
      * Constructs a {@link RemoteActionCompat} using data from {@code other}.
      */
     public RemoteActionCompat(@NonNull RemoteActionCompat other) {

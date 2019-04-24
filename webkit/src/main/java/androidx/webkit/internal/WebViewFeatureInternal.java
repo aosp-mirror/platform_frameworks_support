@@ -304,6 +304,11 @@ public enum WebViewFeatureInternal {
      */
     PROXY_OVERRIDE(WebViewFeature.PROXY_OVERRIDE),
 
+    /**
+     * This feature covers {@link WebViewCompat#isMultiProcessEnabled()}.
+     */
+    MULTI_PROCESS_QUERY(WebViewFeature.MULTI_PROCESS_QUERY, Features.MULTI_PROCESS_QUERY),
+
     ;  // This semicolon ends the enum. Add new features with a trailing comma above this line.
 
     private static final int NOT_SUPPORTED_BY_FRAMEWORK = -1;

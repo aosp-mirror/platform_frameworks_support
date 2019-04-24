@@ -3,7 +3,8 @@ import androidx.build.LibraryGroups
 import androidx.build.LibraryVersions
 
 plugins {
-    id("SupportAndroidLibraryPlugin")
+    id("AndroidXPlugin")
+    id("com.android.library")
     id("kotlin-android")
 }
 
@@ -18,14 +19,22 @@ dependencies {
     implementation(ARCH_CORE_COMMON)
 
     androidTestImplementation(KOTLIN_STDLIB)
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
     androidTestImplementation(TEST_EXT_JUNIT)
     androidTestImplementation(TEST_CORE)
     androidTestImplementation(TEST_RUNNER)
     androidTestImplementation(TEST_RULES)
+=======
+    androidTestImplementation(ARCH_LIFECYCLE_RUNTIME, libs.exclude_annotations_transitive)
+    androidTestImplementation(ANDROIDX_TEST_EXT_JUNIT)
+    androidTestImplementation(ANDROIDX_TEST_CORE)
+    androidTestImplementation(ANDROIDX_TEST_RUNNER)
+    androidTestImplementation(ANDROIDX_TEST_RULES)
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
     androidTestImplementation(TRUTH)
 }
 
-supportLibrary {
+androidx {
     name = "Activity"
     publish = true
     mavenVersion = LibraryVersions.SAVEDSTATE

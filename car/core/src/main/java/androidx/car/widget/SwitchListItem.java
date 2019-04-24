@@ -54,18 +54,18 @@ import java.util.List;
  *
  * <p>An item visually composes of 3 parts; each part may contain multiple views.
  * <ul>
- *     <li>{@code Primary Action}: represented by an icon of following types.
- *     <ul>
- *         <li>Primary Icon - icon size could be large or small.
- *         <li>No Icon - no icon is shown.
- *         <li>Empty Icon - {@code Text} offsets start space as if there was an icon.
- *     </ul>
- *     <li>{@code Text}: supports any combination of the following text views.
- *     <ul>
- *         <li>Title
- *         <li>Body
- *     </ul>
- *     <li>{@code Supplemental Action}: represented by {@link Switch}.
+ * <li>{@code Primary Action}: represented by an icon of following types.
+ * <ul>
+ * <li>Primary Icon - icon size could be large or small.
+ * <li>No Icon - no icon is shown.
+ * <li>Empty Icon - {@code Text} offsets start space as if there was an icon.
+ * </ul>
+ * <li>{@code Text}: supports any combination of the following text views.
+ * <ul>
+ * <li>Title
+ * <li>Body
+ * </ul>
+ * <li>{@code Supplemental Action}: represented by {@link Switch}.
  * </ul>
  *
  * <p>{@code SwitchListItem} binds data to {@link ViewHolder} based on components selected.
@@ -79,7 +79,8 @@ public class SwitchListItem extends ListItem<SwitchListItem.ViewHolder> {
     @IntDef({
             PRIMARY_ACTION_ICON_SIZE_SMALL, PRIMARY_ACTION_ICON_SIZE_MEDIUM,
             PRIMARY_ACTION_ICON_SIZE_LARGE})
-    private @interface PrimaryActionIconSize {}
+    private @interface PrimaryActionIconSize {
+    }
 
     /**
      * Small sized icon is the mostly commonly used size. It's the same as supplemental action icon.
@@ -100,7 +101,8 @@ public class SwitchListItem extends ListItem<SwitchListItem.ViewHolder> {
     @IntDef({
             PRIMARY_ACTION_TYPE_NO_ICON, PRIMARY_ACTION_TYPE_EMPTY_ICON,
             PRIMARY_ACTION_TYPE_ICON})
-    private @interface PrimaryActionType {}
+    private @interface PrimaryActionType {
+    }
 
     private static final int PRIMARY_ACTION_TYPE_NO_ICON = 0;
     private static final int PRIMARY_ACTION_TYPE_EMPTY_ICON = 1;
@@ -112,9 +114,17 @@ public class SwitchListItem extends ListItem<SwitchListItem.ViewHolder> {
 
     private final List<ViewBinder<ViewHolder>> mBinders = new ArrayList<>();
 
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
     @PrimaryActionType private int mPrimaryActionType = PRIMARY_ACTION_TYPE_NO_ICON;
     private Icon mPrimaryActionIcon;
     @PrimaryActionIconSize private int mPrimaryActionIconSize = PRIMARY_ACTION_ICON_SIZE_SMALL;
+=======
+    @PrimaryActionType
+    private int mPrimaryActionType = PRIMARY_ACTION_TYPE_NO_ICON;
+    private Drawable mPrimaryActionIconDrawable;
+    @PrimaryActionIconSize
+    private int mPrimaryActionIconSize = PRIMARY_ACTION_ICON_SIZE_SMALL;
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
 
     private CharSequence mTitle;
     private CharSequence mBody;
@@ -202,10 +212,17 @@ public class SwitchListItem extends ListItem<SwitchListItem.ViewHolder> {
     /**
      * Sets {@code Primary Action} to be represented by an icon.
      *
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
      * @param icon An icon to set as primary action.
      * @param size small/medium/large. Available as {@link #PRIMARY_ACTION_ICON_SIZE_SMALL},
      *             {@link #PRIMARY_ACTION_ICON_SIZE_MEDIUM},
      *             {@link #PRIMARY_ACTION_ICON_SIZE_LARGE}.
+=======
+     * @param drawable the Drawable to set.
+     * @param size     small/medium/large. Available as {@link #PRIMARY_ACTION_ICON_SIZE_SMALL},
+     *                 {@link #PRIMARY_ACTION_ICON_SIZE_MEDIUM},
+     *                 {@link #PRIMARY_ACTION_ICON_SIZE_LARGE}.
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
      */
     public void setPrimaryActionIcon(@NonNull Icon icon, @PrimaryActionIconSize int size) {
         mPrimaryActionType = PRIMARY_ACTION_TYPE_ICON;
@@ -215,6 +232,21 @@ public class SwitchListItem extends ListItem<SwitchListItem.ViewHolder> {
     }
 
     /**
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
+=======
+     * Sets {@code Primary Action} to be represented by an icon.
+     *
+     * @param iconResId the resource identifier of the drawable.
+     * @param size      small/medium/large. Available as {@link #PRIMARY_ACTION_ICON_SIZE_SMALL},
+     *                  {@link #PRIMARY_ACTION_ICON_SIZE_MEDIUM},
+     *                  {@link #PRIMARY_ACTION_ICON_SIZE_LARGE}.
+     */
+    public void setPrimaryActionIcon(@DrawableRes int iconResId, @PrimaryActionIconSize int size) {
+        setPrimaryActionIcon(getContext().getDrawable(iconResId), size);
+    }
+
+    /**
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
      * Sets {@code Primary Action} to be empty icon.
      *
      * <p>{@code Text} would have a start margin as if {@code Primary Action} were set to primary
@@ -264,8 +296,19 @@ public class SwitchListItem extends ListItem<SwitchListItem.ViewHolder> {
      * Sets the state of {@code Switch}.
      *
      * @param isChecked sets the "checked/unchecked, namely on/off" state of switch.
+     * @deprecated Use {@link #setChecked(boolean)} to set checked state of {@code Switch}.
      */
+    @Deprecated
     public void setSwitchState(boolean isChecked) {
+        setChecked(isChecked);
+    }
+
+    /**
+     * Sets whether the switch is checked.
+     *
+     * @param isChecked {@code true} to check the switch or {@code false} to uncheck it.
+     */
+    public void setChecked(boolean isChecked) {
         if (mSwitchChecked == isChecked) {
             return;
         }
@@ -614,7 +657,7 @@ public class SwitchListItem extends ListItem<SwitchListItem.ViewHolder> {
 
             // Each line groups relevant child views in an effort to help keep this view array
             // updated with actual child views in the ViewHolder.
-            mWidgetViews = new View[] {
+            mWidgetViews = new View[]{
                     mPrimaryIcon,
                     mTitle, mBody,
                     mSwitch, mSwitchDivider,

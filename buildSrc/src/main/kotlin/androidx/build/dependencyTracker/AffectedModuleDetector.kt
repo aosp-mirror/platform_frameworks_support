@@ -29,6 +29,29 @@ import org.gradle.api.invocation.Gradle
 import org.gradle.api.logging.Logger
 
 /**
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
+=======
+ * The subsets we allow the projects to be partitioned into.
+ * This is to allow more granular testing. Specifically, to enable running large tests on
+ * CHANGED_PROJECTS, while still only running small and medium tests on DEPENDENT_PROJECTS.
+ *
+ * The ProjectSubset specifies which projects we are interested in testing.
+ * The AffectedModuleDetector determines the minimum set of projects that must be built in
+ * order to run all the tests along with their runtime dependencies.
+ *
+ * The subsets are:
+ *  CHANGED_PROJECTS -- The containing projects for any files that were changed in this CL.
+ *
+ *  DEPENDENT_PROJECTS -- Any projects that have a dependency on any of the projects
+ *      in the CHANGED_PROJECTS set.
+ *
+ *  ALL_AFFECTED_PROJECTS -- The union of CHANGED_PROJECTS and DEPENDENT_PROJECTS,
+ *      which encompasses all projects that could possibly break due to the changes.
+ */
+internal enum class ProjectSubset { DEPENDENT_PROJECTS, CHANGED_PROJECTS, ALL_AFFECTED_PROJECTS }
+
+/**
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
  * A utility class that can discover which files are changed based on git history.
  *
  * To enable this, you need to pass [ENABLE_ARG] into the build as a command line parameter
@@ -153,6 +176,11 @@ internal class AffectedModuleDetectorImpl constructor(
     private val logger: Logger?,
         // used for debugging purposes when we want to ignore non module files
     private val ignoreUnknownProjects: Boolean = false,
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
+=======
+    private val projectSubset: ProjectSubset = ProjectSubset.ALL_AFFECTED_PROJECTS,
+    private val cobuiltTestPaths: Set<Set<String>> = COBUILT_TEST_PATHS,
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
     private val injectedGitClient: GitClient? = null
 ) : AffectedModuleDetector() {
     private val git by lazy {
@@ -185,13 +213,31 @@ internal class AffectedModuleDetectorImpl constructor(
      * Finds all modules that are affected by current changes.
      *
      * If it cannot determine the containing module for a file (e.g. buildSrc or root), it
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
      * defaults to all projects unless [ignoreUnknownProjects] is set to true.
+=======
+     * defaults to all projects unless [ignoreUnknownProjects] is set to true. However,
+     * with param changedProjects, it only returns the dumb-test (see companion object below).
+     * This is because we run all tests including @large on the changed set. So when we must
+     * build all, we only want to run @small and @medium tests in the test runner for
+     * DEPENDENT_PROJECTS.
+     *
+     * Also detects modules whose tests are codependent at runtime.
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
      */
     private fun findLocallyAffectedProjects(): Set<Project> {
         val lastMergeSha = git.findPreviousMergeCL() ?: return allProjects
         val changedFiles = git.findChangedFilesSince(
                 sha = lastMergeSha,
                 includeUncommitted = true)
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
+=======
+
+        val alwaysBuild = ALWAYS_BUILD.map { path ->
+            rootProject.project(path)
+        }.toSet()
+
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
         if (changedFiles.isEmpty()) {
             logger?.info("Cannot find any changed files after last merge, will run all")
             return allProjects
@@ -220,8 +266,49 @@ internal class AffectedModuleDetectorImpl constructor(
                 project.name.contains(it)
             }
         }
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
         // expand the list to all of their dependants
         return expandToDependants(containingProjects + alwaysBuild)
+=======
+
+        val cobuiltTestProjects = lookupProjectSetsFromPaths(cobuiltTestPaths)
+
+        val affectedProjects = when (projectSubset) {
+            ProjectSubset.DEPENDENT_PROJECTS
+                -> expandToDependents(containingProjects) - containingProjects.filterNotNull()
+            ProjectSubset.CHANGED_PROJECTS
+                -> containingProjects.filterNotNull().toSet()
+            else -> expandToDependents(containingProjects)
+        }
+
+        return alwaysBuild + affectedProjects +
+                getAffectedCobuiltProjects(affectedProjects, cobuiltTestProjects)
+    }
+
+    private fun lookupProjectSetsFromPaths(allSets: Set<Set<String>>): Set<Set<Project>> {
+        return allSets.map { setPaths ->
+            setPaths.map { path ->
+                rootProject.project(path)
+            }.toSet()
+        }.toSet()
+    }
+
+    private fun getAffectedCobuiltProjects(
+        affectedProjects: Set<Project>,
+        allCobuiltSets: Set<Set<Project>>
+    ): Set<Project> {
+        val cobuilts = mutableSetOf<Project>()
+        affectedProjects.forEach { project ->
+            allCobuiltSets.forEach { cobuiltSet ->
+                if (cobuiltSet.any {
+                        project == it
+                    }) {
+                    cobuilts.addAll(cobuiltSet)
+                }
+            }
+        }
+        return cobuilts
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
     }
 
     private fun expandToDependants(containingProjects: List<Project?>): Set<Project> {
@@ -237,7 +324,27 @@ internal class AffectedModuleDetectorImpl constructor(
     }
 
     companion object {
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
         // list of projects that should always be built
         private val ALWAYS_BUILD = arrayOf("dumb-test", "wear", "media-compat-test", "media2-test")
+=======
+        // dummy test to ensure no failure due to "no instrumentation. We can eventually remove
+        // if we resolve b/127819369
+        private val ALWAYS_BUILD = setOf(":dumb-tests")
+        // Some tests are codependent even if their modules are not. Enable manual bundling of tests
+        private val COBUILT_TEST_PATHS = setOf(
+            // Install media tests together per b/128577735
+            setOf(
+                ":support-media-compat-test-client",
+                ":support-media-compat-test-service",
+                ":support-media-compat-test-client-previous",
+                ":support-media-compat-test-service-previous"
+            ),
+            setOf(
+                ":support-media2-test-client",
+                ":support-media2-test-service"
+            )
+        )
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
     }
 }

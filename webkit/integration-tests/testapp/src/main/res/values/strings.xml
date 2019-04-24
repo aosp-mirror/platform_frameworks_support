@@ -16,6 +16,18 @@
 
 <resources>
     <string name="main_activity_title">WebView AndroidX Demos</string>
+    <string name="webkit_api_not_available">This feature is not available. This may be available if you update WebView.</string>
     <string name="safebrowsing_activity_title">Safe Browsing</string>
     <string name="not_updateable_webview">not updatable</string>
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
+=======
+    <string name="proxy_override_requests_served">Requests served: %d</string>
+    <string name="asset_loader_ajax_activity_title">Asset Loader AJAX Demo</string>
+    <string name="asset_loader_list_activity_title">WebView Asset Loader Demos</string>
+    <string name="asset_loader_simple_activity_title">Simple Asset Loader</string>
+    <string name="small_interstitial_activity_title">Small Interstitial</string>
+    <string name="medium_tall_interstitial_activity_title">Medium (Tall) Interstitials</string>
+    <string name="medium_wide_interstitial_activity_title">Medium (Wide) Interstitials</string>
+    <string name="cannot_start_safe_browsing">Unable to start Safe Browsing, this is unexpected.</string>
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
 </resources>

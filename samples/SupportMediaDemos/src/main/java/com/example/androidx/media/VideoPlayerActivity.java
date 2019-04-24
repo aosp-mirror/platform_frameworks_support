@@ -37,9 +37,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
-import androidx.media2.MediaController;
-import androidx.media2.SessionToken;
-import androidx.media2.UriMediaItem;
+import androidx.media2.common.UriMediaItem;
+import androidx.media2.session.MediaController;
+import androidx.media2.session.SessionToken;
 import androidx.media2.widget.MediaControlView;
 import androidx.media2.widget.VideoView;
 
@@ -137,8 +137,10 @@ public class VideoPlayerActivity extends FragmentActivity {
             SessionToken token = mVideoView.getSessionToken();
 
             Executor executor = ContextCompat.getMainExecutor(this);
-            mMediaController = new MediaController(
-                    this, token, executor, new ControllerCallback());
+            mMediaController = new MediaController.Builder(this)
+                    .setSessionToken(token)
+                    .setControllerCallback(executor, new ControllerCallback())
+                    .build();
         }
         if (errorString != null) {
             showErrorDialog(errorString);

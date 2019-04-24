@@ -16,8 +16,12 @@
 
 package androidx.navigation
 
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
 import android.support.annotation.IdRes
 import androidx.test.filters.SmallTest
+=======
+import androidx.annotation.IdRes
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
 import com.google.common.truth.Truth.assertThat
 import org.junit.Before
 import org.junit.Test
@@ -27,7 +31,6 @@ import java.util.Arrays
 import java.util.NoSuchElementException
 
 @RunWith(JUnit4::class)
-@SmallTest
 class NavGraphTest {
 
     companion object {

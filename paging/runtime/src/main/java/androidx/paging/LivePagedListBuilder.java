@@ -41,7 +41,12 @@ public final class LivePagedListBuilder<Key, Value> {
     private Key mInitialLoadKey;
     private PagedList.Config mConfig;
     private DataSource.Factory<Key, Value> mDataSourceFactory;
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
     private PagedList.BoundaryCallback mBoundaryCallback;
+=======
+    private PagedList.BoundaryCallback<Value> mBoundaryCallback;
+    @SuppressLint("RestrictedApi")
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
     private Executor mFetchExecutor = ArchTaskExecutor.getIOThreadExecutor();
 
     /**

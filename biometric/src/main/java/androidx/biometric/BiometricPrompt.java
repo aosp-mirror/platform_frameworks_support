@@ -466,8 +466,13 @@ public class BiometricPrompt implements BiometricConstants {
         final FragmentManager fragmentManager = mFragmentActivity.getSupportFragmentManager();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            // Create the fragment that wraps BiometricPrompt once.
-            if (mBiometricFragment == null) {
+
+            BiometricFragment biometricFragment =
+                    (BiometricFragment) fragmentManager.findFragmentByTag(
+                            BIOMETRIC_FRAGMENT_TAG);
+            if (biometricFragment != null) {
+                mBiometricFragment = biometricFragment;
+            } else {
                 mBiometricFragment = BiometricFragment.newInstance();
                 mBiometricFragment.setCallbacks(mExecutor, mNegativeButtonListener,
                         mAuthenticationCallback);
@@ -476,38 +481,64 @@ public class BiometricPrompt implements BiometricConstants {
             mBiometricFragment.setCryptoObject(crypto);
             mBiometricFragment.setBundle(bundle);
 
-            if (fragmentManager.findFragmentByTag(BIOMETRIC_FRAGMENT_TAG) == null) {
+            if (biometricFragment == null) {
                 // If the fragment hasn't been added before, add it. It will also start the
                 // authentication.
                 fragmentManager.beginTransaction().add(mBiometricFragment, BIOMETRIC_FRAGMENT_TAG)
                         .commit();
-            } else {
+            } else if (mBiometricFragment.isDetached()) {
                 // If it's been added before, just re-attach it.
                 fragmentManager.beginTransaction().attach(mBiometricFragment).commit();
             }
         } else {
             // Create the UI
-            if (mFingerprintDialogFragment == null) {
+            FingerprintDialogFragment fingerprintDialogFragment =
+                    (FingerprintDialogFragment) fragmentManager.findFragmentByTag(
+                            DIALOG_FRAGMENT_TAG);
+            if (fingerprintDialogFragment != null) {
+                mFingerprintDialogFragment = fingerprintDialogFragment;
+            } else {
                 mFingerprintDialogFragment = FingerprintDialogFragment.newInstance();
                 mFingerprintDialogFragment.setNegativeButtonListener(mNegativeButtonListener);
             }
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
+=======
+
+            mFingerprintDialogFragment.setNegativeButtonListener(mNegativeButtonListener);
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
             mFingerprintDialogFragment.setBundle(bundle);
-            mFingerprintDialogFragment.show(fragmentManager, DIALOG_FRAGMENT_TAG);
+            if (fingerprintDialogFragment == null) {
+                mFingerprintDialogFragment.show(fragmentManager, DIALOG_FRAGMENT_TAG);
+            } else if (mFingerprintDialogFragment.isDetached()) {
+                fragmentManager.beginTransaction().attach(mFingerprintDialogFragment).commit();
+            }
 
             // Create the connection to FingerprintManager
-            if (mFingerprintHelperFragment == null) {
+            FingerprintHelperFragment fingerprintHelperFragment =
+                    (FingerprintHelperFragment) fragmentManager.findFragmentByTag(
+                            FINGERPRINT_HELPER_FRAGMENT_TAG);
+            if (fingerprintHelperFragment != null) {
+                mFingerprintHelperFragment = fingerprintHelperFragment;
+            } else {
                 mFingerprintHelperFragment = FingerprintHelperFragment.newInstance();
                 mFingerprintHelperFragment.setCallback(mExecutor, mAuthenticationCallback);
             }
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
             mFingerprintHelperFragment.setHandler(mFingerprintDialogFragment.getHandler());
+=======
+
+            mFingerprintHelperFragment.setCallback(mExecutor, mAuthenticationCallback);
+            final Handler fingerprintDialogHandler = mFingerprintDialogFragment.getHandler();
+            mFingerprintHelperFragment.setHandler(fingerprintDialogHandler);
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
             mFingerprintHelperFragment.setCryptoObject(crypto);
 
-            if (fragmentManager.findFragmentByTag(FINGERPRINT_HELPER_FRAGMENT_TAG) == null) {
+            if (fingerprintHelperFragment == null) {
                 // If the fragment hasn't been added before, add it. It will also start the
                 // authentication.
                 fragmentManager.beginTransaction()
                         .add(mFingerprintHelperFragment, FINGERPRINT_HELPER_FRAGMENT_TAG).commit();
-            } else {
+            } else if (mFingerprintHelperFragment.isDetached()) {
                 // If it's been added before, just re-attach it.
                 fragmentManager.beginTransaction().attach(mFingerprintHelperFragment).commit();
             }

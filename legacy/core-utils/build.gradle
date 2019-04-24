@@ -2,7 +2,8 @@ import androidx.build.LibraryGroups
 import androidx.build.LibraryVersions
 
 plugins {
-    id("SupportAndroidLibraryPlugin")
+    id("AndroidXPlugin")
+    id("com.android.library")
 }
 
 dependencies {
@@ -14,7 +15,7 @@ dependencies {
     api(project(":print"))
 }
 
-supportLibrary {
+androidx {
     name = "Android Support Library core utils"
     publish = true
     mavenVersion = LibraryVersions.LEGACY

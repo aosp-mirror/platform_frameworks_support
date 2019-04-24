@@ -47,6 +47,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.res.TypedArrayUtils;
+import androidx.core.view.ViewCompat;
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
 
 import java.util.ArrayList;
@@ -499,8 +500,16 @@ public class Preference implements Comparable<Preference> {
      *               returns.
      */
     public void onBindViewHolder(PreferenceViewHolder holder) {
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
         holder.itemView.setOnClickListener(mClickListener);
         holder.itemView.setId(mViewId);
+=======
+        View itemView = holder.itemView;
+        Integer summaryTextColor = null;
+
+        itemView.setOnClickListener(mClickListener);
+        itemView.setId(mViewId);
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
 
         final TextView titleView = (TextView) holder.findViewById(android.R.id.title);
         if (titleView != null) {
@@ -557,22 +566,34 @@ public class Preference implements Comparable<Preference> {
         }
 
         if (mShouldDisableView) {
-            setEnabledStateOnViews(holder.itemView, isEnabled());
+            setEnabledStateOnViews(itemView, isEnabled());
         } else {
-            setEnabledStateOnViews(holder.itemView, true);
+            setEnabledStateOnViews(itemView, true);
         }
 
         final boolean selectable = isSelectable();
-        holder.itemView.setFocusable(selectable);
-        holder.itemView.setClickable(selectable);
+        itemView.setFocusable(selectable);
+        itemView.setClickable(selectable);
 
         holder.setDividerAllowedAbove(mAllowDividerAbove);
         holder.setDividerAllowedBelow(mAllowDividerBelow);
 
-        if (isCopyingEnabled() && mOnCopyListener == null) {
+        final boolean copyingEnabled = isCopyingEnabled();
+
+        if (copyingEnabled && mOnCopyListener == null) {
             mOnCopyListener = new OnPreferenceCopyListener(this);
         }
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
         holder.itemView.setOnCreateContextMenuListener(isCopyingEnabled() ? mOnCopyListener : null);
+=======
+        itemView.setOnCreateContextMenuListener(copyingEnabled ? mOnCopyListener : null);
+        itemView.setLongClickable(copyingEnabled);
+
+        // Remove touch ripple if the view isn't selectable
+        if (copyingEnabled && !selectable) {
+            ViewCompat.setBackground(itemView, null);
+        }
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
     }
 
     /**
@@ -1156,7 +1177,7 @@ public class Preference implements Comparable<Preference> {
     @RestrictTo(LIBRARY_GROUP_PREFIX)
     public void performClick() {
 
-        if (!isEnabled()) {
+        if (!isEnabled() || !isSelectable()) {
             return;
         }
 

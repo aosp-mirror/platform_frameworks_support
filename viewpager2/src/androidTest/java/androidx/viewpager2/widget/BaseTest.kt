@@ -20,6 +20,7 @@ import android.content.Intent
 import android.os.Build
 import android.view.View
 import android.view.View.OVER_SCROLL_NEVER
+import androidx.core.os.BuildCompat.isAtLeastQ
 import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -58,6 +59,7 @@ import org.hamcrest.Matchers.lessThan
 import org.hamcrest.Matchers.lessThanOrEqualTo
 import org.junit.After
 import org.junit.Assert.assertThat
+import org.junit.Assume.assumeThat
 import org.junit.Before
 import org.junit.Rule
 import java.util.concurrent.CountDownLatch
@@ -89,6 +91,12 @@ open class BaseTest {
             intent.putExtra(TestActivity.EXTRA_LANGUAGE, localeUtil.getLocale().toString())
         }
         activityTestRule.launchActivity(intent)
+        // TODO(b/130801606): replace waitForActivityDrawn with correct tool
+        // waitForActivityDrawn waits until the first frame is drawn, not until the window
+        // transitions are completed. Usually, two invocations of waitForActivityDrawn are enough
+        // for the window transitions to complete, but it's a horrible solution.
+        // See also other invocations of waitForActivityDrawn
+        waitForActivityDrawn(activityTestRule.activity)
         waitForActivityDrawn(activityTestRule.activity)
 
         val viewPager: ViewPager2 = activityTestRule.activity.findViewById(R.id.view_pager)
@@ -97,11 +105,18 @@ open class BaseTest {
 
         // animations getting in the way on API < 16
         if (Build.VERSION.SDK_INT < 16) {
-            val recyclerView: RecyclerView = viewPager.getChildAt(0) as RecyclerView
-            recyclerView.overScrollMode = OVER_SCROLL_NEVER
+            viewPager.recyclerView.overScrollMode = OVER_SCROLL_NEVER
         }
 
         return Context(activityTestRule)
+    }
+
+    /**
+     * Temporary workaround while we're stabilizing tests on the API 29 emulator.
+     * TODO(b/130160918): remove the workaround
+     */
+    protected fun assumeApiBeforeQ() {
+        assumeThat(isAtLeastQ(), equalTo(false))
     }
 
     data class Context(val activityTestRule: ActivityTestRule<TestActivity>) {
@@ -109,13 +124,18 @@ open class BaseTest {
             adapterProvider: AdapterProvider,
             onCreateCallback: ((ViewPager2) -> Unit) = { }
         ) {
+            val orientation = viewPager.orientation
+            val isUserInputEnabled = viewPager.isUserInputEnabled
             TestActivity.onCreateCallback = { activity ->
                 val viewPager = activity.findViewById<ViewPager2>(R.id.view_pager)
+                viewPager.orientation = orientation
+                viewPager.isUserInputEnabled = isUserInputEnabled
                 viewPager.adapter = adapterProvider(activity)
                 onCreateCallback(viewPager)
             }
             activity = FragmentActivityUtils.recreateActivity(activityTestRule, activity)
             TestActivity.onCreateCallback = { }
+            waitForActivityDrawn(activity)
             waitForActivityDrawn(activity)
         }
 
@@ -256,9 +276,10 @@ open class BaseTest {
     }
 
     fun Context.setAdapterSync(adapterProvider: AdapterProvider) {
-        val waitForRenderLatch = viewPager.addWaitForLayoutChangeLatch()
+        lateinit var waitForRenderLatch: CountDownLatch
 
-        runOnUiThread {
+        activityTestRule.runOnUiThread {
+            waitForRenderLatch = viewPager.addWaitForLayoutChangeLatch()
             viewPager.adapter = adapterProvider(activity)
         }
 
@@ -311,19 +332,14 @@ open class BaseTest {
         return latch
     }
 
-    val ViewPager2.pageSize: Int
+    val ViewPager2.recyclerView: RecyclerView
         get() {
-            return if (orientation == ORIENTATION_HORIZONTAL) {
-                measuredWidth - paddingLeft - paddingRight
-            } else {
-                measuredHeight - paddingTop - paddingBottom
-            }
+            return getChildAt(0) as RecyclerView
         }
 
     val ViewPager2.currentCompletelyVisibleItem: Int
         get() {
-            return ((getChildAt(0) as RecyclerView)
-                .layoutManager as LinearLayoutManager)
+            return (recyclerView.layoutManager as LinearLayoutManager)
                 .findFirstCompletelyVisibleItemPosition()
         }
 
@@ -333,7 +349,11 @@ open class BaseTest {
      * 2. Expected text is displayed
      * 3. Internal activity state is valid (as per activity self-test)
      */
-    fun Context.assertBasicState(pageIx: Int, value: String = pageIx.toString()) {
+    fun Context.assertBasicState(
+        pageIx: Int,
+        value: String = pageIx.toString(),
+        performSelfCheck: Boolean = true
+    ) {
         assertThat<Int>(
             "viewPager.getCurrentItem() should return $pageIx",
             viewPager.currentItem, equalTo(pageIx)
@@ -342,6 +362,7 @@ open class BaseTest {
             matches(withText(value))
         )
 
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
         // FIXME: too tight coupling
         if (viewPager.adapter is FragmentAdapter) {
             val adapter = viewPager.adapter as FragmentAdapter
@@ -350,6 +371,11 @@ open class BaseTest {
                         "between 1 and 4 (inclusive)",
                 adapter.attachCount.get() - adapter.destroyCount.get(), isBetweenInIn(1, 4)
             )
+=======
+        // TODO(b/130153109): Wire offscreenPageLimit into FragmentAdapter, remove performSelfCheck
+        if (performSelfCheck && viewPager.adapter is SelfChecking) {
+            (viewPager.adapter as SelfChecking).selfCheck()
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
         }
     }
 

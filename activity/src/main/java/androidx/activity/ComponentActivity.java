@@ -38,10 +38,13 @@ import androidx.savedstate.SavedStateRegistry;
 import androidx.savedstate.SavedStateRegistryController;
 import androidx.savedstate.SavedStateRegistryOwner;
 
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+=======
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
 /**
  * Base class for activities that enables composition of higher level components.
  * <p>
@@ -52,7 +55,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class ComponentActivity extends androidx.core.app.ComponentActivity implements
         LifecycleOwner,
         ViewModelStoreOwner,
-        SavedStateRegistryOwner {
+        SavedStateRegistryOwner,
+        OnBackPressedDispatcherOwner {
 
     static final class NonConfigurationInstances {
         Object custom;
@@ -66,9 +70,13 @@ public class ComponentActivity extends androidx.core.app.ComponentActivity imple
     // Lazily recreated from NonConfigurationInstances by getViewModelStore()
     private ViewModelStore mViewModelStore;
 
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     final CopyOnWriteArrayList<LifecycleAwareOnBackPressedCallback> mOnBackPressedCallbacks =
             new CopyOnWriteArrayList<>();
+=======
+    private final OnBackPressedDispatcher mOnBackPressedDispatcher = new OnBackPressedDispatcher();
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
 
     // Cache the ContentView layoutIds for Activities.
     private static final HashMap<Class, Integer> sAnnotationIds = new HashMap<>();
@@ -267,10 +275,16 @@ public class ComponentActivity extends androidx.core.app.ComponentActivity imple
      */
     @Override
     public void onBackPressed() {
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
         for (OnBackPressedCallback onBackPressedCallback : mOnBackPressedCallbacks) {
             if (onBackPressedCallback.handleOnBackPressed()) {
                 return;
             }
+=======
+        if (mOnBackPressedDispatcher.hasEnabledCallbacks()) {
+            mOnBackPressedDispatcher.onBackPressed();
+            return;
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
         }
         // If none of the registered OnBackPressedCallbacks handled the back button,
         // delegate to the super implementation
@@ -278,6 +292,20 @@ public class ComponentActivity extends androidx.core.app.ComponentActivity imple
     }
 
     /**
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
+=======
+     * Retrieve the {@link OnBackPressedDispatcher} that will be triggered when
+     * {@link #onBackPressed()} is called.
+     * @return The {@link OnBackPressedDispatcher} associated with this ComponentActivity.
+     */
+    @NonNull
+    @Override
+    public final OnBackPressedDispatcher getOnBackPressedDispatcher() {
+        return mOnBackPressedDispatcher;
+    }
+
+    /**
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
      * Add a new {@link OnBackPressedCallback}. Callbacks are invoked in order of recency, so
      * this newly added {@link OnBackPressedCallback} will be the first callback to receive a
      * callback if {@link #onBackPressed()} is called. Only if this callback returns
@@ -297,7 +325,11 @@ public class ComponentActivity extends androidx.core.app.ComponentActivity imple
      * @see #removeOnBackPressedCallback(OnBackPressedCallback)
      */
     public void addOnBackPressedCallback(@NonNull OnBackPressedCallback onBackPressedCallback) {
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
         addOnBackPressedCallback(this, onBackPressedCallback);
+=======
+        getOnBackPressedDispatcher().addCallback(this, onBackPressedCallback);
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
     }
 
     /**
@@ -322,6 +354,7 @@ public class ComponentActivity extends androidx.core.app.ComponentActivity imple
      */
     public void addOnBackPressedCallback(@NonNull LifecycleOwner owner,
             @NonNull OnBackPressedCallback onBackPressedCallback) {
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
         Lifecycle lifecycle = owner.getLifecycle();
         if (lifecycle.getCurrentState() == Lifecycle.State.DESTROYED) {
             // Already destroyed, nothing to do
@@ -331,6 +364,9 @@ public class ComponentActivity extends androidx.core.app.ComponentActivity imple
         // the most recently added callbacks get priority
         mOnBackPressedCallbacks.add(0, new LifecycleAwareOnBackPressedCallback(
                 lifecycle, onBackPressedCallback));
+=======
+        getOnBackPressedDispatcher().addCallback(owner, onBackPressedCallback);
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
     }
 
     /**
@@ -345,8 +381,17 @@ public class ComponentActivity extends androidx.core.app.ComponentActivity imple
      *
      * @param onBackPressedCallback The callback to remove
      * @see #addOnBackPressedCallback(LifecycleOwner, OnBackPressedCallback)
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
+=======
+     * @deprecated Use {@link OnBackPressedCallback#remove()}
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
      */
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
+=======
+    @Deprecated
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
     public void removeOnBackPressedCallback(@NonNull OnBackPressedCallback onBackPressedCallback) {
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
         Iterator<LifecycleAwareOnBackPressedCallback> iterator =
                 mOnBackPressedCallbacks.iterator();
         LifecycleAwareOnBackPressedCallback callbackToRemove = null;
@@ -361,6 +406,9 @@ public class ComponentActivity extends androidx.core.app.ComponentActivity imple
             callbackToRemove.onRemoved();
             mOnBackPressedCallbacks.remove(callbackToRemove);
         }
+=======
+        onBackPressedCallback.remove();
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
     }
 
     @NonNull

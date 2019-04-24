@@ -20,6 +20,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RestrictTo;
 import androidx.annotation.StringDef;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.concurrent.Executor;
 
@@ -61,7 +63,12 @@ public class ProxyConfig {
     public static final String MATCH_ALL_SCHEMES = "*";
     /** @hide */
     @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
     @StringDef({HTTP, HTTPS, MATCH_ALL_SCHEMES})
+=======
+    @StringDef({MATCH_HTTP, MATCH_HTTPS, MATCH_ALL_SCHEMES})
+    @Retention(RetentionPolicy.SOURCE)
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
     public @interface ProxyScheme {}
     private static final String BYPASS_RULE_LOCAL = "<local>";
     private static final String BYPASS_RULE_LOOPBACK = "<-loopback>";

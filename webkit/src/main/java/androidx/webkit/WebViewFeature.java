@@ -88,6 +88,11 @@ public class WebViewFeature {
             WEB_VIEW_RENDERER_TERMINATE,
             WEB_VIEW_RENDERER_CLIENT_BASIC_USAGE,
             PROXY_OVERRIDE,
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
+=======
+            SUPPRESS_ERROR_PAGE,
+            MULTI_PROCESS_QUERY,
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
     })
     @Retention(RetentionPolicy.SOURCE)
     @Target({ElementType.PARAMETER, ElementType.METHOD})
@@ -385,8 +390,23 @@ public class WebViewFeature {
      * TODO(laisminchillo): unhide this when we're ready to expose this
      * @hide
      */
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
     @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
     public static final String PROXY_OVERRIDE = Features.PROXY_OVERRIDE;
+=======
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
+    public static final String SUPPRESS_ERROR_PAGE = "SUPPRESS_ERROR_PAGE";
+
+    /**
+     * Feature for {@link #isFeatureSupported(String)}.
+     * This feature covers {@link WebViewCompat#isMultiProcessEnabled()}
+     *
+     * TODO(laisminchillo): unhide
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
+    public static final String MULTI_PROCESS_QUERY = "MULTI_PROCESS_QUERY";
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
 
     /**
      * Return whether a feature is supported at run-time. On devices running Android version {@link

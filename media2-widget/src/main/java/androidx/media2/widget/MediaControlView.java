@@ -16,8 +16,8 @@
 
 package androidx.media2.widget;
 
-import static androidx.media2.SessionResult.RESULT_ERROR_NOT_SUPPORTED;
-import static androidx.media2.SessionResult.RESULT_SUCCESS;
+import static androidx.media2.session.SessionResult.RESULT_ERROR_NOT_SUPPORTED;
+import static androidx.media2.session.SessionResult.RESULT_SUCCESS;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -55,17 +55,17 @@ import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
-import androidx.media2.MediaController;
-import androidx.media2.MediaItem;
-import androidx.media2.MediaMetadata;
-import androidx.media2.MediaPlayer;
-import androidx.media2.MediaSession;
-import androidx.media2.SessionCommand;
-import androidx.media2.SessionCommandGroup;
-import androidx.media2.SessionPlayer;
-import androidx.media2.SessionResult;
-import androidx.media2.SessionToken;
-import androidx.media2.UriMediaItem;
+import androidx.media2.common.MediaItem;
+import androidx.media2.common.MediaMetadata;
+import androidx.media2.common.SessionPlayer;
+import androidx.media2.common.UriMediaItem;
+import androidx.media2.player.MediaPlayer;
+import androidx.media2.session.MediaController;
+import androidx.media2.session.MediaSession;
+import androidx.media2.session.SessionCommand;
+import androidx.media2.session.SessionCommandGroup;
+import androidx.media2.session.SessionResult;
+import androidx.media2.session.SessionToken;
 import androidx.mediarouter.app.MediaRouteButton;
 import androidx.mediarouter.media.MediaRouteSelector;
 
@@ -194,6 +194,7 @@ public class MediaControlView extends ViewGroup {
     boolean mSeekAvailable;
     boolean mIsAdvertisement;
     boolean mNeedToHideBars;
+    boolean mNeedToShowBars;
     boolean mWasPlaying;
 
     private SparseArray<View> mTransportControlsMap = new SparseArray<>();
@@ -688,11 +689,23 @@ public class MediaControlView extends ViewGroup {
                         mUxState = UX_STATE_ANIMATING;
                     }
 
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
                     @Override
                     public void onAnimationEnd(Animator animation) {
                         mUxState = UX_STATE_ONLY_PROGRESS_VISIBLE;
                     }
                 });
+=======
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                mUxState = UX_STATE_ONLY_PROGRESS_VISIBLE;
+                if (mNeedToShowBars) {
+                    post(mShowAllBars);
+                    mNeedToShowBars = false;
+                }
+            }
+        });
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
 
         mHideProgressBarAnimator = AnimatorUtil.ofTranslationYTogether(
                 bottomBarHeight, bottomBarHeight + progressBarHeight, bottomBarGroup);
@@ -704,11 +717,23 @@ public class MediaControlView extends ViewGroup {
                         mUxState = UX_STATE_ANIMATING;
                     }
 
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
                     @Override
                     public void onAnimationEnd(Animator animation) {
                         mUxState = UX_STATE_NONE_VISIBLE;
                     }
                 });
+=======
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                mUxState = UX_STATE_NONE_VISIBLE;
+                if (mNeedToShowBars) {
+                    post(mShowAllBars);
+                    mNeedToShowBars = false;
+                }
+            }
+        });
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
 
         mHideAllBarsAnimator = new AnimatorSet();
         mHideAllBarsAnimator.play(fadeOutAnimator)
@@ -725,6 +750,10 @@ public class MediaControlView extends ViewGroup {
             @Override
             public void onAnimationEnd(Animator animation) {
                 mUxState = UX_STATE_NONE_VISIBLE;
+                if (mNeedToShowBars) {
+                    post(mShowAllBars);
+                    mNeedToShowBars = false;
+                }
             }
         });
 
@@ -924,12 +953,7 @@ public class MediaControlView extends ViewGroup {
         }
         removeCallbacks(mHideMainBars);
         removeCallbacks(mHideProgressBar);
-
-        if (mUxState == UX_STATE_NONE_VISIBLE) {
-            post(mShowAllBars);
-        } else if (mUxState == UX_STATE_ONLY_PROGRESS_VISIBLE) {
-            post(mShowMainBars);
-        }
+        post(mShowAllBars);
     }
 
     private void hideMediaControlView() {
@@ -938,25 +962,26 @@ public class MediaControlView extends ViewGroup {
         }
         removeCallbacks(mHideMainBars);
         removeCallbacks(mHideProgressBar);
-
         post(mHideAllBars);
     }
 
-    private final Runnable mShowAllBars = new Runnable() {
+    final Runnable mShowAllBars = new Runnable() {
         @Override
         public void run() {
-            mShowAllBarsAnimator.start();
+            switch (mUxState) {
+                case UX_STATE_NONE_VISIBLE:
+                    mShowAllBarsAnimator.start();
+                    break;
+                case UX_STATE_ONLY_PROGRESS_VISIBLE:
+                    mShowMainBarsAnimator.start();
+                    break;
+                case UX_STATE_ANIMATING:
+                    mNeedToShowBars = true;
+            }
+
             if (mController.isPlaying()) {
                 postDelayedRunnable(mHideMainBars, mDelayedAnimationIntervalMs);
             }
-        }
-    };
-
-    private final Runnable mShowMainBars = new Runnable() {
-        @Override
-        public void run() {
-            mShowMainBarsAnimator.start();
-            postDelayedRunnable(mHideMainBars, mDelayedAnimationIntervalMs);
         }
     };
 
@@ -1807,8 +1832,10 @@ public class MediaControlView extends ViewGroup {
             if (mController != null) {
                 mController.close();
             }
-            mController = new MediaController(getContext(), token, mCallbackExecutor,
-                    new MediaControllerCallback());
+            mController = new MediaController.Builder(getContext())
+                    .setSessionToken(token)
+                    .setControllerCallback(mCallbackExecutor, new MediaControllerCallback())
+                    .build();
             mPlaybackState = mController.getPlayerState();
             MediaItem currentItem = mController.getCurrentMediaItem();
             mMediaMetadata = currentItem != null ? currentItem.getMetadata() : null;
@@ -2006,6 +2033,9 @@ public class MediaControlView extends ViewGroup {
                             playPauseButton.setContentDescription(
                                     mResources.getString(R.string.mcv2_play_button_desc));
                             removeCallbacks(mUpdateProgress);
+                            removeCallbacks(mHideMainBars);
+                            removeCallbacks(mHideProgressBar);
+                            post(mShowAllBars);
                             break;
                         case SessionPlayer.PLAYER_STATE_ERROR:
                             playPauseButton.setImageDrawable(
@@ -2164,7 +2194,7 @@ public class MediaControlView extends ViewGroup {
                 if (DEBUG) {
                     Log.d(TAG, "onCustomCommand(): command: " + command);
                 }
-                switch (command.getCustomCommand()) {
+                switch (command.getCustomAction()) {
                     case EVENT_UPDATE_TRACK_STATUS:
                         mVideoTrackCount = (args != null) ? args.getInt(KEY_VIDEO_TRACK_COUNT) : 0;
                         // If there is one or more audio tracks, and this information has not been
@@ -2199,11 +2229,19 @@ public class MediaControlView extends ViewGroup {
                             mSubtitleButton.setEnabled(true);
                             mSubtitleDescriptionsList.add(mResources.getString(
                                     R.string.MediaControlView_subtitle_off_text));
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
                             for (int i = 0; i < mSubtitleTrackCount; i++) {
                                 String lang = subtitleTracksLanguageList.get(i);
                                 String track;
                                 if (lang.equals("")) {
                                     track = mResources.getString(
+=======
+                            for (int i = 0; i < subtitleTracksList.size(); i++) {
+                                String lang = subtitleTracksList.get(i);
+                                String trackDescription;
+                                if (lang.equals("und")) {
+                                    trackDescription = mResources.getString(
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
                                             R.string.MediaControlView_subtitle_track_number_text,
                                             i + 1);
                                 } else {

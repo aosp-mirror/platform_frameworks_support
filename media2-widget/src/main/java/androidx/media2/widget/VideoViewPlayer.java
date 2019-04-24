@@ -18,9 +18,13 @@ package androidx.media2.widget;
 
 import android.content.Context;
 
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
 import androidx.media2.MediaItem;
 import androidx.media2.MediaMetadata;
 import androidx.media2.MediaPlayer;
+=======
+import androidx.media2.player.MediaPlayer;
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
 
 import com.google.common.util.concurrent.ListenableFuture;
 

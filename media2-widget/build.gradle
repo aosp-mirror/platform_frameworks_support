@@ -19,21 +19,31 @@ import androidx.build.LibraryGroups
 import androidx.build.LibraryVersions
 
 plugins {
-    id("SupportAndroidLibraryPlugin")
+    id("AndroidXPlugin")
+    id("com.android.library")
 }
 
 dependencies {
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
     api(project(":media2"))
     api(project(":mediarouter"))
     // TODO: change to 1.1.0-alpha03 after release
     api(project(":appcompat"))
     api("androidx.palette:palette:1.0.0")
+=======
+    api(project(":media2:media2-common"))
+    api(project(":media2:media2-player"))
+    api(project(":media2:media2-session"))
+    implementation(project(":mediarouter"))
+    implementation("androidx.appcompat:appcompat:1.0.2")
+    implementation("androidx.palette:palette:1.0.0")
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
     implementation(project(":concurrent:concurrent-futures"))
 
-    androidTestImplementation(TEST_EXT_JUNIT)
-    androidTestImplementation(TEST_CORE)
-    androidTestImplementation(TEST_RUNNER)
-    androidTestImplementation(TEST_RULES)
+    androidTestImplementation(ANDROIDX_TEST_EXT_JUNIT)
+    androidTestImplementation(ANDROIDX_TEST_CORE)
+    androidTestImplementation(ANDROIDX_TEST_RUNNER)
+    androidTestImplementation(ANDROIDX_TEST_RULES)
     androidTestImplementation(ESPRESSO_CORE, libs.exclude_for_espresso)
     androidTestImplementation(MOCKITO_CORE, libs.exclude_bytebuddy) // DexMaker has it"s own MockMaker
     androidTestImplementation(DEXMAKER_MOCKITO, libs.exclude_bytebuddy) // DexMaker has it"s own MockMaker
@@ -46,13 +56,14 @@ android {
     }
 }
 
-supportLibrary {
-    name = "AndroidX Media2 Widget library"
+androidx {
+    name = "AndroidX media2 widget library"
     publish = true
     mavenVersion = LibraryVersions.MEDIA2_WIDGET
     mavenGroup = LibraryGroups.MEDIA2
     inceptionYear = "2018"
     description = "AndroidX Media2 Widget"
+    // TODO: Remove these (b/130838274)
     failOnUncheckedWarnings = false
     failOnDeprecationWarnings = false
 }

@@ -16,11 +16,18 @@
 
 package androidx.media2.widget;
 
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 import static androidx.media2.SessionPlayer.PlayerResult.RESULT_ERROR_BAD_VALUE;
 import static androidx.media2.SessionPlayer.PlayerResult.RESULT_ERROR_INVALID_STATE;
 import static androidx.media2.SessionPlayer.PlayerResult.RESULT_ERROR_UNKNOWN_ERROR;
 import static androidx.media2.SessionPlayer.PlayerResult.RESULT_SUCCESS;
+=======
+import static androidx.media2.common.SessionPlayer.PlayerResult.RESULT_ERROR_BAD_VALUE;
+import static androidx.media2.common.SessionPlayer.PlayerResult.RESULT_ERROR_INVALID_STATE;
+import static androidx.media2.common.SessionPlayer.PlayerResult.RESULT_ERROR_UNKNOWN;
+import static androidx.media2.common.SessionPlayer.PlayerResult.RESULT_SUCCESS;
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
 
 import android.content.Context;
 import android.os.Bundle;
@@ -28,15 +35,14 @@ import android.os.SystemClock;
 import android.text.TextUtils;
 import android.util.Log;
 
-import androidx.annotation.RestrictTo;
 import androidx.concurrent.futures.ResolvableFuture;
 import androidx.core.util.Pair;
 import androidx.media.AudioAttributesCompat;
-import androidx.media2.MediaItem;
-import androidx.media2.MediaMetadata;
-import androidx.media2.RemoteSessionPlayer;
-import androidx.media2.SessionPlayer;
-import androidx.media2.UriMediaItem;
+import androidx.media2.common.MediaItem;
+import androidx.media2.common.MediaMetadata;
+import androidx.media2.common.SessionPlayer;
+import androidx.media2.common.UriMediaItem;
+import androidx.media2.session.RemoteSessionPlayer;
 import androidx.mediarouter.media.MediaItemStatus;
 import androidx.mediarouter.media.MediaRouteSelector;
 import androidx.mediarouter.media.MediaRouter;
@@ -53,11 +59,7 @@ import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Future;
 
-/**
- * @hide
- */
-@RestrictTo(LIBRARY_GROUP_PREFIX)
-public class RoutePlayer extends RemoteSessionPlayer {
+/* package */ class RoutePlayer extends RemoteSessionPlayer {
     private static final String TAG = "RoutePlayer";
     static final boolean DEBUG = Log.isLoggable(TAG, Log.DEBUG);
     private static final int ITEM_NONE = -1;

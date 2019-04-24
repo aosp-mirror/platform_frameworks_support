@@ -17,6 +17,7 @@
 package androidx.navigation
 
 import androidx.benchmark.BenchmarkRule
+import androidx.benchmark.measureRepeated
 import androidx.navigation.testing.TestNavigatorProvider
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -38,16 +39,24 @@ class NavInflaterBenchmark {
 
     @Test
     fun inflateSimple() {
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
         val state = benchmarkRule.state
         while (state.keepRunning()) {
+=======
+        benchmarkRule.measureRepeated {
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
             navInflater.inflate(androidx.navigation.benchmark.test.R.navigation.nav_simple)
         }
     }
 
     @Test
     fun inflateDeepLink() {
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
         val state = benchmarkRule.state
         while (state.keepRunning()) {
+=======
+        benchmarkRule.measureRepeated {
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
             navInflater.inflate(androidx.navigation.benchmark.test.R.navigation.nav_deep_link)
         }
     }

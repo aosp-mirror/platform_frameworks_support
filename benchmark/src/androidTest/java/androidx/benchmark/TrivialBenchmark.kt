@@ -29,16 +29,24 @@ class TrivialBenchmark {
     val benchmarkRule = BenchmarkRule()
 
     @Test
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
     fun nothing() {
         val state = benchmarkRule.state
         while (state.keepRunning()) {}
     }
+=======
+    fun nothing() = benchmarkRule.measureRepeated { }
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
 
     @Test
     fun increment() {
         val state = benchmarkRule.state
         var i = 0
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
         while (state.keepRunning()) {
+=======
+        benchmarkRule.measureRepeated {
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
             i++
         }
     }

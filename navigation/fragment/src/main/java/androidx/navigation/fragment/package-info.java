@@ -17,8 +17,13 @@
 /**
  * The {@link androidx.navigation.fragment.NavHostFragment} provides a
  * {@link androidx.navigation.NavHost} suitable for using
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
  * {@link android.support.v4.app.Fragment Fragments} as destinations in your navigation graphs via
  * &lt;fragment%gt; elements. Navigating to a Fragment will replace the contents of the
+=======
+ * {@link androidx.fragment.app.Fragment Fragments} as destinations in your navigation graphs via
+ * &lt;fragment&gt; elements. Navigating to a Fragment will replace the contents of the
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
  * NavHostFragment.
  * <p>
  * Below is a minimal implementation.

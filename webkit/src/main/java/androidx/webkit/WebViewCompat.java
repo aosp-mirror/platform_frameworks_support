@@ -31,6 +31,7 @@ import android.webkit.WebViewClient;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresFeature;
+import androidx.annotation.RestrictTo;
 import androidx.webkit.internal.WebMessagePortImpl;
 import androidx.webkit.internal.WebViewFeatureInternal;
 import androidx.webkit.internal.WebViewGlueCommunicator;
@@ -604,6 +605,25 @@ public class WebViewCompat {
                 WebViewFeature.WEB_VIEW_RENDERER_CLIENT_BASIC_USAGE);
         if (feature.isSupportedByWebView()) {
             return getProvider(webview).getWebViewRendererClient();
+        } else {
+            throw WebViewFeatureInternal.getUnsupportedOperationException();
+        }
+    }
+
+    /**
+     * Returns true if {@link WebView} is running in multi process mode.
+     *
+     * //TODO(laisminchillo): unhide
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
+    @RequiresFeature(name = WebViewFeature.MULTI_PROCESS_QUERY,
+            enforcement = "androidx.webkit.WebViewFeature#isFeatureSupported")
+    public static boolean isMultiProcessEnabled() {
+        final WebViewFeatureInternal feature = WebViewFeatureInternal.getFeature(
+                WebViewFeature.MULTI_PROCESS_QUERY);
+        if (feature.isSupportedByWebView()) {
+            return getFactory().getStatics().isMultiProcessEnabled();
         } else {
             throw WebViewFeatureInternal.getUnsupportedOperationException();
         }

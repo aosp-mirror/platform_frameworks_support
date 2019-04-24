@@ -85,7 +85,10 @@ public class ParcelUtils {
      * Add a VersionedParcelable to an existing Bundle.
      */
     public static void putVersionedParcelable(@NonNull Bundle b, @NonNull String key,
-            @NonNull VersionedParcelable obj) {
+            @Nullable VersionedParcelable obj) {
+        if (obj == null) {
+            return;
+        }
         Bundle innerBundle = new Bundle();
         innerBundle.putParcelable(INNER_BUNDLE_KEY, toParcelable(obj));
         b.putParcelable(key, innerBundle);
@@ -98,10 +101,14 @@ public class ParcelUtils {
      * Returns null if the bundle isn't present or ClassLoader issues occur.
      */
     @SuppressWarnings("TypeParameterUnusedInFormals")
-    public static @Nullable <T extends VersionedParcelable> T getVersionedParcelable(Bundle bundle,
-            String key) {
+    @Nullable
+    public static <T extends VersionedParcelable> T getVersionedParcelable(
+            @NonNull Bundle bundle, @NonNull String key) {
         try {
             Bundle innerBundle = bundle.getParcelable(key);
+            if (innerBundle == null) {
+                return null;
+            }
             innerBundle.setClassLoader(ParcelUtils.class.getClassLoader());
             return fromParcelable(innerBundle.getParcelable(INNER_BUNDLE_KEY));
         } catch (RuntimeException e) {

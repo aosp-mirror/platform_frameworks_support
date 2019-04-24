@@ -43,7 +43,7 @@ import androidx.navigation.Navigator;
  * defining your app's chrome around it, e.g.:</p>
  *
  * <pre class="prettyprint">
- * &lt;android.support.v4.widget.DrawerLayout
+ * &lt;androidx.drawerlayout.widget.DrawerLayout
  *        xmlns:android="http://schemas.android.com/apk/res/android"
  *        xmlns:app="http://schemas.android.com/apk/res-auto"
  *        android:layout_width="match_parent"
@@ -53,13 +53,13 @@ import androidx.navigation.Navigator;
  *            android:layout_height="match_parent"
  *            android:id="@+id/my_nav_host_fragment"
  *            android:name="androidx.navigation.fragment.NavHostFragment"
- *            app:navGraph="@xml/nav_sample"
+ *            app:navGraph="@navigation/nav_sample"
  *            app:defaultNavHost="true" /&gt;
  *    &lt;android.support.design.widget.NavigationView
  *            android:layout_width="wrap_content"
  *            android:layout_height="match_parent"
  *            android:layout_gravity="start"/&gt;
- * &lt;/android.support.v4.widget.DrawerLayout&gt;
+ * &lt;/androidx.drawerlayout.widget.DrawerLayout&gt;
  * </pre>
  *
  * <p>Each NavHostFragment has a {@link NavController} that defines valid navigation within
@@ -204,7 +204,12 @@ public class NavHostFragment extends Fragment implements NavHost {
         final Context context = requireContext();
 
         mNavController = new NavController(context);
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
         mNavController.getNavigatorProvider().addNavigator(createFragmentNavigator());
+=======
+        mNavController.setHostViewModelStore(getViewModelStore());
+        onCreateNavController(mNavController);
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
 
         Bundle navState = null;
         if (savedInstanceState != null) {
@@ -238,13 +243,36 @@ public class NavHostFragment extends Fragment implements NavHost {
     }
 
     /**
+     * Callback for when the {@link #getNavController() NavController} is created. If you
+     * support any custom destination types, their {@link Navigator} should be added here to
+     * ensure it is available before the navigation graph is inflated / set.
+     * <p>
+     * By default, this adds a {@link FragmentNavigator}.
+     * <p>
+     * This is only called once in {@link #onCreate(Bundle)} and should not be called directly by
+     * subclasses.
+     *
+     * @param navController The newly created {@link NavController}.
+     */
+    @SuppressWarnings({"WeakerAccess", "deprecation"})
+    @CallSuper
+    protected void onCreateNavController(@NonNull NavController navController) {
+        navController.getNavigatorProvider().addNavigator(
+                new DialogFragmentNavigator(requireContext(), getChildFragmentManager()));
+        navController.getNavigatorProvider().addNavigator(createFragmentNavigator());
+    }
+
+    /**
      * Create the FragmentNavigator that this NavHostFragment will use. By default, this uses
      * {@link FragmentNavigator}, which replaces the entire contents of the NavHostFragment.
      * <p>
      * This is only called once in {@link #onCreate(Bundle)} and should not be called directly by
      * subclasses.
      * @return a new instance of a FragmentNavigator
+     * @deprecated Use {@link #onCreateNavController(NavController)}
      */
+    @SuppressWarnings("DeprecatedIsStillUsed")
+    @Deprecated
     @NonNull
     protected Navigator<? extends FragmentNavigator.Destination> createFragmentNavigator() {
         return new FragmentNavigator(requireContext(), getChildFragmentManager(), getId());

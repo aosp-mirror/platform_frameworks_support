@@ -17,4 +17,12 @@ android {
     defaultConfig {
         vectorDrawables.useSupportLibrary = true
     }
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
+=======
+    lintOptions {
+        disable "WrongThread"
+        // TODO: Enable lint after appcompat:1.1.0 release or use lint-baseline.xml instead.
+        abortOnError false
+    }
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
 }

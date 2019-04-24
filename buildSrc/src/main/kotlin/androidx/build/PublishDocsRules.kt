@@ -25,19 +25,30 @@ import androidx.build.Strategy.Prebuilts
 import androidx.build.Strategy.TipOfTree
 
 val RELEASE_RULE = docsRules("public", false) {
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
     prebuilts(LibraryGroups.ACTIVITY, "1.0.0-alpha04")
     prebuilts(LibraryGroups.ANNOTATION, "1.1.0-alpha01")
     ignore(LibraryGroups.APPCOMPAT, "appcompat-resources")
     prebuilts(LibraryGroups.APPCOMPAT, "1.1.0-alpha02")
+=======
+    prebuilts(LibraryGroups.ACTIVITY, "1.0.0-alpha06")
+    prebuilts(LibraryGroups.ANNOTATION, "1.1.0-beta01")
+    prebuilts(LibraryGroups.APPCOMPAT, "1.1.0-alpha04")
+    prebuilts(LibraryGroups.ARCH_CORE, "2.1.0-alpha01")
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
     prebuilts(LibraryGroups.ASYNCLAYOUTINFLATER, "1.0.0")
-    prebuilts(LibraryGroups.BIOMETRIC, "biometric", "1.0.0-alpha03")
+    prebuilts(LibraryGroups.BIOMETRIC, "biometric", "1.0.0-alpha04")
     prebuilts(LibraryGroups.BROWSER, "1.0.0")
     ignore(LibraryGroups.CAR, "car-moderator")
     prebuilts(LibraryGroups.CAR, "car-cluster", "1.0.0-alpha5")
     prebuilts(LibraryGroups.CAR, "car", "1.0.0-alpha5")
             .addStubs("car/stubs/android.car.jar")
     prebuilts(LibraryGroups.CARDVIEW, "1.0.0")
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
     prebuilts(LibraryGroups.COLLECTION, "1.1.0-alpha02")
+=======
+    prebuilts(LibraryGroups.COLLECTION, "1.1.0-beta01")
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
     prebuilts(LibraryGroups.CONCURRENT, "1.0.0-alpha03")
     prebuilts(LibraryGroups.CONTENTPAGER, "1.0.0")
     prebuilts(LibraryGroups.COORDINATORLAYOUT, "1.1.0-alpha01")
@@ -47,32 +58,75 @@ val RELEASE_RULE = docsRules("public", false) {
     prebuilts(LibraryGroups.CUSTOMVIEW, "1.0.0")
     prebuilts(LibraryGroups.DOCUMENTFILE, "1.0.0")
     prebuilts(LibraryGroups.DRAWERLAYOUT, "1.0.0")
-    prebuilts(LibraryGroups.DYNAMICANIMATION, "dynamicanimation-ktx", "1.0.0-alpha01")
-    prebuilts(LibraryGroups.DYNAMICANIMATION, "1.0.0")
+    prebuilts(LibraryGroups.DYNAMICANIMATION, "dynamicanimation-ktx", "1.0.0-alpha02")
+    prebuilts(LibraryGroups.DYNAMICANIMATION, "1.1.0-alpha01")
     prebuilts(LibraryGroups.EMOJI, "1.0.0")
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
     prebuilts(LibraryGroups.EXIFINTERFACE, "1.0.0")
     prebuilts(LibraryGroups.FRAGMENT, "1.1.0-alpha04")
+=======
+    prebuilts(LibraryGroups.ENTERPRISE, "1.0.0-alpha01")
+    prebuilts(LibraryGroups.EXIFINTERFACE, "1.1.0-alpha01")
+    prebuilts(LibraryGroups.FRAGMENT, "1.1.0-alpha06")
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
     prebuilts(LibraryGroups.GRIDLAYOUT, "1.0.0")
     prebuilts(LibraryGroups.HEIFWRITER, "1.0.0")
     prebuilts(LibraryGroups.INTERPOLATOR, "1.0.0")
     prebuilts(LibraryGroups.LEANBACK, "1.1.0-alpha01")
     prebuilts(LibraryGroups.LEGACY, "1.0.0")
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
     prebuilts(LibraryGroups.LOADER, "1.1.0-alpha01")
+=======
+    ignore(LibraryGroups.LIFECYCLE.group, "lifecycle-savedstate-core")
+    ignore(LibraryGroups.LIFECYCLE.group, "lifecycle-savedstate-fragment")
+    ignore(LibraryGroups.LIFECYCLE.group, "lifecycle-viewmodel-fragment")
+    ignore(LibraryGroups.LIFECYCLE.group, "lifecycle-livedata-ktx")
+    ignore(LibraryGroups.LIFECYCLE.group, "lifecycle-livedata-core-ktx")
+    ignore(LibraryGroups.LIFECYCLE.group, "lifecycle-compiler")
+    ignore(LibraryGroups.LIFECYCLE.group, "lifecycle-runtime-eap")
+    ignore(LibraryGroups.LIFECYCLE.group, "lifecycle-livedata-eap")
+    ignore(LibraryGroups.LIFECYCLE.group, "lifecycle-runtime-eap-lint")
+    prebuilts(LibraryGroups.LIFECYCLE, "lifecycle-viewmodel-savedstate", "1.0.0-alpha01")
+    prebuilts(LibraryGroups.LIFECYCLE, "2.1.0-alpha04")
+    prebuilts(LibraryGroups.LOADER, "1.1.0-beta01")
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
     prebuilts(LibraryGroups.LOCALBROADCASTMANAGER, "1.1.0-alpha01")
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
     prebuilts(LibraryGroups.MEDIA, "media", "1.1.0-alpha01")
+=======
+    prebuilts(LibraryGroups.MEDIA, "media", "1.1.0-alpha04")
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
     // TODO: Rename media-widget to media2-widget after 1.0.0-alpha06
     prebuilts(LibraryGroups.MEDIA, "media-widget", "1.0.0-alpha06")
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
     ignore(LibraryGroups.MEDIA2, "media2-widget")
     ignore(LibraryGroups.MEDIA2, "media2-exoplayer")
     prebuilts(LibraryGroups.MEDIA2, "1.0.0-alpha03")
     prebuilts(LibraryGroups.MEDIAROUTER, "1.1.0-alpha01")
+=======
+    ignore(LibraryGroups.MEDIA2.group, "media2-widget")
+    ignore(LibraryGroups.MEDIA2.group, "media2-exoplayer")
+    // TODO: Reenable to use media2-{common,player,session} prebuilts (b/130839413)
+    ignore(LibraryGroups.MEDIA2.group, "media2-common")
+    ignore(LibraryGroups.MEDIA2.group, "media2-player")
+    ignore(LibraryGroups.MEDIA2.group, "media2-session")
+    prebuilts(LibraryGroups.MEDIA2, "1.0.0-alpha04")
+    prebuilts(LibraryGroups.MEDIAROUTER, "1.1.0-alpha03")
+    ignore(LibraryGroups.NAVIGATION.group, "navigation-testing")
+    prebuilts(LibraryGroups.NAVIGATION, "2.1.0-alpha02")
+    prebuilts(LibraryGroups.PAGING, "2.1.0")
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
     prebuilts(LibraryGroups.PALETTE, "1.0.0")
     prebuilts(LibraryGroups.PERCENTLAYOUT, "1.0.0")
     prebuilts(LibraryGroups.PREFERENCE, "preference-ktx", "1.1.0-alpha03")
     prebuilts(LibraryGroups.PREFERENCE, "1.1.0-alpha03")
     prebuilts(LibraryGroups.PRINT, "1.0.0")
     prebuilts(LibraryGroups.RECOMMENDATION, "1.0.0")
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
     prebuilts(LibraryGroups.RECYCLERVIEW, "recyclerview", "1.1.0-alpha02")
+=======
+    prebuilts(LibraryGroups.RECYCLERVIEW, "recyclerview", "1.1.0-alpha04")
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
     prebuilts(LibraryGroups.RECYCLERVIEW, "recyclerview-selection", "1.1.0-alpha01")
     prebuilts(LibraryGroups.REMOTECALLBACK, "1.0.0-alpha01")
     prebuilts(LibraryGroups.SLICE, "slice-builders", "1.0.0")
@@ -85,15 +139,24 @@ val RELEASE_RULE = docsRules("public", false) {
     prebuilts(LibraryGroups.SLIDINGPANELAYOUT, "1.0.0")
     prebuilts(LibraryGroups.SWIPEREFRESHLAYOUT, "1.1.0-alpha01")
     prebuilts(LibraryGroups.TEXTCLASSIFIER, "1.0.0-alpha02")
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
     prebuilts(LibraryGroups.TRANSITION, "1.1.0-alpha01")
+=======
+    prebuilts(LibraryGroups.TRANSITION, "1.1.0-beta01")
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
     prebuilts(LibraryGroups.TVPROVIDER, "1.0.0")
     prebuilts(LibraryGroups.VECTORDRAWABLE, "1.1.0-alpha01")
     prebuilts(LibraryGroups.VECTORDRAWABLE, "vectordrawable-animated", "1.1.0-alpha01")
     prebuilts(LibraryGroups.VIEWPAGER, "1.0.0")
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
     prebuilts(LibraryGroups.VIEWPAGER2, "1.0.0-alpha01")
+=======
+    prebuilts(LibraryGroups.VIEWPAGER2, "1.0.0-alpha03")
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
     prebuilts(LibraryGroups.WEAR, "1.0.0")
             .addStubs("wear/wear_stubs/com.google.android.wearable-stubs.jar")
     prebuilts(LibraryGroups.WEBKIT, "1.0.0")
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
     prebuilts(LibraryGroups.ROOM, "2.1.0-alpha04")
     prebuilts(LibraryGroups.PERSISTENCE, "2.0.0")
     ignore(LibraryGroups.LIFECYCLE, "lifecycle-savedstate-core")
@@ -109,6 +172,10 @@ val RELEASE_RULE = docsRules("public", false) {
     ignore(LibraryGroups.NAVIGATION, "navigation-testing")
     prebuilts(LibraryGroups.NAVIGATION, "1.0.0-beta02")
     prebuilts(LibraryGroups.WORKMANAGER, "1.0.0-rc01")
+=======
+    ignore(LibraryGroups.WORKMANAGER.group, "work-gcm")
+    prebuilts(LibraryGroups.WORKMANAGER, "2.1.0-alpha01")
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
     default(Ignore)
 }
 
@@ -242,10 +309,24 @@ sealed class Strategy {
         }
 
         override fun toString() = "Prebuilts(\"$version\")"
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
+=======
+        fun dependency(extension: AndroidXExtension): String {
+            return "${extension.mavenGroup?.group}:${extension.project.name}:$version"
+        }
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
     }
 }
 
 class PublishDocsRules(val name: String, val offline: Boolean, private val rules: List<DocsRule>) {
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
+=======
+    fun resolve(extension: AndroidXExtension): DocsRule? {
+        val mavenGroup = extension.mavenGroup
+        return if (mavenGroup == null) null else resolve(mavenGroup.group, extension.project.name)
+    }
+
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
     fun resolve(groupName: String, moduleName: String): DocsRule {
         return rules.find { it.predicate.apply(groupName, moduleName) } ?: throw Error()
     }

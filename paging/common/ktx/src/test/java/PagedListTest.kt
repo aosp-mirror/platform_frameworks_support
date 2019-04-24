@@ -14,9 +14,15 @@
  * limitations under the License.
  */
 
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
 import androidx.paging.Config
 import androidx.paging.PagedList
 import androidx.paging.PositionalDataSource
+=======
+package androidx.paging
+
+import androidx.paging.futures.DirectExecutor
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith

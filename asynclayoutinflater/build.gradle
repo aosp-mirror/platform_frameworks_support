@@ -2,7 +2,8 @@ import androidx.build.LibraryGroups
 import androidx.build.LibraryVersions
 
 plugins {
-    id("SupportAndroidLibraryPlugin")
+    id("AndroidXPlugin")
+    id("com.android.library")
 }
 
 dependencies {
@@ -10,7 +11,7 @@ dependencies {
     api(project(":core"))
 }
 
-supportLibrary {
+androidx {
     name = "Android Support Library Async Layout Inflater"
     publish = true
     mavenVersion = LibraryVersions.ASYNCLAYOUTINFLATER

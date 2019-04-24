@@ -16,8 +16,15 @@
 
 package androidx.appcompat.app;
 
+import static androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO;
+import static androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES;
 import static androidx.appcompat.testutils.NightModeUtils.assertConfigurationNightModeEquals;
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
 import static androidx.appcompat.testutils.NightModeUtils.setLocalNightModeAndWait;
+=======
+import static androidx.appcompat.testutils.NightModeUtils.setNightModeAndWait;
+import static androidx.appcompat.testutils.NightModeUtils.setNightModeAndWaitForDestroy;
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
 import static androidx.appcompat.testutils.TestUtilsActions.rotateScreenOrientation;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
@@ -27,22 +34,35 @@ import static org.junit.Assert.assertSame;
 import android.app.Activity;
 import android.content.res.Configuration;
 
-import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.appcompat.testutils.NightModeUtils.NightSetMode;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+
+import java.util.Arrays;
+import java.util.Collection;
 
 @LargeTest
-@RunWith(AndroidJUnit4.class)
+@RunWith(Parameterized.class)
 public class NightModeOrientationConfigChangesTestCase {
+    @Parameterized.Parameters
+    public static Collection<NightSetMode> data() {
+        return Arrays.asList(NightSetMode.DEFAULT, NightSetMode.LOCAL);
+    }
+
+    private final NightSetMode mSetMode;
+
     @Rule
     public final ActivityTestRule<NightModeOrientationConfigChangesActivity> mActivityTestRule;
 
-    public NightModeOrientationConfigChangesTestCase() {
+    public NightModeOrientationConfigChangesTestCase(NightSetMode setMode) {
+        mSetMode = setMode;
         mActivityTestRule = new ActivityTestRule<>(NightModeOrientationConfigChangesActivity.class);
     }
 
@@ -56,7 +76,11 @@ public class NightModeOrientationConfigChangesTestCase {
     @Test
     public void testRotateDoesNotRecreateActivity() throws Throwable {
         // Set local night mode to YES
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
         setLocalNightModeAndWait(mActivityTestRule, AppCompatDelegate.MODE_NIGHT_YES);
+=======
+        setNightModeAndWaitForDestroy(mActivityTestRule, MODE_NIGHT_YES, mSetMode);
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
 
         final Activity activity = mActivityTestRule.getActivity();
 
@@ -69,5 +93,11 @@ public class NightModeOrientationConfigChangesTestCase {
 
         // And assert that we have the same Activity, and thus was not recreated
         assertSame(activity, mActivityTestRule.getActivity());
+    }
+
+    @After
+    public void cleanup() throws Throwable {
+        // Reset the default night mode
+        setNightModeAndWait(mActivityTestRule, MODE_NIGHT_NO, NightSetMode.DEFAULT);
     }
 }

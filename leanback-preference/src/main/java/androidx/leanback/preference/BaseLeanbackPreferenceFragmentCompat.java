@@ -35,6 +35,36 @@ import androidx.recyclerview.widget.RecyclerView;
  */
 public abstract class BaseLeanbackPreferenceFragmentCompat extends PreferenceFragmentCompat {
 
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
+=======
+    private Context mThemedContext;
+
+    @Nullable
+    @Override
+    public Context getContext() {
+        if (mThemedContext == null && getActivity() != null) {
+            final TypedValue tv = new TypedValue();
+            getActivity().getTheme().resolveAttribute(R.attr.preferenceTheme, tv, true);
+            int theme = tv.resourceId;
+            if (theme == 0) {
+                // Fallback to default theme.
+                theme = R.style.PreferenceThemeOverlayLeanback;
+            }
+            // aosp/821989 has forced PreferenceFragment to use the theme of activity and only
+            // override theme attribute value when it's not defined in activity theme.
+            // However, a side panel preference fragment can use different values than main content.
+            // So a ContextThemeWrapper is required, overrides getContext() before
+            // super.onCreate() call to use the ContextThemeWrapper in creating PreferenceManager
+            // and onCreateView().
+            // super.onCreate() will apply() the theme to activity in non-force way, which shouldn't
+            // affect activity as the theme attributes of PreferenceThemeOverlayLeanback is already
+            // in the activity's theme (in framework)
+            mThemedContext = new ContextThemeWrapper(super.getContext(), theme);
+        }
+        return mThemedContext;
+    }
+
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
     @Override
     public RecyclerView onCreateRecyclerView(LayoutInflater inflater, ViewGroup parent,
             Bundle savedInstanceState) {

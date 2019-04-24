@@ -148,7 +148,7 @@ public interface WorkSpecDao {
      * @return A list of {@link WorkSpec.WorkInfoPojo}
      */
     @Transaction
-    @Query("SELECT id, state, output FROM workspec WHERE id=:id")
+    @Query("SELECT id, state, output, run_attempt_count FROM workspec WHERE id=:id")
     WorkSpec.WorkInfoPojo getWorkStatusPojoForId(String id);
 
     /**
@@ -159,7 +159,7 @@ public interface WorkSpecDao {
      * @return A {@link List} of {@link WorkSpec.WorkInfoPojo}
      */
     @Transaction
-    @Query("SELECT id, state, output FROM workspec WHERE id IN (:ids)")
+    @Query("SELECT id, state, output, run_attempt_count FROM workspec WHERE id IN (:ids)")
     List<WorkSpec.WorkInfoPojo> getWorkStatusPojoForIds(List<String> ids);
 
     /**
@@ -170,7 +170,7 @@ public interface WorkSpecDao {
      * @return A {@link LiveData} list of {@link WorkSpec.WorkInfoPojo}
      */
     @Transaction
-    @Query("SELECT id, state, output FROM workspec WHERE id IN (:ids)")
+    @Query("SELECT id, state, output, run_attempt_count FROM workspec WHERE id IN (:ids)")
     LiveData<List<WorkSpec.WorkInfoPojo>> getWorkStatusPojoLiveDataForIds(List<String> ids);
 
     /**
@@ -180,7 +180,7 @@ public interface WorkSpecDao {
      * @return A list of {@link WorkSpec.WorkInfoPojo}
      */
     @Transaction
-    @Query("SELECT id, state, output FROM workspec WHERE id IN "
+    @Query("SELECT id, state, output, run_attempt_count FROM workspec WHERE id IN "
             + "(SELECT work_spec_id FROM worktag WHERE tag=:tag)")
     List<WorkSpec.WorkInfoPojo> getWorkStatusPojoForTag(String tag);
 
@@ -192,7 +192,7 @@ public interface WorkSpecDao {
      * @return A {@link LiveData} list of {@link WorkSpec.WorkInfoPojo}
      */
     @Transaction
-    @Query("SELECT id, state, output FROM workspec WHERE id IN "
+    @Query("SELECT id, state, output, run_attempt_count FROM workspec WHERE id IN "
             + "(SELECT work_spec_id FROM worktag WHERE tag=:tag)")
     LiveData<List<WorkSpec.WorkInfoPojo>> getWorkStatusPojoLiveDataForTag(String tag);
 
@@ -203,7 +203,7 @@ public interface WorkSpecDao {
      * @return A list of {@link WorkSpec.WorkInfoPojo}
      */
     @Transaction
-    @Query("SELECT id, state, output FROM workspec WHERE id IN "
+    @Query("SELECT id, state, output, run_attempt_count FROM workspec WHERE id IN "
             + "(SELECT work_spec_id FROM workname WHERE name=:name)")
     List<WorkSpec.WorkInfoPojo> getWorkStatusPojoForName(String name);
 
@@ -215,7 +215,7 @@ public interface WorkSpecDao {
      * @return A {@link LiveData} list of {@link WorkSpec.WorkInfoPojo}
      */
     @Transaction
-    @Query("SELECT id, state, output FROM workspec WHERE id IN "
+    @Query("SELECT id, state, output, run_attempt_count FROM workspec WHERE id IN "
             + "(SELECT work_spec_id FROM workname WHERE name=:name)")
     LiveData<List<WorkSpec.WorkInfoPojo>> getWorkStatusPojoLiveDataForName(String name);
 

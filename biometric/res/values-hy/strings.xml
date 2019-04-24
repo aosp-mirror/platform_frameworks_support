@@ -24,5 +24,9 @@
     <string name="fingerprint_error_no_fingerprints" msgid="3350805046152877040">"Գրանցված մատնահետքեր չկան:"</string>
     <string name="fingerprint_error_hw_not_present" msgid="1176237289575184578">"Սարքը չունի մատնահետքերի սկաներ"</string>
     <string name="fingerprint_error_user_canceled" msgid="3421037373085129417">"Մատնահետքով նույնականացման գործողությունը չեղարկվել է օգտատիրոջ կողմից:"</string>
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
+=======
+    <string name="fingerprint_error_lockout" msgid="1651062876313169162">"Չափից շատ փորձեր եք կատարել: Փորձեք ավելի ուշ:"</string>
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
     <string name="default_error_msg" msgid="7497355367608150274">"Անհայտ սխալ"</string>
 </resources>

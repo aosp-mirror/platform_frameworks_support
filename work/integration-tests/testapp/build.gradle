@@ -30,19 +30,26 @@ android {
             minifyEnabled = true
         }
     }
-
     defaultConfig.vectorDrawables.useSupportLibrary = true
 }
 
 dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     implementation project(':work:work-runtime-ktx')
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
     implementation "android.arch.lifecycle:extensions:1.1.0"
     implementation "android.arch.persistence.room:runtime:1.1.1"
     annotationProcessor "android.arch.persistence.room:compiler:1.1.1"
     implementation "com.android.support:recyclerview-v7:27.1.1"
     implementation "com.android.support:appcompat-v7:27.1.1"
     implementation "com.android.support:design:27.1.1"
+=======
+    implementation (project(':work:work-gcm'))
+    implementation(WORK_ARCH_CORE_RUNTIME)
+    implementation(ARCH_LIFECYCLE_EXTENSIONS)
+    implementation(ANDROIDX_RECYCLERVIEW)
+    implementation(MATERIAL)
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
 }
 
 tasks['check'].dependsOn(tasks['connectedCheck'])

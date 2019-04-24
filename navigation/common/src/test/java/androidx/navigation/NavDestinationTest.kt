@@ -17,8 +17,12 @@
 package androidx.navigation
 
 import android.content.Context
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
 import android.support.annotation.IdRes
 import androidx.test.filters.SmallTest
+=======
+import androidx.annotation.IdRes
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
 import com.google.common.truth.Truth.assertThat
 import org.junit.Assert.fail
 import org.junit.Test
@@ -28,7 +32,6 @@ import org.mockito.Mockito.`when`
 import org.mockito.Mockito.mock
 
 @RunWith(JUnit4::class)
-@SmallTest
 class NavDestinationTest {
 
     companion object {

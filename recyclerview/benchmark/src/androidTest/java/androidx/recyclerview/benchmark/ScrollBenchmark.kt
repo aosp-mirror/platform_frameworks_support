@@ -21,6 +21,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.benchmark.BenchmarkRule
+import androidx.benchmark.measureRepeated
 import androidx.recyclerview.benchmark.test.R
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.annotation.UiThreadTest
@@ -67,7 +68,11 @@ class ScrollBenchmark {
 
         val rv = activityRule.activity.recyclerView
         var offset = 10
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
         while (state.keepRunning()) {
+=======
+        benchmarkRule.measureRepeated {
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
             // keep scrolling up and down - no new item should be revealed
             rv.scrollBy(0, offset)
             offset *= -1
@@ -80,7 +85,11 @@ class ScrollBenchmark {
         val state = benchmarkRule.state
 
         val rv = activityRule.activity.recyclerView
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
         while (state.keepRunning()) {
+=======
+        benchmarkRule.measureRepeated {
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
             // each scroll should reveal a new item
             rv.scrollBy(0, 100)
         }
@@ -98,7 +107,11 @@ class ScrollBenchmark {
         }
 
         val rv = activityRule.activity.recyclerView
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
         while (state.keepRunning()) {
+=======
+        benchmarkRule.measureRepeated {
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
             // each scroll should reveal a new item that must be inflated
             rv.scrollBy(0, 100)
         }
@@ -111,7 +124,11 @@ class ScrollBenchmark {
         trivialAdapter.disableReuse = true
 
         val rv = activityRule.activity.recyclerView
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
         while (state.keepRunning()) {
+=======
+        benchmarkRule.measureRepeated {
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
             // each scroll should reveal a new item that must be inflated
             rv.scrollBy(0, 100)
         }

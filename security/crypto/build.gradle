@@ -19,11 +19,26 @@ import androidx.build.LibraryGroups
 import androidx.build.LibraryVersions
 
 plugins {
-    id("SupportAndroidLibraryPlugin")
+    id("AndroidXPlugin")
+    id("com.android.library")
     id("kotlin-android")
 }
 
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
 dependencies {}
+=======
+dependencies {
+    api("androidx.annotation:annotation:1.0.0") { transitive = true}
+    api("androidx.core:core:1.0.0") { transitive = true}
+    api("androidx.fragment:fragment:1.0.0") { transitive = true}
+    api("androidx.biometric:biometric:1.0.0-alpha03")
+
+    androidTestImplementation(ANDROIDX_TEST_EXT_JUNIT)
+    androidTestImplementation(ANDROIDX_TEST_CORE)
+    androidTestImplementation(ANDROIDX_TEST_RUNNER)
+    androidTestImplementation(MOCKITO_CORE)
+}
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
 
 android {
     defaultConfig {
@@ -31,7 +46,7 @@ android {
     }
 }
 
-supportLibrary {
+androidx {
     name = "AndroidX Security"
     publish = false
     mavenVersion = LibraryVersions.SECURITY

@@ -23,5 +23,10 @@
     <string name="exploding_work">Test Exploding Work</string>
     <string name="replace_completed_work">Test Replacing Completed Work</string>
     <string name="run_retry_worker">Run Retry Worker</string>
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
+=======
+    <string name="run_recursive_worker">Run Recursive Worker</string>
+    <string name="create_hundred_job_exception">Create 100 Job Exception</string>
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
     <string name="keep">Use KEEP</string>
 </resources>

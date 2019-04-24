@@ -19,15 +19,11 @@ package androidx.fragment.app;
 import android.animation.Animator;
 import android.animation.AnimatorInflater;
 import android.animation.AnimatorListenerAdapter;
-import android.animation.AnimatorSet;
-import android.animation.PropertyValuesHolder;
-import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
 import android.os.Parcelable;
@@ -49,14 +45,17 @@ import android.view.animation.Interpolator;
 import android.view.animation.ScaleAnimation;
 import android.view.animation.Transformation;
 
-import androidx.annotation.CallSuper;
+import androidx.activity.OnBackPressedCallback;
+import androidx.activity.OnBackPressedDispatcher;
+import androidx.activity.OnBackPressedDispatcherOwner;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.collection.ArraySet;
 import androidx.core.util.DebugUtils;
 import androidx.core.util.LogWriter;
 import androidx.core.view.OneShotPreDrawListener;
-import androidx.core.view.ViewCompat;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelStore;
 import androidx.lifecycle.ViewModelStoreOwner;
 
@@ -144,6 +143,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
         }
     };
 
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
     private static boolean modifiesAlpha(@Nullable Animation anim) {
         if (anim == null) {
             return false;
@@ -199,6 +199,8 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
                 && ViewCompat.hasOverlappingRendering(v);
     }
 
+=======
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
     private void throwException(RuntimeException ex) {
         Log.e(TAG, ex.getMessage());
         Log.e(TAG, "Activity state:");
@@ -379,11 +381,29 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
     }
 
     void addRetainedFragment(@NonNull Fragment f) {
-        mNonConfig.addRetainedFragment(f);
+        if (isStateSaved()) {
+            if (FragmentManagerImpl.DEBUG) {
+                Log.v(TAG, "Ignoring addRetainedFragment as the state is already saved");
+            }
+            return;
+        }
+        boolean added = mNonConfig.addRetainedFragment(f);
+        if (added && FragmentManagerImpl.DEBUG) {
+            Log.v(TAG, "Updating retained Fragments: Added " + f);
+        }
     }
 
     void removeRetainedFragment(@NonNull Fragment f) {
-        mNonConfig.removeRetainedFragment(f);
+        if (isStateSaved()) {
+            if (FragmentManagerImpl.DEBUG) {
+                Log.v(TAG, "Ignoring removeRetainedFragment as the state is already saved");
+            }
+            return;
+        }
+        boolean removed = mNonConfig.removeRetainedFragment(f);
+        if (removed && FragmentManagerImpl.DEBUG) {
+            Log.v(TAG, "Updating retained Fragments: Removed " + f);
+        }
     }
 
     /**
@@ -679,6 +699,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
         }
     }
 
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
     /**
      * Sets the to be animated view on hardware layer during the animation and returns an
      * AnimationSet consisting of only the given animation that replaces it. The replacement is done
@@ -712,6 +733,8 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
         }
     }
 
+=======
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
     boolean isStateAtLeast(int state) {
         return mCurState >= state;
     }
@@ -737,6 +760,8 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
         if (f.mDeferStart && f.mState < Fragment.STARTED && newState > Fragment.ACTIVITY_CREATED) {
             newState = Fragment.ACTIVITY_CREATED;
         }
+        // Don't allow the Fragment to go above its max lifecycle state
+        newState = Math.min(newState, f.mMaxState.ordinal());
         if (f.mState <= newState) {
             // For fragments that are created from a layout, when restoring from
             // state we don't want to allow them to be created until they are
@@ -840,10 +865,12 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
                     }
                     // fall through
                 case Fragment.CREATED:
-                    // This is outside the if statement below on purpose; we want this to run
-                    // even if we do a moveToState from CREATED => *, CREATED => CREATED, and
-                    // * => CREATED as part of the case fallthrough above.
-                    ensureInflatedFragmentView(f);
+                    // We want to unconditionally run this anytime we do a moveToState that
+                    // moves the Fragment above INITIALIZING, including cases such as when
+                    // we move from CREATED => CREATED as part of the case fall through above.
+                    if (newState > Fragment.INITIALIZING) {
+                        ensureInflatedFragmentView(f);
+                    }
 
                     if (newState > Fragment.CREATED) {
                         if (DEBUG) Log.v(TAG, "moveto ACTIVITY_CREATED: " + f);
@@ -1098,7 +1125,10 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
                 public void onAnimationRepeat(Animation animation) {
                 }
             });
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
             animation = setHwLayerAnimationListenerIfAlpha(viewToAnimate, animation);
+=======
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
             fragment.mView.startAnimation(animation);
         } else {
             Animator animator = anim.animator;
@@ -1117,7 +1147,10 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
                 }
             });
             animator.setTarget(fragment.mView);
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
             setHwLayerAnimatorListenerIfAlpha(fragment.mView, animator);
+=======
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
             animator.start();
         }
     }
@@ -1181,14 +1214,22 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
                 } else {
                     fragment.mView.setVisibility(View.VISIBLE);
                 }
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
                 setHwLayerAnimatorListenerIfAlpha(fragment.mView, anim.animator);
+=======
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
                 anim.animator.start();
             } else {
                 if (anim != null) {
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
                     Animation animation = setHwLayerAnimationListenerIfAlpha(fragment.mView,
                             anim.animation);
                     fragment.mView.startAnimation(animation);
                     animation.start();
+=======
+                    fragment.mView.startAnimation(anim.animation);
+                    anim.animation.start();
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
                 }
                 final int visibility = fragment.mHidden && !fragment.isHideReplaced()
                         ? View.GONE
@@ -1214,6 +1255,13 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
      */
     void moveFragmentToExpectedState(Fragment f) {
         if (f == null) {
+            return;
+        }
+        if (!mActive.containsKey(f.mWho)) {
+            if (DEBUG) {
+                Log.v(TAG, "Ignoring moving " + f + " to state " + mCurState
+                        + "since it is not added to " + this);
+            }
             return;
         }
         int nextState = mCurState;
@@ -1250,6 +1298,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
                 // run animations:
                 AnimationOrAnimator anim = loadAnimation(f, f.getNextTransition(), true,
                         f.getNextTransitionStyle());
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
                 if (anim != null && anim.animation != null) {
                     Animation animation = setHwLayerAnimationListenerIfAlpha(f.mView,
                             anim.animation);
@@ -1258,6 +1307,15 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
                     anim.animator.setTarget(f.mView);
                     setHwLayerAnimatorListenerIfAlpha(f.mView, anim.animator);
                     anim.animator.start();
+=======
+                if (anim != null) {
+                    if (anim.animation != null) {
+                        f.mView.startAnimation(anim.animation);
+                    } else {
+                        anim.animator.setTarget(f.mView);
+                        anim.animator.start();
+                    }
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
                 }
             }
         }
@@ -2428,7 +2486,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
         // First re-attach any non-config instances we are retaining back
         // to their saved state, so we don't try to instantiate them again.
         for (Fragment f : mNonConfig.getRetainedFragments()) {
-            if (DEBUG) Log.v(TAG, "restoreAllState: re-attaching retained " + f);
+            if (DEBUG) Log.v(TAG, "restoreSaveState: re-attaching retained " + f);
             FragmentState fs = null;
             for (FragmentState fragmentState : fms.mActive) {
                 if (fragmentState.mWho.equals(f.mWho)) {
@@ -2437,8 +2495,17 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
                 }
             }
             if (fs == null) {
-                throwException(new IllegalStateException("Could not find active fragment "
-                        + "with unique id " + f.mWho));
+                if (DEBUG) {
+                    Log.v(TAG, "Discarding retained Fragment " + f
+                            + " that was not found in the set of active Fragments " + fms.mActive);
+                }
+                // We need to ensure that onDestroy and any other clean up is done
+                // so move the Fragment up to CREATED, then mark it as being removed, then
+                // destroy it.
+                moveToState(f, Fragment.CREATED, 0, 0, false);
+                f.mRemoving = true;
+                moveToState(f, Fragment.INITIALIZING, 0, 0, false);
+                continue;
             }
             fs.mInstance = f;
             f.mSavedViewState = null;
@@ -2463,7 +2530,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
                 Fragment f = fs.instantiate(mHost.getContext().getClassLoader(),
                         getFragmentFactory());
                 f.mFragmentManager = this;
-                if (DEBUG) Log.v(TAG, "restoreAllState: active (" + f.mWho + "): " + f);
+                if (DEBUG) Log.v(TAG, "restoreSaveState: active (" + f.mWho + "): " + f);
                 mActive.put(f.mWho, f);
                 // Now that the fragment is instantiated (or came from being
                 // retained above), clear mInstance in case we end up re-restoring
@@ -2482,9 +2549,9 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
                             "No instantiated fragment for (" + who + ")"));
                 }
                 f.mAdded = true;
-                if (DEBUG) Log.v(TAG, "restoreAllState: added (" + who + "): " + f);
+                if (DEBUG) Log.v(TAG, "restoreSaveState: added (" + who + "): " + f);
                 if (mAdded.contains(f)) {
-                    throw new IllegalStateException("Already added!");
+                    throw new IllegalStateException("Already added " + f);
                 }
                 synchronized (mAdded) {
                     mAdded.add(f);
@@ -2533,11 +2600,57 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
     }
 
     public void attachController(@NonNull FragmentHostCallback host,
-                                 @NonNull FragmentContainer container, @Nullable Fragment parent) {
+            @NonNull FragmentContainer container, @Nullable final Fragment parent) {
         if (mHost != null) throw new IllegalStateException("Already attached");
         mHost = host;
         mContainer = container;
         mParent = parent;
+        // Set up the OnBackPressedCallback
+        if (host instanceof OnBackPressedDispatcherOwner) {
+            OnBackPressedDispatcherOwner dispatcherOwner = ((OnBackPressedDispatcherOwner) host);
+            OnBackPressedDispatcher dispatcher = dispatcherOwner.getOnBackPressedDispatcher();
+            LifecycleOwner owner = parent != null ? parent : dispatcherOwner;
+            dispatcher.addCallback(owner, new OnBackPressedCallback(true) {
+                @Override
+                public boolean isEnabled() {
+                    // First, execute any pending actions to make sure we're in an
+                    // up to date view of the world
+                    execPendingActions();
+                    // This FragmentManager needs to have a back stack for this to be enabled
+                    // and the parent fragment, if it exists, needs to be the primary navigation
+                    // fragment.
+                    return getBackStackEntryCount() > 0 && isPrimaryNavigation(parent);
+                }
+
+                /**
+                 * Recursively check up the FragmentManager hierarchy of primary
+                 * navigation Fragments to ensure that all of the parent Fragments are the
+                 * primary navigation Fragment for their associated FragmentManager
+                 */
+                private boolean isPrimaryNavigation(@Nullable Fragment parent) {
+                    // If the parent is null, then we're at the root host
+                    // and we're always the primary navigation
+                    if (parent == null) {
+                        return true;
+                    }
+                    FragmentManagerImpl parentFragmentManager = parent.mFragmentManager;
+                    Fragment primaryNavigationFragment = parentFragmentManager
+                            .getPrimaryNavigationFragment();
+                    // The parent Fragment needs to be the primary navigation Fragment
+                    // and, if it has a parent itself, that parent also needs to be
+                    // the primary navigation fragment, recursively up the stack
+                    return parent == primaryNavigationFragment
+                            && isPrimaryNavigation(parentFragmentManager.mParent);
+                }
+
+                @Override
+                public void handleOnBackPressed() {
+                    popBackStackImmediate();
+                }
+            });
+        }
+
+        // Get the FragmentManagerViewModel
         if (parent != null) {
             mNonConfig = parent.mFragmentManager.getChildNonConfig(parent);
         } else if (host instanceof ViewModelStoreOwner) {
@@ -2757,6 +2870,15 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
     @Nullable
     public Fragment getPrimaryNavigationFragment() {
         return mPrimaryNav;
+    }
+
+    public void setMaxLifecycle(Fragment f, Lifecycle.State state) {
+        if ((mActive.get(f.mWho) != f
+                || (f.mHost != null && f.getFragmentManager() != this))) {
+            throw new IllegalArgumentException("Fragment " + f
+                    + " is not an active fragment of FragmentManager " + this);
+        }
+        f.mMaxState = state;
     }
 
     @Override
@@ -3326,6 +3448,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
     }
 
     /**
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
      * Reset the layer type to LAYER_TYPE_NONE at the end of an animation.
      */
     private static class AnimationOnHwLayerIfNeededListener implements Animation.AnimationListener {
@@ -3392,6 +3515,8 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
     }
 
     /**
+=======
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
      * We must call endViewTransition() before the animation ends or else the parent doesn't
      * get nulled out. We use both startViewTransition() and startAnimation() to solve a problem
      * with Views remaining in the hierarchy as disappearing children after the view has been

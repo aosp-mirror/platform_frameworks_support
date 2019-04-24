@@ -137,6 +137,7 @@ final class ScrollEventAdapter extends RecyclerView.OnScrollListener {
         }
 
         // Drag is finished (dragging || settling -> idle)
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
         if (mAdapterState == STATE_IN_PROGRESS_MANUAL_DRAG
                 && newState == RecyclerView.SCROLL_STATE_IDLE) {
             if (mScrollState == SCROLL_STATE_DRAGGING && mScrollValues.mOffsetPx == 0) {
@@ -149,6 +150,30 @@ final class ScrollEventAdapter extends RecyclerView.OnScrollListener {
                     // Don't dispatch settling event
                     mDispatchSelected = true;
                     mScrollHappened = false;
+=======
+        if (isInAnyDraggingState() && newState == RecyclerView.SCROLL_STATE_IDLE) {
+            boolean dispatchIdle = false;
+            updateScrollEventValues();
+            if (!mScrollHappened) {
+                // Pages didn't move during drag, so either we're at the start or end of the list,
+                // or there are no pages at all.
+                // In the first case, ViewPager's contract requires at least one scroll event.
+                // In the second case, don't send that scroll event
+                if (mScrollValues.mPosition != RecyclerView.NO_POSITION) {
+                    dispatchScrolled(mScrollValues.mPosition, 0f, 0);
+                }
+                dispatchIdle = true;
+            } else if (mScrollValues.mOffsetPx == 0) {
+                // Normally we dispatch the selected page and go to idle in onScrolled when
+                // mOffsetPx == 0, but in this case the drag was still ongoing when onScrolled was
+                // called, so that didn't happen. And since mOffsetPx == 0, there will be no further
+                // scroll events, so fire the onPageSelected event and go to idle now.
+                // Note that if we _did_ go to idle in that last onScrolled event, this code will
+                // not be executed because mAdapterState has been reset to STATE_IDLE.
+                dispatchIdle = true;
+                if (mDragStartPosition != mScrollValues.mPosition) {
+                    dispatchSelected(mScrollValues.mPosition);
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
                 }
             } else if (mScrollState == SCROLL_STATE_SETTLING && !mScrollHappened) {
                 throw new IllegalStateException("RecyclerView sent SCROLL_STATE_SETTLING event "
@@ -193,6 +218,10 @@ final class ScrollEventAdapter extends RecyclerView.OnScrollListener {
             if (mDragStartPosition != mTarget) {
                 dispatchSelected(mTarget);
             }
+        } else if (mAdapterState == STATE_IDLE) {
+            // onScrolled while IDLE means RV has just been populated after an adapter has been set.
+            // Contract requires us to fire onPageSelected as well.
+            dispatchSelected(mScrollValues.mPosition);
         }
 
         dispatchScrolled(values.mPosition, values.mOffset, values.mOffsetPx);
@@ -248,6 +277,17 @@ final class ScrollEventAdapter extends RecyclerView.OnScrollListener {
 
         values.mOffsetPx = -start;
         if (values.mOffsetPx < 0) {
+            // We're in an error state. Figure out if this might have been caused
+            // by animateLayoutChanges and throw a descriptive exception if so
+            if (new AnimateLayoutChangeDetector(mLayoutManager).mayHaveInterferingAnimations()) {
+                throw new IllegalStateException("Page(s) contain a ViewGroup with a "
+                        + "LayoutTransition (or animateLayoutChanges=\"true\"), which interferes "
+                        + "with the scrolling animation. Make sure to call getLayoutTransition()"
+                        + ".setAnimateParentHierarchy(false) on all ViewGroups with a "
+                        + "LayoutTransition before an animation is started.");
+            }
+
+            // Throw a generic exception otherwise
             throw new IllegalStateException(String.format(Locale.US, "Page can only be offset by a "
                     + "positive amount, not by %d", values.mOffsetPx));
         }
@@ -271,12 +311,42 @@ final class ScrollEventAdapter extends RecyclerView.OnScrollListener {
     }
 
     /**
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
      * Let the adapter know that mCurrentItem was restored in onRestoreInstanceState
      */
     void notifyRestoreCurrentItem(int currentItem) {
         // Don't send page selected event for page 0 for consistency with ViewPager
         if (currentItem != 0) {
             dispatchSelected(currentItem);
+=======
+     * Let the adapter know that a fake drag has started.
+     */
+    void notifyBeginFakeDrag() {
+        mAdapterState = STATE_IN_PROGRESS_FAKE_DRAG;
+        startDrag(true);
+    }
+
+    /**
+     * Let the adapter know that a fake drag has ended.
+     */
+    void notifyEndFakeDrag() {
+        if (isDragging() && !mFakeDragging) {
+            // Real drag has already taken over, no need to post process the fake drag
+            return;
+        }
+        mFakeDragging = false;
+        updateScrollEventValues();
+        if (mScrollValues.mOffsetPx == 0) {
+            // We're snapped, so dispatch an IDLE event
+            if (mScrollValues.mPosition != mDragStartPosition) {
+                dispatchSelected(mScrollValues.mPosition);
+            }
+            dispatchStateChanged(SCROLL_STATE_IDLE);
+            resetState();
+        } else {
+            // We're not snapped, so dispatch a SETTLING event
+            dispatchStateChanged(SCROLL_STATE_SETTLING);
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
         }
     }
 

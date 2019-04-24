@@ -54,9 +54,19 @@ open class VerifyDependencyVersionsTask : DefaultTask() {
         // If the version is unspecified then treat as an alpha version. If the depending project's
         // version is unspecified then it won't matter, and if the dependency's version is
         // unspecified then any non alpha project won't be able to depend on it to ensure safety.
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
         val projectVersionExtra = if (project.version == "unspecified") "-alpha01"
+=======
+        val projectVersionExtra = if (project.version ==
+            AndroidXExtension.DEFAULT_UNSPECIFIED_VERSION) "-alpha01"
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
             else Version(project.version.toString()).extra ?: ""
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
         val dependencyVersionExtra = if (dependency.version!! == "unspecified") "-alpha01" else
+=======
+        val dependencyVersionExtra = if (dependency.version!! ==
+            AndroidXExtension.DEFAULT_UNSPECIFIED_VERSION) "-alpha01" else
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
             Version(dependency.version!!).extra ?: ""
         val projectReleasePhase = releasePhase(projectVersionExtra)
         if (projectReleasePhase < 0) {

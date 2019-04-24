@@ -2,7 +2,8 @@ import androidx.build.LibraryGroups
 import androidx.build.LibraryVersions
 
 plugins {
-    id("SupportJavaLibraryPlugin")
+    id("AndroidXPlugin")
+    id("java")
 }
 
 jar {
@@ -50,7 +51,7 @@ artifacts {
     archives annotationsZip
 }
 
-supportLibrary {
+androidx {
     name = "Android Support Library Annotations"
     publish = true
     mavenVersion = LibraryVersions.ANNOTATION

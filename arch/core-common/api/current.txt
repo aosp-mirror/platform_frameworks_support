@@ -1,6 +1,15 @@
 // Signature format: 3.0
 package androidx.arch.core.util {
 
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
+=======
+  @Deprecated public interface Cancellable {
+    method @Deprecated public void cancel();
+    method @Deprecated public boolean isCancelled();
+    field @Deprecated public static final androidx.arch.core.util.Cancellable CANCELLED;
+  }
+
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
   public interface Function<I, O> {
     method public O! apply(I!);
   }

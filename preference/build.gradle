@@ -19,7 +19,13 @@ import androidx.build.LibraryGroups
 import androidx.build.LibraryVersions
 
 plugins {
+<<<<<<< HEAD   (ae0664 Merge "Merge empty history for sparse-5426435-L2400000029299)
     id("SupportAndroidLibraryPlugin")
+=======
+    id("AndroidXPlugin")
+    id("com.android.library")
+    id("kotlin-android")
+>>>>>>> BRANCH (9dc980 Merge "Merge cherrypicks of [950856] into sparse-5498091-L95)
 }
 
 dependencies {
@@ -30,10 +36,10 @@ dependencies {
     api("androidx.fragment:fragment:1.1.0-alpha04")
     api("androidx.recyclerview:recyclerview:1.0.0")
 
-    androidTestImplementation(TEST_EXT_JUNIT)
-    androidTestImplementation(TEST_CORE)
-    androidTestImplementation(TEST_RUNNER)
-    androidTestImplementation(TEST_RULES)
+    androidTestImplementation(ANDROIDX_TEST_EXT_JUNIT)
+    androidTestImplementation(ANDROIDX_TEST_CORE)
+    androidTestImplementation(ANDROIDX_TEST_RUNNER)
+    androidTestImplementation(ANDROIDX_TEST_RULES)
     androidTestImplementation(ESPRESSO_CORE, libs.exclude_for_espresso)
     androidTestImplementation(MOCKITO_CORE, libs.exclude_bytebuddy) // DexMaker has it"s own MockMaker
     androidTestImplementation(DEXMAKER_MOCKITO, libs.exclude_bytebuddy) // DexMaker has it"s own MockMaker
@@ -52,7 +58,7 @@ android {
     }
 }
 
-supportLibrary {
+androidx {
     name = "AndroidX Preference"
     publish = true
     mavenVersion = LibraryVersions.PREFERENCE
