@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "afc34a75_23828282",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/ImageCaptureTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 537,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-04-24T18:43:01Z",
+      "side": 1,
+      "message": "What happens when this test runs on a device that doesn\u0027t support RAW10?\n\nWe run these tests on emulators and real devices during presubmit, if this test will fail on those devices then presubmit will fail. Unfortunately, I\u0027m not aware of any way to filter out this test based on device capabilities.\n\nIdeally we would be able to mock out a device that supports RAW10 to create a hermetic test. We have the beginnings of a fake camera stack in aosp/949882, but unfortunately it does not yet support image capture.",
+      "range": {
+        "startLine": 511,
+        "startChar": 0,
+        "endLine": 537,
+        "endChar": 5
+      },
+      "revId": "6b4d56145521bf4cf4eac9215e7765d256eeaa55",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d751fb97_e38a505d",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-04-24T18:43:01Z",
+      "side": 1,
+      "message": "Would like to get nilknarfuw@ to look at this to ensure it\u0027s ok to do this with the capture processor code.",
+      "range": {
+        "startLine": 158,
+        "startChar": 0,
+        "endLine": 167,
+        "endChar": 9
+      },
+      "revId": "6b4d56145521bf4cf4eac9215e7765d256eeaa55",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
