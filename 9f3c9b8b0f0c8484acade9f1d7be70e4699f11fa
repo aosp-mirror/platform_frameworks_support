@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8501fa69_34bc1efa",
+        "filename": "benchmark/src/main/java/androidx/benchmark/AndroidBenchmarkRunner.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-04-24T15:19:41Z",
+      "side": 1,
+      "message": "Could we call isSustainedPerformanceInUse shouldUseSustainedPerformanceMode() instead? The naming is kind of misleading here I think?",
+      "revId": "9f3c9b8b0f0c8484acade9f1d7be70e4699f11fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "936cba77_924f9f5c",
+        "filename": "benchmark/src/main/java/androidx/benchmark/AndroidBenchmarkRunner.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-04-24T15:19:41Z",
+      "side": 1,
+      "message": "I\u0027m kind of confused by this - how come the AndroidJUnitRunner doesn\u0027t need to do this synchronized check since it also has some init / setup? I think I understand that tests run in a parallelized environment, but it seems like onCreate is part of the instrumentation api / lifecycle so it wouldn\u0027t be something we would personally need to check against?",
+      "range": {
+        "startLine": 134,
+        "startChar": 8,
+        "endLine": 147,
+        "endChar": 9
+      },
+      "revId": "9f3c9b8b0f0c8484acade9f1d7be70e4699f11fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ef02039_d990007f",
+        "filename": "benchmark/src/main/java/androidx/benchmark/BenchmarkState.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-04-24T15:19:41Z",
+      "side": 1,
+      "message": "Where did this 3 come from? :D",
+      "revId": "9f3c9b8b0f0c8484acade9f1d7be70e4699f11fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4162e52_a04f0fb3",
+        "filename": "benchmark/src/main/java/androidx/benchmark/ThrottleDetector.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-04-24T15:19:41Z",
+      "side": 1,
+      "message": "More of a style thing, but I think this code could stay a bit more generalized if these checks were where tryInit was called instead, since they\u0027re mostly relevant to when we would want to use ThrottleDetector as opposed to the actual implementation of ThrottleDetector.\n\nKind of a small difference, but I think it\u0027s useful to be able to edit this class without needing to think about what context it\u0027s used in.\n\nThen you can also just call this method init() instead and maybe comment why it\u0027s idempotent.",
+      "revId": "9f3c9b8b0f0c8484acade9f1d7be70e4699f11fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
