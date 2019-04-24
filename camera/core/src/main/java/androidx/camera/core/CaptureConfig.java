@@ -135,15 +135,26 @@ public final class CaptureConfig {
     /**
      * Return the builder of a {@link CaptureRequest} which can be issued.
      *
+     * <p>It will first set baseParameters to capture request builder and then applies self
+     * parameters to capture request builder.
+     *
      * <p>Returns {@code null} if a valid {@link CaptureRequest} can not be constructed.
      */
     @Nullable
-    public CaptureRequest.Builder buildCaptureRequest(@Nullable CameraDevice device)
+    public CaptureRequest.Builder buildCaptureRequest(
+            @Nullable CameraDevice device,
+            @Nullable Map<Key<?>, CaptureRequestParameter<?>> baseParameters)
             throws CameraAccessException {
         if (device == null) {
             return null;
         }
         CaptureRequest.Builder builder = device.createCaptureRequest(mTemplateType);
+
+        if (baseParameters != null) {
+            for (CaptureRequestParameter<?> parameter : baseParameters.values()) {
+                parameter.apply(builder);
+            }
+        }
 
         for (CaptureRequestParameter<?> captureRequestParameter :
                 mCaptureRequestParameters.values()) {
