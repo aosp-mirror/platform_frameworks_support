@@ -47,6 +47,30 @@
       "revId": "8913ada1fc43df55715d3baf6106e1f034cdd3be",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "be08c8d3_f2a6d2b8",
+        "filename": "fragment/src/main/java/androidx/fragment/app/Fragment.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2398,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-04-24T18:25:29Z",
+      "side": 1,
+      "message": "Why not add it now?  Is this coming in a fast-follow CL?  This is going to be API Council feedback right away so it\u0027s worth adding sooner rather than later.",
+      "parentUuid": "c43c1c3c_a18add9a",
+      "range": {
+        "startLine": 2398,
+        "startChar": 40,
+        "endLine": 2398,
+        "endChar": 56
+      },
+      "revId": "8913ada1fc43df55715d3baf6106e1f034cdd3be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
