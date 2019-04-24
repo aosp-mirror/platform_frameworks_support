@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "824c3ab9_968fe35b",
+        "filename": "fragment/api/current.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-04-24T18:11:12Z",
+      "side": 1,
+      "message": "Also add a version with Duration with the appropriate minSdk (26?).",
+      "range": {
+        "startLine": 113,
+        "startChar": 4,
+        "endLine": 113,
+        "endChar": 84
+      },
+      "revId": "5c60644d32ac970e41605324cfc80fa90172c4e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
