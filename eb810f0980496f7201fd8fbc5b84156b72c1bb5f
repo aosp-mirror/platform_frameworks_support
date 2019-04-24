@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5ca9be28_1890f15d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-04-24T23:52:11Z",
+      "side": 1,
+      "message": "Whoops, I should clarified.  When you move media and core to beta, running checkReleaseReady will fail because media is in beta, but it is using an alpha of core.  (verifyDependencyVersions is the underlying task that confirms this)\n\nThis change makes media use the beta version of core",
+      "parentUuid": "7ec42e61_72f32f5a",
+      "revId": "eb810f0980496f7201fd8fbc5b84156b72c1bb5f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4e0334f1_81ffd1f2",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "5d3b37d5_7d2fa198",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-04-24T23:52:11Z",
+      "side": 1,
+      "message": "No, but it will fail without this if we update media to beta",
+      "parentUuid": "4e0334f1_81ffd1f2",
+      "revId": "eb810f0980496f7201fd8fbc5b84156b72c1bb5f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5326e036_81429644",
         "filename": "media/build.gradle",
         "patchSetId": 3
@@ -47,6 +83,24 @@
       "writtenOn": "2019-04-24T23:11:43Z",
       "side": 1,
       "message": "My understanding is we specify accurate \"versions\" to depending libraries when we are releasing our libraries. For instance, we specified \"androidx.collection:collection:1.0.0\".\n\nIn that sense, it is unclear to me why :core is loosing its version here. Why don\u0027t we add :core:1.1.0-beta01 or something?",
+      "revId": "eb810f0980496f7201fd8fbc5b84156b72c1bb5f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "713ed14e_8d027ebd",
+        "filename": "media/build.gradle",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-04-24T23:52:11Z",
+      "side": 1,
+      "message": "This is related to gradle\u0027s weird syntax for dependency resolution.\n\napi(project(\":core\")) uses the tip-of-tree project as the dependency, which is the version of core at tip-of-tree.\n\napi(\"androidx.core:core:1.1.0-alpha05\") uses the 1.1.0-alpha05 prebuilt of core checked into the prebuilt directory.  Because we haven\u0027t released core:1.1.0-beta01, api(\"androidx.core:core:1.1.0-beta01\") would fail because gradle would look for a beta01 prebuilt and find none.\n\nNormally, pinning a dependency is good practice, but this is one of the cases where we specifically need to use the tip-of-tree version because we haven\u0027t released it yet.\n\nThe website has some info on dependency management here: https://g3doc.corp.google.com/company/teams/androidx/policies.md#dependencies",
+      "parentUuid": "5326e036_81429644",
       "revId": "eb810f0980496f7201fd8fbc5b84156b72c1bb5f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
