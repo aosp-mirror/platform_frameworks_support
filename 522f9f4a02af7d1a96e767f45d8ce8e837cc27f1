@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4856fc78_88f8f438",
+        "filename": "media2/common/src/main/java/androidx/media2/common/MediaParcelUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-04-24T08:11:44Z",
+      "side": 1,
+      "message": "remove? Please see another comment that I left.",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 9
+      },
+      "revId": "522f9f4a02af7d1a96e767f45d8ce8e837cc27f1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9867cad9_6a92bec0",
+        "filename": "media2/session/version-compat-tests/current/service/src/androidTest/java/androidx/media2/test/service/MediaSessionProviderService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-04-24T08:11:44Z",
+      "side": 1,
+      "message": "setAudioAttributes takes a @NonNull parameter but fromParcelable may return null. I think it would be better to check nullity of the return value of getParcelable first like others (KEY_PLAYLIST, KEY_MEDIA_ITEM).",
+      "range": {
+        "startLine": 234,
+        "startChar": 0,
+        "endLine": 235,
+        "endChar": 78
+      },
+      "revId": "522f9f4a02af7d1a96e767f45d8ce8e837cc27f1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
