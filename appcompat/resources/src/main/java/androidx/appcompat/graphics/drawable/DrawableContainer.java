@@ -20,8 +20,6 @@ import static android.os.Build.VERSION_CODES.LOLLIPOP;
 
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
-import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.content.res.Resources.Theme;
@@ -100,9 +98,7 @@ class DrawableContainer extends Drawable implements Drawable.Callback {
                 | mDrawableContainerState.getChangingConfigurations();
     }
 
-    // Remove BanTargetApiAnnotation suppression once b/120623677 is addressed.
-    @SuppressLint({"WrongConstant", "BanTargetApiAnnotation"})
-    @TargetApi(Build.VERSION_CODES.M)
+    @RequiresApi(Build.VERSION_CODES.M)
     private boolean needsMirroring() {
         return isAutoMirrored() && getLayoutDirection() == LayoutDirection.RTL;
     }
