@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d3510403_93493bc7",
+        "filename": "camera/core/src/main/java/androidx/camera/core/DeferredImageReaderSurface.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-04-24T14:31:14Z",
+      "side": 1,
+      "message": "setOnSurfaceDetachedListener will immediately invoke the listener if it is currently detached. This means here in constructor the listener is called immediately because there is no way it is attached in constructor. \n\nThis is probably ok for now because mImageReader is null in constructor.  But you should be aware of this.",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 37
+      },
+      "revId": "e629c81fe45976a89ed30a5315dc1637cfe05896",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5c2e443a_b0af5da3",
+        "filename": "camera/core/src/main/java/androidx/camera/core/DeferredImageReaderSurface.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-04-24T14:31:14Z",
+      "side": 1,
+      "message": "What about the previous mImageReader instance ?  It should be closed when detached .",
+      "range": {
+        "startLine": 115,
+        "startChar": 0,
+        "endLine": 115,
+        "endChar": 71
+      },
+      "revId": "e629c81fe45976a89ed30a5315dc1637cfe05896",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f933397_0ac83015",
+        "filename": "camera/core/src/main/java/androidx/camera/core/DeferredImageReaderSurface.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-04-24T14:31:14Z",
+      "side": 1,
+      "message": "You cannot assume when notifySurfaceDetached happens, the surface is totally detached. I am sorry the name is confusing,  but the surface could be attached to more than 1 time. which means there could be not just 1 notifySurfaceDetached call.  The correct way to check detach event is to use setOnSurfaceDetachListener",
+      "range": {
+        "startLine": 127,
+        "startChar": 0,
+        "endLine": 127,
+        "endChar": 51
+      },
+      "revId": "e629c81fe45976a89ed30a5315dc1637cfe05896",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7929a80_62b35e9b",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-04-24T14:31:14Z",
+      "side": 1,
+      "message": "I am afraid that there is some misunderstanding.  \nsetOnSurfaceDetachListener is used to call the listener when the DeferrableSurface is totally detached, but it doesn\u0027t mean DeferrableSurface is no longer used and can be released.    \n\nUseCase.clear() is a signal that tells the DeferrableSurface is ok to be released now and we should use setOnSurfaceDetachListener to release it when detached.",
+      "range": {
+        "startLine": 511,
+        "startChar": 11,
+        "endLine": 511,
+        "endChar": 23
+      },
+      "revId": "e629c81fe45976a89ed30a5315dc1637cfe05896",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "09e81aa0_17e633dd",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 526,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-04-24T14:31:14Z",
+      "side": 1,
+      "message": "here I think since it is called Creator , the responsibility should be only creating new one. \nRegarding the old instance clean up , it should be DeferrableImageReaderSurface\u0027s responsibility to release it (when detached)",
+      "range": {
+        "startLine": 526,
+        "startChar": 0,
+        "endLine": 526,
+        "endChar": 76
+      },
+      "revId": "e629c81fe45976a89ed30a5315dc1637cfe05896",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
