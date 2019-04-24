@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "f6ff18df_879384d1",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CaptureProcessor.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-04-24T12:19:29Z",
+      "side": 1,
+      "message": "Update the CaptureProcessor to move CaptureStage and getMaxcaptureStage to different interface.",
+      "parentUuid": "dcdcac35_07fcc95e",
+      "revId": "08c9608864e603e810077a97514859565629a33b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9110dba2_e2162a0b",
         "filename": "camera/core/src/main/java/androidx/camera/core/CaptureProcessor.java",
         "patchSetId": 8
@@ -30,6 +48,24 @@
       "writtenOn": "2019-04-22T21:14:38Z",
       "side": 1,
       "message": "In CameraX we can use CaptureBundle instead of List\u003cCaptureStage\u003e. This way we pass around CaptureBundles instead of List\u003cCaptureStage\u003es. We only use List\u003cCaptureStage\u003e in the impl.",
+      "revId": "08c9608864e603e810077a97514859565629a33b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2794f0c_9bf0b952",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CaptureProcessor.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-04-24T12:19:29Z",
+      "side": 1,
+      "message": "I have change the List\u003cCaptureStage\u003e to CaptureBundles in CaptureRequestInfo. And I\u0027m still thinking about how to modify CaptureRequestInfo.",
+      "parentUuid": "9110dba2_e2162a0b",
       "revId": "08c9608864e603e810077a97514859565629a33b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
@@ -70,6 +106,24 @@
     },
     {
       "key": {
+        "uuid": "e8c10421_98719941",
+        "filename": "camera/core/src/main/java/androidx/camera/core/SessionEventListener.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-04-24T12:19:29Z",
+      "side": 1,
+      "message": "This interface is using to connect extension and core.\nExtension would implementation this interface, and core can callback to Extension via this interface. That is, the interface SessionEventListener would need include all callback we need to communicate with Extension.\n\nAnd for camera2 callback to core, I would like use the interface in aosp/946401.",
+      "parentUuid": "06200f10_c9d36aed",
+      "revId": "08c9608864e603e810077a97514859565629a33b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4650958b_4202f03e",
         "filename": "camera/extensions-stub/src/main/java/androidx/camera/extensions/impl/PreviewExtenderImpl.java",
         "patchSetId": 8
@@ -101,6 +155,24 @@
       "revId": "08c9608864e603e810077a97514859565629a33b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e51d8644_43b8ea55",
+        "filename": "camera/extensions-stub/src/main/java/androidx/camera/extensions/impl/PreviewExtenderImpl.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-04-24T12:19:29Z",
+      "side": 1,
+      "message": "okay, separate to different callback.",
+      "parentUuid": "80efb347_cc6732aa",
+      "revId": "08c9608864e603e810077a97514859565629a33b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
