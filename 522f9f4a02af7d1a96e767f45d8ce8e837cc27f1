@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c0106ed1_30057eca",
+        "filename": "media2/common/src/main/java/androidx/media2/common/MediaParcelUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-04-24T22:45:09Z",
+      "side": 1,
+      "message": "When p is null, it will throw exception.",
+      "parentUuid": "4856fc78_88f8f438",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 9
+      },
+      "revId": "522f9f4a02af7d1a96e767f45d8ce8e837cc27f1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9867cad9_6a92bec0",
         "filename": "media2/session/version-compat-tests/current/service/src/androidTest/java/androidx/media2/test/service/MediaSessionProviderService.java",
         "patchSetId": 2

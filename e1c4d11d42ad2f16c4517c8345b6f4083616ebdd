@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e6a83bd1_00ecbbe4",
+        "filename": "media2/session/version-compat-tests/current/service/src/androidTest/java/androidx/media2/test/service/MediaSessionProviderService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-04-24T22:45:09Z",
+      "side": 0,
+      "message": "This was taking \"null\" without exceptions.\nFiled b/131254583",
+      "range": {
+        "startLine": 234,
+        "startChar": 19,
+        "endLine": 234,
+        "endChar": 37
+      },
+      "revId": "e1c4d11d42ad2f16c4517c8345b6f4083616ebdd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
