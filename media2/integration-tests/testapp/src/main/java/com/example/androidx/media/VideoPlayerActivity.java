@@ -236,15 +236,15 @@ public class VideoPlayerActivity extends FragmentActivity {
     static class MyVideoView extends VideoView {
         private boolean mTransformable;
 
-        public MyVideoView(Context context) {
+        MyVideoView(Context context) {
             super(context);
         }
 
-        public MyVideoView(Context context, AttributeSet attrs) {
+        MyVideoView(Context context, AttributeSet attrs) {
             super(context, attrs);
         }
 
-        public MyVideoView(Context context, AttributeSet attrs, int defStyle) {
+        MyVideoView(Context context, AttributeSet attrs, int defStyle) {
             super(context, attrs, defStyle);
         }
 
