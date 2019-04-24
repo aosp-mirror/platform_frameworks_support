@@ -16,8 +16,6 @@
 
 package androidx.camera.camera2;
 
-import static com.google.common.truth.Truth.assertThat;
-
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
@@ -374,41 +372,6 @@ public final class SupportedSurfaceCombinationTest {
                 supportedSurfaceCombination.getSuggestedResolutions(null, useCases);
 
         assertTrue(suggestedResolutionMap.size() != 3);
-    }
-
-    @Test
-    public void getSuggestedResolutionsForMixedUseCaseInLimitedDevice() {
-        SupportedSurfaceCombination supportedSurfaceCombination =
-                new SupportedSurfaceCombination(
-                        mContext, LIMITED_CAMERA_ID, mMockCamcorderProfileHelper);
-
-        Rational aspectRatio = new Rational(16, 9);
-        PreviewConfig.Builder previewConfigBuilder = new PreviewConfig.Builder();
-        VideoCaptureConfig.Builder videoCaptureConfigBuilder = new VideoCaptureConfig.Builder();
-        ImageCaptureConfig.Builder imageCaptureConfigBuilder = new ImageCaptureConfig.Builder();
-
-        previewConfigBuilder.setTargetAspectRatio(aspectRatio);
-        videoCaptureConfigBuilder.setTargetAspectRatio(aspectRatio);
-        imageCaptureConfigBuilder.setTargetAspectRatio(aspectRatio);
-
-        imageCaptureConfigBuilder.setLensFacing(LensFacing.BACK);
-        ImageCapture imageCapture = new ImageCapture(imageCaptureConfigBuilder.build());
-        videoCaptureConfigBuilder.setLensFacing(LensFacing.BACK);
-        VideoCapture videoCapture = new VideoCapture(videoCaptureConfigBuilder.build());
-        previewConfigBuilder.setLensFacing(LensFacing.BACK);
-        Preview preview = new Preview(previewConfigBuilder.build());
-
-        List<UseCase> useCases = new ArrayList<>();
-        useCases.add(imageCapture);
-        useCases.add(videoCapture);
-        useCases.add(preview);
-        Map<UseCase, Size> suggestedResolutionMap =
-                supportedSurfaceCombination.getSuggestedResolutions(null, useCases);
-
-        // (PRIV, PREVIEW) + (PRIV, RECORD) + (JPEG, RECORD)
-        assertThat(suggestedResolutionMap).containsEntry(imageCapture, mRecordSize);
-        assertThat(suggestedResolutionMap).containsEntry(videoCapture, mMaximumVideoSize);
-        assertThat(suggestedResolutionMap).containsEntry(preview, mPreviewSize);
     }
 
     @Test
