@@ -1,0 +1,95 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e9960aa2_31b25eee",
+        "filename": "paging/rxjava2/src/main/java/androidx/paging/RxItemKeyedDataSource.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-04-24T21:04:40Z",
+      "side": 1,
+      "message": "you\u0027re still creating this wrapper object for each DataSource, create the scheduledExecutor over in RxPagedListBuilder, so you do it only once\n\ngoal here is still that if the app passes in a single scheduler to RxPagedListBuilder, we don\u0027t allocate wrappers each time in order to dispatch to it.",
+      "revId": "79b6308d2961bf73a279f2fd605da03e5f6a99aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ff6470a_cb29390e",
+        "filename": "paging/rxjava2/src/main/java/androidx/paging/RxPagedListBuilder.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-04-24T21:04:40Z",
+      "side": 1,
+      "message": "What I expected here was something more like:\n\n\n\nmNotifyExecutor \u003d SchedulerExecutor(scheduler)\n\nSchedulerExecutor then implements both scheduler (passing methods straight through), and executor (calling worker.scheduleDirect).\n\nThe instanceof check would then only be in the lazy init of getScheduler() to bypass creating a scheduler wrapper. It wouldn\u0027t generally need to allocate a wrapper for each DataSource if the app\u0027s using RxPagedListBuilder.",
+      "revId": "79b6308d2961bf73a279f2fd605da03e5f6a99aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31477d1c_2f51db63",
+        "filename": "paging/rxjava2/src/main/java/androidx/paging/RxPagedListBuilder.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-04-24T21:04:40Z",
+      "side": 1,
+      "message": "you can dedupe this with the scheduleDirect variant below (assuming this moves into ScheduledExecutor\u0027s constructor)\n\nSince it\u0027s invalid for a multi-threaded scheduler to be used with setNotifyScheduler, I don\u0027t think it\u0027s worth having this separate impl that uses worker.schedule()",
+      "revId": "79b6308d2961bf73a279f2fd605da03e5f6a99aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "069590df_d10715c8",
+        "filename": "paging/rxjava2/src/main/java/androidx/paging/ScheduledExecutor.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-04-24T21:04:40Z",
+      "side": 1,
+      "message": "I still want to avoid the double wrappers that currently exist if you go through RxPagedListBuilder. It results in something like:\n\n    Schedulers.from(new Executor() { runnable -\u003e schedulerParam.scheduleDirect(runnable) } )\n\nBy initializing this with a scheduler in RxPagedListBuilder.setFooScheduler, we can avoid that",
+      "revId": "79b6308d2961bf73a279f2fd605da03e5f6a99aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c00d23a3_65ea662a",
+        "filename": "paging/rxjava2/src/test/java/androidx/paging/RxItemKeyedDataSourceTest.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-04-24T21:04:40Z",
+      "side": 1,
+      "message": "listOf(0) is 5 chars shorter :D",
+      "range": {
+        "startLine": 160,
+        "startChar": 33,
+        "endLine": 160,
+        "endChar": 47
+      },
+      "revId": "79b6308d2961bf73a279f2fd605da03e5f6a99aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

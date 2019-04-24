@@ -339,6 +339,24 @@
     },
     {
       "key": {
+        "uuid": "662b95c2_35aa4eb0",
+        "filename": "paging/rxjava2/src/main/java/androidx/paging/RxItemKeyedDataSource.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-04-24T21:04:40Z",
+      "side": 1,
+      "message": "Sounds good, but the check should be in the implementation of getScheduledExecutor, to avoid the wrapper in the common case of using RxPagedListBuilder.",
+      "parentUuid": "f7c582f5_6384fa02",
+      "revId": "2e30a90486f27ac48f4cc2aa301c24c7314f0d47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cc9ae791_a88094ef",
         "filename": "paging/rxjava2/src/main/java/androidx/paging/RxItemKeyedDataSource.java",
         "patchSetId": 14
