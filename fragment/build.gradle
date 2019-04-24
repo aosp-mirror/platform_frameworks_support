@@ -14,13 +14,13 @@ android {
 }
 
 dependencies {
-    api(project(":annotation"))
-    api(project(":core")) {
+    api("androidx.annotation:annotation:1.1.0-beta01")
+    api("androidx.core:core:1.1.0-alpha05") {
         exclude group: 'androidx.annotation'
     }
-    api(project(":collection"))
+    api("androidx.collection:collection:1.1.0-beta01")
     api("androidx.viewpager:viewpager:1.0.0")
-    api(project(":annotation"))
+    api("androidx.annotation:annotation:1.1.0-beta01")
     api("androidx.loader:loader:1.0.0")
     api(project(":activity"))
     api(ARCH_LIFECYCLE_VIEWMODEL, libs.exclude_annotations_transitive)

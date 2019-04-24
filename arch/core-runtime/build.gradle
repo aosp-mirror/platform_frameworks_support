@@ -24,7 +24,7 @@ plugins {
 }
 
 dependencies {
-    api(project(":annotation"))
+    api("androidx.annotation:annotation:1.1.0-beta01")
     api(project(":arch:core-common"))
 }
 
@@ -35,5 +35,10 @@ supportLibrary {
     mavenGroup = LibraryGroups.ARCH_CORE
     inceptionYear = "2017"
     description = "Android Arch-Runtime"
+<<<<<<< HEAD   (12ddc3 Merge "Merge empty history for sparse-5498091-L9520000030219)
     url = SupportLibraryExtension.ARCHITECTURE_URL
 }
+=======
+    url = AndroidXExtension.ARCHITECTURE_URL
+}
+>>>>>>> BRANCH (297ddd Merge "Merge cherrypicks of [950956] into sparse-5498091-L64)

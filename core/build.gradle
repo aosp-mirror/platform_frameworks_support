@@ -13,6 +13,9 @@ dependencies {
     api(project(":versionedparcelable"))
     api(GUAVA_LISTENABLE_FUTURE)
     implementation("androidx.concurrent:concurrent-futures:1.0.0-alpha02")
+    api project(':activity'), {
+        exclude group: 'androidx.core', module: 'core'
+    }
 
     androidTestImplementation(TEST_EXT_JUNIT)
     androidTestImplementation(TEST_CORE)
@@ -21,6 +24,7 @@ dependencies {
     androidTestImplementation(ESPRESSO_CORE, libs.exclude_for_espresso)
     androidTestImplementation(MOCKITO_CORE, libs.exclude_bytebuddy) // DexMaker has it"s own MockMaker
     androidTestImplementation(DEXMAKER_MOCKITO, libs.exclude_bytebuddy) // DexMaker has it"s own MockMaker
+
     androidTestImplementation project(':internal-testutils'), {
         exclude group: 'androidx.core', module: 'core'
     }

@@ -34,7 +34,7 @@ android {
         }
 
         debug {
-            minifyEnabled true
+            minifyEnabled false
         }
     }
 }
