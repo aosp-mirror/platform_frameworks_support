@@ -155,6 +155,34 @@ public final class ImageCaptureConfig
         return retrieveOption(OPTION_CAPTURE_PROCESSOR);
     }
 
+    /**
+     * Returns the customized camera id.
+     *
+     * @param valueIfMissing The value to return if this configuration option has not been set.
+     * @return The stored value or <code>valueIfMissing</code> if the value does not exist in this
+     * configuration.
+     * @hide
+     */
+    @RestrictTo(Scope.LIBRARY_GROUP)
+    @Override
+    @Nullable
+    public String getCustomizedCameraId(@Nullable String valueIfMissing) {
+        return retrieveOption(OPTION_CUSTOMIZED_CAMERA_ID, valueIfMissing);
+    }
+
+    /**
+     * Returns the customized camera id.
+     *
+     * @return The stored value, if it exists in this configuration.
+     * @throws IllegalArgumentException if the option does not exist in this configuration.
+     * @hide
+     */
+    @RestrictTo(Scope.LIBRARY_GROUP)
+    @Override
+    public String getCustomizedCameraId() {
+        return retrieveOption(OPTION_CUSTOMIZED_CAMERA_ID);
+    }
+
     // Start of the default implementation of Config
     // *********************************************************************************************
 
@@ -569,6 +597,19 @@ public final class ImageCaptureConfig
         @RestrictTo(Scope.LIBRARY_GROUP)
         public Builder setCaptureProcessor(CaptureProcessor captureProcessor) {
             getMutableConfig().insertOption(OPTION_CAPTURE_PROCESSOR, captureProcessor);
+            return this;
+        }
+
+        /**
+         * Sets the customized camera id.
+         *
+         * @param cameraId The camera id that will be used to open camera, which neglate .
+         * @return The current Builder.
+         * @hide
+         */
+        @RestrictTo(Scope.LIBRARY_GROUP)
+        public Builder setCustomizedCameraId(String cameraId) {
+            getMutableConfig().insertOption(OPTION_CUSTOMIZED_CAMERA_ID, cameraId);
             return this;
         }
 

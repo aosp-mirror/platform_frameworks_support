@@ -327,6 +327,31 @@ public abstract class UseCase {
         }
     }
 
+    /**
+     * Gets the camera id by UseCaseConfig.
+     *
+     * @param config the UseCaseConfig.
+     * @return the camera id decided by the config.
+     *
+     * @hide
+     */
+    @RestrictTo(Scope.LIBRARY_GROUP)
+    protected String getCameraIdUnchecked(CameraDeviceConfig config) {
+        LensFacing lensFacing = config.getLensFacing();
+        String customizedCameraId = config.getCustomizedCameraId(null);
+
+        if (customizedCameraId != null) {
+            return customizedCameraId;
+        }
+
+        try {
+            return CameraX.getCameraWithLensFacing(lensFacing);
+        } catch (Exception e) {
+            throw new IllegalArgumentException(
+                    "Unable to get camera id for camera lens facing " + lensFacing, e);
+        }
+    }
+
     /** Clears internal state of this use case. */
     @CallSuper
     protected void clear() {
