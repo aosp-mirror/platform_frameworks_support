@@ -16,6 +16,24 @@
       "revId": "ade8bce0f7d1764c35acdb06ccf27db4d15b6c9e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0b39226_1c35d2c7",
+        "filename": "appcompat/resources/src/main/java/androidx/appcompat/graphics/drawable/DrawableContainer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1061051
+      },
+      "writtenOn": "2019-04-24T22:28:06Z",
+      "side": 1,
+      "message": "I\u0027ll need to dive a bit deeper into this tomorrow. I thought it was as easy as replacing one annotation with another :)",
+      "parentUuid": "4097eb4e_bcb078ef",
+      "revId": "ade8bce0f7d1764c35acdb06ccf27db4d15b6c9e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
