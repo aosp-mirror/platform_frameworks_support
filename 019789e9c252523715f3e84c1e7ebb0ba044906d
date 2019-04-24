@@ -16,6 +16,23 @@
       "revId": "019789e9c252523715f3e84c1e7ebb0ba044906d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69d059aa_e1f71e0b",
+        "filename": "camera/core/src/main/java/androidx/camera/core/SessionEventCallback.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-24T01:13:24Z",
+      "side": 1,
+      "message": "Whats the reason that these return a list instead of just a single CaptureStage (though I would think it might be better to return a CaptureConfig instead).",
+      "revId": "019789e9c252523715f3e84c1e7ebb0ba044906d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
