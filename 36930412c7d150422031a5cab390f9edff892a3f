@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ec63dd05_092b3df1",
+        "filename": "lifecycle/integration-tests/gradletest/build.gradle",
+        "patchSetId": 11
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1323892
+      },
+      "writtenOn": "2019-04-24T15:41:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "df4e2601_d521777f",
+      "range": {
+        "startLine": 33,
+        "startChar": 4,
+        "endLine": 33,
+        "endChar": 11
+      },
+      "revId": "36930412c7d150422031a5cab390f9edff892a3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6cbd5060_ce7c7cd9",
         "filename": "settings.gradle",
         "patchSetId": 11
@@ -36,6 +60,30 @@
       "writtenOn": "2019-04-23T16:45:36Z",
       "side": 1,
       "message": "nit: incrementality to be more specific",
+      "range": {
+        "startLine": 98,
+        "startChar": 87,
+        "endLine": 98,
+        "endChar": 97
+      },
+      "revId": "36930412c7d150422031a5cab390f9edff892a3f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "204d1aa6_4a4c2135",
+        "filename": "settings.gradle",
+        "patchSetId": 11
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1323892
+      },
+      "writtenOn": "2019-04-24T15:41:07Z",
+      "side": 1,
+      "message": "oops, I forget to resolve this. will be in the next patch.",
+      "parentUuid": "6cbd5060_ce7c7cd9",
       "range": {
         "startLine": 98,
         "startChar": 87,

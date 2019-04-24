@@ -22,6 +22,30 @@
       "revId": "d3ea1a77c2373daab34db29eb54407e306639150",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f71dfa29_052fd992",
+        "filename": "lifecycle/integration-tests/gradletest/src/test/kotlin/androidx/lifecycle/IncrementalAnnotationProcessingTest.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1323892
+      },
+      "writtenOn": "2019-04-24T15:41:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3393d2e5_23d5aa06",
+      "range": {
+        "startLine": 42,
+        "startChar": 49,
+        "endLine": 42,
+        "endChar": 61
+      },
+      "revId": "d3ea1a77c2373daab34db29eb54407e306639150",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
