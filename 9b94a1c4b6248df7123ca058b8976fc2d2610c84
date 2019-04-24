@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "79ceda06_87b61203",
+        "filename": "camera/testing/src/main/java/androidx/camera/testing/fakes/FakeCamera.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1061247
+      },
+      "writtenOn": "2019-04-24T18:02:36Z",
+      "side": 1,
+      "message": "{@link BaseCamera}",
+      "range": {
+        "startLine": 39,
+        "startChar": 72,
+        "endLine": 39,
+        "endChar": 78
+      },
+      "revId": "9b94a1c4b6248df7123ca058b8976fc2d2610c84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99510760_fab7ca84",
+        "filename": "camera/testing/src/main/java/androidx/camera/testing/fakes/FakeCamera.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1061247
+      },
+      "writtenOn": "2019-04-24T18:02:36Z",
+      "side": 1,
+      "message": "/*cameraControl\u003d*/ null",
+      "range": {
+        "startLine": 59,
+        "startChar": 54,
+        "endLine": 59,
+        "endChar": 58
+      },
+      "revId": "9b94a1c4b6248df7123ca058b8976fc2d2610c84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "759c21fe_ddc17907",
+        "filename": "camera/testing/src/main/java/androidx/camera/testing/fakes/FakeCameraControl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1061247
+      },
+      "writtenOn": "2019-04-24T18:02:36Z",
+      "side": 1,
+      "message": "{@link CameraControl}",
+      "range": {
+        "startLine": 33,
+        "startChar": 33,
+        "endLine": 33,
+        "endChar": 46
+      },
+      "revId": "9b94a1c4b6248df7123ca058b8976fc2d2610c84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa687115_e351e2bd",
+        "filename": "camera/testing/src/main/java/androidx/camera/testing/fakes/FakeCameraControl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1061247
+      },
+      "writtenOn": "2019-04-24T18:02:36Z",
+      "side": 1,
+      "message": "\"cancelAfAeTrigger",
+      "range": {
+        "startLine": 106,
+        "startChar": 20,
+        "endLine": 106,
+        "endChar": 39
+      },
+      "revId": "9b94a1c4b6248df7123ca058b8976fc2d2610c84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b5f1975_2ba084b1",
+        "filename": "camera/testing/src/main/java/androidx/camera/testing/fakes/FakeCameraDeviceSurfaceManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1061247
+      },
+      "writtenOn": "2019-04-24T18:02:36Z",
+      "side": 1,
+      "message": "final?",
+      "range": {
+        "startLine": 31,
+        "startChar": 7,
+        "endLine": 31,
+        "endChar": 12
+      },
+      "revId": "9b94a1c4b6248df7123ca058b8976fc2d2610c84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7100daa0_b6beae00",
+        "filename": "camera/testing/src/main/java/androidx/camera/testing/fakes/FakeCameraDeviceSurfaceManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1061247
+      },
+      "writtenOn": "2019-04-24T18:02:36Z",
+      "side": 1,
+      "message": "Maybe at least \u003e\u003d Size(1920, 1080) since preview is that resolution.",
+      "range": {
+        "startLine": 33,
+        "startChar": 59,
+        "endLine": 33,
+        "endChar": 60
+      },
+      "revId": "9b94a1c4b6248df7123ca058b8976fc2d2610c84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9abef545_98fe31dd",
+        "filename": "camera/testing/src/main/java/androidx/camera/testing/fakes/FakeCameraInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1061247
+      },
+      "writtenOn": "2019-04-24T18:02:36Z",
+      "side": 1,
+      "message": "final?",
+      "range": {
+        "startLine": 32,
+        "startChar": 7,
+        "endLine": 32,
+        "endChar": 12
+      },
+      "revId": "9b94a1c4b6248df7123ca058b8976fc2d2610c84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
