@@ -18,17 +18,24 @@ package androidx.camera.extensions;
 
 import android.hardware.camera2.CameraCharacteristics;
 import android.hardware.camera2.CaptureRequest;
+import android.hardware.camera2.CaptureResult;
+import android.hardware.camera2.TotalCaptureResult;
 import android.util.Pair;
 import android.util.Size;
 
 import androidx.annotation.GuardedBy;
 import androidx.annotation.NonNull;
+import androidx.camera.camera2.Camera2CameraCaptureResultConverter;
 import androidx.camera.camera2.Camera2Config;
+import androidx.camera.core.CameraCaptureResult;
+import androidx.camera.core.CameraCaptureResults;
 import androidx.camera.core.CameraX;
 import androidx.camera.core.CaptureBundle;
 import androidx.camera.core.CaptureRequestInfo;
 import androidx.camera.core.CaptureStage;
 import androidx.camera.core.Config;
+import androidx.camera.core.ImageInfo;
+import androidx.camera.core.ImageInfoProcessor;
 import androidx.camera.core.PreviewConfig;
 import androidx.camera.core.SessionEventListener;
 import androidx.camera.extensions.impl.CaptureStageImpl;
@@ -67,23 +74,64 @@ public abstract class PreviewExtender {
         CameraCharacteristics cameraCharacteristics = CameraUtil.getCameraCharacteristics(cameraId);
         mImpl.enableExtension(cameraId, cameraCharacteristics);
 
-        CaptureStageImpl captureStage = mImpl.getCaptureStage();
+        switch (mImpl.getPreviewProcessorType()) {
+            case PREVIEW_PROCESSOR_TYPE_NONE:
+                CaptureStageImpl captureStage = mImpl.getCaptureStage();
 
-        Camera2Config.Builder camera2ConfigurationBuilder =
-                new Camera2Config.Builder();
+                Camera2Config.Builder camera2ConfigurationBuilder =
+                        new Camera2Config.Builder();
 
-        for (Pair<CaptureRequest.Key, Object> captureParameter : captureStage.getParameters()) {
-            camera2ConfigurationBuilder.setCaptureRequestOption(captureParameter.first,
-                    captureParameter.second);
-        }
+                for (Pair<CaptureRequest.Key, Object> captureParameter :
+                        captureStage.getParameters()) {
+                    camera2ConfigurationBuilder.setCaptureRequestOption(captureParameter.first,
+                            captureParameter.second);
+                }
 
-        Camera2Config camera2Config = camera2ConfigurationBuilder.build();
+                final Camera2Config camera2Config = camera2ConfigurationBuilder.build();
 
-        for (Config.Option<?> option : camera2Config.listOptions()) {
-            @SuppressWarnings("unchecked") // Options/values are being copied directly
-                    Config.Option<Object> objectOpt = (Config.Option<Object>) option;
-            mBuilder.getMutableConfig().insertOption(objectOpt,
-                    camera2Config.retrieveOption(objectOpt));
+                for (Config.Option<?> option : camera2Config.listOptions()) {
+                    @SuppressWarnings("unchecked") // Options/values are being copied directly
+                            Config.Option<Object> objectOpt = (Config.Option<Object>) option;
+                    mBuilder.getMutableConfig().insertOption(objectOpt,
+                            camera2Config.retrieveOption(objectOpt));
+                }
+                break;
+            case PREVIEW_PROCESSOR_TYPE_REQUEST_UPDATE_ONLY:
+                mBuilder.setImageInfoProcessor(new ImageInfoProcessor() {
+                    @Override
+                    public CaptureStage getCaptureStage() {
+                        return new AdaptingCaptureStage(mImpl.getCaptureStage());
+                    }
+
+                    @Override
+                    public boolean process(ImageInfo imageInfo) {
+                        CameraCaptureResult result =
+                                CameraCaptureResults.retrieveCameraCaptureResult(imageInfo);
+                        if (result == null) {
+                            return false;
+                        }
+
+                        CaptureResult captureResult =
+                                Camera2CameraCaptureResultConverter.getCaptureResult(result);
+                        if (captureResult == null) {
+                            return false;
+                        }
+
+                        TotalCaptureResult totalCaptureResult = (TotalCaptureResult) captureResult;
+                        if (totalCaptureResult == null) {
+                            return false;
+                        }
+
+                        CaptureStageImpl captureStageImpl =
+                                mImpl.getRequestUpdatePreviewProcessor().process(
+                                        totalCaptureResult);
+                        if (captureStageImpl == null) {
+                            return false;
+                        }
+
+                        return true;
+                    }
+                });
         }
 
         PreviewExtenderAdapter previewExtenderAdapter = new PreviewExtenderAdapter(mImpl);
