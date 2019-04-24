@@ -33,6 +33,24 @@
       "revId": "019789e9c252523715f3e84c1e7ebb0ba044906d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06e1c973_1e7fcd81",
+        "filename": "camera/core/src/main/java/androidx/camera/core/SessionEventCallback.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-04-24T15:20:33Z",
+      "side": 1,
+      "message": "Okay, I change to CaptureConfing.\nBut I still keep this return a list since the comboCallback would need aggregate CaptureConfig together.",
+      "parentUuid": "69d059aa_e1f71e0b",
+      "revId": "019789e9c252523715f3e84c1e7ebb0ba044906d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
