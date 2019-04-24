@@ -680,6 +680,30 @@
       "revId": "8b5d2c747fc6fecded7c6a8c58150d4da76caf41",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41a860a9_824370f4",
+        "filename": "lifecycle/integration-tests/gradletest/src/test/kotlin/androidx/lifecycle/IncrementalAnnotationProcessingTest.kt",
+        "patchSetId": 13
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 1323892
+      },
+      "writtenOn": "2019-04-24T15:46:16Z",
+      "side": 1,
+      "message": "If we don\u0027t add that, PSQ will probably fail? What if I don\u0027t use AndroidX Plugin?",
+      "parentUuid": "21757f2e_84d4935a",
+      "range": {
+        "startLine": 303,
+        "startChar": 12,
+        "endLine": 303,
+        "endChar": 67
+      },
+      "revId": "8b5d2c747fc6fecded7c6a8c58150d4da76caf41",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
