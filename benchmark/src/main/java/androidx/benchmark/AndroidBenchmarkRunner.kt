@@ -63,7 +63,7 @@ import androidx.test.runner.AndroidJUnitRunner
  * even if a continuous suite of benchmarks runs for many minutes on end.
  */
 @Suppress("unused") // Note: not referenced by code
-class AndroidBenchmarkRunner : AndroidJUnitRunner() {
+open class AndroidBenchmarkRunner : AndroidJUnitRunner() {
     override fun onCreate(arguments: Bundle?) {
         super.onCreate(arguments)
 
