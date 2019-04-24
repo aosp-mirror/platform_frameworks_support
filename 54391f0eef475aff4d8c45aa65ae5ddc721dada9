@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6f14c6e1_3948facd",
+        "filename": "camera/core/src/main/java/androidx/camera/core/impl/utils/executor/SequentialExecutor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-04-24T22:59:52Z",
+      "side": 1,
+      "message": "Good catch. Missed that one when updating the code style. Updated it here and a couple other places.",
+      "parentUuid": "84301906_a1718582",
+      "range": {
+        "startLine": 53,
+        "startChar": 5,
+        "endLine": 53,
+        "endChar": 14
+      },
+      "revId": "54391f0eef475aff4d8c45aa65ae5ddc721dada9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "48d73b07_b081cefe",
         "filename": "camera/core/src/main/java/androidx/camera/core/impl/utils/executor/SequentialExecutor.java",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2019-04-24T21:51:59Z",
       "side": 1,
       "message": "nit: spell out ABA acronym",
+      "range": {
+        "startLine": 64,
+        "startChar": 32,
+        "endLine": 64,
+        "endChar": 35
+      },
+      "revId": "54391f0eef475aff4d8c45aa65ae5ddc721dada9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "071878be_29a52fdc",
+        "filename": "camera/core/src/main/java/androidx/camera/core/impl/utils/executor/SequentialExecutor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-04-24T22:59:52Z",
+      "side": 1,
+      "message": "I originally had the same thought (this comment is taken directly from the Guava implementation). However, after a quick search, ABA here actually refers to the \"ABA problem\", in which ABA is not an acronym. TIL ;)",
+      "parentUuid": "48d73b07_b081cefe",
       "range": {
         "startLine": 64,
         "startChar": 32,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "f44b2018_f43f2dcc",
+        "filename": "camera/core/src/main/java/androidx/camera/core/impl/utils/executor/SequentialExecutor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-04-24T22:59:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "15fa606f_4828f8ae",
+      "range": {
+        "startLine": 161,
+        "startChar": 12,
+        "endLine": 161,
+        "endChar": 20
+      },
+      "revId": "54391f0eef475aff4d8c45aa65ae5ddc721dada9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "05b88244_08cb96ab",
         "filename": "camera/core/src/main/java/androidx/camera/core/impl/utils/executor/SequentialExecutor.java",
         "patchSetId": 1
@@ -91,6 +163,30 @@
       "revId": "54391f0eef475aff4d8c45aa65ae5ddc721dada9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6982eaab_25e8c5d5",
+        "filename": "camera/core/src/main/java/androidx/camera/core/impl/utils/executor/SequentialExecutor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-04-24T22:59:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "05b88244_08cb96ab",
+      "range": {
+        "startLine": 163,
+        "startChar": 8,
+        "endLine": 163,
+        "endChar": 15
+      },
+      "revId": "54391f0eef475aff4d8c45aa65ae5ddc721dada9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
