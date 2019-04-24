@@ -35,6 +35,15 @@ public final class PreviewConfig
         CameraDeviceConfig,
         ThreadConfig {
 
+    // Options declarations
+
+    /**
+     * @hide
+     */
+    @RestrictTo(Scope.LIBRARY_GROUP)
+    static final Option<ImageInfoProcessor> IMAGE_INFO_PROCESSOR = Option.create(
+            "camerax.core.preview.imageinfoprocessor", ImageInfoProcessor.class);
+
     private final OptionsBundle mConfig;
 
     /** Creates a new configuration instance. */
@@ -343,6 +352,14 @@ public final class PreviewConfig
         return retrieveOption(OPTION_SURFACE_OCCUPANCY_PRIORITY);
     }
 
+    ImageInfoProcessor getImageInfoProcessor(ImageInfoProcessor valueIfMissing) {
+        return retrieveOption(IMAGE_INFO_PROCESSOR, valueIfMissing);
+    }
+
+    ImageInfoProcessor getImageInfoProcessor() {
+        return retrieveOption(IMAGE_INFO_PROCESSOR);
+    }
+
     // End of the default implementation of Config
     // *********************************************************************************************
 
@@ -559,5 +576,11 @@ public final class PreviewConfig
             return this;
         }
 
+        /** @hide */
+        @RestrictTo(Scope.LIBRARY_GROUP)
+        public Builder setImageInfoProcessor(ImageInfoProcessor processor) {
+            getMutableConfig().insertOption(IMAGE_INFO_PROCESSOR, processor);
+            return this;
+        }
     }
 }
