@@ -27,10 +27,13 @@ import android.util.Log;
 import android.view.Surface;
 
 import androidx.annotation.GuardedBy;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
 import androidx.camera.core.CameraCaptureCallback;
 import androidx.camera.core.CameraCaptureSessionStateCallbacks;
 import androidx.camera.core.CaptureConfig;
+import androidx.camera.core.CaptureRequestParameter;
 import androidx.camera.core.Config;
 import androidx.camera.core.Config.Option;
 import androidx.camera.core.DeferrableSurface;
@@ -40,6 +43,7 @@ import androidx.camera.core.SessionConfig;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 /**
  * A session for capturing images from the camera which is tied to a specific {@link CameraDevice}.
@@ -342,15 +346,15 @@ final class CaptureSession {
 
         try {
             Log.d(TAG, "Issuing request for session.");
-            CaptureRequest.Builder builder =
-                    captureConfig.buildCaptureRequest(mCameraCaptureSession.getDevice());
-            if (builder == null) {
+            CaptureRequest captureRequest = composeCaptureRequest(
+                    mCameraCaptureSession.getDevice(),
+                    captureConfig,
+                    null,
+                    null);
+            if (captureRequest == null) {
                 Log.d(TAG, "Skipping issuing empty request for session.");
                 return;
             }
-
-            applyImplementationOptionTCaptureBuilder(
-                    builder, captureConfig.getImplementationOptions());
 
             CameraCaptureSession.CaptureCallback comboCaptureCallback =
                     createCamera2CaptureCallback(
@@ -358,7 +362,7 @@ final class CaptureSession {
                             mCaptureCallback);
 
             mCameraCaptureSession.setRepeatingRequest(
-                    builder.build(), comboCaptureCallback, mHandler);
+                    captureRequest, comboCaptureCallback, mHandler);
         } catch (CameraAccessException e) {
             Log.e(TAG, "Unable to access camera: " + e.getMessage());
             Thread.dumpStack();
@@ -406,17 +410,21 @@ final class CaptureSession {
                     continue;
                 }
 
-                CaptureRequest.Builder builder =
-                        captureConfig.buildCaptureRequest(mCameraCaptureSession.getDevice());
+                CaptureConfig repeatingCaptureConfig = mSessionConfig.getRepeatingCaptureConfig();
 
-                applyImplementationOptionTCaptureBuilder(
-                        builder, captureConfig.getImplementationOptions());
-
-                CaptureRequest captureRequest = builder.build();
+                CaptureRequest captureRequest = composeCaptureRequest(
+                        mCameraCaptureSession.getDevice(),
+                        captureConfig,
+                        repeatingCaptureConfig.getCameraCharacteristics(),
+                        repeatingCaptureConfig.getImplementationOptions()
+                );
+                if (captureRequest == null) {
+                    Log.d(TAG, "Skipping issuing empty capture request.");
+                    return;
+                }
                 callbackAggregator.addCallback(captureRequest,
                         captureConfig.getCameraCaptureCallbacks());
                 captureRequests.add(captureRequest);
-
             }
             mCameraCaptureSession.captureBurst(captureRequests,
                     callbackAggregator,
@@ -426,6 +434,45 @@ final class CaptureSession {
             Thread.dumpStack();
         }
         mCaptureConfigs.clear();
+    }
+
+    /**
+     * Composes a {@link CaptureRequest} by the input capture config.
+     *
+     * <p>It will first set baseParameters and baseOptions to capture request. And then applies
+     * capture config's parameters and options to capture request.
+     *
+     * @param cameraDevice the camera to generate capture request.
+     * @param captureConfig the capture config to generate capture request.
+     * @param baseParameters the parameters set to capture request before captureConfig's
+     *                       parameters.
+     * @param baseOptions the options set to capture request before captureConfig's options.
+     * @return the capture request used to issue either capture or repeating request. Returns null
+     * if it is unable to create a capture request.
+     * @throws CameraAccessException
+     */
+    @VisibleForTesting
+    @Nullable
+    CaptureRequest composeCaptureRequest(@NonNull CameraDevice cameraDevice,
+            @NonNull CaptureConfig captureConfig,
+            @Nullable Map<CaptureRequest.Key<?>, CaptureRequestParameter<?>> baseParameters,
+            @Nullable Config baseOptions)
+            throws CameraAccessException {
+        CaptureRequest.Builder builder =
+                captureConfig.buildCaptureRequest(cameraDevice, baseParameters);
+
+        if (builder == null) {
+            return null;
+        }
+
+        if (baseOptions != null) {
+            applyImplementationOptionTCaptureBuilder(builder, baseOptions);
+        }
+
+        applyImplementationOptionTCaptureBuilder(
+                builder, captureConfig.getImplementationOptions());
+
+        return builder.build();
     }
 
     private CameraCaptureSession.CaptureCallback createCamera2CaptureCallback(

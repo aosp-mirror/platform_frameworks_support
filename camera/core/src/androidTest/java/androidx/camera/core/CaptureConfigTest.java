@@ -55,7 +55,7 @@ public class CaptureConfigTest {
         CaptureConfig captureConfig = builder.build();
 
         CaptureRequest.Builder captureRequestBuilder =
-                captureConfig.buildCaptureRequest(cameraDevice);
+                captureConfig.buildCaptureRequest(cameraDevice, null);
 
         assertThat(captureRequestBuilder).isNull();
     }

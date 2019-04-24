@@ -24,14 +24,17 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import android.graphics.ImageFormat;
+import android.graphics.SurfaceTexture;
 import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraCaptureSession;
 import android.hardware.camera2.CameraDevice;
+import android.hardware.camera2.CaptureRequest;
 import android.media.Image;
 import android.media.ImageReader;
 import android.media.ImageReader.OnImageAvailableListener;
 import android.os.Handler;
 import android.os.HandlerThread;
+import android.view.Surface;
 
 import androidx.annotation.NonNull;
 import androidx.camera.camera2.CaptureSession.State;
@@ -67,6 +70,8 @@ import java.util.concurrent.TimeUnit;
 public final class CaptureSessionTest {
     private CaptureSessionTestParameters mTestParameters0;
     private CaptureSessionTestParameters mTestParameters1;
+    private Surface mSurface;
+    private SurfaceTexture mSurfaceTexture;
 
     private CameraDevice mCameraDevice;
 
@@ -75,10 +80,14 @@ public final class CaptureSessionTest {
         mTestParameters0 = new CaptureSessionTestParameters("mTestParameters0");
         mTestParameters1 = new CaptureSessionTestParameters("mTestParameters1");
         mCameraDevice = CameraUtil.getCameraDevice();
+        mSurfaceTexture = new SurfaceTexture(0);
+        mSurface = new Surface(mSurfaceTexture);
     }
 
     @After
     public void tearDown() {
+        mSurface.release();
+        mSurfaceTexture.release();
         mTestParameters0.tearDown();
         mTestParameters1.tearDown();
         CameraUtil.releaseCameraDevice(mCameraDevice);
@@ -279,6 +288,124 @@ public final class CaptureSessionTest {
         Thread.sleep(3000);
 
         Mockito.verify(listener, times(1)).onSurfaceDetached();
+    }
+
+    @Test
+    public void issueCaptureRequestShouldContainRepeatingParameters()
+            throws CameraAccessException {
+        // Prepare SessionConfig
+        SessionConfig.Builder sessionConfigBuilder = new SessionConfig.Builder();
+        sessionConfigBuilder.addCharacteristic(CaptureRequest.CONTROL_EFFECT_MODE,
+                CaptureRequest.CONTROL_EFFECT_MODE_AQUA);
+        SessionConfig sessionConfig = sessionConfigBuilder.build();
+
+        // Prepare CaptureConfig
+        CaptureConfig.Builder captureConfigBuilder = new CaptureConfig.Builder();
+        captureConfigBuilder.setTemplateType(CameraDevice.TEMPLATE_PREVIEW);
+        captureConfigBuilder.addSurface(new ImmediateSurface(mSurface));
+        CaptureConfig captureConfig = captureConfigBuilder.build();
+
+        // Prepare CaptureSession
+        CaptureSession captureSession = new CaptureSession(null);
+
+        // Verify
+        CaptureRequest captureRequest = captureSession.composeCaptureRequest(
+                mCameraDevice,
+                captureConfig, sessionConfig.getCameraCharacteristics(),
+                sessionConfig.getImplementationOptions());
+        assertThat(captureRequest.get(CaptureRequest.CONTROL_EFFECT_MODE)).isEqualTo(
+                CaptureRequest.CONTROL_EFFECT_MODE_AQUA);
+    }
+
+    @Test
+    public void issueCaptureRequestShouldOverrideRepeatingParameters()
+            throws CameraAccessException {
+        // Prepare SessionConfig
+        SessionConfig.Builder sessionConfigBuilder = new SessionConfig.Builder();
+        sessionConfigBuilder.addCharacteristic(CaptureRequest.CONTROL_EFFECT_MODE,
+                CaptureRequest.CONTROL_EFFECT_MODE_AQUA);
+        SessionConfig sessionConfig = sessionConfigBuilder.build();
+
+        // Prepare CaptureConfig
+        CaptureConfig.Builder captureConfigBuilder = new CaptureConfig.Builder();
+        captureConfigBuilder.setTemplateType(CameraDevice.TEMPLATE_PREVIEW);
+        captureConfigBuilder.addSurface(new ImmediateSurface(mSurface));
+        captureConfigBuilder.addCharacteristic(CaptureRequest.CONTROL_EFFECT_MODE,
+                CaptureRequest.CONTROL_EFFECT_MODE_BLACKBOARD);
+        CaptureConfig captureConfig = captureConfigBuilder.build();
+
+        // Prepare CaptureSession
+        CaptureSession captureSession = new CaptureSession(null);
+
+        // Verify
+        CaptureRequest captureRequest = captureSession.composeCaptureRequest(
+                mCameraDevice,
+                captureConfig, sessionConfig.getCameraCharacteristics(),
+                sessionConfig.getImplementationOptions());
+        assertThat(captureRequest.get(CaptureRequest.CONTROL_EFFECT_MODE)).isEqualTo(
+                CaptureRequest.CONTROL_EFFECT_MODE_BLACKBOARD);
+    }
+
+    @Test
+    public void issueCaptureRequestShouldContainRepeatingOptions()
+            throws CameraAccessException {
+        // Prepare SessionConfig
+        SessionConfig.Builder sessionConfigBuilder = new SessionConfig.Builder();
+        Camera2Config.Builder camera2ConfigBuilder = new Camera2Config.Builder();
+        camera2ConfigBuilder.setCaptureRequestOption(CaptureRequest.CONTROL_EFFECT_MODE,
+                CaptureRequest.CONTROL_EFFECT_MODE_AQUA);
+        sessionConfigBuilder.setImplementationOptions(camera2ConfigBuilder.build());
+        SessionConfig sessionConfig = sessionConfigBuilder.build();
+
+        // Prepare CaptureConfig
+        CaptureConfig.Builder captureConfigBuilder = new CaptureConfig.Builder();
+        captureConfigBuilder.setTemplateType(CameraDevice.TEMPLATE_PREVIEW);
+        captureConfigBuilder.addSurface(new ImmediateSurface(mSurface));
+        CaptureConfig captureConfig = captureConfigBuilder.build();
+
+        // Prepare CaptureSession
+        CaptureSession captureSession = new CaptureSession(null);
+
+        // Verify
+        CaptureRequest captureRequest = captureSession.composeCaptureRequest(
+                mCameraDevice,
+                captureConfig, sessionConfig.getCameraCharacteristics(),
+                sessionConfig.getImplementationOptions());
+        assertThat(captureRequest.get(CaptureRequest.CONTROL_EFFECT_MODE)).isEqualTo(
+                CaptureRequest.CONTROL_EFFECT_MODE_AQUA);
+    }
+
+    @Test
+    public void issueCaptureRequestShouldOverrideRepeatingOptions()
+            throws CameraAccessException {
+        // Prepare SessionConfig
+        SessionConfig.Builder sessionConfigBuilder = new SessionConfig.Builder();
+        Camera2Config.Builder camera2ConfigBuilder = new Camera2Config.Builder();
+        camera2ConfigBuilder.setCaptureRequestOption(CaptureRequest.CONTROL_EFFECT_MODE,
+                CaptureRequest.CONTROL_EFFECT_MODE_AQUA);
+        sessionConfigBuilder.setImplementationOptions(camera2ConfigBuilder.build());
+        SessionConfig sessionConfig = sessionConfigBuilder.build();
+
+        // Prepare CaptureConfig
+        CaptureConfig.Builder captureConfigBuilder = new CaptureConfig.Builder();
+        captureConfigBuilder.setTemplateType(CameraDevice.TEMPLATE_PREVIEW);
+        captureConfigBuilder.addSurface(new ImmediateSurface(mSurface));
+        camera2ConfigBuilder = new Camera2Config.Builder();
+        camera2ConfigBuilder.setCaptureRequestOption(CaptureRequest.CONTROL_EFFECT_MODE,
+                CaptureRequest.CONTROL_EFFECT_MODE_BLACKBOARD);
+        captureConfigBuilder.setImplementationOptions(camera2ConfigBuilder.build());
+        CaptureConfig captureConfig = captureConfigBuilder.build();
+
+        // Prepare CaptureSession
+        CaptureSession captureSession = new CaptureSession(null);
+
+        // Verify
+        CaptureRequest captureRequest = captureSession.composeCaptureRequest(
+                mCameraDevice,
+                captureConfig, sessionConfig.getCameraCharacteristics(),
+                sessionConfig.getImplementationOptions());
+        assertThat(captureRequest.get(CaptureRequest.CONTROL_EFFECT_MODE)).isEqualTo(
+                CaptureRequest.CONTROL_EFFECT_MODE_BLACKBOARD);
     }
 
     /**
