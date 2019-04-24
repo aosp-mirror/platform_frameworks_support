@@ -36,7 +36,12 @@ public final class ExtensionsManager {
          * HDR mode that may get source pictures with different AE settings to generate a best
          * result.
          */
-        HDR
+        HDR,
+        /**
+         * Night mode that may stacking photos to generate a best result under low-light
+         * conditions.
+         */
+        NIGHT
     }
 
     /**
@@ -87,6 +92,9 @@ public final class ExtensionsManager {
             case HDR:
                 extender = HdrImageCaptureExtender.create(builder);
                 break;
+            case NIGHT:
+                extender = NightImageCaptureExtender.create(builder);
+                break;
             case NORMAL:
                 return true;
             default:
@@ -108,6 +116,9 @@ public final class ExtensionsManager {
                 break;
             case HDR:
                 extender = HdrPreviewExtender.create(builder);
+                break;
+            case NIGHT:
+                extender = NightPreviewExtender.create(builder);
                 break;
             case NORMAL:
                 return true;

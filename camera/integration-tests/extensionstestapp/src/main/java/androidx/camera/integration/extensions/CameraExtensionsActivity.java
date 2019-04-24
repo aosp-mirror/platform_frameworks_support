@@ -43,6 +43,8 @@ import androidx.camera.extensions.BokehImageCaptureExtender;
 import androidx.camera.extensions.BokehPreviewExtender;
 import androidx.camera.extensions.HdrImageCaptureExtender;
 import androidx.camera.extensions.HdrPreviewExtender;
+import androidx.camera.extensions.NightImageCaptureExtender;
+import androidx.camera.extensions.NightPreviewExtender;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
@@ -111,6 +113,13 @@ public class CameraExtensionsActivity extends AppCompatActivity
             if (extender.isExtensionAvailable()) {
                 extender.enableExtension();
             }
+        } else if (mCurrentImageCaptureType == ImageCaptureType.IMAGE_CAPTURE_TYPE_NIGHT) {
+            Log.d(TAG, "Enabling the extended view finder in night mode.");
+
+            NightPreviewExtender extender = NightPreviewExtender.create(builder);
+            if (extender.isExtensionAvailable()) {
+                extender.enableExtension();
+            }
         }
 
         mPreview = new Preview(builder.build());
@@ -134,6 +143,7 @@ public class CameraExtensionsActivity extends AppCompatActivity
     enum ImageCaptureType {
         IMAGE_CAPTURE_TYPE_HDR,
         IMAGE_CAPTURE_TYPE_BOKEH,
+        IMAGE_CAPTURE_TYPE_NIGHT,
         IMAGE_CAPTURE_TYPE_DEFAULT,
         IMAGE_CAPTURE_TYPE_NONE,
     }
@@ -158,6 +168,10 @@ public class CameraExtensionsActivity extends AppCompatActivity
                                 enablePreview();
                                 break;
                             case IMAGE_CAPTURE_TYPE_BOKEH:
+                                enableImageCapture(ImageCaptureType.IMAGE_CAPTURE_TYPE_NIGHT);
+                                enablePreview();
+                                break;
+                            case IMAGE_CAPTURE_TYPE_NIGHT:
                                 enableImageCapture(ImageCaptureType.IMAGE_CAPTURE_TYPE_DEFAULT);
                                 enablePreview();
                                 break;
@@ -199,6 +213,13 @@ public class CameraExtensionsActivity extends AppCompatActivity
                         builder);
                 if (bokehImageCapture.isExtensionAvailable()) {
                     bokehImageCapture.enableExtension();
+                }
+                break;
+            case IMAGE_CAPTURE_TYPE_NIGHT:
+                NightImageCaptureExtender nightImageCapture = NightImageCaptureExtender.create(
+                        builder);
+                if (nightImageCapture.isExtensionAvailable()) {
+                    nightImageCapture.enableExtension();
                 }
                 break;
             case IMAGE_CAPTURE_TYPE_DEFAULT:
