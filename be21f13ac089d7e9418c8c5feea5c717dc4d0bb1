@@ -22,6 +22,30 @@
       "revId": "be21f13ac089d7e9418c8c5feea5c717dc4d0bb1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "781f68ce_470578db",
+        "filename": "jetifier/jetifier/migration.config",
+        "patchSetId": 3
+      },
+      "lineNbr": 1061,
+      "author": {
+        "id": 1271745
+      },
+      "writtenOn": "2019-04-24T18:25:43Z",
+      "side": 1,
+      "message": "I can see navigation-fragment in top-of-the-tree zip . Do you still want me to add androidx/navigation/fragment?",
+      "parentUuid": "777df0b7_b6e86b6b",
+      "range": {
+        "startLine": 1058,
+        "startChar": 4,
+        "endLine": 1061,
+        "endChar": 6
+      },
+      "revId": "be21f13ac089d7e9418c8c5feea5c717dc4d0bb1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
