@@ -22,6 +22,30 @@
       "revId": "5c60644d32ac970e41605324cfc80fa90172c4e7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9cd79c7_c9b3688c",
+        "filename": "fragment/api/current.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1442279
+      },
+      "writtenOn": "2019-04-24T18:19:24Z",
+      "side": 1,
+      "message": "Ian commented earlier we wouldn\u0027t add that one just yet. I made a bug for it (b/131238995)",
+      "parentUuid": "824c3ab9_968fe35b",
+      "range": {
+        "startLine": 113,
+        "startChar": 4,
+        "endLine": 113,
+        "endChar": 84
+      },
+      "revId": "5c60644d32ac970e41605324cfc80fa90172c4e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
