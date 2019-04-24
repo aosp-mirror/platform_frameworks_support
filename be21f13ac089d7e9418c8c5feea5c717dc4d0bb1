@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "777df0b7_b6e86b6b",
+        "filename": "jetifier/jetifier/migration.config",
+        "patchSetId": 3
+      },
+      "lineNbr": 1061,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-24T17:33:07Z",
+      "side": 1,
+      "message": "Can we also add androidx/navigation/fragment to androidx/navigation/fragment if we need to explicitly mention each subpackage?",
+      "range": {
+        "startLine": 1058,
+        "startChar": 4,
+        "endLine": 1061,
+        "endChar": 6
+      },
+      "revId": "be21f13ac089d7e9418c8c5feea5c717dc4d0bb1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
