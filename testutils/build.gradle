@@ -23,8 +23,8 @@ plugins {
 }
 
 dependencies {
-    api(project(":fragment"))
-    api(project(":appcompat"))
+    api("androidx.fragment:fragment:1.0.0")
+    api("androidx.appcompat:appcompat:1.0.0")
 
     implementation(ANDROIDX_TEST_EXT_JUNIT)
     implementation(ANDROIDX_TEST_CORE)
