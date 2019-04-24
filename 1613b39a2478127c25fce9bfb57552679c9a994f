@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e6e66e7f_c604a3b9",
+        "filename": "navigation/runtime/src/main/java/androidx/navigation/NavController.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 827,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-24T19:16:46Z",
+      "side": 1,
+      "message": "It isn\u0027t clear what NavDestination you should be calling hasDeepLink on - I\u0027d recommend something like \"{@link NavDestination#hasDeepLink(Uri)} should be called on {@link #getGraph() the navigation graph} prior to calling this method to check if the deep link is valid.\"",
+      "range": {
+        "startLine": 826,
+        "startChar": 7,
+        "endLine": 827,
+        "endChar": 13
+      },
+      "revId": "1613b39a2478127c25fce9bfb57552679c9a994f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
