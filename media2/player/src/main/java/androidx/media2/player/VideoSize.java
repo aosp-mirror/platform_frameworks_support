@@ -16,7 +16,7 @@
 
 package androidx.media2.player;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY;
 
 import androidx.annotation.RestrictTo;
 
@@ -31,7 +31,7 @@ public final class VideoSize {
      * @param height The height of the video
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY)
     public VideoSize(int width, int height) {
         mWidth = width;
         mHeight = height;

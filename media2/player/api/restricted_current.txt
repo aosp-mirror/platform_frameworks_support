@@ -396,7 +396,6 @@ package androidx.media2.player {
   }
 
   public final class VideoSize {
-    ctor @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX) public VideoSize(int, int);
   }
 
 }
