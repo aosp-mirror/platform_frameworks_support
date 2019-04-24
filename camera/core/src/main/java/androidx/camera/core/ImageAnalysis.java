@@ -119,16 +119,8 @@ public final class ImageAnalysis extends UseCase {
             // don't yet have permission, so we will try again in onSuggestedResolutionUpdated().
             // Old
             // configuration lens facing should match new configuration.
-            try {
-                String cameraId = CameraX.getCameraWithLensFacing(oldConfig.getLensFacing());
-                tryUpdateRelativeRotation(cameraId);
-            } catch (CameraInfoUnavailableException e) {
-                // Likely don't yet have permissions. This is expected if this method is called
-                // before
-                // this use case becomes active. That's OK though since we've updated the use case
-                // configuration. We'll try to update relative rotation again in
-                // onSuggestedResolutionUpdated().
-            }
+            String cameraId = getCameraIdUnchecked(oldConfig);
+            tryUpdateRelativeRotation(cameraId);
         }
     }
 
@@ -222,14 +214,7 @@ public final class ImageAnalysis extends UseCase {
             Map<String, Size> suggestedResolutionMap) {
         final ImageAnalysisConfig config = (ImageAnalysisConfig) getUseCaseConfig();
 
-        String cameraId;
-        LensFacing lensFacing = config.getLensFacing();
-        try {
-            cameraId = CameraX.getCameraWithLensFacing(lensFacing);
-        } catch (CameraInfoUnavailableException e) {
-            throw new IllegalArgumentException(
-                    "Unable to find camera with LensFacing " + lensFacing, e);
-        }
+        String cameraId = getCameraIdUnchecked(config);
 
         Size resolution = suggestedResolutionMap.get(cameraId);
         if (resolution == null) {
