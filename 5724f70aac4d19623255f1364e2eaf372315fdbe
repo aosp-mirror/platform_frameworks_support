@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b0e36530_8f82c89c",
+        "filename": "benchmark/src/main/java/androidx/benchmark/BenchmarkState.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-04-24T19:42:59Z",
+      "side": 1,
+      "message": "what does \"otherwise \u003d\" do here?\n\nDefault visibility on that annotation looks like it\u0027s VisibleForTesting.PRIVATE",
+      "revId": "5724f70aac4d19623255f1364e2eaf372315fdbe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
