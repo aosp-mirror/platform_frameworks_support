@@ -45,6 +45,30 @@
       "revId": "6b4d56145521bf4cf4eac9215e7765d256eeaa55",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d4f5509_875c2a80",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-24T20:44:29Z",
+      "side": 1,
+      "message": "When using the processor there are going to be 2 ImageReaders instantiated. It will be\ncamera -\u003e ImageReader0 -\u003e capture processor\ncapture processor -\u003e ImageReader1 -\u003e app code\n\ncalling setImageFormat will change the format of both ImageReader0 and ImageReader1 to that format.\n\nThe contract for extensions right now is that input and output is YUV only so manual setting of image format should not be allowed when extensions are enabled.\n\nFrom a technical perspective as long as the format is a one that is writable from app space then it shouldn\u0027t be a problem. So for example it wouldn\u0027t make sense for any RAW type format to be set if a processor has been set. Right now the only situation where a processor can be set is when extensions are enabled.",
+      "parentUuid": "d751fb97_e38a505d",
+      "range": {
+        "startLine": 158,
+        "startChar": 0,
+        "endLine": 167,
+        "endChar": 9
+      },
+      "revId": "6b4d56145521bf4cf4eac9215e7765d256eeaa55",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
