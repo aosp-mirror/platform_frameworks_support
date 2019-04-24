@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7ec42e61_72f32f5a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-04-24T23:11:43Z",
+      "side": 1,
+      "message": "Q) It is passing without this change. Do we have a depending change?",
+      "revId": "eb810f0980496f7201fd8fbc5b84156b72c1bb5f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e0334f1_81ffd1f2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-04-24T23:11:43Z",
+      "side": 1,
+      "message": "Q) Do you have a related bug number?",
+      "revId": "eb810f0980496f7201fd8fbc5b84156b72c1bb5f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5326e036_81429644",
+        "filename": "media/build.gradle",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-04-24T23:11:43Z",
+      "side": 1,
+      "message": "My understanding is we specify accurate \"versions\" to depending libraries when we are releasing our libraries. For instance, we specified \"androidx.collection:collection:1.0.0\".\n\nIn that sense, it is unclear to me why :core is loosing its version here. Why don\u0027t we add :core:1.1.0-beta01 or something?",
+      "revId": "eb810f0980496f7201fd8fbc5b84156b72c1bb5f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
