@@ -46,6 +46,30 @@
       "revId": "be21f13ac089d7e9418c8c5feea5c717dc4d0bb1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9175353_022ce3d9",
+        "filename": "jetifier/jetifier/migration.config",
+        "patchSetId": 3
+      },
+      "lineNbr": 1061,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-24T19:10:54Z",
+      "side": 1,
+      "message": "Ah, yeah it is there. That raises a different question - do we need this line at all then? Or is the above androidx/navigation to androidx/navigation line already enough?\n\nIt seems like the important lines of the CL are the below lines (which I agree, are necessary).",
+      "parentUuid": "781f68ce_470578db",
+      "range": {
+        "startLine": 1058,
+        "startChar": 4,
+        "endLine": 1061,
+        "endChar": 6
+      },
+      "revId": "be21f13ac089d7e9418c8c5feea5c717dc4d0bb1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
