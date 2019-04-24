@@ -1,0 +1,198 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "63ccc22a_3a604e3b",
+        "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/AdbUtil.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-04-24T18:03:29Z",
+      "side": 1,
+      "message": "object AdbUtil, then you don\u0027t need the companion object",
+      "revId": "8f9521d32574766341592f512309de2207be5237",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab6f8fa8_3284543e",
+        "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/AdbUtil.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-04-24T18:03:29Z",
+      "side": 1,
+      "message": "can you just store an exitValue?\n\nWould avoid leaking more state outside this helper",
+      "revId": "8f9521d32574766341592f512309de2207be5237",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3fd2d8b_2c956ea5",
+        "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/AdbUtil.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-04-24T18:03:29Z",
+      "side": 1,
+      "message": "Right now, there\u0027s a *lot* of boilerplate in calling this method:\n\n    AdbUtil.execSync(adbPath, arrayOf(\"devices\", \"-l\"), logger).stdout\n\nThis could be a lot more readable as:\n\n    execAdbSync(\"devices -l\").stdout\n\n1) you can get rid of the logger by making this an member/extension function\n2) you can get rid of the adbPath with a member function, as you had before - not sure if that\u0027s worth it. Might be a way to get adbPath even if you\u0027re just an extension function?\n3) you can get rid of the arrayof by doing that inside the function. If there are cases where this doesn\u0027t work, you could support both variants",
+      "revId": "8f9521d32574766341592f512309de2207be5237",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a87e6a55_985bc690",
+        "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/BenchmarkBaseTask.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-04-24T18:03:29Z",
+      "side": 1,
+      "message": "why is this needed now? just to define group? seems like that oneliner could be done in each sub task to simplify",
+      "revId": "8f9521d32574766341592f512309de2207be5237",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d80d6657_b121e425",
+        "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/BenchmarkPlugin.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-04-24T18:03:29Z",
+      "side": 1,
+      "message": "what happens if the plugin is applied to a project without using the benchmark library? does it just see no files, and do nothing?",
+      "revId": "8f9521d32574766341592f512309de2207be5237",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "824d05ee_4d6bb9b6",
+        "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/BenchmarkPlugin.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-04-24T18:03:29Z",
+      "side": 1,
+      "message": "use `forEach` here - `all` is for when you\u0027re trying to check that the lambda returns true for every iteration",
+      "range": {
+        "startLine": 57,
+        "startChar": 46,
+        "endLine": 57,
+        "endChar": 49
+      },
+      "revId": "8f9521d32574766341592f512309de2207be5237",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c97b217_a179fd43",
+        "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/BenchmarkPlugin.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-04-24T18:03:29Z",
+      "side": 1,
+      "message": "expand this name for clarity",
+      "range": {
+        "startLine": 58,
+        "startChar": 76,
+        "endLine": 58,
+        "endChar": 79
+      },
+      "revId": "8f9521d32574766341592f512309de2207be5237",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "073d299d_bb72704a",
+        "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/BenchmarkPlugin.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-04-24T18:03:29Z",
+      "side": 1,
+      "message": "finalizedBy needs a comment - what is this doing?",
+      "range": {
+        "startLine": 59,
+        "startChar": 24,
+        "endLine": 59,
+        "endChar": 58
+      },
+      "revId": "8f9521d32574766341592f512309de2207be5237",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf0cad4e_fb7c35e2",
+        "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/BenchmarkPlugin.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-04-24T18:03:29Z",
+      "side": 1,
+      "message": "this looks pretty redundant with the above. How about something like:\n\n\n     project.plugins.first {...}\n          .flatMap {\n              when(it) {\n                  is AppPlugin -\u003e project.extensions.getByType(App).applicationVariants\n                  is LibraryPlugin -\u003e project.extensions.getByType(Library).libraryVariants\n              }\n          }.forEach {\n              project.tasks.named(\"connectedAndroidTest\").configure { connectedAndroidTest -\u003e\n                  connectedAndroidTest.finalizedBy(\"benchmarkReport\")\n              }\n          }",
+      "range": {
+        "startLine": 65,
+        "startChar": 46,
+        "endLine": 69,
+        "endChar": 17
+      },
+      "revId": "8f9521d32574766341592f512309de2207be5237",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c37c52a0_b116a201",
+        "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/BenchmarkReportTask.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-04-24T18:03:29Z",
+      "side": 1,
+      "message": "add more comment here - I assume this upToDateWhen disables caching\n\nsuggest something like:\n\nSimilar to connectedAndroidTest, we want to disable caching of running benchmarks, since we want to be able to run them multiple times in a row",
+      "revId": "8f9521d32574766341592f512309de2207be5237",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
