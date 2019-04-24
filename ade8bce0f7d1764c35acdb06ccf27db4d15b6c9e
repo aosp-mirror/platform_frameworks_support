@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4097eb4e_bcb078ef",
+        "filename": "appcompat/resources/src/main/java/androidx/appcompat/graphics/drawable/DrawableContainer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-04-24T22:24:21Z",
+      "side": 1,
+      "message": "It is called not only on M+, so this does not seem right. How do we know that it is ok for us to use the constant and call isAutoMirrored?",
+      "revId": "ade8bce0f7d1764c35acdb06ccf27db4d15b6c9e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
