@@ -70,6 +70,30 @@
       "revId": "be21f13ac089d7e9418c8c5feea5c717dc4d0bb1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6373f2e_26831b83",
+        "filename": "jetifier/jetifier/migration.config",
+        "patchSetId": 3
+      },
+      "lineNbr": 1061,
+      "author": {
+        "id": 1271745
+      },
+      "writtenOn": "2019-04-24T19:19:13Z",
+      "side": 1,
+      "message": "Yes,I Agree .Navigation-ui is getting created with out \"androidx/navigation/ui\" as well. So updated.",
+      "parentUuid": "b9175353_022ce3d9",
+      "range": {
+        "startLine": 1058,
+        "startChar": 4,
+        "endLine": 1061,
+        "endChar": 6
+      },
+      "revId": "be21f13ac089d7e9418c8c5feea5c717dc4d0bb1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
