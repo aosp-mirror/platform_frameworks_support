@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b9be2db3_b6ca0fc1",
+        "filename": "jetifier/jetifier/preprocessor/scripts/processDefaultConfig.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-04-25T16:06:52Z",
+      "side": 0,
+      "message": "Oops, sorry about not doing that myself",
+      "revId": "659ca1cef71be22fb17e538bcd9b430abaec0e02",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
