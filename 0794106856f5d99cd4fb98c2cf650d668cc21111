@@ -163,6 +163,98 @@
     },
     {
       "key": {
+        "uuid": "438ab73a_283a866c",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaController.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2019-04-25T11:22:46Z",
+      "side": 1,
+      "message": "maybe it\u0027s @Nullable",
+      "range": {
+        "startLine": 140,
+        "startChar": 28,
+        "endLine": 140,
+        "endChar": 43
+      },
+      "revId": "0794106856f5d99cd4fb98c2cf650d668cc21111",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97c0a403_730cc7ee",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaControllerImplBase.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2019-04-25T11:22:46Z",
+      "side": 1,
+      "message": "This and the below @NonNull arguments are not checked. Is it intentional?",
+      "range": {
+        "startLine": 380,
+        "startChar": 81,
+        "endLine": 380,
+        "endChar": 88
+      },
+      "revId": "0794106856f5d99cd4fb98c2cf650d668cc21111",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45f7370a_7fa216c9",
+        "filename": "media2/session/src/main/java/androidx/media2/session/SessionCommandGroup.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2019-04-25T11:22:46Z",
+      "side": 1,
+      "message": "can be null",
+      "range": {
+        "startLine": 114,
+        "startChar": 52,
+        "endLine": 114,
+        "endChar": 64
+      },
+      "revId": "0794106856f5d99cd4fb98c2cf650d668cc21111",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e8b0242_57dcd910",
+        "filename": "media2/session/src/main/java/androidx/media2/session/SessionToken.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2019-04-25T11:22:46Z",
+      "side": 1,
+      "message": "check this",
+      "range": {
+        "startLine": 123,
+        "startChar": 41,
+        "endLine": 123,
+        "endChar": 48
+      },
+      "revId": "0794106856f5d99cd4fb98c2cf650d668cc21111",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7b72cb9b_0302703b",
         "filename": "viewpager2/src/main/java/androidx/viewpager2/adapter/FragmentStateAdapter.java",
         "patchSetId": 2
