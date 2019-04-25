@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e75552c9_a1a93f9f",
+        "filename": "webkit/src/main/java/androidx/webkit/package-info.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-04-25T19:34:10Z",
+      "side": 1,
+      "message": "I think you want a \"\u003ch2\u003e\" or something like that?",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 63
+      },
+      "revId": "c5ba6aaa0b40bbdefb2d027a297338bde761150e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c2db892_898e56fd",
+        "filename": "webkit/src/main/java/androidx/webkit/package-info.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-04-25T19:34:10Z",
+      "side": 1,
+      "message": "Maybe change \u003cpre\u003e to \u003cpre class\u003d\"prettyprint\"\u003e?",
+      "range": {
+        "startLine": 33,
+        "startChar": 4,
+        "endLine": 33,
+        "endChar": 7
+      },
+      "revId": "c5ba6aaa0b40bbdefb2d027a297338bde761150e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd201569_116d0f49",
+        "filename": "webkit/src/main/java/androidx/webkit/package-info.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-04-25T19:34:10Z",
+      "side": 1,
+      "message": "Why are we importing transitive dependencies? I don\u0027t need to do this in my own project.",
+      "range": {
+        "startLine": 35,
+        "startChar": 1,
+        "endLine": 35,
+        "endChar": 35
+      },
+      "revId": "c5ba6aaa0b40bbdefb2d027a297338bde761150e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d454a479_f7e38bd6",
+        "filename": "webkit/src/main/java/androidx/webkit/package-info.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-04-25T19:34:10Z",
+      "side": 1,
+      "message": "No space",
+      "range": {
+        "startLine": 42,
+        "startChar": 6,
+        "endLine": 42,
+        "endChar": 7
+      },
+      "revId": "c5ba6aaa0b40bbdefb2d027a297338bde761150e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c3539bfc_a1a78e68",
+        "filename": "webkit/src/main/java/androidx/webkit/package-info.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-04-25T19:34:10Z",
+      "side": 1,
+      "message": "non-static",
+      "range": {
+        "startLine": 54,
+        "startChar": 29,
+        "endLine": 54,
+        "endChar": 39
+      },
+      "revId": "c5ba6aaa0b40bbdefb2d027a297338bde761150e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
