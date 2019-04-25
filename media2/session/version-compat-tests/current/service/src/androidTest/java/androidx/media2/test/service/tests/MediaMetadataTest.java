@@ -36,6 +36,7 @@ import android.support.v4.media.RatingCompat;
 import androidx.media2.common.MediaItem;
 import androidx.media2.common.MediaMetadata;
 import androidx.media2.common.MediaMetadata.Builder;
+import androidx.media2.common.MediaParcelUtils;
 import androidx.media2.common.Rating;
 import androidx.media2.session.HeartRating;
 import androidx.media2.session.MediaUtils;
@@ -45,7 +46,6 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.MediumTest;
 import androidx.test.filters.SdkSuppress;
 import androidx.versionedparcelable.ParcelImpl;
-import androidx.versionedparcelable.ParcelUtils;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -113,7 +113,7 @@ public class MediaMetadataTest {
         }
 
         MediaMetadata metadata = builder.build();
-        ParcelImpl parcelImpl = (ParcelImpl) ParcelUtils.toParcelable(metadata);
+        ParcelImpl parcelImpl = MediaParcelUtils.toParcelable(metadata);
 
         // Bitmaps will not be scaled down since they are small.
         Parcel parcel = Parcel.obtain();
@@ -121,7 +121,7 @@ public class MediaMetadataTest {
         parcel.setDataPosition(0);
 
         MediaMetadata metadataFromParcel =
-                ParcelUtils.fromParcelable(ParcelImpl.CREATOR.createFromParcel(parcel));
+                MediaParcelUtils.fromParcelable(ParcelImpl.CREATOR.createFromParcel(parcel));
 
         // Check the bitmap list from the metadata.
         Set<String> keySet = metadataFromParcel.keySet();
@@ -160,7 +160,7 @@ public class MediaMetadataTest {
         }
 
         MediaMetadata metadata = builder.build();
-        ParcelImpl parcelImpl = (ParcelImpl) ParcelUtils.toParcelable(metadata);
+        ParcelImpl parcelImpl = MediaParcelUtils.toParcelable(metadata);
 
         // Bitmaps will be scaled down when the metadata is written to parcel.
         Parcel parcel = Parcel.obtain();
@@ -168,7 +168,7 @@ public class MediaMetadataTest {
         parcel.setDataPosition(0);
 
         MediaMetadata metadataFromParcel =
-                ParcelUtils.fromParcelable(ParcelImpl.CREATOR.createFromParcel(parcel));
+                MediaParcelUtils.fromParcelable(ParcelImpl.CREATOR.createFromParcel(parcel));
 
         // Check the bitmap list from the metadata.
         Set<String> keySet = metadataFromParcel.keySet();

@@ -192,7 +192,7 @@ public class MediaItemTest {
             final Parcel p = Parcel.obtain();
             p.writeParcelable(ParcelUtils.toParcelable(mTestItem), 0);
             p.setDataPosition(0);
-            final MediaItem testRemoteItem = ParcelUtils.fromParcelable(
+            final MediaItem testRemoteItem = MediaParcelUtils.fromParcelable(
                     (ParcelImpl) p.readParcelable(MediaItem.class.getClassLoader()));
 
             assertTrue("Write to parcel should fail for subclass of MediaItem",

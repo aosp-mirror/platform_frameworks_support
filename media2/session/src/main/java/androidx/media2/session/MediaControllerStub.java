@@ -83,9 +83,6 @@ class MediaControllerStub extends IMediaController.Stub {
     @Override
     public void onCurrentMediaItemChanged(int seq, final ParcelImpl item, final int currentIdx,
             final int previousIdx, final int nextIdx) {
-        if (item == null) {
-            return;
-        }
         dispatchControllerTask(new ControllerTask() {
             @Override
             public void run(MediaControllerImplBase controller) {
@@ -121,9 +118,6 @@ class MediaControllerStub extends IMediaController.Stub {
     @Override
     public void onBufferingStateChanged(int seq, final ParcelImpl item, @BuffState final int state,
             final long bufferedPositionMs, final long eventTimeMs, final long positionMs) {
-        if (item == null) {
-            return;
-        }
         dispatchControllerTask(new ControllerTask() {
             @Override
             public void run(MediaControllerImplBase controller) {
@@ -142,9 +136,6 @@ class MediaControllerStub extends IMediaController.Stub {
     public void onPlaylistChanged(int seq, final ParcelImplListSlice listSlice,
             final ParcelImpl metadata, final int currentIdx, final int previousIdx,
             final int nextIdx) {
-        if (metadata == null) {
-            return;
-        }
         dispatchControllerTask(new ControllerTask() {
             @Override
             public void run(MediaControllerImplBase controller) {
@@ -160,9 +151,6 @@ class MediaControllerStub extends IMediaController.Stub {
     @Override
     public void onPlaylistMetadataChanged(int seq, final ParcelImpl metadata)
             throws RuntimeException {
-        if (metadata == null) {
-            return;
-        }
         dispatchControllerTask(new ControllerTask() {
             @Override
             public void run(MediaControllerImplBase controller) {
@@ -207,9 +195,6 @@ class MediaControllerStub extends IMediaController.Stub {
     @Override
     public void onPlaybackInfoChanged(int seq, final ParcelImpl playbackInfo)
             throws RuntimeException {
-        if (playbackInfo == null) {
-            return;
-        }
         if (DEBUG) {
             Log.d(TAG, "onPlaybackInfoChanged");
         }
@@ -311,9 +296,6 @@ class MediaControllerStub extends IMediaController.Stub {
 
     @Override
     public void onAllowedCommandsChanged(int seq, final ParcelImpl commands) {
-        if (commands == null) {
-            return;
-        }
         dispatchControllerTask(new ControllerTask() {
             @Override
             public void run(MediaControllerImplBase controller) {
@@ -329,9 +311,6 @@ class MediaControllerStub extends IMediaController.Stub {
 
     @Override
     public void onCustomCommand(final int seq, final ParcelImpl commandParcel, final Bundle args) {
-        if (commandParcel == null) {
-            return;
-        }
         dispatchControllerTask(new ControllerTask() {
             @Override
             public void run(MediaControllerImplBase controller) {
@@ -351,9 +330,6 @@ class MediaControllerStub extends IMediaController.Stub {
     @Override
     public void onSearchResultChanged(int seq, final String query, final int itemCount,
             final ParcelImpl libraryParams) throws RuntimeException {
-        if (libraryParams == null) {
-            return;
-        }
         if (TextUtils.isEmpty(query)) {
             Log.w(TAG, "onSearchResultChanged(): Ignoring empty query");
             return;
@@ -374,9 +350,6 @@ class MediaControllerStub extends IMediaController.Stub {
     @Override
     public void onChildrenChanged(int seq, final String parentId, final int itemCount,
             final ParcelImpl libraryParams) {
-        if (libraryParams == null) {
-            return;
-        }
         if (TextUtils.isEmpty(parentId)) {
             Log.w(TAG, "onChildrenChanged(): Ignoring empty parentId");
             return;

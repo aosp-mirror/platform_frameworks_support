@@ -280,7 +280,8 @@ public class MediaSessionProviderService extends Service {
             List<MediaSession.CommandButton> buttons = new ArrayList<>();
             for (ParcelImpl parcel : layout) {
                 if (parcel != null) {
-                    buttons.add((MediaSession.CommandButton) ParcelUtils.fromParcelable(parcel));
+                    buttons.add(
+                            (MediaSession.CommandButton) MediaParcelUtils.fromParcelable(parcel));
                 }
             }
             session.setCustomLayout(info, buttons);

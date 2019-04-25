@@ -21,12 +21,12 @@ import static org.junit.Assert.assertEquals;
 import android.os.Build;
 import android.os.Parcel;
 
+import androidx.media2.common.MediaParcelUtils;
 import androidx.media2.common.Rating;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.SdkSuppress;
 import androidx.test.filters.SmallTest;
 import androidx.versionedparcelable.ParcelImpl;
-import androidx.versionedparcelable.ParcelUtils;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -109,12 +109,12 @@ public class RatingTest extends MediaTestBase {
     }
 
     private Rating writeToParcelAndCreateRating(Rating rating) {
-        ParcelImpl parcelImpl = (ParcelImpl) ParcelUtils.toParcelable(rating);
+        ParcelImpl parcelImpl = (ParcelImpl) MediaParcelUtils.toParcelable(rating);
         Parcel parcel = Parcel.obtain();
         parcelImpl.writeToParcel(parcel, 0);
         parcel.setDataPosition(0);
         ParcelImpl newParcelImpl = ParcelImpl.CREATOR.createFromParcel(parcel);
         parcel.recycle();
-        return ParcelUtils.fromParcelable(newParcelImpl);
+        return MediaParcelUtils.fromParcelable(newParcelImpl);
     }
 }

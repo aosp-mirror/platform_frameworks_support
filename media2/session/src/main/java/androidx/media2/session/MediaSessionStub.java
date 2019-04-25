@@ -420,7 +420,7 @@ class MediaSessionStub extends IMediaSession.Stub {
     @Override
     public void connect(final IMediaController caller, int seq, ParcelImpl connectionRequest)
             throws RuntimeException {
-        if (caller == null || connectionRequest == null) {
+        if (caller == null) {
             return;
         }
         final int uid = Binder.getCallingUid();
@@ -453,7 +453,7 @@ class MediaSessionStub extends IMediaSession.Stub {
     @Override
     public void onControllerResult(final IMediaController caller, int seq,
             final ParcelImpl sessionResult) {
-        if (caller == null || sessionResult == null) {
+        if (caller == null) {
             return;
         }
         final long token = Binder.clearCallingIdentity();
@@ -629,7 +629,7 @@ class MediaSessionStub extends IMediaSession.Stub {
     @Override
     public void onCustomCommand(final IMediaController caller, final int seq,
             final ParcelImpl command, final Bundle args) {
-        if (caller == null || command == null) {
+        if (caller == null) {
             return;
         }
         final SessionCommand sessionCommand = MediaParcelUtils.fromParcelable(command);
@@ -778,7 +778,7 @@ class MediaSessionStub extends IMediaSession.Stub {
     @Override
     public void setRating(final IMediaController caller, int seq, final String mediaId,
             final ParcelImpl ratingParcelable) {
-        if (caller == null || ratingParcelable == null) {
+        if (caller == null) {
             return;
         }
         final Rating rating = MediaParcelUtils.fromParcelable(ratingParcelable);
@@ -817,7 +817,7 @@ class MediaSessionStub extends IMediaSession.Stub {
     @Override
     public void setPlaylist(final IMediaController caller, int seq, final List<String> playlist,
             final ParcelImpl metadata) {
-        if (caller == null || metadata == null) {
+        if (caller == null) {
             return;
         }
         dispatchSessionTask(caller, seq, SessionCommand.COMMAND_CODE_PLAYER_SET_PLAYLIST,
@@ -1034,7 +1034,7 @@ class MediaSessionStub extends IMediaSession.Stub {
     @Override
     public void getLibraryRoot(final IMediaController caller, int seq,
             final ParcelImpl libraryParams) throws RuntimeException {
-        if (caller == null || libraryParams == null) {
+        if (caller == null) {
             return;
         }
         dispatchLibrarySessionTask(caller, seq,
@@ -1068,7 +1068,7 @@ class MediaSessionStub extends IMediaSession.Stub {
     public void getChildren(final IMediaController caller, int seq, final String parentId,
             final int page, final int pageSize, final ParcelImpl libraryParams)
             throws RuntimeException {
-        if (caller == null || libraryParams == null) {
+        if (caller == null) {
             return;
         }
         dispatchLibrarySessionTask(caller, seq, SessionCommand.COMMAND_CODE_LIBRARY_GET_CHILDREN,
@@ -1098,7 +1098,7 @@ class MediaSessionStub extends IMediaSession.Stub {
     @Override
     public void search(IMediaController caller, int seq, final String query,
             final ParcelImpl libraryParams) {
-        if (caller == null || libraryParams == null) {
+        if (caller == null) {
             return;
         }
         dispatchLibrarySessionTask(caller, seq, SessionCommand.COMMAND_CODE_LIBRARY_SEARCH,
@@ -1118,7 +1118,7 @@ class MediaSessionStub extends IMediaSession.Stub {
     @Override
     public void getSearchResult(final IMediaController caller, int seq, final String query,
             final int page, final int pageSize, final ParcelImpl libraryParams) {
-        if (caller == null || libraryParams == null) {
+        if (caller == null) {
             return;
         }
         dispatchLibrarySessionTask(caller, seq,
@@ -1151,7 +1151,7 @@ class MediaSessionStub extends IMediaSession.Stub {
     @Override
     public void subscribe(final IMediaController caller, int seq, final String parentId,
             final ParcelImpl libraryParams) {
-        if (caller == null || libraryParams == null) {
+        if (caller == null) {
             return;
         }
         dispatchLibrarySessionTask(caller, seq, SessionCommand.COMMAND_CODE_LIBRARY_SUBSCRIBE,
