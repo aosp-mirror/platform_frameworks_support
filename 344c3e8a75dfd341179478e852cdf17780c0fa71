@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "88e0bc45_ffa615ae",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCaptureConfig.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 606,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-04-25T00:22:27Z",
+      "side": 1,
+      "message": "Caught by the linter. Should be single \u0027the\u0027.",
+      "range": {
+        "startLine": 606,
+        "startChar": 43,
+        "endLine": 606,
+        "endChar": 50
+      },
+      "revId": "344c3e8a75dfd341179478e852cdf17780c0fa71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
