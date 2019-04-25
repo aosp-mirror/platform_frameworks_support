@@ -2,6 +2,75 @@
   "comments": [
     {
       "key": {
+        "uuid": "f88beb79_82f4ab6d",
+        "filename": "car/core/src/main/java/androidx/car/widget/CheckBoxListItem.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-04-25T21:13:21Z",
+      "side": 1,
+      "message": "Should this be final?",
+      "range": {
+        "startLine": 45,
+        "startChar": 13,
+        "endLine": 45,
+        "endChar": 29
+      },
+      "revId": "353500950fcaac4748fc07c38b8ca521b0c0f82b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74da7352_080cf286",
+        "filename": "car/core/src/main/java/androidx/car/widget/CheckBoxListItem.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-04-25T21:13:21Z",
+      "side": 1,
+      "message": "Javadoc.",
+      "range": {
+        "startLine": 55,
+        "startChar": 11,
+        "endLine": 55,
+        "endChar": 27
+      },
+      "revId": "353500950fcaac4748fc07c38b8ca521b0c0f82b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad4170c9_779dfb17",
+        "filename": "car/core/src/main/java/androidx/car/widget/CheckBoxListItem.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-04-25T21:13:21Z",
+      "side": 1,
+      "message": "Javadoc.",
+      "range": {
+        "startLine": 86,
+        "startChar": 15,
+        "endLine": 86,
+        "endChar": 25
+      },
+      "revId": "353500950fcaac4748fc07c38b8ca521b0c0f82b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2b58d5c8_3f58a405",
         "filename": "car/core/src/main/java/androidx/car/widget/CheckBoxListItem.java",
         "patchSetId": 7
