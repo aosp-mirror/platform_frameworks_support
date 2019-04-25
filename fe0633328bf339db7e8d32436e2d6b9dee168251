@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8b33933c_f6f63e02",
+        "filename": "media2/session/version-compat-tests/current/service/src/androidTest/java/androidx/media2/test/service/tests/MediaItemTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-04-25T07:07:24Z",
+      "side": 1,
+      "message": "It was intentionally using ParcelUtils instead of MediaParcelUtils. (see testSubclass_acrossProcessWithMediaUtils above)",
+      "range": {
+        "startLine": 195,
+        "startChar": 45,
+        "endLine": 195,
+        "endChar": 61
+      },
+      "revId": "fe0633328bf339db7e8d32436e2d6b9dee168251",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
