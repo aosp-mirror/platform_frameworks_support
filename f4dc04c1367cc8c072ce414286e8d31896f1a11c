@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ea4f0cfb_6cdc3163",
+        "filename": "benchmark/src/main/java/androidx/benchmark/Clocks.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1010103
+      },
+      "writtenOn": "2019-04-25T20:39:58Z",
+      "side": 1,
+      "message": "foreachIndex?",
+      "range": {
+        "startLine": 73,
+        "startChar": 21,
+        "endLine": 73,
+        "endChar": 31
+      },
+      "revId": "f4dc04c1367cc8c072ce414286e8d31896f1a11c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a965e510_25fb64f9",
+        "filename": "benchmark/src/main/java/androidx/benchmark/WarningState.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1010103
+      },
+      "writtenOn": "2019-04-25T20:39:58Z",
+      "side": 1,
+      "message": "if this fails maybe not worth crashing on it? Would suggest\n\n    ?.run {...} ?: 100.0f",
+      "range": {
+        "startLine": 149,
+        "startChar": 66,
+        "endLine": 149,
+        "endChar": 69
+      },
+      "revId": "f4dc04c1367cc8c072ce414286e8d31896f1a11c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74eedee0_56fc7fce",
+        "filename": "benchmark/src/main/java/androidx/benchmark/WarningState.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1010103
+      },
+      "writtenOn": "2019-04-25T20:39:58Z",
+      "side": 1,
+      "message": "default to 100? negative battery percentages seems odd",
+      "range": {
+        "startLine": 150,
+        "startChar": 64,
+        "endLine": 150,
+        "endChar": 66
+      },
+      "revId": "f4dc04c1367cc8c072ce414286e8d31896f1a11c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
