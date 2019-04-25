@@ -18,6 +18,8 @@ package androidx.camera.extensions.impl;
 
 import android.hardware.camera2.CameraCharacteristics;
 
+import androidx.camera.core.CameraX;
+
 /**
  * Provides abstract methods that the OEM needs to implement to enable extensions in the view
  * finder.
@@ -42,4 +44,9 @@ public interface PreviewExtenderImpl {
 
     /** The set of parameters required to produce the effect on images. */
     CaptureStageImpl getCaptureStage();
+
+    /**
+     * The specific camera id needed to be opened for this extender to work.
+     */
+    String getCustomizedCameraId(CameraX.LensFacing lensFacing);
 }

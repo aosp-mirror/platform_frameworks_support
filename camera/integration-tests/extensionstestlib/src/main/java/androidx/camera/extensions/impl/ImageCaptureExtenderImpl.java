@@ -18,6 +18,8 @@ package androidx.camera.extensions.impl;
 
 import android.hardware.camera2.CameraCharacteristics;
 
+import androidx.camera.core.CameraX;
+
 import java.util.List;
 
 /**
@@ -48,5 +50,10 @@ public interface ImageCaptureExtenderImpl {
      * The processing that will be done on a set of captures to create and image with the effect.
      */
     CaptureProcessorImpl getCaptureProcessor();
+
+    /**
+     * The specific camera id needed to be opened for this extender to work.
+     */
+    String getCustomizedCameraId(CameraX.LensFacing lensFacing);
 }
 
