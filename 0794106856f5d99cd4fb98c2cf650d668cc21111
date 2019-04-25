@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "2b261b81_055d3f14",
+        "filename": "media/src/main/java/android/support/v4/media/session/MediaSessionCompat.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1959,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-04-25T23:31:43Z",
+      "side": 1,
+      "message": "Keeping ILE in media-compat is intentional?",
+      "range": {
+        "startLine": 1959,
+        "startChar": 26,
+        "endLine": 1959,
+        "endChar": 50
+      },
+      "revId": "0794106856f5d99cd4fb98c2cf650d668cc21111",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "31ba5eb1_35dfe7f3",
         "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer.java",
         "patchSetId": 2
@@ -540,6 +563,23 @@
       "revId": "0794106856f5d99cd4fb98c2cf650d668cc21111",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d501f117_f3de56f1",
+        "filename": "samples/Support7Demos/src/main/java/com/example/android/supportv7/widget/selection/fancy/FancySelectionDemoAdapter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-04-25T23:31:43Z",
+      "side": 1,
+      "message": "Same to this file. Add owner review?",
+      "revId": "0794106856f5d99cd4fb98c2cf650d668cc21111",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     },
     {
       "key": {
