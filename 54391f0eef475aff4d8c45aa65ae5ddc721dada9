@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "b7f72dd5_4b12e6aa",
+        "filename": "camera/core/src/main/java/androidx/camera/core/impl/utils/executor/SequentialExecutor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-04-25T00:23:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6f14c6e1_3948facd",
+      "range": {
+        "startLine": 53,
+        "startChar": 5,
+        "endLine": 53,
+        "endChar": 14
+      },
+      "revId": "54391f0eef475aff4d8c45aa65ae5ddc721dada9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "48d73b07_b081cefe",
         "filename": "camera/core/src/main/java/androidx/camera/core/impl/utils/executor/SequentialExecutor.java",
         "patchSetId": 1
@@ -93,6 +117,30 @@
       "revId": "54391f0eef475aff4d8c45aa65ae5ddc721dada9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2dd5d9d2_dd01197c",
+        "filename": "camera/core/src/main/java/androidx/camera/core/impl/utils/executor/SequentialExecutor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-04-25T00:23:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "071878be_29a52fdc",
+      "range": {
+        "startLine": 64,
+        "startChar": 32,
+        "endLine": 64,
+        "endChar": 35
+      },
+      "revId": "54391f0eef475aff4d8c45aa65ae5ddc721dada9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
