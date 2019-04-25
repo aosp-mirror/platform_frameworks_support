@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "512574da_f8c40ce0",
+        "filename": "camera/core/src/main/java/androidx/camera/core/DeferredImageReaderSurface.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1482725
+      },
+      "writtenOn": "2019-04-25T07:09:26Z",
+      "side": 1,
+      "message": "Got it.",
+      "parentUuid": "d3510403_93493bc7",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 37
+      },
+      "revId": "e629c81fe45976a89ed30a5315dc1637cfe05896",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5c2e443a_b0af5da3",
         "filename": "camera/core/src/main/java/androidx/camera/core/DeferredImageReaderSurface.java",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "e629c81fe45976a89ed30a5315dc1637cfe05896",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70fa4026_458cde1d",
+        "filename": "camera/core/src/main/java/androidx/camera/core/DeferredImageReaderSurface.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1482725
+      },
+      "writtenOn": "2019-04-25T07:09:26Z",
+      "side": 1,
+      "message": "Agree comment 2 and 5.",
+      "parentUuid": "5c2e443a_b0af5da3",
+      "range": {
+        "startLine": 115,
+        "startChar": 0,
+        "endLine": 115,
+        "endChar": 71
+      },
+      "revId": "e629c81fe45976a89ed30a5315dc1637cfe05896",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "4d1e3ea2_b305d2b6",
+        "filename": "camera/core/src/main/java/androidx/camera/core/DeferredImageReaderSurface.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1482725
+      },
+      "writtenOn": "2019-04-25T07:09:26Z",
+      "side": 1,
+      "message": "Yes, have utilized OnSurfaceDetachedListener to release the in-used ImageReader",
+      "parentUuid": "9f933397_0ac83015",
+      "range": {
+        "startLine": 127,
+        "startChar": 0,
+        "endLine": 127,
+        "endChar": 51
+      },
+      "revId": "e629c81fe45976a89ed30a5315dc1637cfe05896",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c7929a80_62b35e9b",
         "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
         "patchSetId": 4
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "be2b7a2d_dda08dee",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 1482725
+      },
+      "writtenOn": "2019-04-25T07:09:26Z",
+      "side": 1,
+      "message": "Got it.",
+      "parentUuid": "c7929a80_62b35e9b",
+      "range": {
+        "startLine": 511,
+        "startChar": 11,
+        "endLine": 511,
+        "endChar": 23
+      },
+      "revId": "e629c81fe45976a89ed30a5315dc1637cfe05896",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "09e81aa0_17e633dd",
         "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
         "patchSetId": 4
@@ -114,6 +210,30 @@
       "revId": "e629c81fe45976a89ed30a5315dc1637cfe05896",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4e2dc9c_46fcbac1",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 526,
+      "author": {
+        "id": 1482725
+      },
+      "writtenOn": "2019-04-25T07:09:26Z",
+      "side": 1,
+      "message": "Agree comment 2 and 5.",
+      "parentUuid": "09e81aa0_17e633dd",
+      "range": {
+        "startLine": 526,
+        "startChar": 0,
+        "endLine": 526,
+        "endChar": 76
+      },
+      "revId": "e629c81fe45976a89ed30a5315dc1637cfe05896",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
