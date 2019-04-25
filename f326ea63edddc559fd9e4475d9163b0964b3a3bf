@@ -45,6 +45,30 @@
       "revId": "f326ea63edddc559fd9e4475d9163b0964b3a3bf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70f70715_ad0273f4",
+        "filename": "settings.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-04-25T05:42:20Z",
+      "side": 1,
+      "message": "I prefer the original for consistency with the other package namings.",
+      "parentUuid": "2ba4544c_90134c7b",
+      "range": {
+        "startLine": 128,
+        "startChar": 24,
+        "endLine": 128,
+        "endChar": 56
+      },
+      "revId": "f326ea63edddc559fd9e4475d9163b0964b3a3bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
