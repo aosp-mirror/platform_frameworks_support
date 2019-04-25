@@ -20,6 +20,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Debug
 import android.util.Log
+import androidx.annotation.RestrictTo
 import androidx.annotation.VisibleForTesting
 import androidx.test.platform.app.InstrumentationRegistry
 import java.io.File
@@ -249,6 +250,7 @@ class BenchmarkState internal constructor() {
      *
      * @hide
      */
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
     @Suppress("NOTHING_TO_INLINE")
     inline fun keepRunningInline(): Boolean {
         if (iterationsRemaining > 1) {
@@ -403,6 +405,7 @@ class BenchmarkState internal constructor() {
     }
 
     /** @hide */
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
     companion object {
         private const val TAG = "Benchmark"
         private const val CSV_TAG = "BenchmarkCsv"
