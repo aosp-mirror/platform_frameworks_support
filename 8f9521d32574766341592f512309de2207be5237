@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "94287d93_fc9e45d0",
+        "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/AdbUtil.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-04-25T15:43:00Z",
+      "side": 1,
+      "message": "Done - amazing, I didn\u0027t know you could define classes inside objects!",
+      "parentUuid": "63ccc22a_3a604e3b",
+      "revId": "8f9521d32574766341592f512309de2207be5237",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ab6f8fa8_3284543e",
         "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/AdbUtil.kt",
         "patchSetId": 12
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "b3fa56d8_3f40a985",
+        "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/AdbUtil.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-04-25T15:43:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ab6f8fa8_3284543e",
+      "revId": "8f9521d32574766341592f512309de2207be5237",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d3fd2d8b_2c956ea5",
         "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/AdbUtil.kt",
         "patchSetId": 12
@@ -47,6 +83,24 @@
       "writtenOn": "2019-04-24T18:03:29Z",
       "side": 1,
       "message": "Right now, there\u0027s a *lot* of boilerplate in calling this method:\n\n    AdbUtil.execSync(adbPath, arrayOf(\"devices\", \"-l\"), logger).stdout\n\nThis could be a lot more readable as:\n\n    execAdbSync(\"devices -l\").stdout\n\n1) you can get rid of the logger by making this an member/extension function\n2) you can get rid of the adbPath with a member function, as you had before - not sure if that\u0027s worth it. Might be a way to get adbPath even if you\u0027re just an extension function?\n3) you can get rid of the arrayof by doing that inside the function. If there are cases where this doesn\u0027t work, you could support both variants",
+      "revId": "8f9521d32574766341592f512309de2207be5237",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa36dab6_8c7cd944",
+        "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/AdbUtil.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-04-25T15:43:00Z",
+      "side": 1,
+      "message": "Ah good point, I had originally made this change to support usage outside of tasks (inside an Action).",
+      "parentUuid": "d3fd2d8b_2c956ea5",
       "revId": "8f9521d32574766341592f512309de2207be5237",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
@@ -81,6 +135,24 @@
       "writtenOn": "2019-04-24T18:03:29Z",
       "side": 1,
       "message": "what happens if the plugin is applied to a project without using the benchmark library? does it just see no files, and do nothing?",
+      "revId": "8f9521d32574766341592f512309de2207be5237",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c8f0eae_5a874801",
+        "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/BenchmarkPlugin.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-04-25T15:43:00Z",
+      "side": 1,
+      "message": "I think it will fail at the moment when it tries to pull the reports.\n\nI\u0027ll add a more visible error here and check for the dependency to make sure they are used together.",
+      "parentUuid": "d80d6657_b121e425",
       "revId": "8f9521d32574766341592f512309de2207be5237",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
@@ -193,6 +265,24 @@
       "revId": "8f9521d32574766341592f512309de2207be5237",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e498db0_9f037a12",
+        "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/BenchmarkReportTask.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-04-25T15:43:00Z",
+      "side": 1,
+      "message": "This task isn\u0027t actually responsible for running the benchmarks, but we want to mirror the behavior of cAT because this task should always run whenever cAT is run.\n\nI\u0027ll update the comment accordingly since it\u0027s too vague.",
+      "parentUuid": "c37c52a0_b116a201",
+      "revId": "8f9521d32574766341592f512309de2207be5237",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

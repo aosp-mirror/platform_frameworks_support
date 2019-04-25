@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "670bded9_feef50b1",
+        "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/BenchmarkPlugin.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-04-25T15:43:00Z",
+      "side": 1,
+      "message": "Done - hooked into cAT now.",
+      "parentUuid": "08f66f86_3820f058",
+      "revId": "c4935edf2691ba6418e7c5884a5d3e3d3aa55a8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "343ffbeb_f0cb8d28",
         "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/BenchmarkReportTask.kt",
         "patchSetId": 8
@@ -158,6 +176,24 @@
       "revId": "c4935edf2691ba6418e7c5884a5d3e3d3aa55a8a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50b41cee_d72e29bf",
+        "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/BenchmarkReportTask.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-04-25T15:43:00Z",
+      "side": 1,
+      "message": "Done - I also added a check to filter out connected devices which aren\u0027t authorized for debugging.",
+      "parentUuid": "502e5971_76d91e1c",
+      "revId": "c4935edf2691ba6418e7c5884a5d3e3d3aa55a8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
