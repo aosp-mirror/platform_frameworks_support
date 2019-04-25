@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "e7309645_ec0ac0d1",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/ImageCaptureTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 537,
+      "author": {
+        "id": 1483725
+      },
+      "writtenOn": "2019-04-25T01:40:43Z",
+      "side": 1,
+      "message": "marking resolved.",
+      "parentUuid": "ba22ae17_2053be4c",
+      "range": {
+        "startLine": 511,
+        "startChar": 0,
+        "endLine": 537,
+        "endChar": 5
+      },
+      "revId": "6b4d56145521bf4cf4eac9215e7765d256eeaa55",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d751fb97_e38a505d",
         "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
         "patchSetId": 1
@@ -117,6 +141,30 @@
       "revId": "6b4d56145521bf4cf4eac9215e7765d256eeaa55",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "afa0b728_03242d18",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1483725
+      },
+      "writtenOn": "2019-04-25T01:40:43Z",
+      "side": 1,
+      "message": "marking resolved.",
+      "parentUuid": "60ddfa3c_756d919d",
+      "range": {
+        "startLine": 158,
+        "startChar": 0,
+        "endLine": 167,
+        "endChar": 9
+      },
+      "revId": "6b4d56145521bf4cf4eac9215e7765d256eeaa55",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
