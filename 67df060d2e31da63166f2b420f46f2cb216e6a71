@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "27b46840_712c01ed",
+        "filename": "benchmark/src/main/java/androidx/benchmark/WarningState.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-04-25T20:23:57Z",
+      "side": 1,
+      "message": "Any notes about where this number is from? Or even a note about how we might want to look into it further in the future if it\u0027s random?",
+      "revId": "67df060d2e31da63166f2b420f46f2cb216e6a71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0390d7e_72a4f0b1",
+        "filename": "benchmark/src/main/java/androidx/benchmark/WarningState.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-04-25T20:23:57Z",
+      "side": 1,
+      "message": "How is this value being used?",
+      "revId": "67df060d2e31da63166f2b420f46f2cb216e6a71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4346cb7_f82b338d",
+        "filename": "benchmark/src/main/java/androidx/benchmark/WarningState.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-04-25T20:23:57Z",
+      "side": 1,
+      "message": "|| true !!",
+      "revId": "67df060d2e31da63166f2b420f46f2cb216e6a71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
