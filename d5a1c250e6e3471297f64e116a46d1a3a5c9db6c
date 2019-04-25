@@ -22,6 +22,30 @@
       "revId": "d5a1c250e6e3471297f64e116a46d1a3a5c9db6c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64aa735c_b82799aa",
+        "filename": "navigation/fragment/src/androidTest/java/androidx/navigation/fragment/OnBackPressedTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-04-25T23:56:50Z",
+      "side": 1,
+      "message": "Well, you\u0027d call navHostFragment.fragmentManager just activityFragmentManager, so I think the child here is redundant - the only FragmentManager of note for a particular Fragment is the childFragmentManager.",
+      "parentUuid": "e631860d_3de148eb",
+      "range": {
+        "startLine": 72,
+        "startChar": 12,
+        "endLine": 72,
+        "endChar": 34
+      },
+      "revId": "d5a1c250e6e3471297f64e116a46d1a3a5c9db6c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
