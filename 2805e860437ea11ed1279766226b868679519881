@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "18e594d1_46cbfeb5",
+        "filename": ".idea/codeStyles/Project.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-25T17:59:20Z",
+      "side": 1,
+      "message": "This file shouldn\u0027t need to be modified.",
+      "revId": "2805e860437ea11ed1279766226b868679519881",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ca1278d_27c2cb97",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-25T17:59:20Z",
+      "side": 1,
+      "message": "Change the message to:\n\n\"Cannot set buffer format with CaptureProcessor defined.\"",
+      "revId": "2805e860437ea11ed1279766226b868679519881",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
