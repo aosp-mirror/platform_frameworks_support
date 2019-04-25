@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e044ce6f_d612c03e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-04-25T19:40:48Z",
+      "side": 1,
+      "message": "This should be prefixed by \"Test:\"",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 18
+      },
+      "revId": "d126bec2563716a1649cca1b5a0457bb0410a98c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "103d75f3_5df9bee8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-04-25T19:40:48Z",
+      "side": 1,
+      "message": "What is \"signed-off-by\"?",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 14
+      },
+      "revId": "d126bec2563716a1649cca1b5a0457bb0410a98c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dcb3dbe0_cc63d2e2",
+        "filename": "webkit/src/main/java/androidx/webkit/WebSettingsCompat.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-04-25T19:40:48Z",
+      "side": 1,
+      "message": "Oh, this should actually remain hidden forever. We @hide IntDefs, otherwise they show up in the API definition (but don\u0027t expect apps to use these)",
+      "range": {
+        "startLine": 325,
+        "startChar": 22,
+        "endLine": 325,
+        "endChar": 28
+      },
+      "revId": "d126bec2563716a1649cca1b5a0457bb0410a98c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b8ca330_5a458dc2",
+        "filename": "webkit/src/main/java/androidx/webkit/WebSettingsCompat.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-04-25T19:40:48Z",
+      "side": 1,
+      "message": "nit: TODOs should go outside of javadoc. Doesn\u0027t matter for now since everything is @hidden, but it will matter when we unhide",
+      "range": {
+        "startLine": 380,
+        "startChar": 7,
+        "endLine": 380,
+        "endChar": 98
+      },
+      "revId": "d126bec2563716a1649cca1b5a0457bb0410a98c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
