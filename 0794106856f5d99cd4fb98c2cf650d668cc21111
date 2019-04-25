@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "7c3d114f_a14502d5",
+        "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2409,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2019-04-25T22:59:37Z",
+      "side": 1,
+      "message": "not public method. it\u0027s okay.",
+      "parentUuid": "e132ce22_3ad1dd61",
+      "range": {
+        "startLine": 2409,
+        "startChar": 12,
+        "endLine": 2409,
+        "endChar": 38
+      },
+      "revId": "0794106856f5d99cd4fb98c2cf650d668cc21111",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a7e720ed_3b5e2d5a",
         "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer2Impl.java",
         "patchSetId": 2
