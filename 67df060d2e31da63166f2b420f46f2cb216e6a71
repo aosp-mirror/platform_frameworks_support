@@ -74,6 +74,24 @@
     },
     {
       "key": {
+        "uuid": "ffaf7ba5_a8adbf1c",
+        "filename": "benchmark/src/main/java/androidx/benchmark/WarningState.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-04-25T20:34:26Z",
+      "side": 1,
+      "message": "(resolving)",
+      "parentUuid": "d9fe4737_b1b399d9",
+      "revId": "67df060d2e31da63166f2b420f46f2cb216e6a71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e4346cb7_f82b338d",
         "filename": "benchmark/src/main/java/androidx/benchmark/WarningState.kt",
         "patchSetId": 1
