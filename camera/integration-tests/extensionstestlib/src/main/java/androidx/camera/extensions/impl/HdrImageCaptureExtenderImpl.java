@@ -16,6 +16,7 @@
 package androidx.camera.extensions.impl;
 
 import android.hardware.camera2.CameraCharacteristics;
+import android.hardware.camera2.CameraMetadata;
 import android.hardware.camera2.CaptureRequest;
 import android.media.Image;
 import android.media.ImageWriter;
@@ -40,6 +41,8 @@ public final class HdrImageCaptureExtenderImpl implements ImageCaptureExtenderIm
     private static final int UNDER_STAGE_ID = 0;
     private static final int NORMAL_STAGE_ID = 1;
     private static final int OVER_STAGE_ID = 2;
+    private static final String FRONT_HDR_CAMERA_ID = "6";
+    private static final String BACK_HDR_CAMERA_ID = "7";
 
     public HdrImageCaptureExtenderImpl() {
     }
@@ -145,5 +148,18 @@ public final class HdrImageCaptureExtenderImpl implements ImageCaptureExtenderIm
                     }
                 };
         return captureProcessor;
+    }
+
+    @Override
+    public String getCustomizedCameraId(int lensFacing) {
+        // Do the camera id selection logic, then return the specific camera id needed for this
+        // extender.
+        if (lensFacing == CameraMetadata.LENS_FACING_FRONT) {
+            return FRONT_HDR_CAMERA_ID;
+        } else if (lensFacing == CameraMetadata.LENS_FACING_BACK) {
+            return BACK_HDR_CAMERA_ID;
+        } else {
+            return null;
+        }
     }
 }
