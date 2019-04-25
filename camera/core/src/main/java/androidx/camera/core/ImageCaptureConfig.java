@@ -185,6 +185,34 @@ public final class ImageCaptureConfig
         return retrieveOption(OPTION_BUFFER_FORMAT);
     }
 
+    /**
+     * Returns the customized camera id.
+     *
+     * @param valueIfMissing The value to return if this configuration option has not been set.
+     * @return The stored value or <code>valueIfMissing</code> if the value does not exist in this
+     * configuration.
+     * @hide
+     */
+    @RestrictTo(Scope.LIBRARY_GROUP)
+    @Override
+    @Nullable
+    public String getCustomizedCameraId(@Nullable String valueIfMissing) {
+        return retrieveOption(OPTION_CUSTOMIZED_CAMERA_ID, valueIfMissing);
+    }
+
+    /**
+     * Returns the customized camera id.
+     *
+     * @return The stored value, if it exists in this configuration.
+     * @throws IllegalArgumentException if the option does not exist in this configuration.
+     * @hide
+     */
+    @RestrictTo(Scope.LIBRARY_GROUP)
+    @Override
+    public String getCustomizedCameraId() {
+        return retrieveOption(OPTION_CUSTOMIZED_CAMERA_ID);
+    }
+
     // Start of the default implementation of Config
     // *********************************************************************************************
 
@@ -619,6 +647,20 @@ public final class ImageCaptureConfig
         @RestrictTo(Scope.LIBRARY_GROUP)
         public Builder setBufferFormat(int bufferImageFormat) {
             getMutableConfig().insertOption(OPTION_BUFFER_FORMAT, bufferImageFormat);
+            return this;
+        }
+
+        /**
+         * Sets the customized camera id.
+         *
+         * @param cameraId The specific camera id that will be used to open camera, which will
+         *                 override the camera id decided by lens-facing.
+         * @return The current Builder.
+         * @hide
+         */
+        @RestrictTo(Scope.LIBRARY_GROUP)
+        public Builder setCustomizedCameraId(String cameraId) {
+            getMutableConfig().insertOption(OPTION_CUSTOMIZED_CAMERA_ID, cameraId);
             return this;
         }
 
