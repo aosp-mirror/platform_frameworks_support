@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e132ce22_3ad1dd61",
+        "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2409,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-04-25T14:09:25Z",
+      "side": 1,
+      "message": "I don\u0027t understand. Could you elaborate?",
+      "parentUuid": "31ba5eb1_35dfe7f3",
+      "range": {
+        "startLine": 2409,
+        "startChar": 12,
+        "endLine": 2409,
+        "endChar": 38
+      },
+      "revId": "0794106856f5d99cd4fb98c2cf650d668cc21111",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a7e720ed_3b5e2d5a",
         "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer2Impl.java",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "0794106856f5d99cd4fb98c2cf650d668cc21111",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6937e06_71855bd3",
+        "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer2Impl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-04-25T14:09:25Z",
+      "side": 1,
+      "message": "Yes, since this is not a public API.",
+      "parentUuid": "a7e720ed_3b5e2d5a",
+      "range": {
+        "startLine": 314,
+        "startChar": 74,
+        "endLine": 314,
+        "endChar": 84
+      },
+      "revId": "0794106856f5d99cd4fb98c2cf650d668cc21111",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "d761685a_a94c21f2",
+        "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer2Impl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-04-25T14:09:25Z",
+      "side": 1,
+      "message": "Since this is not a public API, actually the caller should check it before calling this.",
+      "parentUuid": "09816506_68d3e8d4",
+      "range": {
+        "startLine": 333,
+        "startChar": 30,
+        "endLine": 333,
+        "endChar": 43
+      },
+      "revId": "0794106856f5d99cd4fb98c2cf650d668cc21111",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "744b2e92_c8a6e7b3",
         "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer2Impl.java",
         "patchSetId": 2
@@ -91,6 +163,30 @@
       "revId": "0794106856f5d99cd4fb98c2cf650d668cc21111",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a86cb39_ed91e00d",
+        "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer2Impl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-04-25T14:09:25Z",
+      "side": 1,
+      "message": "ditto",
+      "parentUuid": "744b2e92_c8a6e7b3",
+      "range": {
+        "startLine": 349,
+        "startChar": 30,
+        "endLine": 349,
+        "endChar": 43
+      },
+      "revId": "0794106856f5d99cd4fb98c2cf650d668cc21111",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "4aa39e98_71661d8a",
+        "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer2Impl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 466,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-04-25T14:09:25Z",
+      "side": 1,
+      "message": "ditto",
+      "parentUuid": "0e1b0acb_25dced4b",
+      "range": {
+        "startLine": 466,
+        "startChar": 22,
+        "endLine": 466,
+        "endChar": 35
+      },
+      "revId": "0794106856f5d99cd4fb98c2cf650d668cc21111",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "74480759_9cf28399",
         "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer2Impl.java",
         "patchSetId": 2
@@ -137,6 +257,30 @@
       "revId": "0794106856f5d99cd4fb98c2cf650d668cc21111",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98842bb0_e0990258",
+        "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer2Impl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 526,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-04-25T14:09:25Z",
+      "side": 1,
+      "message": "No. This is not a public API.",
+      "parentUuid": "74480759_9cf28399",
+      "range": {
+        "startLine": 526,
+        "startChar": 66,
+        "endLine": 526,
+        "endChar": 72
+      },
+      "revId": "0794106856f5d99cd4fb98c2cf650d668cc21111",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "30f2b75f_19c8d02f",
+        "filename": "media2/player/src/main/java/androidx/media2/player/PlaybackParams.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-04-25T14:09:25Z",
+      "side": 1,
+      "message": "No, it can\u0027t. Done.",
+      "parentUuid": "0dfeabd2_e302b09b",
+      "range": {
+        "startLine": 204,
+        "startChar": 47,
+        "endLine": 204,
+        "endChar": 61
+      },
+      "revId": "0794106856f5d99cd4fb98c2cf650d668cc21111",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "438ab73a_283a866c",
         "filename": "media2/session/src/main/java/androidx/media2/session/MediaController.java",
         "patchSetId": 2
@@ -183,6 +351,30 @@
       "revId": "0794106856f5d99cd4fb98c2cf650d668cc21111",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3dd55829_bae65795",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaController.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-04-25T14:09:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "438ab73a_283a866c",
+      "range": {
+        "startLine": 140,
+        "startChar": 28,
+        "endLine": 140,
+        "endChar": 43
+      },
+      "revId": "0794106856f5d99cd4fb98c2cf650d668cc21111",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "12ba356c_89b6f206",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaControllerImplBase.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-04-25T14:09:25Z",
+      "side": 1,
+      "message": "Yes, since they are not public APIs.",
+      "parentUuid": "97c0a403_730cc7ee",
+      "range": {
+        "startLine": 380,
+        "startChar": 81,
+        "endLine": 380,
+        "endChar": 88
+      },
+      "revId": "0794106856f5d99cd4fb98c2cf650d668cc21111",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "45f7370a_7fa216c9",
         "filename": "media2/session/src/main/java/androidx/media2/session/SessionCommandGroup.java",
         "patchSetId": 2
@@ -229,6 +445,30 @@
       "revId": "0794106856f5d99cd4fb98c2cf650d668cc21111",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f420d0e8_3c25c486",
+        "filename": "media2/session/src/main/java/androidx/media2/session/SessionCommandGroup.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-04-25T14:09:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "45f7370a_7fa216c9",
+      "range": {
+        "startLine": 114,
+        "startChar": 52,
+        "endLine": 114,
+        "endChar": 64
+      },
+      "revId": "0794106856f5d99cd4fb98c2cf650d668cc21111",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -255,6 +495,30 @@
     },
     {
       "key": {
+        "uuid": "585df08a_632d2d37",
+        "filename": "media2/session/src/main/java/androidx/media2/session/SessionToken.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-04-25T14:09:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0e8b0242_57dcd910",
+      "range": {
+        "startLine": 123,
+        "startChar": 41,
+        "endLine": 123,
+        "endChar": 48
+      },
+      "revId": "0794106856f5d99cd4fb98c2cf650d668cc21111",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7b72cb9b_0302703b",
         "filename": "viewpager2/src/main/java/androidx/viewpager2/adapter/FragmentStateAdapter.java",
         "patchSetId": 2
@@ -269,6 +533,24 @@
       "revId": "0794106856f5d99cd4fb98c2cf650d668cc21111",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "685570ce_932ee358",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/adapter/FragmentStateAdapter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-04-25T14:09:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7b72cb9b_0302703b",
+      "revId": "0794106856f5d99cd4fb98c2cf650d668cc21111",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
