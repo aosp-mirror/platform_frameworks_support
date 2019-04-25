@@ -141,6 +141,30 @@
       "revId": "f326ea63edddc559fd9e4475d9163b0964b3a3bf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "afd41a9e_f63088f6",
+        "filename": "settings.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-04-25T07:25:03Z",
+      "side": 1,
+      "message": "Oh, there is already inconsistency. Anyway, \"integration-tests:testapp\" looks good to me.",
+      "parentUuid": "887dc353_d53fb573",
+      "range": {
+        "startLine": 128,
+        "startChar": 24,
+        "endLine": 128,
+        "endChar": 56
+      },
+      "revId": "f326ea63edddc559fd9e4475d9163b0964b3a3bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
