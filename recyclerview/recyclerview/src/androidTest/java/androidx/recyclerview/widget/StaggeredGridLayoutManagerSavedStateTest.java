@@ -38,15 +38,14 @@ import java.util.UUID;
 @LargeTest
 public class StaggeredGridLayoutManagerSavedStateTest extends BaseStaggeredGridLayoutManagerTest {
     private final Config mConfig;
-    private final boolean mWaitForLayout;
     private final boolean mLoadDataAfterRestore;
     private final PostLayoutRunnable mPostLayoutOperations;
 
     public StaggeredGridLayoutManagerSavedStateTest(
-            Config config, boolean waitForLayout, boolean loadDataAfterRestore,
+            Config config,
+            boolean loadDataAfterRestore,
             PostLayoutRunnable postLayoutOperations) throws CloneNotSupportedException {
         this.mConfig = (Config) config.clone();
-        this.mWaitForLayout = waitForLayout;
         this.mLoadDataAfterRestore = loadDataAfterRestore;
         this.mPostLayoutOperations = postLayoutOperations;
         if (postLayoutOperations != null) {
@@ -54,8 +53,7 @@ public class StaggeredGridLayoutManagerSavedStateTest extends BaseStaggeredGridL
         }
     }
 
-    @Parameterized.Parameters(name = "config={0},waitForLayout={1},loadDataAfterRestore={2}"
-            + ",postLayoutRunnable={3}")
+    @Parameterized.Parameters(name = "config={0},loadDataAfterRestore={1},postLayoutRunnable={2}")
     public static List<Object[]> getParams() throws CloneNotSupportedException {
         List<Config> variations = createBaseVariations();
 
@@ -111,9 +109,9 @@ public class StaggeredGridLayoutManagerSavedStateTest extends BaseStaggeredGridL
                     public String describe() {
                         return "scroll_to_position_with_negative_offset";
                     }
-                }
+                },
+                null
         };
-        boolean[] waitForLayoutOptions = new boolean[]{false, true};
         boolean[] loadDataAfterRestoreOptions = new boolean[]{false, true};
         List<Config> testVariations = new ArrayList<Config>();
         testVariations.addAll(variations);
@@ -129,11 +127,9 @@ public class StaggeredGridLayoutManagerSavedStateTest extends BaseStaggeredGridL
         List<Object[]> params = new ArrayList<>();
         for (Config config : testVariations) {
             for (PostLayoutRunnable runnable : postLayoutOptions) {
-                for (boolean waitForLayout : waitForLayoutOptions) {
-                    for (boolean loadDataAfterRestore : loadDataAfterRestoreOptions) {
-                        params.add(new Object[]{config, waitForLayout, loadDataAfterRestore,
-                                runnable});
-                    }
+                for (boolean loadDataAfterRestore : loadDataAfterRestoreOptions) {
+                    params.add(new Object[]{config, loadDataAfterRestore,
+                            runnable});
                 }
             }
         }
@@ -143,8 +139,8 @@ public class StaggeredGridLayoutManagerSavedStateTest extends BaseStaggeredGridL
     @Test
     public void savedState() throws Throwable {
         if (DEBUG) {
-            Log.d(TAG, "testing saved state with wait for layout = " + mWaitForLayout + " config "
-                    + mConfig + " post layout action " + mPostLayoutOperations.describe());
+            Log.d(TAG, "testing saved state with config " + mConfig + " post layout action "
+                    + (mPostLayoutOperations != null ? mPostLayoutOperations.describe() : "none"));
         }
         setupByConfig(mConfig);
         if (mLoadDataAfterRestore) {
@@ -161,7 +157,7 @@ public class StaggeredGridLayoutManagerSavedStateTest extends BaseStaggeredGridL
             };
         }
         waitFirstLayout();
-        if (mWaitForLayout) {
+        if (mPostLayoutOperations != null) {
             mPostLayoutOperations.run();
         }
         getInstrumentation().waitForIdleSync();
@@ -215,7 +211,7 @@ public class StaggeredGridLayoutManagerSavedStateTest extends BaseStaggeredGridL
         assertEquals(mConfig + " on saved state, first completely visible child position should"
                         + " be preserved", firstCompletelyVisiblePosition,
                 mLayoutManager.findFirstVisibleItemPositionInt());
-        if (mWaitForLayout) {
+        if (mPostLayoutOperations != null) {
             final boolean strictItemEquality = !mLoadDataAfterRestore;
             assertRectSetsEqual(mConfig + "\npost layout op:" + mPostLayoutOperations.describe()
                             + ": on restore, previous view positions should be preserved",
@@ -226,6 +222,7 @@ public class StaggeredGridLayoutManagerSavedStateTest extends BaseStaggeredGridL
 
     static abstract class PostLayoutRunnable {
         StaggeredGridLayoutManagerSavedStateTest mTest;
+
         public void setup(StaggeredGridLayoutManagerSavedStateTest test) {
             mTest = test;
         }
