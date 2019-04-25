@@ -66,7 +66,7 @@ public final class SessionCommandGroup implements VersionedParcelable {
      */
     public boolean hasCommand(@NonNull SessionCommand command) {
         if (command == null) {
-            throw new IllegalArgumentException("command shouldn't be null");
+            throw new NullPointerException("command shouldn't be null");
         }
         return mCommands.contains(command);
     }
@@ -122,7 +122,7 @@ public final class SessionCommandGroup implements VersionedParcelable {
          */
         public @NonNull Builder addCommand(@NonNull SessionCommand command) {
             if (command == null) {
-                throw new IllegalArgumentException("command shouldn't be null");
+                throw new NullPointerException("command shouldn't be null");
             }
             mCommands.add(command);
             return this;
@@ -159,7 +159,7 @@ public final class SessionCommandGroup implements VersionedParcelable {
          */
         public @NonNull Builder removeCommand(@NonNull SessionCommand command) {
             if (command == null) {
-                throw new IllegalArgumentException("command shouldn't be null");
+                throw new NullPointerException("command shouldn't be null");
             }
             mCommands.remove(command);
             return this;

@@ -144,7 +144,7 @@ public abstract class FragmentStateAdapter extends
         final FrameLayout container = holder.getContainer();
         if (ViewCompat.isAttachedToWindow(container)) {
             if (container.getParent() != null) {
-                throw new IllegalStateException("Design assumption violated.");
+                throw new IllegalStateException("Design assumption violated");
             }
             container.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
                 @Override
@@ -200,7 +200,7 @@ public abstract class FragmentStateAdapter extends
             if (mItemIdToViewHolder.valueAt(ix) == viewHolderId) {
                 if (boundItemId != null) {
                     throw new IllegalStateException("Design assumption violated: "
-                            + "a ViewHolder can only be bound to one item at a time.");
+                            + "a ViewHolder can only be bound to one item at a time");
                 }
                 boundItemId = mItemIdToViewHolder.keyAt(ix);
             }
@@ -230,7 +230,7 @@ public abstract class FragmentStateAdapter extends
     void placeFragmentInViewHolder(@NonNull final FragmentViewHolder holder) {
         Fragment fragment = mFragments.get(holder.getItemId());
         if (fragment == null) {
-            throw new IllegalStateException("Design assumption violated.");
+            throw new IllegalStateException("Design assumption violated");
         }
         FrameLayout container = holder.getContainer();
         View view = fragment.getView();
@@ -255,7 +255,7 @@ public abstract class FragmentStateAdapter extends
         // { f:notAdded, v:created, v:attached } -> illegal state
         // { f:notAdded, v:created, v:notAttached } -> illegal state
         if (!fragment.isAdded() && view != null) {
-            throw new IllegalStateException("Design assumption violated.");
+            throw new IllegalStateException("Design assumption violated");
         }
 
         // { f:added, v:notCreated, v:notAttached} -> schedule callback for when created
@@ -324,7 +324,7 @@ public abstract class FragmentStateAdapter extends
     @SuppressWarnings("WeakerAccess") // to avoid creation of a synthetic accessor
     void addViewToContainer(@NonNull View v, FrameLayout container) {
         if (container.getChildCount() > 1) {
-            throw new IllegalStateException("Design assumption violated.");
+            throw new IllegalStateException("Design assumption violated");
         }
 
         if (v.getParent() == container) {
@@ -432,7 +432,7 @@ public abstract class FragmentStateAdapter extends
     public final void setHasStableIds(boolean hasStableIds) {
         throw new UnsupportedOperationException(
                 "Stable Ids are required for the adapter to function properly, and the adapter "
-                        + "takes care of setting the flag.");
+                        + "takes care of setting the flag");
     }
 
     @Override
