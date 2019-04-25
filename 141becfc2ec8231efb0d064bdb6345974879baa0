@@ -46,6 +46,30 @@
       "revId": "141becfc2ec8231efb0d064bdb6345974879baa0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "613d061e_3aa21a76",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1470382
+      },
+      "writtenOn": "2019-04-25T14:38:35Z",
+      "side": 1,
+      "message": "Your suggestion was a bit more performant so let\u0027s go with that. Thanks!",
+      "parentUuid": "06fd4197_36c01db0",
+      "range": {
+        "startLine": 245,
+        "startChar": 16,
+        "endLine": 245,
+        "endChar": 39
+      },
+      "revId": "141becfc2ec8231efb0d064bdb6345974879baa0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
