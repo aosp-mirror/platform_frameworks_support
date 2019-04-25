@@ -111,6 +111,30 @@
     },
     {
       "key": {
+        "uuid": "bd064ac3_6deda33b",
+        "filename": "benchmark/gradle-plugin/src/test/kotlin/androidx/benchmark/gradle/BenchmarkPluginTest.kt",
+        "patchSetId": 13
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-04-25T17:21:51Z",
+      "side": 1,
+      "message": "What\u0027s the right way to mock out the dependency in the test project without setting up a fake project and using the other GradleRunner testkit api which is probably overkill for this small test suite?",
+      "parentUuid": "b5e4bf26_ab24cc97",
+      "range": {
+        "startLine": 43,
+        "startChar": 47,
+        "endLine": 43,
+        "endChar": 57
+      },
+      "revId": "68e0429365603428778c6dd362ca25b4d2201d49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "18d7742b_9a436566",
         "filename": "benchmark/gradle-plugin/src/test/kotlin/androidx/benchmark/gradle/BenchmarkPluginTest.kt",
         "patchSetId": 13
