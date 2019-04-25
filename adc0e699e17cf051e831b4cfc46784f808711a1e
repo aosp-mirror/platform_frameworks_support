@@ -16,6 +16,24 @@
       "revId": "adc0e699e17cf051e831b4cfc46784f808711a1e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91cba760_7cd13c16",
+        "filename": "camera/core/src/main/java/androidx/camera/core/UseCaseGroupLifecycleController.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1482091
+      },
+      "writtenOn": "2019-04-25T08:41:04Z",
+      "side": 1,
+      "message": "I tried to do this in CameraX.java, but I will encounter SyntheticAccessor lint error due to LifecycleObserver inner class will access CameraX\u0027s private objects. I find that I can do the related change in UseCaseGroupRepository.java and it should be more reasonable than original modifications. Could you help to review the CL again? Thanks.",
+      "parentUuid": "b25ff1df_c3a54306",
+      "revId": "adc0e699e17cf051e831b4cfc46784f808711a1e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
