@@ -70,8 +70,8 @@ internal object Clocks {
         areLocked = isCpuLocked(coreDirs)
 
         if (!areLocked) {
-            coreDirs.map {
-                Log.d(TAG, "$it")
+            coreDirs.mapIndexed { index, coreDir ->
+                Log.d(TAG, "cpu$index $coreDir")
             }
         }
     }
