@@ -107,6 +107,24 @@
     },
     {
       "key": {
+        "uuid": "77e3a1d7_fee3c487",
+        "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/AdbUtil.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-04-25T16:21:50Z",
+      "side": 1,
+      "message": "I ended up going for composition approach as there will probably be a future where we want to put this somewhere common as similar logic is used elsewhere in androidx.\n\nBut also, it\u0027s nice to be able to get rid of the basetask class.\n\nOne last thing that would be nice to get rid of is shouldThrow of course, but not sure if you want that before or after this goes in.",
+      "parentUuid": "aa36dab6_8c7cd944",
+      "revId": "8f9521d32574766341592f512309de2207be5237",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a87e6a55_985bc690",
         "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/BenchmarkBaseTask.kt",
         "patchSetId": 12
