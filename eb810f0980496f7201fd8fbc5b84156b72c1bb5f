@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "d7a8963c_dc6cd20c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-04-25T00:17:14Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5ca9be28_1890f15d",
+      "revId": "eb810f0980496f7201fd8fbc5b84156b72c1bb5f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4e0334f1_81ffd1f2",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
@@ -72,6 +90,24 @@
     },
     {
       "key": {
+        "uuid": "472701bc_ffa9c321",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-04-25T00:17:14Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5d3b37d5_7d2fa198",
+      "revId": "eb810f0980496f7201fd8fbc5b84156b72c1bb5f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5326e036_81429644",
         "filename": "media/build.gradle",
         "patchSetId": 3
@@ -104,6 +140,24 @@
       "revId": "eb810f0980496f7201fd8fbc5b84156b72c1bb5f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8945d6e2_fde7f579",
+        "filename": "media/build.gradle",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-04-25T00:17:14Z",
+      "side": 1,
+      "message": "Thanks Nick for the explanation. Fully understood.",
+      "parentUuid": "713ed14e_8d027ebd",
+      "revId": "eb810f0980496f7201fd8fbc5b84156b72c1bb5f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
