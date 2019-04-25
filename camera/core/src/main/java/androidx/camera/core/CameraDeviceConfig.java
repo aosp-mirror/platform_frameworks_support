@@ -44,6 +44,15 @@ public interface CameraDeviceConfig {
     Option<LensFacing> OPTION_LENS_FACING =
             Option.create("camerax.core.camera.lensFacing", CameraX.LensFacing.class);
 
+    /**
+     * Option: camerax.core.camera.cameraId
+     *
+     * @hide
+     */
+    @RestrictTo(Scope.LIBRARY_GROUP)
+    Option<String> OPTION_CAMERA_ID =
+            Option.create("camerax.core.camera.cameraId", String.class);
+
     // *********************************************************************************************
 
     /**
@@ -65,6 +74,27 @@ public interface CameraDeviceConfig {
     CameraX.LensFacing getLensFacing();
 
     /**
+     * Retrieves the camera id.
+     *
+     * @param valueIfMissing The value to return if this configuration option has not been set.
+     * @return The stored value or <code>valueIfMissing</code> if the value does not exist in this
+     * configuration.
+     * @hide
+     */
+    @RestrictTo(Scope.LIBRARY_GROUP)
+    String getCameraId(String valueIfMissing);
+
+    /**
+     * Retrieves the camera id.
+     *
+     * @return The stored value, if it exists in this configuration.
+     * @throws IllegalArgumentException if the option does not exist in this configuration.
+     * @hide
+     */
+    @RestrictTo(Scope.LIBRARY_GROUP)
+    String getCameraId();
+
+    /**
      * Builder for a {@link CameraDeviceConfig}.
      *
      * @param <B> The top level builder type for which this builder is composed with.
@@ -83,5 +113,19 @@ public interface CameraDeviceConfig {
          * @return the current Builder.
          */
         B setLensFacing(CameraX.LensFacing lensFacing);
+
+        /**
+         * Sets the camera id.
+         *
+         * <p>In some special case, the camera id doesn't only depend on lens-facing. Use this to
+         * set a camera id which will overwrite les-facing and directly open a specific camera.
+         *
+         * @param cameraId The camera id.
+         * @return The current Builder.
+         * @hide
+         */
+        @RestrictTo(Scope.LIBRARY_GROUP)
+        B setCameraId(String cameraId);
+
     }
 }

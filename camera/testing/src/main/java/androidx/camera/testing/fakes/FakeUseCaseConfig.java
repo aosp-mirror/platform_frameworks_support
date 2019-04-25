@@ -116,6 +116,17 @@ public class FakeUseCaseConfig
         return retrieveOption(OPTION_LENS_FACING);
     }
 
+    @Override
+    @Nullable
+    public String getCameraId(@Nullable String valueIfMissing) {
+        return retrieveOption(OPTION_CAMERA_ID, valueIfMissing);
+    }
+
+    @Override
+    public String getCameraId() {
+        return retrieveOption(OPTION_CAMERA_ID);
+    }
+
     // Implementations of UseCaseConfig default methods
 
     @Override
@@ -205,6 +216,12 @@ public class FakeUseCaseConfig
         @Override
         public Builder setLensFacing(CameraX.LensFacing lensFacing) {
             getMutableConfig().insertOption(OPTION_LENS_FACING, lensFacing);
+            return this;
+        }
+
+        @Override
+        public Builder setCameraId(String cameraId) {
+            getMutableConfig().insertOption(OPTION_CAMERA_ID, cameraId);
             return this;
         }
 
