@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "6dbf4e0b_9bbf9c5e",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/SupportedSurfaceCombination.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-04-25T01:38:59Z",
+      "side": 1,
+      "message": "Using a tolerance value here seems fragile. What is the rationale behind using 0.01?",
+      "range": {
+        "startLine": 72,
+        "startChar": 31,
+        "endLine": 72,
+        "endChar": 62
+      },
+      "revId": "14fe6196f632db10117cc9828f92a0118a43a28f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e4bdae7_27ce5511",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/SupportedSurfaceCombination.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-04-25T01:38:59Z",
+      "side": 1,
+      "message": "Would a more elegant solution be to sort the aspect ratios by how close they are to the target aspect ratio? Ties could be broken by size.\n\nI\u0027m sure there is something I\u0027m missing with taking into account the target resolution, but it would be nice if we could succinctly describe the strategy we use to choose the final size in a javadoc.",
+      "range": {
+        "startLine": 336,
+        "startChar": 0,
+        "endLine": 343,
+        "endChar": 64
+      },
+      "revId": "14fe6196f632db10117cc9828f92a0118a43a28f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bd3ce314_14ba8309",
         "filename": "camera/core/src/main/java/androidx/camera/core/Preview.java",
         "patchSetId": 2
