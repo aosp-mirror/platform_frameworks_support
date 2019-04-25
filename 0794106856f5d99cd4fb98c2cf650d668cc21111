@@ -1,0 +1,182 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "31ba5eb1_35dfe7f3",
+        "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2409,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2019-04-25T11:01:42Z",
+      "side": 1,
+      "message": "Is it okay not to curItem?",
+      "range": {
+        "startLine": 2409,
+        "startChar": 12,
+        "endLine": 2409,
+        "endChar": 38
+      },
+      "revId": "0794106856f5d99cd4fb98c2cf650d668cc21111",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7e720ed_3b5e2d5a",
+        "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer2Impl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2019-04-25T11:01:42Z",
+      "side": 1,
+      "message": "Is it intentional not to throw exception?",
+      "range": {
+        "startLine": 314,
+        "startChar": 74,
+        "endLine": 314,
+        "endChar": 84
+      },
+      "revId": "0794106856f5d99cd4fb98c2cf650d668cc21111",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "09816506_68d3e8d4",
+        "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer2Impl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2019-04-25T11:01:42Z",
+      "side": 1,
+      "message": "Preconditions.checkNotNull(item, \"the MediaItem cannot be null\") ?\n(to throw NPE)",
+      "range": {
+        "startLine": 333,
+        "startChar": 30,
+        "endLine": 333,
+        "endChar": 43
+      },
+      "revId": "0794106856f5d99cd4fb98c2cf650d668cc21111",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "744b2e92_c8a6e7b3",
+        "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer2Impl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2019-04-25T11:01:42Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 349,
+        "startChar": 30,
+        "endLine": 349,
+        "endChar": 43
+      },
+      "revId": "0794106856f5d99cd4fb98c2cf650d668cc21111",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e1b0acb_25dced4b",
+        "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer2Impl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 466,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2019-04-25T11:01:42Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 466,
+        "startChar": 22,
+        "endLine": 466,
+        "endChar": 35
+      },
+      "revId": "0794106856f5d99cd4fb98c2cf650d668cc21111",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74480759_9cf28399",
+        "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer2Impl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 526,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2019-04-25T11:01:42Z",
+      "side": 1,
+      "message": "You may want to check this.",
+      "range": {
+        "startLine": 526,
+        "startChar": 66,
+        "endLine": 526,
+        "endChar": 72
+      },
+      "revId": "0794106856f5d99cd4fb98c2cf650d668cc21111",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0dfeabd2_e302b09b",
+        "filename": "media2/player/src/main/java/androidx/media2/player/PlaybackParams.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2019-04-25T11:01:42Z",
+      "side": 1,
+      "message": "can be null?",
+      "range": {
+        "startLine": 204,
+        "startChar": 47,
+        "endLine": 204,
+        "endChar": 61
+      },
+      "revId": "0794106856f5d99cd4fb98c2cf650d668cc21111",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b72cb9b_0302703b",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/adapter/FragmentStateAdapter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2019-04-25T11:01:42Z",
+      "side": 1,
+      "message": "You may not want to include this file.",
+      "revId": "0794106856f5d99cd4fb98c2cf650d668cc21111",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
