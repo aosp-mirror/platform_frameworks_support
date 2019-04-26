@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ac150bd2_47673a65",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaController.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-04-26T06:05:21Z",
+      "side": 1,
+      "message": "Why did you change connectionHints to NonNull?",
+      "range": {
+        "startLine": 140,
+        "startChar": 11,
+        "endLine": 140,
+        "endChar": 21
+      },
+      "revId": "a8d46e803b304fda77e26942866dd8814af8b4d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e4b1c07_a31129fa",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaController.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-04-26T06:05:21Z",
+      "side": 1,
+      "message": "Why did you change the constructors? I thought the API review was about Builder itself.",
+      "range": {
+        "startLine": 140,
+        "startChar": 0,
+        "endLine": 142,
+        "endChar": 30
+      },
+      "revId": "a8d46e803b304fda77e26942866dd8814af8b4d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c58c5b59_17369f57",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaController.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-04-26T06:05:21Z",
+      "side": 1,
+      "message": "I think this shouldn\u0027t be null. null executor can cause NPE in MediaControlImplBase / MediaControllerImplLegacy.",
+      "range": {
+        "startLine": 193,
+        "startChar": 46,
+        "endLine": 193,
+        "endChar": 73
+      },
+      "revId": "a8d46e803b304fda77e26942866dd8814af8b4d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
