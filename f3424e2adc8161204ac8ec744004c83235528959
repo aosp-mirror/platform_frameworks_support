@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "59be026d_17d6e5d1",
+        "filename": "camera/integration-tests/timingtestapp/build.gradle",
+        "patchSetId": 5
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-04-26T17:58:40Z",
+      "side": 1,
+      "message": "I believe this is already configured for you by AndroidXPlugin. You can probably remove this line.",
+      "range": {
+        "startLine": 28,
+        "startChar": 4,
+        "endLine": 28,
+        "endChar": 30
+      },
+      "revId": "f3424e2adc8161204ac8ec744004c83235528959",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1326416_aa768d41",
+        "filename": "camera/integration-tests/timingtestapp/build.gradle",
+        "patchSetId": 5
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-04-26T17:58:40Z",
+      "side": 1,
+      "message": "Some of these can be replaced with stable dependencies rather than relying on the ToT versions. I just realized we\u0027re doing the same thing in some of the other integration test apps, so we\u0027ll need to change that.\n\nimplementation(ARCH_LIFECYCLE_EXTENSIONS)\n\nimplementation(SUPPORT_APPCOMPAT)\nimplementation(ANDROIDX_COLLECTION)\nimplementation(project(\":preference\")) // This one is still in alpha\nimplementation(\"androidx.exifinterface:exifinterface:1.0.0\")",
+      "range": {
+        "startLine": 61,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 45
+      },
+      "revId": "f3424e2adc8161204ac8ec744004c83235528959",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
