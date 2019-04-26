@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5dc78686_f1b1334b",
+        "filename": "benchmark/gradle-plugin/build.gradle",
+        "patchSetId": 19
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-04-26T15:59:46Z",
+      "side": 1,
+      "message": "why publish false? we\u0027re releasing soon",
+      "revId": "0c784f16d1d47431cbce82f95d71bac9842f4f93",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7cd3cdbc_4203af4b",
+        "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/BenchmarkPlugin.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-04-26T15:59:46Z",
+      "side": 1,
+      "message": "Do you intend to have all but the first line indented by one space? If not, use trimIndent instead of trimMargin(), which is simpler.\n\nYou can simply do:\n\nStopExecutionException(\n\"\"\"\n    Text\n    Text\n    Text\n\"\"\".trimIndent())",
+      "revId": "0c784f16d1d47431cbce82f95d71bac9842f4f93",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2946fc17_ab81d426",
+        "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/BenchmarkPlugin.kt",
+        "patchSetId": 19
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-04-26T15:59:46Z",
+      "side": 1,
+      "message": "check the group (androidx.benchmark) as well as the name",
+      "revId": "0c784f16d1d47431cbce82f95d71bac9842f4f93",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
