@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f76e7efa_e1aa8e8e",
+        "filename": "benchmark/src/main/java/androidx/benchmark/BenchmarkRule.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-04-26T18:15:42Z",
+      "side": 1,
+      "message": "can it be \"internal\" instead?",
+      "range": {
+        "startLine": 147,
+        "startChar": 12,
+        "endLine": 147,
+        "endChar": 25
+      },
+      "revId": "4c183398b2b9ece0e22de758adcc440e57af2ad8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1aa98158_d838511a",
+        "filename": "benchmark/src/main/java/androidx/benchmark/BenchmarkRule.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-04-26T18:15:42Z",
+      "side": 1,
+      "message": "can it be \"internal\" instead?",
+      "revId": "4c183398b2b9ece0e22de758adcc440e57af2ad8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
