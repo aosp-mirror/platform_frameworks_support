@@ -574,10 +574,10 @@ final class Camera implements BaseCamera {
     }
 
     /**
-     * Checks if there's valid repeating surface and attaches one to {@link CaptureConfig.Builder}.
+     * Checks if there's valid repeating surface and attaches all to {@link CaptureConfig.Builder}.
      *
-     * @param captureConfigBuilder the configuration builder to attach a repeating surface
-     * @return True if repeating surface has been successfully attached, otherwise false.
+     * @param captureConfigBuilder the configuration builder to attach repeating surfaces
+     * @return True if repeating surfaces has been successfully attached, otherwise false.
      */
     private boolean checkAndAttachRepeatingSurface(CaptureConfig.Builder captureConfigBuilder) {
         Collection<UseCase> activeUseCases;
@@ -585,26 +585,26 @@ final class Camera implements BaseCamera {
             activeUseCases = mUseCaseAttachState.getActiveAndOnlineUseCases();
         }
 
-        DeferrableSurface repeatingSurface = null;
+        boolean repeatingSurfaceFound = false;
         for (UseCase useCase : activeUseCases) {
             SessionConfig sessionConfig = useCase.getSessionConfig(mCameraId);
             List<DeferrableSurface> surfaces =
                     sessionConfig.getRepeatingCaptureConfig().getSurfaces();
             if (!surfaces.isEmpty()) {
-                // When an use case is active, all surfaces in its CaptureConfig are added to the
-                // repeating request. Choose the first one here as the repeating surface.
-                repeatingSurface = surfaces.get(0);
-                break;
+                for (DeferrableSurface surface : surfaces) {
+                    if (surface != null) {
+                        captureConfigBuilder.addSurface(surface);
+                        repeatingSurfaceFound = true;
+                    }
+                }
             }
         }
 
-        if (repeatingSurface == null) {
+        if (!repeatingSurfaceFound) {
             Log.w(TAG, "Unable to find a repeating surface to attach to CaptureConfig");
-            return false;
         }
 
-        captureConfigBuilder.addSurface(repeatingSurface);
-        return true;
+        return repeatingSurfaceFound;
     }
 
     /** Returns the Camera2CameraControl attached to Camera */
