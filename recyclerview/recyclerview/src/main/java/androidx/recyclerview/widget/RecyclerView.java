@@ -2314,9 +2314,26 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
      * @param dx Pixels to scroll horizontally
      * @param dy Pixels to scroll vertically
      * @param interpolator {@link Interpolator} to be used for scrolling. If it is
-     *                     {@code null}, RecyclerView is going to use the default interpolator.
+     *                     {@code null}, RecyclerView will use an internal default interpolator.
      */
     public void smoothScrollBy(@Px int dx, @Px int dy, @Nullable Interpolator interpolator) {
+        smoothScrollByWithDuration(dx, dy, interpolator, UNDEFINED_DURATION);
+    }
+
+    /**
+     * Smooth scrolls the RecyclerView by a given distance.
+     *
+     * @param dx x distance in pixels.
+     * @param dy y distance in pixels.
+     * @param interpolator {@link Interpolator} to be used for scrolling. If it is
+     *                     {@code null}, RecyclerView will use an internal default interpolator.
+     * @param duration Duration of the animation in milliseconds.  Set to UNDEFINED_DURATION to
+     *                 have the duration be automatically calculated based on an internally defined
+     *                 standard initial velocity. A negative duration (that does not equal
+     *                 UNDEFINED_DURATION), will result in a call to {@link #scrollBy(int, int)}
+     */
+    public void smoothScrollBy(@Px int dx, @Px int dy,
+            @Nullable Interpolator interpolator, int duration) {
         if (mLayout == null) {
             Log.e(TAG, "Cannot smooth scroll without a LayoutManager set. "
                     + "Call setLayoutManager with a non-null argument.");
@@ -2332,7 +2349,36 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
             dy = 0;
         }
         if (dx != 0 || dy != 0) {
-            mViewFlinger.smoothScrollBy(dx, dy, UNDEFINED_DURATION, interpolator);
+            boolean durationSuggestsAnimation = duration == UNDEFINED_DURATION || duration > 0;
+            if (durationSuggestsAnimation) {
+                mViewFlinger.smoothScrollBy(dx, dy, duration, interpolator);
+            } else {
+                scrollBy(dx, dy);
+            }
+        }
+    }
+
+    private int coerceDuration(@Px int dx, @Px int dy, int duration) {
+        float absX = Math.abs(dx);
+        float absY = Math.abs(dy);
+
+        float requestedXVelocity = absX / duration;
+        float requestedYVelocity = absY / duration;
+
+        float coercedXVelocity =
+                Math.max(Math.min(requestedXVelocity, mMaxFlingVelocity), mMinFlingVelocity);
+        float coercedYVelocity =
+                Math.max(Math.min(requestedYVelocity, mMaxFlingVelocity), mMinFlingVelocity);
+
+        boolean xCoerced = coercedXVelocity != requestedXVelocity;
+        boolean yCoerced = coercedXVelocity != requestedXVelocity;
+
+        if (xCoerced) {
+            return (int) (dx / coercedXVelocity);
+        } else if (yCoerced) {
+            return (int) (dy / coercedYVelocity);
+        } else {
+            return duration;
         }
     }
 
@@ -5134,6 +5180,7 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
                 || mAdapterHelper.hasPendingUpdates();
     }
 
+    // Effectively private.  Set to default to avoid synthetic accessor.
     class ViewFlinger implements Runnable {
         private int mLastFlingX;
         private int mLastFlingY;
@@ -5330,6 +5377,17 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
             postOnAnimation();
         }
 
+        /**
+         * Smooth scrolls the RecyclerView by a given distance.
+         *
+         * @param dx x distance in pixels.
+         * @param dy y distance in pixels.
+         * @param duration Duration of the animation in milliseconds.  Set to UNDEFINED_DURATION to
+         *                 have the duration automatically calculated based on an internally defined
+         *                 standard velocity.
+         * @param interpolator {@link Interpolator} to be used for scrolling. If it is
+         *                     {@code null}, RecyclerView will use an internal default interpolator.
+         */
         public void smoothScrollBy(int dx, int dy, int duration,
                 @Nullable Interpolator interpolator) {
 
