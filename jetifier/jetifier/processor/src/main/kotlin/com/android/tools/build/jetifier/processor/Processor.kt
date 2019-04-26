@@ -45,6 +45,7 @@ import java.lang.StringBuilder
 class Processor private constructor(
     private val context: TransformationContext,
     private val transformers: List<Transformer>,
+    private val skipLibsWithAndroidXReferences: Boolean,
     private val stripSignatureFiles: Boolean = false
 ) : ArchiveItemVisitor {
 
@@ -84,15 +85,19 @@ class Processor private constructor(
          * rewrite ambiguous package reference such as android.support.v4.
          * @param stripSignatures Don't throw an error when jetifying a signed library and strip
          * the signature files instead.
+         * @param skipLibsWithAndroidXReferences If true, jetifier will skip any archive that
+         * contains any androidX reference in its bytecode. This attribute does not apply for
+         * reversed mode.
          * @param dataBindingVersion The versions to be used for data binding otherwise undefined.
          */
-        fun createProcessor3(
+        fun createProcessor4(
             config: Config,
             reversedMode: Boolean = false,
             rewritingSupportLib: Boolean = false,
             useFallbackIfTypeIsMissing: Boolean = true,
             allowAmbiguousPackages: Boolean = false,
             stripSignatures: Boolean = false,
+            skipLibsWithAndroidXReferences: Boolean = false,
             dataBindingVersion: String? = null
         ): Processor {
             var newConfig = config
@@ -138,7 +143,48 @@ class Processor private constructor(
                 createTransformers(context)
             }
 
-            return Processor(context, transformers, stripSignatures)
+            return Processor(
+                context = context,
+                transformers = transformers,
+                skipLibsWithAndroidXReferences = skipLibsWithAndroidXReferences,
+                stripSignatureFiles = stripSignatures)
+        }
+
+        /**
+         * Creates a new instance of the [Processor].
+         *
+         * @param config Transformation configuration
+         * @param reversedMode Whether the processor should run in reversed mode
+         * @param rewritingSupportLib Whether we are rewriting the support library itself
+         * @param useFallbackIfTypeIsMissing Use fallback for types resolving instead of crashing
+         * @param allowAmbiguousPackages Whether Jetifier should not crash when it attempts to
+         * rewrite ambiguous package reference such as android.support.v4.
+         * @param stripSignatures Don't throw an error when jetifying a signed library and strip
+         * the signature files instead.
+         * @param dataBindingVersion The versions to be used for data binding otherwise undefined.
+         */
+        @Deprecated(
+            message = "Legacy method that is missing 'skipLibsWithAndroidXReferences' attribute",
+            replaceWith = ReplaceWith(expression = "Processor.createProcessor4"))
+        fun createProcessor3(
+            config: Config,
+            reversedMode: Boolean = false,
+            rewritingSupportLib: Boolean = false,
+            useFallbackIfTypeIsMissing: Boolean = true,
+            allowAmbiguousPackages: Boolean = false,
+            stripSignatures: Boolean = false,
+            dataBindingVersion: String? = null
+        ): Processor {
+            return createProcessor4(
+                config = config,
+                reversedMode = reversedMode,
+                rewritingSupportLib = rewritingSupportLib,
+                useFallbackIfTypeIsMissing = useFallbackIfTypeIsMissing,
+                allowAmbiguousPackages = allowAmbiguousPackages,
+                stripSignatures = stripSignatures,
+                skipLibsWithAndroidXReferences = false,
+                dataBindingVersion = dataBindingVersion
+            )
         }
 
         /**
@@ -264,13 +310,16 @@ class Processor private constructor(
         }
 
         // 1) Extract and load all libraries
-        val libraries = loadLibraries(input)
+        val allLibraries = loadLibraries(input)
 
-        // 2) Search for POM files
-        val pomFiles = scanPomFiles(libraries)
+        // 2) Filter out libraries with AndroidX references
+        val librariesToProcess = findLibrariesThatNeedProcessing(allLibraries)
 
-        // 3) Transform all the libraries
-        libraries.forEach { transformLibrary(it) }
+        // 3) Search for POM files
+        val pomFiles = scanPomFiles(librariesToProcess)
+
+        // 4) Transform all the libraries
+        librariesToProcess.forEach { transformLibrary(it) }
 
         if (context.errorsTotal() > 0) {
             if (context.isInReversedMode && context.rewritingSupportLib) {
@@ -288,34 +337,62 @@ class Processor private constructor(
         // TODO: Here we might need to modify the POM files if they point at a library that we have
         // just refactored.
 
-        // 4) Transform the previously discovered POM files
+        // 5) Transform the previously discovered POM files
         transformPomFiles(pomFiles)
 
-        // 5) Find signature files and report them if needed
-        runSignatureDetectionFor(libraries)
+        // 6) Find signature files and report them if needed
+        runSignatureDetectionFor(librariesToProcess)
 
-        // 6) Repackage the libraries back to archive files
-        val generatedLibraries = libraries
-            .filter { copyUnmodifiedLibsAlso || it.wasChanged }
-            .map {
-                it.writeSelf()
-            }
-            .toSet()
-
-        if (copyUnmodifiedLibsAlso) {
-            return generatedLibraries
+        val amountOfLibsChanged = librariesToProcess.count { it.wasChanged }
+        if (amountOfLibsChanged == 0) {
+            // Jetifier is not be needed here
+            Log.w(TAG, "No support library references found. You don't need to run Jetifier.")
         }
 
-        // 7) Create a set of files that should be removed (because they've been changed).
-        val filesToRemove = libraries
+        // 7) Repackage the libraries back to archive files
+        if (copyUnmodifiedLibsAlso) {
+            // a) Copy all files to output
+            return allLibraries
+                .map { it.writeSelf() }
+                .toSet()
+        }
+
+        // b1) Copy only changed libraries
+        val newGeneratedLibraries = librariesToProcess
+            .filter { it.wasChanged }
+            .map { it.writeSelf() }
+            .toSet()
+
+        // b2) Create a set of files that should be removed (because they've been changed).
+        val originalFilesToRemove = librariesToProcess
             .filter { it.wasChanged }
             .map { it.relativePath.toFile() }
             .toSet()
 
-        return inputLibraries.minus(filesToRemove).plus(generatedLibraries)
+        return inputLibraries.minus(originalFilesToRemove).plus(newGeneratedLibraries)
     }
 
-    private fun runSignatureDetectionFor(libraries: List<Archive>) {
+    private fun findLibrariesThatNeedProcessing(libraries: Set<Archive>): Set<Archive> {
+        if (context.isInReversedMode || !skipLibsWithAndroidXReferences) {
+            // Not supported in reversed move
+            return libraries
+        }
+
+        val newLibraries = mutableSetOf<Archive>()
+        libraries.forEach {
+            val androidXScanner = AndroidXRefScanner(it).scan()
+            if (androidXScanner.androidXDetected) {
+                Log.i(TAG, "Library '${it.relativePath}' contains AndroidX reference and will be " +
+                        "skipped.")
+            } else {
+                newLibraries.add(it)
+            }
+        }
+
+        return newLibraries
+    }
+
+    private fun runSignatureDetectionFor(libraries: Set<Archive>) {
         var wereSignaturesDetected = false
         val sb = StringBuilder()
 
@@ -343,8 +420,8 @@ class Processor private constructor(
                 "modified. However doing so would break the signatures. Please ask the library " +
                 "owner to provide jetpack compatible signed library. If you don't need " +
                 "the signatures you can re-run jetifier with 'stripSignatures' option on. " +
-                "Jetifier will then remove all affected signature files. Below is list of all " +
-                "the signature that were discovered: $sb}"
+                "Jetifier will then remove all affected signature files. Below is a list of all " +
+                "the signatures that were discovered: $sb}"
             )
         }
     }
@@ -407,7 +484,7 @@ class Processor private constructor(
         return newDependenciesRegex.any { it.matches(aarOrJarFile.absolutePath) }
     }
 
-    private fun loadLibraries(inputLibraries: Iterable<FileMapping>): List<Archive> {
+    private fun loadLibraries(inputLibraries: Iterable<FileMapping>): Set<Archive> {
         val libraries = mutableListOf<Archive>()
         for (library in inputLibraries) {
             if (!library.from.canRead()) {
@@ -418,10 +495,10 @@ class Processor private constructor(
             archive.setTargetPath(library.to.toPath())
             libraries.add(archive)
         }
-        return libraries.toList()
+        return libraries.toSet()
     }
 
-    private fun scanPomFiles(libraries: List<Archive>): List<PomDocument> {
+    private fun scanPomFiles(libraries: Set<Archive>): List<PomDocument> {
         val scanner = PomScanner(context)
 
         libraries.forEach { scanner.scanArchiveForPomFile(it) }
