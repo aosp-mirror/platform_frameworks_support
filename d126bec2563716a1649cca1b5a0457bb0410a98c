@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "dd1078d4_df361772",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1370549
+      },
+      "writtenOn": "2019-04-26T11:04:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e044ce6f_d612c03e",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 18
+      },
+      "revId": "d126bec2563716a1649cca1b5a0457bb0410a98c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "103d75f3_5df9bee8",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "d126bec2563716a1649cca1b5a0457bb0410a98c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "031a929a_6ace590e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1370549
+      },
+      "writtenOn": "2019-04-26T11:04:19Z",
+      "side": 1,
+      "message": "It was auto generated when I uploaded change. \nI checked some other CLs also contain this line, but I removed it.",
+      "parentUuid": "103d75f3_5df9bee8",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 14
+      },
+      "revId": "d126bec2563716a1649cca1b5a0457bb0410a98c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "1f227d09_36a2c240",
+        "filename": "webkit/src/main/java/androidx/webkit/WebSettingsCompat.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1370549
+      },
+      "writtenOn": "2019-04-26T11:04:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dcb3dbe0_cc63d2e2",
+      "range": {
+        "startLine": 325,
+        "startChar": 22,
+        "endLine": 325,
+        "endChar": 28
+      },
+      "revId": "d126bec2563716a1649cca1b5a0457bb0410a98c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1b8ca330_5a458dc2",
         "filename": "webkit/src/main/java/androidx/webkit/WebSettingsCompat.java",
         "patchSetId": 2
@@ -91,6 +163,30 @@
       "revId": "d126bec2563716a1649cca1b5a0457bb0410a98c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9273349e_e9943588",
+        "filename": "webkit/src/main/java/androidx/webkit/WebSettingsCompat.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 1370549
+      },
+      "writtenOn": "2019-04-26T11:04:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1b8ca330_5a458dc2",
+      "range": {
+        "startLine": 380,
+        "startChar": 7,
+        "endLine": 380,
+        "endChar": 98
+      },
+      "revId": "d126bec2563716a1649cca1b5a0457bb0410a98c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
