@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "af70a22a_a121a5c5",
+        "filename": "car/core/src/main/res/drawable/car_list_item_background_dark.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-04-26T21:19:05Z",
+      "side": 1,
+      "message": "Hm, should this be car_accent_light or something?",
+      "range": {
+        "startLine": 22,
+        "startChar": 38,
+        "endLine": 22,
+        "endChar": 48
+      },
+      "revId": "b762869f8c6e8306f4ae6f8167ebc77b5b38c467",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
