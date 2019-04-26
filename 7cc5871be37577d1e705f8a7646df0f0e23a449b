@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c1446f58_0d80a2c1",
+        "filename": "jetifier/jetifier/processor/src/main/kotlin/com/android/tools/build/jetifier/processor/Processor.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-04-26T15:14:32Z",
+      "side": 1,
+      "message": "Hung: The new functionality can be turned on here. I would recommend having a gradle config property for it to turn it off in emergency cases (people can be still using old androidX where navigation and workmanager were not migrated).",
+      "range": {
+        "startLine": 100,
+        "startChar": 12,
+        "endLine": 100,
+        "endChar": 60
+      },
+      "revId": "7cc5871be37577d1e705f8a7646df0f0e23a449b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "adfcb7fc_a5c450ec",
+        "filename": "jetifier/jetifier/processor/src/main/kotlin/com/android/tools/build/jetifier/processor/Processor.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-04-26T15:14:32Z",
+      "side": 1,
+      "message": "Hung: Any idea on better way how AGP could consume that and propagate to user or even Android Studio and offer to turn jetifier off?",
+      "range": {
+        "startLine": 349,
+        "startChar": 12,
+        "endLine": 349,
+        "endChar": 94
+      },
+      "revId": "7cc5871be37577d1e705f8a7646df0f0e23a449b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
