@@ -585,26 +585,26 @@ final class Camera implements BaseCamera {
             activeUseCases = mUseCaseAttachState.getActiveAndOnlineUseCases();
         }
 
-        DeferrableSurface repeatingSurface = null;
+        boolean repeatingSurfaceFound = false;
         for (UseCase useCase : activeUseCases) {
             SessionConfig sessionConfig = useCase.getSessionConfig(mCameraId);
             List<DeferrableSurface> surfaces =
                     sessionConfig.getRepeatingCaptureConfig().getSurfaces();
             if (!surfaces.isEmpty()) {
-                // When an use case is active, all surfaces in its CaptureConfig are added to the
-                // repeating request. Choose the first one here as the repeating surface.
-                repeatingSurface = surfaces.get(0);
-                break;
+                for (DeferrableSurface surface : surfaces) {
+                    if (surface != null) {
+                        captureConfigBuilder.addSurface(surface);
+                        repeatingSurfaceFound = true;
+                    }
+                }
             }
         }
 
-        if (repeatingSurface == null) {
+        if (!repeatingSurfaceFound) {
             Log.w(TAG, "Unable to find a repeating surface to attach to CaptureConfig");
-            return false;
         }
 
-        captureConfigBuilder.addSurface(repeatingSurface);
-        return true;
+        return repeatingSurfaceFound;
     }
 
     /** Returns the Camera2CameraControl attached to Camera */
