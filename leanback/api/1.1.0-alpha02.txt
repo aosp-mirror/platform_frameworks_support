@@ -1496,6 +1496,8 @@ package androidx.leanback.widget {
     method public final int getSaveChildrenLimitNumber();
     method public final int getSaveChildrenPolicy();
     method public int getSelectedPosition();
+    method public int getSmoothScrollMaxPendingMoves();
+    method public float getSmoothScrollSpeedFactor();
     method @Deprecated public int getVerticalMargin();
     method public int getVerticalSpacing();
     method public void getViewSelectedOffsets(android.view.View!, int[]!);
@@ -1544,6 +1546,8 @@ package androidx.leanback.widget {
     method public void setSelectedPosition(int, androidx.leanback.widget.ViewHolderTask!);
     method public void setSelectedPositionSmooth(int);
     method public void setSelectedPositionSmooth(int, androidx.leanback.widget.ViewHolderTask!);
+    method public void setSmoothScrollMaxPendingMoves(int);
+    method public void setSmoothScrollSpeedFactor(float);
     method @Deprecated public void setVerticalMargin(int);
     method public void setVerticalSpacing(int);
     method public void setWindowAlignment(int);
