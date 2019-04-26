@@ -68,6 +68,52 @@
       "revId": "a8d46e803b304fda77e26942866dd8814af8b4d5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07b50428_b821058c",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaController.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1074,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2019-04-26T06:19:37Z",
+      "side": 1,
+      "message": "It\u0027s non-public method but annotated wrong.\n\nAnnotate it with @Nullable or remove the annotation.",
+      "range": {
+        "startLine": 1074,
+        "startChar": 4,
+        "endLine": 1074,
+        "endChar": 12
+      },
+      "revId": "a8d46e803b304fda77e26942866dd8814af8b4d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dff1ee6c_c118c891",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaController.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1078,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2019-04-26T06:19:37Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 1078,
+        "startChar": 4,
+        "endLine": 1078,
+        "endChar": 12
+      },
+      "revId": "a8d46e803b304fda77e26942866dd8814af8b4d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
