@@ -147,7 +147,7 @@ class Main {
             fileMappings.add(FileMapping(input, File(output)))
         }
 
-        val processor = Processor.createProcessor3(
+        val processor = Processor.createProcessor4(
             config = config,
             reversedMode = isReversed,
             rewritingSupportLib = rebuildTopOfTree,
