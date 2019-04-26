@@ -225,6 +225,30 @@
     },
     {
       "key": {
+        "uuid": "2ecc62d6_8b32ec04",
+        "filename": "benchmark/gradle-plugin/src/test/kotlin/androidx/benchmark/gradle/BenchmarkPluginTest.kt",
+        "patchSetId": 13
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2019-04-26T13:32:26Z",
+      "side": 1,
+      "message": "Makes sense, I don\u0027t think there\u0027s an easy way to write tests with a mocked out dependency, it makes sense to use the integration test framework.",
+      "parentUuid": "e909f1a9_5cfe8f8a",
+      "range": {
+        "startLine": 43,
+        "startChar": 47,
+        "endLine": 43,
+        "endChar": 57
+      },
+      "revId": "68e0429365603428778c6dd362ca25b4d2201d49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "18d7742b_9a436566",
         "filename": "benchmark/gradle-plugin/src/test/kotlin/androidx/benchmark/gradle/BenchmarkPluginTest.kt",
         "patchSetId": 13
