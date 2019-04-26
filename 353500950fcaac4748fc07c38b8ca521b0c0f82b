@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3bba6c84_ec379221",
+        "filename": "car/core/src/main/java/androidx/car/widget/CheckBoxListItem.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-04-26T01:06:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f88beb79_82f4ab6d",
+      "range": {
+        "startLine": 45,
+        "startChar": 13,
+        "endLine": 45,
+        "endChar": 29
+      },
+      "revId": "353500950fcaac4748fc07c38b8ca521b0c0f82b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "74da7352_080cf286",
         "filename": "car/core/src/main/java/androidx/car/widget/CheckBoxListItem.java",
         "patchSetId": 7
@@ -45,6 +69,30 @@
       "revId": "353500950fcaac4748fc07c38b8ca521b0c0f82b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dcd9b0d5_b31c6a10",
+        "filename": "car/core/src/main/java/androidx/car/widget/CheckBoxListItem.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-04-26T01:06:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "74da7352_080cf286",
+      "range": {
+        "startLine": 55,
+        "startChar": 11,
+        "endLine": 55,
+        "endChar": 27
+      },
+      "revId": "353500950fcaac4748fc07c38b8ca521b0c0f82b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "9a8bc140_ec0bc160",
+        "filename": "car/core/src/main/java/androidx/car/widget/CheckBoxListItem.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-04-26T01:06:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ad4170c9_779dfb17",
+      "range": {
+        "startLine": 86,
+        "startChar": 15,
+        "endLine": 86,
+        "endChar": 25
+      },
+      "revId": "353500950fcaac4748fc07c38b8ca521b0c0f82b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2b58d5c8_3f58a405",
         "filename": "car/core/src/main/java/androidx/car/widget/CheckBoxListItem.java",
         "patchSetId": 7
@@ -91,6 +163,30 @@
       "revId": "353500950fcaac4748fc07c38b8ca521b0c0f82b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4592129b_d98e7746",
+        "filename": "car/core/src/main/java/androidx/car/widget/CheckBoxListItem.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-04-26T01:06:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2b58d5c8_3f58a405",
+      "range": {
+        "startLine": 122,
+        "startChar": 44,
+        "endLine": 122,
+        "endChar": 61
+      },
+      "revId": "353500950fcaac4748fc07c38b8ca521b0c0f82b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -140,6 +236,54 @@
     },
     {
       "key": {
+        "uuid": "614306db_7c3fb699",
+        "filename": "car/core/src/main/java/androidx/car/widget/CompoundButtonListItem.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-04-26T01:06:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "539fa15f_d1103ec0",
+      "range": {
+        "startLine": 136,
+        "startChar": 4,
+        "endLine": 136,
+        "endChar": 10
+      },
+      "revId": "353500950fcaac4748fc07c38b8ca521b0c0f82b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5dcd818f_74d2b9ac",
+        "filename": "car/core/src/main/java/androidx/car/widget/CompoundButtonListItem.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-04-26T01:06:09Z",
+      "side": 1,
+      "message": "No annotation is currently defined. Do you feel one should be created?",
+      "parentUuid": "fd8c58a5_7d70c264",
+      "range": {
+        "startLine": 136,
+        "startChar": 20,
+        "endLine": 136,
+        "endChar": 23
+      },
+      "revId": "353500950fcaac4748fc07c38b8ca521b0c0f82b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ff42f006_9c17ec14",
         "filename": "car/core/src/main/java/androidx/car/widget/CompoundButtonListItem.java",
         "patchSetId": 7
@@ -151,6 +295,30 @@
       "writtenOn": "2019-04-25T21:10:57Z",
       "side": 1,
       "message": "I think protected is not desired in public APIs.",
+      "range": {
+        "startLine": 143,
+        "startChar": 4,
+        "endLine": 143,
+        "endChar": 13
+      },
+      "revId": "353500950fcaac4748fc07c38b8ca521b0c0f82b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8b2ed62_c263a4ad",
+        "filename": "car/core/src/main/java/androidx/car/widget/CompoundButtonListItem.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-04-26T01:06:09Z",
+      "side": 1,
+      "message": "This overrides an existing method in ListItem. Should that method be deprecated?",
+      "parentUuid": "ff42f006_9c17ec14",
       "range": {
         "startLine": 143,
         "startChar": 4,
@@ -186,6 +354,30 @@
     },
     {
       "key": {
+        "uuid": "7688de46_18160c60",
+        "filename": "car/core/src/main/java/androidx/car/widget/CompoundButtonListItem.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-04-26T01:06:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "95e581f2_607411d4",
+      "range": {
+        "startLine": 294,
+        "startChar": 4,
+        "endLine": 294,
+        "endChar": 13
+      },
+      "revId": "353500950fcaac4748fc07c38b8ca521b0c0f82b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1eba7903_d6c216cd",
         "filename": "car/core/src/main/java/androidx/car/widget/CompoundButtonListItem.java",
         "patchSetId": 7
@@ -206,6 +398,30 @@
       "revId": "353500950fcaac4748fc07c38b8ca521b0c0f82b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f88cf95b_373217bd",
+        "filename": "car/core/src/main/java/androidx/car/widget/CompoundButtonListItem.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-04-26T01:06:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1eba7903_d6c216cd",
+      "range": {
+        "startLine": 341,
+        "startChar": 4,
+        "endLine": 341,
+        "endChar": 13
+      },
+      "revId": "353500950fcaac4748fc07c38b8ca521b0c0f82b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
