@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "b54debf6_3febab13",
+        "filename": "webkit/src/main/java/androidx/webkit/package-info.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-04-26T15:47:17Z",
+      "side": 1,
+      "message": "Hmm yeah the \u003ch3\u003e doesn\u0027t look right. I think local docs builds still don\u0027t use the right CSS, so \u003cb\u003e sounds safest for now",
+      "parentUuid": "1b7c30f6_d0244aaa",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 63
+      },
+      "revId": "c5ba6aaa0b40bbdefb2d027a297338bde761150e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4c2db892_898e56fd",
         "filename": "webkit/src/main/java/androidx/webkit/package-info.java",
         "patchSetId": 1
@@ -131,6 +155,30 @@
       "side": 1,
       "message": "Oh, because of comment 3 in b/130665278 I though this was needed. Will remove.",
       "parentUuid": "cd201569_116d0f49",
+      "range": {
+        "startLine": 35,
+        "startChar": 1,
+        "endLine": 35,
+        "endChar": 35
+      },
+      "revId": "c5ba6aaa0b40bbdefb2d027a297338bde761150e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bb860f7c_d59ef79c",
+        "filename": "webkit/src/main/java/androidx/webkit/package-info.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-04-26T15:47:17Z",
+      "side": 1,
+      "message": "I think the request was that we mention which AndroidX libs we depend on, but it\u0027s not clear why. I think you can leave it off for now.",
+      "parentUuid": "28a8b37d_ee54f5d5",
       "range": {
         "startLine": 35,
         "startChar": 1,
