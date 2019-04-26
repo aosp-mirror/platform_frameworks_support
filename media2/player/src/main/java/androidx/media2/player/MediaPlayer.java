@@ -16,6 +16,7 @@
 
 package androidx.media2.player;
 
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 import static androidx.media2.common.SessionPlayer.PlayerResult.RESULT_ERROR_BAD_VALUE;
 import static androidx.media2.common.SessionPlayer.PlayerResult.RESULT_ERROR_INVALID_STATE;
@@ -2049,6 +2050,38 @@ public class MediaPlayer extends SessionPlayer {
     }
 
     /**
+     * @hide
+     */
+    @RestrictTo(LIBRARY_GROUP)
+    @Override
+    public @NonNull List<TrackInfoInternal> getTrackInfoInternal() {
+        List<TrackInfo> list = getTrackInfo();
+        List<TrackInfoInternal> trackList = new ArrayList<>();
+        for (int i = 0; i < list.size(); i++) {
+            trackList.add(createTrackInfoInternal(list.get(i)));
+        }
+        return trackList;
+    }
+
+    /**
+     * @hide
+     */
+    @RestrictTo(LIBRARY_GROUP)
+    @Override
+    public @NonNull ListenableFuture<PlayerResult> selectTrackInternal(TrackInfoInternal info) {
+        return selectTrack(createTrackInfo(info));
+    }
+
+    /**
+     * @hide
+     */
+    @RestrictTo(LIBRARY_GROUP)
+    @Override
+    public @NonNull ListenableFuture<PlayerResult> deselectTrackInternal(TrackInfoInternal info) {
+        return deselectTrack(createTrackInfo(info));
+    }
+
+    /**
      * Register {@link PlayerCallback} to listen changes.
      *
      * @param executor a callback Executor
@@ -2661,6 +2694,15 @@ public class MediaPlayer extends SessionPlayer {
         }
     }
 
+    private TrackInfoInternal createTrackInfoInternal(TrackInfo info) {
+        return new TrackInfoInternal(info.mId, info.mItem, info.mTrackType, info.mFormat);
+    }
+
+    private TrackInfo createTrackInfo(TrackInfoInternal info) {
+        return new TrackInfo(info.getId(), info.getMediaItem(), info.getTrackType(),
+                info.getFormat());
+    }
+
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     class Mp2DrmCallback extends MediaPlayer2.DrmEventCallback {
         @Override
@@ -2930,9 +2972,9 @@ public class MediaPlayer extends SessionPlayer {
         public @interface MediaTrackType {}
 
         final int mId;
-        private final MediaItem mItem;
-        private final int mTrackType;
-        private final MediaFormat mFormat;
+        final MediaItem mItem;
+        final int mTrackType;
+        final MediaFormat mFormat;
 
         /**
          * Gets the track type.
