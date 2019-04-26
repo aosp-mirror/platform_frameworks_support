@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1bba4f5e_f40c3737",
+        "filename": "media/src/main/java/android/support/v4/media/session/MediaSessionCompat.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1959,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-04-26T02:33:06Z",
+      "side": 1,
+      "message": "Yes, in order to avoid regression.",
+      "parentUuid": "2b261b81_055d3f14",
+      "range": {
+        "startLine": 1959,
+        "startChar": 26,
+        "endLine": 1959,
+        "endChar": 50
+      },
+      "revId": "0794106856f5d99cd4fb98c2cf650d668cc21111",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c9195e9a_de2551a6",
         "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer.java",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "0794106856f5d99cd4fb98c2cf650d668cc21111",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb2b0c17_3fb27d02",
+        "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1151,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-04-26T02:33:06Z",
+      "side": 1,
+      "message": "updatedCurNextItem.first !\u003d null will ensure that curItem is not null.",
+      "parentUuid": "c9195e9a_de2551a6",
+      "range": {
+        "startLine": 1151,
+        "startChar": 61,
+        "endLine": 1151,
+        "endChar": 68
+      },
+      "revId": "0794106856f5d99cd4fb98c2cf650d668cc21111",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "6f85cf9b_d3bb784c",
+        "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1213,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-04-26T02:33:06Z",
+      "side": 1,
+      "message": "ditto",
+      "parentUuid": "e1544c99_39c12880",
+      "range": {
+        "startLine": 1213,
+        "startChar": 61,
+        "endLine": 1213,
+        "endChar": 68
+      },
+      "revId": "0794106856f5d99cd4fb98c2cf650d668cc21111",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1271568e_fcf1bb98",
         "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer.java",
         "patchSetId": 2
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "51773611_a2a2ea9b",
+        "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1252,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-04-26T02:33:06Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "1271568e_fcf1bb98",
+      "range": {
+        "startLine": 1252,
+        "startChar": 45,
+        "endLine": 1252,
+        "endChar": 52
+      },
+      "revId": "0794106856f5d99cd4fb98c2cf650d668cc21111",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "520df955_13dff527",
         "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer.java",
         "patchSetId": 2
@@ -114,6 +210,30 @@
       "revId": "0794106856f5d99cd4fb98c2cf650d668cc21111",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2bc4bfee_d96bac63",
+        "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1317,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-04-26T02:33:06Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "520df955_13dff527",
+      "range": {
+        "startLine": 1317,
+        "startChar": 45,
+        "endLine": 1317,
+        "endChar": 52
+      },
+      "revId": "0794106856f5d99cd4fb98c2cf650d668cc21111",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
