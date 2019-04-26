@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "5a444895_ab4bb8a4",
+        "filename": "jetifier/jetifier/processor/src/main/kotlin/com/android/tools/build/jetifier/processor/Processor.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-04-26T15:53:45Z",
+      "side": 1,
+      "message": "Do we want to update jetifier/jetifier/standalone/src/main/kotlin/com/android/tools/build/jetifier/standalone/Main.kt to call createProcessor4?",
+      "revId": "7cc5871be37577d1e705f8a7646df0f0e23a449b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c1446f58_0d80a2c1",
         "filename": "jetifier/jetifier/processor/src/main/kotlin/com/android/tools/build/jetifier/processor/Processor.kt",
         "patchSetId": 1
@@ -25,6 +42,23 @@
     },
     {
       "key": {
+        "uuid": "7c879971_15fc0503",
+        "filename": "jetifier/jetifier/processor/src/main/kotlin/com/android/tools/build/jetifier/processor/Processor.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-04-26T15:53:45Z",
+      "side": 1,
+      "message": "Could be cool to keep the ordering of the \"stripSignatures\" and \"skipLibsWithAndroidXReferences\" arguments the same if it\u0027s not too much trouble (it looks like there are some default arguments though)",
+      "revId": "7cc5871be37577d1e705f8a7646df0f0e23a449b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "adfcb7fc_a5c450ec",
         "filename": "jetifier/jetifier/processor/src/main/kotlin/com/android/tools/build/jetifier/processor/Processor.kt",
         "patchSetId": 1
@@ -41,6 +75,46 @@
         "startChar": 12,
         "endLine": 349,
         "endChar": 94
+      },
+      "revId": "7cc5871be37577d1e705f8a7646df0f0e23a449b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1bd7c6cf_a3f7049b",
+        "filename": "jetifier/jetifier/processor/src/main/kotlin/com/android/tools/build/jetifier/processor/Processor.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-04-26T15:53:45Z",
+      "side": 1,
+      "message": "I guess that means that if Jetifier is asked to jetify an artifact that contains both a Support Library class and also the corresponding AndroidX class, then Jetifier will no longer fail with a duplicate zip entry error. Do we know if anyone was relying on that behavior for the purpose of detecting mistakes?",
+      "revId": "7cc5871be37577d1e705f8a7646df0f0e23a449b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5aa6f6a_87a2e742",
+        "filename": "jetifier/jetifier/processor/src/main/kotlin/com/android/tools/build/jetifier/processor/Processor.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-04-26T15:53:45Z",
+      "side": 1,
+      "message": "Is skipLibsWithAndroidXReferences not supported in reversed mode or intentionally disabled? I\u0027d assume that it would be intentionally disabled. Maybe elaborate this comment to make it something more like:\n\n  // When in reverse mode, process all libraries\n  // Otherwise, when jetifying, skip processing any libs that already contain references to AndroidX (they don\u0027t need to be re-jetified)\n\n?",
+      "range": {
+        "startLine": 377,
+        "startChar": 43,
+        "endLine": 377,
+        "endChar": 44
       },
       "revId": "7cc5871be37577d1e705f8a7646df0f0e23a449b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
