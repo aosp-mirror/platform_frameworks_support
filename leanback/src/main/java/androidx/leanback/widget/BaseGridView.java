@@ -1161,6 +1161,49 @@ public abstract class BaseGridView extends RecyclerView {
     }
 
     /**
+     * Set factor of how slow the smoothScroller should run. For example when set to 2f, the smooth
+     * scroll is twice slower. The value is 1f by default.
+     * @param smoothScrollSpeedFactor Factor of how slow the smooth scroll is.
+     */
+    public final void setSmoothScrollSpeedFactor(float smoothScrollSpeedFactor) {
+        mLayoutManager.mSmoothScrollSpeedFactor = smoothScrollSpeedFactor;
+    }
+
+    /**
+     * @return Factor of how slow the smoothScroller runs. Default value is 1f.
+     */
+    public final float getSmoothScrollSpeedFactor() {
+        return mLayoutManager.mSmoothScrollSpeedFactor;
+    }
+
+    /**
+     * When holding DPAD, DPAD events are generated faster than the grid view can scroll. The
+     * grid view counts unhandled DPAD events and completes the movement after user release DPAD.
+     * If the value is set too high, the scrolling will last very long after DPAD is released. If
+     * the value is set too low, it may miss many DPAD events. The default value is 10. If app
+     * increases {@link #setSmoothScrollSpeedFactor(float)}, it may need decrease the max pending
+     * DPAD events to avoid scrolling after DPAD release take too long.
+     * @param maxPendingDpad Maximum number of pending DPAD events to be remembered.
+     */
+    public final void setSmoothScrollMaxPendingMoves(int maxPendingDpad) {
+        mLayoutManager.mMaxPendingMoves = maxPendingDpad;
+    }
+
+    /**
+     * When holding DPAD, DPAD events are generated faster than the grid view can scroll. The
+     * grid view counts unhandled DPAD events and complete the movement after user release DPAD.
+     * If the value is set too high, the scrolling will last very long after DPAD is released. If
+     * the value is set too low, it may miss many DPAD events. The default value is 10. If app
+     * increases {@link #setSmoothScrollSpeedFactor(float)}, it may need decrease the max pending
+     * DPAD events to avoid scrolling after DPAD release take too long.
+     * @return Maximum number of pending DPAD events to be remembered when smooth scroll cannot
+     *         catch up speed of DPAD events being sent.
+     */
+    public final int getSmoothScrollMaxPendingMoves() {
+        return mLayoutManager.mMaxPendingMoves;
+    }
+
+    /**
      * Sets the number of items to prefetch in
      * {@link RecyclerView.LayoutManager#collectInitialPrefetchPositions(int, RecyclerView.LayoutManager.LayoutPrefetchRegistry)},
      * which defines how many inner items should be prefetched when this GridView is nested inside
