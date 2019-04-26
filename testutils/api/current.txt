@@ -1,0 +1,125 @@
+// Signature format: 3.0
+package androidx.testutils {
+
+  public class AppCompatActivityUtils {
+    method public static <T extends androidx.testutils.RecreatedAppCompatActivity> T! recreateActivity(androidx.test.rule.ActivityTestRule<? extends androidx.testutils.RecreatedAppCompatActivity>!, T!) throws java.lang.InterruptedException;
+    method public static <T extends androidx.appcompat.app.AppCompatActivity> void waitForActivityDrawn(T!);
+    method public static void waitForCycles(int, androidx.test.rule.ActivityTestRule<? extends androidx.testutils.RecreatedAppCompatActivity>!);
+    method public static void waitForExecution(androidx.test.rule.ActivityTestRule<? extends androidx.testutils.RecreatedAppCompatActivity>!);
+  }
+
+  public enum Direction {
+    ctor protected Direction();
+    enum_constant public static final androidx.testutils.Direction DOWN;
+    enum_constant public static final androidx.testutils.Direction LEFT;
+    enum_constant public static final androidx.testutils.Direction RIGHT;
+    enum_constant public static final androidx.testutils.Direction UP;
+  }
+
+  public final class FlingData {
+    ctor public FlingData(float distance, int time);
+    method public float component1();
+    method public int component2();
+    method public androidx.testutils.FlingData copy(float distance, int time);
+    method public float getDistance();
+    method public int getTime();
+    method public float getVelocity();
+    property public final float velocity;
+  }
+
+  public class FragmentActivityUtils {
+    method public static <T extends androidx.testutils.RecreatedActivity> T! recreateActivity(androidx.test.rule.ActivityTestRule<? extends androidx.testutils.RecreatedActivity>!, T!) throws java.lang.InterruptedException;
+    method public static <T extends androidx.fragment.app.FragmentActivity> void waitForActivityDrawn(T!);
+    method public static void waitForCycles(int, androidx.test.rule.ActivityTestRule<? extends androidx.fragment.app.FragmentActivity>!);
+    method public static void waitForExecution(androidx.test.rule.ActivityTestRule<? extends androidx.fragment.app.FragmentActivity>!);
+  }
+
+  public class LifecycleOwnerUtils {
+    method public static <T extends android.app.Activity & androidx.lifecycle.LifecycleOwner> void waitUntilState(androidx.test.rule.ActivityTestRule<T>!, androidx.lifecycle.Lifecycle.State!) throws java.lang.Throwable;
+    method public static void waitUntilState(androidx.lifecycle.LifecycleOwner!, androidx.test.rule.ActivityTestRule<?>!, androidx.lifecycle.Lifecycle.State!) throws java.lang.Throwable;
+  }
+
+  public final class MotionEventData {
+    ctor public MotionEventData(int eventTimeDelta, int action, float x, float y, int metaState);
+    method public int component1();
+    method public int component2();
+    method public float component3();
+    method public float component4();
+    method public int component5();
+    method public androidx.testutils.MotionEventData copy(int eventTimeDelta, int action, float x, float y, int metaState);
+    method public int getAction();
+    method public int getEventTimeDelta();
+    method public int getMetaState();
+    method public float getX();
+    method public float getY();
+  }
+
+  public abstract class PollingCheck {
+    ctor public PollingCheck(long);
+    method protected abstract boolean check();
+    method public void run();
+    method public static void waitFor(androidx.testutils.PollingCheck.PollingCheckCondition!);
+    method public static void waitFor(long, androidx.testutils.PollingCheck.PollingCheckCondition!);
+  }
+
+  public static interface PollingCheck.PollingCheckCondition {
+    method public boolean canProceed();
+  }
+
+  public class RecreatedActivity extends androidx.fragment.app.FragmentActivity {
+    ctor public RecreatedActivity(@LayoutRes int contentLayoutId);
+    ctor public RecreatedActivity();
+    method public static final void clearState();
+    method public static final androidx.testutils.RecreatedActivity? getActivity();
+    method public static final java.util.concurrent.CountDownLatch? getDestroyedLatch();
+    method public static final java.util.concurrent.CountDownLatch? getResumedLatch();
+    method public static final void setActivity(androidx.testutils.RecreatedActivity? p);
+    method public static final void setDestroyedLatch(java.util.concurrent.CountDownLatch? p);
+    method public static final void setResumedLatch(java.util.concurrent.CountDownLatch? p);
+    field public static final androidx.testutils.RecreatedActivity.Companion! Companion;
+  }
+
+  public static final class RecreatedActivity.Companion {
+    method public void clearState();
+    method public androidx.testutils.RecreatedActivity? getActivity();
+    method public java.util.concurrent.CountDownLatch? getDestroyedLatch();
+    method public java.util.concurrent.CountDownLatch? getResumedLatch();
+    method public void setActivity(androidx.testutils.RecreatedActivity? p);
+    method public void setDestroyedLatch(java.util.concurrent.CountDownLatch? p);
+    method public void setResumedLatch(java.util.concurrent.CountDownLatch? p);
+    property public final androidx.testutils.RecreatedActivity? activity;
+    property public final java.util.concurrent.CountDownLatch? destroyedLatch;
+    property public final java.util.concurrent.CountDownLatch? resumedLatch;
+  }
+
+  public class RecreatedAppCompatActivity extends androidx.appcompat.app.AppCompatActivity {
+    ctor public RecreatedAppCompatActivity();
+    field public static androidx.testutils.RecreatedAppCompatActivity! sActivity;
+    field public static java.util.concurrent.CountDownLatch! sDestroyed;
+    field public static java.util.concurrent.CountDownLatch! sResumed;
+  }
+
+  public final class SimpleGestureGeneratorKt {
+    ctor public SimpleGestureGeneratorKt();
+    method public static void dispatchTouchEvents(android.view.View, long downTime, java.util.List<androidx.testutils.MotionEventData> motionEventData);
+    method public static androidx.testutils.FlingData generateFlingData(android.content.Context context);
+    method public static java.util.List<androidx.testutils.MotionEventData> generateFlingMotionEventData(androidx.testutils.FlingData, float originX, float originY, androidx.testutils.Direction fingerDirection);
+    method public static void simulateFling(android.view.View, long downTime, float originX, float originY, androidx.testutils.Direction direction);
+    method public static android.view.MotionEvent toMotionEvent(androidx.testutils.MotionEventData, long downTime);
+    field public static final int MOTION_EVENT_INTERVAL_MILLIS = 10; // 0xa
+  }
+
+  public class SwipeToLocation implements androidx.test.espresso.ViewAction {
+    method public static androidx.testutils.SwipeToLocation! flingTo(float[]!);
+    method public static androidx.testutils.SwipeToLocation! flingToCenter();
+    method public org.hamcrest.Matcher<android.view.View>! getConstraints();
+    method public String! getDescription();
+    method public void initialize(android.view.View);
+    method public void perform(androidx.test.espresso.UiController!, android.view.View!);
+    method public void perform(android.app.Instrumentation!);
+    method public static androidx.testutils.SwipeToLocation! swipeTo(float[]!);
+    method public static androidx.testutils.SwipeToLocation! swipeToCenter();
+  }
+
+}
+

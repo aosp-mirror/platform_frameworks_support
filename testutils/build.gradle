@@ -15,6 +15,8 @@
  */
 
 import static androidx.build.dependencies.DependenciesKt.*
+import androidx.build.LibraryGroups
+import androidx.build.LibraryVersions
 
 plugins {
     id("AndroidXPlugin")
@@ -45,4 +47,10 @@ android {
 androidx {
     failOnUncheckedWarnings = false
     toolingProject = true
+    name = "AndroidX Internal Test Utilities"
+    publish = false
+    mavenVersion = LibraryVersions.INTERNAL_TESTUTILS
+    mavenGroup = LibraryGroups.INTERNAL_TESTUTILS
+    inceptionYear = "2019"
+    description = "Internal test utils for AndroidX libraries."
 }

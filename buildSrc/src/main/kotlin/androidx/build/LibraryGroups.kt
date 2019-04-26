@@ -48,6 +48,7 @@ object LibraryGroups {
     val FRAGMENT = LibraryGroup("androidx.fragment", false)
     val GRIDLAYOUT = LibraryGroup("androidx.gridlayout", false)
     val HEIFWRITER = LibraryGroup("androidx.heifwriter", false)
+    val INTERNAL_TESTUTILS = LibraryGroup("androidx.internal-testutils", false)
     val INTERPOLATOR = LibraryGroup("androidx.interpolator", false)
     val JETIFIER = LibraryGroup("com.android.tools.build.jetifier", false)
     val LEANBACK = LibraryGroup("androidx.leanback", false)

@@ -54,6 +54,7 @@ object LibraryVersions {
     val FUTURES = Version("1.0.0-beta01")
     val GRIDLAYOUT = Version("1.1.0-alpha01")
     val HEIFWRITER = Version("1.1.0-alpha01")
+    val INTERNAL_TESTUTILS = Version("1.0.0-alpha01")
     val INTERPOLATOR = Version("1.1.0-alpha01")
     val JETIFIER = Version("1.0.0-beta04")
     val LEANBACK = Version("1.1.0-alpha02")
