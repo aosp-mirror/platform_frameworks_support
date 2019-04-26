@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0299ee68_745c98a7",
+        "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/BenchmarkPlugin.kt",
+        "patchSetId": 20
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-04-26T16:18:29Z",
+      "side": 1,
+      "message": "now that you\u0027re using trimIndent, remove the leading pipe characters, or else they\u0027ll show up in the output",
+      "revId": "f170e3e6e6cd62e70776291c9fb195af582f85a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
