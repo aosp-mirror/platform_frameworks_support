@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "34414076_6b4b8f55",
+        "filename": "benchmark/gradle-plugin/build.gradle",
+        "patchSetId": 19
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-04-26T16:04:11Z",
+      "side": 1,
+      "message": "Oh, I didn\u0027t realize we set publish to true intentionally - should we do the same for androidx.benchmark too?",
+      "parentUuid": "5dc78686_f1b1334b",
+      "revId": "0c784f16d1d47431cbce82f95d71bac9842f4f93",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7cd3cdbc_4203af4b",
         "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/BenchmarkPlugin.kt",
         "patchSetId": 19
