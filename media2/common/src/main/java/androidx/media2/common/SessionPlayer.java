@@ -19,6 +19,7 @@ package androidx.media2.common;
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
+import android.media.MediaFormat;
 import android.os.ParcelFileDescriptor;
 import android.os.SystemClock;
 import android.util.Log;
@@ -39,6 +40,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.Executor;
 
 /**
@@ -803,6 +805,173 @@ public abstract class SessionPlayer implements AutoCloseable {
             list.addAll(mCallbacks);
         }
         return list;
+    }
+
+    /**
+     * Internal use only.
+     * @hide
+     */
+    @RestrictTo(LIBRARY_GROUP)
+    @NonNull
+    public abstract List<TrackInfoInternal> getTrackInfoInternal();
+
+    /**
+     * Internal use only.
+     * @hide
+     */
+    @RestrictTo(LIBRARY_GROUP)
+    @NonNull
+    public abstract ListenableFuture<PlayerResult> selectTrackInternal(
+            @NonNull TrackInfoInternal trackInfo);
+
+    /**
+     * Internal use only.
+     * @hide
+     */
+    @RestrictTo(LIBRARY_GROUP)
+    @NonNull
+    public abstract ListenableFuture<PlayerResult> deselectTrackInternal(
+            @NonNull TrackInfoInternal trackInfo);
+
+    /**
+     * Internal use only.
+     * @see #getTrackInfoInternal
+     * @hide
+     */
+    @RestrictTo(LIBRARY_GROUP)
+    public static final class TrackInfoInternal {
+        public static final int MEDIA_TRACK_TYPE_UNKNOWN = 0;
+        public static final int MEDIA_TRACK_TYPE_VIDEO = 1;
+        public static final int MEDIA_TRACK_TYPE_AUDIO = 2;
+        public static final int MEDIA_TRACK_TYPE_TIMEDTEXT = 3;
+        public static final int MEDIA_TRACK_TYPE_SUBTITLE = 4;
+        public static final int MEDIA_TRACK_TYPE_METADATA = 5;
+
+        @IntDef(flag = false, /*prefix = "PLAYER_ERROR",*/ value = {
+                MEDIA_TRACK_TYPE_UNKNOWN,
+                MEDIA_TRACK_TYPE_VIDEO,
+                MEDIA_TRACK_TYPE_AUDIO,
+                MEDIA_TRACK_TYPE_SUBTITLE,
+                MEDIA_TRACK_TYPE_METADATA,
+        })
+        @Retention(RetentionPolicy.SOURCE)
+        public @interface MediaTrackType {}
+
+        final int mId;
+        private final MediaItem mItem;
+        private final int mTrackType;
+        private final MediaFormat mFormat;
+
+        /**
+         * Gets the track type.
+         * @return TrackType which indicates if the track is video, audio, timed text.
+         */
+        public @MediaTrackType int getTrackType() {
+            return mTrackType;
+        }
+
+        /**
+         * Gets the language code of the track.
+         * @return {@link Locale} which includes the language information.
+         */
+        @NonNull
+        public Locale getLanguage() {
+            String language = mFormat != null ? mFormat.getString(MediaFormat.KEY_LANGUAGE) : null;
+            if (language == null) {
+                language = "und";
+            }
+            return new Locale(language);
+        }
+
+        /**
+         * Gets the {@link MediaFormat} of the track.  If the format is
+         * unknown or could not be determined, null is returned.
+         */
+        @Nullable
+        public MediaFormat getFormat() {
+            if (mTrackType == MEDIA_TRACK_TYPE_TIMEDTEXT
+                    || mTrackType == MEDIA_TRACK_TYPE_SUBTITLE) {
+                return mFormat;
+            }
+            return null;
+        }
+
+        public int getId() {
+            return mId;
+        }
+
+        public MediaItem getMediaItem() {
+            return mItem;
+        }
+
+        public TrackInfoInternal(int id, MediaItem item, int type, MediaFormat format) {
+            mId = id;
+            mItem = item;
+            mTrackType = type;
+            mFormat = format;
+        }
+
+        @Override
+        public String toString() {
+            StringBuilder out = new StringBuilder(128);
+            out.append(getClass().getName());
+            out.append('#').append(mId);
+            out.append('{');
+            switch (mTrackType) {
+                case MEDIA_TRACK_TYPE_VIDEO:
+                    out.append("VIDEO");
+                    break;
+                case MEDIA_TRACK_TYPE_AUDIO:
+                    out.append("AUDIO");
+                    break;
+                case MEDIA_TRACK_TYPE_TIMEDTEXT:
+                    out.append("TIMEDTEXT");
+                    break;
+                case MEDIA_TRACK_TYPE_SUBTITLE:
+                    out.append("SUBTITLE");
+                    break;
+                default:
+                    out.append("UNKNOWN");
+                    break;
+            }
+            out.append(", " + mFormat.toString());
+            out.append("}");
+            return out.toString();
+        }
+
+        @Override
+        public int hashCode() {
+            final int prime = 31;
+            int result = 1;
+            result = prime * result + mId;
+            result = prime * result + ((mItem == null) ? 0 : mItem.hashCode());
+            return result;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (obj == null) {
+                return false;
+            }
+            if (getClass() != obj.getClass()) {
+                return false;
+            }
+            TrackInfoInternal other = (TrackInfoInternal) obj;
+            if (mId != other.mId) {
+                return false;
+            }
+            if (mItem == null) {
+                if (other.mItem != null) {
+                    return false;
+                }
+            } else if (!mItem.equals(other.mItem)) {
+                return false;
+            }
+            return true;
+        }
     }
 
     /**

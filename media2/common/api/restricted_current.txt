@@ -71,6 +71,12 @@ package androidx.media2.common {
     field public static final android.os.Parcelable.Creator<androidx.media2.common.ParcelImplListSlice>! CREATOR;
   }
 
+  public abstract class SessionPlayer implements java.lang.AutoCloseable {
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public abstract com.google.common.util.concurrent.ListenableFuture<androidx.media2.common.SessionPlayer.PlayerResult> deselectTrackInternal(androidx.media2.common.SessionPlayer.TrackInfoInternal);
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public abstract java.util.List<androidx.media2.common.SessionPlayer.TrackInfoInternal> getTrackInfoInternal();
+    method @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public abstract com.google.common.util.concurrent.ListenableFuture<androidx.media2.common.SessionPlayer.PlayerResult> selectTrackInternal(androidx.media2.common.SessionPlayer.TrackInfoInternal);
+  }
+
   @IntDef({androidx.media2.common.SessionPlayer.BUFFERING_STATE_UNKNOWN, androidx.media2.common.SessionPlayer.BUFFERING_STATE_BUFFERING_AND_PLAYABLE, androidx.media2.common.SessionPlayer.BUFFERING_STATE_BUFFERING_AND_STARVED, androidx.media2.common.SessionPlayer.BUFFERING_STATE_COMPLETE}) @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) public static @interface SessionPlayer.BuffState {
   }
 
@@ -91,6 +97,24 @@ package androidx.media2.common {
   }
 
   @IntDef({androidx.media2.common.SessionPlayer.SHUFFLE_MODE_NONE, androidx.media2.common.SessionPlayer.SHUFFLE_MODE_ALL, androidx.media2.common.SessionPlayer.SHUFFLE_MODE_GROUP}) @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) public static @interface SessionPlayer.ShuffleMode {
+  }
+
+  @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP) public static final class SessionPlayer.TrackInfoInternal {
+    ctor public SessionPlayer.TrackInfoInternal(int, androidx.media2.common.MediaItem!, int, android.media.MediaFormat!);
+    method public android.media.MediaFormat? getFormat();
+    method public int getId();
+    method public java.util.Locale getLanguage();
+    method public androidx.media2.common.MediaItem! getMediaItem();
+    method @androidx.media2.common.SessionPlayer.TrackInfoInternal.MediaTrackType public int getTrackType();
+    field public static final int MEDIA_TRACK_TYPE_AUDIO = 2; // 0x2
+    field public static final int MEDIA_TRACK_TYPE_METADATA = 5; // 0x5
+    field public static final int MEDIA_TRACK_TYPE_SUBTITLE = 4; // 0x4
+    field public static final int MEDIA_TRACK_TYPE_TIMEDTEXT = 3; // 0x3
+    field public static final int MEDIA_TRACK_TYPE_UNKNOWN = 0; // 0x0
+    field public static final int MEDIA_TRACK_TYPE_VIDEO = 1; // 0x1
+  }
+
+  @IntDef(flag=false, value={androidx.media2.common.SessionPlayer.TrackInfoInternal.MEDIA_TRACK_TYPE_UNKNOWN, androidx.media2.common.SessionPlayer.TrackInfoInternal.MEDIA_TRACK_TYPE_VIDEO, androidx.media2.common.SessionPlayer.TrackInfoInternal.MEDIA_TRACK_TYPE_AUDIO, androidx.media2.common.SessionPlayer.TrackInfoInternal.MEDIA_TRACK_TYPE_SUBTITLE, androidx.media2.common.SessionPlayer.TrackInfoInternal.MEDIA_TRACK_TYPE_METADATA}) @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE) public static @interface SessionPlayer.TrackInfoInternal.MediaTrackType {
   }
 
 }
