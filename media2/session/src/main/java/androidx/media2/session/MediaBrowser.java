@@ -84,21 +84,21 @@ public class MediaBrowser extends MediaController {
      * @param callback controller callback to receive changes in
      */
     MediaBrowser(@NonNull Context context, @NonNull SessionToken token,
-            @Nullable Bundle connectionHints, @NonNull Executor executor,
-            @NonNull BrowserCallback callback) {
+            @Nullable Bundle connectionHints, @Nullable Executor executor,
+            @Nullable BrowserCallback callback) {
         super(context, token, connectionHints, executor, callback);
     }
 
     MediaBrowser(@NonNull Context context, @NonNull MediaSessionCompat.Token token,
-            @Nullable Bundle connectionHints, @NonNull Executor executor,
-            @NonNull BrowserCallback callback) {
+            @Nullable Bundle connectionHints, @Nullable Executor executor,
+            @Nullable BrowserCallback callback) {
         super(context, token, connectionHints, executor, callback);
     }
 
     @Override
     MediaBrowserImpl createImpl(@NonNull Context context, @NonNull SessionToken token,
-            @Nullable Bundle connectionHints, @NonNull Executor executor,
-            @NonNull ControllerCallback callback) {
+            @Nullable Bundle connectionHints, @Nullable Executor executor,
+            @Nullable ControllerCallback callback) {
         if (token.isLegacySession()) {
             return new MediaBrowserImplLegacy(
                     context, this, token, executor, (BrowserCallback) callback);
