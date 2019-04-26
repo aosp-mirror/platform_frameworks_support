@@ -284,6 +284,30 @@
     },
     {
       "key": {
+        "uuid": "0182e508_fda3b10f",
+        "filename": "car/core/src/main/java/androidx/car/widget/CompoundButtonListItem.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1010674
+      },
+      "writtenOn": "2019-04-26T14:18:15Z",
+      "side": 1,
+      "message": "yes I think the return view types are known ahead of time, so it should not be hard to create one.",
+      "parentUuid": "5dcd818f_74d2b9ac",
+      "range": {
+        "startLine": 136,
+        "startChar": 20,
+        "endLine": 136,
+        "endChar": 23
+      },
+      "revId": "353500950fcaac4748fc07c38b8ca521b0c0f82b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ff42f006_9c17ec14",
         "filename": "car/core/src/main/java/androidx/car/widget/CompoundButtonListItem.java",
         "patchSetId": 7
@@ -319,6 +343,30 @@
       "side": 1,
       "message": "This overrides an existing method in ListItem. Should that method be deprecated?",
       "parentUuid": "ff42f006_9c17ec14",
+      "range": {
+        "startLine": 143,
+        "startChar": 4,
+        "endLine": 143,
+        "endChar": 13
+      },
+      "revId": "353500950fcaac4748fc07c38b8ca521b0c0f82b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb8972b9_7f677e56",
+        "filename": "car/core/src/main/java/androidx/car/widget/CompoundButtonListItem.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1010674
+      },
+      "writtenOn": "2019-04-26T14:18:15Z",
+      "side": 1,
+      "message": "I think ListItem was reviewed by API council (Adrian et al) before. Since they did not raise an issue, I am ok with it.",
+      "parentUuid": "f8b2ed62_c263a4ad",
       "range": {
         "startLine": 143,
         "startChar": 4,
