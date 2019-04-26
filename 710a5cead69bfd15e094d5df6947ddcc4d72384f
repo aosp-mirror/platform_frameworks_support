@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "3ab72164_ae59d77f",
+        "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/BenchmarkPlugin.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-04-26T14:43:53Z",
+      "side": 1,
+      "message": "Used the wrong dependsOn api :D",
+      "parentUuid": "f6df6e9a_363900b9",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 64
+      },
+      "revId": "710a5cead69bfd15e094d5df6947ddcc4d72384f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "70bf63d7_708169d9",
         "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/BenchmarkPlugin.kt",
         "patchSetId": 17
