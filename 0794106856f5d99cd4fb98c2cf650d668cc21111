@@ -699,6 +699,24 @@
     },
     {
       "key": {
+        "uuid": "1ad19d43_e1c43e77",
+        "filename": "samples/Support7Demos/src/main/java/com/example/android/supportv7/widget/selection/fancy/FancySelectionDemoAdapter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-04-26T01:34:55Z",
+      "side": 1,
+      "message": "Ignore this. We have ownership anyways.",
+      "parentUuid": "d501f117_f3de56f1",
+      "revId": "0794106856f5d99cd4fb98c2cf650d668cc21111",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7b72cb9b_0302703b",
         "filename": "viewpager2/src/main/java/androidx/viewpager2/adapter/FragmentStateAdapter.java",
         "patchSetId": 2
