@@ -2632,6 +2632,190 @@ public class RecyclerViewLayoutTest extends BaseRecyclerViewInstrumentationTest 
         checkForMainThreadException();
     }
 
+    private void smoothScrollBy_completesSynchronously(final int duration) throws Throwable {
+        // Arrange
+
+        RecyclerView recyclerView = new RecyclerView(getActivity());
+        recyclerView.setAdapter(new TestAdapter(1000));
+        recyclerView.setLayoutManager(new TestLayoutManager());
+        setRecyclerView(recyclerView);
+        getInstrumentation().waitForIdleSync();
+
+        final int[] numCalls = new int[]{0};
+        final int[] totalScrolled = new int[]{0};
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                numCalls[0]++;
+                totalScrolled[0] += dy;
+            }
+        });
+
+
+        mActivityRule.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+
+                // Act
+                mRecyclerView.smoothScrollBy(0, 100, null, duration);
+
+                // Assert
+                assertEquals(1, numCalls[0]);
+                assertEquals(100, totalScrolled[0]);
+            }
+        });
+    }
+
+    @Test
+    public void smoothScrollBy_negativeDuration_completesSynchronously() throws Throwable {
+        smoothScrollBy_completesSynchronously(-1);
+    }
+
+    @Test
+    public void smoothScrollBy_durationOf0_completesSynchronously() throws Throwable {
+        smoothScrollBy_completesSynchronously(0);
+    }
+
+    @Test
+    public void smoothScrollBy_durationOf1_doesNotCompleteSynchronously() throws Throwable {
+
+        // Arrange
+
+        RecyclerView recyclerView = new RecyclerView(getActivity());
+        recyclerView.setAdapter(new TestAdapter(1000));
+        recyclerView.setLayoutManager(new TestLayoutManager());
+        setRecyclerView(recyclerView);
+        getInstrumentation().waitForIdleSync();
+
+        final int[] numCalls = new int[]{0};
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                numCalls[0]++;
+            }
+        });
+
+        mActivityRule.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+
+                // Act
+                mRecyclerView.smoothScrollBy(0, 100, null, 1);
+
+                // Assert
+                assertEquals(0, numCalls[0]);
+            }
+        });
+    }
+
+    @Test
+    public void smoothScrollBy_durationOf1_completesAsynchronously() throws Throwable {
+
+        // Arrange
+
+        RecyclerView recyclerView = new RecyclerView(getActivity());
+        recyclerView.setAdapter(new TestAdapter(1000));
+        recyclerView.setLayoutManager(new TestLayoutManager());
+        setRecyclerView(recyclerView);
+        getInstrumentation().waitForIdleSync();
+
+        final int[] totalScrolled = new int[]{0};
+        final CountDownLatch latch = new CountDownLatch(1);
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                totalScrolled[0] += dy;
+                if (totalScrolled[0] == 100) {
+                    latch.countDown();
+                }
+            }
+        });
+
+        // Act
+        mActivityRule.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mRecyclerView.smoothScrollBy(0, 100, null, 1);
+            }
+        });
+        latch.await(5, TimeUnit.SECONDS);
+
+        // Assert
+        assertEquals(100, totalScrolled[0]);
+    }
+
+    @Test
+    public void smoothScrollBy_fastDurationIsFasterThanSlowDuration() throws Throwable {
+
+        // Arrange
+
+        final RecyclerView recyclerView0 = new RecyclerView(getActivity());
+        recyclerView0.setAdapter(new TestAdapter(1000));
+        recyclerView0.setLayoutManager(new TestLayoutManager());
+
+        final RecyclerView recyclerView1 = new RecyclerView(getActivity());
+        recyclerView1.setAdapter(new TestAdapter(1000));
+        recyclerView1.setLayoutManager(new TestLayoutManager());
+
+        mActivityRule.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                getActivity().getContainer().addView(recyclerView0);
+                getActivity().getContainer().addView(recyclerView1);
+            }
+        });
+
+        getInstrumentation().waitForIdleSync();
+
+        final int[] totalScrolled = new int[]{0, 0};
+        final ArrayList<Integer> completionOrder = new ArrayList<>();
+        final CountDownLatch latch = new CountDownLatch(2);
+
+        recyclerView0.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                totalScrolled[0] += dy;
+                if (totalScrolled[0] == 100) {
+                    completionOrder.add(0);
+                    latch.countDown();
+                }
+            }
+        });
+
+        recyclerView1.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                totalScrolled[1] += dy;
+                if (totalScrolled[1] == 100) {
+                    completionOrder.add(1);
+                    latch.countDown();
+                }
+            }
+        });
+
+        // Act
+        mActivityRule.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                recyclerView0.smoothScrollBy(0, 100, null, 100);
+                recyclerView1.smoothScrollBy(0, 100, null, 1000);
+            }
+        });
+        latch.await(5, TimeUnit.SECONDS);
+
+        // Assert
+        assertEquals(0, (int) completionOrder.get(0));
+        assertEquals(1, (int) completionOrder.get(1));
+    }
+
     @Test
     public void scrollStateForSmoothScroll() throws Throwable {
         TestAdapter testAdapter = new TestAdapter(10);
