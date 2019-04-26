@@ -3102,6 +3102,15 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
         return f.mHasMenu && f.mMenuVisible || f.mChildFragmentManager.checkForMenus();
     }
 
+    // Set the next animation for all active Fragment with no next animation.
+    void setNextAnim(int animation) {
+        for (Fragment f: mActive.values()) {
+            if (f.getNextAnim() == 0) {
+                f.setNextAnim(animation);
+            }
+        }
+    }
+
     public static int reverseTransit(int transit) {
         int rev = 0;
         switch (transit) {

@@ -2885,6 +2885,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
             return; // no change!
         }
         ensureAnimationInfo().mNextAnim = animResourceId;
+        mChildFragmentManager.setNextAnim(animResourceId);
     }
 
     int getNextTransition() {
