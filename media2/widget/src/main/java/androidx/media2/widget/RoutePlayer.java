@@ -430,6 +430,21 @@ import java.util.concurrent.Future;
     }
 
     @Override
+    public List<TrackInfoInternal> getTrackInfoInternal() {
+        return null;
+    }
+
+    @Override
+    public ListenableFuture<PlayerResult> selectTrackInternal(TrackInfoInternal trackInfo) {
+        return null;
+    }
+
+    @Override
+    public ListenableFuture<PlayerResult> deselectTrackInternal(TrackInfoInternal trackInfo) {
+        return null;
+    }
+
+    @Override
     public void close() {
         if (mClient != null) {
             try {
