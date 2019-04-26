@@ -1,0 +1,533 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0d3bf865_b519a00a",
+        "filename": "camera/core/src/main/java/androidx/camera/core/DeferredImageReaderSurface.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1481635
+      },
+      "writtenOn": "2019-04-26T00:33:24Z",
+      "side": 1,
+      "message": "Add final since it will not change.",
+      "range": {
+        "startLine": 45,
+        "startChar": 4,
+        "endLine": 45,
+        "endChar": 21
+      },
+      "revId": "5b77215c4a4b721de58d2f884b1e1e2a69655d5a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f26b6389_711ba401",
+        "filename": "camera/core/src/main/java/androidx/camera/core/DeferredImageReaderSurface.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1481635
+      },
+      "writtenOn": "2019-04-26T00:33:24Z",
+      "side": 1,
+      "message": "final",
+      "range": {
+        "startLine": 48,
+        "startChar": 4,
+        "endLine": 48,
+        "endChar": 43
+      },
+      "revId": "5b77215c4a4b721de58d2f884b1e1e2a69655d5a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81a6ff8a_74441148",
+        "filename": "camera/core/src/main/java/androidx/camera/core/DeferredImageReaderSurface.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1481635
+      },
+      "writtenOn": "2019-04-26T00:33:24Z",
+      "side": 1,
+      "message": "Use isEmpty() or alternatively, don\u0027t have to check size, the for loop will not run if it is empty.",
+      "range": {
+        "startLine": 130,
+        "startChar": 8,
+        "endLine": 130,
+        "endChar": 51
+      },
+      "revId": "5b77215c4a4b721de58d2f884b1e1e2a69655d5a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98598375_083e9ffa",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 528,
+      "author": {
+        "id": 1481635
+      },
+      "writtenOn": "2019-04-26T00:33:24Z",
+      "side": 1,
+      "message": "It will be good to have more detail comment for this method with doc format /** */.",
+      "range": {
+        "startLine": 528,
+        "startChar": 4,
+        "endLine": 528,
+        "endChar": 31
+      },
+      "revId": "5b77215c4a4b721de58d2f884b1e1e2a69655d5a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df075203_e24f5815",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 529,
+      "author": {
+        "id": 1481635
+      },
+      "writtenOn": "2019-04-26T00:33:24Z",
+      "side": 1,
+      "message": "I think we don\u0027t have to mark this method \"final\"",
+      "range": {
+        "startLine": 529,
+        "startChar": 4,
+        "endLine": 529,
+        "endChar": 10
+      },
+      "revId": "5b77215c4a4b721de58d2f884b1e1e2a69655d5a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b41af4d6_71f2e996",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 539,
+      "author": {
+        "id": 1481635
+      },
+      "writtenOn": "2019-04-26T00:33:24Z",
+      "side": 1,
+      "message": "No need to wrap line.",
+      "range": {
+        "startLine": 539,
+        "startChar": 20,
+        "endLine": 539,
+        "endChar": 69
+      },
+      "revId": "5b77215c4a4b721de58d2f884b1e1e2a69655d5a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29518077_a60da940",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 1481635
+      },
+      "writtenOn": "2019-04-26T00:33:24Z",
+      "side": 1,
+      "message": "Need reformat.",
+      "range": {
+        "startLine": 542,
+        "startChar": 12,
+        "endLine": 544,
+        "endChar": 84
+      },
+      "revId": "5b77215c4a4b721de58d2f884b1e1e2a69655d5a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ace783d4_f10dda2f",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 546,
+      "author": {
+        "id": 1481635
+      },
+      "writtenOn": "2019-04-26T00:33:24Z",
+      "side": 1,
+      "message": "No need to wrap line",
+      "range": {
+        "startLine": 546,
+        "startChar": 20,
+        "endLine": 546,
+        "endChar": 67
+      },
+      "revId": "5b77215c4a4b721de58d2f884b1e1e2a69655d5a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0cde920b_b8730dd7",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 554,
+      "author": {
+        "id": 1481635
+      },
+      "writtenOn": "2019-04-26T00:33:24Z",
+      "side": 1,
+      "message": "No need to wrap line.",
+      "range": {
+        "startLine": 554,
+        "startChar": 24,
+        "endLine": 554,
+        "endChar": 37
+      },
+      "revId": "5b77215c4a4b721de58d2f884b1e1e2a69655d5a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55fa7711_ba85b122",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 556,
+      "author": {
+        "id": 1481635
+      },
+      "writtenOn": "2019-04-26T00:33:24Z",
+      "side": 1,
+      "message": "No need to wrap line.",
+      "range": {
+        "startLine": 556,
+        "startChar": 32,
+        "endLine": 556,
+        "endChar": 61
+      },
+      "revId": "5b77215c4a4b721de58d2f884b1e1e2a69655d5a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a2ab355_0afbb5ea",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 572,
+      "author": {
+        "id": 1481635
+      },
+      "writtenOn": "2019-04-26T00:33:24Z",
+      "side": 1,
+      "message": "No need to wrap line.",
+      "range": {
+        "startLine": 572,
+        "startChar": 44,
+        "endLine": 572,
+        "endChar": 73
+      },
+      "revId": "5b77215c4a4b721de58d2f884b1e1e2a69655d5a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4c83c97_b92460eb",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 834,
+      "author": {
+        "id": 1481635
+      },
+      "writtenOn": "2019-04-26T00:33:24Z",
+      "side": 1,
+      "message": "We can check null and throw exception in the front of this method.",
+      "range": {
+        "startLine": 830,
+        "startChar": 12,
+        "endLine": 834,
+        "endChar": 13
+      },
+      "revId": "5b77215c4a4b721de58d2f884b1e1e2a69655d5a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32ef19ed_b8e7f24d",
+        "filename": "camera/core/src/test/java/androidx/camera/core/DeferredImageReaderSurfaceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1481635
+      },
+      "writtenOn": "2019-04-26T00:33:24Z",
+      "side": 1,
+      "message": "Redundant new line. One new line is enough.",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 0
+      },
+      "revId": "5b77215c4a4b721de58d2f884b1e1e2a69655d5a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3ec2d12_0710ee7c",
+        "filename": "camera/core/src/test/java/androidx/camera/core/DeferredImageReaderSurfaceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1481635
+      },
+      "writtenOn": "2019-04-26T00:33:24Z",
+      "side": 1,
+      "message": "Need reformat",
+      "range": {
+        "startLine": 73,
+        "startChar": 54,
+        "endLine": 75,
+        "endChar": 70
+      },
+      "revId": "5b77215c4a4b721de58d2f884b1e1e2a69655d5a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b2d8a66_b4a90806",
+        "filename": "camera/core/src/test/java/androidx/camera/core/DeferredImageReaderSurfaceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1481635
+      },
+      "writtenOn": "2019-04-26T00:33:24Z",
+      "side": 1,
+      "message": "No need to wrap line",
+      "range": {
+        "startLine": 90,
+        "startChar": 16,
+        "endLine": 90,
+        "endChar": 30
+      },
+      "revId": "5b77215c4a4b721de58d2f884b1e1e2a69655d5a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ccae6b90_b39e7f4f",
+        "filename": "camera/core/src/test/java/androidx/camera/core/DeferredImageReaderSurfaceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1481635
+      },
+      "writtenOn": "2019-04-26T00:33:24Z",
+      "side": 1,
+      "message": "No need to wrap line",
+      "range": {
+        "startLine": 92,
+        "startChar": 16,
+        "endLine": 92,
+        "endChar": 30
+      },
+      "revId": "5b77215c4a4b721de58d2f884b1e1e2a69655d5a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "12c2820d_c8836341",
+        "filename": "camera/core/src/test/java/androidx/camera/core/DeferredImageReaderSurfaceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1481635
+      },
+      "writtenOn": "2019-04-26T00:33:24Z",
+      "side": 1,
+      "message": "No need to wrap line",
+      "range": {
+        "startLine": 108,
+        "startChar": 16,
+        "endLine": 108,
+        "endChar": 30
+      },
+      "revId": "5b77215c4a4b721de58d2f884b1e1e2a69655d5a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "773ea5f8_1f2af675",
+        "filename": "camera/core/src/test/java/androidx/camera/core/DeferredImageReaderSurfaceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1481635
+      },
+      "writtenOn": "2019-04-26T00:33:24Z",
+      "side": 1,
+      "message": "No need to wrap line",
+      "range": {
+        "startLine": 111,
+        "startChar": 16,
+        "endLine": 111,
+        "endChar": 30
+      },
+      "revId": "5b77215c4a4b721de58d2f884b1e1e2a69655d5a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b5d9f32_95ab7179",
+        "filename": "camera/core/src/test/java/androidx/camera/core/DeferredImageReaderSurfaceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1481635
+      },
+      "writtenOn": "2019-04-26T00:33:24Z",
+      "side": 1,
+      "message": "getSurface() will return a ListenableFuture and never be null. getSurface().get() is probably what you want to check. But I think check the surface is not the purpose of this test method, so maybe remove this line or move the surface check to a specific test.",
+      "range": {
+        "startLine": 113,
+        "startChar": 60,
+        "endLine": 113,
+        "endChar": 73
+      },
+      "revId": "5b77215c4a4b721de58d2f884b1e1e2a69655d5a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f7cbc30_23e6dc9f",
+        "filename": "camera/core/src/test/java/androidx/camera/core/DeferredImageReaderSurfaceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1481635
+      },
+      "writtenOn": "2019-04-26T00:33:24Z",
+      "side": 1,
+      "message": "No need to wrap line",
+      "range": {
+        "startLine": 115,
+        "startChar": 16,
+        "endLine": 115,
+        "endChar": 30
+      },
+      "revId": "5b77215c4a4b721de58d2f884b1e1e2a69655d5a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2de7b159_09a71310",
+        "filename": "camera/core/src/test/java/androidx/camera/core/DeferredImageReaderSurfaceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1481635
+      },
+      "writtenOn": "2019-04-26T00:33:24Z",
+      "side": 1,
+      "message": "No need to wrap line",
+      "range": {
+        "startLine": 129,
+        "startChar": 16,
+        "endLine": 129,
+        "endChar": 30
+      },
+      "revId": "5b77215c4a4b721de58d2f884b1e1e2a69655d5a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "508d9334_51401574",
+        "filename": "camera/core/src/test/java/androidx/camera/core/DeferredImageReaderSurfaceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1481635
+      },
+      "writtenOn": "2019-04-26T00:33:24Z",
+      "side": 1,
+      "message": "No need to wrap line",
+      "range": {
+        "startLine": 133,
+        "startChar": 16,
+        "endLine": 133,
+        "endChar": 30
+      },
+      "revId": "5b77215c4a4b721de58d2f884b1e1e2a69655d5a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4f4c999_e889a7ed",
+        "filename": "camera/core/src/test/java/androidx/camera/core/DeferredImageReaderSurfaceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1481635
+      },
+      "writtenOn": "2019-04-26T00:33:24Z",
+      "side": 1,
+      "message": "1 new line is enough",
+      "range": {
+        "startLine": 136,
+        "startChar": 0,
+        "endLine": 136,
+        "endChar": 0
+      },
+      "revId": "5b77215c4a4b721de58d2f884b1e1e2a69655d5a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
