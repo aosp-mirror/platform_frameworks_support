@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "38186802_f1b153f4",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkerWrapper.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-04-26T19:16:57Z",
+      "side": 1,
+      "message": "Remove?",
+      "range": {
+        "startLine": 172,
+        "startChar": 56,
+        "endLine": 173,
+        "endChar": 80
+      },
+      "revId": "9a7f165a3cd32e118a38b1307271b8abf2150c89",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "37d99f93_927b9380",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/model/WorkSpec.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-04-26T19:16:57Z",
+      "side": 1,
+      "message": "+ initialDelay",
+      "range": {
+        "startLine": 254,
+        "startChar": 61,
+        "endLine": 255,
+        "endChar": 37
+      },
+      "revId": "9a7f165a3cd32e118a38b1307271b8abf2150c89",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3deb114d_a9a9a9e2",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/model/WorkSpec.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-04-26T19:16:57Z",
+      "side": 1,
+      "message": "What does this mean?",
+      "range": {
+        "startLine": 273,
+        "startChar": 32,
+        "endLine": 273,
+        "endChar": 40
+      },
+      "revId": "9a7f165a3cd32e118a38b1307271b8abf2150c89",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91912eaa_d2f88740",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/model/WorkSpec.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-04-26T19:16:57Z",
+      "side": 1,
+      "message": "Can you explain what this means?",
+      "range": {
+        "startLine": 274,
+        "startChar": 15,
+        "endLine": 274,
+        "endChar": 90
+      },
+      "revId": "9a7f165a3cd32e118a38b1307271b8abf2150c89",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

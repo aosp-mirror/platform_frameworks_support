@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6cc4b3d2_45cdb337",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/background/systemjob/SystemJobScheduler.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-04-26T19:16:57Z",
+      "side": 0,
+      "message": "Why is this being removed?",
+      "range": {
+        "startLine": 107,
+        "startChar": 16,
+        "endLine": 116,
+        "endChar": 17
+      },
+      "revId": "22af1c1e4a93aa18cd00b6927bb57d4a70476672",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
