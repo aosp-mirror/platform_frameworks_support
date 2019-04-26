@@ -534,6 +534,14 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
     AnimationOrAnimator loadAnimation(Fragment fragment, int transit, boolean enter,
                                       int transitionStyle) {
         int nextAnim = fragment.getNextAnim();
+        fragment.setNextAnim(0);
+        // if child fragment does not have a next animation, use its parent's
+        if (nextAnim == 0) {
+            Fragment parent = fragment.getParentFragment();
+            if (parent != null) {
+                nextAnim = parent.getNextAnim();
+            }
+        }
         Animation animation = fragment.onCreateAnimation(transit, enter, nextAnim);
         if (animation != null) {
             return new AnimationOrAnimator(animation);
