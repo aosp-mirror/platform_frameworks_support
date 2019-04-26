@@ -427,6 +427,21 @@ public class MockPlayer extends SessionPlayer {
         return new SyncListenableFuture(mCurrentMediaItem);
     }
 
+    @Override
+    public List<TrackInfoInternal> getTrackInfoInternal() {
+        return null;
+    }
+
+    @Override
+    public ListenableFuture<PlayerResult> selectTrackInternal(TrackInfoInternal trackInfo) {
+        return null;
+    }
+
+    @Override
+    public ListenableFuture<PlayerResult> deselectTrackInternal(TrackInfoInternal trackInfo) {
+        return null;
+    }
+
     public void notifyShuffleModeChanged() {
         final int shuffleMode = mShuffleMode;
         List<Pair<PlayerCallback, Executor>> callbacks = getCallbacks();
