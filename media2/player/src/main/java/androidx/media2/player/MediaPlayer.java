@@ -16,6 +16,7 @@
 
 package androidx.media2.player;
 
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 import static androidx.media2.common.SessionPlayer.PlayerResult.RESULT_ERROR_BAD_VALUE;
 import static androidx.media2.common.SessionPlayer.PlayerResult.RESULT_ERROR_INVALID_STATE;
@@ -2049,6 +2050,44 @@ public class MediaPlayer extends SessionPlayer {
     }
 
     /**
+     * TODO: Merge this into {@link MediaPlayer#getTrackInfo()}
+     * @hide
+     */
+    @RestrictTo(LIBRARY_GROUP)
+    @NonNull
+    @Override
+    public List<SessionPlayer.TrackInfo> getTrackInfoInternal() {
+        List<TrackInfo> list = getTrackInfo();
+        List<SessionPlayer.TrackInfo> trackList = new ArrayList<>();
+        for (int i = 0; i < list.size(); i++) {
+            trackList.add(createTrackInfoInternal(list.get(i)));
+        }
+        return trackList;
+    }
+
+    /**
+     * TODO: Merge this into {@link MediaPlayer#selectTrack(TrackInfo)}
+     * @hide
+     */
+    @RestrictTo(LIBRARY_GROUP)
+    @NonNull
+    @Override
+    public ListenableFuture<PlayerResult> selectTrackInternal(SessionPlayer.TrackInfo info) {
+        return selectTrack(createTrackInfo(info));
+    }
+
+    /**
+     * TODO: Merge this into {@link MediaPlayer#deselectTrack(TrackInfo)}
+     * @hide
+     */
+    @RestrictTo(LIBRARY_GROUP)
+    @NonNull
+    @Override
+    public ListenableFuture<PlayerResult> deselectTrackInternal(SessionPlayer.TrackInfo info) {
+        return deselectTrack(createTrackInfo(info));
+    }
+
+    /**
      * Register {@link PlayerCallback} to listen changes.
      *
      * @param executor a callback Executor
@@ -2661,6 +2700,15 @@ public class MediaPlayer extends SessionPlayer {
         }
     }
 
+    private SessionPlayer.TrackInfo createTrackInfoInternal(TrackInfo info) {
+        return new SessionPlayer.TrackInfo(info.mId, info.mItem, info.mTrackType, info.mFormat);
+    }
+
+    private TrackInfo createTrackInfo(SessionPlayer.TrackInfo info) {
+        return new TrackInfo(info.getId(), info.getMediaItem(), info.getTrackType(),
+                info.getFormat());
+    }
+
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     class Mp2DrmCallback extends MediaPlayer2.DrmEventCallback {
         @Override
@@ -2918,7 +2966,7 @@ public class MediaPlayer extends SessionPlayer {
         /**
          * @hide
          */
-        @IntDef(flag = false, /*prefix = "PLAYER_ERROR",*/ value = {
+        @IntDef(flag = false, /*prefix = "MEDIA_TRACK_TYPE",*/ value = {
                 MEDIA_TRACK_TYPE_UNKNOWN,
                 MEDIA_TRACK_TYPE_VIDEO,
                 MEDIA_TRACK_TYPE_AUDIO,
@@ -2929,7 +2977,7 @@ public class MediaPlayer extends SessionPlayer {
         @RestrictTo(LIBRARY_GROUP_PREFIX)
         public @interface MediaTrackType {}
 
-        final int mId;
+        private final int mId;
         private final MediaItem mItem;
         private final int mTrackType;
         private final MediaFormat mFormat;
