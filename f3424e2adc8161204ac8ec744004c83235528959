@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4afc6612_02a44bab",
+        "filename": "camera/integration-tests/timingtestapp/build.gradle",
+        "patchSetId": 5
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1269804
+      },
+      "writtenOn": "2019-04-27T00:18:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "59be026d_17d6e5d1",
+      "range": {
+        "startLine": 28,
+        "startChar": 4,
+        "endLine": 28,
+        "endChar": 30
+      },
+      "revId": "f3424e2adc8161204ac8ec744004c83235528959",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d1326416_aa768d41",
         "filename": "camera/integration-tests/timingtestapp/build.gradle",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "f3424e2adc8161204ac8ec744004c83235528959",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23c93a8d_3e5c42e0",
+        "filename": "camera/integration-tests/timingtestapp/build.gradle",
+        "patchSetId": 5
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1269804
+      },
+      "writtenOn": "2019-04-27T00:18:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d1326416_aa768d41",
+      "range": {
+        "startLine": 61,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 45
+      },
+      "revId": "f3424e2adc8161204ac8ec744004c83235528959",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
