@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9c9d2bd6_3d2ea221",
+        "filename": "media2/common/src/main/java/androidx/media2/common/SessionPlayer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 816,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-04-28T23:32:33Z",
+      "side": 1,
+      "message": "Can developer override this method?",
+      "range": {
+        "startLine": 816,
+        "startChar": 11,
+        "endLine": 816,
+        "endChar": 19
+      },
+      "revId": "06acfff9b65648faaba7e8c6f1504c3d28f0165f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06d49ae0_d98487cc",
+        "filename": "media2/common/src/main/java/androidx/media2/common/SessionPlayer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 842,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-04-28T23:32:33Z",
+      "side": 1,
+      "message": "If we have a plan to publish this, I think we don\u0027t need to add \"internal\" postfix. What do you think?",
+      "range": {
+        "startLine": 842,
+        "startChar": 39,
+        "endLine": 842,
+        "endChar": 47
+      },
+      "revId": "06acfff9b65648faaba7e8c6f1504c3d28f0165f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d23eb69_6250921b",
+        "filename": "media2/common/src/main/java/androidx/media2/common/SessionPlayer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 869,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-04-28T23:32:33Z",
+      "side": 1,
+      "message": "Move this in a separate line link @Nullable annotations.",
+      "range": {
+        "startLine": 869,
+        "startChar": 15,
+        "endLine": 869,
+        "endChar": 30
+      },
+      "revId": "06acfff9b65648faaba7e8c6f1504c3d28f0165f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f0098b7_73a49fd6",
+        "filename": "media2/common/src/main/java/androidx/media2/common/SessionPlayer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 891,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-04-28T23:32:33Z",
+      "side": 1,
+      "message": "This is subtitle related method. Didn\u0027t we agree to hide this till we provide structured subtitle?",
+      "range": {
+        "startLine": 891,
+        "startChar": 27,
+        "endLine": 891,
+        "endChar": 36
+      },
+      "revId": "06acfff9b65648faaba7e8c6f1504c3d28f0165f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe6bd980_9cca0e2c",
+        "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2058,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-04-28T23:32:33Z",
+      "side": 1,
+      "message": "Having very similar code with getTrackInfo() doesn\u0027t look a good idea.",
+      "range": {
+        "startLine": 2058,
+        "startChar": 35,
+        "endLine": 2058,
+        "endChar": 55
+      },
+      "revId": "06acfff9b65648faaba7e8c6f1504c3d28f0165f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
