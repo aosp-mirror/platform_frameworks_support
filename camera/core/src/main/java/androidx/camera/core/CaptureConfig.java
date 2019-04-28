@@ -138,7 +138,8 @@ public final class CaptureConfig {
      * <p>Returns {@code null} if a valid {@link CaptureRequest} can not be constructed.
      */
     @Nullable
-    public CaptureRequest.Builder buildCaptureRequest(@Nullable CameraDevice device)
+    public CaptureRequest.Builder buildCaptureRequest(@Nullable CameraDevice device,
+            Map<DeferrableSurface, Surface> configuredSurfaceMap)
             throws CameraAccessException {
         if (device == null) {
             return null;
@@ -150,7 +151,14 @@ public final class CaptureConfig {
             captureRequestParameter.apply(builder);
         }
 
-        List<Surface> surfaceList = DeferrableSurfaces.surfaceList(mSurfaces);
+        List<Surface> surfaceList = new ArrayList<>();
+        for (DeferrableSurface deferrablesurface : mSurfaces) {
+            Surface surface = configuredSurfaceMap.get(deferrablesurface);
+            if (surface == null) {
+                return null;
+            }
+            surfaceList.add(surface);
+        }
 
         if (surfaceList.isEmpty()) {
             return null;
@@ -215,6 +223,7 @@ public final class CaptureConfig {
 
         /**
          * Adds a {@link CameraCaptureSession.StateCallback} callback.
+         *
          * @throws IllegalArgumentException if the callback already exists in the configuration.
          */
         public void addCameraCaptureCallback(CameraCaptureCallback cameraCaptureCallback) {
@@ -226,6 +235,7 @@ public final class CaptureConfig {
 
         /**
          * Adds all {@link CameraCaptureSession.StateCallback} callbacks.
+         *
          * @throws IllegalArgumentException if any callback already exists in the configuration.
          */
         public void addAllCameraCaptureCallbacks(
