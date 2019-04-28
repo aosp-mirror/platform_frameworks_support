@@ -21,6 +21,7 @@ import android.hardware.camera2.CameraCaptureSession;
 import android.hardware.camera2.CameraDevice;
 import android.hardware.camera2.CaptureRequest;
 import android.hardware.camera2.CaptureRequest.Key;
+import android.util.Log;
 import android.view.Surface;
 
 import androidx.annotation.Nullable;
@@ -36,6 +37,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Configurations needed for a capture request.
@@ -138,7 +140,8 @@ public final class CaptureConfig {
      * <p>Returns {@code null} if a valid {@link CaptureRequest} can not be constructed.
      */
     @Nullable
-    public CaptureRequest.Builder buildCaptureRequest(@Nullable CameraDevice device)
+    public CaptureRequest.Builder buildCaptureRequest(@Nullable CameraDevice device,
+            Map<DeferrableSurface, Surface> configuredSurfaceMap)
             throws CameraAccessException {
         if (device == null) {
             return null;
@@ -150,7 +153,7 @@ public final class CaptureConfig {
             captureRequestParameter.apply(builder);
         }
 
-        List<Surface> surfaceList = DeferrableSurfaces.surfaceList(mSurfaces);
+        List<Surface> surfaceList = getConfiguredSurfaces(getSurfaces(), configuredSurfaceMap);
 
         if (surfaceList.isEmpty()) {
             return null;
@@ -163,6 +166,44 @@ public final class CaptureConfig {
         builder.setTag(mTag);
 
         return builder;
+    }
+
+    /**
+     * Get the configured Surface from DeferrableSurface list using the Surface map which is stored
+     * when creating capture session.
+     *
+     * @param configuredSurfaceMap surface mapping which is created when creating capture session.
+     * @return a list of Surface confirmed to be configured. Returns empty if it failed to find.
+     */
+
+    public List<Surface> getConfiguredSurfaces(List<DeferrableSurface> deferrableSurfaces,
+            Map<DeferrableSurface, Surface> configuredSurfaceMap) {
+        List<Surface> surfaceList = new ArrayList<>();
+        for (DeferrableSurface deferrableSurface : deferrableSurfaces) {
+            Surface surface = configuredSurfaceMap.get(deferrableSurface);
+            if (surface != null) {
+                surfaceList.add(surface);
+                continue;
+            }
+
+            // If use case uses a new ImmediateSurface instance on the single request, we won't be
+            // able to find the DeferrableSurface in the map.  Thus here we still need to call
+            // DeferrableSurface#get() to get the surface.
+            try {
+                surface = deferrableSurface.getSurface().get();
+
+                surfaceList.add(surface);
+            } catch (InterruptedException | ExecutionException e) {
+            }
+        }
+
+        if (!configuredSurfaceMap.values().containsAll(surfaceList)) {
+            Log.d("AAAAA", "Surface not in configured surface list");
+
+            return new ArrayList<>();
+        }
+
+        return surfaceList;
     }
 
     /**
@@ -215,6 +256,7 @@ public final class CaptureConfig {
 
         /**
          * Adds a {@link CameraCaptureSession.StateCallback} callback.
+         *
          * @throws IllegalArgumentException if the callback already exists in the configuration.
          */
         public void addCameraCaptureCallback(CameraCaptureCallback cameraCaptureCallback) {
@@ -226,6 +268,7 @@ public final class CaptureConfig {
 
         /**
          * Adds all {@link CameraCaptureSession.StateCallback} callbacks.
+         *
          * @throws IllegalArgumentException if any callback already exists in the configuration.
          */
         public void addAllCameraCaptureCallbacks(

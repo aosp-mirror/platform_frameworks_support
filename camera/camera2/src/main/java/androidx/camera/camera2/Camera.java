@@ -434,6 +434,8 @@ final class Camera implements BaseCamera {
         synchronized (mAttachedUseCaseLock) {
             for (UseCase useCase : useCases) {
                 mUseCaseAttachState.setUseCaseOffline(useCase);
+                mCaptureSession.removeCaptureConfigBySurface(
+                        useCase.getSessionConfig(mCameraId).getSurfaces());
             }
 
             if (mUseCaseAttachState.getOnlineUseCases().isEmpty()) {

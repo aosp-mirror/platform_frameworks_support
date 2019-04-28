@@ -281,6 +281,68 @@ public final class CaptureSessionTest {
         Mockito.verify(listener, times(1)).onSurfaceDetached();
     }
 
+    @Test
+    public void issueCaptureRequestWithUnconfiguredSurface()
+            throws CameraAccessException, InterruptedException {
+        CaptureSession captureSession = new CaptureSession(mTestParameters0.mHandler);
+        captureSession.setSessionConfig(mTestParameters0.mSessionConfig);
+
+        captureSession.open(mTestParameters0.mSessionConfig, mCameraDevice);
+
+        CaptureConfig.Builder captureConfigBuilderUnconfigured = new CaptureConfig.Builder();
+        captureConfigBuilderUnconfigured.setTemplateType(CameraDevice.TEMPLATE_PREVIEW);
+        ImageReader imageReader2 =
+                ImageReader.newInstance(640, 480, ImageFormat.YUV_420_888, /*maxImages*/ 2);
+        captureConfigBuilderUnconfigured.addSurface(
+                new ImmediateSurface(imageReader2.getSurface()));
+        captureConfigBuilderUnconfigured.addCameraCaptureCallback(
+                mTestParameters0.mComboCameraCaptureCallback);
+
+        captureSession.issueCaptureRequests(
+                Collections.singletonList(captureConfigBuilderUnconfigured.build()));
+
+        mTestParameters0.waitForCameraCaptureCallback();
+
+        // Should not crash
+
+        // The capture equest is cancelled , so the callback will not be called.
+        verify(mTestParameters0.mCameraCaptureCallback, timeout(3000).times(0))
+                .onCaptureCompleted(any(CameraCaptureResult.class));
+
+        imageReader2.close();
+    }
+
+    @Test
+    public void issueCaptureRequestShouldUseSurfaceFromMap()
+            throws CameraAccessException, InterruptedException {
+        CaptureSession captureSession = new CaptureSession(mTestParameters0.mHandler);
+        captureSession.setSessionConfig(mTestParameters0.mSessionConfig);
+
+        captureSession.open(mTestParameters0.mSessionConfig, mCameraDevice);
+
+        CaptureConfig.Builder captureConfigBuilderUnconfigured = new CaptureConfig.Builder();
+        captureConfigBuilderUnconfigured.setTemplateType(CameraDevice.TEMPLATE_PREVIEW);
+        ImageReader imageReader2 =
+                ImageReader.newInstance(640, 480, ImageFormat.YUV_420_888, /*maxImages*/ 2);
+        captureConfigBuilderUnconfigured.addSurface(
+                new ImmediateSurface(imageReader2.getSurface()));
+        captureConfigBuilderUnconfigured.addCameraCaptureCallback(
+                mTestParameters0.mComboCameraCaptureCallback);
+
+        captureSession.issueCaptureRequests(
+                Collections.singletonList(captureConfigBuilderUnconfigured.build()));
+
+        mTestParameters0.waitForCameraCaptureCallback();
+
+        // Should not crash
+
+        // The capture equest is cancelled , so the callback will not be called.
+        verify(mTestParameters0.mCameraCaptureCallback, timeout(3000).times(0))
+                .onCaptureCompleted(any(CameraCaptureResult.class));
+
+        imageReader2.close();
+    }
+
     /**
      * Collection of parameters required for setting a {@link CaptureSession} and wait for it to
      * produce data.
@@ -313,6 +375,7 @@ public final class CaptureSessionTest {
         private final ImageReader mImageReader;
         private final SessionConfig mSessionConfig;
         private final CaptureConfig mCaptureConfig;
+
 
         private final CameraCaptureSession.StateCallback mSessionStateCallback =
                 Mockito.mock(CameraCaptureSession.StateCallback.class);
