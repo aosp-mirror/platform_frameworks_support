@@ -39,7 +39,9 @@ import androidx.camera.core.SessionConfig;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * A session for capturing images from the camera which is tied to a specific {@link CameraDevice}.
@@ -74,8 +76,13 @@ final class CaptureSession {
     /** The configuration for the currently issued capture requests. */
     @Nullable
     private volatile SessionConfig mSessionConfig;
-    /** The list of surfaces used to configure the current capture session. */
-    private List<Surface> mConfiguredSurfaces = Collections.emptyList();
+    /**
+     * The map of DeferrableSurface to Surface. It is both for restoring the surfaces used to
+     * configure the current capture session and for getting the configured surface from a
+     * DeferrableSurface.
+     */
+    private Map<DeferrableSurface, Surface> mConfiguredSurfaceMap = new HashMap<>();
+
     /** The list of DeferrableSurface used to notify surface detach events */
     @GuardedBy("mConfiguredDeferrableSurfaces")
     private List<DeferrableSurface> mConfiguredDeferrableSurfaces = Collections.emptyList();
@@ -130,7 +137,7 @@ final class CaptureSession {
                 case OPENED:
                     mSessionConfig = sessionConfig;
 
-                    if (!mConfiguredSurfaces.containsAll(
+                    if (!mConfiguredSurfaceMap.values().containsAll(
                             DeferrableSurfaces.surfaceList(sessionConfig.getSurfaces()))) {
                         Log.e(TAG, "Does not have the proper configured lists");
                         return;
@@ -175,13 +182,19 @@ final class CaptureSession {
 
                     mConfiguredDeferrableSurfaces = new ArrayList<>(surfaces);
 
-                    mConfiguredSurfaces =
+                    List<Surface> configuredSurfaces =
                             new ArrayList<>(
-                                    DeferrableSurfaces.surfaceSet(
+                                    DeferrableSurfaces.surfaceList(
                                             mConfiguredDeferrableSurfaces));
-                    if (mConfiguredSurfaces.isEmpty()) {
+                    if (configuredSurfaces.isEmpty()) {
                         Log.e(TAG, "Unable to open capture session with no surfaces. ");
                         return;
+                    }
+
+                    mConfiguredSurfaceMap.clear();
+                    for (int i = 0; i < configuredSurfaces.size(); i++) {
+                        mConfiguredSurfaceMap.put(mConfiguredDeferrableSurfaces.get(i),
+                                configuredSurfaces.get(i));
                     }
 
                     notifySurfaceAttached();
@@ -192,7 +205,7 @@ final class CaptureSession {
                     callbacks.add(mCaptureSessionStateCallback);
                     CameraCaptureSession.StateCallback comboCallback =
                             CameraCaptureSessionStateCallbacks.createComboCallback(callbacks);
-                    cameraDevice.createCaptureSession(mConfiguredSurfaces, comboCallback, mHandler);
+                    cameraDevice.createCaptureSession(configuredSurfaces, comboCallback, mHandler);
                     break;
                 default:
                     Log.e(TAG, "Open not allowed in state: " + mState);
@@ -284,7 +297,7 @@ final class CaptureSession {
         }
     }
 
-     /**
+    /**
      * Issues capture requests.
      *
      * @param captureConfigs which is used to construct {@link CaptureRequest}.
@@ -320,6 +333,12 @@ final class CaptureSession {
         }
     }
 
+    void removeCaptureConfig(CaptureConfig captureConfig) {
+        synchronized (mStateLock) {
+            mCaptureConfigs.remove(captureConfig);
+        }
+    }
+
     /** Returns the current state of the session. */
     State getState() {
         synchronized (mStateLock) {
@@ -342,8 +361,10 @@ final class CaptureSession {
 
         try {
             Log.d(TAG, "Issuing request for session.");
+
             CaptureRequest.Builder builder =
-                    captureConfig.buildCaptureRequest(mCameraCaptureSession.getDevice());
+                    captureConfig.buildCaptureRequest(mCameraCaptureSession.getDevice(),
+                            mConfiguredSurfaceMap);
             if (builder == null) {
                 Log.d(TAG, "Skipping issuing empty request for session.");
                 return;
@@ -391,6 +412,7 @@ final class CaptureSession {
         }
     }
 
+
     /** Issues mCaptureConfigs to {@link CameraCaptureSession}. */
     void issueBurstCaptureRequest() {
         if (mCaptureConfigs.isEmpty()) {
@@ -407,8 +429,11 @@ final class CaptureSession {
                 }
 
                 CaptureRequest.Builder builder =
-                        captureConfig.buildCaptureRequest(mCameraCaptureSession.getDevice());
-
+                        captureConfig.buildCaptureRequest(mCameraCaptureSession.getDevice(),
+                                mConfiguredSurfaceMap);
+                if (builder == null) {
+                    continue;
+                }
                 applyImplementationOptionTCaptureBuilder(
                         builder, captureConfig.getImplementationOptions());
 
@@ -424,8 +449,9 @@ final class CaptureSession {
         } catch (CameraAccessException e) {
             Log.e(TAG, "Unable to access camera: " + e.getMessage());
             Thread.dumpStack();
+        } finally {
+            // mCaptureConfigs.clear();
         }
-        mCaptureConfigs.clear();
     }
 
     private CameraCaptureSession.CaptureCallback createCamera2CaptureCallback(

@@ -50,6 +50,7 @@ import androidx.core.os.BuildCompat;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -434,6 +435,14 @@ final class Camera implements BaseCamera {
         synchronized (mAttachedUseCaseLock) {
             for (UseCase useCase : useCases) {
                 mUseCaseAttachState.setUseCaseOffline(useCase);
+                for (CaptureConfig captureConfig : mCaptureSession.getCaptureConfigs()) {
+                    if (!Collections.disjoint(captureConfig.getSurfaces(),
+                            useCase.getSessionConfig(mCameraId).getSurfaces())) {
+                        Log.d(TAG, "remove capture config: " + captureConfig);
+
+                        mCaptureSession.removeCaptureConfig(captureConfig);
+                    }
+                }
             }
 
             if (mUseCaseAttachState.getOnlineUseCases().isEmpty()) {
