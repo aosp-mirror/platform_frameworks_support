@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "be12699c_0784337a",
+        "filename": "lifecycle/livedata/eap/src/main/java/androidx/lifecycle/CoroutineLiveData.kt",
+        "patchSetId": 22
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1139359
+      },
+      "writtenOn": "2019-04-28T12:51:02Z",
+      "side": 1,
+      "message": "This default value should probably be removed or replaced with DEFAULT_TIMEOUT",
+      "range": {
+        "startLine": 145,
+        "startChar": 24,
+        "endLine": 145,
+        "endChar": 28
+      },
+      "revId": "f343295c336c1b6195d7adc1eb00bb47c1d30657",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
