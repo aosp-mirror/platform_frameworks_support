@@ -808,6 +808,13 @@ public class VideoView extends SelectiveLayout {
         if (selectedSubtitleTrackInfo != null) {
             selectSubtitleTrack(selectedSubtitleTrackInfo);
         }
+        VideoSize videoSize = mMediaPlayer.getVideoSize();
+        boolean hasActualVideo = videoSize.getHeight() != 0 && videoSize.getWidth() != 0;
+        if (mVideoTrackCount == 0 && hasActualVideo) {
+            Log.w(TAG, "video track count is zero, but it renders video. size: "
+                    + videoSize.getWidth() + "/" + videoSize.getHeight());
+            mVideoTrackCount = 1;
+        }
 
         Bundle data = new Bundle();
         data.putInt(MediaControlView.KEY_VIDEO_TRACK_COUNT, mVideoTrackCount);
