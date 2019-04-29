@@ -780,7 +780,7 @@ class MediaControllerImplBase implements MediaControllerImpl {
     }
 
     @Override
-    public @NonNull Executor getCallbackExecutor() {
+    public @Nullable Executor getCallbackExecutor() {
         return mCallbackExecutor;
     }
 
