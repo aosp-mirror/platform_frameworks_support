@@ -16,6 +16,52 @@
       "revId": "fcd43dfc86a551a23505eed167a72f71f90882a8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d15fc6cd_2c5a33c1",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/Jetify.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-04-29T20:52:54Z",
+      "side": 1,
+      "message": "This can move to the line above.",
+      "range": {
+        "startLine": 94,
+        "startChar": 8,
+        "endLine": 94,
+        "endChar": 27
+      },
+      "revId": "fcd43dfc86a551a23505eed167a72f71f90882a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6663b03_fa176829",
+        "filename": "jetifier/jetifier/standalone/build.gradle",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-04-29T20:52:54Z",
+      "side": 1,
+      "message": "Remove?",
+      "range": {
+        "startLine": 37,
+        "startChar": 1,
+        "endLine": 37,
+        "endChar": 52
+      },
+      "revId": "fcd43dfc86a551a23505eed167a72f71f90882a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }

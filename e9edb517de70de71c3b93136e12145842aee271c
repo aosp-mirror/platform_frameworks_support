@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0f6a2401_443f7dc2",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/Jetify.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-04-29T20:52:54Z",
+      "side": 0,
+      "message": "Did we loose this dependency?",
+      "range": {
+        "startLine": 105,
+        "startChar": 4,
+        "endLine": 105,
+        "endChar": 48
+      },
+      "revId": "e9edb517de70de71c3b93136e12145842aee271c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
