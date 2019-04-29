@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "da8d5b7d_2dcb41cd",
+        "filename": "media2/common/src/main/java/androidx/media2/common/SessionPlayer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 816,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-04-29T00:57:36Z",
+      "side": 1,
+      "message": "Yeah, we need default implementation, for instance, throwing an exception or returning null.",
+      "parentUuid": "9c9d2bd6_3d2ea221",
+      "range": {
+        "startLine": 816,
+        "startChar": 11,
+        "endLine": 816,
+        "endChar": 19
+      },
+      "revId": "06acfff9b65648faaba7e8c6f1504c3d28f0165f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "06d49ae0_d98487cc",
         "filename": "media2/common/src/main/java/androidx/media2/common/SessionPlayer.java",
         "patchSetId": 2
@@ -41,6 +65,29 @@
         "startChar": 39,
         "endLine": 842,
         "endChar": 47
+      },
+      "revId": "06acfff9b65648faaba7e8c6f1504c3d28f0165f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "168a7b28_f2f811ed",
+        "filename": "media2/common/src/main/java/androidx/media2/common/SessionPlayer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 867,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-04-29T00:57:36Z",
+      "side": 1,
+      "message": "MediaTrackType",
+      "range": {
+        "startLine": 867,
+        "startChar": 19,
+        "endLine": 867,
+        "endChar": 28
       },
       "revId": "06acfff9b65648faaba7e8c6f1504c3d28f0165f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
@@ -82,6 +129,30 @@
       "writtenOn": "2019-04-28T23:32:33Z",
       "side": 1,
       "message": "This is subtitle related method. Didn\u0027t we agree to hide this till we provide structured subtitle?",
+      "range": {
+        "startLine": 891,
+        "startChar": 27,
+        "endLine": 891,
+        "endChar": 36
+      },
+      "revId": "06acfff9b65648faaba7e8c6f1504c3d28f0165f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9aa6e7ba_40285b81",
+        "filename": "media2/common/src/main/java/androidx/media2/common/SessionPlayer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 891,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-04-29T00:57:36Z",
+      "side": 1,
+      "message": "Sorry. I should\u0027ve hidden it. Let\u0027s discuss it in a separate buganizer/email thread.\n\nNeed to remove getFormat here anyways.",
+      "parentUuid": "5f0098b7_73a49fd6",
       "range": {
         "startLine": 891,
         "startChar": 27,
