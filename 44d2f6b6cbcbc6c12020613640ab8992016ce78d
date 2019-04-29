@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c2ed53f3_7ddd963f",
+        "filename": "media2/common/src/main/java/androidx/media2/common/SessionPlayer.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 817,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-04-29T08:18:20Z",
+      "side": 1,
+      "message": "How about UnsupportedOperationException?",
+      "range": {
+        "startLine": 817,
+        "startChar": 18,
+        "endLine": 817,
+        "endChar": 39
+      },
+      "revId": "44d2f6b6cbcbc6c12020613640ab8992016ce78d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33c59de7_6639685f",
+        "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2981,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-04-29T08:18:20Z",
+      "side": 1,
+      "message": "I suggest to add package-private getter methods like SessionPlayer.TrackInfo because the outer class MediaPlayer reads these fields directly and it causes SyntheticAccessor warnings.",
+      "range": {
+        "startLine": 2980,
+        "startChar": 0,
+        "endLine": 2981,
+        "endChar": 38
+      },
+      "revId": "44d2f6b6cbcbc6c12020613640ab8992016ce78d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
