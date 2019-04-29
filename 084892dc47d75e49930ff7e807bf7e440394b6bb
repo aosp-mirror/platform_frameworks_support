@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "2b6c520e_4ba07f9f",
+        "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2967,
+      "author": {
+        "id": 1060104
+      },
+      "writtenOn": "2019-04-29T14:39:31Z",
+      "side": 1,
+      "message": "Feel free to ignore as this code isn\u0027t performance critical and was like this before, but: this should probably be \u0027out.append(\", \").append(mFormat)\u0027 (or equivalent) to avoid instantiating an extra StringBuilder for the concatenation.",
+      "range": {
+        "startLine": 2967,
+        "startChar": 12,
+        "endLine": 2967,
+        "endChar": 39
+      },
+      "revId": "084892dc47d75e49930ff7e807bf7e440394b6bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "de00ee1b_ac69cbda",
         "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
         "patchSetId": 2
@@ -42,6 +65,29 @@
         "startChar": 12,
         "endLine": 820,
         "endChar": 30
+      },
+      "revId": "084892dc47d75e49930ff7e807bf7e440394b6bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79f1cc9f_4b219d5b",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 824,
+      "author": {
+        "id": 1060104
+      },
+      "writtenOn": "2019-04-29T14:39:31Z",
+      "side": 1,
+      "message": "Can this be an assertion? Otherwise we might not notice the logging and so not find the bug that causes this method to be called.",
+      "range": {
+        "startLine": 821,
+        "startChar": 8,
+        "endLine": 824,
+        "endChar": 9
       },
       "revId": "084892dc47d75e49930ff7e807bf7e440394b6bb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
