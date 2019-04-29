@@ -25,7 +25,6 @@ import android.util.Log;
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.media2.session.MediaLibraryService.LibraryParams;
 
 import com.google.common.util.concurrent.ListenableFuture;
@@ -297,7 +296,7 @@ public class MediaBrowser extends MediaController {
      * Otherwise, the {@link #build()} will throw an {@link IllegalArgumentException}.
      * <p>
      * Any incoming event from the {@link MediaSession} will be handled on the callback
-     * executor. If it's not set, {@link ContextCompat#getMainExecutor} will be used by default.
+     * executor.
      */
     public static final class Builder extends
             BuilderBase<MediaBrowser, MediaBrowser.Builder, BrowserCallback> {
@@ -344,11 +343,8 @@ public class MediaBrowser extends MediaController {
             if (mToken == null && mCompatToken == null) {
                 throw new IllegalArgumentException("token and compat token shouldn't be both null");
             }
-            if (mCallbackExecutor == null) {
-                mCallbackExecutor = ContextCompat.getMainExecutor(mContext);
-            }
-            if (mCallback == null) {
-                mCallback = new BrowserCallback() {};
+            if (mCallback != null && mCallbackExecutor == null) {
+                throw new IllegalArgumentException("an executor is required if a callback is set");
             }
             if (mToken != null) {
                 return new MediaBrowser(mContext, mToken, mConnectionHints,
