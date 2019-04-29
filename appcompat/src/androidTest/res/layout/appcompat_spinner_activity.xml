@@ -23,7 +23,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:focusableInTouchMode="true">
+        <requestFocus />
 
         <androidx.appcompat.widget.AppCompatSpinner
             android:id="@+id/view_tinted_no_background"
