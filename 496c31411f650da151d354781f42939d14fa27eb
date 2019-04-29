@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "94c3ee6f_a40858d7",
+        "filename": "camera/integration-tests/coretestapp/src/androidTest/java/androidx/camera/integration/core/NewActivityLifecycleTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1442661
+      },
+      "writtenOn": "2019-04-29T19:03:23Z",
+      "side": 1,
+      "message": "You could try\nA) Inline this annotation wherever there are @Test annotations.\nB) Remove the @Test annotation. \n\nOne of those should work.",
+      "revId": "496c31411f650da151d354781f42939d14fa27eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
