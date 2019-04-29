@@ -28,6 +28,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.hamcrest.Matchers.allOf;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 
@@ -43,6 +44,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.test.R;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
+import androidx.test.espresso.Root;
 import androidx.test.espresso.ViewAction;
 import androidx.test.espresso.action.CoordinatesProvider;
 import androidx.test.espresso.action.GeneralSwipeAction;
@@ -50,8 +52,12 @@ import androidx.test.espresso.action.Press;
 import androidx.test.espresso.action.Swipe;
 import androidx.test.filters.LargeTest;
 import androidx.test.filters.MediumTest;
+import androidx.test.platform.app.InstrumentationRegistry;
+import androidx.testutils.PollingCheck;
 
+import org.hamcrest.Description;
 import org.hamcrest.Matcher;
+import org.hamcrest.TypeSafeMatcher;
 import org.junit.After;
 import org.junit.Test;
 
@@ -81,6 +87,8 @@ public class AppCompatSpinnerTest
             mActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
             SystemClock.sleep(250);
         }
+
+        InstrumentationRegistry.getInstrumentation().setInTouchMode(true);
     }
 
     @After
@@ -105,6 +113,9 @@ public class AppCompatSpinnerTest
         // Click the spinner to show its popup content
         onView(withId(spinnerId)).perform(click());
 
+        // Wait until the popup is showing
+        waitUntilPopupIsShown(spinner);
+
         // The internal implementation details of the AppCompatSpinner's popup content depends
         // on the platform version itself (in android.widget.PopupWindow) as well as on when the
         // popup theme is being applied first (in XML or at runtime). Instead of trying to catch
@@ -124,6 +135,9 @@ public class AppCompatSpinnerTest
 
         // Click an entry in the popup to dismiss it
         onView(withText(itemText)).perform(click());
+
+        // Wait until the popup is gone
+        waitUntilPopupIsHidden(spinner);
     }
 
     @LargeTest
@@ -172,6 +186,8 @@ public class AppCompatSpinnerTest
         assertThat(popup, instanceOf(AppCompatSpinner.DialogPopup.class));
 
         onView(withId(R.id.spinner_dialog_popup)).perform(click());
+        // Wait until the popup is showing
+        waitUntilPopupIsShown(spinner);
 
         final AppCompatSpinner.DialogPopup dialogPopup = (AppCompatSpinner.DialogPopup) popup;
         assertThat(dialogPopup.mPopup, instanceOf(AlertDialog.class));
@@ -180,28 +196,68 @@ public class AppCompatSpinnerTest
     @LargeTest
     @Test
     public void testChangeOrientationDialogPopupPersists() {
-        verifyChangeOrientationPopupPersists(R.id.spinner_dialog_popup);
+        verifyChangeOrientationPopupPersists(R.id.spinner_dialog_popup, true);
     }
 
     @LargeTest
     @Test
     public void testChangeOrientationDropdownPopupPersists() {
-        verifyChangeOrientationPopupPersists(R.id.spinner_dropdown_popup);
+        verifyChangeOrientationPopupPersists(R.id.spinner_dropdown_popup, false);
     }
 
-    private void verifyChangeOrientationPopupPersists(@IdRes int spinnerId) {
+    /**
+     * Returns a root matcher that matches roots that have window focus on their decor view.
+     */
+    private static Matcher<Root> hasWindowFocus() {
+        return new TypeSafeMatcher<Root>() {
+            @Override
+            public void describeTo(Description description) {
+                description.appendText("has window focus");
+            }
+
+            @Override
+            public boolean matchesSafely(Root root) {
+                View rootView = root.getDecorView();
+                return rootView.hasWindowFocus();
+            }
+        };
+    }
+
+    private void verifyChangeOrientationPopupPersists(@IdRes int spinnerId, boolean isDialog) {
         onView(withId(spinnerId)).perform(click());
+
+        final AppCompatSpinner spinner = mContainer.findViewById(spinnerId);
+        // Wait until the popup is showing
+        waitUntilPopupIsShown(spinner);
+        if (isDialog) {
+            onView(withText(EARTH)).check(matches(isDisplayed()));
+        } else {
+            onView(withText(EARTH))
+                    .inRoot(allOf(hasWindowFocus(), isPlatformPopup()))
+                    .check(matches(isDisplayed()));
+        }
+
         mActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        onView(withText(EARTH)).check(matches(isDisplayed()));
+        SystemClock.sleep(250);
+        if (isDialog) {
+            onView(withText(EARTH)).check(matches(isDisplayed()));
+        } else {
+            onView(withText(EARTH))
+                    .inRoot(allOf(hasWindowFocus(), isPlatformPopup()))
+                    .check(matches(isDisplayed()));
+        }
     }
 
     @LargeTest
     @Test
     public void testSlowScroll() {
-        onView(withId(R.id.spinner_dropdown_popup_with_scroll)).perform(click());
-
         final AppCompatSpinner spinner = mContainer
                 .findViewById(R.id.spinner_dropdown_popup_with_scroll);
+        onView(withId(R.id.spinner_dropdown_popup_with_scroll)).perform(click());
+
+        // Wait until the popup is showing
+        waitUntilPopupIsShown(spinner);
+
         String secondItem = (String) spinner.getAdapter().getItem(1);
 
         onView(isAssignableFrom(DropDownListView.class)).perform(slowScrollPopup());
@@ -211,8 +267,7 @@ public class AppCompatSpinnerTest
 
         // because we scroll twice with one element height each,
         // the second item should not be visible
-        onView(withText(secondItem))
-                .check(doesNotExist());
+        onView(withText(secondItem)).check(doesNotExist());
     }
 
     private ViewAction slowScrollPopup() {
@@ -263,5 +318,23 @@ public class AppCompatSpinnerTest
         // espresso doesn't actually scroll for the full amount specified
         // so we add a little bit more to be safe
         return child.getHeight() * 2;
+    }
+
+    private void waitUntilPopupIsShown(final AppCompatSpinner spinner) {
+        PollingCheck.waitFor(new PollingCheck.PollingCheckCondition() {
+            @Override
+            public boolean canProceed() {
+                return spinner.getInternalPopup().isShowing();
+            }
+        });
+    }
+
+    private void waitUntilPopupIsHidden(final AppCompatSpinner spinner) {
+        PollingCheck.waitFor(new PollingCheck.PollingCheckCondition() {
+            @Override
+            public boolean canProceed() {
+                return !spinner.getInternalPopup().isShowing();
+            }
+        });
     }
 }
