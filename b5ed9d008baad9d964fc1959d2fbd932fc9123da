@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ecc7ba50_b00d06a4",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 974,
+      "author": {
+        "id": 1486234
+      },
+      "writtenOn": "2019-04-29T23:03:25Z",
+      "side": 1,
+      "message": "Now we indeed callback only JPEG, but our design do allow it be other format if we change our logic in the future.",
+      "revId": "b5ed9d008baad9d964fc1959d2fbd932fc9123da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f16e0971_4952b0ac",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 979,
+      "author": {
+        "id": 1486234
+      },
+      "writtenOn": "2019-04-29T23:03:25Z",
+      "side": 1,
+      "message": "Should we say it will match the display instead of preview? Sure it will match the preview if the preview is also set to the same direction as display, which is the most common use case.",
+      "revId": "b5ed9d008baad9d964fc1959d2fbd932fc9123da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
