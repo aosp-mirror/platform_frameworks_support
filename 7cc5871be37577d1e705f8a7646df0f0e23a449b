@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ea582a2f_96ade5d4",
+        "filename": "jetifier/jetifier/processor/src/main/kotlin/com/android/tools/build/jetifier/processor/Processor.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-04-29T15:48:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "39cb3934_1f63460f",
+      "range": {
+        "startLine": 88,
+        "startChar": 11,
+        "endLine": 88,
+        "endChar": 48
+      },
+      "revId": "7cc5871be37577d1e705f8a7646df0f0e23a449b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a444895_ab4bb8a4",
         "filename": "jetifier/jetifier/processor/src/main/kotlin/com/android/tools/build/jetifier/processor/Processor.kt",
         "patchSetId": 1
@@ -190,6 +214,30 @@
     },
     {
       "key": {
+        "uuid": "e5fb0899_fe4058b6",
+        "filename": "jetifier/jetifier/processor/src/main/kotlin/com/android/tools/build/jetifier/processor/Processor.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-04-29T15:48:55Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8313040b_16e0a8a9",
+      "range": {
+        "startLine": 100,
+        "startChar": 12,
+        "endLine": 100,
+        "endChar": 60
+      },
+      "revId": "7cc5871be37577d1e705f8a7646df0f0e23a449b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "adfcb7fc_a5c450ec",
         "filename": "jetifier/jetifier/processor/src/main/kotlin/com/android/tools/build/jetifier/processor/Processor.kt",
         "patchSetId": 1
@@ -282,6 +330,30 @@
       "revId": "7cc5871be37577d1e705f8a7646df0f0e23a449b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80dfdc03_6f3b37ca",
+        "filename": "jetifier/jetifier/processor/src/main/kotlin/com/android/tools/build/jetifier/processor/Processor.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-04-29T15:48:55Z",
+      "side": 1,
+      "message": "Sounds good. Moved the warning to standalone.",
+      "parentUuid": "14265546_c413c4e1",
+      "range": {
+        "startLine": 349,
+        "startChar": 12,
+        "endLine": 349,
+        "endChar": 94
+      },
+      "revId": "7cc5871be37577d1e705f8a7646df0f0e23a449b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
