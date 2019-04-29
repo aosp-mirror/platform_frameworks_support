@@ -818,7 +818,17 @@ public class VideoView extends SelectiveLayout {
     }
 
     boolean isCurrentItemMusic() {
-        return mVideoTrackCount == 0 && mAudioTrackInfos != null && mAudioTrackInfos.size() > 0;
+        if (!isMediaPrepared()) {
+            Log.e(TAG, "isCurrentItemMusic is unexpectedly called. MediaItem is not prepared.");
+            return false;
+        }
+        VideoSize videoSize = mMediaPlayer.getVideoSize();
+        boolean hasActualVideo = videoSize.getHeight() != 0 && videoSize.getWidth() != 0;
+        if (mVideoTrackCount == 0 && hasActualVideo) {
+            Log.w(TAG, "video track count is zero, but it renders video. size: "
+                    + videoSize.getWidth() + "/" + videoSize.getHeight());
+        }
+        return !hasActualVideo && mAudioTrackInfos != null && mAudioTrackInfos.size() > 0;
     }
 
     void updateMusicView() {
