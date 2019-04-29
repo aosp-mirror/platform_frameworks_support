@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "de00ee1b_ac69cbda",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 820,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-04-29T07:43:06Z",
+      "side": 1,
+      "message": "I think the logic that determines an item is music or not needs to be indentical for MediaControlView as well.",
+      "range": {
+        "startLine": 820,
+        "startChar": 12,
+        "endLine": 820,
+        "endChar": 30
+      },
+      "revId": "084892dc47d75e49930ff7e807bf7e440394b6bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
