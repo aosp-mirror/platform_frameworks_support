@@ -777,6 +777,10 @@ public class VideoView extends SelectiveLayout {
 
     // TODO: move this method inside callback to make sure it runs inside the callback thread.
     Bundle extractTrackInfoData() {
+        if (!isMediaPrepared()) {
+            throw new IllegalStateException(
+                    "extractTrackInfo() is unexpectedly called. Media item is not prepared");
+        }
         List<MediaPlayer.TrackInfo> trackInfos = mMediaPlayer.getTrackInfo();
         mVideoTrackCount = 0;
         mAudioTrackInfos = new ArrayList<>();
@@ -807,6 +811,13 @@ public class VideoView extends SelectiveLayout {
         // Re-select originally selected subtitle track since SubtitleController has been reset.
         if (selectedSubtitleTrackInfo != null) {
             selectSubtitleTrack(selectedSubtitleTrackInfo);
+        }
+        VideoSize videoSize = mMediaPlayer.getVideoSize();
+        boolean hasActualVideo = videoSize.getHeight() != 0 && videoSize.getWidth() != 0;
+        if (mVideoTrackCount == 0 && hasActualVideo) {
+            Log.w(TAG, "video track count is zero, but it renders video. size: "
+                    + videoSize.getWidth() + "/" + videoSize.getHeight());
+            mVideoTrackCount = 1;
         }
 
         Bundle data = new Bundle();
