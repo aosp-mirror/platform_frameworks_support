@@ -22,6 +22,30 @@
       "revId": "084892dc47d75e49930ff7e807bf7e440394b6bb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69e287c9_d318e9dd",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 820,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-04-29T08:03:40Z",
+      "side": 1,
+      "message": "+1. But since there is no way for MediaControlView to know the video size for now, maybe we can temporarily add a new custom command key and broadcast it after calling isCurrentItemMusic?\n\n(e.g. static final String KEY_MEDIA_TYPE_IS_MUSIC \u003d \"MediaTypeMusic\")",
+      "parentUuid": "de00ee1b_ac69cbda",
+      "range": {
+        "startLine": 820,
+        "startChar": 12,
+        "endLine": 820,
+        "endChar": 30
+      },
+      "revId": "084892dc47d75e49930ff7e807bf7e440394b6bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
