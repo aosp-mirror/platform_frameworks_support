@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0fc2be6b_6e5ca578",
+        "filename": "media2/common/api/restricted_1.0.0-alpha05.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-04-29T09:35:32Z",
+      "side": 1,
+      "message": "1. Since the build cut passed, the changes need to be in restricted_1.0.0-beta01.\n2. But I think there would be no such changes if aosp/953139 could be merged.",
+      "revId": "c1ab3d7c23641829c0e3555a7b0d621290ff90dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
