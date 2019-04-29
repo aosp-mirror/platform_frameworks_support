@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "83db9732_39b29905",
+        "filename": "jetifier/jetifier/processor/src/main/kotlin/com/android/tools/build/jetifier/processor/Processor.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-04-29T13:52:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a444895_ab4bb8a4",
+      "revId": "7cc5871be37577d1e705f8a7646df0f0e23a449b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c1446f58_0d80a2c1",
         "filename": "jetifier/jetifier/processor/src/main/kotlin/com/android/tools/build/jetifier/processor/Processor.kt",
         "patchSetId": 1
@@ -83,6 +101,48 @@
     },
     {
       "key": {
+        "uuid": "170a675d_e05d8723",
+        "filename": "jetifier/jetifier/processor/src/main/kotlin/com/android/tools/build/jetifier/processor/Processor.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-04-29T13:52:02Z",
+      "side": 1,
+      "message": "I don\u0027t know why. But I started this tradition of dataBinding always going last as I felt like that is the most optional thing ever. So I\u0027m just honoring that standard. Is this what you\u0027ve meant? Is it ok this way?",
+      "parentUuid": "7c879971_15fc0503",
+      "revId": "7cc5871be37577d1e705f8a7646df0f0e23a449b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b8deaab_c6c2206d",
+        "filename": "jetifier/jetifier/processor/src/main/kotlin/com/android/tools/build/jetifier/processor/Processor.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-04-29T13:52:02Z",
+      "side": 1,
+      "message": "Right, I agree with that. Probably that was a wrong example. But what if there is something else that we missed? I\u0027m honestly not sure if in gazillions of configurations outside something will not play nicely with this detection. I think we should have a safety net here.",
+      "parentUuid": "3f9d7209_958c05a9",
+      "range": {
+        "startLine": 100,
+        "startChar": 12,
+        "endLine": 100,
+        "endChar": 60
+      },
+      "revId": "7cc5871be37577d1e705f8a7646df0f0e23a449b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "adfcb7fc_a5c450ec",
         "filename": "jetifier/jetifier/processor/src/main/kotlin/com/android/tools/build/jetifier/processor/Processor.kt",
         "patchSetId": 1
@@ -130,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "323e9c16_56f92582",
+        "filename": "jetifier/jetifier/processor/src/main/kotlin/com/android/tools/build/jetifier/processor/Processor.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-04-29T13:52:02Z",
+      "side": 1,
+      "message": "Yes, but I see people introducing their own gradle plugins to check if they can finally turn off jetifier. So I was thinking that having something we providee. Maybe we can\u0027t solve it on this level but it is something we should think about. \n\nIn case you run it per library I guess this warning would be too aggressive. So I just changed it to \"info\" level. You can currently detect it actually if you look at the path path of the returned file. If its path is \u003d\u003d \"given path\" it was not modified.",
+      "parentUuid": "d2a7ca9a_721bf260",
+      "range": {
+        "startLine": 349,
+        "startChar": 12,
+        "endLine": 349,
+        "endChar": 94
+      },
+      "revId": "7cc5871be37577d1e705f8a7646df0f0e23a449b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1bd7c6cf_a3f7049b",
         "filename": "jetifier/jetifier/processor/src/main/kotlin/com/android/tools/build/jetifier/processor/Processor.kt",
         "patchSetId": 1
@@ -144,6 +228,24 @@
       "revId": "7cc5871be37577d1e705f8a7646df0f0e23a449b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65d1b1af_a0d4666c",
+        "filename": "jetifier/jetifier/processor/src/main/kotlin/com/android/tools/build/jetifier/processor/Processor.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-04-29T13:52:02Z",
+      "side": 1,
+      "message": "I don\u0027t know if anyone relied on this. I actually think it might be even incorrect behavior. Because if you have both maybe you want the jar to be usable by both? I think most of the duplicates were happening when devs have both androidx and android.support jars but that will still fail as android.support will not be removed by this detection.",
+      "parentUuid": "1bd7c6cf_a3f7049b",
+      "revId": "7cc5871be37577d1e705f8a7646df0f0e23a449b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -167,6 +269,30 @@
       "revId": "7cc5871be37577d1e705f8a7646df0f0e23a449b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce54cc6e_e0712b61",
+        "filename": "jetifier/jetifier/processor/src/main/kotlin/com/android/tools/build/jetifier/processor/Processor.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-04-29T13:52:02Z",
+      "side": 1,
+      "message": "Detecting AndroidX in reversed mode would not work. We would have to look for android.support so I would have to introduce more logic. But in fact we don\u0027t need it. I don\u0027t know about any reversed mode usage that needs this smart skip stuff.\n\nI updated this method and comments. PTAL :) Thanks!",
+      "parentUuid": "d5aa6f6a_87a2e742",
+      "range": {
+        "startLine": 377,
+        "startChar": 43,
+        "endLine": 377,
+        "endChar": 44
+      },
+      "revId": "7cc5871be37577d1e705f8a7646df0f0e23a449b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
