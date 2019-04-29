@@ -166,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "d9c5d8eb_9a20b8cb",
+        "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewOnUiThread.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 423,
+      "author": {
+        "id": 1101490
+      },
+      "writtenOn": "2019-04-29T22:52:21Z",
+      "side": 1,
+      "message": "We haven\u0027t broken up this class yet, so for the moment it definitely belongs here. Ultimately it should probably follow the CTS organisation.\n\nEven still, I think this belongs in WebViewOnUiThread; The separation of WebViewOnuiThread and WebViewSyncLoader is mostly about grouping code that may be called in UI thread tests from code that must be called from a different thread. It\u0027s safe to use futures only in the latter case.",
+      "parentUuid": "c3613f53_8c8083ec",
+      "range": {
+        "startLine": 423,
+        "startChar": 16,
+        "endLine": 423,
+        "endChar": 39
+      },
+      "revId": "f97418d4c2e8a497dd1e16bef0621e1c60c2156e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "166de931_3f5deb0f",
         "filename": "webkit/src/androidTest/java/androidx/webkit/WebViewTestActivity.java",
         "patchSetId": 1
