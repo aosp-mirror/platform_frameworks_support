@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "868825d7_605dabe9",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CameraX.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-29T18:11:47Z",
+      "side": 1,
+      "message": "How does this work in conjunction with the javadoc from above?\n\nDo UseCases which are not bound to the latest active Lifecycle count in the 3 use case limit?",
+      "revId": "d5c200c69562637276274dd02c094dde1656a956",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a84eb95_9d8d204e",
+        "filename": "camera/core/src/main/java/androidx/camera/core/UseCaseGroupRepository.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-29T18:11:47Z",
+      "side": 1,
+      "message": "createLifecyleObserver -\u003e createLifecycleObserver",
+      "revId": "d5c200c69562637276274dd02c094dde1656a956",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
