@@ -256,6 +256,24 @@
     },
     {
       "key": {
+        "uuid": "82580c41_332b1714",
+        "filename": "jetifier/jetifier/processor/src/main/kotlin/com/android/tools/build/jetifier/processor/Processor.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-04-29T16:19:48Z",
+      "side": 1,
+      "message": "At the end I moved this arg to the transform method. So this is gone anyway. Sorry :)",
+      "parentUuid": "2b3f25a8_5d32c79b",
+      "revId": "7cc5871be37577d1e705f8a7646df0f0e23a449b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "adfcb7fc_a5c450ec",
         "filename": "jetifier/jetifier/processor/src/main/kotlin/com/android/tools/build/jetifier/processor/Processor.kt",
         "patchSetId": 1
