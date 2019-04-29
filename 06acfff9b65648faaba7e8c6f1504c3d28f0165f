@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "3fc6991a_f88b212a",
+        "filename": "media2/common/src/main/java/androidx/media2/common/SessionPlayer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 816,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-04-29T04:57:20Z",
+      "side": 1,
+      "message": "Throwing an exception looks better to me in order to guide developers not to use the *-Internal methods.",
+      "parentUuid": "da8d5b7d_2dcb41cd",
+      "range": {
+        "startLine": 816,
+        "startChar": 11,
+        "endLine": 816,
+        "endChar": 19
+      },
+      "revId": "06acfff9b65648faaba7e8c6f1504c3d28f0165f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "06d49ae0_d98487cc",
         "filename": "media2/common/src/main/java/androidx/media2/common/SessionPlayer.java",
         "patchSetId": 2
@@ -65,6 +89,75 @@
         "startChar": 39,
         "endLine": 842,
         "endChar": 47
+      },
+      "revId": "06acfff9b65648faaba7e8c6f1504c3d28f0165f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "646384a6_a3bf1386",
+        "filename": "media2/common/src/main/java/androidx/media2/common/SessionPlayer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 850,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-04-29T04:57:20Z",
+      "side": 1,
+      "message": "nit) MEDIA_TRACK_TYPE? I\u0027m not sure \"prefix\" has any effect in AndroidX though.",
+      "range": {
+        "startLine": 850,
+        "startChar": 42,
+        "endLine": 850,
+        "endChar": 54
+      },
+      "revId": "06acfff9b65648faaba7e8c6f1504c3d28f0165f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7599c949_e3eb5054",
+        "filename": "media2/common/src/main/java/androidx/media2/common/SessionPlayer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 858,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-04-29T04:57:20Z",
+      "side": 1,
+      "message": "Package private might be enough, or please add @hide and @RestrictTo.\n\nFrom Alan\u0027s reply:\n\u003e @IntDefs must be SOURCE retention with @hide + @RestrictTo annotations. (...) Please use the most narrow scope possible (...)",
+      "range": {
+        "startLine": 858,
+        "startChar": 8,
+        "endLine": 858,
+        "endChar": 15
+      },
+      "revId": "06acfff9b65648faaba7e8c6f1504c3d28f0165f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d338baf_2581d4f1",
+        "filename": "media2/common/src/main/java/androidx/media2/common/SessionPlayer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 860,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-04-29T04:57:20Z",
+      "side": 1,
+      "message": "Add private? since we have public getId().",
+      "range": {
+        "startLine": 860,
+        "startChar": 8,
+        "endLine": 860,
+        "endChar": 13
       },
       "revId": "06acfff9b65648faaba7e8c6f1504c3d28f0165f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
