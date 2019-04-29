@@ -16,7 +16,8 @@
 
 package androidx.media2.player;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 import static androidx.media2.common.SessionPlayer.PlayerResult.RESULT_ERROR_BAD_VALUE;
 import static androidx.media2.common.SessionPlayer.PlayerResult.RESULT_ERROR_INVALID_STATE;
 import static androidx.media2.common.SessionPlayer.PlayerResult.RESULT_ERROR_IO;
@@ -182,7 +183,7 @@ public final class MediaPlayer extends SessionPlayer {
             PLAYER_ERROR_TIMED_OUT,
     })
     @Retention(RetentionPolicy.SOURCE)
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY)
     public @interface MediaError {}
 
     /**
@@ -190,7 +191,7 @@ public final class MediaPlayer extends SessionPlayer {
      * @see PlayerCallback#onInfo
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY)
     public static final int MEDIA_INFO_MEDIA_ITEM_START = 2;
 
     /**
@@ -204,7 +205,7 @@ public final class MediaPlayer extends SessionPlayer {
      * @see PlayerCallback#onInfo
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY)
     public static final int MEDIA_INFO_MEDIA_ITEM_END = 5;
 
     /**
@@ -213,7 +214,7 @@ public final class MediaPlayer extends SessionPlayer {
      * @see PlayerCallback#onInfo
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY)
     public static final int MEDIA_INFO_MEDIA_ITEM_LIST_END = 6;
 
     /**
@@ -222,7 +223,7 @@ public final class MediaPlayer extends SessionPlayer {
      * @see PlayerCallback#onInfo
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY)
     public static final int MEDIA_INFO_MEDIA_ITEM_REPEAT = 7;
 
     /**
@@ -231,7 +232,7 @@ public final class MediaPlayer extends SessionPlayer {
      * @see PlayerCallback#onInfo
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY)
     public static final int MEDIA_INFO_PREPARED = 100;
 
     /**
@@ -247,7 +248,7 @@ public final class MediaPlayer extends SessionPlayer {
      * @see PlayerCallback#onInfo
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY)
     public static final int MEDIA_INFO_BUFFERING_START = 701;
 
     /**
@@ -255,7 +256,7 @@ public final class MediaPlayer extends SessionPlayer {
      * @see PlayerCallback#onInfo
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY)
     public static final int MEDIA_INFO_BUFFERING_END = 702;
 
     /**
@@ -265,7 +266,7 @@ public final class MediaPlayer extends SessionPlayer {
      * @see PlayerCallback#onInfo
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY)
     public static final int MEDIA_INFO_NETWORK_BANDWIDTH = 703;
 
     /**
@@ -306,7 +307,7 @@ public final class MediaPlayer extends SessionPlayer {
      * JAVA framework to avoid triggering track scanning.
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY)
     public static final int MEDIA_INFO_EXTERNAL_METADATA_UPDATE = 803;
 
     /**
@@ -327,7 +328,7 @@ public final class MediaPlayer extends SessionPlayer {
      * @see PlayerCallback#onInfo
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY)
     public static final int MEDIA_INFO_TIMED_TEXT_ERROR = 900;
 
     /**
@@ -335,7 +336,7 @@ public final class MediaPlayer extends SessionPlayer {
      * @see PlayerCallback#onInfo
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY)
     public static final int MEDIA_INFO_UNSUPPORTED_SUBTITLE = 901;
 
     /**
@@ -343,7 +344,7 @@ public final class MediaPlayer extends SessionPlayer {
      * @see PlayerCallback#onInfo
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY)
     public static final int MEDIA_INFO_SUBTITLE_TIMED_OUT = 902;
 
     /**
@@ -372,7 +373,7 @@ public final class MediaPlayer extends SessionPlayer {
             MEDIA_INFO_SUBTITLE_TIMED_OUT
     })
     @Retention(RetentionPolicy.SOURCE)
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY)
     public @interface MediaInfo {}
 
     /**
@@ -416,7 +417,7 @@ public final class MediaPlayer extends SessionPlayer {
             SEEK_CLOSEST,
     })
     @Retention(RetentionPolicy.SOURCE)
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY)
     public @interface SeekMode {}
 
     /**
@@ -1477,12 +1478,8 @@ public final class MediaPlayer extends SessionPlayer {
         mExecutor.shutdown();
     }
 
-    /**
-     * @hide
-     */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
-    @VisibleForTesting(otherwise = VisibleForTesting.PACKAGE_PRIVATE)
-    public AudioFocusHandler getAudioFocusHandler() {
+    @VisibleForTesting
+    AudioFocusHandler getAudioFocusHandler() {
         return mAudioFocusHandler;
     }
 
@@ -1639,7 +1636,7 @@ public final class MediaPlayer extends SessionPlayer {
      * Additional vendor-specific fields may also be present in the return value.
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY)
     @RequiresApi(21)
     public PersistableBundle getMetrics() {
         return mPlayer.getMetrics();
@@ -2001,7 +1998,7 @@ public final class MediaPlayer extends SessionPlayer {
      *
      * @hide  TODO: unhide this when we support subtitle track selection (b/130312596)
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY_GROUP)
     @NonNull
     public ListenableFuture<PlayerResult> deselectTrack(@NonNull final TrackInfo trackInfo) {
         if (trackInfo == null) {
@@ -2059,7 +2056,7 @@ public final class MediaPlayer extends SessionPlayer {
      * @hide
      */
     @Nullable
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY)
     public DrmInfo getDrmInfo() {
         MediaPlayer2.DrmInfo info = mPlayer.getDrmInfo();
         return info == null ? null : new DrmInfo(info);
@@ -2089,7 +2086,7 @@ public final class MediaPlayer extends SessionPlayer {
      * {@link DrmResult} will be delivered when the command completed.
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY)
     // This is an asynchronous call.
     @NonNull
     public ListenableFuture<DrmResult> prepareDrm(@NonNull final UUID uuid) {
@@ -2124,7 +2121,7 @@ public final class MediaPlayer extends SessionPlayer {
      * @throws NoDrmSchemeException if there is no active DRM session to release
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY)
     public void releaseDrm() throws NoDrmSchemeException {
         try {
             mPlayer.releaseDrm();
@@ -2171,7 +2168,7 @@ public final class MediaPlayer extends SessionPlayer {
      * @throws NoDrmSchemeException if there is no active DRM session
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY)
     @NonNull
     public MediaDrm.KeyRequest getDrmKeyRequest(
             @Nullable byte[] keySetId, @Nullable byte[] initData,
@@ -2208,7 +2205,7 @@ public final class MediaPlayer extends SessionPlayer {
      * @hide
      */
     @Nullable
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY)
     public byte[] provideDrmKeyResponse(
             @Nullable byte[] keySetId, @NonNull byte[] response)
             throws NoDrmSchemeException, DeniedByServerException {
@@ -2226,7 +2223,7 @@ public final class MediaPlayer extends SessionPlayer {
      * @param keySetId identifies the saved key set to restore
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY)
     public void restoreDrmKeys(@NonNull byte[] keySetId) throws NoDrmSchemeException {
         if (keySetId == null) {
             throw new NullPointerException("keySetId shouldn't be null");
@@ -2248,7 +2245,7 @@ public final class MediaPlayer extends SessionPlayer {
      * {@link MediaDrm#PROPERTY_DESCRIPTION}, {@link MediaDrm#PROPERTY_ALGORITHMS}
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY)
     @NonNull
     public String getDrmPropertyString(@NonNull String propertyName) throws NoDrmSchemeException {
         if (propertyName == null) {
@@ -2272,7 +2269,7 @@ public final class MediaPlayer extends SessionPlayer {
      * {@link MediaDrm#PROPERTY_DESCRIPTION}, {@link MediaDrm#PROPERTY_ALGORITHMS}
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY)
     public void setDrmPropertyString(@NonNull String propertyName, @NonNull String value)
             throws NoDrmSchemeException {
         if (propertyName == null) {
@@ -2298,7 +2295,7 @@ public final class MediaPlayer extends SessionPlayer {
      * @param listener the callback that will be run
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY)
     public void setOnDrmConfigHelper(@Nullable final OnDrmConfigHelper listener) {
         mPlayer.setOnDrmConfigHelper(listener == null ? null :
                 new MediaPlayer2.OnDrmConfigHelper() {
@@ -2861,7 +2858,7 @@ public final class MediaPlayer extends SessionPlayer {
          *
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP_PREFIX)
+        @RestrictTo(LIBRARY_GROUP)
         public void onSubtitleData(@NonNull MediaPlayer mp,
                 @NonNull MediaItem item, @NonNull SubtitleData data) { }
 
@@ -2874,7 +2871,7 @@ public final class MediaPlayer extends SessionPlayer {
          *                of crypto schemes supported by this device
          * @hide
          */
-        @RestrictTo(LIBRARY_GROUP_PREFIX)
+        @RestrictTo(LIBRARY)
         public void onDrmInfo(@NonNull MediaPlayer mp,
                 @NonNull MediaItem item, @NonNull DrmInfo drmInfo) { }
     }
@@ -2889,7 +2886,7 @@ public final class MediaPlayer extends SessionPlayer {
         public static final int MEDIA_TRACK_TYPE_VIDEO = 1;
         public static final int MEDIA_TRACK_TYPE_AUDIO = 2;
         /** @hide */
-        @RestrictTo(LIBRARY_GROUP_PREFIX)
+        @RestrictTo(LIBRARY)
         public static final int MEDIA_TRACK_TYPE_TIMEDTEXT = 3;
         public static final int MEDIA_TRACK_TYPE_SUBTITLE = 4;
         public static final int MEDIA_TRACK_TYPE_METADATA = 5;
@@ -2905,7 +2902,7 @@ public final class MediaPlayer extends SessionPlayer {
                 MEDIA_TRACK_TYPE_METADATA,
         })
         @Retention(RetentionPolicy.SOURCE)
-        @RestrictTo(LIBRARY_GROUP_PREFIX)
+        @RestrictTo(LIBRARY)
         public @interface MediaTrackType {}
 
         final int mId;
@@ -2948,7 +2945,7 @@ public final class MediaPlayer extends SessionPlayer {
         }
 
         /** @hide */
-        @RestrictTo(LIBRARY_GROUP_PREFIX)
+        @RestrictTo(LIBRARY)
         public TrackInfo(int id, MediaItem item, int type, MediaFormat format) {
             mId = id;
             mItem = item;
@@ -3023,7 +3020,7 @@ public final class MediaPlayer extends SessionPlayer {
      * Encapsulates the DRM properties of the source.
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY)
     public static final class DrmInfo {
         private final MediaPlayer2.DrmInfo mMp2DrmInfo;
 
@@ -3061,7 +3058,7 @@ public final class MediaPlayer extends SessionPlayer {
      * and {@link #setDrmPropertyString}.
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY)
     public interface OnDrmConfigHelper {
         /**
          * Called to give the app the opportunity to configure DRM before the session is created
@@ -3077,7 +3074,7 @@ public final class MediaPlayer extends SessionPlayer {
      * Extends MediaDrm.MediaDrmException
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY)
     public static class NoDrmSchemeException extends MediaDrmException {
         public NoDrmSchemeException(@Nullable String detailMessage) {
             super(detailMessage);
@@ -3088,7 +3085,7 @@ public final class MediaPlayer extends SessionPlayer {
      * Definitions for the metrics that are reported via the {@link #getMetrics} call.
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY)
     public static final class MetricsConstants {
         private MetricsConstants() {}
 
@@ -3185,7 +3182,7 @@ public final class MediaPlayer extends SessionPlayer {
      * Result class of the asynchronous DRM APIs.
      * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @RestrictTo(LIBRARY)
     public static class DrmResult extends PlayerResult {
         /**
          * The device required DRM provisioning but couldn't reach the provisioning server.
@@ -3222,7 +3219,7 @@ public final class MediaPlayer extends SessionPlayer {
                 RESULT_ERROR_RESOURCE_BUSY,
         })
         @Retention(RetentionPolicy.SOURCE)
-        @RestrictTo(LIBRARY_GROUP_PREFIX)
+        @RestrictTo(LIBRARY)
         public @interface DrmResultCode {}
 
         /**
