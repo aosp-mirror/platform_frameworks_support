@@ -22,6 +22,30 @@
       "revId": "f343295c336c1b6195d7adc1eb00bb47c1d30657",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08a2de91_4d8a976f",
+        "filename": "lifecycle/livedata/eap/src/main/java/androidx/lifecycle/CoroutineLiveData.kt",
+        "patchSetId": 22
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-04-29T05:27:43Z",
+      "side": 1,
+      "message": "thanks. fixed it in a followup CL already! :)",
+      "parentUuid": "be12699c_0784337a",
+      "range": {
+        "startLine": 145,
+        "startChar": 24,
+        "endLine": 145,
+        "endChar": 28
+      },
+      "revId": "f343295c336c1b6195d7adc1eb00bb47c1d30657",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
