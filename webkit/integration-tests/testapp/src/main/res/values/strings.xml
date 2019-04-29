@@ -29,4 +29,5 @@
     <string name="medium_wide_interstitial_activity_title">Medium (Wide) Interstitials</string>
     <string name="loud_interstitial_activity_title">Loud (Red) Interstitials</string>
     <string name="cannot_start_safe_browsing">Unable to start Safe Browsing, this is unexpected.</string>
+    <string name="force_dark_activity_title">Force Dark</string>
 </resources>
