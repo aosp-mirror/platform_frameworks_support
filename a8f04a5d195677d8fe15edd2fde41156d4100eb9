@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0d68f5d0_c00d30d1",
+        "filename": "jetifier/jetifier/processor/src/main/kotlin/com/android/tools/build/jetifier/processor/Processor.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1101693
+      },
+      "writtenOn": "2019-04-29T16:27:47Z",
+      "side": 1,
+      "message": "It might be cleaner API to let transform2() return a Boolean value indicating this, in case we call transform2() multiple times before checking the result.\n\nAlso, you once said that Jetifier Processor is thread safe, so I guess it\u0027s also important for the thread safety of this variable too.\n\n(The same applies to the result variables in AndroidXRefScanner.)",
+      "range": {
+        "startLine": 54,
+        "startChar": 4,
+        "endLine": 54,
+        "endChar": 32
+      },
+      "revId": "a8f04a5d195677d8fe15edd2fde41156d4100eb9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
