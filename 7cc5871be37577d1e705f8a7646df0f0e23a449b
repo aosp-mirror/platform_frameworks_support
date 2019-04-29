@@ -59,6 +59,30 @@
     },
     {
       "key": {
+        "uuid": "3f9d7209_958c05a9",
+        "filename": "jetifier/jetifier/processor/src/main/kotlin/com/android/tools/build/jetifier/processor/Processor.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1101693
+      },
+      "writtenOn": "2019-04-29T13:34:51Z",
+      "side": 1,
+      "message": "If they\u0027re using old navigation and workmanager, I thought the better fix would be to upgrade those dependencies instead of disabling the flag?",
+      "parentUuid": "c1446f58_0d80a2c1",
+      "range": {
+        "startLine": 100,
+        "startChar": 12,
+        "endLine": 100,
+        "endChar": 60
+      },
+      "revId": "7cc5871be37577d1e705f8a7646df0f0e23a449b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "adfcb7fc_a5c450ec",
         "filename": "jetifier/jetifier/processor/src/main/kotlin/com/android/tools/build/jetifier/processor/Processor.kt",
         "patchSetId": 1
@@ -70,6 +94,30 @@
       "writtenOn": "2019-04-26T15:14:32Z",
       "side": 1,
       "message": "Hung: Any idea on better way how AGP could consume that and propagate to user or even Android Studio and offer to turn jetifier off?",
+      "range": {
+        "startLine": 349,
+        "startChar": 12,
+        "endLine": 349,
+        "endChar": 94
+      },
+      "revId": "7cc5871be37577d1e705f8a7646df0f0e23a449b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2a7ca9a_721bf260",
+        "filename": "jetifier/jetifier/processor/src/main/kotlin/com/android/tools/build/jetifier/processor/Processor.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 1101693
+      },
+      "writtenOn": "2019-04-29T13:34:51Z",
+      "side": 1,
+      "message": "Jetifier can take an empty List\u003cJetifierIssue\u003e from the AGP and fill in any issues that it encounters.\n\nHowever, I think it\u0027s not safe to turn off Jetifier because Jetifier may not be needed in one build but still needed in another build of the same project (e.g., if a different configuration is resolved, it might trigger the need for Jetifier). Currently, the AGP even calls Jetifier once for each library, so suggesting turning off Jetifier based on any one library is not correct.\n\nOn the other hand, leaving Jetifier on does not impact build speed significantly as it is cached.",
+      "parentUuid": "adfcb7fc_a5c450ec",
       "range": {
         "startLine": 349,
         "startChar": 12,
