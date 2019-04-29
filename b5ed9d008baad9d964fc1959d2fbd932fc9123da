@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "cf4d38fd_1e3756a3",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 974,
+      "author": {
+        "id": 1086104
+      },
+      "writtenOn": "2019-04-29T23:30:01Z",
+      "side": 1,
+      "message": "Ack - I think we can document current behaviour then update if/when it changes.",
+      "parentUuid": "ecc7ba50_b00d06a4",
+      "revId": "b5ed9d008baad9d964fc1959d2fbd932fc9123da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f16e0971_4952b0ac",
         "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "b5ed9d008baad9d964fc1959d2fbd932fc9123da",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ee473d7_2ef70a27",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 979,
+      "author": {
+        "id": 1086104
+      },
+      "writtenOn": "2019-04-29T23:30:01Z",
+      "side": 1,
+      "message": "Done - changed preview to display",
+      "parentUuid": "f16e0971_4952b0ac",
+      "revId": "b5ed9d008baad9d964fc1959d2fbd932fc9123da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
