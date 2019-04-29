@@ -196,9 +196,7 @@ public final class MediaPlayer extends SessionPlayer {
     /**
      * Unspecified media player info.
      * @see PlayerCallback#onInfo
-     * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public static final int MEDIA_INFO_UNKNOWN = 1;
 
     /**
@@ -259,17 +257,13 @@ public final class MediaPlayer extends SessionPlayer {
      * The player is temporarily pausing playback internally in order to
      * buffer more data.
      * @see PlayerCallback#onInfo
-     * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public static final int MEDIA_INFO_BUFFERING_START = 701;
 
     /**
      * The player is resuming playback after filling buffers.
      * @see PlayerCallback#onInfo
-     * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public static final int MEDIA_INFO_BUFFERING_END = 702;
 
     /**
@@ -312,9 +306,7 @@ public final class MediaPlayer extends SessionPlayer {
     /**
      * A new set of metadata is available.
      * @see PlayerCallback#onInfo
-     * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public static final int MEDIA_INFO_METADATA_UPDATE = 802;
 
     /**
@@ -349,17 +341,13 @@ public final class MediaPlayer extends SessionPlayer {
     /**
      * Subtitle track was not supported by the media framework.
      * @see PlayerCallback#onInfo
-     * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public static final int MEDIA_INFO_UNSUPPORTED_SUBTITLE = 901;
 
     /**
      * Reading the subtitle track takes too long.
      * @see PlayerCallback#onInfo
-     * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public static final int MEDIA_INFO_SUBTITLE_TIMED_OUT = 902;
 
     /**
