@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7491c21a_747a033a",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CaptureConfig.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-29T20:34:34Z",
+      "side": 1,
+      "message": "We should try to remove usage of CaptureRequestParameter. Because CaptureRequestParameter is a camera2 implementation detail. Instead anything that uses CaptureRequestParameter should eventually be merged into the implementation options.",
+      "revId": "f6056f92e351f53437c1feaf9a5390f2b58c43dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
