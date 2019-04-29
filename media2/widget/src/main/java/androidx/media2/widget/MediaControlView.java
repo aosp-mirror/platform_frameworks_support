@@ -2162,10 +2162,20 @@ public class MediaControlView extends ViewGroup {
                         }
                         if (mVideoTrackCount == 0 && mAudioTrackCount > 0) {
                             mMediaType = MEDIA_TYPE_MUSIC;
+                        } else {
+                            mMediaType = MEDIA_TYPE_DEFAULT;
                         }
                         List<String> subtitleTracksList = (args != null)
                                 ? args.getStringArrayList(KEY_SUBTITLE_TRACK_LANGUAGE_LIST) : null;
-                        if (subtitleTracksList != null) {
+                        if (subtitleTracksList == null || subtitleTracksList.isEmpty()) {
+                            if (mMediaType == MEDIA_TYPE_MUSIC) {
+                                mSubtitleButton.setVisibility(View.GONE);
+                            } else {
+                                mSubtitleButton.setVisibility(View.VISIBLE);
+                                mSubtitleButton.setAlpha(0.5f);
+                                mSubtitleButton.setEnabled(false);
+                            }
+                        } else {
                             mSubtitleDescriptionsList = new ArrayList<String>();
                             mSubtitleDescriptionsList.add(mResources.getString(
                                     R.string.MediaControlView_subtitle_off_text));
@@ -2184,15 +2194,9 @@ public class MediaControlView extends ViewGroup {
                                 }
                                 mSubtitleDescriptionsList.add(trackDescription);
                             }
+                            mSubtitleButton.setVisibility(View.VISIBLE);
                             mSubtitleButton.setAlpha(1.0f);
                             mSubtitleButton.setEnabled(true);
-                        } else {
-                            if (mMediaType == MEDIA_TYPE_MUSIC) {
-                                mSubtitleButton.setVisibility(View.GONE);
-                            } else {
-                                mSubtitleButton.setAlpha(0.5f);
-                                mSubtitleButton.setEnabled(false);
-                            }
                         }
                         break;
                     case EVENT_UPDATE_MEDIA_TYPE_STATUS:
