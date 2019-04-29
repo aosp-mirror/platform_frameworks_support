@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "39cb3934_1f63460f",
+        "filename": "jetifier/jetifier/processor/src/main/kotlin/com/android/tools/build/jetifier/processor/Processor.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1101693
+      },
+      "writtenOn": "2019-04-29T14:16:08Z",
+      "side": 1,
+      "message": "Can we pass this parameter to the Processor.transform() method instead? (This makes it easier to run Jetifer depending on what\u0027s on a whitelist---see my comment below.)",
+      "range": {
+        "startLine": 88,
+        "startChar": 11,
+        "endLine": 88,
+        "endChar": 48
+      },
+      "revId": "7cc5871be37577d1e705f8a7646df0f0e23a449b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5a444895_ab4bb8a4",
         "filename": "jetifier/jetifier/processor/src/main/kotlin/com/android/tools/build/jetifier/processor/Processor.kt",
         "patchSetId": 1
@@ -143,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "8313040b_16e0a8a9",
+        "filename": "jetifier/jetifier/processor/src/main/kotlin/com/android/tools/build/jetifier/processor/Processor.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1101693
+      },
+      "writtenOn": "2019-04-29T14:16:08Z",
+      "side": 1,
+      "message": "Okay, I\u0027ll add a property in the AGP. I\u0027m thinking the property can be a whitelist, so that it is more general, and can be used as safety net for other cases. (With the blacklist and whitelist, the users have good control over what will be jetified.)",
+      "parentUuid": "1b8deaab_c6c2206d",
+      "range": {
+        "startLine": 100,
+        "startChar": 12,
+        "endLine": 100,
+        "endChar": 60
+      },
+      "revId": "7cc5871be37577d1e705f8a7646df0f0e23a449b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "adfcb7fc_a5c450ec",
         "filename": "jetifier/jetifier/processor/src/main/kotlin/com/android/tools/build/jetifier/processor/Processor.kt",
         "patchSetId": 1
@@ -202,6 +249,30 @@
       "side": 1,
       "message": "Yes, but I see people introducing their own gradle plugins to check if they can finally turn off jetifier. So I was thinking that having something we providee. Maybe we can\u0027t solve it on this level but it is something we should think about. \n\nIn case you run it per library I guess this warning would be too aggressive. So I just changed it to \"info\" level. You can currently detect it actually if you look at the path path of the returned file. If its path is \u003d\u003d \"given path\" it was not modified.",
       "parentUuid": "d2a7ca9a_721bf260",
+      "range": {
+        "startLine": 349,
+        "startChar": 12,
+        "endLine": 349,
+        "endChar": 94
+      },
+      "revId": "7cc5871be37577d1e705f8a7646df0f0e23a449b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14265546_c413c4e1",
+        "filename": "jetifier/jetifier/processor/src/main/kotlin/com/android/tools/build/jetifier/processor/Processor.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 1101693
+      },
+      "writtenOn": "2019-04-29T14:16:08Z",
+      "side": 1,
+      "message": "\"Maybe we can\u0027t solve it on this level but it is something we should think about.\" \u003d\u003e Ack, I\u0027ve made a note for myself on this.\n\n\"If its path is \u003d\u003d \"given path\" it was not modified.\" \u003d\u003e Right, that\u0027s why I think this decision should be left to the AGP. Should we remove this message as it is somewhat misleading? (Except when it is run as part of the Jetifier standalone, then having this message is helpful.)",
+      "parentUuid": "323e9c16_56f92582",
       "range": {
         "startLine": 349,
         "startChar": 12,
