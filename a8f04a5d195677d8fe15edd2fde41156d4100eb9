@@ -22,6 +22,30 @@
       "revId": "a8f04a5d195677d8fe15edd2fde41156d4100eb9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af917082_94e7e436",
+        "filename": "jetifier/jetifier/processor/src/main/kotlin/com/android/tools/build/jetifier/processor/Processor.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-04-29T16:54:54Z",
+      "side": 1,
+      "message": "AndroidXRefScanner is fine. That one is always created every-time to be used once in the filtering method.\n\nBut its true that the Processor did not have any state until now so I\u0027m removing this field. It\u0027s funny since jetifier all the time contains class TransformationResult but I\u0027ve never used it :) So I refurbished it for this case. Thanks for suggestion!",
+      "parentUuid": "0d68f5d0_c00d30d1",
+      "range": {
+        "startLine": 54,
+        "startChar": 4,
+        "endLine": 54,
+        "endChar": 32
+      },
+      "revId": "a8f04a5d195677d8fe15edd2fde41156d4100eb9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
