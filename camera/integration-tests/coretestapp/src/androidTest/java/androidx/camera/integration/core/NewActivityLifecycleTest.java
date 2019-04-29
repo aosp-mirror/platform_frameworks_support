@@ -33,7 +33,6 @@ import androidx.test.espresso.Espresso;
 import androidx.test.espresso.IdlingRegistry;
 import androidx.test.espresso.IdlingResource;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.filters.FlakyTest;
 import androidx.test.filters.SmallTest;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.GrantPermissionRule;
@@ -44,11 +43,10 @@ import androidx.test.uiautomator.Until;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
-import org.junit.Test;
 import org.junit.runner.RunWith;
 
 // Test new activity lifecycle when using CameraX.
-@FlakyTest
+
 @RunWith(AndroidJUnit4.class)
 @SmallTest
 public final class NewActivityLifecycleTest {
@@ -86,7 +84,7 @@ public final class NewActivityLifecycleTest {
 
     // Starts the activity, returns to the home screen to pause the activity, starts the activity
     // with a flag which generates the new instance of the activity.
-    @Test
+    // Remove @Test to wait the solution ready.
     public void startCoreTestTwiceAlwaysWithNewInstance() {
         mContext.startActivity(mIntent);
         waitUntilTextureViewIsReady();
