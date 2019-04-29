@@ -20,7 +20,6 @@ package androidx.media2.player {
     field @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX) public static final int MEDIA_INFO_MEDIA_ITEM_LIST_END = 6; // 0x6
     field @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX) public static final int MEDIA_INFO_MEDIA_ITEM_REPEAT = 7; // 0x7
     field @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX) public static final int MEDIA_INFO_MEDIA_ITEM_START = 2; // 0x2
-    field @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX) public static final int MEDIA_INFO_METADATA_UPDATE = 802; // 0x322
     field @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX) public static final int MEDIA_INFO_NETWORK_BANDWIDTH = 703; // 0x2bf
     field @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX) public static final int MEDIA_INFO_SUBTITLE_TIMED_OUT = 902; // 0x386
     field @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX) public static final int MEDIA_INFO_TIMED_TEXT_ERROR = 900; // 0x384

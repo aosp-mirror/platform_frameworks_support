@@ -312,9 +312,7 @@ public final class MediaPlayer extends SessionPlayer {
     /**
      * A new set of metadata is available.
      * @see PlayerCallback#onInfo
-     * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public static final int MEDIA_INFO_METADATA_UPDATE = 802;
 
     /**
@@ -478,21 +476,15 @@ public final class MediaPlayer extends SessionPlayer {
         sErrorCodeMap.put(MediaPlayer2.MEDIA_ERROR_TIMED_OUT, PLAYER_ERROR_TIMED_OUT);
 
         sInfoCodeMap = new ArrayMap<>();
-        sInfoCodeMap.put(MediaPlayer2.MEDIA_INFO_UNKNOWN, MEDIA_INFO_UNKNOWN);
         sInfoCodeMap.put(
                 MediaPlayer2.MEDIA_INFO_VIDEO_RENDERING_START, MEDIA_INFO_VIDEO_RENDERING_START);
         sInfoCodeMap.put(
                 MediaPlayer2.MEDIA_INFO_VIDEO_TRACK_LAGGING, MEDIA_INFO_VIDEO_TRACK_LAGGING);
-        sInfoCodeMap.put(MediaPlayer2.MEDIA_INFO_BUFFERING_START, MEDIA_INFO_BUFFERING_START);
-        sInfoCodeMap.put(MediaPlayer2.MEDIA_INFO_BUFFERING_END, MEDIA_INFO_BUFFERING_END);
         sInfoCodeMap.put(MediaPlayer2.MEDIA_INFO_BAD_INTERLEAVING, MEDIA_INFO_BAD_INTERLEAVING);
         sInfoCodeMap.put(MediaPlayer2.MEDIA_INFO_NOT_SEEKABLE, MEDIA_INFO_NOT_SEEKABLE);
         sInfoCodeMap.put(MediaPlayer2.MEDIA_INFO_METADATA_UPDATE, MEDIA_INFO_METADATA_UPDATE);
         sInfoCodeMap.put(MediaPlayer2.MEDIA_INFO_AUDIO_NOT_PLAYING, MEDIA_INFO_AUDIO_NOT_PLAYING);
         sInfoCodeMap.put(MediaPlayer2.MEDIA_INFO_VIDEO_NOT_PLAYING, MEDIA_INFO_VIDEO_NOT_PLAYING);
-        sInfoCodeMap.put(
-                MediaPlayer2.MEDIA_INFO_UNSUPPORTED_SUBTITLE, MEDIA_INFO_UNSUPPORTED_SUBTITLE);
-        sInfoCodeMap.put(MediaPlayer2.MEDIA_INFO_SUBTITLE_TIMED_OUT, MEDIA_INFO_SUBTITLE_TIMED_OUT);
 
         sSeekModeMap = new ArrayMap<>();
         sSeekModeMap.put(SEEK_PREVIOUS_SYNC, MediaPlayer2.SEEK_PREVIOUS_SYNC);
@@ -2745,14 +2737,15 @@ public final class MediaPlayer extends SessionPlayer {
                     });
                     break;
             }
-            final int what = sInfoCodeMap.containsKey(mp2What)
-                    ? sInfoCodeMap.get(mp2What) : MEDIA_INFO_UNKNOWN;
-            notifyMediaPlayerCallback(new MediaPlayerCallbackNotifier() {
-                @Override
-                public void callCallback(PlayerCallback callback) {
-                    callback.onInfo(MediaPlayer.this, item, what, extra);
-                }
-            });
+            if (sInfoCodeMap.containsKey(mp2What)) {
+                final int what = sInfoCodeMap.get(mp2What);
+                notifyMediaPlayerCallback(new MediaPlayerCallbackNotifier() {
+                    @Override
+                    public void callCallback(PlayerCallback callback) {
+                        callback.onInfo(MediaPlayer.this, item, what, extra);
+                    }
+                });
+            }
         }
 
         @Override
