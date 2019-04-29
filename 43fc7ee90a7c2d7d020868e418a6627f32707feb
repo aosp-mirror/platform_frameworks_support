@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "86455b64_65cea081",
+        "filename": "appcompat/src/main/java/androidx/appcompat/app/AppCompatDelegateImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 1018893
+      },
+      "writtenOn": "2019-04-29T04:39:10Z",
+      "side": 0,
+      "message": "FYI, this shouldn\u0027t happen because the applyConfiguration() path will be used instead from attachBaseContext()",
+      "range": {
+        "startLine": 331,
+        "startChar": 93,
+        "endLine": 332,
+        "endChar": 33
+      },
+      "revId": "43fc7ee90a7c2d7d020868e418a6627f32707feb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
