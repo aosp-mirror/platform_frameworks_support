@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4a847d5a_d506a67b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2019-04-29T15:58:38Z",
+      "side": 1,
+      "message": "If this matters, removing those constants from this map is also an alternative.",
+      "range": {
+        "startLine": 9,
+        "startChar": 30,
+        "endLine": 9,
+        "endChar": 42
+      },
+      "revId": "cebd958e1c6803f947911970b6e0227ff8d537c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ffd3c27a_f9a17cff",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2019-04-29T15:58:38Z",
+      "side": 1,
+      "message": "need to update api text file: ./gradlew updateApi",
+      "range": {
+        "startLine": 14,
+        "startChar": 6,
+        "endLine": 14,
+        "endChar": 9
+      },
+      "revId": "cebd958e1c6803f947911970b6e0227ff8d537c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5f513d6_c461ec1d",
+        "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2019-04-29T15:58:38Z",
+      "side": 1,
+      "message": "I wasn\u0027t sure if UNKNOWN info would be useful to developers, but it\u0027s up to you. :)",
+      "range": {
+        "startLine": 196,
+        "startChar": 4,
+        "endLine": 200,
+        "endChar": 51
+      },
+      "revId": "cebd958e1c6803f947911970b6e0227ff8d537c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99a094d1_04bde594",
+        "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2019-04-29T15:58:38Z",
+      "side": 1,
+      "message": "I though this is redundant since the PlayerCallback has onBufferingStateChanged().",
+      "range": {
+        "startLine": 256,
+        "startChar": 4,
+        "endLine": 267,
+        "endChar": 59
+      },
+      "revId": "cebd958e1c6803f947911970b6e0227ff8d537c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7e159ad_4d298722",
+        "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2019-04-29T15:58:38Z",
+      "side": 1,
+      "message": "Looking at framework MediaPlayer code, this is only used when OOB subtitle is used. Since we don\u0027t support OOB subtitle on androidx MediaPlayer (currently), there is no use case of this constants.",
+      "range": {
+        "startLine": 340,
+        "startChar": 0,
+        "endLine": 351,
+        "endChar": 64
+      },
+      "revId": "cebd958e1c6803f947911970b6e0227ff8d537c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
