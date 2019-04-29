@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bb6c51b9_b9672287",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1026966
+      },
+      "writtenOn": "2019-04-29T16:00:34Z",
+      "side": 1,
+      "message": "I am not sure annotation change requires updateApi, but can you double check with : ./gradlew updateApi?",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 9
+      },
+      "revId": "c0454db51b76ff850bdc448f5ecd4e7219ec9160",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
