@@ -20,7 +20,6 @@ import android.hardware.camera2.CameraCaptureSession;
 import android.hardware.camera2.CameraDevice;
 import android.hardware.camera2.CameraDevice.StateCallback;
 import android.hardware.camera2.CaptureRequest;
-import android.hardware.camera2.CaptureRequest.Key;
 import android.util.Log;
 import android.view.Surface;
 
@@ -32,7 +31,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 /**
@@ -95,10 +93,6 @@ public final class SessionConfig {
 
     public List<DeferrableSurface> getSurfaces() {
         return Collections.unmodifiableList(mSurfaces);
-    }
-
-    public Map<Key<?>, CaptureRequestParameter<?>> getCameraCharacteristics() {
-        return mRepeatingCaptureConfig.getCameraCharacteristics();
     }
 
     public Config getImplementationOptions() {
@@ -327,18 +321,6 @@ public final class SessionConfig {
             mCaptureConfigBuilder.clearSurfaces();
         }
 
-        /** Add the {@link CaptureRequest.Key} value pair that will be applied. */
-        // TODO(b/120949879): This is camera2 implementation detail that should be moved
-        public <T> void addCharacteristic(Key<T> key, T value) {
-            mCaptureConfigBuilder.addCharacteristic(key, value);
-        }
-
-        /** Add the {@link CaptureRequestParameter} that will be applied. */
-        // TODO(b/120949879): This is camera2 implementation detail that should be moved
-        public void addCharacteristics(Map<Key<?>, CaptureRequestParameter<?>> characteristics) {
-            mCaptureConfigBuilder.addCharacteristics(characteristics);
-        }
-
         /** Set the {@link Config} for options that are implementation specific. */
         public void setImplementationOptions(Config config) {
             mCaptureConfigBuilder.setImplementationOptions(config);
@@ -429,29 +411,6 @@ public final class SessionConfig {
                                 + "of surfaces";
                 Log.d(TAG, errorMessage);
                 mValid = false;
-            }
-
-            // Check characteristics
-            for (Map.Entry<Key<?>, CaptureRequestParameter<?>> entry :
-                    captureConfig.getCameraCharacteristics().entrySet()) {
-                Key<?> addedKey = entry.getKey();
-                if (mCaptureConfigBuilder.getCharacteristic().containsKey(entry.getKey())) {
-                    // value is equal
-                    CaptureRequestParameter<?> addedValue = entry.getValue();
-                    CaptureRequestParameter<?> oldValue =
-                            mCaptureConfigBuilder.getCharacteristic().get(addedKey);
-                    if (!addedValue.getValue().equals(oldValue.getValue())) {
-                        String errorMessage =
-                                "Invalid configuration due to conflicting CaptureRequest.Keys: "
-                                        + addedValue
-                                        + " != "
-                                        + oldValue;
-                        Log.d(TAG, errorMessage);
-                        mValid = false;
-                    }
-                } else {
-                    mCaptureConfigBuilder.getCharacteristic().put(entry.getKey(), entry.getValue());
-                }
             }
         }
 

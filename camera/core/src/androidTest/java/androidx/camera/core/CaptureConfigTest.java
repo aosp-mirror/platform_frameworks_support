@@ -23,7 +23,6 @@ import static org.mockito.Mockito.mock;
 import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraDevice;
 import android.hardware.camera2.CaptureRequest;
-import android.hardware.camera2.CaptureRequest.Key;
 import android.view.Surface;
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -36,7 +35,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.util.List;
-import java.util.Map;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
@@ -105,26 +103,6 @@ public class CaptureConfigTest {
 
         List<Surface> surfaces = DeferrableSurfaces.surfaceList(captureConfig.getSurfaces());
         assertThat(surfaces.size()).isEqualTo(0);
-    }
-
-    @Test
-    public void builderAddCharacteristic() {
-        CaptureConfig.Builder builder = new CaptureConfig.Builder();
-
-        builder.addCharacteristic(
-                CaptureRequest.CONTROL_AF_MODE, CaptureRequest.CONTROL_AF_MODE_AUTO);
-        CaptureConfig captureConfig = builder.build();
-
-        Map<Key<?>, CaptureRequestParameter<?>> parameterMap =
-                captureConfig.getCameraCharacteristics();
-
-        assertThat(parameterMap.containsKey(CaptureRequest.CONTROL_AF_MODE)).isTrue();
-        assertThat(parameterMap)
-                .containsEntry(
-                        CaptureRequest.CONTROL_AF_MODE,
-                        CaptureRequestParameter.create(
-                                CaptureRequest.CONTROL_AF_MODE,
-                                CaptureRequest.CONTROL_AF_MODE_AUTO));
     }
 
     @Test
