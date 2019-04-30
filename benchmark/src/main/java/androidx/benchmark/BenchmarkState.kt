@@ -16,6 +16,7 @@
 
 package androidx.benchmark
 
+import android.app.Activity
 import android.os.Build
 import android.os.Bundle
 import android.os.Debug
@@ -217,12 +218,9 @@ class BenchmarkState internal constructor() {
         if (repeatCount >= REPEAT_COUNT) {
             if (performThrottleChecks &&
                 throttleRemainingRetries > 0 &&
-                ThrottleDetector.isDeviceThermalThrottled()
+                sleepIfThermalThrottled()
             ) {
-                // Not finished! System appears to be in thermal throttle!
-                // Sleep, and retry whole benchmark!
-                Log.d(TAG, "THERMAL THROTTLE DETECTED, SLEEPING FOR $THROTTLE_BACKOFF_S SECONDS")
-                Thread.sleep(TimeUnit.SECONDS.toMillis(THROTTLE_BACKOFF_S))
+                // We've slept due to thermal throttle - retry benchmark!
                 throttleRemainingRetries -= 1
                 results.clear()
                 repeatCount = 0
@@ -360,25 +358,6 @@ class BenchmarkState internal constructor() {
             "stddev=${standardDeviation()}ns, " +
             "count=${count()}"
 
-    private fun ideSummaryLineWrapped(key: String): String {
-        val warningLines = WarningState.acquireWarningStringForLogging()?.split("\n") ?: listOf()
-        return (warningLines + ideSummaryLine(key))
-            // remove first line if empty
-            .filterIndexed { index, it -> index != 0 || !it.isEmpty() }
-            // join, prepending key to everything but first string, to make each line look the same
-            .joinToString("\n$STUDIO_OUTPUT_KEY_ID: ")
-    }
-
-    // NOTE: this summary line will use default locale to determine separators. As
-    // this line is only meant for human eyes, we don't worry about consistency here.
-    internal fun ideSummaryLine(key: String) = String.format(
-        // 13 is used for alignment here, because it's enough that 9.99sec will still
-        // align with any other output, without moving data too far to the right
-        "%13s ns %s",
-        NumberFormat.getNumberInstance().format(min()),
-        key
-    )
-
     /**
      * Acquires a status report bundle
      *
@@ -394,11 +373,13 @@ class BenchmarkState internal constructor() {
         status.putLong("${prefix}min", min())
         status.putLong("${prefix}standardDeviation", standardDeviation())
         status.putLong("${prefix}count", count())
-        status.putString(
-            STUDIO_OUTPUT_KEY_PREFIX + STUDIO_OUTPUT_KEY_ID,
-            ideSummaryLineWrapped(key)
-        )
+        status.putIdeSummaryLine(key, min())
         return status
+    }
+
+    internal fun sendStatus(testName: String) {
+        val bundle = getFullStatusReport(testName)
+        InstrumentationRegistry.getInstrumentation().sendStatus(Activity.RESULT_OK, bundle)
     }
 
     internal companion object {
@@ -422,5 +403,79 @@ class BenchmarkState internal constructor() {
 
         private const val THROTTLE_MAX_RETRIES = 3
         private const val THROTTLE_BACKOFF_S = 90L
+
+        /**
+         * Hooks for benchmarks not using [BenchmarkRule] to register results,
+         * and check for thermal throttling if necessary.
+         *
+         * Results are printed to Studio console, and added to the output JSON/XML files.
+         *
+         * If thermal throttling is detected, this method will sleep to give the device
+         * time to cool down before the next benchmark.
+         */
+        @Suppress("unused")
+        @JvmStatic
+        fun reportData(testName: String, nanos: Long) {
+            // Report value to Studio console
+            val bundle = Bundle()
+            bundle.putIdeSummaryLine(testName, nanos)
+            InstrumentationRegistry.getInstrumentation().sendStatus(Activity.RESULT_OK, bundle)
+
+            // Report values to file output
+            ResultWriter.appendStats(
+                testName,
+                "",
+                BenchmarkState.Report(
+                    nanos = nanos,
+                    data = listOf(nanos),
+                    repeatIterations = 1,
+                    warmupIterations = 1
+                )
+            )
+
+            // Thermal Throttle Check & Sleep
+            if (!Clocks.areLocked && !AndroidBenchmarkRunner.sustainedPerformanceModeInUse) {
+                ThrottleDetector.computeThrottleBaseline()
+                sleepIfThermalThrottled()
+            }
+        }
+
+        internal fun sleepIfThermalThrottled(): Boolean {
+            return if (ThrottleDetector.isDeviceThermalThrottled()) {
+                Log.d(TAG, "THERMAL THROTTLE DETECTED, SLEEPING FOR $THROTTLE_BACKOFF_S SECONDS")
+                Thread.sleep(TimeUnit.SECONDS.toMillis(THROTTLE_BACKOFF_S))
+                true
+            } else {
+                false
+            }
+        }
+
+        internal fun ideSummaryLineWrapped(key: String, nanos: Long): String {
+            val warningLines =
+                WarningState.acquireWarningStringForLogging()?.split("\n") ?: listOf()
+            return (warningLines + ideSummaryLine(key, nanos))
+                // remove first line if empty
+                .filterIndexed { index, it -> index != 0 || !it.isEmpty() }
+                // join, prepending key to everything but first string,
+                // to make each line look the same
+                .joinToString("\n$STUDIO_OUTPUT_KEY_ID: ")
+        }
+
+        // NOTE: this summary line will use default locale to determine separators. As
+        // this line is only meant for human eyes, we don't worry about consistency here.
+        fun ideSummaryLine(key: String, nanos: Long) = String.format(
+            // 13 is used for alignment here, because it's enough that 9.99sec will still
+            // align with any other output, without moving data too far to the right
+            "%13s ns %s",
+            NumberFormat.getNumberInstance().format(nanos),
+            key
+        )
+
+        fun Bundle.putIdeSummaryLine(testName: String, nanos: Long) {
+            putString(
+                STUDIO_OUTPUT_KEY_PREFIX + STUDIO_OUTPUT_KEY_ID,
+                ideSummaryLineWrapped(testName, nanos)
+            )
+        }
     }
 }

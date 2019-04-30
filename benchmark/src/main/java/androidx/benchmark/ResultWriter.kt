@@ -57,6 +57,12 @@ internal object ResultWriter {
     """.trimMargin()
     }
 
+    data class LabeledReport(
+        val report: BenchmarkState.Report,
+        val name: String,
+        val className: String
+    )
+
     data class FileManager(
         val extension: String,
         val initial: String,
@@ -71,6 +77,7 @@ internal object ResultWriter {
             "${context.packageName}-benchmarkData.$extension"
         )
         var currentContent = initial
+        var lastAddedEntry: LabeledReport? = null
 
         val fullFileContent: String
             get() = currentContent + tail
@@ -79,6 +86,7 @@ internal object ResultWriter {
             if (currentContent != initial && separator != null) {
                 currentContent += separator
             }
+            lastAddedEntry = LabeledReport(report, name, className)
             currentContent += reportFormatter(report, name, className)
         }
     }
