@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f306cc8e_19ac6400",
+        "filename": "camera/integration-tests/extensionstestlib/src/main/java/androidx/camera/extensions/impl/HdrImageCaptureExtenderImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-30T23:07:11Z",
+      "side": 1,
+      "message": "Maybe have HDR not set the CONTROL_EFFECT_MODE just as a contrast to the sample implementation for Bokeh. Also it allows us to test out the path where getPresetSession(), onEnableSession(), and onDisableSession() have an empty CaptureStageImpl.",
+      "revId": "3555644a5f0d2a871ba07750248384cce7b9b104",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b028829_82527203",
+        "filename": "camera/integration-tests/extensionstestlib/src/main/java/androidx/camera/extensions/impl/HdrPreviewExtenderImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-30T23:07:11Z",
+      "side": 1,
+      "message": "Maybe have HDR not set the CONTROL_EFFECT_MODE just as a contrast to the sample implementation for Bokeh. Also it allows us to test out the path where getPresetSession(), onEnableSession(), and onDisableSession() have an empty CaptureStageImpl.",
+      "revId": "3555644a5f0d2a871ba07750248384cce7b9b104",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1f4b63b_f3ead1b1",
+        "filename": "camera/integration-tests/extensionstestlib/src/main/java/androidx/camera/extensions/impl/ImageCaptureExtenderImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-30T23:07:11Z",
+      "side": 1,
+      "message": "Update javadoc accordingly with https://android-review.googlesource.com/c/platform/frameworks/support/+/953287",
+      "revId": "3555644a5f0d2a871ba07750248384cce7b9b104",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce85b018_cc0c15d8",
+        "filename": "camera/integration-tests/extensionstestlib/src/main/java/androidx/camera/extensions/impl/PreviewExtenderImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-30T23:07:11Z",
+      "side": 1,
+      "message": "Update javadoc accordingly with https://android-review.googlesource.com/c/platform/frameworks/support/+/953287",
+      "revId": "3555644a5f0d2a871ba07750248384cce7b9b104",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
