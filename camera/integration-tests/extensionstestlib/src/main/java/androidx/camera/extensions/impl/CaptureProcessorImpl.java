@@ -17,6 +17,7 @@
 package androidx.camera.extensions.impl;
 
 import android.media.Image;
+import android.util.Size;
 import android.view.Surface;
 
 import java.util.Map;
@@ -45,4 +46,22 @@ public interface CaptureProcessorImpl {
      *               should be kept.
      */
     void process(Map<Integer, Image> images);
+
+    /**
+     * This callback will be invoked when CameraX changes the configured input resolution. After
+     * this call, {@link CaptureProcessorImpl} should expect any {@link Image} received as input
+     * to be at the specified resolution.
+     *
+     * @param size for the surface.
+     */
+    void onResolutionUpdate(Size size);
+
+    /**
+     * This callback will be invoked when CameraX changes the configured input image format.
+     * After this call, {@link CaptureProcessorImpl} should expect any {@link Image} received as
+     * input to have the specified image format.
+     *
+     * @param imageFormat for the surface.
+     */
+    void onImageFormatUpdate(int imageFormat);
 }
