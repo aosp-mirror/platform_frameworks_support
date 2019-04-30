@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "48e6eec8_853810ba",
+        "filename": "camera/core/src/main/java/androidx/camera/core/Preview.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-04-30T02:26:48Z",
+      "side": 1,
+      "message": "Sorry I may be wrong since English is not my native language, but this sounds like we are suggesting application should return false here .  Maybe mentioning fist the default return value or return true is good enough, and if they do need to return false, then they have to attach it again when resuming.",
+      "range": {
+        "startLine": 141,
+        "startChar": 0,
+        "endLine": 141,
+        "endChar": 98
+      },
+      "revId": "ece4323bf439baac3d895f1cce53466f178e64d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
