@@ -1,0 +1,174 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "56c3f68e_4c73fa7d",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CaptureBundle.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-30T23:01:11Z",
+      "side": 1,
+      "message": "Returns a list of {@link CaptureStage} in order of how they are to be issued.",
+      "revId": "3f86b45dd7bfba5274c87a606fb9e86232619a0e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6410f228_679eef2d",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CaptureBundles.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-30T23:01:11Z",
+      "side": 1,
+      "message": "Returns a {@link CaptureBundle} which contain a list of {@link CaptureStage}.\n-\u003e\nReturns a {@link CaptureBundle} which contains a list of {@link CaptureStage}.",
+      "revId": "3f86b45dd7bfba5274c87a606fb9e86232619a0e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3987c7a_1415505f",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CaptureBundles.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-30T23:01:11Z",
+      "side": 1,
+      "message": "/** Returns a {@link CaptureBundle} which contain a list of {@link CaptureStage}. */\n-\u003e\n/** Returns a {@link CaptureBundle} which contains a list of {@link CaptureStage}. */",
+      "revId": "3f86b45dd7bfba5274c87a606fb9e86232619a0e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4da51d8_211decd7",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 940,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-30T23:01:11Z",
+      "side": 1,
+      "message": "It not clear why this is called \"presetImageCaptureBundle\". Is this retrieving a preset bundle? But this bundle gets changed.\n\nMaybe it should be getImageCaptureBundle()? Or getLatestImageCaptureBundle()?",
+      "revId": "3f86b45dd7bfba5274c87a606fb9e86232619a0e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a4b535e_6fb375de",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 941,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-30T23:01:11Z",
+      "side": 1,
+      "message": "core should have no knowledge of \"extender\".",
+      "revId": "3f86b45dd7bfba5274c87a606fb9e86232619a0e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad490bff_f01426b2",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 952,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-30T23:01:11Z",
+      "side": 1,
+      "message": "ImageCaptureUseCaseExtender sets empty CaptureStage list.\n-\u003e\nImageCaptureConfig set empty CaptureBundle.",
+      "revId": "3f86b45dd7bfba5274c87a606fb9e86232619a0e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5931d5ab_9500b4ec",
+        "filename": "camera/core/src/main/java/androidx/camera/core/Preview.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-30T23:01:11Z",
+      "side": 1,
+      "message": "Can this be moved into UseCase.clear() this way, because the base class calls it so none of the derived classes need to call this explicitly.\n\nIt really is about the lifecycle of the UseCase rather than being specific to every derived use case.",
+      "revId": "3f86b45dd7bfba5274c87a606fb9e86232619a0e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "01ee463e_2914c5bc",
+        "filename": "camera/core/src/main/java/androidx/camera/core/Preview.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-30T23:01:11Z",
+      "side": 1,
+      "message": "Can this be moved into updateSuggestedResolution() this way, because the base class calls it so none of the derived classes need to call this explicitly.\n\nIt really is about the lifecycle of the UseCase rather than being specific to every derived use case.\n\nAnd maybe we need to UseCase to have a method that is onUseCaseBind (probably needs a better name) but it would indicate that the UseCase has been bound.",
+      "revId": "3f86b45dd7bfba5274c87a606fb9e86232619a0e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f67d0ce9_2b3ddc89",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/ImageCaptureExtender.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-30T23:01:11Z",
+      "side": 1,
+      "message": "An implementation to adapt the OEM provided extension to CameraX.\n-\u003e\nAn implementation to adapt the OEM provided implementation to core.",
+      "revId": "3f86b45dd7bfba5274c87a606fb9e86232619a0e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3218585_9020da2a",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/PreviewExtender.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-30T23:01:11Z",
+      "side": 1,
+      "message": "An implementation to adapt the OEM provided extension to CameraX.\n-\u003e\nAn implementation to adapt the OEM provided implementation to core.",
+      "revId": "3f86b45dd7bfba5274c87a606fb9e86232619a0e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
