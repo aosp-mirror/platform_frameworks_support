@@ -22,6 +22,30 @@
       "revId": "ece4323bf439baac3d895f1cce53466f178e64d7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d93b0724_7b0f4a81",
+        "filename": "camera/core/src/main/java/androidx/camera/core/Preview.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1086104
+      },
+      "writtenOn": "2019-04-30T18:53:34Z",
+      "side": 1,
+      "message": "Ack - will address in small followon",
+      "parentUuid": "48e6eec8_853810ba",
+      "range": {
+        "startLine": 141,
+        "startChar": 0,
+        "endLine": 141,
+        "endChar": 98
+      },
+      "revId": "ece4323bf439baac3d895f1cce53466f178e64d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
