@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "52e5fe9f_ee2cbaab",
+        "filename": "webkit/integration-tests/testapp/src/main/AndroidManifest.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-04-30T21:53:45Z",
+      "side": 1,
+      "message": "Out of curiosity, did Android Studio (assuming that\u0027s what you used) give you any autoformatting problems? I opened http://aosp/951943 to try to resolve some of the issues, but haven\u0027t tested it out yet",
+      "range": {
+        "startLine": 65,
+        "startChar": 8,
+        "endLine": 67,
+        "endChar": 38
+      },
+      "revId": "701fbb8e56af94f01aec7a06f0bf1069064b28ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1fb9c7d2_c62c4584",
+        "filename": "webkit/integration-tests/testapp/src/main/java/com/example/androidx/webkit/ForceDarkActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-04-30T21:53:45Z",
+      "side": 1,
+      "message": "Could you also call the WebkitHelpers method to append version to the title?",
+      "range": {
+        "startLine": 45,
+        "startChar": 8,
+        "endLine": 45,
+        "endChar": 16
+      },
+      "revId": "701fbb8e56af94f01aec7a06f0bf1069064b28ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "919d088a_0366b02d",
+        "filename": "webkit/integration-tests/testapp/src/main/java/com/example/androidx/webkit/ForceDarkActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-04-30T21:53:45Z",
+      "side": 1,
+      "message": "Since this is constant, please move this into layout XML",
+      "range": {
+        "startLine": 47,
+        "startChar": 8,
+        "endLine": 47,
+        "endChar": 53
+      },
+      "revId": "701fbb8e56af94f01aec7a06f0bf1069064b28ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71406c5d_95ede450",
+        "filename": "webkit/integration-tests/testapp/src/main/java/com/example/androidx/webkit/ForceDarkActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-04-30T21:53:45Z",
+      "side": 1,
+      "message": "There\u0027s no need to do this dynamically. Could you do this in the layout XML?",
+      "range": {
+        "startLine": 49,
+        "startChar": 8,
+        "endLine": 51,
+        "endChar": 57
+      },
+      "revId": "701fbb8e56af94f01aec7a06f0bf1069064b28ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a1da97e_a608e68a",
+        "filename": "webkit/integration-tests/testapp/src/main/java/com/example/androidx/webkit/ForceDarkActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-04-30T21:53:45Z",
+      "side": 1,
+      "message": "I think you can just pass null for mimetype",
+      "range": {
+        "startLine": 72,
+        "startChar": 24,
+        "endLine": 72,
+        "endChar": 50
+      },
+      "revId": "701fbb8e56af94f01aec7a06f0bf1069064b28ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d88f20d8_83e3d920",
+        "filename": "webkit/integration-tests/testapp/src/main/java/com/example/androidx/webkit/ForceDarkActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-04-30T21:53:45Z",
+      "side": 1,
+      "message": "this is not a valid value. We\u0027re trying to promote Base64, per https://developer.android.com/reference/android/webkit/WebView.html#loadData(java.lang.String,%2520java.lang.String,%2520java.lang.String)",
+      "range": {
+        "startLine": 72,
+        "startChar": 52,
+        "endLine": 72,
+        "endChar": 59
+      },
+      "revId": "701fbb8e56af94f01aec7a06f0bf1069064b28ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
