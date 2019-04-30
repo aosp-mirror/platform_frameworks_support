@@ -164,6 +164,30 @@
       "revId": "084892dc47d75e49930ff7e807bf7e440394b6bb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7b3810e5_a9d30bfb",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 824,
+      "author": {
+        "id": 1060104
+      },
+      "writtenOn": "2019-04-30T07:25:57Z",
+      "side": 1,
+      "message": "Throwing LGTM (this is what I meant by an assertion). Thanks!",
+      "parentUuid": "69995e11_22fc800c",
+      "range": {
+        "startLine": 821,
+        "startChar": 8,
+        "endLine": 824,
+        "endChar": 9
+      },
+      "revId": "084892dc47d75e49930ff7e807bf7e440394b6bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
