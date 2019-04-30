@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cc7bc555_e3177b16",
+        "filename": "media2/common/api/res-1.0.0-alpha05.txt",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-04-30T04:22:37Z",
+      "side": 0,
+      "message": "It seems that this file should not be removed even though the file has no content.",
+      "revId": "65329b25531828f7f2ea712c9849d5582d582bdc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6885e548_368380c1",
+        "filename": "media2/common/api/res-1.0.0-beta00.txt",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-04-30T04:22:37Z",
+      "side": 0,
+      "message": "ditto",
+      "revId": "65329b25531828f7f2ea712c9849d5582d582bdc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
