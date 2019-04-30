@@ -22,6 +22,8 @@ import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
+import android.content.Intent;
+
 import androidx.camera.core.ImageAnalysis;
 import androidx.camera.core.Preview;
 import androidx.camera.integration.core.idlingresource.ElapsedTimeIdlingResource;
@@ -29,6 +31,7 @@ import androidx.test.espresso.Espresso;
 import androidx.test.espresso.IdlingRegistry;
 import androidx.test.espresso.IdlingResource;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.FlakyTest;
 import androidx.test.filters.LargeTest;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
@@ -44,6 +47,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 // Tests basic UI operation when using CoreTest app.
+@FlakyTest(bugId = 130783905)
 @RunWith(AndroidJUnit4.class)
 @LargeTest
 public final class BasicUITest {
@@ -71,6 +75,8 @@ public final class BasicUITest {
 
     @Before
     public void setUp() {
+        // Close system dialogs first to avoid interrupt.
+        mActivityRule.getActivity().sendBroadcast(new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS));
         checkViewReady();
     }
 

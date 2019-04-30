@@ -141,7 +141,7 @@ import java.util.concurrent.Executors;
  * <a href="{@docRoot}guide/topics/media-apps/audio-focus.html">Managing audio focus</a>
  * <p>
  */
-public class MediaPlayer extends SessionPlayer {
+public final class MediaPlayer extends SessionPlayer {
     private static final String TAG = "MediaPlayer";
 
     /**
@@ -170,13 +170,6 @@ public class MediaPlayer extends SessionPlayer {
      * @see PlayerCallback#onError
      */
     public static final int PLAYER_ERROR_TIMED_OUT = -110;
-    /** Unspecified low-level system error. This value originated from UNKNOWN_ERROR in
-     * system/core/include/utils/Errors.h
-     * @see PlayerCallback#onError
-     * @hide
-     */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
-    public static final int PLAYER_ERROR_SYSTEM = -2147483648;
 
     /**
      * @hide
@@ -187,19 +180,10 @@ public class MediaPlayer extends SessionPlayer {
             PLAYER_ERROR_MALFORMED,
             PLAYER_ERROR_UNSUPPORTED,
             PLAYER_ERROR_TIMED_OUT,
-            PLAYER_ERROR_SYSTEM
     })
     @Retention(RetentionPolicy.SOURCE)
     @RestrictTo(LIBRARY_GROUP_PREFIX)
     public @interface MediaError {}
-
-    /**
-     * Unspecified media player info.
-     * @see PlayerCallback#onInfo
-     * @hide
-     */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
-    public static final int MEDIA_INFO_UNKNOWN = 1;
 
     /**
      * The player just started the playback of this media item.
@@ -245,7 +229,9 @@ public class MediaPlayer extends SessionPlayer {
      * The player just finished preparing a media item for playback.
      * @see #prepare()
      * @see PlayerCallback#onInfo
+     * @hide
      */
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public static final int MEDIA_INFO_PREPARED = 100;
 
     /**
@@ -312,9 +298,7 @@ public class MediaPlayer extends SessionPlayer {
     /**
      * A new set of metadata is available.
      * @see PlayerCallback#onInfo
-     * @hide
      */
-    @RestrictTo(LIBRARY_GROUP_PREFIX)
     public static final int MEDIA_INFO_METADATA_UPDATE = 802;
 
     /**
@@ -366,7 +350,6 @@ public class MediaPlayer extends SessionPlayer {
      * @hide
      */
     @IntDef(flag = false, /*prefix = "MEDIA_INFO",*/ value = {
-            MEDIA_INFO_UNKNOWN,
             MEDIA_INFO_MEDIA_ITEM_START,
             MEDIA_INFO_VIDEO_RENDERING_START,
             MEDIA_INFO_MEDIA_ITEM_END,
@@ -478,21 +461,16 @@ public class MediaPlayer extends SessionPlayer {
         sErrorCodeMap.put(MediaPlayer2.MEDIA_ERROR_TIMED_OUT, PLAYER_ERROR_TIMED_OUT);
 
         sInfoCodeMap = new ArrayMap<>();
-        sInfoCodeMap.put(MediaPlayer2.MEDIA_INFO_UNKNOWN, MEDIA_INFO_UNKNOWN);
         sInfoCodeMap.put(
                 MediaPlayer2.MEDIA_INFO_VIDEO_RENDERING_START, MEDIA_INFO_VIDEO_RENDERING_START);
         sInfoCodeMap.put(
                 MediaPlayer2.MEDIA_INFO_VIDEO_TRACK_LAGGING, MEDIA_INFO_VIDEO_TRACK_LAGGING);
-        sInfoCodeMap.put(MediaPlayer2.MEDIA_INFO_BUFFERING_START, MEDIA_INFO_BUFFERING_START);
-        sInfoCodeMap.put(MediaPlayer2.MEDIA_INFO_BUFFERING_END, MEDIA_INFO_BUFFERING_END);
+        sInfoCodeMap.put(MediaPlayer2.MEDIA_INFO_BUFFERING_UPDATE, MEDIA_INFO_BUFFERING_UPDATE);
         sInfoCodeMap.put(MediaPlayer2.MEDIA_INFO_BAD_INTERLEAVING, MEDIA_INFO_BAD_INTERLEAVING);
         sInfoCodeMap.put(MediaPlayer2.MEDIA_INFO_NOT_SEEKABLE, MEDIA_INFO_NOT_SEEKABLE);
         sInfoCodeMap.put(MediaPlayer2.MEDIA_INFO_METADATA_UPDATE, MEDIA_INFO_METADATA_UPDATE);
         sInfoCodeMap.put(MediaPlayer2.MEDIA_INFO_AUDIO_NOT_PLAYING, MEDIA_INFO_AUDIO_NOT_PLAYING);
         sInfoCodeMap.put(MediaPlayer2.MEDIA_INFO_VIDEO_NOT_PLAYING, MEDIA_INFO_VIDEO_NOT_PLAYING);
-        sInfoCodeMap.put(
-                MediaPlayer2.MEDIA_INFO_UNSUPPORTED_SUBTITLE, MEDIA_INFO_UNSUPPORTED_SUBTITLE);
-        sInfoCodeMap.put(MediaPlayer2.MEDIA_INFO_SUBTITLE_TIMED_OUT, MEDIA_INFO_SUBTITLE_TIMED_OUT);
 
         sSeekModeMap = new ArrayMap<>();
         sSeekModeMap.put(SEEK_PREVIOUS_SYNC, MediaPlayer2.SEEK_PREVIOUS_SYNC);
@@ -677,6 +655,9 @@ public class MediaPlayer extends SessionPlayer {
      * @param context A {@link Context} that will be used to resolve {@link UriMediaItem}.
      */
     public MediaPlayer(@NonNull Context context) {
+        if (context == null) {
+            throw new NullPointerException("context shouldn't be null");
+        }
         mState = PLAYER_STATE_IDLE;
         mPlayer = MediaPlayer2.create(context);
         mExecutor = Executors.newFixedThreadPool(1);
@@ -851,6 +832,9 @@ public class MediaPlayer extends SessionPlayer {
     @Override
     public ListenableFuture<PlayerResult> setAudioAttributes(
             @NonNull final AudioAttributesCompat attr) {
+        if (attr == null) {
+            throw new NullPointerException("attr shouldn't be null");
+        }
         PendingFuture<PlayerResult> pendingFuture = new PendingFuture<PlayerResult>(mExecutor) {
             @Override
             List<ResolvableFuture<PlayerResult>> onExecute() {
@@ -1486,7 +1470,7 @@ public class MediaPlayer extends SessionPlayer {
     }
 
     @Override
-    public void close() throws Exception {
+    public void close() {
         reset();
         mAudioFocusHandler.close();
         mPlayer.close();
@@ -1674,6 +1658,9 @@ public class MediaPlayer extends SessionPlayer {
      */
     @NonNull
     public ListenableFuture<PlayerResult> setPlaybackParams(@NonNull final PlaybackParams params) {
+        if (params == null) {
+            throw new NullPointerException("params shouldn't be null");
+        }
         PendingFuture<PlayerResult> pendingFuture = new PendingFuture<PlayerResult>(mExecutor) {
             @Override
             List<ResolvableFuture<PlayerResult>> onExecute() {
@@ -1918,8 +1905,8 @@ public class MediaPlayer extends SessionPlayer {
     }
 
     /**
-     * Returns the index of the audio or video track currently selected for playback,
-     * The return value is an index into the array returned by {@link #getTrackInfo()}, and can
+     * Returns the audio or video track currently selected for playback.
+     * The return value is an element in the list returned by {@link #getTrackInfo()}, and can
      * be used in calls to {@link #selectTrack(TrackInfo)}.
      *
      * @param trackType should be one of {@link TrackInfo#MEDIA_TRACK_TYPE_VIDEO} or
@@ -1973,6 +1960,9 @@ public class MediaPlayer extends SessionPlayer {
     // TODO: support subtitle track selection  (b/130312596)
     @NonNull
     public ListenableFuture<PlayerResult> selectTrack(@NonNull final TrackInfo trackInfo) {
+        if (trackInfo == null) {
+            throw new NullPointerException("trackInfo shouldn't be null");
+        }
         final int trackId = trackInfo.mId;
         PendingFuture<PlayerResult> pendingFuture = new PendingFuture<PlayerResult>(mExecutor) {
             @Override
@@ -2014,6 +2004,9 @@ public class MediaPlayer extends SessionPlayer {
     @RestrictTo(LIBRARY_GROUP_PREFIX)
     @NonNull
     public ListenableFuture<PlayerResult> deselectTrack(@NonNull final TrackInfo trackInfo) {
+        if (trackInfo == null) {
+            throw new NullPointerException("trackInfo shouldn't be null");
+        }
         final int trackId = trackInfo.mId;
         PendingFuture<PlayerResult> pendingFuture = new PendingFuture<PlayerResult>(mExecutor) {
             @Override
@@ -2053,6 +2046,9 @@ public class MediaPlayer extends SessionPlayer {
      * @throws IllegalArgumentException if the callback is {@code null}.
      */
     public void unregisterPlayerCallback(@NonNull PlayerCallback callback) {
+        if (callback == null) {
+            throw new NullPointerException("callback shouldn't be null");
+        }
         super.unregisterPlayerCallback(callback);
     }
 
@@ -2097,6 +2093,9 @@ public class MediaPlayer extends SessionPlayer {
     // This is an asynchronous call.
     @NonNull
     public ListenableFuture<DrmResult> prepareDrm(@NonNull final UUID uuid) {
+        if (uuid == null) {
+            throw new NullPointerException("uuid shouldn't be null");
+        }
         PendingFuture<DrmResult> pendingFuture = new PendingFuture<DrmResult>(mExecutor) {
             @Override
             List<ResolvableFuture<DrmResult>> onExecute() {
@@ -2229,6 +2228,9 @@ public class MediaPlayer extends SessionPlayer {
      */
     @RestrictTo(LIBRARY_GROUP_PREFIX)
     public void restoreDrmKeys(@NonNull byte[] keySetId) throws NoDrmSchemeException {
+        if (keySetId == null) {
+            throw new NullPointerException("keySetId shouldn't be null");
+        }
         try {
             mPlayer.restoreDrmKeys(keySetId);
         } catch (MediaPlayer2.NoDrmSchemeException e) {
@@ -2249,6 +2251,9 @@ public class MediaPlayer extends SessionPlayer {
     @RestrictTo(LIBRARY_GROUP_PREFIX)
     @NonNull
     public String getDrmPropertyString(@NonNull String propertyName) throws NoDrmSchemeException {
+        if (propertyName == null) {
+            throw new NullPointerException("propertyName shouldn't be null");
+        }
         try {
             return mPlayer.getDrmPropertyString(propertyName);
         } catch (MediaPlayer2.NoDrmSchemeException e) {
@@ -2270,6 +2275,12 @@ public class MediaPlayer extends SessionPlayer {
     @RestrictTo(LIBRARY_GROUP_PREFIX)
     public void setDrmPropertyString(@NonNull String propertyName, @NonNull String value)
             throws NoDrmSchemeException {
+        if (propertyName == null) {
+            throw new NullPointerException("propertyName shouldn't be null");
+        }
+        if (value == null) {
+            throw new NullPointerException("value shouldn't be null");
+        }
         try {
             mPlayer.setDrmPropertyString(propertyName, value);
         } catch (MediaPlayer2.NoDrmSchemeException e) {
@@ -2374,6 +2385,9 @@ public class MediaPlayer extends SessionPlayer {
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     List<ResolvableFuture<PlayerResult>> setMediaItemsInternal(
             @NonNull MediaItem curItem, @Nullable MediaItem nextItem) {
+        if (curItem == null) {
+            throw new NullPointerException("curItem shouldn't be null");
+        }
         boolean setMediaItemCalled;
         synchronized (mPlaylistLock) {
             setMediaItemCalled = mSetMediaItemCalled;
@@ -2709,14 +2723,15 @@ public class MediaPlayer extends SessionPlayer {
                     });
                     break;
             }
-            final int what = sInfoCodeMap.containsKey(mp2What)
-                    ? sInfoCodeMap.get(mp2What) : MEDIA_INFO_UNKNOWN;
-            notifyMediaPlayerCallback(new MediaPlayerCallbackNotifier() {
-                @Override
-                public void callCallback(PlayerCallback callback) {
-                    callback.onInfo(MediaPlayer.this, item, what, extra);
-                }
-            });
+            if (sInfoCodeMap.containsKey(mp2What)) {
+                final int what = sInfoCodeMap.get(mp2What);
+                notifyMediaPlayerCallback(new MediaPlayerCallbackNotifier() {
+                    @Override
+                    public void callCallback(PlayerCallback callback) {
+                        callback.onInfo(MediaPlayer.this, item, what, extra);
+                    }
+                });
+            }
         }
 
         @Override
