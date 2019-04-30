@@ -1,0 +1,466 @@
+/*
+ * Copyright 2019 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package androidx.camera.integration.antelope
+
+import android.preference.PreferenceManager
+import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu
+import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.matcher.ViewMatchers.withId
+import org.junit.Rule
+import androidx.test.rule.ActivityTestRule
+import androidx.test.rule.GrantPermissionRule
+import org.junit.Assert
+import org.junit.Test
+import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
+import org.junit.Before
+import android.os.Environment
+import android.view.View
+import android.widget.Button
+import android.widget.ProgressBar
+import androidx.test.espresso.Espresso.closeSoftKeyboard
+import androidx.test.espresso.Espresso.pressBack
+import androidx.test.espresso.assertion.ViewAssertions.matches
+import java.io.File
+import androidx.test.espresso.NoActivityResumedException
+import androidx.test.espresso.matcher.RootMatchers.isDialog
+import androidx.test.espresso.matcher.ViewMatchers.withSubstring
+import androidx.test.filters.FlakyTest
+import org.junit.FixMethodOrder
+import org.junit.runners.MethodSorters
+import java.lang.Thread.sleep
+
+/** Maximum time (ms) to wait for view to be visible/enabled */
+const val VIEW_TIMEOUT = 30000L
+/** Polling interval (ms) when waiting for UI changes */
+const val VIEW_CHECK_INTERVAL = 100L
+
+/**
+ * Suite of tests that cover the major use cases for Antelope.
+ *
+ * Assumes device/emulator has a front and a back camera and that the maximum latency
+ * for a single capture is < VIEW_TIMEOUT.
+ *
+ * Currently tests are marked FlakyTest so as not to block all of androidx if there is an error.
+ */
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+class AntelopeInstrumentedTests {
+    @get: Rule
+    var activityRule: ActivityTestRule<MainActivity> =
+        ActivityTestRule(MainActivity::class.java)
+
+    @get: Rule
+    val cameraPermissionRule: GrantPermissionRule =
+        GrantPermissionRule.grant(android.Manifest.permission.CAMERA)
+    @get: Rule
+    val writeStoragePermissionRule: GrantPermissionRule =
+        GrantPermissionRule.grant(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    @get: Rule
+    val readStoragePermissionRule: GrantPermissionRule =
+        GrantPermissionRule.grant(android.Manifest.permission.READ_EXTERNAL_STORAGE)
+
+    /**
+     * On some API levels, the above permissions rules do not always work but explicitly
+     * using a shell command does.
+     */
+    @Before
+    fun grantPermissions() {
+        getInstrumentation().getUiAutomation().executeShellCommand(
+            "pm grant " + activityRule.activity.applicationContext +
+                " android.permission.CAMERA")
+        getInstrumentation().getUiAutomation().executeShellCommand(
+            "pm grant " + activityRule.activity.applicationContext +
+                " android.permission.READ_EXTERNAL_STORAGE")
+        getInstrumentation().getUiAutomation().executeShellCommand(
+            "pm grant " + activityRule.activity.applicationContext +
+                " android.permission.WRITE_EXTERNAL_STORAGE")
+    }
+
+    /**
+     * Basic context sanity test
+     */
+    @FlakyTest
+    @Test
+    fun test01ContextSanity() {
+        val context = activityRule.activity.applicationContext
+        Assert.assertEquals("androidx.camera.integration.antelope", context.packageName)
+    }
+
+    /**
+     * Performs a single capture with the default camera using Camera 2
+     *
+     * This also tests:
+     *  - clearing the .csv log file directory
+     *  - writing logs into the .csv log directory
+     */
+    @FlakyTest
+    @Test
+    fun test02SingleCaptureTest() {
+        val context = activityRule.activity.applicationContext
+        val res = context.resources
+        val prefEditor = PreferenceManager.getDefaultSharedPreferences(context).edit()
+
+        // Delete any logs on the device
+        openActionBarOverflowOrOptionsMenu(context) // Open options menu
+        onView(withId(R.id.menu_delete_logs))
+        assert(isLogDirEmpty())
+        back()
+        waitUntilViewIsVisible(R.id.button_start)
+
+        // Set up single capture
+        prefEditor.putString(res.getString(R.string.settings_single_test_type_key), "PHOTO")
+        prefEditor.putString(res.getString(R.string.settings_single_test_api_key), "Camera2")
+        prefEditor.putString(res.getString(R.string.settings_single_test_imagesize_key), "Max")
+        prefEditor.putString(res.getString(R.string.settings_single_test_focus_key), "Auto")
+        prefEditor.putString(res.getString(R.string.settings_single_test_camera_key), "0")
+        prefEditor.putString(res.getString(R.string.settings_previewbuffer_key), "250")
+        prefEditor.putBoolean(res.getString(R.string.settings_autodelete_key), true)
+        prefEditor.commit()
+
+        // Open single test dialog and perform test
+        waitUntilViewIsVisible(R.id.button_single)
+        onView(withId(R.id.button_single)).perform(click())
+        waitUntilViewIsVisible(R.id.button_start)
+        onView(withId(R.id.button_start)).inRoot(isDialog()).perform(click())
+
+        // Wait until the test has completed
+        waitUntilViewIsEnabled(R.id.button_single)
+
+        // Check dialog has closed and we have a log shown on screen and saved to disk
+        onView(withId(R.id.text_log)).check(matches(withSubstring("Single Capture")))
+        assert(!isLogDirEmpty())
+    }
+
+    /**
+     * Starts a multi-capture test with the default camera using Camera 2 and aborts it after 5s
+     *
+     */
+    @FlakyTest
+    @Test
+    fun test03AbortTest() {
+        val context = activityRule.activity.applicationContext
+        val res = context.resources
+        val prefEditor = PreferenceManager.getDefaultSharedPreferences(context).edit()
+
+        // Delete any logs on the device
+        openActionBarOverflowOrOptionsMenu(context) // Open options menu
+        onView(withId(R.id.menu_delete_logs))
+        assert(isLogDirEmpty())
+        back()
+        waitUntilViewIsVisible(R.id.button_start)
+
+        // Set up single capture
+        prefEditor.putString(res.getString(R.string.settings_single_test_type_key), "MULTI_PHOTO")
+        prefEditor.putString(res.getString(R.string.settings_single_test_api_key), "Camera2")
+        prefEditor.putString(res.getString(R.string.settings_single_test_imagesize_key), "Max")
+        prefEditor.putString(res.getString(R.string.settings_single_test_focus_key), "Auto")
+        prefEditor.putString(res.getString(R.string.settings_single_test_camera_key), "0")
+        prefEditor.putString(res.getString(R.string.settings_numtests_key), "30")
+        prefEditor.putString(res.getString(R.string.settings_previewbuffer_key), "250")
+        prefEditor.putBoolean(res.getString(R.string.settings_autodelete_key), true)
+        prefEditor.commit()
+
+        // Open single test dialog and perform test
+        waitUntilViewIsVisible(R.id.button_single)
+        onView(withId(R.id.button_single)).perform(click())
+        waitUntilViewIsVisible(R.id.button_start)
+        onView(withId(R.id.button_start)).inRoot(isDialog()).perform(click())
+
+        // Wait 5 seconds and then abort
+        sleep(5000)
+        onView(withId(R.id.button_abort)).perform(click())
+
+        // Check dialog has closed and we have a log on screen and on disk
+        onView(withId(R.id.text_log)).check(matches(withSubstring("ABORTED")))
+        assert(isLogDirEmpty())
+    }
+
+    /**
+     * Performs a single capture and saves the image to disk. Tests:
+     *
+     *  - image was saved to disk
+     *  - deleting images from settings menu works
+     *  - clearing the .csv log file directory
+     *  - writing logs into the .csv log directory
+     */
+    @FlakyTest
+    @Test
+    fun test04ImageSaveAndDeleteTest() {
+        val context = activityRule.activity.applicationContext
+        val res = context.resources
+        val prefEditor = PreferenceManager.getDefaultSharedPreferences(context).edit()
+
+        // Delete any logs on the device
+        openActionBarOverflowOrOptionsMenu(context) // Open options menu
+        onView(withId(R.id.menu_delete_logs))
+        onView(withId(R.id.menu_delete_photos))
+        assert(isLogDirEmpty())
+        assert(isPhotoDirEmpty())
+        back()
+        waitUntilViewIsVisible(R.id.button_start)
+
+        // Set up single capture
+        prefEditor.putString(res.getString(R.string.settings_single_test_type_key), "PHOTO")
+        prefEditor.putString(res.getString(R.string.settings_single_test_api_key), "Camera2")
+        prefEditor.putString(res.getString(R.string.settings_single_test_imagesize_key), "Max")
+        prefEditor.putString(res.getString(R.string.settings_single_test_focus_key), "Auto")
+        prefEditor.putString(res.getString(R.string.settings_single_test_camera_key), "0")
+        prefEditor.putString(res.getString(R.string.settings_previewbuffer_key), "250")
+        prefEditor.putBoolean(res.getString(R.string.settings_autodelete_key), false)
+        prefEditor.commit()
+
+        // Open single test dialog and perform test
+        waitUntilViewIsVisible(R.id.button_single)
+        onView(withId(R.id.button_single)).perform(click())
+        waitUntilViewIsVisible(R.id.button_start)
+        onView(withId(R.id.button_start)).inRoot(isDialog()).perform(click())
+
+        // Wait until the test has completed
+        waitUntilViewIsEnabled(R.id.button_single)
+
+        // Check dialog has closed and we have a log shown on screen and saved to disk
+        onView(withId(R.id.text_log)).check(matches(withSubstring("Single Capture")))
+        assert(!isLogDirEmpty())
+
+        // Check photo is on disk
+        assert(!isPhotoDirEmpty())
+
+        // Now delete photo on disk
+        openActionBarOverflowOrOptionsMenu(context) // Open options menu
+        onView(withId(R.id.menu_delete_photos))
+        assert(isPhotoDirEmpty())
+        back()
+        waitUntilViewIsVisible(R.id.button_start)
+    }
+
+    /**
+     * Performs a single camera switch back->front->back
+     */
+    @FlakyTest
+    @Test
+    fun test05SwitchCameraTest() {
+        val context = activityRule.activity.applicationContext
+        val res = context.resources
+        val prefEditor = PreferenceManager.getDefaultSharedPreferences(context).edit()
+
+        // Delete any logs on the device
+        openActionBarOverflowOrOptionsMenu(context) // Open options menu
+        onView(withId(R.id.menu_delete_logs))
+        assert(isLogDirEmpty())
+        back()
+        waitUntilViewIsVisible(R.id.button_start)
+
+        // Set up single capture
+        prefEditor.putString(res.getString(R.string.settings_single_test_type_key), "SWITCH_CAMERA")
+        prefEditor.putString(res.getString(R.string.settings_single_test_api_key), "Camera2")
+        prefEditor.putString(res.getString(R.string.settings_single_test_imagesize_key), "Max")
+        prefEditor.putString(res.getString(R.string.settings_single_test_focus_key), "Auto")
+        prefEditor.putString(res.getString(R.string.settings_single_test_camera_key), "0")
+        prefEditor.putString(res.getString(R.string.settings_previewbuffer_key), "250")
+        prefEditor.putBoolean(res.getString(R.string.settings_autodelete_key), true)
+        prefEditor.commit()
+
+        // Open single test dialog and perform test
+        waitUntilViewIsVisible(R.id.button_single)
+        onView(withId(R.id.button_single)).perform(click())
+        waitUntilViewIsVisible(R.id.button_start)
+        onView(withId(R.id.button_start)).inRoot(isDialog()).perform(click())
+
+        // Wait until the test has completed
+        waitUntilViewIsEnabled(R.id.button_single)
+
+        // Check dialog has closed and we have a log shown on screen and saved to disk
+        onView(withId(R.id.text_log)).check(matches(withSubstring("Switch Cameras")))
+        assert(!isLogDirEmpty())
+    }
+
+    /**
+     * Performs a full set of captures for all possible APIs/cameras/image sizes/tests
+     */
+    @FlakyTest
+    @Test
+    fun test06MultipleCaptureTest() {
+        val context = activityRule.activity.applicationContext
+        val res = context.resources
+        val prefEditor = PreferenceManager.getDefaultSharedPreferences(context).edit()
+
+        // Delete any logs on the device
+        openActionBarOverflowOrOptionsMenu(context) // Open options menu
+        onView(withId(R.id.menu_delete_logs))
+        assert(isLogDirEmpty())
+        back()
+        waitUntilViewIsVisible(R.id.button_start)
+
+        // Set up maximum test coverage
+        prefEditor.putStringSet(res.getString(R.string.settings_autotest_api_key),
+            res.getStringArray(R.array.array_settings_api).toHashSet())
+        prefEditor.putStringSet(res.getString(R.string.settings_autotest_imagesize_key),
+            res.getStringArray(R.array.array_settings_imagesize).toHashSet())
+        prefEditor.putStringSet(res.getString(R.string.settings_autotest_focus_key),
+            res.getStringArray(R.array.array_settings_focus).toHashSet())
+
+        prefEditor.putBoolean(res.getString(R.string.settings_autotest_switchtest_key), true)
+        prefEditor.putBoolean(res.getString(R.string.settings_autotest_cameras_key), false)
+        prefEditor.putBoolean(res.getString(R.string.settings_autodelete_key), true)
+
+        prefEditor.putString(res.getString(R.string.settings_numtests_key), "10")
+        prefEditor.putString(res.getString(R.string.settings_previewbuffer_key), "250")
+
+        prefEditor.commit()
+
+        // Open single test dialog and perform test
+        waitUntilViewIsVisible(R.id.button_multi)
+        onView(withId(R.id.button_multi)).perform(click())
+        waitUntilViewIsVisible(R.id.button_start)
+        onView(withId(R.id.button_start)).inRoot(isDialog()).perform(click())
+
+        // Wait until the test has completed
+        waitUntilMultiTestComplete()
+
+        // Check dialog has closed and we have a log on screen and on disk
+        onView(withId(R.id.text_log)).check(matches(withSubstring("DATE:")))
+        assert(!isLogDirEmpty())
+    }
+
+    /**
+     * Checks whether the default .csv log directory is empty
+     */
+    private fun isLogDirEmpty(): Boolean {
+        val csvDir = File(Environment.getExternalStoragePublicDirectory(
+            Environment.DIRECTORY_DOCUMENTS), MainActivity.LOG_DIR)
+
+        if (csvDir.exists()) {
+            val children = csvDir.listFiles()
+            return (children.isEmpty())
+        } else {
+            return true
+        }
+    }
+
+    /**
+     * Checks whether the default image directory is empty
+     */
+    private fun isPhotoDirEmpty(): Boolean {
+        val photoDir = File(Environment.getExternalStoragePublicDirectory(
+            Environment.DIRECTORY_DCIM), MainActivity.PHOTOS_DIR)
+
+        if (photoDir.exists()) {
+            val children = photoDir.listFiles()
+            return (children.isEmpty())
+        } else {
+            return true
+        }
+    }
+
+    /**
+     * Given a view id, wait, up until VIEW_TIMEOUT, for it to become visible
+     */
+    private fun waitUntilViewIsVisible(id: Int) {
+        val view = activityRule.activity.findViewById<View>(id)
+
+        if (null != view) {
+            val startTime = System.currentTimeMillis()
+            while (!isVisible(view)) {
+                Thread.sleep(VIEW_CHECK_INTERVAL)
+                if (System.currentTimeMillis() - startTime >= VIEW_TIMEOUT) {
+                    throw AssertionError("View: " + view.id + " not visible after " +
+                        (VIEW_TIMEOUT / 1000) + "s.")
+                }
+            }
+        }
+    }
+
+    /**
+     * Convenience method to check if a view is visible
+     */
+    private fun isVisible(view: View): Boolean {
+        return (view.systemUiVisibility == View.VISIBLE)
+    }
+
+    /**
+     * We determine if multi-test is complete if the "multi test" button has been re-enabled.
+     *
+     * Multi-test runs can take 60 mins, to measure if the test is running and not locked up,
+     * this function examines the progress bar. If it is changing, the test is still running. This
+     * is checked every VIEW_CHECK_INTERVAL ms.
+     *
+     * There is a timeout of VIEW_TIMEOUT ms. If the progress bar has not advanced during that
+     * timeout, this function returns.
+     *
+     * Note: this function could fail if every VIEW_CHECK_INTERVAL the test was on the same
+     * iteration of a subsequent test. Unlikely for test repetitions > 2.
+     */
+    private fun waitUntilMultiTestComplete() {
+
+        val view = activityRule.activity.findViewById<Button>(R.id.button_multi)
+        val progressBar = activityRule.activity.findViewById<ProgressBar>(R.id.progress_test)
+        var lastProgressBarValue = 0
+
+        if (null != view) {
+            var timeoutBegin = System.currentTimeMillis()
+            while (!view.isEnabled) {
+                sleep(VIEW_CHECK_INTERVAL)
+
+                // If there has been change, restart the timeout
+                if (progressBar.progress != lastProgressBarValue) {
+                    lastProgressBarValue = progressBar.progress
+                    timeoutBegin = System.currentTimeMillis()
+                    continue
+                }
+
+                // No change in progress bar, check if this has timed out
+                if (System.currentTimeMillis() - timeoutBegin >= VIEW_TIMEOUT) {
+                    throw AssertionError("View: " + view.id + " not enabled after " +
+                        (VIEW_TIMEOUT / 1000) + "s.")
+                }
+            }
+        }
+    }
+
+    /**
+     * Given a view id, wait, up until VIEW_TIMEOUT, for it to be enabled
+     */
+    private fun waitUntilViewIsEnabled(id: Int) {
+        val view = activityRule.activity.findViewById<View>(id)
+
+        if (null != view) {
+            val startTime = System.currentTimeMillis()
+            while (!view.isEnabled) {
+                sleep(VIEW_CHECK_INTERVAL)
+                if (System.currentTimeMillis() - startTime >= VIEW_TIMEOUT) {
+                    throw AssertionError("View: " + view.id + " not enabled after " +
+                        (VIEW_TIMEOUT / 1000) + "s.")
+                }
+            }
+        }
+    }
+
+    /**
+     * Go "back" while testing. This is used primarily to close the settings menu.
+     *
+     * This ensures the soft keyboard is closed and that the app doesn't get killed by accident.
+     */
+    private fun back() {
+        try {
+            closeSoftKeyboard()
+            pressBack()
+            sleep(1000) // Small pause to account for emulator lag
+        } catch (ex: NoActivityResumedException) {
+            Unit // Test is already at the root of the app, do nothing
+        }
+    }
+}
