@@ -115,7 +115,7 @@ public final class CaptureConfig {
         return mImplementationOptions;
     }
 
-    int getTemplateType() {
+    public int getTemplateType() {
         return mTemplateType;
     }
 

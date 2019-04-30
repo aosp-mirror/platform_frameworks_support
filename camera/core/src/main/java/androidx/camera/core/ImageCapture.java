@@ -17,12 +17,9 @@
 package androidx.camera.core;
 
 import android.graphics.ImageFormat;
-import android.hardware.camera2.CameraDevice;
-import android.hardware.camera2.CaptureRequest;
 import android.location.Location;
 import android.media.Image;
 import android.media.ImageReader;
-import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.SystemClock;
@@ -130,6 +127,11 @@ public class ImageCapture extends UseCase {
      * by {@link #takePicture(OnImageCapturedListener)}
      */
     private final CaptureProcessor mCaptureProcessor;
+    /**
+     * A factory for producing photo shoot customizer. The customizer will set special settings
+     * for CaptureConfig before issuing image capture request.
+     */
+    private final TakePictureCustomizer.Factory mTakePictureCustomizerFactory;
     private final ImageCaptureConfig.Builder mUseCaseConfigBuilder;
     @SuppressWarnings("WeakerAccess") /* synthetic accessor */
             ImageReaderProxy mImageReader;
@@ -185,6 +187,9 @@ public class ImageCapture extends UseCase {
             throw new IllegalArgumentException(
                     "ImageCaptureConfig has no CaptureProcess set with CaptureBundle size > 1.");
         }
+
+        mTakePictureCustomizerFactory = mConfig.getTakePictureCustomizerFactory(
+                TakePictureCustomizer.getDefaultEmptyFactory());
 
         if (mCaptureMode == CaptureMode.MAX_QUALITY) {
             mEnableCheck3AConverged = true; // check 3A convergence in MAX_QUALITY mode
@@ -805,28 +810,19 @@ public class ImageCapture extends UseCase {
         }
     }
 
-    /**
-     * Issues a {@link CaptureRequest#CONTROL_AF_TRIGGER_START} request to start auto focus scan.
-     */
+    /** Issues auto focus scan. */
     private void triggerAf(TakePictureState state) {
         state.mIsAfTriggered = true;
         getCurrentCameraControl().triggerAf();
     }
 
-    /**
-     * Issues a {@link CaptureRequest#CONTROL_AE_PRECAPTURE_TRIGGER_START} request to start auto
-     * exposure scan.
-     */
+    /** Issues auto exposure scan. */
     void triggerAePrecapture(TakePictureState state) {
         state.mIsAePrecaptureTriggered = true;
         getCurrentCameraControl().triggerAePrecapture();
     }
 
-    /**
-     * Issues {@link CaptureRequest#CONTROL_AF_TRIGGER_CANCEL} or {@link
-     * CaptureRequest#CONTROL_AE_PRECAPTURE_TRIGGER_CANCEL} request to cancel auto focus or auto
-     * exposure scan.
-     */
+    /** Issues cancel auto focus or auto exposure scan. */
     void cancelAfAeTrigger(TakePictureState state) {
         if (!state.mIsAfTriggered && !state.mIsAePrecaptureTriggered) {
             return;
@@ -835,29 +831,6 @@ public class ImageCapture extends UseCase {
                 .cancelAfAeTrigger(state.mIsAfTriggered, state.mIsAePrecaptureTriggered);
         state.mIsAfTriggered = false;
         state.mIsAePrecaptureTriggered = false;
-    }
-
-    // TODO(b/123897971):  move the device specific code once we complete the device workaround
-    // module.
-    private void applyPixelHdrPlusChangeForCaptureMode(
-            CaptureMode captureMode, CaptureConfig.Builder takePhotoRequestBuilder) {
-        if (Build.MANUFACTURER.equals("Google")
-                && (Build.MODEL.equals("Pixel 2") || Build.MODEL.equals("Pixel 3"))) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                switch (captureMode) {
-                    case MAX_QUALITY:
-                        // enable ZSL to make sure HDR+ is enabled
-                        takePhotoRequestBuilder.addCharacteristic(
-                                CaptureRequest.CONTROL_ENABLE_ZSL, true);
-                        break;
-                    case MIN_LATENCY:
-                        // disable ZSL to turn off HDR+
-                        takePhotoRequestBuilder.addCharacteristic(
-                                CaptureRequest.CONTROL_ENABLE_ZSL, false);
-                        break;
-                }
-            }
-        }
     }
 
     /** Issues a take picture request. */
@@ -870,9 +843,10 @@ public class ImageCapture extends UseCase {
             builder.addAllCameraCaptureCallbacks(
                     mSessionConfigBuilder.getSingleCameraCaptureCallbacks());
             builder.addSurface(new ImmediateSurface(mImageReader.getSurface()));
-            builder.setTemplateType(CameraDevice.TEMPLATE_STILL_CAPTURE);
 
-            applyPixelHdrPlusChangeForCaptureMode(mCaptureMode, builder);
+            mTakePictureCustomizerFactory.create()
+                    .setCaptureMode(mCaptureMode)
+                    .apply(builder);
 
             builder.addImplementationOptions(
                     captureStage.getCaptureConfig().getImplementationOptions());

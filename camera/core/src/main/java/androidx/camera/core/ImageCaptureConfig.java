@@ -53,6 +53,9 @@ public final class ImageCaptureConfig
             Option.create("camerax.core.imageCapture.bufferFormat", Integer.class);
     static final Option<Integer> OPTION_MAX_CAPTURE_STAGES =
             Option.create("camerax.core.imageCapture.maxCaptureStages", Integer.class);
+    static final Option<TakePictureCustomizer.Factory> OPTION_TAKE_PICTURE_CUSTOMIZER_FACTORY =
+            Option.create("camerax.core.imageCapture.takePictureCustomizerFactory",
+                    TakePictureCustomizer.Factory.class);
 
     // *********************************************************************************************
 
@@ -172,6 +175,21 @@ public final class ImageCaptureConfig
     @Nullable
     public Integer getBufferFormat(@Nullable Integer valueIfMissing) {
         return retrieveOption(OPTION_BUFFER_FORMAT, valueIfMissing);
+    }
+
+    /**
+     * Returns the {@link TakePictureCustomizer.Factory}.
+     *
+     * @param valueIfMissing The value to return if this configuration option has not been set.
+     * @return The stored value or <code>valueIfMissing</code> if the value does not exist in this
+     * configuration.
+     * @hide
+     */
+    @RestrictTo(Scope.LIBRARY_GROUP)
+    @Nullable
+    public TakePictureCustomizer.Factory getTakePictureCustomizerFactory(
+            @Nullable TakePictureCustomizer.Factory valueIfMissing) {
+        return retrieveOption(OPTION_TAKE_PICTURE_CUSTOMIZER_FACTORY, valueIfMissing);
     }
 
     /**
@@ -677,6 +695,19 @@ public final class ImageCaptureConfig
         @RestrictTo(Scope.LIBRARY_GROUP)
         public Builder setMaxCaptureStages(int maxCaptureStages) {
             getMutableConfig().insertOption(OPTION_MAX_CAPTURE_STAGES, maxCaptureStages);
+            return this;
+        }
+
+        /**
+         * Sets the {@link TakePictureCustomizer.Factory}.
+         *
+         * @param factory The factory for producing {@link TakePictureCustomizer}.
+         * @return The current Builder.
+         * @hide
+         */
+        @RestrictTo(Scope.LIBRARY_GROUP)
+        public Builder setTakePictureCustomizerFactory(TakePictureCustomizer.Factory factory) {
+            getMutableConfig().insertOption(OPTION_TAKE_PICTURE_CUSTOMIZER_FACTORY, factory);
             return this;
         }
 
