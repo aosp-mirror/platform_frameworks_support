@@ -204,7 +204,7 @@ final class SupportedSurfaceCombination {
                     CameraDeviceConfig config = (CameraDeviceConfig) useCase.getUseCaseConfig();
                     String useCaseCameraId;
                     try {
-                        useCaseCameraId = CameraX.getCameraWithLensFacing(config.getLensFacing());
+                        useCaseCameraId = CameraX.getCameraWithCameraDeviceConfig(config);
                     } catch (Exception e) {
                         throw new IllegalArgumentException(
                                 "Unable to get camera ID for use case " + useCase.getName(), e);
