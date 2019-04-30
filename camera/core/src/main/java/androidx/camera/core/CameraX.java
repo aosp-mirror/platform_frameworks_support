@@ -141,6 +141,10 @@ public final class CameraX {
             }
         }
 
+        for (UseCase useCase : useCases) {
+            useCase.onBind();
+        }
+
         calculateSuggestedResolutions(useCases);
 
         for (UseCase useCase : useCases) {

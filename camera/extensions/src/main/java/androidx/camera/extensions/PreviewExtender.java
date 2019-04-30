@@ -19,13 +19,24 @@ package androidx.camera.extensions;
 import android.hardware.camera2.CameraCharacteristics;
 import android.hardware.camera2.CaptureRequest;
 import android.util.Pair;
+import android.util.Size;
 
+import androidx.annotation.GuardedBy;
 import androidx.camera.camera2.Camera2Config;
+import androidx.camera.camera2.impl.CameraEventCallback;
+import androidx.camera.camera2.impl.CameraEventCallbacks;
 import androidx.camera.core.CameraX;
+import androidx.camera.core.CaptureConfig;
 import androidx.camera.core.Config;
 import androidx.camera.core.PreviewConfig;
+import androidx.camera.core.UseCase;
+import androidx.camera.core.impl.utils.executor.CameraXExecutors;
 import androidx.camera.extensions.impl.CaptureStageImpl;
 import androidx.camera.extensions.impl.PreviewExtenderImpl;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.Executor;
 
 /**
  * Class for using an OEM provided extension on view finder.
@@ -76,5 +87,132 @@ public abstract class PreviewExtender {
             mBuilder.getMutableConfig().insertOption(objectOpt,
                     camera2Config.retrieveOption(objectOpt));
         }
+
+        PreviewExtenderAdapter previewExtenderAdapter = new PreviewExtenderAdapter(mImpl);
+        new Camera2Config.Extender(mBuilder).setCameraEventCallback(
+                new CameraEventCallbacks(previewExtenderAdapter));
+        mBuilder.setUseCaseEventListener(previewExtenderAdapter);
     }
+
+
+    /**
+     * An implementation to adapt the OEM provided implementation to core.
+     */
+    static class PreviewExtenderAdapter extends CameraEventCallback implements
+            UseCase.EventListener {
+
+        private PreviewExtenderImpl mImpl;
+
+        private final Object mLock = new Object();
+        @GuardedBy("mLock")
+        private volatile int mEnabledSessionCount = 0;
+
+        PreviewExtenderAdapter(PreviewExtenderImpl impl) {
+            mImpl = impl;
+        }
+
+        @Override
+        public void onBind(String cameraId) {
+            CameraCharacteristics cameraCharacteristics =
+                    CameraUtil.getCameraCharacteristics(cameraId);
+            mImpl.onInit(cameraId, cameraCharacteristics, CameraX.getContext());
+        }
+
+        @Override
+        public void onUnbind() {
+            boolean callNow = false;
+            synchronized (mLock) {
+                if (mEnabledSessionCount == 0) {
+                    callNow = true;
+                }
+            }
+
+            if (callNow) {
+                callDeInit(CameraXExecutors.mainThreadExecutor());
+            }
+        }
+
+        private void callDeInit(Executor executor) {
+            if (executor != null) {
+                executor.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        mImpl.onDeInit();
+                    }
+                });
+            }
+        }
+
+        @Override
+        public List<CaptureConfig> onPresetSession() {
+            CaptureStageImpl captureStageImpl = mImpl.onPresetSession();
+            if (captureStageImpl != null) {
+                return Arrays.asList(new AdaptingCaptureStage(captureStageImpl).getCaptureConfig());
+            }
+
+            return null;
+        }
+
+        @Override
+        public List<CaptureConfig> onEnableSession() {
+            try {
+                CaptureStageImpl captureStageImpl = mImpl.onEnableSession();
+                if (captureStageImpl != null) {
+                    return Arrays.asList(
+                            new AdaptingCaptureStage(captureStageImpl).getCaptureConfig());
+                }
+
+                return null;
+            } finally {
+                synchronized (mLock) {
+                    mEnabledSessionCount++;
+                }
+            }
+        }
+
+        @Override
+        public List<CaptureConfig> onDisableSession() {
+            try {
+                CaptureStageImpl captureStageImpl = mImpl.onDisableSession();
+                if (captureStageImpl != null) {
+                    return Arrays.asList(
+                            new AdaptingCaptureStage(captureStageImpl).getCaptureConfig());
+                }
+
+                return null;
+            } finally {
+                Executor executor = null;
+                synchronized (mLock) {
+                    mEnabledSessionCount--;
+                    if (mEnabledSessionCount == 0) {
+                        executor = CameraXExecutors.mainThreadExecutor();
+                    }
+                }
+                callDeInit(executor);
+            }
+        }
+
+        @Override
+        public List<CaptureConfig> onRepeating() {
+            CaptureStageImpl captureStageImpl = mImpl.getCaptureStage();
+            if (captureStageImpl != null) {
+                return Arrays.asList(
+                        new AdaptingCaptureStage(captureStageImpl).getCaptureConfig());
+            }
+
+            return null;
+        }
+
+        @Override
+        public void onResolutionUpdate(Size size) {
+            mImpl.onResolutionUpdate(size);
+        }
+
+        @Override
+        public void onImageFormatUpdate(int imageFormat) {
+            mImpl.onImageFormatUpdate(imageFormat);
+        }
+
+    }
+
 }
