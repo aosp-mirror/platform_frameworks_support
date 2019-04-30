@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ef86beca_7024d76d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-04-30T07:50:26Z",
+      "side": 1,
+      "message": "Bug: 131313002, Bug: 131632602",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 14
+      },
+      "revId": "2a57223e635a38943b8b4a11e6b8f479426a5307",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aef8f9c5_24461a7c",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2166,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-04-30T07:50:26Z",
+      "side": 1,
+      "message": "What if mVideoTrackCount \u003d\u003d 0 \u0026\u0026 mAudioTrackCount \u003d\u003d 0?",
+      "range": {
+        "startLine": 2166,
+        "startChar": 41,
+        "endLine": 2166,
+        "endChar": 59
+      },
+      "revId": "2a57223e635a38943b8b4a11e6b8f479426a5307",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ffc0a7d_03b041c0",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2172,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-04-30T07:50:26Z",
+      "side": 1,
+      "message": "Can\u0027t audio contain lyrics as subtitle?",
+      "range": {
+        "startLine": 2172,
+        "startChar": 48,
+        "endLine": 2172,
+        "endChar": 61
+      },
+      "revId": "2a57223e635a38943b8b4a11e6b8f479426a5307",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31b9fe19_425c8989",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 817,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-04-30T07:50:26Z",
+      "side": 1,
+      "message": "If this happens, isn\u0027t it a bug in MediaPlayer?",
+      "range": {
+        "startLine": 817,
+        "startChar": 12,
+        "endLine": 817,
+        "endChar": 51
+      },
+      "revId": "2a57223e635a38943b8b4a11e6b8f479426a5307",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd1b84bc_13d40d42",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 832,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-04-30T07:50:26Z",
+      "side": 1,
+      "message": "Why don\u0027t you check just video size?\n\nQ) Is it video or audio if video size is 0 but mVideoTrackCount is not 0?",
+      "range": {
+        "startLine": 832,
+        "startChar": 15,
+        "endLine": 832,
+        "endChar": 31
+      },
+      "revId": "2a57223e635a38943b8b4a11e6b8f479426a5307",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
