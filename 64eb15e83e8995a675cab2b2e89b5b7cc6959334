@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4d0d4cd4_3ab02b68",
+        "filename": "benchmark/src/main/java/androidx/benchmark/BenchmarkState.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-04-30T17:15:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c2031d2b_2fd2e144",
+      "range": {
+        "startLine": 422,
+        "startChar": 18,
+        "endLine": 422,
+        "endChar": 23
+      },
+      "revId": "64eb15e83e8995a675cab2b2e89b5b7cc6959334",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9e376eec_da306791",
         "filename": "benchmark/src/main/java/androidx/benchmark/BenchmarkState.kt",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2019-04-30T16:40:35Z",
       "side": 1,
       "message": "Please document valid ranges for these values",
+      "range": {
+        "startLine": 434,
+        "startChar": 12,
+        "endLine": 435,
+        "endChar": 33
+      },
+      "revId": "64eb15e83e8995a675cab2b2e89b5b7cc6959334",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c08ebbbb_ea8bf844",
+        "filename": "benchmark/src/main/java/androidx/benchmark/BenchmarkState.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-04-30T17:15:00Z",
+      "side": 1,
+      "message": "Done, though this is gross from kotlin. Filed b/131689602",
+      "parentUuid": "9e376eec_da306791",
       "range": {
         "startLine": 434,
         "startChar": 12,
