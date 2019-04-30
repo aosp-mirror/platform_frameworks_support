@@ -16,7 +16,12 @@
 
 package androidx.camera.extensions.impl;
 
+import android.content.Context;
 import android.hardware.camera2.CameraCharacteristics;
+import android.hardware.camera2.CameraDevice;
+import android.hardware.camera2.CaptureRequest;
+import android.media.Image;
+import android.util.Size;
 
 import java.util.List;
 
@@ -41,12 +46,88 @@ public interface ImageCaptureExtenderImpl {
      */
     void enableExtension(String cameraId, CameraCharacteristics cameraCharacteristics);
 
-    /** The set of captures that are needed to create an image with the effect. */
-    List<CaptureStageImpl> getCaptureStages();
-
     /**
      * The processing that will be done on a set of captures to create and image with the effect.
      */
     CaptureProcessorImpl getCaptureProcessor();
+
+    /** The set of captures that are needed to create an image with the effect. */
+    List<CaptureStageImpl> getCaptureStages();
+
+    /**
+     * Returns the maximum size of the list returned by {@link #getCaptureStages()}.
+     * @return the maximum count.
+     */
+    int getMaxCaptureStage();
+
+    /**
+     * Notify to initialize the extension. This will be called after bindToLifeCycle. This is
+     * where the use case is started and would be able to allocate resources here. After onInit() is
+     * called, the camera ID, cameraCharacteristics and context will not change until onDeInit()
+     * has been called.
+     *
+     * @param cameraId The camera2 id string of the camera.
+     * @param cameraCharacteristics The {@link CameraCharacteristics} of the camera.
+     * @param context The {@link Context} used for CameraX.
+     */
+    void onInit(String cameraId, CameraCharacteristics cameraCharacteristics, Context context);
+
+    /**
+     * Notify to de-initialize the extension. This callback will be invoked after unbind.
+     * After onDeInit() was called, it is expected that the camera ID, cameraCharacteristics will
+     * no longer hold, this should be where to clear all resources allocated for this use case.
+     */
+    void onDeInit();
+
+    /**
+     * This will be invoked before creating a
+     * {@link android.hardware.camera2.CameraCaptureSession}. The {@link CaptureRequest}
+     * parameters returned via {@link CaptureStageImpl} will be passed to the camera device as
+     * part of the capture session initialization via setSessionParameters(). The valid parameter
+     * is a subset of the available capture request parameters.
+     *
+     * @return The request information to set the session wide camera parameters.
+     */
+    CaptureStageImpl onPresetSession();
+
+    /**
+     * This will be invoked once after the {@link android.hardware.camera2.CameraCaptureSession}
+     * has been created. The {@link CaptureRequest} parameters returned via
+     * {@link CaptureStageImpl} will be used to generate a single request to the current
+     * configured {@link CameraDevice}. The generated request will be submitted to camera before
+     * processing other single requests.
+     *
+     * @return The request information to create a single capture request to camera device.
+     */
+    CaptureStageImpl onEnableSession();
+
+    /**
+     * This will be invoked before the {@link android.hardware.camera2.CameraCaptureSession} is
+     * closed. The {@link CaptureRequest} parameters returned via {@link CaptureStageImpl} will
+     * be used to generate a single request to the currently configured {@link CameraDevice}. The
+     * generated request will be submitted to camera before the CameraCaptureSession is closed.
+     *
+     * @return The request information to customize the session.
+     */
+    CaptureStageImpl onDisableSession();
+
+    /**
+     * This callback will be invoked when CameraX changes the configured input resolution. After
+     * this call, {@link CaptureProcessorImpl} should expect any {@link Image} received as input
+     * to be at the specified resolution.
+     *
+     * @param size for the surface.
+     */
+    void onResolutionUpdate(Size size);
+
+    /**
+     * This callback will be invoked when CameraX changes the configured input image format.
+     * After this call, {@link CaptureProcessorImpl} should expect any {@link Image} received as
+     * input to have the specified image format.
+     *
+     * @param imageFormat for the surface.
+     */
+    void onImageFormatUpdate(int imageFormat);
+
 }
 
