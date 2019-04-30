@@ -16,8 +16,6 @@
 
 package androidx.camera.camera2.impl;
 
-import android.hardware.camera2.CaptureRequest;
-
 import androidx.camera.camera2.Camera2Config;
 import androidx.camera.core.CameraCaptureSessionStateCallbacks;
 import androidx.camera.core.CameraDeviceStateCallbacks;
@@ -52,9 +50,6 @@ final class Camera2OptionUnpacker implements SessionConfig.OptionUnpacker {
             builder.addAllRepeatingCameraCaptureCallbacks(
                     defaultSessionConfig.getRepeatingCameraCaptureCallbacks());
             implOptions = defaultSessionConfig.getImplementationOptions();
-
-            // Add all default camera characteristics
-            builder.addCharacteristics(defaultSessionConfig.getCameraCharacteristics());
         }
 
         // Set the any additional implementation options
@@ -84,23 +79,12 @@ final class Camera2OptionUnpacker implements SessionConfig.OptionUnpacker {
         builder.addImplementationOptions(cameraEventConfig);
 
         // Copy extension keys
-        camera2Config.findOptions(
-                Camera2Config.CAPTURE_REQUEST_ID_STEM,
-                new Config.OptionMatcher() {
-                    @Override
-                    public boolean onOptionMatched(Option<?> option) {
-                        @SuppressWarnings(
-                                "unchecked")
-                        // No way to get actual type info here, so treat as Object
-                                Option<Object> typeErasedOption = (Option<Object>) option;
-                        @SuppressWarnings("unchecked")
-                        CaptureRequest.Key<Object> key =
-                                (CaptureRequest.Key<Object>) option.getToken();
-
-                        builder.addCharacteristic(key,
-                                camera2Config.retrieveOption(typeErasedOption));
-                        return true;
-                    }
-                });
+        MutableOptionsBundle bundle = MutableOptionsBundle.create();
+        for (Option<?> option : camera2Config.getCaptureRequestOptions()) {
+            @SuppressWarnings("unchecked") // Options/values are being copied directly
+                    Config.Option<Object> objectOpt = (Config.Option<Object>) option;
+            bundle.insertOption(objectOpt, camera2Config.retrieveOption(objectOpt));
+        }
+        builder.addImplementationOptions(bundle);
     }
 }
