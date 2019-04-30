@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b2f21cb4_3f544e6f",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/CameraBurstCaptureCallback.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-30T18:50:12Z",
+      "side": 1,
+      "message": "Should be consistent naming variables as \"callback\" or \"cb\".\n\nPersonal preference is to change all the others to \"callback\"",
+      "revId": "fd62a073ba4a5ddbf21f04ed443f55285df27355",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ce7e828_8dc3f06e",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/CameraBurstCaptureCallback.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-30T18:50:12Z",
+      "side": 1,
+      "message": "Collections.emptyList()?",
+      "revId": "fd62a073ba4a5ddbf21f04ed443f55285df27355",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1a92425_2a217c0d",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/CameraBurstCaptureCallback.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-30T18:50:12Z",
+      "side": 1,
+      "message": "It might be simpler if you removed this method. This will mean that you\u0027ll have to call the creating of the List\u003cCameraCaptureCallback\u003e in CaptureSession.\n\nBut this way CameraBurstCaptureCallback only deals with the CameraCaptureSession.CaptureCallback, so there will be a smaller interface to test. And it makes the responsibility of CameraBurstCaptureCallback much clearer.",
+      "revId": "fd62a073ba4a5ddbf21f04ed443f55285df27355",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e531b21d_b4d59245",
+        "filename": "camera/camera2/src/test/java/androidx/camera/camera2/CameraBurstCaptureCallbackTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-30T18:50:12Z",
+      "side": 1,
+      "message": "What is this testing?\n\nThis isn\u0027t asserting or verifying anything",
+      "revId": "fd62a073ba4a5ddbf21f04ed443f55285df27355",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
