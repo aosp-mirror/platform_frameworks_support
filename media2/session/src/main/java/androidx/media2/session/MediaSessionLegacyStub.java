@@ -44,6 +44,7 @@ import androidx.media.MediaSessionManager;
 import androidx.media.MediaSessionManager.RemoteUserInfo;
 import androidx.media2.common.MediaItem;
 import androidx.media2.common.MediaMetadata;
+import androidx.media2.common.SessionPlayer;
 import androidx.media2.common.SessionPlayer.PlayerResult;
 import androidx.media2.common.VideoSize;
 import androidx.media2.session.MediaController.PlaybackInfo;
@@ -706,6 +707,22 @@ class MediaSessionLegacyStub extends MediaSessionCompat.Callback {
         }
 
         @Override
+        void onTrackInfoChanged(int seq, List<SessionPlayer.TrackInfo> trackInfos)
+                throws RemoteException {
+            // no-op
+        }
+
+        @Override
+        void onTrackSelected(int seq, SessionPlayer.TrackInfo trackInfo) throws RemoteException {
+            // no-op
+        }
+
+        @Override
+        void onTrackDeselected(int seq, SessionPlayer.TrackInfo trackInfo) throws RemoteException {
+            // no-op
+        }
+
+        @Override
         public int hashCode() {
             return ObjectsCompat.hash(mRemoteUserInfo);
         }
@@ -893,6 +910,22 @@ class MediaSessionLegacyStub extends MediaSessionCompat.Callback {
 
         @Override
         void onVideoSizeChanged(int seq, @NonNull MediaItem item, @NonNull VideoSize videoSize) {
+            // no-op
+        }
+
+        @Override
+        void onTrackInfoChanged(int seq, List<SessionPlayer.TrackInfo> trackInfos)
+                throws RemoteException {
+            // no-op
+        }
+
+        @Override
+        void onTrackSelected(int seq, SessionPlayer.TrackInfo trackInfo) throws RemoteException {
+            // no-op
+        }
+
+        @Override
+        void onTrackDeselected(int seq, SessionPlayer.TrackInfo trackInfo) throws RemoteException {
             // no-op
         }
     }

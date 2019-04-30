@@ -38,6 +38,7 @@ import android.util.Log;
 
 import androidx.media.AudioAttributesCompat;
 import androidx.media2.common.MediaItem;
+import androidx.media2.common.MediaMetadata;
 import androidx.media2.common.SessionPlayer;
 import androidx.media2.common.VideoSize;
 import androidx.media2.session.MediaController;
@@ -59,6 +60,8 @@ import org.junit.runner.RunWith;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Tests {@link MediaController}.
@@ -70,6 +73,7 @@ public class MediaControllerTest extends MediaSessionTestBase {
 
     static final String TAG = "MediaControllerTest";
     private static final long VOLUME_CHANGE_TIMEOUT_MS = 5000L;
+    private static final long TIMEOUT_MS = 1000L;
 
     final List<RemoteMediaSession> mRemoteSessionList = new ArrayList<>();
 
@@ -359,6 +363,73 @@ public class MediaControllerTest extends MediaSessionTestBase {
         mRemoteSession.updatePlayer(playerConfig);
         MediaController controller = createController(mRemoteSession.getToken());
         assertEquals(testSize, controller.getVideoSize());
+    }
+
+    @Test
+    public void testGetTrackInfo() throws Exception {
+        prepareLooper();
+
+        final SessionPlayer.TrackInfo testTrack = new SessionPlayer.TrackInfo(0, null, 0, null);
+        final List<SessionPlayer.TrackInfo> testTracks = new ArrayList<>();
+        testTracks.add(testTrack);
+        Bundle playerConfig =
+                RemoteMediaSession.createMockPlayerConnectorConfigForTrackInfo(testTracks);
+        mRemoteSession.updatePlayer(playerConfig);
+
+        MediaController controller = createController(mRemoteSession.getToken());
+        assertEquals(testTrack, controller.getTrackInfo().get(0));
+    }
+
+    @Test
+    public void testSelectTrack() throws Exception {
+        prepareLooper();
+        final CountDownLatch latch = new CountDownLatch(1);
+
+        // Create MediaItem with "test" Media ID.
+        MediaMetadata.Builder metadataBuilder = new MediaMetadata.Builder();
+        metadataBuilder.putString(MediaMetadata.METADATA_KEY_MEDIA_ID, "test");
+        MediaItem.Builder mediaItemBuilder = new MediaItem.Builder();
+        mediaItemBuilder.setMetadata(metadataBuilder.build());
+
+        final SessionPlayer.TrackInfo testTrack = new SessionPlayer.TrackInfo(0, null, 0,
+                null);
+        MediaController controller = createController(mRemoteSession.getToken(), true, null,
+                new MediaController.ControllerCallback() {
+                    @Override
+                    public void onTrackSelected(MediaController controller,
+                            SessionPlayer.TrackInfo trackInfo) {
+                        assertEquals(testTrack, trackInfo);
+                        latch.countDown();
+                    }
+                });
+        controller.selectTrack(testTrack);
+        assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
+    }
+
+    @Test
+    public void testDeselectTrack() throws Exception {
+        prepareLooper();
+        final CountDownLatch latch = new CountDownLatch(1);
+
+        // Create MediaItem with "test" Media ID.
+        MediaMetadata.Builder metadataBuilder = new MediaMetadata.Builder();
+        metadataBuilder.putString(MediaMetadata.METADATA_KEY_MEDIA_ID, "test");
+        MediaItem.Builder mediaItemBuilder = new MediaItem.Builder();
+        mediaItemBuilder.setMetadata(metadataBuilder.build());
+
+        final SessionPlayer.TrackInfo testTrack = new SessionPlayer.TrackInfo(0,
+                mediaItemBuilder.build(), 0, null);
+        MediaController controller = createController(mRemoteSession.getToken(), true, null,
+                new MediaController.ControllerCallback() {
+                    @Override
+                    public void onTrackDeselected(MediaController controller,
+                            SessionPlayer.TrackInfo trackInfo) {
+                        assertEquals(testTrack, trackInfo);
+                        latch.countDown();
+                    }
+                });
+        controller.deselectTrack(testTrack);
+        assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
     }
 
     RemoteMediaSession createRemoteMediaSession(String id, Bundle tokenExtras) {
