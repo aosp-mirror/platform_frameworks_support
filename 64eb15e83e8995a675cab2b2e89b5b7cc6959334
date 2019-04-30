@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c2031d2b_2fd2e144",
+        "filename": "benchmark/src/main/java/androidx/benchmark/BenchmarkState.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-04-30T16:40:35Z",
+      "side": 1,
+      "message": "Can you add a bit more details of what is a summary number? Is this the average time it takes for a run?",
+      "range": {
+        "startLine": 422,
+        "startChar": 18,
+        "endLine": 422,
+        "endChar": 23
+      },
+      "revId": "64eb15e83e8995a675cab2b2e89b5b7cc6959334",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e376eec_da306791",
+        "filename": "benchmark/src/main/java/androidx/benchmark/BenchmarkState.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-04-30T16:40:35Z",
+      "side": 1,
+      "message": "Please document valid ranges for these values",
+      "range": {
+        "startLine": 434,
+        "startChar": 12,
+        "endLine": 435,
+        "endChar": 33
+      },
+      "revId": "64eb15e83e8995a675cab2b2e89b5b7cc6959334",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
