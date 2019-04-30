@@ -69,6 +69,8 @@ oneway interface IMediaSession {
     void skipToNextItem(IMediaController caller, int seq) = 29;
     void setRepeatMode(IMediaController caller, int seq, int repeatMode) = 30;
     void setShuffleMode(IMediaController caller, int seq, int shuffleMode) = 31;
+    void selectTrack(IMediaController caller, int seq, in ParcelImpl trackInfo) = 40;
+    void deselectTrack(IMediaController caller, int seq, in ParcelImpl trackInfo) = 41;
 
     void onControllerResult(IMediaController caller, int seq,
             in ParcelImpl controllerResult) = 32;
@@ -86,5 +88,5 @@ oneway interface IMediaSession {
     void subscribe(IMediaController caller, int seq, String parentId,
             in ParcelImpl libraryParams) = 38;
     void unsubscribe(IMediaController caller, int seq, String parentId) = 39;
-    // Next Id : 40
+    // Next Id : 42
 }

@@ -24,12 +24,15 @@ import static androidx.media2.test.common.CommonConstants.KEY_BUFFERED_POSITION;
 import static androidx.media2.test.common.CommonConstants.KEY_BUFFERING_STATE;
 import static androidx.media2.test.common.CommonConstants.KEY_CURRENT_POSITION;
 import static androidx.media2.test.common.CommonConstants.KEY_CURRENT_VOLUME;
+import static androidx.media2.test.common.CommonConstants.KEY_DESELECT_TRACK;
 import static androidx.media2.test.common.CommonConstants.KEY_MAX_VOLUME;
 import static androidx.media2.test.common.CommonConstants.KEY_MEDIA_ITEM;
 import static androidx.media2.test.common.CommonConstants.KEY_METADATA;
 import static androidx.media2.test.common.CommonConstants.KEY_PLAYER_STATE;
 import static androidx.media2.test.common.CommonConstants.KEY_PLAYLIST;
+import static androidx.media2.test.common.CommonConstants.KEY_SELECT_TRACK;
 import static androidx.media2.test.common.CommonConstants.KEY_SPEED;
+import static androidx.media2.test.common.CommonConstants.KEY_TRACK_INFO;
 import static androidx.media2.test.common.CommonConstants.KEY_VIDEO_SIZE;
 import static androidx.media2.test.common.CommonConstants.KEY_VOLUME_CONTROL_TYPE;
 import static androidx.media2.test.common.MediaSessionConstants
@@ -235,6 +238,15 @@ public class MediaSessionProviderService extends Service {
                 if (videoSize != null) {
                     localPlayer.mVideoSize = MediaParcelUtils.fromParcelable(videoSize);
                 }
+                List<SessionPlayer.TrackInfo> trackInfos =
+                        ParcelUtils.getVersionedParcelableList(config, KEY_TRACK_INFO);
+                localPlayer.mTrackInfos = trackInfos;
+                SessionPlayer.TrackInfo selectedTrackInfo =
+                        ParcelUtils.getVersionedParcelable(config, KEY_SELECT_TRACK);
+                localPlayer.mSelectedTrackInfo = selectedTrackInfo;
+                SessionPlayer.TrackInfo deselectedTrackInfo =
+                        ParcelUtils.getVersionedParcelable(config, KEY_DESELECT_TRACK);
+                localPlayer.mDeselectedTrackInfo = deselectedTrackInfo;
                 player = localPlayer;
             }
             ParcelImpl attrImpl = config.getParcelable(KEY_AUDIO_ATTRIBUTES);
@@ -395,6 +407,35 @@ public class MediaSessionProviderService extends Service {
             player.notifyAudioAttributesChanged(
                     (AudioAttributesCompat) MediaParcelUtils.fromParcelable(attrs));
         }
+
+        @Override
+        public void notifyTrackInfoChanged(String sessionId, List<ParcelImpl> trackInfoParcelList)
+                throws RemoteException {
+            MediaSession session = mSessionMap.get(sessionId);
+            MockPlayer player = (MockPlayer) session.getPlayer();
+            List<SessionPlayer.TrackInfo> trackInfos =
+                    MediaParcelUtils.fromParcelableList(trackInfoParcelList);
+            player.notifyTrackInfoChanged(trackInfos);
+        }
+
+        @Override
+        public void notifyTrackSelected(String sessionId, ParcelImpl trackInfo)
+                throws RemoteException {
+            MediaSession session = mSessionMap.get(sessionId);
+            MockPlayer player = (MockPlayer) session.getPlayer();
+            player.notifyTrackSelected(
+                    (SessionPlayer.TrackInfo) MediaParcelUtils.fromParcelable(trackInfo));
+        }
+
+        @Override
+        public void notifyTrackDeselected(String sessionId, ParcelImpl trackInfo)
+                throws RemoteException {
+            MediaSession session = mSessionMap.get(sessionId);
+            MockPlayer player = (MockPlayer) session.getPlayer();
+            player.notifyTrackDeselected(
+                    (SessionPlayer.TrackInfo) MediaParcelUtils.fromParcelable(trackInfo));
+        }
+
 
         ////////////////////////////////////////////////////////////////////////////////
         // MockPlaylistAgent methods

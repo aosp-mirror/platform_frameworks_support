@@ -22,12 +22,15 @@ import static androidx.media2.test.common.CommonConstants.KEY_BUFFERED_POSITION;
 import static androidx.media2.test.common.CommonConstants.KEY_BUFFERING_STATE;
 import static androidx.media2.test.common.CommonConstants.KEY_CURRENT_POSITION;
 import static androidx.media2.test.common.CommonConstants.KEY_CURRENT_VOLUME;
+import static androidx.media2.test.common.CommonConstants.KEY_DESELECT_TRACK;
 import static androidx.media2.test.common.CommonConstants.KEY_MAX_VOLUME;
 import static androidx.media2.test.common.CommonConstants.KEY_MEDIA_ITEM;
 import static androidx.media2.test.common.CommonConstants.KEY_METADATA;
 import static androidx.media2.test.common.CommonConstants.KEY_PLAYER_STATE;
 import static androidx.media2.test.common.CommonConstants.KEY_PLAYLIST;
+import static androidx.media2.test.common.CommonConstants.KEY_SELECT_TRACK;
 import static androidx.media2.test.common.CommonConstants.KEY_SPEED;
+import static androidx.media2.test.common.CommonConstants.KEY_TRACK_INFO;
 import static androidx.media2.test.common.CommonConstants.KEY_VIDEO_SIZE;
 import static androidx.media2.test.common.CommonConstants.KEY_VOLUME_CONTROL_TYPE;
 import static androidx.media2.test.common.CommonConstants.MEDIA2_SESSION_PROVIDER_SERVICE;
@@ -186,6 +189,27 @@ public class RemoteMediaSession {
     public static Bundle createMockPlayerConnectorConfigForVideoSize(@NonNull VideoSize videoSize) {
         Bundle bundle = new Bundle();
         bundle.putParcelable(KEY_VIDEO_SIZE, MediaParcelUtils.toParcelable(videoSize));
+        return bundle;
+    }
+
+    public static Bundle createMockPlayerConnectorConfigForTrackInfo(
+            @NonNull List<SessionPlayer.TrackInfo> trackInfos) {
+        Bundle bundle = new Bundle();
+        ParcelUtils.putVersionedParcelableList(bundle, KEY_TRACK_INFO, trackInfos);
+        return bundle;
+    }
+
+    public static Bundle createMockPlayerConnectorConfigForSelectTrack(
+            @NonNull SessionPlayer.TrackInfo trackInfo) {
+        Bundle bundle = new Bundle();
+        ParcelUtils.putVersionedParcelable(bundle, KEY_SELECT_TRACK, trackInfo);
+        return bundle;
+    }
+
+    public static Bundle createMockPlayerConnectorConfigForDeselectTrack(
+            @NonNull SessionPlayer.TrackInfo trackInfo) {
+        Bundle bundle = new Bundle();
+        ParcelUtils.putVersionedParcelable(bundle, KEY_DESELECT_TRACK, trackInfo);
         return bundle;
     }
 
@@ -493,7 +517,7 @@ public class RemoteMediaSession {
             try {
                 mBinder.notifyPlaybackCompleted(mSessionId);
             } catch (RemoteException ex) {
-                Log.e(TAG, "Failed to call notifyRepeatModeChanged()");
+                Log.e(TAG, "Failed to call notifyPlaybackCompleted()");
             }
         }
 
@@ -503,6 +527,33 @@ public class RemoteMediaSession {
                         MediaParcelUtils.toParcelable(videoSize));
             } catch (RemoteException ex) {
                 Log.e(TAG, "Failed to call notifyVideoSizeChanged()");
+            }
+        }
+
+        public void notifyTrackInfoChanged(List<SessionPlayer.TrackInfo> trackInfos) {
+            try {
+                mBinder.notifyTrackInfoChanged(mSessionId,
+                        MediaParcelUtils.toParcelableList(trackInfos));
+            } catch (RemoteException ex) {
+                Log.e(TAG, "Failed to call notifyTrackInfoChanged()");
+            }
+        }
+
+        public void notifyTrackSelected(SessionPlayer.TrackInfo trackInfo) {
+            try {
+                mBinder.notifyTrackSelected(mSessionId,
+                        MediaParcelUtils.toParcelable(trackInfo));
+            } catch (RemoteException ex) {
+                Log.e(TAG, "Failed to call notifyTrackSelected()");
+            }
+        }
+
+        public void notifyTrackDeselected(SessionPlayer.TrackInfo trackInfo) {
+            try {
+                mBinder.notifyTrackDeselected(mSessionId,
+                        MediaParcelUtils.toParcelable(trackInfo));
+            } catch (RemoteException ex) {
+                Log.e(TAG, "Failed to call notifyTrackDeselected()");
             }
         }
     }
