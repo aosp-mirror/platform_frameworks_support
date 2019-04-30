@@ -17,6 +17,7 @@
 package androidx.camera.extensions;
 
 import android.media.Image;
+import android.util.Size;
 import android.view.Surface;
 
 import androidx.camera.core.CaptureProcessor;
@@ -44,6 +45,7 @@ final class AdaptingCaptureProcessor implements CaptureProcessor {
     @Override
     public void onOutputSurface(Surface surface, int imageFormat) {
         mImpl.onOutputSurface(surface, imageFormat);
+        mImpl.onImageFormatUpdate(imageFormat);
     }
 
     @Override
@@ -68,5 +70,10 @@ final class AdaptingCaptureProcessor implements CaptureProcessor {
         }
 
         mImpl.process(bundleMap);
+    }
+
+    @Override
+    public void onResolutionUpdate(Size size) {
+        mImpl.onResolutionUpdate(size);
     }
 }
