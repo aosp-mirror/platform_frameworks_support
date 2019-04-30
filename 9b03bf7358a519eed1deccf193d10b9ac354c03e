@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e2305d44_7bc86846",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 1061247
+      },
+      "writtenOn": "2019-04-30T21:50:40Z",
+      "side": 1,
+      "message": "will be the rotation, which if applied to the output image, will make",
+      "range": {
+        "startLine": 286,
+        "startChar": 7,
+        "endLine": 286,
+        "endChar": 15
+      },
+      "revId": "9b03bf7358a519eed1deccf193d10b9ac354c03e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2825b7ac_113a3a46",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 1061247
+      },
+      "writtenOn": "2019-04-30T21:50:40Z",
+      "side": 1,
+      "message": "rotation is expressed as one of {@link Surface#ROTATION_0}, {@link Surface#ROTATION_90}, {@link Surface#ROTATION_180}, or {@link Surface#ROTATION_270}.",
+      "range": {
+        "startLine": 299,
+        "startChar": 54,
+        "endLine": 299,
+        "endChar": 59
+      },
+      "revId": "9b03bf7358a519eed1deccf193d10b9ac354c03e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
