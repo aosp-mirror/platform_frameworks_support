@@ -138,7 +138,7 @@ public class MediaPlayer2Test extends MediaPlayer2TestBase {
     @SdkSuppress(minSdkVersion = Build.VERSION_CODES.KITKAT)
     public void testPlayAudioFromDataURI() throws Exception {
         final int mp3Duration = 34909;
-        final int tolerance = 70;
+        final int tolerance = 100;
         final int seekDuration = 100;
 
         // This is "R.raw.testmp3_2", base64-encoded.
@@ -250,7 +250,7 @@ public class MediaPlayer2Test extends MediaPlayer2TestBase {
     public void testPlayAudio() throws Exception {
         final int resid = R.raw.testmp3_2;
         final int mp3Duration = 34909;
-        final int tolerance = 70;
+        final int tolerance = 100;
         final int seekDuration = 100;
 
         MediaPlayer2 mp = createMediaPlayer2(mContext, resid);
