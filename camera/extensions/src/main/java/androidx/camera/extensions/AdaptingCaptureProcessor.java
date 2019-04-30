@@ -17,12 +17,14 @@
 package androidx.camera.extensions;
 
 import android.media.Image;
+import android.util.Size;
 import android.view.Surface;
 
 import androidx.camera.core.CaptureProcessor;
 import androidx.camera.core.ImageProxy;
 import androidx.camera.core.ImageProxyBundle;
 import androidx.camera.extensions.impl.CaptureProcessorImpl;
+import androidx.camera.extensions.impl.ImageCaptureExtenderImpl;
 
 import com.google.common.util.concurrent.ListenableFuture;
 
@@ -35,15 +37,18 @@ import java.util.concurrent.TimeoutException;
 
 /** A {@link CaptureProcessor} that calls a vendor provided implementation. */
 final class AdaptingCaptureProcessor implements CaptureProcessor {
+    private final ImageCaptureExtenderImpl mExtenderImpl;
     private final CaptureProcessorImpl mImpl;
 
-    AdaptingCaptureProcessor(CaptureProcessorImpl impl) {
+    AdaptingCaptureProcessor(ImageCaptureExtenderImpl extenderImpl, CaptureProcessorImpl impl) {
+        mExtenderImpl = extenderImpl;
         mImpl = impl;
     }
 
     @Override
     public void onOutputSurface(Surface surface, int imageFormat) {
         mImpl.onOutputSurface(surface, imageFormat);
+        mExtenderImpl.onImageFormatUpdate(imageFormat);
     }
 
     @Override
@@ -68,5 +73,10 @@ final class AdaptingCaptureProcessor implements CaptureProcessor {
         }
 
         mImpl.process(bundleMap);
+    }
+
+    @Override
+    public void onResolutionUpdate(Size size) {
+        mExtenderImpl.onResolutionUpdate(size);
     }
 }
