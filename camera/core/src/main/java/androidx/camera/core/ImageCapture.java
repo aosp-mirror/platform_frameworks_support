@@ -124,6 +124,10 @@ public class ImageCapture extends UseCase {
 
     /** The set of requests that will be sent to the camera for the final captured image. */
     private final CaptureBundle mCaptureBundle;
+    private final CaptureBundle mDefaultCaptureBundle;
+    private final int mMaxCaptureStages;
+
+    final SessionEventListener mSessionEventListener;
 
     /**
      * Processing that gets done to the mCaptureBundle to produce the final image that is produced
@@ -163,6 +167,9 @@ public class ImageCapture extends UseCase {
         mFlashMode = mConfig.getFlashMode();
 
         mCaptureProcessor = mConfig.getCaptureProcessor(null);
+        mSessionEventListener = mConfig.getSessionEventListener(null);
+        mMaxCaptureStages = mConfig.getMaxCaptureStages(MAX_IMAGES);
+
         Integer bufferFormat = mConfig.getBufferFormat(null);
         if (bufferFormat != null) {
             if (mCaptureProcessor != null) {
@@ -180,8 +187,15 @@ public class ImageCapture extends UseCase {
         }
 
         mCaptureBundle = mConfig.getCaptureBundle(CaptureBundles.singleDefaultCaptureBundle());
+        if (mCaptureBundle.getCaptureStages() == null
+                || mCaptureBundle.getCaptureStages().isEmpty()) {
+            mDefaultCaptureBundle = CaptureBundles.singleDefaultCaptureBundle();
+        } else {
+            mDefaultCaptureBundle = CaptureBundles.createFrom(mCaptureBundle);
+        }
 
-        if (mCaptureBundle.getCaptureStages().size() > 1 && mCaptureProcessor == null) {
+
+        if (mDefaultCaptureBundle.getCaptureStages().size() > 1 && mCaptureProcessor == null) {
             throw new IllegalArgumentException(
                     "ImageCaptureConfig has no CaptureProcess set with CaptureBundle size > 1.");
         }
@@ -526,6 +540,10 @@ public class ImageCapture extends UseCase {
     @RestrictTo(Scope.LIBRARY_GROUP)
     @Override
     public void clear() {
+        if (mSessionEventListener != null) {
+            mSessionEventListener.onDeInit(CameraXExecutors.mainThreadExecutor());
+        }
+
         if (mDeferrableSurface != null) {
             mDeferrableSurface.setOnSurfaceDetachedListener(
                     CameraXExecutors.mainThreadExecutor(),
@@ -574,8 +592,8 @@ public class ImageCapture extends UseCase {
                     new ProcessingImageReader(
                             resolution.getWidth(),
                             resolution.getHeight(),
-                            getImageFormat(), MAX_IMAGES,
-                            mHandler, mCaptureBundle, mCaptureProcessor);
+                            getImageFormat(), mMaxCaptureStages,
+                            mHandler, mDefaultCaptureBundle, mCaptureProcessor);
             mMetadataMatchingCaptureCallback = processingImageReader.getCameraCaptureCallback();
             mImageReader = processingImageReader;
         } else {
@@ -629,6 +647,13 @@ public class ImageCapture extends UseCase {
 
         mDeferrableSurface = new ImmediateSurface(mImageReader.getSurface());
         mSessionConfigBuilder.addNonRepeatingSurface(mDeferrableSurface);
+
+        if (mSessionEventListener != null) {
+            mSessionEventListener.onInit(cameraId);
+            mSessionEventListener.onResolutionUpdate(
+                    new Size(resolution.getWidth(), resolution.getHeight()));
+            mSessionEventListener.onImageFormatUpdate(getImageFormat());
+        }
 
         attachToCamera(cameraId, mSessionConfigBuilder.build());
 
@@ -840,7 +865,9 @@ public class ImageCapture extends UseCase {
         final List<ListenableFuture<Void>> futureList = new ArrayList<>();
         final List<CaptureConfig> captureConfigs = new ArrayList<>();
 
-        for (final CaptureStage captureStage : mCaptureBundle.getCaptureStages()) {
+        CaptureBundle capturebundle = presetImageCaptureBundle();
+
+        for (final CaptureStage captureStage : capturebundle.getCaptureStages()) {
             final CaptureConfig.Builder builder = new CaptureConfig.Builder();
             builder.addAllCameraCaptureCallbacks(
                     mSessionConfigBuilder.getSingleCameraCaptureCallbacks());
@@ -908,6 +935,33 @@ public class ImageCapture extends UseCase {
                 return "issueTakePicture";
             }
         });
+    }
+
+    private CaptureBundle presetImageCaptureBundle() {
+        // If the Processor is provided, check if extender can provide valid CaptureBundle before
+        // actually issuing a take picture request and update ImageReader.
+
+        if (mCaptureProcessor == null) {
+            return mDefaultCaptureBundle;
+        }
+
+        CaptureBundle captureBundle = CaptureBundles.createFrom(mCaptureBundle);
+
+        if (captureBundle.getCaptureStages().isEmpty()) {
+            throw new IllegalArgumentException(
+                    "ImageCaptureUseCaseExtender sets empty CaptureStage list.");
+        }
+
+        if (captureBundle.getCaptureStages().size() > mMaxCaptureStages) {
+            throw new IllegalArgumentException(
+                    "ImageCaptureUseCaseConfiguration has CaptureStages > Max CaptureStage size");
+        }
+
+        if (mCaptureProcessor != null) {
+            ((ProcessingImageReader) mImageReader).setCaptureBundle(captureBundle);
+        }
+
+        return captureBundle;
     }
 
     /**

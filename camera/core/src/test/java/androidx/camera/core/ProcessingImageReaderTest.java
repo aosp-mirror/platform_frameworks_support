@@ -69,9 +69,7 @@ public final class ProcessingImageReaderTest {
     @Before
     public void setUp() {
         mMainHandler = new Handler(Looper.getMainLooper());
-        mCaptureBundle = new CaptureBundle();
-        mCaptureBundle.addCaptureStage(mCaptureStage0);
-        mCaptureBundle.addCaptureStage(mCaptureStage1);
+        mCaptureBundle = CaptureBundles.createCaptureBundle(mCaptureStage0, mCaptureStage1);
     }
 
     @Test

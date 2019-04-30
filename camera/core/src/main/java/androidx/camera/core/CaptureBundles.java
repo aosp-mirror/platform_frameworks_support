@@ -16,15 +16,59 @@
 
 package androidx.camera.core;
 
+import androidx.annotation.RestrictTo;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 /**
  * Different implementations of {@link CaptureBundle}.
  */
 final class CaptureBundles {
     /** Creates a {@link CaptureBundle} which contain a single default {@link CaptureStage}. */
     static CaptureBundle singleDefaultCaptureBundle() {
-        CaptureBundle captureBundle = new CaptureBundle();
-        captureBundle.addCaptureStage(new CaptureStage.DefaultCaptureStage());
-        return captureBundle;
+        return createCaptureBundle(new CaptureStage.DefaultCaptureStage());
+    }
+
+    /** Returns a {@link CaptureBundle} which contain a list of {@link CaptureStage}. */
+    static CaptureBundle createCaptureBundle(CaptureStage ... captureStages) {
+        return new CaptureBundleImpl(Arrays.asList(captureStages));
+    }
+
+    /** Returns a {@link CaptureBundle} which contain a list of {@link CaptureStage}. */
+    static CaptureBundle createCaptureBundle(List<CaptureStage> captureStageList) {
+        return new CaptureBundleImpl(captureStageList);
+    }
+
+    /** Creates a new {@link CaptureBundle} instance. */
+    static CaptureBundle createFrom(CaptureBundle captureBundle) {
+        return createCaptureBundle(captureBundle.getCaptureStages());
+    }
+
+    /**
+     * An ordered collection of {@link CaptureStage}.
+     *
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+    static final class CaptureBundleImpl implements CaptureBundle {
+
+        final List<CaptureStage> mCaptureStageList;
+
+        CaptureBundleImpl(List<CaptureStage> captureStageList) {
+            if (captureStageList != null && !captureStageList.isEmpty()) {
+                mCaptureStageList = Collections.unmodifiableList(new ArrayList<>(captureStageList));
+            } else {
+                mCaptureStageList = new ArrayList<>();
+            }
+        }
+
+        @Override
+        public List<CaptureStage> getCaptureStages() {
+            return mCaptureStageList;
+        }
     }
 
     private CaptureBundles() {}

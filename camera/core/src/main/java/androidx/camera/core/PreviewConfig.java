@@ -33,7 +33,8 @@ public final class PreviewConfig
         implements UseCaseConfig<Preview>,
         ImageOutputConfig,
         CameraDeviceConfig,
-        ThreadConfig {
+        ThreadConfig,
+        SessionEventConfig {
 
     private final OptionsBundle mConfig;
 
@@ -343,6 +344,25 @@ public final class PreviewConfig
         return retrieveOption(OPTION_SURFACE_OCCUPANCY_PRIORITY);
     }
 
+    // Implementations of SessionEventConfig default methods
+
+    /** @hide */
+    @Nullable
+    @Override
+    @RestrictTo(Scope.LIBRARY_GROUP)
+    public SessionEventListener getSessionEventListener(
+            @Nullable SessionEventListener valueIfMissing) {
+        return retrieveOption(OPTION_SESSION_EVENT_LISTENER, valueIfMissing);
+    }
+
+    /** @hide */
+    @Nullable
+    @Override
+    @RestrictTo(Scope.LIBRARY_GROUP)
+    public SessionEventListener getSessionEventListener() {
+        return retrieveOption(OPTION_SESSION_EVENT_LISTENER);
+    }
+
     // End of the default implementation of Config
     // *********************************************************************************************
 
@@ -351,7 +371,8 @@ public final class PreviewConfig
             implements UseCaseConfig.Builder<Preview, PreviewConfig, PreviewConfig.Builder>,
             ImageOutputConfig.Builder<PreviewConfig.Builder>,
             CameraDeviceConfig.Builder<PreviewConfig.Builder>,
-            ThreadConfig.Builder<PreviewConfig.Builder> {
+            ThreadConfig.Builder<PreviewConfig.Builder>,
+            SessionEventConfig.Builder<PreviewConfig.Builder> {
 
         private final MutableOptionsBundle mMutableConfig;
 
@@ -556,6 +577,16 @@ public final class PreviewConfig
         @Override
         public Builder setSurfaceOccupancyPriority(int priority) {
             getMutableConfig().insertOption(OPTION_SURFACE_OCCUPANCY_PRIORITY, priority);
+            return this;
+        }
+
+        // Implementations of SessionEventConfig.Builder default methods
+
+        /** @hide */
+        @RestrictTo(Scope.LIBRARY_GROUP)
+        @Override
+        public Builder setSessionEventListener(SessionEventListener sessionEventListener) {
+            getMutableConfig().insertOption(OPTION_SESSION_EVENT_LISTENER, sessionEventListener);
             return this;
         }
 
