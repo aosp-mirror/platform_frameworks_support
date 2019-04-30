@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "f8854403_b39a2fce",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1470382
+      },
+      "writtenOn": "2019-04-30T15:20:19Z",
+      "side": 1,
+      "message": "The property/provider API docs have an example that uses .get() so maybe this is the best we can do. https://docs.gradle.org/current/userguide/lazy_configuration.html#sec:working_with_task_dependencies_in_lazy_properties",
+      "parentUuid": "bf1f85d4_04e715c1",
+      "revId": "fcd43dfc86a551a23505eed167a72f71f90882a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d15fc6cd_2c5a33c1",
         "filename": "buildSrc/src/main/kotlin/androidx/build/Jetify.kt",
         "patchSetId": 4
