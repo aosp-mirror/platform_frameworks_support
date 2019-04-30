@@ -834,7 +834,11 @@ public final class ExoPlayerMediaPlayer2Impl extends MediaPlayer2
                 }
             }
         });
-        Preconditions.checkState(success);
+        if (!success) {
+            // TODO(b/131682542): Remove once VideoView doesn't call methods after close().
+            Log.w(TAG, "Ignoring unexpected call after close().", new Throwable());
+            return null;
+        }
         try {
             T result;
             boolean wasInterrupted = false;
