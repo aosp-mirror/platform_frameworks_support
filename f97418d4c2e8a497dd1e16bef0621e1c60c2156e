@@ -402,6 +402,30 @@
     },
     {
       "key": {
+        "uuid": "a6f280b0_357c76de",
+        "filename": "webkit/src/main/java/androidx/webkit/WebSettingsCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 1370549
+      },
+      "writtenOn": "2019-04-30T11:00:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "519b0887_0585764a",
+      "range": {
+        "startLine": 323,
+        "startChar": 28,
+        "endLine": 323,
+        "endChar": 46
+      },
+      "revId": "f97418d4c2e8a497dd1e16bef0621e1c60c2156e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ac815b5_f3e89100",
         "filename": "webkit/src/main/java/androidx/webkit/WebSettingsCompat.java",
         "patchSetId": 1
