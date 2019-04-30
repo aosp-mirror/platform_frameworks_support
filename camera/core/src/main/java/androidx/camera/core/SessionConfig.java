@@ -57,6 +57,8 @@ public final class SessionConfig {
     private final List<CameraCaptureCallback> mSingleCameraCaptureCallbacks;
     /** The configuration for building the {@link CaptureRequest} used for repeating requests. */
     private final CaptureConfig mRepeatingCaptureConfig;
+    /** The configuration to store camera config option . */
+    private final MutableOptionsBundle mCameraOption;
 
     /**
      * Private constructor for a SessionConfig.
@@ -74,13 +76,15 @@ public final class SessionConfig {
             List<StateCallback> deviceStateCallbacks,
             List<CameraCaptureSession.StateCallback> sessionStateCallbacks,
             List<CameraCaptureCallback> singleCameraCaptureCallbacks,
-            CaptureConfig repeatingCaptureConfig) {
+            CaptureConfig repeatingCaptureConfig,
+            MutableOptionsBundle cameraOption) {
         mSurfaces = surfaces;
         mDeviceStateCallbacks = Collections.unmodifiableList(deviceStateCallbacks);
         mSessionStateCallbacks = Collections.unmodifiableList(sessionStateCallbacks);
         mSingleCameraCaptureCallbacks =
                 Collections.unmodifiableList(singleCameraCaptureCallbacks);
         mRepeatingCaptureConfig = repeatingCaptureConfig;
+        mCameraOption = cameraOption;
     }
 
     /** Returns an instance of a session configuration with minimal configurations. */
@@ -90,7 +94,8 @@ public final class SessionConfig {
                 new ArrayList<CameraDevice.StateCallback>(0),
                 new ArrayList<CameraCaptureSession.StateCallback>(0),
                 new ArrayList<CameraCaptureCallback>(0),
-                new CaptureConfig.Builder().build());
+                new CaptureConfig.Builder().build(),
+                MutableOptionsBundle.create());
     }
 
     public List<DeferrableSurface> getSurfaces() {
@@ -133,6 +138,10 @@ public final class SessionConfig {
         return mRepeatingCaptureConfig;
     }
 
+    public MutableOptionsBundle getCameraOption() {
+        return mCameraOption;
+    }
+
     /**
      * Interface for unpacking a configuration into a SessionConfig.Builder
      *
@@ -166,6 +175,7 @@ public final class SessionConfig {
                 new ArrayList<>();
         protected final List<CameraCaptureCallback> mInteropCameraCaptureCallbacks =
                 new ArrayList<>();
+        protected final MutableOptionsBundle mCameraOption = MutableOptionsBundle.create();
     }
 
     /**
@@ -345,6 +355,20 @@ public final class SessionConfig {
         }
 
         /**
+         * Add the {@link Config.Option} to cameraOption.
+         */
+        public <ValueT> void addCameraOption(Config.Option<ValueT> option, ValueT newValue) {
+            ValueT existValue = (ValueT) mCameraOption.retrieveOption(option, null);
+
+            if (existValue instanceof AppendableValue) {
+                ((AppendableValue) existValue).appendAll(
+                        ((AppendableValue) newValue).getAllItems());
+            } else {
+                mCameraOption.insertOption(option, newValue);
+            }
+        }
+
+        /**
          * Builds an instance of a SessionConfig that has all the combined parameters of the
          * SessionConfig that have been added to the Builder.
          */
@@ -354,7 +378,8 @@ public final class SessionConfig {
                     mDeviceStateCallbacks,
                     mSessionStateCallbacks,
                     mInteropCameraCaptureCallbacks,
-                    mCaptureConfigBuilder.build());
+                    mCaptureConfigBuilder.build(),
+                    mCameraOption);
         }
     }
 
@@ -372,6 +397,7 @@ public final class SessionConfig {
                 new ArrayList<>();
         private final List<CameraCaptureCallback> mSingleCameraCaptureCallbacks =
                 new ArrayList<>();
+        private final MutableOptionsBundle mCameraOption = MutableOptionsBundle.create();
         private boolean mValid = true;
         private boolean mTemplateSet = false;
 
@@ -408,6 +434,22 @@ public final class SessionConfig {
 
             // Check camera capture callbacks for single requests.
             mSingleCameraCaptureCallbacks.addAll(sessionConfig.getSingleCameraCaptureCallbacks());
+
+            // Check camera option.
+            Config config  = sessionConfig.getCameraOption();
+            for (Config.Option<?> option : config.listOptions()) {
+                @SuppressWarnings("unchecked") // Options/values are being copied directly
+                        Config.Option<Object> objectOpt = (Config.Option<Object>) option;
+
+                Object existValue = mCameraOption.retrieveOption(objectOpt, null);
+                Object newValue = config.retrieveOption(objectOpt);
+                if (existValue instanceof AppendableValue) {
+                    ((AppendableValue) existValue).appendAll(
+                            ((AppendableValue) newValue).getAllItems());
+                } else {
+                    mCameraOption.insertOption(objectOpt, newValue);
+                }
+            }
 
             // Check surfaces
             mSurfaces.addAll(sessionConfig.getSurfaces());
@@ -468,7 +510,8 @@ public final class SessionConfig {
                     mDeviceStateCallbacks,
                     mSessionStateCallbacks,
                     mSingleCameraCaptureCallbacks,
-                    mCaptureConfigBuilder.build());
+                    mCaptureConfigBuilder.build(),
+                    mCameraOption);
         }
     }
 }
