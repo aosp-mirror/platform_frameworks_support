@@ -149,7 +149,7 @@ public abstract class UseCase {
      * <p>This is called during initialization of the class. Subclassess can override this method to
      * modify the behavior of combining user-supplied values and default values.
      *
-     * @param userConfig    The user-supplied configuration.
+     * @param userConfig           The user-supplied configuration.
      * @param defaultConfigBuilder A builder containing use-case default values.
      * @return The configuration that will be used by this use case.
      * @hide
@@ -263,6 +263,7 @@ public abstract class UseCase {
     /**
      * Notify all {@link StateChangeListener} that are listening to this UseCase that it has
      * transitioned to an active state.
+     *
      * @hide
      */
     @RestrictTo(Scope.LIBRARY_GROUP)
@@ -274,6 +275,7 @@ public abstract class UseCase {
     /**
      * Notify all {@link StateChangeListener} that are listening to this UseCase that it has
      * transitioned to an inactive state.
+     *
      * @hide
      */
     @RestrictTo(Scope.LIBRARY_GROUP)
@@ -285,6 +287,7 @@ public abstract class UseCase {
     /**
      * Notify all {@link StateChangeListener} that are listening to this UseCase that the
      * settings have been updated.
+     *
      * @hide
      */
     @RestrictTo(Scope.LIBRARY_GROUP)
@@ -297,6 +300,7 @@ public abstract class UseCase {
     /**
      * Notify all {@link StateChangeListener} that are listening to this UseCase that the use
      * case needs to be completely reset.
+     *
      * @hide
      */
     @RestrictTo(Scope.LIBRARY_GROUP)
@@ -309,6 +313,7 @@ public abstract class UseCase {
     /**
      * Notify all {@link StateChangeListener} that are listening to this UseCase of its current
      * state.
+     *
      * @hide
      */
     @RestrictTo(Scope.LIBRARY_GROUP)
@@ -324,6 +329,24 @@ public abstract class UseCase {
                     listener.onUseCaseActive(this);
                 }
                 break;
+        }
+    }
+
+    /**
+     * Gets the camera id defined by the CameraDeviceConfig.
+     *
+     * @param config the CameraDeviceConfig
+     * @return the camera id defined by the config
+     * @hide
+     */
+    @RestrictTo(Scope.LIBRARY_GROUP)
+    protected static String getCameraIdUnchecked(CameraDeviceConfig config) {
+        try {
+            return CameraX.getCameraWithCameraDeviceConfig(config);
+        } catch (CameraInfoUnavailableException e) {
+            throw new IllegalArgumentException(
+                    "Unable to get camera id for the camera device config "
+                            + config.getLensFacing(), e);
         }
     }
 
@@ -346,7 +369,6 @@ public abstract class UseCase {
      * Retrieves the configuration used by this use case.
      *
      * @return the configuration used by this use case.
-     *
      * @hide
      */
     @RestrictTo(Scope.LIBRARY_GROUP)
@@ -359,7 +381,6 @@ public abstract class UseCase {
      *
      * @param cameraId the camera id for the desired surface.
      * @return the currently attached surface resolution for the given camera id.
-     *
      * @hide
      */
     @RestrictTo(Scope.LIBRARY_GROUP)
@@ -527,12 +548,12 @@ public abstract class UseCase {
 
     private String getCameraIdUnchecked() {
         String cameraId = null;
-        LensFacing lensFacing = mUseCaseConfig.retrieveOption(
-                CameraDeviceConfig.OPTION_LENS_FACING);
         try {
-            cameraId = CameraX.getCameraWithLensFacing(lensFacing);
-        } catch (Exception e) {
-            throw new IllegalArgumentException("Invalid camera lens facing: " + lensFacing, e);
+            cameraId = CameraX.getCameraWithCameraDeviceConfig(mUseCaseConfig);
+        } catch (CameraInfoUnavailableException e) {
+            throw new IllegalArgumentException(
+                    "Unable to get camera id for the camera device config "
+                            + mUseCaseConfig.getLensFacing(), e);
         }
 
         return cameraId;
