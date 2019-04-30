@@ -16,6 +16,24 @@
       "revId": "645dc7cf909a0d68dea9dbf804adbb1408335d23",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d356910_334b670b",
+        "filename": "appcompat/src/androidTest/java/androidx/appcompat/widget/AppCompatSpinnerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1061051
+      },
+      "writtenOn": "2019-04-30T12:40:04Z",
+      "side": 1,
+      "message": "Sounds reasonable. Something like waitForPopupToShow() and waitForPopupToHide() in this class. Will do.",
+      "parentUuid": "0a2c8c62_a69f7d11",
+      "revId": "645dc7cf909a0d68dea9dbf804adbb1408335d23",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
