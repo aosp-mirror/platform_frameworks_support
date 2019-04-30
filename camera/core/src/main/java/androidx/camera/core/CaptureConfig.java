@@ -166,6 +166,27 @@ public final class CaptureConfig {
     }
 
     /**
+     * Return the builder of a {@link CaptureRequest} which can be issued.
+     *
+     * <p>Returns {@code null} if a valid {@link CaptureRequest} can not be constructed.
+     */
+    @Nullable
+    public CaptureRequest.Builder buildCaptureRequestNoTarget(@Nullable CameraDevice device)
+            throws CameraAccessException {
+        if (device == null) {
+            return null;
+        }
+        CaptureRequest.Builder builder = device.createCaptureRequest(mTemplateType);
+
+        for (CaptureRequestParameter<?> captureRequestParameter :
+                mCaptureRequestParameters.values()) {
+            captureRequestParameter.apply(builder);
+        }
+
+        return builder;
+    }
+
+    /**
      * Builder for easy modification/rebuilding of a {@link CaptureConfig}.
      *
      * @hide
