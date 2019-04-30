@@ -500,7 +500,7 @@ public final class CameraX {
                         (CameraDeviceConfig) useCase.getUseCaseConfig());
             } catch (CameraInfoUnavailableException e) {
                 throw new IllegalArgumentException(
-                        "Unable to get camera id for the camera device config ", e);
+                        "Unable to get camera id for the camera device config.", e);
             }
 
             List<UseCase> useCaseList = newCameraIdUseCaseMap.get(cameraId);
