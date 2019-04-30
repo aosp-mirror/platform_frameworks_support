@@ -27,14 +27,11 @@ import java.util.concurrent.CountDownLatch
  * [FragmentActivityUtils.recreateActivity] API.
  */
 open class RecreatedActivity(
-    @LayoutRes val contentLayoutId: Int = 0
-) : FragmentActivity() {
+    @LayoutRes contentLayoutId: Int = 0
+) : FragmentActivity(contentLayoutId) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (contentLayoutId != 0) {
-            setContentView(contentLayoutId)
-        }
         activity = this
     }
 

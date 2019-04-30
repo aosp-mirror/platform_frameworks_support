@@ -61,6 +61,7 @@ import java.lang.annotation.Retention;
  * @see androidx.viewpager.widget.ViewPager
  */
 public final class ViewPager2 extends ViewGroup {
+    /** @hide */
     @Retention(SOURCE)
     @IntDef({ORIENTATION_HORIZONTAL, ORIENTATION_VERTICAL})
     public @interface Orientation {
@@ -69,13 +70,27 @@ public final class ViewPager2 extends ViewGroup {
     public static final int ORIENTATION_HORIZONTAL = RecyclerView.HORIZONTAL;
     public static final int ORIENTATION_VERTICAL = RecyclerView.VERTICAL;
 
+    /** @hide */
     @Retention(SOURCE)
     @IntDef({SCROLL_STATE_IDLE, SCROLL_STATE_DRAGGING, SCROLL_STATE_SETTLING})
     public @interface ScrollState {
     }
 
+    /**
+     * Indicates that the ViewPager2 is in an idle, settled state. The current page
+     * is fully in view and no animation is in progress.
+     */
     public static final int SCROLL_STATE_IDLE = 0;
+
+    /**
+     * Indicates that the ViewPager2 is currently being dragged by the user, or programmatically
+     * via fake drag functionality.
+     */
     public static final int SCROLL_STATE_DRAGGING = 1;
+
+    /**
+     * Indicates that the ViewPager2 is in the process of settling to a final position.
+     */
     public static final int SCROLL_STATE_SETTLING = 2;
 
     /**
@@ -423,7 +438,9 @@ public final class ViewPager2 extends ViewGroup {
     }
 
     /**
-     * @param orientation {@link ViewPager2.Orientation}
+     * Sets the orientation of the ViewPager2.
+     *
+     * @param orientation {@link #ORIENTATION_HORIZONTAL} or {@link #ORIENTATION_VERTICAL}
      */
     public void setOrientation(@Orientation int orientation) {
         mLayoutManager.setOrientation(orientation);

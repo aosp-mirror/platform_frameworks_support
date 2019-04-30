@@ -52,6 +52,7 @@ final class ScrollEventAdapter extends RecyclerView.OnScrollListener {
         ZERO_MARGIN_LAYOUT_PARAMS.setMargins(0, 0, 0, 0);
     }
 
+    /** @hide */
     @Retention(SOURCE)
     @IntDef({STATE_IDLE, STATE_IN_PROGRESS_MANUAL_DRAG, STATE_IN_PROGRESS_SMOOTH_SCROLL,
             STATE_IN_PROGRESS_IMMEDIATE_SCROLL, STATE_IN_PROGRESS_FAKE_DRAG})
@@ -265,7 +266,7 @@ final class ScrollEventAdapter extends RecyclerView.OnScrollListener {
             mDragStartPosition = mTarget;
             // Reset target because drags have no target until released
             mTarget = NO_POSITION;
-        } else {
+        } else if (mDragStartPosition == NO_POSITION) {
             // ViewPager2 was at rest, set "drag start page" to current page
             mDragStartPosition = getPosition();
         }
