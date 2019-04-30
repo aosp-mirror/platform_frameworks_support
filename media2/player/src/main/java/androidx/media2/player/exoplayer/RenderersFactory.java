@@ -23,7 +23,6 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 
-import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.media2.exoplayer.external.DefaultRenderersFactory;
 import androidx.media2.exoplayer.external.Renderer;
@@ -69,11 +68,11 @@ import java.util.ArrayList;
     }
 
     @Override
-    protected void buildVideoRenderers(
-            Context context,
-            @Nullable DrmSessionManager<FrameworkMediaCrypto> drmSessionManager,
-            long allowedVideoJoiningTimeMs, Handler eventHandler,
-            VideoRendererEventListener eventListener, int extensionRendererMode,
+    protected void buildVideoRenderers(Context context, int extensionRendererMode,
+            MediaCodecSelector mediaCodecSelector,
+            DrmSessionManager<FrameworkMediaCrypto> drmSessionManager,
+            boolean playClearSamplesWithoutKeys, Handler eventHandler,
+            VideoRendererEventListener eventListener, long allowedVideoJoiningTimeMs,
             ArrayList<Renderer> out) {
         out.add(
                 new MediaCodecVideoRenderer(
@@ -88,11 +87,11 @@ import java.util.ArrayList;
     }
 
     @Override
-    protected void buildAudioRenderers(
-            Context context,
-            @Nullable DrmSessionManager<FrameworkMediaCrypto> drmSessionManager,
-            AudioProcessor[] audioProcessors, Handler eventHandler,
-            AudioRendererEventListener eventListener, int extensionRendererMode,
+    protected void buildAudioRenderers(Context context, int extensionRendererMode,
+            MediaCodecSelector mediaCodecSelector,
+            DrmSessionManager<FrameworkMediaCrypto> drmSessionManager,
+            boolean playClearSamplesWithoutKeys, AudioProcessor[] audioProcessors,
+            Handler eventHandler, AudioRendererEventListener eventListener,
             ArrayList<Renderer> out) {
         out.add(new MediaCodecAudioRenderer(
                 context,
