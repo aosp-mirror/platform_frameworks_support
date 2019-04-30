@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3e8c0203_9ff11e6a",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CaptureSession.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-30T22:10:56Z",
+      "side": 1,
+      "message": "@trevormcguire, is this a place where we want to use the Compat code that you had mentioned?\nIf so, is there guidance on how this should be done?",
+      "revId": "804eee788ef8fe46c4fb70da55503f70f931d5bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "906f4791_a7cf85f3",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CaptureSession.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-30T22:10:56Z",
+      "side": 1,
+      "message": "Should it not be onEnableSession()?\nIt would seem to me that onDisableSession() needs to be called at close time, but perhaps the flow is not immediately obvious.",
+      "revId": "804eee788ef8fe46c4fb70da55503f70f931d5bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d49c562_b7e405a4",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CaptureSession.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 687,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-30T22:10:56Z",
+      "side": 1,
+      "message": "@trevormcguire where are you placing the Executor/Handler code? It would be good to have consistency in how we handle this.",
+      "revId": "804eee788ef8fe46c4fb70da55503f70f931d5bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
