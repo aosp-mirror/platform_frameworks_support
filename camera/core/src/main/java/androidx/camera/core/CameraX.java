@@ -95,6 +95,7 @@ public final class CameraX {
     private CameraDeviceSurfaceManager mSurfaceManager;
     private UseCaseConfigFactory mDefaultConfigFactory;
     private Context mContext;
+
     /** Prevents construction. */
     private CameraX() {
     }
@@ -257,6 +258,29 @@ public final class CameraX {
     public static String getCameraWithLensFacing(LensFacing lensFacing)
             throws CameraInfoUnavailableException {
         return INSTANCE.getCameraFactory().cameraIdForLensFacing(lensFacing);
+    }
+
+    /**
+     * Returns the camera id for a camera defined by the CameraDeviceConfig.
+     *
+     * @param config the config of the camera device
+     * @return the cameraId if camera exists or {@code null} if no camera found with the config
+     * @throws CameraInfoUnavailableException if unable to access cameras, perhaps due to
+     *                                        insufficient permissions.
+     * @hide
+     */
+    @RestrictTo(Scope.LIBRARY_GROUP)
+    @Nullable
+    public static String getCameraWithCameraDeviceConfig(CameraDeviceConfig config)
+            throws CameraInfoUnavailableException {
+        LensFacing lensFacing = config.getLensFacing();
+        String cameraId = config.getCameraId(null);
+
+        if (cameraId != null) {
+            return cameraId;
+        } else {
+            return getCameraWithLensFacing(lensFacing);
+        }
     }
 
     /**
