@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "200eab45_54ad27db",
+        "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2967,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-04-30T04:51:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2b6c520e_4ba07f9f",
+      "range": {
+        "startLine": 2967,
+        "startChar": 12,
+        "endLine": 2967,
+        "endChar": 39
+      },
+      "revId": "084892dc47d75e49930ff7e807bf7e440394b6bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "de00ee1b_ac69cbda",
         "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
         "patchSetId": 2
@@ -72,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "e717cee6_a847783b",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 820,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-04-30T04:51:08Z",
+      "side": 1,
+      "message": "Thanks. Moved the logic into extractTrackInfoData(). PTAL",
+      "parentUuid": "69e287c9_d318e9dd",
+      "range": {
+        "startLine": 820,
+        "startChar": 12,
+        "endLine": 820,
+        "endChar": 30
+      },
+      "revId": "084892dc47d75e49930ff7e807bf7e440394b6bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "79f1cc9f_4b219d5b",
         "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
         "patchSetId": 2
@@ -92,6 +140,30 @@
       "revId": "084892dc47d75e49930ff7e807bf7e440394b6bb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69995e11_22fc800c",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 824,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-04-30T04:51:08Z",
+      "side": 1,
+      "message": "Changed it to throw an exception. Would it be better to be assertion?\nMoved the logic into extractTrackInfoData().",
+      "parentUuid": "79f1cc9f_4b219d5b",
+      "range": {
+        "startLine": 821,
+        "startChar": 8,
+        "endLine": 824,
+        "endChar": 9
+      },
+      "revId": "084892dc47d75e49930ff7e807bf7e440394b6bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
