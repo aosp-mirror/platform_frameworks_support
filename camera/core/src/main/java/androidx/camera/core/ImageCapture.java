@@ -123,7 +123,8 @@ public class ImageCapture extends UseCase {
     private final CaptureMode mCaptureMode;
 
     /** The set of requests that will be sent to the camera for the final captured image. */
-    private final CaptureBundle mCaptureBundle;
+    private CaptureBundle mCaptureBundle;
+    private final int mMaxCaptureStages;
 
     /**
      * Processing that gets done to the mCaptureBundle to produce the final image that is produced
@@ -163,6 +164,8 @@ public class ImageCapture extends UseCase {
         mFlashMode = mConfig.getFlashMode();
 
         mCaptureProcessor = mConfig.getCaptureProcessor(null);
+        mMaxCaptureStages = mConfig.getMaxCaptureStages(MAX_IMAGES);
+
         Integer bufferFormat = mConfig.getBufferFormat(null);
         if (bufferFormat != null) {
             if (mCaptureProcessor != null) {
@@ -180,6 +183,12 @@ public class ImageCapture extends UseCase {
         }
 
         mCaptureBundle = mConfig.getCaptureBundle(CaptureBundles.singleDefaultCaptureBundle());
+        if (mCaptureBundle.getCaptureStages() == null
+                || mCaptureBundle.getCaptureStages().isEmpty()) {
+            mCaptureBundle = CaptureBundles.singleDefaultCaptureBundle();
+        } else if (mCaptureProcessor == null) {
+            mCaptureBundle = CaptureBundles.createFrom(mCaptureBundle);
+        }
 
         if (mCaptureBundle.getCaptureStages().size() > 1 && mCaptureProcessor == null) {
             throw new IllegalArgumentException(
@@ -599,7 +608,7 @@ public class ImageCapture extends UseCase {
                     new ProcessingImageReader(
                             resolution.getWidth(),
                             resolution.getHeight(),
-                            getImageFormat(), MAX_IMAGES,
+                            getImageFormat(), mMaxCaptureStages,
                             mHandler, mCaptureBundle, mCaptureProcessor);
             mMetadataMatchingCaptureCallback = processingImageReader.getCameraCaptureCallback();
             mImageReader = processingImageReader;
@@ -865,7 +874,9 @@ public class ImageCapture extends UseCase {
         final List<ListenableFuture<Void>> futureList = new ArrayList<>();
         final List<CaptureConfig> captureConfigs = new ArrayList<>();
 
-        for (final CaptureStage captureStage : mCaptureBundle.getCaptureStages()) {
+        CaptureBundle capturebundle = getImageCaptureBundle();
+
+        for (final CaptureStage captureStage : capturebundle.getCaptureStages()) {
             final CaptureConfig.Builder builder = new CaptureConfig.Builder();
             builder.addAllCameraCaptureCallbacks(
                     mSessionConfigBuilder.getSingleCameraCaptureCallbacks());
@@ -933,6 +944,32 @@ public class ImageCapture extends UseCase {
                 return "issueTakePicture";
             }
         });
+    }
+
+    private CaptureBundle getImageCaptureBundle() {
+        // If the Processor is provided, check if it have valid CaptureBundle before
+        // actually issuing a take picture request.
+
+        if (mCaptureProcessor == null) {
+            return mCaptureBundle;
+        }
+
+        CaptureBundle captureBundle = CaptureBundles.createFrom(mCaptureBundle);
+
+        if (captureBundle.getCaptureStages().isEmpty()) {
+            throw new IllegalArgumentException("ImageCaptureConfig set empty CaptureBundle.");
+        }
+
+        if (captureBundle.getCaptureStages().size() > mMaxCaptureStages) {
+            throw new IllegalArgumentException(
+                    "ImageCaptureUseCaseConfiguration has CaptureStages > Max CaptureStage size");
+        }
+
+        if (mCaptureProcessor != null) {
+            ((ProcessingImageReader) mImageReader).setCaptureBundle(captureBundle);
+        }
+
+        return captureBundle;
     }
 
     /**
