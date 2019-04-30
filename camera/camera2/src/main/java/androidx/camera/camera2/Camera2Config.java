@@ -27,6 +27,8 @@ import android.view.Surface;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.annotation.RestrictTo.Scope;
+import androidx.camera.camera2.impl.CameraEventCallback;
+import androidx.camera.camera2.impl.CameraEventCallbacks;
 import androidx.camera.core.Config;
 import androidx.camera.core.MutableConfig;
 import androidx.camera.core.MutableOptionsBundle;
@@ -55,6 +57,11 @@ public final class Camera2Config implements Config {
                     CameraCaptureSession.StateCallback.class);
     static final Option<CaptureCallback> SESSION_CAPTURE_CALLBACK_OPTION =
             Option.create("camera2.cameraCaptureSession.captureCallback", CaptureCallback.class);
+
+    /** @hide */
+    @RestrictTo(Scope.LIBRARY)
+    public static final Option<CameraEventCallbacks> CAMERA_EVENT_CALLBACK_OPTION =
+            Option.create("camera2.cameraEvent.callback", CameraEventCallbacks.class);
     // *********************************************************************************************
 
     private final Config mConfig;
@@ -161,6 +168,17 @@ public final class Camera2Config implements Config {
     public CameraCaptureSession.CaptureCallback getSessionCaptureCallback(
             CameraCaptureSession.CaptureCallback valueIfMissing) {
         return mConfig.retrieveOption(SESSION_CAPTURE_CALLBACK_OPTION, valueIfMissing);
+    }
+
+    /**
+     * Returns the stored {@link CameraEventCallback}.
+     *
+     * @param valueIfMissing The value to return if this configuration option has not been set.
+     * @return The stored value or <code>valueIfMissing</code> if the value does not exist in this
+     * configuration.
+     */
+    public CameraEventCallbacks getCameraEventCallback(CameraEventCallbacks valueIfMissing) {
+        return mConfig.retrieveOption(CAMERA_EVENT_CALLBACK_OPTION, valueIfMissing);
     }
 
     // Start of the default implementation of Config
@@ -319,6 +337,18 @@ public final class Camera2Config implements Config {
                 CameraCaptureSession.CaptureCallback captureCallback) {
             mBaseBuilder.getMutableConfig().insertOption(SESSION_CAPTURE_CALLBACK_OPTION,
                     captureCallback);
+            return this;
+        }
+
+        /**
+         * Sets a {@link CameraEventCallback}.
+         *
+         * @param cameraEventCallback The {@link CameraEventCallback}.
+         * @return The current Extender.
+         */
+        public Extender setCameraEventCallback(CameraEventCallbacks cameraEventCallback) {
+            mBaseBuilder.getMutableConfig().insertOption(CAMERA_EVENT_CALLBACK_OPTION,
+                    cameraEventCallback);
             return this;
         }
     }
