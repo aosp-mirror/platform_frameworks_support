@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cb2c0504_48214e2d",
+        "filename": "camera/integration-tests/coretestapp/src/androidTest/java/androidx/camera/integration/core/BasicUITest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1061247
+      },
+      "writtenOn": "2019-04-30T15:56:51Z",
+      "side": 1,
+      "message": "Instead of \"1\" and \"2\", please make the suffix more descriptive, e.g.,\n\ntestAnalysisButtonWhenCertainEventHappens\ntestAnalysisButtonWhenAnotherEventHappens",
+      "range": {
+        "startLine": 90,
+        "startChar": 16,
+        "endLine": 90,
+        "endChar": 35
+      },
+      "revId": "a8d85dbb3d4a92dd320d2588c70caa7b80d4e6af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
