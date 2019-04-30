@@ -171,6 +171,7 @@ public final class SessionCommandGroup implements VersionedParcelable {
         @NonNull Builder addAllPlayerCommands(@CommandVersion int version, boolean includeHidden) {
             addAllPlayerBasicCommands(version);
             addAllPlayerPlaylistCommands(version);
+            addAllPlayerTrackCommands(version);
             if (includeHidden) addAllPlayerHiddenCommands(version);
             return this;
         }
@@ -187,6 +188,11 @@ public final class SessionCommandGroup implements VersionedParcelable {
 
         @NonNull Builder addAllPlayerHiddenCommands(@CommandVersion int version) {
             addCommands(version, SessionCommand.VERSION_PLAYER_HIDDEN_COMMANDS_MAP);
+            return this;
+        }
+
+        @NonNull Builder addAllPlayerTrackCommands(@CommandVersion int version) {
+            addCommands(version, SessionCommand.VERSION_PLAYER_TRACK_COMMANDS_MAP);
             return this;
         }
 
