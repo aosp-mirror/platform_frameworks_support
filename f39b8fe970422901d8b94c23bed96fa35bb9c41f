@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b7e10a65_49f3002b",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/Camera.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-30T21:35:29Z",
+      "side": 1,
+      "message": "Is there a reason that the surface is null?",
+      "revId": "f39b8fe970422901d8b94c23bed96fa35bb9c41f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7b24ea1_d6f0ded3",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/Camera.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 604,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-30T21:35:29Z",
+      "side": 1,
+      "message": "Why not CaptureConfig.Builder.getSurfaces().size() \u003d\u003d 0?\n\nThat would remove the need for the boolean.\n\nWe only call this when the builder has an empty Surface list. If we do change the logic to do so, then we should updated the javadoc to make mention of it and also do a check in the beginning to make sure.",
+      "revId": "f39b8fe970422901d8b94c23bed96fa35bb9c41f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
