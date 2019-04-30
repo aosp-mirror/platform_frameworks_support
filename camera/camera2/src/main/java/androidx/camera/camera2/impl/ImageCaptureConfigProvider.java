@@ -59,6 +59,8 @@ public final class ImageCaptureConfigProvider implements ConfigProvider<ImageCap
                 ImageCaptureConfig.Builder.fromConfig(
                         ImageCapture.DEFAULT_CONFIG.getConfig(lensFacing));
 
+        builder.setTakePictureCustomizerFactory(new Camera2TakePictureCustomizer.Factory());
+
         // SessionConfig containing all intrinsic properties needed for ImageCapture
         SessionConfig.Builder sessionBuilder = new SessionConfig.Builder();
         // TODO(b/114762170): Must set to preview here until we allow for multiple template types
