@@ -16,6 +16,24 @@
       "revId": "f6056f92e351f53437c1feaf9a5390f2b58c43dc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "49334384_aa3f081f",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CaptureConfig.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1481635
+      },
+      "writtenOn": "2019-04-30T17:22:32Z",
+      "side": 1,
+      "message": "Agree, the usage of CaptureRequestParameter should be removed. Currently, ImageCapture.applyPixelHdrPlusChangeForCaptureMode() is the only place to use the CaptureRequestParamter, so remove it can achieve the goal. But it seems need some design and modification. Prepare another CL to handle it. (aosp/954258 and aosp/954259)",
+      "parentUuid": "7491c21a_747a033a",
+      "revId": "f6056f92e351f53437c1feaf9a5390f2b58c43dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
