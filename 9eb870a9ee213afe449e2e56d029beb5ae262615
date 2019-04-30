@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "00d21f44_4ff9104d",
+        "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer2.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 749,
+      "author": {
+        "id": 1060104
+      },
+      "writtenOn": "2019-04-30T09:56:22Z",
+      "side": 1,
+      "message": "Is this an example of working around b/131579290? If so, is it worth referencing the bug number to help with future cleanup? (Ditto in other places.)",
+      "revId": "9eb870a9ee213afe449e2e56d029beb5ae262615",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce3ea74d_cdb8386f",
+        "filename": "media2/player/src/main/java/androidx/media2/player/MediaTimestamp.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1060104
+      },
+      "writtenOn": "2019-04-30T09:56:22Z",
+      "side": 1,
+      "message": "Mostly unrelated to this change: API council gave feedback that we should provide a public constructor for VideoSize for the benefit of apps that want to test the APIs (b/131319290). Is this a similar case?",
+      "range": {
+        "startLine": 79,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 24
+      },
+      "revId": "9eb870a9ee213afe449e2e56d029beb5ae262615",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
