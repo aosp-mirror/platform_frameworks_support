@@ -64,16 +64,8 @@ class BenchmarkStateTest {
 
     @Test
     fun ideSummary() {
-        val summary1 = BenchmarkState().apply {
-            while (keepRunning()) {
-                Thread.sleep(1)
-            }
-        }.ideSummaryLine("foo")
-        val summary2 = BenchmarkState().apply {
-            while (keepRunning()) {
-                // nothing
-            }
-        }.ideSummaryLine("fooBarLongerKey")
+        val summary1 = BenchmarkState.ideSummaryLine("foo", 1000)
+        val summary2 = BenchmarkState.ideSummaryLine("fooBarLongerKey", 10000)
 
         assertEquals(
             summary1.indexOf("foo"),

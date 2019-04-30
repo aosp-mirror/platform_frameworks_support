@@ -23,6 +23,7 @@ package androidx.benchmark {
   public final class BenchmarkState {
     method public boolean keepRunning();
     method public void pauseTiming();
+    method public static void reportData(String testName, long nanos);
     method public void resumeTiming();
   }
 
