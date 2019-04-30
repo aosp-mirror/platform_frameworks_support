@@ -72,6 +72,7 @@ fun FragmentController.shutdown(
     if (destroyNonConfig) {
         viewModelStore.clear()
     }
+    dispatchDestroyView()
     dispatchDestroy()
     return savedState
 }
