@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2747d564_675631a9",
+        "filename": "jetifier/jetifier/core/src/main/kotlin/com/android/tools/build/jetifier/core/config/ConfigParser.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1101693
+      },
+      "writtenOn": "2019-04-30T15:46:13Z",
+      "side": 1,
+      "message": "inputStream.reader() instead?",
+      "range": {
+        "startLine": 53,
+        "startChar": 8,
+        "endLine": 53,
+        "endChar": 19
+      },
+      "revId": "c7231f361d77f2a48dd17c24db46cd0d3ed4d9a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
