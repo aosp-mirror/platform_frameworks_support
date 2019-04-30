@@ -42,6 +42,7 @@ import androidx.media2.common.MediaItem;
 import androidx.media2.common.MediaMetadata;
 import androidx.media2.common.MediaParcelUtils;
 import androidx.media2.common.Rating;
+import androidx.media2.common.SessionPlayer;
 import androidx.media2.common.SessionPlayer.PlayerResult;
 import androidx.media2.session.MediaController.PlaybackInfo;
 import androidx.media2.session.MediaLibraryService.LibraryParams;
@@ -1017,6 +1018,36 @@ class MediaSessionStub extends IMediaSession.Stub {
                 });
     }
 
+    @Override
+    public void selectTrack(IMediaController caller, int seq, final ParcelImpl trackInfo) {
+        if (caller == null) {
+            return;
+        }
+        dispatchSessionTask(caller, seq, SessionCommand.COMMAND_CODE_PLAYER_SELECT_TRACK_INFO,
+                new SessionPlayerTask() {
+                    @Override
+                    public ListenableFuture<PlayerResult> run(ControllerInfo controller) {
+                        return mSessionImpl.selectTrack((SessionPlayer.TrackInfo)
+                                MediaParcelUtils.fromParcelable(trackInfo));
+                    }
+                });
+    }
+
+    @Override
+    public void deselectTrack(IMediaController caller, int seq, final ParcelImpl trackInfo) {
+        if (caller == null) {
+            return;
+        }
+        dispatchSessionTask(caller, seq, SessionCommand.COMMAND_CODE_PLAYER_DESELECT_TRACK_INFO,
+                new SessionPlayerTask() {
+                    @Override
+                    public ListenableFuture<PlayerResult> run(ControllerInfo controller) {
+                        return mSessionImpl.deselectTrack((SessionPlayer.TrackInfo)
+                                MediaParcelUtils.fromParcelable(trackInfo));
+                    }
+                });
+    }
+
     //////////////////////////////////////////////////////////////////////////////////////////////
     // AIDL methods for LibrarySession overrides
     //////////////////////////////////////////////////////////////////////////////////////////////
@@ -1360,6 +1391,26 @@ class MediaSessionStub extends IMediaSession.Stub {
         @Override
         void onDisconnected(int seq) throws RemoteException {
             mIControllerCallback.onDisconnected(seq);
+        }
+
+        @Override
+        void onTrackInfoChanged(int seq, List<SessionPlayer.TrackInfo> trackInfos)
+                throws RemoteException {
+            List<ParcelImpl> trackInfoList = new ArrayList<>();
+            for (int i = 0; i < trackInfos.size(); i++) {
+                trackInfoList.add(MediaParcelUtils.toParcelable(trackInfos.get(i)));
+            }
+            mIControllerCallback.onTrackInfoChanged(seq, trackInfoList);
+        }
+
+        @Override
+        void onTrackSelected(int seq, SessionPlayer.TrackInfo trackInfo) throws RemoteException {
+            mIControllerCallback.onTrackSelected(seq, MediaParcelUtils.toParcelable(trackInfo));
+        }
+
+        @Override
+        void onTrackDeselected(int seq, SessionPlayer.TrackInfo trackInfo) throws RemoteException {
+            mIControllerCallback.onTrackDeselected(seq, MediaParcelUtils.toParcelable(trackInfo));
         }
 
         @Override

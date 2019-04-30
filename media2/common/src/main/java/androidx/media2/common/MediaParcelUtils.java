@@ -25,6 +25,9 @@ import androidx.versionedparcelable.ParcelImpl;
 import androidx.versionedparcelable.ParcelUtils;
 import androidx.versionedparcelable.VersionedParcelable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @hide
  */
@@ -49,12 +52,44 @@ public class MediaParcelUtils {
     }
 
     /**
+     * Helper method for converting a list of {@link SessionPlayer.TrackInfo}
+     *
+     * @param items
+     * @return
+     */
+    @NonNull
+    public static List<ParcelImpl> toParcelableArray(
+            @Nullable List<SessionPlayer.TrackInfo> items) {
+        List<ParcelImpl> list = new ArrayList<>();
+        for (int i = 0; i < items.size(); i++) {
+            list.add((ParcelImpl) ParcelUtils.toParcelable(items.get(i)));
+        }
+        return list;
+    }
+
+    /**
      * Media2 version of {@link ParcelUtils#fromParcelable(Parcelable)}.
      */
     @SuppressWarnings("TypeParameterUnusedInFormals")
     @Nullable
     public static <T extends VersionedParcelable> T fromParcelable(@NonNull ParcelImpl p) {
         return ParcelUtils.<T>fromParcelable(p);
+    }
+
+    /**
+     * Helper method for converting a list of {@link SessionPlayer.TrackInfo}
+     *
+     * @param parcelList
+     * @return
+     */
+    @Nullable
+    public static List<SessionPlayer.TrackInfo> fromParcelableArray(
+            @NonNull List<ParcelImpl> parcelList) {
+        List<SessionPlayer.TrackInfo> list = new ArrayList<>();
+        for (int i = 0; i < parcelList.size(); i++) {
+            list.add((SessionPlayer.TrackInfo) ParcelUtils.fromParcelable(parcelList.get(i)));
+        }
+        return list;
     }
 
     @SuppressLint("RestrictedApi")

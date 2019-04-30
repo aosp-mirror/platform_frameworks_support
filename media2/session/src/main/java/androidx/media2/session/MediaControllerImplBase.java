@@ -79,6 +79,7 @@ import androidx.media2.common.Rating;
 import androidx.media2.common.SessionPlayer;
 import androidx.media2.common.SessionPlayer.RepeatMode;
 import androidx.media2.common.SessionPlayer.ShuffleMode;
+import androidx.media2.common.SessionPlayer.TrackInfo;
 import androidx.media2.session.MediaController.ControllerCallback;
 import androidx.media2.session.MediaController.MediaControllerImpl;
 import androidx.media2.session.MediaController.PlaybackInfo;
@@ -153,6 +154,8 @@ class MediaControllerImplBase implements MediaControllerImpl {
     private PendingIntent mSessionActivity;
     @GuardedBy("mLock")
     private SessionCommandGroup mAllowedCommands;
+    @GuardedBy("mLock")
+    private List<TrackInfo> mTrackInfos;
 
     // Assignment should be used with the lock hold, but should be used without a lock to prevent
     // potential deadlock.
@@ -770,6 +773,38 @@ class MediaControllerImplBase implements MediaControllerImpl {
     }
 
     @Override
+    @Nullable
+    public List<SessionPlayer.TrackInfo> getTrackInfo() {
+        synchronized (mLock) {
+            return mTrackInfos;
+        }
+    }
+
+    @Override
+    public ListenableFuture<SessionResult> selectTrack(final SessionPlayer.TrackInfo trackInfo) {
+        return dispatchRemoteSessionTask(COMMAND_CODE_PLAYER_SET_SHUFFLE_MODE,
+                new RemoteSessionTask() {
+                    @Override
+                    public void run(IMediaSession iSession, int seq) throws RemoteException {
+                        iSession.selectTrack(mControllerStub, seq,
+                                MediaParcelUtils.toParcelable(trackInfo));
+                    }
+                });
+    }
+
+    @Override
+    public ListenableFuture<SessionResult> deselectTrack(final SessionPlayer.TrackInfo trackInfo) {
+        return dispatchRemoteSessionTask(COMMAND_CODE_PLAYER_SET_SHUFFLE_MODE,
+                new RemoteSessionTask() {
+                    @Override
+                    public void run(IMediaSession iSession, int seq) throws RemoteException {
+                        iSession.deselectTrack(mControllerStub, seq,
+                                MediaParcelUtils.toParcelable(trackInfo));
+                    }
+                });
+    }
+
+    @Override
     @NonNull
     public Context getContext() {
         return mContext;
@@ -1077,6 +1112,39 @@ class MediaControllerImplBase implements MediaControllerImpl {
         });
     }
 
+    void notifyTrackInfoChanged(final int seq, final List<TrackInfo> trackInfos) {
+        if (mCallback == null) return;
+        mCallbackExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                if (!mInstance.isConnected()) {
+                    return;
+                }
+                mCallback.onTrackInfoChanged(mInstance, trackInfos);
+            }
+        });
+    }
+
+    void notifyTrackSelected(final int seq, final TrackInfo trackInfo) {
+        if (mCallback == null) return;
+        mCallbackExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                mCallback.onTrackSelected(mInstance, trackInfo);
+            }
+        });
+    }
+
+    void notifyTrackDeselected(final int seq, final TrackInfo trackInfo) {
+        if (mCallback == null) return;
+        mCallbackExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                mCallback.onTrackDeselected(mInstance, trackInfo);
+            }
+        });
+    }
+
     // Should be used without a lock to prevent potential deadlock.
     void onConnectedNotLocked(IMediaSession sessionBinder,
             final SessionCommandGroup allowedCommands,
@@ -1094,7 +1162,8 @@ class MediaControllerImplBase implements MediaControllerImpl {
             final int currentMediaItemIndex,
             final int previousMediaItemIndex,
             final int nextMediaItemIndex,
-            final Bundle tokenExtras) {
+            final Bundle tokenExtras,
+            final List<TrackInfo> trackInfos) {
         if (DEBUG) {
             Log.d(TAG, "onConnectedNotLocked sessionBinder=" + sessionBinder
                     + ", allowedCommands=" + allowedCommands);
@@ -1133,6 +1202,7 @@ class MediaControllerImplBase implements MediaControllerImpl {
                 mCurrentMediaItemIndex = currentMediaItemIndex;
                 mPreviousMediaItemIndex = previousMediaItemIndex;
                 mNextMediaItemIndex = nextMediaItemIndex;
+                mTrackInfos = trackInfos;
                 try {
                     // Implementation for the local binder is no-op,
                     // so can be used without worrying about deadlock.

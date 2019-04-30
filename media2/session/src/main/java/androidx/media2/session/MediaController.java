@@ -16,6 +16,7 @@
 
 package androidx.media2.session;
 
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 import static androidx.media2.common.SessionPlayer.BUFFERING_STATE_UNKNOWN;
 import static androidx.media2.common.SessionPlayer.PLAYER_STATE_IDLE;
@@ -1070,6 +1071,45 @@ public class MediaController implements AutoCloseable {
     }
 
     /**
+     * Gets the list of track information.
+     *
+     * @return List of track info. The total number of tracks is the size of the list.
+     *
+     * @hide
+     */
+    @RestrictTo(LIBRARY_GROUP)
+    @Nullable
+    public List<SessionPlayer.TrackInfo> getTrackInfo() {
+        return isConnected() ? getImpl().getTrackInfo() : null;
+    }
+
+    /**
+     * Gets the list of track information.
+     *
+     * @param trackInfo Track info to be selected.
+     *
+     * @hide
+     */
+    @RestrictTo(LIBRARY_GROUP)
+    @Nullable
+    public ListenableFuture<SessionResult> selectTrack(SessionPlayer.TrackInfo trackInfo) {
+        return isConnected() ? getImpl().selectTrack(trackInfo) : null;
+    }
+
+    /**
+     * Deselect track info.
+     *
+     * @param trackInfo Track info to be deselected.
+     *
+     * @hide
+     */
+    @RestrictTo(LIBRARY_GROUP)
+    @Nullable
+    public ListenableFuture<SessionResult> deselectTrack(SessionPlayer.TrackInfo trackInfo) {
+        return isConnected() ? getImpl().deselectTrack(trackInfo) : null;
+    }
+
+    /**
      * Sets the time diff forcefully when calculating current position.
      * @param timeDiff {@code null} for reset.
      *
@@ -1155,6 +1195,9 @@ public class MediaController implements AutoCloseable {
         ListenableFuture<SessionResult> setRepeatMode(@RepeatMode int repeatMode);
         @ShuffleMode int getShuffleMode();
         ListenableFuture<SessionResult> setShuffleMode(@ShuffleMode int shuffleMode);
+        List<SessionPlayer.TrackInfo> getTrackInfo();
+        ListenableFuture<SessionResult> selectTrack(SessionPlayer.TrackInfo trackInfo);
+        ListenableFuture<SessionResult> deselectTrack(SessionPlayer.TrackInfo trackInfo);
 
         // Internally used methods
         @NonNull MediaController getInstance();
@@ -1579,6 +1622,39 @@ public class MediaController implements AutoCloseable {
          * @param controller the controller for this event
          */
         public void onPlaybackCompleted(@NonNull MediaController controller) {}
+
+        /**
+         * Called when the track info list is changed.
+         *
+         * @param controller the controller for this event
+         * @param trackInfos the list of track infos
+         * @hide
+         */
+        @RestrictTo(LIBRARY_GROUP)
+        public void onTrackInfoChanged(MediaController controller,
+                List<SessionPlayer.TrackInfo> trackInfos) {}
+
+        /**
+         * Called when a track info is selected.
+         *
+         * @param controller the controller for this event
+         * @param trackInfo the selected track info
+         * @hide
+         */
+        @RestrictTo(LIBRARY_GROUP)
+        public void onTrackSelected(MediaController controller,
+                SessionPlayer.TrackInfo trackInfo) {}
+
+        /**
+         * Called when a track info is deselected.
+         *
+         * @param controller the controller for this event
+         * @param trackInfo the deselected track info
+         * @hide
+         */
+        @RestrictTo(LIBRARY_GROUP)
+        public void onTrackDeselected(MediaController controller,
+                SessionPlayer.TrackInfo trackInfo) {}
     }
 
     /**

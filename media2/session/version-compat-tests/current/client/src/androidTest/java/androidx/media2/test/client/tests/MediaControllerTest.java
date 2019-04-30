@@ -348,6 +348,21 @@ public class MediaControllerTest extends MediaSessionTestBase {
                 info.getCurrentVolume());
     }
 
+    @Test
+    public void testGetTrackInfo() throws Exception {
+        prepareLooper();
+
+        final SessionPlayer.TrackInfo testTrack = new SessionPlayer.TrackInfo(0, null, 0, null);
+        final List<SessionPlayer.TrackInfo> testTracks = new ArrayList<>();
+        testTracks.add(testTrack);
+        Bundle playerConfig =
+                RemoteMediaSession.createMockPlayerConnectorConfigForTrackInfo(testTracks);
+        mRemoteSession.updatePlayer(playerConfig);
+
+        MediaController controller = createController(mRemoteSession.getToken());
+        assertEquals(testTrack, controller.getTrackInfo().get(0));
+    }
+
     RemoteMediaSession createRemoteMediaSession(String id, Bundle tokenExtras) {
         RemoteMediaSession session = new RemoteMediaSession(id, mContext, tokenExtras);
         mRemoteSessionList.add(session);

@@ -57,6 +57,10 @@ oneway interface IMediaController {
     void onSessionResult(int seq, in ParcelImpl sessionResult) = 16;
     void onLibraryResult(int seq, in ParcelImpl libraryResult) = 17;
 
+    void onTrackInfoChanged(int seq, in List<ParcelImpl> trackInfos) = 20;
+    void onTrackSelected(int seq, in ParcelImpl trackInfo) = 21;
+    void onTrackDeselected(int seq, in ParcelImpl trackInfo) = 22;
+
     //////////////////////////////////////////////////////////////////////////////////////////////
     // Browser sepcific
     //////////////////////////////////////////////////////////////////////////////////////////////
@@ -64,5 +68,5 @@ oneway interface IMediaController {
             in ParcelImpl libraryParams) = 18;
     void onSearchResultChanged(int seq, String query, int itemCount,
             in ParcelImpl libraryParams) = 19;
-    // Next Id : 20
+    // Next Id : 23
 }

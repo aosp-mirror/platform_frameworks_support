@@ -23,6 +23,7 @@ import android.os.SystemClock;
 
 import androidx.media2.common.MediaItem;
 import androidx.media2.common.ParcelImplListSlice;
+import androidx.media2.common.SessionPlayer.TrackInfo;
 import androidx.versionedparcelable.CustomVersionedParcelable;
 import androidx.versionedparcelable.NonParcelField;
 import androidx.versionedparcelable.ParcelField;
@@ -30,6 +31,7 @@ import androidx.versionedparcelable.VersionedParcelable;
 import androidx.versionedparcelable.VersionedParcelize;
 
 import java.util.List;
+
 
 /**
  * Created by {@link MediaSession} to send its state to the {@link MediaController} when the
@@ -78,6 +80,8 @@ class ConnectionResult extends CustomVersionedParcelable {
     int mNextMediaItemIndex;
     @ParcelField(17)
     Bundle mTokenExtras;
+    @ParcelField(18)
+    List<TrackInfo> mTrackInfos;
 
     // For versioned parcelable
     ConnectionResult() {
@@ -101,6 +105,7 @@ class ConnectionResult extends CustomVersionedParcelable {
         mPreviousMediaItemIndex = sessionImpl.getPreviousMediaItemIndex();
         mNextMediaItemIndex = sessionImpl.getNextMediaItemIndex();
         mTokenExtras = sessionImpl.getToken().getExtras();
+        mTrackInfos = sessionImpl.getTrackInfo();
         if (allowedCommands != null
                 && allowedCommands.hasCommand(SessionCommand.COMMAND_CODE_PLAYER_GET_PLAYLIST)) {
             List<MediaItem> playlist = sessionImpl.getPlaylist();
@@ -182,6 +187,10 @@ class ConnectionResult extends CustomVersionedParcelable {
 
     public Bundle getTokenExtras() {
         return mTokenExtras;
+    }
+
+    public List<TrackInfo> getTrackInfo() {
+        return mTrackInfos;
     }
 
     @Override

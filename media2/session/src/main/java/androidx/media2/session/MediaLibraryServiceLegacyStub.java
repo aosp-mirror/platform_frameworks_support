@@ -38,6 +38,7 @@ import androidx.media.MediaBrowserServiceCompat;
 import androidx.media.MediaSessionManager.RemoteUserInfo;
 import androidx.media2.common.MediaItem;
 import androidx.media2.common.MediaMetadata;
+import androidx.media2.common.SessionPlayer;
 import androidx.media2.common.SessionPlayer.PlayerResult;
 import androidx.media2.session.MediaController.PlaybackInfo;
 import androidx.media2.session.MediaLibraryService.LibraryParams;
@@ -482,6 +483,22 @@ class MediaLibraryServiceLegacyStub extends MediaSessionServiceLegacyStub {
         @Override
         final void onDisconnected(int seq) throws RemoteException {
             // No-op. BrowserCompat doesn't have concept of receiving release of a session.
+        }
+
+        @Override
+        void onTrackInfoChanged(int seq, List<SessionPlayer.TrackInfo> trackInfos)
+                throws RemoteException {
+            // No-op. BrowserCompat doesn't understand Controller features.
+        }
+
+        @Override
+        void onTrackSelected(int seq, SessionPlayer.TrackInfo trackInfo) throws RemoteException {
+            // No-op. BrowserCompat doesn't understand Controller features.
+        }
+
+        @Override
+        void onTrackDeselected(int seq, SessionPlayer.TrackInfo trackInfo) throws RemoteException {
+            // No-op. BrowserCompat doesn't understand Controller features.
         }
     }
 

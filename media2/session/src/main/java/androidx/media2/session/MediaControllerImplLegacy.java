@@ -803,6 +803,25 @@ class MediaControllerImplLegacy implements MediaController.MediaControllerImpl {
     }
 
     @Override
+    @Nullable
+    public List<SessionPlayer.TrackInfo> getTrackInfo() {
+        Log.w(TAG, "Session doesn't support getting TrackInfo");
+        return null;
+    }
+
+    @Override
+    public ListenableFuture<SessionResult> selectTrack(SessionPlayer.TrackInfo trackInfo) {
+        Log.w(TAG, "Session doesn't support selecting track");
+        return createFutureWithResult(RESULT_ERROR_NOT_SUPPORTED);
+    }
+
+    @Override
+    public ListenableFuture<SessionResult> deselectTrack(SessionPlayer.TrackInfo trackInfo) {
+        Log.w(TAG, "Session doesn't support deselecting track");
+        return createFutureWithResult(RESULT_ERROR_NOT_SUPPORTED);
+    }
+
+    @Override
     public @NonNull Context getContext() {
         return mContext;
     }

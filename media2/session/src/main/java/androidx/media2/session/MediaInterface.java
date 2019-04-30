@@ -19,6 +19,7 @@ package androidx.media2.session;
 import androidx.media2.common.MediaItem;
 import androidx.media2.common.MediaMetadata;
 import androidx.media2.common.SessionPlayer.PlayerResult;
+import androidx.media2.common.SessionPlayer.TrackInfo;
 
 import com.google.common.util.concurrent.ListenableFuture;
 
@@ -74,5 +75,8 @@ class MediaInterface {
 
     // Common interface for session and controller
     interface SessionPlayer extends SessionPlaybackControl, SessionPlaylistControl {
+        List<TrackInfo> getTrackInfo();
+        ListenableFuture<PlayerResult> selectTrack(TrackInfo trackInfo);
+        ListenableFuture<PlayerResult> deselectTrack(TrackInfo trackInfo);
     }
 }

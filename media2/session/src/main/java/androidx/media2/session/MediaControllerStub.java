@@ -26,6 +26,7 @@ import androidx.media2.common.MediaMetadata;
 import androidx.media2.common.MediaParcelUtils;
 import androidx.media2.common.ParcelImplListSlice;
 import androidx.media2.common.SessionPlayer.BuffState;
+import androidx.media2.common.SessionPlayer.TrackInfo;
 import androidx.media2.session.MediaLibraryService.LibraryParams;
 import androidx.versionedparcelable.ParcelImpl;
 
@@ -264,7 +265,7 @@ class MediaControllerStub extends IMediaController.Stub {
                     result.getRepeatMode(), result.getShuffleMode(), itemList,
                     result.getSessionActivity(), result.getCurrentMediaItemIndex(),
                     result.getPreviousMediaItemIndex(), result.getNextMediaItemIndex(),
-                    result.getTokenExtras());
+                    result.getTokenExtras(), result.getTrackInfo());
         } finally {
             Binder.restoreCallingIdentity(token);
         }
@@ -341,6 +342,59 @@ class MediaControllerStub extends IMediaController.Stub {
                     return;
                 }
                 controller.onCustomCommand(seq, command, args);
+            }
+        });
+    }
+
+    @Override
+    public void onTrackInfoChanged(final int seq, final List<ParcelImpl> trackInfoList) {
+        if (trackInfoList == null) {
+            return;
+        }
+        dispatchControllerTask(new ControllerTask() {
+            @Override
+            public void run(MediaControllerImplBase controller) {
+                List<TrackInfo> trackInfos = new ArrayList<>();
+                for (int i = 0; i < trackInfos.size(); i++) {
+                    TrackInfo trackInfo = MediaParcelUtils.fromParcelable(trackInfoList.get(i));
+                    if (trackInfo != null) {
+                        trackInfos.add(trackInfo);
+                    }
+                }
+                controller.notifyTrackInfoChanged(seq, trackInfos);
+            }
+        });
+    }
+
+    @Override
+    public void onTrackSelected(final int seq, final ParcelImpl trackInfoParcel) {
+
+        if (trackInfoParcel == null) {
+            return;
+        }
+        dispatchControllerTask(new ControllerTask() {
+            @Override
+            public void run(MediaControllerImplBase controller) {
+                TrackInfo trackInfo = MediaParcelUtils.fromParcelable(trackInfoParcel);
+                if (trackInfo != null) {
+                    controller.notifyTrackSelected(seq, trackInfo);
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onTrackDeselected(final int seq, final ParcelImpl trackInfoParcel) {
+        if (trackInfoParcel == null) {
+            return;
+        }
+        dispatchControllerTask(new ControllerTask() {
+            @Override
+            public void run(MediaControllerImplBase controller) {
+                TrackInfo trackInfo = MediaParcelUtils.fromParcelable(trackInfoParcel);
+                if (trackInfo != null) {
+                    controller.notifyTrackDeselected(seq, trackInfo);
+                }
             }
         });
     }
