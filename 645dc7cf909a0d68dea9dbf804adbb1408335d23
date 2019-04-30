@@ -34,6 +34,24 @@
       "revId": "645dc7cf909a0d68dea9dbf804adbb1408335d23",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d9d7b7e_53389710",
+        "filename": "appcompat/src/androidTest/java/androidx/appcompat/widget/AppCompatSpinnerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1061051
+      },
+      "writtenOn": "2019-04-30T14:32:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6d356910_334b670b",
+      "revId": "645dc7cf909a0d68dea9dbf804adbb1408335d23",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
