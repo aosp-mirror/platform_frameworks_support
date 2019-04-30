@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cdc0a236_aaf156c6",
+        "filename": "jetifier/jetifier/processor/src/main/kotlin/com/android/tools/build/jetifier/processor/TransformationResult.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1101693
+      },
+      "writtenOn": "2019-04-30T15:43:09Z",
+      "side": 1,
+      "message": "nit: These include files that are not jetified, so it needs a better name. Maybe a Map\u003cFile, File\u003e from the original file to the jetified file is more general. If a file is not jetified, we can either have key\u003dvalue, or value\u003dnull.",
+      "range": {
+        "startLine": 24,
+        "startChar": 10,
+        "endLine": 24,
+        "endChar": 22
+      },
+      "revId": "4421df1df597465070d30337a8a999632090e1d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c49be59c_b0d60172",
+        "filename": "jetifier/jetifier/processor/src/main/kotlin/com/android/tools/build/jetifier/processor/TransformationResult.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1101693
+      },
+      "writtenOn": "2019-04-30T15:43:09Z",
+      "side": 1,
+      "message": "nit: files \u003d\u003e libs, to be consistent with the other parameter.",
+      "range": {
+        "startLine": 27,
+        "startChar": 36,
+        "endLine": 27,
+        "endChar": 48
+      },
+      "revId": "4421df1df597465070d30337a8a999632090e1d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
