@@ -32,6 +32,7 @@ import androidx.annotation.RestrictTo.Scope;
 import androidx.annotation.UiThread;
 import androidx.camera.core.CameraX.LensFacing;
 import androidx.camera.core.ImageOutputConfig.RotationValue;
+import androidx.camera.core.impl.utils.executor.CameraXExecutors;
 
 import com.google.auto.value.AutoValue;
 
@@ -63,6 +64,7 @@ public class Preview extends UseCase {
             };
     final CheckedSurfaceTexture mCheckedSurfaceTexture =
             new CheckedSurfaceTexture(mSurfaceTextureListener);
+    final SessionEventListener mSessionEventListener;
     private final PreviewConfig.Builder mUseCaseConfigBuilder;
     @Nullable
     private OnPreviewOutputUpdateListener mSubscribedPreviewOutputListener;
@@ -79,6 +81,7 @@ public class Preview extends UseCase {
     public Preview(PreviewConfig config) {
         super(config);
         mUseCaseConfigBuilder = PreviewConfig.Builder.fromConfig(config);
+        mSessionEventListener = config.getSessionEventListener(null);
     }
 
     private static SessionConfig.Builder createFrom(
@@ -269,6 +272,10 @@ public class Preview extends UseCase {
         removePreviewOutputListener();
         notifyInactive();
 
+        if (mSessionEventListener != null) {
+            mSessionEventListener.onDeInit(CameraXExecutors.mainThreadExecutor());
+        }
+
         SurfaceTexture oldTexture =
                 (mLatestPreviewOutput == null)
                         ? null
@@ -301,6 +308,12 @@ public class Preview extends UseCase {
         mCheckedSurfaceTexture.resetSurfaceTexture();
 
         SessionConfig.Builder sessionConfigBuilder = createFrom(config, mCheckedSurfaceTexture);
+        if (mSessionEventListener != null) {
+            mSessionEventListener.onInit(cameraId);
+            mSessionEventListener.onResolutionUpdate(
+                    new Size(resolution.getWidth(), resolution.getHeight()));
+            mSessionEventListener.onImageFormatUpdate(getImageFormat());
+        }
         attachToCamera(cameraId, sessionConfigBuilder.build());
 
         return suggestedResolutionMap;
