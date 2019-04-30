@@ -15,8 +15,9 @@
  */
 package androidx.camera.extensions.impl;
 
+import android.content.Context;
 import android.hardware.camera2.CameraCharacteristics;
-
+import android.util.Size;
 
 import java.util.List;
 
@@ -40,12 +41,53 @@ public final class BokehImageCaptureExtenderImpl implements ImageCaptureExtender
     }
 
     @Override
+    public CaptureProcessorImpl getCaptureProcessor() {
+        throw new RuntimeException("Stub, replace with implementation.");
+    }
+
+    @Override
     public List<CaptureStageImpl> getCaptureStages() {
         throw new RuntimeException("Stub, replace with implementation.");
     }
 
     @Override
-    public CaptureProcessorImpl getCaptureProcessor() {
+    public void onInit(String cameraId, CameraCharacteristics cameraCharacteristics,
+            Context context) {
+        throw new RuntimeException("Stub, replace with implementation.");
+    }
+
+    @Override
+    public void onDeInit() {
+        throw new RuntimeException("Stub, replace with implementation.");
+    }
+
+    @Override
+    public CaptureStageImpl onPresetSession() {
+        throw new RuntimeException("Stub, replace with implementation.");
+    }
+
+    @Override
+    public CaptureStageImpl onEnableSession() {
+        throw new RuntimeException("Stub, replace with implementation.");
+    }
+
+    @Override
+    public CaptureStageImpl onDisableSession() {
+        throw new RuntimeException("Stub, replace with implementation.");
+    }
+
+    @Override
+    public void onResolutionUpdate(Size size) {
+        throw new RuntimeException("Stub, replace with implementation.");
+    }
+
+    @Override
+    public void onImageFormatUpdate(int imageFormat) {
+        throw new RuntimeException("Stub, replace with implementation.");
+    }
+
+    @Override
+    public Integer getMaxCaptureStage() {
         throw new RuntimeException("Stub, replace with implementation.");
     }
 }
