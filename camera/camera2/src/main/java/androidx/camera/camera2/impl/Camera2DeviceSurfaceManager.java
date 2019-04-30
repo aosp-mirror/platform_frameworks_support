@@ -27,6 +27,7 @@ import androidx.annotation.RestrictTo.Scope;
 import androidx.annotation.VisibleForTesting;
 import androidx.camera.core.CameraDeviceConfig;
 import androidx.camera.core.CameraDeviceSurfaceManager;
+import androidx.camera.core.CameraInfoUnavailableException;
 import androidx.camera.core.CameraX;
 import androidx.camera.core.SurfaceConfig;
 import androidx.camera.core.UseCase;
@@ -155,10 +156,10 @@ public final class Camera2DeviceSurfaceManager implements CameraDeviceSurfaceMan
                 String useCaseCameraId;
                 try {
                     useCaseCameraId =
-                            CameraX.getCameraWithLensFacing(config.getLensFacing());
-                } catch (Exception e) {
+                            CameraX.getCameraWithCameraDeviceConfig(config);
+                } catch (CameraInfoUnavailableException e) {
                     throw new IllegalArgumentException(
-                            "Unable to get camera ID for use case " + useCase.getName(), e);
+                            "Unable to get camera id for the camera device config.", e);
                 }
                 Size resolution = useCase.getAttachedSurfaceResolution(useCaseCameraId);
 
