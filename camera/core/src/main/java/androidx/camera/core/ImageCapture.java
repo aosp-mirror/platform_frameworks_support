@@ -205,15 +205,6 @@ public class ImageCapture extends UseCase {
         mCaptureConfig = captureBuilder.build();
     }
 
-    private static String getCameraIdUnchecked(LensFacing lensFacing) {
-        try {
-            return CameraX.getCameraWithLensFacing(lensFacing);
-        } catch (Exception e) {
-            throw new IllegalArgumentException(
-                    "Unable to get camera id for camera lens facing " + lensFacing, e);
-        }
-    }
-
     /**
      * {@inheritDoc}
      *
@@ -233,7 +224,7 @@ public class ImageCapture extends UseCase {
     }
 
     private CameraControlInternal getCurrentCameraControl() {
-        String cameraId = getCameraIdUnchecked(mConfig.getLensFacing());
+        String cameraId = getCameraIdUnchecked(mConfig);
         return getCameraControl(cameraId);
     }
 
@@ -468,7 +459,7 @@ public class ImageCapture extends UseCase {
     private void sendImageCaptureRequest(
             OnImageCapturedListener listener, @Nullable Handler listenerHandler) {
 
-        String cameraId = getCameraIdUnchecked(mConfig.getLensFacing());
+        String cameraId = getCameraIdUnchecked(mConfig);
 
         // Get the relative rotation or default to 0 if the camera info is unavailable
         int relativeRotation = 0;
@@ -581,7 +572,7 @@ public class ImageCapture extends UseCase {
     @RestrictTo(Scope.LIBRARY_GROUP)
     protected Map<String, Size> onSuggestedResolutionUpdated(
             Map<String, Size> suggestedResolutionMap) {
-        String cameraId = getCameraIdUnchecked(mConfig.getLensFacing());
+        String cameraId = getCameraIdUnchecked(mConfig);
         Size resolution = suggestedResolutionMap.get(cameraId);
         if (resolution == null) {
             throw new IllegalArgumentException(
