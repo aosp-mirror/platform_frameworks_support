@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "60c2218b_a7965a3a",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/Camera.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 1486234
+      },
+      "writtenOn": "2019-04-30T22:21:15Z",
+      "side": 1,
+      "message": "Technically it can be null, although I don\u0027t have a specific reason to check it here. If it\u0027s null there must be other serious problem elsewhere. Removed the check.",
+      "parentUuid": "b7e10a65_49f3002b",
+      "revId": "f39b8fe970422901d8b94c23bed96fa35bb9c41f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e7b24ea1_d6f0ded3",
         "filename": "camera/camera2/src/main/java/androidx/camera/camera2/Camera.java",
         "patchSetId": 3
@@ -30,6 +48,24 @@
       "writtenOn": "2019-04-30T21:35:29Z",
       "side": 1,
       "message": "Why not CaptureConfig.Builder.getSurfaces().size() \u003d\u003d 0?\n\nThat would remove the need for the boolean.\n\nWe only call this when the builder has an empty Surface list. If we do change the logic to do so, then we should updated the javadoc to make mention of it and also do a check in the beginning to make sure.",
+      "revId": "f39b8fe970422901d8b94c23bed96fa35bb9c41f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d3ebd2a_300d9dc5",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/Camera.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 604,
+      "author": {
+        "id": 1486234
+      },
+      "writtenOn": "2019-04-30T22:21:15Z",
+      "side": 1,
+      "message": "The getSurfaces is somehow package private to core. Do you think we should change it to public just for here?",
+      "parentUuid": "e7b24ea1_d6f0ded3",
       "revId": "f39b8fe970422901d8b94c23bed96fa35bb9c41f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
