@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0a2c8c62_a69f7d11",
+        "filename": "appcompat/src/androidTest/java/androidx/appcompat/widget/AppCompatSpinnerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2019-04-30T10:18:15Z",
+      "side": 1,
+      "message": "Can a method be extracted out of this?",
+      "revId": "645dc7cf909a0d68dea9dbf804adbb1408335d23",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
