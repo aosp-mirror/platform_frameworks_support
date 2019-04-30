@@ -105,6 +105,9 @@ limitations under the License.
     <!-- Navigation Bar -->
     <dimen name="car_navigation_bar_height">80dp</dimen>
 
+    <!-- Action Bar -->
+    <dimen name="car_action_bar_height">96dp</dimen>
+
     <!-- Application Bar -->
     <dimen name="car_app_bar_height">80dp</dimen>
     <dimen name="car_app_bar_default_elevation">8dp</dimen>
