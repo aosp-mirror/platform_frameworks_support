@@ -34,6 +34,10 @@ import androidx.annotation.RestrictTo;
 import androidx.concurrent.futures.ResolvableFuture;
 import androidx.core.util.Pair;
 import androidx.media.AudioAttributesCompat;
+import androidx.versionedparcelable.CustomVersionedParcelable;
+import androidx.versionedparcelable.NonParcelField;
+import androidx.versionedparcelable.ParcelField;
+import androidx.versionedparcelable.VersionedParcelize;
 
 import com.google.common.util.concurrent.ListenableFuture;
 
@@ -892,7 +896,8 @@ public abstract class SessionPlayer implements AutoCloseable {
      * @hide
      */
     @RestrictTo(LIBRARY_GROUP)
-    public static final class TrackInfo {
+    @VersionedParcelize(isCustom = true)
+    public static final class TrackInfo extends CustomVersionedParcelable {
         public static final int MEDIA_TRACK_TYPE_UNKNOWN = 0;
         public static final int MEDIA_TRACK_TYPE_VIDEO = 1;
         public static final int MEDIA_TRACK_TYPE_AUDIO = 2;
@@ -913,10 +918,34 @@ public abstract class SessionPlayer implements AutoCloseable {
         @Retention(RetentionPolicy.SOURCE)
         @RestrictTo(LIBRARY_GROUP)
         public @interface MediaTrackType {}
-        private final int mId;
-        private final MediaItem mItem;
-        private final int mTrackType;
-        private final MediaFormat mFormat;
+
+        @ParcelField(1)
+        int mId;
+        @ParcelField(2)
+        MediaItem mItem;
+        @ParcelField(3)
+        int mTrackType;
+        @ParcelField(4)
+        String mLanguage;
+        @ParcelField(5)
+        String mMimeType;
+
+        @NonParcelField
+        MediaFormat mFormat;
+
+        /**
+         * Used for VersionedParcelable
+         */
+        TrackInfo() {
+            // no-op
+        }
+
+        public TrackInfo(int id, MediaItem item, int type, MediaFormat format) {
+            mId = id;
+            mItem = item;
+            mTrackType = type;
+            mFormat = format;
+        }
 
         /**
          * Gets the track type.
@@ -962,19 +991,13 @@ public abstract class SessionPlayer implements AutoCloseable {
             return mItem;
         }
 
-        public TrackInfo(int id, MediaItem item, int type, MediaFormat format) {
-            mId = id;
-            mItem = item;
-            mTrackType = type;
-            mFormat = format;
-        }
-
         @Override
         public String toString() {
             StringBuilder out = new StringBuilder(128);
             out.append(getClass().getName());
-            out.append('#').append(mId);
-            out.append('{');
+            out.append(", id: ").append(mId);
+            out.append(", MediaItem: " + mItem);
+            out.append(", TrackType: ");
             switch (mTrackType) {
                 case MEDIA_TRACK_TYPE_VIDEO:
                     out.append("VIDEO");
@@ -992,8 +1015,7 @@ public abstract class SessionPlayer implements AutoCloseable {
                     out.append("UNKNOWN");
                     break;
             }
-            out.append(", " + mFormat.toString());
-            out.append("}");
+            out.append(", Format: " + mFormat);
             return out.toString();
         }
 
@@ -1039,6 +1061,37 @@ public abstract class SessionPlayer implements AutoCloseable {
                     return mediaId.equals(other.mItem.getMediaId());
                 }
                 return mItem.equals(other.mItem);
+            }
+        }
+
+        @Override
+        public void onPreParceling(boolean isStream) {
+            mLanguage = mFormat != null ? mFormat.getString(MediaFormat.KEY_LANGUAGE) : null;
+            if (mLanguage == null) {
+                mLanguage = "und";
+            }
+            mMimeType = mFormat != null ? mFormat.getString(MediaFormat.KEY_MIME) : null;
+
+            // Up-cast MediaItem's subclass object to MediaItem class.
+            if (mItem != null) {
+                MediaItem item = new MediaItem(mItem);
+                mItem = item;
+            }
+        }
+
+        @Override
+        public void onPostParceling() {
+            if (mMimeType != null) {
+                if (mFormat == null) {
+                    mFormat = new MediaFormat();
+                }
+                mFormat.setString(MediaFormat.KEY_MIME, mMimeType);
+            }
+            if (!mLanguage.equals("und")) {
+                if (mFormat == null) {
+                    mFormat = new MediaFormat();
+                }
+                mFormat.setString(MediaFormat.KEY_MIME, mLanguage);
             }
         }
     }
@@ -1219,6 +1272,27 @@ public abstract class SessionPlayer implements AutoCloseable {
         @RestrictTo(LIBRARY_GROUP)
         public void onSubtitleData(@NonNull SessionPlayer player,
                 @NonNull MediaItem item, @NonNull SubtitleData data) {
+        }
+
+        /**
+         * @hide
+         */
+        @RestrictTo(LIBRARY_GROUP)
+        public void onTrackInfoChanged(SessionPlayer player, List<TrackInfo> trackInfos) {
+        }
+
+        /**
+         * @hide
+         */
+        @RestrictTo(LIBRARY_GROUP)
+        public void onTrackSelected(SessionPlayer player, TrackInfo trackInfo) {
+        }
+
+        /**
+         * @hide
+         */
+        @RestrictTo(LIBRARY_GROUP)
+        public void onTrackDeselected(SessionPlayer player, TrackInfo trackInfo) {
         }
     }
 
