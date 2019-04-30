@@ -16,6 +16,7 @@
 
 package androidx.media2.session;
 
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
 import android.net.Uri;
@@ -99,6 +100,8 @@ public final class SessionCommand implements VersionedParcelable {
             COMMAND_CODE_PLAYER_GET_CURRENT_MEDIA_ITEM,
             COMMAND_CODE_PLAYER_UPDATE_LIST_METADATA,
             COMMAND_CODE_PLAYER_SET_MEDIA_ITEM,
+            COMMAND_CODE_PLAYER_SELECT_TRACK,
+            COMMAND_CODE_PLAYER_DESELECT_TRACK,
             COMMAND_CODE_VOLUME_SET_VOLUME,
             COMMAND_CODE_VOLUME_ADJUST_VOLUME,
             COMMAND_CODE_SESSION_FAST_FORWARD,
@@ -191,12 +194,38 @@ public final class SessionCommand implements VersionedParcelable {
     public static final int COMMAND_CODE_PLAYER_SET_SPEED = 10004;
 
     /**
+     * Command code for {@link MediaController#selectTrack(SessionPlayer.TrackInfo)}.
+     * <p>
+     * Command would be sent directly to the player if the session doesn't reject the request
+     * through the
+     * {@link SessionCallback#onCommandRequest(MediaSession, ControllerInfo, SessionCommand)}.
+     * <p>
+     * Code version is {@link #COMMAND_VERSION_1}.
+     * @hide
+     */
+    @RestrictTo(LIBRARY_GROUP)
+    public static final int COMMAND_CODE_PLAYER_SELECT_TRACK = 10005;
+
+    /**
+     * Command code for {@link MediaController#deselectTrack(SessionPlayer.TrackInfo)}.
+     * <p>
+     * Command would be sent directly to the player if the session doesn't reject the request
+     * through the
+     * {@link SessionCallback#onCommandRequest(MediaSession, ControllerInfo, SessionCommand)}.
+     * <p>
+     * Code version is {@link #COMMAND_VERSION_1}.
+     * @hide
+     */
+    @RestrictTo(LIBRARY_GROUP)
+    public static final int COMMAND_CODE_PLAYER_DESELECT_TRACK = 10006;
+
+    /**
      * Command code for {@link MediaController#getPlaylist()}. This will expose metadata
      * information to the controller.
      * <p>
      * Code version is {@link #COMMAND_VERSION_1}.
      */
-    public static final int COMMAND_CODE_PLAYER_GET_PLAYLIST = 10005;
+    public static final int COMMAND_CODE_PLAYER_GET_PLAYLIST = 10010;
 
     /**
      * Command code for {@link MediaController#setPlaylist(List, MediaMetadata)}.
@@ -207,7 +236,7 @@ public final class SessionCommand implements VersionedParcelable {
      * <p>
      * Code version is {@link #COMMAND_VERSION_1}.
      */
-    public static final int COMMAND_CODE_PLAYER_SET_PLAYLIST = 10006;
+    public static final int COMMAND_CODE_PLAYER_SET_PLAYLIST = 10011;
 
     /**
      * Command code for {@link MediaController#skipToPlaylistItem(int)}.
@@ -218,7 +247,7 @@ public final class SessionCommand implements VersionedParcelable {
      * <p>
      * Code version is {@link #COMMAND_VERSION_1}.
      */
-    public static final int COMMAND_CODE_PLAYER_SKIP_TO_PLAYLIST_ITEM = 10007;
+    public static final int COMMAND_CODE_PLAYER_SKIP_TO_PLAYLIST_ITEM = 10012;
 
     /**
      * Command code for {@link MediaController#skipToPreviousPlaylistItem()}.
@@ -229,7 +258,7 @@ public final class SessionCommand implements VersionedParcelable {
      * <p>
      * Code version is {@link #COMMAND_VERSION_1}.
      */
-    public static final int COMMAND_CODE_PLAYER_SKIP_TO_PREVIOUS_PLAYLIST_ITEM = 10008;
+    public static final int COMMAND_CODE_PLAYER_SKIP_TO_PREVIOUS_PLAYLIST_ITEM = 10013;
 
     /**
      * Command code for {@link MediaController#skipToNextPlaylistItem()}.
@@ -241,7 +270,7 @@ public final class SessionCommand implements VersionedParcelable {
      * Code version is {@link #COMMAND_VERSION_1}.
      */
 
-    public static final int COMMAND_CODE_PLAYER_SKIP_TO_NEXT_PLAYLIST_ITEM = 10009;
+    public static final int COMMAND_CODE_PLAYER_SKIP_TO_NEXT_PLAYLIST_ITEM = 10014;
 
     /**
      * Command code for {@link MediaController#setShuffleMode(int)}.
@@ -252,7 +281,7 @@ public final class SessionCommand implements VersionedParcelable {
      * <p>
      * Code version is {@link #COMMAND_VERSION_1}.
      */
-    public static final int COMMAND_CODE_PLAYER_SET_SHUFFLE_MODE = 10010;
+    public static final int COMMAND_CODE_PLAYER_SET_SHUFFLE_MODE = 10015;
 
     /**
      * Command code for {@link MediaController#setRepeatMode(int)}.
@@ -263,7 +292,7 @@ public final class SessionCommand implements VersionedParcelable {
      * <p>
      * Code version is {@link #COMMAND_VERSION_1}.
      */
-    public static final int COMMAND_CODE_PLAYER_SET_REPEAT_MODE = 10011;
+    public static final int COMMAND_CODE_PLAYER_SET_REPEAT_MODE = 10016;
 
     /**
      * Command code for {@link MediaController#getPlaylistMetadata()}. This will expose metadata
@@ -271,7 +300,7 @@ public final class SessionCommand implements VersionedParcelable {
      * <p>
      * Code version is {@link #COMMAND_VERSION_1}.
      */
-    public static final int COMMAND_CODE_PLAYER_GET_PLAYLIST_METADATA = 10012;
+    public static final int COMMAND_CODE_PLAYER_GET_PLAYLIST_METADATA = 10017;
 
     /**
      * Command code for {@link MediaController#addPlaylistItem(int, String)}.
@@ -282,7 +311,7 @@ public final class SessionCommand implements VersionedParcelable {
      * <p>
      * Code version is {@link #COMMAND_VERSION_1}.
      */
-    public static final int COMMAND_CODE_PLAYER_ADD_PLAYLIST_ITEM = 10013;
+    public static final int COMMAND_CODE_PLAYER_ADD_PLAYLIST_ITEM = 10018;
 
     /**
      * Command code for {@link MediaController#removePlaylistItem(int)}.
@@ -293,7 +322,7 @@ public final class SessionCommand implements VersionedParcelable {
      * <p>
      * Code version is {@link #COMMAND_VERSION_1}.
      */
-    public static final int COMMAND_CODE_PLAYER_REMOVE_PLAYLIST_ITEM = 10014;
+    public static final int COMMAND_CODE_PLAYER_REMOVE_PLAYLIST_ITEM = 10019;
 
     /**
      * Command code for {@link MediaController#replacePlaylistItem(int, String)}.
@@ -304,7 +333,7 @@ public final class SessionCommand implements VersionedParcelable {
      * <p>
      * Code version is {@link #COMMAND_VERSION_1}.
      */
-    public static final int COMMAND_CODE_PLAYER_REPLACE_PLAYLIST_ITEM = 10015;
+    public static final int COMMAND_CODE_PLAYER_REPLACE_PLAYLIST_ITEM = 10020;
 
     /**
      * Command code for {@link MediaController#getCurrentMediaItem()}. This will expose metadata
@@ -312,7 +341,7 @@ public final class SessionCommand implements VersionedParcelable {
      * <p>
      * Code version is {@link #COMMAND_VERSION_1}.
      */
-    public static final int COMMAND_CODE_PLAYER_GET_CURRENT_MEDIA_ITEM = 10016;
+    public static final int COMMAND_CODE_PLAYER_GET_CURRENT_MEDIA_ITEM = 10021;
 
     /**
      * Command code for {@link MediaController#updatePlaylistMetadata(MediaMetadata)}.
@@ -323,7 +352,7 @@ public final class SessionCommand implements VersionedParcelable {
      * <p>
      * Code version is {@link #COMMAND_VERSION_1}.
      */
-    public static final int COMMAND_CODE_PLAYER_UPDATE_LIST_METADATA = 10017;
+    public static final int COMMAND_CODE_PLAYER_UPDATE_LIST_METADATA = 10022;
 
     /**
      * Command code for {@link MediaController#setMediaItem(String)}.
@@ -334,11 +363,11 @@ public final class SessionCommand implements VersionedParcelable {
      * <p>
      * Code version is {@link #COMMAND_VERSION_1}.
      */
-    public static final int COMMAND_CODE_PLAYER_SET_MEDIA_ITEM = 10018;
+    public static final int COMMAND_CODE_PLAYER_SET_MEDIA_ITEM = 10023;
 
     static {
         VERSION_PLAYER_BASIC_COMMANDS_MAP.put(COMMAND_VERSION_1,
-                new Range(COMMAND_CODE_PLAYER_PLAY, COMMAND_CODE_PLAYER_SET_SPEED));
+                new Range(COMMAND_CODE_PLAYER_PLAY, COMMAND_CODE_PLAYER_DESELECT_TRACK));
     }
 
     static {
