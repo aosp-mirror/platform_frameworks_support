@@ -1,0 +1,446 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "52aeea02_4fd766ae",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CameraEventCallback.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-30T21:36:03Z",
+      "side": 1,
+      "message": "This would be invoked before create capture session of Camera2.\n-\u003e\nThis will be invoked before creating a {@link CameraCaptureSession}.",
+      "revId": "b148e2b3dc8f4237427e1e1ea813fb47daae2f56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78cdb27d_8b0d90ed",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CameraEventCallback.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-30T21:36:03Z",
+      "side": 1,
+      "message": "This would be invoked once after a Camera2 capture session was created.\n-\u003e\nThis will be invoked once after a {@link CameraCaptureSession} is created.",
+      "revId": "b148e2b3dc8f4237427e1e1ea813fb47daae2f56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2eda8283_131c62a0",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CameraEventCallback.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-30T21:36:03Z",
+      "side": 1,
+      "message": "This callback would be invoked before start the repeating request in Camera2 capture session.\n-\u003e\nThis callback will be invoked before starting the repeating request in the {@link CameraCaptureSession}.",
+      "revId": "b148e2b3dc8f4237427e1e1ea813fb47daae2f56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1cb9a105_d7212946",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CameraEventCallback.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-30T21:36:03Z",
+      "side": 1,
+      "message": "This would be invoked once before the Camera2 capture session was going to close.\n-\u003e\nThis will be invoked once before the {@link CameraCaptureSession} is closed.",
+      "revId": "b148e2b3dc8f4237427e1e1ea813fb47daae2f56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ddf8079_095b0a0e",
+        "filename": "camera/core/src/main/java/androidx/camera/core/AppendableValue.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-30T21:36:03Z",
+      "side": 1,
+      "message": "Why do we use this instead of directly using a Set?\nIs there a specific thing that this adds?",
+      "revId": "b148e2b3dc8f4237427e1e1ea813fb47daae2f56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18cbfa20_26b14da3",
+        "filename": "camera/core/src/main/java/androidx/camera/core/SessionEventListener.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-30T21:36:03Z",
+      "side": 1,
+      "message": "If these interfaces were moved to the appropriate places then we might not need this Listener. Because the listener right now is a direct mapping to extensions.\n\nInstead we should think about where in the appropriate places within core we should map the extensions to.",
+      "revId": "b148e2b3dc8f4237427e1e1ea813fb47daae2f56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c322029a_825718c2",
+        "filename": "camera/core/src/main/java/androidx/camera/core/SessionEventListener.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-30T21:36:03Z",
+      "side": 1,
+      "message": "onInit() and onDeinit() could possibly be renamed as \nonUseCaseBind() and onUseCaseUnbind() and be part of a UseCase lifecycle/event listener.\n\nBecause we are mapping the extensions to something that is happening in core, rather than the opposite.",
+      "revId": "b148e2b3dc8f4237427e1e1ea813fb47daae2f56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5191f1bc_3e487759",
+        "filename": "camera/core/src/main/java/androidx/camera/core/SessionEventListener.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-30T21:36:03Z",
+      "side": 1,
+      "message": "onResolutionUpdated and onImageFormatUpdate might be rolled into the CaptureProcessor interface. This way CaptureProcessor has all the signals it needs for knowing when the input \u0026 output are changed.",
+      "revId": "b148e2b3dc8f4237427e1e1ea813fb47daae2f56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60fba4ff_c905ef7c",
+        "filename": "camera/core/src/main/java/androidx/camera/core/SessionEventListener.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-30T21:36:03Z",
+      "side": 1,
+      "message": "This callback would be invoked when CameraX going to change the configured surface with a resolution.\n-\u003e\nThis callback will be invoked when the configured surface resolution is updated.",
+      "revId": "b148e2b3dc8f4237427e1e1ea813fb47daae2f56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd069ed5_a999d077",
+        "filename": "camera/core/src/main/java/androidx/camera/core/SessionEventListener.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-30T21:36:03Z",
+      "side": 1,
+      "message": "This callback would be invoked when the image format was updated.\n-\u003e\nThis callback will be invoked when the image format is updated.",
+      "revId": "b148e2b3dc8f4237427e1e1ea813fb47daae2f56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79742b13_7db2eaae",
+        "filename": "camera/extensions-stub/src/main/java/androidx/camera/extensions/impl/ImageCaptureExtenderImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-30T21:36:03Z",
+      "side": 1,
+      "message": "Notify to initial of the extension. -\u003e Notify to initialize the extension.\n\nIt would be called after bindToLifeCycle. -\u003e This will be called after bindToLifeCycle.",
+      "revId": "b148e2b3dc8f4237427e1e1ea813fb47daae2f56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f32113f0_d589fca3",
+        "filename": "camera/extensions-stub/src/main/java/androidx/camera/extensions/impl/ImageCaptureExtenderImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-30T21:36:03Z",
+      "side": 1,
+      "message": "Notify to de-initialize of the extension. -\u003e Notify to de-initialize the extension.\n\nThis callback would be invoked after unbind. -\u003e This callback will be invoked after unbind.",
+      "revId": "b148e2b3dc8f4237427e1e1ea813fb47daae2f56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0eaecf96_54fc3f39",
+        "filename": "camera/extensions-stub/src/main/java/androidx/camera/extensions/impl/ImageCaptureExtenderImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-30T21:36:03Z",
+      "side": 1,
+      "message": "This would be invoked before create capture session of Camera2. -\u003e This will be invoked before creating a {@link android.hardware.camera2.CameraCaptureSession}.\n\nThe returned parameter in CaptureStage will be passed to the camera device as part of the capture session initialization via setSessionParameters(). -\u003e The {@link CaptureRequest} parameters returned via {@link CaptureStageImpl} will be passed to the camera device as part of the capture session initialization via setSessionParameters().",
+      "revId": "b148e2b3dc8f4237427e1e1ea813fb47daae2f56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33017b58_a1b2fe24",
+        "filename": "camera/extensions-stub/src/main/java/androidx/camera/extensions/impl/ImageCaptureExtenderImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-30T21:36:03Z",
+      "side": 1,
+      "message": "This would be invoked once after a Camera2 capture session was created. The returned parameter in CaptureStage will be used to generate a single request to the current configured camera device. The generated request would be submitted to camera before process other single request. -\u003e This will be invoked once after the {@link android.hardware.camera2.CameraCaptureSession} has been created. The {@link CaptureRequest} parameters returned via {@link CaptureStageImpl} will be used to generate a single request to the current configured {@link CameraDevice}. The generated request will be submitted to camera before processing other single requests.",
+      "revId": "b148e2b3dc8f4237427e1e1ea813fb47daae2f56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03b96a84_12c91595",
+        "filename": "camera/extensions-stub/src/main/java/androidx/camera/extensions/impl/ImageCaptureExtenderImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-30T21:36:03Z",
+      "side": 1,
+      "message": "This would be invoked once before the Camera2 capture session was going to close. The returned parameter in CaptureStage will be used to generate a single request to the current configured camera device. The generated request would be submitted to camera before the capture session was closed.\n-\u003e\nThis will be invoked before the {@link android.hardware.camera2.CameraCaptureSession} is closed. The {@link CaptureRequest} parameters returned via {@link CaptureStageImpl} will be used to generate a single request to the currently configured {@link CameraDevice}. The generated request will be submitted to camera before the CameraCaptureSession is closed.",
+      "revId": "b148e2b3dc8f4237427e1e1ea813fb47daae2f56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35c4e3f9_5beddf03",
+        "filename": "camera/extensions-stub/src/main/java/androidx/camera/extensions/impl/ImageCaptureExtenderImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-30T21:36:03Z",
+      "side": 1,
+      "message": "This callback would be invoked when CameraX going to change the configured surface with a resolution.\n-\u003e\nThis callback will be invoked when CameraX changes the configured input resolution. After this call, {@link CaptureProcessorImpl} should expect any {@link Image} received as input to be at the specified resolution.",
+      "revId": "b148e2b3dc8f4237427e1e1ea813fb47daae2f56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f4180fd_0c78e829",
+        "filename": "camera/extensions-stub/src/main/java/androidx/camera/extensions/impl/ImageCaptureExtenderImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-30T21:36:03Z",
+      "side": 1,
+      "message": "This callback would be invoked when the image format was updated.\n-\u003e\nThis callback will be invoked when CameraX changes the configured input image format. After this call, {@link CaptureProcessorImpl} should expect any {@link Image} received as input to have the specified image format.",
+      "revId": "b148e2b3dc8f4237427e1e1ea813fb47daae2f56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35f4bcf6_434761df",
+        "filename": "camera/extensions-stub/src/main/java/androidx/camera/extensions/impl/ImageCaptureExtenderImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-30T21:36:03Z",
+      "side": 1,
+      "message": "To get a maximum capture stage count to capture.\n-\u003e\nReturns the maximum size of the list returned by {@link #getCaptureStages()}.",
+      "revId": "b148e2b3dc8f4237427e1e1ea813fb47daae2f56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58b76e95_221f2181",
+        "filename": "camera/extensions-stub/src/main/java/androidx/camera/extensions/impl/ImageCaptureExtenderImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-30T21:36:03Z",
+      "side": 1,
+      "message": "Can be changed from Integer to int.\n\nMove this up to where getCaptureStages() is defined, since they are related.",
+      "revId": "b148e2b3dc8f4237427e1e1ea813fb47daae2f56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "029fc8c1_1cb2f417",
+        "filename": "camera/extensions-stub/src/main/java/androidx/camera/extensions/impl/PreviewExtenderImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-30T21:36:03Z",
+      "side": 1,
+      "message": "Same comment as the corresponding javadoc in ImageCaptureExtenderImpl",
+      "revId": "b148e2b3dc8f4237427e1e1ea813fb47daae2f56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c043048e_c114e0b7",
+        "filename": "camera/extensions-stub/src/main/java/androidx/camera/extensions/impl/PreviewExtenderImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-30T21:36:03Z",
+      "side": 1,
+      "message": "Same comment as the corresponding javadoc in ImageCaptureExtenderImpl",
+      "revId": "b148e2b3dc8f4237427e1e1ea813fb47daae2f56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b4d152f_00c71de0",
+        "filename": "camera/extensions-stub/src/main/java/androidx/camera/extensions/impl/PreviewExtenderImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-30T21:36:03Z",
+      "side": 1,
+      "message": "Same comment as the corresponding javadoc in ImageCaptureExtenderImpl",
+      "revId": "b148e2b3dc8f4237427e1e1ea813fb47daae2f56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62160dcd_e2ebc347",
+        "filename": "camera/extensions-stub/src/main/java/androidx/camera/extensions/impl/PreviewExtenderImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-30T21:36:03Z",
+      "side": 1,
+      "message": "Same comment as the corresponding javadoc in ImageCaptureExtenderImpl",
+      "revId": "b148e2b3dc8f4237427e1e1ea813fb47daae2f56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b834046_11dcc4ae",
+        "filename": "camera/extensions-stub/src/main/java/androidx/camera/extensions/impl/PreviewExtenderImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-30T21:36:03Z",
+      "side": 1,
+      "message": "Same comment as the corresponding javadoc in ImageCaptureExtenderImpl",
+      "revId": "b148e2b3dc8f4237427e1e1ea813fb47daae2f56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e592b224_58bdd41a",
+        "filename": "camera/extensions-stub/src/main/java/androidx/camera/extensions/impl/PreviewExtenderImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-30T21:36:03Z",
+      "side": 1,
+      "message": "Same comment as the corresponding javadoc in ImageCaptureExtenderImpl",
+      "revId": "b148e2b3dc8f4237427e1e1ea813fb47daae2f56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0612b232_eb7389a0",
+        "filename": "camera/extensions-stub/src/main/java/androidx/camera/extensions/impl/PreviewExtenderImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-04-30T21:36:03Z",
+      "side": 1,
+      "message": "Same comment as the corresponding javadoc in ImageCaptureExtenderImpl",
+      "revId": "b148e2b3dc8f4237427e1e1ea813fb47daae2f56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
