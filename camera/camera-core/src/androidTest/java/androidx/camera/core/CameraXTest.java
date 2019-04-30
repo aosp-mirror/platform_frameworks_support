@@ -74,7 +74,7 @@ public final class CameraXTest {
     private HandlerThread mHandlerThread;
     private Handler mHandler;
 
-    private static String getCameraIdUnchecked(LensFacing lensFacing) {
+    private static String getCameraIdWithLensFacingUnchecked(LensFacing lensFacing) {
         try {
             return CameraX.getCameraWithLensFacing(lensFacing);
         } catch (Exception e) {
@@ -113,7 +113,7 @@ public final class CameraXTest {
         mHandlerThread = new HandlerThread("ErrorHandlerThread");
         mHandlerThread.start();
         mHandler = new Handler(mHandlerThread.getLooper());
-        mCameraId = getCameraIdUnchecked(LensFacing.BACK);
+        mCameraId = getCameraIdWithLensFacingUnchecked(LensFacing.BACK);
         mCamera = sCameraFactory.getCamera(mCameraId);
 
     }
@@ -324,8 +324,8 @@ public final class CameraXTest {
 
             SessionConfig.Builder builder = new SessionConfig.Builder();
 
-            CameraDeviceConfig config = (CameraDeviceConfig) getUseCaseConfig();
-            String cameraId = getCameraIdUnchecked(config.getLensFacing());
+            UseCaseConfig config = getUseCaseConfig();
+            String cameraId = getCameraIdUnchecked(config);
             attachToCamera(cameraId, builder.build());
             return suggestedResolutionMap;
         }
