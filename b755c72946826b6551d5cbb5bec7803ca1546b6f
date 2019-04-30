@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "64fcf8dc_27e05853",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/LibraryVersions.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-04-30T23:53:32Z",
+      "side": 1,
+      "message": "Room is cleared for beta - see https://docs.google.com/spreadsheets/d/1J-QRDIIadgN5Azc-a269kGmVfEwPed6q-x09p2I5Kps/edit#gid\u003d309592096",
+      "parentUuid": "69d69bf9_b67190b5",
+      "range": {
+        "startLine": 85,
+        "startChar": 22,
+        "endLine": 85,
+        "endChar": 38
+      },
+      "revId": "b755c72946826b6551d5cbb5bec7803ca1546b6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "76fa2eb1_81c49f0f",
         "filename": "buildSrc/src/main/kotlin/androidx/build/LibraryVersions.kt",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2019-04-30T23:47:21Z",
       "side": 1,
       "message": "Revert this one too?",
+      "range": {
+        "startLine": 99,
+        "startChar": 38,
+        "endLine": 99,
+        "endChar": 54
+      },
+      "revId": "b755c72946826b6551d5cbb5bec7803ca1546b6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9179b9d3_bf5111cb",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/LibraryVersions.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-04-30T23:53:32Z",
+      "side": 1,
+      "message": "VersionedParcelable is cleared for beta - see https://docs.google.com/spreadsheets/d/1J-QRDIIadgN5Azc-a269kGmVfEwPed6q-x09p2I5Kps/edit#gid\u003d309592096",
+      "parentUuid": "76fa2eb1_81c49f0f",
       "range": {
         "startLine": 99,
         "startChar": 38,
