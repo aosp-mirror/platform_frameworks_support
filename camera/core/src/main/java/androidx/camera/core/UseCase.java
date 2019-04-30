@@ -330,6 +330,11 @@ public abstract class UseCase {
     /** Clears internal state of this use case. */
     @CallSuper
     protected void clear() {
+        EventListener eventListener = mUseCaseConfig.getUseCaseEventListener(null);
+        if (eventListener != null) {
+            eventListener.onUnbind();
+        }
+
         mListeners.clear();
     }
 
@@ -377,6 +382,13 @@ public abstract class UseCase {
         for (Entry<String, Size> entry : resolutionMap.entrySet()) {
             mAttachedSurfaceResolutionMap.put(entry.getKey(), entry.getValue());
         }
+
+        EventListener eventListener = mUseCaseConfig.getUseCaseEventListener(null);
+        if (eventListener != null) {
+            Size size = getAttachedSurfaceResolution(getCameraIdUnchecked());
+            eventListener.onResolutionUpdate(new Size(size.getWidth(), size.getHeight()));
+            eventListener.onImageFormatUpdate(getImageFormat());
+        }
     }
 
     /**
@@ -404,6 +416,20 @@ public abstract class UseCase {
      */
     @RestrictTo(Scope.LIBRARY_GROUP)
     protected void onCameraControlReady(String cameraId) {
+    }
+
+    /**
+     * Called when use case is binding to life cycle via
+     * {@link CameraX#bindToLifecycle(LifecycleOwner, UseCase...)}.
+     *
+     * @hide
+     */
+    @RestrictTo(Scope.LIBRARY_GROUP)
+    protected void onBind() {
+        EventListener eventListener = mUseCaseConfig.getUseCaseEventListener(null);
+        if (eventListener != null) {
+            eventListener.onBind(getCameraIdUnchecked());
+        }
     }
 
     /**
@@ -484,4 +510,54 @@ public abstract class UseCase {
          */
         void onUseCaseReset(UseCase useCase);
     }
+
+    /**
+     * Listener called when a {@link UseCase} transitions between bind/unbind states.
+     *
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+    public interface EventListener {
+
+        /**
+         * Called when use case was bound to the life cycle.
+         * @param cameraId that current used.
+         */
+        void onBind(String cameraId);
+
+        /**
+         * Called when use case was unbind from the life cycle and clear the resource of the use
+         * case.
+         */
+        void onUnbind();
+
+        /**
+         * Called when the configured surface resolution is updated.
+         *
+         * @param size for the surface.
+         */
+        void onResolutionUpdate(Size size);
+
+        /**
+         * Called when the image format is updated.
+         *
+         * @param imageFormat for the surface.
+         */
+        void onImageFormatUpdate(int imageFormat);
+
+    }
+
+    private String getCameraIdUnchecked() {
+        String cameraId = null;
+        LensFacing lensFacing = mUseCaseConfig.retrieveOption(
+                CameraDeviceConfig.OPTION_LENS_FACING);
+        try {
+            cameraId = CameraX.getCameraWithLensFacing(lensFacing);
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Invalid camera lens facing: " + lensFacing, e);
+        }
+
+        return cameraId;
+    }
+
 }

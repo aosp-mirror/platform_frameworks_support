@@ -76,6 +76,8 @@ final class Camera2OptionUnpacker implements SessionConfig.OptionUnpacker {
                 CaptureCallbackContainer.create(
                         camera2Config.getSessionCaptureCallback(
                                 Camera2CaptureCallbacks.createNoOpCallback())));
+        builder.addCameraOption(Camera2Config.CAMERA_EVENT_CALLBACK_OPTION,
+                camera2Config.getCameraEventCallback(CameraEventCallbacks.createEmptyCallback()));
 
         // Copy extension keys
         camera2Config.findOptions(
