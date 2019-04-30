@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "891b26ae_7b8a9c96",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 5361,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-04-30T23:47:46Z",
+      "side": 1,
+      "message": "nit, extra space",
+      "range": {
+        "startLine": 5361,
+        "startChar": 70,
+        "endLine": 5361,
+        "endChar": 71
+      },
+      "revId": "656ceff0af959efa762f9e9135eca3d23a34a56e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3be6c4b7_21a64e12",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 5361,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-04-30T23:47:46Z",
+      "side": 1,
+      "message": "link",
+      "range": {
+        "startLine": 5361,
+        "startChar": 78,
+        "endLine": 5361,
+        "endChar": 96
+      },
+      "revId": "656ceff0af959efa762f9e9135eca3d23a34a56e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
