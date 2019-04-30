@@ -231,9 +231,13 @@ public class MediaSessionProviderService extends Service {
                 localPlayer.mMetadata = ParcelUtils.getVersionedParcelable(config, KEY_METADATA);
                 player = localPlayer;
             }
-            player.setAudioAttributes(
-                    AudioAttributesCompat.fromBundle(
-                            config.getBundle(KEY_AUDIO_ATTRIBUTES)));
+            ParcelImpl attrImpl = config.getParcelable(KEY_AUDIO_ATTRIBUTES);
+            if (attrImpl != null) {
+                AudioAttributesCompat attr = MediaParcelUtils.fromParcelable(attrImpl);
+                if (attr != null) {
+                    player.setAudioAttributes(attr);
+                }
+            }
             return player;
         }
 
@@ -378,11 +382,12 @@ public class MediaSessionProviderService extends Service {
         }
 
         @Override
-        public void notifyAudioAttributesChanged(String sessionId, Bundle attrs)
+        public void notifyAudioAttributesChanged(String sessionId, ParcelImpl attrs)
                 throws RemoteException {
             MediaSession session = mSessionMap.get(sessionId);
             MockPlayer player = (MockPlayer) session.getPlayer();
-            player.notifyAudioAttributesChanged(AudioAttributesCompat.fromBundle(attrs));
+            player.notifyAudioAttributesChanged(
+                    (AudioAttributesCompat) MediaParcelUtils.fromParcelable(attrs));
         }
 
         ////////////////////////////////////////////////////////////////////////////////

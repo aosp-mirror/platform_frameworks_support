@@ -14,10 +14,14 @@ dependencies {
     api(ARCH_LIFECYCLE_RUNTIME, libs.exclude_annotations_transitive)
     api(project(":versionedparcelable"))
     api(GUAVA_LISTENABLE_FUTURE)
+<<<<<<< HEAD   (c8172e Merge "Merge cherrypicks of [950641] into androidx-master-re)
     implementation("androidx.concurrent:concurrent-futures:1.0.0-alpha02")
     api project(':activity'), {
         exclude group: 'androidx.core', module: 'core'
     }
+=======
+    implementation(project(":concurrent:concurrent-futures"))
+>>>>>>> BRANCH (716852 Merge "[WebView Support Library] Provide forceDark support i)
 
     androidTestImplementation(KOTLIN_STDLIB)
     androidTestImplementation(ANDROIDX_TEST_EXT_JUNIT)
