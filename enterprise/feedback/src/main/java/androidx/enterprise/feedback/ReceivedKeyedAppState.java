@@ -16,10 +16,10 @@
 
 package androidx.enterprise.feedback;
 
-import static androidx.enterprise.feedback.KeyedAppStatesReporter.APP_STATE_DATA;
-import static androidx.enterprise.feedback.KeyedAppStatesReporter.APP_STATE_KEY;
-import static androidx.enterprise.feedback.KeyedAppStatesReporter.APP_STATE_MESSAGE;
-import static androidx.enterprise.feedback.KeyedAppStatesReporter.APP_STATE_SEVERITY;
+import static androidx.enterprise.feedback.KeyedAppStatesReporterUtil.APP_STATE_DATA;
+import static androidx.enterprise.feedback.KeyedAppStatesReporterUtil.APP_STATE_KEY;
+import static androidx.enterprise.feedback.KeyedAppStatesReporterUtil.APP_STATE_MESSAGE;
+import static androidx.enterprise.feedback.KeyedAppStatesReporterUtil.APP_STATE_SEVERITY;
 
 import android.os.Bundle;
 
