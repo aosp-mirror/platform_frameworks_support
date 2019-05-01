@@ -32,6 +32,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
@@ -278,6 +279,21 @@ public final class CameraX {
         } else {
             return getCameraWithLensFacing(lensFacing);
         }
+    }
+
+    /**
+     * Returns the public camera ids on the device.
+     *
+     * @return the set of camera id.
+     * @throws CameraInfoUnavailableException if unable to access cameras, perhaps due to
+     *                                        insufficient permissions.
+     * @hide
+     */
+    @RestrictTo(Scope.LIBRARY_GROUP)
+    @Nullable
+    public static Set<String> getAvailableCameraIds()
+            throws CameraInfoUnavailableException {
+        return INSTANCE.getCameraFactory().getAvailableCameraIds();
     }
 
     /**

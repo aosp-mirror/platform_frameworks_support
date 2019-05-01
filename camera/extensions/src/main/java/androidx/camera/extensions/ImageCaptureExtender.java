@@ -18,6 +18,7 @@ package androidx.camera.extensions;
 
 import android.hardware.camera2.CameraCharacteristics;
 
+import androidx.camera.core.CameraInfoUnavailableException;
 import androidx.camera.core.CameraX;
 import androidx.camera.core.CaptureBundle;
 import androidx.camera.core.ImageCaptureConfig;
@@ -26,6 +27,7 @@ import androidx.camera.extensions.impl.CaptureStageImpl;
 import androidx.camera.extensions.impl.ImageCaptureExtenderImpl;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Class for using an OEM provided extension on image capture.
@@ -37,18 +39,37 @@ abstract class ImageCaptureExtender {
     void init(ImageCaptureConfig.Builder builder, ImageCaptureExtenderImpl implementation) {
         mBuilder = builder;
         mImpl = implementation;
+
+        Integer lensFacing = mBuilder.build().getLensFacing() == CameraX.LensFacing.BACK
+                ? CameraCharacteristics.LENS_FACING_BACK : CameraCharacteristics.LENS_FACING_FRONT;
+        Set<String> cameraIdSet = null;
+        try {
+            cameraIdSet = CameraX.getAvailableCameraIds();
+        } catch (CameraInfoUnavailableException e) {
+            throw new IllegalArgumentException("Unable to get available camera id list", e);
+        }
+        if (!cameraIdSet.isEmpty()) {
+            for (String cameraId : cameraIdSet) {
+                CameraCharacteristics cameraCharacteristics =
+                        CameraUtil.getCameraCharacteristics(cameraId);
+                if (mImpl.isExtensionAvailable(cameraId, cameraCharacteristics)) {
+                    mBuilder.setCameraId(cameraId);
+                    break;
+                }
+            }
+        } else {
+            throw new IllegalArgumentException("There's no available camera.");
+        }
     }
 
     public boolean isExtensionAvailable() {
-        CameraX.LensFacing lensFacing = mBuilder.build().getLensFacing();
-        String cameraId = CameraUtil.getCameraId(lensFacing);
+        String cameraId = CameraUtil.getCameraId(mBuilder.build());
         CameraCharacteristics cameraCharacteristics = CameraUtil.getCameraCharacteristics(cameraId);
         return mImpl.isExtensionAvailable(cameraId, cameraCharacteristics);
     }
 
     public void enableExtension() {
-        CameraX.LensFacing lensFacing = mBuilder.build().getLensFacing();
-        String cameraId = CameraUtil.getCameraId(lensFacing);
+        String cameraId = CameraUtil.getCameraId(mBuilder.build());
         CameraCharacteristics cameraCharacteristics = CameraUtil.getCameraCharacteristics(cameraId);
         mImpl.enableExtension(cameraId, cameraCharacteristics);
 
