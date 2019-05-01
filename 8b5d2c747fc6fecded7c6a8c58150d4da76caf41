@@ -261,6 +261,30 @@
     },
     {
       "key": {
+        "uuid": "9e8d97f8_1667307e",
+        "filename": "lifecycle/integration-tests/gradletest/src/test/kotlin/androidx/lifecycle/IncrementalAnnotationProcessingTest.kt",
+        "patchSetId": 13
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1101693
+      },
+      "writtenOn": "2019-05-01T10:11:44Z",
+      "side": 1,
+      "message": "Wow, that\u0027s a great finding! If possible, can you add a note to the AGP\u0027s utility method TestUtils.waitForFileSystemTick(), and suggest using the better API instead?",
+      "parentUuid": "27cccefb_0260a928",
+      "range": {
+        "startLine": 110,
+        "startChar": 8,
+        "endLine": 110,
+        "endChar": 25
+      },
+      "revId": "8b5d2c747fc6fecded7c6a8c58150d4da76caf41",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "00f310bf_0da87d42",
         "filename": "lifecycle/integration-tests/gradletest/src/test/kotlin/androidx/lifecycle/IncrementalAnnotationProcessingTest.kt",
         "patchSetId": 13
@@ -390,6 +414,30 @@
       "side": 1,
       "message": "Are users supposed to change/delete java/class/.pro files? I wonder if these are valid use case and are related closely to incremental AP. If we think it is really necessary, we can discuss about the expected behavior and then I can add some tests.",
       "parentUuid": "c7f57716_97b4c6eb",
+      "range": {
+        "startLine": 131,
+        "startChar": 8,
+        "endLine": 131,
+        "endChar": 28
+      },
+      "revId": "8b5d2c747fc6fecded7c6a8c58150d4da76caf41",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3fbcccac_5ee5109f",
+        "filename": "lifecycle/integration-tests/gradletest/src/test/kotlin/androidx/lifecycle/IncrementalAnnotationProcessingTest.kt",
+        "patchSetId": 13
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1101693
+      },
+      "writtenOn": "2019-05-01T10:11:44Z",
+      "side": 1,
+      "message": "These tests are to verify whether the outputs of Lifecycle are tracked properly. But I just realized that your current test also does that already, so yeah we probably won\u0027t need more tests.",
+      "parentUuid": "cc6f46dc_0d181d6e",
       "range": {
         "startLine": 131,
         "startChar": 8,
@@ -791,6 +839,30 @@
       "side": 1,
       "message": "Thanks for clarification! It makes sense to me and I added the debugKeystore.",
       "parentUuid": "61c402d9_9ca976b9",
+      "range": {
+        "startLine": 303,
+        "startChar": 12,
+        "endLine": 303,
+        "endChar": 67
+      },
+      "revId": "8b5d2c747fc6fecded7c6a8c58150d4da76caf41",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "45c9d11d_338d2102",
+        "filename": "lifecycle/integration-tests/gradletest/src/test/kotlin/androidx/lifecycle/IncrementalAnnotationProcessingTest.kt",
+        "patchSetId": 13
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 1101693
+      },
+      "writtenOn": "2019-05-01T10:11:44Z",
+      "side": 1,
+      "message": "That issue was fixed 2 years ago (bug 34778887). I\u0027d recommend removing this workaround as it clutters the code, but at the same time happy to follow the current practice of the team.",
+      "parentUuid": "25288650_857bc4bc",
       "range": {
         "startLine": 303,
         "startChar": 12,

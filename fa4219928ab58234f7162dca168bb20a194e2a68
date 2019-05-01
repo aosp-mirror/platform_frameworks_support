@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fcbe667c_bc2ed4cf",
+        "filename": "lifecycle/integration-tests/incrementality/src/test/kotlin/androidx/lifecycle/IncrementalAnnotationProcessingTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1101693
+      },
+      "writtenOn": "2019-05-01T10:11:44Z",
+      "side": 1,
+      "message": "nit: isLessThan / isEqualTo is slightly more readable, here and below.",
+      "range": {
+        "startLine": 137,
+        "startChar": 40,
+        "endLine": 137,
+        "endChar": 49
+      },
+      "revId": "fa4219928ab58234f7162dca168bb20a194e2a68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6deb77c5_4714341a",
+        "filename": "lifecycle/integration-tests/incrementality/src/test/kotlin/androidx/lifecycle/IncrementalAnnotationProcessingTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 1101693
+      },
+      "writtenOn": "2019-05-01T10:11:44Z",
+      "side": 1,
+      "message": "nit: fix indent",
+      "range": {
+        "startLine": 336,
+        "startChar": 16,
+        "endLine": 336,
+        "endChar": 29
+      },
+      "revId": "fa4219928ab58234f7162dca168bb20a194e2a68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
