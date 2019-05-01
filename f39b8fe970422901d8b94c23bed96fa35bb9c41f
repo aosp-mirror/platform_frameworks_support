@@ -123,6 +123,24 @@
       "revId": "f39b8fe970422901d8b94c23bed96fa35bb9c41f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82d28a1f_3006aed3",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/Camera.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 604,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-01T00:58:54Z",
+      "side": 1,
+      "message": "The question is, does it make sense to have a single capture which already has a surface attached to it and also wants all the repeating surfaces to be attached? I\u0027m guessing no because most likely a single capture with a surface will want to get a higher quality capture so it will have be TEMPLATE_STILL_CAPTURE which will conflict with the TEMPLATE_PREVIEW which are going to be used for repeating requests (or the other template types)",
+      "parentUuid": "5dfb2dba_bd871a31",
+      "revId": "f39b8fe970422901d8b94c23bed96fa35bb9c41f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
