@@ -22,6 +22,30 @@
       "revId": "a8d85dbb3d4a92dd320d2588c70caa7b80d4e6af",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb5d652a_04bbcfc1",
+        "filename": "camera/integration-tests/coretestapp/src/androidTest/java/androidx/camera/integration/core/BasicUITest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1482725
+      },
+      "writtenOn": "2019-05-01T02:36:12Z",
+      "side": 1,
+      "message": "Thank the suggestion, David. \nNow I doubt there is lock screen on top of activity. \nLet me make sure if test pass and I will do appropriate change.",
+      "parentUuid": "cb2c0504_48214e2d",
+      "range": {
+        "startLine": 90,
+        "startChar": 16,
+        "endLine": 90,
+        "endChar": 35
+      },
+      "revId": "a8d85dbb3d4a92dd320d2588c70caa7b80d4e6af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
