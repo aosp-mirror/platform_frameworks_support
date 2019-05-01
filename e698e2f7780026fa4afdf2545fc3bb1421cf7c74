@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ee9a0f51_e3aee6fb",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentPagerAdapter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-05-01T17:23:01Z",
+      "side": 1,
+      "message": "BEHAVIOR_USE_SET_USER_VISIBLE_HINT reads a bit odd to me (compared to BEHAVIOR_SET_USER_VISIBLE_HINT), but maybe it is fine.",
+      "range": {
+        "startLine": 75,
+        "startChar": 13,
+        "endLine": 75,
+        "endChar": 47
+      },
+      "revId": "e698e2f7780026fa4afdf2545fc3bb1421cf7c74",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
