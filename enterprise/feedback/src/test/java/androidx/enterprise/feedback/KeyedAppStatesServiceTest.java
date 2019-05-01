@@ -16,11 +16,11 @@
 
 package androidx.enterprise.feedback;
 
-import static androidx.enterprise.feedback.KeyedAppStatesReporter.APP_STATES;
-import static androidx.enterprise.feedback.KeyedAppStatesReporter.APP_STATE_KEY;
-import static androidx.enterprise.feedback.KeyedAppStatesReporter.APP_STATE_SEVERITY;
-import static androidx.enterprise.feedback.KeyedAppStatesReporter.WHAT_IMMEDIATE_STATE;
-import static androidx.enterprise.feedback.KeyedAppStatesReporter.WHAT_STATE;
+import static androidx.enterprise.feedback.KeyedAppStatesReporterUtil.APP_STATES;
+import static androidx.enterprise.feedback.KeyedAppStatesReporterUtil.APP_STATE_KEY;
+import static androidx.enterprise.feedback.KeyedAppStatesReporterUtil.APP_STATE_SEVERITY;
+import static androidx.enterprise.feedback.KeyedAppStatesReporterUtil.WHAT_IMMEDIATE_STATE;
+import static androidx.enterprise.feedback.KeyedAppStatesReporterUtil.WHAT_STATE;
 
 import static com.google.common.truth.Truth.assertThat;
 
