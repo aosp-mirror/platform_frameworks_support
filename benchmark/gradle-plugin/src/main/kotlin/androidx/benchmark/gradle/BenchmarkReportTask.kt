@@ -20,9 +20,8 @@ import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.StopExecutionException
 import org.gradle.api.tasks.TaskAction
 import java.io.File
-import javax.inject.Inject
 
-open class BenchmarkReportTask @Inject constructor(private val adb: Adb) : DefaultTask() {
+open class BenchmarkReportTask : DefaultTask() {
     private val benchmarkReportDir: File
 
     init {
@@ -45,10 +44,10 @@ open class BenchmarkReportTask @Inject constructor(private val adb: Adb) : Defau
     fun exec() {
         // Fetch reports from all available devices as the default behaviour of connectedAndroidTest
         // is to run on all available devices.
-        getReportsForDevices()
+        getReportsForDevices(Adb(project))
     }
 
-    private fun getReportsForDevices() {
+    private fun getReportsForDevices(adb: Adb) {
         if (benchmarkReportDir.exists()) {
             benchmarkReportDir.deleteRecursively()
         }
@@ -62,7 +61,7 @@ open class BenchmarkReportTask @Inject constructor(private val adb: Adb) : Defau
             .filter { !it.isBlank() }
 
         for (deviceId in deviceIds) {
-            val dataDir = getReportDirForDevice(deviceId)
+            val dataDir = getReportDirForDevice(adb, deviceId)
             if (dataDir.isBlank()) {
                 throw StopExecutionException(
                     "Failed to find benchmark reports on device: $deviceId"
@@ -71,11 +70,16 @@ open class BenchmarkReportTask @Inject constructor(private val adb: Adb) : Defau
 
             val outDir = File(benchmarkReportDir, deviceId)
             outDir.mkdirs()
-            getReportsForDevice(outDir, dataDir, deviceId)
+            getReportsForDevice(adb, outDir, dataDir, deviceId)
         }
     }
 
-    private fun getReportsForDevice(benchmarkReportDir: File, dataDir: String, deviceId: String) {
+    private fun getReportsForDevice(
+        adb: Adb,
+        benchmarkReportDir: File,
+        dataDir: String,
+        deviceId: String
+    ) {
         adb.execSync("shell ls $dataDir", deviceId)
             .stdout
             .split("\n")
@@ -95,7 +99,7 @@ open class BenchmarkReportTask @Inject constructor(private val adb: Adb) : Defau
      * This folder is typically accessed in Android code via
      * Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
      */
-    private fun getReportDirForDevice(deviceId: String): String {
+    private fun getReportDirForDevice(adb: Adb, deviceId: String): String {
         val cmd = "shell content query --uri content://media/external/file --projection _data" +
                 " --where \"_data LIKE '%Download'\""
 
