@@ -17,6 +17,7 @@
 package androidx.camera.extensions;
 
 import android.hardware.camera2.CameraCharacteristics;
+import android.hardware.camera2.CameraMetadata;
 import android.hardware.camera2.CaptureRequest;
 import android.util.Pair;
 
@@ -37,6 +38,13 @@ public abstract class PreviewExtender {
     void init(PreviewConfig.Builder builder, PreviewExtenderImpl implementation) {
         mBuilder = builder;
         mImpl = implementation;
+
+        String customizedCameraId = mImpl.getCustomizedCameraId(
+                mBuilder.build().getLensFacing() == CameraX.LensFacing.FRONT
+                        ? CameraMetadata.LENS_FACING_FRONT : CameraMetadata.LENS_FACING_BACK);
+        if (customizedCameraId != null) {
+            mBuilder.setCustomizedCameraId(customizedCameraId);
+        }
     }
 
     /**
@@ -46,15 +54,13 @@ public abstract class PreviewExtender {
      * @return True if the specific extension function is supported for the camera device.
      */
     public boolean isExtensionAvailable() {
-        CameraX.LensFacing lensFacing = mBuilder.build().getLensFacing();
-        String cameraId = CameraUtil.getCameraId(lensFacing);
+        String cameraId = CameraUtil.getCameraId(mBuilder.build());
         CameraCharacteristics cameraCharacteristics = CameraUtil.getCameraCharacteristics(cameraId);
         return mImpl.isExtensionAvailable(cameraId, cameraCharacteristics);
     }
 
     public void enableExtension() {
-        CameraX.LensFacing lensFacing = mBuilder.build().getLensFacing();
-        String cameraId = CameraUtil.getCameraId(lensFacing);
+        String cameraId = CameraUtil.getCameraId(mBuilder.build());
         CameraCharacteristics cameraCharacteristics = CameraUtil.getCameraCharacteristics(cameraId);
         mImpl.enableExtension(cameraId, cameraCharacteristics);
 

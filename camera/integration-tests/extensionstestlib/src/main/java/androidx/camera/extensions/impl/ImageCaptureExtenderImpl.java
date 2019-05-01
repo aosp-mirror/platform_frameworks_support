@@ -48,5 +48,12 @@ public interface ImageCaptureExtenderImpl {
      * The processing that will be done on a set of captures to create and image with the effect.
      */
     CaptureProcessorImpl getCaptureProcessor();
+
+    /**
+     * The specific camera id needed to be opened for this extender to work.
+     *
+     * @param lensFacing The lens-facing of the camera.
+     */
+    String getCustomizedCameraId(int lensFacing);
 }
 

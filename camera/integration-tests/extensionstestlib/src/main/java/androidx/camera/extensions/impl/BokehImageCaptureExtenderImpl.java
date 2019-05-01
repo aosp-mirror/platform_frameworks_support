@@ -16,6 +16,7 @@
 package androidx.camera.extensions.impl;
 
 import android.hardware.camera2.CameraCharacteristics;
+import android.hardware.camera2.CameraMetadata;
 import android.hardware.camera2.CaptureRequest;
 import android.media.Image;
 import android.media.ImageWriter;
@@ -37,6 +38,8 @@ import java.util.Map;
 public final class BokehImageCaptureExtenderImpl implements ImageCaptureExtenderImpl {
     private static final String TAG = "BokehICExtender";
     private static final int DEFAULT_STAGE_ID = 0;
+    private static final String FRONT_BOKEH_CAMERA_ID = "4";
+    private static final String BACK_BOKEH_CAMERA_ID = "5";
 
     public BokehImageCaptureExtenderImpl() {
     }
@@ -109,5 +112,18 @@ public final class BokehImageCaptureExtenderImpl implements ImageCaptureExtender
                     }
                 };
         return captureProcessor;
+    }
+
+    @Override
+    public String getCustomizedCameraId(int lensFacing) {
+        // Do the camera id selection logic, then return the specific camera id needed for this
+        // extender.
+        if (lensFacing == CameraMetadata.LENS_FACING_FRONT) {
+            return FRONT_BOKEH_CAMERA_ID;
+        } else if (lensFacing == CameraMetadata.LENS_FACING_BACK) {
+            return BACK_BOKEH_CAMERA_ID;
+        } else {
+            return null;
+        }
     }
 }
