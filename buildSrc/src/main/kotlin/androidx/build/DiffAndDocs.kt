@@ -597,8 +597,14 @@ private fun createGenerateDocsTask(
             it.apply {
                 dependsOn(generateSdkApiTask, doclavaConfig)
                 group = JavaBasePlugin.DOCUMENTATION_GROUP
+<<<<<<< HEAD   (e53308 Merge "Merge empty history for sparse-5498091-L6460000030224)
                 description = "Generates d.android.com-style documentation. To generate offline " +
                         "docs use \'-PofflineDocs=true\' parameter."
+=======
+                description = "Generates Java documentation in the style of d.android.com. To " +
+                        "generate offline docs use \'-PofflineDocs=true\' parameter.  Places the " +
+                        "documentation in ${destDir}"
+>>>>>>> BRANCH (3a06c2 Merge "Merge cherrypicks of [954920] into sparse-5520679-L60)
 
                 setDocletpath(doclavaConfig.resolve())
                 destinationDir = File(destDir, if (offline) "offline" else "online")

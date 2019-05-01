@@ -88,6 +88,12 @@ public class WebViewFeature {
             WEB_VIEW_RENDERER_TERMINATE,
             WEB_VIEW_RENDERER_CLIENT_BASIC_USAGE,
             PROXY_OVERRIDE,
+<<<<<<< HEAD   (e53308 Merge "Merge empty history for sparse-5498091-L6460000030224)
+=======
+            SUPPRESS_ERROR_PAGE,
+            MULTI_PROCESS_QUERY,
+            FORCE_DARK,
+>>>>>>> BRANCH (3a06c2 Merge "Merge cherrypicks of [954920] into sparse-5520679-L60)
     })
     @Retention(RetentionPolicy.SOURCE)
     @Target({ElementType.PARAMETER, ElementType.METHOD})
@@ -387,6 +393,18 @@ public class WebViewFeature {
      */
     @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
     public static final String PROXY_OVERRIDE = Features.PROXY_OVERRIDE;
+
+    /**
+     * Feature for {@link #isFeatureSupported(String)}.
+     * This feature covers
+     * {@link WebViewCompat#setForceDark(WebSettings, int)} and
+     * {@link WebViewCompat#getForceDark(WebSettings)}.
+     *
+     * TODO(amalova): unhide
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
+    public static final String FORCE_DARK = "FORCE_DARK";
 
     /**
      * Return whether a feature is supported at run-time. On devices running Android version {@link

@@ -185,3 +185,28 @@ fun CallableTypeSpecBuilder(
         callBody()
     }.build())
 }
+<<<<<<< HEAD   (e53308 Merge "Merge empty history for sparse-5498091-L6460000030224)
+=======
+
+fun Function1TypeSpecBuilder(
+    parameterTypeName: TypeName,
+    parameterName: String,
+    returnTypeName: TypeName,
+    callBody: MethodSpec.Builder.() -> Unit
+) = TypeSpec.anonymousClassBuilder("").apply {
+    superclass(
+        ParameterizedTypeName.get(
+            Function1::class.typeName(),
+            parameterTypeName,
+            returnTypeName
+        )
+    )
+    addMethod(MethodSpec.methodBuilder("invoke").apply {
+        addParameter(parameterTypeName, parameterName)
+        returns(returnTypeName)
+        addModifiers(Modifier.PUBLIC)
+        addAnnotation(Override::class.java)
+        callBody()
+    }.build())
+}
+>>>>>>> BRANCH (3a06c2 Merge "Merge cherrypicks of [954920] into sparse-5520679-L60)

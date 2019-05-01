@@ -40,24 +40,96 @@ class BenchmarkStateTest {
             state.resumeTiming()
         }
         val median = state.stats.median
-        assertTrue("median $median should be between 2ms and 4ms",
-                ms2ns(2) < median && median < ms2ns(4))
+        assertTrue(
+            "median $median should be between 2ms and 4ms",
+            ms2ns(2) < median && median < ms2ns(4)
+        )
+    }
+
+    @Test
+    fun iterationCheck() {
+        val state = BenchmarkState()
+        var total = 0
+        while (state.keepRunning()) {
+            total++
+        }
+
+        val report = state.getReport("test", "class")
+        val expectedCount =
+            report.warmupIterations + report.repeatIterations * BenchmarkState.REPEAT_COUNT
+        assertEquals(expectedCount, total)
     }
 
     @Test
     fun ideSummary() {
-        val summary1 = BenchmarkState().apply {
-            while (keepRunning()) {
-                Thread.sleep(1)
-            }
-        }.ideSummaryLine("foo")
-        val summary2 = BenchmarkState().apply {
-            while (keepRunning()) {
-                // nothing
-            }
-        }.ideSummaryLine("fooBarLongerKey")
+        val summary1 = BenchmarkState.ideSummaryLine("foo", 1000)
+        val summary2 = BenchmarkState.ideSummaryLine("fooBarLongerKey", 10000)
 
-        assertEquals(summary1.indexOf("foo"),
-            summary2.indexOf("foo"))
+        assertEquals(
+            summary1.indexOf("foo"),
+            summary2.indexOf("foo")
+        )
     }
+<<<<<<< HEAD   (e53308 Merge "Merge empty history for sparse-5498091-L6460000030224)
+=======
+
+    @Test
+    fun bundle() {
+        val bundle = BenchmarkState().apply {
+            while (keepRunning()) {
+                // nothing, we're ignoring numbers
+            }
+        }.getFullStatusReport("foo")
+
+        assertTrue(
+            (bundle.get("android.studio.display.benchmark") as String).contains("foo")
+        )
+
+        // check attribute presence and naming
+        val prefix = WarningState.WARNING_PREFIX
+        assertNotNull(bundle.get("${prefix}min"))
+        assertNotNull(bundle.get("${prefix}mean"))
+        assertNotNull(bundle.get("${prefix}count"))
+    }
+
+    @Test
+    fun notStarted() {
+        try {
+            BenchmarkState().stats
+            fail("expected exception")
+        } catch (e: IllegalStateException) {
+            assertTrue(e.message!!.contains("wasn't started"))
+            assertTrue(e.message!!.contains("benchmarkRule.measureRepeated {}"))
+        }
+    }
+
+    @Test
+    fun notFinished() {
+        try {
+            BenchmarkState().run {
+                keepRunning()
+                stats
+            }
+            fail("expected exception")
+        } catch (e: IllegalStateException) {
+            assertTrue(e.message!!.contains("hasn't finished"))
+            assertTrue(e.message!!.contains("benchmarkRule.measureRepeated {}"))
+        }
+    }
+
+    @Test
+    fun reportResult() {
+        BenchmarkState.reportData("className", "testName", 100, listOf(100), 1, 1)
+        val expectedReport = BenchmarkState.Report(
+            className = "className",
+            testName = "testName",
+            nanos = 100,
+            data = listOf(100),
+            repeatIterations = 1,
+            warmupIterations = 1)
+        ResultWriter.fileManagers.forEach {
+            assertEquals(expectedReport, it.lastAddedEntry)
+        }
+    }
+>>>>>>> BRANCH (3a06c2 Merge "Merge cherrypicks of [954920] into sparse-5520679-L60)
 }

@@ -58,6 +58,7 @@ abstract class CoroutineWorker(
      */
     open val coroutineContext = Dispatchers.Default
 
+    @Suppress("DEPRECATION")
     final override fun startWork(): ListenableFuture<Result> {
 
         val coroutineScope = CoroutineScope(coroutineContext + job)

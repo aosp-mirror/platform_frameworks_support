@@ -26,12 +26,15 @@ import static androidx.work.impl.model.WorkSpec.SCHEDULE_NOT_REQUESTED_YET;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+<<<<<<< HEAD   (e53308 Merge "Merge empty history for sparse-5498091-L6460000030224)
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RestrictTo;
 import android.support.annotation.VisibleForTesting;
 import android.support.annotation.WorkerThread;
+=======
+>>>>>>> BRANCH (3a06c2 Merge "Merge cherrypicks of [954920] into sparse-5520679-L60)
 
 import androidx.work.Configuration;
 import androidx.work.Data;
@@ -167,17 +170,12 @@ public class WorkerWrapper implements Runnable {
 
             if (mWorkSpec.isPeriodic() || mWorkSpec.isBackedOff()) {
                 long now = System.currentTimeMillis();
-                // Allow first run of a PeriodicWorkRequest when flex is applicable
-                // (when using AlarmManager) to go through. This is because when periodStartTime=0;
-                // calculateNextRunTime() always > now. We are being overly cautious with the
-                // SDK_INT check and the intervalDuration != flexDuration check.
+                // Allow first run of a PeriodicWorkRequest
+                // to go through. This is because when periodStartTime=0;
+                // calculateNextRunTime() always > now.
                 // For more information refer to b/124274584
-                boolean isFirstRunWhenFlexApplicable =
-                        Build.VERSION.SDK_INT < WorkManagerImpl.MIN_JOB_SCHEDULER_API_LEVEL
-                                && mWorkSpec.intervalDuration != mWorkSpec.flexDuration
-                                && mWorkSpec.periodStartTime == 0;
-
-                if (!isFirstRunWhenFlexApplicable && now < mWorkSpec.calculateNextRunTime()) {
+                boolean isFirstRun = mWorkSpec.periodStartTime == 0;
+                if (!isFirstRun && now < mWorkSpec.calculateNextRunTime()) {
                     Logger.get().debug(TAG,
                             String.format(
                                     "Delaying execution for %s because it is being executed "
@@ -514,16 +512,7 @@ public class WorkerWrapper implements Runnable {
         try {
             mWorkSpecDao.setState(ENQUEUED, mWorkSpecId);
             mWorkSpecDao.setPeriodStartTime(mWorkSpecId, System.currentTimeMillis());
-            if (Build.VERSION.SDK_INT < WorkManagerImpl.MIN_JOB_SCHEDULER_API_LEVEL) {
-                // We only need to reset the schedule_requested_at bit for the AlarmManager
-                // implementation because AlarmManager does not know about periodic WorkRequests.
-                // Otherwise we end up double scheduling the Worker with an identical jobId, and
-                // JobScheduler treats it as the first schedule for a PeriodicWorker. With the
-                // AlarmManager implementation, this is not an problem as AlarmManager only cares
-                // about the actual alarm itself.
-
-                mWorkSpecDao.markWorkSpecScheduled(mWorkSpecId, SCHEDULE_NOT_REQUESTED_YET);
-            }
+            mWorkSpecDao.markWorkSpecScheduled(mWorkSpecId, SCHEDULE_NOT_REQUESTED_YET);
             mWorkDatabase.setTransactionSuccessful();
         } finally {
             mWorkDatabase.endTransaction();
@@ -541,17 +530,7 @@ public class WorkerWrapper implements Runnable {
             mWorkSpecDao.setPeriodStartTime(mWorkSpecId, System.currentTimeMillis());
             mWorkSpecDao.setState(ENQUEUED, mWorkSpecId);
             mWorkSpecDao.resetWorkSpecRunAttemptCount(mWorkSpecId);
-            if (Build.VERSION.SDK_INT < WorkManagerImpl.MIN_JOB_SCHEDULER_API_LEVEL) {
-                // We only need to reset the schedule_requested_at bit for the AlarmManager
-                // implementation because AlarmManager does not know about periodic WorkRequests.
-                // Otherwise we end up double scheduling the Worker with an identical jobId, and
-                // JobScheduler treats it as the first schedule for a PeriodicWorker. With the
-                // AlarmManager implementation, this is not an problem as AlarmManager only cares
-                // about the actual alarm itself.
-
-                // We need to tell the schedulers that this WorkSpec is no longer occupying a slot.
-                mWorkSpecDao.markWorkSpecScheduled(mWorkSpecId, SCHEDULE_NOT_REQUESTED_YET);
-            }
+            mWorkSpecDao.markWorkSpecScheduled(mWorkSpecId, SCHEDULE_NOT_REQUESTED_YET);
             mWorkDatabase.setTransactionSuccessful();
         } finally {
             mWorkDatabase.endTransaction();

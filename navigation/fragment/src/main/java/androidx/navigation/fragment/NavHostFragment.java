@@ -202,9 +202,18 @@ public class NavHostFragment extends Fragment implements NavHost {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         final Context context = requireContext();
+        // TODO Fix Fragments to register their OnBackPressedCallback eagerly
+        getChildFragmentManager();
 
         mNavController = new NavController(context);
+<<<<<<< HEAD   (e53308 Merge "Merge empty history for sparse-5498091-L6460000030224)
         mNavController.getNavigatorProvider().addNavigator(createFragmentNavigator());
+=======
+        mNavController.setHostLifecycleOwner(this);
+        mNavController.setHostOnBackPressedDispatcherOwner(requireActivity());
+        mNavController.setHostViewModelStore(getViewModelStore());
+        onCreateNavController(mNavController);
+>>>>>>> BRANCH (3a06c2 Merge "Merge cherrypicks of [954920] into sparse-5520679-L60)
 
         Bundle navState = null;
         if (savedInstanceState != null) {

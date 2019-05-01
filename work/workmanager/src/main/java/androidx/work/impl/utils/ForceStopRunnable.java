@@ -72,6 +72,36 @@ public class ForceStopRunnable implements Runnable {
         } else if (isForceStopped()) {
             Logger.get().debug(TAG, "Application was force-stopped, rescheduling.");
             mWorkManager.rescheduleEligibleWork();
+<<<<<<< HEAD   (e53308 Merge "Merge empty history for sparse-5498091-L6460000030224)
+=======
+        } else {
+            WorkDatabase workDatabase = mWorkManager.getWorkDatabase();
+            WorkSpecDao workSpecDao = workDatabase.workSpecDao();
+            try {
+                workDatabase.beginTransaction();
+                List<WorkSpec> workSpecs = workSpecDao.getEnqueuedWork();
+                if (workSpecs != null && !workSpecs.isEmpty()) {
+                    Logger.get().debug(TAG, "Found unfinished work, scheduling it.");
+                    // Mark every instance of unfinished work with
+                    // SCHEDULE_NOT_REQUESTED_AT = -1 irrespective of its current state.
+                    // This is because the application might have crashed previously and we should
+                    // reschedule jobs that may have been running previously.
+                    // Also there is a chance that an application crash, happened during
+                    // onStartJob() and now no corresponding job now exists in JobScheduler.
+                    // To solve this, we simply force-reschedule all unfinished work.
+                    for (WorkSpec workSpec : workSpecs) {
+                        workSpecDao.markWorkSpecScheduled(workSpec.id, SCHEDULE_NOT_REQUESTED_YET);
+                    }
+                    Schedulers.schedule(
+                            mWorkManager.getConfiguration(),
+                            workDatabase,
+                            mWorkManager.getSchedulers());
+                }
+                workDatabase.setTransactionSuccessful();
+            } finally {
+                workDatabase.endTransaction();
+            }
+>>>>>>> BRANCH (3a06c2 Merge "Merge cherrypicks of [954920] into sparse-5520679-L60)
         }
         mWorkManager.onForceStopRunnableCompleted();
     }

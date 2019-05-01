@@ -204,6 +204,23 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
+        findViewById(R.id.enqueue_periodic_initial_delay).setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Data input = new Data.Builder()
+                                .putString(ToastWorker.ARG_MESSAGE, "Periodic work")
+                                .build();
+                        PeriodicWorkRequest request =
+                                new PeriodicWorkRequest.Builder(ToastWorker.class, 15,
+                                        TimeUnit.MINUTES)
+                                        .setInitialDelay(1, TimeUnit.MINUTES)
+                                        .setInputData(input)
+                                        .build();
+                        WorkManager.getInstance(MainActivity.this).enqueue(request);
+                    }
+                });
+
         findViewById(R.id.begin_unique_work_loop)
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -306,5 +323,57 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+<<<<<<< HEAD   (e53308 Merge "Merge empty history for sparse-5498091-L6460000030224)
+=======
+        findViewById(R.id.run_recursive_worker).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                OneTimeWorkRequest request =
+                        new OneTimeWorkRequest.Builder(RecursiveWorker.class)
+                                .addTag(RecursiveWorker.TAG)
+                                .build();
+
+                WorkManager.getInstance(MainActivity.this).enqueue(request);
+            }
+        });
+
+        findViewById(R.id.crash_app).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                throw new RuntimeException("Crashed app");
+            }
+        });
+
+        Button hundredJobExceptionButton = findViewById(R.id.create_hundred_job_exception);
+        // 100 Job limits are only enforced on API 24+.
+        if (Build.VERSION.SDK_INT >= 24) {
+            hundredJobExceptionButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    JobScheduler jobScheduler =
+                            (JobScheduler) v.getContext().getSystemService(JOB_SCHEDULER_SERVICE);
+                    WorkManager.getInstance(MainActivity.this).cancelAllWork();
+                    jobScheduler.cancelAll();
+                    for (int i = 0; i < 101; ++i) {
+                        jobScheduler.schedule(
+                                new JobInfo.Builder(
+                                        100000 + i,
+                                        new ComponentName(v.getContext(), SystemJobService.class))
+                                        .setMinimumLatency(10 * 60 * 1000)
+                                        .build());
+                    }
+                    for (int i = 0; i < 100; ++i) {
+                        WorkManager.getInstance(MainActivity.this).enqueue(
+                                new OneTimeWorkRequest.Builder(TestWorker.class)
+                                        .setInitialDelay(10L, TimeUnit.MINUTES)
+                                        .build());
+                    }
+                }
+            });
+        } else {
+            hundredJobExceptionButton.setVisibility(View.GONE);
+        }
+
+>>>>>>> BRANCH (3a06c2 Merge "Merge cherrypicks of [954920] into sparse-5520679-L60)
     }
 }

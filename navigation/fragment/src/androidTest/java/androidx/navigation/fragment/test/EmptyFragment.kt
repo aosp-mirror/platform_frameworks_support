@@ -23,7 +23,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 
-class EmptyFragment : Fragment() {
+open class EmptyFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

@@ -22,13 +22,18 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+<<<<<<< HEAD   (e53308 Merge "Merge empty history for sparse-5498091-L6460000030224)
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RestrictTo;
+=======
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+>>>>>>> BRANCH (3a06c2 Merge "Merge cherrypicks of [954920] into sparse-5520679-L60)
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Navigator defines a mechanism for navigating within an app.
@@ -65,9 +70,6 @@ public abstract class Navigator<D extends NavDestination> {
     public @interface Name {
         String value();
     }
-
-    private final CopyOnWriteArrayList<OnNavigatorBackPressListener> mOnBackPressListeners =
-            new CopyOnWriteArrayList<>();
 
     /**
      * Construct a new NavDestination associated with this Navigator.
@@ -129,67 +131,6 @@ public abstract class Navigator<D extends NavDestination> {
      * @param savedState The state previously saved
      */
     public void onRestoreState(@NonNull Bundle savedState) {
-    }
-
-    /**
-     * @hide
-     */
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
-    protected void onBackPressAdded() {
-    }
-
-    /**
-     * @hide
-     */
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
-    protected void onBackPressRemoved() {
-    }
-
-    /**
-     * @hide
-     */
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
-    public final void addOnNavigatorBackPressListener(
-            @NonNull OnNavigatorBackPressListener listener) {
-        boolean added = mOnBackPressListeners.add(listener);
-        if (added && mOnBackPressListeners.size() == 1) {
-            onBackPressAdded();
-        }
-    }
-
-    /**
-     * @hide
-     */
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
-    public final void removeOnNavigatorBackPressListener(
-            @NonNull OnNavigatorBackPressListener listener) {
-        boolean removed = mOnBackPressListeners.remove(listener);
-        if (removed && mOnBackPressListeners.isEmpty()) {
-            onBackPressRemoved();
-        }
-    }
-
-    /**
-     * @hide
-     */
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
-    public final void dispatchOnNavigatorBackPress() {
-        for (OnNavigatorBackPressListener listener : mOnBackPressListeners) {
-            listener.onPopBackStack(this);
-        }
-    }
-
-    /**
-     * @hide
-     */
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
-    public interface OnNavigatorBackPressListener {
-        /**
-         * This method is called after the Navigator navigates to a new destination.
-         *
-         * @param navigator
-         */
-        void onPopBackStack(@NonNull Navigator navigator);
     }
 
     /**

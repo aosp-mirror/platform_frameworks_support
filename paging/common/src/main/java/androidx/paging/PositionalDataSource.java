@@ -462,8 +462,13 @@ public abstract class PositionalDataSource<T> extends DataSource<Integer, T> {
      * @param totalCount Total size of the data set.
      * @return Position to start loading at.
      *
+<<<<<<< HEAD   (e53308 Merge "Merge empty history for sparse-5498091-L6460000030224)
+=======
+     *
+>>>>>>> BRANCH (3a06c2 Merge "Merge cherrypicks of [954920] into sparse-5520679-L60)
      * @see #computeInitialLoadSize(LoadInitialParams, int, int)
      */
+<<<<<<< HEAD   (e53308 Merge "Merge empty history for sparse-5498091-L6460000030224)
     public static int computeInitialLoadPosition(@NonNull LoadInitialParams params,
             int totalCount) {
         int position = params.requestedStartPosition;
@@ -480,6 +485,11 @@ public abstract class PositionalDataSource<T> extends DataSource<Integer, T> {
         pageStart = Math.max(0, pageStart);
 
         return pageStart;
+=======
+    public static int computeInitialLoadPosition(
+            @NonNull LoadInitialParams params, int totalCount) {
+        return ListenablePositionalDataSource.computeInitialLoadPosition(params, totalCount);
+>>>>>>> BRANCH (3a06c2 Merge "Merge cherrypicks of [954920] into sparse-5520679-L60)
     }
 
     /**
@@ -488,7 +498,12 @@ public abstract class PositionalDataSource<T> extends DataSource<Integer, T> {
      * computed ahead of loading.
      * <p>
      * This function takes the requested load size, and bounds checks it against the value returned
+<<<<<<< HEAD   (e53308 Merge "Merge empty history for sparse-5498091-L6460000030224)
      * by {@link #computeInitialLoadPosition(LoadInitialParams, int)}.
+=======
+     * by
+     * {@link #computeInitialLoadPosition(LoadInitialParams, int)}.
+>>>>>>> BRANCH (3a06c2 Merge "Merge cherrypicks of [954920] into sparse-5520679-L60)
      * <p>
      * Example usage in a PositionalDataSource subclass:
      * <pre>
@@ -520,16 +535,27 @@ public abstract class PositionalDataSource<T> extends DataSource<Integer, T> {
      * @param params Params passed to {@link #loadInitial(LoadInitialParams, LoadInitialCallback)},
      *               including page size, and requested start/loadSize.
      * @param initialLoadPosition Value returned by
+<<<<<<< HEAD   (e53308 Merge "Merge empty history for sparse-5498091-L6460000030224)
      *                          {@link #computeInitialLoadPosition(LoadInitialParams, int)}
+=======
+     *   {@link #computeInitialLoadPosition(LoadInitialParams, int)}
+>>>>>>> BRANCH (3a06c2 Merge "Merge cherrypicks of [954920] into sparse-5520679-L60)
      * @param totalCount Total size of the data set.
      * @return Number of items to load.
      *
      * @see #computeInitialLoadPosition(LoadInitialParams, int)
      */
+<<<<<<< HEAD   (e53308 Merge "Merge empty history for sparse-5498091-L6460000030224)
     @SuppressWarnings("WeakerAccess")
     public static int computeInitialLoadSize(@NonNull LoadInitialParams params,
             int initialLoadPosition, int totalCount) {
         return Math.min(totalCount - initialLoadPosition, params.requestedLoadSize);
+=======
+    public static int computeInitialLoadSize(
+            @NonNull LoadInitialParams params, int initialLoadPosition, int totalCount) {
+        return ListenablePositionalDataSource.computeInitialLoadSize(params, initialLoadPosition,
+                totalCount);
+>>>>>>> BRANCH (3a06c2 Merge "Merge cherrypicks of [954920] into sparse-5520679-L60)
     }
 
     @SuppressWarnings("deprecation")

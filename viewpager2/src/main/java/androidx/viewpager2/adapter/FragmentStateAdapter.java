@@ -219,9 +219,17 @@ public abstract class FragmentStateAdapter extends
     }
 
     @Override
+<<<<<<< HEAD   (e53308 Merge "Merge empty history for sparse-5498091-L6460000030224)
     public @NonNull Parcelable saveState() {
         /** remove active fragments saving their state in {@link mSavedStates) */
         List<Long> toRemove = new ArrayList<>();
+=======
+    public final @NonNull Parcelable saveState() {
+        /** TODO(b/122670461): use custom {@link Parcelable} instead of Bundle to save space */
+        Bundle savedState = new Bundle(mFragments.size() + mSavedStates.size());
+
+        /** save references to active fragments */
+>>>>>>> BRANCH (3a06c2 Merge "Merge cherrypicks of [954920] into sparse-5520679-L60)
         for (int ix = 0; ix < mFragments.size(); ix++) {
             toRemove.add(mFragments.keyAt(ix));
         }
@@ -254,6 +262,7 @@ public abstract class FragmentStateAdapter extends
     }
 
     @Override
+<<<<<<< HEAD   (e53308 Merge "Merge empty history for sparse-5498091-L6460000030224)
     public void restoreState(@NonNull Parcelable savedState) {
         try {
             Bundle bundle = (Bundle) savedState;
@@ -263,6 +272,22 @@ public abstract class FragmentStateAdapter extends
             //noinspection ConstantConditions
             if (keys.length != values.length) {
                 throw new IllegalStateException();
+=======
+    public final void restoreState(@NonNull Parcelable savedState) {
+        if (!mSavedStates.isEmpty() || !mFragments.isEmpty()) {
+            throw new IllegalStateException(
+                    "Expected the adapter to be 'fresh' while restoring state.");
+        }
+
+        Bundle bundle = (Bundle) savedState;
+
+        for (String key : bundle.keySet()) {
+            if (isValidKey(key, KEY_PREFIX_FRAGMENT)) {
+                long itemId = parseIdFromKey(key, KEY_PREFIX_FRAGMENT);
+                Fragment fragment = mFragmentManager.getFragment(bundle, key);
+                mFragments.put(itemId, fragment);
+                continue;
+>>>>>>> BRANCH (3a06c2 Merge "Merge cherrypicks of [954920] into sparse-5520679-L60)
             }
 
             mSavedStates.clear();

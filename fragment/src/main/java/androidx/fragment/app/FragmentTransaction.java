@@ -42,6 +42,80 @@ import java.lang.annotation.RetentionPolicy;
  * documentation for a class overview.
  */
 public abstract class FragmentTransaction {
+<<<<<<< HEAD   (e53308 Merge "Merge empty history for sparse-5498091-L6460000030224)
+=======
+
+    static final int OP_NULL = 0;
+    static final int OP_ADD = 1;
+    static final int OP_REPLACE = 2;
+    static final int OP_REMOVE = 3;
+    static final int OP_HIDE = 4;
+    static final int OP_SHOW = 5;
+    static final int OP_DETACH = 6;
+    static final int OP_ATTACH = 7;
+    static final int OP_SET_PRIMARY_NAV = 8;
+    static final int OP_UNSET_PRIMARY_NAV = 9;
+    static final int OP_SET_MAX_LIFECYCLE = 10;
+
+    static final class Op {
+        int mCmd;
+        Fragment mFragment;
+        int mEnterAnim;
+        int mExitAnim;
+        int mPopEnterAnim;
+        int mPopExitAnim;
+        Lifecycle.State mOldMaxState;
+        Lifecycle.State mCurrentMaxState;
+
+        Op() {
+        }
+
+        Op(int cmd, Fragment fragment) {
+            this.mCmd = cmd;
+            this.mFragment = fragment;
+            this.mOldMaxState = Lifecycle.State.RESUMED;
+            this.mCurrentMaxState = Lifecycle.State.RESUMED;
+        }
+
+        Op(int cmd, @NonNull Fragment fragment, Lifecycle.State state) {
+            this.mCmd = cmd;
+            this.mFragment = fragment;
+            this.mOldMaxState = fragment.mMaxState;
+            this.mCurrentMaxState = state;
+        }
+    }
+
+    ArrayList<Op> mOps = new ArrayList<>();
+    int mEnterAnim;
+    int mExitAnim;
+    int mPopEnterAnim;
+    int mPopExitAnim;
+    int mTransition;
+    int mTransitionStyle;
+    boolean mAddToBackStack;
+    boolean mAllowAddToBackStack = true;
+    @Nullable String mName;
+
+    int mBreadCrumbTitleRes;
+    CharSequence mBreadCrumbTitleText;
+    int mBreadCrumbShortTitleRes;
+    CharSequence mBreadCrumbShortTitleText;
+
+    ArrayList<String> mSharedElementSourceNames;
+    ArrayList<String> mSharedElementTargetNames;
+    boolean mReorderingAllowed = false;
+
+    ArrayList<Runnable> mCommitRunnables;
+
+    void addOp(Op op) {
+        mOps.add(op);
+        op.mEnterAnim = mEnterAnim;
+        op.mExitAnim = mExitAnim;
+        op.mPopEnterAnim = mPopEnterAnim;
+        op.mPopExitAnim = mPopExitAnim;
+    }
+
+>>>>>>> BRANCH (3a06c2 Merge "Merge cherrypicks of [954920] into sparse-5520679-L60)
     /**
      * Calls {@link #add(int, Fragment, String)} with a 0 containerViewId.
      */

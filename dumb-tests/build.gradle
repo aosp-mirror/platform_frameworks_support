@@ -28,11 +28,15 @@ dependencies {
     androidTestImplementation(TEST_RULES)
 }
 
+<<<<<<< HEAD   (e53308 Merge "Merge empty history for sparse-5498091-L6460000030224)
 tasks['check'].dependsOn(tasks['connectedCheck'])
 
 uploadArchives.enabled = false
 
 supportLibrary {
+=======
+androidx {
+>>>>>>> BRANCH (3a06c2 Merge "Merge cherrypicks of [954920] into sparse-5520679-L60)
     name = "Dummy Project for test runner"
     publish = false
 }

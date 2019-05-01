@@ -1,3 +1,4 @@
+<<<<<<< HEAD   (e53308 Merge "Merge empty history for sparse-5498091-L6460000030224)
 /*
  * Copyright 2018 The Android Open Source Project
  *
@@ -136,3 +137,5 @@ class SubtitleAnchorView extends View implements Anchor {
         return SubtitleAnchorView.class.getName();
     }
 }
+=======
+>>>>>>> BRANCH (3a06c2 Merge "Merge cherrypicks of [954920] into sparse-5520679-L60)

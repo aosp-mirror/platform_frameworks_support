@@ -16,10 +16,7 @@
 
 package androidx.fragment.app;
 
-import android.os.Bundle;
-
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.collection.SimpleArrayMap;
 
 import java.lang.reflect.InvocationTargetException;
@@ -103,6 +100,7 @@ public class FragmentFactory {
      * Create a new instance of a Fragment with the given class name. This uses
      * {@link #loadFragmentClass(ClassLoader, String)} and the empty
      * constructor of the resulting Class by default.
+<<<<<<< HEAD   (e53308 Merge "Merge empty history for sparse-5498091-L6460000030224)
      * <p>
      * Note that this method is <strong>not</strong> responsible for calling
      * {@link Fragment#setArguments(Bundle)} on the returned Fragment instance.
@@ -119,6 +117,18 @@ public class FragmentFactory {
     @NonNull
     public Fragment instantiate(@NonNull ClassLoader classLoader, @NonNull String className,
                                 @SuppressWarnings("unused") @Nullable Bundle args) {
+=======
+     *
+     * @param classLoader The default classloader to use for instantiation
+     * @param className The class name of the fragment to instantiate.
+     * @return Returns a new fragment instance.
+     * @throws Fragment.InstantiationException If there is a failure in instantiating
+     * the given fragment class.  This is a runtime exception; it is not
+     * normally expected to happen.
+     */
+    @NonNull
+    public Fragment instantiate(@NonNull ClassLoader classLoader, @NonNull String className) {
+>>>>>>> BRANCH (3a06c2 Merge "Merge cherrypicks of [954920] into sparse-5520679-L60)
         try {
             Class<? extends Fragment> cls = loadFragmentClass(classLoader, className);
             return cls.getConstructor().newInstance();

@@ -7,10 +7,15 @@ plugins {
 }
 
 dependencies {
+<<<<<<< HEAD   (e53308 Merge "Merge empty history for sparse-5498091-L6460000030224)
     api(project(":annotation"))
     api(project(":core"))
     implementation(project(":collection"))
     api("androidx.versionedparcelable:versionedparcelable:1.1.0-alpha01")
+=======
+    api(project(":core"))
+    implementation("androidx.collection:collection:1.0.0")
+>>>>>>> BRANCH (3a06c2 Merge "Merge cherrypicks of [954920] into sparse-5520679-L60)
 
     androidTestImplementation(TEST_EXT_JUNIT)
     androidTestImplementation(TEST_CORE)
@@ -41,4 +46,8 @@ supportLibrary {
     description = "The Support Library is a static library that you can add to your Android application in order to use APIs that are either not available for older platform versions or utility APIs that aren't a part of the framework APIs. Compatible on devices running API 14 or later."
     failOnUncheckedWarnings = false
     failOnDeprecationWarnings = false
+<<<<<<< HEAD   (e53308 Merge "Merge empty history for sparse-5498091-L6460000030224)
+=======
+    trackRestrictedAPIs = false // TODO: Remove it (b/131031933)
+>>>>>>> BRANCH (3a06c2 Merge "Merge cherrypicks of [954920] into sparse-5520679-L60)
 }

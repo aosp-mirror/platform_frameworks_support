@@ -498,7 +498,59 @@ public abstract class MediaRouteProvider {
          */
         public abstract void setOnDynamicRoutesChangedListener(
                 @NonNull Executor executor,
+<<<<<<< HEAD   (e53308 Merge "Merge empty history for sparse-5498091-L6460000030224)
                 @NonNull OnDynamicRoutesChangedListener listener);
+=======
+                @NonNull OnDynamicRoutesChangedListener listener) {
+            synchronized (mLock) {
+                if (executor == null) {
+                    throw new NullPointerException("Executor shouldn't be null");
+                }
+                if (listener == null) {
+                    throw new NullPointerException("Listener shouldn't be null");
+                }
+                mExecutor = executor;
+                mListener = listener;
+
+                if (mPendingRoutes != null && !mPendingRoutes.isEmpty()) {
+                    final Collection<DynamicRouteDescriptor> routes = mPendingRoutes;
+                    mPendingRoutes = null;
+                    mExecutor.execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            mListener.onRoutesChanged(DynamicGroupRouteController.this,
+                                    routes);
+                        }
+                    });
+                }
+            }
+        }
+
+        /**
+         * Sets the dynamic route descriptors for routes.
+         * <p>
+         * The dynamic group controller must call this method to notify the current
+         * dynamic group state of routes.
+         * </p>
+         * @param routes The dynamic route descriptors for published routes.
+         */
+        public final void notifyDynamicRoutesChanged(
+                final Collection<DynamicRouteDescriptor> routes) {
+            synchronized (mLock) {
+                if (mExecutor != null) {
+                    mExecutor.execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            mListener.onRoutesChanged(
+                                    DynamicGroupRouteController.this, routes);
+                        }
+                    });
+                } else {
+                    mPendingRoutes = new ArrayList<>(routes);
+                }
+            }
+        }
+>>>>>>> BRANCH (3a06c2 Merge "Merge cherrypicks of [954920] into sparse-5520679-L60)
 
         /**
          * Used to notify media router each route's property changes regarding this

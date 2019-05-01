@@ -53,6 +53,13 @@ class BackStackStateTest {
             .containsExactlyElementsIn(backStackState.mOps.asList())
         assertThat(restoredBackStackState.mFragmentWhos)
             .containsExactlyElementsIn(backStackState.mFragmentWhos)
+<<<<<<< HEAD   (e53308 Merge "Merge empty history for sparse-5498091-L6460000030224)
+=======
+        assertThat(restoredBackStackState.mOldMaxLifecycleStates).asList()
+            .containsExactlyElementsIn(backStackState.mOldMaxLifecycleStates.asList())
+        assertThat(restoredBackStackState.mCurrentMaxLifecycleStates).asList()
+            .containsExactlyElementsIn(backStackState.mCurrentMaxLifecycleStates.asList())
+>>>>>>> BRANCH (3a06c2 Merge "Merge cherrypicks of [954920] into sparse-5520679-L60)
         assertThat(restoredBackStackState.mReorderingAllowed)
             .isEqualTo(backStackState.mReorderingAllowed)
     }

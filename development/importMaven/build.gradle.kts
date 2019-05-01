@@ -14,6 +14,13 @@
  * limitations under the License.
  */
 
+<<<<<<< HEAD   (e53308 Merge "Merge empty history for sparse-5498091-L6460000030224)
+=======
+import okhttp3.MediaType
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.RequestBody
+>>>>>>> BRANCH (3a06c2 Merge "Merge cherrypicks of [954920] into sparse-5520679-L60)
 import org.apache.maven.model.Dependency
 import org.apache.maven.model.Parent
 import org.apache.maven.model.Repository
@@ -112,6 +119,8 @@ val fetchArtifacts = configurations.create(configurationName)
 val fetchArtifactsContainer = configurations.getByName(configurationName)
 // Passed in as a project property
 val artifactName = project.findProperty("artifactName")
+val mediaType = MediaType.get("application/json; charset=utf-8")
+val licenseEndpoint = "https://fetch-licenses.appspot.com/convert/licenses"
 
 val internalArtifacts = listOf(
     "android.arch(.*)?".toRegex(),
@@ -256,6 +265,55 @@ fun digest(file: File, algorithm: String): File {
 }
 
 /**
+<<<<<<< HEAD   (e53308 Merge "Merge empty history for sparse-5498091-L6460000030224)
+=======
+ * Fetches license information for external dependencies.
+ */
+fun licenseFor(pomFile: File): File? {
+    try {
+        val builder = DocumentBuilderFactory.newInstance().newDocumentBuilder()
+        val document = builder.parse(pomFile)
+        val client = OkHttpClient()
+        /*
+          This is what a licenses declaration looks like:
+          <licenses>
+            <license>
+              <name>Android Software Development Kit License</name>
+              <url>https://developer.android.com/studio/terms.html</url>
+              <distribution>repo</distribution>
+            </license>
+          </licenses>
+         */
+        val licenses = document.getElementsByTagName("license")
+        for (i in 0 until licenses.length) {
+            val license = licenses.item(i)
+            val children = license.childNodes
+            for (j in 0 until children.length) {
+                val element = children.item(j)
+                if (element.nodeName.toLowerCase() == "url") {
+                    val url = element.textContent
+                    val payload = RequestBody.create(mediaType, "{\"url\": \"$url\"}")
+                    val request = Request.Builder().url(licenseEndpoint).post(payload).build()
+                    val response = client.newCall(request).execute()
+                    val contents = response.body()?.string()
+                    if (contents != null) {
+                        val parent = System.getProperty("java.io.tmpdir")
+                        val outputFile = File(parent, "${pomFile.name}.LICENSE")
+                        outputFile.deleteOnExit()
+                        outputFile.writeText(contents)
+                        return outputFile
+                    }
+                }
+            }
+        }
+    } catch (exception: Throwable) {
+        println("Error fetching license information for $pomFile")
+    }
+    return null
+}
+
+/**
+>>>>>>> BRANCH (3a06c2 Merge "Merge cherrypicks of [954920] into sparse-5520679-L60)
  * Copies artifacts to the right locations.
  */
 fun copyArtifact(artifact: ResolvedArtifact, internal: Boolean = false) {

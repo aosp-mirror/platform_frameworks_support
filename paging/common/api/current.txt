@@ -55,7 +55,81 @@ package androidx.paging {
     field public final int requestedLoadSize;
   }
 
+<<<<<<< HEAD   (e53308 Merge "Merge empty history for sparse-5498091-L6460000030224)
   public abstract class PageKeyedDataSource<Key, Value> extends androidx.paging.DataSource<Key,Value> {
+=======
+  public static class ListenableItemKeyedDataSource.Result<V> {
+    ctor public ListenableItemKeyedDataSource.Result(java.util.List<V>);
+    method public boolean equals(Object?);
+  }
+
+  public abstract class ListenablePageKeyedDataSource<Key, Value> extends androidx.paging.DataSource<Key,Value> {
+    ctor public ListenablePageKeyedDataSource();
+    method public abstract com.google.common.util.concurrent.ListenableFuture<androidx.paging.ListenablePageKeyedDataSource.Result<Key,Value>> loadAfter(androidx.paging.ListenablePageKeyedDataSource.LoadParams<Key>);
+    method public abstract com.google.common.util.concurrent.ListenableFuture<androidx.paging.ListenablePageKeyedDataSource.Result<Key,Value>> loadBefore(androidx.paging.ListenablePageKeyedDataSource.LoadParams<Key>);
+    method public abstract com.google.common.util.concurrent.ListenableFuture<androidx.paging.ListenablePageKeyedDataSource.InitialResult<Key,Value>> loadInitial(androidx.paging.ListenablePageKeyedDataSource.LoadInitialParams<Key>);
+  }
+
+  public static class ListenablePageKeyedDataSource.InitialResult<Key, Value> {
+    ctor public ListenablePageKeyedDataSource.InitialResult(java.util.List<Value>, int, int, Key?, Key?);
+    ctor public ListenablePageKeyedDataSource.InitialResult(java.util.List<Value>, Key?, Key?);
+    method public boolean equals(Object?);
+  }
+
+  public static class ListenablePageKeyedDataSource.LoadInitialParams<Key> {
+    ctor public ListenablePageKeyedDataSource.LoadInitialParams(int, boolean);
+    field public final boolean placeholdersEnabled;
+    field public final int requestedLoadSize;
+  }
+
+  public static class ListenablePageKeyedDataSource.LoadParams<Key> {
+    ctor public ListenablePageKeyedDataSource.LoadParams(Key, int);
+    field public final Key key;
+    field public final int requestedLoadSize;
+  }
+
+  public static class ListenablePageKeyedDataSource.Result<Key, Value> {
+    ctor public ListenablePageKeyedDataSource.Result(java.util.List<Value>, Key?);
+    method public boolean equals(Object?);
+  }
+
+  public abstract class ListenablePositionalDataSource<T> extends androidx.paging.DataSource<java.lang.Integer,T> {
+    ctor public ListenablePositionalDataSource();
+    method public static int computeInitialLoadPosition(androidx.paging.ListenablePositionalDataSource.LoadInitialParams, int);
+    method public static int computeInitialLoadSize(androidx.paging.ListenablePositionalDataSource.LoadInitialParams, int, int);
+    method public abstract com.google.common.util.concurrent.ListenableFuture<androidx.paging.ListenablePositionalDataSource.InitialResult<T>> loadInitial(androidx.paging.ListenablePositionalDataSource.LoadInitialParams);
+    method public abstract com.google.common.util.concurrent.ListenableFuture<androidx.paging.ListenablePositionalDataSource.RangeResult<T>> loadRange(androidx.paging.ListenablePositionalDataSource.LoadRangeParams);
+  }
+
+  public static class ListenablePositionalDataSource.InitialResult<V> {
+    ctor public ListenablePositionalDataSource.InitialResult(java.util.List<V>, int, int);
+    ctor public ListenablePositionalDataSource.InitialResult(java.util.List<V>, int);
+    method public boolean equals(Object?);
+  }
+
+  public static class ListenablePositionalDataSource.LoadInitialParams {
+    ctor public ListenablePositionalDataSource.LoadInitialParams(int, int, int, boolean);
+    field public final int pageSize;
+    field public final boolean placeholdersEnabled;
+    field public final int requestedLoadSize;
+    field public final int requestedStartPosition;
+  }
+
+  public static class ListenablePositionalDataSource.LoadRangeParams {
+    ctor public ListenablePositionalDataSource.LoadRangeParams(int, int);
+    field public final int loadSize;
+    field public final int startPosition;
+  }
+
+  public static class ListenablePositionalDataSource.RangeResult<V> {
+    ctor public ListenablePositionalDataSource.RangeResult(java.util.List<V>);
+    method public boolean equals(Object?);
+  }
+
+  public abstract class PageKeyedDataSource<Key, Value> extends androidx.paging.ListenablePageKeyedDataSource<Key,Value> {
+    ctor public PageKeyedDataSource();
+    method public final com.google.common.util.concurrent.ListenableFuture<androidx.paging.ListenablePageKeyedDataSource.Result<Key,Value>> loadAfter(androidx.paging.ListenablePageKeyedDataSource.LoadParams<Key>);
+>>>>>>> BRANCH (3a06c2 Merge "Merge cherrypicks of [954920] into sparse-5520679-L60)
     method public abstract void loadAfter(androidx.paging.PageKeyedDataSource.LoadParams<Key>, androidx.paging.PageKeyedDataSource.LoadCallback<Key,Value>);
     method public abstract void loadBefore(androidx.paging.PageKeyedDataSource.LoadParams<Key>, androidx.paging.PageKeyedDataSource.LoadCallback<Key,Value>);
     method public abstract void loadInitial(androidx.paging.PageKeyedDataSource.LoadInitialParams<Key>, androidx.paging.PageKeyedDataSource.LoadInitialCallback<Key,Value>);
@@ -171,9 +245,17 @@ package androidx.paging {
     enum_constant public static final androidx.paging.PagedList.LoadType START;
   }
 
+<<<<<<< HEAD   (e53308 Merge "Merge empty history for sparse-5498091-L6460000030224)
   public abstract class PositionalDataSource<T> extends androidx.paging.DataSource<java.lang.Integer,T> {
     method public static int computeInitialLoadPosition(androidx.paging.PositionalDataSource.LoadInitialParams, int);
     method public static int computeInitialLoadSize(androidx.paging.PositionalDataSource.LoadInitialParams, int, int);
+=======
+  public abstract class PositionalDataSource<T> extends androidx.paging.ListenablePositionalDataSource<T> {
+    ctor public PositionalDataSource();
+    method public static int computeInitialLoadPosition(androidx.paging.PositionalDataSource.LoadInitialParams, int);
+    method public static int computeInitialLoadSize(androidx.paging.PositionalDataSource.LoadInitialParams, int, int);
+    method public final com.google.common.util.concurrent.ListenableFuture<androidx.paging.ListenablePositionalDataSource.InitialResult<T>> loadInitial(androidx.paging.ListenablePositionalDataSource.LoadInitialParams);
+>>>>>>> BRANCH (3a06c2 Merge "Merge cherrypicks of [954920] into sparse-5520679-L60)
     method @WorkerThread public abstract void loadInitial(androidx.paging.PositionalDataSource.LoadInitialParams, androidx.paging.PositionalDataSource.LoadInitialCallback<T>);
     method @WorkerThread public abstract void loadRange(androidx.paging.PositionalDataSource.LoadRangeParams, androidx.paging.PositionalDataSource.LoadRangeCallback<T>);
     method public final <V> androidx.paging.PositionalDataSource<V> map(androidx.arch.core.util.Function<T,V>);

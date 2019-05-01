@@ -52,6 +52,7 @@ final class ScrollEventAdapter extends RecyclerView.OnScrollListener {
         ZERO_MARGIN_LAYOUT_PARAMS.setMargins(0, 0, 0, 0);
     }
 
+    /** @hide */
     @Retention(SOURCE)
     @IntDef({STATE_IDLE, STATE_IN_PROGRESS_MANUAL_DRAG, STATE_IN_PROGRESS_SMOOTH_SCROLL,
             STATE_IN_PROGRESS_IMMEDIATE_SCROLL})
@@ -252,7 +253,26 @@ final class ScrollEventAdapter extends RecyclerView.OnScrollListener {
                     + "positive amount, not by %d", values.mOffsetPx));
         }
         values.mOffset = sizePx == 0 ? 0 : (float) values.mOffsetPx / sizePx;
+<<<<<<< HEAD   (e53308 Merge "Merge empty history for sparse-5498091-L6460000030224)
         return values;
+=======
+    }
+
+    private void startDrag(boolean isFakeDrag) {
+        mFakeDragging = isFakeDrag;
+        mAdapterState = isFakeDrag ? STATE_IN_PROGRESS_FAKE_DRAG : STATE_IN_PROGRESS_MANUAL_DRAG;
+        if (mTarget != NO_POSITION) {
+            // Target was set means programmatic scroll was in progress
+            // Update "drag start page" to reflect the page that ViewPager2 thinks it is at
+            mDragStartPosition = mTarget;
+            // Reset target because drags have no target until released
+            mTarget = NO_POSITION;
+        } else if (mDragStartPosition == NO_POSITION) {
+            // ViewPager2 was at rest, set "drag start page" to current page
+            mDragStartPosition = getPosition();
+        }
+        dispatchStateChanged(SCROLL_STATE_DRAGGING);
+>>>>>>> BRANCH (3a06c2 Merge "Merge cherrypicks of [954920] into sparse-5520679-L60)
     }
 
     /**

@@ -1,3 +1,4 @@
+<<<<<<< HEAD   (e53308 Merge "Merge empty history for sparse-5498091-L6460000030224)
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Copyright (C) 2017 The Android Open Source Project
 
@@ -243,3 +244,5 @@
             android:elevation="10dp" />
     </FrameLayout>
 </merge>
+=======
+>>>>>>> BRANCH (3a06c2 Merge "Merge cherrypicks of [954920] into sparse-5520679-L60)

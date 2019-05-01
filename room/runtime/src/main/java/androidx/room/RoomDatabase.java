@@ -307,6 +307,8 @@ public abstract class RoomDatabase {
     /**
      * Executes the specified {@link Runnable} in a database transaction. The transaction will be
      * marked as successful unless an exception is thrown in the {@link Runnable}.
+     * <p>
+     * Room will only perform at most one transaction at a time.
      *
      * @param body The piece of code to execute.
      */
@@ -323,6 +325,8 @@ public abstract class RoomDatabase {
     /**
      * Executes the specified {@link Callable} in a database transaction. The transaction will be
      * marked as successful unless an exception is thrown in the {@link Callable}.
+     * <p>
+     * Room will only perform at most one transaction at a time.
      *
      * @param body The piece of code to execute.
      * @param <V>  The type of the return value.
@@ -569,6 +573,36 @@ public abstract class RoomDatabase {
         }
 
         /**
+<<<<<<< HEAD   (e53308 Merge "Merge empty history for sparse-5498091-L6460000030224)
+=======
+         * Sets the {@link Executor} that will be used to execute all non-blocking asynchronous
+         * transaction queries and tasks, including {@code LiveData} invalidation, {@code Flowable}
+         * scheduling and {@code ListenableFuture} tasks.
+         * <p>
+         * When both the transaction executor and query executor are unset, then a default
+         * {@code Executor} will be used. The default {@code Executor} allocates and shares threads
+         * amongst Architecture Components libraries. If the transaction executor is unset but a
+         * query executor was set, then the same {@code Executor} will be used for transactions.
+         * <p>
+         * If the given {@code Executor} is shared then it should be unbounded to avoid the
+         * possibility of a deadlock. Room will not use more than one thread at a time from this
+         * executor since only one transaction at a time can be executed, other transactions will
+         * be queued on a first come, first serve order.
+         * <p>
+         * The input {@code Executor} cannot run tasks on the UI thread.
+         *
+         * @return this
+         *
+         * @see #setQueryExecutor(Executor)
+         */
+        @NonNull
+        public Builder<T> setTransactionExecutor(@NonNull Executor executor) {
+            mTransactionExecutor = executor;
+            return this;
+        }
+
+        /**
+>>>>>>> BRANCH (3a06c2 Merge "Merge cherrypicks of [954920] into sparse-5520679-L60)
          * Sets whether table invalidation in this instance of {@link RoomDatabase} should be
          * broadcast and synchronized with other instances of the same {@link RoomDatabase},
          * including those in a separate process. In order to enable multi-instance invalidation,

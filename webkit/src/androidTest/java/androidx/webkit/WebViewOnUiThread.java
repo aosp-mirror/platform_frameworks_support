@@ -21,6 +21,7 @@ import static org.junit.Assert.fail;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.net.Uri;
 import android.os.Looper;
 import android.os.SystemClock;
@@ -32,6 +33,7 @@ import android.webkit.WebViewClient;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.concurrent.futures.ResolvableFuture;
 import androidx.test.core.app.ApplicationProvider;
 
 import java.util.concurrent.Callable;
@@ -418,6 +420,41 @@ class WebViewOnUiThread {
         public T getValue() {
             return mValue;
         }
+    }
+
+    /**
+     * Wait for the current state of the DOM to be ready to render on the next draw.
+     */
+    public void waitForDOMReadyToRender() {
+        final ResolvableFuture<Void> future = ResolvableFuture.create();
+        postVisualStateCallbackCompat(0, new WebViewCompat.VisualStateCallback() {
+            @Override
+            public void onComplete(long requestId) {
+                future.set(null);
+            }
+        });
+        WebkitUtils.waitForFuture(future);
+    }
+
+    /**
+     * Capture a bitmap representation of the current WebView state.
+     *
+     * This synchronises so that the bitmap contents reflects the current DOM state, rather than
+     * potentially capturing a previously generated frame.
+     */
+    public Bitmap captureBitmap() {
+        getSettings().setOffscreenPreRaster(true);
+        waitForDOMReadyToRender();
+        return WebkitUtils.onMainThreadSync(new Callable<Bitmap>() {
+            @Override
+            public Bitmap call() throws Exception {
+                Bitmap bitmap = Bitmap.createBitmap(mWebView.getWidth(), mWebView.getHeight(),
+                        Bitmap.Config.ARGB_8888);
+                Canvas canvas = new Canvas(bitmap);
+                mWebView.draw(canvas);
+                return bitmap;
+            }
+        });
     }
 
     /**

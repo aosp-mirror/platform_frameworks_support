@@ -36,7 +36,12 @@ import com.android.build.gradle.AppPlugin
 import com.android.build.gradle.BaseExtension
 import com.android.build.gradle.LibraryExtension
 import com.android.build.gradle.LibraryPlugin
+<<<<<<< HEAD   (e53308 Merge "Merge empty history for sparse-5498091-L6460000030224)
 import com.android.build.gradle.internal.tasks.factory.dependsOn
+=======
+import com.android.build.gradle.TestedExtension
+import com.android.build.gradle.api.ApkVariant
+>>>>>>> BRANCH (3a06c2 Merge "Merge cherrypicks of [954920] into sparse-5520679-L60)
 import org.gradle.api.DefaultTask
 import org.gradle.api.Task
 import org.gradle.api.JavaVersion.VERSION_1_7
@@ -98,14 +103,17 @@ class AndroidXPlugin : Plugin<Project> {
                     project.configureVersionFileWriter(extension)
                     project.configureResourceApiChecks()
                     val verifyDependencyVersionsTask = project.createVerifyDependencyVersionsTask()
-                    val checkNoWarningsTask = project.tasks.register(CHECK_NO_WARNINGS_TASK)
+                    val checkNoWarningsTask = project.tasks.register(CHECK_NO_WARNINGS_TASK) {
+                        extension.libraryVariants.all { libraryVariant ->
+                            it.dependsOn(libraryVariant.javaCompileProvider)
+                        }
+                    }
                     project.createCheckReleaseReadyTask(listOf(verifyDependencyVersionsTask,
                         checkNoWarningsTask))
                     extension.libraryVariants.all { libraryVariant ->
                         verifyDependencyVersionsTask.configure { task ->
                             task.dependsOn(libraryVariant.javaCompileProvider)
                         }
-                        checkNoWarningsTask.dependsOn(libraryVariant.javaCompileProvider)
                         project.gradle.taskGraph.whenReady { executionGraph ->
                             if (executionGraph.hasTask(checkNoWarningsTask.get())) {
                                 libraryVariant.javaCompileProvider.configure { task ->
@@ -178,6 +186,14 @@ class AndroidXPlugin : Plugin<Project> {
         buildOnServerTask.dependsOn(createCoverageJarTask)
         buildTestApksTask.dependsOn(createCoverageJarTask)
 
+<<<<<<< HEAD   (e53308 Merge "Merge empty history for sparse-5498091-L6460000030224)
+=======
+        tasks.register(BUILD_TEST_APKS) {
+            it.dependsOn(createCoverageJarTask)
+        }
+
+        extra.set("versionChecker", GMavenVersionChecker(logger))
+>>>>>>> BRANCH (3a06c2 Merge "Merge cherrypicks of [954920] into sparse-5520679-L60)
         Release.createGlobalArchiveTask(this)
         val allDocsTask = DiffAndDocs.configureDiffAndDocs(this, projectDir,
                 DacOptions("androidx", "ANDROIDX_DATA"),
@@ -268,6 +284,28 @@ class AndroidXPlugin : Plugin<Project> {
         // Set the officially published version to be the release version with minimum dependency
         // versions.
         extension.defaultPublishConfig(Release.DEFAULT_PUBLISH_CONFIG)
+<<<<<<< HEAD   (e53308 Merge "Merge empty history for sparse-5498091-L6460000030224)
+=======
+
+        // workaround for b/120487939
+        configurations.all { configuration ->
+            // Gradle seems to crash on androidtest configurations
+            // preferring project modules...
+            if (!configuration.name.toLowerCase().contains("androidtest")) {
+                configuration.resolutionStrategy.preferProjectModules()
+            }
+        }
+
+        Jacoco.registerClassFilesTask(project, extension)
+
+        val buildTestApksTask = rootProject.tasks.named(BUILD_TEST_APKS)
+        extension.testVariants.all { variant ->
+            buildTestApksTask.configure {
+                it.dependsOn(variant.assembleProvider)
+            }
+            variant.configureApkCopy(project, extension, true)
+        }
+>>>>>>> BRANCH (3a06c2 Merge "Merge cherrypicks of [954920] into sparse-5520679-L60)
     }
 
     private fun Project.configureAndroidLibraryOptions(extension: LibraryExtension) {
@@ -310,6 +348,19 @@ class AndroidXPlugin : Plugin<Project> {
                 baseline(baseline)
             }
         }
+<<<<<<< HEAD   (e53308 Merge "Merge empty history for sparse-5498091-L6460000030224)
+=======
+
+        val buildTestApksTask = rootProject.tasks.named(BUILD_TEST_APKS)
+        extension.applicationVariants.all { variant ->
+            if (variant.buildType.name == "debug") {
+                buildTestApksTask.configure {
+                    it.dependsOn(variant.assembleProvider)
+                }
+            }
+            variant.configureApkCopy(project, extension, false)
+        }
+>>>>>>> BRANCH (3a06c2 Merge "Merge cherrypicks of [954920] into sparse-5520679-L60)
     }
 
     private fun Project.createVerifyDependencyVersionsTask():

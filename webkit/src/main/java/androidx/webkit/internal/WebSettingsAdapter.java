@@ -72,4 +72,34 @@ public class WebSettingsAdapter {
         return mBoundaryInterface.getDisabledActionModeMenuItems();
     }
 
+<<<<<<< HEAD   (e53308 Merge "Merge empty history for sparse-5498091-L6460000030224)
+=======
+    /**
+     * Adapter method for {@link androidx.webkit.WebSettingsCompat#setWillSuppressErrorPage}.
+     */
+    public void setWillSuppressErrorPage(boolean suppressed) {
+        mBoundaryInterface.setWillSuppressErrorPage(suppressed);
+    }
+
+    /**
+     * Adapter method for {@link androidx.webkit.WebSettingsCompat#willSuppressErrorPage}.
+     */
+    public boolean willSuppressErrorPage() {
+        return mBoundaryInterface.getWillSuppressErrorPage();
+    }
+
+    /**
+     * Adapter method for {@link androidx.webkit.WebSettingsCompat#setForceDark}.
+     */
+    public void setForceDark(int forceDarkMode) {
+        mBoundaryInterface.setForceDark(forceDarkMode);
+    }
+
+    /**
+     * Adapter method for {@link androidx.webkit.WebSettingsCompat#getForceDark}.
+     */
+    public int getForceDark() {
+        return mBoundaryInterface.getForceDark();
+    }
+>>>>>>> BRANCH (3a06c2 Merge "Merge cherrypicks of [954920] into sparse-5520679-L60)
 }

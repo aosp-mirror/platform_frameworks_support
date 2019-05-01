@@ -16,6 +16,15 @@
 
 package androidx.build.dependencies
 
+<<<<<<< HEAD   (e53308 Merge "Merge empty history for sparse-5498091-L6460000030224)
+=======
+const val ANDROIDX_TEST_CORE = "androidx.test:core:1.1.0"
+const val ANDROIDX_TEST_EXT_JUNIT = "androidx.test.ext:junit:1.0.0"
+const val ANDROIDX_TEST_EXT_KTX = "androidx.test.ext:junit-ktx:1.1.0"
+const val ANDROIDX_TEST_RULES = "androidx.test:rules:1.1.0"
+const val ANDROIDX_TEST_RUNNER = "androidx.test:runner:1.1.1"
+const val ANDROIDX_TEST_UIAUTOMATOR = "androidx.test.uiautomator:uiautomator:2.2.0"
+>>>>>>> BRANCH (3a06c2 Merge "Merge cherrypicks of [954920] into sparse-5520679-L60)
 const val AUTO_COMMON = "com.google.auto:auto-common:0.10"
 const val AUTO_VALUE = "com.google.auto.value:auto-value:1.6.2"
 const val AUTO_VALUE_ANNOTATIONS = "com.google.auto.value:auto-value-annotations:1.6.2"
@@ -37,8 +46,16 @@ const val INTELLIJ_ANNOTATIONS = "com.intellij:annotations:12.0"
 const val JAVAPOET = "com.squareup:javapoet:1.8.0"
 const val JSR250 = "javax.annotation:javax.annotation-api:1.2"
 const val JUNIT = "junit:junit:4.12"
+<<<<<<< HEAD   (e53308 Merge "Merge empty history for sparse-5498091-L6460000030224)
 const val KOTLINPOET = "com.squareup:kotlinpoet:1.0.0"
 const val KOTLIN_STDLIB = "org.jetbrains.kotlin:kotlin-stdlib:1.3.0"
+=======
+const val KOTLINPOET = "com.squareup:kotlinpoet:1.1.0"
+
+private const val KOTLIN_VERSION = "1.3.20"
+const val KOTLIN_STDLIB = "org.jetbrains.kotlin:kotlin-stdlib:$KOTLIN_VERSION"
+const val KOTLIN_TEST_COMMON = "org.jetbrains.kotlin:kotlin-test:$KOTLIN_VERSION"
+>>>>>>> BRANCH (3a06c2 Merge "Merge cherrypicks of [954920] into sparse-5520679-L60)
 const val KOTLIN_METADATA = "me.eugeniomarletti.kotlin.metadata:kotlin-metadata:1.4.0"
 const val KOTLIN_COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.0.0"
 const val LEAKCANARY_INSTRUMENTATION =
@@ -77,6 +94,10 @@ const val SUPPORT_DESIGN = "com.google.android.material:material:1.0.0@aar"
 const val SUPPORT_FRAGMENTS = "androidx.fragment:fragment:$SUPPORT_VERSION"
 const val SUPPORT_RECYCLERVIEW = "androidx.recyclerview:recyclerview:$SUPPORT_VERSION"
 
+<<<<<<< HEAD   (e53308 Merge "Merge empty history for sparse-5498091-L6460000030224)
+=======
+const val ANDROIDX_ANNOTATION = "androidx.annotation:annotation:1.1.0-beta01"
+>>>>>>> BRANCH (3a06c2 Merge "Merge cherrypicks of [954920] into sparse-5520679-L60)
 const val ANDROIDX_COLLECTION = "androidx.collection:collection:$SUPPORT_VERSION"
 const val ANDROIDX_CORE = "androidx.core:core:1.0.0"
 const val ANDROIDX_RECYCLERVIEW = "androidx.recyclerview:recyclerview:1.0.0"

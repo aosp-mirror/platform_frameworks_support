@@ -60,6 +60,7 @@ object Dokka {
     fun getDocsTask(project: Project): DokkaTask {
         return project.rootProject.getOrCreateDocsTask()
     }
+<<<<<<< HEAD   (e53308 Merge "Merge empty history for sparse-5498091-L6460000030224)
 
     @Synchronized
     fun Project.getOrCreateDocsTask(): DokkaTask {
@@ -67,6 +68,30 @@ object Dokka {
         if (runnerProject.tasks.findByName(Dokka.RUNNER_TASK_NAME) == null) {
             project.apply<DokkaPlugin>()
             val docsTask = project.tasks.getByName(Dokka.RUNNER_TASK_NAME) as DokkaTask
+=======
+    fun archiveTaskNameForType(docsType: String): String {
+        return "dist${docsType}DokkaDocs"
+    }
+    fun createDocsTask(
+        docsType: String, // "public" or "tipOfTree"
+        project: Project,
+        hiddenPackages: List<String>
+    ) {
+        val taskName = generatorTaskNameForType(docsType)
+        val archiveTaskName = archiveTaskNameForType(docsType)
+        project.apply<DokkaAndroidPlugin>()
+        // We don't use the `dokka` task, but it normally appears in `./gradlew tasks`
+        // so replace it with a new task that doesn't show up and doesn't do anything
+        project.tasks.replace("dokka")
+        if (project.name != "support" && project.name != "docs-runner") {
+            throw Exception("Illegal project passed to createDocsTask: " + project.name)
+        }
+        val docsTask = project.tasks.create(taskName, DokkaAndroidTask::class.java) { docsTask ->
+            docsTask.moduleName = project.name
+            docsTask.outputDirectory = File(project.buildDir, taskName).absolutePath
+            docsTask.description = "Generates $docsType Kotlin documentation in the style of " +
+                    "d.android.com.  Places docs in ${docsTask.outputDirectory}"
+>>>>>>> BRANCH (3a06c2 Merge "Merge cherrypicks of [954920] into sparse-5520679-L60)
             docsTask.outputFormat = "dac"
             for (hiddenPackage in hiddenPackages) {
                 val opts = PackageOptions()

@@ -20,6 +20,14 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
 
+<<<<<<< HEAD   (e53308 Merge "Merge empty history for sparse-5498091-L6460000030224)
+=======
+import androidx.activity.OnBackPressedDispatcherOwner;
+import androidx.annotation.NonNull;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.ViewModelStore;
+
+>>>>>>> BRANCH (3a06c2 Merge "Merge cherrypicks of [954920] into sparse-5520679-L60)
 /**
  * A host is a single context or container for navigation via a {@link NavController}.
  * <p>
@@ -28,6 +36,17 @@ import android.view.View;
  * <li>Handle {@link NavController#saveState() saving} and
  * {@link NavController#restoreState(Bundle) restoring} their controller's state</li>
  * <li>Call {@link Navigation#setViewNavController(View, NavController)} on their root view</li>
+ * <li>Route system Back button events to the NavController either by manually calling
+ * {@link NavController#popBackStack()} or by calling
+ * {@link NavController#setHostOnBackPressedDispatcherOwner(OnBackPressedDispatcherOwner)}
+ * when constructing the NavController.</li>
+ * </ul>
+ * Optionally, a navigation host should consider calling:
+ * <ul>
+ * <li>Call {@link NavController#setHostLifecycleOwner(LifecycleOwner)} to associate the
+ * NavController with a specific Lifecycle.</li>
+ * <li>Call {@link NavController#setHostViewModelStore(ViewModelStore)} to enable usage of
+ * {@link NavController#getViewModelStore(int)} and navigation graph scoped ViewModels.</li>
  * </ul>
  */
 public interface NavHost {

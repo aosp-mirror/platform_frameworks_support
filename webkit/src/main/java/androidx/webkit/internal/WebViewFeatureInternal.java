@@ -304,6 +304,13 @@ public enum WebViewFeatureInternal {
      */
     PROXY_OVERRIDE(WebViewFeature.PROXY_OVERRIDE),
 
+    /**
+     * This feature covers
+     * {@link androidx.webkit.WebSettingsCompat#setForceDark(WebSettings, int)} and
+     * {@link androidx.webkit.WebSettingsCompat#getForceDark(WebSettings)}.
+     */
+    FORCE_DARK(WebViewFeature.FORCE_DARK, Features.FORCE_DARK),
+
     ;  // This semicolon ends the enum. Add new features with a trailing comma above this line.
 
     private static final int NOT_SUPPORTED_BY_FRAMEWORK = -1;

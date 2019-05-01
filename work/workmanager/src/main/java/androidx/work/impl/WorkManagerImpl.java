@@ -119,6 +119,39 @@ public class WorkManagerImpl extends WorkManager {
     }
 
     /**
+<<<<<<< HEAD   (e53308 Merge "Merge empty history for sparse-5498091-L6460000030224)
+=======
+     * Retrieves the singleton instance of {@link WorkManagerImpl}.
+     *
+     * @param context A context for on-demand initialization.
+     * @return The singleton instance of {@link WorkManagerImpl}
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+    public static @NonNull WorkManagerImpl getInstance(@NonNull Context context) {
+        synchronized (sLock) {
+            WorkManagerImpl instance = getInstance();
+            if (instance == null) {
+                Context appContext = context.getApplicationContext();
+                if (appContext instanceof Configuration.Provider) {
+                    initialize(
+                            appContext,
+                            ((Configuration.Provider) appContext).getWorkManagerConfiguration());
+                    instance = getInstance(appContext);
+                } else {
+                    throw new IllegalStateException("WorkManager is not initialized properly.  You "
+                            + "have explicitly disabled WorkManagerInitializer in your manifest, "
+                            + "have not manually called WorkManager#initialize at this point, and "
+                            + "your Application does not implement Configuration.Provider.");
+                }
+            }
+
+            return instance;
+        }
+    }
+
+    /**
+>>>>>>> BRANCH (3a06c2 Merge "Merge cherrypicks of [954920] into sparse-5520679-L60)
      * Initializes the singleton instance of {@link WorkManagerImpl}.  You should only do this if
      * you want to use a custom {@link Configuration} object and have disabled
      * WorkManagerInitializer.

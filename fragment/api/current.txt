@@ -109,6 +109,7 @@ package androidx.fragment.app {
     method public void onViewCreated(android.view.View, android.os.Bundle?);
     method @CallSuper public void onViewStateRestored(android.os.Bundle?);
     method public void postponeEnterTransition();
+    method public final void postponeEnterTransition(long, java.util.concurrent.TimeUnit);
     method public void registerForContextMenu(android.view.View);
     method public final void requestPermissions(String[], int);
     method public final androidx.fragment.app.FragmentActivity requireActivity();
@@ -230,7 +231,11 @@ package androidx.fragment.app {
 
   public class FragmentFactory {
     ctor public FragmentFactory();
+<<<<<<< HEAD   (e53308 Merge "Merge empty history for sparse-5498091-L6460000030224)
     method public androidx.fragment.app.Fragment instantiate(ClassLoader, String, android.os.Bundle?);
+=======
+    method public androidx.fragment.app.Fragment instantiate(ClassLoader, String);
+>>>>>>> BRANCH (3a06c2 Merge "Merge cherrypicks of [954920] into sparse-5520679-L60)
     method public static Class<? extends androidx.fragment.app.Fragment> loadFragmentClass(ClassLoader, String);
   }
 

@@ -30,7 +30,3 @@ dependencies {
     implementation(TEST_CORE, libs.exclude_for_espresso)
     implementation(TEST_RULES, libs.exclude_for_espresso)
 }
-
-tasks['check'].dependsOn(tasks['connectedCheck'])
-
-uploadArchives.enabled = false

@@ -25,10 +25,17 @@ import androidx.build.Strategy.Prebuilts
 import androidx.build.Strategy.TipOfTree
 
 val RELEASE_RULE = docsRules("public", false) {
+<<<<<<< HEAD   (e53308 Merge "Merge empty history for sparse-5498091-L6460000030224)
     prebuilts(LibraryGroups.ACTIVITY, "1.0.0-alpha04")
     prebuilts(LibraryGroups.ANNOTATION, "1.1.0-alpha01")
     ignore(LibraryGroups.APPCOMPAT, "appcompat-resources")
     prebuilts(LibraryGroups.APPCOMPAT, "1.1.0-alpha02")
+=======
+    prebuilts(LibraryGroups.ACTIVITY, "1.0.0-alpha07")
+    prebuilts(LibraryGroups.ANNOTATION, "1.1.0-beta01")
+    prebuilts(LibraryGroups.APPCOMPAT, "1.1.0-alpha04")
+    prebuilts(LibraryGroups.ARCH_CORE, "2.1.0-alpha02")
+>>>>>>> BRANCH (3a06c2 Merge "Merge cherrypicks of [954920] into sparse-5520679-L60)
     prebuilts(LibraryGroups.ASYNCLAYOUTINFLATER, "1.0.0")
     prebuilts(LibraryGroups.BIOMETRIC, "biometric", "1.0.0-alpha03")
     prebuilts(LibraryGroups.BROWSER, "1.0.0")
@@ -50,8 +57,14 @@ val RELEASE_RULE = docsRules("public", false) {
     prebuilts(LibraryGroups.DYNAMICANIMATION, "dynamicanimation-ktx", "1.0.0-alpha01")
     prebuilts(LibraryGroups.DYNAMICANIMATION, "1.0.0")
     prebuilts(LibraryGroups.EMOJI, "1.0.0")
+<<<<<<< HEAD   (e53308 Merge "Merge empty history for sparse-5498091-L6460000030224)
     prebuilts(LibraryGroups.EXIFINTERFACE, "1.0.0")
     prebuilts(LibraryGroups.FRAGMENT, "1.1.0-alpha04")
+=======
+    prebuilts(LibraryGroups.ENTERPRISE, "1.0.0-alpha01")
+    prebuilts(LibraryGroups.EXIFINTERFACE, "1.1.0-alpha01")
+    prebuilts(LibraryGroups.FRAGMENT, "1.1.0-alpha07")
+>>>>>>> BRANCH (3a06c2 Merge "Merge cherrypicks of [954920] into sparse-5520679-L60)
     prebuilts(LibraryGroups.GRIDLAYOUT, "1.0.0")
     prebuilts(LibraryGroups.HEIFWRITER, "1.0.0")
     prebuilts(LibraryGroups.INTERPOLATOR, "1.0.0")
@@ -75,6 +88,13 @@ val RELEASE_RULE = docsRules("public", false) {
     prebuilts(LibraryGroups.RECYCLERVIEW, "recyclerview", "1.1.0-alpha02")
     prebuilts(LibraryGroups.RECYCLERVIEW, "recyclerview-selection", "1.1.0-alpha01")
     prebuilts(LibraryGroups.REMOTECALLBACK, "1.0.0-alpha01")
+<<<<<<< HEAD   (e53308 Merge "Merge empty history for sparse-5498091-L6460000030224)
+=======
+    ignore(LibraryGroups.ROOM.group, "room-common-java8")
+    prebuilts(LibraryGroups.ROOM, "2.1.0-alpha07")
+    prebuilts(LibraryGroups.SAVEDSTATE, "1.0.0-alpha02")
+    prebuilts(LibraryGroups.SHARETARGET, "1.0.0-alpha01")
+>>>>>>> BRANCH (3a06c2 Merge "Merge cherrypicks of [954920] into sparse-5520679-L60)
     prebuilts(LibraryGroups.SLICE, "slice-builders", "1.0.0")
     prebuilts(LibraryGroups.SLICE, "slice-builders-ktx", "1.0.0-alpha6")
     prebuilts(LibraryGroups.SLICE, "slice-core", "1.0.0")

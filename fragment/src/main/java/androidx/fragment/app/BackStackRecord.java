@@ -164,7 +164,12 @@ final class BackStackRecord extends FragmentTransaction implements
                     case OP_ATTACH: cmdStr="ATTACH"; break;
                     case OP_SET_PRIMARY_NAV: cmdStr="SET_PRIMARY_NAV"; break;
                     case OP_UNSET_PRIMARY_NAV: cmdStr="UNSET_PRIMARY_NAV";break;
+<<<<<<< HEAD   (e53308 Merge "Merge empty history for sparse-5498091-L6460000030224)
                     default: cmdStr="cmd=" + op.cmd; break;
+=======
+                    case OP_SET_MAX_LIFECYCLE: cmdStr = "OP_SET_MAX_LIFECYCLE"; break;
+                    default: cmdStr = "cmd=" + op.mCmd; break;
+>>>>>>> BRANCH (3a06c2 Merge "Merge cherrypicks of [954920] into sparse-5520679-L60)
                 }
                 writer.print(prefix); writer.print("  Op #"); writer.print(opNum);
                         writer.print(": "); writer.print(cmdStr);
@@ -674,6 +679,12 @@ final class BackStackRecord extends FragmentTransaction implements
                 case OP_UNSET_PRIMARY_NAV:
                     mManager.setPrimaryNavigationFragment(null);
                     break;
+<<<<<<< HEAD   (e53308 Merge "Merge empty history for sparse-5498091-L6460000030224)
+=======
+                case OP_SET_MAX_LIFECYCLE:
+                    mManager.setMaxLifecycle(f, op.mCurrentMaxState);
+                    break;
+>>>>>>> BRANCH (3a06c2 Merge "Merge cherrypicks of [954920] into sparse-5520679-L60)
                 default:
                     throw new IllegalArgumentException("Unknown cmd: " + op.cmd);
             }
@@ -733,6 +744,12 @@ final class BackStackRecord extends FragmentTransaction implements
                 case OP_UNSET_PRIMARY_NAV:
                     mManager.setPrimaryNavigationFragment(f);
                     break;
+<<<<<<< HEAD   (e53308 Merge "Merge empty history for sparse-5498091-L6460000030224)
+=======
+                case OP_SET_MAX_LIFECYCLE:
+                    mManager.setMaxLifecycle(f, op.mOldMaxState);
+                    break;
+>>>>>>> BRANCH (3a06c2 Merge "Merge cherrypicks of [954920] into sparse-5520679-L60)
                 default:
                     throw new IllegalArgumentException("Unknown cmd: " + op.cmd);
             }
@@ -829,7 +846,11 @@ final class BackStackRecord extends FragmentTransaction implements
                     mOps.add(opNum, new Op(OP_UNSET_PRIMARY_NAV, oldPrimaryNav));
                     opNum++;
                     // Will be set by the OP_SET_PRIMARY_NAV we inserted before when run
+<<<<<<< HEAD   (e53308 Merge "Merge empty history for sparse-5498091-L6460000030224)
                     oldPrimaryNav = op.fragment;
+=======
+                    oldPrimaryNav = op.mFragment;
+>>>>>>> BRANCH (3a06c2 Merge "Merge cherrypicks of [954920] into sparse-5520679-L60)
                 }
                 break;
             }
@@ -865,6 +886,12 @@ final class BackStackRecord extends FragmentTransaction implements
                 case OP_SET_PRIMARY_NAV:
                     oldPrimaryNav = null;
                     break;
+<<<<<<< HEAD   (e53308 Merge "Merge empty history for sparse-5498091-L6460000030224)
+=======
+                case OP_SET_MAX_LIFECYCLE:
+                    op.mCurrentMaxState = op.mOldMaxState;
+                    break;
+>>>>>>> BRANCH (3a06c2 Merge "Merge cherrypicks of [954920] into sparse-5520679-L60)
             }
         }
         return oldPrimaryNav;

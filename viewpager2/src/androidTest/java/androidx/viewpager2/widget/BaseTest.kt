@@ -194,6 +194,10 @@ open class BaseTest {
                     isRtl
                 )
                 SwipeMethod.MANUAL -> PageSwiperManual(viewPager, isRtl)
+<<<<<<< HEAD   (e53308 Merge "Merge empty history for sparse-5498091-L6460000030224)
+=======
+                SwipeMethod.FAKE_DRAG -> PageSwiperFakeDrag(viewPager) { viewPager.pageSize }
+>>>>>>> BRANCH (3a06c2 Merge "Merge cherrypicks of [954920] into sparse-5520679-L60)
             }
         }
 

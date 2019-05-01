@@ -28,6 +28,11 @@ import java.util.ArrayList;
 final class BackStackState implements Parcelable {
     final int[] mOps;
     final ArrayList<String> mFragmentWhos;
+<<<<<<< HEAD   (e53308 Merge "Merge empty history for sparse-5498091-L6460000030224)
+=======
+    final int[] mOldMaxLifecycleStates;
+    final int[] mCurrentMaxLifecycleStates;
+>>>>>>> BRANCH (3a06c2 Merge "Merge cherrypicks of [954920] into sparse-5520679-L60)
     final int mTransition;
     final int mTransitionStyle;
     final String mName;
@@ -49,15 +54,31 @@ final class BackStackState implements Parcelable {
         }
 
         mFragmentWhos = new ArrayList<>(numOps);
+<<<<<<< HEAD   (e53308 Merge "Merge empty history for sparse-5498091-L6460000030224)
+=======
+        mOldMaxLifecycleStates = new int[numOps];
+        mCurrentMaxLifecycleStates = new int[numOps];
+>>>>>>> BRANCH (3a06c2 Merge "Merge cherrypicks of [954920] into sparse-5520679-L60)
         int pos = 0;
         for (int opNum = 0; opNum < numOps; opNum++) {
             final BackStackRecord.Op op = bse.mOps.get(opNum);
+<<<<<<< HEAD   (e53308 Merge "Merge empty history for sparse-5498091-L6460000030224)
             mOps[pos++] = op.cmd;
             mFragmentWhos.add(op.fragment != null ? op.fragment.mWho : null);
             mOps[pos++] = op.enterAnim;
             mOps[pos++] = op.exitAnim;
             mOps[pos++] = op.popEnterAnim;
             mOps[pos++] = op.popExitAnim;
+=======
+            mOps[pos++] = op.mCmd;
+            mFragmentWhos.add(op.mFragment != null ? op.mFragment.mWho : null);
+            mOps[pos++] = op.mEnterAnim;
+            mOps[pos++] = op.mExitAnim;
+            mOps[pos++] = op.mPopEnterAnim;
+            mOps[pos++] = op.mPopExitAnim;
+            mOldMaxLifecycleStates[opNum] = op.mOldMaxState.ordinal();
+            mCurrentMaxLifecycleStates[opNum] = op.mCurrentMaxState.ordinal();
+>>>>>>> BRANCH (3a06c2 Merge "Merge cherrypicks of [954920] into sparse-5520679-L60)
         }
         mTransition = bse.mTransition;
         mTransitionStyle = bse.mTransitionStyle;
@@ -75,6 +96,11 @@ final class BackStackState implements Parcelable {
     public BackStackState(Parcel in) {
         mOps = in.createIntArray();
         mFragmentWhos = in.createStringArrayList();
+<<<<<<< HEAD   (e53308 Merge "Merge empty history for sparse-5498091-L6460000030224)
+=======
+        mOldMaxLifecycleStates = in.createIntArray();
+        mCurrentMaxLifecycleStates = in.createIntArray();
+>>>>>>> BRANCH (3a06c2 Merge "Merge cherrypicks of [954920] into sparse-5520679-L60)
         mTransition = in.readInt();
         mTransitionStyle = in.readInt();
         mName = in.readString();
@@ -104,6 +130,7 @@ final class BackStackState implements Parcelable {
             } else {
                 op.fragment = null;
             }
+<<<<<<< HEAD   (e53308 Merge "Merge empty history for sparse-5498091-L6460000030224)
             op.enterAnim = mOps[pos++];
             op.exitAnim = mOps[pos++];
             op.popEnterAnim = mOps[pos++];
@@ -112,6 +139,18 @@ final class BackStackState implements Parcelable {
             bse.mExitAnim = op.exitAnim;
             bse.mPopEnterAnim = op.popEnterAnim;
             bse.mPopExitAnim = op.popExitAnim;
+=======
+            op.mOldMaxState = Lifecycle.State.values()[mOldMaxLifecycleStates[num]];
+            op.mCurrentMaxState = Lifecycle.State.values()[mCurrentMaxLifecycleStates[num]];
+            op.mEnterAnim = mOps[pos++];
+            op.mExitAnim = mOps[pos++];
+            op.mPopEnterAnim = mOps[pos++];
+            op.mPopExitAnim = mOps[pos++];
+            bse.mEnterAnim = op.mEnterAnim;
+            bse.mExitAnim = op.mExitAnim;
+            bse.mPopEnterAnim = op.mPopEnterAnim;
+            bse.mPopExitAnim = op.mPopExitAnim;
+>>>>>>> BRANCH (3a06c2 Merge "Merge cherrypicks of [954920] into sparse-5520679-L60)
             bse.addOp(op);
             num++;
         }
@@ -140,6 +179,11 @@ final class BackStackState implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeIntArray(mOps);
         dest.writeStringList(mFragmentWhos);
+<<<<<<< HEAD   (e53308 Merge "Merge empty history for sparse-5498091-L6460000030224)
+=======
+        dest.writeIntArray(mOldMaxLifecycleStates);
+        dest.writeIntArray(mCurrentMaxLifecycleStates);
+>>>>>>> BRANCH (3a06c2 Merge "Merge cherrypicks of [954920] into sparse-5520679-L60)
         dest.writeInt(mTransition);
         dest.writeInt(mTransitionStyle);
         dest.writeString(mName);

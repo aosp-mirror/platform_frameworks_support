@@ -101,6 +101,14 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
     final HashMap<String, Fragment> mActive = new HashMap<>();
     ArrayList<BackStackRecord> mBackStack;
     ArrayList<Fragment> mCreatedMenus;
+    private OnBackPressedDispatcher mOnBackPressedDispatcher;
+    private final OnBackPressedCallback mOnBackPressedCallback =
+            new OnBackPressedCallback(false) {
+        @Override
+        public void handleOnBackPressed() {
+            FragmentManagerImpl.this.handleOnBackPressed();
+        }
+    };
 
     // Must be accessed while locked.
     ArrayList<BackStackRecord> mBackStackIndices;
@@ -233,6 +241,63 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
         return updates;
     }
 
+    private void updateOnBackPressedCallbackEnabled() {
+        // Always enable the callback if we have pending actions
+        // as we don't know if they'll change the back stack entry count.
+        // See handleOnBackPressed() for more explanation
+        if (mPendingActions != null && !mPendingActions.isEmpty()) {
+            mOnBackPressedCallback.setEnabled(true);
+            return;
+        }
+        // This FragmentManager needs to have a back stack for this to be enabled
+        // And the parent fragment, if it exists, needs to be the primary navigation
+        // fragment.
+        mOnBackPressedCallback.setEnabled(getBackStackEntryCount() > 0
+                && isPrimaryNavigation(mParent));
+    }
+
+    /**
+     * Recursively check up the FragmentManager hierarchy of primary
+     * navigation Fragments to ensure that all of the parent Fragments are the
+     * primary navigation Fragment for their associated FragmentManager
+     */
+    private boolean isPrimaryNavigation(@Nullable Fragment parent) {
+        // If the parent is null, then we're at the root host
+        // and we're always the primary navigation
+        if (parent == null) {
+            return true;
+        }
+        FragmentManagerImpl parentFragmentManager = parent.mFragmentManager;
+        Fragment primaryNavigationFragment = parentFragmentManager
+                .getPrimaryNavigationFragment();
+        // The parent Fragment needs to be the primary navigation Fragment
+        // and, if it has a parent itself, that parent also needs to be
+        // the primary navigation fragment, recursively up the stack
+        return parent == primaryNavigationFragment
+                && isPrimaryNavigation(parentFragmentManager.mParent);
+    }
+
+    @SuppressWarnings("WeakerAccess") /* synthetic access */
+    void handleOnBackPressed() {
+        // First, execute any pending actions to make sure we're in an
+        // up to date view of the world just in case anyone is queuing
+        // up transactions that change the back stack then immediately
+        // calling onBackPressed()
+        execPendingActions();
+        if (mOnBackPressedCallback.isEnabled()) {
+            // We still have a back stack, so we can pop
+            popBackStackImmediate();
+        } else {
+            // Sigh. Due to FragmentManager's asynchronicity, we can
+            // get into cases where we *think* we can handle the back
+            // button but because of frame perfect dispatch, we fell
+            // on our face. Since our callback is disabled, we can
+            // re-trigger the onBackPressed() to dispatch to the next
+            // enabled callback
+            mOnBackPressedDispatcher.onBackPressed();
+        }
+    }
+
     @Override
     public void popBackStack() {
         enqueueAction(new PopBackStackState(null, -1, 0), false);
@@ -304,6 +369,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
             }
         }
 
+        updateOnBackPressedCallbackEnabled();
         doPendingDeferredStart();
         burpActive();
         return executePop;
@@ -737,6 +803,16 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
         if (f.mDeferStart && f.mState < Fragment.STARTED && newState > Fragment.ACTIVITY_CREATED) {
             newState = Fragment.ACTIVITY_CREATED;
         }
+<<<<<<< HEAD   (e53308 Merge "Merge empty history for sparse-5498091-L6460000030224)
+=======
+        // Don't allow the Fragment to go above its max lifecycle state
+        // Ensure that Fragments are capped at CREATED instead of ACTIVITY_CREATED.
+        if (f.mMaxState == Lifecycle.State.CREATED) {
+            newState = Math.min(newState, Fragment.CREATED);
+        } else {
+            newState = Math.min(newState, f.mMaxState.ordinal());
+        }
+>>>>>>> BRANCH (3a06c2 Merge "Merge cherrypicks of [954920] into sparse-5520679-L60)
         if (f.mState <= newState) {
             // For fragments that are created from a layout, when restoring from
             // state we don't want to allow them to be created until they are
@@ -816,12 +892,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
                         }
 
                         dispatchOnFragmentPreAttached(f, mHost.getContext(), false);
-                        f.mCalled = false;
-                        f.onAttach(mHost.getContext());
-                        if (!f.mCalled) {
-                            throw new SuperNotCalledException("Fragment " + f
-                                    + " did not call through to super.onAttach()");
-                        }
+                        f.performAttach();
                         if (f.mParentFragment == null) {
                             mHost.onAttachFragment(f);
                         } else {
@@ -1578,6 +1649,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
             if (postponeReady || pendingReady) {
                 mHost.getHandler().removeCallbacks(mExecCommit);
                 mHost.getHandler().post(mExecCommit);
+                updateOnBackPressedCallbackEnabled();
             }
         }
     }
@@ -1688,6 +1760,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
             }
         }
 
+        updateOnBackPressedCallbackEnabled();
         doPendingDeferredStart();
         burpActive();
     }
@@ -1719,6 +1792,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
             didSomething = true;
         }
 
+        updateOnBackPressedCallbackEnabled();
         doPendingDeferredStart();
         burpActive();
 
@@ -2516,6 +2590,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
 
         if (fms.mPrimaryNavActiveWho != null) {
             mPrimaryNav = mActive.get(fms.mPrimaryNavActiveWho);
+            dispatchOnParentPrimaryNavigationFragmentChanged(mPrimaryNav);
         }
         this.mNextFragmentIndex = fms.mNextFragmentIndex;
     }
@@ -2538,6 +2613,24 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
         mHost = host;
         mContainer = container;
         mParent = parent;
+<<<<<<< HEAD   (e53308 Merge "Merge empty history for sparse-5498091-L6460000030224)
+=======
+        if (mParent != null) {
+            // Since the callback depends on us being the primary navigation fragment,
+            // update our callback now that we have a parent so that we have the correct
+            // state by default
+            updateOnBackPressedCallbackEnabled();
+        }
+        // Set up the OnBackPressedCallback
+        if (host instanceof OnBackPressedDispatcherOwner) {
+            OnBackPressedDispatcherOwner dispatcherOwner = ((OnBackPressedDispatcherOwner) host);
+            mOnBackPressedDispatcher = dispatcherOwner.getOnBackPressedDispatcher();
+            LifecycleOwner owner = parent != null ? parent : dispatcherOwner;
+            mOnBackPressedDispatcher.addCallback(owner, mOnBackPressedCallback);
+        }
+
+        // Get the FragmentManagerViewModel
+>>>>>>> BRANCH (3a06c2 Merge "Merge cherrypicks of [954920] into sparse-5520679-L60)
         if (parent != null) {
             mNonConfig = parent.mFragmentManager.getChildNonConfig(parent);
         } else if (host instanceof ViewModelStoreOwner) {
@@ -2750,7 +2843,24 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
             throw new IllegalArgumentException("Fragment " + f
                     + " is not an active fragment of FragmentManager " + this);
         }
+        Fragment previousPrimaryNav = mPrimaryNav;
         mPrimaryNav = f;
+        dispatchOnParentPrimaryNavigationFragmentChanged(previousPrimaryNav);
+        dispatchOnParentPrimaryNavigationFragmentChanged(mPrimaryNav);
+    }
+
+    private void dispatchOnParentPrimaryNavigationFragmentChanged(@Nullable Fragment f) {
+        if (f != null && f.mChildFragmentManager != null) {
+            f.mChildFragmentManager.onParentPrimaryNavigationFragmentChanged();
+        }
+    }
+
+    private void onParentPrimaryNavigationFragmentChanged() {
+        updateOnBackPressedCallbackEnabled();
+        // Update all of our child Fragments with the new primary navigation state
+        for (Fragment f : mActive.values()) {
+            dispatchOnParentPrimaryNavigationFragmentChanged(f);
+        }
     }
 
     @Override

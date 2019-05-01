@@ -258,4 +258,32 @@ public final class Configuration {
             return new Configuration(this);
         }
     }
+<<<<<<< HEAD   (e53308 Merge "Merge empty history for sparse-5498091-L6460000030224)
+=======
+
+    /**
+     * A class that can provide the {@link Configuration} for WorkManager and allow for on-demand
+     * initialization of WorkManager.  To do this:
+     * <p><ul>
+     *   <li>Disable {@code androidx.work.impl.WorkManagerInitializer} in your manifest</li>
+     *   <li>Implement the {@link Configuration.Provider} interface on your
+     *   {@link android.app.Application} class</li>
+     *   <li>Use {@link WorkManager#getInstance(Context)} when accessing WorkManger (NOT
+     *   {@link WorkManager#getInstance()})</li>
+     * </ul></p>
+     * <p>
+     * Note that on-demand initialization may delay some useful features of WorkManager such as
+     * automatic rescheduling of work following a crash and recovery from the application being
+     * force-stopped by the user or device.
+     *
+     * @see WorkManager#initialize(Context, Configuration) for manual initialization.
+     */
+    public interface Provider {
+
+        /**
+         * @return The {@link Configuration} used to initialize WorkManager
+         */
+        @NonNull Configuration getWorkManagerConfiguration();
+    }
+>>>>>>> BRANCH (3a06c2 Merge "Merge cherrypicks of [954920] into sparse-5520679-L60)
 }

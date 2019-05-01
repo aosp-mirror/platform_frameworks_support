@@ -16,9 +16,12 @@
 
 package androidx.webkit;
 
+<<<<<<< HEAD   (e53308 Merge "Merge empty history for sparse-5498091-L6460000030224)
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
+=======
+>>>>>>> BRANCH (3a06c2 Merge "Merge cherrypicks of [954920] into sparse-5520679-L60)
 import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
@@ -41,9 +44,10 @@ public class WebViewAssetLoaderIntegrationTest {
     private static final String TAG = "WebViewAssetLoaderIntegrationTest";
 
     @Rule
-    public final ActivityTestRule<TestActivity> mActivityRule =
-                                    new ActivityTestRule<>(TestActivity.class);
+    public final ActivityTestRule<WebViewTestActivity> mActivityRule =
+                                    new ActivityTestRule<>(WebViewTestActivity.class);
 
+<<<<<<< HEAD   (e53308 Merge "Merge empty history for sparse-5498091-L6460000030224)
     // An Activity for Integeration tests
     public static class TestActivity extends Activity {
         private class MyWebViewClient extends WebViewClient {
@@ -105,14 +109,55 @@ public class WebViewAssetLoaderIntegrationTest {
             super.onDestroy();
             mWebView.destroy();
             mWebView = null;
+=======
+    private WebViewOnUiThread mOnUiThread;
+    private WebViewAssetLoader mAssetLoader;
+
+    private static class AssetLoadingWebViewClient extends WebViewOnUiThread.WaitForLoadedClient {
+        private final WebViewAssetLoader mAssetLoader;
+        AssetLoadingWebViewClient(WebViewOnUiThread onUiThread,
+                WebViewAssetLoader assetLoader) {
+            super(onUiThread);
+            mAssetLoader = assetLoader;
+        }
+
+        @SuppressWarnings({"deprecated"})
+        @Override
+        public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
+            return mAssetLoader.shouldInterceptRequest(url);
+        }
+
+        @Override
+        public WebResourceResponse shouldInterceptRequest(WebView view,
+                                            WebResourceRequest request) {
+            return mAssetLoader.shouldInterceptRequest(request);
+        }
+    }
+
+    @Before
+    public void setUp() {
+        mAssetLoader = (new WebViewAssetLoader.Builder(mActivityRule.getActivity())).build();
+        mOnUiThread = new WebViewOnUiThread(mActivityRule.getActivity().getWebView());
+        mOnUiThread.setWebViewClient(new AssetLoadingWebViewClient(mOnUiThread, mAssetLoader));
+    }
+
+    @After
+    public void tearDown() {
+        if (mOnUiThread != null) {
+            mOnUiThread.cleanUp();
+>>>>>>> BRANCH (3a06c2 Merge "Merge cherrypicks of [954920] into sparse-5520679-L60)
         }
     }
 
     @Test
     @MediumTest
     public void testAssetHosting() throws Exception {
+<<<<<<< HEAD   (e53308 Merge "Merge empty history for sparse-5498091-L6460000030224)
         final TestActivity activity = mActivityRule.getActivity();
         final String test_with_title_path = "www/test_with_title.html";
+=======
+        final WebViewTestActivity activity = mActivityRule.getActivity();
+>>>>>>> BRANCH (3a06c2 Merge "Merge cherrypicks of [954920] into sparse-5520679-L60)
 
         String url = WebkitUtils.onMainThreadSync(new Callable<String>() {
             @Override
@@ -145,8 +190,12 @@ public class WebViewAssetLoaderIntegrationTest {
     @Test
     @MediumTest
     public void testResourcesHosting() throws Exception {
+<<<<<<< HEAD   (e53308 Merge "Merge empty history for sparse-5498091-L6460000030224)
         final TestActivity activity = mActivityRule.getActivity();
         final String test_with_title_path = "test_with_title.html";
+=======
+        final WebViewTestActivity activity = mActivityRule.getActivity();
+>>>>>>> BRANCH (3a06c2 Merge "Merge cherrypicks of [954920] into sparse-5520679-L60)
 
         String url = WebkitUtils.onMainThreadSync(new Callable<String>() {
             @Override

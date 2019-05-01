@@ -24,17 +24,28 @@ plugins {
 }
 
 dependencies {
+<<<<<<< HEAD   (e53308 Merge "Merge empty history for sparse-5498091-L6460000030224)
     api(project(":annotation"))
 
     implementation(TEST_RUNNER)
+=======
+    implementation(ANDROIDX_TEST_RULES)
+    implementation(ANDROIDX_TEST_RUNNER)
+    implementation(SUPPORT_ANNOTATIONS)
+    implementation(KOTLIN_STDLIB)
+>>>>>>> BRANCH (3a06c2 Merge "Merge cherrypicks of [954920] into sparse-5520679-L60)
 
     androidTestImplementation(JUNIT)
+<<<<<<< HEAD   (e53308 Merge "Merge empty history for sparse-5498091-L6460000030224)
     androidTestImplementation(KOTLIN_STDLIB)
+=======
+    androidTestImplementation(ANDROIDX_TEST_CORE)
+>>>>>>> BRANCH (3a06c2 Merge "Merge cherrypicks of [954920] into sparse-5520679-L60)
 }
 
 supportLibrary {
     name = "Android Benchmark"
-    publish = false
+    publish = true
     mavenVersion = LibraryVersions.BENCHMARK
     mavenGroup = LibraryGroups.BENCHMARK
     inceptionYear = "2018"
