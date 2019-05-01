@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "20ac9323_fb273d3a",
+        "filename": "work/workmanager/src/main/java/androidx/work/DelegatingWorkerFactory.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-05-01T21:25:01Z",
+      "side": 1,
+      "message": "final here too.",
+      "range": {
+        "startLine": 57,
+        "startChar": 11,
+        "endLine": 57,
+        "endChar": 15
+      },
+      "revId": "a29af2cb9347eefc6084169469bab1011aee3add",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
