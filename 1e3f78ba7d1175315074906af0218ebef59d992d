@@ -16,6 +16,24 @@
       "revId": "1e3f78ba7d1175315074906af0218ebef59d992d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2059c176_5c891c2c",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/ItemTouchHelper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2198,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-05-01T16:10:10Z",
+      "side": 1,
+      "message": "I think it\u0027s ok to not have the @Override flag in the example.  Maybe makes the example unnecessarily verbose?  And adding it confuses Android Studio, given that @* is used in Javadoc.",
+      "parentUuid": "7b1507ef_310cf4e2",
+      "revId": "1e3f78ba7d1175315074906af0218ebef59d992d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
