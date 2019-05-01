@@ -17,10 +17,10 @@
 package androidx.enterprise.feedback;
 
 import static androidx.enterprise.feedback.KeyedAppState.SEVERITY_INFO;
-import static androidx.enterprise.feedback.KeyedAppStatesReporter.APP_STATE_DATA;
-import static androidx.enterprise.feedback.KeyedAppStatesReporter.APP_STATE_KEY;
-import static androidx.enterprise.feedback.KeyedAppStatesReporter.APP_STATE_MESSAGE;
-import static androidx.enterprise.feedback.KeyedAppStatesReporter.APP_STATE_SEVERITY;
+import static androidx.enterprise.feedback.KeyedAppStatesReporterUtil.APP_STATE_DATA;
+import static androidx.enterprise.feedback.KeyedAppStatesReporterUtil.APP_STATE_KEY;
+import static androidx.enterprise.feedback.KeyedAppStatesReporterUtil.APP_STATE_MESSAGE;
+import static androidx.enterprise.feedback.KeyedAppStatesReporterUtil.APP_STATE_SEVERITY;
 
 import static com.google.common.truth.Truth.assertThat;
 

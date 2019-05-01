@@ -16,7 +16,7 @@
 
 package androidx.enterprise.feedback;
 
-import static androidx.enterprise.feedback.KeyedAppStatesReporter.canPackageReceiveAppStates;
+import static androidx.enterprise.feedback.KeyedAppStatesReporterUtil.canPackageReceiveAppStates;
 
 import android.content.ComponentName;
 import android.content.Context;
