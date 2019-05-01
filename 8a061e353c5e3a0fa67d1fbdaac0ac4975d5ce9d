@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3bf62177_502e9d69",
+        "filename": "media2/player/src/androidTest/java/androidx/media2/player/MediaPlayer2Test.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1060104
+      },
+      "writtenOn": "2019-05-01T14:02:05Z",
+      "side": 1,
+      "message": "The new prebuilt includes an ExoPlayer change that improves timestamp/byte offset calculation in constant bitrate MP3s (see also [internal: b/120390268]). Unfortunately the test streams don\u0027t have consistent frame sizes, and this leads to the duration calculations using the new logic being slightly wrong, so I need to increase these tolerances. I don\u0027t expect this to lead to any user-visible issues.",
+      "revId": "8a061e353c5e3a0fa67d1fbdaac0ac4975d5ce9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
