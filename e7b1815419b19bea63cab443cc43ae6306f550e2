@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7e3361cf_acad19c6",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CameraDeviceConfig.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-01T23:38:11Z",
+      "side": 1,
+      "message": "Lets remove the word customized from \"customizedCameraId\", because it doesn\u0027t add any additional information. By having cameraId as an option already implies it is customized, adding the word just makes it longer to type/read without adding any value.",
+      "revId": "e7b1815419b19bea63cab443cc43ae6306f550e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
