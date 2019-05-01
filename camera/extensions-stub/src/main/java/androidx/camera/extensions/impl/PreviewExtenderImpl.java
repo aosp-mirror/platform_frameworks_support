@@ -22,11 +22,11 @@ import android.hardware.camera2.CameraCharacteristics;
  * Provides abstract methods that the OEM needs to implement to enable extensions in the view
  * finder.
  */
-public interface PreviewExtenderImpl {
+public interface PreviewExtenderImpl extends ExtenderStateListener {
     /**
      * Indicates whether the extension is supported on the device.
      *
-     * @param cameraId The camera2 id string of the camera.
+     * @param cameraId              The camera2 id string of the camera.
      * @param cameraCharacteristics The {@link CameraCharacteristics} of the camera.
      * @return true if the extension is supported, otherwise false
      */
@@ -35,7 +35,7 @@ public interface PreviewExtenderImpl {
     /**
      * Enable the extension if available. If not available then acts a no-op.
      *
-     * @param cameraId The camera2 id string of the camera.
+     * @param cameraId              The camera2 id string of the camera.
      * @param cameraCharacteristics The {@link CameraCharacteristics} of the camera.
      */
     void enableExtension(String cameraId, CameraCharacteristics cameraCharacteristics);
