@@ -201,7 +201,7 @@ class AndroidXPlugin : Plugin<Project> {
         }
         val createLibraryBuildInfoFilesTask =
             tasks.register(CREATE_LIBRARY_BUILD_INFO_FILES_TASK)
-        val buildOnServerTask = tasks.create(BUILD_ON_SERVER_TASK)
+        val buildOnServerTask = createBuildOnServerTask()
         buildOnServerTask.dependsOn(createLibraryBuildInfoFilesTask)
 
         val projectModules = ConcurrentHashMap<String, String>()
