@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "47757a5b_59b112ca",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CameraEventCallback.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-05-01T08:00:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "52aeea02_4fd766ae",
+      "revId": "b148e2b3dc8f4237427e1e1ea813fb47daae2f56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "78cdb27d_8b0d90ed",
         "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CameraEventCallback.java",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "b148e2b3dc8f4237427e1e1ea813fb47daae2f56",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a7fafe3_ab0add60",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CameraEventCallback.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-05-01T08:00:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "78cdb27d_8b0d90ed",
+      "revId": "b148e2b3dc8f4237427e1e1ea813fb47daae2f56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "d810c54b_79ada5d2",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CameraEventCallback.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-05-01T08:00:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2eda8283_131c62a0",
+      "revId": "b148e2b3dc8f4237427e1e1ea813fb47daae2f56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1cb9a105_d7212946",
         "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CameraEventCallback.java",
         "patchSetId": 1
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "f201a93c_5bdbddf1",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CameraEventCallback.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-05-01T08:00:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1cb9a105_d7212946",
+      "revId": "b148e2b3dc8f4237427e1e1ea813fb47daae2f56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1ddf8079_095b0a0e",
         "filename": "camera/core/src/main/java/androidx/camera/core/AppendableValue.java",
         "patchSetId": 1
@@ -84,6 +156,24 @@
       "revId": "b148e2b3dc8f4237427e1e1ea813fb47daae2f56",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce96709a_2b48fd0e",
+        "filename": "camera/core/src/main/java/androidx/camera/core/AppendableValue.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-05-01T08:00:44Z",
+      "side": 1,
+      "message": "Oh, this AppendableValue is primarily used in SessionConfig.ValidatingBuilder,\nThe ValidatingBuilder would aggregate all the SessionConfig from different use case, that is, we might have multiple callback items in the same ConfigOption.\nMy thought is ... if we finally need a data set (such like set or list) to store the aggregated Config value, to have a type of value that we can store a set of data under one key-option would be more flexible.",
+      "parentUuid": "1ddf8079_095b0a0e",
+      "revId": "b148e2b3dc8f4237427e1e1ea813fb47daae2f56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -155,6 +245,24 @@
     },
     {
       "key": {
+        "uuid": "5f63dd01_ee509d86",
+        "filename": "camera/core/src/main/java/androidx/camera/core/SessionEventListener.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-05-01T08:00:44Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "60fba4ff_c905ef7c",
+      "revId": "b148e2b3dc8f4237427e1e1ea813fb47daae2f56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bd069ed5_a999d077",
         "filename": "camera/core/src/main/java/androidx/camera/core/SessionEventListener.java",
         "patchSetId": 1
@@ -169,6 +277,24 @@
       "revId": "b148e2b3dc8f4237427e1e1ea813fb47daae2f56",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31f0055e_91e88c4b",
+        "filename": "camera/core/src/main/java/androidx/camera/core/SessionEventListener.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-05-01T08:00:44Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "bd069ed5_a999d077",
+      "revId": "b148e2b3dc8f4237427e1e1ea813fb47daae2f56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -189,6 +315,24 @@
     },
     {
       "key": {
+        "uuid": "f52fed70_ae7e5d8c",
+        "filename": "camera/extensions-stub/src/main/java/androidx/camera/extensions/impl/ImageCaptureExtenderImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-05-01T08:00:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "79742b13_7db2eaae",
+      "revId": "b148e2b3dc8f4237427e1e1ea813fb47daae2f56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f32113f0_d589fca3",
         "filename": "camera/extensions-stub/src/main/java/androidx/camera/extensions/impl/ImageCaptureExtenderImpl.java",
         "patchSetId": 1
@@ -203,6 +347,24 @@
       "revId": "b148e2b3dc8f4237427e1e1ea813fb47daae2f56",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7234ff2_24447713",
+        "filename": "camera/extensions-stub/src/main/java/androidx/camera/extensions/impl/ImageCaptureExtenderImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-05-01T08:00:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f32113f0_d589fca3",
+      "revId": "b148e2b3dc8f4237427e1e1ea813fb47daae2f56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -223,6 +385,24 @@
     },
     {
       "key": {
+        "uuid": "3066597b_af416cc9",
+        "filename": "camera/extensions-stub/src/main/java/androidx/camera/extensions/impl/ImageCaptureExtenderImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-05-01T08:00:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0eaecf96_54fc3f39",
+      "revId": "b148e2b3dc8f4237427e1e1ea813fb47daae2f56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "33017b58_a1b2fe24",
         "filename": "camera/extensions-stub/src/main/java/androidx/camera/extensions/impl/ImageCaptureExtenderImpl.java",
         "patchSetId": 1
@@ -237,6 +417,24 @@
       "revId": "b148e2b3dc8f4237427e1e1ea813fb47daae2f56",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04ce4901_aab88935",
+        "filename": "camera/extensions-stub/src/main/java/androidx/camera/extensions/impl/ImageCaptureExtenderImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-05-01T08:00:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "33017b58_a1b2fe24",
+      "revId": "b148e2b3dc8f4237427e1e1ea813fb47daae2f56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -257,6 +455,24 @@
     },
     {
       "key": {
+        "uuid": "892b3043_9206625c",
+        "filename": "camera/extensions-stub/src/main/java/androidx/camera/extensions/impl/ImageCaptureExtenderImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-05-01T08:00:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "03b96a84_12c91595",
+      "revId": "b148e2b3dc8f4237427e1e1ea813fb47daae2f56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "35c4e3f9_5beddf03",
         "filename": "camera/extensions-stub/src/main/java/androidx/camera/extensions/impl/ImageCaptureExtenderImpl.java",
         "patchSetId": 1
@@ -271,6 +487,24 @@
       "revId": "b148e2b3dc8f4237427e1e1ea813fb47daae2f56",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41216899_253e59d8",
+        "filename": "camera/extensions-stub/src/main/java/androidx/camera/extensions/impl/ImageCaptureExtenderImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-05-01T08:00:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "35c4e3f9_5beddf03",
+      "revId": "b148e2b3dc8f4237427e1e1ea813fb47daae2f56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -291,6 +525,24 @@
     },
     {
       "key": {
+        "uuid": "2a8cc090_3981ad88",
+        "filename": "camera/extensions-stub/src/main/java/androidx/camera/extensions/impl/ImageCaptureExtenderImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-05-01T08:00:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9f4180fd_0c78e829",
+      "revId": "b148e2b3dc8f4237427e1e1ea813fb47daae2f56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "35f4bcf6_434761df",
         "filename": "camera/extensions-stub/src/main/java/androidx/camera/extensions/impl/ImageCaptureExtenderImpl.java",
         "patchSetId": 1
@@ -305,6 +557,24 @@
       "revId": "b148e2b3dc8f4237427e1e1ea813fb47daae2f56",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30c761d4_df28bb66",
+        "filename": "camera/extensions-stub/src/main/java/androidx/camera/extensions/impl/ImageCaptureExtenderImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-05-01T08:00:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "35f4bcf6_434761df",
+      "revId": "b148e2b3dc8f4237427e1e1ea813fb47daae2f56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -325,6 +595,24 @@
     },
     {
       "key": {
+        "uuid": "546c975a_2be049f2",
+        "filename": "camera/extensions-stub/src/main/java/androidx/camera/extensions/impl/ImageCaptureExtenderImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-05-01T08:00:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "58b76e95_221f2181",
+      "revId": "b148e2b3dc8f4237427e1e1ea813fb47daae2f56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "029fc8c1_1cb2f417",
         "filename": "camera/extensions-stub/src/main/java/androidx/camera/extensions/impl/PreviewExtenderImpl.java",
         "patchSetId": 1
@@ -339,6 +627,24 @@
       "revId": "b148e2b3dc8f4237427e1e1ea813fb47daae2f56",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc2eebfb_e38d230b",
+        "filename": "camera/extensions-stub/src/main/java/androidx/camera/extensions/impl/PreviewExtenderImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-05-01T08:00:44Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "029fc8c1_1cb2f417",
+      "revId": "b148e2b3dc8f4237427e1e1ea813fb47daae2f56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -359,6 +665,24 @@
     },
     {
       "key": {
+        "uuid": "f4667aea_536f828c",
+        "filename": "camera/extensions-stub/src/main/java/androidx/camera/extensions/impl/PreviewExtenderImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-05-01T08:00:44Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c043048e_c114e0b7",
+      "revId": "b148e2b3dc8f4237427e1e1ea813fb47daae2f56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2b4d152f_00c71de0",
         "filename": "camera/extensions-stub/src/main/java/androidx/camera/extensions/impl/PreviewExtenderImpl.java",
         "patchSetId": 1
@@ -373,6 +697,24 @@
       "revId": "b148e2b3dc8f4237427e1e1ea813fb47daae2f56",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89978fdf_a0bd138d",
+        "filename": "camera/extensions-stub/src/main/java/androidx/camera/extensions/impl/PreviewExtenderImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-05-01T08:00:44Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2b4d152f_00c71de0",
+      "revId": "b148e2b3dc8f4237427e1e1ea813fb47daae2f56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -393,6 +735,24 @@
     },
     {
       "key": {
+        "uuid": "3cf57e93_b87d3da7",
+        "filename": "camera/extensions-stub/src/main/java/androidx/camera/extensions/impl/PreviewExtenderImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-05-01T08:00:44Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "62160dcd_e2ebc347",
+      "revId": "b148e2b3dc8f4237427e1e1ea813fb47daae2f56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9b834046_11dcc4ae",
         "filename": "camera/extensions-stub/src/main/java/androidx/camera/extensions/impl/PreviewExtenderImpl.java",
         "patchSetId": 1
@@ -407,6 +767,24 @@
       "revId": "b148e2b3dc8f4237427e1e1ea813fb47daae2f56",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30490859_7e1716e7",
+        "filename": "camera/extensions-stub/src/main/java/androidx/camera/extensions/impl/PreviewExtenderImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-05-01T08:00:44Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "9b834046_11dcc4ae",
+      "revId": "b148e2b3dc8f4237427e1e1ea813fb47daae2f56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -427,6 +805,24 @@
     },
     {
       "key": {
+        "uuid": "d067e377_af8f673a",
+        "filename": "camera/extensions-stub/src/main/java/androidx/camera/extensions/impl/PreviewExtenderImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-05-01T08:00:44Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e592b224_58bdd41a",
+      "revId": "b148e2b3dc8f4237427e1e1ea813fb47daae2f56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0612b232_eb7389a0",
         "filename": "camera/extensions-stub/src/main/java/androidx/camera/extensions/impl/PreviewExtenderImpl.java",
         "patchSetId": 1
@@ -441,6 +837,24 @@
       "revId": "b148e2b3dc8f4237427e1e1ea813fb47daae2f56",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b439b37_052cde2b",
+        "filename": "camera/extensions-stub/src/main/java/androidx/camera/extensions/impl/PreviewExtenderImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-05-01T08:00:44Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0612b232_eb7389a0",
+      "revId": "b148e2b3dc8f4237427e1e1ea813fb47daae2f56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
