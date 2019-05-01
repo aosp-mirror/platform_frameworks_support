@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1682f624_fca9d73e",
+        "filename": "webkit/integration-tests/testapp/src/main/java/com/example/androidx/webkit/ForceDarkActivity.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-05-01T19:53:26Z",
+      "side": 1,
+      "message": "Don\u0027t setContentView twice",
+      "range": {
+        "startLine": 47,
+        "startChar": 8,
+        "endLine": 47,
+        "endChar": 53
+      },
+      "revId": "ec2e8211cf3e090d9d388810efe86fb0dda4bcd9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96c15822_85414325",
+        "filename": "webkit/integration-tests/testapp/src/main/java/com/example/androidx/webkit/ForceDarkActivity.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-05-01T19:53:26Z",
+      "side": 1,
+      "message": "Don\u0027t use @TargetApi, use @RequiresApi. Please leave a comment why.\n\nBut is this even necessary? Our minSdkVersion should be 14, but Froyo is 8.",
+      "range": {
+        "startLine": 61,
+        "startChar": 5,
+        "endLine": 61,
+        "endChar": 14
+      },
+      "revId": "ec2e8211cf3e090d9d388810efe86fb0dda4bcd9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff44839b_f4a3ec94",
+        "filename": "webkit/integration-tests/testapp/src/main/res/layout/activity_force_dark.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-05-01T19:53:26Z",
+      "side": 1,
+      "message": "Missing marginBottom intentionally? I think my Activity just adds both, so we should probably do the same for stylistic consistency",
+      "range": {
+        "startLine": 32,
+        "startChar": 17,
+        "endLine": 32,
+        "endChar": 38
+      },
+      "revId": "ec2e8211cf3e090d9d388810efe86fb0dda4bcd9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}

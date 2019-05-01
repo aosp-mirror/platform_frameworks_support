@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "04cae489_70e3eb8e",
+        "filename": "webkit/integration-tests/testapp/src/main/AndroidManifest.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-05-01T19:53:26Z",
+      "side": 1,
+      "message": "Ack. Yeah, hopefully http://aosp/951943 can get rid of some of the strange autoformatting...",
+      "parentUuid": "8ef1fa61_025bf55e",
+      "range": {
+        "startLine": 65,
+        "startChar": 8,
+        "endLine": 67,
+        "endChar": 38
+      },
+      "revId": "701fbb8e56af94f01aec7a06f0bf1069064b28ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1fb9c7d2_c62c4584",
         "filename": "webkit/integration-tests/testapp/src/main/java/com/example/androidx/webkit/ForceDarkActivity.java",
         "patchSetId": 1
