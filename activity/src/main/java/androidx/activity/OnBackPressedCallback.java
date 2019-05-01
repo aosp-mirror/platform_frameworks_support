@@ -18,6 +18,11 @@ package androidx.activity;
 
 import androidx.lifecycle.LifecycleOwner;
 
+<<<<<<< HEAD   (c23963 Merge "Merge empty history for sparse-5520679-L3770000030572)
+=======
+import java.util.concurrent.CopyOnWriteArrayList;
+
+>>>>>>> BRANCH (c04d31 Merge "Merge cherrypicks of [955138, 955139] into sparse-552)
 /**
  * Interface for handling {@link ComponentActivity#onBackPressed()} callbacks without
  * strongly coupling that implementation to a subclass of {@link ComponentActivity}.
@@ -25,7 +30,15 @@ import androidx.lifecycle.LifecycleOwner;
  * @see ComponentActivity#addOnBackPressedCallback(LifecycleOwner, OnBackPressedCallback)
  * @see ComponentActivity#removeOnBackPressedCallback(OnBackPressedCallback)
  */
+<<<<<<< HEAD   (c23963 Merge "Merge empty history for sparse-5520679-L3770000030572)
 public interface OnBackPressedCallback {
+=======
+public abstract class OnBackPressedCallback {
+
+    private boolean mEnabled;
+    private CopyOnWriteArrayList<Cancellable> mCancellables = new CopyOnWriteArrayList<>();
+
+>>>>>>> BRANCH (c04d31 Merge "Merge cherrypicks of [955138, 955139] into sparse-552)
     /**
      * Callback for handling the {@link ComponentActivity#onBackPressed()} event.
      *

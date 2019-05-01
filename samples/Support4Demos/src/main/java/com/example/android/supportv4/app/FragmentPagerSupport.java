@@ -74,7 +74,11 @@ public class FragmentPagerSupport extends FragmentActivity {
 
     public static class MyAdapter extends FragmentPagerAdapter {
         public MyAdapter(FragmentManager fm) {
+<<<<<<< HEAD   (c23963 Merge "Merge empty history for sparse-5520679-L3770000030572)
             super(fm);
+=======
+            super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+>>>>>>> BRANCH (c04d31 Merge "Merge cherrypicks of [955138, 955139] into sparse-552)
         }
 
         @Override
