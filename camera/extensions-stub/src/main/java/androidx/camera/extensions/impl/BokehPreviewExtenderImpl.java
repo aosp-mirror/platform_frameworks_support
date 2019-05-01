@@ -40,4 +40,9 @@ public final class BokehPreviewExtenderImpl implements PreviewExtenderImpl {
     public CaptureStageImpl getCaptureStage() {
         throw new RuntimeException("Stub, replace with implementation.");
     }
+
+    @Override
+    public String getCustomizedCameraId(int lensFacing) {
+        throw new RuntimeException("Stub, replace with implementation.");
+    }
 }

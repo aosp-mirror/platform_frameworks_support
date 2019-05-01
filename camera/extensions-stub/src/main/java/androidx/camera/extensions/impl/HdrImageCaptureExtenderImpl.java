@@ -48,4 +48,9 @@ public final class HdrImageCaptureExtenderImpl implements ImageCaptureExtenderIm
     public CaptureProcessorImpl getCaptureProcessor() {
         throw new RuntimeException("Stub, replace with implementation.");
     }
+
+    @Override
+    public String getCustomizedCameraId(int lensFacing) {
+        throw new RuntimeException("Stub, replace with implementation.");
+    }
 }

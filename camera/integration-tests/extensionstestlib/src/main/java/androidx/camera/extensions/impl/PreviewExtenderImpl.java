@@ -42,4 +42,9 @@ public interface PreviewExtenderImpl {
 
     /** The set of parameters required to produce the effect on images. */
     CaptureStageImpl getCaptureStage();
+
+    /**
+     * The specific camera id needed to be opened for this extender to work.
+     */
+    String getCustomizedCameraId(int lensFacing);
 }

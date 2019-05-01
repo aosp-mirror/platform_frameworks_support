@@ -16,6 +16,7 @@
 package androidx.camera.extensions.impl;
 
 import android.hardware.camera2.CameraCharacteristics;
+import android.hardware.camera2.CameraMetadata;
 import android.hardware.camera2.CaptureRequest;
 
 /**
@@ -26,6 +27,8 @@ import android.hardware.camera2.CaptureRequest;
  */
 public final class BokehPreviewExtenderImpl implements PreviewExtenderImpl {
     private static final int DEFAULT_STAGE_ID = 0;
+    private static final String FRONT_BOKEH_CAMERA_ID = "4";
+    private static final String BACK_BOKEH_CAMERA_ID = "5";
 
     public BokehPreviewExtenderImpl() {}
 
@@ -49,5 +52,18 @@ public final class BokehPreviewExtenderImpl implements PreviewExtenderImpl {
                 CaptureRequest.CONTROL_EFFECT_MODE_SEPIA);
 
         return captureStage;
+    }
+
+    @Override
+    public String getCustomizedCameraId(int lensFacing) {
+        // Do the camera id selection logic, then return the specific camera id needed for this
+        // extender.
+        if (lensFacing == CameraMetadata.LENS_FACING_FRONT) {
+            return FRONT_BOKEH_CAMERA_ID;
+        } else if (lensFacing == CameraMetadata.LENS_FACING_BACK) {
+            return BACK_BOKEH_CAMERA_ID;
+        } else {
+            return null;
+        }
     }
 }
