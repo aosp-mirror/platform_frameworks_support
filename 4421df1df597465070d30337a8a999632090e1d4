@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "512401db_ebb7a774",
+        "filename": "jetifier/jetifier/processor/src/main/kotlin/com/android/tools/build/jetifier/processor/TransformationResult.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-05-01T15:37:10Z",
+      "side": 1,
+      "message": "I have added the map for better clarity.",
+      "parentUuid": "cdc0a236_aaf156c6",
+      "range": {
+        "startLine": 24,
+        "startChar": 10,
+        "endLine": 24,
+        "endChar": 22
+      },
+      "revId": "4421df1df597465070d30337a8a999632090e1d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c49be59c_b0d60172",
         "filename": "jetifier/jetifier/processor/src/main/kotlin/com/android/tools/build/jetifier/processor/TransformationResult.kt",
         "patchSetId": 6
@@ -45,6 +69,30 @@
       "revId": "4421df1df597465070d30337a8a999632090e1d4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5bb8213_f12033c7",
+        "filename": "jetifier/jetifier/processor/src/main/kotlin/com/android/tools/build/jetifier/processor/TransformationResult.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-05-01T15:37:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c49be59c_b0d60172",
+      "range": {
+        "startLine": 27,
+        "startChar": 36,
+        "endLine": 27,
+        "endChar": 48
+      },
+      "revId": "4421df1df597465070d30337a8a999632090e1d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
