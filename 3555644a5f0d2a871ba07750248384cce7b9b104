@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "2c60529b_27298c97",
+        "filename": "camera/integration-tests/extensionstestlib/src/main/java/androidx/camera/extensions/impl/HdrImageCaptureExtenderImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-05-01T07:51:15Z",
+      "side": 1,
+      "message": "Okay~ change the return to empty CaptureStageImpl for test.",
+      "parentUuid": "f306cc8e_19ac6400",
+      "revId": "3555644a5f0d2a871ba07750248384cce7b9b104",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3b028829_82527203",
         "filename": "camera/integration-tests/extensionstestlib/src/main/java/androidx/camera/extensions/impl/HdrPreviewExtenderImpl.java",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "3555644a5f0d2a871ba07750248384cce7b9b104",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82298255_281b6f71",
+        "filename": "camera/integration-tests/extensionstestlib/src/main/java/androidx/camera/extensions/impl/HdrPreviewExtenderImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-05-01T07:51:15Z",
+      "side": 1,
+      "message": "Okay~ I have changed the return for PresetSession(), onEnableSession(), and onDisableSession() to null for test.",
+      "parentUuid": "3b028829_82527203",
+      "revId": "3555644a5f0d2a871ba07750248384cce7b9b104",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "0856329e_3d978338",
+        "filename": "camera/integration-tests/extensionstestlib/src/main/java/androidx/camera/extensions/impl/ImageCaptureExtenderImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-05-01T07:51:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b1f4b63b_f3ead1b1",
+      "revId": "3555644a5f0d2a871ba07750248384cce7b9b104",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ce85b018_cc0c15d8",
         "filename": "camera/integration-tests/extensionstestlib/src/main/java/androidx/camera/extensions/impl/PreviewExtenderImpl.java",
         "patchSetId": 1
@@ -67,6 +121,24 @@
       "revId": "3555644a5f0d2a871ba07750248384cce7b9b104",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27cba3f1_ea2391a7",
+        "filename": "camera/integration-tests/extensionstestlib/src/main/java/androidx/camera/extensions/impl/PreviewExtenderImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-05-01T07:51:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ce85b018_cc0c15d8",
+      "revId": "3555644a5f0d2a871ba07750248384cce7b9b104",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
