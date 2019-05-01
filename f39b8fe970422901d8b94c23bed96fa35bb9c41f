@@ -105,6 +105,24 @@
       "revId": "f39b8fe970422901d8b94c23bed96fa35bb9c41f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5dfb2dba_bd871a31",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/Camera.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 604,
+      "author": {
+        "id": 1486234
+      },
+      "writtenOn": "2019-05-01T00:21:54Z",
+      "side": 1,
+      "message": "Yes you\u0027re right. Although we can still use this function to attach repeating surfaces to a builder that already has surface inside. And now the javadoc doesn\u0027t prevent us from doing so. Or you think we should make it only applied to builder without surface?",
+      "parentUuid": "f03d884c_9e563505",
+      "revId": "f39b8fe970422901d8b94c23bed96fa35bb9c41f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
