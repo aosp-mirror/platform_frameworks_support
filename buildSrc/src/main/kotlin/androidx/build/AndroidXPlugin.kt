@@ -201,7 +201,8 @@ class AndroidXPlugin : Plugin<Project> {
         }
         val createLibraryBuildInfoFilesTask =
             tasks.register(CREATE_LIBRARY_BUILD_INFO_FILES_TASK)
-        val buildOnServerTask = tasks.create(BUILD_ON_SERVER_TASK)
+        val buildOnServerTask = tasks.create(AndroidXPlugin.BUILD_ON_SERVER_TASK,
+            BuildOnServer::class.java)
         buildOnServerTask.dependsOn(createLibraryBuildInfoFilesTask)
 
         val projectModules = ConcurrentHashMap<String, String>()
@@ -245,6 +246,7 @@ class AndroidXPlugin : Plugin<Project> {
 
         extra.set("versionChecker", GMavenVersionChecker(logger))
         Release.createGlobalArchiveTask(this)
+
         val allDocsTask = DiffAndDocs.configureDiffAndDocs(this, projectDir,
                 DacOptions("androidx", "ANDROIDX_DATA"),
                 listOf(RELEASE_RULE))
