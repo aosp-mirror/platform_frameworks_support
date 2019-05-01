@@ -261,6 +261,16 @@ public class ImageCapture extends UseCase {
     /**
      * Sets target aspect ratio.
      *
+     * <p>This sets the cropping rectangle returned by {@link ImageProxy#getCropRect()} returned
+     * from {@link ImageCapture#takePicture(OnImageCapturedListener)}.
+     *
+     * <p>This crops the saved image when calling
+     * {@link ImageCapture#takePicture(File, OnImageSavedListener)} or
+     * {@link ImageCapture#takePicture(File, OnImageSavedListener, Metadata)}.
+     *
+     * <p>Cropping occurs around the center of the image and as though it were in the target
+     * rotation.
+     *
      * @param aspectRatio New target aspect ratio.
      */
     public void setTargetAspectRatio(Rational aspectRatio) {
@@ -278,13 +288,27 @@ public class ImageCapture extends UseCase {
     /**
      * Sets the desired rotation of the output image.
      *
-     * <p>This will affect the rotation of the saved image or the rotation value returned by the
-     * {@link OnImageCapturedListener}.
+     * <p>This will affect the EXIF rotation metadata in images saved by takePicture calls and the
+     * rotation value returned by {@link OnImageCapturedListener}.
      *
      * <p>In most cases this should be set to the current rotation returned by {@link
-     * Display#getRotation()}.
+     * Display#getRotation()}.  In that case, the output rotation from takePicture calls will be the
+     * rotation, which if applied to the output image, will make it match a correctly configured
+     * preview.
      *
-     * @param rotation Desired rotation of the output image.
+     * <p>While rotation can also be set via
+     * {@link ImageCaptureConfig.Builder#setTargetRotation(int)}, using
+     * {@link ImageCapture#setTargetRotation(int)} allows the target rotation to be set dynamically.
+     * This can be useful if an app locks itself to portrait, and uses the orientation sensor
+     * to set rotation to take landscape images when the device is rotated.
+     *
+     * <p>If no target rotation is set by the application, it is set to the value of
+     * {@link Display#getRotation()} of the default display at the time the
+     * {@link ImageCapture} is created.
+     *
+     * @param rotation Desired rotation of the output image. rotation is expressed as one of
+     *                 {@link Surface#ROTATION_0}, {@link Surface#ROTATION_90},
+     *                 {@link Surface#ROTATION_180}, or {@link Surface#ROTATION_270}.
      */
     public void setTargetRotation(@RotationValue int rotation) {
         ImageOutputConfig oldConfig = (ImageOutputConfig) getUseCaseConfig();
@@ -299,7 +323,7 @@ public class ImageCapture extends UseCase {
     }
 
     /**
-     * Captures a new still image.
+     * Captures a new still image for in memory access.
      *
      * <p>The listener's callback will be called only once for every invocation of this method. The
      * listener is responsible for calling {@link Image#close()} on the returned image.
@@ -334,15 +358,17 @@ public class ImageCapture extends UseCase {
     }
 
     /**
-     * Captures a new still image and saves to a file.
+     * Captures a new still image and saves to a file along with application specified metadata.
      *
      * <p>The listener's callback will be called only once for every invocation of this method.
+     *
+     * <p>This function accepts metadata as a parameter from application code.  For JPEGs, this
+     * metadata will be included in the EXIF.
      *
      * @param saveLocation       Location to store the newly captured image.
      * @param imageSavedListener Listener to be called for the newly captured image.
      * @param metadata           Metadata to be stored with the saved image. For JPEG this will
-     *                           be included in
-     *                           EXIF.
+     *                           be included in the EXIF.
      */
     public void takePicture(
             final File saveLocation, final OnImageSavedListener imageSavedListener,
@@ -975,14 +1001,20 @@ public class ImageCapture extends UseCase {
          * {@link ImageProxy#getFormat()}.
          *
          * <p>The image is provided as captured by the underlying {@link ImageReader} without
-         * rotation applied.  rotationDegrees describes the magnitude of clockwise roation, which if
-         * applied to the image will make it match the display.  For example, a rotation of 90
-         * degrees means rotating the image 90 degrees clockwise produces an image that will match
-         * the display.
+         * rotation applied.  rotationDegrees describes the magnitude of clockwise rotation, which
+         * if applied to the image will make it match the currently configured target rotation.
+         *
+         * <p>For example, if the current target rotation is set to the display rotation, then for a
+         * correctly configured preview, rotationDegrees is the rotation to apply to the image to
+         * match what is seen in the preview.  A rotation of 90 degrees would mean rotating the
+         * image 90 degrees clockwise produces an image that will match the preview.
+         *
+         * <p>See also {@link ImageCaptureConfig.Builder#setTargetRotation(int)} and
+         * {@link #setTargetRotation(int)}.
          *
          * @param image The captured image
          * @param rotationDegrees The rotation which if applied to the image will make it match the
-         *                        display, expressed as one of
+         *                        current target rotation. rotationDegrees is expressed as one of
          *                        {@link Surface#ROTATION_0}, {@link Surface#ROTATION_90},
          *                        {@link Surface#ROTATION_180}, or {@link Surface#ROTATION_270}.
          */
