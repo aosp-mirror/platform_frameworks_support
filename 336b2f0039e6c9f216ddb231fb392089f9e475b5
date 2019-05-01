@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "84cc6c2c_7d9db6af",
+        "filename": "camera/integration-tests/coretestapp/src/main/java/androidx/camera/integration/core/CameraXActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-01T23:47:57Z",
+      "side": 1,
+      "message": "This wouldn\u0027t necessarily be the error condition anymore.\n\nIt could be because the lens facing + set cameraId are not compatible (though in this case, no camera id should have been set)",
+      "revId": "336b2f0039e6c9f216ddb231fb392089f9e475b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
