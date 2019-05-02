@@ -39,6 +39,30 @@
       "revId": "9eb870a9ee213afe449e2e56d029beb5ae262615",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "acedac4d_9c4d1524",
+        "filename": "media2/player/src/main/java/androidx/media2/player/MediaTimestamp.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-05-02T02:07:32Z",
+      "side": 1,
+      "message": "It looks that it is the same case.\nIf you want to address it, please do it in a separate CL by creating a new issue for it.",
+      "parentUuid": "ce3ea74d_cdb8386f",
+      "range": {
+        "startLine": 79,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 24
+      },
+      "revId": "9eb870a9ee213afe449e2e56d029beb5ae262615",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
