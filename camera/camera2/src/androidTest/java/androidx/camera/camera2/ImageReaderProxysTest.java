@@ -37,6 +37,7 @@ import androidx.camera.testing.fakes.FakeUseCase;
 import androidx.camera.testing.fakes.FakeUseCaseConfig;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.MediumTest;
 import androidx.test.filters.SmallTest;
 
 import org.junit.After;
@@ -91,6 +92,7 @@ public final class ImageReaderProxysTest {
         mHandlerThread.quitSafely();
     }
 
+    @MediumTest
     @Test
     public void sharedReadersGetFramesFromCamera() throws InterruptedException {
         List<ImageReaderProxy> readers = new ArrayList<>();
@@ -116,6 +118,7 @@ public final class ImageReaderProxysTest {
         }
     }
 
+    @MediumTest
     @Test
     public void isolatedReadersGetFramesFromCamera() throws InterruptedException {
         List<ImageReaderProxy> readers = new ArrayList<>();
