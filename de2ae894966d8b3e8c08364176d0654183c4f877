@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b71ea79b_a0b652cd",
+        "filename": "webkit/integration-tests/testapp/src/main/AndroidManifest.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-05-02T05:08:50Z",
+      "side": 1,
+      "message": "Any reason it adds a blank line?\n\nAlso: this strips the newline at the end of the file, which is annoying (and many text editors, like vim, insist on adding it back)",
+      "revId": "de2ae894966d8b3e8c08364176d0654183c4f877",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
