@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "b20e20b5_8a34523d",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CameraX.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1482091
+      },
+      "writtenOn": "2019-05-02T10:45:19Z",
+      "side": 1,
+      "message": "I update above sentence as \"up to 3 use cases may be bound to a {@link Lifecycle}\". Therefore, it should be more clear that the use case count will be counted for different lifecycle separately. The logic change is in calculateSuggestedResolutions function that only consider the use cases belong to the same lifecycle. Adding javadoc here to help developers understand the design when they bind use cases to a lifecycle.",
+      "parentUuid": "868825d7_605dabe9",
+      "revId": "d5c200c69562637276274dd02c094dde1656a956",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0a84eb95_9d8d204e",
         "filename": "camera/core/src/main/java/androidx/camera/core/UseCaseGroupRepository.java",
         "patchSetId": 2
@@ -33,6 +51,24 @@
       "revId": "d5c200c69562637276274dd02c094dde1656a956",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6e93409_5ec07bf4",
+        "filename": "camera/core/src/main/java/androidx/camera/core/UseCaseGroupRepository.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1482091
+      },
+      "writtenOn": "2019-05-02T10:45:19Z",
+      "side": 1,
+      "message": "Thanks for your review. Done.",
+      "parentUuid": "0a84eb95_9d8d204e",
+      "revId": "d5c200c69562637276274dd02c094dde1656a956",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
