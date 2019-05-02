@@ -40,7 +40,7 @@ public final class ImmediateSurfaceTest {
     public void getSurface_returnsInstance() throws ExecutionException, InterruptedException {
         ImmediateSurface immediateSurface = new ImmediateSurface(mMockSurface);
 
-        ListenableFuture<Surface> surfaceListenableFuture = immediateSurface.getSurface();
+        ListenableFuture<Surface> surfaceListenableFuture = immediateSurface.getOrCreateSurface();
 
         assertThat(surfaceListenableFuture.get()).isSameAs(mMockSurface);
     }

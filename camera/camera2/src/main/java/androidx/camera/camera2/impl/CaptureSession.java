@@ -132,7 +132,7 @@ final class CaptureSession {
                     mSessionConfig = sessionConfig;
 
                     if (!mConfiguredSurfaces.containsAll(
-                            DeferrableSurfaces.surfaceList(sessionConfig.getSurfaces()))) {
+                            DeferrableSurfaces.recentSurfaceList(sessionConfig.getSurfaces()))) {
                         Log.e(TAG, "Does not have the proper configured lists");
                         return;
                     }
@@ -171,11 +171,15 @@ final class CaptureSession {
                 case INITIALIZED:
                     List<DeferrableSurface> surfaces = sessionConfig.getSurfaces();
 
-                    // Before creating capture session, some surfaces may need to refresh.
-                    DeferrableSurfaces.refresh(surfaces);
 
                     mConfiguredDeferrableSurfaces = new ArrayList<>(surfaces);
 
+                    // DeferrableSurfaces.surfaceSet calls DeferrableSurface.getOrCreateSurface
+                    // to get or create a Surface (depending on the implemenation of
+                    // DeferrableSurface subclass).  Before creating a capture session, it uses
+                    // DeferrableSurfaces.surfaceSet to get a refreshed surface list.
+                    // Upcoming capture requests will call DeferrableSurfaces.recentSurfaceList()
+                    // to get surfaces which were created in DeferrableSurface.getOrCreateSurface().
                     mConfiguredSurfaces =
                             new ArrayList<>(
                                     DeferrableSurfaces.surfaceSet(
@@ -285,7 +289,7 @@ final class CaptureSession {
         }
     }
 
-     /**
+    /**
      * Issues capture requests.
      *
      * @param captureConfigs which is used to construct {@link CaptureRequest}.

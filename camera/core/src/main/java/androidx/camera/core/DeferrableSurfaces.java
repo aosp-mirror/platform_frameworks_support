@@ -45,17 +45,39 @@ public final class DeferrableSurfaces {
     }
 
     /**
+     * Returns a list of {@link Surface} which was created in
+     * {@link DeferrableSurface#getOrCreateSurface()} from a {@link DeferrableSurface} collection
+     *
+     * <p>Null surface will be excluded from the list. This means that the returned list will only
+     * be guaranteed to be less than or equal to in size to the original collection.
+     */
+    public static List<Surface> recentSurfaceList(
+            Collection<DeferrableSurface> deferrableSurfaces) {
+        List<Surface> surfaces = new ArrayList<>();
+
+        for (DeferrableSurface deferrableSurface : deferrableSurfaces) {
+            Surface surface = deferrableSurface.getRecentSurface();
+            if (surface != null) {
+                surfaces.add(surface);
+            }
+        }
+
+        return surfaces;
+    }
+
+    /**
      * Returns a {@link Surface} list from a {@link DeferrableSurface} collection.
      *
      * <p>Any {@link DeferrableSurface} that can not be obtained will be missing from the list. This
      * means that the returned list will only be guaranteed to be less than or equal to in size to
      * the original collection.
      */
-    public static List<Surface> surfaceList(Collection<DeferrableSurface> deferrableSurfaces) {
+    public static List<Surface> surfaceList(
+            Collection<DeferrableSurface> deferrableSurfaces) {
         List<ListenableFuture<Surface>> listenableFutureSurfaces = new ArrayList<>();
 
         for (DeferrableSurface deferrableSurface : deferrableSurfaces) {
-            listenableFutureSurfaces.add(deferrableSurface.getSurface());
+            listenableFutureSurfaces.add(deferrableSurface.getOrCreateSurface());
         }
 
         try {
@@ -81,7 +103,7 @@ public final class DeferrableSurfaces {
         List<ListenableFuture<Surface>> listenableFutureSurfaces = new ArrayList<>();
 
         for (DeferrableSurface deferrableSurface : deferrableSurfaces) {
-            listenableFutureSurfaces.add(deferrableSurface.getSurface());
+            listenableFutureSurfaces.add(deferrableSurface.getOrCreateSurface());
         }
 
         try {
@@ -91,13 +113,6 @@ public final class DeferrableSurfaces {
             return Collections.unmodifiableSet(surfaces);
         } catch (InterruptedException | ExecutionException e) {
             return Collections.unmodifiableSet(Collections.<Surface>emptySet());
-        }
-    }
-
-    /** Calls {@link DeferrableSurface#refresh()} iteratively. */
-    public static void refresh(Collection<DeferrableSurface> deferrableSurfaces) {
-        for (DeferrableSurface deferrableSurface : deferrableSurfaces) {
-            deferrableSurface.refresh();
         }
     }
 }

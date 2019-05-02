@@ -58,11 +58,12 @@ public abstract class DeferrableSurface {
 
     /** Returns a {@link Surface} that is wrapped in a {@link ListenableFuture}. */
     @Nullable
-    public abstract ListenableFuture<Surface> getSurface();
+    public abstract ListenableFuture<Surface> getOrCreateSurface();
 
-    /** Refreshes the {@link DeferrableSurface} before attach if needed. */
-    public void refresh() {
-    }
+
+    /** Returns a {@link Surface} which was created during getOrCreateSurface(). */
+    @Nullable
+    public abstract Surface getRecentSurface();
 
     /** Notifies this surface is attached */
     public void notifySurfaceAttached() {

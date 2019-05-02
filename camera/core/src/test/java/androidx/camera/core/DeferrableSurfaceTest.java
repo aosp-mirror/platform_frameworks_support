@@ -52,7 +52,13 @@ public class DeferrableSurfaceTest {
         mDeferrableSurface = new DeferrableSurface() {
             @Nullable
             @Override
-            public ListenableFuture<Surface> getSurface() {
+            public ListenableFuture<Surface> getOrCreateSurface() {
+                return null;
+            }
+
+            @Nullable
+            @Override
+            public Surface getRecentSurface() {
                 return null;
             }
         };

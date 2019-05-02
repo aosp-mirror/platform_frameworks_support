@@ -428,7 +428,7 @@ public final class PreviewTest {
         semaphore.acquire();
 
         // Cause the surface to reset
-        useCase.getSessionConfig(mCameraId).getSurfaces().get(0).getSurface().get();
+        useCase.getSessionConfig(mCameraId).getSurfaces().get(0).getOrCreateSurface().get();
 
         // Wait for the surface to reset
         semaphore.acquire();

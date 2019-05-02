@@ -118,7 +118,7 @@ final class CheckedSurfaceTexture extends DeferrableSurface {
      * using a new {@link SurfaceTexture}.
      */
     @Override
-    public ListenableFuture<Surface> getSurface() {
+    public ListenableFuture<Surface> getOrCreateSurface() {
         return CallbackToFutureAdapter.getFuture(
                 new CallbackToFutureAdapter.Resolver<Surface>() {
                     @Override
@@ -130,12 +130,19 @@ final class CheckedSurfaceTexture extends DeferrableSurface {
                                     public void run() {
                                         if (isSurfaceTextureReleasing(mSurfaceTexture)) {
                                             // Reset the surface texture and notify the listener
-                                            CheckedSurfaceTexture.this.resetSurfaceTexture();
+                                            resetSurfaceTexture();
                                         }
 
-                                        if (mSurface == null) {
-                                            mSurface = createSurfaceFrom(mSurfaceTexture);
+                                        // To fix the incorrect preview orientation for devices
+                                        // running on legacy camera,
+                                        // it needs to attach a new Surface instance to the newly
+                                        // created camera capture
+                                        // session.
+                                        if (mSurface != null) {
+                                            mSurfaceToReleaseList.add(mSurface);
                                         }
+
+                                        mSurface = createSurfaceFrom(mSurfaceTexture);
                                         completer.set(mSurface);
                                     }
                                 };
@@ -143,6 +150,12 @@ final class CheckedSurfaceTexture extends DeferrableSurface {
                         return "CheckSurfaceTexture";
                     }
                 });
+    }
+
+    @Nullable
+    @Override
+    public Surface getRecentSurface() {
+        return mSurface;
     }
 
     @UiThread
@@ -160,26 +173,6 @@ final class CheckedSurfaceTexture extends DeferrableSurface {
             resource.setSurface(surface);
         }
         return surface;
-    }
-
-    @Override
-    public void refresh() {
-        runOnMainThread(new Runnable() {
-            @Override
-            public void run() {
-                if (isSurfaceTextureReleasing(mSurfaceTexture)) {
-                    // Reset the surface texture and notify the listener
-                    CheckedSurfaceTexture.this.resetSurfaceTexture();
-                }
-                // To fix the incorrect preview orientation for devices running on legacy camera,
-                // it needs to attach a new Surface instance to the newly created camera capture
-                // session.
-                if (mSurface != null) {
-                    mSurfaceToReleaseList.add(mSurface);
-                }
-                mSurface = createSurfaceFrom(mSurfaceTexture);
-            }
-        });
     }
 
     @UiThread

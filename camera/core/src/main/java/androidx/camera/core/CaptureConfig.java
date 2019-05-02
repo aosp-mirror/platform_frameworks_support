@@ -150,7 +150,7 @@ public final class CaptureConfig {
             captureRequestParameter.apply(builder);
         }
 
-        List<Surface> surfaceList = DeferrableSurfaces.surfaceList(mSurfaces);
+        List<Surface> surfaceList = DeferrableSurfaces.recentSurfaceList(mSurfaces);
 
         if (surfaceList.isEmpty()) {
             return null;

@@ -85,12 +85,12 @@ public class CheckedSurfaceTextureTest {
             ExecutionException {
         mCheckedSurfaceTexture.resetSurfaceTexture();
 
-        ListenableFuture<Surface> surfaceFuture = mCheckedSurfaceTexture.getSurface();
+        ListenableFuture<Surface> surfaceFuture = mCheckedSurfaceTexture.getOrCreateSurface();
         surfaceFuture.get();
         SurfaceTexture surfaceTexture1 = mLatestSurfaceTexture;
         mLatestSurfaceTexture.release();
 
-        ListenableFuture<Surface> surfaceFuture2 = mCheckedSurfaceTexture.getSurface();
+        ListenableFuture<Surface> surfaceFuture2 = mCheckedSurfaceTexture.getOrCreateSurface();
         surfaceFuture2.get();
         SurfaceTexture surfaceTexture2 = mLatestSurfaceTexture;
 
@@ -103,7 +103,7 @@ public class CheckedSurfaceTextureTest {
             ExecutionException {
         mCheckedSurfaceTexture.notifySurfaceAttached();
         mCheckedSurfaceTexture.resetSurfaceTexture();
-        ListenableFuture<Surface> surfaceFuture = mCheckedSurfaceTexture.getSurface();
+        ListenableFuture<Surface> surfaceFuture = mCheckedSurfaceTexture.getOrCreateSurface();
         surfaceFuture.get();
         FixedSizeSurfaceTexture surfaceTexture = (FixedSizeSurfaceTexture) mLatestSurfaceTexture;
 
@@ -121,7 +121,7 @@ public class CheckedSurfaceTextureTest {
     public void releaseCheckedSurfaceTexture() throws InterruptedException, ExecutionException {
         mCheckedSurfaceTexture.notifySurfaceAttached();
         mCheckedSurfaceTexture.resetSurfaceTexture();
-        ListenableFuture<Surface> surfaceFuture = mCheckedSurfaceTexture.getSurface();
+        ListenableFuture<Surface> surfaceFuture = mCheckedSurfaceTexture.getOrCreateSurface();
         surfaceFuture.get();
         FixedSizeSurfaceTexture surfaceTexture = (FixedSizeSurfaceTexture) mLatestSurfaceTexture;
 
@@ -143,7 +143,7 @@ public class CheckedSurfaceTextureTest {
         mCheckedSurfaceTexture.notifySurfaceAttached();
 
         mCheckedSurfaceTexture.resetSurfaceTexture();
-        Surface surface = mCheckedSurfaceTexture.getSurface().get();
+        Surface surface = mCheckedSurfaceTexture.getOrCreateSurface().get();
         FixedSizeSurfaceTexture surfaceTexture = (FixedSizeSurfaceTexture) mLatestSurfaceTexture;
 
         assertThat(mCheckedSurfaceTexture.mResourceMap.size()).isEqualTo(1);
@@ -154,7 +154,7 @@ public class CheckedSurfaceTextureTest {
 
 
         mCheckedSurfaceTexture.resetSurfaceTexture();
-        Surface surface2 = mCheckedSurfaceTexture.getSurface().get();
+        Surface surface2 = mCheckedSurfaceTexture.getOrCreateSurface().get();
         FixedSizeSurfaceTexture surfaceTexture2 = (FixedSizeSurfaceTexture) mLatestSurfaceTexture;
         assertThat(mCheckedSurfaceTexture.mResourceMap.size()).isEqualTo(2);
 
@@ -176,7 +176,7 @@ public class CheckedSurfaceTextureTest {
         mCheckedSurfaceTexture.notifySurfaceAttached();
 
         mCheckedSurfaceTexture.resetSurfaceTexture();
-        Surface surface = mCheckedSurfaceTexture.getSurface().get();
+        Surface surface = mCheckedSurfaceTexture.getOrCreateSurface().get();
         FixedSizeSurfaceTexture surfaceTexture = (FixedSizeSurfaceTexture) mLatestSurfaceTexture;
         assertThat(mCheckedSurfaceTexture.mResourceMap.size()).isEqualTo(1);
 
@@ -188,5 +188,47 @@ public class CheckedSurfaceTextureTest {
         Thread.sleep(100);
 
         assertThat(mCheckedSurfaceTexture.mResourceMap.size()).isEqualTo(0);
+    }
+
+    @Test
+    public void getRecentSurfaceBeforeAndAfterGetOrCreateSurface()
+            throws InterruptedException, ExecutionException {
+
+        Surface recentSurface1 = mCheckedSurfaceTexture.getRecentSurface();
+        assertThat(recentSurface1).isNull();
+
+        Surface surface = mCheckedSurfaceTexture.getOrCreateSurface().get();
+        Surface recentSurface2 = mCheckedSurfaceTexture.getRecentSurface();
+        assertThat(recentSurface2).isEqualTo(surface);
+    }
+
+    @Test
+    public void getRecentSurfaceTwiceReturnsSameSurface()
+            throws InterruptedException, ExecutionException {
+
+        Surface surface = mCheckedSurfaceTexture.getOrCreateSurface().get();
+
+        Surface recentSurface1 = mCheckedSurfaceTexture.getRecentSurface();
+        Surface recentSurface2 = mCheckedSurfaceTexture.getRecentSurface();
+        assertThat(recentSurface1).isEqualTo(surface);
+        assertThat(recentSurface1).isEqualTo(recentSurface2);
+
+    }
+
+    @Test
+    public void getOrCreateSurfaceCreateNewSurface()
+            throws InterruptedException, ExecutionException {
+
+        Surface surface1 = mCheckedSurfaceTexture.getOrCreateSurface().get();
+        Surface recentSurface1 = mCheckedSurfaceTexture.getRecentSurface();
+        assertThat(surface1).isEqualTo(recentSurface1);
+
+        Surface surface2 = mCheckedSurfaceTexture.getOrCreateSurface().get();
+        Surface recentSurface2 = mCheckedSurfaceTexture.getRecentSurface();
+
+        // calls getOrCreateSurface() again will create new Surface
+        assertThat(surface2).isNotEqualTo(recentSurface1);
+        assertThat(surface2).isEqualTo(recentSurface2);
+
     }
 }

@@ -18,6 +18,7 @@ package androidx.camera.core;
 
 import android.view.Surface;
 
+import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.annotation.RestrictTo.Scope;
 import androidx.camera.core.impl.utils.futures.Futures;
@@ -38,7 +39,13 @@ public final class ImmediateSurface extends DeferrableSurface {
     }
 
     @Override
-    public ListenableFuture<Surface> getSurface() {
+    public ListenableFuture<Surface> getOrCreateSurface() {
         return Futures.immediateFuture(mSurface);
+    }
+
+    @Nullable
+    @Override
+    public Surface getRecentSurface() {
+        return mSurface;
     }
 }
