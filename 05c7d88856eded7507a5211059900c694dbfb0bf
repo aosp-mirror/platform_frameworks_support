@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4aeaf11a_4aaf9248",
+        "filename": "camera/extensions-stub/src/main/java/androidx/camera/extensions/impl/ImageCaptureExtenderImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-02T00:01:02Z",
+      "side": 1,
+      "message": "Its not really necessary to add a new interface.\n\nInstead iterate through all the cameras of a specific lens facing and call isExtensionAvailable().\nThen use the first found cameraId that returns true. If none of them return true then it means the extension is not supported at all.\n\nThis way we don\u0027t have to add an additional interface to support.",
+      "revId": "05c7d88856eded7507a5211059900c694dbfb0bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
