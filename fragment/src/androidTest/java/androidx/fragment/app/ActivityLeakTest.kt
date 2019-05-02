@@ -17,6 +17,7 @@
 package androidx.fragment.app
 
 import androidx.fragment.app.test.EmptyFragmentTestActivity
+import androidx.lifecycle.Lifecycle
 import androidx.test.core.app.ActivityScenario
 import androidx.test.filters.LargeTest
 import com.google.common.truth.Truth.assertWithMessage
@@ -86,6 +87,13 @@ class ActivityLeakTest(
                 childConfiguration.commit(parent.childFragmentManager)
             }
             recreate()
+            // Ensure that the recreation of the new Activity is complete
+            // and we've waited at least a frame for the old activity to
+            // be fully destroyed
+            assertWithMessage("New Activity is resumed")
+                .that(withActivity { lifecycle.currentState })
+                .isEqualTo(Lifecycle.State.RESUMED)
+            // Force a garbage collection.
             forceGC()
             assertWithMessage("Old activity should be garbage collected")
                 .that(weakRef.get())
