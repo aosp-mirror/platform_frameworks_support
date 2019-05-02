@@ -2587,7 +2587,7 @@ public class AccessibilityNodeInfoCompat {
      * @throws IllegalStateException If the info is already recycled.
      */
     public void recycle() {
-        mInfo.recycle();
+       // No-op
     }
 
     /**
