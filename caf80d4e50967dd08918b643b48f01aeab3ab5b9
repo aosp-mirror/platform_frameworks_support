@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d134b2e0_5f4b1da9",
+        "filename": "media2/common/src/main/java/androidx/media2/common/SessionPlayer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-05-02T22:51:24Z",
+      "side": 1,
+      "message": "No, but there can be a player which supports negative values.",
+      "parentUuid": "5e3c8c98_7b21c7cf",
+      "range": {
+        "startLine": 346,
+        "startChar": 91,
+        "endLine": 347,
+        "endChar": 49
+      },
+      "revId": "caf80d4e50967dd08918b643b48f01aeab3ab5b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4f39b0f1_cb6271bb",
         "filename": "media2/session/src/main/java/androidx/media2/session/MediaController.java",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "caf80d4e50967dd08918b643b48f01aeab3ab5b9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93709b81_ba9ccc73",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaController.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 631,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-05-02T22:51:24Z",
+      "side": 1,
+      "message": "Our guideline for argument check is throwing exceptions.",
+      "parentUuid": "4f39b0f1_cb6271bb",
+      "range": {
+        "startLine": 631,
+        "startChar": 12,
+        "endLine": 631,
+        "endChar": 73
+      },
+      "revId": "caf80d4e50967dd08918b643b48f01aeab3ab5b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
