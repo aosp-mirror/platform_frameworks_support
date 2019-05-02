@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d2fc45fb_14179043",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/PreviewTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-05-02T17:39:10Z",
+      "side": 1,
+      "message": "This won\u0027t be necessary once aosp/949883 is merged.",
+      "range": {
+        "startLine": 109,
+        "startChar": 8,
+        "endLine": 109,
+        "endChar": 45
+      },
+      "revId": "b16ba9769d28a2c01303a72bfa6891b14758cbfd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1792286c_85f8f518",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/Camera2ImplCameraRepositoryTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-05-02T17:39:10Z",
+      "side": 1,
+      "message": "Move to setUp(). You can make mCameraId a local variable again.",
+      "range": {
+        "startLine": 99,
+        "startChar": 8,
+        "endLine": 99,
+        "endChar": 45
+      },
+      "revId": "b16ba9769d28a2c01303a72bfa6891b14758cbfd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7812c8f2_95bf2ed0",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/CameraTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-05-02T17:39:10Z",
+      "side": 1,
+      "message": "Rather than put this in every test, you can just put it once in the setup() method.",
+      "range": {
+        "startLine": 124,
+        "startChar": 8,
+        "endLine": 124,
+        "endChar": 45
+      },
+      "revId": "b16ba9769d28a2c01303a72bfa6891b14758cbfd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db990da5_8ec9aa2d",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/CaptureSessionTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-05-02T17:39:10Z",
+      "side": 1,
+      "message": "Move this to setup()",
+      "range": {
+        "startLine": 97,
+        "startChar": 8,
+        "endLine": 97,
+        "endChar": 49
+      },
+      "revId": "b16ba9769d28a2c01303a72bfa6891b14758cbfd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
