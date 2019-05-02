@@ -194,6 +194,24 @@
     },
     {
       "key": {
+        "uuid": "f3c807a0_5d0375af",
+        "filename": "camera/core/src/main/java/androidx/camera/core/SessionEventListener.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-05-02T12:05:10Z",
+      "side": 1,
+      "message": "I tried to move SessionEventListner to UseCase.\nThe new interface in UseCase contains\nonBind() onUnbind(), onResolutionUpdate(), onImageFormatUpdate()\nMy thought is ... these new callback can be a standard callback to hook the state change for use case. Please have look.",
+      "parentUuid": "18cbfa20_26b14da3",
+      "revId": "b148e2b3dc8f4237427e1e1ea813fb47daae2f56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c322029a_825718c2",
         "filename": "camera/core/src/main/java/androidx/camera/core/SessionEventListener.java",
         "patchSetId": 1
@@ -208,6 +226,24 @@
       "revId": "b148e2b3dc8f4237427e1e1ea813fb47daae2f56",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5117941e_87f3ae5b",
+        "filename": "camera/core/src/main/java/androidx/camera/core/SessionEventListener.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-05-02T12:05:10Z",
+      "side": 1,
+      "message": "Update the listener name to onBind() onUnbind()\nand I tried to put these callback into UseCase directly.\nThat is, we would not need to call these explicitly.",
+      "parentUuid": "c322029a_825718c2",
+      "revId": "b148e2b3dc8f4237427e1e1ea813fb47daae2f56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
