@@ -36,7 +36,7 @@ import androidx.versionedparcelable.VersionedParcelize;
  * platform. For example, this could represent the sender of a message.
  */
 @VersionedParcelize(jetifyAs = "android.support.v4.app.Person")
-public class Person implements VersionedParcelable {
+public final class Person implements VersionedParcelable {
     private static final String NAME_KEY = "name";
     private static final String ICON_KEY = "icon";
     private static final String URI_KEY = "uri";
