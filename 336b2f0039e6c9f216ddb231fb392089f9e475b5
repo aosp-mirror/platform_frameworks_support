@@ -16,6 +16,24 @@
       "revId": "336b2f0039e6c9f216ddb231fb392089f9e475b5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94da790f_1828da12",
+        "filename": "camera/integration-tests/coretestapp/src/main/java/androidx/camera/integration/core/CameraXActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1486234
+      },
+      "writtenOn": "2019-05-02T01:18:08Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "84cc6c2c_7d9db6af",
+      "revId": "336b2f0039e6c9f216ddb231fb392089f9e475b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
