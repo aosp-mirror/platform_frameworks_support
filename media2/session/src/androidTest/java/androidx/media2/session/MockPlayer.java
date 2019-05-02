@@ -274,6 +274,22 @@ public class MockPlayer extends SessionPlayer {
         return mVideoSize;
     }
 
+    void notifyVideoSizeChanged(final VideoSize videoSize) {
+        final MediaItem dummyItem = TestUtils.createMediaItem("onVideoSizeChanged");
+        mVideoSize = videoSize;
+
+        List<Pair<PlayerCallback, Executor>> callbacks = getCallbacks();
+        for (Pair<PlayerCallback, Executor> pair : callbacks) {
+            final PlayerCallback callback = pair.first;
+            pair.second.execute(new Runnable() {
+                @Override
+                public void run() {
+                    callback.onVideoSizeChanged(MockPlayer.this, dummyItem, videoSize);
+                }
+            });
+        }
+    }
+
     /////////////////////////////////////////////////////////////////////////////////
     // Playlist APIs
     /////////////////////////////////////////////////////////////////////////////////
