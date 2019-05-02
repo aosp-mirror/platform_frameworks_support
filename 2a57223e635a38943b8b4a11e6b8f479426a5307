@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "350c4e7e_fecc222b",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2166,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-05-02T05:58:22Z",
+      "side": 1,
+      "message": "Player will be in in error state. mMediaType is meaningless.",
+      "parentUuid": "aef8f9c5_24461a7c",
+      "range": {
+        "startLine": 2166,
+        "startChar": 41,
+        "endLine": 2166,
+        "endChar": 59
+      },
+      "revId": "2a57223e635a38943b8b4a11e6b8f479426a5307",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8ffc0a7d_03b041c0",
         "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
         "patchSetId": 4
@@ -68,6 +92,30 @@
       "revId": "2a57223e635a38943b8b4a11e6b8f479426a5307",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "240aa406_09b34c48",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2172,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-05-02T05:58:22Z",
+      "side": 1,
+      "message": "It can contain lyrics and CC button will be shown by else-block 2178-2200",
+      "parentUuid": "8ffc0a7d_03b041c0",
+      "range": {
+        "startLine": 2172,
+        "startChar": 48,
+        "endLine": 2172,
+        "endChar": 61
+      },
+      "revId": "2a57223e635a38943b8b4a11e6b8f479426a5307",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -94,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "7f65838c_3957d3c0",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 817,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-05-02T05:58:22Z",
+      "side": 1,
+      "message": "Yes, it should be handled in MediaPlayer. This change wants to handle such edge case anyways.",
+      "parentUuid": "31b9fe19_425c8989",
+      "range": {
+        "startLine": 817,
+        "startChar": 12,
+        "endLine": 817,
+        "endChar": 51
+      },
+      "revId": "2a57223e635a38943b8b4a11e6b8f479426a5307",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bd1b84bc_13d40d42",
         "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
         "patchSetId": 4
@@ -114,6 +186,30 @@
       "revId": "2a57223e635a38943b8b4a11e6b8f479426a5307",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18cd17ae_25760218",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 832,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-05-02T05:58:22Z",
+      "side": 1,
+      "message": "Checking video size : Such logic (checking video size) is added in extractTrackInfoData(). Would it be better to move it here?\n\nVideo size 0 while VideoTrackCount is not zero: I think we can keep Video UX for such case.\nFYI, MediaPlayer#getVideoSize says, it video size can be zero when video is not ready yet.\n\nI added notifying update track status in onVideoSizeChanged(). PTAL",
+      "parentUuid": "bd1b84bc_13d40d42",
+      "range": {
+        "startLine": 832,
+        "startChar": 15,
+        "endLine": 832,
+        "endChar": 31
+      },
+      "revId": "2a57223e635a38943b8b4a11e6b8f479426a5307",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
