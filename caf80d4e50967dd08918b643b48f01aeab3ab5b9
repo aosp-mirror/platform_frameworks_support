@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5e3c8c98_7b21c7cf",
+        "filename": "media2/common/src/main/java/androidx/media2/common/SessionPlayer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-02T11:44:08Z",
+      "side": 1,
+      "message": "Does androidx.media2.player.MediaPlayer#setPlaybackSpeed support negative value?",
+      "range": {
+        "startLine": 346,
+        "startChar": 91,
+        "endLine": 347,
+        "endChar": 49
+      },
+      "revId": "caf80d4e50967dd08918b643b48f01aeab3ab5b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f39b0f1_cb6271bb",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaController.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 631,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-02T11:44:08Z",
+      "side": 1,
+      "message": "When speed is 0.0f, MediaController#setPlaybackSpeed throws IAE but it seems that MediaPlayer#setPlaybackSpeed returns ListenableFuture (and will return fail result after an exception is thrown in onExecute). I think it would be better to provide the same behavior between MediaPlayer and MediaController.",
+      "range": {
+        "startLine": 631,
+        "startChar": 12,
+        "endLine": 631,
+        "endChar": 73
+      },
+      "revId": "caf80d4e50967dd08918b643b48f01aeab3ab5b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
