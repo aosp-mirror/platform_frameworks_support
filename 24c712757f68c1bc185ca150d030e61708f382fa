@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b06d227b_06a62699",
+        "filename": "camera/core/src/main/java/androidx/camera/core/AppendableValue.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-02T01:41:57Z",
+      "side": 1,
+      "message": "Calling it Appendable is a bit confusing.\n\nBecause appending typically implies that you add onto. However, this contains a set which means if something is already in the set then it wouldn\u0027t get added.",
+      "revId": "24c712757f68c1bc185ca150d030e61708f382fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cfd7ca62_37865d76",
+        "filename": "camera/core/src/main/java/androidx/camera/core/SessionConfig.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-02T01:41:57Z",
+      "side": 1,
+      "message": "javadoc for this parameter?\n\nThese are implementation specific options I believe?",
+      "revId": "24c712757f68c1bc185ca150d030e61708f382fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
