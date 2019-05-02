@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dd814f69_c11d267b",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedFile.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-05-02T20:34:11Z",
+      "side": 1,
+      "message": "I don\u0027t really understand why this creates a new EncryptedFile despite this method being an instance method on an existing EncryptedFile. I thought EncryptedFile would encapsulate a single File and just have input/output factories. Is this for files beneath an encrypted directory?",
+      "revId": "71436acdf1061202ad6496d9e5d6ffe161a7aff0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
