@@ -18,11 +18,13 @@ package androidx.camera.camera2.impl;
 
 import static com.google.common.truth.Truth.assertThat;
 
+import static org.junit.Assume.assumeNotNull;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.timeout;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
+import android.Manifest;
 import android.graphics.ImageFormat;
 import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraCaptureSession;
@@ -32,6 +34,7 @@ import android.media.ImageReader;
 import android.media.ImageReader.OnImageAvailableListener;
 import android.os.Handler;
 import android.os.HandlerThread;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.camera.camera2.impl.CaptureSession.State;
@@ -45,9 +48,12 @@ import androidx.camera.core.SessionConfig;
 import androidx.camera.testing.CameraUtil;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.SmallTest;
+import androidx.test.rule.GrantPermissionRule;
 
 import org.junit.After;
+import org.junit.AssumptionViolatedException;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -70,8 +76,14 @@ public final class CaptureSessionTest {
 
     private CameraDevice mCameraDevice;
 
+    @Rule
+    public GrantPermissionRule mRuntimePermissionRule = GrantPermissionRule.grant(
+            Manifest.permission.CAMERA);
+
     @Before
-    public void setup() throws CameraAccessException, InterruptedException {
+    public void setup() throws CameraAccessException, InterruptedException,
+            AssumptionViolatedException {
+        assumeNotNull(mCameraDevice);
         mTestParameters0 = new CaptureSessionTestParameters("mTestParameters0");
         mTestParameters1 = new CaptureSessionTestParameters("mTestParameters1");
         mCameraDevice = CameraUtil.getCameraDevice();
@@ -79,13 +91,19 @@ public final class CaptureSessionTest {
 
     @After
     public void tearDown() {
-        mTestParameters0.tearDown();
-        mTestParameters1.tearDown();
-        CameraUtil.releaseCameraDevice(mCameraDevice);
+        Log.i("CaptureSessionTest", "tearDown");
+        if (mCameraDevice != null) {
+            Log.i("CaptureSessionTest", "tearDown mCameraDevice != null");
+            mTestParameters0.tearDown();
+            mTestParameters1.tearDown();
+            CameraUtil.releaseCameraDevice(mCameraDevice);
+        }
     }
 
     @Test
     public void setCaptureSessionSucceed() {
+
+        Log.i("CaptureSessionTest", "setCaptureSessionSucceed");
         CaptureSession captureSession = new CaptureSession(mTestParameters0.mHandler);
 
         captureSession.setSessionConfig(mTestParameters0.mSessionConfig);
@@ -95,6 +113,7 @@ public final class CaptureSessionTest {
 
     @Test(expected = IllegalStateException.class)
     public void setCaptureSessionOnClosedSession_throwsException() {
+        Log.i("CaptureSessionTest", "setCaptureSessionOnClosedSession_throwsException");
         CaptureSession captureSession = new CaptureSession(mTestParameters0.mHandler);
         SessionConfig newSessionConfig = mTestParameters0.mSessionConfig;
 
@@ -106,6 +125,7 @@ public final class CaptureSessionTest {
 
     @Test
     public void openCaptureSessionSucceed() throws CameraAccessException, InterruptedException {
+        Log.i("CaptureSessionTest", "openCaptureSessionSucceed");
         CaptureSession captureSession = new CaptureSession(mTestParameters0.mHandler);
         captureSession.setSessionConfig(mTestParameters0.mSessionConfig);
 
@@ -126,6 +146,7 @@ public final class CaptureSessionTest {
 
     @Test
     public void closeUnopenedSession() {
+        Log.i("CaptureSessionTest", "closeUnopenedSession");
         CaptureSession captureSession = new CaptureSession(mTestParameters0.mHandler);
         captureSession.setSessionConfig(mTestParameters0.mSessionConfig);
 
@@ -136,6 +157,7 @@ public final class CaptureSessionTest {
 
     @Test
     public void releaseUnopenedSession() {
+        Log.i("CaptureSessionTest", "releaseUnopenedSession");
         CaptureSession captureSession = new CaptureSession(mTestParameters0.mHandler);
         captureSession.setSessionConfig(mTestParameters0.mSessionConfig);
 
@@ -146,6 +168,7 @@ public final class CaptureSessionTest {
 
     @Test
     public void closeOpenedSession() throws CameraAccessException, InterruptedException {
+        Log.i("CaptureSessionTest", "closeOpenedSession");
         CaptureSession captureSession = new CaptureSession(mTestParameters0.mHandler);
         captureSession.setSessionConfig(mTestParameters0.mSessionConfig);
         captureSession.open(mTestParameters0.mSessionConfig, mCameraDevice);
@@ -159,6 +182,7 @@ public final class CaptureSessionTest {
 
     @Test
     public void releaseOpenedSession() throws CameraAccessException, InterruptedException {
+        Log.i("CaptureSessionTest", "releaseOpenedSession");
         CaptureSession captureSession = new CaptureSession(mTestParameters0.mHandler);
         captureSession.setSessionConfig(mTestParameters0.mSessionConfig);
         captureSession.open(mTestParameters0.mSessionConfig, mCameraDevice);
@@ -174,6 +198,7 @@ public final class CaptureSessionTest {
 
     @Test
     public void openSecondSession() throws CameraAccessException, InterruptedException {
+        Log.i("CaptureSessionTest", "openSecondSession");
         CaptureSession captureSession = new CaptureSession(mTestParameters0.mHandler);
         captureSession.setSessionConfig(mTestParameters0.mSessionConfig);
 
@@ -208,6 +233,7 @@ public final class CaptureSessionTest {
 
     @Test
     public void issueCaptureRequest() throws CameraAccessException, InterruptedException {
+        Log.i("CaptureSessionTest", "issueCaptureRequest");
         CaptureSession captureSession = new CaptureSession(mTestParameters0.mHandler);
         captureSession.setSessionConfig(mTestParameters0.mSessionConfig);
         captureSession.open(mTestParameters0.mSessionConfig, mCameraDevice);
@@ -229,6 +255,7 @@ public final class CaptureSessionTest {
     @Test
     public void issueCaptureRequestBeforeCaptureSessionOpened()
             throws CameraAccessException, InterruptedException {
+        Log.i("CaptureSessionTest", "issueCaptureRequestBeforeCaptureSessionOpened");
         CaptureSession captureSession = new CaptureSession(mTestParameters0.mHandler);
         captureSession.setSessionConfig(mTestParameters0.mSessionConfig);
 
@@ -245,6 +272,7 @@ public final class CaptureSessionTest {
 
     @Test(expected = IllegalStateException.class)
     public void issueCaptureRequestOnClosedSession_throwsException() {
+        Log.i("CaptureSessionTest", "issueCaptureRequestOnClosedSession_throwsException");
         CaptureSession captureSession = new CaptureSession(mTestParameters0.mHandler);
 
         captureSession.close();
@@ -257,6 +285,7 @@ public final class CaptureSessionTest {
     @Test
     public void surfaceOnDetachedListenerIsCalledWhenSessionIsClose()
             throws CameraAccessException, InterruptedException {
+        Log.i("CaptureSessionTest", "surfaceOnDetachedListenerIsCalledWhenSessionIsClose");
         CaptureSession captureSession = new CaptureSession(mTestParameters0.mHandler);
         captureSession.setSessionConfig(mTestParameters0.mSessionConfig);
 

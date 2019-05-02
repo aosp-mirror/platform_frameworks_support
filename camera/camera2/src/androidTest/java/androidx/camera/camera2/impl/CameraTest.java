@@ -16,6 +16,7 @@
 
 package androidx.camera.camera2.impl;
 
+import static org.junit.Assume.assumeNotNull;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.timeout;
@@ -27,6 +28,7 @@ import android.media.ImageReader;
 import android.media.ImageReader.OnImageAvailableListener;
 import android.os.Handler;
 import android.os.HandlerThread;
+import android.util.Log;
 import android.util.Size;
 
 import androidx.camera.core.BaseCamera;
@@ -43,6 +45,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.SmallTest;
 
 import org.junit.After;
+import org.junit.AssumptionViolatedException;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -80,7 +83,9 @@ public final class CameraTest {
     }
 
     @Before
-    public void setup() {
+    public void setup() throws AssumptionViolatedException {
+        assumeNotNull(mCameraId);
+        Log.i("CameraTest", "setup");
         mMockOnImageAvailableListener = Mockito.mock(ImageReader.OnImageAvailableListener.class);
         FakeUseCaseConfig config =
                 new FakeUseCaseConfig.Builder()
@@ -98,6 +103,7 @@ public final class CameraTest {
 
     @After
     public void teardown() throws InterruptedException {
+        Log.i("CameraTest", "teardown");
         // Need to release the camera no matter what is done, otherwise the CameraDevice is not
         // closed.
         // When the CameraDevice is not closed, then it can cause problems with interferes with

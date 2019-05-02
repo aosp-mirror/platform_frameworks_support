@@ -52,6 +52,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.FlakyTest;
 import androidx.test.filters.SmallTest;
 
+import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -105,6 +106,7 @@ public final class PreviewTest {
     @Test
     @UiThreadTest
     public void useCaseIsConstructedWithDefaultConfiguration() {
+        Assume.assumeTrue(mCameraId != null);
         Preview useCase = new Preview(mDefaultConfig);
         useCase.updateSuggestedResolution(Collections.singletonMap(mCameraId, DEFAULT_RESOLUTION));
 
@@ -119,6 +121,7 @@ public final class PreviewTest {
     @Test
     @UiThreadTest
     public void useCaseIsConstructedWithCustomConfiguration() {
+        Assume.assumeTrue(mCameraId != null);
         PreviewConfig config = new PreviewConfig.Builder().setLensFacing(LensFacing.BACK).build();
         Preview useCase = new Preview(config);
         useCase.updateSuggestedResolution(Collections.singletonMap(mCameraId, DEFAULT_RESOLUTION));
@@ -133,6 +136,7 @@ public final class PreviewTest {
     @Test
     @UiThreadTest
     public void focusRegionCanBeSet() {
+        Assume.assumeTrue(mCameraId != null);
         Preview useCase = new Preview(mDefaultConfig);
         useCase.updateSuggestedResolution(Collections.singletonMap(mCameraId, DEFAULT_RESOLUTION));
 
@@ -153,6 +157,7 @@ public final class PreviewTest {
     @Test
     @UiThreadTest
     public void zoomRegionCanBeSet() {
+        Assume.assumeTrue(mCameraId != null);
         Preview useCase = new Preview(mDefaultConfig);
         useCase.updateSuggestedResolution(Collections.singletonMap(mCameraId, DEFAULT_RESOLUTION));
 
@@ -170,6 +175,7 @@ public final class PreviewTest {
     @Test
     @UiThreadTest
     public void torchModeCanBeSet() {
+        Assume.assumeTrue(mCameraId != null);
         Preview useCase = new Preview(mDefaultConfig);
         CameraControl cameraControl = getFakeCameraControl();
         useCase.attachCameraControl(mCameraId, cameraControl);
@@ -184,6 +190,7 @@ public final class PreviewTest {
     @UiThreadTest
     public void surfaceTextureIsNotReleased()
             throws InterruptedException, ExecutionException, TimeoutException {
+        Assume.assumeTrue(mCameraId != null);
         // This test only target SDK >= 26
         if (Build.VERSION.SDK_INT < 26) {
             return;
@@ -227,6 +234,7 @@ public final class PreviewTest {
     @UiThreadTest
     public void listenedSurfaceTextureIsNotReleased_whenCleared()
             throws InterruptedException, ExecutionException, TimeoutException {
+        Assume.assumeTrue(mCameraId != null);
         // This test only target SDK >= 26
         if (Build.VERSION.SDK_INT <= 26) {
             return;
@@ -258,7 +266,7 @@ public final class PreviewTest {
     @UiThreadTest
     public void surfaceTexture_isListenedOnlyOnce()
             throws InterruptedException, ExecutionException, TimeoutException {
-
+        Assume.assumeTrue(mCameraId != null);
         Preview useCase = new Preview(mDefaultConfig);
 
         final SurfaceTextureCallable surfaceTextureCallable0 = new SurfaceTextureCallable();
@@ -297,6 +305,7 @@ public final class PreviewTest {
     @Test
     @UiThreadTest
     public void updateSessionConfigWithSuggestedResolution() {
+        Assume.assumeTrue(mCameraId != null);
         PreviewConfig config = new PreviewConfig.Builder().setLensFacing(LensFacing.BACK).build();
         Preview useCase = new Preview(config);
 
@@ -317,6 +326,7 @@ public final class PreviewTest {
     @Test
     @UiThreadTest
     public void previewOutputListenerCanBeSetAndRetrieved() {
+        Assume.assumeTrue(mCameraId != null);
         Preview useCase = new Preview(mDefaultConfig);
         useCase.updateSuggestedResolution(Collections.singletonMap(mCameraId, DEFAULT_RESOLUTION));
         Preview.OnPreviewOutputUpdateListener previewOutputListener =
@@ -333,6 +343,7 @@ public final class PreviewTest {
     @Test
     @UiThreadTest
     public void clear_removePreviewOutputListener() {
+        Assume.assumeTrue(mCameraId != null);
         Preview useCase = new Preview(mDefaultConfig);
         useCase.updateSuggestedResolution(Collections.singletonMap(mCameraId, DEFAULT_RESOLUTION));
 
@@ -345,6 +356,7 @@ public final class PreviewTest {
     @Test
     @UiThreadTest
     public void previewOutput_isResetOnUpdatedResolution() {
+        Assume.assumeTrue(mCameraId != null);
         Preview useCase = new Preview(mDefaultConfig);
         useCase.updateSuggestedResolution(Collections.singletonMap(mCameraId, DEFAULT_RESOLUTION));
 
@@ -371,6 +383,7 @@ public final class PreviewTest {
     @Test
     @UiThreadTest
     public void previewOutput_updatesWithTargetRotation() {
+        Assume.assumeTrue(mCameraId != null);
         Preview useCase = new Preview(mDefaultConfig);
         useCase.setTargetRotation(Surface.ROTATION_0);
         useCase.updateSuggestedResolution(Collections.singletonMap(mCameraId, DEFAULT_RESOLUTION));
@@ -400,6 +413,7 @@ public final class PreviewTest {
     @Test
     public void previewOutput_isResetByReleasedSurface()
             throws InterruptedException, ExecutionException {
+        Assume.assumeTrue(mCameraId != null);
         final Preview useCase = new Preview(mDefaultConfig);
         Handler mainHandler = new Handler(Looper.getMainLooper());
         final Semaphore semaphore = new Semaphore(0);
@@ -438,7 +452,7 @@ public final class PreviewTest {
     @UiThreadTest
     public void outputIsPublished_whenListenerIsSetBefore()
             throws InterruptedException, ExecutionException {
-
+        Assume.assumeTrue(mCameraId != null);
         Preview useCase = new Preview(mDefaultConfig);
 
         final SurfaceTextureCallable surfaceTextureCallable0 = new SurfaceTextureCallable();
@@ -463,7 +477,7 @@ public final class PreviewTest {
     @UiThreadTest
     public void outputIsPublished_whenListenerIsSetAfter()
             throws InterruptedException, ExecutionException {
-
+        Assume.assumeTrue(mCameraId != null);
         Preview useCase = new Preview(mDefaultConfig);
 
         final SurfaceTextureCallable surfaceTextureCallable0 = new SurfaceTextureCallable();

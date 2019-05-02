@@ -16,9 +16,18 @@
 
 package androidx.camera.camera2.impl;
 
+import static org.junit.Assume.assumeTrue;
+
 import android.Manifest;
+import android.content.Context;
+import android.content.pm.PackageManager;
 import android.graphics.SurfaceTexture;
+import android.hardware.Camera;
+import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraDevice;
+import android.hardware.camera2.CameraManager;
+import android.os.Build;
+import android.util.Log;
 import android.util.Size;
 import android.view.Surface;
 
@@ -38,6 +47,7 @@ import androidx.test.filters.SmallTest;
 import androidx.test.rule.GrantPermissionRule;
 
 import org.junit.After;
+import org.junit.AssumptionViolatedException;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -57,6 +67,7 @@ public final class Camera2ImplCameraRepositoryTest {
     private FakeUseCaseConfig mConfig;
     private CallbackAttachingFakeUseCase mUseCase;
     private CameraFactory mCameraFactory;
+    private String mCameraId;
 
     private String getCameraIdForLensFacingUnchecked(LensFacing lensFacing) {
         try {
@@ -72,24 +83,28 @@ public final class Camera2ImplCameraRepositoryTest {
             Manifest.permission.CAMERA);
 
     @Before
-    public void setUp() {
+    public void setUp() throws AssumptionViolatedException {
+        assumeTrue(checkCamera() > 0);
         mCameraRepository = new CameraRepository();
         mCameraFactory = new Camera2CameraFactory(ApplicationProvider.getApplicationContext());
         mCameraRepository.init(mCameraFactory);
         mUseCaseGroup = new UseCaseGroup();
         mConfig = new FakeUseCaseConfig.Builder().setLensFacing(LensFacing.BACK).build();
-        String cameraId = getCameraIdForLensFacingUnchecked(mConfig.getLensFacing());
-        mUseCase = new CallbackAttachingFakeUseCase(mConfig, cameraId);
+        mCameraId = getCameraIdForLensFacingUnchecked(mConfig.getLensFacing());
+        mUseCase = new CallbackAttachingFakeUseCase(mConfig, mCameraId);
         mUseCaseGroup.addUseCase(mUseCase);
     }
 
     @After
     public void tearDown() throws InterruptedException {
-        mCameraRepository.onGroupInactive(mUseCaseGroup);
+        if (checkCamera() > 0) {
+            mCameraRepository.onGroupInactive(mUseCaseGroup);
 
-        // Wait some time for the cameras to close. We need the cameras to close to bring CameraX
-        // back to the initial state.
-        Thread.sleep(3000);
+            // Wait some time for the cameras to close.
+            // We need the cameras to close to bring CameraX
+            // back to the initial state.
+            Thread.sleep(3000);
+        }
     }
 
     @Test
@@ -127,6 +142,42 @@ public final class Camera2ImplCameraRepositoryTest {
         // .html#close()
     }
 
+    private int checkCamera() {
+        Log.i("Camera2ImplCameraRepositoryTest", "checkCamera");
+        int length = 0;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            try {
+                length = ((CameraManager) ApplicationProvider.getApplicationContext()
+                        .getSystemService(Context.CAMERA_SERVICE)).getCameraIdList().length;
+            } catch (CameraAccessException e) {
+                Log.e("Camera2ImplCameraRepositoryTest", "checkCamera CAMERA_SERVICE", e);
+            }
+            Log.i("Camera2ImplCameraRepositoryTest", "id length" + length);
+        }
+        ////////////////////////////////////
+        int noc = Camera.getNumberOfCameras();
+        Log.i("Camera2ImplCameraRepositoryTest", "Camera.getNumberOfCameras(): " + noc);
+
+        /////////////////////////////////////////
+        PackageManager pm = ApplicationProvider.getApplicationContext().getPackageManager();
+        boolean frontCam, rearCam;
+
+        //Must have a targetSdk >= 9 defined in the AndroidManifest
+        frontCam = pm.hasSystemFeature(PackageManager.FEATURE_CAMERA_FRONT);
+        rearCam = pm.hasSystemFeature(PackageManager.FEATURE_CAMERA);
+        Log.i("Camera2ImplCameraRepositoryTest", "frontCam" + frontCam);
+        Log.i("Camera2ImplCameraRepositoryTest", "rearCam" + rearCam);
+
+        boolean featureCamera = pm.hasSystemFeature(PackageManager.FEATURE_CAMERA);
+        boolean featureCameraAny = pm.hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY);
+
+        ////////////////////////////////////////
+        if (length <= 0 | noc <= 0 | frontCam | rearCam | featureCamera | featureCameraAny) {
+            return 0;
+        } else {
+            return 1;
+        }
+    }
     /** A fake use case which attaches to a camera with various callbacks. */
     private static class CallbackAttachingFakeUseCase extends FakeUseCase {
         private final DeviceStateCallback mDeviceStateCallback = new DeviceStateCallback();
