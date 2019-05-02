@@ -43,6 +43,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.SmallTest;
 
 import org.junit.After;
+import org.junit.Assume;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -120,6 +121,7 @@ public final class CameraTest {
 
     @Test
     public void onlineUseCase() {
+        Assume.assumeTrue(mCameraId != null);
         mCamera.open();
 
         mCamera.addOnlineUseCase(Collections.<UseCase>singletonList(mFakeUseCase));
@@ -131,6 +133,7 @@ public final class CameraTest {
 
     @Test
     public void activeUseCase() {
+        Assume.assumeTrue(mCameraId != null);
         mCamera.open();
 
         mCamera.onUseCaseActive(mFakeUseCase);
@@ -142,6 +145,7 @@ public final class CameraTest {
 
     @Test
     public void onlineAndActiveUseCase() throws InterruptedException {
+        Assume.assumeTrue(mCameraId != null);
         mCamera.open();
 
         mCamera.addOnlineUseCase(Collections.<UseCase>singletonList(mFakeUseCase));
@@ -153,6 +157,7 @@ public final class CameraTest {
 
     @Test
     public void removeOnlineUseCase() {
+        Assume.assumeTrue(mCameraId != null);
         mCamera.open();
 
         mCamera.addOnlineUseCase(Collections.<UseCase>singletonList(mFakeUseCase));
@@ -164,6 +169,7 @@ public final class CameraTest {
 
     @Test
     public void unopenedCamera() {
+        Assume.assumeTrue(mCameraId != null);
         mCamera.addOnlineUseCase(Collections.<UseCase>singletonList(mFakeUseCase));
         mCamera.removeOnlineUseCase(Collections.<UseCase>singletonList(mFakeUseCase));
 
@@ -172,6 +178,7 @@ public final class CameraTest {
 
     @Test
     public void closedCamera() {
+        Assume.assumeTrue(mCameraId != null);
         mCamera.open();
 
         mCamera.close();
@@ -183,6 +190,7 @@ public final class CameraTest {
 
     @Test
     public void releaseUnopenedCamera() {
+        Assume.assumeTrue(mCameraId != null);
         mCamera.release();
         mCamera.open();
 
@@ -194,6 +202,7 @@ public final class CameraTest {
 
     @Test
     public void releasedOpenedCamera() {
+        Assume.assumeTrue(mCameraId != null);
         mCamera.release();
         mCamera.open();
 

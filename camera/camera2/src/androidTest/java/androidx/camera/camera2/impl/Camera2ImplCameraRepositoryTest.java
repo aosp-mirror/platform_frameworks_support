@@ -38,6 +38,7 @@ import androidx.test.filters.SmallTest;
 import androidx.test.rule.GrantPermissionRule;
 
 import org.junit.After;
+import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -57,6 +58,7 @@ public final class Camera2ImplCameraRepositoryTest {
     private FakeUseCaseConfig mConfig;
     private CallbackAttachingFakeUseCase mUseCase;
     private CameraFactory mCameraFactory;
+    private String mCameraId;
 
     private String getCameraIdForLensFacingUnchecked(LensFacing lensFacing) {
         try {
@@ -78,8 +80,8 @@ public final class Camera2ImplCameraRepositoryTest {
         mCameraRepository.init(mCameraFactory);
         mUseCaseGroup = new UseCaseGroup();
         mConfig = new FakeUseCaseConfig.Builder().setLensFacing(LensFacing.BACK).build();
-        String cameraId = getCameraIdForLensFacingUnchecked(mConfig.getLensFacing());
-        mUseCase = new CallbackAttachingFakeUseCase(mConfig, cameraId);
+        mCameraId = getCameraIdForLensFacingUnchecked(mConfig.getLensFacing());
+        mUseCase = new CallbackAttachingFakeUseCase(mConfig, mCameraId);
         mUseCaseGroup.addUseCase(mUseCase);
     }
 
@@ -94,6 +96,7 @@ public final class Camera2ImplCameraRepositoryTest {
 
     @Test
     public void cameraDeviceCallsAreForwardedToCallback() throws InterruptedException {
+        Assume.assumeTrue(mCameraId != null);
         mUseCase.addStateChangeListener(
                 mCameraRepository.getCamera(
                         getCameraIdForLensFacingUnchecked(mConfig.getLensFacing())));
@@ -111,6 +114,7 @@ public final class Camera2ImplCameraRepositoryTest {
 
     @Test
     public void cameraSessionCallsAreForwardedToCallback() throws InterruptedException {
+        Assume.assumeTrue(mCameraId != null);
         mUseCase.addStateChangeListener(
                 mCameraRepository.getCamera(
                         getCameraIdForLensFacingUnchecked(mConfig.getLensFacing())));
