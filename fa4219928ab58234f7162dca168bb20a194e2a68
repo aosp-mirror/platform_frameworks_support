@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6e7efdd7_e63651ff",
+        "filename": "lifecycle/integration-tests/incrementality/src/test/kotlin/androidx/lifecycle/IncrementalAnnotationProcessingTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1323892
+      },
+      "writtenOn": "2019-05-02T13:32:00Z",
+      "side": 1,
+      "message": "It seems FileTime doesn\u0027t have isLessThan/isEqualTo method. :)",
+      "parentUuid": "fcbe667c_bc2ed4cf",
+      "range": {
+        "startLine": 137,
+        "startChar": 40,
+        "endLine": 137,
+        "endChar": 49
+      },
+      "revId": "fa4219928ab58234f7162dca168bb20a194e2a68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6deb77c5_4714341a",
         "filename": "lifecycle/integration-tests/incrementality/src/test/kotlin/androidx/lifecycle/IncrementalAnnotationProcessingTest.kt",
         "patchSetId": 17
@@ -45,6 +69,30 @@
       "revId": "fa4219928ab58234f7162dca168bb20a194e2a68",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4958695_3490074d",
+        "filename": "lifecycle/integration-tests/incrementality/src/test/kotlin/androidx/lifecycle/IncrementalAnnotationProcessingTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 1323892
+      },
+      "writtenOn": "2019-05-02T13:32:00Z",
+      "side": 1,
+      "message": "I know it looks a little wired. But this is done by IDE automatically.",
+      "parentUuid": "6deb77c5_4714341a",
+      "range": {
+        "startLine": 336,
+        "startChar": 16,
+        "endLine": 336,
+        "endChar": 29
+      },
+      "revId": "fa4219928ab58234f7162dca168bb20a194e2a68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
