@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a1a24e35_ff815a5b",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/BuildOnServer.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-05-02T21:08:30Z",
+      "side": 1,
+      "message": "I suggest clarifying what/why/how via a comment like:\n\nA task that:\n#1. Depends on all of the build artifacts that we want to build on server builds\n#2. Double-checks that all expected artifacts were built",
+      "range": {
+        "startLine": 25,
+        "startChar": 3,
+        "endLine": 25,
+        "endChar": 64
+      },
+      "revId": "08faacde452be77f6773ed69589a4dd65884e19e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "adc3bf45_94cfa15e",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/BuildOnServer.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-05-02T21:08:30Z",
+      "side": 1,
+      "message": "It might be worth keeping a list of all the missing files and throwing an error containing the full list, in case there are multiple files that were missed",
+      "revId": "08faacde452be77f6773ed69589a4dd65884e19e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
