@@ -16,6 +16,8 @@
 
 package androidx.camera.camera2;
 
+import static org.junit.Assume.assumeTrue;
+
 import android.content.Context;
 import android.graphics.ImageFormat;
 import android.hardware.camera2.CameraDevice;
@@ -40,6 +42,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.MediumTest;
 
 import org.junit.After;
+import org.junit.AssumptionViolatedException;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -74,7 +77,8 @@ public final class ImageReaderProxysTest {
     }
 
     @Before
-    public void setUp() {
+    public void setUp() throws AssumptionViolatedException {
+        assumeTrue(CameraUtil.checkCameraDevice());
         Context context = ApplicationProvider.getApplicationContext();
         AppConfig appConfig = Camera2AppConfig.create(context);
         CameraFactory cameraFactory = appConfig.getCameraFactory(null);
@@ -87,10 +91,13 @@ public final class ImageReaderProxysTest {
 
     @After
     public void tearDown() {
-        mCamera.release();
-        mHandlerThread.quitSafely();
+        if (mCamera !=  null && mHandlerThread != null) {
+            mCamera.release();
+            mHandlerThread.quitSafely();
+        }
     }
 
+    @MediumTest
     @Test
     public void sharedReadersGetFramesFromCamera() throws InterruptedException {
         List<ImageReaderProxy> readers = new ArrayList<>();
@@ -116,6 +123,7 @@ public final class ImageReaderProxysTest {
         }
     }
 
+    @MediumTest
     @Test
     public void isolatedReadersGetFramesFromCamera() throws InterruptedException {
         List<ImageReaderProxy> readers = new ArrayList<>();

@@ -16,6 +16,7 @@
 
 package androidx.camera.camera2.impl;
 
+import static org.junit.Assume.assumeTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.timeout;
@@ -27,6 +28,7 @@ import android.media.ImageReader;
 import android.media.ImageReader.OnImageAvailableListener;
 import android.os.Handler;
 import android.os.HandlerThread;
+import android.util.Log;
 import android.util.Size;
 
 import androidx.camera.core.BaseCamera;
@@ -36,6 +38,7 @@ import androidx.camera.core.CameraX.LensFacing;
 import androidx.camera.core.ImmediateSurface;
 import androidx.camera.core.SessionConfig;
 import androidx.camera.core.UseCase;
+import androidx.camera.testing.CameraUtil;
 import androidx.camera.testing.fakes.FakeUseCase;
 import androidx.camera.testing.fakes.FakeUseCaseConfig;
 import androidx.test.core.app.ApplicationProvider;
@@ -43,6 +46,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 
 import org.junit.After;
+import org.junit.AssumptionViolatedException;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -80,7 +84,9 @@ public final class CameraTest {
     }
 
     @Before
-    public void setup() {
+    public void setup() throws AssumptionViolatedException {
+        assumeTrue(CameraUtil.checkCameraDevice());
+        Log.i("CameraTest", "setup");
         mMockOnImageAvailableListener = Mockito.mock(ImageReader.OnImageAvailableListener.class);
         FakeUseCaseConfig config =
                 new FakeUseCaseConfig.Builder()
