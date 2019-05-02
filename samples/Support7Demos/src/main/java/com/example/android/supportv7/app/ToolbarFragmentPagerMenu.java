@@ -63,7 +63,11 @@ public class ToolbarFragmentPagerMenu extends AppCompatActivity {
         private final List<Fragment> mFragments;
 
         public PagerAdapter(FragmentManager fm, Fragment... fragments) {
+<<<<<<< HEAD   (eaf9a7 Merge "Merge empty history for sparse-5522318-L8750000030582)
             super(fm);
+=======
+            super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+>>>>>>> BRANCH (736a74 Merge "Merge cherrypicks of [955240] into sparse-5522907-L19)
 
             mFragments = new ArrayList<Fragment>();
             for (Fragment fragment : fragments) {

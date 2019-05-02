@@ -68,6 +68,34 @@ public abstract class FragmentStatePagerAdapter extends PagerAdapter {
     private static final String TAG = "FragmentStatePagerAdapt";
     private static final boolean DEBUG = false;
 
+<<<<<<< HEAD   (eaf9a7 Merge "Merge empty history for sparse-5522318-L8750000030582)
+=======
+    @Retention(RetentionPolicy.SOURCE)
+    @IntDef({BEHAVIOR_SET_USER_VISIBLE_HINT, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT})
+    private @interface Behavior { }
+
+    /**
+     * Indicates that {@link Fragment#setUserVisibleHint(boolean)} will be called when the current
+     * fragment changes.
+     *
+     * @deprecated This behavior relies on the deprecated
+     * {@link Fragment#setUserVisibleHint(boolean)} API. Use
+     * {@link #BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT} to switch to its replacement,
+     * {@link FragmentTransaction#setMaxLifecycle}.
+     * @see #FragmentStatePagerAdapter(FragmentManager, int)
+     */
+    @Deprecated
+    public static final int BEHAVIOR_SET_USER_VISIBLE_HINT = 0;
+
+    /**
+     * Indicates that only the current fragment will be in the {@link Lifecycle.State#RESUMED}
+     * state. All other Fragments are capped at {@link Lifecycle.State#STARTED}.
+     *
+     * @see #FragmentStatePagerAdapter(FragmentManager, int)
+     */
+    public static final int BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT = 1;
+
+>>>>>>> BRANCH (736a74 Merge "Merge cherrypicks of [955240] into sparse-5522907-L19)
     private final FragmentManager mFragmentManager;
     private FragmentTransaction mCurTransaction = null;
 
@@ -75,7 +103,44 @@ public abstract class FragmentStatePagerAdapter extends PagerAdapter {
     private ArrayList<Fragment> mFragments = new ArrayList<Fragment>();
     private Fragment mCurrentPrimaryItem = null;
 
+<<<<<<< HEAD   (eaf9a7 Merge "Merge empty history for sparse-5522318-L8750000030582)
+=======
+    /**
+     * Constructor for {@link FragmentStatePagerAdapter} that sets the fragment manager for the
+     * adapter. This is the equivalent of calling
+     * {@link #FragmentStatePagerAdapter(FragmentManager, int)} and passing in
+     * {@link #BEHAVIOR_SET_USER_VISIBLE_HINT}.
+     *
+     * <p>Fragments will have {@link Fragment#setUserVisibleHint(boolean)} called whenever the
+     * current Fragment changes.</p>
+     *
+     * @param fm fragment manager that will interact with this adapter
+     * @deprecated use {@link #FragmentStatePagerAdapter(FragmentManager, int)} with
+     * {@link #BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT}
+     */
+    @Deprecated
+>>>>>>> BRANCH (736a74 Merge "Merge cherrypicks of [955240] into sparse-5522907-L19)
     public FragmentStatePagerAdapter(@NonNull FragmentManager fm) {
+<<<<<<< HEAD   (eaf9a7 Merge "Merge empty history for sparse-5522318-L8750000030582)
+=======
+        this(fm, BEHAVIOR_SET_USER_VISIBLE_HINT);
+    }
+
+    /**
+     * Constructor for {@link FragmentStatePagerAdapter}.
+     *
+     * If {@link #BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT} is passed in, then only the current
+     * Fragment is in the {@link Lifecycle.State#RESUMED} state, while all other fragments are
+     * capped at {@link Lifecycle.State#STARTED}. If {@link #BEHAVIOR_SET_USER_VISIBLE_HINT} is
+     * passed, all fragments are in the {@link Lifecycle.State#RESUMED} state and there will be
+     * callbacks to {@link Fragment#setUserVisibleHint(boolean)}.
+     *
+     * @param fm fragment manager that will interact with this adapter
+     * @param behavior determines if only current fragments are in a resumed state
+     */
+    public FragmentStatePagerAdapter(@NonNull FragmentManager fm,
+            @Behavior int behavior) {
+>>>>>>> BRANCH (736a74 Merge "Merge cherrypicks of [955240] into sparse-5522907-L19)
         mFragmentManager = fm;
     }
 
@@ -123,10 +188,24 @@ public abstract class FragmentStatePagerAdapter extends PagerAdapter {
             mFragments.add(null);
         }
         fragment.setMenuVisibility(false);
+<<<<<<< HEAD   (eaf9a7 Merge "Merge empty history for sparse-5522318-L8750000030582)
         fragment.setUserVisibleHint(false);
+=======
+        if (mBehavior == BEHAVIOR_SET_USER_VISIBLE_HINT) {
+            fragment.setUserVisibleHint(false);
+        }
+
+>>>>>>> BRANCH (736a74 Merge "Merge cherrypicks of [955240] into sparse-5522907-L19)
         mFragments.set(position, fragment);
         mCurTransaction.add(container.getId(), fragment);
 
+<<<<<<< HEAD   (eaf9a7 Merge "Merge empty history for sparse-5522318-L8750000030582)
+=======
+        if (mBehavior == BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+            mCurTransaction.setMaxLifecycle(fragment, Lifecycle.State.STARTED);
+        }
+
+>>>>>>> BRANCH (736a74 Merge "Merge cherrypicks of [955240] into sparse-5522907-L19)
         return fragment;
     }
 
@@ -156,10 +235,33 @@ public abstract class FragmentStatePagerAdapter extends PagerAdapter {
         if (fragment != mCurrentPrimaryItem) {
             if (mCurrentPrimaryItem != null) {
                 mCurrentPrimaryItem.setMenuVisibility(false);
+<<<<<<< HEAD   (eaf9a7 Merge "Merge empty history for sparse-5522318-L8750000030582)
                 mCurrentPrimaryItem.setUserVisibleHint(false);
+=======
+                if (mBehavior == BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+                    if (mCurTransaction == null) {
+                        mCurTransaction = mFragmentManager.beginTransaction();
+                    }
+                    mCurTransaction.setMaxLifecycle(mCurrentPrimaryItem, Lifecycle.State.STARTED);
+                } else {
+                    mCurrentPrimaryItem.setUserVisibleHint(false);
+                }
+>>>>>>> BRANCH (736a74 Merge "Merge cherrypicks of [955240] into sparse-5522907-L19)
             }
             fragment.setMenuVisibility(true);
+<<<<<<< HEAD   (eaf9a7 Merge "Merge empty history for sparse-5522318-L8750000030582)
             fragment.setUserVisibleHint(true);
+=======
+            if (mBehavior == BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+                if (mCurTransaction == null) {
+                    mCurTransaction = mFragmentManager.beginTransaction();
+                }
+                mCurTransaction.setMaxLifecycle(fragment, Lifecycle.State.RESUMED);
+            } else {
+                fragment.setUserVisibleHint(true);
+            }
+
+>>>>>>> BRANCH (736a74 Merge "Merge cherrypicks of [955240] into sparse-5522907-L19)
             mCurrentPrimaryItem = fragment;
         }
     }
