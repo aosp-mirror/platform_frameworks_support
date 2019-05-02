@@ -146,6 +146,7 @@ package androidx.media2.common {
     method @IntRange(from=androidx.media2.common.SessionPlayer.INVALID_ITEM_INDEX) public abstract int getPreviousMediaItemIndex();
     method public abstract int getRepeatMode();
     method public abstract int getShuffleMode();
+    method public abstract androidx.media2.common.VideoSize getVideoSize();
     method public abstract com.google.common.util.concurrent.ListenableFuture<androidx.media2.common.SessionPlayer.PlayerResult> pause();
     method public abstract com.google.common.util.concurrent.ListenableFuture<androidx.media2.common.SessionPlayer.PlayerResult> play();
     method public abstract com.google.common.util.concurrent.ListenableFuture<androidx.media2.common.SessionPlayer.PlayerResult> prepare();
@@ -196,6 +197,7 @@ package androidx.media2.common {
     method public void onRepeatModeChanged(androidx.media2.common.SessionPlayer, int);
     method public void onSeekCompleted(androidx.media2.common.SessionPlayer, long);
     method public void onShuffleModeChanged(androidx.media2.common.SessionPlayer, int);
+    method public void onVideoSizeChanged(androidx.media2.common.SessionPlayer, androidx.media2.common.MediaItem, androidx.media2.common.VideoSize);
   }
 
   public static class SessionPlayer.PlayerResult {
@@ -226,6 +228,12 @@ package androidx.media2.common {
     method public androidx.media2.common.UriMediaItem.Builder setEndPosition(long);
     method public androidx.media2.common.UriMediaItem.Builder setMetadata(androidx.media2.common.MediaMetadata?);
     method public androidx.media2.common.UriMediaItem.Builder setStartPosition(long);
+  }
+
+  public final class VideoSize {
+    ctor public VideoSize(@IntRange(from=0) int, @IntRange(from=0) int);
+    method @IntRange(from=0) public int getHeight();
+    method @IntRange(from=0) public int getWidth();
   }
 
 }

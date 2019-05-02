@@ -42,6 +42,7 @@ import androidx.media2.common.FileMediaItem;
 import androidx.media2.common.MediaItem;
 import androidx.media2.common.SessionPlayer;
 import androidx.media2.common.SessionPlayer.PlayerResult;
+import androidx.media2.common.VideoSize;
 import androidx.media2.player.MediaPlayer.TrackInfo;
 import androidx.media2.player.TestUtils.Monitor;
 import androidx.media2.player.test.R;
@@ -192,7 +193,7 @@ public class MediaPlayerTest extends MediaPlayerTestBase {
         final TestUtils.Monitor onVideoRenderingStartCalled = new TestUtils.Monitor();
         MediaPlayer.PlayerCallback callback = new MediaPlayer.PlayerCallback() {
             @Override
-            public void onVideoSizeChanged(MediaPlayer mp, MediaItem dsd, VideoSize size) {
+            public void onVideoSizeChanged(SessionPlayer mp, MediaItem dsd, VideoSize size) {
                 if (size.getWidth() == 0 && size.getHeight() == 0) {
                     // A size of 0x0 can be sent initially one time when using NuPlayer.
                     assertFalse(onVideoSizeChangedCalled.isSignalled());
@@ -292,7 +293,7 @@ public class MediaPlayerTest extends MediaPlayerTestBase {
         final TestUtils.Monitor onVideoRenderingStartCalled = new TestUtils.Monitor();
         MediaPlayer.PlayerCallback callback = new MediaPlayer.PlayerCallback() {
             @Override
-            public void onVideoSizeChanged(MediaPlayer mp, MediaItem dsd, VideoSize size) {
+            public void onVideoSizeChanged(SessionPlayer mp, MediaItem dsd, VideoSize size) {
                 if (size.getWidth() == 0 && size.getHeight() == 0) {
                     // A size of 0x0 can be sent initially one time when using NuPlayer.
                     assertFalse(onVideoSizeChangedCalled.isSignalled());

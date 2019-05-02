@@ -47,10 +47,10 @@ import androidx.media2.common.MediaItem;
 import androidx.media2.common.MediaMetadata;
 import androidx.media2.common.SessionPlayer;
 import androidx.media2.common.UriMediaItem;
+import androidx.media2.common.VideoSize;
 import androidx.media2.player.MediaPlayer;
 import androidx.media2.player.MediaPlayer.TrackInfo;
 import androidx.media2.player.SubtitleData;
-import androidx.media2.player.VideoSize;
 import androidx.media2.player.subtitle.Cea708CaptionRenderer;
 import androidx.media2.player.subtitle.ClosedCaptionRenderer;
 import androidx.media2.player.subtitle.SubtitleController;
@@ -833,18 +833,19 @@ public class VideoView extends SelectiveLayout {
             new MediaPlayer.PlayerCallback() {
                 @Override
                 public void onVideoSizeChanged(
-                        @NonNull MediaPlayer mp, @NonNull MediaItem dsd, @NonNull VideoSize size) {
+                        @NonNull SessionPlayer player, @NonNull MediaItem item,
+                        @NonNull VideoSize size) {
                     if (DEBUG) {
                         Log.d(TAG, "onVideoSizeChanged(): size: " + size.getWidth() + "/"
                                 + size.getHeight());
                     }
-                    if (mp != mMediaPlayer) {
+                    if (player != mMediaPlayer) {
                         if (DEBUG) {
                             Log.w(TAG, "onVideoSizeChanged() is ignored. mp is already gone.");
                         }
                         return;
                     }
-                    if (dsd != mMediaItem) {
+                    if (item != mMediaItem) {
                         if (DEBUG) {
                             Log.w(TAG, "onVideoSizeChanged() is ignored. Media item is changed.");
                         }

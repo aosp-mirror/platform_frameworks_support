@@ -27,6 +27,7 @@ import android.os.SystemClock;
 import android.text.TextUtils;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.concurrent.futures.ResolvableFuture;
 import androidx.core.util.Pair;
 import androidx.media.AudioAttributesCompat;
@@ -34,6 +35,7 @@ import androidx.media2.common.MediaItem;
 import androidx.media2.common.MediaMetadata;
 import androidx.media2.common.SessionPlayer;
 import androidx.media2.common.UriMediaItem;
+import androidx.media2.common.VideoSize;
 import androidx.media2.session.RemoteSessionPlayer;
 import androidx.mediarouter.media.MediaItemStatus;
 import androidx.mediarouter.media.MediaRouteSelector;
@@ -427,6 +429,12 @@ import java.util.concurrent.Future;
     @Override
     public int getShuffleMode() {
         return SessionPlayer.SHUFFLE_MODE_NONE;
+    }
+
+    @Override
+    @NonNull
+    public VideoSize getVideoSize() {
+        return new VideoSize(0, 0);
     }
 
     @Override
