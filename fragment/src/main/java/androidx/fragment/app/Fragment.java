@@ -2896,6 +2896,20 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
         }
     }
 
+    // Check if children of this Fragment have an options menu
+    boolean childHasOptionsMenu() {
+        boolean childHasMenu;
+        if (mChildFragmentManager != null) {
+            for (Fragment f : mChildFragmentManager.mActive.values()) {
+                childHasMenu = mChildFragmentManager.hasOptionsMenu(f);
+                if (childHasMenu) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     void setOnStartEnterTransitionListener(OnStartEnterTransitionListener listener) {
         ensureAnimationInfo();
         if (listener == mAnimationInfo.mStartEnterTransitionListener) {
