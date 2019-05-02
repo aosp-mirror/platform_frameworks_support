@@ -1,0 +1,803 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7cfb8714_19a3be3d",
+        "filename": "security/crypto/src/main/java/androidx/security/content/EncryptedSharedPreferencesCompat.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-05-02T01:27:32Z",
+      "side": 1,
+      "message": "nit: final\n\nis there a version of this in the framework? we only suffix -Compat for things which are in the framework and for which the AndroidX is a standalone version. I think this is just standalone, right?",
+      "revId": "75a6d4f32d98b1bc01d30672a5a3c7aea351edf6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af3b9c3b_f8ed0dcf",
+        "filename": "security/crypto/src/main/java/androidx/security/content/EncryptedSharedPreferencesCompat.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-05-02T01:27:32Z",
+      "side": 1,
+      "message": "What\u0027s the min API? On API 19 and up this is available at StandardCharsets.UTF_8 to avoid having to create your own",
+      "revId": "75a6d4f32d98b1bc01d30672a5a3c7aea351edf6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae23c235_c93b5aef",
+        "filename": "security/crypto/src/main/java/androidx/security/content/EncryptedSharedPreferencesCompat.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-05-02T01:27:32Z",
+      "side": 1,
+      "message": "Should these be public?",
+      "revId": "75a6d4f32d98b1bc01d30672a5a3c7aea351edf6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b96b5a89_363f7fe5",
+        "filename": "security/crypto/src/main/java/androidx/security/content/EncryptedSharedPreferencesCompat.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-05-02T01:27:32Z",
+      "side": 1,
+      "message": "Feels like every field in this type should be final. I can\u0027t think of a reason to change their values once created.",
+      "revId": "75a6d4f32d98b1bc01d30672a5a3c7aea351edf6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "040404a1_2f482905",
+        "filename": "security/crypto/src/main/java/androidx/security/content/EncryptedSharedPreferencesCompat.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-05-02T01:27:32Z",
+      "side": 1,
+      "message": "IOException should be pretty obvious but maybe put in a throwaway description like \"when fileName could not be used\", but I have no idea when GeneralSecurityException would occur and what action I\u0027m supposed to take. Is this a failure mode that\u0027s expected frequently or rare? What do I as a developer do when it\u0027s thrown?",
+      "revId": "75a6d4f32d98b1bc01d30672a5a3c7aea351edf6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42f4bf54_7bf8c261",
+        "filename": "security/crypto/src/main/java/androidx/security/content/EncryptedSharedPreferencesCompat.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-05-02T01:27:32Z",
+      "side": 1,
+      "message": "I might just call this \u0027create\u0027 since it\u0027s a factory and the class already conveys the type (encrypted shared prefs)",
+      "revId": "75a6d4f32d98b1bc01d30672a5a3c7aea351edf6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2cae5109_9d451c00",
+        "filename": "security/crypto/src/main/java/androidx/security/content/EncryptedSharedPreferencesCompat.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-05-02T01:27:32Z",
+      "side": 1,
+      "message": "nit: final",
+      "revId": "75a6d4f32d98b1bc01d30672a5a3c7aea351edf6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "556e9a7b_95a241d0",
+        "filename": "security/crypto/src/main/java/androidx/security/content/EncryptedSharedPreferencesCompat.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-05-02T01:27:32Z",
+      "side": 1,
+      "message": "Needs an @IntDef ideally, or at the very least documentation or @see for what values are acceptable",
+      "revId": "75a6d4f32d98b1bc01d30672a5a3c7aea351edf6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e38a89b6_0de70d4f",
+        "filename": "security/crypto/src/main/java/androidx/security/content/EncryptedSharedPreferencesCompat.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-05-02T01:27:32Z",
+      "side": 1,
+      "message": "You probably want to add some validation for required elements or move them to the Builder constructor. It seems like context is required, for example.",
+      "revId": "75a6d4f32d98b1bc01d30672a5a3c7aea351edf6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44dada31_f4fa2ae0",
+        "filename": "security/crypto/src/main/java/androidx/security/content/EncryptedSharedPreferencesCompat.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-05-02T01:27:32Z",
+      "side": 1,
+      "message": "Not handling null value",
+      "revId": "75a6d4f32d98b1bc01d30672a5a3c7aea351edf6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6063b89_d96181c1",
+        "filename": "security/crypto/src/main/java/androidx/security/content/EncryptedSharedPreferencesCompat.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-05-02T01:27:32Z",
+      "side": 1,
+      "message": "You\u0027re not handling the case where `values` is null. It will currently NPE.",
+      "revId": "75a6d4f32d98b1bc01d30672a5a3c7aea351edf6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d4046dd_e361d904",
+        "filename": "security/crypto/src/main/java/androidx/security/content/EncryptedSharedPreferencesCompat.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-05-02T01:27:32Z",
+      "side": 1,
+      "message": "nit: pre-size ArrayList",
+      "revId": "75a6d4f32d98b1bc01d30672a5a3c7aea351edf6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1e2128f_a71dd4c0",
+        "filename": "security/crypto/src/main/java/androidx/security/content/EncryptedSharedPreferencesCompat.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-05-02T01:27:32Z",
+      "side": 1,
+      "message": "All of these put methods allow a nullable key. It\u0027s horrible and stupid, yes. But the existing implementation doesn\u0027t handle it because it\u0027s always passed to encryptedKey",
+      "revId": "75a6d4f32d98b1bc01d30672a5a3c7aea351edf6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "17ff446b_f55359c9",
+        "filename": "security/crypto/src/main/java/androidx/security/content/EncryptedSharedPreferencesCompat.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-05-02T01:27:32Z",
+      "side": 1,
+      "message": "If you want, these could be stored as a byte instead of an int. Saves 3 bytes per boolean!",
+      "revId": "75a6d4f32d98b1bc01d30672a5a3c7aea351edf6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "feb0595b_8d69092d",
+        "filename": "security/crypto/src/main/java/androidx/security/content/EncryptedSharedPreferencesCompat.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-05-02T01:27:32Z",
+      "side": 1,
+      "message": "key may be null and encryptKey does not handle nulls",
+      "revId": "75a6d4f32d98b1bc01d30672a5a3c7aea351edf6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a83d4ac4_7f65b3c8",
+        "filename": "security/crypto/src/main/java/androidx/security/content/EncryptedSharedPreferencesCompat.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 433,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-05-02T01:27:32Z",
+      "side": 1,
+      "message": "constant for empty array?",
+      "revId": "75a6d4f32d98b1bc01d30672a5a3c7aea351edf6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bffab08e_48c27c68",
+        "filename": "security/crypto/src/main/java/androidx/security/content/EncryptedSharedPreferencesCompat.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 468,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-05-02T01:27:32Z",
+      "side": 1,
+      "message": "This should be in an `else` so that you do not allocate when the key is present and a set",
+      "revId": "75a6d4f32d98b1bc01d30672a5a3c7aea351edf6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22e5344d_d7788d79",
+        "filename": "security/crypto/src/main/java/androidx/security/content/EncryptedSharedPreferencesCompat.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 512,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-05-02T01:27:32Z",
+      "side": 1,
+      "message": "It is not safe for this object to be both the preferences and preferences editor. Consider the following test:\n\n    Editor e1 \u003d p.edit()\n    e1.set(\"foo\", \"bar\")\n    Editor e2 \u003d p.edit()\n    e2.set(\"bar\", \"baz\")\n    e1.commit()\n    println(p.get(\"foo\"))\n    println(p.get(\"bar\"))\n    e2.commit()\n    println(p.get(\"foo\"))\n    println(p.get(\"bar\"))\n\nAs far as I can tell, in the current setup this will erroneously print\n\n    bar\n    baz\n    bar\n    baz\n\ninstead of\n\n    bar\n    null\n    bar\n    baz\n\nThe concurrency implications for interacting across threads also seems particularly devastating.\n\nYou need to create a new editor wrapper every time this method is called.",
+      "revId": "75a6d4f32d98b1bc01d30672a5a3c7aea351edf6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff43b0ad_c36388fa",
+        "filename": "security/crypto/src/main/java/androidx/security/content/EncryptedSharedPreferencesCompat.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 530,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-05-02T01:27:32Z",
+      "side": 1,
+      "message": "Remove? How would nulls get into the list? If you forbid nulls check in register method and throw NPE.",
+      "revId": "75a6d4f32d98b1bc01d30672a5a3c7aea351edf6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f1f01d3_1369f3c4",
+        "filename": "security/crypto/src/main/java/androidx/security/content/EncryptedSharedPreferencesCompat.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 546,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-05-02T01:27:32Z",
+      "side": 1,
+      "message": "nit: could be a constant instead of allocating every time",
+      "revId": "75a6d4f32d98b1bc01d30672a5a3c7aea351edf6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14c8f710_47796928",
+        "filename": "security/crypto/src/main/java/androidx/security/content/EncryptedSharedPreferencesCompat.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 560,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-05-02T01:27:32Z",
+      "side": 1,
+      "message": "this annotation and @hide aren\u0027t necessary for private things",
+      "revId": "75a6d4f32d98b1bc01d30672a5a3c7aea351edf6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78b6e70f_434bcb2a",
+        "filename": "security/crypto/src/main/java/androidx/security/content/EncryptedSharedPreferencesCompat.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 607,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-05-02T01:27:32Z",
+      "side": 1,
+      "message": "Seems like this should be using wrap, not allocate",
+      "revId": "75a6d4f32d98b1bc01d30672a5a3c7aea351edf6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8056c689_650de010",
+        "filename": "security/crypto/src/main/java/androidx/security/content/EncryptedSharedPreferencesCompat.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 617,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-05-02T01:27:32Z",
+      "side": 1,
+      "message": "You can avoid the intermediate byte[] copy when creating a string by doing\n\n    int stringLength \u003d buffer.getInt();\n    ByteBuffer stringSlice \u003d buffer.slice();\n    stringSlice.limit(stringLength)\n    returnValue \u003d UTF_8.decode(stringSlice);\n\nSame below in the string set case",
+      "revId": "75a6d4f32d98b1bc01d30672a5a3c7aea351edf6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71b7f565_b621588a",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedFile.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-05-02T01:27:32Z",
+      "side": 1,
+      "message": "nit: final",
+      "revId": "75a6d4f32d98b1bc01d30672a5a3c7aea351edf6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46411940_34ab6052",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedFile.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-05-02T01:27:32Z",
+      "side": 1,
+      "message": "Should these be public?",
+      "revId": "75a6d4f32d98b1bc01d30672a5a3c7aea351edf6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15cfacfc_50dffe91",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedFile.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-05-02T01:27:32Z",
+      "side": 1,
+      "message": "All fields in this type should be final",
+      "revId": "75a6d4f32d98b1bc01d30672a5a3c7aea351edf6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a61f95c_b8e3362d",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedFile.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-05-02T01:27:32Z",
+      "side": 1,
+      "message": "nit: final",
+      "revId": "75a6d4f32d98b1bc01d30672a5a3c7aea351edf6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84cc925f_8ae4094d",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedFile.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-05-02T01:27:32Z",
+      "side": 1,
+      "message": "Needs @IntDef for mode",
+      "revId": "75a6d4f32d98b1bc01d30672a5a3c7aea351edf6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77c0d5ba_e0462794",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedFile.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-05-02T01:27:32Z",
+      "side": 1,
+      "message": "All fields final?",
+      "revId": "75a6d4f32d98b1bc01d30672a5a3c7aea351edf6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d010455_bf533e04",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedFile.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-05-02T01:27:32Z",
+      "side": 1,
+      "message": "Delete override",
+      "revId": "75a6d4f32d98b1bc01d30672a5a3c7aea351edf6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4cf39fdf_b49cd111",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedFile.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-05-02T01:27:32Z",
+      "side": 1,
+      "message": "All fields final?",
+      "revId": "75a6d4f32d98b1bc01d30672a5a3c7aea351edf6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba6e888c_c7ee252b",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedFile.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-05-02T01:27:32Z",
+      "side": 1,
+      "message": "Delete override",
+      "revId": "75a6d4f32d98b1bc01d30672a5a3c7aea351edf6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f18ae97_0430fcd0",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/MasterKey.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-05-02T01:27:32Z",
+      "side": 1,
+      "message": "This class feels like a value type. It should probably implement equals, hashCode, and toString as a result.",
+      "revId": "75a6d4f32d98b1bc01d30672a5a3c7aea351edf6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f202d087_eb464aa1",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/MasterKey.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-05-02T01:27:32Z",
+      "side": 1,
+      "message": "nit: final",
+      "revId": "75a6d4f32d98b1bc01d30672a5a3c7aea351edf6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ebbf395_3b76c1a2",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/MasterKey.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-05-02T01:27:32Z",
+      "side": 1,
+      "message": "Do these need to be public?",
+      "revId": "75a6d4f32d98b1bc01d30672a5a3c7aea351edf6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9daac624_f6fb41c9",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/MasterKey.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-05-02T01:27:32Z",
+      "side": 1,
+      "message": "All fields seems like they should be final",
+      "revId": "75a6d4f32d98b1bc01d30672a5a3c7aea351edf6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d69a1b05_86289d2d",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/MasterKey.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-05-02T01:27:32Z",
+      "side": 1,
+      "message": "Anything that gets displayed should use CharSequence so that it can carry spans",
+      "revId": "75a6d4f32d98b1bc01d30672a5a3c7aea351edf6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b21a5f2_0a14ebce",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/MasterKey.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-05-02T01:27:32Z",
+      "side": 1,
+      "message": "nit: final",
+      "revId": "75a6d4f32d98b1bc01d30672a5a3c7aea351edf6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8026a57_e1cefa78",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/MasterKey.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-05-02T01:27:32Z",
+      "side": 1,
+      "message": "Probably want @WorkerThread on this since I assume it does heavy computation and file I/O",
+      "revId": "75a6d4f32d98b1bc01d30672a5a3c7aea351edf6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73c63cbd_d055ac59",
+        "filename": "security/crypto/src/main/java/androidx/security/net/ValidatedURL.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-05-02T01:27:32Z",
+      "side": 1,
+      "message": "This feels like a value type and so I think it needs equals, toString, and hashCode implementations",
+      "revId": "75a6d4f32d98b1bc01d30672a5a3c7aea351edf6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca8c9a5a_809d6163",
+        "filename": "security/crypto/src/main/java/androidx/security/net/ValidatedURL.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-05-02T01:27:32Z",
+      "side": 1,
+      "message": "We don\u0027t use @TargetApi and are trying to ban its use. Why is it here? Can we place it somewhere more localized?",
+      "revId": "75a6d4f32d98b1bc01d30672a5a3c7aea351edf6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70f37ba6_450064be",
+        "filename": "security/crypto/src/main/java/androidx/security/net/ValidatedURL.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-05-02T01:27:32Z",
+      "side": 1,
+      "message": "nit: final\n\nAlso should be `ValidateUrl` not URL. Acronyms are cased as if they are words.",
+      "revId": "75a6d4f32d98b1bc01d30672a5a3c7aea351edf6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "938e0781_816be47b",
+        "filename": "security/crypto/src/main/java/androidx/security/net/ValidatedURL.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-05-02T01:27:32Z",
+      "side": 1,
+      "message": "Arrays are mutable which means someone could overwrite these values. If you need to expose these, it should be as a `List\u003cString\u003e` which is wrapped with `Collections.unmodifiableList`",
+      "revId": "75a6d4f32d98b1bc01d30672a5a3c7aea351edf6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7e5686e_8fc856bc",
+        "filename": "security/crypto/src/main/java/androidx/security/net/ValidatedURL.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-05-02T01:27:32Z",
+      "side": 1,
+      "message": "Both final",
+      "revId": "75a6d4f32d98b1bc01d30672a5a3c7aea351edf6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bffdcf04_c4acaec8",
+        "filename": "security/crypto/src/main/java/androidx/security/net/ValidatedURL.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-05-02T01:27:32Z",
+      "side": 1,
+      "message": "If you\u0027re taking an array and holding on to the reference you need to call `.clone()` on it or someone could mutate its contents out from underneath you",
+      "revId": "75a6d4f32d98b1bc01d30672a5a3c7aea351edf6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "87118fb1_e9210eb4",
+        "filename": "security/crypto/src/main/java/androidx/security/net/ValidatedURL.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-05-02T01:27:32Z",
+      "side": 1,
+      "message": "Return `HttpsURLConnection`?\n\nIs there any way to use this type with a third-party HTTP library? I don\u0027t think most people use the built in HTTP APIs because they\u0027re... bad.",
+      "revId": "75a6d4f32d98b1bc01d30672a5a3c7aea351edf6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd184635_8be6aa3d",
+        "filename": "security/crypto/src/main/java/androidx/security/net/ValidatedURL.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-05-02T01:27:32Z",
+      "side": 1,
+      "message": "nit: the general rule is log or throw, not both",
+      "revId": "75a6d4f32d98b1bc01d30672a5a3c7aea351edf6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
