@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 The Android Open Source Project
+ * Copyright 2019 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,31 +14,17 @@
  * limitations under the License.
  */
 
-plugins {
-    id("AndroidXPlugin")
-    id("com.android.application")
-}
+package com.example.androidx.webkit;
 
-dependencies {
-    implementation(project(":appcompat"))
-    implementation(project(":webkit"))
-    implementation 'androidx.appcompat:appcompat:1.0.2'
-}
+import androidx.appcompat.app.AppCompatActivity;
 
-android {
-    defaultConfig {
-        minSdkVersion 19
-    }
-    lintOptions {
-        disable 'UnusedResources'
-    }
-    buildTypes {
-        release {
-            minifyEnabled true
-        }
+import android.os.Bundle;
 
-        debug {
-            minifyEnabled true
-        }
+public class Dummy2Activity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_dummy2);
     }
 }
