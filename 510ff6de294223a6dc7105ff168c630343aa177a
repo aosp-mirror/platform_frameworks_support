@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3cd4ae93_a66ee0fd",
+        "filename": "benchmark/src/androidTest/AndroidManifest.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-05-03T20:48:16Z",
+      "side": 1,
+      "message": "Consider just using \"android.app.Activity\", so it\u0027s clear visually that they\u0027re different activities? Can remove the TrivialActivity class then.",
+      "revId": "510ff6de294223a6dc7105ff168c630343aa177a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
