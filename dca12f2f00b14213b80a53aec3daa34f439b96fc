@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "64730dd8_b06ea71c",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedFile.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-05-03T18:04:05Z",
+      "side": 1,
+      "message": "nit: this and the output stream private method can be inlined to this method",
+      "revId": "dca12f2f00b14213b80a53aec3daa34f439b96fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
