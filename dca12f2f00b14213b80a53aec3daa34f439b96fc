@@ -405,6 +405,29 @@
     },
     {
       "key": {
+        "uuid": "cc64eab7_933630c8",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedFileKeyset.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1069370
+      },
+      "writtenOn": "2019-05-03T19:32:21Z",
+      "side": 1,
+      "message": "Should remove this.",
+      "range": {
+        "startLine": 33,
+        "startChar": 13,
+        "endLine": 33,
+        "endChar": 32
+      },
+      "revId": "dca12f2f00b14213b80a53aec3daa34f439b96fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d8ee40c9_3d384906",
         "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedSharedPreferences.java",
         "patchSetId": 24
@@ -836,6 +859,213 @@
         "startChar": 51,
         "endLine": 583,
         "endChar": 62
+      },
+      "revId": "dca12f2f00b14213b80a53aec3daa34f439b96fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68d25193_75dfd659",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedSharedPreferencesKeysets.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1069370
+      },
+      "writtenOn": "2019-05-03T19:32:21Z",
+      "side": 1,
+      "message": "Should remove this.",
+      "range": {
+        "startLine": 34,
+        "startChar": 13,
+        "endLine": 34,
+        "endChar": 46
+      },
+      "revId": "dca12f2f00b14213b80a53aec3daa34f439b96fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d24f057_d5c64e5d",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/MasterKey.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1069370
+      },
+      "writtenOn": "2019-05-03T19:32:21Z",
+      "side": 1,
+      "message": "Make this a public constant\n\npublic static final KeyGenParameterSpec AES256_GCM_SPEC \u003d createAES256GCMKeyGenParameterSpec(MASTER_KEY_ALIAS);",
+      "range": {
+        "startLine": 87,
+        "startChar": 0,
+        "endLine": 90,
+        "endChar": 5
+      },
+      "revId": "dca12f2f00b14213b80a53aec3daa34f439b96fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2bb62c1f_e00d108f",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/MasterKey.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1069370
+      },
+      "writtenOn": "2019-05-03T19:32:21Z",
+      "side": 1,
+      "message": "the body should look similar to ensureExistence().",
+      "range": {
+        "startLine": 104,
+        "startChar": 8,
+        "endLine": 105,
+        "endChar": 31
+      },
+      "revId": "dca12f2f00b14213b80a53aec3daa34f439b96fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "250a1c7a_9d45c134",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/MasterKey.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1069370
+      },
+      "writtenOn": "2019-05-03T19:32:21Z",
+      "side": 1,
+      "message": "What is this? The documentation isn\u0027t helpful.",
+      "range": {
+        "startLine": 123,
+        "startChar": 0,
+        "endLine": 123,
+        "endChar": 28
+      },
+      "revId": "dca12f2f00b14213b80a53aec3daa34f439b96fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29f8e85f_6d8719c3",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/MasterKey.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1069370
+      },
+      "writtenOn": "2019-05-03T19:32:21Z",
+      "side": 1,
+      "message": "Is there a way to check if a master key is locked and only prompt if it is?\n\nWhy don\u0027t you use BiometricPrompt? createConfirmDeviceCredentialIntent is deprecated in Q.",
+      "range": {
+        "startLine": 126,
+        "startChar": 8,
+        "endLine": 129,
+        "endChar": 61
+      },
+      "revId": "dca12f2f00b14213b80a53aec3daa34f439b96fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28456ad0_6b29d8a2",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/MasterKey.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1069370
+      },
+      "writtenOn": "2019-05-03T19:32:21Z",
+      "side": 1,
+      "message": "Should be removed because it is not needed.\n\nString masterKeyAlias \u003d \"my-master-key\";\nMasterKey masterKey \u003d MasterKey.getOrCreate(\"my-master-key\");\nmasterKey.maybePromptForUnlock(promptInfo);\n\nSharedPreferences pref \u003d EncryptedSharedPreferences.create(name, context, masterKeyAlias, ...);",
+      "range": {
+        "startLine": 132,
+        "startChar": 0,
+        "endLine": 132,
+        "endChar": 26
+      },
+      "revId": "dca12f2f00b14213b80a53aec3daa34f439b96fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e25e0286_c3fe645d",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/MasterKey.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1069370
+      },
+      "writtenOn": "2019-05-03T19:32:21Z",
+      "side": 1,
+      "message": "Since there is only one parameter, let\u0027s remove the Builder.",
+      "range": {
+        "startLine": 139,
+        "startChar": 30,
+        "endLine": 139,
+        "endChar": 37
+      },
+      "revId": "dca12f2f00b14213b80a53aec3daa34f439b96fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b59c9136_1d73f81a",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/MasterKey.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1069370
+      },
+      "writtenOn": "2019-05-03T19:32:21Z",
+      "side": 1,
+      "message": "Why do you need this?",
+      "range": {
+        "startLine": 164,
+        "startChar": 0,
+        "endLine": 164,
+        "endChar": 68
+      },
+      "revId": "dca12f2f00b14213b80a53aec3daa34f439b96fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d24b283_6c0eeb06",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/TinkCipher.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1069370
+      },
+      "writtenOn": "2019-05-03T19:32:21Z",
+      "side": 1,
+      "message": "Should remove this.\n\nPlease don\u0027t merge different primitives in a single object. It\u0027s an anti-pattern that we went to great lengths to remove with Tink.",
+      "range": {
+        "startLine": 51,
+        "startChar": 13,
+        "endLine": 51,
+        "endChar": 23
       },
       "revId": "dca12f2f00b14213b80a53aec3daa34f439b96fc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
