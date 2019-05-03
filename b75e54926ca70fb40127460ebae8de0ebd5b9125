@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "01f86512_ccc3f408",
+        "filename": "security/crypto/src/androidTest/java/androidx/security/crypto/EncryptedFileTest.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1069370
+      },
+      "writtenOn": "2019-05-03T23:55:52Z",
+      "side": 1,
+      "message": "Please add the following tests:\n- Tests that one cannot openFileOutput with an existing file.\n- Tests that one cannot openFileInput with a non-existing file.\n- Tests that using a custom keyset pref name and keyset alias works.\n- Tests that you can directly decrypt files using Tink. This ensures that the encryption is compatible with Tink.",
+      "range": {
+        "startLine": 40,
+        "startChar": 13,
+        "endLine": 40,
+        "endChar": 30
+      },
+      "revId": "b75e54926ca70fb40127460ebae8de0ebd5b9125",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "764c0b9c_644dd8fb",
+        "filename": "security/crypto/src/androidTest/java/androidx/security/crypto/EncryptedSharedPreferencesTest.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1069370
+      },
+      "writtenOn": "2019-05-03T23:55:52Z",
+      "side": 1,
+      "message": "Please add the following tests:\n- Tests that writing to the same key twice overwrites the existing value. This ensures that the key is encrypted deterministically.\n- Tests that you can directly decrypt keys or values using Tink. This makes sure the encryption is compatible with Tink.",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 45
+      },
+      "revId": "b75e54926ca70fb40127460ebae8de0ebd5b9125",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a0f3833a_b4832675",
         "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedFile.java",
         "patchSetId": 25
