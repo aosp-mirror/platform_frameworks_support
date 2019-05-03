@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "05bb5ee7_01aa7727",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/BuildOnServer.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-05-03T16:40:41Z",
+      "side": 1,
+      "message": "We need to specify these as inputs to this task, so the task can be cached.\n\nUse @InputFiles essentially and return all these.",
+      "range": {
+        "startLine": 42,
+        "startChar": 8,
+        "endLine": 51,
+        "endChar": 9
+      },
+      "revId": "e0d9e961df5583ba7fa539439585a08bdc72033c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
