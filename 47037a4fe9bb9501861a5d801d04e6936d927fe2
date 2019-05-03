@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7d6d18a4_f2650c8c",
+        "filename": "camera/extensions-stub/src/main/java/androidx/camera/extensions/impl/RequestUpdateProcessorImpl.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-03T23:13:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7fd9ea50_5aa6921b",
+      "range": {
+        "startLine": 22,
+        "startChar": 61,
+        "endLine": 22,
+        "endChar": 65
+      },
+      "revId": "47037a4fe9bb9501861a5d801d04e6936d927fe2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5540a8d5_ad7f37de",
         "filename": "camera/integration-tests/extensionstestlib/src/main/java/androidx/camera/extensions/impl/PreviewExtenderImpl.java",
         "patchSetId": 5
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "0a94fec2_cab9df2d",
+        "filename": "camera/integration-tests/extensionstestlib/src/main/java/androidx/camera/extensions/impl/PreviewExtenderImpl.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-03T23:13:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5540a8d5_ad7f37de",
+      "range": {
+        "startLine": 22,
+        "startChar": 89,
+        "endLine": 22,
+        "endChar": 93
+      },
+      "revId": "47037a4fe9bb9501861a5d801d04e6936d927fe2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c532f24f_a1da3255",
         "filename": "camera/integration-tests/extensionstestlib/src/main/java/androidx/camera/extensions/impl/PreviewExtenderImpl.java",
         "patchSetId": 5
@@ -68,6 +116,30 @@
       "revId": "47037a4fe9bb9501861a5d801d04e6936d927fe2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71506f52_14f1dc06",
+        "filename": "camera/integration-tests/extensionstestlib/src/main/java/androidx/camera/extensions/impl/PreviewExtenderImpl.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-03T23:13:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c532f24f_a1da3255",
+      "range": {
+        "startLine": 27,
+        "startChar": 9,
+        "endLine": 27,
+        "endChar": 29
+      },
+      "revId": "47037a4fe9bb9501861a5d801d04e6936d927fe2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
