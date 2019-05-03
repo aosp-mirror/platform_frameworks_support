@@ -1,0 +1,349 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a0f3833a_b4832675",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedFile.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1069370
+      },
+      "writtenOn": "2019-05-03T22:58:44Z",
+      "side": 1,
+      "message": "Not sure how you\u0027d document in Android, but usually we\u0027d want to add an example usage here.",
+      "range": {
+        "startLine": 47,
+        "startChar": 3,
+        "endLine": 47,
+        "endChar": 49
+      },
+      "revId": "b75e54926ca70fb40127460ebae8de0ebd5b9125",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "32450ebe_b304b7a3",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedFile.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1069370
+      },
+      "writtenOn": "2019-05-03T22:58:44Z",
+      "side": 1,
+      "message": "Nit: since EncryptedFileOutput and EncryptedFileInput are package private, you don\u0027t want to mention them in the comment, do you?",
+      "range": {
+        "startLine": 47,
+        "startChar": 50,
+        "endLine": 48,
+        "endChar": 40
+      },
+      "revId": "b75e54926ca70fb40127460ebae8de0ebd5b9125",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "828ead78_3d19f1ad",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedFile.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1069370
+      },
+      "writtenOn": "2019-05-03T22:58:44Z",
+      "side": 1,
+      "message": "You no longer need these?",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 76,
+        "endChar": 35
+      },
+      "revId": "b75e54926ca70fb40127460ebae8de0ebd5b9125",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8c723a9_78784ecc",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedFile.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1069370
+      },
+      "writtenOn": "2019-05-03T22:58:44Z",
+      "side": 1,
+      "message": "private?",
+      "range": {
+        "startLine": 94,
+        "startChar": 8,
+        "endLine": 94,
+        "endChar": 19
+      },
+      "revId": "b75e54926ca70fb40127460ebae8de0ebd5b9125",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a04b95f2_dd0c1cf9",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedFile.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1069370
+      },
+      "writtenOn": "2019-05-03T22:58:44Z",
+      "side": 1,
+      "message": "nit: move these two lines to a separate section to highlight that they\u0027re optional.\n\n// Required parameters.\nfinal File mFile;\nfinal FileEncryptionScheme mFileEncryptionScheme;\nfinal Context mContext;\nfinal String mMasterKeyAlias;\n\n// Optional parameters with default values.\nString mKeysetPrefName \u003d KEYSET_PREF_NAME;\nString mKeysetAlias \u003d KEYSET_ALIAS;",
+      "range": {
+        "startLine": 121,
+        "startChar": 8,
+        "endLine": 122,
+        "endChar": 43
+      },
+      "revId": "b75e54926ca70fb40127460ebae8de0ebd5b9125",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78df4065_60d595ae",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedFile.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1069370
+      },
+      "writtenOn": "2019-05-03T22:58:44Z",
+      "side": 1,
+      "message": "nit: The SharedPreferences file to store the keyset.",
+      "range": {
+        "startLine": 128,
+        "startChar": 33,
+        "endLine": 128,
+        "endChar": 85
+      },
+      "revId": "b75e54926ca70fb40127460ebae8de0ebd5b9125",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "903f9cfd_1ee55238",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedFile.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1069370
+      },
+      "writtenOn": "2019-05-03T22:58:44Z",
+      "side": 1,
+      "message": "Nit: The alias in the SharedPreferences file to store the keyset.",
+      "range": {
+        "startLine": 138,
+        "startChar": 30,
+        "endLine": 138,
+        "endChar": 89
+      },
+      "revId": "b75e54926ca70fb40127460ebae8de0ebd5b9125",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "87367dcd_63243182",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedFile.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1069370
+      },
+      "writtenOn": "2019-05-03T22:58:44Z",
+      "side": 1,
+      "message": "An EncryptedFile with the specified parameters.",
+      "range": {
+        "startLine": 148,
+        "startChar": 19,
+        "endLine": 148,
+        "endChar": 49
+      },
+      "revId": "b75e54926ca70fb40127460ebae8de0ebd5b9125",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b82f4eba_428b31b7",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedFile.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1069370
+      },
+      "writtenOn": "2019-05-03T22:58:44Z",
+      "side": 1,
+      "message": "should be mKeysetAlias, mKeysetPrefName",
+      "range": {
+        "startLine": 156,
+        "startChar": 46,
+        "endLine": 156,
+        "endChar": 76
+      },
+      "revId": "b75e54926ca70fb40127460ebae8de0ebd5b9125",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69574d7e_1f4632f7",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedFile.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1069370
+      },
+      "writtenOn": "2019-05-03T22:58:44Z",
+      "side": 1,
+      "message": "can be removed",
+      "range": {
+        "startLine": 164,
+        "startChar": 30,
+        "endLine": 164,
+        "endChar": 59
+      },
+      "revId": "b75e54926ca70fb40127460ebae8de0ebd5b9125",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81ec614e_6a342270",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedFile.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1069370
+      },
+      "writtenOn": "2019-05-03T22:58:44Z",
+      "side": 1,
+      "message": "the same master key and keyset",
+      "range": {
+        "startLine": 193,
+        "startChar": 35,
+        "endLine": 193,
+        "endChar": 68
+      },
+      "revId": "b75e54926ca70fb40127460ebae8de0ebd5b9125",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4dfaf7e_fea2c392",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedFile.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1069370
+      },
+      "writtenOn": "2019-05-03T22:58:44Z",
+      "side": 1,
+      "message": "static private?",
+      "range": {
+        "startLine": 218,
+        "startChar": 4,
+        "endLine": 218,
+        "endChar": 9
+      },
+      "revId": "b75e54926ca70fb40127460ebae8de0ebd5b9125",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7076a855_fb936dcb",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedFile.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1069370
+      },
+      "writtenOn": "2019-05-03T22:58:44Z",
+      "side": 1,
+      "message": "why is this needed? it\u0027s not used anywhere.",
+      "range": {
+        "startLine": 220,
+        "startChar": 0,
+        "endLine": 220,
+        "endChar": 57
+      },
+      "revId": "b75e54926ca70fb40127460ebae8de0ebd5b9125",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "434f3d02_ec922f80",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedFile.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 1069370
+      },
+      "writtenOn": "2019-05-03T22:58:44Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 272,
+        "startChar": 4,
+        "endLine": 272,
+        "endChar": 9
+      },
+      "revId": "b75e54926ca70fb40127460ebae8de0ebd5b9125",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7f5d3b4_573c644e",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedFile.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1069370
+      },
+      "writtenOn": "2019-05-03T22:58:44Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 274,
+        "startChar": 0,
+        "endLine": 275,
+        "endChar": 57
+      },
+      "revId": "b75e54926ca70fb40127460ebae8de0ebd5b9125",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
