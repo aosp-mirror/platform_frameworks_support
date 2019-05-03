@@ -16,12 +16,15 @@
 
 package androidx.camera.integration.core;
 
+import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.SurfaceTexture;
+import android.hardware.camera2.CameraAccessException;
+import android.hardware.camera2.CameraManager;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -659,6 +662,21 @@ public class CameraXActivity extends AppCompatActivity
         StrictMode.VmPolicy policy =
                 new StrictMode.VmPolicy.Builder().detectAll().penaltyLog().build();
         StrictMode.setVmPolicy(policy);
+
+        // check if device has Camera or not.
+        int numCameras = 0;
+        try {
+            numCameras = ((CameraManager) getApplicationContext()
+                    .getSystemService(Context.CAMERA_SERVICE)).getCameraIdList().length;
+
+            if (numCameras == 0) {
+                //no camera support, stop the app.
+                this.onStop();
+                return;
+            }
+        } catch (CameraAccessException e) {
+            Log.e(TAG, "Exception for getCameraIdList: ", e);
+        }
 
         // Get params from adb extra string
         Bundle bundle = this.getIntent().getExtras();
