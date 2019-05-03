@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7fd9ea50_5aa6921b",
+        "filename": "camera/extensions-stub/src/main/java/androidx/camera/extensions/impl/RequestUpdateProcessorImpl.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1061247
+      },
+      "writtenOn": "2019-05-03T21:36:49Z",
+      "side": 1,
+      "message": "nits:\n(1) \"only\" --\u003e \"to update a CaptureStage.\" [so the update in the name is more apparent]\n(2) \"The interface for\" --\u003e \"Processes\" [interface keyword already makes this clear]",
+      "range": {
+        "startLine": 22,
+        "startChar": 61,
+        "endLine": 22,
+        "endChar": 65
+      },
+      "revId": "47037a4fe9bb9501861a5d801d04e6936d927fe2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5540a8d5_ad7f37de",
+        "filename": "camera/integration-tests/extensionstestlib/src/main/java/androidx/camera/extensions/impl/PreviewExtenderImpl.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1061247
+      },
+      "writtenOn": "2019-05-03T21:36:49Z",
+      "side": 1,
+      "message": "\"view finder\" --\u003e \"preview\"",
+      "range": {
+        "startLine": 22,
+        "startChar": 89,
+        "endLine": 22,
+        "endChar": 93
+      },
+      "revId": "47037a4fe9bb9501861a5d801d04e6936d927fe2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c532f24f_a1da3255",
+        "filename": "camera/integration-tests/extensionstestlib/src/main/java/androidx/camera/extensions/impl/PreviewExtenderImpl.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1061247
+      },
+      "writtenOn": "2019-05-03T21:36:49Z",
+      "side": 1,
+      "message": "just ProcessorType?\n\nsince \"Preview\" is already in the outer class name",
+      "range": {
+        "startLine": 27,
+        "startChar": 9,
+        "endLine": 27,
+        "endChar": 29
+      },
+      "revId": "47037a4fe9bb9501861a5d801d04e6936d927fe2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
