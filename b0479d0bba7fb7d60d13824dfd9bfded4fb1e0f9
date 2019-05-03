@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7f6ce920_5d68cb90",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CameraX.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-03T00:38:22Z",
+      "side": 1,
+      "message": "Do we actually enforce this? I think our check is actually the number of Surfaces that are bound. But I guess right now we have a 1-1 mapping of use case to Surface.\n\nWe should add unit tests that check we will throw an IllegalArgumentException at the correct time.",
+      "revId": "b0479d0bba7fb7d60d13824dfd9bfded4fb1e0f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
