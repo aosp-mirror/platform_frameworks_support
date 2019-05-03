@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9b291bed_acaf513a",
+        "filename": "car/core/api/current.txt",
+        "patchSetId": 12
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-05-03T17:27:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "26d328a0_1111cd63",
+      "range": {
+        "startLine": 349,
+        "startChar": 30,
+        "endLine": 349,
+        "endChar": 33
+      },
+      "revId": "20b5c7a06f5d8fce7e8fd0fa1e75eaba37cfe98b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "60b5214d_64b7fb0e",
         "filename": "car/core/api/current.txt",
         "patchSetId": 12
@@ -45,6 +69,30 @@
       "revId": "20b5c7a06f5d8fce7e8fd0fa1e75eaba37cfe98b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bdf9ee72_6898eca0",
+        "filename": "car/core/api/current.txt",
+        "patchSetId": 12
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-05-03T17:27:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "60b5214d_64b7fb0e",
+      "range": {
+        "startLine": 368,
+        "startChar": 50,
+        "endLine": 368,
+        "endChar": 68
+      },
+      "revId": "20b5c7a06f5d8fce7e8fd0fa1e75eaba37cfe98b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "79e41f6f_8fe8a612",
+        "filename": "car/core/src/main/java/androidx/car/widget/CompoundButtonListItem.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-05-03T17:27:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fe04fa0b_f4b2bdbf",
+      "range": {
+        "startLine": 303,
+        "startChar": 4,
+        "endLine": 303,
+        "endChar": 32
+      },
+      "revId": "20b5c7a06f5d8fce7e8fd0fa1e75eaba37cfe98b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5388de8d_c2e66904",
         "filename": "car/core/src/main/java/androidx/car/widget/CompoundButtonListItem.java",
         "patchSetId": 12
@@ -82,6 +154,30 @@
       "writtenOn": "2019-05-03T16:22:18Z",
       "side": 1,
       "message": "What are possible options? end and not end? Should this be `int getCompountButtonPosition()`?",
+      "range": {
+        "startLine": 352,
+        "startChar": 28,
+        "endLine": 352,
+        "endChar": 55
+      },
+      "revId": "20b5c7a06f5d8fce7e8fd0fa1e75eaba37cfe98b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54e04919_6f9670b6",
+        "filename": "car/core/src/main/java/androidx/car/widget/CompoundButtonListItem.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-05-03T17:27:09Z",
+      "side": 1,
+      "message": "Only two configurations planned to be supported. Compound button at the start and compound button and the end. Do you feel this should be captured by an intDef with constants?",
+      "parentUuid": "5388de8d_c2e66904",
       "range": {
         "startLine": 352,
         "startChar": 28,
