@@ -9,7 +9,7 @@ plugins {
 dependencies {
     api(project(":annotation"))
     api(project(":core"))
-    api("androidx.customview:customview:1.0.0")
+    api(project(":customview"))
 }
 
 androidx {
