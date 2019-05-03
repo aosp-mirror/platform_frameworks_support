@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "70532469_3c95544e",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/SupportedSurfaceCombination.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1482193
+      },
+      "writtenOn": "2019-05-03T08:18:24Z",
+      "side": 1,
+      "message": "The TOLERANCE \u003d 0.01f is reference to framework legacy code RequestThreadManager.java and LegacyMetadataMapper.java. It can get the largest size in the supported list which are filtered with the tolerance.",
+      "parentUuid": "6dbf4e0b_9bbf9c5e",
+      "range": {
+        "startLine": 72,
+        "startChar": 31,
+        "endLine": 72,
+        "endChar": 62
+      },
+      "revId": "14fe6196f632db10117cc9828f92a0118a43a28f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5e4bdae7_27ce5511",
         "filename": "camera/camera2/src/main/java/androidx/camera/camera2/SupportedSurfaceCombination.java",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2019-04-25T01:38:59Z",
       "side": 1,
       "message": "Would a more elegant solution be to sort the aspect ratios by how close they are to the target aspect ratio? Ties could be broken by size.\n\nI\u0027m sure there is something I\u0027m missing with taking into account the target resolution, but it would be nice if we could succinctly describe the strategy we use to choose the final size in a javadoc.",
+      "range": {
+        "startLine": 336,
+        "startChar": 0,
+        "endLine": 343,
+        "endChar": 64
+      },
+      "revId": "14fe6196f632db10117cc9828f92a0118a43a28f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6de12a84_f6e026e2",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/SupportedSurfaceCombination.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 1482193
+      },
+      "writtenOn": "2019-05-03T08:18:24Z",
+      "side": 1,
+      "message": "It look better solution to sort the aspect ratios by how close they are to the target aspect ratio. But I think it need to consider more situations about the entire mechanism for rearranging the supported resolution list, maybe we can separate this part and the bug on 5.0 LEGACY device to two CLs and bugs.",
+      "parentUuid": "5e4bdae7_27ce5511",
       "range": {
         "startLine": 336,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "25fc4185_a577b622",
+        "filename": "camera/core/src/main/java/androidx/camera/core/Preview.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 1482193
+      },
+      "writtenOn": "2019-05-03T08:18:24Z",
+      "side": 1,
+      "message": "Move part of logic to getHardwareLevel() in CameraInfo.",
+      "parentUuid": "bd3ce314_14ba8309",
+      "range": {
+        "startLine": 295,
+        "startChar": 0,
+        "endLine": 295,
+        "endChar": 91
+      },
+      "revId": "14fe6196f632db10117cc9828f92a0118a43a28f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "01f27b90_f6ce1205",
         "filename": "camera/core/src/main/java/androidx/camera/core/Preview.java",
         "patchSetId": 2
@@ -82,6 +154,30 @@
       "writtenOn": "2019-04-24T13:53:24Z",
       "side": 1,
       "message": "looks like an infinite recursive call here ?  Would it be clearer if change it to super.updateUseCaseConfig?",
+      "range": {
+        "startLine": 311,
+        "startChar": 0,
+        "endLine": 311,
+        "endChar": 63
+      },
+      "revId": "14fe6196f632db10117cc9828f92a0118a43a28f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "638009c4_dc2176c2",
+        "filename": "camera/core/src/main/java/androidx/camera/core/Preview.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 1482193
+      },
+      "writtenOn": "2019-05-03T08:18:24Z",
+      "side": 1,
+      "message": "It need to check the usecase is Preview if change it to super.updateUseCaseConfig.",
+      "parentUuid": "01f27b90_f6ce1205",
       "range": {
         "startLine": 311,
         "startChar": 0,
