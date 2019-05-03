@@ -32,8 +32,10 @@ import android.media.ImageReader;
 import android.media.ImageReader.OnImageAvailableListener;
 import android.os.Handler;
 import android.os.HandlerThread;
+import android.view.Surface;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.camera.camera2.impl.CaptureSession.State;
 import androidx.camera.core.CameraCaptureCallback;
 import androidx.camera.core.CameraCaptureCallbacks;
@@ -46,6 +48,9 @@ import androidx.camera.testing.CameraUtil;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.SmallTest;
 
+import com.google.common.util.concurrent.Futures;
+import com.google.common.util.concurrent.ListenableFuture;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -54,6 +59,7 @@ import org.mockito.Mockito;
 
 import java.util.Collections;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
 import java.util.concurrent.TimeUnit;
 
@@ -226,6 +232,54 @@ public final class CaptureSessionTest {
                 .onCaptureCompleted(any(CameraCaptureResult.class));
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void issueCaptureRequestWithDifferentDeferrableSurface_throwException()
+            throws CameraAccessException, InterruptedException, ExecutionException {
+        CaptureSession captureSession = new CaptureSession(mTestParameters0.mHandler);
+        captureSession.setSessionConfig(mTestParameters0.mSessionConfig);
+
+        captureSession.open(mTestParameters0.mSessionConfig, mCameraDevice);
+
+        mTestParameters0.waitForData();
+
+        CaptureConfig.Builder captureConfigBuilderUnconfigured = new CaptureConfig.Builder();
+        captureConfigBuilderUnconfigured.setTemplateType(CameraDevice.TEMPLATE_STILL_CAPTURE);
+        captureConfigBuilderUnconfigured.addSurface(
+                new ImmediateSurface(
+                        mTestParameters0.mRefreshingImageReaderSurface.getSurface().get()));
+        captureConfigBuilderUnconfigured.addCameraCaptureCallback(
+                mTestParameters0.mComboCameraCaptureCallback);
+
+        // Should report IllegalArgumentException
+        captureSession.issueCaptureRequests(
+                Collections.singletonList(captureConfigBuilderUnconfigured.build()));
+    }
+
+    @Test
+    public void issueCaptureRequestAcrossCaptureSessions()
+            throws CameraAccessException, InterruptedException {
+        CaptureSession captureSession = new CaptureSession(mTestParameters0.mHandler);
+        captureSession.setSessionConfig(mTestParameters0.mSessionConfig);
+
+        captureSession.issueCaptureRequests(
+                Collections.singletonList(mTestParameters0.mCaptureConfig));
+        captureSession.open(mTestParameters0.mSessionConfig, mCameraDevice);
+
+        captureSession.close();
+        CaptureSession captureSession2 = new CaptureSession(mTestParameters0.mHandler);
+        captureSession2.setSessionConfig(captureSession.getSessionConfig());
+        if (!captureSession.getCaptureConfigs().isEmpty()) {
+            captureSession2.issueCaptureRequests(captureSession.getCaptureConfigs());
+        }
+        captureSession2.open(mTestParameters0.mSessionConfig, mCameraDevice);
+
+        mTestParameters0.waitForCameraCaptureCallback();
+
+        // CameraCaptureCallback.onCaptureCompleted() should be called to signal a capture attempt.
+        verify(mTestParameters0.mCameraCaptureCallback, timeout(3000).times(1))
+                .onCaptureCompleted(any(CameraCaptureResult.class));
+    }
+
     @Test
     public void issueCaptureRequestBeforeCaptureSessionOpened()
             throws CameraAccessException, InterruptedException {
@@ -272,7 +326,8 @@ public final class CaptureSessionTest {
                 command.run();
             }
         };
-        mTestParameters0.mDeferrableSurface.setOnSurfaceDetachedListener(executor, listener);
+        mTestParameters0.mRefreshingImageReaderSurface.setOnSurfaceDetachedListener(executor,
+                listener);
 
         captureSession.release();
 
@@ -280,6 +335,7 @@ public final class CaptureSessionTest {
 
         Mockito.verify(listener, times(1)).onSurfaceDetached();
     }
+
 
     /**
      * Collection of parameters required for setting a {@link CaptureSession} and wait for it to
@@ -310,7 +366,7 @@ public final class CaptureSessionTest {
                     }
                 };
 
-        private final ImageReader mImageReader;
+        private final RefreshingImageReaderSurface mRefreshingImageReaderSurface;
         private final SessionConfig mSessionConfig;
         private final CaptureConfig mCaptureConfig;
 
@@ -321,7 +377,6 @@ public final class CaptureSessionTest {
         private final CameraCaptureCallback mCameraCaptureCallback =
                 Mockito.mock(CameraCaptureCallback.class);
 
-        private final DeferrableSurface mDeferrableSurface;
         /**
          * A composite capture callback that dispatches callbacks to both mock and real callbacks.
          * The mock callback is used to verify the callback result. The real callback is used to
@@ -342,14 +397,12 @@ public final class CaptureSessionTest {
             mHandlerThread.start();
             mHandler = new Handler(mHandlerThread.getLooper());
 
-            mImageReader =
-                    ImageReader.newInstance(640, 480, ImageFormat.YUV_420_888, /*maxImages*/ 2);
-            mImageReader.setOnImageAvailableListener(mOnImageAvailableListener, mHandler);
+            mRefreshingImageReaderSurface = new RefreshingImageReaderSurface(
+                    mOnImageAvailableListener, mHandler);
 
             SessionConfig.Builder builder = new SessionConfig.Builder();
             builder.setTemplateType(CameraDevice.TEMPLATE_PREVIEW);
-            mDeferrableSurface = new ImmediateSurface(mImageReader.getSurface());
-            builder.addSurface(mDeferrableSurface);
+            builder.addSurface(mRefreshingImageReaderSurface);
             builder.addSessionStateCallback(mSessionStateCallback);
             builder.addRepeatingCameraCaptureCallback(mSessionCameraCaptureCallback);
 
@@ -357,7 +410,7 @@ public final class CaptureSessionTest {
 
             CaptureConfig.Builder captureConfigBuilder = new CaptureConfig.Builder();
             captureConfigBuilder.setTemplateType(CameraDevice.TEMPLATE_PREVIEW);
-            captureConfigBuilder.addSurface(new ImmediateSurface(mImageReader.getSurface()));
+            captureConfigBuilder.addSurface(mRefreshingImageReaderSurface);
             captureConfigBuilder.addCameraCaptureCallback(mComboCameraCaptureCallback);
 
             mCaptureConfig = captureConfigBuilder.build();
@@ -378,8 +431,49 @@ public final class CaptureSessionTest {
 
         /** Clean up resources. */
         void tearDown() {
-            mImageReader.close();
+            mRefreshingImageReaderSurface.close();
             mHandlerThread.quitSafely();
         }
     }
+
+    // A DeferrableSurface which will create new ImageReader/Surface on getOrCreateSurface
+    private static class RefreshingImageReaderSurface extends DeferrableSurface {
+        ImageReader mImageReader;
+        OnImageAvailableListener mOnImageAvailableListener;
+        Handler mHandler;
+
+
+        RefreshingImageReaderSurface(OnImageAvailableListener onImageAvailableListener,
+                Handler handler) {
+            mOnImageAvailableListener = onImageAvailableListener;
+            mHandler = handler;
+        }
+
+        @Override
+        public void refresh() {
+            if (mImageReader != null) {
+                mImageReader.close();
+            }
+            mImageReader =
+                    ImageReader.newInstance(640, 480, ImageFormat.YUV_420_888, /*maxImages*/ 2);
+            mImageReader.setOnImageAvailableListener(mOnImageAvailableListener, mHandler);
+        }
+
+        @Nullable
+        @Override
+        public ListenableFuture<Surface> getSurface() {
+            if (mImageReader == null) {
+                refresh();
+            }
+            return Futures.immediateFuture(mImageReader.getSurface());
+        }
+
+
+        public void close() {
+            if (mImageReader != null) {
+                mImageReader.close();
+            }
+        }
+    }
+
 }

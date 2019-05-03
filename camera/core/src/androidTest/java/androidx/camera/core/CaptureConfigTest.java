@@ -35,6 +35,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -55,7 +56,8 @@ public class CaptureConfigTest {
         CaptureConfig captureConfig = builder.build();
 
         CaptureRequest.Builder captureRequestBuilder =
-                captureConfig.buildCaptureRequest(cameraDevice);
+                captureConfig.buildCaptureRequest(cameraDevice, new HashMap<DeferrableSurface,
+                        Surface>());
 
         assertThat(captureRequestBuilder).isNull();
     }

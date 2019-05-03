@@ -133,12 +133,39 @@ public final class CaptureConfig {
     }
 
     /**
+     * Get the configured Surface from DeferrableSurface list using the Surface map which is stored
+     * when creating capture session.
+     *
+     * @param configuredSurfaceMap surface mapping which was created when creating capture session.
+     * @return a list of Surface confirmed to be configured.
+     * @throws IllegalArgumentException if the DeferrableSurface is not the one in SessionConfig.
+     */
+
+    private List<Surface> getConfiguredSurfaces(List<DeferrableSurface> deferrableSurfaces,
+            Map<DeferrableSurface, Surface> configuredSurfaceMap) {
+        List<Surface> surfaceList = new ArrayList<>();
+        for (DeferrableSurface deferrableSurface : deferrableSurfaces) {
+            Surface surface = configuredSurfaceMap.get(deferrableSurface);
+
+            if (surface == null) {
+                // DeferrableSurface in CaptureConfig must be the one in the SessionConfig
+                throw new IllegalArgumentException("DeferrableSurface not in SessionConfig");
+            }
+
+            surfaceList.add(surface);
+        }
+
+        return surfaceList;
+    }
+
+    /**
      * Return the builder of a {@link CaptureRequest} which can be issued.
      *
      * <p>Returns {@code null} if a valid {@link CaptureRequest} can not be constructed.
      */
     @Nullable
-    public CaptureRequest.Builder buildCaptureRequest(@Nullable CameraDevice device)
+    public CaptureRequest.Builder buildCaptureRequest(@Nullable CameraDevice device,
+            Map<DeferrableSurface, Surface> configuredSurfaceMap)
             throws CameraAccessException {
         if (device == null) {
             return null;
@@ -150,7 +177,7 @@ public final class CaptureConfig {
             captureRequestParameter.apply(builder);
         }
 
-        List<Surface> surfaceList = DeferrableSurfaces.surfaceList(mSurfaces);
+        List<Surface> surfaceList = getConfiguredSurfaces(mSurfaces, configuredSurfaceMap);
 
         if (surfaceList.isEmpty()) {
             return null;
@@ -215,6 +242,7 @@ public final class CaptureConfig {
 
         /**
          * Adds a {@link CameraCaptureSession.StateCallback} callback.
+         *
          * @throws IllegalArgumentException if the callback already exists in the configuration.
          */
         public void addCameraCaptureCallback(CameraCaptureCallback cameraCaptureCallback) {
@@ -226,6 +254,7 @@ public final class CaptureConfig {
 
         /**
          * Adds all {@link CameraCaptureSession.StateCallback} callbacks.
+         *
          * @throws IllegalArgumentException if any callback already exists in the configuration.
          */
         public void addAllCameraCaptureCallbacks(

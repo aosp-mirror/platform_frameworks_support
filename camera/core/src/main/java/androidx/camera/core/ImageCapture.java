@@ -870,7 +870,7 @@ public class ImageCapture extends UseCase {
             final CaptureConfig.Builder builder = new CaptureConfig.Builder();
             builder.addAllCameraCaptureCallbacks(
                     mSessionConfigBuilder.getSingleCameraCaptureCallbacks());
-            builder.addSurface(new ImmediateSurface(mImageReader.getSurface()));
+            builder.addSurface(mDeferrableSurface);
             builder.setTemplateType(CameraDevice.TEMPLATE_STILL_CAPTURE);
 
             applyPixelHdrPlusChangeForCaptureMode(mCaptureMode, builder);
