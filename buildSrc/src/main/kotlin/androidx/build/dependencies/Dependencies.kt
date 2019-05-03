@@ -16,6 +16,15 @@
 
 package androidx.build.dependencies
 
+<<<<<<< HEAD   (b76ffd Merge "Merge empty history for sparse-5530421-L7590000030735)
+=======
+const val ANDROIDX_TEST_CORE = "androidx.test:core:1.1.0"
+const val ANDROIDX_TEST_EXT_JUNIT = "androidx.test.ext:junit:1.1.0"
+const val ANDROIDX_TEST_EXT_KTX = "androidx.test.ext:junit-ktx:1.1.0"
+const val ANDROIDX_TEST_RULES = "androidx.test:rules:1.1.0"
+const val ANDROIDX_TEST_RUNNER = "androidx.test:runner:1.1.1"
+const val ANDROIDX_TEST_UIAUTOMATOR = "androidx.test.uiautomator:uiautomator:2.2.0"
+>>>>>>> BRANCH (00bfb4 Merge "Merge cherrypicks of [955686] into sparse-5530831-L25)
 const val AUTO_COMMON = "com.google.auto:auto-common:0.10"
 const val AUTO_VALUE = "com.google.auto.value:auto-value:1.6.2"
 const val AUTO_VALUE_ANNOTATIONS = "com.google.auto.value:auto-value-annotations:1.6.2"
