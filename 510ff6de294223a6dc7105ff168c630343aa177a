@@ -16,6 +16,24 @@
       "revId": "510ff6de294223a6dc7105ff168c630343aa177a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0bc97437_fd617ac2",
+        "filename": "benchmark/src/androidTest/AndroidManifest.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-05-03T21:06:12Z",
+      "side": 1,
+      "message": "Done - actually found another bug because of this. Need to also check for isFinishing",
+      "parentUuid": "3cd4ae93_a66ee0fd",
+      "revId": "510ff6de294223a6dc7105ff168c630343aa177a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
