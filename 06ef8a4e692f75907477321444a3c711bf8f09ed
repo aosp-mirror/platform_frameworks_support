@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5b2aebb1_ab60ad4f",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/background/systemalarm/SystemAlarmService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2019-05-03T22:44:42Z",
+      "side": 1,
+      "message": "Nit: Add a log message here.",
+      "revId": "06ef8a4e692f75907477321444a3c711bf8f09ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
