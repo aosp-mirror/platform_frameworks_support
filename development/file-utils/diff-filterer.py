@@ -16,7 +16,7 @@
 #
 
 
-import datetime, filecmp, math, os, shutil, subprocess, sys
+import datetime, filecmp, math, os, shutil, subprocess, stat, sys
 from collections import OrderedDict
 
 def usage():
@@ -38,6 +38,12 @@ OPTIONS
 """)
   sys.exit(1)
 
+# Miscellaneous functions
+def avg(x):
+  if len(x) <= 0:
+    return None
+  return sum(x) / len(x)
+
 # Miscellaneous file utilities
 class FileIo(object):
   def __init__(self):
@@ -54,6 +60,15 @@ class FileIo(object):
     self.removePath(toPath)
     shutil.copy2(fromPath, toPath)
 
+  def writeFile(self, path, text):
+    f = open(path, "w+")
+    f.write(text)
+    f.close()
+
+  def writeScript(self, path, text):
+    self.writeFile(path, text)
+    os.chmod(path, 0755)
+
   def removePath(self, filePath):
     if len(os.path.split(filePath)) < 2:
       raise Exception("Will not remove path at " + filePath + "; is too close to the root of the filesystem")
@@ -64,6 +79,40 @@ class FileIo(object):
 
   def join(self, path1, path2):
     return os.path.normpath(os.path.join(path1, path2))
+
+  # tells whether <parent> either contains <child> or is <child>
+  def contains(self, parent, child):
+    if parent == child:
+      return True
+    return child.startswith(parent + "/")
+
+  # returns the common prefix of two paths. For example, commonPrefixOf2("a/b/c", "a/b/cat") returns "a/b"
+  def commonPrefixOf2(self, path1, path2):
+    prefix = path2
+    while True:
+      #print("commonPrefixOf2 path1 = " + str(path1) + " prefix = " + str(prefix))
+      if self.contains(prefix, path1):
+        return prefix
+      parent = os.path.dirname(prefix)
+      if parent == prefix:
+        return None
+      prefix = parent
+
+  # returns the common prefix of multiple paths
+  def commonPrefix(self, paths):
+    if len(paths) < 1:
+      return None
+    result = paths[0]
+    for path in paths:
+      prev = result
+      result = self.commonPrefixOf2(result, path)
+      #print("commonPrefixOf2 of (" + str(prev) + ", " + str(path) + ") is " + str(result))
+      if result is None:
+        return result
+    return result
+
+
+
 fileIo = FileIo()
 
 # Runs a shell command
@@ -222,6 +271,86 @@ class FilesState(object):
         result.add(path, state)
     return result
 
+  def getCommonDir(self):
+    result = fileIo.commonPrefix(self.fileStates.keys())
+    #print("getCommonDir of " + str(self.fileStates.keys()) + " is " + str(result))
+    return result
+
+  def groupByDirs(self):
+    if len(self.fileStates) <= 1:
+      if len(self.fileStates) == 1:
+        return [self]
+      return []
+
+    commonDir = self.getCommonDir()
+    #print("Common dir of " + str(self) + " is " + str(commonDir))
+    if commonDir is None:
+      prefixLength = 0
+    else:
+      prefixLength = len(commonDir) + 1 # skip the following '/'
+    groupsByDir = {}
+
+    for filePath, fileContent in self.fileStates.iteritems():
+      subPath = filePath[prefixLength:]
+      slashIndex = subPath.find("/")
+      if slashIndex < 0:
+        firstDir = subPath
+      else:
+        firstDir = subPath[:slashIndex]
+      #print("FilesState considering creating substate. commonDir = " + str(commonDir) + ", prefixLength = " + str(prefixLength) + ", filePath = " + filePath + ", component = " + firstDir)
+      if not firstDir in groupsByDir:
+        #print("FilesState creating substate. commonDir = " + str(commonDir) + ", prefixLength = " + str(prefixLength) + ", filePath = " + filePath + ", component = " + firstDir)
+        groupsByDir[firstDir] = FilesState()
+      groupsByDir[firstDir].add(filePath, fileContent)
+    return [group for group in groupsByDir.values()]
+
+  # Returns a list of FilesState, each roughly of size <size>, that collectively have the same set of files as <self>.
+  # Will try to keep directories together
+  def splitDownToSize(self, targetSize):
+    # First, find directories that are small enough such that each one is of size <size> or less
+    #print("Splitting state (at " + str(self.getCommonDir()) + ", " + str(self.size()) + " entries)  down to size " + str(size))
+    if self.size() <= 1 or self.size() <= targetSize:
+      return [self]
+    children = self.groupByDirs()
+    if len(children) == 1:
+      print("Error: grouped state of size 1 into 1 child. Self = " + str(self) + ", children = " + str(children) + ", commonDir = " + str(self.getCommonDir()))
+      #sys.exit(1)
+    #print("Grouped " + str(self) + " into " + str(len(children)) + " children")
+    descendents = []
+    for child in children:
+      if child.size() > targetSize * 1.5:
+        descendents += child.splitDownToSize(targetSize)
+      else:
+        descendents += [child]
+    # Next, in case we found lots of tiny directories, recombine adjacent directories to make them approximately of size <size>
+    results = []
+    if targetSize < 1:
+      targetSize = 1
+    estimatedNumResults = self.size() / targetSize + 1
+    descendents = sorted(descendents, key=FilesState.size, reverse=True)
+    for descendent in descendents:
+      added = False
+      if len(results) >= estimatedNumResults:
+        smallestObservedSize = min([result.size() for result in results])
+        for i in range(len(results) - 1, -1, -1):
+          if results[i].size() == smallestObservedSize:
+            #if results[i].size() + descendent.size() <= targetSize:
+            added = True
+            results[i] = results[i].expandedWithEmptyEntriesFor(descendent).withConflictsFrom(descendent)
+            break
+      if not added:
+        results.append(descendent)
+    return results    
+
+  def summarize(self):
+    numFiles = self.size()
+    commonDir = self.getCommonDir()
+    if numFiles <= 3:
+      return str(self)
+    if commonDir is not None:
+      return str(numFiles) + " files under " + str(commonDir)
+    return str(numFiles) + " files"
+
   def size(self):
     return len(self.fileStates)
 
@@ -270,7 +399,8 @@ class DiffRunner(object):
     else:
       self.workPath = os.path.abspath(workPath)
     self.bestState_path = fileIo.join(tempPath, "bestResults")
-    self.shellCommand = shellCommand
+    self.testScript_path = fileIo.join(tempPath, "test.sh")
+    fileIo.writeScript(self.testScript_path, shellCommand)
     self.originalPassingPath = os.path.abspath(passingPath)
     self.originalFailingPath = os.path.abspath(failingPath)
     self.assumeNoSideEffects = assumeNoSideEffects
@@ -294,11 +424,25 @@ class DiffRunner(object):
     self.targetState = self.resetTo_state.withConflictsFrom(self.originalFailingState.expandedWithEmptyEntriesFor(self.resetTo_state))
     self.windowSize = self.resetTo_state.size()
 
-  def test(self, filesState):
+  def test(self, filesState, timeout = None):
+    if timeout is not None:
+      shellCommand = "timeout -s SIGHUP " + str(timeout) + " " + self.testScript_path
+    else:
+      shellCommand = self.testScript_path
+    
     #print("Applying state: " + str(filesState) + " to " + self.workPath)
     filesState.apply(self.workPath)
-    commandSucceeded = (self.shellCommand.process(self.workPath) == 0)
-    return (commandSucceeded != self.tryFail)
+    start = datetime.datetime.now()
+    returnCode = ShellScript(shellCommand).process(self.workPath)
+    duration = (datetime.datetime.now() - start).total_seconds()
+    print("shell command completed in " + str(duration))
+    if returnCode == 124:
+      return "timeout"
+    else:
+      if returnCode == 0:
+        return "success"
+      else:
+        return "failure"
 
   def run(self):
     start = datetime.datetime.now()
@@ -307,7 +451,7 @@ class DiffRunner(object):
       print("Testing that the given failing state actually fails")
       fileIo.removePath(self.workPath)
       fileIo.ensureDirExists(self.workPath)
-      if self.test(self.originalFailingState):
+      if self.test(self.originalFailingState) != "failure":
         print("\nGiven failing state at " + self.originalFailingPath + " does not actually fail!")
         return False
 
@@ -317,7 +461,7 @@ class DiffRunner(object):
       else:
         fileIo.removePath(self.workPath)
         fileIo.ensureDirExists(self.workPath)
-      if not self.test(self.originalPassingState):
+      if self.test(self.originalPassingState) != "success":
         print("\nGiven passing state at " + self.originalPassingPath + " does not actually pass!")
         return False
     else:
@@ -333,73 +477,132 @@ class DiffRunner(object):
     print("(You can inspect " + self.bestState_path + " while this process runs, to observe the best state discovered so far)")
     print("")
     numFailuresDuringCurrentWindowSize = 0
-    # decrease the window size until it reaches 0
-    while self.windowSize > 0:
+    # We essentially do a breadth-first search over the inodes (files or dirs) in the tree
+    # Every time we encounter an inode, we try replacing it (and any descendents if it has any) and seeing if that passes our given test
+    candidateStates = [[self.targetState]]
+    while True:
       # scan the state until reaching the end
-      windowMax = self.resetTo_state.size()
-      failedDuringThisScan = False
       succeededDuringThisScan = False
       # if we encounter only successes for this window size, then check all windows except the last (because if all other windows pass, then the last must fail)
       # if we encounter any failure for this window size, then check all windows
       numFailuresDuringPreviousWindowSize = numFailuresDuringCurrentWindowSize
       numFailuresDuringCurrentWindowSize = 0
-      while (windowMax > self.windowSize) or (windowMax > 0 and failedDuringThisScan):
-        # determine which changes to test
-        windowMin = max(0, windowMax - self.windowSize)
-        currentWindowSize = windowMax - windowMin
-        print("Analyzing " + str(self.resetTo_state.size()) + " differences with a window size of " + str(currentWindowSize))
-        testState = self.resetTo_state.withConflictsFrom(self.targetState.slice(windowMin, windowMax))
-        # reset state if needed
-        if not self.assumeNoSideEffects:
-          print("Resetting " + str(self.workPath))
-          fileIo.removePath(self.workPath)
-          self.full_resetTo_state.apply(self.workPath)
-
-        # estimate time remaining
-        currentTime = datetime.datetime.now()
-        elapsedDuration = currentTime - start
-        estimatedNumInvalidFiles = numFailuresDuringPreviousWindowSize
-        if estimatedNumInvalidFiles < 1:
-          estimatedNumInvalidFiles = 1
-        estimatedNumValidFilesPerInvalidFile = self.resetTo_state.size() / estimatedNumInvalidFiles
-        estimatedNumWindowShrinkages = math.log(estimatedNumValidFilesPerInvalidFile, 3)
-        estimatedNumTestsPerWindow = estimatedNumWindowShrinkages * 3 + 1
-        estimatedNumIterationsRemaining = estimatedNumTestsPerWindow * estimatedNumInvalidFiles
-        numIterationsCompleted += 1
-        estimatedRemainingDuration = datetime.timedelta(seconds=(elapsedDuration.total_seconds() * estimatedNumIterationsRemaining / numIterationsCompleted))
-        print("Estimated remaining duration = " + str(estimatedRemainingDuration) + " and remaining num iterations = "  + str(estimatedNumIterationsRemaining))
-        print("")
-
-        # test the state
-        if self.test(testState):
-          print("Accepted updated state having " + str(currentWindowSize) + " changes")
-          # success! keep these changes
-          testState.apply(self.bestState_path)
-          self.full_resetTo_state = self.full_resetTo_state.expandedWithEmptyEntriesFor(testState).withConflictsFrom(testState).withoutEmptyEntries()
-          # remove these changes from the set of changes to reconsider
-          self.targetState = self.targetState.withoutDuplicatesFrom(testState)
-          self.resetTo_state = self.targetState.withConflictsFrom(self.resetTo_state)
-          succeededDuringThisScan = True
+      displayIndex = 0
+      displayMax = sum([len(stateGroup) for stateGroup in candidateStates])
+      #averageWindowSize = self.resetTo_state.size() / displayMax
+      for j in range(len(candidateStates) - 1, -1, -1):
+        stateGroup = candidateStates[j]
+        print("Testing window group having " + str(len(stateGroup)) + " windows")
+        if len(stateGroup) > 1:
+          testLastStateInGroup = False
         else:
-          print("Rejected updated state having " + str(currentWindowSize) + " changes")
+          testLastStateInGroup = True
+        for i in range(len(stateGroup) - 1, -1, -1):
+          displayIndex += 1
+          print("")
+          if i == 0 and not testLastStateInGroup:
+            # All of the other tests in this window group passed
+            # Before we created this window group, we had previously tested all of the changes in this window group at once, and that failed
+            # So, we suspect that reapplying the rest of the changes in this window group won't cause the test to pass
+            # So, we skip retesting these changes, unless we're in the double-checking phase
+            print("Skipping window #" + str(displayIndex) + " because previous windows already passed")
+            break
+          currentWindow = stateGroup[i]
+          print("Testing window #" + str(displayIndex) + " of " + str(displayMax) + ": " + str(currentWindow.size()) + " changes (" + str(self.resetTo_state.size()) + " total changes remaining)")
 
-          failedDuringThisScan = True
-          numFailuresDuringCurrentWindowSize += 1
-        # shift the window
-        windowMax -= self.windowSize
-      # we checked every file once; now shrink the window
-      oldWindowSize = self.windowSize
-      if self.windowSize >= 3:
-        self.windowSize = int(self.windowSize / 3 + 1)
-      else:
-        if self.windowSize > 1:
-          self.windowSize = 1
-        else:
-          if not succeededDuringThisScan:
-            # only stop if we confirmed that no files could be reverted (if one file was reverted, it's possible that that unblocks another file)
-            self.windowSize = 0
-      print("Decreased window size from " + str(oldWindowSize) + " to " + str(self.windowSize))
-      print("")
+          # determine which changes to test
+          testState = self.resetTo_state.withConflictsFrom(currentWindow)
+          # reset state if needed
+          if not self.assumeNoSideEffects:
+            print("Resetting " + str(self.workPath))
+            fileIo.removePath(self.workPath)
+            self.full_resetTo_state.apply(self.workPath)
+  
+          # estimate time remaining
+          currentTime = datetime.datetime.now()
+          elapsedDuration = currentTime - start
+          estimatedNumInvalidFiles = numFailuresDuringPreviousWindowSize
+          if estimatedNumInvalidFiles < 1:
+            estimatedNumInvalidFiles = 1
+          estimatedNumValidFilesPerInvalidFile = self.resetTo_state.size() / estimatedNumInvalidFiles
+          # In each iteration we generally split each window into pieces of size no more than one half of its current size
+          # So in practice we generally split each window into 3 pieces
+          estimatedNumWindowShrinkages = math.log(max(estimatedNumValidFilesPerInvalidFile, 1), 3)
+          estimatedNumTestsPerWindow = estimatedNumWindowShrinkages * 3 + 1
+          estimatedNumIterationsRemaining = estimatedNumTestsPerWindow * estimatedNumInvalidFiles
+          numIterationsCompleted += 1
+          estimatedRemainingDuration = datetime.timedelta(seconds=(elapsedDuration.total_seconds() * estimatedNumIterationsRemaining / numIterationsCompleted))
+          print("Estimated remaining duration = " + str(estimatedRemainingDuration) + " and remaining num iterations = "  + str(estimatedNumIterationsRemaining) + " (elapsed duration = " + str(elapsedDuration) + ")")
+
+          # test the state
+          testResults = self.test(testState)
+          if testResults == "success":
+            print("Accepted updated state: " + str(currentWindow.summarize()))
+            # success! keep these changes
+            testState.apply(self.bestState_path)
+            self.full_resetTo_state = self.full_resetTo_state.expandedWithEmptyEntriesFor(testState).withConflictsFrom(testState).withoutEmptyEntries()
+            # remove these changes from the set of changes to reconsider
+            self.targetState = self.targetState.withoutDuplicatesFrom(testState)
+            del stateGroup[i]
+            self.resetTo_state = self.targetState.withConflictsFrom(self.resetTo_state)
+            succeededDuringThisScan = True
+          elif testResults == "failure":
+            print("Rejected updated state: " + currentWindow.summarize())
+            testLastStateInGroup = True
+            numFailuresDuringCurrentWindowSize += 1
+          else:
+            raise Exception("Internal error: unrecognized test status " + str(testResults))
+      # we checked every file once; now descend deeper into each directory and repeat
+      newCandidateStates = []
+      numWindows = sum([len(stateGroup) for stateGroup in candidateStates])
+      targetNumWindows = numWindows * 2
+      #targetAverageWindowSize = (self.resetTo_state.size() - 1) / targetNumWindows + 1
+      targetAverageWindowSize = self.resetTo_state.size() / targetNumWindows
+      #averageWindowSize = self.resetTo_state.size() / len(candidateStates)
+      print("############################################################################################################################################")
+      splitDuringThisScan = False
+      for windowGroup in candidateStates:
+        for window in windowGroup:
+          # If a specific window is large, we want to shrink it more quickly so it will catch up to the sizes of the other windows
+          # (it would be really bad if most windows have reached size 1 but there's one straggler window with more size,
+          # because then we'd be re-testing most of these size 1 windows every time we shrink the remaining window)
+          # If a specific window is small, we don't need to shrink it as quickly
+          #thisRawTargetSize = min(targetAverageWindowSize, (window.size() + 1) / 2)
+          #if thisRawTargetSize < 1:
+          #  thisRawTargetSize = 1
+          #numSubwindows = int(float(window.size()) / float(thisRawTargetSize) + 0.5)
+          #numSubwindows = int(float(window.size()) / float(targetAverageWindowSize) + 0.5)
+          #thisTargetSize = window.size() / numSubwindows
+          #thisTargetSize = min(targetAverageWindowSize, (window.size() + 1) / 2)
+          thisTargetSize = min(targetAverageWindowSize, window.size() / 2)
+          #thisTargetSize = targetAverageWindowSize
+          #if window.size() > averageWindowSize / 2:
+          #  thisTargetSize = int(window.size() / 2.2)
+          #else:
+          #  thisTargetSize = window.size()
+          #print("Trying to split window of size " + str(window.size()) + " into windows of size " + str(thisRawTargetSize) + " but renormalized target size to " + str(thisTargetSize))
+          print("Trying to split window of size " + str(window.size()) + " into windows of size " + str(thisTargetSize))
+          #currentSplit = window.splitDownToSize(thisTargetSize * 2 / 3, thisTargetSize * 4 / 3)
+          currentSplit = window.splitDownToSize(thisTargetSize)
+          
+          print("Split window: " + window.summarize() + " into " + str(len(currentSplit)) + " sub windows:")
+          for subWindow in currentSplit:
+            print(str(subWindow.size()))
+          if len(currentSplit) > 1:
+            splitDuringThisScan = True
+          newCandidateStates += [currentSplit]
+      #print("splitDuringThisScan = " + str(splitDuringThisScan))
+      if not splitDuringThisScan:
+        #print("succeededDuringThisScan = " + str(succeededDuringThisScan))
+        if not succeededDuringThisScan:
+          # only stop if we confirmed that no files could be reverted (if one file was reverted, it's possible that that unblocks another file)
+          break
+      print("Split " + str(numWindows) + " window into " + str(sum([len(stateGroup) for stateGroup in newCandidateStates])))
+      #for state in newCandidateStates:
+      #  print(state.getCommonDir())
+      print("############################################################################################################################################")
+      candidateStates = newCandidateStates
+
 
     print("double-checking results")
     fileIo.removePath(self.workPath)
@@ -452,7 +655,7 @@ def main(args):
     usage()
   passingPath = args[0]
   failingPath = args[1]
-  shellCommand = ShellScript(args[2])
+  shellCommand = args[2]
   tempPath = "/tmp/diff-filterer"
   startTime = datetime.datetime.now()
   if tryFail:
