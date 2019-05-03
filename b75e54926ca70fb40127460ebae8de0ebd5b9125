@@ -775,6 +775,98 @@
       "revId": "b75e54926ca70fb40127460ebae8de0ebd5b9125",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d078bc48_0ecbbd46",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/MasterKey.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1069370
+      },
+      "writtenOn": "2019-05-03T23:39:59Z",
+      "side": 1,
+      "message": "Convenient methods to create and obtain master keys in Android Keystore.\n\n\u003cp\u003eThe master keys are used to encrypt data encryption keys for encrypting files and preferences.",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 90
+      },
+      "revId": "b75e54926ca70fb40127460ebae8de0ebd5b9125",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0de75cc0_7a9051c1",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/MasterKey.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1069370
+      },
+      "writtenOn": "2019-05-03T23:39:59Z",
+      "side": 1,
+      "message": "Since we aren\u0027t going to support these features now, let\u0027s remove this.",
+      "range": {
+        "startLine": 33,
+        "startChar": 1,
+        "endLine": 34,
+        "endChar": 87
+      },
+      "revId": "b75e54926ca70fb40127460ebae8de0ebd5b9125",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2f1c054_8c9eaee2",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/MasterKey.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1069370
+      },
+      "writtenOn": "2019-05-03T23:39:59Z",
+      "side": 1,
+      "message": "Rename this to MasterKeys",
+      "range": {
+        "startLine": 36,
+        "startChar": 19,
+        "endLine": 36,
+        "endChar": 28
+      },
+      "revId": "b75e54926ca70fb40127460ebae8de0ebd5b9125",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "702d1eff_6c889b2b",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/MasterKey.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1069370
+      },
+      "writtenOn": "2019-05-03T23:39:59Z",
+      "side": 1,
+      "message": "Should validate keyGenParameterSpec.\n\nvalidate(keyGenParameterSpec);\n\nprivate static void validate(KeyGenParameterSpec spec) {\n  if (spec.getKeySize() !\u003d KEY_SIZE) {\n    throw new IllegalArgumentException(\"invalid key size, want %d bits got %d bits\", KEY_SIZE, spec.getKeySize());\n  }\n  if (spec.getBlockModes() !\u003d KeyProperties.BLOCK_MODE_GCM) {\n    throw new IllegalArgumentException(\"invalid block mode, want %s got %s\", KeyProperties.BLOCK_MODE_GCM.name(), spec.getBlockModes().name());\n  }\n  // Same for purposes and EncryptionPaddings\n}\n\nShould validate eve",
+      "range": {
+        "startLine": 97,
+        "startChar": 0,
+        "endLine": 97,
+        "endChar": 61
+      },
+      "revId": "b75e54926ca70fb40127460ebae8de0ebd5b9125",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
