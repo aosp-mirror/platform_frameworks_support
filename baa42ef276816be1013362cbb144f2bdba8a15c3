@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "36fb0d94_31f89105",
+        "filename": "camera/integration-tests/coretestapp/src/androidTest/java/androidx/camera/integration/core/BasicUITest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1061247
+      },
+      "writtenOn": "2019-05-03T15:37:20Z",
+      "side": 1,
+      "message": "isCameraDevice --\u003e hasCameraDevice or hasCamera",
+      "range": {
+        "startLine": 86,
+        "startChar": 20,
+        "endLine": 86,
+        "endChar": 34
+      },
+      "revId": "baa42ef276816be1013362cbb144f2bdba8a15c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04786334_de9f27f5",
+        "filename": "camera/integration-tests/coretestapp/src/androidTest/java/androidx/camera/integration/core/BasicUITest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1061247
+      },
+      "writtenOn": "2019-05-03T15:37:20Z",
+      "side": 1,
+      "message": "private static final int DISMISS_LOCK_SCREEN_CODE \u003d 82;",
+      "range": {
+        "startLine": 103,
+        "startChar": 29,
+        "endLine": 103,
+        "endChar": 31
+      },
+      "revId": "baa42ef276816be1013362cbb144f2bdba8a15c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0ab14e3_b58167ec",
+        "filename": "camera/integration-tests/coretestapp/src/main/java/androidx/camera/integration/core/CameraXActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 667,
+      "author": {
+        "id": 1061247
+      },
+      "writtenOn": "2019-05-03T15:37:20Z",
+      "side": 1,
+      "message": "Can we avoid this check in the app and just limit the check to the tests?",
+      "revId": "baa42ef276816be1013362cbb144f2bdba8a15c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
