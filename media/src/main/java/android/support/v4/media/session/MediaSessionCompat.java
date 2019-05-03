@@ -1259,6 +1259,27 @@ public class MediaSessionCompat {
         }
 
         /**
+<<<<<<< HEAD   (ac3ff5 Merge "Merge empty history for sparse-5523612-L0300000030640)
+=======
+         * Override to handle the playback speed change.
+         * To update the new playback speed, create a new {@link PlaybackStateCompat} by using
+         * {@link PlaybackStateCompat.Builder#setState(int, long, float)}, and set it with
+         * {@link #setPlaybackState(PlaybackStateCompat)}.
+         * <p>
+         * A value of {@code 1.0f} is the default playback value, and a negative value indicates
+         * reverse playback. The {@code speed} will not be equal to zero.
+         *
+         * @param speed the playback speed
+         * @see #setPlaybackState(PlaybackStateCompat)
+         * @see PlaybackStateCompat.Builder#setState(int, long, float)
+         * @hide
+         */
+        @RestrictTo(LIBRARY_GROUP_PREFIX)
+        public void onSetPlaybackSpeed(float speed) {
+        }
+
+        /**
+>>>>>>> BRANCH (7a8c8d Merge "Merge cherrypicks of [956021, 956022, 956023, 956024])
          * Override to handle requests to enable/disable captioning.
          *
          * @param enabled {@code true} to enable captioning, {@code false} to disable.

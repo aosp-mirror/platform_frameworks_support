@@ -25,6 +25,7 @@ import static androidx.work.NetworkType.UNMETERED;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.arrayContaining;
+import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 
 import android.app.job.JobInfo;
 import android.net.Uri;
@@ -120,7 +121,7 @@ public class SystemJobInfoConverterTest extends WorkManagerTest {
         WorkSpec workSpec = new WorkSpec("id", TestWorker.class.getName());
         workSpec.initialDelay = expectedInitialDelay;
         JobInfo jobInfo = mConverter.convert(workSpec, JOB_ID);
-        assertThat(jobInfo.getMinLatencyMillis(), is(expectedInitialDelay));
+        assertCloseValues(jobInfo.getMinLatencyMillis(), expectedInitialDelay);
     }
 
     @Test
@@ -139,8 +140,13 @@ public class SystemJobInfoConverterTest extends WorkManagerTest {
         WorkSpec workSpec = new WorkSpec("id", TestWorker.class.getName());
         workSpec.setPeriodic(TEST_INTERVAL_DURATION, TEST_FLEX_DURATION);
         JobInfo jobInfo = mConverter.convert(workSpec, JOB_ID);
+<<<<<<< HEAD   (ac3ff5 Merge "Merge empty history for sparse-5523612-L0300000030640)
         assertThat(jobInfo.getIntervalMillis(), is(TEST_INTERVAL_DURATION));
         assertThat(jobInfo.getFlexMillis(), is(TEST_FLEX_DURATION));
+=======
+        assertCloseValues(jobInfo.getMinLatencyMillis(),
+                TEST_INTERVAL_DURATION - TEST_FLEX_DURATION);
+>>>>>>> BRANCH (7a8c8d Merge "Merge cherrypicks of [956021, 956022, 956023, 956024])
     }
 
     @Test
@@ -288,5 +294,12 @@ public class SystemJobInfoConverterTest extends WorkManagerTest {
         return getWorkSpec(new OneTimeWorkRequest.Builder(TestWorker.class)
                 .setConstraints(constraints)
                 .build());
+    }
+
+    private void assertCloseValues(long value, long target) {
+        double min = Math.min(value, target);
+        double max = Math.max(value, target);
+        double ratio = min / max;
+        assertThat(ratio, greaterThanOrEqualTo(0.99999d));
     }
 }

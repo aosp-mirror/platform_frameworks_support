@@ -40,6 +40,12 @@
         <activity android:name="androidx.fragment.app.test.NonConfigOnStopActivity"/>
         <activity android:name="androidx.fragment.app.test.HangingFragmentActivity"/>
         <activity android:name="androidx.fragment.app.test.ViewModelActivity" />
+<<<<<<< HEAD   (ac3ff5 Merge "Merge empty history for sparse-5523612-L0300000030640)
+=======
+        <activity android:name="androidx.fragment.app.ActivityLeakActivity"/>
+        <activity android:name="androidx.fragment.app.ContentViewActivity"/>
+        <activity android:name="androidx.fragment.app.OnBackPressedFragmentActivity"/>
+>>>>>>> BRANCH (7a8c8d Merge "Merge cherrypicks of [956021, 956022, 956023, 956024])
         <activity android:name="androidx.fragment.app.OnResumeTestActivity" />
         <activity android:name="androidx.fragment.app.FragmentSavedStateActivity" />
         <activity android:name="androidx.fragment.app.DialogActivity"

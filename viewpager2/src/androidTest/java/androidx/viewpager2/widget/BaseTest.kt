@@ -18,6 +18,7 @@ package androidx.viewpager2.widget
 
 import android.content.Intent
 import android.os.Build
+import android.util.Log
 import android.view.View
 import android.view.View.OVER_SCROLL_NEVER
 import androidx.core.view.ViewCompat
@@ -65,6 +66,10 @@ import java.util.concurrent.TimeUnit
 import kotlin.math.abs
 
 open class BaseTest {
+    companion object {
+        const val TAG = "VP2_TESTS"
+    }
+
     lateinit var localeUtil: LocaleTestUtils
 
     @get:Rule
@@ -311,7 +316,22 @@ open class BaseTest {
         return latch
     }
 
+<<<<<<< HEAD   (ac3ff5 Merge "Merge empty history for sparse-5523612-L0300000030640)
     val ViewPager2.pageSize: Int
+=======
+    fun ViewPager2.addWaitForFirstScrollEventLatch(): CountDownLatch {
+        val latch = CountDownLatch(1)
+        registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageScrolled(position: Int, offset: Float, offsetPx: Int) {
+                latch.countDown()
+                post { unregisterOnPageChangeCallback(this) }
+            }
+        })
+        return latch
+    }
+
+    val ViewPager2.recyclerView: RecyclerView
+>>>>>>> BRANCH (7a8c8d Merge "Merge cherrypicks of [956021, 956022, 956023, 956024])
         get() {
             return if (orientation == ORIENTATION_HORIZONTAL) {
                 measuredWidth - paddingLeft - paddingRight
@@ -486,3 +506,40 @@ val AdapterProviderForItems.supportsMutations: Boolean
     get() {
         return this == fragmentAdapterProvider
     }
+<<<<<<< HEAD   (ac3ff5 Merge "Merge empty history for sparse-5523612-L0300000030640)
+=======
+
+fun scrollStateToString(@ViewPager2.ScrollState state: Int): String {
+    return when (state) {
+        SCROLL_STATE_IDLE -> "IDLE"
+        SCROLL_STATE_DRAGGING -> "DRAGGING"
+        SCROLL_STATE_SETTLING -> "SETTLING"
+        else -> throw IllegalArgumentException("Scroll state $state doesn't exist")
+    }
+}
+
+fun scrollStateGlossary(): String {
+    return "Scroll states: " +
+            "$SCROLL_STATE_IDLE=${scrollStateToString(SCROLL_STATE_IDLE)}, " +
+            "$SCROLL_STATE_DRAGGING=${scrollStateToString(SCROLL_STATE_DRAGGING)}, " +
+            "$SCROLL_STATE_SETTLING=${scrollStateToString(SCROLL_STATE_SETTLING)})"
+}
+
+class RetryException(msg: String) : Exception(msg)
+
+fun tryNTimes(n: Int, resetBlock: () -> Unit, tryBlock: () -> Unit) {
+    repeat(n) { i ->
+        try {
+            tryBlock()
+            return
+        } catch (e: RetryException) {
+            if (i < n - 1) {
+                Log.w(BaseTest.TAG, "Bad state, retrying block", e)
+            } else {
+                throw AssertionError("Block hit bad state $n times", e)
+            }
+            resetBlock()
+        }
+    }
+}
+>>>>>>> BRANCH (7a8c8d Merge "Merge cherrypicks of [956021, 956022, 956023, 956024])

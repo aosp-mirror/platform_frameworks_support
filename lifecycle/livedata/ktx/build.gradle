@@ -35,14 +35,19 @@ dependencies {
     api(project(":lifecycle:lifecycle-livedata"))
     api(project(":lifecycle:lifecycle-livedata-core-ktx"))
     api(KOTLIN_STDLIB)
+    api(KOTLIN_COROUTINES_CORE)
     testImplementation(project(":lifecycle:lifecycle-runtime"))
     testImplementation(project(":arch:core-testing"))
     testImplementation(JUNIT)
     testImplementation(TRUTH)
+<<<<<<< HEAD   (ac3ff5 Merge "Merge empty history for sparse-5523612-L0300000030640)
     testImplementation(TEST_EXT_JUNIT)
     testImplementation(TEST_CORE)
     testImplementation(TEST_RUNNER)
     testImplementation(TEST_RULES)
+=======
+    testImplementation(KOTLIN_COROUTINES_TEST)
+>>>>>>> BRANCH (7a8c8d Merge "Merge cherrypicks of [956021, 956022, 956023, 956024])
 }
 
 supportLibrary {

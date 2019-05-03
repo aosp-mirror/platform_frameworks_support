@@ -16,6 +16,11 @@
 
 package androidx.viewpager2.widget
 
+<<<<<<< HEAD   (ac3ff5 Merge "Merge empty history for sparse-5523612-L0300000030640)
+=======
+import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
+>>>>>>> BRANCH (7a8c8d Merge "Merge cherrypicks of [956021, 956022, 956023, 956024])
 import androidx.test.filters.LargeTest
 import androidx.viewpager2.widget.BaseTest.Context.SwipeMethod
 import androidx.viewpager2.widget.DragWhileSmoothScrollTest.Event.OnPageScrollStateChangedEvent
@@ -31,6 +36,7 @@ import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.CoreMatchers.not
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.greaterThan
+import org.junit.Assert.fail
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
@@ -71,12 +77,21 @@ class DragWhileSmoothScrollTest(private val config: TestConfig) : BaseTest() {
                 val callback = viewPager.addNewRecordingCallback()
                 val movingForward = targetPage > startPage
 
+<<<<<<< HEAD   (ac3ff5 Merge "Merge empty history for sparse-5523612-L0300000030640)
                 // when we are close enough
                 val waitTillCloseEnough = viewPager.addWaitForDistanceToTarget(targetPage,
                     distanceToTargetWhenStartDrag)
                 runOnUiThread { viewPager.setCurrentItem(targetPage, true) }
                 waitTillCloseEnough.await(1, SECONDS)
+=======
+        // when we are close enough
+        val waitTillCloseEnough = test.viewPager.addWaitForDistanceToTarget(config.targetPage,
+            config.distanceToTargetWhenStartDrag)
+        test.runOnUiThread { test.viewPager.setCurrentItem(config.targetPage, true) }
+        waitTillCloseEnough.await(2, SECONDS)
+>>>>>>> BRANCH (7a8c8d Merge "Merge cherrypicks of [956021, 956022, 956023, 956024])
 
+<<<<<<< HEAD   (ac3ff5 Merge "Merge empty history for sparse-5523612-L0300000030640)
                 // then perform a swipe
                 if (dragInOppositeDirection == movingForward) {
                     swipeBackward(SwipeMethod.MANUAL)
@@ -84,6 +99,18 @@ class DragWhileSmoothScrollTest(private val config: TestConfig) : BaseTest() {
                     swipeForward(SwipeMethod.MANUAL)
                 }
                 viewPager.addWaitForIdleLatch().await(2, SECONDS)
+=======
+        // then perform a swipe
+        val idleLatch = test.viewPager.addWaitForIdleLatch()
+        if (config.endInSnappedPosition) {
+            swipeExactlyToPage(config.pageToSnapTo(movingForward))
+        } else if (config.dragInOppositeDirection == movingForward) {
+            test.swipeBackward(SwipeMethod.MANUAL)
+        } else {
+            test.swipeForward(SwipeMethod.MANUAL)
+        }
+        idleLatch.await(2, SECONDS)
+>>>>>>> BRANCH (7a8c8d Merge "Merge cherrypicks of [956021, 956022, 956023, 956024])
 
                 // and check the result
                 callback.apply {
@@ -120,6 +147,7 @@ class DragWhileSmoothScrollTest(private val config: TestConfig) : BaseTest() {
                         assertThat("onPageSelected event should have reported $targetPage",
                             selectEvents.first().position, equalTo(targetPage))
                     } else {
+<<<<<<< HEAD   (ac3ff5 Merge "Merge empty history for sparse-5523612-L0300000030640)
                         assertThat("viewPager.getCurrentItem() should not be $targetPage",
                             viewPager.currentItem, not(equalTo(targetPage)))
                         assertThat("Exactly 2 onPageSelected events should be fired",
@@ -131,8 +159,78 @@ class DragWhileSmoothScrollTest(private val config: TestConfig) : BaseTest() {
                                 "${selectEvents.last().position}",
                             selectEvents.last().position, equalTo(currentlyVisible))
                     }
+=======
+                        listOf(
+                            SCROLL_STATE_SETTLING,
+                            SCROLL_STATE_DRAGGING,
+                            SCROLL_STATE_SETTLING,
+                            SCROLL_STATE_IDLE
+                        )
+                    }
+                )
+            )
+
+            val currentlyVisible = test.viewPager.currentCompletelyVisibleItem
+            if (currentlyVisible == config.targetPage) {
+                // drag coincidentally landed us on the targetPage,
+                // this slightly changes the assertions
+                assertThat("viewPager.getCurrentItem() should be ${config.targetPage}",
+                    test.viewPager.currentItem, equalTo(config.targetPage))
+                assertThat("Exactly 1 onPageSelected event should be fired",
+                    selectEvents.size, equalTo(1))
+                assertThat("onPageSelected event should have reported ${config.targetPage}",
+                    selectEvents.first().position, equalTo(config.targetPage))
+            } else {
+                assertThat("viewPager.getCurrentItem() should not be ${config.targetPage}",
+                    test.viewPager.currentItem, not(equalTo(config.targetPage)))
+                assertThat("Exactly 2 onPageSelected events should be fired",
+                    selectEvents.size, equalTo(2))
+                assertThat("First onPageSelected event should have reported ${config.targetPage}",
+                    selectEvents.first().position, equalTo(config.targetPage))
+                assertThat("Second onPageSelected event should have reported " +
+                        "$currentlyVisible, or visible page should be " +
+                        "${selectEvents.last().position}",
+                    selectEvents.last().position, equalTo(currentlyVisible))
+            }
+        }
+    }
+
+    /**
+     * Swipe to the next page, but don't stop the swipe until the [pageToSnapTo] is in snapped
+     * position.
+     *
+     * @param pageToSnapTo The page to swipe and snap to
+     */
+    private fun swipeExactlyToPage(pageToSnapTo: Int) {
+        // Don't let Espresso perform the fling, it can be delayed until after the smooth scroll
+        val fling = flingToCenter()
+
+        // Find the view on the UI thread, as RV may be in layout
+        val pageText = "$pageToSnapTo"
+        var viewFound = false
+        test.activityTestRule.runOnUiThread {
+            val llm = test.viewPager.recyclerView.layoutManager as LinearLayoutManager
+            var i = 0
+            while (!viewFound && i < llm.childCount) {
+                val view = llm.getChildAt(i++) as TextView
+                if (view.text == pageText) {
+                    viewFound = true
+                    // Resolve start and end coordinates immediately, before
+                    // RV gets the chance to detach the view from its parent
+                    fling.initialize(view)
+>>>>>>> BRANCH (7a8c8d Merge "Merge cherrypicks of [956021, 956022, 956023, 956024])
                 }
             }
+<<<<<<< HEAD   (ac3ff5 Merge "Merge empty history for sparse-5523612-L0300000030640)
+=======
+        }
+
+        // Perform the fling
+        if (viewFound) {
+            fling.perform(InstrumentationRegistry.getInstrumentation())
+        } else {
+            fail("Page with text \"$pageText\" not found")
+>>>>>>> BRANCH (7a8c8d Merge "Merge cherrypicks of [956021, 956022, 956023, 956024])
         }
     }
 

@@ -83,7 +83,7 @@ public final class PeriodicWorkRequest extends WorkRequest {
         /**
          * Creates a {@link PeriodicWorkRequest} to run periodically once every interval period. The
          * {@link PeriodicWorkRequest} is guaranteed to run exactly one time during this interval
-         * (subject to OS battery optimizations, such as doze mode). The {@code intervalMillis} must
+         * (subject to OS battery optimizations, such as doze mode). The repeat interval must
          * be greater than or equal to {@link PeriodicWorkRequest#MIN_PERIODIC_INTERVAL_MILLIS}. It
          * may run immediately, at the end of the period, or any time in between so long as the
          * other conditions are satisfied at the time. The run time of the
@@ -105,7 +105,7 @@ public final class PeriodicWorkRequest extends WorkRequest {
         /**
          * Creates a {@link PeriodicWorkRequest} to run periodically once every interval period. The
          * {@link PeriodicWorkRequest} is guaranteed to run exactly one time during this interval
-         * (subject to OS battery optimizations, such as doze mode). The {@code intervalMillis} must
+         * (subject to OS battery optimizations, such as doze mode). The repeat interval must
          * be greater than or equal to {@link PeriodicWorkRequest#MIN_PERIODIC_INTERVAL_MILLIS}. It
          * may run immediately, at the end of the period, or any time in between so long as the
          * other conditions are satisfied at the time. The run time of the
@@ -125,10 +125,18 @@ public final class PeriodicWorkRequest extends WorkRequest {
 
         /**
          * Creates a {@link PeriodicWorkRequest} to run periodically once within the
+<<<<<<< HEAD   (ac3ff5 Merge "Merge empty history for sparse-5523612-L0300000030640)
          * <strong>flex period</strong> of every interval period. See diagram below. The flex period
          * begins at {@code intervalMillis - flexMillis} to the end of the interval.
          * {@code intervalMillis} must be greater than or equal to
          * {@link PeriodicWorkRequest#MIN_PERIODIC_INTERVAL_MILLIS} and {@code flexMillis} must
+=======
+         * <strong>flex period</strong> of every interval period. See diagram below.  Note that flex
+         * intervals are ignored for certain OS versions (in particular, API 23).  The flex period
+         * begins at {@code repeatInterval - flexInterval} to the end of the interval.  The repeat
+         * interval must be greater than or equal to
+         * {@link PeriodicWorkRequest#MIN_PERIODIC_INTERVAL_MILLIS} and the flex interval must
+>>>>>>> BRANCH (7a8c8d Merge "Merge cherrypicks of [956021, 956022, 956023, 956024])
          * be greater than or equal to {@link PeriodicWorkRequest#MIN_PERIODIC_FLEX_MILLIS}.
          *
          * <p><pre>
@@ -159,10 +167,18 @@ public final class PeriodicWorkRequest extends WorkRequest {
 
         /**
          * Creates a {@link PeriodicWorkRequest} to run periodically once within the
+<<<<<<< HEAD   (ac3ff5 Merge "Merge empty history for sparse-5523612-L0300000030640)
          * <strong>flex period</strong> of every interval period. See diagram below. The flex period
          * begins at {@code intervalMillis - flexMillis} to the end of the interval.
          * {@code intervalMillis} must be greater than or equal to
          * {@link PeriodicWorkRequest#MIN_PERIODIC_INTERVAL_MILLIS} and {@code flexMillis} must
+=======
+         * <strong>flex period</strong> of every interval period. See diagram below. Note that flex
+         * intervals are ignored for certain OS versions (in particular, API 23).  The flex period
+         * begins at {@code repeatInterval - flexInterval} to the end of the interval.  The repeat
+         * interval must be greater than or equal to
+         * {@link PeriodicWorkRequest#MIN_PERIODIC_INTERVAL_MILLIS} and the flex interval must
+>>>>>>> BRANCH (7a8c8d Merge "Merge cherrypicks of [956021, 956022, 956023, 956024])
          * be greater than or equal to {@link PeriodicWorkRequest#MIN_PERIODIC_FLEX_MILLIS}.
          *
          * <p><pre>
