@@ -16,6 +16,24 @@
       "revId": "0d114f0682de1fa66936165b07ce9f7a8da54e8d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3871cb7f_2622e40c",
+        "filename": "camera/extensions-stub/src/main/java/androidx/camera/extensions/impl/ImageCaptureExtenderImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-05-03T12:03:54Z",
+      "side": 1,
+      "message": "Okay, copy onInit/onDeInit/onPresetSession/onEnableSession/onDisableSession/onResolutionUpdate/onImageFormatUpdate \nto a common interface.",
+      "parentUuid": "e606bd78_2754ec3a",
+      "revId": "0d114f0682de1fa66936165b07ce9f7a8da54e8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
