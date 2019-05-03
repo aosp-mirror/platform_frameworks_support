@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cae3f312_e91cc0ab",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageAnalysis.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 1061247
+      },
+      "writtenOn": "2019-05-03T01:04:33Z",
+      "side": 1,
+      "message": "method",
+      "range": {
+        "startLine": 349,
+        "startChar": 19,
+        "endLine": 349,
+        "endChar": 27
+      },
+      "revId": "f1fb80e3482e64a0caf8ed0505c455ea76bc619e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4dc09e9_97781729",
+        "filename": "camera/core/src/main/java/androidx/camera/core/Preview.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1061247
+      },
+      "writtenOn": "2019-05-03T01:04:33Z",
+      "side": 1,
+      "message": "Do you mean OnPreviewOutputListener.onUpdated is called?",
+      "range": {
+        "startLine": 51,
+        "startChar": 11,
+        "endLine": 51,
+        "endChar": 43
+      },
+      "revId": "f1fb80e3482e64a0caf8ed0505c455ea76bc619e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f3ddf34_89459233",
+        "filename": "camera/core/src/main/java/androidx/camera/core/Preview.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1061247
+      },
+      "writtenOn": "2019-05-03T01:04:33Z",
+      "side": 1,
+      "message": "Do you mean OnPreviewOutputListener.onUpdated is called?",
+      "range": {
+        "startLine": 156,
+        "startChar": 15,
+        "endLine": 156,
+        "endChar": 47
+      },
+      "revId": "f1fb80e3482e64a0caf8ed0505c455ea76bc619e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29cb12a4_394ae11e",
+        "filename": "camera/core/src/main/java/androidx/camera/core/Preview.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1061247
+      },
+      "writtenOn": "2019-05-03T01:04:33Z",
+      "side": 1,
+      "message": "nit: center (for consistency with spelling used elsewhere)",
+      "range": {
+        "startLine": 238,
+        "startChar": 24,
+        "endLine": 238,
+        "endChar": 30
+      },
+      "revId": "f1fb80e3482e64a0caf8ed0505c455ea76bc619e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
