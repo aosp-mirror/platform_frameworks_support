@@ -46,6 +46,30 @@
       "revId": "e0d9e961df5583ba7fa539439585a08bdc72033c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e391a77f_eeb1d5aa",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/BuildOnServer.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-05-03T18:10:56Z",
+      "side": 1,
+      "message": "If a task declares inputs but no outputs, then Gradle will still rerun it if no inputs change. We could declare a dummy output on this task (either a file that never exists or a file that\u0027s also an input) to inform Gradle that we didn\u0027t forget to declare task outputs.\n\nI\u0027d also be supportive of just having the BuildOnServer never be considered up-to-date (although if we go with that approach I\u0027d recommend removing the task inputs so it doesn\u0027t look like the incrementalism is working)",
+      "parentUuid": "1d46ccbc_4d4fd465",
+      "range": {
+        "startLine": 42,
+        "startChar": 8,
+        "endLine": 51,
+        "endChar": 9
+      },
+      "revId": "e0d9e961df5583ba7fa539439585a08bdc72033c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
