@@ -2,6 +2,259 @@
   "comments": [
     {
       "key": {
+        "uuid": "9c39e485_64a63c34",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedFile.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1069370
+      },
+      "writtenOn": "2019-05-03T19:14:36Z",
+      "side": 1,
+      "message": "nit: KEYSET_PREF_NAME \u003d \"__androidx_security_crypto_encrypted_file_pref__\";",
+      "range": {
+        "startLine": 39,
+        "startChar": 24,
+        "endLine": 39,
+        "endChar": 33
+      },
+      "revId": "dca12f2f00b14213b80a53aec3daa34f439b96fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a782b43_45443a2c",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedFile.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1069370
+      },
+      "writtenOn": "2019-05-03T19:14:36Z",
+      "side": 1,
+      "message": "nit: KEYSET_ALIAS \u003d \"__androidx_security_crypto_encrypted_file_keyset__\";",
+      "range": {
+        "startLine": 40,
+        "startChar": 24,
+        "endLine": 40,
+        "endChar": 36
+      },
+      "revId": "dca12f2f00b14213b80a53aec3daa34f439b96fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c720124f_9604dd9d",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedFile.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1069370
+      },
+      "writtenOn": "2019-05-03T19:14:36Z",
+      "side": 1,
+      "message": "This should be removed.",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 5
+      },
+      "revId": "dca12f2f00b14213b80a53aec3daa34f439b96fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "762bfc9c_469cc935",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedFile.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1069370
+      },
+      "writtenOn": "2019-05-03T19:14:36Z",
+      "side": 1,
+      "message": "I don\u0027t think this is needed.",
+      "range": {
+        "startLine": 67,
+        "startChar": 8,
+        "endLine": 71,
+        "endChar": 25
+      },
+      "revId": "dca12f2f00b14213b80a53aec3daa34f439b96fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03a65bbf_0d75bf88",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedFile.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1069370
+      },
+      "writtenOn": "2019-05-03T19:14:36Z",
+      "side": 1,
+      "message": "This should be removed.",
+      "range": {
+        "startLine": 96,
+        "startChar": 0,
+        "endLine": 102,
+        "endChar": 9
+      },
+      "revId": "dca12f2f00b14213b80a53aec3daa34f439b96fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df37a0fa_183fe3a9",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedFile.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1069370
+      },
+      "writtenOn": "2019-05-03T19:14:36Z",
+      "side": 1,
+      "message": "Don\u0027t provide default values in constructor.\n\nSee https://effectivejava.googleplex.com/third-edition#page\u003d31.",
+      "range": {
+        "startLine": 109,
+        "startChar": 0,
+        "endLine": 110,
+        "endChar": 44
+      },
+      "revId": "dca12f2f00b14213b80a53aec3daa34f439b96fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "017eae6a_7cc8dcce",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedFile.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1069370
+      },
+      "writtenOn": "2019-05-03T19:14:36Z",
+      "side": 1,
+      "message": "This is where you can set the default values:\n\nString mKeysetPrefName \u003d KEYSET_PREF_NAME;\nString mKeysetAlias \u003d KEYSET_ALIAS;",
+      "range": {
+        "startLine": 117,
+        "startChar": 0,
+        "endLine": 118,
+        "endChar": 32
+      },
+      "revId": "dca12f2f00b14213b80a53aec3daa34f439b96fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62d378a1_b0d197fe",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedFile.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1069370
+      },
+      "writtenOn": "2019-05-03T19:14:36Z",
+      "side": 1,
+      "message": "setKeysetPrefName",
+      "range": {
+        "startLine": 128,
+        "startChar": 23,
+        "endLine": 128,
+        "endChar": 37
+      },
+      "revId": "dca12f2f00b14213b80a53aec3daa34f439b96fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82864ee8_fd253887",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedFile.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1069370
+      },
+      "writtenOn": "2019-05-03T19:14:36Z",
+      "side": 1,
+      "message": "setKeysetAlias",
+      "range": {
+        "startLine": 138,
+        "startChar": 23,
+        "endLine": 138,
+        "endChar": 41
+      },
+      "revId": "dca12f2f00b14213b80a53aec3daa34f439b96fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6429901d_7ea4fd56",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedFile.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1069370
+      },
+      "writtenOn": "2019-05-03T19:14:36Z",
+      "side": 1,
+      "message": "Here you should build the dependencies that the constructor of EncryptedFile needs.\n\nIt needs only a file and a StreamingAead. So what you can do is:\n\nKeysetHandle handle \u003d new AndroidKeysetManager.Builder()\n   .withKeyTemplate(getKeyTemplate(mFileEncryptionScheme))\n   .withSharedPref(context, mKeysetAlias, mKeysetPrefName)\n   .withMasterKey(\"android-keystore://\" + masterKeyAlias)\n   .build()\n   .getKeysetHandle();\n\nStreamingAead streamingAead \u003d StreamingAeadFactory.getPrimitive(handle);\n\nreturn new EncryptedFile(mFile, StreamingAead);",
+      "range": {
+        "startLine": 147,
+        "startChar": 29,
+        "endLine": 147,
+        "endChar": 34
+      },
+      "revId": "dca12f2f00b14213b80a53aec3daa34f439b96fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3591c798_664b7c13",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedFile.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1069370
+      },
+      "writtenOn": "2019-05-03T19:14:36Z",
+      "side": 1,
+      "message": "One of openFileOutput and getFileOutputStream should be removed.",
+      "range": {
+        "startLine": 163,
+        "startChar": 28,
+        "endLine": 163,
+        "endChar": 42
+      },
+      "revId": "dca12f2f00b14213b80a53aec3daa34f439b96fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "64730dd8_b06ea71c",
         "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedFile.java",
         "patchSetId": 24
@@ -13,6 +266,139 @@
       "writtenOn": "2019-05-03T18:04:05Z",
       "side": 1,
       "message": "nit: this and the output stream private method can be inlined to this method",
+      "revId": "dca12f2f00b14213b80a53aec3daa34f439b96fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4600f139_f116f4da",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedFile.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1069370
+      },
+      "writtenOn": "2019-05-03T19:14:36Z",
+      "side": 1,
+      "message": "+1. Either this or getFileInputStream() should be removed.",
+      "parentUuid": "64730dd8_b06ea71c",
+      "revId": "dca12f2f00b14213b80a53aec3daa34f439b96fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "88d263fd_0889845e",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedFile.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1069370
+      },
+      "writtenOn": "2019-05-03T19:14:36Z",
+      "side": 1,
+      "message": "Tink doesn\u0027t allow appending to existing files, so should check that the file doesn\u0027t exist, and throw an IOException or GeneralSecurityException if it does.",
+      "range": {
+        "startLine": 188,
+        "startChar": 29,
+        "endLine": 188,
+        "endChar": 48
+      },
+      "revId": "dca12f2f00b14213b80a53aec3daa34f439b96fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d817256f_e11421d8",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedFile.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1069370
+      },
+      "writtenOn": "2019-05-03T19:14:36Z",
+      "side": 1,
+      "message": "Should be\n\nif (mFile.exists()) {\n  throw new IOException(\"output file already exists, must use a new file: \" + mFile.getName());\n}\n\nFileOutputStream mFileOutputStream \u003d new FileOutputStream(mFile);\nOutputStream outputStream \u003d streamingAead.newEncryptingStream(mFileOutputStream, mFile.getName());\n\nreturn new EncryptedFileOutputStream(outputStream, mFileOutputStream.getFD());",
+      "range": {
+        "startLine": 190,
+        "startChar": 8,
+        "endLine": 191,
+        "endChar": 55
+      },
+      "revId": "dca12f2f00b14213b80a53aec3daa34f439b96fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a466111b_5c5fc07c",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedFile.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1069370
+      },
+      "writtenOn": "2019-05-03T19:14:36Z",
+      "side": 1,
+      "message": "Should be\n\nif (!mFile.exists()) {\n  throw new IOException(\"file doesn\u0027t exist: \" + mFile.getName());\n}\n\nFileInputStream mFileInputStream \u003d new FileInputStream(mFile);\nInputStream inputStream \u003d streamingAead.newDecryptingStream(mFileInputStream, mFile.getName());\n\nreturn new EncryptedFileInputStream(inputStream, mFileInputStream.getFD());",
+      "range": {
+        "startLine": 200,
+        "startChar": 8,
+        "endLine": 201,
+        "endChar": 54
+      },
+      "revId": "dca12f2f00b14213b80a53aec3daa34f439b96fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "414d6f8d_af0f45ca",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedFile.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1069370
+      },
+      "writtenOn": "2019-05-03T19:14:36Z",
+      "side": 1,
+      "message": "Should be\n\nEncryptedFileOutputStream(OutputStream mEncryptedOutputStream, FileDescriptor fd) {\n  super(fd);\n  mEncryptedOutputStream \u003d mEncryptedOutputStream;\n}\n\nI\u0027m not sure if it is necessary to call\n\nsuper(fd);\n\nWhy do you have to do this?",
+      "range": {
+        "startLine": 219,
+        "startChar": 8,
+        "endLine": 230,
+        "endChar": 9
+      },
+      "revId": "dca12f2f00b14213b80a53aec3daa34f439b96fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d411cb50_4af6bcc8",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedFile.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1069370
+      },
+      "writtenOn": "2019-05-03T19:14:36Z",
+      "side": 1,
+      "message": "Should change this too.",
+      "range": {
+        "startLine": 285,
+        "startChar": 8,
+        "endLine": 296,
+        "endChar": 9
+      },
       "revId": "dca12f2f00b14213b80a53aec3daa34f439b96fc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
