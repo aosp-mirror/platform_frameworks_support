@@ -16,14 +16,12 @@
 
 package androidx.camera.core;
 
-import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraCaptureSession;
 import android.hardware.camera2.CameraDevice;
 import android.hardware.camera2.CaptureRequest;
 import android.hardware.camera2.CaptureRequest.Key;
 import android.view.Surface;
 
-import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.annotation.RestrictTo.Scope;
 import androidx.camera.core.Config.Option;
@@ -115,7 +113,7 @@ public final class CaptureConfig {
         return mImplementationOptions;
     }
 
-    int getTemplateType() {
+    public int getTemplateType() {
         return mTemplateType;
     }
 
@@ -130,39 +128,6 @@ public final class CaptureConfig {
 
     public Object getTag() {
         return mTag;
-    }
-
-    /**
-     * Return the builder of a {@link CaptureRequest} which can be issued.
-     *
-     * <p>Returns {@code null} if a valid {@link CaptureRequest} can not be constructed.
-     */
-    @Nullable
-    public CaptureRequest.Builder buildCaptureRequest(@Nullable CameraDevice device)
-            throws CameraAccessException {
-        if (device == null) {
-            return null;
-        }
-        CaptureRequest.Builder builder = device.createCaptureRequest(mTemplateType);
-
-        for (CaptureRequestParameter<?> captureRequestParameter :
-                mCaptureRequestParameters.values()) {
-            captureRequestParameter.apply(builder);
-        }
-
-        List<Surface> surfaceList = DeferrableSurfaces.surfaceList(mSurfaces);
-
-        if (surfaceList.isEmpty()) {
-            return null;
-        }
-
-        for (Surface surface : surfaceList) {
-            builder.addTarget(surface);
-        }
-
-        builder.setTag(mTag);
-
-        return builder;
     }
 
     /**
@@ -215,6 +180,7 @@ public final class CaptureConfig {
 
         /**
          * Adds a {@link CameraCaptureSession.StateCallback} callback.
+         *
          * @throws IllegalArgumentException if the callback already exists in the configuration.
          */
         public void addCameraCaptureCallback(CameraCaptureCallback cameraCaptureCallback) {
@@ -226,6 +192,7 @@ public final class CaptureConfig {
 
         /**
          * Adds all {@link CameraCaptureSession.StateCallback} callbacks.
+         *
          * @throws IllegalArgumentException if any callback already exists in the configuration.
          */
         public void addAllCameraCaptureCallbacks(
