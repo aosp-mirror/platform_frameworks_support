@@ -30,6 +30,7 @@ import androidx.work.impl.WorkDatabase;
 import androidx.work.impl.WorkManagerImpl;
 import androidx.work.impl.model.WorkSpec;
 import androidx.work.impl.model.WorkSpecDao;
+import androidx.work.impl.utils.Intents;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -43,6 +44,7 @@ import java.util.Map;
 public class CommandHandler implements ExecutionListener {
 
     private static final String TAG = Logger.tagWithPrefix("CommandHandler");
+
 
     // actions
     static final String ACTION_SCHEDULE_WORK = "ACTION_SCHEDULE_WORK";
@@ -61,34 +63,34 @@ public class CommandHandler implements ExecutionListener {
 
     // utilities
     static Intent createScheduleWorkIntent(@NonNull Context context, @NonNull String workSpecId) {
-        Intent intent = new Intent(context, SystemAlarmService.class);
+        Intent intent = Intents.createVerifiableIntent(context, SystemAlarmService.class);
         intent.setAction(ACTION_SCHEDULE_WORK);
         intent.putExtra(KEY_WORKSPEC_ID, workSpecId);
         return intent;
     }
 
     static Intent createDelayMetIntent(@NonNull Context context, @NonNull String workSpecId) {
-        Intent intent = new Intent(context, SystemAlarmService.class);
+        Intent intent = Intents.createVerifiableIntent(context, SystemAlarmService.class);
         intent.setAction(ACTION_DELAY_MET);
         intent.putExtra(KEY_WORKSPEC_ID, workSpecId);
         return intent;
     }
 
     static Intent createStopWorkIntent(@NonNull Context context, @NonNull String workSpecId) {
-        Intent intent = new Intent(context, SystemAlarmService.class);
+        Intent intent = Intents.createVerifiableIntent(context, SystemAlarmService.class);
         intent.setAction(ACTION_STOP_WORK);
         intent.putExtra(KEY_WORKSPEC_ID, workSpecId);
         return intent;
     }
 
     static Intent createConstraintsChangedIntent(@NonNull Context context) {
-        Intent intent = new Intent(context, SystemAlarmService.class);
+        Intent intent = Intents.createVerifiableIntent(context, SystemAlarmService.class);
         intent.setAction(ACTION_CONSTRAINTS_CHANGED);
         return intent;
     }
 
     static Intent createRescheduleIntent(@NonNull Context context) {
-        Intent intent = new Intent(context, SystemAlarmService.class);
+        Intent intent = Intents.createVerifiableIntent(context, SystemAlarmService.class);
         intent.setAction(ACTION_RESCHEDULE);
         return intent;
     }
@@ -98,7 +100,7 @@ public class CommandHandler implements ExecutionListener {
             @NonNull String workSpecId,
             boolean needsReschedule) {
 
-        Intent intent = new Intent(context, SystemAlarmService.class);
+        Intent intent = Intents.createVerifiableIntent(context, SystemAlarmService.class);
         intent.setAction(ACTION_EXECUTION_COMPLETED);
         intent.putExtra(KEY_WORKSPEC_ID, workSpecId);
         intent.putExtra(KEY_NEEDS_RESCHEDULE, needsReschedule);

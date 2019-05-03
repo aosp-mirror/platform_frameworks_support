@@ -55,6 +55,7 @@ import androidx.work.impl.constraints.trackers.StorageNotLowTracker;
 import androidx.work.impl.constraints.trackers.Trackers;
 import androidx.work.impl.model.WorkSpec;
 import androidx.work.impl.model.WorkSpecDao;
+import androidx.work.impl.utils.Intents;
 import androidx.work.impl.utils.RepeatRule;
 import androidx.work.impl.utils.SynchronousExecutor;
 import androidx.work.impl.utils.taskexecutor.InstantWorkTaskExecutor;
@@ -161,6 +162,32 @@ public class SystemAlarmDispatcherTest extends DatabaseTest {
     @After
     public void tearDown() {
         mSpyDispatcher.onDestroy();
+    }
+
+    @Test
+    public void testIntentsAreVerifiable() {
+        final String workSpecId = "test";
+        assertThat(
+                Intents.verifyIntent(CommandHandler.createScheduleWorkIntent(mContext, workSpecId)),
+                is(true));
+        assertThat(
+                Intents.verifyIntent(CommandHandler.createDelayMetIntent(mContext, workSpecId)),
+                is(true));
+        assertThat(
+                Intents.verifyIntent(CommandHandler.createStopWorkIntent(mContext, workSpecId)),
+                is(true));
+        assertThat(
+                Intents.verifyIntent(CommandHandler.createConstraintsChangedIntent(mContext)),
+                is(true));
+        assertThat(
+                Intents.verifyIntent(CommandHandler.createRescheduleIntent(mContext)),
+                is(true));
+        assertThat(
+                Intents.verifyIntent(CommandHandler.createExecutionCompletedIntent(
+                        mContext,
+                        workSpecId,
+                        true)),
+                is(true));
     }
 
     @Test

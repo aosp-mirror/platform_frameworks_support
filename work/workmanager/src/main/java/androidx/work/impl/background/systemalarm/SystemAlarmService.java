@@ -23,6 +23,7 @@ import androidx.annotation.MainThread;
 import androidx.annotation.RestrictTo;
 import androidx.lifecycle.LifecycleService;
 import androidx.work.Logger;
+import androidx.work.impl.utils.Intents;
 import androidx.work.impl.utils.WakeLocks;
 
 /**
@@ -41,21 +42,27 @@ public class SystemAlarmService extends LifecycleService
     @Override
     public void onCreate() {
         super.onCreate();
-        mDispatcher = new SystemAlarmDispatcher(this);
-        mDispatcher.setCompletedListener(this);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mDispatcher.onDestroy();
+        if (mDispatcher != null) {
+            mDispatcher.onDestroy();
+        }
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         super.onStartCommand(intent, flags, startId);
-        if (intent != null) {
+        if (intent != null && Intents.verifyIntent(intent)) {
+            if (mDispatcher == null) {
+                mDispatcher = new SystemAlarmDispatcher(this);
+                mDispatcher.setCompletedListener(this);
+            }
             mDispatcher.add(intent, startId);
+        } else if (mDispatcher == null) {
+            onAllCommandsCompleted();
         }
         // If the service were to crash, we want all unacknowledged Intents to get redelivered.
         return Service.START_REDELIVER_INTENT;
