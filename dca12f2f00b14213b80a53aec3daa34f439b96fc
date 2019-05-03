@@ -341,6 +341,30 @@
     },
     {
       "key": {
+        "uuid": "5d2fe9d2_79dba05e",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedSharedPreferences.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 1069370
+      },
+      "writtenOn": "2019-05-03T18:16:22Z",
+      "side": 1,
+      "message": "Maybe it\u0027s better if mEncryptedSharedPreferences provides an encryptValue method that takes a value and a key and returns a Pair of encrypted key and value.\n\nPair encrypted \u003d mEncryptedSharedPreferences.encryptValue(value, key);\nmEditor.putString(encrypted.first, encrypted.second);\n\nThen mEncryptedSharedPreferences doesn\u0027t have to expose the key and value encryptor objects.",
+      "parentUuid": "4b2315f3_fbf42bf0",
+      "range": {
+        "startLine": 375,
+        "startChar": 36,
+        "endLine": 376,
+        "endChar": 82
+      },
+      "revId": "dca12f2f00b14213b80a53aec3daa34f439b96fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c5fd59a3_40cb3967",
         "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedSharedPreferences.java",
         "patchSetId": 24
