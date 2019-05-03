@@ -16,7 +16,7 @@
 #
 
 
-import datetime, filecmp, math, os, shutil, subprocess, sys
+import datetime, filecmp, math, os, shutil, subprocess, stat, sys
 from collections import OrderedDict
 
 def usage():
@@ -50,9 +50,19 @@ class FileIo(object):
       os.makedirs(filePath)
 
   def copyFile(self, fromPath, toPath):
-    self.ensureDirExists(os.path.dirname(toPath))
-    self.removePath(toPath)
+    if not os.path.isfile(toPath):
+      self.ensureDirExists(os.path.dirname(toPath))
+      self.removePath(toPath)
     shutil.copy2(fromPath, toPath)
+
+  def writeFile(self, path, text):
+    f = open(path, "w+")
+    f.write(text)
+    f.close()
+
+  def writeScript(self, path, text):
+    self.writeFile(path, text)
+    os.chmod(path, 0755)
 
   def removePath(self, filePath):
     if len(os.path.split(filePath)) < 2:
@@ -64,6 +74,40 @@ class FileIo(object):
 
   def join(self, path1, path2):
     return os.path.normpath(os.path.join(path1, path2))
+
+  # tells whether <parent> either contains <child> or is <child>
+  def contains(self, parent, child):
+    if parent == child:
+      return True
+    return child.startswith(parent + "/")
+
+  # returns the common prefix of two paths. For example, commonPrefixOf2("a/b/c", "a/b/cat") returns "a/b"
+  def commonPrefixOf2(self, path1, path2):
+    prefix = path2
+    while True:
+      #print("commonPrefixOf2 path1 = " + str(path1) + " prefix = " + str(prefix))
+      if self.contains(prefix, path1):
+        return prefix
+      parent = os.path.dirname(prefix)
+      if parent == prefix:
+        return None
+      prefix = parent
+
+  # returns the common prefix of multiple paths
+  def commonPrefix(self, paths):
+    if len(paths) < 1:
+      return None
+    result = paths[0]
+    for path in paths:
+      prev = result
+      result = self.commonPrefixOf2(result, path)
+      #print("commonPrefixOf2 of (" + str(prev) + ", " + str(path) + ") is " + str(result))
+      if result is None:
+        return result
+    return result
+
+
+
 fileIo = FileIo()
 
 # Runs a shell command
@@ -222,6 +266,96 @@ class FilesState(object):
         result.add(path, state)
     return result
 
+  def getCommonDir(self):
+    result = fileIo.commonPrefix(self.fileStates.keys())
+    #print("getCommonDir of " + str(self.fileStates.keys()) + " is " + str(result))
+    return result
+
+  def groupByDirs(self, groupDirectFilesTogether = False):
+    if len(self.fileStates) <= 1:
+      if len(self.fileStates) == 1:
+        return [self]
+      return []
+
+    commonDir = self.getCommonDir()
+    #print("Common dir of " + str(self) + " is " + str(commonDir))
+    if commonDir is None:
+      prefixLength = 0
+    else:
+      prefixLength = len(commonDir) + 1 # skip the following '/'
+    groupsByDir = {}
+
+    for filePath, fileContent in self.fileStates.iteritems():
+      subPath = filePath[prefixLength:]
+      slashIndex = subPath.find("/")
+      if slashIndex < 0:
+        if groupDirectFilesTogether:
+          firstDir = ""
+        else:
+          firstDir = subPath
+      else:
+        firstDir = subPath[:slashIndex]
+      #print("FilesState considering creating substate. commonDir = " + str(commonDir) + ", prefixLength = " + str(prefixLength) + ", filePath = " + filePath + ", component = " + firstDir)
+      if not firstDir in groupsByDir:
+        #print("FilesState creating substate. commonDir = " + str(commonDir) + ", prefixLength = " + str(prefixLength) + ", filePath = " + filePath + ", component = " + firstDir)
+        groupsByDir[firstDir] = FilesState()
+      groupsByDir[firstDir].add(filePath, fileContent)
+    return [group for group in groupsByDir.values()]
+
+  # Returns a list of FilesState, each roughly of size <size>, that collectively have the same set of files as <self>.
+  # Will try to keep directories together
+  def splitDownToApproximatelySize(self, targetSize):
+    # First, find directories that are small enough such that each one is of size <size> or less
+    #print("Splitting state (at " + str(self.getCommonDir()) + ", " + str(self.size()) + " entries)  down to size " + str(size))
+    if self.size() <= 1 or self.size() <= targetSize:
+      return [self]
+    children = self.groupByDirs()
+    if len(children) == 1:
+      print("Error: grouped state of size 1 into 1 child. Self = " + str(self) + ", children = " + str(children) + ", commonDir = " + str(self.getCommonDir()))
+      #sys.exit(1)
+    #print("Grouped " + str(self) + " into " + str(len(children)) + " children")
+    descendents = []
+    for child in children:
+      if child.size() > targetSize * 1.5:
+        descendents += child.splitDownToApproximatelySize(targetSize)
+      else:
+        descendents += [child]
+    # Next, in case we found lots of tiny directories, recombine adjacent directories to make them approximately of size <size>
+    results = []
+    if targetSize < 1:
+      targetSize = 1
+    estimatedNumResults = self.size() / targetSize + 1
+    for descendent in descendents:
+      if len(results) < 1 or results[-1].size() + descendent.size() > targetSize:
+        results.append(descendent)
+      else:
+        results[-1] = results[-1].expandedWithEmptyEntriesFor(descendent).withConflictsFrom(descendent)
+    return results    
+
+  def splitDepth(self, depth):
+    if self.size() <= 1 or depth <= 0:
+      return [self]
+    groupDirectFilesTogether = (depth <= 1)
+    children = self.groupByDirs(groupDirectFilesTogether)
+    if len(children) == 1 and groupDirectFilesTogether:
+      return children[0].groupByDirs(False)
+    descendents = []
+    for child in children:
+      descendents += child.splitDepth(depth - 1)
+    return descendents
+
+  def splitOnce(self):
+    return self.splitDepth(1)
+
+  def summarize(self):
+    numFiles = self.size()
+    commonDir = self.getCommonDir()
+    if numFiles <= 4:
+      return str(self)
+    if commonDir is not None:
+      return str(numFiles) + " files under " + str(commonDir)
+    return str(numFiles) + " files"
+
   def size(self):
     return len(self.fileStates)
 
@@ -261,6 +395,276 @@ def filesStateFromTree(rootPath):
     state.add(path, states[path])
   return state
 
+class FilesState_HyperBoxNode(object):
+  def __init__(self, dimensions):
+    self.dimensions = dimensions
+    self.children = []
+    if len(dimensions) > 1:
+      nextDimensions = dimensions[1:]
+      for i in range(dimensions[0]):
+        self.children.append(FilesState_HyperBoxNode(nextDimensions))
+    else:
+      for i in range(dimensions[0]):
+         self.children.append(FilesState_LeafBox())
+
+  def getFiles(self, coordinates):
+    child = self.children[coordinates[0]]
+    return child.getFiles(coordinates[1:])
+
+  def setFiles(self, coordinates, files):
+    self.children[coordinates[0]].setFiles(coordinates[1:], files)
+
+  def clearFiles(self, coordinates):
+    self.children[coordinates[0]].clearFiles(coordinates[1:])
+
+  def removeSlice(self, dimension, index):
+    if dimension == 0:
+      del self.children[index]
+    else:
+      for child in self.children:
+        child.removeSlice(dimension - 1, index)
+
+  def getSlice(self, dimension, index):
+    result = FilesState()
+    for i in range(len(self.children)):
+      if dimension != 0 or i == index:
+        child = self.children[i]
+        childResult = child.getSlice(dimension - 1, index)
+        result = result.expandedWithEmptyEntriesFor(childResult).withConflictsFrom(childResult)
+    return result
+
+# Essentially a state machine that tests a FilesState_HyperBoxNode
+class BoxRunner(object):
+  def __init__(self, box):
+    self.box = box
+    self.dimension = 0
+    self.index = box.getSize(0) - 1
+    self.timingDimension = None
+
+  def isDoingTimingAnalysis(self):
+    return self.timingDimension is not None
+
+  def getNextFiles(self):
+    if not self.isDoingTimingAnalysis():
+      return self.getFullSliceFiles()
+    return self.getTimingFiles()
+
+  def getFullSliceFiles(self):
+    sliceState = self.box.getSlice(self.dimension, self.index)
+    self.index += 1
+    if self.index < 0:
+      self.dimension += 1
+      if self.dimension < self.box.getNumDimensions():
+        self.index = self.box.getSize(self.dimension) - 1
+      else:
+        self.dimension = None
+        self.timingDimension = 0
+    return sliceState
+    
+
+
+class FilesState_LeafBox(object):
+  def __init__(self):
+    self.files = FilesState()
+
+  def getFiles(self, coordinates):
+    return self.files
+
+  def setFiles(self, coordinates, files):
+    self.files = files
+
+  def clearFiles(self, coordinates):
+    self.files = FilesState()
+
+  def removeSlice(self, dimensions, index):
+    return
+
+  def getSlice(self, dimension, index):
+    return self.getFiles([])
+
+class FilesState_HyperBox(object):
+  def __init__(self, dimensions):
+    self.dimensions = dimensions
+    self.durations = []
+    self.numFiles = 0
+    if len(dimensions) < 1:
+      raise Exception("dimensions must be nonempty: " + str(dimensions))
+    for length in dimensions:
+      if length < 1:
+        raise Exception("Illegal dimension " + str(length) + " in " + str(dimensions))
+      self.durations.append([None] * length)
+    self.root = FilesState_HyperBoxNode(dimensions)
+
+  def getNumDimensions(self):
+    return len(self.dimensions)
+
+  def getSize(self, dimension):
+    return self.dimensions[dimension]
+
+  def getDimensions(self):
+    return self.dimensions
+
+  def getSliceDuration(self, dimension, index):
+    return self.durations[dimension][index]
+
+  def setSliceDuration(self, dimension, index, value):
+    durations = self.durations[dimension]
+    if index >= len(durations):
+      raise Exception("Index " + str(index) + " too large for durations " + str(durations) + " of length " + str(len(durations)) + ". All durations: " + str(self.durations))
+    durations[index] = value
+
+  def removeSlice(self, dimension, index):
+    durations = self.durations[dimension]
+    del durations[index]
+    self.root.removeSlice(dimension, index)
+    self.dimensions[dimension] -= 1
+
+  def getFastestIndex(self, dimension):
+    durations = self.durations[dimension]
+    fastestValue = None
+    fastestIndex = None
+    for i in range(len(durations)):
+      value = durations[i]
+      if value is not None:
+        if fastestValue is None or value < fastestValue:
+          fastestValue = value
+          fastestIndex = i
+    return fastestIndex
+
+  def getFastestIndices(self):
+    return [self.getFastestIndex(dimension) for dimension in range(self.getNumDimensions())]
+
+  def getFiles(self, coordinates):
+    #print("Box calling getFiles(" + str(coordinates) + ")")
+    return self.root.getFiles(coordinates)
+
+  def setFiles(self, dimensions, files):
+    self.root.setFiles(dimensions, files)
+    self.numFiles = None
+
+  def clearFiles(self, dimensions):
+    self.setFiles(dimensions, FilesState())
+
+  def getNumFiles(self):
+    if self.numFiles is None:
+      numFiles = 0
+      for child in self.getChildren():
+        numFiles += child.size()
+      self.numFiles = numFiles
+    return self.numFiles
+
+  def getSlice(self, dimension, index):
+    return self.root.getSlice(dimension, index)
+
+  def incrementCoordinates(self, coordinates):
+    coordinates = coordinates[:]
+    for i in range(len(coordinates)):
+      coordinates[i] += 1
+      if coordinates[i] >= self.dimensions[i]:
+        coordinates[i] = 0
+      else:
+        return coordinates
+    return None
+
+  def getChildren(self):
+    if len(self.dimensions) < 1 or self.dimensions[0] < 1:
+      return []
+    coordinates = [0] * len(self.dimensions)
+    children = []
+    while coordinates is not None:
+      child = self.getFiles(coordinates)
+      if child is not None and child.size() > 0:
+        children.append(child)
+      coordinates = self.incrementCoordinates(coordinates)
+    return children
+
+def boxFromList(fileStates):
+  numStates = len(fileStates)
+  if numStates == 1:
+    dimensions = [1]
+  else:
+    dimensions = []
+    while numStates > 1:
+      if numStates == 4:
+        # if there are 4 states we want to make it a 2x2
+        nextDimension = 2
+      else:
+        nextDimension = min(3, numStates)
+      dimensions.append(nextDimension)
+      numStates = int(math.ceil(float(numStates) / float(nextDimension)))
+  tree = FilesState_HyperBox(dimensions)
+  coordinates = [0] * len(dimensions)
+  for state in fileStates:
+    tree.setFiles(coordinates, state)
+    coordinates = tree.incrementCoordinates(coordinates)
+  return tree
+
+# runs a ShellScript in this process and write the result to <pipe> when done
+def runScriptInSameProcess(shellScript, pipe):
+  start = datetime.datetime.now()
+  returnCode = shellScript.process()
+  duration = datetime.datetime.now() - start
+  pipe.write((identifier, returnCode, duration))
+
+# runs a ShellScript in another process and returns a Connection that will store the results when done
+def runScriptInOtherProcess(shellScript, identifier):
+  parentConnection, childConnection = Pipe()
+  process = Process(target=runScriptInSameProcess, args=(shellScript, childConnection, identifier,))
+  process.start()
+  return parentConnection
+
+# Stores a subprocess for running tests and some information about which tests to run
+class Job(object):
+  def __init__(self, testScript, baseState, candidateBox, identifier):
+    self.testScript = testScript
+    self.resetTo_state = baseState
+    # all of the files that we've found so far that we can add
+    self.acceptedState = FilesState()
+    # HyperBox of all of the possible changes we're considering
+    self.candidateBox = candidateBox
+    # FilesState telling the current set of files that we're testing modifying
+    self.currentTestState = None
+    self.busy = False
+    self.complete = False
+    self.pipe = None
+    self.identifier = identifier
+
+  # tells whether this job is actively using CPU
+  # the job will periodically pause itself and need to be resumed, to make it easy to terminate it early if needed
+  def isBusy(self):
+    return self.pipe is not None
+
+  def start(self):
+    if self.isBusy():
+      return None
+    self.pipe = runScriptInOtherProcess(self.testScript, self.identifier)
+    return self.pipe
+
+  def madeProgress(self):
+    return self.acceptedState.size() > 0
+
+  # tells whether this job
+  def isComplete(self):
+    return self.complete
+
+  def getAcceptedState(self):
+    return self.acceptedState
+
+  # specifies that this job should stop (once its children have stopped)
+  def cancel(self):
+    self.complete = True
+
+  def onStatus(self, status):
+    self.stepState(status)
+    self.pipe = None
+
+  def stepState(self, status)
+    if status.returnCode == 0:
+      self.acceptedState = self.acceptedState.expandedWithEmptyEntriesFor(self.currentTestState).withConflictsFrom(self.currentTestState)
+
+  
+
+
 # Runner class that determines which diffs between two directories cause the given shell command to fail
 class DiffRunner(object):
   def __init__(self, failingPath, passingPath, shellCommand, tempPath, workPath, assumeNoSideEffects, assumeInputStatesAreCorrect, tryFail):
@@ -270,7 +674,8 @@ class DiffRunner(object):
     else:
       self.workPath = os.path.abspath(workPath)
     self.bestState_path = fileIo.join(tempPath, "bestResults")
-    self.shellCommand = shellCommand
+    self.testScript_path = fileIo.join(tempPath, "test.sh")
+    fileIo.writeScript(self.testScript_path, shellCommand)
     self.originalPassingPath = os.path.abspath(passingPath)
     self.originalFailingPath = os.path.abspath(failingPath)
     self.assumeNoSideEffects = assumeNoSideEffects
@@ -294,11 +699,31 @@ class DiffRunner(object):
     self.targetState = self.resetTo_state.withConflictsFrom(self.originalFailingState.expandedWithEmptyEntriesFor(self.resetTo_state))
     self.windowSize = self.resetTo_state.size()
 
-  def test(self, filesState):
-    #print("Applying state: " + str(filesState) + " to " + self.workPath)
-    filesState.apply(self.workPath)
-    commandSucceeded = (self.shellCommand.process(self.workPath) == 0)
-    return (commandSucceeded != self.tryFail)
+  def test(self, testState, timeout = None):
+    # reset state if needed
+    if not self.assumeNoSideEffects:
+      print("Resetting " + str(self.workPath))
+      fileIo.removePath(self.workPath)
+      self.full_resetTo_state.apply(self.workPath)
+      testState.apply(self.workPath)
+    else:
+      self.resetTo_state.withConflictsFrom(testState).apply(self.workPath)
+    start = datetime.datetime.now()
+    returnCode = ShellScript(self.testScript_path).process(self.workPath)
+    duration = (datetime.datetime.now() - start).total_seconds()
+    print("shell command completed in " + str(duration))
+    if returnCode == 0:
+      # Success! Save these changes
+      self.targetState = self.targetState.withoutDuplicatesFrom(testState)
+      self.resetTo_state = self.targetState.withConflictsFrom(self.resetTo_state)
+      self.full_resetTo_state = self.full_resetTo_state.expandedWithEmptyEntriesFor(testState).withConflictsFrom(testState).withoutEmptyEntries()
+      testState.apply(self.bestState_path)
+      return (True, duration)
+    else:
+      if self.assumeNoSideEffects:
+        # unapply changes so that the contents of self.workPath should match self.resetTo_state
+        testState.withConflictsFrom(self.resetTo_state).apply(self.workPath)
+      return (False, duration)
 
   def run(self):
     start = datetime.datetime.now()
@@ -307,7 +732,7 @@ class DiffRunner(object):
       print("Testing that the given failing state actually fails")
       fileIo.removePath(self.workPath)
       fileIo.ensureDirExists(self.workPath)
-      if self.test(self.originalFailingState):
+      if self.test(self.originalFailingState)[0]:
         print("\nGiven failing state at " + self.originalFailingPath + " does not actually fail!")
         return False
 
@@ -317,7 +742,7 @@ class DiffRunner(object):
       else:
         fileIo.removePath(self.workPath)
         fileIo.ensureDirExists(self.workPath)
-      if not self.test(self.originalPassingState):
+      if not self.test(self.originalPassingState)[0]:
         print("\nGiven passing state at " + self.originalPassingPath + " does not actually pass!")
         return False
     else:
@@ -333,78 +758,178 @@ class DiffRunner(object):
     print("(You can inspect " + self.bestState_path + " while this process runs, to observe the best state discovered so far)")
     print("")
     numFailuresDuringCurrentWindowSize = 0
-    # decrease the window size until it reaches 0
-    while self.windowSize > 0:
-      # scan the state until reaching the end
-      windowMax = self.resetTo_state.size()
-      failedDuringThisScan = False
+    # We essentially do a breadth-first search over the inodes (files or dirs) in the tree
+    # Every time we encounter an inode, we try replacing it (and any descendents if it has any) and seeing if that passes our given test
+    candidateStates = [boxFromList(self.targetState.splitOnce())]
+    numConsecutivelyFailingRows = 0
+    while True:
       succeededDuringThisScan = False
-      # if we encounter only successes for this window size, then check all windows except the last (because if all other windows pass, then the last must fail)
-      # if we encounter any failure for this window size, then check all windows
-      numFailuresDuringPreviousWindowSize = numFailuresDuringCurrentWindowSize
-      numFailuresDuringCurrentWindowSize = 0
-      while (windowMax > self.windowSize) or (windowMax > 0 and failedDuringThisScan):
-        # determine which changes to test
-        windowMin = max(0, windowMax - self.windowSize)
-        currentWindowSize = windowMax - windowMin
-        print("Analyzing " + str(self.resetTo_state.size()) + " differences with a window size of " + str(currentWindowSize))
-        testState = self.resetTo_state.withConflictsFrom(self.targetState.slice(windowMin, windowMax))
-        # reset state if needed
-        if not self.assumeNoSideEffects:
-          print("Resetting " + str(self.workPath))
-          fileIo.removePath(self.workPath)
-          self.full_resetTo_state.apply(self.workPath)
+      stateIndex = 0
+      maxObservedStateIndex = 0
+      while stateIndex < len(candidateStates):
+        nextCandidateStates = []
+        box = candidateStates[stateIndex]
+        print("##############################################################################################################################################################################################")
+        print("Checking candidateState index " + str(stateIndex) + " of " + str(len(candidateStates)) + ": ")
+        if numConsecutivelyFailingRows >= self.resetTo_state.size():
+          print("Checked all " + str(numConsecutivelyFailingRows) + " files with no successes. Done.")
+          candidateStates = []
+          nextCandidateStates = []
+          break
+        if len(candidateStates) == self.resetTo_state.size():
+          print("At least " + str(self.resetTo_state.size() - numConsecutivelyFailingRows) + " iterations remaining")
+        # test each slice
+        succeededDuringThisBox = False
+        for dimension in range(box.getNumDimensions()):
+          for index in range(box.getSize(dimension) - 1, -1, -1):
+            if box.getSize(dimension) == 1 and len(candidateStates) == 1:
+              # We've narrowed the search space down to one row
+              # Make a note that it could still be worth retesting this row after having removed some other entries from the box
+              box.setSliceDuration(dimension, index, 0)
+              # However, we know that this row must fail now, so skip re-testing it at the moment
+              continue
+            candidateState = box.getSlice(dimension, index)
+            print("")
+            print("Elapsed duration = " + str(datetime.datetime.now() - start) + ". " + str(self.resetTo_state.size()) + " changes left to test")
+            print("Testing dimension " + str(dimension) + "/" + str(box.getNumDimensions()) + ", index " + str(index) + "/" + str(box.getSize(dimension)))
+            if candidateState.size() < 1:
+              print("Skipping slice of size 0")
+              box.setSliceDuration(dimension, index, None)
+              continue
+            (testResults, duration) = self.test(candidateState)
+            if testResults:
+              print("Accepted slice: " + str(candidateState.summarize()))
+              succeededDuringThisBox = True
+              succeededDuringThisScan = True
+              numConsecutivelyFailingRows = 0
+              box.removeSlice(dimension, index)
+            else:
+              print("Rejected slice: " + str(candidateState.summarize()))
+              box.setSliceDuration(dimension, index, duration)
+              if dimension == 0:
+                numConsecutivelyFailingRows += 1
+        # make some guesses (based on duration) about which individual blocks are likely to contain failures, and run some tests without those failing blocks
+        if box.getNumDimensions() >= 2:
+          print("//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////")
+          print("Doing a timing analysis of box " + str(stateIndex) + " of " + str(len(candidateStates)))
+          loopMax = box.getNumDimensions()
+          numSuccesses = 0
+          numFailures = 0
+          busy = True
+          while busy:
+            print("")
+            print("Elapsed duration = " + str(datetime.datetime.now() - start) + ". " + str(self.resetTo_state.size()) + " changes left to test (current box dimensions: " + str(box.getDimensions()) + ")")
+            if numFailures > numSuccesses + loopMax:
+              print("Too many failures in a row. Continuing to next iteration")
+              break
+            # find the row and column that fail most quickly
+            coordinates = []
+            for dimension in range(box.getNumDimensions()):
+              index = box.getFastestIndex(dimension)
+              if index is None:
+                print("Removed all slices in dimension " + str(dimension) + ". Continuing to next iteration")
+                busy = False
+                break
+              coordinates.append(index)
+              print("Previous failure duration was " + str(box.getSliceDuration(dimension, index)) + " for dimension " + str(dimension) + " and index " + str(index))
+            if not busy:
+              break
+            blockState = box.getFiles(coordinates)
+            print("Testing shortened box: clearing block at " + str(coordinates) + " : " + str(blockState.summarize()))
+            box.clearFiles(coordinates)
+            if blockState.size() < 1:
+              print("Returned to a previously cleared block at (" + str(coordinates) + "). Ignoring it and continuing")
+              for dimension in range(len(coordinates)):
+                box.setSliceDuration(dimension, coordinates[dimension], None)
+              continue
+            nextCandidateStates.append(blockState)
 
-        # estimate time remaining
-        currentTime = datetime.datetime.now()
-        elapsedDuration = currentTime - start
-        estimatedNumInvalidFiles = numFailuresDuringPreviousWindowSize
-        if estimatedNumInvalidFiles < 1:
-          estimatedNumInvalidFiles = 1
-        estimatedNumValidFilesPerInvalidFile = self.resetTo_state.size() / estimatedNumInvalidFiles
-        estimatedNumWindowShrinkages = math.log(estimatedNumValidFilesPerInvalidFile, 3)
-        estimatedNumTestsPerWindow = estimatedNumWindowShrinkages * 3 + 1
-        estimatedNumIterationsRemaining = estimatedNumTestsPerWindow * estimatedNumInvalidFiles
-        numIterationsCompleted += 1
-        estimatedRemainingDuration = datetime.timedelta(seconds=(elapsedDuration.total_seconds() * estimatedNumIterationsRemaining / numIterationsCompleted))
-        print("Estimated remaining duration = " + str(estimatedRemainingDuration) + " and remaining num iterations = "  + str(estimatedNumIterationsRemaining))
-        print("")
+            for dimension in range(box.getNumDimensions()):
+              index = coordinates[dimension]
+              sliceState = box.getSlice(dimension, index)
+              print("Testing slice at dimension " + str(dimension) + ", index " + str(index))
+              if sliceState.size() < 1:
+                print("Skipping empty slice")
+                box.setSliceDuration(dimension, index, None)
+                continue
+              (testResults, duration) = self.test(sliceState)
+              if testResults:
+                print("Accepted shortened slice: " + str(sliceState.summarize()))
+                numSuccesses += 1
+                succeededDuringThisScan = True
+                box.removeSlice(dimension, index)
+              else:
+                print("Rejected shortened slice: " + str(sliceState.summarize()))
+                numFailures += 1
+                box.setSliceDuration(dimension, index, duration)
 
-        # test the state
-        if self.test(testState):
-          print("Accepted updated state having " + str(currentWindowSize) + " changes")
-          # success! keep these changes
-          testState.apply(self.bestState_path)
-          self.full_resetTo_state = self.full_resetTo_state.expandedWithEmptyEntriesFor(testState).withConflictsFrom(testState).withoutEmptyEntries()
-          # remove these changes from the set of changes to reconsider
-          self.targetState = self.targetState.withoutDuplicatesFrom(testState)
-          self.resetTo_state = self.targetState.withConflictsFrom(self.resetTo_state)
-          succeededDuringThisScan = True
-        else:
-          print("Rejected updated state having " + str(currentWindowSize) + " changes")
+        if stateIndex >= maxObservedStateIndex:
+          # If removing files from this box was successful, then removing other files from this box will probably be successful too
+          #if succeededDuringThisBox:
+          #  nextCandidateStates = box.getChildren() + nextCandidateStates
+          #else:
+          #  nextCandidateStates = nextCandidateStates + box.getChildren()
+          nextCandidateStates += box.getChildren()
+          #maxObservedStateIndex = stateIndex
 
-          failedDuringThisScan = True
-          numFailuresDuringCurrentWindowSize += 1
-        # shift the window
-        windowMax -= self.windowSize
-      # we checked every file once; now shrink the window
-      oldWindowSize = self.windowSize
-      if self.windowSize >= 3:
-        self.windowSize = int(self.windowSize / 3 + 1)
-      else:
-        if self.windowSize > 1:
-          self.windowSize = 1
-        else:
-          if not succeededDuringThisScan:
-            # only stop if we confirmed that no files could be reverted (if one file was reverted, it's possible that that unblocks another file)
-            self.windowSize = 0
-      print("Decreased window size from " + str(oldWindowSize) + " to " + str(self.windowSize))
-      print("")
+        print("nextCandidateStates has " + str(len(nextCandidateStates)) + " states:")
+        for state in nextCandidateStates:
+          print("nextCandidateStates has state " + str(state.summarize()))
+          box = boxFromList(state.splitOnce())
+          candidateStates.append(box)
+        smallCandidateStates = []
+        largeCandidateStates = []
+        for box in candidateStates[1:]:
+          children = box.getChildren()
+          if len(children) < 2:
+            smallCandidateStates.append(box)
+          else:
+            largeCandidateStates.append(box)
+            numConsecutivelyFailingRows = 0
+        candidateStates = largeCandidateStates + smallCandidateStates
 
+        #smallCandidateStates = []
+        #largeCandidateStates = []
+        #for state in nextCandidateStates:
+        #  children = state.splitOnce()
+        #  box = boxFromList(children)
+        #  if len(children) < 2:
+        #    smallCandidateStates.append(box)
+        #  else:
+        #    largeCandidateStates.append(box)
+        #candidateStates = largeCandidateStates + candidateStates[1:] + smallCandidateStates
+        
+
+        #stateIndex += 1
+      newBoxes = []
+      nextCandidateStates = [block for block in nextCandidateStates if block.size() > 0]
+      for block in nextCandidateStates:
+        subBlocks = block.splitOnce()
+        box = boxFromList(subBlocks)
+        print("Split candidate " + str(block.summarize()) + " into box " + str(box.getDimensions()) + ". Contents: ")
+        for block in subBlocks:
+          print(block.summarize())
+        newBoxes.append(box)
+      print("Split " + str(len(nextCandidateStates)) + " blocks into " + str(len(newBoxes)) + " blocks:")
+      targetNumBlocks = len(candidateStates) * 2
+      if targetNumBlocks > self.resetTo_state.size() / 2:
+        targetNumBlocks = self.resetTo_state.size()
+      while len(newBoxes) < targetNumBlocks and len(newBoxes) < self.resetTo_state.size():
+        print("Not enough blocks (" + str(len(newBoxes)) + " < " + str(targetNumBlocks) + "), splitting directories again")
+        splitBlocks = []
+        for box in newBoxes:
+          for block in box.getChildren():
+            splitBlocks.append(boxFromList(block.splitOnce()))
+        newBoxes = splitBlocks
+      newBoxes = sorted(newBoxes, reverse=True, key=FilesState_HyperBox.getNumFiles)
+      if len(newBoxes) <= len(candidateStates) and not succeededDuringThisScan:
+        break
+      candidateStates = newBoxes
+        
     print("double-checking results")
     fileIo.removePath(self.workPath)
     wasSuccessful = True
-    if not self.test(filesStateFromTree(self.bestState_path)):
+    if not self.test(filesStateFromTree(self.bestState_path))[0]:
       message = "Error: expected best state at " + self.bestState_path + " did not pass the second time. Could the test be non-deterministic?"
       if self.assumeNoSideEffects:
         message += " (it may help to remove the --assume-no-side-effects flag)"
@@ -452,7 +977,7 @@ def main(args):
     usage()
   passingPath = args[0]
   failingPath = args[1]
-  shellCommand = ShellScript(args[2])
+  shellCommand = args[2]
   tempPath = "/tmp/diff-filterer"
   startTime = datetime.datetime.now()
   if tryFail:
