@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "0011350c_58171c06",
+        "filename": "camera/testing/src/main/java/androidx/camera/testing/fakes/FakeCamera.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-05-03T20:47:13Z",
+      "side": 1,
+      "message": "Actually, nevermind. BaseCamera is a hidden interface, so I can\u0027t link to it here.",
+      "parentUuid": "9b42cde8_bc756765",
+      "range": {
+        "startLine": 39,
+        "startChar": 72,
+        "endLine": 39,
+        "endChar": 78
+      },
+      "revId": "9b94a1c4b6248df7123ca058b8976fc2d2610c84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "99510760_fab7ca84",
         "filename": "camera/testing/src/main/java/androidx/camera/testing/fakes/FakeCamera.java",
         "patchSetId": 1
@@ -131,6 +155,30 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "759c21fe_ddc17907",
+      "range": {
+        "startLine": 33,
+        "startChar": 33,
+        "endLine": 33,
+        "endChar": 46
+      },
+      "revId": "9b94a1c4b6248df7123ca058b8976fc2d2610c84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "01a70f92_d75d89dd",
+        "filename": "camera/testing/src/main/java/androidx/camera/testing/fakes/FakeCameraControl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-05-03T20:47:13Z",
+      "side": 1,
+      "message": "As with BaseCamera, CameraControl is also a hidden interface so I can\u0027t link to it here.",
+      "parentUuid": "a7cd9750_9178620c",
       "range": {
         "startLine": 33,
         "startChar": 33,
