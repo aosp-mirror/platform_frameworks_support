@@ -49,6 +49,8 @@ open class AndroidXExtension(val project: Project) {
      */
     var toolingProject = false
 
+    var errorProneEnabled = true
+
     fun license(closure: Closure<*>): License {
         val license = project.configure(License(), closure) as License
         licenses.add(license)

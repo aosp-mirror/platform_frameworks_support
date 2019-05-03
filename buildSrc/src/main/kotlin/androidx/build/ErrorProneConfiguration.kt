@@ -33,11 +33,17 @@ const val ERROR_PRONE_TASK = "runErrorProne"
 private const val ERROR_PRONE_VERSION = "com.google.errorprone:error_prone_core:2.3.3"
 private val log = Logging.getLogger("ErrorProneConfiguration")
 
-fun Project.configureErrorProneForJava() {
-    val toolChain = createErrorProneToolChain()
-    val javaCompileProvider = project.tasks.named(COMPILE_JAVA_TASK_NAME, JavaCompile::class.java)
-    log.info("Configuring error-prone for ${project.path}")
-    makeErrorProneTask(javaCompileProvider, toolChain)
+fun Project.configureErrorProneForJava(extension: AndroidXExtension) {
+    afterEvaluate {
+        if (extension.errorProneEnabled) {
+            val toolChain = createErrorProneToolChain()
+            val javaCompileProvider = project.tasks.named(
+                COMPILE_JAVA_TASK_NAME,
+                JavaCompile::class.java)
+            log.error("Configuring error-prone for ${project.path}")
+            makeErrorProneTask(javaCompileProvider, toolChain)
+        }
+    }
 }
 
 fun Project.configureErrorProneForAndroid(variants: DomainObjectSet<out BaseVariant>) {

@@ -99,7 +99,7 @@ class AndroidXPlugin : Plugin<Project> {
             when (it) {
                 is JavaPlugin,
                 is JavaLibraryPlugin -> {
-                    project.configureErrorProneForJava()
+                    project.configureErrorProneForJava(androidXExtension)
                     project.configureSourceJarForJava()
                     project.convention.getPlugin<JavaPluginConvention>().apply {
                         sourceCompatibility = VERSION_1_7
