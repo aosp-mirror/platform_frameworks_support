@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "b53bdd88_d0298f31",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/Camera2ImplCameraRepositoryTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1452466
+      },
+      "writtenOn": "2019-05-03T07:34:44Z",
+      "side": 1,
+      "message": "I had tried to move checking to setUp(), but it seems test still go through tearDoown().",
+      "parentUuid": "1792286c_85f8f518",
+      "range": {
+        "startLine": 99,
+        "startChar": 8,
+        "endLine": 99,
+        "endChar": 45
+      },
+      "revId": "b16ba9769d28a2c01303a72bfa6891b14758cbfd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7812c8f2_95bf2ed0",
         "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/CameraTest.java",
         "patchSetId": 2
