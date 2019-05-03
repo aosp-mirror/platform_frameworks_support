@@ -24,10 +24,9 @@ import androidx.benchmark.BenchmarkRule
 import androidx.benchmark.measureRepeated
 import androidx.recyclerview.benchmark.test.R
 import androidx.recyclerview.widget.RecyclerView
-import androidx.test.annotation.UiThreadTest
+import androidx.test.core.app.ActivityScenario
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
-import androidx.test.rule.ActivityTestRule
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -45,13 +44,13 @@ class ScrollBenchmark {
     @get:Rule
     val benchmarkRule = BenchmarkRule()
 
-    @get:Rule
-    val activityRule = ActivityTestRule(RecyclerViewActivity::class.java)
+    private lateinit var activityRule: ActivityScenario<RecyclerViewActivity>
 
     @Before
     fun setup() {
-        activityRule.runOnUiThread {
-            val rv = activityRule.activity.recyclerView
+        activityRule = ActivityScenario.launch(RecyclerViewActivity::class.java)
+        activityRule.onActivity {
+            val rv = it.recyclerView
             trivialAdapter = TrivialAdapter()
             rv.adapter = trivialAdapter
             rv.setRecycledViewPool(ZeroSizePool())
@@ -61,76 +60,81 @@ class ScrollBenchmark {
         }
     }
 
-    @UiThreadTest
     @Test
     fun offset() {
-        val rv = activityRule.activity.recyclerView
-        var offset = 10
-        benchmarkRule.measureRepeated {
-            // keep scrolling up and down - no new item should be revealed
-            rv.scrollBy(0, offset)
-            offset *= -1
+        activityRule.onActivity {
+            val rv = it.recyclerView
+            var offset = 10
+            benchmarkRule.measureRepeated {
+                // keep scrolling up and down - no new item should be revealed
+                rv.scrollBy(0, offset)
+                offset *= -1
+            }
         }
     }
 
-    @UiThreadTest
     @Test
     fun bindOffset() {
-        val rv = activityRule.activity.recyclerView
-        benchmarkRule.measureRepeated {
-            // each scroll should reveal a new item
-            rv.scrollBy(0, 100)
+        activityRule.onActivity {
+            val rv = it.recyclerView
+            benchmarkRule.measureRepeated {
+                // each scroll should reveal a new item
+                rv.scrollBy(0, 100)
+            }
         }
     }
 
-    @UiThreadTest
     @Test
     fun createBindOffset() {
-        trivialAdapter.disableReuse = true
-        trivialAdapter.inflater = {
-            val view = View(it.context)
-            view.layoutParams = RecyclerView.LayoutParams(100, 100)
-            view
-        }
+        activityRule.onActivity {
+            trivialAdapter.disableReuse = true
+            trivialAdapter.inflater = {
+                val view = View(it.context)
+                view.layoutParams = RecyclerView.LayoutParams(100, 100)
+                view
+            }
 
-        val rv = activityRule.activity.recyclerView
-        benchmarkRule.measureRepeated {
-            // each scroll should reveal a new item that must be inflated
-            rv.scrollBy(0, 100)
+            val rv = it.recyclerView
+            benchmarkRule.measureRepeated {
+                // each scroll should reveal a new item that must be inflated
+                rv.scrollBy(0, 100)
+            }
         }
     }
 
-    @UiThreadTest
     @Test
     fun inflateBindOffset() {
-        trivialAdapter.disableReuse = true
+        activityRule.onActivity {
+            trivialAdapter.disableReuse = true
 
-        val rv = activityRule.activity.recyclerView
-        benchmarkRule.measureRepeated {
-            // each scroll should reveal a new item that must be inflated
-            rv.scrollBy(0, 100)
+            val rv = it.recyclerView
+            benchmarkRule.measureRepeated {
+                // each scroll should reveal a new item that must be inflated
+                rv.scrollBy(0, 100)
+            }
         }
     }
 }
 
-private class ZeroSizePool : RecyclerView.RecycledViewPool() {
+class ZeroSizePool : RecyclerView.RecycledViewPool() {
     override fun putRecycledView(scrap: RecyclerView.ViewHolder) {
         // drop on floor, we won't be coming back
     }
 }
 
-private class TrivialViewHolder(view: View) : RecyclerView.ViewHolder(view)
+class TrivialViewHolder(view: View) : RecyclerView.ViewHolder(view)
 
 /**
  * Displays *many* items, each 100px tall, with minimal inflation/bind work.
  */
-private class TrivialAdapter : RecyclerView.Adapter<TrivialViewHolder>() {
+class TrivialAdapter : RecyclerView.Adapter<TrivialViewHolder>() {
     var disableReuse = false
     var createInCode = false
 
     var inflater: (ViewGroup) -> View = {
         LayoutInflater.from(it.context).inflate(
-            R.layout.item_view, it, false)
+            R.layout.item_view, it, false
+        )
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrivialViewHolder {
