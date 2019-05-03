@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fc37e0cf_0904b2dd",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/CameraTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-05-03T07:58:22Z",
+      "side": 1,
+      "message": "no,I should remove it.",
+      "parentUuid": "0223000b_3478e1ca",
+      "range": {
+        "startLine": 234,
+        "startChar": 8,
+        "endLine": 234,
+        "endChar": 56
+      },
+      "revId": "9b9f049451319705c17b5b709381a1a5547251c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9b442fe3_c7b416ca",
         "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/CameraTest.java",
         "patchSetId": 6
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "d63d080a_90c4bc18",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/CameraTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-05-03T07:58:22Z",
+      "side": 1,
+      "message": "It makes sense. I\u0027ve changed it to use MessageQueue.IdleHandler. Thanks for the suggestion.",
+      "parentUuid": "9b442fe3_c7b416ca",
+      "range": {
+        "startLine": 258,
+        "startChar": 0,
+        "endLine": 273,
+        "endChar": 25
+      },
+      "revId": "9b9f049451319705c17b5b709381a1a5547251c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1d80c347_f0d8a71f",
         "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/CameraTest.java",
         "patchSetId": 6
@@ -62,6 +110,24 @@
       "revId": "9b9f049451319705c17b5b709381a1a5547251c7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c90eea12_dbf0a278",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/CameraTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-05-03T07:58:22Z",
+      "side": 1,
+      "message": "Create new test \"CameraUseCaseAggregatorTest\" and put the aggregation related test there.",
+      "parentUuid": "1d80c347_f0d8a71f",
+      "revId": "9b9f049451319705c17b5b709381a1a5547251c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -82,6 +148,24 @@
     },
     {
       "key": {
+        "uuid": "773fe12a_bcb14952",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/CameraTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-05-03T07:58:22Z",
+      "side": 1,
+      "message": "Create new test \"CameraUseCaseAggregatorTest\" and put the aggregation related test there.",
+      "parentUuid": "0cd47de0_81c1a9b4",
+      "revId": "9b9f049451319705c17b5b709381a1a5547251c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2c0116bd_49493f97",
         "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/CameraTest.java",
         "patchSetId": 6
@@ -96,6 +180,24 @@
       "revId": "9b9f049451319705c17b5b709381a1a5547251c7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6afcf89_c45a6b03",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/CameraTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-05-03T07:58:22Z",
+      "side": 1,
+      "message": "Create new test \"CameraUseCaseAggregatorTest\" and put the aggregation related test there.",
+      "parentUuid": "2c0116bd_49493f97",
+      "revId": "9b9f049451319705c17b5b709381a1a5547251c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -116,6 +218,24 @@
     },
     {
       "key": {
+        "uuid": "847afe58_0c8ef411",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/CameraTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-05-03T07:58:22Z",
+      "side": 1,
+      "message": "Create new test \"CameraUseCaseAggregatorTest\" and put the aggregation related test there.",
+      "parentUuid": "79cc7046_5bff3efb",
+      "revId": "9b9f049451319705c17b5b709381a1a5547251c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7159c6ce_3462b1a4",
         "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/CameraTest.java",
         "patchSetId": 6
@@ -130,6 +250,24 @@
       "revId": "9b9f049451319705c17b5b709381a1a5547251c7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58a24578_82f6321c",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/CameraTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-05-03T07:58:22Z",
+      "side": 1,
+      "message": "Create new test \"CameraUseCaseAggregatorTest\" and put the aggregation related test there.",
+      "parentUuid": "7159c6ce_3462b1a4",
+      "revId": "9b9f049451319705c17b5b709381a1a5547251c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -150,6 +288,24 @@
     },
     {
       "key": {
+        "uuid": "92c41612_5ebf8147",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/CameraTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-05-03T07:58:22Z",
+      "side": 1,
+      "message": "Create new test \"CameraUseCaseAggregatorTest\" and put the aggregation related test there.",
+      "parentUuid": "85fce3b8_6f901b60",
+      "revId": "9b9f049451319705c17b5b709381a1a5547251c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e3a0a96e_fedc998f",
         "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/CameraTest.java",
         "patchSetId": 6
@@ -164,6 +320,24 @@
       "revId": "9b9f049451319705c17b5b709381a1a5547251c7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "741ffc2f_43fa2cb0",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/CameraTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-05-03T07:58:22Z",
+      "side": 1,
+      "message": "Create new test \"CameraUseCaseAggregatorTest\" and put the aggregation related test there.",
+      "parentUuid": "e3a0a96e_fedc998f",
+      "revId": "9b9f049451319705c17b5b709381a1a5547251c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -184,6 +358,24 @@
     },
     {
       "key": {
+        "uuid": "db044281_cb43804c",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/CameraTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-05-03T07:58:22Z",
+      "side": 1,
+      "message": "Create new test \"CameraUseCaseAggregatorTest\" and put the aggregation related test there.",
+      "parentUuid": "2caed463_1a33fc43",
+      "revId": "9b9f049451319705c17b5b709381a1a5547251c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1343084e_e27505a2",
         "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/CameraTest.java",
         "patchSetId": 6
@@ -198,6 +390,24 @@
       "revId": "9b9f049451319705c17b5b709381a1a5547251c7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ce56633_53345f6b",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/CameraTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 444,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-05-03T07:58:22Z",
+      "side": 1,
+      "message": "Create new test \"CameraUseCaseAggregatorTest\" and put the aggregation related test there.",
+      "parentUuid": "1343084e_e27505a2",
+      "revId": "9b9f049451319705c17b5b709381a1a5547251c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -218,6 +428,24 @@
     },
     {
       "key": {
+        "uuid": "751fcfff_72081c3a",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/CameraTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-05-03T07:58:22Z",
+      "side": 1,
+      "message": "Create new test \"CameraUseCaseAggregatorTest\" and put the aggregation related test there.",
+      "parentUuid": "d1c45df6_7e5890d7",
+      "revId": "9b9f049451319705c17b5b709381a1a5547251c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "af15c6af_61e3c21c",
         "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/ImageAnalysisTest.java",
         "patchSetId": 6
@@ -232,6 +460,24 @@
       "revId": "9b9f049451319705c17b5b709381a1a5547251c7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5875a203_5ceb8b7a",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/ImageAnalysisTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-05-03T07:58:22Z",
+      "side": 1,
+      "message": "Yes. This CL introduces a assumption that DeferrableSurface used in UseCase SessionConfig should not be changed. This test case had the behavior to create new DeferrableSurface(by updateSuggestedResolution) so it will break the assumption and cause crash (\"Detaching occurs more times than attaching\"\n\nThis assumption is added due to that we are adding attach count to the DeferrableSurface of use cases when adding online and reducing attach count when removeOnlineUseCase().  Change of DeferrableSurface in the middle will cause incorrect attach count .",
+      "parentUuid": "af15c6af_61e3c21c",
+      "revId": "9b9f049451319705c17b5b709381a1a5547251c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -258,6 +504,30 @@
     },
     {
       "key": {
+        "uuid": "1f04163c_8fe5a8b0",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/Camera.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1002,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-05-03T07:58:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e16aac26_5a435dae",
+      "range": {
+        "startLine": 1002,
+        "startChar": 35,
+        "endLine": 1002,
+        "endChar": 56
+      },
+      "revId": "9b9f049451319705c17b5b709381a1a5547251c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "157bbf65_c343baa2",
         "filename": "camera/camera2/src/main/java/androidx/camera/camera2/Camera.java",
         "patchSetId": 6
@@ -281,6 +551,30 @@
     },
     {
       "key": {
+        "uuid": "634cfa0a_a387f1ae",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/Camera.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1009,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-05-03T07:58:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "157bbf65_c343baa2",
+      "range": {
+        "startLine": 1009,
+        "startChar": 35,
+        "endLine": 1009,
+        "endChar": 57
+      },
+      "revId": "9b9f049451319705c17b5b709381a1a5547251c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa065914_4b1be5e3",
         "filename": "camera/camera2/src/main/java/androidx/camera/camera2/Camera.java",
         "patchSetId": 6
@@ -295,6 +589,24 @@
       "revId": "9b9f049451319705c17b5b709381a1a5547251c7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5ecb6af_d976e1ec",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/Camera.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1040,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-05-03T07:58:22Z",
+      "side": 1,
+      "message": "The intention is to leave just one Runnable in queue.  There is no public API in handler to check if the Runnable is in queue or not .  (Handler#hasCallbacks() is hidden)  \n\nMutliple addOnline/RemoveOnline actions in Queue causes significant lag in low end devices .",
+      "parentUuid": "fa065914_4b1be5e3",
+      "revId": "9b9f049451319705c17b5b709381a1a5547251c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -315,6 +627,24 @@
     },
     {
       "key": {
+        "uuid": "20c91d4f_2e2fe93d",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/Camera.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1046,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-05-03T07:58:22Z",
+      "side": 1,
+      "message": "The intention is to leave just one Runnable in queue.  There is no public API in handler to check if the Runnable is in queue or not .  (Handler#hasCallbacks() is hidden)  \n\nMutliple addOnline/RemoveOnline actions in Queue causes significant lag in low end devices .",
+      "parentUuid": "0058e94e_bb5203ae",
+      "revId": "9b9f049451319705c17b5b709381a1a5547251c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f6037fce_aaca461e",
         "filename": "camera/core/src/main/java/androidx/camera/core/DeferrableSurface.java",
         "patchSetId": 6
@@ -329,6 +659,24 @@
       "revId": "9b9f049451319705c17b5b709381a1a5547251c7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2cfc378a_4bc793e9",
+        "filename": "camera/core/src/main/java/androidx/camera/core/DeferrableSurface.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-05-03T07:58:22Z",
+      "side": 1,
+      "message": "DeferrableSurface has no concept of whether it is released or not. setOnSurfaceDetachedListener is used by client to get notified when it is not attached anymore and it is up to the client to decide what to do (release is one of the common option).  So if a DeferrableSurface is detached and attached again, it just add the attach count , and later when attach count reaches 0 again, it will call onSurfaceDetachedListener again.",
+      "parentUuid": "f6037fce_aaca461e",
+      "revId": "9b9f049451319705c17b5b709381a1a5547251c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
