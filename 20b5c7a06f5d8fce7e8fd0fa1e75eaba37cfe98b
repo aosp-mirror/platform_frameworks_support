@@ -187,6 +187,30 @@
       "revId": "20b5c7a06f5d8fce7e8fd0fa1e75eaba37cfe98b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0e031f5_32167b60",
+        "filename": "car/core/src/main/java/androidx/car/widget/CompoundButtonListItem.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-05-03T20:15:51Z",
+      "side": 1,
+      "message": "This is fine. I just wanted to ask in case there might be more than 1.",
+      "parentUuid": "54e04919_6f9670b6",
+      "range": {
+        "startLine": 352,
+        "startChar": 28,
+        "endLine": 352,
+        "endChar": 55
+      },
+      "revId": "20b5c7a06f5d8fce7e8fd0fa1e75eaba37cfe98b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
