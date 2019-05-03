@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f02c9bfd_918c8aa7",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/BuildOnServer.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1470382
+      },
+      "writtenOn": "2019-05-03T14:06:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a1a24e35_ff815a5b",
+      "range": {
+        "startLine": 25,
+        "startChar": 3,
+        "endLine": 25,
+        "endChar": 64
+      },
+      "revId": "08faacde452be77f6773ed69589a4dd65884e19e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "adc3bf45_94cfa15e",
         "filename": "buildSrc/src/main/kotlin/androidx/build/BuildOnServer.kt",
         "patchSetId": 5
@@ -39,6 +63,24 @@
       "revId": "08faacde452be77f6773ed69589a4dd65884e19e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea723e35_4c99a73b",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/BuildOnServer.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1470382
+      },
+      "writtenOn": "2019-05-03T14:06:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "adc3bf45_94cfa15e",
+      "revId": "08faacde452be77f6773ed69589a4dd65884e19e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
