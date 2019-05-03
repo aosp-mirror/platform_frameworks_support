@@ -1244,7 +1244,8 @@ class MediaSessionImplBase implements MediaSession.MediaSessionImpl {
         @Override
         public void onCurrentMediaItemChanged(final SessionPlayer player, final MediaItem item) {
             final MediaSessionImplBase session = getSession();
-            if (session == null || player == null || session.getPlayer() != player) {
+            if (session == null || player == null || session.getPlayer() != player
+                    || !session.isInPlaybackState(player)) {
                 return;
             }
             synchronized (session.mLock) {
@@ -1273,7 +1274,8 @@ class MediaSessionImplBase implements MediaSession.MediaSessionImpl {
         @Override
         public void onPlayerStateChanged(final SessionPlayer player, final int state) {
             final MediaSessionImplBase session = getSession();
-            if (session == null || player == null || session.getPlayer() != player) {
+            if (session == null || player == null || session.getPlayer() != player
+                    || !session.isInPlaybackState(player)) {
                 return;
             }
             session.getCallback().onPlayerStateChanged(session.getInstance(), state);
@@ -1290,6 +1292,11 @@ class MediaSessionImplBase implements MediaSession.MediaSessionImpl {
         @Override
         public void onBufferingStateChanged(final SessionPlayer player,
                 final MediaItem item, final int state) {
+            final MediaSessionImplBase session = getSession();
+            if (session == null || player == null || session.getPlayer() != player
+                    || !session.isInPlaybackState(player)) {
+                return;
+            }
             updateDurationIfNeeded(player, item);
             dispatchRemoteControllerTask(player, new RemoteControllerTask() {
                 @Override
@@ -1302,6 +1309,11 @@ class MediaSessionImplBase implements MediaSession.MediaSessionImpl {
 
         @Override
         public void onPlaybackSpeedChanged(final SessionPlayer player, final float speed) {
+            final MediaSessionImplBase session = getSession();
+            if (session == null || player == null || session.getPlayer() != player
+                    || !session.isInPlaybackState(player)) {
+                return;
+            }
             dispatchRemoteControllerTask(player, new RemoteControllerTask() {
                 @Override
                 public void run(ControllerCb callback, int seq) throws RemoteException {
@@ -1313,6 +1325,11 @@ class MediaSessionImplBase implements MediaSession.MediaSessionImpl {
 
         @Override
         public void onSeekCompleted(final SessionPlayer player, final long position) {
+            final MediaSessionImplBase session = getSession();
+            if (session == null || player == null || session.getPlayer() != player
+                    || !session.isInPlaybackState(player)) {
+                return;
+            }
             dispatchRemoteControllerTask(player, new RemoteControllerTask() {
                 @Override
                 public void run(ControllerCb callback, int seq) throws RemoteException {
@@ -1326,7 +1343,8 @@ class MediaSessionImplBase implements MediaSession.MediaSessionImpl {
         public void onPlaylistChanged(final SessionPlayer player, final List<MediaItem> list,
                 final MediaMetadata metadata) {
             final MediaSessionImplBase session = getSession();
-            if (session == null || player == null || session.getPlayer() != player) {
+            if (session == null || player == null || session.getPlayer() != player
+                    || !session.isInPlaybackState(player)) {
                 return;
             }
             synchronized (session.mLock) {
@@ -1357,6 +1375,11 @@ class MediaSessionImplBase implements MediaSession.MediaSessionImpl {
         @Override
         public void onPlaylistMetadataChanged(final SessionPlayer player,
                 final MediaMetadata metadata) {
+            final MediaSessionImplBase session = getSession();
+            if (session == null || player == null || session.getPlayer() != player
+                    || !session.isInPlaybackState(player)) {
+                return;
+            }
             dispatchRemoteControllerTask(player, new RemoteControllerTask() {
                 @Override
                 public void run(ControllerCb callback, int seq) throws RemoteException {
@@ -1368,6 +1391,10 @@ class MediaSessionImplBase implements MediaSession.MediaSessionImpl {
         @Override
         public void onRepeatModeChanged(final SessionPlayer player, final int repeatMode) {
             final MediaSessionImplBase session = getSession();
+            if (session == null || player == null || session.getPlayer() != player
+                    || !session.isInPlaybackState(player)) {
+                return;
+            }
             dispatchRemoteControllerTask(player, new RemoteControllerTask() {
                 @Override
                 public void run(ControllerCb callback, int seq) throws RemoteException {
@@ -1382,6 +1409,10 @@ class MediaSessionImplBase implements MediaSession.MediaSessionImpl {
         @Override
         public void onShuffleModeChanged(final SessionPlayer player, final int shuffleMode) {
             final MediaSessionImplBase session = getSession();
+            if (session == null || player == null || session.getPlayer() != player
+                    || !session.isInPlaybackState(player)) {
+                return;
+            }
             dispatchRemoteControllerTask(player, new RemoteControllerTask() {
                 @Override
                 public void run(ControllerCb callback, int seq) throws RemoteException {
@@ -1395,6 +1426,11 @@ class MediaSessionImplBase implements MediaSession.MediaSessionImpl {
 
         @Override
         public void onPlaybackCompleted(SessionPlayer player) {
+            final MediaSessionImplBase session = getSession();
+            if (session == null || player == null || session.getPlayer() != player
+                    || !session.isInPlaybackState(player)) {
+                return;
+            }
             dispatchRemoteControllerTask(player, new RemoteControllerTask() {
                 @Override
                 public void run(ControllerCb callback, int seq) throws RemoteException {
@@ -1407,7 +1443,8 @@ class MediaSessionImplBase implements MediaSession.MediaSessionImpl {
         public void onAudioAttributesChanged(final SessionPlayer player,
                 final AudioAttributesCompat attributes) {
             final MediaSessionImplBase session = getSession();
-            if (session == null || player == null || session.getPlayer() != player) {
+            if (session == null || player == null || session.getPlayer() != player
+                    || !session.isInPlaybackState(player)) {
                 return;
             }
             MediaController.PlaybackInfo newInfo = session.createPlaybackInfo(player, attributes);
