@@ -80,4 +80,25 @@ public final class MutableOptionsBundle extends OptionsBundle implements Mutable
     public <ValueT> void insertOption(Option<ValueT> opt, ValueT value) {
         mOptions.put(opt, value);
     }
+
+    @Override
+    public void insertOptionsFromConfig(Config config) {
+        for (Option<?> option : config.listOptions()) {
+            @SuppressWarnings("unchecked") // Options/values are being copied directly
+                    Option<Object> objectOpt = (Option<Object>) option;
+
+            Object existValue = retrieveOption(objectOpt, null);
+            Object newValue = config.retrieveOption(objectOpt);
+            if (existValue instanceof MultiValueSet) {
+                ((MultiValueSet) existValue).addAll(((MultiValueSet) newValue).getAllItems());
+            } else {
+                if (newValue instanceof MultiValueSet) {
+                    newValue = ((MultiValueSet) newValue).clone();
+                }
+                insertOption(objectOpt, newValue);
+            }
+        }
+    }
+
+
 }

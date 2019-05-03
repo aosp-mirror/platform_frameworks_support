@@ -52,4 +52,11 @@ public interface MutableConfig extends Config {
     @RestrictTo(Scope.LIBRARY_GROUP)
     @Nullable
     <ValueT> ValueT removeOption(Option<ValueT> opt);
+
+    /**
+     * Inserts all options from a {@link Config}.
+     *
+     * @param config the Config to be added.
+     */
+    void insertOptionsFromConfig(Config config);
 }

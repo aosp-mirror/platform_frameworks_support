@@ -82,4 +82,20 @@ public class MutableOptionsBundleTest {
         assertThat(config.listOptions()).containsExactly(OPTION_1, OPTION_1_A);
         assertThat(config2.listOptions()).containsExactly(OPTION_1, OPTION_1_A, OPTION_2);
     }
+
+    @Test
+    public void canAddFromConfig() {
+        MutableOptionsBundle mutOpts1 = MutableOptionsBundle.create();
+        mutOpts1.insertOption(OPTION_1, VALUE_1);
+        mutOpts1.insertOption(OPTION_1_A, VALUE_1_A);
+
+        MutableOptionsBundle mutOpts2 = MutableOptionsBundle.create();
+        mutOpts2.insertOption(OPTION_1, VALUE_2);
+        mutOpts2.insertOption(OPTION_2, VALUE_2);
+
+        mutOpts1.insertOptionsFromConfig(mutOpts2);
+
+        assertThat(mutOpts1.listOptions()).containsExactly(OPTION_1, OPTION_1_A, OPTION_2);
+        assertThat(mutOpts1.retrieveOption(OPTION_1)).isEqualTo(VALUE_2);
+    }
 }

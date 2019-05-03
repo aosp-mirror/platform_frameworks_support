@@ -253,6 +253,7 @@ final class Camera implements BaseCamera {
     }
 
     void closeCameraResource() {
+        mCaptureSession.clearCaptureConfigs();
         mCaptureSession.close();
         mCaptureSession.release();
         mCameraDevice.close();
