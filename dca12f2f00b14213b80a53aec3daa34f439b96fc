@@ -1004,6 +1004,30 @@
     },
     {
       "key": {
+        "uuid": "53db61b3_5752da68",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/MasterKey.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1069370
+      },
+      "writtenOn": "2019-05-03T21:12:50Z",
+      "side": 1,
+      "message": "Thinking more about this, I think maybe we should eliminate MasterKey as an object. We can rename this class to MasterKeys which consists of a bunch of static methods that allows to create and unlock Android Keystore keys.\n\nA typical usage would look like this:\n\n// Create and unlock the master key.\nString masterKeyAlias \u003d \"my-master-key\";\nMasterKeys.createIfNotExist(masterKeyAlias, keyGenParameterSpec);\nMasterKeys.maybePromptForUnlock(promptInfo);\n\nSharedPreferences pref \u003d EncryptedSharedPreferences.create(name, context, masterKeyAlias);\n...",
+      "parentUuid": "28456ad0_6b29d8a2",
+      "range": {
+        "startLine": 132,
+        "startChar": 0,
+        "endLine": 132,
+        "endChar": 26
+      },
+      "revId": "dca12f2f00b14213b80a53aec3daa34f439b96fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e25e0286_c3fe645d",
         "filename": "security/crypto/src/main/java/androidx/security/crypto/MasterKey.java",
         "patchSetId": 24
