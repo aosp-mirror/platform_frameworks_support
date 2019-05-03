@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "0223000b_3478e1ca",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/CameraTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-05-03T00:42:44Z",
+      "side": 1,
+      "message": "Is this comment needed?",
+      "range": {
+        "startLine": 234,
+        "startChar": 8,
+        "endLine": 234,
+        "endChar": 56
+      },
+      "revId": "9b9f049451319705c17b5b709381a1a5547251c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b442fe3_c7b416ca",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/CameraTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-05-03T00:42:44Z",
+      "side": 1,
+      "message": "This makes the assumption that any posted messages do not post more messages in order to complete whatever action they are running. If that\u0027s the case, then the handler will be considered idle before it actually is idle.\n\nA better way to do this would be to use a MessageQueue.IdleHandler on the MessageQueue itself. Unfortunately Looper.getQueue() wasn\u0027t added until API 23, so you\u0027ll need to post a message to the HandlerThread and use Looper.myQueue() to get the MessageQueue.",
+      "range": {
+        "startLine": 258,
+        "startChar": 0,
+        "endLine": 273,
+        "endChar": 25
+      },
+      "revId": "9b9f049451319705c17b5b709381a1a5547251c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1d80c347_f0d8a71f",
         "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/CameraTest.java",
         "patchSetId": 6
@@ -183,6 +229,52 @@
       "writtenOn": "2019-05-03T00:11:45Z",
       "side": 1,
       "message": "Is this change because there is a behavior change where a use case can now only be bound once due to behavior with the DeferrableSurface?",
+      "revId": "9b9f049451319705c17b5b709381a1a5547251c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e16aac26_5a435dae",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/Camera.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1002,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-05-03T00:42:44Z",
+      "side": 1,
+      "message": "Instead of \u0027retrieve\u0027, would probably be better to call this \u0027popPendingOnline()\u0027.",
+      "range": {
+        "startLine": 1002,
+        "startChar": 35,
+        "endLine": 1002,
+        "endChar": 56
+      },
+      "revId": "9b9f049451319705c17b5b709381a1a5547251c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "157bbf65_c343baa2",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/Camera.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1009,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-05-03T00:42:44Z",
+      "side": 1,
+      "message": "retrieve -\u003e pop",
+      "range": {
+        "startLine": 1009,
+        "startChar": 35,
+        "endLine": 1009,
+        "endChar": 57
+      },
       "revId": "9b9f049451319705c17b5b709381a1a5547251c7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
