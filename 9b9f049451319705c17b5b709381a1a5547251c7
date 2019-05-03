@@ -1,0 +1,242 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1d80c347_f0d8a71f",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/CameraTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-03T00:11:45Z",
+      "side": 1,
+      "message": "Shouldn\u0027t be testing the internal behavior of Camera. Because the internal details of Camera should be allowed to change.\n\nWe should only be testing the interfaces of Camera.\nEither the interface of Camera needs to change. There should be a unit test that is responsible for testing out the behavior of UseCaseAggregator.",
+      "revId": "9b9f049451319705c17b5b709381a1a5547251c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0cd47de0_81c1a9b4",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/CameraTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-03T00:11:45Z",
+      "side": 1,
+      "message": "Shouldn\u0027t be testing the internal behavior of Camera. Because the internal details of Camera should be allowed to change.\n\nWe should only be testing the interfaces of Camera.\nEither the interface of Camera needs to change. There should be a unit test that is responsible for testing out the behavior of UseCaseAggregator.",
+      "revId": "9b9f049451319705c17b5b709381a1a5547251c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c0116bd_49493f97",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/CameraTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-03T00:11:45Z",
+      "side": 1,
+      "message": "Shouldn\u0027t be testing the internal behavior of Camera. Because the internal details of Camera should be allowed to change.\n\nWe should only be testing the interfaces of Camera.\nEither the interface of Camera needs to change. There should be a unit test that is responsible for testing out the behavior of UseCaseAggregator.",
+      "revId": "9b9f049451319705c17b5b709381a1a5547251c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79cc7046_5bff3efb",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/CameraTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-03T00:11:45Z",
+      "side": 1,
+      "message": "Shouldn\u0027t be testing the internal behavior of Camera. Because the internal details of Camera should be allowed to change.\n\nWe should only be testing the interfaces of Camera.\nEither the interface of Camera needs to change. There should be a unit test that is responsible for testing out the behavior of UseCaseAggregator.",
+      "revId": "9b9f049451319705c17b5b709381a1a5547251c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7159c6ce_3462b1a4",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/CameraTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-03T00:11:45Z",
+      "side": 1,
+      "message": "Shouldn\u0027t be testing the internal behavior of Camera. Because the internal details of Camera should be allowed to change.\n\nWe should only be testing the interfaces of Camera.\nEither the interface of Camera needs to change. There should be a unit test that is responsible for testing out the behavior of UseCaseAggregator.",
+      "revId": "9b9f049451319705c17b5b709381a1a5547251c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85fce3b8_6f901b60",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/CameraTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-03T00:11:45Z",
+      "side": 1,
+      "message": "Shouldn\u0027t be testing the internal behavior of Camera. Because the internal details of Camera should be allowed to change.\n\nWe should only be testing the interfaces of Camera.\nEither the interface of Camera needs to change. There should be a unit test that is responsible for testing out the behavior of UseCaseAggregator.",
+      "revId": "9b9f049451319705c17b5b709381a1a5547251c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3a0a96e_fedc998f",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/CameraTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-03T00:11:45Z",
+      "side": 1,
+      "message": "Shouldn\u0027t be testing the internal behavior of Camera. Because the internal details of Camera should be allowed to change.\n\nWe should only be testing the interfaces of Camera.\nEither the interface of Camera needs to change. There should be a unit test that is responsible for testing out the behavior of UseCaseAggregator.",
+      "revId": "9b9f049451319705c17b5b709381a1a5547251c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2caed463_1a33fc43",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/CameraTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-03T00:11:45Z",
+      "side": 1,
+      "message": "Shouldn\u0027t be testing the internal behavior of Camera. Because the internal details of Camera should be allowed to change.\n\nWe should only be testing the interfaces of Camera.\nEither the interface of Camera needs to change. There should be a unit test that is responsible for testing out the behavior of UseCaseAggregator.",
+      "revId": "9b9f049451319705c17b5b709381a1a5547251c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1343084e_e27505a2",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/CameraTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 444,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-03T00:11:45Z",
+      "side": 1,
+      "message": "Shouldn\u0027t be testing the internal behavior of Camera. Because the internal details of Camera should be allowed to change.\n\nWe should only be testing the interfaces of Camera.\nEither the interface of Camera needs to change. There should be a unit test that is responsible for testing out the behavior of UseCaseAggregator.",
+      "revId": "9b9f049451319705c17b5b709381a1a5547251c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1c45df6_7e5890d7",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/CameraTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-03T00:11:45Z",
+      "side": 1,
+      "message": "Shouldn\u0027t be testing the internal behavior of Camera. Because the internal details of Camera should be allowed to change.\n\nWe should only be testing the interfaces of Camera.\nEither the interface of Camera needs to change. There should be a unit test that is responsible for testing out the behavior of UseCaseAggregator.",
+      "revId": "9b9f049451319705c17b5b709381a1a5547251c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af15c6af_61e3c21c",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/ImageAnalysisTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-03T00:11:45Z",
+      "side": 1,
+      "message": "Is this change because there is a behavior change where a use case can now only be bound once due to behavior with the DeferrableSurface?",
+      "revId": "9b9f049451319705c17b5b709381a1a5547251c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa065914_4b1be5e3",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/Camera.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1040,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-03T00:11:45Z",
+      "side": 1,
+      "message": "Why is this removing the callback just to add it back?",
+      "revId": "9b9f049451319705c17b5b709381a1a5547251c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0058e94e_bb5203ae",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/Camera.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1046,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-03T00:11:45Z",
+      "side": 1,
+      "message": "Why is this removing the callback just to add it back?",
+      "revId": "9b9f049451319705c17b5b709381a1a5547251c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6037fce_aaca461e",
+        "filename": "camera/core/src/main/java/androidx/camera/core/DeferrableSurface.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-03T00:11:45Z",
+      "side": 1,
+      "message": "What happens if the notifySurfaceAttached() is called after the underlying Surface from DeferrableSurface has already been released?",
+      "revId": "9b9f049451319705c17b5b709381a1a5547251c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
