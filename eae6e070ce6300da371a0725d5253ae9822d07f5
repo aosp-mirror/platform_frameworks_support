@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3c816dd9_6a44eda1",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedFile.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1069370
+      },
+      "writtenOn": "2019-05-04T04:25:36Z",
+      "side": 1,
+      "message": "The file content is encrypted using {@link StreamingAEAD} with AES-GCM, with the file name as associated data.",
+      "range": {
+        "startLine": 82,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 28
+      },
+      "revId": "eae6e070ce6300da371a0725d5253ae9822d07f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d065954e_2f05f109",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedFile.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1069370
+      },
+      "writtenOn": "2019-05-04T04:25:36Z",
+      "side": 1,
+      "message": "com.google.crypto.tink.streamingaead.StreamingAeadKeyTemplates.AES256_GCM_HKDF_4KB",
+      "range": {
+        "startLine": 87,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 79
+      },
+      "revId": "eae6e070ce6300da371a0725d5253ae9822d07f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

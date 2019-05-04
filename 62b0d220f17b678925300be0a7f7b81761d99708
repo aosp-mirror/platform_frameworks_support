@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3c3d1d5a_6f020abc",
+        "filename": "security/crypto/src/androidTest/java/androidx/security/net/ValidatedUrlTest.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1069370
+      },
+      "writtenOn": "2019-05-04T04:25:36Z",
+      "side": 1,
+      "message": "please add more tests for other hosts in https://badssl.com/.\n\nthis is critical. you don\u0027t want to release a library that claims to provide more security yet missing some checks.",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 50
+      },
+      "revId": "62b0d220f17b678925300be0a7f7b81761d99708",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9423d61_b141684b",
+        "filename": "security/crypto/src/main/java/androidx/security/net/ValidatedUrl.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1069370
+      },
+      "writtenOn": "2019-05-04T04:25:36Z",
+      "side": 1,
+      "message": "What\u0027s the point of doing OCSP, and also doing it over plaintext?\n\nI don\u0027t think this looks good for a security library.",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 23
+      },
+      "revId": "62b0d220f17b678925300be0a7f7b81761d99708",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03671e3e_c44e44b9",
+        "filename": "security/crypto/src/main/java/androidx/security/net/ValidatedUrl.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1069370
+      },
+      "writtenOn": "2019-05-04T04:25:36Z",
+      "side": 1,
+      "message": "please remove if unused",
+      "range": {
+        "startLine": 91,
+        "startChar": 0,
+        "endLine": 91,
+        "endChar": 57
+      },
+      "revId": "62b0d220f17b678925300be0a7f7b81761d99708",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "360fbde8_87257752",
+        "filename": "security/crypto/src/main/java/androidx/security/net/ValidatedUrl.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1069370
+      },
+      "writtenOn": "2019-05-04T04:25:36Z",
+      "side": 1,
+      "message": "here and elsewhere: spec -\u003e url",
+      "range": {
+        "startLine": 117,
+        "startChar": 40,
+        "endLine": 117,
+        "endChar": 44
+      },
+      "revId": "62b0d220f17b678925300be0a7f7b81761d99708",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "967e3ba3_4d11196a",
+        "filename": "security/crypto/src/main/java/androidx/security/net/ValidatedUrl.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1069370
+      },
+      "writtenOn": "2019-05-04T04:25:36Z",
+      "side": 1,
+      "message": "I still recommend not doing OSCP checks. It is expensive -- requiring at least a few round trip packets -- but it does not add any meaningful security values.",
+      "range": {
+        "startLine": 222,
+        "startChar": 0,
+        "endLine": 225,
+        "endChar": 51
+      },
+      "revId": "62b0d220f17b678925300be0a7f7b81761d99708",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
