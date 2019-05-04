@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "900001bd_0a8e5d4b",
+        "filename": "security/crypto/src/main/java/androidx/security/net/ValidatedUrl.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1060006
+      },
+      "writtenOn": "2019-05-04T04:55:21Z",
+      "side": 1,
+      "message": "OCSP has to be plain text, because you don\u0027t know if you can trust the certs if that makes sense. I can change the comment if that makes it better?",
+      "parentUuid": "a9423d61_b141684b",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 23
+      },
+      "revId": "62b0d220f17b678925300be0a7f7b81761d99708",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "03671e3e_c44e44b9",
         "filename": "security/crypto/src/main/java/androidx/security/net/ValidatedUrl.java",
         "patchSetId": 29
@@ -68,6 +92,30 @@
       "revId": "62b0d220f17b678925300be0a7f7b81761d99708",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f43aa66_6d07faff",
+        "filename": "security/crypto/src/main/java/androidx/security/net/ValidatedUrl.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1060006
+      },
+      "writtenOn": "2019-05-04T04:55:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "03671e3e_c44e44b9",
+      "range": {
+        "startLine": 91,
+        "startChar": 0,
+        "endLine": 91,
+        "endChar": 57
+      },
+      "revId": "62b0d220f17b678925300be0a7f7b81761d99708",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -94,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "68c47004_62394de6",
+        "filename": "security/crypto/src/main/java/androidx/security/net/ValidatedUrl.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1060006
+      },
+      "writtenOn": "2019-05-04T04:55:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "360fbde8_87257752",
+      "range": {
+        "startLine": 117,
+        "startChar": 40,
+        "endLine": 117,
+        "endChar": 44
+      },
+      "revId": "62b0d220f17b678925300be0a7f7b81761d99708",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "967e3ba3_4d11196a",
         "filename": "security/crypto/src/main/java/androidx/security/net/ValidatedUrl.java",
         "patchSetId": 29
@@ -105,6 +177,30 @@
       "writtenOn": "2019-05-04T04:25:36Z",
       "side": 1,
       "message": "I still recommend not doing OSCP checks. It is expensive -- requiring at least a few round trip packets -- but it does not add any meaningful security values.",
+      "range": {
+        "startLine": 222,
+        "startChar": 0,
+        "endLine": 225,
+        "endChar": 51
+      },
+      "revId": "62b0d220f17b678925300be0a7f7b81761d99708",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60922e45_831ee9c7",
+        "filename": "security/crypto/src/main/java/androidx/security/net/ValidatedUrl.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1060006
+      },
+      "writtenOn": "2019-05-04T04:55:21Z",
+      "side": 1,
+      "message": "I understand where you are coming from, this is for enterprise use generally. For those who want to implement, we want to provide a way to do it since this code is hard to write.",
+      "parentUuid": "967e3ba3_4d11196a",
       "range": {
         "startLine": 222,
         "startChar": 0,

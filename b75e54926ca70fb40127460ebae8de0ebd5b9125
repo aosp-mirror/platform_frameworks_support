@@ -71,6 +71,30 @@
     },
     {
       "key": {
+        "uuid": "b7a8f07a_d9c4bfde",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedFile.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1060006
+      },
+      "writtenOn": "2019-05-04T04:55:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a0f3833a_b4832675",
+      "range": {
+        "startLine": 47,
+        "startChar": 3,
+        "endLine": 47,
+        "endChar": 49
+      },
+      "revId": "b75e54926ca70fb40127460ebae8de0ebd5b9125",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "32450ebe_b304b7a3",
         "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedFile.java",
         "patchSetId": 25
@@ -752,6 +776,30 @@
     },
     {
       "key": {
+        "uuid": "7161819c_24c29bb3",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedSharedPreferences.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1060006
+      },
+      "writtenOn": "2019-05-04T04:55:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "816d3e53_de78c2d6",
+      "range": {
+        "startLine": 54,
+        "startChar": 3,
+        "endLine": 54,
+        "endChar": 84
+      },
+      "revId": "b75e54926ca70fb40127460ebae8de0ebd5b9125",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "15f94395_5d436e9d",
         "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedSharedPreferences.java",
         "patchSetId": 25
@@ -772,6 +820,30 @@
       "revId": "b75e54926ca70fb40127460ebae8de0ebd5b9125",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3e3f8bb_ef1a4e43",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedSharedPreferences.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1060006
+      },
+      "writtenOn": "2019-05-04T04:55:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "15f94395_5d436e9d",
+      "range": {
+        "startLine": 60,
+        "startChar": 32,
+        "endLine": 60,
+        "endChar": 48
+      },
+      "revId": "b75e54926ca70fb40127460ebae8de0ebd5b9125",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -798,6 +870,30 @@
     },
     {
       "key": {
+        "uuid": "59a3f91e_e2c9072c",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedSharedPreferences.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1060006
+      },
+      "writtenOn": "2019-05-04T04:55:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "040eef9e_697ba6cd",
+      "range": {
+        "startLine": 85,
+        "startChar": 8,
+        "endLine": 85,
+        "endChar": 92
+      },
+      "revId": "b75e54926ca70fb40127460ebae8de0ebd5b9125",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "567a3fa0_708ac42f",
         "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedSharedPreferences.java",
         "patchSetId": 25
@@ -818,6 +914,30 @@
       "revId": "b75e54926ca70fb40127460ebae8de0ebd5b9125",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e77b76c7_9b94e00b",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedSharedPreferences.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1060006
+      },
+      "writtenOn": "2019-05-04T04:55:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "567a3fa0_708ac42f",
+      "range": {
+        "startLine": 111,
+        "startChar": 59,
+        "endLine": 111,
+        "endChar": 75
+      },
+      "revId": "b75e54926ca70fb40127460ebae8de0ebd5b9125",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -844,6 +964,30 @@
     },
     {
       "key": {
+        "uuid": "9d728f74_6cb8541e",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedSharedPreferences.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1060006
+      },
+      "writtenOn": "2019-05-04T04:55:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "98c56f20_6c6491e3",
+      "range": {
+        "startLine": 116,
+        "startChar": 61,
+        "endLine": 116,
+        "endChar": 77
+      },
+      "revId": "b75e54926ca70fb40127460ebae8de0ebd5b9125",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f8237b1a_b7180955",
         "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedSharedPreferences.java",
         "patchSetId": 25
@@ -858,6 +1002,24 @@
       "revId": "b75e54926ca70fb40127460ebae8de0ebd5b9125",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2bd452fe_9f89d7dd",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedSharedPreferences.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1060006
+      },
+      "writtenOn": "2019-05-04T04:55:21Z",
+      "side": 1,
+      "message": "Moved to the constructor so I pass in a SharedPreferences object since this is a static context.",
+      "parentUuid": "f8237b1a_b7180955",
+      "revId": "b75e54926ca70fb40127460ebae8de0ebd5b9125",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -884,6 +1046,30 @@
     },
     {
       "key": {
+        "uuid": "ec9b9072_a9eb415d",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedSharedPreferences.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1060006
+      },
+      "writtenOn": "2019-05-04T04:55:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a77a28b1_bc14e981",
+      "range": {
+        "startLine": 131,
+        "startChar": 11,
+        "endLine": 132,
+        "endChar": 58
+      },
+      "revId": "b75e54926ca70fb40127460ebae8de0ebd5b9125",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "898433c8_0f4394b8",
         "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedSharedPreferences.java",
         "patchSetId": 25
@@ -904,6 +1090,30 @@
       "revId": "b75e54926ca70fb40127460ebae8de0ebd5b9125",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea394b51_a4484a69",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedSharedPreferences.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1060006
+      },
+      "writtenOn": "2019-05-04T04:55:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "898433c8_0f4394b8",
+      "range": {
+        "startLine": 136,
+        "startChar": 0,
+        "endLine": 136,
+        "endChar": 75
+      },
+      "revId": "b75e54926ca70fb40127460ebae8de0ebd5b9125",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -930,6 +1140,30 @@
     },
     {
       "key": {
+        "uuid": "0439bad7_c97998e4",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedSharedPreferences.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1060006
+      },
+      "writtenOn": "2019-05-04T04:55:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "298e748b_a8c53dbf",
+      "range": {
+        "startLine": 140,
+        "startChar": 8,
+        "endLine": 140,
+        "endChar": 19
+      },
+      "revId": "b75e54926ca70fb40127460ebae8de0ebd5b9125",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "76fff187_492d2869",
         "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedSharedPreferences.java",
         "patchSetId": 25
@@ -950,6 +1184,30 @@
       "revId": "b75e54926ca70fb40127460ebae8de0ebd5b9125",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7554fd3d_82a5e854",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedSharedPreferences.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1060006
+      },
+      "writtenOn": "2019-05-04T04:55:21Z",
+      "side": 1,
+      "message": "It\u0027s already private by default because it\u0027s an enum type.",
+      "parentUuid": "76fff187_492d2869",
+      "range": {
+        "startLine": 142,
+        "startChar": 8,
+        "endLine": 142,
+        "endChar": 31
+      },
+      "revId": "b75e54926ca70fb40127460ebae8de0ebd5b9125",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -976,6 +1234,30 @@
     },
     {
       "key": {
+        "uuid": "8acb2441_88c60816",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedSharedPreferences.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1060006
+      },
+      "writtenOn": "2019-05-04T04:55:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1408ca07_4cd14773",
+      "range": {
+        "startLine": 156,
+        "startChar": 11,
+        "endLine": 156,
+        "endChar": 99
+      },
+      "revId": "b75e54926ca70fb40127460ebae8de0ebd5b9125",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dde943d0_49955230",
         "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedSharedPreferences.java",
         "patchSetId": 25
@@ -996,6 +1278,30 @@
       "revId": "b75e54926ca70fb40127460ebae8de0ebd5b9125",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed51eae7_b6eece76",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedSharedPreferences.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1060006
+      },
+      "writtenOn": "2019-05-04T04:55:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dde943d0_49955230",
+      "range": {
+        "startLine": 160,
+        "startChar": 0,
+        "endLine": 160,
+        "endChar": 61
+      },
+      "revId": "b75e54926ca70fb40127460ebae8de0ebd5b9125",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -1022,6 +1328,30 @@
     },
     {
       "key": {
+        "uuid": "8f6528ee_5bb84c18",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedSharedPreferences.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1060006
+      },
+      "writtenOn": "2019-05-04T04:55:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "09f444d9_a0f19571",
+      "range": {
+        "startLine": 164,
+        "startChar": 0,
+        "endLine": 164,
+        "endChar": 37
+      },
+      "revId": "b75e54926ca70fb40127460ebae8de0ebd5b9125",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bf2ed07c_3bf20a15",
         "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedSharedPreferences.java",
         "patchSetId": 25
@@ -1042,6 +1372,30 @@
       "revId": "b75e54926ca70fb40127460ebae8de0ebd5b9125",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a0bff3ca_ac8b17e6",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedSharedPreferences.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1060006
+      },
+      "writtenOn": "2019-05-04T04:55:21Z",
+      "side": 1,
+      "message": "It\u0027s already private because its an enum.",
+      "parentUuid": "bf2ed07c_3bf20a15",
+      "range": {
+        "startLine": 166,
+        "startChar": 8,
+        "endLine": 166,
+        "endChar": 33
+      },
+      "revId": "b75e54926ca70fb40127460ebae8de0ebd5b9125",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -1068,6 +1422,30 @@
     },
     {
       "key": {
+        "uuid": "81bfae74_1ee7c6f1",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedSharedPreferences.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 515,
+      "author": {
+        "id": 1060006
+      },
+      "writtenOn": "2019-05-04T04:55:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bfc5e58a_2e0afdf1",
+      "range": {
+        "startLine": 515,
+        "startChar": 8,
+        "endLine": 515,
+        "endChar": 35
+      },
+      "revId": "b75e54926ca70fb40127460ebae8de0ebd5b9125",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dbf0ef22_2dfd7e7b",
         "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedSharedPreferences.java",
         "patchSetId": 25
@@ -1088,6 +1466,30 @@
       "revId": "b75e54926ca70fb40127460ebae8de0ebd5b9125",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9666305a_9da1a1bd",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedSharedPreferences.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 520,
+      "author": {
+        "id": 1060006
+      },
+      "writtenOn": "2019-05-04T04:55:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dbf0ef22_2dfd7e7b",
+      "range": {
+        "startLine": 520,
+        "startChar": 12,
+        "endLine": 520,
+        "endChar": 26
+      },
+      "revId": "b75e54926ca70fb40127460ebae8de0ebd5b9125",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -1114,6 +1516,30 @@
     },
     {
       "key": {
+        "uuid": "424d4157_92f01f57",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedSharedPreferences.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 524,
+      "author": {
+        "id": 1060006
+      },
+      "writtenOn": "2019-05-04T04:55:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2dd4ec9e_db65ffcb",
+      "range": {
+        "startLine": 524,
+        "startChar": 8,
+        "endLine": 524,
+        "endChar": 28
+      },
+      "revId": "b75e54926ca70fb40127460ebae8de0ebd5b9125",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a583293b_4305cfa7",
         "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedSharedPreferences.java",
         "patchSetId": 25
@@ -1134,6 +1560,30 @@
       "revId": "b75e54926ca70fb40127460ebae8de0ebd5b9125",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "acc328ad_b3e1139b",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedSharedPreferences.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 528,
+      "author": {
+        "id": 1060006
+      },
+      "writtenOn": "2019-05-04T04:55:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a583293b_4305cfa7",
+      "range": {
+        "startLine": 528,
+        "startChar": 8,
+        "endLine": 528,
+        "endChar": 26
+      },
+      "revId": "b75e54926ca70fb40127460ebae8de0ebd5b9125",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -1160,6 +1610,30 @@
     },
     {
       "key": {
+        "uuid": "2c1ac074_444a53c6",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedSharedPreferences.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 533,
+      "author": {
+        "id": 1060006
+      },
+      "writtenOn": "2019-05-04T04:55:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "43034081_59d79eff",
+      "range": {
+        "startLine": 533,
+        "startChar": 12,
+        "endLine": 533,
+        "endChar": 47
+      },
+      "revId": "b75e54926ca70fb40127460ebae8de0ebd5b9125",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d078bc48_0ecbbd46",
         "filename": "security/crypto/src/main/java/androidx/security/crypto/MasterKey.java",
         "patchSetId": 25
@@ -1180,6 +1654,30 @@
       "revId": "b75e54926ca70fb40127460ebae8de0ebd5b9125",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b2cb562_c1a96556",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/MasterKey.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1060006
+      },
+      "writtenOn": "2019-05-04T04:55:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d078bc48_0ecbbd46",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 90
+      },
+      "revId": "b75e54926ca70fb40127460ebae8de0ebd5b9125",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -1206,6 +1704,30 @@
     },
     {
       "key": {
+        "uuid": "812cb7d3_271a5242",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/MasterKey.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1060006
+      },
+      "writtenOn": "2019-05-04T04:55:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0de75cc0_7a9051c1",
+      "range": {
+        "startLine": 33,
+        "startChar": 1,
+        "endLine": 34,
+        "endChar": 87
+      },
+      "revId": "b75e54926ca70fb40127460ebae8de0ebd5b9125",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e2f1c054_8c9eaee2",
         "filename": "security/crypto/src/main/java/androidx/security/crypto/MasterKey.java",
         "patchSetId": 25
@@ -1229,6 +1751,30 @@
     },
     {
       "key": {
+        "uuid": "48b84055_fee33a69",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/MasterKey.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1060006
+      },
+      "writtenOn": "2019-05-04T04:55:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e2f1c054_8c9eaee2",
+      "range": {
+        "startLine": 36,
+        "startChar": 19,
+        "endLine": 36,
+        "endChar": 28
+      },
+      "revId": "b75e54926ca70fb40127460ebae8de0ebd5b9125",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "702d1eff_6c889b2b",
         "filename": "security/crypto/src/main/java/androidx/security/crypto/MasterKey.java",
         "patchSetId": 25
@@ -1249,6 +1795,30 @@
       "revId": "b75e54926ca70fb40127460ebae8de0ebd5b9125",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "075ce57e_9a523140",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/MasterKey.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1060006
+      },
+      "writtenOn": "2019-05-04T04:55:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "702d1eff_6c889b2b",
+      "range": {
+        "startLine": 97,
+        "startChar": 0,
+        "endLine": 97,
+        "endChar": 61
+      },
+      "revId": "b75e54926ca70fb40127460ebae8de0ebd5b9125",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
