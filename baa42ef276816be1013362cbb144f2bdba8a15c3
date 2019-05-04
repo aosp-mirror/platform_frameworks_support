@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "5b8b88a2_d7bd4053",
+        "filename": "camera/integration-tests/coretestapp/src/androidTest/java/androidx/camera/integration/core/BasicUITest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1452466
+      },
+      "writtenOn": "2019-05-04T10:13:00Z",
+      "side": 1,
+      "message": "Hi Wegin,\nI have same method (checkCameraDevice()) in CamerUtil in aosp/955318 and then other tests could check camera by this utility API.\nCurrently there are some merge conflict and presubmit failed.\nI suggest that you can have same method im CameraUtil.\nIf your CL could be merged before aosp/955318 I would like to remove my version.",
+      "range": {
+        "startLine": 86,
+        "startChar": 20,
+        "endLine": 86,
+        "endChar": 34
+      },
+      "revId": "baa42ef276816be1013362cbb144f2bdba8a15c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "04786334_de9f27f5",
         "filename": "camera/integration-tests/coretestapp/src/androidTest/java/androidx/camera/integration/core/BasicUITest.java",
         "patchSetId": 1
