@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "5542fe6d_f94443b4",
+        "filename": "security/crypto/src/androidTest/java/androidx/security/crypto/EncryptedFileTest.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1060006
+      },
+      "writtenOn": "2019-05-04T06:45:11Z",
+      "side": 1,
+      "message": "Fixed a bug. All tests run now.",
+      "parentUuid": "e260aa55_3eaf2838",
+      "range": {
+        "startLine": 40,
+        "startChar": 13,
+        "endLine": 40,
+        "endChar": 30
+      },
+      "revId": "b75e54926ca70fb40127460ebae8de0ebd5b9125",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "764c0b9c_644dd8fb",
         "filename": "security/crypto/src/androidTest/java/androidx/security/crypto/EncryptedSharedPreferencesTest.java",
         "patchSetId": 25
