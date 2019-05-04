@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7d702636_14ecfffb",
+        "filename": "security/crypto/src/androidTest/java/androidx/security/net/ValidatedUrlTest.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1060006
+      },
+      "writtenOn": "2019-05-04T06:33:31Z",
+      "side": 1,
+      "message": "Added all 6 certificate tests on badssl.com.\n\nLoops through each one.",
+      "parentUuid": "3c3d1d5a_6f020abc",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 50
+      },
+      "revId": "62b0d220f17b678925300be0a7f7b81761d99708",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a9423d61_b141684b",
         "filename": "security/crypto/src/main/java/androidx/security/net/ValidatedUrl.java",
         "patchSetId": 29
@@ -69,6 +93,30 @@
       "revId": "62b0d220f17b678925300be0a7f7b81761d99708",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cff4d5b0_1b75261d",
+        "filename": "security/crypto/src/main/java/androidx/security/net/ValidatedUrl.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1060006
+      },
+      "writtenOn": "2019-05-04T06:33:31Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "900001bd_0a8e5d4b",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 23
+      },
+      "revId": "62b0d220f17b678925300be0a7f7b81761d99708",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -210,6 +258,30 @@
       "revId": "62b0d220f17b678925300be0a7f7b81761d99708",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a499057e_2d4e979c",
+        "filename": "security/crypto/src/main/java/androidx/security/net/ValidatedUrl.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1060006
+      },
+      "writtenOn": "2019-05-04T06:33:31Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "60922e45_831ee9c7",
+      "range": {
+        "startLine": 222,
+        "startChar": 0,
+        "endLine": 225,
+        "endChar": 51
+      },
+      "revId": "62b0d220f17b678925300be0a7f7b81761d99708",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

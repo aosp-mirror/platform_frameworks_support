@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e260aa55_3eaf2838",
+        "filename": "security/crypto/src/androidTest/java/androidx/security/crypto/EncryptedFileTest.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1060006
+      },
+      "writtenOn": "2019-05-04T06:33:31Z",
+      "side": 1,
+      "message": "Added all tests.\n\nI\u0027m getting key not found in cipher text error again, otherwise the tests are done. Any ideas?",
+      "parentUuid": "01f86512_ccc3f408",
+      "range": {
+        "startLine": 40,
+        "startChar": 13,
+        "endLine": 40,
+        "endChar": 30
+      },
+      "revId": "b75e54926ca70fb40127460ebae8de0ebd5b9125",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "764c0b9c_644dd8fb",
         "filename": "security/crypto/src/androidTest/java/androidx/security/crypto/EncryptedSharedPreferencesTest.java",
         "patchSetId": 25
@@ -45,6 +69,30 @@
       "revId": "b75e54926ca70fb40127460ebae8de0ebd5b9125",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a02737c5_f5ed3275",
+        "filename": "security/crypto/src/androidTest/java/androidx/security/crypto/EncryptedSharedPreferencesTest.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1060006
+      },
+      "writtenOn": "2019-05-04T06:33:31Z",
+      "side": 1,
+      "message": "Added the double key write test to the main test.\n\nAdded a test case for reading from the encrypted shared prefs with Tink.",
+      "parentUuid": "764c0b9c_644dd8fb",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 45
+      },
+      "revId": "b75e54926ca70fb40127460ebae8de0ebd5b9125",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
