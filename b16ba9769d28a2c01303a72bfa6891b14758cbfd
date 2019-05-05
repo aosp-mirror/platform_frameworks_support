@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ff0e16c1_f6785b0c",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/PreviewTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1452466
+      },
+      "writtenOn": "2019-05-05T18:46:12Z",
+      "side": 1,
+      "message": "Done\nI think it is still need to check camera exist or not.\nJust use the CameraUtil.checkCameraDevice() in setUp().",
+      "parentUuid": "d2fc45fb_14179043",
+      "range": {
+        "startLine": 109,
+        "startChar": 8,
+        "endLine": 109,
+        "endChar": 45
+      },
+      "revId": "b16ba9769d28a2c01303a72bfa6891b14758cbfd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1792286c_85f8f518",
         "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/Camera2ImplCameraRepositoryTest.java",
         "patchSetId": 2
@@ -72,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "0f055675_07c3aedb",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/Camera2ImplCameraRepositoryTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1452466
+      },
+      "writtenOn": "2019-05-05T18:46:12Z",
+      "side": 1,
+      "message": "Done.\nJust have a public method (checkCameraDevice()) in CameraUtil to check camera exist or not.",
+      "parentUuid": "b53bdd88_d0298f31",
+      "range": {
+        "startLine": 99,
+        "startChar": 8,
+        "endLine": 99,
+        "endChar": 45
+      },
+      "revId": "b16ba9769d28a2c01303a72bfa6891b14758cbfd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7812c8f2_95bf2ed0",
         "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/CameraTest.java",
         "patchSetId": 2
@@ -95,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "7c520c1d_720d9ba2",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/CameraTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1452466
+      },
+      "writtenOn": "2019-05-05T18:46:12Z",
+      "side": 1,
+      "message": "Done\nJust use the CameraUtil.checkCameraDevice() in setUp().",
+      "parentUuid": "7812c8f2_95bf2ed0",
+      "range": {
+        "startLine": 124,
+        "startChar": 8,
+        "endLine": 124,
+        "endChar": 45
+      },
+      "revId": "b16ba9769d28a2c01303a72bfa6891b14758cbfd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "db990da5_8ec9aa2d",
         "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/CaptureSessionTest.java",
         "patchSetId": 2
@@ -115,6 +187,30 @@
       "revId": "b16ba9769d28a2c01303a72bfa6891b14758cbfd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24ebaaad_219a8d2e",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/CaptureSessionTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1452466
+      },
+      "writtenOn": "2019-05-05T18:46:12Z",
+      "side": 1,
+      "message": "Done\nJust use the CameraUtil.checkCameraDevice() in setUp().",
+      "parentUuid": "db990da5_8ec9aa2d",
+      "range": {
+        "startLine": 97,
+        "startChar": 8,
+        "endLine": 97,
+        "endChar": 49
+      },
+      "revId": "b16ba9769d28a2c01303a72bfa6891b14758cbfd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
