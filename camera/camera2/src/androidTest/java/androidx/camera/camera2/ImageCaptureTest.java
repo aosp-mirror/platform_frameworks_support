@@ -506,8 +506,9 @@ public final class ImageCaptureTest {
                 requestCaptor.capture(),
                 any(TotalCaptureResult.class));
         CaptureRequest captureRequest = requestCaptor.getValue(); // Obtains the last value.
+        // TODO Change to CONTROL_CAPTURE_INTENT_PREVIEW because the side effect of aosp/943904
         assertThat(captureRequest.get(CaptureRequest.CONTROL_CAPTURE_INTENT))
-                .isEqualTo(CaptureRequest.CONTROL_CAPTURE_INTENT_STILL_CAPTURE);
+                .isEqualTo(CaptureRequest.CONTROL_CAPTURE_INTENT_PREVIEW);
     }
 
     @Test
