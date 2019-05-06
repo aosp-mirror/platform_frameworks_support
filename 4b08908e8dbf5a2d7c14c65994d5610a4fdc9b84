@@ -22,6 +22,30 @@
       "revId": "4b08908e8dbf5a2d7c14c65994d5610a4fdc9b84",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "def54468_4e3ac2bb",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedFile.java",
+        "patchSetId": 37
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 1060006
+      },
+      "writtenOn": "2019-05-06T20:03:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d6691176_db7a0b47",
+      "range": {
+        "startLine": 269,
+        "startChar": 0,
+        "endLine": 271,
+        "endChar": 9
+      },
+      "revId": "4b08908e8dbf5a2d7c14c65994d5610a4fdc9b84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
