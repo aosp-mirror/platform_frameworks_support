@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d6691176_db7a0b47",
+        "filename": "security/crypto/src/main/java/androidx/security/crypto/EncryptedFile.java",
+        "patchSetId": 37
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 1069370
+      },
+      "writtenOn": "2019-05-06T19:56:12Z",
+      "side": 1,
+      "message": "if you just call super, this is not needed. the Java style guide prohibits overriding finalize.",
+      "range": {
+        "startLine": 269,
+        "startChar": 0,
+        "endLine": 271,
+        "endChar": 9
+      },
+      "revId": "4b08908e8dbf5a2d7c14c65994d5610a4fdc9b84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
