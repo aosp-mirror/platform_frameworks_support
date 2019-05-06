@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "879e4f69_a10e2f9a",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/compat/CameraDeviceCompat.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-05-06T23:54:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f22333e6_a76e61d9",
+      "range": {
+        "startLine": 25,
+        "startChar": 36,
+        "endLine": 25,
+        "endChar": 48
+      },
+      "revId": "514e56654945053287c779d3097b2db49120d8c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "573ca783_6628b7fc",
         "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/compat/params/SessionConfigurationCompat.java",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "514e56654945053287c779d3097b2db49120d8c2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a75513b_6d196d57",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/compat/params/SessionConfigurationCompat.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-05-06T23:54:48Z",
+      "side": 1,
+      "message": "Intentionally left as a non-link. See below comment. However this should be SessionConfiguration rather than InputConfiguration, so that has been updated.",
+      "parentUuid": "573ca783_6628b7fc",
+      "range": {
+        "startLine": 45,
+        "startChar": 36,
+        "endLine": 45,
+        "endChar": 54
+      },
+      "revId": "514e56654945053287c779d3097b2db49120d8c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "905ef713_f8fa61d6",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/compat/params/SessionConfigurationCompat.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-05-06T23:54:48Z",
+      "side": 1,
+      "message": "This is intentionally left as a non-link since SessionConfiguration was introduced in API 28, so the link does not work on all supported API levels. Similar to:\nhttps://android.googlesource.com/platform/frameworks/support/+/refs/heads/androidx-master-dev/core/src/main/java/androidx/core/view/inputmethod/InputContentInfoCompat.java?autodive\u003d0%2F%2F%2F#208\n\nHowever, this should have been SessionConfiguration, not InputConfiguration. So that has been fixed.",
+      "parentUuid": "1941a45d_edd4cbd7",
+      "range": {
+        "startLine": 101,
+        "startChar": 76,
+        "endLine": 101,
+        "endChar": 94
+      },
+      "revId": "514e56654945053287c779d3097b2db49120d8c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b37ad5e9_2163ef0a",
         "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/compat/params/SessionConfigurationCompat.java",
         "patchSetId": 2
@@ -91,6 +163,30 @@
       "revId": "514e56654945053287c779d3097b2db49120d8c2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "831764f1_681537a4",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/compat/params/SessionConfigurationCompat.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-05-06T23:54:48Z",
+      "side": 1,
+      "message": "See above comment.",
+      "parentUuid": "b37ad5e9_2163ef0a",
+      "range": {
+        "startLine": 106,
+        "startChar": 70,
+        "endLine": 106,
+        "endChar": 90
+      },
+      "revId": "514e56654945053287c779d3097b2db49120d8c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "89cd52b3_8584a391",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/compat/params/SessionConfigurationCompat.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-05-06T23:54:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d1bea7f3_dbb10e22",
+      "range": {
+        "startLine": 175,
+        "startChar": 48,
+        "endLine": 175,
+        "endChar": 56
+      },
+      "revId": "514e56654945053287c779d3097b2db49120d8c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "03cfa96c_0c10bd0d",
         "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/compat/params/SessionConfigurationCompat.java",
         "patchSetId": 2
@@ -137,6 +257,30 @@
       "revId": "514e56654945053287c779d3097b2db49120d8c2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e793cbaa_b550c41d",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/compat/params/SessionConfigurationCompat.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-05-06T23:54:48Z",
+      "side": 1,
+      "message": "See above comment about links.",
+      "parentUuid": "03cfa96c_0c10bd0d",
+      "range": {
+        "startLine": 237,
+        "startChar": 69,
+        "endLine": 237,
+        "endChar": 89
+      },
+      "revId": "514e56654945053287c779d3097b2db49120d8c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
