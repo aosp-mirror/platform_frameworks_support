@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a9ca3924_9cabd606",
+        "filename": "car/core/src/androidTest/java/androidx/car/widget/PagedListViewTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 457,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-05-06T22:52:59Z",
+      "side": 1,
+      "message": "I\u0027d add a test where you set it to hidden, then toggle it back",
+      "revId": "d1b969bfa273c084574961b9a3a9f1fa8d1f42b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
