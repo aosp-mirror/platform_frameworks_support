@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a558476_63645eb9",
+        "filename": "camera/core/src/main/java/androidx/camera/core/DeferredImageReaderSurface.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-05-06T07:02:51Z",
+      "side": 1,
+      "message": "It is not suitable to release resource in notifySurfaceDetached. \nit is not notifySurfaceDetached are designed for.  App should use setOnSurfaceDetachListener to release .  But currently the design doesn\u0027t not support the condition of continuous bind() calls.   We need to redesign the API if necessary .",
+      "range": {
+        "startLine": 137,
+        "startChar": 0,
+        "endLine": 137,
+        "endChar": 41
+      },
+      "revId": "cfb0f3bd5799267755c233ec3595d9c5cd0109b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "441c1256_a311e7a0",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 841,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-05-06T07:02:51Z",
+      "side": 1,
+      "message": "According the the latest discussion between Franklin, Trevor.  We should use the same DeferrableSurface object as in SessionConfig.",
+      "range": {
+        "startLine": 841,
+        "startChar": 0,
+        "endLine": 841,
+        "endChar": 84
+      },
+      "revId": "cfb0f3bd5799267755c233ec3595d9c5cd0109b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
