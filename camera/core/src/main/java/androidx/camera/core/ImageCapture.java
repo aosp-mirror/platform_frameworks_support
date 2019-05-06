@@ -17,12 +17,10 @@
 package androidx.camera.core;
 
 import android.graphics.ImageFormat;
-import android.hardware.camera2.CameraDevice;
 import android.hardware.camera2.CaptureRequest;
 import android.location.Location;
 import android.media.Image;
 import android.media.ImageReader;
-import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.SystemClock;
@@ -106,6 +104,7 @@ public class ImageCapture extends UseCase {
     @SuppressWarnings("WeakerAccess") /* synthetic accessor */
     final Handler mHandler;
     private final SessionConfig.Builder mSessionConfigBuilder;
+    private final CaptureConfig mCaptureConfig;
     private final ExecutorService mExecutor =
             Executors.newFixedThreadPool(
                     1,
@@ -199,6 +198,9 @@ public class ImageCapture extends UseCase {
 
         mSessionConfigBuilder = SessionConfig.Builder.createFrom(mConfig);
         mSessionConfigBuilder.addRepeatingCameraCaptureCallback(mSessionCallbackChecker);
+
+        CaptureConfig.Builder captureBuilder = CaptureConfig.Builder.createFrom(mConfig);
+        mCaptureConfig = captureBuilder.build();
     }
 
     private static String getCameraIdUnchecked(LensFacing lensFacing) {
@@ -837,29 +839,6 @@ public class ImageCapture extends UseCase {
         state.mIsAePrecaptureTriggered = false;
     }
 
-    // TODO(b/123897971):  move the device specific code once we complete the device workaround
-    // module.
-    private void applyPixelHdrPlusChangeForCaptureMode(
-            CaptureMode captureMode, CaptureConfig.Builder takePhotoRequestBuilder) {
-        if (Build.MANUFACTURER.equals("Google")
-                && (Build.MODEL.equals("Pixel 2") || Build.MODEL.equals("Pixel 3"))) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                switch (captureMode) {
-                    case MAX_QUALITY:
-                        // enable ZSL to make sure HDR+ is enabled
-                        takePhotoRequestBuilder.addCharacteristic(
-                                CaptureRequest.CONTROL_ENABLE_ZSL, true);
-                        break;
-                    case MIN_LATENCY:
-                        // disable ZSL to turn off HDR+
-                        takePhotoRequestBuilder.addCharacteristic(
-                                CaptureRequest.CONTROL_ENABLE_ZSL, false);
-                        break;
-                }
-            }
-        }
-    }
-
     /** Issues a take picture request. */
     ListenableFuture<Void> issueTakePicture() {
         final List<ListenableFuture<Void>> futureList = new ArrayList<>();
@@ -867,12 +846,11 @@ public class ImageCapture extends UseCase {
 
         for (final CaptureStage captureStage : mCaptureBundle.getCaptureStages()) {
             final CaptureConfig.Builder builder = new CaptureConfig.Builder();
+            builder.setTemplateType(mCaptureConfig.getTemplateType());
+            builder.addImplementationOptions(mCaptureConfig.getImplementationOptions());
             builder.addAllCameraCaptureCallbacks(
                     mSessionConfigBuilder.getSingleCameraCaptureCallbacks());
             builder.addSurface(new ImmediateSurface(mImageReader.getSurface()));
-            builder.setTemplateType(CameraDevice.TEMPLATE_STILL_CAPTURE);
-
-            applyPixelHdrPlusChangeForCaptureMode(mCaptureMode, builder);
 
             builder.addImplementationOptions(
                     captureStage.getCaptureConfig().getImplementationOptions());
