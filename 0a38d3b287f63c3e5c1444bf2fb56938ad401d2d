@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0a5ad93b_d214b978",
+        "filename": "car/core/res/values/styles.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 567,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-05-07T21:42:09Z",
+      "side": 1,
+      "message": "I think you also need to add an entry here.",
+      "revId": "0a38d3b287f63c3e5c1444bf2fb56938ad401d2d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
