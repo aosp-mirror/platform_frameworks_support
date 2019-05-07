@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "34b4e7d0_18ef3a50",
+        "filename": "ui/studiow",
+        "patchSetId": 6
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1383730
+      },
+      "writtenOn": "2019-05-07T22:46:43Z",
+      "side": 1,
+      "message": "We should remove this and replace it with the downloadFile function from ../studiow",
+      "revId": "9832970006e66809bc033184f1ce94a76614ddf8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
