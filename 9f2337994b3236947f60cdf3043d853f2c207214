@@ -117,6 +117,30 @@
       "revId": "9f2337994b3236947f60cdf3043d853f2c207214",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f297c297_dc553a04",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CaptureSession.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 508,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-05-07T20:40:17Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "74b12d9d_e5fb9668",
+      "range": {
+        "startLine": 507,
+        "startChar": 28,
+        "endLine": 508,
+        "endChar": 35
+      },
+      "revId": "9f2337994b3236947f60cdf3043d853f2c207214",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
