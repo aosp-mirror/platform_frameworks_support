@@ -16,11 +16,13 @@
 
 package androidx.media2.session;
 
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Surface;
 
 import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
@@ -99,6 +101,7 @@ public final class SessionCommand implements VersionedParcelable {
             COMMAND_CODE_PLAYER_GET_CURRENT_MEDIA_ITEM,
             COMMAND_CODE_PLAYER_UPDATE_LIST_METADATA,
             COMMAND_CODE_PLAYER_SET_MEDIA_ITEM,
+            COMMAND_CODE_PLAYER_SET_SURFACE,
             COMMAND_CODE_VOLUME_SET_VOLUME,
             COMMAND_CODE_VOLUME_ADJUST_VOLUME,
             COMMAND_CODE_SESSION_FAST_FORWARD,
@@ -336,9 +339,23 @@ public final class SessionCommand implements VersionedParcelable {
      */
     public static final int COMMAND_CODE_PLAYER_SET_MEDIA_ITEM = 10018;
 
+    /**
+     * Command code for {@link MediaController#setSurface(Surface)}.
+     * <p>
+     * Command would be sent directly to the player if the session doesn't reject the request
+     * through the
+     * {@link SessionCallback#onCommandRequest(MediaSession, ControllerInfo, SessionCommand)}.
+     * <p>
+     * Code version is {@link #COMMAND_VERSION_1}.
+     *
+     * @hide
+     */
+    @RestrictTo(LIBRARY_GROUP)
+    public static final int COMMAND_CODE_PLAYER_SET_SURFACE = 10019;
+
     static {
         VERSION_PLAYER_COMMANDS_MAP.put(COMMAND_VERSION_1,
-                new Range(COMMAND_CODE_PLAYER_PLAY, COMMAND_CODE_PLAYER_SET_MEDIA_ITEM));
+                new Range(COMMAND_CODE_PLAYER_PLAY, COMMAND_CODE_PLAYER_SET_SURFACE));
     }
 
     static {
