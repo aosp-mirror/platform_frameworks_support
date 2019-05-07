@@ -519,10 +519,13 @@ private fun createDistDocsTask(
         archiveVersion.set(getBuildId())
         destinationDirectory.set(project.getDistributionDirectory())
         group = JavaBasePlugin.DOCUMENTATION_GROUP
+        val filePath = "${project.getDistributionDirectory().canonicalPath}/"
+        val fileName = "${archiveBaseName.get()}-0.zip"
+        val destinationFile = filePath + fileName
         description = "Zips $ruleName Java documentation (generated via Doclava in the " +
-            "style of d.android.com) into $archivePath"
+            "style of d.android.com) into $destinationFile"
         doLast {
-            logger.lifecycle("'Wrote API reference to $archivePath")
+            logger.lifecycle("'Wrote API reference to $destinationFile")
         }
     }
 }
