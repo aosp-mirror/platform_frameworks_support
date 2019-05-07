@@ -76,10 +76,10 @@ final class CaptureSession {
     @Nullable
     private volatile SessionConfig mSessionConfig;
     /** The list of surfaces used to configure the current capture session. */
-    private List<Surface> mConfiguredSurfaces = Collections.emptyList();
+    List<Surface> mConfiguredSurfaces = Collections.emptyList();
     /** The list of DeferrableSurface used to notify surface detach events */
     @GuardedBy("mConfiguredDeferrableSurfaces")
-    private List<DeferrableSurface> mConfiguredDeferrableSurfaces = Collections.emptyList();
+    List<DeferrableSurface> mConfiguredDeferrableSurfaces = Collections.emptyList();
     /** Tracks the current state of the session. */
     @GuardedBy("mStateLock")
     State mState = State.UNINITIALIZED;
@@ -501,6 +501,12 @@ final class CaptureSession {
                     case OPENING:
                         mState = State.OPENED;
                         mCameraCaptureSession = session;
+
+                        if (!mConfiguredSurfaces.containsAll(
+                                DeferrableSurfaces.surfaceList(mSessionConfig.getSurfaces()))) {
+                            Log.e(TAG, "Does not have the proper configured lists");
+                            return;
+                        }
                         Log.d(TAG, "Attempting to send capture request onConfigured");
                         issueRepeatingCaptureRequests();
                         issueBurstCaptureRequest();
