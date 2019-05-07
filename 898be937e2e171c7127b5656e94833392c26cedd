@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "e1f150fe_b812443a",
+        "filename": "buildSrc/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-05-07T16:30:18Z",
+      "side": 1,
+      "message": "we should be using .configure {} to make this a lazy configuration.",
+      "range": {
+        "startLine": 54,
+        "startChar": 34,
+        "endLine": 54,
+        "endChar": 37
+      },
+      "revId": "898be937e2e171c7127b5656e94833392c26cedd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8b008deb_eb0be8ef",
         "filename": "buildSrc/build.gradle",
         "patchSetId": 1
@@ -31,6 +54,70 @@
       "side": 1,
       "message": "This is only for kotlin, so I don\u0027t think this should affect java stuff - maybe it\u0027s safer to just move this outside of allprojects so we only turn this on for buildSrc/",
       "parentUuid": "8b008deb_eb0be8ef",
+      "revId": "898be937e2e171c7127b5656e94833392c26cedd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e002048_7c01542b",
+        "filename": "buildSrc/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-05-07T16:30:18Z",
+      "side": 1,
+      "message": "This only affects buildSrc, we dont pull in SDK here, so it should be fine.",
+      "parentUuid": "8b008deb_eb0be8ef",
+      "revId": "898be937e2e171c7127b5656e94833392c26cedd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6cba215f_23da2ef8",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/DiffAndDocs.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-05-07T16:30:18Z",
+      "side": 1,
+      "message": "This forces archiveFile to be resolved eagerly. asfalcone@ thoughts on how we can go about this?",
+      "range": {
+        "startLine": 517,
+        "startChar": 8,
+        "endLine": 517,
+        "endChar": 50
+      },
+      "revId": "898be937e2e171c7127b5656e94833392c26cedd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9735a9d_a26a0f8f",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dokka/Dokka.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-05-07T16:30:18Z",
+      "side": 1,
+      "message": "Same comment as other zip task.",
+      "range": {
+        "startLine": 81,
+        "startChar": 38,
+        "endLine": 81,
+        "endChar": 49
+      },
       "revId": "898be937e2e171c7127b5656e94833392c26cedd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
