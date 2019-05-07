@@ -95,7 +95,8 @@ import java.util.concurrent.Executor;
  * the the underlying media player set by {@link Builder} or {@link #updatePlayer}.
  * <p>
  * When an app is finished performing playback it must call {@link #close()} to clean up the session
- * and notify any controllers.
+ * and notify any controllers. Be sure that the underlying player should be closed after the session
+ * is closed.
  * <p>
  * <a name="Thread"></a>
  * <h3>Thread</h3>
