@@ -22,6 +22,29 @@
       "revId": "510f4ba4e9b82ebd4f1fa7f4858669e5fa7764f5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41074b5d_d78552d2",
+        "filename": "media2/player/src/main/java/androidx/media2/player/exoplayer/ExoPlayerMediaPlayer2Impl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 838,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-05-07T05:32:08Z",
+      "side": 1,
+      "message": "This just throws an Exception where the previous code returned null. Is it okay?",
+      "range": {
+        "startLine": 838,
+        "startChar": 8,
+        "endLine": 838,
+        "endChar": 42
+      },
+      "revId": "510f4ba4e9b82ebd4f1fa7f4858669e5fa7764f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
