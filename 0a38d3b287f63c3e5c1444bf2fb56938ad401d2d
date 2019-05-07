@@ -34,6 +34,24 @@
       "revId": "0a38d3b287f63c3e5c1444bf2fb56938ad401d2d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e022dcc4_fca6c576",
+        "filename": "car/core/res/values/styles.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 567,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-05-07T21:47:09Z",
+      "side": 1,
+      "message": "I feel it should be using car_card_ripple_background_light for its foreground instead, which will be a lighter ripple that shows up properly for dark backgrounds.\n\nI don\u0027t think we were handling this correctly before.",
+      "parentUuid": "a35033c2_437cd93e",
+      "revId": "0a38d3b287f63c3e5c1444bf2fb56938ad401d2d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
