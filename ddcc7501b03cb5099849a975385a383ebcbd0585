@@ -16,6 +16,24 @@
       "revId": "ddcc7501b03cb5099849a975385a383ebcbd0585",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e331d7a5_2db654a1",
+        "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 815,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-05-07T05:16:39Z",
+      "side": 1,
+      "message": "The SessionPlayer#setPlaybackSpeed API itself allows the negative speed. \nHowever, the MediaPlayer which is a subclass of SessionPlayer doesn\u0027t.\n\nTherefore we don\u0027t need to change the MediaController API.",
+      "parentUuid": "98485b17_4bc5e93f",
+      "revId": "ddcc7501b03cb5099849a975385a383ebcbd0585",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
