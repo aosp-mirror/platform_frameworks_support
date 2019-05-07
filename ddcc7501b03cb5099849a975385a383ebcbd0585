@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "98485b17_4bc5e93f",
+        "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 815,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-05-07T00:03:34Z",
+      "side": 1,
+      "message": "Don\u0027t we need to revise MediaController#setPlaybackSpeed accordingly?\n\nhttp://cs/aosp-androidx/media2/session/src/main/java/androidx/media2/session/MediaController.java?l\u003d629\u0026rcl\u003df0f1f040ebd62548666962f3ac09af80536bd964",
+      "revId": "ddcc7501b03cb5099849a975385a383ebcbd0585",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
