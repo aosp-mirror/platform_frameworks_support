@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5aa782fa_1ad4170d",
+        "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2141,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-07T05:18:08Z",
+      "side": 1,
+      "message": "Please lock mStateLock.",
+      "range": {
+        "startLine": 2141,
+        "startChar": 13,
+        "endLine": 2141,
+        "endChar": 20
+      },
+      "revId": "510f4ba4e9b82ebd4f1fa7f4858669e5fa7764f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
