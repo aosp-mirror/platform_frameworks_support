@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2ffa844f_e263ec55",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/Camera.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 411,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-05-07T20:03:17Z",
+      "side": 1,
+      "message": "nit: notifyDetachFromUseCaseSurfaces",
+      "range": {
+        "startLine": 411,
+        "startChar": 9,
+        "endLine": 411,
+        "endChar": 38
+      },
+      "revId": "c5bdc4102e44b00ff38b201e8ee82d4cf3003761",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
