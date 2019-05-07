@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "19cdbb24_301ffcc9",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CaptureSession.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-07T00:27:21Z",
+      "side": 1,
+      "message": "If aosp/956247 has been merged, then should use the OutputConfigurationCompat and SessionConfigurationCompat as the method of implementing so that we don\u0027t need divergent code here.",
+      "revId": "fdaf5e97590716133ee124bdb3d3742d30a47b84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9284adf1_a467dde9",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CaptureSession.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 677,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-07T00:27:21Z",
+      "side": 1,
+      "message": "Why does the template type get changed to TEMPLATE_PREVIEW?",
+      "revId": "fdaf5e97590716133ee124bdb3d3742d30a47b84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf1e9712_7a2f822f",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CaptureConfig.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-07T00:27:21Z",
+      "side": 1,
+      "message": "The javadoc should be more detailed. Its no different than buildCaptureRequest() so it wouldn\u0027t be clear what NoTarget means. Should add in javadoc that there are no target surfaces.\n\nThis might be a good reason to move the buildCaptureRequest() and buildCaptureRequestTarget() into the camera2 package. Please sync with @scottnien since I request that he do that for buildCaptureRequest() in aosp/955625.",
+      "revId": "fdaf5e97590716133ee124bdb3d3742d30a47b84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
