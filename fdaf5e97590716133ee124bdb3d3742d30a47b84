@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9d3cc4ea_2c648d95",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CaptureSession.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-05-07T08:34:51Z",
+      "side": 1,
+      "message": "Got it, I will change to OutputConfigurationCompat after the CL merged.",
+      "parentUuid": "19cdbb24_301ffcc9",
+      "revId": "fdaf5e97590716133ee124bdb3d3742d30a47b84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9284adf1_a467dde9",
         "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CaptureSession.java",
         "patchSetId": 4
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "8fd77ef9_23777d27",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CaptureSession.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 677,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-05-07T08:34:51Z",
+      "side": 1,
+      "message": "This is apply to our extra single request (onEnable/onDisable),\nand these requests would only have template type \u003d -1 by default. We would need to set a valid type of template on them. \nIn this case, I set the template type to \"preview\" ... just sync the behavior from camera control. If we have better option can chose, please let me know.",
+      "parentUuid": "9284adf1_a467dde9",
+      "revId": "fdaf5e97590716133ee124bdb3d3742d30a47b84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cf1e9712_7a2f822f",
         "filename": "camera/core/src/main/java/androidx/camera/core/CaptureConfig.java",
         "patchSetId": 4
@@ -47,6 +83,24 @@
       "writtenOn": "2019-05-07T00:27:21Z",
       "side": 1,
       "message": "The javadoc should be more detailed. Its no different than buildCaptureRequest() so it wouldn\u0027t be clear what NoTarget means. Should add in javadoc that there are no target surfaces.\n\nThis might be a good reason to move the buildCaptureRequest() and buildCaptureRequestTarget() into the camera2 package. Please sync with @scottnien since I request that he do that for buildCaptureRequest() in aosp/955625.",
+      "revId": "fdaf5e97590716133ee124bdb3d3742d30a47b84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2213ccbd_ec282a7a",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CaptureConfig.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-05-07T08:34:51Z",
+      "side": 1,
+      "message": "Okay, update the java doc, and I will keep tracking on the aosp/955625, once the CL submit, I can follow up the change.",
+      "parentUuid": "cf1e9712_7a2f822f",
       "revId": "fdaf5e97590716133ee124bdb3d3742d30a47b84",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
