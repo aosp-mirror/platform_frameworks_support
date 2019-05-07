@@ -302,6 +302,7 @@ attr listEndMargin
 attr listItemActionDividerColor
 attr listItemBackgroundColor
 attr listItemBodyTextAppearance
+attr listItemForeground
 attr listItemSubheaderTextAppearance
 attr listItemTitleTextAppearance
 attr navigationIcon
