@@ -64,7 +64,7 @@ androidx {
     description = "AndroidX UI View wrappers (temporary non-IR module)."
 }
 android {
-    tasks.withType(KotlinCompile).all {
+    tasks.withType(KotlinCompile).configureEach {
         kotlinOptions {
             freeCompilerArgs += ["-Werror"]
         }

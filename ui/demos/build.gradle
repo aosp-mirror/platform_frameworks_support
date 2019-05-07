@@ -23,7 +23,7 @@ android {
         minSdkVersion 21
     }
 
-    tasks.withType(KotlinCompile).all {
+    tasks.withType(KotlinCompile).configureEach {
         kotlinOptions {
             freeCompilerArgs += ["-Werror"]
         }
