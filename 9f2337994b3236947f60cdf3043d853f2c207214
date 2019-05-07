@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "44ffe0af_56f21eb8",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/Camera.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-05-07T17:02:26Z",
+      "side": 1,
+      "message": "I think it is more likely a bug. The issue happens in extreme condition:  calling createCaptureSession multiple times in short time (triggered by bind, unbind call) , and then quickly switching camera.   there were 3 capture sessions and only two of them got its onClosed() called. This issue is observed in pixel 2.",
+      "parentUuid": "5cab843d_b8276f68",
+      "range": {
+        "startLine": 263,
+        "startChar": 67,
+        "endLine": 265,
+        "endChar": 49
+      },
+      "revId": "9f2337994b3236947f60cdf3043d853f2c207214",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "55e8b861_76ead7af",
         "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CaptureSession.java",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "9f2337994b3236947f60cdf3043d853f2c207214",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "37e191d2_484ed2a8",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CaptureSession.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 508,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-05-07T17:02:26Z",
+      "side": 1,
+      "message": "I am not sure if it is the right thing to do, (1) currently in our codes we don\u0027t close capture session, instead we count on createCaptureSession to close previous session for us (2) there should be another pending createCaptureSession happening soon to replace it (3) this is not an complete solution for fixing unconfigured surface issue in repeating request ,  I found that CheckedSurfaceTexture.getSurface() still could create new surface after this, so we still need the aosp/955625(DeferrableSurfaceMap) to fix it totally.",
+      "parentUuid": "55e8b861_76ead7af",
+      "range": {
+        "startLine": 507,
+        "startChar": 28,
+        "endLine": 508,
+        "endChar": 35
+      },
+      "revId": "9f2337994b3236947f60cdf3043d853f2c207214",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

@@ -22,6 +22,30 @@
       "revId": "20d8bdab9ec3e4842861833cb190d21665cd8b4a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab0a4f11_04a34626",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/Camera.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 441,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-05-07T17:02:26Z",
+      "side": 1,
+      "message": "when the use case goes offline, the surfaces of this use case will be notifiySurfaceDetached()\u0027d in camera thread.  Since we only detach those use cases that were changed from online to offline, so it should be no problem of over-detaching.      \n\nThe mPendingForAddOnline collection is meant for preventing from duplicate use cases being attached more than once. This is necessary for our current behavior, if app calls bind calls like  bind(uc1), bind(uc2),  then it will call addOnlineUseCase(uc1), addOnlineUseCase(uc1, uc2) which uc1 in the second calls is redundant and no need to attach again.",
+      "parentUuid": "670ffee4_6daa3cba",
+      "range": {
+        "startLine": 441,
+        "startChar": 35,
+        "endLine": 441,
+        "endChar": 60
+      },
+      "revId": "20d8bdab9ec3e4842861833cb190d21665cd8b4a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
