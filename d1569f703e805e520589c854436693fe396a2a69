@@ -22,6 +22,30 @@
       "revId": "d1569f703e805e520589c854436693fe396a2a69",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0dbe769a_a478d8fc",
+        "filename": "ui/studiow",
+        "patchSetId": 5
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-05-07T22:36:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8fd71f9e_8639d772",
+      "range": {
+        "startLine": 17,
+        "startChar": 61,
+        "endLine": 17,
+        "endChar": 68
+      },
+      "revId": "d1569f703e805e520589c854436693fe396a2a69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
