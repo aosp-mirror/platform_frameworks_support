@@ -16,6 +16,24 @@
       "revId": "898be937e2e171c7127b5656e94833392c26cedd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f66f189d_e40b7d31",
+        "filename": "buildSrc/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-05-07T16:27:17Z",
+      "side": 1,
+      "message": "This is only for kotlin, so I don\u0027t think this should affect java stuff - maybe it\u0027s safer to just move this outside of allprojects so we only turn this on for buildSrc/",
+      "parentUuid": "8b008deb_eb0be8ef",
+      "revId": "898be937e2e171c7127b5656e94833392c26cedd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
