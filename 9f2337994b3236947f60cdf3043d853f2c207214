@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5cab843d_b8276f68",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/Camera.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-05-07T16:30:43Z",
+      "side": 1,
+      "message": "Is this expected behavior? According to the documentation for CameraCaptureSession.StateCallback#onClosed(), it seems like it should be called when the device closes.",
+      "range": {
+        "startLine": 263,
+        "startChar": 67,
+        "endLine": 265,
+        "endChar": 49
+      },
+      "revId": "9f2337994b3236947f60cdf3043d853f2c207214",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55e8b861_76ead7af",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CaptureSession.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 508,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-05-07T16:30:43Z",
+      "side": 1,
+      "message": "Should this close the capture session? It seems like this will leave the capture session in an opened state but it won\u0027t issue requests.",
+      "range": {
+        "startLine": 507,
+        "startChar": 28,
+        "endLine": 508,
+        "endChar": 35
+      },
+      "revId": "9f2337994b3236947f60cdf3043d853f2c207214",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
