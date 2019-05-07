@@ -58,7 +58,7 @@ dependencies {
 }
 
 android {
-    tasks.withType(KotlinCompile).all {
+    tasks.withType(KotlinCompile).configureEach {
         kotlinOptions {
             useIR = true
             freeCompilerArgs += ["-Werror"]
