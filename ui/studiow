@@ -11,8 +11,7 @@ function getStudioUrl() {
   ideaMajorVersion="$(grep "idea_major_version=" ${propertiesFile} | sed 's/[^=]*=//')"
   buildNumber="$(grep "studio_build_number=" ${propertiesFile} | sed 's/[^=]*=//')"
   osName="$1"
-  # Trusted server maintained by the Compose team to host internal builds of compose in a maven repository.
-  studioUrl="https://us-central1-kompose-219700.cloudfunctions.net/as-r4a/$buildNumber/android-studio-$buildNumber.$osName.zip"
+  studioUrl="https://dl.google.com/android/studio/ide-zips/3.4.1.0/android-studio-ide-$buildNumber-$osName.zip"
   echo "${studioUrl}"
 }
 
