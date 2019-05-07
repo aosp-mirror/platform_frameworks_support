@@ -18,15 +18,10 @@ package androidx.ui.core.vectorgraphics.compat
 
 import android.annotation.SuppressLint
 import android.content.res.Resources
-import android.content.res.TypedArray
 import android.util.AttributeSet
-import android.util.Log
 import android.util.Xml
 import androidx.core.content.res.TypedArrayUtils
 import androidx.ui.core.vectorgraphics.addPathNodes
-import androidx.ui.core.vectorgraphics.group
-import androidx.ui.core.vectorgraphics.path
-import androidx.ui.core.vectorgraphics.vector
 import androidx.ui.painting.StrokeCap
 import androidx.ui.painting.StrokeJoin
 import androidx.ui.core.vectorgraphics.DefaultPivotX
@@ -39,12 +34,13 @@ import androidx.ui.core.vectorgraphics.DefaultTranslateY
 import androidx.ui.core.vectorgraphics.EmptyBrush
 import androidx.ui.core.vectorgraphics.EmptyPath
 import androidx.ui.core.vectorgraphics.PathNode
-import androidx.compose.Children
 import androidx.compose.Composable
 import androidx.compose.composer
+import androidx.compose.memo
+import androidx.compose.unaryPlus
 import org.xmlpull.v1.XmlPullParser
 import org.xmlpull.v1.XmlPullParserException
-import java.io.IOException
+import kotlin.IllegalArgumentException
 
 private val LINECAP_BUTT = 0
 private val LINECAP_ROUND = 1
@@ -59,8 +55,6 @@ private val FILL_TYPE_WINDING = 0
 private val SHAPE_CLIP_PATH = "clip-VPath"
 private val SHAPE_GROUP = "group"
 private val SHAPE_PATH = "path"
-
-private val LOGTAG = "VectorGraphicCreator"
 
 private fun getStrokeLineCap(id: Int, defValue: StrokeCap = StrokeCap.butt): StrokeCap =
     when (id) {
@@ -79,13 +73,275 @@ private fun getStrokeLineJoin(id: Int, defValue: StrokeJoin = StrokeJoin.miter):
     }
 
 @Composable
+fun vectorResource(res: Resources, theme: Resources.Theme? = null, resId: Int) {
+    val vectorImage = +memo(resId) {
+        loadVectorImage(theme, res, resId)
+    }
+    DrawVector(vectorImage = vectorImage)
+}
+
+@Throws(XmlPullParserException::class)
 @SuppressWarnings("RestrictedApi")
-private fun inflateGroup(
-    a: TypedArray,
-    parser: XmlPullParser,
-    @Suppress("UNUSED_PARAMETER") theme: Resources.Theme?,
-    @Children childNodes: @Composable() () -> Unit
+fun loadVectorImage(theme: Resources.Theme? = null, res: Resources, resId: Int): VectorImage {
+
+    @SuppressLint("ResourceType") val parser = res.getXml(resId)
+    val attrs = Xml.asAttributeSet(parser)
+    val builder = parser.seekToStartTag().createVectorImageBuilder(res, theme, attrs)
+
+    fun XmlPullParser.isAtEnd(): Boolean =
+        eventType == XmlPullParser.END_DOCUMENT ||
+                (depth < 1 && eventType == XmlPullParser.END_TAG)
+
+    while (!parser.isAtEnd()) {
+        parser.parseCurrentVectorNode(res, attrs, theme, builder)
+        parser.next()
+    }
+    return builder.build()
+}
+
+private fun XmlPullParser.parseCurrentVectorNode(
+    res: Resources,
+    attrs: AttributeSet,
+    theme: Resources.Theme? = null,
+    builder: VectorImageBuilder
 ) {
+    when (eventType) {
+        XmlPullParser.START_TAG -> {
+            when (name) {
+                SHAPE_PATH -> {
+                    parsePath(res, theme, attrs, builder)
+                }
+                SHAPE_CLIP_PATH -> {
+                    // TODO parse clipping paths
+                }
+                SHAPE_GROUP -> {
+                    parseGroup(res, theme, attrs, builder)
+                }
+            }
+        }
+        XmlPullParser.END_TAG -> {
+            if (SHAPE_GROUP == name) {
+                builder.popGroup()
+            }
+        }
+    }
+}
+
+/**
+ * Helper method to seek to the first tag within the VectorDrawable xml asset
+ */
+@Throws(XmlPullParserException::class)
+private fun XmlPullParser.seekToStartTag(): XmlPullParser {
+    var type = next()
+    while (type != XmlPullParser.START_TAG && type != XmlPullParser.END_DOCUMENT) {
+        // Empty loop
+        type = next()
+    }
+    if (type != XmlPullParser.START_TAG) {
+        throw XmlPullParserException("No start tag found")
+    }
+    return this
+}
+
+@SuppressWarnings("RestrictedApi")
+private fun XmlPullParser.createVectorImageBuilder(
+    res: Resources,
+    theme: Resources.Theme?,
+    attrs: AttributeSet
+): VectorImageBuilder {
+    val vectorAttrs = TypedArrayUtils.obtainAttributes(
+        res,
+        theme,
+        attrs,
+        AndroidVectorResources.STYLEABLE_VECTOR_DRAWABLE_TYPE_ARRAY
+    )
+
+    // TODO (njawad) handle mirroring here
+//        state.mAutoMirrored = TypedArrayUtils.getNamedBoolean(a, parser, "autoMirrored",
+//                AndroidVectorResources.STYLEABLE_VECTOR_DRAWABLE_AUTO_MIRRORED, state.mAutoMirrored)
+
+    val viewportWidth = TypedArrayUtils.getNamedFloat(
+        vectorAttrs,
+        this,
+        "viewportWidth",
+        AndroidVectorResources.STYLEABLE_VECTOR_DRAWABLE_VIEWPORT_WIDTH,
+        0.0f
+    )
+
+    val viewportHeight = TypedArrayUtils.getNamedFloat(
+        vectorAttrs,
+        this,
+        "viewportHeight",
+        AndroidVectorResources.STYLEABLE_VECTOR_DRAWABLE_VIEWPORT_HEIGHT,
+        0.0f
+    )
+
+    if (viewportWidth <= 0) {
+        throw XmlPullParserException(
+            vectorAttrs.getPositionDescription() +
+                    "<VectorGraphic> tag requires viewportWidth > 0"
+        )
+    } else if (viewportHeight <= 0) {
+        throw XmlPullParserException(
+            vectorAttrs.getPositionDescription() +
+                    "<VectorGraphic> tag requires viewportHeight > 0"
+        )
+    }
+
+    val defaultWidth = vectorAttrs.getDimension(
+        AndroidVectorResources.STYLEABLE_VECTOR_DRAWABLE_WIDTH, 0.0f
+    )
+    val defaultHeight = vectorAttrs.getDimension(
+        AndroidVectorResources.STYLEABLE_VECTOR_DRAWABLE_HEIGHT, 0.0f
+    )
+
+    vectorAttrs.recycle()
+
+    return VectorImageBuilder(
+        defaultWidth = defaultWidth,
+        defaultHeight = defaultHeight,
+        viewportWidth = viewportWidth,
+        viewportHeight = viewportHeight
+    )
+}
+
+@Throws(IllegalArgumentException::class)
+@SuppressWarnings("RestrictedApi")
+private fun XmlPullParser.parsePath(
+    res: Resources,
+    theme: Resources.Theme?,
+    attrs: AttributeSet,
+    builder: VectorImageBuilder
+) {
+    val a = TypedArrayUtils.obtainAttributes(
+        res,
+        theme,
+        attrs,
+        AndroidVectorResources.STYLEABLE_VECTOR_DRAWABLE_PATH
+    )
+
+    val hasPathData = TypedArrayUtils.hasAttribute(this, "pathData")
+    if (!hasPathData) {
+        // If there is no pathData in the VPath tag, then this is an empty VPath,
+        // nothing need to be drawn.
+        throw IllegalArgumentException("No path data available")
+    }
+
+    val name: String = a.getString(AndroidVectorResources.STYLEABLE_VECTOR_DRAWABLE_PATH_NAME) ?: ""
+
+    val pathStr = a.getString(AndroidVectorResources.STYLEABLE_VECTOR_DRAWABLE_PATH_PATH_DATA)
+
+    val pathData: Array<PathNode> = addPathNodes(pathStr)
+
+    val fillColor = TypedArrayUtils.getNamedComplexColor(
+        a,
+        this,
+        theme,
+        "fillColor",
+        AndroidVectorResources.STYLEABLE_VECTOR_DRAWABLE_PATH_FILL_COLOR, 0
+    )
+    val fillAlpha = TypedArrayUtils.getNamedFloat(
+        a,
+        this,
+        "fillAlpha",
+        AndroidVectorResources.STYLEABLE_VECTOR_DRAWABLE_PATH_FILL_ALPHA, 1.0f
+    )
+    val lineCap = TypedArrayUtils.getNamedInt(
+        a,
+        this,
+        "strokeLineCap",
+        AndroidVectorResources.STYLEABLE_VECTOR_DRAWABLE_PATH_STROKE_LINE_CAP, -1
+    )
+    val strokeLineCap = getStrokeLineCap(lineCap, StrokeCap.butt)
+    val lineJoin = TypedArrayUtils.getNamedInt(
+        a,
+        this,
+        "strokeLineJoin",
+        AndroidVectorResources.STYLEABLE_VECTOR_DRAWABLE_PATH_STROKE_LINE_JOIN, -1
+    )
+    val strokeLineJoin = getStrokeLineJoin(lineJoin, StrokeJoin.bevel)
+    val strokeMiterLimit = TypedArrayUtils.getNamedFloat(
+        a,
+        this,
+        "strokeMiterLimit",
+        AndroidVectorResources.STYLEABLE_VECTOR_DRAWABLE_PATH_STROKE_MITER_LIMIT,
+        1.0f
+    )
+    val strokeColor = TypedArrayUtils.getNamedComplexColor(
+        a,
+        this,
+        theme,
+        "strokeColor",
+        AndroidVectorResources.STYLEABLE_VECTOR_DRAWABLE_PATH_STROKE_COLOR, 0
+    )
+    val strokeAlpha = TypedArrayUtils.getNamedFloat(
+        a,
+        this,
+        "strokeAlpha",
+        AndroidVectorResources.STYLEABLE_VECTOR_DRAWABLE_PATH_STROKE_ALPHA, 1.0f
+    )
+    val strokeLineWidth = TypedArrayUtils.getNamedFloat(
+        a,
+        this,
+        "strokeWidth",
+        AndroidVectorResources.STYLEABLE_VECTOR_DRAWABLE_PATH_STROKE_WIDTH, 1.0f
+    )
+
+    // TODO (njawad) handle trim paths + fill rule
+//    val trimPathEnd = TypedArrayUtils.getNamedFloat(
+//        a, this, "trimPathEnd",
+//        AndroidVectorResources.STYLEABLE_VECTOR_DRAWABLE_PATH_TRIM_PATH_END, 1.0f
+//    )
+//    val trimPathOffset = TypedArrayUtils.getNamedFloat(
+//        a, this, "trimPathOffset",
+//        AndroidVectorResources.STYLEABLE_VECTOR_DRAWABLE_PATH_TRIM_PATH_OFFSET,
+//        0.0f
+//    )
+//    val trimPathStart = TypedArrayUtils.getNamedFloat(
+//        a, this, "trimPathStart",
+//        AndroidVectorResources.STYLEABLE_VECTOR_DRAWABLE_PATH_TRIM_PATH_START,
+//        0.0f
+//    )
+//    val fillRule = TypedArrayUtils.getNamedInt(
+//        a, this, "fillType",
+//        AndroidVectorResources.STYLEABLE_VECTOR_DRAWABLE_PATH_TRIM_PATH_FILLTYPE,
+//        FILL_TYPE_WINDING
+//    )
+
+    a.recycle()
+
+    @Suppress("IMPLICIT_CAST_TO_ANY")
+    val fillBrush = if (fillColor.willDraw()) fillColor.color else EmptyBrush
+
+    @Suppress("IMPLICIT_CAST_TO_ANY")
+    val strokeBrush = if (strokeColor.willDraw()) strokeColor.color else EmptyBrush
+
+    builder.addPath(name,
+        pathData,
+        fillBrush,
+        fillAlpha,
+        strokeBrush,
+        strokeAlpha,
+        strokeLineWidth,
+        strokeLineCap,
+        strokeLineJoin,
+        strokeMiterLimit)
+}
+
+@SuppressWarnings("RestrictedApi")
+private fun XmlPullParser.parseGroup(
+    res: Resources,
+    theme: Resources.Theme?,
+    attrs: AttributeSet,
+    builder: VectorImageBuilder
+) {
+    val a = TypedArrayUtils.obtainAttributes(
+        res,
+        theme,
+        attrs,
+        AndroidVectorResources.STYLEABLE_VECTOR_DRAWABLE_GROUP
+    )
+
     // Account for any configuration changes.
     // mChangingConfigurations |= Utils.getChangingConfigurations(a);
 
@@ -94,7 +350,9 @@ private fun inflateGroup(
 
     // This is added in API 11
     val rotate = TypedArrayUtils.getNamedFloat(
-        a, parser, "rotation",
+        a,
+        this,
+        "rotation",
         AndroidVectorResources.STYLEABLE_VECTOR_DRAWABLE_GROUP_ROTATION,
         DefaultRotate
     )
@@ -110,25 +368,33 @@ private fun inflateGroup(
 
     // This is added in API 11
     val scaleX = TypedArrayUtils.getNamedFloat(
-        a, parser, "scaleX",
+        a,
+        this,
+        "scaleX",
         AndroidVectorResources.STYLEABLE_VECTOR_DRAWABLE_GROUP_SCALE_X,
         DefaultScaleX
     )
 
     // This is added in API 11
     val scaleY = TypedArrayUtils.getNamedFloat(
-        a, parser, "scaleY",
+        a,
+        this,
+        "scaleY",
         AndroidVectorResources.STYLEABLE_VECTOR_DRAWABLE_GROUP_SCALE_Y,
         DefaultScaleY
     )
 
     val translateX = TypedArrayUtils.getNamedFloat(
-        a, parser, "translateX",
+        a,
+        this,
+        "translateX",
         AndroidVectorResources.STYLEABLE_VECTOR_DRAWABLE_GROUP_TRANSLATE_X,
         DefaultTranslateX
     )
     val translateY = TypedArrayUtils.getNamedFloat(
-        a, parser, "translateY",
+        a,
+        this,
+        "translateY",
         AndroidVectorResources.STYLEABLE_VECTOR_DRAWABLE_GROUP_TRANSLATE_Y,
         DefaultTranslateY
     )
@@ -136,275 +402,20 @@ private fun inflateGroup(
     val name: String =
         a.getString(AndroidVectorResources.STYLEABLE_VECTOR_DRAWABLE_GROUP_NAME) ?: ""
 
-    parser.next()
-
     // TODO parse clip path
     val clipPathData = EmptyPath
-    group(
-        name = name,
-        rotate = rotate,
-        scaleX = scaleX,
-        scaleY = scaleY,
-        translateX = translateX,
-        translateY = translateY,
-        pivotX = pivotX,
-        pivotY = pivotY,
-        clipPathData = clipPathData
-    ) {
-        childNodes()
-    }
-}
 
-@Suppress("UNUSED_PARAMETER")
-@Composable
-private fun inflateClip(
-    a: TypedArray,
-    parser: XmlPullParser,
-    theme: Resources.Theme?,
-    @Children childNodes: @Composable() () -> Unit
-) {
-//    var pathName: String? =
-//        a.getString(AndroidVectorResources.STYLEABLE_VECTOR_DRAWABLE_CLIP_PATH_NAME)
-//    if (pathName == null) {
-//        pathName = ""
-//    }
-//    val pathData = a.getString(AndroidVectorResources.STYLEABLE_VECTOR_DRAWABLE_CLIP_PATH_PATH_DATA)
+    a.recycle()
 
-    // TODO (njawad) finish parsing clip paths from xml resources
-}
-
-@Composable
-@SuppressWarnings("RestrictedApi")
-private fun inflatePath(a: TypedArray, parser: XmlPullParser, theme: Resources.Theme?) {
-    val hasPathData = TypedArrayUtils.hasAttribute(parser, "pathData")
-    if (!hasPathData) {
-        // If there is no pathData in the VPath tag, then this is an empty VPath,
-        // nothing need to be drawn.
-        Log.v("VectorPath", "no path data available skipping path")
-        return
-    }
-
-    val name: String = a.getString(AndroidVectorResources.STYLEABLE_VECTOR_DRAWABLE_PATH_NAME) ?: ""
-
-    val pathStr = a.getString(AndroidVectorResources.STYLEABLE_VECTOR_DRAWABLE_PATH_PATH_DATA)
-
-    val pathData: Array<PathNode> = addPathNodes(pathStr)
-
-    val fillColor = TypedArrayUtils.getNamedComplexColor(
-        a, parser, theme, "fillColor",
-        AndroidVectorResources.STYLEABLE_VECTOR_DRAWABLE_PATH_FILL_COLOR, 0
+    builder.pushGroup(
+            name,
+            rotate,
+            scaleX,
+            scaleY,
+            translateX,
+            translateY,
+            pivotX,
+            pivotY,
+            clipPathData
     )
-    // TODO(njawad): restore these when they are used
-/*    val fillAlpha = TypedArrayUtils.getNamedFloat(
-        a, parser, "fillAlpha",
-        AndroidVectorResources.STYLEABLE_VECTOR_DRAWABLE_PATH_FILL_ALPHA, 1.0f
-    )
-    val lineCap = TypedArrayUtils.getNamedInt(
-        a, parser, "strokeLineCap",
-        AndroidVectorResources.STYLEABLE_VECTOR_DRAWABLE_PATH_STROKE_LINE_CAP, -1
-    )
-    val strokeLineCap =
-        getStrokeLineCap(lineCap, StrokeCap.butt)
-    val lineJoin = TypedArrayUtils.getNamedInt(
-        a, parser, "strokeLineJoin",
-        AndroidVectorResources.STYLEABLE_VECTOR_DRAWABLE_PATH_STROKE_LINE_JOIN, -1
-    )
-    val strokeLineJoin =
-        getStrokeLineJoin(lineJoin, StrokeJoin.bevel)
-    val strokeMiterlimit = TypedArrayUtils.getNamedFloat(
-        a, parser, "strokeMiterLimit",
-        AndroidVectorResources.STYLEABLE_VECTOR_DRAWABLE_PATH_STROKE_MITER_LIMIT,
-        1.0f
-    )*/
-    val strokeColor = TypedArrayUtils.getNamedComplexColor(
-        a, parser, theme, "strokeColor",
-        AndroidVectorResources.STYLEABLE_VECTOR_DRAWABLE_PATH_STROKE_COLOR, 0
-    )
-    val strokeAlpha = TypedArrayUtils.getNamedFloat(
-        a, parser, "strokeAlpha",
-        AndroidVectorResources.STYLEABLE_VECTOR_DRAWABLE_PATH_STROKE_ALPHA, 1.0f
-    )
-    val strokeLineWidth = TypedArrayUtils.getNamedFloat(
-        a, parser, "strokeWidth",
-        AndroidVectorResources.STYLEABLE_VECTOR_DRAWABLE_PATH_STROKE_WIDTH, 1.0f
-    )
-    /*val trimPathEnd = TypedArrayUtils.getNamedFloat(
-        a, parser, "trimPathEnd",
-        AndroidVectorResources.STYLEABLE_VECTOR_DRAWABLE_PATH_TRIM_PATH_END, 1.0f
-    )
-    val trimPathOffset = TypedArrayUtils.getNamedFloat(
-        a, parser, "trimPathOffset",
-        AndroidVectorResources.STYLEABLE_VECTOR_DRAWABLE_PATH_TRIM_PATH_OFFSET,
-        0.0f
-    )
-    val trimPathStart = TypedArrayUtils.getNamedFloat(
-        a, parser, "trimPathStart",
-        AndroidVectorResources.STYLEABLE_VECTOR_DRAWABLE_PATH_TRIM_PATH_START,
-        0.0f
-    )
-    val fillRule = TypedArrayUtils.getNamedInt(
-        a, parser, "fillType",
-        AndroidVectorResources.STYLEABLE_VECTOR_DRAWABLE_PATH_TRIM_PATH_FILLTYPE,
-        FILL_TYPE_WINDING
-    )*/
-
-    // TODO update path with additional params
-    path(
-        name = name,
-        fill = if (fillColor.willDraw()) fillColor.color else EmptyBrush,
-        strokeAlpha = strokeAlpha,
-        strokeLineWidth = strokeLineWidth,
-        stroke = if (strokeColor.willDraw()) strokeColor.color else EmptyBrush,
-        pathData = pathData
-    )
-}
-
-@Composable
-@SuppressWarnings("RestrictedApi")
-private fun inflateInner(
-    res: Resources,
-    attrs: AttributeSet,
-    theme: Resources.Theme?,
-    innerDepth: Int,
-    parser: XmlPullParser
-) {
-    var eventType = parser.getEventType()
-
-    // Parse everything until the end of the VectorGraphic element.
-    while (eventType != XmlPullParser.END_DOCUMENT &&
-        (parser.getDepth() >= innerDepth || eventType != XmlPullParser.END_TAG)
-    ) {
-        if (eventType == XmlPullParser.START_TAG) {
-            val tagName = parser.getName()
-            if (SHAPE_PATH.equals(tagName)) {
-                Log.v("VectorPath", "parsing path...")
-                val a = TypedArrayUtils.obtainAttributes(
-                    res, theme, attrs,
-                    AndroidVectorResources.STYLEABLE_VECTOR_DRAWABLE_PATH
-                )
-                inflatePath(a = a, parser = parser, theme = theme)
-                a.recycle()
-            } else if (SHAPE_CLIP_PATH.equals(tagName)) {
-                val a = TypedArrayUtils.obtainAttributes(
-                    res, theme, attrs,
-                    AndroidVectorResources.STYLEABLE_VECTOR_DRAWABLE_CLIP_PATH
-                )
-                inflateClip(a = a, parser = parser, theme = theme) {
-                    inflateInner(
-                        res = res,
-                        parser = parser,
-                        attrs = attrs,
-                        theme = theme,
-                        innerDepth = innerDepth
-                    )
-                }
-                a.recycle()
-            } else if (SHAPE_GROUP.equals(tagName)) {
-                val a = TypedArrayUtils.obtainAttributes(
-                    res, theme, attrs,
-                    AndroidVectorResources.STYLEABLE_VECTOR_DRAWABLE_GROUP
-                )
-                inflateGroup(a = a, parser = parser, theme = theme) {
-                    inflateInner(
-                        res = res,
-                        parser = parser,
-                        attrs = attrs,
-                        theme = theme,
-                        innerDepth = innerDepth
-                    )
-                }
-                a.recycle()
-            }
-        }
-        eventType = parser.next()
-    }
-}
-
-@Composable
-@SuppressWarnings("RestrictedApi")
-private fun inflate(
-    res: Resources,
-    parser: XmlPullParser,
-    attrs: AttributeSet,
-    theme: Resources.Theme?
-) {
-    val innerDepth = parser.getDepth() + 1
-
-    val vectorAttrs = TypedArrayUtils.obtainAttributes(
-        res, theme, attrs,
-        AndroidVectorResources.STYLEABLE_VECTOR_DRAWABLE_TYPE_ARRAY
-    )
-
-    // TODO (njawad) handle mirroring here
-//        state.mAutoMirrored = TypedArrayUtils.getNamedBoolean(a, parser, "autoMirrored",
-//                AndroidVectorResources.STYLEABLE_VECTOR_DRAWABLE_AUTO_MIRRORED, state.mAutoMirrored)
-
-    val viewportWidth = TypedArrayUtils.getNamedFloat(
-        vectorAttrs, parser, "viewportWidth",
-        AndroidVectorResources.STYLEABLE_VECTOR_DRAWABLE_VIEWPORT_WIDTH,
-        0.0f
-    )
-
-    val viewportHeight = TypedArrayUtils.getNamedFloat(
-        vectorAttrs, parser, "viewportHeight",
-        AndroidVectorResources.STYLEABLE_VECTOR_DRAWABLE_VIEWPORT_HEIGHT,
-        0.0f
-    )
-
-    if (viewportWidth <= 0) {
-        throw XmlPullParserException(
-            vectorAttrs.getPositionDescription() +
-                    "VectorGraphic requires viewportWidth > 0"
-        )
-    } else if (viewportHeight <= 0) {
-        throw XmlPullParserException(
-            vectorAttrs.getPositionDescription() +
-                    "VectorGraphic requires viewportHeight > 0"
-        )
-    }
-
-    val defaultWidth = vectorAttrs.getDimension(
-        AndroidVectorResources.STYLEABLE_VECTOR_DRAWABLE_WIDTH, 0.0f
-    )
-    val defaultHeight = vectorAttrs.getDimension(
-        AndroidVectorResources.STYLEABLE_VECTOR_DRAWABLE_HEIGHT, 0.0f
-    )
-
-    vector(
-        name = "vector",
-        defaultWidth = defaultWidth,
-        defaultHeight = defaultHeight,
-        viewportWidth = viewportWidth,
-        viewportHeight = viewportHeight
-    ) {
-        inflateInner(
-            res = res,
-            attrs = attrs,
-            theme = theme,
-            innerDepth = innerDepth,
-            parser = parser
-        )
-    }
-}
-
-@Composable
-fun vectorResource(res: Resources, resId: Int) {
-    @SuppressLint("ResourceType") val parser = res.getXml(resId)
-    val attrs = Xml.asAttributeSet(parser)
-    var type: Int
-    try {
-        type = parser.next()
-        while (type != XmlPullParser.START_TAG && type != XmlPullParser.END_DOCUMENT) {
-            // Empty loop
-            type = parser.next()
-        }
-        if (type != XmlPullParser.START_TAG) {
-            throw XmlPullParserException("No start tag found")
-        }
-        inflate(res = res, parser = parser, attrs = attrs, theme = null)
-    } catch (e: XmlPullParserException) {
-        Log.e(LOGTAG, "parser error", e)
-    } catch (e: IOException) {
-        Log.e(LOGTAG, "parser error", e)
-    }
 }
