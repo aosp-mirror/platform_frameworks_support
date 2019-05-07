@@ -22,9 +22,9 @@ import android.os.Bundle
 import android.widget.LinearLayout
 import androidx.ui.core.vectorgraphics.adoptVectorGraphic
 import androidx.ui.core.vectorgraphics.compat.vectorResource
-import androidx.ui.core.vectorgraphics.group
-import androidx.ui.core.vectorgraphics.path
-import androidx.ui.core.vectorgraphics.vector
+import androidx.ui.core.vectorgraphics.Group
+import androidx.ui.core.vectorgraphics.Path
+import androidx.ui.core.vectorgraphics.Vector
 import androidx.ui.core.vectorgraphics.PathBuilder
 import androidx.ui.core.vectorgraphics.PathDelegate
 import androidx.compose.Composable
@@ -57,14 +57,14 @@ class VectorGraphicsActivity : Activity() {
     fun vectorShape() {
         val viewportWidth = 300.0f
         val viewportHeight = 300.0f
-        vector(
+        Vector(
             name = "vectorShape",
             defaultWidth = 300.0f,
             defaultHeight = 300.0f,
             viewportWidth = viewportWidth,
             viewportHeight = viewportHeight
         ) {
-            group(
+            Group(
                 scaleX = 0.75f,
                 scaleY = 0.75f,
                 rotate = 45.0f,
@@ -73,7 +73,7 @@ class VectorGraphicsActivity : Activity() {
             ) {
                 backgroundPath(vectorWidth = viewportWidth, vectorHeight = viewportHeight)
                 stripePath(vectorWidth = viewportWidth, vectorHeight = viewportHeight)
-                group(
+                Group(
                     translateX = 50.0f,
                     translateY = 50.0f,
                     pivotX = (viewportWidth / 2),
@@ -87,7 +87,7 @@ class VectorGraphicsActivity : Activity() {
                         horizontalLineToRelative(-200.0f)
                         close()
                     }
-                    path(fill = Color.MAGENTA, pathData = pathData)
+                    Path(fill = Color.MAGENTA, pathData = pathData)
                 }
             }
         }
@@ -102,7 +102,7 @@ class VectorGraphicsActivity : Activity() {
             close()
         }
 
-        path(fill = Color.CYAN, pathData = background)
+        Path(fill = Color.CYAN, pathData = background)
     }
 
     @Composable
@@ -111,7 +111,7 @@ class VectorGraphicsActivity : Activity() {
             stripe(vectorWidth, vectorHeight, 10)
         }
 
-        path(stroke = Color.BLUE, pathData = stripeDelegate)
+        Path(stroke = Color.BLUE, pathData = stripeDelegate)
     }
 
     private fun PathBuilder.stripe(vectorWidth: Float, vectorHeight: Float, numLines: Int) {
