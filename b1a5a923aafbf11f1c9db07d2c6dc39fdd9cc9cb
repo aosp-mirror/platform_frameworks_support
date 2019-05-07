@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "65f05236_a3efa696",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 877,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-07T02:20:21Z",
+      "side": 1,
+      "message": "Could you add a method for these repetitive code?",
+      "range": {
+        "startLine": 872,
+        "startChar": 0,
+        "endLine": 877,
+        "endChar": 25
+      },
+      "revId": "b1a5a923aafbf11f1c9db07d2c6dc39fdd9cc9cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
