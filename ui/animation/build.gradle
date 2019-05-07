@@ -63,7 +63,7 @@ androidx {
     description = "Composables for Declarative Animation library"
 }
 
-tasks.withType(KotlinCompile).all {
+tasks.withType(KotlinCompile).configureEach {
     kotlinOptions {
         useIR = true
         freeCompilerArgs += ["-Werror"]

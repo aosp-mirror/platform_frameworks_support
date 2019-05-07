@@ -49,7 +49,7 @@ dependencies {
 }
 
 android {
-    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+    tasks.withType(KotlinCompile).configureEach {
         kotlinOptions {
             useIR = true
         }
@@ -69,7 +69,7 @@ androidx {
     description = "AndroidX UI test framework."
 }
 
-tasks.withType(KotlinCompile).all {
+tasks.withType(KotlinCompile).configureEach {
     kotlinOptions {
         freeCompilerArgs += ["-Werror"]
     }
