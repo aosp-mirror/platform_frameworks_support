@@ -855,28 +855,27 @@ public class NavController {
             // First get all of the parent NavGraphs
             ArrayDeque<NavBackStackEntry> hierarchy = new ArrayDeque<>();
             NavGraph parent = newDest.getParent();
-            while (parent != null) {
+            boolean addNextParent = parent != null;
+            while (addNextParent) {
                 hierarchy.addFirst(new NavBackStackEntry(parent, finalArgs));
                 parent = parent.getParent();
-            }
-            // Now iterate through the back stack and see which NavGraphs
-            // are already on the back stack
-            Iterator<NavBackStackEntry> iterator = mBackStack.iterator();
-            while (iterator.hasNext() && !hierarchy.isEmpty()) {
-                NavDestination destination = iterator.next().getDestination();
-                if (destination.equals(hierarchy.getFirst().getDestination())) {
-                    // This destination is already in the back stack so
-                    // we don't need to add it
-                    hierarchy.removeFirst();
+                addNextParent = parent != null;
+                // If the back stack is not empty, we can stop adding NavGraphs to the hierarchy
+                // once we find the one we originally navigated to.
+                if (!mBackStack.isEmpty()) {
+                    addNextParent = addNextParent && parent.getId() != node.getId();
                 }
+            }
+            // If parent is null, the root was added to the hierarchy.
+            if (!mBackStack.isEmpty() && parent == null) {
+                // The root is already on the back stack, so it should not be added again.
+                hierarchy.removeFirst();
             }
             // Add all of the remaining parent NavGraphs that aren't
             // already on the back stack
             mBackStack.addAll(hierarchy);
             // And finally, add the new destination with its default args
-            NavBackStackEntry newBackStackEntry = new NavBackStackEntry(newDest,
-                    newDest.addInDefaultArgs(finalArgs));
-            mBackStack.add(newBackStackEntry);
+            mBackStack.add(new NavBackStackEntry(newDest, newDest.addInDefaultArgs(finalArgs)));
         }
         mOnBackPressedCallback.setEnabled(getDestinationCountOnBackStack() > 1);
         if (popped || newDest != null) {
