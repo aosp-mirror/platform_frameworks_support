@@ -374,9 +374,32 @@ package androidx.ui.core.vectorgraphics {
 
 package androidx.ui.core.vectorgraphics.compat {
 
+  public final class VectorImage {
+  }
+
+  public final class VectorImageBuilder {
+    ctor public VectorImageBuilder(String name, float defaultWidth, float defaultHeight, float viewportWidth, float viewportHeight);
+    method public androidx.ui.core.vectorgraphics.compat.VectorImageBuilder addPath(String name = "", Object? pathData, Object fill = EmptyBrush, float fillAlpha = 1.0f, Object stroke = EmptyBrush, float strokeAlpha = 1.0f, float strokeLineWidth = 0.0f, androidx.ui.painting.StrokeCap strokeLineCap = DefaultStrokeLineCap, androidx.ui.painting.StrokeJoin strokeLineJoin = DefaultStrokeLineJoin, float strokeLineMiter = 4.0f);
+    method public androidx.ui.core.vectorgraphics.compat.VectorImage build();
+    method public void ensureNotConsumed();
+    method public float getDefaultHeight();
+    method public float getDefaultWidth();
+    method public String getName();
+    method public float getViewportHeight();
+    method public float getViewportWidth();
+    method public androidx.ui.core.vectorgraphics.compat.VectorImageBuilder popGroup();
+    method public androidx.ui.core.vectorgraphics.compat.VectorImageBuilder pushGroup(String name = "", float rotate = 0.0f, float pivotX = 0.0f, float pivotY = 0.0f, float scaleX = 1.0f, float scaleY = 1.0f, float translateX = 0.0f, float translateY = 0.0f, Object? clipPathData = EmptyPath);
+  }
+
+  public final class VectorImageKt {
+    ctor public VectorImageKt();
+    method public static void drawVector(androidx.ui.core.vectorgraphics.compat.VectorImage vectorImage);
+  }
+
   public final class VectorResourceKt {
     ctor public VectorResourceKt();
-    method public static void vectorResource(android.content.res.Resources res, int resId);
+    method public static androidx.ui.core.vectorgraphics.compat.VectorImage loadVectorImage(android.content.res.Resources.Theme? theme = null, android.content.res.Resources res, int resId) throws org.xmlpull.v1.XmlPullParserException;
+    method public static void vectorResource(android.content.res.Resources res, android.content.res.Resources.Theme? theme = null, int resId);
   }
 
 }
