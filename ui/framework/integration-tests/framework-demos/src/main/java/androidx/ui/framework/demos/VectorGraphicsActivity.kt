@@ -94,7 +94,7 @@ class VectorGraphicsActivity : Activity() {
     }
 
     @Composable
-    fun backgroundPath(vectorWidth: Float, vectorHeight: Float) {
+    fun backgroundPath(vectorWidth: Float, @Suppress("UNUSED_PARAMETER") vectorHeight: Float) {
         val background = PathDelegate {
             horizontalLineTo(vectorWidth)
             verticalLineTo(vectorHeight)
