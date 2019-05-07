@@ -501,6 +501,12 @@ final class CaptureSession {
                     case OPENING:
                         mState = State.OPENED;
                         mCameraCaptureSession = session;
+
+                        if (!mConfiguredSurfaces.containsAll(
+                                DeferrableSurfaces.surfaceList(mSessionConfig.getSurfaces()))) {
+                            Log.e(TAG, "Does not have the proper configured lists");
+                            return;
+                        }
                         Log.d(TAG, "Attempting to send capture request onConfigured");
                         issueRepeatingCaptureRequests();
                         issueBurstCaptureRequest();
