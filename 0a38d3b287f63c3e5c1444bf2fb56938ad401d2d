@@ -16,6 +16,24 @@
       "revId": "0a38d3b287f63c3e5c1444bf2fb56938ad401d2d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a35033c2_437cd93e",
+        "filename": "car/core/res/values/styles.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 567,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-05-07T21:45:35Z",
+      "side": 1,
+      "message": "Shouldn\u0027t Widget.Car.ListItem.Dark inherit from Widget.Car.ListItem? And foreground isn\u0027t handled differently for dark color schemes.",
+      "parentUuid": "0a5ad93b_d214b978",
+      "revId": "0a38d3b287f63c3e5c1444bf2fb56938ad401d2d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
