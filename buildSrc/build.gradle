@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 buildscript {
     def supportRootFolder = project.projectDir.getParentFile()
     apply from: "unbundled_check.gradle"
@@ -46,6 +48,12 @@ allprojects {
         testLogging {
             events = ["failed"]
             exceptionFormat "full"
+        }
+    }
+
+    tasks.withType(KotlinCompile).all {
+        kotlinOptions {
+            freeCompilerArgs += ["-Werror"]
         }
     }
 }

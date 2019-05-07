@@ -78,8 +78,9 @@ object Dokka {
             zipTask.archiveBaseName.set(taskName)
             zipTask.archiveVersion.set(getBuildId())
             zipTask.destinationDirectory.set(project.getDistributionDirectory())
+            val archiveFile = zipTask.archiveFile.get().asFile
             zipTask.description = "Zips $docsType Kotlin documentation (generated via " +
-                "Dokka in the style of d.android.com) into ${zipTask.archivePath}"
+                "Dokka in the style of d.android.com) into $archiveFile"
             zipTask.group = JavaBasePlugin.DOCUMENTATION_GROUP
         }
     }

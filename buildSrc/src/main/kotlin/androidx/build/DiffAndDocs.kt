@@ -30,7 +30,7 @@ import androidx.build.jdiff.JDiffTask
 import com.android.build.gradle.AppExtension
 import com.android.build.gradle.LibraryExtension
 import com.android.build.gradle.api.BaseVariant
-import com.android.build.gradle.api.SourceKind;
+import com.android.build.gradle.api.SourceKind
 import com.google.common.base.Preconditions
 import org.gradle.api.GradleException
 import org.gradle.api.Project
@@ -514,14 +514,15 @@ private fun createDistDocsTask(
         from(generateDocs.map {
             it.destinationDir
         })
+        val archiveFile = archiveFile.get().asFile
         archiveBaseName.set("android-support-$ruleName-docs")
         archiveVersion.set(getBuildId())
         destinationDirectory.set(project.getDistributionDirectory())
         group = JavaBasePlugin.DOCUMENTATION_GROUP
         description = "Zips $ruleName Java documentation (generated via Doclava in the " +
-            "style of d.android.com) into $archivePath"
+            "style of d.android.com) into $archiveFile"
         doLast {
-            logger.lifecycle("'Wrote API reference to $archivePath")
+            logger.lifecycle("'Wrote API reference to $archiveFile")
         }
     }
 }
@@ -572,7 +573,7 @@ private fun createGenerateDocsTask(
                 group = JavaBasePlugin.DOCUMENTATION_GROUP
                 description = "Generates Java documentation in the style of d.android.com. To " +
                         "generate offline docs use \'-PofflineDocs=true\' parameter.  Places the " +
-                        "documentation in ${destDir}"
+                        "documentation in $destDir"
 
                 setDocletpath(doclavaConfig.resolve())
                 destinationDir = File(destDir, if (offline) "offline" else "online")
