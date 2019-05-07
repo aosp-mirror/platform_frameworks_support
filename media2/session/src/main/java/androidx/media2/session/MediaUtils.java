@@ -805,11 +805,7 @@ public class MediaUtils {
             PlaybackStateCompat state) {
         SessionCommandGroup.Builder commandsBuilder = new SessionCommandGroup.Builder();
         boolean includePlaylistCommands = (sessionFlags & FLAG_HANDLES_QUEUE_COMMANDS) != 0;
-        if (includePlaylistCommands) {
-            commandsBuilder.addAllPlayerCommands(COMMAND_VERSION_CURRENT);
-        } else {
-            commandsBuilder.addAllPlayerBasicCommands(COMMAND_VERSION_CURRENT);
-        }
+        commandsBuilder.addAllPlayerCommands(COMMAND_VERSION_CURRENT, includePlaylistCommands);
         commandsBuilder.addAllVolumeCommands(COMMAND_VERSION_CURRENT);
         commandsBuilder.addAllSessionCommands(COMMAND_VERSION_CURRENT);
 
