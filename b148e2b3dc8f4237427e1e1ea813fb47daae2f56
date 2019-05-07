@@ -264,6 +264,24 @@
     },
     {
       "key": {
+        "uuid": "94b41eae_ac06bdea",
+        "filename": "camera/core/src/main/java/androidx/camera/core/SessionEventListener.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-05-07T08:16:37Z",
+      "side": 1,
+      "message": "Okay, move onResolutionUpdated and onImageFormatUpdate to CaptureProcessor.",
+      "parentUuid": "5191f1bc_3e487759",
+      "revId": "b148e2b3dc8f4237427e1e1ea813fb47daae2f56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "60fba4ff_c905ef7c",
         "filename": "camera/core/src/main/java/androidx/camera/core/SessionEventListener.java",
         "patchSetId": 1

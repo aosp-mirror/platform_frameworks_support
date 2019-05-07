@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "dc06afb6_6b458d30",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CameraEventCallback.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-05-07T08:16:37Z",
+      "side": 1,
+      "message": "Return a list is because I tried to reuse this interface on ComboCameraEventCallback, \nbut now I have separated the combo callback to its own implementation and change these to a single CaptureConfig. Please have a look~",
+      "parentUuid": "0367d624_4bf3e32d",
+      "revId": "656a7d482c80d2713f897b7be8440a77eade1983",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "88fc2b2d_76b4a3b7",
         "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CameraEventCallback.java",
         "patchSetId": 4
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "24e857f6_5b3f33ce",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CameraEventCallback.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-05-07T08:16:37Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "88fc2b2d_76b4a3b7",
+      "revId": "656a7d482c80d2713f897b7be8440a77eade1983",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "07e1f407_da86a157",
         "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CameraEventCallback.java",
         "patchSetId": 4
@@ -50,6 +86,24 @@
       "revId": "656a7d482c80d2713f897b7be8440a77eade1983",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90fbac20_0d22f74b",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CameraEventCallback.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-05-07T08:16:37Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "07e1f407_da86a157",
+      "revId": "656a7d482c80d2713f897b7be8440a77eade1983",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +141,42 @@
     },
     {
       "key": {
+        "uuid": "688674b6_e42f5151",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CameraEventCallback.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-05-07T08:16:37Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "90e4b592_403f5d79",
+      "revId": "656a7d482c80d2713f897b7be8440a77eade1983",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "54a46fe6_f245009e",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CameraEventCallback.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-05-07T08:16:37Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d039f035_5f01aa2b",
+      "revId": "656a7d482c80d2713f897b7be8440a77eade1983",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "646c152f_475f2840",
         "filename": "camera/core/src/main/java/androidx/camera/core/ImageCaptureConfig.java",
         "patchSetId": 4
@@ -104,6 +194,24 @@
     },
     {
       "key": {
+        "uuid": "2c16bea2_fccbc5fe",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCaptureConfig.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-05-07T08:16:37Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "646c152f_475f2840",
+      "revId": "656a7d482c80d2713f897b7be8440a77eade1983",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bb34e0cb_ffde577f",
         "filename": "camera/core/src/main/java/androidx/camera/core/SessionConfig.java",
         "patchSetId": 4
@@ -115,6 +223,24 @@
       "writtenOn": "2019-05-07T00:12:45Z",
       "side": 1,
       "message": "SessionConfig is in the core package. It should not need to deal with camera2 concepts.\n\ncameraOption in both documentation and code should not need to be aware of camera2.",
+      "revId": "656a7d482c80d2713f897b7be8440a77eade1983",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e8c85b0_72537bf3",
+        "filename": "camera/core/src/main/java/androidx/camera/core/SessionConfig.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-05-07T08:16:37Z",
+      "side": 1,
+      "message": "Oh, yes, I\u0027m trying to avoid to touch any camera2 related implementation here.\nThe mCameraOptions is used to store camera related variable, but not only for camera2. \nIn this CL, I didn\u0027t define any camera2 related Option in core. The Set/Get point (for CameraEventCallback) is in Extender, unpacker and camera implementation. The Option value definition will not appears in the core. The CameraOption is now used to bring some values from the use case to camera implementation transparently.",
+      "parentUuid": "bb34e0cb_ffde577f",
       "revId": "656a7d482c80d2713f897b7be8440a77eade1983",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
@@ -138,6 +264,24 @@
     },
     {
       "key": {
+        "uuid": "0d4d35e6_fd61a3ff",
+        "filename": "camera/core/src/main/java/androidx/camera/core/SessionConfig.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-05-07T08:16:37Z",
+      "side": 1,
+      "message": "Oh, it is considering about mCameraOptions have a different usage from implementationOptions.\n\nThe additional mCameraOption is now used to store the CameraEventCallback, and the CameraEventCallback would be used in capture session. \nMy thought is ... the implementationOptions was stored in mRepeatingCaptureConfig and almost all the values in implementationOptions would be used in request repeating. To put a CameraEventCallback which used in capture session level into a container specific to repeating request might be little bit incongruity. So I add an additional mCameraOption variable for the different purpose. (The surface that is used to config capture session is also stored in the same level: SessionConfig.mSurface.)\n\nIt would be also easy to put the CameraEventCallback to implementationOptions since they are in the same data structure. To merge the mCameraOption and implementationOptions can reduce the total amount of the variables in SessionConfig, this should also be a good choice.\nPlease let me know whether you are intend to collect the mCameraOption into implementationOptions? or a separate the value into different variable by different purpose (like the current code in this CL)?",
+      "parentUuid": "03fa7ddd_30dd141f",
+      "revId": "656a7d482c80d2713f897b7be8440a77eade1983",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "877cdf0e_cacef663",
         "filename": "camera/core/src/main/java/androidx/camera/core/UseCase.java",
         "patchSetId": 4
@@ -149,6 +293,24 @@
       "writtenOn": "2019-05-07T00:12:45Z",
       "side": 1,
       "message": "This should be moved to the CaptureProcessor.",
+      "revId": "656a7d482c80d2713f897b7be8440a77eade1983",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2d9ce63_c4ce811c",
+        "filename": "camera/core/src/main/java/androidx/camera/core/UseCase.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 539,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-05-07T08:16:37Z",
+      "side": 1,
+      "message": "Ok, move to CaptureProcessor, and also change the AdaptingCaptureProcessor to forward the onResolutionUpdate and onImageFormatUpdate to ImageCaptureExtenderImpl.\nShould we also move onResolutionUpdate and onImageFormatUpdate interface from ImageCaptureExtenderImpl to CaptureProcessorImpl?",
+      "parentUuid": "877cdf0e_cacef663",
       "revId": "656a7d482c80d2713f897b7be8440a77eade1983",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
@@ -169,6 +331,24 @@
       "revId": "656a7d482c80d2713f897b7be8440a77eade1983",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa2d8bb2_27a99390",
+        "filename": "camera/core/src/main/java/androidx/camera/core/UseCase.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 546,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-05-07T08:16:37Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "6ef9b5e4_2c2e3a98",
+      "revId": "656a7d482c80d2713f897b7be8440a77eade1983",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
