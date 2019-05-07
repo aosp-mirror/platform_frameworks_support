@@ -137,6 +137,30 @@
     },
     {
       "key": {
+        "uuid": "f8739338_2ea5894f",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/DiffAndDocs.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 1470382
+      },
+      "writtenOn": "2019-05-07T20:07:13Z",
+      "side": 1,
+      "message": "Since we\u0027re just using the file path for the description and logger output, we could try hand assembling the string sort of like \"${project.getDistributionDirectory()}/${archiveBaseName}.zip\" or just omit it all together. I don\u0027t know if it has enough value to justify the use of a deprecated property or .get()",
+      "parentUuid": "6cba215f_23da2ef8",
+      "range": {
+        "startLine": 517,
+        "startChar": 8,
+        "endLine": 517,
+        "endChar": 50
+      },
+      "revId": "898be937e2e171c7127b5656e94833392c26cedd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b9735a9d_a26a0f8f",
         "filename": "buildSrc/src/main/kotlin/androidx/build/dokka/Dokka.kt",
         "patchSetId": 1
