@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8fd71f9e_8639d772",
+        "filename": "ui/studiow",
+        "patchSetId": 5
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-05-07T22:16:48Z",
+      "side": 1,
+      "message": "Should studio_versions.properties be: \n\n studio_version\u003d3.4.1.0\n idea_major_version\u003d183\n studio_build_number\u003d5535458\n\nAnd then this would be:\n\n  if [ \"${osName}\" \u003d\u003d \"linux\" ]; then\n    extension\u003d\"tar.gz\"\n  else\n    extension\u003d\"zip\"\n  fi\n  studioUrl\u003d\"https://dl.google.com/dl/android/studio/ide-zips/${version}/android-studio-ide-${ideaMajorVersion}.${buildNumber}-${osName}.${extension}\"\n\n\nto match the other studiow script to make updates here easier?",
+      "range": {
+        "startLine": 17,
+        "startChar": 61,
+        "endLine": 17,
+        "endChar": 68
+      },
+      "revId": "d1569f703e805e520589c854436693fe396a2a69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
