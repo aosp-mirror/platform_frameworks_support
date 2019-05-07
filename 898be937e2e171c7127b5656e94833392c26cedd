@@ -78,6 +78,24 @@
     },
     {
       "key": {
+        "uuid": "205cdf07_b17e37a5",
+        "filename": "buildSrc/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-05-07T16:31:10Z",
+      "side": 1,
+      "message": "Note allprojects here only apply to all projects in buildSrc/",
+      "parentUuid": "5e002048_7c01542b",
+      "revId": "898be937e2e171c7127b5656e94833392c26cedd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6cba215f_23da2ef8",
         "filename": "buildSrc/src/main/kotlin/androidx/build/DiffAndDocs.kt",
         "patchSetId": 1
