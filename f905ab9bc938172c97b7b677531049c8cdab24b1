@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f0b58a03_9914eea9",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/RichTextElement.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1404402
+      },
+      "writtenOn": "2019-05-07T21:25:10Z",
+      "side": 1,
+      "message": "We should mention in RichText that no spaces are required to be manually inserted in between each element as that is already provided.\n\neg) cue: {elements: [{text: \u0027Bunnerong Rd\u0027, image: null}, {text: \u0027 \u0027, image: null}, {text: \u0027toward \u0027, image: null}, {text: \u0027Beauchamp Rd\u0027, image: null}]}}",
+      "revId": "f905ab9bc938172c97b7b677531049c8cdab24b1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
