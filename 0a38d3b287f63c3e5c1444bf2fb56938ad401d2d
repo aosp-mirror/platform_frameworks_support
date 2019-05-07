@@ -52,6 +52,24 @@
       "revId": "0a38d3b287f63c3e5c1444bf2fb56938ad401d2d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "632b00a3_703443d4",
+        "filename": "car/core/res/values/styles.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 567,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-05-07T22:05:41Z",
+      "side": 1,
+      "message": "Ah okay. Updated attribute values to reference car_card_ripple_background_light when using the dark color scheme.",
+      "parentUuid": "e022dcc4_fca6c576",
+      "revId": "0a38d3b287f63c3e5c1444bf2fb56938ad401d2d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
