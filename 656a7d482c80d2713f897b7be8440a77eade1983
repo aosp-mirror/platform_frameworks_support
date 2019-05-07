@@ -1,0 +1,174 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0367d624_4bf3e32d",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CameraEventCallback.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-07T00:12:45Z",
+      "side": 1,
+      "message": "Is there a reason this is a list instead of just a CaptureConfig?\n\nFrom a usage perspective, it only makes sense to issue a single config.",
+      "revId": "656a7d482c80d2713f897b7be8440a77eade1983",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "88fc2b2d_76b4a3b7",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CameraEventCallback.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-07T00:12:45Z",
+      "side": 1,
+      "message": "Is there a reason this is a list instead of just a CaptureConfig?\n\nFrom a usage perspective, it only makes sense to issue a single config.",
+      "revId": "656a7d482c80d2713f897b7be8440a77eade1983",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07e1f407_da86a157",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CameraEventCallback.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-07T00:12:45Z",
+      "side": 1,
+      "message": "Is there a reason this is a list instead of just a CaptureConfig?\n\nFrom a usage perspective, it only makes sense to issue a single config.",
+      "revId": "656a7d482c80d2713f897b7be8440a77eade1983",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d039f035_5f01aa2b",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CameraEventCallback.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-07T00:12:45Z",
+      "side": 1,
+      "message": "Is there a reason this is a list instead of just a CaptureConfig?\n\nFrom a usage perspective, it only makes sense to issue a single config.",
+      "revId": "656a7d482c80d2713f897b7be8440a77eade1983",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90e4b592_403f5d79",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CameraEventCallback.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-07T00:12:45Z",
+      "side": 1,
+      "message": "Is there a reason this is a list instead of just a CaptureConfig?\n\nFrom a usage perspective, it only makes sense to issue a single config.",
+      "revId": "656a7d482c80d2713f897b7be8440a77eade1983",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "646c152f_475f2840",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCaptureConfig.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-07T00:12:45Z",
+      "side": 1,
+      "message": "Nit: maxNumberOfCaptureStage -\u003e maxCaptureStages",
+      "revId": "656a7d482c80d2713f897b7be8440a77eade1983",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb34e0cb_ffde577f",
+        "filename": "camera/core/src/main/java/androidx/camera/core/SessionConfig.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-07T00:12:45Z",
+      "side": 1,
+      "message": "SessionConfig is in the core package. It should not need to deal with camera2 concepts.\n\ncameraOption in both documentation and code should not need to be aware of camera2.",
+      "revId": "656a7d482c80d2713f897b7be8440a77eade1983",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03fa7ddd_30dd141f",
+        "filename": "camera/core/src/main/java/androidx/camera/core/SessionConfig.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-07T00:12:45Z",
+      "side": 1,
+      "message": "Is there a reason that cameraOption is separated out from implementationOptions?\n\nBoth of the these are implementation specific options that should be hidden from the core package.",
+      "revId": "656a7d482c80d2713f897b7be8440a77eade1983",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "877cdf0e_cacef663",
+        "filename": "camera/core/src/main/java/androidx/camera/core/UseCase.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 539,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-07T00:12:45Z",
+      "side": 1,
+      "message": "This should be moved to the CaptureProcessor.",
+      "revId": "656a7d482c80d2713f897b7be8440a77eade1983",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ef9b5e4_2c2e3a98",
+        "filename": "camera/core/src/main/java/androidx/camera/core/UseCase.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 546,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-07T00:12:45Z",
+      "side": 1,
+      "message": "This should be moved to the CaptureProcessor.",
+      "revId": "656a7d482c80d2713f897b7be8440a77eade1983",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
