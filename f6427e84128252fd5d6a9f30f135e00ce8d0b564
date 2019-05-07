@@ -22,6 +22,30 @@
       "revId": "f6427e84128252fd5d6a9f30f135e00ce8d0b564",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8024cf16_b6322d5d",
+        "filename": "webkit/integration-tests/testapp/src/main/res/layout/activity_per_web_view_enable.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-05-07T18:30:33Z",
+      "side": 1,
+      "message": "Added. Android Studio doesn\u0027t add newlines at the end of the files (at least, for xml files).",
+      "parentUuid": "00104bbc_69641c46",
+      "range": {
+        "startLine": 121,
+        "startChar": 12,
+        "endLine": 121,
+        "endChar": 15
+      },
+      "revId": "f6427e84128252fd5d6a9f30f135e00ce8d0b564",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
