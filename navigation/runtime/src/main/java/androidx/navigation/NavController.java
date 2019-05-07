@@ -857,26 +857,23 @@ public class NavController {
             NavGraph parent = newDest.getParent();
             while (parent != null) {
                 hierarchy.addFirst(new NavBackStackEntry(parent, finalArgs));
+                if (parent.getId() == node.getId() && !mBackStack.isEmpty()) {
+                    // We have added enough parent NavGraphs to get to the destination so we can
+                    // quit adding them, unless the back stack is empty.
+                    break;
+                }
                 parent = parent.getParent();
             }
-            // Now iterate through the back stack and see which NavGraphs
-            // are already on the back stack
-            Iterator<NavBackStackEntry> iterator = mBackStack.iterator();
-            while (iterator.hasNext() && !hierarchy.isEmpty()) {
-                NavDestination destination = iterator.next().getDestination();
-                if (destination.equals(hierarchy.getFirst().getDestination())) {
-                    // This destination is already in the back stack so
-                    // we don't need to add it
-                    hierarchy.removeFirst();
-                }
+            if (!mBackStack.isEmpty() && mBackStack.getFirst().getDestination().getId()
+                    == hierarchy.getFirst().getDestination().getId()) {
+                // The root is already on the back stack, so it should not be added again.
+                hierarchy.removeFirst();
             }
             // Add all of the remaining parent NavGraphs that aren't
             // already on the back stack
             mBackStack.addAll(hierarchy);
             // And finally, add the new destination with its default args
-            NavBackStackEntry newBackStackEntry = new NavBackStackEntry(newDest,
-                    newDest.addInDefaultArgs(finalArgs));
-            mBackStack.add(newBackStackEntry);
+            mBackStack.add(new NavBackStackEntry(newDest, newDest.addInDefaultArgs(finalArgs)));
         }
         mOnBackPressedCallback.setEnabled(getDestinationCountOnBackStack() > 1);
         if (popped || newDest != null) {
