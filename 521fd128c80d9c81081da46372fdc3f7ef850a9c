@@ -22,6 +22,30 @@
       "revId": "521fd128c80d9c81081da46372fdc3f7ef850a9c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "663641e6_696a7a5f",
+        "filename": "navigation/runtime/src/main/java/androidx/navigation/NavController.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 858,
+      "author": {
+        "id": 1442279
+      },
+      "writtenOn": "2019-05-07T21:49:20Z",
+      "side": 1,
+      "message": "It only affects the maintenance of the back stack, not actual functionality and may not be necessary.\n\nThere is a case where two destinations share a grandparent that is not the root. If navigating from one destination using the parent of the other, it is not necessary to add the grandparent to the back stack.\n\nIf always adding the grandparent, whether it is needed or not, is reasonable, the extra code is unnecessary. Is there a major benefit to minimizing the size of the internal back stack?",
+      "parentUuid": "eaa2eeab_ef47db6e",
+      "range": {
+        "startLine": 858,
+        "startChar": 12,
+        "endLine": 858,
+        "endChar": 36
+      },
+      "revId": "521fd128c80d9c81081da46372fdc3f7ef850a9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
