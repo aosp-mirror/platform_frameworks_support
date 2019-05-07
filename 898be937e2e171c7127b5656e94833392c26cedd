@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8b008deb_eb0be8ef",
+        "filename": "buildSrc/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-05-07T16:19:44Z",
+      "side": 1,
+      "message": "I think that we removed Werror in aosp/876612 so that the sdk-updater robot could update the sdk without being blocked by deprecation warnings\n\nDo we have an idea of whether this can affect that?",
+      "revId": "898be937e2e171c7127b5656e94833392c26cedd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
