@@ -11,8 +11,11 @@ function getStudioUrl() {
   ideaMajorVersion="$(grep "idea_major_version=" ${propertiesFile} | sed 's/[^=]*=//')"
   buildNumber="$(grep "studio_build_number=" ${propertiesFile} | sed 's/[^=]*=//')"
   osName="$1"
-  # Trusted server maintained by the Compose team to host internal builds of compose in a maven repository.
-  studioUrl="https://us-central1-kompose-219700.cloudfunctions.net/as-r4a/$buildNumber/android-studio-$buildNumber.$osName.zip"
+  if [ "${osName}" == "linux" ]; then
+    studioUrl="https://dl.google.com/android/studio/ide-zips/3.4.1.0/android-studio-ide-$buildNumber-$osName.tar.gz"
+  else
+    studioUrl="https://dl.google.com/android/studio/ide-zips/3.4.1.0/android-studio-ide-$buildNumber-$osName.zip"
+  fi
   echo "${studioUrl}"
 }
 
@@ -34,7 +37,7 @@ osName="$(getOsName)"
 studioUrl="$(getStudioUrl $osName)"
 studioDestName="$(basename ${studioUrl})"
 studioZipPath="${tempDir}/${studioDestName}"
-studioUnzippedPath="$(echo ${studioZipPath} | sed 's/\.zip$//')"
+studioUnzippedPath="$(echo ${studioZipPath} | sed 's/\.zip$//' | sed 's/\.tar.gz$//')"
 
 function error_exit {
     echo "$1" >&2   ## Send message to stderr.
