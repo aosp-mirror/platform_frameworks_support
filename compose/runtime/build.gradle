@@ -39,20 +39,12 @@ android {
     defaultConfig {
         minSdkVersion 16
     }
-    lintOptions {
-        disable("SyntheticAccessor")
-    }
     buildTypes {
         debug {
             testCoverageEnabled = false
         }
         release {
             testCoverageEnabled = false
-        }
-    }
-    tasks.withType(KotlinCompile).all {
-        kotlinOptions {
-            freeCompilerArgs += ["-Werror"]
         }
     }
 }
