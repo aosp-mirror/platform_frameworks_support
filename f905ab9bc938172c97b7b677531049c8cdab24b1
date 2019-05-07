@@ -34,6 +34,24 @@
       "revId": "f905ab9bc938172c97b7b677531049c8cdab24b1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eeda59d8_04f14080",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/RichTextElement.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2019-05-07T21:43:45Z",
+      "side": 1,
+      "message": "Adding the following to RichText javadoc:\n\"\nSpaces and other separators should be provided by the third-party navigation apps, while OEM \nrendering services shouldn\u0027t add additional ones, in order to avoid duplications.\n\"",
+      "parentUuid": "50ec56b5_8e588def",
+      "revId": "f905ab9bc938172c97b7b677531049c8cdab24b1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
