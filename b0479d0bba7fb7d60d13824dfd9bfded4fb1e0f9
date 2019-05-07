@@ -16,6 +16,24 @@
       "revId": "b0479d0bba7fb7d60d13824dfd9bfded4fb1e0f9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0985020f_17133f40",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CameraX.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1482091
+      },
+      "writtenOn": "2019-05-07T11:57:13Z",
+      "side": 1,
+      "message": "Use case to surface is 1-1 mapping now. Therefore, the supported resolutions combination is calculated on use case and its image format. The supported combinations are encoded from the guaranteed configurations tables in CameraDevice#createCaptureSession. Only LEVEL-3 camera device can supported Target 4 output. But the 4th target is RAW type and CameraX does not allow developer to set image format now. So, we can know IllegalArgumentException will be thrown since there is no supported combinations existed for any combinations of four use cases in YUV, JPEG or PRIV type.\n\nAbout unit tests, there have been tests in Camera2CameraInfoTest and SupportedSurfaceCombinationTest such like checkLimitedSurfaceCombinationNotSupportedInLegacyDevice. Those unit tests will check that combinations supported in higher camera device HW level can’t be supported in lower HW level. I think it should have covered the unit test for four use cases combination since four use cases combination has exceeded all existed combinations to be checked in these two unit test files.\n\nIf you still have concerns about the javadoc description, I have another suggestion to modify it as “Currently up to 3 use cases may be bound to a {@link Lifecycle} at any time. Exceeding capability of target camera device will throw an IllegalArgumentException.” Because it actually depends on camera device HW level and bound use cases type (image format) but not always a fix number of 3. Is the suggestion okay to you?",
+      "parentUuid": "7f6ce920_5d68cb90",
+      "revId": "b0479d0bba7fb7d60d13824dfd9bfded4fb1e0f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
