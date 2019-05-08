@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dc8b86ba_4d2c0ab2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-05-08T06:16:31Z",
+      "side": 1,
+      "message": "connected",
+      "range": {
+        "startLine": 10,
+        "startChar": 46,
+        "endLine": 10,
+        "endChar": 55
+      },
+      "revId": "740948dcf3d13d8c85d4f11620b0d3880e369071",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae8eb43d_65b67d6d",
+        "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1676,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-05-08T06:16:31Z",
+      "side": 1,
+      "message": "shouldn\u0027t we reset mClosed to false here?",
+      "revId": "740948dcf3d13d8c85d4f11620b0d3880e369071",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
