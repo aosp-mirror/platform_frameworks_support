@@ -276,7 +276,7 @@ class FilesState(object):
     #print("getCommonDir of " + str(self.fileStates.keys()) + " is " + str(result))
     return result
 
-  def groupByDirs(self):
+  def groupByDirs(self, groupDirectFilesTogether = False):
     if len(self.fileStates) <= 1:
       if len(self.fileStates) == 1:
         return [self]
@@ -294,7 +294,10 @@ class FilesState(object):
       subPath = filePath[prefixLength:]
       slashIndex = subPath.find("/")
       if slashIndex < 0:
-        firstDir = subPath
+        if groupDirectFilesTogether:
+          firstDir = ""
+        else:
+          firstDir = subPath
       else:
         firstDir = subPath[:slashIndex]
       #print("FilesState considering creating substate. commonDir = " + str(commonDir) + ", prefixLength = " + str(prefixLength) + ", filePath = " + filePath + ", component = " + firstDir)
@@ -333,6 +336,18 @@ class FilesState(object):
       else:
         results[-1] = results[-1].expandedWithEmptyEntriesFor(descendent).withConflictsFrom(descendent)
     return results    
+
+  def splitDepth(self, depth):
+    if self.size() <= 1 or depth <= 0:
+      return [self]
+    groupDirectFilesTogether = (depth <= 1)
+    children = self.groupByDirs(groupDirectFilesTogether)
+    if len(children) == 1 and groupDirectFilesTogether:
+      return children[0].groupByDirs(False)
+    descendents = []
+    for child in children:
+      descendents += child.splitDepth(depth - 1)
+    return descendents
 
   def summarize(self):
     numFiles = self.size()
@@ -550,6 +565,7 @@ class DiffRunner(object):
     # Every time we encounter an inode, we try replacing it (and any descendents if it has any) and seeing if that passes our given test
     candidateStates = FilesState_Grid(1, 1)
     candidateStates.putFiles(self.targetState , 0, 0)
+    splitDepth = 0
     while True:
       numFailuresDuringPreviousWindowSize = numFailuresDuringCurrentWindowSize
       numFailuresDuringCurrentWindowSize = 0
@@ -678,22 +694,29 @@ class DiffRunner(object):
       targetHeight = candidateStates.getNumRows() * 2
       targetWidth = candidateStates.getNumColumns() * 2
       if targetWidth * targetHeight > self.resetTo_state.size():
+        print("targetWidth (" + str(targetWidth) + ") * targetHeight (" + str(targetHeight) + ") > resetTo_state.size() (" + str(self.resetTo_state.size()) + ")")
         targetHeight = candidateStates.getNumRows() * 3
         targetWidth = self.resetTo_state.size() / targetHeight
         if targetWidth < 1:
+          print("Keeping target width to at least 1")
           targetWidth = 1
       print("Trying to split a " + str(candidateStates.getNumColumns()) + "x" + str(candidateStates.getNumRows()) + " grid into " + str(targetWidth) + "x" + str(targetHeight))
       targetNumBlocks = targetWidth * targetHeight
       sizePerBlock = self.targetState.size() / targetNumBlocks
-      newBlocks = self.targetState.splitDownToApproximatelySize(sizePerBlock)
-      print("Called splitDownToApproximatelySize(" + str(sizePerBlock) + "). Got:")
+      splitDepth += 1
+      newBlocks = self.targetState.splitDepth(splitDepth)
+      #newBlocks = self.targetState.splitDownToApproximatelySize(sizePerBlock)
+      #print("Called splitDownToApproximatelySize(" + str(sizePerBlock) + "). Got:")
+      print("Called splitDepth(" + str(splitDepth) + "). Got " + str(len(newBlocks)) + " blocks:")
       for block in newBlocks:
         print(block.size())
       
-      newWidth = targetWidth
-      if newWidth < 1:
-        newWidth = 1
-      newHeight = int(math.ceil(float(len(newBlocks)) / float(newWidth)))
+      newHeight = max(targetHeight, int(math.ceil(math.sqrt(len(newBlocks)))))
+      if newHeight < 1:
+        newHeight = 1
+      if newHeight > len(newBlocks):
+        newHeight = len(newBlocks)
+      newWidth = int(math.ceil(float(len(newBlocks)) / float(newHeight)))
       print("#####################################################################################################")
       print("Splitting " + str(len(newBlocks)) + " blocks into a " + str(newWidth) + "x" + str(newHeight) + " grid")
       newCandidateStates = FilesState_Grid(newWidth, newHeight)
