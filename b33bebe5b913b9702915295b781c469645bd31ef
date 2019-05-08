@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2966c16b_53902693",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Distance.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1384412
+      },
+      "writtenOn": "2019-05-08T02:18:13Z",
+      "side": 1,
+      "message": "\"would mirror\" or, \"mirrors\"? The latter seems more correct.",
+      "range": {
+        "startLine": 110,
+        "startChar": 13,
+        "endLine": 110,
+        "endChar": 26
+      },
+      "revId": "b33bebe5b913b9702915295b781c469645bd31ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
