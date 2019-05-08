@@ -49,6 +49,23 @@
     },
     {
       "key": {
+        "uuid": "7dc2ce7f_c60adcac",
+        "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1897,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-05-08T03:04:27Z",
+      "side": 1,
+      "message": "getPlaybackParams() is NonNull. Is it intentional?",
+      "revId": "510f4ba4e9b82ebd4f1fa7f4858669e5fa7764f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5aa782fa_1ad4170d",
         "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer.java",
         "patchSetId": 2

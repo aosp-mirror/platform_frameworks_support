@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b698a14f_bf975d15",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-05-08T03:04:27Z",
+      "side": 1,
+      "message": "please make sure that media2:media2-widget:connectedCheck passed",
+      "revId": "2d66519d8520961e7571534bb412602d88a013b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
