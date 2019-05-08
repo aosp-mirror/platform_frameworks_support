@@ -71,6 +71,29 @@
     },
     {
       "key": {
+        "uuid": "2bb64a71_39574fe9",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/MarginPageTransformer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-05-08T16:36:11Z",
+      "side": 1,
+      "message": "I could infer ViewPager2 from the page view inside transformPage (page\u0027s parent\u0027s parent) and cache it. This way I won\u0027t need it here. Not sure if a good idea though, especially if someone decides to try to use an instance of MarginPageTransformer with more than one ViewPager.",
+      "range": {
+        "startLine": 45,
+        "startChar": 44,
+        "endLine": 45,
+        "endChar": 53
+      },
+      "revId": "5f2dcae63ee018ce54cb5b7df369d38f7d64d74a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "81449b40_e5bcd91a",
         "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
         "patchSetId": 1
