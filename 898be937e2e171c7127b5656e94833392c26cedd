@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "141516e4_e6ce691a",
+        "filename": "buildSrc/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-05-08T16:59:24Z",
+      "side": 1,
+      "message": "Ah, thanks! Also fixed some other build.gradles to do this too",
+      "parentUuid": "e1f150fe_b812443a",
+      "range": {
+        "startLine": 54,
+        "startChar": 34,
+        "endLine": 54,
+        "endChar": 37
+      },
+      "revId": "898be937e2e171c7127b5656e94833392c26cedd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8b008deb_eb0be8ef",
         "filename": "buildSrc/build.gradle",
         "patchSetId": 1
@@ -161,6 +185,30 @@
     },
     {
       "key": {
+        "uuid": "dac0f219_d1e27883",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/DiffAndDocs.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-05-08T16:59:24Z",
+      "side": 1,
+      "message": "Makes sense, I tested locally and it prints the same results. I\u0027m not sure how robust this is in the future though.",
+      "parentUuid": "f8739338_2ea5894f",
+      "range": {
+        "startLine": 517,
+        "startChar": 8,
+        "endLine": 517,
+        "endChar": 50
+      },
+      "revId": "898be937e2e171c7127b5656e94833392c26cedd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b9735a9d_a26a0f8f",
         "filename": "buildSrc/src/main/kotlin/androidx/build/dokka/Dokka.kt",
         "patchSetId": 1
@@ -181,6 +229,30 @@
       "revId": "898be937e2e171c7127b5656e94833392c26cedd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "37176cdc_5c8f04fc",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dokka/Dokka.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-05-08T16:59:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b9735a9d_a26a0f8f",
+      "range": {
+        "startLine": 81,
+        "startChar": 38,
+        "endLine": 81,
+        "endChar": 49
+      },
+      "revId": "898be937e2e171c7127b5656e94833392c26cedd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
