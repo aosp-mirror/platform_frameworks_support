@@ -21,6 +21,7 @@ import org.gradle.tooling.GradleConnector
 import org.gradle.tooling.ProjectConnection
 import org.junit.After
 import org.junit.Before
+import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TemporaryFolder
@@ -31,6 +32,7 @@ import java.nio.file.Files
 import java.nio.file.Path
 import java.util.Properties
 
+@Ignore("Temporarily disabled due to b/134764143")
 @RunWith(JUnit4::class)
 class IncrementalAnnotationProcessingTest {
 
