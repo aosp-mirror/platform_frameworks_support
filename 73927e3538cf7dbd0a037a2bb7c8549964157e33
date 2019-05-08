@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "362d46e3_6e5ecd59",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/CameraImplTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-08T21:46:49Z",
+      "side": 1,
+      "message": "Is it possible to use camera2 interop to test for this before we have the close signal available?",
+      "revId": "73927e3538cf7dbd0a037a2bb7c8549964157e33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
