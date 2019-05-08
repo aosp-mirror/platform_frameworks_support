@@ -14,29 +14,54 @@
  * limitations under the License.
  */
 
-package androidx.camera.extensions;
+package androidx.camera.camera2.impl;
 
 import android.content.Context;
 import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraCharacteristics;
 import android.hardware.camera2.CameraManager;
 
-import androidx.camera.core.CameraDeviceConfig;
-import androidx.camera.core.CameraInfoUnavailableException;
+import androidx.annotation.RestrictTo;
+import androidx.annotation.RestrictTo.Scope;
+import androidx.camera.core.CameraIdFilter;
 import androidx.camera.core.CameraX;
 
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 /**
- * Utility functions for accessing camera related parameters
+ * Filter camera id by lens facing.
+ *
+ * @hide
  */
-class CameraUtil {
-    static String getCameraId(CameraDeviceConfig config) {
-        try {
-            return CameraX.getCameraWithCameraDeviceConfig(config);
-        } catch (CameraInfoUnavailableException e) {
-            throw new IllegalArgumentException(
-                    "Unable to get camera id for the camera device config " + config.getLensFacing()
-                            + config.getCameraId(), e);
+@RestrictTo(Scope.LIBRARY)
+public final class LensFacingCameraIdFilter implements CameraIdFilter {
+    private CameraX.LensFacing mLensFacing;
+
+    LensFacingCameraIdFilter(CameraX.LensFacing lensFacing) {
+        mLensFacing = lensFacing;
+    }
+
+    @Override
+    public Set<String> filter(Set<String> cameraIdSet) {
+        Set<String> resultCameraIdSet = new LinkedHashSet<>();
+        Integer cameraLensFacing =
+                mLensFacing == CameraX.LensFacing.BACK ? CameraCharacteristics.LENS_FACING_BACK
+                        : CameraCharacteristics.LENS_FACING_FRONT;
+        for (String cameraId : cameraIdSet) {
+            Integer lensFacing = getCameraCharacteristics(cameraId).get(
+                    CameraCharacteristics.LENS_FACING);
+            if (lensFacing == cameraLensFacing) {
+                resultCameraIdSet.add(cameraId);
+                break;
+            }
         }
+
+        return resultCameraIdSet;
+    }
+
+    public CameraX.LensFacing getLensFacing() {
+        return mLensFacing;
     }
 
     static CameraCharacteristics getCameraCharacteristics(String cameraId) {
@@ -52,8 +77,5 @@ class CameraUtil {
         }
 
         return cameraCharacteristics;
-    }
-
-    private CameraUtil() {
     }
 }

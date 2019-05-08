@@ -21,6 +21,7 @@ import android.hardware.camera2.CaptureRequest;
 import android.util.Pair;
 
 import androidx.camera.camera2.Camera2Config;
+import androidx.camera.core.CameraIdFilterSet;
 import androidx.camera.core.CameraX;
 import androidx.camera.core.Config;
 import androidx.camera.core.PreviewConfig;
@@ -37,6 +38,10 @@ public abstract class PreviewExtender {
     void init(PreviewConfig.Builder builder, PreviewExtenderImpl implementation) {
         mBuilder = builder;
         mImpl = implementation;
+
+        CameraIdFilterSet cameraIdFilterSet = mBuilder.build().getCameraIdFilterSet();
+        cameraIdFilterSet.addCameraIdFilter(new ExtensionsCameraIdFilter(mImpl));
+        mBuilder.setCameraIdFilterSet(cameraIdFilterSet);
     }
 
     /**

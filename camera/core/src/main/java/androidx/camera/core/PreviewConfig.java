@@ -167,6 +167,33 @@ public final class PreviewConfig
         return retrieveOption(OPTION_LENS_FACING);
     }
 
+    /**
+     * Returns the set of {@link CameraIdFilter} that filter out unavailable camera id.
+     *
+     * @param valueIfMissing The value to return if this configuration option has not been set.
+     * @return The stored value or <code>ValueIfMissing</code> if the value does not exist in this
+     * configuration.
+     * @hide
+     */
+    @RestrictTo(Scope.LIBRARY_GROUP)
+    @Nullable
+    public CameraIdFilterSet getCameraIdFilterSet(@Nullable Integer valueIfMissing) {
+        return retrieveOption(OPTION_CAMERA_ID_FILTER_SET, valueIfMissing);
+    }
+
+    /**
+     * Returns the set of {@link CameraIdFilter} that filter out unavailable camera id.
+     *
+     * @return The stored value, if it exists in the configuration.
+     * @throws IllegalArgumentException if the option does not exist in this configuration.
+     * @hide
+     */
+    @RestrictTo(Scope.LIBRARY_GROUP)
+    @Nullable
+    public CameraIdFilterSet getCameraIdFilterSet() {
+        return retrieveOption(OPTION_CAMERA_ID_FILTER_SET);
+    }
+
     // Implementations of ImageOutputConfig default methods
 
     /**
@@ -453,6 +480,18 @@ public final class PreviewConfig
         @Override
         public Builder setLensFacing(CameraX.LensFacing lensFacing) {
             getMutableConfig().insertOption(OPTION_LENS_FACING, lensFacing);
+            return this;
+        }
+
+        /**
+         * Sets the set of {@link CameraIdFilter} that filter out the unavailable camera id.
+         *
+         * @param cameraIdFilterSet The set of {@link CameraIdFilter}.
+         * @return the current Builder.
+         */
+        @Override
+        public Builder setCameraIdFilterSet(CameraIdFilterSet cameraIdFilterSet) {
+            getMutableConfig().insertOption(OPTION_CAMERA_ID_FILTER_SET, cameraIdFilterSet);
             return this;
         }
 

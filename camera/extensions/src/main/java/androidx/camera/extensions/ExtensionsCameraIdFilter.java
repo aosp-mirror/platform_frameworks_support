@@ -21,22 +21,34 @@ import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraCharacteristics;
 import android.hardware.camera2.CameraManager;
 
-import androidx.camera.core.CameraDeviceConfig;
-import androidx.camera.core.CameraInfoUnavailableException;
+import androidx.camera.core.CameraIdFilter;
 import androidx.camera.core.CameraX;
+import androidx.camera.extensions.impl.PreviewExtenderImpl;
+
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 /**
- * Utility functions for accessing camera related parameters
+ * Filter camera id by extension availability.
  */
-class CameraUtil {
-    static String getCameraId(CameraDeviceConfig config) {
-        try {
-            return CameraX.getCameraWithCameraDeviceConfig(config);
-        } catch (CameraInfoUnavailableException e) {
-            throw new IllegalArgumentException(
-                    "Unable to get camera id for the camera device config " + config.getLensFacing()
-                            + config.getCameraId(), e);
+public final class ExtensionsCameraIdFilter implements CameraIdFilter {
+    PreviewExtenderImpl mPreviewExtenderImpl;
+
+    ExtensionsCameraIdFilter(PreviewExtenderImpl previewExtenderImpl) {
+        PreviewExtenderImpl = previewExtenderImpl;
+    }
+
+    @Override
+    public Set<String> filter(Set<String> cameraIdSet) {
+        Set<String> resultCameraIdSet = new LinkedHashSet<>();
+        for (String cameraId : cameraIdSet) {
+            if (mPreviewExtenderImpl.isExtensionAvailable(cameraId,
+                    getCameraCharacteristics(cameraId))) {
+                resultCameraIdSet.add(cameraId);
+            }
         }
+
+        return resultCameraIdSet;
     }
 
     static CameraCharacteristics getCameraCharacteristics(String cameraId) {
@@ -52,8 +64,5 @@ class CameraUtil {
         }
 
         return cameraCharacteristics;
-    }
-
-    private CameraUtil() {
     }
 }
