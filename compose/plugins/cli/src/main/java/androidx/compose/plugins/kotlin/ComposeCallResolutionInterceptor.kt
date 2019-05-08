@@ -182,7 +182,11 @@ class ComposeCallResolutionInterceptorExtension : CallResolutionInterceptorExten
                 ValueParameterDescriptorImpl(
                     descriptor, null, index,
                     Annotations.EMPTY,
-                    Name.identifier(if(attributeInfo.name == CHILDREN_KEY) "children" else attributeInfo.name),
+                    Name.identifier(
+                            if (attributeInfo.name == CHILDREN_KEY)
+                                attributeInfo.descriptor.name.identifier
+                            else attributeInfo.name
+                    ),
                     attributeInfo.type, false,
                     false,
                     false, null,

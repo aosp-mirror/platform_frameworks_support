@@ -78,6 +78,7 @@ import org.jetbrains.kotlin.psi.ValueArgumentName
 import androidx.compose.plugins.kotlin.analysis.ComposeDefaultErrorMessages
 import androidx.compose.plugins.kotlin.analysis.ComposeErrors
 import androidx.compose.plugins.kotlin.analysis.ComposeWritableSlices
+import org.jetbrains.kotlin.builtins.isFunctionType
 import org.jetbrains.kotlin.resolve.BindingContext
 import org.jetbrains.kotlin.resolve.BindingTrace
 import org.jetbrains.kotlin.resolve.DescriptorFactory
@@ -596,7 +597,7 @@ class KtxCallResolver(
         val attrInfos = mutableMapOf<String, AttributeInfo>()
 
         for (arg in call.valueArguments) {
-            if(arg is KtLambdaArgument) continue;
+            if (arg is KtLambdaArgument) continue;
             val argName = arg.getArgumentName()
 
             if (argName == null) TODO("indexed arguments not yet supported!")
@@ -1857,12 +1858,13 @@ class KtxCallResolver(
     private fun ResolvedCall<*>.buildParamsFromAttributes(
         attributes: Map<String, AttributeInfo>
     ): List<ValueNode> {
+        val possbileChildrenParam = valueArguments.keys.possibleChildrenParameter
         return valueArguments.map { (param, value) ->
             val name = param.name.asString()
             var type = param.type
             var attr = attributes[name]
 
-            if (param.hasChildrenAnnotation()) {
+            if (param.hasChildrenAnnotation() || param == possbileChildrenParam) {
                 val childrenAttr = attributes[CHILDREN_KEY]
                 if (childrenAttr != null) {
                     attr = childrenAttr
@@ -2496,12 +2498,16 @@ class KtxCallResolver(
 
         val stableParamNames = referencedDescriptor.hasStableParameterNames()
 
+        val possibleChildrenParameter = candidate.resultingDescriptor.
+            valueParameters.possibleChildrenParameter
+
         for (param in candidate.resultingDescriptor.valueParameters) {
             val name = param.name.asString()
             val attr = attributes[name]
             var arg: ValueArgument? = null
 
-            if (arg == null && param.hasChildrenAnnotation()) {
+            if (arg == null && (param.hasChildrenAnnotation() ||
+                        param == possibleChildrenParameter)) {
                 val childrenAttr = attributes[CHILDREN_KEY]
                 if (childrenAttr != null) {
                     usedAttributes.add(CHILDREN_KEY)
@@ -3735,3 +3741,8 @@ private val ResolvedCall<*>.semanticCall: ResolvedCall<*>
         is VariableAsFunctionResolvedCall -> variableCall
         else -> this
     }
+
+private val Collection<ValueParameterDescriptor>.possibleChildrenParameter get() =
+        lastOrNull()?.let {
+            if (it.type.isFunctionType) it else null
+        }

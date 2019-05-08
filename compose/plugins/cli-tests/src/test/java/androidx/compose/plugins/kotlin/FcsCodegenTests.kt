@@ -87,6 +87,23 @@ class FcsCodegenTests : AbstractCodegenTest() {
     }
 
     @Test
+    fun testSetContent(): Unit = ensureSetup {
+        codegen(
+            """
+                fun fakeCompose(block: @Composable() ()->Unit) { }
+
+                class Test {
+                    fun test() {
+                        fakeCompose {
+                            LinearLayout(orientation = LinearLayout.VERTICAL) {}
+                        }
+                    }
+                }
+            """
+        )
+    }
+
+    @Test
     fun testObservable(): Unit = ensureSetup {
         compose(
             """
