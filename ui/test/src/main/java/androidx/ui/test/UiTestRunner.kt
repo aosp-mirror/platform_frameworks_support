@@ -16,6 +16,7 @@
 
 package androidx.ui.test
 
+import android.graphics.Bitmap
 import android.view.MotionEvent
 import androidx.ui.core.SemanticsTreeNode
 
@@ -24,4 +25,7 @@ interface UiTestRunner {
     fun findSemantics(selector: (SemanticsTreeNode) -> Boolean): List<SemanticsTreeNode>
     fun sendEvent(event: MotionEvent)
     fun performClick(x: Float, y: Float)
+    fun takeScreenshot(): Bitmap
+    fun getGoldenImage(goldenImageName: String): Bitmap?
+    fun writeToStorage(screenshotName: String, screenshot: Bitmap)
 }
