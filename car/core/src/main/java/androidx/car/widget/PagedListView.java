@@ -34,7 +34,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
-import androidx.annotation.ColorRes;
+import androidx.annotation.ColorInt;
 import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -46,6 +46,7 @@ import androidx.car.widget.itemdecorators.BottomOffsetDecoration;
 import androidx.car.widget.itemdecorators.DividerDecoration;
 import androidx.car.widget.itemdecorators.ItemSpacingDecoration;
 import androidx.car.widget.itemdecorators.TopOffsetDecoration;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.OrientationHelper;
 import androidx.recyclerview.widget.RecyclerView;
@@ -117,7 +118,7 @@ public class PagedListView extends FrameLayout {
     /** Maximum number of pages to show. */
     private int mMaxPages = UNLIMITED_PAGES;
 
-    /** Package private to allow access to nested classes.  */
+    /** Package private to allow access to nested classes. */
     final List<Callback> mCallbacks = new ArrayList<>();
     OnScrollListener mOnScrollListener;
 
@@ -294,11 +295,12 @@ public class PagedListView extends FrameLayout {
             int dividerEndId = a.getResourceId(R.styleable.PagedListView_alignDividerEndTo,
                     DividerDecoration.INVALID_RESOURCE_ID);
 
-            int listDividerColor = a.getResourceId(R.styleable.PagedListView_listDividerColor,
+            int listDividerColorRes = a.getResourceId(R.styleable.PagedListView_listDividerColor,
                     R.color.car_list_divider);
 
             mRecyclerView.addItemDecoration(new DividerDecoration(context, dividerStartMargin,
-                    dividerEndMargin, dividerStartId, dividerEndId, listDividerColor));
+                    dividerEndMargin, dividerStartId, dividerEndId,
+                    ContextCompat.getColor(context, listDividerColorRes)));
         }
 
         int itemSpacing = a.getDimensionPixelSize(R.styleable.PagedListView_itemSpacing, 0);
@@ -869,9 +871,9 @@ public class PagedListView extends FrameLayout {
     /**
      * Sets the color that should be used for the dividers in the PagedListView.
      *
-     * @param dividerColor The resource identifier for the divider color.
+     * @param dividerColor The packed color int for the divider color.
      */
-    public void setDividerColor(@ColorRes int dividerColor) {
+    public void setDividerColor(@ColorInt int dividerColor) {
         int decorCount = mRecyclerView.getItemDecorationCount();
         for (int i = 0; i < decorCount; i++) {
             RecyclerView.ItemDecoration decor = mRecyclerView.getItemDecorationAt(i);
