@@ -16,6 +16,7 @@
 
 package androidx.ui.test.helpers
 
+import android.graphics.Bitmap
 import android.view.MotionEvent
 import androidx.ui.core.SemanticsTreeNode
 import androidx.ui.core.semantics.SemanticsConfiguration
@@ -51,5 +52,19 @@ class FakeUiTestRunner : UiTestRunner {
 
     override fun performClick(x: Float, y: Float) {
         // TODO(malkov): implement?
+    }
+
+    override fun takeScreenshot(): Bitmap {
+        // TODO(catalintudor): implement
+        return Bitmap.createBitmap(0, 0, Bitmap.Config.ARGB_8888)
+    }
+
+    override fun getGoldenImage(goldenImageName: String): Bitmap? {
+        // TODO(catalintudor): implement
+        return Bitmap.createBitmap(0, 0, Bitmap.Config.ARGB_8888)
+    }
+
+    override fun writeToStorage(screenshotName: String, screenshot: Bitmap) {
+        // TODO(catalintudor): implement
     }
 }

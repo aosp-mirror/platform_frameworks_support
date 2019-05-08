@@ -47,13 +47,21 @@ package androidx.ui.test {
     method public static void dumpSemantics(androidx.ui.test.SemanticsTreeQuery, kotlin.jvm.functions.Function1<? super java.lang.String,kotlin.Unit> consumer);
   }
 
+  public final class PixelDifferKt {
+    ctor public PixelDifferKt();
+    method public static androidx.test.screenshot.ScreenshotResultProto.ScreenshotResult compareBitmaps(android.graphics.Bitmap? reference, android.graphics.Bitmap test);
+  }
+
   public final class SemanticsTreeQuery {
   }
 
   public interface UiTestRunner {
     method public java.util.List<androidx.ui.core.SemanticsTreeNode> findSemantics(kotlin.jvm.functions.Function1<? super androidx.ui.core.SemanticsTreeNode,java.lang.Boolean> selector);
+    method public android.graphics.Bitmap? getGoldenImage(String goldenImageName);
     method public void performClick(float x, float y);
     method public void sendEvent(android.view.MotionEvent event);
+    method public android.graphics.Bitmap takeScreenshot();
+    method public void writeToStorage(String screenshotName, android.graphics.Bitmap screenshot);
   }
 
 }
@@ -63,14 +71,18 @@ package androidx.ui.test.android {
   public class AndroidUiTestRunner implements androidx.ui.test.UiTestRunner {
     ctor public AndroidUiTestRunner();
     method public final void TestWrapper(kotlin.jvm.functions.Function0<kotlin.Unit> children);
+    method @RequiresApi(26) public final void assertScreenshotIsEqualTo(String goldenScreenshotName);
     method public java.util.List<androidx.ui.core.SemanticsTreeNode> findSemantics(kotlin.jvm.functions.Function1<? super androidx.ui.core.SemanticsTreeNode,java.lang.Boolean> selector);
     method public final androidx.test.rule.ActivityTestRule<androidx.ui.test.android.DefaultTestActivity> getActivityTestRule();
     method public final androidx.ui.core.Density getDensity();
+    method public android.graphics.Bitmap? getGoldenImage(String goldenImageName);
     method public void performClick(float x, float y);
     method public void sendEvent(android.view.MotionEvent event);
     method public final void setContent(kotlin.jvm.functions.Function0<kotlin.Unit> composable);
     method public final void setup();
+    method @RequiresApi(26) public android.graphics.Bitmap takeScreenshot();
     method public final void teardown();
+    method public void writeToStorage(String screenshotName, android.graphics.Bitmap screenshot);
     property public final androidx.test.rule.ActivityTestRule<androidx.ui.test.android.DefaultTestActivity> activityTestRule;
     property public final androidx.ui.core.Density density;
   }
