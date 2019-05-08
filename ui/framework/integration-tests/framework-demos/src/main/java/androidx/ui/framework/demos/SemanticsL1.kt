@@ -132,6 +132,8 @@ enum class EditAction : ActionType { Cut, Copy, Paste, Select, SelectAll, Clear,
 @Suppress("Unused")
 enum class NavigationAction : ActionType { Back, Forward, Up, Down, Left, Right }
 
+enum class GroupActions : ActionType { Enter, Exit, Next, Previous, Up, Down, GoTo }
+
 /**
  * A PressGestureDetector that uses actions instead of lambda callbacks.
  *
@@ -174,6 +176,7 @@ fun Semantics(
                 InvokeActionsByPhrase(actions)
                 InvokeActionsByAssistantAction(actions)
                 InvokeActionsByParameters(actions)
+                InvokeGroupActions(actions)
             }
         }
         Row(
@@ -268,6 +271,43 @@ private fun InvokeActionsByParameters(actions: Set<SemanticAction<out Any?>> = s
             onClick = { unitAction?.invoke(param = Unit) })
     }
 }
+
+/**
+ * This component adds buttons to invoke actions through the [ActionCaller.Accessibility]
+ * framework based on the [GroupAction] type.
+ */
+@Suppress("FunctionName")
+@Composable
+private fun InvokeGroupActions(actions: Set<SemanticAction<out Any?>> = setOf()) {
+    Text(text = "Group Actions", style = +themeTextStyle { h6.copy() })
+    Row(mainAxisAlignment = MainAxisAlignment.SpaceEvenly) {
+        Button(text = "Enter", onClick = { actions.invokeByType(GroupActions.Enter) })
+        Button(text = "Exit", onClick = { actions.invokeByType(GroupActions.Exit) })
+        Button(text = "Next", onClick = { actions.invokeByType(GroupActions.Next) })
+        Button(text = "Previous", onClick = { actions.invokeByType(GroupActions.Previous) })
+        Button(text = "Up", onClick = { actions.invokeByType(GroupActions.Up) })
+        Button(text = "Down", onClick = { actions.invokeByType(GroupActions.Down) })
+
+        // We know that the GoTo action is of type Int, because it is an action type that is
+        // provided by us. However, I'm just including this check to demonstrate a way to check the
+        // type when we come across action types that are not provided by the framework. The type is
+        // erased, but we can use the defaultParam type to determine the type information.
+        val gotoAction = actions.firstOrNull { it.types.contains(GroupActions.GoTo) }
+        if (gotoAction?.defaultParam is Int) {
+            @Suppress("UNCHECKED_CAST")
+            val gotoActionInt = gotoAction as SemanticAction<Int>
+            Button(
+                text = "3rd item",
+                onClick = { gotoActionInt.invoke(ActionCaller.Accessibility, 2) })
+        }
+    }
+}
+
+/**
+ * Helper extension to find an action by the type and invoke it.
+ */
+private fun Set<SemanticAction<out Any?>>.invokeByType(actionType: ActionType) =
+    firstOrNull { it.types.contains(actionType) }?.invoke(ActionCaller.Accessibility)
 
 /**
  * Enum class used by the [Collapsable] component.

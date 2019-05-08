@@ -69,3 +69,67 @@ fun <T> SemanticAction(
     val semanticAction = SemanticAction<T>(phrase, defaultParam, types, action)
     block.invoke(semanticAction)
 }
+
+/**
+ * [GroupSemantics] calls a lambda wih a [GroupSemanticActions] parameter. This gives the child
+ * block access to the group actions.
+ */
+class GroupSemanticActions(
+    val enter: SemanticAction<Unit>,
+    val exit: SemanticAction<Unit>,
+    val next: SemanticAction<Unit>,
+    val previous: SemanticAction<Unit>,
+    val up: SemanticAction<Unit>,
+    val down: SemanticAction<Unit>,
+    val goTo: SemanticAction<Int>
+)
+
+/**
+ * [GroupSemantics] is a wrapper around a [Semantics] component that adds group action types to
+ * the semantic actions passed by the user.
+ */
+@Suppress("FunctionName", "Unused")
+@Composable
+fun GroupSemantics(
+    onEnter: SemanticAction<Unit> = SemanticAction(defaultParam = Unit, action = {}),
+    onExit: SemanticAction<Unit> = SemanticAction(defaultParam = Unit, action = {}),
+    onNext: SemanticAction<Unit> = SemanticAction(defaultParam = Unit, action = {}),
+    onPrevious: SemanticAction<Unit> = SemanticAction(defaultParam = Unit, action = {}),
+    onUp: SemanticAction<Unit> = SemanticAction(defaultParam = Unit, action = {}),
+    onDown: SemanticAction<Unit> = SemanticAction(defaultParam = Unit, action = {}),
+    onGoTo: SemanticAction<Int> = SemanticAction(defaultParam = 0, action = {}),
+    @Children children: @Composable() (GroupSemanticActions) -> Unit
+) {
+    // Add action types to the actions (If they aren't added).
+    val groupSemanticActions = GroupSemanticActions(
+        enter = onEnter.setPhraseAndType("Enter", GroupActions.Enter),
+        exit = onExit.setPhraseAndType("Exit", GroupActions.Exit),
+        next = onNext.setPhraseAndType("Next", GroupActions.Next),
+        previous = onPrevious.setPhraseAndType("Previous", GroupActions.Previous),
+        up = onUp.setPhraseAndType("Up", GroupActions.Up),
+        down = onDown.setPhraseAndType("Down", GroupActions.Down),
+        goTo = onGoTo.setPhraseAndType("Go To", GroupActions.GoTo)
+    )
+
+    Semantics(
+        actions = setOf(
+            groupSemanticActions.enter,
+            groupSemanticActions.exit,
+            groupSemanticActions.next,
+            groupSemanticActions.previous,
+            groupSemanticActions.up,
+            groupSemanticActions.down,
+            groupSemanticActions.goTo
+        )
+    ) {
+        children(groupSemanticActions)
+    }
+}
+
+private fun <T> SemanticAction<T>.setPhraseAndType(phrase: String, type: ActionType) =
+    SemanticAction(
+        phrase = phrase,
+        defaultParam = defaultParam,
+        action = action,
+        types = setOf(type)
+    )

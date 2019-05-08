@@ -28,6 +28,14 @@
                 <category android:name="androidx.ui.demos.SAMPLE_CODE" />
             </intent-filter>
         </activity>
+        <activity android:name=".GroupSemanticsActivity"
+            android:configChanges="orientation|screenSize"
+            android:label="Semantics/Group Semantics">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="androidx.ui.demos.SAMPLE_CODE" />
+            </intent-filter>
+        </activity>
         <activity android:name=".VectorGraphicsActivity"
                   android:configChanges="orientation|screenSize"
                   android:label="Graphics/Vector graphics">
