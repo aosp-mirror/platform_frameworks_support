@@ -75,6 +75,12 @@ internal class AndroidSemanticsTreeInteraction internal constructor(
             .toList()
     }
 
+    override fun findComposeView(): View {
+        waitForIdleCompose()
+
+        return findView()
+    }
+
     override fun addSelector(selector: (SemanticsTreeNode) -> Boolean): SemanticsTreeInteraction {
         selectors.add(selector)
         return this
@@ -160,7 +166,7 @@ internal class AndroidSemanticsTreeInteraction internal constructor(
         }
     }
 
-    private fun findActivityAndTreeProvider(): CollectedInfo {
+    private fun findView(): ViewGroup {
         val viewForwarder = ViewForwarder()
 
         // Use Espresso to find the content view for us.
@@ -177,7 +183,11 @@ internal class AndroidSemanticsTreeInteraction internal constructor(
                     "Are you using Compose in your Activity?")
         }
 
-        val view = viewForwarder.viewFound!! as ViewGroup
+        return viewForwarder.viewFound!! as ViewGroup
+    }
+
+    private fun findActivityAndTreeProvider(): CollectedInfo {
+        val view = findView()
         return CollectedInfo(view.context, collectSemanticTreeProviders(view))
     }
 

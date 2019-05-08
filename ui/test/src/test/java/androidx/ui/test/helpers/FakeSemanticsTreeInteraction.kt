@@ -16,6 +16,7 @@
 
 package androidx.ui.test.helpers
 
+import android.view.View
 import androidx.ui.core.SemanticsTreeNode
 import androidx.ui.core.semantics.SemanticsConfiguration
 import androidx.ui.test.SemanticsTreeInteraction
@@ -54,6 +55,10 @@ class FakeSemanticsTreeInteraction : SemanticsTreeInteraction() {
         return semanticsToUse
             .filter { node -> selectors.all { selector -> selector(node) } }
             .toList()
+    }
+
+    override fun findComposeView(): View {
+        TODO("catalintudor: implement")
     }
 
     override fun sendClick(x: Float, y: Float) {

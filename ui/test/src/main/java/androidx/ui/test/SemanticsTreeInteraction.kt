@@ -16,6 +16,7 @@
 
 package androidx.ui.test
 
+import android.view.View
 import androidx.ui.core.SemanticsTreeNode
 import androidx.ui.test.android.AndroidSemanticsTreeInteraction
 
@@ -41,6 +42,8 @@ abstract class SemanticsTreeInteraction {
     ): SemanticsTreeInteraction
 
     internal abstract fun findAllMatching(): List<SemanticsTreeNode>
+
+    internal abstract fun findComposeView(): View
 
     internal abstract fun sendClick(x: Float, y: Float)
 }

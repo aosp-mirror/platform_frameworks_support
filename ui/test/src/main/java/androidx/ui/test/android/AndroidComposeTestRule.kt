@@ -17,10 +17,12 @@
 package androidx.ui.test.android
 
 import android.app.Activity
+import android.os.Build
 import android.util.DisplayMetrics
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.widget.FrameLayout
+import androidx.annotation.RequiresApi
 import androidx.compose.Composable
 import androidx.compose.Compose
 import androidx.compose.composer
@@ -29,11 +31,13 @@ import androidx.ui.animation.transitionsEnabled
 import androidx.ui.core.CraneWrapper
 import androidx.ui.core.Density
 import androidx.ui.test.ComposeTestRule
+import androidx.ui.test.semanticsTreeInteractionFactory
 import androidx.ui.test.throwOnRecomposeTimeout
 import org.junit.runner.Description
 import org.junit.runners.model.Statement
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
+import androidx.test.screenshot.ScreenshotUtils
 
 /**
  * Android specific implementation of [ComposeTestRule].
@@ -43,7 +47,7 @@ class AndroidComposeTestRule(
     private val shouldThrowOnRecomposeTimeout: Boolean = false
 ) : ComposeTestRule {
 
-    val activityTestRule = ActivityTestRule<DefaultTestActivity>(DefaultTestActivity::class.java)
+    val activityTestRule = ActivityTestRule(DefaultTestActivity::class.java)
 
     override val density: Density get() = Density(activityTestRule.activity)
 
@@ -101,6 +105,15 @@ class AndroidComposeTestRule(
                 }
             })
         })
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    override fun assertScreenshotIsEqualTo(goldenScreenshotName: String) {
+        val interaction = semanticsTreeInteractionFactory()
+        val view = interaction.findComposeView()
+
+        ScreenshotUtils(view, activityTestRule.activity)
+            .assertScreenshotIsEqualTo(goldenScreenshotName)
     }
 
     inner class AndroidComposeStatement(
