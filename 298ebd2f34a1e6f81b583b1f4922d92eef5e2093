@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a2004ff_b48f7d8c",
+        "filename": "ui/android-text/build.gradle",
+        "patchSetId": 5
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-05-08T23:24:37Z",
+      "side": 1,
+      "message": "Can we move this logic to AndroidXUiPlugin so we apply -Werror to all the libs in one place?",
+      "range": {
+        "startLine": 64,
+        "startChar": 4,
+        "endLine": 68,
+        "endChar": 5
+      },
+      "revId": "298ebd2f34a1e6f81b583b1f4922d92eef5e2093",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
