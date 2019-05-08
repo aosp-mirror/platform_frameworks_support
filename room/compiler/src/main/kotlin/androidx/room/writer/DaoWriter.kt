@@ -90,6 +90,10 @@ class DaoWriter(val dao: Dao, val processingEnv: ProcessingEnvironment)
                 createPreparedQueries(preparedQueries)
 
         builder.apply {
+            // TODO Set database element as originating element when making Room an isolating
+            // incremental annotation processor.
+            addOriginatingElement(dao.element)
+
             addModifiers(PUBLIC)
             addModifiers(FINAL)
             if (dao.element.kind == ElementKind.INTERFACE) {

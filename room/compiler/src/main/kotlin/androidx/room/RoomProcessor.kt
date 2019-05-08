@@ -20,6 +20,7 @@ import androidx.room.processor.Context
 import androidx.room.processor.DatabaseProcessor
 import androidx.room.processor.MissingTypeException
 import androidx.room.processor.ProcessorErrors
+import androidx.room.util.SimpleJavaVersion
 import androidx.room.vo.DaoMethod
 import androidx.room.vo.Warning
 import androidx.room.writer.DaoWriter
@@ -36,12 +37,61 @@ import javax.lang.model.element.Element
  * The annotation processor for Room.
  */
 class RoomProcessor : BasicAnnotationProcessor() {
+
+    private val AGGREGATING_ANNOTATION_PROCESSORS_INDICATOR =
+        "org.gradle.annotation.processing.aggregating"
+
     override fun initSteps(): MutableIterable<ProcessingStep>? {
         return mutableListOf(DatabaseProcessingStep(processingEnv))
     }
 
     override fun getSupportedOptions(): MutableSet<String> {
-        return Context.ARG_OPTIONS.toMutableSet()
+        val supportedOptions = Context.ARG_OPTIONS.toMutableSet()
+
+        if (Context.BooleanProcessorOptions.INCREMENTAL.getValue(processingEnv)) {
+            if (methodParametersVisibleInClassFiles()) {
+                // Add an option to tell Gradle that Room is an aggregating annotation processor
+                supportedOptions.add(AGGREGATING_ANNOTATION_PROCESSORS_INDICATOR)
+            } else {
+                Context(processingEnv).logger.w(
+                    Warning.JDK_VERSION_HAS_BUG, ProcessorErrors.CURRENT_JDK_VERSION_HAS_BUG)
+            }
+        }
+
+        return supportedOptions
+    }
+
+    /**
+     * Returns `true` if the method parameters in class files can be accessed by Room.
+     *
+     * Context: Room requires access to the real parameter names of constructors (see
+     * PojoProcessor.getParamNames). Room uses the ExecutableElement.getParemters() API on the
+     * constructor element to do this.
+     *
+     * When Room is not yet incremental, the above API is working as expected. However, if we make
+     * Room incremental, during an incremental compile Gradle may want to pass class files instead
+     * source files to annotation processors (to avoid recompiling the source files that haven't
+     * changed). Due to JDK bug https://bugs.openjdk.java.net/browse/JDK-8007720, the class files
+     * may lose the real parameter names of constructors, which would break Room.
+     *
+     * The above JDK bug was fixed in JDK 11. The fix was also cherry-picked back into the
+     * embedded JDK that was shipped with Android Studio 3.5+.
+     *
+     * Therefore, for Room to be incremental, we need to check whether the JDK being used has the
+     * fix: Either it is JDK 11+ or it is an embedded JDK that has the cherry-pick (version
+     * 1.8.0_202-release-1483-b02 and above).
+     */
+    private fun methodParametersVisibleInClassFiles(): Boolean {
+        val currentJavaVersion = SimpleJavaVersion.getCurrentVersion() ?: return false
+        val isEmbeddedJdk =
+            System.getProperty("java.vendor")?.contains("JetBrains", ignoreCase = true) ?: false
+
+        // Android Studio 3.5.0-alpha10 and higher use JDK 1.8.0_202-release-1483-b39 or above,
+        // Android Studio 3.5.0-alpha09 and lower use JDK 1.8.0_152-release-1343-b16 or lower, and
+        // the cherry-picked fix is at version 1.8.0_202-release-1483-b02. Therefore, it is
+        // sufficient to compare the embedded JDK version with 1.8.0_202 (without the suffix).
+        return (currentJavaVersion >= SimpleJavaVersion.VERSION_11_0_0) ||
+                (isEmbeddedJdk && (currentJavaVersion >= SimpleJavaVersion.VERSION_1_8_0_202))
     }
 
     override fun getSupportedSourceVersion(): SourceVersion {
