@@ -90,6 +90,12 @@ class DaoWriter(val dao: Dao, val processingEnv: ProcessingEnvironment)
                 createPreparedQueries(preparedQueries)
 
         builder.apply {
+            if (dao.dbElement != null) {
+                addOriginatingElement(dao.dbElement)
+            } else {
+                addOriginatingElement(dao.element)
+            }
+
             addModifiers(PUBLIC)
             addModifiers(FINAL)
             if (dao.element.kind == ElementKind.INTERFACE) {
