@@ -50,7 +50,8 @@ class Context private constructor(
 
     companion object {
         val ARG_OPTIONS by lazy {
-            ProcessorOptions.values().map { it.argName }
+            ProcessorOptions.values().map { it.argName }.plus(
+                BooleanProcessorOptions.values().map { it.argName })
         }
     }
 
@@ -118,5 +119,22 @@ class Context private constructor(
 
     enum class ProcessorOptions(val argName: String) {
         OPTION_SCHEMA_FOLDER("room.schemaLocation")
+    }
+
+    enum class BooleanProcessorOptions(val argName: String, private val defaultValue: Boolean) {
+        INCREMENTAL("room.incremental", false);
+
+        /**
+         * Returns the value of this option passed through the [ProcessingEnvironment]. If the value
+         * is null or blank, it returns the default value instead.
+         */
+        fun getValue(processingEnv: ProcessingEnvironment): Boolean {
+            val value = processingEnv.options[Context.BooleanProcessorOptions.INCREMENTAL.argName]
+            if (value.isNullOrBlank()) {
+                return defaultValue
+            } else {
+                return value.toBoolean()
+            }
+        }
     }
 }
