@@ -39,6 +39,7 @@ import javax.lang.model.element.Element
 class DatabaseVerifier private constructor(
     val connection: Connection,
     val context: Context,
+    val element: Element,
     val entities: List<Entity>,
     views: List<DatabaseView>
 ) {
@@ -81,7 +82,7 @@ class DatabaseVerifier private constructor(
         ): DatabaseVerifier? {
             return try {
                 val connection = JDBC.createConnection(CONNECTION_URL, java.util.Properties())
-                DatabaseVerifier(connection, context, entities, views)
+                DatabaseVerifier(connection, context, element, entities, views)
             } catch (ex: Exception) {
                 context.logger.w(Warning.CANNOT_CREATE_VERIFICATION_DATABASE, element,
                         DatabaseVerificaitonErrors.cannotCreateConnection(ex))
