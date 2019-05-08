@@ -34,6 +34,23 @@
       "revId": "b0479d0bba7fb7d60d13824dfd9bfded4fb1e0f9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0915c516_33b273e4",
+        "filename": "camera/core/src/main/java/androidx/camera/core/UseCaseGroupRepository.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-08T18:01:48Z",
+      "side": 1,
+      "message": "Monitors which {@link LifecycleOwner} becomes ON_DESTROY\n-\u003e\nMonitors which {@link LifecycleOwner} receives an ON_DESTROY event",
+      "revId": "b0479d0bba7fb7d60d13824dfd9bfded4fb1e0f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
