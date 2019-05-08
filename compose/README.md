@@ -10,7 +10,7 @@ import androidx.ui.core.*
 
 @Composable
 fun Greeting(name: String) {
-   Text(text = "Hello $name!")
+   return Text(text = "Hello $name!")
 }
 ```
 
