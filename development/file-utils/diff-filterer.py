@@ -306,7 +306,7 @@ class FilesState(object):
 
   # Returns a list of FilesState, each roughly of size <size>, that collectively have the same set of files as <self>.
   # Will try to keep directories together
-  def splitDownToSize(self, targetSize):
+  def splitDownToApproximatelySize(self, targetSize):
     # First, find directories that are small enough such that each one is of size <size> or less
     #print("Splitting state (at " + str(self.getCommonDir()) + ", " + str(self.size()) + " entries)  down to size " + str(size))
     if self.size() <= 1 or self.size() <= targetSize:
@@ -319,7 +319,7 @@ class FilesState(object):
     descendents = []
     for child in children:
       if child.size() > targetSize * 1.5:
-        descendents += child.splitDownToSize(targetSize)
+        descendents += child.splitDownToApproximatelySize(targetSize)
       else:
         descendents += [child]
     # Next, in case we found lots of tiny directories, recombine adjacent directories to make them approximately of size <size>
@@ -327,19 +327,11 @@ class FilesState(object):
     if targetSize < 1:
       targetSize = 1
     estimatedNumResults = self.size() / targetSize + 1
-    descendents = sorted(descendents, key=FilesState.size, reverse=True)
     for descendent in descendents:
-      added = False
-      if len(results) >= estimatedNumResults:
-        smallestObservedSize = min([result.size() for result in results])
-        for i in range(len(results) - 1, -1, -1):
-          if results[i].size() == smallestObservedSize:
-            #if results[i].size() + descendent.size() <= targetSize:
-            added = True
-            results[i] = results[i].expandedWithEmptyEntriesFor(descendent).withConflictsFrom(descendent)
-            break
-      if not added:
+      if len(results) < 1 or results[-1].size() + descendent.size() > targetSize:
         results.append(descendent)
+      else:
+        results[-1] = results[-1].expandedWithEmptyEntriesFor(descendent).withConflictsFrom(descendent)
     return results    
 
   def summarize(self):
@@ -390,6 +382,85 @@ def filesStateFromTree(rootPath):
     state.add(path, states[path])
   return state
 
+class FilesState_Grid(object):
+  def __init__(self, numColumns, numRows):
+    self.rows = []
+    for i in range(numRows):
+      self.rows.append([])
+      for j in range(numColumns):
+         self.rows[-1].append(FilesState())
+    self.rowDurations = [None] * numRows
+    self.columnDurations = [None] * numColumns
+
+  def removeRow(self, index):
+    del self.rows[index]
+    del self.rowDurations[index]
+
+  def removeColumn(self, index):
+    for row in self.rows:
+      del row[index]
+    del self.columnDurations[index]
+
+  def getFiles(self, xIndex, yIndex):
+    return self.rows[yIndex][xIndex]
+
+  def clearFiles(self, xIndex, yIndex):
+    self.rows[yIndex][xIndex] = FilesState()
+
+  def getRow(self, index):
+    result = FilesState()
+    row = self.rows[index]
+    for block in row:
+      result = result.expandedWithEmptyEntriesFor(block).withConflictsFrom(block)
+    return result
+
+  def getColumn(self, index):
+    result = FilesState()
+    for row in self.rows:
+      block = row[index]
+      result = result.expandedWithEmptyEntriesFor(block).withConflictsFrom(block)
+    return result
+
+  def getNumColumns(self):
+    return len(self.columnDurations)
+
+  def getColumnDuration(self, index):
+    return self.columnDurations[index]
+
+  def setColumnDuration(self, index, duration):
+    self.columnDurations[index] = duration
+
+  def getFastestColumn(self):
+    return self.getFastest(self.columnDurations)
+
+  def getNumRows(self):
+    return len(self.rowDurations)
+
+  def getRowDuration(self, index):
+    return self.rowDurations[index]
+
+  def setRowDuration(self, index, duration):
+    self.rowDurations[index] = duration
+
+  def getFastestRow(self):
+    return self.getFastest(self.rowDurations)
+
+  # returns the index of the smallest value in the given list, ignoring None values
+  def getFastest(self, values):
+    bestValue = None
+    bestIndex = None
+    for i in range(len(values)):
+      value = values[i]
+      if value is not None:
+        if bestValue is None or value < bestValue:
+          bestIndex = i
+          bestValue = value
+    return bestIndex
+
+
+  def putFiles(self, filesState, xIndex, yIndex):
+    self.rows[yIndex][xIndex] = filesState
+
 # Runner class that determines which diffs between two directories cause the given shell command to fail
 class DiffRunner(object):
   def __init__(self, failingPath, passingPath, shellCommand, tempPath, workPath, assumeNoSideEffects, assumeInputStatesAreCorrect, tryFail):
@@ -425,24 +496,22 @@ class DiffRunner(object):
     self.windowSize = self.resetTo_state.size()
 
   def test(self, filesState, timeout = None):
-    if timeout is not None:
-      shellCommand = "timeout -s SIGHUP " + str(timeout) + " " + self.testScript_path
+    # reset state if needed
+    if not self.assumeNoSideEffects:
+      print("Resetting " + str(self.workPath))
+      fileIo.removePath(self.workPath)
+      self.full_resetTo_state.apply(self.workPath)
+      filesState.apply(self.workPath)
     else:
-      shellCommand = self.testScript_path
-    
-    #print("Applying state: " + str(filesState) + " to " + self.workPath)
-    filesState.apply(self.workPath)
+      self.resetTo_state.withConflictsFrom(filesState).apply(self.workPath)
     start = datetime.datetime.now()
-    returnCode = ShellScript(shellCommand).process(self.workPath)
+    returnCode = ShellScript(self.testScript_path).process(self.workPath)
     duration = (datetime.datetime.now() - start).total_seconds()
     print("shell command completed in " + str(duration))
-    if returnCode == 124:
-      return "timeout"
+    if returnCode == 0:
+      return (True, duration)
     else:
-      if returnCode == 0:
-        return "success"
-      else:
-        return "failure"
+      return (False, duration)
 
   def run(self):
     start = datetime.datetime.now()
@@ -451,7 +520,7 @@ class DiffRunner(object):
       print("Testing that the given failing state actually fails")
       fileIo.removePath(self.workPath)
       fileIo.ensureDirExists(self.workPath)
-      if self.test(self.originalFailingState) != "failure":
+      if self.test(self.originalFailingState)[0]:
         print("\nGiven failing state at " + self.originalFailingPath + " does not actually fail!")
         return False
 
@@ -461,7 +530,7 @@ class DiffRunner(object):
       else:
         fileIo.removePath(self.workPath)
         fileIo.ensureDirExists(self.workPath)
-      if self.test(self.originalPassingState) != "success":
+      if not self.test(self.originalPassingState)[0]:
         print("\nGiven passing state at " + self.originalPassingPath + " does not actually pass!")
         return False
     else:
@@ -479,135 +548,177 @@ class DiffRunner(object):
     numFailuresDuringCurrentWindowSize = 0
     # We essentially do a breadth-first search over the inodes (files or dirs) in the tree
     # Every time we encounter an inode, we try replacing it (and any descendents if it has any) and seeing if that passes our given test
-    candidateStates = [[self.targetState]]
+    candidateStates = FilesState_Grid(1, 1)
+    candidateStates.putFiles(self.targetState , 0, 0)
     while True:
-      # scan the state until reaching the end
-      succeededDuringThisScan = False
-      # if we encounter only successes for this window size, then check all windows except the last (because if all other windows pass, then the last must fail)
-      # if we encounter any failure for this window size, then check all windows
       numFailuresDuringPreviousWindowSize = numFailuresDuringCurrentWindowSize
       numFailuresDuringCurrentWindowSize = 0
       displayIndex = 0
-      displayMax = sum([len(stateGroup) for stateGroup in candidateStates])
-      #averageWindowSize = self.resetTo_state.size() / displayMax
-      for j in range(len(candidateStates) - 1, -1, -1):
-        stateGroup = candidateStates[j]
-        print("Testing window group having " + str(len(stateGroup)) + " windows")
-        if len(stateGroup) > 1:
-          testLastStateInGroup = False
+      succeededDuringThisScan = False
+      # test each row
+      for rowIndex in range(candidateStates.getNumRows() - 1, -1, -1):
+        row = candidateStates.getRow(rowIndex)
+        print("")
+        print("Elapsed duration = " + str(datetime.datetime.now() - start) + ". " + str(self.resetTo_state.size()) + " changes left to test")
+        print("Testing row " + str(rowIndex))
+        (testResults, duration) = self.test(row)
+        if testResults:
+          print("Accepted row: " + str(row.summarize()))
+          # success! keep these changes
+          row.apply(self.bestState_path)
+          self.full_resetTo_state = self.full_resetTo_state.expandedWithEmptyEntriesFor(row).withConflictsFrom(row).withoutEmptyEntries()
+          # remove these changes from the set of changes to reconsider
+          self.targetState = self.targetState.withoutDuplicatesFrom(row)
+          self.resetTo_state = self.targetState.withConflictsFrom(self.resetTo_state)
+          succeededDuringThisScan = True
+          candidateStates.removeRow(rowIndex)
         else:
-          testLastStateInGroup = True
-        for i in range(len(stateGroup) - 1, -1, -1):
-          displayIndex += 1
+          print("Rejected row: " + str(row.summarize()))
+          candidateStates.setRowDuration(rowIndex, duration)
+      # test each column
+      if candidateStates.getNumRows() > 1 and candidateStates.getNumColumns() > 1:
+        for columnIndex in range(candidateStates.getNumColumns() - 1, -1, -1):
+          column = candidateStates.getColumn(columnIndex)
           print("")
-          if i == 0 and not testLastStateInGroup:
-            # All of the other tests in this window group passed
-            # Before we created this window group, we had previously tested all of the changes in this window group at once, and that failed
-            # So, we suspect that reapplying the rest of the changes in this window group won't cause the test to pass
-            # So, we skip retesting these changes, unless we're in the double-checking phase
-            print("Skipping window #" + str(displayIndex) + " because previous windows already passed")
-            break
-          currentWindow = stateGroup[i]
-          print("Testing window #" + str(displayIndex) + " of " + str(displayMax) + ": " + str(currentWindow.size()) + " changes (" + str(self.resetTo_state.size()) + " total changes remaining)")
-
-          # determine which changes to test
-          testState = self.resetTo_state.withConflictsFrom(currentWindow)
-          # reset state if needed
-          if not self.assumeNoSideEffects:
-            print("Resetting " + str(self.workPath))
-            fileIo.removePath(self.workPath)
-            self.full_resetTo_state.apply(self.workPath)
-  
-          # estimate time remaining
-          currentTime = datetime.datetime.now()
-          elapsedDuration = currentTime - start
-          estimatedNumInvalidFiles = numFailuresDuringPreviousWindowSize
-          if estimatedNumInvalidFiles < 1:
-            estimatedNumInvalidFiles = 1
-          estimatedNumValidFilesPerInvalidFile = self.resetTo_state.size() / estimatedNumInvalidFiles
-          # In each iteration we generally split each window into pieces of size no more than one half of its current size
-          # So in practice we generally split each window into 3 pieces
-          estimatedNumWindowShrinkages = math.log(max(estimatedNumValidFilesPerInvalidFile, 1), 3)
-          estimatedNumTestsPerWindow = estimatedNumWindowShrinkages * 3 + 1
-          estimatedNumIterationsRemaining = estimatedNumTestsPerWindow * estimatedNumInvalidFiles
-          numIterationsCompleted += 1
-          estimatedRemainingDuration = datetime.timedelta(seconds=(elapsedDuration.total_seconds() * estimatedNumIterationsRemaining / numIterationsCompleted))
-          print("Estimated remaining duration = " + str(estimatedRemainingDuration) + " and remaining num iterations = "  + str(estimatedNumIterationsRemaining) + " (elapsed duration = " + str(elapsedDuration) + ")")
-
-          # test the state
-          testResults = self.test(testState)
-          if testResults == "success":
-            print("Accepted updated state: " + str(currentWindow.summarize()))
+          print("Elapsed duration = " + str(datetime.datetime.now() - start) + ". " + str(self.resetTo_state.size()) + " changes left to test")
+          print("Testing column " + str(columnIndex))
+          (testResults, duration) = self.test(column)
+          if testResults:
+            print("Accepted column: " + str(column.summarize()))
             # success! keep these changes
-            testState.apply(self.bestState_path)
-            self.full_resetTo_state = self.full_resetTo_state.expandedWithEmptyEntriesFor(testState).withConflictsFrom(testState).withoutEmptyEntries()
+            column.apply(self.bestState_path)
+            self.full_resetTo_state = self.full_resetTo_state.expandedWithEmptyEntriesFor(column).withConflictsFrom(column).withoutEmptyEntries()
             # remove these changes from the set of changes to reconsider
-            self.targetState = self.targetState.withoutDuplicatesFrom(testState)
-            del stateGroup[i]
+            self.targetState = self.targetState.withoutDuplicatesFrom(column)
             self.resetTo_state = self.targetState.withConflictsFrom(self.resetTo_state)
             succeededDuringThisScan = True
-          elif testResults == "failure":
-            print("Rejected updated state: " + currentWindow.summarize())
-            testLastStateInGroup = True
-            numFailuresDuringCurrentWindowSize += 1
+            candidateStates.removeColumn(columnIndex)
           else:
-            raise Exception("Internal error: unrecognized test status " + str(testResults))
-      # we checked every file once; now descend deeper into each directory and repeat
-      newCandidateStates = []
-      numWindows = sum([len(stateGroup) for stateGroup in candidateStates])
-      targetNumWindows = numWindows * 2
-      #targetAverageWindowSize = (self.resetTo_state.size() - 1) / targetNumWindows + 1
-      targetAverageWindowSize = self.resetTo_state.size() / targetNumWindows
-      #averageWindowSize = self.resetTo_state.size() / len(candidateStates)
-      print("############################################################################################################################################")
-      splitDuringThisScan = False
-      for windowGroup in candidateStates:
-        for window in windowGroup:
-          # If a specific window is large, we want to shrink it more quickly so it will catch up to the sizes of the other windows
-          # (it would be really bad if most windows have reached size 1 but there's one straggler window with more size,
-          # because then we'd be re-testing most of these size 1 windows every time we shrink the remaining window)
-          # If a specific window is small, we don't need to shrink it as quickly
-          #thisRawTargetSize = min(targetAverageWindowSize, (window.size() + 1) / 2)
-          #if thisRawTargetSize < 1:
-          #  thisRawTargetSize = 1
-          #numSubwindows = int(float(window.size()) / float(thisRawTargetSize) + 0.5)
-          #numSubwindows = int(float(window.size()) / float(targetAverageWindowSize) + 0.5)
-          #thisTargetSize = window.size() / numSubwindows
-          #thisTargetSize = min(targetAverageWindowSize, (window.size() + 1) / 2)
-          thisTargetSize = min(targetAverageWindowSize, window.size() / 2)
-          #thisTargetSize = targetAverageWindowSize
-          #if window.size() > averageWindowSize / 2:
-          #  thisTargetSize = int(window.size() / 2.2)
-          #else:
-          #  thisTargetSize = window.size()
-          #print("Trying to split window of size " + str(window.size()) + " into windows of size " + str(thisRawTargetSize) + " but renormalized target size to " + str(thisTargetSize))
-          print("Trying to split window of size " + str(window.size()) + " into windows of size " + str(thisTargetSize))
-          #currentSplit = window.splitDownToSize(thisTargetSize * 2 / 3, thisTargetSize * 4 / 3)
-          currentSplit = window.splitDownToSize(thisTargetSize)
-          
-          print("Split window: " + window.summarize() + " into " + str(len(currentSplit)) + " sub windows:")
-          for subWindow in currentSplit:
-            print(str(subWindow.size()))
-          if len(currentSplit) > 1:
-            splitDuringThisScan = True
-          newCandidateStates += [currentSplit]
-      #print("splitDuringThisScan = " + str(splitDuringThisScan))
-      if not splitDuringThisScan:
-        #print("succeededDuringThisScan = " + str(succeededDuringThisScan))
-        if not succeededDuringThisScan:
-          # only stop if we confirmed that no files could be reverted (if one file was reverted, it's possible that that unblocks another file)
-          break
-      print("Split " + str(numWindows) + " window into " + str(sum([len(stateGroup) for stateGroup in newCandidateStates])))
-      #for state in newCandidateStates:
-      #  print(state.getCommonDir())
-      print("############################################################################################################################################")
-      candidateStates = newCandidateStates
+            print("Rejected column: " + str(column.summarize()))
+            candidateStates.setColumnDuration(columnIndex, duration)
+        # make some guesses (based on duration) about which individual blocks are likely to contain failures, and run some tests without those failing blocks
+        if candidateStates.getNumColumns() + candidateStates.getNumRows() >= 4:
+          print("////////////////////////////////////////////////////////////////////////////////////////////////////")
+          loopMax = min(candidateStates.getNumColumns(), candidateStates.getNumRows())
+          numSuccesses = 0
+          numFailures = 0
+          while True:
+            print("Elapsed duration = " + str(datetime.datetime.now() - start) + ". " + str(self.resetTo_state.size()) + " changes left to test (" + str(candidateStates.getNumColumns()) + "x" + str(candidateStates.getNumRows()) + " grid)")
+            if numFailures >= numSuccesses + loopMax:
+              print("Too many failures in a row. Continuing to next iteration")
+              break
+            # find the row and column that fail most quickly
+            columnIndex = candidateStates.getFastestColumn()
+            if candidateStates.getNumColumns() <= 1 or columnIndex is None:
+              print("Removed all columns other than one. Continuing to next iteration")
+              break
+            rowIndex = candidateStates.getFastestRow()
+            if candidateStates.getNumRows() <= 1 or rowIndex is None:
+              print("Removed all rows other than one. Continuing to next iteration")
+              break
+            existingBlock = candidateStates.getFiles(columnIndex, rowIndex)
+            print("Testing shortened row and column: clearing block at (" + str(columnIndex) + "," + str(rowIndex) + ") (row previously failed in " + str(candidateStates.getRowDuration(rowIndex)) + ", column previously failed in " + str(candidateStates.getColumnDuration(columnIndex)) + "). Block: " + str(existingBlock.summarize()))
+            if existingBlock.size() < 1:
+              candidateStates.setRowDuration(rowIndex, None)
+              candidateStates.setColumnDuration(columnIndex, None)
+              if candidateStates.getNumRows() * candidateStates.getNumColumns() >= self.resetTo_state.size():
+                print("Returned to a previously cleared block at (" + str(columnIndex) + ", " + str(rowIndex) + "). Skipping to next iteration")
+              else:
+                print("Returned to a previously cleared block at (" + str(columnIndex) + ", " + str(rowIndex) + "). Skipping it and continuing")
+              continue
+            # this block probably has an error in it, so clear it
+            candidateStates.clearFiles(columnIndex, rowIndex)
+            # retest the row
+            row = candidateStates.getRow(rowIndex)
+            if row.size() < 1:
+              print("Skipping empty row " + str(rowIndex))
+              candidateStates.setRowDuration(rowIndex, None)
+              continue
+            print("Testing shortened row " + str(rowIndex))
+            (testResults, duration) = self.test(row)
+            if testResults:
+              print("Accepted shortened row: " + str(row.summarize()))
+              numSuccesses += 1
+              row.apply(self.bestState_path)
+              self.full_resetTo_state = self.full_resetTo_state.expandedWithEmptyEntriesFor(row).withConflictsFrom(row).withoutEmptyEntries()
+              # remove these changes from the set of changes to reconsider
+              self.targetState = self.targetState.withoutDuplicatesFrom(row)
+              self.resetTo_state = self.targetState.withConflictsFrom(self.resetTo_state)
+              succeededDuringThisScan = True
+              candidateStates.removeRow(rowIndex)
+            else:
+              print("Rejected shortened row: " + str(row.summarize()))
+              numFailures += 1
+              candidateStates.setRowDuration(rowIndex, duration)
+            # retest the column
+            column = candidateStates.getColumn(columnIndex)
+            if column.size() < 1:
+              print("Skipping empty column " + str(columnIndex))
+              candidateStates.setColumnDuration(columnIndex, None)
+              continue
+            print("")
+            print("Testing shortened column " + str(columnIndex))
+            (testResults, duration) = self.test(column)
+            if testResults:
+              print("Accepted shortened column: " + str(column.summarize()))
+              numSuccesses += 1
+              column.apply(self.bestState_path)
+              self.full_resetTo_state = self.full_resetTo_state.expandedWithEmptyEntriesFor(column).withConflictsFrom(column).withoutEmptyEntries()
+              # remove these changes from the set of changes to reconsider
+              self.targetState = self.targetState.withoutDuplicatesFrom(column)
+              self.resetTo_state = self.targetState.withConflictsFrom(self.resetTo_state)
+              succeededDuringThisScan = True
+              candidateStates.removeColumn(columnIndex)
+            else:
+              print("Rejected shortened column: " + str(column.summarize()))
+              numFailures += 1
+              candidateStates.setColumnDuration(columnIndex, duration)
+            print("")
+      # split the window into smaller pieces and continue
+      targetHeight = candidateStates.getNumRows() * 2
+      targetWidth = candidateStates.getNumColumns() * 2
+      if targetWidth * targetHeight > self.resetTo_state.size():
+        targetHeight = candidateStates.getNumRows() * 3
+        targetWidth = self.resetTo_state.size() / targetHeight
+        if targetWidth < 1:
+          targetWidth = 1
+      print("Trying to split a " + str(candidateStates.getNumColumns()) + "x" + str(candidateStates.getNumRows()) + " grid into " + str(targetWidth) + "x" + str(targetHeight))
+      targetNumBlocks = targetWidth * targetHeight
+      sizePerBlock = self.targetState.size() / targetNumBlocks
+      newBlocks = self.targetState.splitDownToApproximatelySize(sizePerBlock)
+      print("Called splitDownToApproximatelySize(" + str(sizePerBlock) + "). Got:")
+      for block in newBlocks:
+        print(block.size())
+      
+      newWidth = targetWidth
+      if newWidth < 1:
+        newWidth = 1
+      newHeight = int(math.ceil(float(len(newBlocks)) / float(newWidth)))
+      print("#####################################################################################################")
+      print("Splitting " + str(len(newBlocks)) + " blocks into a " + str(newWidth) + "x" + str(newHeight) + " grid")
+      newCandidateStates = FilesState_Grid(newWidth, newHeight)
+      x = 0
+      y = 0
+      numExtraBoxes = newWidth * newHeight - len(newBlocks)
+      for i in range(len(newBlocks)):
+        #print("Saving block " + str(i) + " at (" + str(x) + ", " + str(y) + ")")
+        newCandidateStates.putFiles(newBlocks[i], x, y)
+        x += 1
+        if x + y + 1 == numExtraBoxes:
+          x += 1
+        if x >= newWidth:
+          x = 0
+          y += 1
 
+      splitDuringThisScan = newCandidateStates.getNumRows() != candidateStates.getNumRows() or newCandidateStates.getNumColumns() != candidateStates.getNumColumns()
+      candidateStates = newCandidateStates
+      if not splitDuringThisScan and not succeededDuringThisScan:
+        break
 
     print("double-checking results")
     fileIo.removePath(self.workPath)
     wasSuccessful = True
-    if not self.test(filesStateFromTree(self.bestState_path)):
+    if not self.test(filesStateFromTree(self.bestState_path))[0]:
       message = "Error: expected best state at " + self.bestState_path + " did not pass the second time. Could the test be non-deterministic?"
       if self.assumeNoSideEffects:
         message += " (it may help to remove the --assume-no-side-effects flag)"
