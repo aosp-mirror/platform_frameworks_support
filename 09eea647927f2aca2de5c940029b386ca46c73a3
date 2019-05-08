@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "67a4c96f_3a1be26f",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedListView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-05-08T18:58:30Z",
+      "side": 1,
+      "message": "I don\u0027t think you need to use the ContextCompat; just use context directly. We don\u0027t use ContextCompat elsewhere.\n\nThe getColor() method of context should do what we want:\nhttps://developer.android.com/reference/android/content/Context.html#getColor(int)",
+      "revId": "09eea647927f2aca2de5c940029b386ca46c73a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
