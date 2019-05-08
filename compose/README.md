@@ -22,6 +22,6 @@ The compose compiler plugin makes use of some experimental extension points to t
 
 #Feedback
 To provide feedback or report bugs, please refer to the main AndroidX contribution guide and report your bugs here:
-https://b.corp.google.com/issues/new?component=610764
+https://issuetracker.google.com/issues/new?component=610764
 
 
