@@ -2,6 +2,13 @@ import static androidx.build.dependencies.DependenciesKt.*
 import androidx.build.LibraryGroups
 import androidx.build.LibraryVersions
 
+buildscript {
+    // TODO: Remove when the fix for b/132339364 is available in AGP
+    // This is the equivalent of setting android.enableDexingArtifactTransform.desugaring=false in
+    // gradle.properties, but only for this module.
+    project.ext['android.enableDexingArtifactTransform.desugaring'] = false
+}
+
 plugins {
     id("AndroidXPlugin")
     id("com.android.library")
