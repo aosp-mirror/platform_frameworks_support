@@ -50,7 +50,8 @@ class Context private constructor(
 
     companion object {
         val ARG_OPTIONS by lazy {
-            ProcessorOptions.values().map { it.argName }
+            ProcessorOptions.values().map { it.argName }.plus(
+                BooleanProcessorOptions.values().map { it.argName })
         }
     }
 
@@ -118,5 +119,21 @@ class Context private constructor(
 
     enum class ProcessorOptions(val argName: String) {
         OPTION_SCHEMA_FOLDER("room.schemaLocation")
+    }
+
+    enum class BooleanProcessorOptions(val argName: String, private val defaultValue: Boolean) {
+        INCREMENTAL("room.incremental", false);
+
+        /**
+         * Resolves the final value of this option, preferring the given value over the default
+         * value. It returns the default value only if the given value is null or blank.
+         */
+        fun resolveValue(givenValue: String?): Boolean {
+            if (givenValue.isNullOrBlank()) {
+                return defaultValue
+            } else {
+                return givenValue.toBoolean()
+            }
+        }
     }
 }
