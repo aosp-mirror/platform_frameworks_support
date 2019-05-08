@@ -199,12 +199,15 @@ public final class ImageAnalysisTest {
         final int imageFormat = ImageFormat.YUV_420_888;
         final Size[] sizes = {SECONDARY_RESOLUTION, DEFAULT_RESOLUTION};
 
-        ImageAnalysisConfig config =
-                new ImageAnalysisConfig.Builder().setCallbackHandler(mHandler).build();
-        ImageAnalysis useCase = new ImageAnalysis(config);
-        useCase.setAnalyzer(mAnalyzer);
-
         for (Size size : sizes) {
+            // The surfaces of the use cases should be fixed otherwise it would cause incorrect
+            // DeferrableSurface attach count issue.  This means we cannot call
+            // updateSuggestedResolution more than once on the same use case.
+            ImageAnalysisConfig config =
+                    new ImageAnalysisConfig.Builder().setCallbackHandler(mHandler).build();
+            ImageAnalysis useCase = new ImageAnalysis(config);
+            useCase.setAnalyzer(mAnalyzer);
+
             Map<String, Size> suggestedResolutionMap = new HashMap<>();
             suggestedResolutionMap.put(mCameraId, size);
             useCase.updateSuggestedResolution(suggestedResolutionMap);
