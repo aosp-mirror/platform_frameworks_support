@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2c3988bb_97703dc9",
+        "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1657,
+      "author": {
+        "id": 1060104
+      },
+      "writtenOn": "2019-05-08T16:13:19Z",
+      "side": 1,
+      "message": "Would it make sense to do this at the beginning of the method? I was wondering about the case of a call from another thread during close(), where it seems useful to set mClosed to true before we clear the pending commands queue in reset().",
+      "revId": "0b10d8dd4e705e6fa7d40d3943609d962dbed4fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af259868_140d92b2",
+        "filename": "media2/player/src/main/java/androidx/media2/player/exoplayer/ExoPlayerMediaPlayer2Impl.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 838,
+      "author": {
+        "id": 1060104
+      },
+      "writtenOn": "2019-05-08T16:13:19Z",
+      "side": 1,
+      "message": "Please could you also revert the getCurrentPosition change (https://android-review.git.corp.google.com/c/platform/frameworks/support/+/954142/4/media2/player/src/main/java/androidx/media2/player/exoplayer/ExoPlayerMediaPlayer2Impl.java)?",
+      "revId": "0b10d8dd4e705e6fa7d40d3943609d962dbed4fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3001b56_9bae93f9",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaSession.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1060104
+      },
+      "writtenOn": "2019-05-08T16:13:19Z",
+      "side": 1,
+      "message": "Nit: Perhaps clearer worded like \"The app is responsible for closing the underlying player after closing the session.\" or similar?",
+      "range": {
+        "startLine": 98,
+        "startChar": 31,
+        "endLine": 99,
+        "endChar": 13
+      },
+      "revId": "0b10d8dd4e705e6fa7d40d3943609d962dbed4fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
