@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "73487999_1a387e1b",
+        "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1829,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-05-08T02:11:58Z",
+      "side": 1,
+      "message": "Oops!!!! Done.",
+      "parentUuid": "44e0e00b_7bdacd83",
+      "range": {
+        "startLine": 1829,
+        "startChar": 16,
+        "endLine": 1829,
+        "endChar": 20
+      },
+      "revId": "510f4ba4e9b82ebd4f1fa7f4858669e5fa7764f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5aa782fa_1ad4170d",
         "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer.java",
         "patchSetId": 2
@@ -92,6 +116,30 @@
       "revId": "510f4ba4e9b82ebd4f1fa7f4858669e5fa7764f5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c0d4fb3_4d4c05bb",
+        "filename": "media2/player/src/main/java/androidx/media2/player/exoplayer/ExoPlayerMediaPlayer2Impl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 838,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-05-08T02:11:58Z",
+      "side": 1,
+      "message": "It was the original code.\nhttps://android-review.googlesource.com/c/platform/frameworks/support/+/954142/4/media2/player/src/main/java/androidx/media2/player/exoplayer/ExoPlayerMediaPlayer2Impl.java",
+      "parentUuid": "41074b5d_d78552d2",
+      "range": {
+        "startLine": 838,
+        "startChar": 8,
+        "endLine": 838,
+        "endChar": 42
+      },
+      "revId": "510f4ba4e9b82ebd4f1fa7f4858669e5fa7764f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
