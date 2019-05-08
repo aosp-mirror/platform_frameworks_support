@@ -177,8 +177,10 @@ private fun DrawCheck(
             width * calcMiddleValue(gravitatedCrossX, leftX, checkFraction),
             width * calcMiddleValue(gravitatedCrossY, gravitatedLeftY, checkFraction)
         )
-        canvas.drawLine(crossPoint, leftBranch, paint)
-        canvas.drawLine(crossPoint, rightBranch, paint)
+        if (checkFraction > 0) {
+            canvas.drawLine(crossPoint, leftBranch, paint)
+            canvas.drawLine(crossPoint, rightBranch, paint)
+        }
     }
 }
 
