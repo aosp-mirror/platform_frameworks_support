@@ -209,6 +209,30 @@
     },
     {
       "key": {
+        "uuid": "5cacb25b_211c4a4f",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/DiffAndDocs.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 1470382
+      },
+      "writtenOn": "2019-05-08T17:10:05Z",
+      "side": 1,
+      "message": "Unfortunately calling .get() on archiveBaseName has the same problem. You\u0027ll want to save off \"android-support-$ruleName-docs\" to a val before settings it at 518, ten use it again at 523.\n\n0 should be getBuildId()",
+      "parentUuid": "dac0f219_d1e27883",
+      "range": {
+        "startLine": 517,
+        "startChar": 8,
+        "endLine": 517,
+        "endChar": 50
+      },
+      "revId": "898be937e2e171c7127b5656e94833392c26cedd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b9735a9d_a26a0f8f",
         "filename": "buildSrc/src/main/kotlin/androidx/build/dokka/Dokka.kt",
         "patchSetId": 1
