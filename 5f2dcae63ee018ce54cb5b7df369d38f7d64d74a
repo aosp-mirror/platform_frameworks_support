@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "707011b2_60d98546",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-05-08T16:12:41Z",
+      "side": 1,
+      "message": "Might still be worth adding an automated test, e.g. to ensure that we don\u0027t introduce constraints that prevent this in the future and cause a crash.\n\nIdeally tested both in the sample integ app and in viewpager2 library. Maybe code simple enough that testing in the integ app enough.\n\nWDYT?",
+      "range": {
+        "startLine": 16,
+        "startChar": 6,
+        "endLine": 16,
+        "endChar": 12
+      },
+      "revId": "5f2dcae63ee018ce54cb5b7df369d38f7d64d74a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e95517cc_e03d9f5b",
+        "filename": "viewpager2/integration-tests/testapp/src/main/java/androidx/viewpager2/integration/testapp/BaseCardActivity.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-05-08T16:12:41Z",
+      "side": 1,
+      "message": "setup - noun\nset up - verb",
+      "range": {
+        "startLine": 81,
+        "startChar": 87,
+        "endLine": 81,
+        "endChar": 92
+      },
+      "revId": "5f2dcae63ee018ce54cb5b7df369d38f7d64d74a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2da56cc1_0bb38baa",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/CompositePageTransformer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-05-08T16:12:41Z",
+      "side": 1,
+      "message": "Is there value in testing a class as simple as this?",
+      "range": {
+        "startLine": 33,
+        "startChar": 19,
+        "endLine": 33,
+        "endChar": 43
+      },
+      "revId": "5f2dcae63ee018ce54cb5b7df369d38f7d64d74a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81449b40_e5bcd91a",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 453,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-05-08T16:12:41Z",
+      "side": 1,
+      "message": "It\u0027s tempting to expose this as public, but doesn\u0027t sound like a ViewPager2 responsibility / concern. WDYT?",
+      "range": {
+        "startLine": 453,
+        "startChar": 12,
+        "endLine": 453,
+        "endChar": 23
+      },
+      "revId": "5f2dcae63ee018ce54cb5b7df369d38f7d64d74a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
