@@ -18,7 +18,6 @@ package androidx.ui.test
 
 import android.util.DisplayMetrics
 import androidx.compose.Composable
-import androidx.test.rule.ActivityTestRule
 import androidx.ui.core.Density
 import androidx.ui.test.android.AndroidComposeTestRule
 import org.junit.rules.TestRule
@@ -48,6 +47,15 @@ interface ComposeTestRule : TestRule {
      * are safe to do in this block.
      */
     fun runOnUiThread(action: () -> Unit)
+
+    /**
+     * Takes a screenshot, retrieves the golden image and compares them
+     *
+     * @goldenScreenshot name of the golden image that the screenshot will be compared to
+     *
+     * @throws AssertionError if the comparison fails
+     */
+    fun assertScreenshotIsEqualTo(goldenScreenshotName: String)
 
     // TODO(pavlis): Provide better abstraction for host side reusability
     val displayMetrics: DisplayMetrics get

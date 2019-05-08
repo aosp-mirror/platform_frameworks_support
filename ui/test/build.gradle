@@ -52,6 +52,8 @@ dependencies {
     androidTestImplementation(TRUTH)
     androidTestImplementation(JUNIT)
     androidTestImplementation project(':ui-material')
+
+    api project(":test-screenshot")
 }
 
 android {
