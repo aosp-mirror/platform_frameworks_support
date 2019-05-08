@@ -46,6 +46,8 @@ dependencies {
     testImplementation(JUNIT)
     testImplementation(ANDROIDX_TEST_RUNNER)
     testImplementation(ANDROIDX_TEST_RULES)
+
+    api "androidx.test.screenshot:test-screenshot:1.0.0-alpha01"
 }
 
 android {
