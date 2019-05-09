@@ -116,6 +116,14 @@
             android:entries="@array/numbers_array"
             android:focusable="false"
             android:spinnerMode="dropdown" />
+
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/spinner_dropdown_popup_small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:entries="@array/numbers_array_small"
+            android:focusable="false"
+            android:spinnerMode="dropdown" />
     </LinearLayout>
 
 </ScrollView>

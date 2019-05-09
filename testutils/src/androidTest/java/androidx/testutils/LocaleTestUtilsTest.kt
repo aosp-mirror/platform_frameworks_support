@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package androidx.viewpager2
+package androidx.testutils
 
 import android.content.Context
 import android.content.res.Configuration
