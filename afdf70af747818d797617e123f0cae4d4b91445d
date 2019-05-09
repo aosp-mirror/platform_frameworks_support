@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bbc51dc0_b4f19eeb",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/RoomProcessor.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-05-09T16:49:28Z",
+      "side": 1,
+      "message": "lets move this to a function into BooleanProcessorOptions",
+      "range": {
+        "startLine": 71,
+        "startChar": 15,
+        "endLine": 72,
+        "endChar": 87
+      },
+      "revId": "afdf70af747818d797617e123f0cae4d4b91445d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2757cfb7_30d5c784",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/RoomProcessor.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-05-09T16:49:28Z",
+      "side": 1,
+      "message": "what if developer uses 3.4 ?",
+      "range": {
+        "startLine": 98,
+        "startChar": 57,
+        "endLine": 98,
+        "endChar": 66
+      },
+      "revId": "afdf70af747818d797617e123f0cae4d4b91445d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03234e48_748fc5ee",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/RoomProcessor.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-05-09T16:49:28Z",
+      "side": 1,
+      "message": "what happens if parsing fails ?\nalso, please group the logical operators for readability.",
+      "range": {
+        "startLine": 100,
+        "startChar": 63,
+        "endLine": 100,
+        "endChar": 69
+      },
+      "revId": "afdf70af747818d797617e123f0cae4d4b91445d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ea5aef3_34870443",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/writer/DaoWriter.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-05-09T16:49:28Z",
+      "side": 1,
+      "message": "i thought javapoet did this automatically.",
+      "range": {
+        "startLine": 95,
+        "startChar": 12,
+        "endLine": 95,
+        "endChar": 33
+      },
+      "revId": "afdf70af747818d797617e123f0cae4d4b91445d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
