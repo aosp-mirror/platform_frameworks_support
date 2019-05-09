@@ -44,6 +44,7 @@ import androidx.media2.common.MediaMetadata;
 import androidx.media2.common.MediaParcelUtils;
 import androidx.media2.common.Rating;
 import androidx.media2.common.SessionPlayer.PlayerResult;
+import androidx.media2.common.SubtitleData;
 import androidx.media2.common.VideoSize;
 import androidx.media2.session.MediaController.PlaybackInfo;
 import androidx.media2.session.MediaLibraryService.LibraryParams;
@@ -1384,6 +1385,14 @@ class MediaSessionStub extends IMediaSession.Stub {
             ParcelImpl itemParcel = MediaParcelUtils.toParcelable(item);
             ParcelImpl videoSizeParcel = MediaParcelUtils.toParcelable(videoSize);
             mIControllerCallback.onVideoSizeChanged(seq, itemParcel, videoSizeParcel);
+        }
+
+        @Override
+        void onSubtitleData(int seq, @NonNull MediaItem item, @NonNull SubtitleData data)
+                throws RemoteException {
+            ParcelImpl itemParcel = MediaParcelUtils.toParcelable(item);
+            ParcelImpl dataParcel = MediaParcelUtils.toParcelable(data);
+            mIControllerCallback.onSubtitleData(seq, itemParcel, dataParcel);
         }
 
         @Override

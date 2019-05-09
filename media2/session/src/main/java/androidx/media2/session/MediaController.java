@@ -50,6 +50,7 @@ import androidx.media2.common.Rating;
 import androidx.media2.common.SessionPlayer;
 import androidx.media2.common.SessionPlayer.RepeatMode;
 import androidx.media2.common.SessionPlayer.ShuffleMode;
+import androidx.media2.common.SubtitleData;
 import androidx.media2.common.VideoSize;
 import androidx.media2.session.MediaSession.CommandButton;
 import androidx.versionedparcelable.ParcelField;
@@ -1629,6 +1630,18 @@ public class MediaController implements AutoCloseable {
         @RestrictTo(LIBRARY_GROUP)
         public void onVideoSizeChanged(@NonNull MediaController controller, @NonNull MediaItem item,
                 @NonNull VideoSize videoSize) {}
+
+        /**
+         * Called when the subtitle track has new subtitle data available.
+         * @param controller the controller for this event
+         * @param item the MediaItem of this media item
+         * @param data the subtitle data
+         *
+         * @hide
+         */
+        @RestrictTo(LIBRARY_GROUP)
+        public void onSubtitleData(@NonNull MediaController controller, @NonNull MediaItem item,
+                @NonNull SubtitleData data) {}
     }
 
     /**

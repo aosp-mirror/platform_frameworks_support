@@ -25,6 +25,7 @@ import androidx.media.AudioAttributesCompat;
 import androidx.media2.common.MediaItem;
 import androidx.media2.common.MediaMetadata;
 import androidx.media2.common.SessionPlayer;
+import androidx.media2.common.SubtitleData;
 import androidx.media2.common.VideoSize;
 
 import com.google.common.util.concurrent.ListenableFuture;
@@ -501,5 +502,20 @@ public class MockPlayer extends SessionPlayer {
     public ListenableFuture<PlayerResult> setSurfaceInternal(@Nullable Surface surface) {
         mSurface = surface;
         return new SyncListenableFuture(mCurrentMediaItem);
+    }
+
+    void notifySubtitleData(final SubtitleData data) {
+        final MediaItem dummyItem = TestUtils.createMediaItem("onSubtitleData");
+
+        List<Pair<PlayerCallback, Executor>> callbacks = getCallbacks();
+        for (Pair<PlayerCallback, Executor> pair : callbacks) {
+            final PlayerCallback callback = pair.first;
+            pair.second.execute(new Runnable() {
+                @Override
+                public void run() {
+                    callback.onSubtitleData(MockPlayer.this, dummyItem, data);
+                }
+            });
+        }
     }
 }
