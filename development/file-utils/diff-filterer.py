@@ -349,10 +349,13 @@ class FilesState(object):
       descendents += child.splitDepth(depth - 1)
     return descendents
 
+  def splitOnce(self):
+    return self.splitDepth(1)
+
   def summarize(self):
     numFiles = self.size()
     commonDir = self.getCommonDir()
-    if numFiles <= 3:
+    if numFiles <= 4:
       return str(self)
     if commonDir is not None:
       return str(numFiles) + " files under " + str(commonDir)
@@ -565,7 +568,7 @@ class DiffRunner(object):
     # Every time we encounter an inode, we try replacing it (and any descendents if it has any) and seeing if that passes our given test
     candidateStates = FilesState_Grid(1, 1)
     candidateStates.putFiles(self.targetState , 0, 0)
-    splitDepth = 0
+    numConsecutivelyFailingRows = 0
     while True:
       numFailuresDuringPreviousWindowSize = numFailuresDuringCurrentWindowSize
       numFailuresDuringCurrentWindowSize = 0
@@ -573,10 +576,16 @@ class DiffRunner(object):
       succeededDuringThisScan = False
       # test each row
       for rowIndex in range(candidateStates.getNumRows() - 1, -1, -1):
+        if candidateStates.getNumRows() == 1:
+          # We've narrowed the search space down to one row
+          # We know it must fail, so split it again
+          break
         row = candidateStates.getRow(rowIndex)
         print("")
         print("Elapsed duration = " + str(datetime.datetime.now() - start) + ". " + str(self.resetTo_state.size()) + " changes left to test")
-        print("Testing row " + str(rowIndex))
+        if candidateStates.getNumColumns() == 1 and numConsecutivelyFailingRows > 0:
+          print("At least " + str(self.resetTo_state.size() - numConsecutivelyFailingRows) + " iterations remaining")
+        print("Testing row index " + str(rowIndex) + " (of " + str(candidateStates.getNumRows()) + " total)")
         (testResults, duration) = self.test(row)
         if testResults:
           print("Accepted row: " + str(row.summarize()))
@@ -587,17 +596,28 @@ class DiffRunner(object):
           self.targetState = self.targetState.withoutDuplicatesFrom(row)
           self.resetTo_state = self.targetState.withConflictsFrom(self.resetTo_state)
           succeededDuringThisScan = True
+          numConsecutivelyFailingRows = 0
           candidateStates.removeRow(rowIndex)
         else:
           print("Rejected row: " + str(row.summarize()))
           candidateStates.setRowDuration(rowIndex, duration)
+          numConsecutivelyFailingRows += 1
+          if numConsecutivelyFailingRows >= self.resetTo_state.size():
+            print("Checked all " + str(numConsecutivelyFailingRows) + " files with no successes. Done.")
+            break
+      unsolvedStates = []
       # test each column
-      if candidateStates.getNumRows() > 1 and candidateStates.getNumColumns() > 1:
+      if candidateStates.getNumColumns() > 1:
+        numConsecutivelyFailingRows = 0
         for columnIndex in range(candidateStates.getNumColumns() - 1, -1, -1):
+          if candidateStates.getNumColumns() == 1:
+            # We've narrowed the search space down to one block
+            # We know it must fail, so split it again
+            break
           column = candidateStates.getColumn(columnIndex)
           print("")
           print("Elapsed duration = " + str(datetime.datetime.now() - start) + ". " + str(self.resetTo_state.size()) + " changes left to test")
-          print("Testing column " + str(columnIndex))
+          print("Testing column index " + str(columnIndex) + " (of " + str(candidateStates.getNumColumns()) + " total)")
           (testResults, duration) = self.test(column)
           if testResults:
             print("Accepted column: " + str(column.summarize()))
@@ -637,12 +657,10 @@ class DiffRunner(object):
             if existingBlock.size() < 1:
               candidateStates.setRowDuration(rowIndex, None)
               candidateStates.setColumnDuration(columnIndex, None)
-              if candidateStates.getNumRows() * candidateStates.getNumColumns() >= self.resetTo_state.size():
-                print("Returned to a previously cleared block at (" + str(columnIndex) + ", " + str(rowIndex) + "). Skipping to next iteration")
-              else:
-                print("Returned to a previously cleared block at (" + str(columnIndex) + ", " + str(rowIndex) + "). Skipping it and continuing")
+              print("Returned to a previously cleared block at (" + str(columnIndex) + ", " + str(rowIndex) + "). Ignoring it and continuing")
               continue
             # this block probably has an error in it, so clear it
+            unsolvedStates.append(candidateStates.getFiles(columnIndex, rowIndex))
             candidateStates.clearFiles(columnIndex, rowIndex)
             # retest the row
             row = candidateStates.getRow(rowIndex)
@@ -691,34 +709,57 @@ class DiffRunner(object):
               candidateStates.setColumnDuration(columnIndex, duration)
             print("")
       # split the window into smaller pieces and continue
-      targetHeight = candidateStates.getNumRows() * 2
-      targetWidth = candidateStates.getNumColumns() * 2
-      if targetWidth * targetHeight > self.resetTo_state.size():
-        print("targetWidth (" + str(targetWidth) + ") * targetHeight (" + str(targetHeight) + ") > resetTo_state.size() (" + str(self.resetTo_state.size()) + ")")
-        targetHeight = candidateStates.getNumRows() * 3
-        targetWidth = self.resetTo_state.size() / targetHeight
-        if targetWidth < 1:
-          print("Keeping target width to at least 1")
-          targetWidth = 1
-      print("Trying to split a " + str(candidateStates.getNumColumns()) + "x" + str(candidateStates.getNumRows()) + " grid into " + str(targetWidth) + "x" + str(targetHeight))
-      targetNumBlocks = targetWidth * targetHeight
-      sizePerBlock = self.targetState.size() / targetNumBlocks
-      splitDepth += 1
-      newBlocks = self.targetState.splitDepth(splitDepth)
-      #newBlocks = self.targetState.splitDownToApproximatelySize(sizePerBlock)
-      #print("Called splitDownToApproximatelySize(" + str(sizePerBlock) + "). Got:")
-      print("Called splitDepth(" + str(splitDepth) + "). Got " + str(len(newBlocks)) + " blocks:")
+      for i in range(candidateStates.getNumColumns()):
+        for j in range(candidateStates.getNumRows()):
+          files = candidateStates.getFiles(i, j)
+          if files.size() > 0:
+            unsolvedStates.append(files)
+      newBlocks = []
+      for block in unsolvedStates:
+        newBlocks += block.splitOnce()
+      print("Split " + str(len(unsolvedStates)) + " blocks into " + str(len(newBlocks)) + " blocks:")
+      targetNumBlocks = len(unsolvedStates) * 2
+      while len(newBlocks) < targetNumBlocks and len(newBlocks) < self.resetTo_state.size():
+        print("Not enough blocks (" + str(len(newBlocks)) + " < " + str(targetNumBlocks) + "), splitting directories again")
+        splitBlocks = []
+        for block in newBlocks:
+          splitBlocks += block.splitOnce()
+        newBlocks = splitBlocks
+        
+      maxNumBlocksAllowed = candidateStates.getNumRows() * candidateStates.getNumColumns() * 32
+      while len(newBlocks) > maxNumBlocksAllowed:
+        print("Too many blocks (" + str(len(newBlocks)) + " > " + str(maxNumBlocksAllowed) + "), recombining some adjacent directories")
+        joinedBlocks = []
+        for i in range(0, len(newBlocks), 2):
+          block = newBlocks[i]
+          if i + 1 < len(newBlocks):
+            nextBlock = newBlocks[i + 1]
+            block = block.expandedWithEmptyEntriesFor(nextBlock).withConflictsFrom(nextBlock)
+          joinedBlocks.append(block)
+        newBlocks = joinedBlocks
       for block in newBlocks:
-        print(block.size())
-      
-      newHeight = max(targetHeight, int(math.ceil(math.sqrt(len(newBlocks)))))
+        print(block.summarize())
+
+      newHeight = int(math.ceil(math.sqrt(len(newBlocks))))
+      if candidateStates.getNumRows() * candidateStates.getNumColumns() * 2 >= self.resetTo_state.size():
+        # If we've already split down to the granularity of one file per block, then make sure to start increasing the number of columns to make sure we find the answer
+        targetHeight = candidateStates.getNumRows() * 2
+        targetWidth = candidateStates.getNumColumns() * 2
+        if targetWidth * targetHeight > self.resetTo_state.size():
+          print("targetWidth (" + str(targetWidth) + ") * targetHeight (" + str(targetHeight) + ") > resetTo_state.size() (" + str(self.resetTo_state.size()) + ")")
+          targetHeight = candidateStates.getNumRows() * 3
+        print("Trying to split a " + str(candidateStates.getNumColumns()) + "x" + str(candidateStates.getNumRows()) + " grid into " + str(targetHeight) + " rows")
+        if newHeight < targetHeight:
+          newHeight = targetHeight
+
       if newHeight < 1:
         newHeight = 1
       if newHeight > len(newBlocks):
         newHeight = len(newBlocks)
       newWidth = int(math.ceil(float(len(newBlocks)) / float(newHeight)))
+      newHeight = int(math.ceil(float(len(newBlocks)) / float(newWidth)))
       print("#####################################################################################################")
-      print("Splitting " + str(len(newBlocks)) + " blocks into a " + str(newWidth) + "x" + str(newHeight) + " grid")
+      print("Arranging " + str(len(newBlocks)) + " blocks into a " + str(newWidth) + "x" + str(newHeight) + " grid")
       newCandidateStates = FilesState_Grid(newWidth, newHeight)
       x = 0
       y = 0
