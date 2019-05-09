@@ -2129,7 +2129,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
         if (mAnimationInfo == null) {
             return null;
         }
-        return mAnimationInfo.mReturnTransition == USE_DEFAULT_TRANSITION ? getEnterTransition()
+        return mAnimationInfo.mReturnTransition == USE_DEFAULT_TRANSITION ? getExitTransition()
                 : mAnimationInfo.mReturnTransition;
     }
 
