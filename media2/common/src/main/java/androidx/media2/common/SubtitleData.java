@@ -21,6 +21,10 @@ import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 import androidx.annotation.NonNull;
 import androidx.annotation.RestrictTo;
 import androidx.media2.common.SessionPlayer.TrackInfo;
+import androidx.versionedparcelable.NonParcelField;
+import androidx.versionedparcelable.ParcelField;
+import androidx.versionedparcelable.VersionedParcelable;
+import androidx.versionedparcelable.VersionedParcelize;
 
 import java.util.concurrent.Executor;
 
@@ -47,7 +51,8 @@ import java.util.concurrent.Executor;
  */
 // TODO: replace this byte oriented data with structured data (b/130312596)
 @RestrictTo(LIBRARY_GROUP)
-public final class SubtitleData {
+@VersionedParcelize
+public final class SubtitleData implements VersionedParcelable {
     private static final String TAG = "SubtitleData";
 
     /**
@@ -65,10 +70,21 @@ public final class SubtitleData {
      */
     public static final String MIMETYPE_TEXT_VTT = "text/vtt";
 
-    private TrackInfo mTrackInfo;
-    private long mStartTimeUs;
-    private long mDurationUs;
-    private byte[] mData;
+    // TODO: Change it to ParcelField after TrackInfo becomes Parcelable
+    @NonParcelField
+    TrackInfo mTrackInfo;
+    @ParcelField(1)
+    long mStartTimeUs;
+    @ParcelField(2)
+    long mDurationUs;
+    @ParcelField(3)
+    byte[] mData;
+
+    /**
+     * Used for VersionedParcelable
+     */
+    SubtitleData() {
+    }
 
     /** @hide */
     @RestrictTo(LIBRARY_GROUP)
