@@ -46,6 +46,30 @@
       "revId": "521fd128c80d9c81081da46372fdc3f7ef850a9c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a61250d_5a96edbe",
+        "filename": "navigation/runtime/src/main/java/androidx/navigation/NavController.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 858,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-05-09T17:08:13Z",
+      "side": 1,
+      "message": "Since the instance of the NavBackStackEntry is extremely important to what ViewModel instances are retrieved, yes, we must minimize the stack.\n\nI think you have the right functionality, but the code here needs to be more severely refactored to make it easy to understand.",
+      "parentUuid": "663641e6_696a7a5f",
+      "range": {
+        "startLine": 858,
+        "startChar": 12,
+        "endLine": 858,
+        "endChar": 36
+      },
+      "revId": "521fd128c80d9c81081da46372fdc3f7ef850a9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
