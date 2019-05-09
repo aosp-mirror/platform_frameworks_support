@@ -40,7 +40,7 @@ class TextSpanTest {
 
         assertThat(textSpan.style).isNull()
         assertThat(textSpan.text).isNull()
-        assertThat(textSpan.children).isNull()
+        assertThat(textSpan.children).isEqualTo(mutableListOf<TextSpan>())
         // assertThat(textSpan.recognizer).isNull()
     }
 
@@ -66,11 +66,11 @@ class TextSpanTest {
         val string2 = "World"
         val textSpan1 = TextSpan(text = string1)
         val textSpan2 = TextSpan(text = string2)
-        val textSpan = TextSpan(children = listOf(textSpan1, textSpan2))
+        val textSpan = TextSpan(children = mutableListOf(textSpan1, textSpan2))
 
-        assertThat(textSpan.children?.size).isEqualTo(2)
-        assertThat(textSpan.children?.get(0)?.text).isEqualTo(string1)
-        assertThat(textSpan.children?.get(1)?.text).isEqualTo(string2)
+        assertThat(textSpan.children.size).isEqualTo(2)
+        assertThat(textSpan.children.get(0).text).isEqualTo(string1)
+        assertThat(textSpan.children.get(1).text).isEqualTo(string2)
     }
 
     /*@Test
@@ -130,8 +130,8 @@ class TextSpanTest {
         val string1 = "Hello"
         val string2 = "World"
         val textSpan1 = TextSpan(text = string1)
-        val textSpan2 = TextSpan(text = string2, children = listOf(TextSpan(text = "abc")))
-        val textSpan = TextSpan(children = listOf(textSpan1, textSpan2))
+        val textSpan2 = TextSpan(text = string2, children = mutableListOf(TextSpan(text = "abc")))
+        val textSpan = TextSpan(children = mutableListOf(textSpan1, textSpan2))
         val mockBuilder = spy(ParagraphBuilder(ParagraphStyle()))
 
         textSpan.build(mockBuilder)
@@ -171,7 +171,7 @@ class TextSpanTest {
     fun `visitTextSpan with children and visitor always returns true`() {
         val textSpan1 = spy(TextSpan(text = "Hello"))
         val textSpan2 = spy(TextSpan(text = "World"))
-        val textSpan = spy(TextSpan(children = listOf(textSpan1, textSpan2)))
+        val textSpan = spy(TextSpan(children = mutableListOf(textSpan1, textSpan2)))
         val returnTrueFunction = { _: TextSpan -> true }
 
         val result = textSpan.visitTextSpan(returnTrueFunction)
@@ -185,7 +185,7 @@ class TextSpanTest {
     fun `visitTextSpan with children and visitor always returns false`() {
         val textSpan1 = spy(TextSpan(text = "Hello"))
         val textSpan2 = spy(TextSpan(text = "World"))
-        val textSpan = TextSpan(children = listOf(textSpan1, textSpan2))
+        val textSpan = TextSpan(children = mutableListOf(textSpan1, textSpan2))
         val returnFalseFunction = { _: TextSpan -> false }
 
         val result = textSpan.visitTextSpan(returnFalseFunction)
@@ -276,7 +276,7 @@ class TextSpanTest {
         val string2 = "World"
         val textSpan1 = TextSpan(text = string1)
         val textSpan2 = TextSpan(text = string2)
-        val textSpan = TextSpan(children = listOf(textSpan1, textSpan2))
+        val textSpan = TextSpan(children = mutableListOf(textSpan1, textSpan2))
 
         assertThat(textSpan.toPlainText()).isEqualTo(string1 + string2)
     }
@@ -323,8 +323,8 @@ class TextSpanTest {
     fun `compareTo with different children list length should return LAYOUT`() {
         val childTextSpan1 = TextSpan(text = "Hello")
         val childTextSpan2 = TextSpan(text = "World")
-        val textSpan1 = TextSpan(children = listOf(childTextSpan1))
-        val textSpan2 = TextSpan(children = listOf(childTextSpan1, childTextSpan2))
+        val textSpan1 = TextSpan(children = mutableListOf(childTextSpan1))
+        val textSpan2 = TextSpan(children = mutableListOf(childTextSpan1, childTextSpan2))
 
         assertThat(textSpan1.compareTo(textSpan2)).isEqualTo(RenderComparison.LAYOUT)
     }
@@ -380,8 +380,8 @@ class TextSpanTest {
     fun `compareTo with different children with different text should return LAYOUT`() {
         val childTextSpan1 = TextSpan(text = "Hello")
         val childTextSpan2 = TextSpan(text = "World")
-        val textSpan1 = TextSpan(children = listOf(childTextSpan1))
-        val textSpan2 = TextSpan(children = listOf(childTextSpan2))
+        val textSpan1 = TextSpan(children = mutableListOf(childTextSpan1))
+        val textSpan2 = TextSpan(children = mutableListOf(childTextSpan2))
 
         assertThat(textSpan1.compareTo(textSpan2)).isEqualTo(RenderComparison.LAYOUT)
     }
@@ -392,8 +392,8 @@ class TextSpanTest {
         val textStyle2 = TextStyle(fontSize = 10.0f)
         val childTextSpan1 = TextSpan(style = textStyle1)
         val childTextSpan2 = TextSpan(style = textStyle2)
-        val textSpan1 = TextSpan(children = listOf(childTextSpan1))
-        val textSpan2 = TextSpan(children = listOf(childTextSpan2))
+        val textSpan1 = TextSpan(children = mutableListOf(childTextSpan1))
+        val textSpan2 = TextSpan(children = mutableListOf(childTextSpan2))
 
         assertThat(textSpan1.compareTo(textSpan2)).isEqualTo(RenderComparison.LAYOUT)
     }
@@ -404,8 +404,8 @@ class TextSpanTest {
         val textStyle2 = TextStyle(color = Color(1))
         val childTextSpan1 = TextSpan(style = textStyle1)
         val childTextSpan2 = TextSpan(style = textStyle2)
-        val textSpan1 = TextSpan(children = listOf(childTextSpan1))
-        val textSpan2 = TextSpan(children = listOf(childTextSpan2))
+        val textSpan1 = TextSpan(children = mutableListOf(childTextSpan1))
+        val textSpan2 = TextSpan(children = mutableListOf(childTextSpan2))
 
         assertThat(textSpan1.compareTo(textSpan2)).isEqualTo(RenderComparison.PAINT)
     }
@@ -416,8 +416,8 @@ class TextSpanTest {
 //        val recognizer2 = MultiTapGestureRecognizer(longTapDelay = Duration.create(seconds = 1L))
 //        val childTextSpan1 = TextSpan(recognizer = recognizer1)
 //        val childTextSpan2 = TextSpan(recognizer = recognizer2)
-//        val textSpan1 = TextSpan(children = listOf(childTextSpan1))
-//        val textSpan2 = TextSpan(children = listOf(childTextSpan2))
+//        val textSpan1 = TextSpan(children = mutableListOf(childTextSpan1))
+//        val textSpan2 = TextSpan(children = mutableListOf(childTextSpan2))
 //
 //        assertThat(textSpan1.compareTo(textSpan2)).isEqualTo(RenderComparison.METADATA)
 //    }
