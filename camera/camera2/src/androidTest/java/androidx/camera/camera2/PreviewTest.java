@@ -49,7 +49,6 @@ import androidx.camera.core.SessionConfig;
 import androidx.test.annotation.UiThreadTest;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.filters.FlakyTest;
 import androidx.test.filters.SmallTest;
 
 import org.junit.Before;
@@ -101,7 +100,6 @@ public final class PreviewTest {
         mDefaultConfig = Preview.DEFAULT_CONFIG.getConfig(null);
     }
 
-    @FlakyTest
     @Test
     @UiThreadTest
     public void useCaseIsConstructedWithDefaultConfiguration() {
@@ -115,7 +113,6 @@ public final class PreviewTest {
         assertThat(surfaces.get(0).isValid()).isTrue();
     }
 
-    @FlakyTest
     @Test
     @UiThreadTest
     public void useCaseIsConstructedWithCustomConfiguration() {
@@ -179,7 +176,6 @@ public final class PreviewTest {
         assertThat(useCase.isTorchOn()).isTrue();
     }
 
-    @FlakyTest
     @Test
     @UiThreadTest
     public void surfaceTextureIsNotReleased()
@@ -293,7 +289,6 @@ public final class PreviewTest {
         assertThat(surfaceTexture0).isNotSameAs(surfaceTexture1);
     }
 
-    @FlakyTest
     @Test
     @UiThreadTest
     public void updateSessionConfigWithSuggestedResolution() {
@@ -396,7 +391,6 @@ public final class PreviewTest {
     }
 
     // Must not run on main thread
-    @FlakyTest
     @Test
     public void previewOutput_isResetByReleasedSurface()
             throws InterruptedException, ExecutionException {
