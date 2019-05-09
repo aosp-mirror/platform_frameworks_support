@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a9d048bc_1ac4c193",
+        "filename": "fragment/src/main/java/androidx/fragment/app/Fragment.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2908,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-05-09T17:25:52Z",
+      "side": 1,
+      "message": "The Fragment shouldn\u0027t be reaching into the mActive field of the mChildFragmentManager at all. It should probably just be calling mChildFragmentManager.hasOptionsMenu()",
+      "range": {
+        "startLine": 2903,
+        "startChar": 12,
+        "endLine": 2908,
+        "endChar": 13
+      },
+      "revId": "b230658df3e9fd0fb089bdd935fa247a156b2dd3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a71130c_b1abacf7",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentManagerImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 3079,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-05-09T17:25:52Z",
+      "side": 1,
+      "message": "It feels weird that this is an API on Fragments at all. Couldn\u0027t this be (f.mChildFragmentManager !\u003d null \u0026\u0026 f.mChildFragmentManager.hasOptionsMenu())",
+      "range": {
+        "startLine": 3079,
+        "startChar": 41,
+        "endLine": 3079,
+        "endChar": 64
+      },
+      "revId": "b230658df3e9fd0fb089bdd935fa247a156b2dd3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
