@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "262ad67c_f94a2df0",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Wrapper.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-05-09T04:55:17Z",
+      "side": 1,
+      "message": "nit: taken?",
+      "range": {
+        "startLine": 101,
+        "startChar": 30,
+        "endLine": 101,
+        "endChar": 34
+      },
+      "revId": "72b228ab24adfe40c7b346a44d2a77639d82ff2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
