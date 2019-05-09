@@ -22,6 +22,30 @@
       "revId": "298ebd2f34a1e6f81b583b1f4922d92eef5e2093",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b80ae72f_3740cbe8",
+        "filename": "ui/android-text/build.gradle",
+        "patchSetId": 5
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-05-09T15:08:15Z",
+      "side": 1,
+      "message": "Yeah, that makes a lot more sense :) Thanks. Does this way make sense?",
+      "parentUuid": "7a2004ff_b48f7d8c",
+      "range": {
+        "startLine": 64,
+        "startChar": 4,
+        "endLine": 68,
+        "endChar": 5
+      },
+      "revId": "298ebd2f34a1e6f81b583b1f4922d92eef5e2093",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
