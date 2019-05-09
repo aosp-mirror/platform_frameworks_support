@@ -22,6 +22,30 @@
       "revId": "7ce2c8438c8eff9fbb5056747c9ff56aecce22d3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c3eaa26b_9152501e",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CameraBurstCaptureCallback.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1483725
+      },
+      "writtenOn": "2019-05-09T21:45:24Z",
+      "side": 1,
+      "message": "Filed b/132369236.",
+      "parentUuid": "ebd27d3a_5c17d9d2",
+      "range": {
+        "startLine": 46,
+        "startChar": 74,
+        "endLine": 46,
+        "endChar": 86
+      },
+      "revId": "7ce2c8438c8eff9fbb5056747c9ff56aecce22d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
