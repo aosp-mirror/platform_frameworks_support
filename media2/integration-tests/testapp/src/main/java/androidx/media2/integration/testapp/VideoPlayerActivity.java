@@ -16,6 +16,7 @@
 
 package androidx.media2.integration.testapp;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -67,6 +68,7 @@ public class VideoPlayerActivity extends FragmentActivity {
     private int mResizeHandleDX;
     private int mResizeHandleDY;
 
+    @SuppressLint("RestrictedApi") // VideoView#setMediaItem, VideoView#getSessionToken
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
