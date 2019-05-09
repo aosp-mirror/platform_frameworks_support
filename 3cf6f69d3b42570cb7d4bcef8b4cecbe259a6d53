@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "285c11b7_2a257f38",
+        "filename": "viewpager2/api/current.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-05-09T05:31:36Z",
+      "side": 1,
+      "message": "nullab",
+      "range": {
+        "startLine": 35,
+        "startChar": 97,
+        "endLine": 35,
+        "endChar": 98
+      },
+      "revId": "3cf6f69d3b42570cb7d4bcef8b4cecbe259a6d53",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "962ea373_6085cc83",
+        "filename": "viewpager2/api/current.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-05-09T05:31:36Z",
+      "side": 1,
+      "message": "nullability",
+      "range": {
+        "startLine": 40,
+        "startChar": 75,
+        "endLine": 40,
+        "endChar": 76
+      },
+      "revId": "3cf6f69d3b42570cb7d4bcef8b4cecbe259a6d53",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2bdf6204_770d276e",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/MarginPageTransformer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-05-09T05:31:36Z",
+      "side": 1,
+      "message": "It is a bit weird because: you create Transformer with viewpager instance, then add transformer to this  viewpager instance and then this viewpager pass the page into it. I think better api would be to figure out ViewPager from the page instance automatically.",
+      "revId": "3cf6f69d3b42570cb7d4bcef8b4cecbe259a6d53",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0f1213f_98b4c129",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/MarginPageTransformer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-05-09T05:31:36Z",
+      "side": 1,
+      "message": "We don\u0027t usually provide additional function for DP",
+      "range": {
+        "startLine": 55,
+        "startChar": 16,
+        "endLine": 55,
+        "endChar": 27
+      },
+      "revId": "3cf6f69d3b42570cb7d4bcef8b4cecbe259a6d53",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
