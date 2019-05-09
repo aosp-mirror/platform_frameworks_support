@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "884a1f55_0147a451",
+        "filename": "appcompat/src/androidTest/java/androidx/appcompat/testutils/BaseTestActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1061051
+      },
+      "writtenOn": "2019-05-09T16:39:18Z",
+      "side": 1,
+      "message": "This can be outside if/else",
+      "range": {
+        "startLine": 58,
+        "startChar": 12,
+        "endLine": 58,
+        "endChar": 69
+      },
+      "revId": "deaccdf7b429bee16bfd32977ac832305d5d0e20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a872255_29b0011f",
+        "filename": "appcompat/src/androidTest/java/androidx/appcompat/testutils/LocaleTestUtils.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1061051
+      },
+      "writtenOn": "2019-05-09T16:39:18Z",
+      "side": 1,
+      "message": "Inspired or identical? If later, can it be extracted to testutils or testutils-ktx?",
+      "range": {
+        "startLine": 48,
+        "startChar": 36,
+        "endLine": 48,
+        "endChar": 51
+      },
+      "revId": "deaccdf7b429bee16bfd32977ac832305d5d0e20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9333afb5_8239c429",
+        "filename": "appcompat/src/androidTest/java/androidx/appcompat/widget/AppCompatSpinnerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1061051
+      },
+      "writtenOn": "2019-05-09T16:39:18Z",
+      "side": 1,
+      "message": "This and other tests - we already have @LargeTest at the class level, so no need for annotating here",
+      "range": {
+        "startLine": 256,
+        "startChar": 4,
+        "endLine": 256,
+        "endChar": 14
+      },
+      "revId": "deaccdf7b429bee16bfd32977ac832305d5d0e20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3e3c5fa_9c74e614",
+        "filename": "appcompat/src/androidTest/java/androidx/appcompat/widget/AppCompatSpinnerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 423,
+      "author": {
+        "id": 1061051
+      },
+      "writtenOn": "2019-05-09T16:39:18Z",
+      "side": 1,
+      "message": "Can this use ActivityMonitor instead of sleeping?",
+      "range": {
+        "startLine": 423,
+        "startChar": 0,
+        "endLine": 423,
+        "endChar": 31
+      },
+      "revId": "deaccdf7b429bee16bfd32977ac832305d5d0e20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
