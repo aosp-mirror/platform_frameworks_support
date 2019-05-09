@@ -16,6 +16,10 @@
 
 package androidx.browser.customtabs;
 
+import static androidx.browser.customtabs.CustomTabsIntent.COLOR_SCHEME_DARK;
+import static androidx.browser.customtabs.CustomTabsIntent.COLOR_SCHEME_LIGHT;
+import static androidx.browser.customtabs.CustomTabsIntent.COLOR_SCHEME_SYSTEM;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -77,6 +81,16 @@ public class CustomTabsIntentTest {
     }
 
     @Test
+    public void testSecondaryToolbarColor() {
+        int color = Color.RED;
+        Intent intent = new CustomTabsIntent.Builder()
+                .setSecondaryToolbarColor(color)
+                .build()
+                .intent;
+        assertEquals(color, intent.getIntExtra(CustomTabsIntent.EXTRA_SECONDARY_TOOLBAR_COLOR, 0));
+    }
+
+    @Test
     public void testColorScheme() {
         try {
             new CustomTabsIntent.Builder().setColorScheme(-1);
@@ -92,9 +106,9 @@ public class CustomTabsIntentTest {
 
         // None of the valid parameters should throw.
         final int[] colorSchemeValues = new int[] {
-            CustomTabsIntent.COLOR_SCHEME_SYSTEM,
-            CustomTabsIntent.COLOR_SCHEME_LIGHT,
-            CustomTabsIntent.COLOR_SCHEME_DARK
+            COLOR_SCHEME_SYSTEM,
+            COLOR_SCHEME_LIGHT,
+            COLOR_SCHEME_DARK
         };
 
         for (int value : colorSchemeValues) {
@@ -102,5 +116,151 @@ public class CustomTabsIntentTest {
                     new CustomTabsIntent.Builder().setColorScheme(value).build().intent;
             assertEquals(value, intent.getIntExtra(CustomTabsIntent.EXTRA_COLOR_SCHEME, -1));
         }
+    }
+
+    @Test
+    public void testColorSchemesParams_WithParamsForBothSchemes() {
+        // Parameters for both schemes are provided as CustomTabColorSchemeParams.
+
+        CustomTabColorSchemeParams lightParams = new CustomTabColorSchemeParams.Builder()
+                .setToolbarColor(0x0000ff)
+                .setSecondaryToolbarColor(0x00aaff)
+                .build();
+
+        CustomTabColorSchemeParams darkParams = new CustomTabColorSchemeParams.Builder()
+                .setToolbarColor(0xff0000)
+                .setSecondaryToolbarColor(0xff8800)
+                .build();
+
+        Intent intent = new CustomTabsIntent.Builder()
+                .setToolbarColor(0xaaaaaa) // Should be ignored.
+                .setSecondaryToolbarColor(0x555555) // Should be ignored.
+                .setColorSchemeParameters(COLOR_SCHEME_LIGHT, lightParams)
+                .setColorSchemeParameters(COLOR_SCHEME_DARK, darkParams)
+                .build()
+                .intent;
+
+        CustomTabColorSchemeParams lightParamsFromIntent =
+                CustomTabsIntent.getColorSchemeParams(intent, COLOR_SCHEME_LIGHT);
+
+        CustomTabColorSchemeParams darkParamsFromIntent =
+                CustomTabsIntent.getColorSchemeParams(intent, COLOR_SCHEME_DARK);
+
+        assertSchemeParamsEqual(lightParams, lightParamsFromIntent);
+        assertSchemeParamsEqual(darkParams, darkParamsFromIntent);
+    }
+
+
+    @Test
+    public void testColorSchemeParams_WithDefaultsForOneOfSchemes() {
+        // Light mode parameters are provided as defaults, i.e. set directly on
+        // CustomTabIntent.Builder.
+
+        int defaultToolbarColor = 0x0000ff;
+        int defaultSecondaryToolbarColor = 0x00aaff;
+
+        CustomTabColorSchemeParams darkParams = new CustomTabColorSchemeParams.Builder()
+                .setToolbarColor(0xff0000)
+                .setSecondaryToolbarColor(0xff8800)
+                .build();
+
+        Intent intent = new CustomTabsIntent.Builder()
+                .setToolbarColor(defaultToolbarColor)
+                .setSecondaryToolbarColor(defaultSecondaryToolbarColor)
+                .setColorSchemeParameters(COLOR_SCHEME_DARK, darkParams)
+                .build()
+                .intent;
+
+        CustomTabColorSchemeParams lightParamsFromIntent =
+                CustomTabsIntent.getColorSchemeParams(intent, COLOR_SCHEME_LIGHT);
+
+        CustomTabColorSchemeParams darkParamsFromIntent =
+                CustomTabsIntent.getColorSchemeParams(intent, COLOR_SCHEME_DARK);
+
+        CustomTabColorSchemeParams expectedLightParams = new CustomTabColorSchemeParams.Builder()
+                .setToolbarColor(defaultToolbarColor)
+                .setSecondaryToolbarColor(defaultSecondaryToolbarColor)
+                .build();
+
+        assertSchemeParamsEqual(expectedLightParams, lightParamsFromIntent);
+        assertSchemeParamsEqual(darkParams, darkParamsFromIntent);
+    }
+
+    @Test
+    public void testColorSchemeParams_WithCommonParams() {
+        // secondaryToolbarColor is common for both schemes and is set directly on
+        // CustomTabIntent.Builder, while toolbarColor differs.
+
+        int secondaryToolbarColor = 0x00aaff;
+
+        CustomTabColorSchemeParams lightParams = new CustomTabColorSchemeParams.Builder()
+                .setToolbarColor(0x0000ff)
+                .build();
+
+        CustomTabColorSchemeParams darkParams = new CustomTabColorSchemeParams.Builder()
+                .setToolbarColor(0xff0000)
+                .build();
+
+        Intent intent = new CustomTabsIntent.Builder()
+                .setSecondaryToolbarColor(secondaryToolbarColor)
+                .setColorSchemeParameters(COLOR_SCHEME_LIGHT, lightParams)
+                .setColorSchemeParameters(COLOR_SCHEME_DARK, darkParams)
+                .build()
+                .intent;
+
+        CustomTabColorSchemeParams lightParamsFromIntent =
+                CustomTabsIntent.getColorSchemeParams(intent, COLOR_SCHEME_LIGHT);
+
+        CustomTabColorSchemeParams darkParamsFromIntent =
+                CustomTabsIntent.getColorSchemeParams(intent, COLOR_SCHEME_DARK);
+
+        CustomTabColorSchemeParams expectedLightParams = new CustomTabColorSchemeParams.Builder()
+                .setToolbarColor(lightParams.toolbarColor)
+                .setSecondaryToolbarColor(secondaryToolbarColor)
+                .build();
+
+        CustomTabColorSchemeParams expectedDarkParams = new CustomTabColorSchemeParams.Builder()
+                .setToolbarColor(darkParams.toolbarColor)
+                .setSecondaryToolbarColor(secondaryToolbarColor)
+                .build();
+
+        assertSchemeParamsEqual(expectedLightParams, lightParamsFromIntent);
+        assertSchemeParamsEqual(expectedDarkParams, darkParamsFromIntent);
+    }
+
+    @Test
+    public void testColorSchemeParams_WithDefaultsOnly() {
+        // Backward compatibility test for clients not using CustomTabColorSchemeParams api,
+        // but a browser using it.
+
+        int toolbarColor = 0x0000ff;
+        int secondaryToolbarColor = 0x00aaff;
+
+        Intent intent = new CustomTabsIntent.Builder()
+                .setToolbarColor(toolbarColor)
+                .setSecondaryToolbarColor(secondaryToolbarColor)
+                .build()
+                .intent;
+
+        CustomTabColorSchemeParams lightParamsFromIntent =
+                CustomTabsIntent.getColorSchemeParams(intent, COLOR_SCHEME_LIGHT);
+
+        CustomTabColorSchemeParams darkParamsFromIntent =
+                CustomTabsIntent.getColorSchemeParams(intent, COLOR_SCHEME_DARK);
+
+        CustomTabColorSchemeParams expectedParams = new CustomTabColorSchemeParams.Builder()
+                .setToolbarColor(toolbarColor)
+                .setSecondaryToolbarColor(secondaryToolbarColor)
+                .build();
+
+        assertSchemeParamsEqual(expectedParams, lightParamsFromIntent);
+        assertSchemeParamsEqual(expectedParams, darkParamsFromIntent);
+    }
+
+
+    private void assertSchemeParamsEqual(CustomTabColorSchemeParams params1,
+            CustomTabColorSchemeParams params2) {
+        assertEquals(params1.toolbarColor, params2.toolbarColor);
+        assertEquals(params1.secondaryToolbarColor, params2.secondaryToolbarColor);
     }
 }
