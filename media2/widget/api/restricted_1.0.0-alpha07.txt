@@ -1,1 +1,8 @@
 // Signature format: 3.0
+package androidx.media2.widget {
+
+  public class VideoView extends android.view.ViewGroup {
+  }
+
+}
+

@@ -16,6 +16,7 @@
 
 package androidx.media2.widget;
 
+import static androidx.annotation.RestrictTo.Scope.LIBRARY;
 import static androidx.media2.session.SessionResult.RESULT_ERROR_INVALID_STATE;
 import static androidx.media2.session.SessionResult.RESULT_SUCCESS;
 
@@ -26,7 +27,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.media.AudioManager;
 import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -40,6 +40,7 @@ import android.view.View;
 import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RestrictTo;
 import androidx.core.content.ContextCompat;
 import androidx.media.AudioAttributesCompat;
 import androidx.media2.common.FileMediaItem;
@@ -104,15 +105,6 @@ import java.util.concurrent.Executor;
  * <li> {@link VideoView} is integrated with {@link MediaSession} and so
  * it responses with media key events.
  * </ul>
- *
- * <p>
- * <em> Audio focus and audio attributes : </em>
- * VideoView requests audio focus with {@link AudioManager#AUDIOFOCUS_GAIN} internally,
- * when playing a media content.
- * The default {@link AudioAttributesCompat} used during playback have a usage of
- * {@link AudioAttributesCompat#USAGE_MEDIA} and a content type of
- * {@link AudioAttributesCompat#CONTENT_TYPE_MOVIE},
- * use {@link #setAudioAttributes(AudioAttributesCompat)} to modify them.
  *
  * <p>
  * Note: VideoView does not retain its full state when going into the background. In particular, it
@@ -358,7 +350,11 @@ public class VideoView extends SelectiveLayout {
      * VideoView is attached to window, or it throws IllegalStateException.
      *
      * @throws IllegalStateException if internal MediaSession is not created yet.
+     *
+     * @hide
      */
+    // TODO: Remove it after getPlayer is added
+    @RestrictTo(LIBRARY)
     @NonNull
     public SessionToken getSessionToken() {
         if (mMediaSession == null) {
@@ -368,25 +364,17 @@ public class VideoView extends SelectiveLayout {
     }
 
     /**
-     * Sets the {@link AudioAttributesCompat} to be used during the playback of the video.
-     *
-     * @param attributes non-null <code>AudioAttributesCompat</code>.
-     */
-    public void setAudioAttributes(@NonNull AudioAttributesCompat attributes) {
-        if (attributes == null) {
-            throw new IllegalArgumentException("Illegal null AudioAttributes");
-        }
-        mAudioAttributes = attributes;
-    }
-
-    /**
      * Sets {@link MediaItem} object to render using VideoView.
      * <p>
      * When the media item is a {@link FileMediaItem}, the {@link ParcelFileDescriptor}
      * in the {@link FileMediaItem} will be closed by the VideoView.
      *
      * @param mediaItem the MediaItem to play
+     *
+     * @hide
      */
+    // TODO: Remove it after setPlayer is added
+    @RestrictTo(LIBRARY)
     public void setMediaItem(@NonNull MediaItem mediaItem) {
         if (mMediaItem instanceof FileMediaItem) {
             ((FileMediaItem) mMediaItem).decreaseRefCount();
