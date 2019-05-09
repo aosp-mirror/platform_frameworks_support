@@ -26,6 +26,7 @@ import androidx.media2.common.MediaMetadata;
 import androidx.media2.common.MediaParcelUtils;
 import androidx.media2.common.ParcelImplListSlice;
 import androidx.media2.common.SessionPlayer.BuffState;
+import androidx.media2.common.SubtitleData;
 import androidx.media2.common.VideoSize;
 import androidx.media2.session.MediaLibraryService.LibraryParams;
 import androidx.versionedparcelable.ParcelImpl;
@@ -261,6 +262,28 @@ class MediaControllerStub extends IMediaController.Stub {
         });
     }
 
+    @Override
+    public void onSubtitleData(int seq, final ParcelImpl item, final ParcelImpl data) {
+        if (item == null || data == null) {
+            return;
+        }
+        dispatchControllerTask(new ControllerTask() {
+            @Override
+            public void run(MediaControllerImplBase controller) {
+                MediaItem itemObj = MediaParcelUtils.fromParcelable(item);
+                if (itemObj == null) {
+                    Log.w(TAG, "onSubtitleData(): Ignoring null MediaItem");
+                    return;
+                }
+                SubtitleData dataObj = MediaParcelUtils.fromParcelable(data);
+                if (dataObj == null) {
+                    Log.w(TAG, "onSubtitleData(): Ignoring null SubtitleData");
+                    return;
+                }
+                controller.notifySubtitleData(itemObj, dataObj);
+            }
+        });
+    }
     @Override
     public void onConnected(int seq, ParcelImpl connectionResult) {
         if (connectionResult == null) {

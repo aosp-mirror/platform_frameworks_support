@@ -81,6 +81,7 @@ import androidx.media2.common.Rating;
 import androidx.media2.common.SessionPlayer;
 import androidx.media2.common.SessionPlayer.RepeatMode;
 import androidx.media2.common.SessionPlayer.ShuffleMode;
+import androidx.media2.common.SubtitleData;
 import androidx.media2.common.VideoSize;
 import androidx.media2.session.MediaController.ControllerCallback;
 import androidx.media2.session.MediaController.MediaControllerImpl;
@@ -1113,6 +1114,19 @@ class MediaControllerImplBase implements MediaControllerImpl {
                     return;
                 }
                 mCallback.onVideoSizeChanged(mInstance, item, videoSize);
+            }
+        });
+    }
+
+    void notifySubtitleData(final MediaItem item, final SubtitleData data) {
+        if (mCallback == null) return;
+        mCallbackExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                if (!mInstance.isConnected()) {
+                    return;
+                }
+                mCallback.onSubtitleData(mInstance, item, data);
             }
         });
     }

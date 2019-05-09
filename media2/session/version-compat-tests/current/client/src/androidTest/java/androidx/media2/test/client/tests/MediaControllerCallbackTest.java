@@ -42,6 +42,8 @@ import androidx.media.AudioAttributesCompat;
 import androidx.media2.common.MediaItem;
 import androidx.media2.common.MediaMetadata;
 import androidx.media2.common.SessionPlayer;
+import androidx.media2.common.SessionPlayer.TrackInfo;
+import androidx.media2.common.SubtitleData;
 import androidx.media2.common.VideoSize;
 import androidx.media2.session.MediaController;
 import androidx.media2.session.MediaController.PlaybackInfo;
@@ -875,6 +877,38 @@ public class MediaControllerCallbackTest extends MediaSessionTestBase {
         MediaController controller = createController(mRemoteSession2.getToken(), true, null,
                 callback);
         mRemoteSession2.getMockPlayer().notifyVideoSizeChanged(testSize);
+        assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
+    }
+
+    @Test
+    public void testOnSubtitleData() throws InterruptedException {
+        prepareLooper();
+
+        final TrackInfo testTrackInfo = new TrackInfo(0, null, 0, null);
+        final long testStartTime = 123;
+        final long testDuration = 456;
+        final byte[] testData = new byte[] { 7 };
+        final SubtitleData testSubtitle = new SubtitleData(testTrackInfo,
+                testStartTime, testDuration, testData);
+
+        final CountDownLatch latch = new CountDownLatch(1);
+        final MediaController.ControllerCallback callback =
+                new MediaController.ControllerCallback() {
+                    @Override
+                    public void onSubtitleData(@NonNull MediaController controller,
+                            @NonNull MediaItem item, @NonNull SubtitleData data) {
+                        assertNotNull(item);
+                        // TODO: Check equality of TrackInfo after TrackInfo becomes Parcelable
+                        assertEquals(testStartTime, data.getStartTimeUs());
+                        assertEquals(testDuration, data.getDurationUs());
+                        assertEquals(testData, data.getData());
+                        latch.countDown();
+                    }
+                };
+
+        MediaController controller = createController(mRemoteSession2.getToken(), true, null,
+                callback);
+        mRemoteSession2.getMockPlayer().notifySubtitleData(testSubtitle);
         assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
     }
 
