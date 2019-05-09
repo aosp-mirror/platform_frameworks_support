@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e8bf6935_e56d0fd0",
+        "filename": "enterprise/feedback/api/current.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-05-09T18:01:43Z",
+      "side": 1,
+      "message": "Let\u0027s do this abstract class, unfortunately we\u0027re still in java 7 and  can\u0027t expand an interface without breaking compatibility, so we use interfaces only for extremely simple cases, that won\u0027t be changed for 100%",
+      "revId": "02d5dc6f99aea2596311b66f4fbc3b2d0d7be7a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
