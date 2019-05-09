@@ -32,6 +32,8 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import android.app.Instrumentation;
+import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
 import android.os.SystemClock;
@@ -42,6 +44,7 @@ import androidx.annotation.ColorRes;
 import androidx.annotation.IdRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.test.R;
+import androidx.appcompat.testutils.LocaleTestUtils;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.test.espresso.ViewAction;
@@ -54,7 +57,9 @@ import androidx.test.filters.MediumTest;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.testutils.PollingCheck;
 
+import org.hamcrest.Description;
 import org.hamcrest.Matcher;
+import org.hamcrest.TypeSafeMatcher;
 import org.junit.After;
 import org.junit.Test;
 
@@ -66,6 +71,7 @@ import org.junit.Test;
 public class AppCompatSpinnerTest
         extends AppCompatBaseViewTest<AppCompatSpinnerActivity, AppCompatSpinner> {
     private static final String EARTH = "Earth";
+    private static final String ONE = "1";
     private Instrumentation mInstrumentation;
 
     public AppCompatSpinnerTest() {
@@ -247,6 +253,71 @@ public class AppCompatSpinnerTest
         onView(withText(secondItem)).check(doesNotExist());
     }
 
+    @LargeTest
+    @Test
+    public void testHorizontalOffset() {
+        checkOffsetIsCorrect(500, false, false);
+    }
+
+    @LargeTest
+    @Test
+    public void testHorizontalOffsetRtl() {
+        setRtl();
+        checkOffsetIsCorrect(200, false, true);
+    }
+
+    @LargeTest
+    @Test
+    public void testVerticalOffset() {
+        checkOffsetIsCorrect(100, true, false);
+    }
+
+    private void checkOffsetIsCorrect(
+            final int offset,
+            final boolean isVerticalOffset,
+            final boolean isRtl) {
+        int spinnerId = R.id.spinner_dropdown_popup_small;
+
+        final AppCompatSpinner spinner = mContainer.findViewById(spinnerId);
+        if (isVerticalOffset) {
+            spinner.setDropDownVerticalOffset(offset);
+        } else {
+            spinner.setDropDownHorizontalOffset(offset);
+        }
+
+        onView(withId(spinnerId)).perform(click());
+        SystemClock.sleep(250);
+
+        int computedOffset;
+        if (isVerticalOffset) {
+            int[] location = new int[2];
+            spinner.getLocationOnScreen(location);
+
+            computedOffset = location[1] + offset;
+        } else {
+            if (isRtl) {
+                int[] location = new int[2];
+                spinner.getLocationOnScreen(location);
+                final AppCompatSpinner.SpinnerPopup spinnerPopup = spinner.getInternalPopup();
+                AppCompatSpinner.DropdownPopup dropdownPopup =
+                        (AppCompatSpinner.DropdownPopup) (spinnerPopup);
+                final int popupWidth = dropdownPopup.getWidth();
+                final int spinnerWidth = spinner.getWidth();
+
+                computedOffset = location[0] + (spinnerWidth - popupWidth - offset);
+            } else {
+                computedOffset = offset;
+            }
+        }
+
+        onView(withText(ONE)).check(matches(
+                hasOffset(
+                        computedOffset,
+                        isVerticalOffset ? "has vertical offset" : "has horizontal offset",
+                        isVerticalOffset)
+        ));
+    }
+
     private ViewAction slowScrollPopup() {
         return new GeneralSwipeAction(Swipe.SLOW,
                 new CoordinatesProvider() {
@@ -313,5 +384,45 @@ public class AppCompatSpinnerTest
                 return !spinner.getInternalPopup().isShowing();
             }
         });
+    }
+
+    private Matcher<View> hasOffset(
+            final int offset,
+            final String desc,
+            final boolean isVerticalOffset) {
+        return new TypeSafeMatcher<View>() {
+
+            @Override
+            public void describeTo(Description description) {
+                description.appendText(desc);
+            }
+
+            @Override
+            protected boolean matchesSafely(View view) {
+                if (view.getParent() instanceof DropDownListView) {
+                    final DropDownListView dropDownListView = (DropDownListView) (view.getParent());
+                    int[] location = new int[2];
+                    dropDownListView.getLocationOnScreen(location);
+                    dropDownListView.getWidth();
+                    return location[isVerticalOffset ? 1 : 0] == offset;
+                }
+
+                return false;
+            }
+        };
+    }
+
+    private void setRtl() {
+        final Context context = mInstrumentation.getTargetContext();
+
+        mActivity.finish();
+        final Intent intent = new Intent(context, AppCompatSpinnerActivity.class);
+        intent.putExtra("language", LocaleTestUtils.RTL_LANGUAGE);
+
+        mActivity = mActivityTestRule.launchActivity(intent);
+        SystemClock.sleep(250);
+
+        mContainer = mActivity.findViewById(R.id.container);
+        mResources = mActivity.getResources();
     }
 }

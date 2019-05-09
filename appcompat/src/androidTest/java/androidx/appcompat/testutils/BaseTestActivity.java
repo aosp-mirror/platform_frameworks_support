@@ -48,10 +48,20 @@ public abstract class BaseTestActivity extends RecreatedAppCompatActivity {
     private boolean mDestroyed;
 
     private AppCompatCallback mAppCompatCallback;
+    private static final String EXTRA_LANGUAGE = "language";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (getIntent().hasExtra(EXTRA_LANGUAGE)) {
+            final LocaleTestUtils locale = new LocaleTestUtils(this);
+            locale.setLocale(LocaleTestUtils.RTL_LANGUAGE);
+        } else {
+            final LocaleTestUtils locale = new LocaleTestUtils(this);
+            locale.setLocale(LocaleTestUtils.DEFAULT_TEST_LANGUAGE);
+        }
+
         overridePendingTransition(0, 0);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         final int contentView = getContentViewLayoutResId();
