@@ -53,6 +53,7 @@ import androidx.media2.common.MediaMetadata;
 import androidx.media2.common.MediaParcelUtils;
 import androidx.media2.common.ParcelImplListSlice;
 import androidx.media2.common.SessionPlayer;
+import androidx.media2.common.SubtitleData;
 import androidx.media2.common.VideoSize;
 import androidx.media2.session.MediaSession;
 import androidx.media2.session.MediaSession.CommandButton;
@@ -506,6 +507,14 @@ public class RemoteMediaSession {
             }
         }
 
+        public void notifySubtitleData(@NonNull SubtitleData data) {
+            try {
+                mBinder.notifySubtitleData(mSessionId,
+                        MediaParcelUtils.toParcelable(data));
+            } catch (RemoteException ex) {
+                Log.e(TAG, "Failed to call notifySubtitleData");
+            }
+        }
         public boolean getSurfaceExists() throws RemoteException {
             return mBinder.getSurfaceExists(mSessionId);
         }
