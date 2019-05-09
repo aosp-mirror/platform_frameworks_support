@@ -1,0 +1,174 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d750c807_b509cad2",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/ImageAnalysisTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-09T23:37:13Z",
+      "side": 1,
+      "message": "Is it documented that a use case should be only used once?",
+      "revId": "7b6b67d569d14bea46bb4516f4de5ac75c65238d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "354356ce_49a44c17",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/Camera2ImplCameraXTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-09T23:37:13Z",
+      "side": 1,
+      "message": "If we are verifying if onConfigured will get called it should be made a separate unit test. Each unit test should ideally test for only 1 thing that way it is easy to figure out what is breaking.",
+      "revId": "7b6b67d569d14bea46bb4516f4de5ac75c65238d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "968ea65b_fba75e31",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/CameraImplTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-09T23:37:13Z",
+      "side": 1,
+      "message": "Shouldn\u0027t really be testing for mPendingForAddOnline unless it is exposed by a getter.\n\nThe pending behavior should really be an implementation detail.",
+      "revId": "7b6b67d569d14bea46bb4516f4de5ac75c65238d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47ade9f3_1ed6a429",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/CameraImplTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-09T23:37:13Z",
+      "side": 1,
+      "message": "Shouldn\u0027t really be testing for mPendingForAddOnline unless it is exposed by a getter.\n\nThe pending behavior should really be an implementation detail.",
+      "revId": "7b6b67d569d14bea46bb4516f4de5ac75c65238d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1523c1d1_290ead60",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/CameraImplTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-09T23:37:13Z",
+      "side": 1,
+      "message": "Shouldn\u0027t really be testing for mPendingForAddOnline unless it is exposed by a getter.\n\nThe pending behavior should really be an implementation detail.",
+      "revId": "7b6b67d569d14bea46bb4516f4de5ac75c65238d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47ffaf2f_60cc54f1",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/CameraImplTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-09T23:37:13Z",
+      "side": 1,
+      "message": "Shouldn\u0027t really be testing for mPendingForAddOnline unless it is exposed by a getter.\n\nThe pending behavior should really be an implementation detail.",
+      "revId": "7b6b67d569d14bea46bb4516f4de5ac75c65238d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fae29561_3ff01467",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/CameraImplTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-09T23:37:13Z",
+      "side": 1,
+      "message": "Shouldn\u0027t really be testing for mPendingForAddOnline unless it is exposed by a getter.\n\nThe pending behavior should really be an implementation detail.",
+      "revId": "7b6b67d569d14bea46bb4516f4de5ac75c65238d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0187f7a_3d59e18f",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/CameraImplTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-09T23:37:13Z",
+      "side": 1,
+      "message": "Shouldn\u0027t really be testing for mPendingForAddOnline unless it is exposed by a getter.\n\nThe pending behavior should really be an implementation detail.",
+      "revId": "7b6b67d569d14bea46bb4516f4de5ac75c65238d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "031374b5_8dfef661",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/CameraImplTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-09T23:37:13Z",
+      "side": 1,
+      "message": "Shouldn\u0027t really be testing for mPendingForAddOnline unless it is exposed by a getter.\n\nThe pending behavior should really be an implementation detail.",
+      "revId": "7b6b67d569d14bea46bb4516f4de5ac75c65238d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "503c8527_bf9a44c1",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/CameraImplTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-09T23:37:13Z",
+      "side": 1,
+      "message": "Shouldn\u0027t really be testing for mPendingForAddOnline unless it is exposed by a getter.\n\nThe pending behavior should really be an implementation detail.",
+      "revId": "7b6b67d569d14bea46bb4516f4de5ac75c65238d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
