@@ -16,6 +16,10 @@
 
 package androidx.browser.customtabs;
 
+import static androidx.browser.customtabs.CustomTabsIntent.COLOR_SCHEME_DARK;
+import static androidx.browser.customtabs.CustomTabsIntent.COLOR_SCHEME_LIGHT;
+import static androidx.browser.customtabs.CustomTabsIntent.COLOR_SCHEME_SYSTEM;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -77,6 +81,16 @@ public class CustomTabsIntentTest {
     }
 
     @Test
+    public void testSecondaryToolbarColor() {
+        int color = Color.RED;
+        Intent intent = new CustomTabsIntent.Builder()
+                .setSecondaryToolbarColor(color)
+                .build()
+                .intent;
+        assertEquals(color, intent.getIntExtra(CustomTabsIntent.EXTRA_SECONDARY_TOOLBAR_COLOR, 0));
+    }
+
+    @Test
     public void testColorScheme() {
         try {
             new CustomTabsIntent.Builder().setColorScheme(-1);
@@ -92,9 +106,9 @@ public class CustomTabsIntentTest {
 
         // None of the valid parameters should throw.
         final int[] colorSchemeValues = new int[] {
-            CustomTabsIntent.COLOR_SCHEME_SYSTEM,
-            CustomTabsIntent.COLOR_SCHEME_LIGHT,
-            CustomTabsIntent.COLOR_SCHEME_DARK
+            COLOR_SCHEME_SYSTEM,
+            COLOR_SCHEME_LIGHT,
+            COLOR_SCHEME_DARK
         };
 
         for (int value : colorSchemeValues) {
