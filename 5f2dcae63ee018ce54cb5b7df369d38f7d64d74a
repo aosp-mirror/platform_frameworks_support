@@ -94,6 +94,30 @@
     },
     {
       "key": {
+        "uuid": "40334978_ac682178",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/MarginPageTransformer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-05-09T14:35:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2bb64a71_39574fe9",
+      "range": {
+        "startLine": 45,
+        "startChar": 44,
+        "endLine": 45,
+        "endChar": 53
+      },
+      "revId": "5f2dcae63ee018ce54cb5b7df369d38f7d64d74a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "81449b40_e5bcd91a",
         "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/ViewPager2.java",
         "patchSetId": 1
