@@ -16,6 +16,24 @@
       "revId": "02d5dc6f99aea2596311b66f4fbc3b2d0d7be7a6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69e5bc07_793410dd",
+        "filename": "enterprise/feedback/api/current.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1411450
+      },
+      "writtenOn": "2019-05-10T10:02:34Z",
+      "side": 1,
+      "message": "I\u0027ve changed it to an abstract class.\n\nThere\u0027s no reason for users of the API to extend this - so I\u0027d like to add a package-private constructor once I create a FakeKeyedAppStatesReporter (which I\u0027ll do as soon as this gets merged)",
+      "parentUuid": "e8bf6935_e56d0fd0",
+      "revId": "02d5dc6f99aea2596311b66f4fbc3b2d0d7be7a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
