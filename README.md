@@ -53,6 +53,9 @@ And put in your **project** `build.gradle` file:
 
     handler.maven { url '/path/to/checkout/out/support/build/support_repo/' }
 
+### Continuous integration
+[Our continous integration system](https://ci.android.com/builds/branches/aosp-androidx-master-dev/grid?) builds all libraries as new changes are merged and makes these AARs and JARs available for download.
+
 ## Running Tests
 
 ### Single Test Class or Method
