@@ -187,6 +187,30 @@
       "revId": "afdf70af747818d797617e123f0cae4d4b91445d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4ff1d18_957c342d",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/writer/DaoWriter.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-05-10T18:38:35Z",
+      "side": 1,
+      "message": "It is meant to be done by the caller, after all, a generated file can have more than one originating element.",
+      "parentUuid": "f80b7cd6_f887f710",
+      "range": {
+        "startLine": 95,
+        "startChar": 12,
+        "endLine": 95,
+        "endChar": 33
+      },
+      "revId": "afdf70af747818d797617e123f0cae4d4b91445d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

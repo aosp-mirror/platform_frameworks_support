@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6deec267_908d50e9",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/Context.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-05-10T18:38:35Z",
+      "side": 1,
+      "message": "Can use infix operator:\n\nProcessorOptions.values().map { it.argName } + \n    BooleanProcessorOptions.values().map { it.argName }",
+      "range": {
+        "startLine": 53,
+        "startChar": 57,
+        "endLine": 53,
+        "endChar": 61
+      },
+      "revId": "1075183e45660c7f2011d70687373e3d66b2bf58",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "431168d8_cbe05451",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/Context.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-05-10T18:38:35Z",
+      "side": 1,
+      "message": "Should be argName and not INCREMENTAL.argName, otherwise adding another Bool option would try to read from wrong arg name.",
+      "range": {
+        "startLine": 132,
+        "startChar": 46,
+        "endLine": 132,
+        "endChar": 97
+      },
+      "revId": "1075183e45660c7f2011d70687373e3d66b2bf58",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d76cca6_77a8f7ff",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/Context.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-05-10T18:38:35Z",
+      "side": 1,
+      "message": "Lift return value to if:\n\nreturn if () {\n  defaultValue\n} else {\n  value\n}",
+      "range": {
+        "startLine": 133,
+        "startChar": 12,
+        "endLine": 133,
+        "endChar": 14
+      },
+      "revId": "1075183e45660c7f2011d70687373e3d66b2bf58",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1a6d32e_fabd20a0",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/processor/ProcessorErrors.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 646,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-05-10T18:38:35Z",
+      "side": 1,
+      "message": "fun has no param, use constant val:\n\nval CURRENT_JDK_VERSION_HAS_BUG \u003d \"...\"",
+      "range": {
+        "startLine": 646,
+        "startChar": 4,
+        "endLine": 646,
+        "endChar": 33
+      },
+      "revId": "1075183e45660c7f2011d70687373e3d66b2bf58",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
