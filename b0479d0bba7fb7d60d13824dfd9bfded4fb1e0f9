@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "9ee4da1e_b2aa13ff",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CameraX.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1482091
+      },
+      "writtenOn": "2019-05-10T09:29:44Z",
+      "side": 1,
+      "message": "As our discussion, I have updated the javadoc description as the suggested one. Thanks.",
+      "parentUuid": "0985020f_17133f40",
+      "revId": "b0479d0bba7fb7d60d13824dfd9bfded4fb1e0f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0915c516_33b273e4",
         "filename": "camera/core/src/main/java/androidx/camera/core/UseCaseGroupRepository.java",
         "patchSetId": 4
@@ -51,6 +69,24 @@
       "revId": "b0479d0bba7fb7d60d13824dfd9bfded4fb1e0f9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "87269a9c_3bcc6170",
+        "filename": "camera/core/src/main/java/androidx/camera/core/UseCaseGroupRepository.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1482091
+      },
+      "writtenOn": "2019-05-10T09:29:44Z",
+      "side": 1,
+      "message": "Thanks for your review. Done.",
+      "parentUuid": "0915c516_33b273e4",
+      "revId": "b0479d0bba7fb7d60d13824dfd9bfded4fb1e0f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
