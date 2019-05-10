@@ -16,6 +16,8 @@
 
 package androidx.build
 
+import androidx.benchmark.gradle.LockClocksTask
+import androidx.benchmark.gradle.UnlockClocksTask
 import androidx.build.SupportConfig.BUILD_TOOLS_VERSION
 import androidx.build.SupportConfig.COMPILE_SDK_VERSION
 import androidx.build.SupportConfig.DEFAULT_MIN_SDK_VERSION
@@ -276,7 +278,8 @@ class AndroidXPlugin : Plugin<Project> {
             CheckSameVersionLibraryGroupsTask::class.java)
         buildOnServerTask.dependsOn(checkSameVersionLibraryGroupsTask)
 
-        createClockLockTasks()
+        tasks.create("lockClocks", LockClocksTask::class.java)
+        tasks.create("unlockClocks", UnlockClocksTask::class.java)
 
         AffectedModuleDetector.configure(gradle, this)
 
