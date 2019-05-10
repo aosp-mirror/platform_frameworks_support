@@ -265,6 +265,24 @@
     },
     {
       "key": {
+        "uuid": "1f18c784_8892c292",
+        "filename": "camera/core/src/main/java/androidx/camera/core/SessionConfig.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-05-10T09:32:27Z",
+      "side": 1,
+      "message": "To use implementationOptions directly. \nRemove this.",
+      "parentUuid": "ac1c3cfe_c15ff583",
+      "revId": "656a7d482c80d2713f897b7be8440a77eade1983",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "03fa7ddd_30dd141f",
         "filename": "camera/core/src/main/java/androidx/camera/core/SessionConfig.java",
         "patchSetId": 4
@@ -318,6 +336,24 @@
     },
     {
       "key": {
+        "uuid": "ad39c8ae_9d90040f",
+        "filename": "camera/core/src/main/java/androidx/camera/core/SessionConfig.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-05-10T09:32:27Z",
+      "side": 1,
+      "message": "Got it, I have updated a new version to remove the mCameraOptions and to use the implementationOptions directly.",
+      "parentUuid": "d3fbcf85_c000b830",
+      "revId": "656a7d482c80d2713f897b7be8440a77eade1983",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "877cdf0e_cacef663",
         "filename": "camera/core/src/main/java/androidx/camera/core/UseCase.java",
         "patchSetId": 4
@@ -368,6 +404,24 @@
       "revId": "656a7d482c80d2713f897b7be8440a77eade1983",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e73f65a_71fcec4b",
+        "filename": "camera/core/src/main/java/androidx/camera/core/UseCase.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 539,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-05-10T09:32:27Z",
+      "side": 1,
+      "message": "Update the stub interface to move onResolutionUpdate and onImageFormatUpdate interface from ImageCaptureExtenderImpl to CaptureProcessorImpl. Update a patch to aosp/954698 and aosp/953290 for this change. Please also have a look.",
+      "parentUuid": "d3675c9c_d5c2241c",
+      "revId": "656a7d482c80d2713f897b7be8440a77eade1983",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
