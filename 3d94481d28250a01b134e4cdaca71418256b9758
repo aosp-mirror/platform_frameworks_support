@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "71e8999e_394cdd21",
+        "filename": "fragment/src/main/java/androidx/fragment/app/Fragment.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2132,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-05-10T18:05:02Z",
+      "side": 1,
+      "message": "It should use getEnterTransition()\n\nWe want the return transition to be the inverse of the enter transition, not similar to the exit transition.",
+      "range": {
+        "startLine": 2132,
+        "startChar": 76,
+        "endLine": 2132,
+        "endChar": 93
+      },
+      "revId": "3d94481d28250a01b134e4cdaca71418256b9758",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
