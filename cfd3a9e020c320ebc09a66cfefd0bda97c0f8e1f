@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3e8fe433_ff1306d5",
+        "filename": "README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-05-10T18:15:52Z",
+      "side": 1,
+      "message": "Hmm, maybe we should add something to remove confusion:\n\n\"Official AARs and JARs are distributed through [Google Maven](https://dl.google.com/dl/android/maven2/index.html).  See the \u0027Handling binary dependencies\u0027 section below.\"",
+      "range": {
+        "startLine": 57,
+        "startChar": 206,
+        "endLine": 57,
+        "endChar": 207
+      },
+      "revId": "cfd3a9e020c320ebc09a66cfefd0bda97c0f8e1f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
