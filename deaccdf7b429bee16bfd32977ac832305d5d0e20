@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "65b14bfb_da10adec",
+        "filename": "appcompat/src/androidTest/java/androidx/appcompat/testutils/BaseTestActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2019-05-10T10:29:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "884a1f55_0147a451",
+      "range": {
+        "startLine": 58,
+        "startChar": 12,
+        "endLine": 58,
+        "endChar": 69
+      },
+      "revId": "deaccdf7b429bee16bfd32977ac832305d5d0e20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a872255_29b0011f",
         "filename": "appcompat/src/androidTest/java/androidx/appcompat/testutils/LocaleTestUtils.kt",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "deaccdf7b429bee16bfd32977ac832305d5d0e20",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96d5b63e_8f5f8b31",
+        "filename": "appcompat/src/androidTest/java/androidx/appcompat/testutils/LocaleTestUtils.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2019-05-10T10:29:20Z",
+      "side": 1,
+      "message": "Done :)",
+      "parentUuid": "1a872255_29b0011f",
+      "range": {
+        "startLine": 48,
+        "startChar": 36,
+        "endLine": 48,
+        "endChar": 51
+      },
+      "revId": "deaccdf7b429bee16bfd32977ac832305d5d0e20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "26f01540_67106184",
+        "filename": "appcompat/src/androidTest/java/androidx/appcompat/widget/AppCompatSpinnerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2019-05-10T10:29:20Z",
+      "side": 1,
+      "message": "Removed all @LargeTest except for the class level one.",
+      "parentUuid": "9333afb5_8239c429",
+      "range": {
+        "startLine": 256,
+        "startChar": 4,
+        "endLine": 256,
+        "endChar": 14
+      },
+      "revId": "deaccdf7b429bee16bfd32977ac832305d5d0e20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e3e3c5fa_9c74e614",
         "filename": "appcompat/src/androidTest/java/androidx/appcompat/widget/AppCompatSpinnerTest.java",
         "patchSetId": 1
@@ -91,6 +163,30 @@
       "revId": "deaccdf7b429bee16bfd32977ac832305d5d0e20",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9bc55d88_36ee7cdf",
+        "filename": "appcompat/src/androidTest/java/androidx/appcompat/widget/AppCompatSpinnerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 423,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2019-05-10T10:29:20Z",
+      "side": 1,
+      "message": "Done, also refactored a bit.",
+      "parentUuid": "e3e3c5fa_9c74e614",
+      "range": {
+        "startLine": 423,
+        "startChar": 0,
+        "endLine": 423,
+        "endChar": 31
+      },
+      "revId": "deaccdf7b429bee16bfd32977ac832305d5d0e20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
