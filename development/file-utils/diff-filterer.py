@@ -776,11 +776,11 @@ class DiffRunner(object):
     candidateStates = [boxFromList(self.targetState.splitOnce())]
     numConsecutivelyFailingRows = 0
     while True:
-      nextCandidateStates = []
       succeededDuringThisScan = False
       stateIndex = 0
       maxObservedStateIndex = 0
       while stateIndex < len(candidateStates):
+        nextCandidateStates = []
         box = candidateStates[stateIndex]
         print("##############################################################################################################################################################################################")
         print("Checking candidateState index " + str(stateIndex) + " of " + str(len(candidateStates)) + ": ")
@@ -789,6 +789,8 @@ class DiffRunner(object):
           candidateStates = []
           nextCandidateStates = []
           break
+        if len(candidateStates) == self.resetTo_state.size():
+          print("At least " + str(self.resetTo_state.size() - numConsecutivelyFailingRows) + " iterations remaining")
         # test each slice
         succeededDuringThisBox = False
         for dimension in range(box.getNumDimensions()):
@@ -858,19 +860,19 @@ class DiffRunner(object):
             for dimension in range(box.getNumDimensions()):
               index = coordinates[dimension]
               sliceState = box.getSlice(dimension, index)
-              print("Testing slice at dimension " + str(dimension) + ", index " + str(index) + " : " + str(sliceState.summarize()))
+              print("Testing slice at dimension " + str(dimension) + ", index " + str(index))
               if sliceState.size() < 1:
                 print("Skipping empty slice")
                 box.setSliceDuration(dimension, index, None)
                 continue
               (testResults, duration) = self.test(sliceState)
               if testResults:
-                print("Accepted shortened slice")
+                print("Accepted shortened slice: " + str(sliceState.summarize()))
                 numSuccesses += 1
                 succeededDuringThisScan = True
                 box.removeSlice(dimension, index)
               else:
-                print("Rejected shortened slice")
+                print("Rejected shortened slice: " + str(sliceState.summarize()))
                 numFailures += 1
                 box.setSliceDuration(dimension, index, duration)
 
@@ -882,10 +884,27 @@ class DiffRunner(object):
           #  nextCandidateStates = nextCandidateStates + box.getChildren()
           nextCandidateStates += box.getChildren()
           #maxObservedStateIndex = stateIndex
+
+        print("nextCandidateStates has " + str(len(nextCandidateStates)) + " states:")
+        for state in nextCandidateStates:
+          print("nextCandidateStates has state " + str(state.summarize()))
+          box = boxFromList(state.splitOnce())
+          candidateStates.append(box)
+        smallCandidateStates = []
+        largeCandidateStates = []
+        for box in candidateStates[1:]:
+          children = box.getChildren()
+          if len(children) < 2:
+            smallCandidateStates.append(box)
+          else:
+            largeCandidateStates.append(box)
+            numConsecutivelyFailingRows = 0
+        candidateStates = largeCandidateStates + smallCandidateStates
+
         #smallCandidateStates = []
         #largeCandidateStates = []
         #for state in nextCandidateStates:
-        #  children = state.getChildren()
+        #  children = state.splitOnce()
         #  box = boxFromList(children)
         #  if len(children) < 2:
         #    smallCandidateStates.append(box)
@@ -894,15 +913,7 @@ class DiffRunner(object):
         #candidateStates = largeCandidateStates + candidateStates[1:] + smallCandidateStates
         
 
-        stateIndex += 1
-        #if succeededDuringThisBox:
-        #  # If we were able to make a change in this directory, then it might unblock some other files in the same directories or nearby directories
-        #  decrement = int(math.log(len(candidateStates), 2))
-        #  if decrement > 2:
-        #    stateIndex -= decrement
-        #    if stateIndex < 0:
-        #      stateIndex = 0
-        #    print("Made some progress in the latest box; resetting stateIndex to " + str(stateIndex) + " in case some nearby files become unblocked")
+        #stateIndex += 1
       newBoxes = []
       nextCandidateStates = [block for block in nextCandidateStates if block.size() > 0]
       for block in nextCandidateStates:
@@ -928,59 +939,6 @@ class DiffRunner(object):
         break
       candidateStates = newBoxes
         
-      #maxNumBlocksAllowed = grid.getNumRows() * grid.getNumColumns() * 32
-      #while len(newGrids) > maxNumBlocksAllowed:
-      #  print("Too many blocks (" + str(len(newGrids)) + " > " + str(maxNumBlocksAllowed) + "), recombining some adjacent directories")
-      #  joinedBlocks = []
-      #  for i in range(0, len(newGrids), 2):
-      #    block = newGrids[i]
-      #    if i + 1 < len(newGrids):
-      #      nextBlock = newGrids[i + 1]
-      #      block = block.expandedWithEmptyEntriesFor(nextBlock).withConflictsFrom(nextBlock)
-      #    joinedBlocks.append(block)
-      #  newGrids = joinedBlocks
-      #for block in newGrids:
-      #  print(block.summarize())
-
-      #newHeight = int(math.ceil(math.sqrt(len(newGrids))))
-      #if grid.getNumRows() * grid.getNumColumns() * 2 >= self.resetTo_state.size():
-      #  # If we've already split down to the granularity of one file per block, then make sure to start increasing the number of columns to make sure we find the answer
-      #  targetHeight = grid.getNumRows() * 2
-      #  targetWidth = grid.getNumColumns() * 2
-      #  if targetWidth * targetHeight > self.resetTo_state.size():
-      #    print("targetWidth (" + str(targetWidth) + ") * targetHeight (" + str(targetHeight) + ") > resetTo_state.size() (" + str(self.resetTo_state.size()) + ")")
-      #    targetHeight = grid.getNumRows() * 3
-      #  print("Trying to split a " + str(grid.getNumColumns()) + "x" + str(grid.getNumRows()) + " grid into " + str(targetHeight) + " rows")
-      #  if newHeight < targetHeight:
-      #    newHeight = targetHeight
-
-      #if newHeight < 1:
-      #  newHeight = 1
-      #if newHeight > len(newGrids):
-      #  newHeight = len(newGrids)
-      #newWidth = int(math.ceil(float(len(newGrids)) / float(newHeight)))
-      #newHeight = int(math.ceil(float(len(newGrids)) / float(newWidth)))
-      #print("#####################################################################################################")
-      #print("Arranging " + str(len(newGrids)) + " blocks into a " + str(newWidth) + "x" + str(newHeight) + " grid")
-      #newCandidateStates = FilesState_Grid(newWidth, newHeight)
-      #x = 0
-      #y = 0
-      #numExtraBoxes = newWidth * newHeight - len(newGrids)
-      #for i in range(len(newGrids)):
-      #  #print("Saving block " + str(i) + " at (" + str(x) + ", " + str(y) + ")")
-      #  newCandidateStates.putFiles(newGrids[i], x, y)
-      #  x += 1
-      #  if x + y + 1 == numExtraBoxes:
-      #    x += 1
-      #  if x >= newWidth:
-      #    x = 0
-      #    y += 1
-
-      #splitDuringThisScan = newCandidateStates.getNumRows() != grid.getNumRows() or newCandidateStates.getNumColumns() != grid.getNumColumns()
-      #grid = newCandidateStates
-      #if not splitDuringThisScan and not succeededDuringThisScan:
-      #  break
-
     print("double-checking results")
     fileIo.removePath(self.workPath)
     wasSuccessful = True
