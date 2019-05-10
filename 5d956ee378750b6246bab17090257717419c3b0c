@@ -50,6 +50,29 @@
       "revId": "5d956ee378750b6246bab17090257717419c3b0c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5bfab6ee_41e7c598",
+        "filename": "media2/session/src/main/java/androidx/media2/session/SessionToken.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-10T07:19:13Z",
+      "side": 1,
+      "message": "Q) Why is Context prefered to PackageManager?",
+      "range": {
+        "startLine": 402,
+        "startChar": 30,
+        "endLine": 402,
+        "endChar": 45
+      },
+      "revId": "5d956ee378750b6246bab17090257717419c3b0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
