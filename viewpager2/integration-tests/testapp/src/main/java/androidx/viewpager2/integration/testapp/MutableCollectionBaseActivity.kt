@@ -21,11 +21,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 
@@ -38,6 +40,7 @@ abstract class MutableCollectionBaseActivity : FragmentActivity() {
     private lateinit var buttonGoTo: Button
     private lateinit var buttonRemove: Button
     private lateinit var itemSpinner: Spinner
+    private lateinit var checkboxDiffUtil: CheckBox
     private lateinit var viewPager: ViewPager2
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,6 +52,7 @@ abstract class MutableCollectionBaseActivity : FragmentActivity() {
         buttonGoTo = findViewById(R.id.buttonGoTo)
         buttonRemove = findViewById(R.id.buttonRemove)
         itemSpinner = findViewById(R.id.itemSpinner)
+        checkboxDiffUtil = findViewById(R.id.useDiffUtil)
         viewPager = findViewById(R.id.viewPager)
 
         viewPager.adapter = createViewPagerAdapter()
@@ -68,19 +72,23 @@ abstract class MutableCollectionBaseActivity : FragmentActivity() {
             viewPager.setCurrentItem(itemSpinner.selectedItemPosition, true)
         }
 
+        fun changeDataSet(performChanges: () -> Unit) {
+            val idsOld = items.createIdSnapshot()
+            performChanges()
+            val idsNew = items.createIdSnapshot()
+            notifyDataSetChanged(idsOld, idsNew)
+        }
+
         buttonRemove.setOnClickListener {
-            items.removeAt(itemSpinner.selectedItemPosition)
-            notifyDataSetChanged()
+            changeDataSet { items.removeAt(itemSpinner.selectedItemPosition) }
         }
 
         buttonAddBefore.setOnClickListener {
-            items.addNewAt(itemSpinner.selectedItemPosition)
-            notifyDataSetChanged()
+            changeDataSet { items.addNewAt(itemSpinner.selectedItemPosition) }
         }
 
         buttonAddAfter.setOnClickListener {
-            items.addNewAt(itemSpinner.selectedItemPosition + 1)
-            notifyDataSetChanged()
+            changeDataSet { items.addNewAt(itemSpinner.selectedItemPosition + 1) }
         }
     }
 
@@ -88,8 +96,22 @@ abstract class MutableCollectionBaseActivity : FragmentActivity() {
 
     val items: ItemsViewModel get() = ViewModelProviders.of(this)[ItemsViewModel::class.java]
 
-    private fun notifyDataSetChanged() {
-        viewPager.adapter!!.notifyDataSetChanged()
+    private fun notifyDataSetChanged(idsOld: List<Long>, idsNew: List<Long>) {
+        if (checkboxDiffUtil.isChecked) {
+            DiffUtil.calculateDiff(object : DiffUtil.Callback() {
+                override fun getOldListSize(): Int = idsOld.size
+                override fun getNewListSize(): Int = idsNew.size
+
+                override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int) =
+                    idsOld[oldItemPosition] == idsNew[newItemPosition]
+
+                override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int) =
+                    areItemsTheSame(oldItemPosition, newItemPosition)
+            }, true).dispatchUpdatesTo(viewPager.adapter!!)
+        } else {
+            viewPager.adapter!!.notifyDataSetChanged()
+        }
+
         (itemSpinner.adapter as BaseAdapter).notifyDataSetChanged()
     }
 }
@@ -105,6 +127,7 @@ class ItemsViewModel : ViewModel() {
     fun contains(itemId: Long): Boolean = items.any { itemToLong(it) == itemId }
     fun addNewAt(position: Int) = items.add(position, longToItem(nextValue++))
     fun removeAt(position: Int) = items.removeAt(position)
+    fun createIdSnapshot(): List<Long> = (0 until size).map { position -> itemId(position) }
     val size: Int get() = items.size
 
     private fun longToItem(value: Long): String = "item#$value"
