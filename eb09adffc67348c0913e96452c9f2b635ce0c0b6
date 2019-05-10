@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3385d89c_6b32144f",
+        "filename": "ui/material/src/main/java/androidx/ui/baseui/DeterminateProgressIndicator.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-05-10T22:49:58Z",
+      "side": 1,
+      "message": "nit: should we structure these packages a bit more and place this under androidx.ui.baseui.progress ?",
+      "range": {
+        "startLine": 17,
+        "startChar": 8,
+        "endLine": 17,
+        "endChar": 26
+      },
+      "revId": "eb09adffc67348c0913e96452c9f2b635ce0c0b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "88618692_b9bee94a",
+        "filename": "ui/material/src/main/java/androidx/ui/material/ProgressIndicator.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-05-10T22:49:58Z",
+      "side": 1,
+      "message": "the ordering of these imports seems off",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 33
+      },
+      "revId": "eb09adffc67348c0913e96452c9f2b635ce0c0b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8ed693b_dce65968",
+        "filename": "ui/material/src/main/java/androidx/ui/material/ProgressIndicator.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-05-10T22:49:58Z",
+      "side": 1,
+      "message": "nit: add an @see to the other one for an indeterminate (and viceversa)",
+      "range": {
+        "startLine": 54,
+        "startChar": 3,
+        "endLine": 59,
+        "endChar": 14
+      },
+      "revId": "eb09adffc67348c0913e96452c9f2b635ce0c0b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
