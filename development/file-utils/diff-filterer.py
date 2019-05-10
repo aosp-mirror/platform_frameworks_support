@@ -38,12 +38,6 @@ OPTIONS
 """)
   sys.exit(1)
 
-# Miscellaneous functions
-def avg(x):
-  if len(x) <= 0:
-    return None
-  return sum(x) / len(x)
-
 # Miscellaneous file utilities
 class FileIo(object):
   def __init__(self):
@@ -56,8 +50,9 @@ class FileIo(object):
       os.makedirs(filePath)
 
   def copyFile(self, fromPath, toPath):
-    self.ensureDirExists(os.path.dirname(toPath))
-    self.removePath(toPath)
+    if not os.path.isfile(toPath):
+      self.ensureDirExists(os.path.dirname(toPath))
+      self.removePath(toPath)
     shutil.copy2(fromPath, toPath)
 
   def writeFile(self, path, text):
@@ -439,6 +434,15 @@ class FilesState_Grid(object):
       result = result.expandedWithEmptyEntriesFor(block).withConflictsFrom(block)
     return result
 
+  def getChildren(self):
+    children = []
+    for i in range(self.getNumColumns()):
+      for j in range(self.getNumRows()):
+        child = self.getFiles(i, j)
+        if child.size() > 0:
+          children.append(child)
+    return children
+
   def getNumColumns(self):
     return len(self.columnDurations)
 
@@ -479,6 +483,201 @@ class FilesState_Grid(object):
   def putFiles(self, filesState, xIndex, yIndex):
     self.rows[yIndex][xIndex] = filesState
 
+def gridFromList(statesList, width = None, height = None):
+  if height is None or width is None:
+    height = int(math.ceil(math.sqrt(len(statesList))))
+  if width is None:
+    width = int(math.ceil(float(len(statesList)) / float(height)))
+  newCandidateStates = FilesState_Grid(width, height)
+  x = 0
+  y = 0
+  numExtraBoxes = width * height - len(statesList)
+  if numExtraBoxes < 0:
+    raise Exception("Internal error: width " + str(width) + " and " + str(height) + " is insufficient for " + str(len(statesList)) + " states")
+  for i in range(len(statesList)):
+    newCandidateStates.putFiles(statesList[i], x, y)
+    x += 1
+    if x + y + 1 == numExtraBoxes:
+      x += 1
+    if x >= width:
+      x = 0
+      y += 1
+  return newCandidateStates
+
+class FilesState_HyperBoxNode(object):
+  def __init__(self, dimensions):
+    self.dimensions = dimensions
+    self.children = []
+    if len(dimensions) > 1:
+      nextDimensions = dimensions[1:]
+      for i in range(dimensions[0]):
+        self.children.append(FilesState_HyperBoxNode(nextDimensions))
+    else:
+      for i in range(dimensions[0]):
+         self.children.append(FilesState_LeafBox())
+
+  def getFiles(self, coordinates):
+    child = self.children[coordinates[0]]
+    return child.getFiles(coordinates[1:])
+
+  def setFiles(self, coordinates, files):
+    self.children[coordinates[0]].setFiles(coordinates[1:], files)
+
+  def clearFiles(self, coordinates):
+    self.children[coordinates[0]].clearFiles(coordinates[1:])
+
+  def removeSlice(self, dimension, index):
+    if dimension == 0:
+      del self.children[index]
+    else:
+      for child in self.children:
+        child.removeSlice(dimension - 1, index)
+
+  def getSlice(self, dimension, index):
+    result = FilesState()
+    for i in range(len(self.children)):
+      if dimension != 0 or i == index:
+        child = self.children[i]
+        childResult = child.getSlice(dimension - 1, index)
+        result = result.expandedWithEmptyEntriesFor(childResult).withConflictsFrom(childResult)
+    return result
+
+class FilesState_LeafBox(object):
+  def __init__(self):
+    self.files = FilesState()
+
+  def getFiles(self, coordinates):
+    return self.files
+
+  def setFiles(self, coordinates, files):
+    self.files = files
+
+  def clearFiles(self, coordinates):
+    self.files = FilesState()
+
+  def removeSlice(self, dimensions, index):
+    return
+
+  def getSlice(self, dimension, index):
+    return self.getFiles([])
+
+class FilesState_HyperBox(object):
+  def __init__(self, dimensions):
+    self.dimensions = dimensions
+    self.durations = []
+    self.numFiles = 0
+    if len(dimensions) < 1:
+      raise Exception("dimensions must be nonempty: " + str(dimensions))
+    for length in dimensions:
+      if length < 1:
+        raise Exception("Illegal dimension " + str(length) + " in " + str(dimensions))
+      self.durations.append([None] * length)
+    self.root = FilesState_HyperBoxNode(dimensions)
+
+  def getNumDimensions(self):
+    return len(self.dimensions)
+
+  def getSize(self, dimension):
+    return self.dimensions[dimension]
+
+  def getDimensions(self):
+    return self.dimensions
+
+  def getSliceDuration(self, dimension, index):
+    return self.durations[dimension][index]
+
+  def setSliceDuration(self, dimension, index, value):
+    durations = self.durations[dimension]
+    if index >= len(durations):
+      raise Exception("Index " + str(index) + " too large for durations " + str(durations) + " of length " + str(len(durations)) + ". All durations: " + str(self.durations))
+    durations[index] = value
+
+  def removeSlice(self, dimension, index):
+    durations = self.durations[dimension]
+    del durations[index]
+    self.root.removeSlice(dimension, index)
+    self.dimensions[dimension] -= 1
+
+  def getFastestIndex(self, dimension):
+    durations = self.durations[dimension]
+    fastestValue = None
+    fastestIndex = None
+    for i in range(len(durations)):
+      value = durations[i]
+      if value is not None:
+        if fastestValue is None or value < fastestValue:
+          fastestValue = value
+          fastestIndex = i
+    return fastestIndex
+
+  def getFastestIndices(self):
+    return [self.getFastestIndex(dimension) for dimension in range(self.getNumDimensions())]
+
+  def getFiles(self, coordinates):
+    #print("Box calling getFiles(" + str(coordinates) + ")")
+    return self.root.getFiles(coordinates)
+
+  def setFiles(self, dimensions, files):
+    self.root.setFiles(dimensions, files)
+    self.numFiles = None
+
+  def clearFiles(self, dimensions):
+    self.setFiles(dimensions, FilesState())
+
+  def getNumFiles(self):
+    if self.numFiles is None:
+      numFiles = 0
+      for child in self.getChildren():
+        numFiles += child.size()
+      self.numFiles = numFiles
+    return self.numFiles
+
+  def getSlice(self, dimension, index):
+    return self.root.getSlice(dimension, index)
+
+  def incrementCoordinates(self, coordinates):
+    coordinates = coordinates[:]
+    for i in range(len(coordinates)):
+      coordinates[i] += 1
+      if coordinates[i] >= self.dimensions[i]:
+        coordinates[i] = 0
+      else:
+        return coordinates
+    return None
+
+  def getChildren(self):
+    if len(self.dimensions) < 1 or self.dimensions[0] < 1:
+      return []
+    coordinates = [0] * len(self.dimensions)
+    children = []
+    while coordinates is not None:
+      child = self.getFiles(coordinates)
+      if child is not None and child.size() > 0:
+        children.append(child)
+      coordinates = self.incrementCoordinates(coordinates)
+    return children
+
+def boxFromList(fileStates):
+  numStates = len(fileStates)
+  if numStates == 1:
+    dimensions = [1]
+  else:
+    dimensions = []
+    while numStates > 1:
+      if numStates == 4:
+        # if there are 4 states we want to make it a 2x2
+        nextDimension = 2
+      else:
+        nextDimension = min(3, numStates)
+      dimensions.append(nextDimension)
+      numStates = int(math.ceil(float(numStates) / float(nextDimension)))
+  tree = FilesState_HyperBox(dimensions)
+  coordinates = [0] * len(dimensions)
+  for state in fileStates:
+    tree.setFiles(coordinates, state)
+    coordinates = tree.incrementCoordinates(coordinates)
+  return tree
+
 # Runner class that determines which diffs between two directories cause the given shell command to fail
 class DiffRunner(object):
   def __init__(self, failingPath, passingPath, shellCommand, tempPath, workPath, assumeNoSideEffects, assumeInputStatesAreCorrect, tryFail):
@@ -513,22 +712,30 @@ class DiffRunner(object):
     self.targetState = self.resetTo_state.withConflictsFrom(self.originalFailingState.expandedWithEmptyEntriesFor(self.resetTo_state))
     self.windowSize = self.resetTo_state.size()
 
-  def test(self, filesState, timeout = None):
+  def test(self, testState, timeout = None):
     # reset state if needed
     if not self.assumeNoSideEffects:
       print("Resetting " + str(self.workPath))
       fileIo.removePath(self.workPath)
       self.full_resetTo_state.apply(self.workPath)
-      filesState.apply(self.workPath)
+      testState.apply(self.workPath)
     else:
-      self.resetTo_state.withConflictsFrom(filesState).apply(self.workPath)
+      self.resetTo_state.withConflictsFrom(testState).apply(self.workPath)
     start = datetime.datetime.now()
     returnCode = ShellScript(self.testScript_path).process(self.workPath)
     duration = (datetime.datetime.now() - start).total_seconds()
     print("shell command completed in " + str(duration))
     if returnCode == 0:
+      # Success! Save these changes
+      self.targetState = self.targetState.withoutDuplicatesFrom(testState)
+      self.resetTo_state = self.targetState.withConflictsFrom(self.resetTo_state)
+      self.full_resetTo_state = self.full_resetTo_state.expandedWithEmptyEntriesFor(testState).withConflictsFrom(testState).withoutEmptyEntries()
+      testState.apply(self.bestState_path)
       return (True, duration)
     else:
+      if self.assumeNoSideEffects:
+        # unapply changes so that the contents of self.workPath should match self.resetTo_state
+        testState.withConflictsFrom(self.resetTo_state).apply(self.workPath)
       return (False, duration)
 
   def run(self):
@@ -566,218 +773,213 @@ class DiffRunner(object):
     numFailuresDuringCurrentWindowSize = 0
     # We essentially do a breadth-first search over the inodes (files or dirs) in the tree
     # Every time we encounter an inode, we try replacing it (and any descendents if it has any) and seeing if that passes our given test
-    candidateStates = FilesState_Grid(1, 1)
-    candidateStates.putFiles(self.targetState , 0, 0)
+    candidateStates = [boxFromList(self.targetState.splitOnce())]
     numConsecutivelyFailingRows = 0
     while True:
-      numFailuresDuringPreviousWindowSize = numFailuresDuringCurrentWindowSize
-      numFailuresDuringCurrentWindowSize = 0
-      displayIndex = 0
+      nextCandidateStates = []
       succeededDuringThisScan = False
-      # test each row
-      for rowIndex in range(candidateStates.getNumRows() - 1, -1, -1):
-        if candidateStates.getNumRows() == 1:
-          # We've narrowed the search space down to one row
-          # We know it must fail, so split it again
+      stateIndex = 0
+      maxObservedStateIndex = 0
+      while stateIndex < len(candidateStates):
+        box = candidateStates[stateIndex]
+        print("##############################################################################################################################################################################################")
+        print("Checking candidateState index " + str(stateIndex) + " of " + str(len(candidateStates)) + ": ")
+        if numConsecutivelyFailingRows >= self.resetTo_state.size():
+          print("Checked all " + str(numConsecutivelyFailingRows) + " files with no successes. Done.")
+          candidateStates = []
+          nextCandidateStates = []
           break
-        row = candidateStates.getRow(rowIndex)
-        print("")
-        print("Elapsed duration = " + str(datetime.datetime.now() - start) + ". " + str(self.resetTo_state.size()) + " changes left to test")
-        if candidateStates.getNumColumns() == 1 and numConsecutivelyFailingRows > 0:
-          print("At least " + str(self.resetTo_state.size() - numConsecutivelyFailingRows) + " iterations remaining")
-        print("Testing row index " + str(rowIndex) + " (of " + str(candidateStates.getNumRows()) + " total)")
-        (testResults, duration) = self.test(row)
-        if testResults:
-          print("Accepted row: " + str(row.summarize()))
-          # success! keep these changes
-          row.apply(self.bestState_path)
-          self.full_resetTo_state = self.full_resetTo_state.expandedWithEmptyEntriesFor(row).withConflictsFrom(row).withoutEmptyEntries()
-          # remove these changes from the set of changes to reconsider
-          self.targetState = self.targetState.withoutDuplicatesFrom(row)
-          self.resetTo_state = self.targetState.withConflictsFrom(self.resetTo_state)
-          succeededDuringThisScan = True
-          numConsecutivelyFailingRows = 0
-          candidateStates.removeRow(rowIndex)
-        else:
-          print("Rejected row: " + str(row.summarize()))
-          candidateStates.setRowDuration(rowIndex, duration)
-          numConsecutivelyFailingRows += 1
-          if numConsecutivelyFailingRows >= self.resetTo_state.size():
-            print("Checked all " + str(numConsecutivelyFailingRows) + " files with no successes. Done.")
-            break
-      unsolvedStates = []
-      # test each column
-      if candidateStates.getNumColumns() > 1:
-        numConsecutivelyFailingRows = 0
-        for columnIndex in range(candidateStates.getNumColumns() - 1, -1, -1):
-          if candidateStates.getNumColumns() == 1:
-            # We've narrowed the search space down to one block
-            # We know it must fail, so split it again
-            break
-          column = candidateStates.getColumn(columnIndex)
-          print("")
-          print("Elapsed duration = " + str(datetime.datetime.now() - start) + ". " + str(self.resetTo_state.size()) + " changes left to test")
-          print("Testing column index " + str(columnIndex) + " (of " + str(candidateStates.getNumColumns()) + " total)")
-          (testResults, duration) = self.test(column)
-          if testResults:
-            print("Accepted column: " + str(column.summarize()))
-            # success! keep these changes
-            column.apply(self.bestState_path)
-            self.full_resetTo_state = self.full_resetTo_state.expandedWithEmptyEntriesFor(column).withConflictsFrom(column).withoutEmptyEntries()
-            # remove these changes from the set of changes to reconsider
-            self.targetState = self.targetState.withoutDuplicatesFrom(column)
-            self.resetTo_state = self.targetState.withConflictsFrom(self.resetTo_state)
-            succeededDuringThisScan = True
-            candidateStates.removeColumn(columnIndex)
-          else:
-            print("Rejected column: " + str(column.summarize()))
-            candidateStates.setColumnDuration(columnIndex, duration)
+        # test each slice
+        succeededDuringThisBox = False
+        for dimension in range(box.getNumDimensions()):
+          for index in range(box.getSize(dimension) - 1, -1, -1):
+            if box.getSize(dimension) == 1 and len(candidateStates) == 1:
+              # We've narrowed the search space down to one row
+              # Make a note that it could still be worth retesting this row after having removed some other entries from the box
+              box.setSliceDuration(dimension, index, 0)
+              # However, we know that this row must fail now, so skip re-testing it at the moment
+              continue
+            candidateState = box.getSlice(dimension, index)
+            print("")
+            print("Elapsed duration = " + str(datetime.datetime.now() - start) + ". " + str(self.resetTo_state.size()) + " changes left to test")
+            print("Testing dimension " + str(dimension) + "/" + str(box.getNumDimensions()) + ", index " + str(index) + "/" + str(box.getSize(dimension)))
+            if candidateState.size() < 1:
+              print("Skipping slice of size 0")
+              box.setSliceDuration(dimension, index, None)
+              continue
+            (testResults, duration) = self.test(candidateState)
+            if testResults:
+              print("Accepted slice: " + str(candidateState.summarize()))
+              succeededDuringThisBox = True
+              succeededDuringThisScan = True
+              numConsecutivelyFailingRows = 0
+              box.removeSlice(dimension, index)
+            else:
+              print("Rejected slice: " + str(candidateState.summarize()))
+              box.setSliceDuration(dimension, index, duration)
+              if dimension == 0:
+                numConsecutivelyFailingRows += 1
         # make some guesses (based on duration) about which individual blocks are likely to contain failures, and run some tests without those failing blocks
-        if candidateStates.getNumColumns() + candidateStates.getNumRows() >= 4:
-          print("////////////////////////////////////////////////////////////////////////////////////////////////////")
-          loopMax = min(candidateStates.getNumColumns(), candidateStates.getNumRows())
+        if box.getNumDimensions() >= 2:
+          print("//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////")
+          print("Doing a timing analysis of box " + str(stateIndex) + " of " + str(len(candidateStates)))
+          loopMax = box.getNumDimensions()
           numSuccesses = 0
           numFailures = 0
-          while True:
-            print("Elapsed duration = " + str(datetime.datetime.now() - start) + ". " + str(self.resetTo_state.size()) + " changes left to test (" + str(candidateStates.getNumColumns()) + "x" + str(candidateStates.getNumRows()) + " grid)")
-            if numFailures >= numSuccesses + loopMax:
+          busy = True
+          while busy:
+            print("")
+            print("Elapsed duration = " + str(datetime.datetime.now() - start) + ". " + str(self.resetTo_state.size()) + " changes left to test (current box dimensions: " + str(box.getDimensions()) + ")")
+            if numFailures > numSuccesses + loopMax:
               print("Too many failures in a row. Continuing to next iteration")
               break
             # find the row and column that fail most quickly
-            columnIndex = candidateStates.getFastestColumn()
-            if candidateStates.getNumColumns() <= 1 or columnIndex is None:
-              print("Removed all columns other than one. Continuing to next iteration")
+            coordinates = []
+            for dimension in range(box.getNumDimensions()):
+              index = box.getFastestIndex(dimension)
+              if index is None:
+                print("Removed all slices in dimension " + str(dimension) + ". Continuing to next iteration")
+                busy = False
+                break
+              coordinates.append(index)
+              print("Previous failure duration was " + str(box.getSliceDuration(dimension, index)) + " for dimension " + str(dimension) + " and index " + str(index))
+            if not busy:
               break
-            rowIndex = candidateStates.getFastestRow()
-            if candidateStates.getNumRows() <= 1 or rowIndex is None:
-              print("Removed all rows other than one. Continuing to next iteration")
-              break
-            existingBlock = candidateStates.getFiles(columnIndex, rowIndex)
-            print("Testing shortened row and column: clearing block at (" + str(columnIndex) + "," + str(rowIndex) + ") (row previously failed in " + str(candidateStates.getRowDuration(rowIndex)) + ", column previously failed in " + str(candidateStates.getColumnDuration(columnIndex)) + "). Block: " + str(existingBlock.summarize()))
-            if existingBlock.size() < 1:
-              candidateStates.setRowDuration(rowIndex, None)
-              candidateStates.setColumnDuration(columnIndex, None)
-              print("Returned to a previously cleared block at (" + str(columnIndex) + ", " + str(rowIndex) + "). Ignoring it and continuing")
+            blockState = box.getFiles(coordinates)
+            print("Testing shortened box: clearing block at " + str(coordinates) + " : " + str(blockState.summarize()))
+            box.clearFiles(coordinates)
+            if blockState.size() < 1:
+              print("Returned to a previously cleared block at (" + str(coordinates) + "). Ignoring it and continuing")
+              for dimension in range(len(coordinates)):
+                box.setSliceDuration(dimension, coordinates[dimension], None)
               continue
-            # this block probably has an error in it, so clear it
-            unsolvedStates.append(candidateStates.getFiles(columnIndex, rowIndex))
-            candidateStates.clearFiles(columnIndex, rowIndex)
-            # retest the row
-            row = candidateStates.getRow(rowIndex)
-            if row.size() < 1:
-              print("Skipping empty row " + str(rowIndex))
-              candidateStates.setRowDuration(rowIndex, None)
-              continue
-            print("Testing shortened row " + str(rowIndex))
-            (testResults, duration) = self.test(row)
-            if testResults:
-              print("Accepted shortened row: " + str(row.summarize()))
-              numSuccesses += 1
-              row.apply(self.bestState_path)
-              self.full_resetTo_state = self.full_resetTo_state.expandedWithEmptyEntriesFor(row).withConflictsFrom(row).withoutEmptyEntries()
-              # remove these changes from the set of changes to reconsider
-              self.targetState = self.targetState.withoutDuplicatesFrom(row)
-              self.resetTo_state = self.targetState.withConflictsFrom(self.resetTo_state)
-              succeededDuringThisScan = True
-              candidateStates.removeRow(rowIndex)
-            else:
-              print("Rejected shortened row: " + str(row.summarize()))
-              numFailures += 1
-              candidateStates.setRowDuration(rowIndex, duration)
-            # retest the column
-            column = candidateStates.getColumn(columnIndex)
-            if column.size() < 1:
-              print("Skipping empty column " + str(columnIndex))
-              candidateStates.setColumnDuration(columnIndex, None)
-              continue
-            print("")
-            print("Testing shortened column " + str(columnIndex))
-            (testResults, duration) = self.test(column)
-            if testResults:
-              print("Accepted shortened column: " + str(column.summarize()))
-              numSuccesses += 1
-              column.apply(self.bestState_path)
-              self.full_resetTo_state = self.full_resetTo_state.expandedWithEmptyEntriesFor(column).withConflictsFrom(column).withoutEmptyEntries()
-              # remove these changes from the set of changes to reconsider
-              self.targetState = self.targetState.withoutDuplicatesFrom(column)
-              self.resetTo_state = self.targetState.withConflictsFrom(self.resetTo_state)
-              succeededDuringThisScan = True
-              candidateStates.removeColumn(columnIndex)
-            else:
-              print("Rejected shortened column: " + str(column.summarize()))
-              numFailures += 1
-              candidateStates.setColumnDuration(columnIndex, duration)
-            print("")
-      # split the window into smaller pieces and continue
-      for i in range(candidateStates.getNumColumns()):
-        for j in range(candidateStates.getNumRows()):
-          files = candidateStates.getFiles(i, j)
-          if files.size() > 0:
-            unsolvedStates.append(files)
-      newBlocks = []
-      for block in unsolvedStates:
-        newBlocks += block.splitOnce()
-      print("Split " + str(len(unsolvedStates)) + " blocks into " + str(len(newBlocks)) + " blocks:")
-      targetNumBlocks = len(unsolvedStates) * 2
-      while len(newBlocks) < targetNumBlocks and len(newBlocks) < self.resetTo_state.size():
-        print("Not enough blocks (" + str(len(newBlocks)) + " < " + str(targetNumBlocks) + "), splitting directories again")
-        splitBlocks = []
-        for block in newBlocks:
-          splitBlocks += block.splitOnce()
-        newBlocks = splitBlocks
+            nextCandidateStates.append(blockState)
+
+            for dimension in range(box.getNumDimensions()):
+              index = coordinates[dimension]
+              sliceState = box.getSlice(dimension, index)
+              print("Testing slice at dimension " + str(dimension) + ", index " + str(index) + " : " + str(sliceState.summarize()))
+              if sliceState.size() < 1:
+                print("Skipping empty slice")
+                box.setSliceDuration(dimension, index, None)
+                continue
+              (testResults, duration) = self.test(sliceState)
+              if testResults:
+                print("Accepted shortened slice")
+                numSuccesses += 1
+                succeededDuringThisScan = True
+                box.removeSlice(dimension, index)
+              else:
+                print("Rejected shortened slice")
+                numFailures += 1
+                box.setSliceDuration(dimension, index, duration)
+
+        if stateIndex >= maxObservedStateIndex:
+          # If removing files from this box was successful, then removing other files from this box will probably be successful too
+          #if succeededDuringThisBox:
+          #  nextCandidateStates = box.getChildren() + nextCandidateStates
+          #else:
+          #  nextCandidateStates = nextCandidateStates + box.getChildren()
+          nextCandidateStates += box.getChildren()
+          #maxObservedStateIndex = stateIndex
+        #smallCandidateStates = []
+        #largeCandidateStates = []
+        #for state in nextCandidateStates:
+        #  children = state.getChildren()
+        #  box = boxFromList(children)
+        #  if len(children) < 2:
+        #    smallCandidateStates.append(box)
+        #  else:
+        #    largeCandidateStates.append(box)
+        #candidateStates = largeCandidateStates + candidateStates[1:] + smallCandidateStates
         
-      maxNumBlocksAllowed = candidateStates.getNumRows() * candidateStates.getNumColumns() * 32
-      while len(newBlocks) > maxNumBlocksAllowed:
-        print("Too many blocks (" + str(len(newBlocks)) + " > " + str(maxNumBlocksAllowed) + "), recombining some adjacent directories")
-        joinedBlocks = []
-        for i in range(0, len(newBlocks), 2):
-          block = newBlocks[i]
-          if i + 1 < len(newBlocks):
-            nextBlock = newBlocks[i + 1]
-            block = block.expandedWithEmptyEntriesFor(nextBlock).withConflictsFrom(nextBlock)
-          joinedBlocks.append(block)
-        newBlocks = joinedBlocks
-      for block in newBlocks:
-        print(block.summarize())
 
-      newHeight = int(math.ceil(math.sqrt(len(newBlocks))))
-      if candidateStates.getNumRows() * candidateStates.getNumColumns() * 2 >= self.resetTo_state.size():
-        # If we've already split down to the granularity of one file per block, then make sure to start increasing the number of columns to make sure we find the answer
-        targetHeight = candidateStates.getNumRows() * 2
-        targetWidth = candidateStates.getNumColumns() * 2
-        if targetWidth * targetHeight > self.resetTo_state.size():
-          print("targetWidth (" + str(targetWidth) + ") * targetHeight (" + str(targetHeight) + ") > resetTo_state.size() (" + str(self.resetTo_state.size()) + ")")
-          targetHeight = candidateStates.getNumRows() * 3
-        print("Trying to split a " + str(candidateStates.getNumColumns()) + "x" + str(candidateStates.getNumRows()) + " grid into " + str(targetHeight) + " rows")
-        if newHeight < targetHeight:
-          newHeight = targetHeight
-
-      if newHeight < 1:
-        newHeight = 1
-      if newHeight > len(newBlocks):
-        newHeight = len(newBlocks)
-      newWidth = int(math.ceil(float(len(newBlocks)) / float(newHeight)))
-      newHeight = int(math.ceil(float(len(newBlocks)) / float(newWidth)))
-      print("#####################################################################################################")
-      print("Arranging " + str(len(newBlocks)) + " blocks into a " + str(newWidth) + "x" + str(newHeight) + " grid")
-      newCandidateStates = FilesState_Grid(newWidth, newHeight)
-      x = 0
-      y = 0
-      numExtraBoxes = newWidth * newHeight - len(newBlocks)
-      for i in range(len(newBlocks)):
-        #print("Saving block " + str(i) + " at (" + str(x) + ", " + str(y) + ")")
-        newCandidateStates.putFiles(newBlocks[i], x, y)
-        x += 1
-        if x + y + 1 == numExtraBoxes:
-          x += 1
-        if x >= newWidth:
-          x = 0
-          y += 1
-
-      splitDuringThisScan = newCandidateStates.getNumRows() != candidateStates.getNumRows() or newCandidateStates.getNumColumns() != candidateStates.getNumColumns()
-      candidateStates = newCandidateStates
-      if not splitDuringThisScan and not succeededDuringThisScan:
+        stateIndex += 1
+        #if succeededDuringThisBox:
+        #  # If we were able to make a change in this directory, then it might unblock some other files in the same directories or nearby directories
+        #  decrement = int(math.log(len(candidateStates), 2))
+        #  if decrement > 2:
+        #    stateIndex -= decrement
+        #    if stateIndex < 0:
+        #      stateIndex = 0
+        #    print("Made some progress in the latest box; resetting stateIndex to " + str(stateIndex) + " in case some nearby files become unblocked")
+      newBoxes = []
+      nextCandidateStates = [block for block in nextCandidateStates if block.size() > 0]
+      for block in nextCandidateStates:
+        subBlocks = block.splitOnce()
+        box = boxFromList(subBlocks)
+        print("Split candidate " + str(block.summarize()) + " into box " + str(box.getDimensions()) + ". Contents: ")
+        for block in subBlocks:
+          print(block.summarize())
+        newBoxes.append(box)
+      print("Split " + str(len(nextCandidateStates)) + " blocks into " + str(len(newBoxes)) + " blocks:")
+      targetNumBlocks = len(candidateStates) * 2
+      if targetNumBlocks > self.resetTo_state.size() / 2:
+        targetNumBlocks = self.resetTo_state.size()
+      while len(newBoxes) < targetNumBlocks and len(newBoxes) < self.resetTo_state.size():
+        print("Not enough blocks (" + str(len(newBoxes)) + " < " + str(targetNumBlocks) + "), splitting directories again")
+        splitBlocks = []
+        for box in newBoxes:
+          for block in box.getChildren():
+            splitBlocks.append(boxFromList(block.splitOnce()))
+        newBoxes = splitBlocks
+      newBoxes = sorted(newBoxes, reverse=True, key=FilesState_HyperBox.getNumFiles)
+      if len(newBoxes) <= len(candidateStates) and not succeededDuringThisScan:
         break
+      candidateStates = newBoxes
+        
+      #maxNumBlocksAllowed = grid.getNumRows() * grid.getNumColumns() * 32
+      #while len(newGrids) > maxNumBlocksAllowed:
+      #  print("Too many blocks (" + str(len(newGrids)) + " > " + str(maxNumBlocksAllowed) + "), recombining some adjacent directories")
+      #  joinedBlocks = []
+      #  for i in range(0, len(newGrids), 2):
+      #    block = newGrids[i]
+      #    if i + 1 < len(newGrids):
+      #      nextBlock = newGrids[i + 1]
+      #      block = block.expandedWithEmptyEntriesFor(nextBlock).withConflictsFrom(nextBlock)
+      #    joinedBlocks.append(block)
+      #  newGrids = joinedBlocks
+      #for block in newGrids:
+      #  print(block.summarize())
+
+      #newHeight = int(math.ceil(math.sqrt(len(newGrids))))
+      #if grid.getNumRows() * grid.getNumColumns() * 2 >= self.resetTo_state.size():
+      #  # If we've already split down to the granularity of one file per block, then make sure to start increasing the number of columns to make sure we find the answer
+      #  targetHeight = grid.getNumRows() * 2
+      #  targetWidth = grid.getNumColumns() * 2
+      #  if targetWidth * targetHeight > self.resetTo_state.size():
+      #    print("targetWidth (" + str(targetWidth) + ") * targetHeight (" + str(targetHeight) + ") > resetTo_state.size() (" + str(self.resetTo_state.size()) + ")")
+      #    targetHeight = grid.getNumRows() * 3
+      #  print("Trying to split a " + str(grid.getNumColumns()) + "x" + str(grid.getNumRows()) + " grid into " + str(targetHeight) + " rows")
+      #  if newHeight < targetHeight:
+      #    newHeight = targetHeight
+
+      #if newHeight < 1:
+      #  newHeight = 1
+      #if newHeight > len(newGrids):
+      #  newHeight = len(newGrids)
+      #newWidth = int(math.ceil(float(len(newGrids)) / float(newHeight)))
+      #newHeight = int(math.ceil(float(len(newGrids)) / float(newWidth)))
+      #print("#####################################################################################################")
+      #print("Arranging " + str(len(newGrids)) + " blocks into a " + str(newWidth) + "x" + str(newHeight) + " grid")
+      #newCandidateStates = FilesState_Grid(newWidth, newHeight)
+      #x = 0
+      #y = 0
+      #numExtraBoxes = newWidth * newHeight - len(newGrids)
+      #for i in range(len(newGrids)):
+      #  #print("Saving block " + str(i) + " at (" + str(x) + ", " + str(y) + ")")
+      #  newCandidateStates.putFiles(newGrids[i], x, y)
+      #  x += 1
+      #  if x + y + 1 == numExtraBoxes:
+      #    x += 1
+      #  if x >= newWidth:
+      #    x = 0
+      #    y += 1
+
+      #splitDuringThisScan = newCandidateStates.getNumRows() != grid.getNumRows() or newCandidateStates.getNumColumns() != grid.getNumColumns()
+      #grid = newCandidateStates
+      #if not splitDuringThisScan and not succeededDuringThisScan:
+      #  break
 
     print("double-checking results")
     fileIo.removePath(self.workPath)
