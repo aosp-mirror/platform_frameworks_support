@@ -16,6 +16,24 @@
       "revId": "1a8eae71a197336eb0a38cf096fc140a3be9936e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e377634e_02aaffb5",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CaptureSession.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-05-10T09:33:49Z",
+      "side": 1,
+      "message": "There is a issue when we invoke the CheckedSurfaceTexture.getSurface() method after textureView.setSurfaceTexture() was called in Preview UI.\n\nThe issue flow is:\n(1) Preview UI invoked textureView.setSurfaceTexture() by using a new surfaceTexture to replace the old surfaceTexture (in checkedSurfaceTexture.getSurface()). \u003c\u003d This case would happen when switch extension mode.\n\n(2) After (1), the single request for disableSession() would fail (if we use the CheckedSurfaceTexture in the captureReuqest directly) since the configured surfaceTexture was already been rest.\n\nThe fail reason is:\nWhen we invoke CheckedSurfaceTexture.getSurface() to get the configured surface for the request. The isSurfaceTextureReleasing() method in CheckedSurfaceTexture.getSurface() would return true and resetSurfaceTexture() would be invoked .\n\nTo workaround this issue, I would avoid invoking checkedSurfaceTexture.getSurface() when we are going to fire the single request on disableSession(). \nI store all the surface instances for repeating request in mConfiguredRepeatingSurfaces. And the mConfiguredRepeatingSurfaces list would be used in the single request for enableSession/disableSession.\n\n------------------------------------------\nThe workaround would only collect all the repeating surfaces for the single request on enable/disable.\nBut aosp/955625 would use all configured surfaces on the request. \nIf we align the behavior with aosp/955625 to use all configured surfaces for our request, the workaround can be removed.",
+      "parentUuid": "ba0a40d6_0a47b443",
+      "revId": "1a8eae71a197336eb0a38cf096fc140a3be9936e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
