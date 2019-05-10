@@ -977,14 +977,15 @@ public abstract class SessionPlayer implements AutoCloseable {
             if (mId != other.mId) {
                 return false;
             }
-            if (mItem == null) {
-                if (other.mItem != null) {
-                    return false;
-                }
-            } else if (!mItem.equals(other.mItem)) {
+            if (mItem == null || other.mItem == null) {
                 return false;
+            } else {
+                String mediaId = mItem.getMediaId();
+                if (mediaId != null) {
+                    return mediaId.equals(other.mItem.getMediaId());
+                }
+                return mItem.equals(other.mItem);
             }
-            return true;
         }
     }
 
