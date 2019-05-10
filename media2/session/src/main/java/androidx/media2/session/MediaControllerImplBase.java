@@ -159,6 +159,11 @@ class MediaControllerImplBase implements MediaControllerImpl {
     @GuardedBy("mLock")
     private volatile IMediaSession mISession;
 
+    // TODO:
+    // Add hidden callback list
+    // Refactor invoking mCallback by adding a method
+    // Call hidden callbacks in the method
+    // So do ImplLegacy
     MediaControllerImplBase(Context context, MediaController instance, SessionToken token,
             @Nullable Bundle connectionHints, Executor executor, ControllerCallback callback) {
         mInstance = instance;
@@ -797,6 +802,17 @@ class MediaControllerImplBase implements MediaControllerImpl {
     @NonNull
     public MediaController getInstance() {
         return mInstance;
+    }
+
+    @Override
+    public void registerControllerCallback(@NonNull Executor executor,
+            @NonNull ControllerCallback callback) {
+        // TODO: SGM
+    }
+
+    @Override
+    public void unregisterControllerCallback(@NonNull ControllerCallback callback) {
+        // TODO: SGM
     }
 
     private boolean requestConnectToService() {

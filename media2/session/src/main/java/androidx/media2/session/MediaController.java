@@ -16,6 +16,7 @@
 
 package androidx.media2.session;
 
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 import static androidx.media2.common.SessionPlayer.BUFFERING_STATE_UNKNOWN;
 import static androidx.media2.common.SessionPlayer.PLAYER_STATE_IDLE;
@@ -1080,6 +1081,44 @@ public class MediaController implements AutoCloseable {
         mTimeDiff = timeDiff;
     }
 
+    /**
+     * Registers an additional {@link ControllerCallback}.
+     * @param executor a callback executor
+     * @param callback a ControllerCallback
+     * @see #unregisterControllerCallback(ControllerCallback)
+     *
+     * @hide
+     */
+    @RestrictTo(LIBRARY_GROUP)
+    public void registerControllerCallback(@NonNull /*@CallbackExecutor*/ Executor executor,
+            @NonNull ControllerCallback callback) {
+        if (executor == null) {
+            throw new NullPointerException("executor shouldn't be null");
+        }
+        if (callback == null) {
+            throw new NullPointerException("callback shouldn't be null");
+        }
+        getImpl().registerControllerCallback(executor, callback);
+    }
+
+    /**
+     * Unregisters an {@link ControllerCallback} that has been registered by
+     * {@link #registerControllerCallback(Executor, ControllerCallback)}.
+     * The callback passed to {@link Builder#setControllerCallback(Executor, ControllerCallback)}
+     * can not be unregistered by this method.
+     * @param callback a ControllerCallback
+     * @see #registerControllerCallback(Executor, ControllerCallback)
+     *
+     * @hide
+     */
+    @RestrictTo(LIBRARY_GROUP)
+    public void unregisterControllerCallback(@NonNull ControllerCallback callback) {
+        if (callback == null) {
+            throw new NullPointerException("callback shouldn't be null");
+        }
+        getImpl().unregisterControllerCallback(callback);
+    }
+
     private static ListenableFuture<SessionResult> createDisconnectedFuture() {
         return SessionResult.createFutureWithResult(
                 SessionResult.RESULT_ERROR_SESSION_DISCONNECTED);
@@ -1162,6 +1201,9 @@ public class MediaController implements AutoCloseable {
         @Nullable ControllerCallback getCallback();
         @Nullable Executor getCallbackExecutor();
         @Nullable MediaBrowserCompat getBrowserCompat();
+        void registerControllerCallback(@NonNull Executor executor,
+                @NonNull ControllerCallback callback);
+        void unregisterControllerCallback(@NonNull ControllerCallback callback);
     }
 
 
