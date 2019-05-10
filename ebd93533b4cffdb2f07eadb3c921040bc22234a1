@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c9f90a8d_87a6dfb7",
+        "filename": "appcompat/src/main/java/androidx/appcompat/app/AppCompatDelegateImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2955,
+      "author": {
+        "id": 1061051
+      },
+      "writtenOn": "2019-05-10T20:27:02Z",
+      "side": 1,
+      "message": "Should this be marked to be visible for tests only? If not, probably this will need an updateApi pass.",
+      "range": {
+        "startLine": 2955,
+        "startChar": 7,
+        "endLine": 2955,
+        "endChar": 31
+      },
+      "revId": "ebd93533b4cffdb2f07eadb3c921040bc22234a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
