@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2dbe0dba_a030dbfc",
+        "filename": "browser/src/main/java/androidx/browser/customtabs/CustomTabColorSchemeParams.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-05-10T16:43:16Z",
+      "side": 1,
+      "message": "Should this just be called CustomTabColorScheme? Params does not seem to add much.\n\nfinal?",
+      "range": {
+        "startLine": 31,
+        "startChar": 13,
+        "endLine": 31,
+        "endChar": 39
+      },
+      "revId": "92d4afcda18017b42f509c9b6950624c2bf4264d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed3d8f27_8db96a65",
+        "filename": "browser/src/main/java/androidx/browser/customtabs/CustomTabColorSchemeParams.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-05-10T16:43:16Z",
+      "side": 1,
+      "message": "@NonNull",
+      "range": {
+        "startLine": 48,
+        "startChar": 11,
+        "endLine": 48,
+        "endChar": 17
+      },
+      "revId": "92d4afcda18017b42f509c9b6950624c2bf4264d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ee152c9_cd562cf4",
+        "filename": "browser/src/main/java/androidx/browser/customtabs/CustomTabColorSchemeParams.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-05-10T16:43:16Z",
+      "side": 1,
+      "message": "Final?",
+      "range": {
+        "startLine": 89,
+        "startChar": 24,
+        "endLine": 89,
+        "endChar": 31
+      },
+      "revId": "92d4afcda18017b42f509c9b6950624c2bf4264d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef5fb3e2_7c4d14ca",
+        "filename": "browser/src/main/java/androidx/browser/customtabs/CustomTabColorSchemeParams.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-05-10T16:43:16Z",
+      "side": 1,
+      "message": "@ColorInt",
+      "range": {
+        "startLine": 97,
+        "startChar": 39,
+        "endLine": 97,
+        "endChar": 42
+      },
+      "revId": "92d4afcda18017b42f509c9b6950624c2bf4264d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "627cc060_ff3e3db3",
+        "filename": "browser/src/main/java/androidx/browser/customtabs/CustomTabColorSchemeParams.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-05-10T16:43:16Z",
+      "side": 1,
+      "message": "@ColorInt",
+      "range": {
+        "startLine": 106,
+        "startChar": 48,
+        "endLine": 106,
+        "endChar": 51
+      },
+      "revId": "92d4afcda18017b42f509c9b6950624c2bf4264d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
