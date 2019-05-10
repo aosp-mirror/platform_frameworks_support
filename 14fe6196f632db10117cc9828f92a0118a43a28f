@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "457d33de_44ad2d1b",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/SupportedSurfaceCombination.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 1482193
+      },
+      "writtenOn": "2019-05-10T10:28:12Z",
+      "side": 1,
+      "message": "Thanks Trevor for reviewing.\nI have separated the rearranging mechanism from this change.\nPlease help to review again. Thanks",
+      "parentUuid": "6de12a84_f6e026e2",
+      "range": {
+        "startLine": 336,
+        "startChar": 0,
+        "endLine": 343,
+        "endChar": 64
+      },
+      "revId": "14fe6196f632db10117cc9828f92a0118a43a28f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bd3ce314_14ba8309",
         "filename": "camera/core/src/main/java/androidx/camera/core/Preview.java",
         "patchSetId": 2
