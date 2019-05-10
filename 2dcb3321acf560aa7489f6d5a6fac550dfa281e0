@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d0d53175_42c72d55",
+        "filename": "appcompat/src/androidTest/java/androidx/appcompat/testutils/BaseTestActivity.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1061051
+      },
+      "writtenOn": "2019-05-10T14:02:33Z",
+      "side": 1,
+      "message": "Probably beyond the scope of this CL / refactoring, but this reads weird. There\u0027s an obvious side-effect of calling LocaleTestUtils.setLocale, and yet it\u0027s done on an object instance that is created here locally. So maybe as a longer term cleanup, LocaleTestUtils should be an object / singleton.",
+      "range": {
+        "startLine": 58,
+        "startChar": 8,
+        "endLine": 63,
+        "endChar": 9
+      },
+      "revId": "2dcb3321acf560aa7489f6d5a6fac550dfa281e0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
