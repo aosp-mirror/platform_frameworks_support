@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "162d9e28_c124c758",
+        "filename": "lifecycle/integration-tests/incrementality/src/test/kotlin/androidx/lifecycle/IncrementalAnnotationProcessingTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-05-10T18:15:58Z",
+      "side": 1,
+      "message": "Is there a way this version can be obtained from the project? Might not be a good idea to hardcode a version here.",
+      "range": {
+        "startLine": 99,
+        "startChar": 77,
+        "endLine": 99,
+        "endChar": 85
+      },
+      "revId": "fa4219928ab58234f7162dca168bb20a194e2a68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fcbe667c_bc2ed4cf",
         "filename": "lifecycle/integration-tests/incrementality/src/test/kotlin/androidx/lifecycle/IncrementalAnnotationProcessingTest.kt",
         "patchSetId": 17
@@ -49,6 +72,53 @@
     },
     {
       "key": {
+        "uuid": "a65d8ea6_c1a7ebad",
+        "filename": "lifecycle/integration-tests/incrementality/src/test/kotlin/androidx/lifecycle/IncrementalAnnotationProcessingTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-05-10T18:15:58Z",
+      "side": 1,
+      "message": "I feel it is still hard to read, use FileTime.toMillis() so that you can use isLessThan() and other Truth functions, there its quite a few toMillis() all around but it reads better.",
+      "parentUuid": "6e7efdd7_e63651ff",
+      "range": {
+        "startLine": 137,
+        "startChar": 40,
+        "endLine": 137,
+        "endChar": 49
+      },
+      "revId": "fa4219928ab58234f7162dca168bb20a194e2a68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b83ff2a_d4933c48",
+        "filename": "lifecycle/integration-tests/incrementality/src/test/kotlin/androidx/lifecycle/IncrementalAnnotationProcessingTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-05-10T18:15:58Z",
+      "side": 1,
+      "message": "Would be nice if this comes from the build.gradle props like prebuiltsRepo, just so that build infra refactors catch it more easily.",
+      "range": {
+        "startLine": 199,
+        "startChar": 25,
+        "endLine": 199,
+        "endChar": 70
+      },
+      "revId": "fa4219928ab58234f7162dca168bb20a194e2a68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6deb77c5_4714341a",
         "filename": "lifecycle/integration-tests/incrementality/src/test/kotlin/androidx/lifecycle/IncrementalAnnotationProcessingTest.kt",
         "patchSetId": 17
@@ -93,6 +163,30 @@
       "revId": "fa4219928ab58234f7162dca168bb20a194e2a68",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8e2ed35b_bd3aa335",
+        "filename": "lifecycle/integration-tests/incrementality/src/test/kotlin/androidx/lifecycle/IncrementalAnnotationProcessingTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-05-10T18:15:58Z",
+      "side": 1,
+      "message": "huh, in my IDE its correctly formatted, there should be one indentation lvl from the .getRes call.",
+      "parentUuid": "b4958695_3490074d",
+      "range": {
+        "startLine": 336,
+        "startChar": 16,
+        "endLine": 336,
+        "endChar": 29
+      },
+      "revId": "fa4219928ab58234f7162dca168bb20a194e2a68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
