@@ -247,6 +247,24 @@
     },
     {
       "key": {
+        "uuid": "ac1c3cfe_c15ff583",
+        "filename": "camera/core/src/main/java/androidx/camera/core/SessionConfig.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-10T00:20:29Z",
+      "side": 1,
+      "message": "Then lets remove the reference to CameraCaptureSession because that is camera2 specific.",
+      "parentUuid": "7e8c85b0_72537bf3",
+      "revId": "656a7d482c80d2713f897b7be8440a77eade1983",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "03fa7ddd_30dd141f",
         "filename": "camera/core/src/main/java/androidx/camera/core/SessionConfig.java",
         "patchSetId": 4
@@ -282,6 +300,24 @@
     },
     {
       "key": {
+        "uuid": "d3fbcf85_c000b830",
+        "filename": "camera/core/src/main/java/androidx/camera/core/SessionConfig.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-10T00:20:29Z",
+      "side": 1,
+      "message": "The purpose of the implementation options is that it is a set of generic options. If the caller of SessionConfig needs to know the difference between cameraOption and implementationOption then there is no longer generic.\n\nIt makes sense to split it out, if the CameraOptions were types that were defined in core so that you have a defined class which you pass as a parameter.",
+      "parentUuid": "0d4d35e6_fd61a3ff",
+      "revId": "656a7d482c80d2713f897b7be8440a77eade1983",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "877cdf0e_cacef663",
         "filename": "camera/core/src/main/java/androidx/camera/core/UseCase.java",
         "patchSetId": 4
@@ -311,6 +347,24 @@
       "side": 1,
       "message": "Ok, move to CaptureProcessor, and also change the AdaptingCaptureProcessor to forward the onResolutionUpdate and onImageFormatUpdate to ImageCaptureExtenderImpl.\nShould we also move onResolutionUpdate and onImageFormatUpdate interface from ImageCaptureExtenderImpl to CaptureProcessorImpl?",
       "parentUuid": "877cdf0e_cacef663",
+      "revId": "656a7d482c80d2713f897b7be8440a77eade1983",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3675c9c_d5c2241c",
+        "filename": "camera/core/src/main/java/androidx/camera/core/UseCase.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 539,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-10T00:20:29Z",
+      "side": 1,
+      "message": "That makes sense",
+      "parentUuid": "b2d9ce63_c4ce811c",
       "revId": "656a7d482c80d2713f897b7be8440a77eade1983",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
