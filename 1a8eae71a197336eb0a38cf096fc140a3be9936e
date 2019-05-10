@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba0a40d6_0a47b443",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CaptureSession.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-10T00:26:15Z",
+      "side": 1,
+      "message": "Can you explain what this workaround is for?\n\nAlso will it be necessary after the changes that are going to be made in aosp/955625 with mapping the surfaces instead of retrieving the Surface from DeferrableSurface each time?",
+      "revId": "1a8eae71a197336eb0a38cf096fc140a3be9936e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
