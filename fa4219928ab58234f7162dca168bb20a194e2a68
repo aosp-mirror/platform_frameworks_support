@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "49ac8e1d_35ae15dc",
+        "filename": "lifecycle/integration-tests/incrementality/src/test/kotlin/androidx/lifecycle/IncrementalAnnotationProcessingTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1323892
+      },
+      "writtenOn": "2019-05-10T22:43:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "162d9e28_c124c758",
+      "range": {
+        "startLine": 99,
+        "startChar": 77,
+        "endLine": 99,
+        "endChar": 85
+      },
+      "revId": "fa4219928ab58234f7162dca168bb20a194e2a68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fcbe667c_bc2ed4cf",
         "filename": "lifecycle/integration-tests/incrementality/src/test/kotlin/androidx/lifecycle/IncrementalAnnotationProcessingTest.kt",
         "patchSetId": 17
@@ -96,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "81fa7d85_7aa02eac",
+        "filename": "lifecycle/integration-tests/incrementality/src/test/kotlin/androidx/lifecycle/IncrementalAnnotationProcessingTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1323892
+      },
+      "writtenOn": "2019-05-10T22:43:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a65d8ea6_c1a7ebad",
+      "range": {
+        "startLine": 137,
+        "startChar": 40,
+        "endLine": 137,
+        "endChar": 49
+      },
+      "revId": "fa4219928ab58234f7162dca168bb20a194e2a68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6b83ff2a_d4933c48",
         "filename": "lifecycle/integration-tests/incrementality/src/test/kotlin/androidx/lifecycle/IncrementalAnnotationProcessingTest.kt",
         "patchSetId": 17
@@ -116,6 +164,30 @@
       "revId": "fa4219928ab58234f7162dca168bb20a194e2a68",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7aba33c3_777e8bd8",
+        "filename": "lifecycle/integration-tests/incrementality/src/test/kotlin/androidx/lifecycle/IncrementalAnnotationProcessingTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1323892
+      },
+      "writtenOn": "2019-05-10T22:43:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6b83ff2a_d4933c48",
+      "range": {
+        "startLine": 199,
+        "startChar": 25,
+        "endLine": 199,
+        "endChar": 70
+      },
+      "revId": "fa4219928ab58234f7162dca168bb20a194e2a68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -187,6 +259,30 @@
       "revId": "fa4219928ab58234f7162dca168bb20a194e2a68",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c01d57de_a6347662",
+        "filename": "lifecycle/integration-tests/incrementality/src/test/kotlin/androidx/lifecycle/IncrementalAnnotationProcessingTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 1323892
+      },
+      "writtenOn": "2019-05-10T22:43:41Z",
+      "side": 1,
+      "message": "Thanks for pointing out the specific indentation location. I didn\u0027t realize the problem came from .getRes call.",
+      "parentUuid": "8e2ed35b_bd3aa335",
+      "range": {
+        "startLine": 336,
+        "startChar": 16,
+        "endLine": 336,
+        "endChar": 29
+      },
+      "revId": "fa4219928ab58234f7162dca168bb20a194e2a68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
