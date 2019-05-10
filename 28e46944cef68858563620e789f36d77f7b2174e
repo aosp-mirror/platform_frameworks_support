@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "b4be0d7c_04af45a3",
+        "filename": "browser/src/main/java/androidx/browser/customtabs/CustomTabColorSchemeParams.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1493640
+      },
+      "writtenOn": "2019-05-10T11:19:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "65d77627_a4e70a11",
+      "revId": "28e46944cef68858563620e789f36d77f7b2174e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9cb382bf_3e57ce74",
         "filename": "browser/src/main/java/androidx/browser/customtabs/CustomTabColorSchemeParams.java",
         "patchSetId": 7
@@ -30,6 +48,30 @@
       "writtenOn": "2019-05-10T00:47:10Z",
       "side": 1,
       "message": "This method feels a bit weird to me - it\u0027s called \"apply\" which to me means \"do something to the current object\", but we\u0027re returning a new object.\n\nMaybe there\u0027s a better name for this method, or maybe it would make more sense for this to be a static method that took a potentially empty scheme and the defaults and combined them.",
+      "range": {
+        "startLine": 80,
+        "startChar": 38,
+        "endLine": 80,
+        "endChar": 51
+      },
+      "revId": "28e46944cef68858563620e789f36d77f7b2174e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a894871a_f2c8ce3f",
+        "filename": "browser/src/main/java/androidx/browser/customtabs/CustomTabColorSchemeParams.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1493640
+      },
+      "writtenOn": "2019-05-10T11:19:19Z",
+      "side": 1,
+      "message": "I think \"withDefaults\" would be aligned with conventions here.\nFor example, see AutoValue: https://github.com/google/auto/blob/master/value/userguide/builders-howto.md#-include-with--methods-on-my-value-class-for-creating-slightly-altered-instances\n\nA static method is of course an option, but a more verbose one.",
+      "parentUuid": "9cb382bf_3e57ce74",
       "range": {
         "startLine": 80,
         "startChar": 38,
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "69253220_f9558767",
+        "filename": "browser/src/main/java/androidx/browser/customtabs/CustomTabsIntent.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 610,
+      "author": {
+        "id": 1493640
+      },
+      "writtenOn": "2019-05-10T11:19:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "724d0341_0daf938c",
+      "range": {
+        "startLine": 610,
+        "startChar": 36,
+        "endLine": 610,
+        "endChar": 46
+      },
+      "revId": "28e46944cef68858563620e789f36d77f7b2174e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "04e65294_6efaa3b8",
         "filename": "browser/src/main/java/androidx/browser/customtabs/CustomTabsIntent.java",
         "patchSetId": 7
@@ -88,6 +154,30 @@
     },
     {
       "key": {
+        "uuid": "0dcd0c20_ca9671a7",
+        "filename": "browser/src/main/java/androidx/browser/customtabs/CustomTabsIntent.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 619,
+      "author": {
+        "id": 1493640
+      },
+      "writtenOn": "2019-05-10T11:19:19Z",
+      "side": 1,
+      "message": "The second point is unnecessary. \nI have recently added a section about backwards compatibility to the doc, where I discuss why I think this is the least of evils. There I compare to treating light scheme params as defaults. Using the first scheme provided as defaults would have an additional layer of confusion, where changing the order two setter calls on a builder would change the result.",
+      "parentUuid": "04e65294_6efaa3b8",
+      "range": {
+        "startLine": 618,
+        "startChar": 11,
+        "endLine": 619,
+        "endChar": 20
+      },
+      "revId": "28e46944cef68858563620e789f36d77f7b2174e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fbd546fa_7739f778",
         "filename": "buildSrc/src/main/kotlin/androidx/build/LibraryVersions.kt",
         "patchSetId": 7
@@ -99,6 +189,30 @@
       "writtenOn": "2019-05-10T00:47:10Z",
       "side": 1,
       "message": "You\u0027re making a (non-breaking) change to the API, that means an increase to the minor version number (so 1.3.0-alpha01), right?",
+      "range": {
+        "startLine": 34,
+        "startChar": 27,
+        "endLine": 34,
+        "endChar": 32
+      },
+      "revId": "28e46944cef68858563620e789f36d77f7b2174e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cdbc170e_e884f9af",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/LibraryVersions.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1493640
+      },
+      "writtenOn": "2019-05-10T11:19:19Z",
+      "side": 1,
+      "message": "I\u0027m planning to follow this up with adding a couple other scheme-dependent parameters that were requested. I think it would make sense to group them into a single minor release, like setColorScheme was combined with deprecating browser actions.",
+      "parentUuid": "fbd546fa_7739f778",
       "range": {
         "startLine": 34,
         "startChar": 27,
