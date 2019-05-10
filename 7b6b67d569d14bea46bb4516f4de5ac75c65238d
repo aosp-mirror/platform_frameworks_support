@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "98f91824_60ddef3b",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/ImageAnalysisTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-05-10T21:24:20Z",
+      "side": 1,
+      "message": "It is not documented but it\u0027s our current behavior. \nI will change the test once we\u0027v done the change to allow use case re-use.",
+      "parentUuid": "d750c807_b509cad2",
+      "revId": "7b6b67d569d14bea46bb4516f4de5ac75c65238d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "354356ce_49a44c17",
         "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/Camera2ImplCameraXTest.java",
         "patchSetId": 2
@@ -33,6 +51,24 @@
       "revId": "7b6b67d569d14bea46bb4516f4de5ac75c65238d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a705d43_98c280ef",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/Camera2ImplCameraXTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-05-10T21:24:20Z",
+      "side": 1,
+      "message": "Done.  Adding a new test to do that .",
+      "parentUuid": "354356ce_49a44c17",
+      "revId": "7b6b67d569d14bea46bb4516f4de5ac75c65238d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "4f0c7235_5e68882e",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/CameraImplTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-05-10T21:24:20Z",
+      "side": 1,
+      "message": "Removed the mPendingForAddOnline verification",
+      "parentUuid": "968ea65b_fba75e31",
+      "revId": "7b6b67d569d14bea46bb4516f4de5ac75c65238d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "47ade9f3_1ed6a429",
         "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/CameraImplTest.java",
         "patchSetId": 2
@@ -67,6 +121,24 @@
       "revId": "7b6b67d569d14bea46bb4516f4de5ac75c65238d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61ba1896_66c3bc39",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/CameraImplTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-05-10T21:24:20Z",
+      "side": 1,
+      "message": "Removed the mPendingForAddOnline verification",
+      "parentUuid": "47ade9f3_1ed6a429",
+      "revId": "7b6b67d569d14bea46bb4516f4de5ac75c65238d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "24e31d18_3326f505",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/CameraImplTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-05-10T21:24:20Z",
+      "side": 1,
+      "message": "Removed the mPendingForAddOnline verification",
+      "parentUuid": "1523c1d1_290ead60",
+      "revId": "7b6b67d569d14bea46bb4516f4de5ac75c65238d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "47ffaf2f_60cc54f1",
         "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/CameraImplTest.java",
         "patchSetId": 2
@@ -101,6 +191,24 @@
       "revId": "7b6b67d569d14bea46bb4516f4de5ac75c65238d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b11aa69_06442d47",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/CameraImplTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-05-10T21:24:20Z",
+      "side": 1,
+      "message": "Removed the mPendingForAddOnline verification",
+      "parentUuid": "47ffaf2f_60cc54f1",
+      "revId": "7b6b67d569d14bea46bb4516f4de5ac75c65238d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "8c85d7c9_fa19af4a",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/CameraImplTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-05-10T21:24:20Z",
+      "side": 1,
+      "message": "Removed the mPendingForAddOnline verification",
+      "parentUuid": "fae29561_3ff01467",
+      "revId": "7b6b67d569d14bea46bb4516f4de5ac75c65238d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f0187f7a_3d59e18f",
         "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/CameraImplTest.java",
         "patchSetId": 2
@@ -135,6 +261,24 @@
       "revId": "7b6b67d569d14bea46bb4516f4de5ac75c65238d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d17372b7_822f3c02",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/CameraImplTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-05-10T21:24:20Z",
+      "side": 1,
+      "message": "Removed the mPendingForAddOnline verification",
+      "parentUuid": "f0187f7a_3d59e18f",
+      "revId": "7b6b67d569d14bea46bb4516f4de5ac75c65238d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -155,6 +299,24 @@
     },
     {
       "key": {
+        "uuid": "f96d2bdb_e7d7dd33",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/CameraImplTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-05-10T21:24:20Z",
+      "side": 1,
+      "message": "Removed the mPendingForAddOnline verification",
+      "parentUuid": "031374b5_8dfef661",
+      "revId": "7b6b67d569d14bea46bb4516f4de5ac75c65238d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "503c8527_bf9a44c1",
         "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/CameraImplTest.java",
         "patchSetId": 2
@@ -169,6 +331,24 @@
       "revId": "7b6b67d569d14bea46bb4516f4de5ac75c65238d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1cb662fc_46487235",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/CameraImplTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-05-10T21:24:20Z",
+      "side": 1,
+      "message": "Removed the mPendingForAddOnline verification",
+      "parentUuid": "503c8527_bf9a44c1",
+      "revId": "7b6b67d569d14bea46bb4516f4de5ac75c65238d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
