@@ -151,13 +151,13 @@ class BenchmarkRule : TestRule {
     override fun apply(base: Statement, description: Description): Statement {
         return RuleChain
             .outerRule(GrantPermissionRule.grant(Manifest.permission.WRITE_EXTERNAL_STORAGE))
-            .around { base, description ->
+            .around { previousStatement, previousDescription ->
                 object : Statement() {
                     @Throws(Throwable::class)
                     override fun evaluate() {
                         applied = true
-                        var invokeMethodName = description.methodName
-                        Log.i(TAG, "Running ${description.className}#$invokeMethodName")
+                        var invokeMethodName = previousDescription.methodName
+                        Log.i(TAG, "Running ${previousDescription.className}#$invokeMethodName")
 
                         // validate and simplify the function name.
                         // First, remove the "test" prefix which normally comes from CTS test.
@@ -182,16 +182,16 @@ class BenchmarkRule : TestRule {
                             )
                         }
 
-                        base.evaluate()
+                        previousStatement.evaluate()
 
                         val fullTestName = WarningState.WARNING_PREFIX +
-                                description.testClass.simpleName + "." + invokeMethodName
+                                previousDescription.testClass.simpleName + "." + invokeMethodName
                         internalState.sendStatus(fullTestName)
 
                         ResultWriter.appendStats(
                             internalState.getReport(
                                 testName = WarningState.WARNING_PREFIX + invokeMethodName,
-                                className = description.className
+                                className = previousDescription.className
                             )
                         )
                     }

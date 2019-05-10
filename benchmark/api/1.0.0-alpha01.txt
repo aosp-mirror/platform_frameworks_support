@@ -7,7 +7,7 @@ package androidx.benchmark {
 
   public final class BenchmarkRule implements org.junit.rules.TestRule {
     ctor public BenchmarkRule();
-    method public org.junit.runners.model.Statement apply(org.junit.runners.model.Statement base, org.junit.runner.Description description);
+    method public org.junit.runners.model.Statement apply(org.junit.runners.model.Statement baseStatement, org.junit.runner.Description baseDescription);
     method public androidx.benchmark.BenchmarkState getState();
   }
 
