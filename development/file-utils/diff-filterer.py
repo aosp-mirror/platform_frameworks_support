@@ -433,6 +433,36 @@ class FilesState_HyperBoxNode(object):
         result = result.expandedWithEmptyEntriesFor(childResult).withConflictsFrom(childResult)
     return result
 
+# Essentially a state machine that tests a FilesState_HyperBoxNode
+class BoxRunner(object):
+  def __init__(self, box):
+    self.box = box
+    self.dimension = 0
+    self.index = box.getSize(0) - 1
+    self.timingDimension = None
+
+  def isDoingTimingAnalysis(self):
+    return self.timingDimension is not None
+
+  def getNextFiles(self):
+    if not self.isDoingTimingAnalysis():
+      return self.getFullSliceFiles()
+    return self.getTimingFiles()
+
+  def getFullSliceFiles(self):
+    sliceState = self.box.getSlice(self.dimension, self.index)
+    self.index += 1
+    if self.index < 0:
+      self.dimension += 1
+      if self.dimension < self.box.getNumDimensions():
+        self.index = self.box.getSize(self.dimension) - 1
+      else:
+        self.dimension = None
+        self.timingDimension = 0
+    return sliceState
+    
+
+
 class FilesState_LeafBox(object):
   def __init__(self):
     self.files = FilesState()
@@ -568,6 +598,72 @@ def boxFromList(fileStates):
     tree.setFiles(coordinates, state)
     coordinates = tree.incrementCoordinates(coordinates)
   return tree
+
+# runs a ShellScript in this process and write the result to <pipe> when done
+def runScriptInSameProcess(shellScript, pipe):
+  start = datetime.datetime.now()
+  returnCode = shellScript.process()
+  duration = datetime.datetime.now() - start
+  pipe.write((identifier, returnCode, duration))
+
+# runs a ShellScript in another process and returns a Connection that will store the results when done
+def runScriptInOtherProcess(shellScript, identifier):
+  parentConnection, childConnection = Pipe()
+  process = Process(target=runScriptInSameProcess, args=(shellScript, childConnection, identifier,))
+  process.start()
+  return parentConnection
+
+# Stores a subprocess for running tests and some information about which tests to run
+class Job(object):
+  def __init__(self, testScript, baseState, candidateBox, identifier):
+    self.testScript = testScript
+    self.resetTo_state = baseState
+    # all of the files that we've found so far that we can add
+    self.acceptedState = FilesState()
+    # HyperBox of all of the possible changes we're considering
+    self.candidateBox = candidateBox
+    # FilesState telling the current set of files that we're testing modifying
+    self.currentTestState = None
+    self.busy = False
+    self.complete = False
+    self.pipe = None
+    self.identifier = identifier
+
+  # tells whether this job is actively using CPU
+  # the job will periodically pause itself and need to be resumed, to make it easy to terminate it early if needed
+  def isBusy(self):
+    return self.pipe is not None
+
+  def start(self):
+    if self.isBusy():
+      return None
+    self.pipe = runScriptInOtherProcess(self.testScript, self.identifier)
+    return self.pipe
+
+  def madeProgress(self):
+    return self.acceptedState.size() > 0
+
+  # tells whether this job
+  def isComplete(self):
+    return self.complete
+
+  def getAcceptedState(self):
+    return self.acceptedState
+
+  # specifies that this job should stop (once its children have stopped)
+  def cancel(self):
+    self.complete = True
+
+  def onStatus(self, status):
+    self.stepState(status)
+    self.pipe = None
+
+  def stepState(self, status)
+    if status.returnCode == 0:
+      self.acceptedState = self.acceptedState.expandedWithEmptyEntriesFor(self.currentTestState).withConflictsFrom(self.currentTestState)
+
+  
+
 
 # Runner class that determines which diffs between two directories cause the given shell command to fail
 class DiffRunner(object):
