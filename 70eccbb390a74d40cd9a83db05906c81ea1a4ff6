@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e487595b_34d3e945",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CaptureBundle.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-10T20:44:39Z",
+      "side": 1,
+      "message": "Lets keep it as Scope.LIBRARY_GROUP instead of RestrictTo.Scope.LIBRARY_GROUP for sake of consistency across the library.",
+      "revId": "70eccbb390a74d40cd9a83db05906c81ea1a4ff6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e0f80f0_555c3f81",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CaptureBundles.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-10T20:44:39Z",
+      "side": 1,
+      "message": "Lets make this restricted to LIBRARY_GROUP",
+      "revId": "70eccbb390a74d40cd9a83db05906c81ea1a4ff6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca1a9e50_2865a276",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CaptureProcessor.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-10T20:44:39Z",
+      "side": 1,
+      "message": "We should be clear if it is just the input that is updated (or if this should be both input and output.\n\nThis will be invoked when the configured surface resolution is updated.\n-\u003e\nThis will be invoked when the input surface resolution is updated.",
+      "revId": "70eccbb390a74d40cd9a83db05906c81ea1a4ff6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7444444f_dba6abf0",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/ImageCaptureExtender.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-10T20:44:39Z",
+      "side": 1,
+      "message": "Is there a reason that we run onDeinit() on the mainThread, but not onInit()?\n\nOr is it because onBind gets called in bindOnLifecycle which is run on the main thread?\n\nIf it is a requirement that onInit() and onDeInit() both need to run on the main thread we should either protect both or annotate onBind() and onUnbind() both as @MainThread. Because we shouldn\u0027t make the assumption about whether or not onBind/onUnbind gets called on that main thread.",
+      "revId": "70eccbb390a74d40cd9a83db05906c81ea1a4ff6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff92272c_76e0ab4b",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/PreviewExtender.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-10T20:44:39Z",
+      "side": 1,
+      "message": "Is there a reason that we run onDeinit() on the mainThread, but not onInit()?\n\nOr is it because onBind gets called in bindOnLifecycle which is run on the main thread?\n\nIf it is a requirement that onInit() and onDeInit() both need to run on the main thread we should either protect both or annotate onBind() and onUnbind() both as @MainThread. Because we shouldn\u0027t make the assumption about whether or not onBind/onUnbind gets called on that main thread.",
+      "revId": "70eccbb390a74d40cd9a83db05906c81ea1a4ff6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
