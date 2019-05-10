@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "68a77b7d_e0d9cf6d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-05-10T01:38:25Z",
+      "side": 1,
+      "message": "Please start a new sentence, separately from the subject.",
+      "revId": "568f4657378497ef03e729e42b0eaf4487962ab3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

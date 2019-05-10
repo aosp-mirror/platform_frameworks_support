@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "86678bdc_4db9d13c",
+        "filename": "media2/common/src/main/java/androidx/media2/common/VideoSize.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-05-10T01:38:25Z",
+      "side": 1,
+      "message": "minor) you can remove \u003c/p\u003e",
+      "range": {
+        "startLine": 69,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 11
+      },
+      "revId": "e9276d922a6da5306a1f9a817905bcfb9633ddd9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
