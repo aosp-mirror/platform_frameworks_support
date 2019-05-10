@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "310f6583_56d060f4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-05-10T04:28:58Z",
+      "side": 1,
+      "message": "Nit) It would be better to use new sentence, not continuing from the title. Just my two cents.",
+      "revId": "be1a0faae584fd0065fa785e71787b5902f7895e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
