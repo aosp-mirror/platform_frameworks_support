@@ -226,6 +226,30 @@
     },
     {
       "key": {
+        "uuid": "b148a431_b5749652",
+        "filename": "browser/src/main/java/androidx/browser/customtabs/CustomTabsIntent.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 619,
+      "author": {
+        "id": 1493640
+      },
+      "writtenOn": "2019-05-10T17:26:45Z",
+      "side": 1,
+      "message": "Done, but kept COLOR_SCHEME_SYSTEM line. Hopefully, it will help to make clear the difference between schemes passed into setColorScheme and into setColorSchemeParams.",
+      "parentUuid": "d3d6db15_fadca941",
+      "range": {
+        "startLine": 618,
+        "startChar": 11,
+        "endLine": 619,
+        "endChar": 20
+      },
+      "revId": "28e46944cef68858563620e789f36d77f7b2174e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fbd546fa_7739f778",
         "filename": "buildSrc/src/main/kotlin/androidx/build/LibraryVersions.kt",
         "patchSetId": 7
