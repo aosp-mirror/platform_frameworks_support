@@ -71,6 +71,7 @@ SAVED="`pwd`"
 cd "`dirname \"$PRG\"`/" >/dev/null
 APP_HOME="`pwd -P`"
 cd "$SAVED" >/dev/null
+echo "`pwd -P`"
 
 CLASSPATH=$APP_HOME/gradle/wrapper/gradle-wrapper.jar
 
