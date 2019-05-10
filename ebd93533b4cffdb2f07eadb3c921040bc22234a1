@@ -70,6 +70,30 @@
       "revId": "ebd93533b4cffdb2f07eadb3c921040bc22234a1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a3f4089_7e6056ee",
+        "filename": "appcompat/src/main/java/androidx/appcompat/app/AppCompatDelegateImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2955,
+      "author": {
+        "id": 1018893
+      },
+      "writtenOn": "2019-05-10T20:41:23Z",
+      "side": 1,
+      "message": "Yep",
+      "parentUuid": "71e1c929_88578ccf",
+      "range": {
+        "startLine": 2955,
+        "startChar": 7,
+        "endLine": 2955,
+        "endChar": 31
+      },
+      "revId": "ebd93533b4cffdb2f07eadb3c921040bc22234a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
