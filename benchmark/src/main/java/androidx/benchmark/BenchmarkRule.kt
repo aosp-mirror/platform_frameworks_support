@@ -148,10 +148,10 @@ class BenchmarkRule : TestRule {
         }
     }
 
-    override fun apply(base: Statement, description: Description): Statement {
+    override fun apply(baseStatement: Statement, baseDescription: Description): Statement {
         return RuleChain
             .outerRule(GrantPermissionRule.grant(Manifest.permission.WRITE_EXTERNAL_STORAGE))
-            .around { base, description ->
+            .around { statement, description ->
                 object : Statement() {
                     @Throws(Throwable::class)
                     override fun evaluate() {
@@ -182,7 +182,7 @@ class BenchmarkRule : TestRule {
                             )
                         }
 
-                        base.evaluate()
+                        statement.evaluate()
 
                         val fullTestName = WarningState.WARNING_PREFIX +
                                 description.testClass.simpleName + "." + invokeMethodName
@@ -197,7 +197,7 @@ class BenchmarkRule : TestRule {
                     }
                 }
             }
-            .apply(base, description)
+            .apply(baseStatement, baseDescription)
     }
 
     internal companion object {
