@@ -84,6 +84,30 @@
     },
     {
       "key": {
+        "uuid": "c844598c_a7f4d13d",
+        "filename": "browser/src/main/java/androidx/browser/customtabs/CustomTabColorSchemeParams.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1101504
+      },
+      "writtenOn": "2019-05-10T16:45:24Z",
+      "side": 1,
+      "message": "That\u0027s a useful doc, thanks for sharing.\n\nYes, withDefaults sounds much better.",
+      "parentUuid": "a894871a_f2c8ce3f",
+      "range": {
+        "startLine": 80,
+        "startChar": 38,
+        "endLine": 80,
+        "endChar": 51
+      },
+      "revId": "28e46944cef68858563620e789f36d77f7b2174e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "724d0341_0daf938c",
         "filename": "browser/src/main/java/androidx/browser/customtabs/CustomTabsIntent.java",
         "patchSetId": 7
@@ -178,6 +202,30 @@
     },
     {
       "key": {
+        "uuid": "d3d6db15_fadca941",
+        "filename": "browser/src/main/java/androidx/browser/customtabs/CustomTabsIntent.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 619,
+      "author": {
+        "id": 1101504
+      },
+      "writtenOn": "2019-05-10T16:45:24Z",
+      "side": 1,
+      "message": "That makes sense.\n\nCould we add the \"Option 2\" code sample from your doc to the javadoc somewhere (making note that defaultToolbarColor \u003d\u003d lightToolbarColor and potentially omitting the COLOR_SCHEME_SYSTEM line).",
+      "parentUuid": "0dcd0c20_ca9671a7",
+      "range": {
+        "startLine": 618,
+        "startChar": 11,
+        "endLine": 619,
+        "endChar": 20
+      },
+      "revId": "28e46944cef68858563620e789f36d77f7b2174e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fbd546fa_7739f778",
         "filename": "buildSrc/src/main/kotlin/androidx/build/LibraryVersions.kt",
         "patchSetId": 7
@@ -213,6 +261,30 @@
       "side": 1,
       "message": "I\u0027m planning to follow this up with adding a couple other scheme-dependent parameters that were requested. I think it would make sense to group them into a single minor release, like setColorScheme was combined with deprecating browser actions.",
       "parentUuid": "fbd546fa_7739f778",
+      "range": {
+        "startLine": 34,
+        "startChar": 27,
+        "endLine": 34,
+        "endChar": 32
+      },
+      "revId": "28e46944cef68858563620e789f36d77f7b2174e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76da82d2_aa5ca305",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/LibraryVersions.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1101504
+      },
+      "writtenOn": "2019-05-10T16:45:24Z",
+      "side": 1,
+      "message": "In that case, I think we should @hide all the new APIs you\u0027re adding here so we can get the code in, and reveal all at once in a single CL.\n\nAurimas, is this the correct way to do things?",
+      "parentUuid": "cdbc170e_e884f9af",
       "range": {
         "startLine": 34,
         "startChar": 27,
