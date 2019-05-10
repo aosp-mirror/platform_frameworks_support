@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ae74bd6f_98663c3d",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/RoomProcessor.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1101693
+      },
+      "writtenOn": "2019-05-10T15:03:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bbc51dc0_b4f19eeb",
+      "range": {
+        "startLine": 71,
+        "startChar": 15,
+        "endLine": 72,
+        "endChar": 87
+      },
+      "revId": "afdf70af747818d797617e123f0cae4d4b91445d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2757cfb7_30d5c784",
         "filename": "room/compiler/src/main/kotlin/androidx/room/RoomProcessor.kt",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2019-05-09T16:49:28Z",
       "side": 1,
       "message": "what if developer uses 3.4 ?",
+      "range": {
+        "startLine": 98,
+        "startChar": 57,
+        "endLine": 98,
+        "endChar": 66
+      },
+      "revId": "afdf70af747818d797617e123f0cae4d4b91445d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4377fcd1_471100b1",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/RoomProcessor.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1101693
+      },
+      "writtenOn": "2019-05-10T15:03:36Z",
+      "side": 1,
+      "message": "Then Room won\u0027t be incremental, and we\u0027ll print out a message asking them to use 3.5 (line 60 above).",
+      "parentUuid": "2757cfb7_30d5c784",
       "range": {
         "startLine": 98,
         "startChar": 57,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "946609df_7fedde29",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/RoomProcessor.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1101693
+      },
+      "writtenOn": "2019-05-10T15:03:36Z",
+      "side": 1,
+      "message": "I\u0027ve updated the code to remove !! and added parentheses.",
+      "parentUuid": "03234e48_748fc5ee",
+      "range": {
+        "startLine": 100,
+        "startChar": 63,
+        "endLine": 100,
+        "endChar": 69
+      },
+      "revId": "afdf70af747818d797617e123f0cae4d4b91445d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5ea5aef3_34870443",
         "filename": "room/compiler/src/main/kotlin/androidx/room/writer/DaoWriter.kt",
         "patchSetId": 1
@@ -82,6 +154,30 @@
       "writtenOn": "2019-05-09T16:49:28Z",
       "side": 1,
       "message": "i thought javapoet did this automatically.",
+      "range": {
+        "startLine": 95,
+        "startChar": 12,
+        "endLine": 95,
+        "endChar": 33
+      },
+      "revId": "afdf70af747818d797617e123f0cae4d4b91445d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f80b7cd6_f887f710",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/writer/DaoWriter.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1101693
+      },
+      "writtenOn": "2019-05-10T15:03:36Z",
+      "side": 1,
+      "message": "I don\u0027t see it from reading their code. It provides the API (https://github.com/square/javapoet/blob/master/src/main/java/com/squareup/javapoet/TypeSpec.java#L614) so it\u0027s probably meant to be done by the caller.",
+      "parentUuid": "5ea5aef3_34870443",
       "range": {
         "startLine": 95,
         "startChar": 12,
