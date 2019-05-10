@@ -1,0 +1,147 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1030cb92_2a1e1cbb",
+        "filename": "car/core/src/main/java/androidx/car/app/CarMultipleChoiceDialog.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-05-10T22:25:14Z",
+      "side": 1,
+      "message": "Also call out that a positive button is reuqired.",
+      "revId": "967d6664f144867d358586e8b28a7d9fb43242d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d308e650_6dfa4019",
+        "filename": "car/core/src/main/java/androidx/car/app/CarMultipleChoiceDialog.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-05-10T22:25:14Z",
+      "side": 1,
+      "message": "Hm just noticed this is spelled wrong :)",
+      "range": {
+        "startLine": 109,
+        "startChar": 39,
+        "endLine": 109,
+        "endChar": 58
+      },
+      "revId": "967d6664f144867d358586e8b28a7d9fb43242d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "abd0a2d6_b39b770f",
+        "filename": "car/core/src/main/java/androidx/car/app/CarMultipleChoiceDialog.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-05-10T22:25:14Z",
+      "side": 1,
+      "message": "What about having a field in this class for if it\u0027s checked or not? That way you don\u0027t need to have a separate array to keep track.\n\nI think it\u0027s an awkward API to pass \"null\" to mean nothing is checked. Rather, the Item itself should encapsulate all that info.",
+      "revId": "967d6664f144867d358586e8b28a7d9fb43242d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f1b3aa03_9de57d06",
+        "filename": "car/core/src/main/java/androidx/car/app/CarMultipleChoiceDialog.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-05-10T22:25:14Z",
+      "side": 1,
+      "message": "I feel passing an list of checked positions is a better API. What you think?\n\n  onClick(DialogInterface dialog, List\u003cInteger\u003e checkedPositions);\n\nFeel free to use an int[] if you prefer.\n\nThe existing API passes position, although it\u0027s invoked each time an item is clicked (https://developer.android.com/reference/android/content/DialogInterface.OnMultiChoiceClickListener).",
+      "range": {
+        "startLine": 286,
+        "startChar": 63,
+        "endLine": 286,
+        "endChar": 85
+      },
+      "revId": "967d6664f144867d358586e8b28a7d9fb43242d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1555bc3_53c04100",
+        "filename": "car/core/src/main/java/androidx/car/app/CarMultipleChoiceDialog.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-05-10T22:25:14Z",
+      "side": 1,
+      "message": "Maybe chain with the other setPositiveButton method instead",
+      "revId": "967d6664f144867d358586e8b28a7d9fb43242d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef2448e4_7d538725",
+        "filename": "car/core/src/main/java/androidx/car/app/CarMultipleChoiceDialog.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 515,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-05-10T22:25:14Z",
+      "side": 1,
+      "message": "Add a space before this.",
+      "range": {
+        "startLine": 515,
+        "startChar": 34,
+        "endLine": 515,
+        "endChar": 38
+      },
+      "revId": "967d6664f144867d358586e8b28a7d9fb43242d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99fa0657_8ce49c73",
+        "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/CarMultipleChoiceDialogDemoActivity.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-05-10T22:25:14Z",
+      "side": 1,
+      "message": "Pull all the magic numbers into static final varibles.",
+      "range": {
+        "startLine": 70,
+        "startChar": 28,
+        "endLine": 70,
+        "endChar": 29
+      },
+      "revId": "967d6664f144867d358586e8b28a7d9fb43242d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
