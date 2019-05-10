@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ef1a57ec_04699057",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/TextSpanCompose.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1493285
+      },
+      "writtenOn": "2019-05-10T17:25:46Z",
+      "side": 1,
+      "message": "I think you might want to make these components defined outside of the scope class as extension functions with `TextSpanScope` as the receiver. When the scope goes away (which will be once we are properly threading the composer through composable invocations at the compiler level), then this scope will no longer be needed and it will be easier to refactor it out.",
+      "revId": "8b4d95536d98654e8e824729a1d73fd4a970f404",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8bd0f62_746990d8",
+        "filename": "ui/layout/integration-tests/layout-demos/src/main/java/androidx/ui/layout/demos/LayoutActivity.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1493285
+      },
+      "writtenOn": "2019-05-10T17:25:46Z",
+      "side": 1,
+      "message": "just making sure i understand correctly, but this could also have just been `Text(text\u003d\"Row\", style\u003d...)` instead, right?",
+      "revId": "8b4d95536d98654e8e824729a1d73fd4a970f404",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dce2d545_d87456f4",
+        "filename": "ui/text/build.gradle",
+        "patchSetId": 4
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1493285
+      },
+      "writtenOn": "2019-05-10T17:25:46Z",
+      "side": 1,
+      "message": "hmm. i think this may be turning off the compiler for too many files. Are we sure nothing in text needs this? Perhaps we should create a temporary module for the composition class instead. We did the same thing with the ui-android-view-non-ir module.",
+      "revId": "8b4d95536d98654e8e824729a1d73fd4a970f404",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7aaefbb0_95b64978",
+        "filename": "ui/text/src/main/java/androidx/ui/painting/TextSpan.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1493285
+      },
+      "writtenOn": "2019-05-10T17:25:46Z",
+      "side": 1,
+      "message": "this change is correct in terms of getting TextSpan to be a viable tree type for compose to target. But just want to make sure everyone is on board with turning TextSpan into a mutable data structure...\n\nWe\u0027ve discussed ways to make Compose target immutable hierarchies as well, and perhaps textspan is something we look into that for at a later date.",
+      "revId": "8b4d95536d98654e8e824729a1d73fd4a970f404",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
