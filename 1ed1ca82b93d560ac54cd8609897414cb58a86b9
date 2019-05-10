@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6926b80a_24e043e4",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaController.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1133,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-05-10T04:26:30Z",
+      "side": 1,
+      "message": "Q) This is not related with this change, but why don\u0027t we extend MediaInterface.SessionPlayer? MediaInterface.SessionPlayer comment says, \"Common interface for session and controller\"",
+      "range": {
+        "startLine": 1133,
+        "startChar": 34,
+        "endLine": 1133,
+        "endChar": 55
+      },
+      "revId": "1ed1ca82b93d560ac54cd8609897414cb58a86b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be0c070f_9b4195ad",
+        "filename": "media2/session/src/main/java/androidx/media2/session/SessionCommand.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-05-10T04:26:30Z",
+      "side": 1,
+      "message": "Q) Shouldn\u0027t we define COMMAND_VERSION_2?",
+      "range": {
+        "startLine": 349,
+        "startChar": 31,
+        "endLine": 349,
+        "endChar": 48
+      },
+      "revId": "1ed1ca82b93d560ac54cd8609897414cb58a86b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a790b6d_0dc03835",
+        "filename": "media2/session/src/main/java/androidx/media2/session/SessionCommand.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-05-10T04:26:30Z",
+      "side": 1,
+      "message": "Maybe we need some buffer to be safe (ex. 11001).\n\nFor example, consider we want to add a new playlist command in code\n\nCOMMAND_CODE_PLAYER_NEW_PLAYLIST_COMMAND1 \u003d 10019;\nCOMMAND_CODE_PLAYER_NEW_PLAYLIST_COMMAND2 \u003d 10020;\n\nCOMMAND_CODE_PLAYER_SET_SURFACE \u003d 11001;\n\nplay command range for VERSION2 would be Range(COMMAND_CODE_PLAYER_PLAY, COMMAND_CODE_SET_SURFACE)\nplaylist command range for VERSION 2 would be Range(COMMAND_CODE_PLAYER_GET_PLAYLIST, COMMAND_CODE_PLAYER_NEW_PLAYLIST_COMMAND2)",
+      "range": {
+        "startLine": 354,
+        "startChar": 62,
+        "endLine": 354,
+        "endChar": 67
+      },
+      "revId": "1ed1ca82b93d560ac54cd8609897414cb58a86b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
