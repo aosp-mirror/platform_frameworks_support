@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9db2f341_1e7ab5e5",
+        "filename": "media2/session/src/main/java/androidx/media2/session/SessionToken.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-05-10T00:36:17Z",
+      "side": 1,
+      "message": "Q) don\u0027t we need to inform the error ? : Log.e(TAG, \"Failed to create session token2.\");\nRather than \"Failed to create MediaControllerCompat object.\"",
+      "revId": "5d956ee378750b6246bab17090257717419c3b0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39ee2f7e_4b61f7a9",
+        "filename": "media2/session/src/main/java/androidx/media2/session/SessionToken.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-05-10T00:36:17Z",
+      "side": 1,
+      "message": "do we have a buganizer issue?",
+      "revId": "5d956ee378750b6246bab17090257717419c3b0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ad8f7ad_b7c3c7a9",
+        "filename": "media2/session/src/main/java/androidx/media2/session/SessionToken.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-05-10T00:36:17Z",
+      "side": 1,
+      "message": "minor) for consistency: @SuppressWarnings(\"WeakerAccess\") /* synthetic access */",
+      "revId": "5d956ee378750b6246bab17090257717419c3b0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

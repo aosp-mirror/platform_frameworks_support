@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c7fb9854_3cb0be33",
+        "filename": "media2/session/src/main/java/androidx/media2/session/SessionToken.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-05-10T00:36:17Z",
+      "side": 0,
+      "message": "Q) Why this TODO is removed?",
+      "revId": "6f32f7ddc57693710d8a346ab07d7a6a2fab450a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
