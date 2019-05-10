@@ -34,6 +34,24 @@
       "revId": "1a8eae71a197336eb0a38cf096fc140a3be9936e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d897c4bf_a92581a1",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CaptureSession.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-10T19:18:57Z",
+      "side": 1,
+      "message": "Ok, so if this gets merged before aosp/955625 then we should create a bug to fix remove the workaround after aosp/955625 gets merged in.\n\nBut if aosp/955625 get merged in first, then we should just remove the workaround altogether and not have it merged in.",
+      "parentUuid": "e377634e_02aaffb5",
+      "revId": "1a8eae71a197336eb0a38cf096fc140a3be9936e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
