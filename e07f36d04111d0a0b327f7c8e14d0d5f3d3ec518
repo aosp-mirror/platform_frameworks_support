@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "346bff73_8b39d209",
+        "filename": "work/workmanager/src/main/java/androidx/work/Configuration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-05-10T17:55:18Z",
+      "side": 1,
+      "message": "I think the word \u0027custom\u0027 can be confusing. I would just keep \"Specifies an Executor which will be used by...\". The word \u0027custom\u0027 makes me feel like I need to provide some specialized executor.",
+      "range": {
+        "startLine": 202,
+        "startChar": 23,
+        "endLine": 202,
+        "endChar": 29
+      },
+      "revId": "e07f36d04111d0a0b327f7c8e14d0d5f3d3ec518",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2545d12c_2bf3d8c5",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/SerialExecutor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-05-10T17:55:18Z",
+      "side": 1,
+      "message": "Might be worth having a test for this Executor, juuust in case, I have one in Room already that you can basically copy \u0026 paste. \n\nhttps://android.googlesource.com/platform/frameworks/support/+/androidx-master-dev/room/runtime/src/test/java/androidx/room/TransactionExecutorTest.kt",
+      "range": {
+        "startLine": 28,
+        "startChar": 13,
+        "endLine": 28,
+        "endChar": 27
+      },
+      "revId": "e07f36d04111d0a0b327f7c8e14d0d5f3d3ec518",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
