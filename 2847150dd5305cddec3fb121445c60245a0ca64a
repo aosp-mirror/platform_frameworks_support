@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3da3b833_4d180c21",
+        "filename": "media2/common/src/main/java/androidx/media2/common/MediaParcelUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-10T02:32:55Z",
+      "side": 1,
+      "message": "nit) How about List? (ditto fromParcelableArray)",
+      "range": {
+        "startLine": 61,
+        "startChar": 47,
+        "endLine": 61,
+        "endChar": 52
+      },
+      "revId": "2847150dd5305cddec3fb121445c60245a0ca64a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b397d00_f79c6ef2",
+        "filename": "media2/common/src/main/java/androidx/media2/common/MediaParcelUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-10T02:32:55Z",
+      "side": 1,
+      "message": "How about making it generic to be able to take any VersionedParcelable items? (ditto fromParcelableArray)",
+      "range": {
+        "startLine": 62,
+        "startChar": 27,
+        "endLine": 62,
+        "endChar": 50
+      },
+      "revId": "2847150dd5305cddec3fb121445c60245a0ca64a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b41aee36_9930154a",
+        "filename": "media2/common/src/main/java/androidx/media2/common/MediaParcelUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-10T02:32:55Z",
+      "side": 1,
+      "message": "nit) MediaParcelUtils.toParcelable? (ditto fromParcelableArray)",
+      "range": {
+        "startLine": 65,
+        "startChar": 21,
+        "endLine": 65,
+        "endChar": 58
+      },
+      "revId": "2847150dd5305cddec3fb121445c60245a0ca64a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48449001_d45053b7",
+        "filename": "media2/common/src/main/java/androidx/media2/common/SessionPlayer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 881,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-10T02:32:55Z",
+      "side": 1,
+      "message": "I think we need to up-cast subclasses of MediaItem so that it can be serialized. Please refer to MediaParcelUtils#toParcelable and MediaItem#onPreParceling.",
+      "range": {
+        "startLine": 881,
+        "startChar": 8,
+        "endLine": 881,
+        "endChar": 24
+      },
+      "revId": "2847150dd5305cddec3fb121445c60245a0ca64a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "599a67c4_ce97aa3e",
+        "filename": "media2/common/src/main/java/androidx/media2/common/SessionPlayer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 895,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-10T02:32:55Z",
+      "side": 1,
+      "message": "remove?",
+      "range": {
+        "startLine": 895,
+        "startChar": 8,
+        "endLine": 895,
+        "endChar": 15
+      },
+      "revId": "2847150dd5305cddec3fb121445c60245a0ca64a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "12524bd3_e2b01948",
+        "filename": "media2/common/src/main/java/androidx/media2/common/SessionPlayer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 938,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-10T02:32:55Z",
+      "side": 1,
+      "message": "To make the things more explicitly, how about using CustomVersionedParcelable? CustomVersionedParcelable has on{Pre,Post}Parceling methods so the logic for sending TrackInfo over another process can be done in that methods. For example, let TrackInfo hold mFormat as-is; extract mLanguage and mMimeType at onPreParceling; and restore mFormat from mLanguage and mMimeType at onPostParceling.",
+      "range": {
+        "startLine": 938,
+        "startChar": 16,
+        "endLine": 938,
+        "endChar": 66
+      },
+      "revId": "2847150dd5305cddec3fb121445c60245a0ca64a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1fc34dbc_b839e086",
+        "filename": "media2/common/src/main/java/androidx/media2/common/SessionPlayer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 985,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-10T02:32:55Z",
+      "side": 1,
+      "message": "I suppose `\", Format: \" + mFormat` would work.",
+      "range": {
+        "startLine": 981,
+        "startChar": 0,
+        "endLine": 985,
+        "endChar": 13
+      },
+      "revId": "2847150dd5305cddec3fb121445c60245a0ca64a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "185d6176_d9abe477",
+        "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2029,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-10T02:32:55Z",
+      "side": 1,
+      "message": "It should be atomic or guarded by a lock. How about adding a field of type TrackInfo to PendingCommand instead of having mCachedTrackInfos?",
+      "range": {
+        "startLine": 2029,
+        "startChar": 8,
+        "endLine": 2029,
+        "endChar": 41
+      },
+      "revId": "2847150dd5305cddec3fb121445c60245a0ca64a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
