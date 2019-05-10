@@ -22,6 +22,7 @@ import android.os.IInterface;
 import android.os.Parcelable;
 
 import androidx.annotation.RestrictTo;
+import androidx.annotation.VisibleForTesting;
 import androidx.collection.ArrayMap;
 
 import java.io.ByteArrayOutputStream;
@@ -77,7 +78,9 @@ class VersionedParcelStream extends VersionedParcel {
                 new ArrayMap<String, Class>());
     }
 
-    private VersionedParcelStream(InputStream input, OutputStream output,
+    /* @hide */
+    @VisibleForTesting
+    VersionedParcelStream(InputStream input, OutputStream output,
             ArrayMap<String, Method> readCache,
             ArrayMap<String, Method> writeCache,
             ArrayMap<String, Class> parcelizerCache) {

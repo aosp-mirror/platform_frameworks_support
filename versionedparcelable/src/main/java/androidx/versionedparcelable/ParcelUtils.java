@@ -24,9 +24,12 @@ import android.os.Parcelable;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
+import androidx.annotation.VisibleForTesting;
+import androidx.collection.ArrayMap;
 
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,6 +75,21 @@ public class ParcelUtils {
         stream.closeField();
     }
 
+    /** @hide */
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @VisibleForTesting
+    public static void toOutputStream(
+            VersionedParcelable obj,
+            OutputStream output,
+            ArrayMap<String, Method> readCache,
+            ArrayMap<String, Method> writeCache,
+            ArrayMap<String, Class> parcelizerCache) {
+        VersionedParcelStream stream = new VersionedParcelStream(
+                null, output, readCache, writeCache, parcelizerCache);
+        stream.writeVersionedParcelable(obj);
+        stream.closeField();
+    }
+
     /**
      * Read a VersionedParcelable from an InputStream.
      * @hide
@@ -80,6 +98,19 @@ public class ParcelUtils {
     @RestrictTo(LIBRARY_GROUP_PREFIX)
     public static <T extends VersionedParcelable> T fromInputStream(InputStream input) {
         VersionedParcelStream stream = new VersionedParcelStream(input, null);
+        return stream.readVersionedParcelable();
+    }
+
+    /** @hide */
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @VisibleForTesting
+    public static <T extends VersionedParcelable> T fromInputStream(
+            InputStream input,
+            ArrayMap<String, Method> readCache,
+            ArrayMap<String, Method> writeCache,
+            ArrayMap<String, Class> parcelizerCache) {
+        VersionedParcelStream stream = new VersionedParcelStream(
+                input, null, readCache, writeCache, parcelizerCache);
         return stream.readVersionedParcelable();
     }
 
