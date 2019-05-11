@@ -201,17 +201,12 @@ class FilesState(object):
       return self.fileStates[filePath]
     return None
 
-  def containsAt(self, filePath, content):
-    ourContent = self.getContent(filePath)
-    if ourContent is None or content is None:
-      return ourContent == content
-    return ourContent.equals(content)
-
   # returns a FilesState resembling <self> but without the keys for which other[key] == self[key]
   def withoutDuplicatesFrom(self, other):
     result = FilesState()
     for filePath, fileState in self.fileStates.iteritems():
-      if not fileState.equals(other.getContent(filePath)):
+      otherContent = other.getContent(filePath)
+      if not fileState.equals(otherContent):
         result.add(filePath, fileState)
     return result
 
@@ -223,19 +218,26 @@ class FilesState(object):
     return result
 
   # returns a FilesState having the same keys as this FilesState, but with values taken from <other> when it has them, and <self> otherwise
-  def withConflictsFrom(self, other):
+  def withConflictsFrom(self, other, listEmptyDirs = False):
     result = FilesState()
     for filePath, fileContent in self.fileStates.iteritems():
       if filePath in other.fileStates:
         result.add(filePath, other.fileStates[filePath])
       else:
         result.add(filePath, fileContent)
+    if listEmptyDirs:
+      oldImpliedDirs = self.listImpliedDirs()
+      newImpliedDirs = result.listImpliedDirs()
+      for impliedDir in oldImpliedDirs:
+        if impliedDir not in newImpliedDirs and impliedDir not in result.fileStates:
+          result.add(impliedDir, MissingFile_FileContent())
     return result
 
   # returns a set of paths to all of the dirs in <self> that are implied by any files in <self>
   def listImpliedDirs(self):
     dirs = set()
-    keys = self.fileStates.keys()[:]
+    empty = MissingFile_FileContent()
+    keys = [key for (key, value) in self.fileStates.iteritems() if not empty.equals(value)]
     i = 0
     while i < len(keys):
       path = keys[i]
@@ -629,7 +631,7 @@ class Job(object):
       print("Child " + str(self.pipe.identifier) + " reported completion")
       fileIo.removePath(self.workPath)
 
-  def test(self, testState, timeout = None):
+  def jobTest(self, testState, timeout = None):
     # reset state if needed
     if not self.assumeNoSideEffects:
       print("Resetting " + str(self.workPath))
@@ -637,20 +639,25 @@ class Job(object):
       self.full_resetTo_state.apply(self.workPath)
       testState.apply(self.workPath)
     else:
-      self.resetTo_state.withConflictsFrom(testState).apply(self.workPath)
+      delta = self.resetTo_state.withConflictsFrom(testState, True)
+      print("jobTest computing pre delta. Test state = " + str(testState) + " and reset state = " + str(self.resetTo_state) + ". delta = " + str(delta))
+      delta.apply(self.workPath)
+
     start = datetime.datetime.now()
     returnCode = ShellScript(self.shellCommand, self.workPath).process()
     duration = (datetime.datetime.now() - start).total_seconds()
     print("shell command completed in " + str(duration))
     if returnCode == 0:
       # Success! Save these changes
-      self.resetTo_state = self.resetTo_state.expandedWithEmptyEntriesFor(testState).withConflictsFrom(testState).withoutEmptyEntries()
+      self.resetTo_state = self.resetTo_state.expandedWithEmptyEntriesFor(testState).withConflictsFrom(testState)
       self.full_resetTo_state = self.full_resetTo_state.expandedWithEmptyEntriesFor(testState).withConflictsFrom(testState).withoutEmptyEntries()
       return (True, duration)
     else:
       if self.assumeNoSideEffects:
         # unapply changes so that the contents of self.workPath should match self.resetTo_state
-        testState.withConflictsFrom(self.resetTo_state).apply(self.workPath)
+        delta = testState.withConflictsFrom(self.resetTo_state, True)
+        print("jobTest computing post delta. Test state = " + str(testState) + " and reset state = " + str(self.resetTo_state) + ". delta = " + str(delta))
+        delta.apply(self.workPath)
       return (False, duration)
 
   def run(self):
@@ -675,12 +682,13 @@ class Job(object):
         candidateState = box.getSlice(dimension, index)
         print("")
         print(str(self.resetTo_state.size()) + " changes left to test (current box dimensions: " + str(box.getDimensions()) + ")")
+        #print(self.resetTo_state)
         print("Testing dimension " + str(dimension) + "/" + str(box.getNumDimensions()) + ", index " + str(index) + "/" + str(box.getSize(dimension)))
         if candidateState.size() < 1:
           print("Skipping slice of size 0")
           box.setSliceDuration(dimension, index, None)
           continue
-        (testResults, duration) = self.test(candidateState)
+        (testResults, duration) = self.jobTest(candidateState)
         if testResults:
           print("Accepted slice: " + str(candidateState.summarize()))
           self.pipe.writerQueue.put((self.pipe.identifier, candidateState))
@@ -735,7 +743,7 @@ class Job(object):
             print("Skipping empty slice")
             box.setSliceDuration(dimension, index, None)
             continue
-          (testResults, duration) = self.test(sliceState)
+          (testResults, duration) = self.jobTest(sliceState)
           if testResults:
             print("Accepted shortened slice: " + str(sliceState.summarize()))
             self.pipe.writerQueue.put((self.pipe.identifier, sliceState))
@@ -780,10 +788,16 @@ class DiffRunner(object):
     self.originalNumDifferences = self.resetTo_state.size()
     print("Processing " + str(self.originalNumDifferences) + " file differences")
     # state we're trying to reach
-    self.targetState = self.resetTo_state.withConflictsFrom(self.originalFailingState.expandedWithEmptyEntriesFor(self.resetTo_state))
+    expandedFailingState = self.originalFailingState.expandedWithEmptyEntriesFor(self.resetTo_state)
+    #print("Expanded failing state = " + str(expandedFailingState))
+    expandedResetState = self.resetTo_state.expandedWithEmptyEntriesFor(self.originalFailingState)
+    #print("Expanded reset state = " + str(expandedResetState))
+    self.targetState = expandedResetState.withConflictsFrom(expandedFailingState)
+    #print("Original resetTo_state: " + str(self.resetTo_state))
+    #print("Original target state: " + str(self.targetState))
     self.windowSize = self.resetTo_state.size()
 
-  def test(self, testState, timeout = None):
+  def runnerTest(self, testState, timeout = None):
     workPath = os.path.join(self.workPath, "main")
     # reset state if needed
     if not self.assumeNoSideEffects:
@@ -792,17 +806,15 @@ class DiffRunner(object):
       self.full_resetTo_state.apply(workPath)
       testState.apply(workPath)
     else:
-      self.resetTo_state.withConflictsFrom(testState).apply(workPath)
+      diff = self.resetTo_state.withConflictsFrom(testState)
+      print("Merged " + str(self.resetTo_state) + " and " + str(testState) + " to get " + str(diff))
+      print("Applying " + str(diff) + " to " + str(workPath))
+      diff.apply(workPath)
     start = datetime.datetime.now()
     returnCode = ShellScript(self.testScript_path, workPath).process()
     duration = (datetime.datetime.now() - start).total_seconds()
     print("shell command completed in " + str(duration))
     if returnCode == 0:
-      # Success! Save these changes
-      self.targetState = self.targetState.withoutDuplicatesFrom(testState)
-      self.resetTo_state = self.targetState.withConflictsFrom(self.resetTo_state)
-      self.full_resetTo_state = self.full_resetTo_state.expandedWithEmptyEntriesFor(testState).withConflictsFrom(testState).withoutEmptyEntries()
-      testState.apply(self.bestState_path)
       return (True, duration)
     else:
       if self.assumeNoSideEffects:
@@ -811,8 +823,13 @@ class DiffRunner(object):
       return (False, duration)
 
   def onSuccess(self, testState):
+    #print("Success, testState = " + str(testState))
+    #print("First targetState = " + str(self.targetState))
+    #print("First resetTo_state = " + str(self.resetTo_state))
     self.targetState = self.targetState.withoutDuplicatesFrom(testState)
     self.resetTo_state = self.targetState.withConflictsFrom(self.resetTo_state)
+    #print("Last targetState = " + str(self.targetState))
+    #print("Last resetTo_state = " + str(self.resetTo_state))
     self.full_resetTo_state = self.full_resetTo_state.expandedWithEmptyEntriesFor(testState).withConflictsFrom(testState).withoutEmptyEntries()
     testState.apply(self.bestState_path)
 
@@ -824,7 +841,7 @@ class DiffRunner(object):
       print("Testing that the given failing state actually fails")
       fileIo.removePath(workPath)
       fileIo.ensureDirExists(workPath)
-      if self.test(self.originalFailingState)[0]:
+      if self.runnerTest(self.originalFailingState)[0]:
         print("\nGiven failing state at " + self.originalFailingPath + " does not actually fail!")
         return False
 
@@ -834,7 +851,7 @@ class DiffRunner(object):
       else:
         fileIo.removePath(workPath)
         fileIo.ensureDirExists(workPath)
-      if not self.test(self.originalPassingState)[0]:
+      if not self.runnerTest(self.originalPassingState)[0]:
         print("\nGiven passing state at " + self.originalPassingPath + " does not actually pass!")
         return False
     #else:
@@ -872,7 +889,7 @@ class DiffRunner(object):
         identifier = response[0]
         acceptedState = response[1]
         if acceptedState is not None and acceptedState.size() > 0:
-          print("Received successful response from job " + str(identifier))
+          print("Received successful response from job " + str(identifier) + " : " + str(acceptedState))
           if identifier in cancelledIds:
             print("Ignoring successful response from job " + str(identifier) + " due to previous cancellation")
             continue
@@ -885,35 +902,41 @@ class DiffRunner(object):
             connection = activeJobs[i]
             if i != identifier:
               print("Cancelling job " + str(i) + " due to job " + str(identifier))
-              connection.send_bytes([1])
+              connection.send_bytes("0")
               cancelledIds.add(i)
+          print("Updated targetState: " + str(self.targetState))
         else:
           print("Received termination response from job " + str(identifier))
           numConsecutiveFailures += 1
           box = boxesById[identifier]
           for child in box.getChildren():
-            updatedChild = child.withoutDuplicatesFrom(self.targetState)
+            updatedChild = child.withoutDuplicatesFrom(child.withConflictsFrom(self.resetTo_state))
+            print("child = " + str(child) + ", self.targetState = " + str(self.resetTo_state) + ", updatedChild = " + str(updatedChild))
             if updatedChild.size() > 0:
-              print("Adding pending box: " + str(updatedChild.summarize()))
+              split = updatedChild.splitOnce()
+              print("Split box " + str(updatedChild) + " into these children:")
+              for sub in split:
+                print(sub)
               pendingBoxes.append(boxFromList(updatedChild.splitOnce()))
           del activeJobs[identifier]
           del boxesById[identifier]
         if len(pendingBoxes) < 1 and len(activeJobs) < 1:
           print("Error: no changes remain left to test. It was expected that applying all changes would fail")
           break
-        while len(activeJobs) < 2 and len(activeJobs) < self.resetTo_state.size() and len(pendingBoxes) > 0:
+        while len(activeJobs) < 1 and len(activeJobs) < self.resetTo_state.size() and len(pendingBoxes) > 0:
           jobId += 1
           box = pendingBoxes[0]
           print("Starting process " + str(jobId) + " with " + str(box.getNumChildren()) + " children")
           workingDir = os.path.join(self.workPath, "job-" + str(jobId))
           activeJobs[jobId] = runJobInOtherProcess(self.testScript_path, workingDir, self.resetTo_state, self.full_resetTo_state, self.assumeNoSideEffects, box, queue, jobId)
           boxesById[jobId] = box
-          pendingBoxes = pendingBoxes[1:] + [pendingBoxes[0]]
+          pendingBoxes = pendingBoxes[1:]
 
     print("double-checking results")
     fileIo.removePath(workPath)
     wasSuccessful = True
-    if not self.test(filesStateFromTree(self.bestState_path))[0]:
+    fileIo.removePath(os.path.join(self.workPath, "main"))
+    if not self.runnerTest(filesStateFromTree(self.bestState_path))[0]:
       message = "Error: expected best state at " + self.bestState_path + " did not pass the second time. Could the test be non-deterministic?"
       if self.assumeNoSideEffects:
         message += " (it may help to remove the --assume-no-side-effects flag)"
