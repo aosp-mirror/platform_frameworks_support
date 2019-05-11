@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "d709f051_2f36cd7c",
+        "filename": "car/core/src/main/java/androidx/car/app/CarMultipleChoiceDialog.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-05-11T00:25:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1030cb92_2a1e1cbb",
+      "revId": "967d6664f144867d358586e8b28a7d9fb43242d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d308e650_6dfa4019",
         "filename": "car/core/src/main/java/androidx/car/app/CarMultipleChoiceDialog.java",
         "patchSetId": 3
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "7e612bd4_8e8be8f4",
+        "filename": "car/core/src/main/java/androidx/car/app/CarMultipleChoiceDialog.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-05-11T00:25:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d308e650_6dfa4019",
+      "range": {
+        "startLine": 109,
+        "startChar": 39,
+        "endLine": 109,
+        "endChar": 58
+      },
+      "revId": "967d6664f144867d358586e8b28a7d9fb43242d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "abd0a2d6_b39b770f",
         "filename": "car/core/src/main/java/androidx/car/app/CarMultipleChoiceDialog.java",
         "patchSetId": 3
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "018ce06c_c7859b0b",
+        "filename": "car/core/src/main/java/androidx/car/app/CarMultipleChoiceDialog.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-05-11T00:25:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "abd0a2d6_b39b770f",
+      "revId": "967d6664f144867d358586e8b28a7d9fb43242d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f1b3aa03_9de57d06",
         "filename": "car/core/src/main/java/androidx/car/app/CarMultipleChoiceDialog.java",
         "patchSetId": 3
@@ -70,6 +130,30 @@
       "writtenOn": "2019-05-10T22:25:14Z",
       "side": 1,
       "message": "I feel passing an list of checked positions is a better API. What you think?\n\n  onClick(DialogInterface dialog, List\u003cInteger\u003e checkedPositions);\n\nFeel free to use an int[] if you prefer.\n\nThe existing API passes position, although it\u0027s invoked each time an item is clicked (https://developer.android.com/reference/android/content/DialogInterface.OnMultiChoiceClickListener).",
+      "range": {
+        "startLine": 286,
+        "startChar": 63,
+        "endLine": 286,
+        "endChar": 85
+      },
+      "revId": "967d6664f144867d358586e8b28a7d9fb43242d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "769595ee_b6a1a822",
+        "filename": "car/core/src/main/java/androidx/car/app/CarMultipleChoiceDialog.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-05-11T00:25:02Z",
+      "side": 1,
+      "message": "I erred away from a list of checked positions to to not have to deal with an ordered list of positions. I guess for my sizes of lists this class should be dealing with, that is trivial.\n\nNot really the same but did see https://developer.android.com/reference/androidx/preference/MultiSelectListPreference#getSelectedItems() as well.",
+      "parentUuid": "f1b3aa03_9de57d06",
       "range": {
         "startLine": 286,
         "startChar": 63,
@@ -99,6 +183,24 @@
     },
     {
       "key": {
+        "uuid": "41a59364_bb1bf4a7",
+        "filename": "car/core/src/main/java/androidx/car/app/CarMultipleChoiceDialog.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-05-11T00:25:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e1555bc3_53c04100",
+      "revId": "967d6664f144867d358586e8b28a7d9fb43242d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ef2448e4_7d538725",
         "filename": "car/core/src/main/java/androidx/car/app/CarMultipleChoiceDialog.java",
         "patchSetId": 3
@@ -122,6 +224,30 @@
     },
     {
       "key": {
+        "uuid": "00b42501_567b1693",
+        "filename": "car/core/src/main/java/androidx/car/app/CarMultipleChoiceDialog.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 515,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-05-11T00:25:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ef2448e4_7d538725",
+      "range": {
+        "startLine": 515,
+        "startChar": 34,
+        "endLine": 515,
+        "endChar": 38
+      },
+      "revId": "967d6664f144867d358586e8b28a7d9fb43242d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "99fa0657_8ce49c73",
         "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/CarMultipleChoiceDialogDemoActivity.java",
         "patchSetId": 3
@@ -142,6 +268,30 @@
       "revId": "967d6664f144867d358586e8b28a7d9fb43242d5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94d83844_ee839e1d",
+        "filename": "samples/SupportCarDemos/src/main/java/com/example/androidx/car/CarMultipleChoiceDialogDemoActivity.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-05-11T00:25:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99fa0657_8ce49c73",
+      "range": {
+        "startLine": 70,
+        "startChar": 28,
+        "endLine": 70,
+        "endChar": 29
+      },
+      "revId": "967d6664f144867d358586e8b28a7d9fb43242d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
