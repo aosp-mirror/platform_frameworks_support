@@ -16,6 +16,7 @@
 
 package androidx.paging
 
+import androidx.testutils.TestExecutor
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Assert.fail
@@ -53,7 +54,8 @@ class PagedListTest {
             backgroundThread,
             null,
             config,
-            0)
+            0
+        )
         future.addListener(Runnable {
             assertEquals(ITEMS.subList(0, 30), future.get())
             success[0] = true
@@ -89,7 +91,8 @@ class PagedListTest {
             backgroundThread,
             null,
             config,
-            0)
+            0
+        )
         future.addListener(Runnable {
             try {
                 future.get()
