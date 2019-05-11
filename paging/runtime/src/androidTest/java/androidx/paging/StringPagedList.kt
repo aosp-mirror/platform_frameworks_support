@@ -16,36 +16,37 @@
 
 package androidx.paging
 
+import androidx.testutils.TestExecutor
+
 class StringPagedList constructor(
     leadingNulls: Int,
     trailingNulls: Int,
     vararg items: String
 ) : PagedList<String>(
-        PagedStorage<String>(),
-        TestExecutor(),
-        TestExecutor(),
-        null,
-        PagedList.Config.Builder().setPageSize(1).build()
+    PagedStorage<String>(),
+    TestExecutor(),
+    TestExecutor(),
+    null,
+    PagedList.Config.Builder().setPageSize(1).build()
 ), PagedStorage.Callback {
     val list = items.toList()
     var detached = false
+
     init {
         @Suppress("UNCHECKED_CAST")
         val keyedStorage = mStorage as PagedStorage<String>
-        keyedStorage.init(leadingNulls,
-                list,
-                trailingNulls,
-                0,
-                this)
+        keyedStorage.init(
+            leadingNulls,
+            list,
+            trailingNulls,
+            0,
+            this
+        )
     }
 
-    internal override fun isContiguous(): Boolean {
-        return true
-    }
+    internal override fun isContiguous(): Boolean = true
 
-    override fun getLastKey(): Any? {
-        return null
-    }
+    override fun getLastKey(): Any? = null
 
     override fun isDetached(): Boolean = detached
 
@@ -55,7 +56,7 @@ class StringPagedList constructor(
 
     override fun dispatchUpdatesSinceSnapshot(
         storageSnapshot: PagedList<String>,
-        callback: PagedList.Callback
+        callback: Callback
     ) {
     }
 
