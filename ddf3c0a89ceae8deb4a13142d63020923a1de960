@@ -16,6 +16,24 @@
       "revId": "ddf3c0a89ceae8deb4a13142d63020923a1de960",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b032733f_d7d31aec",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CaptureConfig.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-05-11T00:02:47Z",
+      "side": 1,
+      "message": "Added a new Camera2CaptureRequestBuilder for building a CaptureRequest from a CaptureConfig.",
+      "parentUuid": "26ca32a0_c2dae52b",
+      "revId": "ddf3c0a89ceae8deb4a13142d63020923a1de960",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
