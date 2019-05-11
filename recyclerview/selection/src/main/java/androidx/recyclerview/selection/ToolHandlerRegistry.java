@@ -30,7 +30,12 @@ import java.util.List;
 /**
  * Registry for tool specific event handler. This provides map like functionality,
  * along with fallback to a default handler, while avoiding auto-boxing of tool
- * type values that would be necessitated where a Map used.
+ * type values that would be necessitated were a Map used.k
+ *
+ * <p>ToolHandlerRegistry guarantees that it will never return a null handler ensuring
+ * client code isn't peppered with null checks. To that end a default handler
+ * is required. This default handler will be returned when a handler matching
+ * the event tooltype has not be registered using {@link #set(int, T)}.
  *
  * @param <T> type of item being registered.
  */
@@ -48,11 +53,6 @@ final class ToolHandlerRegistry<T> {
     ToolHandlerRegistry(@NonNull T defaultDelegate) {
         checkArgument(defaultDelegate != null);
         mDefault = defaultDelegate;
-
-        // Initialize all values to null.
-        for (int i = 0; i < NUM_INPUT_TYPES; i++) {
-            mHandlers.set(i, null);
-        }
     }
 
     /**
