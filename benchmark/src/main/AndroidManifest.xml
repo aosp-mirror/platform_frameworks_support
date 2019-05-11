@@ -20,6 +20,7 @@
     <!-- This is needed to write benchmark report data to an external directory during instrumented
     tests to allow the accompanying androidx.benchmark gradle plugin to pull the reports onto host
      machine after the tests are done running. -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application>

@@ -17,6 +17,7 @@
 package androidx.benchmark
 
 import android.Manifest
+import android.os.Build
 import android.util.Log
 import androidx.annotation.RestrictTo
 import androidx.test.rule.GrantPermissionRule
@@ -149,54 +150,60 @@ class BenchmarkRule : TestRule {
     }
 
     override fun apply(base: Statement, description: Description): Statement {
-        return RuleChain
+        var ruleChain = RuleChain
             .outerRule(GrantPermissionRule.grant(Manifest.permission.WRITE_EXTERNAL_STORAGE))
-            .around { base, description ->
-                object : Statement() {
-                    @Throws(Throwable::class)
-                    override fun evaluate() {
-                        applied = true
-                        var invokeMethodName = description.methodName
-                        Log.i(TAG, "Running ${description.className}#$invokeMethodName")
 
-                        // validate and simplify the function name.
-                        // First, remove the "test" prefix which normally comes from CTS test.
-                        // Then make sure the [subTestName] is valid, not just numbers like [0].
-                        if (invokeMethodName.startsWith("test")) {
-                            assertTrue(
-                                "The test name $invokeMethodName is too short",
-                                invokeMethodName.length > 5
-                            )
-                            invokeMethodName = invokeMethodName.substring(4, 5).toLowerCase() +
-                                    invokeMethodName.substring(5)
-                        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            ruleChain = ruleChain
+                .around(GrantPermissionRule.grant(Manifest.permission.READ_EXTERNAL_STORAGE))
+        }
 
-                        val index = invokeMethodName.lastIndexOf('[')
-                        if (index > 0) {
-                            val allDigits =
-                                invokeMethodName.substring(index + 1, invokeMethodName.length - 1)
-                                    .all { Character.isDigit(it) }
-                            assertFalse(
-                                "The name in [] can't contain only digits for $invokeMethodName",
-                                allDigits
-                            )
-                        }
+        return ruleChain.around { base, description ->
+            object : Statement() {
+                @Throws(Throwable::class)
+                override fun evaluate() {
+                    applied = true
+                    var invokeMethodName = description.methodName
+                    Log.i(TAG, "Running ${description.className}#$invokeMethodName")
 
-                        base.evaluate()
+                    // validate and simplify the function name.
+                    // First, remove the "test" prefix which normally comes from CTS test.
+                    // Then make sure the [subTestName] is valid, not just numbers like [0].
+                    if (invokeMethodName.startsWith("test")) {
+                        assertTrue(
+                            "The test name $invokeMethodName is too short",
+                            invokeMethodName.length > 5
+                        )
+                        invokeMethodName = invokeMethodName.substring(4, 5).toLowerCase() +
+                                invokeMethodName.substring(5)
+                    }
 
-                        val fullTestName = WarningState.WARNING_PREFIX +
-                                description.testClass.simpleName + "." + invokeMethodName
-                        internalState.sendStatus(fullTestName)
-
-                        ResultWriter.appendStats(
-                            internalState.getReport(
-                                testName = WarningState.WARNING_PREFIX + invokeMethodName,
-                                className = description.className
-                            )
+                    val index = invokeMethodName.lastIndexOf('[')
+                    if (index > 0) {
+                        val allDigits =
+                            invokeMethodName.substring(index + 1, invokeMethodName.length - 1)
+                                .all { Character.isDigit(it) }
+                        assertFalse(
+                            "The name in [] can't contain only digits for $invokeMethodName",
+                            allDigits
                         )
                     }
+
+                    base.evaluate()
+
+                    val fullTestName = WarningState.WARNING_PREFIX +
+                            description.testClass.simpleName + "." + invokeMethodName
+                    internalState.sendStatus(fullTestName)
+
+                    ResultWriter.appendStats(
+                        internalState.getReport(
+                            testName = WarningState.WARNING_PREFIX + invokeMethodName,
+                            className = description.className
+                        )
+                    )
                 }
             }
+        }
             .apply(base, description)
     }
 
