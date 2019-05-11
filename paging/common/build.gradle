@@ -30,14 +30,15 @@ lintOptions {
 }
 
 dependencies {
-    compile("androidx.annotation:annotation:1.1.0-rc01")
-    compile(ARCH_CORE_COMMON)
-    compile("androidx.concurrent:concurrent-futures:1.0.0-alpha02")
+    implementation("androidx.annotation:annotation:1.1.0-rc01")
+    implementation(ARCH_CORE_COMMON)
+    implementation("androidx.concurrent:concurrent-futures:1.0.0-alpha02")
 
-    testCompile(JUNIT)
-    testCompile(MOCKITO_CORE)
-    testCompile(KOTLIN_STDLIB)
-    testCompile(GUAVA)
+    testImplementation project(':internal-testutils-common')
+    testImplementation(JUNIT)
+    testImplementation(MOCKITO_CORE)
+    testImplementation(KOTLIN_STDLIB)
+    testImplementation(GUAVA)
 }
 
 androidx {
