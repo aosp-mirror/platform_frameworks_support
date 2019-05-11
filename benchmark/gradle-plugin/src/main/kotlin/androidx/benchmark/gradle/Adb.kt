@@ -58,8 +58,13 @@ class Adb constructor(project: Project) {
         val stdout = process.inputStream.bufferedReader().use { it.readText() }
         val stderr = process.errorStream.bufferedReader().use { it.readText() }
 
-        logger.log(LogLevel.QUIET, stdout)
-        logger.log(LogLevel.WARN, stderr)
+        if (!stdout.isBlank()) {
+            logger.log(LogLevel.QUIET, stdout.trim())
+        }
+
+        if (!stderr.isBlank()) {
+            logger.log(LogLevel.WARN, stderr.trim())
+        }
 
         if (shouldThrow && process.exitValue() != 0) {
             throw GradleException(stderr)
