@@ -628,7 +628,7 @@ class Job(object):
       self.run()
     finally:
       self.pipe.writerQueue.put((self.pipe.identifier, None))
-      print("Child " + str(self.pipe.identifier) + " reported completion")
+      print("Child " + str(self.pipe.identifier) + " reporting completion")
       fileIo.removePath(self.workPath)
 
   def jobTest(self, testState, timeout = None):
@@ -640,7 +640,7 @@ class Job(object):
       testState.apply(self.workPath)
     else:
       delta = self.resetTo_state.withConflictsFrom(testState, True)
-      print("jobTest computing pre delta. Test state = " + str(testState) + " and reset state = " + str(self.resetTo_state) + ". delta = " + str(delta))
+      #print("jobTest computing pre delta. Test state = " + str(testState) + " and reset state = " + str(self.resetTo_state) + ". delta = " + str(delta))
       delta.apply(self.workPath)
 
     start = datetime.datetime.now()
@@ -656,7 +656,7 @@ class Job(object):
       if self.assumeNoSideEffects:
         # unapply changes so that the contents of self.workPath should match self.resetTo_state
         delta = testState.withConflictsFrom(self.resetTo_state, True)
-        print("jobTest computing post delta. Test state = " + str(testState) + " and reset state = " + str(self.resetTo_state) + ". delta = " + str(delta))
+        #print("jobTest computing post delta. Test state = " + str(testState) + " and reset state = " + str(self.resetTo_state) + ". delta = " + str(delta))
         delta.apply(self.workPath)
       return (False, duration)
 
@@ -807,8 +807,8 @@ class DiffRunner(object):
       testState.apply(workPath)
     else:
       diff = self.resetTo_state.withConflictsFrom(testState)
-      print("Merged " + str(self.resetTo_state) + " and " + str(testState) + " to get " + str(diff))
-      print("Applying " + str(diff) + " to " + str(workPath))
+      #print("Merged " + str(self.resetTo_state) + " and " + str(testState) + " to get " + str(diff))
+      #print("Applying " + str(diff) + " to " + str(workPath))
       diff.apply(workPath)
     start = datetime.datetime.now()
     returnCode = ShellScript(self.testScript_path, workPath).process()
@@ -904,14 +904,14 @@ class DiffRunner(object):
               print("Cancelling job " + str(i) + " due to job " + str(identifier))
               connection.send_bytes("0")
               cancelledIds.add(i)
-          print("Updated targetState: " + str(self.targetState))
+          #print("Updated targetState: " + str(self.targetState))
         else:
           print("Received termination response from job " + str(identifier))
           numConsecutiveFailures += 1
           box = boxesById[identifier]
           for child in box.getChildren():
             updatedChild = child.withoutDuplicatesFrom(child.withConflictsFrom(self.resetTo_state))
-            print("child = " + str(child) + ", self.targetState = " + str(self.resetTo_state) + ", updatedChild = " + str(updatedChild))
+            #print("child = " + str(child) + ", self.targetState = " + str(self.resetTo_state) + ", updatedChild = " + str(updatedChild))
             if updatedChild.size() > 0:
               split = updatedChild.splitOnce()
               print("Split box " + str(updatedChild) + " into these children:")
