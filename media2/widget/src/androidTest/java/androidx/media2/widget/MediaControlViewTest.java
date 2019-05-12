@@ -25,7 +25,6 @@ import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.RootMatchers.isPlatformPopup;
 import static androidx.test.espresso.matcher.ViewMatchers.isClickable;
 import static androidx.test.espresso.matcher.ViewMatchers.isCompletelyDisplayed;
-import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
@@ -280,7 +279,7 @@ public class MediaControlViewTest {
     }
 
     @Test
-    public void testGetMetadataFromMusic() throws Throwable {
+    public void testGetMetadataFromMusicFile() throws Throwable {
         Uri uri = Uri.parse("android.resource://" + mContext.getPackageName() + "/"
                 + R.raw.test_music);
         AssetFileDescriptor afd = mContext.getResources().openRawResourceFd(R.raw.test_music);
@@ -296,6 +295,11 @@ public class MediaControlViewTest {
                 .setFileDescriptorLength(afd.getLength())
                 .build();
         afd.close();
+        // onCurrentMediaItemChanged is expected to be called 3 times:
+        //   1) after VideoView#setMediaItem is called.
+        //   2) after MediaSessionImplBase updates duration metadata by calling
+        //      MediaItem#setMetadata.
+        //   3) after VideoView extracts metadata and calls MediaItem#setMetadata.
         final CountDownLatch latchForUri = new CountDownLatch(3);
         final CountDownLatch latchForFile = new CountDownLatch(3);
         final MediaController controller =
@@ -346,6 +350,36 @@ public class MediaControlViewTest {
             }
         });
         assertTrue(latchForFile.await(WAIT_TIME_MS, TimeUnit.MILLISECONDS));
+    }
+
+    @Test
+    public void testButtonVisibilityForMusicFile() throws Throwable {
+        Uri uri = Uri.parse("android.resource://" + mContext.getPackageName() + "/"
+                + R.raw.test_music);
+        final MediaItem uriMediaItem = createTestMediaItem2(uri);
+
+        final CountDownLatch latch = new CountDownLatch(1);
+        final MediaController controller =
+                createController(new MediaController.ControllerCallback() {
+                    @NonNull
+                    @Override
+                    public SessionResult onCustomCommand(@NonNull MediaController controller,
+                            @NonNull SessionCommand command, @Nullable Bundle args) {
+                        if (command.getCustomAction()
+                                == MediaControlView.EVENT_UPDATE_TRACK_STATUS) {
+                            latch.countDown();
+                        }
+                        return new SessionResult(SessionResult.RESULT_SUCCESS, null);
+                    }
+                });
+        mActivityRule.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mVideoView.setMediaItem(uriMediaItem);
+            }
+        });
+        assertTrue(latch.await(WAIT_TIME_MS, TimeUnit.MILLISECONDS));
+        onView(withId(R.id.subtitle)).check(matches(not(isCompletelyDisplayed())));
     }
 
     @Test
@@ -425,7 +459,7 @@ public class MediaControlViewTest {
 
     @Test
     public void testFullScreenListener() throws Throwable {
-        onView(withId(R.id.fullscreen)).check(matches(not(isDisplayed())));
+        onView(withId(R.id.fullscreen)).check(matches(not(isCompletelyDisplayed())));
 
         final CountDownLatch latchOn = new CountDownLatch(1);
         final CountDownLatch latchOff = new CountDownLatch(1);
@@ -446,7 +480,7 @@ public class MediaControlViewTest {
                         });
             }
         });
-        onView(withId(R.id.fullscreen)).check(matches(isDisplayed()));
+        onView(withId(R.id.fullscreen)).check(matches(isCompletelyDisplayed()));
 
         onView(withId(R.id.fullscreen)).perform(click());
         assertTrue(latchOn.await(WAIT_TIME_MS, TimeUnit.MILLISECONDS));
@@ -459,7 +493,7 @@ public class MediaControlViewTest {
                 mVideoView.getMediaControlView().setOnFullScreenListener(null);
             }
         });
-        onView(withId(R.id.fullscreen)).check(matches(not(isDisplayed())));
+        onView(withId(R.id.fullscreen)).check(matches(not(isCompletelyDisplayed())));
     }
 
     private void testCheckMediaItemIsFromNetwork(Uri uri, boolean isNetwork) throws Throwable {
