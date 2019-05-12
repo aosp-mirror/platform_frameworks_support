@@ -1762,8 +1762,10 @@ public class MediaController implements AutoCloseable {
         public void onSeekCompleted(@NonNull MediaController controller, long position) {}
 
         /**
-         * Called when the player's current item is changed. It's also called after
+         * Called when the player's current item is changed. It's also called after calling
          * {@link #setPlaylist} or {@link #setMediaItem}.
+         * Also called when {@link MediaItem#setMetadata(MediaMetadata)} is called on the current
+         * media item.
          * <p>
          * When it's called, you should invalidate previous playback information and wait for later
          * callbacks. Also, current, previous, and next media item indices may need to be updated.
@@ -1777,8 +1779,10 @@ public class MediaController implements AutoCloseable {
                 @Nullable MediaItem item) {}
 
         /**
-         * Called when a playlist is changed. It's also called after {@link #setPlaylist} or
+         * Called when a playlist is changed. It's also called after calling {@link #setPlaylist} or
          * {@link #setMediaItem}.
+         * Also called when {@link MediaItem#setMetadata(MediaMetadata)} is called on a media item
+         * that is contained in the current playlist.
          * <p>
          * When it's called, current, previous, and next media item indices may need to be updated.
          *
