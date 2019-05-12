@@ -25,7 +25,6 @@ import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.RootMatchers.isPlatformPopup;
 import static androidx.test.espresso.matcher.ViewMatchers.isClickable;
 import static androidx.test.espresso.matcher.ViewMatchers.isCompletelyDisplayed;
-import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
@@ -280,7 +279,7 @@ public class MediaControlViewTest {
     }
 
     @Test
-    public void testGetMetadataFromMusic() throws Throwable {
+    public void testGetMetadataFromMusicFile() throws Throwable {
         Uri uri = Uri.parse("android.resource://" + mContext.getPackageName() + "/"
                 + R.raw.test_music);
         AssetFileDescriptor afd = mContext.getResources().openRawResourceFd(R.raw.test_music);
@@ -346,6 +345,31 @@ public class MediaControlViewTest {
             }
         });
         assertTrue(latchForFile.await(WAIT_TIME_MS, TimeUnit.MILLISECONDS));
+    }
+
+    @Test
+    public void testButtonVisibilityForMusicFile() throws Throwable {
+        Uri uri = Uri.parse("android.resource://" + mContext.getPackageName() + "/"
+                + R.raw.test_music);
+        final MediaItem uriMediaItem = createTestMediaItem2(uri);
+
+        final CountDownLatch latch = new CountDownLatch(3);
+        final MediaController controller =
+                createController(new MediaController.ControllerCallback() {
+                    @Override
+                    public void onCurrentMediaItemChanged(@NonNull MediaController controller,
+                            @Nullable MediaItem item) {
+                        latch.countDown();
+                    }
+                });
+        mActivityRule.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mVideoView.setMediaItem(uriMediaItem);
+            }
+        });
+        assertTrue(latch.await(WAIT_TIME_MS, TimeUnit.MILLISECONDS));
+        onView(withId(R.id.subtitle)).check(matches(not(isCompletelyDisplayed())));
     }
 
     @Test
@@ -425,7 +449,7 @@ public class MediaControlViewTest {
 
     @Test
     public void testFullScreenListener() throws Throwable {
-        onView(withId(R.id.fullscreen)).check(matches(not(isDisplayed())));
+        onView(withId(R.id.fullscreen)).check(matches(not(isCompletelyDisplayed())));
 
         final CountDownLatch latchOn = new CountDownLatch(1);
         final CountDownLatch latchOff = new CountDownLatch(1);
@@ -446,7 +470,7 @@ public class MediaControlViewTest {
                         });
             }
         });
-        onView(withId(R.id.fullscreen)).check(matches(isDisplayed()));
+        onView(withId(R.id.fullscreen)).check(matches(isCompletelyDisplayed()));
 
         onView(withId(R.id.fullscreen)).perform(click());
         assertTrue(latchOn.await(WAIT_TIME_MS, TimeUnit.MILLISECONDS));
@@ -459,7 +483,7 @@ public class MediaControlViewTest {
                 mVideoView.getMediaControlView().setOnFullScreenListener(null);
             }
         });
-        onView(withId(R.id.fullscreen)).check(matches(not(isDisplayed())));
+        onView(withId(R.id.fullscreen)).check(matches(not(isCompletelyDisplayed())));
     }
 
     private void testCheckMediaItemIsFromNetwork(Uri uri, boolean isNetwork) throws Throwable {
