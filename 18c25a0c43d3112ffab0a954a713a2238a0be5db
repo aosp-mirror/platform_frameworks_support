@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1c452536_6c3ed800",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-05-13T20:58:27Z",
+      "side": 1,
+      "message": "can you remove the 3 lines starting here?",
+      "revId": "18c25a0c43d3112ffab0a954a713a2238a0be5db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78513816_7ddab8b2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-05-13T20:58:27Z",
+      "side": 1,
+      "message": "I think this has two few spaces, and is run together now. Maybe pick a couple places to put newlines in, like before and after the CPUs part, so that stands out (since it\u0027s what\u0027s important)",
+      "revId": "18c25a0c43d3112ffab0a954a713a2238a0be5db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
