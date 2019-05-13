@@ -17,6 +17,7 @@
 package androidx.ui.painting
 
 import androidx.ui.engine.geometry.Offset
+import androidx.ui.engine.geometry.Rect
 import androidx.ui.engine.geometry.Size
 import androidx.ui.engine.text.Paragraph
 import androidx.ui.engine.text.ParagraphBuilder
@@ -376,6 +377,11 @@ class TextPainter(
     fun getCaretForTextPosition(position: TextPosition): Pair<Offset, Offset> {
         assert(!needsLayout)
         return paragraph!!.getCaretForTextPosition(position)
+    }
+
+    fun getBoundingBoxForTextPosition(textPosition: TextPosition): Rect {
+        assert(!needsLayout)
+        return paragraph!!.getBoundingBoxForTextPosition(textPosition)
     }
 
     /**

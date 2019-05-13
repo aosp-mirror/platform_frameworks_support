@@ -97,6 +97,8 @@ fun TextDemo() {
                 EditLine()
                 TagLine(tag = "selection")
                 TextDemoSelection()
+                TagLine(tag = "selection in column")
+                TextDemoSelectionColumn()
                 TagLine(tag = "composable textspan")
                 TextDemoComposableTextSpan()
             }
@@ -572,6 +574,56 @@ fun TextDemoSelection() {
                 Span(
                     text = "\nまず、現在天下が魏・呉・蜀に分れており、そのうち蜀は疲弊していることを指摘する。",
                     style = TextStyle(locale = Locale("ja", "JP"))
+                )
+            }
+        }
+    }
+}
+@Composable
+fun TextDemoSelectionColumn() {
+    var text = ""
+    for (i in 1..10) {
+        text = "$text$displayText"
+    }
+
+    val selection = +state<Selection?> { null }
+    SelectionContainer(
+        selection = selection.value,
+        onSelectionChange = { selection.value = it }) {
+        Column {
+            Text {
+                Span(
+                    text = text,
+                    style = TextStyle(
+                        color = Color(0xFF00FF00.toInt()),
+                        fontSize = fontSize6,
+                        fontWeight = FontWeight.w200,
+                        fontStyle = FontStyle.Italic
+                    )
+                )
+            }
+
+            Text {
+                Span(
+                    text = text,
+                    style = TextStyle(
+                        color = Color(0xFFFF0000.toInt()),
+                        fontSize = fontSize6,
+                        fontWeight = FontWeight.w200,
+                        fontStyle = FontStyle.Italic
+                    )
+                )
+            }
+
+            Text {
+                Span(
+                    text = text,
+                    style = TextStyle(
+                        color = Color(0xFF0000FF.toInt()),
+                        fontSize = fontSize6,
+                        fontWeight = FontWeight.w200,
+                        fontStyle = FontStyle.Italic
+                    )
                 )
             }
         }
