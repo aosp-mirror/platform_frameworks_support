@@ -94,6 +94,30 @@
     },
     {
       "key": {
+        "uuid": "3545b2f1_cd919bfb",
+        "filename": "car/cluster/proto/NavigationState2.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1237442
+      },
+      "writtenOn": "2019-05-13T23:56:55Z",
+      "side": 1,
+      "message": "Will that introduce further proto dependencies? If we\u0027re trying to keep this as unGoogley as possible then maybe it\u0027s better just to stick with raw proto?",
+      "parentUuid": "a2a61a68_8a8786e7",
+      "range": {
+        "startLine": 151,
+        "startChar": 4,
+        "endLine": 151,
+        "endChar": 30
+      },
+      "revId": "fccf62741c1bdb9ea0c348ec6d28a6f91a2da74c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e3a718d7_51895a76",
         "filename": "car/cluster/proto/NavigationState2.proto",
         "patchSetId": 1
