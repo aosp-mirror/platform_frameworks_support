@@ -120,16 +120,16 @@ package androidx.ui.core {
   }
 
   public final class Selection {
-    ctor public Selection(androidx.ui.engine.geometry.Offset startOffset, androidx.ui.engine.geometry.Offset endOffset, androidx.ui.core.LayoutCoordinates? startLayoutCoordinates, androidx.ui.core.LayoutCoordinates? endLayoutCoordinates);
-    method public androidx.ui.engine.geometry.Offset component1();
-    method public androidx.ui.engine.geometry.Offset component2();
+    ctor public Selection(androidx.ui.engine.geometry.Rect startOffset, androidx.ui.engine.geometry.Rect endOffset, androidx.ui.core.LayoutCoordinates? startLayoutCoordinates, androidx.ui.core.LayoutCoordinates? endLayoutCoordinates);
+    method public androidx.ui.engine.geometry.Rect component1();
+    method public androidx.ui.engine.geometry.Rect component2();
     method public androidx.ui.core.LayoutCoordinates? component3();
     method public androidx.ui.core.LayoutCoordinates? component4();
-    method public androidx.ui.core.Selection copy(androidx.ui.engine.geometry.Offset startOffset, androidx.ui.engine.geometry.Offset endOffset, androidx.ui.core.LayoutCoordinates? startLayoutCoordinates, androidx.ui.core.LayoutCoordinates? endLayoutCoordinates);
+    method public androidx.ui.core.Selection copy(androidx.ui.engine.geometry.Rect startOffset, androidx.ui.engine.geometry.Rect endOffset, androidx.ui.core.LayoutCoordinates? startLayoutCoordinates, androidx.ui.core.LayoutCoordinates? endLayoutCoordinates);
     method public androidx.ui.core.LayoutCoordinates? getEndLayoutCoordinates();
-    method public androidx.ui.engine.geometry.Offset getEndOffset();
+    method public androidx.ui.engine.geometry.Rect getEndOffset();
     method public androidx.ui.core.LayoutCoordinates? getStartLayoutCoordinates();
-    method public androidx.ui.engine.geometry.Offset getStartOffset();
+    method public androidx.ui.engine.geometry.Rect getStartOffset();
   }
 
   public final class SelectionKt {
