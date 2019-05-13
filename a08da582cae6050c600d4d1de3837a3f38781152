@@ -16,6 +16,24 @@
       "revId": "a08da582cae6050c600d4d1de3837a3f38781152",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f833dab0_de201339",
+        "filename": "camera/core/src/main/java/androidx/camera/core/UseCaseGroupRepository.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1482091
+      },
+      "writtenOn": "2019-05-13T02:14:44Z",
+      "side": 1,
+      "message": "Thanks for your review. Done.",
+      "parentUuid": "197dcc0c_6b019b77",
+      "revId": "a08da582cae6050c600d4d1de3837a3f38781152",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
