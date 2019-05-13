@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ac92bd77_d607c678",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/TextSpanCompose.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1362035
+      },
+      "writtenOn": "2019-05-13T23:13:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ef1a57ec_04699057",
+      "revId": "8b4d95536d98654e8e824729a1d73fd4a970f404",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c8bd0f62_746990d8",
         "filename": "ui/layout/integration-tests/layout-demos/src/main/java/androidx/ui/layout/demos/LayoutActivity.kt",
         "patchSetId": 4
@@ -30,6 +48,24 @@
       "writtenOn": "2019-05-10T17:25:46Z",
       "side": 1,
       "message": "just making sure i understand correctly, but this could also have just been `Text(text\u003d\"Row\", style\u003d...)` instead, right?",
+      "revId": "8b4d95536d98654e8e824729a1d73fd4a970f404",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51ea24b2_397d21ff",
+        "filename": "ui/layout/integration-tests/layout-demos/src/main/java/androidx/ui/layout/demos/LayoutActivity.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1362035
+      },
+      "writtenOn": "2019-05-13T23:13:55Z",
+      "side": 1,
+      "message": "This was a mistake. Fixed",
+      "parentUuid": "c8bd0f62_746990d8",
       "revId": "8b4d95536d98654e8e824729a1d73fd4a970f404",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "4c3f7bad_5bcd88ae",
+        "filename": "ui/text/build.gradle",
+        "patchSetId": 4
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1362035
+      },
+      "writtenOn": "2019-05-13T23:13:55Z",
+      "side": 1,
+      "message": "Previously I had a temp module, but all composable stuffs were then moved to ui-framework. Turning this off is temporary, and if anything composable needs to go into ui-text, I would create a module to then.",
+      "parentUuid": "dce2d545_d87456f4",
+      "revId": "8b4d95536d98654e8e824729a1d73fd4a970f404",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7aaefbb0_95b64978",
         "filename": "ui/text/src/main/java/androidx/ui/painting/TextSpan.kt",
         "patchSetId": 4
@@ -67,6 +121,24 @@
       "revId": "8b4d95536d98654e8e824729a1d73fd4a970f404",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d52318fb_592220bc",
+        "filename": "ui/text/src/main/java/androidx/ui/painting/TextSpan.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1362035
+      },
+      "writtenOn": "2019-05-13T23:13:55Z",
+      "side": 1,
+      "message": "Yes, I personally prefer immutable TextSpan. I\u0027ll mark it as TODO for now and deal with it later.",
+      "parentUuid": "7aaefbb0_95b64978",
+      "revId": "8b4d95536d98654e8e824729a1d73fd4a970f404",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
