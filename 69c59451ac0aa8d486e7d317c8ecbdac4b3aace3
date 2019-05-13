@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b5c4a8d0_2f35a882",
+        "filename": "versionedparcelable/src/androidTest/java/androidx/versionedparcelable/VersioningTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1290474
+      },
+      "writtenOn": "2019-05-13T16:26:19Z",
+      "side": 1,
+      "message": "This test is failing with an IOException.",
+      "range": {
+        "startLine": 57,
+        "startChar": 16,
+        "endLine": 57,
+        "endChar": 41
+      },
+      "revId": "69c59451ac0aa8d486e7d317c8ecbdac4b3aace3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
