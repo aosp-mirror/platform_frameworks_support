@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "e82cf17f_b36a2609",
+        "filename": "ui/material/src/main/java/androidx/ui/baseui/DeterminateProgressIndicator.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-05-13T12:46:45Z",
+      "side": 1,
+      "message": "Can you give examples of what are non-baseui files that contain no ui?\n\nI think for now we have no such files. For example, when we will have ClickablesWithRipples (name tbd), we will need to decide where to put it. For now all things I can see we can freely move out from material package",
+      "parentUuid": "6e380459_078832ad",
+      "range": {
+        "startLine": 17,
+        "startChar": 8,
+        "endLine": 17,
+        "endChar": 26
+      },
+      "revId": "eb09adffc67348c0913e96452c9f2b635ce0c0b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "88618692_b9bee94a",
         "filename": "ui/material/src/main/java/androidx/ui/material/ProgressIndicator.kt",
         "patchSetId": 1
