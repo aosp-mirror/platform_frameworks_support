@@ -16,6 +16,7 @@
 
 package androidx.ui.rendering.paragraph
 
+import androidx.annotation.RestrictTo
 import androidx.annotation.VisibleForTesting
 import androidx.ui.core.Constraints
 import androidx.ui.core.IntPxSize
@@ -401,8 +402,11 @@ class RenderParagraph(
      * top, bottom, left and right of a character.
      *
      * Valid only after [layout] has been called.
+     *
+     * @hide
      */
-    internal fun getBoundingBoxForTextPosition(textPosition: TextPosition): Rect {
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
+    fun getBoundingBoxForTextPosition(textPosition: TextPosition): Rect {
         layoutTextWithConstraints(constraints!!)
         return textPainter.getBoundingBoxForTextPosition(textPosition)
     }
