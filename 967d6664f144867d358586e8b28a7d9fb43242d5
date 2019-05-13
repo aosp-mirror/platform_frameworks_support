@@ -166,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "7e65aff6_1a0ac425",
+        "filename": "car/core/src/main/java/androidx/car/app/CarMultipleChoiceDialog.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-05-13T18:33:23Z",
+      "side": 1,
+      "message": "Yeah, the ordering makes it less appealing. I\u0027m fine with what you have here since there\u0027s public API that mirrors it.",
+      "parentUuid": "769595ee_b6a1a822",
+      "range": {
+        "startLine": 286,
+        "startChar": 63,
+        "endLine": 286,
+        "endChar": 85
+      },
+      "revId": "967d6664f144867d358586e8b28a7d9fb43242d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e1555bc3_53c04100",
         "filename": "car/core/src/main/java/androidx/car/app/CarMultipleChoiceDialog.java",
         "patchSetId": 3
