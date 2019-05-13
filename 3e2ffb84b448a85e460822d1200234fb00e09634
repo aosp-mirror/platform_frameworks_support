@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8a29bef0_ac579c60",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-05-13T15:39:59Z",
+      "side": 1,
+      "message": "paging-common is android-free, does it even have a cC? :P",
+      "revId": "3e2ffb84b448a85e460822d1200234fb00e09634",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96a0157a_739a6bd4",
+        "filename": "paging/common/src/test/java/androidx/paging/ContiguousPagedListTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-05-13T15:39:59Z",
+      "side": 1,
+      "message": "Instead of reformatting these files as part of this CL, can you do that separately?\n\nI like the reformat, it just shouldn\u0027t be done as part of moving a single class",
+      "revId": "3e2ffb84b448a85e460822d1200234fb00e09634",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
