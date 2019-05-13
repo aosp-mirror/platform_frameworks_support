@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "097de5f6_45cdf9fd",
+        "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 714,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-13T08:21:51Z",
+      "side": 1,
+      "message": "It would be nice if it could share some duplicated code with the existing method.",
+      "range": {
+        "startLine": 714,
+        "startChar": 9,
+        "endLine": 714,
+        "endChar": 45
+      },
+      "revId": "f3ae6f4f705d93e6cf429f3a5134810a78ba3e31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
