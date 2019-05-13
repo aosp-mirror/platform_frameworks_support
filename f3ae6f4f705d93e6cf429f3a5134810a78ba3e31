@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "0fe2e729_6f78bb04",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-05-13T09:13:26Z",
+      "side": 1,
+      "message": "Let\u0027s do this separately first, since the CL is becoming long.",
+      "range": {
+        "startLine": 11,
+        "startChar": 3,
+        "endLine": 11,
+        "endChar": 28
+      },
+      "revId": "f3ae6f4f705d93e6cf429f3a5134810a78ba3e31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "082b47da_08e278a5",
+        "filename": "media2/common/src/main/java/androidx/media2/common/SessionPlayer.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1278,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-05-13T09:13:26Z",
+      "side": 1,
+      "message": "Let\u0027s add Javadoc for each callback method although it is hidden.\nThis helps the readers (e.g. reviewers, future readers) to understand why the methods are needed.",
+      "range": {
+        "startLine": 1278,
+        "startChar": 11,
+        "endLine": 1278,
+        "endChar": 16
+      },
+      "revId": "f3ae6f4f705d93e6cf429f3a5134810a78ba3e31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "097de5f6_45cdf9fd",
         "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer.java",
         "patchSetId": 6
