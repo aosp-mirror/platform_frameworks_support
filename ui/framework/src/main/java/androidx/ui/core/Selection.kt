@@ -16,6 +16,7 @@
 
 package androidx.ui.core
 
+import android.util.Log
 import androidx.ui.core.gesture.PressIndicatorGestureDetector
 import androidx.ui.engine.geometry.Offset
 import androidx.ui.graphics.Color
@@ -26,6 +27,8 @@ import androidx.compose.Composable
 import androidx.compose.composer
 import androidx.compose.memo
 import androidx.compose.unaryPlus
+import androidx.ui.core.gesture.DragGestureDetector
+import androidx.ui.core.gesture.DragObserver
 
 private val HANDLE_WIDTH = 20.px
 private val HANDLE_HEIGHT = 100.px
@@ -117,6 +120,67 @@ internal class SelectionManager : SelectionRegistrar {
         }
         onSelectionChange(result)
     }
+
+    var dragBeginPosition = PxPosition.Origin
+    var dragTotalDistance = PxPosition.Origin
+
+    val startHandleDragObserver = object : DragObserver {
+
+        override fun onStart() {
+            dragBeginPosition = containerLayoutCoordinates!!.childToLocal(
+                selection?.startLayoutCoordinates!!,
+                PxPosition(selection?.startOffset!!.dx.px, selection?.startOffset!!.dy.px)
+            )
+            dragTotalDistance = PxPosition.Origin
+            Log.e("SelectionText", "drag onStart")
+        }
+
+        override fun onDrag(dragDistance: PxPosition): PxPosition {
+            var result = selection
+            dragTotalDistance += dragDistance
+            for (handler in handlers) {
+                result = handler.getSelection(
+                    Pair(
+                        dragBeginPosition + dragTotalDistance,
+                        PxPosition(selection?.endOffset!!.dx.px, selection?.endOffset!!.dy.px)
+                    ), containerLayoutCoordinates!!
+                )
+            }
+            onSelectionChange(result)
+            Log.e("SelectionText", "drag onDrag")
+            return dragDistance
+        }
+    }
+
+    val endHandleDragObserver = object : DragObserver {
+
+        override fun onStart() {
+            dragBeginPosition = containerLayoutCoordinates!!.childToLocal(
+                selection?.endLayoutCoordinates!!,
+                PxPosition(selection?.endOffset!!.dx.px, selection?.endOffset!!.dy.px)
+            )
+            dragTotalDistance = PxPosition.Origin
+            Log.e("SelectionText", "drag onStart")
+        }
+
+        override fun onDrag(dragDistance: PxPosition): PxPosition {
+            var result = selection
+            dragTotalDistance += dragDistance
+            for (handler in handlers) {
+                result = handler.getSelection(
+                    Pair(
+                        PxPosition(
+                            selection?.startOffset!!.dx.px,
+                            selection?.startOffset!!.dy.px
+                        ), dragBeginPosition + dragTotalDistance
+                    ), containerLayoutCoordinates!!
+                )
+            }
+            onSelectionChange(result)
+            Log.e("SelectionText", "drag onDrag")
+            return dragDistance
+        }
+    }
 }
 
 /** Ambient of SelectionRegistrar for SelectionManager. */
@@ -164,14 +228,21 @@ fun SelectionContainer(
             })
         }
         val startHandle = @Composable {
-            Layout(children = { SelectionHandle() }, layoutBlock = { _, constraints ->
-                layout(constraints.minWidth, constraints.minHeight) {}
-            })
+            DragGestureDetector(
+                canDrag = { true },
+                dragObserver = manager.startHandleDragObserver
+            ) {
+                Layout(children = { SelectionHandle() }, layoutBlock = { _, constraints ->
+                    layout(constraints.minWidth, constraints.minHeight) {}
+                })
+            }
         }
         val endHandle = @Composable {
-            Layout(children = { SelectionHandle() }, layoutBlock = { _, constraints ->
-                layout(constraints.minWidth, constraints.minHeight) {}
-            })
+            DragGestureDetector(canDrag = { true }, dragObserver = manager.endHandleDragObserver) {
+                Layout(children = { SelectionHandle() }, layoutBlock = { _, constraints ->
+                    layout(constraints.minWidth, constraints.minHeight) {}
+                })
+            }
         }
         @Suppress("USELESS_CAST")
         Layout(

@@ -38,6 +38,7 @@ import androidx.compose.state
 import androidx.compose.memo
 import androidx.compose.onDispose
 import androidx.compose.unaryPlus
+import androidx.ui.engine.text.TextAffinity
 
 private val DefaultTextAlign: TextAlign = TextAlign.Start
 private val DefaultTextDirection: TextDirection = TextDirection.Ltr
@@ -47,7 +48,6 @@ private val DefaultMaxLines: Int? = null
 
 /** The default selection color if none is specified. */
 private val DefaultSelectionColor = Color(0x6633B5E5)
-
 
 @Composable
 fun Text(
@@ -224,10 +224,14 @@ internal fun Text(
                         selectionStart =
                             TextPosition(wordBoundary.start, selectionStart.affinity)
                         selectionEnd = TextPosition(wordBoundary.end, selectionEnd.affinity)
+                    } else {
+                        selectionEnd = TextPosition(selectionEnd.offset + 1, TextAffinity.upstream)
                     }
 
                     internalSelection.value =
                         TextSelection(selectionStart.offset, selectionEnd.offset)
+
+                    selectionEnd = TextPosition(selectionEnd.offset - 1, TextAffinity.upstream)
 
                     // TODO(qqd): Determine a set of coordinates around a character that we need.
                     // Clean up the lower layer's getCaretForTextPosition methods.
