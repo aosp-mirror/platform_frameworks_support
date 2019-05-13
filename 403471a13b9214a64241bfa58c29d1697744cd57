@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "717cb1e5_1453df9b",
+        "filename": "work/workmanager/src/main/java/androidx/work/Configuration.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2019-05-13T21:22:35Z",
+      "side": 1,
+      "message": "We do provide a reasonable default. I struggled with the name. Any ideas on what an alternative name could be ?",
+      "parentUuid": "9d7d1449_fe870c66",
+      "range": {
+        "startLine": 52,
+        "startChar": 36,
+        "endLine": 52,
+        "endChar": 57
+      },
+      "revId": "403471a13b9214a64241bfa58c29d1697744cd57",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "22cdea19_7af0036a",
         "filename": "work/workmanager/src/main/java/androidx/work/Configuration.java",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "9b7099e3_05710d39",
+        "filename": "work/workmanager/src/main/java/androidx/work/Configuration.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2019-05-13T21:22:35Z",
+      "side": 1,
+      "message": "We don\u0027t check is the Executor supports multiple threads. If they only have 1 thread, things will get serialized and performance suffer. I do the same thing Room does, i.e. strongly encourage them to use a bounded Executor with \u003e 1 threads.",
+      "parentUuid": "22cdea19_7af0036a",
+      "range": {
+        "startLine": 67,
+        "startChar": 12,
+        "endLine": 69,
+        "endChar": 62
+      },
+      "revId": "403471a13b9214a64241bfa58c29d1697744cd57",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "08594b19_ed55b6e5",
         "filename": "work/workmanager/src/main/java/androidx/work/impl/utils/SerialExecutor.java",
         "patchSetId": 2
@@ -59,6 +107,30 @@
       "writtenOn": "2019-05-13T19:25:46Z",
       "side": 1,
       "message": "I\u0027m not sure this implementation is actually correct in terms of threading.  It also seems unnecessarily complex when compared to AsyncTask#SerialExecutor.  Why don\u0027t you just use that, which I believe is the same as the sample seen on https://developer.android.com/reference/java/util/concurrent/Executor ?",
+      "range": {
+        "startLine": 28,
+        "startChar": 13,
+        "endLine": 28,
+        "endChar": 27
+      },
+      "revId": "403471a13b9214a64241bfa58c29d1697744cd57",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60b7748f_f7173acc",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/utils/SerialExecutor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2019-05-13T21:22:35Z",
+      "side": 1,
+      "message": "I looked at SerialExecutor in AsyncTask. The reason why its a bit simpler is because it does not share the executor with anyone else. In our case we share the executor with Room for reads.",
+      "parentUuid": "08594b19_ed55b6e5",
       "range": {
         "startLine": 28,
         "startChar": 13,

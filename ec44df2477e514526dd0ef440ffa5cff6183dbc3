@@ -22,6 +22,30 @@
       "revId": "ec44df2477e514526dd0ef440ffa5cff6183dbc3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "615c3502_3b29c6f9",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/WorkerWrapper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2019-05-13T21:22:35Z",
+      "side": 0,
+      "message": "The delegate can have more than 1 thread associated with it though.",
+      "parentUuid": "ea4ca424_65e910bc",
+      "range": {
+        "startLine": 315,
+        "startChar": 8,
+        "endLine": 315,
+        "endChar": 38
+      },
+      "revId": "ec44df2477e514526dd0ef440ffa5cff6183dbc3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
