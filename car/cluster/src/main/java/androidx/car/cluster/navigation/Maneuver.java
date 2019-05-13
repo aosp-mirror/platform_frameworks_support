@@ -23,6 +23,7 @@ import android.annotation.SuppressLint;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
+import androidx.car.cluster.navigation.NavigationState2.ManeuverProto;
 import androidx.versionedparcelable.ParcelField;
 import androidx.versionedparcelable.VersionedParcelable;
 import androidx.versionedparcelable.VersionedParcelize;
@@ -426,5 +427,259 @@ public final class Maneuver implements VersionedParcelable {
     public String toString() {
         return String.format("{type: %s, roundaboutExitNumer: %d, icon: %s}", mType,
                 mRoundaboutExitNumber, mIcon);
+    }
+
+    private ManeuverProto.Type getProtoType() {
+        switch (EnumWrapper.getValue(mType, Type.UNKNOWN)) {
+            case UNKNOWN:
+                return ManeuverProto.Type.UNKNOWN;
+            case DEPART:
+                return ManeuverProto.Type.DEPART;
+            case NAME_CHANGE:
+                return ManeuverProto.Type.NAME_CHANGE;
+            case KEEP_LEFT:
+                return ManeuverProto.Type.KEEP_LEFT;
+            case KEEP_RIGHT:
+                return ManeuverProto.Type.KEEP_RIGHT;
+            case TURN_SLIGHT_LEFT:
+                return ManeuverProto.Type.TURN_SLIGHT_LEFT;
+            case TURN_SLIGHT_RIGHT:
+                return ManeuverProto.Type.TURN_SLIGHT_RIGHT;
+            case TURN_NORMAL_LEFT:
+                return ManeuverProto.Type.TURN_NORMAL_LEFT;
+            case TURN_NORMAL_RIGHT:
+                return ManeuverProto.Type.TURN_NORMAL_RIGHT;
+            case TURN_SHARP_LEFT:
+                return ManeuverProto.Type.TURN_SHARP_LEFT;
+            case TURN_SHARP_RIGHT:
+                return ManeuverProto.Type.TURN_SHARP_RIGHT;
+            case U_TURN_LEFT:
+                return ManeuverProto.Type.U_TURN_LEFT;
+            case U_TURN_RIGHT:
+                return ManeuverProto.Type.U_TURN_RIGHT;
+            case ON_RAMP_SLIGHT_LEFT:
+                return ManeuverProto.Type.ON_RAMP_SLIGHT_LEFT;
+            case ON_RAMP_SLIGHT_RIGHT:
+                return ManeuverProto.Type.ON_RAMP_SLIGHT_RIGHT;
+            case ON_RAMP_NORMAL_LEFT:
+                return ManeuverProto.Type.ON_RAMP_NORMAL_LEFT;
+            case ON_RAMP_NORMAL_RIGHT:
+                return ManeuverProto.Type.ON_RAMP_NORMAL_RIGHT;
+            case ON_RAMP_SHARP_LEFT:
+                return ManeuverProto.Type.ON_RAMP_SHARP_LEFT;
+            case ON_RAMP_SHARP_RIGHT:
+                return ManeuverProto.Type.ON_RAMP_SHARP_RIGHT;
+            case ON_RAMP_U_TURN_LEFT:
+                return ManeuverProto.Type.ON_RAMP_U_TURN_LEFT;
+            case ON_RAMP_U_TURN_RIGHT:
+                return ManeuverProto.Type.ON_RAMP_U_TURN_RIGHT;
+            case OFF_RAMP_SLIGHT_LEFT:
+                return ManeuverProto.Type.OFF_RAMP_SLIGHT_LEFT;
+            case OFF_RAMP_SLIGHT_RIGHT:
+                return ManeuverProto.Type.OFF_RAMP_SLIGHT_RIGHT;
+            case OFF_RAMP_NORMAL_LEFT:
+                return ManeuverProto.Type.OFF_RAMP_NORMAL_LEFT;
+            case OFF_RAMP_NORMAL_RIGHT:
+                return ManeuverProto.Type.OFF_RAMP_NORMAL_RIGHT;
+            case FORK_LEFT:
+                return ManeuverProto.Type.FORK_LEFT;
+            case FORK_RIGHT:
+                return ManeuverProto.Type.FORK_RIGHT;
+            case MERGE_LEFT:
+                return ManeuverProto.Type.MERGE_LEFT;
+            case MERGE_RIGHT:
+                return ManeuverProto.Type.MERGE_RIGHT;
+            case ROUNDABOUT_ENTER:
+                return ManeuverProto.Type.ROUNDABOUT_ENTER;
+            case ROUNDABOUT_EXIT:
+                return ManeuverProto.Type.ROUNDABOUT_EXIT;
+            case ROUNDABOUT_ENTER_AND_EXIT_CW_SHARP_RIGHT:
+                return ManeuverProto.Type.ROUNDABOUT_ENTER_AND_EXIT_CW_SHARP_RIGHT;
+            case ROUNDABOUT_ENTER_AND_EXIT_CW_NORMAL_RIGHT:
+                return ManeuverProto.Type.ROUNDABOUT_ENTER_AND_EXIT_CW_NORMAL_RIGHT;
+            case ROUNDABOUT_ENTER_AND_EXIT_CW_SLIGHT_RIGHT:
+                return ManeuverProto.Type.ROUNDABOUT_ENTER_AND_EXIT_CW_SLIGHT_RIGHT;
+            case ROUNDABOUT_ENTER_AND_EXIT_CW_STRAIGHT:
+                return ManeuverProto.Type.ROUNDABOUT_ENTER_AND_EXIT_CW_STRAIGHT;
+            case ROUNDABOUT_ENTER_AND_EXIT_CW_SHARP_LEFT:
+                return ManeuverProto.Type.ROUNDABOUT_ENTER_AND_EXIT_CW_SHARP_LEFT;
+            case ROUNDABOUT_ENTER_AND_EXIT_CW_NORMAL_LEFT:
+                return ManeuverProto.Type.ROUNDABOUT_ENTER_AND_EXIT_CW_NORMAL_LEFT;
+            case ROUNDABOUT_ENTER_AND_EXIT_CW_SLIGHT_LEFT:
+                return ManeuverProto.Type.ROUNDABOUT_ENTER_AND_EXIT_CW_SLIGHT_LEFT;
+            case ROUNDABOUT_ENTER_AND_EXIT_CW_U_TURN:
+                return ManeuverProto.Type.ROUNDABOUT_ENTER_AND_EXIT_CW_U_TURN;
+            case ROUNDABOUT_ENTER_AND_EXIT_CCW_SHARP_RIGHT:
+                return ManeuverProto.Type.ROUNDABOUT_ENTER_AND_EXIT_CCW_SHARP_RIGHT;
+            case ROUNDABOUT_ENTER_AND_EXIT_CCW_NORMAL_RIGHT:
+                return ManeuverProto.Type.ROUNDABOUT_ENTER_AND_EXIT_CCW_NORMAL_RIGHT;
+            case ROUNDABOUT_ENTER_AND_EXIT_CCW_SLIGHT_RIGHT:
+                return ManeuverProto.Type.ROUNDABOUT_ENTER_AND_EXIT_CCW_SLIGHT_RIGHT;
+            case ROUNDABOUT_ENTER_AND_EXIT_CCW_STRAIGHT:
+                return ManeuverProto.Type.ROUNDABOUT_ENTER_AND_EXIT_CCW_STRAIGHT;
+            case ROUNDABOUT_ENTER_AND_EXIT_CCW_SHARP_LEFT:
+                return ManeuverProto.Type.ROUNDABOUT_ENTER_AND_EXIT_CCW_SHARP_LEFT;
+            case ROUNDABOUT_ENTER_AND_EXIT_CCW_NORMAL_LEFT:
+                return ManeuverProto.Type.ROUNDABOUT_ENTER_AND_EXIT_CCW_NORMAL_LEFT;
+            case ROUNDABOUT_ENTER_AND_EXIT_CCW_SLIGHT_LEFT:
+                return ManeuverProto.Type.ROUNDABOUT_ENTER_AND_EXIT_CCW_SLIGHT_LEFT;
+            case ROUNDABOUT_ENTER_AND_EXIT_CCW_U_TURN:
+                return ManeuverProto.Type.ROUNDABOUT_ENTER_AND_EXIT_CCW_U_TURN;
+            case STRAIGHT:
+                return ManeuverProto.Type.STRAIGHT;
+            case FERRY_BOAT:
+                return ManeuverProto.Type.FERRY_BOAT;
+            case FERRY_TRAIN:
+                return ManeuverProto.Type.FERRY_TRAIN;
+            case DESTINATION:
+                return ManeuverProto.Type.DESTINATION;
+            case DESTINATION_STRAIGHT:
+                return ManeuverProto.Type.DESTINATION_STRAIGHT;
+            case DESTINATION_LEFT:
+                return ManeuverProto.Type.DESTINATION_LEFT;
+            case DESTINATION_RIGHT:
+                return ManeuverProto.Type.DESTINATION_RIGHT;
+        }
+        return ManeuverProto.Type.UNKNOWN;
+    }
+
+    ManeuverProto toProto() {
+        ManeuverProto.Builder builder = ManeuverProto.newBuilder();
+        if (mType != null) {
+            builder.addTypes(getProtoType());
+        }
+        if (mIcon != null) {
+            builder.setIcon(mIcon.toProto());
+        }
+        builder.setRoundaboutExitNumber(mRoundaboutExitNumber);
+        return builder.build();
+    }
+
+    private static Type getTypeFromProto(ManeuverProto proto) {
+        for (ManeuverProto.Type type : proto.getTypesList()) {
+            switch (type) {
+                case UNKNOWN:
+                    return Type.UNKNOWN;
+                case DEPART:
+                    return Type.DEPART;
+                case NAME_CHANGE:
+                    return Type.NAME_CHANGE;
+                case KEEP_LEFT:
+                    return Type.KEEP_LEFT;
+                case KEEP_RIGHT:
+                    return Type.KEEP_RIGHT;
+                case TURN_SLIGHT_LEFT:
+                    return Type.TURN_SLIGHT_LEFT;
+                case TURN_SLIGHT_RIGHT:
+                    return Type.TURN_SLIGHT_RIGHT;
+                case TURN_NORMAL_LEFT:
+                    return Type.TURN_NORMAL_LEFT;
+                case TURN_NORMAL_RIGHT:
+                    return Type.TURN_NORMAL_RIGHT;
+                case TURN_SHARP_LEFT:
+                    return Type.TURN_SHARP_LEFT;
+                case TURN_SHARP_RIGHT:
+                    return Type.TURN_SHARP_RIGHT;
+                case U_TURN_LEFT:
+                    return Type.U_TURN_LEFT;
+                case U_TURN_RIGHT:
+                    return Type.U_TURN_RIGHT;
+                case ON_RAMP_SLIGHT_LEFT:
+                    return Type.ON_RAMP_SLIGHT_LEFT;
+                case ON_RAMP_SLIGHT_RIGHT:
+                    return Type.ON_RAMP_SLIGHT_RIGHT;
+                case ON_RAMP_NORMAL_LEFT:
+                    return Type.ON_RAMP_NORMAL_LEFT;
+                case ON_RAMP_NORMAL_RIGHT:
+                    return Type.ON_RAMP_NORMAL_RIGHT;
+                case ON_RAMP_SHARP_LEFT:
+                    return Type.ON_RAMP_SHARP_LEFT;
+                case ON_RAMP_SHARP_RIGHT:
+                    return Type.ON_RAMP_SHARP_RIGHT;
+                case ON_RAMP_U_TURN_LEFT:
+                    return Type.ON_RAMP_U_TURN_LEFT;
+                case ON_RAMP_U_TURN_RIGHT:
+                    return Type.ON_RAMP_U_TURN_RIGHT;
+                case OFF_RAMP_SLIGHT_LEFT:
+                    return Type.OFF_RAMP_SLIGHT_LEFT;
+                case OFF_RAMP_SLIGHT_RIGHT:
+                    return Type.OFF_RAMP_SLIGHT_RIGHT;
+                case OFF_RAMP_NORMAL_LEFT:
+                    return Type.OFF_RAMP_NORMAL_LEFT;
+                case OFF_RAMP_NORMAL_RIGHT:
+                    return Type.OFF_RAMP_NORMAL_RIGHT;
+                case FORK_LEFT:
+                    return Type.FORK_LEFT;
+                case FORK_RIGHT:
+                    return Type.FORK_RIGHT;
+                case MERGE_LEFT:
+                    return Type.MERGE_LEFT;
+                case MERGE_RIGHT:
+                    return Type.MERGE_RIGHT;
+                case ROUNDABOUT_ENTER:
+                    return Type.ROUNDABOUT_ENTER;
+                case ROUNDABOUT_EXIT:
+                    return Type.ROUNDABOUT_EXIT;
+                case ROUNDABOUT_ENTER_AND_EXIT_CW_SHARP_RIGHT:
+                    return Type.ROUNDABOUT_ENTER_AND_EXIT_CW_SHARP_RIGHT;
+                case ROUNDABOUT_ENTER_AND_EXIT_CW_NORMAL_RIGHT:
+                    return Type.ROUNDABOUT_ENTER_AND_EXIT_CW_NORMAL_RIGHT;
+                case ROUNDABOUT_ENTER_AND_EXIT_CW_SLIGHT_RIGHT:
+                    return Type.ROUNDABOUT_ENTER_AND_EXIT_CW_SLIGHT_RIGHT;
+                case ROUNDABOUT_ENTER_AND_EXIT_CW_STRAIGHT:
+                    return Type.ROUNDABOUT_ENTER_AND_EXIT_CW_STRAIGHT;
+                case ROUNDABOUT_ENTER_AND_EXIT_CW_SHARP_LEFT:
+                    return Type.ROUNDABOUT_ENTER_AND_EXIT_CW_SHARP_LEFT;
+                case ROUNDABOUT_ENTER_AND_EXIT_CW_NORMAL_LEFT:
+                    return Type.ROUNDABOUT_ENTER_AND_EXIT_CW_NORMAL_LEFT;
+                case ROUNDABOUT_ENTER_AND_EXIT_CW_SLIGHT_LEFT:
+                    return Type.ROUNDABOUT_ENTER_AND_EXIT_CW_SLIGHT_LEFT;
+                case ROUNDABOUT_ENTER_AND_EXIT_CW_U_TURN:
+                    return Type.ROUNDABOUT_ENTER_AND_EXIT_CW_U_TURN;
+                case ROUNDABOUT_ENTER_AND_EXIT_CCW_SHARP_RIGHT:
+                    return Type.ROUNDABOUT_ENTER_AND_EXIT_CCW_SHARP_RIGHT;
+                case ROUNDABOUT_ENTER_AND_EXIT_CCW_NORMAL_RIGHT:
+                    return Type.ROUNDABOUT_ENTER_AND_EXIT_CCW_NORMAL_RIGHT;
+                case ROUNDABOUT_ENTER_AND_EXIT_CCW_SLIGHT_RIGHT:
+                    return Type.ROUNDABOUT_ENTER_AND_EXIT_CCW_SLIGHT_RIGHT;
+                case ROUNDABOUT_ENTER_AND_EXIT_CCW_STRAIGHT:
+                    return Type.ROUNDABOUT_ENTER_AND_EXIT_CCW_STRAIGHT;
+                case ROUNDABOUT_ENTER_AND_EXIT_CCW_SHARP_LEFT:
+                    return Type.ROUNDABOUT_ENTER_AND_EXIT_CCW_SHARP_LEFT;
+                case ROUNDABOUT_ENTER_AND_EXIT_CCW_NORMAL_LEFT:
+                    return Type.ROUNDABOUT_ENTER_AND_EXIT_CCW_NORMAL_LEFT;
+                case ROUNDABOUT_ENTER_AND_EXIT_CCW_SLIGHT_LEFT:
+                    return Type.ROUNDABOUT_ENTER_AND_EXIT_CCW_SLIGHT_LEFT;
+                case ROUNDABOUT_ENTER_AND_EXIT_CCW_U_TURN:
+                    return Type.ROUNDABOUT_ENTER_AND_EXIT_CCW_U_TURN;
+                case STRAIGHT:
+                    return Type.STRAIGHT;
+                case FERRY_BOAT:
+                    return Type.FERRY_BOAT;
+                case FERRY_TRAIN:
+                    return Type.FERRY_TRAIN;
+                case DESTINATION:
+                    return Type.DESTINATION;
+                case DESTINATION_STRAIGHT:
+                    return Type.DESTINATION_STRAIGHT;
+                case DESTINATION_LEFT:
+                    return Type.DESTINATION_LEFT;
+                case DESTINATION_RIGHT:
+                    return Type.DESTINATION_RIGHT;
+                case UNRECOGNIZED:
+                    continue; // Look for a fallback
+            }
+        }
+        return Type.UNKNOWN;
+    }
+
+    static Maneuver fromProto(ManeuverProto proto) {
+        Builder builder = new Builder();
+        builder.setType(getTypeFromProto(proto));
+        builder.setRoundaboutExitNumber(proto.getRoundaboutExitNumber());
+        if (proto.hasIcon()) {
+            builder.setIcon(ImageReference.fromProto(proto.getIcon()));
+        }
+        return builder.build();
     }
 }

@@ -87,15 +87,13 @@ public class ImageReference implements VersionedParcelable {
      * @hide
      */
     @RestrictTo(LIBRARY_GROUP_PREFIX)
-    ImageReference(@NonNull String contentUri,
-            @IntRange(from = 1, to = Integer.MAX_VALUE) int originalWidth,
-            @IntRange(from = 1, to = Integer.MAX_VALUE) int originalHeight,
+    ImageReference(String contentUri,
+            int originalWidth,
+            int originalHeight,
             boolean isTintable) {
-        mContentUri = Preconditions.checkNotNull(contentUri);
-        mOriginalWidth = Preconditions.checkArgumentInRange(originalWidth, 1,
-                Integer.MAX_VALUE, "originalWidth");
-        mOriginalHeight = Preconditions.checkArgumentInRange(originalHeight, 1,
-                Integer.MAX_VALUE, "originalHeight");
+        mContentUri = contentUri;
+        mOriginalWidth = originalWidth;
+        mOriginalHeight = originalHeight;
         mIsTintable = isTintable;
     }
 
@@ -267,5 +265,30 @@ public class ImageReference implements VersionedParcelable {
         return String.format("{contentUri: '%s', originalWidth: %d, originalHeight: %d, "
                         + "isTintable: %s}",
                 mContentUri, mOriginalWidth, mOriginalHeight, mIsTintable);
+    }
+
+    NavigationState2.ImageReferenceProto toProto() {
+        NavigationState2.ImageReferenceProto.Builder builder =
+                NavigationState2.ImageReferenceProto.newBuilder();
+        if (mContentUri != null) {
+            builder.setContentUri(mContentUri);
+        }
+        builder.setOriginalWidth(mOriginalWidth);
+        builder.setOriginalHeight(mOriginalHeight);
+        builder.setIsTintable(mIsTintable);
+        return builder.build();
+    }
+
+    static ImageReference fromProto(NavigationState2.ImageReferenceProto proto) {
+        if (proto.getContentUri() == null || !proto.getContentUri().startsWith(SCHEME)) {
+            return null;
+        }
+        if (proto.getOriginalWidth() < 1 || proto.getOriginalHeight() < 1) {
+            return null;
+        }
+        return new ImageReference(proto.getContentUri(),
+                                  proto.getOriginalWidth(),
+                                  proto.getOriginalHeight(),
+                                  proto.getIsTintable());
     }
 }
