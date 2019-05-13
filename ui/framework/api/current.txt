@@ -115,12 +115,30 @@ package androidx.ui.core {
   }
 
   public final class Selection {
-    ctor public Selection(androidx.ui.engine.geometry.Offset startOffset, androidx.ui.engine.geometry.Offset endOffset);
-    method public androidx.ui.engine.geometry.Offset component1();
-    method public androidx.ui.engine.geometry.Offset component2();
-    method public androidx.ui.core.Selection copy(androidx.ui.engine.geometry.Offset startOffset, androidx.ui.engine.geometry.Offset endOffset);
-    method public androidx.ui.engine.geometry.Offset getEndOffset();
-    method public androidx.ui.engine.geometry.Offset getStartOffset();
+    ctor public Selection(androidx.ui.engine.geometry.Rect startOffset, androidx.ui.engine.geometry.Rect endOffset);
+    method public androidx.ui.engine.geometry.Rect component1();
+    method public androidx.ui.engine.geometry.Rect component2();
+    method public androidx.ui.core.Selection copy(androidx.ui.engine.geometry.Rect startOffset, androidx.ui.engine.geometry.Rect endOffset);
+    method public androidx.ui.core.PxPosition getEndCurrent();
+    method public androidx.ui.core.PxPosition getEndDragToLeftOrigin();
+    method public androidx.ui.core.PxPosition getEndDragToRightOrigin();
+    method public androidx.ui.engine.geometry.Rect getEndOffset();
+    method public androidx.ui.core.PxPosition getStartCurrent();
+    method public androidx.ui.core.PxPosition getStartDragToLeftOrigin();
+    method public androidx.ui.core.PxPosition getStartDragToRightOrigin();
+    method public androidx.ui.engine.geometry.Rect getStartOffset();
+    method public void setEndCurrent(androidx.ui.core.PxPosition p);
+    method public void setEndDragToLeftOrigin(androidx.ui.core.PxPosition p);
+    method public void setEndDragToRightOrigin(androidx.ui.core.PxPosition p);
+    method public void setStartCurrent(androidx.ui.core.PxPosition p);
+    method public void setStartDragToLeftOrigin(androidx.ui.core.PxPosition p);
+    method public void setStartDragToRightOrigin(androidx.ui.core.PxPosition p);
+    property public final androidx.ui.core.PxPosition endCurrent;
+    property public final androidx.ui.core.PxPosition endDragToLeftOrigin;
+    property public final androidx.ui.core.PxPosition endDragToRightOrigin;
+    property public final androidx.ui.core.PxPosition startCurrent;
+    property public final androidx.ui.core.PxPosition startDragToLeftOrigin;
+    property public final androidx.ui.core.PxPosition startDragToRightOrigin;
   }
 
   public final class SelectionKt {
