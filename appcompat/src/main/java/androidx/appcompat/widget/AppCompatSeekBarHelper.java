@@ -17,6 +17,7 @@
 package androidx.appcompat.widget;
 
 import android.content.res.ColorStateList;
+import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
@@ -25,6 +26,7 @@ import android.widget.SeekBar;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.R;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.view.ViewCompat;
 
@@ -49,9 +51,27 @@ class AppCompatSeekBarHelper extends AppCompatProgressBarHelper {
 
         TintTypedArray a = TintTypedArray.obtainStyledAttributes(mView.getContext(), attrs,
                 R.styleable.AppCompatSeekBar, defStyleAttr, 0);
-        final Drawable drawable = a.getDrawableIfKnown(R.styleable.AppCompatSeekBar_android_thumb);
-        if (drawable != null) {
-            mView.setThumb(drawable);
+        boolean thumbDrawableLoaded = false;
+        if (a.hasValue(R.styleable.AppCompatSeekBar_thumbCompat)) {
+            final int resourceId = a.getResourceId(R.styleable.AppCompatSeekBar_thumbCompat, 0);
+            if (resourceId != 0) {
+                try {
+                    mView.setThumb(
+                            AppCompatResources.getDrawable(mView.getContext(), resourceId));
+                    thumbDrawableLoaded = true;
+                } catch (Resources.NotFoundException nfe) {
+                    // Animated thumbCompat relies on AAPT2 features. If not found then swallow
+                    // this error and fall back to the regular drawable.
+                }
+            }
+        }
+        if (!thumbDrawableLoaded && a.hasValue(R.styleable.AppCompatSeekBar_android_thumb)) {
+            final int resourceId = a.getResourceId(
+                    R.styleable.AppCompatSeekBar_android_thumb, 0);
+            if (resourceId != 0) {
+                mView.setThumb(
+                        AppCompatResources.getDrawable(mView.getContext(), resourceId));
+            }
         }
 
         final Drawable tickMark = a.getDrawable(R.styleable.AppCompatSeekBar_tickMark);

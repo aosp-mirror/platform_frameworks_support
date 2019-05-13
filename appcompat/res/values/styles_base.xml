@@ -428,6 +428,7 @@
         <item name="android:progressDrawable">@drawable/abc_seekbar_track_material</item>
         <item name="android:indeterminateDrawable">@drawable/abc_seekbar_track_material</item>
         <item name="android:thumb">@drawable/abc_seekbar_thumb_material</item>
+        <item name="thumbCompat">@drawable/abc_seekbar_thumb_material_anim</item>
         <item name="android:focusable">true</item>
         <item name="android:paddingLeft">16dip</item>
         <item name="android:paddingRight">16dip</item>

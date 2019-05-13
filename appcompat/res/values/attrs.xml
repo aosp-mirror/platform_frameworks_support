@@ -1261,6 +1261,8 @@
 
     <declare-styleable name="AppCompatSeekBar">
         <attr name="android:thumb" />
+        <!-- Compat attr to load backported drawable types -->
+        <attr name="thumbCompat" format="reference"/>
         <!-- Drawable displayed at each progress position on a seekbar. -->
         <attr name="tickMark" format="reference" />
         <!-- Tint to apply to the tick mark drawable. -->
