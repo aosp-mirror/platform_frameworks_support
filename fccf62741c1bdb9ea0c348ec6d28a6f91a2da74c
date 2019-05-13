@@ -117,6 +117,30 @@
     },
     {
       "key": {
+        "uuid": "a59fb0a3_003b2618",
+        "filename": "car/cluster/proto/NavigationState2.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1384412
+      },
+      "writtenOn": "2019-05-13T23:50:48Z",
+      "side": 1,
+      "message": "Fixed now, implemented it.",
+      "parentUuid": "e3a718d7_51895a76",
+      "range": {
+        "startLine": 192,
+        "startChar": 0,
+        "endLine": 195,
+        "endChar": 5
+      },
+      "revId": "fccf62741c1bdb9ea0c348ec6d28a6f91a2da74c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2ac0799c_18a8679d",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/ImageReference.java",
         "patchSetId": 1
@@ -137,6 +161,30 @@
       "revId": "fccf62741c1bdb9ea0c348ec6d28a6f91a2da74c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4266815_054d1866",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/ImageReference.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1384412
+      },
+      "writtenOn": "2019-05-13T23:50:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2ac0799c_18a8679d",
+      "range": {
+        "startLine": 89,
+        "startChar": 4,
+        "endLine": 90,
+        "endChar": 12
+      },
+      "revId": "fccf62741c1bdb9ea0c348ec6d28a6f91a2da74c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -197,6 +245,30 @@
       "writtenOn": "2019-05-13T06:31:47Z",
       "side": 1,
       "message": "Sometimes we\u0027re using builders for this. Sometimes we\u0027re using constructors. Should we be consistent?",
+      "range": {
+        "startLine": 256,
+        "startChar": 4,
+        "endLine": 256,
+        "endChar": 89
+      },
+      "revId": "fccf62741c1bdb9ea0c348ec6d28a6f91a2da74c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1cfa96d8_f2c3544e",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/LaneDirection.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1384412
+      },
+      "writtenOn": "2019-05-13T23:50:48Z",
+      "side": 1,
+      "message": "Some don\u0027t have constructors, some are easier to do with builders because of for loops.",
+      "parentUuid": "1f8afd43_2e79fb38",
       "range": {
         "startLine": 256,
         "startChar": 4,
