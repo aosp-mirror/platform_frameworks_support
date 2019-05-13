@@ -40,8 +40,7 @@ class AndroidCraneView constructor(context: Context)
 
     val root = LayoutNode()
     private val relayoutNodes = mutableSetOf<LayoutNode>()
-    private val modelToNodes = mutableMapOf<Any, MutableSet<ComponentNode>>()
-    private val nodeToModels = mutableMapOf<ComponentNode, MutableSet<Any>>()
+    private val nodesModelHolder = NodesModelHolder<ComponentNode>()
 
     var ref: Ref<AndroidCraneView>? = null
         set(value) {
@@ -62,24 +61,13 @@ class AndroidCraneView constructor(context: Context)
     private val frameReadObserver: FrameReadObserver = { readValue ->
         val node = currentNode
         if (node != null) {
-            val models = nodeToModels.getOrElse(node) {
-                val set = mutableSetOf<Any>()
-                nodeToModels[node] = set
-                set
-            }
-            models += readValue
-            val nodes = modelToNodes.getOrElse(readValue) {
-                val set = mutableSetOf<ComponentNode>()
-                modelToNodes[readValue] = set
-                set
-            }
-            nodes += node
+            nodesModelHolder.addModel(node, readValue)
         }
     }
 
     private val commitObserver: FrameCommitObserver = { committed ->
         committed.forEach {
-            modelToNodes[it]?.forEach { node ->
+            nodesModelHolder.forEachNode(it) { node ->
                 when (node) {
                     is DrawNode -> node.invalidate()
                     is LayoutNode -> node.requestLayout()
@@ -209,7 +197,7 @@ class AndroidCraneView constructor(context: Context)
     }
 
     override fun onStartMeasure(layoutNode: LayoutNode) {
-        clearNodeModels(layoutNode)
+        nodesModelHolder.clearModels(layoutNode)
         currentNode = layoutNode
     }
 
@@ -240,7 +228,7 @@ class AndroidCraneView constructor(context: Context)
             is DrawNode -> {
                 val onPaint = node.onPaint
                 currentNode = node
-                clearNodeModels(node)
+                nodesModelHolder.clearModels(node)
                 val receiver = DrawNodeScopeImpl(node.child, canvas, parentSize,
                     densityReceiver.density)
                 receiver.onPaint(canvas, parentSize)
@@ -343,15 +331,6 @@ class AndroidCraneView constructor(context: Context)
         }
         root.resize(maxWidth, maxHeight)
         root.endMeasure()
-    }
-
-    private fun clearNodeModels(node: ComponentNode) {
-        val models = nodeToModels.remove(node)
-        if (models != null) {
-            models.forEach { model ->
-                modelToNodes[model]!! -= node
-            }
-        }
     }
 
     private inner class DrawNodeScopeImpl(
