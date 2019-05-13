@@ -35,6 +35,8 @@ import androidx.compose.effectOf
 import androidx.compose.onCommit
 import androidx.compose.state
 import androidx.compose.unaryPlus
+import androidx.ui.engine.geometry.Rect
+import androidx.ui.engine.text.TextAffinity
 
 private val DefaultTextAlign: TextAlign = TextAlign.START
 private val DefaultTextDirection: TextDirection = TextDirection.LTR
@@ -147,18 +149,37 @@ fun Text(
                         selectionStart =
                             TextPosition(wordBoundary.start, selectionStart.affinity)
                         selectionEnd = TextPosition(wordBoundary.end, selectionEnd.affinity)
+                    } else {
+                        selectionEnd = TextPosition(selectionEnd.offset + 1, TextAffinity.upstream)
                     }
 
                     internalSelection.value =
                         TextSelection(selectionStart.offset, selectionEnd.offset)
 
+                    selectionEnd = TextPosition(selectionEnd.offset - 1, TextAffinity.upstream)
+
+                    val caretStart = renderParagraph.getCaretForTextPosition(selectionStart)
+                    val caretStartPlusOne = renderParagraph.getCaretForTextPosition(TextPosition(selectionStart.offset + 1, TextAffinity.upstream))
+
+                    val caretEnd = renderParagraph.getCaretForTextPosition(selectionEnd)
+                    val caretEndPlusOne = renderParagraph.getCaretForTextPosition(TextPosition(selectionEnd.offset + 1, TextAffinity.upstream))
+
                     // TODO(qqd): Determine a set of coordinates around a character that we need.
                     // Clean up the lower layer's getCaretForTextPosition methods.
                     return Selection(
-                        startOffset =
-                        renderParagraph.getCaretForTextPosition(selectionStart).second,
+                        startOffset = Rect(
+                            top = caretStart.first.dy,
+                            bottom = caretStart.second.dy,
+                            left = caretStart.first.dx,
+                            right = caretStartPlusOne.first.dx
+                        ),
                         endOffset =
-                        renderParagraph.getCaretForTextPosition(selectionEnd).second
+                        Rect(
+                            top = caretEnd.first.dy,
+                            bottom = caretEnd.second.dy,
+                            left = caretEnd.first.dx,
+                            right = caretEndPlusOne.first.dx
+                        )
                     )
                 }
             })

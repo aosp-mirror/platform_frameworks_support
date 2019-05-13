@@ -33,16 +33,23 @@ import androidx.compose.unaryPlus
  */
 data class Selection(
     /**
-     * The coordinate of the start offset of the selection. For text, it's the left bottom corner
+     * The coordinate of the start offset of the selection. For text, it's the bounding box
      * of the character at the start offset.
      */
-    val startOffset: Offset,
+    val startOffset: Rect,
     /**
-     * The coordinate of the end offset of the selection. For text, it's the left bottom corner
+     * The coordinate of the end offset of the selection. For text, it's the bounding box
      * of the character at the end offset.
      */
-    val endOffset: Offset
-)
+    val endOffset: Rect
+) {
+    var startCenter = PxPosition.Origin
+    var endCenter = PxPosition.Origin
+    init {
+        startCenter = PxPosition(((startOffset.right - startOffset.left) / 2).px,
+        ((startOffset.bottom - startOffset.top)/2).px)
+    }
+}
 
 /**
  * An interface handling selection. Get selection from a widget by passing in a coordinate.
