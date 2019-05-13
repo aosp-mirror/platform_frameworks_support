@@ -44,9 +44,9 @@ import androidx.ui.painting.Shadow
 import androidx.ui.painting.TextStyle
 import androidx.ui.rendering.paragraph.TextOverflow
 import androidx.compose.Composable
-import androidx.compose.composer
 import androidx.compose.state
 import androidx.compose.unaryPlus
+import androidx.ui.core.Orientation
 
 val displayText = "Text Demo"
 val displayTextChinese = "文本演示"
@@ -97,6 +97,14 @@ fun TextDemo() {
                 EditLine()
                 TagLine(tag = "selection")
                 TextDemoSelection()
+                TagLine(tag = "selection in column")
+                TextDemoSelectionColumn()
+                TagLine(tag = "selection in row")
+                TextDemoSelectionRow()
+                TagLine(tag = "selection in 2D Array Vertical")
+                TextDemoSelection2DArrayVertical()
+                TagLine(tag = "selection in 2D Array Horizontal")
+                TextDemoSelection2DArrayHorizontal()
                 TagLine(tag = "composable textspan")
                 TextDemoComposableTextSpan()
             }
@@ -573,6 +581,315 @@ fun TextDemoSelection() {
                     text = "\nまず、現在天下が魏・呉・蜀に分れており、そのうち蜀は疲弊していることを指摘する。",
                     style = TextStyle(locale = Locale("ja", "JP"))
                 )
+            }
+        }
+    }
+}
+@Composable
+fun TextDemoSelectionColumn() {
+    var text = ""
+    for (i in 1..10) {
+        text = "$text$displayText" + " "
+    }
+
+    val selection = +state<Selection?> { null }
+    SelectionContainer(
+        selection = selection.value,
+        onSelectionChange = { selection.value = it }) {
+        Column {
+            Text {
+                Span(
+                    text = text,
+                    style = TextStyle(
+                        color = Color(0xFF00FF00.toInt()),
+                        fontSize = fontSize6
+                    )
+                )
+            }
+
+            Text {
+                Span(
+                    text = text,
+                    style = TextStyle(
+                        color = Color(0xFFFF0000.toInt()),
+                        fontSize = fontSize6
+                    )
+                )
+            }
+
+            Text {
+                Span(
+                    text = text,
+                    style = TextStyle(
+                        color = Color(0xFF0000FF.toInt()),
+                        fontSize = fontSize6
+                    )
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun TextDemoSelectionRow() {
+    var text = ""
+    for (i in 1..5) {
+        text = "$text$displayText" + "\n"
+    }
+
+    val selection = +state<Selection?> { null }
+    SelectionContainer(
+        selection = selection.value,
+        onSelectionChange = { selection.value = it },
+        orientation = Orientation.HORIZONTAL) {
+        Row {
+            Text {
+                Span(
+                    text = text,
+                    style = TextStyle(
+                        color = Color(0xFF00FF00.toInt()),
+                        fontSize = fontSize6
+                    )
+                )
+            }
+
+            Text {
+                Span(
+                    text = text,
+                    style = TextStyle(
+                        color = Color(0xFFFF0000.toInt()),
+                        fontSize = fontSize6
+                    )
+                )
+            }
+
+            Text {
+                Span(
+                    text = text,
+                    style = TextStyle(
+                        color = Color(0xFF0000FF.toInt()),
+                        fontSize = fontSize6
+                    )
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun TextDemoSelection2DArrayVertical() {
+    var text = ""
+    for (i in 1..3) {
+        text = "$text$displayText" + "\n"
+    }
+
+    val selection = +state<Selection?> { null }
+    SelectionContainer(
+        selection = selection.value,
+        onSelectionChange = { selection.value = it }) {
+        Column {
+            Row {
+                Text {
+                    Span(
+                        text = text,
+                        style = TextStyle(
+                            color = Color(0xFF00FF00.toInt()),
+                            fontSize = fontSize6
+                        )
+                    )
+                }
+
+                Text {
+                    Span(
+                        text = text,
+                        style = TextStyle(
+                            color = Color(0xFFFF0000.toInt()),
+                            fontSize = fontSize6
+                        )
+                    )
+                }
+
+                Text {
+                    Span(
+                        text = text,
+                        style = TextStyle(
+                            color = Color(0xFF0000FF.toInt()),
+                            fontSize = fontSize6
+                        )
+                    )
+                }
+            }
+            Row {
+                Text {
+                    Span(
+                        text = text,
+                        style = TextStyle(
+                            color = Color(0xFFFF0000.toInt()),
+                            fontSize = fontSize6
+                        )
+                    )
+                }
+
+                Text {
+                    Span(
+                        text = text,
+                        style = TextStyle(
+                            color = Color(0xFF0000FF.toInt()),
+                            fontSize = fontSize6
+                        )
+                    )
+                }
+
+                Text {
+                    Span(
+                        text = text,
+                        style = TextStyle(
+                            color = Color(0xFF00FF00.toInt()),
+                            fontSize = fontSize6
+                        )
+                    )
+                }
+            }
+            Row {
+                Text {
+                    Span(
+                        text = text,
+                        style = TextStyle(
+                            color = Color(0xFF0000FF.toInt()),
+                            fontSize = fontSize6
+                        )
+                    )
+                }
+
+                Text {
+                    Span(
+                        text = text,
+                        style = TextStyle(
+                            color = Color(0xFF00FF00.toInt()),
+                            fontSize = fontSize6
+                        )
+                    )
+                }
+
+                Text {
+                    Span(
+                        text = text,
+                        style = TextStyle(
+                            color = Color(0xFFFF0000.toInt()),
+                            fontSize = fontSize6
+                        )
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun TextDemoSelection2DArrayHorizontal() {
+    var text = ""
+    for (i in 1..3) {
+        text = "$text$displayText" + "\n"
+    }
+
+    val selection = +state<Selection?> { null }
+    SelectionContainer(
+        selection = selection.value,
+        onSelectionChange = { selection.value = it },
+        orientation = Orientation.HORIZONTAL) {
+        Column {
+            Row {
+                Text {
+                    Span(
+                        text = text,
+                        style = TextStyle(
+                            color = Color(0xFF00FF00.toInt()),
+                            fontSize = fontSize6
+                        )
+                    )
+                }
+
+                Text {
+                    Span(
+                        text = text,
+                        style = TextStyle(
+                            color = Color(0xFFFF0000.toInt()),
+                            fontSize = fontSize6
+                        )
+                    )
+                }
+
+                Text {
+                    Span(
+                        text = text,
+                        style = TextStyle(
+                            color = Color(0xFF0000FF.toInt()),
+                            fontSize = fontSize6
+                        )
+                    )
+                }
+            }
+            Row {
+                Text {
+                    Span(
+                        text = text,
+                        style = TextStyle(
+                            color = Color(0xFFFF0000.toInt()),
+                            fontSize = fontSize6
+                        )
+                    )
+                }
+
+                Text {
+                    Span(
+                        text = text,
+                        style = TextStyle(
+                            color = Color(0xFF0000FF.toInt()),
+                            fontSize = fontSize6
+                        )
+                    )
+                }
+
+                Text {
+                    Span(
+                        text = text,
+                        style = TextStyle(
+                            color = Color(0xFF00FF00.toInt()),
+                            fontSize = fontSize6
+                        )
+                    )
+                }
+            }
+            Row {
+                Text {
+                    Span(
+                        text = text,
+                        style = TextStyle(
+                            color = Color(0xFF0000FF.toInt()),
+                            fontSize = fontSize6
+                        )
+                    )
+                }
+
+                Text {
+                    Span(
+                        text = text,
+                        style = TextStyle(
+                            color = Color(0xFF00FF00.toInt()),
+                            fontSize = fontSize6
+                        )
+                    )
+                }
+
+                Text {
+                    Span(
+                        text = text,
+                        style = TextStyle(
+                            color = Color(0xFFFF0000.toInt()),
+                            fontSize = fontSize6
+                        )
+                    )
+                }
             }
         }
     }
