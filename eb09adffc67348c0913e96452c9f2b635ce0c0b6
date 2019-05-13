@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "6e380459_078832ad",
+        "filename": "ui/material/src/main/java/androidx/ui/baseui/DeterminateProgressIndicator.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-05-13T11:51:03Z",
+      "side": 1,
+      "message": "If so, shouldn\u0027t we also move the corresponding non-baseui files under the same package? It could seem a bit confusing if we had:\n\nandroidx.ui.ProgressABC\nandroidx.baseui.progress.ProgressXYZ",
+      "parentUuid": "a7bdd3b0_feedb49b",
+      "range": {
+        "startLine": 17,
+        "startChar": 8,
+        "endLine": 17,
+        "endChar": 26
+      },
+      "revId": "eb09adffc67348c0913e96452c9f2b635ce0c0b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "88618692_b9bee94a",
         "filename": "ui/material/src/main/java/androidx/ui/material/ProgressIndicator.kt",
         "patchSetId": 1
@@ -161,6 +185,30 @@
       "revId": "eb09adffc67348c0913e96452c9f2b635ce0c0b6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53c8c06a_85b10605",
+        "filename": "ui/material/src/main/java/androidx/ui/material/ProgressIndicator.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-05-13T11:51:03Z",
+      "side": 1,
+      "message": "I think Leland mentioned an issue with how +withDensity currently works, so it\u0027s safer to use this in the meantime.",
+      "parentUuid": "b9bd4132_37a94512",
+      "range": {
+        "startLine": 482,
+        "startChar": 20,
+        "endLine": 482,
+        "endChar": 50
+      },
+      "revId": "eb09adffc67348c0913e96452c9f2b635ce0c0b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
