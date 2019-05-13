@@ -187,4 +187,76 @@ public final class LaneDirection implements VersionedParcelable {
     public String toString() {
         return String.format("{shape: %s, highlighted: %s}", mShape, mHighlighted);
     }
+
+
+    private NavigationState2.LaneProto.LaneDirectionProto.Shape getProtoShape() {
+        switch (EnumWrapper.getValue(mShape, Shape.UNKNOWN)) {
+            case UNKNOWN:
+                return NavigationState2.LaneProto.LaneDirectionProto.Shape.UNKNOWN;
+            case STRAIGHT:
+                return NavigationState2.LaneProto.LaneDirectionProto.Shape.STRAIGHT;
+            case SLIGHT_LEFT:
+                return NavigationState2.LaneProto.LaneDirectionProto.Shape.SLIGHT_LEFT;
+            case SLIGHT_RIGHT:
+                return NavigationState2.LaneProto.LaneDirectionProto.Shape.SLIGHT_RIGHT;
+            case NORMAL_LEFT:
+                return NavigationState2.LaneProto.LaneDirectionProto.Shape.NORMAL_LEFT;
+            case NORMAL_RIGHT:
+                return NavigationState2.LaneProto.LaneDirectionProto.Shape.NORMAL_RIGHT;
+            case SHARP_LEFT:
+                return NavigationState2.LaneProto.LaneDirectionProto.Shape.SHARP_LEFT;
+            case SHARP_RIGHT:
+                return NavigationState2.LaneProto.LaneDirectionProto.Shape.SHARP_RIGHT;
+            case U_TURN_LEFT:
+                return NavigationState2.LaneProto.LaneDirectionProto.Shape.U_TURN_LEFT;
+            case U_TURN_RIGHT:
+                return NavigationState2.LaneProto.LaneDirectionProto.Shape.U_TURN_RIGHT;
+        }
+        return NavigationState2.LaneProto.LaneDirectionProto.Shape.UNKNOWN;
+    }
+
+    NavigationState2.LaneProto.LaneDirectionProto toProto() {
+        NavigationState2.LaneProto.LaneDirectionProto.Builder builder =
+                NavigationState2.LaneProto.LaneDirectionProto.newBuilder();
+        builder.addShapes(getProtoShape());
+        builder.setIsHighlighted(mHighlighted);
+        return builder.build();
+    }
+
+    private static Shape getShapeFromProto(NavigationState2.LaneProto.LaneDirectionProto proto) {
+        for (NavigationState2.LaneProto.LaneDirectionProto.Shape shape : proto.getShapesList()) {
+            switch (shape) {
+                case UNKNOWN:
+                    return Shape.UNKNOWN;
+                case STRAIGHT:
+                    return Shape.STRAIGHT;
+                case SLIGHT_LEFT:
+                    return Shape.SLIGHT_LEFT;
+                case SLIGHT_RIGHT:
+                    return Shape.SLIGHT_RIGHT;
+                case NORMAL_LEFT:
+                    return Shape.NORMAL_LEFT;
+                case NORMAL_RIGHT:
+                    return Shape.NORMAL_RIGHT;
+                case SHARP_LEFT:
+                    return Shape.SHARP_LEFT;
+                case SHARP_RIGHT:
+                    return Shape.SHARP_RIGHT;
+                case U_TURN_LEFT:
+                    return Shape.U_TURN_LEFT;
+                case U_TURN_RIGHT:
+                    return Shape.U_TURN_RIGHT;
+                case UNRECOGNIZED:
+                    continue; // Look for a fallback
+            }
+        }
+        return Shape.UNKNOWN;
+    }
+
+    static LaneDirection fromProto(NavigationState2.LaneProto.LaneDirectionProto proto) {
+        Builder builder =  new Builder();
+        builder.setShape(getShapeFromProto(proto));
+        builder.setHighlighted(proto.getIsHighlighted());
+        return builder.build();
+    }
 }

@@ -158,4 +158,23 @@ public class RichTextElement implements VersionedParcelable {
     public String toString() {
         return String.format("{text: '%s', image: %s}", mText, mImage);
     }
+
+    NavigationState2.RichTextProto.RichTextElementProto toProto() {
+        NavigationState2.RichTextProto.RichTextElementProto.Builder builder =
+                NavigationState2.RichTextProto.RichTextElementProto.newBuilder();
+        if (mText != null) {
+            builder.setText(mText);
+        }
+        if (mImage != null) {
+            builder.setImage(mImage.toProto());
+        }
+        return builder.build();
+    }
+
+    static RichTextElement fromProto(NavigationState2.RichTextProto.RichTextElementProto proto) {
+        Builder builder = new Builder()
+                .setText(proto.getText())
+                .setImage(ImageReference.fromProto(proto.getImage()));
+        return builder.build();
+    }
 }

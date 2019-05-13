@@ -81,4 +81,17 @@ public class Segment implements VersionedParcelable {
     public String toString() {
         return String.format("{name: %s}", getName());
     }
+
+    NavigationState2.SegmentProto toProto() {
+        NavigationState2.SegmentProto.Builder builder =
+                NavigationState2.SegmentProto.newBuilder();
+        if (mName != null) {
+            builder.setName(mName);
+        }
+        return builder.build();
+    }
+
+    static Segment fromProto(NavigationState2.SegmentProto proto) {
+        return new Segment(proto.getName());
+    }
 }

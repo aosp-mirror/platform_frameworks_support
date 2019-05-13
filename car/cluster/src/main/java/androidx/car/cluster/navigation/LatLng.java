@@ -96,4 +96,16 @@ public final class LatLng implements VersionedParcelable {
     public String toString() {
         return String.format("{%f, %f}", mLatitude, mLongitude);
     }
+
+    NavigationState2.LatLngProto toProto() {
+        NavigationState2.LatLngProto.Builder builder = NavigationState2.LatLngProto.newBuilder();
+        builder.setLatitude(mLatitude);
+        builder.setLongitude(mLongitude);
+        return builder.build();
+    }
+
+    static LatLng fromProto(NavigationState2.LatLngProto proto) {
+        return new LatLng(proto.getLatitude(), proto.getLongitude());
+    }
+
 }
