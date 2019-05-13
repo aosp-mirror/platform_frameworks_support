@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "44a01aaa_0926da01",
+        "filename": "media2/common/src/main/java/androidx/media2/common/SubtitleData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-05-13T08:04:30Z",
+      "side": 1,
+      "message": "Q) Is there any bug for this? If so, please specify the number. \nIf not, let\u0027s file a new bug.",
+      "range": {
+        "startLine": 73,
+        "startChar": 7,
+        "endLine": 73,
+        "endChar": 12
+      },
+      "revId": "2f4f55fc291c58ea5d22fedd59b88371bb901e60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc4bdd39_f3cddc64",
+        "filename": "media2/common/src/main/java/androidx/media2/common/SubtitleData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-05-13T08:04:30Z",
+      "side": 1,
+      "message": "Q) Why does the TrackInfo is inside of the SubtitleData? \n\nCan they be separately sent? (e.g. onSubtitleDataChanged(TrackInfo, subtitleData))",
+      "range": {
+        "startLine": 75,
+        "startChar": 4,
+        "endLine": 75,
+        "endChar": 13
+      },
+      "revId": "2f4f55fc291c58ea5d22fedd59b88371bb901e60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f344464a_c9a74912",
+        "filename": "media2/session/src/androidTest/java/androidx/media2/session/MediaControllerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1674,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-05-13T08:04:30Z",
+      "side": 1,
+      "message": "Let\u0027s use a non-null MediaItem instance",
+      "range": {
+        "startLine": 1674,
+        "startChar": 16,
+        "endLine": 1674,
+        "endChar": 36
+      },
+      "revId": "2f4f55fc291c58ea5d22fedd59b88371bb901e60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d825b946_6546482f",
+        "filename": "media2/session/src/androidTest/java/androidx/media2/session/MediaControllerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1678,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-05-13T08:04:30Z",
+      "side": 1,
+      "message": "Let\u0027s use assertTrue(Arrays.equals()), since the primitive array doesn\u0027t override equals().\n\nhttps://developer.android.com/reference/java/util/Arrays.html#equals(byte%5B%5D,%2520byte%5B%5D)",
+      "range": {
+        "startLine": 1678,
+        "startChar": 16,
+        "endLine": 1678,
+        "endChar": 39
+      },
+      "revId": "2f4f55fc291c58ea5d22fedd59b88371bb901e60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "783c47eb_e17bc0db",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaController.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1638,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-05-13T08:04:30Z",
+      "side": 1,
+      "message": "Q) Will it be good if we add another argument \u0027TrackInfo\u0027 here, out of SubtitleData?",
+      "range": {
+        "startLine": 1636,
+        "startChar": 11,
+        "endLine": 1638,
+        "endChar": 40
+      },
+      "revId": "2f4f55fc291c58ea5d22fedd59b88371bb901e60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f22cc3d5_f20772f5",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaController.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1644,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-05-13T08:04:30Z",
+      "side": 1,
+      "message": "Currently, SubtitleData has TrackInfo, and TrackInfo has MediaItem. \n\nTherefore the MediaItem is sent twice. How about separate those three classes?",
+      "range": {
+        "startLine": 1644,
+        "startChar": 25,
+        "endLine": 1644,
+        "endChar": 37
+      },
+      "revId": "2f4f55fc291c58ea5d22fedd59b88371bb901e60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
