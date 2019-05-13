@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0b01b869_af3080e0",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentManagerImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1196,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-05-13T22:00:36Z",
+      "side": 1,
+      "message": "Doesn\u0027t this mean you\u0027ll only invalidate if this Fragment\u0027s menu is visible? Seems like this should also be recursive and look at all of the child Fragments.\n\nAre there any cases where we need to checkForMenus() and not also check for visibility? Why can\u0027t these be combined?",
+      "range": {
+        "startLine": 1196,
+        "startChar": 50,
+        "endLine": 1196,
+        "endChar": 71
+      },
+      "revId": "3c670dd2f207bf317c41ce1fa41fbe892eafa0dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "683e40f4_eeb3b7d4",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentManagerImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1196,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-05-13T22:00:36Z",
+      "side": 1,
+      "message": "Is there a reason this is checking *every* Fragment of this FragmentManager? Shouldn\u0027t it only be checking `fragment` and its child FragmentManager?",
+      "range": {
+        "startLine": 1196,
+        "startChar": 31,
+        "endLine": 1196,
+        "endChar": 46
+      },
+      "revId": "3c670dd2f207bf317c41ce1fa41fbe892eafa0dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
