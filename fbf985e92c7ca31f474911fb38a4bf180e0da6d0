@@ -16,6 +16,24 @@
       "revId": "fbf985e92c7ca31f474911fb38a4bf180e0da6d0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "17b8e301_48c2d1cd",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/ErrorProneConfiguration.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2019-05-13T17:00:41Z",
+      "side": 1,
+      "message": "It does not unfortunately, I\u0027m open to cleaner ways to do this though",
+      "parentUuid": "2dc5f42e_32135014",
+      "revId": "fbf985e92c7ca31f474911fb38a4bf180e0da6d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
