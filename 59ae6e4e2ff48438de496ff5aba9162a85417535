@@ -2,6 +2,98 @@
   "comments": [
     {
       "key": {
+        "uuid": "d5ae2076_7a8d7601",
+        "filename": "media2/session/src/androidTest/java/androidx/media2/session/MediaController_SurfaceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-05-13T07:45:17Z",
+      "side": 1,
+      "message": "Q) When do we reset this? Is it automatically done?",
+      "range": {
+        "startLine": 71,
+        "startChar": 8,
+        "endLine": 71,
+        "endChar": 23
+      },
+      "revId": "59ae6e4e2ff48438de496ff5aba9162a85417535",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63918840_2f2417a2",
+        "filename": "media2/session/src/androidTest/java/androidx/media2/session/MediaController_SurfaceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-05-13T07:45:17Z",
+      "side": 1,
+      "message": "Seems the surface doesn\u0027t have equals() override. How about using assertSame()?",
+      "range": {
+        "startLine": 108,
+        "startChar": 8,
+        "endLine": 108,
+        "endChar": 52
+      },
+      "revId": "59ae6e4e2ff48438de496ff5aba9162a85417535",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2f99f06_81b1dc1f",
+        "filename": "media2/session/src/androidTest/java/androidx/media2/session/MediaController_SurfaceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-05-13T07:45:17Z",
+      "side": 1,
+      "message": "minor) Let\u0027s put this on the above line",
+      "range": {
+        "startLine": 112,
+        "startChar": 16,
+        "endLine": 112,
+        "endChar": 56
+      },
+      "revId": "59ae6e4e2ff48438de496ff5aba9162a85417535",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a305c250_290165e2",
+        "filename": "media2/session/src/main/java/androidx/media2/session/SessionCommand.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-05-13T07:45:17Z",
+      "side": 1,
+      "message": "Q) Should we increase the version to 2 since the beta01 is released?",
+      "range": {
+        "startLine": 350,
+        "startChar": 31,
+        "endLine": 350,
+        "endChar": 48
+      },
+      "revId": "59ae6e4e2ff48438de496ff5aba9162a85417535",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a5a015f3_9f93ac9e",
         "filename": "media2/session/version-compat-tests/current/client/src/androidTest/java/androidx/media2/test/client/RemoteMediaSession.java",
         "patchSetId": 4
@@ -18,6 +110,76 @@
         "startChar": 23,
         "endLine": 509,
         "endChar": 39
+      },
+      "revId": "59ae6e4e2ff48438de496ff5aba9162a85417535",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52e692a9_e2fd3903",
+        "filename": "media2/session/version-compat-tests/current/client/src/androidTest/java/androidx/media2/test/client/RemoteMediaSession.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-05-13T07:45:17Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "a5a015f3_9f93ac9e",
+      "range": {
+        "startLine": 509,
+        "startChar": 23,
+        "endLine": 509,
+        "endChar": 39
+      },
+      "revId": "59ae6e4e2ff48438de496ff5aba9162a85417535",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b4b26f7_b46cea82",
+        "filename": "media2/session/version-compat-tests/current/client/src/androidTest/java/androidx/media2/test/client/tests/MediaController_SurfaceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-05-13T07:45:17Z",
+      "side": 1,
+      "message": "Q, ditto) When is is cleaned up?",
+      "range": {
+        "startLine": 74,
+        "startChar": 7,
+        "endLine": 74,
+        "endChar": 26
+      },
+      "revId": "59ae6e4e2ff48438de496ff5aba9162a85417535",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "550a72fc_7cc3d675",
+        "filename": "media2/session/version-compat-tests/current/client/src/androidTest/java/androidx/media2/test/client/tests/MediaController_SurfaceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-05-13T07:45:17Z",
+      "side": 1,
+      "message": "minor) Let\u0027s put on above line",
+      "range": {
+        "startLine": 101,
+        "startChar": 16,
+        "endLine": 101,
+        "endChar": 56
       },
       "revId": "59ae6e4e2ff48438de496ff5aba9162a85417535",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
