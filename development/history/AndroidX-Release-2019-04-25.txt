@@ -1,0 +1,7 @@
+2019-04-25
+d0c85eb6e595cfd4383ef345e97e1b8d6acd0a44:activity:activity:1.0.0-alpha07
+1d7bb69cb445bc7005349b71622b8e43e1130489:activity:activity-ktx:1.0.0-alpha07
+c5af1d83cdaec5dff1d4bdefe93d0a24bd1fec89:arch.core:2.1.0-alpha02
+0fe6b4168055f8da37c439dc82fbc535a9e1987a:fragment:fragment:1.1.0-alpha07
+3979d96937e945201359c48c6d992447ef7ef79c:fragment:fragment-ktx:1.1.0-alpha07
+97820f9e3b80de2ba10ad3dd520d8f146f0e394c:fragment:fragment-testing:1.1.0-alpha07
