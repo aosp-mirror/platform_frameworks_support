@@ -87,6 +87,24 @@
       "revId": "f6c655a57a7996f491efae140e3216f31e60f169",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3cffb8e4_7578b678",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-05-13T15:36:17Z",
+      "side": 1,
+      "message": "Ok, I have update the code again, the code should be more clearly.\n\nThere is a new method getCaptureBundle() in ImageCapture.\n*) This is the only one point to access mCaptureBundle. And it will generate a local captureBundle copy from mCaptureBundle.\n*) The getCaptureBundle() method is used in ImageCapture constructor, initialize of ProcessingImageReader in onSuggestedResolutionUpdate() and issueTakePicture(). That is, we would invoke mCaptureBundle.getCaptureStages() [2 + Number of photos taken] times. And we will update capture stages from OEM every single time.\n\nThe implementation will follow the rules:\n(1) Every single capture should be atomic. We would need to keep the CaptureStage list unchanged until capture result was processed. The suitable time to update the  list is when user going to take a shot.\n(2) When mCaptureBundle.getCatpureStages() return empty \u0026\u0026 no CaptureProcessor impl, we would need to return a local singleDefaultCaptureBundle as default.\n(2.1) When mCaptureBundle.getCatpureStages() return empty \u0026\u0026 it have CaptureProcessor impl, throw exception.\n(3) And in previous design, we will allow OEM return exactly only 1 capture stage when no CaptureProcessor implementation.\n\n\nThe behavior change in patch 8 for (2) \u0026 (3) is:\nIn current patch 8, we would invoke getCaptureStages() [2 + Number of photos taken] times for  (2) \u0026 (3). The original implementation would only get capture stage from extender for one time when extension was enabled.",
+      "parentUuid": "76cdaeb7_b4d4f5c7",
+      "revId": "f6c655a57a7996f491efae140e3216f31e60f169",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

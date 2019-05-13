@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "23942c41_64ca37ad",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CaptureBundle.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-05-13T15:36:17Z",
+      "side": 1,
+      "message": "Got it!",
+      "parentUuid": "e487595b_34d3e945",
+      "revId": "70eccbb390a74d40cd9a83db05906c81ea1a4ff6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5e0f80f0_555c3f81",
         "filename": "camera/core/src/main/java/androidx/camera/core/CaptureBundles.java",
         "patchSetId": 7
@@ -33,6 +51,24 @@
       "revId": "70eccbb390a74d40cd9a83db05906c81ea1a4ff6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8dcbb769_c0a2709f",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CaptureBundles.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-05-13T15:36:17Z",
+      "side": 1,
+      "message": "Okay.",
+      "parentUuid": "5e0f80f0_555c3f81",
+      "revId": "70eccbb390a74d40cd9a83db05906c81ea1a4ff6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "e847a7da_c69305db",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CaptureProcessor.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-05-13T15:36:17Z",
+      "side": 1,
+      "message": "Got it, thanks!",
+      "parentUuid": "ca1a9e50_2865a276",
+      "revId": "70eccbb390a74d40cd9a83db05906c81ea1a4ff6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7444444f_dba6abf0",
         "filename": "camera/extensions/src/main/java/androidx/camera/extensions/ImageCaptureExtender.java",
         "patchSetId": 7
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "301f158e_63415354",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/ImageCaptureExtender.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-05-13T15:36:17Z",
+      "side": 1,
+      "message": "Ah, there is no requirement to invoke both onInit() and onDeInit() on mainThread.\nI post the onDeInit() to main thread is because we might invoke onDeInit() from camera thread (after onDisableSession) or main Thread in onUnbind().\n\nTo trigger the onDeInit from onDisableSession() or onUnbind() is because we would like to make sure the onDeinit would be invoked after onDisableSession().",
+      "parentUuid": "7444444f_dba6abf0",
+      "revId": "70eccbb390a74d40cd9a83db05906c81ea1a4ff6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ff92272c_76e0ab4b",
         "filename": "camera/extensions/src/main/java/androidx/camera/extensions/PreviewExtender.java",
         "patchSetId": 7
@@ -84,6 +156,24 @@
       "revId": "70eccbb390a74d40cd9a83db05906c81ea1a4ff6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc5b83eb_b0416e4b",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/PreviewExtender.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-05-13T15:36:17Z",
+      "side": 1,
+      "message": "Ah, there is no requirement to invoke both onInit() and onDeInit() on mainThread.\nI post the onDeInit() to main thread is because we might invoke onDeInit() from camera thread (after onDisableSession) or main Thread in onUnbind().\n\nTo trigger the onDeInit from onDisableSession() or onUnbind() is because we would like to make sure the onDeinit would be invoked after onDisableSession().",
+      "parentUuid": "ff92272c_76e0ab4b",
+      "revId": "70eccbb390a74d40cd9a83db05906c81ea1a4ff6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
