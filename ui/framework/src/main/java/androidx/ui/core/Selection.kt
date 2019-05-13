@@ -16,8 +16,10 @@
 
 package androidx.ui.core
 
+import android.util.Log
 import androidx.ui.core.gesture.PressIndicatorGestureDetector
 import androidx.ui.engine.geometry.Offset
+import androidx.ui.engine.geometry.Rect
 import androidx.ui.graphics.Color
 import androidx.ui.painting.Paint
 import androidx.compose.Ambient
@@ -26,6 +28,8 @@ import androidx.compose.Composable
 import androidx.compose.composer
 import androidx.compose.memo
 import androidx.compose.unaryPlus
+import androidx.ui.core.gesture.DragGestureDetector
+import androidx.ui.core.gesture.DragObserver
 
 private val HANDLE_WIDTH = 20.px
 private val HANDLE_HEIGHT = 100.px
@@ -38,7 +42,7 @@ data class Selection(
      * The coordinates of the start offset of the selection. For text, it's the left bottom corner
      * of the character at the start offset.
      */
-    val startOffset: Offset,
+    val startOffset: Rect,
     /**
      * The coordinates of the end offset of the selection. For text, it's the left bottom corner
      * of the character at the end offset.
@@ -55,6 +59,46 @@ data class Selection(
      */
     val endLayoutCoordinates: LayoutCoordinates?
 )
+/**
+     * The coordinate of the end offset of the selection. For text, it's the bounding box
+     * of the character at the end offset.
+     */
+    val endOffset: Rect
+) {
+    var startCurrent = PxPosition.Origin
+    var endCurrent = PxPosition.Origin
+    var startDragToLeftOrigin = PxPosition.Origin
+    var endDragToLeftOrigin = PxPosition.Origin
+    var startDragToRightOrigin = PxPosition.Origin
+    var endDragToRightOrigin = PxPosition.Origin
+
+    init {
+        startCurrent = PxPosition(
+            startOffset.left.px + ((startOffset.right - startOffset.left) / 4).px,
+            startOffset.top.px + ((startOffset.bottom - startOffset.top) / 4).px
+        )
+        endCurrent = PxPosition(
+            endOffset.left.px + ((endOffset.right - endOffset.left) / 4).px,
+            endOffset.top.px + ((endOffset.bottom - endOffset.top) / 4).px
+        )
+        startDragToLeftOrigin = PxPosition(
+            startOffset.left.px + ((startOffset.right - startOffset.left) / 2).px,
+            startOffset.top.px + ((startOffset.bottom - startOffset.top) / 2).px
+        )
+        endDragToLeftOrigin = PxPosition(
+            endOffset.left.px + ((endOffset.right - endOffset.left) / 2).px,
+            endOffset.top.px + ((endOffset.bottom - endOffset.top) / 2).px
+        )
+        startDragToRightOrigin = PxPosition(
+            startOffset.left.px - ((startOffset.right - startOffset.left) / 2).px,
+            startOffset.top.px + ((startOffset.bottom - startOffset.top) / 2).px
+        )
+        endDragToRightOrigin = PxPosition(
+            endOffset.left.px - ((endOffset.right - endOffset.left) / 2).px,
+            endOffset.top.px + ((endOffset.bottom - endOffset.top) / 2).px
+        )
+    }
+}
 
 /**
  * An interface handling selection. Get selection from a widget by passing in the start and end of
@@ -117,6 +161,198 @@ internal class SelectionManager : SelectionRegistrar {
         }
         onSelectionChange(result)
     }
+
+    var oldStartDragToLeftOrigin = PxPosition.Origin
+    var oldEndDragToLeftOrigin = PxPosition.Origin
+    var oldStartDragToRightOrigin = PxPosition.Origin
+    var oldEndDragToRightOrigin = PxPosition.Origin
+    var dragStartDist = PxPosition.Origin
+    var dragEndDist = PxPosition.Origin
+
+    val startHandleDragObserver = object : DragObserver {
+
+        override fun onDrag(dragDistance: PxPosition): PxPosition {
+            // Get the positions of start and end handles.
+            var result = selection
+
+            var startDragToLeftOrigin = PxPosition.Origin
+            var startDragToRightOrigin = PxPosition.Origin
+            var endCurrent = PxPosition.Origin
+
+            selection?.let {
+                startDragToLeftOrigin = it.startDragToLeftOrigin
+                startDragToRightOrigin = it.startDragToRightOrigin
+                endCurrent = it.endCurrent
+            }
+
+            Log.e(
+                "SelectionDrag",
+                "\n\ndragDistance = (" + dragDistance.x.value.toString() + " ," +
+                        dragDistance.y.value.toString() + ")"
+            )
+            Log.e(
+                "SelectionDrag",
+                "startOffset = (top = " + selection!!.startOffset.top.toString() +
+                        ", bottom = " + selection!!.startOffset.bottom.toString() + ", left = " +
+                        selection!!.startOffset.left.toString() + ", right = " +
+                        selection!!.startOffset.right.toString() + ")"
+            )
+            Log.e(
+                "SelectionDrag",
+                "endOffset = (top = " + selection!!.endOffset.top.toString() + ", bottom = " +
+                        selection!!.endOffset.bottom.toString() + ", left = " +
+                        selection!!.endOffset.left.toString() + ", right = " +
+                        selection!!.endOffset.right.toString() + ")"
+            )
+//            Log.e(
+//                "SelectionDrag",
+//                "startCenter = (" + startOrigin.x.value.toString() + ", " +
+//                        startOrigin.y.value.toString() + ")"
+//            )
+            Log.e(
+                "SelectionDrag",
+                "endCenter = (" + endCurrent.x.value.toString() + ", " +
+                        endCurrent.y.value.toString() + ")"
+            )
+            Log.e(
+                "SelectionDrag",
+                "dragStartDist = (" + dragStartDist.x.value.toString() + ", " +
+                        dragStartDist.y.value.toString() + ")"
+            )
+//            Log.e(
+//                "SelectionDrag",
+//                "oldStartCenter = (" + oldStartOrigin.x.value.toString() + ", " +
+//                        oldStartOrigin.y.value.toString() + ")"
+//            )
+
+            if (oldStartDragToLeftOrigin != startDragToLeftOrigin) {
+                dragStartDist = PxPosition.Origin
+                oldStartDragToLeftOrigin = startDragToLeftOrigin
+                oldStartDragToRightOrigin = startDragToRightOrigin
+            }
+
+            Log.e(
+                "SelectionDrag",
+                "updated dragStartDist = (" + dragStartDist.x.value.toString() + ", " +
+                        dragStartDist.y.value.toString() + ")"
+            )
+//            Log.e(
+//                "SelectionDrag",
+//                "updated oldStartCenter = (" + oldStartOrigin.x.value.toString() + ", " +
+//                        oldStartOrigin.y.value.toString() + ")"
+//            )
+
+            dragStartDist += dragDistance
+            Log.e(
+                "SelectionDrag",
+                "dragged dragStartDist = (" + dragStartDist.x.value.toString() + ", " +
+                        dragStartDist.y.value.toString() + ")"
+            )
+
+            val totalDist = if (dragStartDist.x > 0.px) startDragToRightOrigin + dragStartDist
+                            else startDragToLeftOrigin + dragStartDist
+
+            // Change the selection.
+            for (handler in handlers) {
+                result = handler.getSelection(Pair(totalDist, endCurrent))
+            }
+            onSelectionChange(result)
+
+            return dragDistance
+        }
+    }
+
+    val endHandleDragObserver = object : DragObserver {
+
+        override fun onDrag(dragDistance: PxPosition): PxPosition {
+            // Get the positions of start and end handles.
+            var result = selection
+            var startCurrent = PxPosition.Origin
+            var endDragToLeftOrigin = PxPosition.Origin
+            var endDragToRightOrigin = PxPosition.Origin
+
+            selection?.let {
+                startCurrent = it.startCurrent
+                endDragToLeftOrigin = it.endDragToLeftOrigin
+                endDragToRightOrigin = it.endDragToRightOrigin
+            }
+
+            Log.e(
+                "SelectionDrag",
+                "\n\ndragDistance = (" + dragDistance.x.value.toString() + " ," +
+                        dragDistance.y.value.toString() + ")"
+            )
+            Log.e(
+                "SelectionDrag",
+                "startOffset = (top = " + selection!!.startOffset.top.toString() +
+                        ", bottom = " + selection!!.startOffset.bottom.toString() + ", left = " +
+                        selection!!.startOffset.left.toString() + ", right = " +
+                        selection!!.startOffset.right.toString() + ")"
+            )
+            Log.e(
+                "SelectionDrag",
+                "endOffset = (top = " + selection!!.endOffset.top.toString() +
+                        ", bottom = " + selection!!.endOffset.bottom.toString() + ", left = " +
+                        selection!!.endOffset.left.toString() + ", right = " +
+                        selection!!.endOffset.right.toString() + ")"
+            )
+            Log.e(
+                "SelectionDrag",
+                "startCenter = (" + startCurrent.x.value.toString() + ", " +
+                        startCurrent.y.value.toString() + ")"
+            )
+//            Log.e(
+//                "SelectionDrag",
+//                "endCenter = (" + endOrigin.x.value.toString() + ", " +
+//                        endOrigin.y.value.toString() + ")"
+//            )
+            Log.e(
+                "SelectionDrag",
+                "dragEndDist = (" + dragEndDist.x.value.toString() + ", " +
+                        dragEndDist.y.value.toString() + ")"
+            )
+//            Log.e(
+//                "SelectionDrag",
+//                "oldEndCenter = (" + oldEndOrigin.x.value.toString() + ", " +
+//                        oldEndOrigin.y.value.toString() + ")"
+//            )
+
+            if (oldEndDragToLeftOrigin != endDragToLeftOrigin) {
+                dragEndDist = PxPosition.Origin
+                oldEndDragToLeftOrigin = endDragToLeftOrigin
+                oldEndDragToRightOrigin = endDragToRightOrigin
+            }
+
+            Log.e(
+                "SelectionDrag",
+                "updated dragEndDist = (" + dragEndDist.x.value.toString() + ", " +
+                        dragEndDist.y.value.toString() + ")"
+            )
+//            Log.e(
+//                "SelectionDrag",
+//                "updated oldEndCenter = (" + oldEndOrigin.x.value.toString() + ", " +
+//                        oldEndOrigin.y.value.toString() + ")"
+//            )
+
+            dragEndDist += dragDistance
+            Log.e(
+                "SelectionDrag",
+                "dragged dragEndDist = (" + dragEndDist.x.value.toString() + ", " +
+                        dragEndDist.y.value.toString() + ")"
+            )
+
+            val totalDist = if (dragEndDist.x > 0.px) endDragToRightOrigin + dragEndDist
+            else endDragToLeftOrigin + dragEndDist
+
+            // Change the selection.
+            for (handler in handlers) {
+                result = handler.getSelection(Pair(startCurrent, totalDist))
+            }
+            onSelectionChange(result)
+
+            return dragDistance
+        }
+    }
 }
 
 /** Ambient of SelectionRegistrar for SelectionManager. */
@@ -164,14 +400,21 @@ fun SelectionContainer(
             })
         }
         val startHandle = @Composable {
-            Layout(children = { SelectionHandle() }, layoutBlock = { _, constraints ->
-                layout(constraints.minWidth, constraints.minHeight) {}
-            })
+            DragGestureDetector(
+                canDrag = { true },
+                dragObserver = manager.startHandleDragObserver
+            ) {
+                Layout(children = { SelectionHandle() }, layoutBlock = { _, constraints ->
+                    layout(constraints.minWidth, constraints.minHeight) {}
+                })
+            }
         }
         val endHandle = @Composable {
-            Layout(children = { SelectionHandle() }, layoutBlock = { _, constraints ->
-                layout(constraints.minWidth, constraints.minHeight) {}
-            })
+            DragGestureDetector(canDrag = { true }, dragObserver = manager.endHandleDragObserver) {
+                Layout(children = { SelectionHandle() }, layoutBlock = { _, constraints ->
+                    layout(constraints.minWidth, constraints.minHeight) {}
+                })
+            }
         }
         @Suppress("USELESS_CAST")
         Layout(
@@ -206,6 +449,14 @@ fun SelectionContainer(
                         val endOffset = manager.containerLayoutCoordinates!!.childToLocal(
                             selection.endLayoutCoordinates,
                             PxPosition(selection.endOffset.dx.px, selection.endOffset.dy.px)
+                    selection?.let {
+                        start.place(
+                            it.startOffset.left.px - HANDLE_WIDTH.px - 20.ipx,
+                            it.startOffset.bottom.px - 20.ipx
+                        )
+                        end.place(
+                            it.endOffset.right.px + 20.ipx,
+                            it.endOffset.bottom.px - 20.ipx
                         )
                         start.place(startOffset.x, startOffset.y - HANDLE_HEIGHT)
                         end.place(endOffset.x - HANDLE_WIDTH, endOffset.y - HANDLE_HEIGHT)
