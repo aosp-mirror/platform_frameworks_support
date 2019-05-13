@@ -17,7 +17,6 @@
 package androidx.ui.core
 
 import androidx.ui.core.gesture.PressIndicatorGestureDetector
-import androidx.ui.engine.geometry.Offset
 import androidx.ui.graphics.Color
 import androidx.ui.painting.Paint
 import androidx.compose.Ambient
@@ -26,8 +25,11 @@ import androidx.compose.Composable
 import androidx.compose.composer
 import androidx.compose.memo
 import androidx.compose.unaryPlus
+import androidx.ui.core.gesture.DragGestureDetector
+import androidx.ui.core.gesture.DragObserver
+import androidx.ui.engine.geometry.Rect
 
-private val HANDLE_WIDTH = 20.px
+private val HANDLE_WIDTH = 100.px
 private val HANDLE_HEIGHT = 100.px
 
 /**
@@ -35,15 +37,13 @@ private val HANDLE_HEIGHT = 100.px
  */
 data class Selection(
     /**
-     * The coordinates of the start offset of the selection. For text, it's the left bottom corner
-     * of the character at the start offset.
+     * The bounding box of the character at the start offset.
      */
-    val startOffset: Offset,
+    val startOffset: Rect,
     /**
-     * The coordinates of the end offset of the selection. For text, it's the left bottom corner
-     * of the character at the end offset.
+     * The bounding box of the character at the end offset.
      */
-    val endOffset: Offset,
+    val endOffset: Rect,
     /**
      * The layout coordinates of the child which contains the start of the selection. If the child
      * does not contain the start of the selection, this should be null.
@@ -117,6 +117,85 @@ internal class SelectionManager : SelectionRegistrar {
         }
         onSelectionChange(result)
     }
+
+    var dragBeginPosition = PxPosition.Origin
+    var dragTotalDistance = PxPosition.Origin
+
+    val startHandleDragObserver = object : DragObserver {
+
+        override fun onStart() {
+            val startLeft = selection?.startOffset!!.left.px
+            val startTop = selection?.startOffset!!.top.px
+            val startBottom = selection?.startOffset!!.bottom.px
+
+            dragBeginPosition = containerLayoutCoordinates!!.childToLocal(
+                selection?.startLayoutCoordinates!!,
+                PxPosition(startLeft, startTop + (startBottom - startTop) / 2)
+            )
+            dragTotalDistance = PxPosition.Origin
+        }
+
+        override fun onDrag(dragDistance: PxPosition): PxPosition {
+            val endLeft = selection?.endOffset!!.left.px
+            val endTop = selection?.endOffset!!.top.px
+            val endBottom = selection?.endOffset!!.bottom.px
+
+            var result = selection
+            dragTotalDistance += dragDistance
+            for (handler in handlers) {
+                result = handler.getSelection(
+                    Pair(
+                        dragBeginPosition + dragTotalDistance,
+                        containerLayoutCoordinates!!.childToLocal(
+                            selection?.endLayoutCoordinates!!,
+                            PxPosition(endLeft, endTop + (endBottom - endTop) / 2)
+                        )
+                    ),
+                    containerLayoutCoordinates!!
+                )
+            }
+            onSelectionChange(result)
+            return dragDistance
+        }
+    }
+
+    val endHandleDragObserver = object : DragObserver {
+
+        override fun onStart() {
+            val endLeft = selection?.endOffset!!.left.px
+            val endTop = selection?.endOffset!!.top.px
+            val endBottom = selection?.endOffset!!.bottom.px
+
+            dragBeginPosition = containerLayoutCoordinates!!.childToLocal(
+                selection?.endLayoutCoordinates!!,
+                PxPosition(endLeft, endTop + (endBottom - endTop) / 2)
+            )
+            dragTotalDistance = PxPosition.Origin
+        }
+
+        override fun onDrag(dragDistance: PxPosition): PxPosition {
+            val startLeft = selection?.startOffset!!.left.px
+            val startTop = selection?.startOffset!!.top.px
+            val startBottom = selection?.startOffset!!.bottom.px
+
+            var result = selection
+            dragTotalDistance += dragDistance
+            for (handler in handlers) {
+                result = handler.getSelection(
+                    Pair(
+                        containerLayoutCoordinates!!.childToLocal(
+                            selection?.startLayoutCoordinates!!,
+                            PxPosition(startLeft, startTop + (startBottom - startTop) / 2)
+                        ),
+                        dragBeginPosition + dragTotalDistance
+                    ),
+                    containerLayoutCoordinates!!
+                )
+            }
+            onSelectionChange(result)
+            return dragDistance
+        }
+    }
 }
 
 /** Ambient of SelectionRegistrar for SelectionManager. */
@@ -164,14 +243,21 @@ fun SelectionContainer(
             })
         }
         val startHandle = @Composable {
-            Layout(children = { SelectionHandle() }, layoutBlock = { _, constraints ->
-                layout(constraints.minWidth, constraints.minHeight) {}
-            })
+            DragGestureDetector(
+                canDrag = { true },
+                dragObserver = manager.startHandleDragObserver
+            ) {
+                Layout(children = { SelectionHandle() }, layoutBlock = { _, constraints ->
+                    layout(constraints.minWidth, constraints.minHeight) {}
+                })
+            }
         }
         val endHandle = @Composable {
-            Layout(children = { SelectionHandle() }, layoutBlock = { _, constraints ->
-                layout(constraints.minWidth, constraints.minHeight) {}
-            })
+            DragGestureDetector(canDrag = { true }, dragObserver = manager.endHandleDragObserver) {
+                Layout(children = { SelectionHandle() }, layoutBlock = { _, constraints ->
+                    layout(constraints.minWidth, constraints.minHeight) {}
+                })
+            }
         }
         @Suppress("USELESS_CAST")
         Layout(
@@ -201,14 +287,16 @@ fun SelectionContainer(
                         selection.endLayoutCoordinates != null) {
                         val startOffset = manager.containerLayoutCoordinates!!.childToLocal(
                             selection.startLayoutCoordinates,
-                            PxPosition(selection.startOffset.dx.px, selection.startOffset.dy.px)
+                            PxPosition(selection.startOffset.left.px,
+                                selection.startOffset.bottom.px)
                         )
                         val endOffset = manager.containerLayoutCoordinates!!.childToLocal(
                             selection.endLayoutCoordinates,
-                            PxPosition(selection.endOffset.dx.px, selection.endOffset.dy.px)
+                            PxPosition(selection.endOffset.right.px,
+                                selection.endOffset.bottom.px)
                         )
-                        start.place(startOffset.x, startOffset.y - HANDLE_HEIGHT)
-                        end.place(endOffset.x - HANDLE_WIDTH, endOffset.y - HANDLE_HEIGHT)
+                        start.place(startOffset.x - HANDLE_WIDTH, startOffset.y - HANDLE_HEIGHT)
+                        end.place(endOffset.x, endOffset.y - HANDLE_HEIGHT)
                     }
                 }
             })
