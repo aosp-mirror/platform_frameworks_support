@@ -870,7 +870,6 @@ public class NestedScrollView extends FrameLayout implements NestedScrollingPare
                 if (dispatchNestedPreScroll(0, deltaY, mScrollConsumed, mScrollOffset,
                         ViewCompat.TYPE_TOUCH)) {
                     deltaY -= mScrollConsumed[1];
-                    vtev.offsetLocation(0, mScrollOffset[1]);
                     mNestedYOffset += mScrollOffset[1];
                 }
                 if (!mIsBeingDragged && Math.abs(deltaY) > mTouchSlop) {
@@ -912,7 +911,6 @@ public class NestedScrollView extends FrameLayout implements NestedScrollingPare
                             ViewCompat.TYPE_TOUCH, mScrollConsumed);
 
                     mLastMotionY -= mScrollOffset[1];
-                    vtev.offsetLocation(0, mScrollOffset[1]);
                     mNestedYOffset += mScrollOffset[1];
 
                     if (canOverscroll) {
