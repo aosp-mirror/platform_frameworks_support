@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e2987ca9_2983ff56",
+        "filename": "recyclerview/selection/src/androidTest/java/androidx/recyclerview/selection/GestureSelectionHelperTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1086769
+      },
+      "writtenOn": "2019-05-13T16:56:01Z",
+      "side": 1,
+      "message": "This new test provides coverage for the fix.",
+      "revId": "7bca6f10a8af4e072d14ddc5b377f826f8c0c4f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f981f321_d745ca03",
+        "filename": "recyclerview/selection/src/main/java/androidx/recyclerview/selection/GestureSelectionHelper.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1086769
+      },
+      "writtenOn": "2019-05-13T16:56:01Z",
+      "side": 1,
+      "message": "This is the key diff from the orig CL where we weren\u0027t calling handleTouch from onInterceptTouchEvent.",
+      "revId": "7bca6f10a8af4e072d14ddc5b377f826f8c0c4f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
