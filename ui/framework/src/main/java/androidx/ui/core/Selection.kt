@@ -26,6 +26,8 @@ import androidx.compose.Composable
 import androidx.compose.composer
 import androidx.compose.memo
 import androidx.compose.unaryPlus
+import androidx.ui.core.gesture.DragGestureDetector
+import androidx.ui.core.gesture.DragObserver
 
 private val HANDLE_WIDTH = 20.px
 private val HANDLE_HEIGHT = 100.px
@@ -117,6 +119,20 @@ internal class SelectionManager : SelectionRegistrar {
         }
         onSelectionChange(result)
     }
+
+    val startHandleDragObserver = object : DragObserver {
+
+        override fun onDrag(dragDistance: PxPosition): PxPosition {
+            return dragDistance
+        }
+    }
+
+    val endHandleDragObserver = object : DragObserver {
+
+        override fun onDrag(dragDistance: PxPosition): PxPosition {
+            return dragDistance
+        }
+    }
 }
 
 /** Ambient of SelectionRegistrar for SelectionManager. */
@@ -164,14 +180,21 @@ fun SelectionContainer(
             })
         }
         val startHandle = @Composable {
-            Layout(children = { SelectionHandle() }, layoutBlock = { _, constraints ->
-                layout(constraints.minWidth, constraints.minHeight) {}
-            })
+            DragGestureDetector(
+                canDrag = { true },
+                dragObserver = manager.startHandleDragObserver
+            ) {
+                Layout(children = { SelectionHandle() }, layoutBlock = { _, constraints ->
+                    layout(constraints.minWidth, constraints.minHeight) {}
+                })
+            }
         }
         val endHandle = @Composable {
-            Layout(children = { SelectionHandle() }, layoutBlock = { _, constraints ->
-                layout(constraints.minWidth, constraints.minHeight) {}
-            })
+            DragGestureDetector(canDrag = { true }, dragObserver = manager.endHandleDragObserver) {
+                Layout(children = { SelectionHandle() }, layoutBlock = { _, constraints ->
+                    layout(constraints.minWidth, constraints.minHeight) {}
+                })
+            }
         }
         @Suppress("USELESS_CAST")
         Layout(
