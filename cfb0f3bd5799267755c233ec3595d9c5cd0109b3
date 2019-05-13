@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a81f0244_6a7056e4",
+        "filename": "camera/core/src/main/java/androidx/camera/core/DeferredImageReaderSurface.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1482725
+      },
+      "writtenOn": "2019-05-13T06:35:02Z",
+      "side": 1,
+      "message": "Thanks the syncing. Now the changes are on. \n\n- When and How to free the unused (inactive) ImageReader\nFor DeferrableSurface, add 1 method. freeUnusedSurfaces(CameraCaptureSession session) \n\nThe method will be invoked on 2 places in CaptureSession.java. \n\n1. When the onClosed of CameraCaptureSession comes: When bind/unbind different use cases, create new capture session, and there will be old capture session close.  It is timing to free unused ImageReaders. \n2. notifyCameraDeviceClose:  when return home,  camera device will be closed (no capture session onClosed), it is time to free unused ImageReaders. \n\n\n- When and How to free the active ImageReader\nAdd release() method for DefferredImageReaderSurface\n\n1. Register the SurfaceDetachListener to free the active ImageReader and Surface\n2. Also try to release unused ImageReaders if any.",
+      "parentUuid": "7a558476_63645eb9",
+      "range": {
+        "startLine": 137,
+        "startChar": 0,
+        "endLine": 137,
+        "endChar": 41
+      },
+      "revId": "cfb0f3bd5799267755c233ec3595d9c5cd0109b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "441c1256_a311e7a0",
         "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
         "patchSetId": 7
@@ -45,6 +69,30 @@
       "revId": "cfb0f3bd5799267755c233ec3595d9c5cd0109b3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "344c424f_d0a863c7",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 841,
+      "author": {
+        "id": 1482725
+      },
+      "writtenOn": "2019-05-13T06:35:02Z",
+      "side": 1,
+      "message": "Got it. Thx the remind. Done.",
+      "parentUuid": "441c1256_a311e7a0",
+      "range": {
+        "startLine": 841,
+        "startChar": 0,
+        "endLine": 841,
+        "endChar": 84
+      },
+      "revId": "cfb0f3bd5799267755c233ec3595d9c5cd0109b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
