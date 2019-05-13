@@ -119,6 +119,10 @@ public class WorkerWrapper implements Runnable {
         return mFuture;
     }
 
+    public @NonNull String getDescription() {
+        return mWorkDescription;
+    }
+
     @WorkerThread
     @Override
     public void run() {

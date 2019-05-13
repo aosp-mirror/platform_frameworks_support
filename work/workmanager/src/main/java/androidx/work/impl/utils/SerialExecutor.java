@@ -26,10 +26,10 @@ import java.util.concurrent.Executor;
  * executed serially, like a single threaded executor.
  */
 public class SerialExecutor implements Executor {
-    private final ArrayDeque<Task> mTasks;
-    private final Executor mExecutor;
-    private final Object mLock;
-    private volatile Runnable mActive;
+    protected final ArrayDeque<Task> mTasks;
+    protected final Executor mExecutor;
+    protected final Object mLock;
+    protected volatile Runnable mActive;
 
     public SerialExecutor(@NonNull Executor executor) {
         mExecutor = executor;
@@ -47,8 +47,7 @@ public class SerialExecutor implements Executor {
         }
     }
 
-    // Synthetic access
-    void scheduleNext() {
+    protected void scheduleNext() {
         synchronized (mLock) {
             if ((mActive = mTasks.poll()) != null) {
                 mExecutor.execute(mActive);
@@ -60,13 +59,17 @@ public class SerialExecutor implements Executor {
      * A {@link Runnable} which tells the {@link SerialExecutor} to schedule the next command
      * after completion.
      */
-    static class Task implements Runnable {
+    public static class Task implements Runnable {
         final SerialExecutor mSerialExecutor;
         final Runnable mRunnable;
 
         Task(@NonNull SerialExecutor serialExecutor, @NonNull Runnable runnable) {
             mSerialExecutor = serialExecutor;
             mRunnable = runnable;
+        }
+
+        public Runnable getRunnable() {
+            return mRunnable;
         }
 
         @Override

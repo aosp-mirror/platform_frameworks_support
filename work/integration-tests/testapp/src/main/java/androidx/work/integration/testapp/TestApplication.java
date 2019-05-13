@@ -21,7 +21,9 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.work.Configuration;
+import androidx.work.tracing.TracingExecutor;
 
+import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 /**
@@ -29,11 +31,17 @@ import java.util.concurrent.Executors;
  */
 public class TestApplication extends Application implements Configuration.Provider {
 
+    private TracingExecutor mTracingExecutor;
+
     @NonNull
     @Override
     public Configuration getWorkManagerConfiguration() {
+        if (mTracingExecutor == null) {
+            mTracingExecutor = new TracingExecutor(this, Executors.newCachedThreadPool());
+        }
         return new Configuration.Builder()
-                .setTaskExecutorDelegate(Executors.newCachedThreadPool())
+                .setExecutor(mTracingExecutor)
+                .setTaskExecutorDelegate(mTracingExecutor)
                 .setMinimumLoggingLevel(Log.VERBOSE).build();
     }
 }
