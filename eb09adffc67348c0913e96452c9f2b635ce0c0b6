@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "9eec5576_b0fa7bea",
+        "filename": "ui/material/integration-tests/material-demos/src/main/java/androidx/ui/material/demos/ProgressIndicatorActivity.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-05-13T11:14:09Z",
+      "side": 1,
+      "message": "nit: the example could look cleaner without all \"internal\". the class is private, so is available only inside a file and would not be a part of api.txt even with the public fields",
+      "range": {
+        "startLine": 54,
+        "startChar": 4,
+        "endLine": 54,
+        "endChar": 12
+      },
+      "revId": "eb09adffc67348c0913e96452c9f2b635ce0c0b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3385d89c_6b32144f",
         "filename": "ui/material/src/main/java/androidx/ui/baseui/DeterminateProgressIndicator.kt",
         "patchSetId": 1
@@ -111,6 +134,29 @@
         "startChar": 0,
         "endLine": 481,
         "endChar": 7
+      },
+      "revId": "eb09adffc67348c0913e96452c9f2b635ce0c0b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9bd4132_37a94512",
+        "filename": "ui/material/src/main/java/androidx/ui/material/ProgressIndicator.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-05-13T11:14:09Z",
+      "side": 1,
+      "message": "+withDensity {} is doing the same, but shorter :)",
+      "range": {
+        "startLine": 482,
+        "startChar": 20,
+        "endLine": 482,
+        "endChar": 50
       },
       "revId": "eb09adffc67348c0913e96452c9f2b635ce0c0b6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
