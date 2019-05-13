@@ -48,6 +48,52 @@
     },
     {
       "key": {
+        "uuid": "95132612_35451718",
+        "filename": "media2/session/src/androidTest/java/androidx/media2/session/MediaControllerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1664,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-05-13T08:20:49Z",
+      "side": 1,
+      "message": "Let\u0027s add \u0027Us\u0027 postfix here",
+      "range": {
+        "startLine": 1663,
+        "startChar": 19,
+        "endLine": 1664,
+        "endChar": 31
+      },
+      "revId": "2f4f55fc291c58ea5d22fedd59b88371bb901e60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a01b44c_7db03266",
+        "filename": "media2/session/src/androidTest/java/androidx/media2/session/MediaControllerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1665,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-05-13T08:20:49Z",
+      "side": 1,
+      "message": "Let\u0027s put more bytes (10 maybe?)",
+      "range": {
+        "startLine": 1665,
+        "startChar": 21,
+        "endLine": 1665,
+        "endChar": 49
+      },
+      "revId": "2f4f55fc291c58ea5d22fedd59b88371bb901e60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f344464a_c9a74912",
         "filename": "media2/session/src/androidTest/java/androidx/media2/session/MediaControllerTest.java",
         "patchSetId": 3
@@ -59,6 +105,30 @@
       "writtenOn": "2019-05-13T08:04:30Z",
       "side": 1,
       "message": "Let\u0027s use a non-null MediaItem instance",
+      "range": {
+        "startLine": 1674,
+        "startChar": 16,
+        "endLine": 1674,
+        "endChar": 36
+      },
+      "revId": "2f4f55fc291c58ea5d22fedd59b88371bb901e60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68ff0e37_dd678299",
+        "filename": "media2/session/src/androidTest/java/androidx/media2/session/MediaControllerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1674,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-05-13T08:20:49Z",
+      "side": 1,
+      "message": "Please ignore above comment.\n\nLet\u0027s create a MediaItem instance before L1662, and test with it.",
+      "parentUuid": "f344464a_c9a74912",
       "range": {
         "startLine": 1674,
         "startChar": 16,
@@ -133,6 +203,98 @@
         "startChar": 25,
         "endLine": 1644,
         "endChar": 37
+      },
+      "revId": "2f4f55fc291c58ea5d22fedd59b88371bb901e60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6319c878_209fca5a",
+        "filename": "media2/session/version-compat-tests/current/client/src/androidTest/java/androidx/media2/test/client/tests/MediaControllerCallbackTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 887,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-05-13T08:20:49Z",
+      "side": 1,
+      "message": "Let\u0027s use non-null MediaItem instance.",
+      "range": {
+        "startLine": 887,
+        "startChar": 57,
+        "endLine": 887,
+        "endChar": 61
+      },
+      "revId": "2f4f55fc291c58ea5d22fedd59b88371bb901e60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53781188_51c54ece",
+        "filename": "media2/session/version-compat-tests/current/client/src/androidTest/java/androidx/media2/test/client/tests/MediaControllerCallbackTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 889,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-05-13T08:20:49Z",
+      "side": 1,
+      "message": "Let\u0027s add \u0027Us\u0027 postfix here.",
+      "range": {
+        "startLine": 888,
+        "startChar": 18,
+        "endLine": 889,
+        "endChar": 31
+      },
+      "revId": "2f4f55fc291c58ea5d22fedd59b88371bb901e60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81d20fe7_769c0cad",
+        "filename": "media2/session/version-compat-tests/current/client/src/androidTest/java/androidx/media2/test/client/tests/MediaControllerCallbackTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 901,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-05-13T08:20:49Z",
+      "side": 1,
+      "message": "Maybe better to add bug number here. (# of the bug which  TrackInfo as Parcelable)",
+      "range": {
+        "startLine": 901,
+        "startChar": 24,
+        "endLine": 901,
+        "endChar": 71
+      },
+      "revId": "2f4f55fc291c58ea5d22fedd59b88371bb901e60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d7a1951_ce38f0f8",
+        "filename": "media2/session/version-compat-tests/current/client/src/androidTest/java/androidx/media2/test/client/tests/MediaControllerCallbackTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 904,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-05-13T08:20:49Z",
+      "side": 1,
+      "message": "ditto (Arrays.equals())",
+      "range": {
+        "startLine": 904,
+        "startChar": 24,
+        "endLine": 904,
+        "endChar": 63
       },
       "revId": "2f4f55fc291c58ea5d22fedd59b88371bb901e60",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
