@@ -23,6 +23,7 @@ import android.annotation.SuppressLint;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
+import androidx.car.cluster.navigation.NavigationState2.ManeuverProto;
 import androidx.versionedparcelable.ParcelField;
 import androidx.versionedparcelable.VersionedParcelable;
 import androidx.versionedparcelable.VersionedParcelize;
@@ -426,5 +427,63 @@ public final class Maneuver implements VersionedParcelable {
     public String toString() {
         return String.format("{type: %s, roundaboutExitNumer: %d, icon: %s}", mType,
                 mRoundaboutExitNumber, mIcon);
+    }
+
+    private ManeuverProto.Type getProtoType() {
+        switch (EnumWrapper.getValue(mType, Type.UNKNOWN)) {
+            case UNKNOWN:
+                return ManeuverProto.Type.UNKNOWN;
+            case DEPART:
+                return ManeuverProto.Type.DEPART;
+            case NAME_CHANGE:
+                return ManeuverProto.Type.NAME_CHANGE;
+            case KEEP_LEFT:
+                return ManeuverProto.Type.KEEP_LEFT;
+            case KEEP_RIGHT:
+                return ManeuverProto.Type.KEEP_RIGHT;
+        }
+        return ManeuverProto.Type.UNKNOWN;
+    }
+
+    ManeuverProto toProto() {
+        ManeuverProto.Builder builder = ManeuverProto.newBuilder();
+        if (mType != null) {
+            builder.addTypes(getProtoType());
+        }
+        if (mIcon != null) {
+            builder.setIcon(mIcon.toProto());
+        }
+        builder.setRoundaboutExitNumber(mRoundaboutExitNumber);
+        return builder.build();
+    }
+
+    private static Type getTypeFromProto(ManeuverProto proto) {
+        for (ManeuverProto.Type type : proto.getTypesList()) {
+            switch (type) {
+                case UNKNOWN:
+                    return Type.UNKNOWN;
+                case DEPART:
+                    return Type.DEPART;
+                case NAME_CHANGE:
+                    return Type.NAME_CHANGE;
+                case KEEP_LEFT:
+                    return Type.KEEP_LEFT;
+                case KEEP_RIGHT:
+                    return Type.KEEP_RIGHT;
+                case UNRECOGNIZED:
+                    continue; // Look for a fallback
+            }
+        }
+        return Type.UNKNOWN;
+    }
+
+    static Maneuver fromProto(ManeuverProto proto) {
+        Builder builder = new Builder();
+        builder.setType(getTypeFromProto(proto));
+        builder.setRoundaboutExitNumber(proto.getRoundaboutExitNumber());
+        if (proto.hasIcon()) {
+            builder.setIcon(ImageReference.fromProto(proto.getIcon()));
+        }
+        return builder.build();
     }
 }

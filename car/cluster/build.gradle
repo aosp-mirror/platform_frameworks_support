@@ -20,12 +20,19 @@ import androidx.build.LibraryVersions
 plugins {
     id("AndroidXPlugin")
     id("com.android.library")
+    id "com.google.protobuf" version "0.8.8"
+}
+
+repositories {
+  jcenter()
 }
 
 dependencies {
     api(project(":car"))
     api(project(":versionedparcelable"))
     api("androidx.annotation:annotation:1.1.0-rc01")
+
+    compile 'com.google.protobuf:protobuf-lite:3.0.0'
 
     annotationProcessor(project(":versionedparcelable-annotation"))
 
@@ -35,8 +42,30 @@ dependencies {
     androidTestImplementation(ANDROIDX_TEST_RULES)
     androidTestImplementation(ESPRESSO_CORE, libs.exclude_for_espresso)
 
+
     compileOnly fileTree(dir: '../stubs', include: ['android.car.jar'])
     androidTestCompileOnly fileTree(dir: '../stubs', include: ['android.car.jar'])
+}
+
+protobuf {
+  protoc {
+    artifact = 'com.google.protobuf:protoc:3.0.0'
+  }
+  plugins {
+    javalite {
+      artifact = 'com.google.protobuf:protoc-gen-javalite:3.0.0'
+    }
+  }
+  generateProtoTasks {
+    all().each { task ->
+      task.builtins {
+        remove java
+      }
+      task.plugins {
+        javalite { }
+      }
+    }
+  }
 }
 
 android {
@@ -51,6 +80,9 @@ android {
 
     sourceSets {
         main.res.srcDirs 'res', 'res-public'
+
+        main.proto.srcDirs 'proto'
+
     }
 }
 

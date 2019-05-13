@@ -18,17 +18,23 @@ package androidx.car.cluster.navigation;
 
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
+import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
+import androidx.car.cluster.navigation.NavigationState2.DestinationProto;
+import androidx.car.cluster.navigation.NavigationState2.NavigationStateProto;
+import androidx.car.cluster.navigation.NavigationState2.StepProto;
 import androidx.core.util.Preconditions;
 import androidx.versionedparcelable.ParcelField;
-import androidx.versionedparcelable.ParcelUtils;
 import androidx.versionedparcelable.VersionedParcelable;
 import androidx.versionedparcelable.VersionedParcelize;
+
+import com.google.protobuf.InvalidProtocolBufferException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -226,13 +232,95 @@ public final class NavigationState implements VersionedParcelable {
      */
     @NonNull
     public Parcelable toParcelable() {
-        return ParcelUtils.toParcelable(this);
+        Bundle bundle = new Bundle();
+        bundle.putByteArray("navstate2", toProto().toByteArray());
+        return bundle;
     }
 
     /**
      * Creates a {@link NavigationState} based on data stored in the given {@link Parcelable}
      */
     public static NavigationState fromParcelable(@Nullable Parcelable parcelable) {
-        return parcelable != null ? ParcelUtils.fromParcelable(parcelable) : new NavigationState();
+        if (parcelable == null) {
+            return new NavigationState();
+        }
+        if (!(parcelable instanceof Bundle)) {
+            return new NavigationState();
+        }
+        Bundle bundle = (Bundle) parcelable;
+        byte[] data = bundle.getByteArray("navstate2");
+        NavigationStateProto proto;
+        try {
+            proto = NavigationStateProto.parseFrom(data);
+        } catch (InvalidProtocolBufferException e) {
+            Log.w("Error parsing proto.", e.toString()); // TODO(ddeunagomez): do better than this
+            return new NavigationState();
+        }
+        return fromProto(proto);
+    }
+
+    private NavigationStateProto.ServiceStatus getServiceStatusProto() {
+        switch(EnumWrapper.getValue(mServiceStatus, ServiceStatus.NORMAL)) {
+            case NORMAL:
+                return NavigationStateProto.ServiceStatus.NORMAL;
+            case REROUTING:
+                return NavigationStateProto.ServiceStatus.REROUTING;
+        }
+        return NavigationStateProto.ServiceStatus.NORMAL;
+    }
+
+    NavigationStateProto toProto() {
+        NavigationStateProto.Builder builder =
+                NavigationStateProto.newBuilder();
+
+        if (mSteps != null) {
+            for (Step step : mSteps) {
+                if (step != null) {
+                    builder.addSteps(step.toProto());
+                }
+            }
+        }
+        if (mDestinations != null) {
+            for (Destination destination : mDestinations) {
+                if (destination != null) {
+                    builder.addDestinations(destination.toProto());
+                }
+            }
+        }
+        if (mCurrentSegment != null) {
+            builder.setCurrentSegment(mCurrentSegment.toProto());
+        }
+        if (mServiceStatus != null) {
+            builder.addServiceStatuses(getServiceStatusProto());
+        }
+        return builder.build();
+    }
+
+    private static ServiceStatus getServiceStatusFromProto(NavigationStateProto proto) {
+        for (NavigationStateProto.ServiceStatus status :
+                 proto.getServiceStatusesList()) {
+            switch (status) {
+                case NORMAL:
+                    return ServiceStatus.NORMAL;
+                case REROUTING:
+                    return ServiceStatus.REROUTING;
+                case UNRECOGNIZED:
+                    continue; // Look for a fallback
+            }
+        }
+        return ServiceStatus.NORMAL;
+    }
+
+    static NavigationState fromProto(NavigationStateProto proto) {
+        NavigationState.Builder builder = new NavigationState.Builder();
+        for (StepProto step : proto.getStepsList()) {
+            builder.addStep(Step.fromProto(step));
+        }
+        for (DestinationProto destination : proto.getDestinationsList()) {
+            builder.addDestination(Destination.fromProto(destination));
+        }
+        builder.setCurrentSegment(Segment.fromProto(proto.getCurrentSegment()));
+        builder.setServiceStatus(getServiceStatusFromProto(proto));
+        return builder.build();
     }
 }

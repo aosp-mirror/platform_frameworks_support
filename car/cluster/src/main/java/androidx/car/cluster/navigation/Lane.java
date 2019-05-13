@@ -20,6 +20,7 @@ import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RestrictTo;
+import androidx.car.cluster.navigation.NavigationState2.LaneProto;
 import androidx.core.util.Preconditions;
 import androidx.versionedparcelable.ParcelField;
 import androidx.versionedparcelable.VersionedParcelable;
@@ -108,5 +109,27 @@ public final class Lane implements VersionedParcelable {
     @Override
     public String toString() {
         return String.format("{direction: %s}", mDirections);
+    }
+
+    LaneProto toProto() {
+        LaneProto.Builder builder = LaneProto.newBuilder();
+
+        if (mDirections != null) {
+            for (LaneDirection direction : mDirections) {
+                builder.addLaneDirections(direction.toProto());
+            }
+        }
+
+        return builder.build();
+    }
+
+    static Lane fromProto(LaneProto proto) {
+        Builder builder =  new Builder();
+
+        for (LaneProto.LaneDirectionProto direction :
+                 proto.getLaneDirectionsList()) {
+            builder.addDirection(LaneDirection.fromProto(direction));
+        }
+        return builder.build();
     }
 }

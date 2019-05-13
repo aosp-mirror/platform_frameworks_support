@@ -21,6 +21,8 @@ import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
+import androidx.car.cluster.navigation.NavigationState2.LaneProto;
+import androidx.car.cluster.navigation.NavigationState2.StepProto;
 import androidx.core.util.Preconditions;
 import androidx.versionedparcelable.ParcelField;
 import androidx.versionedparcelable.VersionedParcelable;
@@ -266,4 +268,48 @@ public final class Step implements VersionedParcelable {
         return String.format("{maneuver: %s, distance: %s, lanes: %s, lanesImage: %s, cue: %s}",
                 mManeuver, mDistance, mLanes, mLanesImage, mCue);
     }
+
+    StepProto toProto() {
+        StepProto.Builder builder = StepProto.newBuilder();
+
+        if (mDistance != null) {
+            builder.setDistance(mDistance.toProto());
+        }
+        if (mManeuver != null) {
+            builder.setManeuver(mManeuver.toProto());
+        }
+        if (mLanes != null) {
+            for (Lane lane : mLanes) {
+                builder.addLanes(lane.toProto());
+            }
+        }
+        if (mLanesImage != null) {
+            builder.setLanesImage(mLanesImage.toProto());
+        }
+        if (mCue != null) {
+            builder.setCue(mCue.toProto());
+        }
+        return builder.build();
+    }
+
+    static Step fromProto(StepProto proto) {
+        Builder builder = new Builder();
+        if (proto.hasDistance()) {
+            builder.setDistance(Distance.fromProto(proto.getDistance()));
+        }
+        if (proto.hasManeuver()) {
+            builder.setManeuver(Maneuver.fromProto(proto.getManeuver()));
+        }
+        if (proto.hasLanesImage()) {
+            builder.setLanesImage(ImageReference.fromProto(proto.getLanesImage()));
+        }
+        if (proto.hasCue()) {
+            builder.setCue(RichText.fromProto(proto.getCue()));
+        }
+        for (LaneProto lane : proto.getLanesList()) {
+            builder.addLane(Lane.fromProto(lane));
+        }
+        return builder.build();
+    }
+
 }
