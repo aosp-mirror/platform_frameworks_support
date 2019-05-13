@@ -16,6 +16,7 @@
 package androidx.ui.core
 
 import android.content.Context
+import android.util.Log
 import androidx.ui.engine.geometry.Offset
 import androidx.ui.engine.text.TextAlign
 import androidx.ui.engine.text.TextDirection
@@ -37,6 +38,7 @@ import androidx.compose.onCommit
 import androidx.compose.state
 import androidx.compose.memo
 import androidx.compose.unaryPlus
+import androidx.ui.engine.text.TextAffinity
 
 private val DefaultTextAlign: TextAlign = TextAlign.START
 private val DefaultTextDirection: TextDirection = TextDirection.LTR
@@ -159,23 +161,40 @@ fun Text(
                     var selectionStart = renderParagraph.getPositionForOffset(start)
                     var selectionEnd = renderParagraph.getPositionForOffset(end)
 
+                    Log.e("SelectionDrag",
+                        "(s,e) = (" + start.dx.toString() + ", " + start.dy.toString() +
+                                "), (" + end.dx.toString()+", " + end.dy.toString() + ")")
+                    Log.e("SelectionDrag",
+                        "TextSelection = (" + selectionStart.offset.toString()+", " +
+                                selectionEnd.offset.toString() + ") Before WordBoundary")
+
                     if (selectionStart.offset == selectionEnd.offset) {
                         val wordBoundary = renderParagraph.getWordBoundary(selectionStart)
                         selectionStart =
                             TextPosition(wordBoundary.start, selectionStart.affinity)
                         selectionEnd = TextPosition(wordBoundary.end, selectionEnd.affinity)
+                    } else {
+                        selectionEnd = TextPosition(selectionEnd.offset + 1, TextAffinity.upstream)
                     }
 
                     internalSelection.value =
                         TextSelection(selectionStart.offset, selectionEnd.offset)
 
+                    Log.e("SelectionDrag",
+                        "TextSelection = (" + selectionStart.offset.toString()+", " +
+                                selectionEnd.offset.toString()+") Final Result")
+
+                    selectionEnd = TextPosition(selectionEnd.offset - 1, TextAffinity.upstream)
+
+                    Log.e("SelectionDrag",
+                        "TextSelection = (" + selectionStart.offset.toString()+", " +
+                                selectionEnd.offset.toString()+") Final Result - 1")
+
                     // TODO(qqd): Determine a set of coordinates around a character that we need.
                     // Clean up the lower layer's getCaretForTextPosition methods.
                     return Selection(
-                        startOffset =
-                        renderParagraph.getCaretForTextPosition(selectionStart).second,
-                        endOffset =
-                        renderParagraph.getCaretForTextPosition(selectionEnd).second
+                        startOffset = renderParagraph.getBoundingBoxForTextPosition(selectionStart),
+                        endOffset = renderParagraph.getBoundingBoxForTextPosition(selectionEnd)
                     )
                 }
             })

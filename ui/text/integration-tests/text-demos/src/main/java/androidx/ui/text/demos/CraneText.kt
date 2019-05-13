@@ -424,6 +424,7 @@ fun TextDemoTextAlign() {
     LinearLayout(orientation = LinearLayout.VERTICAL) {
         SecondTagLine(tag = "textAlgin = TextAlign.LEFT")
         CraneWrapper {
+
             Text(textAlign = TextAlign.LEFT) {
                 Span(text = displayText, style = TextStyle(fontSize = fontSize8))
             }

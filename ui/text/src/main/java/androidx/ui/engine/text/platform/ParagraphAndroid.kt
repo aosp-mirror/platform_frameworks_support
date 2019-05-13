@@ -53,6 +53,7 @@ import androidx.text.style.TypefaceSpan
 import androidx.text.style.WordSpacingSpan
 import androidx.ui.core.px
 import androidx.ui.engine.geometry.Offset
+import androidx.ui.engine.geometry.Rect
 import androidx.ui.engine.text.FontStyle
 import androidx.ui.engine.text.FontSynthesis
 import androidx.ui.engine.text.FontWeight
@@ -231,6 +232,17 @@ internal class ParagraphAndroid constructor(
         return Pair(Offset(horizontal, top), Offset(horizontal, bottom))
     }
 
+    fun getBoundingBoxForTextPosition(textPosition: TextPosition): Rect {
+        val left = ensureLayout.getPrimaryHorizontal(textPosition.offset)
+        val right = ensureLayout.getPrimaryHorizontal(textPosition.offset + 1)
+
+        val line = ensureLayout.getLineForOffset(textPosition.offset)
+        val top = ensureLayout.getLineTop(line)
+        val bottom = ensureLayout.getLineBottom(line)
+
+        return Rect(top = top, bottom = bottom, left = left, right = right)
+    }
+
     fun getPathForRange(start: Int, end: Int): Path {
         val path = android.graphics.Path()
         ensureLayout.getSelectionPath(start, end, path)
@@ -261,8 +273,10 @@ internal class ParagraphAndroid constructor(
     fun isEllipsisApplied(lineIndex: Int): Boolean = ensureLayout.isEllipsisApplied(lineIndex)
 
     fun paint(canvas: Canvas, x: Float, y: Float) {
-        val tmpLayout = layout ?: throw IllegalStateException("paint cannot be " +
-                "called before layout() is called")
+        val tmpLayout = layout ?: throw IllegalStateException(
+            "paint cannot be " +
+                    "called before layout() is called"
+        )
         canvas.translate(x, y)
         tmpLayout.paint(canvas.toFrameworkCanvas())
         canvas.translate(-x, -y)
@@ -338,7 +352,7 @@ internal class ParagraphAndroid constructor(
 
             if (start < 0 || start >= text.length || end <= start || end > text.length) continue
 
-            style.textIndent?. let { indent ->
+            style.textIndent?.let { indent ->
                 if (indent.firstLine == 0.px && indent.restLine == 0.px) return@let
                 val (spanStart, spanEnd) = adjustSpanPosition(text, start, end)
                 // Filter out invalid result.
