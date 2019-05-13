@@ -282,6 +282,29 @@
     },
     {
       "key": {
+        "uuid": "a5c07d1e_e76c748e",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/NavigationState.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2019-05-13T06:57:28Z",
+      "side": 1,
+      "message": "Should we delete all references to VersionedParcelable, VersionedParcelize, ParcelField?\n\nI wonder how much generated code that would end up deleting. Would be interesting to see how much extra code the protos cost.",
+      "range": {
+        "startLine": 48,
+        "startChar": 35,
+        "endLine": 48,
+        "endChar": 65
+      },
+      "revId": "dc6d6295357085174d0f476d375ccb30a06797af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "10a4b6c2_9b90fed7",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/NavigationState.java",
         "patchSetId": 2
