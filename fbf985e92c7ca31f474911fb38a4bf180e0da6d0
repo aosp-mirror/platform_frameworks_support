@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2dc5f42e_32135014",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/ErrorProneConfiguration.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-05-13T16:57:13Z",
+      "side": 1,
+      "message": "Does this also work without the `afterEvaluate`?",
+      "revId": "fbf985e92c7ca31f474911fb38a4bf180e0da6d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
