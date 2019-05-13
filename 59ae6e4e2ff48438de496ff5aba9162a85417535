@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a5a015f3_9f93ac9e",
+        "filename": "media2/session/version-compat-tests/current/client/src/androidTest/java/androidx/media2/test/client/RemoteMediaSession.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-13T06:41:28Z",
+      "side": 1,
+      "message": "nit) How about just surfaceExists()?",
+      "range": {
+        "startLine": 509,
+        "startChar": 23,
+        "endLine": 509,
+        "endChar": 39
+      },
+      "revId": "59ae6e4e2ff48438de496ff5aba9162a85417535",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
