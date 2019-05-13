@@ -17,6 +17,7 @@ package androidx.ui.core {
     method public void onSizeChange(androidx.ui.core.LayoutNode layoutNode);
     method public void onStartLayout(androidx.ui.core.LayoutNode layoutNode);
     method public void onStartMeasure(androidx.ui.core.LayoutNode layoutNode);
+    method public androidx.ui.core.PxPosition position();
     method public void sendEvent(android.view.MotionEvent event);
     method public void setConstraints(androidx.ui.core.Constraints p);
     method public void setRef(androidx.ui.core.Ref<androidx.ui.core.AndroidCraneView>? value);
@@ -61,6 +62,7 @@ package androidx.ui.core {
     method public static androidx.ui.core.PxPosition localToGlobal(androidx.ui.core.LayoutNode, androidx.ui.core.PxPosition local);
     method public static androidx.ui.core.PxPosition positionRelativeToAncestor(androidx.ui.core.LayoutNode, androidx.ui.core.LayoutNode ancestor);
     method public static androidx.ui.core.PxPosition positionRelativeToRoot(androidx.ui.core.LayoutNode);
+    method public static androidx.ui.core.Owner requireOwner(androidx.ui.core.ComponentNode);
   }
 
   public final class DebugUtilsKt {
@@ -147,6 +149,7 @@ package androidx.ui.core {
     method public void onSizeChange(androidx.ui.core.LayoutNode layoutNode);
     method public void onStartLayout(androidx.ui.core.LayoutNode layoutNode);
     method public void onStartMeasure(androidx.ui.core.LayoutNode layoutNode);
+    method public androidx.ui.core.PxPosition position();
   }
 
   public final class PointerInputNode extends androidx.ui.core.SingleChildComponentNode {

@@ -88,6 +88,8 @@ class AndroidCraneView constructor(context: Context)
         }
     }
 
+    private val tmpPositionArray = intArrayOf(0, 0)
+
     init {
         setWillNotDraw(false)
         // TODO(mount): How do I unregister?
@@ -328,6 +330,11 @@ class AndroidCraneView constructor(context: Context)
 
     override fun onCreateInputConnection(outAttrs: EditorInfo): InputConnection? =
         textInputServiceAndroid.createInputConnection(outAttrs)
+
+    override fun position(): PxPosition {
+        getLocationInWindow(tmpPositionArray)
+        return PxPosition(tmpPositionArray[0].ipx, tmpPositionArray[1].ipx)
+    }
 
     private fun callMeasure(constraints: Constraints) {
         var maxWidth = 0.ipx

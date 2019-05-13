@@ -87,6 +87,11 @@ interface Owner {
      * Called when layout (placement) ends.
      */
     fun onEndLayout(layoutNode: LayoutNode)
+
+    /**
+     * Returns a position of the owner in its window.
+     */
+    fun position(): PxPosition
 }
 
 /**
@@ -790,6 +795,8 @@ class SemanticsComponentNode(
     }
 }
 
+fun ComponentNode.requireOwner(): Owner = owner ?: ErrorMessages.NodeShouldBeAttached.state()
+
 /**
  * The list of child Layouts. It can contain zero or more entries.
  */
@@ -821,6 +828,9 @@ fun LayoutNode.globalToLocal(global: PxPosition): PxPosition {
         y -= node.y.toPx()
         node = node.parentLayoutNode
     }
+    val ownerPosition = requireOwner().position()
+    x -= ownerPosition.x
+    y -= ownerPosition.y
     return PxPosition(x, y)
 }
 
@@ -836,6 +846,9 @@ fun LayoutNode.localToGlobal(local: PxPosition): PxPosition {
         y += node.y.toPx()
         node = node.parentLayoutNode
     }
+    val ownerPosition = requireOwner().position()
+    x += ownerPosition.x
+    y += ownerPosition.y
     return PxPosition(x, y)
 }
 
