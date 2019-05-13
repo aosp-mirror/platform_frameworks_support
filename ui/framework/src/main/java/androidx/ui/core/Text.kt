@@ -38,6 +38,7 @@ import androidx.compose.state
 import androidx.compose.memo
 import androidx.compose.onDispose
 import androidx.compose.unaryPlus
+import androidx.ui.engine.text.TextAffinity
 
 private val DefaultTextAlign: TextAlign = TextAlign.Start
 private val DefaultTextDirection: TextDirection = TextDirection.Ltr
@@ -47,7 +48,6 @@ private val DefaultMaxLines: Int? = null
 
 /** The default selection color if none is specified. */
 private val DefaultSelectionColor = Color(0x6633B5E5)
-
 
 @Composable
 fun Text(
@@ -213,30 +213,31 @@ internal fun Text(
                     val startPx = selectionCoordinates.first - relativePosition
                     val endPx = selectionCoordinates.second - relativePosition
 
-                    val start = Offset(startPx.x.value, startPx.y.value)
-                    val end = Offset(endPx.x.value, endPx.y.value)
+                    val startOffset = Offset(startPx.x.value, startPx.y.value)
+                    val endOffset = Offset(endPx.x.value, endPx.y.value)
 
-                    var selectionStart = renderParagraph.getPositionForOffset(start)
-                    var selectionEnd = renderParagraph.getPositionForOffset(end)
+                    var selectionStart = renderParagraph.getPositionForOffset(startOffset)
+                    var selectionEnd = renderParagraph.getPositionForOffset(endOffset)
 
                     if (selectionStart.offset == selectionEnd.offset) {
                         val wordBoundary = renderParagraph.getWordBoundary(selectionStart)
                         selectionStart =
                             TextPosition(wordBoundary.start, selectionStart.affinity)
                         selectionEnd = TextPosition(wordBoundary.end, selectionEnd.affinity)
+                    } else {
+                        selectionEnd = TextPosition(selectionEnd.offset + 1, TextAffinity.upstream)
                     }
 
                     internalSelection.value =
                         TextSelection(selectionStart.offset, selectionEnd.offset)
 
-                    // TODO(qqd): Determine a set of coordinates around a character that we need.
-                    // Clean up the lower layer's getCaretForTextPosition methods.
-                    // Currently the left bottom corner of a character is returned.
+                    selectionEnd = TextPosition(selectionEnd.offset - 1, TextAffinity.upstream)
+
                     return Selection(
                         startOffset =
-                        renderParagraph.getCaretForTextPosition(selectionStart).second,
+                        renderParagraph.getBoundingBoxForTextPosition(selectionStart),
                         endOffset =
-                        renderParagraph.getCaretForTextPosition(selectionEnd).second,
+                        renderParagraph.getBoundingBoxForTextPosition(selectionEnd),
                         startLayoutCoordinates = layoutCoordinates.value!!,
                         endLayoutCoordinates = layoutCoordinates.value!!
                     )
