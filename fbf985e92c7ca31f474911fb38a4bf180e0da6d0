@@ -34,6 +34,138 @@
       "revId": "fbf985e92c7ca31f474911fb38a4bf180e0da6d0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "caa17cce_2e51a051",
+        "filename": "test/screenshots/.gitignore",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-05-13T18:12:31Z",
+      "side": 1,
+      "message": "Our builds should never drop output in tree, it should use out/ directory. Remove this and make sure our builds don\u0027t show up here.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 6
+      },
+      "revId": "fbf985e92c7ca31f474911fb38a4bf180e0da6d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48a258b9_83c033ba",
+        "filename": "test/screenshots/build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-05-13T18:12:31Z",
+      "side": 1,
+      "message": "Do we need to apply androidxplugin to this? What do we get out of it? Maybe we don\u0027t then we dont have to add a workaround for disabling error prone.",
+      "range": {
+        "startLine": 18,
+        "startChar": 8,
+        "endLine": 18,
+        "endChar": 22
+      },
+      "revId": "fbf985e92c7ca31f474911fb38a4bf180e0da6d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "953cc0f4_da476544",
+        "filename": "test/screenshots/build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-05-13T18:12:31Z",
+      "side": 1,
+      "message": "Pull this constant into Dependencies.kt",
+      "range": {
+        "startLine": 23,
+        "startChar": 12,
+        "endLine": 23,
+        "endChar": 52
+      },
+      "revId": "fbf985e92c7ca31f474911fb38a4bf180e0da6d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f61997d7_38644d2b",
+        "filename": "test/screenshots/build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-05-13T18:12:31Z",
+      "side": 1,
+      "message": "Why do we need to disable error prone?",
+      "range": {
+        "startLine": 27,
+        "startChar": 4,
+        "endLine": 27,
+        "endChar": 21
+      },
+      "revId": "fbf985e92c7ca31f474911fb38a4bf180e0da6d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85b40a59_3c52515a",
+        "filename": "test/screenshots/src/main/java/androidx/test/screenshots/ScreenshotResultProtos.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-05-13T18:12:31Z",
+      "side": 1,
+      "message": "we usually go with singular for package name, so it should probably be `screenshot`.",
+      "range": {
+        "startLine": 4,
+        "startChar": 22,
+        "endLine": 4,
+        "endChar": 33
+      },
+      "revId": "fbf985e92c7ca31f474911fb38a4bf180e0da6d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2030c30_0f56de89",
+        "filename": "test/screenshots/src/main/proto/screenshot_result.proto",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-05-13T18:12:31Z",
+      "side": 1,
+      "message": "Copyright header.",
+      "revId": "fbf985e92c7ca31f474911fb38a4bf180e0da6d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
