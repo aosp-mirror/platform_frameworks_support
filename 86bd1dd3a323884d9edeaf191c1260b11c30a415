@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "212c21bc_1fcf1f1f",
+        "filename": "car/core/api/current.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1010674
+      },
+      "writtenOn": "2019-05-13T19:41:35Z",
+      "side": 1,
+      "message": "can we have have only one CarDialog.builder class, that spews CarMultipleChoiceDialog or CarSingleChoiceDialog based on the item types? The builders for these two are too similar, and I am imagining they will always be like that.\n\nIn fact maybe have one CarDialog that handles single and multiple choice?\n\nBasically I am trying to understand why we need two separate classes for these two very similar cases.",
+      "range": {
+        "startLine": 52,
+        "startChar": 28,
+        "endLine": 52,
+        "endChar": 51
+      },
+      "revId": "86bd1dd3a323884d9edeaf191c1260b11c30a415",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
