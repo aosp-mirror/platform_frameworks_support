@@ -85,7 +85,7 @@ private fun DrawSwitch(checked: Boolean, color: Color? = null) {
     }
     DrawTrack(color = trackColor)
     // TODO: remove @Composable annotation here when b/131681875 is fixed
-    Transition(definition = transDef, toState = checked) @Composable { state ->
+    Transition(definition = transDef, toState = checked) { state ->
         DrawThumb(
             color = state[ThumbColorProp],
             relativePosition = state[RelativeThumbTranslationProp]
