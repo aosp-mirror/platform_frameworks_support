@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e98c7618_354e266c",
+        "filename": "ui/material/integration-tests/material-demos/src/main/java/androidx/ui/material/demos/ProgressIndicatorActivity.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-05-13T15:36:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9eec5576_b0fa7bea",
+      "range": {
+        "startLine": 54,
+        "startChar": 4,
+        "endLine": 54,
+        "endChar": 12
+      },
+      "revId": "eb09adffc67348c0913e96452c9f2b635ce0c0b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3385d89c_6b32144f",
         "filename": "ui/material/src/main/java/androidx/ui/baseui/DeterminateProgressIndicator.kt",
         "patchSetId": 1
@@ -120,6 +144,30 @@
     },
     {
       "key": {
+        "uuid": "f7df3f84_f3d7f099",
+        "filename": "ui/material/src/main/java/androidx/ui/baseui/DeterminateProgressIndicator.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-05-13T15:36:17Z",
+      "side": 1,
+      "message": "Will leave this as is for now, but there are still some open questions over package structure.",
+      "parentUuid": "e82cf17f_b36a2609",
+      "range": {
+        "startLine": 17,
+        "startChar": 8,
+        "endLine": 17,
+        "endChar": 26
+      },
+      "revId": "eb09adffc67348c0913e96452c9f2b635ce0c0b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "88618692_b9bee94a",
         "filename": "ui/material/src/main/java/androidx/ui/material/ProgressIndicator.kt",
         "patchSetId": 1
@@ -140,6 +188,30 @@
       "revId": "eb09adffc67348c0913e96452c9f2b635ce0c0b6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "624a9fab_8375ace9",
+        "filename": "ui/material/src/main/java/androidx/ui/material/ProgressIndicator.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-05-13T15:36:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "88618692_b9bee94a",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 33
+      },
+      "revId": "eb09adffc67348c0913e96452c9f2b635ce0c0b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -166,6 +238,30 @@
     },
     {
       "key": {
+        "uuid": "1718283d_f6eb11ed",
+        "filename": "ui/material/src/main/java/androidx/ui/material/ProgressIndicator.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-05-13T15:36:17Z",
+      "side": 1,
+      "message": "Currently dokka/kdoc doesn\u0027t support @see tags with parameters, so it wont\u0027 really link properly. We should follow up on this as it makes it hard to navigate through overloaded functions.",
+      "parentUuid": "f8ed693b_dce65968",
+      "range": {
+        "startLine": 54,
+        "startChar": 3,
+        "endLine": 59,
+        "endChar": 14
+      },
+      "revId": "eb09adffc67348c0913e96452c9f2b635ce0c0b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "79d39944_f771840c",
         "filename": "ui/material/src/main/java/androidx/ui/material/ProgressIndicator.kt",
         "patchSetId": 1
@@ -186,6 +282,30 @@
       "revId": "eb09adffc67348c0913e96452c9f2b635ce0c0b6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74829937_438cd572",
+        "filename": "ui/material/src/main/java/androidx/ui/material/ProgressIndicator.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 481,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-05-13T15:36:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "79d39944_f771840c",
+      "range": {
+        "startLine": 481,
+        "startChar": 0,
+        "endLine": 481,
+        "endChar": 7
+      },
+      "revId": "eb09adffc67348c0913e96452c9f2b635ce0c0b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
