@@ -46,6 +46,30 @@
       "revId": "86bd1dd3a323884d9edeaf191c1260b11c30a415",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8951806_827261f1",
+        "filename": "car/core/api/current.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-05-13T21:00:04Z",
+      "side": 1,
+      "message": "I think we can probably have the builders extend from each other a bit to reduce some code duplication. I don\u0027t have a strong preference for this.\n\nHowever, I think we should still keep the dialogs themselves separate. They\u0027re similar, but they function and look rather differently. We could combine all the functionality into one class a la AlertDialog, but I think that has just kept to code bloat in that class.\n\nI personally feel individual dialogs with defined purposes makes things easier to debug and code.",
+      "parentUuid": "3122bc06_99992834",
+      "range": {
+        "startLine": 52,
+        "startChar": 28,
+        "endLine": 52,
+        "endChar": 51
+      },
+      "revId": "86bd1dd3a323884d9edeaf191c1260b11c30a415",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
