@@ -24,6 +24,7 @@ import static org.junit.Assert.assertNotEquals;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Base64;
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.SmallTest;
@@ -219,6 +220,67 @@ public class NavigationStateTest {
                 .setServiceStatus(NavigationState.ServiceStatus.NORMAL)
                 .build()
                 .hashCode());
+    }
+
+    /**
+     * Test unbundling and getting the proto contains the correct information.
+     */
+    @Test
+    public void unmarshallAndReadProto() {
+        byte[] wire = Base64.decode("EQAAAGEAbgBkAHIAbwBpAGQALgBvAHMALgBCAHUAbgBkAGwAZQAAAPwB"
+                                    + "AABCTkRMAQAAAAgAAABuAGEAdgBzAHQAYQB0AGUAAAAAAAMAAADUAQAA"
+                                    + "Qk5ETAEAAAAJAAAAbgBhAHYAcwB0AGEAdABlADIAAAANAAAArgEAAAq1"
+                                    + "ARJZCgEBGlQKTGNvbnRlbnQ6Ly9jb20uZ29vZ2xlLmFuZHJvaWQuYXBw"
+                                    + "cy5nbW0uZGV2LmNhci9uYXYvbWFuZXV2ZXIvQ0FBUTRZREktQWMlM0Ql"
+                                    + "MEEQdBh0IAEqWAoMCgpXaGFyZiBDcmVzCgMKASAKCQoHdG93YXJkIAoT"
+                                    + "ChFEYXJsaW5nIElzbGFuZCBSZBIjV2hhcmYgQ3JlcyB0b3dhcmQgRGFy"
+                                    + "bGluZyBJc2xhbmQgUmQKkAEKCQgyEgI1MBoBARJZCgEHGlQKTGNvbnRl"
+                                    + "bnQ6Ly9jb20uZ29vZ2xlLmFuZHJvaWQuYXBwcy5nbW0uZGV2LmNhci9u"
+                                    + "YXYvbWFuZXV2ZXIvQ0FFUTZJREktQWMlM0QlMEEQdBh0IAEqKAoTChFE"
+                                    + "YXJsaW5nIElzbGFuZCBSZBIRRGFybGluZyBJc2xhbmQgUmQSXgoGU3lk"
+                                    + "bmV5Eg9OZXcgU291dGggV2FsZXMaCwiWFBIDMi42GgECIhgIjLDz5gUS"
+                                    + "EEF1c3RyYWxpYS9TeWRuZXkqEgltz-J7Ne9AwBFm9nmMsuZiQDIBAToF"
+                                    + "OCBtaW4iAQAAAA==",
+                                    Base64.NO_WRAP | Base64.URL_SAFE);
+
+        Parcel receiversParcel = Parcel.obtain();
+        receiversParcel.unmarshall(wire, 0, wire.length);
+        receiversParcel.setDataPosition(0);
+        Bundle receiversBundle =
+                (Bundle) receiversParcel.readParcelable(Bundle.class.getClassLoader());
+        receiversBundle = receiversBundle.getParcelable("navstate");
+        NavigationState state = NavigationState.fromParcelable(receiversBundle);
+
+        assertEquals(state.getSteps().size(), 2);
+        Step first = state.getSteps().get(0);
+        Step second = state.getSteps().get(1);
+        assertEquals(first.getManeuver().getType(), Maneuver.Type.DEPART);
+        assertEquals(first.getManeuver().getIcon().getContentUri(116, 116).toString(),
+                     "content://com.google.android.apps.gmm.dev.car/nav/maneuver/"
+                     + "CAAQ4YDI-Ac%3D%0A?w=116&h=116");
+        assertEquals(first.getManeuver().getIcon().isTintable(), true);
+        assertEquals(first.getDistance(), null); // Has not been set
+        assertEquals(first.getCue().getText(), "Wharf Cres toward Darling Island Rd");
+        assertEquals(first.getCue().getElements().get(0).getText(), "Wharf Cres");
+        assertEquals(first.getCue().getElements().get(1).getText(), " ");
+        assertEquals(first.getCue().getElements().get(2).getText(), "toward ");
+        assertEquals(first.getCue().getElements().get(3).getText(), "Darling Island Rd");
+        assertEquals(second.getDistance().getMeters(), 50);
+        assertEquals(second.getDistance().getDisplayUnit(), Distance.Unit.METERS);
+        assertEquals(second.getDistance().getDisplayValue(), "50");
+        assertEquals(second.getCue().getText(), "Darling Island Rd");
+
+        assertEquals(state.getDestinations().size(), 1);
+        Destination dest = state.getDestinations().get(0);
+        assertEquals(dest.getTitle(), "Sydney");
+        assertEquals(dest.getAddress(), "New South Wales");
+        assertEquals(dest.getDistance().getMeters(), 2582);
+        assertEquals(dest.getDistance().getDisplayUnit(), Distance.Unit.KILOMETERS);
+        assertEquals(dest.getDistance().getDisplayValue(), "2.6");
+        assertEquals(dest.getTraffic(), Destination.Traffic.HIGH);
+        assertEquals(dest.getFormattedEta(), "8 min");
+
+        assertEquals(state.getServiceStatus(), NavigationState.ServiceStatus.NORMAL);
     }
 
     private NavigationState createEmptyState() {
