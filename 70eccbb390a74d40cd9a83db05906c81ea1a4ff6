@@ -142,6 +142,24 @@
     },
     {
       "key": {
+        "uuid": "a7e991a6_5eee3bc6",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/ImageCaptureExtender.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-13T23:36:20Z",
+      "side": 1,
+      "message": "So whats not clear to me why deInit() needs to be posted onto the main thread? Can\u0027t it just run on which thread it is being called on since it is already being synchronized with mLock.",
+      "parentUuid": "301f158e_63415354",
+      "revId": "70eccbb390a74d40cd9a83db05906c81ea1a4ff6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ff92272c_76e0ab4b",
         "filename": "camera/extensions/src/main/java/androidx/camera/extensions/PreviewExtender.java",
         "patchSetId": 7

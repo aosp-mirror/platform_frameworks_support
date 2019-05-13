@@ -105,6 +105,24 @@
       "revId": "f6c655a57a7996f491efae140e3216f31e60f169",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "912fd248_58ee2492",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCapture.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-13T23:36:20Z",
+      "side": 1,
+      "message": "Sounds good.",
+      "parentUuid": "3cffb8e4_7578b678",
+      "revId": "f6c655a57a7996f491efae140e3216f31e60f169",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
