@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "19ca8271_55a8c233",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/ImageAnalysisTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1452466
+      },
+      "writtenOn": "2019-05-13T05:51:19Z",
+      "side": 1,
+      "message": "Done\nYes, let me remove it.",
+      "parentUuid": "113f495a_d569b1bb",
+      "range": {
+        "startLine": 88,
+        "startChar": 24,
+        "endLine": 88,
+        "endChar": 58
+      },
+      "revId": "82815ae578cfc49dd4cef5a1543e4525d2032874",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cedabca5_0a8ee80b",
         "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/Camera2ImplCameraRepositoryTest.java",
         "patchSetId": 10
@@ -45,6 +69,30 @@
       "revId": "82815ae578cfc49dd4cef5a1543e4525d2032874",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "772ff2e5_fafb772f",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/Camera2ImplCameraRepositoryTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1452466
+      },
+      "writtenOn": "2019-05-13T05:51:19Z",
+      "side": 1,
+      "message": "Done.\nThanks.\nI will have another patch for remove all Thread.Sleep().",
+      "parentUuid": "cedabca5_0a8ee80b",
+      "range": {
+        "startLine": 96,
+        "startChar": 12,
+        "endLine": 99,
+        "endChar": 31
+      },
+      "revId": "82815ae578cfc49dd4cef5a1543e4525d2032874",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "06e61bda_6e879286",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/Camera2ImplCameraXTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1452466
+      },
+      "writtenOn": "2019-05-13T05:51:19Z",
+      "side": 1,
+      "message": "Done.\nThanks.\nI will have another patch for remove all Thread.Sleep().",
+      "parentUuid": "5ffa6b77_737102f0",
+      "range": {
+        "startLine": 122,
+        "startChar": 12,
+        "endLine": 122,
+        "endChar": 31
+      },
+      "revId": "82815ae578cfc49dd4cef5a1543e4525d2032874",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e7aec7b1_67d57cff",
         "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/CameraTest.java",
         "patchSetId": 10
@@ -91,6 +163,30 @@
       "revId": "82815ae578cfc49dd4cef5a1543e4525d2032874",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "efa57903_b8acdf32",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/CameraTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1452466
+      },
+      "writtenOn": "2019-05-13T05:51:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e7aec7b1_67d57cff",
+      "range": {
+        "startLine": 89,
+        "startChar": 8,
+        "endLine": 89,
+        "endChar": 37
+      },
+      "revId": "82815ae578cfc49dd4cef5a1543e4525d2032874",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "ec44bcf9_9ce9a864",
+        "filename": "camera/testing/src/main/java/androidx/camera/testing/CameraUtil.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1452466
+      },
+      "writtenOn": "2019-05-13T05:51:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3971c14a_120b31f7",
+      "range": {
+        "startLine": 171,
+        "startChar": 26,
+        "endLine": 171,
+        "endChar": 43
+      },
+      "revId": "82815ae578cfc49dd4cef5a1543e4525d2032874",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "abee9aa5_2a79169f",
         "filename": "camera/testing/src/main/java/androidx/camera/testing/CameraUtil.java",
         "patchSetId": 10
@@ -137,6 +257,30 @@
       "revId": "82815ae578cfc49dd4cef5a1543e4525d2032874",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2512436_818c5413",
+        "filename": "camera/testing/src/main/java/androidx/camera/testing/CameraUtil.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1452466
+      },
+      "writtenOn": "2019-05-13T05:51:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "abee9aa5_2a79169f",
+      "range": {
+        "startLine": 186,
+        "startChar": 37,
+        "endLine": 186,
+        "endChar": 52
+      },
+      "revId": "82815ae578cfc49dd4cef5a1543e4525d2032874",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
