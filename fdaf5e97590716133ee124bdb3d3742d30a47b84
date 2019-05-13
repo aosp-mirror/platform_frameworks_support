@@ -104,6 +104,24 @@
       "revId": "fdaf5e97590716133ee124bdb3d3742d30a47b84",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18db3367_64199f8b",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CaptureConfig.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-13T23:36:30Z",
+      "side": 1,
+      "message": "Same thing with the CheckedSurfaceTexture workaround. Don\u0027t let aosp/955625 be a blocking issue for you. There is no dependency. Either start the implementation as part of this change or create a tracking bug to update once aosp/955625 has been submitted.",
+      "parentUuid": "2213ccbd_ec282a7a",
+      "revId": "fdaf5e97590716133ee124bdb3d3742d30a47b84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
