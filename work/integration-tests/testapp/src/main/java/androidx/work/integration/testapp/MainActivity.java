@@ -36,6 +36,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
+import androidx.work.Configuration;
 import androidx.work.Constraints;
 import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;
@@ -48,6 +49,7 @@ import androidx.work.WorkManager;
 import androidx.work.impl.background.systemjob.SystemJobService;
 import androidx.work.integration.testapp.imageprocessing.ImageProcessingActivity;
 import androidx.work.integration.testapp.sherlockholmes.AnalyzeSherlockHolmesActivity;
+import androidx.work.tracing.TracingExecutor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -147,10 +149,12 @@ public class MainActivity extends AppCompatActivity {
                 String delayString = delayInMs.getText().toString();
                 long delay = Long.parseLong(delayString);
                 Log.d(TAG, "Enqueuing job with delay of " + delay + " ms");
-                WorkManager.getInstance(MainActivity.this).enqueue(ToastWorker
-                        .create("Delayed Job Ran!")
-                        .setInitialDelay(delay, TimeUnit.MILLISECONDS)
-                        .build());
+
+                OneTimeWorkRequest.Builder builder =
+                        new OneTimeWorkRequest.Builder(SleepWorker.class)
+                                .setInitialDelay(delay, TimeUnit.MILLISECONDS);
+
+                WorkManager.getInstance(MainActivity.this).enqueue(builder.build());
             }
         });
 
@@ -360,6 +364,20 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 throw new RuntimeException("Crashed app");
+            }
+        });
+
+        findViewById(R.id.write_traces).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Configuration.Provider provider =
+                        (Configuration.Provider) MainActivity.this.getApplication();
+
+                TracingExecutor executor =
+                        (TracingExecutor) provider.getWorkManagerConfiguration()
+                                .getTaskExecutorDelegate();
+
+                executor.writeEvents();
             }
         });
 

@@ -47,7 +47,6 @@ public class SerialExecutor implements Executor {
         }
     }
 
-    // Synthetic access
     void scheduleNext() {
         synchronized (mLock) {
             if ((mActive = mTasks.poll()) != null) {
@@ -60,13 +59,17 @@ public class SerialExecutor implements Executor {
      * A {@link Runnable} which tells the {@link SerialExecutor} to schedule the next command
      * after completion.
      */
-    static class Task implements Runnable {
+    public static class Task implements Runnable {
         final SerialExecutor mSerialExecutor;
         final Runnable mRunnable;
 
         Task(@NonNull SerialExecutor serialExecutor, @NonNull Runnable runnable) {
             mSerialExecutor = serialExecutor;
             mRunnable = runnable;
+        }
+
+        public Runnable getRunnable() {
+            return mRunnable;
         }
 
         @Override

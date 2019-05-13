@@ -47,6 +47,7 @@ dependencies {
     implementation(CONSTRAINT_LAYOUT, { transitive = true })
     implementation project(':work:work-runtime-ktx')
     implementation (project(':work:work-gcm'))
+    implementation project(':work:work-tracing')
     implementation(WORK_ARCH_CORE_RUNTIME)
     implementation(ARCH_LIFECYCLE_EXTENSIONS)
     implementation(ANDROIDX_RECYCLERVIEW)
