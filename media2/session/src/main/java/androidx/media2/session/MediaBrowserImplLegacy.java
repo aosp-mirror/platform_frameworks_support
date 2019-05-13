@@ -39,6 +39,8 @@ import androidx.annotation.Nullable;
 import androidx.concurrent.futures.ResolvableFuture;
 import androidx.media2.common.MediaItem;
 import androidx.media2.common.MediaMetadata;
+import androidx.media2.session.MediaBrowser.BrowserCallback;
+import androidx.media2.session.MediaBrowser.BrowserCallbackRunnable;
 import androidx.media2.session.MediaLibraryService.LibraryParams;
 
 import com.google.common.util.concurrent.ListenableFuture;
@@ -46,7 +48,6 @@ import com.google.common.util.concurrent.ListenableFuture;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.Executor;
 
 /**
  * Implementation of MediaBrowser with the {@link MediaBrowserCompat} for legacy support.
@@ -62,12 +63,12 @@ class MediaBrowserImplLegacy extends MediaControllerImplLegacy implements
     private final HashMap<String, List<SubscribeCallback>> mSubscribeCallbacks = new HashMap<>();
 
     MediaBrowserImplLegacy(@NonNull Context context, MediaBrowser instance,
-            @NonNull SessionToken token, @Nullable /*@CallbackExecutor*/ Executor executor,
-            @Nullable MediaBrowser.BrowserCallback callback) {
-        super(context, instance, token, executor, callback);
+            @NonNull SessionToken token) {
+        super(context, instance, token);
     }
 
     @Override
+    @NonNull
     public MediaBrowser getInstance() {
         return (MediaBrowser) super.getInstance();
     }
@@ -219,16 +220,15 @@ class MediaBrowserImplLegacy extends MediaControllerImplLegacy implements
             @Override
             public void onSearchResult(final String query, final Bundle extras,
                     final List<MediaBrowserCompat.MediaItem> items) {
-                if (mCallback == null) return;
-                mCallbackExecutor.execute(new Runnable() {
+                getInstance().notifyBrowserCallback(new BrowserCallbackRunnable() {
                     @Override
-                    public void run() {
+                    public void run(@NonNull BrowserCallback callback) {
                         // Set extra null here, because 'extra' have different meanings between old
                         // API and new API as follows.
                         // - Old API: Extra/Option specified with search().
                         // - New API: Extra from MediaLibraryService to MediaBrowser
                         // TODO(Post-P): Cache search result for later getSearchResult() calls.
-                        getCallback().onSearchResultChanged(
+                        callback.onSearchResultChanged(
                                 getInstance(), query, items.size(), null);
                     }
                 });
@@ -236,15 +236,14 @@ class MediaBrowserImplLegacy extends MediaControllerImplLegacy implements
 
             @Override
             public void onError(final String query, final Bundle extras) {
-                if (mCallback == null) return;
-                mCallbackExecutor.execute(new Runnable() {
+                getInstance().notifyBrowserCallback(new BrowserCallbackRunnable() {
                     @Override
-                    public void run() {
+                    public void run(@NonNull BrowserCallback callback) {
                         // Set extra null here, because 'extra' have different meanings between old
                         // API and new API as follows.
                         // - Old API: Extra/Option specified with search().
                         // - New API: Extra from MediaLibraryService to MediaBrowser
-                        getCallback().onSearchResultChanged(
+                        callback.onSearchResultChanged(
                                 getInstance(), query, 0, null);
                     }
                 });
@@ -291,11 +290,6 @@ class MediaBrowserImplLegacy extends MediaControllerImplLegacy implements
             }
         });
         return future;
-    }
-
-    @Override
-    public MediaBrowser.BrowserCallback getCallback() {
-        return (MediaBrowser.BrowserCallback) super.getCallback();
     }
 
     private MediaBrowserCompat getBrowserCompat(LibraryParams extras) {
@@ -405,12 +399,11 @@ class MediaBrowserImplLegacy extends MediaControllerImplLegacy implements
 
             final LibraryParams params = MediaUtils.convertToLibraryParams(mContext,
                     browserCompat.getNotifyChildrenChangedOptions());
-            if (mCallback == null) return;
-            mCallbackExecutor.execute(new Runnable() {
+            getInstance().notifyBrowserCallback(new BrowserCallbackRunnable() {
                 @Override
-                public void run() {
+                public void run(@NonNull BrowserCallback callback) {
                     // TODO(Post-P): Cache children result for later getChildren() calls.
-                    getCallback().onChildrenChanged(getInstance(), parentId, itemCount, params);
+                    callback.onChildrenChanged(getInstance(), parentId, itemCount, params);
                 }
             });
         }
