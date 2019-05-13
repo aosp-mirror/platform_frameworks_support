@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "811f225c_439f1c86",
+        "filename": "benchmark/src/main/java/androidx/benchmark/BenchmarkRule.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-05-13T15:35:58Z",
+      "side": 1,
+      "message": "Don\u0027t change the public names, since that requires API council +1, and is visible externally.\n\nCan you just factor the lambda function to a top level functon, as part of go/oag/960292 ?",
+      "revId": "d00cd5551d7bab10b3a6b1e646577d67c7239d00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
