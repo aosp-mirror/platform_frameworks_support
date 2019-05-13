@@ -59,8 +59,12 @@ final class Time implements VersionedParcelable {
      * Creates a {@link Time} that wraps the given {@link ZonedDateTime}
      */
     Time(@NonNull ZonedDateTime time) {
-        mSecondsSinceEpoch = Preconditions.checkNotNull(time).toEpochSecond();
-        mZoneId = time.getZone().getId();
+        this(Preconditions.checkNotNull(time).toEpochSecond(), time.getZone().getId());
+    }
+
+    private Time(long secondsSinceEpoch, @NonNull String timeZoneId) {
+        mSecondsSinceEpoch = secondsSinceEpoch;
+        mZoneId = timeZoneId;
     }
 
     /**
@@ -104,4 +108,23 @@ final class Time implements VersionedParcelable {
     public String toString() {
         return String.format("{secondsSinceEpoch: %d, zoneId: '%s'}", mSecondsSinceEpoch, mZoneId);
     }
+
+    NavigationState2.TimeProto toProto() {
+        NavigationState2.TimeProto.Builder builder = NavigationState2.TimeProto.newBuilder();
+        builder.setSecondsSinceEpoch(mSecondsSinceEpoch);
+        if (mZoneId != null) {
+            builder.setZoneId(mZoneId);
+        }
+        return builder.build();
+    }
+
+    static Time fromProto(NavigationState2.TimeProto proto) {
+        // TODO: this check could be better using a better Time proto.
+        // But this makes the tests pass
+        if (proto.getZoneId().isEmpty()) {
+            return  null;
+        }
+        return new Time(proto.getSecondsSinceEpoch(), proto.getZoneId());
+    }
+
 }
