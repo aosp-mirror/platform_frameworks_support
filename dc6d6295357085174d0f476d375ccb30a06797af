@@ -1,0 +1,130 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "64099b5f_f1a1b647",
+        "filename": "car/cluster/proto/NavigationState2.proto",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2019-05-13T06:39:05Z",
+      "side": 1,
+      "message": "Worth a comment on all of these repeated enum fields explaining how they work (that it\u0027s primary first, then optional fallbacks).",
+      "revId": "dc6d6295357085174d0f476d375ccb30a06797af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54544dc1_4b2b9dd9",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Lane.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2019-05-13T06:39:05Z",
+      "side": 1,
+      "message": "Just import LaneProto directly?",
+      "range": {
+        "startLine": 113,
+        "startChar": 4,
+        "endLine": 113,
+        "endChar": 30
+      },
+      "revId": "dc6d6295357085174d0f476d375ccb30a06797af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83919c44_2dd01104",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Lane.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2019-05-13T06:39:05Z",
+      "side": 1,
+      "message": "Constructor or builder? Either way let\u0027s be consistent across this",
+      "range": {
+        "startLine": 125,
+        "startChar": 61,
+        "endLine": 132,
+        "endChar": 31
+      },
+      "revId": "dc6d6295357085174d0f476d375ccb30a06797af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac8f3343_da8fd856",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Maneuver.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2019-05-13T06:39:05Z",
+      "side": 1,
+      "message": "Just import ManeuverProto, save a lot of repetition",
+      "range": {
+        "startLine": 442,
+        "startChar": 23,
+        "endLine": 442,
+        "endChar": 53
+      },
+      "revId": "dc6d6295357085174d0f476d375ccb30a06797af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06e89942_dbf71758",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Maneuver.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 484,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2019-05-13T06:39:05Z",
+      "side": 1,
+      "message": "This will never set a null icon. Check for proto.hasIcon() first.",
+      "revId": "dc6d6295357085174d0f476d375ccb30a06797af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c44d466d_2e2024ae",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Maneuver.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 485,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2019-05-13T06:39:05Z",
+      "side": 1,
+      "message": "Proto or constructor? Be consistent throughout",
+      "range": {
+        "startLine": 481,
+        "startChar": 0,
+        "endLine": 485,
+        "endChar": 25
+      },
+      "revId": "dc6d6295357085174d0f476d375ccb30a06797af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
