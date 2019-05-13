@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "29721f6b_12bd983d",
+        "filename": "benchmark/src/main/java/androidx/benchmark/BenchmarkRule.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-05-13T15:35:52Z",
+      "side": 1,
+      "message": "This read rule isn\u0027t needed - GrantPermission rule does this for you: https://github.com/android/android-test/blob/master/runner/rules/java/androidx/test/rule/GrantPermissionRule.java#L108\n\nWe needed it in the NDK sample because it wasn\u0027t using our BenchmarkRule",
+      "revId": "243349d163dfd3ae8d62cf65021aad850794a19c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a340986_ec619e5d",
+        "filename": "benchmark/src/main/java/androidx/benchmark/BenchmarkRule.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-05-13T15:35:52Z",
+      "side": 1,
+      "message": "fix the \u0027base\u0027 and \u0027description\u0027 shadowing, and extreme indentation while you\u0027re here\n\ncan you factor out the lambda to a top level function? that should improve both",
+      "revId": "243349d163dfd3ae8d62cf65021aad850794a19c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
