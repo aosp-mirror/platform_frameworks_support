@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "38cc6048_b60e5717",
+        "filename": "benchmark/src/main/java/androidx/benchmark/BenchmarkRule.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-05-13T20:02:32Z",
+      "side": 1,
+      "message": "If I just split this into internal class BenchmarkRuleInternal like it should be, will that affect checkApi / require api council +1?",
+      "parentUuid": "5e1f2567_93c48ab2",
+      "revId": "b77fb409aaafdd61d90a7bfadfc064154f83a6e0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "684f31e9_fd204b0f",
         "filename": "benchmark/src/main/java/androidx/benchmark/BenchmarkRule.kt",
         "patchSetId": 6
