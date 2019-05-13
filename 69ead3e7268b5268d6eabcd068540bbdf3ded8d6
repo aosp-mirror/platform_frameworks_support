@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7716cf0a_8a45ac33",
+        "filename": "work/workmanager/src/main/java/androidx/work/Configuration.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-05-13T22:16:15Z",
+      "side": 1,
+      "message": "This should not*",
+      "range": {
+        "startLine": 68,
+        "startChar": 16,
+        "endLine": 68,
+        "endChar": 60
+      },
+      "revId": "69ead3e7268b5268d6eabcd068540bbdf3ded8d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7577711_9e0845c9",
+        "filename": "work/workmanager/src/main/java/androidx/work/Configuration.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-05-13T22:16:15Z",
+      "side": 1,
+      "message": "should not\n\nCannot seems to imply it will stop working, which it won\u0027t.",
+      "range": {
+        "startLine": 206,
+        "startChar": 12,
+        "endLine": 206,
+        "endChar": 18
+      },
+      "revId": "69ead3e7268b5268d6eabcd068540bbdf3ded8d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

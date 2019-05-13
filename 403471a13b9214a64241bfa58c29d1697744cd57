@@ -188,6 +188,30 @@
       "revId": "403471a13b9214a64241bfa58c29d1697744cd57",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9ce0bdb_6652f453",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/utils/SerialExecutor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-05-13T22:16:15Z",
+      "side": 1,
+      "message": "Look at the one here: https://developer.android.com/reference/java/util/concurrent/Executor",
+      "parentUuid": "60b7748f_f7173acc",
+      "range": {
+        "startLine": 28,
+        "startChar": 13,
+        "endLine": 28,
+        "endChar": 27
+      },
+      "revId": "403471a13b9214a64241bfa58c29d1697744cd57",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
