@@ -22,6 +22,30 @@
       "revId": "86bd1dd3a323884d9edeaf191c1260b11c30a415",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3122bc06_99992834",
+        "filename": "car/core/api/current.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-05-13T19:45:07Z",
+      "side": 1,
+      "message": "My understanding from the conversations on go/car-selection-dialog-dd was that we wanted androidx to have use case specific classes for dialogs rather than a catch all class (a la AlertDialog) that offers a ton of configuration.",
+      "parentUuid": "212c21bc_1fcf1f1f",
+      "range": {
+        "startLine": 52,
+        "startChar": 28,
+        "endLine": 52,
+        "endChar": 51
+      },
+      "revId": "86bd1dd3a323884d9edeaf191c1260b11c30a415",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
