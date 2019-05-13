@@ -23,6 +23,7 @@ import androidx.ui.core.constrain
 import androidx.ui.core.px
 import androidx.ui.core.round
 import androidx.ui.engine.geometry.Offset
+import androidx.ui.engine.geometry.Rect
 import androidx.ui.engine.geometry.Size
 import androidx.ui.engine.text.TextAlign
 import androidx.ui.engine.text.TextDirection
@@ -393,6 +394,11 @@ class RenderParagraph(
     fun getCaretForTextPosition(position: TextPosition): Pair<Offset, Offset> {
         layoutTextWithConstraints(constraints!!)
         return textPainter.getCaretForTextPosition(position)
+    }
+
+    fun getBoundingBoxForTextPosition(textPosition: TextPosition): Rect {
+        layoutTextWithConstraints(constraints!!)
+        return textPainter.getBoundingBoxForTextPosition(textPosition)
     }
 
     /**
