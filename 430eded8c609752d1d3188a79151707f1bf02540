@@ -46,6 +46,30 @@
       "revId": "430eded8c609752d1d3188a79151707f1bf02540",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e21ae559_9a29a8ae",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 2340,
+      "author": {
+        "id": 1014545
+      },
+      "writtenOn": "2019-05-13T15:54:01Z",
+      "side": 1,
+      "message": "Most time units across the system are expressed as `long` - is there a local consistency reason not to do the same here?",
+      "parentUuid": "92744255_f0e97e12",
+      "range": {
+        "startLine": 2340,
+        "startChar": 16,
+        "endLine": 2340,
+        "endChar": 24
+      },
+      "revId": "430eded8c609752d1d3188a79151707f1bf02540",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
