@@ -70,6 +70,30 @@
       "revId": "430eded8c609752d1d3188a79151707f1bf02540",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e38cde37_a0d61ece",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 2340,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-05-13T22:01:01Z",
+      "side": 1,
+      "message": "This duration eventually feeds into Overscroller#startScroll(...) which takes the duration as an int.",
+      "parentUuid": "e21ae559_9a29a8ae",
+      "range": {
+        "startLine": 2340,
+        "startChar": 16,
+        "endLine": 2340,
+        "endChar": 24
+      },
+      "revId": "430eded8c609752d1d3188a79151707f1bf02540",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
