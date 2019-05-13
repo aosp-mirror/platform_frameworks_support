@@ -37,7 +37,7 @@ public class SleepWorker extends Worker {
     public @NonNull Result doWork() {
         try {
             Log.i(TAG, "Sleeping");
-            Thread.sleep(200);
+            Thread.sleep(2500);
             Log.i(TAG, "Completed");
         } catch (InterruptedException ignore) {
             Log.v(TAG, "Interrupted.");
