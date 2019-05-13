@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a7bdd3b0_feedb49b",
+        "filename": "ui/material/src/main/java/androidx/ui/baseui/DeterminateProgressIndicator.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-05-13T11:06:26Z",
+      "side": 1,
+      "message": "Agree. We probably need to make a CL to extract all this primitives like Clickable, Toggleable, etc. into different package",
+      "parentUuid": "3385d89c_6b32144f",
+      "range": {
+        "startLine": 17,
+        "startChar": 8,
+        "endLine": 17,
+        "endChar": 26
+      },
+      "revId": "eb09adffc67348c0913e96452c9f2b635ce0c0b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "88618692_b9bee94a",
         "filename": "ui/material/src/main/java/androidx/ui/material/ProgressIndicator.kt",
         "patchSetId": 1
@@ -64,6 +88,29 @@
         "startChar": 3,
         "endLine": 59,
         "endChar": 14
+      },
+      "revId": "eb09adffc67348c0913e96452c9f2b635ce0c0b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79d39944_f771840c",
+        "filename": "ui/material/src/main/java/androidx/ui/material/ProgressIndicator.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 481,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-05-13T11:06:26Z",
+      "side": 1,
+      "message": "nit: add @CheckResult(suggest \u003d \"+\")",
+      "range": {
+        "startLine": 481,
+        "startChar": 0,
+        "endLine": 481,
+        "endChar": 7
       },
       "revId": "eb09adffc67348c0913e96452c9f2b635ce0c0b6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
