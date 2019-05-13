@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9d7d1449_fe870c66",
+        "filename": "work/workmanager/src/main/java/androidx/work/Configuration.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-05-13T19:25:46Z",
+      "side": 1,
+      "message": "Why is this called a delegate when it\u0027s not actually optional?",
+      "range": {
+        "startLine": 52,
+        "startChar": 36,
+        "endLine": 52,
+        "endChar": 57
+      },
+      "revId": "403471a13b9214a64241bfa58c29d1697744cd57",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22cdea19_7af0036a",
+        "filename": "work/workmanager/src/main/java/androidx/work/Configuration.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-05-13T19:25:46Z",
+      "side": 1,
+      "message": "I don\u0027t think I understand this comment, as noted in our conversation earlier.\n\nMoreover, if this has to be an executor with multiple threads, how are you checking for that in the else case?",
+      "range": {
+        "startLine": 67,
+        "startChar": 12,
+        "endLine": 69,
+        "endChar": 62
+      },
+      "revId": "403471a13b9214a64241bfa58c29d1697744cd57",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08594b19_ed55b6e5",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/utils/SerialExecutor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-05-13T19:25:46Z",
+      "side": 1,
+      "message": "I\u0027m not sure this implementation is actually correct in terms of threading.  It also seems unnecessarily complex when compared to AsyncTask#SerialExecutor.  Why don\u0027t you just use that, which I believe is the same as the sample seen on https://developer.android.com/reference/java/util/concurrent/Executor ?",
+      "range": {
+        "startLine": 28,
+        "startChar": 13,
+        "endLine": 28,
+        "endChar": 27
+      },
+      "revId": "403471a13b9214a64241bfa58c29d1697744cd57",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
