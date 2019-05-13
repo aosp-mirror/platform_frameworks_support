@@ -269,8 +269,10 @@ internal class ParagraphAndroid constructor(
     fun isEllipsisApplied(lineIndex: Int): Boolean = ensureLayout.isEllipsisApplied(lineIndex)
 
     fun paint(canvas: Canvas, x: Float, y: Float) {
-        val tmpLayout = layout ?: throw IllegalStateException("paint cannot be " +
-                "called before layout() is called")
+        val tmpLayout = layout ?: throw IllegalStateException(
+            "paint cannot be " +
+                    "called before layout() is called"
+        )
         canvas.translate(x, y)
         tmpLayout.paint(canvas.toFrameworkCanvas())
         canvas.translate(-x, -y)
@@ -346,7 +348,7 @@ internal class ParagraphAndroid constructor(
 
             if (start < 0 || start >= text.length || end <= start || end > text.length) continue
 
-            style.textIndent?. let { indent ->
+            style.textIndent?.let { indent ->
                 if (indent.firstLine == 0.px && indent.restLine == 0.px) return@let
                 val (spanStart, spanEnd) = adjustSpanPositionForParagraph(text, start, end)
                 // Filter out invalid result.

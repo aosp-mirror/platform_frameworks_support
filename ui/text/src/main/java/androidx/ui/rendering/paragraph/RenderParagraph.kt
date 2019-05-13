@@ -396,6 +396,11 @@ class RenderParagraph(
         return textPainter.getCaretForTextPosition(position)
     }
 
+    fun getBoundingBoxForTextPosition(textPosition: TextPosition): Rect {
+        layoutTextWithConstraints(constraints!!)
+        return textPainter.getBoundingBoxForTextPosition(textPosition)
+    }
+
     /**
      * Returns the bounding box as Rect of the character for given TextPosition. Rect includes the
      * top, bottom, left and right of a character.

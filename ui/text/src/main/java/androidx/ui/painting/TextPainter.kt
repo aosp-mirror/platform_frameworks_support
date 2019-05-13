@@ -379,6 +379,11 @@ class TextPainter(
         return paragraph!!.getCaretForTextPosition(position)
     }
 
+    fun getBoundingBoxForTextPosition(textPosition: TextPosition): Rect {
+        assert(!needsLayout)
+        return paragraph!!.getBoundingBoxForTextPosition(textPosition)
+    }
+
     /**
      * Returns the bounding box as Rect of the character for given TextPosition. Rect includes the
      * top, bottom, left and right of a character.

@@ -168,6 +168,10 @@ class Paragraph internal constructor(
         return paragraphImpl.getCaretForTextPosition(textPosition)
     }
 
+    fun getBoundingBoxForTextPosition(textPosition: TextPosition): Rect {
+        return paragraphImpl.getBoundingBoxForTextPosition(textPosition)
+    }
+
     /**
      * Returns the bounding box as Rect of the character for given TextPosition. Rect includes the
      * top, bottom, left and right of a character.
