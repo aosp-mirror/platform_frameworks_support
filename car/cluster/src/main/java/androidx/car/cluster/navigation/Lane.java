@@ -109,4 +109,26 @@ public final class Lane implements VersionedParcelable {
     public String toString() {
         return String.format("{direction: %s}", mDirections);
     }
+
+    NavigationState2.LaneProto toProto() {
+        NavigationState2.LaneProto.Builder builder = NavigationState2.LaneProto.newBuilder();
+
+        if (mDirections != null) {
+            for (LaneDirection direction : mDirections) {
+                builder.addLaneDirections(direction.toProto());
+            }
+        }
+
+        return builder.build();
+    }
+
+    static Lane fromProto(NavigationState2.LaneProto proto) {
+        Builder builder =  new Builder();
+
+        for (NavigationState2.LaneProto.LaneDirectionProto direction :
+                 proto.getLaneDirectionsList()) {
+            builder.addDirection(LaneDirection.fromProto(direction));
+        }
+        return builder.build();
+    }
 }

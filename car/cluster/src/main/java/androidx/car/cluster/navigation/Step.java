@@ -266,4 +266,40 @@ public final class Step implements VersionedParcelable {
         return String.format("{maneuver: %s, distance: %s, lanes: %s, lanesImage: %s, cue: %s}",
                 mManeuver, mDistance, mLanes, mLanesImage, mCue);
     }
+
+    NavigationState2.StepProto toProto() {
+        NavigationState2.StepProto.Builder builder = NavigationState2.StepProto.newBuilder();
+
+        if (mDistance != null) {
+            builder.setDistance(mDistance.toProto());
+        }
+        if (mManeuver != null) {
+            builder.setManeuver(mManeuver.toProto());
+        }
+        if (mLanes != null) {
+            for (Lane lane : mLanes) {
+                builder.addLanes(lane.toProto());
+            }
+        }
+        if (mLanesImage != null) {
+            builder.setLanesImage(mLanesImage.toProto());
+        }
+        if (mCue != null) {
+            builder.setCue(mCue.toProto());
+        }
+        return builder.build();
+    }
+
+    static Step fromProto(NavigationState2.StepProto proto) {
+        Builder builder = new Builder()
+                .setDistance(Distance.fromProto(proto.getDistance()))
+                .setManeuver(Maneuver.fromProto(proto.getManeuver()))
+                .setLanesImage(ImageReference.fromProto(proto.getLanesImage()))
+                .setCue(RichText.fromProto(proto.getCue()));
+        for (NavigationState2.LaneProto lane : proto.getLanesList()) {
+            builder.addLane(Lane.fromProto(lane));
+        }
+        return builder.build();
+    }
+
 }

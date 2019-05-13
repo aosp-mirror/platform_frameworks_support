@@ -134,4 +134,28 @@ public class RichText implements VersionedParcelable {
     public String toString() {
         return String.format("{text: '%s', elements: %s}", mText, mElements);
     }
+
+    NavigationState2.RichTextProto toProto() {
+        NavigationState2.RichTextProto.Builder builder =
+                NavigationState2.RichTextProto.newBuilder();
+
+        if (mElements != null) {
+            for (RichTextElement element : mElements) {
+                builder.addElements(element.toProto());
+            }
+        }
+        if (mText != null) {
+            builder.setText(mText);
+        }
+        return builder.build();
+    }
+
+    static RichText fromProto(NavigationState2.RichTextProto proto) {
+        Builder builder = new Builder();
+        for (NavigationState2.RichTextProto.RichTextElementProto element :
+                 proto.getElementsList()) {
+            builder.addElement(RichTextElement.fromProto(element));
+        }
+        return builder.build(proto.getText());
+    }
 }
