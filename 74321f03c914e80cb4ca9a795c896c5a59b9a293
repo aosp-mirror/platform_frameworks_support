@@ -22,6 +22,30 @@
       "revId": "74321f03c914e80cb4ca9a795c896c5a59b9a293",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd66cbcb_a73217e1",
+        "filename": "ui/material/src/androidTest/java/androidx/ui/material/RippleEffectTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-05-13T10:27:29Z",
+      "side": 1,
+      "message": "thanks, will submit a second CL for it",
+      "parentUuid": "7f892b96_19b65fc7",
+      "range": {
+        "startLine": 103,
+        "startChar": 5,
+        "endLine": 161,
+        "endChar": 5
+      },
+      "revId": "74321f03c914e80cb4ca9a795c896c5a59b9a293",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
