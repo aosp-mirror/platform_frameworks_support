@@ -19,6 +19,126 @@
     },
     {
       "key": {
+        "uuid": "b1b2523b_5ffc175a",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2019-05-13T06:53:34Z",
+      "side": 1,
+      "message": "Import DestinationProto?",
+      "range": {
+        "startLine": 308,
+        "startChar": 40,
+        "endLine": 308,
+        "endChar": 56
+      },
+      "revId": "dc6d6295357085174d0f476d375ccb30a06797af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93d5e161_0908b6cb",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2019-05-13T06:53:34Z",
+      "side": 1,
+      "message": "Needs a hasDistance check. Add a test",
+      "revId": "dc6d6295357085174d0f476d375ccb30a06797af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22a7d129_761ae1ad",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2019-05-13T06:53:34Z",
+      "side": 1,
+      "message": "Needs a hasEta check. Add a test",
+      "revId": "dc6d6295357085174d0f476d375ccb30a06797af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "146cad66_646029f7",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2019-05-13T06:53:34Z",
+      "side": 1,
+      "message": "Needs a hasLocation check. Add a test",
+      "revId": "dc6d6295357085174d0f476d375ccb30a06797af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "874fc8f5_78fd3579",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Distance.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2019-05-13T06:53:34Z",
+      "side": 1,
+      "message": "Import DistanceProto?",
+      "range": {
+        "startLine": 157,
+        "startChar": 40,
+        "endLine": 157,
+        "endChar": 53
+      },
+      "revId": "dc6d6295357085174d0f476d375ccb30a06797af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a1deedd4_9e197246",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Distance.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2019-05-13T06:53:34Z",
+      "side": 1,
+      "message": "I think we might need a null-check here, sometimes these strings can be set to null by versionedparcelable\u0027s writers. Consider using getDisplayValue() here? Maybe throughout the CL, not sure. Would definitely be good to be consistent. If you do it throughout that\u0027d imply using getMeters() above.",
+      "range": {
+        "startLine": 166,
+        "startChar": 32,
+        "endLine": 166,
+        "endChar": 45
+      },
+      "revId": "dc6d6295357085174d0f476d375ccb30a06797af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "54544dc1_4b2b9dd9",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Lane.java",
         "patchSetId": 2
@@ -122,6 +242,194 @@
         "endLine": 485,
         "endChar": 25
       },
+      "revId": "dc6d6295357085174d0f476d375ccb30a06797af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7322b955_38e7b1b9",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/NavigationState.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2019-05-13T06:53:34Z",
+      "side": 1,
+      "message": "Delete",
+      "revId": "dc6d6295357085174d0f476d375ccb30a06797af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10a4b6c2_9b90fed7",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/NavigationState.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2019-05-13T06:53:34Z",
+      "side": 1,
+      "message": "catch only the exception you have to (I think MessageFormatException)",
+      "range": {
+        "startLine": 250,
+        "startChar": 17,
+        "endLine": 250,
+        "endChar": 26
+      },
+      "revId": "dc6d6295357085174d0f476d375ccb30a06797af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46a268de_a2e00c72",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/NavigationState.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2019-05-13T06:53:34Z",
+      "side": 1,
+      "message": "We should think about this, whether it would make more sense to wrap the exception rather than silently failing. Not sure. If we\u0027re going to silently fail, we should at least log something. But I think it\u0027s more legit to throw, tho that\u0027s an API change.",
+      "revId": "dc6d6295357085174d0f476d375ccb30a06797af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc3ba5b5_506f629e",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/NavigationState.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2019-05-13T06:53:34Z",
+      "side": 1,
+      "message": "import this?",
+      "range": {
+        "startLine": 257,
+        "startChar": 25,
+        "endLine": 257,
+        "endChar": 45
+      },
+      "revId": "dc6d6295357085174d0f476d375ccb30a06797af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a69e05d_15d0885b",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/NavigationState.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2019-05-13T06:53:34Z",
+      "side": 1,
+      "message": "Sometimes we\u0027re checking if list elements are null. Sometimes we\u0027re not. Be consistent throughout? (my bias: do the if-statement throughout, but either is OK)",
+      "revId": "dc6d6295357085174d0f476d375ccb30a06797af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa2afc0f_9e948caf",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Step.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2019-05-13T06:53:34Z",
+      "side": 1,
+      "message": "import StepProto?",
+      "range": {
+        "startLine": 270,
+        "startChar": 21,
+        "endLine": 270,
+        "endChar": 30
+      },
+      "revId": "dc6d6295357085174d0f476d375ccb30a06797af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "211639e4_45f8fa73",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Step.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2019-05-13T06:53:34Z",
+      "side": 1,
+      "message": "needs hasDistance check before setting (please add test?)",
+      "revId": "dc6d6295357085174d0f476d375ccb30a06797af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ababa032_753a29be",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Step.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2019-05-13T06:53:34Z",
+      "side": 1,
+      "message": "as above",
+      "revId": "dc6d6295357085174d0f476d375ccb30a06797af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a2b6a00_14375c04",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Step.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2019-05-13T06:53:34Z",
+      "side": 1,
+      "message": "as above",
+      "revId": "dc6d6295357085174d0f476d375ccb30a06797af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c105b6a2_0eb8899e",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Step.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2019-05-13T06:53:34Z",
+      "side": 1,
+      "message": "as above",
       "revId": "dc6d6295357085174d0f476d375ccb30a06797af",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
