@@ -19,8 +19,6 @@ package androidx.ui.text.demos
 import androidx.ui.core.CraneWrapper
 import androidx.ui.core.EditableText
 import androidx.ui.core.EditorStyle
-import androidx.ui.core.Selection
-import androidx.ui.core.SelectionContainer
 import androidx.ui.core.Span
 import androidx.ui.core.Text
 import androidx.ui.core.px
@@ -47,6 +45,8 @@ import androidx.compose.Composable
 import androidx.compose.composer
 import androidx.compose.state
 import androidx.compose.unaryPlus
+import androidx.ui.core.selection.Selection
+import androidx.ui.core.selection.SelectionContainer
 
 val displayText = "Text Demo"
 val displayTextChinese = "文本演示"
