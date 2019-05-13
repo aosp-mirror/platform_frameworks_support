@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1e9177ba_e0dedd04",
+        "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/GesturesDemo.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-05-13T20:41:30Z",
+      "side": 1,
+      "message": "Hmmm... so... I was actually using this more of a playground for myself to prove that some of my concepts work, and less to demonstrate usage.  I think I had the wrong idea originally.\n\nThis chunk you highlighted was actually an attempt to cut through the cruft as much as possible and to try to simply show that I\u0027m putting Items in Scrollers in a Scroller, and that everything works.\n\nIn an attempt to make this make more sense, I made some changes.  Let me know what you think about them and if they bring the missing clarity you were hoping for (for at least this CL).",
+      "parentUuid": "6519f73f_ab10bc42",
+      "range": {
+        "startLine": 55,
+        "startChar": 16,
+        "endLine": 69,
+        "endChar": 17
+      },
+      "revId": "37ba27f507ceebe8d341ebdd253bdb13303555ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d8e44b4c_92836166",
         "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/GesturesDemo.kt",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2019-05-11T01:46:44Z",
       "side": 1,
       "message": "do you need this entire implementation copied over or can it be simplified for demo purposes?",
+      "range": {
+        "startLine": 94,
+        "startChar": 4,
+        "endLine": 94,
+        "endChar": 11
+      },
+      "revId": "37ba27f507ceebe8d341ebdd253bdb13303555ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb77b1a2_e31d0e2f",
+        "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/GesturesDemo.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-05-13T20:41:30Z",
+      "side": 1,
+      "message": "This isn\u0027t actually a copy... it actually just receives 1 value for padding and applies it to all sides.  I think this is about as simple as I can make it.\n\nMaybe we do need to rethink the organization of demos.  I think it may make much more sense to have our demos actually be built on top of all of the non demo dependencies such that demos can use anything from any library to hide away the the things that aren\u0027t trying to be demonstrated.",
+      "parentUuid": "d8e44b4c_92836166",
       "range": {
         "startLine": 94,
         "startChar": 4,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "80cc16fc_a8a97089",
+        "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/GesturesDemo.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-05-13T20:41:30Z",
+      "side": 1,
+      "message": "Whoops!  Removed.",
+      "parentUuid": "aaeb8ca4_34479d73",
+      "range": {
+        "startLine": 123,
+        "startChar": 3,
+        "endLine": 123,
+        "endChar": 29
+      },
+      "revId": "37ba27f507ceebe8d341ebdd253bdb13303555ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e25ecaea_9a6ae187",
         "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/GesturesDemo.kt",
         "patchSetId": 1
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "1e4afed0_f1ba11bb",
+        "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/GesturesDemo.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-05-13T20:41:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e25ecaea_9a6ae187",
+      "range": {
+        "startLine": 259,
+        "startChar": 8,
+        "endLine": 259,
+        "endChar": 45
+      },
+      "revId": "37ba27f507ceebe8d341ebdd253bdb13303555ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "63508a4e_d6c15965",
         "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/GesturesDemo.kt",
         "patchSetId": 1
@@ -114,6 +210,30 @@
       "revId": "37ba27f507ceebe8d341ebdd253bdb13303555ce",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34a03cd2_f9bff8b6",
+        "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/GesturesDemo.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-05-13T20:41:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "63508a4e_d6c15965",
+      "range": {
+        "startLine": 270,
+        "startChar": 4,
+        "endLine": 270,
+        "endChar": 76
+      },
+      "revId": "37ba27f507ceebe8d341ebdd253bdb13303555ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
