@@ -1,0 +1,206 @@
+syntax = "proto3";
+option java_package = "androidx.car.cluster.navigation";
+option java_outer_classname = "NavigationState2";
+
+message ImageReferenceProto {
+    string content_uri = 1;
+
+    int32 original_width = 2;
+
+    int32 original_height = 3;
+
+    bool is_tintable = 4;
+}
+
+message DistanceProto {
+
+    enum Unit {
+
+        UNKNOWN = 0;
+        METERS = 1;
+        KILOMETERS = 2;
+        MILES = 3;
+        FEET = 4;
+        YARDS = 5;
+    }
+
+    int32 meters = 1;
+
+    string display_value = 2;
+
+    repeated Unit display_units = 3;
+
+}
+
+message ManeuverProto {
+
+    enum Type {
+      UNKNOWN = 0;
+      DEPART = 1;
+      NAME_CHANGE = 2;
+      KEEP_LEFT = 3;
+      KEEP_RIGHT = 4;
+      TURN_SLIGHT_LEFT = 5;
+      TURN_SLIGHT_RIGHT = 6;
+      TURN_NORMAL_LEFT = 7;
+      TURN_NORMAL_RIGHT = 8;
+      TURN_SHARP_LEFT = 9;
+      TURN_SHARP_RIGHT = 10;
+      U_TURN_LEFT = 11;
+      U_TURN_RIGHT = 12;
+      ON_RAMP_SLIGHT_LEFT = 13;
+      ON_RAMP_SLIGHT_RIGHT = 14;
+      ON_RAMP_NORMAL_LEFT = 15;
+      ON_RAMP_NORMAL_RIGHT = 16;
+      ON_RAMP_SHARP_LEFT = 17;
+      ON_RAMP_SHARP_RIGHT = 18;
+      ON_RAMP_U_TURN_LEFT = 19;
+      ON_RAMP_U_TURN_RIGHT = 20;
+      OFF_RAMP_SLIGHT_LEFT = 21;
+      OFF_RAMP_SLIGHT_RIGHT = 22;
+      OFF_RAMP_NORMAL_LEFT = 23;
+      OFF_RAMP_NORMAL_RIGHT = 24;
+      FORK_LEFT = 25;
+      FORK_RIGHT = 26;
+      MERGE_LEFT = 27;
+      MERGE_RIGHT = 28;
+      ROUNDABOUT_ENTER = 29;
+      ROUNDABOUT_EXIT = 30;
+      ROUNDABOUT_ENTER_AND_EXIT_CW_SHARP_RIGHT = 31;
+      ROUNDABOUT_ENTER_AND_EXIT_CW_NORMAL_RIGHT = 32;
+      ROUNDABOUT_ENTER_AND_EXIT_CW_SLIGHT_RIGHT = 33;
+      ROUNDABOUT_ENTER_AND_EXIT_CW_STRAIGHT = 34;
+      ROUNDABOUT_ENTER_AND_EXIT_CW_SHARP_LEFT = 35;
+      ROUNDABOUT_ENTER_AND_EXIT_CW_NORMAL_LEFT = 36;
+      ROUNDABOUT_ENTER_AND_EXIT_CW_SLIGHT_LEFT = 37;
+      ROUNDABOUT_ENTER_AND_EXIT_CW_U_TURN = 38;
+      ROUNDABOUT_ENTER_AND_EXIT_CCW_SHARP_RIGHT = 39;
+      ROUNDABOUT_ENTER_AND_EXIT_CCW_NORMAL_RIGHT = 40;
+      ROUNDABOUT_ENTER_AND_EXIT_CCW_SLIGHT_RIGHT = 41;
+      ROUNDABOUT_ENTER_AND_EXIT_CCW_STRAIGHT = 42;
+      ROUNDABOUT_ENTER_AND_EXIT_CCW_SHARP_LEFT = 43;
+      ROUNDABOUT_ENTER_AND_EXIT_CCW_NORMAL_LEFT = 44;
+      ROUNDABOUT_ENTER_AND_EXIT_CCW_SLIGHT_LEFT = 45;
+      ROUNDABOUT_ENTER_AND_EXIT_CCW_U_TURN = 46;
+      STRAIGHT = 47;
+      FERRY_BOAT = 48;
+      FERRY_TRAIN = 49;
+      DESTINATION = 50;
+      DESTINATION_STRAIGHT = 51;
+      DESTINATION_LEFT = 52;
+      DESTINATION_RIGHT = 53;
+    }
+
+    repeated Type types = 1;
+
+    int32 roundabout_exit_number = 2;
+
+    ImageReferenceProto icon = 3;
+
+}
+
+message LaneProto {
+
+    message LaneDirectionProto {
+        enum Shape {
+            UNKNOWN = 0;
+            STRAIGHT = 1;
+            SLIGHT_LEFT = 2;
+            SLIGHT_RIGHT = 3;
+            NORMAL_LEFT = 4;
+            NORMAL_RIGHT = 5;
+            SHARP_LEFT = 6;
+            SHARP_RIGHT = 7;
+            U_TURN_LEFT = 8;
+            U_TURN_RIGHT = 9;
+        }
+
+        repeated Shape shapes = 1;
+
+        bool is_highlighted = 2;
+    }
+
+    repeated LaneDirectionProto lane_directions = 1;
+}
+
+message RichTextProto {
+    message RichTextElementProto {
+        string text = 1;
+        ImageReferenceProto image = 2;
+    }
+
+    repeated RichTextElementProto elements = 1;
+
+    string text = 2;
+}
+
+message StepProto {
+
+    DistanceProto distance = 1;
+
+    ManeuverProto maneuver = 2;
+
+    repeated LaneProto lanes = 3;
+
+    ImageReferenceProto lanes_image = 4;
+
+    RichTextProto cue = 5;
+}
+
+message TimeProto {
+    int64 seconds_since_epoch = 1;
+
+    string zone_id = 2;
+}
+
+message LatLngProto {
+    double latitude = 1;
+
+    double longitude = 2;
+}
+
+message DestinationProto {
+
+    enum Traffic {
+        UNKNOWN = 0;
+        HIGH = 1;
+        MEDIUM = 2;
+        LOW = 3;
+    }
+
+    string title = 1;
+
+    string address = 2;
+
+    DistanceProto distance = 3;
+
+    TimeProto eta = 4;
+
+    LatLngProto location = 5;
+
+    repeated Traffic traffic = 6;
+
+    string formatted_eta = 7;
+}
+
+message SegmentProto {
+    string name = 1;
+}
+
+message NavigationStateProto {
+
+
+    repeated StepProto steps = 1;
+
+    repeated DestinationProto destinations = 2;
+
+    SegmentProto current_segment = 3;
+
+    enum ServiceStatus {
+        NORMAL = 0;
+        REROUTING = 1;
+    }
+
+    repeated ServiceStatus service_statuses = 4;
+
+}

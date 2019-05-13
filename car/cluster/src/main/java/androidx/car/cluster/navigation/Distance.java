@@ -140,4 +140,57 @@ public final class Distance implements VersionedParcelable {
         return String.format("{meters: %d, displayUnit: %s, displayValue: %s}", mMeters,
                 mDisplayUnit, mDisplayValue);
     }
+
+    private NavigationState2.DistanceProto.Unit getProtoDisplayUnit() {
+        switch (EnumWrapper.getValue(mDisplayUnit, Unit.UNKNOWN)) {
+            case UNKNOWN:
+                return NavigationState2.DistanceProto.Unit.UNKNOWN;
+            case METERS:
+                return NavigationState2.DistanceProto.Unit.METERS;
+            case KILOMETERS:
+                return NavigationState2.DistanceProto.Unit.KILOMETERS;
+            case MILES:
+                return NavigationState2.DistanceProto.Unit.MILES;
+            case FEET:
+                return NavigationState2.DistanceProto.Unit.FEET;
+            case YARDS:
+                return NavigationState2.DistanceProto.Unit.YARDS;
+        }
+        return NavigationState2.DistanceProto.Unit.UNKNOWN;
+    }
+
+    NavigationState2.DistanceProto toProto() {
+        NavigationState2.DistanceProto.Builder builder =
+                NavigationState2.DistanceProto.newBuilder();
+        builder.setMeters(mMeters);
+        builder.setDisplayValue(mDisplayValue);
+        builder.addDisplayUnits(getProtoDisplayUnit());
+        return builder.build();
+    }
+
+    private static Unit getUnitFromProto(NavigationState2.DistanceProto proto) {
+        for (NavigationState2.DistanceProto.Unit units : proto.getDisplayUnitsList()) {
+            switch (units) {
+                case UNKNOWN:
+                    return Unit.UNKNOWN;
+                case METERS:
+                    return Unit.METERS;
+                case KILOMETERS:
+                    return Unit.KILOMETERS;
+                case MILES:
+                    return Unit.MILES;
+                case FEET:
+                    return Unit.FEET;
+                case YARDS:
+                    return Unit.YARDS;
+                case UNRECOGNIZED:
+                    continue; // Look for a fallback
+            }
+        }
+        return Unit.UNKNOWN;
+    }
+
+    static Distance fromProto(NavigationState2.DistanceProto proto) {
+        return new Distance(proto.getMeters(), proto.getDisplayValue(), getUnitFromProto(proto));
+    }
 }

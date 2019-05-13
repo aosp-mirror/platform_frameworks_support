@@ -152,6 +152,15 @@ public final class Destination implements VersionedParcelable {
         }
 
         /**
+         * For demo purposes. TODO(migrate proto to use ZonedDateTime)
+         */
+        @NonNull
+        public Builder setEta(@Nullable Time eta) {
+            mEta = eta != null ? eta : null;
+            return this;
+        }
+
+        /**
          * Sets the estimated time of arrival to this destination as a formatted CharSequence, or
          * empty if estimated time of arrival is unknown.
          *
@@ -290,5 +299,78 @@ public final class Destination implements VersionedParcelable {
         return String.format("{title: %s, address: %s, distance: %s, location: %s, eta: %s, "
                 + "traffic: %s, formattedEta: %s}",
                 mTitle, mAddress, mDistance, mLatLng, mEta, mTraffic, mFormattedEta);
+    }
+
+
+    private NavigationState2.DestinationProto.Traffic getProtoTraffic() {
+        switch (EnumWrapper.getValue(mTraffic, Traffic.UNKNOWN)) {
+            case UNKNOWN:
+                return NavigationState2.DestinationProto.Traffic.UNKNOWN;
+            case HIGH:
+                return NavigationState2.DestinationProto.Traffic.HIGH;
+            case MEDIUM:
+                return NavigationState2.DestinationProto.Traffic.MEDIUM;
+            case LOW:
+                return NavigationState2.DestinationProto.Traffic.LOW;
+        }
+        return NavigationState2.DestinationProto.Traffic.UNKNOWN;
+    }
+
+    NavigationState2.DestinationProto toProto() {
+        NavigationState2.DestinationProto.Builder builder =
+                NavigationState2.DestinationProto.newBuilder();
+        if (mTitle != null) {
+            builder.setTitle(mTitle);
+        }
+        if (mAddress != null) {
+            builder.setAddress(mAddress);
+        }
+        if (mDistance != null) {
+            builder.setDistance(mDistance.toProto());
+        }
+        if (mEta != null) {
+            builder.setEta(mEta.toProto());
+        }
+        if (mLatLng != null) {
+            builder.setLocation(mLatLng.toProto());
+        }
+        if (mTraffic != null) {
+            builder.addTraffic(getProtoTraffic());
+        }
+        if (mFormattedEta != null) {
+            builder.setFormattedEta(mFormattedEta.toString());
+        }
+        return builder.build();
+    }
+
+
+    private static Traffic getTrafficFromProto(NavigationState2.DestinationProto proto) {
+        for (NavigationState2.DestinationProto.Traffic traffic : proto.getTrafficList()) {
+            switch (traffic) {
+                case UNKNOWN:
+                    return Traffic.UNKNOWN;
+                case HIGH:
+                    return Traffic.HIGH;
+                case MEDIUM:
+                    return Traffic.MEDIUM;
+                case LOW:
+                    return Traffic.LOW;
+                case UNRECOGNIZED:
+                    continue; // Look for a fallback
+            }
+        }
+        return Traffic.UNKNOWN;
+    }
+
+    static Destination fromProto(NavigationState2.DestinationProto proto) {
+        return new Builder()
+                .setTitle(proto.getTitle())
+                .setAddress(proto.getAddress())
+                .setDistance(Distance.fromProto(proto.getDistance()))
+                .setEta(Time.fromProto(proto.getEta()))
+                .setLocation(LatLng.fromProto(proto.getLocation()))
+                .setTraffic(getTrafficFromProto(proto))
+                .setFormattedEta(proto.getFormattedEta())
+                .build();
     }
 }

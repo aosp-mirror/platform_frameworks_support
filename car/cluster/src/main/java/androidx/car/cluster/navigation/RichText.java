@@ -20,6 +20,8 @@ import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RestrictTo;
+import androidx.car.cluster.navigation.NavigationState2.RichTextProto;
+import androidx.car.cluster.navigation.NavigationState2.RichTextProto.RichTextElementProto;
 import androidx.core.util.Preconditions;
 import androidx.versionedparcelable.ParcelField;
 import androidx.versionedparcelable.VersionedParcelable;
@@ -133,5 +135,27 @@ public class RichText implements VersionedParcelable {
     @Override
     public String toString() {
         return String.format("{text: '%s', elements: %s}", mText, mElements);
+    }
+
+    RichTextProto toProto() {
+        RichTextProto.Builder builder = RichTextProto.newBuilder();
+
+        if (mElements != null) {
+            for (RichTextElement element : mElements) {
+                builder.addElements(element.toProto());
+            }
+        }
+        if (mText != null) {
+            builder.setText(mText);
+        }
+        return builder.build();
+    }
+
+    static RichText fromProto(RichTextProto proto) {
+        Builder builder = new Builder();
+        for (RichTextElementProto element : proto.getElementsList()) {
+            builder.addElement(RichTextElement.fromProto(element));
+        }
+        return builder.build(proto.getText());
     }
 }
