@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "347726a8_49de7c6d",
+        "filename": "media2/common/src/main/java/androidx/media2/common/SessionPlayer.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1079,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-05-13T07:27:00Z",
+      "side": 1,
+      "message": "Q) What is this for...?",
+      "range": {
+        "startLine": 1076,
+        "startChar": 0,
+        "endLine": 1079,
+        "endChar": 13
+      },
+      "revId": "c2cf0e494feb230aec2c54f57cc19b3fd7efa225",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c522c34c_fae84cb1",
+        "filename": "media2/common/src/main/java/androidx/media2/common/SessionPlayer.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1279,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-05-13T07:27:00Z",
+      "side": 1,
+      "message": "need docs even though this is restricted to library group. same to other methods below.",
+      "range": {
+        "startLine": 1277,
+        "startChar": 0,
+        "endLine": 1279,
+        "endChar": 11
+      },
+      "revId": "c2cf0e494feb230aec2c54f57cc19b3fd7efa225",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
