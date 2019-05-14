@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "47741418_54783296",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaSessionImplBase.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 844,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-05-14T11:03:09Z",
+      "side": 1,
+      "message": "What was the rule for adding Internal postfix?\n\ngetVideoSize()\nonVideoSizeChangedInternal()",
+      "range": {
+        "startLine": 844,
+        "startChar": 21,
+        "endLine": 844,
+        "endChar": 33
+      },
+      "revId": "b6771ee1adc1436526120a7b5930173a61bf4375",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
