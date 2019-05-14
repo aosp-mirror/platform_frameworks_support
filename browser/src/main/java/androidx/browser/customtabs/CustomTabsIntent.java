@@ -16,6 +16,7 @@
 
 package androidx.browser.customtabs;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -23,6 +24,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.SparseArray;
 import android.view.View;
@@ -279,6 +281,13 @@ public final class CustomTabsIntent {
             "androidx.browser.customtabs.extra.COLOR_SCHEME_PARAMS";
 
     /**
+     * Extra that contains the color of the navigation bar.
+     * See {@link Builder#setNavigationBarColor}.
+     */
+    public static final String EXTRA_NAVIGATION_BAR_COLOR =
+            "androidx.browser.customtabs.extra.NAVIGATION_BAR_COLOR";
+
+    /**
      * Key that specifies the unique ID for an action button. To make a button to show on the
      * toolbar, use {@link #TOOLBAR_ACTION_BUTTON_ID} as its ID.
      */
@@ -438,7 +447,7 @@ public final class CustomTabsIntent {
          * @param icon The icon.
          * @param description The description for the button. To be used for accessibility.
          * @param pendingIntent pending intent delivered when the button is clicked.
-         * @param shouldTint Whether the action button should be tinted.
+         * @param shouldTint Whether the action button should be tinted..
          *
          * @see CustomTabsIntent.Builder#addToolbarItem(int, Bitmap, String, PendingIntent)
          */
@@ -514,6 +523,20 @@ public final class CustomTabsIntent {
         @NonNull
         public Builder setSecondaryToolbarColor(@ColorInt int color) {
             mDefaultColorSchemeBuilder.setSecondaryToolbarColor(color);
+            return this;
+        }
+
+        /**
+         * Sets the navigation bar color. Only available on Android L and above.
+         *
+         * Can be overridden for particular color schemes, see {@link #setColorSchemeParams}.
+         *
+         * @param color The color for navigation bar.
+         */
+        @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+        @NonNull
+        public Builder setNavigationBarColor(@ColorInt int color) {
+            mDefaultColorSchemeBuilder.setNavigationBarColor(color);
             return this;
         }
 
