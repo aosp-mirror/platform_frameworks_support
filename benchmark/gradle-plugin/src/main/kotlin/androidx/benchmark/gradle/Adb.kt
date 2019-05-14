@@ -23,7 +23,12 @@ import org.gradle.api.logging.LogLevel
 import org.gradle.api.logging.Logger
 import java.util.concurrent.TimeUnit
 
-class Adb constructor(project: Project) {
+/**
+ * Helper class wrapping the adb cli tool, providing an interface to execute adb commands in a way
+ * that automatically handles directing stdout and stderr to gradle output. Typical usage of this
+ * class is as input into gradle tasks or plugins that need to interact with adb.
+ */
+class Adb {
     data class ProcessResult(
         val exitValue: Int,
         val stdout: String,
@@ -33,10 +38,15 @@ class Adb constructor(project: Project) {
     private val adbPath: String
     private val logger: Logger
 
-    init {
+    constructor(project: Project) {
         val extension = project.extensions.getByType(BaseExtension::class.java)
         adbPath = extension.adbExecutable.absolutePath
         logger = project.logger
+    }
+
+    constructor(adbPath: String, logger: Logger) {
+        this.adbPath = adbPath
+        this.logger = logger
     }
 
     fun execSync(
