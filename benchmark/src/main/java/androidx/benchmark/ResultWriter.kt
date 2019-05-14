@@ -106,17 +106,21 @@ internal object ResultWriter {
     )
 
     fun appendStats(report: BenchmarkState.Report) {
+        val arguments = InstrumentationRegistry.getArguments()
+        val outputEnabled = arguments["androidx.benchmark.output.enable"] == "true"
         for (fileManager in fileManagers) {
             fileManager.append(report)
-            fileManager.file.run {
-                if (!exists()) {
-                    parentFile.mkdirs()
-                    createNewFile()
-                }
+            if (outputEnabled) {
+                fileManager.file.run {
+                    if (!exists()) {
+                        parentFile.mkdirs()
+                        createNewFile()
+                    }
 
-                // Currently, we just overwrite the whole file
-                // Ideally, truncate off the 'tail', and append for efficiency
-                writeText(fileManager.fullFileContent)
+                    // Currently, we just overwrite the whole file
+                    // Ideally, truncate off the 'tail', and append for efficiency
+                    writeText(fileManager.fullFileContent)
+                }
             }
         }
     }
