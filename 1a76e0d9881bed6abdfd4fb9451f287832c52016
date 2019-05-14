@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "576acf92_5be9a653",
+        "filename": "media2/common/src/main/java/androidx/media2/common/MediaParcelUtils.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-14T13:54:09Z",
+      "side": 1,
+      "message": "It was correct to be @Nullable, I think.",
+      "range": {
+        "startLine": 74,
+        "startChar": 4,
+        "endLine": 74,
+        "endChar": 12
+      },
+      "revId": "1a76e0d9881bed6abdfd4fb9451f287832c52016",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aff15a38_0f294107",
+        "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 523,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-14T13:54:09Z",
+      "side": 1,
+      "message": "How about `this(callType, future, null)`?",
+      "range": {
+        "startLine": 521,
+        "startChar": 12,
+        "endLine": 523,
+        "endChar": 30
+      },
+      "revId": "1a76e0d9881bed6abdfd4fb9451f287832c52016",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "306fd16d_8a185f4f",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaControllerImplBase.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1137,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-14T13:54:09Z",
+      "side": 1,
+      "message": "The implementation of this method has been changed. Is it intended?",
+      "range": {
+        "startLine": 1132,
+        "startChar": 0,
+        "endLine": 1137,
+        "endChar": 5
+      },
+      "revId": "1a76e0d9881bed6abdfd4fb9451f287832c52016",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58f0b48c_972781f5",
+        "filename": "media2/session/version-compat-tests/current/client/src/androidTest/java/androidx/media2/test/client/RemoteMediaSession.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-14T13:54:09Z",
+      "side": 1,
+      "message": "It is not used",
+      "range": {
+        "startLine": 202,
+        "startChar": 25,
+        "endLine": 202,
+        "endChar": 70
+      },
+      "revId": "1a76e0d9881bed6abdfd4fb9451f287832c52016",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "752bb94e_58dc2668",
+        "filename": "media2/session/version-compat-tests/current/client/src/androidTest/java/androidx/media2/test/client/RemoteMediaSession.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-14T13:54:09Z",
+      "side": 1,
+      "message": "It is not used",
+      "range": {
+        "startLine": 209,
+        "startChar": 25,
+        "endLine": 209,
+        "endChar": 72
+      },
+      "revId": "1a76e0d9881bed6abdfd4fb9451f287832c52016",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bac63639_2daa82f0",
+        "filename": "media2/session/version-compat-tests/current/client/src/androidTest/java/androidx/media2/test/client/tests/MediaControllerTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-14T13:54:09Z",
+      "side": 1,
+      "message": "MediaSessionTestBase has TIMEOUT_MS",
+      "range": {
+        "startLine": 77,
+        "startChar": 30,
+        "endLine": 77,
+        "endChar": 40
+      },
+      "revId": "1a76e0d9881bed6abdfd4fb9451f287832c52016",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
