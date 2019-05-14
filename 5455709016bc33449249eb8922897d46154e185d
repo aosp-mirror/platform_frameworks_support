@@ -22,6 +22,30 @@
       "revId": "5455709016bc33449249eb8922897d46154e185d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bcfb723d_dc297f5a",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/widget/MarginPageTransformer.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-05-14T17:20:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b89b7e95_eb680f85",
+      "range": {
+        "startLine": 55,
+        "startChar": 13,
+        "endLine": 55,
+        "endChar": 23
+      },
+      "revId": "5455709016bc33449249eb8922897d46154e185d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
