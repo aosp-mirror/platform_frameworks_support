@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "675a352a_cbf77ae4",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaController.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1131,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-05-14T09:35:08Z",
+      "side": 1,
+      "message": "Let\u0027s remove this.",
+      "range": {
+        "startLine": 1131,
+        "startChar": 46,
+        "endLine": 1131,
+        "endChar": 65
+      },
+      "revId": "4f1c30259a6ef47000ab34f460ffba62a1068b47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c08a72a0_d228fd8c",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaController.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1141,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-05-14T09:35:08Z",
+      "side": 1,
+      "message": "Let\u0027s move this log to L1132 and remove this if statement",
+      "range": {
+        "startLine": 1141,
+        "startChar": 13,
+        "endLine": 1141,
+        "endChar": 77
+      },
+      "revId": "4f1c30259a6ef47000ab34f460ffba62a1068b47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64b28d6e_9daecbfe",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaController.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1198,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-05-14T09:35:08Z",
+      "side": 1,
+      "message": "Let\u0027s just log and remove the pair when any of these is null, rather than using assertion.",
+      "range": {
+        "startLine": 1197,
+        "startChar": 12,
+        "endLine": 1198,
+        "endChar": 36
+      },
+      "revId": "4f1c30259a6ef47000ab34f460ffba62a1068b47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
