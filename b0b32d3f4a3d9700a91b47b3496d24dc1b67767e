@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ad858a3f_d6444670",
+        "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/Adb.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-05-14T21:21:34Z",
+      "side": 1,
+      "message": "first sentence in its own paragraph",
+      "revId": "b0b32d3f4a3d9700a91b47b3496d24dc1b67767e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
