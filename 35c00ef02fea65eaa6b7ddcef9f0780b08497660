@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "addabf49_aaaf51cf",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 681,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-05-14T21:22:34Z",
+      "side": 1,
+      "message": "SGTM. updated.",
+      "parentUuid": "5ceb9d78_20a27841",
+      "revId": "35c00ef02fea65eaa6b7ddcef9f0780b08497660",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1c21184c_f363e755",
         "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "35c00ef02fea65eaa6b7ddcef9f0780b08497660",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e82f709_fc363fdb",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 689,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-05-14T21:22:34Z",
+      "side": 1,
+      "message": "Before this patch checkResourceApiTask and updateResourceApiTask used to trigger assembleRelease. There is no reason to use release builds as for library release \u003d\u003d\u003d debug. Removing this should mean we dont build the same library twice.",
+      "parentUuid": "1c21184c_f363e755",
+      "revId": "35c00ef02fea65eaa6b7ddcef9f0780b08497660",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
