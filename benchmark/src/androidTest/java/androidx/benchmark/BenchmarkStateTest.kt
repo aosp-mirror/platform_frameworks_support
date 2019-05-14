@@ -126,9 +126,8 @@ class BenchmarkStateTest {
             nanos = 100,
             data = listOf(100),
             repeatIterations = 1,
-            warmupIterations = 1)
-        ResultWriter.fileManagers.forEach {
-            assertEquals(expectedReport, it.lastAddedEntry)
-        }
+            warmupIterations = 1
+        )
+        assertEquals(expectedReport, ResultWriter.fileManager.lastAddedEntry)
     }
 }
