@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "96dd30b6_33b8e172",
+        "filename": "browser/api/current.txt",
+        "patchSetId": 11
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1493640
+      },
+      "writtenOn": "2019-05-14T11:16:37Z",
+      "side": 1,
+      "message": "Unfortunately, the term \"ColorScheme\" is already reserved for the int enum, see my response to Aurimas:\nhttps://android-review.googlesource.com/c/platform/frameworks/support/+/958733/8/browser/src/main/java/androidx/browser/customtabs/CustomTabColorSchemeParams.java#31",
+      "parentUuid": "7f5928cf_f792e820",
+      "range": {
+        "startLine": 56,
+        "startChar": 35,
+        "endLine": 56,
+        "endChar": 41
+      },
+      "revId": "1e168023e724277344a4413d65f43b3a890c191c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a635a3bd_9292a698",
         "filename": "browser/api/current.txt",
         "patchSetId": 11
@@ -45,6 +69,30 @@
       "revId": "1e168023e724277344a4413d65f43b3a890c191c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "728acd4c_6f461fb8",
+        "filename": "browser/api/current.txt",
+        "patchSetId": 11
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1493640
+      },
+      "writtenOn": "2019-05-14T11:16:37Z",
+      "side": 1,
+      "message": "This method was removed from public API.",
+      "parentUuid": "a635a3bd_9292a698",
+      "range": {
+        "startLine": 58,
+        "startChar": 102,
+        "endLine": 58,
+        "endChar": 109
+      },
+      "revId": "1e168023e724277344a4413d65f43b3a890c191c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "110a8975_a7498286",
+        "filename": "browser/api/current.txt",
+        "patchSetId": 11
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1493640
+      },
+      "writtenOn": "2019-05-14T11:16:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ddf2a2aa_91dc29ef",
+      "range": {
+        "startLine": 59,
+        "startChar": 37,
+        "endLine": 59,
+        "endChar": 47
+      },
+      "revId": "1e168023e724277344a4413d65f43b3a890c191c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a530ee0_808d1e7a",
         "filename": "browser/src/main/java/androidx/browser/customtabs/CustomTabColorSchemeParams.java",
         "patchSetId": 11
@@ -91,6 +163,30 @@
       "revId": "1e168023e724277344a4413d65f43b3a890c191c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc11dbaa_3c13481a",
+        "filename": "browser/src/main/java/androidx/browser/customtabs/CustomTabColorSchemeParams.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1493640
+      },
+      "writtenOn": "2019-05-14T11:16:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a530ee0_808d1e7a",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 67
+      },
+      "revId": "1e168023e724277344a4413d65f43b3a890c191c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "3f758ef6_ee192d5b",
+        "filename": "browser/src/main/java/androidx/browser/customtabs/CustomTabColorSchemeParams.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1493640
+      },
+      "writtenOn": "2019-05-14T11:16:37Z",
+      "side": 1,
+      "message": "Made the methods package-local.",
+      "parentUuid": "87bc0b16_0eef97cb",
+      "range": {
+        "startLine": 53,
+        "startChar": 26,
+        "endLine": 53,
+        "endChar": 45
+      },
+      "revId": "1e168023e724277344a4413d65f43b3a890c191c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1b2d0515_ee295711",
         "filename": "browser/src/main/java/androidx/browser/customtabs/CustomTabColorSchemeParams.java",
         "patchSetId": 11
@@ -128,6 +248,30 @@
       "writtenOn": "2019-05-13T18:23:43Z",
       "side": 1,
       "message": "Move this to a Builder copy constructor.",
+      "range": {
+        "startLine": 77,
+        "startChar": 4,
+        "endLine": 86,
+        "endChar": 5
+      },
+      "revId": "1e168023e724277344a4413d65f43b3a890c191c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dcfc8d54_d546b1c3",
+        "filename": "browser/src/main/java/androidx/browser/customtabs/CustomTabColorSchemeParams.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1493640
+      },
+      "writtenOn": "2019-05-14T11:16:37Z",
+      "side": 1,
+      "message": "Not sure I follow. Both objects that are combined here are retrieved via fromBundle(), not sure how Builder would come into play.",
+      "parentUuid": "1b2d0515_ee295711",
       "range": {
         "startLine": 77,
         "startChar": 4,
