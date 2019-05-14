@@ -16,8 +16,9 @@
 
 package androidx.build.metalava
 
-import androidx.build.AndroidXPlugin.Companion.BUILD_ON_SERVER_TASK
 import androidx.build.AndroidXExtension
+import androidx.build.AndroidXPlugin.Companion.BUILD_ON_SERVER_TASK
+import androidx.build.Release
 import androidx.build.checkapi.ApiLocation
 import androidx.build.checkapi.ApiViolationExclusions
 import androidx.build.checkapi.getCurrentApiLocation
@@ -26,11 +27,11 @@ import androidx.build.checkapi.hasApiFolder
 import androidx.build.checkapi.hasApiTasks
 import androidx.build.docsDir
 import androidx.build.java.JavaCompileInputs
-import androidx.build.Release
 import com.android.build.gradle.LibraryExtension
 import org.gradle.api.Project
 import org.gradle.api.artifacts.Configuration
 import org.gradle.api.plugins.JavaPluginConvention
+import org.gradle.api.tasks.TaskProvider
 import org.gradle.kotlin.dsl.getPlugin
 import java.io.File
 
@@ -94,6 +95,14 @@ object Metalava {
         task.bootClasspath = inputs.bootClasspath
     }
 
+    fun applyInputs(inputs: JavaCompileInputs, task: TaskProvider<out MetalavaTask>) {
+        task.configure {
+            it.sourcePaths = inputs.sourcePaths
+            it.dependencyClasspath = inputs.dependencyClasspath
+            it.bootClasspath = inputs.bootClasspath
+        }
+    }
+
     fun setupProject(
         project: Project,
         javaCompileInputs: JavaCompileInputs,
@@ -117,6 +126,14 @@ object Metalava {
 
         val builtApiLocation = ApiLocation.fromPublicApiFile(
             File(project.docsDir(), "release/${project.name}/current.txt"))
+
+        val generateStubs =
+            project.tasks.register("generateStubs", GenerateStubs::class.java) { task ->
+                task.configuration = metalavaConfiguration
+                task.dependsOn(metalavaConfiguration)
+                task.stubLocation = File(project.buildDir, "stubs.jar")
+            }
+        applyInputs(javaCompileInputs, generateStubs)
 
         var generateApi = project.tasks.create("generateApi", GenerateApiTask::class.java) { task ->
             task.group = "API"
