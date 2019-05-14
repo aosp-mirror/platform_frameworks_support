@@ -22,6 +22,30 @@
       "revId": "e7dde1898737f009691c00762c2bef691da36d6d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a54cb32_821eaad0",
+        "filename": "media2/widget/src/androidTest/java/androidx/media2/widget/MediaControlViewTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-14T03:23:05Z",
+      "side": 1,
+      "message": "Thanks for pointing this out. Actually it is expected to be called three times, but this test should not rely on this particular callback.. I changed it to onCustomCommand.\n\nAlso I added a comment for why it is expected to be called three times for the testGetMetadataFromMusicFile() test.",
+      "parentUuid": "dd8b1e6f_8b92f25b",
+      "range": {
+        "startLine": 362,
+        "startChar": 24,
+        "endLine": 362,
+        "endChar": 42
+      },
+      "revId": "e7dde1898737f009691c00762c2bef691da36d6d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
