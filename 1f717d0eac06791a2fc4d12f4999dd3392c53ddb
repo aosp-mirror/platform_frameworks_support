@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0115ff8c_4ae3e450",
+        "filename": "camera/core/src/main/java/androidx/camera/core/SessionConfig.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-14T18:26:02Z",
+      "side": 0,
+      "message": "This code was testing for duplicate parameters.\nIn the addImplmentationOptions code do we do checks to make sure that there are no duplicate options?\nIt would be good to have some of that logic otherwise it is possible for some options to be overwritten based on the order the CaptureConfigs were added.\nFor now it is best to make sure there are no duplicates.",
+      "revId": "1f717d0eac06791a2fc4d12f4999dd3392c53ddb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
