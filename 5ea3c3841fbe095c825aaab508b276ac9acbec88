@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fb4f5381_626fb455",
+        "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/VectorGraphicsActivity.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1345596
+      },
+      "writtenOn": "2019-05-14T22:24:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a2dfbe8f_1c13278c",
+      "range": {
+        "startLine": 97,
+        "startChar": 43,
+        "endLine": 97,
+        "endChar": 72
+      },
+      "revId": "5ea3c3841fbe095c825aaab508b276ac9acbec88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "59dc4522_d027cc0a",
         "filename": "ui/framework/src/main/java/androidx/ui/core/vectorgraphics/compat/VectorImage.kt",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "5ea3c3841fbe095c825aaab508b276ac9acbec88",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76b103bc_1900e6eb",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/vectorgraphics/compat/VectorImage.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1345596
+      },
+      "writtenOn": "2019-05-14T22:24:26Z",
+      "side": 1,
+      "message": "This needs to be external so that consumers can pass it to the corresponding FCS call to render the vector itself. Consumers of the API can construct their own Vector objects using the builder, then memoize the result of the construction (VectorImage) them across compositions, using it to draw the vector itself with no other operation.",
+      "parentUuid": "59dc4522_d027cc0a",
+      "range": {
+        "startLine": 188,
+        "startChar": 0,
+        "endLine": 188,
+        "endChar": 5
+      },
+      "revId": "5ea3c3841fbe095c825aaab508b276ac9acbec88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "d39e8327_29bbad91",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/vectorgraphics/compat/VectorImage.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1345596
+      },
+      "writtenOn": "2019-05-14T22:24:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ad5c3d8a_eacbd865",
+      "range": {
+        "startLine": 245,
+        "startChar": 4,
+        "endLine": 245,
+        "endChar": 14
+      },
+      "revId": "5ea3c3841fbe095c825aaab508b276ac9acbec88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1651d6f3_9f5c68ae",
         "filename": "ui/framework/src/main/java/androidx/ui/core/vectorgraphics/compat/VectorImage.kt",
         "patchSetId": 1
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "a6090f4a_7d40eca5",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/vectorgraphics/compat/VectorImage.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1345596
+      },
+      "writtenOn": "2019-05-14T22:24:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1651d6f3_9f5c68ae",
+      "range": {
+        "startLine": 257,
+        "startChar": 12,
+        "endLine": 257,
+        "endChar": 29
+      },
+      "revId": "5ea3c3841fbe095c825aaab508b276ac9acbec88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9f1ba461_7b6e4d45",
         "filename": "ui/framework/src/main/java/androidx/ui/core/vectorgraphics/compat/VectorResource.kt",
         "patchSetId": 1
@@ -105,6 +201,30 @@
       "writtenOn": "2019-05-14T18:35:28Z",
       "side": 1,
       "message": "Can all of the xml parsing code live in a separate extension file?  It also sounds like something you should be testing.",
+      "range": {
+        "startLine": 134,
+        "startChar": 12,
+        "endLine": 134,
+        "endChar": 41
+      },
+      "revId": "5ea3c3841fbe095c825aaab508b276ac9acbec88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1defda8f_2311cbc1",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/vectorgraphics/compat/VectorResource.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1345596
+      },
+      "writtenOn": "2019-05-14T22:24:26Z",
+      "side": 1,
+      "message": "That sounds like a good idea. Will do in the same CL as a subsequent patch set.",
+      "parentUuid": "9f1ba461_7b6e4d45",
       "range": {
         "startLine": 134,
         "startChar": 12,
@@ -137,6 +257,30 @@
       "revId": "5ea3c3841fbe095c825aaab508b276ac9acbec88",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7102942_d8aef0f4",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/vectorgraphics/compat/VectorResource.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1345596
+      },
+      "writtenOn": "2019-05-14T22:24:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1b84d6ad_3cb82b27",
+      "range": {
+        "startLine": 153,
+        "startChar": 7,
+        "endLine": 153,
+        "endChar": 26
+      },
+      "revId": "5ea3c3841fbe095c825aaab508b276ac9acbec88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
