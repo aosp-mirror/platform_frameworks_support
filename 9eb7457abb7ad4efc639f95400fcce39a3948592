@@ -105,6 +105,30 @@
       "revId": "9eb7457abb7ad4efc639f95400fcce39a3948592",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3dd601ff_6a900be3",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaControllerImplBase.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-14T07:22:42Z",
+      "side": 1,
+      "message": "Removed MediaControllerImplBase#getInstance() and renamed MediaBrowserImplBase#getInstance() to getMediaBrowser()",
+      "parentUuid": "8fe4535d_662c3ac6",
+      "range": {
+        "startLine": 225,
+        "startChar": 8,
+        "endLine": 225,
+        "endChar": 17
+      },
+      "revId": "9eb7457abb7ad4efc639f95400fcce39a3948592",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
