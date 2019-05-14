@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c70ea6ed_cf72e369",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaBrowser.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-05-14T05:24:02Z",
+      "side": 1,
+      "message": "let\u0027s remove one empty line",
+      "revId": "9eb7457abb7ad4efc639f95400fcce39a3948592",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "180b16a6_f4e75b6c",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaControllerImplBase.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-05-14T05:24:02Z",
+      "side": 1,
+      "message": "Let\u0027s unite getInstance() and mInstance. How about using getInstance() everywhere?",
+      "range": {
+        "startLine": 225,
+        "startChar": 8,
+        "endLine": 225,
+        "endChar": 17
+      },
+      "revId": "9eb7457abb7ad4efc639f95400fcce39a3948592",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
