@@ -199,7 +199,9 @@ open class Composer<N>(
     private val entersStack = IntStack()
     private val insertedProviders = Stack<Ambient.Holder<*>>()
     private val invalidateStack = Stack<RecomposeScope>()
-    internal var ambientReference: CompositionReference? = null
+    // remove when subcompositions will share same Composer
+    private var selfReference: CompositionReference? = null
+    internal var parentReference: CompositionReference? = null
 
     private val changesAppliedObservers = mutableListOf<() -> Unit>()
 
@@ -215,6 +217,11 @@ open class Composer<N>(
 
     internal fun removeChangesAppliedObserver(l: () -> Unit) {
         changesAppliedObservers.remove(l)
+    }
+
+    internal fun hasPendingChanges(): Boolean {
+        return invalidations.isNotEmpty() ||
+                selfReference?.childComposers()?.any { it.hasPendingChanges() } ?: false
     }
 
     // Temporary to allow staged changes. This will move into a sub-object that represents an active
@@ -459,6 +466,7 @@ open class Composer<N>(
         } else {
             ref = AmbientReferenceImpl(invalidateStack.peek())
             updateValue(ref)
+            selfReference = ref
         }
         endGroup()
 
@@ -494,7 +502,7 @@ open class Composer<N>(
             current--
         }
 
-        val ref = ambientReference
+        val ref = parentReference
 
         if (ref != null) {
             return ref.getAmbient(key)
@@ -526,7 +534,7 @@ open class Composer<N>(
             index -= 1
         }
 
-        val ref = ambientReference
+        val ref = parentReference
 
         if (ref != null) {
             return ref.getAmbient(key)
@@ -1210,10 +1218,12 @@ open class Composer<N>(
 
         override fun invalidate() {
             // continue invalidating up the spine of AmbientReferences
-            ambientReference?.invalidate()
+            parentReference?.invalidate()
 
             scope.invalidate?.invoke(false)
         }
+
+        override fun childComposers() = composers
 
         override fun <T> getAmbient(key: Ambient<T>): T {
             val anchor = scope.anchor

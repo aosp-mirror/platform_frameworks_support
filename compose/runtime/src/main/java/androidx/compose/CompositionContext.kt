@@ -45,7 +45,7 @@ class CompositionContext private constructor(
             makeComposer: CompositionContext.() -> Composer<*>
         ): CompositionContext {
             val result = CompositionContext(root, component, makeComposer)
-            result.composer.ambientReference = ambientReference
+            result.composer.parentReference = ambientReference
             ambientReference?.registerComposer(result.composer)
             return result
         }
