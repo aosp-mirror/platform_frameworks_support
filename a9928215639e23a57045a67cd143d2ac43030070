@@ -16,6 +16,24 @@
       "revId": "a9928215639e23a57045a67cd143d2ac43030070",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "813fdb31_4e027df9",
+        "filename": "benchmark/src/main/java/androidx/benchmark/ResultWriter.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-05-14T21:55:17Z",
+      "side": 1,
+      "message": "Only strings allowed unfortunately, but I can make it not case sensitive?",
+      "parentUuid": "5c7a1086_d7f15a40",
+      "revId": "a9928215639e23a57045a67cd143d2ac43030070",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
