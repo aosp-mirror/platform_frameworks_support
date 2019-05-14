@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "29612c44_7df07a23",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/vectorgraphics/compat/VectorImage.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-05-14T23:36:58Z",
+      "side": 1,
+      "message": "If this is public API, it needs documentation.",
+      "range": {
+        "startLine": 188,
+        "startChar": 6,
+        "endLine": 188,
+        "endChar": 17
+      },
+      "revId": "592b04fb347782f0abf61f07a95d55c01d467d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6341f409_f2c00521",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/vectorgraphics/compat/VectorImage.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-05-14T23:36:58Z",
+      "side": 1,
+      "message": "Please provide docs for all public Composable functions.",
+      "range": {
+        "startLine": 245,
+        "startChar": 4,
+        "endLine": 245,
+        "endChar": 14
+      },
+      "revId": "592b04fb347782f0abf61f07a95d55c01d467d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
