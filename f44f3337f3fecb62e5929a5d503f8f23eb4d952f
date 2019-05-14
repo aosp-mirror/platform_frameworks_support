@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "909d9643_925aee30",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-05-14T21:52:05Z",
+      "side": 1,
+      "message": "Fixes doesn\u0027t work, use Bug:",
+      "revId": "f44f3337f3fecb62e5929a5d503f8f23eb4d952f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
