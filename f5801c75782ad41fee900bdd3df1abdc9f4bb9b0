@@ -46,6 +46,53 @@
       "revId": "f5801c75782ad41fee900bdd3df1abdc9f4bb9b0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a6f84829_8b55558f",
+        "filename": "slices/view/src/main/java/androidx/slice/widget/LocationBasedViewTracker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1092253
+      },
+      "writtenOn": "2019-05-14T20:13:20Z",
+      "side": 1,
+      "message": "OK. I\u0027m guessing that it\u0027s called when the slice is already on the screen, and is about to refresh. So it saves the currently focused view away, requests a layout that will use the new data, and then restores focus?\n\nMaybe comments would help clarify the strategy.",
+      "parentUuid": "e4c37557_c88eddcd",
+      "range": {
+        "startLine": 57,
+        "startChar": 55,
+        "endLine": 57,
+        "endChar": 69
+      },
+      "revId": "f5801c75782ad41fee900bdd3df1abdc9f4bb9b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "554525e5_d675ac84",
+        "filename": "slices/view/src/main/java/androidx/slice/widget/SliceView.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 445,
+      "author": {
+        "id": 1092253
+      },
+      "writtenOn": "2019-05-14T20:13:20Z",
+      "side": 1,
+      "message": "You can save a bit by doing this only if AccessibilityManager#isTouchExplorationEnabled() returns true.",
+      "range": {
+        "startLine": 445,
+        "startChar": 8,
+        "endLine": 445,
+        "endChar": 54
+      },
+      "revId": "f5801c75782ad41fee900bdd3df1abdc9f4bb9b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
