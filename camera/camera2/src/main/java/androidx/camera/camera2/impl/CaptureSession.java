@@ -492,6 +492,9 @@ final class CaptureSession {
                 CaptureRequest.Builder builder =
                         captureConfig.buildCaptureRequest(mCameraCaptureSession.getDevice());
 
+                applyImplementationOptionTCaptureBuilder(builder,
+                        mSessionConfig.getRepeatingCaptureConfig().getImplementationOptions());
+
                 applyImplementationOptionTCaptureBuilder(
                         builder, captureConfig.getImplementationOptions());
 
