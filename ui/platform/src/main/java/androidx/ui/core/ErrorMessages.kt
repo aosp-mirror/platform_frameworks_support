@@ -17,7 +17,6 @@
 
 package androidx.ui.core
 
-// TODO(mount): regain the inline functions. These don't seem to work with jacoco tests
 internal enum class ErrorMessages(val message: String) {
     ComponentNodeHasParent("Inserting an instance that already has a parent"),
     SizeAlreadyExists("Layout can only be used once within a MeasureBox"),
@@ -35,27 +34,27 @@ internal enum class ErrorMessages(val message: String) {
     CannotFindLayoutInParent("Parent layout does not contain this layout as a child"),
     ChildrenUnsupported("Draw does not have children");
 
-    /*inline */fun validateState(check: Boolean) {
+    inline fun validateState(check: Boolean) {
         if (!check) state()
     }
 
-    /*inline */fun state(): Nothing = throw IllegalStateException(message)
-    /*inline */fun state(vararg args: Int): Nothing =
+    inline fun state(): Nothing = throw IllegalStateException(message)
+    inline fun state(vararg args: Int): Nothing =
         throw IllegalStateException(message.format(*toAnyArray(args)))
 
-    /*inline */fun validateArg(check: Boolean, value: Int) {
+    inline fun validateArg(check: Boolean, value: Int) {
         if (!check) arg(value)
     }
 
-    /*inline */fun validateArgs(check: Boolean, vararg values: Int) {
+    inline fun validateArgs(check: Boolean, vararg values: Int) {
         if (!check) arg(*values)
     }
 
-    /*inline */fun arg(): Nothing = throw IllegalArgumentException(message)
-    /*inline */fun arg(vararg args: Int): Nothing =
+    inline fun arg(): Nothing = throw IllegalArgumentException(message)
+    inline fun arg(vararg args: Int): Nothing =
         throw IllegalArgumentException(message.format(*toAnyArray(args)))
 
-    /*inline */fun unsupported(): Nothing = throw UnsupportedOperationException(message)
+    inline fun unsupported(): Nothing = throw UnsupportedOperationException(message)
 
     private fun toAnyArray(array: IntArray): Array<Any> {
         return array.map { it as Any }.toTypedArray()
