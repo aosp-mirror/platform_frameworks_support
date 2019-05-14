@@ -107,6 +107,23 @@
     },
     {
       "key": {
+        "uuid": "7333699b_e80bc019",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/ImageCaptureExtender.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-14T17:29:45Z",
+      "side": 1,
+      "message": "mUnbind will always be true here so it isn\u0027t needed",
+      "revId": "70eccbb390a74d40cd9a83db05906c81ea1a4ff6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7444444f_dba6abf0",
         "filename": "camera/extensions/src/main/java/androidx/camera/extensions/ImageCaptureExtender.java",
         "patchSetId": 7
@@ -172,6 +189,24 @@
       "side": 1,
       "message": "Oh, not really need to post the deinit() to main thread, just the same like you mentioned, we have already keep use synchronized and mLock to protect the call sequence in our part.\n\nThis is only because if we post to the same thread, might can avoid some potential thread safe issue in vendor part. \nIf we don\u0027t post the deinit(), we might see something looks like:\n/////////////////////\nunbindAll() called.\nHdrImageCapture.onDeInit() called in camera thread  \u003c\u003d it was triggered by onDisableSession()\nHdrPreview.onDeinit() called in main thread \u003c\u003d it was triggered by unbind()\n/////////////////////\nConsider that was invoked on different object, it might be ok to callback to the different thread. Please let me know if we would like to keep the post to main thread code?",
       "parentUuid": "a7e991a6_5eee3bc6",
+      "revId": "70eccbb390a74d40cd9a83db05906c81ea1a4ff6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7bc65f2b_da8ef761",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/ImageCaptureExtender.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-14T17:29:45Z",
+      "side": 1,
+      "message": "They are separate objects so it will be okay. Our specifications don\u0027t guarantee any ordering or consistent thread between extenders of different types (Preview vs ImageCapture).\n\nIf an OEM needs to it to be synchronized it is an implementation detail for them.",
+      "parentUuid": "a2b5cb3e_50891df9",
       "revId": "70eccbb390a74d40cd9a83db05906c81ea1a4ff6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
