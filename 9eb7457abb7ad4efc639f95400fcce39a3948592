@@ -81,6 +81,30 @@
       "revId": "9eb7457abb7ad4efc639f95400fcce39a3948592",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8fe4535d_662c3ac6",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaControllerImplBase.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-05-14T06:48:04Z",
+      "side": 1,
+      "message": "That means the MediaControllerImplBase.getInstance() is useless.\nHow about removing the method, and create a getInstance() only in MediaBrowser?\n\nOr how about just using ((MediaBrowser) mInstance).onSearchResultChanged?",
+      "parentUuid": "0ea6bf1e_8f698233",
+      "range": {
+        "startLine": 225,
+        "startChar": 8,
+        "endLine": 225,
+        "endChar": 17
+      },
+      "revId": "9eb7457abb7ad4efc639f95400fcce39a3948592",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
