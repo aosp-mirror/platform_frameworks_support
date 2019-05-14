@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "06754d11_438b511b",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/jdiff/JDiffTask.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-05-14T00:53:49Z",
+      "side": 0,
+      "message": "Oh interesting. We aren\u0027t going to need jdiff?",
+      "revId": "05d893a28fcc348b1c037e97b6f97f671c2e925e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
