@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "60896b8a_a4c89cde",
+        "filename": "ui/layout/src/androidTest/java/androidx/ui/layout/test/FlexTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 976,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-05-14T23:38:55Z",
+      "side": 1,
+      "message": "There was an IR compilation error with the forEachIndexed that was fixed by making them for loops. Seems like I was able to take one TODO off your list :-)",
+      "range": {
+        "startLine": 976,
+        "startChar": 20,
+        "endLine": 976,
+        "endChar": 23
+      },
+      "revId": "d0267adbe398508ae4c9323b6dccbefa9d3f74f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
