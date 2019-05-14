@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "47385d2f_e3d53a79",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-05-14T14:46:27Z",
+      "side": 1,
+      "message": "We aren\u0027t currently focused on avoiding the GC. Let\u0027s optimize this at a later stage.",
+      "range": {
+        "startLine": 91,
+        "startChar": 0,
+        "endLine": 91,
+        "endChar": 51
+      },
+      "revId": "63591d28bf801323d985602f39006dbf0aa1264a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "711638e6_3638cd8b",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/ComponentNodes.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-05-14T14:46:27Z",
+      "side": 1,
+      "message": "Maybe calculatePosition() or findPosition() as opposed to \"position this view\"",
+      "range": {
+        "startLine": 94,
+        "startChar": 8,
+        "endLine": 94,
+        "endChar": 16
+      },
+      "revId": "63591d28bf801323d985602f39006dbf0aa1264a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
