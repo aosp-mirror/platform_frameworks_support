@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dd8b1e6f_8b92f25b",
+        "filename": "media2/widget/src/androidTest/java/androidx/media2/widget/MediaControlViewTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-14T01:59:00Z",
+      "side": 1,
+      "message": "Is it guaranteed or expected to be called three times once setMediaItem is called? I wonder this is the proper condition for when the button becomes visible.",
+      "range": {
+        "startLine": 362,
+        "startChar": 24,
+        "endLine": 362,
+        "endChar": 42
+      },
+      "revId": "e7dde1898737f009691c00762c2bef691da36d6d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
