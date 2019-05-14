@@ -30,14 +30,17 @@ import java.io.File
 @Suppress("unused")
 class BenchmarkRunListener : RunListener() {
     override fun testRunFinished(result: Result?) {
-        // Currently, we just overwrite the whole file
-        // Ideally, append for efficiency
-        val packageName =
-            InstrumentationRegistry.getInstrumentation().targetContext!!.packageName
-        val file = File(
-            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
-            "$packageName-benchmarkData.json"
-        )
-        ResultWriter.writeReport(file, ResultWriter.reports)
+        val arguments = InstrumentationRegistry.getArguments()
+        if (arguments.getString("androidx.benchmark.output.enable")?.toLowerCase() == "true") {
+            // Currently, we just overwrite the whole file
+            // Ideally, append for efficiency
+            val packageName =
+                InstrumentationRegistry.getInstrumentation().targetContext!!.packageName
+            val file = File(
+                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
+                "$packageName-benchmarkData.json"
+            )
+            ResultWriter.writeReport(file, ResultWriter.reports)
+        }
     }
 }
