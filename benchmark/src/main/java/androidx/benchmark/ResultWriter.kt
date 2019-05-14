@@ -106,6 +106,11 @@ internal object ResultWriter {
     )
 
     fun appendStats(report: BenchmarkState.Report) {
+        val arguments = InstrumentationRegistry.getArguments()
+        if (arguments["androidx.benchmark.output.enable"] != "true") {
+            return
+        }
+
         for (fileManager in fileManagers) {
             fileManager.append(report)
             fileManager.file.run {
