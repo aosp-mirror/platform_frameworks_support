@@ -71,5 +71,8 @@
         <activity
             android:name=".ForceDarkActivity"
             android:exported="true" />
+        <activity
+            android:name=".IsMultiProcessEnabledActivity"
+            android:exported="true" />
     </application>
 </manifest>
