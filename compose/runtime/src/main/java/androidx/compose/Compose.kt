@@ -48,6 +48,8 @@ object Compose {
     private val TAG_ROOT_COMPONENT = "composeRootComponent".hashCode()
     private val EMITTABLE_ROOT_COMPONENT = WeakHashMap<Emittable, Component>()
 
+    private val ContextToCompositions = WeakHashMap<Context, MutableSet<CompositionContext>>()
+
     private fun getRootComponent(view: View): Component? {
         return view.getTag(TAG_ROOT_COMPONENT) as? Component
     }
@@ -73,6 +75,25 @@ object Compose {
 
     private fun setRoot(emittable: Emittable, component: Component) {
         EMITTABLE_ROOT_COMPONENT[emittable] = component
+    }
+
+    private fun registerComposition(ctx: Context, cc: CompositionContext) {
+        ContextToCompositions.getOrPut(ctx) {
+            mutableSetOf()
+        }.add(cc)
+    }
+
+    private fun unregisterComposition(ctx: Context, cc: CompositionContext) {
+        ContextToCompositions.getOrPut(ctx) {
+            mutableSetOf()
+        }.remove(cc)
+    }
+
+    @MainThread
+    @TestOnly
+    fun hasPendingChanges(ctx: Context): Boolean {
+        val compositions = ContextToCompositions.getOrElse(ctx) { mutableSetOf() }
+        return compositions.isNotEmpty() && compositions.any { it.composer.hasPendingChanges() }
     }
 
     /**
@@ -132,6 +153,7 @@ object Compose {
                 root,
                 parent
             )
+            registerComposition(container.context, cc)
             cc.recompose()
             return cc
         } else {
@@ -158,6 +180,7 @@ object Compose {
     @MainThread
     fun disposeComposition(container: ViewGroup, parent: CompositionReference? = null) {
         // temporary easy way to call correct lifecycles on everything
+        // need to remove compositionContext from context map as well
         composeInto(container, parent) { }
         container.setTag(TAG_ROOT_COMPONENT, null)
     }
