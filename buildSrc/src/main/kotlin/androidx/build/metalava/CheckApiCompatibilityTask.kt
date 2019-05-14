@@ -26,9 +26,9 @@ import java.io.File
 // Validate an API signature text file against a set of source files.
 open class CheckApiCompatibilityTask : MetalavaTask() {
     // Text file from which the API signatures will be obtained.
-    var referenceApi: ApiLocation? = null
+    lateinit var referenceApi: ApiLocation
     // Text file listing violations that should be ignored
-    var exclusions: ApiViolationExclusions? = null
+    lateinit var exclusions: ApiViolationExclusions
 
     // Whether to confirm that no restricted APIs were removed since the previous release
     var checkRestrictedAPIs = false
@@ -36,22 +36,19 @@ open class CheckApiCompatibilityTask : MetalavaTask() {
     @InputFiles
     fun getTaskInputs(): List<File> {
         if (checkRestrictedAPIs) {
-            return referenceApi!!.files() + exclusions!!.files()
+            return referenceApi.files() + exclusions.files()
         }
-        return listOf(referenceApi!!.publicApiFile, exclusions!!.publicApiFile)
+        return listOf(referenceApi.publicApiFile, exclusions.publicApiFile)
     }
 
     // Declaring outputs prevents Gradle from rerunning this task if the inputs haven't changed
     @OutputFiles
     fun getTaskOutputs(): List<File> {
-        return listOf(referenceApi!!.publicApiFile)
+        return listOf(referenceApi.publicApiFile)
     }
 
     @TaskAction
     fun exec() {
-        val referenceApi = checkNotNull(referenceApi) { "referenceApi not set." }
-        val exclusions = checkNotNull(exclusions) { "exclusions not set." }
-
         check(bootClasspath.isNotEmpty()) { "Android boot classpath not set." }
 
         checkApiFile(referenceApi.publicApiFile, exclusions.publicApiFile, false)
@@ -60,8 +57,8 @@ open class CheckApiCompatibilityTask : MetalavaTask() {
         }
     }
 
-    // Confirms that the public API of this library (or the restricted API, if <checkRestrictedAPIs> is set
-    // is compatible with <apiFile> except for any exclusions listed in <exclusionsFile>
+    // Confirms that the public API of this library (or the restricted API, if <checkRestrictedAPIs>
+    // is set) is compatible with <apiFile> except for any exclusions listed in <exclusionsFile>
     fun checkApiFile(apiFile: File, exclusionsFile: File, checkRestrictedAPIs: Boolean) {
         var args = listOf("--classpath",
                 (bootClasspath + dependencyClasspath!!.files).joinToString(File.pathSeparator),

@@ -27,39 +27,36 @@ import java.io.File
 // Updates an API tracking exceptions file (api/*.*.*.ignore) to match the current set of violations
 open class IgnoreApiChangesTask : MetalavaTask() {
     // The API that the library is supposed to be compatible with
-    var referenceApi: ApiLocation? = null
+    lateinit var referenceApi: ApiLocation
 
     // The exclusions files (api/*.*.*.ignore) to update
-    var exclusions: ApiViolationExclusions? = null
+    lateinit var exclusions: ApiViolationExclusions
 
     // Whether to update the file having restricted APIs too
     var processRestrictedAPIs = false
 
     // Path of temporary api-changes exemptions file
-    var intermediateExclusionsFile: File? = null
+    lateinit var intermediateExclusionsFile: File
 
     @InputFiles
     fun getTaskInputs(): List<File> {
         if (processRestrictedAPIs) {
-            return referenceApi!!.files()
+            return referenceApi.files()
         }
-        return listOf(referenceApi!!.publicApiFile)
+        return listOf(referenceApi.publicApiFile)
     }
 
     // Declaring outputs prevents Gradle from rerunning this task if the inputs haven't changed
     @OutputFiles
     fun getTaskOutputs(): List<File>? {
         if (processRestrictedAPIs) {
-            return exclusions!!.files()
+            return exclusions.files()
         }
-        return listOf(exclusions!!.publicApiFile)
+        return listOf(exclusions.publicApiFile)
     }
 
     @TaskAction
     fun exec() {
-        val referenceApi = checkNotNull(referenceApi) { "referenceApi not set." }
-        val exclusions = checkNotNull(exclusions) { "exclusions not set." }
-
         check(bootClasspath.isNotEmpty()) { "Android boot classpath not set." }
 
         updateExclusions(referenceApi.publicApiFile, exclusions.publicApiFile, false)
@@ -68,10 +65,9 @@ open class IgnoreApiChangesTask : MetalavaTask() {
         }
     }
 
-    // Updates the contents of exclusionsFile to specify an exception for every API present in apiFile but not
-    // present in the current source path
+    // Updates the contents of exclusionsFile to specify an exception for every API present in
+    // apiFile but not present in the current source path
     fun updateExclusions(apiFile: File, exclusionsFile: File, processRestrictedAPIs: Boolean) {
-        val intermediateExclusionsFile = checkNotNull(intermediateExclusionsFile) { "intermediateExclusionsFile not set" }
         intermediateExclusionsFile.parentFile.mkdirs()
         intermediateExclusionsFile.createNewFile()
 

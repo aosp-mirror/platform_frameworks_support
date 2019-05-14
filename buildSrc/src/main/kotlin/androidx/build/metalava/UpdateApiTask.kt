@@ -32,7 +32,7 @@ import java.io.File
  */
 open class UpdateApiTask : DefaultTask() {
     /** Text file from which API signatures will be read. */
-    var inputApiLocation: ApiLocation? = null
+    lateinit var inputApiLocation: ApiLocation
 
     /** Text files to which API signatures will be written. */
     var outputApiLocations: List<ApiLocation> = listOf()
@@ -42,7 +42,7 @@ open class UpdateApiTask : DefaultTask() {
 
     @InputFiles
     fun getTaskInputs(): List<File>? {
-        return inputApiLocation?.files()
+        return inputApiLocation.files()
     }
 
     @OutputFiles
@@ -55,19 +55,30 @@ open class UpdateApiTask : DefaultTask() {
 
     @TaskAction
     fun exec() {
-        val inputPublicApi = checkNotNull(inputApiLocation?.publicApiFile) { "inputPublicApi not set" }
-        val inputRestrictedApi = checkNotNull(inputApiLocation?.restrictedApiFile) { "inputRestrictedApi not set" }
         var permitOverwriting = true
         for (outputApi in outputApiLocations) {
             val version = outputApi.version()
-            if (version != null && version.isFinalApi() && outputApi.publicApiFile.exists() && !project.hasProperty("force")) {
+            if (version != null &&
+                version.isFinalApi() &&
+                outputApi.publicApiFile.exists() &&
+                !project.hasProperty("force")) {
                 permitOverwriting = false
             }
         }
         for (outputApi in outputApiLocations) {
-            copy(inputPublicApi, outputApi.publicApiFile, permitOverwriting, project.logger)
+            copy(
+                inputApiLocation.publicApiFile,
+                outputApi.publicApiFile,
+                permitOverwriting,
+                project.logger
+            )
             if (updateRestrictedAPIs) {
-                copy(inputRestrictedApi, outputApi.restrictedApiFile, permitOverwriting, project.logger)
+                copy(
+                    inputApiLocation.restrictedApiFile,
+                    outputApi.restrictedApiFile,
+                    permitOverwriting,
+                    project.logger
+                )
             }
         }
     }

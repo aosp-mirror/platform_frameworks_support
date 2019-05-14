@@ -25,24 +25,22 @@ import java.io.File
 /** Generate an API signature text file from a set of source files. */
 open class GenerateApiTask : MetalavaTask() {
     /** Text file to which API signatures will be written. */
-    var apiLocation: ApiLocation? = null
+    lateinit var apiLocation: ApiLocation
 
     var generateRestrictedAPIs = false
 
     @OutputFiles
     fun getTaskOutputs(): List<File>? {
         if (generateRestrictedAPIs) {
-            return apiLocation?.files()
+            return apiLocation.files()
         }
-        return listOf(apiLocation!!.publicApiFile)
+        return listOf(apiLocation.publicApiFile)
     }
 
     @TaskAction
     fun exec() {
         val dependencyClasspath = checkNotNull(
                 dependencyClasspath) { "Dependency classpath not set." }
-        val publicApiFile = checkNotNull(apiLocation?.publicApiFile) { "Current public API file not set." }
-        val restrictedApiFile = checkNotNull(apiLocation?.restrictedApiFile) { "Current restricted API file not set." }
         check(bootClasspath.isNotEmpty()) { "Android boot classpath not set." }
         check(sourcePaths.isNotEmpty()) { "Source paths not set." }
 
@@ -55,7 +53,7 @@ open class GenerateApiTask : MetalavaTask() {
             sourcePaths.filter { it.exists() }.joinToString(File.pathSeparator),
 
             "--api",
-            publicApiFile.toString(),
+            apiLocation.publicApiFile.toString(),
 
             "--format=v3",
             "--output-kotlin-nulls=yes"
@@ -63,7 +61,7 @@ open class GenerateApiTask : MetalavaTask() {
 
         if (generateRestrictedAPIs) {
             // generate restricted API txt
-            val metalavaRestrictedOutputFile = File(restrictedApiFile.path + ".tmp")
+            val metalavaRestrictedOutputFile = File(apiLocation.restrictedApiFile.path + ".tmp")
             runWithArgs(
                 "--classpath",
                 (bootClasspath + dependencyClasspath.files).joinToString(File.pathSeparator),
@@ -81,11 +79,15 @@ open class GenerateApiTask : MetalavaTask() {
                 "--output-kotlin-nulls=yes"
             )
 
-            removeRestrictToLibraryLines(metalavaRestrictedOutputFile, restrictedApiFile)
+            removeRestrictToLibraryLines(
+                metalavaRestrictedOutputFile,
+                apiLocation.restrictedApiFile
+            )
         }
     }
 
-    // until b/119617147 is done, remove lines containing "@RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY)"
+    // until b/119617147 is done, remove lines containing
+    // "@RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY)"
     fun removeRestrictToLibraryLines(inputFile: File, outputFile: File) {
         val outputBuilder = StringBuilder()
         val lines = inputFile.readLines()
