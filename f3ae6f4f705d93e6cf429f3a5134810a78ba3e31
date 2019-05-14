@@ -108,6 +108,29 @@
       "revId": "f3ae6f4f705d93e6cf429f3a5134810a78ba3e31",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "87d4cce6_a4b161d4",
+        "filename": "media2/session/src/main/java/androidx/media2/session/SessionCommand.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-05-14T05:38:36Z",
+      "side": 1,
+      "message": "If we are creating a new separate range for track command, how about putting more buffer, eg., staring from 12000?",
+      "range": {
+        "startLine": 354,
+        "startChar": 63,
+        "endLine": 354,
+        "endChar": 68
+      },
+      "revId": "f3ae6f4f705d93e6cf429f3a5134810a78ba3e31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
