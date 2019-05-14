@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "959677c0_03688adc",
+        "filename": "buildSrc/build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-05-14T03:58:13Z",
+      "side": 1,
+      "message": "This is not great. Can we add benchmark gradle pluging through buildSrc/settings.gradle?",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 6,
+        "endChar": 1
+      },
+      "revId": "ef780f5f05f9eeb388928a37f252374dfcff3d1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
