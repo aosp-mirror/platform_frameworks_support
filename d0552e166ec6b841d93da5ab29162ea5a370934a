@@ -16,6 +16,24 @@
       "revId": "d0552e166ec6b841d93da5ab29162ea5a370934a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c594c447_639b57f0",
+        "filename": "car/cluster/build.gradle",
+        "patchSetId": 3
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1384412
+      },
+      "writtenOn": "2019-05-14T00:29:58Z",
+      "side": 1,
+      "message": "My understanding is this is the way you specify what proto output you want. Here javalite for lite protos.",
+      "parentUuid": "f1f9f837_9652a4c8",
+      "revId": "d0552e166ec6b841d93da5ab29162ea5a370934a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
