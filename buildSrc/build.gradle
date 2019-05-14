@@ -1,5 +1,10 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
+sourceSets {
+    main.java.srcDirs += '../benchmark/gradle-plugin/src/main/kotlin'
+    main.resources.srcDirs += '../benchmark/gradle-plugin/src/main/resources'
+}
+
 buildscript {
     def supportRootFolder = project.projectDir.getParentFile()
     apply from: "unbundled_check.gradle"
