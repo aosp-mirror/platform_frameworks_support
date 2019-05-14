@@ -22,6 +22,30 @@
       "revId": "b6771ee1adc1436526120a7b5930173a61bf4375",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c9bd4ac_a4252e93",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaSessionImplBase.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 844,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-14T14:27:52Z",
+      "side": 1,
+      "message": "The rule is avoiding the postfix as much as possible. So, the postfix is added only for SessionPlayer\u0027s methods that MediaPlayer already has the same name. So does SessionPlayer.PlayerCallback\u0027s.",
+      "parentUuid": "47741418_54783296",
+      "range": {
+        "startLine": 844,
+        "startChar": 21,
+        "endLine": 844,
+        "endChar": 33
+      },
+      "revId": "b6771ee1adc1436526120a7b5930173a61bf4375",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
