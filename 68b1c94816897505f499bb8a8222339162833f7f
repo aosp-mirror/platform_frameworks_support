@@ -1,0 +1,225 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ac1d23fd_99c2ab4e",
+        "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/AnimationGestureSemanticsActivity.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-05-14T22:55:07Z",
+      "side": 1,
+      "message": "This cascading seems a bit awkward as an API.  It\u0027s sort of weird that you get the action not as the return value, but as a parameter to a child lambda.  It also makes it somewhat tedious to list multiple actions.",
+      "revId": "68b1c94816897505f499bb8a8222339162833f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4df8c34_89e8c2da",
+        "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/SemanticsL2.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-05-14T22:55:07Z",
+      "side": 1,
+      "message": "This comment does not match the code",
+      "revId": "68b1c94816897505f499bb8a8222339162833f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ed0d112_a398976a",
+        "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/SemanticsL2.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-05-14T22:55:07Z",
+      "side": 1,
+      "message": "I think this needs some indication that it\u0027s part of Semantics.",
+      "revId": "68b1c94816897505f499bb8a8222339162833f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "349f788e_bf31f17c",
+        "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/SemanticsL2.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-05-14T22:55:07Z",
+      "side": 1,
+      "message": "It might be more illustrative to focus on what the final API would look like rather than limiting it by what can be put together in a tech demo.",
+      "revId": "68b1c94816897505f499bb8a8222339162833f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75e345b5_b9b409e4",
+        "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/SemanticsL2.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-05-14T22:55:07Z",
+      "side": 1,
+      "message": "As above - should probably indicate that this is related to Semantics.",
+      "revId": "68b1c94816897505f499bb8a8222339162833f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8723ce53_14e261ab",
+        "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/SemanticsL2.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-05-14T22:55:07Z",
+      "side": 1,
+      "message": "This name is confusing - it\u0027s unclear what \"phrase\" means in the context of an action.  Something like \"label\" or \"description\" would be a better fit.  We should probably pick one for all of Semantics - as suggestions, we could use the more Flutter-esque \"label\" or the more Android-esque \"contentDescription\"/\"description\".",
+      "revId": "68b1c94816897505f499bb8a8222339162833f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4956f317_116d370b",
+        "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/SemanticsL2.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-05-14T22:55:07Z",
+      "side": 1,
+      "message": "Can we enforce some sort of type-safety here?  What happens if someone uses the wrong type?",
+      "revId": "68b1c94816897505f499bb8a8222339162833f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f368b6af_188972db",
+        "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/SemanticsL2.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-05-14T22:55:07Z",
+      "side": 1,
+      "message": "Would it be an error to specify an empty set here?",
+      "revId": "68b1c94816897505f499bb8a8222339162833f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e338f1c_88bb54d7",
+        "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/SemanticsL3.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-05-14T22:55:07Z",
+      "side": 1,
+      "message": "What would you expect someone to want to do on press in a typical clickable component? I\u0027d expect a client of this API to mostly want to detect clicks and let some internal thing (maybe a material ink surface) care about when they\u0027re pressed to, e.g., draw a ripple.  I\u0027m curious if this sort of thing would be practical with current gesture APIs.  At the very least, this doesn\u0027t seem like a required parameter in a typical scenario.",
+      "revId": "68b1c94816897505f499bb8a8222339162833f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8612425a_98ba357d",
+        "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/SemanticsL3.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-05-14T22:55:07Z",
+      "side": 1,
+      "message": "I don\u0027t think press is going to have any semantic meaning in 99% of cases - I don\u0027t think we should be exposing that to the semantics system.",
+      "revId": "68b1c94816897505f499bb8a8222339162833f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c2d2024_4fd3f8f8",
+        "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/SemanticsL3.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-05-14T22:55:07Z",
+      "side": 1,
+      "message": "How would this action be represented to the a11y system?  This seems like it\u0027s intended to be the primary/click action, but that\u0027s not exposed in any way.",
+      "revId": "68b1c94816897505f499bb8a8222339162833f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1adf9cd4_d1c7ef7c",
+        "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/SemanticsL3.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-05-14T22:55:07Z",
+      "side": 1,
+      "message": "I don\u0027t think canceling a click should perform the release action.",
+      "revId": "68b1c94816897505f499bb8a8222339162833f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a349ddfb_8b223046",
+        "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/SemanticsL3.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-05-14T22:55:07Z",
+      "side": 1,
+      "message": "I\u0027m not sure I\u0027m sold on this being a cleaner syntax.  To me it seems quite confusing - action is a property, but also the name of an extension method.  It\u0027s especially confusing because, as a function type, the property itself can be invoked (albeit with different, incompatible parameters).  I think we should stick to either setters or builder methods, not mix the two.",
+      "revId": "68b1c94816897505f499bb8a8222339162833f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
