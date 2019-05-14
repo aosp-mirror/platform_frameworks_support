@@ -16,13 +16,16 @@
 
 package androidx.ui.material.studies
 
+import androidx.compose.composer
+import androidx.compose.Children
+import androidx.compose.Composable
+import androidx.compose.ambient
+import androidx.compose.unaryPlus
+import androidx.ui.core.ContextAmbient
+import androidx.ui.core.Draw
 import androidx.ui.layout.FlexColumn
 import androidx.ui.material.surface.Surface
 import androidx.ui.material.themeColor
-import androidx.compose.Children
-import androidx.compose.Composable
-import androidx.compose.composer
-import androidx.compose.unaryPlus
 
 /**
  * This file contains Material components that are needed to build the Rally app and not
@@ -34,12 +37,28 @@ import androidx.compose.unaryPlus
 fun Scaffold(appBar: @Composable() () -> Unit, @Children children: @Composable() () -> Unit) {
     FlexColumn {
         inflexible {
-            appBar()
+            Surface(color = +themeColor { surface }) {
+                appBar()
+            }
         }
         expanded(flex = 1.0f) {
-            Surface(color = +themeColor{ surface }) {
+            Surface(color = +themeColor { surface }) {
                 children()
             }
         }
+    }
+}
+
+@Composable
+fun Icon(id: Int, alpha: Float = 1.0f) {
+    val context = +ambient(ContextAmbient)
+    val drawable = context.resources.getDrawable(id, null)
+    drawable.alpha = (255 * alpha).toInt()
+
+    Draw { canvas, parentSize ->
+        drawable.setBounds(
+            0, 0, parentSize.width.value.toInt(), parentSize.height.value.toInt()
+        )
+        drawable.draw(canvas.toFrameworkCanvas())
     }
 }

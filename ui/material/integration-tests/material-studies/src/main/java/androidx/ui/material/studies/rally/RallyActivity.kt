@@ -18,19 +18,18 @@ package androidx.ui.material.studies.rally
 
 import android.app.Activity
 import android.os.Bundle
-import androidx.ui.core.CraneWrapper
-import androidx.ui.core.Text
-import androidx.ui.core.dp
-import androidx.ui.layout.Column
-import androidx.ui.layout.HeightSpacer
-import androidx.ui.layout.Padding
-import androidx.ui.layout.Row
-import androidx.ui.material.studies.Scaffold
-import androidx.ui.material.themeTextStyle
-import androidx.compose.Composable
 import androidx.compose.composer
+import androidx.compose.Composable
 import androidx.compose.setContent
+import androidx.compose.state
 import androidx.compose.unaryPlus
+import androidx.ui.core.CraneWrapper
+import androidx.ui.material.studies.R
+import androidx.ui.material.studies.Scaffold
+import androidx.ui.material.studies.rally.accounts.accountsTab
+import androidx.ui.material.studies.rally.bills.billsTab
+import androidx.ui.material.studies.rally.components.Tab
+import androidx.ui.material.studies.rally.components.TabLayout
 
 /**
  * This Activity recreates the Rally Material Study from
@@ -49,33 +48,36 @@ class RallyActivity : Activity() {
     @Composable
     fun RallyApp() {
         RallyTheme {
-            Scaffold(appBar = { RallyAppBar() }) {
-                RallyBody()
+            Scaffold(appBar = { /* Rally doesn't have an AppBar */ }) {
+                RallyDashboardScreen()
             }
         }
     }
 
     @Composable
-    fun RallyAppBar() {
-        // TODO: Transform to tabs
-        Row {
-            // Icon()
-            Text(text = "Overview", style = +themeTextStyle{ h4 })
-            // TODO: Other items
-        }
-    }
-}
+    fun RallyDashboardScreen() {
+        val state = +state { 0 }
 
-@Composable
-fun RallyBody() {
-    Padding(padding = 16.dp) {
-        Column {
-            // TODO: scrolling container
-            RallyAlertCard()
-            HeightSpacer(height = 10.dp)
-            RallyAccountsCard()
-            HeightSpacer(height = 10.dp)
-            RallyBillsCard()
-        }
+        val tabs = listOf(
+            overviewTab,
+            accountsTab,
+            billsTab,
+            Tab(
+                title = "BUDGET",
+                icon = R.drawable.ic_bar_graph
+            ) {},
+            Tab(
+                title = "SETTINGS",
+                icon = R.drawable.ic_settings
+            ) {}
+        )
+
+        TabLayout(
+            selectedItem = state.value,
+            items = tabs,
+            onSelected = {
+                state.value = it
+            }
+        )
     }
 }
