@@ -160,6 +160,24 @@
     },
     {
       "key": {
+        "uuid": "a2b5cb3e_50891df9",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/ImageCaptureExtender.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-05-14T12:16:50Z",
+      "side": 1,
+      "message": "Oh, not really need to post the deinit() to main thread, just the same like you mentioned, we have already keep use synchronized and mLock to protect the call sequence in our part.\n\nThis is only because if we post to the same thread, might can avoid some potential thread safe issue in vendor part. \nIf we don\u0027t post the deinit(), we might see something looks like:\n/////////////////////\nunbindAll() called.\nHdrImageCapture.onDeInit() called in camera thread  \u003c\u003d it was triggered by onDisableSession()\nHdrPreview.onDeinit() called in main thread \u003c\u003d it was triggered by unbind()\n/////////////////////\nConsider that was invoked on different object, it might be ok to callback to the different thread. Please let me know if we would like to keep the post to main thread code?",
+      "parentUuid": "a7e991a6_5eee3bc6",
+      "revId": "70eccbb390a74d40cd9a83db05906c81ea1a4ff6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ff92272c_76e0ab4b",
         "filename": "camera/extensions/src/main/java/androidx/camera/extensions/PreviewExtender.java",
         "patchSetId": 7
