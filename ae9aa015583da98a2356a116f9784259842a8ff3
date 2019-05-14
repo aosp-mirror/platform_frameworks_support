@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a872bb3_7951fcb3",
+        "filename": "room/common/src/main/java/androidx/room/Entity.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1106303
+      },
+      "writtenOn": "2019-05-14T13:41:58Z",
+      "side": 1,
+      "message": "Can we please add a test to check if all annotations have CLASS retention. You can do something like:\n\n  RetentionPolicy value \u003d Entiry.class.getAnnotation(Retention.class).value();\n  asset value \u003d\u003d RetentionPolicy.CLASS",
+      "range": {
+        "startLine": 72,
+        "startChar": 18,
+        "endLine": 72,
+        "endChar": 24
+      },
+      "revId": "ae9aa015583da98a2356a116f9784259842a8ff3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
