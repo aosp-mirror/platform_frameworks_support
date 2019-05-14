@@ -16,6 +16,24 @@
       "revId": "b0b32d3f4a3d9700a91b47b3496d24dc1b67767e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91b30098_8f15e1ba",
+        "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/Adb.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-05-14T21:36:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ad858a3f_d6444670",
+      "revId": "b0b32d3f4a3d9700a91b47b3496d24dc1b67767e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
