@@ -163,7 +163,7 @@ private object RootKey
 
 private class Invalidation(
     val scope: RecomposeScope,
-    val location: Int
+    var location: Int
 )
 
 internal class RecomposeScope(val compose: (invalidate: (sync: Boolean) -> Unit) -> Unit) {
@@ -199,7 +199,9 @@ open class Composer<N>(
     private val entersStack = IntStack()
     private val insertedProviders = Stack<Ambient.Holder<*>>()
     private val invalidateStack = Stack<RecomposeScope>()
-    internal var ambientReference: CompositionReference? = null
+    // remove when subcompositions will share same Composer
+    private var selfReference: CompositionReference? = null
+    internal var parentReference: CompositionReference? = null
 
     private val changesAppliedObservers = mutableListOf<() -> Unit>()
 
@@ -215,6 +217,11 @@ open class Composer<N>(
 
     internal fun removeChangesAppliedObserver(l: () -> Unit) {
         changesAppliedObservers.remove(l)
+    }
+
+    internal fun hasPendingChanges(): Boolean {
+        return invalidations.isNotEmpty() ||
+                selfReference?.childComposers()?.any { it.hasPendingChanges() } ?: false
     }
 
     // Temporary to allow staged changes. This will move into a sub-object that represents an active
@@ -265,10 +272,16 @@ open class Composer<N>(
             }
         }
 
+        val invalidationAnchors = invalidations.map { slotTable.anchor(it.location) to it }
+
         // Apply all changes
         slotTable.write { slots ->
             changes.forEach { change -> change(applier, slots, manager) }
             changes.clear()
+        }
+
+        for ((anchor, invalidation) in invalidationAnchors) {
+            invalidation.location = slotTable.anchorLocation(anchor)
         }
 
         // Send lifecycle leaves
@@ -453,6 +466,7 @@ open class Composer<N>(
         } else {
             ref = AmbientReferenceImpl(invalidateStack.peek())
             updateValue(ref)
+            selfReference = ref
         }
         endGroup()
 
@@ -488,7 +502,7 @@ open class Composer<N>(
             current--
         }
 
-        val ref = ambientReference
+        val ref = parentReference
 
         if (ref != null) {
             return ref.getAmbient(key)
@@ -520,7 +534,7 @@ open class Composer<N>(
             index -= 1
         }
 
-        val ref = ambientReference
+        val ref = parentReference
 
         if (ref != null) {
             return ref.getAmbient(key)
@@ -959,13 +973,13 @@ open class Composer<N>(
                 slots.beginEmpty()
                 scope.invalidate
             } else {
+                invalidations.removeLocation(slots.current)
                 slots.startGroup()
                 @Suppress("UNCHECKED_CAST")
                 val scope = slots.next() as RecomposeScope
                 invalidateStack.push(scope)
                 recordStart(START_GROUP)
                 skipValue()
-                invalidations.removeLocation(slots.current - 1)
                 scope.invalidate
             }
             enterGroup(START_GROUP, null, null)
@@ -1204,10 +1218,12 @@ open class Composer<N>(
 
         override fun invalidate() {
             // continue invalidating up the spine of AmbientReferences
-            ambientReference?.invalidate()
+            parentReference?.invalidate()
 
             scope.invalidate?.invoke(false)
         }
+
+        override fun childComposers() = composers
 
         override fun <T> getAmbient(key: Ambient<T>): T {
             val anchor = scope.anchor
