@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "af9762c1_531479ff",
+        "filename": "slices/view/src/main/java/androidx/slice/widget/LocationBasedViewTracker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1092253
+      },
+      "writtenOn": "2019-05-14T19:37:53Z",
+      "side": 1,
+      "message": "It seems like this keeps track of whatever view it\u0027s created with. How do you take into account that focus may move around?",
+      "range": {
+        "startLine": 57,
+        "startChar": 55,
+        "endLine": 57,
+        "endChar": 69
+      },
+      "revId": "f5801c75782ad41fee900bdd3df1abdc9f4bb9b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
