@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d161ff93_991f0fe2",
+        "filename": "media2/common/src/main/java/androidx/media2/common/SessionPlayer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 936,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-14T13:07:08Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "99270c59_cb1f2d39",
+      "range": {
+        "startLine": 936,
+        "startChar": 18,
+        "endLine": 936,
+        "endChar": 32
+      },
+      "revId": "7ec7a923cd7a5dde72d9c5143cfc2b640b221668",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ef1f20e4_b63e9150",
         "filename": "media2/common/src/main/java/androidx/media2/common/SessionPlayer.java",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2019-05-14T10:00:13Z",
       "side": 1,
       "message": "Shouldn\u0027t we always return mNonUpcastItem?",
+      "range": {
+        "startLine": 993,
+        "startChar": 20,
+        "endLine": 993,
+        "endChar": 34
+      },
+      "revId": "7ec7a923cd7a5dde72d9c5143cfc2b640b221668",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38ffd8fc_f0f90b2f",
+        "filename": "media2/common/src/main/java/androidx/media2/common/SessionPlayer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 993,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-14T13:07:08Z",
+      "side": 1,
+      "message": "+1 if \"mNonUpCastItem \u003d mUpCastItem;\" would be added to onPostParceling",
+      "parentUuid": "ef1f20e4_b63e9150",
       "range": {
         "startLine": 993,
         "startChar": 20,
@@ -110,6 +158,29 @@
         "startChar": 28,
         "endLine": 1077,
         "endChar": 33
+      },
+      "revId": "7ec7a923cd7a5dde72d9c5143cfc2b640b221668",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79542190_ad717220",
+        "filename": "media2/common/src/main/java/androidx/media2/common/SessionPlayer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1095,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-14T13:07:08Z",
+      "side": 1,
+      "message": "As I mentioned in the other CL, null mLanguage should be handled because it can\u0027t be guaranteed to be non-null because someone can make a malicious parcel that has null mLanguage and send the parcel.\n\nBTW, as Hyundo mentioned above, if `mLanguage \u003d \"und\"` would be removed, it could be just `mLanguage !\u003d null` like mMimeType.",
+      "range": {
+        "startLine": 1095,
+        "startChar": 16,
+        "endLine": 1095,
+        "endChar": 40
       },
       "revId": "7ec7a923cd7a5dde72d9c5143cfc2b640b221668",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
