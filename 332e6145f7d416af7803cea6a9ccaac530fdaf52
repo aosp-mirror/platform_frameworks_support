@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0d732367_da79af18",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentManagerImpl.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 3098,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-05-14T19:41:57Z",
+      "side": 1,
+      "message": "Before we used the mHasMenu and mMenuVisible - can we continue to do that? The methods aren\u0027t final and I wouldn\u0027t want to trigger any extra functionality they\u0027ve accidentally put into those methods.",
+      "range": {
+        "startLine": 3098,
+        "startChar": 16,
+        "endLine": 3098,
+        "endChar": 55
+      },
+      "revId": "332e6145f7d416af7803cea6a9ccaac530fdaf52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
