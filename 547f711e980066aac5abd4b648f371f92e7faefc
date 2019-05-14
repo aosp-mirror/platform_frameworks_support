@@ -46,6 +46,30 @@
       "revId": "547f711e980066aac5abd4b648f371f92e7faefc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5d3168e6_5ca8d9db",
+        "filename": "fragment/src/main/java/androidx/fragment/app/Fragment.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2717,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-05-14T18:57:15Z",
+      "side": 1,
+      "message": "https://android-review.googlesource.com/960835 for limiting the dispatch",
+      "parentUuid": "018065e0_5829b7fb",
+      "range": {
+        "startLine": 2717,
+        "startChar": 38,
+        "endLine": 2717,
+        "endChar": 78
+      },
+      "revId": "547f711e980066aac5abd4b648f371f92e7faefc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
