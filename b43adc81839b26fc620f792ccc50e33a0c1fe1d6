@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f76f4a92_b6b91f6e",
+        "filename": "media2/widget/src/androidTest/java/androidx/media2/widget/MediaControlViewTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-14T04:38:06Z",
+      "side": 1,
+      "message": "Q) isDisplayed? Because it is checking NOT to be displayed. (ditto for others)",
+      "range": {
+        "startLine": 382,
+        "startChar": 56,
+        "endLine": 382,
+        "endChar": 77
+      },
+      "revId": "b43adc81839b26fc620f792ccc50e33a0c1fe1d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
