@@ -285,12 +285,18 @@ public final class Camera2CameraControl implements CameraControl {
         }
 
         if (!torch) {
+            // If it only uses AE_MODE_ON_ALWAYS_FLASH + FLASH_MODE_OFF to update the repeating
+            // request, it will not be able to turn off the torch on Pixel 2.
+            // The experimental results show that it can send a capture request with AE_MODE_ON
+            // + FLASH_MODE_OFF to turn off the torch on Pixel 2.
             CaptureConfig.Builder singleRequestBuilder = createCaptureBuilderWithSharedOptions();
             singleRequestBuilder.setTemplateType(getDefaultTemplate());
             singleRequestBuilder.setUseRepeatingSurface(true);
             Camera2Config.Builder configBuilder = new Camera2Config.Builder();
             configBuilder.setCaptureRequestOption(CaptureRequest.CONTROL_AE_MODE,
                     CaptureRequest.CONTROL_AE_MODE_ON);
+            configBuilder.setCaptureRequestOption(CaptureRequest.FLASH_MODE,
+                    CaptureRequest.FLASH_MODE_OFF);
             singleRequestBuilder.addImplementationOptions(configBuilder.build());
             notifyCaptureRequests(Collections.singletonList(singleRequestBuilder.build()));
         }
