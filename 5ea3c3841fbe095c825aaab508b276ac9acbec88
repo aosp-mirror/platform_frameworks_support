@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a2dfbe8f_1c13278c",
+        "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/VectorGraphicsActivity.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-05-14T18:15:27Z",
+      "side": 1,
+      "message": "This is used below. There shouldn\u0027t be a suppression here.",
+      "range": {
+        "startLine": 97,
+        "startChar": 43,
+        "endLine": 97,
+        "endChar": 72
+      },
+      "revId": "5ea3c3841fbe095c825aaab508b276ac9acbec88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "59dc4522_d027cc0a",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/vectorgraphics/compat/VectorImage.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-05-14T18:15:27Z",
+      "side": 1,
+      "message": "should this be internal? Everything in it is internal.",
+      "range": {
+        "startLine": 188,
+        "startChar": 0,
+        "endLine": 188,
+        "endChar": 5
+      },
+      "revId": "5ea3c3841fbe095c825aaab508b276ac9acbec88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad5c3d8a_eacbd865",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/vectorgraphics/compat/VectorImage.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-05-14T18:15:27Z",
+      "side": 1,
+      "message": "We use capitals with composable functions:\n\nDrawVector()",
+      "range": {
+        "startLine": 245,
+        "startChar": 4,
+        "endLine": 245,
+        "endChar": 14
+      },
+      "revId": "5ea3c3841fbe095c825aaab508b276ac9acbec88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1651d6f3_9f5c68ae",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/vectorgraphics/compat/VectorImage.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-05-14T18:15:27Z",
+      "side": 1,
+      "message": "same here.",
+      "range": {
+        "startLine": 257,
+        "startChar": 12,
+        "endLine": 257,
+        "endChar": 29
+      },
+      "revId": "5ea3c3841fbe095c825aaab508b276ac9acbec88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
