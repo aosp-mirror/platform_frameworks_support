@@ -16,6 +16,7 @@
 
 package androidx.browser.customtabs;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -23,6 +24,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.SparseArray;
 import android.view.View;
@@ -279,6 +281,20 @@ public final class CustomTabsIntent {
             "androidx.browser.customtabs.extra.COLOR_SCHEME_PARAMS";
 
     /**
+     * Extra that contains the color of button icons on the toolbar.
+     * See {@link Builder#setToolbarButtonsColor}.
+     */
+    public static final String EXTRA_TOOLBAR_BUTTONS_COLOR =
+            "androidx.browser.customtabs.extra.TOOLBAR_BUTTONS_COLOR";
+
+    /**
+     * Extra that contains the color of the navigation bar.
+     * See {@link Builder#setNavigationBarColor}.
+     */
+    public static final String EXTRA_NAVIGATION_BAR_COLOR =
+            "androidx.browser.customtabs.extra.NAVIGATION_BAR_COLOR";
+
+    /**
      * Key that specifies the unique ID for an action button. To make a button to show on the
      * toolbar, use {@link #TOOLBAR_ACTION_BUTTON_ID} as its ID.
      */
@@ -514,6 +530,36 @@ public final class CustomTabsIntent {
         @NonNull
         public Builder setSecondaryToolbarColor(@ColorInt int color) {
             mDefaultColorSchemeBuilder.setSecondaryToolbarColor(color);
+            return this;
+        }
+
+        /**
+         * Sets the color of toolbar buttons. The color is applied to all buttons, including
+         * the action button {@link #setActionButton}. If toolbar buttons color is set, shouldTint
+         * parameter of the action button is ignored.
+         *
+         * Should not be the same as toolbar color. Browsers may ignore the custom toolbar button
+         * color if it is the same as or close to the custom toolbar color.
+         *
+         * Can be overridden for particular color schemes, see {@link #setColorSchemeParams}.
+         *
+         * @param color The color for toolbar buttons.
+         */
+        @NonNull
+        public Builder setToolbarButtonsColor(@ColorInt int color) {
+            mDefaultColorSchemeBuilder.setToolbarButtonsColor(color);
+            return this;
+        }
+
+        /**
+         * Sets the navigation bar color. Only available on Android O and above.
+         *
+         * @param color The color for navigation bar.
+         */
+        @TargetApi(Build.VERSION_CODES.O)
+        @NonNull
+        public Builder setNavigationBarColor(@ColorInt int color) {
+            mDefaultColorSchemeBuilder.setNavigationBarColor(color);
             return this;
         }
 
