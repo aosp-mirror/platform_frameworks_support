@@ -23,7 +23,7 @@ import org.gradle.api.logging.LogLevel
 import org.gradle.api.logging.Logger
 import java.util.concurrent.TimeUnit
 
-class Adb constructor(project: Project) {
+class Adb {
     data class ProcessResult(
         val exitValue: Int,
         val stdout: String,
@@ -33,10 +33,15 @@ class Adb constructor(project: Project) {
     private val adbPath: String
     private val logger: Logger
 
-    init {
+    constructor(project: Project) {
         val extension = project.extensions.getByType(BaseExtension::class.java)
         adbPath = extension.adbExecutable.absolutePath
         logger = project.logger
+    }
+
+    constructor(adbPath: String, logger: Logger) {
+        this.adbPath = adbPath
+        this.logger = logger
     }
 
     fun execSync(
