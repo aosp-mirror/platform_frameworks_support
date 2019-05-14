@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "ff7d745a_b0574cfd",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/checkapi/CheckApi.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1470382
+      },
+      "writtenOn": "2019-05-14T01:01:28Z",
+      "side": 0,
+      "message": "Does the docsDir property get added anywhere else? Just wondering if it is depended on by anything else.",
+      "revId": "05d893a28fcc348b1c037e97b6f97f671c2e925e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "06754d11_438b511b",
         "filename": "buildSrc/src/main/kotlin/androidx/build/jdiff/JDiffTask.kt",
         "patchSetId": 1
