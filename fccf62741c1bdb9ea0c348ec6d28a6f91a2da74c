@@ -118,6 +118,30 @@
     },
     {
       "key": {
+        "uuid": "ecf13856_4eab78b3",
+        "filename": "car/cluster/proto/NavigationState2.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2019-05-14T00:00:08Z",
+      "side": 1,
+      "message": "I don\u0027t think so - goog.protobuf.Timestamp is part of the open source distribution too AFAIK",
+      "parentUuid": "3545b2f1_cd919bfb",
+      "range": {
+        "startLine": 151,
+        "startChar": 4,
+        "endLine": 151,
+        "endChar": 30
+      },
+      "revId": "fccf62741c1bdb9ea0c348ec6d28a6f91a2da74c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e3a718d7_51895a76",
         "filename": "car/cluster/proto/NavigationState2.proto",
         "patchSetId": 1
