@@ -31,4 +31,5 @@ interface CompositionReference {
     fun invalidate()
     fun <T> invalidateConsumers(key: Ambient<T>)
     fun <N> registerComposer(composer: Composer<N>)
+    fun childComposers(): Collection<Composer<*>>
 }

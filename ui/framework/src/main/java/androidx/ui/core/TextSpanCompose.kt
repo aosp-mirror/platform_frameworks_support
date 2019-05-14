@@ -16,6 +16,7 @@
 
 package androidx.ui.core
 
+import androidx.compose.Recomposer
 import androidx.compose.Children
 import androidx.compose.Component
 import androidx.compose.Composable
@@ -85,15 +86,15 @@ fun compose(
         root = Root()
         setRoot(container, root)
 
-        val cc = CompositionContext.create(container, root, parent) {
-            TextSpanComposer(container, this).also { composer = it }
+        val cc = CompositionContext.prepare(root, parent) {
+            TextSpanComposer(container, Recomposer.current()).also { composer = it }
         }
         val scope = TextSpanScope(TextSpanComposition(composer))
 
         root.scope = scope
         root.composable = composable
 
-        cc.recompose()
+        cc.compose()
     } else {
         root.composable = composable
         root.update()
