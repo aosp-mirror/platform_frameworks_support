@@ -16,6 +16,24 @@
       "revId": "95548a55974c3fce52638356c93bba7c23582d19",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10b758e2_3fc9722d",
+        "filename": "benchmark/src/main/java/androidx/benchmark/ResultWriter.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-05-14T21:47:54Z",
+      "side": 1,
+      "message": "Done - I had mistakenly assumed studio output was tied to this.",
+      "parentUuid": "22424b16_eda08c1b",
+      "revId": "95548a55974c3fce52638356c93bba7c23582d19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
