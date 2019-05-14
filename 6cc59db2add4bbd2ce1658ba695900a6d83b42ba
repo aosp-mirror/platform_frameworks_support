@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1e992109_e676fd38",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/Camera2CameraControl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-14T18:25:52Z",
+      "side": 1,
+      "message": "Why is that we turn off the flash mode if the torch is on?\nHow is this related to the the issue of having the same parameters?",
+      "revId": "6cc59db2add4bbd2ce1658ba695900a6d83b42ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
