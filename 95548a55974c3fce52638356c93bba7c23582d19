@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "22424b16_eda08c1b",
+        "filename": "benchmark/src/main/java/androidx/benchmark/ResultWriter.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-05-14T17:59:47Z",
+      "side": 1,
+      "message": "do we still want to append to the report, if we\u0027re not outputting it?",
+      "revId": "95548a55974c3fce52638356c93bba7c23582d19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
