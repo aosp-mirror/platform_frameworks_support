@@ -16,7 +16,9 @@
 
 package androidx.browser.customtabs;
 
+import static androidx.browser.customtabs.CustomTabsIntent.EXTRA_NAVIGATION_BAR_COLOR;
 import static androidx.browser.customtabs.CustomTabsIntent.EXTRA_SECONDARY_TOOLBAR_COLOR;
+import static androidx.browser.customtabs.CustomTabsIntent.EXTRA_TOOLBAR_BUTTONS_COLOR;
 import static androidx.browser.customtabs.CustomTabsIntent.EXTRA_TOOLBAR_COLOR;
 
 import android.os.Bundle;
@@ -41,12 +43,26 @@ public final class CustomTabColorSchemeParams {
      */
     @Nullable @ColorInt public final Integer secondaryToolbarColor;
 
+    /**
+     * Toolbar buttons color. See {@link CustomTabsIntent.Builder#setToolbarButtonsColor(int)}.
+     */
+    @Nullable @ColorInt public final Integer toolbarButtonsColor;
+
+    /**
+     * Navigation bar color. See {@link CustomTabsIntent.Builder#setNavigationBarColor(int)}.
+     */
+    @Nullable @ColorInt public final Integer navigationBarColor;
+
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     CustomTabColorSchemeParams(
             @Nullable @ColorInt Integer toolbarColor,
-            @Nullable @ColorInt Integer secondaryToolbarColor) {
+            @Nullable @ColorInt Integer secondaryToolbarColor,
+            @Nullable @ColorInt Integer toolbarButtonsColor,
+            @Nullable @ColorInt Integer navigationBarColor) {
         this.toolbarColor = toolbarColor;
         this.secondaryToolbarColor = secondaryToolbarColor;
+        this.toolbarButtonsColor = toolbarButtonsColor;
+        this.navigationBarColor = navigationBarColor;
     }
 
     /**
@@ -62,6 +78,12 @@ public final class CustomTabColorSchemeParams {
         }
         if (secondaryToolbarColor != null) {
             bundle.putInt(EXTRA_SECONDARY_TOOLBAR_COLOR, secondaryToolbarColor);
+        }
+        if (toolbarButtonsColor != null) {
+            bundle.putInt(EXTRA_TOOLBAR_BUTTONS_COLOR, toolbarButtonsColor);
+        }
+        if (navigationBarColor != null) {
+            bundle.putInt(EXTRA_NAVIGATION_BAR_COLOR, navigationBarColor);
         }
         return bundle;
     }
@@ -79,7 +101,9 @@ public final class CustomTabColorSchemeParams {
         // bundle.containsKey().
         return new CustomTabColorSchemeParams(
                 (Integer) bundle.get(EXTRA_TOOLBAR_COLOR),
-                (Integer) bundle.get(EXTRA_SECONDARY_TOOLBAR_COLOR));
+                (Integer) bundle.get(EXTRA_SECONDARY_TOOLBAR_COLOR),
+                (Integer) bundle.get(EXTRA_TOOLBAR_BUTTONS_COLOR),
+                (Integer) bundle.get(EXTRA_NAVIGATION_BAR_COLOR));
     }
 
     /**
@@ -90,7 +114,9 @@ public final class CustomTabColorSchemeParams {
         return new CustomTabColorSchemeParams(
                 toolbarColor == null ? defaults.toolbarColor : toolbarColor,
                 secondaryToolbarColor == null ? defaults.secondaryToolbarColor
-                        : secondaryToolbarColor);
+                        : secondaryToolbarColor,
+                toolbarButtonsColor == null ? defaults.toolbarButtonsColor : toolbarButtonsColor,
+                navigationBarColor == null ? defaults.navigationBarColor : navigationBarColor);
     }
 
     /**
@@ -99,6 +125,8 @@ public final class CustomTabColorSchemeParams {
     public static final class Builder {
         @Nullable @ColorInt private Integer mToolbarColor;
         @Nullable @ColorInt private Integer mSecondaryToolbarColor;
+        @Nullable @ColorInt private Integer mToolbarButtonsColor;
+        @Nullable @ColorInt private Integer mNavigationBarColor;
 
         /**
          * @see CustomTabsIntent.Builder#setToolbarColor(int)
@@ -119,12 +147,31 @@ public final class CustomTabColorSchemeParams {
         }
 
         /**
+         * @see CustomTabsIntent.Builder#setToolbarButtonsColor(int)
+         */
+        @NonNull
+        public Builder setToolbarButtonsColor(@ColorInt int color) {
+            mToolbarButtonsColor = color;
+            return this;
+        }
+
+        /**
+         * @see CustomTabsIntent.Builder#setNavigationBarColor(int)
+         */
+        @NonNull
+        public Builder setNavigationBarColor(@ColorInt int color) {
+            mNavigationBarColor = color;
+            return this;
+        }
+
+        /**
          * Combines all the options that have been into a {@link CustomTabColorSchemeParams}
          * object.
          */
         @NonNull
         public CustomTabColorSchemeParams build() {
-            return new CustomTabColorSchemeParams(mToolbarColor, mSecondaryToolbarColor);
+            return new CustomTabColorSchemeParams(mToolbarColor, mSecondaryToolbarColor,
+                    mToolbarButtonsColor, mNavigationBarColor);
         }
     }
 }
