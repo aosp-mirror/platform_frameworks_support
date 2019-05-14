@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1ba03220_dc9e252a",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaBrowser.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-14T05:59:27Z",
+      "side": 1,
+      "message": "I thought that it was intentionally having two empty lines. Anyway, removed.",
+      "parentUuid": "c70ea6ed_cf72e369",
+      "revId": "9eb7457abb7ad4efc639f95400fcce39a3948592",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "180b16a6_f4e75b6c",
         "filename": "media2/session/src/main/java/androidx/media2/session/MediaControllerImplBase.java",
         "patchSetId": 2
@@ -39,6 +57,30 @@
       "revId": "9eb7457abb7ad4efc639f95400fcce39a3948592",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ea6bf1e_8f698233",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaControllerImplBase.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-14T05:59:27Z",
+      "side": 1,
+      "message": "I think it\u0027s consistent because getInstance() is only used for casting it as MediaBrowser. Please let me keep mInstance as-is.",
+      "parentUuid": "180b16a6_f4e75b6c",
+      "range": {
+        "startLine": 225,
+        "startChar": 8,
+        "endLine": 225,
+        "endChar": 17
+      },
+      "revId": "9eb7457abb7ad4efc639f95400fcce39a3948592",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
