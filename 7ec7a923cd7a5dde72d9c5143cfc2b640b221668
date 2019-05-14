@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "384e7311_a778473b",
+        "filename": "media2/common/src/main/java/androidx/media2/common/SessionPlayer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 936,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-14T14:29:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d161ff93_991f0fe2",
+      "range": {
+        "startLine": 936,
+        "startChar": 18,
+        "endLine": 936,
+        "endChar": 32
+      },
+      "revId": "7ec7a923cd7a5dde72d9c5143cfc2b640b221668",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ef1f20e4_b63e9150",
         "filename": "media2/common/src/main/java/androidx/media2/common/SessionPlayer.java",
         "patchSetId": 2
@@ -96,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "554faf09_54a3e4ab",
+        "filename": "media2/common/src/main/java/androidx/media2/common/SessionPlayer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 993,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-14T14:29:17Z",
+      "side": 1,
+      "message": "Wouldn\u0027t that make TrackInfo unnecessarily hold two MediaItem instances?\nAnyways, changed to return mMediaItem..",
+      "parentUuid": "38ffd8fc_f0f90b2f",
+      "range": {
+        "startLine": 993,
+        "startChar": 20,
+        "endLine": 993,
+        "endChar": 34
+      },
+      "revId": "7ec7a923cd7a5dde72d9c5143cfc2b640b221668",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eae03c31_33324347",
         "filename": "media2/common/src/main/java/androidx/media2/common/SessionPlayer.java",
         "patchSetId": 2
@@ -116,6 +164,30 @@
       "revId": "7ec7a923cd7a5dde72d9c5143cfc2b640b221668",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91ac8780_1eeab2e7",
+        "filename": "media2/common/src/main/java/androidx/media2/common/SessionPlayer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1030,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-14T14:29:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eae03c31_33324347",
+      "range": {
+        "startLine": 1030,
+        "startChar": 29,
+        "endLine": 1030,
+        "endChar": 41
+      },
+      "revId": "7ec7a923cd7a5dde72d9c5143cfc2b640b221668",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -142,6 +214,30 @@
     },
     {
       "key": {
+        "uuid": "e3380e63_27f10b1b",
+        "filename": "media2/common/src/main/java/androidx/media2/common/SessionPlayer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1059,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-14T14:29:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9458f9a0_4a844606",
+      "range": {
+        "startLine": 1059,
+        "startChar": 29,
+        "endLine": 1059,
+        "endChar": 41
+      },
+      "revId": "7ec7a923cd7a5dde72d9c5143cfc2b640b221668",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "649185fc_d16a4b98",
         "filename": "media2/common/src/main/java/androidx/media2/common/SessionPlayer.java",
         "patchSetId": 2
@@ -165,6 +261,30 @@
     },
     {
       "key": {
+        "uuid": "4a24588f_b9457c70",
+        "filename": "media2/common/src/main/java/androidx/media2/common/SessionPlayer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1077,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-14T14:29:17Z",
+      "side": 1,
+      "message": "Yes, actually we can just send null.. Thanks for pointing that out.",
+      "parentUuid": "649185fc_d16a4b98",
+      "range": {
+        "startLine": 1077,
+        "startChar": 28,
+        "endLine": 1077,
+        "endChar": 33
+      },
+      "revId": "7ec7a923cd7a5dde72d9c5143cfc2b640b221668",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "79542190_ad717220",
         "filename": "media2/common/src/main/java/androidx/media2/common/SessionPlayer.java",
         "patchSetId": 2
@@ -185,6 +305,30 @@
       "revId": "7ec7a923cd7a5dde72d9c5143cfc2b640b221668",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a90b8ef_5287ee8f",
+        "filename": "media2/common/src/main/java/androidx/media2/common/SessionPlayer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1095,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-14T14:29:17Z",
+      "side": 1,
+      "message": "Good point. mLanguage \u003d \"und\" has been removed, so this has been changed to \"mLanguage !\u003d null\"",
+      "parentUuid": "79542190_ad717220",
+      "range": {
+        "startLine": 1095,
+        "startChar": 16,
+        "endLine": 1095,
+        "endChar": 40
+      },
+      "revId": "7ec7a923cd7a5dde72d9c5143cfc2b640b221668",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
