@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "f14eb8f1_b8428a31",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CaptureSession.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-05-14T08:50:37Z",
+      "side": 1,
+      "message": "I might submit this change first if CL is ready.",
+      "parentUuid": "9d3cc4ea_2c648d95",
+      "revId": "fdaf5e97590716133ee124bdb3d3742d30a47b84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9284adf1_a467dde9",
         "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CaptureSession.java",
         "patchSetId": 4
@@ -122,6 +140,24 @@
       "revId": "fdaf5e97590716133ee124bdb3d3742d30a47b84",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96a084e4_2fd9fa8f",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CaptureConfig.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-05-14T08:50:37Z",
+      "side": 1,
+      "message": "Got it, java doc modify was done.\nCreate b/132664086 to trace the change and replace this by new implementation once aosp/955625 has been submitted..",
+      "parentUuid": "2213ccbd_ec282a7a",
+      "revId": "fdaf5e97590716133ee124bdb3d3742d30a47b84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "8043e715_f7309b77",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CaptureSession.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-05-14T08:50:37Z",
+      "side": 1,
+      "message": "Okay, I might submit this change first if CL is ready.",
+      "parentUuid": "232eb429_f007b1cd",
+      "revId": "804eee788ef8fe46c4fb70da55503f70f931d5bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "906f4791_a7cf85f3",
         "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CaptureSession.java",
         "patchSetId": 1
@@ -122,6 +140,24 @@
       "revId": "804eee788ef8fe46c4fb70da55503f70f931d5bc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c52f87ca_14eb0d7c",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CaptureSession.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 687,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-05-14T08:50:37Z",
+      "side": 1,
+      "message": "I might submit this change first if CL is ready.",
+      "parentUuid": "619d643d_b5a7bcda",
+      "revId": "804eee788ef8fe46c4fb70da55503f70f931d5bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

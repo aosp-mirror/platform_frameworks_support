@@ -52,6 +52,24 @@
       "revId": "1a8eae71a197336eb0a38cf096fc140a3be9936e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "43d9e62d_38a0f2da",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CaptureSession.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-05-14T08:50:37Z",
+      "side": 1,
+      "message": "Got it! Create b/132664086 to trace this item.\nWe will need to remove this workaround after aosp/955625 has been submitted.",
+      "parentUuid": "d897c4bf_a92581a1",
+      "revId": "1a8eae71a197336eb0a38cf096fc140a3be9936e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
