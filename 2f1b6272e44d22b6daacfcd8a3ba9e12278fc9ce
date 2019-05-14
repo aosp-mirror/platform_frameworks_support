@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b1637a63_bb3411b6",
+        "filename": "project.config",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1086523
+      },
+      "writtenOn": "2019-05-14T23:53:34Z",
+      "side": 0,
+      "message": "I think the request was to open up the whole namespace? By removing the grant, this would remove their ability to create tags.",
+      "revId": "2f1b6272e44d22b6daacfcd8a3ba9e12278fc9ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
