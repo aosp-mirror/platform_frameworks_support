@@ -160,6 +160,75 @@
       "revId": "8b0affb23511a7d0ee514a8f954033fe84c5480f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aad13be0_cd55951f",
+        "filename": "enterprise/feedback/src/test/java/androidx/enterprise/feedback/FakeKeyedAppStatesReporterTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1388071
+      },
+      "writtenOn": "2019-05-14T09:44:49Z",
+      "side": 1,
+      "message": "private?",
+      "range": {
+        "startLine": 32,
+        "startChar": 4,
+        "endLine": 32,
+        "endChar": 9
+      },
+      "revId": "8b0affb23511a7d0ee514a8f954033fe84c5480f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f48d9714_8de47160",
+        "filename": "enterprise/feedback/src/test/java/androidx/enterprise/feedback/FakeKeyedAppStatesReporterTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1388071
+      },
+      "writtenOn": "2019-05-14T09:44:49Z",
+      "side": 1,
+      "message": "Optional: could extract this into a helper method since it\u0027s used in two tests (will make it a bit easier if we add new fields). Feel free to leave it",
+      "range": {
+        "startLine": 70,
+        "startChar": 8,
+        "endLine": 76,
+        "endChar": 64
+      },
+      "revId": "8b0affb23511a7d0ee514a8f954033fe84c5480f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44bfcf91_fdd4356f",
+        "filename": "enterprise/feedback/src/test/java/androidx/enterprise/feedback/FakeKeyedAppStatesReporterTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1388071
+      },
+      "writtenOn": "2019-05-14T09:44:49Z",
+      "side": 1,
+      "message": "nit: I think this should be 8 spaces? So you\u0027ll need to wrap before .get()\nI think .isEqualTo below should be indented from this line as well\n\nsame with other cases",
+      "range": {
+        "startLine": 113,
+        "startChar": 12,
+        "endLine": 113,
+        "endChar": 22
+      },
+      "revId": "8b0affb23511a7d0ee514a8f954033fe84c5480f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
