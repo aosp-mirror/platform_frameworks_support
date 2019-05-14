@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b685bb06_d4a1b38c",
+        "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/ComplexGestureDetetorInteractionsDemo.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-05-14T01:02:55Z",
+      "side": 1,
+      "message": "I\u0027d name this List(itemNum \u003d 3) to make it more readable in the demo.",
+      "range": {
+        "startLine": 57,
+        "startChar": 19,
+        "endLine": 57,
+        "endChar": 28
+      },
+      "revId": "5dc30290ea72367d433b549c9c474d3c927069f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3065ebb8_4958d803",
+        "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/ComplexGestureDetetorInteractionsDemo.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-05-14T01:02:55Z",
+      "side": 1,
+      "message": "I find it easier to read when the fun is named based on what it would do, rather than the techinical purpose. How about PressIndicator?",
+      "range": {
+        "startLine": 63,
+        "startChar": 36,
+        "endLine": 63,
+        "endChar": 71
+      },
+      "revId": "5dc30290ea72367d433b549c9c474d3c927069f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d41db2c8_a0deec34",
+        "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/ComplexGestureDetetorInteractionsDemo.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-05-14T01:02:55Z",
+      "side": 1,
+      "message": "how about Draggable",
+      "range": {
+        "startLine": 79,
+        "startChar": 4,
+        "endLine": 79,
+        "endChar": 29
+      },
+      "revId": "5dc30290ea72367d433b549c9c474d3c927069f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "707b7f99_8403d364",
+        "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/ComplexGestureDetetorInteractionsDemo.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-05-14T01:02:55Z",
+      "side": 1,
+      "message": "This may be outside of the scope of this CL, but PressIndicatorGestureDetector reads funny to me, because PressIndicator is not a gesture, unlike DragGestureDetector. Looking at the PressIndicatorGestureDetector, it seems to be detecting a tap. Can it be called TapGestureDetector or something like that?",
+      "range": {
+        "startLine": 165,
+        "startChar": 4,
+        "endLine": 165,
+        "endChar": 33
+      },
+      "revId": "5dc30290ea72367d433b549c9c474d3c927069f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
