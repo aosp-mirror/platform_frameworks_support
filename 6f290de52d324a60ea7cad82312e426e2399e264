@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bc9c402c_8e6684fc",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/pointerinput/HitPathTracker.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-05-14T03:38:24Z",
+      "side": 1,
+      "message": "I don\u0027t think this is necessary when the MutableMap is modified in place.",
+      "range": {
+        "startLine": 141,
+        "startChar": 12,
+        "endLine": 141,
+        "endChar": 27
+      },
+      "revId": "6f290de52d324a60ea7cad82312e426e2399e264",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7489d120_bd063835",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/pointerinput/HitPathTracker.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-05-14T03:38:24Z",
+      "side": 1,
+      "message": "Can this be inlined?",
+      "range": {
+        "startLine": 217,
+        "startChar": 52,
+        "endLine": 217,
+        "endChar": 61
+      },
+      "revId": "6f290de52d324a60ea7cad82312e426e2399e264",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63613f3f_c10d91cf",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/pointerinput/HitPathTracker.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-05-14T03:38:24Z",
+      "side": 1,
+      "message": "Most of the Kotlin MutableList functions modifies the collection in place, and not return the collection. We should follow that convention.",
+      "range": {
+        "startLine": 219,
+        "startChar": 12,
+        "endLine": 219,
+        "endChar": 16
+      },
+      "revId": "6f290de52d324a60ea7cad82312e426e2399e264",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf605cd0_1128846a",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/pointerinput/HitPathTracker.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-05-14T03:38:24Z",
+      "side": 1,
+      "message": "Are you considering making the PointerInputChange or the fields of it mutable",
+      "range": {
+        "startLine": 222,
+        "startChar": 16,
+        "endLine": 225,
+        "endChar": 17
+      },
+      "revId": "6f290de52d324a60ea7cad82312e426e2399e264",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e8b9856_272f74db",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/pointerinput/HitPathTracker.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-05-14T03:38:24Z",
+      "side": 1,
+      "message": "The convention for replaceAll is that you don\u0027t return the MutableList/Map, since you are modifying it in place: https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/replace-all.html",
+      "range": {
+        "startLine": 232,
+        "startChar": 47,
+        "endLine": 232,
+        "endChar": 64
+      },
+      "revId": "6f290de52d324a60ea7cad82312e426e2399e264",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
