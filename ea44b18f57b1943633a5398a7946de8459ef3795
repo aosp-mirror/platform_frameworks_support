@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "99eb63bf_516572a5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1101693
+      },
+      "writtenOn": "2019-05-14T12:21:28Z",
+      "side": 1,
+      "message": "Actually, one of the other requirements for isolating annotation processors is to write resources using the Filer API. Although this CL moves Room closer to being an isolating AP, if we don\u0027t meet that other requirement (writing schema files with Filer), we won\u0027t be able to make Room isolating yet.\n\nnit: Change \"incremental AP\" to \"isolating incremental AP\" to be clearer.",
+      "range": {
+        "startLine": 10,
+        "startChar": 45,
+        "endLine": 11,
+        "endChar": 51
+      },
+      "revId": "ea44b18f57b1943633a5398a7946de8459ef3795",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
