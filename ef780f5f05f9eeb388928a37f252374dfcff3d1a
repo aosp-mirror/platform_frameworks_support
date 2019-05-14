@@ -22,6 +22,30 @@
       "revId": "ef780f5f05f9eeb388928a37f252374dfcff3d1a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "239e58e7_5d0d9119",
+        "filename": "buildSrc/build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-05-14T13:42:03Z",
+      "side": 1,
+      "message": "The hard part is that buildSrc is compiled before the rest of the project is even evaluated.\n\nOne thing we could do is use a prwbuilt, but we lose the ability to be on ToT in that case.",
+      "parentUuid": "959677c0_03688adc",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 6,
+        "endChar": 1
+      },
+      "revId": "ef780f5f05f9eeb388928a37f252374dfcff3d1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
