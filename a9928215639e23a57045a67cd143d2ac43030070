@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5c7a1086_d7f15a40",
+        "filename": "benchmark/src/main/java/androidx/benchmark/ResultWriter.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-05-14T21:50:25Z",
+      "side": 1,
+      "message": "oh, is true the only thing to check for? e.g. does \"TRUE\" or \"1\" work for coverage?",
+      "revId": "a9928215639e23a57045a67cd143d2ac43030070",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
