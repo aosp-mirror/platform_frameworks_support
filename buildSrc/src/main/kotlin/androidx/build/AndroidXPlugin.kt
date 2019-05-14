@@ -227,14 +227,10 @@ class AndroidXPlugin : Plugin<Project> {
         extra.set("versionChecker", GMavenVersionChecker(logger))
         val createArchiveTask = Release.getGlobalFullZipTask(this)
 
-        val buildOnServerTask = tasks.create(BUILD_ON_SERVER_TASK, BuildOnServer::class.java)
-        buildOnServerTask.dependsOn(createArchiveTask)
-        buildOnServerTask.dependsOn(createLibraryBuildInfoFilesTask)
-
         val partiallyDejetifyArchiveTask = partiallyDejetifyArchiveTask(
             createArchiveTask.get().archiveFile)
-        if (partiallyDejetifyArchiveTask != null)
-            buildOnServerTask.dependsOn(partiallyDejetifyArchiveTask)
+
+        val buildOnServerTask = tasks.register(BUILD_ON_SERVER_TASK, BuildOnServer::class.java)
 
         val projectModules = ConcurrentHashMap<String, String>()
         extra.set("projects", projectModules)
@@ -242,7 +238,7 @@ class AndroidXPlugin : Plugin<Project> {
             if (task.name.startsWith(Release.DIFF_TASK_PREFIX) ||
                     "distDocs" == task.name ||
                     CheckExternalDependencyLicensesTask.TASK_NAME == task.name) {
-                buildOnServerTask.dependsOn(task)
+                buildOnServerTask.configure { it.dependsOn(task) }
             }
         }
         subprojects { project ->
@@ -250,7 +246,7 @@ class AndroidXPlugin : Plugin<Project> {
                 project.tasks.all { task ->
                     if (DokkaPublicDocs.ARCHIVE_TASK_NAME == task.name ||
                         DokkaSourceDocs.ARCHIVE_TASK_NAME == task.name) {
-                        buildOnServerTask.dependsOn(task)
+                        buildOnServerTask.configure { it.dependsOn(task) }
                     }
                 }
                 return@subprojects
@@ -262,7 +258,7 @@ class AndroidXPlugin : Plugin<Project> {
                     "verifyDependencyVersions" == task.name ||
                         ("lintDebug" == task.name &&
                         !project.rootProject.hasProperty("useMaxDepVersions"))) {
-                    buildOnServerTask.dependsOn(task)
+                    buildOnServerTask.configure { it.dependsOn(task) }
                 }
             }
         }
@@ -279,7 +275,6 @@ class AndroidXPlugin : Plugin<Project> {
         }
 
         val createCoverageJarTask = Jacoco.createCoverageJarTask(this)
-        buildOnServerTask.dependsOn(createCoverageJarTask)
 
         tasks.register(BUILD_TEST_APKS) {
             it.dependsOn(createCoverageJarTask)
@@ -288,14 +283,11 @@ class AndroidXPlugin : Plugin<Project> {
         val allDocsTask = DiffAndDocs.configureDiffAndDocs(this, projectDir,
                 DacOptions("androidx", "ANDROIDX_DATA"),
                 listOf(RELEASE_RULE))
-        buildOnServerTask.dependsOn(allDocsTask)
 
         val jacocoUberJar = Jacoco.createUberJarTask(this)
-        buildOnServerTask.dependsOn(jacocoUberJar)
         val checkSameVersionLibraryGroupsTask = tasks.register(
             CHECK_SAME_VERSION_LIBRARY_GROUPS,
             CheckSameVersionLibraryGroupsTask::class.java)
-        buildOnServerTask.dependsOn(checkSameVersionLibraryGroupsTask)
 
         createClockLockTasks()
 
@@ -327,6 +319,18 @@ class AndroidXPlugin : Plugin<Project> {
                     }
                 }
             }
+        }
+
+        buildOnServerTask.configure { task ->
+            task.dependsOn(createArchiveTask)
+            task.dependsOn(createLibraryBuildInfoFilesTask)
+            if (partiallyDejetifyArchiveTask != null) {
+                task.dependsOn(partiallyDejetifyArchiveTask)
+            }
+            task.dependsOn(createCoverageJarTask)
+            task.dependsOn(allDocsTask)
+            task.dependsOn(jacocoUberJar)
+            task.dependsOn(checkSameVersionLibraryGroupsTask)
         }
     }
 
