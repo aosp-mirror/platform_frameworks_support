@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "83b6edf4_4861caec",
+        "filename": "README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-05-14T10:34:36Z",
+      "side": 1,
+      "message": "Nit: a fresh checkout appears to be 6GB now",
+      "range": {
+        "startLine": 50,
+        "startChar": 158,
+        "endLine": 50,
+        "endChar": 161
+      },
+      "revId": "5c3670adf3f0be63653c5196a4eaa04e97a16bc0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
