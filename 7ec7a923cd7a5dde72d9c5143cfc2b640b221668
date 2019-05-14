@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "99270c59_cb1f2d39",
+        "filename": "media2/common/src/main/java/androidx/media2/common/SessionPlayer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 936,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-05-14T10:00:13Z",
+      "side": 1,
+      "message": "Let\u0027s rename this as mMediaItem",
+      "range": {
+        "startLine": 936,
+        "startChar": 18,
+        "endLine": 936,
+        "endChar": 32
+      },
+      "revId": "7ec7a923cd7a5dde72d9c5143cfc2b640b221668",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef1f20e4_b63e9150",
+        "filename": "media2/common/src/main/java/androidx/media2/common/SessionPlayer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 993,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-05-14T10:00:13Z",
+      "side": 1,
+      "message": "Shouldn\u0027t we always return mNonUpcastItem?",
+      "range": {
+        "startLine": 993,
+        "startChar": 20,
+        "endLine": 993,
+        "endChar": 34
+      },
+      "revId": "7ec7a923cd7a5dde72d9c5143cfc2b640b221668",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eae03c31_33324347",
+        "filename": "media2/common/src/main/java/androidx/media2/common/SessionPlayer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1030,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-05-14T10:00:13Z",
+      "side": 1,
+      "message": "mMediaItem?",
+      "range": {
+        "startLine": 1030,
+        "startChar": 29,
+        "endLine": 1030,
+        "endChar": 41
+      },
+      "revId": "7ec7a923cd7a5dde72d9c5143cfc2b640b221668",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9458f9a0_4a844606",
+        "filename": "media2/common/src/main/java/androidx/media2/common/SessionPlayer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1059,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-05-14T10:00:13Z",
+      "side": 1,
+      "message": "ditto, here and below",
+      "range": {
+        "startLine": 1059,
+        "startChar": 29,
+        "endLine": 1059,
+        "endChar": 41
+      },
+      "revId": "7ec7a923cd7a5dde72d9c5143cfc2b640b221668",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "649185fc_d16a4b98",
+        "filename": "media2/common/src/main/java/androidx/media2/common/SessionPlayer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1077,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-05-14T10:00:13Z",
+      "side": 1,
+      "message": "Declare an internal static final variable for this\n\nBTW, is it important to use the string value \"und\"? \nWhy can\u0027t we just send null as we\u0027re doing for mime type?",
+      "range": {
+        "startLine": 1077,
+        "startChar": 28,
+        "endLine": 1077,
+        "endChar": 33
+      },
+      "revId": "7ec7a923cd7a5dde72d9c5143cfc2b640b221668",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
