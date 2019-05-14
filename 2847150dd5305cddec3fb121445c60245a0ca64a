@@ -378,6 +378,30 @@
     },
     {
       "key": {
+        "uuid": "162c8241_dc890841",
+        "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2029,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-14T09:52:31Z",
+      "side": 1,
+      "message": "Talked offline and changed to adding a new field in PendingCommand.",
+      "parentUuid": "5809e309_17869e62",
+      "range": {
+        "startLine": 2029,
+        "startChar": 8,
+        "endLine": 2029,
+        "endChar": 41
+      },
+      "revId": "2847150dd5305cddec3fb121445c60245a0ca64a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "40752748_32afc63c",
         "filename": "media2/session/src/androidTest/java/androidx/media2/session/MediaControllerTest.java",
         "patchSetId": 1

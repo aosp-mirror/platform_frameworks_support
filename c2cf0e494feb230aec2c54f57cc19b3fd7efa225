@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ae1392b3_8d5d38f1",
+        "filename": "media2/common/src/main/java/androidx/media2/common/MediaParcelUtils.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-14T09:52:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e97f3f45_1f404d67",
+      "range": {
+        "startLine": 62,
+        "startChar": 12,
+        "endLine": 62,
+        "endChar": 21
+      },
+      "revId": "c2cf0e494feb230aec2c54f57cc19b3fd7efa225",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4653b3b8_7fc33ecf",
         "filename": "media2/common/src/main/java/androidx/media2/common/MediaParcelUtils.java",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "c2cf0e494feb230aec2c54f57cc19b3fd7efa225",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b621980_38c833d4",
+        "filename": "media2/common/src/main/java/androidx/media2/common/MediaParcelUtils.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-14T09:52:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4653b3b8_7fc33ecf",
+      "range": {
+        "startLine": 85,
+        "startChar": 4,
+        "endLine": 85,
+        "endChar": 13
+      },
+      "revId": "c2cf0e494feb230aec2c54f57cc19b3fd7efa225",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "7d5d2256_9e556cdd",
+        "filename": "media2/common/src/main/java/androidx/media2/common/SessionPlayer.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1078,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-14T09:52:31Z",
+      "side": 1,
+      "message": "Talked offline. Added a new member variable for storing non-upcast MediaItem.\nCheck aosp/960936 for implementation.",
+      "parentUuid": "dec10d37_5ea9bdbd",
+      "range": {
+        "startLine": 1078,
+        "startChar": 16,
+        "endLine": 1078,
+        "endChar": 29
+      },
+      "revId": "c2cf0e494feb230aec2c54f57cc19b3fd7efa225",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "347726a8_49de7c6d",
         "filename": "media2/common/src/main/java/androidx/media2/common/SessionPlayer.java",
         "patchSetId": 5
@@ -91,6 +163,30 @@
       "revId": "c2cf0e494feb230aec2c54f57cc19b3fd7efa225",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4416822_a9fda00a",
+        "filename": "media2/common/src/main/java/androidx/media2/common/SessionPlayer.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1079,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-14T09:52:31Z",
+      "side": 1,
+      "message": "Talked offline. Need to upcast because MediaItem\u0027s subclasses are not allowed to be parceled.\nhttps://cs.corp.google.com/aosp-androidx/media2/common/src/main/java/androidx/media2/common/MediaItem.java?rcl\u003df6767a715b0501775c617170dd25ca365963cbbe\u0026l\u003d341",
+      "parentUuid": "347726a8_49de7c6d",
+      "range": {
+        "startLine": 1076,
+        "startChar": 0,
+        "endLine": 1079,
+        "endChar": 13
+      },
+      "revId": "c2cf0e494feb230aec2c54f57cc19b3fd7efa225",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "5af572f7_5aa4fd9f",
+        "filename": "media2/common/src/main/java/androidx/media2/common/SessionPlayer.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1090,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-14T09:52:31Z",
+      "side": 1,
+      "message": "mLanguage won\u0027t be null because it is set to \"und\" by default inside onPreParceling.",
+      "parentUuid": "74543854_ed082daa",
+      "range": {
+        "startLine": 1090,
+        "startChar": 17,
+        "endLine": 1090,
+        "endChar": 26
+      },
+      "revId": "c2cf0e494feb230aec2c54f57cc19b3fd7efa225",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c522c34c_fae84cb1",
         "filename": "media2/common/src/main/java/androidx/media2/common/SessionPlayer.java",
         "patchSetId": 5
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "407a32c2_92bda2e9",
+        "filename": "media2/common/src/main/java/androidx/media2/common/SessionPlayer.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1279,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-14T09:52:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c522c34c_fae84cb1",
+      "range": {
+        "startLine": 1277,
+        "startChar": 0,
+        "endLine": 1279,
+        "endChar": 11
+      },
+      "revId": "c2cf0e494feb230aec2c54f57cc19b3fd7efa225",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "47d1bc83_b235afdd",
         "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer.java",
         "patchSetId": 5
@@ -154,6 +298,24 @@
       "revId": "c2cf0e494feb230aec2c54f57cc19b3fd7efa225",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22a3728b_91bd4ed6",
+        "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 662,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-14T09:52:31Z",
+      "side": 1,
+      "message": "In the new patchset, this variable is moved inside PendingCommand. Added comment to explain what it does.",
+      "parentUuid": "47d1bc83_b235afdd",
+      "revId": "c2cf0e494feb230aec2c54f57cc19b3fd7efa225",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -174,6 +336,24 @@
     },
     {
       "key": {
+        "uuid": "b88b0748_61733a0c",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaController.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1079,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-14T09:52:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f2e5e693_bdc97f78",
+      "revId": "c2cf0e494feb230aec2c54f57cc19b3fd7efa225",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "068d19b9_e47177e8",
         "filename": "media2/session/src/main/java/androidx/media2/session/MediaController.java",
         "patchSetId": 5
@@ -188,6 +368,24 @@
       "revId": "c2cf0e494feb230aec2c54f57cc19b3fd7efa225",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "619ecfd4_b9b89f65",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaController.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1110,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-14T09:52:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "068d19b9_e47177e8",
+      "revId": "c2cf0e494feb230aec2c54f57cc19b3fd7efa225",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -208,6 +406,24 @@
     },
     {
       "key": {
+        "uuid": "6f7f47a8_8e5d6cf4",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaControllerImplBase.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 789,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-14T09:52:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "12da146f_8a63b40b",
+      "revId": "c2cf0e494feb230aec2c54f57cc19b3fd7efa225",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bcfba8eb_3d997a12",
         "filename": "media2/session/src/main/java/androidx/media2/session/MediaControllerImplLegacy.java",
         "patchSetId": 5
@@ -225,6 +441,24 @@
     },
     {
       "key": {
+        "uuid": "d1ad2d44_11f87d81",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaControllerImplLegacy.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 819,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-14T09:52:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bcfba8eb_3d997a12",
+      "revId": "c2cf0e494feb230aec2c54f57cc19b3fd7efa225",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a810b3c8_2fe44c53",
         "filename": "media2/session/src/main/java/androidx/media2/session/MediaControllerImplLegacy.java",
         "patchSetId": 5
@@ -239,6 +473,24 @@
       "revId": "c2cf0e494feb230aec2c54f57cc19b3fd7efa225",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10bcc8f6_41145fb4",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaControllerImplLegacy.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 825,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-14T09:52:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a810b3c8_2fe44c53",
+      "revId": "c2cf0e494feb230aec2c54f57cc19b3fd7efa225",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -265,6 +517,30 @@
     },
     {
       "key": {
+        "uuid": "585ab82f_4eb92cb6",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaControllerStub.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-14T09:52:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c58469f_228c3d69",
+      "range": {
+        "startLine": 398,
+        "startChar": 77,
+        "endLine": 399,
+        "endChar": 17
+      },
+      "revId": "c2cf0e494feb230aec2c54f57cc19b3fd7efa225",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e3879cf8_321cc7e4",
         "filename": "media2/session/src/main/java/androidx/media2/session/MediaControllerStub.java",
         "patchSetId": 5
@@ -285,6 +561,30 @@
       "revId": "c2cf0e494feb230aec2c54f57cc19b3fd7efa225",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd966214_e64e4a8f",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaControllerStub.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-14T09:52:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3879cf8_321cc7e4",
+      "range": {
+        "startLine": 415,
+        "startChar": 77,
+        "endLine": 416,
+        "endChar": 17
+      },
+      "revId": "c2cf0e494feb230aec2c54f57cc19b3fd7efa225",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -311,6 +611,30 @@
     },
     {
       "key": {
+        "uuid": "b508639d_769305c7",
+        "filename": "media2/session/version-compat-tests/current/client/src/androidTest/java/androidx/media2/test/client/RemoteMediaSession.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 547,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-14T09:52:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "866b555b_5a16ded2",
+      "range": {
+        "startLine": 547,
+        "startChar": 43,
+        "endLine": 547,
+        "endChar": 65
+      },
+      "revId": "c2cf0e494feb230aec2c54f57cc19b3fd7efa225",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8956e414_affbf413",
         "filename": "media2/session/version-compat-tests/current/client/src/androidTest/java/androidx/media2/test/client/RemoteMediaSession.java",
         "patchSetId": 5
@@ -334,6 +658,30 @@
     },
     {
       "key": {
+        "uuid": "ee0a7312_f06b0f64",
+        "filename": "media2/session/version-compat-tests/current/client/src/androidTest/java/androidx/media2/test/client/RemoteMediaSession.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 556,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-14T09:52:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8956e414_affbf413",
+      "range": {
+        "startLine": 556,
+        "startChar": 43,
+        "endLine": 556,
+        "endChar": 65
+      },
+      "revId": "c2cf0e494feb230aec2c54f57cc19b3fd7efa225",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "85f616d0_c42a0bd2",
         "filename": "media2/session/version-compat-tests/current/client/src/androidTest/java/androidx/media2/test/client/tests/MediaControllerTest.java",
         "patchSetId": 5
@@ -354,6 +702,30 @@
       "revId": "c2cf0e494feb230aec2c54f57cc19b3fd7efa225",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee3fde43_088b61e7",
+        "filename": "media2/session/version-compat-tests/current/client/src/androidTest/java/androidx/media2/test/client/tests/MediaControllerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-14T09:52:31Z",
+      "side": 1,
+      "message": "Fixed to use",
+      "parentUuid": "85f616d0_c42a0bd2",
+      "range": {
+        "startLine": 392,
+        "startChar": 8,
+        "endLine": 392,
+        "endChar": 24
+      },
+      "revId": "c2cf0e494feb230aec2c54f57cc19b3fd7efa225",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
