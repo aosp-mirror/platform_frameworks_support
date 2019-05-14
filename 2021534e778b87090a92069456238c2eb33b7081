@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c52825c8_a63da713",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/CheckApiCompatibilityTask.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-05-14T22:39:52Z",
+      "side": 1,
+      "message": "There was previously a missing close paren here that we\u0027ll want to add back now that there\u0027s no longer a newline in this spot",
+      "range": {
+        "startLine": 61,
+        "startChar": 13,
+        "endLine": 61,
+        "endChar": 14
+      },
+      "revId": "2021534e778b87090a92069456238c2eb33b7081",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
