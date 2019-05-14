@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "01fa91c0_38319065",
+        "filename": "benchmark/gradle-plugin/src/main/kotlin/androidx/benchmark/gradle/Adb.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-05-14T20:57:59Z",
+      "side": 1,
+      "message": "It can be a follow up, but we need to document this class better",
+      "range": {
+        "startLine": 26,
+        "startChar": 6,
+        "endLine": 26,
+        "endChar": 9
+      },
+      "revId": "1eae8340f33e6770279fc2559aeb053dcc0b8beb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6dcd3888_1ca77d53",
+        "filename": "buildSrc/build.gradle",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-05-14T20:57:59Z",
+      "side": 1,
+      "message": "Move this down next to dependencies {} block so it is easier to spot.",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 0
+      },
+      "revId": "1eae8340f33e6770279fc2559aeb053dcc0b8beb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
