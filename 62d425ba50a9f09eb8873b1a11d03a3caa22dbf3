@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ab7c38e7_f3166923",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-05-14T08:34:07Z",
+      "side": 1,
+      "message": "sorry to jump in, but a few notes on why this is not up to date yet\n\n- we are working on TabBar atm and this demo is intended to showcase our APIs when they are ready. Therefore support for TabBar will only come once the TabBar component is ready\n- Support for iconography is not ready yet either and requires a Material iconography design that is WIP\n- Adding fonts into the codebase is tricky, as those are not files we own and have their own licenses",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 53
+      },
+      "revId": "62d425ba50a9f09eb8873b1a11d03a3caa22dbf3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
