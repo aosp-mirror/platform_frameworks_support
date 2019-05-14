@@ -493,6 +493,8 @@ public final class Camera2CameraControl implements CameraControl {
                     aeMode = CaptureRequest.CONTROL_AE_MODE_ON_AUTO_FLASH;
                     break;
             }
+            builder.setCaptureRequestOption(CaptureRequest.FLASH_MODE,
+                    CaptureRequest.FLASH_MODE_OFF);
         }
         builder.setCaptureRequestOption(CaptureRequest.CONTROL_AE_MODE, aeMode);
 
