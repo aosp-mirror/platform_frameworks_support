@@ -384,7 +384,7 @@ class AndroidLayoutDrawTest {
 
     // When a child's measure() is done within the layout, it should not affect the parent's
     // size. The parent's layout shouldn't be called when the child's size changes
-    // @Test Disabled: b/131860988
+    @Test
     fun measureInLayoutDoesNotAffectParentSize() {
         val white = Color(0xFFFFFFFF.toInt())
         val blue = Color(0xFF000080.toInt())
@@ -425,11 +425,15 @@ class AndroidLayoutDrawTest {
         }
         validateSquareColors(outerColor = blue, innerColor = white, size = 10)
 
-        layoutCalls = 0
-        measureCalls = 0
         drawLatch = CountDownLatch(1)
 
+        try {
+            Thread.sleep(250)
+        } catch (e: Exception) { }
+
         runOnUiThread {
+            layoutCalls = 0
+            measureCalls = 0
             model.size = 20.ipx
         }
 
