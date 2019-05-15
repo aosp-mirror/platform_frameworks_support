@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c4947c3b_e50d69cf",
+        "filename": "autofill/src/main/java/androidx/autofill/HintConstants.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1004919
+      },
+      "writtenOn": "2019-05-15T20:54:00Z",
+      "side": 1,
+      "message": "We should probably prefix all address related hints with address (so addressCountry here, addressRegion...)",
+      "range": {
+        "startLine": 255,
+        "startChar": 71,
+        "endLine": 255,
+        "endChar": 78
+      },
+      "revId": "c8e5df497fb0d6971c28acb0ff6825ff0a16df5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7eae7be_130480a3",
+        "filename": "autofill/src/main/java/androidx/autofill/HintConstants.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 1004919
+      },
+      "writtenOn": "2019-05-15T20:54:00Z",
+      "side": 1,
+      "message": "We should probably mention it\u0027s the full phone number with phone country code and give an example (ex: +1 234 567 8900) and point to phone country code and phone national which is probably the most common case.",
+      "range": {
+        "startLine": 403,
+        "startChar": 7,
+        "endLine": 403,
+        "endChar": 85
+      },
+      "revId": "c8e5df497fb0d6971c28acb0ff6825ff0a16df5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5506968_1ad214e7",
+        "filename": "autofill/src/main/java/androidx/autofill/HintConstants.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 424,
+      "author": {
+        "id": 1004919
+      },
+      "writtenOn": "2019-05-15T20:54:00Z",
+      "side": 1,
+      "message": "If we want to keep the phone prefix, may be it should become phoneDeviceNumber?",
+      "range": {
+        "startLine": 424,
+        "startChar": 68,
+        "endLine": 424,
+        "endChar": 85
+      },
+      "revId": "c8e5df497fb0d6971c28acb0ff6825ff0a16df5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c00c84fb_195f1910",
+        "filename": "autofill/src/main/java/androidx/autofill/HintConstants.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 439,
+      "author": {
+        "id": 1004919
+      },
+      "writtenOn": "2019-05-15T20:54:00Z",
+      "side": 1,
+      "message": "Actually it\u0027s without the country code, right?",
+      "range": {
+        "startLine": 439,
+        "startChar": 6,
+        "endLine": 439,
+        "endChar": 94
+      },
+      "revId": "c8e5df497fb0d6971c28acb0ff6825ff0a16df5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc49fc77_d5edfced",
+        "filename": "autofill/src/main/java/androidx/autofill/HintConstants.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 501,
+      "author": {
+        "id": 1004919
+      },
+      "writtenOn": "2019-05-15T20:54:00Z",
+      "side": 1,
+      "message": "Day of the month?",
+      "range": {
+        "startLine": 501,
+        "startChar": 72,
+        "endLine": 501,
+        "endChar": 85
+      },
+      "revId": "c8e5df497fb0d6971c28acb0ff6825ff0a16df5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
