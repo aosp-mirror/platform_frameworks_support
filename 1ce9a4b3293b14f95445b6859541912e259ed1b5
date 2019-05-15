@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "b693888f_594a1a03",
+        "filename": "autofill/src/main/java/androidx/autofill/HintConstants.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 1004919
+      },
+      "writtenOn": "2019-05-15T20:39:54Z",
+      "side": 1,
+      "message": "I think we should. It\u0027s weird to deprecate fields when they are introduced, but we want people to use the more recent stuff.",
+      "parentUuid": "e766c6dd_9f20e591",
+      "range": {
+        "startLine": 324,
+        "startChar": 2,
+        "endLine": 324,
+        "endChar": 72
+      },
+      "revId": "1ce9a4b3293b14f95445b6859541912e259ed1b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c0390e7a_ce49110d",
         "filename": "autofill/src/main/java/androidx/autofill/HintConstants.java",
         "patchSetId": 1
