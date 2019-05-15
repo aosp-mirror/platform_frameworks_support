@@ -22,6 +22,30 @@
       "revId": "f97a0992c220377a517f561a3bb8b63c44b1633e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "555558ed_253d40f6",
+        "filename": "camera/integration-tests/timingtestapp/src/androidTest/java/androidx/camera/integration/antelope/AntelopeInstrumentedTests.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1269804
+      },
+      "writtenOn": "2019-05-15T17:50:11Z",
+      "side": 1,
+      "message": "Thank you, I don\u0027t think there should be an Abort dialog, however I think it is a good idea to make sure system dialogs are closed before the test. I copied your idea and added this before function.",
+      "parentUuid": "87269513_bfe8c91d",
+      "range": {
+        "startLine": 75,
+        "startChar": 4,
+        "endLine": 75,
+        "endChar": 11
+      },
+      "revId": "f97a0992c220377a517f561a3bb8b63c44b1633e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
