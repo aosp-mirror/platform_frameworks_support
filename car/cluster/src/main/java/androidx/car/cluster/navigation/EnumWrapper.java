@@ -29,6 +29,7 @@ import androidx.versionedparcelable.VersionedParcelize;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Stack;
 
 /**
  * An {@link Enum} wrapper that implements {@link VersionedParcelable} and provides backwards and
@@ -43,6 +44,10 @@ import java.util.Objects;
 @RestrictTo(LIBRARY_GROUP_PREFIX)
 @VersionedParcelize
 final class EnumWrapper<T extends Enum<T>> implements VersionedParcelable {
+    public interface WithFallback<T extends Enum<T>> {
+        T[] getFallbacks();
+    }
+
     @ParcelField(1)
     List<String> mValues = new ArrayList<>();
 
@@ -52,11 +57,19 @@ final class EnumWrapper<T extends Enum<T>> implements VersionedParcelable {
     EnumWrapper() {
     }
 
-    @SafeVarargs
-    EnumWrapper(@NonNull T value, @NonNull T ... fallbacks) {
+    @SuppressWarnings("unchecked")
+    EnumWrapper(@NonNull T value) {
         mValues.add(Preconditions.checkNotNull(value).name());
-        for (T fallback : fallbacks) {
-            mValues.add(fallback.name());
+        if (value instanceof WithFallback) {
+            Stack<T> values = new Stack<>();
+            values.push(value);
+            while (!values.isEmpty()) {
+                value = values.pop();
+                for (T fallback : ((WithFallback<T>) value).getFallbacks()) {
+                    values.push(fallback);
+                    mValues.add(fallback.name());
+                }
+            }
         }
     }
 
@@ -117,14 +130,9 @@ final class EnumWrapper<T extends Enum<T>> implements VersionedParcelable {
      * Wraps the given value and an optional list of fallback values.
      *
      * @param value Value to be wrapped.
-     * @param fallbacks An optional list of fallback values, in order of preference, to be used in
-     *                  case the consumer of this API doesn't know the value provided. This will be
-     *                  used only if {@code value} is not null.
      */
-    @SafeVarargs
     @NonNull
-    public static <T extends Enum<T>> EnumWrapper<T> of(@NonNull T value,
-            @NonNull T ... fallbacks) {
-        return new EnumWrapper<>(Preconditions.checkNotNull(value), fallbacks);
+    public static <T extends Enum<T>> EnumWrapper<T> of(@NonNull T value) {
+        return new EnumWrapper<>(Preconditions.checkNotNull(value));
     }
 }
