@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0a7c4cc7_d08d332d",
+        "filename": "enterprise/feedback/src/main/java/androidx/enterprise/feedback/FakeKeyedAppStatesReporter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1103203
+      },
+      "writtenOn": "2019-05-15T19:57:53Z",
+      "side": 1,
+      "message": "It only occurred to me now that neither this Fake nor the real implementation is thread safe. Is that worth pointing out somewhere?",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 53
+      },
+      "revId": "47e1cef568920b2199a0c90eb245629ca0317186",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4858bc0_5f4aa178",
+        "filename": "enterprise/feedback/src/main/java/androidx/enterprise/feedback/FakeKeyedAppStatesReporter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1103203
+      },
+      "writtenOn": "2019-05-15T19:57:53Z",
+      "side": 1,
+      "message": "Here and below: The name \"set\" suggests that the previous states will be replaced by these ones, when actually they are added on top of the existing ones. \n\nDoes the base class\u0027s method implement \"set\" or \"add\" semantics (via the async remote call)? It depends on that whether the method should be renamed or the semantics changed. For the specific case of the fake, \"add\" semantics probably make more sense because a client can always construct a new FakeKeyedAppStatesReporter instance if they want to reset the state.\n\nNote on the Singleton* implementation: Because it seems to be doing an async call, will multiple calls that are outstanding at the same time be processed in order? Is it ever a problem to submit another call while one is already queued up / in progress?",
+      "range": {
+        "startLine": 50,
+        "startChar": 16,
+        "endLine": 50,
+        "endChar": 25
+      },
+      "revId": "47e1cef568920b2199a0c90eb245629ca0317186",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b982829d_4436bf67",
+        "filename": "enterprise/feedback/src/main/java/androidx/enterprise/feedback/FakeKeyedAppStatesReporter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1103203
+      },
+      "writtenOn": "2019-05-15T19:57:53Z",
+      "side": 1,
+      "message": "Is this needed? Why wouldn\u0027t a client instead just construct a new instance when they need a cleared one?",
+      "range": {
+        "startLine": 80,
+        "startChar": 3,
+        "endLine": 83,
+        "endChar": 24
+      },
+      "revId": "47e1cef568920b2199a0c90eb245629ca0317186",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a84b06e_241d8be1",
+        "filename": "enterprise/feedback/src/main/java/androidx/enterprise/feedback/FakeKeyedAppStatesReporter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1103203
+      },
+      "writtenOn": "2019-05-15T19:57:53Z",
+      "side": 1,
+      "message": "Here and below: Would it be better to return an unmodifiable *view* of the KeyedAppStates (\"return Collections.unmodifiableList(mKeyedAppStates)\"), or a copy?\n\nI don\u0027t have a strong preference, just raising awareness of the option. Your current test doesn\u0027t seem to be distinguish between the two options, but should probably be opinionated one way or the other.",
+      "range": {
+        "startLine": 101,
+        "startChar": 15,
+        "endLine": 101,
+        "endChar": 30
+      },
+      "revId": "47e1cef568920b2199a0c90eb245629ca0317186",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
