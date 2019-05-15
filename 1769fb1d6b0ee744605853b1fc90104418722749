@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "72791809_6af5ed0a",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CameraX.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1481635
+      },
+      "writtenOn": "2019-05-15T05:42:34Z",
+      "side": 1,
+      "message": "The camera capture session and camera device seems to be closed when Lifecycle.Event#ON_STOP comes, the current flow is \nUseCaseGroupLifeCycleController.onStop()\n-\u003e UseCaseGroup.onStop()\n-\u003e CameraRepository.onGroupInactive()\n-\u003e Camera.removeOnlineUseCase()\n-\u003e if no online UseCase, call Camera.close()\n-\u003e Camera.closeCameraResource()\n-\u003e CameraCaptureSession.close() and CameraDevice.close()\n\nWhen Lifecycle.Event#ON_DESTROY comes (in UseCaseGroupLifeCycleController.onDestroy), CameraX clear use cases\u0027 resource by calling UseCase.clear() and remove use cases from UseCaseGroup.",
+      "range": {
+        "startLine": 72,
+        "startChar": 32,
+        "endLine": 73,
+        "endChar": 45
+      },
+      "revId": "1769fb1d6b0ee744605853b1fc90104418722749",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b1a9c6a_f8cb1725",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CameraX.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1481635
+      },
+      "writtenOn": "2019-05-15T05:42:34Z",
+      "side": 1,
+      "message": "From the code perspective, for the same use case instance, it has not been designed for reuse after use case is unbound, and it has not been well tested too. \nTake Preview as an example, if unbind a Preview and then bind it again, user has to (at least) call Preview.setOnPreviewOutputUpdateListener() in order to trigger notifyActive() inside the method to make the Preview receive camera data.",
+      "range": {
+        "startLine": 226,
+        "startChar": 7,
+        "endLine": 226,
+        "endChar": 95
+      },
+      "revId": "1769fb1d6b0ee744605853b1fc90104418722749",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
