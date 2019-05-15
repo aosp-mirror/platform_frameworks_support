@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "18fb075f_90aefc96",
+        "filename": "customview/src/main/java/androidx/customview/widget/Openable.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1014545
+      },
+      "writtenOn": "2019-05-15T23:48:23Z",
+      "side": 1,
+      "message": "Does this call imply animating? How does a developer invoke the animated vs. non-animated variant?",
+      "revId": "4014e2f2e7fb3c0d95707283fe7e89f846f558f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8cd0bd95_2e6f817b",
+        "filename": "customview/src/main/java/androidx/customview/widget/Openable.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1014545
+      },
+      "writtenOn": "2019-05-15T23:48:23Z",
+      "side": 1,
+      "message": "Same here",
+      "revId": "4014e2f2e7fb3c0d95707283fe7e89f846f558f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91cf1216_1ec9d8ef",
+        "filename": "customview/src/main/java/androidx/customview/widget/Openable.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1014545
+      },
+      "writtenOn": "2019-05-15T23:48:23Z",
+      "side": 1,
+      "message": "Can we give this a more specific name that speaks to opening/closing? In the context of the rest of a View subclass this sounds quite generic.",
+      "revId": "4014e2f2e7fb3c0d95707283fe7e89f846f558f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
