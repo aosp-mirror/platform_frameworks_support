@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a372f0e4_f9de79a5",
+        "filename": "media2/session/src/main/java/androidx/media2/session/SessionCommand.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-15T02:37:25Z",
+      "side": 1,
+      "message": "Could you merge it into HIDDEN_COMMANDS? I guess there would be less benefit to have separate map.",
+      "range": {
+        "startLine": 403,
+        "startChar": 8,
+        "endLine": 403,
+        "endChar": 41
+      },
+      "revId": "a8f5a1edd6e24062a6e8c93811dfdd359f7c6cd6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
