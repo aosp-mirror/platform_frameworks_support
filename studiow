@@ -90,6 +90,16 @@ function updateStudio() {
   unzip "${studioZipPath}" -d "${studioUnzippedPath}"
 }
 
+function ensureLocalPropertiesUpdated() {
+  testPath="${projectDir}/local.properties"
+  populaterCommand="./gradlew help"
+  if [ ! -f "${testPath}" ]; then
+    cd "$scriptDir"
+    echo "Creating $testPath by running '$populaterCommand'"
+    eval $populaterCommand
+  fi
+}
+
 function runStudioLinux() {
   studioPath="${studioUnzippedPath}/android-studio/bin/studio.sh"
   echo "$studioPath &"
@@ -117,6 +127,7 @@ function runStudio() {
 function main() {
   updateStudio
   checkLicenseAgreement
+  ensureLocalPropertiesUpdated
   runStudio
 }
 

@@ -22,9 +22,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.filters.LargeTest
+import androidx.testutils.LocaleTestUtils
 import androidx.testutils.PollingCheck
 import androidx.viewpager.widget.ViewPager
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
 import androidx.viewpager2.LocaleTestUtils
+=======
+import androidx.viewpager2.widget.BaseTest.Context.SwipeMethod
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
 import androidx.viewpager2.widget.PageChangeCallbackTest.Event.MarkerEvent
 import androidx.viewpager2.widget.PageChangeCallbackTest.Event.OnPageScrollStateChangedEvent
 import androidx.viewpager2.widget.PageChangeCallbackTest.Event.OnPageScrolledEvent

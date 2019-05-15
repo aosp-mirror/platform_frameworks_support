@@ -102,8 +102,24 @@ final class GestureSelectionHelper implements OnItemTouchListener {
     @Override
     /** @hide */
     public boolean onInterceptTouchEvent(@NonNull RecyclerView unused, @NonNull MotionEvent e) {
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
         if (MotionEvents.isMouseEvent(e)) {
             if (Shared.DEBUG) Log.w(TAG, "Unexpected Mouse event. Check configuration.");
+=======
+        // TODO(b/132447183): For some reason we're not receiving an ACTION_UP
+        // event after a > long-press NOT followed by a ACTION_MOVE < event.
+        if (mStarted) {
+            handleTouch(e);
+        }
+
+        switch (e.getActionMasked()) {
+            case MotionEvent.ACTION_MOVE:
+            case MotionEvent.ACTION_CANCEL:
+            case MotionEvent.ACTION_UP:
+                return mStarted;
+            default:
+                return false;
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
         }
 
         // TODO(b/109808552): It seems that mLastStartedItemPos should likely be set as a method
@@ -141,24 +157,31 @@ final class GestureSelectionHelper implements OnItemTouchListener {
      * so this methods return value is irrelevant to it.
      * </ol>
      */
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
     private boolean handleTouch(MotionEvent e) {
         if (!mStarted) {
             return false;
+=======
+    private void handleTouch(MotionEvent e) {
+        if (!mSelectionMgr.isRangeActive()) {
+            Log.e(TAG,
+                    "Internal state of GestureSelectionHelper out of sync w/ SelectionTracker "
+                            + "(isRangeActive is false). Ignoring event and resetting state.");
+            endSelection();
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
         }
 
         switch (e.getActionMasked()) {
             case MotionEvent.ACTION_MOVE:
                 handleMoveEvent(e);
-                return true;
+                break;
             case MotionEvent.ACTION_UP:
                 handleUpEvent();
-                return true;
+                break;
             case MotionEvent.ACTION_CANCEL:
                 handleCancelEvent();
-                return true;
+                break;
         }
-
-        return false;
     }
 
     @Override

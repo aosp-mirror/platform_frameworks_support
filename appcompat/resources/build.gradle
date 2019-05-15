@@ -22,7 +22,15 @@ plugins {
 }
 
 dependencies {
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
     api(project(":annotation"))
+=======
+    api("androidx.annotation:annotation:1.1.0-rc01")
+    api("androidx.core:core:1.0.1")
+    implementation("androidx.collection:collection:1.0.0")
+    api(project(":vectordrawable"))
+    api(project(":vectordrawable-animated"))
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
 
     api(project(":core"))
     api(project(":collection"))

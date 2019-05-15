@@ -16,6 +16,8 @@
 
 package androidx.build.dependencyTracker
 
+import androidx.build.dependencyTracker.AffectedModuleDetector.Companion.CHANGED_PROJECTS_ARG
+import androidx.build.dependencyTracker.AffectedModuleDetector.Companion.DEPENDENT_PROJECTS_ARG
 import androidx.build.dependencyTracker.AffectedModuleDetector.Companion.ENABLE_ARG
 import androidx.build.getDistributionDirectory
 import androidx.build.gradle.isRoot
@@ -224,7 +226,49 @@ internal class AffectedModuleDetectorImpl constructor(
         return expandToDependants(containingProjects + alwaysBuild)
     }
 
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
     private fun expandToDependants(containingProjects: List<Project?>): Set<Project> {
+=======
+    private fun lookupProjectSetsFromPaths(allSets: Set<Set<String>>): Set<Set<Project>> {
+        return allSets.map { setPaths ->
+            var setExists = false
+            val projectSet = HashSet<Project>()
+            for (path in setPaths) {
+                val project = rootProject.findProject(path)
+                if (project == null) {
+                    if (setExists) {
+                        throw IllegalStateException("One of the projects in the group of " +
+                                "projects that are required to be built together is missing. " +
+                                "Looked for " + setPaths)
+                    }
+                } else {
+                    setExists = true
+                    projectSet.add(project)
+                }
+            }
+            return@map projectSet
+        }.toSet()
+    }
+
+    private fun getAffectedCobuiltProjects(
+        affectedProjects: Set<Project>,
+        allCobuiltSets: Set<Set<Project>>
+    ): Set<Project> {
+        val cobuilts = mutableSetOf<Project>()
+        affectedProjects.forEach { project ->
+            allCobuiltSets.forEach { cobuiltSet ->
+                if (cobuiltSet.any {
+                        project == it
+                    }) {
+                    cobuilts.addAll(cobuiltSet)
+                }
+            }
+        }
+        return cobuilts
+    }
+
+    private fun expandToDependents(containingProjects: List<Project?>): Set<Project> {
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
         return containingProjects.flatMapTo(mutableSetOf()) {
             dependencyTracker.findAllDependants(it!!)
         }

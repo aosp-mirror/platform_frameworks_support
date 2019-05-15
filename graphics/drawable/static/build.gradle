@@ -7,9 +7,9 @@ plugins {
 }
 
 dependencies {
-    api(project(":annotation"))
+    api("androidx.annotation:annotation:1.1.0-rc01")
     api(project(":core"))
-    implementation(project(":collection"))
+    implementation("androidx.collection:collection:1.1.0-rc01")
 
     androidTestImplementation(TEST_EXT_JUNIT)
     androidTestImplementation(TEST_CORE)

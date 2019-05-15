@@ -17,4 +17,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="androidx.security.tests">
     <uses-sdk android:targetSdkVersion="${target-sdk-version}"/>
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
+=======
+    <uses-permission android:name="android.permission.INTERNET" />
+    <application>
+    </application>
+
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
 </manifest>

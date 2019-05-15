@@ -233,6 +233,66 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
         return updates;
     }
 
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
+=======
+    private void updateOnBackPressedCallbackEnabled() {
+        // Always enable the callback if we have pending actions
+        // as we don't know if they'll change the back stack entry count.
+        // See handleOnBackPressed() for more explanation
+        if (mPendingActions != null && !mPendingActions.isEmpty()) {
+            mOnBackPressedCallback.setEnabled(true);
+            return;
+        }
+        // This FragmentManager needs to have a back stack for this to be enabled
+        // And the parent fragment, if it exists, needs to be the primary navigation
+        // fragment.
+        mOnBackPressedCallback.setEnabled(getBackStackEntryCount() > 0
+                && isPrimaryNavigation(mParent));
+    }
+
+    /**
+     * Recursively check up the FragmentManager hierarchy of primary
+     * navigation Fragments to ensure that all of the parent Fragments are the
+     * primary navigation Fragment for their associated FragmentManager
+     */
+    boolean isPrimaryNavigation(@Nullable Fragment parent) {
+        // If the parent is null, then we're at the root host
+        // and we're always the primary navigation
+        if (parent == null) {
+            return true;
+        }
+        FragmentManagerImpl parentFragmentManager = parent.mFragmentManager;
+        Fragment primaryNavigationFragment = parentFragmentManager
+                .getPrimaryNavigationFragment();
+        // The parent Fragment needs to be the primary navigation Fragment
+        // and, if it has a parent itself, that parent also needs to be
+        // the primary navigation fragment, recursively up the stack
+        return parent == primaryNavigationFragment
+                && isPrimaryNavigation(parentFragmentManager.mParent);
+    }
+
+    @SuppressWarnings("WeakerAccess") /* synthetic access */
+    void handleOnBackPressed() {
+        // First, execute any pending actions to make sure we're in an
+        // up to date view of the world just in case anyone is queuing
+        // up transactions that change the back stack then immediately
+        // calling onBackPressed()
+        execPendingActions();
+        if (mOnBackPressedCallback.isEnabled()) {
+            // We still have a back stack, so we can pop
+            popBackStackImmediate();
+        } else {
+            // Sigh. Due to FragmentManager's asynchronicity, we can
+            // get into cases where we *think* we can handle the back
+            // button but because of frame perfect dispatch, we fell
+            // on our face. Since our callback is disabled, we can
+            // re-trigger the onBackPressed() to dispatch to the next
+            // enabled callback
+            mOnBackPressedDispatcher.onBackPressed();
+        }
+    }
+
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
     @Override
     public void popBackStack() {
         enqueueAction(new PopBackStackState(null, -1, 0), false);
@@ -1199,7 +1259,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
                 }
             }
         }
-        if (fragment.mAdded && fragment.mHasMenu && fragment.mMenuVisible) {
+        if (fragment.mAdded && isMenuAvailable(fragment)) {
             mNeedMenuInvalidate = true;
         }
         fragment.mHiddenChanged = false;
@@ -1376,7 +1436,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
             if (fragment.mView == null) {
                 fragment.mHiddenChanged = false;
             }
-            if (fragment.mHasMenu && fragment.mMenuVisible) {
+            if (isMenuAvailable(fragment)) {
                 mNeedMenuInvalidate = true;
             }
             if (moveToStateNow) {
@@ -1392,7 +1452,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
             synchronized (mAdded) {
                 mAdded.remove(fragment);
             }
-            if (fragment.mHasMenu && fragment.mMenuVisible) {
+            if (isMenuAvailable(fragment)) {
                 mNeedMenuInvalidate = true;
             }
             fragment.mAdded = false;
@@ -1442,7 +1502,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
                 synchronized (mAdded) {
                     mAdded.remove(fragment);
                 }
-                if (fragment.mHasMenu && fragment.mMenuVisible) {
+                if (isMenuAvailable(fragment)) {
                     mNeedMenuInvalidate = true;
                 }
                 fragment.mAdded = false;
@@ -1463,7 +1523,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
                     mAdded.add(fragment);
                 }
                 fragment.mAdded = true;
-                if (fragment.mHasMenu && fragment.mMenuVisible) {
+                if (isMenuAvailable(fragment)) {
                     mNeedMenuInvalidate = true;
                 }
             }
@@ -2516,6 +2576,10 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
 
         if (fms.mPrimaryNavActiveWho != null) {
             mPrimaryNav = mActive.get(fms.mPrimaryNavActiveWho);
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
+=======
+            dispatchParentPrimaryNavigationFragmentChanged(mPrimaryNav);
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
         }
         this.mNextFragmentIndex = fms.mNextFragmentIndex;
     }
@@ -2751,6 +2815,23 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
                     + " is not an active fragment of FragmentManager " + this);
         }
         mPrimaryNav = f;
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
+=======
+        dispatchParentPrimaryNavigationFragmentChanged(previousPrimaryNav);
+        dispatchParentPrimaryNavigationFragmentChanged(mPrimaryNav);
+    }
+
+    private void dispatchParentPrimaryNavigationFragmentChanged(@Nullable Fragment f) {
+        if (f != null) {
+            f.performPrimaryNavigationFragmentChanged();
+        }
+    }
+
+    void dispatchPrimaryNavigationFragmentChanged() {
+        updateOnBackPressedCallbackEnabled();
+        // Dispatch the change event to this FragmentManager's primary navigation fragment
+        dispatchParentPrimaryNavigationFragmentChanged(mPrimaryNav);
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
     }
 
     @Override
@@ -3017,6 +3098,27 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
                 holder.mCallback.onFragmentDetached(this, f);
             }
         }
+    }
+
+    // Checks if fragments that belong to this fragment manager (or their children) have menus,
+    // and if they are visible.
+    boolean checkForMenus() {
+        boolean hasMenu = false;
+        for (Fragment f: mActive.values()) {
+            if (f != null) {
+                hasMenu = isMenuAvailable(f);
+            }
+            if (hasMenu) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean isMenuAvailable(Fragment f) {
+        return (f.mHasMenu && f.mMenuVisible)
+                || (f.mChildFragmentManager != null
+                && f.mChildFragmentManager.checkForMenus());
     }
 
     public static int reverseTransit(int transit) {

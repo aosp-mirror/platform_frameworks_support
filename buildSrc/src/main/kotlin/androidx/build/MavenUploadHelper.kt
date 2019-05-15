@@ -153,11 +153,9 @@ private fun collectDependenciesForConfiguration(
     name: String
 ) {
     val config = project.configurations.findByName(name)
-    if (config != null) {
-        config.dependencies.forEach { dep ->
-            if (dep.group?.startsWith("androidx.") ?: false) {
-                androidxDependencies.add(dep)
-            }
+    config?.dependencies?.forEach { dep ->
+        if (dep.group?.startsWith("androidx.") == true) {
+            androidxDependencies.add(dep)
         }
     }
 }
@@ -170,10 +168,11 @@ private fun Project.isAndroidProject(
     for (dep in deps) {
         if (dep is ProjectDependency) {
             if (dep.group == groupId && dep.name == artifactId) {
-                return dep.getDependencyProject().plugins.hasPlugin(LibraryPlugin::class.java)
+                return dep.dependencyProject.plugins.hasPlugin(LibraryPlugin::class.java)
             }
         }
     }
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
     var projectModules = project.rootProject.extra.get("projects")
             as ConcurrentHashMap<String, String>
     if (projectModules.containsKey("$groupId:$artifactId")) {
@@ -182,6 +181,11 @@ private fun Project.isAndroidProject(
         if (localProjectVersion != null) {
             return localProjectVersion.plugins.hasPlugin(LibraryPlugin::class.java)
         }
+=======
+    val projectModules = project.getProjectsMap()
+    projectModules["$groupId:$artifactId"]?.let { module ->
+        return project.findProject(module)?.plugins?.hasPlugin(LibraryPlugin::class.java) ?: false
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
     }
     return false
 }

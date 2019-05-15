@@ -78,6 +78,7 @@ class JavaNavWriter(private val useAndroidX: Boolean = false) : NavWriter<JavaCo
             action to generateDirectionsTypeSpec(action)
         }
 
+        @Suppress("NAME_SHADOWING")
         val getters = actionTypes
             .map { (action, actionType) ->
                 val annotations = Annotations.getInstance(useAndroidX)

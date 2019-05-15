@@ -20,6 +20,10 @@ import androidx.test.filters.SmallTest
 import com.google.common.truth.Truth
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
+=======
+import kotlinx.coroutines.runBlocking
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
@@ -48,9 +52,28 @@ class ViewModelTest {
         val vm = object : ViewModel() {}
         val scope1 = vm.viewModelScope
         val scope2 = vm.viewModelScope
-        Truth.assertThat(scope1).isSameAs(scope2)
+        Truth.assertThat(scope1).isSameInstanceAs(scope2)
         vm.clear()
         val scope3 = vm.viewModelScope
-        Truth.assertThat(scope3).isSameAs(scope2)
+        Truth.assertThat(scope3).isSameInstanceAs(scope2)
     }
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
+=======
+
+    @Test fun testJobIsSuperVisor() {
+        val vm = object : ViewModel() {}
+        val scope = vm.viewModelScope
+        val delayingDeferred = scope.async { delay(Long.MAX_VALUE) }
+        val failingDeferred = scope.async { throw Error() }
+
+        runBlocking {
+            try {
+                failingDeferred.await()
+            } catch (e: Error) {
+            }
+            Truth.assertThat(delayingDeferred.isActive).isTrue()
+            delayingDeferred.cancelAndJoin()
+        }
+    }
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
 }

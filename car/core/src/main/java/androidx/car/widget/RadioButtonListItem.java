@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 The Android Open Source Project
+ * Copyright 2019 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,13 +16,14 @@
 
 package androidx.car.widget;
 
-import static java.lang.annotation.RetentionPolicy.SOURCE;
-
 import android.content.Context;
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
 import android.graphics.drawable.Icon;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
+=======
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
@@ -30,29 +31,41 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
 import androidx.annotation.DimenRes;
 import androidx.annotation.IntDef;
+=======
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.car.R;
 import androidx.car.util.CarUxRestrictionsUtils;
-
-import java.lang.annotation.Retention;
-import java.util.ArrayList;
-import java.util.List;
+import androidx.car.uxrestrictions.CarUxRestrictions;
+import androidx.car.widget.ListItemAdapter.ListItemType;
+import androidx.constraintlayout.widget.Guideline;
 
 /**
  * Class to build a list item with {@link RadioButton}.
  *
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
  * <p>A radio button list item visually composes of 3 parts.
+=======
+ * <p>A radio button list item is visually composed of 5 parts.
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
  * <ul>
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
  *     <li>optional {@code Primary Action Icon}.
  *     <li>optional {@code Text}.
  *     <li>A {@link RadioButton}.
+=======
+ * <li>A {@link RadioButton}.
+ * <li>optional {@code Divider}.
+ * <li>optional {@code Primary Action Icon}.
+ * <li>optional {@code Title}.
+ * <li>optional {@code Body}.
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
  * </ul>
- *
- * <p>Clicking the item always checks the radio button.
  */
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
 public class RadioButtonListItem extends ListItem<RadioButtonListItem.ViewHolder> {
 
     @Retention(SOURCE)
@@ -60,7 +73,13 @@ public class RadioButtonListItem extends ListItem<RadioButtonListItem.ViewHolder
             PRIMARY_ACTION_ICON_SIZE_SMALL, PRIMARY_ACTION_ICON_SIZE_MEDIUM,
             PRIMARY_ACTION_ICON_SIZE_LARGE})
     private @interface PrimaryActionIconSize {}
+=======
+public final class RadioButtonListItem extends
+        CompoundButtonListItem<RadioButtonListItem.ViewHolder> {
+
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
     /**
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
      * Small sized icon is the mostly commonly used size.
      */
     public static final int PRIMARY_ACTION_ICON_SIZE_SMALL = 0;
@@ -91,48 +110,60 @@ public class RadioButtonListItem extends ListItem<RadioButtonListItem.ViewHolder
 
     /**
      * Creates a {@link RadioButtonListItem.ViewHolder}.
+=======
+     * Creates a {@link ViewHolder}.
+     *
+     * @return a {@link ViewHolder} for this {@link RadioButtonListItem}.
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
      */
     @NonNull
     public static ViewHolder createViewHolder(@NonNull View itemView) {
         return new ViewHolder(itemView);
     }
 
+    /**
+     * Creates a {@link RadioButtonListItem} that will be used to display a list item with a
+     * {@link RadioButton}.
+     *
+     * @param context The context to be used by this {@link RadioButtonListItem}.
+     */
     public RadioButtonListItem(@NonNull Context context) {
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
         mContext = context;
         markDirty();
+=======
+        super(context);
+    }
+
+    /**
+     * Returns whether the compound button will be placed at the end of the list item layout. This
+     * value is used to determine start margins for the {@code Title} and {@code Body}.
+     *
+     * @return Whether compound button is placed at the end of the list item layout.
+     */
+    @Override
+    public boolean isCompoundButtonPositionEnd() {
+        return false;
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
     }
 
     /**
      * Used by {@link ListItemAdapter} to choose layout to inflate for view holder.
+     *
+     * @return Type of this {@link CompoundButtonListItem}.
      */
+    @ListItemType
     @Override
     public int getViewType() {
         return ListItemAdapter.LIST_ITEM_TYPE_RADIO;
     }
 
-    @Override
-    public void setEnabled(boolean enabled) {
-        mIsEnabled = enabled;
-    }
-
-    @NonNull
-    protected Context getContext() {
-        return mContext;
-    }
-
     /**
-     * Sets the state of radio button.
-     *
-     * @param isChecked {@code true} to check the button; {@code false} to uncheck it.
+     * ViewHolder that contains necessary widgets for {@link RadioButtonListItem}.
      */
-    public void setChecked(boolean isChecked) {
-        if (mIsChecked == isChecked) {
-            return;
-        }
-        mIsChecked = isChecked;
-        markDirty();
-    }
+    public static final class ViewHolder extends CompoundButtonListItem.ViewHolder {
 
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
     /**
      * Get whether the radio button is checked.
      *
@@ -378,62 +409,138 @@ public class RadioButtonListItem extends ListItem<RadioButtonListItem.ViewHolder
     public static final class ViewHolder extends ListItem.ViewHolder {
 
         private final View[] mWidgetViews;
+=======
+        private View[] mWidgetViews;
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
 
         private ViewGroup mContainerLayout;
 
         private ImageView mPrimaryIcon;
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
         private TextView mText;
+=======
 
-        private View mRadioButtonDivider;
-        private RadioButton mRadioButton;
+        private TextView mTitle;
+        private TextView mBody;
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
 
+        private Guideline mSupplementalGuideline;
+
+        private CompoundButton mCompoundButton;
+        private View mCompoundButtonDivider;
+
+        /**
+         * Creates a {@link ViewHolder} for a {@link RadioButtonListItem}.
+         *
+         * @param itemView The view to be used to display a {@link RadioButtonListItem}.
+         */
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             mContainerLayout = itemView.findViewById(R.id.container);
 
             mPrimaryIcon = itemView.findViewById(R.id.primary_icon);
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
             mText = itemView.findViewById(R.id.text);
+=======
 
-            mRadioButton = itemView.findViewById(R.id.radio_button);
-            mRadioButtonDivider = itemView.findViewById(R.id.radio_button_divider);
+            mTitle = itemView.findViewById(R.id.title);
+            mBody = itemView.findViewById(R.id.body);
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
+
+            mSupplementalGuideline = itemView.findViewById(R.id.supplemental_actions_guideline);
+
+            mCompoundButton = itemView.findViewById(R.id.radiobutton_widget);
+            mCompoundButtonDivider = itemView.findViewById(R.id.radiobutton_divider);
 
             int minTouchSize = itemView.getContext().getResources()
                     .getDimensionPixelSize(R.dimen.car_touch_target_size);
-
-            MinTouchTargetHelper.ensureThat(mRadioButton)
-                    .hasMinTouchSize(minTouchSize);
+            MinTouchTargetHelper.ensureThat(mCompoundButton).hasMinTouchSize(minTouchSize);
 
             // Each line groups relevant child views in an effort to help keep this view array
             // updated with actual child views in the ViewHolder.
             mWidgetViews = new View[]{
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
                     mPrimaryIcon, mText,
                     mRadioButton, mRadioButtonDivider};
+=======
+                    mPrimaryIcon,
+                    mTitle, mBody,
+                    mCompoundButton, mCompoundButtonDivider,
+            };
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
         }
 
-        @NonNull
-        public ViewGroup getContainerLayout() {
-            return mContainerLayout;
+        /**
+         * Updates child views with current car UX restrictions.
+         *
+         * <p>{@code Text} might be truncated to meet length limit required by regulation.
+         *
+         * @param restrictionsInfo current car UX restrictions.
+         */
+        @Override
+        public void onUxRestrictionsChanged(@NonNull CarUxRestrictions restrictionsInfo) {
+            CarUxRestrictionsUtils.apply(itemView.getContext(), restrictionsInfo, getBody());
         }
 
+        /**
+         * Returns the primary icon view within this view holder's view.
+         *
+         * @return Icon view within this view holder's view.
+         */
         @NonNull
         public ImageView getPrimaryIcon() {
             return mPrimaryIcon;
         }
 
+        /**
+         * Returns the title view within this view holder's view.
+         *
+         * @return Title view within this view holder's view.
+         */
         @NonNull
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
         public TextView getText() {
             return mText;
+=======
+        public TextView getTitle() {
+            return mTitle;
+        }
+
+        /**
+         * Returns the body view within this view holder's view.
+         *
+         * @return Body view within this view holder's view.
+         */
+        @NonNull
+        public TextView getBody() {
+            return mBody;
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
+        }
+
+        /**
+         * Returns the compound button divider view within this view holder's view.
+         *
+         * @return Compound button divider view within this view holder's view.
+         */
+        @NonNull
+        public View getCompoundButtonDivider() {
+            return mCompoundButtonDivider;
+        }
+
+        /**
+         * Returns the compound button within this view holder's view.
+         *
+         * @return Compound button within this view holder's view.
+         */
+        @NonNull
+        public CompoundButton getCompoundButton() {
+            return mCompoundButton;
         }
 
         @NonNull
-        public RadioButton getRadioButton() {
-            return mRadioButton;
-        }
-
-        @NonNull
-        public View getRadioButtonDivider() {
-            return mRadioButtonDivider;
+        Guideline getSupplementalGuideline() {
+            return mSupplementalGuideline;
         }
 
         @NonNull
@@ -441,10 +548,21 @@ public class RadioButtonListItem extends ListItem<RadioButtonListItem.ViewHolder
             return mWidgetViews;
         }
 
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
         @Override
         public void onUxRestrictionsChanged(
                 androidx.car.uxrestrictions.CarUxRestrictions restrictionInfo) {
             CarUxRestrictionsUtils.apply(itemView.getContext(), restrictionInfo, getText());
+=======
+        /**
+         * Returns the container layout of this view holder.
+         *
+         * @return Container layout of this view holder.
+         */
+        @NonNull
+        public ViewGroup getContainerLayout() {
+            return mContainerLayout;
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
         }
     }
 }

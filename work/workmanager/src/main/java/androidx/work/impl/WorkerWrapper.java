@@ -317,7 +317,6 @@ public class WorkerWrapper implements Runnable {
 
     // Package-private for synthetic accessor.
     void onWorkFinished() {
-        assertBackgroundExecutorThread();
         boolean isWorkFinished = false;
         if (!tryCheckForInterruptionAndResolve()) {
             try {
@@ -585,13 +584,6 @@ public class WorkerWrapper implements Runnable {
         } finally {
             mWorkDatabase.endTransaction();
             resolve(false);
-        }
-    }
-
-    private void assertBackgroundExecutorThread() {
-        if (mWorkTaskExecutor.getBackgroundExecutorThread() != Thread.currentThread()) {
-            throw new IllegalStateException(
-                    "Needs to be executed on the Background executor thread.");
         }
     }
 

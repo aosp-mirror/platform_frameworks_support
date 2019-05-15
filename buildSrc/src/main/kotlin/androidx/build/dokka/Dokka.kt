@@ -83,10 +83,22 @@ object Dokka {
                 task.version = getBuildId()
                 task.destinationDir = project.getDistributionDirectory()
             }
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
             if (project.tasks.findByName(ALTERNATE_ARCHIVE_TASK_NAME) == null) {
                 project.tasks.create(ALTERNATE_ARCHIVE_TASK_NAME)
             }
             project.tasks.getByName(ALTERNATE_ARCHIVE_TASK_NAME).dependsOn(archiveTask)
+=======
+            val buildId = getBuildId()
+            zipTask.archiveBaseName.set(taskName)
+            zipTask.archiveVersion.set(buildId)
+            zipTask.destinationDirectory.set(project.getDistributionDirectory())
+            val filePath = "${project.getDistributionDirectory().canonicalPath}/"
+            val fileName = "$taskName-$buildId.zip"
+            zipTask.description = "Zips $docsType Kotlin documentation (generated via " +
+                "Dokka in the style of d.android.com) into ${filePath + fileName}"
+            zipTask.group = JavaBasePlugin.DOCUMENTATION_GROUP
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
         }
         return runnerProject.tasks.getByName(Dokka.RUNNER_TASK_NAME) as DokkaTask
     }

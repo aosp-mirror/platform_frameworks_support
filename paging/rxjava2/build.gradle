@@ -32,10 +32,9 @@ android {
 
 dependencies {
     api(project(":paging:paging-common"))
-
     api(project(":arch:core-runtime"))
-
     api(RX_JAVA)
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
     androidTestImplementation(JUNIT)
     androidTestImplementation(MOCKITO_CORE, libs.exclude_bytebuddy) // DexMaker has it"s own MockMaker
     androidTestImplementation(DEXMAKER_MOCKITO, libs.exclude_bytebuddy) // DexMaker has it"s own MockMaker
@@ -44,6 +43,12 @@ dependencies {
     androidTestImplementation(TEST_RUNNER)
     androidTestImplementation(ESPRESSO_CORE)
     androidTestImplementation(KOTLIN_STDLIB)
+=======
+
+    testImplementation(JUNIT)
+    testImplementation(KOTLIN_STDLIB)
+    testImplementation(KOTLIN_TEST_COMMON)
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
 }
 
 supportLibrary {

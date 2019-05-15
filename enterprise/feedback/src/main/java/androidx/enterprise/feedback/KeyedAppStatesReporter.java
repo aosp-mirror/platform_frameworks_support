@@ -16,47 +16,26 @@
 
 package androidx.enterprise.feedback;
 
-import android.annotation.SuppressLint;
 import android.app.admin.DevicePolicyManager;
-import android.content.ComponentName;
 import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
-import android.content.pm.ServiceInfo;
-import android.os.Build;
-import android.os.Bundle;
 import android.os.Message;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.VisibleForTesting;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.concurrent.Executor;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 
 /**
  * A reporter of keyed app states to enable communication between an app and an EMM (enterprise
  * mobility management).
+ *
+ * For production use {@link SingletonKeyedAppStatesReporter}.
  */
-public class KeyedAppStatesReporter {
+public abstract class KeyedAppStatesReporter {
 
-    private static final String LOG_TAG = "KeyedAppStatesReporter";
+    // Package-private constructor to restrict subclasses to the same package
+    KeyedAppStatesReporter() {}
 
     static final String PHONESKY_PACKAGE_NAME = "com.android.vending";
-
-    @SuppressLint("StaticFieldLeak") // Application Context only.
-    private static volatile KeyedAppStatesReporter sSingleton;
 
     /** The value of {@link Message#what} to indicate a state update. */
     static final int WHAT_STATE = 1;
@@ -99,85 +78,19 @@ public class KeyedAppStatesReporter {
     static final String APP_STATE_DATA = "androidx.enterprise.feedback.APP_STATE_DATA";
 
     /** The intent action for reporting app states. */
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
     public static final String APP_STATES_ACTION = "androidx.enterprise.feedback.action.APP_STATES";
+=======
+    static final String ACTION_APP_STATES = "androidx.enterprise.feedback.action.APP_STATES";
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
 
-    private final Context mContext;
+    static boolean canPackageReceiveAppStates(Context context, String packageName) {
+        DevicePolicyManager devicePolicyManager =
+                (DevicePolicyManager) context.getSystemService(Context.DEVICE_POLICY_SERVICE);
 
-    private final Map<String, BufferedServiceConnection> mServiceConnections = new HashMap<>();
-
-    private static final int EXECUTOR_IDLE_ALIVE_TIME_SECS = 20;
-    private final Executor mExecutor;
-
-    /**
-     * Creates an {@link ExecutorService} which has no persistent background thread, and ensures
-     * tasks will run in submit order.
-     */
-    private static ExecutorService createExecutorService() {
-        return new ThreadPoolExecutor(
-                /* corePoolSize= */ 0,
-                /* maximumPoolSize= */ 1,
-                EXECUTOR_IDLE_ALIVE_TIME_SECS,
-                TimeUnit.SECONDS,
-                new LinkedBlockingQueue<Runnable>() /* Not used */);
-    }
-
-    /**
-     * Sets executor used to construct the singleton.
-     *
-     * <p>If required, this method must be called before calling {@link #getInstance(Context)}.
-     *
-     * <p>If this method is not called, the reporter will run on a newly-created thread.
-     * This newly-created thread will be cleaned up and recreated as necessary when idle.
-     */
-    public static void initialize(@NonNull Context context, @NonNull Executor executor) {
-        if (context == null || executor == null) {
-            throw new NullPointerException();
-        }
-        synchronized (KeyedAppStatesReporter.class) {
-            if (sSingleton != null) {
-                throw new IllegalStateException(
-                        "initialize can only be called once and must be called before "
-                            + "calling getInstance.");
-            }
-            initializeSingleton(context, executor);
-        }
-    }
-
-    /**
-     * Returns an instance of the reporter.
-     *
-     * <p>Creates and initializes an instance if one doesn't already exist.
-     */
-    @NonNull
-    public static KeyedAppStatesReporter getInstance(@NonNull Context context) {
-        if (context == null || context.getApplicationContext() == null) {
-            throw new NullPointerException();
-        }
-        if (sSingleton == null) {
-            synchronized (KeyedAppStatesReporter.class) {
-                if (sSingleton == null) {
-                    initializeSingleton(context, createExecutorService());
-                }
-            }
-        }
-        return sSingleton;
-    }
-
-    private static void initializeSingleton(@NonNull Context context, @NonNull Executor executor) {
-        sSingleton = new KeyedAppStatesReporter(context, executor);
-        sSingleton.bind();
-    }
-
-    @VisibleForTesting
-    static void resetSingleton() {
-        synchronized (KeyedAppStatesReporter.class) {
-            sSingleton = null;
-        }
-    }
-
-    private KeyedAppStatesReporter(Context context, Executor executor) {
-        this.mContext = context.getApplicationContext();
-        this.mExecutor = executor;
+        return packageName.equals(PHONESKY_PACKAGE_NAME)
+            || devicePolicyManager.isDeviceOwnerApp(packageName)
+            || devicePolicyManager.isProfileOwnerApp(packageName);
     }
 
     /**
@@ -203,6 +116,7 @@ public class KeyedAppStatesReporter {
      *
      * @see #setImmediate(Collection) to request that states are uploaded immediately
      */
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
     public void set(@NonNull Collection<KeyedAppState> states) {
         set(states, false);
     }
@@ -222,6 +136,9 @@ public class KeyedAppStatesReporter {
             }
         });
     }
+=======
+    public abstract void setStates(@NonNull Collection<KeyedAppState> states);
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
 
     /**
      * Performs the same function as {@link #set(Collection<KeyedAppState>)}, except it also
@@ -231,6 +148,7 @@ public class KeyedAppStatesReporter {
      * <p>The receiver is not obligated to meet this immediate upload request. For example, Play and
      * Android Management APIs have daily quotas.
      */
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
     public void setImmediate(@NonNull Collection<KeyedAppState> states) {
         set(states, true);
     }
@@ -377,4 +295,7 @@ public class KeyedAppStatesReporter {
         message.setData(appStatesBundle);
         return message;
     }
+=======
+    public abstract void setStatesImmediate(@NonNull Collection<KeyedAppState> states);
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
 }

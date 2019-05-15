@@ -16,44 +16,42 @@
 
 package androidx.car.widget;
 
-import static java.lang.annotation.RetentionPolicy.SOURCE;
-
 import android.content.Context;
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
 import android.content.res.Resources;
 import android.graphics.drawable.Icon;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
+=======
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
 import android.view.View;
-import android.view.ViewGroup.MarginLayoutParams;
+import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
 import androidx.annotation.CallSuper;
 import androidx.annotation.DimenRes;
 import androidx.annotation.Dimension;
 import androidx.annotation.IntDef;
+=======
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.car.R;
 import androidx.car.util.CarUxRestrictionsUtils;
 import androidx.car.uxrestrictions.CarUxRestrictions;
-import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.car.widget.ListItemAdapter.ListItemType;
 import androidx.constraintlayout.widget.Guideline;
-
-import java.lang.annotation.Retention;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Class to build a list item with {@link Switch}.
  *
- * <p>An item supports primary action and a switch as supplemental action.
- *
- * <p>An item visually composes of 3 parts; each part may contain multiple views.
+ * <p>A switch list item is visually composed of 5 parts.
  * <ul>
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
  *     <li>{@code Primary Action}: represented by an icon of following types.
  *     <ul>
  *         <li>Primary Icon - icon size could be large or small.
@@ -72,7 +70,16 @@ import java.util.List;
  *
  * <p>When conflicting setter methods are called (e.g. setting primary action to both primary icon
  * and no icon), the last called method wins.
+=======
+ * <li>A {@link Switch}.
+ * <li>optional {@code Divider}.
+ * <li>optional {@code Primary Action Icon}.
+ * <li>optional {@code Title}.
+ * <li>optional {@code Body}.
+ * </ul>
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
  */
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
 public class SwitchListItem extends ListItem<SwitchListItem.ViewHolder> {
 
     @Retention(SOURCE)
@@ -130,62 +137,60 @@ public class SwitchListItem extends ListItem<SwitchListItem.ViewHolder> {
     private boolean mShouldNotifySwitchChecked;
     private boolean mShowSwitchDivider;
     private CompoundButton.OnCheckedChangeListener mSwitchOnCheckedChangeListener;
+=======
+public final class SwitchListItem extends CompoundButtonListItem<SwitchListItem.ViewHolder> {
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
 
     /**
      * Creates a {@link ViewHolder}.
+     *
+     * @return a {@link ViewHolder} for this {@link SwitchListItem}.
      */
     @NonNull
-    public static ViewHolder createViewHolder(View itemView) {
+    public static ViewHolder createViewHolder(@NonNull View itemView) {
         return new ViewHolder(itemView);
-    }
-
-    public SwitchListItem(@NonNull Context context) {
-        mContext = context;
-        mSupplementalGuidelineBegin = mContext.getResources().getDimensionPixelSize(
-                R.dimen.car_list_item_supplemental_guideline_top);
-        markDirty();
     }
 
     /**
      * Used by {@link ListItemAdapter} to choose layout to inflate for view holder.
+     *
+     * @return Type of this {@link CompoundButtonListItem}.
      */
+    @ListItemType
     @Override
     public int getViewType() {
         return ListItemAdapter.LIST_ITEM_TYPE_SWITCH;
     }
 
     /**
-     * Calculates the layout params for views in {@link ViewHolder}.
+     * Creates a {@link SwitchListItem} that will be used to display a list item with a
+     * {@link Switch}.
+     *
+     * @param context The context to be used by this {@link SwitchListItem}.
      */
-    @Override
-    @CallSuper
-    protected void resolveDirtyState() {
-        mBinders.clear();
-
-        // Create binders that adjust layout params of each view.
-        setPrimaryAction();
-        setText();
-        setSwitch();
-        setItemClickable();
+    public SwitchListItem(@NonNull Context context) {
+        super(context);
     }
 
     /**
-     * Hides all views in {@link ViewHolder} then applies ViewBinders to adjust view layout params.
+     * Returns whether the compound button will be placed at the end of the list item layout. This
+     * value is used to determine start margins for the {@code Title} and {@code Body}.
+     *
+     * @return Whether compound button is placed at the end of the list item layout.
      */
     @Override
-    public void onBind(ViewHolder viewHolder) {
-        hideSubViews(viewHolder);
-        for (ViewBinder binder : mBinders) {
-            binder.bind(viewHolder);
-        }
-
-        for (View v : viewHolder.getWidgetViews()) {
-            v.setEnabled(mIsEnabled);
-        }
-        // SwitchListItem supports clicking on the item so we also update the entire itemView.
-        viewHolder.itemView.setEnabled(mIsEnabled);
+    public boolean isCompoundButtonPositionEnd() {
+        return true;
     }
 
+    /**
+     * ViewHolder that contains necessary widgets for {@link SwitchListItem}.
+     */
+    public static final class ViewHolder extends CompoundButtonListItem.ViewHolder {
+
+        private View[] mWidgetViews;
+
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
     @Override
     public void setEnabled(boolean enabled) {
         mIsEnabled = enabled;
@@ -581,6 +586,9 @@ public class SwitchListItem extends ListItem<SwitchListItem.ViewHolder> {
     public static final class ViewHolder extends ListItem.ViewHolder {
 
         private final View[] mWidgetViews;
+=======
+        private ViewGroup mContainerLayout;
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
 
         private ImageView mPrimaryIcon;
 
@@ -589,14 +597,18 @@ public class SwitchListItem extends ListItem<SwitchListItem.ViewHolder> {
 
         private Guideline mSupplementalGuideline;
 
-        private Switch mSwitch;
-        private View mSwitchDivider;
+        private CompoundButton mCompoundButton;
+        private View mCompoundButtonDivider;
 
         /**
-         * ViewHolder that contains necessary widgets for {@link SwitchListItem}.
+         * Creates a {@link ViewHolder} for a {@link SwitchListItem}.
+         *
+         * @param itemView The view to be used to display a {@link SwitchListItem}.
          */
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+
+            mContainerLayout = itemView.findViewById(R.id.container);
 
             mPrimaryIcon = itemView.findViewById(R.id.primary_icon);
 
@@ -605,19 +617,19 @@ public class SwitchListItem extends ListItem<SwitchListItem.ViewHolder> {
 
             mSupplementalGuideline = itemView.findViewById(R.id.supplemental_actions_guideline);
 
-            mSwitch = itemView.findViewById(R.id.switch_widget);
-            mSwitchDivider = itemView.findViewById(R.id.switch_divider);
+            mCompoundButton = itemView.findViewById(R.id.switch_widget);
+            mCompoundButtonDivider = itemView.findViewById(R.id.switch_divider);
 
             int minTouchSize = itemView.getContext().getResources()
                     .getDimensionPixelSize(R.dimen.car_touch_target_size);
-            MinTouchTargetHelper.ensureThat(mSwitch).hasMinTouchSize(minTouchSize);
+            MinTouchTargetHelper.ensureThat(mCompoundButton).hasMinTouchSize(minTouchSize);
 
             // Each line groups relevant child views in an effort to help keep this view array
             // updated with actual child views in the ViewHolder.
             mWidgetViews = new View[] {
                     mPrimaryIcon,
                     mTitle, mBody,
-                    mSwitch, mSwitchDivider,
+                    mCompoundButton, mCompoundButtonDivider,
             };
         }
 
@@ -629,43 +641,86 @@ public class SwitchListItem extends ListItem<SwitchListItem.ViewHolder> {
          * @param restrictionsInfo current car UX restrictions.
          */
         @Override
-        public void onUxRestrictionsChanged(CarUxRestrictions restrictionsInfo) {
+        public void onUxRestrictionsChanged(@NonNull CarUxRestrictions restrictionsInfo) {
             CarUxRestrictionsUtils.apply(itemView.getContext(), restrictionsInfo, getBody());
         }
 
+        /**
+         * Returns the primary icon view within this view holder's view.
+         *
+         * @return Icon view within this view holder's view.
+         */
         @NonNull
+        @Override
         public ImageView getPrimaryIcon() {
             return mPrimaryIcon;
         }
 
+        /**
+         * Returns the title view within this view holder's view.
+         *
+         * @return Title view within this view holder's view.
+         */
         @NonNull
+        @Override
         public TextView getTitle() {
             return mTitle;
         }
 
+        /**
+         * Returns the body view within this view holder's view.
+         *
+         * @return Body view within this view holder's view.
+         */
         @NonNull
+        @Override
         public TextView getBody() {
             return mBody;
         }
 
+        /**
+         * Returns the compound button divider view within this view holder's view.
+         *
+         * @return Compound button divider view within this view holder's view.
+         */
         @NonNull
-        public View getSwitchDivider() {
-            return mSwitchDivider;
+        @Override
+        public View getCompoundButtonDivider() {
+            return mCompoundButtonDivider;
+        }
+
+        /**
+         * Returns the compound button within this view holder's view.
+         *
+         * @return Compound button within this view holder's view.
+         */
+        @NonNull
+        @Override
+        public CompoundButton getCompoundButton() {
+            return mCompoundButton;
         }
 
         @NonNull
-        public Switch getSwitch() {
-            return mSwitch;
-        }
-
-        @NonNull
+        @Override
         Guideline getSupplementalGuideline() {
             return mSupplementalGuideline;
         }
 
         @NonNull
+        @Override
         View[] getWidgetViews() {
             return mWidgetViews;
+        }
+
+        /**
+         * Returns the container layout of this view holder.
+         *
+         * @return Container layout of this view holder.
+         */
+        @NonNull
+        @Override
+        public ViewGroup getContainerLayout() {
+            return mContainerLayout;
         }
     }
 }

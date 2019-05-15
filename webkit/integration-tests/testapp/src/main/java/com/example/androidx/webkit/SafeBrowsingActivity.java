@@ -35,5 +35,34 @@ public class SafeBrowsingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_safe_browsing);
         setTitle(R.string.safebrowsing_activity_title);
         WebkitHelpers.appendWebViewVersionToTitle(this);
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
+=======
+
+        final Context activityContext = this;
+        MenuListView listView = findViewById(R.id.safe_browsing_list);
+        MenuListView.MenuItem[] menuItems = new MenuListView.MenuItem[] {
+                new MenuListView.MenuItem(
+                        getResources().getString(R.string.small_interstitial_activity_title),
+                        new Intent(activityContext, SmallInterstitialActivity.class)),
+                new MenuListView.MenuItem(
+                        getResources().getString(R.string.medium_wide_interstitial_activity_title),
+                        new Intent(activityContext, MediumInterstitialActivity.class)
+                                .putExtra(MediumInterstitialActivity.LAYOUT_HORIZONTAL, false)),
+                new MenuListView.MenuItem(
+                        getResources().getString(R.string.medium_tall_interstitial_activity_title),
+                        new Intent(activityContext, MediumInterstitialActivity.class)
+                                .putExtra(MediumInterstitialActivity.LAYOUT_HORIZONTAL, true)),
+                new MenuListView.MenuItem(
+                        getResources().getString(R.string.loud_interstitial_activity_title),
+                        new Intent(activityContext, LoudInterstitialActivity.class)),
+                new MenuListView.MenuItem(
+                        getResources().getString(R.string.giant_interstitial_activity_title),
+                        new Intent(activityContext, GiantInterstitialActivity.class)),
+                new MenuListView.MenuItem(
+                        getResources().getString(R.string.per_web_view_enable_activity_title),
+                        new Intent(activityContext, PerWebViewEnableActivity.class)),
+        };
+        listView.setItems(menuItems);
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
     }
 }

@@ -16,8 +16,12 @@
 
 package androidx.work.impl.utils.taskexecutor;
 
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
 import android.support.annotation.NonNull;
 import android.support.annotation.RestrictTo;
+=======
+import androidx.annotation.RestrictTo;
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
 
 import java.util.concurrent.Executor;
 
@@ -43,12 +47,6 @@ public interface TaskExecutor {
      * @param runnable {@link Runnable} to execute on a background thread pool
      */
     void executeOnBackgroundThread(Runnable runnable);
-
-    /**
-     * @return the {@link Thread} being used by WorkManager's background task executor.
-     */
-    @NonNull
-    Thread getBackgroundExecutorThread();
 
     /**
      * @return The {@link Executor} for background task processing

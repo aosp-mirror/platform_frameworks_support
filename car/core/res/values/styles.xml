@@ -450,6 +450,12 @@ limitations under the License.
     <!-- A styling for ListItems that has dark text on a light-colored background. This style
          will automatically switch to darker colors during night mode. -->
     <style name="Widget.Car.ListItem" parent="android:Widget">
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
+=======
+        <item name="listItemFocusOutlineColor">@color/car_accent_dark</item>
+        <item name="listItemForeground">@drawable/car_card_ripple_background</item>
+        <item name="listItemBackground">@drawable/car_list_item_background</item>
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
         <item name="listItemBackgroundColor">@color/car_card</item>
         <item name="listItemTitleTextAppearance">@style/TextAppearance.Car.Body1</item>
         <item name="listItemBodyTextAppearance">@style/TextAppearance.Car.Body2</item>
@@ -458,6 +464,11 @@ limitations under the License.
     <!-- A styling for ListItems that has light text on a dark-colored background. This style
          will remain dark in night mode. -->
     <style name="Widget.Car.ListItem.Dark">
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
+=======
+        <item name="listItemFocusOutlineColor">@color/car_accent_light</item>
+        <item name="listItemForeground">@drawable/car_card_ripple_background_light</item>
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
         <item name="listItemBackgroundColor">@color/car_card_dark</item>
         <item name="listItemTitleTextAppearance">@style/TextAppearance.Car.Body1.Light</item>
         <item name="listItemBodyTextAppearance">@style/TextAppearance.Car.Body2.Light</item>

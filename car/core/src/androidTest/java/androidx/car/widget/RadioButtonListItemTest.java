@@ -83,7 +83,7 @@ public class RadioButtonListItemTest {
         item.setEnabled(false);
         setupPagedListView(Arrays.asList(item));
 
-        assertFalse(getViewHolderAtPosition(0).getRadioButton().isEnabled());
+        assertFalse(getViewHolderAtPosition(0).getCompoundButton().isEnabled());
     }
 
     @Test
@@ -153,7 +153,11 @@ public class RadioButtonListItemTest {
     }
 
     @Test
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
     public void testSetTextStartMargin_NoIcon() {
+=======
+    public void testSetTextStartMargin_Margin() {
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
         RadioButtonListItem item = new RadioButtonListItem(mActivity);
         item.setPrimaryActionIcon(null, RadioButtonListItem.PRIMARY_ACTION_ICON_SIZE_LARGE);
         item.setText("text");
@@ -166,6 +170,7 @@ public class RadioButtonListItemTest {
         assertThat(getViewHolderAtPosition(0).getText().getLeft(), is(equalTo(expected)));
     }
 
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
     @Test
     public void testSetTextStartMargin_MarginPlusOffsetByIcon() {
         RadioButtonListItem item = new RadioButtonListItem(mActivity);
@@ -174,7 +179,10 @@ public class RadioButtonListItemTest {
                 RadioButtonListItem.PRIMARY_ACTION_ICON_SIZE_SMALL);
         item.setText("text");
         item.setTextStartMargin(R.dimen.car_keyline_1);
+=======
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
 
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
         setupPagedListView(Arrays.asList(item));
 
         int margin = ApplicationProvider.getApplicationContext().getResources()
@@ -184,6 +192,8 @@ public class RadioButtonListItemTest {
                 .getDimensionPixelSize(R.dimen.car_keyline_3);
         assertThat(getViewHolderAtPosition(0).getText().getLeft(), is(equalTo(offset + margin)));
     }
+=======
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
 
     @Test
     public void testSetChecked() {
@@ -191,7 +201,7 @@ public class RadioButtonListItemTest {
         item.setChecked(true);
         setupPagedListView(Arrays.asList(item));
 
-        assertTrue(getViewHolderAtPosition(0).getRadioButton().isChecked());
+        assertTrue(getViewHolderAtPosition(0).getCompoundButton().isChecked());
     }
 
     @Test
@@ -203,28 +213,28 @@ public class RadioButtonListItemTest {
         item.setChecked(false);
         refreshUi();
 
-        assertFalse(getViewHolderAtPosition(0).getRadioButton().isChecked());
+        assertFalse(getViewHolderAtPosition(0).getCompoundButton().isChecked());
     }
 
     @Test
     public void testSetShowRadioButtonDivider() {
         RadioButtonListItem show = new RadioButtonListItem(mActivity);
-        show.setShowRadioButtonDivider(true);
+        show.setShowCompoundButtonDivider(true);
 
         setupPagedListView(Arrays.asList(show));
 
-        assertThat(getViewHolderAtPosition(0).getRadioButtonDivider().getVisibility(),
+        assertThat(getViewHolderAtPosition(0).getCompoundButtonDivider().getVisibility(),
                 is(equalTo(View.VISIBLE)));
     }
 
     @Test
     public void testSetShowRadioButtonDivider_noDivider() {
         RadioButtonListItem noShow = new RadioButtonListItem(mActivity);
-        noShow.setShowRadioButtonDivider(false);
+        noShow.setShowCompoundButtonDivider(false);
 
         setupPagedListView(Arrays.asList(noShow));
 
-        assertThat(getViewHolderAtPosition(0).getRadioButtonDivider().getVisibility(),
+        assertThat(getViewHolderAtPosition(0).getCompoundButtonDivider().getVisibility(),
                 is(equalTo(View.GONE)));
     }
 
@@ -233,24 +243,7 @@ public class RadioButtonListItemTest {
         RadioButtonListItem item = new RadioButtonListItem(mActivity);
         setupPagedListView(Arrays.asList(item));
 
-        assertFalse(getViewHolderAtPosition(0).getRadioButton().isChecked());
-    }
-
-    @Test
-    public void testClickingItemAlwaysCheckRadioButton() {
-        boolean[] clicked = new boolean[]{false};
-
-        RadioButtonListItem item = new RadioButtonListItem(mActivity);
-        // Set radio button listener, but we will click the item.
-        item.setOnCheckedChangeListener((compoundButton, checked) -> clicked[0] = true);
-        setupPagedListView(Arrays.asList(item));
-
-        onView(withId(R.id.recycler_view)).perform(
-                RecyclerViewActions.actionOnItemAtPosition(0, click()));
-
-        assertTrue(getViewHolderAtPosition(0).getRadioButton().isChecked());
-        // Verify the listener is also triggered.
-        assertTrue(clicked[0]);
+        assertFalse(getViewHolderAtPosition(0).getCompoundButton().isChecked());
     }
 
     @Test
@@ -265,7 +258,7 @@ public class RadioButtonListItemTest {
         item.setChecked(false);
         refreshUi();
 
-        assertFalse(getViewHolderAtPosition(0).getRadioButton().isChecked());
+        assertFalse(getViewHolderAtPosition(0).getCompoundButton().isChecked());
     }
 
     @Test
@@ -276,7 +269,7 @@ public class RadioButtonListItemTest {
         setupPagedListView(Arrays.asList(item));
 
         onView(withId(R.id.recycler_view)).perform(
-                actionOnItemAtPosition(0, clickChildViewWithId(R.id.radio_button)));
+                actionOnItemAtPosition(0, clickChildViewWithId(R.id.radiobutton_widget)));
 
         assertTrue(clicked[0]);
     }

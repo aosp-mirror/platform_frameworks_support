@@ -21,6 +21,13 @@ limitations under the License.
     <!-- Gutters -->
     <dimen name="car_gutter_width">16dp</dimen>
 
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
+=======
+    <!-- Focus -->
+    <dimen name="car_focus_outline_stroke_width_hovered">4dp</dimen>
+    <dimen name="car_focus_outline_stroke_width_focused">6dp</dimen>
+
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
     <!-- Keylines -->
     <dimen name="car_keyline_1">24dp</dimen>
     <dimen name="car_keyline_2">96dp</dimen>

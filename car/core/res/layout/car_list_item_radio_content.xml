@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Copyright (C) 2018 The Android Open Source Project
+  ~ Copyright (C) 2019 The Android Open Source Project
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -14,8 +14,6 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-<!-- This layout should only be used by class RadioButtonListItem, as it requires layout params
-     being set programmatically depending on item data/view configuration. -->
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -24,20 +22,96 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
     android:paddingEnd="@dimen/car_keyline_1"
     android:minHeight="@dimen/car_single_line_list_item_height" >
+=======
+    android:foreground="?attr/listItemForeground"
+    android:minHeight="@dimen/car_single_line_list_item_height">
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
 
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
+=======
+    <!-- Radio button with divider. -->
+    <RadioButton
+        android:id="@+id/radiobutton_widget"
+        style="?attr/radioButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/car_keyline_1"
+        app:layout_constraintBottom_toBottomOf="@+id/supplemental_actions_guideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/supplemental_actions_guideline" />
+
+    <View
+        android:id="@+id/radiobutton_divider"
+        style="@style/CarListVerticalDivider"
+        android:layout_marginEnd="@dimen/car_padding_4"
+        android:background="?attr/listItemActionDividerColor"
+        app:layout_constraintBottom_toBottomOf="@+id/supplemental_actions_guideline"
+        app:layout_constraintStart_toEndOf="@+id/radiobutton_widget"
+        app:layout_constraintTop_toTopOf="@+id/supplemental_actions_guideline" />
+
+    <!-- Text. -->
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textAppearance="?attr/listItemTitleTextAppearance"
+        app:layout_constraintBottom_toTopOf="@+id/body"
+        app:layout_constraintEnd_toStartOf="@+id/barrier"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <TextView
+        android:id="@+id/body"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?attr/listItemBodyTextAppearance"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/barrier"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title" />
+
+    <!-- A barrier between the text and icon. -->
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierAllowsGoneWidgets="false"
+        app:barrierDirection="start"
+        app:constraint_referenced_ids="primary_icon" />
+
+    <!-- Guideline that the checkbox is centered upon. -->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/supplemental_actions_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
+
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
     <!-- Primary Action. -->
     <ImageView
         android:id="@+id/primary_icon"
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
         android:layout_width="@dimen/car_primary_icon_size"
         android:layout_height="@dimen/car_primary_icon_size"
         android:layout_marginStart="@dimen/car_keyline_1"
+=======
+        android:layout_width="@dimen/car_single_line_list_item_height"
+        android:layout_height="@dimen/car_single_line_list_item_height"
+        android:layout_marginEnd="@dimen/car_keyline_1"
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
         android:tint="?attr/listItemPrimaryIconTint"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
     <!-- Text. -->
     <TextView
         android:id="@+id/text"
@@ -69,5 +143,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+=======
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
 </androidx.constraintlayout.widget.ConstraintLayout>
-

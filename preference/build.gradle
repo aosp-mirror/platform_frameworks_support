@@ -23,8 +23,15 @@ plugins {
 }
 
 dependencies {
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
     api(project(":annotation"))
     api("androidx.appcompat:appcompat:1.1.0-alpha02")
+=======
+    // TODO: change to alpha02 after release
+    implementation("androidx.annotation:annotation:1.1.0-rc01")
+    api(project(":appcompat"))
+    // TODO: change to alpha05 after release
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
     api(project(":core"))
     implementation("androidx.collection:collection:1.0.0")
     api("androidx.fragment:fragment:1.1.0-alpha04")

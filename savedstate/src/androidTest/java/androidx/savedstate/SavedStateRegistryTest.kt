@@ -130,6 +130,95 @@ class SavedStateRegistryTest {
         newStore.performRestore(savedState2)
         assertThat(newStore.consumeRestoredStateForKey("a").isSame(bundleOf("key", "ba"))).isTrue()
     }
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
+=======
+
+    @Test
+    fun autoRecreatedThrowOnMissingDefaultConstructor() {
+        @Suppress("UNUSED_PARAMETER")
+        class InvalidConstructorClass(unused: Int) : SavedStateRegistry.AutoRecreated {
+            override fun onRecreated(owner: SavedStateRegistryOwner) {
+                TODO("not implemented")
+            }
+        }
+        startFlow { registry ->
+            try {
+                registry.runOnNextRecreation(InvalidConstructorClass::class.java)
+                Assert.fail()
+            } catch (e: Exception) {
+                assertThat(e).isInstanceOf(IllegalArgumentException::class.java)
+            }
+        }
+    }
+
+    @Test
+    fun sneakClass() {
+        startFlow { registry ->
+            @Suppress("UNCHECKED_CAST")
+            val sneak = ErrorInStaticBlock::class.java as Class<SavedStateRegistry.AutoRecreated>
+            registry.runOnNextRecreation(sneak)
+        }.recreate { owner ->
+            try {
+                owner.lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_CREATE)
+                Assert.fail()
+            } catch (e: Exception) {
+                assertThat(e).isInstanceOf(ClassCastException::class.java)
+            }
+        }
+    }
+
+    @Test
+    fun throwSavedStateRegistry() {
+        val owner = FakeSavedStateRegistryOwner()
+        // shouldn't throw, though we aren't even created
+        owner.savedStateRegistry.runOnNextRecreation(ToBeRecreated::class.java)
+        owner.savedStateRegistryController.performRestore(null)
+        owner.lifecycleRegistry.markState(Lifecycle.State.RESUMED)
+        owner.lifecycleRegistry.markState(Lifecycle.State.CREATED)
+        try {
+            owner.savedStateRegistry.runOnNextRecreation(ToBeRecreated::class.java)
+            Assert.fail()
+        } catch (e: IllegalStateException) {
+            assertThat(e.message).contains("Can not perform this action after onSaveInstanceState")
+        }
+        owner.lifecycleRegistry.markState(Lifecycle.State.STARTED)
+        // shouldn't fail
+        owner.savedStateRegistry.runOnNextRecreation(ToBeRecreated::class.java)
+    }
+
+    private class TestFlow(val lastState: Bundle?) {
+        fun recreate(block: (FakeSavedStateRegistryOwner) -> Unit): TestFlow {
+            val fakeOwner = FakeSavedStateRegistryOwner()
+            fakeOwner.savedStateRegistryController.performRestore(lastState)
+            assertThat(fakeOwner.savedStateRegistry.isRestored).isTrue()
+            block(fakeOwner)
+            val outBundle = Bundle()
+            fakeOwner.savedStateRegistryController.performSave(outBundle)
+            return TestFlow(outBundle)
+        }
+
+        fun recreateAndCheck(block: (SavedStateRegistry) -> Unit): TestFlow {
+            return recreate { block(it.savedStateRegistry) }
+        }
+    }
+
+    private fun startFlow(block: (SavedStateRegistry) -> Unit) = TestFlow(null)
+        .recreateAndCheck(block)
+}
+
+private class ToBeRecreated : SavedStateRegistry.AutoRecreated {
+    override fun onRecreated(owner: SavedStateRegistryOwner) {
+        TODO("not implemented")
+    }
+}
+
+private class FakeSavedStateRegistryOwner : SavedStateRegistryOwner {
+    val lifecycleRegistry = LifecycleRegistry(this)
+    val savedStateRegistryController = SavedStateRegistryController.create(this)
+
+    override fun getLifecycle() = lifecycleRegistry
+    override fun getSavedStateRegistry() = savedStateRegistryController.savedStateRegistry
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
 }
 
 private fun bundleOf(key: String, value: Int): Bundle {

@@ -21,16 +21,25 @@ import android.util.Log;
 import androidx.work.Configuration;
 import androidx.work.WorkManager;
 
+import java.util.concurrent.Executors;
+
 /**
  * An Application class that initializes WorkManager.
  */
 public class TestApplication extends Application {
 
     @Override
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
     public void onCreate() {
         super.onCreate();
         WorkManager.initialize(
                 this,
                 new Configuration.Builder().setMinimumLoggingLevel(Log.VERBOSE).build());
+=======
+    public Configuration getWorkManagerConfiguration() {
+        return new Configuration.Builder()
+                .setTaskExecutor(Executors.newCachedThreadPool())
+                .setMinimumLoggingLevel(Log.VERBOSE).build();
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
     }
 }

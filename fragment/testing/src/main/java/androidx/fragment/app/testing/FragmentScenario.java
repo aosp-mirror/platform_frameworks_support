@@ -44,9 +44,19 @@ import androidx.test.core.app.ActivityScenario;
  * works with arbitrary fragments and works consistently across different versions of the Android
  * framework.
  * <p>
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
  * FragmentScenario only supports {@link androidx.fragment.app.Fragment}. If you are using a
  * deprecated fragment class such as {@code android.support.v4.app.Fragment} or
  * {@link android.app.Fragment}, please update your code to {@link androidx.fragment.app.Fragment}.
+=======
+ * FragmentScenario only supports {@link Fragment androidx.fragment.app.Fragment}. If you are using
+ * a deprecated fragment class such as {@code android.support.v4.app.Fragment} or
+ * {@link android.app.Fragment android.app.Fragment}, please update your code to
+ * {@link Fragment androidx.fragment.app.Fragment}.
+ * <p>
+ * If your testing Fragment has a dependency to specific theme such as {@code Theme.AppCompat},
+ * use the theme ID parameter in {@link #launch} method.
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
  *
  * @param <F> The Fragment class being tested
  *

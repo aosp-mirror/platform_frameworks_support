@@ -1,3 +1,4 @@
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
 /*
  * Copyright 2019 The Android Open Source Project
  *
@@ -504,3 +505,5 @@ public class KeyedAppStatesReporterTest {
         return KeyedAppStatesReporter.getInstance(context);
     }
 }
+=======
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)

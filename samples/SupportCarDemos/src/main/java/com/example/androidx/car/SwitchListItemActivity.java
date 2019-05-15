@@ -58,7 +58,7 @@ public class SwitchListItemActivity extends Activity {
 
         SwitchListItem item = new SwitchListItem(this);
         item.setTitle("Clicking me to set checked state of item above");
-        item.setSwitchOnCheckedChangeListener((buttonView, isChecked) -> {
+        item.setOnCheckedChangeListener((buttonView, isChecked) -> {
             int size = adapter.getItemCount();
             // -2 to get second to last item (the one above).
             ((SwitchListItem) provider.mItems.get(size - 2)).setSwitchState(isChecked);
@@ -87,31 +87,51 @@ public class SwitchListItemActivity extends Activity {
 
             item = new SwitchListItem(mContext);
             item.setTitle("Title - show divider");
-            item.setShowSwitchDivider(true);
-            item.setSwitchOnCheckedChangeListener(mListener);
+            item.setShowCompoundButtonDivider(true);
+            item.setOnCheckedChangeListener(mListener);
             mItems.add(item);
 
             item = new SwitchListItem(mContext);
             item.setBody("Body text");
-            item.setSwitchOnCheckedChangeListener(mListener);
+            item.setOnCheckedChangeListener(mListener);
             mItems.add(item);
 
             item = new SwitchListItem(mContext);
             item.setTitle("Long body text");
             item.setBody(longText);
-            item.setSwitchOnCheckedChangeListener(mListener);
+            item.setOnCheckedChangeListener(mListener);
             mItems.add(item);
 
             item = new SwitchListItem(mContext);
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
+=======
+            item.setPrimaryActionIcon(android.R.drawable.sym_def_app_icon,
+                    SwitchListItem.PRIMARY_ACTION_ICON_SIZE_SMALL);
+            item.setTitle("Switch with Icon");
+            item.setBody(longText);
+            item.setOnCheckedChangeListener(mListener);
+            mItems.add(item);
+
+            item = new SwitchListItem(mContext);
+            item.setTitle("Switch with Drawable");
+            item.setPrimaryActionIcon(
+                    mContext.getDrawable(android.R.drawable.sym_def_app_icon),
+                    SwitchListItem.PRIMARY_ACTION_ICON_SIZE_SMALL);
+            item.setBody(longText);
+            item.setOnCheckedChangeListener(mListener);
+            mItems.add(item);
+
+            item = new SwitchListItem(mContext);
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
             item.setTitle("Clicking item toggles switch");
             item.setClickable(true);
-            item.setSwitchOnCheckedChangeListener(mListener);
+            item.setOnCheckedChangeListener(mListener);
             mItems.add(item);
 
             item = new SwitchListItem(mContext);
             item.setTitle("Disabled item");
             item.setEnabled(false);
-            item.setSwitchOnCheckedChangeListener(mListener);
+            item.setOnCheckedChangeListener(mListener);
             mItems.add(item);
         }
 

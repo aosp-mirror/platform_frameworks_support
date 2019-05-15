@@ -33,7 +33,43 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
         <activity android:name=".SafeBrowsingActivity"
           android:exported="true" />
+=======
+        <activity
+            android:name=".SafeBrowsingActivity"
+            android:exported="true" />
+        <activity
+            android:name=".SmallInterstitialActivity"
+            android:exported="true" />
+        <activity
+            android:name=".MediumInterstitialActivity"
+            android:exported="true" />
+        <activity
+            android:name=".LoudInterstitialActivity"
+            android:exported="true" />
+        <activity
+            android:name=".GiantInterstitialActivity"
+            android:exported="true" />
+        <activity
+            android:name=".PerWebViewEnableActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ProxyOverrideActivity"
+            android:exported="true" />
+        <activity
+            android:name=".AssetLoaderListActivity"
+            android:exported="true" />
+        <activity
+            android:name=".AssetLoaderSimpleActivity"
+            android:exported="true" />
+        <activity
+            android:name=".AssetLoaderAjaxActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ForceDarkActivity"
+            android:exported="true" />
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
     </application>
 </manifest>

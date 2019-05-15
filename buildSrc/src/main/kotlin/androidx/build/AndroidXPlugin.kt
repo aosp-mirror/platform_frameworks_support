@@ -50,8 +50,18 @@ import org.gradle.api.plugins.JavaPluginConvention
 import org.gradle.api.tasks.TaskProvider
 import org.gradle.api.tasks.bundling.Jar
 import org.gradle.kotlin.dsl.extra
+import org.gradle.kotlin.dsl.get
 import org.gradle.kotlin.dsl.getPlugin
 import org.gradle.kotlin.dsl.withType
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
+=======
+import org.gradle.testing.jacoco.plugins.JacocoPluginExtension
+import org.gradle.testing.jacoco.tasks.JacocoReport
+import org.jetbrains.kotlin.gradle.dsl.KotlinProjectExtension
+import org.jetbrains.kotlin.gradle.plugin.KotlinBasePluginWrapper
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import java.io.File
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
 import java.util.concurrent.ConcurrentHashMap
 import java.io.File
 
@@ -128,6 +138,26 @@ class AndroidXPlugin : Plugin<Project> {
                         }
                     }
                 }
+                is KotlinBasePluginWrapper -> {
+                    if (project.name == "lifecycle-livedata-eap" || // b/130585490
+                        project.name == "lifecycle-runtime-eap" ||
+                        project.name == "lifecycle-runtime-ktx" ||
+                        project.name == "lifecycle-livedata-ktx" ||
+                        project.name == "work-runtime-ktx" || // b/130582237
+                        project.name == "room-compiler" || // b/130580662
+                        project.name == "room-testapp-kotlin" || // b/130643290
+                        project.name == "activity" ||
+                        project.name == "camera-testapp-timing" ||
+                        project.name == "fragment" || // b/130586088
+                        project.name == "fragment-testing" ||
+                        project.name == "benchmark" ||
+                        project.name == "navigation-safe-args-gradle-plugin") {
+                        return@all
+                    }
+                    project.tasks.withType(KotlinCompile::class.java).configureEach { compile ->
+                        compile.kotlinOptions.allWarningsAsErrors = true
+                    }
+                }
             }
         }
 
@@ -140,15 +170,41 @@ class AndroidXPlugin : Plugin<Project> {
     }
 
     private fun Project.configureRootProject() {
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
         val buildOnServerTask = tasks.create(BUILD_ON_SERVER_TASK)
         val buildTestApksTask = tasks.create(BUILD_TEST_APKS)
         var projectModules = ConcurrentHashMap<String, String>()
         project.extra.set("projects", projectModules)
+=======
+        if (isRunningOnBuildServer()) {
+            gradle.startParameter.showStacktrace = ShowStacktrace.ALWAYS
+        }
+        val createLibraryBuildInfoFilesTask =
+            tasks.register(CREATE_LIBRARY_BUILD_INFO_FILES_TASK)
+
+        extra.set("versionChecker", GMavenVersionChecker(logger))
+        val createArchiveTask = Release.getGlobalFullZipTask(this)
+
+        val buildOnServerTask = tasks.create(BUILD_ON_SERVER_TASK, BuildOnServer::class.java)
+        buildOnServerTask.dependsOn(createArchiveTask)
+        buildOnServerTask.dependsOn(createLibraryBuildInfoFilesTask)
+
+        val partiallyDejetifyArchiveTask = partiallyDejetifyArchiveTask(
+            createArchiveTask.get().archiveFile)
+        if (partiallyDejetifyArchiveTask != null)
+            buildOnServerTask.dependsOn(partiallyDejetifyArchiveTask)
+
+        val projectModules = ConcurrentHashMap<String, String>()
+        extra.set("projects", projectModules)
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
         tasks.all { task ->
             if (task.name.startsWith(Release.DIFF_TASK_PREFIX) ||
                     "distDocs" == task.name ||
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
                     Dokka.ARCHIVE_TASK_NAME == task.name ||
                     "partiallyDejetifyArchive" == task.name ||
+=======
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
                     CheckExternalDependencyLicensesTask.TASK_NAME == task.name) {
                 buildOnServerTask.dependsOn(task)
             }
@@ -174,11 +230,29 @@ class AndroidXPlugin : Plugin<Project> {
             }
         }
 
+        if (partiallyDejetifyArchiveTask != null) {
+            project(":jetifier-standalone").afterEvaluate { standAloneProject ->
+                partiallyDejetifyArchiveTask.configure {
+                    it.dependsOn(standAloneProject.tasks.named("installDist"))
+                }
+                createArchiveTask.configure {
+                    it.dependsOn(standAloneProject.tasks.named("dist"))
+                }
+            }
+        }
+
         val createCoverageJarTask = Jacoco.createCoverageJarTask(this)
         buildOnServerTask.dependsOn(createCoverageJarTask)
         buildTestApksTask.dependsOn(createCoverageJarTask)
 
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
         Release.createGlobalArchiveTask(this)
+=======
+        tasks.register(BUILD_TEST_APKS) {
+            it.dependsOn(createCoverageJarTask)
+        }
+
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
         val allDocsTask = DiffAndDocs.configureDiffAndDocs(this, projectDir,
                 DacOptions("androidx", "ANDROIDX_DATA"),
                 listOf(RELEASE_RULE))
@@ -272,8 +346,31 @@ class AndroidXPlugin : Plugin<Project> {
 
     private fun Project.configureAndroidLibraryOptions(extension: LibraryExtension) {
         extension.compileOptions.apply {
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
             setSourceCompatibility(VERSION_1_7)
             setTargetCompatibility(VERSION_1_7)
+=======
+            sourceCompatibility = VERSION_1_7
+            targetCompatibility = VERSION_1_7
+        }
+
+        project.configurations.all { config ->
+            val isTestConfig = config.name.toLowerCase().contains("test")
+
+            config.dependencyConstraints.configureEach { dependencyConstraint ->
+                dependencyConstraint.apply {
+                    // Remove strict constraints on test dependencies and listenablefuture:1.0
+                    if (isTestConfig ||
+                        group == "com.google.guava" &&
+                        name == "listenablefuture" &&
+                        version == "1.0") {
+                        version { versionConstraint ->
+                            versionConstraint.strictly("")
+                        }
+                    }
+                }
+            }
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
         }
 
         afterEvaluate {
@@ -371,6 +468,14 @@ private fun Project.createUpdateResourceApiTask(): DefaultTask {
     }
 }
 
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
+=======
+@Suppress("UNCHECKED_CAST")
+fun Project.getProjectsMap(): ConcurrentHashMap<String, String> {
+    return project.rootProject.extra.get("projects") as ConcurrentHashMap<String, String>
+}
+
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
 private fun Project.configureResourceApiChecks() {
     project.afterEvaluate {
         if (project.hasApiFolder()) {

@@ -34,6 +34,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.accessibility.AccessibilityEvent;
 
+import androidx.annotation.FloatRange;
 import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -84,8 +85,18 @@ public class ViewPager2 extends ViewGroup {
             new CompositeOnPageChangeCallback(3);
 
     int mCurrentItem;
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
+=======
+    LinearLayoutManager mLayoutManager;
+    private int mPendingCurrentItem = NO_POSITION;
+    private Parcelable mPendingAdapterState;
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
     private RecyclerView mRecyclerView;
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
     private LinearLayoutManager mLayoutManager;
+=======
+    private PagerSnapHelper mPagerSnapHelper;
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
     private ScrollEventAdapter mScrollEventAdapter;
     private PageTransformerAdapter mPageTransformerAdapter;
     private CompositeOnPageChangeCallback mPageChangeEventDispatcher;
@@ -126,7 +137,19 @@ public class ViewPager2 extends ViewGroup {
         mRecyclerView.addOnChildAttachStateChangeListener(enforceChildFillListener());
         new PagerSnapHelper().attachToRecyclerView(mRecyclerView);
 
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
         mScrollEventAdapter = new ScrollEventAdapter(mLayoutManager);
+=======
+        // Create ScrollEventAdapter before attaching PagerSnapHelper to RecyclerView, because the
+        // attach process calls PagerSnapHelperImpl.findSnapView, which uses the mScrollEventAdapter
+        mScrollEventAdapter = new ScrollEventAdapter(this);
+        // Create FakeDrag before attaching PagerSnapHelper, same reason as above
+        mFakeDragger = new FakeDrag(this, mScrollEventAdapter, mRecyclerView);
+        mPagerSnapHelper = new PagerSnapHelperImpl();
+        mPagerSnapHelper.attachToRecyclerView(mRecyclerView);
+        // Add mScrollEventAdapter after attaching mPagerSnapHelper to mRecyclerView, because we
+        // don't want to respond on the events sent out during the attach process
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
         mRecyclerView.addOnScrollListener(mScrollEventAdapter);
 
         mPageChangeEventDispatcher = new CompositeOnPageChangeCallback(3);
@@ -398,6 +421,11 @@ public class ViewPager2 extends ViewGroup {
         return mLayoutManager.getOrientation();
     }
 
+    boolean isLayoutRtl() {
+        return mLayoutManager.getLayoutDirection()
+                == androidx.core.view.ViewCompat.LAYOUT_DIRECTION_RTL;
+    }
+
     /**
      * Set the currently selected page. If the ViewPager has already been through its first
      * layout with its current adapter there will be a smooth animated transition between
@@ -524,6 +552,9 @@ public class ViewPager2 extends ViewGroup {
      * apply custom property transformations to each page, overriding the default sliding behavior.
      *
      * @param transformer PageTransformer that will modify each page's animation properties
+     *
+     * @see MarginPageTransformer
+     * @see CompositePageTransformer
      */
     public final void setPageTransformer(@Nullable PageTransformer transformer) {
         // TODO: add support for reverseDrawingOrder: b/112892792
@@ -668,6 +699,6 @@ public class ViewPager2 extends ViewGroup {
          *                 position of the pager. 0 is front and center. 1 is one full
          *                 page position to the right, and -1 is one page position to the left.
          */
-        void transformPage(@NonNull View page, float position);
+        void transformPage(@NonNull View page, @FloatRange(from = -1.0, to = 1.0) float position);
     }
 }

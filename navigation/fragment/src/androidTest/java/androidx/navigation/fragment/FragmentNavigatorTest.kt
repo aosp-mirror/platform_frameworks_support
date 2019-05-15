@@ -87,6 +87,34 @@ class FragmentNavigatorTest {
 
     @UiThreadTest
     @Test
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
+=======
+    fun testNavigateWithFragmentFactory() {
+        fragmentManager.fragmentFactory = NonEmptyFragmentFactory()
+        val fragmentNavigator = FragmentNavigator(emptyActivity, fragmentManager, R.id.container)
+        val destination = fragmentNavigator.createDestination().apply {
+            id = INITIAL_FRAGMENT
+            className = NonEmptyConstructorFragment::class.java.name
+        }
+
+        assertThat(fragmentNavigator.navigate(destination, null, null, null))
+            .isEqualTo(destination)
+        fragmentManager.executePendingTransactions()
+        val fragment = fragmentManager.findFragmentById(R.id.container)
+        assertWithMessage("Fragment should be added")
+            .that(fragment)
+            .isNotNull()
+        assertWithMessage("Fragment should be the correct type")
+            .that(fragment)
+            .isInstanceOf(NonEmptyConstructorFragment::class.java)
+        assertWithMessage("Fragment should be the primary navigation Fragment")
+            .that(fragment)
+            .isSameInstanceAs(fragmentManager.primaryNavigationFragment)
+    }
+
+    @UiThreadTest
+    @Test
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
     fun testNavigateTwice() {
         val fragmentNavigator = FragmentNavigator(emptyActivity, fragmentManager, R.id.container)
         val destination = fragmentNavigator.createDestination().apply {
@@ -258,10 +286,10 @@ class FragmentNavigatorTest {
             .isInstanceOf(EmptyFragment::class.java)
         assertWithMessage("Replacement Fragment should be the primary navigation Fragment")
             .that(fragmentManager.primaryNavigationFragment)
-            .isSameAs(replacementFragment)
+            .isSameInstanceAs(replacementFragment)
         assertWithMessage("Replacement should be a new instance")
             .that(replacementFragment)
-            .isNotSameAs(fragment)
+            .isNotSameInstanceAs(fragment)
         assertWithMessage("Old instance should be destroyed")
             .that(fragment!!.lifecycle.currentState)
             .isEqualTo(Lifecycle.State.DESTROYED)
@@ -271,11 +299,20 @@ class FragmentNavigatorTest {
         fragmentManager.executePendingTransactions()
         assertWithMessage("Initial Fragment should be on top of back stack after pop")
             .that(fragmentManager.findFragmentById(R.id.container))
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
             .isSameAs(initialFragment)
         // TODO enable after fixing b/124332597 and moving to depend on AndroidX
         /*assertWithMessage("Initial Fragment should be the primary navigation Fragment")
+=======
+            .isSameInstanceAs(initialFragment)
+        assertWithMessage("Initial Fragment should be the primary navigation Fragment")
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
             .that(fragmentManager.primaryNavigationFragment)
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
             .isSameAs(initialFragment)*/
+=======
+            .isSameInstanceAs(initialFragment)
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
     }
 
     @UiThreadTest
@@ -362,7 +399,7 @@ class FragmentNavigatorTest {
             .isNotNull()
         assertWithMessage("Replacement Fragment should be the primary navigation Fragment")
             .that(fragmentManager.primaryNavigationFragment)
-            .isSameAs(replacementFragment)
+            .isSameInstanceAs(replacementFragment)
 
         // Push the same Fragment a second time, creating a stack of two
         // identical Fragments
@@ -375,7 +412,7 @@ class FragmentNavigatorTest {
             .isNotNull()
         assertWithMessage("Fragment to pop should be the primary navigation Fragment")
             .that(fragmentManager.primaryNavigationFragment)
-            .isSameAs(fragmentToPop)
+            .isSameInstanceAs(fragmentToPop)
 
         // Now pop the Fragment
         val popped = fragmentNavigator.popBackStack()
@@ -386,7 +423,7 @@ class FragmentNavigatorTest {
         assertWithMessage("Replacement Fragment should be the primary navigation Fragment " +
                 "after pop")
             .that(fragmentManager.primaryNavigationFragment)
-            .isSameAs(replacementFragment)
+            .isSameInstanceAs(replacementFragment)
     }
 
     @UiThreadTest

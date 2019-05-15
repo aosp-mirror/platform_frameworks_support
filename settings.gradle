@@ -79,12 +79,17 @@ includeProject(":heifwriter", "heifwriter")
 includeProject(":interpolator", "interpolator")
 includeProject(":jetifier-core", "jetifier/jetifier/core")
 includeProject(":jetifier-processor", "jetifier/jetifier/processor")
-includeProject(":jetifier-gradle-plugin", "jetifier/jetifier/gradle-plugin")
 includeProject(":jetifier-standalone", "jetifier/jetifier/standalone")
 includeProject(":jetifier-preprocessor", "jetifier/jetifier/preprocessor")
 includeProject(":leanback", "leanback")
 includeProject(":leanback-preference", "leanback-preference")
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
 includeProject(":lifecycle:integration-tests:testapp", "lifecycle/integration-tests/testapp")
+=======
+includeProject(":lifecycle:integration-tests:incrementality", "lifecycle/integration-tests/incrementality")
+includeProject(":lifecycle:integration-tests:lifecycle-testapp", "lifecycle/integration-tests/testapp")
+includeProject(":lifecycle:integration-tests:lifecycle-testapp-kotlin", "lifecycle/integration-tests/kotlintestapp")
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
 includeProject(":lifecycle:lifecycle-common", "lifecycle/common")
 includeProject(":lifecycle:lifecycle-common-java8", "lifecycle/common-java8")
 includeProject(":lifecycle:lifecycle-compiler", "lifecycle/compiler")
@@ -235,6 +240,7 @@ includeProject(":viewpager2-demos", new File(samplesRoot, "ViewPager2Demos"))
 /////////////////////////////
 
 includeProject(":internal-testutils", "testutils")
+includeProject(":internal-testutils-common", "testutils-common")
 includeProject(":internal-testutils-ktx", "testutils-ktx")
 
 /////////////////////////////

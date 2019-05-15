@@ -23,7 +23,25 @@ plugins {
     id("kotlin-android")
 }
 
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
 dependencies {}
+=======
+dependencies {
+    api("androidx.annotation:annotation:1.0.0") { transitive = true}
+    api("androidx.core:core:1.0.0") { transitive = true}
+    api("androidx.fragment:fragment:1.0.0") { transitive = true}
+
+    api("com.google.crypto.tink:tink-android:1.2.2")
+
+    androidTestImplementation("androidx.test.ext:junit:1.1.0")
+    androidTestImplementation(ANDROIDX_TEST_EXT_JUNIT)
+    androidTestImplementation(ANDROIDX_TEST_CORE)
+    androidTestImplementation(ANDROIDX_TEST_RUNNER)
+    androidTestImplementation(ANDROIDX_TEST_RULES)
+    androidTestImplementation(MOCKITO_CORE)
+
+}
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
 
 android {
     defaultConfig {

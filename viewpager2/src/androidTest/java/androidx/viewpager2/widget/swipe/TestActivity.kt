@@ -17,8 +17,13 @@
 package androidx.viewpager2.widget.swipe
 
 import android.os.Bundle
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
 import androidx.testutils.RecreatedActivity
 import androidx.viewpager2.LocaleTestUtils
+=======
+import androidx.testutils.LocaleTestUtils
+import androidx.testutils.RecreatedAppCompatActivity
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
 import androidx.viewpager2.test.R
 
 class TestActivity : RecreatedActivity() {

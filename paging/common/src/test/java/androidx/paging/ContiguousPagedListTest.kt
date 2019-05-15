@@ -20,7 +20,12 @@ import androidx.arch.core.util.Function
 import androidx.paging.PagedList.LoadState.LOADING
 import androidx.paging.PagedList.LoadState.IDLE
 import androidx.paging.PagedList.LoadState.RETRYABLE_ERROR
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
 import org.junit.Assert.assertArrayEquals
+=======
+import androidx.paging.futures.DirectExecutor
+import androidx.testutils.TestExecutor
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertSame
@@ -48,6 +53,7 @@ class ContiguousPagedListTest(private val placeholdersEnabled: Boolean) {
         }
     }
 
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
     private inner class TestSource(val listData: List<Item> = ITEMS)
             : ContiguousDataSource<Int, Item>() {
         override fun dispatchLoadInitial(
@@ -57,6 +63,18 @@ class ContiguousPagedListTest(private val placeholdersEnabled: Boolean) {
             enablePlaceholders: Boolean,
             mainThreadExecutor: Executor,
             receiver: PageResult.Receiver<Item>
+=======
+    /**
+     * Note: we use a non-positional dataSource here because we want to avoid the initial load size
+     * and alignment restrictions. These tests were written before positional+contiguous enforced
+     * these behaviors.
+     */
+    private inner class TestSource(val listData: List<Item> = ITEMS) :
+        ItemKeyedDataSource<Int, Item>() {
+        override fun loadInitial(
+            params: LoadInitialParams<Int>,
+            callback: LoadInitialCallback<Item>
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
         ) {
             val convertPosition = key ?: 0
             val position = Math.max(0, (convertPosition - initialLoadSize / 2))
@@ -181,8 +199,10 @@ class ContiguousPagedListTest(private val placeholdersEnabled: Boolean) {
 
             val expectedTrailing = ITEMS.size - start - count
             assertEquals(ITEMS.size, actual.size)
-            assertEquals((ITEMS.size - start - expectedTrailing),
-                    actual.storageCount)
+            assertEquals(
+                (ITEMS.size - start - expectedTrailing),
+                actual.storageCount
+            )
             assertEquals(start, actual.leadingNullCount)
             assertEquals(expectedTrailing, actual.trailingNullCount)
         } else {
@@ -238,8 +258,10 @@ class ContiguousPagedListTest(private val placeholdersEnabled: Boolean) {
         assertTrue(pagedList.dataSource is TestSource)
 
         // snapshot keeps same DataSource
-        assertSame(pagedList.dataSource,
-                (pagedList.snapshot() as SnapshotPagedList<Item>).dataSource)
+        assertSame(
+            pagedList.dataSource,
+            (pagedList.snapshot() as SnapshotPagedList<Item>).dataSource
+        )
     }
 
     @Test(expected = IndexOutOfBoundsException::class)
@@ -360,10 +382,11 @@ class ContiguousPagedListTest(private val placeholdersEnabled: Boolean) {
     @Test
     fun prefetchFront() {
         val pagedList = createCountedPagedList(
-                initialPosition = 50,
-                pageSize = 20,
-                initLoadSize = 20,
-                prefetchDistance = 1)
+            initialPosition = 50,
+            pageSize = 20,
+            initLoadSize = 20,
+            prefetchDistance = 1
+        )
         verifyRange(40, 20, pagedList)
 
         // access adjacent to front, shouldn't trigger prefetch
@@ -380,10 +403,11 @@ class ContiguousPagedListTest(private val placeholdersEnabled: Boolean) {
     @Test
     fun prefetchEnd() {
         val pagedList = createCountedPagedList(
-                initialPosition = 50,
-                pageSize = 20,
-                initLoadSize = 20,
-                prefetchDistance = 1)
+            initialPosition = 50,
+            pageSize = 20,
+            initLoadSize = 20,
+            prefetchDistance = 1
+        )
         verifyRange(40, 20, pagedList)
 
         // access adjacent from end, shouldn't trigger prefetch
@@ -400,11 +424,12 @@ class ContiguousPagedListTest(private val placeholdersEnabled: Boolean) {
     @Test
     fun pageDropEnd() {
         val pagedList = createCountedPagedList(
-                initialPosition = 0,
-                pageSize = 20,
-                initLoadSize = 20,
-                prefetchDistance = 1,
-                maxSize = 70)
+            initialPosition = 0,
+            pageSize = 20,
+            initLoadSize = 20,
+            prefetchDistance = 1,
+            maxSize = 70
+        )
         val callback = mock(PagedList.Callback::class.java)
         pagedList.addWeakCallback(null, callback)
         verifyRange(0, 20, pagedList)
@@ -436,11 +461,12 @@ class ContiguousPagedListTest(private val placeholdersEnabled: Boolean) {
     @Test
     fun pageDropFront() {
         val pagedList = createCountedPagedList(
-                initialPosition = 90,
-                pageSize = 20,
-                initLoadSize = 20,
-                prefetchDistance = 1,
-                maxSize = 70)
+            initialPosition = 90,
+            pageSize = 20,
+            initLoadSize = 20,
+            prefetchDistance = 1,
+            maxSize = 70
+        )
         val callback = mock(PagedList.Callback::class.java)
         pagedList.addWeakCallback(null, callback)
         verifyRange(80, 20, pagedList)
@@ -475,11 +501,12 @@ class ContiguousPagedListTest(private val placeholdersEnabled: Boolean) {
     fun pageDropCancelPrepend() {
         // verify that, based on most recent load position, a prepend can be dropped as it arrives
         val pagedList = createCountedPagedList(
-                initialPosition = 2,
-                pageSize = 1,
-                initLoadSize = 1,
-                prefetchDistance = 1,
-                maxSize = 3)
+            initialPosition = 2,
+            pageSize = 1,
+            initLoadSize = 1,
+            prefetchDistance = 1,
+            maxSize = 3
+        )
 
         // load 3 pages - 2nd, 3rd, 4th
         pagedList.loadAround(if (placeholdersEnabled) 2 else 0)
@@ -517,11 +544,12 @@ class ContiguousPagedListTest(private val placeholdersEnabled: Boolean) {
     fun pageDropCancelAppend() {
         // verify that, based on most recent load position, an append can be dropped as it arrives
         val pagedList = createCountedPagedList(
-                initialPosition = 2,
-                pageSize = 1,
-                initLoadSize = 1,
-                prefetchDistance = 1,
-                maxSize = 3)
+            initialPosition = 2,
+            pageSize = 1,
+            initLoadSize = 1,
+            prefetchDistance = 1,
+            maxSize = 3
+        )
 
         // load 3 pages - 2nd, 3rd, 4th
         pagedList.loadAround(if (placeholdersEnabled) 2 else 0)
@@ -606,7 +634,8 @@ class ContiguousPagedListTest(private val placeholdersEnabled: Boolean) {
             pageSize = 1,
             initLoadSize = 1,
             prefetchDistance = 1,
-            maxSize = 3)
+            maxSize = 3
+        )
         val states = pagedList.addLoadStateCapture(PagedList.LoadType.START)
 
         // load 3 pages - 2nd, 3rd, 4th
@@ -637,7 +666,8 @@ class ContiguousPagedListTest(private val placeholdersEnabled: Boolean) {
             pageSize = 1,
             initLoadSize = 1,
             prefetchDistance = 1,
-            maxSize = 3)
+            maxSize = 3
+        )
         val states = pagedList.addLoadStateCapture(PagedList.LoadType.END)
 
         // load 3 pages - 2nd, 3rd, 4th
@@ -680,8 +710,10 @@ class ContiguousPagedListTest(private val placeholdersEnabled: Boolean) {
 
     @Test
     fun distantPrefetch() {
-        val pagedList = createCountedPagedList(0,
-                initLoadSize = 10, pageSize = 10, prefetchDistance = 30)
+        val pagedList = createCountedPagedList(
+            0,
+            initLoadSize = 10, pageSize = 10, prefetchDistance = 30
+        )
         val callback = mock(PagedList.Callback::class.java)
         pagedList.addWeakCallback(null, callback)
         verifyRange(0, 10, pagedList)
@@ -752,10 +784,19 @@ class ContiguousPagedListTest(private val placeholdersEnabled: Boolean) {
     @Test
     fun initialLoad_lastLoad() {
         val pagedList = createCountedPagedList(
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
                 initialPosition = 0,
                 initLoadSize = 20,
                 lastLoad = 4)
         // last load is param passed
+=======
+            initialPosition = 4,
+            initLoadSize = 20,
+            pageSize = 10,
+            dataSource = ListDataSource(ITEMS)
+        )
+        // With positional DataSource, last load is param passed
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
         assertEquals(4, pagedList.mLastLoad)
         verifyRange(0, 20, pagedList)
     }
@@ -763,9 +804,15 @@ class ContiguousPagedListTest(private val placeholdersEnabled: Boolean) {
     @Test
     fun initialLoad_lastLoadComputed() {
         val pagedList = createCountedPagedList(
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
                 initialPosition = 0,
                 initLoadSize = 20,
                 lastLoad = ContiguousPagedList.LAST_LOAD_UNSPECIFIED)
+=======
+            initialPosition = null,
+            initLoadSize = 20
+        )
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
         // last load is middle of initial load
         assertEquals(10, pagedList.mLastLoad)
         verifyRange(0, 20, pagedList)
@@ -836,9 +883,11 @@ class ContiguousPagedListTest(private val placeholdersEnabled: Boolean) {
     fun boundaryCallback_empty() {
         @Suppress("UNCHECKED_CAST")
         val boundaryCallback =
-                mock(PagedList.BoundaryCallback::class.java) as PagedList.BoundaryCallback<Item>
-        val pagedList = createCountedPagedList(0,
-                listData = ArrayList(), boundaryCallback = boundaryCallback)
+            mock(PagedList.BoundaryCallback::class.java) as PagedList.BoundaryCallback<Item>
+        val pagedList = createCountedPagedList(
+            0,
+            listData = ArrayList(), boundaryCallback = boundaryCallback
+        )
         assertEquals(0, pagedList.size)
 
         // nothing yet
@@ -855,9 +904,11 @@ class ContiguousPagedListTest(private val placeholdersEnabled: Boolean) {
         val shortList = ITEMS.subList(0, 4)
         @Suppress("UNCHECKED_CAST")
         val boundaryCallback =
-                mock(PagedList.BoundaryCallback::class.java) as PagedList.BoundaryCallback<Item>
-        val pagedList = createCountedPagedList(0, listData = shortList,
-                initLoadSize = shortList.size, boundaryCallback = boundaryCallback)
+            mock(PagedList.BoundaryCallback::class.java) as PagedList.BoundaryCallback<Item>
+        val pagedList = createCountedPagedList(
+            0, listData = shortList,
+            initLoadSize = shortList.size, boundaryCallback = boundaryCallback
+        )
         assertEquals(shortList.size, pagedList.size)
 
         // nothing yet
@@ -876,9 +927,11 @@ class ContiguousPagedListTest(private val placeholdersEnabled: Boolean) {
     fun boundaryCallback_delayed() {
         @Suppress("UNCHECKED_CAST")
         val boundaryCallback =
-                mock(PagedList.BoundaryCallback::class.java) as PagedList.BoundaryCallback<Item>
-        val pagedList = createCountedPagedList(90,
-                initLoadSize = 20, prefetchDistance = 5, boundaryCallback = boundaryCallback)
+            mock(PagedList.BoundaryCallback::class.java) as PagedList.BoundaryCallback<Item>
+        val pagedList = createCountedPagedList(
+            90,
+            initLoadSize = 20, prefetchDistance = 5, boundaryCallback = boundaryCallback
+        )
         verifyRange(80, 20, pagedList)
 
         // nothing yet

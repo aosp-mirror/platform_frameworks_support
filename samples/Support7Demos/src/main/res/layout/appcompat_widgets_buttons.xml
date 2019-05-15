@@ -123,6 +123,25 @@
             style="@style/Widget.AppCompat.Button.Borderless.Colored"/>
 
         <Button
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
+=======
+            style="@style/Widget.AppCompat.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Button (tinted)"
+            app:backgroundTint="@color/background_tint" />
+
+        <Button
+            style="@style/Widget.AppCompat.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:text="Button (tinted) disabled"
+            app:backgroundTint="@color/background_tint" />
+
+        <Button
+            style="@style/Widget.AppCompat.Button.Colored"
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Button (colored)"
@@ -139,16 +158,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Button (colored + tinted)"
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
             app:backgroundTint="#00FF00"
             style="@style/Widget.AppCompat.Button.Colored"/>
+=======
+            app:backgroundTint="@color/background_tint" />
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:enabled="false"
             android:text="Button (colored + tinted) disabled"
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
             app:backgroundTint="#00FF00"
             style="@style/Widget.AppCompat.Button.Colored"/>
+=======
+            app:backgroundTint="@color/background_tint" />
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
 
         <RatingBar
                 android:layout_width="wrap_content"

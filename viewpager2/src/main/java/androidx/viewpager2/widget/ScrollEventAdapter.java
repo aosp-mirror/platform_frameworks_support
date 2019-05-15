@@ -18,7 +18,6 @@ package androidx.viewpager2.widget;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 
-import static androidx.core.view.ViewCompat.LAYOUT_DIRECTION_RTL;
 import static androidx.viewpager2.widget.ViewPager2.ORIENTATION_HORIZONTAL;
 import static androidx.viewpager2.widget.ViewPager2.SCROLL_STATE_DRAGGING;
 import static androidx.viewpager2.widget.ViewPager2.SCROLL_STATE_IDLE;
@@ -67,6 +66,7 @@ final class ScrollEventAdapter extends RecyclerView.OnScrollListener {
 
     private OnPageChangeCallback mCallback;
     private final @NonNull LinearLayoutManager mLayoutManager;
+    private final @NonNull ViewPager2 mViewPager;
 
     // state related fields
     private @AdapterState int mAdapterState;
@@ -77,8 +77,9 @@ final class ScrollEventAdapter extends RecyclerView.OnScrollListener {
     private boolean mDispatchSelected;
     private boolean mScrollHappened;
 
-    ScrollEventAdapter(@NonNull LinearLayoutManager layoutManager) {
-        mLayoutManager = layoutManager;
+    ScrollEventAdapter(@NonNull ViewPager2 viewPager) {
+        mLayoutManager = viewPager.mLayoutManager;
+        mViewPager = viewPager;
         mScrollValues = new ScrollEventValues();
         resetState();
     }
@@ -184,7 +185,7 @@ final class ScrollEventAdapter extends RecyclerView.OnScrollListener {
         if (mDispatchSelected) {
             // Drag started settling, need to calculate target page and dispatch onPageSelected now
             mDispatchSelected = false;
-            boolean scrollingForward = dy > 0 || (dy == 0 && dx < 0 == isLayoutRTL());
+            boolean scrollingForward = dy > 0 || (dy == 0 && dx < 0 == mViewPager.isLayoutRtl());
 
             // "&& values.mOffsetPx != 0": filters special case where we're scrolling forward and
             // the first scroll event after settling already got us at the target
@@ -235,8 +236,13 @@ final class ScrollEventAdapter extends RecyclerView.OnScrollListener {
         boolean isHorizontal = mLayoutManager.getOrientation() == ORIENTATION_HORIZONTAL;
         int start, sizePx;
         if (isHorizontal) {
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
             sizePx = firstVisibleView.getWidth();
             if (!isLayoutRTL()) {
+=======
+            sizePx = firstVisibleView.getWidth() + margin.leftMargin + margin.rightMargin;
+            if (!mViewPager.isLayoutRtl()) {
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
                 start = firstVisibleView.getLeft() - margin.leftMargin;
             } else {
                 start = sizePx - firstVisibleView.getRight() + margin.rightMargin;
@@ -278,10 +284,6 @@ final class ScrollEventAdapter extends RecyclerView.OnScrollListener {
         if (currentItem != 0) {
             dispatchSelected(currentItem);
         }
-    }
-
-    private boolean isLayoutRTL() {
-        return mLayoutManager.getLayoutDirection() == LAYOUT_DIRECTION_RTL;
     }
 
     void setOnPageChangeCallback(OnPageChangeCallback callback) {

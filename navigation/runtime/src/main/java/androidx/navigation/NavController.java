@@ -133,6 +133,18 @@ public class NavController {
     private final CopyOnWriteArrayList<OnDestinationChangedListener>
             mOnDestinationChangedListeners = new CopyOnWriteArrayList<>();
 
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
+=======
+    private final OnBackPressedCallback mOnBackPressedCallback =
+            new OnBackPressedCallback(false) {
+        @Override
+        public void handleOnBackPressed() {
+            popBackStack();
+        }
+    };
+    private boolean mEnableOnBackPressedCallback = true;
+
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
     /**
      * OnDestinationChangedListener receives a callback when the
      * {@link #getCurrentDestination()} or its arguments change.
@@ -150,6 +162,31 @@ public class NavController {
          */
         void onDestinationChanged(@NonNull NavController controller,
                 @NonNull NavDestination destination, @Nullable Bundle arguments);
+    }
+
+    /**
+     * Class returned by
+     * {@link #setHostOnBackPressedDispatcherOwner(OnBackPressedDispatcherOwner)} to
+     * allow the {@link NavHost} to manually disable or enable whether the NavController
+     * should actively handle system Back button events.
+     */
+    public final class NavHostOnBackPressedManager {
+        /**
+         * This class should only be instantiated by NavController itself as part of
+         * {@link #setHostOnBackPressedDispatcherOwner(OnBackPressedDispatcherOwner)}.
+         */
+        NavHostOnBackPressedManager(){
+        }
+
+        /**
+         * Set whether the NavController should handle the system Back button events via the
+         * registered {@link OnBackPressedDispatcher}.
+         *
+         * @param enabled True if the NavController should handle system Back button events.
+         */
+        public void enableOnBackPressed(boolean enabled) {
+            setEnableOnBackPressedCallback(enabled);
+        }
     }
 
     /**
@@ -312,6 +349,10 @@ public class NavController {
                 break;
             }
         }
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
+=======
+        updateOnBackPressedCallbackEnabled();
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
         return popped;
     }
 
@@ -496,6 +537,11 @@ public class NavController {
                 }
                 mBackStack.add(new NavBackStackEntry(node, args));
             }
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
+=======
+            updateOnBackPressedCallbackEnabled();
+            mBackStackUUIDsToRestore = null;
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
             mBackStackIdsToRestore = null;
             mBackStackArgsToRestore = null;
         }
@@ -809,32 +855,30 @@ public class NavController {
         NavDestination newDest = navigator.navigate(node, finalArgs,
                 navOptions, navigatorExtras);
         if (newDest != null) {
-            // Ensure that every parent NavGraph is also on the stack if it isn't already
-            // First get all of the parent NavGraphs
+            // The mGraph should always be on the back stack after you navigate()
+            if (mBackStack.isEmpty()) {
+                mBackStack.add(new NavBackStackEntry(mGraph, finalArgs));
+            }
+            // Now ensure all intermediate NavGraphs are put on the back stack
+            // to ensure that global actions work.
             ArrayDeque<NavBackStackEntry> hierarchy = new ArrayDeque<>();
-            NavGraph parent = newDest.getParent();
-            while (parent != null) {
-                hierarchy.addFirst(new NavBackStackEntry(parent, finalArgs));
-                parent = parent.getParent();
-            }
-            // Now iterate through the back stack and see which NavGraphs
-            // are already on the back stack
-            Iterator<NavBackStackEntry> iterator = mBackStack.iterator();
-            while (iterator.hasNext() && !hierarchy.isEmpty()) {
-                NavDestination destination = iterator.next().getDestination();
-                if (destination.equals(hierarchy.getFirst().getDestination())) {
-                    // This destination is already in the back stack so
-                    // we don't need to add it
-                    hierarchy.removeFirst();
+            NavDestination destination = newDest;
+            while (destination != null && findDestination(destination.getId()) == null) {
+                NavGraph parent = destination.getParent();
+                if (parent != null) {
+                    hierarchy.addFirst(new NavBackStackEntry(parent, finalArgs));
                 }
+                destination = parent;
             }
-            // Add all of the remaining parent NavGraphs that aren't
-            // already on the back stack
             mBackStack.addAll(hierarchy);
             // And finally, add the new destination
             NavBackStackEntry newBackStackEntry = new NavBackStackEntry(newDest, finalArgs);
             mBackStack.add(newBackStackEntry);
         }
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
+=======
+        updateOnBackPressedCallbackEnabled();
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
         if (popped || newDest != null) {
             dispatchOnDestinationChanged();
         }
@@ -947,4 +991,99 @@ public class NavController {
         mBackStackIdsToRestore = navState.getIntArray(KEY_BACK_STACK_IDS);
         mBackStackArgsToRestore = navState.getParcelableArray(KEY_BACK_STACK_ARGS);
     }
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
+=======
+
+    /**
+     * Sets the host's {@link LifecycleOwner}.
+     *
+     * @param owner The {@link LifecycleOwner} associated with the containing {@link NavHost}.
+     * @see #setHostOnBackPressedDispatcherOwner(OnBackPressedDispatcherOwner)
+     */
+    public final void setHostLifecycleOwner(@NonNull LifecycleOwner owner) {
+        mLifecycleOwner = owner;
+    }
+
+    /**
+     * Sets the host's {@link OnBackPressedDispatcherOwner}. If set, NavController will
+     * register a {@link OnBackPressedCallback} to handle system Back button events.
+     * <p>
+     * If you have not explicitly called {@link #setHostLifecycleOwner(LifecycleOwner)},
+     * the owner you pass here will be used as the {@link LifecycleOwner} for registering
+     * the {@link OnBackPressedCallback}.
+     *
+     * @param owner The {@link OnBackPressedDispatcherOwner} associated with the containing
+     * {@link NavHost}.
+     * @return a {@link NavHostOnBackPressedManager} that allows you to enable or disable
+     * whether this NavController should intercept the system Back button events using this
+     * {@link OnBackPressedDispatcher}.
+     * @see #setHostLifecycleOwner(LifecycleOwner)
+     */
+    @NonNull
+    public final NavHostOnBackPressedManager setHostOnBackPressedDispatcherOwner(
+            @NonNull OnBackPressedDispatcherOwner owner) {
+        if (mLifecycleOwner == null) {
+            mLifecycleOwner = owner;
+        }
+        OnBackPressedDispatcher dispatcher = owner.getOnBackPressedDispatcher();
+        // Remove the callback from any previous dispatcher
+        mOnBackPressedCallback.remove();
+        // Then add it to the new dispatcher
+        dispatcher.addCallback(mLifecycleOwner, mOnBackPressedCallback);
+        return new NavHostOnBackPressedManager();
+    }
+
+    @SuppressWarnings("WeakerAccess") /* synthetic access */
+    void setEnableOnBackPressedCallback(boolean enableOnBackPressedCallback) {
+        mEnableOnBackPressedCallback = enableOnBackPressedCallback;
+        updateOnBackPressedCallbackEnabled();
+    }
+
+    private void updateOnBackPressedCallbackEnabled() {
+        mOnBackPressedCallback.setEnabled(mEnableOnBackPressedCallback
+                && getDestinationCountOnBackStack() > 1);
+    }
+
+    /**
+     * Sets the host's ViewModelStore used by the NavController to store ViewModels at the
+     * navigation graph level. This is required to call {@link #getViewModelStore} and
+     * should generally be called for you by your {@link NavHost}.
+     *
+     * @param viewModelStore ViewModelStore used to store ViewModels at the navigation graph level
+     */
+    public final void setHostViewModelStore(@NonNull ViewModelStore viewModelStore) {
+        mViewModel = NavControllerViewModel.getInstance(viewModelStore);
+    }
+
+    /**
+     * Gets the view model for a NavGraph. If a view model does not exist it will create and
+     * store one.
+     *
+     * @param navGraphId ID of a NavGraph that exists on the back stack
+     * @throws IllegalStateException if called before {@link #setHostViewModelStore}.
+     * @throws IllegalArgumentException if the NavGraph is not on the back stack
+     */
+    @NonNull
+    public ViewModelStore getViewModelStore(@IdRes int navGraphId) {
+        if (mViewModel == null) {
+            throw new IllegalStateException("You must call setViewModelStore() before calling "
+                    + "getViewModelStore().");
+        }
+        NavBackStackEntry lastFromBackStack = null;
+        Iterator<NavBackStackEntry> iterator = mBackStack.descendingIterator();
+        while (iterator.hasNext()) {
+            NavBackStackEntry entry = iterator.next();
+            NavDestination destination = entry.getDestination();
+            if (destination instanceof NavGraph && destination.getId() == navGraphId) {
+                lastFromBackStack = entry;
+                break;
+            }
+        }
+        if (lastFromBackStack == null) {
+            throw new IllegalArgumentException("No NavGraph with ID " + navGraphId + " is on the "
+                    + "NavController's back stack");
+        }
+        return mViewModel.getViewModelStore(lastFromBackStack.mId);
+    }
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
 }

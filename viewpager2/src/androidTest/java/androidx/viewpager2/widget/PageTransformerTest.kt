@@ -17,6 +17,8 @@
 package androidx.viewpager2.widget
 
 import android.view.View
+import androidx.annotation.FloatRange
+import androidx.annotation.NonNull
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.filters.LargeTest
@@ -210,11 +212,23 @@ class PageTransformerTest(private val config: TestConfig) : BaseTest() {
 
         val transformEvents get() = events.mapNotNull { it as? TransformPageEvent }
         val frames get() =
+<<<<<<< HEAD   (80d066 Merge "Merge empty history for sparse-5530831-L2560000030742)
             events.fold(mutableListOf<MutableList<TransformPageEvent>>()) { groups, e ->
                 if (e is Event.OnPageScrolledEvent) {
                     groups.add(mutableListOf())
                 } else if (e is TransformPageEvent) {
                     groups.last().add(e)
+=======
+            // Drop the first TransformPageEvents, they were triggered
+            // by setting the PageTransformer and not by the scroll
+            events.dropWhile { it is TransformPageEvent }
+                .fold(mutableListOf<MutableList<TransformPageEvent>>()) { groups, e ->
+                    when (e) {
+                        is OnPageScrolledEvent -> groups.add(mutableListOf())
+                        is TransformPageEvent -> groups.last().add(e)
+                    }
+                    groups
+>>>>>>> BRANCH (393684 Merge "Merge cherrypicks of [961903] into sparse-5567208-L67)
                 }
                 groups
             }
@@ -232,7 +246,10 @@ class PageTransformerTest(private val config: TestConfig) : BaseTest() {
 
         /* interface implementations */
 
-        override fun transformPage(page: View, position: Float) {
+        override fun transformPage(
+            @NonNull page: View,
+            @FloatRange(from = -1.0, to = 1.0) position: Float
+        ) {
             events.add(TransformPageEvent(layoutManager.getPosition(page), position))
         }
 
