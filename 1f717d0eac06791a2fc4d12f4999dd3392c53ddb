@@ -16,6 +16,24 @@
       "revId": "1f717d0eac06791a2fc4d12f4999dd3392c53ddb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f10b34e2_c9ceb63d",
+        "filename": "camera/core/src/main/java/androidx/camera/core/SessionConfig.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 1481635
+      },
+      "writtenOn": "2019-05-15T13:58:33Z",
+      "side": 0,
+      "message": "It does not check the duplicate options in addImplmentationOptions.\nI think it could be more appropriate to check for duplicates in ValidatingBuilder. Add duplicate option check here. For unit test SessionConfigTest and CaptureConfigTest, also add options instead of add characteristics.",
+      "parentUuid": "0115ff8c_4ae3e450",
+      "revId": "1f717d0eac06791a2fc4d12f4999dd3392c53ddb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
