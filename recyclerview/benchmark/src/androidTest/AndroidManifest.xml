@@ -20,6 +20,14 @@
         package="androidx.recyclerview.benchmark">
     <uses-sdk android:targetSdkVersion="${target-sdk-version}"/>
 
+    <instrumentation
+        android:name="androidx.benchmark.AndroidBenchmarkRunner"
+        android:targetPackage="androidx.recyclerview.benchmark">
+        <meta-data
+            android:name="listener"
+            android:value="androidx.benchmark.BenchmarkRunListener" />
+    </instrumentation>
+
     <!-- Important: disable debuggable for accurate performance results -->
     <application
             android:debuggable="false"

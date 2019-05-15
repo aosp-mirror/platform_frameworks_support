@@ -20,6 +20,11 @@ package androidx.benchmark {
     method public static inline void measureRepeated(androidx.benchmark.BenchmarkRule, kotlin.jvm.functions.Function1<? super androidx.benchmark.BenchmarkRule.Scope,kotlin.Unit> block);
   }
 
+  public final class BenchmarkRunListener extends org.junit.runner.notification.RunListener {
+    ctor public BenchmarkRunListener();
+    method public void testRunFinished(org.junit.runner.Result? result);
+  }
+
   public final class BenchmarkState {
     method public boolean keepRunning();
     method public void pauseTiming();
