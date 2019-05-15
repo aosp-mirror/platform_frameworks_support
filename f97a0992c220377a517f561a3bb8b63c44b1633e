@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "87269513_bfe8c91d",
+        "filename": "camera/integration-tests/timingtestapp/src/androidTest/java/androidx/camera/integration/antelope/AntelopeInstrumentedTests.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1452466
+      },
+      "writtenOn": "2019-05-15T09:29:34Z",
+      "side": 1,
+      "message": "I had check some failure with logcat.\nThere are some leaked window before test.\nBy send broad cast to close alert dialog might resolve it.\nYou can refer to aosp/953141.\n\nIs the \u0027ABORT\u0027 dialog in test06 not closed after test?",
+      "range": {
+        "startLine": 75,
+        "startChar": 4,
+        "endLine": 75,
+        "endChar": 11
+      },
+      "revId": "f97a0992c220377a517f561a3bb8b63c44b1633e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
