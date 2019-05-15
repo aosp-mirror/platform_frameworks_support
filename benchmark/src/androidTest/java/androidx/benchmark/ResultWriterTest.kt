@@ -16,6 +16,7 @@
 
 package androidx.benchmark
 
+import android.os.Build
 import androidx.test.filters.SmallTest
 import org.junit.Assert.assertEquals
 import org.junit.Rule
@@ -67,39 +68,55 @@ class ResultWriterTest {
     fun validateJson() {
         val tempFile = tempFolder.newFile()
 
+        val sustainedPerformanceModeInUse = AndroidBenchmarkRunner.sustainedPerformanceModeInUse
+
         ResultWriter.writeReport(tempFile, listOf(reportA, reportB))
         assertEquals(
             """
-            [
-                {
-                    "name": "MethodA",
-                    "className": "package.Class1",
-                    "minimumNs": 100,
-                    "maximumNs": 102,
-                    "medianNs": 101,
-                    "warmupIterations": 8000,
-                    "repeatIterations": 100000,
-                    "runsNs": [
-                        100,
-                        101,
-                        102
-                    ]
+            {
+                "context": {
+                    "build": {
+                        "device": "${Build.DEVICE}",
+                        "fingerprint": "${Build.FINGERPRINT}",
+                        "model": "${Build.MODEL}",
+                        "version": {
+                            "sdk": ${Build.VERSION.SDK_INT}
+                        }
+                    },
+                    "cpuLocked": ${Clocks.areLocked},
+                    "sustainedPerformanceModeEnabled": $sustainedPerformanceModeInUse
                 },
-                {
-                    "name": "MethodB",
-                    "className": "package.Class2",
-                    "minimumNs": 100,
-                    "maximumNs": 102,
-                    "medianNs": 101,
-                    "warmupIterations": 8000,
-                    "repeatIterations": 100000,
-                    "runsNs": [
-                        100,
-                        101,
-                        102
-                    ]
-                }
-            ]
+                "benchmarks": [
+                    {
+                        "name": "MethodA",
+                        "className": "package.Class1",
+                        "minimumNs": 100,
+                        "maximumNs": 102,
+                        "medianNs": 101,
+                        "warmupIterations": 8000,
+                        "repeatIterations": 100000,
+                        "runsNs": [
+                            100,
+                            101,
+                            102
+                        ]
+                    },
+                    {
+                        "name": "MethodB",
+                        "className": "package.Class2",
+                        "minimumNs": 100,
+                        "maximumNs": 102,
+                        "medianNs": 101,
+                        "warmupIterations": 8000,
+                        "repeatIterations": 100000,
+                        "runsNs": [
+                            100,
+                            101,
+                            102
+                        ]
+                    }
+                ]
+            }
             """.trimIndent(),
             tempFile.readText()
         )
