@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5fae6f92_afca9046",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/CheckApiEquivalenceTask.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-05-15T20:07:28Z",
+      "side": 1,
+      "message": "This is not a file. Should it be @get:Input?",
+      "range": {
+        "startLine": 38,
+        "startChar": 9,
+        "endLine": 38,
+        "endChar": 19
+      },
+      "revId": "ff5fc197e4058e115faf5e197519ca02659c5825",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
