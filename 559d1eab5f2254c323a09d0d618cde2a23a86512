@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d7e3b3fa_537a28fd",
+        "filename": "media2/common/src/main/java/androidx/media2/common/SessionPlayer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 945,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-05-15T07:04:29Z",
+      "side": 1,
+      "message": "I think we\u0027d better to have the tests for TrackInfo class itself (e.g. TrackInfoTest), for testing all methods (including equals()) in this class.",
+      "range": {
+        "startLine": 945,
+        "startChar": 15,
+        "endLine": 945,
+        "endChar": 24
+      },
+      "revId": "559d1eab5f2254c323a09d0d618cde2a23a86512",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
