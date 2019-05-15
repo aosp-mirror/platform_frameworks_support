@@ -23,6 +23,7 @@ import android.annotation.SuppressLint;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
+import androidx.versionedparcelable.NonParcelField;
 import androidx.versionedparcelable.ParcelField;
 import androidx.versionedparcelable.VersionedParcelable;
 import androidx.versionedparcelable.VersionedParcelize;
@@ -37,7 +38,7 @@ public final class Maneuver implements VersionedParcelable {
     /**
      * Possible maneuver types.
      */
-    public enum Type {
+    public enum Type implements EnumWrapper.WithFallback {
         /**
          * Maneuver type is unknown to the OEM cluster rendering service, in which case the OEM
          * cluster rendering service shouldn't show any maneuver information.
@@ -168,6 +169,11 @@ public final class Maneuver implements VersionedParcelable {
         ROUNDABOUT_EXIT,
         /**
          * Entrance and exit (e.g. "At the roundabout, take Nth exit") on a clockwise roundabout
+         * (as seen from above). Exit angle is unspecified.
+         */
+        ROUNDABOUT_ENTER_AND_EXIT_CW(ROUNDABOUT_EXIT),
+        /**
+         * Entrance and exit (e.g. "At the roundabout, take Nth exit") on a clockwise roundabout
          * (as seen from above) where the exit is at a sharp angle to the right (135-175 degrees).
          */
         ROUNDABOUT_ENTER_AND_EXIT_CW_SHARP_RIGHT,
@@ -207,6 +213,11 @@ public final class Maneuver implements VersionedParcelable {
          * degrees).
          */
         ROUNDABOUT_ENTER_AND_EXIT_CW_U_TURN,
+        /**
+         * Entrance and exit (e.g. "At the roundabout, take Nth exit") on a counter-clockwise
+         * roundabout (as seen from above). Exit angle is unspecified.
+         */
+        ROUNDABOUT_ENTER_AND_EXIT_CCW(ROUNDABOUT_EXIT),
         /**
          * Entrance and exit (e.g. "At the roundabout, take Nth exit") on a counter-clockwise
          * roundabout (as seen from above) where the exit is at sharp angle to the right
@@ -267,6 +278,11 @@ public final class Maneuver implements VersionedParcelable {
          */
         FERRY_TRAIN,
         /**
+         * Arrival to a significant point in the navigation, such as a toll, tunnel, bridge, etc.
+         * (e.g. "In 100 meters, go through the toll both").
+         */
+        WAYPOINT(STRAIGHT),
+        /**
          * Arrival at a destination.
          */
         DESTINATION,
@@ -282,6 +298,18 @@ public final class Maneuver implements VersionedParcelable {
          * @see #DESTINATION_LEFT
          */
         DESTINATION_RIGHT,
+        ;
+        @NonParcelField
+        public final Type[] mFallbacks;
+
+        Type(Type ... fallbacks) {
+            mFallbacks = fallbacks;
+        }
+
+        @Override
+        public Type[] getFallbacks() {
+            return mFallbacks;
+        }
     }
 
     @ParcelField(1)
@@ -325,14 +353,10 @@ public final class Maneuver implements VersionedParcelable {
          * consumer if the type is unknown to it.
          *
          * @param type Main maneuver type
-         * @param fallbackTypes Variations of {@code type}, in case the consumer of this API doesn't
-         *                      know the main one (used for backward compatibility). For example,
-         *                      if the main type is {@link Type#OFF_RAMP_NORMAL_LEFT}, a fallback
-         *                      type could be {@link Type#TURN_NORMAL_LEFT}.
          */
         @NonNull
-        public Builder setType(@NonNull Type type, @NonNull Type ... fallbackTypes) {
-            mType = EnumWrapper.of(type, fallbackTypes);
+        public Builder setType(@NonNull Type type) {
+            mType = EnumWrapper.of(type);
             return this;
         }
 

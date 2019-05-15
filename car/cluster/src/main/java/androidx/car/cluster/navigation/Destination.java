@@ -181,13 +181,11 @@ public final class Destination implements VersionedParcelable {
          * conditions.
          *
          * @param traffic traffic level
-         * @param fallbacks Variations of {@code traffic}, in case the consumer of this API doesn't
-         *                  support the main one (used for backward compatibility).
          * @return this object for chaining
          */
         @NonNull
-        public Builder setTraffic(@NonNull Traffic traffic, @NonNull Traffic... fallbacks) {
-            mTraffic = EnumWrapper.of(traffic, fallbacks);
+        public Builder setTraffic(@NonNull Traffic traffic) {
+            mTraffic = EnumWrapper.of(traffic);
             return this;
         }
 

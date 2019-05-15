@@ -29,14 +29,15 @@ import androidx.versionedparcelable.VersionedParcelize;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Stack;
 
 /**
  * An {@link Enum} wrapper that implements {@link VersionedParcelable} and provides backwards and
  * forward compatibility by allowing the data producer to provide an optional set of "fallback"
- * values. If a value provided by the third-party navigation app is not known by the data consumer
- * (e.g. a new value was introduced, but the OEM cluster rendering service is still using an older
- * version of the API), then this class would return the first "fallback" value that is known to the
- * OEM cluster rendering service.
+ * values. When third-party navigation apps introduce a new value, they can implement
+ * {@link WithFallback#getFallbacks()} to specify what alternative values should be returned if the
+ * OEM cluster rendering service is using an older version of the API. Fallbacks will be applied
+ * in breadth first search order.
 
  * @param <T> Enum type to be wrapped.
  * @hide
@@ -44,6 +45,17 @@ import java.util.Objects;
 @RestrictTo(LIBRARY_GROUP_PREFIX)
 @VersionedParcelize
 final class EnumWrapper<T extends Enum<T>> implements VersionedParcelable {
+
+    /**
+     * Used to declare that a certain {@link Enum} can provide fallback values.
+     */
+    public interface WithFallback<T extends Enum<T>> {
+        /**
+         * Returns the fallback values to use in case the consumer doesn't know
+         */
+        T[] getFallbacks();
+    }
+
     @ParcelField(1)
     List<String> mValues = new ArrayList<>();
 
@@ -53,11 +65,21 @@ final class EnumWrapper<T extends Enum<T>> implements VersionedParcelable {
     EnumWrapper() {
     }
 
-    @SafeVarargs
-    EnumWrapper(@NonNull T value, @NonNull T ... fallbacks) {
+    @SuppressWarnings("unchecked")
+    EnumWrapper(@NonNull T value) {
         mValues.add(Preconditions.checkNotNull(value).name());
-        for (T fallback : fallbacks) {
-            mValues.add(fallback.name());
+        if (value instanceof WithFallback) {
+            Stack<WithFallback<T>> valuesWithFallback = new Stack<>();
+            valuesWithFallback.push((WithFallback<T>) value);
+            while (!valuesWithFallback.isEmpty()) {
+                WithFallback<T> valueWithFallback = valuesWithFallback.pop();
+                for (T fallback : valueWithFallback.getFallbacks()) {
+                    if (fallback instanceof WithFallback) {
+                        valuesWithFallback.push((WithFallback<T>) fallback);
+                    }
+                    mValues.add(fallback.name());
+                }
+            }
         }
     }
 
@@ -119,14 +141,9 @@ final class EnumWrapper<T extends Enum<T>> implements VersionedParcelable {
      * Wraps the given value and an optional list of fallback values.
      *
      * @param value Value to be wrapped.
-     * @param fallbacks An optional list of fallback values, in order of preference, to be used in
-     *                  case the OEM cluster rendering service of this API doesn't know the value
-     *                  provided. This will be used only if {@code value} is not null.
      */
-    @SafeVarargs
     @NonNull
-    public static <T extends Enum<T>> EnumWrapper<T> of(@NonNull T value,
-            @NonNull T ... fallbacks) {
-        return new EnumWrapper<>(Preconditions.checkNotNull(value), fallbacks);
+    public static <T extends Enum<T>> EnumWrapper<T> of(@NonNull T value) {
+        return new EnumWrapper<>(Preconditions.checkNotNull(value));
     }
 }
