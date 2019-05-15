@@ -17,79 +17,57 @@
 package androidx.benchmark
 
 import android.os.Environment
+import android.util.JsonWriter
 import androidx.annotation.VisibleForTesting
 import androidx.test.platform.app.InstrumentationRegistry
 import java.io.File
 
 internal object ResultWriter {
-    private fun List<Long>.toJsonWithMargin(): String {
-        return joinToString(",\n") { "|            $it" }
-    }
+    @VisibleForTesting
+    internal val reports = ArrayList<BenchmarkState.Report>()
 
-    private fun BenchmarkState.Report.toJson(): String {
-        return "\n" + """
-        |    {
-        |        "name": "$testName",
-        |        "className": "$className",
-        |        "nanos": $nanos,
-        |        "warmupIterations": $warmupIterations,
-        |        "repeatIterations": $repeatIterations,
-        |        "runs": [
-        ${data.toJsonWithMargin()}
-        |        ]
-        |    }
-    """.trimMargin()
-    }
+    fun appendReport(report: BenchmarkState.Report) {
+        reports.add(report)
 
-    data class FileManager(
-        val extension: String,
-        val initial: String,
-        val tail: String,
-        val separator: String? = null,
-        val reportFormatter: (BenchmarkState.Report) -> String
-    ) {
-        private val packageName =
-            InstrumentationRegistry.getInstrumentation().targetContext!!.packageName
-
+        // Currently, we just overwrite the whole file
+        // Ideally, append for efficiency
+        val packageName = InstrumentationRegistry.getInstrumentation().targetContext!!.packageName
         val file = File(
             Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
-            "$packageName-benchmarkData.$extension"
+            "$packageName-benchmarkData.json"
         )
-        var currentContent = initial
-        var lastAddedEntry: BenchmarkState.Report? = null
-
-        val fullFileContent: String
-            get() = currentContent + tail
-
-        fun append(report: BenchmarkState.Report) {
-            if (currentContent != initial && separator != null) {
-                currentContent += separator
-            }
-            lastAddedEntry = report
-            currentContent += reportFormatter(report)
-        }
+        writeReport(file)
     }
 
     @VisibleForTesting
-    val fileManager = FileManager(
-        extension = "json",
-        initial = "{ \"results\": [",
-        tail = "\n]}",
-        separator = ",",
-        reportFormatter = { report -> report.toJson() }
-    )
-
-    fun appendStats(report: BenchmarkState.Report) {
-        fileManager.append(report)
-        fileManager.file.run {
+    internal fun writeReport(file: File) {
+        file.run {
             if (!exists()) {
                 parentFile.mkdirs()
                 createNewFile()
             }
 
-            // Currently, we just overwrite the whole file
-            // Ideally, truncate off the 'tail', and append for efficiency
-            writeText(fileManager.fullFileContent)
+            val writer = JsonWriter(bufferedWriter())
+            writer.setIndent("    ")
+
+            writer.beginArray()
+            reports.forEach { it.write(writer) }
+            writer.endArray()
+
+            writer.flush()
+            writer.close()
         }
+    }
+
+    private fun BenchmarkState.Report.write(writer: JsonWriter): JsonWriter {
+        writer.beginObject()
+            .name("name").value(testName)
+            .name("className").value(className)
+            .name("nanos").value(nanos)
+            .name("warmupIterations").value(warmupIterations)
+            .name("repeatIterations").value(repeatIterations)
+            .name("runs").beginArray().also { data.forEach { writer.value(it) } }.endArray()
+        writer.endObject()
+        return writer
     }
 }
