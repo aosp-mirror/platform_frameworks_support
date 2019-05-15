@@ -18,6 +18,7 @@ package androidx.camera.extensions;
 
 import android.hardware.camera2.CameraCharacteristics;
 
+import androidx.camera.core.CameraIdFilterSet;
 import androidx.camera.core.CameraX;
 import androidx.camera.core.CaptureBundle;
 import androidx.camera.core.ImageCaptureConfig;
@@ -37,6 +38,10 @@ abstract class ImageCaptureExtender {
     void init(ImageCaptureConfig.Builder builder, ImageCaptureExtenderImpl implementation) {
         mBuilder = builder;
         mImpl = implementation;
+
+        CameraIdFilterSet cameraIdFilterSet = mBuilder.build().getCameraIdFilterSet();
+        cameraIdFilterSet.addCameraIdFilter(new ExtensionsCameraIdFilter(mImpl));
+        mBuilder.setCameraIdFilterSet(cameraIdFilterSet);
     }
 
     public boolean isExtensionAvailable() {
