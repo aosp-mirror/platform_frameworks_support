@@ -17,14 +17,22 @@
 package androidx.benchmark
 
 import androidx.test.filters.SmallTest
+import org.junit.After
 import org.junit.Assert.assertEquals
+import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
+import org.junit.rules.TemporaryFolder
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 
 @SmallTest
 @RunWith(JUnit4::class)
 class ResultWriterTest {
+
+    @get:Rule
+    val tempFolder = TemporaryFolder()
+
     private val reportA = BenchmarkState.Report(
         testName = "MethodA",
         className = "package.Class1",
@@ -42,14 +50,41 @@ class ResultWriterTest {
         warmupIterations = 8000
     )
 
+    @Before
+    fun setup() {
+        ResultWriter.reports.clear()
+    }
+
+    @After
+    fun tearDown() {
+        ResultWriter.reports.clear()
+    }
+
+    @Test
+    fun shouldClearExistingContent() {
+        val tempFile = tempFolder.newFile()
+
+        val fakeText = "This text should not be in the final output"
+        tempFile.writeText(fakeText)
+
+        ResultWriter.appendReport(reportA)
+        ResultWriter.appendReport(reportB)
+
+        ResultWriter.writeReport(tempFile)
+        assert(!tempFile.readText().startsWith(fakeText))
+    }
+
     @Test
     fun validateJson() {
-        val manager = ResultWriter.fileManager
-        manager.currentContent = manager.initial
-        manager.append(reportA)
-        manager.append(reportB)
-        assertEquals("""
-            { "results": [
+        val tempFile = tempFolder.newFile()
+
+        ResultWriter.appendReport(reportA)
+        ResultWriter.appendReport(reportB)
+        ResultWriter.writeReport(tempFile)
+
+        assertEquals(
+            """
+            [
                 {
                     "name": "MethodA",
                     "className": "package.Class1",
@@ -74,9 +109,9 @@ class ResultWriterTest {
                         102
                     ]
                 }
-            ]}
+            ]
             """.trimIndent(),
-            manager.fullFileContent
+            tempFile.readText()
         )
     }
 }
