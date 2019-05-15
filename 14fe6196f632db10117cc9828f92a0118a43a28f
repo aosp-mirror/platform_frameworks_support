@@ -211,6 +211,30 @@
       "revId": "14fe6196f632db10117cc9828f92a0118a43a28f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "990f3327_c1844795",
+        "filename": "camera/core/src/main/java/androidx/camera/core/Preview.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-05-15T09:05:07Z",
+      "side": 1,
+      "message": "Why we need to check the useCase is preview ?  We only changes codes in Preview, so it should only apply to Preview use case.",
+      "parentUuid": "638009c4_dc2176c2",
+      "range": {
+        "startLine": 311,
+        "startChar": 0,
+        "endLine": 311,
+        "endChar": 63
+      },
+      "revId": "14fe6196f632db10117cc9828f92a0118a43a28f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
