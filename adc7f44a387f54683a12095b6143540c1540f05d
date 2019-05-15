@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a60184d8_e3036240",
+        "filename": "ui/core/src/main/java/androidx/ui/core/IntPx.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2019-05-15T14:43:45Z",
+      "side": 1,
+      "message": "I think you could keep inline here.",
+      "range": {
+        "startLine": 133,
+        "startChar": 0,
+        "endLine": 133,
+        "endChar": 3
+      },
+      "revId": "adc7f44a387f54683a12095b6143540c1540f05d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "182e1c2f_d013f0dc",
+        "filename": "ui/core/src/main/java/androidx/ui/core/Px.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2019-05-15T14:43:45Z",
+      "side": 1,
+      "message": "I think inline should be kept here as well.",
+      "range": {
+        "startLine": 139,
+        "startChar": 0,
+        "endLine": 139,
+        "endChar": 3
+      },
+      "revId": "adc7f44a387f54683a12095b6143540c1540f05d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74ee5ce0_14c6111a",
+        "filename": "ui/core/src/main/java/androidx/ui/core/Px.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2019-05-15T14:43:45Z",
+      "side": 1,
+      "message": "And here :)",
+      "revId": "adc7f44a387f54683a12095b6143540c1540f05d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f08b754_20c527a0",
+        "filename": "ui/core/src/main/java/androidx/ui/core/Sp.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2019-05-15T14:43:45Z",
+      "side": 1,
+      "message": "Here as well :)",
+      "revId": "adc7f44a387f54683a12095b6143540c1540f05d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
