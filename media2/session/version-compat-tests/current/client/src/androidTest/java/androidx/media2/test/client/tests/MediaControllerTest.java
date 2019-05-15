@@ -37,12 +37,13 @@ import android.os.Bundle;
 import android.util.Log;
 
 import androidx.media.AudioAttributesCompat;
-import androidx.media2.MediaController;
-import androidx.media2.MediaController.ControllerCallback;
-import androidx.media2.MediaController.PlaybackInfo;
-import androidx.media2.MediaItem;
-import androidx.media2.SessionPlayer;
-import androidx.media2.SessionToken;
+import androidx.media2.common.MediaItem;
+import androidx.media2.common.SessionPlayer;
+import androidx.media2.common.VideoSize;
+import androidx.media2.session.MediaController;
+import androidx.media2.session.MediaController.ControllerCallback;
+import androidx.media2.session.MediaController.PlaybackInfo;
+import androidx.media2.session.SessionToken;
 import androidx.media2.test.client.MediaTestUtils;
 import androidx.media2.test.client.RemoteMediaSession;
 import androidx.media2.test.common.PollingCheck;
@@ -103,7 +104,7 @@ public class MediaControllerTest extends MediaSessionTestBase {
         try {
             builder = new MediaController.Builder(null);
             fail("null context shouldn't be allowed");
-        } catch (IllegalArgumentException e) {
+        } catch (NullPointerException e) {
             // expected. pass-through
         }
 
@@ -111,7 +112,7 @@ public class MediaControllerTest extends MediaSessionTestBase {
             builder = new MediaController.Builder(mContext);
             builder.setSessionToken(null);
             fail("null token shouldn't be allowed");
-        } catch (IllegalArgumentException e) {
+        } catch (NullPointerException e) {
             // expected. pass-through
         }
 
@@ -119,7 +120,7 @@ public class MediaControllerTest extends MediaSessionTestBase {
             builder = new MediaController.Builder(mContext);
             builder.setSessionCompatToken(null);
             fail("null compat token shouldn't be allowed");
-        } catch (IllegalArgumentException e) {
+        } catch (NullPointerException e) {
             // expected. pass-through
         }
 
@@ -127,7 +128,7 @@ public class MediaControllerTest extends MediaSessionTestBase {
             builder = new MediaController.Builder(mContext);
             builder.setControllerCallback(null, null);
             fail("null executor or null callback shouldn't be allowed");
-        } catch (IllegalArgumentException e) {
+        } catch (NullPointerException e) {
             // expected. pass-through
         }
 
@@ -346,6 +347,18 @@ public class MediaControllerTest extends MediaSessionTestBase {
                 info.getMaxVolume());
         assertEquals(mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC),
                 info.getCurrentVolume());
+    }
+
+    @Test
+    public void testGetVideoSize() throws InterruptedException {
+        prepareLooper();
+
+        VideoSize testSize = new VideoSize(100, 42);
+        Bundle playerConfig = RemoteMediaSession.createMockPlayerConnectorConfigForVideoSize(
+                testSize);
+        mRemoteSession.updatePlayer(playerConfig);
+        MediaController controller = createController(mRemoteSession.getToken());
+        assertEquals(testSize, controller.getVideoSize());
     }
 
     RemoteMediaSession createRemoteMediaSession(String id, Bundle tokenExtras) {

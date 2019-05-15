@@ -30,6 +30,7 @@ import static androidx.media2.test.common.CommonConstants.KEY_METADATA;
 import static androidx.media2.test.common.CommonConstants.KEY_PLAYER_STATE;
 import static androidx.media2.test.common.CommonConstants.KEY_PLAYLIST;
 import static androidx.media2.test.common.CommonConstants.KEY_SPEED;
+import static androidx.media2.test.common.CommonConstants.KEY_VIDEO_SIZE;
 import static androidx.media2.test.common.CommonConstants.KEY_VOLUME_CONTROL_TYPE;
 import static androidx.media2.test.common.MediaSessionConstants
         .TEST_CONTROLLER_CALLBACK_SESSION_REJECTS;
@@ -49,16 +50,17 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.media.AudioAttributesCompat;
-import androidx.media2.FileMediaItem;
-import androidx.media2.MediaItem;
-import androidx.media2.MediaMetadata;
-import androidx.media2.MediaParcelUtils;
-import androidx.media2.MediaSession;
-import androidx.media2.MediaSession.ControllerInfo;
-import androidx.media2.ParcelImplListSlice;
-import androidx.media2.SessionCommand;
-import androidx.media2.SessionCommandGroup;
-import androidx.media2.SessionPlayer;
+import androidx.media2.common.FileMediaItem;
+import androidx.media2.common.MediaItem;
+import androidx.media2.common.MediaMetadata;
+import androidx.media2.common.MediaParcelUtils;
+import androidx.media2.common.ParcelImplListSlice;
+import androidx.media2.common.SessionPlayer;
+import androidx.media2.common.VideoSize;
+import androidx.media2.session.MediaSession;
+import androidx.media2.session.MediaSession.ControllerInfo;
+import androidx.media2.session.SessionCommand;
+import androidx.media2.session.SessionCommandGroup;
 import androidx.media2.test.common.IRemoteMediaSession;
 import androidx.media2.test.common.MockActivity;
 import androidx.media2.test.common.TestUtils;
@@ -229,11 +231,19 @@ public class MediaSessionProviderService extends Service {
                 localPlayer.mCurrentMediaItem = (currentItem == null)
                         ? null : (MediaItem) MediaParcelUtils.fromParcelable(currentItem);
                 localPlayer.mMetadata = ParcelUtils.getVersionedParcelable(config, KEY_METADATA);
+                ParcelImpl videoSize = config.getParcelable(KEY_VIDEO_SIZE);
+                if (videoSize != null) {
+                    localPlayer.mVideoSize = MediaParcelUtils.fromParcelable(videoSize);
+                }
                 player = localPlayer;
             }
-            player.setAudioAttributes(
-                    AudioAttributesCompat.fromBundle(
-                            config.getBundle(KEY_AUDIO_ATTRIBUTES)));
+            ParcelImpl attrImpl = config.getParcelable(KEY_AUDIO_ATTRIBUTES);
+            if (attrImpl != null) {
+                AudioAttributesCompat attr = MediaParcelUtils.fromParcelable(attrImpl);
+                if (attr != null) {
+                    player.setAudioAttributes(attr);
+                }
+            }
             return player;
         }
 
@@ -378,11 +388,12 @@ public class MediaSessionProviderService extends Service {
         }
 
         @Override
-        public void notifyAudioAttributesChanged(String sessionId, Bundle attrs)
+        public void notifyAudioAttributesChanged(String sessionId, ParcelImpl attrs)
                 throws RemoteException {
             MediaSession session = mSessionMap.get(sessionId);
             MockPlayer player = (MockPlayer) session.getPlayer();
-            player.notifyAudioAttributesChanged(AudioAttributesCompat.fromBundle(attrs));
+            player.notifyAudioAttributesChanged(
+                    (AudioAttributesCompat) MediaParcelUtils.fromParcelable(attrs));
         }
 
         ////////////////////////////////////////////////////////////////////////////////
@@ -507,6 +518,21 @@ public class MediaSessionProviderService extends Service {
             MediaSession session = mSessionMap.get(sessionId);
             MockPlayer player = (MockPlayer) session.getPlayer();
             player.notifyPlaybackCompleted();
+        }
+
+        @Override
+        public void notifyVideoSizeChanged(String sessionId, ParcelImpl videoSize) {
+            MediaSession session = mSessionMap.get(sessionId);
+            MockPlayer player = (MockPlayer) session.getPlayer();
+            VideoSize videoSizeObj = MediaParcelUtils.fromParcelable(videoSize);
+            player.notifyVideoSizeChanged(videoSizeObj);
+        }
+
+        @Override
+        public boolean surfaceExists(String sessionId) {
+            MediaSession session = mSessionMap.get(sessionId);
+            MockPlayer player = (MockPlayer) session.getPlayer();
+            return player.surfaceExists();
         }
     }
 }

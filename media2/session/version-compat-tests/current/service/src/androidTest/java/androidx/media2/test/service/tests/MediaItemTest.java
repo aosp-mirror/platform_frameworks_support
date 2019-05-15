@@ -17,7 +17,7 @@
 package androidx.media2.test.service.tests;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import android.content.Context;
 import android.content.res.AssetFileDescriptor;
@@ -27,13 +27,13 @@ import android.os.Parcel;
 import android.os.ParcelFileDescriptor;
 
 import androidx.annotation.NonNull;
-import androidx.media2.CallbackMediaItem;
-import androidx.media2.DataSourceCallback;
-import androidx.media2.FileMediaItem;
-import androidx.media2.MediaItem;
-import androidx.media2.MediaMetadata;
-import androidx.media2.MediaParcelUtils;
-import androidx.media2.UriMediaItem;
+import androidx.media2.common.CallbackMediaItem;
+import androidx.media2.common.DataSourceCallback;
+import androidx.media2.common.FileMediaItem;
+import androidx.media2.common.MediaItem;
+import androidx.media2.common.MediaMetadata;
+import androidx.media2.common.MediaParcelUtils;
+import androidx.media2.common.UriMediaItem;
 import androidx.media2.test.service.MediaTestUtils;
 import androidx.media2.test.service.test.R;
 import androidx.test.core.app.ApplicationProvider;
@@ -191,13 +191,9 @@ public class MediaItemTest {
             // VersionedParcelIntegTest#parcelCopy.
             final Parcel p = Parcel.obtain();
             p.writeParcelable(ParcelUtils.toParcelable(mTestItem), 0);
-            p.setDataPosition(0);
-            final MediaItem testRemoteItem = ParcelUtils.fromParcelable(
-                    (ParcelImpl) p.readParcelable(MediaItem.class.getClassLoader()));
-
-            assertTrue("Write to parcel should fail for subclass of MediaItem",
-                    mTestItem.getClass() == MediaItem.class);
-        } catch (Exception e) {
+            fail("Write to parcel should throw RuntimeException for subclass of MediaItem");
+        } catch (RuntimeException e) {
+            // Expected.
         }
     }
 

@@ -26,6 +26,7 @@ import android.view.Window;
 import androidx.annotation.CallSuper;
 import androidx.annotation.ContentView;
 import androidx.annotation.LayoutRes;
+import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.GenericLifecycleObserver;
@@ -64,7 +65,13 @@ public class ComponentActivity extends androidx.core.app.ComponentActivity imple
     // Lazily recreated from NonConfigurationInstances by getViewModelStore()
     private ViewModelStore mViewModelStore;
 
-    private final OnBackPressedDispatcher mOnBackPressedDispatcher = new OnBackPressedDispatcher();
+    private final OnBackPressedDispatcher mOnBackPressedDispatcher =
+            new OnBackPressedDispatcher(new Runnable() {
+                @Override
+                public void run() {
+                    ComponentActivity.super.onBackPressed();
+                }
+            });
 
     @LayoutRes
     private int mContentLayoutId;
@@ -272,14 +279,9 @@ public class ComponentActivity extends androidx.core.app.ComponentActivity imple
      * @see #getOnBackPressedDispatcher()
      */
     @Override
+    @MainThread
     public void onBackPressed() {
-        if (mOnBackPressedDispatcher.hasEnabledCallbacks()) {
-            mOnBackPressedDispatcher.onBackPressed();
-            return;
-        }
-        // If the OnBackPressedDispatcher doesn't handle the back button,
-        // delegate to the super implementation
-        super.onBackPressed();
+        mOnBackPressedDispatcher.onBackPressed();
     }
 
     /**
@@ -291,80 +293,6 @@ public class ComponentActivity extends androidx.core.app.ComponentActivity imple
     @Override
     public final OnBackPressedDispatcher getOnBackPressedDispatcher() {
         return mOnBackPressedDispatcher;
-    }
-
-    /**
-     * Add a new {@link OnBackPressedCallback}. Callbacks are invoked in order of recency, so
-     * this newly added {@link OnBackPressedCallback} will be the first callback to receive a
-     * callback if {@link #onBackPressed()} is called. Only if this callback returns
-     * <code>false</code> from its {@link OnBackPressedCallback#handleOnBackPressed()} will any
-     * previously added callback be called.
-     * <p>
-     * This is the equivalent of passing this {@link ComponentActivity} to
-     * {@link #addOnBackPressedCallback(LifecycleOwner, OnBackPressedCallback)} and ensures that
-     * the {@link OnBackPressedCallback#handleOnBackPressed()} callback will only be called
-     * if this {@link ComponentActivity} is at least {@link Lifecycle.State#STARTED}. You can
-     * remove the callback prior to the destruction of your activity by calling
-     * {@link #removeOnBackPressedCallback(OnBackPressedCallback)}.
-     *
-     * @param onBackPressedCallback The callback to add
-     *
-     * @see #onBackPressed()
-     * @see #removeOnBackPressedCallback(OnBackPressedCallback)
-     * @deprecated Use {@link #getOnBackPressedDispatcher() and
-     * {@link OnBackPressedDispatcher#addCallback(LifecycleOwner, OnBackPressedCallback)}},
-     * explicitly passing in this Activity object as the {@link LifecycleOwner}.
-     */
-    @Deprecated
-    public void addOnBackPressedCallback(@NonNull OnBackPressedCallback onBackPressedCallback) {
-        getOnBackPressedDispatcher().addCallback(this, onBackPressedCallback);
-    }
-
-    /**
-     * Add a new {@link OnBackPressedCallback}. Callbacks are invoked in order of recency, so
-     * this newly added {@link OnBackPressedCallback} will be the first callback to receive a
-     * callback if {@link #onBackPressed()} is called. Only if this callback returns
-     * <code>false</code> from its {@link OnBackPressedCallback#handleOnBackPressed()} will any
-     * previously added callback be called.
-     * <p>
-     * The {@link OnBackPressedCallback#handleOnBackPressed()} callback will only be called if the
-     * given {@link LifecycleOwner} is at least {@link Lifecycle.State#STARTED}. When the
-     * {@link LifecycleOwner} is {@link Lifecycle.State#DESTROYED destroyed}, it will automatically
-     * be removed from the list of callbacks. The only time you would need to manually call
-     * {@link #removeOnBackPressedCallback(OnBackPressedCallback)} is if you'd like to remove the
-     * callback prior to destruction of the associated lifecycle.
-     *
-     * @param owner The LifecycleOwner which controls when the callback should be invoked
-     * @param onBackPressedCallback The callback to add
-     *
-     * @see #onBackPressed()
-     * @see #removeOnBackPressedCallback(OnBackPressedCallback)
-     * @deprecated Use {@link #getOnBackPressedDispatcher() and
-     * {@link OnBackPressedDispatcher#addCallback(LifecycleOwner, OnBackPressedCallback)}}.
-     */
-    @Deprecated
-    public void addOnBackPressedCallback(@NonNull LifecycleOwner owner,
-            @NonNull OnBackPressedCallback onBackPressedCallback) {
-        getOnBackPressedDispatcher().addCallback(owner, onBackPressedCallback);
-    }
-
-    /**
-     * Remove a previously
-     * {@link #addOnBackPressedCallback(LifecycleOwner, OnBackPressedCallback) added}
-     * {@link OnBackPressedCallback} instance. The callback won't be called for any future
-     * {@link #onBackPressed()} calls, but may still receive a callback if this method is called
-     * during the dispatch of an ongoing {@link #onBackPressed()} call.
-     * <p>
-     * This call is usually not necessary as callbacks will be automatically removed when their
-     * associated {@link LifecycleOwner} is {@link Lifecycle.State#DESTROYED destroyed}.
-     *
-     * @param onBackPressedCallback The callback to remove
-     * @see #addOnBackPressedCallback(LifecycleOwner, OnBackPressedCallback)
-     * @deprecated Use {@link OnBackPressedCallback#remove()}
-     */
-    @Deprecated
-    public void removeOnBackPressedCallback(@NonNull OnBackPressedCallback onBackPressedCallback) {
-        onBackPressedCallback.remove();
     }
 
     @NonNull

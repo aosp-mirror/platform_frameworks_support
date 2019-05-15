@@ -31,11 +31,27 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class OnBackPressedHandlerTest {
 
+    private var fallbackCount = 0
     lateinit var dispatcher: OnBackPressedDispatcher
 
     @Before
     fun setup() {
-        dispatcher = OnBackPressedDispatcher()
+        fallbackCount = 0
+        dispatcher = OnBackPressedDispatcher {
+            fallbackCount++
+        }
+    }
+
+    @UiThreadTest
+    @Test
+    fun testFallbackRunnable() {
+        assertWithMessage("Dispatcher should have no enabled callbacks by default")
+            .that(dispatcher.hasEnabledCallbacks())
+            .isFalse()
+        dispatcher.onBackPressed()
+        assertWithMessage("Fallback count should be incremented when there's no enabled callbacks")
+            .that(fallbackCount)
+            .isEqualTo(1)
     }
 
     @UiThreadTest
@@ -51,6 +67,9 @@ class OnBackPressedHandlerTest {
         assertWithMessage("Count should be incremented after onBackPressed")
             .that(onBackPressedCallback.count)
             .isEqualTo(1)
+        assertWithMessage("Fallback count should not be incremented")
+            .that(fallbackCount)
+            .isEqualTo(0)
     }
 
     @UiThreadTest
@@ -66,6 +85,9 @@ class OnBackPressedHandlerTest {
         assertWithMessage("Count should be incremented after onBackPressed")
             .that(onBackPressedCallback.count)
             .isEqualTo(1)
+        assertWithMessage("Fallback count should not be incremented")
+            .that(fallbackCount)
+            .isEqualTo(0)
 
         onBackPressedCallback.remove()
         assertWithMessage("Handler should return false when no OnBackPressedCallbacks " +
@@ -76,6 +98,9 @@ class OnBackPressedHandlerTest {
         // Check that the count still equals 1
         assertWithMessage("Count shouldn't be incremented after removal")
             .that(onBackPressedCallback.count)
+            .isEqualTo(1)
+        assertWithMessage("Fallback count should be incremented")
+            .that(fallbackCount)
             .isEqualTo(1)
     }
 
@@ -140,6 +165,9 @@ class OnBackPressedHandlerTest {
         assertWithMessage("Only the most recent callback should be incremented")
             .that(onBackPressedCallback.count)
             .isEqualTo(0)
+        assertWithMessage("Fallback count should not be incremented")
+            .that(fallbackCount)
+            .isEqualTo(0)
     }
 
     @UiThreadTest
@@ -158,6 +186,9 @@ class OnBackPressedHandlerTest {
                 "were disabled")
             .that(onBackPressedCallback.count)
             .isEqualTo(1)
+        assertWithMessage("Fallback count should not be incremented")
+            .that(fallbackCount)
+            .isEqualTo(0)
     }
 
     @UiThreadTest
@@ -183,6 +214,9 @@ class OnBackPressedHandlerTest {
                 "disabled itself and called onBackPressed()")
             .that(onBackPressedCallback.count)
             .isEqualTo(1)
+        assertWithMessage("Fallback count should not be incremented")
+            .that(fallbackCount)
+            .isEqualTo(0)
     }
 
     @UiThreadTest
@@ -238,6 +272,42 @@ class OnBackPressedHandlerTest {
                 "aren't started")
             .that(onBackPressedCallback.count)
             .isEqualTo(3)
+    }
+
+    @UiThreadTest
+    @Test
+    fun testLifecycleRemoveInCallback() {
+        val onBackPressedCallback = object : CountingOnBackPressedCallback() {
+            override fun handleOnBackPressed() {
+                super.handleOnBackPressed()
+                remove()
+            }
+        }
+        val lifecycleOwner = object : LifecycleOwner {
+            val lifecycleRegistry = LifecycleRegistry(this)
+
+            override fun getLifecycle() = lifecycleRegistry
+        }
+        lifecycleOwner.lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_START)
+
+        dispatcher.addCallback(lifecycleOwner, onBackPressedCallback)
+        assertWithMessage("Handler should return true once a callback is added")
+            .that(dispatcher.hasEnabledCallbacks())
+            .isTrue()
+        dispatcher.onBackPressed()
+        assertWithMessage("Count should be incremented after onBackPressed")
+            .that(onBackPressedCallback.count)
+            .isEqualTo(1)
+
+        assertWithMessage("Handler should return false when no OnBackPressedCallbacks " +
+                "are registered")
+            .that(dispatcher.hasEnabledCallbacks())
+            .isFalse()
+        dispatcher.onBackPressed()
+        // Check that the count still equals 1
+        assertWithMessage("Count shouldn't be incremented after removal")
+            .that(onBackPressedCallback.count)
+            .isEqualTo(1)
     }
 
     @UiThreadTest

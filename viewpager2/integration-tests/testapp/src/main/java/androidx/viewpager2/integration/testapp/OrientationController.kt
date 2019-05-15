@@ -23,10 +23,11 @@ import android.widget.Spinner
 import androidx.viewpager2.widget.ViewPager2
 
 /**
- * It configures a spinner to show orientations and sets the orientation of a ViewPager2 when an orientation is selected
+ * It configures a spinner to show orientations and sets the orientation of a ViewPager2
+ * when an orientation is selected.
  */
 class OrientationController(private val viewPager: ViewPager2, private val spinner: Spinner) {
-    fun setup() {
+    fun setUp() {
         val orientation = viewPager.orientation
         val adapter = ArrayAdapter(spinner.context, android.R.layout.simple_spinner_item,
             arrayOf(HORIZONTAL, VERTICAL))
@@ -52,7 +53,7 @@ class OrientationController(private val viewPager: ViewPager2, private val spinn
         }
     }
 
-    private fun orientationToString(@ViewPager2.Orientation orientation: Int): String {
+    private fun orientationToString(orientation: Int): String {
         return when (orientation) {
             ViewPager2.ORIENTATION_HORIZONTAL -> HORIZONTAL
             ViewPager2.ORIENTATION_VERTICAL -> VERTICAL
@@ -60,7 +61,6 @@ class OrientationController(private val viewPager: ViewPager2, private val spinn
         }
     }
 
-    @ViewPager2.Orientation
     internal fun stringToOrientation(string: String): Int {
         return when (string) {
             HORIZONTAL -> ViewPager2.ORIENTATION_HORIZONTAL

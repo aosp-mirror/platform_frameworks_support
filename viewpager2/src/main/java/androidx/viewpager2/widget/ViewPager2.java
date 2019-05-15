@@ -36,6 +36,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.accessibility.AccessibilityEvent;
 
+import androidx.annotation.FloatRange;
 import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -61,6 +62,7 @@ import java.lang.annotation.Retention;
  * @see androidx.viewpager.widget.ViewPager
  */
 public final class ViewPager2 extends ViewGroup {
+    /** @hide */
     @Retention(SOURCE)
     @IntDef({ORIENTATION_HORIZONTAL, ORIENTATION_VERTICAL})
     public @interface Orientation {
@@ -69,13 +71,27 @@ public final class ViewPager2 extends ViewGroup {
     public static final int ORIENTATION_HORIZONTAL = RecyclerView.HORIZONTAL;
     public static final int ORIENTATION_VERTICAL = RecyclerView.VERTICAL;
 
+    /** @hide */
     @Retention(SOURCE)
     @IntDef({SCROLL_STATE_IDLE, SCROLL_STATE_DRAGGING, SCROLL_STATE_SETTLING})
     public @interface ScrollState {
     }
 
+    /**
+     * Indicates that the ViewPager2 is in an idle, settled state. The current page
+     * is fully in view and no animation is in progress.
+     */
     public static final int SCROLL_STATE_IDLE = 0;
+
+    /**
+     * Indicates that the ViewPager2 is currently being dragged by the user, or programmatically
+     * via fake drag functionality.
+     */
     public static final int SCROLL_STATE_DRAGGING = 1;
+
+    /**
+     * Indicates that the ViewPager2 is in the process of settling to a final position.
+     */
     public static final int SCROLL_STATE_SETTLING = 2;
 
     /**
@@ -93,10 +109,10 @@ public final class ViewPager2 extends ViewGroup {
             new CompositeOnPageChangeCallback(3);
 
     int mCurrentItem;
+    LinearLayoutManager mLayoutManager;
     private int mPendingCurrentItem = NO_POSITION;
     private Parcelable mPendingAdapterState;
     private RecyclerView mRecyclerView;
-    private LinearLayoutManager mLayoutManager;
     private PagerSnapHelper mPagerSnapHelper;
     private ScrollEventAdapter mScrollEventAdapter;
     private FakeDrag mFakeDragger;
@@ -140,7 +156,7 @@ public final class ViewPager2 extends ViewGroup {
 
         // Create ScrollEventAdapter before attaching PagerSnapHelper to RecyclerView, because the
         // attach process calls PagerSnapHelperImpl.findSnapView, which uses the mScrollEventAdapter
-        mScrollEventAdapter = new ScrollEventAdapter(mLayoutManager);
+        mScrollEventAdapter = new ScrollEventAdapter(this);
         // Create FakeDrag before attaching PagerSnapHelper, same reason as above
         mFakeDragger = new FakeDrag(this, mScrollEventAdapter, mRecyclerView);
         mPagerSnapHelper = new PagerSnapHelperImpl();
@@ -423,7 +439,9 @@ public final class ViewPager2 extends ViewGroup {
     }
 
     /**
-     * @param orientation {@link ViewPager2.Orientation}
+     * Sets the orientation of the ViewPager2.
+     *
+     * @param orientation {@link #ORIENTATION_HORIZONTAL} or {@link #ORIENTATION_VERTICAL}
      */
     public void setOrientation(@Orientation int orientation) {
         mLayoutManager.setOrientation(orientation);
@@ -431,6 +449,11 @@ public final class ViewPager2 extends ViewGroup {
 
     public @Orientation int getOrientation() {
         return mLayoutManager.getOrientation();
+    }
+
+    boolean isLayoutRtl() {
+        return mLayoutManager.getLayoutDirection()
+                == androidx.core.view.ViewCompat.LAYOUT_DIRECTION_RTL;
     }
 
     /**
@@ -725,6 +748,9 @@ public final class ViewPager2 extends ViewGroup {
      * transformations to each page, overriding the default sliding behavior.
      *
      * @param transformer PageTransformer that will modify each page's animation properties
+     *
+     * @see MarginPageTransformer
+     * @see CompositePageTransformer
      */
     public void setPageTransformer(@Nullable PageTransformer transformer) {
         // TODO: add support for reverseDrawingOrder: b/112892792
@@ -920,6 +946,6 @@ public final class ViewPager2 extends ViewGroup {
          *                 position of the pager. 0 is front and center. 1 is one full
          *                 page position to the right, and -1 is one page position to the left.
          */
-        void transformPage(@NonNull View page, float position);
+        void transformPage(@NonNull View page, @FloatRange(from = -1.0, to = 1.0) float position);
     }
 }

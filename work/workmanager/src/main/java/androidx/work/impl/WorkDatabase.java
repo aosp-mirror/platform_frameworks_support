@@ -20,6 +20,8 @@ import static androidx.work.impl.WorkDatabaseMigrations.MIGRATION_3_4;
 import static androidx.work.impl.WorkDatabaseMigrations.MIGRATION_4_5;
 import static androidx.work.impl.WorkDatabaseMigrations.VERSION_2;
 import static androidx.work.impl.WorkDatabaseMigrations.VERSION_3;
+import static androidx.work.impl.WorkDatabaseMigrations.VERSION_5;
+import static androidx.work.impl.WorkDatabaseMigrations.VERSION_6;
 import static androidx.work.impl.model.WorkTypeConverters.StateIds.COMPLETED_STATES;
 import static androidx.work.impl.model.WorkTypeConverters.StateIds.ENQUEUED;
 import static androidx.work.impl.model.WorkTypeConverters.StateIds.RUNNING;
@@ -46,6 +48,7 @@ import androidx.work.impl.model.WorkTag;
 import androidx.work.impl.model.WorkTagDao;
 import androidx.work.impl.model.WorkTypeConverters;
 
+import java.util.concurrent.Executor;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -60,7 +63,7 @@ import java.util.concurrent.TimeUnit;
         WorkTag.class,
         SystemIdInfo.class,
         WorkName.class},
-        version = 5)
+        version = 6)
 @TypeConverters(value = {Data.class, WorkTypeConverters.class})
 public abstract class WorkDatabase extends RoomDatabase {
 
@@ -89,17 +92,23 @@ public abstract class WorkDatabase extends RoomDatabase {
      * Creates an instance of the WorkDatabase.
      *
      * @param context         A context (this method will use the application context from it)
+     * @param queryExecutor   An {@link Executor} that will be used to execute all async Room
+     *                        queries.
      * @param useTestDatabase {@code true} to generate an in-memory database that allows main thread
      *                        access
      * @return The created WorkDatabase
      */
-    public static WorkDatabase create(Context context, boolean useTestDatabase) {
+    public static WorkDatabase create(
+            @NonNull Context context,
+            @NonNull Executor queryExecutor,
+            boolean useTestDatabase) {
         RoomDatabase.Builder<WorkDatabase> builder;
         if (useTestDatabase) {
             builder = Room.inMemoryDatabaseBuilder(context, WorkDatabase.class)
                     .allowMainThreadQueries();
         } else {
-            builder = Room.databaseBuilder(context, WorkDatabase.class, DB_NAME);
+            builder = Room.databaseBuilder(context, WorkDatabase.class, DB_NAME)
+                    .setQueryExecutor(queryExecutor);
         }
 
         return builder.addCallback(generateCleanupCallback())
@@ -108,6 +117,8 @@ public abstract class WorkDatabase extends RoomDatabase {
                         new WorkDatabaseMigrations.WorkMigration(context, VERSION_2, VERSION_3))
                 .addMigrations(MIGRATION_3_4)
                 .addMigrations(MIGRATION_4_5)
+                .addMigrations(
+                        new WorkDatabaseMigrations.WorkMigration(context, VERSION_5, VERSION_6))
                 .fallbackToDestructiveMigration()
                 .build();
     }

@@ -44,14 +44,12 @@ import com.android.build.gradle.LibraryExtension
 import com.android.build.gradle.LibraryPlugin
 import com.android.build.gradle.TestedExtension
 import com.android.build.gradle.api.ApkVariant
-import com.android.build.gradle.internal.tasks.factory.dependsOn
 import org.gradle.api.DefaultTask
 import org.gradle.api.JavaVersion.VERSION_1_7
 import org.gradle.api.JavaVersion.VERSION_1_8
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.Task
-import org.gradle.api.artifacts.ComponentModuleMetadataDetails
 import org.gradle.api.logging.configuration.ShowStacktrace
 import org.gradle.api.plugins.JavaLibraryPlugin
 import org.gradle.api.plugins.JavaPlugin
@@ -63,11 +61,14 @@ import org.gradle.api.tasks.testing.Test
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.extra
+import org.gradle.kotlin.dsl.get
 import org.gradle.kotlin.dsl.getPlugin
 import org.gradle.kotlin.dsl.withType
 import org.gradle.testing.jacoco.plugins.JacocoPluginExtension
 import org.gradle.testing.jacoco.tasks.JacocoReport
 import org.jetbrains.kotlin.gradle.dsl.KotlinProjectExtension
+import org.jetbrains.kotlin.gradle.plugin.KotlinBasePluginWrapper
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.io.File
 import java.util.concurrent.ConcurrentHashMap
 
@@ -132,14 +133,17 @@ class AndroidXPlugin : Plugin<Project> {
                     project.configureResourceApiChecks()
                     project.addCreateLibraryBuildInfoFileTask(androidXExtension)
                     val verifyDependencyVersionsTask = project.createVerifyDependencyVersionsTask()
-                    val checkNoWarningsTask = project.tasks.register(CHECK_NO_WARNINGS_TASK)
+                    val checkNoWarningsTask = project.tasks.register(CHECK_NO_WARNINGS_TASK) {
+                        extension.libraryVariants.all { libraryVariant ->
+                            it.dependsOn(libraryVariant.javaCompileProvider)
+                        }
+                    }
                     project.createCheckReleaseReadyTask(listOf(verifyDependencyVersionsTask,
                         checkNoWarningsTask))
                     extension.libraryVariants.all { libraryVariant ->
                         verifyDependencyVersionsTask.configure { task ->
                             task.dependsOn(libraryVariant.javaCompileProvider)
                         }
-                        checkNoWarningsTask.dependsOn(libraryVariant.javaCompileProvider)
                         project.gradle.taskGraph.whenReady { executionGraph ->
                             if (executionGraph.hasTask(checkNoWarningsTask.get())) {
                                 libraryVariant.javaCompileProvider.configure { task ->
@@ -157,6 +161,26 @@ class AndroidXPlugin : Plugin<Project> {
                     val extension = project.extensions.getByType<AppExtension>()
                     project.configureAndroidCommonOptions(extension, androidXExtension)
                     project.configureAndroidApplicationOptions(extension)
+                }
+                is KotlinBasePluginWrapper -> {
+                    if (project.name == "lifecycle-livedata-eap" || // b/130585490
+                        project.name == "lifecycle-runtime-eap" ||
+                        project.name == "lifecycle-runtime-ktx" ||
+                        project.name == "lifecycle-livedata-ktx" ||
+                        project.name == "work-runtime-ktx" || // b/130582237
+                        project.name == "room-compiler" || // b/130580662
+                        project.name == "room-testapp-kotlin" || // b/130643290
+                        project.name == "activity" ||
+                        project.name == "camera-testapp-timing" ||
+                        project.name == "fragment" || // b/130586088
+                        project.name == "fragment-testing" ||
+                        project.name == "benchmark" ||
+                        project.name == "navigation-safe-args-gradle-plugin") {
+                        return@all
+                    }
+                    project.tasks.withType(KotlinCompile::class.java).configureEach { compile ->
+                        compile.kotlinOptions.allWarningsAsErrors = true
+                    }
                 }
             }
         }
@@ -200,15 +224,24 @@ class AndroidXPlugin : Plugin<Project> {
         }
         val createLibraryBuildInfoFilesTask =
             tasks.register(CREATE_LIBRARY_BUILD_INFO_FILES_TASK)
-        val buildOnServerTask = tasks.create(BUILD_ON_SERVER_TASK)
+
+        extra.set("versionChecker", GMavenVersionChecker(logger))
+        val createArchiveTask = Release.getGlobalFullZipTask(this)
+
+        val buildOnServerTask = tasks.create(BUILD_ON_SERVER_TASK, BuildOnServer::class.java)
+        buildOnServerTask.dependsOn(createArchiveTask)
         buildOnServerTask.dependsOn(createLibraryBuildInfoFilesTask)
-        val buildTestApksTask = tasks.create(BUILD_TEST_APKS)
+
+        val partiallyDejetifyArchiveTask = partiallyDejetifyArchiveTask(
+            createArchiveTask.get().archiveFile)
+        if (partiallyDejetifyArchiveTask != null)
+            buildOnServerTask.dependsOn(partiallyDejetifyArchiveTask)
+
         val projectModules = ConcurrentHashMap<String, String>()
         extra.set("projects", projectModules)
         tasks.all { task ->
             if (task.name.startsWith(Release.DIFF_TASK_PREFIX) ||
                     "distDocs" == task.name ||
-                    "partiallyDejetifyArchive" == task.name ||
                     CheckExternalDependencyLicensesTask.TASK_NAME == task.name) {
                 buildOnServerTask.dependsOn(task)
             }
@@ -232,19 +265,27 @@ class AndroidXPlugin : Plugin<Project> {
                         !project.rootProject.hasProperty("useMaxDepVersions"))) {
                     buildOnServerTask.dependsOn(task)
                 }
-                if ("assembleAndroidTest" == task.name ||
-                        "assembleDebug" == task.name) {
-                    buildTestApksTask.dependsOn(task)
+            }
+        }
+
+        if (partiallyDejetifyArchiveTask != null) {
+            project(":jetifier-standalone").afterEvaluate { standAloneProject ->
+                partiallyDejetifyArchiveTask.configure {
+                    it.dependsOn(standAloneProject.tasks.named("installDist"))
+                }
+                createArchiveTask.configure {
+                    it.dependsOn(standAloneProject.tasks.named("dist"))
                 }
             }
         }
 
         val createCoverageJarTask = Jacoco.createCoverageJarTask(this)
         buildOnServerTask.dependsOn(createCoverageJarTask)
-        buildTestApksTask.dependsOn(createCoverageJarTask)
 
-        extra.set("versionChecker", GMavenVersionChecker(logger))
-        Release.createGlobalArchiveTask(this)
+        tasks.register(BUILD_TEST_APKS) {
+            it.dependsOn(createCoverageJarTask)
+        }
+
         val allDocsTask = DiffAndDocs.configureDiffAndDocs(this, projectDir,
                 DacOptions("androidx", "ANDROIDX_DATA"),
                 listOf(RELEASE_RULE))
@@ -336,8 +377,8 @@ class AndroidXPlugin : Plugin<Project> {
 
         // Disable generating BuildConfig.java
         // TODO remove after https://issuetracker.google.com/72050365
-        extension.variants.all {
-            it.generateBuildConfigProvider.configure {
+        extension.variants.all { variant ->
+            variant.generateBuildConfigProvider.configure {
                 it.enabled = false
             }
         }
@@ -365,7 +406,11 @@ class AndroidXPlugin : Plugin<Project> {
 
         Jacoco.registerClassFilesTask(project, extension)
 
+        val buildTestApksTask = rootProject.tasks.named(BUILD_TEST_APKS)
         extension.testVariants.all { variant ->
+            buildTestApksTask.configure {
+                it.dependsOn(variant.assembleProvider)
+            }
             variant.configureApkCopy(project, extension, true)
         }
     }
@@ -427,10 +472,13 @@ class AndroidXPlugin : Plugin<Project> {
         }
 
         project.configurations.all { config ->
-            // Remove strict constraints on listenablefuture:1.0
+            val isTestConfig = config.name.toLowerCase().contains("test")
+
             config.dependencyConstraints.configureEach { dependencyConstraint ->
                 dependencyConstraint.apply {
-                    if (group == "com.google.guava" &&
+                    // Remove strict constraints on test dependencies and listenablefuture:1.0
+                    if (isTestConfig ||
+                        group == "com.google.guava" &&
                         name == "listenablefuture" &&
                         version == "1.0") {
                         version { versionConstraint ->
@@ -470,7 +518,6 @@ class AndroidXPlugin : Plugin<Project> {
     private fun Project.configureAndroidApplicationOptions(extension: AppExtension) {
         extension.defaultConfig.apply {
             targetSdkVersion(TARGET_SDK_VERSION)
-
             versionCode = 1
             versionName = "1.0"
         }
@@ -489,7 +536,13 @@ class AndroidXPlugin : Plugin<Project> {
             }
         }
 
+        val buildTestApksTask = rootProject.tasks.named(BUILD_TEST_APKS)
         extension.applicationVariants.all { variant ->
+            if (variant.buildType.name == "debug") {
+                buildTestApksTask.configure {
+                    it.dependsOn(variant.assembleProvider)
+                }
+            }
             variant.configureApkCopy(project, extension, false)
         }
     }
@@ -604,6 +657,7 @@ private fun Project.createUpdateResourceApiTask(): DefaultTask {
     }
 }
 
+@Suppress("UNCHECKED_CAST")
 fun Project.getProjectsMap(): ConcurrentHashMap<String, String> {
     return project.rootProject.extra.get("projects") as ConcurrentHashMap<String, String>
 }
