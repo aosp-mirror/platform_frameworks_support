@@ -125,11 +125,13 @@ class BenchmarkStateTest {
 
     @Test
     fun reportResult() {
-        BenchmarkState.reportData("className", "testName", 100, listOf(100), 1, 1)
+        BenchmarkState.reportData("className", "testName", 100, 100, 100, listOf(100), 1, 1)
         val expectedReport = BenchmarkState.Report(
             className = "className",
             testName = "testName",
-            nanos = 100,
+            minimum = 100,
+            maximum = 100,
+            median = 100,
             data = listOf(100),
             repeatIterations = 1,
             warmupIterations = 1

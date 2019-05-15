@@ -66,11 +66,13 @@ internal object ResultWriter {
         beginObject()
             .name("name").value(report.testName)
             .name("className").value(report.className)
-            .name("nanos").value(report.nanos)
+            .name("minimumNs").value(report.minimum)
+            .name("maximumNs").value(report.maximum)
+            .name("medianNs").value(report.median)
             .name("warmupIterations").value(report.warmupIterations)
             .name("repeatIterations").value(report.repeatIterations)
 
-        name("runs").beginArray()
+        name("runsNs").beginArray()
         report.data.forEach { value(it) }
         endArray()
 
