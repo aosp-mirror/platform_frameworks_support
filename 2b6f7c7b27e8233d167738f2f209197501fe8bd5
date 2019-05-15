@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "47eff957_ae9e0ec9",
+        "filename": "webkit/integration-tests/testapp/src/main/java/com/example/androidx/webkit/IsMultiProcessEnabledActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-05-15T20:29:04Z",
+      "side": 1,
+      "message": "nit: maybe just call this \"MultiProcessEnabledActivity\"?",
+      "range": {
+        "startLine": 28,
+        "startChar": 13,
+        "endLine": 28,
+        "endChar": 42
+      },
+      "revId": "2b6f7c7b27e8233d167738f2f209197501fe8bd5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca52b783_5531cf1c",
+        "filename": "webkit/integration-tests/testapp/src/main/java/com/example/androidx/webkit/IsMultiProcessEnabledActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-05-15T20:29:04Z",
+      "side": 1,
+      "message": "These APIs are still hidden, you need to @SuppressLint (see the force-dark activity)",
+      "range": {
+        "startLine": 38,
+        "startChar": 30,
+        "endLine": 38,
+        "endChar": 51
+      },
+      "revId": "2b6f7c7b27e8233d167738f2f209197501fe8bd5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
