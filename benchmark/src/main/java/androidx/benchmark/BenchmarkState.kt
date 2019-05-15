@@ -331,6 +331,8 @@ class BenchmarkState internal constructor() {
 
     private fun min(): Long = stats.min
 
+    private fun max(): Long = stats.min
+
     private fun standardDeviation(): Long = stats.standardDeviation.toLong()
 
     private fun count(): Long = maxIterations.toLong()
@@ -338,7 +340,9 @@ class BenchmarkState internal constructor() {
     internal data class Report(
         val className: String,
         val testName: String,
-        val nanos: Long,
+        val minimum: Long,
+        val maximum: Long,
+        val median: Long,
         val data: List<Long>,
         val repeatIterations: Int,
         val warmupIterations: Int
@@ -348,7 +352,9 @@ class BenchmarkState internal constructor() {
         return Report(
             className = className,
             testName = testName,
-            nanos = min(),
+            minimum = min(),
+            maximum = max(),
+            median = median(),
             data = results,
             repeatIterations = maxIterations,
             warmupIterations = warmupIteration
@@ -419,10 +425,9 @@ class BenchmarkState internal constructor() {
          *
          * @param className Name of class the benchmark runs in
          * @param testName Name of the benchmark
-         * @param nanos Summary number for benchmark result, in nanoseconds. Generally this is the
-         *              minimum value observed. If your existing external benchmark infrastructure
-         *              has a standard way of summarizing results, such as average or median, you
-         *              can use that instead.
+         * @param minimumNs The minimum value observed in nanoseconds
+         * @param maximumNs The maximum value observed in nanoseconds
+         * @param medianNs The median value observed in nanoseconds
          * @param data List of all measured results, in nanoseconds
          * @param warmupIterations Number of iterations of warmup before measurements started.
          *                         Should be no less than 0.
@@ -434,7 +439,9 @@ class BenchmarkState internal constructor() {
         fun reportData(
             className: String,
             testName: String,
-            nanos: Long,
+            maximumNs: Long,
+            minimumNs: Long,
+            medianNs: Long,
             data: List<Long>,
             @androidx.annotation.IntRange(from = 0) warmupIterations: Int,
             @androidx.annotation.IntRange(from = 1) repeatIterations: Int
@@ -443,15 +450,17 @@ class BenchmarkState internal constructor() {
             val bundle = Bundle()
             val fullTestName = WarningState.WARNING_PREFIX +
                     if (className.isNotEmpty()) "$className.$testName" else testName
-            bundle.putIdeSummaryLine(fullTestName, nanos)
+            bundle.putIdeSummaryLine(fullTestName, minimumNs)
             InstrumentationRegistry.getInstrumentation().sendStatus(Activity.RESULT_OK, bundle)
 
             // Report values to file output
             ResultWriter.appendReport(
-                BenchmarkState.Report(
+                Report(
                     className = className,
                     testName = testName,
-                    nanos = nanos,
+                    minimum = minimumNs,
+                    maximum = maximumNs,
+                    median = medianNs,
                     data = data,
                     repeatIterations = repeatIterations,
                     warmupIterations = warmupIterations
