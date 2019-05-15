@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e7f8f064_82578abc",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageInfoProcessor.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-15T22:17:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "04500171_eafe2696",
+      "range": {
+        "startLine": 31,
+        "startChar": 40,
+        "endLine": 31,
+        "endChar": 46
+      },
+      "revId": "4d83a828056039df34d8926baccab5c9d9a4cd11",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b939aaa6_3ff475ee",
         "filename": "camera/core/src/main/java/androidx/camera/core/Preview.java",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "4d83a828056039df34d8926baccab5c9d9a4cd11",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc93eb7e_dc9bf785",
+        "filename": "camera/core/src/main/java/androidx/camera/core/Preview.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-15T22:17:16Z",
+      "side": 1,
+      "message": "Thanks for the catch. The debug log was meant to be removed.",
+      "parentUuid": "b939aaa6_3ff475ee",
+      "range": {
+        "startLine": 118,
+        "startChar": 23,
+        "endLine": 118,
+        "endChar": 24
+      },
+      "revId": "4d83a828056039df34d8926baccab5c9d9a4cd11",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
