@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cba1b2cc_e66fda85",
+        "filename": "benchmark/src/androidTest/java/androidx/benchmark/ResultWriterTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-05-15T17:47:49Z",
+      "side": 1,
+      "message": "the reason the top level object was a map was to support a context object: b/132711920",
+      "revId": "3f8031aeb3a2f9f0af30932323eabae8da831dae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e60e64c5_ce446cf1",
+        "filename": "benchmark/src/main/java/androidx/benchmark/ResultWriter.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-05-15T17:47:49Z",
+      "side": 1,
+      "message": "how long does re-serializing each report take? \n\nThis changed from O(N) to O(N^2), since we restart from scratch each time :P\n\nis there any way to stash the stringification in between each write? (Alternately, were you able to find a onStop equivalent that works?)",
+      "revId": "3f8031aeb3a2f9f0af30932323eabae8da831dae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
