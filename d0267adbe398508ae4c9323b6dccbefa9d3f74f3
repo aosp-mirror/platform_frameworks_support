@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "3dc0c3b4_68b2382d",
+        "filename": "ui/core/src/main/java/androidx/ui/core/Dp.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2019-05-15T14:15:14Z",
+      "side": 1,
+      "message": "Shall this and below not be inlined?",
+      "revId": "d0267adbe398508ae4c9323b6dccbefa9d3f74f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "60896b8a_a4c89cde",
         "filename": "ui/layout/src/androidTest/java/androidx/ui/layout/test/FlexTest.kt",
         "patchSetId": 1
@@ -37,6 +54,30 @@
       "side": 1,
       "message": "should resolve my own comment :-)",
       "parentUuid": "60896b8a_a4c89cde",
+      "range": {
+        "startLine": 976,
+        "startChar": 20,
+        "endLine": 976,
+        "endChar": 23
+      },
+      "revId": "d0267adbe398508ae4c9323b6dccbefa9d3f74f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "678e32b2_b29a4892",
+        "filename": "ui/layout/src/androidTest/java/androidx/ui/layout/test/FlexTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 976,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2019-05-15T14:15:14Z",
+      "side": 1,
+      "message": "Thanks!",
+      "parentUuid": "35bef950_a115474f",
       "range": {
         "startLine": 976,
         "startChar": 20,
