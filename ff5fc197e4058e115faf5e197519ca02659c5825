@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4e039abb_6a8afc77",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/CheckApiEquivalenceTask.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1470382
+      },
+      "writtenOn": "2019-05-15T21:04:58Z",
+      "side": 1,
+      "message": "True, and actually Property type cannot be @InputFile or @OutputFile.\n\nThe following error results:\nExecution failed for task \u0027:annotation:checkApi\u0027.\n\u003e Cannot convert the provided notation to a File or URI: ApiLocation(publicApiFile\u003d/usr/local/google/home/asfalcone/androidx-master-dev/out/support/annotation/build/docs/release/annotation/current.txt, restrictedApiFile\u003d/usr/local/google/home/asfalcone/androidx-master-dev/out/support/annotation/build/docs/release/annotation/restricted_current.txt, resourceFile\u003d/usr/local/google/home/asfalcone/androidx-master-dev/out/support/annotation/build/docs/release/annotation/res-current.txt).\n  The following types/formats are supported:\n    - A String or CharSequence path, for example \u0027src/main/java\u0027 or \u0027/usr/include\u0027.\n    - A String or CharSequence URI, for example \u0027file:/usr/include\u0027.\n    - A File instance.\n    - A Path instance.\n    - A Directory instance.\n    - A RegularFile instance.\n    - A URI or URL instance.\n\nSo we\u0027ll need to remove OutputFile here and there might be an impact on incrementalness of this task.\n\nAdditionally, ApiLocation needs implement \u0027Serializable\u0027 because of\n\nExecution failed for task \u0027:annotation:checkApiRelease\u0027.\n\u003e Unable to store input properties for task \u0027:annotation:checkApiRelease\u0027. Property \u0027referenceApi\u0027 with value \u0027ApiLocation(publicApiFile\u003d/usr/local/google/home/asfalcone/androidx-master-dev/frameworks/support/annotations/api/1.1.0-rc01.txt, restrictedApiFile\u003d/usr/local/google/home/asfalcone/androidx-master-dev/frameworks/support/annotations/api/restricted_1.1.0-rc01.txt, resourceFile\u003d/usr/local/google/home/asfalcone/androidx-master-dev/frameworks/support/annotations/api/res-1.1.0-rc01.txt)\u0027 cannot be serialized.\n\nSerialiable requires kotlin-stdlib which we don\u0027t currently depend on. We can remove the @Input notation though. Thoughts on that?",
+      "parentUuid": "5fae6f92_afca9046",
+      "range": {
+        "startLine": 38,
+        "startChar": 9,
+        "endLine": 38,
+        "endChar": 19
+      },
+      "revId": "ff5fc197e4058e115faf5e197519ca02659c5825",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "50167f13_9ddd89de",
         "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/Metalava.kt",
         "patchSetId": 6
