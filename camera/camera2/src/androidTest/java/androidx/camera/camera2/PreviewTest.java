@@ -32,6 +32,7 @@ import android.os.Looper;
 import android.util.Size;
 import android.view.Surface;
 
+import androidx.camera.camera2.impl.Camera2CameraControl;
 import androidx.camera.core.AppConfig;
 import androidx.camera.core.CameraControl;
 import androidx.camera.core.CameraFactory;
@@ -491,7 +492,8 @@ public final class PreviewTest {
                     }
 
                     @Override
-                    public void onCameraControlSingleRequest(CaptureConfig captureConfig) {
+                    public void onCameraControlCaptureRequests(List<CaptureConfig> captureConfigs) {
+
                     }
                 },
                 new Handler());

@@ -18,8 +18,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="androidx.benchmark.test">
+
+    <uses-sdk android:targetSdkVersion="${target-sdk-version}" />
+
     <!-- Important: disable debuggable for accurate performance results -->
     <application
         android:debuggable="false"
-        tools:replace="android:debuggable"/>
+        tools:replace="android:debuggable">
+        <activity android:name="android.app.Activity"/>
+    </application>
 </manifest>

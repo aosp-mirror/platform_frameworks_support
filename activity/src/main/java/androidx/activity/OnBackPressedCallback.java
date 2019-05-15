@@ -20,7 +20,7 @@ import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LifecycleOwner;
 
-import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Class for handling {@link OnBackPressedDispatcher#onBackPressed()} callbacks without
@@ -43,7 +43,7 @@ import java.util.ArrayList;
 public abstract class OnBackPressedCallback {
 
     private boolean mEnabled;
-    private ArrayList<Cancellable> mCancellables = new ArrayList<>();
+    private CopyOnWriteArrayList<Cancellable> mCancellables = new CopyOnWriteArrayList<>();
 
     /**
      * Create a {@link OnBackPressedCallback}.
@@ -67,7 +67,7 @@ public abstract class OnBackPressedCallback {
      * @param enabled whether the callback should be considered enabled
      */
     @MainThread
-    public void setEnabled(boolean enabled) {
+    public final void setEnabled(boolean enabled) {
         mEnabled = enabled;
     }
 
@@ -78,7 +78,7 @@ public abstract class OnBackPressedCallback {
      * @return Whether this callback should be considered enabled.
      */
     @MainThread
-    public boolean isEnabled() {
+    public final boolean isEnabled() {
         return mEnabled;
     }
 
@@ -87,7 +87,7 @@ public abstract class OnBackPressedCallback {
      * added to.
      */
     @MainThread
-    public void remove() {
+    public final void remove() {
         for (Cancellable cancellable: mCancellables) {
             cancellable.cancel();
         }

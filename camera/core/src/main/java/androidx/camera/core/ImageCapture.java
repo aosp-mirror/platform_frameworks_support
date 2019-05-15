@@ -70,12 +70,20 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * A use case for taking a picture.
  *
- * <p>This class is designed for basic picture taking. It provides simple controls on how a picture
- * will be taken. The caller is responsible for deciding how to use the captured picture, such as
- * saving the picture to a file.
+ * <p>This class is designed for basic picture taking. It provides takePicture() functions to take
+ * a picture to memory or save to a file, and provides image metadata.  Pictures are taken in
+ * automatic mode after focus has converged. The flash mode can additionally be set by the
+ * application.
  *
- * <p>The captured image is made available through an {@link ImageReader} which is passed to an
- * {@link ImageCapture.OnImageCapturedListener}.
+ * <p>TakePicture returns immediately and a listener is called to provide the results after the
+ * capture completes. Multiple calls to takePicture will take pictures sequentially starting
+ * after the previous picture is captured.
+ *
+ * <p>Note that focus and exposure metering regions can be controlled via {@link Preview}.
+ *
+ * <p>When capturing to memory, the captured image is made available through an {@link ImageProxy}
+ * via an {@link ImageCapture.OnImageCapturedListener}.
+ *
  */
 public class ImageCapture extends UseCase {
     /**
@@ -144,6 +152,7 @@ public class ImageCapture extends UseCase {
      * Creates a new image capture use case from the given configuration.
      *
      * @param userConfig for this use case instance
+     * @throws IllegalArgumentException if the configuration is invalid.
      */
     public ImageCapture(ImageCaptureConfig userConfig) {
         super(userConfig);
@@ -154,11 +163,20 @@ public class ImageCapture extends UseCase {
         mFlashMode = mConfig.getFlashMode();
 
         mCaptureProcessor = mConfig.getCaptureProcessor(null);
-
-        if (mCaptureProcessor != null) {
-            setImageFormat(ImageFormat.YUV_420_888);
+        Integer bufferFormat = mConfig.getBufferFormat(null);
+        if (bufferFormat != null) {
+            if (mCaptureProcessor != null) {
+                throw new IllegalArgumentException(
+                        "Cannot set buffer format with CaptureProcessor defined.");
+            } else {
+                setImageFormat(bufferFormat);
+            }
         } else {
-            setImageFormat(ImageReaderFormatRecommender.chooseCombo().imageCaptureFormat());
+            if (mCaptureProcessor != null) {
+                setImageFormat(ImageFormat.YUV_420_888);
+            } else {
+                setImageFormat(ImageReaderFormatRecommender.chooseCombo().imageCaptureFormat());
+            }
         }
 
         mCaptureBundle = mConfig.getCaptureBundle(CaptureBundles.singleDefaultCaptureBundle());
@@ -243,6 +261,16 @@ public class ImageCapture extends UseCase {
     /**
      * Sets target aspect ratio.
      *
+     * <p>This sets the cropping rectangle returned by {@link ImageProxy#getCropRect()} returned
+     * from {@link ImageCapture#takePicture(OnImageCapturedListener)}.
+     *
+     * <p>This crops the saved image when calling
+     * {@link ImageCapture#takePicture(File, OnImageSavedListener)} or
+     * {@link ImageCapture#takePicture(File, OnImageSavedListener, Metadata)}.
+     *
+     * <p>Cropping occurs around the center of the image and as though it were in the target
+     * rotation.
+     *
      * @param aspectRatio New target aspect ratio.
      */
     public void setTargetAspectRatio(Rational aspectRatio) {
@@ -260,13 +288,26 @@ public class ImageCapture extends UseCase {
     /**
      * Sets the desired rotation of the output image.
      *
-     * <p>This will affect the rotation of the saved image or the rotation value returned by the
-     * {@link OnImageCapturedListener}.
+     * <p>This will affect the EXIF rotation metadata in images saved by takePicture calls and the
+     * rotation value returned by {@link OnImageCapturedListener}.
      *
      * <p>In most cases this should be set to the current rotation returned by {@link
-     * Display#getRotation()}.
+     * Display#getRotation()}.  In that case, the output rotation from takePicture calls will be the
+     * rotation, which if applied to the output image, will make it match the display orientation.
      *
-     * @param rotation Desired rotation of the output image.
+     * <p>While rotation can also be set via
+     * {@link ImageCaptureConfig.Builder#setTargetRotation(int)}, using
+     * {@link ImageCapture#setTargetRotation(int)} allows the target rotation to be set dynamically.
+     * This can be useful if an app locks itself to portrait, and uses the orientation sensor
+     * to set rotation to take landscape images when the device is rotated.
+     *
+     * <p>If no target rotation is set by the application, it is set to the value of
+     * {@link Display#getRotation()} of the default display at the time the
+     * use case is created.
+     *
+     * @param rotation Target rotation of the output image, expressed as one of
+     *                 {@link Surface#ROTATION_0}, {@link Surface#ROTATION_90},
+     *                 {@link Surface#ROTATION_180}, or {@link Surface#ROTATION_270}.
      */
     public void setTargetRotation(@RotationValue int rotation) {
         ImageOutputConfig oldConfig = (ImageOutputConfig) getUseCaseConfig();
@@ -281,12 +322,12 @@ public class ImageCapture extends UseCase {
     }
 
     /**
-     * Captures a new still image.
+     * Captures a new still image for in memory access.
      *
      * <p>The listener's callback will be called only once for every invocation of this method. The
      * listener is responsible for calling {@link Image#close()} on the returned image.
      *
-     * @param listener for the newly captured image
+     * @param listener Listener to be called for the newly captured image
      */
     public void takePicture(final OnImageCapturedListener listener) {
         if (Looper.getMainLooper() != Looper.myLooper()) {
@@ -304,7 +345,7 @@ public class ImageCapture extends UseCase {
     }
 
     /**
-     * Captures a new still image and saves to disk.
+     * Captures a new still image and saves to a file.
      *
      * <p>The listener's callback will be called only once for every invocation of this method.
      *
@@ -316,15 +357,17 @@ public class ImageCapture extends UseCase {
     }
 
     /**
-     * Captures a new still image and saves to disk.
+     * Captures a new still image and saves to a file along with application specified metadata.
      *
      * <p>The listener's callback will be called only once for every invocation of this method.
+     *
+     * <p>This function accepts metadata as a parameter from application code.  For JPEGs, this
+     * metadata will be included in the EXIF.
      *
      * @param saveLocation       Location to store the newly captured image.
      * @param imageSavedListener Listener to be called for the newly captured image.
      * @param metadata           Metadata to be stored with the saved image. For JPEG this will
-     *                           be included in
-     *                           EXIF.
+     *                           be included in the EXIF.
      */
     public void takePicture(
             final File saveLocation, final OnImageSavedListener imageSavedListener,
@@ -820,6 +863,7 @@ public class ImageCapture extends UseCase {
     /** Issues a take picture request. */
     ListenableFuture<Void> issueTakePicture() {
         final List<ListenableFuture<Void>> futureList = new ArrayList<>();
+        final List<CaptureConfig> captureConfigs = new ArrayList<>();
 
         for (final CaptureStage captureStage : mCaptureBundle.getCaptureStages()) {
             final CaptureConfig.Builder builder = new CaptureConfig.Builder();
@@ -835,7 +879,6 @@ public class ImageCapture extends UseCase {
             builder.setTag(captureStage.getCaptureConfig().getTag());
             builder.addCameraCaptureCallback(mMetadataMatchingCaptureCallback);
 
-            final CameraControl cameraControl = getCurrentCameraControl();
             ListenableFuture<Void> future = CallbackToFutureAdapter.getFuture(
                     new CallbackToFutureAdapter.Resolver<Void>() {
                         @Override
@@ -859,7 +902,7 @@ public class ImageCapture extends UseCase {
                             };
                             builder.addCameraCaptureCallback(completerCallback);
 
-                            cameraControl.submitSingleRequest(builder.build());
+                            captureConfigs.add(builder.build());
                             return "issueTakePicture[stage=" + captureStage.getId() + "]";
                         }
                     });
@@ -867,6 +910,7 @@ public class ImageCapture extends UseCase {
 
         }
 
+        getCurrentCameraControl().submitCaptureRequests(captureConfigs);
         return CallbackToFutureAdapter.getFuture(new CallbackToFutureAdapter.Resolver<Void>() {
             @Override
             public Object attachCompleter(
@@ -949,7 +993,29 @@ public class ImageCapture extends UseCase {
         /**
          * Callback for when the image has been captured.
          *
-         * <p>The listener is responsible for closing the supplied {@link Image}.
+         * <p>The application is responsible for calling {@link ImageProxy#close()} to close the
+         * image.
+         *
+         * <p>The image is of format {@link ImageFormat#JPEG}, queryable via
+         * {@link ImageProxy#getFormat()}.
+         *
+         * <p>The image is provided as captured by the underlying {@link ImageReader} without
+         * rotation applied.  rotationDegrees describes the magnitude of clockwise rotation, which
+         * if applied to the image will make it match the currently configured target rotation.
+         *
+         * <p>For example, if the current target rotation is set to the display rotation,
+         * rotationDegrees is the rotation to apply to the image to match the display orientation.
+         * A rotation of 90 degrees would mean rotating the image 90 degrees clockwise produces an
+         * image that will match the display orientation.
+         *
+         * <p>See also {@link ImageCaptureConfig.Builder#setTargetRotation(int)} and
+         * {@link #setTargetRotation(int)}.
+         *
+         * @param image The captured image
+         * @param rotationDegrees The rotation which if applied to the image will make it match the
+         *                        current target rotation. rotationDegrees is expressed as one of
+         *                        {@link Surface#ROTATION_0}, {@link Surface#ROTATION_90},
+         *                        {@link Surface#ROTATION_180}, or {@link Surface#ROTATION_270}.
          */
         public void onCaptureSuccess(ImageProxy image, int rotationDegrees) {
             image.close();

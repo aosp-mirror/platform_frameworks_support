@@ -22,7 +22,7 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":annotation"))
+    implementation("androidx.annotation:annotation:1.1.0-rc01")
     implementation(project(":core"))
     implementation(project(":animation"))
     implementation(project(":animation:testing"))
@@ -31,7 +31,3 @@ dependencies {
     implementation(ANDROIDX_TEST_CORE, libs.exclude_for_espresso)
     implementation(ANDROIDX_TEST_RULES, libs.exclude_for_espresso)
 }
-
-tasks['check'].dependsOn(tasks['connectedCheck'])
-
-uploadArchives.enabled = false

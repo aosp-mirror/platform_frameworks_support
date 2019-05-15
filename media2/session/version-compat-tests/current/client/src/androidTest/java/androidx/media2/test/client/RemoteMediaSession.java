@@ -28,6 +28,7 @@ import static androidx.media2.test.common.CommonConstants.KEY_METADATA;
 import static androidx.media2.test.common.CommonConstants.KEY_PLAYER_STATE;
 import static androidx.media2.test.common.CommonConstants.KEY_PLAYLIST;
 import static androidx.media2.test.common.CommonConstants.KEY_SPEED;
+import static androidx.media2.test.common.CommonConstants.KEY_VIDEO_SIZE;
 import static androidx.media2.test.common.CommonConstants.KEY_VOLUME_CONTROL_TYPE;
 import static androidx.media2.test.common.CommonConstants.MEDIA2_SESSION_PROVIDER_SERVICE;
 import static androidx.media2.test.common.TestUtils.PROVIDER_SERVICE_CONNECTION_TIMEOUT_MS;
@@ -47,17 +48,18 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.media.AudioAttributesCompat;
-import androidx.media2.MediaItem;
-import androidx.media2.MediaMetadata;
-import androidx.media2.MediaParcelUtils;
-import androidx.media2.MediaSession;
-import androidx.media2.MediaSession.CommandButton;
-import androidx.media2.MediaSession.ControllerInfo;
-import androidx.media2.ParcelImplListSlice;
-import androidx.media2.SessionCommand;
-import androidx.media2.SessionCommandGroup;
-import androidx.media2.SessionPlayer;
-import androidx.media2.SessionToken;
+import androidx.media2.common.MediaItem;
+import androidx.media2.common.MediaMetadata;
+import androidx.media2.common.MediaParcelUtils;
+import androidx.media2.common.ParcelImplListSlice;
+import androidx.media2.common.SessionPlayer;
+import androidx.media2.common.VideoSize;
+import androidx.media2.session.MediaSession;
+import androidx.media2.session.MediaSession.CommandButton;
+import androidx.media2.session.MediaSession.ControllerInfo;
+import androidx.media2.session.SessionCommand;
+import androidx.media2.session.SessionCommandGroup;
+import androidx.media2.session.SessionToken;
 import androidx.media2.test.common.IRemoteMediaSession;
 import androidx.media2.test.common.TestUtils;
 import androidx.versionedparcelable.ParcelImpl;
@@ -131,7 +133,7 @@ public class RemoteMediaSession {
         playerBundle.putLong(KEY_BUFFERED_POSITION, buffPos);
         playerBundle.putFloat(KEY_SPEED, speed);
         if (attr != null) {
-            playerBundle.putBundle(KEY_AUDIO_ATTRIBUTES, attr.toBundle());
+            playerBundle.putParcelable(KEY_AUDIO_ATTRIBUTES, MediaParcelUtils.toParcelable(attr));
         }
         return playerBundle;
     }
@@ -150,7 +152,7 @@ public class RemoteMediaSession {
         playerBundle.putInt(KEY_MAX_VOLUME, maxVolume);
         playerBundle.putInt(KEY_CURRENT_VOLUME, currentVolume);
         if (attr != null) {
-            playerBundle.putBundle(KEY_AUDIO_ATTRIBUTES, attr.toBundle());
+            playerBundle.putParcelable(KEY_AUDIO_ATTRIBUTES, MediaParcelUtils.toParcelable(attr));
         }
         return playerBundle;
     }
@@ -178,6 +180,12 @@ public class RemoteMediaSession {
         if (metadata != null) {
             ParcelUtils.putVersionedParcelable(bundle, KEY_METADATA, metadata);
         }
+        return bundle;
+    }
+
+    public static Bundle createMockPlayerConnectorConfigForVideoSize(@NonNull VideoSize videoSize) {
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(KEY_VIDEO_SIZE, MediaParcelUtils.toParcelable(videoSize));
         return bundle;
     }
 
@@ -273,7 +281,7 @@ public class RemoteMediaSession {
         try {
             List<ParcelImpl> parcelList = new ArrayList<>();
             for (CommandButton btn : layout) {
-                parcelList.add((ParcelImpl) ParcelUtils.toParcelable(btn));
+                parcelList.add(MediaParcelUtils.toParcelable(btn));
             }
             // TODO: ControllerInfo should be handled.
             mBinder.setCustomLayout(mSessionId, null, parcelList);
@@ -370,7 +378,8 @@ public class RemoteMediaSession {
 
         public void notifyAudioAttributesChanged(AudioAttributesCompat attrs) {
             try {
-                mBinder.notifyAudioAttributesChanged(mSessionId, attrs.toBundle());
+                mBinder.notifyAudioAttributesChanged(
+                        mSessionId, MediaParcelUtils.toParcelable(attrs));
             } catch (RemoteException ex) {
                 Log.e(TAG, "Failed to call notifyAudioAttributesChanged()");
             }
@@ -486,6 +495,19 @@ public class RemoteMediaSession {
             } catch (RemoteException ex) {
                 Log.e(TAG, "Failed to call notifyRepeatModeChanged()");
             }
+        }
+
+        public void notifyVideoSizeChanged(@NonNull VideoSize videoSize) {
+            try {
+                mBinder.notifyVideoSizeChanged(mSessionId,
+                        MediaParcelUtils.toParcelable(videoSize));
+            } catch (RemoteException ex) {
+                Log.e(TAG, "Failed to call notifyVideoSizeChanged()");
+            }
+        }
+
+        public boolean surfaceExists() throws RemoteException {
+            return mBinder.surfaceExists(mSessionId);
         }
     }
 

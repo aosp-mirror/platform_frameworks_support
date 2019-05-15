@@ -84,8 +84,6 @@ public final class NewActivityLifecycleTest {
         returnHomeScreen();
     }
 
-    // Starts the activity, returns to the home screen to pause the activity, starts the activity
-    // with a flag which generates the new instance of the activity.
     @Test
     public void startCoreTestTwiceAlwaysWithNewInstance() {
         mContext.startActivity(mIntent);
@@ -100,6 +98,12 @@ public final class NewActivityLifecycleTest {
         waitUntilTextureViewIsReady();
 
         waitForIdlingRegistryAndPressBackButton();
+    }
+
+    // The fake test will be removed after the startCoreTestTwiceAlwaysWithNewInstance enables.
+    @Test
+    public void startFakeCoreTest() {
+        returnHomeScreen();
     }
 
     private void waitUntilTextureViewIsReady() {

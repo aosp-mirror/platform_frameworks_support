@@ -100,6 +100,14 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
     final HashMap<String, Fragment> mActive = new HashMap<>();
     ArrayList<BackStackRecord> mBackStack;
     ArrayList<Fragment> mCreatedMenus;
+    private OnBackPressedDispatcher mOnBackPressedDispatcher;
+    private final OnBackPressedCallback mOnBackPressedCallback =
+            new OnBackPressedCallback(false) {
+        @Override
+        public void handleOnBackPressed() {
+            FragmentManagerImpl.this.handleOnBackPressed();
+        }
+    };
 
     // Must be accessed while locked.
     ArrayList<BackStackRecord> mBackStackIndices;
@@ -177,6 +185,63 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
         return updates;
     }
 
+    private void updateOnBackPressedCallbackEnabled() {
+        // Always enable the callback if we have pending actions
+        // as we don't know if they'll change the back stack entry count.
+        // See handleOnBackPressed() for more explanation
+        if (mPendingActions != null && !mPendingActions.isEmpty()) {
+            mOnBackPressedCallback.setEnabled(true);
+            return;
+        }
+        // This FragmentManager needs to have a back stack for this to be enabled
+        // And the parent fragment, if it exists, needs to be the primary navigation
+        // fragment.
+        mOnBackPressedCallback.setEnabled(getBackStackEntryCount() > 0
+                && isPrimaryNavigation(mParent));
+    }
+
+    /**
+     * Recursively check up the FragmentManager hierarchy of primary
+     * navigation Fragments to ensure that all of the parent Fragments are the
+     * primary navigation Fragment for their associated FragmentManager
+     */
+    boolean isPrimaryNavigation(@Nullable Fragment parent) {
+        // If the parent is null, then we're at the root host
+        // and we're always the primary navigation
+        if (parent == null) {
+            return true;
+        }
+        FragmentManagerImpl parentFragmentManager = parent.mFragmentManager;
+        Fragment primaryNavigationFragment = parentFragmentManager
+                .getPrimaryNavigationFragment();
+        // The parent Fragment needs to be the primary navigation Fragment
+        // and, if it has a parent itself, that parent also needs to be
+        // the primary navigation fragment, recursively up the stack
+        return parent == primaryNavigationFragment
+                && isPrimaryNavigation(parentFragmentManager.mParent);
+    }
+
+    @SuppressWarnings("WeakerAccess") /* synthetic access */
+    void handleOnBackPressed() {
+        // First, execute any pending actions to make sure we're in an
+        // up to date view of the world just in case anyone is queuing
+        // up transactions that change the back stack then immediately
+        // calling onBackPressed()
+        execPendingActions();
+        if (mOnBackPressedCallback.isEnabled()) {
+            // We still have a back stack, so we can pop
+            popBackStackImmediate();
+        } else {
+            // Sigh. Due to FragmentManager's asynchronicity, we can
+            // get into cases where we *think* we can handle the back
+            // button but because of frame perfect dispatch, we fell
+            // on our face. Since our callback is disabled, we can
+            // re-trigger the onBackPressed() to dispatch to the next
+            // enabled callback
+            mOnBackPressedDispatcher.onBackPressed();
+        }
+    }
+
     @Override
     public void popBackStack() {
         enqueueAction(new PopBackStackState(null, -1, 0), false);
@@ -248,6 +313,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
             }
         }
 
+        updateOnBackPressedCallbackEnabled();
         doPendingDeferredStart();
         burpActive();
         return executePop;
@@ -667,7 +733,12 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
             newState = Fragment.ACTIVITY_CREATED;
         }
         // Don't allow the Fragment to go above its max lifecycle state
-        newState = Math.min(newState, f.mMaxState.ordinal());
+        // Ensure that Fragments are capped at CREATED instead of ACTIVITY_CREATED.
+        if (f.mMaxState == Lifecycle.State.CREATED) {
+            newState = Math.min(newState, Fragment.CREATED);
+        } else {
+            newState = Math.min(newState, f.mMaxState.ordinal());
+        }
         if (f.mState <= newState) {
             // For fragments that are created from a layout, when restoring from
             // state we don't want to allow them to be created until they are
@@ -747,12 +818,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
                         }
 
                         dispatchOnFragmentPreAttached(f, mHost.getContext(), false);
-                        f.mCalled = false;
-                        f.onAttach(mHost.getContext());
-                        if (!f.mCalled) {
-                            throw new SuperNotCalledException("Fragment " + f
-                                    + " did not call through to super.onAttach()");
-                        }
+                        f.performAttach();
                         if (f.mParentFragment == null) {
                             mHost.onAttachFragment(f);
                         } else {
@@ -1127,7 +1193,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
                 }
             }
         }
-        if (fragment.mAdded && fragment.mHasMenu && fragment.mMenuVisible) {
+        if (fragment.mAdded && isMenuAvailable(fragment)) {
             mNeedMenuInvalidate = true;
         }
         fragment.mHiddenChanged = false;
@@ -1310,7 +1376,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
             if (fragment.mView == null) {
                 fragment.mHiddenChanged = false;
             }
-            if (fragment.mHasMenu && fragment.mMenuVisible) {
+            if (isMenuAvailable(fragment)) {
                 mNeedMenuInvalidate = true;
             }
             if (moveToStateNow) {
@@ -1326,7 +1392,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
             synchronized (mAdded) {
                 mAdded.remove(fragment);
             }
-            if (fragment.mHasMenu && fragment.mMenuVisible) {
+            if (isMenuAvailable(fragment)) {
                 mNeedMenuInvalidate = true;
             }
             fragment.mAdded = false;
@@ -1376,7 +1442,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
                 synchronized (mAdded) {
                     mAdded.remove(fragment);
                 }
-                if (fragment.mHasMenu && fragment.mMenuVisible) {
+                if (isMenuAvailable(fragment)) {
                     mNeedMenuInvalidate = true;
                 }
                 fragment.mAdded = false;
@@ -1397,7 +1463,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
                     mAdded.add(fragment);
                 }
                 fragment.mAdded = true;
-                if (fragment.mHasMenu && fragment.mMenuVisible) {
+                if (isMenuAvailable(fragment)) {
                     mNeedMenuInvalidate = true;
                 }
             }
@@ -1512,6 +1578,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
             if (postponeReady || pendingReady) {
                 mHost.getHandler().removeCallbacks(mExecCommit);
                 mHost.getHandler().post(mExecCommit);
+                updateOnBackPressedCallbackEnabled();
             }
         }
     }
@@ -1622,6 +1689,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
             }
         }
 
+        updateOnBackPressedCallbackEnabled();
         doPendingDeferredStart();
         burpActive();
     }
@@ -1653,6 +1721,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
             didSomething = true;
         }
 
+        updateOnBackPressedCallbackEnabled();
         doPendingDeferredStart();
         burpActive();
 
@@ -2459,6 +2528,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
 
         if (fms.mPrimaryNavActiveWho != null) {
             mPrimaryNav = mActive.get(fms.mPrimaryNavActiveWho);
+            dispatchParentPrimaryNavigationFragmentChanged(mPrimaryNav);
         }
         this.mNextFragmentIndex = fms.mNextFragmentIndex;
     }
@@ -2481,46 +2551,18 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
         mHost = host;
         mContainer = container;
         mParent = parent;
+        if (mParent != null) {
+            // Since the callback depends on us being the primary navigation fragment,
+            // update our callback now that we have a parent so that we have the correct
+            // state by default
+            updateOnBackPressedCallbackEnabled();
+        }
         // Set up the OnBackPressedCallback
         if (host instanceof OnBackPressedDispatcherOwner) {
             OnBackPressedDispatcherOwner dispatcherOwner = ((OnBackPressedDispatcherOwner) host);
-            OnBackPressedDispatcher dispatcher = dispatcherOwner.getOnBackPressedDispatcher();
+            mOnBackPressedDispatcher = dispatcherOwner.getOnBackPressedDispatcher();
             LifecycleOwner owner = parent != null ? parent : dispatcherOwner;
-            dispatcher.addCallback(owner, new OnBackPressedCallback(true) {
-                @Override
-                public boolean isEnabled() {
-                    // This FragmentManager needs to have a back stack for this to be enabled
-                    // and the parent fragment, if it exists, needs to be the primary navigation
-                    // fragment.
-                    return getBackStackEntryCount() > 0 && isPrimaryNavigation(parent);
-                }
-
-                /**
-                 * Recursively check up the FragmentManager hierarchy of primary
-                 * navigation Fragments to ensure that all of the parent Fragments are the
-                 * primary navigation Fragment for their associated FragmentManager
-                 */
-                private boolean isPrimaryNavigation(@Nullable Fragment parent) {
-                    // If the parent is null, then we're at the root host
-                    // and we're always the primary navigation
-                    if (parent == null) {
-                        return true;
-                    }
-                    FragmentManagerImpl parentFragmentManager = parent.mFragmentManager;
-                    Fragment primaryNavigationFragment = parentFragmentManager
-                            .getPrimaryNavigationFragment();
-                    // The parent Fragment needs to be the primary navigation Fragment
-                    // and, if it has a parent itself, that parent also needs to be
-                    // the primary navigation fragment, recursively up the stack
-                    return parent == primaryNavigationFragment
-                            && isPrimaryNavigation(parentFragmentManager.mParent);
-                }
-
-                @Override
-                public void handleOnBackPressed() {
-                    popBackStackImmediate();
-                }
-            });
+            mOnBackPressedDispatcher.addCallback(owner, mOnBackPressedCallback);
         }
 
         // Get the FragmentManagerViewModel
@@ -2590,6 +2632,12 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
         mHost = null;
         mContainer = null;
         mParent = null;
+        if (mOnBackPressedDispatcher != null) {
+            // mOnBackPressedDispatcher can hold a reference to the host
+            // so we need to null it out to prevent memory leaks
+            mOnBackPressedCallback.remove();
+            mOnBackPressedDispatcher = null;
+        }
     }
 
     private void dispatchStateChange(int nextState) {
@@ -2736,7 +2784,22 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
             throw new IllegalArgumentException("Fragment " + f
                     + " is not an active fragment of FragmentManager " + this);
         }
+        Fragment previousPrimaryNav = mPrimaryNav;
         mPrimaryNav = f;
+        dispatchParentPrimaryNavigationFragmentChanged(previousPrimaryNav);
+        dispatchParentPrimaryNavigationFragmentChanged(mPrimaryNav);
+    }
+
+    private void dispatchParentPrimaryNavigationFragmentChanged(@Nullable Fragment f) {
+        if (f != null) {
+            f.performPrimaryNavigationFragmentChanged();
+        }
+    }
+
+    void dispatchPrimaryNavigationFragmentChanged() {
+        updateOnBackPressedCallbackEnabled();
+        // Dispatch the change event to this FragmentManager's primary navigation fragment
+        dispatchParentPrimaryNavigationFragmentChanged(mPrimaryNav);
     }
 
     @Override
@@ -3012,6 +3075,27 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
                 holder.mCallback.onFragmentDetached(this, f);
             }
         }
+    }
+
+    // Checks if fragments that belong to this fragment manager (or their children) have menus,
+    // and if they are visible.
+    boolean checkForMenus() {
+        boolean hasMenu = false;
+        for (Fragment f: mActive.values()) {
+            if (f != null) {
+                hasMenu = isMenuAvailable(f);
+            }
+            if (hasMenu) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean isMenuAvailable(Fragment f) {
+        return (f.mHasMenu && f.mMenuVisible)
+                || (f.mChildFragmentManager != null
+                && f.mChildFragmentManager.checkForMenus());
     }
 
     public static int reverseTransit(int transit) {

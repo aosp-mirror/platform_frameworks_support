@@ -47,7 +47,9 @@ interface IRemoteMediaSession {
     void notifyPlayerStateChanged(String sessionId, int state);
     void notifyPlaybackSpeedChanged(String sessionId, float speed);
     void notifyCurrentMediaItemChanged(String sessionId, int index);
-    void notifyAudioAttributesChanged(String sessionId, in Bundle attrs);
+    void notifyAudioAttributesChanged(String sessionId, in ParcelImpl attrs);
+    void notifyVideoSizeChanged(String sessionId, in ParcelImpl videoSize);
+    boolean surfaceExists(String sessionId);
 
     void setPlaylist(String sessionId, in List<ParcelImpl> playlist);
     void createAndSetDummyPlaylist(String sessionId, int size);
