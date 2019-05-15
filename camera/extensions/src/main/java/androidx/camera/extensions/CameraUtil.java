@@ -21,6 +21,7 @@ import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraCharacteristics;
 import android.hardware.camera2.CameraManager;
 
+import androidx.camera.core.CameraDeviceConfig;
 import androidx.camera.core.CameraInfoUnavailableException;
 import androidx.camera.core.CameraX;
 
@@ -28,16 +29,14 @@ import androidx.camera.core.CameraX;
  * Utility functions for accessing camera related parameters
  */
 class CameraUtil {
-    static String getCameraId(CameraX.LensFacing lensFacing) {
-        String cameraId;
+    static String getCameraId(CameraDeviceConfig config) {
         try {
-            cameraId = CameraX.getCameraWithLensFacing(lensFacing);
+            return CameraX.getCameraWithCameraDeviceConfig(config);
         } catch (CameraInfoUnavailableException e) {
             throw new IllegalArgumentException(
-                    "Unable to attach to camera with LensFacing " + lensFacing, e);
+                    "Unable to get camera id for the camera device config "
+                            + config.getLensFacing(), e);
         }
-
-        return cameraId;
     }
 
     static CameraCharacteristics getCameraCharacteristics(String cameraId) {
@@ -55,5 +54,6 @@ class CameraUtil {
         return cameraCharacteristics;
     }
 
-    private CameraUtil() {}
+    private CameraUtil() {
+    }
 }

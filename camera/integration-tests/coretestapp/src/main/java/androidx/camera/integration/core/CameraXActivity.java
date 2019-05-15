@@ -227,8 +227,8 @@ public class CameraXActivity extends AppCompatActivity
             cameraId = CameraX.getCameraWithCameraDeviceConfig(config);
         } catch (CameraInfoUnavailableException e) {
             throw new IllegalArgumentException(
-                    "Unable to get camera id for the camera device config " + config.getLensFacing()
-                            + config.getCameraId(), e);
+                    "Unable to get camera id for the camera device config "
+                            + config.getLensFacing(), e);
         }
         Size srcResolution = mPreview.getAttachedSurfaceResolution(cameraId);
 
