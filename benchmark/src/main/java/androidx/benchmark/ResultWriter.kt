@@ -66,13 +66,26 @@ internal object ResultWriter {
         beginObject()
             .name("name").value(report.testName)
             .name("className").value(report.className)
-            .name("nanos").value(report.nanos)
+            .name("metrics").metricsObject(report)
             .name("warmupIterations").value(report.warmupIterations)
             .name("repeatIterations").value(report.repeatIterations)
+
+        return endObject()
+    }
+
+    private fun JsonWriter.metricsObject(report: BenchmarkState.Report): JsonWriter {
+        beginObject()
+
+        name("timeNs").beginObject()
+            .name("minimum").value(report.minimum)
+            .name("maximum").value(report.maximum)
+            .name("median").value(report.median)
 
         name("runs").beginArray()
         report.data.forEach { value(it) }
         endArray()
+
+        endObject() // timeNs
 
         return endObject()
     }
