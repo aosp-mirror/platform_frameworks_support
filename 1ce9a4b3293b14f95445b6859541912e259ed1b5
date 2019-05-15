@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c5418d72_43e0b6be",
+        "filename": "autofill/src/main/java/androidx/autofill/HintConstants.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1490388
+      },
+      "writtenOn": "2019-05-15T20:35:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "30cfeaa4_d6663152",
+      "range": {
+        "startLine": 30,
+        "startChar": 47,
+        "endLine": 30,
+        "endChar": 58
+      },
+      "revId": "1ce9a4b3293b14f95445b6859541912e259ed1b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bf4e5237_3474fbce",
         "filename": "autofill/src/main/java/androidx/autofill/HintConstants.java",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "1ce9a4b3293b14f95445b6859541912e259ed1b5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e766c6dd_9f20e591",
+        "filename": "autofill/src/main/java/androidx/autofill/HintConstants.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 1490388
+      },
+      "writtenOn": "2019-05-15T20:35:47Z",
+      "side": 1,
+      "message": "added a comment. should we deprecate?",
+      "parentUuid": "bf4e5237_3474fbce",
+      "range": {
+        "startLine": 324,
+        "startChar": 2,
+        "endLine": 324,
+        "endChar": 72
+      },
+      "revId": "1ce9a4b3293b14f95445b6859541912e259ed1b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "20e05f3f_230e6dea",
+        "filename": "autofill/src/main/java/androidx/autofill/HintConstants.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 1490388
+      },
+      "writtenOn": "2019-05-15T20:35:47Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c0390e7a_ce49110d",
+      "range": {
+        "startLine": 399,
+        "startChar": 7,
+        "endLine": 400,
+        "endChar": 6
+      },
+      "revId": "1ce9a4b3293b14f95445b6859541912e259ed1b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0bb59072_479e5d41",
         "filename": "autofill/src/main/java/androidx/autofill/HintConstants.java",
         "patchSetId": 1
@@ -91,6 +163,30 @@
       "revId": "1ce9a4b3293b14f95445b6859541912e259ed1b5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06c75935_4c03da38",
+        "filename": "autofill/src/main/java/androidx/autofill/HintConstants.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 447,
+      "author": {
+        "id": 1490388
+      },
+      "writtenOn": "2019-05-15T20:35:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0bb59072_479e5d41",
+      "range": {
+        "startLine": 447,
+        "startChar": 63,
+        "endLine": 447,
+        "endChar": 64
+      },
+      "revId": "1ce9a4b3293b14f95445b6859541912e259ed1b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "74ac857c_18b1458c",
+        "filename": "autofill/src/main/java/androidx/autofill/HintConstants.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 459,
+      "author": {
+        "id": 1490388
+      },
+      "writtenOn": "2019-05-15T20:35:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eacdc35c_834f5b2d",
+      "range": {
+        "startLine": 459,
+        "startChar": 76,
+        "endLine": 459,
+        "endChar": 84
+      },
+      "revId": "1ce9a4b3293b14f95445b6859541912e259ed1b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bc8bffc1_502a1220",
         "filename": "autofill/src/main/java/androidx/autofill/HintConstants.java",
         "patchSetId": 1
@@ -137,6 +257,30 @@
       "revId": "1ce9a4b3293b14f95445b6859541912e259ed1b5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a267e8d1_536657ca",
+        "filename": "autofill/src/main/java/androidx/autofill/HintConstants.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 505,
+      "author": {
+        "id": 1490388
+      },
+      "writtenOn": "2019-05-15T20:35:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bc8bffc1_502a1220",
+      "range": {
+        "startLine": 505,
+        "startChar": 62,
+        "endLine": 505,
+        "endChar": 74
+      },
+      "revId": "1ce9a4b3293b14f95445b6859541912e259ed1b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
