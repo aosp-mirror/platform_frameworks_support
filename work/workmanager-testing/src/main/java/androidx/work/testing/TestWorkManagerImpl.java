@@ -43,8 +43,8 @@ class TestWorkManagerImpl extends WorkManagerImpl implements TestDriver {
     private TestScheduler mScheduler;
 
     TestWorkManagerImpl(
-            @NonNull Context context,
-            @NonNull Configuration configuration) {
+            @NonNull final Context context,
+            @NonNull final Configuration configuration) {
 
         // Note: This implies that the call to ForceStopRunnable() actually does nothing.
         // This is okay when testing.
@@ -72,7 +72,7 @@ class TestWorkManagerImpl extends WorkManagerImpl implements TestDriver {
 
                     @Override
                     public Executor getBackgroundExecutor() {
-                        return mSynchronousExecutor;
+                        return configuration.getExecutor();
                     }
                 },
                 true);
