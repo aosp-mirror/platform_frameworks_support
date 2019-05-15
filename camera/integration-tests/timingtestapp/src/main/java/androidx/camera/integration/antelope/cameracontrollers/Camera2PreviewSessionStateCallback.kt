@@ -19,7 +19,6 @@ package androidx.camera.integration.antelope.cameracontrollers
 import android.hardware.camera2.CameraAccessException
 import android.hardware.camera2.CameraCaptureSession
 import android.hardware.camera2.CaptureRequest
-import androidx.annotation.NonNull
 import androidx.camera.integration.antelope.CameraParams
 import androidx.camera.integration.antelope.FocusMode
 import androidx.camera.integration.antelope.MainActivity
@@ -42,7 +41,7 @@ class Camera2PreviewSessionStateCallback(
      * results and close the camera, if a switch or image capture test, proceed to the next step.
      *
      */
-    override fun onActive(session: CameraCaptureSession?) {
+    override fun onActive(session: CameraCaptureSession) {
         if (!params.isOpen) {
             return
         }
@@ -79,6 +78,7 @@ class Camera2PreviewSessionStateCallback(
                 initializeStillCapture(activity, params, testConfig)
             }
         }
+
         super.onActive(session)
     }
 
@@ -86,7 +86,7 @@ class Camera2PreviewSessionStateCallback(
      * Preview session has been configured, set up preview parameters and request that the preview
      * capture begin.
      */
-    override fun onConfigured(@NonNull cameraCaptureSession: CameraCaptureSession) {
+    override fun onConfigured(cameraCaptureSession: CameraCaptureSession) {
         if (!params.isOpen) {
             return
         }
@@ -116,7 +116,7 @@ class Camera2PreviewSessionStateCallback(
             params.state = CameraState.PREVIEW_RUNNING
 
             // Request that the camera preview begins
-            cameraCaptureSession.setRepeatingRequest(params.captureRequestBuilder?.build(),
+            cameraCaptureSession.setRepeatingRequest(params.captureRequestBuilder?.build()!!,
                 params.camera2CaptureSessionCallback, params.backgroundHandler)
         } catch (e: CameraAccessException) {
             MainActivity.logd("Create Capture Session error: " + params.id)
@@ -130,7 +130,7 @@ class Camera2PreviewSessionStateCallback(
     /**
      * Configuration of the preview stream failed, try again.
      */
-    override fun onConfigureFailed(@NonNull cameraCaptureSession: CameraCaptureSession) {
+    override fun onConfigureFailed(cameraCaptureSession: CameraCaptureSession) {
         if (!params.isOpen) {
             return
         }
