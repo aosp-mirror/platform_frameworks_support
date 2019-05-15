@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c1f0f348_47a72e20",
+        "filename": "camera/camera2/src/test/java/androidx/camera/camera2/impl/SupportedSurfaceCombinationTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 526,
+      "author": {
+        "id": 1481635
+      },
+      "writtenOn": "2019-05-15T08:34:29Z",
+      "side": 1,
+      "message": "lower case",
+      "range": {
+        "startLine": 526,
+        "startChar": 36,
+        "endLine": 526,
+        "endChar": 37
+      },
+      "revId": "edf8bccd84bf074c630961e60e9441dd1afc36bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e658389_57b32854",
+        "filename": "camera/camera2/src/test/java/androidx/camera/camera2/impl/SupportedSurfaceCombinationTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 1481635
+      },
+      "writtenOn": "2019-05-15T08:34:29Z",
+      "side": 1,
+      "message": "Not quite sure about the conditions for success. Does it mean that getSuggestedResolutions() will always return mAnalysisSize and just use it to make sure method call will not cause crash? or it is a specific result size by the above settings to use cases config?",
+      "range": {
+        "startLine": 542,
+        "startChar": 8,
+        "endLine": 544,
+        "endChar": 87
+      },
+      "revId": "edf8bccd84bf074c630961e60e9441dd1afc36bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
