@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "8e8672da_d50f4880",
+        "filename": "media2/common/src/main/java/androidx/media2/common/MediaParcelUtils.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-05-15T06:46:16Z",
+      "side": 1,
+      "message": "remove?",
+      "range": {
+        "startLine": 65,
+        "startChar": 21,
+        "endLine": 65,
+        "endChar": 37
+      },
+      "revId": "6b72982f956e629c11813a0d9cffcad4e7f79804",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2f69459_ad7aca63",
+        "filename": "media2/common/src/main/java/androidx/media2/common/MediaParcelUtils.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-05-15T06:46:16Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 91,
+        "startChar": 25,
+        "endLine": 91,
+        "endChar": 42
+      },
+      "revId": "6b72982f956e629c11813a0d9cffcad4e7f79804",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e3cef876_0cdca8f0",
         "filename": "media2/common/src/main/java/androidx/media2/common/SessionPlayer.java",
         "patchSetId": 10
@@ -48,6 +94,167 @@
     },
     {
       "key": {
+        "uuid": "f3b17be6_1ddb3059",
+        "filename": "media2/session/src/androidTest/java/androidx/media2/session/MediaControllerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1663,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-05-15T06:46:16Z",
+      "side": 1,
+      "message": "With zero value and null items, I think we cannot say that we properly tested the callback.\nditto for below tests.",
+      "range": {
+        "startLine": 1663,
+        "startChar": 77,
+        "endLine": 1663,
+        "endChar": 96
+      },
+      "revId": "6b72982f956e629c11813a0d9cffcad4e7f79804",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6211019_386a5709",
+        "filename": "media2/session/src/androidTest/java/androidx/media2/session/MediaControllerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1665,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-05-15T06:46:16Z",
+      "side": 1,
+      "message": "Let\u0027s test with multiple tracks.",
+      "range": {
+        "startLine": 1665,
+        "startChar": 9,
+        "endLine": 1665,
+        "endChar": 34
+      },
+      "revId": "6b72982f956e629c11813a0d9cffcad4e7f79804",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c8a1f7c_dce7e92f",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaController.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1112,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-05-15T06:46:16Z",
+      "side": 1,
+      "message": "All these methods needs more Javadoc on how to use them. (As commented in L1682)",
+      "range": {
+        "startLine": 1112,
+        "startChar": 4,
+        "endLine": 1112,
+        "endChar": 42
+      },
+      "revId": "6b72982f956e629c11813a0d9cffcad4e7f79804",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46f136b9_330485a3",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaController.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1682,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-05-15T06:46:16Z",
+      "side": 1,
+      "message": "All three callbacks lacks Javadoc on how to use them.\n\nWhen are they called? For what type of the track are they called? \nWhat are the related controller methods to these methods? (using @see)\nHow the controller should pick the track?\netc.",
+      "range": {
+        "startLine": 1682,
+        "startChar": 27,
+        "endLine": 1682,
+        "endChar": 32
+      },
+      "revId": "6b72982f956e629c11813a0d9cffcad4e7f79804",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f648c71_f66c478b",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaController.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1693,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-05-15T06:46:16Z",
+      "side": 1,
+      "message": "track is selected?",
+      "range": {
+        "startLine": 1693,
+        "startChar": 25,
+        "endLine": 1693,
+        "endChar": 48
+      },
+      "revId": "6b72982f956e629c11813a0d9cffcad4e7f79804",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23c66229_e9773e0b",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaController.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1704,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-05-15T06:46:16Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 1704,
+        "startChar": 31,
+        "endLine": 1704,
+        "endChar": 35
+      },
+      "revId": "6b72982f956e629c11813a0d9cffcad4e7f79804",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6cafe19f_fdcfb97e",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaController.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1704,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-05-15T06:46:16Z",
+      "side": 1,
+      "message": "This needs detailed Javadoc. What does \u0027deselect\u0027 mean?\n\nIf one track is selected, are the all other tracks are automatically deselected?\nOr multiple tracks can be selected?\n\nIf only one track can be selected at a time, why onTrackDeselected is needed?\nIs onTrackSelected(null) enough?",
+      "range": {
+        "startLine": 1704,
+        "startChar": 39,
+        "endLine": 1704,
+        "endChar": 49
+      },
+      "revId": "6b72982f956e629c11813a0d9cffcad4e7f79804",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "35b90986_fb227077",
         "filename": "media2/session/src/main/java/androidx/media2/session/MediaControllerImplBase.java",
         "patchSetId": 10
@@ -64,6 +271,144 @@
         "startChar": 60,
         "endLine": 1140,
         "endChar": 69
+      },
+      "revId": "6b72982f956e629c11813a0d9cffcad4e7f79804",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3398dcc8_dba88ff4",
+        "filename": "media2/session/version-compat-tests/current/client/src/androidTest/java/androidx/media2/test/client/RemoteMediaSession.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-05-15T06:46:16Z",
+      "side": 1,
+      "message": "good finding",
+      "range": {
+        "startLine": 504,
+        "startChar": 49,
+        "endLine": 504,
+        "endChar": 63
+      },
+      "revId": "6b72982f956e629c11813a0d9cffcad4e7f79804",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d7a1ea3a_82ca8bf8",
+        "filename": "media2/session/version-compat-tests/current/client/src/androidTest/java/androidx/media2/test/client/tests/MediaControllerCallbackTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 884,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-05-15T06:46:16Z",
+      "side": 1,
+      "message": "With zero value and null items, I think we cannot say that we properly tested the callback.\nditto for below tests.",
+      "range": {
+        "startLine": 884,
+        "startChar": 77,
+        "endLine": 884,
+        "endChar": 95
+      },
+      "revId": "6b72982f956e629c11813a0d9cffcad4e7f79804",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "edbe72c7_e315928c",
+        "filename": "media2/session/version-compat-tests/current/client/src/androidTest/java/androidx/media2/test/client/tests/MediaControllerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-05-15T06:46:16Z",
+      "side": 1,
+      "message": "With zero value and null items, I think we cannot say that we properly tested the callback.",
+      "range": {
+        "startLine": 372,
+        "startChar": 8,
+        "endLine": 372,
+        "endChar": 96
+      },
+      "revId": "6b72982f956e629c11813a0d9cffcad4e7f79804",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3811771_ef605894",
+        "filename": "media2/session/version-compat-tests/current/client/src/androidTest/java/androidx/media2/test/client/tests/MediaControllerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-05-15T06:46:16Z",
+      "side": 1,
+      "message": "How about putting multiple different tracks for better testing?",
+      "range": {
+        "startLine": 373,
+        "startChar": 15,
+        "endLine": 373,
+        "endChar": 55
+      },
+      "revId": "6b72982f956e629c11813a0d9cffcad4e7f79804",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d3ee07f_4c01b5b4",
+        "filename": "media2/session/version-compat-tests/current/client/src/androidTest/java/androidx/media2/test/client/tests/MediaControllerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-05-15T06:46:16Z",
+      "side": 1,
+      "message": "Q) Does it check the equality of media id / language / mime type?",
+      "range": {
+        "startLine": 435,
+        "startChar": 23,
+        "endLine": 435,
+        "endChar": 59
+      },
+      "revId": "6b72982f956e629c11813a0d9cffcad4e7f79804",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43f2caa6_b8b698cf",
+        "filename": "media2/session/version-compat-tests/current/client/src/androidTest/java/androidx/media2/test/client/tests/MediaControllerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 439,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-05-15T06:46:16Z",
+      "side": 1,
+      "message": "Not for MockPlayer but in reality, can we deselected a track that is currently selected?\nIf the answer is no, what is our guideline? How the MediaController user can be notified of the failure?",
+      "range": {
+        "startLine": 439,
+        "startChar": 8,
+        "endLine": 439,
+        "endChar": 44
       },
       "revId": "6b72982f956e629c11813a0d9cffcad4e7f79804",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
