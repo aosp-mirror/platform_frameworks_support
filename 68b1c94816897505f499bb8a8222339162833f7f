@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "cc6d05a7_51196124",
+        "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/AnimationGestureSemanticsActivity.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1402596
+      },
+      "writtenOn": "2019-05-15T09:11:06Z",
+      "side": 1,
+      "message": "The child lambda parameter would be needed if the user wants to pass the action to a gesture detector.\n\nIn cases where there is no gesture detector (eg autofill) we can just ignore the lambda parameter as we can write {action-\u003e ...} as {...} \n\nIf the component only accepts one child, we would have to nest the SemanticAction and the SemanticProperty, the order wouldn\u0027t matter.\n\nOr, if our component accepts multiple children, we could write the SemanticAction and SemanticProperty at the same indent level.",
+      "parentUuid": "fc6b2d7b_18e1b73f",
+      "revId": "68b1c94816897505f499bb8a8222339162833f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a4df8c34_89e8c2da",
         "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/SemanticsL2.kt",
         "patchSetId": 1
@@ -319,6 +337,24 @@
     },
     {
       "key": {
+        "uuid": "71a14e03_5f85421a",
+        "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/SemanticsL2.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1402596
+      },
+      "writtenOn": "2019-05-15T09:11:06Z",
+      "side": 1,
+      "message": "The user will not be able to do that. \n\nval pxAction \u003d SemanticAction\u003cPxPosition\u003e(\n                   defaultParam \u003d PxPosition.Origin,\n                   action \u003d {param:ActionParam\u003cBoolean\u003e -\u003e ...})\n\nwill result in a compilation error.",
+      "parentUuid": "79c730c6_459647fe",
+      "revId": "68b1c94816897505f499bb8a8222339162833f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f368b6af_188972db",
         "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/SemanticsL2.kt",
         "patchSetId": 1
@@ -369,6 +405,24 @@
       "revId": "68b1c94816897505f499bb8a8222339162833f7f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab250957_6fdc6ead",
+        "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/SemanticsL2.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1402596
+      },
+      "writtenOn": "2019-05-15T09:11:06Z",
+      "side": 1,
+      "message": "Fair point. \n\nIn the last meeting, we couldn\u0027t come to a consensus if gesture detectors should use actions or a lambda. For now, I made the assumption that gesture detectors always use an action. If we decide to switch back to the initial proposal, the gesture detector lambda could invoke an action (if needed), and then we can add a check to make sure this set is not empty.",
+      "parentUuid": "efb9c02c_a3a90fe1",
+      "revId": "68b1c94816897505f499bb8a8222339162833f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -425,6 +479,24 @@
     },
     {
       "key": {
+        "uuid": "5939fdbd_a4574650",
+        "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/SemanticsL3.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1402596
+      },
+      "writtenOn": "2019-05-15T09:11:06Z",
+      "side": 1,
+      "message": "Let me rephrase.\n\nYes, a user would always use this if they want to make something clickable. Which could include a key press. We could even omit the release action here, and only provide click, if we decide to do that. While the user specifies the click action, they can use the builder to pass along extra semantic information to describe the intent of the click.\n\nFor other cases, where components don\u0027t want to emit semantics (eg, a material ink surface displaying a ripple) I would assume that they won\u0027t use a click action, but would use the gesture detector directly. That way the ink surface could also get the release and cancel callbacks.",
+      "parentUuid": "19d7b1a1_c3bc597a",
+      "revId": "68b1c94816897505f499bb8a8222339162833f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8612425a_98ba357d",
         "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/SemanticsL3.kt",
         "patchSetId": 1
@@ -478,6 +550,24 @@
     },
     {
       "key": {
+        "uuid": "c40c2a41_b496b1a7",
+        "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/SemanticsL3.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1402596
+      },
+      "writtenOn": "2019-05-15T09:11:06Z",
+      "side": 1,
+      "message": "Ok, I understand. I\u0027ll simplify the ClickInteraction to only use one action.",
+      "parentUuid": "958525a2_e74bda27",
+      "revId": "68b1c94816897505f499bb8a8222339162833f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7c2d2024_4fd3f8f8",
         "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/SemanticsL3.kt",
         "patchSetId": 1
@@ -528,6 +618,24 @@
       "revId": "68b1c94816897505f499bb8a8222339162833f7f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a30efda_28c5fbaf",
+        "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/SemanticsL3.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1402596
+      },
+      "writtenOn": "2019-05-15T09:11:06Z",
+      "side": 1,
+      "message": "Good point. \n\nI didn\u0027t want to assume that this was the primary action, but you are right, we should not have no accessibility action by default. I set the default to primary.",
+      "parentUuid": "fd518192_9a08fb1e",
+      "revId": "68b1c94816897505f499bb8a8222339162833f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -616,6 +724,24 @@
       "revId": "68b1c94816897505f499bb8a8222339162833f7f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8860dfc4_f53cae8d",
+        "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/SemanticsL3.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1402596
+      },
+      "writtenOn": "2019-05-15T09:11:06Z",
+      "side": 1,
+      "message": "Sorry I thought the comment was about the builder. Agree that the extension function is unnecessary. I removed it.",
+      "parentUuid": "0ea5e866_0545efe5",
+      "revId": "68b1c94816897505f499bb8a8222339162833f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
