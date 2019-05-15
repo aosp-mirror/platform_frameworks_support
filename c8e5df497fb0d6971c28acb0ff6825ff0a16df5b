@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "56db3d90_c12f20f0",
+        "filename": "autofill/src/main/java/androidx/autofill/HintConstants.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1490388
+      },
+      "writtenOn": "2019-05-15T21:21:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4947c3b_e50d69cf",
+      "range": {
+        "startLine": 255,
+        "startChar": 71,
+        "endLine": 255,
+        "endChar": 78
+      },
+      "revId": "c8e5df497fb0d6971c28acb0ff6825ff0a16df5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d7eae7be_130480a3",
         "filename": "autofill/src/main/java/androidx/autofill/HintConstants.java",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "c8e5df497fb0d6971c28acb0ff6825ff0a16df5b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2eee094_66032f18",
+        "filename": "autofill/src/main/java/androidx/autofill/HintConstants.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 1490388
+      },
+      "writtenOn": "2019-05-15T21:21:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d7eae7be_130480a3",
+      "range": {
+        "startLine": 403,
+        "startChar": 7,
+        "endLine": 403,
+        "endChar": 85
+      },
+      "revId": "c8e5df497fb0d6971c28acb0ff6825ff0a16df5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "6b8b8cb5_72db6638",
+        "filename": "autofill/src/main/java/androidx/autofill/HintConstants.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 424,
+      "author": {
+        "id": 1490388
+      },
+      "writtenOn": "2019-05-15T21:21:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b5506968_1ad214e7",
+      "range": {
+        "startLine": 424,
+        "startChar": 68,
+        "endLine": 424,
+        "endChar": 85
+      },
+      "revId": "c8e5df497fb0d6971c28acb0ff6825ff0a16df5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c00c84fb_195f1910",
         "filename": "autofill/src/main/java/androidx/autofill/HintConstants.java",
         "patchSetId": 3
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "82e4c293_f7b464da",
+        "filename": "autofill/src/main/java/androidx/autofill/HintConstants.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 439,
+      "author": {
+        "id": 1490388
+      },
+      "writtenOn": "2019-05-15T21:21:48Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c00c84fb_195f1910",
+      "range": {
+        "startLine": 439,
+        "startChar": 6,
+        "endLine": 439,
+        "endChar": 94
+      },
+      "revId": "c8e5df497fb0d6971c28acb0ff6825ff0a16df5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cc49fc77_d5edfced",
         "filename": "autofill/src/main/java/androidx/autofill/HintConstants.java",
         "patchSetId": 3
@@ -105,6 +201,30 @@
       "writtenOn": "2019-05-15T20:54:00Z",
       "side": 1,
       "message": "Day of the month?",
+      "range": {
+        "startLine": 501,
+        "startChar": 72,
+        "endLine": 501,
+        "endChar": 85
+      },
+      "revId": "c8e5df497fb0d6971c28acb0ff6825ff0a16df5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b48bb21_c3e19947",
+        "filename": "autofill/src/main/java/androidx/autofill/HintConstants.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 501,
+      "author": {
+        "id": 1490388
+      },
+      "writtenOn": "2019-05-15T21:21:48Z",
+      "side": 1,
+      "message": "This is a bit ambiguous day could mean day of month/week. Will change BIRTH_DATE to BIRTH_DATE_FULL so that there is no ambiguity with BIRTH_DATE_DAY caused by code complete.",
+      "parentUuid": "cc49fc77_d5edfced",
       "range": {
         "startLine": 501,
         "startChar": 72,
