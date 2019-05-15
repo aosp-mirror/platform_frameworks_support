@@ -345,8 +345,8 @@ public abstract class UseCase {
             return CameraX.getCameraWithCameraDeviceConfig(config);
         } catch (CameraInfoUnavailableException e) {
             throw new IllegalArgumentException(
-                    "Unable to get camera id for the camera device config " + config.getLensFacing()
-                            + config.getCameraId(), e);
+                    "Unable to get camera id for the camera device config "
+                            + config.getLensFacing(), e);
         }
     }
 
