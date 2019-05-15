@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "063bd09e_96c9a645",
+        "filename": "loader/src/main/java/androidx/loader/content/AsyncTaskLoader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1470382
+      },
+      "writtenOn": "2019-05-15T13:43:48Z",
+      "side": 1,
+      "message": "Are the imports required for the documentation change?",
+      "revId": "61b6c1b6727851251bf33bc800089c8d3e4a6b18",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
