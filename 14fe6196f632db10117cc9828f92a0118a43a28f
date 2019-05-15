@@ -235,6 +235,30 @@
       "revId": "14fe6196f632db10117cc9828f92a0118a43a28f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f26fe09_470716ea",
+        "filename": "camera/core/src/main/java/androidx/camera/core/Preview.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 1482193
+      },
+      "writtenOn": "2019-05-15T11:37:43Z",
+      "side": 1,
+      "message": "Done, I am misunderstanding to move the logic to super class.",
+      "parentUuid": "990f3327_c1844795",
+      "range": {
+        "startLine": 311,
+        "startChar": 0,
+        "endLine": 311,
+        "endChar": 63
+      },
+      "revId": "14fe6196f632db10117cc9828f92a0118a43a28f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
