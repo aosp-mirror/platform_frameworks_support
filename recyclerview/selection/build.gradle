@@ -25,9 +25,9 @@ plugins {
 
 dependencies {
     api(project(":recyclerview"))
-    api(project(":annotation"))
+    api("androidx.annotation:annotation:1.1.0-rc01")
     api(project(":core"))
-    implementation(project(":collection"))
+    implementation("androidx.collection:collection:1.1.0-rc01")
 
     androidTestImplementation(ANDROIDX_TEST_EXT_JUNIT)
     androidTestImplementation(ANDROIDX_TEST_CORE)

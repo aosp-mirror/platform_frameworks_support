@@ -18,6 +18,7 @@ package androidx.viewpager2.widget
 
 import android.content.Intent
 import android.os.Build
+import android.util.Log
 import android.view.View
 import android.view.View.OVER_SCROLL_NEVER
 import androidx.core.os.BuildCompat.isAtLeastQ
@@ -26,7 +27,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.ViewInteraction
 import androidx.test.espresso.action.CoordinatesProvider
 import androidx.test.espresso.action.GeneralLocation
 import androidx.test.espresso.action.GeneralSwipeAction
@@ -37,12 +37,11 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isAssignableFrom
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
-import androidx.test.espresso.matcher.ViewMatchers.withParent
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.rule.ActivityTestRule
 import androidx.testutils.AppCompatActivityUtils
 import androidx.testutils.FragmentActivityUtils.waitForActivityDrawn
-import androidx.viewpager2.LocaleTestUtils
+import androidx.testutils.LocaleTestUtils
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.test.R
 import androidx.viewpager2.widget.ViewPager2.ORIENTATION_HORIZONTAL
@@ -73,6 +72,10 @@ import java.util.concurrent.TimeUnit
 import kotlin.math.abs
 
 open class BaseTest {
+    companion object {
+        const val TAG = "VP2_TESTS"
+    }
+
     lateinit var localeUtil: LocaleTestUtils
 
     @get:Rule
@@ -81,7 +84,8 @@ open class BaseTest {
     @Before
     open fun setUp() {
         localeUtil = LocaleTestUtils(
-            ApplicationProvider.getApplicationContext() as android.content.Context)
+            ApplicationProvider.getApplicationContext() as android.content.Context
+        )
         // Ensure a predictable test environment by explicitly setting a locale
         localeUtil.setLocale(LocaleTestUtils.DEFAULT_TEST_LANGUAGE)
     }
@@ -218,7 +222,7 @@ open class BaseTest {
             return when (method) {
                 SwipeMethod.ESPRESSO -> PageSwiperEspresso(viewPager.orientation, isRtl)
                 SwipeMethod.MANUAL -> PageSwiperManual(viewPager, isRtl)
-                SwipeMethod.FAKE_DRAG -> PageSwiperFakeDrag(viewPager)
+                SwipeMethod.FAKE_DRAG -> PageSwiperFakeDrag(viewPager) { viewPager.pageSize }
             }
         }
 
@@ -341,6 +345,17 @@ open class BaseTest {
         return latch
     }
 
+    fun ViewPager2.addWaitForFirstScrollEventLatch(): CountDownLatch {
+        val latch = CountDownLatch(1)
+        registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageScrolled(position: Int, offset: Float, offsetPx: Int) {
+                latch.countDown()
+                post { unregisterOnPageChangeCallback(this) }
+            }
+        })
+        return latch
+    }
+
     val ViewPager2.recyclerView: RecyclerView
         get() {
             return getChildAt(0) as RecyclerView
@@ -403,13 +418,6 @@ open class BaseTest {
     enum class SortOrder(val sign: Int) {
         ASC(1),
         DESC(-1)
-    }
-
-    fun onPage(childMatcher: Matcher<View>): ViewInteraction {
-        return onView(allOf(
-            withParent(withParent(isAssignableFrom(ViewPager2::class.java))),
-            childMatcher
-        ))
     }
 
     fun <T, R : Comparable<R>> List<T>.assertSorted(selector: (T) -> R) {
@@ -534,4 +542,22 @@ fun scrollStateGlossary(): String {
             "$SCROLL_STATE_IDLE=${scrollStateToString(SCROLL_STATE_IDLE)}, " +
             "$SCROLL_STATE_DRAGGING=${scrollStateToString(SCROLL_STATE_DRAGGING)}, " +
             "$SCROLL_STATE_SETTLING=${scrollStateToString(SCROLL_STATE_SETTLING)})"
+}
+
+class RetryException(msg: String) : Exception(msg)
+
+fun tryNTimes(n: Int, resetBlock: () -> Unit, tryBlock: () -> Unit) {
+    repeat(n) { i ->
+        try {
+            tryBlock()
+            return
+        } catch (e: RetryException) {
+            if (i < n - 1) {
+                Log.w(BaseTest.TAG, "Bad state, retrying block", e)
+            } else {
+                throw AssertionError("Block hit bad state $n times", e)
+            }
+            resetBlock()
+        }
+    }
 }

@@ -22,6 +22,10 @@ import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
+import static junit.framework.TestCase.assertNotNull;
+
+import android.content.Intent;
+
 import androidx.camera.core.ImageAnalysis;
 import androidx.camera.core.Preview;
 import androidx.camera.integration.core.idlingresource.ElapsedTimeIdlingResource;
@@ -29,7 +33,8 @@ import androidx.test.espresso.Espresso;
 import androidx.test.espresso.IdlingRegistry;
 import androidx.test.espresso.IdlingResource;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.filters.SmallTest;
+import androidx.test.filters.FlakyTest;
+import androidx.test.filters.LargeTest;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.rule.GrantPermissionRule;
@@ -44,8 +49,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 // Tests basic UI operation when using CoreTest app.
+@FlakyTest(bugId = 130783905)
 @RunWith(AndroidJUnit4.class)
-@SmallTest
+@LargeTest
 public final class BasicUITest {
 
     private static final int LAUNCH_TIMEOUT_MS = 5000;
@@ -71,7 +77,8 @@ public final class BasicUITest {
 
     @Before
     public void setUp() {
-        checkViewReady();
+        // Close system dialogs first to avoid interrupt.
+        mActivityRule.getActivity().sendBroadcast(new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS));
     }
 
     @After
@@ -80,7 +87,14 @@ public final class BasicUITest {
     }
 
     @Test
-    public void testAnalysisButton() {
+    public void testAnalysisButton1() {
+        ImageAnalysis imageAnalysis = mActivityRule.getActivity().getImageAnalysis();
+        assertNotNull(imageAnalysis);
+    }
+
+    @Test
+    public void testAnalysisButton2() {
+        checkViewReady();
 
         ImageAnalysis imageAnalysis = mActivityRule.getActivity().getImageAnalysis();
         // Click to disable the imageAnalysis use case.
@@ -98,11 +112,11 @@ public final class BasicUITest {
             IdlingRegistry.getInstance().unregister(
                     mActivityRule.getActivity().mAnalysisIdlingResource);
         }
-
     }
 
     @Test
     public void testPreviewButton() {
+        checkViewReady();
 
         Preview preview = mActivityRule.getActivity().getPreview();
         // Click to disable the preview use case.

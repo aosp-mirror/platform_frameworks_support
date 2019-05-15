@@ -125,10 +125,6 @@ public class GestureSelectionHelperTest {
     @Test
     public void testCreatesRangeSelection() {
         mView.mNextPosition = 1;
-        mHelper.onInterceptTouchEvent(null, DOWN);
-        // Another way we are implicitly coupled to TouchInputHandler, is that we depend on
-        // long press to establish the initial anchor point. Without that we'll get an
-        // error when we try to extend the range.
 
         mSelectionTracker.select("1");
         mSelectionTracker.anchorRange(1);
@@ -142,6 +138,22 @@ public class GestureSelectionHelperTest {
         mHelper.onTouchEvent(null, UP);
 
         mSelection.assertRangeSelected(1, 9);
+    }
+
+    // Verify b/78615740 is fixed.
+    @Test
+    public void testEndsSelectionOnInterceptUp() {
+        mView.mNextPosition = 1;
+
+        mSelectionTracker.select("1");
+        mSelectionTracker.anchorRange(1);
+
+        mHelper.start();
+        mHelper.onInterceptTouchEvent(null, UP);
+
+        // If the helper didn't stop after onInterceptTouchEvent UP
+        // this would fail.
+        mHelper.start();
     }
 
     private static final class TestViewDelegate extends GestureSelectionHelper.ViewDelegate {

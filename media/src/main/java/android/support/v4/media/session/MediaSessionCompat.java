@@ -1314,6 +1314,9 @@ public class MediaSessionCompat {
          * To update the new playback speed, create a new {@link PlaybackStateCompat} by using
          * {@link PlaybackStateCompat.Builder#setState(int, long, float)}, and set it with
          * {@link #setPlaybackState(PlaybackStateCompat)}.
+         * <p>
+         * A value of {@code 1.0f} is the default playback value, and a negative value indicates
+         * reverse playback. The {@code speed} will not be equal to zero.
          *
          * @param speed the playback speed
          * @see #setPlaybackState(PlaybackStateCompat)
@@ -1956,7 +1959,7 @@ public class MediaSessionCompat {
                 MediaDescriptionCompat description,
                 long id) {
             if (description == null) {
-                throw new IllegalArgumentException("Description cannot be null.");
+                throw new IllegalArgumentException("Description cannot be null");
             }
             if (id == UNKNOWN_ID) {
                 throw new IllegalArgumentException("Id cannot be QueueItem.UNKNOWN_ID");
@@ -2227,7 +2230,7 @@ public class MediaSessionCompat {
                 PendingIntent mbrIntent, Bundle sessionInfo) {
             if (mbrComponent == null) {
                 throw new IllegalArgumentException(
-                        "MediaButtonReceiver component may not be null.");
+                        "MediaButtonReceiver component may not be null");
             }
             mContext = context;
             mPackageName = context.getPackageName();

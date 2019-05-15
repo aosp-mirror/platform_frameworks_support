@@ -54,10 +54,10 @@ object Dokka {
             throw Exception("Illegal project passed to createDocsTask: " + project.name)
         }
         val docsTask = project.tasks.create(taskName, DokkaAndroidTask::class.java) { docsTask ->
-            docsTask.description = "Generates $docsType Kotlin documentation in the style of " +
-                    "d.android.com"
             docsTask.moduleName = project.name
             docsTask.outputDirectory = File(project.buildDir, taskName).absolutePath
+            docsTask.description = "Generates $docsType Kotlin documentation in the style of " +
+                    "d.android.com.  Places docs in ${docsTask.outputDirectory}"
             docsTask.outputFormat = "dac"
             docsTask.outlineRoot = "androidx/"
             docsTask.dacRoot = "/reference/kotlin"
@@ -75,11 +75,14 @@ object Dokka {
             zipTask.from(docsTask.outputDirectory) { copySpec ->
                 copySpec.into("reference/kotlin")
             }
+            val buildId = getBuildId()
             zipTask.archiveBaseName.set(taskName)
-            zipTask.archiveVersion.set(getBuildId())
+            zipTask.archiveVersion.set(buildId)
             zipTask.destinationDirectory.set(project.getDistributionDirectory())
+            val filePath = "${project.getDistributionDirectory().canonicalPath}/"
+            val fileName = "$taskName-$buildId.zip"
             zipTask.description = "Zips $docsType Kotlin documentation (generated via " +
-                "Dokka in the style of d.android.com) into ${zipTask.archivePath}"
+                "Dokka in the style of d.android.com) into ${filePath + fileName}"
             zipTask.group = JavaBasePlugin.DOCUMENTATION_GROUP
         }
     }

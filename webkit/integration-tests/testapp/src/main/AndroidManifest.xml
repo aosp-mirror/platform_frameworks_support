@@ -29,7 +29,6 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="UnusedAttribute">
-
         <!-- Top-level Activity -->
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -49,6 +48,15 @@
             android:name=".MediumInterstitialActivity"
             android:exported="true" />
         <activity
+            android:name=".LoudInterstitialActivity"
+            android:exported="true" />
+        <activity
+            android:name=".GiantInterstitialActivity"
+            android:exported="true" />
+        <activity
+            android:name=".PerWebViewEnableActivity"
+            android:exported="true" />
+        <activity
             android:name=".ProxyOverrideActivity"
             android:exported="true" />
         <activity
@@ -59,6 +67,9 @@
             android:exported="true" />
         <activity
             android:name=".AssetLoaderAjaxActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ForceDarkActivity"
             android:exported="true" />
     </application>
 </manifest>

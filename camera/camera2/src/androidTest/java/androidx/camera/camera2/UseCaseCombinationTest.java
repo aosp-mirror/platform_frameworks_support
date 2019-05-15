@@ -28,6 +28,8 @@ import android.os.Looper;
 import android.util.Size;
 import android.view.Surface;
 
+import androidx.camera.camera2.impl.Camera2CameraFactory;
+import androidx.camera.camera2.impl.util.SemaphoreReleasingCamera2Callbacks;
 import androidx.camera.core.CameraFactory;
 import androidx.camera.core.CameraRepository;
 import androidx.camera.core.CameraX;
@@ -47,7 +49,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.filters.SmallTest;
+import androidx.test.filters.LargeTest;
 import androidx.test.rule.GrantPermissionRule;
 
 import org.junit.After;
@@ -63,7 +65,7 @@ import java.util.concurrent.Semaphore;
  * Contains tests for {@link androidx.camera.core.CameraX} which varies use case combinations to
  * run.
  */
-@SmallTest
+@LargeTest
 @RunWith(AndroidJUnit4.class)
 public final class UseCaseCombinationTest {
     private static final LensFacing DEFAULT_LENS_FACING = LensFacing.BACK;

@@ -25,12 +25,16 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
 
+import androidx.activity.OnBackPressedCallback;
+import androidx.activity.OnBackPressedDispatcher;
+import androidx.activity.OnBackPressedDispatcherOwner;
 import androidx.annotation.CallSuper;
 import androidx.annotation.IdRes;
 import androidx.annotation.NavigationRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.TaskStackBuilder;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelStore;
 
 import java.util.ArrayDeque;
@@ -74,8 +78,7 @@ public class NavController {
     public static final @NonNull String KEY_DEEP_LINK_INTENT =
             "android-support-nav:controller:deepLinkIntent";
 
-    @SuppressWarnings("WeakerAccess") /* synthetic access */
-    final Context mContext;
+    private final Context mContext;
     private Activity mActivity;
     private NavInflater mInflater;
     private NavGraph mGraph;
@@ -84,63 +87,24 @@ public class NavController {
     private int[] mBackStackIdsToRestore;
     private Parcelable[] mBackStackArgsToRestore;
 
-    @SuppressWarnings("WeakerAccess") /* synthetic access */
-    final Deque<NavBackStackEntry> mBackStack = new ArrayDeque<>();
+    private final Deque<NavBackStackEntry> mBackStack = new ArrayDeque<>();
 
+    private LifecycleOwner mLifecycleOwner;
     private NavControllerViewModel mViewModel;
 
-    private final NavigatorProvider mNavigatorProvider = new NavigatorProvider() {
-        @Nullable
-        @Override
-        public Navigator<? extends NavDestination> addNavigator(@NonNull String name,
-                @NonNull Navigator<? extends NavDestination> navigator) {
-            Navigator<? extends NavDestination> previousNavigator =
-                    super.addNavigator(name, navigator);
-            if (previousNavigator != navigator) {
-                if (previousNavigator != null) {
-                    previousNavigator.removeOnNavigatorBackPressListener(mOnBackPressListener);
-                }
-                navigator.addOnNavigatorBackPressListener(mOnBackPressListener);
-            }
-            return previousNavigator;
-        }
-    };
-
-    @SuppressWarnings("WeakerAccess") /* synthetic access */
-    final Navigator.OnNavigatorBackPressListener mOnBackPressListener =
-            new Navigator.OnNavigatorBackPressListener() {
-                @Override
-                public void onPopBackStack(@NonNull Navigator navigator) {
-                    // Find what destination just got popped
-                    NavDestination lastFromNavigator = null;
-                    Iterator<NavBackStackEntry> iterator = mBackStack.descendingIterator();
-                    while (iterator.hasNext()) {
-                        NavDestination destination = iterator.next().getDestination();
-                        Navigator currentNavigator = getNavigatorProvider().getNavigator(
-                                destination.getNavigatorName());
-                        if (currentNavigator == navigator) {
-                            lastFromNavigator = destination;
-                            break;
-                        }
-                    }
-                    if (lastFromNavigator == null) {
-                        throw new IllegalArgumentException("Navigator " + navigator
-                                + " reported pop but did not have any destinations"
-                                + " on the NavController back stack");
-                    }
-                    // Pop all intervening destinations from other Navigators off the
-                    // back stack
-                    popBackStackInternal(lastFromNavigator.getId(), false);
-                    // Now record the pop operation that we were sent
-                    if (!mBackStack.isEmpty()) {
-                        mBackStack.removeLast();
-                    }
-                    dispatchOnDestinationChanged();
-                }
-            };
+    private final NavigatorProvider mNavigatorProvider = new NavigatorProvider();
 
     private final CopyOnWriteArrayList<OnDestinationChangedListener>
             mOnDestinationChangedListeners = new CopyOnWriteArrayList<>();
+
+    private final OnBackPressedCallback mOnBackPressedCallback =
+            new OnBackPressedCallback(false) {
+        @Override
+        public void handleOnBackPressed() {
+            popBackStack();
+        }
+    };
+    private boolean mEnableOnBackPressedCallback = true;
 
     /**
      * OnDestinationChangedListener receives a callback when the
@@ -159,6 +123,31 @@ public class NavController {
          */
         void onDestinationChanged(@NonNull NavController controller,
                 @NonNull NavDestination destination, @Nullable Bundle arguments);
+    }
+
+    /**
+     * Class returned by
+     * {@link #setHostOnBackPressedDispatcherOwner(OnBackPressedDispatcherOwner)} to
+     * allow the {@link NavHost} to manually disable or enable whether the NavController
+     * should actively handle system Back button events.
+     */
+    public final class NavHostOnBackPressedManager {
+        /**
+         * This class should only be instantiated by NavController itself as part of
+         * {@link #setHostOnBackPressedDispatcherOwner(OnBackPressedDispatcherOwner)}.
+         */
+        NavHostOnBackPressedManager(){
+        }
+
+        /**
+         * Set whether the NavController should handle the system Back button events via the
+         * registered {@link OnBackPressedDispatcher}.
+         *
+         * @param enabled True if the NavController should handle system Back button events.
+         */
+        public void enableOnBackPressed(boolean enabled) {
+            setEnableOnBackPressedCallback(enabled);
+        }
     }
 
     /**
@@ -324,6 +313,7 @@ public class NavController {
                 break;
             }
         }
+        updateOnBackPressedCallbackEnabled();
         return popped;
     }
 
@@ -389,8 +379,7 @@ public class NavController {
      *
      * @return If changes were dispatched.
      */
-    @SuppressWarnings("WeakerAccess") /* synthetic access */
-    boolean dispatchOnDestinationChanged() {
+    private boolean dispatchOnDestinationChanged() {
         // We never want to leave NavGraphs on the top of the stack
         //noinspection StatementWithEmptyBody
         while (!mBackStack.isEmpty()
@@ -522,6 +511,7 @@ public class NavController {
                 }
                 mBackStack.add(new NavBackStackEntry(uuid, node, args));
             }
+            updateOnBackPressedCallbackEnabled();
             mBackStackUUIDsToRestore = null;
             mBackStackIdsToRestore = null;
             mBackStackArgsToRestore = null;
@@ -823,6 +813,10 @@ public class NavController {
 
     /**
      * Navigate to a destination via the given deep link {@link Uri}.
+     * {@link NavDestination#hasDeepLink(Uri)} should be called on
+     * {@link #getGraph() the navigation graph} prior to calling this method to check if the deep
+     * link is valid. If an invalid deep link is given, an {@link IllegalArgumentException} will be
+     * thrown.
      *
      * @param deepLink deepLink to the destination reachable from the current NavGraph
      */
@@ -832,6 +826,10 @@ public class NavController {
 
     /**
      * Navigate to a destination via the given deep link {@link Uri}.
+     * {@link NavDestination#hasDeepLink(Uri)} should be called on
+     * {@link #getGraph() the navigation graph} prior to calling this method to check if the deep
+     * link is valid. If an invalid deep link is given, an {@link IllegalArgumentException} will be
+     * thrown.
      *
      * @param deepLink deepLink to the destination reachable from the current NavGraph
      * @param navOptions special options for this navigation operation
@@ -842,6 +840,10 @@ public class NavController {
 
     /**
      * Navigate to a destination via the given deep link {@link Uri}.
+     * {@link NavDestination#hasDeepLink(Uri)} should be called on
+     * {@link #getGraph() the navigation graph} prior to calling this method to check if the deep
+     * link is valid. If an invalid deep link is given, an {@link IllegalArgumentException} will be
+     * thrown.
      *
      * @param deepLink deepLink to the destination reachable from the current NavGraph
      * @param navOptions special options for this navigation operation
@@ -875,33 +877,28 @@ public class NavController {
         NavDestination newDest = navigator.navigate(node, finalArgs,
                 navOptions, navigatorExtras);
         if (newDest != null) {
-            // Ensure that every parent NavGraph is also on the stack if it isn't already
-            // First get all of the parent NavGraphs
+            // The mGraph should always be on the back stack after you navigate()
+            if (mBackStack.isEmpty()) {
+                mBackStack.add(new NavBackStackEntry(mGraph, finalArgs));
+            }
+            // Now ensure all intermediate NavGraphs are put on the back stack
+            // to ensure that global actions work.
             ArrayDeque<NavBackStackEntry> hierarchy = new ArrayDeque<>();
-            NavGraph parent = newDest.getParent();
-            while (parent != null) {
-                hierarchy.addFirst(new NavBackStackEntry(parent, finalArgs));
-                parent = parent.getParent();
-            }
-            // Now iterate through the back stack and see which NavGraphs
-            // are already on the back stack
-            Iterator<NavBackStackEntry> iterator = mBackStack.iterator();
-            while (iterator.hasNext() && !hierarchy.isEmpty()) {
-                NavDestination destination = iterator.next().getDestination();
-                if (destination.equals(hierarchy.getFirst().getDestination())) {
-                    // This destination is already in the back stack so
-                    // we don't need to add it
-                    hierarchy.removeFirst();
+            NavDestination destination = newDest;
+            while (destination != null && findDestination(destination.getId()) == null) {
+                NavGraph parent = destination.getParent();
+                if (parent != null) {
+                    hierarchy.addFirst(new NavBackStackEntry(parent, finalArgs));
                 }
+                destination = parent;
             }
-            // Add all of the remaining parent NavGraphs that aren't
-            // already on the back stack
             mBackStack.addAll(hierarchy);
             // And finally, add the new destination with its default args
             NavBackStackEntry newBackStackEntry = new NavBackStackEntry(newDest,
                     newDest.addInDefaultArgs(finalArgs));
             mBackStack.add(newBackStackEntry);
         }
+        updateOnBackPressedCallbackEnabled();
         if (popped || newDest != null) {
             dispatchOnDestinationChanged();
         }
@@ -1020,13 +1017,63 @@ public class NavController {
     }
 
     /**
+     * Sets the host's {@link LifecycleOwner}.
+     *
+     * @param owner The {@link LifecycleOwner} associated with the containing {@link NavHost}.
+     * @see #setHostOnBackPressedDispatcherOwner(OnBackPressedDispatcherOwner)
+     */
+    public final void setHostLifecycleOwner(@NonNull LifecycleOwner owner) {
+        mLifecycleOwner = owner;
+    }
+
+    /**
+     * Sets the host's {@link OnBackPressedDispatcherOwner}. If set, NavController will
+     * register a {@link OnBackPressedCallback} to handle system Back button events.
+     * <p>
+     * If you have not explicitly called {@link #setHostLifecycleOwner(LifecycleOwner)},
+     * the owner you pass here will be used as the {@link LifecycleOwner} for registering
+     * the {@link OnBackPressedCallback}.
+     *
+     * @param owner The {@link OnBackPressedDispatcherOwner} associated with the containing
+     * {@link NavHost}.
+     * @return a {@link NavHostOnBackPressedManager} that allows you to enable or disable
+     * whether this NavController should intercept the system Back button events using this
+     * {@link OnBackPressedDispatcher}.
+     * @see #setHostLifecycleOwner(LifecycleOwner)
+     */
+    @NonNull
+    public final NavHostOnBackPressedManager setHostOnBackPressedDispatcherOwner(
+            @NonNull OnBackPressedDispatcherOwner owner) {
+        if (mLifecycleOwner == null) {
+            mLifecycleOwner = owner;
+        }
+        OnBackPressedDispatcher dispatcher = owner.getOnBackPressedDispatcher();
+        // Remove the callback from any previous dispatcher
+        mOnBackPressedCallback.remove();
+        // Then add it to the new dispatcher
+        dispatcher.addCallback(mLifecycleOwner, mOnBackPressedCallback);
+        return new NavHostOnBackPressedManager();
+    }
+
+    @SuppressWarnings("WeakerAccess") /* synthetic access */
+    void setEnableOnBackPressedCallback(boolean enableOnBackPressedCallback) {
+        mEnableOnBackPressedCallback = enableOnBackPressedCallback;
+        updateOnBackPressedCallbackEnabled();
+    }
+
+    private void updateOnBackPressedCallbackEnabled() {
+        mOnBackPressedCallback.setEnabled(mEnableOnBackPressedCallback
+                && getDestinationCountOnBackStack() > 1);
+    }
+
+    /**
      * Sets the host's ViewModelStore used by the NavController to store ViewModels at the
      * navigation graph level. This is required to call {@link #getViewModelStore} and
      * should generally be called for you by your {@link NavHost}.
      *
      * @param viewModelStore ViewModelStore used to store ViewModels at the navigation graph level
      */
-    public void setHostViewModelStore(@NonNull ViewModelStore viewModelStore) {
+    public final void setHostViewModelStore(@NonNull ViewModelStore viewModelStore) {
         mViewModel = NavControllerViewModel.getInstance(viewModelStore);
     }
 

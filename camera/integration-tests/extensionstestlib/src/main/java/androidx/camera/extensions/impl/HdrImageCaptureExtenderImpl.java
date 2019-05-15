@@ -15,12 +15,16 @@
  */
 package androidx.camera.extensions.impl;
 
+import android.content.Context;
 import android.hardware.camera2.CameraCharacteristics;
 import android.hardware.camera2.CaptureRequest;
+import android.hardware.camera2.TotalCaptureResult;
 import android.media.Image;
 import android.media.ImageWriter;
 import android.os.Build;
 import android.util.Log;
+import android.util.Pair;
+import android.util.Size;
 import android.view.Surface;
 
 import java.nio.ByteBuffer;
@@ -40,6 +44,7 @@ public final class HdrImageCaptureExtenderImpl implements ImageCaptureExtenderIm
     private static final int UNDER_STAGE_ID = 0;
     private static final int NORMAL_STAGE_ID = 1;
     private static final int OVER_STAGE_ID = 2;
+    private static final int SESSION_STAGE_ID = 101;
 
     public HdrImageCaptureExtenderImpl() {
     }
@@ -95,34 +100,35 @@ public final class HdrImageCaptureExtenderImpl implements ImageCaptureExtenderIm
                     }
 
                     @Override
-                    public void process(Map<Integer, Image> images) {
+                    public void process(Map<Integer, Pair<Image, TotalCaptureResult>> results) {
                         Log.d(TAG, "Started HDR CaptureProcessor");
 
                         // Check for availability of all requested images
-                        if (!images.containsKey(UNDER_STAGE_ID)) {
+                        if (!results.containsKey(UNDER_STAGE_ID)) {
                             Log.w(TAG,
-                                    "Unable to process since images does not contain all "
+                                    "Unable to process since images does not contain "
                                             + "underexposed image.");
                             return;
                         }
 
-                        if (!images.containsKey(NORMAL_STAGE_ID)) {
+                        if (!results.containsKey(OVER_STAGE_ID)) {
                             Log.w(TAG,
-                                    "Unable to process since images does not contain all normal "
+                                    "Unable to process since images does not contain normal "
                                             + "exposed image.");
                             return;
                         }
 
-                        if (!images.containsKey(OVER_STAGE_ID)) {
+                        if (!results.containsKey(OVER_STAGE_ID)) {
                             Log.w(TAG,
-                                    "Unable to process since images does not contain all "
+                                    "Unable to process since images does not contain "
                                             + "overexposed image.");
                             return;
                         }
 
                         // Do processing of images, our placeholder logic just copies the first
                         // Image into the output buffer.
-                        List<Image> results = new ArrayList<>(images.values());
+                        List<Pair<Image, TotalCaptureResult>> imageDataPairs = new ArrayList<>(
+                                results.values());
                         Image image = null;
                         if (android.os.Build.VERSION.SDK_INT
                                 >= android.os.Build.VERSION_CODES.M) {
@@ -134,16 +140,61 @@ public final class HdrImageCaptureExtenderImpl implements ImageCaptureExtenderIm
                             ByteBuffer vByteBuffer = image.getPlanes()[1].getBuffer();
 
                             // Sample here just simply return the normal image result
-                            yByteBuffer.put(results.get(1).getPlanes()[0].getBuffer());
-                            uByteBuffer.put(results.get(1).getPlanes()[2].getBuffer());
-                            vByteBuffer.put(results.get(1).getPlanes()[1].getBuffer());
+                            yByteBuffer.put(imageDataPairs.get(1).first.getPlanes()[0].getBuffer());
+                            uByteBuffer.put(imageDataPairs.get(1).first.getPlanes()[2].getBuffer());
+                            vByteBuffer.put(imageDataPairs.get(1).first.getPlanes()[1].getBuffer());
 
                             mImageWriter.queueInputImage(image);
                         }
 
                         Log.d(TAG, "Completed HDR CaptureProcessor");
                     }
+
+                    @Override
+                    public void onResolutionUpdate(Size size) {
+
+                    }
+
+                    @Override
+                    public void onImageFormatUpdate(int imageFormat) {
+
+                    }
                 };
         return captureProcessor;
     }
+
+    @Override
+    public void onInit(String cameraId, CameraCharacteristics cameraCharacteristics,
+            Context context) {
+
+    }
+
+    @Override
+    public void onDeInit() {
+
+    }
+
+    @Override
+    public CaptureStageImpl onPresetSession() {
+        SettableCaptureStage captureStage = new SettableCaptureStage(SESSION_STAGE_ID);
+        return captureStage;
+    }
+
+    @Override
+    public CaptureStageImpl onEnableSession() {
+        SettableCaptureStage captureStage = new SettableCaptureStage(SESSION_STAGE_ID);
+        return captureStage;
+    }
+
+    @Override
+    public CaptureStageImpl onDisableSession() {
+        SettableCaptureStage captureStage = new SettableCaptureStage(SESSION_STAGE_ID);
+        return captureStage;
+    }
+
+    @Override
+    public int getMaxCaptureStage() {
+        return 4;
+    }
+
 }

@@ -15,6 +15,11 @@ dependencies {
     implementation("androidx.collection:collection:1.0.0")
     compileOnly(CHECKER_FRAMEWORK)
 
+    androidTestImplementation(ANDROIDX_TEST_EXT_JUNIT)
+    androidTestImplementation(ANDROIDX_TEST_CORE)
+    androidTestImplementation(ANDROIDX_TEST_RUNNER)
+    androidTestImplementation(ESPRESSO_CORE, libs.exclude_for_espresso)
+    androidTestImplementation project(':internal-testutils')
     annotationProcessor(project(":versionedparcelable-annotation"))
 }
 
@@ -34,4 +39,5 @@ androidx {
     // TODO: Remove these (b/130838274)
     failOnUncheckedWarnings = false
     failOnDeprecationWarnings = false
+    trackRestrictedAPIs = false // TODO: Remove it (b/131561173)
 }
