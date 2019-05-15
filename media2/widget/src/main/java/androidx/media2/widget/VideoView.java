@@ -46,10 +46,10 @@ import androidx.media2.common.FileMediaItem;
 import androidx.media2.common.MediaItem;
 import androidx.media2.common.MediaMetadata;
 import androidx.media2.common.SessionPlayer;
+import androidx.media2.common.SessionPlayer.TrackInfo;
+import androidx.media2.common.SubtitleData;
 import androidx.media2.common.UriMediaItem;
 import androidx.media2.player.MediaPlayer;
-import androidx.media2.player.MediaPlayer.TrackInfo;
-import androidx.media2.player.SubtitleData;
 import androidx.media2.player.VideoSize;
 import androidx.media2.player.subtitle.Cea708CaptionRenderer;
 import androidx.media2.player.subtitle.ClosedCaptionRenderer;
@@ -57,14 +57,10 @@ import androidx.media2.player.subtitle.SubtitleController;
 import androidx.media2.player.subtitle.SubtitleTrack;
 import androidx.media2.session.MediaController;
 import androidx.media2.session.MediaSession;
-import androidx.media2.session.RemoteSessionPlayer;
 import androidx.media2.session.SessionCommand;
 import androidx.media2.session.SessionCommandGroup;
 import androidx.media2.session.SessionResult;
 import androidx.media2.session.SessionToken;
-import androidx.mediarouter.media.MediaControlIntent;
-import androidx.mediarouter.media.MediaRouteSelector;
-import androidx.mediarouter.media.MediaRouter;
 import androidx.palette.graphics.Palette;
 
 import java.lang.annotation.Retention;
@@ -196,58 +192,6 @@ public class VideoView extends SelectiveLayout {
     TrackInfo mSelectedSubtitleTrackInfo;
 
     SubtitleAnchorView mSubtitleAnchorView;
-
-    private MediaRouter mMediaRouter;
-    @SuppressWarnings("WeakerAccess") /* synthetic access */
-            MediaRouteSelector mRouteSelector;
-    MediaRouter.RouteInfo mRoute;
-    RoutePlayer mRoutePlayer;
-
-    private final MediaRouter.Callback mRouterCallback = new MediaRouter.Callback() {
-        @Override
-        public void onRouteSelected(MediaRouter router, MediaRouter.RouteInfo route) {
-            if (route.supportsControlCategory(MediaControlIntent.CATEGORY_REMOTE_PLAYBACK)) {
-                // Save local playback state and position
-                int localPlaybackState = mCurrentState;
-                long localPlaybackPosition = (mMediaSession == null)
-                        ? 0 : mMediaSession.getPlayer().getCurrentPosition();
-
-                // Update player
-                resetPlayer();
-                mRoute = route;
-                mRoutePlayer = new RoutePlayer(getContext(), mRouteSelector, route);
-                // TODO: Replace with MediaSession#setPlaylist once b/110811730 is fixed.
-                mRoutePlayer.setMediaItem(mMediaItem);
-                mRoutePlayer.setCurrentPosition(localPlaybackPosition);
-                ensureSessionWithPlayer(mRoutePlayer);
-                if (localPlaybackState == STATE_PLAYING) {
-                    mMediaSession.getPlayer().play();
-                }
-            }
-        }
-
-        @Override
-        public void onRouteUnselected(MediaRouter router, MediaRouter.RouteInfo route, int reason) {
-            long currentPosition = 0;
-            int currentState = 0;
-            if (mRoute != null && mRoutePlayer != null) {
-                currentPosition = mRoutePlayer.getCurrentPosition();
-                currentState = mRoutePlayer.getPlayerState();
-                mRoutePlayer.close();
-                mRoutePlayer = null;
-            }
-            if (mRoute == route) {
-                mRoute = null;
-            }
-            if (reason != MediaRouter.UNSELECT_REASON_ROUTE_CHANGED) {
-                openVideo();
-                mMediaSession.getPlayer().seekTo(currentPosition);
-                if (currentState == SessionPlayer.PLAYER_STATE_PLAYING) {
-                    mMediaSession.getPlayer().play();
-                }
-            }
-        }
-    };
 
     private final VideoViewInterface.SurfaceListener mSurfaceListener =
             new VideoViewInterface.SurfaceListener() {
@@ -381,12 +325,6 @@ public class VideoView extends SelectiveLayout {
             mCurrentView = mTextureView;
         }
         mTargetView = mCurrentView;
-
-        MediaRouteSelector.Builder builder = new MediaRouteSelector.Builder();
-        builder.addControlCategory(MediaControlIntent.CATEGORY_REMOTE_PLAYBACK);
-        builder.addControlCategory(MediaControlIntent.CATEGORY_LIVE_AUDIO);
-        builder.addControlCategory(MediaControlIntent.CATEGORY_LIVE_VIDEO);
-        mRouteSelector = builder.build();
     }
 
     /**
@@ -545,25 +483,20 @@ public class VideoView extends SelectiveLayout {
         ensureSessionWithPlayer(mMediaPlayer);
 
         attachMediaControlView();
-        mMediaRouter = MediaRouter.getInstance(getContext());
-        // TODO: Revisit once ag/4207152 is merged.
-        mMediaRouter.setMediaSessionCompat(mMediaSession.getSessionCompat());
-        mMediaRouter.addCallback(mRouteSelector, mRouterCallback,
-                MediaRouter.CALLBACK_FLAG_PERFORM_ACTIVE_SCAN);
     }
 
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
 
+        mMediaSession.close();
+        mMediaSession = null;
         try {
             mMediaPlayer.close();
         } catch (Exception e) {
             Log.e(TAG, "Encountered an exception while performing MediaPlayer.close()", e);
         }
-        mMediaSession.close();
         mMediaPlayer = null;
-        mMediaSession = null;
         if (mMediaItem != null && mMediaItem instanceof FileMediaItem) {
             ((FileMediaItem) mMediaItem).decreaseRefCount();
         }
@@ -652,7 +585,7 @@ public class VideoView extends SelectiveLayout {
 
     boolean needToStart() {
         return mMediaSession != null
-                && (mMediaPlayer != null || mRoutePlayer != null) && isWaitingPlayback();
+                && mMediaPlayer != null && isWaitingPlayback();
     }
 
     private boolean isWaitingPlayback() {
@@ -666,10 +599,6 @@ public class VideoView extends SelectiveLayout {
         }
         if (mMediaItem != null) {
             resetPlayer();
-            if (isRemotePlayback()) {
-                mRoutePlayer.setMediaItem(mMediaItem);
-                return;
-            }
         }
 
         try {
@@ -691,7 +620,7 @@ public class VideoView extends SelectiveLayout {
                 @Override
                 public void onSubtitleTrackSelected(SubtitleTrack track) {
                     if (track == null) {
-                        mMediaPlayer.deselectTrack(mSelectedSubtitleTrackInfo);
+                        mMediaPlayer.deselectTrackInternal(mSelectedSubtitleTrackInfo);
                         mSelectedSubtitleTrackInfo = null;
                         mSubtitleAnchorView.setVisibility(View.GONE);
 
@@ -709,7 +638,7 @@ public class VideoView extends SelectiveLayout {
                         indexInSubtitleTrackList++;
                     }
                     if (info != null) {
-                        mMediaPlayer.selectTrack(info);
+                        mMediaPlayer.selectTrackInternal(info);
                         mSelectedSubtitleTrackInfo = info;
                         mSubtitleAnchorView.setVisibility(View.VISIBLE);
 
@@ -752,12 +681,6 @@ public class VideoView extends SelectiveLayout {
         }
     }
 
-    boolean isRemotePlayback() {
-        return mRoutePlayer != null
-                && mMediaSession != null
-                && (mMediaSession.getPlayer() instanceof RemoteSessionPlayer);
-    }
-
     void selectSubtitleTrack(TrackInfo trackInfo) {
         if (!isMediaPrepared()) {
             return;
@@ -776,8 +699,12 @@ public class VideoView extends SelectiveLayout {
     }
 
     // TODO: move this method inside callback to make sure it runs inside the callback thread.
-    Bundle extractTrackInfoData() {
-        List<MediaPlayer.TrackInfo> trackInfos = mMediaPlayer.getTrackInfo();
+    void extractAndBroadcastTrackInfoData() {
+        if (!isMediaPrepared()) {
+            throw new IllegalStateException(
+                    "extractTrackInfo() is unexpectedly called. Media item is not prepared");
+        }
+        List<TrackInfo> trackInfos = mMediaPlayer.getTrackInfoInternal();
         mVideoTrackCount = 0;
         mAudioTrackInfos = new ArrayList<>();
         mSubtitleTracks = new LinkedHashMap<>();
@@ -810,15 +737,31 @@ public class VideoView extends SelectiveLayout {
         }
 
         Bundle data = new Bundle();
-        data.putInt(MediaControlView.KEY_VIDEO_TRACK_COUNT, mVideoTrackCount);
+        data.putBoolean(MediaControlView.KEY_HAS_VIDEO, hasActualVideo());
         data.putInt(MediaControlView.KEY_AUDIO_TRACK_COUNT, mAudioTrackInfos.size());
         data.putStringArrayList(MediaControlView.KEY_SUBTITLE_TRACK_LANGUAGE_LIST,
                 subtitleTracksLanguageList);
-        return data;
+
+        mMediaSession.broadcastCustomCommand(
+                new SessionCommand(MediaControlView.EVENT_UPDATE_TRACK_STATUS,
+                        null), data);
+    }
+
+    boolean hasActualVideo() {
+        if (mVideoTrackCount > 0) {
+            return true;
+        }
+        VideoSize videoSize = mMediaPlayer.getVideoSize();
+        if (videoSize.getHeight() > 0 && videoSize.getWidth() > 0) {
+            Log.w(TAG, "video track count is zero, but it renders video. size: "
+                    + videoSize.getWidth() + "/" + videoSize.getHeight());
+            return true;
+        }
+        return false;
     }
 
     boolean isCurrentItemMusic() {
-        return mVideoTrackCount == 0 && mAudioTrackInfos != null && mAudioTrackInfos.size() > 0;
+        return !hasActualVideo() && mAudioTrackInfos != null && mAudioTrackInfos.size() > 0;
     }
 
     void updateMusicView() {
@@ -850,6 +793,12 @@ public class VideoView extends SelectiveLayout {
                         }
                         return;
                     }
+                    // This edge case rarely happens.
+                    if (mVideoTrackCount == 0 && size.getHeight() > 0 && size.getWidth() > 0) {
+                        if (isMediaPrepared()) {
+                            extractAndBroadcastTrackInfoData();
+                        }
+                    }
                     mTextureView.forceLayout();
                     mSurfaceView.forceLayout();
                     requestLayout();
@@ -874,11 +823,8 @@ public class VideoView extends SelectiveLayout {
                         return;
                     }
                     if (what == MediaPlayer.MEDIA_INFO_METADATA_UPDATE) {
-                        Bundle data = extractTrackInfoData();
-                        if (data != null) {
-                            mMediaSession.broadcastCustomCommand(
-                                    new SessionCommand(MediaControlView.EVENT_UPDATE_TRACK_STATUS,
-                                            null), data);
+                        if (isMediaPrepared()) {
+                            extractAndBroadcastTrackInfoData();
                         }
                     }
                 }
@@ -910,25 +856,25 @@ public class VideoView extends SelectiveLayout {
 
                 @Override
                 public void onSubtitleData(
-                        @NonNull MediaPlayer mp, @NonNull MediaItem dsd,
+                        @NonNull SessionPlayer player, @NonNull MediaItem item,
                         @NonNull SubtitleData data) {
                     final TrackInfo trackInfo = data.getTrackInfo();
                     if (DEBUG) {
                         Log.d(TAG, "onSubtitleData():"
                                 + " getTrackInfo: " + trackInfo
-                                + ", getCurrentPosition: " + mp.getCurrentPosition()
+                                + ", getCurrentPosition: " + player.getCurrentPosition()
                                 + ", getStartTimeUs(): " + data.getStartTimeUs()
                                 + ", diff: "
-                                + (data.getStartTimeUs() / 1000 - mp.getCurrentPosition())
+                                + (data.getStartTimeUs() / 1000 - player.getCurrentPosition())
                                 + "ms, getDurationUs(): " + data.getDurationUs());
                     }
-                    if (mp != mMediaPlayer) {
+                    if (player != mMediaPlayer) {
                         if (DEBUG) {
-                            Log.w(TAG, "onSubtitleData() is ignored. mp is already gone.");
+                            Log.w(TAG, "onSubtitleData() is ignored. player is already gone.");
                         }
                         return;
                     }
-                    if (dsd != mMediaItem) {
+                    if (item != mMediaItem) {
                         if (DEBUG) {
                             Log.w(TAG, "onSubtitleData() is ignored. Media item is changed.");
                         }
@@ -983,12 +929,7 @@ public class VideoView extends SelectiveLayout {
                     mCurrentState = STATE_PREPARED;
 
                     if (mMediaSession != null) {
-                        Bundle data = extractTrackInfoData();
-                        if (data != null) {
-                            mMediaSession.broadcastCustomCommand(
-                                    new SessionCommand(MediaControlView.EVENT_UPDATE_TRACK_STATUS,
-                                            null), data);
-                        }
+                        extractAndBroadcastTrackInfoData();
 
                         // Run extractMetadata() in another thread to prevent StrictMode violation.
                         // extractMetadata() contains file IO indirectly,
@@ -997,16 +938,6 @@ public class VideoView extends SelectiveLayout {
                         MetadataExtractTask task = new MetadataExtractTask(mMediaItem, isMusic,
                                 getContext());
                         task.execute();
-                    }
-
-                    if (mMediaControlView != null) {
-                        Uri uri = (mMediaItem instanceof UriMediaItem)
-                                ? ((UriMediaItem) mMediaItem).getUri() : null;
-                        if (uri != null && UriUtil.isFromNetwork(uri)) {
-                            mMediaControlView.setRouteSelector(mRouteSelector);
-                        } else {
-                            mMediaControlView.setRouteSelector(null);
-                        }
                     }
 
                     if (player instanceof MediaPlayer) {
@@ -1064,11 +995,7 @@ public class VideoView extends SelectiveLayout {
                 }
             }
             if (isMediaPrepared()) {
-                Bundle data = extractTrackInfoData();
-                if (data != null) {
-                    mMediaSession.broadcastCustomCommand(new SessionCommand(
-                            MediaControlView.EVENT_UPDATE_TRACK_STATUS, null), data);
-                }
+                extractAndBroadcastTrackInfoData();
             }
         }
 
@@ -1081,10 +1008,6 @@ public class VideoView extends SelectiveLayout {
                 if (DEBUG) {
                     Log.w(TAG, "onCustomCommand() is ignored. session is already gone.");
                 }
-            }
-            if (isRemotePlayback()) {
-                // TODO: call mRoutePlayer.onCommand()
-                return new SessionResult(RESULT_SUCCESS, null);
             }
             switch (command.getCustomAction()) {
                 case MediaControlView.COMMAND_SHOW_SUBTITLE:
@@ -1111,7 +1034,7 @@ public class VideoView extends SelectiveLayout {
                         TrackInfo audioTrackInfo = mAudioTrackInfos.get(audioIndex);
                         if (!audioTrackInfo.equals(mSelectedAudioTrackInfo)) {
                             mSelectedAudioTrackInfo = audioTrackInfo;
-                            mMediaPlayer.selectTrack(mSelectedAudioTrackInfo);
+                            mMediaPlayer.selectTrackInternal(mSelectedAudioTrackInfo);
                         }
                     }
                     break;

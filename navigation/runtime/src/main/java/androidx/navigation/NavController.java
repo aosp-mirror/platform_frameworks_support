@@ -104,6 +104,7 @@ public class NavController {
             popBackStack();
         }
     };
+    private boolean mEnableOnBackPressedCallback = true;
 
     /**
      * OnDestinationChangedListener receives a callback when the
@@ -122,6 +123,31 @@ public class NavController {
          */
         void onDestinationChanged(@NonNull NavController controller,
                 @NonNull NavDestination destination, @Nullable Bundle arguments);
+    }
+
+    /**
+     * Class returned by
+     * {@link #setHostOnBackPressedDispatcherOwner(OnBackPressedDispatcherOwner)} to
+     * allow the {@link NavHost} to manually disable or enable whether the NavController
+     * should actively handle system Back button events.
+     */
+    public final class NavHostOnBackPressedManager {
+        /**
+         * This class should only be instantiated by NavController itself as part of
+         * {@link #setHostOnBackPressedDispatcherOwner(OnBackPressedDispatcherOwner)}.
+         */
+        NavHostOnBackPressedManager(){
+        }
+
+        /**
+         * Set whether the NavController should handle the system Back button events via the
+         * registered {@link OnBackPressedDispatcher}.
+         *
+         * @param enabled True if the NavController should handle system Back button events.
+         */
+        public void enableOnBackPressed(boolean enabled) {
+            setEnableOnBackPressedCallback(enabled);
+        }
     }
 
     /**
@@ -287,7 +313,7 @@ public class NavController {
                 break;
             }
         }
-        mOnBackPressedCallback.setEnabled(getDestinationCountOnBackStack() > 1);
+        updateOnBackPressedCallbackEnabled();
         return popped;
     }
 
@@ -485,7 +511,7 @@ public class NavController {
                 }
                 mBackStack.add(new NavBackStackEntry(uuid, node, args));
             }
-            mOnBackPressedCallback.setEnabled(getDestinationCountOnBackStack() > 1);
+            updateOnBackPressedCallbackEnabled();
             mBackStackUUIDsToRestore = null;
             mBackStackIdsToRestore = null;
             mBackStackArgsToRestore = null;
@@ -851,34 +877,28 @@ public class NavController {
         NavDestination newDest = navigator.navigate(node, finalArgs,
                 navOptions, navigatorExtras);
         if (newDest != null) {
-            // Ensure that every parent NavGraph is also on the stack if it isn't already
-            // First get all of the parent NavGraphs
+            // The mGraph should always be on the back stack after you navigate()
+            if (mBackStack.isEmpty()) {
+                mBackStack.add(new NavBackStackEntry(mGraph, finalArgs));
+            }
+            // Now ensure all intermediate NavGraphs are put on the back stack
+            // to ensure that global actions work.
             ArrayDeque<NavBackStackEntry> hierarchy = new ArrayDeque<>();
-            NavGraph parent = newDest.getParent();
-            while (parent != null) {
-                hierarchy.addFirst(new NavBackStackEntry(parent, finalArgs));
-                parent = parent.getParent();
-            }
-            // Now iterate through the back stack and see which NavGraphs
-            // are already on the back stack
-            Iterator<NavBackStackEntry> iterator = mBackStack.iterator();
-            while (iterator.hasNext() && !hierarchy.isEmpty()) {
-                NavDestination destination = iterator.next().getDestination();
-                if (destination.equals(hierarchy.getFirst().getDestination())) {
-                    // This destination is already in the back stack so
-                    // we don't need to add it
-                    hierarchy.removeFirst();
+            NavDestination destination = newDest;
+            while (destination != null && findDestination(destination.getId()) == null) {
+                NavGraph parent = destination.getParent();
+                if (parent != null) {
+                    hierarchy.addFirst(new NavBackStackEntry(parent, finalArgs));
                 }
+                destination = parent;
             }
-            // Add all of the remaining parent NavGraphs that aren't
-            // already on the back stack
             mBackStack.addAll(hierarchy);
             // And finally, add the new destination with its default args
             NavBackStackEntry newBackStackEntry = new NavBackStackEntry(newDest,
                     newDest.addInDefaultArgs(finalArgs));
             mBackStack.add(newBackStackEntry);
         }
-        mOnBackPressedCallback.setEnabled(getDestinationCountOnBackStack() > 1);
+        updateOnBackPressedCallbackEnabled();
         if (popped || newDest != null) {
             dispatchOnDestinationChanged();
         }
@@ -1002,7 +1022,7 @@ public class NavController {
      * @param owner The {@link LifecycleOwner} associated with the containing {@link NavHost}.
      * @see #setHostOnBackPressedDispatcherOwner(OnBackPressedDispatcherOwner)
      */
-    public void setHostLifecycleOwner(@NonNull LifecycleOwner owner) {
+    public final void setHostLifecycleOwner(@NonNull LifecycleOwner owner) {
         mLifecycleOwner = owner;
     }
 
@@ -1016,9 +1036,14 @@ public class NavController {
      *
      * @param owner The {@link OnBackPressedDispatcherOwner} associated with the containing
      * {@link NavHost}.
+     * @return a {@link NavHostOnBackPressedManager} that allows you to enable or disable
+     * whether this NavController should intercept the system Back button events using this
+     * {@link OnBackPressedDispatcher}.
      * @see #setHostLifecycleOwner(LifecycleOwner)
      */
-    public void setHostOnBackPressedDispatcherOwner(@NonNull OnBackPressedDispatcherOwner owner) {
+    @NonNull
+    public final NavHostOnBackPressedManager setHostOnBackPressedDispatcherOwner(
+            @NonNull OnBackPressedDispatcherOwner owner) {
         if (mLifecycleOwner == null) {
             mLifecycleOwner = owner;
         }
@@ -1027,6 +1052,18 @@ public class NavController {
         mOnBackPressedCallback.remove();
         // Then add it to the new dispatcher
         dispatcher.addCallback(mLifecycleOwner, mOnBackPressedCallback);
+        return new NavHostOnBackPressedManager();
+    }
+
+    @SuppressWarnings("WeakerAccess") /* synthetic access */
+    void setEnableOnBackPressedCallback(boolean enableOnBackPressedCallback) {
+        mEnableOnBackPressedCallback = enableOnBackPressedCallback;
+        updateOnBackPressedCallbackEnabled();
+    }
+
+    private void updateOnBackPressedCallbackEnabled() {
+        mOnBackPressedCallback.setEnabled(mEnableOnBackPressedCallback
+                && getDestinationCountOnBackStack() > 1);
     }
 
     /**
@@ -1036,7 +1073,7 @@ public class NavController {
      *
      * @param viewModelStore ViewModelStore used to store ViewModels at the navigation graph level
      */
-    public void setHostViewModelStore(@NonNull ViewModelStore viewModelStore) {
+    public final void setHostViewModelStore(@NonNull ViewModelStore viewModelStore) {
         mViewModel = NavControllerViewModel.getInstance(viewModelStore);
     }
 

@@ -38,11 +38,11 @@ import androidx.core.util.ObjectsCompat;
 import androidx.core.util.Preconditions;
 import androidx.media.AudioAttributesCompat;
 import androidx.media2.common.MediaItem;
+import androidx.media2.common.SubtitleData;
 import androidx.media2.exoplayer.external.Player;
 import androidx.media2.player.MediaPlayer2;
 import androidx.media2.player.MediaTimestamp;
 import androidx.media2.player.PlaybackParams;
-import androidx.media2.player.SubtitleData;
 import androidx.media2.player.TimedMetaData;
 
 import java.io.IOException;
@@ -286,13 +286,12 @@ public final class ExoPlayerMediaPlayer2Impl extends MediaPlayer2
 
     @Override
     public long getCurrentPosition() {
-        Long position = runPlayerCallableBlocking(new Callable<Long>() {
+        return runPlayerCallableBlocking(new Callable<Long>() {
             @Override
-            public Long call() {
+            public Long call() throws Exception {
                 return mPlayer.getCurrentPosition();
             }
         });
-        return position == null ? 0 : position;
     }
 
     @Override
@@ -835,11 +834,7 @@ public final class ExoPlayerMediaPlayer2Impl extends MediaPlayer2
                 }
             }
         });
-        if (!success) {
-            // TODO(b/131682542): Remove once VideoView doesn't call methods after close().
-            Log.w(TAG, "Ignoring unexpected call after close().", new Throwable());
-            return null;
-        }
+        Preconditions.checkState(success);
         try {
             T result;
             boolean wasInterrupted = false;

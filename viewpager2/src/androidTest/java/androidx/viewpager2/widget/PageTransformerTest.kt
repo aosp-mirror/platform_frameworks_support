@@ -17,6 +17,8 @@
 package androidx.viewpager2.widget
 
 import android.view.View
+import androidx.annotation.FloatRange
+import androidx.annotation.NonNull
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.test.filters.LargeTest
 import androidx.viewpager2.widget.BaseTest.SortOrder.ASC
@@ -36,7 +38,6 @@ import org.hamcrest.Matchers.lessThan
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertThat
 import org.junit.Assert.assertTrue
-import org.junit.Assert.fail
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
@@ -216,7 +217,6 @@ class PageTransformerTest(private val config: TestConfig) : BaseTest() {
                     when (e) {
                         is OnPageScrolledEvent -> groups.add(mutableListOf())
                         is TransformPageEvent -> groups.last().add(e)
-                        else -> fail("$e is neither OnPageScrolledEvent nor TransformPageEvent")
                     }
                     groups
                 }
@@ -234,7 +234,10 @@ class PageTransformerTest(private val config: TestConfig) : BaseTest() {
 
         /* interface implementations */
 
-        override fun transformPage(page: View, position: Float) {
+        override fun transformPage(
+            @NonNull page: View,
+            @FloatRange(from = -1.0, to = 1.0) position: Float
+        ) {
             events.add(TransformPageEvent(layoutManager.getPosition(page), position))
         }
 

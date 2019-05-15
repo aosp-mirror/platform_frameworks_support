@@ -105,6 +105,13 @@ final class Camera implements BaseCamera {
     /** The session configuration of camera control. */
     private SessionConfig mCameraControlSessionConfig = SessionConfig.defaultEmptySessionConfig();
 
+    private final Object mPendingLock = new Object();
+    @GuardedBy("mPendingLock")
+    final List<UseCase> mPendingForAddOnline = new ArrayList<>();
+    @GuardedBy("mClosedCaptureSessions")
+    private List<CaptureSession> mClosedCaptureSessions = new ArrayList<>();
+
+
     /**
      * Constructor for a camera.
      *
@@ -247,10 +254,27 @@ final class Camera implements BaseCamera {
 
     void closeCameraResource() {
         mCaptureSession.close();
+        mCaptureSession.release();
         mCameraDevice.close();
-        mCaptureSession.notifyCameraDeviceClose();
-        resetCaptureSession();
+        notifyCameraDeviceCloseToCaptureSessions();
         mCameraDevice = null;
+        resetCaptureSession();
+    }
+
+    // Notifies camera device closed event to all CaptureSessions. Not every closed
+    // CaptureSessions's
+    // onClosed will be called when device closed, so we have to notify closed CaptureSession as
+    // well for proper clean up.
+    private void notifyCameraDeviceCloseToCaptureSessions() {
+        synchronized (mClosedCaptureSessions) {
+            for (CaptureSession closedCaptureSession : mClosedCaptureSessions) {
+                closedCaptureSession.notifyCameraDeviceClose();
+            }
+
+            mClosedCaptureSessions.clear();
+        }
+
+        mCaptureSession.notifyCameraDeviceClose();
     }
 
     /**
@@ -278,7 +302,7 @@ final class Camera implements BaseCamera {
             case OPENED:
                 mState.set(State.RELEASING);
                 mCameraDevice.close();
-                mCaptureSession.notifyCameraDeviceClose();
+                notifyCameraDeviceCloseToCaptureSessions();
                 break;
             case OPENING:
             case CLOSING:
@@ -378,6 +402,26 @@ final class Camera implements BaseCamera {
         openCaptureSession();
     }
 
+    void notifyAttachToUseCaseSurfaces(UseCase useCase) {
+        for (DeferrableSurface surface : useCase.getSessionConfig(
+                mCameraId).getSurfaces()) {
+            surface.notifySurfaceAttached();
+        }
+    }
+
+    void notifyDetachFromUseCaseSurfaces(UseCase useCase) {
+        for (DeferrableSurface surface : useCase.getSessionConfig(
+                mCameraId).getSurfaces()) {
+            surface.notifySurfaceDetached();
+        }
+    }
+
+    public boolean isUseCaseOnline(UseCase useCase) {
+        synchronized (mAttachedUseCaseLock) {
+            return mUseCaseAttachState.isUseCaseOnline(useCase);
+        }
+    }
+
     /**
      * Sets the use case to be in the state where the capture session will be configured to handle
      * capture requests from the use case.
@@ -386,6 +430,23 @@ final class Camera implements BaseCamera {
     public void addOnlineUseCase(final Collection<UseCase> useCases) {
         if (useCases.isEmpty()) {
             return;
+        }
+
+        // Attaches the surfaces of use case to the Camera (prevent from surface abandon crash)
+        // addOnlineUseCase could be called with duplicate use case, so we need to filter out
+        // use cases that are either pending for addOnline or are already online.
+        // It's ok for two thread to run here, since it‘ll do nothing if use case is already
+        // pending.
+        synchronized (mPendingLock) {
+            for (UseCase useCase : useCases) {
+                boolean isOnline = isUseCaseOnline(useCase);
+                if (mPendingForAddOnline.contains(useCase) || isOnline) {
+                    continue;
+                }
+
+                notifyAttachToUseCaseSurfaces(useCase);
+                mPendingForAddOnline.add(useCase);
+            }
         }
 
         if (Looper.myLooper() != mHandler.getLooper()) {
@@ -403,6 +464,10 @@ final class Camera implements BaseCamera {
             for (UseCase useCase : useCases) {
                 mUseCaseAttachState.setUseCaseOnline(useCase);
             }
+        }
+
+        synchronized (mPendingLock) {
+            mPendingForAddOnline.removeAll(useCases);
         }
 
         open();
@@ -432,8 +497,16 @@ final class Camera implements BaseCamera {
 
         Log.d(TAG, "Use cases " + useCases + " OFFLINE for camera " + mCameraId);
         synchronized (mAttachedUseCaseLock) {
+            List<UseCase> toDetach = new ArrayList<>();
             for (UseCase useCase : useCases) {
+                if (mUseCaseAttachState.isUseCaseOnline(useCase)) {
+                    toDetach.add(useCase);
+                }
                 mUseCaseAttachState.setUseCaseOffline(useCase);
+            }
+
+            for (UseCase detach : toDetach) {
+                notifyDetachFromUseCaseSurfaces(detach);
             }
 
             if (mUseCaseAttachState.getOnlineUseCases().isEmpty()) {
@@ -449,7 +522,8 @@ final class Camera implements BaseCamera {
 
                 if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M && !BuildCompat.isAtLeastQ()
                         && isLegacyDevice) {
-                    // To configure surface again before close camera. This step would disconnect
+                    // To configure surface again before close camera. This step would
+                    // disconnect
                     // previous connected surface in some legacy device to prevent exception.
                     configAndClose();
                 } else {
@@ -461,6 +535,7 @@ final class Camera implements BaseCamera {
 
         openCaptureSession();
         updateCaptureSessionConfig();
+
     }
 
     /** Returns an interface to retrieve characteristics of the camera. */
@@ -549,6 +624,15 @@ final class Camera implements BaseCamera {
         SessionConfig previousSessionConfig = mCaptureSession.getSessionConfig();
 
         mCaptureSession.close();
+        mCaptureSession.release();
+
+        // Saves the closed CaptureSessions if device is not closed yet.
+        // We need to notify camera device closed event to these CaptureSessions.
+        if (mCameraDevice != null) {
+            synchronized (mClosedCaptureSessions) {
+                mClosedCaptureSessions.add(mCaptureSession);
+            }
+        }
 
         List<CaptureConfig> unissuedCaptureConfigs = mCaptureSession.getCaptureConfigs();
         mCaptureSession = new CaptureSession(mHandler);
@@ -574,36 +658,40 @@ final class Camera implements BaseCamera {
     }
 
     /**
-     * Checks if there's valid repeating surface and attaches one to {@link CaptureConfig.Builder}.
+     * If the {@link CaptureConfig.Builder} hasn't had a surface attached, attaches all valid
+     * repeating surfaces to it.
      *
-     * @param captureConfigBuilder the configuration builder to attach a repeating surface
-     * @return True if repeating surface has been successfully attached, otherwise false.
+     * @param captureConfigBuilder the configuration builder to attach repeating surfaces.
+     * @return true if repeating surfaces have been successfully attached, otherwise false.
      */
     private boolean checkAndAttachRepeatingSurface(CaptureConfig.Builder captureConfigBuilder) {
+        if (!captureConfigBuilder.getSurfaces().isEmpty()) {
+            Log.w(TAG, "The capture config builder already has surface inside.");
+            return false;
+        }
+
         Collection<UseCase> activeUseCases;
         synchronized (mAttachedUseCaseLock) {
             activeUseCases = mUseCaseAttachState.getActiveAndOnlineUseCases();
         }
 
-        DeferrableSurface repeatingSurface = null;
         for (UseCase useCase : activeUseCases) {
             SessionConfig sessionConfig = useCase.getSessionConfig(mCameraId);
+            // Query the repeating surfaces attached to this use case, then add them to the builder.
             List<DeferrableSurface> surfaces =
                     sessionConfig.getRepeatingCaptureConfig().getSurfaces();
             if (!surfaces.isEmpty()) {
-                // When an use case is active, all surfaces in its CaptureConfig are added to the
-                // repeating request. Choose the first one here as the repeating surface.
-                repeatingSurface = surfaces.get(0);
-                break;
+                for (DeferrableSurface surface : surfaces) {
+                    captureConfigBuilder.addSurface(surface);
+                }
             }
         }
 
-        if (repeatingSurface == null) {
+        if (captureConfigBuilder.getSurfaces().isEmpty()) {
             Log.w(TAG, "Unable to find a repeating surface to attach to CaptureConfig");
             return false;
         }
 
-        captureConfigBuilder.addSurface(repeatingSurface);
         return true;
     }
 
@@ -634,13 +722,12 @@ final class Camera implements BaseCamera {
         List<CaptureConfig> captureConfigsWithSurface = new ArrayList<>();
         for (CaptureConfig captureConfig : captureConfigs) {
             // Recreates the Builder to add extra config needed
-            CaptureConfig.Builder builder =
-                    CaptureConfig.Builder.from(captureConfig);
+            CaptureConfig.Builder builder = CaptureConfig.Builder.from(captureConfig);
 
-            if (captureConfig.getSurfaces().isEmpty()
-                    && captureConfig.isUseRepeatingSurface()) {
-                // Checks and attaches if there's valid repeating surface. If there's no, skip this
-                // capture request.
+            if (captureConfig.getSurfaces().isEmpty() && captureConfig.isUseRepeatingSurface()) {
+                // Checks and attaches repeating surface to the request if there's no surface
+                // has been already attached. If there's no valid repeating surface to be
+                // attached, skip this capture request.
                 if (!checkAndAttachRepeatingSurface(builder)) {
                     continue;
                 }

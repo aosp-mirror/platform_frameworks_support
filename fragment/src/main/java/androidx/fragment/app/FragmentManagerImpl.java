@@ -205,7 +205,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
      * navigation Fragments to ensure that all of the parent Fragments are the
      * primary navigation Fragment for their associated FragmentManager
      */
-    private boolean isPrimaryNavigation(@Nullable Fragment parent) {
+    boolean isPrimaryNavigation(@Nullable Fragment parent) {
         // If the parent is null, then we're at the root host
         // and we're always the primary navigation
         if (parent == null) {
@@ -1193,7 +1193,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
                 }
             }
         }
-        if (fragment.mAdded && fragment.mHasMenu && fragment.mMenuVisible) {
+        if (fragment.mAdded && isMenuAvailable(fragment)) {
             mNeedMenuInvalidate = true;
         }
         fragment.mHiddenChanged = false;
@@ -1376,7 +1376,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
             if (fragment.mView == null) {
                 fragment.mHiddenChanged = false;
             }
-            if (fragment.mHasMenu && fragment.mMenuVisible) {
+            if (isMenuAvailable(fragment)) {
                 mNeedMenuInvalidate = true;
             }
             if (moveToStateNow) {
@@ -1392,7 +1392,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
             synchronized (mAdded) {
                 mAdded.remove(fragment);
             }
-            if (fragment.mHasMenu && fragment.mMenuVisible) {
+            if (isMenuAvailable(fragment)) {
                 mNeedMenuInvalidate = true;
             }
             fragment.mAdded = false;
@@ -1442,7 +1442,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
                 synchronized (mAdded) {
                     mAdded.remove(fragment);
                 }
-                if (fragment.mHasMenu && fragment.mMenuVisible) {
+                if (isMenuAvailable(fragment)) {
                     mNeedMenuInvalidate = true;
                 }
                 fragment.mAdded = false;
@@ -1463,7 +1463,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
                     mAdded.add(fragment);
                 }
                 fragment.mAdded = true;
-                if (fragment.mHasMenu && fragment.mMenuVisible) {
+                if (isMenuAvailable(fragment)) {
                     mNeedMenuInvalidate = true;
                 }
             }
@@ -2528,7 +2528,7 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
 
         if (fms.mPrimaryNavActiveWho != null) {
             mPrimaryNav = mActive.get(fms.mPrimaryNavActiveWho);
-            dispatchOnParentPrimaryNavigationFragmentChanged(mPrimaryNav);
+            dispatchParentPrimaryNavigationFragmentChanged(mPrimaryNav);
         }
         this.mNextFragmentIndex = fms.mNextFragmentIndex;
     }
@@ -2786,22 +2786,20 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
         }
         Fragment previousPrimaryNav = mPrimaryNav;
         mPrimaryNav = f;
-        dispatchOnParentPrimaryNavigationFragmentChanged(previousPrimaryNav);
-        dispatchOnParentPrimaryNavigationFragmentChanged(mPrimaryNav);
+        dispatchParentPrimaryNavigationFragmentChanged(previousPrimaryNav);
+        dispatchParentPrimaryNavigationFragmentChanged(mPrimaryNav);
     }
 
-    private void dispatchOnParentPrimaryNavigationFragmentChanged(@Nullable Fragment f) {
-        if (f != null && f.mChildFragmentManager != null) {
-            f.mChildFragmentManager.onParentPrimaryNavigationFragmentChanged();
+    private void dispatchParentPrimaryNavigationFragmentChanged(@Nullable Fragment f) {
+        if (f != null) {
+            f.performPrimaryNavigationFragmentChanged();
         }
     }
 
-    private void onParentPrimaryNavigationFragmentChanged() {
+    void dispatchPrimaryNavigationFragmentChanged() {
         updateOnBackPressedCallbackEnabled();
-        // Update all of our child Fragments with the new primary navigation state
-        for (Fragment f : mActive.values()) {
-            dispatchOnParentPrimaryNavigationFragmentChanged(f);
-        }
+        // Dispatch the change event to this FragmentManager's primary navigation fragment
+        dispatchParentPrimaryNavigationFragmentChanged(mPrimaryNav);
     }
 
     @Override
@@ -3077,6 +3075,27 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
                 holder.mCallback.onFragmentDetached(this, f);
             }
         }
+    }
+
+    // Checks if fragments that belong to this fragment manager (or their children) have menus,
+    // and if they are visible.
+    boolean checkForMenus() {
+        boolean hasMenu = false;
+        for (Fragment f: mActive.values()) {
+            if (f != null) {
+                hasMenu = isMenuAvailable(f);
+            }
+            if (hasMenu) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean isMenuAvailable(Fragment f) {
+        return (f.mHasMenu && f.mMenuVisible)
+                || (f.mChildFragmentManager != null
+                && f.mChildFragmentManager.checkForMenus());
     }
 
     public static int reverseTransit(int transit) {

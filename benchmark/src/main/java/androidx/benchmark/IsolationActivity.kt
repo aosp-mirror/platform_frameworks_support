@@ -41,7 +41,11 @@ import java.util.concurrent.atomic.AtomicReference
 @RestrictTo(RestrictTo.Scope.LIBRARY)
 class IsolationActivity : android.app.Activity() {
     var resumed = false
+<<<<<<< HEAD   (d26d2b Merge "Merge cherrypicks of [955355] into androidx-master-re)
     var destroyed = false
+=======
+    private var destroyed = false
+>>>>>>> BRANCH (ff4d74 Merge "Update javadoc about theme ID in FragmentScenario" in)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -19,6 +19,7 @@ package androidx.media2.session;
 import static androidx.media2.common.MediaMetadata.METADATA_KEY_DISPLAY_TITLE;
 import static androidx.media2.common.MediaMetadata.METADATA_KEY_TITLE;
 import static androidx.media2.session.MediaUtils.TRANSACTION_SIZE_LIMIT_IN_BYTES;
+import static androidx.media2.session.SessionCommand.COMMAND_VERSION_CURRENT;
 import static androidx.media2.session.SessionResult.RESULT_SUCCESS;
 
 import android.content.Context;
@@ -45,6 +46,7 @@ import androidx.media.MediaSessionManager.RemoteUserInfo;
 import androidx.media2.common.MediaItem;
 import androidx.media2.common.MediaMetadata;
 import androidx.media2.common.SessionPlayer.PlayerResult;
+import androidx.media2.common.VideoSize;
 import androidx.media2.session.MediaController.PlaybackInfo;
 import androidx.media2.session.MediaLibraryService.LibraryParams;
 import androidx.media2.session.MediaSession.CommandButton;
@@ -66,8 +68,8 @@ class MediaSessionLegacyStub extends MediaSessionCompat.Callback {
 
     static {
         SessionCommandGroup group = new SessionCommandGroup.Builder()
-                .addAllPlayerCommands(SessionCommand.COMMAND_VERSION_CURRENT)
-                .addAllVolumeCommands(SessionCommand.COMMAND_VERSION_CURRENT)
+                .addAllPlayerCommands(COMMAND_VERSION_CURRENT, /* includeHidden= */ false)
+                .addAllVolumeCommands(COMMAND_VERSION_CURRENT)
                 .build();
         Set<SessionCommand> commands = group.getCommands();
         for (SessionCommand command : commands) {
@@ -700,6 +702,11 @@ class MediaSessionLegacyStub extends MediaSessionCompat.Callback {
         }
 
         @Override
+        void onVideoSizeChanged(int seq, @NonNull MediaItem item, @NonNull VideoSize videoSize) {
+            // no-op
+        }
+
+        @Override
         public int hashCode() {
             return ObjectsCompat.hash(mRemoteUserInfo);
         }
@@ -883,6 +890,11 @@ class MediaSessionLegacyStub extends MediaSessionCompat.Callback {
         @Override
         void onDisconnected(int seq) throws RemoteException {
             // no-op. Calling MediaSessionCompat#release() is already done in close().
+        }
+
+        @Override
+        void onVideoSizeChanged(int seq, @NonNull MediaItem item, @NonNull VideoSize videoSize) {
+            // no-op
         }
     }
 }

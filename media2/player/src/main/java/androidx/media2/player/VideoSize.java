@@ -19,6 +19,7 @@ package androidx.media2.player;
 /**
  * Immutable class for describing video size.
  */
+// TODO: Merge this into androidx.media2.common.VideoSize
 public final class VideoSize {
     /**
      * Creates a new immutable VideoSize instance.
@@ -50,10 +51,8 @@ public final class VideoSize {
      * <p>
      * Two video sizes are equal if and only if both their widths and heights are
      * equal.
-     * </p>
      * <p>
      * A video size object is never equal to any other type of object.
-     * </p>
      *
      * @return {@code true} if the objects were equal, {@code false} otherwise
      */

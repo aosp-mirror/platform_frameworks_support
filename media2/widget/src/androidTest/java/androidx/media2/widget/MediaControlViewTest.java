@@ -280,7 +280,7 @@ public class MediaControlViewTest {
     }
 
     @Test
-    public void testGetMetadataFromMusic() throws Throwable {
+    public void testGetMetadataFromMusicFile() throws Throwable {
         Uri uri = Uri.parse("android.resource://" + mContext.getPackageName() + "/"
                 + R.raw.test_music);
         AssetFileDescriptor afd = mContext.getResources().openRawResourceFd(R.raw.test_music);
@@ -296,6 +296,11 @@ public class MediaControlViewTest {
                 .setFileDescriptorLength(afd.getLength())
                 .build();
         afd.close();
+        // onCurrentMediaItemChanged is expected to be called 3 times:
+        //   1) after VideoView#setMediaItem is called.
+        //   2) after MediaSessionImplBase updates duration metadata by calling
+        //      MediaItem#setMetadata.
+        //   3) after VideoView extracts metadata and calls MediaItem#setMetadata.
         final CountDownLatch latchForUri = new CountDownLatch(3);
         final CountDownLatch latchForFile = new CountDownLatch(3);
         final MediaController controller =
@@ -349,13 +354,45 @@ public class MediaControlViewTest {
     }
 
     @Test
+    public void testButtonVisibilityForMusicFile() throws Throwable {
+        Uri uri = Uri.parse("android.resource://" + mContext.getPackageName() + "/"
+                + R.raw.test_music);
+        final MediaItem uriMediaItem = createTestMediaItem2(uri);
+
+        final CountDownLatch latch = new CountDownLatch(1);
+        final MediaController controller =
+                createController(new MediaController.ControllerCallback() {
+                    @NonNull
+                    @Override
+                    public SessionResult onCustomCommand(@NonNull MediaController controller,
+                            @NonNull SessionCommand command, @Nullable Bundle args) {
+                        if (command.getCustomAction()
+                                == MediaControlView.EVENT_UPDATE_TRACK_STATUS) {
+                            latch.countDown();
+                        }
+                        return new SessionResult(SessionResult.RESULT_SUCCESS, null);
+                    }
+                });
+        mActivityRule.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mVideoView.setMediaItem(uriMediaItem);
+            }
+        });
+        assertTrue(latch.await(WAIT_TIME_MS, TimeUnit.MILLISECONDS));
+        onView(withId(R.id.subtitle)).check(matches(not(isDisplayed())));
+    }
+
+    @Test
     public void testUpdateAndSelectSubtitleTrack() throws Throwable {
         Uri uri = Uri.parse("android.resource://" + mContext.getPackageName() + "/"
                 + R.raw.testvideo_with_2_subtitle_tracks);
 
         final int subtitleTrackCount = 2;
         final int selectedSubtitleTrackIndex = 0;
-        final String subtitleTrack1Text = "Track 1";
+        final String subtitleTrack1Text = mContext.getResources().getString(
+                R.string.MediaControlView_subtitle_track_number_text, 1);
+
         final MediaItem mediaItem = createTestMediaItem2(uri);
 
         final CountDownLatch latchForTrackUpdate = new CountDownLatch(1);
@@ -444,7 +481,7 @@ public class MediaControlViewTest {
                         });
             }
         });
-        onView(withId(R.id.fullscreen)).check(matches(isDisplayed()));
+        onView(withId(R.id.fullscreen)).check(matches(isCompletelyDisplayed()));
 
         onView(withId(R.id.fullscreen)).perform(click());
         assertTrue(latchOn.await(WAIT_TIME_MS, TimeUnit.MILLISECONDS));
