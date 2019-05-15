@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "c15aca57_292a9854",
+        "filename": "benchmark/src/androidTest/java/androidx/benchmark/ResultWriterTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-05-15T18:31:12Z",
+      "side": 1,
+      "message": "I split these up as dependent changes per buganizer ticket - but one thing I can do to make things easier for review is to squash the commits together?\n\nHere\u0027s the change for that ticket though: https://android-review.googlesource.com/c/platform/frameworks/support/+/962871",
+      "parentUuid": "cba1b2cc_e66fda85",
+      "revId": "3f8031aeb3a2f9f0af30932323eabae8da831dae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e60e64c5_ce446cf1",
         "filename": "benchmark/src/main/java/androidx/benchmark/ResultWriter.kt",
         "patchSetId": 2
