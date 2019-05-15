@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "64a24990_81f7d2be",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2019-05-15T17:19:36Z",
+      "side": 1,
+      "message": "We could add a method in EnumWrapper to do this in a generic way. \nValues are transmitted as names anyways, so implementing the lookup over a different enum has no extra cost.",
+      "revId": "4fe736e5f4cc87116ae5485512a16721b1e9137c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b075216_4e1736cb",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2019-05-15T17:19:36Z",
+      "side": 1,
+      "message": "We could also generalize this inside the EnumWrapper (or some other place).",
+      "revId": "4fe736e5f4cc87116ae5485512a16721b1e9137c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9f05338_196aeed5",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/NavigationState.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2019-05-15T17:19:36Z",
+      "side": 1,
+      "message": "We could fallback here to ParcelUtils.fromParcelable() to allow interoperability while Maps and the Chinese nav app are being migrated.",
+      "revId": "4fe736e5f4cc87116ae5485512a16721b1e9137c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
