@@ -142,6 +142,24 @@
     },
     {
       "key": {
+        "uuid": "e6eba0fd_d6926fc8",
+        "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/SemanticsL2.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1402596
+      },
+      "writtenOn": "2019-05-15T06:08:15Z",
+      "side": 1,
+      "message": "I think this example still illustrates the final API. SemanticProperties just has one extra parameter \"actions\" which will not be present in the final API.",
+      "parentUuid": "c64bdfda_9decde98",
+      "revId": "68b1c94816897505f499bb8a8222339162833f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "75e345b5_b9b409e4",
         "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/SemanticsL2.kt",
         "patchSetId": 1
