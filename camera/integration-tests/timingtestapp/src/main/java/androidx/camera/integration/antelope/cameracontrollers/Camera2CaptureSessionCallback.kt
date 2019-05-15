@@ -45,12 +45,16 @@ class Camera2CaptureSessionCallback(
         frameNumber: Long
     ) {
         MainActivity.logd("Camera2CaptureSessionCallback : Capture sequence COMPLETED")
-        super.onCaptureSequenceCompleted(session, sequenceId, frameNumber)
+
+        if (session != null)
+            super.onCaptureSequenceCompleted(session, sequenceId, frameNumber)
     }
 
     override fun onCaptureSequenceAborted(session: CameraCaptureSession?, sequenceId: Int) {
         MainActivity.logd("Camera2CaptureSessionCallback : Capture sequence ABORTED")
-        super.onCaptureSequenceAborted(session, sequenceId)
+
+        if (session != null)
+            super.onCaptureSequenceAborted(session, sequenceId)
     }
 
     override fun onCaptureFailed(
@@ -124,7 +128,7 @@ class Camera2CaptureSessionCallback(
                             captureStillPicture(activity, params, testConfig)
                         } else {
                             // AF is locked but not AE
-                            runPrecaptureSequence(activity, params, testConfig)
+                            runPrecaptureSequence(params)
                         }
                     }
 
@@ -170,6 +174,8 @@ class Camera2CaptureSessionCallback(
                     }
                 }
             }
+
+            else -> {}
         }
     }
 

@@ -91,7 +91,8 @@ class Camera2DeviceStateCallback(
             }
         }
 
-        super.onClosed(camera)
+        if (camera != null)
+            super.onClosed(camera)
     }
 
     /**

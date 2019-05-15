@@ -79,7 +79,9 @@ class Camera2PreviewSessionStateCallback(
                 initializeStillCapture(activity, params, testConfig)
             }
         }
-        super.onActive(session)
+
+        if (session != null)
+            super.onActive(session)
     }
 
     /**
@@ -116,7 +118,7 @@ class Camera2PreviewSessionStateCallback(
             params.state = CameraState.PREVIEW_RUNNING
 
             // Request that the camera preview begins
-            cameraCaptureSession.setRepeatingRequest(params.captureRequestBuilder?.build(),
+            cameraCaptureSession.setRepeatingRequest(params.captureRequestBuilder?.build()!!,
                 params.camera2CaptureSessionCallback, params.backgroundHandler)
         } catch (e: CameraAccessException) {
             MainActivity.logd("Create Capture Session error: " + params.id)

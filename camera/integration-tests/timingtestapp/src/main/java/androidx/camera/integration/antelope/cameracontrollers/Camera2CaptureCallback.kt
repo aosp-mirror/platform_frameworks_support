@@ -41,7 +41,9 @@ class Camera2CaptureCallback(
     override fun onCaptureSequenceAborted(session: CameraCaptureSession?, sequenceId: Int) {
         MainActivity.logd("captureStillPicture captureCallback: Sequence aborted. Current test: " +
             testConfig.currentRunningTest.toString())
-        super.onCaptureSequenceAborted(session, sequenceId)
+
+        if (session != null)
+            super.onCaptureSequenceAborted(session, sequenceId)
     }
 
     override fun onCaptureFailed(
@@ -60,7 +62,9 @@ class Camera2CaptureCallback(
         // The session failed. Let's just try again (yay infinite loops)
         closePreviewAndCamera(activity, params, testConfig)
         camera2OpenCamera(activity, params, testConfig)
-        super.onCaptureFailed(session, request, failure)
+
+        if (session != null && request != null && failure != null)
+            super.onCaptureFailed(session, request, failure)
     }
 
     override fun onCaptureStarted(
@@ -71,7 +75,9 @@ class Camera2CaptureCallback(
     ) {
         MainActivity.logd("captureStillPicture captureCallback: Capture Started. Current test: " +
             testConfig.currentRunningTest.toString() + ", frame number: " + frameNumber)
-        super.onCaptureStarted(session, request, timestamp, frameNumber)
+
+        if (session != null && request != null)
+            super.onCaptureStarted(session, request, timestamp, frameNumber)
     }
 
     override fun onCaptureProgressed(
@@ -81,7 +87,9 @@ class Camera2CaptureCallback(
     ) {
         MainActivity.logd("captureStillPicture captureCallback: Capture progressed. " +
             "Current test: " + testConfig.currentRunningTest.toString())
-        super.onCaptureProgressed(session, request, partialResult)
+
+        if (session != null && request != null && partialResult != null)
+            super.onCaptureProgressed(session, request, partialResult)
     }
 
     override fun onCaptureBufferLost(
@@ -92,7 +100,9 @@ class Camera2CaptureCallback(
     ) {
         MainActivity.logd("captureStillPicture captureCallback: Buffer lost. Current test: " +
             testConfig.currentRunningTest.toString())
-        super.onCaptureBufferLost(session, request, target, frameNumber)
+
+        if (session != null && request != null && target != null)
+            super.onCaptureBufferLost(session, request, target, frameNumber)
     }
 
     override fun onCaptureCompleted(
@@ -110,7 +120,8 @@ class Camera2CaptureCallback(
 
         params.timer.captureEnd = System.currentTimeMillis()
 
-        params.captureRequestBuilder?.removeTarget(params.imageReader?.surface)
+        if (params.imageReader?.surface != null)
+            params.captureRequestBuilder?.removeTarget(params.imageReader?.surface!!)
 
         // ImageReader might get the image before this callback is called, if so, the test is done
         if (0L != params.timer.imageSaveEnd) {

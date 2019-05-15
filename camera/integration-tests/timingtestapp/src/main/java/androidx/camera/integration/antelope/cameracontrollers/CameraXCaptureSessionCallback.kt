@@ -43,7 +43,9 @@ class CameraXCaptureSessionCallback(
     override fun onCaptureSequenceAborted(session: CameraCaptureSession?, sequenceId: Int) {
         MainActivity.logd("CameraX captureCallback: Sequence aborted. Current test: " +
             testConfig.currentRunningTest.toString())
-        super.onCaptureSequenceAborted(session, sequenceId)
+
+        if (session != null)
+            super.onCaptureSequenceAborted(session, sequenceId)
     }
 
     /** Capture has failed, try to restart */
@@ -66,7 +68,8 @@ class CameraXCaptureSessionCallback(
         frameNumber: Long
     ) {
         // MainActivity.logd("CameraX captureStillPicture captureCallback: Capture Started.")
-        super.onCaptureStarted(session, request, timestamp, frameNumber)
+        if (session != null && request != null)
+            super.onCaptureStarted(session, request, timestamp, frameNumber)
     }
 
     /** Unused but retained here as it can be useful for debugging  */
@@ -76,7 +79,8 @@ class CameraXCaptureSessionCallback(
         partialResult: CaptureResult?
     ) {
         // MainActivity.logd("CameraX captureStillPicture captureCallback: Capture progressed.")
-        super.onCaptureProgressed(session, request, partialResult)
+        if (session != null && request != null && partialResult != null)
+            super.onCaptureProgressed(session, request, partialResult)
     }
 
     /** Unused but retained here as it can be useful for debugging  */
@@ -87,7 +91,8 @@ class CameraXCaptureSessionCallback(
         frameNumber: Long
     ) {
         // MainActivity.logd("CameraX captureStillPicture captureCallback: Buffer lost.")
-        super.onCaptureBufferLost(session, request, target, frameNumber)
+        if (session != null && request != null && target != null)
+            super.onCaptureBufferLost(session, request, target, frameNumber)
     }
 
     /**

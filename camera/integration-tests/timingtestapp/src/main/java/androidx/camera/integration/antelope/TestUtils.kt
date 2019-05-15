@@ -25,6 +25,7 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import kotlin.collections.ArrayList
 import kotlin.math.roundToInt
+import android.R.attr.versionName
 
 /**
  * During a multiple-test run, this should be called after each test is completed. Record the result
@@ -58,7 +59,7 @@ fun postTestResults(activity: MainActivity, testConfig: TestConfig) {
 
         activity.resetUIAfterTest()
         activity.updateLog(log)
-        writeCSV(activity, DeviceInfo(activity).deviceShort, csv)
+        writeCSV(activity, DeviceInfo().deviceShort, csv)
     } else {
         autoTestRunner(activity)
     }
@@ -141,7 +142,7 @@ fun setupAutoTestRunner(activity: MainActivity) {
     MainActivity.autoTestConfigs.clear()
     val cameras: ArrayList<String> = PrefHelper.getCameraIds(activity, MainActivity.cameraParams)
     val logicalCameras: ArrayList<String> =
-        PrefHelper.getLogicalCameraIds(activity, MainActivity.cameraParams)
+        PrefHelper.getLogicalCameraIds(MainActivity.cameraParams)
     val apis: ArrayList<CameraAPI> = PrefHelper.getAPIs(activity)
     val imageSizes: ArrayList<ImageCaptureSize> = PrefHelper.getImageSizes(activity)
     val focusModes: ArrayList<FocusMode> = PrefHelper.getFocusModes(activity)
