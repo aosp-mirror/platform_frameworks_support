@@ -16,6 +16,24 @@
       "revId": "61b6c1b6727851251bf33bc800089c8d3e4a6b18",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eaa61715_9803808e",
+        "filename": "loader/src/main/java/androidx/loader/content/AsyncTaskLoader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-05-15T16:21:31Z",
+      "side": 1,
+      "message": "Yes, they are needed for @link to work when we build docs. Otherwise we have to specify full package name in the javadocs.",
+      "parentUuid": "063bd09e_96c9a645",
+      "revId": "61b6c1b6727851251bf33bc800089c8d3e4a6b18",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
