@@ -186,6 +186,30 @@
     },
     {
       "key": {
+        "uuid": "031bb0f7_40423845",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaController.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1682,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-05-15T06:56:43Z",
+      "side": 1,
+      "message": "Good point. I am ashamed that I voted +2 too early.",
+      "parentUuid": "46f136b9_330485a3",
+      "range": {
+        "startLine": 1682,
+        "startChar": 27,
+        "endLine": 1682,
+        "endChar": 32
+      },
+      "revId": "6b72982f956e629c11813a0d9cffcad4e7f79804",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9f648c71_f66c478b",
         "filename": "media2/session/src/main/java/androidx/media2/session/MediaController.java",
         "patchSetId": 10
