@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "1e80af27_54d5b4f2",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/vectorgraphics/compat/VectorImage.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-05-15T00:32:58Z",
+      "side": 1,
+      "message": "This name is ambiguous, as it can be mistaken that vector supports displaying images. What about VectorCacheBuilder, or just VectorBuilder?",
+      "range": {
+        "startLine": 53,
+        "startChar": 6,
+        "endLine": 53,
+        "endChar": 24
+      },
+      "revId": "592b04fb347782f0abf61f07a95d55c01d467d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "29612c44_7df07a23",
         "filename": "ui/framework/src/main/java/androidx/ui/core/vectorgraphics/compat/VectorImage.kt",
         "patchSetId": 4
