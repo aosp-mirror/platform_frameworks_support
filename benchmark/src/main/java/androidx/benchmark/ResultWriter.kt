@@ -16,6 +16,7 @@
 
 package androidx.benchmark
 
+import android.os.Build
 import android.os.Environment
 import android.util.JsonWriter
 import androidx.annotation.VisibleForTesting
@@ -55,26 +56,49 @@ internal object ResultWriter {
             val writer = JsonWriter(bufferedWriter())
             writer.setIndent("    ")
 
-            writer.beginArray()
-            reports.forEach { it.write(writer) }
+            writer.beginObject()
+
+            writer.name("context").beginObject()
+                .name("build").buildInfoObject()
+                .name("cpuLocked").value(Clocks.areLocked)
+                .name("sustainedPerformanceModeEnabled")
+                .value(AndroidBenchmarkRunner.sustainedPerformanceModeInUse)
+            writer.endObject()
+
+            writer.name("benchmarks").beginArray()
+            reports.forEach { writer.reportObject(it) }
             writer.endArray()
+
+            writer.endObject()
 
             writer.flush()
             writer.close()
         }
     }
 
-    private fun BenchmarkState.Report.write(writer: JsonWriter): JsonWriter {
-        writer.beginObject()
-            .name("name").value(testName)
-            .name("className").value(className)
-            .name("minimumNs").value(minimum)
-            .name("maximumNs").value(maximum)
-            .name("medianNs").value(median)
-            .name("warmupIterations").value(warmupIterations)
-            .name("repeatIterations").value(repeatIterations)
-            .name("runsNs").beginArray().also { data.forEach { writer.value(it) } }.endArray()
-        writer.endObject()
-        return writer
+    private fun JsonWriter.buildInfoObject(): JsonWriter {
+        beginObject()
+            .name("device").value(Build.DEVICE)
+            .name("fingerprint").value(Build.FINGERPRINT)
+            .name("model").value(Build.MODEL)
+            .name("version").beginObject().name("sdk").value(Build.VERSION.SDK_INT).endObject()
+        return endObject()
+    }
+
+    private fun JsonWriter.reportObject(report: BenchmarkState.Report): JsonWriter {
+        beginObject()
+            .name("name").value(report.testName)
+            .name("className").value(report.className)
+            .name("minimumNs").value(report.minimum)
+            .name("maximumNs").value(report.maximum)
+            .name("medianNs").value(report.median)
+            .name("warmupIterations").value(report.warmupIterations)
+            .name("repeatIterations").value(report.repeatIterations)
+
+        name("runsNs").beginArray()
+        report.data.forEach { value(it) }
+        endArray()
+
+        return endObject()
     }
 }
