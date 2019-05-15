@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "fc6b2d7b_18e1b73f",
+        "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/AnimationGestureSemanticsActivity.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-05-15T06:50:35Z",
+      "side": 1,
+      "message": "\u003e I feel it would be awkward for a Composable function to return a value, and have a side effect of emitting semantics.\n\nI agree (it\u0027s also impossible, currently - Composable functions can\u0027t return values) and I don\u0027t think that would be a good thing to add.\n\nI guess it\u0027s probably alright for a shortcut API to be awkward to use to add too many things, since as you point out, they can drop down to the lower-level API.\n\nWould we also remove the passing to the child lambda with node merging?  If not, what would be the use-case for that then?",
+      "parentUuid": "b50c36c1_19d7e6e0",
+      "revId": "68b1c94816897505f499bb8a8222339162833f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a4df8c34_89e8c2da",
         "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/SemanticsL2.kt",
         "patchSetId": 1
@@ -230,6 +248,24 @@
     },
     {
       "key": {
+        "uuid": "7f6c6590_92f12506",
+        "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/SemanticsL2.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-05-15T06:50:35Z",
+      "side": 1,
+      "message": "Fair, agreed that we can address that later.  I think the larger problem is that the concept of having a label for both an action and the component it\u0027s on is somewhat confusing (in large part because they would often, but not always, be the same), and not that the word for those is the same.",
+      "parentUuid": "13b499ab_35c7486c",
+      "revId": "68b1c94816897505f499bb8a8222339162833f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4956f317_116d370b",
         "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/SemanticsL2.kt",
         "patchSetId": 1
@@ -262,6 +298,24 @@
       "revId": "68b1c94816897505f499bb8a8222339162833f7f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "79c730c6_459647fe",
+        "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/SemanticsL2.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-05-15T06:50:35Z",
+      "side": 1,
+      "message": "What happens if the user passes a lambda that takes a PxPosition and supplies and action that takes a Boolean as its parameter?",
+      "parentUuid": "9b10eef7_3d51146c",
+      "revId": "68b1c94816897505f499bb8a8222339162833f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     },
     {
       "key": {
@@ -300,6 +354,24 @@
     },
     {
       "key": {
+        "uuid": "efb9c02c_a3a90fe1",
+        "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/SemanticsL2.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-05-15T06:50:35Z",
+      "side": 1,
+      "message": "Is it really a semantic action if it doesn\u0027t convey any semantic information whatsoever?  I don\u0027t know if that\u0027s something we should be including in Semantics (assuming \"other frameworks\" refers to clients of Semantics, i.e., a11y, autofill, assist, etc.).  I\u0027m not sure every gesture detector callback needs to (or should) go through Semantics.",
+      "parentUuid": "78763f45_7bf7c970",
+      "revId": "68b1c94816897505f499bb8a8222339162833f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0e338f1c_88bb54d7",
         "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/SemanticsL3.kt",
         "patchSetId": 1
@@ -332,6 +404,24 @@
       "revId": "68b1c94816897505f499bb8a8222339162833f7f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "19d7b1a1_c3bc597a",
+        "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/SemanticsL3.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-05-15T06:50:35Z",
+      "side": 1,
+      "message": "My assumption was that this was intended to be the component that 95%+ of users would use to make something clickable.  In that scenario, I\u0027m not sure what users would want with a press.  They would only care about a full press/release (AKA click).  I would assume it would also trigger from a keypress once we add key input.  If that assumption is wrong, what is the intention of this?\n\n\u003e If a user wants to detect a click and not emit any semantics, I would assume they would use the gesture detector directly.\n\nWe should be discouraging this - it would almost never be correct.",
+      "parentUuid": "baa886b9_18e64311",
+      "revId": "68b1c94816897505f499bb8a8222339162833f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     },
     {
       "key": {
@@ -370,6 +460,24 @@
     },
     {
       "key": {
+        "uuid": "958525a2_e74bda27",
+        "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/SemanticsL3.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-05-15T06:50:35Z",
+      "side": 1,
+      "message": "What I meant is - pressing on most components has no semantic meaning.  Only the combination of press/release (i.e., a click) does.  Thus, most clients of this would not want this (assuming my assumption described above is correct)",
+      "parentUuid": "fabdf8a4_586247f1",
+      "revId": "68b1c94816897505f499bb8a8222339162833f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7c2d2024_4fd3f8f8",
         "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/SemanticsL3.kt",
         "patchSetId": 1
@@ -402,6 +510,24 @@
       "revId": "68b1c94816897505f499bb8a8222339162833f7f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fd518192_9a08fb1e",
+        "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/SemanticsL3.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-05-15T06:50:35Z",
+      "side": 1,
+      "message": "With this API, you can easily create a ClickInteraction that\u0027s completely invisible to a11y.  In fact, it\u0027s the default - you have to explicitly add AccessibilityAction.Primary to the list.  We shouldn\u0027t do that - click interactions should expose their click actions to a11y by default, without requiring opt-in.  (again, this assumes ClickInteraction is intended for use by the majority of users as the way to make things clickable)",
+      "parentUuid": "00fd4e88_fd4c1913",
+      "revId": "68b1c94816897505f499bb8a8222339162833f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     },
     {
       "key": {
@@ -472,6 +598,24 @@
       "revId": "68b1c94816897505f499bb8a8222339162833f7f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0ea5e866_0545efe5",
+        "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/SemanticsL3.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-05-15T06:50:35Z",
+      "side": 1,
+      "message": "This doesn\u0027t really address that - you have both a builder method (`action(...)`) and a setter (`action \u003d ...`).\n\nI\u0027m not sure how having both of these allows you to specify default values that are specific to the use case.",
+      "parentUuid": "6b7e5ebf_805e0947",
+      "revId": "68b1c94816897505f499bb8a8222339162833f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
