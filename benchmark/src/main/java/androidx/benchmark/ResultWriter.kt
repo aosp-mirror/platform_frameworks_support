@@ -16,6 +16,7 @@
 
 package androidx.benchmark
 
+import android.os.Build
 import android.os.Environment
 import android.util.JsonWriter
 import androidx.annotation.VisibleForTesting
@@ -55,9 +56,22 @@ internal object ResultWriter {
             val writer = JsonWriter(bufferedWriter())
             writer.setIndent("    ")
 
-            writer.beginArray()
+            writer.beginObject()
+
+            writer.name("context").beginObject()
+                .name("os").value(Build.VERSION.SDK_INT)
+                .name("device").value(Build.DEVICE)
+                .name("model").value(Build.MODEL)
+                .name("cpuLocked").value(Clocks.areLocked)
+                .name("sustainedPerformanceModeEnabled")
+                .value(AndroidBenchmarkRunner.sustainedPerformanceModeInUse)
+            writer.endObject()
+
+            writer.name("benchmarks").beginArray()
             reports.forEach { it.write(writer) }
             writer.endArray()
+
+            writer.endObject()
 
             writer.flush()
             writer.close()
