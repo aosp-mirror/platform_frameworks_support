@@ -124,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "499611fe_6fccc909",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/ImageCaptureExtender.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-05-15T04:43:39Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "7333699b_e80bc019",
+      "revId": "70eccbb390a74d40cd9a83db05906c81ea1a4ff6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7444444f_dba6abf0",
         "filename": "camera/extensions/src/main/java/androidx/camera/extensions/ImageCaptureExtender.java",
         "patchSetId": 7
@@ -210,6 +228,24 @@
       "revId": "70eccbb390a74d40cd9a83db05906c81ea1a4ff6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a317ec9b_ec0d86af",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/ImageCaptureExtender.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1475857
+      },
+      "writtenOn": "2019-05-15T04:43:39Z",
+      "side": 1,
+      "message": "Got it, remove the code that to post the onDeInit() to mainthread.",
+      "parentUuid": "7bc65f2b_da8ef761",
+      "revId": "70eccbb390a74d40cd9a83db05906c81ea1a4ff6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
