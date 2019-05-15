@@ -34,7 +34,9 @@ class ResultWriterTest {
     private val reportA = BenchmarkState.Report(
         testName = "MethodA",
         className = "package.Class1",
-        nanos = 100,
+        minimum = 100,
+        maximum = 102,
+        median = 101,
         data = listOf(100, 101, 102),
         repeatIterations = 100000,
         warmupIterations = 8000
@@ -42,7 +44,9 @@ class ResultWriterTest {
     private val reportB = BenchmarkState.Report(
         testName = "MethodB",
         className = "package.Class2",
-        nanos = 100,
+        minimum = 100,
+        maximum = 102,
+        median = 101,
         data = listOf(100, 101, 102),
         repeatIterations = 100000,
         warmupIterations = 8000
@@ -66,6 +70,7 @@ class ResultWriterTest {
     fun validateJson() {
         val tempFile = tempFolder.newFile()
 
+        ResultWriter.reports.clear()
         ResultWriter.appendReport(reportA)
         ResultWriter.appendReport(reportB)
         ResultWriter.writeReport(tempFile)
@@ -76,10 +81,12 @@ class ResultWriterTest {
                 {
                     "name": "MethodA",
                     "className": "package.Class1",
-                    "nanos": 100,
+                    "minimumNs": 100,
+                    "maximumNs": 102,
+                    "medianNs": 101,
                     "warmupIterations": 8000,
                     "repeatIterations": 100000,
-                    "runs": [
+                    "runsNs": [
                         100,
                         101,
                         102
@@ -88,10 +95,12 @@ class ResultWriterTest {
                 {
                     "name": "MethodB",
                     "className": "package.Class2",
-                    "nanos": 100,
+                    "minimumNs": 100,
+                    "maximumNs": 102,
+                    "medianNs": 101,
                     "warmupIterations": 8000,
                     "repeatIterations": 100000,
-                    "runs": [
+                    "runsNs": [
                         100,
                         101,
                         102
