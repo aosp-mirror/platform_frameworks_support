@@ -54,6 +54,7 @@ import android.support.v4.media.session.PlaybackStateCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.Surface;
 
 import androidx.annotation.GuardedBy;
 import androidx.annotation.NonNull;
@@ -69,6 +70,7 @@ import androidx.media2.common.MediaItem;
 import androidx.media2.common.MediaMetadata;
 import androidx.media2.common.SessionPlayer;
 import androidx.media2.common.SessionPlayer.PlayerResult;
+import androidx.media2.common.VideoSize;
 import androidx.media2.session.MediaSession.ControllerCb;
 import androidx.media2.session.MediaSession.ControllerInfo;
 import androidx.media2.session.MediaSession.SessionCallback;
@@ -98,7 +100,7 @@ class MediaSessionImplBase implements MediaSession.MediaSessionImpl {
     private static ComponentName sServiceComponentName;
 
     static final String TAG = "MSImplBase";
-    static final boolean DEBUG = true; //Log.isLoggable(TAG, Log.DEBUG);
+    static final boolean DEBUG = Log.isLoggable(TAG, Log.DEBUG);
 
     private static final SessionResult RESULT_WHEN_CLOSED = new SessionResult(RESULT_INFO_SKIPPED);
 
@@ -839,6 +841,26 @@ class MediaSessionImplBase implements MediaSession.MediaSessionImpl {
         });
     }
 
+    @Override
+    public VideoSize getVideoSize() {
+        return dispatchPlayerTask(new PlayerTask<VideoSize>() {
+            @Override
+            public VideoSize run(@NonNull SessionPlayer player) {
+                return player.getVideoSizeInternal();
+            }
+        }, new VideoSize(0, 0));
+    }
+
+    @Override
+    public ListenableFuture<PlayerResult> setSurface(final Surface surface) {
+        return dispatchPlayerTask(new PlayerTask<ListenableFuture<PlayerResult>>() {
+            @Override
+            public ListenableFuture<PlayerResult> run(@NonNull SessionPlayer player) {
+                return player.setSurfaceInternal(surface);
+            }
+        });
+    }
+
     ///////////////////////////////////////////////////
     // package private and private methods
     ///////////////////////////////////////////////////
@@ -1419,6 +1441,17 @@ class MediaSessionImplBase implements MediaSession.MediaSessionImpl {
             if (!ObjectsCompat.equals(newInfo, oldInfo)) {
                 session.notifyPlaybackInfoChangedNotLocked(newInfo);
             }
+        }
+
+        @Override
+        public void onVideoSizeChangedInternal(final @NonNull SessionPlayer player,
+                final @NonNull MediaItem item, final @NonNull VideoSize videoSize) {
+            dispatchRemoteControllerTask(player, new RemoteControllerTask() {
+                @Override
+                public void run(ControllerCb callback, int seq) throws RemoteException {
+                    callback.onVideoSizeChanged(seq, item, videoSize);
+                }
+            });
         }
 
         private MediaSessionImplBase getSession() {

@@ -16,11 +16,16 @@
 
 package androidx.media2.session;
 
+import android.view.Surface;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.util.Pair;
 import androidx.media.AudioAttributesCompat;
 import androidx.media2.common.MediaItem;
 import androidx.media2.common.MediaMetadata;
 import androidx.media2.common.SessionPlayer;
+import androidx.media2.common.VideoSize;
 
 import com.google.common.util.concurrent.ListenableFuture;
 
@@ -59,6 +64,8 @@ public class MockPlayer extends SessionPlayer {
     public int mNextMediaItemIndex;
     public @RepeatMode int mRepeatMode = -1;
     public @ShuffleMode int mShuffleMode = -1;
+    public VideoSize mVideoSize = new VideoSize(0, 0);
+    public Surface mSurface;
 
     public boolean mSetPlaylistCalled;
     public boolean mUpdatePlaylistMetadataCalled;
@@ -462,5 +469,37 @@ public class MockPlayer extends SessionPlayer {
                 }
             });
         }
+    }
+
+    @Override
+    @NonNull
+    public VideoSize getVideoSizeInternal() {
+        if (mVideoSize == null) {
+            mVideoSize = new VideoSize(0, 0);
+        }
+        return mVideoSize;
+    }
+
+    void notifyVideoSizeChanged(final VideoSize videoSize) {
+        mVideoSize = videoSize;
+        final MediaItem dummyItem = TestUtils.createMediaItem("onVideoSizeChanged");
+
+        List<Pair<PlayerCallback, Executor>> callbacks = getCallbacks();
+        for (Pair<PlayerCallback, Executor> pair : callbacks) {
+            final PlayerCallback callback = pair.first;
+            pair.second.execute(new Runnable() {
+                @Override
+                public void run() {
+                    callback.onVideoSizeChangedInternal(MockPlayer.this, dummyItem, videoSize);
+                }
+            });
+        }
+    }
+
+    @Override
+    @NonNull
+    public ListenableFuture<PlayerResult> setSurfaceInternal(@Nullable Surface surface) {
+        mSurface = surface;
+        return new SyncListenableFuture(mCurrentMediaItem);
     }
 }

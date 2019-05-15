@@ -25,6 +25,7 @@ import static junit.framework.TestCase.assertFalse;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -42,6 +43,7 @@ import androidx.media2.common.FileMediaItem;
 import androidx.media2.common.MediaItem;
 import androidx.media2.common.SessionPlayer;
 import androidx.media2.common.SessionPlayer.PlayerResult;
+import androidx.media2.common.SubtitleData;
 import androidx.media2.player.MediaPlayer.TrackInfo;
 import androidx.media2.player.TestUtils.Monitor;
 import androidx.media2.player.test.R;
@@ -607,7 +609,7 @@ public class MediaPlayerTest extends MediaPlayerTestBase {
             }
 
             @Override
-            public void onSubtitleData(MediaPlayer mp, MediaItem dsd, SubtitleData data) {
+            public void onSubtitleData(SessionPlayer player, MediaItem item, SubtitleData data) {
                 if (data != null && data.getData() != null) {
                     mOnSubtitleDataCalled.signal();
                 }
@@ -664,7 +666,7 @@ public class MediaPlayerTest extends MediaPlayerTestBase {
 
             @Override
             public void onSubtitleData(
-                    MediaPlayer mp, MediaItem dsd, SubtitleData data) {
+                    SessionPlayer player, MediaItem item, SubtitleData data) {
                 if (data != null && data.getData() != null) {
                     mOnSubtitleDataCalled.signal();
                 }
@@ -1128,6 +1130,23 @@ public class MediaPlayerTest extends MediaPlayerTestBase {
         assertEquals(MediaPlayer.PLAYER_STATE_IDLE, mPlayer.getPlayerState());
 
         mPlayer.unregisterPlayerCallback(callback);
+    }
+
+    @Test
+    @LargeTest
+    @SdkSuppress(minSdkVersion = Build.VERSION_CODES.KITKAT)
+    public void testSetPlaybackSpeedWithIllegalArguments() throws Throwable {
+        // Zero is not allowed.
+        ListenableFuture<PlayerResult> future = mPlayer.setPlaybackSpeed(0.0f);
+        PlayerResult result = future.get();
+        assertNotNull(result);
+        assertEquals(RESULT_ERROR_BAD_VALUE, result.getResultCode());
+
+        // Negative values are not allowed.
+        future = mPlayer.setPlaybackSpeed(-1.0f);
+        result = future.get();
+        assertNotNull(result);
+        assertEquals(RESULT_ERROR_BAD_VALUE, result.getResultCode());
     }
 
     @Test

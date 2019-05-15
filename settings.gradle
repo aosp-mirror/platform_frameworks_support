@@ -91,11 +91,11 @@ includeProject(":heifwriter", "heifwriter")
 includeProject(":interpolator", "interpolator")
 includeProject(":jetifier-core", "jetifier/jetifier/core")
 includeProject(":jetifier-processor", "jetifier/jetifier/processor")
-includeProject(":jetifier-gradle-plugin", "jetifier/jetifier/gradle-plugin")
 includeProject(":jetifier-standalone", "jetifier/jetifier/standalone")
 includeProject(":jetifier-preprocessor", "jetifier/jetifier/preprocessor")
 includeProject(":leanback", "leanback")
 includeProject(":leanback-preference", "leanback-preference")
+includeProject(":lifecycle:integration-tests:incrementality", "lifecycle/integration-tests/incrementality")
 includeProject(":lifecycle:integration-tests:lifecycle-testapp", "lifecycle/integration-tests/testapp")
 includeProject(":lifecycle:integration-tests:lifecycle-testapp-kotlin", "lifecycle/integration-tests/kotlintestapp")
 includeProject(":lifecycle:lifecycle-common", "lifecycle/common")
@@ -253,6 +253,7 @@ includeProject(":support-wear-demos", new File(samplesRoot, "SupportWearDemos"))
 /////////////////////////////
 
 includeProject(":internal-testutils", "testutils")
+includeProject(":internal-testutils-common", "testutils-common")
 includeProject(":internal-testutils-ktx", "testutils-ktx")
 
 /////////////////////////////

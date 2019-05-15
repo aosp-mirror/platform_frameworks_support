@@ -16,6 +16,7 @@
 
 package androidx.media2.session;
 
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 import static androidx.media2.common.SessionPlayer.BUFFERING_STATE_UNKNOWN;
 import static androidx.media2.common.SessionPlayer.PLAYER_STATE_IDLE;
@@ -32,6 +33,7 @@ import android.os.ResultReceiver;
 import android.support.v4.media.MediaBrowserCompat;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.text.TextUtils;
+import android.view.Surface;
 
 import androidx.annotation.GuardedBy;
 import androidx.annotation.IntDef;
@@ -48,6 +50,7 @@ import androidx.media2.common.Rating;
 import androidx.media2.common.SessionPlayer;
 import androidx.media2.common.SessionPlayer.RepeatMode;
 import androidx.media2.common.SessionPlayer.ShuffleMode;
+import androidx.media2.common.VideoSize;
 import androidx.media2.session.MediaSession.CommandButton;
 import androidx.versionedparcelable.ParcelField;
 import androidx.versionedparcelable.VersionedParcelable;
@@ -124,6 +127,9 @@ public class MediaController implements AutoCloseable {
     @GuardedBy("mLock")
     boolean mClosed;
 
+    final ControllerCallback mCallback;
+    final Executor mCallbackExecutor;
+
     // For testing.
     Long mTimeDiff;
 
@@ -144,8 +150,10 @@ public class MediaController implements AutoCloseable {
         if (token == null) {
             throw new NullPointerException("token shouldn't be null");
         }
+        mCallback = callback;
+        mCallbackExecutor = executor;
         synchronized (mLock) {
-            mImpl = createImpl(context, token, connectionHints, executor, callback);
+            mImpl = createImpl(context, token, connectionHints);
         }
     }
 
@@ -166,6 +174,8 @@ public class MediaController implements AutoCloseable {
         if (token == null) {
             throw new NullPointerException("token shouldn't be null");
         }
+        mCallback = callback;
+        mCallbackExecutor = executor;
         SessionToken.createSessionToken(context, token, executor,
                 new SessionToken.OnSessionTokenCreatedListener() {
                     @Override
@@ -173,12 +183,11 @@ public class MediaController implements AutoCloseable {
                             SessionToken token2) {
                         synchronized (mLock) {
                             if (!mClosed) {
-                                mImpl = createImpl(context, token2, connectionHints, executor,
-                                        callback);
+                                mImpl = createImpl(context, token2, connectionHints);
                             } else {
-                                executor.execute(new Runnable() {
+                                notifyControllerCallback(new ControllerCallbackRunnable() {
                                     @Override
-                                    public void run() {
+                                    public void run(@NonNull ControllerCallback callback) {
                                         callback.onDisconnected(MediaController.this);
                                     }
                                 });
@@ -189,13 +198,11 @@ public class MediaController implements AutoCloseable {
     }
 
     MediaControllerImpl createImpl(@NonNull Context context, @NonNull SessionToken token,
-            @Nullable Bundle connectionHints, @Nullable Executor executor,
-            @Nullable ControllerCallback callback) {
+            @Nullable Bundle connectionHints) {
         if (token.isLegacySession()) {
-            return new MediaControllerImplLegacy(context, this, token, executor, callback);
+            return new MediaControllerImplLegacy(context, this, token);
         } else {
-            return new MediaControllerImplBase(context, this, token, connectionHints, executor,
-                    callback);
+            return new MediaControllerImplBase(context, this, token, connectionHints);
         }
     }
 
@@ -1070,6 +1077,38 @@ public class MediaController implements AutoCloseable {
     }
 
     /**
+     * Gets the cached video size from the {@link ControllerCallback#onVideoSizeChanged}.
+     * If it is not connected yet, it returns {@code new VideoSize(0, 0)}.
+     *
+     * @return The video size
+     *
+     * @hide
+     */
+    @RestrictTo(LIBRARY_GROUP)
+    @NonNull
+    public VideoSize getVideoSize() {
+        return isConnected() ? getImpl().getVideoSize() : new VideoSize(0, 0);
+    }
+
+    /**
+     * Sets the {@link Surface} to be used as the sink for the video portion of the media.
+     * <p>
+     * This calls {@link SessionPlayer#setSurfaceInternal(Surface)}.
+     *
+     * @param surface The {@link Surface} to be used for the video portion of the media.
+     * @return a {@link ListenableFuture} which represents the pending completion of the command.
+     *
+     * @hide
+     */
+    @RestrictTo(LIBRARY_GROUP)
+    public ListenableFuture<SessionResult> setSurface(@Nullable Surface surface) {
+        if (isConnected()) {
+            return getImpl().setSurface(surface);
+        }
+        return createDisconnectedFuture();
+    }
+
+    /**
      * Sets the time diff forcefully when calculating current position.
      * @param timeDiff {@code null} for reset.
      *
@@ -1085,14 +1124,19 @@ public class MediaController implements AutoCloseable {
                 SessionResult.RESULT_ERROR_SESSION_DISCONNECTED);
     }
 
-    @Nullable
-    ControllerCallback getCallback() {
-        return isConnected() ? getImpl().getCallback() : null;
+    void notifyControllerCallback(final ControllerCallbackRunnable callbackRunnable) {
+        if (mCallback != null && mCallbackExecutor != null) {
+            mCallbackExecutor.execute(new Runnable() {
+                @Override
+                public void run() {
+                    callbackRunnable.run(mCallback);
+                }
+            });
+        }
     }
 
-    @Nullable
-    Executor getCallbackExecutor() {
-        return isConnected() ? getImpl().getCallbackExecutor() : null;
+    interface ControllerCallbackRunnable {
+        void run(@NonNull ControllerCallback callback);
     }
 
     interface MediaControllerImpl extends AutoCloseable {
@@ -1155,12 +1199,11 @@ public class MediaController implements AutoCloseable {
         ListenableFuture<SessionResult> setRepeatMode(@RepeatMode int repeatMode);
         @ShuffleMode int getShuffleMode();
         ListenableFuture<SessionResult> setShuffleMode(@ShuffleMode int shuffleMode);
+        @NonNull VideoSize getVideoSize();
+        ListenableFuture<SessionResult> setSurface(@Nullable Surface surface);
 
         // Internally used methods
-        @NonNull MediaController getInstance();
         @NonNull Context getContext();
-        @Nullable ControllerCallback getCallback();
-        @Nullable Executor getCallbackExecutor();
         @Nullable MediaBrowserCompat getBrowserCompat();
     }
 
@@ -1579,6 +1622,19 @@ public class MediaController implements AutoCloseable {
          * @param controller the controller for this event
          */
         public void onPlaybackCompleted(@NonNull MediaController controller) {}
+
+        /**
+         * Called when video size is changed.
+         *
+         * @param controller the controller for this event
+         * @param item the media item for which the video size changed
+         * @param videoSize the size of video
+         *
+         * @hide
+         */
+        @RestrictTo(LIBRARY_GROUP)
+        public void onVideoSizeChanged(@NonNull MediaController controller, @NonNull MediaItem item,
+                @NonNull VideoSize videoSize) {}
     }
 
     /**

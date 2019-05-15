@@ -15,12 +15,16 @@
  */
 package androidx.camera.extensions.impl;
 
+import android.content.Context;
 import android.hardware.camera2.CameraCharacteristics;
 import android.hardware.camera2.CaptureRequest;
+import android.hardware.camera2.TotalCaptureResult;
 import android.media.Image;
 import android.media.ImageWriter;
 import android.os.Build;
 import android.util.Log;
+import android.util.Pair;
+import android.util.Size;
 import android.view.Surface;
 
 import java.nio.ByteBuffer;
@@ -37,6 +41,7 @@ import java.util.Map;
 public final class BokehImageCaptureExtenderImpl implements ImageCaptureExtenderImpl {
     private static final String TAG = "BokehICExtender";
     private static final int DEFAULT_STAGE_ID = 0;
+    private static final int SESSION_STAGE_ID = 101;
 
     public BokehImageCaptureExtenderImpl() {
     }
@@ -77,10 +82,10 @@ public final class BokehImageCaptureExtenderImpl implements ImageCaptureExtender
                     }
 
                     @Override
-                    public void process(Map<Integer, Image> images) {
+                    public void process(Map<Integer, Pair<Image, TotalCaptureResult>> results) {
                         Log.d(TAG, "Started bokeh CaptureProcessor");
 
-                        Image result = images.get(DEFAULT_STAGE_ID);
+                        Pair<Image, TotalCaptureResult> result = results.get(DEFAULT_STAGE_ID);
 
                         if (result == null) {
                             Log.w(TAG,
@@ -97,9 +102,9 @@ public final class BokehImageCaptureExtenderImpl implements ImageCaptureExtender
                                 ByteBuffer vByteBuffer = image.getPlanes()[1].getBuffer();
 
                                 // Sample here just simply copy/paste the capture image result
-                                yByteBuffer.put(result.getPlanes()[0].getBuffer());
-                                uByteBuffer.put(result.getPlanes()[2].getBuffer());
-                                vByteBuffer.put(result.getPlanes()[1].getBuffer());
+                                yByteBuffer.put(result.first.getPlanes()[0].getBuffer());
+                                uByteBuffer.put(result.first.getPlanes()[2].getBuffer());
+                                vByteBuffer.put(result.first.getPlanes()[1].getBuffer());
 
                                 mImageWriter.queueInputImage(image);
                             }
@@ -107,7 +112,67 @@ public final class BokehImageCaptureExtenderImpl implements ImageCaptureExtender
 
                         Log.d(TAG, "Completed bokeh CaptureProcessor");
                     }
+
+                    @Override
+                    public void onResolutionUpdate(Size size) {
+
+                    }
+
+                    @Override
+                    public void onImageFormatUpdate(int imageFormat) {
+
+                    }
                 };
         return captureProcessor;
     }
+
+    @Override
+    public void onInit(String cameraId, CameraCharacteristics cameraCharacteristics,
+            Context context) {
+
+    }
+
+    @Override
+    public void onDeInit() {
+
+    }
+
+    @Override
+    public CaptureStageImpl onPresetSession() {
+        // Set the necessary CaptureRequest parameters via CaptureStage, here we use some
+        // placeholder set of CaptureRequest.Key values
+        SettableCaptureStage captureStage = new SettableCaptureStage(SESSION_STAGE_ID);
+        captureStage.addCaptureRequestParameters(CaptureRequest.CONTROL_EFFECT_MODE,
+                CaptureRequest.CONTROL_EFFECT_MODE_SEPIA);
+
+        return captureStage;
+    }
+
+    @Override
+    public CaptureStageImpl onEnableSession() {
+        // Set the necessary CaptureRequest parameters via CaptureStage, here we use some
+        // placeholder set of CaptureRequest.Key values
+        SettableCaptureStage captureStage = new SettableCaptureStage(SESSION_STAGE_ID);
+        captureStage.addCaptureRequestParameters(CaptureRequest.CONTROL_EFFECT_MODE,
+                CaptureRequest.CONTROL_EFFECT_MODE_SEPIA);
+
+        return captureStage;
+    }
+
+    @Override
+    public CaptureStageImpl onDisableSession() {
+        // Set the necessary CaptureRequest parameters via CaptureStage, here we use some
+        // placeholder set of CaptureRequest.Key values
+        SettableCaptureStage captureStage = new SettableCaptureStage(SESSION_STAGE_ID);
+        captureStage.addCaptureRequestParameters(CaptureRequest.CONTROL_EFFECT_MODE,
+                CaptureRequest.CONTROL_EFFECT_MODE_SEPIA);
+
+        return captureStage;
+    }
+
+    @Override
+    public int getMaxCaptureStage() {
+        return 3;
+    }
+
 }

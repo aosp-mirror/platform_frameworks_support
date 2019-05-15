@@ -31,7 +31,6 @@ import androidx.test.filters.LargeTest
 import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
 import androidx.viewpager2.integration.testapp.FakeDragActivity
 import androidx.viewpager2.integration.testapp.R
-import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.ORIENTATION_HORIZONTAL
 import androidx.viewpager2.widget.ViewPager2.ORIENTATION_VERTICAL
 import org.junit.Before
@@ -44,7 +43,7 @@ import org.junit.runners.Parameterized
 class FakeDragTest(private val config: TestConfig) :
     BaseTest<FakeDragActivity>(FakeDragActivity::class.java) {
     data class TestConfig(
-        @ViewPager2.Orientation val orientation: Int
+        val orientation: Int
     )
 
     companion object {
@@ -100,7 +99,7 @@ class FakeDragTest(private val config: TestConfig) :
 
     private fun swipeNext(): ViewAction {
         return when (phoneOrientation) {
-            ORIENTATION_LANDSCAPE -> swipeDown()
+            ORIENTATION_LANDSCAPE -> swipeUp()
             ORIENTATION_PORTRAIT -> swipeLeft()
             else -> throw RuntimeException("Orientation should be landscape or portrait")
         }
@@ -108,7 +107,7 @@ class FakeDragTest(private val config: TestConfig) :
 
     private fun swipePrevious(): ViewAction {
         return when (phoneOrientation) {
-            ORIENTATION_LANDSCAPE -> swipeUp()
+            ORIENTATION_LANDSCAPE -> swipeDown()
             ORIENTATION_PORTRAIT -> swipeRight()
             else -> throw RuntimeException("Orientation should be landscape or portrait")
         }

@@ -16,6 +16,7 @@
 
 package androidx.camera.extensions.impl;
 
+import android.content.Context;
 import android.hardware.camera2.CameraCharacteristics;
 import android.hardware.camera2.CaptureRequest;
 
@@ -47,8 +48,44 @@ public final class HdrPreviewExtenderImpl implements PreviewExtenderImpl {
         // placeholder set of CaptureRequest.Key values
         SettableCaptureStage captureStage = new SettableCaptureStage(DEFAULT_STAGE_ID);
         captureStage.addCaptureRequestParameters(CaptureRequest.CONTROL_EFFECT_MODE,
-                CaptureRequest.CONTROL_EFFECT_MODE_SEPIA);
+                CaptureRequest.CONTROL_EFFECT_MODE_AQUA);
 
         return captureStage;
+    }
+
+    @Override
+    public ProcessorType getProcessorType() {
+        return ProcessorType.PROCESSOR_TYPE_REQUEST_UPDATE_ONLY;
+    }
+
+    @Override
+    public RequestUpdateProcessorImpl getRequestUpdatePreviewProcessor() {
+        return RequestUpdateProcessorImpls.noUpdateProcessor();
+    }
+
+    @Override
+    public void onInit(String cameraId, CameraCharacteristics cameraCharacteristics,
+            Context context) {
+
+    }
+
+    @Override
+    public void onDeInit() {
+
+    }
+
+    @Override
+    public CaptureStageImpl onPresetSession() {
+        return null;
+    }
+
+    @Override
+    public CaptureStageImpl onEnableSession() {
+        return null;
+    }
+
+    @Override
+    public CaptureStageImpl onDisableSession() {
+        return null;
     }
 }

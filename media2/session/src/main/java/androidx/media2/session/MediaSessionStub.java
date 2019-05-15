@@ -33,6 +33,7 @@ import android.support.v4.media.session.MediaSessionCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.SparseArray;
+import android.view.Surface;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -43,6 +44,7 @@ import androidx.media2.common.MediaMetadata;
 import androidx.media2.common.MediaParcelUtils;
 import androidx.media2.common.Rating;
 import androidx.media2.common.SessionPlayer.PlayerResult;
+import androidx.media2.common.VideoSize;
 import androidx.media2.session.MediaController.PlaybackInfo;
 import androidx.media2.session.MediaLibraryService.LibraryParams;
 import androidx.media2.session.MediaLibraryService.MediaLibrarySession;
@@ -69,16 +71,16 @@ import java.util.concurrent.TimeUnit;
  */
 class MediaSessionStub extends IMediaSession.Stub {
     private static final String TAG = "MediaSessionStub";
-    private static final boolean DEBUG = true; //Log.isLoggable(TAG, Log.DEBUG);
     private static final boolean RETHROW_EXCEPTION = true;
 
     @SuppressWarnings("WeakerAccess") /* synthetic access */
+    static final boolean DEBUG = Log.isLoggable(TAG, Log.DEBUG);
     static final SparseArray<SessionCommand> sCommandsForOnCommandRequest =
             new SparseArray<>();
 
     static {
         SessionCommandGroup group = new SessionCommandGroup.Builder()
-                .addAllPlayerCommands(COMMAND_VERSION_CURRENT)
+                .addAllPlayerCommands(COMMAND_VERSION_CURRENT, /* includeHidden= */ false)
                 .addAllVolumeCommands(COMMAND_VERSION_CURRENT)
                 .build();
         Set<SessionCommand> commands = group.getCommands();
@@ -1017,6 +1019,20 @@ class MediaSessionStub extends IMediaSession.Stub {
                 });
     }
 
+    @Override
+    public void setSurface(IMediaController caller, int seq, final Surface surface) {
+        if (caller == null) {
+            return;
+        }
+        dispatchSessionTask(caller, seq, SessionCommand.COMMAND_CODE_PLAYER_SET_SURFACE,
+                new SessionPlayerTask() {
+                    @Override
+                    public ListenableFuture<PlayerResult> run(ControllerInfo controller) {
+                        return mSessionImpl.setSurface(surface);
+                    }
+                });
+    }
+
     //////////////////////////////////////////////////////////////////////////////////////////////
     // AIDL methods for LibrarySession overrides
     //////////////////////////////////////////////////////////////////////////////////////////////
@@ -1360,6 +1376,14 @@ class MediaSessionStub extends IMediaSession.Stub {
         @Override
         void onDisconnected(int seq) throws RemoteException {
             mIControllerCallback.onDisconnected(seq);
+        }
+
+        @Override
+        void onVideoSizeChanged(int seq, @NonNull MediaItem item, @NonNull VideoSize videoSize)
+                throws RemoteException {
+            ParcelImpl itemParcel = MediaParcelUtils.toParcelable(item);
+            ParcelImpl videoSizeParcel = MediaParcelUtils.toParcelable(videoSize);
+            mIControllerCallback.onVideoSizeChanged(seq, itemParcel, videoSizeParcel);
         }
 
         @Override
