@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e3cef876_0cdca8f0",
+        "filename": "media2/common/src/main/java/androidx/media2/common/SessionPlayer.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1288,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-05-15T06:22:00Z",
+      "side": 1,
+      "message": "Will the MediaItem be pulled out from TrackInfo? \nIf so, will these callbacks\u0027 arguments be changed as (player, mediaItem, trackInfos)?",
+      "range": {
+        "startLine": 1288,
+        "startChar": 39,
+        "endLine": 1288,
+        "endChar": 87
+      },
+      "revId": "6b72982f956e629c11813a0d9cffcad4e7f79804",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83452bcd_5ea340dd",
+        "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 515,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-05-15T06:22:00Z",
+      "side": 1,
+      "message": "It seems we are breaking the consistency.\nOther commands do not store the data in the pendingcommand. (see L2975, AudioAttributes)",
+      "range": {
+        "startLine": 514,
+        "startChar": 8,
+        "endLine": 515,
+        "endChar": 35
+      },
+      "revId": "6b72982f956e629c11813a0d9cffcad4e7f79804",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35b90986_fb227077",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaControllerImplBase.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1140,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-05-15T06:22:00Z",
+      "side": 1,
+      "message": "We don\u0027t store the currently selected trackInfo (as opposed to mTrackInfos). Is it intended?",
+      "range": {
+        "startLine": 1140,
+        "startChar": 60,
+        "endLine": 1140,
+        "endChar": 69
+      },
+      "revId": "6b72982f956e629c11813a0d9cffcad4e7f79804",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
