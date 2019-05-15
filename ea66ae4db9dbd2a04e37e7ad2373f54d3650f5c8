@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "721ffcd2_532d6ce1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-05-15T22:50:36Z",
+      "side": 1,
+      "message": "That\u0027s interesting. https://developer.android.com/studio/build/manifest-merge says \"When the lower-priority manifest has a targetSdkVersion value that\u0027s lower, the merger tool uses the value from the higher-priority manifest\" which would make me think it would use the value specified in the test project if one was specified, or the value in the library if none was specified",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 66
+      },
+      "revId": "ea66ae4db9dbd2a04e37e7ad2373f54d3650f5c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0eae4ed7_1bb3d016",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-05-15T22:50:36Z",
+      "side": 1,
+      "message": "Hmm it\u0027s interesting to me that removing the targetSdkVersion from a bunch of AndroidManifest.xml files in src/ dirs would cause that text to be added into files in the out/ dir",
+      "revId": "ea66ae4db9dbd2a04e37e7ad2373f54d3650f5c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

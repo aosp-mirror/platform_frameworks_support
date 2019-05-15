@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "95e45454_65b6dd48",
+        "filename": "ui/android-text/src/main/AndroidManifest.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-05-15T22:50:36Z",
+      "side": 0,
+      "message": "Hmm I guess these values in ui/*/src/main/AndroidManifest.xml must\u0027ve originally been added by mistake? I think it\u0027s not a test project",
+      "revId": "d2932e89eeb2fd201935c25ed6a826f1157e5c88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
