@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7ffcd52d_79918001",
+        "filename": "swiperefreshlayout/src/main/java/androidx/swiperefreshlayout/widget/SwipeRefreshLayout.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1364,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-05-15T16:39:25Z",
+      "side": 1,
+      "message": "Lint failed with: \n/buildbot/src/android/androidx-master-dev/frameworks/support/swiperefreshlayout/src/main/java/androidx/swiperefreshlayout/widget/SwipeRefreshLayout.java:241: Error: Access to private constructor of class SavedState requires synthetic accessor [SyntheticAccessor]\nreturn new SavedState(superState, mRefreshing);\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n/buildbot/src/android/androidx-master-dev/frameworks/support/swiperefreshlayout/src/main/java/androidx/swiperefreshlayout/widget/SwipeRefreshLayout.java:1386: Error: Access to private constructor of class SavedState requires synthetic accessor [SyntheticAccessor]\nreturn new SavedState(in);\n~~~~~~~~~~~~~~~~~~\n\nPlease make SavedState package protected.",
+      "revId": "299a7d3307c9200c95fff8cd651dcb82fff683ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
