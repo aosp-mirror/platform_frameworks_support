@@ -2250,6 +2250,10 @@ public class MediaSessionCompat {
 
         @Override
         public void setCallback(Callback callback, Handler handler) {
+            if (mDestroyed) {
+                Log.d(TAG, "API calls after the close()", new IllegalStateException());
+                return;
+            }
             mCallback = callback;
             if (callback != null) {
                 if (handler == null) {
@@ -2303,6 +2307,10 @@ public class MediaSessionCompat {
 
         @Override
         public void setFlags(@SessionFlags int flags) {
+            if (mDestroyed) {
+                Log.d(TAG, "API calls after the close()", new IllegalStateException());
+                return;
+            }
             synchronized (mLock) {
                 // For backward compatibility, these flags are always set.
                 mFlags = flags | FLAG_HANDLES_MEDIA_BUTTONS | FLAG_HANDLES_TRANSPORT_CONTROLS;
@@ -2311,6 +2319,10 @@ public class MediaSessionCompat {
 
         @Override
         public void setPlaybackToLocal(int stream) {
+            if (mDestroyed) {
+                Log.d(TAG, "API calls after the close()", new IllegalStateException());
+                return;
+            }
             if (mVolumeProvider != null) {
                 mVolumeProvider.setCallback(null);
             }
@@ -2328,6 +2340,10 @@ public class MediaSessionCompat {
             if (volumeProvider == null) {
                 throw new IllegalArgumentException("volumeProvider may not be null");
             }
+            if (mDestroyed) {
+                Log.d(TAG, "API calls after the close()", new IllegalStateException());
+                return;
+            }
             if (mVolumeProvider != null) {
                 mVolumeProvider.setCallback(null);
             }
@@ -2343,6 +2359,10 @@ public class MediaSessionCompat {
 
         @Override
         public void setActive(boolean active) {
+            if (mDestroyed) {
+                Log.d(TAG, "API calls after the close()", new IllegalStateException());
+                return;
+            }
             if (active == mIsActive) {
                 return;
             }
@@ -2357,11 +2377,19 @@ public class MediaSessionCompat {
 
         @Override
         public void sendSessionEvent(String event, Bundle extras) {
+            if (mDestroyed) {
+                Log.d(TAG, "API calls after the close()", new IllegalStateException());
+                return;
+            }
             sendEvent(event, extras);
         }
 
         @Override
         public void release() {
+            if (mDestroyed) {
+                Log.d(TAG, "API calls after the close()", new IllegalStateException());
+                return;
+            }
             mIsActive = false;
             mDestroyed = true;
             updateMbrAndRcc();
@@ -2375,6 +2403,10 @@ public class MediaSessionCompat {
 
         @Override
         public void setPlaybackState(PlaybackStateCompat state) {
+            if (mDestroyed) {
+                Log.d(TAG, "API calls after the close()", new IllegalStateException());
+                return;
+            }
             synchronized (mLock) {
                 mState = state;
             }
@@ -2467,6 +2499,10 @@ public class MediaSessionCompat {
 
         @Override
         public void setMetadata(MediaMetadataCompat metadata) {
+            if (mDestroyed) {
+                Log.d(TAG, "API calls after the close()", new IllegalStateException());
+                return;
+            }
             if (metadata != null) {
                 // Clones {@link MediaMetadataCompat} and scales down bitmaps if they are large.
                 metadata = new MediaMetadataCompat.Builder(metadata, sMaxBitmapSize).build();
@@ -2563,6 +2599,10 @@ public class MediaSessionCompat {
 
         @Override
         public void setSessionActivity(PendingIntent pi) {
+            if (mDestroyed) {
+                Log.d(TAG, "API calls after the close()", new IllegalStateException());
+                return;
+            }
             synchronized (mLock) {
                 mSessionActivity = pi;
             }
@@ -2575,12 +2615,20 @@ public class MediaSessionCompat {
 
         @Override
         public void setQueue(List<QueueItem> queue) {
+            if (mDestroyed) {
+                Log.d(TAG, "API calls after the close()", new IllegalStateException());
+                return;
+            }
             mQueue = queue;
             sendQueue(queue);
         }
 
         @Override
         public void setQueueTitle(CharSequence title) {
+            if (mDestroyed) {
+                Log.d(TAG, "API calls after the close()", new IllegalStateException());
+                return;
+            }
             mQueueTitle = title;
             sendQueueTitle(title);
         }
@@ -2602,11 +2650,19 @@ public class MediaSessionCompat {
 
         @Override
         public void setRatingType(@RatingCompat.Style int type) {
+            if (mDestroyed) {
+                Log.d(TAG, "API calls after the close()", new IllegalStateException());
+                return;
+            }
             mRatingType = type;
         }
 
         @Override
         public void setCaptioningEnabled(boolean enabled) {
+            if (mDestroyed) {
+                Log.d(TAG, "API calls after the close()", new IllegalStateException());
+                return;
+            }
             if (mCaptioningEnabled != enabled) {
                 mCaptioningEnabled = enabled;
                 sendCaptioningEnabled(enabled);
@@ -2615,6 +2671,10 @@ public class MediaSessionCompat {
 
         @Override
         public void setRepeatMode(@PlaybackStateCompat.RepeatMode int repeatMode) {
+            if (mDestroyed) {
+                Log.d(TAG, "API calls after the close()", new IllegalStateException());
+                return;
+            }
             if (mRepeatMode != repeatMode) {
                 mRepeatMode = repeatMode;
                 sendRepeatMode(repeatMode);
@@ -2623,6 +2683,10 @@ public class MediaSessionCompat {
 
         @Override
         public void setShuffleMode(@PlaybackStateCompat.ShuffleMode int shuffleMode) {
+            if (mDestroyed) {
+                Log.d(TAG, "API calls after the close()", new IllegalStateException());
+                return;
+            }
             if (mShuffleMode != shuffleMode) {
                 mShuffleMode = shuffleMode;
                 sendShuffleMode(shuffleMode);
@@ -2631,6 +2695,10 @@ public class MediaSessionCompat {
 
         @Override
         public void setExtras(Bundle extras) {
+            if (mDestroyed) {
+                Log.d(TAG, "API calls after the close()", new IllegalStateException());
+                return;
+            }
             mExtras = extras;
             sendExtras(extras);
         }
@@ -3415,6 +3483,10 @@ public class MediaSessionCompat {
 
         @Override
         public void setCallback(Callback callback, Handler handler) {
+            if (mDestroyed) {
+                Log.d(TAG, "API calls after the close()", new IllegalStateException());
+                return;
+            }
             super.setCallback(callback, handler);
             if (callback == null) {
                 mRcc.setPlaybackPositionUpdateListener(null);
@@ -3499,6 +3571,10 @@ public class MediaSessionCompat {
 
         @Override
         public void setCallback(Callback callback, Handler handler) {
+            if (mDestroyed) {
+                Log.d(TAG, "API calls after the close()", new IllegalStateException());
+                return;
+            }
             super.setCallback(callback, handler);
             if (callback == null) {
                 mRcc.setMetadataUpdateListener(null);
@@ -3602,6 +3678,10 @@ public class MediaSessionCompat {
 
         @Override
         public void setCallback(Callback callback, Handler handler) {
+            if (mDestroyed) {
+                Log.d(TAG, "API calls after the close()", new IllegalStateException());
+                return;
+            }
             mSessionFwk.setCallback(callback == null ? null : callback.mCallbackFwk, handler);
             if (callback != null) {
                 callback.setSessionImpl(this, handler);
@@ -3611,6 +3691,10 @@ public class MediaSessionCompat {
         @SuppressLint("WrongConstant")
         @Override
         public void setFlags(@SessionFlags int flags) {
+            if (mDestroyed) {
+                Log.d(TAG, "API calls after the close()", new IllegalStateException());
+                return;
+            }
             // For backward compatibility, always set these deprecated flags.
             mSessionFwk.setFlags(
                     flags | FLAG_HANDLES_MEDIA_BUTTONS | FLAG_HANDLES_TRANSPORT_CONTROLS);
@@ -3618,6 +3702,10 @@ public class MediaSessionCompat {
 
         @Override
         public void setPlaybackToLocal(int stream) {
+            if (mDestroyed) {
+                Log.d(TAG, "API calls after the close()", new IllegalStateException());
+                return;
+            }
             // TODO update APIs to use support version of AudioAttributes
             AudioAttributes.Builder bob = new AudioAttributes.Builder();
             bob.setLegacyStreamType(stream);
@@ -3626,11 +3714,19 @@ public class MediaSessionCompat {
 
         @Override
         public void setPlaybackToRemote(VolumeProviderCompat volumeProvider) {
+            if (mDestroyed) {
+                Log.d(TAG, "API calls after the close()", new IllegalStateException());
+                return;
+            }
             mSessionFwk.setPlaybackToRemote((VolumeProvider) volumeProvider.getVolumeProvider());
         }
 
         @Override
         public void setActive(boolean active) {
+            if (mDestroyed) {
+                Log.d(TAG, "API calls after the close()", new IllegalStateException());
+                return;
+            }
             mSessionFwk.setActive(active);
         }
 
@@ -3641,6 +3737,10 @@ public class MediaSessionCompat {
 
         @Override
         public void sendSessionEvent(String event, Bundle extras) {
+            if (mDestroyed) {
+                Log.d(TAG, "API calls after the close()", new IllegalStateException());
+                return;
+            }
             if (android.os.Build.VERSION.SDK_INT < 23) {
                 int size = mExtraControllerCallbacks.beginBroadcast();
                 for (int i = size - 1; i >= 0; i--) {
@@ -3657,6 +3757,10 @@ public class MediaSessionCompat {
 
         @Override
         public void release() {
+            if (mDestroyed) {
+                Log.d(TAG, "API calls after the close()", new IllegalStateException());
+                return;
+            }
             mDestroyed = true;
             mSessionFwk.release();
         }
@@ -3668,6 +3772,10 @@ public class MediaSessionCompat {
 
         @Override
         public void setPlaybackState(PlaybackStateCompat state) {
+            if (mDestroyed) {
+                Log.d(TAG, "API calls after the close()", new IllegalStateException());
+                return;
+            }
             mPlaybackState = state;
             int size = mExtraControllerCallbacks.beginBroadcast();
             for (int i = size - 1; i >= 0; i--) {
@@ -3689,6 +3797,10 @@ public class MediaSessionCompat {
 
         @Override
         public void setMetadata(MediaMetadataCompat metadata) {
+            if (mDestroyed) {
+                Log.d(TAG, "API calls after the close()", new IllegalStateException());
+                return;
+            }
             mMetadata = metadata;
             mSessionFwk.setMetadata(
                     metadata == null ? null : (MediaMetadata) metadata.getMediaMetadata());
@@ -3696,16 +3808,28 @@ public class MediaSessionCompat {
 
         @Override
         public void setSessionActivity(PendingIntent pi) {
+            if (mDestroyed) {
+                Log.d(TAG, "API calls after the close()", new IllegalStateException());
+                return;
+            }
             mSessionFwk.setSessionActivity(pi);
         }
 
         @Override
         public void setMediaButtonReceiver(PendingIntent mbr) {
+            if (mDestroyed) {
+                Log.d(TAG, "API calls after the close()", new IllegalStateException());
+                return;
+            }
             mSessionFwk.setMediaButtonReceiver(mbr);
         }
 
         @Override
         public void setQueue(List<QueueItem> queue) {
+            if (mDestroyed) {
+                Log.d(TAG, "API calls after the close()", new IllegalStateException());
+                return;
+            }
             mQueue = queue;
             if (queue == null) {
                 mSessionFwk.setQueue(null);
@@ -3720,11 +3844,19 @@ public class MediaSessionCompat {
 
         @Override
         public void setQueueTitle(CharSequence title) {
+            if (mDestroyed) {
+                Log.d(TAG, "API calls after the close()", new IllegalStateException());
+                return;
+            }
             mSessionFwk.setQueueTitle(title);
         }
 
         @Override
         public void setRatingType(@RatingCompat.Style int type) {
+            if (mDestroyed) {
+                Log.d(TAG, "API calls after the close()", new IllegalStateException());
+                return;
+            }
             if (android.os.Build.VERSION.SDK_INT < 22) {
                 mRatingType = type;
             } else {
@@ -3734,6 +3866,10 @@ public class MediaSessionCompat {
 
         @Override
         public void setCaptioningEnabled(boolean enabled) {
+            if (mDestroyed) {
+                Log.d(TAG, "API calls after the close()", new IllegalStateException());
+                return;
+            }
             if (mCaptioningEnabled != enabled) {
                 mCaptioningEnabled = enabled;
                 int size = mExtraControllerCallbacks.beginBroadcast();
@@ -3750,6 +3886,10 @@ public class MediaSessionCompat {
 
         @Override
         public void setRepeatMode(@PlaybackStateCompat.RepeatMode int repeatMode) {
+            if (mDestroyed) {
+                Log.d(TAG, "API calls after the close()", new IllegalStateException());
+                return;
+            }
             if (mRepeatMode != repeatMode) {
                 mRepeatMode = repeatMode;
                 int size = mExtraControllerCallbacks.beginBroadcast();
@@ -3766,6 +3906,10 @@ public class MediaSessionCompat {
 
         @Override
         public void setShuffleMode(@PlaybackStateCompat.ShuffleMode int shuffleMode) {
+            if (mDestroyed) {
+                Log.d(TAG, "API calls after the close()", new IllegalStateException());
+                return;
+            }
             if (mShuffleMode != shuffleMode) {
                 mShuffleMode = shuffleMode;
                 int size = mExtraControllerCallbacks.beginBroadcast();
@@ -3782,6 +3926,10 @@ public class MediaSessionCompat {
 
         @Override
         public void setExtras(Bundle extras) {
+            if (mDestroyed) {
+                Log.d(TAG, "API calls after the close()", new IllegalStateException());
+                return;
+            }
             mSessionFwk.setExtras(extras);
         }
 
