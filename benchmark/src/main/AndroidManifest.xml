@@ -17,6 +17,16 @@
 <manifest package="androidx.benchmark"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <!-- The required android:name and android:targetPackage attributes of this <instrumentation>
+    tag are intentionally left empty to allow the manifest merger to add BenchmarkRunListener to
+     any instrumentation, -->
+    <!--suppress AndroidDomInspection -->
+    <instrumentation>
+        <meta-data
+            android:name="listener"
+            android:value="androidx.benchmark.BenchmarkRunListener" />
+    </instrumentation>
+
     <!-- This is needed to write benchmark report data to an external directory during instrumented
     tests to allow the accompanying androidx.benchmark gradle plugin to pull the reports onto host
      machine after the tests are done running. -->
