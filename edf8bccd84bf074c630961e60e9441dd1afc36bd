@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6369d80c_0f7d1a3b",
+        "filename": "camera/camera2/src/test/java/androidx/camera/camera2/impl/SupportedSurfaceCombinationTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 526,
+      "author": {
+        "id": 1482091
+      },
+      "writtenOn": "2019-05-15T09:21:51Z",
+      "side": 1,
+      "message": "Thanks for review. Done.",
+      "parentUuid": "c1f0f348_47a72e20",
+      "range": {
+        "startLine": 526,
+        "startChar": 36,
+        "endLine": 526,
+        "endChar": 37
+      },
+      "revId": "edf8bccd84bf074c630961e60e9441dd1afc36bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2e658389_57b32854",
         "filename": "camera/camera2/src/test/java/androidx/camera/camera2/impl/SupportedSurfaceCombinationTest.java",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "edf8bccd84bf074c630961e60e9441dd1afc36bd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e6b35cb_bfa19a79",
+        "filename": "camera/camera2/src/test/java/androidx/camera/camera2/impl/SupportedSurfaceCombinationTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 1482091
+      },
+      "writtenOn": "2019-05-15T09:21:51Z",
+      "side": 1,
+      "message": "Thanks for review. Different sizes may be returned in different conditions but not always mAnalysisSize. Original crash will happen in getSuggestedResolutions function call. If it crashes again, this test case will be failed. Also check the result sizes to confirm 640x480 is correctly selected even two duplicated 1280x720 resolutions are also in the list.",
+      "parentUuid": "2e658389_57b32854",
+      "range": {
+        "startLine": 542,
+        "startChar": 8,
+        "endLine": 544,
+        "endChar": 87
+      },
+      "revId": "edf8bccd84bf074c630961e60e9441dd1afc36bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
