@@ -116,13 +116,11 @@ public final class LaneDirection implements VersionedParcelable {
          * by the OEM cluster rendering service if the shape is unknown to it.
          *
          * @param shape lane direction shape
-         * @param fallbacks Variations of {@code shape}, in case the OEM cluster rendering service
-         *                  of this API doesn't know the main one (used for backward compatibility).
          * @return this object for chaining
          */
         @NonNull
-        public Builder setShape(@NonNull Shape shape, @NonNull Shape ... fallbacks) {
-            mShape = EnumWrapper.of(shape, fallbacks);
+        public Builder setShape(@NonNull Shape shape) {
+            mShape = EnumWrapper.of(shape);
             return this;
         }
 

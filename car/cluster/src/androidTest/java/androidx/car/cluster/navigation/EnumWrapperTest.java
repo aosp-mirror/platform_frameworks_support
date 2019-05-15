@@ -36,10 +36,21 @@ public class EnumWrapperTest {
         BAR
     }
 
-    public enum PRODUCER_ENUM {
+    public enum PRODUCER_ENUM implements EnumWrapper.WithFallback<PRODUCER_ENUM> {
         FOO,
         BAR,
-        MOO
+        MOO(PRODUCER_ENUM.FOO),
+        EXT(PRODUCER_ENUM.MOO),
+
+        ;
+        PRODUCER_ENUM[] mFallbacks;
+        PRODUCER_ENUM(PRODUCER_ENUM ... fallbacks) {
+            mFallbacks = fallbacks;
+        }
+        @Override
+        public PRODUCER_ENUM[] getFallbacks() {
+            return mFallbacks;
+        }
     }
 
     public static final EnumWrapper<CONSUMER_ENUM> TEST_WRAPPER = new EnumWrapper<>(
@@ -54,9 +65,7 @@ public class EnumWrapperTest {
      */
     @Test
     public void equality() {
-        EnumWrapper<CONSUMER_ENUM> expected = new EnumWrapper<>(
-                CONSUMER_ENUM.FOO
-        );
+        EnumWrapper<CONSUMER_ENUM> expected = new EnumWrapper<>(CONSUMER_ENUM.FOO);
 
         assertEquals(expected, TEST_WRAPPER);
         assertEquals(expected.hashCode(), TEST_WRAPPER.hashCode());
@@ -72,7 +81,6 @@ public class EnumWrapperTest {
         assertNotEquals(EnumWrapper.getValue(expected, CONSUMER_ENUM.BAR), CONSUMER_ENUM.BAR);
 
         assertEquals(expected, EnumWrapper.of(CONSUMER_ENUM.FOO));
-        assertNotEquals(expected, EnumWrapper.of(CONSUMER_ENUM.FOO, CONSUMER_ENUM.BAR));
     }
 
     /**
@@ -82,9 +90,23 @@ public class EnumWrapperTest {
      */
     @Test
     public void fallback() {
-        EnumWrapper<PRODUCER_ENUM> prodWrapper = new EnumWrapper<>(
-                PRODUCER_ENUM.MOO, PRODUCER_ENUM.FOO, PRODUCER_ENUM.BAR
-        );
+        EnumWrapper<PRODUCER_ENUM> prodWrapper = new EnumWrapper<>(PRODUCER_ENUM.MOO);
+
+        Parcelable out = deserialize(serialize(ParcelUtils.toParcelable(prodWrapper)));
+        EnumWrapper<CONSUMER_ENUM> consWrapper = ParcelUtils.fromParcelable(out);
+
+        assertEquals(EnumWrapper.getValue(consWrapper, CONSUMER_ENUM.BAR), CONSUMER_ENUM.FOO);
+    }
+
+    /**
+     * Fallback values can be chained. In this test, the producer provides
+     * {@link PRODUCER_ENUM#EXT} which has fallback {@link PRODUCER_ENUM#MOO} which has fallback
+     * {@link PRODUCER_ENUM#FOO}. So even though the consumer doesn't know "EXT" it does know "FOO",
+     * which is what they should see.
+     */
+    @Test
+    public void fallback_transitive() {
+        EnumWrapper<PRODUCER_ENUM> prodWrapper = new EnumWrapper<>(PRODUCER_ENUM.EXT);
 
         Parcelable out = deserialize(serialize(ParcelUtils.toParcelable(prodWrapper)));
         EnumWrapper<CONSUMER_ENUM> consWrapper = ParcelUtils.fromParcelable(out);

@@ -139,17 +139,11 @@ public final class NavigationState implements VersionedParcelable {
          * Sets the service status (e.g.: normal operation, re-routing in progress, etc.)
          *
          * @param serviceStatus current service status
-         * @param fallbackServiceStatuses variations of the current service status (ordered from
-         *                                specific to generic), in case the main one is not
-         *                                understood by the consumer of this API. In such scenario,
-         *                                consumers will receive the first value in this list that
-         *                                they can deserialize.
          * @return this object for chaining
          */
         @NonNull
-        public Builder setServiceStatus(@NonNull ServiceStatus serviceStatus,
-                @NonNull ServiceStatus... fallbackServiceStatuses) {
-            mServiceStatus = new EnumWrapper<>(serviceStatus, fallbackServiceStatuses);
+        public Builder setServiceStatus(@NonNull ServiceStatus serviceStatus) {
+            mServiceStatus = new EnumWrapper<>(serviceStatus);
             return this;
         }
 
