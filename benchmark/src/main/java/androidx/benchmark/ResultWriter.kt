@@ -68,10 +68,12 @@ internal object ResultWriter {
         writer.beginObject()
             .name("name").value(testName)
             .name("className").value(className)
-            .name("nanos").value(nanos)
+            .name("minimumNs").value(minimum)
+            .name("maximumNs").value(maximum)
+            .name("medianNs").value(median)
             .name("warmupIterations").value(warmupIterations)
             .name("repeatIterations").value(repeatIterations)
-            .name("runs").beginArray().also { data.forEach { writer.value(it) } }.endArray()
+            .name("runsNs").beginArray().also { data.forEach { writer.value(it) } }.endArray()
         writer.endObject()
         return writer
     }
