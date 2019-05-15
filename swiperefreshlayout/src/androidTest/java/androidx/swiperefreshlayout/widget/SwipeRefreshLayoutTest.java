@@ -164,6 +164,37 @@ public class SwipeRefreshLayoutTest {
         swipeToRefreshVerifyThenStopRefreshing(true);
     }
 
+    @Test
+    public void testRefreshStatePersists() throws Throwable {
+
+        assertFalse(mSwipeRefresh.isRefreshing());
+
+        onView(withId(R.id.swipe_refresh)).perform(SwipeRefreshLayoutActions.setRefreshing());
+
+        assertTrue(mSwipeRefresh.isRefreshing());
+
+        final SwipeRefreshLayoutActivity activity = mActivityTestRule.getActivity();
+
+        mSwipeRefresh.getHandler().post(new Runnable() {
+            @Override
+            public void run() {
+                activity.recreate();
+            }
+        });
+
+        PollingCheck.waitFor(TIMEOUT, new PollingCheck.PollingCheckCondition() {
+            @Override
+            public boolean canProceed() {
+                return activity != mActivityTestRule.getActivity();
+            }
+        });
+
+        mSwipeRefresh = mActivityTestRule.getActivity().findViewById(R.id.swipe_refresh);
+
+        assertTrue(mSwipeRefresh.isRefreshing());
+
+    }
+
     private void swipeToRefreshVerifyThenStopRefreshing(boolean expectRefreshing) throws Throwable {
         final CountDownLatch latch = new CountDownLatch(1);
         SwipeRefreshLayout.OnRefreshListener listener = new SwipeRefreshLayout.OnRefreshListener() {
