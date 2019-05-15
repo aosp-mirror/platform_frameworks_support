@@ -16,6 +16,24 @@
       "revId": "6cc59db2add4bbd2ce1658ba695900a6d83b42ba",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1435df6f_5fca5024",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/Camera2CameraControl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 1481635
+      },
+      "writtenOn": "2019-05-15T14:00:28Z",
+      "side": 1,
+      "message": "There is an issue about fail to turn off torch on Pixel 2 (b/124647961). An existing solution was implemented in enableTorchInternal(), it send a capture request with AE_MODE_ON + FLASH_MODE_OFF.\n\nIt should be noted that the FLASH_MODE_OFF is implicitly added by default parameters of CameraDevice.createCaptureRequest(int templateType). Because this CL will use repeating request as a base for capture request, when above capture request is issued, it will be attached with FLASH_MODE_TORCH from the repeating request and cause the capture request fail to close torch.\nSo it should explicitly add FLASH_MODE_OFF in the capture request.\n\nHowever, it seems to be better to attach the FLASH_MODE_OFF on that specific capture request (to turn off torch) but not here, so the new patch move the FLASH_MODE_OFF to enableTorchInternal() for the same purpose.",
+      "parentUuid": "1e992109_e676fd38",
+      "revId": "6cc59db2add4bbd2ce1658ba695900a6d83b42ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
