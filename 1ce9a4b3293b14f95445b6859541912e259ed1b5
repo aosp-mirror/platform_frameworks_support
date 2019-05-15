@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "30cfeaa4_d6663152",
+        "filename": "autofill/src/main/java/androidx/autofill/HintConstants.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1004919
+      },
+      "writtenOn": "2019-05-15T19:14:50Z",
+      "side": 1,
+      "message": "Nit: typo",
+      "range": {
+        "startLine": 30,
+        "startChar": 47,
+        "endLine": 30,
+        "endChar": 58
+      },
+      "revId": "1ce9a4b3293b14f95445b6859541912e259ed1b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf4e5237_3474fbce",
+        "filename": "autofill/src/main/java/androidx/autofill/HintConstants.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 1004919
+      },
+      "writtenOn": "2019-05-15T19:14:50Z",
+      "side": 1,
+      "message": "Should we deprecate NAME in favor of that one, or add a comment recommending to use this one instead?",
+      "range": {
+        "startLine": 324,
+        "startChar": 2,
+        "endLine": 324,
+        "endChar": 72
+      },
+      "revId": "1ce9a4b3293b14f95445b6859541912e259ed1b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0390e7a_ce49110d",
+        "filename": "autofill/src/main/java/androidx/autofill/HintConstants.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 1004919
+      },
+      "writtenOn": "2019-05-15T19:14:50Z",
+      "side": 1,
+      "message": "Same as for NAME.",
+      "range": {
+        "startLine": 399,
+        "startChar": 7,
+        "endLine": 400,
+        "endChar": 6
+      },
+      "revId": "1ce9a4b3293b14f95445b6859541912e259ed1b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0bb59072_479e5d41",
+        "filename": "autofill/src/main/java/androidx/autofill/HintConstants.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 447,
+      "author": {
+        "id": 1004919
+      },
+      "writtenOn": "2019-05-15T19:14:50Z",
+      "side": 1,
+      "message": "Terminate comment.",
+      "range": {
+        "startLine": 447,
+        "startChar": 63,
+        "endLine": 447,
+        "endChar": 64
+      },
+      "revId": "1ce9a4b3293b14f95445b6859541912e259ed1b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eacdc35c_834f5b2d",
+        "filename": "autofill/src/main/java/androidx/autofill/HintConstants.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 459,
+      "author": {
+        "id": 1004919
+      },
+      "writtenOn": "2019-05-15T19:14:50Z",
+      "side": 1,
+      "message": "password",
+      "range": {
+        "startLine": 459,
+        "startChar": 76,
+        "endLine": 459,
+        "endChar": 84
+      },
+      "revId": "1ce9a4b3293b14f95445b6859541912e259ed1b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc8bffc1_502a1220",
+        "filename": "autofill/src/main/java/androidx/autofill/HintConstants.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 505,
+      "author": {
+        "id": 1004919
+      },
+      "writtenOn": "2019-05-15T19:14:50Z",
+      "side": 1,
+      "message": "birthDateDay? (same below)",
+      "range": {
+        "startLine": 505,
+        "startChar": 62,
+        "endLine": 505,
+        "endChar": 74
+      },
+      "revId": "1ce9a4b3293b14f95445b6859541912e259ed1b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
