@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "b50c36c1_19d7e6e0",
+        "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/AnimationGestureSemanticsActivity.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1402596
+      },
+      "writtenOn": "2019-05-15T00:38:05Z",
+      "side": 1,
+      "message": "After implementing node merging, we would remove line 149 and the semantic actions would be combined with semantic properties. If they are presented as nested components, this is logically easier to understand. I feel it would be awkward for a Composable function to return a value, and have a side effect of emitting semantics.\n\nAlso, if the user does not want to use the actions with a gesture detector, they can just ignore the parameter to the child lambda.\n\nThe level 1 API allows the users to create actions individually and then manually add them along with the properties.",
+      "parentUuid": "ac1d23fd_99c2ab4e",
+      "revId": "68b1c94816897505f499bb8a8222339162833f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a4df8c34_89e8c2da",
         "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/SemanticsL2.kt",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "68b1c94816897505f499bb8a8222339162833f7f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ffe4cfc9_a35191e6",
+        "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/SemanticsL2.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1402596
+      },
+      "writtenOn": "2019-05-15T00:38:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a4df8c34_89e8c2da",
+      "revId": "68b1c94816897505f499bb8a8222339162833f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "d4791b62_701ab432",
+        "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/SemanticsL2.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1402596
+      },
+      "writtenOn": "2019-05-15T00:38:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ed0d112_a398976a",
+      "revId": "68b1c94816897505f499bb8a8222339162833f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "349f788e_bf31f17c",
         "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/SemanticsL2.kt",
         "patchSetId": 1
@@ -67,6 +121,24 @@
       "revId": "68b1c94816897505f499bb8a8222339162833f7f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c64bdfda_9decde98",
+        "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/SemanticsL2.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1402596
+      },
+      "writtenOn": "2019-05-15T00:38:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "349f788e_bf31f17c",
+      "revId": "68b1c94816897505f499bb8a8222339162833f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "56dd3b2b_667eecfc",
+        "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/SemanticsL2.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1402596
+      },
+      "writtenOn": "2019-05-15T00:38:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "75e345b5_b9b409e4",
+      "revId": "68b1c94816897505f499bb8a8222339162833f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8723ce53_14e261ab",
         "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/SemanticsL2.kt",
         "patchSetId": 1
@@ -101,6 +191,24 @@
       "revId": "68b1c94816897505f499bb8a8222339162833f7f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "13b499ab_35c7486c",
+        "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/SemanticsL2.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1402596
+      },
+      "writtenOn": "2019-05-15T00:38:05Z",
+      "side": 1,
+      "message": "I initially used label here, but during a previous review it was suggested to use something different, as we also have a property that is called \"label\". I\u0027m fine using label for both actions and the property \"label\", but I think we can address this later.",
+      "parentUuid": "8723ce53_14e261ab",
+      "revId": "68b1c94816897505f499bb8a8222339162833f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "9b10eef7_3d51146c",
+        "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/SemanticsL2.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1402596
+      },
+      "writtenOn": "2019-05-15T00:38:05Z",
+      "side": 1,
+      "message": "I didn\u0027t understand your concern. The user would have to use the right type when they invoke the action. The type argument used here is the same as the type passed to the action lambda.",
+      "parentUuid": "4956f317_116d370b",
+      "revId": "68b1c94816897505f499bb8a8222339162833f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f368b6af_188972db",
         "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/SemanticsL2.kt",
         "patchSetId": 1
@@ -135,6 +261,24 @@
       "revId": "68b1c94816897505f499bb8a8222339162833f7f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78763f45_7bf7c970",
+        "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/SemanticsL2.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1402596
+      },
+      "writtenOn": "2019-05-15T00:38:05Z",
+      "side": 1,
+      "message": "No it is not, the developer always has the option of specifying an action but not providing any extra semantic information. The action will not be available for other frameworks, but could still be used in a gesture detector.",
+      "parentUuid": "f368b6af_188972db",
+      "revId": "68b1c94816897505f499bb8a8222339162833f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -155,6 +299,24 @@
     },
     {
       "key": {
+        "uuid": "baa886b9_18e64311",
+        "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/SemanticsL3.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1402596
+      },
+      "writtenOn": "2019-05-15T00:38:05Z",
+      "side": 1,
+      "message": "In this example, the ClickInteraction combines semantics and gestures.I\u0027m using the gesture api on line 47 here.\n\nIf a user wants to detect a click and not emit any semantics, I would assume they would use the gesture detector directly.",
+      "parentUuid": "0e338f1c_88bb54d7",
+      "revId": "68b1c94816897505f499bb8a8222339162833f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8612425a_98ba357d",
         "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/SemanticsL3.kt",
         "patchSetId": 1
@@ -169,6 +331,24 @@
       "revId": "68b1c94816897505f499bb8a8222339162833f7f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fabdf8a4_586247f1",
+        "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/SemanticsL3.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1402596
+      },
+      "writtenOn": "2019-05-15T00:38:05Z",
+      "side": 1,
+      "message": "This is just a default label that is used if the developer doesn\u0027t specify anything. This is just an example, we might end up leaving it blank, or calling it \"Click\".",
+      "parentUuid": "8612425a_98ba357d",
+      "revId": "68b1c94816897505f499bb8a8222339162833f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -189,6 +369,24 @@
     },
     {
       "key": {
+        "uuid": "00fd4e88_fd4c1913",
+        "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/SemanticsL3.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1402596
+      },
+      "writtenOn": "2019-05-15T00:38:05Z",
+      "side": 1,
+      "message": "This is just a default label. The other frameworks would access this action using the appropriate action type.\n\nTo associate the accessibility primary/click action with this action, we would need to set the action type as AccessibilityAction.Primary. Which is done in AnimationGestureSemanticsActivity.Level3ApiExtras()",
+      "parentUuid": "7c2d2024_4fd3f8f8",
+      "revId": "68b1c94816897505f499bb8a8222339162833f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1adf9cd4_d1c7ef7c",
         "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/SemanticsL3.kt",
         "patchSetId": 1
@@ -206,6 +404,24 @@
     },
     {
       "key": {
+        "uuid": "4ad7bdb0_7b094652",
+        "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/SemanticsL3.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1402596
+      },
+      "writtenOn": "2019-05-15T00:38:05Z",
+      "side": 1,
+      "message": "I moved this over from the animation sample, but sure we don\u0027t need to invoke the released action.",
+      "parentUuid": "1adf9cd4_d1c7ef7c",
+      "revId": "68b1c94816897505f499bb8a8222339162833f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a349ddfb_8b223046",
         "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/SemanticsL3.kt",
         "patchSetId": 1
@@ -220,6 +436,24 @@
       "revId": "68b1c94816897505f499bb8a8222339162833f7f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b7e5ebf_805e0947",
+        "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/SemanticsL3.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1402596
+      },
+      "writtenOn": "2019-05-15T00:38:05Z",
+      "side": 1,
+      "message": "I changed the \"Action\" component to \"SemanticAction\"\n\nI\u0027m using a builder here to allow me to specify default values that are specific to the use case. Eg. The ClickInteraction uses the action builder and passes the default phrases \"On Press\" and \"On Release\". A GroupSemantics tag could use the action builder and pass default phrases \"Next\" and \"Previous\". \n\nSince we need different default values in different cases, I cannot set the appropriate defaults in the SemanticAction component.",
+      "parentUuid": "a349ddfb_8b223046",
+      "revId": "68b1c94816897505f499bb8a8222339162833f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
