@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "db84f4db_de37de47",
+        "filename": "camera/core/src/main/java/androidx/camera/core/Preview.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 1482091
+      },
+      "writtenOn": "2019-05-15T06:59:57Z",
+      "side": 1,
+      "message": "Seems you can directly call super.updateUseCaseConfig here and then no need to run above code twice.",
+      "revId": "85574fbee1296962ff10e3d8709b7e31acc9808c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
