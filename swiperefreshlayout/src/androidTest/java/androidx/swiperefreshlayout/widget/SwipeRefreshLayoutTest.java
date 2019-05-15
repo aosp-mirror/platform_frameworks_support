@@ -17,7 +17,9 @@
 package androidx.swiperefreshlayout.widget;
 
 import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.testutils.OrientationChangeAction.orientationLandscape;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -51,6 +53,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Tests SwipeRefreshLayout widget.
  */
+@LargeTest
 @RunWith(AndroidJUnit4.class)
 public class SwipeRefreshLayoutTest {
     @Rule
@@ -162,6 +165,23 @@ public class SwipeRefreshLayoutTest {
         onView(withId(R.id.swipe_refresh)).perform(SwipeRefreshLayoutActions.setEnabled(true));
 
         swipeToRefreshVerifyThenStopRefreshing(true);
+    }
+
+    @Test
+    public void testRefreshStatePersists() throws Throwable {
+
+        assertFalse(mSwipeRefresh.isRefreshing());
+
+        onView(withId(R.id.swipe_refresh)).perform(SwipeRefreshLayoutActions.setRefreshing());
+
+        assertTrue(mSwipeRefresh.isRefreshing());
+
+        onView(isRoot()).perform(orientationLandscape());
+
+        mSwipeRefresh = mActivityTestRule.getActivity().findViewById(R.id.swipe_refresh);
+
+        assertTrue(mSwipeRefresh.isRefreshing());
+
     }
 
     private void swipeToRefreshVerifyThenStopRefreshing(boolean expectRefreshing) throws Throwable {
