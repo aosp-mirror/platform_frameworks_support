@@ -9,7 +9,7 @@ plugins {
 }
 
 dependencies {
-    api(project(":annotation"))
+    api("androidx.annotation:annotation:1.1.0-rc01")
     api(project(":core"))
     implementation("androidx.collection:collection:1.0.0")
     api("androidx.customview:customview:1.0.0")
@@ -24,6 +24,7 @@ dependencies {
     androidTestImplementation(JUNIT)
     androidTestImplementation(KOTLIN_STDLIB)
     androidTestImplementation(project(":internal-testutils"))
+    androidTestImplementation(project(":internal-testutils-common"))
 
     testImplementation(JUNIT)
     testImplementation(MOCKITO_CORE)

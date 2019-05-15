@@ -3,11 +3,8 @@ package androidx.benchmark {
 
   @RestrictTo({RestrictTo.Scope.LIBRARY}) public final class IsolationActivity extends android.app.Activity {
     method public void actuallyFinish();
-    method public boolean getDestroyed();
     method public boolean getResumed();
-    method public void setDestroyed(boolean p);
     method public void setResumed(boolean p);
-    property public final boolean destroyed;
     property public final boolean resumed;
     field public static final androidx.benchmark.IsolationActivity.Companion! Companion;
   }

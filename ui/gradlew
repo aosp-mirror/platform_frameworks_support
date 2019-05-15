@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+##############################################################################
+##
+##  Compose specific Gradle start up script for UN*X
+##
+##############################################################################
+
+# Override Kotlin version needed for compose - see buildSrc/build_dependencies.gradle
+export KOTLIN_OVERRIDE="1.3.30-compose-20190503"
+
+# Path to the directory containing this script
+DIR="`dirname \"$0\"`/"
+
+# Use main gradle wrapper
+exec "$DIR"../gradlew "$@"

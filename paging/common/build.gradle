@@ -30,7 +30,7 @@ lintOptions {
 }
 
 dependencies {
-    compile(project(":annotation"))
+    compile("androidx.annotation:annotation:1.1.0-rc01")
     compile(ARCH_CORE_COMMON)
     compile("androidx.concurrent:concurrent-futures:1.0.0-alpha02")
 
@@ -38,6 +38,7 @@ dependencies {
     testCompile(MOCKITO_CORE)
     testCompile(KOTLIN_STDLIB)
     testCompile(GUAVA)
+    testImplementation project(':internal-testutils-common')
 }
 
 androidx {

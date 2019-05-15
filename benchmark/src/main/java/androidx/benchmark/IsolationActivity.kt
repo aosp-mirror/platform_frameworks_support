@@ -41,7 +41,7 @@ import java.util.concurrent.atomic.AtomicReference
 @RestrictTo(RestrictTo.Scope.LIBRARY)
 class IsolationActivity : android.app.Activity() {
     var resumed = false
-    var destroyed = false
+    private var destroyed = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
