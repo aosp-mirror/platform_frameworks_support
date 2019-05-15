@@ -31,6 +31,7 @@ import androidx.viewpager2.widget.swipe.PageView
 import androidx.viewpager2.widget.swipe.SelfChecking
 import org.hamcrest.Matchers.equalTo
 import org.junit.Assert.assertThat
+import org.junit.Ignore
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
@@ -41,6 +42,7 @@ import java.util.concurrent.atomic.AtomicInteger
 
 private const val RANDOM_TESTS_PER_CONFIG = 0 // increase to have random tests generated
 
+@Ignore("Disabled because it wasn't flaky")
 @RunWith(Parameterized::class)
 @LargeTest
 class MutableCollectionsTest(private val testConfig: TestConfig) : BaseTest() {

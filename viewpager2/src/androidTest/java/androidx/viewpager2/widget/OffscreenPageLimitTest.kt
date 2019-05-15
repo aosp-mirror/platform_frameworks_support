@@ -35,6 +35,7 @@ import org.hamcrest.Matchers.greaterThanOrEqualTo
 import org.hamcrest.Matchers.lessThan
 import org.hamcrest.Matchers.lessThanOrEqualTo
 import org.junit.Assert.assertThat
+import org.junit.Ignore
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
@@ -45,6 +46,7 @@ import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.roundToInt
 
+@Ignore("Disabled because it wasn't flaky")
 @RunWith(Parameterized::class)
 class OffscreenPageLimitTest(private val config: TestConfig) : BaseTest() {
     data class TestConfig(

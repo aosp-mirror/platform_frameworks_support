@@ -30,6 +30,7 @@ import androidx.viewpager2.widget.ViewPager2.ORIENTATION_VERTICAL
 import androidx.viewpager2.widget.swipe.ViewAdapter
 import org.hamcrest.CoreMatchers.equalTo
 import org.junit.Assert.assertThat
+import org.junit.Ignore
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
@@ -39,6 +40,7 @@ import kotlin.math.roundToInt
 /**
  * Tests what happens when a smooth scroll is interrupted by a drag
  */
+@Ignore("Disabled because it wasn't flaky")
 @RunWith(Parameterized::class)
 @LargeTest
 class DisableUserInputTest(private val config: TestConfig) : BaseTest() {

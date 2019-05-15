@@ -120,7 +120,7 @@ open class BaseTest {
      * TODO(b/130160918): remove the workaround
      */
     protected fun assumeApiBeforeQ() {
-        assumeThat(isAtLeastQ(), equalTo(false))
+        assumeThat(isAtLeastQ(), equalTo(true))
     }
 
     data class Context(val activityTestRule: ActivityTestRule<TestActivity>) {
