@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6893f734_d9fad547",
+        "filename": "media/src/main/java/androidx/media/MediaBrowserServiceCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1104994
+      },
+      "writtenOn": "2019-05-15T23:27:30Z",
+      "side": 1,
+      "message": "Just remove the class\u003d\"special reference\" from this div.\nLeave everything else unchanged.",
+      "revId": "7af8628ecb56e11715198439d9f9cad2018b984e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
