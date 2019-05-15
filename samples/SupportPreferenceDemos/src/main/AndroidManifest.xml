@@ -19,7 +19,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.androidx.preference">
 
-    <uses-sdk
         tools:overrideLibrary="androidx.leanback.preference, androidx.leanback, androidx.car"/>
 
     <uses-feature android:name="android.hardware.touchscreen" android:required="false"/>

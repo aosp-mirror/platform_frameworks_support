@@ -18,7 +18,6 @@
           xmlns:tools="http://schemas.android.com/tools"
           package="androidx.fragment.testing">
     <!-- TODO: Remove this override after androidx.test:core lowers the level -->
-    <uses-sdk tools:overrideLibrary="androidx.test.core" />
     <uses-permission android:name="android.permission.REORDER_TASKS" />
     <application>
         <activity

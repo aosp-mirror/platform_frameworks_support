@@ -343,10 +343,7 @@ class AndroidXPlugin : Plugin<Project> {
         extension.jacoco.version = Jacoco.VERSION
         extension.compileSdkVersion(COMPILE_SDK_VERSION)
         extension.buildToolsVersion = BUILD_TOOLS_VERSION
-        // Expose the compilation SDK for use as the target SDK in test manifests.
-        extension.defaultConfig.addManifestPlaceholders(
-                mapOf("target-sdk-version" to TARGET_SDK_VERSION))
-
+        extension.defaultConfig.targetSdkVersion(TARGET_SDK_VERSION)
         extension.defaultConfig.testInstrumentationRunner = INSTRUMENTATION_RUNNER
         extension.testOptions.unitTests.isReturnDefaultValues = true
 
@@ -521,7 +518,6 @@ class AndroidXPlugin : Plugin<Project> {
 
     private fun Project.configureAndroidApplicationOptions(extension: AppExtension) {
         extension.defaultConfig.apply {
-            targetSdkVersion(TARGET_SDK_VERSION)
             versionCode = 1
             versionName = "1.0"
         }

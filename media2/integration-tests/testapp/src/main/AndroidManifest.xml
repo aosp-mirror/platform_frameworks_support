@@ -18,7 +18,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="androidx.media2.integration.testapp">
 
-    <uses-sdk tools:overrideLibrary="androidx.media2.widget" />
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
