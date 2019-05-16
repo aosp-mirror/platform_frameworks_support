@@ -69,6 +69,24 @@
       "revId": "3f8031aeb3a2f9f0af30932323eabae8da831dae",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "378e5e4f_d2e3c1cb",
+        "filename": "benchmark/src/main/java/androidx/benchmark/ResultWriter.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-05-16T21:56:17Z",
+      "side": 1,
+      "message": "Alright - I think the way to go here is RunListener as we talked about.\n\nI\u0027ll make the associated updates to the studio template as well.",
+      "parentUuid": "e60e64c5_ce446cf1",
+      "revId": "3f8031aeb3a2f9f0af30932323eabae8da831dae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
