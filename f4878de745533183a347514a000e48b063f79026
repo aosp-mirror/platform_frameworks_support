@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "badc0eed_f3bf2ed8",
+        "filename": "development/history/add_release_commit_tags.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-05-16T17:49:15Z",
+      "side": 1,
+      "message": "Another option is to write \u0027tagName\u003d\"$1\"\u0027 and then to reference \"$tagName\" later in the function, which helps make it easy to rearrange the arguments in the future if needed",
+      "range": {
+        "startLine": 34,
+        "startChar": 1,
+        "endLine": 34,
+        "endChar": 16
+      },
+      "revId": "f4878de745533183a347514a000e48b063f79026",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25de3202_55721afa",
+        "filename": "development/history/add_release_commit_tags.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-05-16T17:49:15Z",
+      "side": 1,
+      "message": "it also works to do \"true\" and \"false\" (either as booleans or as strings)",
+      "range": {
+        "startLine": 62,
+        "startChar": 34,
+        "endLine": 62,
+        "endChar": 35
+      },
+      "revId": "f4878de745533183a347514a000e48b063f79026",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e521e24_52e47883",
+        "filename": "development/history/add_release_commit_tags.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-05-16T17:49:15Z",
+      "side": 1,
+      "message": "I\u0027d extract this into a variable to make extra sure that the tag name being made is the same as the tag name being displayed",
+      "range": {
+        "startLine": 82,
+        "startChar": 18,
+        "endLine": 82,
+        "endChar": 47
+      },
+      "revId": "f4878de745533183a347514a000e48b063f79026",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2027af1_88fc8320",
+        "filename": "development/history/add_release_commit_tags.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-05-16T17:49:15Z",
+      "side": 1,
+      "message": "I think we want one more dot in the ellipsis",
+      "range": {
+        "startLine": 82,
+        "startChar": 60,
+        "endLine": 82,
+        "endChar": 62
+      },
+      "revId": "f4878de745533183a347514a000e48b063f79026",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d54e627_7161616f",
+        "filename": "development/history/add_release_commit_tags.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-05-16T17:49:15Z",
+      "side": 1,
+      "message": "That\u0027s interesting. It seems sort of odd to me to put the release date in the text of the tag rather than to put a reference back to some file listing details about the release (which libraries released and on what date) but I can\u0027t really clearly describe what seems odd to me so this seems fine to me for now",
+      "range": {
+        "startLine": 83,
+        "startChar": 101,
+        "endLine": 83,
+        "endChar": 118
+      },
+      "revId": "f4878de745533183a347514a000e48b063f79026",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d8737f6e_b1d82763",
+        "filename": "development/history/add_release_commit_tags.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-05-16T17:49:15Z",
+      "side": 1,
+      "message": "Hmm I was imagining that the tag name would contain the groupId rather than the artifactId. Is it intentional to use the artifactId instead?",
+      "range": {
+        "startLine": 83,
+        "startChar": 21,
+        "endLine": 83,
+        "endChar": 32
+      },
+      "revId": "f4878de745533183a347514a000e48b063f79026",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f84d78d7_cd7a8c6e",
+        "filename": "development/history/add_release_commit_tags.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-05-16T17:49:15Z",
+      "side": 1,
+      "message": "That\u0027s interesting. We can choose essentially whatever message we like, right? It seems to me that it would be helpful to include the full Gradle coordinates to make it that much easier for developers to recognize what it is: something like \"$groupId:artifactId:$version\"",
+      "range": {
+        "startLine": 83,
+        "startChar": 79,
+        "endLine": 83,
+        "endChar": 99
+      },
+      "revId": "f4878de745533183a347514a000e48b063f79026",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a37d403_f707fdb0",
+        "filename": "development/history/add_release_commit_tags.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-05-16T17:49:15Z",
+      "side": 1,
+      "message": "I think \"Inclusive cutoff\" suggests that we\u0027re walking the git history and using all of it, but I think that it would be faster for developers to understand the concept of checking out a specific git commit and releasing what is in the tree at that commit.\n\nI\u0027d recommend replacing \"Inclusive cutoff commit for\" with \"Release\"",
+      "range": {
+        "startLine": 83,
+        "startChar": 51,
+        "endLine": 83,
+        "endChar": 78
+      },
+      "revId": "f4878de745533183a347514a000e48b063f79026",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
