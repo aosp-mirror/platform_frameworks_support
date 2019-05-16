@@ -355,6 +355,24 @@
     },
     {
       "key": {
+        "uuid": "76d41492_408d03e4",
+        "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/SemanticsL2.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-05-16T17:32:56Z",
+      "side": 1,
+      "message": "Sorry, to clarify - what if they pass an action type (e.g., move cursor forward by character) that takes a boolean argument?",
+      "parentUuid": "71a14e03_5f85421a",
+      "revId": "68b1c94816897505f499bb8a8222339162833f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f368b6af_188972db",
         "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/SemanticsL2.kt",
         "patchSetId": 1
