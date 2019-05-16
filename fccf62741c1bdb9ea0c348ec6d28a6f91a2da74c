@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "05b45860_3883db3d",
+        "filename": "car/cluster/proto/NavigationState2.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1384412
+      },
+      "writtenOn": "2019-05-16T01:00:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2a69e156_aab77c64",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 12
+      },
+      "revId": "fccf62741c1bdb9ea0c348ec6d28a6f91a2da74c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4758ac84_e86f0787",
         "filename": "car/cluster/proto/NavigationState2.proto",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "6b8e9c0a_e62ec4d3",
+        "filename": "car/cluster/proto/NavigationState2.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1384412
+      },
+      "writtenOn": "2019-05-16T01:00:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4758ac84_e86f0787",
+      "range": {
+        "startLine": 99,
+        "startChar": 0,
+        "endLine": 99,
+        "endChar": 12
+      },
+      "revId": "fccf62741c1bdb9ea0c348ec6d28a6f91a2da74c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f97ca7a1_5d45efd1",
         "filename": "car/cluster/proto/NavigationState2.proto",
         "patchSetId": 1
@@ -68,6 +116,30 @@
       "revId": "fccf62741c1bdb9ea0c348ec6d28a6f91a2da74c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8a0fb91_a0b85f1d",
+        "filename": "car/cluster/proto/NavigationState2.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1384412
+      },
+      "writtenOn": "2019-05-16T01:00:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f97ca7a1_5d45efd1",
+      "range": {
+        "startLine": 122,
+        "startChar": 0,
+        "endLine": 122,
+        "endChar": 4
+      },
+      "revId": "fccf62741c1bdb9ea0c348ec6d28a6f91a2da74c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -130,6 +202,30 @@
       "side": 1,
       "message": "I don\u0027t think so - goog.protobuf.Timestamp is part of the open source distribution too AFAIK",
       "parentUuid": "3545b2f1_cd919bfb",
+      "range": {
+        "startLine": 151,
+        "startChar": 4,
+        "endLine": 151,
+        "endChar": 30
+      },
+      "revId": "fccf62741c1bdb9ea0c348ec6d28a6f91a2da74c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66954e43_9594e4a9",
+        "filename": "car/cluster/proto/NavigationState2.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1384412
+      },
+      "writtenOn": "2019-05-16T01:00:37Z",
+      "side": 1,
+      "message": "I\u0027ll just keep it unGoogley for the prototype..",
+      "parentUuid": "ecf13856_4eab78b3",
       "range": {
         "startLine": 151,
         "startChar": 4,
@@ -259,6 +355,30 @@
     },
     {
       "key": {
+        "uuid": "866d9e39_560c3334",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/LaneDirection.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1384412
+      },
+      "writtenOn": "2019-05-16T01:00:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "56c2b998_e61613d6",
+      "range": {
+        "startLine": 215,
+        "startChar": 15,
+        "endLine": 215,
+        "endChar": 60
+      },
+      "revId": "fccf62741c1bdb9ea0c348ec6d28a6f91a2da74c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "97158add_9e6f4318",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/LaneDirection.java",
         "patchSetId": 1
@@ -279,6 +399,30 @@
       "revId": "fccf62741c1bdb9ea0c348ec6d28a6f91a2da74c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68c47a06_206a620a",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/LaneDirection.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1384412
+      },
+      "writtenOn": "2019-05-16T01:00:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "97158add_9e6f4318",
+      "range": {
+        "startLine": 219,
+        "startChar": 0,
+        "endLine": 223,
+        "endChar": 31
+      },
+      "revId": "fccf62741c1bdb9ea0c348ec6d28a6f91a2da74c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -329,6 +473,30 @@
     },
     {
       "key": {
+        "uuid": "5cb7ce8e_438a1978",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/LaneDirection.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1384412
+      },
+      "writtenOn": "2019-05-16T01:00:37Z",
+      "side": 1,
+      "message": "keeping as is for prototype",
+      "parentUuid": "1cfa96d8_f2c3544e",
+      "range": {
+        "startLine": 256,
+        "startChar": 4,
+        "endLine": 256,
+        "endChar": 89
+      },
+      "revId": "fccf62741c1bdb9ea0c348ec6d28a6f91a2da74c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5fe4f89b_4d0468bf",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/LaneDirection.java",
         "patchSetId": 1
@@ -349,6 +517,30 @@
       "revId": "fccf62741c1bdb9ea0c348ec6d28a6f91a2da74c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "285ca3fb_127ea17e",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/LaneDirection.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1384412
+      },
+      "writtenOn": "2019-05-16T01:00:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5fe4f89b_4d0468bf",
+      "range": {
+        "startLine": 257,
+        "startChar": 1,
+        "endLine": 260,
+        "endChar": 31
+      },
+      "revId": "fccf62741c1bdb9ea0c348ec6d28a6f91a2da74c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -375,6 +567,30 @@
     },
     {
       "key": {
+        "uuid": "d49d1b5d_64451bdf",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/LatLng.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1384412
+      },
+      "writtenOn": "2019-05-16T01:00:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1ea6659c_cf9e6d27",
+      "range": {
+        "startLine": 101,
+        "startChar": 0,
+        "endLine": 104,
+        "endChar": 31
+      },
+      "revId": "fccf62741c1bdb9ea0c348ec6d28a6f91a2da74c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "21d7ea52_368396b9",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/RichText.java",
         "patchSetId": 1
@@ -395,6 +611,30 @@
       "revId": "fccf62741c1bdb9ea0c348ec6d28a6f91a2da74c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "922596ed_b1ec606e",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/RichText.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1384412
+      },
+      "writtenOn": "2019-05-16T01:00:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "21d7ea52_368396b9",
+      "range": {
+        "startLine": 138,
+        "startChar": 4,
+        "endLine": 138,
+        "endChar": 34
+      },
+      "revId": "fccf62741c1bdb9ea0c348ec6d28a6f91a2da74c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -421,6 +661,30 @@
     },
     {
       "key": {
+        "uuid": "acf0b09d_bc42ee24",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/RichText.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1384412
+      },
+      "writtenOn": "2019-05-16T01:00:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c1952639_480f32db",
+      "range": {
+        "startLine": 155,
+        "startChar": 13,
+        "endLine": 155,
+        "endChar": 64
+      },
+      "revId": "fccf62741c1bdb9ea0c348ec6d28a6f91a2da74c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "12aed1a0_f66f97f7",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/RichTextElement.java",
         "patchSetId": 1
@@ -441,6 +705,30 @@
       "revId": "fccf62741c1bdb9ea0c348ec6d28a6f91a2da74c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93cddee3_3857e900",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/RichTextElement.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1384412
+      },
+      "writtenOn": "2019-05-16T01:00:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "12aed1a0_f66f97f7",
+      "range": {
+        "startLine": 177,
+        "startChar": 16,
+        "endLine": 177,
+        "endChar": 70
+      },
+      "revId": "fccf62741c1bdb9ea0c348ec6d28a6f91a2da74c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
