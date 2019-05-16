@@ -46,13 +46,14 @@ import androidx.ui.material.surface.Card
 import androidx.ui.material.surface.DrawColor
 import androidx.ui.painting.Canvas
 import androidx.ui.graphics.Color
-import androidx.ui.test.android.AndroidUiTestRunner
+import androidx.ui.test.createComposeRule
 import androidx.ui.test.doClick
 import androidx.ui.test.findByTag
 import androidx.ui.vectormath64.Matrix4
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
@@ -61,7 +62,10 @@ import java.util.concurrent.TimeUnit
 
 @MediumTest
 @RunWith(JUnit4::class)
-class RippleEffectTest : AndroidUiTestRunner() {
+class RippleEffectTest {
+
+    @get:Rule
+    val composeTestRule = createComposeRule()
 
     @Test
     fun rippleEffectMatrixHasOffsetFromSurface() {
@@ -69,7 +73,7 @@ class RippleEffectTest : AndroidUiTestRunner() {
         var matrix: Matrix4? = null
 
         val padding = 10.dp
-        setMaterialContent {
+        composeTestRule.setMaterialContent {
             RippleCallback(onRippleDrawn = {
                 matrix = it
                 latch.countDown()
@@ -91,7 +95,9 @@ class RippleEffectTest : AndroidUiTestRunner() {
         assertTrue(latch.await(1, TimeUnit.SECONDS))
         // verify matrix contains the expected padding
         assertNotNull(matrix)
-        val paddingFloat = withDensity(density) { padding.toIntPx().value.toFloat() }
+        val paddingFloat = withDensity(composeTestRule.density) {
+            padding.toIntPx().value.toFloat()
+        }
         val expectedMatrix = Matrix4.translationValues(
             paddingFloat,
             paddingFloat,
@@ -106,7 +112,7 @@ class RippleEffectTest : AndroidUiTestRunner() {
         var matrix: Matrix4? = null
 
         val size = 10.dp
-        setMaterialContent {
+        composeTestRule.setMaterialContent {
             RippleCallback(onRippleDrawn = {
                 matrix = it
                 latch.countDown()
@@ -132,7 +138,7 @@ class RippleEffectTest : AndroidUiTestRunner() {
         assertTrue(latch.await(1, TimeUnit.SECONDS))
         // verify matrix contains the expected padding
         assertNotNull(matrix)
-        val offsetFloat = withDensity(density) { size.toIntPx().value.toFloat() }
+        val offsetFloat = withDensity(composeTestRule.density) { size.toIntPx().value.toFloat() }
         val expectedMatrix = Matrix4.translationValues(
             offsetFloat,
             0f,
