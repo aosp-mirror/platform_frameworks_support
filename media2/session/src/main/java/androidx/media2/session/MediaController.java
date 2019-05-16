@@ -1118,9 +1118,12 @@ public class MediaController implements AutoCloseable {
     }
 
     /**
-     * Gets the list of track information.
+     * Gets the cached track info list from the
+     * {@link ControllerCallback#onTrackInfoChanged(MediaController, List)}.
+     * The types of tracks supported may vary based on player implementation.
+     * If it is not connected yet, it returns null.
      *
-     * @return List of track info. The total number of tracks is the size of the list.
+     * @return List of tracks. The total number of tracks is the size of the list.
      *
      * @hide
      */
@@ -1131,9 +1134,10 @@ public class MediaController implements AutoCloseable {
     }
 
     /**
-     * Select track info.
+     * Selects the {@link SessionPlayer.TrackInfo} for the current media item.
+     * The types of tracks supported may vary based on player implementation.
      *
-     * @param trackInfo Track info to be selected.
+     * @param trackInfo track to be selected.
      *
      * @hide
      */
@@ -1144,9 +1148,10 @@ public class MediaController implements AutoCloseable {
     }
 
     /**
-     * Deselect track info.
+     * Deselects the {@link SessionPlayer.TrackInfo} for the current media item.
+     * The types of tracks supported may vary based on player implementation.
      *
-     * @param trackInfo Track info to be deselected.
+     * @param trackInfo track to be deselected.
      *
      * @hide
      */
@@ -1795,36 +1800,65 @@ public class MediaController implements AutoCloseable {
                 @NonNull VideoSize videoSize) {}
 
         /**
-         * Called when the track info list is changed.
+         * Called when the tracks are first retrieved after media is prepared or when new tracks are
+         * found during playback.
+         * <p>
+         * When it's called, you should invalidate previous track information and use the new
+         * tracks to call {@link #selectTrack(SessionPlayer.TrackInfo)} or
+         * {@link #deselectTrack(SessionPlayer.TrackInfo)}.
+         * <p>
+         * The types of tracks supported may vary based on player implementation.
+         * @see SessionPlayer.TrackInfo#MEDIA_TRACK_TYPE_VIDEO
+         * @see SessionPlayer.TrackInfo#MEDIA_TRACK_TYPE_AUDIO
+         * @see SessionPlayer.TrackInfo#MEDIA_TRACK_TYPE_TIMEDTEXT
+         * @see SessionPlayer.TrackInfo#MEDIA_TRACK_TYPE_SUBTITLE
+         * @see SessionPlayer.TrackInfo#MEDIA_TRACK_TYPE_METADATA
          *
          * @param controller the controller for this event
          * @param trackInfos the list of track infos
          * @hide
          */
         @RestrictTo(LIBRARY_GROUP)
-        public void onTrackInfoChanged(MediaController controller,
+        public void onTrackInfoChanged(@NonNull MediaController controller,
                 List<SessionPlayer.TrackInfo> trackInfos) {}
 
         /**
-         * Called when a track info is selected.
+         * Called when a track is selected.
+         * <p>
+         * The types of tracks supported may vary based on player implementation, but generally
+         * one track will be selected for each track type.
+         * @see SessionPlayer.TrackInfo#MEDIA_TRACK_TYPE_VIDEO
+         * @see SessionPlayer.TrackInfo#MEDIA_TRACK_TYPE_AUDIO
+         * @see SessionPlayer.TrackInfo#MEDIA_TRACK_TYPE_TIMEDTEXT
+         * @see SessionPlayer.TrackInfo#MEDIA_TRACK_TYPE_SUBTITLE
+         * @see SessionPlayer.TrackInfo#MEDIA_TRACK_TYPE_METADATA
          *
          * @param controller the controller for this event
-         * @param trackInfo the selected track info
+         * @param trackInfo the selected track
          * @hide
          */
         @RestrictTo(LIBRARY_GROUP)
-        public void onTrackSelected(MediaController controller,
+        public void onTrackSelected(@NonNull MediaController controller,
                 SessionPlayer.TrackInfo trackInfo) {}
 
         /**
-         * Called when a track info is deselected.
+         * Called when a track is deselected.
+         * <p>
+         * The types of tracks supported may vary based on player implementation, but generally
+         * a track should already be selected in order to be deselected and audio and video tracks
+         * should not be deselected.
+         * @see SessionPlayer.TrackInfo#MEDIA_TRACK_TYPE_VIDEO
+         * @see SessionPlayer.TrackInfo#MEDIA_TRACK_TYPE_AUDIO
+         * @see SessionPlayer.TrackInfo#MEDIA_TRACK_TYPE_TIMEDTEXT
+         * @see SessionPlayer.TrackInfo#MEDIA_TRACK_TYPE_SUBTITLE
+         * @see SessionPlayer.TrackInfo#MEDIA_TRACK_TYPE_METADATA
          *
          * @param controller the controller for this event
-         * @param trackInfo the deselected track info
+         * @param trackInfo the deselected track
          * @hide
          */
         @RestrictTo(LIBRARY_GROUP)
-        public void onTrackDeselected(MediaController controller,
+        public void onTrackDeselected(@NonNull MediaController controller,
                 SessionPlayer.TrackInfo trackInfo) {}
 
         /**
