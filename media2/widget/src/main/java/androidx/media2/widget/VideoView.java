@@ -718,7 +718,8 @@ public class VideoView extends SelectiveLayout {
                 mVideoTrackCount++;
             } else if (trackType == MediaPlayer.TrackInfo.MEDIA_TRACK_TYPE_AUDIO) {
                 mAudioTrackInfos.add(trackInfo);
-            } else if (trackType == MediaPlayer.TrackInfo.MEDIA_TRACK_TYPE_SUBTITLE) {
+            } else if (trackType == MediaPlayer.TrackInfo.MEDIA_TRACK_TYPE_SUBTITLE
+                    || trackType == MediaPlayer.TrackInfo.MEDIA_TRACK_TYPE_TIMEDTEXT) {
                 SubtitleTrack track = mSubtitleController.addTrack(trackInfo.getFormat());
                 if (track != null) {
                     mSubtitleTracks.put(trackInfo, track);
