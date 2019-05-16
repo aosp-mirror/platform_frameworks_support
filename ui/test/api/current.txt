@@ -61,12 +61,12 @@ package androidx.ui.test {
 
 package androidx.ui.test.android {
 
-  public class AndroidUiTestRunner implements androidx.ui.test.UiTestRunner {
+  public class AndroidUiTestRunner implements androidx.ui.core.DensityReceiver androidx.ui.test.UiTestRunner {
     ctor public AndroidUiTestRunner();
     method public final void TestWrapper(kotlin.jvm.functions.Function0<kotlin.Unit> children);
     method public java.util.List<androidx.ui.core.SemanticsTreeNode> findSemantics(kotlin.jvm.functions.Function1<? super androidx.ui.core.SemanticsTreeNode,java.lang.Boolean> selector);
     method public final androidx.test.rule.ActivityTestRule<androidx.ui.test.android.DefaultTestActivity> getActivityTestRule();
-    method public final androidx.ui.core.Density getDensity();
+    method public androidx.ui.core.Density getDensity();
     method public void performClick(float x, float y);
     method public final void runOnUiAndWaitForRecompose(kotlin.jvm.functions.Function0<kotlin.Unit> runnable);
     method public void sendEvent(android.view.MotionEvent event);
@@ -74,7 +74,7 @@ package androidx.ui.test.android {
     method public final void setup();
     method public final void teardown();
     property public final androidx.test.rule.ActivityTestRule<androidx.ui.test.android.DefaultTestActivity> activityTestRule;
-    property public final androidx.ui.core.Density density;
+    property public androidx.ui.core.Density density;
   }
 
   public final class AndroidUiTestRunnerKt {

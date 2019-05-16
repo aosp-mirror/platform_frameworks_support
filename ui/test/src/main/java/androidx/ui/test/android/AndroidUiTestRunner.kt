@@ -33,6 +33,7 @@ import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.rule.ActivityTestRule
 import androidx.ui.core.CraneWrapper
 import androidx.ui.core.Density
+import androidx.ui.core.DensityReceiver
 import androidx.ui.core.SemanticsTreeNode
 import androidx.ui.core.SemanticsTreeProvider
 import androidx.ui.test.UiTestRunner
@@ -49,7 +50,7 @@ import java.util.concurrent.TimeUnit
  * [androidx.ui.test.android.DefaultTestActivity] to you tests manifest file in order to use this.
  */
 // TODO(pavlis): Move this to android specific directory
-open class AndroidUiTestRunner : UiTestRunner {
+open class AndroidUiTestRunner : UiTestRunner, DensityReceiver {
 
     // we should not wait more than two frames, but two frames can be much more
     // than 32ms when we skip a few, so "better" 10x number should work here
@@ -63,7 +64,7 @@ open class AndroidUiTestRunner : UiTestRunner {
     private lateinit var rootProvider: SemanticsTreeProvider
     private var compositionContext: CompositionContext? = null
 
-    val density: Density get() = Density(activity)
+    override val density: Density get() = Density(activity)
 
     @Before
     // TODO(pavlis): This is not great, if super forgets to call this (if redefining @before).

@@ -18,14 +18,10 @@ package androidx.ui.material
 
 import androidx.test.filters.MediumTest
 
-import androidx.ui.core.OnChildPositioned
-import androidx.ui.core.PxSize
 import androidx.ui.core.TestTag
 import androidx.ui.core.dp
 import androidx.ui.core.withDensity
 import androidx.ui.layout.Column
-import androidx.ui.layout.Container
-import androidx.ui.layout.DpConstraints
 import androidx.ui.test.DisableTransitions
 import androidx.ui.test.android.AndroidUiTestRunner
 import androidx.ui.test.assertIsChecked
@@ -35,11 +31,9 @@ import androidx.ui.test.copyWith
 import androidx.ui.test.createFullSemantics
 import androidx.ui.test.doClick
 import androidx.ui.test.findByTag
-import androidx.compose.composer
 import androidx.compose.state
 import androidx.compose.unaryPlus
-import androidx.ui.core.round
-import com.google.common.truth.Truth
+import androidx.compose.composer
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -134,26 +128,13 @@ class SwitchUiTest : AndroidUiTestRunner() {
     }
 
     private fun materialSizesTestForValue(checked: Boolean) {
-        var switchSize: PxSize? = null
-        setMaterialContent {
-            Container(
-                constraints = DpConstraints(
-                    maxWidth = 5000.dp,
-                    maxHeight = 5000.dp
-                )
-            ) {
-                OnChildPositioned(onPositioned = { coordinates ->
-                    switchSize = coordinates.size
-                }) {
-                    Switch(checked = checked)
-                }
-            }
-        }
         withDensity(density) {
-            Truth.assertThat(switchSize?.width?.round())
-                .isEqualTo(34.dp.toIntPx() + 2.dp.toIntPx() * 2)
-            Truth.assertThat(switchSize?.height?.round())
-                .isEqualTo(20.dp.toIntPx() + 2.dp.toIntPx() * 2)
+            performSizesTest(
+                34.dp.toIntPx() + 2.dp.toIntPx() * 2,
+                20.dp.toIntPx() + 2.dp.toIntPx() * 2
+            ) {
+                Switch(checked = checked)
+            }
         }
     }
 }
