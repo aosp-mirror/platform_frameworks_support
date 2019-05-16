@@ -164,6 +164,30 @@
       "revId": "4f1c30259a6ef47000ab34f460ffba62a1068b47",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71374bbf_a4dcb776",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaController.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1198,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-16T02:17:40Z",
+      "side": 1,
+      "message": "Thank you for pointing out the controversial topic. I did prefer the former but you changed my mind. Although we could find a bug earlier, it would not be able to be fixed soon because of the release timeline.\n\nBTW, I noticed that the language level assertion is not reliable on Android (b/36988757). I updated the CL, PTAL. I thought that the best approach would be throw an exception on DEBUG and ignore null callbacks on RELEASE, but I don\u0027t have idea how to use BuildConfig.DEBUG in AndroidX library.",
+      "parentUuid": "80ad0885_aa6a31d6",
+      "range": {
+        "startLine": 1197,
+        "startChar": 12,
+        "endLine": 1198,
+        "endChar": 36
+      },
+      "revId": "4f1c30259a6ef47000ab34f460ffba62a1068b47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
