@@ -188,6 +188,30 @@
       "revId": "4f1c30259a6ef47000ab34f460ffba62a1068b47",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "953a9ad4_ba830595",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaController.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1198,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-05-16T02:55:00Z",
+      "side": 1,
+      "message": "Good thought to throw only in DEBUG. I am not sure if this is the best way for that, but seems like people check application\u0027s flag : getApplicationInfo().flags \u0026 ApplicationInfo.FLAG_DEBUGGABLE !\u003d 0",
+      "parentUuid": "71374bbf_a4dcb776",
+      "range": {
+        "startLine": 1197,
+        "startChar": 12,
+        "endLine": 1198,
+        "endChar": 36
+      },
+      "revId": "4f1c30259a6ef47000ab34f460ffba62a1068b47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
