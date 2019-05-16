@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "83519543_fe591539",
+        "filename": "enterprise/feedback/src/main/java/androidx/enterprise/feedback/SingletonKeyedAppStatesReporter.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1103203
+      },
+      "writtenOn": "2019-05-16T19:28:47Z",
+      "side": 1,
+      "message": "nit (no action required, especially not for this CL):\n\nLooks like this method relies on synchronized (KeyedAppStatesReporter.class) being held when it is called.\n\nConsider either:\n\n(a) if (!Thread.holdsLock(KeyedAppStatesReporter.class)) { throw new IllegalStateException(...); }\n\nor alternatively (probably (a) is the better option):\n\n(b)\n\n   synchronized (KeyedAppStatesReporter.class) { ... }",
+      "range": {
+        "startLine": 122,
+        "startChar": 7,
+        "endLine": 123,
+        "endChar": 26
+      },
+      "revId": "f50f7b04b0b4d35792dd113fef5d332d40ab5920",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}

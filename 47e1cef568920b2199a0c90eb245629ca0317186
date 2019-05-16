@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "3e43f35d_33a7d203",
+        "filename": "enterprise/feedback/src/main/java/androidx/enterprise/feedback/FakeKeyedAppStatesReporter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1103203
+      },
+      "writtenOn": "2019-05-16T19:28:47Z",
+      "side": 1,
+      "message": "Ah, I think you might be right. Consider making the fake thread safe, too? Up to you.",
+      "parentUuid": "a0e0bd6e_0ee58f7f",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 53
+      },
+      "revId": "47e1cef568920b2199a0c90eb245629ca0317186",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f4858bc0_5f4aa178",
         "filename": "enterprise/feedback/src/main/java/androidx/enterprise/feedback/FakeKeyedAppStatesReporter.java",
         "patchSetId": 4
@@ -96,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "eeb8ceff_ddb9ba5e",
+        "filename": "enterprise/feedback/src/main/java/androidx/enterprise/feedback/FakeKeyedAppStatesReporter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1103203
+      },
+      "writtenOn": "2019-05-16T19:28:47Z",
+      "side": 1,
+      "message": "Then why does the Fake implement add semantics? You could implement set() semantics by calling reset() at the start?",
+      "parentUuid": "0752d5ef_b02c2455",
+      "range": {
+        "startLine": 50,
+        "startChar": 16,
+        "endLine": 50,
+        "endChar": 25
+      },
+      "revId": "47e1cef568920b2199a0c90eb245629ca0317186",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b982829d_4436bf67",
         "filename": "enterprise/feedback/src/main/java/androidx/enterprise/feedback/FakeKeyedAppStatesReporter.java",
         "patchSetId": 4
@@ -131,6 +179,30 @@
       "side": 1,
       "message": "I suppose not strictly. It seems like it may be a useful option in some tests depending on the injection mechanism (e.g. the setup/initialisation code sets some states and so the tests wish to clear them before executing the method under test).",
       "parentUuid": "b982829d_4436bf67",
+      "range": {
+        "startLine": 80,
+        "startChar": 3,
+        "endLine": 83,
+        "endChar": 24
+      },
+      "revId": "47e1cef568920b2199a0c90eb245629ca0317186",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "26cad533_ff0ce776",
+        "filename": "enterprise/feedback/src/main/java/androidx/enterprise/feedback/FakeKeyedAppStatesReporter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1103203
+      },
+      "writtenOn": "2019-05-16T19:28:47Z",
+      "side": 1,
+      "message": "Why wouldn\u0027t that test just construct a new instance? But, up to you.",
+      "parentUuid": "f892b071_34c1bbdd",
       "range": {
         "startLine": 80,
         "startChar": 3,
