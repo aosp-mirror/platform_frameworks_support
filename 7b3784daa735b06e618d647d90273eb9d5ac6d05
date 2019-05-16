@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "154505a6_0ec749ec",
+        "filename": "camera/integration-tests/timingtestapp/src/androidTest/java/androidx/camera/integration/antelope/AntelopeInstrumentedTests.kt",
+        "patchSetId": 20
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-05-16T18:12:03Z",
+      "side": 1,
+      "message": "Is this required to make the test pass/bypass flakes? We should prefer shorter tests if possible, but if it\u0027s needed then we could keep it in.\n\nNotice the other RepeatRule usage in AndroidX has times \u003d 1. I\u0027m guessing they repeated tests for debugging, but reduced it back to 1 once it was made stable.",
+      "range": {
+        "startLine": 155,
+        "startChar": 31,
+        "endLine": 155,
+        "endChar": 32
+      },
+      "revId": "7b3784daa735b06e618d647d90273eb9d5ac6d05",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
