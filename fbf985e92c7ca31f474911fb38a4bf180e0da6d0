@@ -60,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "8c572663_a156020e",
+        "filename": "test/screenshots/.gitignore",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2019-05-16T13:31:15Z",
+      "side": 1,
+      "message": "Done, everything looks fine here.",
+      "parentUuid": "caa17cce_2e51a051",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 6
+      },
+      "revId": "fbf985e92c7ca31f474911fb38a4bf180e0da6d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "48a258b9_83c033ba",
         "filename": "test/screenshots/build.gradle",
         "patchSetId": 2
@@ -80,6 +104,30 @@
       "revId": "fbf985e92c7ca31f474911fb38a4bf180e0da6d0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "edbbb459_c114862d",
+        "filename": "test/screenshots/build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2019-05-16T13:31:15Z",
+      "side": 1,
+      "message": "Good point, modified the gradle file to reflect this. We did have problems afterwards as we couldn\u0027t get the jar to be created. Not sure what the cleanest way to do this would be. Could you take a look?",
+      "parentUuid": "48a258b9_83c033ba",
+      "range": {
+        "startLine": 18,
+        "startChar": 8,
+        "endLine": 18,
+        "endChar": 22
+      },
+      "revId": "fbf985e92c7ca31f474911fb38a4bf180e0da6d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -106,6 +154,30 @@
     },
     {
       "key": {
+        "uuid": "8520b041_a1ddb17c",
+        "filename": "test/screenshots/build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2019-05-16T13:31:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "953cc0f4_da476544",
+      "range": {
+        "startLine": 23,
+        "startChar": 12,
+        "endLine": 23,
+        "endChar": 52
+      },
+      "revId": "fbf985e92c7ca31f474911fb38a4bf180e0da6d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f61997d7_38644d2b",
         "filename": "test/screenshots/build.gradle",
         "patchSetId": 2
@@ -126,6 +198,30 @@
       "revId": "fbf985e92c7ca31f474911fb38a4bf180e0da6d0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82fa7a87_dc72d2ba",
+        "filename": "test/screenshots/build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2019-05-16T13:31:15Z",
+      "side": 1,
+      "message": "Initially we wanted to checkin the generated java source code so errorprone would fail. As this would only have the protos then running errorprone didn\u0027t make sense.\n\nWe changed this so now we only have the proto files checked in and the java source code is generated when doing a build.",
+      "parentUuid": "f61997d7_38644d2b",
+      "range": {
+        "startLine": 27,
+        "startChar": 4,
+        "endLine": 27,
+        "endChar": 21
+      },
+      "revId": "fbf985e92c7ca31f474911fb38a4bf180e0da6d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -152,6 +248,30 @@
     },
     {
       "key": {
+        "uuid": "d8e30f16_3e8bfb0d",
+        "filename": "test/screenshots/src/main/java/androidx/test/screenshots/ScreenshotResultProtos.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2019-05-16T13:31:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "85b40a59_3c52515a",
+      "range": {
+        "startLine": 4,
+        "startChar": 22,
+        "endLine": 4,
+        "endChar": 33
+      },
+      "revId": "fbf985e92c7ca31f474911fb38a4bf180e0da6d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b2030c30_0f56de89",
         "filename": "test/screenshots/src/main/proto/screenshot_result.proto",
         "patchSetId": 2
@@ -166,6 +286,24 @@
       "revId": "fbf985e92c7ca31f474911fb38a4bf180e0da6d0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a7010ee_f07f214e",
+        "filename": "test/screenshots/src/main/proto/screenshot_result.proto",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2019-05-16T13:31:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b2030c30_0f56de89",
+      "revId": "fbf985e92c7ca31f474911fb38a4bf180e0da6d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
