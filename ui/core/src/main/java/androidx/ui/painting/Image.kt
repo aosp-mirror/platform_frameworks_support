@@ -16,12 +16,7 @@
 
 package androidx.ui.painting
 
-import android.graphics.Bitmap
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.async
-import java.io.ByteArrayOutputStream
-import java.nio.ByteBuffer
+import androidx.ui.graphics.ColorSpace
 
 // Opaque handle to raw decoded image data (pixels).
 /**
@@ -38,75 +33,53 @@ import java.nio.ByteBuffer
  *
  * To obtain an [Image] object, use [instantiateImageCodec].
  */
-class Image constructor(
-    internal val bitmap: android.graphics.Bitmap
-)/* extends NativeFieldWrapperClass2 */ {
+
+// TODO njawad/aelias uncomment implementation when platform support is enabled + uncomment `expect`
+// expect fun Image(
+//    width: Int,
+//    height: Int,
+//    config: ImageConfig = ImageConfig.Argb8888,
+//    hasAlpha: Boolean = true,
+//    colorSpace: ColorSpace = ColorSpace.get(ColorSpace.Named.Srgb)
+// ): Image
+
+/* expect */ typealias NativeImage = android.graphics.Bitmap
+
+// TODO njawad/aelias uncomment when host side testing support is added
+interface Image {
 
     /** The number of image pixels along the image's horizontal axis. */
-    val width: Int = bitmap.width
+    val width: Int
 
     /** The number of image pixels along the image's vertical axis. */
-    val height: Int = bitmap.height
+    val height: Int
+
+    /** Return the size of this Image in bytes **/
+    val byteCount: Int
+
+    /** ColorSpace the Image renders in **/
+    val colorSpace: ColorSpace
+
+    /** Determines whether or not the Image contains an alpha channel **/
+    val hasAlpha: Boolean
 
     /**
-     * Converts the [Image] object into a byte array.
-     *
-     * The [format] argument specifies the format in which the bytes will be
-     * returned.
-     *
-     * Returns a future that completes with the binary image data or an error
-     * if encoding fails.
+     * Returns the current configuration of this Image, either:
+     * @see ImageConfig.Argb8888
+     * @see ImageConfig.Rgb565
+     * @see ImageConfig.Alpha8
+     * @see ImageConfig.Gpu
      */
-    fun CoroutineScope.toByteData(
-        format: ImageByteFormat = ImageByteFormat.rawRgba
-    ): Deferred<ByteBuffer> {
-        return async {
-            when (format) {
-                // Bitmap is already in argb so in either rawRgba or rawUnmodified
-                // return the same bytearray
-                ImageByteFormat.rawRgba -> {
-                    assert(bitmap.config == Bitmap.Config.ARGB_8888)
-                    toRawByteArray()
-                }
-                ImageByteFormat.rawUnmodified -> toRawByteArray()
-                ImageByteFormat.png -> toPngByteArray()
-            }
-        }
-    }
+    val config: ImageConfig
 
-    private fun toRawByteArray(): ByteBuffer {
-        val byteBuffer = ByteBuffer.allocate(size())
-        bitmap.copyPixelsToBuffer(byteBuffer)
-        return byteBuffer
-    }
-
-    private fun toPngByteArray(): ByteBuffer {
-        val stream = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
-        return ByteBuffer.wrap(stream.toByteArray())
-    }
-
-    private fun size(): Int {
-        return bitmap.byteCount
-    }
-//    Future<ByteData> toByteData({ImageByteFormat format: ImageByteFormat.rawRgba}) {
-//        return _futurize((_Callback<ByteData> callback) {
-//            return _toByteData(format.index, (Uint8List encoded) {
-//                callback(encoded?.buffer?.asByteData());
-//            });
-//        });
-//    }
-//
-//    /// Returns an error message on failure, null on success.
-//    String _toByteData(int format, _Callback<Uint8List> callback) native 'Image_toByteData';
-//
     /**
-     * Release the resources used by this object. The object is no longer usable
-     * after this method is called.
+     * Return backing object that implements the Image interface
      */
-    fun dispose() = bitmap.recycle()
+    val nativeImage: NativeImage
 
-    override fun toString(): String {
-        return String.format("%d * %d", width, height)
-    }
+    /**
+     * Builds caches associated with the bitmap that are used for drawing it. This method can
+     * be used as a signal to upload images to the GPU to eventually be rendered
+     */
+    fun prepareToDraw()
 }

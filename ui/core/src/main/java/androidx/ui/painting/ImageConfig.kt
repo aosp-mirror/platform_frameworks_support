@@ -14,19 +14,17 @@
  * limitations under the License.
  */
 
-package androidx.ui.material.demos
+package androidx.ui.painting
 
-import android.app.Activity
-import android.os.Bundle
-import androidx.ui.painting.imageFromResource
-import androidx.compose.setContent
-import androidx.compose.composer
-
-class FloatingActionButtonActivity : Activity() {
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        val icon = imageFromResource(resources, R.drawable.ic_favorite)
-        setContent { FloatingActionButtonDemo(icon = icon)}
-    }
+/**
+ * Possible Image configurations. An Image configuration describes
+ * how pixels are stored. This affects the quality (color depth) as
+ * well as the ability to display transparent/translucent colors.
+ */
+enum class ImageConfig {
+    Argb8888,
+    Alpha8,
+    Rgb565,
+    F16,
+    Gpu
 }

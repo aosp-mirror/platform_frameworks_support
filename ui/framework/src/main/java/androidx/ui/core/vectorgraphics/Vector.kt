@@ -16,7 +16,6 @@
 
 package androidx.ui.core.vectorgraphics
 
-import android.graphics.Bitmap
 import android.graphics.ColorFilter
 import android.graphics.Matrix
 import android.graphics.PixelFormat
@@ -175,7 +174,7 @@ private class Vector(
      * Cached Image of the Vector Graphic to be re-used across draw calls
      * if the Vector graphic is not dirty
      */
-    // TODO (njawad) add invalidation logic to re-draw into the offscreen bitmap
+    // TODO (njawad) add invalidation logic to re-draw into the offscreen Image
     private var cachedImage: Image? = null
 
     val size: Int
@@ -184,11 +183,12 @@ private class Vector(
     override fun draw(canvas: Canvas) {
         var targetImage = cachedImage
         if (targetImage == null) {
-            val bitmap = Bitmap.createBitmap(kotlin.math.ceil(defaultWidth).toInt(),
-                kotlin.math.ceil(defaultHeight).toInt(), Bitmap.Config.ARGB_8888)
-            targetImage = Image(bitmap)
+            targetImage = Image(
+                kotlin.math.ceil(defaultWidth).toInt(),
+                kotlin.math.ceil(defaultHeight).toInt()
+            )
             cachedImage = targetImage
-            root.draw(Canvas(android.graphics.Canvas(bitmap)))
+            root.draw(Canvas(targetImage))
         }
         canvas.drawImage(targetImage, Offset.zero, EmptyPaint)
     }
@@ -532,23 +532,21 @@ private class Group(val name: String = DefaultGroupName) : VNode(), Emittable {
             isClipPathDirty = false
         }
 
-        canvas.save()
+        canvas.save {
+            val targetClip = clipPath
+            if (willClipPath && targetClip != null) {
+                clipPath(targetClip)
+            }
 
-        val targetClip = clipPath
-        if (willClipPath && targetClip != null) {
-            canvas.clipPath(targetClip)
+            val matrix = groupMatrix
+            if (matrix != null) {
+                nativeCanvas.concat(matrix)
+            }
+
+            for (node in children) {
+                node.draw(this)
+            }
         }
-
-        val matrix = groupMatrix
-        if (matrix != null) {
-            canvas.toFrameworkCanvas().concat(matrix)
-        }
-
-        for (node in children) {
-            node.draw(canvas)
-        }
-
-        canvas.restore()
     }
 
     val size: Int

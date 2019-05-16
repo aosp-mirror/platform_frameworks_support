@@ -109,12 +109,14 @@ fun VerticalScroller(
         offsetChange = { newOffset -> onScrollChanged(newOffset, maxPosition.value) }) {
         Layout(children = {
             Draw { canvas, parentSize ->
-                canvas.save()
+                // TODO (njawad) replace with save lambda when multi children DrawNodes are supported
+                canvas.nativeCanvas.save()
                 canvas.clipRect(parentSize.toRect())
             }
             child()
             Draw { canvas, _ ->
-                canvas.restore()
+                // TODO (njawad) replace with save lambda when multi children DrawNodes are supported
+                canvas.nativeCanvas.restore()
             }
         }, layoutBlock = { measurables, constraints ->
             if (measurables.size > 1) {

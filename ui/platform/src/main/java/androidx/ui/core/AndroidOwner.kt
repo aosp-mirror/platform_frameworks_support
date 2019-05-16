@@ -252,13 +252,13 @@ class AndroidCraneView constructor(context: Context)
             }
             is LayoutNode -> {
                 if (node.visible) {
-                    canvas.save()
+                    canvas.nativeCanvas.save()
                     canvas.translate(node.x.value.toFloat(), node.y.value.toFloat())
                     val size = PxSize(node.width, node.height)
                     node.visitChildren { child ->
                         callDraw(canvas, child, size, densityReceiver)
                     }
-                    canvas.restore()
+                    canvas.nativeCanvas.restore()
                 }
             }
             else -> node.visitChildren { callDraw(canvas, it, parentSize, densityReceiver) }
