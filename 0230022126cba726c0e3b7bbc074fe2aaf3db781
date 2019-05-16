@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f4dcfc45_8c67c280",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentManagerImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 607,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-05-16T21:48:29Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this just return null and skip the calls to onCreateAnimation(), etc.? I don\u0027t think we should assume that developers can handle a 0 transit, etc. and we don\u0027t want to run custom animations, etc even if they do return one.",
+      "range": {
+        "startLine": 605,
+        "startChar": 12,
+        "endLine": 607,
+        "endChar": 25
+      },
+      "revId": "0230022126cba726c0e3b7bbc074fe2aaf3db781",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
