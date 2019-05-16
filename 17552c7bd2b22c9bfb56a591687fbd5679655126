@@ -69,6 +69,30 @@
       "revId": "17552c7bd2b22c9bfb56a591687fbd5679655126",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "441eaede_22dd9c25",
+        "filename": "media2/session/version-compat-tests/current/client/src/androidTest/java/androidx/media2/test/client/tests/MediaSessionTestBase.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-16T09:02:42Z",
+      "side": 1,
+      "message": "Changed it to @Nullable aosp/963519.",
+      "parentUuid": "2eaa3e0d_42445cc4",
+      "range": {
+        "startLine": 159,
+        "startChar": 36,
+        "endLine": 159,
+        "endChar": 44
+      },
+      "revId": "17552c7bd2b22c9bfb56a591687fbd5679655126",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
