@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "dc3ded14_a90f2297",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1149384
+      },
+      "writtenOn": "2019-05-16T16:57:17Z",
+      "side": 1,
+      "message": "nit: please specify the actual command used to run the test (atest?)",
+      "range": {
+        "startLine": 12,
+        "startChar": 6,
+        "endLine": 13,
+        "endChar": 42
+      },
+      "revId": "b771ebdbeea1526e2469cb594fd0b7555b25966e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7d24351d_20435ed8",
         "filename": "core/src/main/java/androidx/core/widget/NestedScrollView.java",
         "patchSetId": 3
@@ -41,6 +64,29 @@
         "startChar": 59,
         "endLine": 105,
         "endChar": 66
+      },
+      "revId": "b771ebdbeea1526e2469cb594fd0b7555b25966e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae5708c8_83e1520f",
+        "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/RecyclerViewNestedScrollingFlingTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1149384
+      },
+      "writtenOn": "2019-05-16T16:57:17Z",
+      "side": 1,
+      "message": "From the presubmit failures, looks like this will have to be a \"close enough\" comparison, rather than a strict equals:\n\nExpected: is \u003c-10000\u003e\n     but: was \u003c-9999\u003e\n\n\nWe are doing similar checks in VelocityTracker_test:\nhttps://cs.corp.google.com/android/frameworks/native/libs/input/tests/VelocityTracker_test.cpp?q\u003dvelocitytracker_test\u0026sq\u003dpackage:android\u0026dr\u003dC\u0026l\u003d36",
+      "range": {
+        "startLine": 145,
+        "startChar": 32,
+        "endLine": 145,
+        "endChar": 34
       },
       "revId": "b771ebdbeea1526e2469cb594fd0b7555b25966e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
