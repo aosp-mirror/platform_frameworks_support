@@ -20,19 +20,12 @@ import LinearProgressIndicator
 import androidx.compose.composer
 import androidx.compose.Model
 import androidx.test.filters.LargeTest
-import androidx.ui.core.OnChildPositioned
-import androidx.ui.core.PxSize
 import androidx.ui.core.TestTag
 import androidx.ui.core.dp
-import androidx.ui.core.round
-import androidx.ui.core.withDensity
-import androidx.ui.layout.Container
-import androidx.ui.layout.DpConstraints
 import androidx.ui.test.assertIsVisible
 import androidx.ui.test.assertValueEquals
 import androidx.ui.test.createComposeRule
 import androidx.ui.test.findByTag
-import com.google.common.truth.Truth
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -46,8 +39,6 @@ private class State {
 @LargeTest
 @RunWith(JUnit4::class)
 class ProgressIndicatorTest {
-
-    private val LargeConstraints = DpConstraints(maxWidth = 5000.dp, maxHeight = 5000.dp)
 
     private val ExpectedLinearWidth = 240.dp
     private val ExpectedLinearHeight = 4.dp
@@ -81,38 +72,20 @@ class ProgressIndicatorTest {
 
     @Test
     fun determinateLinearProgressIndicator_Size() {
-        var size: PxSize? = null
-        composeTestRule.setMaterialContent {
-            Container(constraints = LargeConstraints) {
-                OnChildPositioned(onPositioned = { position ->
-                    size = position.size
-                }) {
-                    LinearProgressIndicator(progress = 0f)
-                }
-            }
+        composeTestRule.setMaterialContentAndTestSizes {
+            LinearProgressIndicator(progress = 0f)
         }
-        withDensity(composeTestRule.density) {
-            Truth.assertThat(size?.width?.round()).isEqualTo(ExpectedLinearWidth.toIntPx())
-            Truth.assertThat(size?.height?.round()).isEqualTo(ExpectedLinearHeight.toIntPx())
-        }
+            .assertWidthEqualsTo(ExpectedLinearWidth)
+            .assertHeightEqualsTo(ExpectedLinearHeight)
     }
 
     @Test
     fun indeterminateLinearProgressIndicator_Size() {
-        var size: PxSize? = null
-        composeTestRule.setMaterialContent {
-            Container(constraints = LargeConstraints) {
-                OnChildPositioned(onPositioned = { position ->
-                    size = position.size
-                }) {
-                    LinearProgressIndicator()
-                }
-            }
+        composeTestRule.setMaterialContentAndTestSizes {
+            LinearProgressIndicator()
         }
-        withDensity(composeTestRule.density) {
-            Truth.assertThat(size?.width?.round()).isEqualTo(ExpectedLinearWidth.toIntPx())
-            Truth.assertThat(size?.height?.round()).isEqualTo(ExpectedLinearHeight.toIntPx())
-        }
+            .assertWidthEqualsTo(ExpectedLinearWidth)
+            .assertHeightEqualsTo(ExpectedLinearHeight)
     }
 
     @Test
@@ -141,41 +114,15 @@ class ProgressIndicatorTest {
 
     @Test
     fun determinateCircularProgressIndicator_Size() {
-        var size: PxSize? = null
-        composeTestRule.setMaterialContent {
-            Container(constraints = LargeConstraints) {
-                OnChildPositioned(onPositioned = { position ->
-                    size = position.size
-                }) {
-                    CircularProgressIndicator(progress = 0f)
-                }
-            }
-        }
-
-        withDensity(composeTestRule.density) {
-            val expectedCircularDiameter = 4.dp.toIntPx() * 2 + 40.dp.toIntPx()
-            Truth.assertThat(size?.width?.round()).isEqualTo(expectedCircularDiameter)
-            Truth.assertThat(size?.height?.round()).isEqualTo(expectedCircularDiameter)
-        }
+        composeTestRule.setMaterialContentAndTestSizes {
+            CircularProgressIndicator(progress = 0f)
+        }.assertIsSquareWithSize { 4.dp.toIntPx() * 2 + 40.dp.toIntPx() }
     }
 
     @Test
     fun indeterminateCircularProgressIndicator_Size() {
-        var size: PxSize? = null
-        composeTestRule.setMaterialContent {
-            Container(constraints = LargeConstraints) {
-                OnChildPositioned(onPositioned = { position ->
-                    size = position.size
-                }) {
-                    CircularProgressIndicator()
-                }
-            }
-        }
-        withDensity(composeTestRule.density) {
-            val expectedCircularDiameter = 4.dp.toIntPx() * 2 + 40.dp.toIntPx()
-            Truth.assertThat(size?.width?.round()).isEqualTo(expectedCircularDiameter)
-            Truth.assertThat(size?.height?.round())
-                .isEqualTo(expectedCircularDiameter)
-        }
+        composeTestRule.setMaterialContentAndTestSizes {
+            CircularProgressIndicator()
+        }.assertIsSquareWithSize { 4.dp.toIntPx() * 2 + 40.dp.toIntPx() }
     }
 }
