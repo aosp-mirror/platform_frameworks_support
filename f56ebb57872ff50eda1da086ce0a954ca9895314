@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "29c05727_ab4d432d",
+        "filename": "ui/text/src/main/java/androidx/ui/engine/text/platform/TypefaceAdapter.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-05-16T04:55:22Z",
+      "side": 1,
+      "message": "Minor: I\u0027d prefer to avoid adding things like this that don\u0027t add much to the documentation.  I\u0027d either remove this line or make it say something like \"which attributes of the font family to synthesize custom fonts for if they are not already present in the font family\"",
+      "revId": "f56ebb57872ff50eda1da086ce0a954ca9895314",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
