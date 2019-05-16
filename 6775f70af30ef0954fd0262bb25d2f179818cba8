@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "5ff4a5fb_b0a3c44f",
+        "filename": "ui/material/src/androidTest/java/androidx/ui/material/ColoredRectUiTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2019-05-16T15:30:27Z",
+      "side": 1,
+      "message": "Sure!",
+      "parentUuid": "817af68a_9134ac54",
+      "range": {
+        "startLine": 39,
+        "startChar": 8,
+        "endLine": 39,
+        "endChar": 30
+      },
+      "revId": "6775f70af30ef0954fd0262bb25d2f179818cba8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "81644f3b_ae8cfb98",
         "filename": "ui/material/src/androidTest/java/androidx/ui/material/MaterialTest.kt",
         "patchSetId": 2
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "Hah, that\u0027s interesting. At first I wanted to name them with -ed, but the I realized that actualy I\u0027m expectING them, they are not already expected, as in \"assertBlah\" functions. I don\u0027t have a strong opinion about it though..",
       "parentUuid": "81644f3b_ae8cfb98",
+      "range": {
+        "startLine": 47,
+        "startChar": 4,
+        "endLine": 47,
+        "endChar": 18
+      },
+      "revId": "6775f70af30ef0954fd0262bb25d2f179818cba8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f5ff3bc_836c3872",
+        "filename": "ui/material/src/androidTest/java/androidx/ui/material/MaterialTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2019-05-16T15:30:27Z",
+      "side": 1,
+      "message": ":) -ed feels more natural to me, but let\u0027s see what others think as well.",
+      "parentUuid": "756be5c2_f5cc99ce",
       "range": {
         "startLine": 47,
         "startChar": 4,
