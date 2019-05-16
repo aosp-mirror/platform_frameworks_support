@@ -22,6 +22,7 @@ import androidx.build.dependencyTracker.AffectedModuleDetector.Companion.ENABLE_
 import androidx.build.getDistributionDirectory
 import androidx.build.gradle.isRoot
 import androidx.build.isRunningOnBuildServer
+import java.io.File
 import org.gradle.BuildAdapter
 import org.gradle.api.GradleException
 import org.gradle.api.Project
@@ -213,7 +214,7 @@ internal class AffectedModuleDetectorImpl constructor(
 
     override fun shouldInclude(project: Project): Boolean {
         return (project.isRoot || affectedProjects.contains(project)).also {
-            logger?.info("checking whether i should include ${project.path} and my answer is $it")
+            logger?.info("checking whether I should include ${project.path} and my answer is $it")
         }
     }
 
@@ -251,6 +252,18 @@ internal class AffectedModuleDetectorImpl constructor(
                 ProjectSubset.ALL_AFFECTED_PROJECTS -> allProjects
             }
         }
+
+        // TODO: around Q3 2019, revert to resolve b/132901339
+        val isRootProjectUi = rootProject.name.contains("ui")
+        changedFiles.forEach {
+            val projectBaseDir = it.split(File.separatorChar)[0]
+            if (!isRootProjectUi && ((projectBaseDir == "ui") || (projectBaseDir == "compose"))) {
+                return alwaysBuild
+            } else if (isRootProjectUi && projectBaseDir != "ui" && projectBaseDir != "compose") {
+                return alwaysBuild
+            }
+        }
+
         val containingProjects = changedFiles
                 .map(::findContainingProject)
                 .let {
