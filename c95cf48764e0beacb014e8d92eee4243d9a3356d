@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "db5b7790_0193cd1f",
+        "filename": "ui/core/src/main/java/androidx/ui/painting/AndroidCanvas.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-05-16T21:19:55Z",
+      "side": 1,
+      "message": "It appears that expected/actual should work for Canvas. Are you doing this to allow moving AndroidCanvas to platform at a later date? That would also clean up the nativeCanvas typealias.",
+      "range": {
+        "startLine": 47,
+        "startChar": 14,
+        "endLine": 47,
+        "endChar": 27
+      },
+      "revId": "c95cf48764e0beacb014e8d92eee4243d9a3356d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
