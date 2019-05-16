@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "5ae23896_4e6a9bb8",
+        "filename": "car/cluster/proto/NavigationState2.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1384412
+      },
+      "writtenOn": "2019-05-16T01:01:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "05b45860_3883db3d",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 12
+      },
+      "revId": "fccf62741c1bdb9ea0c348ec6d28a6f91a2da74c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4758ac84_e86f0787",
         "filename": "car/cluster/proto/NavigationState2.proto",
         "patchSetId": 1
