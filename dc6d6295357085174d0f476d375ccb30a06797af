@@ -136,6 +136,24 @@
     },
     {
       "key": {
+        "uuid": "1ab867a4_2890f0bf",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 1384412
+      },
+      "writtenOn": "2019-05-16T23:57:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "93d5e161_0908b6cb",
+      "revId": "dc6d6295357085174d0f476d375ccb30a06797af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "22a7d129_761ae1ad",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
         "patchSetId": 2

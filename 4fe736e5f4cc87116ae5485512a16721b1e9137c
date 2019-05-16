@@ -73,6 +73,24 @@
     },
     {
       "key": {
+        "uuid": "d12bcb9b_25683a9d",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 1384412
+      },
+      "writtenOn": "2019-05-16T23:57:38Z",
+      "side": 1,
+      "message": "I just generated the entire thing using awk from the proto file. Less logic that can go wrong ;)",
+      "parentUuid": "6d06648d_a5d755c7",
+      "revId": "4fe736e5f4cc87116ae5485512a16721b1e9137c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4b075216_4e1736cb",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
         "patchSetId": 4
@@ -105,6 +123,24 @@
       "revId": "4fe736e5f4cc87116ae5485512a16721b1e9137c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c8fac7d_6b53906d",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 1384412
+      },
+      "writtenOn": "2019-05-16T23:57:38Z",
+      "side": 1,
+      "message": "As above",
+      "parentUuid": "2723cd60_fda19476",
+      "revId": "4fe736e5f4cc87116ae5485512a16721b1e9137c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
