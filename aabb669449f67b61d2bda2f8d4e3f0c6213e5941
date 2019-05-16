@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "203737fd_3a223158",
+        "filename": "animation/src/main/java/androidx/animation/AnimatorSet.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1104994
+      },
+      "writtenOn": "2019-05-16T16:55:06Z",
+      "side": 1,
+      "message": "headers inside notes are also bad practice. My recommendation is to remove the div completely and leave it at that.\n\nOr.. change to a simple aside with no header.",
+      "range": {
+        "startLine": 55,
+        "startChar": 3,
+        "endLine": 60,
+        "endChar": 11
+      },
+      "revId": "aabb669449f67b61d2bda2f8d4e3f0c6213e5941",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
