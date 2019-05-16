@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "61f7d352_2adb2871",
+        "filename": "ui/material/src/androidTest/java/androidx/ui/material/CheckboxUiTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-05-16T15:45:40Z",
+      "side": 1,
+      "message": "Readability: It is not clear what \"performSizeTest\" actually does.\n\nImagine following names:\n  assertThatContentFitsGivenSizes\n  assertThatComposableIsAtLeast\n\nThere is lot of interpretations of how size test could be performed :)\n\nFor instance I could imagine:\nforContent {\n   Checkbox(value \u003d checkboxValue)\n}\n.assertThatSizeIsEqualTo(size)\nor \n.assertFitsInto()\nor whatever else :)",
+      "range": {
+        "startLine": 166,
+        "startChar": 12,
+        "endLine": 166,
+        "endChar": 27
+      },
+      "revId": "d26bd43ea091a9d3297d2fc7d79cd20e9c86a33e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a978bfb_2b200c1b",
+        "filename": "ui/material/src/androidTest/java/androidx/ui/material/CheckboxUiTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-05-16T15:45:40Z",
+      "side": 1,
+      "message": "Readability: I would recommend specially for test to always specify arguments or provide API that is self explanatory.\n\nperformSizeTest(50, 100) !\u003d performSizeTest(100, 50)\n\nWhile this is nicely solvable by:\nperformSizeTest(\n  expectedWidth \u003d 50, \n  expectedHeight \u003d 100)\n\nFor simplification we can introduce for instance:\nassertFitsSquare(oneDimension)",
+      "range": {
+        "startLine": 167,
+        "startChar": 16,
+        "endLine": 167,
+        "endChar": 46
+      },
+      "revId": "d26bd43ea091a9d3297d2fc7d79cd20e9c86a33e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
