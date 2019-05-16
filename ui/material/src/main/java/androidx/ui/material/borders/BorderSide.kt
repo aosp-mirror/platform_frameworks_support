@@ -30,7 +30,7 @@ import androidx.ui.painting.PaintingStyle
 /**
  * A side of a border of a box.
  *
- * A [Border] consists of four [BorderSide] objects: [Border.top],
+ * A [Border] consists of four [BorderSide] objects: [Border.repaintBoundaryY],
  * [Border.left], [Border.right], and [Border.bottom].
  *
  * ## Sample code
