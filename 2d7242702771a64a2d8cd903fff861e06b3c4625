@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d63373b5_27725851",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 722,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-05-16T06:03:32Z",
+      "side": 1,
+      "message": "why do you add this?",
+      "revId": "2d7242702771a64a2d8cd903fff861e06b3c4625",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
