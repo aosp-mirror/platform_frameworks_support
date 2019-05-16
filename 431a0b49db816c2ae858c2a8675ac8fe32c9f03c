@@ -22,6 +22,30 @@
       "revId": "431a0b49db816c2ae858c2a8675ac8fe32c9f03c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4435cf9_d0484d3f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-05-16T22:50:45Z",
+      "side": 1,
+      "message": "We used to set it only in androidTest/AndroidManifest.xml (except for mistakes). main/AndroidManifest.xml did not have it. Setting it via plugin adds it to aars that will ship to our users, but as noted it will be a no-op.",
+      "parentUuid": "f4b19c11_e7580774",
+      "range": {
+        "startLine": 19,
+        "startChar": 33,
+        "endLine": 20,
+        "endChar": 16
+      },
+      "revId": "431a0b49db816c2ae858c2a8675ac8fe32c9f03c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
