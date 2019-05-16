@@ -375,6 +375,78 @@
       "revId": "f4878de745533183a347514a000e48b063f79026",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "710aa900_edd1f492",
+        "filename": "development/history/add_release_commit_tags.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-05-16T23:25:15Z",
+      "side": 1,
+      "message": "Adding a link to the release notes page sounds like a really good idea to me.\n\nMaybe we should get one more opinion to double-check.",
+      "parentUuid": "c49c8d01_b410e73b",
+      "range": {
+        "startLine": 83,
+        "startChar": 101,
+        "endLine": 83,
+        "endChar": 118
+      },
+      "revId": "f4878de745533183a347514a000e48b063f79026",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4457aa1f_efa0bc91",
+        "filename": "development/history/add_release_commit_tags.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-05-16T23:25:15Z",
+      "side": 1,
+      "message": "That\u0027s interesting. I guess that that means that this requires that every artifact id must be unique forever. That is, if we ever release a library androidx.room:common:1.0.0 then we can\u0027t ever release a library androidx.lifecycle:common:1.0.0 , unless we change the method by which we compute the tag name, but if we change the method by which we change the tag name, then it might be harder for people to locate the tags.\n\nCould we check with a few other people re the tag naming scheme?",
+      "parentUuid": "6f62e19d_5eda5d5e",
+      "range": {
+        "startLine": 83,
+        "startChar": 21,
+        "endLine": 83,
+        "endChar": 32
+      },
+      "revId": "f4878de745533183a347514a000e48b063f79026",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c6f7779_967e7928",
+        "filename": "development/history/add_release_commit_tags.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-05-16T23:25:15Z",
+      "side": 1,
+      "message": "Sweet",
+      "parentUuid": "a1c31c1e_9e3df34c",
+      "range": {
+        "startLine": 83,
+        "startChar": 79,
+        "endLine": 83,
+        "endChar": 99
+      },
+      "revId": "f4878de745533183a347514a000e48b063f79026",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
