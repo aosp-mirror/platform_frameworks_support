@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "28b0d455_00984272",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaSessionService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-05-16T06:20:22Z",
+      "side": 1,
+      "message": "Q) Do we want to remove the \"star\" and background color, or remove line breakers? I\u0027ve thought the latter regarding the buganizer description, but this seems to remove the star. Is it intended?",
+      "revId": "c9a461b5e5eeb8d764937e7e83a6de5845d98ce5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
