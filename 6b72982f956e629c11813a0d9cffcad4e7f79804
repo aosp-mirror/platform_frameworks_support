@@ -25,6 +25,23 @@
     },
     {
       "key": {
+        "uuid": "c83f9c2c_50e97374",
+        "filename": "media2/common/src/main/java/androidx/media2/common/MediaParcelUtils.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-16T01:23:33Z",
+      "side": 1,
+      "message": "Can it be removed?",
+      "revId": "6b72982f956e629c11813a0d9cffcad4e7f79804",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c2f69459_ad7aca63",
         "filename": "media2/common/src/main/java/androidx/media2/common/MediaParcelUtils.java",
         "patchSetId": 10
@@ -64,6 +81,29 @@
         "startChar": 39,
         "endLine": 1288,
         "endChar": 87
+      },
+      "revId": "6b72982f956e629c11813a0d9cffcad4e7f79804",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5884d229_a8d80643",
+        "filename": "media2/common/src/main/java/androidx/media2/common/SessionPlayer.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1303,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-16T01:23:33Z",
+      "side": 1,
+      "message": "deselected",
+      "range": {
+        "startLine": 1303,
+        "startChar": 40,
+        "endLine": 1303,
+        "endChar": 48
       },
       "revId": "6b72982f956e629c11813a0d9cffcad4e7f79804",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
