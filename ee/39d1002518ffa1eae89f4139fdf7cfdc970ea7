@@ -1,0 +1,9 @@
+Autosubmit+1: Søren Gjesse <sgjesse@google.com>
+Code-Review+2: Christoffer Quist Adamsen <christofferqa@google.com>
+Code-Review+2: Sergey Vasilinets <sergeyv@google.com>
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Submitted-by: Treehugger Robot <treehugger-gerrit@google.com>
+Submitted-at: Thu, 16 May 2019 14:15:18 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/frameworks/support/+/963252
+Project: platform/frameworks/support
+Branch: refs/heads/androidx-master-dev
