@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a70ab390_9b72a7d0",
+        "filename": "ui/test/src/androidTest/java/androix/ui/test/RecompositionDetectionTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-05-16T17:34:05Z",
+      "side": 1,
+      "message": "interaction.hadPendingChangesAfterLastAction actually lives on this current test thread. It is only set after \"waitForIdleComposeScreen\" is finished, feel free to check it out.\n\nThis is not part of public API and is not supposed to be used for checking if something changes. This is introduced just because of this test to verify correctness of our framework.\n\nLet me illustrate on this following code we have:\n\n        handler.post(object : Runnable {\n            override fun run() {\n                hadPendingChanges \u003d Compose.hasPendingChanges(context)\n                if (hadPendingChanges) {\n                    scheduleIdleCheck(context, latch)\n                } else {\n                    latch.countDown()\n                }\n            }\n        })\n        latch.await(defaultRecomposeWaitTimeMs, TimeUnit.MILLISECONDS)\n        if (throwOnRecomposeTimeOut \u0026\u0026 latch.count \u003d\u003d 1L) {\n            throw RecomposeTimeOutException()\n        }\n\nIf we would only verify that we did not throw RecomposeTimeOutException. We are still not verifying that Compose runtime is correct. Because let\u0027s say someone introduces bug into pending changes detection, then this: Compose.hasPendingChanges(context) would be always false. So we would always count down the latch without throwing exception. This would lead to lot of flakes around codebase. I would be happy to remove this test once runtime has some tests for this.",
+      "parentUuid": "f7fa73a3_2e12c8a2",
+      "range": {
+        "startLine": 74,
+        "startChar": 9,
+        "endLine": 74,
+        "endChar": 79
+      },
+      "revId": "51dd7259870da7204501c69832118d2e045d5df6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0cdc3c7d_849719c1",
         "filename": "ui/test/src/main/java/androidx/ui/test/android/AndroidSemanticsTreeInteraction.kt",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2019-05-16T17:09:53Z",
       "side": 1,
       "message": "Why methods for idle screens belong to semantics iteraction and not to activityComposeRule? I think it\u0027s not semantics only thing and it\u0027s not really about semantics at all, it\u0027s much more about activity, right?\n\nI can also imagine how I check sizes of some component, and then modidy model, waiting for idle screen and then check sizes again, without any semantics interactions or queries.",
+      "range": {
+        "startLine": 108,
+        "startChar": 16,
+        "endLine": 108,
+        "endChar": 40
+      },
+      "revId": "51dd7259870da7204501c69832118d2e045d5df6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "804e64e6_2ff372ee",
+        "filename": "ui/test/src/main/java/androidx/ui/test/android/AndroidSemanticsTreeInteraction.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-05-16T17:34:05Z",
+      "side": 1,
+      "message": "You don\u0027t have to have ComposeRule in order to test your stuff via our APIs. ComposeRule is only convenience wrapper for launching you an activity and setting up content into it. But we can always refactor this out of this class if we need it elsewhere.\n\n\"I can also imagine how I check sizes of some component, and then modidy model, waiting for idle screen and then check sizes again, without any semantics interactions or queries.\"\n- I\u0027m not sure here. Do you have some use cases / examples? I think if we expose waitForIdle in our API it will be a code smell. We should make sure that devs never need to call it in their tests to run correctly.",
+      "parentUuid": "0cdc3c7d_849719c1",
       "range": {
         "startLine": 108,
         "startChar": 16,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "84449ca0_d9c7acaa",
+        "filename": "ui/test/src/main/java/androidx/ui/test/android/AndroidSemanticsTreeInteraction.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-05-16T17:34:05Z",
+      "side": 1,
+      "message": "sure, but how?\n\nif (hadPendingChanges \u003d Compose.hasPendingChanges(context)) {) {\n\ndoes not work for me.",
+      "parentUuid": "62b4090b_bb249abd",
+      "range": {
+        "startLine": 113,
+        "startChar": 16,
+        "endLine": 113,
+        "endChar": 70
+      },
+      "revId": "51dd7259870da7204501c69832118d2e045d5df6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6a27f738_4909e6ad",
         "filename": "ui/test/src/main/java/androidx/ui/test/android/AndroidSemanticsTreeInteraction.kt",
         "patchSetId": 2
@@ -82,6 +154,30 @@
       "writtenOn": "2019-05-16T17:09:53Z",
       "side": 1,
       "message": "Proper way to check if latch was counted down is to check `latch.await` boolean result. In actually implementation later there might be more than 1 count in the latch.\n\nAlso in multi threading environment latch can be counted down exactly between these two lines (`await` and `\u003d\u003d1L`), so this check is not thread safe, but boolean result from await is",
+      "range": {
+        "startLine": 122,
+        "startChar": 38,
+        "endLine": 122,
+        "endChar": 56
+      },
+      "revId": "51dd7259870da7204501c69832118d2e045d5df6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd6082b1_3f0aa186",
+        "filename": "ui/test/src/main/java/androidx/ui/test/android/AndroidSemanticsTreeInteraction.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-05-16T17:34:05Z",
+      "side": 1,
+      "message": "- I\u0027m just looking into Latch and I see no issue in using getCount() for verification like this, how do you image await would help me to verify if we did not timeout? Did you notice I\u0027m already using await on the live above?\n\nBut I agree I should do latch.count \u003e 0 instead of \u003d\u003d 1. Done that.",
+      "parentUuid": "6a27f738_4909e6ad",
       "range": {
         "startLine": 122,
         "startChar": 38,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "ac065851_580eedb4",
+        "filename": "ui/test/src/main/java/androidx/ui/test/android/AndroidSemanticsTreeInteraction.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-05-16T17:34:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba5c4442_24bb9a16",
+      "range": {
+        "startLine": 216,
+        "startChar": 67,
+        "endLine": 216,
+        "endChar": 76
+      },
+      "revId": "51dd7259870da7204501c69832118d2e045d5df6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1646b70b_10bb986c",
         "filename": "ui/test/src/main/java/androidx/ui/test/android/AndroidSemanticsTreeInteraction.kt",
         "patchSetId": 2
@@ -137,6 +257,30 @@
       "revId": "51dd7259870da7204501c69832118d2e045d5df6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "903c22cb_e41e9b45",
+        "filename": "ui/test/src/main/java/androidx/ui/test/android/AndroidSemanticsTreeInteraction.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-05-16T17:34:05Z",
+      "side": 1,
+      "message": "Yeah, some extra issue to solve :D",
+      "parentUuid": "1646b70b_10bb986c",
+      "range": {
+        "startLine": 219,
+        "startChar": 52,
+        "endLine": 220,
+        "endChar": 46
+      },
+      "revId": "51dd7259870da7204501c69832118d2e045d5df6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
