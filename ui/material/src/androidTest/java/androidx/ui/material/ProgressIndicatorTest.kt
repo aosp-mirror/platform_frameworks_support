@@ -18,21 +18,15 @@ package androidx.ui.material
 import CircularProgressIndicator
 import LinearProgressIndicator
 import androidx.compose.Model
+import androidx.compose.composer
 import androidx.test.filters.LargeTest
-import androidx.ui.core.OnChildPositioned
-import androidx.ui.core.PxSize
 import androidx.ui.core.TestTag
 import androidx.ui.core.dp
-import androidx.ui.core.round
 import androidx.ui.core.withDensity
-import androidx.ui.layout.Container
-import androidx.ui.layout.DpConstraints
 import androidx.ui.test.android.AndroidUiTestRunner
 import androidx.ui.test.assertIsVisible
 import androidx.ui.test.assertValueEquals
 import androidx.ui.test.findByTag
-import com.google.common.truth.Truth
-import androidx.compose.composer
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
@@ -46,12 +40,8 @@ private class State {
 @RunWith(JUnit4::class)
 class ProgressIndicatorTest : AndroidUiTestRunner() {
 
-    private val LargeConstraints = DpConstraints(maxWidth = 5000.dp, maxHeight = 5000.dp)
-
     private val ExpectedLinearWidth = 240.dp
     private val ExpectedLinearHeight = 4.dp
-
-    private val ExpectedCircularDiameter = 48.dp
 
     @Test
     fun determinateLinearProgressIndicator_Progress() {
@@ -79,37 +69,19 @@ class ProgressIndicatorTest : AndroidUiTestRunner() {
 
     @Test
     fun determinateLinearProgressIndicator_Size() {
-        var size: PxSize? = null
-        setMaterialContent {
-            Container(constraints = LargeConstraints) {
-                OnChildPositioned(onPositioned = { position ->
-                    size = position.size
-                }) {
-                    LinearProgressIndicator(progress = 0f)
-                }
-            }
-        }
         withDensity(density) {
-            Truth.assertThat(size?.width?.round()).isEqualTo(ExpectedLinearWidth.toIntPx())
-            Truth.assertThat(size?.height?.round()).isEqualTo(ExpectedLinearHeight.toIntPx())
+            performSizeTest(ExpectedLinearWidth.toIntPx(), ExpectedLinearHeight.toIntPx()) {
+                LinearProgressIndicator(progress = 0f)
+            }
         }
     }
 
     @Test
     fun indeterminateLinearProgressIndicator_Size() {
-        var size: PxSize? = null
-        setMaterialContent {
-            Container(constraints = LargeConstraints) {
-                OnChildPositioned(onPositioned = { position ->
-                    size = position.size
-                }) {
-                    LinearProgressIndicator()
-                }
-            }
-        }
         withDensity(density) {
-            Truth.assertThat(size?.width?.round()).isEqualTo(ExpectedLinearWidth.toIntPx())
-            Truth.assertThat(size?.height?.round()).isEqualTo(ExpectedLinearHeight.toIntPx())
+            performSizeTest(ExpectedLinearWidth.toIntPx(), ExpectedLinearHeight.toIntPx()) {
+                LinearProgressIndicator()
+            }
         }
     }
 
@@ -139,38 +111,21 @@ class ProgressIndicatorTest : AndroidUiTestRunner() {
 
     @Test
     fun determinateCircularProgressIndicator_Size() {
-        var size: PxSize? = null
-        setMaterialContent {
-            Container(constraints = LargeConstraints) {
-                OnChildPositioned(onPositioned = { position ->
-                    size = position.size
-                }) {
-                    CircularProgressIndicator(progress = 0f)
-                }
-            }
-        }
         withDensity(density) {
-            Truth.assertThat(size?.width?.round()).isEqualTo(ExpectedCircularDiameter.toIntPx())
-            Truth.assertThat(size?.height?.round()).isEqualTo(ExpectedCircularDiameter.toIntPx())
+            val expectedCircularDiameter = 4.dp.toIntPx() * 2 + 40.dp.toIntPx()
+            performSizeTest(expectedCircularDiameter, expectedCircularDiameter) {
+                CircularProgressIndicator(progress = 0f)
+            }
         }
     }
 
     @Test
     fun indeterminateCircularProgressIndicator_Size() {
-        var size: PxSize? = null
-        setMaterialContent {
-            Container(constraints = LargeConstraints) {
-                OnChildPositioned(onPositioned = { position ->
-                    size = position.size
-                }) {
-                    CircularProgressIndicator()
-                }
-            }
-        }
         withDensity(density) {
-            Truth.assertThat(size?.width?.round()).isEqualTo(ExpectedCircularDiameter.toIntPx())
-            Truth.assertThat(size?.height?.round())
-                .isEqualTo(ExpectedCircularDiameter.toIntPx())
+            val expectedCircularDiameter = 4.dp.toIntPx() * 2 + 40.dp.toIntPx()
+            performSizeTest(expectedCircularDiameter, expectedCircularDiameter) {
+                CircularProgressIndicator()
+            }
         }
     }
 }

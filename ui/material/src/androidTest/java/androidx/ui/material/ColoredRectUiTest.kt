@@ -18,17 +18,12 @@ package androidx.ui.material
 
 import androidx.test.filters.MediumTest
 import androidx.ui.baseui.ColoredRect
-import androidx.ui.core.OnChildPositioned
-import androidx.ui.core.PxSize
 import androidx.ui.core.dp
-import androidx.ui.core.round
 import androidx.ui.core.withDensity
-import androidx.ui.layout.Center
-import androidx.ui.layout.Container
 import androidx.ui.layout.DpConstraints
 import androidx.ui.graphics.Color
 import androidx.ui.test.android.AndroidUiTestRunner
-import com.google.common.truth.Truth
+import androidx.ui.core.ipx
 import androidx.compose.composer
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -38,78 +33,44 @@ import org.junit.runners.JUnit4
 @RunWith(JUnit4::class)
 class ColoredRectUiTest : AndroidUiTestRunner() {
 
-    private val bigConstraints = DpConstraints(
-        maxWidth = 5000.dp,
-        maxHeight = 5000.dp
-    )
-
     private val color = Color(0xFFFF0000.toInt())
 
     @Test
     fun coloredRect_fixedSizes() {
-        var size: PxSize? = null
         val width = 40.dp
         val height = 71.dp
 
-        setMaterialContent {
-            Center {
-                Container(constraints = bigConstraints) {
-                    OnChildPositioned(onPositioned = { position ->
-                        size = position.size
-                    }) {
-                        ColoredRect(width = width, height = height, color = color)
-                    }
-                }
-            }
-        }
         withDensity(density) {
-            Truth.assertThat(size?.height?.round()).isEqualTo(height.toIntPx())
-            Truth.assertThat(size?.width?.round()).isEqualTo(width.toIntPx())
+            performSizeTest(
+                width.toIntPx(),
+                height.toIntPx()
+            ) {
+                ColoredRect(width = width, height = height, color = color)
+            }
         }
     }
 
     @Test
     fun coloredRect_expand_LimitedSizes() {
-        var size: PxSize? = null
         val width = 40.dp
         val height = 71.dp
 
-        setMaterialContent {
-            Center {
-                Container(width = width, height = height) {
-                    OnChildPositioned(onPositioned = { position ->
-                        size = position.size
-                    }) {
-                        ColoredRect(color = color)
-                    }
-                }
-            }
-        }
         withDensity(density) {
-            Truth.assertThat(size?.height?.round()).isEqualTo(height.toIntPx())
-            Truth.assertThat(size?.width?.round()).isEqualTo(width.toIntPx())
+            performSizeTest(
+                width.toIntPx(),
+                height.toIntPx(),
+                DpConstraints.tightConstraints(width, height)
+            ) {
+                ColoredRect(color = color)
+            }
         }
     }
 
     @Test
     fun coloredRect_expand_WholeScreenSizes() {
-        var size: PxSize? = null
-
-        setMaterialContent {
-            Center {
-                Container(constraints = bigConstraints) {
-                    OnChildPositioned(onPositioned = { position ->
-                        size = position.size
-                    }) {
-                        ColoredRect(color = color)
-                    }
-                }
-            }
-        }
         val dm = activityTestRule.activity.resources.displayMetrics
-        withDensity(density) {
-            Truth.assertThat(size?.height?.round()?.value).isEqualTo(dm.heightPixels)
-            Truth.assertThat(size?.width?.round()?.value).isEqualTo(dm.widthPixels)
+        performSizeTest(dm.widthPixels.ipx, dm.heightPixels.ipx) {
+            ColoredRect(color = color)
         }
     }
 }

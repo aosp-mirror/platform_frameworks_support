@@ -17,14 +17,9 @@
 package androidx.ui.material
 
 import androidx.test.filters.MediumTest
-import androidx.ui.core.OnChildPositioned
-import androidx.ui.core.PxSize
 import androidx.ui.core.TestTag
 import androidx.ui.core.dp
 import androidx.ui.core.withDensity
-import androidx.ui.layout.Column
-import androidx.ui.layout.Container
-import androidx.ui.layout.DpConstraints
 import androidx.ui.test.android.AndroidUiTestRunner
 import androidx.ui.test.assertIsInMutuallyExclusiveGroup
 import androidx.ui.test.assertIsSelected
@@ -37,8 +32,7 @@ import androidx.compose.Children
 import androidx.compose.Composable
 import androidx.compose.Model
 import androidx.compose.composer
-import androidx.ui.core.round
-import com.google.common.truth.Truth
+import androidx.ui.layout.Column
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
@@ -211,24 +205,10 @@ class RadioGroupUiTest : AndroidUiTestRunner() {
     }
 
     private fun materialSizesTestForValue(selected: Boolean) {
-        var radioSize: PxSize? = null
-        setMaterialContent {
-            Container(
-                constraints = DpConstraints(
-                    maxWidth = 5000.dp,
-                    maxHeight = 5000.dp
-                )
-            ) {
-                OnChildPositioned(onPositioned = { coordinates ->
-                    radioSize = coordinates.size
-                }) {
-                    RadioButton(selected = selected)
-                }
-            }
-        }
         withDensity(density) {
-            Truth.assertThat(radioSize?.width?.round()).isEqualTo(materialRadioSize.toIntPx())
-            Truth.assertThat(radioSize?.height?.round()).isEqualTo(materialRadioSize.toIntPx())
+            performSizeTest(materialRadioSize.toIntPx(), materialRadioSize.toIntPx()) {
+                RadioButton(selected = selected)
+            }
         }
     }
 }

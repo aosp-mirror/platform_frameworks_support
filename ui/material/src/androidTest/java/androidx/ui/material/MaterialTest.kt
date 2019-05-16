@@ -18,8 +18,18 @@ package androidx.ui.material
 
 import androidx.compose.Composable
 import androidx.compose.composer
+import androidx.ui.core.IntPx
+import androidx.ui.core.OnChildPositioned
+import androidx.ui.core.PxSize
+import androidx.ui.core.dp
+import androidx.ui.core.round
+import androidx.ui.core.withDensity
+import androidx.ui.layout.ConstrainedBox
+import androidx.ui.layout.DpConstraints
+import androidx.ui.layout.Wrap
 import androidx.ui.material.surface.Surface
 import androidx.ui.test.android.AndroidUiTestRunner
+import com.google.common.truth.Truth
 
 fun AndroidUiTestRunner.setMaterialContent(composable: @Composable() () -> Unit) {
     setContent {
@@ -27,6 +37,61 @@ fun AndroidUiTestRunner.setMaterialContent(composable: @Composable() () -> Unit)
             Surface {
                 composable()
             }
+        }
+    }
+}
+
+private val BigConstraints = DpConstraints(maxWidth = 5000.dp, maxHeight = 5000.dp)
+
+fun AndroidUiTestRunner.performSizeTest(
+    expectingWidth: IntPx,
+    expectingHeight: IntPx,
+    parentConstraints: DpConstraints = BigConstraints,
+    children: @Composable() () -> Unit
+) {
+    sizeTestImpl(expectingWidth, expectingHeight, parentConstraints, children)
+}
+
+fun AndroidUiTestRunner.performHeightTest(
+    expectingHeight: IntPx?,
+    parentConstraints: DpConstraints = BigConstraints,
+    children: @Composable() () -> Unit
+) {
+    sizeTestImpl(null, expectingHeight, parentConstraints, children)
+}
+
+fun AndroidUiTestRunner.performWidthTest(
+    expectingWidth: IntPx?,
+    parentConstraints: DpConstraints = BigConstraints,
+    children: @Composable() () -> Unit
+) {
+    sizeTestImpl(expectingWidth, null, parentConstraints, children)
+}
+
+private fun AndroidUiTestRunner.sizeTestImpl(
+    expectingWidth: IntPx?,
+    expectingHeight: IntPx?,
+    parentConstraints: DpConstraints,
+    children: @Composable() () -> Unit
+) {
+    var realSize: PxSize? = null
+    setMaterialContent {
+        Wrap {
+            ConstrainedBox(constraints = parentConstraints) {
+                OnChildPositioned(onPositioned = { coordinates ->
+                    realSize = coordinates.size
+                }) {
+                    children()
+                }
+            }
+        }
+    }
+    withDensity(density) {
+        if (expectingWidth != null) {
+            Truth.assertThat(realSize?.width?.round()).isEqualTo(expectingWidth)
+        }
+        if (expectingHeight != null) {
+            Truth.assertThat(realSize?.height?.round()).isEqualTo(expectingHeight)
         }
     }
 }
