@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d15623ca_ed73e83e",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/pointerinput/HitPathTracker.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-05-16T22:28:31Z",
+      "side": 1,
+      "message": "Agreed.  At first I liked the old fashion \"chaining despite mutation\" but that makes it look like it could be pure functional.  I like the fact now that it clearly must be mutable.",
+      "parentUuid": "bc9c402c_8e6684fc",
+      "range": {
+        "startLine": 141,
+        "startChar": 12,
+        "endLine": 141,
+        "endChar": 27
+      },
+      "revId": "6f290de52d324a60ea7cad82312e426e2399e264",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7489d120_bd063835",
         "filename": "ui/platform/src/main/java/androidx/ui/core/pointerinput/HitPathTracker.kt",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2019-05-14T03:38:24Z",
       "side": 1,
       "message": "Can this be inlined?",
+      "range": {
+        "startLine": 217,
+        "startChar": 52,
+        "endLine": 217,
+        "endChar": 61
+      },
+      "revId": "6f290de52d324a60ea7cad82312e426e2399e264",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7fb0c99e_890bacec",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/pointerinput/HitPathTracker.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-05-16T22:28:31Z",
+      "side": 1,
+      "message": "Doing so gives me the \"Expected performance impact is insignificant\" warning... :)",
+      "parentUuid": "7489d120_bd063835",
       "range": {
         "startLine": 217,
         "startChar": 52,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "e5d8e13b_84ccac31",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/pointerinput/HitPathTracker.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-05-16T22:28:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "63613f3f_c10d91cf",
+      "range": {
+        "startLine": 219,
+        "startChar": 12,
+        "endLine": 219,
+        "endChar": 16
+      },
+      "revId": "6f290de52d324a60ea7cad82312e426e2399e264",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bf605cd0_1128846a",
         "filename": "ui/platform/src/main/java/androidx/ui/core/pointerinput/HitPathTracker.kt",
         "patchSetId": 2
@@ -82,6 +154,30 @@
       "writtenOn": "2019-05-14T03:38:24Z",
       "side": 1,
       "message": "Are you considering making the PointerInputChange or the fields of it mutable",
+      "range": {
+        "startLine": 222,
+        "startChar": 16,
+        "endLine": 225,
+        "endChar": 17
+      },
+      "revId": "6f290de52d324a60ea7cad82312e426e2399e264",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51a29f71_f3e54a91",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/pointerinput/HitPathTracker.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-05-16T22:28:31Z",
+      "side": 1,
+      "message": "I am considering it... just not there yet.  I do not like the current API as it allows devs to create arbitrary PointerInputChanges and break the system... but just didn\u0027t want to tackle during this CL.  I actually did try, but ultimately was torn between keeping things immutable or not.  I need to talk to the opinionated about such things. :)",
+      "parentUuid": "bf605cd0_1128846a",
       "range": {
         "startLine": 222,
         "startChar": 16,
@@ -114,6 +210,30 @@
       "revId": "6f290de52d324a60ea7cad82312e426e2399e264",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41270b0d_83d5bf47",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/pointerinput/HitPathTracker.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-05-16T22:28:31Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "9e8b9856_272f74db",
+      "range": {
+        "startLine": 232,
+        "startChar": 47,
+        "endLine": 232,
+        "endChar": 64
+      },
+      "revId": "6f290de52d324a60ea7cad82312e426e2399e264",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
