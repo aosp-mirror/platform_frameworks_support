@@ -18,16 +18,11 @@ package androidx.ui.material
 
 import android.graphics.Bitmap
 import androidx.test.filters.MediumTest
-import androidx.ui.core.OnChildPositioned
-import androidx.ui.core.PxSize
 import androidx.ui.core.dp
-import androidx.ui.core.round
 import androidx.ui.core.withDensity
-import androidx.ui.layout.Wrap
 import androidx.ui.painting.Image
 import androidx.ui.test.android.AndroidUiTestRunner
 import androidx.compose.composer
-import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
@@ -38,41 +33,16 @@ class FloatingActionButtonUiTest : AndroidUiTestRunner() {
 
     @Test
     fun defaultFabHasSizeFromSpec() = withDensity(density) {
-        var size: PxSize? = null
-
-        setMaterialContent {
-            Wrap {
-                OnChildPositioned(onPositioned = { position ->
-                    size = position.size
-                }) {
-                    FloatingActionButton(icon = createImage())
-                }
-            }
-        }
-        with(size!!) {
-            val expectedSize = 56.dp.toIntPx()
-            assertThat(width.round()).isEqualTo(expectedSize)
-            assertThat(height.round()).isEqualTo(expectedSize)
+        val expectedSize = 56.dp.toIntPx()
+        performSizeTest(expectedSize, expectedSize) {
+            FloatingActionButton(icon = createImage())
         }
     }
 
     @Test
     fun extendedFabHasHeightFromSpec() = withDensity(density) {
-        var size: PxSize? = null
-
-        setMaterialContent {
-            Wrap {
-                OnChildPositioned(onPositioned = { position ->
-                    size = position.size
-                }) {
-                    FloatingActionButton(icon = createImage(), text = "Extended")
-                }
-            }
-        }
-        with(size!!) {
-            val expectedSize = 48.dp.toIntPx()
-            assertThat(height.round()).isEqualTo(expectedSize)
-            assertThat(width.round().value).isAtLeast(expectedSize.value)
+        performHeightTest(48.dp.toIntPx()) {
+            FloatingActionButton(icon = createImage(), text = "Extended")
         }
     }
 

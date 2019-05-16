@@ -33,6 +33,7 @@ import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.rule.ActivityTestRule
 import androidx.ui.core.CraneWrapper
 import androidx.ui.core.Density
+import androidx.ui.core.DensityReceiver
 import androidx.ui.core.SemanticsTreeNode
 import androidx.ui.core.SemanticsTreeProvider
 import androidx.ui.test.UiTestRunner

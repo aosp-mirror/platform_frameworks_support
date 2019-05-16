@@ -17,15 +17,10 @@
 package androidx.ui.material
 
 import androidx.test.filters.MediumTest
-import androidx.ui.core.OnChildPositioned
-import androidx.ui.core.PxSize
 import androidx.ui.core.dp
-import androidx.ui.core.round
 import androidx.ui.core.withDensity
-import androidx.ui.layout.Container
-import androidx.ui.layout.DpConstraints
 import androidx.ui.test.android.AndroidUiTestRunner
-import com.google.common.truth.Truth.assertThat
+import androidx.ui.core.ipx
 import androidx.compose.composer
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -35,69 +30,40 @@ import org.junit.runners.JUnit4
 @RunWith(JUnit4::class)
 class DividerUiTest : AndroidUiTestRunner() {
 
-    private val bigConstraints = DpConstraints(maxWidth = 5000.dp, maxHeight = 5000.dp)
-
     private val defaultHeight = 1.dp
 
     @Test
     fun divider_DefaultSizes() {
-        var size: PxSize? = null
-        setMaterialContent {
-            Container(constraints = bigConstraints) {
-                OnChildPositioned(onPositioned = { position ->
-                    size = position.size
-                }) {
-                    Divider()
-                }
-            }
-        }
         val dm = activityTestRule.activity.resources.displayMetrics
         withDensity(density) {
-            assertThat(size?.height?.round()).isEqualTo(defaultHeight.toIntPx())
-            assertThat(size?.width?.value?.toInt()).isEqualTo(dm.widthPixels)
+            performSizeTest(dm.widthPixels.ipx, defaultHeight.toIntPx()) {
+                Divider()
+            }
         }
     }
 
     @Test
     fun divider_CustomSizes() {
-        var size: PxSize? = null
         val height = 20.dp
 
-        setMaterialContent {
-            Container(constraints = bigConstraints) {
-                OnChildPositioned(onPositioned = { position ->
-                    size = position.size
-                }) {
-                    Divider(height = height)
-                }
-            }
-        }
         val dm = activityTestRule.activity.resources.displayMetrics
         withDensity(density) {
-            assertThat(size?.height?.round()).isEqualTo(height.toIntPx())
-            assertThat(size?.width?.value?.toInt()).isEqualTo(dm.widthPixels)
+            performSizeTest(dm.widthPixels.ipx, height.toIntPx()) {
+                Divider(height = height)
+            }
         }
     }
 
     @Test
     fun divider_SizesWithIndent_DoesNotChanged() {
-        var size: PxSize? = null
         val indent = 75.dp
         val height = 21.dp
 
-        setMaterialContent {
-            Container(constraints = bigConstraints) {
-                OnChildPositioned(onPositioned = { position ->
-                    size = position.size
-                }) {
-                    Divider(indent = indent, height = height)
-                }
-            }
-        }
         val dm = activityTestRule.activity.resources.displayMetrics
         withDensity(density) {
-            assertThat(size?.height?.round()).isEqualTo(height.toIntPx())
-            assertThat(size?.width?.value?.toInt()).isEqualTo(dm.widthPixels)
+            performSizeTest(dm.widthPixels.ipx, height.toIntPx()) {
+                Divider(indent = indent, height = height)
+            }
         }
     }
 }

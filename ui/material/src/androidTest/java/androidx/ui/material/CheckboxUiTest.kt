@@ -20,14 +20,10 @@ import androidx.ui.baseui.selection.ToggleableState
 import androidx.ui.baseui.selection.ToggleableState.Checked
 import androidx.ui.baseui.selection.ToggleableState.Indeterminate
 import androidx.ui.baseui.selection.ToggleableState.Unchecked
-import androidx.ui.core.OnChildPositioned
-import androidx.ui.core.PxSize
 import androidx.ui.core.TestTag
 import androidx.ui.core.dp
 import androidx.ui.core.withDensity
 import androidx.ui.layout.Column
-import androidx.ui.layout.Container
-import androidx.ui.layout.DpConstraints
 import androidx.ui.test.DisableTransitions
 import androidx.ui.test.android.AndroidUiTestRunner
 import androidx.ui.test.assertIsChecked
@@ -37,10 +33,8 @@ import androidx.ui.test.copyWith
 import androidx.ui.test.createFullSemantics
 import androidx.ui.test.doClick
 import androidx.ui.test.findByTag
-import com.google.common.truth.Truth
 import androidx.compose.Model
 import androidx.compose.composer
-import androidx.ui.core.round
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -71,13 +65,6 @@ class CheckboxUiTest : AndroidUiTestRunner() {
     }
 
     private val defaultTag = "myCheckbox"
-
-    private val bigConstraints = DpConstraints(
-        minWidth = 0.dp,
-        minHeight = 0.dp,
-        maxHeight = 1000.dp,
-        maxWidth = 1000.dp
-    )
 
     private val materialCheckboxSize = 24.dp
 
@@ -175,21 +162,13 @@ class CheckboxUiTest : AndroidUiTestRunner() {
     }
 
     private fun materialSizeTestForValue(checkboxValue: ToggleableState) {
-        var checkboxSize: PxSize? = null
-
-        setMaterialContent {
-            Container(constraints = bigConstraints) {
-                OnChildPositioned(onPositioned = { coordinates ->
-                    checkboxSize = coordinates.size
-                }) {
-                    Checkbox(value = checkboxValue)
-                }
-            }
-        }
         withDensity(density) {
-            Truth.assertThat(checkboxSize?.width?.round()).isEqualTo(materialCheckboxSize.toIntPx())
-            Truth.assertThat(checkboxSize?.height?.round())
-                .isEqualTo(materialCheckboxSize.toIntPx())
+            performSizeTest(
+                materialCheckboxSize.toIntPx(),
+                materialCheckboxSize.toIntPx()
+            ) {
+                Checkbox(value = checkboxValue)
+            }
         }
     }
 }
