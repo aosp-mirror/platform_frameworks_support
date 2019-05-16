@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d98c58ae_9989725f",
+        "filename": "media2/session/src/androidTest/java/androidx/media2/session/MediaControllerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1668,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-16T08:57:01Z",
+      "side": 1,
+      "message": "Please add assertion to check that testTracks.size() equals to testTracks.size() before this line.",
+      "revId": "6e934bec187acf3e8212414ffd97ec47b989b626",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9416347c_a38a39ca",
+        "filename": "media2/session/src/androidTest/java/androidx/media2/session/MediaControllerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1672,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-16T08:57:01Z",
+      "side": 1,
+      "message": "Is it sufficient not to compare getId() because TrackInfo#equals already considers mId? (ditto for others)",
+      "range": {
+        "startLine": 1672,
+        "startChar": 20,
+        "endLine": 1672,
+        "endChar": 77
+      },
+      "revId": "6e934bec187acf3e8212414ffd97ec47b989b626",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2176887f_d08d9342",
+        "filename": "media2/session/src/androidTest/java/androidx/media2/session/MediaControllerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1675,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-16T08:57:01Z",
+      "side": 1,
+      "message": "Please add latch.countDown() after this line.",
+      "revId": "6e934bec187acf3e8212414ffd97ec47b989b626",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4254d347_5d313072",
+        "filename": "media2/session/version-compat-tests/current/client/src/androidTest/java/androidx/media2/test/client/tests/MediaControllerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-16T08:57:01Z",
+      "side": 1,
+      "message": "ditto (compare size)",
+      "revId": "6e934bec187acf3e8212414ffd97ec47b989b626",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
