@@ -391,6 +391,24 @@
     },
     {
       "key": {
+        "uuid": "b328336c_c3539b66",
+        "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/SemanticsL2.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1014468
+      },
+      "writtenOn": "2019-05-16T18:01:02Z",
+      "side": 1,
+      "message": "I don\u0027t think this _should_ be allowed (does the action\u0027s parameter just get silently discarded if the types don\u0027t match?), but I\u0027m not sure how we could enforce it with this design, so I think this makes sense as far as this design goes.",
+      "parentUuid": "a873f926_e261d547",
+      "revId": "68b1c94816897505f499bb8a8222339162833f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f368b6af_188972db",
         "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/SemanticsL2.kt",
         "patchSetId": 1
