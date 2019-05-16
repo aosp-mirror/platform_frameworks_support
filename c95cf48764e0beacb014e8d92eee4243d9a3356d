@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "c2b4cdee_977704df",
+        "filename": "ui/core/src/main/java/androidx/ui/painting/AndroidCanvas.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-05-16T22:43:13Z",
+      "side": 1,
+      "message": "please doc all public API. I understand that these will move to the \"expect\" functions later, but when we\u0027re going over this in API council.",
+      "range": {
+        "startLine": 30,
+        "startChar": 17,
+        "endLine": 30,
+        "endChar": 23
+      },
+      "revId": "c95cf48764e0beacb014e8d92eee4243d9a3356d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "db5b7790_0193cd1f",
         "filename": "ui/core/src/main/java/androidx/ui/painting/AndroidCanvas.kt",
         "patchSetId": 2
@@ -46,6 +69,29 @@
       "revId": "c95cf48764e0beacb014e8d92eee4243d9a3356d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "41019b33_be98ba9a",
+        "filename": "ui/core/src/main/java/androidx/ui/painting/AndroidImage.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-05-16T22:43:13Z",
+      "side": 1,
+      "message": "doc public API here, too.",
+      "range": {
+        "startLine": 27,
+        "startChar": 4,
+        "endLine": 27,
+        "endChar": 21
+      },
+      "revId": "c95cf48764e0beacb014e8d92eee4243d9a3356d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
