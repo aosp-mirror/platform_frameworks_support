@@ -30,6 +30,7 @@ import androidx.ui.painting.Paint
 import androidx.compose.Composable
 import androidx.compose.composer
 import androidx.compose.setContent
+import com.google.common.truth.Truth
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
@@ -56,6 +57,11 @@ class ParentDataTest {
         activity = activityTestRule.activity
         activity.hasFocusLatch.await(5, TimeUnit.SECONDS)
         drawLatch = CountDownLatch(1)
+    }
+
+    @Test
+    fun shouldFailDeviceSide() {
+        Truth.assertThat(false).isTrue()
     }
 
     // Test that parent data defaults to null
