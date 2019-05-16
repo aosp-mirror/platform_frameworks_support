@@ -373,6 +373,24 @@
     },
     {
       "key": {
+        "uuid": "a873f926_e261d547",
+        "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/SemanticsL2.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1402596
+      },
+      "writtenOn": "2019-05-16T17:47:24Z",
+      "side": 1,
+      "message": "That should be fine. We allow any ActionType. The API only enforces the type for the callback. ie a SemanticAction\u003cPxPosition\u003e requires an action of type ActionParam\u003cPxPositon\u003e -\u003e Unit.\n\nFor example,\n\nval pxAction \u003d SemanticAction\u003cPxPosition\u003e(\n                   defaultParam \u003d PxPosition.Origin,\n                   action \u003d {param:ActionParam\u003cBoolean\u003e -\u003e ...}\n                   types \u003d setOf(ActionTypeWithBooleanParam, ActionTypeWithIntParam))\n\n\nIs allowed. The action types are flexible on purpose, so that we could add support for a new framework in the future, and it can add its own implementation of the ActionType interface.",
+      "parentUuid": "76d41492_408d03e4",
+      "revId": "68b1c94816897505f499bb8a8222339162833f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f368b6af_188972db",
         "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/SemanticsL2.kt",
         "patchSetId": 1
