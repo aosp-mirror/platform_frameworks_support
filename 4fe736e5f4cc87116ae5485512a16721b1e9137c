@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "948bd240_07212be0",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2019-05-16T00:07:09Z",
+      "side": 1,
+      "message": "I don\u0027t understand how we\u0027d do that. Proto values are transmitted as numbers.\n\nWe\u0027d need to know that a proto enum is UNRECOGNIZED in a generic way, which I don\u0027t think we can.",
+      "parentUuid": "64a24990_81f7d2be",
+      "revId": "4fe736e5f4cc87116ae5485512a16721b1e9137c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4b075216_4e1736cb",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
         "patchSetId": 4
