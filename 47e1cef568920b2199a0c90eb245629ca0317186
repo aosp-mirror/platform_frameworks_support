@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a0e0bd6e_0ee58f7f",
+        "filename": "enterprise/feedback/src/main/java/androidx/enterprise/feedback/FakeKeyedAppStatesReporter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1411450
+      },
+      "writtenOn": "2019-05-16T11:05:35Z",
+      "side": 1,
+      "message": "I believe the real implementation is thread safe. BufferedServiceConnection is not, but everything that Singleton* does gets pushed on to the same thread. Is this not correct?\n\nIt\u0027s true that the fake isn\u0027t though - which is inconsistent with the real implementation. I\u0027ve fixed that now.",
+      "parentUuid": "0a7c4cc7_d08d332d",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 53
+      },
+      "revId": "47e1cef568920b2199a0c90eb245629ca0317186",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f4858bc0_5f4aa178",
         "filename": "enterprise/feedback/src/main/java/androidx/enterprise/feedback/FakeKeyedAppStatesReporter.java",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "47e1cef568920b2199a0c90eb245629ca0317186",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0752d5ef_b02c2455",
+        "filename": "enterprise/feedback/src/main/java/androidx/enterprise/feedback/FakeKeyedAppStatesReporter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1411450
+      },
+      "writtenOn": "2019-05-16T11:05:35Z",
+      "side": 1,
+      "message": "In the real implementation the semantics are that the value is replaced for the given key (and this is made clear in the documentation). For the fake, add semantics are in place to allow the client to write tests in which a state may be changed multiple times. They can use the \"byKey\" variants to see the latest state (the way that it will be stored on the server).\n\nThe Singleton pushes everything on to a single thread then relies on Messenger#send so things will be called in order, and multiple calls can be queued up - even when one is in progress.",
+      "parentUuid": "f4858bc0_5f4aa178",
+      "range": {
+        "startLine": 50,
+        "startChar": 16,
+        "endLine": 50,
+        "endChar": 25
+      },
+      "revId": "47e1cef568920b2199a0c90eb245629ca0317186",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "f892b071_34c1bbdd",
+        "filename": "enterprise/feedback/src/main/java/androidx/enterprise/feedback/FakeKeyedAppStatesReporter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1411450
+      },
+      "writtenOn": "2019-05-16T11:05:35Z",
+      "side": 1,
+      "message": "I suppose not strictly. It seems like it may be a useful option in some tests depending on the injection mechanism (e.g. the setup/initialisation code sets some states and so the tests wish to clear them before executing the method under test).",
+      "parentUuid": "b982829d_4436bf67",
+      "range": {
+        "startLine": 80,
+        "startChar": 3,
+        "endLine": 83,
+        "endChar": 24
+      },
+      "revId": "47e1cef568920b2199a0c90eb245629ca0317186",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a84b06e_241d8be1",
         "filename": "enterprise/feedback/src/main/java/androidx/enterprise/feedback/FakeKeyedAppStatesReporter.java",
         "patchSetId": 4
@@ -91,6 +163,30 @@
       "revId": "47e1cef568920b2199a0c90eb245629ca0317186",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9b643e8_0c34820d",
+        "filename": "enterprise/feedback/src/main/java/androidx/enterprise/feedback/FakeKeyedAppStatesReporter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1411450
+      },
+      "writtenOn": "2019-05-16T11:05:35Z",
+      "side": 1,
+      "message": "I think it makes sense to do a copy, to allow for fetching the states at different points in time if they need to be compared.\n\nI\u0027ve added tests to enforce this quality.",
+      "parentUuid": "3a84b06e_241d8be1",
+      "range": {
+        "startLine": 101,
+        "startChar": 15,
+        "endLine": 101,
+        "endChar": 30
+      },
+      "revId": "47e1cef568920b2199a0c90eb245629ca0317186",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
