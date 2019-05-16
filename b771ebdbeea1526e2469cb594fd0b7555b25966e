@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7d24351d_20435ed8",
+        "filename": "core/src/main/java/androidx/core/widget/NestedScrollView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 982,
+      "author": {
+        "id": 1149384
+      },
+      "writtenOn": "2019-05-16T00:40:12Z",
+      "side": 1,
+      "message": "Is it possible to move this next to the declaration of vtev? The only risk is an early return from a DOWN event, but it should be probably safe to either add the event anyways, or to clear the velocitytracker there.\n\nIt may also be possible to avoid doing an MotionEvent.obtain, and just call offsetLocation twice on the original MotionEvent",
+      "range": {
+        "startLine": 979,
+        "startChar": 8,
+        "endLine": 982,
+        "endChar": 23
+      },
+      "revId": "b771ebdbeea1526e2469cb594fd0b7555b25966e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9774db64_a3dedb94",
+        "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/RecyclerViewNestedScrollingFlingTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1149384
+      },
+      "writtenOn": "2019-05-16T00:40:12Z",
+      "side": 1,
+      "message": "can this be continued?",
+      "range": {
+        "startLine": 105,
+        "startChar": 59,
+        "endLine": 105,
+        "endChar": 66
+      },
+      "revId": "b771ebdbeea1526e2469cb594fd0b7555b25966e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be7c5db5_304b9fa9",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1932,
+      "author": {
+        "id": 1149384
+      },
+      "writtenOn": "2019-05-16T00:40:12Z",
+      "side": 1,
+      "message": "This no longer modifies ev, which is great!\nConsider also changing the signature to pass boolean isMouseEvent instead of entire MotionEvent to limit the amount of shared information.",
+      "range": {
+        "startLine": 1932,
+        "startChar": 12,
+        "endLine": 1932,
+        "endChar": 28
+      },
+      "revId": "b771ebdbeea1526e2469cb594fd0b7555b25966e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57b89a29_b9806731",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 3210,
+      "author": {
+        "id": 1149384
+      },
+      "writtenOn": "2019-05-16T00:40:12Z",
+      "side": 1,
+      "message": "Similar refactoring here would eliminate this variable.",
+      "range": {
+        "startLine": 3210,
+        "startChar": 16,
+        "endLine": 3210,
+        "endChar": 43
+      },
+      "revId": "b771ebdbeea1526e2469cb594fd0b7555b25966e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e2235f5_28bb7960",
+        "filename": "samples/Support7Demos/src/main/java/com/example/android/supportv7/widget/NsvClAppBarActivity.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1149384
+      },
+      "writtenOn": "2019-05-16T00:40:12Z",
+      "side": 1,
+      "message": "What does Cl mean here?",
+      "range": {
+        "startLine": 24,
+        "startChar": 9,
+        "endLine": 24,
+        "endChar": 11
+      },
+      "revId": "b771ebdbeea1526e2469cb594fd0b7555b25966e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
