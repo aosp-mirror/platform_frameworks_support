@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "981a164c_9f36dfbd",
+        "filename": "recyclerview/selection/src/main/java/androidx/recyclerview/selection/EventRouter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-05-16T16:36:39Z",
+      "side": 1,
+      "message": "Not for this CL specifically: This is called if you have not returned true from onInterceptTouchEvent and a child wants to prevent a parent from intercepting.  This is sort of like ACTION_CANCEL, but just from the child instead of a parent... you may want to react to to clear any state related to the current event stream because you won\u0027t get any more events aftert this has been called for the current event stream.  Notably, you don\u0027t want to fire a long press after this has been called (this is only relevant if you\u0027ve started a long press in onInterceptTouchEvent but returned false, which may be likely).",
+      "range": {
+        "startLine": 69,
+        "startChar": 8,
+        "endLine": 70,
+        "endChar": 86
+      },
+      "revId": "0b56e7a3a341512d3d95768fff6eb3e26ce8b94f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
