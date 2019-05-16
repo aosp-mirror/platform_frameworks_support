@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f7fa73a3_2e12c8a2",
+        "filename": "ui/test/src/androidTest/java/androix/ui/test/RecompositionDetectionTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-05-16T17:09:53Z",
+      "side": 1,
+      "message": "Hm.. I\u0027m not sure it will work in 100% cases. As this is not a main thread, we can onClick(), which will recompose next frame (or even the same frame, doesn\u0027t matter as it\u0027s an implementation detail) and then this check can fail or succeed based on what you thread is doing and how much thread time we have. \n\nGoing further , I think we should not think and care about such concepts as \"pending changes\". What are those changes? Maybe you clicked, and the checkbox itself doesn\u0027t get recomposed, but something else does, and test succeed, but it shouldn\u0027t.",
+      "range": {
+        "startLine": 74,
+        "startChar": 9,
+        "endLine": 74,
+        "endChar": 79
+      },
+      "revId": "51dd7259870da7204501c69832118d2e045d5df6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0cdc3c7d_849719c1",
+        "filename": "ui/test/src/main/java/androidx/ui/test/android/AndroidSemanticsTreeInteraction.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-05-16T17:09:53Z",
+      "side": 1,
+      "message": "Why methods for idle screens belong to semantics iteraction and not to activityComposeRule? I think it\u0027s not semantics only thing and it\u0027s not really about semantics at all, it\u0027s much more about activity, right?\n\nI can also imagine how I check sizes of some component, and then modidy model, waiting for idle screen and then check sizes again, without any semantics interactions or queries.",
+      "range": {
+        "startLine": 108,
+        "startChar": 16,
+        "endLine": 108,
+        "endChar": 40
+      },
+      "revId": "51dd7259870da7204501c69832118d2e045d5df6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62b4090b_bb249abd",
+        "filename": "ui/test/src/main/java/androidx/ui/test/android/AndroidSemanticsTreeInteraction.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-05-16T17:09:53Z",
+      "side": 1,
+      "message": "nit: why not inline into if(...)?",
+      "range": {
+        "startLine": 113,
+        "startChar": 16,
+        "endLine": 113,
+        "endChar": 70
+      },
+      "revId": "51dd7259870da7204501c69832118d2e045d5df6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a27f738_4909e6ad",
+        "filename": "ui/test/src/main/java/androidx/ui/test/android/AndroidSemanticsTreeInteraction.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-05-16T17:09:53Z",
+      "side": 1,
+      "message": "Proper way to check if latch was counted down is to check `latch.await` boolean result. In actually implementation later there might be more than 1 count in the latch.\n\nAlso in multi threading environment latch can be counted down exactly between these two lines (`await` and `\u003d\u003d1L`), so this check is not thread safe, but boolean result from await is",
+      "range": {
+        "startLine": 122,
+        "startChar": 38,
+        "endLine": 122,
+        "endChar": 56
+      },
+      "revId": "51dd7259870da7204501c69832118d2e045d5df6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba5c4442_24bb9a16",
+        "filename": "ui/test/src/main/java/androidx/ui/test/android/AndroidSemanticsTreeInteraction.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-05-16T17:09:53Z",
+      "side": 1,
+      "message": "you can just use flatMap instead",
+      "range": {
+        "startLine": 216,
+        "startChar": 67,
+        "endLine": 216,
+        "endChar": 76
+      },
+      "revId": "51dd7259870da7204501c69832118d2e045d5df6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1646b70b_10bb986c",
+        "filename": "ui/test/src/main/java/androidx/ui/test/android/AndroidSemanticsTreeInteraction.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-05-16T17:09:53Z",
+      "side": 1,
+      "message": ":D",
+      "range": {
+        "startLine": 219,
+        "startChar": 52,
+        "endLine": 220,
+        "endChar": 46
+      },
+      "revId": "51dd7259870da7204501c69832118d2e045d5df6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
