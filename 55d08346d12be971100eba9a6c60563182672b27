@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d0458966_1347eba5",
+        "filename": "webkit/src/main/java/androidx/webkit/package-info.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-05-16T21:55:51Z",
+      "side": 1,
+      "message": "optional: it looks kind of weird to not have a space after the \"*\". Not sure if this causes bugs, although I think you could get away with adding the space back and indenting everything else by an extra space. I agree things look better (in the rendered HTML) without the extra space though, so I\u0027m fine with either as long as it renders.",
+      "range": {
+        "startLine": 28,
+        "startChar": 2,
+        "endLine": 28,
+        "endChar": 16
+      },
+      "revId": "55d08346d12be971100eba9a6c60563182672b27",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f99b2f5_89bbcdfb",
+        "filename": "webkit/src/main/java/androidx/webkit/package-info.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-05-16T21:55:51Z",
+      "side": 1,
+      "message": "Just commenting for future reference: 4 space indent LGTM. This is what we use for DAC pages as well (I checked my recent DAC CL: http://cl/248395588)",
+      "range": {
+        "startLine": 60,
+        "startChar": 2,
+        "endLine": 60,
+        "endChar": 6
+      },
+      "revId": "55d08346d12be971100eba9a6c60563182672b27",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
