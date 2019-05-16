@@ -22,6 +22,30 @@
       "revId": "c95cf48764e0beacb014e8d92eee4243d9a3356d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34f92820_4743c1f0",
+        "filename": "ui/core/src/main/java/androidx/ui/painting/AndroidCanvas.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1345596
+      },
+      "writtenOn": "2019-05-16T21:33:54Z",
+      "side": 1,
+      "message": "Yes AndroidCanvas will move to platform, however, the nativeCanvas typealias would be necessary in the meantime we are able to implement more of the intended Canvas interface. More specifically we need to add support for multiple children within a DrawNode. Exposing the native component is useful for testing. This is also useful to support Alex\u0027s changes to move to a test framework.",
+      "parentUuid": "db5b7790_0193cd1f",
+      "range": {
+        "startLine": 47,
+        "startChar": 14,
+        "endLine": 47,
+        "endChar": 27
+      },
+      "revId": "c95cf48764e0beacb014e8d92eee4243d9a3356d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
