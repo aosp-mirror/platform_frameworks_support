@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8f77fea4_0446e204",
+        "filename": "development/history/add_release_commit_tags.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-05-16T22:34:23Z",
+      "side": 1,
+      "message": "This is a good idea.  Done.",
+      "parentUuid": "badc0eed_f3bf2ed8",
+      "range": {
+        "startLine": 34,
+        "startChar": 1,
+        "endLine": 34,
+        "endChar": 16
+      },
+      "revId": "f4878de745533183a347514a000e48b063f79026",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "25de3202_55721afa",
         "filename": "development/history/add_release_commit_tags.sh",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "f4878de745533183a347514a000e48b063f79026",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8e9e60b_2c61ac22",
+        "filename": "development/history/add_release_commit_tags.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-05-16T22:34:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "25de3202_55721afa",
+      "range": {
+        "startLine": 62,
+        "startChar": 34,
+        "endLine": 62,
+        "endChar": 35
+      },
+      "revId": "f4878de745533183a347514a000e48b063f79026",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -91,6 +139,54 @@
       "revId": "f4878de745533183a347514a000e48b063f79026",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b487478_986b2acc",
+        "filename": "development/history/add_release_commit_tags.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-05-16T22:34:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2e521e24_52e47883",
+      "range": {
+        "startLine": 82,
+        "startChar": 18,
+        "endLine": 82,
+        "endChar": 47
+      },
+      "revId": "f4878de745533183a347514a000e48b063f79026",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "58b85d79_20e7c86f",
+        "filename": "development/history/add_release_commit_tags.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-05-16T22:34:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a2027af1_88fc8320",
+      "range": {
+        "startLine": 82,
+        "startChar": 60,
+        "endLine": 82,
+        "endChar": 62
+      },
+      "revId": "f4878de745533183a347514a000e48b063f79026",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -179,6 +275,102 @@
         "startChar": 51,
         "endLine": 83,
         "endChar": 78
+      },
+      "revId": "f4878de745533183a347514a000e48b063f79026",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8298f173_14d566f0",
+        "filename": "development/history/add_release_commit_tags.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-05-16T22:34:23Z",
+      "side": 1,
+      "message": "I concur.  Done.",
+      "parentUuid": "1a37d403_f707fdb0",
+      "range": {
+        "startLine": 83,
+        "startChar": 51,
+        "endLine": 83,
+        "endChar": 78
+      },
+      "revId": "f4878de745533183a347514a000e48b063f79026",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6f62e19d_5eda5d5e",
+        "filename": "development/history/add_release_commit_tags.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-05-16T22:34:23Z",
+      "side": 1,
+      "message": "This is for the case where one artifact is released, but not the whole group.  Or the case where the version for each artifactId is different.",
+      "parentUuid": "d8737f6e_b1d82763",
+      "range": {
+        "startLine": 83,
+        "startChar": 21,
+        "endLine": 83,
+        "endChar": 32
+      },
+      "revId": "f4878de745533183a347514a000e48b063f79026",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c49c8d01_b410e73b",
+        "filename": "development/history/add_release_commit_tags.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-05-16T22:34:23Z",
+      "side": 1,
+      "message": "Having a tag with the release date would potentially solve this (query would be: `git tag -l \"androidx-$date\"`), but build team pushed back on putting dates in the actual  tag name.\n\nMaybe we can throw in a link to the release notes page?  What do you think?",
+      "parentUuid": "1d54e627_7161616f",
+      "range": {
+        "startLine": 83,
+        "startChar": 101,
+        "endLine": 83,
+        "endChar": 118
+      },
+      "revId": "f4878de745533183a347514a000e48b063f79026",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a1c31c1e_9e3df34c",
+        "filename": "development/history/add_release_commit_tags.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-05-16T22:34:23Z",
+      "side": 1,
+      "message": "Oh good idea!  Yeah we put whatever we want; I\u0027ll add a function to extract the groupId if we don\u0027t have it.",
+      "parentUuid": "f84d78d7_cd7a8c6e",
+      "range": {
+        "startLine": 83,
+        "startChar": 79,
+        "endLine": 83,
+        "endChar": 99
       },
       "revId": "f4878de745533183a347514a000e48b063f79026",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
