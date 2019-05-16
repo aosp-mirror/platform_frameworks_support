@@ -29,14 +29,14 @@ import androidx.annotation.RestrictTo;
  * Represents a contextual mode of the user interface. Action modes can be used to provide
  * alternative interaction modes and replace parts of the normal UI until finished.
  * Examples of good action modes include text selection and contextual actions.
- * <div class="special reference">
+ * <aside class="note"><b>Note:</b>
  *
  * <h3>Developer Guides</h3>
  * <p>For information about how to provide contextual actions with {@code ActionMode},
  * read the <a href="{@docRoot}guide/topics/ui/menus.html#context-menu">Menus</a>
  * developer guide.</p>
  *
- * </div>
+ * </aside>
  */
 public abstract class ActionMode {
 

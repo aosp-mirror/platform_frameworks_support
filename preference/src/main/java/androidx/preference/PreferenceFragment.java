@@ -80,11 +80,11 @@ import androidx.recyclerview.widget.RecyclerView;
  * <p>As a convenience, this fragment implements a click listener for any preference in the current
  * hierarchy, see {@link #onPreferenceTreeClick(Preference)}.
  *
- * <div class="special reference">
+ * <aside class="note"><b>Note:</b>
  * <h3>Developer Guides</h3>
  * <p>For information about building a settings screen using the AndroidX Preference library, see
  * <a href="{@docRoot}guide/topics/ui/settings.html">Settings</a>.</p>
- * </div>
+ * </aside>
  *
  * @see Preference
  * @see PreferenceScreen

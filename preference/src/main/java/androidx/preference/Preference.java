@@ -65,11 +65,11 @@ import java.util.Set;
  * <p>This class contains a {@code key} that that represents the key that is used to persist the
  * value to the device. It is up to the subclass to decide how to store the value.
  *
- * <div class="special reference">
+ * <aside class="note"><b>Note:</b>
  * <h3>Developer Guides</h3>
  * <p>For information about building a settings screen using the AndroidX Preference library, see
  * <a href="{@docRoot}guide/topics/ui/settings.html">Settings</a>.</p>
- * </div>
+ * </aside>
  *
  * @attr name android:icon
  * @attr name android:key

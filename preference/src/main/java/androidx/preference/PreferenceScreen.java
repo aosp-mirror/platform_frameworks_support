@@ -30,11 +30,11 @@ import androidx.core.content.res.TypedArrayUtils;
  * class to show the preferences. To instantiate this class, use
  * {@link PreferenceManager#createPreferenceScreen(Context)}.
  *
- * <div class="special reference">
+ * <aside class="note"><b>Note:</b>
  * <h3>Developer Guides</h3>
  * <p>For information about building a settings screen using the AndroidX Preference library, see
  * <a href="{@docRoot}guide/topics/ui/settings.html">Settings</a>.</p>
- * </div>
+ * </aside>
  *
  */
 public final class PreferenceScreen extends PreferenceGroup {

@@ -112,11 +112,11 @@ import java.util.List;
  * {@link android.media.session.MediaSession} introduced after API level 4 in a
  * backwards compatible fashion.
  *
- * <div class="special reference">
+ * <aside class="note"><b>Note:</b>
  * <h3>Developer Guides</h3>
  * <p>For information about building your media application, read the
  * <a href="{@docRoot}guide/topics/media-apps/index.html">Media Apps</a> developer guide.</p>
- * </div>
+ * </aside>
  */
 public class MediaSessionCompat {
     static final String TAG = "MediaSessionCompat";
