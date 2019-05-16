@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3919e72b_e9f1ba1e",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CaptureSession.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 495,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-05-16T02:54:38Z",
+      "side": 1,
+      "message": "looks like there is a typo here..  applyImplementationOptionT\"o\"CaptureBuilder\ncan you help fix it ?",
+      "range": {
+        "startLine": 495,
+        "startChar": 16,
+        "endLine": 495,
+        "endChar": 56
+      },
+      "revId": "2f0250e3aa5735fb5e9d8a45a1e844a46b97b130",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99752e05_a8efc59d",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CaptureSession.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-05-16T02:54:38Z",
+      "side": 1,
+      "message": "Since CameraControl is responsible for attaching shared parameter to the capture requests, why can\u0027t we simply do that for all single requests in CameraControl as well ?  This can make the paramters sharing logic inside the CameraControl only.",
+      "range": {
+        "startLine": 496,
+        "startChar": 0,
+        "endLine": 496,
+        "endChar": 95
+      },
+      "revId": "2f0250e3aa5735fb5e9d8a45a1e844a46b97b130",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
