@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7a7dec0a_ed364e93",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CaptureSession.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 495,
+      "author": {
+        "id": 1481635
+      },
+      "writtenOn": "2019-05-16T06:47:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3919e72b_e9f1ba1e",
+      "range": {
+        "startLine": 495,
+        "startChar": 16,
+        "endLine": 495,
+        "endChar": 56
+      },
+      "revId": "2f0250e3aa5735fb5e9d8a45a1e844a46b97b130",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "99752e05_a8efc59d",
         "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CaptureSession.java",
         "patchSetId": 5
@@ -36,6 +60,30 @@
       "writtenOn": "2019-05-16T02:54:38Z",
       "side": 1,
       "message": "Since CameraControl is responsible for attaching shared parameter to the capture requests, why can\u0027t we simply do that for all single requests in CameraControl as well ?  This can make the paramters sharing logic inside the CameraControl only.",
+      "range": {
+        "startLine": 496,
+        "startChar": 0,
+        "endLine": 496,
+        "endChar": 95
+      },
+      "revId": "2f0250e3aa5735fb5e9d8a45a1e844a46b97b130",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "620c5fb9_ed1045aa",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CaptureSession.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 1481635
+      },
+      "writtenOn": "2019-05-16T06:47:39Z",
+      "side": 1,
+      "message": "If we need CameraControl to attach all repeating parameters to single request, it means CameraControl has to know all repeating parameters.\nFor a UseCase, there are two ways to set parameters to repeating request.\n(1) Use case\u0027s SessionConfig - by calling UseCase.attachToCamera(CameraId, SessionConfig) and UseCase.notifyActive().\n(2) CameraControl\u0027s SessionConfig - by calling CameraControl API but the parameters are decided by CameraControl.\n\nThe parameters from PreviewExtender use method (1).\nSo if we want to get all repeating parameters in CameraControl, does it mean we have to pass use cases\u0027 SessionConfig to CameraControl instead of using UseCase.attachToCamera()? If so, the use case state(online/offline, active/inactive) and session config management should also move from Camera to CameraControl? I am not sure my understanding is correct or there is another thought?",
+      "parentUuid": "99752e05_a8efc59d",
       "range": {
         "startLine": 496,
         "startChar": 0,
