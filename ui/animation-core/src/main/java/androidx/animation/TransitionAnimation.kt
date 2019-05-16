@@ -111,13 +111,15 @@ class TransitionAnimation<T> : Choreographer.FrameCallback {
      * @param name Name of the [TransitionState] that is defined in the [TransitionDefinition].
      */
     fun toState(name: T) {
-        if (def.states[name] == null) {
+        val nextState = def.states[name]
+        if (nextState == null) {
             // Throw exception or ignore?
-        } else if (toState.name == name) {
-            // no op
-            return
+        } else if (pendingState != null && toState.name == name) {
+            // just canceling the pending state
+            pendingState = null
+        } else if ((pendingState ?: toState).name == name) {
+            // already targeting this state
         } else {
-            val nextState = def.states[name]!!
             setState(nextState)
         }
     }
@@ -182,12 +184,20 @@ class TransitionAnimation<T> : Choreographer.FrameCallback {
             }
             startVelocityMap.clear()
 
+            val spec = def.getSpec(fromState.name, toState.name)
+            val nextState = def.states[spec.nextState]
+            val forceNextState = nextState != null &&
+                    spec.interruptionHandling == InterruptionHandling.UNINTERRUPTIBLE
+
             fromState = toState
             endAnimation()
             val currentStateName = toState.name
-            if (pendingState != null) {
+
+            if (pendingState != null && !forceNextState) {
                 setState(pendingState!!)
                 pendingState = null
+            } else if (nextState != null) {
+                setState(nextState)
             }
             onStateChangeFinished?.invoke(currentStateName)
         }

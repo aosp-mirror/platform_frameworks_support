@@ -19,6 +19,7 @@ package androidx.ui.animation.demos
 import android.app.Activity
 import android.graphics.PointF
 import android.os.Bundle
+import android.util.Log
 import androidx.animation.FloatPropKey
 import androidx.animation.InterruptionHandling
 import androidx.animation.TransitionDefinition
@@ -27,21 +28,21 @@ import androidx.animation.transitionDefinition
 import androidx.ui.animation.Transition
 import androidx.ui.core.CraneWrapper
 import androidx.ui.core.Draw
-import androidx.ui.core.IntPx
-import androidx.ui.core.Layout
 import androidx.ui.core.PxPosition
-import androidx.ui.core.WithConstraints
 import androidx.ui.core.gesture.PressGestureDetector
-import androidx.ui.core.ipx
 import androidx.ui.engine.geometry.Offset
 import androidx.ui.graphics.Color
 import androidx.ui.painting.Paint
 import androidx.compose.Composable
-import androidx.compose.Recompose
 import androidx.compose.composer
 import androidx.compose.memo
 import androidx.compose.setContent
+import androidx.compose.state
 import androidx.compose.unaryPlus
+import androidx.ui.core.ambientDensity
+import androidx.ui.core.dp
+import androidx.ui.core.withDensity
+import androidx.ui.layout.Container
 
 class StateBasedRippleAnimation : Activity() {
 
@@ -54,52 +55,33 @@ class StateBasedRippleAnimation : Activity() {
 @Composable
 fun StateBasedRippleDemo() {
     CraneWrapper {
-        val children = @Composable {
-            WithConstraints { constraints ->
-                RippleRect(width = constraints.maxWidth, height = constraints.maxHeight)
-            }
+        Container(expanded = true) {
+            RippleRect()
         }
-        Layout(children = children, layoutBlock = { measurables, constraints ->
-            val placeable = measurables.firstOrNull()?.measure(constraints)
-            layout(constraints.maxWidth, constraints.maxHeight) {
-                placeable?.place(0.ipx, 0.ipx)
-            }
-        })
     }
 }
 
 @Composable
-fun RippleRect(width: IntPx, height: IntPx) {
-    if (width.value == 0 || height.value == 0) {
-        return
+fun RippleRect() {
+    val radius = withDensity(+ambientDensity()) { TargetRadius.toPx() }
+    val toState = +state { ButtonStatus.Initial }
+    val rippleTransDef = +memo { createTransDef(radius.value) }
+    val onPress: (PxPosition) -> Unit = { position ->
+        down.x = position.x.value
+        down.y = position.y.value
+        Log.e("asd", "to pressed")
+        toState.value = ButtonStatus.Pressed
     }
-    val targetRadius: Float = 30f + Math.sqrt(
-        (
-                width.value * width.value + height.value * height.value).toDouble()
-    ).toFloat() / 2f
-    var toState = ButtonStatus.Released
-    val rippleTransDef = +memo(targetRadius) { createTransDef(targetRadius) }
-    Recompose { recompose ->
-        val onPress: (PxPosition) -> Unit = { position ->
-            toState = ButtonStatus.Pressed
-            down.x = position.x.value
-            down.y = position.y.value
-            recompose()
-        }
 
-        val onRelease: () -> Unit = {
-            toState = ButtonStatus.Released
-            recompose()
-        }
-        PressGestureDetector(onPress = onPress, onRelease = onRelease) {
-            val children = @Composable {
-                Transition(definition = rippleTransDef, toState = toState) { state ->
-                    RippleRectFromState(state = state)
-                }
+    val onRelease: () -> Unit = {
+        Log.e("asd", "to released")
+        toState.value = ButtonStatus.Released
+    }
+    PressGestureDetector(onPress = onPress, onRelease = onRelease) {
+        Container(expanded = true) {
+            Transition(definition = rippleTransDef, toState = toState.value) { state ->
+                RippleRectFromState(state = state)
             }
-            Layout(children = children, layoutBlock = { _, constraints ->
-                layout(constraints.maxWidth, constraints.maxHeight) { }
-            })
         }
     }
 }
@@ -129,9 +111,12 @@ fun RippleRectFromState(state: TransitionState) {
 }
 
 private enum class ButtonStatus {
+    Initial,
     Pressed,
     Released
 }
+
+private val TargetRadius = 200.dp
 
 private val down = PointF(0f, 0f)
 
@@ -140,7 +125,7 @@ private val radius = FloatPropKey()
 
 private fun createTransDef(targetRadius: Float): TransitionDefinition<ButtonStatus> {
     return transitionDefinition {
-        state(ButtonStatus.Released) {
+        state(ButtonStatus.Initial) {
             this[alpha] = 0f
             this[radius] = targetRadius * 0.3f
         }
@@ -148,16 +133,16 @@ private fun createTransDef(targetRadius: Float): TransitionDefinition<ButtonStat
             this[alpha] = 0.2f
             this[radius] = targetRadius + 15f
         }
+        state(ButtonStatus.Released) {
+            this[alpha] = 0f
+            this[radius] = targetRadius + 15f
+        }
 
         // Grow the ripple
-        transition(fromState = ButtonStatus.Released, toState = ButtonStatus.Pressed) {
-            alpha using keyframes {
-                duration = 225
-                0f at 0
-                0.2f at 75
-                0.2f at 225
+        transition(fromState = ButtonStatus.Initial, toState = ButtonStatus.Pressed) {
+            alpha using tween {
+                duration = 75
             }
-
             radius using tween {
                 duration = 225
             }
@@ -167,15 +152,14 @@ private fun createTransDef(targetRadius: Float): TransitionDefinition<ButtonStat
         // Fade out the ripple
         transition(fromState = ButtonStatus.Pressed, toState = ButtonStatus.Released) {
             alpha using tween {
-                duration = 150
+                duration = 200
             }
-
-            radius using keyframes {
-                duration = 150
-                targetRadius + 15f at 0 // optional
-                targetRadius + 15f at (duration - 1)
-                targetRadius * 0.3f at duration // optional
-            }
+            interruptionHandling = InterruptionHandling.UNINTERRUPTIBLE
+            // switch back to Initial to prepare for the next ripple cycle
+            nextState = ButtonStatus.Initial
         }
+
+        // State switch without animation
+        snapTransition(ButtonStatus.Released to ButtonStatus.Initial)
     }
 }
