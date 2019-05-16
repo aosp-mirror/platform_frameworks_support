@@ -100,10 +100,12 @@ fun RippleSurface(
         // TODO(Andrey) Find a better way to disable ripples when transitions are disabled.
         val transitionsEnabled = transitionsEnabled
         if (owner.effects.isNotEmpty() && transitionsEnabled) {
-            canvas.save()
+            // TODO (njawad) replace with save lambda when multi children DrawNodes are supported
+            canvas.nativeCanvas.save()
             canvas.clipRect(size.toRect())
             owner.effects.forEach { it.draw(canvas) }
-            canvas.restore()
+            // TODO (njawad) replace with save lambda when multi children DrawNodes are supported
+            canvas.nativeCanvas.restore()
         }
     }
     CurrentRippleSurface.Provider(value = owner, children = children)

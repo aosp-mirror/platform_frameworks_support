@@ -230,7 +230,7 @@ class AndroidLayoutDrawTest {
                         val paint = Paint()
                         paint.color = model.outerColor
                         canvas.drawRect(parentSize.toRect(), paint)
-                        canvas.save()
+                        canvas.nativeCanvas.save()
                         val offset = parentSize.width.value / 3
                         // clip drawing to the inner rectangle
                         canvas.clipRect(Rect(offset, offset, offset * 2, offset * 2))
@@ -258,7 +258,7 @@ class AndroidLayoutDrawTest {
                         )
                         canvas.drawRect(paintRect, paint)
                         // restore the canvas
-                        canvas.restore()
+                        canvas.nativeCanvas.restore()
                     }
                 }
             }
@@ -576,10 +576,10 @@ class AndroidLayoutDrawTest {
                                 canvas.drawRect(parentSize.toRect(), paint)
                                 val start = model.size.value.toFloat()
                                 val end = start * 2
-                                canvas.save()
+                                canvas.nativeCanvas.save()
                                 canvas.clipRect(Rect(start, start, end, end))
                                 drawChildren()
-                                canvas.restore()
+                                canvas.nativeCanvas.restore()
                             })
                         }
                     }, onPaint = { canvas, parentSize ->

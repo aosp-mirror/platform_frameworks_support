@@ -22,6 +22,7 @@ import androidx.ui.core.IntPxSize
 import androidx.ui.core.constrain
 import androidx.ui.core.px
 import androidx.ui.core.round
+import androidx.ui.core.toFrameworkRectF
 import androidx.ui.engine.geometry.Offset
 import androidx.ui.engine.geometry.Size
 import androidx.ui.engine.text.TextAlign
@@ -358,9 +359,11 @@ class RenderParagraph(
             if (overflowShader != null) {
                 // This layer limits what the shader below blends with to be just the text
                 // (as opposed to the text and its background).
-                canvas.saveLayer(bounds, Paint())
+                // TODO (njawad) replace with save lambda when multi children DrawNodes are supported
+                canvas.nativeCanvas.saveLayer(bounds.toFrameworkRectF(), android.graphics.Paint())
             } else {
-                canvas.save()
+                // TODO (njawad) replace with save lambda when multi children DrawNodes are supported
+                canvas.nativeCanvas.save()
             }
             canvas.clipRect(bounds)
         }
@@ -373,7 +376,8 @@ class RenderParagraph(
                 paint.shader = overflowShader
                 canvas.drawRect(Offset.zero.and(size), paint)
             }
-            canvas.restore()
+            // TODO (njawad) replace with save lambda when multi children DrawNodes are supported
+            canvas.nativeCanvas.restore()
         }
     }
 
