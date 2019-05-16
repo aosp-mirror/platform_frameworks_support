@@ -22,6 +22,30 @@
       "revId": "cf1c377adb13491b297e69d6bcafb5fc06895e54",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "176453ca_e8945314",
+        "filename": "test/screenshot/build.gradle",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2019-05-16T16:46:46Z",
+      "side": 1,
+      "message": "./gradlew bOS doesn\u0027t actually give us a jar (nor transcompile the proto) unless we use androidx { publish \u003d true } and I tried to eliminate the need for the androidx plugin. Not sure when ./gradlew jar should get called and isn\u0027t.\n\nUpdated the code as suggested.",
+      "parentUuid": "f9c7a503_f03b3871",
+      "range": {
+        "startLine": 26,
+        "startChar": 1,
+        "endLine": 28,
+        "endChar": 1
+      },
+      "revId": "cf1c377adb13491b297e69d6bcafb5fc06895e54",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
