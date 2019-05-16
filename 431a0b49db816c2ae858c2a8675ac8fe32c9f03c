@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f4b19c11_e7580774",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-05-16T22:35:20Z",
+      "side": 1,
+      "message": "Hmm I\u0027m kind of confused about why removing the target sdk version from AndroidManifest.xml files in src/ directories would cause a value to start appearing in AndroidManifest.xml files in the out/ dir",
+      "range": {
+        "startLine": 19,
+        "startChar": 33,
+        "endLine": 20,
+        "endChar": 16
+      },
+      "revId": "431a0b49db816c2ae858c2a8675ac8fe32c9f03c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
