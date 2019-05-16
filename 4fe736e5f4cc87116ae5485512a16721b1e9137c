@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "f469d9c1_5a6b3622",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2019-05-16T00:40:05Z",
+      "side": 1,
+      "message": "We could add this to EnumWrapper:\n\n    @NonNull\n    public static \u003cT extends Enum\u003cT\u003e, P extends Enum\u003cP\u003e\u003e P toProto(@Nullable EnumWrapper\u003cT\u003e wrapper, @NonNull P defaultValue) {\n        if (wrapper !\u003d null) {\n            for (String value : wrapper.mValues) {\n                P result \u003d getEnumByName(defaultValue.getDeclaringClass(), value);\n                if (result !\u003d null) {\n                    return result;\n                }\n            }\n        }\n        return defaultValue;\n    }\n\nThen this call would become:\n\nreturn EnumWrapper.getProtoValue(mTraffic, DestinationProto.Traffic.UNKNOWN);",
+      "parentUuid": "948bd240_07212be0",
+      "revId": "4fe736e5f4cc87116ae5485512a16721b1e9137c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4b075216_4e1736cb",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
         "patchSetId": 4
@@ -48,6 +66,24 @@
       "writtenOn": "2019-05-15T17:19:36Z",
       "side": 1,
       "message": "We could also generalize this inside the EnumWrapper (or some other place).",
+      "revId": "4fe736e5f4cc87116ae5485512a16721b1e9137c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2723cd60_fda19476",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2019-05-16T00:40:05Z",
+      "side": 1,
+      "message": "And we could add this to EnumWrapper:\n\n    @NonNull\n    public static \u003cT extends Enum\u003cT\u003e, P extends Enum\u003cP\u003e\u003e T fromProto(@NonNull List\u003cP\u003e values, @NonNull T defaultValue) {\n        for (P value : values) {\n            T result \u003d getEnumByName(defaultValue.getDeclaringClass(), value.name());\n            if (result !\u003d null) {\n                return result;\n            }\n        }\n        return defaultValue;\n    }\n\nThen this would become:\n\nreturn EnumWrapper.fromProto(proto.getTrafficList(), Traffic.UNKNOWN);\n\nThe \"UNRECOGNIZED\" case would fall in the same category as an unknown enum name.",
+      "parentUuid": "4b075216_4e1736cb",
       "revId": "4fe736e5f4cc87116ae5485512a16721b1e9137c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
