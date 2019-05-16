@@ -16,6 +16,24 @@
       "revId": "c9a461b5e5eeb8d764937e7e83a6de5845d98ce5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f70f795c_18cf1888",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaSessionService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1344823
+      },
+      "writtenOn": "2019-05-16T17:18:15Z",
+      "side": 1,
+      "message": "Yes, the bug was written more generically, but I\u0027ve since corrected it to be specific to this class, since the others are being addressed by someone else.",
+      "parentUuid": "28b0d455_00984272",
+      "revId": "c9a461b5e5eeb8d764937e7e83a6de5845d98ce5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
