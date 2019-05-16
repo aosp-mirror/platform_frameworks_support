@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f9c7a503_f03b3871",
+        "filename": "test/screenshot/build.gradle",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-05-16T15:34:10Z",
+      "side": 1,
+      "message": "Why do we need this? ./gradlew jar should build this for you.\n\nIf we do need it, it should be task(\"assembleDebug\").configure {..} to make it lazy.",
+      "range": {
+        "startLine": 26,
+        "startChar": 1,
+        "endLine": 28,
+        "endChar": 1
+      },
+      "revId": "cf1c377adb13491b297e69d6bcafb5fc06895e54",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
