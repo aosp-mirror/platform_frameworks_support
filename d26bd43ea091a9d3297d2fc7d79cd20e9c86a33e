@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "82c07b60_f54a68b5",
+        "filename": "ui/material/src/androidTest/java/androidx/ui/material/CheckboxUiTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-05-16T17:25:09Z",
+      "side": 1,
+      "message": "Good suggestions! This way I think I\u0027d better wait for your big CL to land and then improve API here...",
+      "parentUuid": "61f7d352_2adb2871",
+      "range": {
+        "startLine": 166,
+        "startChar": 12,
+        "endLine": 166,
+        "endChar": 27
+      },
+      "revId": "d26bd43ea091a9d3297d2fc7d79cd20e9c86a33e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2a978bfb_2b200c1b",
         "filename": "ui/material/src/androidTest/java/androidx/ui/material/CheckboxUiTest.kt",
         "patchSetId": 3
