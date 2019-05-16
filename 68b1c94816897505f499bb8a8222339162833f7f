@@ -409,6 +409,24 @@
     },
     {
       "key": {
+        "uuid": "2af45cb5_293d24f7",
+        "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/SemanticsL2.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1402596
+      },
+      "writtenOn": "2019-05-16T18:05:36Z",
+      "side": 1,
+      "message": "Not sure I understand your concern, but let\u0027s talk about this offline, and I will address it in a separate CL.",
+      "parentUuid": "b328336c_c3539b66",
+      "revId": "68b1c94816897505f499bb8a8222339162833f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f368b6af_188972db",
         "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/SemanticsL2.kt",
         "patchSetId": 1
