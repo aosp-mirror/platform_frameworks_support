@@ -93,6 +93,30 @@
       "revId": "2f0250e3aa5735fb5e9d8a45a1e844a46b97b130",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d5016eb_1659edb7",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CaptureSession.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-16T20:48:08Z",
+      "side": 1,
+      "message": "The repeating parameters are not necessarily shared between different use cases. They are merged in together in the CaptureSession.\n\nThis means if there was UseCase0 with parameter A and UseCase1 with parameter B. While both are active then the parameters used will be [A, B], but if UseCase0 becomes inactive then the parameters used will only be [B].\nHowever, for shared parameters UseCase0 and UseCase1 are just utilizing the CameraControl so if UseCase0 or UseCase1 goes away (without sending a command to CameraControl) then the set of parameters will remain unchanged.\n\nThe question becomes should Camera still be a UseCase.StateChangeListener or should it only be a CameraControl.ControlUpdateListener. It would certainly make the logic in Camera a lot cleaner, but I don\u0027t think it would be correct to place that logic in CameraControl since it makes it so CameraControl has too many responsibilities.",
+      "parentUuid": "620c5fb9_ed1045aa",
+      "range": {
+        "startLine": 496,
+        "startChar": 0,
+        "endLine": 496,
+        "endChar": 95
+      },
+      "revId": "2f0250e3aa5735fb5e9d8a45a1e844a46b97b130",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
