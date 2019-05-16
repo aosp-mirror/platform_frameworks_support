@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2d69107b_249e3aed",
+        "filename": "ui/material/src/androidTest/java/androidx/ui/material/ColoredRectUiTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2019-05-16T14:53:03Z",
+      "side": 1,
+      "message": "What do you think of doing:\nfun coloredRect_fixedSizes() \u003d withDensity {\n  ...\n}\nI feel having withDensity visually outside the body of the test lets one focus better on the test logic. Not a strong opinion though, up to you :)",
+      "range": {
+        "startLine": 39,
+        "startChar": 8,
+        "endLine": 39,
+        "endChar": 30
+      },
+      "revId": "6775f70af30ef0954fd0262bb25d2f179818cba8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81644f3b_ae8cfb98",
+        "filename": "ui/material/src/androidTest/java/androidx/ui/material/MaterialTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2019-05-16T14:53:03Z",
+      "side": 1,
+      "message": "nit: maybe rename to expectedWidth/Height here and below",
+      "range": {
+        "startLine": 47,
+        "startChar": 4,
+        "endLine": 47,
+        "endChar": 18
+      },
+      "revId": "6775f70af30ef0954fd0262bb25d2f179818cba8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4b0e564_72ac0f85",
+        "filename": "ui/material/src/androidTest/java/androidx/ui/material/MaterialTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2019-05-16T14:53:03Z",
+      "side": 1,
+      "message": "nit: move this at the end of the file to leave performSizeTest, performWidthTest, performHeightTest grouped together",
+      "range": {
+        "startLine": 55,
+        "startChar": 32,
+        "endLine": 55,
+        "endChar": 44
+      },
+      "revId": "6775f70af30ef0954fd0262bb25d2f179818cba8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ede63d5_482061e2",
+        "filename": "ui/material/src/androidTest/java/androidx/ui/material/MaterialTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2019-05-16T14:53:03Z",
+      "side": 1,
+      "message": "Note that here Container will not pass the min constraints to the children. Not sure if you need to pass them, but if so, you could use ConstrainedBox.",
+      "range": {
+        "startLine": 64,
+        "startChar": 12,
+        "endLine": 64,
+        "endChar": 21
+      },
+      "revId": "6775f70af30ef0954fd0262bb25d2f179818cba8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
