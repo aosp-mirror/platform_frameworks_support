@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ed00bc53_f3c0e890",
+        "filename": "webkit/src/main/java/androidx/webkit/package-info.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-05-16T21:58:41Z",
+      "side": 1,
+      "message": "Actually, I just tested https://developer.android.com/reference/androidx/webkit/package-summary, and realized I can select the leading space character, which is kind of weird. So, it\u0027s probably best to keep as you\u0027ve written in this CL.",
+      "parentUuid": "d0458966_1347eba5",
+      "range": {
+        "startLine": 28,
+        "startChar": 2,
+        "endLine": 28,
+        "endChar": 16
+      },
+      "revId": "55d08346d12be971100eba9a6c60563182672b27",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7f99b2f5_89bbcdfb",
         "filename": "webkit/src/main/java/androidx/webkit/package-info.java",
         "patchSetId": 1
