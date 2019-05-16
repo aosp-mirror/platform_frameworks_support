@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6fe0ac0e_2637be0b",
+        "filename": "benchmark/src/main/java/androidx/benchmark/ResultWriter.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-05-16T15:12:01Z",
+      "side": 1,
+      "message": "Also add more specific version for OS, maybe FINGERPRINT?",
+      "revId": "0edc89f39e559227a996f4975a0efadd52450748",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d20c3d49_4cd0711b",
+        "filename": "benchmark/src/main/java/androidx/benchmark/ResultWriter.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-05-16T15:12:01Z",
+      "side": 1,
+      "message": "Call the build properties by the same name as in the android API - e.g. sdkInt.\n\nWhat would you think about prepending \"build\" to everything that comes from \"Build.\" to make it clear where they come from?",
+      "revId": "0edc89f39e559227a996f4975a0efadd52450748",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
