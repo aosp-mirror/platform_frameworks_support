@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3abb1b47_317fac0f",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dependencyTracker/AffectedModuleDetector.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-05-16T21:30:04Z",
+      "side": 1,
+      "message": "nit: hasAndroidXFile",
+      "range": {
+        "startLine": 258,
+        "startChar": 12,
+        "endLine": 258,
+        "endChar": 24
+      },
+      "revId": "5800d34c6aa2cecf53082f19ff216ff9c5ada59b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5cf58cf3_79ec9b8e",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/dependencyTracker/AffectedModuleDetector.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-05-16T21:30:04Z",
+      "side": 1,
+      "message": "nit: hasUiFile",
+      "range": {
+        "startLine": 259,
+        "startChar": 12,
+        "endLine": 259,
+        "endChar": 20
+      },
+      "revId": "5800d34c6aa2cecf53082f19ff216ff9c5ada59b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
