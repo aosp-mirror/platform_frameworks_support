@@ -33,6 +33,24 @@
       "revId": "0edc89f39e559227a996f4975a0efadd52450748",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "222300d8_9c7ef695",
+        "filename": "benchmark/src/main/java/androidx/benchmark/ResultWriter.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-05-16T15:16:23Z",
+      "side": 1,
+      "message": "We could also just add a nested \"build\" object and name all the fields the same so it\u0027s very clear what it is?",
+      "parentUuid": "d20c3d49_4cd0711b",
+      "revId": "0edc89f39e559227a996f4975a0efadd52450748",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
