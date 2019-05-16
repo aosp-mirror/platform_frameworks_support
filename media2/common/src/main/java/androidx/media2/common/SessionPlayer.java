@@ -1301,7 +1301,7 @@ public abstract class SessionPlayer implements AutoCloseable {
         }
 
         /**
-         * Called when a track has been selected.
+         * Called when a track has been deselected.
          * @param player the player associated with this callback
          * @param trackInfo the deselected track info
          *
