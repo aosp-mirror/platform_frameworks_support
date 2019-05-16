@@ -22,6 +22,30 @@
       "revId": "7b3784daa735b06e618d647d90273eb9d5ac6d05",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62679252_d6315e6b",
+        "filename": "camera/integration-tests/timingtestapp/src/androidTest/java/androidx/camera/integration/antelope/AntelopeInstrumentedTests.kt",
+        "patchSetId": 20
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1269804
+      },
+      "writtenOn": "2019-05-16T19:12:38Z",
+      "side": 1,
+      "message": "No, this is not required. I was thinking I would make sure the tests could get through presubmit a few times with the tests repeating before reducing it. When this is figured out, I will submit it with times \u003d 1.",
+      "parentUuid": "154505a6_0ec749ec",
+      "range": {
+        "startLine": 155,
+        "startChar": 31,
+        "endLine": 155,
+        "endChar": 32
+      },
+      "revId": "7b3784daa735b06e618d647d90273eb9d5ac6d05",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
