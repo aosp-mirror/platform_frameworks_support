@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "9f24bfc6_3ec2961f",
+        "filename": "customview/src/main/java/androidx/customview/widget/Openable.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-05-16T15:41:24Z",
+      "side": 1,
+      "message": "Is this the right place to add a listener to opening/closing or is it in the controller?",
+      "range": {
+        "startLine": 22,
+        "startChar": 17,
+        "endLine": 22,
+        "endChar": 25
+      },
+      "revId": "4014e2f2e7fb3c0d95707283fe7e89f846f558f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "18fb075f_90aefc96",
         "filename": "customview/src/main/java/androidx/customview/widget/Openable.java",
         "patchSetId": 5
