@@ -63,6 +63,11 @@ class DragGestureDetectorTest {
         canDragMockTrue = MockCanDrag(Direction.values(), log)
     }
 
+    @Test
+    fun shouldFailHostSide() {
+        assertThat(false).isTrue()
+    }
+
     // Verify the circumstances under which canDrag should not be called.
 
     @Test
