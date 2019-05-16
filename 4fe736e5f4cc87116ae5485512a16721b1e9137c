@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "6d06648d_a5d755c7",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2019-05-16T00:48:35Z",
+      "side": 1,
+      "message": "I expect that ProGuard might muck with the enum names, and that we might even want ProGuard to muck with the enum names, so that they\u0027re smaller in the APK? So I\u0027m a little worried about adding more string-typing between these APIs. I\u0027m not super-opposed but am just slightly worried.",
+      "parentUuid": "f469d9c1_5a6b3622",
+      "revId": "4fe736e5f4cc87116ae5485512a16721b1e9137c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4b075216_4e1736cb",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
         "patchSetId": 4
