@@ -103,11 +103,11 @@ import java.util.Map;
  * All callback methods will be called from the thread on which the browser was constructed.
  * </p>
  *
- * <div class="special reference">
+ * <aside class="note"><b>Note:</b>
  * <h3>Developer Guides</h3>
  * <p>For information about building your media application, read the
  * <a href="{@docRoot}guide/topics/media-apps/index.html">Media Apps</a> developer guide.</p>
- * </div>
+ * </aside>
  */
 public final class MediaBrowserCompat {
     static final String TAG = "MediaBrowserCompat";

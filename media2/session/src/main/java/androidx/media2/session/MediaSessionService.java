@@ -68,7 +68,7 @@ import java.util.List;
  * <li><a href="#Permissions">Permissions</a>
  * <li><a href="#MultipleSessions">Supporting Multiple Sessions</a>
  * </ol>
- * <div class="special reference">
+ * <aside class="note"><b>Note:</b>
  * <a name="ServiceLifecycle"></a>
  * <h3>Service Lifecycle</h3>
  * <p>
@@ -107,7 +107,7 @@ import java.util.List;
  * be called to know which session to handle incoming connection request. Pick the best session
  * among added sessions, or create new one and return from the
  * {@link #onGetSession(ControllerInfo)}.
- * </div>
+ * </aside>
  */
 public abstract class MediaSessionService extends Service {
     /**

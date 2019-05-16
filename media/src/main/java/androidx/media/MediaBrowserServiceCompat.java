@@ -121,11 +121,11 @@ import java.util.List;
  * &lt;/service>
  * </pre>
  *
- * <div class="special reference">
+ * <aside class="note"><b>Note:</b>
  * <h3>Developer Guides</h3>
  * <p>For information about building your media application, read the
  * <a href="{@docRoot}guide/topics/media-apps/index.html">Media Apps</a> developer guide.</p>
- * </div>
+ * </aside>
  */
 public abstract class MediaBrowserServiceCompat extends Service {
     static final String TAG = "MBServiceCompat";

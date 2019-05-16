@@ -44,11 +44,11 @@ import java.util.List;
  * A container for multiple {@link Preference}s. It is a base class for preference
  * objects that are parents, such as {@link PreferenceCategory} and {@link PreferenceScreen}.
  *
- * <div class="special reference">
+ * <aside class="note"><b>Note:</b>
  * <h3>Developer Guides</h3>
  * <p>For information about building a settings screen using the AndroidX Preference library, see
  * <a href="{@docRoot}guide/topics/ui/settings.html">Settings</a>.</p>
- * </div>
+ * </aside>
  *
  * @attr name android:orderingFromXml
  * @attr name initialExpandedChildrenCount
