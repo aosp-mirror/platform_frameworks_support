@@ -447,6 +447,30 @@
       "revId": "f4878de745533183a347514a000e48b063f79026",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "12eab8a6_c3bf2569",
+        "filename": "development/history/add_release_commit_tags.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-05-16T23:30:27Z",
+      "side": 1,
+      "message": "I agree with jeff, this does not seem right. should we include maven group + artifact id?",
+      "parentUuid": "4457aa1f_efa0bc91",
+      "range": {
+        "startLine": 83,
+        "startChar": 21,
+        "endLine": 83,
+        "endChar": 32
+      },
+      "revId": "f4878de745533183a347514a000e48b063f79026",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
