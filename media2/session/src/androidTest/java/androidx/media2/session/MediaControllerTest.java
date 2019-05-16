@@ -64,7 +64,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -1660,15 +1659,13 @@ public class MediaControllerTest extends MediaSessionTestBase {
     public void testGetTrackInfo() throws InterruptedException {
         prepareLooper();
         final CountDownLatch latch = new CountDownLatch(1);
-        final SessionPlayer.TrackInfo testTrack = new SessionPlayer.TrackInfo(0, null, 0, null);
-        final List<SessionPlayer.TrackInfo> testTracks = new ArrayList<>();
-        testTracks.add(testTrack);
+        final List<SessionPlayer.TrackInfo> testTracks = TestUtils.createTrackInfoList();
 
         final ControllerCallback callback = new ControllerCallback() {
             @Override
             public void onTrackInfoChanged(MediaController controller,
                     List<SessionPlayer.TrackInfo> trackInfos) {
-                assertEquals(testTrack, trackInfos.get(0));
+                assertEquals(testTracks, trackInfos);
                 latch.countDown();
             }
         };
@@ -1681,7 +1678,8 @@ public class MediaControllerTest extends MediaSessionTestBase {
     public void testSelectTrack() throws InterruptedException {
         prepareLooper();
         final CountDownLatch latch = new CountDownLatch(1);
-        final SessionPlayer.TrackInfo testTrack = new SessionPlayer.TrackInfo(0, null, 0, null);
+        final SessionPlayer.TrackInfo testTrack = TestUtils.createTrackInfo(1, "test",
+                SessionPlayer.TrackInfo.MEDIA_TRACK_TYPE_SUBTITLE);
         final ControllerCallback callback = new ControllerCallback() {
             @Override
             public void onTrackSelected(MediaController controller,
@@ -1699,7 +1697,8 @@ public class MediaControllerTest extends MediaSessionTestBase {
     public void testDeselectTrack() throws InterruptedException {
         prepareLooper();
         final CountDownLatch latch = new CountDownLatch(1);
-        final SessionPlayer.TrackInfo testTrack = new SessionPlayer.TrackInfo(0, null, 0, null);
+        final SessionPlayer.TrackInfo testTrack = TestUtils.createTrackInfo(1, "test",
+                SessionPlayer.TrackInfo.MEDIA_TRACK_TYPE_SUBTITLE);
         final ControllerCallback callback = new ControllerCallback() {
             @Override
             public void onTrackDeselected(MediaController controller,
