@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "e2830078_a2a6a4dc",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/pointerinput/HitPathTracker.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-05-16T23:26:17Z",
+      "side": 1,
+      "message": "funny how that warrants a warning",
+      "parentUuid": "7fb0c99e_890bacec",
+      "range": {
+        "startLine": 217,
+        "startChar": 52,
+        "endLine": 217,
+        "endChar": 61
+      },
+      "revId": "6f290de52d324a60ea7cad82312e426e2399e264",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "63613f3f_c10d91cf",
         "filename": "ui/platform/src/main/java/androidx/ui/core/pointerinput/HitPathTracker.kt",
         "patchSetId": 2
