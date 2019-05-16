@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "27070b41_8ab7a006",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-05-16T21:36:27Z",
+      "side": 1,
+      "message": "Done.  I\u0027m not sure atest works for AndroidX, but what I included does. :)",
+      "parentUuid": "dc3ded14_a90f2297",
+      "range": {
+        "startLine": 12,
+        "startChar": 6,
+        "endLine": 13,
+        "endChar": 42
+      },
+      "revId": "b771ebdbeea1526e2469cb594fd0b7555b25966e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7d24351d_20435ed8",
         "filename": "core/src/main/java/androidx/core/widget/NestedScrollView.java",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2019-05-16T00:40:12Z",
       "side": 1,
       "message": "Is it possible to move this next to the declaration of vtev? The only risk is an early return from a DOWN event, but it should be probably safe to either add the event anyways, or to clear the velocitytracker there.\n\nIt may also be possible to avoid doing an MotionEvent.obtain, and just call offsetLocation twice on the original MotionEvent",
+      "range": {
+        "startLine": 979,
+        "startChar": 8,
+        "endLine": 982,
+        "endChar": 23
+      },
+      "revId": "b771ebdbeea1526e2469cb594fd0b7555b25966e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "caca7b25_86c3b299",
+        "filename": "core/src/main/java/androidx/core/widget/NestedScrollView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 982,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-05-16T21:36:27Z",
+      "side": 1,
+      "message": "I think there may be a scenario where adding the DOWN event to the VelocityTracker is dangerous. It may be possible that the RV first has no children, so it should ignore the event stream, and then on the very next event stream it has children.  By moving the VelocityTracker.addMovement call, I think it\u0027s possible that it could get 2 DOWNS before having been reset.\n\nLet\u0027s play it safe and not change this in this CL.",
+      "parentUuid": "7d24351d_20435ed8",
       "range": {
         "startLine": 979,
         "startChar": 8,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "f6743c96_5d131fea",
+        "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/RecyclerViewNestedScrollingFlingTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-05-16T21:36:27Z",
+      "side": 1,
+      "message": "Haha.  I do that all the time.  The reason I stopped writing the comment halfway through was because I realized that I didn\u0027t need this chunk of code.  This chunk of code was pre scrolling the parent... but then I realized that the parent is actually custom code for the test and it doesn\u0027t care about any bounds so it didn\u0027t need to be prescrolled! (Same goes for the NestedScrollViewNestedScrollingFlingTest, where a similar chunk of code is removed).",
+      "parentUuid": "9774db64_a3dedb94",
+      "range": {
+        "startLine": 105,
+        "startChar": 59,
+        "endLine": 105,
+        "endChar": 66
+      },
+      "revId": "b771ebdbeea1526e2469cb594fd0b7555b25966e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ae5708c8_83e1520f",
         "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/RecyclerViewNestedScrollingFlingTest.kt",
         "patchSetId": 3
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "cbd69015_f5953b6d",
+        "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/RecyclerViewNestedScrollingFlingTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-05-16T21:36:27Z",
+      "side": 1,
+      "message": "Interesting!  I figured the results would be deterministic given that the input is.  I\u0027m constructing the MotionEvents manually, with deterministic times and distances, and it\u0027s all in pixels.  Not sure what other factors would play a role in determining the fling velocity... but cool.  I added a buffer of +1/-1.",
+      "parentUuid": "ae5708c8_83e1520f",
+      "range": {
+        "startLine": 145,
+        "startChar": 32,
+        "endLine": 145,
+        "endChar": 34
+      },
+      "revId": "b771ebdbeea1526e2469cb594fd0b7555b25966e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "be7c5db5_304b9fa9",
         "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
         "patchSetId": 3
@@ -105,6 +201,30 @@
       "writtenOn": "2019-05-16T00:40:12Z",
       "side": 1,
       "message": "This no longer modifies ev, which is great!\nConsider also changing the signature to pass boolean isMouseEvent instead of entire MotionEvent to limit the amount of shared information.",
+      "range": {
+        "startLine": 1932,
+        "startChar": 12,
+        "endLine": 1932,
+        "endChar": 28
+      },
+      "revId": "b771ebdbeea1526e2469cb594fd0b7555b25966e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e648763_9ae05ab1",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1932,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-05-16T21:36:27Z",
+      "side": 1,
+      "message": "The getX() and getY() are also called on the MotionEvent, so I\u0027ll leave as is.  :)",
+      "parentUuid": "be7c5db5_304b9fa9",
       "range": {
         "startLine": 1932,
         "startChar": 12,
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "39508b91_04593fe8",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 3210,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-05-16T21:36:27Z",
+      "side": 1,
+      "message": "Without a guarantee that VelocityTracker has always no-oped on ACTION_UP (back to v7 since RV supports back to v7), I\u0027d rather not change this code and accidentally introduce bugs.\n\nAlso, there are some early returns here (just as there were in NSV) and would prefer to not change other logic that is otherwise seemingly working correctly now.",
+      "parentUuid": "57b89a29_b9806731",
+      "range": {
+        "startLine": 3210,
+        "startChar": 16,
+        "endLine": 3210,
+        "endChar": 43
+      },
+      "revId": "b771ebdbeea1526e2469cb594fd0b7555b25966e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8e2235f5_28bb7960",
         "filename": "samples/Support7Demos/src/main/java/com/example/android/supportv7/widget/NsvClAppBarActivity.kt",
         "patchSetId": 3
@@ -160,6 +304,30 @@
       "revId": "b771ebdbeea1526e2469cb594fd0b7555b25966e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cec3503b_e62a01e3",
+        "filename": "samples/Support7Demos/src/main/java/com/example/android/supportv7/widget/NsvClAppBarActivity.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-05-16T21:36:27Z",
+      "side": 1,
+      "message": "CoordinatorLayout... update the name to be more explicit.  :)",
+      "parentUuid": "8e2235f5_28bb7960",
+      "range": {
+        "startLine": 24,
+        "startChar": 9,
+        "endLine": 24,
+        "endChar": 11
+      },
+      "revId": "b771ebdbeea1526e2469cb594fd0b7555b25966e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
