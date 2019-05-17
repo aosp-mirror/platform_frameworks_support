@@ -89,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "92bce68d_2d09ca64",
+        "filename": "compose/runtime/src/main/java/androidx/compose/ObserverMap.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1048725
+      },
+      "writtenOn": "2019-05-17T19:49:56Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2193f5d5_90f449ac",
+      "revId": "9c39e4078db373bf33a7cabd06e4efb9d5731a66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8852b08f_6fbbb84e",
         "filename": "compose/runtime/src/main/java/androidx/compose/ObserverMap.kt",
         "patchSetId": 3
