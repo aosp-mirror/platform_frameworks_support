@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "230779ac_040a2988",
+        "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/ComplexGestureDetetorInteractionsDemo.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-05-17T17:57:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3aafc3f6_6d665ab3",
+      "range": {
+        "startLine": 57,
+        "startChar": 19,
+        "endLine": 57,
+        "endChar": 28
+      },
+      "revId": "5dc30290ea72367d433b549c9c474d3c927069f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3065ebb8_4958d803",
         "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/ComplexGestureDetetorInteractionsDemo.kt",
         "patchSetId": 2
@@ -250,6 +274,30 @@
       "side": 1,
       "message": "I agree that this impl is useful for the material team. \nBut I\u0027m seeing two issues here: \n\n1) If this is not really a gesture detector, should it live in the GestureDetector package? \n\n2) Should external developers be able to build something like this using purely public callbacks from the GestureDetector API? If not, we need to revisit the APIs we have. \n\nThe bottom line is, there shouldn\u0027t be a particular type of gesture detector tailored to the current material spec (a.k.a one use case). What happens when material changes its spec? The APIs need to be generic enough to handle different use cases. A specific impl for a targeted use case should live outside of gesture package and done via public APIs.",
       "parentUuid": "00e9ad8c_564746f6",
+      "range": {
+        "startLine": 165,
+        "startChar": 4,
+        "endLine": 165,
+        "endChar": 33
+      },
+      "revId": "5dc30290ea72367d433b549c9c474d3c927069f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b72abb1_657bcd3b",
+        "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/ComplexGestureDetetorInteractionsDemo.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-05-17T17:57:26Z",
+      "side": 1,
+      "message": "Yeah, I totally agree with you that things need to be in the right packages.  I\u0027ve thought for a while that given that Material defines user interaction, that our GestureDetectors should likely live in the material package.  Though, I don\u0027t know where to draw the line between TextSelectionGestureDetector being in Text vs Material... :)\n\nI\u0027m not 100% on board with the notion that GestureDetectors must always output \"gestures\".  I agree that the API will be easier to understand and cleaner if that was the case, but I think it\u0027s more important that these things do something useful.  Naming is hard, and doesn\u0027t always necessarily match up directly with the actual functionality of the API.  \n\nThat being said, maybe GestureDetector is the wrong sort of name for the thing that these things are doing.  Maybe they are GestureFilters.  They filter out the elements of raw pointer events that suggest a type of gesture, and leave the rest of the event information for other things to use.\n\nAnyway, this is certainly something that can be in flux and that we can try to nail down as we go and definitely before we launch anything stable.\n\nNot something to block this CL.  :)",
+      "parentUuid": "64fa83f1_a2b1efa3",
       "range": {
         "startLine": 165,
         "startChar": 4,
