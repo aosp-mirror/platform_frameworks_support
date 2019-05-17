@@ -212,6 +212,30 @@
       "revId": "4f1c30259a6ef47000ab34f460ffba62a1068b47",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0bd1f6b4_018d8743",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaController.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1198,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-17T02:29:23Z",
+      "side": 1,
+      "message": "Thank you for the info, Insun. In this case, I want to keep the code that has been merged. I\u0027ll consider to use ApplicationInfo.FLAG_DEBUGGABLE if applicable for future cases.",
+      "parentUuid": "953a9ad4_ba830595",
+      "range": {
+        "startLine": 1197,
+        "startChar": 12,
+        "endLine": 1198,
+        "endChar": 36
+      },
+      "revId": "4f1c30259a6ef47000ab34f460ffba62a1068b47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
