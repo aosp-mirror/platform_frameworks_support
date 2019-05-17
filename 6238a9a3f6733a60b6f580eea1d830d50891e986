@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cb6ae774_7de914cd",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CameraX.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-05-17T23:32:35Z",
+      "side": 1,
+      "message": "{@link #unbind(UseCase...)}",
+      "range": {
+        "startLine": 48,
+        "startChar": 90,
+        "endLine": 48,
+        "endChar": 96
+      },
+      "revId": "6238a9a3f6733a60b6f580eea1d830d50891e986",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b641dda5_ad932cec",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CameraX.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-05-17T23:32:35Z",
+      "side": 1,
+      "message": "Might be safer here to just replace this with CameraX.unbindAll(), in case the user has bound additional use cases somewhere else in their code.",
+      "range": {
+        "startLine": 101,
+        "startChar": 13,
+        "endLine": 101,
+        "endChar": 28
+      },
+      "revId": "6238a9a3f6733a60b6f580eea1d830d50891e986",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b371761_e3fc47aa",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CameraX.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-05-17T23:32:35Z",
+      "side": 1,
+      "message": "Can remove this particle.",
+      "range": {
+        "startLine": 203,
+        "startChar": 23,
+        "endLine": 203,
+        "endChar": 24
+      },
+      "revId": "6238a9a3f6733a60b6f580eea1d830d50891e986",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ca95306_aa98cfd7",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CameraX.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-05-17T23:32:35Z",
+      "side": 1,
+      "message": "I don\u0027t know if this is strictly true once you start including custom LifecycleOwners.",
+      "range": {
+        "startLine": 203,
+        "startChar": 7,
+        "endLine": 203,
+        "endChar": 74
+      },
+      "revId": "6238a9a3f6733a60b6f580eea1d830d50891e986",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
