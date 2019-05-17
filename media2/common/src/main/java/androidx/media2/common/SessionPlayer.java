@@ -891,6 +891,31 @@ public abstract class SessionPlayer implements AutoCloseable {
     }
 
     /**
+     * Returns the currently selected track for the given {@link TrackInfo.MediaTrackType}. The
+     * return value is an element in the list returned by {@link #getTrackInfoInternal()}. Currently
+     * supported media track types are {@link TrackInfo.MediaTrackType#MEDIA_TRACK_TYPE_VIDEO} and
+     * {@link TrackInfo.MediaTrackType#MEDIA_TRACK_TYPE_AUDIO}.
+     *
+     * The returned value can be outdated after
+     * {@link PlayerCallback#onTrackInfoChanged(SessionPlayer, List)},
+     * {@link PlayerCallback#onTrackSelected(SessionPlayer, TrackInfo)},
+     * or {@link PlayerCallback#onTrackDeselected(SessionPlayer, TrackInfo)} is called.
+     *
+     * @param trackType type of selected track
+     * @return selected track info
+     *
+     * TODO: revise the method document once subtitle track support is re-enabled. (b/130312596)
+     * TODO: revise the method document once getTrackInfoInternal method is renamed. (b/132928418)
+     * @hide
+     */
+    @RestrictTo(LIBRARY_GROUP)
+    @Nullable
+    public TrackInfo getSelectedTrackInternal(@TrackInfo.MediaTrackType int trackType) {
+        throw new UnsupportedOperationException(
+                "getSelectedTrackInternal is for internal use only.");
+    }
+
+    /**
      * Internal use only.
      * @see #getTrackInfoInternal
      * @hide

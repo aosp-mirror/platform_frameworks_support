@@ -318,7 +318,9 @@ class MediaControllerStub extends IMediaController.Stub {
                     result.getRepeatMode(), result.getShuffleMode(), itemList,
                     result.getSessionActivity(), result.getCurrentMediaItemIndex(),
                     result.getPreviousMediaItemIndex(), result.getNextMediaItemIndex(),
-                    result.getTokenExtras(), result.getVideoSize(), result.getTrackInfo());
+                    result.getTokenExtras(), result.getVideoSize(), result.getTrackInfo(),
+                    result.getSelectedVideoTrack(), result.getSelectedAudioTrack(),
+                    result.getSelectedSubtitleTrack());
         } finally {
             Binder.restoreCallingIdentity(token);
         }
@@ -400,7 +402,9 @@ class MediaControllerStub extends IMediaController.Stub {
     }
 
     @Override
-    public void onTrackInfoChanged(final int seq, final List<ParcelImpl> trackInfoList) {
+    public void onTrackInfoChanged(final int seq, final List<ParcelImpl> trackInfoList,
+            final ParcelImpl selectedVideoParcel, final ParcelImpl selectedAudioParcel,
+            final ParcelImpl selectedSubtitleParcel) {
         if (trackInfoList == null) {
             return;
         }
@@ -408,7 +412,12 @@ class MediaControllerStub extends IMediaController.Stub {
             @Override
             public void run(MediaControllerImplBase controller) {
                 List<TrackInfo> trackInfos = MediaParcelUtils.fromParcelableList(trackInfoList);
-                controller.notifyTrackInfoChanged(seq, trackInfos);
+                TrackInfo selectedVideoTrack = MediaParcelUtils.fromParcelable(selectedVideoParcel);
+                TrackInfo selectedAudioTrack = MediaParcelUtils.fromParcelable(selectedAudioParcel);
+                TrackInfo selectedSubtitleTrack =
+                        MediaParcelUtils.fromParcelable(selectedSubtitleParcel);
+                controller.notifyTrackInfoChanged(seq, trackInfos, selectedVideoTrack,
+                        selectedAudioTrack, selectedSubtitleTrack);
             }
         });
     }

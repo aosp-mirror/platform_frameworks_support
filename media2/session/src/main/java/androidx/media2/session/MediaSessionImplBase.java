@@ -893,6 +893,16 @@ class MediaSessionImplBase implements MediaSession.MediaSessionImpl {
         });
     }
 
+    @Override
+    public TrackInfo getSelectedTrack(final int trackType) {
+        return dispatchPlayerTask(new PlayerTask<TrackInfo>() {
+            @Override
+            public TrackInfo run(SessionPlayer player) throws Exception {
+                return player.getSelectedTrackInternal(trackType);
+            }
+        }, null);
+    }
+
     ///////////////////////////////////////////////////
     // package private and private methods
     ///////////////////////////////////////////////////
@@ -1487,10 +1497,14 @@ class MediaSessionImplBase implements MediaSession.MediaSessionImpl {
         }
 
         public void onTrackInfoChanged(SessionPlayer player, final List<TrackInfo> trackInfos) {
+            final MediaSessionImplBase session = getSession();
             dispatchRemoteControllerTask(player, new RemoteControllerTask() {
                 @Override
                 public void run(ControllerCb callback, int seq) throws RemoteException {
-                    callback.onTrackInfoChanged(seq, trackInfos);
+                    callback.onTrackInfoChanged(seq, trackInfos,
+                            session.getSelectedTrack(TrackInfo.MEDIA_TRACK_TYPE_VIDEO),
+                            session.getSelectedTrack(TrackInfo.MEDIA_TRACK_TYPE_AUDIO),
+                            session.getSelectedTrack(TrackInfo.MEDIA_TRACK_TYPE_SUBTITLE));
                 }
             });
         }

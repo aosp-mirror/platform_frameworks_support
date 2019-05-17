@@ -2358,7 +2358,7 @@ public final class MediaPlayer extends SessionPlayer {
     }
 
     /**
-     * TODO: Merge this into {@link MediaPlayer#getTrackInfo()}
+     * TODO: Merge this into {@link #getTrackInfo()}
      * @hide
      */
     @RestrictTo(LIBRARY_GROUP)
@@ -2374,7 +2374,7 @@ public final class MediaPlayer extends SessionPlayer {
     }
 
     /**
-     * TODO: Merge this into {@link MediaPlayer#selectTrack(TrackInfo)}
+     * TODO: Merge this into {@link #selectTrack(TrackInfo)}
      * @hide
      */
     @RestrictTo(LIBRARY_GROUP)
@@ -2385,7 +2385,7 @@ public final class MediaPlayer extends SessionPlayer {
     }
 
     /**
-     * TODO: Merge this into {@link MediaPlayer#deselectTrack(TrackInfo)}
+     * TODO: Merge this into {@link #deselectTrack(TrackInfo)}
      * @hide
      */
     @RestrictTo(LIBRARY_GROUP)
@@ -2393,6 +2393,19 @@ public final class MediaPlayer extends SessionPlayer {
     @Override
     public ListenableFuture<PlayerResult> deselectTrackInternal(SessionPlayer.TrackInfo info) {
         return deselectTrack(createTrackInfo(info));
+    }
+
+    /**
+     * TODO: Merge this into {@link #getSelectedTrack(int)}
+     * @param trackType type of selected track
+     * @return selected track info
+     * @hide
+     */
+    @RestrictTo(LIBRARY_GROUP)
+    @Nullable
+    @Override
+    public SessionPlayer.TrackInfo getSelectedTrackInternal(int trackType) {
+        return createTrackInfoInternal(getSelectedTrack(trackType));
     }
 
     /**
