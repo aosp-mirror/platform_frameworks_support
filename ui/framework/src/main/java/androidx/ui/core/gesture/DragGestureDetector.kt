@@ -124,29 +124,27 @@ internal class DragGestureRecognizer {
     var canDrag: ((Direction) -> Boolean)? = null
     var dragObserver: DragObserver? = null
 
-    val pointerInputHandler =
-        { changes: List<PointerInputChange>, pass: PointerEventPass ->
-            changes.map { processChange(it, pass) }
-        }
+    val pointerInputHandler = { changes: List<PointerInputChange>, pass: PointerEventPass ->
 
-    private fun processChange(
-        pointerInputChange: PointerInputChange,
-        pass: PointerEventPass
-    ): PointerInputChange {
-        var change: PointerInputChange = pointerInputChange
+        var changesToReturn: List<PointerInputChange> = changes
 
-        if (pass == PointerEventPass.InitialDown && change.changedToDownIgnoreConsumed()) {
-            pointerCount++
-        }
-
-        if (pass == PointerEventPass.InitialDown && change.changedToDown() && passedSlop) {
+        if (pass == PointerEventPass.InitialDown && passedSlop) {
             // If we are passedSlop, we are actively dragging so we want to prevent any children
             // from reacting to any down change.
-            change = change.consumeDownChange()
+
+            changesToReturn = changesToReturn.map {
+                if (it.changedToDown()) {
+                    it.consumeDownChange()
+                } else {
+                    it
+                }
+            }
         }
 
         if (pass == PointerEventPass.PostUp) {
-            if (change.changedToUpIgnoreConsumed()) {
+            val changesToUp = changes.filter { it.changedToUp() }
+
+            if (changesToReturn.any { it.changedToUp() }) {
                 // This pointer is up (consumed or not), so we should stop tracking information
                 // about it.  Get a reference for the velocity tracker in case this is the last
                 // pointer and thus we are going to fling.
@@ -273,10 +271,6 @@ internal class DragGestureRecognizer {
             }
         }
 
-        if (pass == PointerEventPass.PostDown && change.changedToUpIgnoreConsumed()) {
-            pointerCount--
-        }
-
         return change
     }
 
@@ -285,4 +279,5 @@ internal class DragGestureRecognizer {
         var dxUnderSlop: Float = 0f,
         var dyUnderSlop: Float = 0f
     )
+
 }
