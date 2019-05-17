@@ -61,7 +61,6 @@ import androidx.media2.common.SessionPlayer;
 import androidx.media2.common.UriMediaItem;
 import androidx.media2.player.MediaPlayer;
 import androidx.media2.session.MediaController;
-import androidx.media2.session.MediaSession;
 import androidx.media2.session.SessionCommand;
 import androidx.media2.session.SessionCommandGroup;
 import androidx.media2.session.SessionResult;
@@ -82,15 +81,8 @@ import java.util.concurrent.Executor;
  * <p>
  * The easiest way to use a MediaControlView is by creating a {@link VideoView}, which will
  * internally create a MediaControlView instance and handle all the commands from buttons inside
- * MediaControlView. For more information, refer to {@link VideoView}.
- *
- * It is also possible to create a MediaControlView programmatically and add it to a custom video
- * view. In this case, the app will need to create a {@link MediaSession} instance and set
- * {@link SessionToken its token} inside MediaControlView by calling
- * {@link #setSessionToken(SessionToken)}. Then MediaControlView will create a
- * {@link MediaController} and could send commands to the connected {@link MediaSession session}.
- * By default, the buttons inside MediaControlView will not visible unless the corresponding
- * {@link SessionCommand} is marked as allowed. For more details, refer to {@link MediaSession}.
+ * MediaControlView. It is also possible to create a MediaControlView programmatically and add it
+ * to a custom video view.For more information, refer to {@link VideoView}.
  * <p>
  * Currently, MediaControlView animates off-screen in two steps:
  *   1) Title and bottom bars slide up and down respectively and the transport controls fade out,
@@ -281,7 +273,8 @@ public class MediaControlView extends ViewGroup {
      * Sets MediaSession token to control corresponding MediaSession. It makes it possible to
      * send and receive data between MediaControlView and VideoView.
      */
-    public void setSessionToken(@NonNull SessionToken token) {
+    // TODO: Remove it after setPlayer is added
+    /* package */ void setSessionToken(@NonNull SessionToken token) {
         mController.setSessionToken(token);
         if (mController.hasMetadata()) {
             updateMetadata();
