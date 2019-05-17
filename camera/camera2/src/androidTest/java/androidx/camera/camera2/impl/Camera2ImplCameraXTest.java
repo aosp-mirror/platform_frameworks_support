@@ -115,68 +115,54 @@ public final class Camera2ImplCameraXTest {
         if (mHandlerThread != null) {
             CameraX.unbindAll();
             mHandlerThread.quitSafely();
-
-            // Wait some time for the cameras to close.
-            // We need the cameras to close to bring CameraX
-            // back to the initial state.
-            Thread.sleep(3000);
         }
     }
 
     @Test
-    public void lifecycleResume_opensCameraAndStreamsFrames() throws InterruptedException {
-        final AtomicLong observedCount = new AtomicLong(0);
+    public void lifecycleResume_opensCameraAndStreamsFrames() {
+        Observer<Long> mockObserver = Mockito.mock(Observer.class);
         mMainThreadHandler.post(new Runnable() {
             @Override
             public void run() {
-                ImageAnalysisConfig config =
-                        new ImageAnalysisConfig.Builder()
-                                .setLensFacing(DEFAULT_LENS_FACING)
-                                .build();
+                ImageAnalysisConfig.Builder builder =
+                        new ImageAnalysisConfig.Builder().setLensFacing(DEFAULT_LENS_FACING);
+                ImageAnalysisConfig config = builder.build();
                 ImageAnalysis useCase = new ImageAnalysis(config);
                 CameraX.bindToLifecycle(mLifecycle, useCase);
-
                 useCase.setAnalyzer(mImageAnalyzer);
-                mAnalysisResult.observe(mLifecycle, createCountIncrementingObserver(observedCount));
+
+                mAnalysisResult.observe(mLifecycle, mockObserver);
 
                 mLifecycle.startAndResume();
+                // Verify result in the same thread.
             }
         });
-
-        // Wait a little bit for the camera to open and stream frames.
-        Thread.sleep(5000);
-
-        // Some frames should have been observed.
-        assertThat(observedCount.get()).isAtLeast(10L);
+        verify(mockObserver, timeout(5000).times(10)).onChanged(any());
     }
 
     @Test
     public void removedUseCase_doesNotStreamWhenLifecycleResumes() throws InterruptedException {
-        final AtomicLong observedCount = new AtomicLong(0);
+        Observer<Long> mockObserver = Mockito.mock(Observer.class);
         mMainThreadHandler.post(new Runnable() {
             @Override
             public void run() {
-                ImageAnalysisConfig config =
-                        new ImageAnalysisConfig.Builder()
-                                .setLensFacing(DEFAULT_LENS_FACING)
-                                .build();
+                ImageAnalysisConfig.Builder builder =
+                        new ImageAnalysisConfig.Builder().setLensFacing(DEFAULT_LENS_FACING);
+                ImageAnalysisConfig config = builder.build();
                 ImageAnalysis useCase = new ImageAnalysis(config);
                 CameraX.bindToLifecycle(mLifecycle, useCase);
                 useCase.setAnalyzer(mImageAnalyzer);
-                mAnalysisResult.observe(mLifecycle, createCountIncrementingObserver(observedCount));
-                assertThat(observedCount.get()).isEqualTo(0);
+
+                mAnalysisResult.observe(mLifecycle, mockObserver);
 
                 CameraX.unbind(useCase);
 
                 mLifecycle.startAndResume();
             }
         });
-
-        // Wait a little bit for the camera to open and stream frames.
-        Thread.sleep(5000);
-
         // No frames should have been observed.
-        assertThat(observedCount.get()).isEqualTo(0);
+        // Verify result in the same thread.
+        verify(mockObserver, never()).onChanged(any());
     }
 
     @Test
@@ -223,6 +209,53 @@ public final class Camera2ImplCameraXTest {
         // Additional frames should not be observed.
         final Long secondObservedCount = observedCount.get();
         assertThat(secondObservedCount).isEqualTo(firstObservedCount);
+        /////////////////////////////////////////////////////////////
+//        Observer<Long> mockObserver = Mockito.mock(Observer.class);
+//        mMainThreadHandler.post(new Runnable() {
+//            @Override
+//            public void run() {
+//                ImageAnalysisConfig.Builder configBuilder =
+//                        new ImageAnalysisConfig.Builder().setLensFacing(DEFAULT_LENS_FACING);
+//                new Camera2Config.Extender(configBuilder)
+//                        .setDeviceStateCallback(deviceStateCallback)
+//                        .setSessionCaptureCallback(sessionCaptureCallback);
+//                ImageAnalysis useCase = new ImageAnalysis(configBuilder.build());
+//                CameraX.bindToLifecycle(mLifecycle, useCase);
+//                useCase.setAnalyzer(mImageAnalyzer);
+//                mAnalysisResult.observe(mLifecycle, mockObserver);
+//
+//                mLifecycle.startAndResume();
+//            }
+//        });
+//
+//        // Wait a little bit for the camera to open and stream frames.
+//        sessionCaptureCallback.waitForOnCaptureCompleted(5);
+//
+//        mMainThreadHandler.post(new Runnable() {
+//            @Override
+//            public void run() {
+//                mLifecycle.pauseAndStop();
+//            }
+//        });
+//
+//        // Wait a little bit for the camera to close.
+//        deviceStateCallback.waitForOnClosed(1);
+//
+////        final Long firstObservedCount = observedCount.get();
+////        assertThat(firstObservedCount).isGreaterThan(1L);
+////        verify(mockObserver, times(1)).onChanged(any());
+//        Collection<Invocation>  invokeCollestions =
+//        Mockito.mockingDetails(mockObserver).getInvocations();
+//
+//        // Stay in idle state for a while.
+//        Thread.sleep(5000);
+//        verify(mockObserver, timeout(1000).times(1)).onChanged(any());
+//        Collection<Invocation>  invokeCollestions2 =
+//        assertThat(invokeCollestions.size()).isEqualTo(invokeCollestions2.size());
+//        // Additional frames should not be observed.
+////        final Long secondObservedCount = observedCount.get();
+////        assertThat(secondObservedCount).isEqualTo(firstObservedCount);
+
     }
 
     @Test
@@ -370,12 +403,9 @@ public final class Camera2ImplCameraXTest {
         mLifecycle.startAndResume();
 
         verify(mMockStateCallback, timeout(3000)).onOpened(any(CameraDevice.class));
-
         CameraX.unbind(useCase1);
-
-        Thread.sleep(3000);
-
-        verify(mMockStateCallback, never()).onClosed(any(CameraDevice.class));
+//        verify(mMockStateCallback, never()).onClosed(any(CameraDevice.class));
+        verify(mMockStateCallback, timeout(3000).times(0)).onClosed(any(CameraDevice.class));
     }
 
     @Test
