@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "65614088_295adedf",
+        "filename": "compose/runtime/src/main/java/androidx/compose/FrameManager.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-05-17T17:28:33Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "4c727b80_776043d2",
+      "revId": "9c39e4078db373bf33a7cabd06e4efb9d5731a66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8852b08f_6fbbb84e",
         "filename": "compose/runtime/src/main/java/androidx/compose/ObserverMap.kt",
         "patchSetId": 3
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "12764351_7fb5c799",
+        "filename": "compose/runtime/src/main/java/androidx/compose/ObserverMap.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-05-17T17:28:33Z",
+      "side": 1,
+      "message": "yeah, actually I had the same concerns and initially I implemented it as forEach function. then played with it on the usage side and decided to go with returning a list for now",
+      "parentUuid": "8852b08f_6fbbb84e",
+      "revId": "9c39e4078db373bf33a7cabd06e4efb9d5731a66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "83d7efde_61eae071",
         "filename": "compose/runtime/src/main/java/androidx/compose/ObserverMap.kt",
         "patchSetId": 3
@@ -47,6 +83,24 @@
       "writtenOn": "2019-05-17T17:22:51Z",
       "side": 1,
       "message": "perhaps `inline`?",
+      "revId": "9c39e4078db373bf33a7cabd06e4efb9d5731a66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "537d711b_a45d5480",
+        "filename": "compose/runtime/src/main/java/androidx/compose/ObserverMap.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-05-17T17:28:33Z",
+      "side": 1,
+      "message": "it is not possible right now because map is a private field. and I don\u0027t really want to make it public to abstract the usages from the WeakIdentity implementations.\nplus this exact method is too huge for inlining I think",
+      "parentUuid": "83d7efde_61eae071",
       "revId": "9c39e4078db373bf33a7cabd06e4efb9d5731a66",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
