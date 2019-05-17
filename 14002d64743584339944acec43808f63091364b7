@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ce94d83f_736d8827",
+        "filename": "media2/player/src/main/java/androidx/media2/player/VideoSize.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1060104
+      },
+      "writtenOn": "2019-05-17T07:49:25Z",
+      "side": 1,
+      "message": "As mInternal is non-null can we just do \"return mInternal.equals(obj);\"? Then all methods in this class just delegate to mInternal.",
+      "revId": "14002d64743584339944acec43808f63091364b7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
