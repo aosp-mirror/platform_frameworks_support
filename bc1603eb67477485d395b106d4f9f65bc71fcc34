@@ -22,6 +22,30 @@
       "revId": "bc1603eb67477485d395b106d4f9f65bc71fcc34",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2fe479ef_80c41813",
+        "filename": "mediarouter/src/main/res/layout/mr_controller_material_dialog_b.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2019-05-17T05:36:41Z",
+      "side": 1,
+      "message": "It actually doesn\u0027t affect the layout regardless of API version.\n(This CL is required only to resolve lint error.)\n\nMoreover, \u0027start\u0027 will be ignored in API \u003c 17.",
+      "parentUuid": "4bf96c33_c87bbc25",
+      "range": {
+        "startLine": 39,
+        "startChar": 55,
+        "endLine": 39,
+        "endChar": 60
+      },
+      "revId": "bc1603eb67477485d395b106d4f9f65bc71fcc34",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
