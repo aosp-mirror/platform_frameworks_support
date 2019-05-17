@@ -91,6 +91,24 @@
     },
     {
       "key": {
+        "uuid": "52ed8aeb_0034135c",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2019-05-17T00:07:22Z",
+      "side": 1,
+      "message": "This doesn\u0027t use reflection. Instead it uses Enum#name() and the string returned by this method is not altered by proguard.\nAwk doesn\u0027t scale to other developers.",
+      "parentUuid": "6d06648d_a5d755c7",
+      "revId": "4fe736e5f4cc87116ae5485512a16721b1e9137c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4b075216_4e1736cb",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
         "patchSetId": 4
