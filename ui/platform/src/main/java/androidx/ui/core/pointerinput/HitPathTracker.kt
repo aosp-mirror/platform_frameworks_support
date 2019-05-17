@@ -16,13 +16,17 @@
 
 package androidx.ui.core.pointerinput
 
+import androidx.ui.core.LayoutNode
 import androidx.ui.core.PointerEventPass
 import androidx.ui.core.PointerInputChange
 import androidx.ui.core.PointerInputNode
+import androidx.ui.core.Px
 import androidx.ui.core.PxPosition
 import androidx.ui.core.positionRelativeToAncestor
 import androidx.ui.core.positionRelativeToRoot
 import androidx.ui.core.isAttached
+import androidx.ui.core.min
+import androidx.ui.core.px
 
 /**
  * Organizes pointers and the [PointerInputNode]s that they hit into a hierarchy such that
@@ -186,18 +190,38 @@ internal class Node(
     fun refreshOffsets() {
         if (pointerInputNode == null) {
             children.forEach { child ->
-                child.offset = child.pointerInputNode?.layoutNode?.positionRelativeToRoot()
-                    ?: PxPosition.Origin
+                child.offset = computeChildOffset(child, LayoutNode::positionRelativeToRoot)
             }
         } else {
             children.forEach { child ->
-                val layoutNode = child.pointerInputNode?.layoutNode
-                child.offset = layoutNode?.positionRelativeToAncestor(pointerInputNode.layoutNode!!)
-                    ?: PxPosition.Origin
+                child.offset = computeChildOffset(child) {
+                    val parent = pointerInputNode.parentLayoutNode
+                    if (parent != null) {
+                        positionRelativeToAncestor(parent)
+                    } else {
+                        PxPosition.Origin
+                    }
+                }
             }
         }
         children.forEach { child ->
             child.refreshOffsets()
+        }
+    }
+
+    fun computeChildOffset(child: Node, block: LayoutNode.() -> PxPosition): PxPosition {
+        val pointerNode = child.pointerInputNode
+        if (pointerNode != null) {
+            var offsetX: Px = Integer.MAX_VALUE.px
+            var offsetY: Px = Integer.MAX_VALUE.px
+            for (layoutNode in pointerNode.layoutNodes) {
+                val nodePosition = layoutNode.block()
+                offsetX = min(offsetX, nodePosition.x)
+                offsetY = min(offsetY, nodePosition.y)
+            }
+            return PxPosition(offsetX, offsetY)
+        } else {
+            return PxPosition.Origin
         }
     }
 

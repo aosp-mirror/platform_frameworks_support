@@ -161,7 +161,8 @@ internal class PointerInputEventProcessor(val root: LayoutNode) {
                     child.child
                 }
                 is DrawNode -> {
-                    child.child
+                    child.hitTestOnDescendants(offset, hitPointerInputNodes)
+                    null
                 }
                 is RepaintBoundaryNode -> {
                     child.child

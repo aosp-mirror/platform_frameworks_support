@@ -49,12 +49,19 @@ fun ClipPath(
 //        }
 //        return super.hitTest(result, position = position)
 //    }
-    Draw { canvas, parentSize ->
+//    Draw { canvas, parentSize ->
+//        canvas.save()
+//        canvas.clipPath(clipper.getClip(parentSize, density))
+//    }
+//    children()
+//    Draw { canvas, _ ->
+//        canvas.restore()
+//    }
+
+    Draw(children = { children() }, onPaint = { canvas, parentSize ->
         canvas.save()
         canvas.clipPath(clipper.getClip(parentSize, density))
-    }
-    children()
-    Draw { canvas, _ ->
+        drawChildren()
         canvas.restore()
-    }
+    })
 }

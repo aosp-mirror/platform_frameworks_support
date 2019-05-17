@@ -16,6 +16,7 @@
 
 package androidx.ui.core
 
+import android.util.Log
 import androidx.compose.Ambient
 import androidx.compose.Children
 import androidx.compose.Composable
@@ -414,6 +415,7 @@ class LayoutReceiver internal constructor(
             it.parentData is ChildrenEndParentData &&
                     (it.parentData as ChildrenEndParentData).children == children
         }
+        Log.v("MultiChild", "childrenMeasurablesEnd: " + childrenMeasurablesEnd)
         val childrenMeasurablesStart = measurables.take(childrenMeasurablesEnd).indexOfLast {
             it.parentData is ChildrenEndParentData
         } + 1

@@ -136,7 +136,7 @@ sealed class ComponentNode : Emittable {
      * within the child's hierarchy.
      * All node types expect [LayoutNode] could have only a single child.
      */
-    abstract val layoutNode: LayoutNode?
+    abstract val layoutNodes: List<LayoutNode>
 
     /**
      * This is the LayoutNode ancestor that contains this LayoutNode. This will be `null` for the
@@ -251,7 +251,7 @@ sealed class SingleChildComponentNode : ComponentNode() {
      */
     private var secondChild: ComponentNode? = null
 
-    override var layoutNode: LayoutNode? = null
+    override var layoutNodes: List<LayoutNode> = emptyList()
 
     override val count: Int
         get() {
@@ -279,7 +279,7 @@ sealed class SingleChildComponentNode : ComponentNode() {
             this.secondChild = child
         }
         child.parentLayoutNode = parentLayoutNode
-        layoutNode = child.layoutNode
+        layoutNodes = child.layoutNodes
     }
 
     override fun emitRemoveAt(index: Int, count: Int) {
@@ -306,7 +306,7 @@ sealed class SingleChildComponentNode : ComponentNode() {
             child!!.parentLayoutNode = null
             child = child2
         }
-        this.layoutNode = child?.layoutNode
+        this.layoutNodes = child?.layoutNodes ?: emptyList()
     }
 
     override fun get(index: Int): ComponentNode {
@@ -363,15 +363,102 @@ interface DrawNodeScope : DensityReceiver {
     fun drawChildren()
 }
 
+fun ComponentNode.visitDrawChildren(block: (drawNode: DrawNode) -> Unit) {
+    visitChildren {child ->
+        if (child is DrawNode) {
+            block(child)
+        } else {
+            child.visitDrawChildren(block)
+        }
+    }
+}
+
 /**
  * Backing node for the Draw component.
  */
-class DrawNode : SingleChildComponentNode() {
+class DrawNode : ComponentNode() {
+
+    /**
+     * The list of child ComponentNodes that this ComponentNode has. It can contain zero or
+     * more entries.
+     */
+    val children = mutableListOf<ComponentNode>()
+
     var onPaint: DrawNodeScope.(canvas: Canvas, parentSize: PxSize) -> Unit = { _, _ -> }
         set(value) {
             field = value
             invalidate()
         }
+
+    override val count: Int
+        get() = children.size
+
+    override val layoutNodes = ArrayList<LayoutNode>()
+
+    override fun get(index: Int): ComponentNode = children.get(index)
+
+    override fun emitInsertAt(index: Int, instance: Emittable) {
+        // TODO(mount): Allow inserting Views
+        if (instance !is ComponentNode) {
+            ErrorMessages.OnlyComponents.state()
+        }
+
+        if (instance is LayoutNode) {
+            layoutNodes.add(instance)
+        }
+
+//        // Find the index of the DrawNode within the parent
+//        // add children after the draw node
+//        val drawNodeIndex = parentLayoutNode?.children?.indexOf(this) ?: -1
+//        parentLayoutNode?.children?.add(drawNodeIndex + 1 + index, instance)
+
+
+        instance.parentLayoutNode = parentLayoutNode
+
+        children.add(index, instance)
+        super.emitInsertAt(index, instance)
+    }
+
+    override fun emitRemoveAt(index: Int, count: Int) {
+        super.emitRemoveAt(index, count)
+        //val drawNodeIndex = parentLayoutNode?.children?.indexOf(this) ?: -1
+        for (i in index + count - 1 downTo index) {
+            val child = children.removeAt(i)
+            if (child is LayoutNode) {
+                layoutNodes.remove(child)
+            }
+
+            //child.parentLayoutNode = null
+
+//            parentLayoutNode?.children?.removeAt(drawNodeIndex + 1 + i)
+//            parentLayoutNode?.delegateDrawnChildren?.remove(child)
+        }
+    }
+
+    override fun emitMove(from: Int, to: Int, count: Int) {
+        ErrorMessages.IllegalMoveOperation.validateArgs(
+            from >= 0 && to >= 0 && count > 0,
+            count, from, to
+        )
+        // Do the simple thing for now. We can improve efficiency later if we need to
+        val removed = ArrayList<ComponentNode>(count)
+        for (i in from until from + count) {
+            removed += children[i]
+        }
+        parentLayoutNode?.children?.removeAll(removed)
+        children.removeAll(removed)
+
+        val drawNodeIndex = parentLayoutNode?.children?.indexOf(this) ?: -1
+        parentLayoutNode?.children?.addAll(drawNodeIndex + 1 + to, removed)
+        children.addAll(to, removed)
+    }
+
+    override fun visitChildren(reverse: Boolean, block: (ComponentNode) -> Unit) {
+        val children = if (reverse) children.reversed() else children
+        children.forEach { child ->
+            block(child)
+        }
+    }
 
     var needsPaint = true
 
@@ -404,6 +491,16 @@ interface MeasurableLayout {
      * Places all children that are to be part of the layout.
      */
     fun callLayout()
+}
+
+fun ComponentNode.visitLayoutChildren(block: (layoutNode: LayoutNode) -> Unit) {
+    visitChildren {child ->
+        if (child is LayoutNode) {
+            block(child)
+        } else {
+            child.visitLayoutChildren(block)
+        }
+    }
 }
 
 /**
@@ -482,7 +579,7 @@ class LayoutNode : ComponentNode() {
     var needsRemeasure = true
         internal set
 
-    override val layoutNode: LayoutNode get() = this
+    override val layoutNodes: List<LayoutNode> get() = arrayListOf(this)
 
     override val count: Int
         get() = children.size
@@ -557,8 +654,12 @@ class LayoutNode : ComponentNode() {
     fun startMeasure() {
         isInMeasure = true
         children.forEach { child ->
-            child.layoutNode?.layoutNode?.affectsParentSize = false
-            child.layoutNode?.visible = false
+            for (childLayoutNode in child.layoutNodes) {
+                childLayoutNode.affectsParentSize = false
+                childLayoutNode.visible = false
+            }
+//            child.layoutNode?.layoutNode?.affectsParentSize = false
+//            child.layoutNode?.visible = false
         }
         owner?.onStartMeasure(this)
     }
@@ -833,8 +934,16 @@ fun ComponentNode.requireOwner(): Owner = owner ?: ErrorMessages.NodeShouldBeAtt
 /**
  * The list of child Layouts. It can contain zero or more entries.
  */
-fun LayoutNode.childrenLayouts(): List<Any> {
-    return children.mapNotNull { it.layoutNode?.layout }
+fun LayoutNode.childrenLayouts(): List<MeasurableLayout> {
+    return children.fold(initial = mutableListOf<MeasurableLayout>()) { acc, node ->
+        node.layoutNodes.forEach {
+            val layout = it.layout
+            if (layout != null) {
+                acc.add(layout)
+            }
+        }
+        acc
+    }
 }
 
 /**
