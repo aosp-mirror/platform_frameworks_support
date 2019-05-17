@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9050362a_45d80538",
+        "filename": "benchmark/src/androidTest/java/androidx/benchmark/ResultWriterTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-05-17T20:38:26Z",
+      "side": 1,
+      "message": "want to prepare for multiple metrics (b/132713021), suggest:\n\n                {\n                    \"name\": \"MethodA\",\n                    \"className\": \"package.Class1\",\n                    \"metrics\": {\n                        \"timeNs\": {\n                            \"minimum\": 100,\n                            \"median\": 101,\n                            \"maximum\": 102,\n                            \"runs\": [ 100, 101, 102 ]\n                        }\n                    }\n                },",
+      "revId": "0a8ad3d8db99760a8827ff102fd5466a396b8b9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6878d20a_14529c0a",
+        "filename": "benchmark/src/main/java/androidx/benchmark/BenchmarkState.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-05-17T20:38:26Z",
+      "side": 1,
+      "message": "we should compute these metrics for them.\n\nThey should pass pairs of (metrics, listOf(Long))",
+      "revId": "0a8ad3d8db99760a8827ff102fd5466a396b8b9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
