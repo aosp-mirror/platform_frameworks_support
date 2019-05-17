@@ -27,9 +27,7 @@ import android.util.AndroidRuntimeException;
  * in the animation is undamped, the animation will never reach equilibrium. Instead, it will
  * oscillate forever.
  *
- * <div class="special reference">
- * <h3>Developer Guides</h3>
- * </div>
+ * Developer Guides
  *
  * <p>To create a simple {@link SpringAnimation} that uses the default {@link SpringForce}:</p>
  * <pre class="prettyprint">

@@ -55,12 +55,10 @@ import java.util.HashMap;
  * value. Alternatively, you can leave the fractions off and the keyframes will be equally
  * distributed within the total duration:</p>
  *
- * <div class="special reference">
  * <h3>Developer Guides</h3>
  * <p>For more information about animating with {@code ValueAnimator}, read the
  * <a href="{@docRoot}guide/topics/graphics/prop-animation.html#value-animator">Property
  * Animation</a> developer guide.</p>
- * </div>
  */
 @SuppressWarnings("unchecked")
 public class ValueAnimator extends Animator implements AnimationHandler.AnimationFrameCallback {
