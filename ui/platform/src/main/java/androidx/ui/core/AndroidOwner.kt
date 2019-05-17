@@ -241,7 +241,7 @@ class AndroidCraneView constructor(context: Context)
                 val onPaint = node.onPaint
                 currentNode = node
                 clearNodeModels(node)
-                val receiver = DrawNodeScopeImpl(node.child, canvas, parentSize,
+                val receiver = DrawNodeScopeImpl(node.children, canvas, parentSize,
                     densityReceiver.density)
                 receiver.onPaint(canvas, parentSize)
                 if (!receiver.childDrawn) {
@@ -256,7 +256,9 @@ class AndroidCraneView constructor(context: Context)
                     canvas.translate(node.x.value.toFloat(), node.y.value.toFloat())
                     val size = PxSize(node.width, node.height)
                     node.visitChildren { child ->
-                        callDraw(canvas, child, size, densityReceiver)
+                        if (!node.delegateDrawnChildren.contains(child)) {
+                            callDraw(canvas, child, size, densityReceiver)
+                        }
                     }
                     canvas.restore()
                 }
@@ -361,20 +363,22 @@ class AndroidCraneView constructor(context: Context)
     }
 
     private inner class DrawNodeScopeImpl(
-        private val child: ComponentNode?,
+        private val children: List<ComponentNode>?,
         private val canvas: Canvas,
         private val parentSize: PxSize,
         override val density: Density
     ) : DensityReceiver, DrawNodeScope {
-        var childDrawn = child == null
+        var childDrawn = children == null
 
         override fun drawChildren() {
             if (childDrawn) {
                 throw IllegalStateException("Cannot call drawChildren() twice within Draw element")
             }
             childDrawn = true
-            if (child != null) {
-                callDraw(canvas, child, parentSize, this)
+            if (children != null) {
+                for (child in children) {
+                    callDraw(canvas, child, parentSize, this)
+                }
             }
         }
     }

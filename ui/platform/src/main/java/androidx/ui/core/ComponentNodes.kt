@@ -336,12 +336,83 @@ interface DrawNodeScope : DensityReceiver {
 /**
  * Backing node for the Draw component.
  */
-class DrawNode : SingleChildComponentNode() {
+class DrawNode : ComponentNode() {
+
+    /**
+     * The list of child ComponentNodes that this ComponentNode has. It can contain zero or
+     * more entries.
+     */
+    val children = mutableListOf<ComponentNode>()
+
     var onPaint: DrawNodeScope.(canvas: Canvas, parentSize: PxSize) -> Unit = { _, _ -> }
         set(value) {
             field = value
             invalidate()
         }
+
+    override val count: Int
+        get() = children.size
+
+    override val layoutNode: LayoutNode?
+        get() = null
+
+    override fun get(index: Int): ComponentNode = children.get(index)
+
+    override fun emitInsertAt(index: Int, instance: Emittable) {
+        // TODO(mount): Allow inserting Views
+        if (instance !is ComponentNode) {
+            ErrorMessages.OnlyComponents.state()
+        }
+        // Find the index of the DrawNode within the parent
+        // add children after the draw node
+        val drawNodeIndex = parentLayoutNode?.children?.indexOf(this) ?: -1
+        parentLayoutNode?.children?.add(drawNodeIndex + 1 + index, instance)
+
+        // Add this child to the list of children that are not to be drawn by
+        // the parent layout
+        parentLayoutNode?.delegateDrawnChildren?.add(instance)
+
+        instance.parentLayoutNode = parentLayoutNode
+
+        children.add(index, instance)
+        super.emitInsertAt(index, instance)
+    }
+
+    override fun emitRemoveAt(index: Int, count: Int) {
+        super.emitRemoveAt(index, count)
+        val drawNodeIndex = parentLayoutNode?.children?.indexOf(this) ?: -1
+        for (i in index + count - 1 downTo index) {
+            val child = children.removeAt(i)
+            child.parentLayoutNode = null
+            parentLayoutNode?.children?.removeAt(drawNodeIndex + 1 + i)
+            parentLayoutNode?.delegateDrawnChildren?.remove(child)
+        }
+    }
+
+    override fun emitMove(from: Int, to: Int, count: Int) {
+        ErrorMessages.IllegalMoveOperation.validateArgs(
+            from >= 0 && to >= 0 && count > 0,
+            count, from, to
+        )
+        // Do the simple thing for now. We can improve efficiency later if we need to
+        val removed = ArrayList<ComponentNode>(count)
+        for (i in from until from + count) {
+            removed += children[i]
+        }
+        parentLayoutNode?.children?.removeAll(removed)
+        children.removeAll(removed)
+
+        val drawNodeIndex = parentLayoutNode?.children?.indexOf(this) ?: -1
+        parentLayoutNode?.children?.addAll(drawNodeIndex + 1 + to, removed)
+        children.addAll(to, removed)
+    }
+
+    override fun visitChildren(reverse: Boolean, block: (ComponentNode) -> Unit) {
+        val children = if (reverse) children.reversed() else children
+        children.forEach { child ->
+            block(child)
+        }
+    }
 
     var needsPaint = true
 
@@ -385,6 +456,11 @@ class LayoutNode : ComponentNode() {
      * more entries.
      */
     val children = mutableListOf<ComponentNode>()
+
+    /**
+     * The list of child ComponentNodes that are to be drawn by a delegate
+     */
+    val delegateDrawnChildren = mutableSetOf<ComponentNode>()
 
     /**
      * The constraints used the last time [layout] was called.
