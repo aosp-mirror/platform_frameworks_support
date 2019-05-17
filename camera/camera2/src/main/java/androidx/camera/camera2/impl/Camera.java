@@ -59,6 +59,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.Executor;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -92,8 +93,11 @@ final class Camera implements BaseCamera {
 
     private final Object mCameraInfoLock = new Object();
     /** The handler for camera callbacks and use case state management calls. */
+
     @SuppressWarnings("WeakerAccess") /* synthetic accessor */
     final Handler mHandler;
+    private final Executor mExecutor;
+
     /**
      * State variable for tracking state of the camera.
      *
@@ -113,7 +117,7 @@ final class Camera implements BaseCamera {
     @Nullable
     CameraDevice mCameraDevice;
     /** The configured session which handles issuing capture requests. */
-    private CaptureSession mCaptureSession = new CaptureSession(null);
+    private CaptureSession mCaptureSession;
     /** The session configuration of camera control. */
     private SessionConfig mCameraControlSessionConfig = SessionConfig.defaultEmptySessionConfig();
 
@@ -146,10 +150,11 @@ final class Camera implements BaseCamera {
         mCameraId = cameraId;
         mHandler = handler;
         ScheduledExecutorService executorScheduler = CameraXExecutors.newHandlerExecutor(mHandler);
+        mExecutor = executorScheduler;
         mUseCaseAttachState = new UseCaseAttachState(cameraId);
         mState.set(State.INITIALIZED);
         mCameraControl = new Camera2CameraControl(this, executorScheduler, executorScheduler);
-        mCaptureSession = new CaptureSession(mHandler);
+        mCaptureSession = new CaptureSession(mExecutor);
     }
 
     /**
@@ -219,7 +224,7 @@ final class Camera implements BaseCamera {
     private void configAndClose() {
         // Configure the camera with a dummy capture session in order to clear the
         // previous session. This should be released immediately after being configured.
-        final CaptureSession dummySession = new CaptureSession(null);
+        final CaptureSession dummySession = new CaptureSession(mExecutor);
 
         final SurfaceTexture surfaceTexture = new SurfaceTexture(0);
         surfaceTexture.setDefaultBufferSize(640, 480);
@@ -774,10 +779,10 @@ final class Camera implements BaseCamera {
 
         // Recreate an initialized (but not opened) capture session from the previous configuration
         SessionConfig previousSessionConfig = mCaptureSession.getSessionConfig();
-        List<CaptureConfig> unissuedCaptures = mCaptureSession.getCaptureConfigs();
-        mCaptureSession = new CaptureSession(mHandler);
+        List<CaptureConfig> unissuedCaptureConfigs = mCaptureSession.getCaptureConfigs();
+        mCaptureSession = new CaptureSession(mExecutor);
         mCaptureSession.setSessionConfig(previousSessionConfig);
-        mCaptureSession.issueCaptureRequests(unissuedCaptures);
+        mCaptureSession.issueCaptureRequests(unissuedCaptureConfigs);
     }
 
     private CameraDevice.StateCallback createDeviceStateCallback() {

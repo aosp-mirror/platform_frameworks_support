@@ -22,10 +22,6 @@ import android.hardware.camera2.CameraCaptureSession.CaptureCallback;
 import android.hardware.camera2.CameraDevice;
 import android.hardware.camera2.CaptureRequest;
 import android.hardware.camera2.TotalCaptureResult;
-import android.hardware.camera2.params.OutputConfiguration;
-import android.hardware.camera2.params.SessionConfiguration;
-import android.os.Build;
-import android.os.Handler;
 import android.util.Log;
 import android.view.Surface;
 
@@ -33,6 +29,10 @@ import androidx.annotation.GuardedBy;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.camera.camera2.Camera2Config;
+import androidx.camera.camera2.impl.compat.CameraCaptureSessionCompat;
+import androidx.camera.camera2.impl.compat.CameraDeviceCompat;
+import androidx.camera.camera2.impl.compat.params.OutputConfigurationCompat;
+import androidx.camera.camera2.impl.compat.params.SessionConfigurationCompat;
 import androidx.camera.core.CameraCaptureCallback;
 import androidx.camera.core.CameraCaptureSessionStateCallbacks;
 import androidx.camera.core.CaptureConfig;
@@ -66,25 +66,20 @@ import java.util.concurrent.Executor;
  */
 final class CaptureSession {
     private static final String TAG = "CaptureSession";
-
-    /** Handler for all the callbacks from the {@link CameraCaptureSession}. */
-    @Nullable
-    private final Handler mHandler;
-    /** An adapter to pass the task to the handler. */
-    @Nullable
+    /** Lock on whether the camera is open or closed. */
+    final Object mStateLock = new Object();
+    /** Executor for all the callbacks from the {@link CameraCaptureSession}. */
     private final Executor mExecutor;
     /** The configuration for the currently issued single capture requests. */
     private final List<CaptureConfig> mCaptureConfigs = new ArrayList<>();
-    /** Lock on whether the camera is open or closed. */
-    final Object mStateLock = new Object();
     /** Callback for handling image captures. */
     private final CameraCaptureSession.CaptureCallback mCaptureCallback =
             new CaptureCallback() {
                 @Override
                 public void onCaptureCompleted(
-                        CameraCaptureSession session,
-                        CaptureRequest request,
-                        TotalCaptureResult result) {
+                        @NonNull CameraCaptureSession session,
+                        @NonNull CaptureRequest request,
+                        @NonNull TotalCaptureResult result) {
                 }
             };
     private final StateCallback mCaptureSessionStateCallback = new StateCallback();
@@ -121,15 +116,17 @@ final class CaptureSession {
     /**
      * Constructor for CaptureSession.
      *
-     * @param handler The handler is responsible for queuing up callbacks from capture requests. If
-     *                this is null then when asynchronous methods are called on this session they
-     *                will attempt
-     *                to use the current thread's looper.
+     * @param executor The executor is responsible for queuing up callbacks from capture requests.
      */
-    CaptureSession(@Nullable Handler handler) {
-        mHandler = handler;
+    CaptureSession(@NonNull Executor executor) {
         mState = State.INITIALIZED;
-        mExecutor = (handler != null) ? CameraXExecutors.newHandlerExecutor(handler) : null;
+
+        // Ensure tasks posted to the executor are executed sequentially.
+        if (CameraXExecutors.isSequentialExecutor(executor)) {
+            mExecutor = executor;
+        } else {
+            mExecutor = CameraXExecutors.newSequentialExecutor(executor);
+        }
     }
 
     /**
@@ -246,45 +243,36 @@ final class CaptureSession {
                     List<CaptureConfig> presetList =
                             eventCallbacks.createComboCallback().onPresetSession();
 
-                    if (Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.P
-                            && !presetList.isEmpty()) {
+                    // Generate the CaptureRequest builder from repeating request since Android
+                    // recommend use the same template type as the initial capture request. The
+                    // tag and output targets would be ignored by default.
+                    CaptureConfig.Builder captureConfigBuilder = CaptureConfig.Builder.from(
+                            sessionConfig.getRepeatingCaptureConfig());
 
-                        // Generate the CaptureRequest builder from repeating request since Android
-                        // recommend use the same template type as the initial capture request. The
-                        // tag and output targets would be ignored by default.
-                        CaptureConfig.Builder captureConfigBuilder = CaptureConfig.Builder.from(
-                                sessionConfig.getRepeatingCaptureConfig());
-
-                        for (CaptureConfig config : presetList) {
-                            captureConfigBuilder.addImplementationOptions(
-                                    config.getImplementationOptions());
-                        }
-
-                        CaptureRequest captureRequest =
-                                Camera2CaptureRequestBuilder.buildWithoutTarget(
-                                        captureConfigBuilder.build(),
-                                        cameraDevice);
-
-                        if (captureRequest != null) {
-                            List<OutputConfiguration> outputConfigList = new LinkedList<>();
-                            for (Surface surface : uniqueConfiguredSurface) {
-                                outputConfigList.add(new OutputConfiguration(surface));
-                            }
-
-                            SessionConfiguration sessionParameterConfiguration =
-                                    new SessionConfiguration(SessionConfiguration.SESSION_REGULAR,
-                                            outputConfigList, getExecutor(), comboCallback);
-                            sessionParameterConfiguration.setSessionParameters(captureRequest);
-                            cameraDevice.createCaptureSession(sessionParameterConfiguration);
-                        } else {
-                            cameraDevice.createCaptureSession(uniqueConfiguredSurface,
-                                    comboCallback,
-                                    mHandler);
-                        }
-                    } else {
-                        cameraDevice.createCaptureSession(uniqueConfiguredSurface, comboCallback,
-                                mHandler);
+                    for (CaptureConfig config : presetList) {
+                        captureConfigBuilder.addImplementationOptions(
+                                config.getImplementationOptions());
                     }
+
+                    List<OutputConfigurationCompat> outputConfigList = new LinkedList<>();
+                    for (Surface surface : uniqueConfiguredSurface) {
+                        outputConfigList.add(new OutputConfigurationCompat(surface));
+                    }
+
+                    SessionConfigurationCompat sessionConfigCompat =
+                            new SessionConfigurationCompat(SessionConfigurationCompat.SESSION_REGULAR,
+                                    outputConfigList, getExecutor(), comboCallback);
+
+                    CaptureRequest captureRequest =
+                            Camera2CaptureRequestBuilder.buildWithoutTarget(
+                                    captureConfigBuilder.build(),
+                                    cameraDevice);
+
+                    if (captureRequest != null) {
+                        sessionConfigCompat.setSessionParameters(captureRequest);
+                    }
+
+                    CameraDeviceCompat.createCaptureSession(cameraDevice, sessionConfigCompat);
                     break;
                 default:
                     Log.e(TAG, "Open not allowed in state: " + mState);
@@ -504,8 +492,8 @@ final class CaptureSession {
                             captureConfig.getCameraCaptureCallbacks(),
                             mCaptureCallback);
 
-            mCameraCaptureSession.setRepeatingRequest(
-                    captureRequest, comboCaptureCallback, mHandler);
+            CameraCaptureSessionCompat.setSingleRepeatingRequest(mCameraCaptureSession,
+                    captureRequest, mExecutor, comboCaptureCallback);
         } catch (CameraAccessException e) {
             Log.e(TAG, "Unable to access camera: " + e.getMessage());
             Thread.dumpStack();
@@ -582,9 +570,8 @@ final class CaptureSession {
             }
 
             if (numRequestElements > 0) {
-                mCameraCaptureSession.captureBurst(captureRequests,
-                        callbackAggregator,
-                        mHandler);
+                CameraCaptureSessionCompat.captureBurstRequests(mCameraCaptureSession,
+                        captureRequests, mExecutor, callbackAggregator);
             } else {
                 Log.d(TAG, "Skipping issuing burst request due to no valid request elements");
             }
@@ -607,6 +594,7 @@ final class CaptureSession {
         Collections.addAll(camera2Callbacks, additionalCallbacks);
         return Camera2CaptureCallbacks.createComboCallback(camera2Callbacks);
     }
+
 
     /**
      * Merges the implementation options from the input {@link CaptureConfig} list.
@@ -691,7 +679,7 @@ final class CaptureSession {
          * will be immediately issued.
          */
         @Override
-        public void onConfigured(CameraCaptureSession session) {
+        public void onConfigured(@NonNull CameraCaptureSession session) {
             synchronized (mStateLock) {
                 switch (mState) {
                     case UNINITIALIZED:
@@ -733,7 +721,7 @@ final class CaptureSession {
         }
 
         @Override
-        public void onReady(CameraCaptureSession session) {
+        public void onReady(@NonNull CameraCaptureSession session) {
             synchronized (mStateLock) {
                 switch (mState) {
                     case UNINITIALIZED:
@@ -746,7 +734,7 @@ final class CaptureSession {
         }
 
         @Override
-        public void onClosed(CameraCaptureSession session) {
+        public void onClosed(@NonNull CameraCaptureSession session) {
             synchronized (mStateLock) {
                 if (mState == State.UNINITIALIZED) {
                     throw new IllegalStateException(
@@ -768,7 +756,7 @@ final class CaptureSession {
         }
 
         @Override
-        public void onConfigureFailed(CameraCaptureSession session) {
+        public void onConfigureFailed(@NonNull CameraCaptureSession session) {
             synchronized (mStateLock) {
                 switch (mState) {
                     case UNINITIALIZED:
