@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "7d1e7f83_a2f4dca6",
+        "filename": "core/src/main/java/androidx/core/widget/NestedScrollView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 982,
+      "author": {
+        "id": 1149384
+      },
+      "writtenOn": "2019-05-17T00:21:46Z",
+      "side": 1,
+      "message": "Sounds good, this can be a separate refactor.",
+      "parentUuid": "caca7b25_86c3b299",
+      "range": {
+        "startLine": 979,
+        "startChar": 8,
+        "endLine": 982,
+        "endChar": 23
+      },
+      "revId": "b771ebdbeea1526e2469cb594fd0b7555b25966e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9774db64_a3dedb94",
         "filename": "recyclerview/recyclerview/src/androidTest/java/androidx/recyclerview/widget/RecyclerViewNestedScrollingFlingTest.kt",
         "patchSetId": 3
@@ -237,6 +261,30 @@
     },
     {
       "key": {
+        "uuid": "2a001f89_4a65e990",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1932,
+      "author": {
+        "id": 1149384
+      },
+      "writtenOn": "2019-05-17T00:21:46Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "6e648763_9ae05ab1",
+      "range": {
+        "startLine": 1932,
+        "startChar": 12,
+        "endLine": 1932,
+        "endChar": 28
+      },
+      "revId": "b771ebdbeea1526e2469cb594fd0b7555b25966e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "57b89a29_b9806731",
         "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
         "patchSetId": 3
@@ -281,6 +329,30 @@
       "revId": "b771ebdbeea1526e2469cb594fd0b7555b25966e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ebbd20a_092d295f",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 3210,
+      "author": {
+        "id": 1149384
+      },
+      "writtenOn": "2019-05-17T00:21:46Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "39508b91_04593fe8",
+      "range": {
+        "startLine": 3210,
+        "startChar": 16,
+        "endLine": 3210,
+        "endChar": 43
+      },
+      "revId": "b771ebdbeea1526e2469cb594fd0b7555b25966e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
