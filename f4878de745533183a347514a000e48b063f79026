@@ -495,6 +495,30 @@
       "revId": "f4878de745533183a347514a000e48b063f79026",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "afb7ae3a_e8e7010a",
+        "filename": "development/history/add_release_commit_tags.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-05-17T15:22:29Z",
+      "side": 1,
+      "message": "Added it to the latest patchset for consideration.  Was actually pretty easy to do and I like how it ties together tags and release ntoes :)",
+      "parentUuid": "710aa900_edd1f492",
+      "range": {
+        "startLine": 83,
+        "startChar": 101,
+        "endLine": 83,
+        "endChar": 118
+      },
+      "revId": "f4878de745533183a347514a000e48b063f79026",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
