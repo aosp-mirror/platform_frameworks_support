@@ -117,6 +117,30 @@
       "revId": "6a0ac6ff80c7d696e34491611af3aa0dff8796fc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42aa2c05_d621f67d",
+        "filename": "media2/common/src/main/java/androidx/media2/common/SessionPlayer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1277,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-05-17T03:20:10Z",
+      "side": 1,
+      "message": "Well.. If TrackInfo\u0027s MediaItem is NonNull, then this parameter looks redundant. Current TrackInfo doesn\u0027t enforce it and so I don\u0027t mind keeping it for now.",
+      "parentUuid": "907dd236_7f43870b",
+      "range": {
+        "startLine": 1277,
+        "startChar": 66,
+        "endLine": 1277,
+        "endChar": 90
+      },
+      "revId": "6a0ac6ff80c7d696e34491611af3aa0dff8796fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
