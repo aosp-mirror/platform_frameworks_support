@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4c727b80_776043d2",
+        "filename": "compose/runtime/src/main/java/androidx/compose/FrameManager.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1493285
+      },
+      "writtenOn": "2019-05-17T17:22:51Z",
+      "side": 1,
+      "message": "hmm. i see here my previous suggestion will not work because we are locking around the `get` here.",
+      "revId": "9c39e4078db373bf33a7cabd06e4efb9d5731a66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8852b08f_6fbbb84e",
+        "filename": "compose/runtime/src/main/java/androidx/compose/ObserverMap.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1493285
+      },
+      "writtenOn": "2019-05-17T17:22:51Z",
+      "side": 1,
+      "message": "this is promoting a pattern where we end up allocating a list just to iterate over it. Perhaps since this is a special-case data structure anyway, we should instead provide a forEach-like API to pass in an iterable and then have a lambda called for each `V`?  Make it inline and then this will be a more efficient strategy. This code is a fairly hot path so I don\u0027t think it\u0027s necessarily premature to think about these things either.",
+      "revId": "9c39e4078db373bf33a7cabd06e4efb9d5731a66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83d7efde_61eae071",
+        "filename": "compose/runtime/src/main/java/androidx/compose/ObserverMap.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1493285
+      },
+      "writtenOn": "2019-05-17T17:22:51Z",
+      "side": 1,
+      "message": "perhaps `inline`?",
+      "revId": "9c39e4078db373bf33a7cabd06e4efb9d5731a66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
