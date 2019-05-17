@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "bd17eb50_ce40a07f",
+        "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/ComplexGestureDetetorInteractionsDemo.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-05-17T19:57:30Z",
+      "side": 1,
+      "message": "Geeze, so picky! 😛",
+      "parentUuid": "341fdce4_8c73f7db",
+      "range": {
+        "startLine": 50,
+        "startChar": 24,
+        "endLine": 50,
+        "endChar": 25
+      },
+      "revId": "5dc30290ea72367d433b549c9c474d3c927069f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b685bb06_d4a1b38c",
         "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/ComplexGestureDetetorInteractionsDemo.kt",
         "patchSetId": 2
