@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4a0113c4_fa801e13",
+        "filename": "autofill/src/main/java/androidx/autofill/HintConstants.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1217144
+      },
+      "writtenOn": "2019-05-17T00:02:40Z",
+      "side": 1,
+      "message": "public?",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 11
+      },
+      "revId": "c8d25301bea628804fcff97d50d7b0d70c8bb8ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e1129ad_98712f74",
+        "filename": "autofill/src/main/java/androidx/autofill/HintConstants.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1217144
+      },
+      "writtenOn": "2019-05-17T00:02:40Z",
+      "side": 1,
+      "message": "Could we call out city/town/etc. like in AUTOFILL_HINT_POSTAL_ADDRESS_REGION?",
+      "range": {
+        "startLine": 270,
+        "startChar": 72,
+        "endLine": 270,
+        "endChar": 80
+      },
+      "revId": "c8d25301bea628804fcff97d50d7b0d70c8bb8ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07a8e0e3_2705bd10",
+        "filename": "autofill/src/main/java/androidx/autofill/HintConstants.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 1217144
+      },
+      "writtenOn": "2019-05-17T00:02:40Z",
+      "side": 1,
+      "message": "I think we should call out (like AUTOFILL_HINT_POSTAL_ADDRESS_EXTENDED_ADDRESS) that this is for the auxiliary postal code. The DDDD in XXXXX-DDDD (for the US, not sure what it looks like for other countries)",
+      "range": {
+        "startLine": 306,
+        "startChar": 55,
+        "endLine": 306,
+        "endChar": 79
+      },
+      "revId": "c8d25301bea628804fcff97d50d7b0d70c8bb8ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e98f0f8_4a4f730b",
+        "filename": "autofill/src/main/java/androidx/autofill/HintConstants.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 465,
+      "author": {
+        "id": 1217144
+      },
+      "writtenOn": "2019-05-17T00:02:40Z",
+      "side": 1,
+      "message": "Why the caps?",
+      "range": {
+        "startLine": 465,
+        "startChar": 68,
+        "endLine": 465,
+        "endChar": 69
+      },
+      "revId": "c8d25301bea628804fcff97d50d7b0d70c8bb8ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23d9fedb_bc9d0540",
+        "filename": "autofill/src/main/java/androidx/autofill/HintConstants.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 493,
+      "author": {
+        "id": 1217144
+      },
+      "writtenOn": "2019-05-17T00:02:40Z",
+      "side": 1,
+      "message": "Can you call out the DATE type in the description of the expiration date hint?",
+      "range": {
+        "startLine": 493,
+        "startChar": 7,
+        "endLine": 493,
+        "endChar": 79
+      },
+      "revId": "c8d25301bea628804fcff97d50d7b0d70c8bb8ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
