@@ -22,6 +22,30 @@
       "revId": "aabb669449f67b61d2bda2f8d4e3f0c6213e5941",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "025e8e7a_6af4c83e",
+        "filename": "animation/src/main/java/androidx/animation/AnimatorSet.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-05-17T11:35:32Z",
+      "side": 1,
+      "message": "Restarted here: aosp/964611",
+      "parentUuid": "203737fd_3a223158",
+      "range": {
+        "startLine": 55,
+        "startChar": 3,
+        "endLine": 60,
+        "endChar": 11
+      },
+      "revId": "aabb669449f67b61d2bda2f8d4e3f0c6213e5941",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
