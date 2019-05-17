@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "845c6466_764c8fe0",
+        "filename": "development/history/add_release_commit_tags.sh",
+        "patchSetId": 5
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-05-17T16:53:45Z",
+      "side": 1,
+      "message": "That\u0027s interesting. Do we know if it\u0027s intentional for the groupId of the artifact to not match the directory of the documentation?",
+      "revId": "4139e47c281bdd03c623dd6276224168c82c9bc9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

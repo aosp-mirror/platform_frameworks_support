@@ -519,6 +519,30 @@
       "revId": "f4878de745533183a347514a000e48b063f79026",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f416737a_b4117575",
+        "filename": "development/history/add_release_commit_tags.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-05-17T16:53:45Z",
+      "side": 1,
+      "message": "That seems not bad to me if \"androidx\" isn\u0027t duplicated. I\u0027d recommend using \"_\" as a separator since \"-\" appears within some artifactIds, to get:\n\n$groupId_$artifactId_$version",
+      "parentUuid": "a254188a_1c9d5e67",
+      "range": {
+        "startLine": 83,
+        "startChar": 21,
+        "endLine": 83,
+        "endChar": 32
+      },
+      "revId": "f4878de745533183a347514a000e48b063f79026",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
