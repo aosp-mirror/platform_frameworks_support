@@ -22,6 +22,7 @@ import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 import android.media.MediaFormat;
 import android.os.ParcelFileDescriptor;
 import android.os.SystemClock;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Surface;
 
@@ -859,7 +860,7 @@ public abstract class SessionPlayer implements AutoCloseable {
     }
 
     /**
-     * TODO: Change this into getTrackInfo()
+     * TODO: Change this into getTrackInfo() (b/132928418)
      * @hide
      */
     @RestrictTo(LIBRARY_GROUP)
@@ -869,7 +870,7 @@ public abstract class SessionPlayer implements AutoCloseable {
     };
 
     /**
-     * TODO: Change this into selectTrack(TrackInfo)
+     * TODO: Change this into selectTrack(TrackInfo) (b/132928418)
      * @hide
      */
     @RestrictTo(LIBRARY_GROUP)
@@ -880,7 +881,7 @@ public abstract class SessionPlayer implements AutoCloseable {
     }
 
     /**
-     * TODO: Change this into deselectTrack(TrackInfo)
+     * TODO: Change this into deselectTrack(TrackInfo) (b/132928418)
      * @hide
      */
     @RestrictTo(LIBRARY_GROUP)
@@ -888,6 +889,17 @@ public abstract class SessionPlayer implements AutoCloseable {
     public ListenableFuture<PlayerResult> deselectTrackInternal(
             @NonNull TrackInfo trackInfo) {
         throw new UnsupportedOperationException("deselectTrackInternal is for internal use only.");
+    }
+
+    /**
+     * TODO: Change this into getSelectedTrack(int) (b/132928418)
+     * @hide
+     */
+    @RestrictTo(LIBRARY_GROUP)
+    @Nullable
+    public TrackInfo getSelectedTrackInternal(@TrackInfo.MediaTrackType int trackType) {
+        throw new UnsupportedOperationException(
+                "getSelectedTrackInternal is for internal use only.");
     }
 
     /**
@@ -1052,6 +1064,25 @@ public abstract class SessionPlayer implements AutoCloseable {
             TrackInfo other = (TrackInfo) obj;
             if (mId != other.mId) {
                 return false;
+            }
+            if (mTrackType != other.mTrackType) {
+                return false;
+            }
+            if (mFormat == null && other.mFormat == null) {
+                // continue
+            } else if (mFormat == null && other.mFormat != null) {
+                return false;
+            } else if (mFormat != null && other.mFormat == null) {
+                return false;
+            } else {
+                if (!TextUtils.equals(mFormat.getString(MediaFormat.KEY_LANGUAGE),
+                        other.mFormat.getString(MediaFormat.KEY_LANGUAGE))) {
+                    return false;
+                }
+                if (!TextUtils.equals(mFormat.getString(MediaFormat.KEY_MIME),
+                        other.mFormat.getString(MediaFormat.KEY_MIME))) {
+                    return false;
+                }
             }
             // TODO (b/131873726): Replace this with MediaItem#getMediaId once media id is
             // guaranteed to be NonNull.
