@@ -34,6 +34,24 @@
       "revId": "14002d64743584339944acec43808f63091364b7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c58b58e_7761885c",
+        "filename": "media2/player/src/main/java/androidx/media2/player/VideoSize.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1060104
+      },
+      "writtenOn": "2019-05-17T08:55:55Z",
+      "side": 1,
+      "message": "Ah of course. Thanks for the explanation.",
+      "parentUuid": "f83046e3_4d7754d8",
+      "revId": "14002d64743584339944acec43808f63091364b7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
