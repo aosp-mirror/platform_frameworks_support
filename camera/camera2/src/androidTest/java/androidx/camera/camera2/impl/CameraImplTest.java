@@ -153,7 +153,7 @@ public class CameraImplTest {
         }
 
         if (mWaitCameraCloseAtTearDown && mLatchForDeviceClose != null) {
-            mLatchForDeviceClose.await(2, TimeUnit.SECONDS);
+            mLatchForDeviceClose.await();
         }
 
         if (mCameraHandlerThread != null) {

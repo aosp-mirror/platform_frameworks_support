@@ -46,11 +46,13 @@ import androidx.camera.core.SessionConfig;
 import androidx.camera.core.SessionConfig.ValidatingBuilder;
 import androidx.camera.core.UseCase;
 import androidx.camera.core.UseCaseAttachState;
+import androidx.camera.core.impl.utils.executor.CameraXExecutors;
 import androidx.core.os.BuildCompat;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.concurrent.Executor;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
@@ -82,6 +84,7 @@ final class Camera implements BaseCamera {
     private final Object mCameraInfoLock = new Object();
     /** The handler for camera callbacks and use case state management calls. */
     private final Handler mHandler;
+    private final Executor mExecutor;
     /**
      * State variable for tracking state of the camera.
      *
@@ -101,7 +104,7 @@ final class Camera implements BaseCamera {
     @Nullable
     CameraDevice mCameraDevice;
     /** The configured session which handles issuing capture requests. */
-    private CaptureSession mCaptureSession = new CaptureSession(null);
+    private CaptureSession mCaptureSession;
     /** The session configuration of camera control. */
     private SessionConfig mCameraControlSessionConfig = SessionConfig.defaultEmptySessionConfig();
 
@@ -123,9 +126,11 @@ final class Camera implements BaseCamera {
         mCameraManager = cameraManager;
         mCameraId = cameraId;
         mHandler = handler;
+        mExecutor = CameraXExecutors.newHandlerExecutor(mHandler);
         mUseCaseAttachState = new UseCaseAttachState(cameraId);
         mState.set(State.INITIALIZED);
         mCameraControl = new Camera2CameraControl(this, handler);
+        mCaptureSession = new CaptureSession(mExecutor);
     }
 
     /**
@@ -234,7 +239,8 @@ final class Camera implements BaseCamera {
 
                 try {
                     Log.d(TAG, "Start configAndClose.");
-                    new CaptureSession(null).open(builder.build(), mCameraDevice);
+                    new CaptureSession(mExecutor).open(
+                            builder.build(), mCameraDevice);
                 } catch (CameraAccessException e) {
                     Log.d(TAG, "Unable to configure camera " + mCameraId + " due to "
                             + e.getMessage());
@@ -667,7 +673,7 @@ final class Camera implements BaseCamera {
         }
 
         List<CaptureConfig> unissuedCaptureConfigs = mCaptureSession.getCaptureConfigs();
-        mCaptureSession = new CaptureSession(mHandler);
+        mCaptureSession = new CaptureSession(mExecutor);
         mCaptureSession.setSessionConfig(previousSessionConfig);
         // When the previous capture session has not reached the open state, the issued single
         // capture
