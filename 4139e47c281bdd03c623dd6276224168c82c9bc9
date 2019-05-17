@@ -34,6 +34,24 @@
       "revId": "4139e47c281bdd03c623dd6276224168c82c9bc9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d9b788fa_878624fa",
+        "filename": "development/history/add_release_commit_tags.sh",
+        "patchSetId": 5
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-05-17T20:03:00Z",
+      "side": 1,
+      "message": "Actually, I\u0027ll file a bug.  I don\u0027t know if camera team will push back or not.",
+      "parentUuid": "30702bfc_209f83a0",
+      "revId": "4139e47c281bdd03c623dd6276224168c82c9bc9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
