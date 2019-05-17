@@ -17,6 +17,10 @@
 package androidx.ui.material
 
 import androidx.compose.Children
+import androidx.animation.FastOutSlowInEasing
+import androidx.animation.FloatPropKey
+import androidx.animation.TransitionSpec
+import androidx.animation.transitionDefinition
 import androidx.compose.Composable
 import androidx.compose.composer
 import androidx.compose.unaryPlus
@@ -33,6 +37,8 @@ import androidx.ui.layout.Row
 import androidx.ui.layout.WidthSpacer
 import androidx.ui.material.surface.Surface
 import androidx.ui.painting.Color
+import androidx.ui.animation.Transition
+import androidx.ui.layout.Alignment
 
 /**
  * A Top App Bar displays information and actions relating to the current screen and is placed at
@@ -44,12 +50,15 @@ import androidx.ui.painting.Color
  * @param icons An optional list of icons to display on the App Bar.
  */
 @Composable
-fun TopAppBar(title: String? = null,
-        color: Color? = null,
-        // TODO: replace with icons?
-        icons: List<Dp>? = null) {
-    AppBar(color) {
-        FlexRow(mainAxisAlignment =  MainAxisAlignment.SpaceBetween) {
+fun TopAppBar(
+    title: String? = null,
+    color: Color? = null,
+    // TODO: replace with icons?
+    icons: List<Dp>? = null,
+    expanded: Boolean = false
+) {
+    AppBar(color = color, expanded = expanded) {
+        FlexRow(mainAxisAlignment = MainAxisAlignment.SpaceBetween) {
             inflexible {
                 LeadingIcon()
             }
@@ -67,15 +76,19 @@ fun TopAppBar(title: String? = null,
  * An empty App Bar that expands to the parent's width.
  */
 @Composable
-fun AppBar(color: Color?, @Children children: @Composable() () -> Unit) {
+fun AppBar(color: Color?, expanded: Boolean = false, @Children children: @Composable() () -> Unit) {
     val backgroundColor = +color.orFromTheme { primary }
     Semantics(
         container = true
     ) {
-        Surface(color = backgroundColor) {
-            Container(height = RegularHeight, expanded = true) {
-                Padding(padding = Padding) {
-                    children()
+        Transition(definition = definition, toState = expanded) { state ->
+            val height = RegularHeight +
+                    ((ExtendedHeight - RegularHeight) * state[RelativeHeightTranslationProp])
+            Surface(color = backgroundColor) {
+                Container(height = height, expanded = true, alignment = Alignment.BottomCenter) {
+                    Padding(padding = Padding) {
+                        children()
+                    }
                 }
             }
         }
@@ -125,12 +138,35 @@ internal fun TrailingIcons(icons: List<Dp>?) {
     }
 }
 
-// TODO: remove
 @Composable
 internal fun FakeIcon(size: Dp) {
     ColoredRect(color = Color(0xFFFFFFFF.toInt()), width = size, height = 24.dp)
 }
 
+private val RelativeHeightTranslationProp = FloatPropKey()
+// TODO: replace with gesture based animation
+private const val AnimationDuration = 100
+
+private val definition = transitionDefinition {
+    fun <T> TransitionSpec.switchTween() = tween<T> {
+        duration = AnimationDuration
+        easing = FastOutSlowInEasing
+    }
+    state(false) {
+        this[RelativeHeightTranslationProp] = 0f
+    }
+    state(true) {
+        this[RelativeHeightTranslationProp] = 1f
+    }
+    transition(fromState = false, toState = true) {
+        RelativeHeightTranslationProp using switchTween()
+    }
+    transition(fromState = true, toState = false) {
+        RelativeHeightTranslationProp using switchTween()
+    }
+}
+
 private val RegularHeight = 56.dp
+private val ExtendedHeight = 128.dp
 private val Padding = 16.dp
 private const val MaxIconsInTopAppBar = 2
