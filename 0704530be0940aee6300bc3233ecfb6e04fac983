@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "40e4f3de_1b978a0c",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/ComponentNodes.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-05-17T23:39:08Z",
+      "side": 1,
+      "message": "We\u0027re going to move toward all ComponentNodes supporting multiple children. Once DrawNode supports it, they all have to support multiple LayoutNode children (indirectly). It pretty much changes all the logic, so you may as well do most of the work in ComponentNode.",
+      "range": {
+        "startLine": 339,
+        "startChar": 6,
+        "endLine": 339,
+        "endChar": 14
+      },
+      "revId": "0704530be0940aee6300bc3233ecfb6e04fac983",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08636d63_da59cfb5",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/ComponentNodes.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-05-17T23:39:08Z",
+      "side": 1,
+      "message": "I made a mistake with emitMove and there\u0027s no reason for you to duplicate it. I didn\u0027t agree with the API, but it is already decided.\n\nIt should be something like:\n\nfor (i in 0 until count) {\n  // if \"from\" is after \"to,\" the from index moves because we\u0027re inserting before it\n  val fromIndex \u003d if (from \u003e to) from + i else from\n  val toIndex \u003d if (from \u003e to) to + i else to\n  val child \u003d children[fromIndex]\n  children.add(toIndex, child)\n  children.removeAt(fromIndex)\n}\n\nhttps://googleplex-android-review.git.corp.google.com/c/platform/frameworks/support/+/5085075/6/ui/port/src/main/java/androidx/ui/foundation/ComponentNodes.kt#424",
+      "range": {
+        "startLine": 393,
+        "startChar": 0,
+        "endLine": 393,
+        "endChar": 56
+      },
+      "revId": "0704530be0940aee6300bc3233ecfb6e04fac983",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a870f460_eb0a598a",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/ComponentNodes.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 463,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-05-17T23:39:08Z",
+      "side": 1,
+      "message": "I was hoping that you\u0027d have a \"visitLayoutChildren\" either as a method on ComponentNode or as an extension function. Maybe something like this:\n\nfun ComponentNode.visitLayoutChildren(block: (layoutNode: LayoutNode) -\u003e Unit) {\n  visitChildren { child -\u003e\n    if (child is LayoutNode) {\n      block(child)\n    } else {\n      child.visitLayoutChildren(block)\n    }\n  }\n}\n\nI don\u0027t think you should need to have a delegateDrawnChildren. I don\u0027t know why LayoutNode should need to know about drawing here.",
+      "range": {
+        "startLine": 463,
+        "startChar": 8,
+        "endLine": 463,
+        "endChar": 29
+      },
+      "revId": "0704530be0940aee6300bc3233ecfb6e04fac983",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
