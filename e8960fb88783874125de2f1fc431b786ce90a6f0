@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7aca198e_b1f182fe",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/Animation.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-05-17T01:41:05Z",
+      "side": 1,
+      "message": "This is now going to test all our code paths with a 0 duration. Hopefully we don\u0027t see crashes.",
+      "range": {
+        "startLine": 213,
+        "startChar": 10,
+        "endLine": 213,
+        "endChar": 12
+      },
+      "revId": "e8960fb88783874125de2f1fc431b786ce90a6f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ca47acc7_63d67602",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/TransitionAnimation.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-05-17T01:41:05Z",
+      "side": 1,
+      "message": "Move these to L195",
+      "range": {
+        "startLine": 187,
+        "startChar": 0,
+        "endLine": 190,
+        "endChar": 85
+      },
+      "revId": "e8960fb88783874125de2f1fc431b786ce90a6f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d84656d7_30a660ae",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/TransitionAnimation.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-05-17T01:41:05Z",
+      "side": 1,
+      "message": "This is a little difficult to read. I\u0027d change it to\nif (forceNextState) {\n    setState(nextState)\n} else if (pendingState !\u003d null) {\n    ...\n}\n\nAlso worth adding a comment here: Uninterruptible auto transition to the next state takes a higher priority over the pending state.",
+      "range": {
+        "startLine": 196,
+        "startChar": 0,
+        "endLine": 201,
+        "endChar": 13
+      },
+      "revId": "e8960fb88783874125de2f1fc431b786ce90a6f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1732e10d_99db6d53",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/TransitionDefinition.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-05-17T01:41:05Z",
+      "side": 1,
+      "message": "It\u0027s kind of strange that snapTransition takes nextState as a parameter, but normal transition only supports nextState to be defined in the lambda. But this is fine for now. We need to give this a little more thought.",
+      "range": {
+        "startLine": 65,
+        "startChar": 8,
+        "endLine": 65,
+        "endChar": 17
+      },
+      "revId": "e8960fb88783874125de2f1fc431b786ce90a6f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6242d701_e167a7e8",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/TransitionDefinition.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-05-17T01:41:05Z",
+      "side": 1,
+      "message": "Clever! :D",
+      "range": {
+        "startLine": 83,
+        "startChar": 17,
+        "endLine": 83,
+        "endChar": 33
+      },
+      "revId": "e8960fb88783874125de2f1fc431b786ce90a6f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47033b49_b36d8a88",
+        "filename": "ui/animation/integration-tests/animation-demos/src/main/java/androidx/ui/animation/demos/StateBasedRippleAnimation.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-05-17T01:41:05Z",
+      "side": 1,
+      "message": "Remove",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 23
+      },
+      "revId": "e8960fb88783874125de2f1fc431b786ce90a6f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d58eaf26_6d4cd743",
+        "filename": "ui/animation/integration-tests/animation-demos/src/main/java/androidx/ui/animation/demos/StateBasedRippleAnimation.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-05-17T01:41:05Z",
+      "side": 1,
+      "message": "Remove?",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 34
+      },
+      "revId": "e8960fb88783874125de2f1fc431b786ce90a6f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85c6a5a5_d23ca5f7",
+        "filename": "ui/animation/integration-tests/animation-demos/src/main/java/androidx/ui/animation/demos/StateBasedRippleAnimation.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-05-17T01:41:05Z",
+      "side": 1,
+      "message": "Ditto",
+      "range": {
+        "startLine": 77,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 35
+      },
+      "revId": "e8960fb88783874125de2f1fc431b786ce90a6f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "100900d2_f189ea19",
+        "filename": "ui/animation/integration-tests/animation-demos/src/main/java/androidx/ui/animation/demos/StateBasedRippleAnimation.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-05-17T01:41:05Z",
+      "side": 1,
+      "message": "I think this example makes a lot more sense now conceptually! :D",
+      "range": {
+        "startLine": 128,
+        "startChar": 0,
+        "endLine": 139,
+        "endChar": 9
+      },
+      "revId": "e8960fb88783874125de2f1fc431b786ce90a6f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}

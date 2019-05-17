@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c2dfa934_a6e489be",
+        "filename": "ui/animation/integration-tests/animation-demos/src/main/java/androidx/ui/animation/demos/StateBasedRippleAnimation.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-05-17T01:41:05Z",
+      "side": 0,
+      "message": "Maybe leave this one in for demonstration purposes? We don\u0027t have any other demos using keyframes",
+      "range": {
+        "startLine": 154,
+        "startChar": 0,
+        "endLine": 159,
+        "endChar": 13
+      },
+      "revId": "e8e24a38d57ebf2e90225e2f3765cec62834ab96",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
