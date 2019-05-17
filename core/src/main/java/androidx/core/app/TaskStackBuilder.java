@@ -59,14 +59,12 @@ import java.util.Iterator;
  * the rest of the synthetic stack and allowing the back key to navigate back to the previous
  * task.</p>
  *
- * <div class="special reference">
  * <h3>About Navigation</h3>
  * For more detailed information about tasks, the back stack, and navigation design guidelines,
  * please read
  * <a href="{@docRoot}guide/topics/fundamentals/tasks-and-back-stack.html">Tasks and Back Stack</a>
  * from the developer guide and <a href="{@docRoot}design/patterns/navigation.html">Navigation</a>
  * from the design guide.
- * </div>
  */
 public final class TaskStackBuilder implements Iterable<Intent> {
     private static final String TAG = "TaskStackBuilder";

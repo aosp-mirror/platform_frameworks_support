@@ -54,13 +54,11 @@ import androidx.fragment.app.FragmentActivity;
  * by extending this class for your activity and setting the activity theme to
  * {@link androidx.appcompat.R.style#Theme_AppCompat Theme.AppCompat} or a similar theme.
  *
- * <div class="special reference">
  * <h3>Developer Guides</h3>
  *
  * <p>For information about how to use the action bar, including how to add action items, navigation
  * modes and more, read the <a href="{@docRoot}guide/topics/ui/actionbar.html">Action
  * Bar</a> API guide.</p>
- * </div>
  */
 public class AppCompatActivity extends FragmentActivity implements AppCompatCallback,
         TaskStackBuilder.SupportParentable, ActionBarDrawerToggle.DelegateProvider {

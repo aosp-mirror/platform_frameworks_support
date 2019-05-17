@@ -97,13 +97,11 @@ import java.util.WeakHashMap;
  * {@link #setIconifiedByDefault(boolean) setIconifiedByDefault(false)}.
  * </p>
  *
- * <div class="special reference">
  * <h3>Developer Guides</h3>
  * <p>For information about using {@code SearchView}, read the
  * <a href="{@docRoot}guide/topics/search/index.html">Search</a> API guide.
  * Additional information about action views is also available in the <<a
  * href="{@docRoot}guide/topics/ui/actionbar.html#ActionView">Action Bar</a> API guide</p>
- * </div>
  *
  * @see android.view.MenuItem#SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW
  */

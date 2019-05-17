@@ -91,11 +91,9 @@ import java.util.concurrent.ConcurrentHashMap;
  * <li>{@link #isCaptioningEnabled()}</li>
  * </ul></p>
  *
- * <div class="special reference">
  * <h3>Developer Guides</h3>
  * <p>For information about building your media application, read the
  * <a href="{@docRoot}guide/topics/media-apps/index.html">Media Apps</a> developer guide.</p>
- * </div>
  */
 public final class MediaControllerCompat {
     static final String TAG = "MediaControllerCompat";

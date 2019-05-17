@@ -64,11 +64,9 @@ import androidx.appcompat.R;
  * input method UI.  You can modify this behavior by forcing the flag to your
  * desired mode after calling {@link #onCreate}.
  *
- * <div class="special reference">
  * <h3>Developer Guides</h3>
  * <p>For more information about creating dialogs, read the
  * <a href="{@docRoot}guide/topics/ui/dialogs.html">Dialogs</a> developer guide.</p>
- * </div>
  */
 public class AlertDialog extends AppCompatDialog implements DialogInterface {
 
