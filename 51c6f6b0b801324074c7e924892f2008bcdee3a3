@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "386f82ad_3261c639",
+        "filename": "benchmark/src/main/AndroidManifest.xml",
+        "patchSetId": 8
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-05-17T15:56:12Z",
+      "side": 1,
+      "message": "what is this suppress for?",
+      "revId": "51c6f6b0b801324074c7e924892f2008bcdee3a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80154d13_03ed01bd",
+        "filename": "benchmark/src/main/AndroidManifest.xml",
+        "patchSetId": 8
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-05-17T15:56:12Z",
+      "side": 1,
+      "message": "add a listener to the androidTest dir too, to ensure they both get used correctly\n\nshould have a test to verify both runlisteners are being used",
+      "revId": "51c6f6b0b801324074c7e924892f2008bcdee3a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "582bfa06_3fc408bc",
+        "filename": "benchmark/src/main/java/androidx/benchmark/BenchmarkRunListener.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-05-17T15:56:12Z",
+      "side": 1,
+      "message": "make this @hide RestrictTo(Library), since it\u0027s an implementation detail of the library itself (similar to our IsolationActivity).\n\nWe expose the AndroidBenchmarkRunner, but that\u0027s because it\u0027s part of our public API (you may need to subclass, and generally need to know about it to specify it to instrumentation)",
+      "revId": "51c6f6b0b801324074c7e924892f2008bcdee3a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0c02e42_a61a7e71",
+        "filename": "benchmark/src/main/java/androidx/benchmark/ResultWriter.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-05-17T15:56:12Z",
+      "side": 1,
+      "message": "Think this should be flipped:\n\nprivate fun JsonWriter.write(report: BenchmarkState.report)",
+      "revId": "51c6f6b0b801324074c7e924892f2008bcdee3a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
