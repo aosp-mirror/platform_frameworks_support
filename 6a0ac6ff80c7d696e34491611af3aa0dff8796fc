@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "2352e838_7802f8a8",
+        "filename": "media2/common/src/main/java/androidx/media2/common/SessionPlayer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1271,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-17T01:55:31Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ddf8bffe_f7419d7f",
+      "range": {
+        "startLine": 1271,
+        "startChar": 34,
+        "endLine": 1271,
+        "endChar": 42
+      },
+      "revId": "6a0ac6ff80c7d696e34491611af3aa0dff8796fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3c31d69b_4950873e",
         "filename": "media2/common/src/main/java/androidx/media2/common/SessionPlayer.java",
         "patchSetId": 1
@@ -60,6 +84,30 @@
       "writtenOn": "2019-05-17T01:38:45Z",
       "side": 1,
       "message": "Q) Why do we keep this?",
+      "range": {
+        "startLine": 1277,
+        "startChar": 66,
+        "endLine": 1277,
+        "endChar": 90
+      },
+      "revId": "6a0ac6ff80c7d696e34491611af3aa0dff8796fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "907dd236_7f43870b",
+        "filename": "media2/common/src/main/java/androidx/media2/common/SessionPlayer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1277,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-17T01:55:31Z",
+      "side": 1,
+      "message": "Thank you for pointing out, I haven\u0027t thought about it. It might be unnecessary if TrackInfo could be distinguishable over different MediaItems. But, I\u0027m not sure what TrackInfo would be. Do you mind if we keep this parameter?",
+      "parentUuid": "3c31d69b_4950873e",
       "range": {
         "startLine": 1277,
         "startChar": 66,
