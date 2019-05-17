@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2cfa4245_7ed46777",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/Animation.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-05-17T13:28:21Z",
+      "side": 1,
+      "message": "there were already some usages of 0 duration tweens in material. so it is proven to be working :)",
+      "parentUuid": "7aca198e_b1f182fe",
+      "range": {
+        "startLine": 213,
+        "startChar": 10,
+        "endLine": 213,
+        "endChar": 12
+      },
+      "revId": "e8960fb88783874125de2f1fc431b786ce90a6f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ca47acc7_63d67602",
         "filename": "ui/animation-core/src/main/java/androidx/animation/TransitionAnimation.kt",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "e8960fb88783874125de2f1fc431b786ce90a6f0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "110e5eb8_cff885c1",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/TransitionAnimation.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-05-17T13:28:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ca47acc7_63d67602",
+      "range": {
+        "startLine": 187,
+        "startChar": 0,
+        "endLine": 190,
+        "endChar": 85
+      },
+      "revId": "e8960fb88783874125de2f1fc431b786ce90a6f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -94,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "f6994b30_53343b8f",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/TransitionDefinition.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-05-17T13:28:21Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "1732e10d_99db6d53",
+      "range": {
+        "startLine": 65,
+        "startChar": 8,
+        "endLine": 65,
+        "endChar": 17
+      },
+      "revId": "e8960fb88783874125de2f1fc431b786ce90a6f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6242d701_e167a7e8",
         "filename": "ui/animation-core/src/main/java/androidx/animation/TransitionDefinition.kt",
         "patchSetId": 1
@@ -114,6 +186,30 @@
       "revId": "e8960fb88783874125de2f1fc431b786ce90a6f0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4b13234_2386652c",
+        "filename": "ui/animation-core/src/main/java/androidx/animation/TransitionDefinition.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-05-17T13:28:21Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "6242d701_e167a7e8",
+      "range": {
+        "startLine": 83,
+        "startChar": 17,
+        "endLine": 83,
+        "endChar": 33
+      },
+      "revId": "e8960fb88783874125de2f1fc431b786ce90a6f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -140,6 +236,30 @@
     },
     {
       "key": {
+        "uuid": "3bce8a15_6a7080d3",
+        "filename": "ui/animation/integration-tests/animation-demos/src/main/java/androidx/ui/animation/demos/StateBasedRippleAnimation.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-05-17T13:28:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "47033b49_b36d8a88",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 23
+      },
+      "revId": "e8960fb88783874125de2f1fc431b786ce90a6f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d58eaf26_6d4cd743",
         "filename": "ui/animation/integration-tests/animation-demos/src/main/java/androidx/ui/animation/demos/StateBasedRippleAnimation.kt",
         "patchSetId": 1
@@ -163,6 +283,30 @@
     },
     {
       "key": {
+        "uuid": "a55cae98_d77e1835",
+        "filename": "ui/animation/integration-tests/animation-demos/src/main/java/androidx/ui/animation/demos/StateBasedRippleAnimation.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-05-17T13:28:21Z",
+      "side": 1,
+      "message": "left my experiments here, sorry :)",
+      "parentUuid": "d58eaf26_6d4cd743",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 34
+      },
+      "revId": "e8960fb88783874125de2f1fc431b786ce90a6f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "85c6a5a5_d23ca5f7",
         "filename": "ui/animation/integration-tests/animation-demos/src/main/java/androidx/ui/animation/demos/StateBasedRippleAnimation.kt",
         "patchSetId": 1
@@ -183,6 +327,30 @@
       "revId": "e8960fb88783874125de2f1fc431b786ce90a6f0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f07b138_be49ee2f",
+        "filename": "ui/animation/integration-tests/animation-demos/src/main/java/androidx/ui/animation/demos/StateBasedRippleAnimation.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-05-17T13:28:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "85c6a5a5_d23ca5f7",
+      "range": {
+        "startLine": 77,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 35
+      },
+      "revId": "e8960fb88783874125de2f1fc431b786ce90a6f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {

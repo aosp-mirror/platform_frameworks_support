@@ -22,6 +22,30 @@
       "revId": "e8e24a38d57ebf2e90225e2f3765cec62834ab96",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dac16019_4c5ba9cc",
+        "filename": "ui/animation/integration-tests/animation-demos/src/main/java/androidx/ui/animation/demos/StateBasedRippleAnimation.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-05-17T13:28:21Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "c2dfa934_a6e489be",
+      "range": {
+        "startLine": 154,
+        "startChar": 0,
+        "endLine": 159,
+        "endChar": 13
+      },
+      "revId": "e8e24a38d57ebf2e90225e2f3765cec62834ab96",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
