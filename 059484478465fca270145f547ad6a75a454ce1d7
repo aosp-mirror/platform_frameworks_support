@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "881cdc2a_f5659943",
+        "filename": "development/history/add_release_commit_tags.sh",
+        "patchSetId": 7
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-05-17T23:22:35Z",
+      "side": 1,
+      "message": "\"_\" -\u003e \".\" ?",
+      "range": {
+        "startLine": 102,
+        "startChar": 18,
+        "endLine": 102,
+        "endChar": 19
+      },
+      "revId": "059484478465fca270145f547ad6a75a454ce1d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
