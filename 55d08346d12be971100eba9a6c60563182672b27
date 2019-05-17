@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "1cb9eb17_7cd9686d",
+        "filename": "webkit/src/main/java/androidx/webkit/package-info.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1141809
+      },
+      "writtenOn": "2019-05-17T16:38:15Z",
+      "side": 1,
+      "message": "IMO let\u0027s leave as-is until stable. Android Studio will already suggest 1.1.0-alpha01 as an option in lint, I think",
+      "parentUuid": "f94a0c38_70a8b593",
+      "range": {
+        "startLine": 30,
+        "startChar": 45,
+        "endLine": 30,
+        "endChar": 50
+      },
+      "revId": "55d08346d12be971100eba9a6c60563182672b27",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7f99b2f5_89bbcdfb",
         "filename": "webkit/src/main/java/androidx/webkit/package-info.java",
         "patchSetId": 1
