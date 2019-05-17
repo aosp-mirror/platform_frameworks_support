@@ -45,6 +45,7 @@ import androidx.media2.common.MediaParcelUtils;
 import androidx.media2.common.Rating;
 import androidx.media2.common.SessionPlayer;
 import androidx.media2.common.SessionPlayer.PlayerResult;
+import androidx.media2.common.SessionPlayer.TrackInfo;
 import androidx.media2.common.SubtitleData;
 import androidx.media2.common.VideoSize;
 import androidx.media2.session.MediaController.PlaybackInfo;
@@ -1427,10 +1428,14 @@ class MediaSessionStub extends IMediaSession.Stub {
         }
 
         @Override
-        void onTrackInfoChanged(int seq, List<SessionPlayer.TrackInfo> trackInfos)
-                throws RemoteException {
+        void onTrackInfoChanged(int seq, List<SessionPlayer.TrackInfo> trackInfos,
+                TrackInfo selectedVideoTrack, TrackInfo selectedAudioTrack,
+                TrackInfo selectedSubtitleTrack) throws RemoteException {
             List<ParcelImpl> trackInfoList = MediaParcelUtils.toParcelableList(trackInfos);
-            mIControllerCallback.onTrackInfoChanged(seq, trackInfoList);
+            mIControllerCallback.onTrackInfoChanged(seq, trackInfoList,
+                    MediaParcelUtils.toParcelable(selectedVideoTrack),
+                    MediaParcelUtils.toParcelable(selectedAudioTrack),
+                    MediaParcelUtils.toParcelable(selectedSubtitleTrack));
         }
 
         @Override

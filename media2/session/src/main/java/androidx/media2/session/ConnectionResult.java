@@ -84,6 +84,12 @@ class ConnectionResult extends CustomVersionedParcelable {
     VideoSize mVideoSize;
     @ParcelField(19)
     List<TrackInfo> mTrackInfos;
+    @ParcelField(20)
+    TrackInfo mSelectedVideoTrack;
+    @ParcelField(21)
+    TrackInfo mSelectedAudioTrack;
+    @ParcelField(22)
+    TrackInfo mSelectedSubtitleTrack;
 
     // For versioned parcelable
     ConnectionResult() {
@@ -109,6 +115,9 @@ class ConnectionResult extends CustomVersionedParcelable {
         mTokenExtras = sessionImpl.getToken().getExtras();
         mVideoSize = sessionImpl.getVideoSize();
         mTrackInfos = sessionImpl.getTrackInfo();
+        mSelectedVideoTrack = sessionImpl.getSelectedTrack(TrackInfo.MEDIA_TRACK_TYPE_VIDEO);
+        mSelectedAudioTrack = sessionImpl.getSelectedTrack(TrackInfo.MEDIA_TRACK_TYPE_AUDIO);
+        mSelectedSubtitleTrack = sessionImpl.getSelectedTrack(TrackInfo.MEDIA_TRACK_TYPE_SUBTITLE);
         if (allowedCommands != null
                 && allowedCommands.hasCommand(SessionCommand.COMMAND_CODE_PLAYER_GET_PLAYLIST)) {
             List<MediaItem> playlist = sessionImpl.getPlaylist();
@@ -198,6 +207,18 @@ class ConnectionResult extends CustomVersionedParcelable {
 
     public List<TrackInfo> getTrackInfo() {
         return mTrackInfos;
+    }
+
+    public TrackInfo getSelectedVideoTrack() {
+        return mSelectedVideoTrack;
+    }
+
+    public TrackInfo getSelectedAudioTrack() {
+        return mSelectedAudioTrack;
+    }
+
+    public TrackInfo getSelectedSubtitleTrack() {
+        return mSelectedSubtitleTrack;
     }
 
     @Override

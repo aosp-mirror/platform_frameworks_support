@@ -495,8 +495,10 @@ class MediaLibraryServiceLegacyStub extends MediaSessionServiceLegacyStub {
         }
 
         @Override
-        final void onTrackInfoChanged(int seq, List<SessionPlayer.TrackInfo> trackInfos)
-                throws RemoteException {
+        void onTrackInfoChanged(int seq, List<SessionPlayer.TrackInfo> trackInfos,
+                SessionPlayer.TrackInfo selectedVideoTrack,
+                SessionPlayer.TrackInfo selectedAudioTrack,
+                SessionPlayer.TrackInfo selectedSubtitleTrack) throws RemoteException {
             // No-op. BrowserCompat doesn't understand Controller features.
         }
 

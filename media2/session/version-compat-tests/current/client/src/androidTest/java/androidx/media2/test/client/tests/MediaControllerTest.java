@@ -26,6 +26,7 @@ import static androidx.media2.test.common.MediaSessionConstants.TEST_GET_SESSION
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -39,6 +40,7 @@ import android.util.Log;
 import androidx.media.AudioAttributesCompat;
 import androidx.media2.common.MediaItem;
 import androidx.media2.common.SessionPlayer;
+import androidx.media2.common.SessionPlayer.TrackInfo;
 import androidx.media2.common.VideoSize;
 import androidx.media2.session.MediaController;
 import androidx.media2.session.MediaController.ControllerCallback;
@@ -376,11 +378,7 @@ public class MediaControllerTest extends MediaSessionTestBase {
         List<SessionPlayer.TrackInfo> testTracksFromController = controller.getTrackInfo();
         assertEquals(testTracks.size(), testTracksFromController.size());
         for (int i = 0; i < testTracks.size(); i++) {
-            SessionPlayer.TrackInfo track = testTracks.get(i);
-            SessionPlayer.TrackInfo trackFromController = testTracksFromController.get(i);
-            assertEquals(track, trackFromController);
-            assertEquals(track.getLanguage(), trackFromController.getLanguage());
-            assertEquals(track.getTrackType(), trackFromController.getTrackType());
+            assertTrackEquals(testTracks.get(i), testTracksFromController.get(i));
         }
     }
 
@@ -396,9 +394,7 @@ public class MediaControllerTest extends MediaSessionTestBase {
                     @Override
                     public void onTrackSelected(MediaController controller,
                             SessionPlayer.TrackInfo trackInfo) {
-                        assertEquals(testTrack, trackInfo);
-                        assertEquals(testTrack.getLanguage(), trackInfo.getLanguage());
-                        assertEquals(testTrack.getTrackType(), trackInfo.getTrackType());
+                        assertTrackEquals(testTrack, trackInfo);
                         latch.countDown();
                     }
                 });
@@ -418,14 +414,43 @@ public class MediaControllerTest extends MediaSessionTestBase {
                     @Override
                     public void onTrackDeselected(MediaController controller,
                             SessionPlayer.TrackInfo trackInfo) {
-                        assertEquals(testTrack, trackInfo);
-                        assertEquals(testTrack.getLanguage(), trackInfo.getLanguage());
-                        assertEquals(testTrack.getTrackType(), trackInfo.getTrackType());
+                        assertTrackEquals(testTrack, trackInfo);
                         latch.countDown();
                     }
                 });
         controller.deselectTrack(testTrack);
         assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
+    }
+
+    @Test
+    public void testGetSelectedTrack() throws Exception {
+        prepareLooper();
+        final CountDownLatch latch = new CountDownLatch(1);
+
+        final List<TrackInfo> testTracks = MediaTestUtils.createTrackInfoList();
+        TrackInfo testTrack = testTracks.get(2);
+        int testTrackType = testTrack.getTrackType();
+        Bundle playerConfig =
+                RemoteMediaSession.createMockPlayerConnectorConfigForTrackInfo(testTracks);
+        mRemoteSession.updatePlayer(playerConfig);
+
+        MediaController controller = createController(mRemoteSession.getToken(), true, null,
+                new MediaController.ControllerCallback() {
+                    @Override
+                    public void onTrackSelected(MediaController controller, TrackInfo trackInfo) {
+                        latch.countDown();
+                    }
+                });
+        assertNull(controller.getSelectedTrack(testTrackType));
+        controller.selectTrack(testTrack);
+        assertTrue(latch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
+        assertTrackEquals(testTrack, controller.getSelectedTrack(testTrackType));
+    }
+
+    private void assertTrackEquals(TrackInfo track1, TrackInfo track2) {
+        assertEquals(track1, track2);
+        assertEquals(track1.getLanguage(), track2.getLanguage());
+        assertEquals(track1.getTrackType(), track2.getTrackType());
     }
 
     RemoteMediaSession createRemoteMediaSession(String id, Bundle tokenExtras) {

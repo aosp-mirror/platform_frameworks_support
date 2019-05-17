@@ -709,8 +709,10 @@ class MediaSessionLegacyStub extends MediaSessionCompat.Callback {
         }
 
         @Override
-        void onTrackInfoChanged(int seq, List<SessionPlayer.TrackInfo> trackInfos)
-                throws RemoteException {
+        void onTrackInfoChanged(int seq, List<SessionPlayer.TrackInfo> trackInfos,
+                SessionPlayer.TrackInfo selectedVideoTrack,
+                SessionPlayer.TrackInfo selectedAudioTrack,
+                SessionPlayer.TrackInfo selectedSubtitleTrack) throws RemoteException {
             // no-op
         }
 
@@ -922,8 +924,10 @@ class MediaSessionLegacyStub extends MediaSessionCompat.Callback {
         }
 
         @Override
-        void onTrackInfoChanged(int seq, List<SessionPlayer.TrackInfo> trackInfos)
-                throws RemoteException {
+        void onTrackInfoChanged(int seq, List<SessionPlayer.TrackInfo> trackInfos,
+                SessionPlayer.TrackInfo selectedVideoTrack,
+                SessionPlayer.TrackInfo selectedAudioTrack,
+                SessionPlayer.TrackInfo selectedSubtitleTrack) throws RemoteException {
             // no-op
         }
 
