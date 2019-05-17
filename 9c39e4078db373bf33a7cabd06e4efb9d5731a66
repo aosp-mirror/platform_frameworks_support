@@ -37,6 +37,40 @@
     },
     {
       "key": {
+        "uuid": "b5fa84e5_1bfc98c5",
+        "filename": "compose/runtime/src/main/java/androidx/compose/FrameManager.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1048725
+      },
+      "writtenOn": "2019-05-17T19:01:35Z",
+      "side": 1,
+      "message": "With the current implementation of ObserverMap this calls `scope.invalidate` multiple for the same scope. My motivation for using a set here was to avoid potential expensive duplicate calls to the scope invalidate function. If ObserverMap is changed to ensure that values are only included once in the result of `get` then this code is fine.",
+      "revId": "9c39e4078db373bf33a7cabd06e4efb9d5731a66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d2513a45_8e4f401b",
+        "filename": "compose/runtime/src/main/java/androidx/compose/ObserverMap.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1048725
+      },
+      "writtenOn": "2019-05-17T19:01:35Z",
+      "side": 1,
+      "message": "Do we need weak identity on the value as well as the key?",
+      "revId": "9c39e4078db373bf33a7cabd06e4efb9d5731a66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8852b08f_6fbbb84e",
         "filename": "compose/runtime/src/main/java/androidx/compose/ObserverMap.kt",
         "patchSetId": 3
@@ -66,6 +100,23 @@
       "side": 1,
       "message": "yeah, actually I had the same concerns and initially I implemented it as forEach function. then played with it on the usage side and decided to go with returning a list for now",
       "parentUuid": "8852b08f_6fbbb84e",
+      "revId": "9c39e4078db373bf33a7cabd06e4efb9d5731a66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3cbd7f44_0f39abdf",
+        "filename": "compose/runtime/src/main/java/androidx/compose/ObserverMap.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1048725
+      },
+      "writtenOn": "2019-05-17T19:01:35Z",
+      "side": 1,
+      "message": "This list now can contain duplicate values. For example, if multiple keys contain the same value in thier sets then the value will be returned twice. Maybe we should, instead, use a weak identity set here and just return a iterable map of the result.",
       "revId": "9c39e4078db373bf33a7cabd06e4efb9d5731a66",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
