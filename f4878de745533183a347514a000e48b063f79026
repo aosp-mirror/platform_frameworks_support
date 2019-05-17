@@ -543,6 +543,30 @@
       "revId": "f4878de745533183a347514a000e48b063f79026",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64a88010_7786eca8",
+        "filename": "development/history/add_release_commit_tags.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-05-17T19:48:20Z",
+      "side": 1,
+      "message": "Okay, tried an iteration in the next patchset",
+      "parentUuid": "f416737a_b4117575",
+      "range": {
+        "startLine": 83,
+        "startChar": 21,
+        "endLine": 83,
+        "endChar": 32
+      },
+      "revId": "f4878de745533183a347514a000e48b063f79026",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
