@@ -471,6 +471,30 @@
       "revId": "f4878de745533183a347514a000e48b063f79026",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a254188a_1c9d5e67",
+        "filename": "development/history/add_release_commit_tags.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-05-17T01:57:32Z",
+      "side": 1,
+      "message": "Actually, every artifact Id should already be unique, assuming we keep our artifactId naming scheme as \u003cgroupId\u003e-\u003cartifactId\u003e\n\nHowever, I do think a tag naming scheme with the full maven coordinates does make sense:  \"androidx-$groupId-$artifactId-$version\"\n\nWhat do you think?",
+      "parentUuid": "12eab8a6_c3bf2569",
+      "range": {
+        "startLine": 83,
+        "startChar": 21,
+        "endLine": 83,
+        "endChar": 32
+      },
+      "revId": "f4878de745533183a347514a000e48b063f79026",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
