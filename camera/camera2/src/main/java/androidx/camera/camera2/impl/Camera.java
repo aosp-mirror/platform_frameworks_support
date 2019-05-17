@@ -66,22 +66,6 @@ import java.util.concurrent.atomic.AtomicReference;
  */
 final class Camera implements BaseCamera {
     private static final String TAG = "Camera";
-
-    private final Object mAttachedUseCaseLock = new Object();
-
-    /** Map of the use cases to the information on their state. */
-    @GuardedBy("mAttachedUseCaseLock")
-    private final UseCaseAttachState mUseCaseAttachState;
-
-    /** The identifier for the {@link CameraDevice} */
-    private final String mCameraId;
-
-    /** Handle to the camera service. */
-    private final CameraManager mCameraManager;
-
-    private final Object mCameraInfoLock = new Object();
-    /** The handler for camera callbacks and use case state management calls. */
-    private final Handler mHandler;
     /**
      * State variable for tracking state of the camera.
      *
@@ -89,25 +73,35 @@ final class Camera implements BaseCamera {
      * same thread as any of the other methods and callbacks.
      */
     final AtomicReference<State> mState = new AtomicReference<>(State.UNINITIALIZED);
+    @GuardedBy("mPendingLock")
+    final List<UseCase> mPendingForAddOnline = new ArrayList<>();
+    private final Object mAttachedUseCaseLock = new Object();
+    /** Map of the use cases to the information on their state. */
+    @GuardedBy("mAttachedUseCaseLock")
+    private final UseCaseAttachState mUseCaseAttachState;
+    /** The identifier for the {@link CameraDevice} */
+    private final String mCameraId;
+    /** Handle to the camera service. */
+    private final CameraManager mCameraManager;
+    private final Object mCameraInfoLock = new Object();
+    /** The handler for camera callbacks and use case state management calls. */
+    private final Handler mHandler;
     /** The camera control shared across all use cases bound to this Camera. */
     private final CameraControl mCameraControl;
     private final StateCallback mStateCallback = new StateCallback();
+    private final Object mPendingLock = new Object();
+    /** The handle to the opened camera. */
+    @Nullable
+    CameraDevice mCameraDevice;
     /** Information about the characteristics of this camera */
     // Nullable because this is lazily instantiated
     @GuardedBy("mCameraInfoLock")
     @Nullable
     private CameraInfo mCameraInfo;
-    /** The handle to the opened camera. */
-    @Nullable
-    CameraDevice mCameraDevice;
     /** The configured session which handles issuing capture requests. */
     private CaptureSession mCaptureSession = new CaptureSession(null);
     /** The session configuration of camera control. */
     private SessionConfig mCameraControlSessionConfig = SessionConfig.defaultEmptySessionConfig();
-
-    private final Object mPendingLock = new Object();
-    @GuardedBy("mPendingLock")
-    final List<UseCase> mPendingForAddOnline = new ArrayList<>();
     @GuardedBy("mClosedCaptureSessions")
     private List<CaptureSession> mClosedCaptureSessions = new ArrayList<>();
 
