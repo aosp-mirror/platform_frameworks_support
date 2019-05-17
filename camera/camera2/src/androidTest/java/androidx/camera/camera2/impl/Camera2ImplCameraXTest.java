@@ -79,10 +79,12 @@ public final class Camera2ImplCameraXTest {
                     mAnalysisResult.postValue(image.getTimestamp());
                 }
             };
+    @Rule
+    public GrantPermissionRule mRuntimePermissionRule = GrantPermissionRule.grant(
+            Manifest.permission.CAMERA);
     private FakeLifecycleOwner mLifecycle;
     private HandlerThread mHandlerThread;
     private Handler mMainThreadHandler;
-
     private CameraDevice.StateCallback mMockStateCallback;
 
     private static Observer<Long> createCountIncrementingObserver(final AtomicLong counter) {
@@ -94,12 +96,8 @@ public final class Camera2ImplCameraXTest {
         };
     }
 
-    @Rule
-    public GrantPermissionRule mRuntimePermissionRule = GrantPermissionRule.grant(
-            Manifest.permission.CAMERA);
-
     @Before
-    public void setUp()  {
+    public void setUp() {
         assumeTrue(CameraUtil.deviceHasCamera());
         Context context = ApplicationProvider.getApplicationContext();
         CameraX.init(context, Camera2AppConfig.create(context));
@@ -111,21 +109,16 @@ public final class Camera2ImplCameraXTest {
     }
 
     @After
-    public void tearDown() throws InterruptedException {
+    public void tearDown() {
         if (mHandlerThread != null) {
             CameraX.unbindAll();
             mHandlerThread.quitSafely();
-
-            // Wait some time for the cameras to close.
-            // We need the cameras to close to bring CameraX
-            // back to the initial state.
-            Thread.sleep(3000);
         }
     }
 
     @Test
-    public void lifecycleResume_opensCameraAndStreamsFrames() throws InterruptedException {
-        final AtomicLong observedCount = new AtomicLong(0);
+    public void lifecycleResume_opensCameraAndStreamsFrames() {
+        Observer<Long> mockObserver = Mockito.mock(Observer.class);
         mMainThreadHandler.post(new Runnable() {
             @Override
             public void run() {
@@ -135,24 +128,18 @@ public final class Camera2ImplCameraXTest {
                                 .build();
                 ImageAnalysis useCase = new ImageAnalysis(config);
                 CameraX.bindToLifecycle(mLifecycle, useCase);
-
                 useCase.setAnalyzer(mImageAnalyzer);
-                mAnalysisResult.observe(mLifecycle, createCountIncrementingObserver(observedCount));
+                mAnalysisResult.observe(mLifecycle, mockObserver);
 
                 mLifecycle.startAndResume();
             }
         });
-
-        // Wait a little bit for the camera to open and stream frames.
-        Thread.sleep(5000);
-
-        // Some frames should have been observed.
-        assertThat(observedCount.get()).isAtLeast(10L);
+        verify(mockObserver, timeout(5000).times(10)).onChanged(any());
     }
 
     @Test
     public void removedUseCase_doesNotStreamWhenLifecycleResumes() throws InterruptedException {
-        final AtomicLong observedCount = new AtomicLong(0);
+        Observer<Long> mockObserver = Mockito.mock(Observer.class);
         mMainThreadHandler.post(new Runnable() {
             @Override
             public void run() {
@@ -163,20 +150,15 @@ public final class Camera2ImplCameraXTest {
                 ImageAnalysis useCase = new ImageAnalysis(config);
                 CameraX.bindToLifecycle(mLifecycle, useCase);
                 useCase.setAnalyzer(mImageAnalyzer);
-                mAnalysisResult.observe(mLifecycle, createCountIncrementingObserver(observedCount));
-                assertThat(observedCount.get()).isEqualTo(0);
+                mAnalysisResult.observe(mLifecycle, mockObserver);
 
                 CameraX.unbind(useCase);
 
                 mLifecycle.startAndResume();
             }
         });
-
-        // Wait a little bit for the camera to open and stream frames.
-        Thread.sleep(5000);
-
         // No frames should have been observed.
-        assertThat(observedCount.get()).isEqualTo(0);
+        verify(mockObserver, never()).onChanged(any());
     }
 
     @Test
