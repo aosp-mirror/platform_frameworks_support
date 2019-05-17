@@ -67,6 +67,9 @@ public class MockPlayer extends SessionPlayer {
     public @ShuffleMode int mShuffleMode = -1;
     public VideoSize mVideoSize = new VideoSize(0, 0);
     public Surface mSurface;
+    public TrackInfo mSelectedVideoTrack;
+    public TrackInfo mSelectedAudioTrack;
+    public TrackInfo mSelectedSubtitleTrack;
 
     public boolean mSetPlaylistCalled;
     public boolean mUpdatePlaylistMetadataCalled;
@@ -263,6 +266,17 @@ public class MockPlayer extends SessionPlayer {
     }
 
     public void notifyTrackSelected(final TrackInfo trackInfo) {
+        switch (trackInfo.getTrackType()) {
+            case TrackInfo.MEDIA_TRACK_TYPE_VIDEO:
+                mSelectedVideoTrack = trackInfo;
+                break;
+            case TrackInfo.MEDIA_TRACK_TYPE_AUDIO:
+                mSelectedAudioTrack = trackInfo;
+                break;
+            case TrackInfo.MEDIA_TRACK_TYPE_SUBTITLE:
+                mSelectedSubtitleTrack = trackInfo;
+        }
+
         List<Pair<PlayerCallback, Executor>> callbacks = getCallbacks();
         for (Pair<PlayerCallback, Executor> pair : callbacks) {
             final PlayerCallback callback = pair.first;
@@ -534,6 +548,20 @@ public class MockPlayer extends SessionPlayer {
                 }
             });
         }
+    }
+
+    @Nullable
+    @Override
+    public TrackInfo getSelectedTrackInternal(int trackType) {
+        switch (trackType) {
+            case TrackInfo.MEDIA_TRACK_TYPE_VIDEO:
+                return mSelectedVideoTrack;
+            case TrackInfo.MEDIA_TRACK_TYPE_AUDIO:
+                return mSelectedAudioTrack;
+            case TrackInfo.MEDIA_TRACK_TYPE_SUBTITLE:
+                return mSelectedSubtitleTrack;
+        }
+        return null;
     }
 
     @Override

@@ -808,6 +808,7 @@ class MediaControllerImplLegacy implements MediaController.MediaControllerImpl {
         return createFutureWithResult(RESULT_ERROR_NOT_SUPPORTED);
     }
 
+    @Override
     @Nullable
     public List<SessionPlayer.TrackInfo> getTrackInfo() {
         Log.w(TAG, "Session doesn't support getting TrackInfo");
@@ -827,6 +828,13 @@ class MediaControllerImplLegacy implements MediaController.MediaControllerImpl {
             @NonNull SessionPlayer.TrackInfo trackInfo) {
         Log.w(TAG, "Session doesn't support deselecting track");
         return createFutureWithResult(RESULT_ERROR_NOT_SUPPORTED);
+    }
+
+    @Override
+    @Nullable
+    public SessionPlayer.TrackInfo getSelectedTrack(int trackType) {
+        Log.w(TAG, "Session doesn't support getting selected track");
+        return null;
     }
 
     @Override

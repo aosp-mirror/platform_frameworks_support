@@ -859,7 +859,7 @@ public abstract class SessionPlayer implements AutoCloseable {
     }
 
     /**
-     * TODO: Change this into getTrackInfo()
+     * TODO: Change this into getTrackInfo() (b/132928418)
      * @hide
      */
     @RestrictTo(LIBRARY_GROUP)
@@ -869,7 +869,7 @@ public abstract class SessionPlayer implements AutoCloseable {
     };
 
     /**
-     * TODO: Change this into selectTrack(TrackInfo)
+     * TODO: Change this into selectTrack(TrackInfo) (b/132928418)
      * @hide
      */
     @RestrictTo(LIBRARY_GROUP)
@@ -880,7 +880,7 @@ public abstract class SessionPlayer implements AutoCloseable {
     }
 
     /**
-     * TODO: Change this into deselectTrack(TrackInfo)
+     * TODO: Change this into deselectTrack(TrackInfo) (b/132928418)
      * @hide
      */
     @RestrictTo(LIBRARY_GROUP)
@@ -888,6 +888,17 @@ public abstract class SessionPlayer implements AutoCloseable {
     public ListenableFuture<PlayerResult> deselectTrackInternal(
             @NonNull TrackInfo trackInfo) {
         throw new UnsupportedOperationException("deselectTrackInternal is for internal use only.");
+    }
+
+    /**
+     * TODO: Change this into getSelectedTrack(int) (b/132928418)
+     * @hide
+     */
+    @RestrictTo(LIBRARY_GROUP)
+    @Nullable
+    public TrackInfo getSelectedTrackInternal(@TrackInfo.MediaTrackType int trackType) {
+        throw new UnsupportedOperationException(
+                "getSelectedTrackInternal is for internal use only.");
     }
 
     /**

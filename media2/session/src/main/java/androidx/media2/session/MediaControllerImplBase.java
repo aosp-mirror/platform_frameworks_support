@@ -160,6 +160,12 @@ class MediaControllerImplBase implements MediaControllerImpl {
     private VideoSize mVideoSize = new VideoSize(0, 0);
     @GuardedBy("mLock")
     private List<TrackInfo> mTrackInfos;
+    @GuardedBy("mLock")
+    private TrackInfo mSelectedVideoTrack;
+    @GuardedBy("mLock")
+    private TrackInfo mSelectedAudioTrack;
+    @GuardedBy("mLock")
+    private TrackInfo mSelectedSubtitleTrack;
 
     // Assignment should be used with the lock hold, but should be used without a lock to prevent
     // potential deadlock.
@@ -809,6 +815,22 @@ class MediaControllerImplBase implements MediaControllerImpl {
                 });
     }
 
+    @Nullable
+    @Override
+    public TrackInfo getSelectedTrack(int trackType) {
+        synchronized (mLock) {
+            switch (trackType) {
+                case TrackInfo.MEDIA_TRACK_TYPE_VIDEO:
+                    return mSelectedVideoTrack;
+                case TrackInfo.MEDIA_TRACK_TYPE_AUDIO:
+                    return mSelectedAudioTrack;
+                case TrackInfo.MEDIA_TRACK_TYPE_SUBTITLE:
+                    return mSelectedSubtitleTrack;
+            }
+        }
+        return null;
+    }
+
     @Override
     @NonNull
     public VideoSize getVideoSize() {
@@ -1122,9 +1144,15 @@ class MediaControllerImplBase implements MediaControllerImpl {
         });
     }
 
-    void notifyTrackInfoChanged(final int seq, final List<TrackInfo> trackInfos) {
+    void notifyTrackInfoChanged(final int seq, final List<TrackInfo> trackInfos,
+            TrackInfo selectedVideoTrack, TrackInfo selectedAudioTrack,
+            TrackInfo selectedSubtitleTrack) {
         synchronized (mLock) {
             mTrackInfos = trackInfos;
+            // Update selected tracks
+            mSelectedVideoTrack = selectedVideoTrack;
+            mSelectedAudioTrack = selectedAudioTrack;
+            mSelectedSubtitleTrack = selectedSubtitleTrack;
         }
 
         mInstance.notifyControllerCallback(new ControllerCallbackRunnable() {
@@ -1139,6 +1167,18 @@ class MediaControllerImplBase implements MediaControllerImpl {
     }
 
     void notifyTrackSelected(final int seq, final TrackInfo trackInfo) {
+        synchronized (mLock) {
+            switch (trackInfo.getTrackType()) {
+                case TrackInfo.MEDIA_TRACK_TYPE_VIDEO:
+                    mSelectedVideoTrack = trackInfo;
+                    break;
+                case TrackInfo.MEDIA_TRACK_TYPE_AUDIO:
+                    mSelectedAudioTrack = trackInfo;
+                    break;
+                case TrackInfo.MEDIA_TRACK_TYPE_SUBTITLE:
+                    mSelectedSubtitleTrack = trackInfo;
+            }
+        }
         mInstance.notifyControllerCallback(new ControllerCallbackRunnable() {
             @Override
             public void run(@NonNull ControllerCallback callback) {
@@ -1151,6 +1191,14 @@ class MediaControllerImplBase implements MediaControllerImpl {
     }
 
     void notifyTrackDeselected(final int seq, final TrackInfo trackInfo) {
+        synchronized (mLock) {
+            // Only subtitle tracks can be deselected.
+            if (trackInfo.getTrackType() == TrackInfo.MEDIA_TRACK_TYPE_SUBTITLE) {
+                if (mSelectedSubtitleTrack != null && mSelectedSubtitleTrack.equals(trackInfo)) {
+                    mSelectedSubtitleTrack = null;
+                }
+            }
+        }
         mInstance.notifyControllerCallback(new ControllerCallbackRunnable() {
             @Override
             public void run(@NonNull ControllerCallback callback) {
@@ -1193,7 +1241,10 @@ class MediaControllerImplBase implements MediaControllerImpl {
             final int nextMediaItemIndex,
             final Bundle tokenExtras,
             final VideoSize videoSize,
-            final List<TrackInfo> trackInfos) {
+            final List<TrackInfo> trackInfos,
+            final TrackInfo selectedVideoTrack,
+            final TrackInfo selectedAudioTrack,
+            final TrackInfo selectedSubtitleTrack) {
         if (DEBUG) {
             Log.d(TAG, "onConnectedNotLocked sessionBinder=" + sessionBinder
                     + ", allowedCommands=" + allowedCommands);
@@ -1234,6 +1285,9 @@ class MediaControllerImplBase implements MediaControllerImpl {
                 mNextMediaItemIndex = nextMediaItemIndex;
                 mVideoSize = videoSize;
                 mTrackInfos = trackInfos;
+                mSelectedVideoTrack = selectedVideoTrack;
+                mSelectedAudioTrack = selectedAudioTrack;
+                mSelectedSubtitleTrack = selectedSubtitleTrack;
                 try {
                     // Implementation for the local binder is no-op,
                     // so can be used without worrying about deadlock.
