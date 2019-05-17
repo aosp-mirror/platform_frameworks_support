@@ -119,14 +119,11 @@ public final class CameraXTest {
     }
 
     @After
-    public void tearDown() throws InterruptedException {
+    public void tearDown() {
         CameraX.unbindAll();
         mHandlerThread.quitSafely();
-
-        // Wait some time for the cameras to close. We need the cameras to close to bring CameraX
-        // back
-        // to the initial state.
-        Thread.sleep(3000);
+        // Thread.sleep() seems unnecessary, because there is no open and close camera action in
+        // these test cases.
     }
 
     @Test
