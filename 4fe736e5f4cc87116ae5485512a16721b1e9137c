@@ -109,6 +109,24 @@
     },
     {
       "key": {
+        "uuid": "96f4bf21_94f5e30b",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 1272573
+      },
+      "writtenOn": "2019-05-17T01:18:41Z",
+      "side": 1,
+      "message": "I think ProGuard has a pass that removes enum names if they\u0027re not accessed (and, I think, converts them to ints?), which is somewhat desirable to minimize binary size.",
+      "parentUuid": "52ed8aeb_0034135c",
+      "revId": "4fe736e5f4cc87116ae5485512a16721b1e9137c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4b075216_4e1736cb",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
         "patchSetId": 4
