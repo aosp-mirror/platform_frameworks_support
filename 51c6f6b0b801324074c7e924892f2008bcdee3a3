@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "6bd184a6_813265f6",
+        "filename": "benchmark/src/main/AndroidManifest.xml",
+        "patchSetId": 8
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-05-17T17:07:58Z",
+      "side": 1,
+      "message": "Added a comment!",
+      "parentUuid": "386f82ad_3261c639",
+      "revId": "51c6f6b0b801324074c7e924892f2008bcdee3a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "80154d13_03ed01bd",
         "filename": "benchmark/src/main/AndroidManifest.xml",
         "patchSetId": 8
@@ -30,6 +48,24 @@
       "writtenOn": "2019-05-17T15:56:12Z",
       "side": 1,
       "message": "add a listener to the androidTest dir too, to ensure they both get used correctly\n\nshould have a test to verify both runlisteners are being used",
+      "revId": "51c6f6b0b801324074c7e924892f2008bcdee3a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70a226a1_4f9d1499",
+        "filename": "benchmark/src/main/AndroidManifest.xml",
+        "patchSetId": 8
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-05-17T17:07:58Z",
+      "side": 1,
+      "message": "Well it looks like run listeners don\u0027t compose, so do we want to revert back to writing many times? The file write is probably not expensive enough to warrant this even though RunListener is probably not a commonly used thing.",
+      "parentUuid": "80154d13_03ed01bd",
       "revId": "51c6f6b0b801324074c7e924892f2008bcdee3a3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "408b1cda_acd5e638",
+        "filename": "benchmark/src/main/java/androidx/benchmark/BenchmarkRunListener.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-05-17T17:07:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "582bfa06_3fc408bc",
+      "revId": "51c6f6b0b801324074c7e924892f2008bcdee3a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "46dc6fab_d26e9f68",
         "filename": "benchmark/src/main/java/androidx/benchmark/BenchmarkRunListener.kt",
         "patchSetId": 8
@@ -67,6 +121,24 @@
       "revId": "51c6f6b0b801324074c7e924892f2008bcdee3a3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d765939a_cf789ff7",
+        "filename": "benchmark/src/main/java/androidx/benchmark/BenchmarkRunListener.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-05-17T17:07:58Z",
+      "side": 1,
+      "message": "Yes! Also the docs for this method describe result containing failures if any.",
+      "parentUuid": "46dc6fab_d26e9f68",
+      "revId": "51c6f6b0b801324074c7e924892f2008bcdee3a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -93,6 +165,30 @@
     },
     {
       "key": {
+        "uuid": "97c001fc_88666027",
+        "filename": "benchmark/src/main/java/androidx/benchmark/BenchmarkRunListener.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-05-17T17:07:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eca2eb4d_c971cf8b",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 41
+      },
+      "revId": "51c6f6b0b801324074c7e924892f2008bcdee3a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c0c02e42_a61a7e71",
         "filename": "benchmark/src/main/java/androidx/benchmark/ResultWriter.kt",
         "patchSetId": 8
@@ -107,6 +203,24 @@
       "revId": "51c6f6b0b801324074c7e924892f2008bcdee3a3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc6ad2aa_ff1fd4fe",
+        "filename": "benchmark/src/main/java/androidx/benchmark/ResultWriter.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-05-17T17:07:58Z",
+      "side": 1,
+      "message": "Patched in a diff from here: https://android-review.googlesource.com/c/platform/frameworks/support/+/962871",
+      "parentUuid": "c0c02e42_a61a7e71",
+      "revId": "51c6f6b0b801324074c7e924892f2008bcdee3a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
