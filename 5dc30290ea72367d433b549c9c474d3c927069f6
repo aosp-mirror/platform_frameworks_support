@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "3aafc3f6_6d665ab3",
+        "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/ComplexGestureDetetorInteractionsDemo.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-05-17T00:08:19Z",
+      "side": 1,
+      "message": "How about RepeatingList",
+      "parentUuid": "4c9b0e99_44a772f0",
+      "range": {
+        "startLine": 57,
+        "startChar": 19,
+        "endLine": 57,
+        "endChar": 28
+      },
+      "revId": "5dc30290ea72367d433b549c9c474d3c927069f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3065ebb8_4958d803",
         "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/ComplexGestureDetetorInteractionsDemo.kt",
         "patchSetId": 2
@@ -93,6 +117,30 @@
       "revId": "5dc30290ea72367d433b549c9c474d3c927069f6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1681f0e_e44e48e4",
+        "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/ComplexGestureDetetorInteractionsDemo.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-05-17T00:08:19Z",
+      "side": 1,
+      "message": "SGTM",
+      "parentUuid": "436e9be9_8555bbae",
+      "range": {
+        "startLine": 63,
+        "startChar": 36,
+        "endLine": 63,
+        "endChar": 71
+      },
+      "revId": "5dc30290ea72367d433b549c9c474d3c927069f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -178,6 +226,30 @@
       "side": 1,
       "message": "Hmm, I see what you mean.  Code wise, this GestureDetector isn\u0027t intended to actually derive the users\u0027s intent (like click, drag, scale, etc) but instead simply maps input to events useful to the developer: in this case, to show the user press indication feedback.\n\nIt has been useful to the material team because they have been able to seperate out code in their composition between the thing that responds by actually clicking (and may carry semantics) and the thing that shows that something is being pressed (which is not important for semantics).  \n\nDuly noted, but yeah, let\u0027s not address in this CL.  :)",
       "parentUuid": "707b7f99_8403d364",
+      "range": {
+        "startLine": 165,
+        "startChar": 4,
+        "endLine": 165,
+        "endChar": 33
+      },
+      "revId": "5dc30290ea72367d433b549c9c474d3c927069f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64fa83f1_a2b1efa3",
+        "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/ComplexGestureDetetorInteractionsDemo.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-05-17T00:08:19Z",
+      "side": 1,
+      "message": "I agree that this impl is useful for the material team. \nBut I\u0027m seeing two issues here: \n\n1) If this is not really a gesture detector, should it live in the GestureDetector package? \n\n2) Should external developers be able to build something like this using purely public callbacks from the GestureDetector API? If not, we need to revisit the APIs we have. \n\nThe bottom line is, there shouldn\u0027t be a particular type of gesture detector tailored to the current material spec (a.k.a one use case). What happens when material changes its spec? The APIs need to be generic enough to handle different use cases. A specific impl for a targeted use case should live outside of gesture package and done via public APIs.",
+      "parentUuid": "00e9ad8c_564746f6",
       "range": {
         "startLine": 165,
         "startChar": 4,
