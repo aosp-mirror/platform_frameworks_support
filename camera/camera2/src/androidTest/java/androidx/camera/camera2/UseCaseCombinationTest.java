@@ -119,7 +119,7 @@ public final class UseCaseCombinationTest {
             // Wait some time for the cameras to close.
             // We need the cameras to close to bring CameraX
             // back to the initial state.
-            Thread.sleep(3000);
+//            Thread.sleep(3000);
         }
     }
 

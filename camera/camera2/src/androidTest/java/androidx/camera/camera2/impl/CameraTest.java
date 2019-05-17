@@ -113,7 +113,7 @@ public final class CameraTest {
 
         // Wait a little bit for the camera device to close.
         // TODO(b/111991758): Listen for the close signal when it becomes available.
-        Thread.sleep(2000);
+//        Thread.sleep(2000);
 
         if (mFakeUseCase != null) {
             mFakeUseCase.close();
