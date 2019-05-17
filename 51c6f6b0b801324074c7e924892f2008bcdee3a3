@@ -72,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "282bdc33_50aeb1a6",
+        "filename": "benchmark/src/main/AndroidManifest.xml",
+        "patchSetId": 8
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-05-17T17:45:38Z",
+      "side": 1,
+      "message": "Yeah, let\u0027s do that. Better to be a little wasteful than break a use case.",
+      "parentUuid": "70a226a1_4f9d1499",
+      "revId": "51c6f6b0b801324074c7e924892f2008bcdee3a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "582bfa06_3fc408bc",
         "filename": "benchmark/src/main/java/androidx/benchmark/BenchmarkRunListener.kt",
         "patchSetId": 8
@@ -218,6 +236,24 @@
       "side": 1,
       "message": "Patched in a diff from here: https://android-review.googlesource.com/c/platform/frameworks/support/+/962871",
       "parentUuid": "c0c02e42_a61a7e71",
+      "revId": "51c6f6b0b801324074c7e924892f2008bcdee3a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1fb539fc_3c8ca193",
+        "filename": "benchmark/src/main/java/androidx/benchmark/ResultWriter.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-05-17T17:45:38Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "fc6ad2aa_ff1fd4fe",
       "revId": "51c6f6b0b801324074c7e924892f2008bcdee3a3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
