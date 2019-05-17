@@ -376,7 +376,7 @@ class MediaControllerStub extends IMediaController.Stub {
                     Log.w(TAG, "onAllowedCommandsChanged(): Ignoring null commands");
                     return;
                 }
-                controller.onAllowedCommandsChanged(commandGroup);
+                controller.notifyAllowedCommandsChanged(commandGroup);
             }
         });
     }
