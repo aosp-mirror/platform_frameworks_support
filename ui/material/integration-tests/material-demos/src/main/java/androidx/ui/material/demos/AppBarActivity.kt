@@ -19,12 +19,14 @@ package androidx.ui.material.demos
 import android.app.Activity
 import android.os.Bundle
 import androidx.compose.Composable
-import androidx.compose.setContent
 import androidx.compose.composer
+import androidx.compose.setContent
+import androidx.compose.state
 import androidx.compose.unaryPlus
 import androidx.ui.core.CraneWrapper
 import androidx.ui.core.Text
 import androidx.ui.core.dp
+import androidx.ui.core.gesture.PressGestureDetector
 import androidx.ui.layout.Column
 import androidx.ui.layout.HeightSpacer
 import androidx.ui.material.MaterialTheme
@@ -47,6 +49,7 @@ class AppBarActivity : Activity() {
 
 @Composable
 fun AppBarDemo() {
+    val toState = +state { false }
     Column {
         TopAppBar(title = "Default")
         HeightSpacer(height = 24.dp)
@@ -58,5 +61,12 @@ fun AppBarDemo() {
         TopAppBar(icons = listOf(24.dp, 24.dp))
         HeightSpacer(height = 24.dp)
         TopAppBar(title = "Too many icons", icons = listOf(24.dp, 24.dp, 24.dp, 24.dp))
+        HeightSpacer(height = 24.dp)
+        // TODO: This should be replaced with gesture based animation
+        PressGestureDetector(
+            onRelease = { toState.value = !toState.value }
+        ) {
+            TopAppBar(title = "Expandable", icons = listOf(24.dp, 24.dp), expanded = toState.value)
+        }
     }
 }
