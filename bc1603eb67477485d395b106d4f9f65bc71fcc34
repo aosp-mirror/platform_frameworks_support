@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4bf96c33_c87bbc25",
+        "filename": "mediarouter/src/main/res/layout/mr_controller_material_dialog_b.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-05-17T05:32:50Z",
+      "side": 1,
+      "message": "Q) what did it look like in \u003c17 without this?",
+      "range": {
+        "startLine": 39,
+        "startChar": 55,
+        "endLine": 39,
+        "endChar": 60
+      },
+      "revId": "bc1603eb67477485d395b106d4f9f65bc71fcc34",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
