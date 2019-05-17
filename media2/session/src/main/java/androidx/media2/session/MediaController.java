@@ -52,6 +52,7 @@ import androidx.media2.common.Rating;
 import androidx.media2.common.SessionPlayer;
 import androidx.media2.common.SessionPlayer.RepeatMode;
 import androidx.media2.common.SessionPlayer.ShuffleMode;
+import androidx.media2.common.SessionPlayer.TrackInfo;
 import androidx.media2.common.SubtitleData;
 import androidx.media2.common.VideoSize;
 import androidx.media2.session.MediaSession.CommandButton;
@@ -1126,7 +1127,7 @@ public class MediaController implements AutoCloseable {
      */
     @RestrictTo(LIBRARY_GROUP)
     @Nullable
-    public List<SessionPlayer.TrackInfo> getTrackInfo() {
+    public List<TrackInfo> getTrackInfo() {
         return isConnected() ? getImpl().getTrackInfo() : null;
     }
 
@@ -1139,7 +1140,7 @@ public class MediaController implements AutoCloseable {
      */
     @RestrictTo(LIBRARY_GROUP)
     @NonNull
-    public ListenableFuture<SessionResult> selectTrack(SessionPlayer.TrackInfo trackInfo) {
+    public ListenableFuture<SessionResult> selectTrack(TrackInfo trackInfo) {
         return isConnected() ? getImpl().selectTrack(trackInfo) : createDisconnectedFuture();
     }
 
@@ -1152,8 +1153,32 @@ public class MediaController implements AutoCloseable {
      */
     @RestrictTo(LIBRARY_GROUP)
     @NonNull
-    public ListenableFuture<SessionResult> deselectTrack(SessionPlayer.TrackInfo trackInfo) {
+    public ListenableFuture<SessionResult> deselectTrack(TrackInfo trackInfo) {
         return isConnected() ? getImpl().deselectTrack(trackInfo) : createDisconnectedFuture();
+    }
+
+    /**
+     * Gets the currently selected track for the given {@link TrackInfo.MediaTrackType}. The return
+     * value is an element in the list returned by {@link #getTrackInfo()} and supported track types
+     * may vary based on the player implementation.
+     *
+     * The returned value can be outdated after
+     * {@link ControllerCallback#onTrackInfoChanged(MediaController, List)},
+     * {@link ControllerCallback#onTrackSelected(MediaController, TrackInfo)},
+     * or {@link ControllerCallback#onTrackDeselected(MediaController, TrackInfo)} is called.
+     *
+     * If it is not connected yet, it returns null.
+     *
+     * @param trackType type of selected track
+     * @return selected track info
+     *
+     * @hide
+     */
+    // TODO: revise the method document once subtitle track support is re-enabled. (b/130312596)
+    @RestrictTo(LIBRARY_GROUP)
+    @Nullable
+    public TrackInfo getSelectedTrack(@TrackInfo.MediaTrackType int trackType) {
+        return isConnected() ? getImpl().getSelectedTrack(trackType) : null;
     }
 
     /**
@@ -1355,9 +1380,10 @@ public class MediaController implements AutoCloseable {
         ListenableFuture<SessionResult> setShuffleMode(@ShuffleMode int shuffleMode);
         @NonNull VideoSize getVideoSize();
         ListenableFuture<SessionResult> setSurface(@Nullable Surface surface);
-        @NonNull List<SessionPlayer.TrackInfo> getTrackInfo();
-        ListenableFuture<SessionResult> selectTrack(SessionPlayer.TrackInfo trackInfo);
-        ListenableFuture<SessionResult> deselectTrack(SessionPlayer.TrackInfo trackInfo);
+        @NonNull List<TrackInfo> getTrackInfo();
+        ListenableFuture<SessionResult> selectTrack(TrackInfo trackInfo);
+        ListenableFuture<SessionResult> deselectTrack(TrackInfo trackInfo);
+        @Nullable TrackInfo getSelectedTrack(@TrackInfo.MediaTrackType int trackType);
         @Nullable SessionCommandGroup getAllowedCommands();
 
         // Internally used methods
@@ -1802,8 +1828,7 @@ public class MediaController implements AutoCloseable {
          * @hide
          */
         @RestrictTo(LIBRARY_GROUP)
-        public void onTrackInfoChanged(MediaController controller,
-                List<SessionPlayer.TrackInfo> trackInfos) {}
+        public void onTrackInfoChanged(MediaController controller, List<TrackInfo> trackInfos) {}
 
         /**
          * Called when a track info is selected.
@@ -1813,8 +1838,7 @@ public class MediaController implements AutoCloseable {
          * @hide
          */
         @RestrictTo(LIBRARY_GROUP)
-        public void onTrackSelected(MediaController controller,
-                SessionPlayer.TrackInfo trackInfo) {}
+        public void onTrackSelected(MediaController controller, TrackInfo trackInfo) {}
 
         /**
          * Called when a track info is deselected.
@@ -1824,8 +1848,7 @@ public class MediaController implements AutoCloseable {
          * @hide
          */
         @RestrictTo(LIBRARY_GROUP)
-        public void onTrackDeselected(MediaController controller,
-                SessionPlayer.TrackInfo trackInfo) {}
+        public void onTrackDeselected(MediaController controller, TrackInfo trackInfo) {}
 
         /**
          * Called when the subtitle track has new subtitle data available.
@@ -1838,7 +1861,7 @@ public class MediaController implements AutoCloseable {
          */
         @RestrictTo(LIBRARY_GROUP)
         public void onSubtitleData(@NonNull MediaController controller, @NonNull MediaItem item,
-                @NonNull SessionPlayer.TrackInfo track, @NonNull SubtitleData data) {}
+                @NonNull TrackInfo track, @NonNull SubtitleData data) {}
     }
 
     /**
