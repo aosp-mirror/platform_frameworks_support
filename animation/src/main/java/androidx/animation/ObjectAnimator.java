@@ -49,12 +49,10 @@ import java.lang.ref.WeakReference;
  * keyframe. When no interpolator is supplied, the default {@link AccelerateDecelerateInterpolator}
  * will be used. </p>
  *
- * <div class="special reference">
  * <h3>Developer Guides</h3>
  * <p>For more information about animating with {@code ObjectAnimator}, read the
  * <a href="{@docRoot}guide/topics/graphics/prop-animation.html#object-animator">Property
  * Animation</a> developer guide.</p>
- * </div>
  *
  * @see #setPropertyName(String)
  *

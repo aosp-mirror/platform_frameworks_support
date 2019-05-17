@@ -32,11 +32,9 @@ import androidx.core.view.accessibility.AccessibilityNodeInfoCompat.CollectionIt
  * A container that is used to group similar {@link Preference}s. A PreferenceCategory displays a
  * category title and visually separates groups of Preferences.
  *
- * <div class="special reference">
  * <h3>Developer Guides</h3>
  * <p>For information about building a settings screen using the AndroidX Preference library, see
  * <a href="{@docRoot}guide/topics/ui/settings.html">Settings</a>.</p>
- * </div>
  */
 public class PreferenceCategory extends PreferenceGroup {
 

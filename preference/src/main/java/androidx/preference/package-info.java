@@ -18,11 +18,9 @@
  * The Preference library allows you to build interactive settings screens, without needing to
  * handle interacting with device storage or managing the user interface.
  *
- * <div class="special reference">
  * <h3>Developer Guides</h3>
  * <p>For information about building a settings screen using the AndroidX Preference library, see
  * <a href="{@docRoot}guide/topics/ui/settings.html">Settings</a>.</p>
- * </div>
  */
 
 package androidx.preference;

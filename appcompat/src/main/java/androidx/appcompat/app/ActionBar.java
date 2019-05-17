@@ -82,12 +82,10 @@ import java.lang.annotation.RetentionPolicy;
  * same space, the {@link ActionMode} APIs are distinct and independent from those for
  * {@link ActionBar}.</p>
  *
- * <div class="special reference">
  * <h3>Developer Guides</h3>
  * <p>For information about how to use the action bar, including how to add action items, navigation
  * modes and more, read the <a href="{@docRoot}guide/topics/ui/actionbar.html">Action
  * Bar</a> developer guide.</p>
- * </div>
  */
 public abstract class ActionBar {
 
