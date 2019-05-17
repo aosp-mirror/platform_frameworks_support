@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "699d5129_05179f71",
+        "filename": "autofill/src/main/java/androidx/autofill/HintConstants.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1490388
+      },
+      "writtenOn": "2019-05-17T18:01:15Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "4a0113c4_fa801e13",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 11
+      },
+      "revId": "c8d25301bea628804fcff97d50d7b0d70c8bb8ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6e1129ad_98712f74",
         "filename": "autofill/src/main/java/androidx/autofill/HintConstants.java",
         "patchSetId": 7
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "7686d24d_370f3d4d",
+        "filename": "autofill/src/main/java/androidx/autofill/HintConstants.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1490388
+      },
+      "writtenOn": "2019-05-17T18:01:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6e1129ad_98712f74",
+      "range": {
+        "startLine": 270,
+        "startChar": 72,
+        "endLine": 270,
+        "endChar": 80
+      },
+      "revId": "c8d25301bea628804fcff97d50d7b0d70c8bb8ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "07a8e0e3_2705bd10",
         "filename": "autofill/src/main/java/androidx/autofill/HintConstants.java",
         "patchSetId": 7
@@ -59,6 +107,30 @@
       "writtenOn": "2019-05-17T00:02:40Z",
       "side": 1,
       "message": "I think we should call out (like AUTOFILL_HINT_POSTAL_ADDRESS_EXTENDED_ADDRESS) that this is for the auxiliary postal code. The DDDD in XXXXX-DDDD (for the US, not sure what it looks like for other countries)",
+      "range": {
+        "startLine": 306,
+        "startChar": 55,
+        "endLine": 306,
+        "endChar": 79
+      },
+      "revId": "c8d25301bea628804fcff97d50d7b0d70c8bb8ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e060a006_3e4e73ab",
+        "filename": "autofill/src/main/java/androidx/autofill/HintConstants.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 1490388
+      },
+      "writtenOn": "2019-05-17T18:01:15Z",
+      "side": 1,
+      "message": "Done. Also went through https://en.wikipedia.org/wiki/List_of_postal_codes, looks like two separate fields should cover all the countries listed there.",
+      "parentUuid": "07a8e0e3_2705bd10",
       "range": {
         "startLine": 306,
         "startChar": 55,
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "fdca0126_9d28ccb9",
+        "filename": "autofill/src/main/java/androidx/autofill/HintConstants.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 465,
+      "author": {
+        "id": 1490388
+      },
+      "writtenOn": "2019-05-17T18:01:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9e98f0f8_4a4f730b",
+      "range": {
+        "startLine": 465,
+        "startChar": 68,
+        "endLine": 465,
+        "endChar": 69
+      },
+      "revId": "c8d25301bea628804fcff97d50d7b0d70c8bb8ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "23d9fedb_bc9d0540",
         "filename": "autofill/src/main/java/androidx/autofill/HintConstants.java",
         "patchSetId": 7
@@ -114,6 +210,30 @@
       "revId": "c8d25301bea628804fcff97d50d7b0d70c8bb8ad",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2047db6_b3663eab",
+        "filename": "autofill/src/main/java/androidx/autofill/HintConstants.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 493,
+      "author": {
+        "id": 1490388
+      },
+      "writtenOn": "2019-05-17T18:01:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "23d9fedb_bc9d0540",
+      "range": {
+        "startLine": 493,
+        "startChar": 7,
+        "endLine": 493,
+        "endChar": 79
+      },
+      "revId": "c8d25301bea628804fcff97d50d7b0d70c8bb8ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
