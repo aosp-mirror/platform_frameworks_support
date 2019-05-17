@@ -352,7 +352,7 @@ limitations under the License.
     </style>
 
     <!-- The styling for Toolbar used as action bar. -->
-    <style name="Widget.Car.Toolbar" parent="Widget.AppCompat.Toolbar">
+    <style name="Widget.Car.Toolbar" parent="Widget.MaterialComponents.Toolbar">
         <item name="android:minHeight">?attr/actionBarSize</item>
         <item name="background">@color/car_card</item>
         <item name="contentInsetEnd">@dimen/car_keyline_1</item>
@@ -413,9 +413,10 @@ limitations under the License.
     </style>
 
     <!-- The style for the regular buttons. -->
-    <style name="Widget.Car.Button" parent="Widget.AppCompat.Button">
+    <style name="Widget.Car.Button" parent="Widget.MaterialComponents.Button">
         <item name="android:fadingEdgeLength">@dimen/car_button_fading_edge_length</item>
         <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textAppearance">@style/TextAppearance.Car.Body3.Medium</item>>
         <item name="android:ellipsize">none</item>
         <item name="android:layout_height">@dimen/car_button_height</item>
         <item name="android:maxEms">@integer/car_button_max_ems</item>
