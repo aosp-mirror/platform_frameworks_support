@@ -16,6 +16,24 @@
       "revId": "6f32f7ddc57693710d8a346ab07d7a6a2fab450a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b951857_396baa09",
+        "filename": "media2/session/src/main/java/androidx/media2/session/SessionToken.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-05-17T05:50:03Z",
+      "side": 0,
+      "message": "Since it is already done.",
+      "parentUuid": "c7fb9854_3cb0be33",
+      "revId": "6f32f7ddc57693710d8a346ab07d7a6a2fab450a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
