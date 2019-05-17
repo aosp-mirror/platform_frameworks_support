@@ -21,6 +21,11 @@ import android.view.PixelCopy
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
+import androidx.compose.Children
+import androidx.compose.Composable
+import androidx.compose.Model
+import androidx.compose.composer
+import androidx.compose.setContent
 import androidx.test.filters.SmallTest
 import androidx.test.rule.ActivityTestRule
 import androidx.ui.core.AndroidCraneView
@@ -30,6 +35,7 @@ import androidx.ui.core.Draw
 import androidx.ui.core.IntPx
 import androidx.ui.core.Layout
 import androidx.ui.core.ParentData
+import androidx.ui.core.PxSize
 import androidx.ui.core.Ref
 import androidx.ui.core.WithConstraints
 import androidx.ui.core.coerceAtLeast
@@ -40,20 +46,19 @@ import androidx.ui.core.toRect
 import androidx.ui.engine.geometry.Rect
 import androidx.ui.framework.test.TestActivity
 import androidx.ui.graphics.Color
+import androidx.ui.painting.Canvas
 import androidx.ui.painting.Paint
-import androidx.compose.Children
-import androidx.compose.Composable
-import androidx.compose.Model
-import androidx.compose.composer
-import androidx.compose.setContent
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
+import org.junit.Assert.fail
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 import java.util.concurrent.CountDownLatch
+import java.util.concurrent.Semaphore
 import java.util.concurrent.TimeUnit
 
 /**
@@ -392,7 +397,6 @@ class AndroidLayoutDrawTest {
         var measureCalls = 0
         var layoutCalls = 0
 
-        val layoutLatch = CountDownLatch(2)
         runOnUiThread {
             activity.setContent {
                 CraneWrapper {
@@ -414,7 +418,6 @@ class AndroidLayoutDrawTest {
                         measureCalls++
                         layout(30.ipx, 30.ipx) {
                             layoutCalls++
-                            layoutLatch.countDown()
                             val placeable = measurables[0].measure(constraints)
                             placeable.place(
                                 (30.ipx - placeable.width) / 2,
@@ -425,7 +428,6 @@ class AndroidLayoutDrawTest {
                 }
             }
         }
-        assertTrue(layoutLatch.await(1, TimeUnit.SECONDS))
 
         validateSquareColors(outerColor = blue, innerColor = white, size = 10)
 
@@ -523,6 +525,112 @@ class AndroidLayoutDrawTest {
             assertEquals(i <= 3, measured[i].value ?: false)
             assertEquals(i <= 2, laidOut[i].value ?: false)
             assertEquals(i <= 2, drawn[i].value ?: false)
+        }
+    }
+
+    @Test
+    fun testLayoutAndDraw_haveMinimalNumberOfPasses() {
+        @Composable
+        fun CountingLayout(
+            measureLatch: ExactCountDownLatch,
+            layoutLatch: ExactCountDownLatch,
+            @Children children: @Composable() () -> Unit
+        ) {
+            Layout(children) { measurables, constraints ->
+                measureLatch.countDown()
+                val placeable = measurables.firstOrNull()?.measure(constraints)
+                layout(
+                    placeable?.width ?: constraints.maxWidth,
+                    placeable?.height ?: constraints.maxHeight
+                ) {
+                    layoutLatch.countDown()
+                    placeable?.place(0.ipx, 0.ipx)
+                }
+            }
+        }
+        @Composable
+        fun CountingDraw(
+            drawLatch: ExactCountDownLatch,
+            @Children(composable = false) paint: (canvas: Canvas, parentSize: PxSize) -> Unit
+        ) {
+            Draw { canvas, parentSize ->
+                drawLatch.countDown()
+                paint(canvas, parentSize)
+            }
+        }
+
+        val drawModel = SquareModel()
+        val layoutModel = SquareModel()
+        val latches = Array(6) { ExactCountDownLatch(1) }
+
+        runOnUiThread {
+            activity.setContent {
+                CraneWrapper {
+                    CountingDraw(latches[0]) { canvas, parentSize ->
+                        val paint = Paint().apply { color = drawModel.outerColor }
+                        canvas.drawRect(parentSize.toRect(), paint)
+                    }
+                    CountingLayout(latches[1], latches[2]) {
+                        layoutModel.size
+                        CountingLayout(latches[3], latches[4]) {
+                            CountingDraw(latches[5]) { canvas, parentSize ->
+                                drawLatch.countDown()
+                                val paint = Paint()
+                                paint.color = drawModel.innerColor
+                                canvas.drawRect(parentSize.toRect(), paint)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        // There should be exactly one measurement, layout and draw.
+        latches.forEach {
+            assertTrue(it.await(1, TimeUnit.SECONDS))
+            it.countUp()
+        }
+
+        // Change the draw model and expect redrawing only.
+        runOnUiThread { drawModel.size = 20.ipx }
+        latches.forEachIndexed { index, latch ->
+            val isDrawLatch = index == 0 || index == 5
+            assertEquals(isDrawLatch, latch.await(1, TimeUnit.SECONDS))
+            if (isDrawLatch) latch.countUp()
+        }
+
+        // Change the layout model and expect both layout and redrawing.
+        runOnUiThread { layoutModel.size = 20.ipx }
+        latches.forEach {
+            assertTrue(it.await(1, TimeUnit.SECONDS))
+            it.countUp()
+        }
+
+        // There should be no layout or draw pass as the invalidation is external.
+        runOnUiThread { activity.window.decorView.invalidate() }
+        latches.forEach { assertFalse(it.await(1, TimeUnit.SECONDS)) }
+
+        // Keep the test alive for a bit in case unexpected count downs arrive.
+        try { Thread.sleep(1000) } catch (e: Exception) { }
+    }
+
+    /**
+     * A [CountDownLatch] implementation which throws if countDown
+     * is executed when count is already 0.
+     */
+    private class ExactCountDownLatch(val count: Int) {
+        val semaphore = Semaphore(0)
+        fun countDown() {
+            if (semaphore.availablePermits() >= count) fail("The latch would have a negative count")
+            semaphore.release()
+        }
+        fun countUp() {
+            semaphore.acquire()
+        }
+        fun await(timeout: Long, unit: TimeUnit): Boolean {
+            val result = semaphore.tryAcquire(timeout, unit)
+            if (result) semaphore.release()
+            return result
         }
     }
 

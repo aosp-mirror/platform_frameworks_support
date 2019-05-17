@@ -17,6 +17,7 @@ package androidx.ui.core
 
 import android.annotation.TargetApi
 import android.content.Context
+import android.graphics.Bitmap
 import android.os.Build
 import android.view.MotionEvent
 import android.view.View
@@ -39,7 +40,7 @@ class AndroidCraneView constructor(context: Context)
     : ViewGroup(context), Owner, SemanticsTreeProvider {
 
     val root = LayoutNode()
-    private val relayoutNodes = mutableSetOf<LayoutNode>()
+    private val relayoutNodes = hashSetOf<LayoutNode>()
     private val modelToNodes = mutableMapOf<Any, MutableSet<ComponentNode>>()
     private val nodeToModels = mutableMapOf<ComponentNode, MutableSet<Any>>()
 
@@ -88,6 +89,12 @@ class AndroidCraneView constructor(context: Context)
         }
     }
 
+    // Whether we have requestedLayout() from the View system, and it has not happened yet.
+    private var pendingLayoutPass = false
+    // Whether we have invalidated() AndroidCraneView, and the draw has not happened yet.
+    private var pendingDraw = false
+    private var cachedDraw: Bitmap? = null
+
     init {
         setWillNotDraw(false)
         // TODO(mount): How do I unregister?
@@ -122,30 +129,40 @@ class AndroidCraneView constructor(context: Context)
 //        }
     }
 
+    override fun requestLayout() {
+        pendingLayoutPass = true
+        super.requestLayout()
+    }
+
+    override fun invalidate() {
+        pendingDraw = true
+        super.invalidate()
+    }
+
     override fun onRequestLayout(layoutNode: LayoutNode) {
-        // find root of layout request:
         layoutNode.needsRemeasure = true
 
-        var layout = layoutNode
-        while (layout.parentLayoutNode != null && layout.affectsParentSize) {
-            layout = layout.parentLayoutNode!!
-            layout.needsRemeasure = true
+        // Find root of layout request.
+        var node = layoutNode
+        while (node.affectsParentSize) {
+            val parent = node.parentLayoutNode!!
+            if (parent.needsRemeasure) break
+            parent.needsRemeasure = true
+            node = parent
         }
 
-        relayoutNodes += layout
+        if (node in relayoutNodes) return
+        relayoutNodes += node
 
-        if (layout == root) {
+        if (node == root) {
             requestLayout()
         } else {
-            postOnAnimation {
-                measureAndLayout()
-            }
+            postOnAnimation { measureAndLayout() }
         }
     }
 
     override fun onAttach(node: ComponentNode) {
         if (node.ownerData != null) throw IllegalStateException()
-
         requestLayout()
     }
 
@@ -173,7 +190,6 @@ class AndroidCraneView constructor(context: Context)
             }
             relayoutNodes.clear()
         }
-        invalidate()
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -185,14 +201,15 @@ class AndroidCraneView constructor(context: Context)
             targetHeight.min, targetHeight.max
         )
 
-        if (this.constraints != constraints) {
+        if (this.constraints != constraints || pendingLayoutPass) {
             this.constraints = constraints
+            // Commit the current frame
+            val frame = currentFrame()
+            frame.observeReads(frameReadObserver) {
+                callMeasure(constraints)
+            }
         }
-        // commit the current frame
-        val frame = currentFrame()
-        frame.observeReads(frameReadObserver) {
-            callMeasure(constraints)
-        }
+
         setMeasuredDimension(root.width.value, root.height.value)
     }
 
@@ -214,8 +231,10 @@ class AndroidCraneView constructor(context: Context)
     }
 
     override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
-        val frame = currentFrame()
+        if (!pendingLayoutPass) return
+
         root.startLayout()
+        val frame = currentFrame()
         frame.observeReads(frameReadObserver) {
             root.visitChildren { child ->
                 child.layoutNode?.moveTo(0.ipx, 0.ipx)
@@ -224,11 +243,11 @@ class AndroidCraneView constructor(context: Context)
         }
         root.layoutNode.moveTo(0.ipx, 0.ipx)
         root.endLayout()
-        measureAndLayout()
+
+        pendingLayoutPass = false
     }
 
-    override fun onDraw(canvas: android.graphics.Canvas) {
-    }
+    override fun onDraw(canvas: android.graphics.Canvas) { }
 
     private fun callDraw(
         canvas: Canvas,
@@ -265,16 +284,26 @@ class AndroidCraneView constructor(context: Context)
         }
     }
 
+    private fun reusableDrawCache(canvas: android.graphics.Canvas) =
+        !pendingDraw && cachedDraw != null &&
+                cachedDraw!!.width == canvas.width && cachedDraw!!.height == canvas.height
+
     override fun dispatchDraw(canvas: android.graphics.Canvas) {
-        // Start looking for model changes:
-        val frame = currentFrame()
-        frame.observeReads(frameReadObserver) {
-            val uiCanvas = Canvas(canvas)
-            val densityReceiver = DensityReceiverImpl(density = Density(context))
-            val parentSize = PxSize(root.width, root.height)
-            callDraw(uiCanvas, root, parentSize, densityReceiver)
+        if (canvas.width == 0 || canvas.height == 0) return
+        if (!reusableDrawCache(canvas)) {
+            cachedDraw = Bitmap.createBitmap(canvas.width, canvas.height, Bitmap.Config.ARGB_8888)
+            // Start looking for model changes:
+            val frame = currentFrame()
+            frame.observeReads(frameReadObserver) {
+                val uiCanvas = Canvas(android.graphics.Canvas(cachedDraw!!))
+                val densityReceiver = DensityReceiverImpl(density = Density(context))
+                val parentSize = PxSize(root.width, root.height)
+                callDraw(uiCanvas, root, parentSize, densityReceiver)
+            }
+            currentNode = null
         }
-        currentNode = null
+        canvas.drawBitmap(cachedDraw!!, 0f, 0f, android.graphics.Paint())
+        pendingDraw = false
     }
 
     override fun onAttachedToWindow() {
