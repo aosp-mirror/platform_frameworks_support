@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1b305a7c_02f3e2af",
+        "filename": "compose/runtime/src/main/java/androidx/compose/Compose.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1048725
+      },
+      "writtenOn": "2019-05-17T16:04:47Z",
+      "side": 1,
+      "message": "I would like to avoid this WeakHashMap here. It might be better to have the child compositions tell the parent when they have `hasPendingFrame` changes. The parent can then maintain a list of children with pending frames. The root context is idle if `hasPendingFrame` is false and the child list is empty.\n\nAlso there would be no need for the complicated back reference from the composer to the context as `hasPendingFrame` is maintained by the context.",
+      "revId": "d7aca8cc0e5f9db089ad0d707055615d50ea6c72",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
