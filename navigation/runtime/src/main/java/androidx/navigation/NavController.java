@@ -889,6 +889,14 @@ public class NavController {
                 NavGraph parent = destination.getParent();
                 if (parent != null) {
                     hierarchy.addFirst(new NavBackStackEntry(parent, finalArgs));
+                    if (!node.getNavigatorName().equals(parent.getNavigatorName())) {
+                        Navigator<NavGraph> parentNavigator = mNavigatorProvider.getNavigator(
+                                parent.getNavigatorName());
+                        // Add the parent to its navigator back stack
+                        parentNavigator.navigate(parent, finalArgs, navOptions, navigatorExtras);
+                        // Pop the start destination that will be added automatically
+                        navigator.popBackStack();
+                    }
                 }
                 destination = parent;
             }
