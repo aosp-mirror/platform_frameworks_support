@@ -17,9 +17,15 @@
 package androidx.ui.material
 
 import androidx.compose.Children
+import androidx.animation.FastOutSlowInEasing
+import androidx.animation.FloatPropKey
+import androidx.animation.TransitionSpec
+import androidx.animation.transitionDefinition
+import androidx.annotation.Dimension
 import androidx.compose.Composable
 import androidx.compose.composer
 import androidx.compose.unaryPlus
+import androidx.compose.memo
 import androidx.ui.baseui.ColoredRect
 import androidx.ui.core.Dp
 import androidx.ui.core.Semantics
@@ -33,6 +39,8 @@ import androidx.ui.layout.Row
 import androidx.ui.layout.WidthSpacer
 import androidx.ui.material.surface.Surface
 import androidx.ui.painting.Color
+import androidx.ui.animation.Transition
+import androidx.ui.layout.Alignment
 
 /**
  * A Top App Bar displays information and actions relating to the current screen and is placed at
@@ -69,10 +77,14 @@ fun AppBar(color: Color?, @Children children: @Composable() () -> Unit) {
     Semantics(
         container = true
     ) {
-        Surface(color = backgroundColor) {
-            Container(height = RegularHeight, expanded = true) {
-                Padding(padding = Padding) {
-                    children()
+        Transition(definition = definition, toState = expanded) { state ->
+            val height = RegularHeight +
+                    ((ExtendedHeight - RegularHeight) * state[RelativeHeightTranslationProp])
+            Surface(color = backgroundColor) {
+                Container(height = RegularHeight, expanded = true) {
+                    Padding(padding = Padding) {
+                        children()
+		    }
                 }
             }
         }
@@ -116,8 +128,53 @@ internal fun TrailingIcons(icons: List<Dp>?) {
 
 // TODO: remove
 @Composable
+private fun LeadingIcon() {
+    // TODO: replace with real icons
+    FakeIcon(24.dp)
+    WidthSpacer(width = 32.dp)
+}
+
+@Composable
+private fun TrailingIcons(icons: List<Dp>) {
+    for (icon in icons.indices) {
+        if (icon > 0) {
+            WidthSpacer(width = 24.dp)
+        }
+        if (icon >= MaxIconsInBar) {
+            // Vertical overflow icon
+            FakeIcon(12.dp)
+            break
+        }
+        FakeIcon(icons[icon])
+    }
+}
+
+@Composable
 internal fun FakeIcon(size: Dp) {
     ColoredRect(color = Color(0xFFFFFFFF.toInt()), width = size, height = 24.dp)
+}
+
+private val RelativeHeightTranslationProp = FloatPropKey()
+// TODO: replace with gesture based animation
+private const val AnimationDuration = 100
+
+private val definition = transitionDefinition {
+    fun <T> TransitionSpec.switchTween() = tween<T> {
+        duration = AnimationDuration
+        easing = FastOutSlowInEasing
+    }
+    state(false) {
+        this[RelativeHeightTranslationProp] = 0f
+    }
+    state(true) {
+        this[RelativeHeightTranslationProp] = 1f
+    }
+    transition(fromState = false, toState = true) {
+        RelativeHeightTranslationProp using switchTween()
+    }
+    transition(fromState = true, toState = false) {
+        RelativeHeightTranslationProp using switchTween()
+    }
 }
 
 private val RegularHeight = 56.dp
