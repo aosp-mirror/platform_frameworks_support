@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6663b705_7f1e0b9d",
+        "filename": "collection/ktx/api/1.2.0-alpha01.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-05-18T00:50:59Z",
+      "side": 1,
+      "message": "Is this right? Kotlin inline functions are super hard to read in signature files.\n\nThere seems to be several of the same type of change V -\u003e java.lang.Object.",
+      "range": {
+        "startLine": 33,
+        "startChar": 255,
+        "endLine": 33,
+        "endChar": 271
+      },
+      "revId": "1cce42b9e7bb79b26b2f4dce4bc374932ee66d2c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
