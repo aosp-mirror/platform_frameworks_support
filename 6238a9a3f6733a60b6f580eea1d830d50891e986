@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3404c48d_a1ed4278",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CameraX.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1086104
+      },
+      "writtenOn": "2019-05-18T00:04:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cb6ae774_7de914cd",
+      "range": {
+        "startLine": 48,
+        "startChar": 90,
+        "endLine": 48,
+        "endChar": 96
+      },
+      "revId": "6238a9a3f6733a60b6f580eea1d830d50891e986",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b641dda5_ad932cec",
         "filename": "camera/core/src/main/java/androidx/camera/core/CameraX.java",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "6238a9a3f6733a60b6f580eea1d830d50891e986",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "49dd5481_6de4e65a",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CameraX.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1086104
+      },
+      "writtenOn": "2019-05-18T00:04:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b641dda5_ad932cec",
+      "range": {
+        "startLine": 101,
+        "startChar": 13,
+        "endLine": 101,
+        "endChar": 28
+      },
+      "revId": "6238a9a3f6733a60b6f580eea1d830d50891e986",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -91,6 +139,54 @@
       "revId": "6238a9a3f6733a60b6f580eea1d830d50891e986",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9ec8409_a3a3ddf1",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CameraX.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1086104
+      },
+      "writtenOn": "2019-05-18T00:04:55Z",
+      "side": 1,
+      "message": "Removed the thread discussion here since its in the CameraX class overview already.  Can add detail on custom lifecycle next.",
+      "parentUuid": "0ca95306_aa98cfd7",
+      "range": {
+        "startLine": 203,
+        "startChar": 7,
+        "endLine": 203,
+        "endChar": 74
+      },
+      "revId": "6238a9a3f6733a60b6f580eea1d830d50891e986",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2370d557_6dc0c015",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CameraX.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1086104
+      },
+      "writtenOn": "2019-05-18T00:04:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6b371761_e3fc47aa",
+      "range": {
+        "startLine": 203,
+        "startChar": 23,
+        "endLine": 203,
+        "endChar": 24
+      },
+      "revId": "6238a9a3f6733a60b6f580eea1d830d50891e986",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
