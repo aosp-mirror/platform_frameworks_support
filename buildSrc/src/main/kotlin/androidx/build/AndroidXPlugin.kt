@@ -49,7 +49,6 @@ import com.android.build.gradle.LibraryPlugin
 import com.android.build.gradle.TestedExtension
 import com.android.build.gradle.api.ApkVariant
 import org.gradle.api.DefaultTask
-import org.gradle.api.JavaVersion.VERSION_1_7
 import org.gradle.api.JavaVersion.VERSION_1_8
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -106,8 +105,8 @@ class AndroidXPlugin : Plugin<Project> {
                     project.configureErrorProneForJava()
                     project.configureSourceJarForJava()
                     project.convention.getPlugin<JavaPluginConvention>().apply {
-                        sourceCompatibility = VERSION_1_7
-                        targetCompatibility = VERSION_1_7
+                        sourceCompatibility = VERSION_1_8
+                        targetCompatibility = VERSION_1_8
                     }
                     project.hideJavadocTask()
                     val verifyDependencyVersionsTask = project.createVerifyDependencyVersionsTask()
@@ -341,6 +340,11 @@ class AndroidXPlugin : Plugin<Project> {
         project: Project,
         androidXExtension: AndroidXExtension
     ) {
+        compileOptions.apply {
+            sourceCompatibility = VERSION_1_8
+            targetCompatibility = VERSION_1_8
+        }
+
         // Force AGP to use our version of JaCoCo
         jacoco.version = Jacoco.VERSION
         compileSdkVersion(COMPILE_SDK_VERSION)
@@ -472,11 +476,6 @@ class AndroidXPlugin : Plugin<Project> {
         project: Project,
         androidXExtension: AndroidXExtension
     ) {
-        compileOptions.apply {
-            sourceCompatibility = VERSION_1_7
-            targetCompatibility = VERSION_1_7
-        }
-
         project.configurations.all { config ->
             val isTestConfig = config.name.toLowerCase().contains("test")
 
@@ -496,16 +495,6 @@ class AndroidXPlugin : Plugin<Project> {
         }
 
         project.afterEvaluate {
-            // Java 8 is only fully supported on API 24+ and not all Java 8 features are
-            // binary compatible with API < 24
-            val compilesAgainstJava8 = compileOptions.sourceCompatibility > VERSION_1_7 ||
-                    compileOptions.targetCompatibility > VERSION_1_7
-            val minSdkLessThan24 = defaultConfig.minSdkVersion.apiLevel < 24
-            if (compilesAgainstJava8 && minSdkLessThan24) {
-                throw IllegalArgumentException(
-                        "Libraries can only support Java 8 if minSdkVersion is 24 or higher")
-            }
-
             libraryVariants.all { libraryVariant ->
                 if (libraryVariant.buildType.name == "debug") {
                     libraryVariant.javaCompileProvider.configure { javaCompile ->
@@ -526,11 +515,6 @@ class AndroidXPlugin : Plugin<Project> {
             targetSdkVersion(TARGET_SDK_VERSION)
             versionCode = 1
             versionName = "1.0"
-        }
-
-        compileOptions.apply {
-            sourceCompatibility = VERSION_1_8
-            targetCompatibility = VERSION_1_8
         }
 
         lintOptions.apply {
