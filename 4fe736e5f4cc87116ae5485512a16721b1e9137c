@@ -145,6 +145,24 @@
     },
     {
       "key": {
+        "uuid": "b2cc7229_478dae14",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 1143068
+      },
+      "writtenOn": "2019-05-18T03:41:04Z",
+      "side": 1,
+      "message": "To catch the \"forget to add it\" case, you could just write a test that iterates over all the public enum values and verifies that they get preserved through serialisation+deserialisation?",
+      "parentUuid": "b36ba20e_eeb676fd",
+      "revId": "4fe736e5f4cc87116ae5485512a16721b1e9137c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4b075216_4e1736cb",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/Destination.java",
         "patchSetId": 4

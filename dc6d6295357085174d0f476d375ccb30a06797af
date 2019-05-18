@@ -623,6 +623,30 @@
     },
     {
       "key": {
+        "uuid": "1ec553f0_ee8d5646",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/NavigationState.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1143068
+      },
+      "writtenOn": "2019-05-18T03:41:04Z",
+      "side": 1,
+      "message": "Brutal, that seems massive. I wonder how much of that could be proguarded...",
+      "parentUuid": "e69471ae_ed0f8f29",
+      "range": {
+        "startLine": 48,
+        "startChar": 35,
+        "endLine": 48,
+        "endChar": 65
+      },
+      "revId": "dc6d6295357085174d0f476d375ccb30a06797af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "10a4b6c2_9b90fed7",
         "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/NavigationState.java",
         "patchSetId": 2
