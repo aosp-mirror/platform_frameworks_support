@@ -354,6 +354,30 @@
       "revId": "5dc30290ea72367d433b549c9c474d3c927069f6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e23b401_e6096516",
+        "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/ComplexGestureDetetorInteractionsDemo.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-05-18T02:02:25Z",
+      "side": 1,
+      "message": "The gesture package doesn\u0027t always need to output gestures. The reason why I asked whether it should live in the gesture package was sort of leading to question 2), as I noticed the implementation is done via internal function calls.",
+      "parentUuid": "2b72abb1_657bcd3b",
+      "range": {
+        "startLine": 165,
+        "startChar": 4,
+        "endLine": 165,
+        "endChar": 33
+      },
+      "revId": "5dc30290ea72367d433b549c9c474d3c927069f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
