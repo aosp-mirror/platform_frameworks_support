@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a08c7d9f_442bd9bc",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaController.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1244,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-05-19T10:51:34Z",
+      "side": 1,
+      "message": "If this method is only for tests, let\u0027s add javadoc which tells this is for tests.",
+      "range": {
+        "startLine": 1244,
+        "startChar": 3,
+        "endLine": 1244,
+        "endChar": 53
+      },
+      "revId": "2ec32e1996a714f77e997867fd3aa1de110a32e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c819492_fa670368",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaControllerImplBase.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1312,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-05-19T10:51:34Z",
+      "side": 1,
+      "message": "For consistency with other methods, let\u0027s keep this as \u0027on\u0027.",
+      "range": {
+        "startLine": 1312,
+        "startChar": 9,
+        "endLine": 1312,
+        "endChar": 15
+      },
+      "revId": "2ec32e1996a714f77e997867fd3aa1de110a32e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee2e54e4_72b872b8",
+        "filename": "media2/session/src/main/java/androidx/media2/session/SessionCommandGroup.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-05-19T10:51:34Z",
+      "side": 1,
+      "message": "How about mCommands.equals(that.mCommands) and remove L106~L109?",
+      "range": {
+        "startLine": 111,
+        "startChar": 15,
+        "endLine": 112,
+        "endChar": 57
+      },
+      "revId": "2ec32e1996a714f77e997867fd3aa1de110a32e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
