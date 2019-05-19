@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5c4b4e35_0bc54bc5",
+        "filename": "recyclerview/selection/src/main/java/androidx/recyclerview/selection/GestureSelectionHelper.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1500084
+      },
+      "writtenOn": "2019-05-19T07:23:12Z",
+      "side": 1,
+      "message": "This should be:\n\nreturn mStarted \u0026\u0026 mSelectionMgr.isRangeActive();\n\nBecause else touch events will still be consumed after the selection was cleared in handleTouch.",
+      "revId": "809b6acbcbef583825e6f80af0e877fa946b9233",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
