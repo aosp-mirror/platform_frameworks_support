@@ -66,7 +66,7 @@ package androidx.ui.engine.text {
   }
 
   public final class Paragraph {
-    method public float getAlphabeticBaseline();
+    method public float getBaseline();
     method public kotlin.Pair<androidx.ui.engine.geometry.Offset,androidx.ui.engine.geometry.Offset> getCaretForTextPosition(androidx.ui.engine.text.TextPosition textPosition);
     method public boolean getDidExceedMaxLines();
     method public float getHeight();

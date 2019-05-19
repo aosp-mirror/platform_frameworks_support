@@ -83,7 +83,7 @@ class ParagraphIntegrationTest {
         assertThat(paragraph.width, equalTo(100.0f))
         assertThat(paragraph.height, equalTo(fontSize))
         // defined in sample_font
-        assertThat(paragraph.alphabeticBaseline, equalTo(fontSize * 0.8f))
+        assertThat(paragraph.baseline, equalTo(fontSize * 0.8f))
         assertThat(paragraph.maxIntrinsicWidth, equalTo(0.0f))
         assertThat(paragraph.minIntrinsicWidth, equalTo(0.0f))
         assertThat(paragraph.ideographicBaseline, equalTo(Float.MAX_VALUE))
@@ -103,7 +103,7 @@ class ParagraphIntegrationTest {
             assertThat(text, paragraph.width, equalTo(200.0f))
             assertThat(text, paragraph.height, equalTo(fontSize))
             // defined in sample_font
-            assertThat(text, paragraph.alphabeticBaseline, equalTo(fontSize * 0.8f))
+            assertThat(text, paragraph.baseline, equalTo(fontSize * 0.8f))
             assertThat(text, paragraph.maxIntrinsicWidth, equalTo(fontSize * text.length))
             assertThat(text, paragraph.minIntrinsicWidth, equalTo(0.0f))
             assertThat(text, paragraph.ideographicBaseline, equalTo(Float.MAX_VALUE))
@@ -124,7 +124,7 @@ class ParagraphIntegrationTest {
             // 2 lines, 1 line gap
             assertThat(text, paragraph.height, equalTo(2 * fontSize + fontSize / 5.0f))
             // defined in sample_font
-            assertThat(text, paragraph.alphabeticBaseline, equalTo(fontSize * 0.8f))
+            assertThat(text, paragraph.baseline, equalTo(fontSize * 0.8f))
             assertThat(text, paragraph.maxIntrinsicWidth, equalTo(fontSize * text.length))
             assertThat(text, paragraph.minIntrinsicWidth, equalTo(0.0f))
             assertThat(text, paragraph.ideographicBaseline, equalTo(Float.MAX_VALUE))
@@ -145,7 +145,7 @@ class ParagraphIntegrationTest {
             // 2 lines, 1 line gap
             assertThat(text, paragraph.height, equalTo(2 * fontSize + fontSize / 5.0f))
             // defined in sample_font
-            assertThat(text, paragraph.alphabeticBaseline, equalTo(fontSize * 0.8f))
+            assertThat(text, paragraph.baseline, equalTo(fontSize * 0.8f))
             assertThat(text, paragraph.maxIntrinsicWidth, equalTo(fontSize * text.indexOf("\n")))
             assertThat(text, paragraph.minIntrinsicWidth, equalTo(0.0f))
             assertThat(text, paragraph.ideographicBaseline, equalTo(Float.MAX_VALUE))
@@ -166,7 +166,7 @@ class ParagraphIntegrationTest {
             // 4 lines, 3 line gaps
             assertThat(text, paragraph.height, equalTo(4 * fontSize + 3 * fontSize / 5.0f))
             // defined in sample_font
-            assertThat(text, paragraph.alphabeticBaseline, equalTo(fontSize * 0.8f))
+            assertThat(text, paragraph.baseline, equalTo(fontSize * 0.8f))
             assertThat(text, paragraph.maxIntrinsicWidth, equalTo(fontSize * text.indexOf("\n")))
             assertThat(text, paragraph.minIntrinsicWidth, equalTo(0.0f))
             assertThat(text, paragraph.ideographicBaseline, equalTo(Float.MAX_VALUE))

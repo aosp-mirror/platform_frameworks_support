@@ -37,8 +37,6 @@ import androidx.ui.painting.Shadow
  * * `letterSpacing`: The amount of space (in EM) to add between each letter.
  * * `wordSpacing`: The amount of space (in logical pixels) to add at each sequence of white-space
  *                  (i.e. between each word). Only works on Android Q and above.
- * * `textBaseline`: The common baseline that should be aligned between this text span and its
- *                   parent text span, or, for the root text spans, with the line box.
  * * `baselineShift`: This parameter specifies how much the baseline is shifted from the current position.
  * * `height`: The height of this text span, as a multiple of the font size.
  * * `textGeometricTransform`: The geometric transformation applied the text.
@@ -60,7 +58,6 @@ data class TextStyle constructor(
     val fontFeatureSettings: String? = null,
     val letterSpacing: Float? = null,
     val wordSpacing: Float? = null,
-    val textBaseline: TextBaseline? = null,
     val baselineShift: BaselineShift? = null,
     val textGeometricTransform: TextGeometricTransform? = null,
     val height: Float? = null,
