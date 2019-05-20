@@ -1,12 +1,16 @@
 // Signature format: 3.0
 package androidx.paging {
 
+
+  public abstract class ListenablePositionalDataSource<T> extends androidx.paging.DataSource<java.lang.Integer,T> {
+  }
+
   @Deprecated @RestrictTo(androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX) public abstract class TiledDataSource<T> extends androidx.paging.PositionalDataSource<T> {
     ctor @Deprecated public TiledDataSource();
     method @Deprecated @WorkerThread public abstract int countItems();
-    method @Deprecated public void loadInitial(androidx.paging.PositionalDataSource.LoadInitialParams, androidx.paging.PositionalDataSource.LoadInitialCallback<T!>);
-    method @Deprecated @WorkerThread public abstract java.util.List<T!>? loadRange(int, int);
-    method @Deprecated public void loadRange(androidx.paging.PositionalDataSource.LoadRangeParams, androidx.paging.PositionalDataSource.LoadRangeCallback<T!>);
+    method @Deprecated public void loadInitial(androidx.paging.PositionalDataSource.LoadInitialParams params, androidx.paging.PositionalDataSource.LoadInitialCallback<T> callback);
+    method @Deprecated @WorkerThread public abstract java.util.List<T>? loadRange(int startPosition, int count);
+    method @Deprecated public void loadRange(androidx.paging.PositionalDataSource.LoadRangeParams params, androidx.paging.PositionalDataSource.LoadRangeCallback<T> callback);
   }
 
 }
