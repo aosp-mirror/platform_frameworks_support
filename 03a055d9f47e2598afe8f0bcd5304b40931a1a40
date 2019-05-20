@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "400585e7_9c781b47",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaController.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1361,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-20T04:03:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "26bff1a9_3352d213",
+      "revId": "03a055d9f47e2598afe8f0bcd5304b40931a1a40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d0a48d4f_9a4d8324",
         "filename": "media2/session/src/main/java/androidx/media2/session/MediaControllerImplLegacy.java",
         "patchSetId": 2
@@ -39,6 +57,30 @@
       "revId": "03a055d9f47e2598afe8f0bcd5304b40931a1a40",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d7e2c2b_f9bac433",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaControllerImplLegacy.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 837,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-20T04:03:33Z",
+      "side": 1,
+      "message": "Thank you for pointing out this. That\u0027s because MediaController#getAllowedCommands calls MediaControllerImpl#isConnected and MediaControllerImpl#getAllowedCommands non-atomically. I\u0027ve fixed MediaControllerImplBase#getAllowedCommands.",
+      "parentUuid": "d0a48d4f_9a4d8324",
+      "range": {
+        "startLine": 834,
+        "startChar": 0,
+        "endLine": 837,
+        "endChar": 13
+      },
+      "revId": "03a055d9f47e2598afe8f0bcd5304b40931a1a40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
