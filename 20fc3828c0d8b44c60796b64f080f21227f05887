@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f03a3a5b_59a43736",
+        "filename": "media2/session/src/androidTest/java/androidx/media2/session/MediaControllerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1674,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-20T07:45:29Z",
+      "side": 1,
+      "message": ":)",
+      "parentUuid": "82f6cf03_e071319f",
+      "range": {
+        "startLine": 1674,
+        "startChar": 20,
+        "endLine": 1674,
+        "endChar": 37
+      },
+      "revId": "20fc3828c0d8b44c60796b64f080f21227f05887",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ff6e8a8_c120447a",
         "filename": "media2/session/src/androidTest/java/androidx/media2/session/MediaControllerTest.java",
         "patchSetId": 3
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "4d7f6ddb_44d2093e",
+        "filename": "media2/session/src/androidTest/java/androidx/media2/session/MediaControllerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1723,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-20T07:45:29Z",
+      "side": 1,
+      "message": "Merged the three tests into one. testSelectDeselectTrackAndGetSelectedTrack\n\nOpen to better name suggestions..",
+      "parentUuid": "9ff6e8a8_c120447a",
+      "range": {
+        "startLine": 1723,
+        "startChar": 16,
+        "endLine": 1723,
+        "endChar": 36
+      },
+      "revId": "20fc3828c0d8b44c60796b64f080f21227f05887",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "92d533fa_0456a652",
         "filename": "media2/session/src/androidTest/java/androidx/media2/session/MediaControllerTest.java",
         "patchSetId": 3
@@ -68,6 +116,30 @@
       "revId": "20fc3828c0d8b44c60796b64f080f21227f05887",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "489840a1_99409be2",
+        "filename": "media2/session/src/androidTest/java/androidx/media2/session/MediaControllerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1776,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-20T07:45:29Z",
+      "side": 1,
+      "message": "Good point. Done.\n\nCode does not compare MediaFormat but KEY_MIME and KEY_LANGUAGE because only those two key-value pairs are sent over processes.",
+      "parentUuid": "92d533fa_0456a652",
+      "range": {
+        "startLine": 1774,
+        "startChar": 8,
+        "endLine": 1776,
+        "endChar": 67
+      },
+      "revId": "20fc3828c0d8b44c60796b64f080f21227f05887",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -118,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "d23bcfa2_539c717f",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaController.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1162,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-20T07:45:29Z",
+      "side": 1,
+      "message": "Interesting find!\n\nFor the first example, I think that we need to think in relation with SubtitleController as well since it only takes 1 track for now (the logic for drawing two different tracks on the same view should be added). I\u0027ll let Insun know about this as well.\n\nAs for the second example, I tried out the player in the Naver TV app, and it seems that the player is not showing multiple video tracks at the same time but changing between them.\n\nFor now, what do you think about keeping as-is?",
+      "parentUuid": "b045742f_43e5588d",
+      "range": {
+        "startLine": 1162,
+        "startChar": 16,
+        "endLine": 1162,
+        "endChar": 26
+      },
+      "revId": "20fc3828c0d8b44c60796b64f080f21227f05887",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "963d4733_39a646e5",
         "filename": "media2/session/src/main/java/androidx/media2/session/MediaControllerImplBase.java",
         "patchSetId": 3
@@ -138,6 +234,30 @@
       "revId": "20fc3828c0d8b44c60796b64f080f21227f05887",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6864a16b_48ecfaef",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaControllerImplBase.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-20T07:45:29Z",
+      "side": 1,
+      "message": "I only added the three track types because MediaPlayer#getSelectedTrack only handles the three types. (https://cs.corp.google.com/android/frameworks/base/media/java/android/media/MediaPlayer.java?rcl\u003d305f05aee082aeb3150870bda73ea15851438ee8\u0026l\u003d3050)\n\nBut I think it is best to support all track types since any type of player may be connected to MediaController.",
+      "parentUuid": "963d4733_39a646e5",
+      "range": {
+        "startLine": 163,
+        "startChar": 4,
+        "endLine": 168,
+        "endChar": 45
+      },
+      "revId": "20fc3828c0d8b44c60796b64f080f21227f05887",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -164,6 +284,30 @@
     },
     {
       "key": {
+        "uuid": "e12dc655_5334677c",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaControllerImplBase.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1195,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-20T07:45:29Z",
+      "side": 1,
+      "message": "Changed to handle all track types.",
+      "parentUuid": "718271a3_f4689010",
+      "range": {
+        "startLine": 1195,
+        "startChar": 12,
+        "endLine": 1195,
+        "endChar": 54
+      },
+      "revId": "20fc3828c0d8b44c60796b64f080f21227f05887",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "13750a68_86dae4ec",
         "filename": "media2/session/src/main/java/androidx/media2/session/MediaSessionStub.java",
         "patchSetId": 3
@@ -187,6 +331,30 @@
     },
     {
       "key": {
+        "uuid": "f9dc5f0d_96a56bc1",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaSessionStub.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1431,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-20T07:45:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "13750a68_86dae4ec",
+      "range": {
+        "startLine": 1431,
+        "startChar": 46,
+        "endLine": 1431,
+        "endChar": 60
+      },
+      "revId": "20fc3828c0d8b44c60796b64f080f21227f05887",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "92d1762f_f0b43914",
         "filename": "media2/session/version-compat-tests/current/client/src/androidTest/java/androidx/media2/test/client/tests/MediaControllerTest.java",
         "patchSetId": 3
@@ -201,6 +369,24 @@
       "revId": "20fc3828c0d8b44c60796b64f080f21227f05887",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36680b95_7aeeb015",
+        "filename": "media2/session/version-compat-tests/current/client/src/androidTest/java/androidx/media2/test/client/tests/MediaControllerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-20T07:45:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "92d1762f_f0b43914",
+      "revId": "20fc3828c0d8b44c60796b64f080f21227f05887",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
