@@ -70,6 +70,30 @@
       "revId": "86bd1dd3a323884d9edeaf191c1260b11c30a415",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6508c8b8_6dba3449",
+        "filename": "car/core/api/current.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-05-20T23:10:42Z",
+      "side": 1,
+      "message": "Having the builders extend from one another means the builders can\u0027t introduce new API (ie. using OnMultiChoiceClickListener vs OnClickListener). A workaround would be having all values not common to builders show up in the constructor (which seemed clunky) or having a single common builder (which seemed like the AlertDialog, one thing that can do everything but bunch of branching code problem).\n\nShould I move this conversation to a design doc?",
+      "parentUuid": "b8951806_827261f1",
+      "range": {
+        "startLine": 52,
+        "startChar": 28,
+        "endLine": 52,
+        "endChar": 51
+      },
+      "revId": "86bd1dd3a323884d9edeaf191c1260b11c30a415",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
