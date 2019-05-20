@@ -16,6 +16,24 @@
       "revId": "d7aca8cc0e5f9db089ad0d707055615d50ea6c72",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "862d4192_aaaf60f4",
+        "filename": "compose/runtime/src/main/java/androidx/compose/Compose.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-05-20T17:06:22Z",
+      "side": 1,
+      "message": "Thanks for suggestions!\nAbout child composition:\n This was the first option we considered, but after GVC with Leland, we discussed that it probably will be easier to provide explicit connection here and avoid constant listening to children. Or at least I understood our decision like that :)\n\nWith this notification from children we need to do some works constantly, maintaining list of children with pending children, and all of this only to provide API for testing. Probably being explicit here and request for data collection recursively down only on-demand (read only in tests) will be more efficient and easier. \n\nAbout this WeakHashMap. I\u0027m not sure I understand how to avoid this. \nThis map doesn\u0027t contain the \"subcompositions\" or anything below first level of composition. We need to associate one context (not app context, but activity context) with several independent composition trees.\n\nIn can happen when you type something like :\n```frameLayoutOne.compose {\n    CraneWrapper { ... } //first tree\n}```\n\n```frameLayoutTwo.compose {\n    CraneWrapper { ... } //second tree\n}```\n\nTherefore you can have two trees that are not related. In tests we need to know that all composition and recomposition and changes in all the trees in activity have finished, so we need to maintain this map it seems.\n\nDoes it make sense?",
+      "parentUuid": "1b305a7c_02f3e2af",
+      "revId": "d7aca8cc0e5f9db089ad0d707055615d50ea6c72",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
