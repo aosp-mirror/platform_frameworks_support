@@ -22,6 +22,30 @@
       "revId": "d2fd1705632792dde24062d28d50cbfab77d9734",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "67aad29c_24d26b7c",
+        "filename": "paging/common/src/main/java/androidx/paging/WrapperPositionalDataSource.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-05-20T20:21:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f2f41997_e79acc8b",
+      "range": {
+        "startLine": 45,
+        "startChar": 34,
+        "endLine": 45,
+        "endChar": 52
+      },
+      "revId": "d2fd1705632792dde24062d28d50cbfab77d9734",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
