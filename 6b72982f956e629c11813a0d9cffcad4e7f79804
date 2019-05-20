@@ -364,6 +364,29 @@
     },
     {
       "key": {
+        "uuid": "2d93d92f_e6980a5f",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaController.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1689,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-20T07:44:33Z",
+      "side": 1,
+      "message": "Could you add @NonNull annotation to these parameters if applicable?",
+      "range": {
+        "startLine": 1689,
+        "startChar": 39,
+        "endLine": 1689,
+        "endChar": 54
+      },
+      "revId": "6b72982f956e629c11813a0d9cffcad4e7f79804",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9f648c71_f66c478b",
         "filename": "media2/session/src/main/java/androidx/media2/session/MediaController.java",
         "patchSetId": 10
