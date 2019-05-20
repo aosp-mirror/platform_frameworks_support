@@ -35,7 +35,7 @@ class PagedListTest {
         )
 
         assertEquals(dataSource, pagedList.dataSource)
-        assertEquals(config, pagedList.config)
+        assertEquals(config, pagedList.getConfig())
     }
 
     companion object {

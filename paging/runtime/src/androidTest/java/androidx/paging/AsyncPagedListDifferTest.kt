@@ -59,13 +59,13 @@ class AsyncPagedListDifferTest {
         return differ
     }
 
-    private fun <V> createPagedListFromListAndPos(
+    private fun <V : Any> createPagedListFromListAndPos(
         config: PagedList.Config,
         data: List<V>,
         initialKey: Int
     ): PagedList<V> {
         @Suppress("DEPRECATION")
-        return PagedList.Builder<Int, V>(ListDataSource(data), config)
+        return PagedList.Builder(ListDataSource(data), config)
             .setInitialKey(initialKey)
             .setNotifyExecutor(mMainThread)
             .setFetchExecutor(mPageLoadingThread)
@@ -261,7 +261,7 @@ class AsyncPagedListDifferTest {
         drain()
         verifyNoMoreInteractions(callback)
         assertNotNull(differ.currentList)
-        assertFalse(differ.currentList!!.isImmutable)
+        assertFalse(differ.currentList!!.isImmutable())
 
         // trigger page loading
         differ.getItem(10)
@@ -272,14 +272,14 @@ class AsyncPagedListDifferTest {
         drainExceptDiffThread()
         verifyNoMoreInteractions(callback)
         assertNotNull(differ.currentList)
-        assertTrue(differ.currentList!!.isImmutable)
+        assertTrue(differ.currentList!!.isImmutable())
 
         // flush diff, which signals nothing, since 1st pagedlist == 2nd pagedlist
         mDiffThread.executeAll()
         mMainThread.executeAll()
         verifyNoMoreInteractions(callback)
         assertNotNull(differ.currentList)
-        assertFalse(differ.currentList!!.isImmutable)
+        assertFalse(differ.currentList!!.isImmutable())
 
         // finally, a full flush will complete the swap-triggered load within the new list
         drain()
@@ -352,12 +352,12 @@ class AsyncPagedListDifferTest {
         differ.submitList(createPagedListFromListAndPos(config, ALPHABET_LIST.subList(10, 20), 0))
         differ.currentList!!.loadAround(0)
         drain()
-        assertEquals(0, differ.currentList!!.lastKey)
+        assertEquals(0, differ.currentList!!.getLastKey())
 
         // if 10 items are prepended, lastKey should be updated to point to same item
         differ.submitList(createPagedListFromListAndPos(config, ALPHABET_LIST.subList(0, 20), 0))
         drain()
-        assertEquals(10, differ.currentList!!.lastKey)
+        assertEquals(10, differ.currentList!!.getLastKey())
     }
 
     @Test
