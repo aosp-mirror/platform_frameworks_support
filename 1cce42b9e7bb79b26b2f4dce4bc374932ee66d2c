@@ -70,6 +70,30 @@
       "revId": "1cce42b9e7bb79b26b2f4dce4bc374932ee66d2c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "164cda88_6c8ef53b",
+        "filename": "collection/ktx/api/1.2.0-alpha01.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-05-20T21:00:04Z",
+      "side": 1,
+      "message": "ok thanks",
+      "parentUuid": "62b99ef2_c1c635ca",
+      "range": {
+        "startLine": 33,
+        "startChar": 255,
+        "endLine": 33,
+        "endChar": 271
+      },
+      "revId": "1cce42b9e7bb79b26b2f4dce4bc374932ee66d2c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
