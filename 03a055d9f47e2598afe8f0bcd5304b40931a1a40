@@ -2,6 +2,46 @@
   "comments": [
     {
       "key": {
+        "uuid": "26bff1a9_3352d213",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaController.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1361,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-05-20T03:47:38Z",
+      "side": 1,
+      "message": "Annotate @Nullable?",
+      "revId": "03a055d9f47e2598afe8f0bcd5304b40931a1a40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0a48d4f_9a4d8324",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaControllerImplLegacy.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 837,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-05-20T03:47:38Z",
+      "side": 1,
+      "message": "Just out of curiosity, why the connection state should be checked here again?",
+      "range": {
+        "startLine": 834,
+        "startChar": 0,
+        "endLine": 837,
+        "endChar": 13
+      },
+      "revId": "03a055d9f47e2598afe8f0bcd5304b40931a1a40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1545ad40_6f64f0c0",
         "filename": "media2/session/src/main/java/androidx/media2/session/SessionCommandGroup.java",
         "patchSetId": 2
