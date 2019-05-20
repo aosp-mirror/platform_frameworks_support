@@ -94,6 +94,30 @@
       "revId": "86bd1dd3a323884d9edeaf191c1260b11c30a415",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f356107_f5fe547a",
+        "filename": "car/core/api/current.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-05-20T23:12:10Z",
+      "side": 1,
+      "message": "Yeah, let\u0027s create a design doc and discuss offline.",
+      "parentUuid": "6508c8b8_6dba3449",
+      "range": {
+        "startLine": 52,
+        "startChar": 28,
+        "endLine": 52,
+        "endChar": 51
+      },
+      "revId": "86bd1dd3a323884d9edeaf191c1260b11c30a415",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
