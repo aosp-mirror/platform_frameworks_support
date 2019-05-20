@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2e494337_5b8ba554",
+        "filename": "media2/player/src/androidTest/java/androidx/media2/player/MediaPlayerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 570,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-05-20T23:55:37Z",
+      "side": 1,
+      "message": "can we drop this?",
+      "range": {
+        "startLine": 570,
+        "startChar": 34,
+        "endLine": 570,
+        "endChar": 35
+      },
+      "revId": "fc92070fc5d470ee794cb24098ac77b38025308c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d1754b9_b2b6613f",
+        "filename": "media2/player/src/androidTest/java/androidx/media2/player/MediaPlayerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 766,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-05-20T23:55:37Z",
+      "side": 1,
+      "message": "Regarding the test title, what about adding this?\nassertEquals(0, mSubtitleTrackIndices.size());",
+      "revId": "fc92070fc5d470ee794cb24098ac77b38025308c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
