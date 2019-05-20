@@ -70,6 +70,24 @@
       "revId": "768df7846b5c1829e58bf4ffe7e50899ee756568",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "462be873_5225b508",
+        "filename": "car/core/res/values/styles.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-05-20T18:07:33Z",
+      "side": 1,
+      "message": "Cool. LGTM",
+      "parentUuid": "d9c85e1e_4a7334f0",
+      "revId": "768df7846b5c1829e58bf4ffe7e50899ee756568",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
