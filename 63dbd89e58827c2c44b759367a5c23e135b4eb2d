@@ -22,6 +22,30 @@
       "revId": "63dbd89e58827c2c44b759367a5c23e135b4eb2d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08071c3b_4b2f3d0b",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2019-05-20T17:34:32Z",
+      "side": 1,
+      "message": "The main purpose of the CL was not really to make things faster, but rather to enforce some expectations about the number of times our measure/layout/draw lambdas are executed. Currently we receive many redundant onMeasure/onLayout/onDraw calls, and we have no control over when these are coming. This makes our latch-based tests quite unpredictable.\nI don\u0027t have any performance analysis on it, but probably it\u0027s not worth spending time on it as the Bitmap-related code would be temporary anyways :)\nI was hoping that this CL (the test it\u0027s adding) would set these expectations, and then we could make sure they hold when changing the implementation to use RenderNodes (and RecordingCanvas instead of this Bitmap hack). I believe that, if we decide to care about the number of times the layout and draw lambdas are executed, we will still need to filter unwanted layouts/draws coming from the View system (at least for the case when the Compose hierarchy is child of a regular View).\nHowever, I totally agree if you believe it\u0027s better to keep this on hold until the RenderNode integration happens.",
+      "parentUuid": "9a7ea395_fd1ad923",
+      "range": {
+        "startLine": 293,
+        "startChar": 13,
+        "endLine": 293,
+        "endChar": 30
+      },
+      "revId": "63dbd89e58827c2c44b759367a5c23e135b4eb2d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
