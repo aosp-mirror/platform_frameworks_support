@@ -539,9 +539,15 @@ class AndroidXPlugin : Plugin<Project> {
         }
 
         val buildTestApksTask = project.rootProject.tasks.named(BUILD_TEST_APKS)
+        val buildOnServerTask = project.rootProject.tasks.named(BUILD_ON_SERVER_TASK)
         applicationVariants.all { variant ->
-            if (variant.buildType.name == "debug") {
+            // Variants used by tests will have its testVariant property set
+            // set via testBuildType property, defaults to "debug"
+            if (variant.getTestVariant() != null) {
                 buildTestApksTask.configure {
+                    it.dependsOn(variant.assembleProvider)
+                }
+                buildOnServerTask.configure {
                     it.dependsOn(variant.assembleProvider)
                 }
             }
