@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1545ad40_6f64f0c0",
+        "filename": "media2/session/src/main/java/androidx/media2/session/SessionCommandGroup.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-05-20T03:28:45Z",
+      "side": 1,
+      "message": "nit: Line 102 can covered with this.",
+      "revId": "03a055d9f47e2598afe8f0bcd5304b40931a1a40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
