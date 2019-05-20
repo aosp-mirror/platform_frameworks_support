@@ -34,6 +34,24 @@
       "revId": "768df7846b5c1829e58bf4ffe7e50899ee756568",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "12e2bdc5_331749a1",
+        "filename": "car/core/res/values/styles.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 1344512
+      },
+      "writtenOn": "2019-05-20T17:41:37Z",
+      "side": 1,
+      "message": "It does. I guess I got confused cause you\u0027re specifying a TextAppearance, but we\u0027re overriding almost all of the individual parts of the TextAppearance.\n\nMight be more clear if you just specified\n\n  \u003citem name\u003d\"android:fontFamily\"\u003esans-serif-medium\u003c/item\u003e\n\nInstead of the textAppearance since I believe this is the only line you actually need.",
+      "parentUuid": "9325e655_ab0c033f",
+      "revId": "768df7846b5c1829e58bf4ffe7e50899ee756568",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
