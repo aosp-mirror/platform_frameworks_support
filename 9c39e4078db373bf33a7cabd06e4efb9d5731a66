@@ -142,6 +142,24 @@
     },
     {
       "key": {
+        "uuid": "89b3d395_9d398629",
+        "filename": "compose/runtime/src/main/java/androidx/compose/ObserverMap.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-05-20T13:35:26Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "12764351_7fb5c799",
+      "revId": "9c39e4078db373bf33a7cabd06e4efb9d5731a66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3cbd7f44_0f39abdf",
         "filename": "compose/runtime/src/main/java/androidx/compose/ObserverMap.kt",
         "patchSetId": 3
@@ -177,6 +195,24 @@
     },
     {
       "key": {
+        "uuid": "e81914dd_69ee893f",
+        "filename": "compose/runtime/src/main/java/androidx/compose/ObserverMap.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-05-20T13:35:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bf482670_2278a4db",
+      "revId": "9c39e4078db373bf33a7cabd06e4efb9d5731a66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "83d7efde_61eae071",
         "filename": "compose/runtime/src/main/java/androidx/compose/ObserverMap.kt",
         "patchSetId": 3
@@ -209,6 +245,24 @@
       "revId": "9c39e4078db373bf33a7cabd06e4efb9d5731a66",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f01bcf4d_9ae416ff",
+        "filename": "compose/runtime/src/main/java/androidx/compose/ObserverMap.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-05-20T13:35:26Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "537d711b_a45d5480",
+      "revId": "9c39e4078db373bf33a7cabd06e4efb9d5731a66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
