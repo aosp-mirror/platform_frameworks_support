@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b1e6d5bb_30b53803",
+        "filename": "ui/text/src/main/java/androidx/ui/engine/text/TextStyle.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-05-20T20:14:28Z",
+      "side": 1,
+      "message": "nit this can be on the same line? no?",
+      "range": {
+        "startLine": 36,
+        "startChar": 30,
+        "endLine": 36,
+        "endChar": 91
+      },
+      "revId": "ca691b94eafe71dcdc32574e4036705e85f048bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1cd5a583_18be2e4f",
+        "filename": "ui/text/src/main/java/androidx/ui/engine/text/TextStyle.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-05-20T20:14:28Z",
+      "side": 1,
+      "message": "more to previous line",
+      "range": {
+        "startLine": 49,
+        "startChar": 105,
+        "endLine": 50,
+        "endChar": 21
+      },
+      "revId": "ca691b94eafe71dcdc32574e4036705e85f048bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
