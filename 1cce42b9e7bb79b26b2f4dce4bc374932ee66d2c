@@ -22,6 +22,30 @@
       "revId": "1cce42b9e7bb79b26b2f4dce4bc374932ee66d2c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a687f60f_ecbe7eb7",
+        "filename": "collection/ktx/api/1.2.0-alpha01.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-05-20T20:43:33Z",
+      "side": 1,
+      "message": "I\u0027m starting to take a look at this and I\u0027ve come up with a simpler reproduction case:\n\n\n  $ git diff collection/ktx/api/current.txt collection/ktx/src\n  diff --git a/collection/ktx/api/current.txt b/collection/ktx/api/current.txt\n  index fecb48995c..00fddc9213 100644\n  --- a/collection/ktx/api/current.txt\n  +++ b/collection/ktx/api/current.txt\n  @@ -31,6 +31,7 @@ package androidx.collection {\n     public final class LruCacheKt {\n       ctor public LruCacheKt();\n       method public static inline \u003cK, V\u003e androidx.collection.LruCache\u003cK,V\u003e lruCache(int maxSize, kotlin.jvm.functions.Function2\u003c? super K,? super V,java.lang.Integer\u003e sizeOf \u003d { _, _ -\u003e 1 }, kotlin.jvm.functions.Function1\u003c? super K,? extends V\u003e create \u003d { (java.lang.Object)null }, kotlin.jvm.functions.Function4\u003c? super java.lang.Boolean,? super K,? super V,? super V,kotlin.Unit\u003e onEntryRemoved \u003d { _, _, _, _ -\u003e  });\n  +    method public static inline \u003cK, V\u003e androidx.collection.LruCache\u003cK,V\u003e? lruCache2(kotlin.jvm.functions.Function1\u003c? super K,? extends V\u003e create \u003d { (java.lang.Object)null });\n     }\n   \n     public final class SparseArrayKt {\n  diff --git a/collection/ktx/src/main/java/androidx/collection/LruCache.kt b/collection/ktx/src/main/java/androidx/collection/LruCache.kt\n  index 554a012f7e..1b698f21a3 100644\n  --- a/collection/ktx/src/main/java/androidx/collection/LruCache.kt\n  +++ b/collection/ktx/src/main/java/androidx/collection/LruCache.kt\n  @@ -49,3 +49,9 @@ inline fun \u003cK : Any, V : Any\u003e lruCache(\n           }\n       }\n   }\n  +\n  +inline fun \u003cK : Any, V : Any\u003e lruCache2(\n  +  crossinline create: (key: K) -\u003e V? \u003d { null as V? }\n  +) : LruCache\u003cK, V\u003e? {\n  +  return null\n  +}\n\n\nIt makes sense to me that \"V\" would be slightly more accurate than \"java.lang.Object\" but I haven\u0027t really discovered much yet.\n\nIt looks like the corresponding unit test changed in https://android-review.googlesource.com/c/platform/tools/metalava/+/880780/1/src/test/java/com/android/tools/metalava/ApiFileTest.kt#288\n\nI\u0027ll keep investigating unless Tor has any suggestions",
+      "parentUuid": "6663b705_7f1e0b9d",
+      "range": {
+        "startLine": 33,
+        "startChar": 255,
+        "endLine": 33,
+        "endChar": 271
+      },
+      "revId": "1cce42b9e7bb79b26b2f4dce4bc374932ee66d2c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
