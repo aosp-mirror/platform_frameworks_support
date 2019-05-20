@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cd7a6770_6eeb26fa",
+        "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 3122,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-20T05:53:43Z",
+      "side": 0,
+      "message": "Shouldn\u0027t it be called on MEDIA_INFO_PREPARED?",
+      "range": {
+        "startLine": 3122,
+        "startChar": 20,
+        "endLine": 3122,
+        "endChar": 84
+      },
+      "revId": "7ea85e8b3ddd4a802fca4850a6a6a936dcec2b89",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
