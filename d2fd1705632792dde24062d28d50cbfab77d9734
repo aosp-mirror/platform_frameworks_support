@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f2f41997_e79acc8b",
+        "filename": "paging/common/src/main/java/androidx/paging/WrapperPositionalDataSource.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-05-20T19:43:08Z",
+      "side": 1,
+      "message": "Can this fun be imported?",
+      "range": {
+        "startLine": 45,
+        "startChar": 34,
+        "endLine": 45,
+        "endChar": 52
+      },
+      "revId": "d2fd1705632792dde24062d28d50cbfab77d9734",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
