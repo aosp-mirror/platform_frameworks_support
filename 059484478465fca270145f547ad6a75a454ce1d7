@@ -22,6 +22,30 @@
       "revId": "059484478465fca270145f547ad6a75a454ce1d7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c390709_8e3a7f7d",
+        "filename": "development/history/add_release_commit_tags.sh",
+        "patchSetId": 7
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-05-20T15:25:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "881cdc2a_f5659943",
+      "range": {
+        "startLine": 102,
+        "startChar": 18,
+        "endLine": 102,
+        "endChar": 19
+      },
+      "revId": "059484478465fca270145f547ad6a75a454ce1d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
