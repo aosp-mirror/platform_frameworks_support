@@ -16,6 +16,24 @@
       "revId": "298080d00811e45cd00d218cbf2f2c05caec5bb6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "685482d7_a0f72b80",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/compat/params/OutputConfigurationCompatApi26Impl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-05-20T23:19:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d21ea6e9_642ce256",
+      "revId": "298080d00811e45cd00d218cbf2f2c05caec5bb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
