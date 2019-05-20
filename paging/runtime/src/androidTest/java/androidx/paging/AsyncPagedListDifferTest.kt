@@ -352,12 +352,12 @@ class AsyncPagedListDifferTest {
         differ.submitList(createPagedListFromListAndPos(config, ALPHABET_LIST.subList(10, 20), 0))
         differ.currentList!!.loadAround(0)
         drain()
-        assertEquals(0, differ.currentList!!.lastKey)
+        assertEquals(0, differ.currentList!!.getLastKey())
 
         // if 10 items are prepended, lastKey should be updated to point to same item
         differ.submitList(createPagedListFromListAndPos(config, ALPHABET_LIST.subList(0, 20), 0))
         drain()
-        assertEquals(10, differ.currentList!!.lastKey)
+        assertEquals(10, differ.currentList!!.getLastKey())
     }
 
     @Test
