@@ -493,6 +493,10 @@ public abstract class FragmentTransaction {
      * Add this transaction to the back stack.  This means that the transaction
      * will be remembered after it is committed, and will reverse its operation
      * when later popped off the stack.
+     * <p>
+     * {@link #setReorderingAllowed(boolean)} must be set to <code>true</code>
+     * in the same transaction an operation is added to the back stack to allow
+     * the pop of that operation of be reordered.
      *
      * @param name An optional name for this back stack state, or null.
      */
