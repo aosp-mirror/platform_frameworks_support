@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "96c355a4_f6b5a9df",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/IgnoreApiChangesTask.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-05-20T17:47:17Z",
+      "side": 1,
+      "message": "intermediateExclusionsFile is a temporary file that doesn\u0027t need to trigger the task to rerun if its contents is changed.",
+      "range": {
+        "startLine": 44,
+        "startChar": 9,
+        "endLine": 44,
+        "endChar": 14
+      },
+      "revId": "b9d74907e40480ade860221764797aa389eff1cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23d505e3_7dc477d9",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/UpdateApiTask.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-05-20T17:47:17Z",
+      "side": 1,
+      "message": "I think we want \"Output\"",
+      "range": {
+        "startLine": 42,
+        "startChar": 9,
+        "endLine": 42,
+        "endChar": 14
+      },
+      "revId": "b9d74907e40480ade860221764797aa389eff1cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

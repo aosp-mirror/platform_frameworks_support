@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "847baf08_92c87823",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/CheckApiEquivalenceTask.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-05-20T17:47:17Z",
+      "side": 0,
+      "message": "Although this task should be rather quick to execute, removing the OutputFiles annotation does cause Gradle to rerun it",
+      "range": {
+        "startLine": 33,
+        "startChar": 7,
+        "endLine": 33,
+        "endChar": 80
+      },
+      "revId": "cbc96482b21cb8fef800293b5c510b88feb2f090",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
