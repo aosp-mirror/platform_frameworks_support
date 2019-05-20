@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2fe27db5_834ad169",
+        "filename": "dynamic-animation/src/main/java/androidx/dynamicanimation/animation/SpringAnimation.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1104994
+      },
+      "writtenOn": "2019-05-20T23:46:13Z",
+      "side": 1,
+      "message": "This is not a link to a developer guide. Just remove the \u003ch3\u003e tag completely. The rest of the information is straight inline documentation.",
+      "revId": "6c51334096487c915452c426f3fb29d52f1815a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
