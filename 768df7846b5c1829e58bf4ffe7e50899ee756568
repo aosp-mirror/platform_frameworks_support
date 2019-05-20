@@ -16,6 +16,24 @@
       "revId": "768df7846b5c1829e58bf4ffe7e50899ee756568",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9325e655_ab0c033f",
+        "filename": "car/core/res/values/styles.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-05-20T17:31:58Z",
+      "side": 1,
+      "message": "Shouldn\u0027t all the values associated with textappearance be inherited and textColor will be overridden where appropriate? That seemed to be the behavior I see from my quick sanity test.",
+      "parentUuid": "9cb87dbc_f339e47a",
+      "revId": "768df7846b5c1829e58bf4ffe7e50899ee756568",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
