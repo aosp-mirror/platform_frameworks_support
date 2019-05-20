@@ -75,7 +75,7 @@ class StringPagedList constructor(
     override fun onPageInserted(start: Int, count: Int) {}
 
     override fun getDataSource(): DataSource<*, String> {
-        return ListDataSource<String>(list)
+        return ListDataSource(list)
     }
 
     override fun onPagesRemoved(startOfDrops: Int, count: Int) {
