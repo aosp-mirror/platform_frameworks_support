@@ -59,8 +59,10 @@ public abstract class TiledDataSource<T> extends PositionalDataSource<T> {
         }
 
         // bound the size requested, based on known count
-        final int firstLoadPosition = computeInitialLoadPosition(params, totalCount);
-        final int firstLoadSize = computeInitialLoadSize(params, firstLoadPosition, totalCount);
+        final int firstLoadPosition = PositionalDataSource.Companion.computeInitialLoadPosition(
+                params, totalCount);
+        final int firstLoadSize = PositionalDataSource.Companion.computeInitialLoadSize(params,
+                firstLoadPosition, totalCount);
 
         // convert from legacy behavior
         List<T> list = loadRange(firstLoadPosition, firstLoadSize);
