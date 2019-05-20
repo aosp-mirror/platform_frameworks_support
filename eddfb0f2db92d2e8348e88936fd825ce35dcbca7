@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "195f85fe_86ca34c1",
+        "filename": "lifecycle/common-java8/build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-05-20T17:56:05Z",
+      "side": 0,
+      "message": "We should move any source files in this module into the regular lifecycle/common/ and have this one be empty.",
+      "revId": "eddfb0f2db92d2e8348e88936fd825ce35dcbca7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "edc82882_62672852",
+        "filename": "room/common-java8/build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-05-20T17:56:05Z",
+      "side": 0,
+      "message": "Similarly, all types in this module should move to room/common/",
+      "revId": "eddfb0f2db92d2e8348e88936fd825ce35dcbca7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
