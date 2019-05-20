@@ -140,7 +140,7 @@ class TypefaceAdapterTest {
                     fontStyle = fontStyle
                 )
 
-                if (fontStyle == FontStyle.normal) {
+                if (fontStyle == FontStyle.Normal) {
                     assertThat(typefaceStyle).isEqualTo(Typeface.NORMAL)
                 } else {
                     assertThat(typefaceStyle).isEqualTo(Typeface.ITALIC)
@@ -165,7 +165,7 @@ class TypefaceAdapterTest {
                     fontStyle = fontStyle
                 )
 
-                if (fontStyle == FontStyle.normal) {
+                if (fontStyle == FontStyle.Normal) {
                     assertThat(typefaceStyle).isEqualTo(Typeface.BOLD)
                 } else {
                     assertThat(typefaceStyle).isEqualTo(Typeface.BOLD_ITALIC)
@@ -370,7 +370,7 @@ class TypefaceAdapterTest {
     fun resultsNotSame_forDifferentFontStyle() {
         val typefaceAdapter = TypefaceAdapter()
 
-        val typeface = typefaceAdapter.create(fontStyle = FontStyle.normal)
+        val typeface = typefaceAdapter.create(fontStyle = FontStyle.Normal)
         val otherTypeface = typefaceAdapter.create(fontStyle = FontStyle.italic)
 
         assertThat(typeface).isNotSameInstanceAs(otherTypeface)
@@ -428,7 +428,7 @@ class TypefaceAdapterTest {
             fontFamily = fontFamily,
             fontWeight = FontWeight.bold,
             fontStyle = FontStyle.italic,
-            fontSynthesis = FontSynthesis.all
+            fontSynthesis = FontSynthesis.All
         )
 
         // since 100 regular is not bold and not italic, passing FontWeight.bold and
@@ -446,7 +446,7 @@ class TypefaceAdapterTest {
             fontFamily = fontFamily,
             fontWeight = FontWeight.bold,
             fontStyle = FontStyle.italic,
-            fontSynthesis = FontSynthesis.style
+            fontSynthesis = FontSynthesis.Style
         )
 
         // since 100 regular is not bold and not italic, passing FontWeight.bold and
@@ -464,7 +464,7 @@ class TypefaceAdapterTest {
             fontFamily = fontFamily,
             fontWeight = FontWeight.bold,
             fontStyle = FontStyle.italic,
-            fontSynthesis = FontSynthesis.weight
+            fontSynthesis = FontSynthesis.Weight
         )
 
         // since 100 regular is not bold and not italic, passing FontWeight.bold and
@@ -482,7 +482,7 @@ class TypefaceAdapterTest {
             fontFamily = fontFamily,
             fontWeight = FontWeight.w700,
             fontStyle = FontStyle.italic,
-            fontSynthesis = FontSynthesis.style
+            fontSynthesis = FontSynthesis.Style
         )
 
         assertThat(typeface.isBold).isFalse()
@@ -498,7 +498,7 @@ class TypefaceAdapterTest {
             fontFamily = fontFamily,
             fontWeight = FontWeight.w700,
             fontStyle = FontStyle.italic,
-            fontSynthesis = FontSynthesis.all
+            fontSynthesis = FontSynthesis.All
         )
         assertThat(typeface.isItalic).isFalse()
 
@@ -522,7 +522,7 @@ class TypefaceAdapterTest {
             fontFamily = fontFamily,
             fontWeight = FontWeight.bold,
             fontStyle = FontStyle.italic,
-            fontSynthesis = FontSynthesis.none
+            fontSynthesis = FontSynthesis.None
         )
 
         assertThat(typeface.isBold).isFalse()
@@ -538,13 +538,13 @@ class TypefaceAdapterTest {
         val typeface500 = TypefaceAdapter().create(
             fontFamily = fontFamily,
             fontWeight = FontWeight.w500,
-            fontSynthesis = FontSynthesis.weight
+            fontSynthesis = FontSynthesis.Weight
         )
         // 600 or more is synthesized
         val typeface600 = TypefaceAdapter().create(
             fontFamily = fontFamily,
             fontWeight = FontWeight.w600,
-            fontSynthesis = FontSynthesis.weight
+            fontSynthesis = FontSynthesis.Weight
         )
 
         assertThat(typeface500.isBold).isFalse()

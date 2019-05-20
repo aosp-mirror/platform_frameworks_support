@@ -55,8 +55,8 @@ class ParagraphStyleTest {
 
     @Test
     fun `getTextStyle with non-null values`() {
-        val textAlign = TextAlign.END
-        val textDirection = TextDirection.RTL
+        val textAlign = TextAlign.End
+        val textDirection = TextDirection.Rtl
         val fontWeight = FontWeight.bold
         val fontStyle = FontStyle.italic
         val maxLines = 2
@@ -65,7 +65,7 @@ class ParagraphStyleTest {
         val lineHeight = 2.0f
         val ellipsis = true
         val locale = Locale("en")
-        val fontSynthesis = FontSynthesis.style
+        val fontSynthesis = FontSynthesis.Style
 
         val paragraphStyle = ParagraphStyle(
             textAlign = textAlign,
@@ -123,8 +123,8 @@ class ParagraphStyleTest {
 
     @Test
     fun `toString with values`() {
-        val textAlign = TextAlign.END
-        val textDirection = TextDirection.RTL
+        val textAlign = TextAlign.End
+        val textDirection = TextDirection.Rtl
         val fontWeight = FontWeight.bold
         val fontStyle = FontStyle.italic
         val maxLines = 2
@@ -133,7 +133,7 @@ class ParagraphStyleTest {
         val lineHeight = 2.0f
         val ellipsis = false
         val locale = Locale("en")
-        val fontSynthesis = FontSynthesis.style
+        val fontSynthesis = FontSynthesis.Style
 
         val paragraphStyle = ParagraphStyle(
             textAlign = textAlign,

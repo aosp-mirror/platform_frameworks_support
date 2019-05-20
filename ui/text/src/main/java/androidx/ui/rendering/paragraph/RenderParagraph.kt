@@ -76,7 +76,7 @@ private val DEFAULT_SELECTION_COLOR = Color(0x6633B5E5)
 
 class RenderParagraph(
     text: TextSpan,
-    textAlign: TextAlign = TextAlign.START,
+    textAlign: TextAlign = TextAlign.Start,
     textDirection: TextDirection,
     softWrap: Boolean = true,
     overflow: TextOverflow = TextOverflow.CLIP,
@@ -295,11 +295,11 @@ class RenderParagraph(
                         var fadeEnd: Float
                         var fadeStart: Float
                         when (textDirection) {
-                            TextDirection.RTL -> {
+                            TextDirection.Rtl -> {
                                 fadeEnd = 0.0f
                                 fadeStart = fadeSizePainter.width
                             }
-                            TextDirection.LTR -> {
+                            TextDirection.Ltr -> {
                                 fadeEnd = size.width
                                 fadeStart = fadeEnd - fadeSizePainter.width
                             }

@@ -237,8 +237,8 @@ data class TextStyle(
                 background = if (t < 0.5) a.background else b.background,
                 decoration = if (t < 0.5) a.decoration else b.decoration,
                 textIndent = lerp(
-                    a.textIndent ?: TextIndent.NONE,
-                    b.textIndent ?: TextIndent.NONE,
+                    a.textIndent ?: TextIndent.None,
+                    b.textIndent ?: TextIndent.None,
                     t
                 ),
                 shadow = lerp(

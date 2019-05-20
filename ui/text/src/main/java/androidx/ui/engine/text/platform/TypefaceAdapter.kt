@@ -67,8 +67,8 @@ internal open class TypefaceAdapter constructor(
     open fun create(
         fontFamily: FontFamily? = null,
         fontWeight: FontWeight = FontWeight.normal,
-        fontStyle: FontStyle = FontStyle.normal,
-        fontSynthesis: FontSynthesis = FontSynthesis.all
+        fontStyle: FontStyle = FontStyle.Normal,
+        fontSynthesis: FontSynthesis = FontSynthesis.All
     ): Typeface {
         val cacheKey = CacheKey(fontFamily, fontWeight, fontStyle, fontSynthesis)
         val cachedTypeface = typefaceCache.get(cacheKey)
@@ -113,9 +113,9 @@ internal open class TypefaceAdapter constructor(
     private fun create(
         genericFontFamily: String? = null,
         fontWeight: FontWeight = FontWeight.normal,
-        fontStyle: FontStyle = FontStyle.normal
+        fontStyle: FontStyle = FontStyle.Normal
     ): Typeface {
-        if (fontStyle == FontStyle.normal &&
+        if (fontStyle == FontStyle.Normal &&
             fontWeight == FontWeight.normal &&
             genericFontFamily.isNullOrEmpty()
         ) {
@@ -163,11 +163,11 @@ internal open class TypefaceAdapter constructor(
      *        custom fonts for if they are not already present in the font family
      */
     private fun create(
-        fontStyle: FontStyle = FontStyle.normal,
+        fontStyle: FontStyle = FontStyle.Normal,
         fontWeight: FontWeight = FontWeight.normal,
         fontFamily: FontFamily,
         context: Context,
-        fontSynthesis: FontSynthesis = FontSynthesis.all
+        fontSynthesis: FontSynthesis = FontSynthesis.All
     ): Typeface {
         // TODO(Migration/siyamed): add genericFontFamily : String? = null for fallback
         // TODO(Migration/siyamed): add support for multiple font families
@@ -196,7 +196,7 @@ internal open class TypefaceAdapter constructor(
 
         val loadedFontIsSameAsRequest = fontWeight == font.weight && fontStyle == font.style
         // if synthesis is not requested or there is an exact match we don't need synthesis
-        if (fontSynthesis == FontSynthesis.none || loadedFontIsSameAsRequest) {
+        if (fontSynthesis == FontSynthesis.None || loadedFontIsSameAsRequest) {
             return typeface
         }
 
