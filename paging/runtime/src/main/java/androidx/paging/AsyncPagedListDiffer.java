@@ -152,7 +152,7 @@ public class AsyncPagedListDiffer<T> {
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     int mMaxScheduledGeneration;
 
-    @SuppressWarnings("WeakerAccess") /* synthetic access */
+    @SuppressWarnings({"WeakerAccess", "KotlinInternalInJava"}) /* synthetic access */
     final PagedList.LoadStateManager mLoadStateManager = new PagedList.LoadStateManager() {
         @Override
         protected void onStateChanged(@NonNull PagedList.LoadType type,
@@ -290,6 +290,7 @@ public class AsyncPagedListDiffer<T> {
             @Nullable final Runnable commitCallback) {
         if (pagedList != null) {
             if (mPagedList == null && mSnapshot == null) {
+                //noinspection KotlinInternalInJava
                 mIsContiguous = pagedList.isContiguous();
             } else {
                 if (pagedList.isContiguous() != mIsContiguous) {
@@ -361,16 +362,17 @@ public class AsyncPagedListDiffer<T> {
             public void run() {
                 final DiffUtil.DiffResult result;
                 result = PagedStorageDiffHelper.computeDiff(
-                        oldSnapshot.mStorage,
-                        newSnapshot.mStorage,
+                        oldSnapshot.getStorage(),
+                        newSnapshot.getStorage(),
                         mConfig.getDiffCallback());
 
                 mMainThreadExecutor.execute(new Runnable() {
                     @Override
                     public void run() {
                         if (mMaxScheduledGeneration == runGeneration) {
+                            //noinspection KotlinInternalInJava
                             latchPagedList(pagedList, newSnapshot, result,
-                                    oldSnapshot.mLastLoad, commitCallback);
+                                    oldSnapshot.getLastLoad$paging_common(), commitCallback);
                         }
                     }
                 });
@@ -396,7 +398,7 @@ public class AsyncPagedListDiffer<T> {
 
         // dispatch update callback after updating mPagedList/mSnapshot
         PagedStorageDiffHelper.dispatchDiff(mUpdateCallback,
-                previousSnapshot.mStorage, newList.mStorage, diffResult);
+                previousSnapshot.getStorage(), newList.getStorage(), diffResult);
 
         newList.addWeakCallback(diffSnapshot, mPagedListCallback);
 
@@ -408,7 +410,7 @@ public class AsyncPagedListDiffer<T> {
             // this is only a problem in rare cases when placeholders are disabled, and a load
             // starts (for some reason) and finishes before diff completes.
             int newPosition = PagedStorageDiffHelper.transformAnchorIndex(
-                    diffResult, previousSnapshot.mStorage, diffSnapshot.mStorage, lastAccessIndex);
+                    diffResult, previousSnapshot.getStorage(), diffSnapshot.getStorage(), lastAccessIndex);
 
             // Trigger load in new list at this position, clamped to list bounds.
             // This is a load, not just an update of last load position, since the new list may be
