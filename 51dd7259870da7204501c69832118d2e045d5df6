@@ -49,6 +49,53 @@
     },
     {
       "key": {
+        "uuid": "541ffe68_b7037504",
+        "filename": "ui/test/src/androidTest/java/androix/ui/test/RecompositionDetectionTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-05-20T19:19:27Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a70ab390_9b72a7d0",
+      "range": {
+        "startLine": 74,
+        "startChar": 9,
+        "endLine": 74,
+        "endChar": 79
+      },
+      "revId": "51dd7259870da7204501c69832118d2e045d5df6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ea9029c7_fff7ddea",
+        "filename": "ui/test/src/main/java/androidx/ui/test/android/AndroidSemanticsTreeInteraction.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-05-20T19:19:27Z",
+      "side": 1,
+      "message": "Are you sure that we need this call?",
+      "range": {
+        "startLine": 87,
+        "startChar": 8,
+        "endLine": 87,
+        "endChar": 55
+      },
+      "revId": "51dd7259870da7204501c69832118d2e045d5df6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0cdc3c7d_849719c1",
         "filename": "ui/test/src/main/java/androidx/ui/test/android/AndroidSemanticsTreeInteraction.kt",
         "patchSetId": 2
@@ -84,6 +131,30 @@
       "side": 1,
       "message": "You don\u0027t have to have ComposeRule in order to test your stuff via our APIs. ComposeRule is only convenience wrapper for launching you an activity and setting up content into it. But we can always refactor this out of this class if we need it elsewhere.\n\n\"I can also imagine how I check sizes of some component, and then modidy model, waiting for idle screen and then check sizes again, without any semantics interactions or queries.\"\n- I\u0027m not sure here. Do you have some use cases / examples? I think if we expose waitForIdle in our API it will be a code smell. We should make sure that devs never need to call it in their tests to run correctly.",
       "parentUuid": "0cdc3c7d_849719c1",
+      "range": {
+        "startLine": 108,
+        "startChar": 16,
+        "endLine": 108,
+        "endChar": 40
+      },
+      "revId": "51dd7259870da7204501c69832118d2e045d5df6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47d1310b_88f3d682",
+        "filename": "ui/test/src/main/java/androidx/ui/test/android/AndroidSemanticsTreeInteraction.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-05-20T19:19:27Z",
+      "side": 1,
+      "message": "I don\u0027t know much about Rules in general, but it appears to me that if you want to work and test compose, as well as query semantics (which is part of compose), you want and have to use ComposeRule and that is right. and it just feels like we can better isolate compose-runtime related stuff so semantics won\u0027t know about it.\n\nAbout sizes checks: \nYeah, I don\u0027t think actually we want to explicitly check for idle state (though I need to think about it more), but the point here was that waiting for idle is not about semantics and clicks, it\u0027s general runtime check, wherther it is a public API or not",
+      "parentUuid": "804e64e6_2ff372ee",
       "range": {
         "startLine": 108,
         "startChar": 16,
@@ -143,6 +214,30 @@
     },
     {
       "key": {
+        "uuid": "6d24de6b_e2704163",
+        "filename": "ui/test/src/main/java/androidx/ui/test/android/AndroidSemanticsTreeInteraction.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-05-20T19:19:27Z",
+      "side": 1,
+      "message": "Yep, sorry missed assignment",
+      "parentUuid": "84449ca0_d9c7acaa",
+      "range": {
+        "startLine": 113,
+        "startChar": 16,
+        "endLine": 113,
+        "endChar": 70
+      },
+      "revId": "51dd7259870da7204501c69832118d2e045d5df6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6a27f738_4909e6ad",
         "filename": "ui/test/src/main/java/androidx/ui/test/android/AndroidSemanticsTreeInteraction.kt",
         "patchSetId": 2
@@ -178,6 +273,30 @@
       "side": 1,
       "message": "- I\u0027m just looking into Latch and I see no issue in using getCount() for verification like this, how do you image await would help me to verify if we did not timeout? Did you notice I\u0027m already using await on the live above?\n\nBut I agree I should do latch.count \u003e 0 instead of \u003d\u003d 1. Done that.",
       "parentUuid": "6a27f738_4909e6ad",
+      "range": {
+        "startLine": 122,
+        "startChar": 38,
+        "endLine": 122,
+        "endChar": 56
+      },
+      "revId": "51dd7259870da7204501c69832118d2e045d5df6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21acee76_6e8ae787",
+        "filename": "ui/test/src/main/java/androidx/ui/test/android/AndroidSemanticsTreeInteraction.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-05-20T19:19:27Z",
+      "side": 1,
+      "message": "It\u0027s not really a problem for now, just want to make multithreading here right. The way I see it, the situation may occur: \n\ntest thread: latch.await(defaultRecomposeWaitTimeMs, TimeUnit.MILLISECONDS)\ntest thread: drops await with timeout\nmain thread: count down latch (this can happen easilty)\ntest thread: if (throwOnRecomposeTimeOut \u0026\u0026 latch.count \u003d\u003d 1L)\ntest thread: think that latch count is 0 and that we didn\u0027t timeout, but we actually did!\n\nFor this exact problem there was an API introduced in CountDownLatch, that await return value and indicates whether or not we timed out no matter what will happen later. \n\ndoes it make sense?",
+      "parentUuid": "bd6082b1_3f0aa186",
       "range": {
         "startLine": 122,
         "startChar": 38,
