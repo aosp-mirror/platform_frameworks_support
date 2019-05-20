@@ -573,7 +573,7 @@ private fun concatStrings(
     if (thisTextDirection != otherTextDirection && otherTextDirection != null) {
         nestedLabel = when (otherTextDirection) {
             TextDirection.RTL -> "${Unicode.RLE}$nestedLabel${Unicode.PDF}"
-            TextDirection.LTR -> "${Unicode.LRE}$nestedLabel${Unicode.PDF}"
+            TextDirection.Ltr -> "${Unicode.LRE}$nestedLabel${Unicode.PDF}"
         }
     }
     if (thisString.isNullOrEmpty())

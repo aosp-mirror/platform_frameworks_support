@@ -106,7 +106,7 @@ internal class MixedBorderRadius(
                     bottomLeft = bottomLeft + bottomEnd,
                     bottomRight = bottomRight + bottomStart
                 )
-            TextDirection.LTR ->
+            TextDirection.Ltr ->
                 return BorderRadius(
                     topLeft = topLeft + topStart,
                     topRight = topRight + topEnd,

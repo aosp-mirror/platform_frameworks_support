@@ -21,21 +21,21 @@ package androidx.ui.engine.text
  */
 enum class TextAlign {
     /** Align the text on the left edge of the container. */
-    LEFT,
+    Left,
 
     /** Align the text on the right edge of the container. */
-    RIGHT,
+    Right,
 
     /** Align the text in the center of the container. */
-    CENTER,
+    Center,
 
     /**
      * Stretch lines of text that end with a soft line break to fill the width of
      * the container.
      *
-     * Lines that end with hard line breaks are aligned towards the [START] edge.
+     * Lines that end with hard line breaks are aligned towards the [Start] edge.
      */
-    JUSTIFY,
+    Justify,
 
     /**
      * Align the text on the leading edge of the container.
@@ -44,7 +44,7 @@ enum class TextAlign {
      *
      * For right-to-left text ([TextDirection.rtl]), this is the right edge.
      */
-    START,
+    Start,
 
     /**
      * Align the text on the trailing edge of the container.
@@ -53,5 +53,5 @@ enum class TextAlign {
      *
      * For right-to-left text ([TextDirection.rtl]), this is the left edge.
      */
-    END
+    End
 }
