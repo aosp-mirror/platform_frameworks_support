@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a7ea395_fd1ad923",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-05-20T14:33:53Z",
+      "side": 1,
+      "message": "I\u0027m not sure about this optimization. Saving to a bitmap could be quite expensive in terms of resources. If we are going to have an optimization like this, I expect the android framework to handle it.\n\nHave you done performance analysis on it?\n\nWe should aim toward using the View/RenderNode optimizations that exist. I think that we shouldn\u0027t be receiving at least onDraw() calls when the View hasn\u0027t been invalidated. It may be that we\u0027re receiving dispatchDraw() even when an invalidate() hasn\u0027t been called.\n\nThis optimization should be removed pending further exploration. I\u0027m still working on RenderNode/child View integration and this can wait until after that change. We should also look into how RenderNodes are used in View to see when the RenderNode hierarchy is invalidated and how to hook into that to avoid redraw.",
+      "range": {
+        "startLine": 293,
+        "startChar": 13,
+        "endLine": 293,
+        "endChar": 30
+      },
+      "revId": "63dbd89e58827c2c44b759367a5c23e135b4eb2d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
