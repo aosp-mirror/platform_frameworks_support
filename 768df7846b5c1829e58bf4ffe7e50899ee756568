@@ -52,6 +52,24 @@
       "revId": "768df7846b5c1829e58bf4ffe7e50899ee756568",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d9c85e1e_4a7334f0",
+        "filename": "car/core/res/values/styles.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-05-20T17:59:21Z",
+      "side": 1,
+      "message": "letterSpacing is also something that should be overridden from the gm2 button style value. Got rid of the redundant size and fontFamily values.",
+      "parentUuid": "12e2bdc5_331749a1",
+      "revId": "768df7846b5c1829e58bf4ffe7e50899ee756568",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
