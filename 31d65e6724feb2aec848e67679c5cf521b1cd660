@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2a7351bf_ba53c4f5",
+        "filename": "ui/material/src/androidTest/java/androidx/ui/material/ProgressIndicatorTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-05-20T20:23:26Z",
+      "side": 1,
+      "message": "You can reduce error if you convert as the last step:\n\n(4.dp * 2 + 40.dp).toIntPx()",
+      "range": {
+        "startLine": 151,
+        "startChar": 43,
+        "endLine": 151,
+        "endChar": 79
+      },
+      "revId": "31d65e6724feb2aec848e67679c5cf521b1cd660",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
