@@ -459,13 +459,14 @@ public final class ImageCaptureTest {
 
     @Test
     public void updateSessionConfigWithSuggestedResolution() throws InterruptedException {
-        ImageCaptureConfig config =
-                new ImageCaptureConfig.Builder().setCallbackHandler(mHandler).build();
-        ImageCapture useCase = new ImageCapture(config);
-        useCase.addStateChangeListener(mCamera);
         final Size[] sizes = {SECONDARY_RESOLUTION, DEFAULT_RESOLUTION};
 
         for (Size size : sizes) {
+            ImageCaptureConfig config =
+                    new ImageCaptureConfig.Builder().setCallbackHandler(mHandler).build();
+            ImageCapture useCase = new ImageCapture(config);
+            useCase.addStateChangeListener(mCamera);
+
             Map<String, Size> suggestedResolutionMap = new HashMap<>();
             suggestedResolutionMap.put(mCameraId, size);
             // Update SessionConfig with resolution setting
