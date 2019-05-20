@@ -44,13 +44,13 @@ class Pager<K, V> {
             adjacentProvider = new SimpleAdjacentProvider<>();
         }
         mAdjacentProvider = adjacentProvider;
-        mPrevKey = (K) result.prevKey;
-        mNextKey = (K) result.nextKey;
+        mPrevKey = (K) result.getPrevKey();
+        mNextKey = (K) result.getNextKey();
         adjacentProvider.onPageResultResolution(PagedList.LoadType.REFRESH, result);
         mTotalCount = result.totalCount();
 
         // TODO: move this validation to tiled paging impl, once that's added back
-        if (mSource.mType == DataSource.KeyType.POSITIONAL && mConfig.enablePlaceholders) {
+        if (mSource.getMType() == DataSource.KeyType.POSITIONAL && mConfig.enablePlaceholders) {
             result.validateForInitialTiling(mConfig.pageSize);
         }
     }
@@ -166,18 +166,18 @@ class Pager<K, V> {
         if (mPageConsumer.onPageResult(type, value)) {
             if (type.equals(PagedList.LoadType.START)) {
                 //noinspection unchecked
-                mPrevKey = (K) value.prevKey;
+                mPrevKey = (K) value.getPrevKey();
                 schedulePrepend();
             } else if (type.equals(PagedList.LoadType.END)) {
                 //noinspection unchecked
-                mNextKey = (K) value.nextKey;
+                mNextKey = (K) value.getNextKey();
                 scheduleAppend();
             } else {
                 throw new IllegalStateException("Can only fetch more during append/prepend");
             }
         } else {
             PagedList.LoadState state =
-                    value.data.isEmpty() ? PagedList.LoadState.DONE : PagedList.LoadState.IDLE;
+                    value.getData().isEmpty() ? PagedList.LoadState.DONE : PagedList.LoadState.IDLE;
             mLoadStateManager.setState(type, state, null);
         }
     }
@@ -207,7 +207,7 @@ class Pager<K, V> {
     }
 
     private boolean canPrepend() {
-        if (mTotalCount == DataSource.BaseResult.TOTAL_COUNT_UNKNOWN) {
+        if (mTotalCount == DataSource.BaseResult.Companion.getTOTAL_COUNT_UNKNOWN()) {
             // don't know count / position from initial load, so be conservative, return true
             return true;
         }
@@ -217,7 +217,7 @@ class Pager<K, V> {
     }
 
     private boolean canAppend() {
-        if (mTotalCount == DataSource.BaseResult.TOTAL_COUNT_UNKNOWN) {
+        if (mTotalCount == DataSource.BaseResult.Companion.getTOTAL_COUNT_UNKNOWN()) {
             // don't know count / position from initial load, so be conservative, return true
             return true;
         }
@@ -228,11 +228,11 @@ class Pager<K, V> {
 
     private void schedulePrepend() {
         if (!canPrepend()) {
-            onLoadSuccess(PagedList.LoadType.START, DataSource.BaseResult.<V>empty());
+            onLoadSuccess(PagedList.LoadType.START, DataSource.BaseResult.Companion.<V>empty());
             return;
         }
         K key;
-        switch(mSource.mType) {
+        switch(mSource.getMType()) {
             case POSITIONAL:
                 //noinspection unchecked
                 key = (K) ((Integer) (mAdjacentProvider.getFirstLoadedItemIndex() - 1));
@@ -258,12 +258,12 @@ class Pager<K, V> {
 
     private void scheduleAppend() {
         if (!canAppend()) {
-            onLoadSuccess(PagedList.LoadType.END, DataSource.BaseResult.<V>empty());
+            onLoadSuccess(PagedList.LoadType.END, DataSource.BaseResult.Companion.<V>empty());
             return;
         }
 
         K key;
-        switch(mSource.mType) {
+        switch(mSource.getMType()) {
             case POSITIONAL:
                 //noinspection unchecked
                 key = (K) ((Integer) (mAdjacentProvider.getLastLoadedItemIndex() + 1));
@@ -338,31 +338,31 @@ class Pager<K, V> {
         @Override
         public void onPageResultResolution(@NonNull PagedList.LoadType type,
                 @NonNull DataSource.BaseResult<V> result) {
-            if (result.data.isEmpty()) {
+            if (result.getData().isEmpty()) {
                 return;
             }
             if (type == PagedList.LoadType.START) {
-                mFirstIndex -= result.data.size();
-                mFirstItem = result.data.get(0);
+                mFirstIndex -= result.getData().size();
+                mFirstItem = result.getData().get(0);
                 if (mCounted) {
-                    mLeadingUnloadedCount -= result.data.size();
+                    mLeadingUnloadedCount -= result.getData().size();
                 }
             } else if (type == PagedList.LoadType.END) {
-                mLastIndex += result.data.size();
-                mLastItem = result.data.get(result.data.size() - 1);
+                mLastIndex += result.getData().size();
+                mLastItem = result.getData().get(result.getData().size() - 1);
                 if (mCounted) {
-                    mTrailingUnloadedCount -= result.data.size();
+                    mTrailingUnloadedCount -= result.getData().size();
                 }
             } else {
-                mFirstIndex = result.leadingNulls + result.offset;
-                mLastIndex = mFirstIndex + result.data.size() - 1;
-                mFirstItem = result.data.get(0);
-                mLastItem = result.data.get(result.data.size() - 1);
+                mFirstIndex = result.getLeadingNulls() + result.getOffset();
+                mLastIndex = mFirstIndex + result.getData().size() - 1;
+                mFirstItem = result.getData().get(0);
+                mLastItem = result.getData().get(result.getData().size() - 1);
 
-                if (result.counted) {
+                if (result.getCounted()) {
                     mCounted = true;
-                    mLeadingUnloadedCount = result.leadingNulls;
-                    mTrailingUnloadedCount = result.trailingNulls;
+                    mLeadingUnloadedCount = result.getLeadingNulls();
+                    mTrailingUnloadedCount = result.getTrailingNulls();
                 }
             }
         }

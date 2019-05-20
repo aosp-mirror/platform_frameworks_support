@@ -406,7 +406,7 @@ public abstract class PagedList<T> extends AbstractList<T> {
             @Nullable K key) {
         dataSource.initExecutor(initialLoadExecutor);
 
-        final int lastLoad = (dataSource.mType == DataSource.KeyType.POSITIONAL && key != null)
+        final int lastLoad = (dataSource.getMType() == DataSource.KeyType.POSITIONAL && key != null)
                 ? (Integer) key : ContiguousPagedList.LAST_LOAD_UNSPECIFIED;
 
         return Futures.transform(
