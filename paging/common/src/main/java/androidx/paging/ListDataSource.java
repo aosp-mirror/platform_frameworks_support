@@ -32,8 +32,10 @@ class ListDataSource<T> extends PositionalDataSource<T> {
     public void loadInitial(@NonNull LoadInitialParams params,
             @NonNull LoadInitialCallback<T> callback) {
         final int totalCount = mList.size();
-        final int position = computeInitialLoadPosition(params, totalCount);
-        final int loadSize = computeInitialLoadSize(params, position, totalCount);
+        final int position = PositionalDataSource.Companion.computeInitialLoadPosition(params,
+                totalCount);
+        final int loadSize = PositionalDataSource.Companion.computeInitialLoadSize(params, position,
+                totalCount);
 
         // for simplicity, we could return everything immediately,
         // but we tile here since it's expected behavior
