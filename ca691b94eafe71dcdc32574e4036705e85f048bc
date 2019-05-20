@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "669271db_2f65f8de",
+        "filename": "ui/text/src/main/java/androidx/ui/engine/text/TextStyle.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1362035
+      },
+      "writtenOn": "2019-05-20T20:27:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b1e6d5bb_30b53803",
+      "range": {
+        "startLine": 36,
+        "startChar": 30,
+        "endLine": 36,
+        "endChar": 91
+      },
+      "revId": "ca691b94eafe71dcdc32574e4036705e85f048bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1cd5a583_18be2e4f",
         "filename": "ui/text/src/main/java/androidx/ui/engine/text/TextStyle.kt",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "ca691b94eafe71dcdc32574e4036705e85f048bc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "579f58f7_86cda880",
+        "filename": "ui/text/src/main/java/androidx/ui/engine/text/TextStyle.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1362035
+      },
+      "writtenOn": "2019-05-20T20:27:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1cd5a583_18be2e4f",
+      "range": {
+        "startLine": 49,
+        "startChar": 105,
+        "endLine": 50,
+        "endChar": 21
+      },
+      "revId": "ca691b94eafe71dcdc32574e4036705e85f048bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
