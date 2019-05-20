@@ -37,7 +37,7 @@ class LivePagedListTest {
         val livePagedList = dataSourceFactory.toLiveData(config)
         livePagedList.observeForever {}
         assertNotNull(livePagedList.value)
-        assertEquals(config, livePagedList.value!!.config)
+        assertEquals(config, livePagedList.value!!.getConfig())
     }
 
     @Test
@@ -45,7 +45,7 @@ class LivePagedListTest {
         val livePagedList = dataSourceFactory.toLiveData(24)
         livePagedList.observeForever {}
         assertNotNull(livePagedList.value)
-        assertEquals(24, livePagedList.value!!.config.pageSize)
+        assertEquals(24, livePagedList.value!!.getConfig().pageSize)
     }
 
     companion object {

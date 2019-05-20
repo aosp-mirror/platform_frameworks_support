@@ -90,8 +90,10 @@ public final class RxPagedListBuilder<Key, Value> {
      * @param pageSize          Size of pages to load.
      */
     @SuppressWarnings("unused")
-    public RxPagedListBuilder(@NonNull DataSource.Factory<Key, Value> dataSourceFactory,
-            int pageSize) {
+    public RxPagedListBuilder(
+            @NonNull DataSource.Factory<Key, Value> dataSourceFactory,
+            int pageSize
+    ) {
         this(dataSourceFactory, new PagedList.Config.Builder().setPageSize(pageSize).build());
     }
 
