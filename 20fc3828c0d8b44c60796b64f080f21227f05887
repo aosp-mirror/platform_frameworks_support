@@ -117,6 +117,52 @@
     },
     {
       "key": {
+        "uuid": "718271a3_f4689010",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaControllerImplBase.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1195,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-20T05:13:14Z",
+      "side": 1,
+      "message": "Will it be OKAY to handle other track types as well?\n- If there is no harm, let\u0027s handle them.\n- If not, maybe isn\u0027t it better not to call callback for other types?",
+      "range": {
+        "startLine": 1195,
+        "startChar": 12,
+        "endLine": 1195,
+        "endChar": 54
+      },
+      "revId": "20fc3828c0d8b44c60796b64f080f21227f05887",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "13750a68_86dae4ec",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaSessionStub.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1431,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-20T05:13:14Z",
+      "side": 1,
+      "message": "remove?",
+      "range": {
+        "startLine": 1431,
+        "startChar": 46,
+        "endLine": 1431,
+        "endChar": 60
+      },
+      "revId": "20fc3828c0d8b44c60796b64f080f21227f05887",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "92d1762f_f0b43914",
         "filename": "media2/session/version-compat-tests/current/client/src/androidTest/java/androidx/media2/test/client/tests/MediaControllerTest.java",
         "patchSetId": 3
