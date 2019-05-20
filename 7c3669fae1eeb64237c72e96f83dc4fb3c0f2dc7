@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f43afc64_6e8cc94f",
+        "filename": "development/history/add_release_commit_tags.sh",
+        "patchSetId": 8
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-05-20T18:53:29Z",
+      "side": 1,
+      "message": "Thanks",
+      "revId": "7c3669fae1eeb64237c72e96f83dc4fb3c0f2dc7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "65d2904f_9ed23cd2",
+        "filename": "development/history/add_release_commit_tags.sh",
+        "patchSetId": 8
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-05-20T18:53:29Z",
+      "side": 1,
+      "message": "I thought about this sentence some more and I think I figured out what still seems odd about it to me.\n\nWhen the beginning of the sentence says \"Release androidx.$groupIdWithoutAndroidx:$artifactId:$version\", is it saying that the git tag itself is the release?\nWhen the end of the sentence says \"released on $date.\", is it saying that there\u0027s some other process (probably pushing to the Maven repository) that is the release?\n\nIf those are both true, then it seems to me to be somewhat confusing/distracting to use the word \"release\" twice in the same sentence to refer to two different processes.\n\nHow would we feel about \"Release androidx.$groupIdWithoutAndroidx:$artifactId:$version on $date.\"?",
+      "range": {
+        "startLine": 105,
+        "startChar": 30,
+        "endLine": 105,
+        "endChar": 111
+      },
+      "revId": "7c3669fae1eeb64237c72e96f83dc4fb3c0f2dc7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
