@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8221f056_5e8b9054",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 681,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-05-20T20:28:41Z",
+      "side": 1,
+      "message": "I broke it with https://android-review.googlesource.com/c/platform/frameworks/support/+/961456/\n\nSorry :(",
+      "range": {
+        "startLine": 681,
+        "startChar": 31,
+        "endLine": 681,
+        "endChar": 52
+      },
+      "revId": "ebf51d8b8910e07d4efaf01dcd6179cb78cd145b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
