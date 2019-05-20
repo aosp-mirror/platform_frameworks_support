@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "82f6cf03_e071319f",
+        "filename": "media2/session/src/androidTest/java/androidx/media2/session/MediaControllerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1674,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-05-20T04:27:17Z",
+      "side": 1,
+      "message": "Good to see simpler codes :)",
+      "range": {
+        "startLine": 1674,
+        "startChar": 20,
+        "endLine": 1674,
+        "endChar": 37
+      },
+      "revId": "20fc3828c0d8b44c60796b64f080f21227f05887",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ff6e8a8_c120447a",
+        "filename": "media2/session/src/androidTest/java/androidx/media2/session/MediaControllerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1723,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-05-20T04:27:17Z",
+      "side": 1,
+      "message": "1. Let\u0027s merge this test with testSelectTrack()\n2. Let\u0027s test the result of getSelectedTrack after testDeselectTrack().",
+      "range": {
+        "startLine": 1723,
+        "startChar": 16,
+        "endLine": 1723,
+        "endChar": 36
+      },
+      "revId": "20fc3828c0d8b44c60796b64f080f21227f05887",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92d533fa_0456a652",
+        "filename": "media2/session/src/androidTest/java/androidx/media2/session/MediaControllerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1776,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-05-20T04:27:17Z",
+      "side": 1,
+      "message": "Can we force the TrackInfo.equals() to compare also language and trackType?\n\nIt is somewhat weird that below two objects can be equal:\n\npublic TrackInfo(int id, MediaItem item, int type, MediaFormat format)\n - new TrackInfo(ID, item, SUBTITLE, format_language_english)\n - new TrackInfo(ID, item, AUDIO, format_language_korean)",
+      "range": {
+        "startLine": 1774,
+        "startChar": 8,
+        "endLine": 1776,
+        "endChar": 67
+      },
+      "revId": "20fc3828c0d8b44c60796b64f080f21227f05887",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b045742f_43e5588d",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaController.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1162,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-05-20T04:27:17Z",
+      "side": 1,
+      "message": "Will we support selecting multiple tracks for one TrackType? \n\nFor example, some media players on PC supports showing multiple subtitle (language) tracks at a time.\nFor another example, there are some players which shows multiple video track at a time. (https://tv.naver.com/v/159084, language: Korean)\n\nIf so, we\u0027d better to return the List\u003cTrackInfo\u003e.",
+      "range": {
+        "startLine": 1162,
+        "startChar": 16,
+        "endLine": 1162,
+        "endChar": 26
+      },
+      "revId": "20fc3828c0d8b44c60796b64f080f21227f05887",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "963d4733_39a646e5",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaControllerImplBase.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-05-20T04:27:17Z",
+      "side": 1,
+      "message": "According to the constants in TrackInfo, it seems there are more types (metadata, timedText). \nHow these should be handled?\n\nhttps://cs.corp.google.com/aosp-androidx/media2/common/src/main/java/androidx/media2/common/SessionPlayer.java?rcl\u003d1405e01dbfe369dcc2945ddf83937a28e0df878f\u0026l\u003d900",
+      "range": {
+        "startLine": 163,
+        "startChar": 4,
+        "endLine": 168,
+        "endChar": 45
+      },
+      "revId": "20fc3828c0d8b44c60796b64f080f21227f05887",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92d1762f_f0b43914",
+        "filename": "media2/session/version-compat-tests/current/client/src/androidTest/java/androidx/media2/test/client/tests/MediaControllerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-05-20T04:27:17Z",
+      "side": 1,
+      "message": "Same comments in previous test under androidTest/",
+      "revId": "20fc3828c0d8b44c60796b64f080f21227f05887",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
