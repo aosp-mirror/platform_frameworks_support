@@ -19,6 +19,7 @@ package androidx.paging;
 import androidx.annotation.AnyThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RestrictTo;
 import androidx.annotation.WorkerThread;
 import androidx.arch.core.util.Function;
 
@@ -92,9 +93,10 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * return {@code null} items in lists that it loads. This is so that users of the PagedList
  * can differentiate unloaded placeholder items from content that has been paged in.
  *
- * @param <Key> Unique identifier for item loaded from DataSource. Often an integer to represent
- *             position in data set. Note - this is distinct from e.g. Room's {@code @PrimaryKey}.
+ * @param <Key>   Unique identifier for item loaded from DataSource. Often an integer to represent
+ *                position in data set. Note - this is distinct from e.g. Room's {@code
  * @param <Value> Value type loaded by the DataSource.
+ * @PrimaryKey}.
  */
 @SuppressWarnings("unused") // suppress warning to remove Key/Value, needed for subclass type safety
 public abstract class DataSource<Key, Value> {
@@ -116,7 +118,7 @@ public abstract class DataSource<Key, Value> {
      * PositionalDataSource. Currently, Room uses the {@code LIMIT}/{@code OFFSET} SQL keywords to
      * page a large query with a PositionalDataSource.
      *
-     * @param <Key> Key identifying items in DataSource.
+     * @param <Key>   Key identifying items in DataSource.
      * @param <Value> Type of items in the list loaded by the DataSources.
      */
     public abstract static class Factory<Key, Value> {
@@ -127,7 +129,8 @@ public abstract class DataSource<Key, Value> {
          * DataSource becomes invalid, the only way to query more data is to create a new DataSource
          * from the Factory.
          * <p>
-         * {@link androidx.paging.LivePagedListBuilder} for example will construct a new PagedList and DataSource
+         * {@link androidx.paging.LivePagedListBuilder} for example will construct a new
+         * PagedList and DataSource
          * when the current DataSource is invalidated, and pass the new PagedList through the
          * {@code LiveData<PagedList>} to observers.
          *
@@ -141,12 +144,10 @@ public abstract class DataSource<Key, Value> {
          * <p>
          * Same as {@link #mapByPage(Function)}, but operates on individual items.
          *
-         * @param function Function that runs on each loaded item, returning items of a potentially
+         * @param function  Function that runs on each loaded item, returning items of a potentially
          *                  new type.
          * @param <ToValue> Type of items produced by the new DataSource, from the passed function.
-         *
          * @return A new DataSource.Factory, which transforms items using the given function.
-         *
          * @see #mapByPage(Function)
          * @see DataSource#map(Function)
          * @see DataSource#mapByPage(Function)
@@ -162,12 +163,10 @@ public abstract class DataSource<Key, Value> {
          * <p>
          * Same as {@link #map(Function)}, but allows for batch conversions.
          *
-         * @param function Function that runs on each loaded page, returning items of a potentially
+         * @param function  Function that runs on each loaded page, returning items of a potentially
          *                  new type.
          * @param <ToValue> Type of items produced by the new DataSource, from the passed function.
-         *
          * @return A new DataSource.Factory, which transforms items using the given function.
-         *
          * @see #map(Function)
          * @see DataSource#map(Function)
          * @see DataSource#mapByPage(Function)
@@ -214,12 +213,10 @@ public abstract class DataSource<Key, Value> {
      * <p>
      * Same as {@link #map(Function)}, but allows for batch conversions.
      *
-     * @param function Function that runs on each loaded page, returning items of a potentially
+     * @param function  Function that runs on each loaded page, returning items of a potentially
      *                  new type.
      * @param <ToValue> Type of items produced by the new DataSource, from the passed function.
-     *
      * @return A new DataSource, which transforms items using the given function.
-     *
      * @see #map(Function)
      * @see DataSource.Factory#map(Function)
      * @see DataSource.Factory#mapByPage(Function)
@@ -235,12 +232,10 @@ public abstract class DataSource<Key, Value> {
      * <p>
      * Same as {@link #mapByPage(Function)}, but operates on individual items.
      *
-     * @param function Function that runs on each loaded item, returning items of a potentially
+     * @param function  Function that runs on each loaded item, returning items of a potentially
      *                  new type.
      * @param <ToValue> Type of items produced by the new DataSource, from the passed function.
-     *
      * @return A new DataSource, which transforms items using the given function.
-     *
      * @see #mapByPage(Function)
      * @see DataSource.Factory#map(Function)
      * @see DataSource.Factory#mapByPage(Function)
@@ -341,14 +336,22 @@ public abstract class DataSource<Key, Value> {
         return mInvalid.get();
     }
 
-    enum LoadType {
+    /**
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
+    public enum LoadType {
         INITIAL,
         START,
         END
     }
 
-    @SuppressWarnings("WeakerAccess")
-    static class Params<K> {
+    /**
+     * @param <K> Type of the key used to query the {@link DataSource}.
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
+    public static class Params<K> {
         @NonNull
         public final LoadType type;
         /* can be NULL for init, otherwise non-null */
@@ -368,8 +371,13 @@ public abstract class DataSource<Key, Value> {
         }
     }
 
+    /**
+     * @param <Value> Type of the data produced by a {@link DataSource}.
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
     @SuppressWarnings("WeakerAccess")
-    static class BaseResult<Value> {
+    public static class BaseResult<Value> {
         @SuppressWarnings("unchecked")
         static <T> BaseResult<T> empty() {
             return (BaseResult<T>) EMPTY;
@@ -389,8 +397,9 @@ public abstract class DataSource<Key, Value> {
          */
         public final boolean counted;
 
-        protected BaseResult(List<Value> data, Object prevKey, Object nextKey, int leadingNulls,
-                int trailingNulls, int offset, boolean counted) {
+        protected BaseResult(@NonNull List<Value> data, @Nullable Object prevKey,
+                @Nullable Object nextKey, int leadingNulls, int trailingNulls, int offset,
+                boolean counted) {
             this.data = data;
             this.prevKey = prevKey;
             this.nextKey = nextKey;
@@ -496,16 +505,15 @@ public abstract class DataSource<Key, Value> {
         mType = type;
     }
 
-    abstract ListenableFuture<? extends BaseResult<Value>> load(
-            @NonNull Params<Key> params);
+    abstract ListenableFuture<? extends BaseResult<Value>> load(@NonNull Params<Key> params);
 
     @Nullable
     abstract Key getKey(@NonNull Value item);
 
+    @SuppressWarnings("unchecked")
     @Nullable
     final Key getKey(int lastLoad, @Nullable Value item) {
         if (mType == KeyType.POSITIONAL) {
-            //noinspection unchecked
             return (Key) ((Integer) lastLoad);
         }
         if (item == null) {

@@ -3,5 +3,15 @@ ChangedAbstract: androidx.paging.PagedList#detach():
     Method androidx.paging.PagedList.detach has changed 'abstract' qualifier
 ChangedAbstract: androidx.paging.PagedList#isDetached():
     Method androidx.paging.PagedList.isDetached has changed 'abstract' qualifier
-
-
+HiddenSuperclass: androidx.paging.ListenableItemKeyedDataSource.InitialResult:
+    Public class androidx.paging.ListenableItemKeyedDataSource.InitialResult stripped of unavailable superclass androidx.paging.DataSource.BaseResult
+HiddenSuperclass: androidx.paging.ListenableItemKeyedDataSource.Result:
+    Public class androidx.paging.ListenableItemKeyedDataSource.Result stripped of unavailable superclass androidx.paging.DataSource.BaseResult
+HiddenSuperclass: androidx.paging.ListenablePageKeyedDataSource.InitialResult:
+    Public class androidx.paging.ListenablePageKeyedDataSource.InitialResult stripped of unavailable superclass androidx.paging.DataSource.BaseResult
+HiddenSuperclass: androidx.paging.ListenablePageKeyedDataSource.Result:
+    Public class androidx.paging.ListenablePageKeyedDataSource.Result stripped of unavailable superclass androidx.paging.DataSource.BaseResult
+HiddenSuperclass: androidx.paging.ListenablePositionalDataSource.InitialResult:
+    Public class androidx.paging.ListenablePositionalDataSource.InitialResult stripped of unavailable superclass androidx.paging.DataSource.BaseResult
+HiddenSuperclass: androidx.paging.ListenablePositionalDataSource.RangeResult:
+    Public class androidx.paging.ListenablePositionalDataSource.RangeResult stripped of unavailable superclass androidx.paging.DataSource.BaseResult
