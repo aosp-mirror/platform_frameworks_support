@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "855358c4_d966eb54",
+        "filename": "core/src/main/java/androidx/core/content/pm/ShortcutInfoCompatSaver.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-05-20T20:44:22Z",
+      "side": 1,
+      "message": "final?",
+      "range": {
+        "startLine": 57,
+        "startChar": 4,
+        "endLine": 57,
+        "endChar": 17
+      },
+      "revId": "943b13f63c14b42d60005d5bb8d22203cd202373",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
