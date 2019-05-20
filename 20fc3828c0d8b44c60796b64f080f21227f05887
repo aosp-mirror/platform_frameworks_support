@@ -94,6 +94,30 @@
     },
     {
       "key": {
+        "uuid": "80e10ee3_588272d3",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaController.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1162,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-05-20T07:43:38Z",
+      "side": 1,
+      "message": "Good point!\n\nIt would be worth to consider as a feature request of MediaPlayer, I think.\nLet\u0027s separate it with this change.",
+      "parentUuid": "b045742f_43e5588d",
+      "range": {
+        "startLine": 1162,
+        "startChar": 16,
+        "endLine": 1162,
+        "endChar": 26
+      },
+      "revId": "20fc3828c0d8b44c60796b64f080f21227f05887",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "963d4733_39a646e5",
         "filename": "media2/session/src/main/java/androidx/media2/session/MediaControllerImplBase.java",
         "patchSetId": 3
