@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7ea626ff_58bf93b6",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-05-20T16:58:51Z",
+      "side": 1,
+      "message": "Oh, we also have a threading issue here. If the model will be updated on the background thread this callback would be called not on main thread and our map is not thread safe",
+      "range": {
+        "startLine": 71,
+        "startChar": 56,
+        "endLine": 71,
+        "endChar": 68
+      },
+      "revId": "7c8778d53035af71cce14cd9c04810b75a78fabf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
