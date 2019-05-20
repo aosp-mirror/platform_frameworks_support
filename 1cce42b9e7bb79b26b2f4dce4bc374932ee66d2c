@@ -94,6 +94,30 @@
       "revId": "1cce42b9e7bb79b26b2f4dce4bc374932ee66d2c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "32e73c0b_d9f34a23",
+        "filename": "collection/ktx/api/1.2.0-alpha01.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-05-20T23:26:45Z",
+      "side": 1,
+      "message": "I\u0027ve now asked Tor if this change was intentional and he said:\n\n\"I assume it was; it was something UAST itself ended up doing (e.g. when asking the Kotlin compiler to pretty print the signature we\u0027re getting (Object)null instead of (V)null.  I didn\u0027t dig into it beyond \"oh ok, Kotlin compiler, whatever you say\" 🙂....\n(They\u0027ve been gradually fixing things in the AST so I assumed it was a step in the right direction.)\"",
+      "parentUuid": "164cda88_6c8ef53b",
+      "range": {
+        "startLine": 33,
+        "startChar": 255,
+        "endLine": 33,
+        "endChar": 271
+      },
+      "revId": "1cce42b9e7bb79b26b2f4dce4bc374932ee66d2c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
