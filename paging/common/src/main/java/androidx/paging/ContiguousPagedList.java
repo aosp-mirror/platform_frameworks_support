@@ -46,7 +46,7 @@ class ContiguousPagedList<K, V> extends PagedList<V> implements PagedStorage.Cal
     public boolean onPageResult(@NonNull LoadType type,
             @NonNull DataSource.BaseResult<V> pageResult) {
         boolean continueLoading = false;
-        @NonNull List<V> page = pageResult.data;
+        @NonNull List<V> page = pageResult.getData();
 
 
         // if we end up trimming, we trim from side that's furthest from most recent access
@@ -168,13 +168,13 @@ class ContiguousPagedList<K, V> extends PagedList<V> implements PagedStorage.Cal
 
         if (config.enablePlaceholders) {
             // Placeholders enabled, pass raw data to storage init
-            mStorage.init(initialResult.leadingNulls, initialResult.data,
-                    initialResult.trailingNulls, initialResult.offset, this);
+            mStorage.init(initialResult.getLeadingNulls(), initialResult.getData(),
+                    initialResult.getTrailingNulls(), initialResult.getOffset(), this);
         } else {
             // If placeholder are disabled, avoid passing leading/trailing nulls,
             // since DataSource may have passed them anyway
-            mStorage.init(0, initialResult.data,
-                    0, initialResult.offset + initialResult.leadingNulls, this);
+            mStorage.init(0, initialResult.getData(),
+                    0, initialResult.getOffset() + initialResult.getLeadingNulls(), this);
         }
 
         mShouldTrim = mDataSource.supportsPageDropping()
@@ -183,10 +183,10 @@ class ContiguousPagedList<K, V> extends PagedList<V> implements PagedStorage.Cal
         if (mLastLoad == LAST_LOAD_UNSPECIFIED) {
             // Because the ContiguousPagedList wasn't initialized with a last load position,
             // initialize it to the middle of the initial load
-            mLastLoad = initialResult.leadingNulls + initialResult.offset
-                    + initialResult.data.size() / 2;
+            mLastLoad = initialResult.getLeadingNulls() + initialResult.getOffset()
+                    + initialResult.getData().size() / 2;
         }
-        triggerBoundaryCallback(LoadType.REFRESH, initialResult.data);
+        triggerBoundaryCallback(LoadType.REFRESH, initialResult.getData());
     }
 
     @Override

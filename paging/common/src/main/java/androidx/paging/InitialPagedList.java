@@ -39,7 +39,7 @@ class InitialPagedList<K, V> extends ContiguousPagedList<K, V> {
                 DirectExecutor.INSTANCE,
                 null,
                 config,
-                DataSource.BaseResult.<V>empty(),
+                DataSource.BaseResult.Companion.<V>empty(),
                 /* no previous load, so pass 0 */ 0);
         mInitialKey = initialKey;
     }
