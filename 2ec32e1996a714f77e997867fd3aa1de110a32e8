@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ffa55ca6_cd55e003",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaController.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1244,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-20T01:53:28Z",
+      "side": 1,
+      "message": "No, it\u0027s not only for tests. Please refer to the description of the bug.",
+      "parentUuid": "a08c7d9f_442bd9bc",
+      "range": {
+        "startLine": 1244,
+        "startChar": 3,
+        "endLine": 1244,
+        "endChar": 53
+      },
+      "revId": "2ec32e1996a714f77e997867fd3aa1de110a32e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6c819492_fa670368",
         "filename": "media2/session/src/main/java/androidx/media2/session/MediaControllerImplBase.java",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "d356f530_53d5d069",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaControllerImplBase.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1312,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-20T01:53:28Z",
+      "side": 1,
+      "message": "There are both on* and notify*. It would be better not to change. reverted.",
+      "parentUuid": "6c819492_fa670368",
+      "range": {
+        "startLine": 1312,
+        "startChar": 9,
+        "endLine": 1312,
+        "endChar": 15
+      },
+      "revId": "2ec32e1996a714f77e997867fd3aa1de110a32e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ee2e54e4_72b872b8",
         "filename": "media2/session/src/main/java/androidx/media2/session/SessionCommandGroup.java",
         "patchSetId": 1
@@ -68,6 +116,30 @@
       "revId": "2ec32e1996a714f77e997867fd3aa1de110a32e8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8609c720_dcd0c283",
+        "filename": "media2/session/src/main/java/androidx/media2/session/SessionCommandGroup.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-20T01:53:28Z",
+      "side": 1,
+      "message": "Done.\n\nI wasn\u0027t sure that it would be okay to assume any Set implement equals correctly but it\u0027s okay according to the javadoc of android.util.Set#equals.\n\nI want to keep nullity check of mCommands because malicious Parcel may have null mCommands.",
+      "parentUuid": "ee2e54e4_72b872b8",
+      "range": {
+        "startLine": 111,
+        "startChar": 15,
+        "endLine": 112,
+        "endChar": 57
+      },
+      "revId": "2ec32e1996a714f77e997867fd3aa1de110a32e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
