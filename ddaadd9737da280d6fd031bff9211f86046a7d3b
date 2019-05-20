@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "050bddf9_9ac7e7c9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-05-20T15:59:11Z",
+      "side": 1,
+      "message": "Workaround for Espresso/Velocity tracker issue",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 45
+      },
+      "revId": "ddaadd9737da280d6fd031bff9211f86046a7d3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fee096af_3e691e3c",
+        "filename": "viewpager2/integration-tests/testapp/src/androidTest/java/androidx/viewpager2/integration/testapp/test/FakeDragTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-05-20T15:59:11Z",
+      "side": 1,
+      "message": "when (api)\n23 -\u003e 3\nelse -\u003e 1",
+      "range": {
+        "startLine": 137,
+        "startChar": 18,
+        "endLine": 137,
+        "endChar": 19
+      },
+      "revId": "ddaadd9737da280d6fd031bff9211f86046a7d3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "abfaba71_545141b6",
+        "filename": "viewpager2/integration-tests/testapp/src/androidTest/java/androidx/viewpager2/integration/testapp/test/util/RetryBlock.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-05-20T15:59:11Z",
+      "side": 1,
+      "message": "private",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 5
+      },
+      "revId": "ddaadd9737da280d6fd031bff9211f86046a7d3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21adac17_414729a7",
+        "filename": "viewpager2/integration-tests/testapp/src/androidTest/java/androidx/viewpager2/integration/testapp/test/util/RetryBlock.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-05-20T15:59:11Z",
+      "side": 1,
+      "message": "Maybe add \u003cp\u003eDo not use as a retry mechanism for flaky code / tests. Only use to retry attempts to create a test situation in which you are testing your functionality.",
+      "range": {
+        "startLine": 38,
+        "startChar": 4,
+        "endLine": 38,
+        "endChar": 13
+      },
+      "revId": "ddaadd9737da280d6fd031bff9211f86046a7d3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
