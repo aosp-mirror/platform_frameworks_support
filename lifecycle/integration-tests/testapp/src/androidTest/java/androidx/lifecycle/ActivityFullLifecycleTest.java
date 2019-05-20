@@ -57,8 +57,8 @@ public class ActivityFullLifecycleTest {
                 FrameworkLifecycleRegistryActivity.class};
     }
 
+    @SuppressWarnings("unchecked")
     public ActivityFullLifecycleTest(Class<? extends Activity> activityClass) {
-        //noinspection unchecked
         activityTestRule = new ActivityTestRule(activityClass);
     }
 
