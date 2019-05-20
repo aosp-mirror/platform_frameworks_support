@@ -27,7 +27,7 @@ enum class FontSynthesis {
     /**
      * Turns off font synthesis.
      */
-    none,
+    None,
 
     /**
      * Synthesize weight

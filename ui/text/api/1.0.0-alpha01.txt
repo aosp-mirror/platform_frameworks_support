@@ -10,23 +10,23 @@ package androidx.ui.engine.text {
   }
 
   public static final class BaselineShift.Companion {
-    method public androidx.ui.engine.text.BaselineShift getSUBSCRIPT();
-    method public androidx.ui.engine.text.BaselineShift getSUPERSCRIPT();
+    method public androidx.ui.engine.text.BaselineShift getSubscript();
+    method public androidx.ui.engine.text.BaselineShift getSuperscript();
     method public androidx.ui.engine.text.BaselineShift? lerp(androidx.ui.engine.text.BaselineShift? a, androidx.ui.engine.text.BaselineShift? b, float t);
-    property public final androidx.ui.engine.text.BaselineShift SUBSCRIPT;
-    property public final androidx.ui.engine.text.BaselineShift SUPERSCRIPT;
+    property public final androidx.ui.engine.text.BaselineShift Subscript;
+    property public final androidx.ui.engine.text.BaselineShift Superscript;
   }
 
   public enum FontStyle {
     ctor protected FontStyle();
+    enum_constant public static final androidx.ui.engine.text.FontStyle Normal;
     enum_constant public static final androidx.ui.engine.text.FontStyle italic;
-    enum_constant public static final androidx.ui.engine.text.FontStyle normal;
   }
 
   public enum FontSynthesis {
     ctor protected FontSynthesis();
+    enum_constant public static final androidx.ui.engine.text.FontSynthesis None;
     enum_constant public static final androidx.ui.engine.text.FontSynthesis all;
-    enum_constant public static final androidx.ui.engine.text.FontSynthesis none;
     enum_constant public static final androidx.ui.engine.text.FontSynthesis style;
     enum_constant public static final androidx.ui.engine.text.FontSynthesis weight;
   }
@@ -143,12 +143,12 @@ package androidx.ui.engine.text {
 
   public enum TextAlign {
     ctor protected TextAlign();
-    enum_constant public static final androidx.ui.engine.text.TextAlign CENTER;
-    enum_constant public static final androidx.ui.engine.text.TextAlign END;
-    enum_constant public static final androidx.ui.engine.text.TextAlign JUSTIFY;
-    enum_constant public static final androidx.ui.engine.text.TextAlign LEFT;
-    enum_constant public static final androidx.ui.engine.text.TextAlign RIGHT;
-    enum_constant public static final androidx.ui.engine.text.TextAlign START;
+    enum_constant public static final androidx.ui.engine.text.TextAlign Center;
+    enum_constant public static final androidx.ui.engine.text.TextAlign End;
+    enum_constant public static final androidx.ui.engine.text.TextAlign Justify;
+    enum_constant public static final androidx.ui.engine.text.TextAlign Left;
+    enum_constant public static final androidx.ui.engine.text.TextAlign Right;
+    enum_constant public static final androidx.ui.engine.text.TextAlign Start;
   }
 
   public final class TextBox {
@@ -187,9 +187,9 @@ package androidx.ui.engine.text {
     method public androidx.ui.engine.text.TextDecoration getLineThrough();
     method public androidx.ui.engine.text.TextDecoration getNone();
     method public androidx.ui.engine.text.TextDecoration getUnderline();
-    property public final androidx.ui.engine.text.TextDecoration lineThrough;
-    property public final androidx.ui.engine.text.TextDecoration none;
-    property public final androidx.ui.engine.text.TextDecoration underline;
+    property public final androidx.ui.engine.text.TextDecoration LineThrough;
+    property public final androidx.ui.engine.text.TextDecoration None;
+    property public final androidx.ui.engine.text.TextDecoration Underline;
   }
 
   public final class TextGeometricTransform {
@@ -223,8 +223,8 @@ package androidx.ui.engine.text {
   }
 
   public static final class TextIndent.Companion {
-    method public androidx.ui.engine.text.TextIndent getNONE();
-    property public final androidx.ui.engine.text.TextIndent NONE;
+    method public androidx.ui.engine.text.TextIndent getNone();
+    property public final androidx.ui.engine.text.TextIndent None;
   }
 
   public final class TextIndentKt {

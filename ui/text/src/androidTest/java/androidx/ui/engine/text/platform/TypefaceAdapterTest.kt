@@ -140,7 +140,7 @@ class TypefaceAdapterTest {
                     fontStyle = fontStyle
                 )
 
-                if (fontStyle == FontStyle.normal) {
+                if (fontStyle == FontStyle.Normal) {
                     assertThat(typefaceStyle).isEqualTo(Typeface.NORMAL)
                 } else {
                     assertThat(typefaceStyle).isEqualTo(Typeface.ITALIC)
@@ -165,7 +165,7 @@ class TypefaceAdapterTest {
                     fontStyle = fontStyle
                 )
 
-                if (fontStyle == FontStyle.normal) {
+                if (fontStyle == FontStyle.Normal) {
                     assertThat(typefaceStyle).isEqualTo(Typeface.BOLD)
                 } else {
                     assertThat(typefaceStyle).isEqualTo(Typeface.BOLD_ITALIC)
@@ -370,7 +370,7 @@ class TypefaceAdapterTest {
     fun resultsNotSame_forDifferentFontStyle() {
         val typefaceAdapter = TypefaceAdapter()
 
-        val typeface = typefaceAdapter.create(fontStyle = FontStyle.normal)
+        val typeface = typefaceAdapter.create(fontStyle = FontStyle.Normal)
         val otherTypeface = typefaceAdapter.create(fontStyle = FontStyle.italic)
 
         assertThat(typeface).isNotSameInstanceAs(otherTypeface)
@@ -522,7 +522,7 @@ class TypefaceAdapterTest {
             fontFamily = fontFamily,
             fontWeight = FontWeight.bold,
             fontStyle = FontStyle.italic,
-            fontSynthesis = FontSynthesis.none
+            fontSynthesis = FontSynthesis.None
         )
 
         assertThat(typeface.isBold).isFalse()

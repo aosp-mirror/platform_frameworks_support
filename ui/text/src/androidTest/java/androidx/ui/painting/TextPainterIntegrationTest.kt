@@ -161,7 +161,7 @@ class TextPainterIntegrationTest {
     @Test
     fun layout_build_paragraph() {
         val textPainter =
-            TextPainter(text = TextSpan(text = "Hello"), textDirection = TextDirection.LTR)
+            TextPainter(text = TextSpan(text = "Hello"), textDirection = TextDirection.Ltr)
 
         textPainter.layout(0.0f, 20.0f)
 
@@ -176,7 +176,7 @@ class TextPainterIntegrationTest {
                 text = TextSpan(
                     text = "Hello",
                     style = TextStyle(fontSize = fontSize, fontFamily = fontFamily)
-                ), textDirection = TextDirection.LTR
+                ), textDirection = TextDirection.Ltr
             )
         textPainter.layout()
 
@@ -194,7 +194,7 @@ class TextPainterIntegrationTest {
                 text = TextSpan(
                     text = "Hello",
                     style = TextStyle(fontSize = fontSize, fontFamily = fontFamily)
-                ), textDirection = TextDirection.LTR
+                ), textDirection = TextDirection.Ltr
             )
         textPainter.layout()
 

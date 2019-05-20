@@ -31,7 +31,7 @@ data class TextIndent(
     val restLine: Px = 0.px
 ) {
     companion object {
-        val NONE = TextIndent(0.px, 0.px)
+        val None = TextIndent(0.px, 0.px)
     }
 }
 

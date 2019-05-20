@@ -144,12 +144,12 @@ internal class ParagraphAndroid constructor(
 
         // TODO: This default values are problem here. If the user just gives a single font
         // in the family, and does not provide any fontWeight, TypefaceAdapter will still get the
-        // call as FontWeight.normal (which is the default value)
+        // call as FontWeight.Normal (which is the default value)
         if (paragraphStyle.hasFontAttributes()) {
             textPaint.typeface = typefaceAdapter.create(
                 fontFamily = paragraphStyle.fontFamily,
                 fontWeight = paragraphStyle.fontWeight ?: FontWeight.normal,
-                fontStyle = paragraphStyle.fontStyle ?: FontStyle.normal,
+                fontStyle = paragraphStyle.fontStyle ?: FontStyle.Normal,
                 fontSynthesis = paragraphStyle.fontSynthesis ?: FontSynthesis.all
 
             )
@@ -164,23 +164,23 @@ internal class ParagraphAndroid constructor(
 
         val charSequence = applyTextStyle(text, textStyles)
         val alignment = when (paragraphStyle.textAlign) {
-            TextAlign.LEFT -> ALIGN_LEFT
-            TextAlign.RIGHT -> ALIGN_RIGHT
-            TextAlign.CENTER -> ALIGN_CENTER
-            TextAlign.START -> ALIGN_NORMAL
-            TextAlign.END -> ALIGN_OPPOSITE
+            TextAlign.Left -> ALIGN_LEFT
+            TextAlign.Right -> ALIGN_RIGHT
+            TextAlign.Center -> ALIGN_CENTER
+            TextAlign.Start -> ALIGN_NORMAL
+            TextAlign.End -> ALIGN_OPPOSITE
             else -> DEFAULT_ALIGNMENT
         }
         // TODO(Migration/haoyuchang): Layout has more settings that flutter,
         //  we may add them in future.
         val textDirectionHeuristic = when (paragraphStyle.textDirection) {
-            TextDirection.LTR -> TEXT_DIRECTION_LTR
+            TextDirection.Ltr -> TEXT_DIRECTION_LTR
             TextDirection.RTL -> TEXT_DIRECTION_RTL
             else -> DEFAULT_TEXT_DIRECTION
         }
         val maxLines = paragraphStyle.maxLines ?: DEFAULT_MAX_LINES
         val justificationMode = when (paragraphStyle.textAlign) {
-            TextAlign.JUSTIFY -> JUSTIFICATION_MODE_INTER_WORD
+            TextAlign.Justify -> JUSTIFICATION_MODE_INTER_WORD
             else -> DEFAULT_JUSTIFICATION_MODE
         }
 
@@ -371,7 +371,7 @@ internal class ParagraphAndroid constructor(
             }
 
             style.decoration?.let {
-                if (it.contains(TextDecoration.underline)) {
+                if (it.contains(TextDecoration.Underline)) {
                     spannableString.setSpan(
                         UnderlineSpan(),
                         start,
@@ -379,7 +379,7 @@ internal class ParagraphAndroid constructor(
                         Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
                     )
                 }
-                if (it.contains(TextDecoration.lineThrough)) {
+                if (it.contains(TextDecoration.LineThrough)) {
                     spannableString.setSpan(
                         StrikethroughSpan(),
                         start,
@@ -411,7 +411,7 @@ internal class ParagraphAndroid constructor(
                 val typeface = typefaceAdapter.create(
                     fontFamily = style.fontFamily,
                     fontWeight = style.fontWeight ?: FontWeight.normal,
-                    fontStyle = style.fontStyle ?: FontStyle.normal,
+                    fontStyle = style.fontStyle ?: FontStyle.Normal,
                     fontSynthesis = style.fontSynthesis ?: FontSynthesis.all
                 )
                 spannableString.setSpan(
