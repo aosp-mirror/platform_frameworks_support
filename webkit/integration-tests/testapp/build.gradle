@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import static androidx.build.dependencies.DependenciesKt.*
 
 plugins {
     id("AndroidXPlugin")
@@ -22,12 +23,25 @@ plugins {
 dependencies {
     implementation(project(":appcompat"))
     implementation(project(":webkit"))
+    androidTestImplementation(ANDROIDX_TEST_EXT_JUNIT)
+    androidTestImplementation(ANDROIDX_TEST_CORE)
+    androidTestImplementation(ANDROIDX_TEST_RUNNER)
+    androidTestImplementation(ANDROIDX_TEST_RULES)
+    androidTestImplementation(ESPRESSO_CORE, libs.exclude_for_espresso)
+    androidTestImplementation(ESPRESSO_CONTRIB, libs.exclude_for_espresso)
+    androidTestImplementation(MOCKITO_CORE, libs.exclude_bytebuddy)
+    // DexMaker has it"s own MockMaker
+    androidTestImplementation(DEXMAKER_MOCKITO, libs.exclude_bytebuddy)
 }
 
 android {
     defaultConfig {
         minSdkVersion 19
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+
+    testBuildType "instrumentationTest"
+
     lintOptions {
         disable 'UnusedResources'
     }
@@ -38,6 +52,12 @@ android {
 
         debug {
             minifyEnabled true
+        }
+
+        instrumentationTest {
+            initWith debug
+            minifyEnabled false
+            matchingFallbacks = ['debug', 'release']
         }
     }
 }
