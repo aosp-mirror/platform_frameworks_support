@@ -22,6 +22,30 @@
       "revId": "31d65e6724feb2aec848e67679c5cf521b1cd660",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a16dbe49_04ed423a",
+        "filename": "ui/material/src/androidTest/java/androidx/ui/material/ProgressIndicatorTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-05-20T21:05:16Z",
+      "side": 1,
+      "message": "That\u0027s actually was an error I\u0027ve fixed I think. Because having two widgets one with size 4.dp * 2 and one with 40.dp it\u0027s in reality like 4.dp.toIntPx() * 2 + 40.dp.toIntPx and not 48.dp.toIntPx()\n\nDoes it make sense?",
+      "parentUuid": "2a7351bf_ba53c4f5",
+      "range": {
+        "startLine": 151,
+        "startChar": 43,
+        "endLine": 151,
+        "endChar": 79
+      },
+      "revId": "31d65e6724feb2aec848e67679c5cf521b1cd660",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
