@@ -34,6 +34,24 @@
       "revId": "d7aca8cc0e5f9db089ad0d707055615d50ea6c72",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d31cf29_2744eac8",
+        "filename": "compose/runtime/src/main/java/androidx/compose/Compose.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1048725
+      },
+      "writtenOn": "2019-05-20T22:51:28Z",
+      "side": 1,
+      "message": "Since you are never calling unregisterComposition() you have a memory leak as the composition contexts are added to the set but are never removed. You could use a weak set for this to avoid the leak but the I would like to avoid the back-reference altogether.\n\nMaybe it would be better to have a thread-singleton that manages scheduling recompose for all composers. Then the manager can maintain the hasPendingRecompose state.\n\nWe need to abstract the Choreographer anyway for host side testing. The recompose scheduler can be the abstraction composition uses that is implemented in Android by the Choreographer.\n\nThis is also safer as you are now using invalidations as a proxy for busy. Right now you are pretty safe assuming that an invalidation implies will schedule an update. However, if there is a disconnect, and for some reason the invalidate never gets scheduled, you will wait until the timeout to find it.",
+      "parentUuid": "862d4192_aaaf60f4",
+      "revId": "d7aca8cc0e5f9db089ad0d707055615d50ea6c72",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
