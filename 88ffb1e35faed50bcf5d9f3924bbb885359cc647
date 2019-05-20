@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "523c973c_49d7e94e",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentTransaction.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-05-20T20:21:45Z",
+      "side": 1,
+      "message": "The English here doesn\u0027t quite read right. Maybe:\n\n...in the same transaction as addToBackStack() to allow \nthe pop of that transaction to be reordered.",
+      "range": {
+        "startLine": 498,
+        "startChar": 31,
+        "endLine": 498,
+        "endChar": 33
+      },
+      "revId": "88ffb1e35faed50bcf5d9f3924bbb885359cc647",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
