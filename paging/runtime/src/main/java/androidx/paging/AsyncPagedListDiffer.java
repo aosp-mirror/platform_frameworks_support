@@ -135,7 +135,7 @@ public class AsyncPagedListDiffer<T> {
          * Called after the current PagedList has been updated.
          *
          * @param previousList The previous list, may be null.
-         * @param currentList The new current list, may be null.
+         * @param currentList  The new current list, may be null.
          */
         void onCurrentListChanged(
                 @Nullable PagedList<T> previousList, @Nullable PagedList<T> currentList);
@@ -150,9 +150,9 @@ public class AsyncPagedListDiffer<T> {
 
     // Max generation of currently scheduled runnable
     @SuppressWarnings("WeakerAccess") /* synthetic access */
-    int mMaxScheduledGeneration;
+            int mMaxScheduledGeneration;
 
-    @SuppressWarnings("WeakerAccess") /* synthetic access */
+    @SuppressWarnings({"WeakerAccess", "KotlinInternalInJava"}) /* synthetic access */
     final PagedList.LoadStateManager mLoadStateManager = new PagedList.LoadStateManager() {
         @Override
         protected void onStateChanged(@NonNull PagedList.LoadType type,
@@ -164,7 +164,7 @@ public class AsyncPagedListDiffer<T> {
         }
     };
     @SuppressWarnings("WeakerAccess") // synthetic access
-    PagedList.LoadStateListener mLoadStateListener = new PagedList.LoadStateListener() {
+            PagedList.LoadStateListener mLoadStateListener = new PagedList.LoadStateListener() {
         @Override
         public void onLoadStateChanged(@NonNull PagedList.LoadType type,
                 @NonNull PagedList.LoadState state, @Nullable Throwable error) {
@@ -180,9 +180,9 @@ public class AsyncPagedListDiffer<T> {
      * Convenience for {@code AsyncPagedListDiffer(new AdapterListUpdateCallback(adapter),
      * new AsyncDifferConfig.Builder<T>(diffCallback).build();}
      *
-     * @param adapter Adapter that will receive update signals.
+     * @param adapter      Adapter that will receive update signals.
      * @param diffCallback The {@link DiffUtil.ItemCallback DiffUtil.ItemCallback} instance to
-     * compare items in the list.
+     *                     compare items in the list.
      */
     @SuppressWarnings("WeakerAccess")
     public AsyncPagedListDiffer(@NonNull RecyclerView.Adapter adapter,
@@ -281,7 +281,7 @@ public class AsyncPagedListDiffer<T> {
      * may not be executed. If PagedList B is submitted immediately after PagedList A, and is
      * committed directly, the callback associated with PagedList A will not be run.
      *
-     * @param pagedList The new PagedList.
+     * @param pagedList      The new PagedList.
      * @param commitCallback Optional runnable that is executed when the PagedList is committed, if
      *                       it is committed.
      */
@@ -290,6 +290,7 @@ public class AsyncPagedListDiffer<T> {
             @Nullable final Runnable commitCallback) {
         if (pagedList != null) {
             if (mPagedList == null && mSnapshot == null) {
+                //noinspection KotlinInternalInJava
                 mIsContiguous = pagedList.isContiguous();
             } else {
                 if (pagedList.isContiguous() != mIsContiguous) {
@@ -361,16 +362,17 @@ public class AsyncPagedListDiffer<T> {
             public void run() {
                 final DiffUtil.DiffResult result;
                 result = PagedStorageDiffHelper.computeDiff(
-                        oldSnapshot.mStorage,
-                        newSnapshot.mStorage,
+                        oldSnapshot.getStorage(),
+                        newSnapshot.getStorage(),
                         mConfig.getDiffCallback());
 
                 mMainThreadExecutor.execute(new Runnable() {
                     @Override
                     public void run() {
                         if (mMaxScheduledGeneration == runGeneration) {
+                            //noinspection KotlinInternalInJava
                             latchPagedList(pagedList, newSnapshot, result,
-                                    oldSnapshot.mLastLoad, commitCallback);
+                                    oldSnapshot.getLastLoad$paging_common(), commitCallback);
                         }
                     }
                 });
@@ -395,8 +397,10 @@ public class AsyncPagedListDiffer<T> {
         mSnapshot = null;
 
         // dispatch update callback after updating mPagedList/mSnapshot
+        //noinspection KotlinInternalInJava
         PagedStorageDiffHelper.dispatchDiff(mUpdateCallback,
-                previousSnapshot.mStorage, newList.mStorage, diffResult);
+                previousSnapshot.getStorage$paging_common(), newList.getStorage$paging_common(),
+                diffResult);
 
         newList.addWeakCallback(diffSnapshot, mPagedListCallback);
 
@@ -407,8 +411,10 @@ public class AsyncPagedListDiffer<T> {
             // Note: we don't take into account loads between new list snapshot and new list, but
             // this is only a problem in rare cases when placeholders are disabled, and a load
             // starts (for some reason) and finishes before diff completes.
-            int newPosition = PagedStorageDiffHelper.transformAnchorIndex(
-                    diffResult, previousSnapshot.mStorage, diffSnapshot.mStorage, lastAccessIndex);
+            @SuppressWarnings("KotlinInternalInJava") int newPosition =
+                    PagedStorageDiffHelper.transformAnchorIndex(
+                            diffResult, previousSnapshot.getStorage$paging_common(),
+                            diffSnapshot.getStorage$paging_common(), lastAccessIndex);
 
             // Trigger load in new list at this position, clamped to list bounds.
             // This is a load, not just an update of last load position, since the new list may be
@@ -436,7 +442,6 @@ public class AsyncPagedListDiffer<T> {
      * Add a PagedListListener to receive updates when the current PagedList changes.
      *
      * @param listener Listener to receive updates.
-     *
      * @see #getCurrentList()
      * @see #removePagedListListener(PagedListListener)
      */
@@ -462,7 +467,6 @@ public class AsyncPagedListDiffer<T> {
      * current REFRESH, START, and END states.
      *
      * @param listener Listener to receive updates.
-     *
      * @see #removeLoadStateListListener(PagedList.LoadStateListener)
      */
     public void addLoadStateListener(@NonNull PagedList.LoadStateListener listener) {
