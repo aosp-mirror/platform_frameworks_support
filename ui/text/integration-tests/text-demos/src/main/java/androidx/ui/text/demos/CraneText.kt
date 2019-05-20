@@ -41,7 +41,6 @@ import androidx.ui.painting.Shadow
 import androidx.ui.painting.TextStyle
 import androidx.ui.rendering.paragraph.TextOverflow
 import androidx.compose.Composable
-import androidx.compose.composer
 import androidx.compose.state
 import androidx.compose.unaryPlus
 import androidx.ui.core.Span
@@ -155,7 +154,7 @@ fun TextDemoBasic() {
                     color = Color(0xFF00FF00.toInt()),
                     fontSize = fontSize8,
                     fontWeight = FontWeight.w500,
-                    fontStyle = FontStyle.normal
+                    fontStyle = FontStyle.Normal
                 )
             )
 
@@ -165,7 +164,7 @@ fun TextDemoBasic() {
                     color = Color(0xFF0000FF.toInt()),
                     fontSize = fontSize10,
                     fontWeight = FontWeight.w800,
-                    fontStyle = FontStyle.normal
+                    fontStyle = FontStyle.Normal
                 )
             )
         }
@@ -194,7 +193,7 @@ fun TextDemoLanguage() {
                     color = Color(0xFF00FF00.toInt()),
                     fontSize = fontSize8,
                     fontWeight = FontWeight.w500,
-                    fontStyle = FontStyle.normal
+                    fontStyle = FontStyle.Normal
                 )
             )
 
@@ -204,7 +203,7 @@ fun TextDemoLanguage() {
                     color = Color(0xFF0000FF.toInt()),
                     fontSize = fontSize10,
                     fontWeight = FontWeight.w800,
-                    fontStyle = FontStyle.normal
+                    fontStyle = FontStyle.Normal
                 )
             )
         }
@@ -244,13 +243,13 @@ fun TextDemoTextDecoration() {
         Text {
             Span(text = displayText, style = TextStyle(
                     fontSize = fontSize8,
-                    decoration = TextDecoration.lineThrough
+                    decoration = TextDecoration.LineThrough
                 )
             )
 
             Span(text = "$displayText\n", style = TextStyle(
                     fontSize = fontSize8,
-                    decoration = TextDecoration.underline
+                    decoration = TextDecoration.Underline
                 )
             )
 
@@ -258,8 +257,8 @@ fun TextDemoTextDecoration() {
                     fontSize = fontSize8,
                     decoration = TextDecoration.combine(
                         listOf(
-                            TextDecoration.underline,
-                            TextDecoration.lineThrough
+                            TextDecoration.Underline,
+                            TextDecoration.LineThrough
                         )
                     )
                 )
@@ -305,14 +304,14 @@ fun TextDemoBaselineShift() {
                 Span(
                     text = "superscript",
                     style = TextStyle(
-                        baselineShift = BaselineShift.SUPERSCRIPT,
+                        baselineShift = BaselineShift.Superscript,
                         fontSize = fontSize4
                     )
                 ) {
                     Span(
                         text = "subscript",
                         style = TextStyle(
-                            baselineShift = BaselineShift.SUBSCRIPT,
+                            baselineShift = BaselineShift.Subscript,
                             fontSize = fontSize4
                         )
                     )
@@ -415,32 +414,32 @@ fun TextDemoLocale() {
 
 @Composable
 fun TextDemoTextAlign() {
-    // This group of text widgets show different TextAligns: LEFT, RIGHT, CENTER, JUSTIFY, START for
-    // LTR and RTL, END for LTR and RTL.
+    // This group of text widgets show different TextAligns: Left, Right, Center, Justify, Start for
+    // LTR and RTL, End for LTR and RTL.
     var text: String = ""
     for (i in 1..10) {
         text = "$text$displayText "
     }
     LinearLayout(orientation = LinearLayout.VERTICAL) {
-        SecondTagLine(tag = "textAlgin = TextAlign.LEFT")
+        SecondTagLine(tag = "textAlgin = TextAlign.Left")
         CraneWrapper {
-            Text(textAlign = TextAlign.LEFT) {
+            Text(textAlign = TextAlign.Left) {
                 Span(text = displayText, style = TextStyle(fontSize = fontSize8))
             }
         }
-        SecondTagLine(tag = "textAlgin = TextAlign.RIGHT")
+        SecondTagLine(tag = "textAlgin = TextAlign.Right")
         CraneWrapper {
-            Text(textAlign = TextAlign.RIGHT) {
+            Text(textAlign = TextAlign.Right) {
                 Span(text = displayText, style = TextStyle(fontSize = fontSize8))
             }
         }
-        SecondTagLine(tag = "textAlgin = TextAlign.CENTER")
+        SecondTagLine(tag = "textAlgin = TextAlign.Center")
         CraneWrapper {
-            Text(textAlign = TextAlign.CENTER) {
+            Text(textAlign = TextAlign.Center) {
                 Span(text = displayText, style = TextStyle(fontSize = fontSize8))
             }
         }
-        SecondTagLine(tag = "textAlgin = default and TextAlign.JUSTIFY")
+        SecondTagLine(tag = "textAlgin = default and TextAlign.Justify")
         CraneWrapper {
             Text {
                 Span(
@@ -453,7 +452,7 @@ fun TextDemoTextAlign() {
             }
         }
         CraneWrapper {
-            Text(textAlign = TextAlign.JUSTIFY) {
+            Text(textAlign = TextAlign.Justify) {
                 Span(
                     text = text,
                     style = TextStyle(
@@ -463,27 +462,27 @@ fun TextDemoTextAlign() {
                 )
             }
         }
-        SecondTagLine(tag = "textAlgin = TextAlign.START for LTR")
+        SecondTagLine(tag = "textAlgin = TextAlign.Start for Ltr")
         CraneWrapper {
-            Text(textAlign = TextAlign.START) {
+            Text(textAlign = TextAlign.Start) {
                 Span(text = displayText, style = TextStyle(fontSize = fontSize8))
             }
         }
-        SecondTagLine(tag = "textAlgin = TextAlign.START for RTL")
+        SecondTagLine(tag = "textAlgin = TextAlign.Start for RTL")
         CraneWrapper {
-            Text(textDirection = TextDirection.RTL, textAlign = TextAlign.START) {
+            Text(textDirection = TextDirection.RTL, textAlign = TextAlign.Start) {
                 Span(text = displayText, style = TextStyle(fontSize = fontSize8))
             }
         }
-        SecondTagLine(tag = "textAlgin = TextAlign.END for LTR")
+        SecondTagLine(tag = "textAlgin = TextAlign.End for Ltr")
         CraneWrapper {
-            Text(textAlign = TextAlign.END) {
+            Text(textAlign = TextAlign.End) {
                 Span(text = displayText, style = TextStyle(fontSize = fontSize8))
             }
         }
-        SecondTagLine(tag = "textAlgin = TextAlign.END for RTL")
+        SecondTagLine(tag = "textAlgin = TextAlign.End for RTL")
         CraneWrapper {
-            Text(textDirection = TextDirection.RTL, textAlign = TextAlign.END) {
+            Text(textDirection = TextDirection.RTL, textAlign = TextAlign.End) {
                 Span(text = displayText, style = TextStyle(fontSize = fontSize8))
             }
         }
@@ -617,7 +616,7 @@ fun TextDemoSelection() {
                             color = Color(0xFF0000FF.toInt()),
                             fontSize = fontSize10,
                             fontWeight = FontWeight.w800,
-                            fontStyle = FontStyle.normal
+                            fontStyle = FontStyle.Normal
                         )
                     )
                     Span(

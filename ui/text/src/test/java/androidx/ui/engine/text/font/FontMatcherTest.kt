@@ -57,7 +57,7 @@ class FontMatcherTest {
         val font = FontMatcher().matchFont(
             FontFamily(FONT_100_REGULAR),
             FontWeight.w100,
-            FontStyle.normal
+            FontStyle.Normal
         )
 
         assertThat(font).isEqualTo(FONT_100_REGULAR)
@@ -88,7 +88,7 @@ class FontMatcherTest {
                 FONT_300_REGULAR
             ),
             FontWeight.w200,
-            FontStyle.normal
+            FontStyle.Normal
         )
 
         assertThat(font).isEqualTo(FONT_200_REGULAR)
