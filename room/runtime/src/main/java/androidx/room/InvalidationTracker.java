@@ -179,15 +179,9 @@ public class InvalidationTracker {
                 return;
             }
 
-            database.beginTransaction();
-            try {
-                database.execSQL("PRAGMA temp_store = MEMORY;");
-                database.execSQL("PRAGMA recursive_triggers='ON';");
-                database.execSQL(CREATE_TRACKING_TABLE_SQL);
-                database.setTransactionSuccessful();
-            } finally {
-                database.endTransaction();
-            }
+            database.execSQL("PRAGMA temp_store = MEMORY;");
+            database.execSQL("PRAGMA recursive_triggers='ON';");
+            database.execSQL(CREATE_TRACKING_TABLE_SQL);
             syncTriggers(database);
             mCleanupStatement = database.compileStatement(RESET_UPDATED_TABLES_SQL);
             mInitialized = true;
