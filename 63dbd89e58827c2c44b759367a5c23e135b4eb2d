@@ -46,6 +46,30 @@
       "revId": "63dbd89e58827c2c44b759367a5c23e135b4eb2d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "740005fe_3b9cd1df",
+        "filename": "ui/platform/src/main/java/androidx/ui/core/AndroidOwner.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-05-20T17:36:53Z",
+      "side": 1,
+      "message": "Yes, let\u0027s hold off on this for now. I\u0027d like to investigate why it is receiving the dispatchDraw() at all. It should not draw again if it hasn\u0027t been invalidated.",
+      "parentUuid": "08071c3b_4b2f3d0b",
+      "range": {
+        "startLine": 293,
+        "startChar": 13,
+        "endLine": 293,
+        "endChar": 30
+      },
+      "revId": "63dbd89e58827c2c44b759367a5c23e135b4eb2d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
