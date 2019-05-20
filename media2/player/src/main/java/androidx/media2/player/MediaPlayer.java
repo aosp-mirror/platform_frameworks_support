@@ -471,6 +471,7 @@ public final class MediaPlayer extends SessionPlayer {
         sInfoCodeMap = new ArrayMap<>();
         sInfoCodeMap.put(
                 MediaPlayer2.MEDIA_INFO_VIDEO_RENDERING_START, MEDIA_INFO_VIDEO_RENDERING_START);
+        sInfoCodeMap.put(MediaPlayer2.MEDIA_INFO_PREPARED, MEDIA_INFO_PREPARED);
         sInfoCodeMap.put(
                 MediaPlayer2.MEDIA_INFO_VIDEO_TRACK_LAGGING, MEDIA_INFO_VIDEO_TRACK_LAGGING);
         sInfoCodeMap.put(MediaPlayer2.MEDIA_INFO_BUFFERING_UPDATE, MEDIA_INFO_BUFFERING_UPDATE);
@@ -3118,6 +3119,12 @@ public final class MediaPlayer extends SessionPlayer {
                     setBufferingState(item, BUFFERING_STATE_BUFFERING_AND_STARVED);
                     break;
                 case MediaPlayer2.MEDIA_INFO_PREPARED:
+                    notifySessionPlayerCallback(new SessionPlayerCallbackNotifier() {
+                        @Override
+                        public void callCallback(SessionPlayer.PlayerCallback callback) {
+                            callback.onTrackInfoChanged(MediaPlayer.this, getTrackInfoInternal());
+                        }
+                    });
                 case MediaPlayer2.MEDIA_INFO_BUFFERING_END:
                     setBufferingState(item, BUFFERING_STATE_BUFFERING_AND_PLAYABLE);
                     break;
@@ -3136,11 +3143,10 @@ public final class MediaPlayer extends SessionPlayer {
                     });
                     break;
                 case MediaPlayer2.MEDIA_INFO_METADATA_UPDATE:
-                    final List<SessionPlayer.TrackInfo> trackInfos = getTrackInfoInternal();
                     notifySessionPlayerCallback(new SessionPlayerCallbackNotifier() {
                         @Override
                         public void callCallback(SessionPlayer.PlayerCallback callback) {
-                            callback.onTrackInfoChanged(MediaPlayer.this, trackInfos);
+                            callback.onTrackInfoChanged(MediaPlayer.this, getTrackInfoInternal());
                         }
                     });
                     break;
