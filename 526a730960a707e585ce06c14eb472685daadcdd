@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b87d66c2_248f3260",
+        "filename": "viewpager2/src/androidTest/java/androidx/viewpager2/widget/ItemDecorationTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-05-21T08:53:49Z",
+      "side": 1,
+      "message": "no need to use mockito, use your own Decoration and have counter there. \nYou can fix it as follow-up",
+      "range": {
+        "startLine": 81,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 74
+      },
+      "revId": "526a730960a707e585ce06c14eb472685daadcdd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
