@@ -590,7 +590,7 @@ open class Composer<N>(
         invalidateStack.let { if (it.isNotEmpty()) it.peek() else null }
 
     private fun start(key: Any, action: SlotAction) {
-        assert(childrenAllowed) { "A call to creadNode(), emitNode() or useNode() expected" }
+        assert(childrenAllowed) { "A call to createNode(), emitNode() or useNode() expected" }
         if (pending == null) {
             val slotKey = slots.next()
             if (slotKey == key) {
@@ -927,10 +927,14 @@ open class Composer<N>(
         val location = scope.anchor?.location(slotTable) ?: return
         assert(location >= 0) { "Invalid anchor" }
         invalidations.insertIfMissing(location, scope)
-        if (sync) {
-            recomposer?.recomposeSync()
+        if (ambientReference != null) {
+            ambientReference?.invalidate(sync)
         } else {
-            recomposer?.scheduleRecompose()
+            if (sync) {
+                recomposer?.recomposeSync()
+            } else {
+                recomposer?.scheduleRecompose()
+            }
         }
     }
 
@@ -1192,7 +1196,7 @@ open class Composer<N>(
 
         override fun <T> invalidateConsumers(key: Ambient<T>) {
             // need to mark the recompose scope that created the reference as invalid
-            invalidate()
+            invalidate(false)
 
             // loop through every child composer
             for (composer in composers) {
@@ -1208,11 +1212,11 @@ open class Composer<N>(
             composers.add(composer)
         }
 
-        override fun invalidate() {
+        override fun invalidate(sync: Boolean) {
             // continue invalidating up the spine of AmbientReferences
-            ambientReference?.invalidate()
+            ambientReference?.invalidate(sync)
 
-            scope.invalidate?.invoke(false)
+            invalidate(scope, sync)
         }
 
         override fun <T> getAmbient(key: Ambient<T>): T {
