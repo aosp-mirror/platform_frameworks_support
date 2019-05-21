@@ -22,6 +22,30 @@
       "revId": "bf8ffc3c4c3e326214a36762677596400eb152dc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a13e026_d0b3fa89",
+        "filename": "jetifier/jetifier/migration.config",
+        "patchSetId": 1
+      },
+      "lineNbr": 673,
+      "author": {
+        "id": 1353459
+      },
+      "writtenOn": "2019-05-21T15:21:32Z",
+      "side": 1,
+      "message": "Resolved in patchset 2. Thank you",
+      "parentUuid": "e0bf5e1b_27bcbf53",
+      "range": {
+        "startLine": 673,
+        "startChar": 15,
+        "endLine": 673,
+        "endChar": 44
+      },
+      "revId": "bf8ffc3c4c3e326214a36762677596400eb152dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
