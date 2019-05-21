@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b28f7783_397a6623",
+        "filename": "media2/player/src/androidTest/java/androidx/media2/player/MediaPlayerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 570,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-21T02:05:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2e494337_5b8ba554",
+      "range": {
+        "startLine": 570,
+        "startChar": 34,
+        "endLine": 570,
+        "endChar": 35
+      },
+      "revId": "fc92070fc5d470ee794cb24098ac77b38025308c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3d1754b9_b2b6613f",
         "filename": "media2/player/src/androidTest/java/androidx/media2/player/MediaPlayerTest.java",
         "patchSetId": 4
@@ -39,6 +63,24 @@
       "revId": "fc92070fc5d470ee794cb24098ac77b38025308c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6cdb3d68_2ee01ba5",
+        "filename": "media2/player/src/androidTest/java/androidx/media2/player/MediaPlayerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 766,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-21T02:05:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3d1754b9_b2b6613f",
+      "revId": "fc92070fc5d470ee794cb24098ac77b38025308c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -77,6 +119,24 @@
     },
     {
       "key": {
+        "uuid": "5316e1d1_ace07e28",
+        "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-21T02:05:28Z",
+      "side": 1,
+      "message": "Didn\u0027t realize MEDIA_INFO_PREPARED was hidden.. Reverted.\n\nAnd added test in both MediaPlayer2Test and MediaPlayerTest.",
+      "parentUuid": "33132a77_6bfca049",
+      "revId": "fc92070fc5d470ee794cb24098ac77b38025308c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9439d43c_c32e6a84",
         "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer.java",
         "patchSetId": 4
@@ -109,6 +169,24 @@
       "revId": "fc92070fc5d470ee794cb24098ac77b38025308c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85f92015_1b60589a",
+        "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 3127,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-21T02:05:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9439d43c_c32e6a84",
+      "revId": "fc92070fc5d470ee794cb24098ac77b38025308c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
