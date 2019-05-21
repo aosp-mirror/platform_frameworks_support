@@ -36,6 +36,7 @@ object Compose {
         @Suppress("DEPRECATION")
         fun update() = recomposeSync()
         lateinit var composable: @Composable() () -> Unit
+        lateinit var composer: CompositionContext
         @Suppress("PLUGIN_ERROR")
         override fun compose() {
             val cc = currentComposerNonNull
@@ -132,11 +133,12 @@ object Compose {
                 root,
                 parent
             )
+            root.composer = cc
             cc.recompose()
             return cc
         } else {
             root.composable = composable
-            root.recomposeCallback?.invoke(true)
+            root.composer.recompose()
         }
         return null
     }
@@ -194,10 +196,11 @@ object Compose {
             root.composable = composable
             setRoot(container, root)
             val cc = CompositionContext.create(context, container, root, parent)
+            root.composer = cc
             cc.recompose()
         } else {
             root.composable = composable
-            root.recomposeCallback?.invoke(true)
+            root.composer.recompose()
         }
     }
 
