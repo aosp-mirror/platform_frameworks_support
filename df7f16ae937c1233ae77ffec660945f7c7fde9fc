@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8284dc79_8b232006",
+        "filename": "camera/integration-tests/timingtestapp/src/main/java/androidx/camera/integration/antelope/CameraUtils.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-05-21T23:15:46Z",
+      "side": 1,
+      "message": "Typo?",
+      "range": {
+        "startLine": 67,
+        "startChar": 8,
+        "endLine": 67,
+        "endChar": 17
+      },
+      "revId": "df7f16ae937c1233ae77ffec660945f7c7fde9fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7abe0f1f_751ef8f5",
+        "filename": "camera/integration-tests/timingtestapp/src/main/java/androidx/camera/integration/antelope/cameracontrollers/Camera2CaptureCallback.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-05-21T23:15:46Z",
+      "side": 1,
+      "message": "CameraCaptureSession.CaptureCallback already defines these as non-null references. Is there a reason they are declared as nullable references here?",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 32
+      },
+      "revId": "df7f16ae937c1233ae77ffec660945f7c7fde9fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd47c83c_32d1f50e",
+        "filename": "camera/integration-tests/timingtestapp/src/main/java/androidx/camera/integration/antelope/cameracontrollers/Camera2CaptureSessionCallback.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-05-21T23:15:46Z",
+      "side": 1,
+      "message": "Can this just be changed to a non-null reference?",
+      "range": {
+        "startLine": 43,
+        "startChar": 8,
+        "endLine": 43,
+        "endChar": 38
+      },
+      "revId": "df7f16ae937c1233ae77ffec660945f7c7fde9fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d834b30f_db461451",
+        "filename": "camera/integration-tests/timingtestapp/src/main/java/androidx/camera/integration/antelope/cameracontrollers/Camera2DeviceStateCallback.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-05-21T23:15:46Z",
+      "side": 1,
+      "message": "This should also be a non-null reference.",
+      "range": {
+        "startLine": 65,
+        "startChar": 26,
+        "endLine": 65,
+        "endChar": 47
+      },
+      "revId": "df7f16ae937c1233ae77ffec660945f7c7fde9fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e74f7011_42feac39",
+        "filename": "camera/integration-tests/timingtestapp/src/main/java/androidx/camera/integration/antelope/cameracontrollers/Camera2PreviewSessionStateCallback.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-05-21T23:15:46Z",
+      "side": 1,
+      "message": "non-null reference",
+      "range": {
+        "startLine": 45,
+        "startChar": 26,
+        "endLine": 45,
+        "endChar": 56
+      },
+      "revId": "df7f16ae937c1233ae77ffec660945f7c7fde9fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
