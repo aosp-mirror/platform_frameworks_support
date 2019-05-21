@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e209afc5_b064785b",
+        "filename": "fragment/testing/src/androidTest/java/androidx/fragment/app/testing/FragmentScenarioDialogFragmentTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-05-21T23:30:13Z",
+      "side": 1,
+      "message": "The API level has been finalized internally, so you can just use Build.VERSION.SDK_INT \u003e\u003d 29.",
+      "range": {
+        "startLine": 72,
+        "startChar": 20,
+        "endLine": 72,
+        "endChar": 62
+      },
+      "revId": "ece4e373b572e98e0e7801262a1e6941ec52cf97",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
