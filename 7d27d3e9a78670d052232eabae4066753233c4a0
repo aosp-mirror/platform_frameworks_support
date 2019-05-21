@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ee97396e_1b95ea41",
+        "filename": "navigation/runtime/src/main/java/androidx/navigation/NavController.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 896,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-05-21T23:28:47Z",
+      "side": 1,
+      "message": "This is going to add them in the wrong order if we go up multiple steps (i.e., a \u003cnavigation\u003e node that has a \u003cnavigation\u003e node as its start destination).",
+      "range": {
+        "startLine": 896,
+        "startChar": 40,
+        "endLine": 896,
+        "endChar": 48
+      },
+      "revId": "7d27d3e9a78670d052232eabae4066753233c4a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
