@@ -40,6 +40,7 @@ import java.util.Set;
 
 /**
  * The factory class that creates {@link Camera} instances.
+ *
  * @hide
  */
 @RestrictTo(Scope.LIBRARY)
@@ -82,6 +83,19 @@ public final class Camera2CameraFactory implements CameraFactory {
     @Override
     public String cameraIdForLensFacing(LensFacing lensFacing)
             throws CameraInfoUnavailableException {
+        Set<String> resultCameraIdSet = cameraIdSetForLensFacing(lensFacing);
+
+        if (resultCameraIdSet == null) {
+            return null;
+        }
+
+        return resultCameraIdSet.iterator().next();
+    }
+
+    @Nullable
+    @Override
+    public Set<String> cameraIdSetForLensFacing(LensFacing lensFacing)
+            throws CameraInfoUnavailableException {
         Set<String> cameraIds = getAvailableCameraIds();
 
         // Convert to from CameraX enum to Camera2 CameraMetadata
@@ -95,6 +109,7 @@ public final class Camera2CameraFactory implements CameraFactory {
                 break;
         }
 
+        Set<String> resultCameraIdSet = new LinkedHashSet<>();
         for (String cameraId : cameraIds) {
             CameraCharacteristics characteristics = null;
             try {
@@ -108,10 +123,14 @@ public final class Camera2CameraFactory implements CameraFactory {
                 continue;
             }
             if (cameraLensFacing.equals(lensFacingInteger)) {
-                return cameraId;
+                resultCameraIdSet.add(cameraId);
             }
         }
 
-        return null;
+        if (resultCameraIdSet.isEmpty()) {
+            return null;
+        }
+
+        return resultCameraIdSet;
     }
 }
