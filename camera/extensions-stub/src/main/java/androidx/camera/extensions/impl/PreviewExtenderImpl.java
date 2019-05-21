@@ -26,6 +26,8 @@ public interface PreviewExtenderImpl extends ExtenderStateListener {
     enum ProcessorType {
         /** Processing which only updates the {@link CaptureStageImpl}. */
         PROCESSOR_TYPE_REQUEST_UPDATE_ONLY,
+        /** Processing which updates the received {@link android.media.Image}. */
+        PROCESSOR_TYPE_CAPTURE_UPDATE_PROCESSOR,
         PROCESSOR_TYPE_NONE
     }
 
@@ -63,4 +65,10 @@ public interface PreviewExtenderImpl extends ExtenderStateListener {
 
     /** Returns a processor which only updates the {@link CaptureStageImpl}. */
     RequestUpdateProcessorImpl getRequestUpdatePreviewProcessor();
+
+    /**
+     * Returns a processor which allows for the {@link android.media.Image} to be updated via
+     * {@link androidx.camera.extensions.impl.CaptureProcessorImpl}.
+     */
+    CaptureProcessorImpl getCaptureUpdatePreviewProcessor();
 }

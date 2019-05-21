@@ -53,6 +53,11 @@ public final class BokehPreviewExtenderImpl implements PreviewExtenderImpl {
     }
 
     @Override
+    public CaptureProcessorImpl getCaptureUpdatePreviewProcessor() {
+        throw new RuntimeException("Stub, replace with implementation.");
+    }
+
+    @Override
     public void onInit(String cameraId, CameraCharacteristics cameraCharacteristics,
             Context context) {
         throw new RuntimeException("Stub, replace with implementation.");

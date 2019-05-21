@@ -92,6 +92,12 @@ public final class BokehPreviewExtenderImpl implements PreviewExtenderImpl {
     }
 
     @Override
+    public CaptureProcessorImpl getCaptureUpdatePreviewProcessor() {
+        return null;
+    }
+
+
+    @Override
     public void onInit(String cameraId, CameraCharacteristics cameraCharacteristics,
             Context context) {
 

@@ -18,7 +18,14 @@ package androidx.camera.extensions.impl;
 
 import android.content.Context;
 import android.hardware.camera2.CameraCharacteristics;
-import android.hardware.camera2.CaptureRequest;
+import android.hardware.camera2.TotalCaptureResult;
+import android.media.Image;
+import android.util.Log;
+import android.util.Pair;
+import android.util.Size;
+import android.view.Surface;
+
+import java.util.Map;
 
 /**
  * Implementation for HDR view finder use case.
@@ -27,6 +34,7 @@ import android.hardware.camera2.CaptureRequest;
  * don't need to implement this, unless this is used for related testing usage.
  */
 public final class HdrPreviewExtenderImpl implements PreviewExtenderImpl {
+    private static final String TAG = "HDRImpl";
     private static final int DEFAULT_STAGE_ID = 0;
 
     public HdrPreviewExtenderImpl() { }
@@ -47,20 +55,46 @@ public final class HdrPreviewExtenderImpl implements PreviewExtenderImpl {
         // Set the necessary CaptureRequest parameters via CaptureStage, here we use some
         // placeholder set of CaptureRequest.Key values
         SettableCaptureStage captureStage = new SettableCaptureStage(DEFAULT_STAGE_ID);
-        captureStage.addCaptureRequestParameters(CaptureRequest.CONTROL_EFFECT_MODE,
-                CaptureRequest.CONTROL_EFFECT_MODE_AQUA);
 
         return captureStage;
     }
 
     @Override
     public ProcessorType getProcessorType() {
-        return ProcessorType.PROCESSOR_TYPE_REQUEST_UPDATE_ONLY;
+        return ProcessorType.PROCESSOR_TYPE_CAPTURE_UPDATE_PROCESSOR;
     }
 
     @Override
     public RequestUpdateProcessorImpl getRequestUpdatePreviewProcessor() {
         return RequestUpdateProcessorImpls.noUpdateProcessor();
+    }
+
+    private CaptureProcessorImpl mCaptureUpdateProcessor = new CaptureProcessorImpl() {
+
+        @Override
+        public void onOutputSurface(Surface surface, int imageFormat) {
+        }
+
+        @Override
+        public void process(Map<Integer, Pair<Image, TotalCaptureResult>> results) {
+            Log.d(TAG, "process image");
+        }
+
+        Size mSize;
+        @Override
+        public void onResolutionUpdate(Size size) {
+            mSize = size;
+        }
+
+        @Override
+        public void onImageFormatUpdate(int imageFormat) {
+
+        }
+    };
+
+    @Override
+    public CaptureProcessorImpl getCaptureUpdatePreviewProcessor() {
+        return mCaptureUpdateProcessor;
     }
 
     @Override
