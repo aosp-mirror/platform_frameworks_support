@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e3b49d19_02b89586",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/RoomProcessor.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-05-21T15:47:26Z",
+      "side": 1,
+      "message": "FYI the CL has been merged. I\u0027m working on creating an RC branch for 2.1 and move HEAD to 2.2 to start merging IAP CLs.",
+      "parentUuid": "c4d9905e_fabdb6fb",
+      "range": {
+        "startLine": 43,
+        "startChar": 42,
+        "endLine": 43,
+        "endChar": 53
+      },
+      "revId": "1075183e45660c7f2011d70687373e3d66b2bf58",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6deec267_908d50e9",
         "filename": "room/compiler/src/main/kotlin/androidx/room/processor/Context.kt",
         "patchSetId": 2
