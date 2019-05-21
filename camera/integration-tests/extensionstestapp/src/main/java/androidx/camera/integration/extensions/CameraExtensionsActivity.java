@@ -23,6 +23,8 @@ import android.graphics.SurfaceTexture;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.HandlerThread;
 import android.os.StrictMode;
 import android.util.Log;
 import android.view.TextureView;
@@ -78,6 +80,8 @@ public class CameraExtensionsActivity extends AppCompatActivity
     private Preview mPreview;
     private ImageCapture mImageCapture;
     private ImageCaptureType mCurrentImageCaptureType = ImageCaptureType.IMAGE_CAPTURE_TYPE_HDR;
+
+    private HandlerThread mHandlerThread = new HandlerThread("CameraExtensionsActivityHandler");
 
     /**
      * Creates a view finder use case.
@@ -220,6 +224,7 @@ public class CameraExtensionsActivity extends AppCompatActivity
                         builder);
                 if (hdrImageCaptureExtender.isExtensionAvailable()) {
                     hdrImageCaptureExtender.enableExtension();
+                    builder.setCallbackHandler(new Handler(mHandlerThread.getLooper()));
                 }
                 break;
             case IMAGE_CAPTURE_TYPE_BOKEH:
