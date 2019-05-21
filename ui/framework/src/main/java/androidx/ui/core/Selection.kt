@@ -16,6 +16,7 @@
 
 package androidx.ui.core
 
+import android.util.Log
 import androidx.ui.core.gesture.PressIndicatorGestureDetector
 import androidx.ui.engine.geometry.Offset
 import androidx.ui.engine.geometry.Rect
@@ -46,6 +47,8 @@ data class Selection(
      */
     val endOffset: Offset
 )
+
+class SelectionContainerCoordinate{var global = PxPosition.Origin}
 
 /**
  * An interface handling selection. Get selection from a widget by passing in a coordinate.
@@ -121,10 +124,15 @@ fun SelectionContainer(
     val manager = +memo { SelectionManager() }
     +memo(selection) { manager.selection = selection }
     +memo(onSelectionChange) { manager.onSelectionChange = onSelectionChange }
+    val globalCoordinate = +memo{SelectionContainerCoordinate()}
 
     SelectionRegistrarAmbient.Provider(value = manager) {
         val content = @Composable {
-            PressIndicatorGestureDetector(onStart = { position -> manager.onPress(position) }) {
+            OnPositioned(onPositioned = { coordinates ->
+                Log.e("selectiontext", "selection global:"+ globalCoordinate.global)
+                globalCoordinate.global = coordinates.localToGlobal(PxPosition.Origin)
+            })
+            PressIndicatorGestureDetector(onStart = { position -> manager.onPress(position + globalCoordinate.global) }) {
                 children()
             }
         }
@@ -159,16 +167,19 @@ fun SelectionContainer(
                             HANDLE_HEIGHT.toInt().ipx
                         )
                     )
+
                 layout(width, height) {
                     placeable.place(IntPx.Zero, IntPx.Zero)
                     selection?.let {
+                        Log.e("selectiontext", "start:("+it.startOffset.dx.toString() +", "+it.startOffset.dy.toString()+")")
+                        Log.e("selectiontext", "end:("+it.endOffset.dx.toString() +", "+it.endOffset.dy.toString()+")")
                         start.place(
-                            it.startOffset.dx.px,
-                            it.startOffset.dy.px - HANDLE_HEIGHT.px
+                            it.startOffset.dx.px - globalCoordinate.global.x,
+                            it.startOffset.dy.px - HANDLE_HEIGHT.px - globalCoordinate.global.y
                         )
                         end.place(
-                            it.endOffset.dx.px - HANDLE_WIDTH.px,
-                            it.endOffset.dy.px - HANDLE_HEIGHT.px
+                            it.endOffset.dx.px - HANDLE_WIDTH.px - globalCoordinate.global.x,
+                            it.endOffset.dy.px - HANDLE_HEIGHT.px - globalCoordinate.global.y
                         )
                     }
                 }
