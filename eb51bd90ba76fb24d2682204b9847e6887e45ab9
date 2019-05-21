@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "78bb2fd3_d5c0058c",
+        "filename": "media2/session/src/androidTest/java/androidx/media2/session/MediaControllerTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1663,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-21T09:26:51Z",
+      "side": 1,
+      "message": "It seems there is no invocation of getTrackInfo in the test code.",
+      "range": {
+        "startLine": 1663,
+        "startChar": 16,
+        "endLine": 1663,
+        "endChar": 32
+      },
+      "revId": "eb51bd90ba76fb24d2682204b9847e6887e45ab9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b07e03a6_52f24d55",
+        "filename": "media2/session/src/androidTest/java/androidx/media2/session/MockPlayer.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-21T09:26:51Z",
+      "side": 1,
+      "message": "Will it be better to have a Map\u003cTRACK_TYPE, TrackInfo\u003e?",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 44
+      },
+      "revId": "eb51bd90ba76fb24d2682204b9847e6887e45ab9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "178442db_349f20c0",
+        "filename": "media2/session/src/androidTest/java/androidx/media2/session/MockPlayer.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-21T09:26:51Z",
+      "side": 1,
+      "message": "Could you handle other types as well like MediaController?",
+      "range": {
+        "startLine": 269,
+        "startChar": 16,
+        "endLine": 269,
+        "endChar": 40
+      },
+      "revId": "eb51bd90ba76fb24d2682204b9847e6887e45ab9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "17d0dc3b_a5a7983b",
+        "filename": "media2/session/src/androidTest/java/androidx/media2/session/MockPlayer.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 556,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-21T09:26:51Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 556,
+        "startChar": 16,
+        "endLine": 556,
+        "endChar": 25
+      },
+      "revId": "eb51bd90ba76fb24d2682204b9847e6887e45ab9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91b26024_86ed0598",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaSessionImplBase.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1499,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-21T09:26:51Z",
+      "side": 1,
+      "message": "@Override?",
+      "range": {
+        "startLine": 1499,
+        "startChar": 8,
+        "endLine": 1499,
+        "endChar": 14
+      },
+      "revId": "eb51bd90ba76fb24d2682204b9847e6887e45ab9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
