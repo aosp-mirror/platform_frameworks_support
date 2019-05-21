@@ -45,6 +45,75 @@
       "revId": "02d40f5d9016c298c9345f7b0a8fd8eb6ebce4aa",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c5b5602_3737bcb7",
+        "filename": "media2/player/src/androidTest/java/androidx/media2/player/MediaPlayer2Test.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2027,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-05-21T05:22:39Z",
+      "side": 1,
+      "message": "Q) How is this test related with the current CL?",
+      "range": {
+        "startLine": 2027,
+        "startChar": 16,
+        "endLine": 2027,
+        "endChar": 61
+      },
+      "revId": "02d40f5d9016c298c9345f7b0a8fd8eb6ebce4aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6b559be_39a850af",
+        "filename": "media2/player/src/androidTest/java/androidx/media2/player/MediaPlayer2Test.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2049,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-05-21T05:22:39Z",
+      "side": 1,
+      "message": "Q) Why is this 4? It would be nice if we can add some explanation about what tracks R.raw.testvideo has.",
+      "range": {
+        "startLine": 2049,
+        "startChar": 21,
+        "endLine": 2049,
+        "endChar": 22
+      },
+      "revId": "02d40f5d9016c298c9345f7b0a8fd8eb6ebce4aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4cb093c4_b083549d",
+        "filename": "media2/player/src/androidTest/java/androidx/media2/player/MediaPlayerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 769,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-05-21T05:22:39Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 769,
+        "startChar": 21,
+        "endLine": 769,
+        "endChar": 22
+      },
+      "revId": "02d40f5d9016c298c9345f7b0a8fd8eb6ebce4aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
