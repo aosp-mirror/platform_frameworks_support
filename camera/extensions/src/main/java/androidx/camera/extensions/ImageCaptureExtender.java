@@ -19,6 +19,7 @@ package androidx.camera.extensions;
 import android.hardware.camera2.CameraCharacteristics;
 
 import androidx.annotation.GuardedBy;
+import androidx.annotation.NonNull;
 import androidx.camera.camera2.Camera2Config;
 import androidx.camera.camera2.impl.CameraEventCallback;
 import androidx.camera.camera2.impl.CameraEventCallbacks;
@@ -46,18 +47,23 @@ abstract class ImageCaptureExtender {
     void init(ImageCaptureConfig.Builder builder, ImageCaptureExtenderImpl implementation) {
         mBuilder = builder;
         mImpl = implementation;
+
+        mBuilder.addCameraIdFilter(new ExtensionsCameraIdFilter(mImpl));
     }
 
     public boolean isExtensionAvailable() {
-        CameraX.LensFacing lensFacing = mBuilder.build().getLensFacing();
-        String cameraId = CameraUtil.getCameraId(lensFacing);
-        CameraCharacteristics cameraCharacteristics = CameraUtil.getCameraCharacteristics(cameraId);
-        return mImpl.isExtensionAvailable(cameraId, cameraCharacteristics);
+        String cameraId = CameraUtil.getCameraId(mBuilder.build());
+        return cameraId != null;
     }
 
     public void enableExtension() {
-        CameraX.LensFacing lensFacing = mBuilder.build().getLensFacing();
-        String cameraId = CameraUtil.getCameraId(lensFacing);
+        String cameraId = CameraUtil.getCameraId(mBuilder.build());
+        if (cameraId == null) {
+            // If there's no available camera id for the extender to function, just return here
+            // and it will be no-ops.
+            return;
+        }
+
         CameraCharacteristics cameraCharacteristics = CameraUtil.getCameraCharacteristics(cameraId);
         mImpl.enableExtension(cameraId, cameraCharacteristics);
 
@@ -96,7 +102,7 @@ abstract class ImageCaptureExtender {
         }
 
         @Override
-        public void onBind(String cameraId) {
+        public void onBind(@NonNull String cameraId) {
             if (mActive.get()) {
                 CameraCharacteristics cameraCharacteristics = CameraUtil.getCameraCharacteristics(
                         cameraId);

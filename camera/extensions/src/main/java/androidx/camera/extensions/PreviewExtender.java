@@ -23,6 +23,7 @@ import android.hardware.camera2.TotalCaptureResult;
 import android.util.Pair;
 
 import androidx.annotation.GuardedBy;
+import androidx.annotation.NonNull;
 import androidx.camera.camera2.Camera2Config;
 import androidx.camera.camera2.impl.Camera2CameraCaptureResultConverter;
 import androidx.camera.camera2.impl.CameraEventCallback;
@@ -53,6 +54,8 @@ public abstract class PreviewExtender {
     void init(PreviewConfig.Builder builder, PreviewExtenderImpl implementation) {
         mBuilder = builder;
         mImpl = implementation;
+
+        mBuilder.addCameraIdFilter(new ExtensionsCameraIdFilter(mImpl));
     }
 
     /**
@@ -62,18 +65,21 @@ public abstract class PreviewExtender {
      * @return True if the specific extension function is supported for the camera device.
      */
     public boolean isExtensionAvailable() {
-        CameraX.LensFacing lensFacing = mBuilder.build().getLensFacing();
-        String cameraId = CameraUtil.getCameraId(lensFacing);
-        CameraCharacteristics cameraCharacteristics = CameraUtil.getCameraCharacteristics(cameraId);
-        return mImpl.isExtensionAvailable(cameraId, cameraCharacteristics);
+        String cameraId = CameraUtil.getCameraId(mBuilder.build());
+        return cameraId != null;
     }
 
     /**
      */
     @SuppressWarnings("unchecked")
     public void enableExtension() {
-        CameraX.LensFacing lensFacing = mBuilder.build().getLensFacing();
-        String cameraId = CameraUtil.getCameraId(lensFacing);
+        String cameraId = CameraUtil.getCameraId(mBuilder.build());
+        if (cameraId == null) {
+            // If there's no available camera id for the extender to function, just return here
+            // and it will be no-ops.
+            return;
+        }
+
         CameraCharacteristics cameraCharacteristics = CameraUtil.getCameraCharacteristics(cameraId);
         mImpl.enableExtension(cameraId, cameraCharacteristics);
 
@@ -159,7 +165,7 @@ public abstract class PreviewExtender {
         }
 
         @Override
-        public void onBind(String cameraId) {
+        public void onBind(@NonNull String cameraId) {
             if (mActive.get()) {
                 CameraCharacteristics cameraCharacteristics =
                         CameraUtil.getCameraCharacteristics(cameraId);
