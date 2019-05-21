@@ -16,6 +16,24 @@
       "revId": "6c51334096487c915452c426f3fb29d52f1815a6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a44ab2eb_8991878f",
+        "filename": "dynamic-animation/src/main/java/androidx/dynamicanimation/animation/SpringAnimation.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-05-21T14:53:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2fe27db5_834ad169",
+      "revId": "6c51334096487c915452c426f3fb29d52f1815a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
