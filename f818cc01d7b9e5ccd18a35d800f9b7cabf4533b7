@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "eff6ba19_be53b460",
+        "filename": "autofill/api/1.0.0-alpha01.txt",
+        "patchSetId": 10
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1217144
+      },
+      "writtenOn": "2019-05-21T18:41:26Z",
+      "side": 1,
+      "message": "Same here",
+      "range": {
+        "startLine": 25,
+        "startChar": 70,
+        "endLine": 25,
+        "endChar": 76
+      },
+      "revId": "f818cc01d7b9e5ccd18a35d800f9b7cabf4533b7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f929101_522fa0f3",
+        "filename": "autofill/api/current.txt",
+        "patchSetId": 10
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1217144
+      },
+      "writtenOn": "2019-05-21T18:41:26Z",
+      "side": 1,
+      "message": "typo",
+      "range": {
+        "startLine": 25,
+        "startChar": 70,
+        "endLine": 25,
+        "endChar": 76
+      },
+      "revId": "f818cc01d7b9e5ccd18a35d800f9b7cabf4533b7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
