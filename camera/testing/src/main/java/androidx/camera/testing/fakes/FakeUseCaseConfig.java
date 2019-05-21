@@ -18,9 +18,12 @@ package androidx.camera.testing.fakes;
 
 import androidx.annotation.Nullable;
 import androidx.camera.core.CameraDeviceConfig;
+import androidx.camera.core.CameraIdFilter;
+import androidx.camera.core.CameraIdFilterSet;
 import androidx.camera.core.CameraX;
 import androidx.camera.core.CaptureConfig;
 import androidx.camera.core.Config;
+import androidx.camera.core.LensFacingCameraIdFilter;
 import androidx.camera.core.MutableConfig;
 import androidx.camera.core.MutableOptionsBundle;
 import androidx.camera.core.OptionsBundle;
@@ -110,12 +113,45 @@ public class FakeUseCaseConfig
     @Override
     @Nullable
     public CameraX.LensFacing getLensFacing(@Nullable CameraX.LensFacing valueIfMissing) {
-        return retrieveOption(OPTION_LENS_FACING, valueIfMissing);
+        CameraIdFilter cameraIdFilter = getCameraIdFilter(null);
+        if (cameraIdFilter == null) {
+            return valueIfMissing;
+        }
+
+        if (cameraIdFilter instanceof LensFacingCameraIdFilter) {
+            return ((LensFacingCameraIdFilter) cameraIdFilter).getLensFacing();
+        } else if (cameraIdFilter instanceof CameraIdFilterSet) {
+            for (CameraIdFilter filter :
+                    ((CameraIdFilterSet) cameraIdFilter).getCameraIdFilters()) {
+                if (filter instanceof LensFacingCameraIdFilter) {
+                    return ((LensFacingCameraIdFilter) filter).getLensFacing();
+                }
+            }
+        }
+
+        return valueIfMissing;
     }
 
     @Override
     public CameraX.LensFacing getLensFacing() {
-        return retrieveOption(OPTION_LENS_FACING);
+        CameraX.LensFacing lensFacing = getLensFacing(null);
+
+        if (lensFacing == null) {
+            throw new IllegalArgumentException("Lens facing hasn't been set.");
+        }
+
+        return lensFacing;
+    }
+
+    @Override
+    @Nullable
+    public CameraIdFilter getCameraIdFilter(@Nullable CameraIdFilter valueIfMissing) {
+        return retrieveOption(OPTION_CAMERA_ID_FILTER, valueIfMissing);
+    }
+
+    @Override
+    public CameraIdFilter getCameraIdFilter() {
+        return retrieveOption(OPTION_CAMERA_ID_FILTER);
     }
 
     // Implementations of UseCaseConfig default methods
@@ -241,7 +277,19 @@ public class FakeUseCaseConfig
 
         @Override
         public Builder setLensFacing(CameraX.LensFacing lensFacing) {
-            getMutableConfig().insertOption(OPTION_LENS_FACING, lensFacing);
+            CameraIdFilter cameraIdFilter = build().getCameraIdFilter(
+                    new LensFacingCameraIdFilter(lensFacing));
+            if (cameraIdFilter instanceof CameraIdFilterSet) {
+                ((CameraIdFilterSet) cameraIdFilter).replaceCameraIdFilter(
+                        new LensFacingCameraIdFilter(lensFacing));
+            }
+            getMutableConfig().insertOption(OPTION_CAMERA_ID_FILTER, cameraIdFilter);
+            return this;
+        }
+
+        @Override
+        public Builder setCameraIdFilter(CameraIdFilter cameraIdFilter) {
+            getMutableConfig().insertOption(OPTION_CAMERA_ID_FILTER, cameraIdFilter);
             return this;
         }
 
