@@ -93,12 +93,16 @@ public class SystemJobScheduler implements Scheduler {
                             TAG,
                             "Skipping scheduling " + workSpec.id
                                     + " because it's no longer in the DB");
+
+                    workDatabase.setTransactionSuccessful();
                     continue;
                 } else if (currentDbWorkSpec.state != WorkInfo.State.ENQUEUED) {
                     Logger.get().warning(
                             TAG,
                             "Skipping scheduling " + workSpec.id
                                     + " because it is no longer enqueued");
+
+                    workDatabase.setTransactionSuccessful();
                     continue;
                 }
 
