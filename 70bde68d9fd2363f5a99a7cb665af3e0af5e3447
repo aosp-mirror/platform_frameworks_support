@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2efb6a48_23c6a074",
+        "filename": "benchmark/api/1.0.0-alpha01.txt",
+        "patchSetId": 10
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-05-21T17:10:04Z",
+      "side": 1,
+      "message": "before we touch an API file, we\u0027ll need to update LibraryVersions.kt to have:\n\n    BENCHMARK \u003d Version(\"1.0.0-alpha02\")",
+      "revId": "70bde68d9fd2363f5a99a7cb665af3e0af5e3447",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8852d7c9_2be0fa94",
+        "filename": "benchmark/src/main/java/androidx/benchmark/BenchmarkState.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-05-21T17:10:04Z",
+      "side": 1,
+      "message": "Do you think it would be more elegant to just use the report class, instead of these getters, to dedupe this logic/behavior? Maybe have summaryLine() and getFullStatusReport() moving to the report class (with the latter taking a key, and potentially renamed to getStatusReportBundle())\n\nNot sure if it\u0027s more elegant to do it that way, since then the report object may need to be kept around, and is no longer something that\u0027s generated and passed out.",
+      "range": {
+        "startLine": 327,
+        "startChar": 5,
+        "endLine": 335,
+        "endChar": 39
+      },
+      "revId": "70bde68d9fd2363f5a99a7cb665af3e0af5e3447",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b638bc36_7935f10a",
+        "filename": "benchmark/src/main/java/androidx/benchmark/BenchmarkState.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-05-21T17:10:04Z",
+      "side": 1,
+      "message": "consider making this a member:\n\n    val stats \u003d Stats(data)",
+      "revId": "70bde68d9fd2363f5a99a7cb665af3e0af5e3447",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27698cde_d2edffe8",
+        "filename": "benchmark/src/main/java/androidx/benchmark/Stats.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-05-21T17:10:04Z",
+      "side": 1,
+      "message": "stddev of 1 number is 0, right?",
+      "range": {
+        "startLine": 64,
+        "startChar": 41,
+        "endLine": 64,
+        "endChar": 51
+      },
+      "revId": "70bde68d9fd2363f5a99a7cb665af3e0af5e3447",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
