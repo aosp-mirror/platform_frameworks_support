@@ -29,6 +29,7 @@ import androidx.camera.camera2.impl.CameraEventCallback;
 import androidx.camera.camera2.impl.CameraEventCallbacks;
 import androidx.camera.core.CameraCaptureResult;
 import androidx.camera.core.CameraCaptureResults;
+import androidx.camera.core.CameraIdFilterSet;
 import androidx.camera.core.CameraX;
 import androidx.camera.core.CaptureConfig;
 import androidx.camera.core.CaptureStage;
@@ -52,6 +53,10 @@ public abstract class PreviewExtender {
     void init(PreviewConfig.Builder builder, PreviewExtenderImpl implementation) {
         mBuilder = builder;
         mImpl = implementation;
+
+        CameraIdFilterSet cameraIdFilterSet = mBuilder.build().getCameraIdFilterSet();
+        cameraIdFilterSet.addCameraIdFilter(new ExtensionsCameraIdFilter(mImpl));
+        mBuilder.setCameraIdFilterSet(cameraIdFilterSet);
     }
 
     /**
@@ -61,15 +66,16 @@ public abstract class PreviewExtender {
      * @return True if the specific extension function is supported for the camera device.
      */
     public boolean isExtensionAvailable() {
-        CameraX.LensFacing lensFacing = mBuilder.build().getLensFacing();
-        String cameraId = CameraUtil.getCameraId(lensFacing);
-        CameraCharacteristics cameraCharacteristics = CameraUtil.getCameraCharacteristics(cameraId);
-        return mImpl.isExtensionAvailable(cameraId, cameraCharacteristics);
+        String cameraId = CameraUtil.getCameraId(mBuilder.build());
+        return cameraId != null;
     }
 
     public void enableExtension() {
-        CameraX.LensFacing lensFacing = mBuilder.build().getLensFacing();
-        String cameraId = CameraUtil.getCameraId(lensFacing);
+        String cameraId = CameraUtil.getCameraId(mBuilder.build());
+        if (cameraId == null) {
+            throw new IllegalStateException("There's no available camera id can be found.");
+        }
+
         CameraCharacteristics cameraCharacteristics = CameraUtil.getCameraCharacteristics(cameraId);
         mImpl.enableExtension(cameraId, cameraCharacteristics);
 
