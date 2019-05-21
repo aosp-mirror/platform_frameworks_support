@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1cbcd9db_a196d71b",
+        "filename": "ui/text/src/main/java/androidx/ui/painting/TextStyle.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-05-21T21:55:06Z",
+      "side": 1,
+      "message": "is this value used by any of the calls? If not I\u0027d suggest to use a val or a const.",
+      "range": {
+        "startLine": 159,
+        "startChar": 62,
+        "endLine": 159,
+        "endChar": 81
+      },
+      "revId": "1893a10c1066916eba7dc2bed026a04e69704d07",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
