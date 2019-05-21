@@ -59,6 +59,24 @@
     },
     {
       "key": {
+        "uuid": "842178a2_662c3c46",
+        "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-05-21T01:48:53Z",
+      "side": 1,
+      "message": "Good point. I think test can exist in XMP, though.\nLet\u0027s remove this line and change the test code, to check onTrackInfoChanged is called after calling prepare().",
+      "parentUuid": "33132a77_6bfca049",
+      "revId": "fc92070fc5d470ee794cb24098ac77b38025308c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9439d43c_c32e6a84",
         "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer.java",
         "patchSetId": 4
@@ -70,6 +88,24 @@
       "writtenOn": "2019-05-21T01:11:49Z",
       "side": 1,
       "message": "In my opinion, the lack of break statement decreases the readability. How about adding a line same as #3129 and break?",
+      "revId": "fc92070fc5d470ee794cb24098ac77b38025308c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e52e19b_623164cc",
+        "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 3127,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-05-21T01:48:53Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "9439d43c_c32e6a84",
       "revId": "fc92070fc5d470ee794cb24098ac77b38025308c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
