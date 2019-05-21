@@ -16,9 +16,9 @@
 
 package androidx.camera.core;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
-import androidx.camera.core.CameraX.LensFacing;
 
 import java.util.Set;
 
@@ -38,5 +38,10 @@ public interface CameraFactory {
 
     /** Get the id of the camera with the specified lens facing. */
     @Nullable
-    String cameraIdForLensFacing(LensFacing lensFacing) throws CameraInfoUnavailableException;
+    String cameraIdForLensFacing(@NonNull CameraX.LensFacing lensFacing)
+            throws CameraInfoUnavailableException;
+
+    /** Get lens facing camera id filter. */
+    @NonNull
+    LensFacingCameraIdFilter getLensFacingCameraIdFilter(@NonNull CameraX.LensFacing lensFacing);
 }
