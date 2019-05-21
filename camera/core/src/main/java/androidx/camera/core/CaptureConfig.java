@@ -367,7 +367,9 @@ public final class CaptureConfig {
         }
 
         public void setTag(Object tag) {
-            mTag = tag;
+            if (mTag == null) {
+                mTag = tag;
+            }
         }
 
         /**
