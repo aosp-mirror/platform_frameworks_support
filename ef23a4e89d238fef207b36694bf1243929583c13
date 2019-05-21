@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "53c7b41c_2ca4b0a8",
+        "filename": "ui/text/src/androidTest/java/androidx/ui/engine/text/ParagraphIntegrationTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 1035,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-05-21T23:58:27Z",
+      "side": 1,
+      "message": "add a test with a tree structure of spans, where the parent defines fontSize but grand child defines fontScale \n\nmaybe also parent defines fontSize and child defines fontScale. \n\nDo we need parent defines scale child defines scale too?",
+      "revId": "ef23a4e89d238fef207b36694bf1243929583c13",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8d9180b_786f3d93",
+        "filename": "ui/text/src/main/java/androidx/ui/engine/text/TextStyle.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-05-21T23:58:27Z",
+      "side": 1,
+      "message": "this needs more description that defines what happens when fontSize is defined and not defined. \n\n(I believe it will be the closest fontSize will be used in case of TextSpan tree)",
+      "revId": "ef23a4e89d238fef207b36694bf1243929583c13",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
