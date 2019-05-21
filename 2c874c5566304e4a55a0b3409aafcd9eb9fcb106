@@ -22,6 +22,30 @@
       "revId": "2c874c5566304e4a55a0b3409aafcd9eb9fcb106",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f0b9f81_9bd838ed",
+        "filename": "navigation/runtime/src/main/java/androidx/navigation/NavHostController.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-05-21T20:23:48Z",
+      "side": 1,
+      "message": "Yeah, I think with this method being on a separate object, rather than on NavController directly, it should be considerably harder to mistake one for the other.",
+      "parentUuid": "13c6256a_9e050e50",
+      "range": {
+        "startLine": 107,
+        "startChar": 16,
+        "endLine": 107,
+        "endChar": 33
+      },
+      "revId": "2c874c5566304e4a55a0b3409aafcd9eb9fcb106",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
