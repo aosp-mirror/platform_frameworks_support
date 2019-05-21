@@ -51,6 +51,24 @@
       "revId": "1c328b19bb822fa2e56f165f5eeb626aab23be2a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "660fb77f_6f877bab",
+        "filename": "benchmark/src/main/java/androidx/benchmark/BenchmarkRule.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-05-21T21:14:13Z",
+      "side": 0,
+      "message": "Julien, I\u0027m confused - this used to be an issue if the parameterization string had only numbers.\n\nNow is it an issue if we have anything but numbers?\n\nIf we don\u0027t care about retry, are there any restrictions on the parameterization string?",
+      "parentUuid": "4231ab26_939f55e0",
+      "revId": "1c328b19bb822fa2e56f165f5eeb626aab23be2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
