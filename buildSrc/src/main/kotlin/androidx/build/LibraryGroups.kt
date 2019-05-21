@@ -51,6 +51,7 @@ object LibraryGroups {
     val GRIDLAYOUT = LibraryGroup("androidx.gridlayout", false)
     val HEIFWRITER = LibraryGroup("androidx.heifwriter", false)
     val INTERPOLATOR = LibraryGroup("androidx.interpolator", false)
+    val INSTRUMENTATION = LibraryGroup("androidx.instrumentation", false)
     val JETIFIER = LibraryGroup("com.android.tools.build.jetifier", false)
     val LEANBACK = LibraryGroup("androidx.leanback", false)
     val LEGACY = LibraryGroup("androidx.legacy", false)
