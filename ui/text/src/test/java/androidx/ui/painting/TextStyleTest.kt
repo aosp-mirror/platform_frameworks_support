@@ -1994,11 +1994,11 @@ class TextStyleTest {
     fun `getParagraphStyle with LTR text direction`() {
         val defaultFontSize = 14.0f
 
-        val paragraphStyleLTR = TextStyle().getParagraphStyle(textDirection = TextDirection.LTR)
+        val paragraphStyleLTR = TextStyle().getParagraphStyle(textDirection = TextDirection.Ltr)
 
         assertThat(paragraphStyleLTR).isEqualTo(
             ParagraphStyle(
-                textDirection = TextDirection.LTR,
+                textDirection = TextDirection.Ltr,
                 fontSize = defaultFontSize
             )
         )

@@ -299,7 +299,7 @@ class RenderParagraph(
                                 fadeEnd = 0.0f
                                 fadeStart = fadeSizePainter.width
                             }
-                            TextDirection.LTR -> {
+                            TextDirection.Ltr -> {
                                 fadeEnd = size.width
                                 fadeStart = fadeEnd - fadeSizePainter.width
                             }

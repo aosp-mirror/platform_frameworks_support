@@ -463,7 +463,7 @@ fun TextDemoTextAlign() {
                 )
             }
         }
-        SecondTagLine(tag = "textAlgin = TextAlign.START for LTR")
+        SecondTagLine(tag = "textAlgin = TextAlign.START for Ltr")
         CraneWrapper {
             Text(textAlign = TextAlign.START) {
                 Span(text = displayText, style = TextStyle(fontSize = fontSize8))
@@ -475,7 +475,7 @@ fun TextDemoTextAlign() {
                 Span(text = displayText, style = TextStyle(fontSize = fontSize8))
             }
         }
-        SecondTagLine(tag = "textAlgin = TextAlign.END for LTR")
+        SecondTagLine(tag = "textAlgin = TextAlign.END for Ltr")
         CraneWrapper {
             Text(textAlign = TextAlign.END) {
                 Span(text = displayText, style = TextStyle(fontSize = fontSize8))

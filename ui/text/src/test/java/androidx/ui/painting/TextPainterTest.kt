@@ -320,7 +320,7 @@ class TextPainterTest() {
 
     @Test(expected = AssertionError::class)
     fun `layout without text assertion should fail`() {
-        val textPainter = TextPainter(textDirection = TextDirection.LTR)
+        val textPainter = TextPainter(textDirection = TextDirection.Ltr)
 
         textPainter.layout()
     }
@@ -335,7 +335,7 @@ class TextPainterTest() {
     @Test
     fun `layout with !needsLayout && minWidth == lastMinWidth && maxWidth == lastMaxWidth`() {
         val textPainter =
-            TextPainter(text = TextSpan(text = "Hello"), textDirection = TextDirection.LTR)
+            TextPainter(text = TextSpan(text = "Hello"), textDirection = TextDirection.Ltr)
         textPainter.needsLayout = false
 
         textPainter.layout(0.0f, 0.0f)

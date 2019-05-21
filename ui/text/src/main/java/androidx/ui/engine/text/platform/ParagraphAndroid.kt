@@ -174,7 +174,7 @@ internal class ParagraphAndroid constructor(
         // TODO(Migration/haoyuchang): Layout has more settings that flutter,
         //  we may add them in future.
         val textDirectionHeuristic = when (paragraphStyle.textDirection) {
-            TextDirection.LTR -> TEXT_DIRECTION_LTR
+            TextDirection.Ltr -> TEXT_DIRECTION_LTR
             TextDirection.RTL -> TEXT_DIRECTION_RTL
             else -> DEFAULT_TEXT_DIRECTION
         }
