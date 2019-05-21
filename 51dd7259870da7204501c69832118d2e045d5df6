@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "43a3cfa8_27b33ae3",
+        "filename": "ui/test/src/main/java/androidx/ui/test/android/AndroidSemanticsTreeInteraction.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-05-21T11:29:52Z",
+      "side": 1,
+      "message": "Now that I\u0027m thinking about it, it should be safe to remove this.",
+      "parentUuid": "ea9029c7_fff7ddea",
+      "range": {
+        "startLine": 87,
+        "startChar": 8,
+        "endLine": 87,
+        "endChar": 55
+      },
+      "revId": "51dd7259870da7204501c69832118d2e045d5df6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0cdc3c7d_849719c1",
         "filename": "ui/test/src/main/java/androidx/ui/test/android/AndroidSemanticsTreeInteraction.kt",
         "patchSetId": 2
@@ -155,6 +179,30 @@
       "side": 1,
       "message": "I don\u0027t know much about Rules in general, but it appears to me that if you want to work and test compose, as well as query semantics (which is part of compose), you want and have to use ComposeRule and that is right. and it just feels like we can better isolate compose-runtime related stuff so semantics won\u0027t know about it.\n\nAbout sizes checks: \nYeah, I don\u0027t think actually we want to explicitly check for idle state (though I need to think about it more), but the point here was that waiting for idle is not about semantics and clicks, it\u0027s general runtime check, wherther it is a public API or not",
       "parentUuid": "804e64e6_2ff372ee",
+      "range": {
+        "startLine": 108,
+        "startChar": 16,
+        "endLine": 108,
+        "endChar": 40
+      },
+      "revId": "51dd7259870da7204501c69832118d2e045d5df6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "523cd345_836755bc",
+        "filename": "ui/test/src/main/java/androidx/ui/test/android/AndroidSemanticsTreeInteraction.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-05-21T11:29:52Z",
+      "side": 1,
+      "message": "TestRules are used when you need to do some setup or teardown down (usually both). So we don\u0027t need to force this rule on anyone running queries only. For instance Espresso also doesn\u0027t force you in any kind of rules. It is worth mentioning that AndroidComposeTestRule launches activity for you, not everyone wants that. We might for instance introduce some lightweight rule in case we want to do some stuff before / after in the future. My way of thinking here is that I like to expose things once they are really needed. It gives more flexibility in early stages.\n\nI think the reason why this is confusing might be the naming of this class. I will rename it to AndroidComposeTestInteraction (or refactor into smaller classes) in next cl. As this started as a semantics interaction but now provides much more stuff.",
+      "parentUuid": "47d1310b_88f3d682",
       "range": {
         "startLine": 108,
         "startChar": 16,
@@ -306,6 +354,30 @@
       "revId": "51dd7259870da7204501c69832118d2e045d5df6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a95d2d94_fb1a87f7",
+        "filename": "ui/test/src/main/java/androidx/ui/test/android/AndroidSemanticsTreeInteraction.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-05-21T11:29:52Z",
+      "side": 1,
+      "message": "Oh, I totally missed your initial point \"but boolean result from await is\" -\u003e that now makes sense to me. Sorry about that. Just looked into documentation and you are right that taking that boolean is the way to go. Good catch!",
+      "parentUuid": "21acee76_6e8ae787",
+      "range": {
+        "startLine": 122,
+        "startChar": 38,
+        "endLine": 122,
+        "endChar": 56
+      },
+      "revId": "51dd7259870da7204501c69832118d2e045d5df6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
