@@ -123,6 +123,13 @@ package androidx.ui.core {
     method public androidx.ui.engine.geometry.Offset getStartOffset();
   }
 
+  public final class SelectionContainerOrigin {
+    ctor public SelectionContainerOrigin();
+    method public androidx.ui.core.PxPosition getOrigin();
+    method public void setOrigin(androidx.ui.core.PxPosition p);
+    property public final androidx.ui.core.PxPosition origin;
+  }
+
   public final class SelectionKt {
     ctor public SelectionKt();
     method public static void SelectionContainer(androidx.ui.core.Selection? selection, kotlin.jvm.functions.Function1<? super androidx.ui.core.Selection,kotlin.Unit> onSelectionChange, kotlin.jvm.functions.Function0<kotlin.Unit> children);
@@ -152,6 +159,13 @@ package androidx.ui.core {
     method public static void Text(androidx.ui.engine.text.TextAlign textAlign = androidx.ui.core.TextKt.DefaultTextAlign, androidx.ui.engine.text.TextDirection textDirection = androidx.ui.core.TextKt.DefaultTextDirection, boolean softWrap = true, androidx.ui.rendering.paragraph.TextOverflow overflow = androidx.ui.core.TextKt.DefaultOverflow, float textScaleFactor = 1.0f, Integer? maxLines = androidx.ui.core.TextKt.DefaultMaxLines, androidx.ui.graphics.Color selectionColor = androidx.ui.core.TextKt.DefaultSelectionColor, kotlin.jvm.functions.Function1<? super androidx.ui.core.TextSpanScope,kotlin.Unit> child);
     method public static void Text(String text, androidx.ui.painting.TextStyle? style = null, androidx.ui.engine.text.TextAlign textAlign = androidx.ui.core.TextKt.DefaultTextAlign, androidx.ui.engine.text.TextDirection textDirection = androidx.ui.core.TextKt.DefaultTextDirection, boolean softWrap = true, androidx.ui.rendering.paragraph.TextOverflow overflow = androidx.ui.core.TextKt.DefaultOverflow, Integer? maxLines = androidx.ui.core.TextKt.DefaultMaxLines);
     method public static androidx.compose.Effect<androidx.ui.painting.TextStyle> currentTextStyle();
+  }
+
+  public final class TextOrigin {
+    ctor public TextOrigin();
+    method public androidx.ui.core.PxPosition getOrigin();
+    method public void setOrigin(androidx.ui.core.PxPosition p);
+    property public final androidx.ui.core.PxPosition origin;
   }
 
   public interface TextSelectionHandler {
