@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "10ef0b70_9047699d",
+        "filename": "development/history/AndroidX-Release-2019-04-25.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-05-21T22:02:48Z",
+      "side": 1,
+      "message": "That\u0027s interesting. I would\u0027ve assumed that if a groupId was present that it would be the full groupId, so in this case \"androidx.arch.core\".\n\nI wouldn\u0027t consider it necessary to add the \"androidx.\" to the groupId before submitting this change (I think that will require add_release_commit_tags.sh) but I would recommend it eventually",
+      "range": {
+        "startLine": 4,
+        "startChar": 41,
+        "endLine": 4,
+        "endChar": 50
+      },
+      "revId": "63126432803d9205ee8d0905689573173eeb82bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
