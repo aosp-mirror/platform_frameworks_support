@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ae0909c9_011bb44a",
+        "filename": "camera/integration-tests/timingtestapp/src/androidTest/java/androidx/camera/integration/antelope/AntelopeInstrumentedTests.kt",
+        "patchSetId": 30
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-05-21T22:56:48Z",
+      "side": 1,
+      "message": "It looks like this is repeated in a most of the tests. Is it possible to put this into a @Before block?",
+      "range": {
+        "startLine": 152,
+        "startChar": 8,
+        "endLine": 162,
+        "endChar": 31
+      },
+      "revId": "996cd96a6b42a216361d83109ed15e885fad906d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5261cde3_d3d0fc34",
+        "filename": "camera/integration-tests/timingtestapp/src/androidTest/java/androidx/camera/integration/antelope/AntelopeInstrumentedTests.kt",
+        "patchSetId": 30
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-05-21T22:56:48Z",
+      "side": 1,
+      "message": "Generally you should save all asserts until the end of the test. The test should follow the \"Arrange, Act, Assert\" structure.",
+      "range": {
+        "startLine": 251,
+        "startChar": 8,
+        "endLine": 251,
+        "endChar": 31
+      },
+      "revId": "996cd96a6b42a216361d83109ed15e885fad906d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57d5fb57_234280b6",
+        "filename": "camera/integration-tests/timingtestapp/src/androidTest/java/androidx/camera/integration/antelope/AntelopeInstrumentedTests.kt",
+        "patchSetId": 30
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-05-21T22:56:48Z",
+      "side": 1,
+      "message": "nit: use Truth for assertions.\nassert(!condition) -\u003e assertThat(condition).isFalse().",
+      "range": {
+        "startLine": 364,
+        "startChar": 8,
+        "endLine": 364,
+        "endChar": 32
+      },
+      "revId": "996cd96a6b42a216361d83109ed15e885fad906d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
