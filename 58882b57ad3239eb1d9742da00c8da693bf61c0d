@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8e3fd494_442b8055",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1738,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-05-21T09:06:35Z",
+      "side": 1,
+      "message": "ControllerWrapper?",
+      "range": {
+        "startLine": 1738,
+        "startChar": 10,
+        "endLine": 1738,
+        "endChar": 20
+      },
+      "revId": "58882b57ad3239eb1d9742da00c8da693bf61c0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1da9f013_8817e59b",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1762,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-05-21T09:06:35Z",
+      "side": 1,
+      "message": "If we make mController @NonNull, we don\u0027t need to check this.",
+      "range": {
+        "startLine": 1762,
+        "startChar": 16,
+        "endLine": 1762,
+        "endChar": 27
+      },
+      "revId": "58882b57ad3239eb1d9742da00c8da693bf61c0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2876047_86615729",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1808,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-05-21T09:06:35Z",
+      "side": 1,
+      "message": "Q) Do we need canXxx() methods? (Not related with this CL, you don\u0027t need to address this in this CL.)",
+      "range": {
+        "startLine": 1808,
+        "startChar": 16,
+        "endLine": 1808,
+        "endChar": 24
+      },
+      "revId": "58882b57ad3239eb1d9742da00c8da693bf61c0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b09b662b_5ae7c962",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1975,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-05-21T09:06:35Z",
+      "side": 1,
+      "message": "The saved state becomes pre state here.\n(Saved state \u003d pre state, state \u003d current state)",
+      "range": {
+        "startLine": 1975,
+        "startChar": 0,
+        "endLine": 1975,
+        "endChar": 0
+      },
+      "revId": "58882b57ad3239eb1d9742da00c8da693bf61c0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36b147a2_61892497",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 2021,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-05-21T09:06:35Z",
+      "side": 1,
+      "message": "Isn\u0027t it current state?",
+      "range": {
+        "startLine": 2021,
+        "startChar": 20,
+        "endLine": 2021,
+        "endChar": 30
+      },
+      "revId": "58882b57ad3239eb1d9742da00c8da693bf61c0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "431739d7_ad54cf2d",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 558,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-05-21T09:06:35Z",
+      "side": 1,
+      "message": "What about not calling mMediaControlView.setMediaController() when mMediaController is null?\n\nWe can call it when we create mMediaController.",
+      "range": {
+        "startLine": 558,
+        "startChar": 45,
+        "endLine": 558,
+        "endChar": 93
+      },
+      "revId": "58882b57ad3239eb1d9742da00c8da693bf61c0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
