@@ -18,6 +18,8 @@ package androidx.camera.camera2.impl;
 
 import static com.google.common.truth.Truth.assertThat;
 
+import static org.junit.Assume.assumeTrue;
+
 import android.Manifest;
 import android.graphics.ImageFormat;
 import android.hardware.camera2.CameraDevice;
@@ -92,6 +94,7 @@ public class CameraImplTest {
 
     @BeforeClass
     public static void classSetup() {
+        assumeTrue(CameraUtil.deviceHasCamera());
         sCameraFactory = new Camera2CameraFactory(ApplicationProvider.getApplicationContext());
     }
 
