@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e0bf5e1b_27bcbf53",
+        "filename": "jetifier/jetifier/migration.config",
+        "patchSetId": 1
+      },
+      "lineNbr": 673,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-05-21T10:48:52Z",
+      "side": 1,
+      "message": "Please keep this \"androidx/mediarouter/app/MediaRoute(.*)\" if there is no other need to have it more general.",
+      "range": {
+        "startLine": 673,
+        "startChar": 15,
+        "endLine": 673,
+        "endChar": 44
+      },
+      "revId": "bf8ffc3c4c3e326214a36762677596400eb152dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
