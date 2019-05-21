@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "37b1a3c2_5f4a14ce",
+        "filename": "ui/text/src/main/java/androidx/ui/engine/text/platform/ParagraphAndroid.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-05-21T21:24:07Z",
+      "side": 1,
+      "message": "talked offline. \nI wasnt aware that there is a code dup here. We should existing function in TextLayout.",
+      "parentUuid": "02fa036b_d646d393",
+      "range": {
+        "startLine": 517,
+        "startChar": 16,
+        "endLine": 517,
+        "endChar": 36
+      },
+      "revId": "e514d2d21f1f1eec0aebf9796b9496557767f4c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0c7e3b7c_4bcf90ab",
         "filename": "ui/text/src/main/java/androidx/ui/engine/text/platform/ParagraphAndroid.kt",
         "patchSetId": 1
