@@ -18,31 +18,16 @@ package androidx.camera.extensions.impl;
 
 import android.hardware.camera2.CameraCharacteristics;
 
-import java.util.List;
-
 /**
- * Provides abstract methods that the OEM needs to implement to enable extensions for image capture.
+ * Provides abstract methods that the OEM needs to implement to check extension status.
  */
-public interface ImageCaptureExtenderImpl extends ExtenderStateListener, ExtensionAvailability {
+public interface ExtensionAvailability {
     /**
-     * Enable the extension if available. If not available then acts a no-op.
+     * Indicates whether the extension is supported on the device.
      *
      * @param cameraId The camera2 id string of the camera.
      * @param cameraCharacteristics The {@link CameraCharacteristics} of the camera.
+     * @return true if the extension is supported, otherwise false
      */
-    void enableExtension(String cameraId, CameraCharacteristics cameraCharacteristics);
-
-    /**
-     * The processing that will be done on a set of captures to create and image with the effect.
-     */
-    CaptureProcessorImpl getCaptureProcessor();
-
-    /** The set of captures that are needed to create an image with the effect. */
-    List<CaptureStageImpl> getCaptureStages();
-
-    /**
-     * Returns the maximum size of the list returned by {@link #getCaptureStages()}.
-     * @return the maximum count.
-     */
-    int getMaxCaptureStage();
+    boolean isExtensionAvailable(String cameraId, CameraCharacteristics cameraCharacteristics);
 }
