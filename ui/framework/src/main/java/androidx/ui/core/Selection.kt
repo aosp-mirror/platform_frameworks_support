@@ -44,14 +44,19 @@ data class Selection(
      * The coordinate of the end offset of the selection. For text, it's the left bottom corner
      * of the character at the end offset.
      */
-    val endOffset: Offset
+    val endOffset: Offset,
+    val startChildCoordinates: LayoutCoordinates,
+    val endChildCoordinates: LayoutCoordinates
 )
 
 /**
  * An interface handling selection. Get selection from a widget by passing in a coordinate.
  */
 interface TextSelectionHandler {
-    fun getSelection(coordinates: Pair<PxPosition, PxPosition>): Selection?
+    fun getSelection(
+        selectionCoordinates: Pair<PxPosition, PxPosition>,
+        containerCoordinates: LayoutCoordinates
+    ): Selection?
 }
 
 /**
@@ -71,6 +76,8 @@ internal class SelectionManager : SelectionRegistrar {
      * to handle text selection that are below the SelectionContainer.
      */
     val handlers = mutableSetOf<TextSelectionHandler>()
+
+    var containerCoordinates: LayoutCoordinates? = null
 
     /**
      * Allow a Text composable to "register" itself with the manager
@@ -94,7 +101,7 @@ internal class SelectionManager : SelectionRegistrar {
     fun onPress(position: PxPosition) {
         var result: Selection? = null
         for (handler in handlers) {
-            result = handler.getSelection(Pair(position, position))
+            result = handler.getSelection(Pair(position, position), containerCoordinates!!)
         }
         onSelectionChange(result)
     }
@@ -124,7 +131,11 @@ fun SelectionContainer(
 
     SelectionRegistrarAmbient.Provider(value = manager) {
         val content = @Composable {
-            PressIndicatorGestureDetector(onStart = { position -> manager.onPress(position) }) {
+            // Calculate the global coordinates of the origin (top-left corner) of the
+            // selection container. This is for hit test of cross-widget selection.
+            OnPositioned(onPositioned = { manager.containerCoordinates = it })
+            PressIndicatorGestureDetector(
+                onStart = { position -> manager.onPress(position) }) {
                 children()
             }
         }
@@ -162,13 +173,21 @@ fun SelectionContainer(
                 layout(width, height) {
                     placeable.place(IntPx.Zero, IntPx.Zero)
                     selection?.let {
+                        val startOffset = manager.containerCoordinates!!.childToLocal(
+                            it.startChildCoordinates,
+                            PxPosition(it.startOffset.dx.px, it.startOffset.dy.px)
+                        )
+                        val endOffset = manager.containerCoordinates!!.childToLocal(
+                            it.endChildCoordinates,
+                            PxPosition(it.endOffset.dx.px, it.endOffset.dy.px)
+                        )
                         start.place(
-                            it.startOffset.dx.px,
-                            it.startOffset.dy.px - HANDLE_HEIGHT.px
+                            startOffset.x,
+                            startOffset.y - HANDLE_HEIGHT.px
                         )
                         end.place(
-                            it.endOffset.dx.px - HANDLE_WIDTH.px,
-                            it.endOffset.dy.px - HANDLE_HEIGHT.px
+                            endOffset.x - HANDLE_WIDTH.px,
+                            endOffset.y - HANDLE_HEIGHT.px
                         )
                     }
                 }
