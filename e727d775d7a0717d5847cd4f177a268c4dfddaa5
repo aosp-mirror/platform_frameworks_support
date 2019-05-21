@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "38ba8980_912e71ba",
+        "filename": "ui/test/src/main/java/androidx/ui/test/SemanticsTreeInteraction.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-05-21T23:24:06Z",
+      "side": 1,
+      "message": "It appears that with this brand new \"waitForIdleScreen\" we already can turn this boolean on, or I miss something?",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 44
+      },
+      "revId": "e727d775d7a0717d5847cd4f177a268c4dfddaa5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ac8dc50_db77d306",
+        "filename": "ui/test/src/main/java/androidx/ui/test/android/AndroidSemanticsTreeInteraction.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-05-21T23:24:06Z",
+      "side": 1,
+      "message": "Le\u0027ts mark it @TestOnly or something like that if only purpose for this field is to test waitForIdle behaviour",
+      "range": {
+        "startLine": 58,
+        "startChar": 7,
+        "endLine": 59,
+        "endChar": 4
+      },
+      "revId": "e727d775d7a0717d5847cd4f177a268c4dfddaa5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
