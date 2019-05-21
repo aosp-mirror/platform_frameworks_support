@@ -36,22 +36,37 @@ private const val HANDLE_HEIGHT = 100f
  */
 data class Selection(
     /**
-     * The coordinate of the start offset of the selection. For text, it's the left bottom corner
+     * The coordinates of the start offset of the selection. For text, it's the left bottom corner
      * of the character at the start offset.
      */
     val startOffset: Offset,
     /**
-     * The coordinate of the end offset of the selection. For text, it's the left bottom corner
+     * The coordinates of the end offset of the selection. For text, it's the left bottom corner
      * of the character at the end offset.
      */
-    val endOffset: Offset
+    val endOffset: Offset,
+    /**
+     * The layout coordinates of the child which contains the start of the selection. If the child
+     * does not contain the start of the selection, this should be null.
+     */
+    val startLayoutCoordinates: LayoutCoordinates?,
+    /**
+     * The layout coordinates of the child which contains the end of the selection. If the child
+     * does not contain the end of the selection, this should be null.
+     */
+    val endLayoutCoordinates: LayoutCoordinates?
 )
 
 /**
- * An interface handling selection. Get selection from a widget by passing in a coordinate.
+ * An interface handling selection. Get selection from a widget by passing in the start and end of
+ * selection in a selection container as a pair, and the layout coordinates of the selection
+ * container.
  */
 interface TextSelectionHandler {
-    fun getSelection(coordinates: Pair<PxPosition, PxPosition>): Selection?
+    fun getSelection(
+        selectionCoordinates: Pair<PxPosition, PxPosition>,
+        containerLayoutCoordinates: LayoutCoordinates
+    ): Selection?
 }
 
 /**
@@ -71,6 +86,11 @@ internal class SelectionManager : SelectionRegistrar {
      * to handle text selection that are below the SelectionContainer.
      */
     val handlers = mutableSetOf<TextSelectionHandler>()
+
+    /**
+     * Layout Coordinates of the selection container.
+     */
+    var containerLayoutCoordinates: LayoutCoordinates? = null
 
     /**
      * Allow a Text composable to "register" itself with the manager
@@ -94,7 +114,7 @@ internal class SelectionManager : SelectionRegistrar {
     fun onPress(position: PxPosition) {
         var result: Selection? = null
         for (handler in handlers) {
-            result = handler.getSelection(Pair(position, position))
+            result = handler.getSelection(Pair(position, position), containerLayoutCoordinates!!)
         }
         onSelectionChange(result)
     }
@@ -124,6 +144,9 @@ fun SelectionContainer(
 
     SelectionRegistrarAmbient.Provider(value = manager) {
         val content = @Composable {
+            // Get the layout coordinates of the selection container. This is for hit test of
+            // cross-widget selection.
+            OnPositioned(onPositioned = { manager.containerLayoutCoordinates = it })
             PressIndicatorGestureDetector(onStart = { position -> manager.onPress(position) }) {
                 children()
             }
@@ -162,14 +185,16 @@ fun SelectionContainer(
                 layout(width, height) {
                     placeable.place(IntPx.Zero, IntPx.Zero)
                     selection?.let {
-                        start.place(
-                            it.startOffset.dx.px,
-                            it.startOffset.dy.px - HANDLE_HEIGHT.px
+                        val startOffset = manager.containerLayoutCoordinates!!.childToLocal(
+                            it.startLayoutCoordinates!!,
+                            PxPosition(it.startOffset.dx.px, it.startOffset.dy.px)
                         )
-                        end.place(
-                            it.endOffset.dx.px - HANDLE_WIDTH.px,
-                            it.endOffset.dy.px - HANDLE_HEIGHT.px
+                        val endOffset = manager.containerLayoutCoordinates!!.childToLocal(
+                            it.endLayoutCoordinates!!,
+                            PxPosition(it.endOffset.dx.px, it.endOffset.dy.px)
                         )
+                        start.place(startOffset.x, startOffset.y - HANDLE_HEIGHT.px)
+                        end.place(endOffset.x - HANDLE_WIDTH.px, endOffset.y - HANDLE_HEIGHT.px)
                     }
                 }
             })
