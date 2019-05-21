@@ -16,11 +16,15 @@
 
 package androidx.camera.testing.fakes;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.camera.core.CameraDeviceConfig;
+import androidx.camera.core.CameraIdFilter;
+import androidx.camera.core.CameraIdFilterSet;
 import androidx.camera.core.CameraX;
 import androidx.camera.core.CaptureConfig;
 import androidx.camera.core.Config;
+import androidx.camera.core.LensFacingCameraIdFilter;
 import androidx.camera.core.MutableConfig;
 import androidx.camera.core.MutableOptionsBundle;
 import androidx.camera.core.OptionsBundle;
@@ -110,12 +114,42 @@ public class FakeUseCaseConfig
     @Override
     @Nullable
     public CameraX.LensFacing getLensFacing(@Nullable CameraX.LensFacing valueIfMissing) {
-        return retrieveOption(OPTION_LENS_FACING, valueIfMissing);
+        CameraIdFilter cameraIdFilter = getCameraIdFilter(null);
+        if (cameraIdFilter == null) {
+            return valueIfMissing;
+        }
+
+        for (CameraIdFilter filter : cameraIdFilter.getCameraIdFilters()) {
+            if (filter instanceof LensFacingCameraIdFilter) {
+                return ((LensFacingCameraIdFilter) filter).getLensFacing();
+            }
+        }
+
+        return valueIfMissing;
     }
 
     @Override
+    @NonNull
     public CameraX.LensFacing getLensFacing() {
-        return retrieveOption(OPTION_LENS_FACING);
+        CameraX.LensFacing lensFacing = getLensFacing(null);
+
+        if (lensFacing == null) {
+            throw new IllegalArgumentException("Lens facing hasn't been set.");
+        }
+
+        return lensFacing;
+    }
+
+    @Override
+    @Nullable
+    public CameraIdFilter getCameraIdFilter(@Nullable CameraIdFilter valueIfMissing) {
+        return retrieveOption(OPTION_CAMERA_ID_FILTER, valueIfMissing);
+    }
+
+    @Override
+    @NonNull
+    public CameraIdFilter getCameraIdFilter() {
+        return retrieveOption(OPTION_CAMERA_ID_FILTER);
     }
 
     // Implementations of UseCaseConfig default methods
@@ -240,8 +274,34 @@ public class FakeUseCaseConfig
         // Implementations of CameraDeviceConfig.Builder default methods
 
         @Override
-        public Builder setLensFacing(CameraX.LensFacing lensFacing) {
-            getMutableConfig().insertOption(OPTION_LENS_FACING, lensFacing);
+        @NonNull
+        public Builder setLensFacing(@NonNull CameraX.LensFacing lensFacing) {
+            // Sets the corresponding camera id filter for the lens facing.
+            LensFacingCameraIdFilter lensFacingCameraIdFilter =
+                    LensFacingCameraIdFilter.createLensFacingCameraIdFilter(lensFacing);
+            CameraIdFilter currentCameraIdFilter =
+                    getMutableConfig().retrieveOption(OPTION_CAMERA_ID_FILTER, null);
+            if (currentCameraIdFilter == null) {
+                setCameraIdFilter(lensFacingCameraIdFilter);
+            } else {
+                CameraIdFilterSet newCameraIdFilterSet = new CameraIdFilterSet();
+                for (CameraIdFilter filter : currentCameraIdFilter.getCameraIdFilters()) {
+                    if (filter instanceof LensFacingCameraIdFilter) {
+                        newCameraIdFilterSet.addCameraIdFilter(lensFacingCameraIdFilter);
+                    } else {
+                        newCameraIdFilterSet.addCameraIdFilter(filter);
+                    }
+                }
+                setCameraIdFilter(newCameraIdFilterSet);
+            }
+
+            return this;
+        }
+
+        @Override
+        @NonNull
+        public Builder setCameraIdFilter(@NonNull CameraIdFilter cameraIdFilter) {
+            getMutableConfig().insertOption(OPTION_CAMERA_ID_FILTER, cameraIdFilter);
             return this;
         }
 
@@ -272,13 +332,15 @@ public class FakeUseCaseConfig
         }
 
         @Override
+        @NonNull
         public Builder setSurfaceOccupancyPriority(int priority) {
             getMutableConfig().insertOption(OPTION_SURFACE_OCCUPANCY_PRIORITY, priority);
             return this;
         }
 
         @Override
-        public Builder setUseCaseEventListener(UseCase.EventListener eventListener) {
+        @NonNull
+        public Builder setUseCaseEventListener(@NonNull UseCase.EventListener eventListener) {
             getMutableConfig().insertOption(OPTION_USE_CASE_EVENT_LISTENER, eventListener);
             return this;
         }
