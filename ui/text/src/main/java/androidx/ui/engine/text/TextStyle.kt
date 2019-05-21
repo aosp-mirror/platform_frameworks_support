@@ -32,6 +32,9 @@ import androidx.ui.painting.Shadow
  * @param fontStyle The typeface variant to use when drawing the letters (e.g., italics).
  * @param fontFamily The name of the font to use when painting the text (e.g., Roboto).
  * @param fontSize The size of glyphs (in logical pixels) to use when painting the text.
+ * @param fontSizeScale The scale factor of the font size. When [fontSize] is also given in this
+ *                      TextStyle, the final fontSize will be the fontSize times this value.
+ *                      Otherwise, the final fontSize will be the current fontSize time this value.
  * @param fontFeatureSettings The advanced typography settings provided by font. The format is the same as the CSS font-feature-settings attribute:
  *                            https://www.w3.org/TR/css-fonts-3/#font-feature-settings-prop
  * @param letterSpacing The amount of space (in EM) to add between each letter.
@@ -58,6 +61,7 @@ data class TextStyle constructor(
     val fontStyle: FontStyle? = null,
     val fontFamily: FontFamily? = null,
     val fontSize: Float? = null,
+    val fontSizeScale: Float? = null,
     val fontFeatureSettings: String? = null,
     val letterSpacing: Float? = null,
     val wordSpacing: Float? = null,
