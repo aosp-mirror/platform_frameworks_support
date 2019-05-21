@@ -154,6 +154,30 @@
     },
     {
       "key": {
+        "uuid": "000c4748_eed9e2a1",
+        "filename": "media2/common/src/main/java/androidx/media2/common/SessionPlayer.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1288,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-21T08:50:54Z",
+      "side": 1,
+      "message": "Discussed this offline. Mostly likely the callbacks\u0027 arguments will not be changed.",
+      "parentUuid": "e3cef876_0cdca8f0",
+      "range": {
+        "startLine": 1288,
+        "startChar": 39,
+        "endLine": 1288,
+        "endChar": 87
+      },
+      "revId": "6b72982f956e629c11813a0d9cffcad4e7f79804",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5884d229_a8d80643",
         "filename": "media2/common/src/main/java/androidx/media2/common/SessionPlayer.java",
         "patchSetId": 10
@@ -177,6 +201,30 @@
     },
     {
       "key": {
+        "uuid": "369da98f_155ae03e",
+        "filename": "media2/common/src/main/java/androidx/media2/common/SessionPlayer.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1303,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-21T08:50:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5884d229_a8d80643",
+      "range": {
+        "startLine": 1303,
+        "startChar": 40,
+        "endLine": 1303,
+        "endChar": 48
+      },
+      "revId": "6b72982f956e629c11813a0d9cffcad4e7f79804",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "83452bcd_5ea340dd",
         "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer.java",
         "patchSetId": 10
@@ -197,6 +245,30 @@
       "revId": "6b72982f956e629c11813a0d9cffcad4e7f79804",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94106ab0_3987559b",
+        "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 515,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-21T08:50:54Z",
+      "side": 1,
+      "message": "Unlike getAudioAttributes(), getSelectedTrack(int) does not contain information about the most recently selected track. Since XMediaPlayer has to retain information about the selected track in order to call the callback onTrackSelected(TrackInfo), a TrackInfo instance was added to PendingCommand.\n\nDo you have an alternative in mind? An alternative I originally implemented was to hold a member variable inside XMediaPlayer, but there was a comment pointing out that holding the value in PendingCommand could be better.",
+      "parentUuid": "83452bcd_5ea340dd",
+      "range": {
+        "startLine": 514,
+        "startChar": 8,
+        "endLine": 515,
+        "endChar": 35
+      },
+      "revId": "6b72982f956e629c11813a0d9cffcad4e7f79804",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -317,6 +389,30 @@
     },
     {
       "key": {
+        "uuid": "f3f64f85_870a2211",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaController.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1112,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-21T08:50:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1c8a1f7c_dce7e92f",
+      "range": {
+        "startLine": 1112,
+        "startChar": 4,
+        "endLine": 1112,
+        "endChar": 42
+      },
+      "revId": "6b72982f956e629c11813a0d9cffcad4e7f79804",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "46f136b9_330485a3",
         "filename": "media2/session/src/main/java/androidx/media2/session/MediaController.java",
         "patchSetId": 10
@@ -364,6 +460,30 @@
     },
     {
       "key": {
+        "uuid": "af78b3ca_be4b85fc",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaController.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1682,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-21T08:50:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "031bb0f7_40423845",
+      "range": {
+        "startLine": 1682,
+        "startChar": 27,
+        "endLine": 1682,
+        "endChar": 32
+      },
+      "revId": "6b72982f956e629c11813a0d9cffcad4e7f79804",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2d93d92f_e6980a5f",
         "filename": "media2/session/src/main/java/androidx/media2/session/MediaController.java",
         "patchSetId": 10
@@ -387,6 +507,30 @@
     },
     {
       "key": {
+        "uuid": "3a105408_bad80a00",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaController.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1689,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-21T08:50:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2d93d92f_e6980a5f",
+      "range": {
+        "startLine": 1689,
+        "startChar": 39,
+        "endLine": 1689,
+        "endChar": 54
+      },
+      "revId": "6b72982f956e629c11813a0d9cffcad4e7f79804",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9f648c71_f66c478b",
         "filename": "media2/session/src/main/java/androidx/media2/session/MediaController.java",
         "patchSetId": 10
@@ -407,6 +551,30 @@
       "revId": "6b72982f956e629c11813a0d9cffcad4e7f79804",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3c04bfd_7f5d540c",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaController.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1693,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-21T08:50:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9f648c71_f66c478b",
+      "range": {
+        "startLine": 1693,
+        "startChar": 25,
+        "endLine": 1693,
+        "endChar": 48
+      },
+      "revId": "6b72982f956e629c11813a0d9cffcad4e7f79804",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -453,6 +621,54 @@
       "revId": "6b72982f956e629c11813a0d9cffcad4e7f79804",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7de45947_8d6bbd09",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaController.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1704,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-21T08:50:54Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "23c66229_e9773e0b",
+      "range": {
+        "startLine": 1704,
+        "startChar": 31,
+        "endLine": 1704,
+        "endChar": 35
+      },
+      "revId": "6b72982f956e629c11813a0d9cffcad4e7f79804",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "38ec837e_496d1544",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaController.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1704,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-21T08:50:54Z",
+      "side": 1,
+      "message": "Discussed this offline. Replies inline.\n\nWhat does \u0027deselect\u0027 mean?\n\u003e To \"un\"select something that has been selected. So it\u0027s weird when applied to video/audio tracks but makes sense for subtitle tracks.\n\nIf one track is selected, are the all other tracks are automatically deselected?\nOr multiple tracks can be selected?\n\u003e For now, only one track can be selected per track type, so if one track is selected the previously selected track will be deselected.\n\nIf only one track can be selected at a time, why onTrackDeselected is needed?\nIs onTrackSelected(null) enough?\n\u003e I think it\u0027s a valid counterargument but I prefer to keep the deselectTrack/onTrackDeselected pair unless you strongly object.",
+      "parentUuid": "6cafe19f_fdcfb97e",
+      "range": {
+        "startLine": 1704,
+        "startChar": 39,
+        "endLine": 1704,
+        "endChar": 49
+      },
+      "revId": "6b72982f956e629c11813a0d9cffcad4e7f79804",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -758,6 +974,30 @@
       "revId": "6b72982f956e629c11813a0d9cffcad4e7f79804",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4cfe3223_f3f36124",
+        "filename": "media2/session/version-compat-tests/current/client/src/androidTest/java/androidx/media2/test/client/tests/MediaControllerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 439,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-21T08:50:54Z",
+      "side": 1,
+      "message": "Only a track that is currently selected can be deselected but MediaPlayer only supports deselecting subtitle tracks.\n\nBut the specific implementation of these APIs will vary by the players, so I don\u0027t think we need to add guideline for how MediaController will be notified of the failure.",
+      "parentUuid": "43f2caa6_b8b698cf",
+      "range": {
+        "startLine": 439,
+        "startChar": 8,
+        "endLine": 439,
+        "endChar": 44
+      },
+      "revId": "6b72982f956e629c11813a0d9cffcad4e7f79804",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
