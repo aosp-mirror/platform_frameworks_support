@@ -131,6 +131,10 @@ public abstract class PreviewExtender {
                         return true;
                     }
                 });
+                break;
+            case PROCESSOR_TYPE_CAPTURE_UPDATE_PROCESSOR:
+                mBuilder.setCaptureProcessor(new
+                        AdaptingCaptureProcessor(mImpl.getCaptureUpdatePreviewProcessor()));
         }
 
         PreviewExtenderAdapter previewExtenderAdapter = new PreviewExtenderAdapter(mImpl);

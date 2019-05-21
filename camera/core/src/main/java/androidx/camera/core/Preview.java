@@ -16,6 +16,7 @@
 
 package androidx.camera.core;
 
+import android.graphics.ImageFormat;
 import android.graphics.Rect;
 import android.graphics.SurfaceTexture;
 import android.os.Handler;
@@ -34,11 +35,13 @@ import androidx.annotation.RestrictTo.Scope;
 import androidx.annotation.UiThread;
 import androidx.camera.core.CameraX.LensFacing;
 import androidx.camera.core.ImageOutputConfig.RotationValue;
+import androidx.camera.core.impl.utils.MainThreadAsyncHandler;
 
 import com.google.auto.value.AutoValue;
 
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.ExecutionException;
 
 /**
  * A use case that provides a camera preview stream for displaying on-screen.
@@ -103,10 +106,10 @@ public class Preview extends UseCase {
         mUseCaseConfigBuilder = PreviewConfig.Builder.fromConfig(config);
     }
 
-    private static SessionConfig.Builder createFrom(
-            final PreviewConfig config, final DeferrableSurface surface, final Preview preview) {
+    private SessionConfig.Builder createFrom(
+            final PreviewConfig config, final DeferrableSurface surface, final Preview preview,
+            int width, int height) {
         SessionConfig.Builder sessionConfigBuilder = SessionConfig.Builder.createFrom(config);
-        sessionConfigBuilder.addSurface(surface);
 
         final ImageInfoProcessor processor = config.getImageInfoProcessor(null);
 
@@ -121,8 +124,40 @@ public class Preview extends UseCase {
                 }
             });
         }
+
+        final CaptureProcessor captureProcessor = config.getCaptureProcessor(null);
+        if (captureProcessor != null) {
+            Log.d(TAG, "Setting up preview processing");
+            Surface surfaceTexture;
+            try {
+                surfaceTexture = surface.getSurface().get();
+            } catch (InterruptedException | ExecutionException e) {
+                throw new RuntimeException(e);
+            }
+            SurfaceTextureImageReader processingImageReader =
+                    new SurfaceTextureImageReader(
+                            width,
+                            height,
+                            ImageFormat.YUV_420_888,
+                            MainThreadAsyncHandler.getInstance(),
+                            CaptureBundles.createCaptureBundle(
+                                    new CaptureStage.DefaultCaptureStage()),
+                            captureProcessor, surfaceTexture);
+
+            mImageReaderProxy = processingImageReader;
+            sessionConfigBuilder.addCameraCaptureCallback(
+                    processingImageReader.getCameraCaptureCallback());
+            sessionConfigBuilder.addSurface(new ImmediateSurface(mImageReaderProxy.getSurface()));
+            sessionConfigBuilder.setTag(0);
+        } else {
+            Log.d(TAG, "Doing SurfaceTexture");
+
+            sessionConfigBuilder.addSurface(surface);
+        }
         return sessionConfigBuilder;
     }
+
+    ImageReaderProxy mImageReaderProxy;
 
     private static String getCameraIdUnchecked(LensFacing lensFacing) {
         try {
@@ -375,7 +410,7 @@ public class Preview extends UseCase {
         mCheckedSurfaceTexture.resetSurfaceTexture();
 
         SessionConfig.Builder sessionConfigBuilder = createFrom(config, mCheckedSurfaceTexture,
-                this);
+                this, resolution.getWidth(), resolution.getHeight());
         attachToCamera(cameraId, sessionConfigBuilder.build());
 
         return suggestedResolutionMap;
