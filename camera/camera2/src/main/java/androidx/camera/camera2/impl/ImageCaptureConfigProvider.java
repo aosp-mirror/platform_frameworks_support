@@ -87,8 +87,7 @@ public final class ImageCaptureConfigProvider implements ConfigProvider<ImageCap
             String defaultId = null;
 
             for (LensFacing lensFacingCandidate : lensFacingList) {
-                defaultId = mCameraFactory.cameraIdForLensFacing(lensFacingCandidate);
-                if (defaultId != null) {
+                if (mCameraFactory.hasCameraIdForLensFacing(lensFacingCandidate)) {
                     builder.setLensFacing(lensFacingCandidate);
                     break;
                 }

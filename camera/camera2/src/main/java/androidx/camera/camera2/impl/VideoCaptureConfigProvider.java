@@ -87,8 +87,7 @@ public final class VideoCaptureConfigProvider implements ConfigProvider<VideoCap
             String defaultId = null;
 
             for (LensFacing lensFacingCandidate : lensFacingList) {
-                defaultId = mCameraFactory.cameraIdForLensFacing(lensFacingCandidate);
-                if (defaultId != null) {
+                if (mCameraFactory.hasCameraIdForLensFacing(lensFacingCandidate)) {
                     builder.setLensFacing(lensFacingCandidate);
                     break;
                 }
