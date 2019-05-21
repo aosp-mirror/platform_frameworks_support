@@ -34,15 +34,14 @@ public interface CameraDeviceConfig {
 
     // Option Declarations:
     // *********************************************************************************************
-
     /**
-     * Option: camerax.core.camera.lensFacing
+     * Option: camerax.core.camera.CameraIdFilterSet
      *
      * @hide
      */
     @RestrictTo(Scope.LIBRARY_GROUP)
-    Option<LensFacing> OPTION_LENS_FACING =
-            Option.create("camerax.core.camera.lensFacing", CameraX.LensFacing.class);
+    Option<CameraIdFilterSet> OPTION_CAMERA_ID_FILTER_SET =
+            Option.create("camerax.core.camera.cameraIdFilterSet", CameraIdFilterSet.class);
 
     // *********************************************************************************************
 
@@ -65,6 +64,24 @@ public interface CameraDeviceConfig {
     CameraX.LensFacing getLensFacing();
 
     /**
+     * Retrieves the set of {@link CameraIdFilter} that filter out the unavailable camera ids.
+     *
+     * @param valueIfMissing The value to return if this configuration option has not been set.
+     * @return The stored value or <code>valueIfMissing</code> if the value does not exist in this
+     * configuration.
+     */
+    @Nullable
+    CameraIdFilterSet getCameraIdFilterSet(@Nullable CameraIdFilterSet valueIfMissing);
+
+    /**
+     * Retrieves the set of {@link CameraIdFilter} that filter out the unavailable camera ids.
+     *
+     * @return The stored value, if it exists in this configuration.
+     * @throws IllegalArgumentException if the option does not exist in this configuration.
+     */
+    CameraIdFilterSet getCameraIdFilterSet();
+
+    /**
      * Builder for a {@link CameraDeviceConfig}.
      *
      * @param <B> The top level builder type for which this builder is composed with.
@@ -83,5 +100,13 @@ public interface CameraDeviceConfig {
          * @return the current Builder.
          */
         B setLensFacing(CameraX.LensFacing lensFacing);
+
+        /**
+         * Sets the set of {@link CameraIdFilter} that filter out the unavailable camera ids.
+         *
+         * @param cameraIdFilterSet The set of {@link CameraIdFilter}.
+         * @return the current Builder.
+         */
+        B setCameraIdFilterSet(CameraIdFilterSet cameraIdFilterSet);
     }
 }
