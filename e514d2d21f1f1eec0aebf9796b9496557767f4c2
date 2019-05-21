@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ce0f9fc2_995074ed",
+        "filename": "ui/text/src/main/java/androidx/ui/engine/text/platform/ParagraphAndroid.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-05-21T00:30:40Z",
+      "side": 1,
+      "message": "it would be better to rename this function to define what it does. \ni guess it does adjustSpanPositionForParagraph (?)",
+      "range": {
+        "startLine": 360,
+        "startChar": 43,
+        "endLine": 360,
+        "endChar": 61
+      },
+      "revId": "e514d2d21f1f1eec0aebf9796b9496557767f4c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bbc363b7_e3adf35e",
+        "filename": "ui/text/src/main/java/androidx/ui/engine/text/platform/ParagraphAndroid.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-05-21T00:30:40Z",
+      "side": 1,
+      "message": "in what cases this might happen?",
+      "range": {
+        "startLine": 362,
+        "startChar": 20,
+        "endLine": 362,
+        "endChar": 40
+      },
+      "revId": "e514d2d21f1f1eec0aebf9796b9496557767f4c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0b16bdb_65ad2561",
+        "filename": "ui/text/src/main/java/androidx/ui/engine/text/platform/ParagraphAndroid.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-05-21T00:30:40Z",
+      "side": 1,
+      "message": "some part of this class should ideally be pushed to android platform text module since it may use its own alignment in the near future. \n\nWe might want to \n- have a class (i.e LayoutAlignment) in android module that defines Alignment values\n- class LayoutAlignment { ALIGN_LEFT, ALIGN_RIGHT ... }\n- make that class to handle framework hidden enum value (just like the code in init)\n- In get() function below TextAlign.Left -\u003e LayoutAlignment.LEFT  (which will actually return the framework alignment value)",
+      "range": {
+        "startLine": 517,
+        "startChar": 16,
+        "endLine": 517,
+        "endChar": 36
+      },
+      "revId": "e514d2d21f1f1eec0aebf9796b9496557767f4c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c7e3b7c_4bcf90ab",
+        "filename": "ui/text/src/main/java/androidx/ui/engine/text/platform/ParagraphAndroid.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 525,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-05-21T00:30:40Z",
+      "side": 1,
+      "message": "add code comment that this is a best effort since framework align left and align right are hidden",
+      "range": {
+        "startLine": 525,
+        "startChar": 8,
+        "endLine": 525,
+        "endChar": 31
+      },
+      "revId": "e514d2d21f1f1eec0aebf9796b9496557767f4c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
