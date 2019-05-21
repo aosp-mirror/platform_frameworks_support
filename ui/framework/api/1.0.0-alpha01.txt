@@ -123,6 +123,13 @@ package androidx.ui.core {
     method public androidx.ui.engine.geometry.Offset getStartOffset();
   }
 
+  public final class SelectionContainerCoordinate {
+    ctor public SelectionContainerCoordinate();
+    method public androidx.ui.core.PxPosition getGlobal();
+    method public void setGlobal(androidx.ui.core.PxPosition p);
+    property public final androidx.ui.core.PxPosition global;
+  }
+
   public final class SelectionKt {
     ctor public SelectionKt();
     method public static void SelectionContainer(androidx.ui.core.Selection? selection, kotlin.jvm.functions.Function1<? super androidx.ui.core.Selection,kotlin.Unit> onSelectionChange, kotlin.jvm.functions.Function0<kotlin.Unit> children);
@@ -144,6 +151,13 @@ package androidx.ui.core {
     method public static void TestTag(String tag, kotlin.jvm.functions.Function0<kotlin.Unit> children);
     method public static String getDefaultTestTag();
     method public static androidx.compose.Ambient<java.lang.String> getTestTagAmbient();
+  }
+
+  public final class TextCoordinate {
+    ctor public TextCoordinate();
+    method public androidx.ui.core.PxPosition getGlobal();
+    method public void setGlobal(androidx.ui.core.PxPosition p);
+    property public final androidx.ui.core.PxPosition global;
   }
 
   public final class TextKt {
