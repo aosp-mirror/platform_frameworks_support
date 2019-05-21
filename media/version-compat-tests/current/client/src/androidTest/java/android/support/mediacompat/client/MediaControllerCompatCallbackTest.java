@@ -110,6 +110,7 @@ public class MediaControllerCompatCallbackTest {
 
     // The maximum time to wait for an operation, that is expected to happen.
     private static final long TIME_OUT_MS = 3000L;
+    private static final long WAIT_TIME_FOR_NO_RESPONSE_MS = 1500L;
     private static final int MAX_AUDIO_INFO_CHANGED_CALLBACK_COUNT = 10;
 
     private static final ComponentName TEST_BROWSER_SERVICE = new ComponentName(
@@ -484,6 +485,140 @@ public class MediaControllerCompatCallbackTest {
             callMediaSessionMethod(RELEASE, null, getApplicationContext());
             mWaitLock.wait(TIME_OUT_MS);
             assertTrue(mMediaControllerCallback.mOnSessionDestroyedCalled);
+        }
+    }
+
+    /**
+     * Tests whether {@link MediaControllerCompat.Callback} methods are not called after calling
+     * {@link MediaSessionCompat#release}.
+     */
+    @Test
+    @LargeTest
+    public void testCallbacksAreNotCalledAfterSessionRelease_onSessionEvent() throws Exception {
+        synchronized (mWaitLock) {
+            mMediaControllerCallback.resetLocked();
+            callMediaSessionMethod(RELEASE, null, getApplicationContext());
+            mWaitLock.wait(TIME_OUT_MS);
+            assertTrue(mMediaControllerCallback.mOnSessionDestroyedCalled);
+
+            // Now the session is released. Let's try to call the session methods.
+            // Those calls should not trigger media controller callbacks.
+
+            mMediaControllerCallback.resetLocked();
+            Bundle sessionEventArgs = new Bundle();
+            sessionEventArgs.putString("event", TEST_SESSION_EVENT);
+            callMediaSessionMethod(SEND_SESSION_EVENT, sessionEventArgs, getApplicationContext());
+            mWaitLock.wait(WAIT_TIME_FOR_NO_RESPONSE_MS);
+            assertFalse(mMediaControllerCallback.mOnSessionEventCalled);
+        }
+    }
+
+    /**
+     * Tests whether {@link MediaControllerCompat.Callback} methods are not called after calling
+     * {@link MediaSessionCompat#release}.
+     */
+    @Test
+    @LargeTest
+    public void testCallbacksAreNotCalledAfterSessionRelease_onPlaybackStateChangedCalled()
+            throws Exception {
+        synchronized (mWaitLock) {
+            mMediaControllerCallback.resetLocked();
+            callMediaSessionMethod(RELEASE, null, getApplicationContext());
+            mWaitLock.wait(TIME_OUT_MS);
+            assertTrue(mMediaControllerCallback.mOnSessionDestroyedCalled);
+
+            // Now the session is released. Let's try to call the session methods.
+            // Those calls should not trigger media controller callbacks.
+
+            mMediaControllerCallback.resetLocked();
+            PlaybackStateCompat state =
+                    new PlaybackStateCompat.Builder()
+                            .setActions(TEST_ACTION)
+                            .setErrorMessage(TEST_ERROR_CODE, TEST_ERROR_MSG)
+                            .build();
+            callMediaSessionMethod(SET_PLAYBACK_STATE, state, getApplicationContext());
+            mWaitLock.wait(WAIT_TIME_FOR_NO_RESPONSE_MS);
+            assertFalse(mMediaControllerCallback.mOnPlaybackStateChangedCalled);
+        }
+    }
+
+    /**
+     * Tests whether {@link MediaControllerCompat.Callback} methods are not called after calling
+     * {@link MediaSessionCompat#release}.
+     */
+    @Test
+    @LargeTest
+    public void testCallbacksAreNotCalledAfterSessionRelease_onMetadataChangedCalled()
+            throws Exception {
+        synchronized (mWaitLock) {
+            mMediaControllerCallback.resetLocked();
+            callMediaSessionMethod(RELEASE, null, getApplicationContext());
+            mWaitLock.wait(TIME_OUT_MS);
+            assertTrue(mMediaControllerCallback.mOnSessionDestroyedCalled);
+
+            // Now the session is released. Let's try to call the session methods.
+            // Those calls should not trigger media controller callbacks.
+
+            mMediaControllerCallback.resetLocked();
+            MediaMetadataCompat metadata = new MediaMetadataCompat.Builder()
+                    .putString(TEST_KEY, TEST_VALUE)
+                    .build();
+            callMediaSessionMethod(SET_METADATA, metadata, getApplicationContext());
+            mWaitLock.wait(TIME_OUT_MS);
+            assertFalse(mMediaControllerCallback.mOnMetadataChangedCalled);
+        }
+    }
+
+    /**
+     * Tests whether {@link MediaControllerCompat.Callback} methods are not called after calling
+     * {@link MediaSessionCompat#release}.
+     */
+    @Test
+    @LargeTest
+    public void testCallbacksAreNotCalledAfterSessionRelease_onQueueChanged() throws Exception {
+        synchronized (mWaitLock) {
+            mMediaControllerCallback.resetLocked();
+            callMediaSessionMethod(RELEASE, null, getApplicationContext());
+            mWaitLock.wait(TIME_OUT_MS);
+            assertTrue(mMediaControllerCallback.mOnSessionDestroyedCalled);
+
+            // Now the session is released. Let's try to call the session methods.
+            // Those calls should not trigger media controller callbacks.
+
+            mMediaControllerCallback.resetLocked();
+            List<QueueItem> queue = new ArrayList<>();
+            MediaDescriptionCompat description =
+                    new MediaDescriptionCompat.Builder().setMediaId(TEST_MEDIA_ID_1).build();
+            QueueItem item1 = new MediaSessionCompat.QueueItem(description, TEST_QUEUE_ID_1);
+            queue.add(item1);
+            callMediaSessionMethod(SET_QUEUE, queue, getApplicationContext());
+            mWaitLock.wait(TIME_OUT_MS);
+            assertFalse(mMediaControllerCallback.mOnQueueChangedCalled);
+        }
+    }
+
+    /**
+     * Tests whether {@link MediaControllerCompat.Callback} methods are not called after calling
+     * {@link MediaSessionCompat#release}.
+     */
+    @Test
+    @LargeTest
+    public void testCallbacksAreNotCalledAfterSessionRelease_onQueueTitleChanged()
+            throws Exception {
+        synchronized (mWaitLock) {
+            mMediaControllerCallback.resetLocked();
+            callMediaSessionMethod(RELEASE, null, getApplicationContext());
+            mWaitLock.wait(TIME_OUT_MS);
+            assertTrue(mMediaControllerCallback.mOnSessionDestroyedCalled);
+
+            // Now the session is released. Let's try to call the session methods.
+            // Those calls should not trigger media controller callbacks.
+
+            mMediaControllerCallback.resetLocked();
+            String queueTitle = "test_title";
+            callMediaSessionMethod(SET_QUEUE_TITLE, queueTitle, getApplicationContext());
+            mWaitLock.wait(TIME_OUT_MS);
+            assertFalse(mMediaControllerCallback.mOnQueueTitleChangedCalled);
         }
     }
 
