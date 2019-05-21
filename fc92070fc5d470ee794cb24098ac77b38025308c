@@ -39,6 +39,40 @@
       "revId": "fc92070fc5d470ee794cb24098ac77b38025308c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33132a77_6bfca049",
+        "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-21T01:11:49Z",
+      "side": 1,
+      "message": "Because MEDIA_INFO_PREPARED is hidden, developers may not know what the info code number means.\n\nI think it would be better to test testGetTrackInfoForVideoWithoutSubtitleTracks on MediaPlayer2 (not on XMP) instead of exposing the constant as we are not going to change the API surface.",
+      "revId": "fc92070fc5d470ee794cb24098ac77b38025308c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9439d43c_c32e6a84",
+        "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 3127,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-21T01:11:49Z",
+      "side": 1,
+      "message": "In my opinion, the lack of break statement decreases the readability. How about adding a line same as #3129 and break?",
+      "revId": "fc92070fc5d470ee794cb24098ac77b38025308c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
