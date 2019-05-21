@@ -18,7 +18,7 @@ package androidx.camera.extensions;
 
 import android.hardware.camera2.CameraCharacteristics;
 
-import androidx.camera.core.CameraX;
+import androidx.camera.core.CameraIdFilterSet;
 import androidx.camera.core.CaptureBundle;
 import androidx.camera.core.ImageCaptureConfig;
 import androidx.camera.extensions.impl.CaptureProcessorImpl;
@@ -37,18 +37,23 @@ abstract class ImageCaptureExtender {
     void init(ImageCaptureConfig.Builder builder, ImageCaptureExtenderImpl implementation) {
         mBuilder = builder;
         mImpl = implementation;
+
+        CameraIdFilterSet cameraIdFilterSet = mBuilder.build().getCameraIdFilterSet();
+        cameraIdFilterSet.addCameraIdFilter(new ExtensionsCameraIdFilter(mImpl));
+        mBuilder.setCameraIdFilterSet(cameraIdFilterSet);
     }
 
     public boolean isExtensionAvailable() {
-        CameraX.LensFacing lensFacing = mBuilder.build().getLensFacing();
-        String cameraId = CameraUtil.getCameraId(lensFacing);
-        CameraCharacteristics cameraCharacteristics = CameraUtil.getCameraCharacteristics(cameraId);
-        return mImpl.isExtensionAvailable(cameraId, cameraCharacteristics);
+        String cameraId = CameraUtil.getCameraId(mBuilder.build());
+        return cameraId != null;
     }
 
     public void enableExtension() {
-        CameraX.LensFacing lensFacing = mBuilder.build().getLensFacing();
-        String cameraId = CameraUtil.getCameraId(lensFacing);
+        String cameraId = CameraUtil.getCameraId(mBuilder.build());
+        if (cameraId == null) {
+            throw new IllegalStateException("There's no available camera id can be found.");
+        }
+
         CameraCharacteristics cameraCharacteristics = CameraUtil.getCameraCharacteristics(cameraId);
         mImpl.enableExtension(cameraId, cameraCharacteristics);
 

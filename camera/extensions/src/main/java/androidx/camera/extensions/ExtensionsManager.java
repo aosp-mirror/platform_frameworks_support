@@ -78,14 +78,13 @@ public final class ExtensionsManager {
             LensFacing lensFacing) {
         ImageCaptureConfig.Builder builder = new ImageCaptureConfig.Builder();
         builder.setLensFacing(lensFacing);
-        ImageCaptureExtender extender;
 
         switch (effectMode) {
             case BOKEH:
-                extender = BokehImageCaptureExtender.create(builder);
+                BokehImageCaptureExtender.create(builder);
                 break;
             case HDR:
-                extender = HdrImageCaptureExtender.create(builder);
+                HdrImageCaptureExtender.create(builder);
                 break;
             case NORMAL:
                 return true;
@@ -93,21 +92,22 @@ public final class ExtensionsManager {
                 return false;
         }
 
-        return extender.isExtensionAvailable();
+        String cameraId = CameraUtil.getCameraId(builder.build());
+
+        return cameraId != null;
     }
 
     private static boolean checkPreviewExtensionCapability(EffectMode effectMode,
             LensFacing lensFacing) {
         PreviewConfig.Builder builder = new PreviewConfig.Builder();
         builder.setLensFacing(lensFacing);
-        PreviewExtender extender;
 
         switch (effectMode) {
             case BOKEH:
-                extender = BokehPreviewExtender.create(builder);
+                BokehPreviewExtender.create(builder);
                 break;
             case HDR:
-                extender = HdrPreviewExtender.create(builder);
+                HdrPreviewExtender.create(builder);
                 break;
             case NORMAL:
                 return true;
@@ -115,7 +115,9 @@ public final class ExtensionsManager {
                 return false;
         }
 
-        return extender.isExtensionAvailable();
+        String cameraId = CameraUtil.getCameraId(builder.build());
+
+        return cameraId != null;
     }
 
     private ExtensionsManager() {
