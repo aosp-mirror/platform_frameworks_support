@@ -22,6 +22,30 @@
       "revId": "63126432803d9205ee8d0905689573173eeb82bd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80a65c5f_271e389f",
+        "filename": "development/history/AndroidX-Release-2019-04-25.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-05-21T22:20:51Z",
+      "side": 1,
+      "message": "I\u0027ll just add it now.  Given we\u0027ve been jamming on this git tagging stuff recently, I\u0027d like to do it right the first time",
+      "parentUuid": "10ef0b70_9047699d",
+      "range": {
+        "startLine": 4,
+        "startChar": 41,
+        "endLine": 4,
+        "endChar": 50
+      },
+      "revId": "63126432803d9205ee8d0905689573173eeb82bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
