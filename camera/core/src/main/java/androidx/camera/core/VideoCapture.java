@@ -374,11 +374,6 @@ public class VideoCapture extends UseCase {
     public void clear() {
         mVideoHandlerThread.quitSafely();
 
-        if (mVideoEncoder != null) {
-            mVideoEncoder.release();
-            mVideoEncoder = null;
-        }
-
         // audio encoder release
         mAudioHandlerThread.quitSafely();
         if (mAudioEncoder != null) {
@@ -409,6 +404,11 @@ public class VideoCapture extends UseCase {
                 new DeferrableSurface.OnSurfaceDetachedListener() {
                     @Override
                     public void onSurfaceDetached() {
+                        if (mVideoEncoder != null) {
+                            mVideoEncoder.release();
+                            mVideoEncoder = null;
+                        }
+
                         if (surface != null) {
                             surface.release();
                         }
