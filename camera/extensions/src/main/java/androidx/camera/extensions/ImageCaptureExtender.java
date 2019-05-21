@@ -46,18 +46,23 @@ abstract class ImageCaptureExtender {
     void init(ImageCaptureConfig.Builder builder, ImageCaptureExtenderImpl implementation) {
         mBuilder = builder;
         mImpl = implementation;
+
+        mBuilder.addCameraIdFilter(new ExtensionsCameraIdFilter(mImpl));
     }
 
     public boolean isExtensionAvailable() {
-        CameraX.LensFacing lensFacing = mBuilder.build().getLensFacing();
-        String cameraId = CameraUtil.getCameraId(lensFacing);
-        CameraCharacteristics cameraCharacteristics = CameraUtil.getCameraCharacteristics(cameraId);
-        return mImpl.isExtensionAvailable(cameraId, cameraCharacteristics);
+        String cameraId = CameraUtil.getCameraId(mBuilder.build());
+        return cameraId != null;
     }
 
     public void enableExtension() {
-        CameraX.LensFacing lensFacing = mBuilder.build().getLensFacing();
-        String cameraId = CameraUtil.getCameraId(lensFacing);
+        String cameraId = CameraUtil.getCameraId(mBuilder.build());
+        if (cameraId == null) {
+            // If there's no available camera id for the extender to function, just return here
+            // and it will be no-ops.
+            return;
+        }
+
         CameraCharacteristics cameraCharacteristics = CameraUtil.getCameraCharacteristics(cameraId);
         mImpl.enableExtension(cameraId, cameraCharacteristics);
 
