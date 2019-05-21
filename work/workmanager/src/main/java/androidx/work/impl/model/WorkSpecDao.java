@@ -172,6 +172,17 @@ public interface WorkSpecDao {
     LiveData<List<WorkSpec.WorkInfoPojo>> getWorkStatusPojoLiveDataForIds(List<String> ids);
 
     /**
+     * For a list of {@link WorkSpec} identifiers, retrieves a {@link LiveData} list of their
+     * {@link WorkSpec.WorkInfoPojo}.
+     *
+     * @param ids The identifier of the {@link WorkSpec}s
+     * @return A {@link LiveData} list of {@link WorkSpec.WorkInfoPojo}
+     */
+    @Transaction
+    @Query("SELECT id, state, output, run_attempt_count FROM workspec")
+    LiveData<List<WorkSpec.WorkInfoPojo>> getAllWorkStatusLiveData();
+
+    /**
      * Retrieves a list of {@link WorkSpec.WorkInfoPojo} for all work with a given tag.
      *
      * @param tag The tag for the {@link WorkSpec}s

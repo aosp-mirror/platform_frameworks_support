@@ -21,4 +21,32 @@ package androidx.inspection.agent;
  *  send back events.
  */
 public abstract class Agent {
+
+    private boolean mIsEnabled;
+
+    public final void enable(EnableResult enableResult) {
+        if (mIsEnabled) {
+            enableResult.failed(-1);
+            return;
+        }
+        mIsEnabled = true;
+        onEnable(enableResult);
+    }
+
+    public void onAppInstrumentationEvent(AxInstrumentation.Event event) {
+        throw new IllegalStateException("Instrumentation events aren't supported");
+    }
+
+    public abstract void onEnable(EnableResult enableResult);
+
+    public final void disable() {
+        mIsEnabled = true;
+    }
+
+    public void onDisable() {}
+
+    public static abstract class EnableResult {
+        public abstract void enabled();
+        public abstract void failed(int reason);
+    }
 }

@@ -56,6 +56,7 @@ dependencies {
         implementation(WORK_ARCH_ROOM_RUNTIME)
         androidTestImplementation(WORK_ARCH_ROOM_TESTING)
     }
+
     api(GUAVA_LISTENABLE_FUTURE)
     api(ARCH_LIFECYCLE_LIVEDATA)
     implementation(ANDROIDX_CORE)
