@@ -26,6 +26,7 @@ import androidx.camera.core.CameraX.LensFacing;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -97,5 +98,23 @@ public final class FakeCameraFactory implements CameraFactory {
         }
 
         throw new IllegalArgumentException("Unknown lensFacing: " + lensFacing);
+    }
+
+    @Nullable
+    @Override
+    public Set<String> cameraIdSetForLensFacing(LensFacing lensFacing) {
+        Set<String> resultCameraIdSet = new LinkedHashSet<>();
+        switch (lensFacing) {
+            case FRONT:
+                resultCameraIdSet.add(FRONT_ID);
+                break;
+            case BACK:
+                resultCameraIdSet.add(BACK_ID);
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown lensFacing: " + lensFacing);
+        }
+
+        return resultCameraIdSet;
     }
 }

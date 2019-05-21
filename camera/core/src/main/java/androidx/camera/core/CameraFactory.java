@@ -39,4 +39,9 @@ public interface CameraFactory {
     /** Get the id of the camera with the specified lens facing. */
     @Nullable
     String cameraIdForLensFacing(LensFacing lensFacing) throws CameraInfoUnavailableException;
+
+    /** Get all the ids of the cameras with the specified lens facing. */
+    @Nullable
+    Set<String> cameraIdSetForLensFacing(LensFacing lensFacing)
+            throws CameraInfoUnavailableException;
 }
