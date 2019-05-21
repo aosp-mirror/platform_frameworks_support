@@ -56,7 +56,8 @@ dependencies {
         androidTestImplementation(ARCH_ROOM_TESTING)
     }
 
-    api(ARCH_LIFECYCLE_EXTENSIONS)
+    api(ARCH_LIFECYCLE_LIVEDATA)
+    api(ARCH_LIFECYCLE_SERVICE)
     api(GUAVA_LISTENABLE_FUTURE)
     androidTestImplementation(KOTLIN_STDLIB)
     androidTestImplementation(ANDROIDX_TEST_EXT_JUNIT)
