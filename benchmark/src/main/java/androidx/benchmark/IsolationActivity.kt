@@ -87,6 +87,10 @@ class IsolationActivity : android.app.Activity() {
         super.finish()
     }
 
+    /*
+     * @hide
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
     companion object {
         private const val TAG = "Benchmark"
         internal val singleton = AtomicReference<IsolationActivity>()
