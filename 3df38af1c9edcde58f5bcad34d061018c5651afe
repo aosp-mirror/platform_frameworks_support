@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c228413e_12d41eb7",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/CommonPlayer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-05-21T09:14:12Z",
+      "side": 1,
+      "message": "What about WidgetPlayer or VideoViewPlayer?",
+      "range": {
+        "startLine": 40,
+        "startChar": 6,
+        "endLine": 40,
+        "endChar": 18
+      },
+      "revId": "3df38af1c9edcde58f5bcad34d061018c5651afe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14f6d26f_c3550b30",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/CommonPlayer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-05-21T09:14:12Z",
+      "side": 1,
+      "message": "Rename accordingly.",
+      "range": {
+        "startLine": 333,
+        "startChar": 26,
+        "endLine": 333,
+        "endChar": 40
+      },
+      "revId": "3df38af1c9edcde58f5bcad34d061018c5651afe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d8fed1d_45c16445",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1783,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-05-21T09:14:12Z",
+      "side": 1,
+      "message": "WidgetPlayerCallback, VideoViewPlayerCallback, or just PlayerCallback?",
+      "range": {
+        "startLine": 1783,
+        "startChar": 10,
+        "endLine": 1783,
+        "endChar": 18
+      },
+      "revId": "3df38af1c9edcde58f5bcad34d061018c5651afe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
