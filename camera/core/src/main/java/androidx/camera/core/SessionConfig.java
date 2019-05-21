@@ -208,6 +208,13 @@ public final class SessionConfig {
         }
 
         /**
+         * Set the tag of the SessionConfig. For tracking the source.
+         */
+        public void setTag(Object tag) {
+            mCaptureConfigBuilder.setTag(tag);
+        }
+
+        /**
          * Adds a {@link CameraDevice.StateCallback} callback.
          * @throws IllegalArgumentException if the callback already exists in the configuration.
          */
@@ -399,6 +406,11 @@ public final class SessionConfig {
                                 + captureConfig.getTemplateType();
                 Log.d(TAG, errorMessage);
                 mValid = false;
+            }
+
+            Object tag = sessionConfig.getRepeatingCaptureConfig().getTag();
+            if (tag != null) {
+                mCaptureConfigBuilder.setTag(tag);
             }
 
             // Check device state callbacks
