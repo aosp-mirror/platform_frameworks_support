@@ -169,7 +169,7 @@ package androidx.preference {
     method protected String! getPersistedString(String!);
     method public java.util.Set<java.lang.String>! getPersistedStringSet(java.util.Set<java.lang.String>!);
     method public androidx.preference.PreferenceDataStore? getPreferenceDataStore();
-    method public androidx.preference.PreferenceManager! getPreferenceManager();
+    method public androidx.preference.PreferenceManager? getPreferenceManager();
     method public android.content.SharedPreferences! getSharedPreferences();
     method public boolean getShouldDisableView();
     method public CharSequence! getSummary();
@@ -226,7 +226,7 @@ package androidx.preference {
     method public void setOnPreferenceClickListener(androidx.preference.Preference.OnPreferenceClickListener!);
     method public void setOrder(int);
     method public void setPersistent(boolean);
-    method public void setPreferenceDataStore(androidx.preference.PreferenceDataStore!);
+    method public void setPreferenceDataStore(androidx.preference.PreferenceDataStore?);
     method public void setSelectable(boolean);
     method public void setShouldDisableView(boolean);
     method public void setSingleLineTitle(boolean);
@@ -350,7 +350,7 @@ package androidx.preference {
     method public androidx.preference.PreferenceScreen! getPreferenceScreen();
     method protected androidx.recyclerview.widget.RecyclerView.Adapter! onCreateAdapter(androidx.preference.PreferenceScreen!);
     method public androidx.recyclerview.widget.RecyclerView.LayoutManager! onCreateLayoutManager();
-    method public abstract void onCreatePreferences(android.os.Bundle!, String!);
+    method public abstract void onCreatePreferences(android.os.Bundle?, String?);
     method public androidx.recyclerview.widget.RecyclerView! onCreateRecyclerView(android.view.LayoutInflater!, android.view.ViewGroup!, android.os.Bundle!);
     method public void onDisplayPreferenceDialog(androidx.preference.Preference!);
     method public void onNavigateToScreen(androidx.preference.PreferenceScreen!);

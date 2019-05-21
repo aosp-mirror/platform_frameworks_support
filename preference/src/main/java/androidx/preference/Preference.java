@@ -140,7 +140,6 @@ public class Preference implements Comparable<Preference> {
     private Bundle mExtras;
     private boolean mEnabled = true;
     private boolean mSelectable = true;
-    private boolean mRequiresKey;
     private boolean mPersistent = true;
     private String mDependencyKey;
     private Object mDefaultValue;
@@ -387,7 +386,7 @@ public class Preference implements Comparable<Preference> {
      * @param dataStore The {@link PreferenceDataStore} to be used by this preference
      * @see PreferenceManager#setPreferenceDataStore(PreferenceDataStore)
      */
-    public void setPreferenceDataStore(PreferenceDataStore dataStore) {
+    public void setPreferenceDataStore(@Nullable PreferenceDataStore dataStore) {
         mPreferenceDataStore = dataStore;
     }
 
@@ -936,10 +935,6 @@ public class Preference implements Comparable<Preference> {
      */
     public void setKey(String key) {
         mKey = key;
-
-        if (mRequiresKey && !hasKey()) {
-            requireKey();
-        }
     }
 
     /**
@@ -950,20 +945,6 @@ public class Preference implements Comparable<Preference> {
      */
     public String getKey() {
         return mKey;
-    }
-
-    /**
-     * Checks whether the key is present, and if it isn't throws an exception. This should be called
-     * by subclasses that persist their preferences.
-     *
-     * @throws IllegalStateException If there is no key assigned.
-     */
-    void requireKey() {
-        if (TextUtils.isEmpty(mKey)) {
-            throw new IllegalStateException("Preference does not have a key assigned.");
-        }
-
-        mRequiresKey = true;
     }
 
     /**
@@ -1291,7 +1272,7 @@ public class Preference implements Comparable<Preference> {
      *
      * @return The {@link PreferenceManager}
      */
-    public PreferenceManager getPreferenceManager() {
+    public @Nullable PreferenceManager getPreferenceManager() {
         return mPreferenceManager;
     }
 
@@ -1956,20 +1937,17 @@ public class Preference implements Comparable<Preference> {
     }
 
     @Override
-    public String toString() {
+    public @NonNull String toString() {
         return getFilterableStringBuilder().toString();
     }
 
     /**
      * Returns the text that will be used to filter this preference depending on user input.
      *
-     * <p>If overriding and calling through to the superclass, make sure to prepend your
-     * additions with a space.
-     *
      * @return Text as a {@link StringBuilder} that will be used to filter this preference. By
      * default, this is the title and summary (concatenated with a space).
      */
-    StringBuilder getFilterableStringBuilder() {
+    private StringBuilder getFilterableStringBuilder() {
         StringBuilder sb = new StringBuilder();
         CharSequence title = getTitle();
         if (!TextUtils.isEmpty(title)) {

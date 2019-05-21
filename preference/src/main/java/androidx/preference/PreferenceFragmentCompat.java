@@ -43,6 +43,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.lang.ref.WeakReference;
+
 /**
  * A PreferenceFragmentCompat is the entry point to using the Preference library. This
  * {@link Fragment} displays a hierarchy of {@link Preference} objects to the user. It also
@@ -118,18 +120,9 @@ public abstract class PreferenceFragmentCompat extends Fragment implements
     private int mLayoutResId = R.layout.preference_list_fragment;
     private Runnable mSelectPreferenceRunnable;
 
-    private Handler mHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case MSG_BIND_PREFERENCES:
-                    bindPreferences();
-                    break;
-            }
-        }
-    };
+    private final Handler mHandler = new PreferenceHandler(this);
 
-    final private Runnable mRequestFocus = new Runnable() {
+    private final Runnable mRequestFocus = new Runnable() {
         @Override
         public void run() {
             mList.focusableViewAvailable(mList);
@@ -140,13 +133,13 @@ public abstract class PreferenceFragmentCompat extends Fragment implements
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         final TypedValue tv = new TypedValue();
-        getActivity().getTheme().resolveAttribute(R.attr.preferenceTheme, tv, true);
+        requireActivity().getTheme().resolveAttribute(R.attr.preferenceTheme, tv, true);
         int theme = tv.resourceId;
         if (theme == 0) {
             // Fallback to default theme.
             theme = R.style.PreferenceThemeOverlay;
         }
-        getActivity().getTheme().applyStyle(theme, false);
+        requireActivity().getTheme().applyStyle(theme, false);
 
         mPreferenceManager = new PreferenceManager(getContext());
         mPreferenceManager.setOnNavigateToScreenListener(this);
@@ -170,13 +163,14 @@ public abstract class PreferenceFragmentCompat extends Fragment implements
      * @param rootKey            If non-null, this preference fragment should be rooted at the
      *                           {@link PreferenceScreen} with this key.
      */
-    public abstract void onCreatePreferences(Bundle savedInstanceState, String rootKey);
+    public abstract void onCreatePreferences(@Nullable Bundle savedInstanceState,
+            @Nullable String rootKey);
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
 
-        TypedArray a = getContext().obtainStyledAttributes(null,
+        TypedArray a = requireContext().obtainStyledAttributes(null,
                 R.styleable.PreferenceFragmentCompat,
                 R.attr.preferenceFragmentCompatStyle,
                 0);
@@ -424,7 +418,7 @@ public abstract class PreferenceFragmentCompat extends Fragment implements
                         // Attempt to replace this fragment in its root view - developers should
                         // implement onPreferenceStartFragment in their activity so that they can
                         // customize this behaviour and handle any transitions between fragments
-                        .replace((((View) getView().getParent()).getId()), fragment)
+                        .replace((((View) requireView().getParent()).getId()), fragment)
                         .addToBackStack(null)
                         .commit();
             }
@@ -530,7 +524,7 @@ public abstract class PreferenceFragmentCompat extends Fragment implements
             Bundle savedInstanceState) {
         // If device detected is Auto, use Auto's custom layout that contains a custom ViewGroup
         // wrapping a RecyclerView
-        if (getContext().getPackageManager().hasSystemFeature(PackageManager
+        if (requireContext().getPackageManager().hasSystemFeature(PackageManager
                 .FEATURE_AUTOMOTIVE)) {
             RecyclerView recyclerView = parent.findViewById(R.id.recycler_view);
             if (recyclerView != null) {
@@ -592,7 +586,7 @@ public abstract class PreferenceFragmentCompat extends Fragment implements
         }
 
         // check if dialog is already showing
-        if (getFragmentManager().findFragmentByTag(DIALOG_FRAGMENT_TAG) != null) {
+        if (requireFragmentManager().findFragmentByTag(DIALOG_FRAGMENT_TAG) != null) {
             return;
         }
 
@@ -611,7 +605,7 @@ public abstract class PreferenceFragmentCompat extends Fragment implements
                             + "displaying a custom dialog for this Preference.");
         }
         f.setTargetFragment(this, 0);
-        f.show(getFragmentManager(), DIALOG_FRAGMENT_TAG);
+        f.show(requireFragmentManager(), DIALOG_FRAGMENT_TAG);
     }
 
     /**
@@ -725,7 +719,7 @@ public abstract class PreferenceFragmentCompat extends Fragment implements
         private final Preference mPreference;
         private final String mKey;
 
-        public ScrollToPreferenceObserver(RecyclerView.Adapter adapter, RecyclerView list,
+        ScrollToPreferenceObserver(RecyclerView.Adapter adapter, RecyclerView list,
                 Preference preference, String key) {
             mAdapter = adapter;
             mList = list;
@@ -788,7 +782,8 @@ public abstract class PreferenceFragmentCompat extends Fragment implements
         DividerDecoration() {}
 
         @Override
-        public void onDrawOver(Canvas c, RecyclerView parent, RecyclerView.State state) {
+        public void onDrawOver(@NonNull Canvas c, @NonNull RecyclerView parent,
+                @NonNull RecyclerView.State state) {
             if (mDivider == null) {
                 return;
             }
@@ -805,8 +800,8 @@ public abstract class PreferenceFragmentCompat extends Fragment implements
         }
 
         @Override
-        public void getItemOffsets(Rect outRect, View view, RecyclerView parent,
-                RecyclerView.State state) {
+        public void getItemOffsets(@NonNull Rect outRect, @NonNull View view,
+                @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
             if (shouldDrawDividerBelow(view, parent)) {
                 outRect.bottom = mDividerHeight;
             }
@@ -847,6 +842,24 @@ public abstract class PreferenceFragmentCompat extends Fragment implements
 
         public void setAllowDividerAfterLastItem(boolean allowDividerAfterLastItem) {
             mAllowDividerAfterLastItem = allowDividerAfterLastItem;
+        }
+    }
+
+    private static class PreferenceHandler extends Handler {
+        private WeakReference<PreferenceFragmentCompat> mFragmentReference;
+
+        PreferenceHandler(PreferenceFragmentCompat fragment) {
+            mFragmentReference = new WeakReference<>(fragment);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            if (msg.what == MSG_BIND_PREFERENCES) {
+                PreferenceFragmentCompat fragment = mFragmentReference.get();
+                if (fragment != null) {
+                    fragment.bindPreferences();
+                }
+            }
         }
     }
 }
