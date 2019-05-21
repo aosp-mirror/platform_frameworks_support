@@ -22,6 +22,30 @@
       "revId": "9ac2c4f3b83a1028e7a552d0e7c73d14dc405a4d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3fefa32_15b01019",
+        "filename": "room/runtime/src/main/java/androidx/room/InvalidationTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-05-21T00:11:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3cf11161_f9450ad0",
+      "range": {
+        "startLine": 182,
+        "startChar": 12,
+        "endLine": 182,
+        "endChar": 20
+      },
+      "revId": "9ac2c4f3b83a1028e7a552d0e7c73d14dc405a4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
