@@ -16,6 +16,23 @@
       "revId": "1c328b19bb822fa2e56f165f5eeb626aab23be2a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d08ecc77_83ad4d2a",
+        "filename": "benchmark/src/main/java/androidx/benchmark/BenchmarkRule.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1073883
+      },
+      "writtenOn": "2019-05-21T18:26:16Z",
+      "side": 0,
+      "message": "I am not exactly sure if anything changed recently that will support only digits inside [] associated with the method name.\n\nAdded\n+jdesprez in case if he is aware of any change.",
+      "revId": "1c328b19bb822fa2e56f165f5eeb626aab23be2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
