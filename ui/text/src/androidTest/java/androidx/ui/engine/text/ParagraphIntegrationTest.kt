@@ -1032,6 +1032,54 @@ class ParagraphIntegrationTest {
     }
 
     @Test
+    fun textStyle_fontSizeScale() {
+        val text = "abcde"
+        val fontSize = 20f
+        val fontSizeScale = 0.5f
+        val textStyle = TextStyle(fontSizeScale = fontSizeScale)
+
+        val paragraph = simpleParagraph(
+            text = text,
+            textStyles = listOf(ParagraphBuilder.TextStyleIndex(textStyle, 0, text.length)),
+            fontSize = fontSize
+        )
+        paragraph.layout(ParagraphConstraints(width = Float.MAX_VALUE))
+        val paragraphImpl = paragraph.paragraphImpl
+
+        assertThat(
+            paragraphImpl.getLineRight(0),
+            equalTo(text.length * fontSize * fontSizeScale)
+        )
+    }
+
+    @Test
+    fun textStyle_fontSizeScaleNested() {
+        val text = "abcde"
+        val fontSize = 20f
+        val fontSizeScale = 0.5f
+        val textStyle = TextStyle(fontSizeScale = fontSizeScale)
+
+        val fontSizeScaleNested = 2f
+        val textStyleNested = TextStyle(fontSizeScale = fontSizeScaleNested)
+
+        val paragraph = simpleParagraph(
+            text = text,
+            textStyles = listOf(
+                ParagraphBuilder.TextStyleIndex(textStyle, 0, text.length),
+                ParagraphBuilder.TextStyleIndex(textStyleNested, 0, text.length)
+            ),
+            fontSize = fontSize
+        )
+        paragraph.layout(ParagraphConstraints(width = Float.MAX_VALUE))
+        val paragraphImpl = paragraph.paragraphImpl
+
+        assertThat(
+            paragraphImpl.getLineRight(0),
+            equalTo(text.length * fontSize * fontSizeScale * fontSizeScaleNested)
+        )
+    }
+
+    @Test
     fun textStyle_setLetterSpacingOnWholeText() {
         val text = "abcde"
         val fontSize = 20.0f
