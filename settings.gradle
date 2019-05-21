@@ -220,6 +220,8 @@ includeProject(":work:work-runtime", "work/workmanager")
 includeProject(":work:work-gcm", "work/workmanager-gcm")
 includeProject(":work:work-runtime-ktx", "work/workmanager-ktx")
 includeProject(":work:work-rxjava2", "work/workmanager-rxjava2")
+includeProject(":work:work-agent", "work/workmanager-agent")
+includeProject(":work:work-inspector-protocol", "work/workmanager-inspector-protocol")
 includeProject(":work:work-testing", "work/workmanager-testing")
 includeProject(":work:integration-tests:testapp", "work/integration-tests/testapp")
 

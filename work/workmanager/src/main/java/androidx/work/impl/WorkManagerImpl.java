@@ -492,6 +492,16 @@ public class WorkManagerImpl extends WorkManager {
                 mWorkTaskExecutor);
     }
 
+    public @NonNull LiveData<List<WorkInfo>> getAllWorkInfos() {
+        WorkSpecDao workSpecDao = mWorkDatabase.workSpecDao();
+        LiveData<List<WorkSpec.WorkInfoPojo>> inputLiveData =
+                workSpecDao.getAllWorkStatusLiveData();
+        return LiveDataUtils.dedupedMappedLiveDataFor(
+                inputLiveData,
+                WorkSpec.WORK_INFO_MAPPER,
+                mWorkTaskExecutor);
+    }
+
     @Override
     public @NonNull ListenableFuture<List<WorkInfo>> getWorkInfosByTag(@NonNull String tag) {
         StatusRunnable<List<WorkInfo>> runnable = StatusRunnable.forTag(this, tag);

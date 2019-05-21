@@ -1,0 +1,69 @@
+import androidx.build.AndroidXExtension
+import androidx.build.LibraryGroups
+import androidx.build.LibraryVersions
+import androidx.build.Publish
+
+plugins {
+    id("AndroidXPlugin")
+    id("java")
+    id("org.anarres.jarjar")
+    id("com.google.protobuf") version("0.8.8")
+}
+
+
+dependencies {
+    implementation "com.google.protobuf:protobuf-lite:3.0.1"
+}
+
+sourceCompatibility = "7"
+targetCompatibility = "7"
+
+
+protobuf {
+    protoc { artifact = 'com.google.protobuf:protoc:3.7.1' }
+    plugins {
+        javalite { artifact = "com.google.protobuf:protoc-gen-javalite:3.0.0" }
+    }
+    generateProtoTasks {
+        all().each { task ->
+            task.builtins {
+                // In most cases you don't need the full Java output
+                // if you use the lite output.
+                remove java
+            }
+            task.plugins {
+                javalite {}
+            }
+        }
+    }
+}
+
+
+jarjar.repackage('fullJar') {
+    destinationName "protocol-java.jar"
+    from 'com.google.protobuf:protobuf-lite:3.0.1'
+    from files(sourceSets.main.output.classesDirs)
+    dependsOn sourceSets.main.output
+    classRename 'com.google.protobuf.**', 'androidx.inspection.workmanager.protobuf.@1'
+}
+
+configurations {
+    repackaged {
+        outgoing.artifact(
+                file: new File(buildDir, "jarjar/protocol-java.jar"),
+                type: ArtifactTypeDefinition.JAR_TYPE,
+                builtBy: tasks['fullJar'])
+    }
+}
+
+androidx {
+    name = "Android WorkManager Instrumentation Support"
+    publish = Publish.SNAPSHOT_AND_RELEASE
+    toolingProject = true
+    mavenVersion = LibraryVersions.WORK
+    mavenGroup = LibraryGroups.WORK
+    inceptionYear = "2019"
+    description = "Android WorkManager Protocol for "
+    url = AndroidXExtension.ARCHITECTURE_URL
+    failOnDeprecationWarnings = false
+}

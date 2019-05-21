@@ -39,6 +39,9 @@ def addMavenRepositories(RepositoryHandler handler) {
             url repo
         }
     }
+//    handler.mavenCentral()
+//    handler.jcenter()
+
     if (System.getenv("ALLOW_PUBLIC_REPOS") != null || (isUnbundledBuild(ext.supportRootFolder))) {
         handler.mavenCentral()
         handler.jcenter()

@@ -68,6 +68,7 @@ dependencies {
     implementation build_libs.error_prone_gradle
     implementation build_libs.dokka_gradle
     implementation build_libs.kotlin.gradle_plugin
+    implementation 'org.anarres.jarjar:jarjar-gradle:1.0.1'
     implementation gradleApi()
     implementation project("jetpad-integration")
     testImplementation "junit:junit:4.12"

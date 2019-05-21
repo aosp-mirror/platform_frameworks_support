@@ -36,6 +36,8 @@ import androidx.build.dokka.DokkaSourceDocs
 import androidx.build.gmaven.GMavenVersionChecker
 import androidx.build.gradle.getByType
 import androidx.build.gradle.isRoot
+import androidx.build.inspection.Inspections
+import androidx.build.inspection.isAgentProject
 import androidx.build.jacoco.Jacoco
 import androidx.build.license.CheckExternalDependencyLicensesTask
 import androidx.build.license.configureExternalDependencyLicenseCheck
@@ -167,13 +169,17 @@ class AndroidXPlugin : Plugin<Project> {
                         }
                         libraryVariant.javaCompileProvider.configure { task ->
                             task.options.compilerArgs.add("-Werror")
-                            task.options.compilerArgs.add("-Xlint:unchecked")
+//                            task.options.compilerArgs.add("-Xlint:unchecked")
                         }
                     }
                     project.configureLint(extension.lintOptions, androidXExtension)
                     project.configureAndroidProjectForDokka(extension, androidXExtension)
                     project.configureAndroidProjectForMetalava(extension, androidXExtension)
                     project.addToProjectMap(androidXExtension)
+
+                    if (project.isAgentProject()) {
+                        Inspections.createAgentsTasks(project)
+                    }
                 }
                 is AppPlugin -> {
                     project.extensions.getByType<AppExtension>().apply {

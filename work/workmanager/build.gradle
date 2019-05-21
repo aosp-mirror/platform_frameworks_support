@@ -52,10 +52,15 @@ dependencies {
         implementation(project(":room:room-runtime"))
         androidTestImplementation(project(":room:room-testing"))
     } else {
-        annotationProcessor(WORK_ARCH_ROOM_COMPILER)
-        implementation(WORK_ARCH_ROOM_RUNTIME)
-        androidTestImplementation(WORK_ARCH_ROOM_TESTING)
+        annotationProcessor(project(":room:room-compiler"))
+        implementation(project(":room:room-runtime"))
+        androidTestImplementation(project(":room:room-testing"))
+
+//        annotationProcessor(WORK_ARCH_ROOM_COMPILER)
+//        implementation(WORK_ARCH_ROOM_RUNTIME)
+//        androidTestImplementation(WORK_ARCH_ROOM_TESTING)
     }
+
     api(GUAVA_LISTENABLE_FUTURE)
     api(ARCH_LIFECYCLE_LIVEDATA)
     implementation(ANDROIDX_CORE)

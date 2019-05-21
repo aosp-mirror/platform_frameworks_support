@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "androidx.work.inspector.proto";
+option java_outer_classname = "WorkManagerInspectorProto";
+option objc_class_prefix = "HLW";
+
+package androidx.work.messages;
+
+// The request message containing the user's name.
+
+
+message WorkerCommand {
+    message StartWorker {
+      string worker_id = 1;
+    }
+
+    oneof union {
+        StartWorker start_worker = 1;
+    }
+}
+
+message WorkerEvent {
+    message StateUpdated {
+        string worker_id = 1;
+        string status = 2;
+    }
+
+    oneof union {
+        StateUpdated state_updated = 1;
+    }
+}
+
+message WorkerReply {
+    message Ack {
+        int32 error_code = 1;
+    }
+    oneof union {
+        Ack ack = 1;
+    }
+}
