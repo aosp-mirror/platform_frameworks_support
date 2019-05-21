@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1f85bb34_2ba8901b",
+        "filename": "benchmark/src/androidTest/java/androidx/benchmark/ParameterizedBenchmark.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-05-21T21:31:18Z",
+      "side": 1,
+      "message": "oh, since this is in the test dir, suggest List(2), just to make this faster :D",
+      "revId": "c5bdb4dcc2044dbad1765f4dbf17f260eacc6fe1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ab0e87e_6731d3ec",
+        "filename": "benchmark/src/androidTest/java/androidx/benchmark/ParameterizedBenchmark.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-05-21T21:31:18Z",
+      "side": 1,
+      "message": "fun noop() \u003d benchmarkRule.measureRepeated {}",
+      "revId": "c5bdb4dcc2044dbad1765f4dbf17f260eacc6fe1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

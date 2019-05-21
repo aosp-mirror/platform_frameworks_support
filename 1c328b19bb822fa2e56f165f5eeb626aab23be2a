@@ -87,6 +87,24 @@
       "revId": "1c328b19bb822fa2e56f165f5eeb626aab23be2a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5e5187d_595ea735",
+        "filename": "benchmark/src/main/java/androidx/benchmark/BenchmarkRule.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-05-21T21:31:18Z",
+      "side": 0,
+      "message": "Interesting - we\u0027ve had a workaround for only-digit behavior since this infra first landed back in June 2016: https://googleplex-android-review.git.corp.google.com/c/platform/frameworks/base/+/1179184 Unfortunately it doesn\u0027t comment as to why.\n\nAnyway, removing this looks good.",
+      "parentUuid": "d97bb2d3_8a45598f",
+      "revId": "1c328b19bb822fa2e56f165f5eeb626aab23be2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
