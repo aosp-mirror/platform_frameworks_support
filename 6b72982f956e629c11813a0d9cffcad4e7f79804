@@ -272,6 +272,30 @@
     },
     {
       "key": {
+        "uuid": "8d943ee1_f2a818b1",
+        "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 515,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-05-21T09:38:08Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "94106ab0_3987559b",
+      "range": {
+        "startLine": 514,
+        "startChar": 8,
+        "endLine": 515,
+        "endChar": 35
+      },
+      "revId": "6b72982f956e629c11813a0d9cffcad4e7f79804",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f3b17be6_1ddb3059",
         "filename": "media2/session/src/androidTest/java/androidx/media2/session/MediaControllerTest.java",
         "patchSetId": 10
@@ -672,6 +696,30 @@
     },
     {
       "key": {
+        "uuid": "ece45c55_b56d6b5b",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaController.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1704,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-05-21T09:38:08Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "38ec837e_496d1544",
+      "range": {
+        "startLine": 1704,
+        "startChar": 39,
+        "endLine": 1704,
+        "endChar": 49
+      },
+      "revId": "6b72982f956e629c11813a0d9cffcad4e7f79804",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "35b90986_fb227077",
         "filename": "media2/session/src/main/java/androidx/media2/session/MediaControllerImplBase.java",
         "patchSetId": 10
@@ -989,6 +1037,30 @@
       "side": 1,
       "message": "Only a track that is currently selected can be deselected but MediaPlayer only supports deselecting subtitle tracks.\n\nBut the specific implementation of these APIs will vary by the players, so I don\u0027t think we need to add guideline for how MediaController will be notified of the failure.",
       "parentUuid": "43f2caa6_b8b698cf",
+      "range": {
+        "startLine": 439,
+        "startChar": 8,
+        "endLine": 439,
+        "endChar": 44
+      },
+      "revId": "6b72982f956e629c11813a0d9cffcad4e7f79804",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "571072eb_4b74422c",
+        "filename": "media2/session/version-compat-tests/current/client/src/androidTest/java/androidx/media2/test/client/tests/MediaControllerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 439,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-05-21T09:38:08Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "4cfe3223_f3f36124",
       "range": {
         "startLine": 439,
         "startChar": 8,
