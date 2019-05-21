@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a934ec9_75cd9b8f",
+        "filename": "benchmark/src/androidTest/java/androidx/benchmark/ParameterizedBenchmark.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-05-21T15:46:00Z",
+      "side": 1,
+      "message": "Shouldn\u0027t arrayOf(1,2,3,4,5,6) be enough here?",
+      "range": {
+        "startLine": 31,
+        "startChar": 20,
+        "endLine": 39,
+        "endChar": 9
+      },
+      "revId": "690a95ed9fc32ac02fb29b4a5f94b397cfc448db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
