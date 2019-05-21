@@ -54,23 +54,23 @@ class IsTypefaceOf(
 
     private val DEFINED_CHARACTERS = arrayOf(
         CharacterInfo('a', FontWeight.w100, FontStyle.italic),
-        CharacterInfo('b', FontWeight.w100, FontStyle.normal),
+        CharacterInfo('b', FontWeight.w100, FontStyle.Normal),
         CharacterInfo('c', FontWeight.w200, FontStyle.italic),
-        CharacterInfo('d', FontWeight.w200, FontStyle.normal),
+        CharacterInfo('d', FontWeight.w200, FontStyle.Normal),
         CharacterInfo('e', FontWeight.w300, FontStyle.italic),
-        CharacterInfo('f', FontWeight.w300, FontStyle.normal),
+        CharacterInfo('f', FontWeight.w300, FontStyle.Normal),
         CharacterInfo('g', FontWeight.w400, FontStyle.italic),
-        CharacterInfo('h', FontWeight.w400, FontStyle.normal),
+        CharacterInfo('h', FontWeight.w400, FontStyle.Normal),
         CharacterInfo('i', FontWeight.w500, FontStyle.italic),
-        CharacterInfo('j', FontWeight.w500, FontStyle.normal),
+        CharacterInfo('j', FontWeight.w500, FontStyle.Normal),
         CharacterInfo('k', FontWeight.w600, FontStyle.italic),
-        CharacterInfo('l', FontWeight.w600, FontStyle.normal),
+        CharacterInfo('l', FontWeight.w600, FontStyle.Normal),
         CharacterInfo('m', FontWeight.w700, FontStyle.italic),
-        CharacterInfo('n', FontWeight.w700, FontStyle.normal),
+        CharacterInfo('n', FontWeight.w700, FontStyle.Normal),
         CharacterInfo('o', FontWeight.w800, FontStyle.italic),
-        CharacterInfo('p', FontWeight.w800, FontStyle.normal),
+        CharacterInfo('p', FontWeight.w800, FontStyle.Normal),
         CharacterInfo('q', FontWeight.w900, FontStyle.italic),
-        CharacterInfo('r', FontWeight.w900, FontStyle.normal)
+        CharacterInfo('r', FontWeight.w900, FontStyle.Normal)
     )
 
     private val FONT_SIZE = 10f

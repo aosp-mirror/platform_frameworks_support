@@ -155,7 +155,7 @@ fun TextDemoBasic() {
                     color = Color(0xFF00FF00.toInt()),
                     fontSize = fontSize8,
                     fontWeight = FontWeight.w500,
-                    fontStyle = FontStyle.normal
+                    fontStyle = FontStyle.Normal
                 )
             )
 
@@ -165,7 +165,7 @@ fun TextDemoBasic() {
                     color = Color(0xFF0000FF.toInt()),
                     fontSize = fontSize10,
                     fontWeight = FontWeight.w800,
-                    fontStyle = FontStyle.normal
+                    fontStyle = FontStyle.Normal
                 )
             )
         }
@@ -194,7 +194,7 @@ fun TextDemoLanguage() {
                     color = Color(0xFF00FF00.toInt()),
                     fontSize = fontSize8,
                     fontWeight = FontWeight.w500,
-                    fontStyle = FontStyle.normal
+                    fontStyle = FontStyle.Normal
                 )
             )
 
@@ -204,7 +204,7 @@ fun TextDemoLanguage() {
                     color = Color(0xFF0000FF.toInt()),
                     fontSize = fontSize10,
                     fontWeight = FontWeight.w800,
-                    fontStyle = FontStyle.normal
+                    fontStyle = FontStyle.Normal
                 )
             )
         }
@@ -617,7 +617,7 @@ fun TextDemoSelection() {
                             color = Color(0xFF0000FF.toInt()),
                             fontSize = fontSize10,
                             fontWeight = FontWeight.w800,
-                            fontStyle = FontStyle.normal
+                            fontStyle = FontStyle.Normal
                         )
                     )
                     Span(

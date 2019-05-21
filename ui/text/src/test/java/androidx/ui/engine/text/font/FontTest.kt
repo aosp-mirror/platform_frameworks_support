@@ -34,7 +34,7 @@ class FontTest {
     fun `default values`() {
         val font = Font(name = "fontName")
         assertThat(font.weight).isEqualTo(FontWeight.normal)
-        assertThat(font.style).isEqualTo(FontStyle.normal)
+        assertThat(font.style).isEqualTo(FontStyle.Normal)
         assertThat(font.ttcIndex).isEqualTo(0)
         assertThat(font.fontVariationSettings).isEmpty()
     }
