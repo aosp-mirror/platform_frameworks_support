@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c1d1b325_3238d8c6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-05-21T17:28:27Z",
+      "side": 1,
+      "message": "\"androidx.${groupIdWithoutAndroidx}_${artifactId}_${version}\"",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 31
+      },
+      "revId": "bccd274fc89f790b32fdabbe69552abcade9eb2d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
