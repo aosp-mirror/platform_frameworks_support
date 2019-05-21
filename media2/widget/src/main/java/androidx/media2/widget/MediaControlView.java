@@ -56,7 +56,6 @@ import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 import androidx.media2.common.MediaItem;
-import androidx.media2.common.MediaMetadata;
 import androidx.media2.common.SessionPlayer;
 import androidx.media2.common.UriMediaItem;
 import androidx.media2.session.MediaController;
@@ -70,7 +69,6 @@ import java.util.Arrays;
 import java.util.Formatter;
 import java.util.List;
 import java.util.Locale;
-import java.util.concurrent.Executor;
 
 /**
  * A View that contains the controls for {@link MediaController}.
@@ -157,7 +155,7 @@ public class MediaControlView extends ViewGroup {
     private static final String RESOURCE_EMPTY = "";
 
     Resources mResources;
-    Controller mController;
+    CommonPlayer mPlayer;
     OnFullScreenListener mOnFullScreenListener;
     private AccessibilityManager mAccessibilityManager;
     private int mEmbeddedSettingsItemWidth;
@@ -263,7 +261,6 @@ public class MediaControlView extends ViewGroup {
         super(context, attrs, defStyleAttr);
 
         mResources = context.getResources();
-        mController = new Controller();
         inflate(context, R.layout.media_controller, this);
         initControllerView();
         mDelayedAnimationIntervalMs = DEFAULT_DELAYED_ANIMATION_INTERVAL_MS;
@@ -280,7 +277,11 @@ public class MediaControlView extends ViewGroup {
         if (controller == null) {
             throw new NullPointerException("controller must not be null");
         }
-        mController.setMediaController(controller);
+        if (mPlayer != null) {
+            mPlayer.close();
+        }
+        mPlayer = new CommonPlayer(controller, ContextCompat.getMainExecutor(getContext()),
+                new Callback());
     }
 
     /**
@@ -329,6 +330,9 @@ public class MediaControlView extends ViewGroup {
 
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
+        if (mPlayer == null) {
+            return super.onTouchEvent(ev);
+        }
         if (ev.getAction() == MotionEvent.ACTION_UP) {
             if (mMediaType != MEDIA_TYPE_MUSIC || mSizeType != SIZE_TYPE_FULL) {
                 if (mUxState == UX_STATE_ALL_VISIBLE) {
@@ -343,6 +347,9 @@ public class MediaControlView extends ViewGroup {
 
     @Override
     public boolean onTrackballEvent(MotionEvent ev) {
+        if (mPlayer == null) {
+            return super.onTrackballEvent(ev);
+        }
         if (ev.getAction() == MotionEvent.ACTION_UP) {
             if (mMediaType != MEDIA_TYPE_MUSIC || mSizeType != SIZE_TYPE_FULL) {
                 if (mUxState == UX_STATE_ALL_VISIBLE) {
@@ -510,6 +517,7 @@ public class MediaControlView extends ViewGroup {
     public void onVisibilityAggregated(boolean isVisible) {
         super.onVisibilityAggregated(isVisible);
 
+        if (mPlayer == null) return;
         if (isVisible) {
             removeCallbacks(mUpdateProgress);
             post(mUpdateProgress);
@@ -777,7 +785,7 @@ public class MediaControlView extends ViewGroup {
                 mBasicControls.setVisibility(View.INVISIBLE);
 
                 findControlButton(SIZE_TYPE_FULL, R.id.ffwd).setVisibility(
-                        mController.canSeekForward() ? View.INVISIBLE : View.GONE);
+                        mPlayer.canSeekForward() ? View.INVISIBLE : View.GONE);
             }
         });
 
@@ -795,7 +803,7 @@ public class MediaControlView extends ViewGroup {
                 mBasicControls.setVisibility(View.VISIBLE);
 
                 findControlButton(SIZE_TYPE_FULL, R.id.ffwd).setVisibility(
-                        mController.canSeekForward() ? View.VISIBLE : View.GONE);
+                        mPlayer.canSeekForward() ? View.VISIBLE : View.GONE);
             }
 
             @Override
@@ -809,7 +817,7 @@ public class MediaControlView extends ViewGroup {
         @Override
         public void run() {
             boolean isShowing = getVisibility() == View.VISIBLE;
-            if (!mDragging && isShowing && mController.isPlaying()) {
+            if (!mDragging && isShowing && mPlayer.isPlaying()) {
                 long pos = setProgress();
                 postDelayedRunnable(mUpdateProgress,
                         DEFAULT_PROGRESS_UPDATE_TIME_MS - (pos % DEFAULT_PROGRESS_UPDATE_TIME_MS));
@@ -833,8 +841,10 @@ public class MediaControlView extends ViewGroup {
     }
 
     long setProgress() {
+        ensurePlayerIsNotNull();
+
         int positionOnProgressBar = 0;
-        long currentPosition = mController.getCurrentPosition();
+        long currentPosition = mPlayer.getCurrentPosition();
         if (currentPosition > mDuration) {
             currentPosition = mDuration;
         }
@@ -845,10 +855,10 @@ public class MediaControlView extends ViewGroup {
             mProgress.setProgress(positionOnProgressBar);
             // If the media is a local file, there is no need to set a buffer, so set secondary
             // progress to maximum.
-            if (mController.getBufferPercentage() < 0) {
+            if (mPlayer.getBufferPercentage() < 0) {
                 mProgress.setSecondaryProgress(MAX_PROGRESS);
             } else {
-                mProgress.setSecondaryProgress((int) mController.getBufferPercentage() * 10);
+                mProgress.setSecondaryProgress((int) mPlayer.getBufferPercentage() * 10);
             }
         }
 
@@ -893,18 +903,20 @@ public class MediaControlView extends ViewGroup {
     }
 
     void togglePausePlayState() {
+        ensurePlayerIsNotNull();
+
         ImageButton playPauseButton = findControlButton(mSizeType, R.id.pause);
-        if (mController.isPlaying()) {
-            mController.pause();
+        if (mPlayer.isPlaying()) {
+            mPlayer.pause();
             playPauseButton.setImageDrawable(
                     mResources.getDrawable(R.drawable.ic_play_circle_filled));
             playPauseButton.setContentDescription(
                     mResources.getString(R.string.mcv2_play_button_desc));
         } else {
             if (mIsShowingReplayButton) {
-                mController.seekTo(0);
+                mPlayer.seekTo(0);
             }
-            mController.play();
+            mPlayer.play();
             playPauseButton.setImageDrawable(
                     mResources.getDrawable(R.drawable.ic_pause_circle_filled));
             playPauseButton.setContentDescription(
@@ -944,7 +956,7 @@ public class MediaControlView extends ViewGroup {
                     mNeedToShowBars = true;
             }
 
-            if (mController.isPlaying()) {
+            if (mPlayer.isPlaying()) {
                 postDelayedRunnable(mHideMainBars, mDelayedAnimationIntervalMs);
             }
         }
@@ -963,7 +975,7 @@ public class MediaControlView extends ViewGroup {
     Runnable mHideMainBars = new Runnable() {
         @Override
         public void run() {
-            if (!mController.isPlaying() || shouldNotHideBars()) {
+            if (!mPlayer.isPlaying() || shouldNotHideBars()) {
                 return;
             }
             mHideMainBarsAnimator.start();
@@ -974,7 +986,7 @@ public class MediaControlView extends ViewGroup {
     final Runnable mHideProgressBar = new Runnable() {
         @Override
         public void run() {
-            if (!mController.isPlaying() || shouldNotHideBars()) {
+            if (!mPlayer.isPlaying() || shouldNotHideBars()) {
                 return;
             }
             mHideProgressBarAnimator.start();
@@ -995,7 +1007,7 @@ public class MediaControlView extends ViewGroup {
     private final OnSeekBarChangeListener mSeekListener = new OnSeekBarChangeListener() {
         @Override
         public void onStartTrackingTouch(SeekBar bar) {
-            if (!mSeekAvailable) {
+            if (mPlayer == null || !mSeekAvailable) {
                 return;
             }
 
@@ -1016,15 +1028,15 @@ public class MediaControlView extends ViewGroup {
                 updateReplayButton(false);
             }
 
-            if (isCurrentMediaItemFromNetwork() && mController.isPlaying()) {
+            if (isCurrentMediaItemFromNetwork() && mPlayer.isPlaying()) {
                 mWasPlaying = true;
-                mController.pause();
+                mPlayer.pause();
             }
         }
 
         @Override
         public void onProgressChanged(SeekBar bar, int progress, boolean fromUser) {
-            if (!mSeekAvailable) {
+            if (mPlayer == null || !mSeekAvailable) {
                 return;
             }
             if (!fromUser) {
@@ -1045,7 +1057,7 @@ public class MediaControlView extends ViewGroup {
 
         @Override
         public void onStopTrackingTouch(SeekBar bar) {
-            if (!mSeekAvailable) {
+            if (mPlayer == null || !mSeekAvailable) {
                 return;
             }
             mDragging = false;
@@ -1060,7 +1072,7 @@ public class MediaControlView extends ViewGroup {
 
             if (mWasPlaying) {
                 mWasPlaying = false;
-                mController.play();
+                mPlayer.play();
             }
         }
     };
@@ -1068,6 +1080,7 @@ public class MediaControlView extends ViewGroup {
     private final OnClickListener mPlayPauseListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
+            if (mPlayer == null) return;
             resetHideCallbacks();
             togglePausePlayState();
         }
@@ -1076,6 +1089,7 @@ public class MediaControlView extends ViewGroup {
     private final OnClickListener mRewListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
+            if (mPlayer == null) return;
             resetHideCallbacks();
             removeCallbacks(mUpdateProgress);
 
@@ -1093,6 +1107,7 @@ public class MediaControlView extends ViewGroup {
     private final OnClickListener mFfwdListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
+            if (mPlayer == null) return;
             resetHideCallbacks();
             removeCallbacks(mUpdateProgress);
 
@@ -1102,7 +1117,7 @@ public class MediaControlView extends ViewGroup {
             // Note: In some edge cases, mDuration might be less than actual duration of
             // the stream. If controller is in playing state, it should not show replay
             // button even when the seekPosition >= mDuration.
-            if (latestSeekPosition + FORWARD_TIME_MS >= mDuration && !mController.isPlaying()) {
+            if (latestSeekPosition + FORWARD_TIME_MS >= mDuration && !mPlayer.isPlaying()) {
                 updateReplayButton(/* toBeShown */ true);
             }
         }
@@ -1111,22 +1126,25 @@ public class MediaControlView extends ViewGroup {
     private final OnClickListener mNextListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
+            if (mPlayer == null) return;
             resetHideCallbacks();
-            mController.skipToNextItem();
+            mPlayer.skipToNextItem();
         }
     };
 
     private final OnClickListener mPrevListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
+            if (mPlayer == null) return;
             resetHideCallbacks();
-            mController.skipToPreviousItem();
+            mPlayer.skipToPreviousItem();
         }
     };
 
     private final OnClickListener mSubtitleListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
+            if (mPlayer == null) return;
             removeCallbacks(mHideMainBars);
             removeCallbacks(mHideProgressBar);
 
@@ -1140,6 +1158,7 @@ public class MediaControlView extends ViewGroup {
     private final OnClickListener mFullScreenListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
+            if (mPlayer == null) return;
             if (mOnFullScreenListener == null) {
                 return;
             }
@@ -1165,6 +1184,7 @@ public class MediaControlView extends ViewGroup {
     private final OnClickListener mOverflowShowListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
+            if (mPlayer == null) return;
             resetHideCallbacks();
 
             mOverflowIsShowing = true;
@@ -1175,6 +1195,7 @@ public class MediaControlView extends ViewGroup {
     private final OnClickListener mOverflowHideListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
+            if (mPlayer == null) return;
             resetHideCallbacks();
 
             mOverflowIsShowing = false;
@@ -1185,6 +1206,7 @@ public class MediaControlView extends ViewGroup {
     private final OnClickListener mSettingsButtonListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
+            if (mPlayer == null) return;
             removeCallbacks(mHideMainBars);
             removeCallbacks(mHideProgressBar);
 
@@ -1215,7 +1237,7 @@ public class MediaControlView extends ViewGroup {
                     if (position != mSelectedAudioTrackIndex) {
                         mSelectedAudioTrackIndex = position;
                         if (mAudioTrackCount > 0) {
-                            mController.selectAudioTrack(position);
+                            mPlayer.selectAudioTrack(position);
                         }
                         mSettingsSubTextsList.set(SETTINGS_MODE_AUDIO_TRACK,
                                 mSubSettingsAdapter.getMainText(position));
@@ -1225,16 +1247,16 @@ public class MediaControlView extends ViewGroup {
                 case SETTINGS_MODE_PLAYBACK_SPEED:
                     if (position != mSelectedSpeedIndex) {
                         float speed = mPlaybackSpeedMultBy100List.get(position) / 100.0f;
-                        mController.setSpeed(speed);
+                        mPlayer.setSpeed(speed);
                     }
                     dismissSettingsWindow();
                     break;
                 case SETTINGS_MODE_SUBTITLE_TRACK:
                     if (position != mSelectedSubtitleTrackIndex) {
                         if (position > 0) {
-                            mController.showSubtitle(position - 1);
+                            mPlayer.showSubtitle(position - 1);
                         } else {
-                            mController.hideSubtitle();
+                            mPlayer.hideSubtitle();
                         }
                     }
                     dismissSettingsWindow();
@@ -1254,23 +1276,25 @@ public class MediaControlView extends ViewGroup {
             };
 
     void updateMetadata() {
-        long duration = mController.getDurationMs();
+        ensurePlayerIsNotNull();
+
+        long duration = mPlayer.getDurationMs();
         if (duration != 0) {
             mDuration = duration;
             setProgress();
         }
 
         if (mMediaType != MEDIA_TYPE_MUSIC) {
-            CharSequence title = mController.getTitle();
+            CharSequence title = mPlayer.getTitle();
             if (title != null) {
                 mTitleView.setText(title.toString());
             }
         } else {
-            CharSequence title = mController.getTitle();
+            CharSequence title = mPlayer.getTitle();
             if (title == null) {
                 title = mResources.getString(R.string.mcv2_music_title_unknown_text);
             }
-            CharSequence artist = mController.getArtistText();
+            CharSequence artist = mPlayer.getArtistText();
             if (artist == null) {
                 artist = mResources.getString(R.string.mcv2_music_artist_unknown_text);
             }
@@ -1280,6 +1304,8 @@ public class MediaControlView extends ViewGroup {
     }
 
     void updateLayoutForAd() {
+        ensurePlayerIsNotNull();
+
         if (mIsAdvertisement) {
             findControlButton(SIZE_TYPE_FULL, R.id.rew).setVisibility(View.GONE);
             findControlButton(SIZE_TYPE_FULL, R.id.ffwd).setVisibility(View.GONE);
@@ -1297,14 +1323,14 @@ public class MediaControlView extends ViewGroup {
             mProgress.setEnabled(false);
         } else {
             findControlButton(SIZE_TYPE_FULL, R.id.rew).setVisibility(
-                    mController.canSeekBackward() ? View.VISIBLE : View.GONE);
+                    mPlayer.canSeekBackward() ? View.VISIBLE : View.GONE);
             findControlButton(SIZE_TYPE_FULL, R.id.ffwd).setVisibility(
-                    mController.canSeekForward() ? View.VISIBLE : View.GONE);
+                    mPlayer.canSeekForward() ? View.VISIBLE : View.GONE);
             findControlButton(SIZE_TYPE_FULL, R.id.prev).setVisibility(
-                    mController.canSkipToPrevious() ? View.VISIBLE : View.GONE);
+                    mPlayer.canSkipToPrevious() ? View.VISIBLE : View.GONE);
 
             findControlButton(SIZE_TYPE_FULL, R.id.next).setVisibility(
-                    mController.canSkipToNext() ? View.VISIBLE : View.GONE);
+                    mPlayer.canSkipToNext() ? View.VISIBLE : View.GONE);
             findControlButton(SIZE_TYPE_FULL, R.id.next).setEnabled(true);
             findControlButton(SIZE_TYPE_FULL, R.id.next).clearColorFilter();
 
@@ -1405,7 +1431,9 @@ public class MediaControlView extends ViewGroup {
      */
     @VisibleForTesting
     boolean isCurrentMediaItemFromNetwork() {
-        MediaItem currentMediaItem = mController.getCurrentMediaItem();
+        ensurePlayerIsNotNull();
+
+        MediaItem currentMediaItem = mPlayer.getCurrentMediaItem();
 
         if (!(currentMediaItem instanceof UriMediaItem)) {
             return false;
@@ -1467,11 +1495,13 @@ public class MediaControlView extends ViewGroup {
     }
 
     void updateAllowedCommands() {
-        boolean canPause = mController.canPause();
-        boolean canRew = mController.canSeekBackward();
-        boolean canFfwd = mController.canSeekForward();
-        boolean canPrev = mController.canSkipToPrevious();
-        boolean canNext = mController.canSkipToNext();
+        ensurePlayerIsNotNull();
+
+        boolean canPause = mPlayer.canPause();
+        boolean canRew = mPlayer.canSeekBackward();
+        boolean canFfwd = mPlayer.canSeekForward();
+        boolean canPrev = mPlayer.canSkipToPrevious();
+        boolean canNext = mPlayer.canSkipToNext();
 
         int n = mTransportControlsMap.size();
         for (int i = 0; i < n; i++) {
@@ -1498,11 +1528,11 @@ public class MediaControlView extends ViewGroup {
                 nextButton.setVisibility(canNext ? View.VISIBLE : View.GONE);
             }
         }
-        if (mController.canSeekTo()) {
+        if (mPlayer.canSeekTo()) {
             mSeekAvailable = true;
             mProgress.setEnabled(true);
         }
-        if (mController.canShowHideSubtitle()) {
+        if (mPlayer.canShowHideSubtitle()) {
             mSubtitleButton.setVisibility(View.VISIBLE);
         } else {
             mSubtitleButton.setVisibility(View.GONE);
@@ -1512,11 +1542,13 @@ public class MediaControlView extends ViewGroup {
     boolean shouldNotHideBars() {
         return (mMediaType == MEDIA_TYPE_MUSIC && mSizeType == SIZE_TYPE_FULL)
                 || mAccessibilityManager.isTouchExplorationEnabled()
-                || mController.getPlaybackState() == SessionPlayer.PLAYER_STATE_ERROR
-                || mController.getPlaybackState() == SessionPlayer.PLAYER_STATE_IDLE;
+                || mPlayer.getPlaybackState() == SessionPlayer.PLAYER_STATE_ERROR
+                || mPlayer.getPlaybackState() == SessionPlayer.PLAYER_STATE_IDLE;
     }
 
     void seekTo(long newPosition, boolean shouldSeekNow) {
+        ensurePlayerIsNotNull();
+
         int positionOnProgressBar = (mDuration <= 0)
                 ? 0 : (int) (MAX_PROGRESS * newPosition / mDuration);
         mProgress.setProgress(positionOnProgressBar);
@@ -1527,7 +1559,7 @@ public class MediaControlView extends ViewGroup {
             mCurrentSeekPosition = newPosition;
 
             if (shouldSeekNow) {
-                mController.seekTo(mCurrentSeekPosition);
+                mPlayer.seekTo(mCurrentSeekPosition);
             }
         } else {
             // If current seek position is already set, update the next seek position.
@@ -1536,12 +1568,14 @@ public class MediaControlView extends ViewGroup {
     }
 
     long getLatestSeekPosition() {
+        ensurePlayerIsNotNull();
+
         if (mNextSeekPosition != SEEK_POSITION_NOT_SET) {
             return mNextSeekPosition;
         } else if (mCurrentSeekPosition != SEEK_POSITION_NOT_SET) {
             return mCurrentSeekPosition;
         }
-        return mController.getCurrentPosition();
+        return mPlayer.getCurrentPosition();
     }
 
     void removeCustomSpeedFromList() {
@@ -1558,6 +1592,8 @@ public class MediaControlView extends ViewGroup {
     }
 
     void updateReplayButton(boolean toBeShown) {
+        ensurePlayerIsNotNull();
+
         ImageButton playPauseButton = findControlButton(mSizeType, R.id.pause);
         ImageButton ffwdButton = findControlButton(mSizeType, R.id.ffwd);
         if (toBeShown) {
@@ -1575,7 +1611,7 @@ public class MediaControlView extends ViewGroup {
         } else {
             mIsShowingReplayButton = false;
             if (playPauseButton != null) {
-                if (mController.isPlaying()) {
+                if (mPlayer.isPlaying()) {
                     playPauseButton.setImageDrawable(
                             mResources.getDrawable(R.drawable.ic_pause_circle_filled));
                     playPauseButton.setContentDescription(
@@ -1597,6 +1633,12 @@ public class MediaControlView extends ViewGroup {
     void postDelayedRunnable(Runnable runnable, long interval) {
         if (interval != DISABLE_DELAYED_ANIMATION) {
             postDelayed(runnable, interval);
+        }
+    }
+
+    private void ensurePlayerIsNotNull() {
+        if (mPlayer == null) {
+            throw new IllegalStateException("mPlayer must not be null");
         }
     }
 
@@ -1721,516 +1763,276 @@ public class MediaControlView extends ViewGroup {
         }
     }
 
-    class Controller {
-        private MediaController mController;
-        private MediaControllerCallback mControllerCallback;
-        private Executor mCallbackExecutor;
+    class Callback extends CommonPlayer.CommonCallback {
+        private int mPrevState = SessionPlayer.PLAYER_STATE_IDLE;
 
-        private SessionCommandGroup mAllowedCommands;
-        private MediaMetadata mMediaMetadata;
+        @Override
+        public void onPlayerStateChanged(@NonNull CommonPlayer player, int state) {
+            if (DEBUG) {
+                Log.d(TAG, "onPlayerStateChanged(state: " + state + ")");
+            }
 
-        Controller() {
-            mCallbackExecutor = ContextCompat.getMainExecutor(getContext());
-            mControllerCallback = new MediaControllerCallback();
+            // Update pause button depending on playback state for the following two reasons:
+            //   1) Need to handle case where app customizes playback state behavior when app
+            //      activity is resumed.
+            //   2) Need to handle case where the media file reaches end of duration.
+            if (state != mPrevState) {
+                ImageButton playPauseButton = findControlButton(mSizeType, R.id.pause);
+                switch (state) {
+                    case SessionPlayer.PLAYER_STATE_PLAYING:
+                        removeCallbacks(mUpdateProgress);
+                        post(mUpdateProgress);
+                        resetHideCallbacks();
+                        updateReplayButton(false);
+                        break;
+                    case SessionPlayer.PLAYER_STATE_PAUSED:
+                        playPauseButton.setImageDrawable(
+                                mResources.getDrawable(R.drawable.ic_play_circle_filled));
+                        playPauseButton.setContentDescription(
+                                mResources.getString(R.string.mcv2_play_button_desc));
+                        removeCallbacks(mUpdateProgress);
+                        removeCallbacks(mHideMainBars);
+                        removeCallbacks(mHideProgressBar);
+                        post(mShowAllBars);
+                        break;
+                    case SessionPlayer.PLAYER_STATE_ERROR:
+                        playPauseButton.setImageDrawable(
+                                mResources.getDrawable(R.drawable.ic_play_circle_filled));
+                        playPauseButton.setContentDescription(
+                                mResources.getString(R.string.mcv2_play_button_desc));
+                        removeCallbacks(mUpdateProgress);
+                        if (getWindowToken() != null) {
+                            new AlertDialog.Builder(getContext())
+                                    .setMessage(R.string.mcv2_playback_error_text)
+                                    .setPositiveButton(R.string.mcv2_error_dialog_button,
+                                            new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(
+                                                        DialogInterface dialogInterface,
+                                                        int i) {
+                                                    dialogInterface.dismiss();
+                                                }
+                                            })
+                                    .setCancelable(true)
+                                    .show();
+                        }
+                }
+                mPrevState = state;
+            }
         }
 
-        void setMediaController(@NonNull MediaController controller) {
-            if (mController == controller) {
-                if (DEBUG) {
-                    Log.w(TAG, "setMediaController: called with the same object. ignoring...");
-                }
-                return;
+        @Override
+        public void onSeekCompleted(@NonNull CommonPlayer player, long position) {
+            if (DEBUG) {
+                Log.d(TAG, "onSeekCompleted(): " + position);
             }
-            if (mController != null) {
-                mController.unregisterExtraCallback(mControllerCallback);
-            }
-            mController = controller;
-            mController.registerExtraCallback(mCallbackExecutor, mControllerCallback);
+            // Update progress bar and time text.
+            int positionOnProgressBar = (mDuration <= 0)
+                    ? 0 : (int) (MAX_PROGRESS * position / mDuration);
+            mProgress.setProgress(positionOnProgressBar);
+            mCurrentTime.setText(stringForTime(position));
 
-            updateAllowedCommands();
+            if (mNextSeekPosition != SEEK_POSITION_NOT_SET) {
+                mCurrentSeekPosition = mNextSeekPosition;
+
+                // If the next seek position is set, seek to that position.
+                player.seekTo(mNextSeekPosition);
+                mNextSeekPosition = SEEK_POSITION_NOT_SET;
+            } else {
+                mCurrentSeekPosition = SEEK_POSITION_NOT_SET;
+
+                // If the next seek position is not set and the progress bar thumb is not being
+                // dragged, start to update progress.
+                if (!mDragging) {
+                    removeCallbacks(mUpdateProgress);
+                    removeCallbacks(mHideMainBars);
+                    post(mUpdateProgress);
+                    postDelayedRunnable(mHideMainBars, mDelayedAnimationIntervalMs);
+                }
+            }
+        }
+
+        @Override
+        public void onCurrentMediaItemChanged(@NonNull CommonPlayer player,
+                @Nullable MediaItem mediaItem) {
+            if (DEBUG) {
+                Log.d(TAG, "onCurrentMediaItemChanged(): " + mediaItem);
+            }
             updateMetadata();
         }
 
-        boolean isPlaying() {
-            if (mController != null) {
-                return mController.getPlayerState() == SessionPlayer.PLAYER_STATE_PLAYING;
+        @Override
+        public void onPlaybackCompleted(@NonNull CommonPlayer player) {
+            if (DEBUG) {
+                Log.d(TAG, "onPlaybackCompleted()");
             }
-            return false;
+            updateReplayButton(true);
+            // The progress bar and current time text may not have been updated.
+            mProgress.setProgress(MAX_PROGRESS);
+            mCurrentTime.setText(stringForTime(mDuration));
         }
 
-        long getCurrentPosition() {
-            if (mController != null) {
-                long currentPosition = mController.getCurrentPosition();
-                return (currentPosition < 0) ? 0 : currentPosition;
-            }
-            return 0;
+        @Override
+        public void onAllowedCommandsChanged(@NonNull CommonPlayer player,
+                @NonNull SessionCommandGroup commands) {
+            updateAllowedCommands();
         }
 
-        long getBufferPercentage() {
-            if (mController != null && mDuration != 0) {
-                long bufferedPos = mController.getBufferedPosition();
-                return (bufferedPos < 0) ? -1 : (bufferedPos * 100 / mDuration);
-            }
-            return 0;
-        }
-
-        int getPlaybackState() {
-            if (mController != null) {
-                return mController.getPlayerState();
-            }
-            return SessionPlayer.PLAYER_STATE_IDLE;
-        }
-
-        boolean canPause() {
-            return mAllowedCommands != null && mAllowedCommands.hasCommand(
-                    SessionCommand.COMMAND_CODE_PLAYER_PAUSE);
-        }
-
-        boolean canSeekBackward() {
-            return mAllowedCommands != null && mAllowedCommands.hasCommand(
-                    SessionCommand.COMMAND_CODE_SESSION_REWIND);
-        }
-
-        boolean canSeekForward() {
-            return mAllowedCommands != null && mAllowedCommands.hasCommand(
-                    SessionCommand.COMMAND_CODE_SESSION_FAST_FORWARD);
-        }
-
-        boolean canSkipToNext() {
-            return mAllowedCommands != null && mAllowedCommands.hasCommand(
-                    SessionCommand.COMMAND_CODE_PLAYER_SKIP_TO_NEXT_PLAYLIST_ITEM);
-        }
-
-        boolean canSkipToPrevious() {
-            return mAllowedCommands != null && mAllowedCommands.hasCommand(
-                    SessionCommand.COMMAND_CODE_PLAYER_SKIP_TO_PREVIOUS_PLAYLIST_ITEM);
-        }
-
-        boolean canSeekTo() {
-            return mAllowedCommands != null && mAllowedCommands.hasCommand(
-                    SessionCommand.COMMAND_CODE_PLAYER_SEEK_TO);
-        }
-
-        boolean canShowHideSubtitle() {
-            return mAllowedCommands != null
-                    && mAllowedCommands.hasCommand(new SessionCommand(COMMAND_SHOW_SUBTITLE, null))
-                    && mAllowedCommands.hasCommand(new SessionCommand(COMMAND_HIDE_SUBTITLE, null));
-        }
-
-        void pause() {
-            if (mController != null) {
-                mController.pause();
-            }
-        }
-
-        void play() {
-            if (mController != null) {
-                mController.play();
-            }
-        }
-
-        void seekTo(long posMs) {
-            if (mController != null) {
-                mController.seekTo(posMs);
-            }
-        }
-
-        void skipToNextItem() {
-            if (mController != null) {
-                mController.skipToNextPlaylistItem();
-            }
-        }
-
-        void skipToPreviousItem() {
-            if (mController != null) {
-                mController.skipToPreviousPlaylistItem();
-            }
-        }
-
-        void setSpeed(float speed) {
-            if (mController != null) {
-                mController.setPlaybackSpeed(speed);
-            }
-        }
-
-        void selectAudioTrack(int trackIndex) {
-            if (mController != null) {
-                Bundle extra = new Bundle();
-                extra.putInt(KEY_SELECTED_AUDIO_INDEX, trackIndex);
-                mController.sendCustomCommand(
-                        new SessionCommand(COMMAND_SELECT_AUDIO_TRACK, null),
-                        extra);
-            }
-        }
-
-        void showSubtitle(int trackIndex) {
-            if (mController != null) {
-                Bundle extra = new Bundle();
-                extra.putInt(KEY_SELECTED_SUBTITLE_INDEX, trackIndex);
-                mController.sendCustomCommand(
-                        new SessionCommand(COMMAND_SHOW_SUBTITLE, null), extra);
-            }
-        }
-
-        void hideSubtitle() {
-            if (mController != null) {
-                mController.sendCustomCommand(
-                        new SessionCommand(COMMAND_HIDE_SUBTITLE, null), null);
-            }
-        }
-
-        long getDurationMs() {
-            // TODO Remove this if-block after b/109639439 is fixed.
-            if (mMediaMetadata != null) {
-                if (mMediaMetadata.containsKey(MediaMetadata.METADATA_KEY_DURATION)) {
-                    return mMediaMetadata.getLong(MediaMetadata.METADATA_KEY_DURATION);
-                }
-            }
-            if (mController != null) {
-                return mController.getDuration();
-            }
-            return 0;
-        }
-
-        CharSequence getTitle() {
-            if (mMediaMetadata != null) {
-                if (mMediaMetadata.containsKey(MediaMetadata.METADATA_KEY_TITLE)) {
-                    return mMediaMetadata.getText(MediaMetadata.METADATA_KEY_TITLE);
-                }
-            }
-            return null;
-        }
-
-        CharSequence getArtistText() {
-            if (mMediaMetadata != null) {
-                if (mMediaMetadata.containsKey(MediaMetadata.METADATA_KEY_ARTIST)) {
-                    return mMediaMetadata.getText(MediaMetadata.METADATA_KEY_ARTIST);
-                }
-            }
-            return null;
-        }
-
-        MediaItem getCurrentMediaItem() {
-            if (mController != null) {
-                return mController.getCurrentMediaItem();
-            }
-            return null;
-        }
-
-        void updateAllowedCommands() {
-            updateAllowedCommands(mController.getAllowedCommands());
-        }
-
-        void updateAllowedCommands(SessionCommandGroup allowedCommands) {
-            mAllowedCommands = allowedCommands;
-            if (mAllowedCommands != null) {
-                MediaControlView.this.updateAllowedCommands();
-            }
-        }
-
-        void updateMetadata() {
-            updateMetadata(mController.getCurrentMediaItem());
-        }
-
-        void updateMetadata(MediaItem item) {
-            mMediaMetadata = item == null ? null : item.getMetadata();
-            if (mMediaMetadata != null) {
-                MediaControlView.this.updateMetadata();
-            }
-        }
-
-        class MediaControllerCallback extends MediaController.ControllerCallback {
-            private int mPrevState = SessionPlayer.PLAYER_STATE_IDLE;
-
-            @Override
-            public void onPlayerStateChanged(@NonNull MediaController controller,
-                    @SessionPlayer.PlayerState int state) {
-                if (DEBUG) {
-                    Log.d(TAG, "onPlayerStateChanged(state: " + state + ")");
-                }
-
-                // Update pause button depending on playback state for the following two reasons:
-                //   1) Need to handle case where app customizes playback state behavior when app
-                //      activity is resumed.
-                //   2) Need to handle case where the media file reaches end of duration.
-                if (state != mPrevState) {
-                    ImageButton playPauseButton = findControlButton(mSizeType, R.id.pause);
-                    switch (state) {
-                        case SessionPlayer.PLAYER_STATE_PLAYING:
-                            removeCallbacks(mUpdateProgress);
-                            post(mUpdateProgress);
-                            resetHideCallbacks();
-                            updateReplayButton(false);
-                            break;
-                        case SessionPlayer.PLAYER_STATE_PAUSED:
-                            playPauseButton.setImageDrawable(
-                                    mResources.getDrawable(R.drawable.ic_play_circle_filled));
-                            playPauseButton.setContentDescription(
-                                    mResources.getString(R.string.mcv2_play_button_desc));
-                            removeCallbacks(mUpdateProgress);
-                            removeCallbacks(mHideMainBars);
-                            removeCallbacks(mHideProgressBar);
-                            post(mShowAllBars);
-                            break;
-                        case SessionPlayer.PLAYER_STATE_ERROR:
-                            playPauseButton.setImageDrawable(
-                                    mResources.getDrawable(R.drawable.ic_play_circle_filled));
-                            playPauseButton.setContentDescription(
-                                    mResources.getString(R.string.mcv2_play_button_desc));
-                            removeCallbacks(mUpdateProgress);
-                            if (getWindowToken() != null) {
-                                new AlertDialog.Builder(getContext())
-                                        .setMessage(R.string.mcv2_playback_error_text)
-                                        .setPositiveButton(R.string.mcv2_error_dialog_button,
-                                                new DialogInterface.OnClickListener() {
-                                                    @Override
-                                                    public void onClick(
-                                                            DialogInterface dialogInterface,
-                                                            int i) {
-                                                        dialogInterface.dismiss();
-                                                    }
-                                                })
-                                        .setCancelable(true)
-                                        .show();
-                            }
-                    }
-                    mPrevState = state;
-                }
+        @Override
+        public void onPlaybackSpeedChanged(@NonNull CommonPlayer player, float speed) {
+            int customSpeedMultBy100 = Math.round(speed * 100);
+            // An application may set a custom playback speed that is not included in the
+            // default playback speed list. The code below handles adding/removing the custom
+            // playback speed to the default list.
+            if (mCustomPlaybackSpeedIndex != -1) {
+                // Remove existing custom playback speed
+                removeCustomSpeedFromList();
             }
 
-            @Override
-            public void onSeekCompleted(@NonNull MediaController controller, long position) {
-                if (DEBUG) {
-                    Log.d(TAG, "onSeekCompleted(): " + position);
-                }
-                // Update progress bar and time text.
-                int positionOnProgressBar = (mDuration <= 0)
-                        ? 0 : (int) (MAX_PROGRESS * position / mDuration);
-                mProgress.setProgress(positionOnProgressBar);
-                mCurrentTime.setText(stringForTime(position));
-
-                if (mNextSeekPosition != SEEK_POSITION_NOT_SET) {
-                    mCurrentSeekPosition = mNextSeekPosition;
-
-                    // If the next seek position is set, seek to that position.
-                    MediaControlView.this.mController.seekTo(mNextSeekPosition);
-                    mNextSeekPosition = SEEK_POSITION_NOT_SET;
-                } else {
-                    mCurrentSeekPosition = SEEK_POSITION_NOT_SET;
-
-                    // If the next seek position is not set and the progress bar thumb is not being
-                    // dragged, start to update progress.
-                    if (!mDragging) {
-                        removeCallbacks(mUpdateProgress);
-                        removeCallbacks(mHideMainBars);
-                        post(mUpdateProgress);
-                        postDelayedRunnable(mHideMainBars, mDelayedAnimationIntervalMs);
+            if (mPlaybackSpeedMultBy100List.contains(customSpeedMultBy100)) {
+                for (int i = 0; i < mPlaybackSpeedMultBy100List.size(); i++) {
+                    if (customSpeedMultBy100 == mPlaybackSpeedMultBy100List.get(i)) {
+                        updateSelectedSpeed(i, mPlaybackSpeedTextList.get(i));
+                        break;
                     }
                 }
-            }
+            } else {
+                String customSpeedText = mResources.getString(
+                        R.string.MediaControlView_custom_playback_speed_text,
+                        customSpeedMultBy100 / 100.0f);
 
-            @Override
-            public void onCurrentMediaItemChanged(@NonNull MediaController controller,
-                    @Nullable MediaItem mediaItem) {
-                if (DEBUG) {
-                    Log.d(TAG, "onCurrentMediaItemChanged(): " + mediaItem);
+                for (int i = 0; i < mPlaybackSpeedMultBy100List.size(); i++) {
+                    if (customSpeedMultBy100 < mPlaybackSpeedMultBy100List.get(i)) {
+                        mPlaybackSpeedMultBy100List.add(i, customSpeedMultBy100);
+                        mPlaybackSpeedTextList.add(i, customSpeedText);
+                        updateSelectedSpeed(i, customSpeedText);
+                        break;
+                    }
+                    // Add to end of list if the custom speed value is greater than all the
+                    // value in the default speed list.
+                    if (i == mPlaybackSpeedMultBy100List.size() - 1
+                            && customSpeedMultBy100 > mPlaybackSpeedMultBy100List.get(i)) {
+                        mPlaybackSpeedMultBy100List.add(customSpeedMultBy100);
+                        mPlaybackSpeedTextList.add(customSpeedText);
+                        updateSelectedSpeed(i + 1, customSpeedText);
+                    }
                 }
-                updateMetadata(mediaItem);
+                mCustomPlaybackSpeedIndex = mSelectedSpeedIndex;
             }
+        }
 
-            @Override
-            public void onPlaybackCompleted(@NonNull MediaController controller) {
-                if (DEBUG) {
-                    Log.d(TAG, "onPlaybackCompleted()");
-                }
-                updateReplayButton(true);
-                // The progress bar and current time text may not have been updated.
-                mProgress.setProgress(MAX_PROGRESS);
-                mCurrentTime.setText(stringForTime(mDuration));
+        @Override
+        @NonNull
+        public SessionResult onCustomCommand(@NonNull CommonPlayer player,
+                @NonNull SessionCommand command, @Nullable Bundle args) {
+            if (DEBUG) {
+                Log.d(TAG, "onCustomCommand(): command: " + command);
             }
-
-            @Override
-            public void onConnected(@NonNull MediaController controller,
-                    @NonNull SessionCommandGroup allowedCommands) {
-                if (DEBUG) {
-                    Log.d(TAG, "onConnected(): " + allowedCommands);
-                }
-                updateAllowedCommands(allowedCommands);
-                updateMetadata();
-            }
-
-            @Override
-            public void onAllowedCommandsChanged(@NonNull MediaController controller,
-                    @NonNull SessionCommandGroup commands) {
-                updateAllowedCommands(commands);
-            }
-
-            @Override
-            public void onPlaylistChanged(@NonNull MediaController controller,
-                    @Nullable List<MediaItem> list,
-                    @Nullable MediaMetadata metadata) {
-                if (DEBUG) {
-                    Log.d(TAG, "onPlaylistChanged(): list: " + list);
-                }
-            }
-
-            @Override
-            public void onPlaybackSpeedChanged(@NonNull MediaController controller, float speed) {
-                int customSpeedMultBy100 = Math.round(speed * 100);
-                // An application may set a custom playback speed that is not included in the
-                // default playback speed list. The code below handles adding/removing the custom
-                // playback speed to the default list.
-                if (mCustomPlaybackSpeedIndex != -1) {
-                    // Remove existing custom playback speed
-                    removeCustomSpeedFromList();
-                }
-
-                if (mPlaybackSpeedMultBy100List.contains(customSpeedMultBy100)) {
-                    for (int i = 0; i < mPlaybackSpeedMultBy100List.size(); i++) {
-                        if (customSpeedMultBy100 == mPlaybackSpeedMultBy100List.get(i)) {
-                            updateSelectedSpeed(i, mPlaybackSpeedTextList.get(i));
-                            break;
+            switch (command.getCustomAction()) {
+                case EVENT_UPDATE_TRACK_STATUS:
+                    mHasVideo = (args != null) ? args.getBoolean(KEY_HAS_VIDEO) : false;
+                    // If there is one or more audio tracks, and this information has not been
+                    // reflected into the Settings window yet, automatically check the first
+                    // track.
+                    // Otherwise, the Audio Track selection will be defaulted to "None".
+                    mAudioTrackCount = (args != null) ? args.getInt(KEY_AUDIO_TRACK_COUNT) : 0;
+                    mAudioTrackList = new ArrayList<String>();
+                    if (mAudioTrackCount > 0) {
+                        for (int i = 0; i < mAudioTrackCount; i++) {
+                            String track = mResources.getString(
+                                    R.string.MediaControlView_audio_track_number_text, i + 1);
+                            mAudioTrackList.add(track);
                         }
+                        // Change sub text inside the Settings window.
+                        mSettingsSubTextsList.set(SETTINGS_MODE_AUDIO_TRACK,
+                                mAudioTrackList.get(0));
+                    } else {
+                        mAudioTrackList.add(mResources.getString(
+                                R.string.MediaControlView_audio_track_none_text));
                     }
-                } else {
-                    String customSpeedText = mResources.getString(
-                            R.string.MediaControlView_custom_playback_speed_text,
-                            customSpeedMultBy100 / 100.0f);
-
-                    for (int i = 0; i < mPlaybackSpeedMultBy100List.size(); i++) {
-                        if (customSpeedMultBy100 < mPlaybackSpeedMultBy100List.get(i)) {
-                            mPlaybackSpeedMultBy100List.add(i, customSpeedMultBy100);
-                            mPlaybackSpeedTextList.add(i, customSpeedText);
-                            updateSelectedSpeed(i, customSpeedText);
-                            break;
-                        }
-                        // Add to end of list if the custom speed value is greater than all the
-                        // value in the default speed list.
-                        if (i == mPlaybackSpeedMultBy100List.size() - 1
-                                && customSpeedMultBy100 > mPlaybackSpeedMultBy100List.get(i)) {
-                            mPlaybackSpeedMultBy100List.add(customSpeedMultBy100);
-                            mPlaybackSpeedTextList.add(customSpeedText);
-                            updateSelectedSpeed(i + 1, customSpeedText);
-                        }
+                    if (!mHasVideo && mAudioTrackCount > 0) {
+                        mMediaType = MEDIA_TYPE_MUSIC;
+                    } else {
+                        mMediaType = MEDIA_TYPE_DEFAULT;
                     }
-                    mCustomPlaybackSpeedIndex = mSelectedSpeedIndex;
-                }
-            }
-
-            @Override
-            @NonNull
-            public SessionResult onCustomCommand(
-                    @NonNull MediaController controller, @NonNull SessionCommand command,
-                    @Nullable Bundle args) {
-                if (DEBUG) {
-                    Log.d(TAG, "onCustomCommand(): command: " + command);
-                }
-                switch (command.getCustomAction()) {
-                    case EVENT_UPDATE_TRACK_STATUS:
-                        mHasVideo = (args != null) ? args.getBoolean(KEY_HAS_VIDEO) : false;
-                        // If there is one or more audio tracks, and this information has not been
-                        // reflected into the Settings window yet, automatically check the first
-                        // track.
-                        // Otherwise, the Audio Track selection will be defaulted to "None".
-                        mAudioTrackCount = (args != null) ? args.getInt(KEY_AUDIO_TRACK_COUNT) : 0;
-                        mAudioTrackList = new ArrayList<String>();
-                        if (mAudioTrackCount > 0) {
-                            for (int i = 0; i < mAudioTrackCount; i++) {
-                                String track = mResources.getString(
-                                        R.string.MediaControlView_audio_track_number_text, i + 1);
-                                mAudioTrackList.add(track);
-                            }
-                            // Change sub text inside the Settings window.
-                            mSettingsSubTextsList.set(SETTINGS_MODE_AUDIO_TRACK,
-                                    mAudioTrackList.get(0));
+                    List<String> subtitleTracksList = (args != null)
+                            ? args.getStringArrayList(KEY_SUBTITLE_TRACK_LANGUAGE_LIST) : null;
+                    if (subtitleTracksList == null || subtitleTracksList.isEmpty()) {
+                        // For Audio only media item, CC button will not be shown when there's
+                        // no subtitle tracks.
+                        if (mMediaType == MEDIA_TYPE_MUSIC) {
+                            mSubtitleButton.setVisibility(View.GONE);
                         } else {
-                            mAudioTrackList.add(mResources.getString(
-                                    R.string.MediaControlView_audio_track_none_text));
-                        }
-                        if (!mHasVideo && mAudioTrackCount > 0) {
-                            mMediaType = MEDIA_TYPE_MUSIC;
-                        } else {
-                            mMediaType = MEDIA_TYPE_DEFAULT;
-                        }
-                        List<String> subtitleTracksList = (args != null)
-                                ? args.getStringArrayList(KEY_SUBTITLE_TRACK_LANGUAGE_LIST) : null;
-                        if (subtitleTracksList == null || subtitleTracksList.isEmpty()) {
-                            // For Audio only media item, CC button will not be shown when there's
-                            // no subtitle tracks.
-                            if (mMediaType == MEDIA_TYPE_MUSIC) {
-                                mSubtitleButton.setVisibility(View.GONE);
-                            } else {
-                                mSubtitleButton.setVisibility(View.VISIBLE);
-                                mSubtitleButton.setAlpha(0.5f);
-                                mSubtitleButton.setEnabled(false);
-                            }
-                        } else {
-                            mSubtitleDescriptionsList = new ArrayList<String>();
-                            mSubtitleDescriptionsList.add(mResources.getString(
-                                    R.string.MediaControlView_subtitle_off_text));
-                            for (int i = 0; i < subtitleTracksList.size(); i++) {
-                                String lang = subtitleTracksList.get(i);
-                                String trackDescription;
-                                if (lang.equals("und")) {
-                                    trackDescription = mResources.getString(
-                                            R.string.MediaControlView_subtitle_track_number_text,
-                                            i + 1);
-                                } else {
-                                    trackDescription = mResources.getString(
-                                            R.string
-                                            .MediaControlView_subtitle_track_number_and_lang_text,
-                                            i + 1, lang);
-                                }
-                                mSubtitleDescriptionsList.add(trackDescription);
-                            }
                             mSubtitleButton.setVisibility(View.VISIBLE);
-                            mSubtitleButton.setAlpha(1.0f);
-                            mSubtitleButton.setEnabled(true);
+                            mSubtitleButton.setAlpha(0.5f);
+                            mSubtitleButton.setEnabled(false);
                         }
+                    } else {
+                        mSubtitleDescriptionsList = new ArrayList<String>();
+                        mSubtitleDescriptionsList.add(mResources.getString(
+                                R.string.MediaControlView_subtitle_off_text));
+                        for (int i = 0; i < subtitleTracksList.size(); i++) {
+                            String lang = subtitleTracksList.get(i);
+                            String trackDescription;
+                            if (lang.equals("und")) {
+                                trackDescription = mResources.getString(
+                                        R.string.MediaControlView_subtitle_track_number_text,
+                                        i + 1);
+                            } else {
+                                trackDescription = mResources.getString(
+                                        R.string
+                                        .MediaControlView_subtitle_track_number_and_lang_text,
+                                        i + 1, lang);
+                            }
+                            mSubtitleDescriptionsList.add(trackDescription);
+                        }
+                        mSubtitleButton.setVisibility(View.VISIBLE);
+                        mSubtitleButton.setAlpha(1.0f);
+                        mSubtitleButton.setEnabled(true);
+                    }
+                    break;
+                case EVENT_UPDATE_MEDIA_TYPE_STATUS:
+                    boolean isAd = (args != null)
+                            && args.getBoolean(KEY_STATE_IS_ADVERTISEMENT);
+                    if (isAd != mIsAdvertisement) {
+                        mIsAdvertisement = isAd;
+                        updateLayoutForAd();
+                    }
+                    break;
+                case EVENT_UPDATE_SUBTITLE_SELECTED:
+                    int selectedTrackIndex = args != null
+                            ? args.getInt(KEY_SELECTED_SUBTITLE_INDEX, -1)
+                            : -1;
+                    if (selectedTrackIndex < 0
+                            || selectedTrackIndex >= mSubtitleDescriptionsList.size()) {
+                        Log.w(TAG, "Selected subtitle track index (" + selectedTrackIndex
+                                + ") is out of range.");
                         break;
-                    case EVENT_UPDATE_MEDIA_TYPE_STATUS:
-                        boolean isAd = (args != null)
-                                && args.getBoolean(KEY_STATE_IS_ADVERTISEMENT);
-                        if (isAd != mIsAdvertisement) {
-                            mIsAdvertisement = isAd;
-                            updateLayoutForAd();
-                        }
-                        break;
-                    case EVENT_UPDATE_SUBTITLE_SELECTED:
-                        int selectedTrackIndex = args != null
-                                ? args.getInt(KEY_SELECTED_SUBTITLE_INDEX, -1)
-                                : -1;
-                        if (selectedTrackIndex < 0
-                                || selectedTrackIndex >= mSubtitleDescriptionsList.size()) {
-                            Log.w(TAG, "Selected subtitle track index (" + selectedTrackIndex
-                                    + ") is out of range.");
-                            break;
-                        }
-                        mSelectedSubtitleTrackIndex = selectedTrackIndex + 1;
-                        if (mSettingsMode == SETTINGS_MODE_SUBTITLE_TRACK) {
-                            mSubSettingsAdapter.setCheckPosition(mSelectedSubtitleTrackIndex);
-                        }
-                        mSubtitleButton.setImageDrawable(
-                                mResources.getDrawable(R.drawable.ic_subtitle_on));
-                        mSubtitleButton.setContentDescription(
-                                mResources.getString(R.string.mcv2_cc_is_on));
-                        break;
-                    case EVENT_UPDATE_SUBTITLE_DESELECTED:
-                        mSelectedSubtitleTrackIndex = 0;
-                        if (mSettingsMode == SETTINGS_MODE_SUBTITLE_TRACK) {
-                            mSubSettingsAdapter.setCheckPosition(mSelectedSubtitleTrackIndex);
-                        }
-                        mSubtitleButton.setImageDrawable(
-                                mResources.getDrawable(R.drawable.ic_subtitle_off));
-                        mSubtitleButton.setContentDescription(
-                                mResources.getString(R.string.mcv2_cc_is_off));
-                        break;
-                    default:
-                        return new SessionResult(
-                                RESULT_ERROR_NOT_SUPPORTED, null);
-                }
-                return new SessionResult(RESULT_SUCCESS, null);
+                    }
+                    mSelectedSubtitleTrackIndex = selectedTrackIndex + 1;
+                    if (mSettingsMode == SETTINGS_MODE_SUBTITLE_TRACK) {
+                        mSubSettingsAdapter.setCheckPosition(mSelectedSubtitleTrackIndex);
+                    }
+                    mSubtitleButton.setImageDrawable(
+                            mResources.getDrawable(R.drawable.ic_subtitle_on));
+                    mSubtitleButton.setContentDescription(
+                            mResources.getString(R.string.mcv2_cc_is_on));
+                    break;
+                case EVENT_UPDATE_SUBTITLE_DESELECTED:
+                    mSelectedSubtitleTrackIndex = 0;
+                    if (mSettingsMode == SETTINGS_MODE_SUBTITLE_TRACK) {
+                        mSubSettingsAdapter.setCheckPosition(mSelectedSubtitleTrackIndex);
+                    }
+                    mSubtitleButton.setImageDrawable(
+                            mResources.getDrawable(R.drawable.ic_subtitle_off));
+                    mSubtitleButton.setContentDescription(
+                            mResources.getString(R.string.mcv2_cc_is_off));
+                    break;
+                default:
+                    return new SessionResult(
+                            RESULT_ERROR_NOT_SUPPORTED, null);
             }
+            return new SessionResult(RESULT_SUCCESS, null);
         }
     }
 }
