@@ -45,6 +45,30 @@
       "revId": "559d1eab5f2254c323a09d0d618cde2a23a86512",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b18fdd09_c07583b7",
+        "filename": "media2/common/src/main/java/androidx/media2/common/SessionPlayer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 991,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-21T08:21:18Z",
+      "side": 1,
+      "message": "Talked offline. It should be @NonNull but there is currently no place in the code where this value is set as null. Also, MediaItem will soon be replaced with TrackInfo id.",
+      "parentUuid": "ade9cb6e_f3a1b736",
+      "range": {
+        "startLine": 991,
+        "startChar": 9,
+        "endLine": 991,
+        "endChar": 17
+      },
+      "revId": "559d1eab5f2254c323a09d0d618cde2a23a86512",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
