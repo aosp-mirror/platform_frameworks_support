@@ -158,24 +158,71 @@ public final class PreviewConfig
      * Returns the lens-facing direction of the camera being configured.
      *
      * @param valueIfMissing The value to return if this configuration option has not been set.
-     * @return The stored value or <code>valueIfMissing</code> if the value does not exist in this
-     * configuration.
+     * @return Lens facing determined by the lens facing camera id filter.
      */
     @Override
     @Nullable
     public CameraX.LensFacing getLensFacing(@Nullable CameraX.LensFacing valueIfMissing) {
-        return retrieveOption(OPTION_LENS_FACING, valueIfMissing);
+        CameraIdFilterSet cameraIdFilterSet = getCameraIdFilterSet(null);
+        if (cameraIdFilterSet == null) {
+            return valueIfMissing;
+        }
+
+        for (CameraIdFilter filter : cameraIdFilterSet.getCameraIdFilters()) {
+            if (filter instanceof LensFacingCameraIdFilter) {
+                return ((LensFacingCameraIdFilter) filter).getLensFacing();
+            }
+        }
+
+        return valueIfMissing;
     }
 
     /**
      * Retrieves the lens facing direction for the primary camera to be configured.
      *
-     * @return The stored value, if it exists in this configuration.
-     * @throws IllegalArgumentException if the option does not exist in this configuration.
+     * @return Lens facing determined by the lens facing camera id filter.
+     * @throws IllegalArgumentException if there's no lens facing camera id filter in this
+     *                                  configuration.
      */
     @Override
+    @NonNull
     public CameraX.LensFacing getLensFacing() {
-        return retrieveOption(OPTION_LENS_FACING);
+        CameraX.LensFacing lensFacing = getLensFacing(null);
+
+        if (lensFacing == null) {
+            throw new IllegalArgumentException("Lens facing hasn't been set.");
+        }
+
+        return lensFacing;
+    }
+
+    /**
+     * Returns the set of {@link CameraIdFilter} that filter out unavailable camera id.
+     *
+     * @param valueIfMissing The value to return if this configuration option has not been set.
+     * @return The stored value or <code>ValueIfMissing</code> if the value does not exist in this
+     * configuration.
+     * @hide
+     */
+    @RestrictTo(Scope.LIBRARY_GROUP)
+    @Override
+    @Nullable
+    public CameraIdFilterSet getCameraIdFilterSet(@Nullable CameraIdFilterSet valueIfMissing) {
+        return retrieveOption(OPTION_CAMERA_ID_FILTER_SET, valueIfMissing);
+    }
+
+    /**
+     * Returns the set of {@link CameraIdFilter} that filter out unavailable camera id.
+     *
+     * @return The stored value, if it exists in the configuration.
+     * @throws IllegalArgumentException if the option does not exist in this configuration.
+     * @hide
+     */
+    @RestrictTo(Scope.LIBRARY_GROUP)
+    @Override
+    @NonNull
+    public CameraIdFilterSet getCameraIdFilterSet() {
+        return retrieveOption(OPTION_CAMERA_ID_FILTER_SET);
     }
 
     // Implementations of ImageOutputConfig default methods
@@ -547,9 +594,57 @@ public final class PreviewConfig
          * @return the current Builder.
          */
         @Override
-        public Builder setLensFacing(CameraX.LensFacing lensFacing) {
-            getMutableConfig().insertOption(OPTION_LENS_FACING, lensFacing);
+        @NonNull
+        public Builder setLensFacing(@NonNull CameraX.LensFacing lensFacing) {
+            // Sets the corresponding camera id filter for the lens facing.
+            LensFacingCameraIdFilter lensFacingCameraIdFilter =
+                    CameraX.getCameraFactory().getLensFacingCameraIdFilter(lensFacing);
+            CameraIdFilterSet currentCameraIdFilterSet = build().getCameraIdFilterSet(null);
+            if (currentCameraIdFilterSet == null) {
+                CameraIdFilterSet newCameraIdFilterSet = new CameraIdFilterSet();
+                newCameraIdFilterSet.addCameraIdFilter(lensFacingCameraIdFilter);
+                setCameraIdFilterSet(newCameraIdFilterSet);
+            } else {
+                currentCameraIdFilterSet.replaceCameraIdFilter(lensFacingCameraIdFilter);
+            }
+
             return this;
+        }
+
+        /**
+         * Sets the set of {@link CameraIdFilter} that filter out the unavailable camera id.
+         *
+         * @param cameraIdFilterSet The set of {@link CameraIdFilter}.
+         * @return the current Builder.
+         * @hide
+         */
+        @RestrictTo(Scope.LIBRARY_GROUP)
+        @Override
+        @NonNull
+        public Builder setCameraIdFilterSet(@NonNull CameraIdFilterSet cameraIdFilterSet) {
+            getMutableConfig().insertOption(OPTION_CAMERA_ID_FILTER_SET, cameraIdFilterSet);
+            return this;
+        }
+
+        /**
+         * Adds a {@link CameraIdFilter} that filter out the unavailable camera id.
+         *
+         * @param cameraIdFilter The {@link CameraIdFilter}.
+         * @return the current Builder.
+         * @hide
+         */
+        @RestrictTo(Scope.LIBRARY_GROUP)
+        public Builder addCameraIdFilter(CameraIdFilter cameraIdFilter) {
+            CameraIdFilterSet cameraIdFilterSet = build().getCameraIdFilterSet(null);
+            if (cameraIdFilterSet == null) {
+                CameraIdFilterSet newCameraIdFilterSet = new CameraIdFilterSet();
+                newCameraIdFilterSet.addCameraIdFilter(cameraIdFilter);
+                return setCameraIdFilterSet(newCameraIdFilterSet);
+            }
+
+            cameraIdFilterSet.addCameraIdFilter(cameraIdFilter);
+
+            return setCameraIdFilterSet(cameraIdFilterSet);
         }
 
         // Implementations of ImageOutputConfig.Builder default methods
@@ -673,6 +768,7 @@ public final class PreviewConfig
         /** @hide */
         @RestrictTo(Scope.LIBRARY_GROUP)
         @Override
+        @NonNull
         public Builder setSurfaceOccupancyPriority(int priority) {
             getMutableConfig().insertOption(OPTION_SURFACE_OCCUPANCY_PRIORITY, priority);
             return this;
@@ -681,7 +777,9 @@ public final class PreviewConfig
         /** @hide */
         @RestrictTo(Scope.LIBRARY_GROUP)
         @Override
-        public Builder setUseCaseEventListener(UseCase.EventListener useCaseEventListener) {
+        @NonNull
+        public Builder setUseCaseEventListener(
+                @NonNull UseCase.EventListener useCaseEventListener) {
             getMutableConfig().insertOption(OPTION_USE_CASE_EVENT_LISTENER, useCaseEventListener);
             return this;
         }

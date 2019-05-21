@@ -18,6 +18,7 @@ package androidx.camera.core;
 
 import static com.google.common.truth.Truth.assertThat;
 
+import androidx.camera.testing.fakes.FakeCameraFactory;
 import androidx.camera.testing.fakes.FakeCameraIdFilter;
 import androidx.test.filters.SmallTest;
 
@@ -48,5 +49,22 @@ public class CameraIdFilterSetTest {
         mFilterSet.removeCameraIdFilter(filter1);
         assertThat(mFilterSet.getCameraIdFilters()).doesNotContain(filter1);
         assertThat(mFilterSet.getCameraIdFilters()).contains(filter2);
+    }
+
+    @Test
+    public void canReplaceCameraIdFilter() {
+        FakeCameraFactory cameraFactory = new FakeCameraFactory();
+        CameraIdFilter backFilter = cameraFactory.getLensFacingCameraIdFilter(
+                CameraX.LensFacing.BACK);
+        CameraIdFilter otherFilter = new FakeCameraIdFilter();
+        CameraIdFilter frontFilter = cameraFactory.getLensFacingCameraIdFilter(
+                CameraX.LensFacing.FRONT);
+
+        mFilterSet.addCameraIdFilter(backFilter);
+        mFilterSet.addCameraIdFilter(otherFilter);
+        mFilterSet.replaceCameraIdFilter(frontFilter);
+        assertThat(mFilterSet.getCameraIdFilters()).contains(otherFilter);
+        assertThat(mFilterSet.getCameraIdFilters()).contains(frontFilter);
+        assertThat(mFilterSet.getCameraIdFilters()).doesNotContain(backFilter);
     }
 }
