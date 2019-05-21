@@ -22,6 +22,30 @@
       "revId": "b2e65b678bec7d1566e5c0f94556c40ddf6fa5ad",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e97ef11c_9cb0cafd",
+        "filename": "car/cluster/src/main/java/androidx/car/cluster/navigation/EnumWrapper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1286929
+      },
+      "writtenOn": "2019-05-21T18:13:41Z",
+      "side": 1,
+      "message": "Updated",
+      "parentUuid": "5881a405_7d5b433a",
+      "range": {
+        "startLine": 39,
+        "startChar": 14,
+        "endLine": 39,
+        "endChar": 78
+      },
+      "revId": "b2e65b678bec7d1566e5c0f94556c40ddf6fa5ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
