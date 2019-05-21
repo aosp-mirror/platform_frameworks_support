@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a38dac2d_124f6010",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1738,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-21T10:19:59Z",
+      "side": 1,
+      "message": "That\u0027s better naming. As this class will be moved to a separate file as CommonPlayer (I\u0027ll rename it to WidgetPlayer as you suggested) in the next CL, may I keep the name unchanged for this CL?",
+      "parentUuid": "8e3fd494_442b8055",
+      "range": {
+        "startLine": 1738,
+        "startChar": 10,
+        "endLine": 1738,
+        "endChar": 20
+      },
+      "revId": "58882b57ad3239eb1d9742da00c8da693bf61c0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1da9f013_8817e59b",
         "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
         "patchSetId": 6
@@ -36,6 +60,30 @@
       "writtenOn": "2019-05-21T09:06:35Z",
       "side": 1,
       "message": "If we make mController @NonNull, we don\u0027t need to check this.",
+      "range": {
+        "startLine": 1762,
+        "startChar": 16,
+        "endLine": 1762,
+        "endChar": 27
+      },
+      "revId": "58882b57ad3239eb1d9742da00c8da693bf61c0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2cdd874_050d4c65",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1762,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-21T10:19:59Z",
+      "side": 1,
+      "message": "Right, but I\u0027m going to make this class wrap either a MediaController or a SessionPlayer in the next CL and one of them will be null. Does it make sense?",
+      "parentUuid": "1da9f013_8817e59b",
       "range": {
         "startLine": 1762,
         "startChar": 16,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "72eb3051_91281541",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1808,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-21T10:19:59Z",
+      "side": 1,
+      "message": "These are helper methods to check hasCommand of SessionCommandGroup. Do you want to remove them?",
+      "parentUuid": "c2876047_86615729",
+      "range": {
+        "startLine": 1808,
+        "startChar": 16,
+        "endLine": 1808,
+        "endChar": 24
+      },
+      "revId": "58882b57ad3239eb1d9742da00c8da693bf61c0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b09b662b_5ae7c962",
         "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
         "patchSetId": 6
@@ -91,6 +163,30 @@
       "revId": "58882b57ad3239eb1d9742da00c8da693bf61c0d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "884cde5b_05147a9c",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1975,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-21T10:19:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b09b662b_5ae7c962",
+      "range": {
+        "startLine": 1975,
+        "startChar": 0,
+        "endLine": 1975,
+        "endChar": 0
+      },
+      "revId": "58882b57ad3239eb1d9742da00c8da693bf61c0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "8cdda6ef_8dc2227c",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 2021,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-21T10:19:59Z",
+      "side": 1,
+      "message": "Changed to mSavedState",
+      "parentUuid": "36b147a2_61892497",
+      "range": {
+        "startLine": 2021,
+        "startChar": 20,
+        "endLine": 2021,
+        "endChar": 30
+      },
+      "revId": "58882b57ad3239eb1d9742da00c8da693bf61c0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "431739d7_ad54cf2d",
         "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
         "patchSetId": 6
@@ -128,6 +248,30 @@
       "writtenOn": "2019-05-21T09:06:35Z",
       "side": 1,
       "message": "What about not calling mMediaControlView.setMediaController() when mMediaController is null?\n\nWe can call it when we create mMediaController.",
+      "range": {
+        "startLine": 558,
+        "startChar": 45,
+        "endLine": 558,
+        "endChar": 93
+      },
+      "revId": "58882b57ad3239eb1d9742da00c8da693bf61c0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "005091ff_e769ebb6",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 558,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-21T10:19:59Z",
+      "side": 1,
+      "message": "I agree it\u0027s hard to read, but this is for assertion. attachMediaControlView method is called only when mMediaController (and mMediaSession) is not null. The method is already called when mMediaController is created.",
+      "parentUuid": "431739d7_ad54cf2d",
       "range": {
         "startLine": 558,
         "startChar": 45,
