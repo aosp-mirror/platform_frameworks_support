@@ -1029,8 +1029,8 @@ package androidx.ui.engine.text {
 
   public enum TextDirection {
     ctor protected TextDirection();
-    enum_constant public static final androidx.ui.engine.text.TextDirection LTR;
-    enum_constant public static final androidx.ui.engine.text.TextDirection RTL;
+    enum_constant public static final androidx.ui.engine.text.TextDirection Ltr;
+    enum_constant public static final androidx.ui.engine.text.TextDirection Rtl;
   }
 
   public final class TextPosition {
