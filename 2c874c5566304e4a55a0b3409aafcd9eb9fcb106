@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "13c6256a_9e050e50",
+        "filename": "navigation/runtime/src/main/java/androidx/navigation/NavHostController.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1442279
+      },
+      "writtenOn": "2019-05-21T20:22:16Z",
+      "side": 1,
+      "message": "I remember this method name was changed to ensure there was no misleading symmetry between this and getViewModelStore in NavController. Not sure if it still applies with the extended Host, just wanted to make sure it wasn\u0027t overlooked.",
+      "range": {
+        "startLine": 107,
+        "startChar": 16,
+        "endLine": 107,
+        "endChar": 33
+      },
+      "revId": "2c874c5566304e4a55a0b3409aafcd9eb9fcb106",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
