@@ -81,8 +81,7 @@ public final class PreviewConfigProvider implements ConfigProvider<PreviewConfig
             String defaultId = null;
 
             for (LensFacing lensFacingCandidate : lensFacingList) {
-                defaultId = mCameraFactory.cameraIdForLensFacing(lensFacingCandidate);
-                if (defaultId != null) {
+                if (mCameraFactory.hasCameraIdForLensFacing(lensFacingCandidate)) {
                     builder.setLensFacing(lensFacingCandidate);
                     break;
                 }

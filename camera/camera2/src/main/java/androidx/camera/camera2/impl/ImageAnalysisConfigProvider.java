@@ -87,8 +87,7 @@ public final class ImageAnalysisConfigProvider implements ConfigProvider<ImageAn
             String defaultId = null;
 
             for (LensFacing lensFacingCandidate : lensFacingList) {
-                defaultId = mCameraFactory.cameraIdForLensFacing(lensFacingCandidate);
-                if (defaultId != null) {
+                if (mCameraFactory.hasCameraIdForLensFacing(lensFacingCandidate)) {
                     builder.setLensFacing(lensFacingCandidate);
                     break;
                 }

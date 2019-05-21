@@ -20,6 +20,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.Surface;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.camera.core.BaseCamera;
 import androidx.camera.core.CameraControl;
@@ -131,7 +132,7 @@ public class FakeCamera implements BaseCamera {
     }
 
     @Override
-    public void onUseCaseReset(final UseCase useCase) {
+    public void onUseCaseReset(@NonNull final UseCase useCase) {
         Log.d(TAG, "Use case " + useCase + " RESET for camera " + mCameraId);
 
         mUseCaseAttachState.updateUseCase(useCase);

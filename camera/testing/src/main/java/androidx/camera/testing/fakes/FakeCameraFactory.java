@@ -16,16 +16,20 @@
 
 package androidx.camera.testing.fakes;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.annotation.RestrictTo.Scope;
 import androidx.camera.core.BaseCamera;
 import androidx.camera.core.CameraFactory;
+import androidx.camera.core.CameraInfoUnavailableException;
 import androidx.camera.core.CameraX.LensFacing;
+import androidx.camera.core.LensFacingCameraIdFilter;
 
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -42,7 +46,8 @@ public final class FakeCameraFactory implements CameraFactory {
 
     private Set<String> mCameraIds;
 
-    private final Map<String, BaseCamera> mCameraMap = new HashMap<>();
+    @SuppressWarnings("WeakerAccess") /* synthetic accessor */
+    final Map<String, BaseCamera> mCameraMap = new HashMap<>();
 
     public FakeCameraFactory() {
         HashSet<String> camIds = new HashSet<>();
@@ -86,9 +91,25 @@ public final class FakeCameraFactory implements CameraFactory {
         return mCameraIds;
     }
 
-    @Nullable
     @Override
-    public String cameraIdForLensFacing(LensFacing lensFacing) {
+    public boolean hasCameraIdForLensFacing(@NonNull LensFacing lensFacing) {
+        for (String cameraId : mCameraMap.keySet()) {
+            try {
+                if (mCameraMap.get(cameraId).getCameraInfo().getLensFacing() == lensFacing) {
+                    return true;
+                }
+            } catch (CameraInfoUnavailableException e) {
+                throw new IllegalArgumentException(
+                        "Unable to get camera info.", e);
+            }
+        }
+
+        return false;
+    }
+
+    @Override
+    @Nullable
+    public String cameraIdForLensFacing(@NonNull LensFacing lensFacing) {
         switch (lensFacing) {
             case FRONT:
                 return FRONT_ID;
@@ -97,5 +118,48 @@ public final class FakeCameraFactory implements CameraFactory {
         }
 
         throw new IllegalArgumentException("Unknown lensFacing: " + lensFacing);
+    }
+
+    @Override
+    @NonNull
+    public LensFacingCameraIdFilter getLensFacingCameraIdFilter(@NonNull LensFacing lensFacing) {
+        return new FakeLensFacingCameraIdFilter(lensFacing);
+    }
+
+    /** Fake implementation of {@link androidx.camera.core.LensFacingCameraIdFilter}. */
+    public final class FakeLensFacingCameraIdFilter implements LensFacingCameraIdFilter {
+        LensFacing mLensFacing;
+
+        FakeLensFacingCameraIdFilter(LensFacing lensFacing) {
+            mLensFacing = lensFacing;
+        }
+
+        @Override
+        @NonNull
+        public Set<String> filter(@NonNull Set<String> cameraIds) {
+            Set<String> resultCameraIdSet = new LinkedHashSet<>();
+
+            for (String cameraId : cameraIds) {
+                if (mCameraMap.containsKey(cameraId)) {
+                    try {
+                        if (mCameraMap.get(cameraId).getCameraInfo().getLensFacing()
+                                == mLensFacing) {
+                            resultCameraIdSet.add(cameraId);
+                        }
+                    } catch (CameraInfoUnavailableException e) {
+                        throw new IllegalArgumentException(
+                                "Unable to get camera info.", e);
+                    }
+                }
+            }
+
+            return resultCameraIdSet;
+        }
+
+        @Override
+        @NonNull
+        public LensFacing getLensFacing() {
+            return mLensFacing;
+        }
     }
 }
