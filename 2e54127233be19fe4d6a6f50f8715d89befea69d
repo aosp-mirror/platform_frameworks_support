@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dc26d4b9_358ef095",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaControllerImplBase.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1207,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-05-21T05:07:24Z",
+      "side": 1,
+      "message": "Let\u0027s add break; here",
+      "range": {
+        "startLine": 1207,
+        "startChar": 20,
+        "endLine": 1207,
+        "endChar": 55
+      },
+      "revId": "2e54127233be19fe4d6a6f50f8715d89befea69d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

@@ -167,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "2e58fdfb_3e9a2855",
+        "filename": "media2/session/src/androidTest/java/androidx/media2/session/MediaControllerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1776,
+      "author": {
+        "id": 1112679
+      },
+      "writtenOn": "2019-05-21T05:07:24Z",
+      "side": 1,
+      "message": "Q) If we are only sending the KEY_MIME and KEY_LANGUAGE, and also if that will not change in the future, can we have only \u0027mimeType \u0026 language\u0027 in the TrackInfo, instead of whole MediaFormat?\n\nIs there any usage of SessionPlayer.TrackInfo.getMediaFormat()?",
+      "parentUuid": "30d8e051_e230a7bf",
+      "range": {
+        "startLine": 1774,
+        "startChar": 8,
+        "endLine": 1776,
+        "endChar": 67
+      },
+      "revId": "20fc3828c0d8b44c60796b64f080f21227f05887",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b045742f_43e5588d",
         "filename": "media2/session/src/main/java/androidx/media2/session/MediaController.java",
         "patchSetId": 3
