@@ -39,6 +39,30 @@
       "revId": "7c3669fae1eeb64237c72e96f83dc4fb3c0f2dc7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b05479a_807f0d97",
+        "filename": "development/history/add_release_commit_tags.sh",
+        "patchSetId": 8
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-05-21T17:10:42Z",
+      "side": 1,
+      "message": "Yeah, agreed. Much cleaner.  Standby for new patch",
+      "parentUuid": "65d2904f_9ed23cd2",
+      "range": {
+        "startLine": 105,
+        "startChar": 30,
+        "endLine": 105,
+        "endChar": 111
+      },
+      "revId": "7c3669fae1eeb64237c72e96f83dc4fb3c0f2dc7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
