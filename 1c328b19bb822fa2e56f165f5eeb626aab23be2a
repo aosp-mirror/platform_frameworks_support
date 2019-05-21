@@ -69,6 +69,24 @@
       "revId": "1c328b19bb822fa2e56f165f5eeb626aab23be2a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d97bb2d3_8a45598f",
+        "filename": "benchmark/src/main/java/androidx/benchmark/BenchmarkRule.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1121894
+      },
+      "writtenOn": "2019-05-21T21:20:10Z",
+      "side": 0,
+      "message": "As far as i know we have only ever supported the retry if it was number only.\nThat\u0027s why we had to do something like https://android-review.googlesource.com/c/platform/external/junit-params/+/354201/ long time ago.\nWhere we forced number only.\n\n\"If we don\u0027t care about retry\"\nthat part is not entirely up to you no? The infra takes care of the retry most cases.\n\nNowadays, it shouldn\u0027t be an issue either way (number or string) since we kind of work around the issue by avoiding retrying parameters in isolation (we retry the full set instead)",
+      "parentUuid": "660fb77f_6f877bab",
+      "revId": "1c328b19bb822fa2e56f165f5eeb626aab23be2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
