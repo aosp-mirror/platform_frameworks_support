@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2d0f9fe6_3cd163ea",
+        "filename": "ui/text/src/main/java/androidx/ui/engine/text/platform/ParagraphAndroid.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 1362035
+      },
+      "writtenOn": "2019-05-21T21:01:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ce0f9fc2_995074ed",
+      "range": {
+        "startLine": 360,
+        "startChar": 43,
+        "endLine": 360,
+        "endChar": 61
+      },
+      "revId": "e514d2d21f1f1eec0aebf9796b9496557767f4c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bbc363b7_e3adf35e",
         "filename": "ui/text/src/main/java/androidx/ui/engine/text/platform/ParagraphAndroid.kt",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2019-05-21T00:30:40Z",
       "side": 1,
       "message": "in what cases this might happen?",
+      "range": {
+        "startLine": 362,
+        "startChar": 20,
+        "endLine": 362,
+        "endChar": 40
+      },
+      "revId": "e514d2d21f1f1eec0aebf9796b9496557767f4c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b83d14d4_678f60f0",
+        "filename": "ui/text/src/main/java/androidx/ui/engine/text/platform/ParagraphAndroid.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 1362035
+      },
+      "writtenOn": "2019-05-21T21:01:19Z",
+      "side": 1,
+      "message": "When there are empty spans, For example,\nTextSpan( \n  text \u003d \"abc\",\n  children \u003d listOf(\n    TextSpan(style \u003d TextStyle(textAlign \u003d TextAlign.Start)),\n    TextSpan(text \u003d \"\\ncde\")\n  )\n)\nIt\u0027s intended to filter out spanStart \u003d\u003d spanEnd. I make it \u003e\u003d in case there are missing cases.",
+      "parentUuid": "bbc363b7_e3adf35e",
       "range": {
         "startLine": 362,
         "startChar": 20,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "02fa036b_d646d393",
+        "filename": "ui/text/src/main/java/androidx/ui/engine/text/platform/ParagraphAndroid.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 1362035
+      },
+      "writtenOn": "2019-05-21T21:01:19Z",
+      "side": 1,
+      "message": "I think we can move this conversion function to other places when we have a counterpart of SpannableString. I\u0027ll mark it with TODO.",
+      "parentUuid": "f0b16bdb_65ad2561",
+      "range": {
+        "startLine": 517,
+        "startChar": 16,
+        "endLine": 517,
+        "endChar": 36
+      },
+      "revId": "e514d2d21f1f1eec0aebf9796b9496557767f4c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0c7e3b7c_4bcf90ab",
         "filename": "ui/text/src/main/java/androidx/ui/engine/text/platform/ParagraphAndroid.kt",
         "patchSetId": 1
@@ -91,6 +163,30 @@
       "revId": "e514d2d21f1f1eec0aebf9796b9496557767f4c2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e271a1b5_a107d4e6",
+        "filename": "ui/text/src/main/java/androidx/ui/engine/text/platform/ParagraphAndroid.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 525,
+      "author": {
+        "id": 1362035
+      },
+      "writtenOn": "2019-05-21T21:01:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0c7e3b7c_4bcf90ab",
+      "range": {
+        "startLine": 525,
+        "startChar": 8,
+        "endLine": 525,
+        "endChar": 31
+      },
+      "revId": "e514d2d21f1f1eec0aebf9796b9496557767f4c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
