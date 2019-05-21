@@ -26,6 +26,7 @@ import androidx.compose.Children
 import androidx.compose.Composable
 import androidx.compose.composer
 import androidx.compose.memo
+import androidx.compose.state
 import androidx.compose.unaryPlus
 
 private const val HANDLE_WIDTH = 20f
@@ -121,10 +122,17 @@ fun SelectionContainer(
     val manager = +memo { SelectionManager() }
     +memo(selection) { manager.selection = selection }
     +memo(onSelectionChange) { manager.onSelectionChange = onSelectionChange }
+    val globalPosition = +state { PxPosition.Origin }
 
     SelectionRegistrarAmbient.Provider(value = manager) {
         val content = @Composable {
-            PressIndicatorGestureDetector(onStart = { position -> manager.onPress(position) }) {
+            // Calculate the global coordinates of the origin (top-left corner) of the
+            // selection container. This is for hit test of cross-widget selection.
+            OnPositioned(onPositioned = { coordinates ->
+                globalPosition.value = coordinates.localToGlobal(PxPosition.Origin)
+            })
+            PressIndicatorGestureDetector(
+                onStart = { position -> manager.onPress(position + globalPosition.value) }) {
                 children()
             }
         }
@@ -163,12 +171,12 @@ fun SelectionContainer(
                     placeable.place(IntPx.Zero, IntPx.Zero)
                     selection?.let {
                         start.place(
-                            it.startOffset.dx.px,
-                            it.startOffset.dy.px - HANDLE_HEIGHT.px
+                            it.startOffset.dx.px - globalPosition.value.x,
+                            it.startOffset.dy.px - HANDLE_HEIGHT.px - globalPosition.value.y
                         )
                         end.place(
-                            it.endOffset.dx.px - HANDLE_WIDTH.px,
-                            it.endOffset.dy.px - HANDLE_HEIGHT.px
+                            it.endOffset.dx.px - HANDLE_WIDTH.px - globalPosition.value.x,
+                            it.endOffset.dy.px - HANDLE_HEIGHT.px - globalPosition.value.y
                         )
                     }
                 }
