@@ -47,6 +47,10 @@ data class Selection(
     val endOffset: Offset
 )
 
+class SelectionContainerCoordinate {
+    var global = PxPosition.Origin
+}
+
 /**
  * An interface handling selection. Get selection from a widget by passing in a coordinate.
  */
@@ -121,10 +125,15 @@ fun SelectionContainer(
     val manager = +memo { SelectionManager() }
     +memo(selection) { manager.selection = selection }
     +memo(onSelectionChange) { manager.onSelectionChange = onSelectionChange }
+    val globalCoordinate = +memo { SelectionContainerCoordinate() }
 
     SelectionRegistrarAmbient.Provider(value = manager) {
         val content = @Composable {
-            PressIndicatorGestureDetector(onStart = { position -> manager.onPress(position) }) {
+            OnPositioned(onPositioned = { coordinates ->
+                globalCoordinate.global = coordinates.localToGlobal(PxPosition.Origin)
+            })
+            PressIndicatorGestureDetector(
+                onStart = { position -> manager.onPress(position + globalCoordinate.global) }) {
                 children()
             }
         }
@@ -163,12 +172,12 @@ fun SelectionContainer(
                     placeable.place(IntPx.Zero, IntPx.Zero)
                     selection?.let {
                         start.place(
-                            it.startOffset.dx.px,
-                            it.startOffset.dy.px - HANDLE_HEIGHT.px
+                            it.startOffset.dx.px - globalCoordinate.global.x,
+                            it.startOffset.dy.px - HANDLE_HEIGHT.px - globalCoordinate.global.y
                         )
                         end.place(
-                            it.endOffset.dx.px - HANDLE_WIDTH.px,
-                            it.endOffset.dy.px - HANDLE_HEIGHT.px
+                            it.endOffset.dx.px - HANDLE_WIDTH.px - globalCoordinate.global.x,
+                            it.endOffset.dy.px - HANDLE_HEIGHT.px - globalCoordinate.global.y
                         )
                     }
                 }
