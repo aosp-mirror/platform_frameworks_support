@@ -1,23 +1,21 @@
 /*
- * Copyright 2018 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+* Copyright 2018 The Android Open Source Project
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*      http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
 
 package androidx.ui.text.demos
 
-import android.widget.LinearLayout
-import android.widget.ScrollView
 import androidx.ui.core.CraneWrapper
 import androidx.ui.core.EditableText
 import androidx.ui.core.EditorStyle
@@ -37,6 +35,7 @@ import androidx.ui.engine.window.Locale
 import androidx.ui.input.EditorState
 import androidx.ui.graphics.Color
 import androidx.ui.graphics.lerp
+import androidx.ui.layout.Column
 import androidx.ui.painting.Shadow
 import androidx.ui.painting.TextStyle
 import androidx.ui.rendering.paragraph.TextOverflow
@@ -45,6 +44,9 @@ import androidx.compose.composer
 import androidx.compose.state
 import androidx.compose.unaryPlus
 import androidx.ui.core.Span
+import androidx.ui.layout.CrossAxisAlignment
+import androidx.ui.layout.Row
+import androidx.ui.layout.VerticalScroller
 
 val displayText = "Text Demo"
 val displayTextChinese = "文本演示"
@@ -58,15 +60,9 @@ val fontSize10: Float = 100.0.toFloat()
 
 @Composable
 fun TextDemo() {
-    LinearLayout(
-        orientation = LinearLayout.VERTICAL,
-        layoutParams = LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.MATCH_PARENT,
-            LinearLayout.LayoutParams.MATCH_PARENT
-        )
-    ) {
-        ScrollView {
-            LinearLayout(orientation = LinearLayout.VERTICAL) {
+    CraneWrapper {
+        VerticalScroller {
+            Column(crossAxisAlignment = CrossAxisAlignment.Start) {
                 TagLine(tag = "color, fontSize, fontWeight and fontStyle")
                 TextDemoBasic()
                 TagLine(tag = "Chinese, Arabic, and Hindi")
@@ -110,26 +106,22 @@ fun TextDemo() {
 
 @Composable
 fun TagLine(tag: String) {
-    CraneWrapper {
-        Text {
-            Span(text = "\n", style = TextStyle(fontSize = fontSize8))
-            Span(
-                text = tag,
-                style = TextStyle(color = Color(0xFFAAAAAA.toInt()), fontSize = fontSize6)
-            )
-        }
+    Text {
+        Span(text = "\n", style = TextStyle(fontSize = fontSize8))
+        Span(
+            text = tag,
+            style = TextStyle(color = Color(0xFFAAAAAA.toInt()), fontSize = fontSize6)
+        )
     }
 }
 
 @Composable
 fun SecondTagLine(tag: String) {
-    CraneWrapper {
-        Text {
-            Span(
-                text = tag,
-                style = TextStyle(color = Color(0xFFAAAAAA.toInt()), fontSize = fontSize4)
-            )
-        }
+    Text {
+        Span(
+            text = tag,
+            style = TextStyle(color = Color(0xFFAAAAAA.toInt()), fontSize = fontSize4)
+        )
     }
 }
 
@@ -137,38 +129,36 @@ fun SecondTagLine(tag: String) {
 fun TextDemoBasic() {
     // This group of text widgets show different color, fontSize, fontWeight and fontStyle in
     // English.
-    CraneWrapper {
-        Text {
-            Span(
-                text = "$displayText   ",
-                style = TextStyle(
-                    color = Color(0xFFFF0000.toInt()),
-                    fontSize = fontSize6,
-                    fontWeight = FontWeight.w200,
-                    fontStyle = FontStyle.Italic
-                )
+    Text {
+        Span(
+            text = "$displayText   ",
+            style = TextStyle(
+                color = Color(0xFFFF0000.toInt()),
+                fontSize = fontSize6,
+                fontWeight = FontWeight.w200,
+                fontStyle = FontStyle.Italic
             )
+        )
 
-            Span(
-                text = "$displayText   ",
-                style = TextStyle(
-                    color = Color(0xFF00FF00.toInt()),
-                    fontSize = fontSize8,
-                    fontWeight = FontWeight.w500,
-                    fontStyle = FontStyle.Normal
-                )
+        Span(
+            text = "$displayText   ",
+            style = TextStyle(
+                color = Color(0xFF00FF00.toInt()),
+                fontSize = fontSize8,
+                fontWeight = FontWeight.w500,
+                fontStyle = FontStyle.Normal
             )
+        )
 
-            Span(
-                text = displayText,
-                style = TextStyle(
-                    color = Color(0xFF0000FF.toInt()),
-                    fontSize = fontSize10,
-                    fontWeight = FontWeight.w800,
-                    fontStyle = FontStyle.Normal
-                )
+        Span(
+            text = displayText,
+            style = TextStyle(
+                color = Color(0xFF0000FF.toInt()),
+                fontSize = fontSize10,
+                fontWeight = FontWeight.w800,
+                fontStyle = FontStyle.Normal
             )
-        }
+        )
     }
 }
 
@@ -176,147 +166,141 @@ fun TextDemoBasic() {
 fun TextDemoLanguage() {
     // This group of text widgets show different color, fontSize, fontWeight and fontStyle in
     // Chinese, Arabic, and Hindi.
-    CraneWrapper {
-        Text {
-            Span(
-                text = "$displayTextChinese   ",
-                style = TextStyle(
-                    color = Color(0xFFFF0000.toInt()),
-                    fontSize = fontSize6,
-                    fontWeight = FontWeight.w200,
-                    fontStyle = FontStyle.Italic
-                )
+    Text {
+        Span(
+            text = "$displayTextChinese   ",
+            style = TextStyle(
+                color = Color(0xFFFF0000.toInt()),
+                fontSize = fontSize6,
+                fontWeight = FontWeight.w200,
+                fontStyle = FontStyle.Italic
             )
+        )
 
-            Span(
-                text = "$displayTextArabic   ",
-                style = TextStyle(
-                    color = Color(0xFF00FF00.toInt()),
-                    fontSize = fontSize8,
-                    fontWeight = FontWeight.w500,
-                    fontStyle = FontStyle.Normal
-                )
+        Span(
+            text = "$displayTextArabic   ",
+            style = TextStyle(
+                color = Color(0xFF00FF00.toInt()),
+                fontSize = fontSize8,
+                fontWeight = FontWeight.w500,
+                fontStyle = FontStyle.Normal
             )
+        )
 
-            Span(
-                text = displayTextHindi,
-                style = TextStyle(
-                    color = Color(0xFF0000FF.toInt()),
-                    fontSize = fontSize10,
-                    fontWeight = FontWeight.w800,
-                    fontStyle = FontStyle.Normal
-                )
+        Span(
+            text = displayTextHindi,
+            style = TextStyle(
+                color = Color(0xFF0000FF.toInt()),
+                fontSize = fontSize10,
+                fontWeight = FontWeight.w800,
+                fontStyle = FontStyle.Normal
             )
-        }
+        )
     }
 }
 
 @Composable
 fun TextDemoFontFamily() {
     // This group of text widgets show different fontFamilies in English.
-    CraneWrapper {
-        Text {
-            Span(text = "$displayText   ", style = TextStyle(
-                    fontSize = fontSize8,
-                    fontFamily = FontFamily("sans-serif")
-                )
+    Text {
+        Span(
+            text = "$displayText   ", style = TextStyle(
+                fontSize = fontSize8,
+                fontFamily = FontFamily("sans-serif")
             )
+        )
 
-            Span(text = "$displayText   ", style = TextStyle(
-                    fontSize = fontSize8,
-                    fontFamily = FontFamily("serif")
-                )
+        Span(
+            text = "$displayText   ", style = TextStyle(
+                fontSize = fontSize8,
+                fontFamily = FontFamily("serif")
             )
+        )
 
-            Span(text = displayText, style = TextStyle(
-                    fontSize = fontSize8,
-                    fontFamily = FontFamily("monospace")
-                )
+        Span(
+            text = displayText, style = TextStyle(
+                fontSize = fontSize8,
+                fontFamily = FontFamily("monospace")
             )
-        }
+        )
     }
 }
 
 @Composable
 fun TextDemoTextDecoration() {
     // This group of text widgets show different decoration, decorationColor and decorationStyle.
-    CraneWrapper {
-        Text {
-            Span(text = displayText, style = TextStyle(
-                    fontSize = fontSize8,
-                    decoration = TextDecoration.LineThrough
-                )
+    Text {
+        Span(
+            text = displayText, style = TextStyle(
+                fontSize = fontSize8,
+                decoration = TextDecoration.LineThrough
             )
+        )
 
-            Span(text = "$displayText\n", style = TextStyle(
-                    fontSize = fontSize8,
-                    decoration = TextDecoration.Underline
-                )
+        Span(
+            text = "$displayText\n", style = TextStyle(
+                fontSize = fontSize8,
+                decoration = TextDecoration.Underline
             )
+        )
 
-            Span(text = displayText, style = TextStyle(
-                    fontSize = fontSize8,
-                    decoration = TextDecoration.combine(
-                        listOf(
-                            TextDecoration.Underline,
-                            TextDecoration.LineThrough
-                        )
+        Span(
+            text = displayText, style = TextStyle(
+                fontSize = fontSize8,
+                decoration = TextDecoration.combine(
+                    listOf(
+                        TextDecoration.Underline,
+                        TextDecoration.LineThrough
                     )
                 )
             )
-        }
+        )
     }
 }
 
 @Composable
 fun TextDemoLetterSpacing() {
     // This group of text widgets show different letterSpacing.
-    CraneWrapper {
-        Text {
-            Span(text = "$displayText   ", style = TextStyle(fontSize = fontSize8))
-            Span(text = displayText, style = TextStyle(fontSize = fontSize8, letterSpacing = 0.5f))
-        }
+    Text {
+        Span(text = "$displayText   ", style = TextStyle(fontSize = fontSize8))
+        Span(text = displayText, style = TextStyle(fontSize = fontSize8, letterSpacing = 0.5f))
     }
 }
 
 @Composable
 fun TextDemoWordSpacing() {
     // This group of text widgets show different wordSpacing.
-    CraneWrapper {
-        Text {
-            Span(text = "$displayText   ", style = TextStyle(fontSize = fontSize8))
+    Text {
+        Span(text = "$displayText   ", style = TextStyle(fontSize = fontSize8))
 
-            Span(
-                text = displayText,
-                style = TextStyle(
-                    fontSize = fontSize8,
-                    wordSpacing = 100.0f
-                )
+        Span(
+            text = displayText,
+            style = TextStyle(
+                fontSize = fontSize8,
+                wordSpacing = 100.0f
             )
-        }
+        )
     }
 }
 
 @Composable
 fun TextDemoBaselineShift() {
-    CraneWrapper {
-        Text {
-            Span(text = displayText, style = TextStyle(fontSize = fontSize8)) {
+    Text {
+        Span(text = displayText, style = TextStyle(fontSize = fontSize8)) {
+            Span(
+                text = "superscript",
+                style = TextStyle(
+                    baselineShift = BaselineShift.SUPERSCRIPT,
+                    fontSize = fontSize4
+                )
+            ) {
                 Span(
-                    text = "superscript",
+                    text = "subscript",
                     style = TextStyle(
-                        baselineShift = BaselineShift.SUPERSCRIPT,
+                        baselineShift = BaselineShift.SUBSCRIPT,
                         fontSize = fontSize4
                     )
-                ) {
-                    Span(
-                        text = "subscript",
-                        style = TextStyle(
-                            baselineShift = BaselineShift.SUBSCRIPT,
-                            fontSize = fontSize4
-                        )
-                    )
-                }
+                )
             }
         }
     }
@@ -325,25 +309,21 @@ fun TextDemoBaselineShift() {
 @Composable
 fun TextDemoHeight() {
     // This group of text widgets show different height.
-    LinearLayout(orientation = LinearLayout.HORIZONTAL) {
-        CraneWrapper {
-            Text {
-                Span(
-                    text = "$displayText\n$displayText   ",
-                    style = TextStyle(fontSize = fontSize8)
-                )
-            }
+    Row {
+        Text {
+            Span(
+                text = "$displayText\n$displayText   ",
+                style = TextStyle(fontSize = fontSize8)
+            )
         }
-        CraneWrapper {
-            Text {
-                Span(
-                    text = "$displayText\n$displayText   ",
-                    style = TextStyle(
-                        fontSize = fontSize8,
-                        height = 2.0f
-                    )
+        Text {
+            Span(
+                text = "$displayText\n$displayText   ",
+                style = TextStyle(
+                    fontSize = fontSize8,
+                    height = 2.0f
                 )
-            }
+            )
         }
     }
 }
@@ -351,32 +331,30 @@ fun TextDemoHeight() {
 @Composable
 fun TextDemoBackground() {
     // This group of text widgets show different background.
-    CraneWrapper {
-        Text {
-            Span(
-                text = "$displayText   ",
-                style = TextStyle(
-                    fontSize = fontSize8,
-                    background = Color(0xFFFF0000.toInt())
-                )
+    Text {
+        Span(
+            text = "$displayText   ",
+            style = TextStyle(
+                fontSize = fontSize8,
+                background = Color(0xFFFF0000.toInt())
             )
+        )
 
-            Span(
-                text = "$displayText   ",
-                style = TextStyle(
-                    fontSize = fontSize8,
-                    background = Color(0xFF00FF00.toInt())
-                )
+        Span(
+            text = "$displayText   ",
+            style = TextStyle(
+                fontSize = fontSize8,
+                background = Color(0xFF00FF00.toInt())
             )
+        )
 
-            Span(
-                text = displayText,
-                style = TextStyle(
-                    fontSize = fontSize8,
-                    background = Color(0xFF0000FF.toInt())
-                )
+        Span(
+            text = displayText,
+            style = TextStyle(
+                fontSize = fontSize8,
+                background = Color(0xFF0000FF.toInt())
             )
-        }
+        )
     }
 }
 
@@ -384,108 +362,88 @@ fun TextDemoBackground() {
 fun TextDemoLocale() {
     // This group of text widgets show different Locales of the same Unicode codepoint.
     val text = "\u82B1"
-    CraneWrapper {
-        Text {
-            Span(
-                text = "$text   ",
-                style = TextStyle(
-                        fontSize = fontSize8,
-                        locale = Locale(_languageCode = "ja", _countryCode = "JP")
-                )
+    Text {
+        Span(
+            text = "$text   ",
+            style = TextStyle(
+                fontSize = fontSize8,
+                locale = Locale(_languageCode = "ja", _countryCode = "JP")
             )
+        )
 
-            Span(
-                text = "$text   ",
-                style = TextStyle(
-                    fontSize = fontSize8,
-                    locale = Locale(_languageCode = "zh", _countryCode = "CN")
-                )
+        Span(
+            text = "$text   ",
+            style = TextStyle(
+                fontSize = fontSize8,
+                locale = Locale(_languageCode = "zh", _countryCode = "CN")
             )
+        )
 
-            Span(
-                text = text,
-                style = TextStyle(
-                    fontSize = fontSize8,
-                    locale = Locale(_languageCode = "zh", _countryCode = "TW")
-                )
+        Span(
+            text = text,
+            style = TextStyle(
+                fontSize = fontSize8,
+                locale = Locale(_languageCode = "zh", _countryCode = "TW")
             )
-        }
+        )
     }
 }
 
 @Composable
 fun TextDemoTextAlign() {
-    // This group of text widgets show different TextAligns: Left, Right, Center, Justify, Start for
-    // LTR and RTL, End for LTR and RTL.
+    // This group of text widgets show different TextAligns: LEFT, RIGHT, CENTER, JUSTIFY, START for
+    // LTR and RTL, END for LTR and RTL.
     var text: String = ""
     for (i in 1..10) {
         text = "$text$displayText "
     }
-    LinearLayout(orientation = LinearLayout.VERTICAL) {
-        SecondTagLine(tag = "textAlign = TextAlign.Left")
-        CraneWrapper {
-            Text(textAlign = TextAlign.Left) {
-                Span(text = displayText, style = TextStyle(fontSize = fontSize8))
-            }
+    Column(crossAxisAlignment = CrossAxisAlignment.Start) {
+        SecondTagLine(tag = "textAlgin = TextAlign.Left")
+        Text(textAlign = TextAlign.Left) {
+            Span(text = displayText, style = TextStyle(fontSize = fontSize8))
         }
-        SecondTagLine(tag = "textAlign  = TextAlign.Right")
-        CraneWrapper {
-            Text(textAlign = TextAlign.Right) {
-                Span(text = displayText, style = TextStyle(fontSize = fontSize8))
-            }
+        SecondTagLine(tag = "textAlgin = TextAlign.Right")
+        Text(textAlign = TextAlign.Right) {
+            Span(text = displayText, style = TextStyle(fontSize = fontSize8))
         }
-        SecondTagLine(tag = "textAlign  = TextAlign.Center")
-        CraneWrapper {
-            Text(textAlign = TextAlign.Center) {
-                Span(text = displayText, style = TextStyle(fontSize = fontSize8))
-            }
+        SecondTagLine(tag = "textAlgin = TextAlign.CENTER")
+        Text(textAlign = TextAlign.Center) {
+            Span(text = displayText, style = TextStyle(fontSize = fontSize8))
         }
-        SecondTagLine(tag = "textAlign  = default and TextAlign.Justify")
-        CraneWrapper {
-            Text {
-                Span(
-                    text = text,
-                    style = TextStyle(
-                        fontSize = fontSize8,
-                        color = Color(0xFFFF0000.toInt())
-                    )
+        SecondTagLine(tag = "textAlgin = default and TextAlign.JUSTIFY")
+        Text {
+            Span(
+                text = text,
+                style = TextStyle(
+                    fontSize = fontSize8,
+                    color = Color(0xFFFF0000.toInt())
                 )
-            }
+            )
         }
-        CraneWrapper {
-            Text(textAlign = TextAlign.Justify) {
-                Span(
-                    text = text,
-                    style = TextStyle(
-                        fontSize = fontSize8,
-                        color = Color(0xFF0000FF.toInt())
-                    )
+        Text(textAlign = TextAlign.Justify) {
+            Span(
+                text = text,
+                style = TextStyle(
+                    fontSize = fontSize8,
+                    color = Color(0xFF0000FF.toInt())
                 )
-            }
+            )
         }
-        SecondTagLine(tag = "textAlgin = TextAlign.Start for LTR")
-        CraneWrapper {
-            Text(textAlign = TextAlign.Start) {
-                Span(text = displayText, style = TextStyle(fontSize = fontSize8))
-            }
+        SecondTagLine(tag = "textAlgin = TextAlign.START for LTR")
+        Text(textAlign = TextAlign.Start) {
+            Span(text = displayText, style = TextStyle(fontSize = fontSize8))
         }
-        SecondTagLine(tag = "textAlgin = TextAlign.Start for RTL")
-        CraneWrapper {
-            Text(textDirection = TextDirection.RTL, textAlign = TextAlign.Start) {
-                Span(text = displayText, style = TextStyle(fontSize = fontSize8))
-            }
+        SecondTagLine(tag = "textAlgin = TextAlign.START for RTL")
+        Text(textDirection = TextDirection.RTL, textAlign = TextAlign.Start) {
+            Span(text = displayText, style = TextStyle(fontSize = fontSize8))
         }
-        SecondTagLine(tag = "textAlgin = TextAlign.End for LTR")
-        CraneWrapper {
-            Text(textAlign = TextAlign.End) {
-                Span(text = displayText, style = TextStyle(fontSize = fontSize8))
-            }
+        SecondTagLine(tag = "textAlgin = TextAlign.END for LTR")
+        Text(textAlign = TextAlign.End) {
+            Span(text = displayText, style = TextStyle(fontSize = fontSize8))
         }
-        SecondTagLine(tag = "textAlgin = TextAlign.End for RTL")
-        CraneWrapper {
-            Text(textDirection = TextDirection.RTL, textAlign = TextAlign.End) {
-                Span(text = displayText, style = TextStyle(fontSize = fontSize8))
-            }
+        SecondTagLine(tag = "textAlgin = TextAlign.END for RTL")
+        Text(textDirection = TextDirection.RTL, textAlign = TextAlign.End) {
+            Span(text = displayText, style = TextStyle(fontSize = fontSize8))
         }
     }
 }
@@ -499,16 +457,12 @@ fun TextDemoSoftWrap() {
     }
     val textStyle = TextStyle(fontSize = fontSize8, color = Color(0xFFFF0000.toInt()))
 
-    LinearLayout(orientation = LinearLayout.VERTICAL) {
-        CraneWrapper {
-            Text {
-                Span(text = text, style = textStyle)
-            }
+    Column(crossAxisAlignment = CrossAxisAlignment.Start) {
+        Text {
+            Span(text = text, style = textStyle)
         }
-        CraneWrapper {
-            Text(softWrap = false) {
-                Span(text = text, style = textStyle)
-            }
+        Text(softWrap = false) {
+            Span(text = text, style = textStyle)
         }
     }
 }
@@ -525,16 +479,13 @@ fun TextDemoMaxLines() {
 @Composable
 fun TextDemoTextScaleFactor() {
     // This group of text widgets show the different textScaleFactor.
-    LinearLayout(orientation = LinearLayout.VERTICAL) {
-        CraneWrapper {
-            Text {
-                Span(text = displayText, style = TextStyle(fontSize = fontSize8))
-            }
+    Column(crossAxisAlignment = CrossAxisAlignment.Start) {
+        Text {
+            Span(text = displayText, style = TextStyle(fontSize = fontSize8))
         }
-        CraneWrapper {
-            Text(textScaleFactor = 2.0f) {
-                Span(text = displayText, style = TextStyle(fontSize = fontSize8))
-            }
+
+        Text(textScaleFactor = 2.0f) {
+            Span(text = displayText, style = TextStyle(fontSize = fontSize8))
         }
     }
 }
@@ -547,23 +498,19 @@ fun TexDemoTextOverflowFade() {
     }
     val textSytle = TextStyle(fontSize = fontSize8, color = Color(0xFFFF0000.toInt()))
     SecondTagLine(tag = "horizontally fading edge")
-    CraneWrapper {
-        Text(
-            maxLines = 1,
-            overflow = TextOverflow.Fade,
-            softWrap = false
-        ) {
-            Span(text = text, style = textSytle)
-        }
+    Text(
+        maxLines = 1,
+        overflow = TextOverflow.Fade,
+        softWrap = false
+    ) {
+        Span(text = text, style = textSytle)
     }
     SecondTagLine(tag = "vertically fading edge")
-    CraneWrapper {
-        Text(
-            maxLines = 3,
-            overflow = TextOverflow.Fade
-        ) {
-            Span(text = text, style = textSytle)
-        }
+    Text(
+        maxLines = 3,
+        overflow = TextOverflow.Fade
+    ) {
+        Span(text = text, style = textSytle)
     }
 }
 
@@ -574,11 +521,9 @@ fun TextDemoShadowEffect() {
         Offset(5f, 5f),
         blurRadius = 5.px
     )
-    CraneWrapper {
-        Text {
-            Span(text = "text with ", style = TextStyle(fontSize = fontSize8)) {
-                Span(text = "shadow!", style = TextStyle(shadow = shadow))
-            }
+    Text {
+        Span(text = "text with ", style = TextStyle(fontSize = fontSize8)) {
+            Span(text = "shadow!", style = TextStyle(shadow = shadow))
         }
     }
 }
@@ -586,49 +531,47 @@ fun TextDemoShadowEffect() {
 @Composable
 fun EditLine() {
     val state = +state { EditorState() }
-    CraneWrapper {
-        EditableText(
-            value = state.value,
-            onValueChange = { state.value = it },
-            editorStyle = EditorStyle(textStyle = TextStyle(fontSize = fontSize8))
-        )
-    }
+    EditableText(
+        value = state.value,
+        onValueChange = { state.value = it },
+        editorStyle = EditorStyle(textStyle = TextStyle(fontSize = fontSize8))
+    )
 }
 
 @Composable
 fun TextDemoSelection() {
     val selection = +state<Selection?> { null }
-    CraneWrapper {
-        SelectionContainer(
-                selection = selection.value,
-                onSelectionChange = { selection.value = it }) {
-            Text {
-                Span(style = TextStyle(
+    SelectionContainer(
+        selection = selection.value,
+        onSelectionChange = { selection.value = it }) {
+        Text {
+            Span(
+                style = TextStyle(
                     color = Color(0xFFFF0000.toInt()),
                     fontSize = fontSize6,
                     fontWeight = FontWeight.w200,
-                    fontStyle = FontStyle.Italic)
-                ) {
-                    Span(text = "$displayText   ")
-                    Span(text = "$displayTextChinese   ")
-                    Span(
-                        text = displayTextHindi,
-                        style = TextStyle(
-                            color = Color(0xFF0000FF.toInt()),
-                            fontSize = fontSize10,
-                            fontWeight = FontWeight.w800,
-                            fontStyle = FontStyle.Normal
-                        )
+                    fontStyle = FontStyle.Italic
+                )
+            ) {
+                Span(text = "$displayText   ")
+                Span(text = "$displayTextChinese   ")
+                Span(
+                    text = displayTextHindi,
+                    style = TextStyle(
+                        color = Color(0xFF0000FF.toInt()),
+                        fontSize = fontSize10,
+                        fontWeight = FontWeight.w800,
+                        fontStyle = FontStyle.Normal
                     )
-                    Span(
-                        text = "\n先帝创业未半而中道崩殂，今天下三分，益州疲弊，此诚危急存亡之秋也。",
-                        style = TextStyle(locale = Locale("zh", "CN"))
-                    )
-                    Span(
-                        text = "\nまず、現在天下が魏・呉・蜀に分れており、そのうち蜀は疲弊していることを指摘する。",
-                        style = TextStyle(locale = Locale("ja", "JP"))
-                    )
-                }
+                )
+                Span(
+                    text = "\n先帝创业未半而中道崩殂，今天下三分，益州疲弊，此诚危急存亡之秋也。",
+                    style = TextStyle(locale = Locale("zh", "CN"))
+                )
+                Span(
+                    text = "\nまず、現在天下が魏・呉・蜀に分れており、そのうち蜀は疲弊していることを指摘する。",
+                    style = TextStyle(locale = Locale("ja", "JP"))
+                )
             }
         }
     }
@@ -636,17 +579,15 @@ fun TextDemoSelection() {
 
 @Composable
 fun TextDemoComposableTextSpan() {
-    CraneWrapper {
-        Text {
-            Span(text = "This is a ", style = TextStyle(fontSize = fontSize8)) {
-                Span(text = "composable ", style = TextStyle(fontStyle = FontStyle.Italic))
-                val color1 = Color(0xFFEF50AD.toInt())
-                val color2 = Color(0xFF10AF52.toInt())
-                val text = "TextSpan"
-                text.forEachIndexed { index, ch ->
-                    val color = lerp(color1, color2, index.toFloat() / text.lastIndex)
-                    Span(text = "$ch", style = TextStyle(color = color))
-                }
+    Text {
+        Span(text = "This is a ", style = TextStyle(fontSize = fontSize8)) {
+            Span(text = "composable ", style = TextStyle(fontStyle = FontStyle.Italic))
+            val color1 = Color(0xFFEF50AD.toInt())
+            val color2 = Color(0xFF10AF52.toInt())
+            val text = "TextSpan"
+            text.forEachIndexed { index, ch ->
+                val color = lerp(color1, color2, index.toFloat() / text.lastIndex)
+                Span(text = "$ch", style = TextStyle(color = color))
             }
         }
     }
