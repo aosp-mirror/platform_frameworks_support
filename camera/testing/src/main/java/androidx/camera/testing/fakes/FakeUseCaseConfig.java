@@ -18,6 +18,7 @@ package androidx.camera.testing.fakes;
 
 import androidx.annotation.Nullable;
 import androidx.camera.core.CameraDeviceConfig;
+import androidx.camera.core.CameraIdFilterSet;
 import androidx.camera.core.CameraX;
 import androidx.camera.core.CaptureConfig;
 import androidx.camera.core.Config;
@@ -116,6 +117,17 @@ public class FakeUseCaseConfig
     @Override
     public CameraX.LensFacing getLensFacing() {
         return retrieveOption(OPTION_LENS_FACING);
+    }
+
+    @Override
+    @Nullable
+    public CameraIdFilterSet getCameraIdFilterSet(@Nullable CameraIdFilterSet valueIfMissing) {
+        return retrieveOption(OPTION_CAMERA_ID_FILTER_SET, valueIfMissing);
+    }
+
+    @Override
+    public CameraIdFilterSet getCameraIdFilterSet() {
+        return retrieveOption(OPTION_CAMERA_ID_FILTER_SET);
     }
 
     // Implementations of UseCaseConfig default methods
@@ -242,6 +254,12 @@ public class FakeUseCaseConfig
         @Override
         public Builder setLensFacing(CameraX.LensFacing lensFacing) {
             getMutableConfig().insertOption(OPTION_LENS_FACING, lensFacing);
+            return this;
+        }
+
+        @Override
+        public Builder setCameraIdFilterSet(CameraIdFilterSet cameraIdFilterSet) {
+            getMutableConfig().insertOption(OPTION_CAMERA_ID_FILTER_SET, cameraIdFilterSet);
             return this;
         }
 

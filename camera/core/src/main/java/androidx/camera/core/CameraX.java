@@ -32,6 +32,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
@@ -301,6 +302,33 @@ public final class CameraX {
     }
 
     /**
+     * Returns the camera id for a camera defined by the CameraDeviceConfig.
+     *
+     * @param config the config of the camera device
+     * @return the cameraId if camera exists or {@code null} if no camera found with the config
+     * @throws CameraInfoUnavailableException if unable to access cameras, perhaps due to
+     *                                        insufficient permissions.
+     * @hide
+     */
+    @RestrictTo(Scope.LIBRARY_GROUP)
+    @Nullable
+    public static String getCameraWithCameraDeviceConfig(CameraDeviceConfig config)
+            throws CameraInfoUnavailableException {
+        Set<String> availableCameraIds = INSTANCE.getCameraFactory().getAvailableCameraIds();
+        Set<CameraIdFilter> cameraIdFilters = config.getCameraIdFilterSet().getCameraIdFilters();
+
+        for (CameraIdFilter filter : cameraIdFilters) {
+            availableCameraIds = filter.filter(availableCameraIds);
+        }
+
+        if (!availableCameraIds.isEmpty()) {
+            return availableCameraIds.iterator().next();
+        } else {
+            throw new CameraInfoUnavailableException("Unable to find available camera id.");
+        }
+    }
+
+    /**
      * Returns the camera info for the camera with the given camera id.
      *
      * @param cameraId the internal id of the camera
@@ -470,13 +498,12 @@ public final class CameraX {
         // Collect new use cases for different camera devices
         for (UseCase useCase : useCases) {
             String cameraId = null;
-            LensFacing lensFacing =
-                    useCase.getUseCaseConfig()
-                            .retrieveOption(CameraDeviceConfig.OPTION_LENS_FACING);
             try {
-                cameraId = getCameraWithLensFacing(lensFacing);
-            } catch (Exception e) {
-                throw new IllegalArgumentException("Invalid camera lens facing: " + lensFacing, e);
+                cameraId = getCameraWithCameraDeviceConfig(
+                        (CameraDeviceConfig) useCase.getUseCaseConfig());
+            } catch (CameraInfoUnavailableException e) {
+                throw new IllegalArgumentException(
+                        "Unable to get camera id for the camera device config ", e);
             }
 
             List<UseCase> useCaseList = newCameraIdUseCaseMap.get(cameraId);
