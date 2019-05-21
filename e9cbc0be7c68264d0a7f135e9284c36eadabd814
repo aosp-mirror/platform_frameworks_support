@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "40fd0792_298bd8ec",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/ExtensionsManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-21T18:41:14Z",
+      "side": 1,
+      "message": "Please change to \"Night mode is used for taking better still capture images under low-light situations, typically at night time.\"",
+      "revId": "e9cbc0be7c68264d0a7f135e9284c36eadabd814",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c292e099_774bd5a9",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/ExtensionsManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-21T18:41:14Z",
+      "side": 1,
+      "message": "Please change to \"Beauty mode is used for taking still capture images that incorporate facial changes like skin tone, geometry, or retouching.\"",
+      "revId": "e9cbc0be7c68264d0a7f135e9284c36eadabd814",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
