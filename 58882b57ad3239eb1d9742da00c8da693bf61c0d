@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8d6a14c4_62a6a8d7",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1907,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-21T07:54:58Z",
+      "side": 0,
+      "message": "Q) Jin Seok, do you know which if-block can be removed?",
+      "range": {
+        "startLine": 1907,
+        "startChar": 15,
+        "endLine": 1907,
+        "endChar": 19
+      },
+      "revId": "58882b57ad3239eb1d9742da00c8da693bf61c0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
