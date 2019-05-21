@@ -22,6 +22,30 @@
       "revId": "ece4e373b572e98e0e7801262a1e6941ec52cf97",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0243610b_115b3539",
+        "filename": "fragment/testing/src/androidTest/java/androidx/fragment/app/testing/FragmentScenarioDialogFragmentTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1300185
+      },
+      "writtenOn": "2019-05-21T23:35:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e209afc5_b064785b",
+      "range": {
+        "startLine": 72,
+        "startChar": 20,
+        "endLine": 72,
+        "endChar": 62
+      },
+      "revId": "ece4e373b572e98e0e7801262a1e6941ec52cf97",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
