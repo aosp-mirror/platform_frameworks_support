@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "8f433ebf_1f304bc7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-05-21T21:59:46Z",
+      "side": 1,
+      "message": "typo: \"Refactor\"",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 6
+      },
+      "revId": "1893a10c1066916eba7dc2bed026a04e69704d07",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1cbcd9db_a196d71b",
         "filename": "ui/text/src/main/java/androidx/ui/painting/TextStyle.kt",
         "patchSetId": 1
