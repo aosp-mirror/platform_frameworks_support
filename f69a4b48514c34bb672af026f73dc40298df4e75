@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dabcb69b_fdbea1b8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-05-21T04:58:47Z",
+      "side": 1,
+      "message": "Please test the build as follow:\nframeworks/support$ ./gradlew -p . --no-daemon buildOnServer",
+      "revId": "f69a4b48514c34bb672af026f73dc40298df4e75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
