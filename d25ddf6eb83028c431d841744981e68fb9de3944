@@ -22,6 +22,30 @@
       "revId": "d25ddf6eb83028c431d841744981e68fb9de3944",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef67e8dc_821818af",
+        "filename": "mediarouter/src/main/res/layout/mr_controller_material_dialog_b.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2019-05-21T07:21:58Z",
+      "side": 0,
+      "message": "To ignore the lint errors that is fixed in aosp/964471.\n\nSince we fixed the error, not ignoring the error would be better.\n\n\nI should\u0027ve mentioned it on the commit log.",
+      "parentUuid": "e3775809_80cfd8c4",
+      "range": {
+        "startLine": 35,
+        "startChar": 22,
+        "endLine": 36,
+        "endChar": 46
+      },
+      "revId": "d25ddf6eb83028c431d841744981e68fb9de3944",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
