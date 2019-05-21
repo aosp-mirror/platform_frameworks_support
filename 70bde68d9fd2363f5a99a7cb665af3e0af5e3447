@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "83170294_e91bae20",
+        "filename": "benchmark/api/1.0.0-alpha01.txt",
+        "patchSetId": 10
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-05-21T22:38:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a85e17be_4df534e1",
+      "revId": "70bde68d9fd2363f5a99a7cb665af3e0af5e3447",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8852d7c9_2be0fa94",
         "filename": "benchmark/src/main/java/androidx/benchmark/BenchmarkState.kt",
         "patchSetId": 10
@@ -48,6 +66,30 @@
       "writtenOn": "2019-05-21T17:10:04Z",
       "side": 1,
       "message": "Do you think it would be more elegant to just use the report class, instead of these getters, to dedupe this logic/behavior? Maybe have summaryLine() and getFullStatusReport() moving to the report class (with the latter taking a key, and potentially renamed to getStatusReportBundle())\n\nNot sure if it\u0027s more elegant to do it that way, since then the report object may need to be kept around, and is no longer something that\u0027s generated and passed out.",
+      "range": {
+        "startLine": 327,
+        "startChar": 5,
+        "endLine": 335,
+        "endChar": 39
+      },
+      "revId": "70bde68d9fd2363f5a99a7cb665af3e0af5e3447",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c1e26c6_94ebd10b",
+        "filename": "benchmark/src/main/java/androidx/benchmark/BenchmarkState.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-05-21T22:38:25Z",
+      "side": 1,
+      "message": "I think you\u0027re right that there\u0027s some de-duping we can do here - what if we just call into stats directly for now and we can pull the bundle / summaryLine logic in separate CL after?",
+      "parentUuid": "8852d7c9_2be0fa94",
       "range": {
         "startLine": 327,
         "startChar": 5,
@@ -74,6 +116,24 @@
       "revId": "70bde68d9fd2363f5a99a7cb665af3e0af5e3447",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3263dc26_bbdb536c",
+        "filename": "benchmark/src/main/java/androidx/benchmark/BenchmarkState.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-05-21T22:38:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b638bc36_7935f10a",
+      "revId": "70bde68d9fd2363f5a99a7cb665af3e0af5e3447",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
