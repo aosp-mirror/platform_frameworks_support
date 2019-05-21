@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "341c0341_de4923d7",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/Camera2DeviceSurfaceManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-05-21T23:56:45Z",
+      "side": 1,
+      "message": "This could be changed to CameraInfoUnavailableException",
+      "range": {
+        "startLine": 159,
+        "startChar": 25,
+        "endLine": 159,
+        "endChar": 34
+      },
+      "revId": "5a410139ca7b3b4d6eee7093d5c6e08b89d96e19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bad67cf7_fb035ccf",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/SupportedSurfaceCombination.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-05-21T23:56:45Z",
+      "side": 1,
+      "message": "Should also be CameraInfoUnavailableException",
+      "range": {
+        "startLine": 208,
+        "startChar": 29,
+        "endLine": 208,
+        "endChar": 38
+      },
+      "revId": "5a410139ca7b3b4d6eee7093d5c6e08b89d96e19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b985bed3_23762daf",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CameraX.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-05-21T23:56:45Z",
+      "side": 1,
+      "message": "@NonNull",
+      "range": {
+        "startLine": 274,
+        "startChar": 57,
+        "endLine": 274,
+        "endChar": 75
+      },
+      "revId": "5a410139ca7b3b4d6eee7093d5c6e08b89d96e19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3bd380f0_60548be7",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CameraX.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-05-21T23:56:45Z",
+      "side": 1,
+      "message": "Wouldn\u0027t this likely throw an exception if the user is trying to retrieve the ID via getCameraId()? Why retrieve this first?",
+      "range": {
+        "startLine": 276,
+        "startChar": 39,
+        "endLine": 276,
+        "endChar": 54
+      },
+      "revId": "5a410139ca7b3b4d6eee7093d5c6e08b89d96e19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e852b73_9365ef7f",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CameraX.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-05-21T23:56:45Z",
+      "side": 1,
+      "message": "I still don\u0027t think this should be on the CameraDeviceConfig object. I still think it should be available via camera2 interop. If you push the implementation to the CameraFactory, then the Camera2CameraFactory can retrieve the ID since it will have access to the camera2 interop options.",
+      "range": {
+        "startLine": 277,
+        "startChar": 33,
+        "endLine": 277,
+        "endChar": 51
+      },
+      "revId": "5a410139ca7b3b4d6eee7093d5c6e08b89d96e19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
