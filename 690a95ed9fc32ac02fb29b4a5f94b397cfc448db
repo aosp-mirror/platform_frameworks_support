@@ -46,6 +46,30 @@
       "revId": "690a95ed9fc32ac02fb29b4a5f94b397cfc448db",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a30efdf_2beb4a2d",
+        "filename": "benchmark/src/androidTest/java/androidx/benchmark/ParameterizedBenchmark.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-05-21T16:06:28Z",
+      "side": 1,
+      "message": "oops, I mean `(1..6).map { arrayOf(it) }`\n\ntoList isn\u0027t needed\n\ncould also do `List(6) { arrayOf(it) }`",
+      "parentUuid": "f391ae42_a1b447e2",
+      "range": {
+        "startLine": 31,
+        "startChar": 20,
+        "endLine": 39,
+        "endChar": 9
+      },
+      "revId": "690a95ed9fc32ac02fb29b4a5f94b397cfc448db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
