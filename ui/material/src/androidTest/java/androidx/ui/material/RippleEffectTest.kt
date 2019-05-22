@@ -34,8 +34,6 @@ import androidx.ui.layout.Container
 import androidx.ui.layout.Padding
 import androidx.ui.layout.Row
 import androidx.ui.layout.Wrap
-import androidx.ui.material.borders.BorderRadius
-import androidx.ui.material.borders.BoxShape
 import androidx.ui.material.ripple.BoundedRipple
 import androidx.ui.material.ripple.CurrentRippleTheme
 import androidx.ui.material.ripple.RippleEffect
@@ -43,7 +41,6 @@ import androidx.ui.material.ripple.RippleEffectFactory
 import androidx.ui.material.ripple.RippleSurfaceOwner
 import androidx.ui.material.ripple.RippleTheme
 import androidx.ui.material.surface.Card
-import androidx.ui.material.surface.DrawColor
 import androidx.ui.painting.Canvas
 import androidx.ui.graphics.Color
 import androidx.ui.test.android.AndroidUiTestRunner
@@ -144,9 +141,7 @@ class RippleEffectTest : AndroidUiTestRunner() {
     private fun RippleButton(size: Dp? = null) {
         BoundedRipple {
             Clickable(onClick = {}) {
-                Container(width = size, height = size) {
-                    DrawColor(Color(android.graphics.Color.CYAN))
-                }
+                Container(width = size, height = size) {}
             }
         }
     }
@@ -168,11 +163,9 @@ class RippleEffectTest : AndroidUiTestRunner() {
                 touchPosition: PxPosition,
                 color: Color,
                 density: Density,
-                shape: BoxShape,
                 finalRadius: Px?,
-                containedInkWell: Boolean,
+                bounded: Boolean,
                 boundsCallback: ((LayoutCoordinates) -> PxBounds)?,
-                clippingBorderRadius: BorderRadius?,
                 onRemoved: (() -> Unit)?
             ): RippleEffect {
                 return object : RippleEffect(rippleSurface, coordinates, color, onRemoved) {

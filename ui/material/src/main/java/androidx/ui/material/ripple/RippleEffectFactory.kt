@@ -21,8 +21,6 @@ import androidx.ui.core.LayoutCoordinates
 import androidx.ui.core.Px
 import androidx.ui.core.PxBounds
 import androidx.ui.core.PxPosition
-import androidx.ui.material.borders.BorderRadius
-import androidx.ui.material.borders.BoxShape
 import androidx.ui.graphics.Color
 
 /**
@@ -44,14 +42,9 @@ abstract class RippleEffectFactory {
         touchPosition: PxPosition,
         color: Color,
         density: Density,
-        // TODO("Andrey: Could we integrate shape and clippingBorderRadius into one concept API wise?
-        // It is strange now that BoxShape can be a circle and there's a separate border
-        // radius attribute")
-        shape: BoxShape = BoxShape.Rectangle,
         finalRadius: Px? = null,
-        containedInkWell: Boolean = false,
+        bounded: Boolean = false,
         boundsCallback: ((LayoutCoordinates) -> PxBounds)? = null,
-        clippingBorderRadius: BorderRadius? = null,
         onRemoved: (() -> Unit)? = null
     ): RippleEffect
 }

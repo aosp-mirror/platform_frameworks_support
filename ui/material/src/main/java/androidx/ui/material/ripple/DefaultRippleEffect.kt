@@ -43,10 +43,7 @@ import androidx.ui.core.toRect
 import androidx.ui.core.toSize
 import androidx.ui.core.withDensity
 import androidx.ui.engine.geometry.Offset
-import androidx.ui.engine.geometry.RRect
 import androidx.ui.engine.geometry.Rect
-import androidx.ui.material.borders.BorderRadius
-import androidx.ui.material.borders.BoxShape
 import androidx.ui.material.surface.Surface
 import androidx.ui.painting.Canvas
 import androidx.ui.graphics.Color
@@ -90,11 +87,9 @@ object DefaultRippleEffectFactory : RippleEffectFactory() {
         touchPosition: PxPosition,
         color: Color,
         density: Density,
-        shape: BoxShape,
         finalRadius: Px?,
-        containedInkWell: Boolean,
+        bounded: Boolean,
         boundsCallback: ((LayoutCoordinates) -> PxBounds)?,
-        clippingBorderRadius: BorderRadius?,
         onRemoved: (() -> Unit)?
     ): RippleEffect {
         return DefaultRippleEffect(
@@ -104,9 +99,8 @@ object DefaultRippleEffectFactory : RippleEffectFactory() {
             color,
             density,
             finalRadius,
-            containedInkWell,
+            bounded,
             boundsCallback,
-            clippingBorderRadius,
             onRemoved
         )
     }
@@ -149,12 +143,9 @@ internal class DefaultRippleEffect(
     finalRadius: Px? = null,
     containedInkWell: Boolean = false,
     boundsCallback: ((LayoutCoordinates) -> PxBounds)? = null,
-    clippingBorderRadius: BorderRadius? = null,
     onRemoved: (() -> Unit)? = null
 ) : RippleEffect(rippleSurface, coordinates, color, onRemoved) {
 
-    private val borderRadius: BorderRadius =
-        clippingBorderRadius ?: BorderRadius.Zero
     private val clipCallback: ((LayoutCoordinates) -> PxBounds)? =
         getRippleClipCallback(containedInkWell, boundsCallback)
     private val animation: TransitionAnimation<RippleTransition.State>
@@ -193,26 +184,12 @@ internal class DefaultRippleEffect(
         animation.toState(RippleTransition.State.Finished)
     }
 
-    private fun clipRRectFromRect(rect: Rect): RRect {
-        return RRect(
-            rect,
-            topLeft = borderRadius.topLeft,
-            topRight = borderRadius.topRight,
-            bottomLeft = borderRadius.bottomLeft,
-            bottomRight = borderRadius.bottomRight
-        )
-    }
-
     private fun clipCanvasWithRect(canvas: Canvas, rect: Rect, offset: Offset? = null) {
         var clipRect = rect
         if (offset != null) {
             clipRect = clipRect.shift(offset)
         }
-        if (borderRadius != BorderRadius.Zero) {
-            canvas.clipRRect(clipRRectFromRect(clipRect))
-        } else {
-            canvas.clipRect(clipRect)
-        }
+        canvas.clipRect(clipRect)
     }
 
     override fun drawEffect(canvas: Canvas, transform: Matrix4) {
