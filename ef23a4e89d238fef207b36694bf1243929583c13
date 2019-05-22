@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "717a2daf_7a0bab83",
+        "filename": "ui/text/src/androidTest/java/androidx/ui/engine/text/ParagraphIntegrationTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 1035,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-05-22T22:36:49Z",
+      "side": 1,
+      "message": "maybe it should have those functions?\ndo you believe that there is a reason for not to have those functions in TextPainter?",
+      "parentUuid": "dfe25b80_44a34cf4",
+      "revId": "ef23a4e89d238fef207b36694bf1243929583c13",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d8d9180b_786f3d93",
         "filename": "ui/text/src/main/java/androidx/ui/engine/text/TextStyle.kt",
         "patchSetId": 2
@@ -69,6 +87,24 @@
       "revId": "ef23a4e89d238fef207b36694bf1243929583c13",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66e86d94_6e3a7d78",
+        "filename": "ui/text/src/main/java/androidx/ui/engine/text/TextStyle.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-05-22T22:36:49Z",
+      "side": 1,
+      "message": "ack",
+      "parentUuid": "4bcd10fe_a4c1ef89",
+      "revId": "ef23a4e89d238fef207b36694bf1243929583c13",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
