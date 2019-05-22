@@ -18,8 +18,8 @@ package androidx.camera.core;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.BitmapRegionDecoder;
 import android.graphics.ImageFormat;
-import android.graphics.Matrix;
 import android.graphics.Rect;
 import android.graphics.YuvImage;
 import android.util.Log;
@@ -32,6 +32,7 @@ import androidx.annotation.RestrictTo.Scope;
 import androidx.camera.core.ImageOutputConfig.RotationValue;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.nio.ByteBuffer;
 
 /**
@@ -65,68 +66,30 @@ final class ImageUtil {
             return data;
         }
 
-        Bitmap imageBitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
-        if (imageBitmap == null) {
-            Log.w(TAG, "Source image for cropping can't be decoded.");
+        Bitmap bitmap = null;
+        try {
+            BitmapRegionDecoder decoder = BitmapRegionDecoder.newInstance(data, 0, data.length,
+                    false);
+            bitmap = decoder.decodeRegion(cropRect, new BitmapFactory.Options());
+            decoder.recycle();
+        } catch (IOException e) {
+            Log.e("TAG", "Decode byte array failed." + e);
             return data;
         }
 
-        Bitmap cropBitmap = cropBitmap(imageBitmap, cropRect);
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        boolean success = cropBitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
-        if (!success) {
-            throw new EncodeFailedException("cropImage failed to encode jpeg.");
+        if (bitmap == null) {
+            return data;
         }
 
-        imageBitmap.recycle();
-        cropBitmap.recycle();
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        boolean success = bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+        if (!success) {
+            throw new EncodeFailedException("Encode byte array failed.");
+        }
+
+        bitmap.recycle();
 
         return out.toByteArray();
-    }
-
-    /** Crops bitmap with given {@link android.graphics.Rect}. */
-    public static Bitmap cropBitmap(Bitmap bitmap, Rect cropRect) {
-        if (cropRect.width() > bitmap.getWidth() || cropRect.height() > bitmap.getHeight()) {
-            Log.w(TAG, "Crop rect size exceeds the source image.");
-            return bitmap;
-        }
-
-        return Bitmap.createBitmap(
-                bitmap, cropRect.left, cropRect.top, cropRect.width(), cropRect.height());
-    }
-
-    /** Flips bitmap. */
-    public static Bitmap flipBitmap(Bitmap bitmap, boolean flipHorizontal, boolean flipVertical) {
-        if (!flipHorizontal && !flipVertical) {
-            return bitmap;
-        }
-
-        Matrix matrix = new Matrix();
-        if (flipHorizontal) {
-            if (flipVertical) {
-                matrix.preScale(-1.0f, -1.0f);
-            } else {
-                matrix.preScale(-1.0f, 1.0f);
-            }
-        } else if (flipVertical) {
-            matrix.preScale(1.0f, -1.0f);
-        }
-
-        return Bitmap.createBitmap(
-                bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
-    }
-
-    /** Rotates bitmap with specified degree. */
-    public static Bitmap rotateBitmap(Bitmap bitmap, int degree) {
-        if (degree == 0) {
-            return bitmap;
-        }
-
-        Matrix matrix = new Matrix();
-        matrix.preRotate(degree);
-
-        return Bitmap.createBitmap(
-                bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
     }
 
     /** True if the given aspect ratio is meaningful. */
