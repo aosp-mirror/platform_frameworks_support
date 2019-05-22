@@ -30,14 +30,15 @@ import androidx.ui.core.withDensity
 import androidx.ui.layout.Column
 import androidx.ui.layout.Container
 import androidx.ui.layout.DpConstraints
-import androidx.ui.test.assertIsInMutuallyExclusiveGroup
-import androidx.ui.test.assertIsSelected
+import androidx.ui.test.assertInMutuallyExclusiveGroup
+import androidx.ui.test.assertSelected
 import androidx.ui.test.assertSemanticsIsEqualTo
 import androidx.ui.test.copyWith
 import androidx.ui.test.createComposeRule
 import androidx.ui.test.createFullSemantics
 import androidx.ui.test.doClick
 import androidx.ui.test.findByTag
+import androidx.ui.test.assertNotSelected
 import com.google.common.truth.Truth
 import org.junit.Rule
 import org.junit.Test
@@ -100,14 +101,14 @@ class RadioGroupUiTest {
         findByTag(itemThree).assertSemanticsIsEqualTo(unselectedRadioGroupItemSemantics)
 
         findByTag(itemOne)
-            .assertIsInMutuallyExclusiveGroup()
-            .assertIsSelected(true)
+            .assertInMutuallyExclusiveGroup()
+            .assertSelected()
         findByTag(itemTwo)
-            .assertIsInMutuallyExclusiveGroup()
-            .assertIsSelected(false)
+            .assertInMutuallyExclusiveGroup()
+            .assertNotSelected()
         findByTag(itemThree)
-            .assertIsInMutuallyExclusiveGroup()
-            .assertIsSelected(false)
+            .assertInMutuallyExclusiveGroup()
+            .assertNotSelected()
     }
 
     @Test

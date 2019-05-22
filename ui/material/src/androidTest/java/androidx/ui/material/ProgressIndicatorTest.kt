@@ -28,7 +28,7 @@ import androidx.ui.core.round
 import androidx.ui.core.withDensity
 import androidx.ui.layout.Container
 import androidx.ui.layout.DpConstraints
-import androidx.ui.test.assertIsVisible
+import androidx.ui.test.assertVisible
 import androidx.ui.test.assertValueEquals
 import androidx.ui.test.createComposeRule
 import androidx.ui.test.findByTag
@@ -67,7 +67,7 @@ class ProgressIndicatorTest {
         }
 
         findByTag(tag)
-            .assertIsVisible()
+            .assertVisible()
             .assertValueEquals("0.0")
 
         composeTestRule.runOnUiThread {
@@ -75,7 +75,7 @@ class ProgressIndicatorTest {
         }
 
         findByTag(tag)
-            .assertIsVisible()
+            .assertVisible()
             .assertValueEquals("0.5")
     }
 
@@ -127,7 +127,7 @@ class ProgressIndicatorTest {
         }
 
         findByTag(tag)
-            .assertIsVisible()
+            .assertVisible()
             .assertValueEquals("0.0")
 
         composeTestRule.runOnUiThread {
@@ -135,7 +135,7 @@ class ProgressIndicatorTest {
         }
 
         findByTag(tag)
-            .assertIsVisible()
+            .assertVisible()
             .assertValueEquals("0.5")
     }
 
