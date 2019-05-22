@@ -45,6 +45,30 @@
       "revId": "22d01c6877d08b8dd01c945cf21d9f9647d7c7e4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd6fb44e_b7d129bc",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaControllerImplBase.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1289,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-05-22T06:00:21Z",
+      "side": 1,
+      "message": "(Just FYI, for time text track thing, I just file b/133283938 to clean up.)",
+      "parentUuid": "f752c38e_57f767ac",
+      "range": {
+        "startLine": 1285,
+        "startChar": 0,
+        "endLine": 1289,
+        "endChar": 52
+      },
+      "revId": "22d01c6877d08b8dd01c945cf21d9f9647d7c7e4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
