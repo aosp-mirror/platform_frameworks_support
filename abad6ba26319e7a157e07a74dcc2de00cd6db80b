@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a12da8d_879c23bd",
+        "filename": "room/common/build.gradle",
+        "patchSetId": 5
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-05-22T20:32:39Z",
+      "side": 1,
+      "message": "If adding the kotlin plugin then remove the java plugin, no need to keep both.",
+      "range": {
+        "startLine": 25,
+        "startChar": 4,
+        "endLine": 25,
+        "endChar": 16
+      },
+      "revId": "abad6ba26319e7a157e07a74dcc2de00cd6db80b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5362c2e0_f347a59c",
+        "filename": "room/common/build.gradle",
+        "patchSetId": 5
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-05-22T20:32:39Z",
+      "side": 1,
+      "message": "These should be testCompile and I don\u0027t think we need KOTLIN_METADATA_JVM, only stdlib.",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 32
+      },
+      "revId": "abad6ba26319e7a157e07a74dcc2de00cd6db80b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "572614ac_2e63116d",
+        "filename": "room/common/api/2.1.0-beta02.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-05-22T20:32:39Z",
+      "side": 0,
+      "message": "I have CL creating Room 2.2 api files aosp/968814, once that gets merged you need to rebase (reverting the changes to the beta api files) and then re-run ./gradlew updateApi, and then we\u0027ll be able to start merging the IAP CLs.",
+      "range": {
+        "startLine": 74,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 311
+      },
+      "revId": "4ef52ace7441ac3fad9a7faea752f5f3e81bfaac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
