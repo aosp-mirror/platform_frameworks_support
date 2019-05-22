@@ -141,6 +141,30 @@
       "revId": "22d01c6877d08b8dd01c945cf21d9f9647d7c7e4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a429481_7be5e3aa",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaControllerImplBase.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1289,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-22T10:02:02Z",
+      "side": 1,
+      "message": "The TrackSelector for ExoPlayer seems to support metadata track types, so maybe we should keep it?\nhttps://cs.corp.google.com/aosp-androidx/media2/player/src/main/java/androidx/media2/player/exoplayer/TrackSelector.java?rcl\u003d4ef52ace7441ac3fad9a7faea752f5f3e81bfaac\u0026l\u003d221\n\nRemoved TimedText, though.",
+      "parentUuid": "b4cff50d_4138fc24",
+      "range": {
+        "startLine": 1285,
+        "startChar": 0,
+        "endLine": 1289,
+        "endChar": 52
+      },
+      "revId": "22d01c6877d08b8dd01c945cf21d9f9647d7c7e4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
