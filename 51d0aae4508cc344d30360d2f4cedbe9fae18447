@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "147d1bab_a929b5bd",
+        "filename": "camera/integration-tests/timingtestapp/src/main/java/androidx/camera/integration/antelope/cameracontrollers/Camera2DeviceStateCallback.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-05-22T18:12:18Z",
+      "side": 1,
+      "message": "Missed this one (along with the additional null check at the end of this method).",
+      "range": {
+        "startLine": 64,
+        "startChar": 26,
+        "endLine": 64,
+        "endChar": 47
+      },
+      "revId": "51d0aae4508cc344d30360d2f4cedbe9fae18447",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
