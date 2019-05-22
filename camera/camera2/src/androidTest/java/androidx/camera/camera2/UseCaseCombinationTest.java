@@ -114,6 +114,7 @@ public final class UseCaseCombinationTest {
     public void tearDown() throws InterruptedException {
         if (mHandlerThread != null) {
             CameraX.unbindAll();
+            mCameraRepository.onGroupInactive(mUseCaseGroup);
             mHandlerThread.quitSafely();
 
             // Wait some time for the cameras to close.
