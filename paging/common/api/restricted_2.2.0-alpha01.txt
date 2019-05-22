@@ -4,6 +4,9 @@ package androidx.paging {
 
 
 
+  public abstract class ListenableItemKeyedDataSource<Key, Value> extends androidx.paging.DataSource<Key,Value> {
+  }
+
   public abstract class ListenablePositionalDataSource<T> extends androidx.paging.DataSource<java.lang.Integer,T> {
   }
 

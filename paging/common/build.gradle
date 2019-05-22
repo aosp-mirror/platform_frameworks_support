@@ -37,6 +37,9 @@ dependencies {
 
     testCompile(JUNIT)
     testCompile(MOCKITO_CORE)
+    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.0.0-RC2", {
+        exclude group: 'org.mockito' // to keep control on the mockito version
+    }
     testCompile(GUAVA)
     testImplementation project(':internal-testutils-common')
 }
