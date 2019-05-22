@@ -20,7 +20,6 @@ import androidx.compose.composer
 import androidx.compose.state
 import androidx.compose.unaryPlus
 import androidx.test.filters.MediumTest
-import androidx.ui.baseui.selection.ToggleableState
 import androidx.ui.core.TestTag
 import androidx.ui.material.Checkbox
 import androidx.ui.material.MaterialTheme
@@ -64,14 +63,15 @@ class RecompositionDetectionTest {
             }
         }
 
-        val interaction = findByTag("checkbox") as AndroidSemanticsTreeInteraction
+        val node = findByTag("checkbox")
+        val interaction = node.semanticsTreeInteraction as AndroidSemanticsTreeInteraction
 
         Truth.assertThat(interaction.hadPendingChangesAfterLastAction).isFalse()
 
-        interaction.doClick()
+        node.doClick()
 
         Truth.assertThat(interaction.hadPendingChangesAfterLastAction).isTrue()
 
-        interaction.assertIsChecked()
+        node.assertIsChecked()
     }
 }

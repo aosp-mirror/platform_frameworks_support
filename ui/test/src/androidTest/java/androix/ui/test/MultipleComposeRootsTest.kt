@@ -16,7 +16,6 @@
 
 package androix.ui.test
 
-import android.view.Surface
 import androidx.compose.composer
 import android.widget.FrameLayout
 import android.widget.LinearLayout
@@ -32,7 +31,6 @@ import androidx.test.rule.ActivityTestRule
 import androidx.ui.baseui.selection.ToggleableState
 import androidx.ui.core.CraneWrapper
 import androidx.ui.core.TestTag
-import androidx.ui.material.Checkbox
 import androidx.ui.material.MaterialTheme
 import androidx.ui.material.TriStateCheckbox
 import androidx.ui.material.surface.Surface
@@ -98,7 +96,7 @@ class MultipleComposeRootsTest {
                 val state1 = CheckboxState(value = ToggleableState.Unchecked)
                 val state2 = CheckboxState(value = ToggleableState.Checked)
 
-                val linearLayout  = LinearLayout(activity)
+                val linearLayout = LinearLayout(activity)
                     .apply { orientation = LinearLayout.VERTICAL }
 
                 val textView1 = TextView(activity).apply { text = "Compose 1" }

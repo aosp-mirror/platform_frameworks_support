@@ -16,11 +16,12 @@
 
 package androidx.ui.test
 
+// TODO(b/133217292)
 fun SemanticsTreeInteraction.dumpSemantics(consumer: (String) -> Unit) {
-    var builder = StringBuilder()
+    val builder = StringBuilder()
 
     findAllMatching().forEach {
-        builder.appendln("Label: '${it.data.testTag}'")
+        builder.appendln("Label: '${it.semanticsTreeNode.data.testTag}'")
     }
 
     consumer.invoke(builder.toString())
