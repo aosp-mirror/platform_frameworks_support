@@ -46,6 +46,30 @@
       "revId": "c5e955745d7bdd6b5b682d8c63993c1df53aaa33",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74c5c3f2_1fa596cb",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/DiffUtil.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 631,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-05-22T23:57:38Z",
+      "side": 1,
+      "message": "so i\u0027m debugging the test case here, the snakes seems wrong.\nIt has two snakes, x:0, y:0 size 1; and x:1 y:2 size 1.\nThe second one, for the example in this test, should be x:1 y:3.\n\nbut it has been a very long time since i\u0027ve implemented this so i\u0027m not sure if i\u0027m reading it properly.\nwill keep digging.\n\nthis CL only avoids a side effect though, we are still sending RecyclerView the wrong data :/",
+      "parentUuid": "f52af1e6_85a4822b",
+      "range": {
+        "startLine": 630,
+        "startChar": 16,
+        "endLine": 631,
+        "endChar": 68
+      },
+      "revId": "c5e955745d7bdd6b5b682d8c63993c1df53aaa33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
