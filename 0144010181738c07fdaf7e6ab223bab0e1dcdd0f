@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "22240364_745cb790",
+        "filename": "concurrent/listenablefuture/api/current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-05-22T22:14:53Z",
+      "side": 1,
+      "message": "Should we @NonNull these?",
+      "range": {
+        "startLine": 5,
+        "startChar": 35,
+        "endLine": 5,
+        "endChar": 43
+      },
+      "revId": "0144010181738c07fdaf7e6ab223bab0e1dcdd0f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
