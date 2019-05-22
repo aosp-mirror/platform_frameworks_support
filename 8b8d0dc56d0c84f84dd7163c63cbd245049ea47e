@@ -50,6 +50,30 @@
     },
     {
       "key": {
+        "uuid": "c4887442_fdc87db5",
+        "filename": "work/workmanager/build.gradle",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-05-22T17:57:01Z",
+      "side": 1,
+      "message": "We don\u0027t do this in any other project, FWIW. But I see what you are trying to do.",
+      "parentUuid": "da199fb1_e56f46ac",
+      "range": {
+        "startLine": 50,
+        "startChar": 8,
+        "endLine": 51,
+        "endChar": 54
+      },
+      "revId": "8b8d0dc56d0c84f84dd7163c63cbd245049ea47e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c64e971e_40e08e3f",
         "filename": "work/workmanager/build.gradle",
         "patchSetId": 3
