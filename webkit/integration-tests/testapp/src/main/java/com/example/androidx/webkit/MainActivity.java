@@ -45,6 +45,21 @@ public class MainActivity extends AppCompatActivity {
                 new MenuListView.MenuItem(
                         getResources().getString(R.string.safebrowsing_activity_title),
                         new Intent(activityContext, SafeBrowsingActivity.class)),
+<<<<<<< HEAD   (5155e6 Merge "Merge empty history for sparse-5513738-L3500000031735)
+=======
+                new MenuListView.MenuItem(
+                        getResources().getString(R.string.proxy_override_activity_title),
+                        new Intent(activityContext, ProxyOverrideActivity.class)),
+                new MenuListView.MenuItem(
+                        getResources().getString(R.string.asset_loader_list_activity_title),
+                        new Intent(activityContext, AssetLoaderListActivity.class)),
+                new MenuListView.MenuItem(
+                        getResources().getString(R.string.force_dark_activity_title),
+                        new Intent(activityContext, ForceDarkActivity.class)),
+                new MenuListView.MenuItem(
+                        getResources().getString(R.string.multi_process_enabled_activity_title),
+                        new Intent(activityContext, MultiProcessEnabledActivity.class)),
+>>>>>>> BRANCH (c64117 Merge "Merge cherrypicks of [968275] into sparse-5587371-L78)
         };
         listView.setItems(menuItems);
     }

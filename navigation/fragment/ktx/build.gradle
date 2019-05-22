@@ -36,6 +36,11 @@ dependencies {
     api(project(":navigation:navigation-fragment"))
     // Ensure that the -ktx dependency graph mirrors the Java dependency graph
     api(project(":navigation:navigation-runtime-ktx"))
+<<<<<<< HEAD   (5155e6 Merge "Merge empty history for sparse-5513738-L3500000031735)
+=======
+    api(project(":fragment-ktx"))
+    api("androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0-beta01")
+>>>>>>> BRANCH (c64117 Merge "Merge cherrypicks of [968275] into sparse-5587371-L78)
     api(KOTLIN_STDLIB)
     androidTestImplementation(TEST_EXT_JUNIT)
     androidTestImplementation(TEST_CORE)

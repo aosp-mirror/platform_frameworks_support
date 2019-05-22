@@ -21,14 +21,16 @@ import androidx.testutils.RecreatedActivity
 import androidx.viewpager2.LocaleTestUtils
 import androidx.viewpager2.test.R
 
+<<<<<<< HEAD   (5155e6 Merge "Merge empty history for sparse-5513738-L3500000031735)
 class TestActivity : RecreatedActivity() {
+=======
+class TestActivity : RecreatedAppCompatActivity(R.layout.activity_test_layout) {
+>>>>>>> BRANCH (c64117 Merge "Merge cherrypicks of [968275] into sparse-5587371-L78)
     public override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
         if (intent?.hasExtra(EXTRA_LANGUAGE) == true) {
             LocaleTestUtils(this).setLocale(intent.getStringExtra(EXTRA_LANGUAGE))
         }
-
-        setContentView(R.layout.activity_test_layout)
+        super.onCreate(savedInstanceState)
 
         /** hacky way of configuring this instance from test code */
         onCreateCallback(this)

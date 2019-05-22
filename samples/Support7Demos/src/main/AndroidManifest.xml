@@ -318,6 +318,31 @@
             </intent-filter>
         </activity>
 
+<<<<<<< HEAD   (5155e6 Merge "Merge empty history for sparse-5513738-L3500000031735)
+=======
+        <activity android:name=".app.ToolbarBackgroundChange"
+            android:label="@string/toolbar_background_change"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.example.android.supportv7.SAMPLE_CODE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.default_searchable"
+                android:value=".app.SearchActivity" />
+        </activity>
+
+        <activity android:name=".app.ToolbarTall"
+            android:label="@string/toolbar_tall"
+            android:theme="@style/Theme.Custom.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.example.android.supportv7.SAMPLE_CODE" />
+            </intent-filter>
+        </activity>
+
+>>>>>>> BRANCH (c64117 Merge "Merge cherrypicks of [968275] into sparse-5587371-L78)
         <activity android:name=".app.DialogUsage"
                   android:label="@string/dialog_usage"
                   android:theme="@style/Theme.AppCompat.Light">
@@ -398,6 +423,15 @@
         <activity android:name=".widget.RecyclerViewActivity"
                   android:label="@string/recycler_view"
                   android:theme="@style/Theme.AppCompat">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.example.android.supportv7.SAMPLE_CODE" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".widget.RecyclerViewSmoothScrollByActivity"
+            android:label="@string/recycler_view_smooth_scroll_by"
+            android:theme="@style/Theme.AppCompat">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="com.example.android.supportv7.SAMPLE_CODE" />

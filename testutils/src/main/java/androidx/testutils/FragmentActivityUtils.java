@@ -1,3 +1,4 @@
+<<<<<<< HEAD   (5155e6 Merge "Merge empty history for sparse-5513738-L3500000031735)
 /*
  * Copyright (C) 2017 The Android Open Source Project
  *
@@ -142,3 +143,5 @@ public class FragmentActivityUtils {
     private FragmentActivityUtils() {
     }
 }
+=======
+>>>>>>> BRANCH (c64117 Merge "Merge cherrypicks of [968275] into sparse-5587371-L78)

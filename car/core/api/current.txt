@@ -346,6 +346,13 @@ package androidx.car.widget {
     field public static final int SOLID = 0; // 0x0
   }
 
+  @Deprecated public static final class ListItemAdapter.BackgroundStyle {
+    field @Deprecated public static final int CARD = 2; // 0x2
+    field @Deprecated public static final int NONE = 1; // 0x1
+    field @Deprecated public static final int PANEL = 3; // 0x3
+    field @Deprecated public static final int SOLID = 0; // 0x0
+  }
+
   public abstract class ListItemProvider<VH extends androidx.car.widget.ListItem.ViewHolder> {
     ctor public ListItemProvider();
     method public abstract androidx.car.widget.ListItem<VH> get(int);
@@ -559,6 +566,7 @@ package androidx.car.widget {
     method public static androidx.car.widget.SwitchListItem.ViewHolder createViewHolder(android.view.View!);
     method protected final android.content.Context getContext();
     method public int getViewType();
+<<<<<<< HEAD   (5155e6 Merge "Merge empty history for sparse-5513738-L3500000031735)
     method public void onBind(androidx.car.widget.SwitchListItem.ViewHolder!);
     method @CallSuper protected void resolveDirtyState();
     method public void setBody(CharSequence?);
@@ -574,14 +582,24 @@ package androidx.car.widget {
     field public static final int PRIMARY_ACTION_ICON_SIZE_LARGE = 2; // 0x2
     field public static final int PRIMARY_ACTION_ICON_SIZE_MEDIUM = 1; // 0x1
     field public static final int PRIMARY_ACTION_ICON_SIZE_SMALL = 0; // 0x0
+=======
+    method public boolean isCompoundButtonPositionEnd();
+    method @Deprecated public void setShowSwitchDivider(boolean);
+    method @Deprecated public void setSwitchOnCheckedChangeListener(android.widget.CompoundButton.OnCheckedChangeListener?);
+    method @Deprecated public void setSwitchState(boolean);
+>>>>>>> BRANCH (c64117 Merge "Merge cherrypicks of [968275] into sparse-5587371-L78)
   }
 
   public static final class SwitchListItem.ViewHolder extends androidx.car.widget.ListItem.ViewHolder {
     ctor public SwitchListItem.ViewHolder(android.view.View);
     method public android.widget.TextView getBody();
     method public android.widget.ImageView getPrimaryIcon();
+<<<<<<< HEAD   (5155e6 Merge "Merge empty history for sparse-5513738-L3500000031735)
     method public android.widget.Switch getSwitch();
     method public android.view.View getSwitchDivider();
+=======
+    method @Deprecated public android.widget.Switch getSwitch();
+>>>>>>> BRANCH (c64117 Merge "Merge cherrypicks of [968275] into sparse-5587371-L78)
     method public android.widget.TextView getTitle();
     method public void onUxRestrictionsChanged(androidx.car.uxrestrictions.CarUxRestrictions!);
   }

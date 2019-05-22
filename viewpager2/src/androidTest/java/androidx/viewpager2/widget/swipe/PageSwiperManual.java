@@ -50,6 +50,29 @@ public class PageSwiperManual implements PageSwiper {
         mActionPrevious.swipe(InstrumentationRegistry.getInstrumentation(), mViewPager);
     }
 
+<<<<<<< HEAD   (5155e6 Merge "Merge empty history for sparse-5513738-L3500000031735)
+=======
+    public void swipeForward(float px, Interpolator interpolator) {
+        swipe(px * mXForwardFactor, px * mYForwardFactor, interpolator);
+    }
+
+    public void swipeBackward(float px, Interpolator interpolator) {
+        swipe(px * -mXForwardFactor, px * -mYForwardFactor, interpolator);
+    }
+
+    private void swipe(float xOffset, float yOffset, Interpolator interpolator) {
+        new ManualSwipeInjector(
+                offsetCenter(-xOffset / 2, -yOffset / 2),
+                offsetCenter((xOffset + 1) / 2, (yOffset + 1) / 2),
+                150, 20
+        ).perform(InstrumentationRegistry.getInstrumentation(), mViewPager, interpolator);
+    }
+
+    private static CoordinatesProvider offsetCenter(final float dx, final float dy) {
+        return new TranslatedCoordinatesProvider(CENTER, dx, dy);
+    }
+
+>>>>>>> BRANCH (c64117 Merge "Merge cherrypicks of [968275] into sparse-5587371-L78)
     private interface SwipeAction {
         void swipe(Instrumentation instrumentation, View view);
     }

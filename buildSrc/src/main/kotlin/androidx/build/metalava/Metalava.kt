@@ -31,6 +31,8 @@ import com.android.build.gradle.LibraryExtension
 import org.gradle.api.Project
 import org.gradle.api.artifacts.Configuration
 import org.gradle.api.plugins.JavaPluginConvention
+import org.gradle.api.provider.ListProperty
+import org.gradle.api.tasks.TaskProvider
 import org.gradle.kotlin.dsl.getPlugin
 import java.io.File
 
@@ -103,23 +105,36 @@ object Metalava {
         val currentTxtApi = ApiLocation.fromPublicApiFile(File(libraryVersionApi.publicApiFile.parentFile, "current.txt"))
 
         // make sure to update current.txt if it wasn't previously planned to be updated
+<<<<<<< HEAD   (5155e6 Merge "Merge empty history for sparse-5513738-L3500000031735)
         val outputApiLocations: List<ApiLocation> = if (libraryVersionApi.publicApiFile.path.equals(currentTxtApi.publicApiFile.path)) {
             listOf(libraryVersionApi)
         } else {
             listOf(libraryVersionApi, currentTxtApi)
         }
+=======
+        val outputApiLocations: ListProperty<ApiLocation> =
+            if (libraryVersionApi.publicApiFile.path.equals(currentTxtApi.publicApiFile.path)) {
+                project.objects.listProperty(ApiLocation::class.java)
+                    .convention(listOf(libraryVersionApi))
+            } else {
+                project.objects.listProperty(ApiLocation::class.java)
+                    .convention(listOf(libraryVersionApi, currentTxtApi))
+            }
+>>>>>>> BRANCH (c64117 Merge "Merge cherrypicks of [968275] into sparse-5587371-L78)
 
         val builtApiLocation = ApiLocation.fromPublicApiFile(File(project.docsDir(), "release/${project.name}/current.txt"))
 
-        var generateApi = project.tasks.create("generateApi", GenerateApiTask::class.java) { task ->
+        val generateApi = project.tasks.register("generateApi", GenerateApiTask::class.java) {
+                task ->
             task.group = "API"
             task.description = "Generates API files from source"
-            task.apiLocation = builtApiLocation
+            task.apiLocation.set(builtApiLocation)
             task.configuration = metalavaConfiguration
             task.dependsOn(metalavaConfiguration)
+            applyInputs(javaCompileInputs, task)
         }
-        applyInputs(javaCompileInputs, generateApi)
 
+<<<<<<< HEAD   (5155e6 Merge "Merge empty history for sparse-5513738-L3500000031735)
         val checkApi = project.tasks.create("checkApi", CheckApiEquivalenceTask::class.java) { task ->
             task.group = "API"
             task.description = "Checks that the API generated from source code matches the checked in API file"
@@ -128,19 +143,31 @@ object Metalava {
             task.checkRestrictedAPIs = extension.trackRestrictedAPIs
             task.dependsOn(generateApi)
         }
+=======
+        var checkApiRelease: TaskProvider<CheckApiCompatibilityTask>? = null
+        val exclusions = ApiViolationExclusions.fromApiLocation(libraryVersionApi)
+>>>>>>> BRANCH (c64117 Merge "Merge cherrypicks of [968275] into sparse-5587371-L78)
 
+<<<<<<< HEAD   (5155e6 Merge "Merge empty history for sparse-5513738-L3500000031735)
         val lastReleasedApiFile = project.getRequiredCompatibilityApiLocation()
         if (lastReleasedApiFile != null) {
             val checkApiRelease = project.tasks.create("checkApiRelease", CheckApiCompatibilityTask::class.java) { task ->
+=======
+        project.getRequiredCompatibilityApiLocation()?.let { lastReleasedApiFile ->
+            checkApiRelease = project.tasks.register(
+                "checkApiRelease",
+                CheckApiCompatibilityTask::class.java
+            ) { task ->
+>>>>>>> BRANCH (c64117 Merge "Merge cherrypicks of [968275] into sparse-5587371-L78)
                 task.configuration = metalavaConfiguration
-                task.referenceApi = lastReleasedApiFile
-                task.exclusions = ApiViolationExclusions.fromApiLocation(libraryVersionApi)
+                task.referenceApi.set(lastReleasedApiFile)
+                task.exclusions.set(exclusions)
                 task.dependsOn(metalavaConfiguration)
                 task.checkRestrictedAPIs = extension.trackRestrictedAPIs
+                applyInputs(javaCompileInputs, task)
             }
-            applyInputs(javaCompileInputs, checkApiRelease)
-            checkApi.dependsOn(checkApiRelease)
 
+<<<<<<< HEAD   (5155e6 Merge "Merge empty history for sparse-5513738-L3500000031735)
             val updateApiTrackingExceptions = project.tasks.create("ignoreApiChanges", IgnoreApiChangesTask::class.java) { task ->
                 task.configuration = metalavaConfiguration
                 task.referenceApi = checkApiRelease.referenceApi
@@ -149,18 +176,47 @@ object Metalava {
                 task.intermediateExclusionsFile = File(project.docsDir(), "release/${project.name}/api-changes.ignore")
             }
             applyInputs(javaCompileInputs, updateApiTrackingExceptions)
+=======
+            project.tasks.register("ignoreApiChanges", IgnoreApiChangesTask::class.java) { task ->
+                task.configuration = metalavaConfiguration
+                task.referenceApi.set(checkApiRelease!!.flatMap { it.referenceApi })
+                task.exclusions.set(checkApiRelease!!.flatMap { it.exclusions })
+                task.processRestrictedAPIs = extension.trackRestrictedAPIs
+                task.intermediateExclusionsFile.set(
+                    File(project.docsDir(), "release/${project.name}/api-changes.ignore"))
+                applyInputs(javaCompileInputs, task)
+            }
+>>>>>>> BRANCH (c64117 Merge "Merge cherrypicks of [968275] into sparse-5587371-L78)
         }
 
-        project.tasks.create("updateApi", UpdateApiTask::class.java) { task ->
+        val checkApi =
+            project.tasks.register("checkApi", CheckApiEquivalenceTask::class.java) { task ->
+                task.group = "API"
+                task.description = "Checks that the API generated from source code matches the " +
+                        "checked in API file"
+                task.builtApi.set(generateApi.flatMap { it.apiLocation })
+                task.checkedInApis.set(outputApiLocations)
+                task.checkRestrictedAPIs = extension.trackRestrictedAPIs
+                task.dependsOn(generateApi)
+                checkApiRelease?.let {
+                    task.dependsOn(checkApiRelease)
+                }
+            }
+
+        project.tasks.register("updateApi", UpdateApiTask::class.java) { task ->
             task.group = "API"
             task.description = "Updates the checked in API files to match source code API"
-            task.inputApiLocation = generateApi.apiLocation
-            task.outputApiLocations = checkApi.checkedInApis
+            task.inputApiLocation.set(generateApi.flatMap { it.apiLocation })
+            task.outputApiLocations.set(checkApi.flatMap { it.checkedInApis })
             task.updateRestrictedAPIs = extension.trackRestrictedAPIs
             task.dependsOn(generateApi)
         }
 
-        project.tasks.getByName("check").dependsOn(checkApi)
-        project.rootProject.tasks.getByName(BUILD_ON_SERVER_TASK).dependsOn(checkApi)
+        project.tasks.named("check").configure {
+            it.dependsOn(checkApi)
+        }
+        project.rootProject.tasks.named(BUILD_ON_SERVER_TASK).configure {
+            it.dependsOn(checkApi)
+        }
     }
 }

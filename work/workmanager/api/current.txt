@@ -114,7 +114,7 @@ package androidx.work {
     method public final java.util.UUID getId();
     method public final androidx.work.Data getInputData();
     method @RequiresApi(28) public final android.net.Network? getNetwork();
-    method public final int getRunAttemptCount();
+    method @IntRange(from=0) public final int getRunAttemptCount();
     method public final java.util.Set<java.lang.String> getTags();
     method @RequiresApi(24) public final java.util.List<java.lang.String> getTriggeredContentAuthorities();
     method @RequiresApi(24) public final java.util.List<android.net.Uri> getTriggeredContentUris();
@@ -200,6 +200,10 @@ package androidx.work {
   public final class WorkInfo {
     method public java.util.UUID getId();
     method public androidx.work.Data getOutputData();
+<<<<<<< HEAD   (5155e6 Merge "Merge empty history for sparse-5513738-L3500000031735)
+=======
+    method @IntRange(from=0) public int getRunAttemptCount();
+>>>>>>> BRANCH (c64117 Merge "Merge cherrypicks of [968275] into sparse-5587371-L78)
     method public androidx.work.WorkInfo.State getState();
     method public java.util.Set<java.lang.String> getTags();
   }
@@ -274,7 +278,7 @@ package androidx.work {
     method public java.util.UUID getId();
     method public androidx.work.Data getInputData();
     method @RequiresApi(28) public android.net.Network? getNetwork();
-    method public int getRunAttemptCount();
+    method @IntRange(from=0) public int getRunAttemptCount();
     method public java.util.Set<java.lang.String> getTags();
     method @RequiresApi(24) public java.util.List<java.lang.String> getTriggeredContentAuthorities();
     method @RequiresApi(24) public java.util.List<android.net.Uri> getTriggeredContentUris();

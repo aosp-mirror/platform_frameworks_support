@@ -19,4 +19,15 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+<<<<<<< HEAD   (5155e6 Merge "Merge empty history for sparse-5513738-L3500000031735)
+=======
+    <color name="colorBackground">#546072</color>
+    <color name="colorTextBox">#BDC1C2</color>
+    <color name="interstitialBackground">#FF9292</color>
+    <color name="interstitialButton">#F52424</color>
+    <color name="linkColor">#2196F3</color>
+    <color name="colorActiveSwitchThumb">#B2243FD5</color>
+    <color name="colorInctiveSwitchThumb">#f1f1f1</color>
+    <color name="colorInctiveSwitchTrack">#8F9092</color>
+>>>>>>> BRANCH (c64117 Merge "Merge cherrypicks of [968275] into sparse-5587371-L78)
 </resources>

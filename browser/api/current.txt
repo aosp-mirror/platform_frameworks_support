@@ -53,6 +53,18 @@ package androidx.browser.browseractions {
 
 package androidx.browser.customtabs {
 
+  public final class CustomTabColorSchemeParams {
+    field @ColorInt public final Integer? secondaryToolbarColor;
+    field @ColorInt public final Integer? toolbarColor;
+  }
+
+  public static final class CustomTabColorSchemeParams.Builder {
+    ctor public CustomTabColorSchemeParams.Builder();
+    method public androidx.browser.customtabs.CustomTabColorSchemeParams build();
+    method public androidx.browser.customtabs.CustomTabColorSchemeParams.Builder setSecondaryToolbarColor(@ColorInt int);
+    method public androidx.browser.customtabs.CustomTabColorSchemeParams.Builder setToolbarColor(@ColorInt int);
+  }
+
   public class CustomTabsCallback {
     ctor public CustomTabsCallback();
     method public void extraCallback(String!, android.os.Bundle!);
@@ -79,12 +91,18 @@ package androidx.browser.customtabs {
   }
 
   public final class CustomTabsIntent {
+    method public static androidx.browser.customtabs.CustomTabColorSchemeParams getColorSchemeParams(android.content.Intent, int);
     method public static int getMaxToolbarItems();
     method public void launchUrl(android.content.Context!, android.net.Uri!);
     method public static android.content.Intent! setAlwaysUseBrowserUI(android.content.Intent!);
     method public static boolean shouldAlwaysUseBrowserUI(android.content.Intent!);
     field public static final String EXTRA_ACTION_BUTTON_BUNDLE = "android.support.customtabs.extra.ACTION_BUTTON_BUNDLE";
     field public static final String EXTRA_CLOSE_BUTTON_ICON = "android.support.customtabs.extra.CLOSE_BUTTON_ICON";
+<<<<<<< HEAD   (5155e6 Merge "Merge empty history for sparse-5513738-L3500000031735)
+=======
+    field public static final String EXTRA_COLOR_SCHEME = "androidx.browser.customtabs.extra.COLOR_SCHEME";
+    field public static final String EXTRA_COLOR_SCHEME_PARAMS = "androidx.browser.customtabs.extra.COLOR_SCHEME_PARAMS";
+>>>>>>> BRANCH (c64117 Merge "Merge cherrypicks of [968275] into sparse-5587371-L78)
     field public static final String EXTRA_DEFAULT_SHARE_MENU_ITEM = "android.support.customtabs.extra.SHARE_MENU_ITEM";
     field public static final String EXTRA_ENABLE_INSTANT_APPS = "android.support.customtabs.extra.EXTRA_ENABLE_INSTANT_APPS";
     field public static final String EXTRA_ENABLE_URLBAR_HIDING = "android.support.customtabs.extra.ENABLE_URLBAR_HIDING";
@@ -115,6 +133,7 @@ package androidx.browser.customtabs {
   public static final class CustomTabsIntent.Builder {
     ctor public CustomTabsIntent.Builder();
     ctor public CustomTabsIntent.Builder(androidx.browser.customtabs.CustomTabsSession?);
+<<<<<<< HEAD   (5155e6 Merge "Merge empty history for sparse-5513738-L3500000031735)
     method public androidx.browser.customtabs.CustomTabsIntent.Builder! addDefaultShareMenuItem();
     method public androidx.browser.customtabs.CustomTabsIntent.Builder! addMenuItem(String, android.app.PendingIntent);
     method @Deprecated public androidx.browser.customtabs.CustomTabsIntent.Builder! addToolbarItem(int, android.graphics.Bitmap, String, android.app.PendingIntent!) throws java.lang.IllegalStateException;
@@ -130,6 +149,25 @@ package androidx.browser.customtabs {
     method public androidx.browser.customtabs.CustomTabsIntent.Builder! setShowTitle(boolean);
     method public androidx.browser.customtabs.CustomTabsIntent.Builder! setStartAnimations(android.content.Context, @AnimRes int, @AnimRes int);
     method public androidx.browser.customtabs.CustomTabsIntent.Builder! setToolbarColor(@ColorInt int);
+=======
+    method public androidx.browser.customtabs.CustomTabsIntent.Builder addDefaultShareMenuItem();
+    method public androidx.browser.customtabs.CustomTabsIntent.Builder addMenuItem(String, android.app.PendingIntent);
+    method @Deprecated public androidx.browser.customtabs.CustomTabsIntent.Builder addToolbarItem(int, android.graphics.Bitmap, String, android.app.PendingIntent!) throws java.lang.IllegalStateException;
+    method public androidx.browser.customtabs.CustomTabsIntent build();
+    method public androidx.browser.customtabs.CustomTabsIntent.Builder enableUrlBarHiding();
+    method public androidx.browser.customtabs.CustomTabsIntent.Builder setActionButton(android.graphics.Bitmap, String, android.app.PendingIntent, boolean);
+    method public androidx.browser.customtabs.CustomTabsIntent.Builder setActionButton(android.graphics.Bitmap, String, android.app.PendingIntent);
+    method public androidx.browser.customtabs.CustomTabsIntent.Builder setCloseButtonIcon(android.graphics.Bitmap);
+    method public androidx.browser.customtabs.CustomTabsIntent.Builder setColorScheme(int);
+    method public androidx.browser.customtabs.CustomTabsIntent.Builder setColorSchemeParams(int, androidx.browser.customtabs.CustomTabColorSchemeParams);
+    method public androidx.browser.customtabs.CustomTabsIntent.Builder setExitAnimations(android.content.Context, @AnimRes int, @AnimRes int);
+    method public androidx.browser.customtabs.CustomTabsIntent.Builder setInstantAppsEnabled(boolean);
+    method public androidx.browser.customtabs.CustomTabsIntent.Builder setSecondaryToolbarColor(@ColorInt int);
+    method public androidx.browser.customtabs.CustomTabsIntent.Builder setSecondaryToolbarViews(android.widget.RemoteViews, int[]?, android.app.PendingIntent?);
+    method public androidx.browser.customtabs.CustomTabsIntent.Builder setShowTitle(boolean);
+    method public androidx.browser.customtabs.CustomTabsIntent.Builder setStartAnimations(android.content.Context, @AnimRes int, @AnimRes int);
+    method public androidx.browser.customtabs.CustomTabsIntent.Builder setToolbarColor(@ColorInt int);
+>>>>>>> BRANCH (c64117 Merge "Merge cherrypicks of [968275] into sparse-5587371-L78)
   }
 
   public abstract class CustomTabsService extends android.app.Service {

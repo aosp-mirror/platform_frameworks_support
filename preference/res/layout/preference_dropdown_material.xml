@@ -25,7 +25,13 @@
         android:layout_marginStart="@dimen/preference_dropdown_padding_start"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+<<<<<<< HEAD   (5155e6 Merge "Merge empty history for sparse-5513738-L3500000031735)
         android:visibility="invisible"/>
+=======
+        android:layout_marginStart="@dimen/preference_dropdown_padding_start"
+        android:layout_marginLeft="@dimen/preference_dropdown_padding_start"
+        android:visibility="invisible" />
+>>>>>>> BRANCH (c64117 Merge "Merge cherrypicks of [968275] into sparse-5587371-L78)
 
     <include layout="@layout/preference_material"/>
 

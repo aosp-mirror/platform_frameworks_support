@@ -20,47 +20,64 @@ import androidx.build.checkapi.ApiLocation
 import org.apache.commons.io.FileUtils
 import org.gradle.api.DefaultTask
 import org.gradle.api.GradleException
+import org.gradle.api.provider.ListProperty
+import org.gradle.api.provider.Property
+import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputFiles
-import org.gradle.api.tasks.OutputFiles
 import org.gradle.api.tasks.TaskAction
 import java.io.File
 
 /** Compares two API txt files against each other. */
-open class CheckApiEquivalenceTask : DefaultTask() {
+abstract class CheckApiEquivalenceTask : DefaultTask() {
     /**
      * Api file (in the build dir) to check
-     *
-     * Note: Marked as an output so that this task will be properly incremental.
      */
-    @get:InputFiles
-    @get:OutputFiles
-    var builtApi: ApiLocation? = null
+    @get:Input
+    abstract val builtApi: Property<ApiLocation>
 
     /**
      * Api file (in source control) to compare against
      */
-    var checkedInApis: List<ApiLocation> = listOf()
-
-    @InputFiles
-    fun getTaskInputs(): List<File> {
-        if (checkRestrictedAPIs) {
-            return checkedInApis.flatMap { it.files() }
-        }
-        return checkedInApis.map { it.publicApiFile }
-    }
+    @get:Input
+    abstract val checkedInApis: ListProperty<ApiLocation>
 
     /**
      * Whether to check restricted APIs too
      */
+    @get:Input
     var checkRestrictedAPIs = false
+
+    @InputFiles
+    fun getTaskInputs(): List<File> {
+        if (checkRestrictedAPIs) {
+            return checkedInApis.get().flatMap { it.files() }
+        }
+        return checkedInApis.get().map { it.publicApiFile }
+    }
 
     @TaskAction
     fun exec() {
+<<<<<<< HEAD   (5155e6 Merge "Merge empty history for sparse-5513738-L3500000031735)
         val truePublicDefinition = checkNotNull(builtApi?.publicApiFile) { "builtApi.publicApiFile not set" }
         val trueRestrictedApi = checkNotNull(builtApi?.restrictedApiFile) { "builtApi.restrictedApiFile not set" }
         for (checkedInApi in checkedInApis) {
             val declaredPublicApi = checkNotNull(checkedInApi?.publicApiFile) { "checkedInApi.publicApiFile not set" }
             val declaredRestrictedApi = checkNotNull(checkedInApi?.restrictedApiFile) { "checkedInApi.restrictedApiFile not set" }
+=======
+        val truePublicDefinition = checkNotNull(builtApi.get().publicApiFile) {
+            "builtApi.publicApiFile not set"
+        }
+        val trueRestrictedApi = checkNotNull(builtApi.get().restrictedApiFile) {
+            "builtApi.restrictedApiFile not set"
+        }
+        for (checkedInApi in checkedInApis.get()) {
+            val declaredPublicApi = checkNotNull(checkedInApi.publicApiFile) {
+                "checkedInApi.publicApiFile not set"
+            }
+            val declaredRestrictedApi = checkNotNull(checkedInApi.restrictedApiFile) {
+                "checkedInApi.restrictedApiFile not set"
+            }
+>>>>>>> BRANCH (c64117 Merge "Merge cherrypicks of [968275] into sparse-5587371-L78)
             if (!FileUtils.contentEquals(declaredPublicApi, truePublicDefinition)) {
                 val message = "Public API definition has changed.\n\n" +
                         "Declared definition is $declaredPublicApi\n" +

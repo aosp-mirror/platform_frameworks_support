@@ -170,7 +170,45 @@ public class SwitchListItem extends ListItem<SwitchListItem.ViewHolder> {
     }
 
     /**
+<<<<<<< HEAD   (5155e6 Merge "Merge empty history for sparse-5513738-L3500000031735)
      * Hides all views in {@link ViewHolder} then applies ViewBinders to adjust view layout params.
+=======
+     * Sets the state of {@code Switch}.
+     *
+     * @param isChecked sets the "checked/unchecked, namely on/off" state of switch.
+     * @deprecated Use {@link #setChecked(boolean)} instead.
+     */
+    @Deprecated
+    public void setSwitchState(boolean isChecked) {
+        setChecked(isChecked);
+    }
+
+    /**
+     * Registers a callback to be invoked when the checked state of switch changes.
+     *
+     * @param listener callback to be invoked when the checked state shown in the UI changes.
+     * @deprecated Use {@link #setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener)}
+     * instead.
+     */
+    @Deprecated
+    public void setSwitchOnCheckedChangeListener(
+            @Nullable CompoundButton.OnCheckedChangeListener listener) {
+        setOnCheckedChangeListener(listener);
+    }
+
+    /**
+     * Sets whether to display a vertical bar between switch and text.
+     *
+     * @deprecated Use {@link #setShowCompoundButtonDivider(boolean)} instead.
+     */
+    @Deprecated
+    public void setShowSwitchDivider(boolean showCompoundButtonDivider) {
+        setShowCompoundButtonDivider(showCompoundButtonDivider);
+    }
+
+    /**
+     * ViewHolder that contains necessary widgets for {@link SwitchListItem}.
+>>>>>>> BRANCH (c64117 Merge "Merge cherrypicks of [968275] into sparse-5587371-L78)
      */
     @Override
     public void onBind(ViewHolder viewHolder) {
@@ -651,6 +689,18 @@ public class SwitchListItem extends ListItem<SwitchListItem.ViewHolder> {
         @NonNull
         public View getSwitchDivider() {
             return mSwitchDivider;
+        }
+
+        /**
+         * Returns the switch within this view holder's view.
+         *
+         * @return Switch within this view holder's view.
+         * @deprecated Use {@link #getCompoundButton()} instead.
+         */
+        @Deprecated
+        @NonNull
+        public Switch getSwitch() {
+            return (Switch) getCompoundButton();
         }
 
         @NonNull

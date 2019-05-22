@@ -16,8 +16,14 @@
 
 package androidx.work;
 
+<<<<<<< HEAD   (5155e6 Merge "Merge empty history for sparse-5513738-L3500000031735)
 import android.support.annotation.NonNull;
 import android.support.annotation.RestrictTo;
+=======
+import androidx.annotation.IntRange;
+import androidx.annotation.NonNull;
+import androidx.annotation.RestrictTo;
+>>>>>>> BRANCH (c64117 Merge "Merge cherrypicks of [968275] into sparse-5587371-L78)
 
 import java.util.HashSet;
 import java.util.List;
@@ -89,6 +95,20 @@ public final class WorkInfo {
         return mTags;
     }
 
+<<<<<<< HEAD   (5155e6 Merge "Merge empty history for sparse-5513738-L3500000031735)
+=======
+    /**
+     * Gets the run attempt count of the {@link WorkRequest}.  Note that for
+     * {@link PeriodicWorkRequest}s, the run attempt count gets reset between successful runs.
+     *
+     * @return The run attempt count of the {@link WorkRequest}.
+     */
+    @IntRange(from = 0)
+    public int getRunAttemptCount() {
+        return mRunAttemptCount;
+    }
+
+>>>>>>> BRANCH (c64117 Merge "Merge cherrypicks of [968275] into sparse-5587371-L78)
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

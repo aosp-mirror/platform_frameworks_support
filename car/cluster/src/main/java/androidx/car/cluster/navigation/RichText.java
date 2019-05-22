@@ -30,9 +30,24 @@ import java.util.List;
 import java.util.Objects;
 
 /**
+<<<<<<< HEAD   (5155e6 Merge "Merge empty history for sparse-5513738-L3500000031735)
  * Immutable sequence of graphic elements (e.g.: text, images) to be displayed one after another in
  * the same way as a {@link CharSequence} would. Elements in this sequence are represented by
  * {@link RichTextElement} instances.
+=======
+ * A {@link RichText} is an immutable sequence of graphic elements (e.g.: text, images)
+ * to be displayed one after another.
+ * <p>
+ * Elements in this sequence are represented by {@link RichTextElement} instances.
+ * <p>
+ * Each sequence will have a textual representation provided by {@link #getText()} and in the case
+ * of the absence of a rich representation, the sequence of elements {@link #getElements()} may be
+ * left empty. The textual representation may also be used as a fallback for when
+ * {@link RichTextElement}s fail to render.
+ * <p>
+ * Spaces and other separators should be provided by the third-party navigation apps, while OEM
+ * rendering services shouldn't add additional ones, in order to avoid duplications.
+>>>>>>> BRANCH (c64117 Merge "Merge cherrypicks of [968275] into sparse-5587371-L78)
  */
 @VersionedParcelize
 public class RichText implements VersionedParcelable {

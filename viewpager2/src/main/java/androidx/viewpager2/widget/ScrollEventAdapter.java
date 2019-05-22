@@ -100,7 +100,8 @@ final class ScrollEventAdapter extends RecyclerView.OnScrollListener {
     @Override
     public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
         // User started a drag (not dragging -> dragging)
-        if (mAdapterState != STATE_IN_PROGRESS_MANUAL_DRAG
+        if ((mAdapterState != STATE_IN_PROGRESS_MANUAL_DRAG
+                || mScrollState != SCROLL_STATE_DRAGGING)
                 && newState == RecyclerView.SCROLL_STATE_DRAGGING) {
             // Remember we're performing a drag
             mAdapterState = STATE_IN_PROGRESS_MANUAL_DRAG;
@@ -252,7 +253,26 @@ final class ScrollEventAdapter extends RecyclerView.OnScrollListener {
                     + "positive amount, not by %d", values.mOffsetPx));
         }
         values.mOffset = sizePx == 0 ? 0 : (float) values.mOffsetPx / sizePx;
+<<<<<<< HEAD   (5155e6 Merge "Merge empty history for sparse-5513738-L3500000031735)
         return values;
+=======
+    }
+
+    private void startDrag(boolean isFakeDrag) {
+        mFakeDragging = isFakeDrag;
+        mAdapterState = isFakeDrag ? STATE_IN_PROGRESS_FAKE_DRAG : STATE_IN_PROGRESS_MANUAL_DRAG;
+        if (mTarget != NO_POSITION) {
+            // Target was set means we were settling to that target
+            // Update "drag start page" to reflect the page that ViewPager2 thinks it is at
+            mDragStartPosition = mTarget;
+            // Reset target because drags have no target until released
+            mTarget = NO_POSITION;
+        } else if (mDragStartPosition == NO_POSITION) {
+            // ViewPager2 was at rest, set "drag start page" to current page
+            mDragStartPosition = getPosition();
+        }
+        dispatchStateChanged(SCROLL_STATE_DRAGGING);
+>>>>>>> BRANCH (c64117 Merge "Merge cherrypicks of [968275] into sparse-5587371-L78)
     }
 
     /**

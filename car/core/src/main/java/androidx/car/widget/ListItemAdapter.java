@@ -62,6 +62,53 @@ public class ListItemAdapter extends
 
     /**
      * Constant class for background style of items.
+<<<<<<< HEAD   (5155e6 Merge "Merge empty history for sparse-5513738-L3500000031735)
+=======
+     *
+     * @deprecated Use {@link #BACKGROUND_STYLE_SOLID}, {@link #BACKGROUND_STYLE_NONE},
+     * {@link #BACKGROUND_STYLE_CARD}, or {@link #BACKGROUND_STYLE_PANEL} instead.
+     */
+    @Deprecated
+    public static final class BackgroundStyle {
+        private BackgroundStyle() {
+        }
+
+        /**
+         * Sets the background color of each item. Background can be configured by
+         * {@link R.styleable#ListItem_listItemBackgroundColor}.
+         *
+         * @deprecated Use {@link #BACKGROUND_STYLE_SOLID} instead.
+         */
+        @Deprecated
+        public static final int SOLID = BACKGROUND_STYLE_SOLID;
+        /**
+         * Sets the background color of each item to none (transparent).
+         *
+         * @deprecated Use {@link #BACKGROUND_STYLE_NONE} instead.
+         */
+        @Deprecated
+        public static final int NONE = BACKGROUND_STYLE_NONE;
+        /**
+         * Sets each item in {@link CardView} with a rounded corner background and shadow.
+         *
+         * @deprecated Use {@link #BACKGROUND_STYLE_CARD} instead.
+         */
+        @Deprecated
+        public static final int CARD = BACKGROUND_STYLE_CARD;
+        /**
+         * Sets background of each item so the combined list looks like one elongated card, namely
+         * top and bottom item will have rounded corner at only top/bottom side respectively. If
+         * only one item exists, it will have both top and bottom rounded corner.
+         *
+         * @deprecated Use {@link #BACKGROUND_STYLE_PANEL} instead.
+         */
+        @Deprecated
+        public static final int PANEL = BACKGROUND_STYLE_PANEL;
+    }
+
+    /**
+     * @hide
+>>>>>>> BRANCH (c64117 Merge "Merge cherrypicks of [968275] into sparse-5587371-L78)
      */
     public static final class BackgroundStyle {
         private BackgroundStyle() {}

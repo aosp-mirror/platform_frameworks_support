@@ -16,8 +16,12 @@ dependencies {
     api(project(":core"))
     api(project(":annotation"))
     api(project(":interpolator"))
+<<<<<<< HEAD   (5155e6 Merge "Merge empty history for sparse-5513738-L3500000031735)
     api(project(":collection"))
     api(project(":legacy-support-core-ui"))
+=======
+    api("androidx.collection:collection:1.1.0-rc01")
+>>>>>>> BRANCH (c64117 Merge "Merge cherrypicks of [968275] into sparse-5587371-L78)
 
     implementation(project(":concurrent:concurrent-futures"))
 

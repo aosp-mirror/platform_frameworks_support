@@ -35,5 +35,46 @@ public class SafeBrowsingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_safe_browsing);
         setTitle(R.string.safebrowsing_activity_title);
         WebkitHelpers.appendWebViewVersionToTitle(this);
+<<<<<<< HEAD   (5155e6 Merge "Merge empty history for sparse-5513738-L3500000031735)
+=======
+
+        final Context activityContext = this;
+        MenuListView listView = findViewById(R.id.safe_browsing_list);
+        MenuListView.MenuItem[] menuItems = new MenuListView.MenuItem[] {
+                new MenuListView.MenuItem(
+                        getResources().getString(R.string.small_interstitial_activity_title),
+                        new Intent(activityContext, SmallInterstitialActivity.class)),
+                new MenuListView.MenuItem(
+                        getResources().getString(R.string.medium_wide_interstitial_activity_title),
+                        new Intent(activityContext, MediumInterstitialActivity.class)
+                                .putExtra(MediumInterstitialActivity.LAYOUT_HORIZONTAL, false)),
+                new MenuListView.MenuItem(
+                        getResources().getString(R.string.medium_tall_interstitial_activity_title),
+                        new Intent(activityContext, MediumInterstitialActivity.class)
+                                .putExtra(MediumInterstitialActivity.LAYOUT_HORIZONTAL, true)),
+                new MenuListView.MenuItem(
+                        getResources().getString(R.string.loud_interstitial_activity_title),
+                        new Intent(activityContext, LoudInterstitialActivity.class)),
+                new MenuListView.MenuItem(
+                        getResources().getString(R.string.giant_interstitial_activity_title),
+                        new Intent(activityContext, GiantInterstitialActivity.class)),
+                new MenuListView.MenuItem(
+                        getResources().getString(R.string.per_web_view_enable_activity_title),
+                        new Intent(activityContext, PerWebViewEnableActivity.class)),
+                new MenuListView.MenuItem(
+                        getResources().getString(R.string.invisible_activity_title),
+                        new Intent(activityContext, InvisibleActivity.class)),
+                new MenuListView.MenuItem(
+                        getResources().getString(R.string.unattached_activity_title),
+                        new Intent(activityContext, UnattachedActivity.class)),
+                new MenuListView.MenuItem(
+                        getResources().getString(R.string.custom_interstitial_activity_title),
+                        new Intent(activityContext, CustomInterstitialActivity.class)),
+                new MenuListView.MenuItem(
+                        getResources().getString(R.string.whitelist_activity_title),
+                        new Intent(activityContext, WhitelistActivity.class)),
+        };
+        listView.setItems(menuItems);
+>>>>>>> BRANCH (c64117 Merge "Merge cherrypicks of [968275] into sparse-5587371-L78)
     }
 }

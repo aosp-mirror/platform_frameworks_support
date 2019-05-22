@@ -48,7 +48,7 @@ public final class Destination implements VersionedParcelable {
     EnumWrapper<Traffic> mTraffic;
 
     /**
-     * Congestion level on the way to a destination, compared to ideal driving conditions.
+     * Traffic congestion level on the way to a destination, compared to ideal driving conditions.
      */
     public enum Traffic {
         /** Traffic information is not available */
@@ -155,7 +155,8 @@ public final class Destination implements VersionedParcelable {
         }
 
         /**
-         * Sets the congestion level to this destination, compared to ideal driving conditions.
+         * Sets the traffic congestion level to this destination, compared to ideal driving
+         * conditions.
          *
          * @param traffic traffic level
          * @param fallbacks Variations of {@code traffic}, in case the consumer of this API doesn't
@@ -205,7 +206,7 @@ public final class Destination implements VersionedParcelable {
     }
 
     /**
-     * Returns the estimated time of arrival to this destination, or null if it was not provided or
+     * Returns the estimated time of arrival at this destination, or null if it was not provided or
      * is unknown.
      */
     @Nullable
@@ -214,7 +215,21 @@ public final class Destination implements VersionedParcelable {
     }
 
     /**
+<<<<<<< HEAD   (5155e6 Merge "Merge empty history for sparse-5513738-L3500000031735)
      * Returns the congestion level to this destination, compared to to ideal driving conditions.
+=======
+     * Returns the estimated time of arrival at this destination as a formatted String, or empty if
+     * it was not provided or is unknown.
+     */
+    @NonNull
+    public CharSequence getFormattedEta() {
+        return Common.nonNullOrEmpty(mFormattedEta);
+    }
+
+    /**
+     * Returns the traffic congestion level to this destination, compared to to ideal driving
+     * conditions.
+>>>>>>> BRANCH (c64117 Merge "Merge cherrypicks of [968275] into sparse-5587371-L78)
      */
     @NonNull
     public Traffic getTraffic() {

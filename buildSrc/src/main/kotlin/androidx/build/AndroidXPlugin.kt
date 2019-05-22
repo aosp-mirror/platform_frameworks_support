@@ -16,6 +16,9 @@
 
 package androidx.build
 
+import androidx.benchmark.gradle.Adb
+import androidx.benchmark.gradle.LockClocksTask
+import androidx.benchmark.gradle.UnlockClocksTask
 import androidx.build.SupportConfig.BUILD_TOOLS_VERSION
 import androidx.build.SupportConfig.COMPILE_SDK_VERSION
 import androidx.build.SupportConfig.TARGET_SDK_VERSION
@@ -31,6 +34,12 @@ import androidx.build.gradle.isRoot
 import androidx.build.jacoco.Jacoco
 import androidx.build.license.CheckExternalDependencyLicensesTask
 import androidx.build.license.configureExternalDependencyLicenseCheck
+<<<<<<< HEAD   (5155e6 Merge "Merge empty history for sparse-5513738-L3500000031735)
+=======
+import androidx.build.metalava.Metalava.configureAndroidProjectForMetalava
+import androidx.build.metalava.Metalava.configureJavaProjectForMetalava
+import androidx.build.metalava.UpdateApiTask
+>>>>>>> BRANCH (c64117 Merge "Merge cherrypicks of [968275] into sparse-5587371-L78)
 import com.android.build.gradle.AppExtension
 import com.android.build.gradle.AppPlugin
 import com.android.build.gradle.BaseExtension
@@ -51,7 +60,16 @@ import org.gradle.api.tasks.TaskProvider
 import org.gradle.api.tasks.bundling.Jar
 import org.gradle.kotlin.dsl.extra
 import org.gradle.kotlin.dsl.getPlugin
+<<<<<<< HEAD   (5155e6 Merge "Merge empty history for sparse-5513738-L3500000031735)
 import org.gradle.kotlin.dsl.withType
+=======
+import org.gradle.testing.jacoco.plugins.JacocoPluginExtension
+import org.gradle.testing.jacoco.tasks.JacocoReport
+import org.jetbrains.kotlin.gradle.dsl.KotlinProjectExtension
+import org.jetbrains.kotlin.gradle.plugin.KotlinBasePluginWrapper
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import java.io.File
+>>>>>>> BRANCH (c64117 Merge "Merge cherrypicks of [968275] into sparse-5587371-L78)
 import java.util.concurrent.ConcurrentHashMap
 import java.io.File
 
@@ -74,8 +92,8 @@ class AndroidXPlugin : Plugin<Project> {
             project.configureRootProject()
         }
 
-        project.plugins.all {
-            when (it) {
+        project.plugins.all { plugin ->
+            when (plugin) {
                 is JavaPlugin,
                 is JavaLibraryPlugin -> {
                     project.configureErrorProneForJava()
@@ -91,12 +109,23 @@ class AndroidXPlugin : Plugin<Project> {
                     project.createCheckReleaseReadyTask(listOf(verifyDependencyVersionsTask))
                 }
                 is LibraryPlugin -> {
-                    val extension = project.extensions.getByType<LibraryExtension>()
+                    val extension = project.extensions.getByType<LibraryExtension>().apply {
+                        configureAndroidCommonOptions(project, androidXExtension)
+                        configureAndroidLibraryOptions(project, androidXExtension)
+                    }
                     project.configureSourceJarForAndroid(extension)
+<<<<<<< HEAD   (5155e6 Merge "Merge empty history for sparse-5513738-L3500000031735)
                     project.configureAndroidCommonOptions(extension)
                     project.configureAndroidLibraryOptions(extension)
+=======
+>>>>>>> BRANCH (c64117 Merge "Merge cherrypicks of [968275] into sparse-5587371-L78)
                     project.configureVersionFileWriter(extension)
+<<<<<<< HEAD   (5155e6 Merge "Merge empty history for sparse-5513738-L3500000031735)
                     project.configureResourceApiChecks()
+=======
+                    project.configureResourceApiChecks(extension)
+                    project.addCreateLibraryBuildInfoFileTask(androidXExtension)
+>>>>>>> BRANCH (c64117 Merge "Merge cherrypicks of [968275] into sparse-5587371-L78)
                     val verifyDependencyVersionsTask = project.createVerifyDependencyVersionsTask()
                     val checkNoWarningsTask = project.tasks.register(CHECK_NO_WARNINGS_TASK)
                     project.createCheckReleaseReadyTask(listOf(verifyDependencyVersionsTask,
@@ -116,6 +145,7 @@ class AndroidXPlugin : Plugin<Project> {
                     }
                 }
                 is AppPlugin -> {
+<<<<<<< HEAD   (5155e6 Merge "Merge empty history for sparse-5513738-L3500000031735)
                     val extension = project.extensions.getByType<AppExtension>()
                     project.configureAndroidCommonOptions(extension)
                     project.configureAndroidApplicationOptions(extension)
@@ -126,6 +156,31 @@ class AndroidXPlugin : Plugin<Project> {
                         if (!it.name.toLowerCase().contains("androidtest")) {
                             it.resolutionStrategy.preferProjectModules()
                         }
+=======
+                    project.extensions.getByType<AppExtension>().apply {
+                        configureAndroidCommonOptions(project, androidXExtension)
+                        configureAndroidApplicationOptions(project)
+                    }
+                }
+                is KotlinBasePluginWrapper -> {
+                    if (project.name == "lifecycle-livedata-eap" || // b/130585490
+                        project.name == "lifecycle-runtime-eap" ||
+                        project.name == "lifecycle-runtime-ktx" ||
+                        project.name == "lifecycle-livedata-ktx" ||
+                        project.name == "work-runtime-ktx" || // b/130582237
+                        project.name == "room-compiler" || // b/130580662
+                        project.name == "room-testapp-kotlin" || // b/130643290
+                        project.name == "activity" ||
+                        project.name == "camera-testapp-timing" ||
+                        project.name == "fragment" || // b/130586088
+                        project.name == "fragment-testing" ||
+                        project.name == "benchmark" ||
+                        project.name == "navigation-safe-args-gradle-plugin") {
+                        return@all
+                    }
+                    project.tasks.withType(KotlinCompile::class.java).configureEach { compile ->
+                        compile.kotlinOptions.allWarningsAsErrors = true
+>>>>>>> BRANCH (c64117 Merge "Merge cherrypicks of [968275] into sparse-5587371-L78)
                     }
                 }
             }
@@ -133,9 +188,9 @@ class AndroidXPlugin : Plugin<Project> {
 
         // Disable timestamps and ensure filesystem-independent archive ordering to maximize
         // cross-machine byte-for-byte reproducibility of artifacts.
-        project.tasks.withType<Jar> {
-            isReproducibleFileOrder = true
-            isPreserveFileTimestamps = false
+        project.tasks.withType(Jar::class.java).configureEach { task ->
+            task.isReproducibleFileOrder = true
+            task.isPreserveFileTimestamps = false
         }
     }
 
@@ -187,7 +242,13 @@ class AndroidXPlugin : Plugin<Project> {
         val jacocoUberJar = Jacoco.createUberJarTask(this)
         buildOnServerTask.dependsOn(jacocoUberJar)
 
+<<<<<<< HEAD   (5155e6 Merge "Merge empty history for sparse-5513738-L3500000031735)
         project.createClockLockTasks()
+=======
+        val adb = Adb(getSdkPath(project.projectDir).path + "/platform-tools/adb", logger)
+        tasks.register("lockClocks", LockClocksTask::class.java, adb)
+        tasks.register("unlockClocks", UnlockClocksTask::class.java, adb)
+>>>>>>> BRANCH (c64117 Merge "Merge cherrypicks of [968275] into sparse-5587371-L78)
 
         AffectedModuleDetector.configure(gradle, this)
 
@@ -215,19 +276,30 @@ class AndroidXPlugin : Plugin<Project> {
         }
     }
 
+<<<<<<< HEAD   (5155e6 Merge "Merge empty history for sparse-5513738-L3500000031735)
     private fun Project.configureAndroidCommonOptions(extension: BaseExtension) {
         extension.compileSdkVersion(COMPILE_SDK_VERSION)
         extension.buildToolsVersion = BUILD_TOOLS_VERSION
         // Expose the compilation SDK for use as the target SDK in test manifests.
         extension.defaultConfig.addManifestPlaceholders(
                 mapOf("target-sdk-version" to TARGET_SDK_VERSION))
+=======
+    private fun TestedExtension.configureAndroidCommonOptions(
+        project: Project,
+        androidXExtension: AndroidXExtension
+    ) {
+        // Force AGP to use our version of JaCoCo
+        jacoco.version = Jacoco.VERSION
+        compileSdkVersion(COMPILE_SDK_VERSION)
+        buildToolsVersion = BUILD_TOOLS_VERSION
+        defaultConfig.targetSdkVersion(TARGET_SDK_VERSION)
+        defaultConfig.testInstrumentationRunner = INSTRUMENTATION_RUNNER
+        testOptions.unitTests.isReturnDefaultValues = true
+>>>>>>> BRANCH (c64117 Merge "Merge cherrypicks of [968275] into sparse-5587371-L78)
 
-        extension.defaultConfig.testInstrumentationRunner = INSTRUMENTATION_RUNNER
-        extension.testOptions.unitTests.isReturnDefaultValues = true
-
-        extension.defaultConfig.minSdkVersion(DEFAULT_MIN_SDK_VERSION)
-        afterEvaluate {
-            val minSdkVersion = extension.defaultConfig.minSdkVersion.apiLevel
+        defaultConfig.minSdkVersion(DEFAULT_MIN_SDK_VERSION)
+        project.afterEvaluate {
+            val minSdkVersion = defaultConfig.minSdkVersion.apiLevel
             check(minSdkVersion >= DEFAULT_MIN_SDK_VERSION) {
                 "minSdkVersion $minSdkVersion lower than the default of $DEFAULT_MIN_SDK_VERSION"
             }
@@ -247,69 +319,212 @@ class AndroidXPlugin : Plugin<Project> {
         }
 
         // Use a local debug keystore to avoid build server issues.
-        extension.signingConfigs.getByName("debug").storeFile = SupportConfig.getKeystore(this)
+        signingConfigs.getByName("debug").storeFile = SupportConfig.getKeystore(project)
 
         // Disable generating BuildConfig.java
         // TODO remove after https://issuetracker.google.com/72050365
+<<<<<<< HEAD   (5155e6 Merge "Merge empty history for sparse-5513738-L3500000031735)
         extension.variants.all {
             it.generateBuildConfigProvider.configure {
+=======
+        variants.all { variant ->
+            variant.generateBuildConfigProvider.configure {
+>>>>>>> BRANCH (c64117 Merge "Merge cherrypicks of [968275] into sparse-5587371-L78)
                 it.enabled = false
             }
         }
 
-        configureErrorProneForAndroid(extension.variants)
+        project.configureErrorProneForAndroid(variants)
 
         // Enable code coverage for debug builds only if we are not running inside the IDE, since
         // enabling coverage reports breaks the method parameter resolution in the IDE debugger.
-        extension.buildTypes.getByName("debug").isTestCoverageEnabled =
-                !hasProperty("android.injected.invoked.from.ide") &&
-                !isBenchmark()
+        buildTypes.getByName("debug").isTestCoverageEnabled =
+                !project.hasProperty("android.injected.invoked.from.ide") &&
+                !project.isBenchmark()
 
         // Set the officially published version to be the release version with minimum dependency
         // versions.
+<<<<<<< HEAD   (5155e6 Merge "Merge empty history for sparse-5513738-L3500000031735)
         extension.defaultPublishConfig(Release.DEFAULT_PUBLISH_CONFIG)
+=======
+        defaultPublishConfig(Release.DEFAULT_PUBLISH_CONFIG)
+
+        // workaround for b/120487939
+        project.configurations.all { configuration ->
+            // Gradle seems to crash on androidtest configurations
+            // preferring project modules...
+            if (!configuration.name.toLowerCase().contains("androidtest")) {
+                configuration.resolutionStrategy.preferProjectModules()
+            }
+        }
+
+        Jacoco.registerClassFilesTask(project, this)
+
+        val buildTestApksTask = project.rootProject.tasks.named(BUILD_TEST_APKS)
+        testVariants.all { variant ->
+            buildTestApksTask.configure {
+                it.dependsOn(variant.assembleProvider)
+            }
+            variant.configureApkCopy(project, this, true)
+        }
+>>>>>>> BRANCH (c64117 Merge "Merge cherrypicks of [968275] into sparse-5587371-L78)
     }
 
+<<<<<<< HEAD   (5155e6 Merge "Merge empty history for sparse-5513738-L3500000031735)
     private fun Project.configureAndroidLibraryOptions(extension: LibraryExtension) {
         extension.compileOptions.apply {
             setSourceCompatibility(VERSION_1_7)
             setTargetCompatibility(VERSION_1_7)
-        }
+=======
+    private fun hasAndroidTestSourceCode(project: Project, extension: TestedExtension): Boolean {
+        val javaSourceSet = extension.sourceSets.findByName("androidTest") ?: return false
+        val hasJava = !javaSourceSet.java.sourceFiles.isEmpty
+        val kotlinExtension =
+            project.extensions.findByType(KotlinProjectExtension::class.java) ?: return hasJava
+        val kotlinSourceSet = kotlinExtension.sourceSets.findByName("androidTest") ?: return hasJava
+        return hasJava || kotlinSourceSet.kotlin.files.isNotEmpty()
+    }
 
-        afterEvaluate {
-            // Java 8 is only fully supported on API 24+ and not all Java 8 features are
-            // binary compatible with API < 24
-            val compilesAgainstJava8 = extension.compileOptions.sourceCompatibility > VERSION_1_7 ||
-                    extension.compileOptions.targetCompatibility > VERSION_1_7
-            val minSdkLessThan24 = extension.defaultConfig.minSdkVersion.apiLevel < 24
-            if (compilesAgainstJava8 && minSdkLessThan24) {
-                throw IllegalArgumentException(
-                        "Libraries can only support Java 8 if minSdkVersion is 24 or higher")
+    private fun ApkVariant.configureApkCopy(
+        project: Project,
+        extension: TestedExtension,
+        testApk: Boolean
+    ) {
+        packageApplicationProvider.configure { packageTask ->
+            AffectedModuleDetector.configureTaskGuard(packageTask)
+            packageTask.doLast {
+                // Skip copying AndroidTest apks if they have no source code (no tests to run).
+                if (testApk && !hasAndroidTestSourceCode(project, extension)) return@doLast
+
+                project.copy {
+                    it.from(packageTask.outputDirectory)
+                    it.include("*.apk")
+                    it.into(project.getDistributionDirectory())
+                    it.rename { fileName ->
+                        if (fileName.contains("media-compat-test") ||
+                            fileName.contains("media2-test")) {
+                            // Exclude media-compat-test-* and media2-test-* modules from
+                            // existing support library presubmit tests.
+                            fileName.replace("-debug-androidTest", "")
+                        } else if (fileName.contains("-benchmark-debug-androidTest")) {
+                            // Exclude '-benchmark' modules from correctness tests, and
+                            // remove '-debug' from the APK name, since it's incorrect
+                            fileName.replace("-debug-androidTest", "-androidBenchmark")
+                        } else {
+                            // multiple modules may have the same name so prefix the name with
+                            // the module's path to ensure it is unique.
+                            // e.g. palette-v7-debug-androidTest.apk becomes
+                            // support-palette-v7_palette-v7-debug-androidTest.apk
+                            "${project.path.replace(':', '-').substring(1)}_$fileName"
+                        }
+                    }
+                }
             }
         }
     }
 
+    private fun LibraryExtension.configureAndroidLibraryOptions(
+        project: Project,
+        androidXExtension: AndroidXExtension
+    ) {
+        compileOptions.apply {
+            sourceCompatibility = VERSION_1_7
+            targetCompatibility = VERSION_1_7
+        }
+
+        project.configurations.all { config ->
+            val isTestConfig = config.name.toLowerCase().contains("test")
+
+            config.dependencyConstraints.configureEach { dependencyConstraint ->
+                dependencyConstraint.apply {
+                    // Remove strict constraints on test dependencies and listenablefuture:1.0
+                    if (isTestConfig ||
+                        group == "com.google.guava" &&
+                        name == "listenablefuture" &&
+                        version == "1.0") {
+                        version { versionConstraint ->
+                            versionConstraint.strictly("")
+                        }
+                    }
+                }
+            }
+>>>>>>> BRANCH (c64117 Merge "Merge cherrypicks of [968275] into sparse-5587371-L78)
+        }
+
+        project.afterEvaluate {
+            // Java 8 is only fully supported on API 24+ and not all Java 8 features are
+            // binary compatible with API < 24
+            val compilesAgainstJava8 = compileOptions.sourceCompatibility > VERSION_1_7 ||
+                    compileOptions.targetCompatibility > VERSION_1_7
+            val minSdkLessThan24 = defaultConfig.minSdkVersion.apiLevel < 24
+            if (compilesAgainstJava8 && minSdkLessThan24) {
+                throw IllegalArgumentException(
+                        "Libraries can only support Java 8 if minSdkVersion is 24 or higher")
+            }
+<<<<<<< HEAD   (5155e6 Merge "Merge empty history for sparse-5513738-L3500000031735)
+=======
+
+            libraryVariants.all { libraryVariant ->
+                if (libraryVariant.buildType.name == "debug") {
+                    libraryVariant.javaCompileProvider.configure { javaCompile ->
+                        if (androidXExtension.failOnUncheckedWarnings) {
+                            javaCompile.options.compilerArgs.add("-Xlint:unchecked")
+                        }
+                        if (androidXExtension.failOnDeprecationWarnings) {
+                            javaCompile.options.compilerArgs.add("-Xlint:deprecation")
+                        }
+                    }
+                }
+            }
+>>>>>>> BRANCH (c64117 Merge "Merge cherrypicks of [968275] into sparse-5587371-L78)
+        }
+    }
+
+<<<<<<< HEAD   (5155e6 Merge "Merge empty history for sparse-5513738-L3500000031735)
     private fun Project.configureAndroidApplicationOptions(extension: AppExtension) {
         extension.defaultConfig.apply {
             targetSdkVersion(TARGET_SDK_VERSION)
 
+=======
+    private fun AppExtension.configureAndroidApplicationOptions(project: Project) {
+        defaultConfig.apply {
+>>>>>>> BRANCH (c64117 Merge "Merge cherrypicks of [968275] into sparse-5587371-L78)
             versionCode = 1
             versionName = "1.0"
         }
 
+<<<<<<< HEAD   (5155e6 Merge "Merge empty history for sparse-5513738-L3500000031735)
         extension.compileOptions.apply {
             setSourceCompatibility(VERSION_1_8)
             setTargetCompatibility(VERSION_1_8)
+=======
+        compileOptions.apply {
+            sourceCompatibility = VERSION_1_8
+            targetCompatibility = VERSION_1_8
+>>>>>>> BRANCH (c64117 Merge "Merge cherrypicks of [968275] into sparse-5587371-L78)
         }
 
-        extension.lintOptions.apply {
+        lintOptions.apply {
             isAbortOnError = true
 
-            val baseline = lintBaseline
+            val baseline = project.lintBaseline
             if (baseline.exists()) {
                 baseline(baseline)
             }
         }
+<<<<<<< HEAD   (5155e6 Merge "Merge empty history for sparse-5513738-L3500000031735)
+=======
+
+        val buildTestApksTask = project.rootProject.tasks.named(BUILD_TEST_APKS)
+        applicationVariants.all { variant ->
+            if (variant.buildType.name == "debug") {
+                buildTestApksTask.configure {
+                    it.dependsOn(variant.assembleProvider)
+                }
+            }
+            variant.configureApkCopy(project, this, false)
+        }
+>>>>>>> BRANCH (c64117 Merge "Merge cherrypicks of [968275] into sparse-5587371-L78)
     }
 
     private fun Project.createVerifyDependencyVersionsTask():
@@ -318,6 +533,41 @@ class AndroidXPlugin : Plugin<Project> {
                 VerifyDependencyVersionsTask::class.java)
     }
 
+<<<<<<< HEAD   (5155e6 Merge "Merge empty history for sparse-5513738-L3500000031735)
+=======
+    // Task that creates a json file of a project's dependencies
+    private fun Project.addCreateLibraryBuildInfoFileTask(extension: AndroidXExtension) {
+        afterEvaluate {
+            if (extension.publish) { // Only generate build info files for published libraries.
+                val task = project.tasks.register(
+                    "createLibraryBuildInfoFile",
+                    CreateLibraryBuildInfoFileTask::class.java
+                )
+                project.rootProject.tasks.getByName(CREATE_LIBRARY_BUILD_INFO_FILES_TASK)
+                    .dependsOn(task)
+            }
+        }
+    }
+
+    private fun Project.configureJacoco() {
+        project.apply(plugin = "jacoco")
+        project.configure<JacocoPluginExtension> {
+            toolVersion = Jacoco.VERSION
+        }
+
+        project.tasks.withType(JacocoReport::class.java).configureEach { task ->
+            task.reports {
+                it.xml.isEnabled = true
+                it.html.isEnabled = false
+                it.csv.isEnabled = false
+
+                it.xml.destination = File(getHostTestCoverageDirectory(),
+                    "${project.path.replace(':', '-').substring(1)}.xml")
+            }
+        }
+    }
+
+>>>>>>> BRANCH (c64117 Merge "Merge cherrypicks of [968275] into sparse-5587371-L78)
     companion object {
         const val BUILD_ON_SERVER_TASK = "buildOnServer"
         const val BUILD_TEST_APKS = "buildTestApks"
@@ -371,29 +621,40 @@ private fun Project.createUpdateResourceApiTask(): DefaultTask {
     }
 }
 
+<<<<<<< HEAD   (5155e6 Merge "Merge empty history for sparse-5513738-L3500000031735)
 private fun Project.configureResourceApiChecks() {
     project.afterEvaluate {
+=======
+@Suppress("UNCHECKED_CAST")
+fun Project.getProjectsMap(): ConcurrentHashMap<String, String> {
+    return project.rootProject.extra.get("projects") as ConcurrentHashMap<String, String>
+}
+
+private fun Project.configureResourceApiChecks(extension: LibraryExtension) {
+    afterEvaluate {
+>>>>>>> BRANCH (c64117 Merge "Merge cherrypicks of [968275] into sparse-5587371-L78)
         if (project.hasApiFolder()) {
             val checkResourceApiTask = project.createCheckResourceApiTask()
             val updateResourceApiTask = project.createUpdateResourceApiTask()
-            project.tasks.all { task ->
-                if (task.name == "assembleRelease") {
-                    checkResourceApiTask.dependsOn(task)
-                    updateResourceApiTask.dependsOn(task)
-                } else if (task.name == "updateApi") {
-                    task.dependsOn(updateResourceApiTask)
+
+            extension.libraryVariants.all { libraryVariant ->
+                if (libraryVariant.buildType.name == "debug") {
+                    // Check and update resource api tasks rely compile to generate public.txt
+                    checkResourceApiTask.dependsOn(libraryVariant.javaCompileProvider)
+                    updateResourceApiTask.dependsOn(libraryVariant.javaCompileProvider)
                 }
             }
-            project.rootProject.tasks.all { task ->
-                if (task.name == AndroidXPlugin.BUILD_ON_SERVER_TASK) {
-                    task.dependsOn(checkResourceApiTask)
-                }
+            tasks.withType(UpdateApiTask::class.java).configureEach { task ->
+                task.dependsOn(updateResourceApiTask)
+            }
+            rootProject.tasks.named(AndroidXPlugin.BUILD_ON_SERVER_TASK).configure { task ->
+                task.dependsOn(checkResourceApiTask)
             }
         }
     }
 }
 
 private fun Project.getGenerateResourceApiFile(): File {
-    return File(project.buildDir, "intermediates/public_res/release" +
-            "/packageReleaseResources/public.txt")
+    return File(project.buildDir, "intermediates/public_res/debug" +
+            "/packageDebugResources/public.txt")
 }

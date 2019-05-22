@@ -16,5 +16,21 @@
   -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="android.support.compat.test">
+<<<<<<< HEAD   (5155e6 Merge "Merge empty history for sparse-5513738-L3500000031735)
     <uses-sdk android:targetSdkVersion="${target-sdk-version}"/>
+=======
+
+    <application>
+        <!-- Dummy main activity to provide a "android.app.shortcuts" meta-data entry -->
+        <activity android:name="android.app.Activity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <meta-data
+                android:name="android.app.shortcuts"
+                android:resource="@xml/shortcuts" />
+        </activity>
+    </application>
+>>>>>>> BRANCH (c64117 Merge "Merge cherrypicks of [968275] into sparse-5587371-L78)
 </manifest>

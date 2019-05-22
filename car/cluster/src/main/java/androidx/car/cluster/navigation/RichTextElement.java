@@ -32,13 +32,21 @@ import java.util.Objects;
  * An item in a {@link RichText} sequence, acting as a union of different graphic elements that can
  * be displayed one after another.
  * <p>
+<<<<<<< HEAD   (5155e6 Merge "Merge empty history for sparse-5513738-L3500000031735)
  * All {@link RichTextElement} must contain a textual representation of its content, which will be
  * used by consumers incapable of rendering the desired graphic element. A {@link RichTextElement}
  * can only contain one other graphic element. Consumers must attempt to render such element and
  * only fallback to text if needed.
+=======
+ * A {@link RichTextElement} can contain text and a graphic element as its representation.
+ * OEM cluster rendering services must attempt to render the graphic element if present. In case of
+ * failure to render the element, the first line of fallback should be {@link #getText()}. If that
+ * is also empty, fallback to {@link RichText#getText()} will be used.
+>>>>>>> BRANCH (c64117 Merge "Merge cherrypicks of [968275] into sparse-5587371-L78)
  * <p>
  * New graphic element types might be added in the future. If such elements are unknown to the
- * consumer, they will be delivered to the consumer as just text.
+ * OEM cluster rendering service, the elements will be delivered to the OEM cluster rendering
+ * services as just text.
  */
 @VersionedParcelize
 public class RichTextElement implements VersionedParcelable {
@@ -95,8 +103,26 @@ public class RichTextElement implements VersionedParcelable {
          *
          * @param text textual representation to use
          */
+<<<<<<< HEAD   (5155e6 Merge "Merge empty history for sparse-5513738-L3500000031735)
         public RichTextElement build(@NonNull String text) {
             return new RichTextElement(Preconditions.checkNotNull(text), mImage);
+=======
+        @NonNull
+        public Builder setText(@Nullable String text) {
+            mText = text;
+            return this;
+        }
+
+        /**
+         * Builds a {@link RichTextElement} with an optional textual representation, and any other
+         * optional representation provided to this builder. If no other graphic element is provided
+         * or if such graphic element cannot be rendered by the OEM cluster rendering service, text
+         * will be used instead.
+         */
+        @NonNull
+        public RichTextElement build() {
+            return new RichTextElement(Common.nonNullOrEmpty(mText), mImage);
+>>>>>>> BRANCH (c64117 Merge "Merge cherrypicks of [968275] into sparse-5587371-L78)
         }
     }
 

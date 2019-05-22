@@ -74,4 +74,45 @@ public class CustomTabsIntentTest {
         intent = new CustomTabsIntent.Builder().setToolbarColor(color).build().intent;
         assertEquals(color, intent.getIntExtra(CustomTabsIntent.EXTRA_TOOLBAR_COLOR, 0));
     }
+<<<<<<< HEAD   (5155e6 Merge "Merge empty history for sparse-5513738-L3500000031735)
+=======
+
+    @Test
+    public void testSecondaryToolbarColor() {
+        int color = Color.RED;
+        Intent intent = new CustomTabsIntent.Builder()
+                .setSecondaryToolbarColor(color)
+                .build()
+                .intent;
+        assertEquals(color, intent.getIntExtra(CustomTabsIntent.EXTRA_SECONDARY_TOOLBAR_COLOR, 0));
+    }
+
+    @Test
+    public void testColorScheme() {
+        try {
+            new CustomTabsIntent.Builder().setColorScheme(-1);
+            fail("Underflow arguments are expected to throw an exception");
+        } catch (IllegalArgumentException exception) {
+        }
+
+        try {
+            new CustomTabsIntent.Builder().setColorScheme(42);
+            fail("Overflow arguments are expected to throw an exception");
+        } catch (IllegalArgumentException exception) {
+        }
+
+        // None of the valid parameters should throw.
+        final int[] colorSchemeValues = new int[] {
+            CustomTabsIntent.COLOR_SCHEME_SYSTEM,
+            CustomTabsIntent.COLOR_SCHEME_LIGHT,
+            CustomTabsIntent.COLOR_SCHEME_DARK
+        };
+
+        for (int value : colorSchemeValues) {
+            Intent intent =
+                    new CustomTabsIntent.Builder().setColorScheme(value).build().intent;
+            assertEquals(value, intent.getIntExtra(CustomTabsIntent.EXTRA_COLOR_SCHEME, -1));
+        }
+    }
+>>>>>>> BRANCH (c64117 Merge "Merge cherrypicks of [968275] into sparse-5587371-L78)
 }

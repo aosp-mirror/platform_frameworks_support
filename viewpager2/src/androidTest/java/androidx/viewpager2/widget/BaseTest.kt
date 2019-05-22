@@ -37,9 +37,14 @@ import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.rule.ActivityTestRule
+<<<<<<< HEAD   (5155e6 Merge "Merge empty history for sparse-5513738-L3500000031735)
 import androidx.testutils.FragmentActivityUtils
 import androidx.testutils.FragmentActivityUtils.waitForActivityDrawn
 import androidx.viewpager2.LocaleTestUtils
+=======
+import androidx.testutils.LocaleTestUtils
+import androidx.testutils.recreate
+>>>>>>> BRANCH (c64117 Merge "Merge cherrypicks of [968275] into sparse-5587371-L78)
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.test.R
 import androidx.viewpager2.widget.ViewPager2.ORIENTATION_HORIZONTAL
@@ -50,6 +55,7 @@ import androidx.viewpager2.widget.swipe.PageSwiperEspresso
 import androidx.viewpager2.widget.swipe.PageSwiperManual
 import androidx.viewpager2.widget.swipe.TestActivity
 import androidx.viewpager2.widget.swipe.ViewAdapter
+import androidx.viewpager2.widget.swipe.WaitForInjectMotionEventsAction.Companion.waitForInjectMotionEvents
 import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers.allOf
@@ -89,7 +95,11 @@ open class BaseTest {
             intent.putExtra(TestActivity.EXTRA_LANGUAGE, localeUtil.getLocale().toString())
         }
         activityTestRule.launchActivity(intent)
+<<<<<<< HEAD   (5155e6 Merge "Merge empty history for sparse-5513738-L3500000031735)
         waitForActivityDrawn(activityTestRule.activity)
+=======
+        onView(withId(R.id.view_pager)).perform(waitForInjectMotionEvents())
+>>>>>>> BRANCH (c64117 Merge "Merge cherrypicks of [968275] into sparse-5587371-L78)
 
         val viewPager: ViewPager2 = activityTestRule.activity.findViewById(R.id.view_pager)
         activityTestRule.runOnUiThread { viewPager.orientation = orientation }
@@ -114,9 +124,17 @@ open class BaseTest {
                 viewPager.adapter = adapterProvider(activity)
                 onCreateCallback(viewPager)
             }
+<<<<<<< HEAD   (5155e6 Merge "Merge empty history for sparse-5513738-L3500000031735)
             activity = FragmentActivityUtils.recreateActivity(activityTestRule, activity)
+=======
+            activity = activityTestRule.recreate()
+>>>>>>> BRANCH (c64117 Merge "Merge cherrypicks of [968275] into sparse-5587371-L78)
             TestActivity.onCreateCallback = { }
+<<<<<<< HEAD   (5155e6 Merge "Merge empty history for sparse-5513738-L3500000031735)
             waitForActivityDrawn(activity)
+=======
+            onView(withId(R.id.view_pager)).perform(waitForInjectMotionEvents())
+>>>>>>> BRANCH (c64117 Merge "Merge cherrypicks of [968275] into sparse-5587371-L78)
         }
 
         var activity: TestActivity = activityTestRule.activity
@@ -381,6 +399,18 @@ open class BaseTest {
 
     fun <T, R : Comparable<R>> List<T>.assertSorted(selector: (T) -> R) {
         assertThat(this, equalTo(this.sortedBy(selector)))
+    }
+
+    /**
+     * Returns the slice between the first and second element. First and second element are not
+     * included in the results. Search for the second element starts on the element after the first
+     * element. If first element is not found, an empty list is returned. If second element is not
+     * found, all elements after the first are returned.
+     *
+     * @return A list with all elements between the first and the second element
+     */
+    fun <T> List<T>.slice(first: T, second: T): List<T> {
+        return dropWhile { it != first }.drop(1).takeWhile { it != second }
     }
 
     /**

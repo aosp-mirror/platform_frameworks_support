@@ -18,45 +18,53 @@ package androidx.build.metalava
 
 import androidx.build.checkapi.ApiLocation
 import androidx.build.checkapi.ApiViolationExclusions
+import org.gradle.api.provider.Property
+import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputFiles
 import org.gradle.api.tasks.OutputFiles
 import org.gradle.api.tasks.TaskAction
 import java.io.File
 
 // Validate an API signature text file against a set of source files.
-open class CheckApiCompatibilityTask : MetalavaTask() {
+abstract class CheckApiCompatibilityTask : MetalavaTask() {
     // Text file from which the API signatures will be obtained.
-    var referenceApi: ApiLocation? = null
+    @get:Input
+    abstract val referenceApi: Property<ApiLocation>
     // Text file listing violations that should be ignored
-    var exclusions: ApiViolationExclusions? = null
+    @get:Input
+    abstract val exclusions: Property<ApiViolationExclusions>
 
     // Whether to confirm that no restricted APIs were removed since the previous release
+    @get:Input
     var checkRestrictedAPIs = false
 
     @InputFiles
     fun getTaskInputs(): List<File> {
         if (checkRestrictedAPIs) {
-            return referenceApi!!.files() + exclusions!!.files()
+            return referenceApi.get().files() + exclusions.get().files()
         }
-        return listOf(referenceApi!!.publicApiFile, exclusions!!.publicApiFile)
+        return listOf(referenceApi.get().publicApiFile, exclusions.get().publicApiFile)
     }
 
     // Declaring outputs prevents Gradle from rerunning this task if the inputs haven't changed
     @OutputFiles
     fun getTaskOutputs(): List<File> {
-        return listOf(referenceApi!!.publicApiFile)
+        return listOf(referenceApi.get().publicApiFile)
     }
 
     @TaskAction
     fun exec() {
-        val referenceApi = checkNotNull(referenceApi) { "referenceApi not set." }
-        val exclusions = checkNotNull(exclusions) { "exclusions not set." }
-
         check(bootClasspath.isNotEmpty()) { "Android boot classpath not set." }
 
-        checkApiFile(referenceApi.publicApiFile, exclusions.publicApiFile, false)
+        checkApiFile(referenceApi.get().publicApiFile, exclusions.get().publicApiFile, false)
         if (checkRestrictedAPIs) {
+<<<<<<< HEAD   (5155e6 Merge "Merge empty history for sparse-5513738-L3500000031735)
             checkApiFile(referenceApi.restrictedApiFile, exclusions.restrictedApiFile, false)
+=======
+            checkApiFile(referenceApi.get().restrictedApiFile,
+                exclusions.get().restrictedApiFile,
+                true)
+>>>>>>> BRANCH (c64117 Merge "Merge cherrypicks of [968275] into sparse-5587371-L78)
         }
     }
 

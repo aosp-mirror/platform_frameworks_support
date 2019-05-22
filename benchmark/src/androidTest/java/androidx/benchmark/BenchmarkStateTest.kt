@@ -16,9 +16,16 @@
 
 package androidx.benchmark
 
+import android.Manifest
 import androidx.test.filters.LargeTest
+import androidx.test.rule.GrantPermissionRule
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
+<<<<<<< HEAD   (5155e6 Merge "Merge empty history for sparse-5513738-L3500000031735)
+=======
+import org.junit.Assert.fail
+import org.junit.Rule
+>>>>>>> BRANCH (c64117 Merge "Merge cherrypicks of [968275] into sparse-5587371-L78)
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
@@ -28,6 +35,9 @@ import java.util.concurrent.TimeUnit
 @RunWith(JUnit4::class)
 class BenchmarkStateTest {
     private fun ms2ns(ms: Long): Long = TimeUnit.MILLISECONDS.toNanos(ms)
+
+    @get:Rule
+    val writePermissionRule = GrantPermissionRule.grant(Manifest.permission.WRITE_EXTERNAL_STORAGE)
 
     @Test
     fun simple() {
@@ -57,7 +67,22 @@ class BenchmarkStateTest {
             }
         }.ideSummaryLine("fooBarLongerKey")
 
+<<<<<<< HEAD   (5155e6 Merge "Merge empty history for sparse-5513738-L3500000031735)
         assertEquals(summary1.indexOf("foo"),
             summary2.indexOf("foo"))
+=======
+    @Test
+    fun reportResult() {
+        BenchmarkState.reportData("className", "testName", 100, listOf(100), 1, 1)
+        val expectedReport = BenchmarkState.Report(
+            className = "className",
+            testName = "testName",
+            nanos = 100,
+            data = listOf(100),
+            repeatIterations = 1,
+            warmupIterations = 1
+        )
+        assertEquals(expectedReport, ResultWriter.reports.last())
+>>>>>>> BRANCH (c64117 Merge "Merge cherrypicks of [968275] into sparse-5587371-L78)
     }
 }

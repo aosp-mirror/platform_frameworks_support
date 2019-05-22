@@ -1,3 +1,4 @@
+<<<<<<< HEAD   (5155e6 Merge "Merge empty history for sparse-5513738-L3500000031735)
 /*
  * Copyright (C) 2012 The Android Open Source Project
  *
@@ -396,3 +397,5 @@ public class FragmentTabHost extends TabHost implements TabHost.OnTabChangeListe
         return ft;
     }
 }
+=======
+>>>>>>> BRANCH (c64117 Merge "Merge cherrypicks of [968275] into sparse-5587371-L78)
