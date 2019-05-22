@@ -46,6 +46,30 @@
       "revId": "63126432803d9205ee8d0905689573173eeb82bd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "757b4ec2_694dc280",
+        "filename": "development/history/AndroidX-Release-2019-04-25.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-05-22T08:11:02Z",
+      "side": 1,
+      "message": "There are a couple arch comp libraries like lifecycle (13 artifactIds), navigation (10 artifactIds), arch.core (3 artifactIds), and room (9 artifactIds) that have many artifactIds, but the they all keep the same version.  Does it make sense to make a bunch of individual tags for each artifactId?  Does that not seem superfluous?",
+      "parentUuid": "80a65c5f_271e389f",
+      "range": {
+        "startLine": 4,
+        "startChar": 41,
+        "endLine": 4,
+        "endChar": 50
+      },
+      "revId": "63126432803d9205ee8d0905689573173eeb82bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
