@@ -20,24 +20,20 @@ import androidx.ui.baseui.SimpleImage
 import androidx.ui.core.Dp
 import androidx.ui.core.Text
 import androidx.ui.core.dp
-import androidx.ui.core.withDensity
 import androidx.ui.layout.Container
 import androidx.ui.layout.DpConstraints
 import androidx.ui.layout.MainAxisSize
 import androidx.ui.layout.Padding
 import androidx.ui.layout.Row
 import androidx.ui.layout.WidthSpacer
-import androidx.ui.material.borders.BorderRadius
-import androidx.ui.material.borders.CircleBorder
-import androidx.ui.material.borders.RoundedRectangleBorder
-import androidx.ui.material.borders.ShapeBorder
 import androidx.ui.graphics.Color
 import androidx.ui.painting.Image
 import androidx.ui.painting.TextStyle
 import androidx.compose.Children
 import androidx.compose.Composable
 import androidx.compose.composer
-import androidx.compose.unaryPlus
+import androidx.ui.baseui.shape.Shape
+import androidx.ui.material.shape.CircularShape
 
 /**
  * A floating action button (FAB) is a [Button] to represents the primary action of a screen.
@@ -65,7 +61,7 @@ import androidx.compose.unaryPlus
 fun FloatingActionButton(
     onClick: (() -> Unit)? = null,
     minSize: Dp = FabSize,
-    shape: ShapeBorder = CircleBorder(),
+    shape: Shape = CircularShape,
     color: Color? = null,
     elevation: Dp = 0.dp, // TODO(Andrey) add the default elevation when it ready b/123215187
     @Children children: @Composable() () -> Unit
@@ -134,13 +130,9 @@ fun FloatingActionButton(
     color: Color? = null,
     elevation: Dp = 0.dp
 ) {
-    // TODO(Andrey): BorderRadius should work with dp b/129278276
-    val radius = BorderRadius.circular(+withDensity { ExtendedFabHeight.toPx().value / 2 })
-    val shape = RoundedRectangleBorder(borderRadius = radius)
     FloatingActionButton(
         onClick = onClick,
         color = color,
-        shape = shape,
         elevation = elevation,
         minSize = ExtendedFabHeight) {
         if (icon == null) {
