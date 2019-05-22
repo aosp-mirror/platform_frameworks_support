@@ -509,15 +509,12 @@ class Path(private val internalPath: android.graphics.Path = android.graphics.Pa
     }
 
     /**
-     * Returns a copy of the path with all the segments of every
-     * subpath translated by the given offset.
+     * Translates all the segments of every subpath by the given offset.
      */
-    fun shift(offset: Offset): Path {
-        return clone().apply {
-            mMatrix.reset()
-            mMatrix.setTranslate(offset.dx, offset.dy)
-            internalPath.transform(mMatrix)
-        }
+    fun shift(offset: Offset) {
+        mMatrix.reset()
+        mMatrix.setTranslate(offset.dx, offset.dy)
+        internalPath.transform(mMatrix)
     }
 
     /**
