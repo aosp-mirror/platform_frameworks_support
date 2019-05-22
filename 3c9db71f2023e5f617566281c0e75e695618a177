@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "816c4826_11c2fb00",
+        "filename": "camera/integration-tests/timingtestapp/src/main/java/androidx/camera/integration/antelope/TestUtils.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 558,
+      "author": {
+        "id": 1269804
+      },
+      "writtenOn": "2019-05-22T16:47:49Z",
+      "side": 1,
+      "message": "Removed extra newline in new patchset.",
+      "revId": "3c9db71f2023e5f617566281c0e75e695618a177",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7ac8f09e_edd74d12",
+        "filename": "camera/integration-tests/timingtestapp/src/main/java/androidx/camera/integration/antelope/cameracontrollers/Camera2CaptureCallback.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1269804
+      },
+      "writtenOn": "2019-05-22T16:47:49Z",
+      "side": 1,
+      "message": "Will remove this in next patchset.",
+      "range": {
+        "startLine": 78,
+        "startChar": 37,
+        "endLine": 78,
+        "endChar": 38
+      },
+      "revId": "3c9db71f2023e5f617566281c0e75e695618a177",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
