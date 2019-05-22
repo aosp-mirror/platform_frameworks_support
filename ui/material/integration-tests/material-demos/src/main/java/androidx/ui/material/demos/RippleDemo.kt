@@ -22,26 +22,23 @@ import androidx.ui.core.Text
 import androidx.ui.layout.Container
 import androidx.ui.layout.EdgeInsets
 import androidx.ui.material.MaterialTheme
-import androidx.ui.material.borders.BorderRadius
-import androidx.ui.material.borders.BorderSide
-import androidx.ui.material.borders.RoundedRectangleBorder
 import androidx.ui.material.ripple.BoundedRipple
 import androidx.ui.material.surface.Card
 import androidx.ui.material.themeTextStyle
-import androidx.ui.graphics.Color
 import androidx.compose.Composable
 import androidx.compose.unaryPlus
 import androidx.compose.composer
+import androidx.ui.baseui.shape.Border
+import androidx.ui.graphics.Color
+import androidx.ui.material.shape.Corner
+import androidx.ui.material.shape.RoundedShapeModel
 
 @Composable
 fun RippleDemo() {
     CraneWrapper {
         MaterialTheme {
             Container(padding = EdgeInsets(50.dp)) {
-                val shape = RoundedRectangleBorder(
-                    side = BorderSide(Color(0x80000000.toInt())),
-                    borderRadius = BorderRadius.circular(100f)
-                )
+                val shape = RoundedShapeModel(Corner(24.dp), Border(Color(0x80000000.toInt())))
                 Card(shape = shape) {
                     BoundedRipple {
                         Container(expanded = true) {

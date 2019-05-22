@@ -14,13 +14,28 @@
  * limitations under the License.
  */
 
-package androidx.ui.material.borders
+package androidx.ui.material.shape
 
-/** The style of line to draw for a [BorderSide] in a [Border]. */
-enum class BorderStyle {
-    /** Skip the border. */
-    None,
-    /** Draw the border as a solid line. */
-    Solid
-    // if you add more, think about how they will lerp
+import androidx.ui.core.DensityReceiver
+import androidx.ui.core.Dp
+import androidx.ui.core.Px
+import androidx.ui.core.PxSize
+import androidx.ui.core.minSide
+import androidx.ui.core.px
+
+// TODO(Andrey: Documentation)
+
+typealias Corner = DensityReceiver.(PxSize) -> Px
+
+fun Corner(size: Dp): Corner = { size.toPx() }
+
+fun Corner(size: Px): Corner = { size }
+
+fun Corner(percent: Int): Corner {
+    if (percent < 0 || percent > 50) {
+        throw IllegalArgumentException()
+    }
+    return { parentSize -> parentSize.minSide * (percent * 0.01f) }
 }
+
+val SharpCorner: Corner = { 0.px }

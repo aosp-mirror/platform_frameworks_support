@@ -17,14 +17,10 @@
 package androidx.ui.material
 
 import androidx.annotation.CheckResult
-import androidx.ui.core.CurrentTextStyleProvider
 import androidx.ui.core.dp
 import androidx.ui.core.withDensity
 import androidx.ui.engine.text.FontWeight
 import androidx.ui.engine.text.font.FontFamily
-import androidx.ui.material.borders.BorderRadius
-import androidx.ui.material.borders.RoundedRectangleBorder
-import androidx.ui.material.borders.ShapeBorder
 import androidx.ui.material.ripple.CurrentRippleTheme
 import androidx.ui.material.ripple.DefaultRippleEffectFactory
 import androidx.ui.material.ripple.RippleTheme
@@ -33,11 +29,15 @@ import androidx.ui.painting.TextStyle
 import androidx.compose.Ambient
 import androidx.compose.Children
 import androidx.compose.Composable
+import androidx.compose.composer
 import androidx.compose.Effect
 import androidx.compose.ambient
-import androidx.compose.composer
 import androidx.compose.effectOf
 import androidx.compose.unaryPlus
+import androidx.ui.core.CurrentTextStyleProvider
+import androidx.ui.material.shape.Corner
+import androidx.ui.material.shape.RoundedShapeModel
+import androidx.ui.material.shape.ShapeModel
 
 /**
  * This Component defines the styling principles from the Material design specification. It must be
@@ -63,7 +63,7 @@ fun MaterialTheme(
         Typography.Provider(value = typography) {
             CurrentTextStyleProvider(value = typography.body1) {
                 MaterialRippleTheme {
-                    MaterialButtonShapeTheme(children = children)
+                    MaterialShapesTheme(children = children)
                 }
             }
         }
@@ -274,33 +274,37 @@ data class Shapes(
     /**
      * Shape used for [Button]
      */
-    val button: ShapeBorder
+    val button: ShapeModel
     // TODO(Andrey): Add shapes for Card, other surfaces? will see what we need.
 )
 
 /**
  * Ambient used to specify the default shapes for the surfaces.
  *
- * @see [MaterialButtonShapeTheme] for the default Material Design value
+ * @see [MaterialShapesTheme] for the default Material Design value
  */
 val CurrentShapeAmbient = Ambient.of<Shapes> {
     throw IllegalStateException("No default shapes provided.")
 }
 
 /**
- * Applies the default [ShapeBorder]s for all the surfaces.
+ * Applies the default [ShapeModel]s for all the surfaces.
  */
 @Composable
-fun MaterialButtonShapeTheme(@Children children: @Composable() () -> Unit) {
-    val value = +withDensity {
-        Shapes(
-            button = RoundedRectangleBorder(
-                borderRadius = BorderRadius.circular(4.dp.toPx().value)
-            )
-        )
-    }
+fun MaterialShapesTheme(@Children children: @Composable() () -> Unit) {
+    val value = Shapes(
+        button = RoundedShapeModel(Corner(4.dp))
+    )
     CurrentShapeAmbient.Provider(value = value, children = children)
 }
+
+/**
+ * Helps to resolve the [ShapeModel] by applying [choosingBlock] for the [Shapes].
+ */
+@CheckResult(suggest = "+")
+fun themeShape(
+    choosingBlock: Shapes.() -> ShapeModel
+) = effectOf<ShapeModel> { (+ambient(CurrentShapeAmbient)).choosingBlock() }
 
 // Syntax helpers for having theme fallbacks
 
@@ -318,24 +322,6 @@ fun Color?.orFromTheme(choosingBlock: MaterialColors.() -> Color): Effect<Color>
             (+ambient(Colors)).choosingBlock()
         } else {
             color
-        }
-    }
-}
-
-/**
- * Helps to resolve the [ShapeBorder]. It will take the current value or the [choosingBlock]
- * value from [CurrentShapeAmbient] if null was used.
- *
- * Example:
- *     val surfaceShape = +shape.orFromTheme{ button }
- */
-fun ShapeBorder?.orFromTheme(choosingBlock: Shapes.() -> ShapeBorder): Effect<ShapeBorder> {
-    val shape = this
-    return effectOf {
-        if (shape == null) {
-            (+ambient(CurrentShapeAmbient)).choosingBlock()
-        } else {
-            shape
         }
     }
 }
