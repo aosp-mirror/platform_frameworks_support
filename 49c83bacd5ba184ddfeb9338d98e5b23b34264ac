@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2783c5c4_79716f65",
+        "filename": "ui/material/src/androidTest/java/androidx/ui/material/CheckboxUiTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-05-22T12:52:57Z",
+      "side": 1,
+      "message": "Yes, after some thinking I agree that we should not provide \"asOne\". We don\u0027t want to have multiple ways to write the same thing.",
+      "parentUuid": "d92c68cc_6dc81e63",
+      "range": {
+        "startLine": 223,
+        "startChar": 8,
+        "endLine": 224,
+        "endChar": 20
+      },
+      "revId": "49c83bacd5ba184ddfeb9338d98e5b23b34264ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d96d918a_d72e1864",
         "filename": "ui/test/api/1.0.0-alpha01.txt",
         "patchSetId": 1
