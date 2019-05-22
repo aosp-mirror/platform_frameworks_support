@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4e93122b_746f708b",
+        "filename": "work/workmanager/build.gradle",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-05-22T17:39:33Z",
+      "side": 1,
+      "message": "Is there a reason these are inside the `useMaxDepVersions` block? Seems to me like they could be outside just fine.",
+      "range": {
+        "startLine": 50,
+        "startChar": 8,
+        "endLine": 51,
+        "endChar": 54
+      },
+      "revId": "8b8d0dc56d0c84f84dd7163c63cbd245049ea47e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c64e971e_40e08e3f",
+        "filename": "work/workmanager/build.gradle",
+        "patchSetId": 3
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-05-22T17:39:33Z",
+      "side": 1,
+      "message": "Nit: unnecessary extra new line",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 4
+      },
+      "revId": "8b8d0dc56d0c84f84dd7163c63cbd245049ea47e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
