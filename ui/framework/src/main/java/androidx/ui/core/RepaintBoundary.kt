@@ -19,6 +19,9 @@ package androidx.ui.core
 import androidx.compose.Children
 import androidx.compose.Composable
 import androidx.compose.composer
+import androidx.compose.state
+import androidx.compose.unaryPlus
+import androidx.ui.engine.geometry.Outline
 
 /**
  * A repaint boundary blocks parents from having to repaint when contained children
@@ -34,5 +37,41 @@ import androidx.compose.composer
 fun RepaintBoundary(name: String? = null, @Children children: @Composable() () -> Unit) {
     <RepaintBoundaryNode name=name>
         <children/>
+    </RepaintBoundaryNode>
+}
+
+@Composable
+fun OutlinedArea(
+    outlineProvider: (PxSize) -> Outline,
+    elevation: Dp,
+    @Children children: @Composable() () -> Unit
+) {
+    <RepaintBoundaryNode name=null outlineProvider=outlineProvider elevation=elevation>
+        <children />
+    </RepaintBoundaryNode>
+}
+
+@Composable
+fun Clip(
+    outlineProvider: (PxSize) -> Outline,
+    @Children children: @Composable() () -> Unit
+) {
+    <RepaintBoundaryNode name=null outlineProvider=outlineProvider>
+        <children />
+    </RepaintBoundaryNode>
+}
+
+@Composable
+fun DrawShadow(
+    outlineProvider: (PxSize) -> Outline,
+    elevation: Dp
+) {
+    <RepaintBoundaryNode name=null outlineProvider=outlineProvider elevation=elevation>
+        // TODO: RepaintBoundaryNode should use size of a parent when there is no children
+        val size = +state { PxSize(0.px, 0.px) }
+        <OnPositioned onPositioned={ size.value = it.size }/>
+        <Layout children={}> _, _ ->
+            layout(size.value.width.round(), size.value.height.round()) {}
+        </Layout>
     </RepaintBoundaryNode>
 }

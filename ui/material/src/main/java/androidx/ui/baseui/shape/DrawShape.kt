@@ -16,26 +16,36 @@
 
 package androidx.ui.baseui.shape
 
-import androidx.ui.core.Dp
+import androidx.compose.Composable
+import androidx.compose.composer
+import androidx.compose.memo
+import androidx.compose.unaryPlus
+import androidx.ui.core.Draw
 import androidx.ui.core.vectorgraphics.Brush
 import androidx.ui.core.vectorgraphics.SolidColor
+import androidx.ui.engine.geometry.drawOutline
 import androidx.ui.graphics.Color
+import androidx.ui.painting.Paint
 
-/**
- * A border of a shape.
- * It will be drawn on top of the shape as an inner stroke.
- *
- * @param brush the brush to paint the border with.
- * @param width the width of the border. Use [Dp.Hairline] for a hairline border.
- */
-data class Border(val brush: Brush, val width: Dp)
+// TODO(Andrey: Documentation)
+@Composable
+fun DrawShape(
+    shape: Shape,
+    brush: Brush
+) = with(shape) {
+    val paint = +memo { Paint() }
+    Draw { canvas, parentSize ->
+        // draw background
+        val outline = createOutline(parentSize)
+        brush.applyBrush(paint)
+        canvas.drawOutline(outline, paint)
+    }
+}
 
-/**
- * A border of a shape.
- * It will be drawn on top of the shape as an inner stroke.
- *
- * @param color the color to fill the border with.
- * @param width the width of the border. Use [Dp.Hairline] for a hairline border.
- */
-/*inline*/ fun Border(color: Color, width: Dp): Border =
-    Border(brush = SolidColor(color), width = width)
+@Composable
+fun DrawShape(
+    shape: Shape,
+    color: Color
+) {
+    DrawShape(shape = shape, brush = +memo(color) { SolidColor(color) })
+}
