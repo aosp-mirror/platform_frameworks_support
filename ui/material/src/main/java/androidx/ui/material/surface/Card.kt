@@ -19,12 +19,12 @@ package androidx.ui.material.surface
 import androidx.ui.core.Dp
 import androidx.ui.core.dp
 import androidx.ui.material.MaterialColors
-import androidx.ui.material.borders.RoundedRectangleBorder
-import androidx.ui.material.borders.ShapeBorder
 import androidx.ui.graphics.Color
 import androidx.compose.Children
 import androidx.compose.Composable
 import androidx.compose.composer
+import androidx.ui.baseui.shape.Shape
+import androidx.ui.material.shape.RectShape
 
 /**
  * Cards are [Surface]s that display content and actions on a single topic.
@@ -41,7 +41,7 @@ import androidx.compose.composer
  */
 @Composable
 fun Card(
-    shape: ShapeBorder = RoundedRectangleBorder(),
+    shape: Shape = RectShape, // TODO (Andrey: Take the default shape from the theme)
     color: Color? = null,
     elevation: Dp = 0.dp,
     @Children children: @Composable() () -> Unit
