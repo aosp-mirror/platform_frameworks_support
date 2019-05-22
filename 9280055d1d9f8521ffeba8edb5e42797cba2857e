@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "77f4661d_6b6d6f08",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1766,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-05-22T07:46:55Z",
+      "side": 1,
+      "message": "Never mind. It should be called.",
+      "parentUuid": "a336b297_ae0ba6b8",
+      "revId": "9280055d1d9f8521ffeba8edb5e42797cba2857e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "97d78698_b1fcf63e",
         "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
         "patchSetId": 8
