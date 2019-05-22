@@ -631,8 +631,8 @@ public class DiffUtil {
                     // matching items. Check if it is changed or not
                     final int oldItemPos = snake.x + j;
                     final int newItemPos = snake.y + j;
-                    final boolean theSame = mCallback
-                            .areContentsTheSame(oldItemPos, newItemPos);
+                    final boolean theSame = mCallback.areItemsTheSame(oldItemPos, newItemPos)
+                            && mCallback.areContentsTheSame(oldItemPos, newItemPos);
                     final int changeFlag = theSame ? FLAG_NOT_CHANGED : FLAG_CHANGED;
                     mOldItemStatuses[oldItemPos] = (newItemPos << FLAG_OFFSET) | changeFlag;
                     mNewItemStatuses[newItemPos] = (oldItemPos << FLAG_OFFSET) | changeFlag;
