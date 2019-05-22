@@ -68,6 +68,213 @@
       "revId": "49c83bacd5ba184ddfeb9338d98e5b23b34264ac",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "073c18c7_a2e78027",
+        "filename": "ui/test/src/main/java/androidx/ui/test/Actions.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-05-22T12:48:50Z",
+      "side": 1,
+      "message": "I\u0027m not sure I find it readable to pass the ::sanityCheck like this. Can\u0027t we just find the nodes and assert the amount and then just give them to doClickInternal?\n\nExample:\nbaseQuery.doClickInternal(findAtLeastOne())\nbaseQuery.doClickInternal(findExactlyOne())",
+      "range": {
+        "startLine": 28,
+        "startChar": 3,
+        "endLine": 28,
+        "endChar": 49
+      },
+      "revId": "49c83bacd5ba184ddfeb9338d98e5b23b34264ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a57065e0_2c69aec0",
+        "filename": "ui/test/src/main/java/androidx/ui/test/Assertions.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-05-22T12:48:50Z",
+      "side": 1,
+      "message": "Why is a generic method \"verify\u0027 running some sanity check from a base class? What if we want to assert that count is zero? This would fail on forcing at least one. I think that amount of nodes needs to be asserted only when actions are about to be performed or some asserts requires it.\n\nSo I wouldn\u0027t generalize methods that much on behalf of overall readability.",
+      "range": {
+        "startLine": 119,
+        "startChar": 7,
+        "endLine": 119,
+        "endChar": 22
+      },
+      "revId": "49c83bacd5ba184ddfeb9338d98e5b23b34264ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6765759_1c56c078",
+        "filename": "ui/test/src/main/java/androidx/ui/test/BaseNodeQuery.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-05-22T12:48:50Z",
+      "side": 1,
+      "message": "Can this be internal?\n\nAlso it is called Base but we don\u0027t inherit from it. Can we figure name that would fit more here?",
+      "range": {
+        "startLine": 23,
+        "startChar": 6,
+        "endLine": 23,
+        "endChar": 19
+      },
+      "revId": "49c83bacd5ba184ddfeb9338d98e5b23b34264ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d3aadb2_92a2b220",
+        "filename": "ui/test/src/main/java/androidx/ui/test/Finders.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-05-22T12:48:50Z",
+      "side": 1,
+      "message": "nit: maybe also point out to MultipleNodesQuery for more info?",
+      "range": {
+        "startLine": 60,
+        "startChar": 45,
+        "endLine": 60,
+        "endChar": 54
+      },
+      "revId": "49c83bacd5ba184ddfeb9338d98e5b23b34264ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f82fd39_80fc28ee",
+        "filename": "ui/test/src/main/java/androidx/ui/test/MultipleNodesQuery.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-05-22T12:48:50Z",
+      "side": 1,
+      "message": "documentation",
+      "range": {
+        "startLine": 22,
+        "startChar": 6,
+        "endLine": 22,
+        "endChar": 24
+      },
+      "revId": "49c83bacd5ba184ddfeb9338d98e5b23b34264ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d6832a52_aa90a700",
+        "filename": "ui/test/src/main/java/androidx/ui/test/MultipleNodesQuery.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-05-22T12:48:50Z",
+      "side": 1,
+      "message": "We don\u0027t prefix with \"m\" in Kotlin.",
+      "range": {
+        "startLine": 27,
+        "startChar": 17,
+        "endLine": 27,
+        "endChar": 31
+      },
+      "revId": "49c83bacd5ba184ddfeb9338d98e5b23b34264ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b0f62446_1fd87d6f",
+        "filename": "ui/test/src/main/java/androidx/ui/test/MultipleNodesQuery.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-05-22T12:48:50Z",
+      "side": 1,
+      "message": "Let\u0027s be more specific in naming otherwise usages of this method might be unclear (happened to me when reading the previous methods that use this). E.g. throwAssertIfEmpty(). Also this could be an extension method on list as it does not need anything from this class.",
+      "range": {
+        "startLine": 29,
+        "startChar": 17,
+        "endLine": 29,
+        "endChar": 28
+      },
+      "revId": "49c83bacd5ba184ddfeb9338d98e5b23b34264ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dcd7c906_1f75a2d7",
+        "filename": "ui/test/src/main/java/androidx/ui/test/MultipleNodesQuery.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-05-22T12:48:50Z",
+      "side": 1,
+      "message": "let\u0027s add documentation.",
+      "range": {
+        "startLine": 35,
+        "startChar": 8,
+        "endLine": 35,
+        "endChar": 13
+      },
+      "revId": "49c83bacd5ba184ddfeb9338d98e5b23b34264ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd1bcc81_438f97a2",
+        "filename": "ui/test/src/main/java/androidx/ui/test/SingleNodeQuery.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-05-22T12:48:50Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 36,
+        "startChar": 4,
+        "endLine": 40,
+        "endChar": 5
+      },
+      "revId": "49c83bacd5ba184ddfeb9338d98e5b23b34264ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
