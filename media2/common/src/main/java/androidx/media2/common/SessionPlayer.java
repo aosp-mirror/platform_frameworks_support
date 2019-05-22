@@ -1353,6 +1353,9 @@ public abstract class SessionPlayer implements AutoCloseable {
          * The types of tracks supported may vary based on player implementation, but generally
          * a track should already be selected in order to be deselected and audio and video tracks
          * should not be deselected.
+         * <p>
+         * Also, this callback will generally be called only after calling
+         * {@link #deselectTrackInternal(TrackInfo)}.
          *
          * @see TrackInfo#MEDIA_TRACK_TYPE_VIDEO
          * @see TrackInfo#MEDIA_TRACK_TYPE_AUDIO
