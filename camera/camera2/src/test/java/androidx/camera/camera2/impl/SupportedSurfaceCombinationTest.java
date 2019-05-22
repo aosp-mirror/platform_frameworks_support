@@ -478,7 +478,7 @@ public final class SupportedSurfaceCombinationTest {
                 new SupportedSurfaceCombination(
                         mContext, LIMITED_CAMERA_ID, mMockCamcorderProfileHelper);
 
-        Rational aspectRatio = new Rational(16, 9);
+        Rational aspectRatio = new Rational(9, 16);
         PreviewConfig.Builder previewConfigBuilder = new PreviewConfig.Builder();
         VideoCaptureConfig.Builder videoCaptureConfigBuilder = new VideoCaptureConfig.Builder();
         ImageCaptureConfig.Builder imageCaptureConfigBuilder = new ImageCaptureConfig.Builder();
@@ -539,7 +539,7 @@ public final class SupportedSurfaceCombinationTest {
         Map<UseCase, Size> suggestedResolutionMap =
                 supportedSurfaceCombination.getSuggestedResolutions(null, useCases);
 
-        assertThat(suggestedResolutionMap).containsEntry(imageCapture, mAnalysisSize);
+        assertThat(suggestedResolutionMap).containsEntry(imageCapture, mMaximumSize);
         assertThat(suggestedResolutionMap).containsEntry(preview, mAnalysisSize);
         assertThat(suggestedResolutionMap).containsEntry(imageAnalysis, mAnalysisSize);
     }
