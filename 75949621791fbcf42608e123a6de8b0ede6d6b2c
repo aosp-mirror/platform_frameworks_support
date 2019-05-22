@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fe35f42e_65318464",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/Camera.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-05-22T00:46:35Z",
+      "side": 1,
+      "message": "Instead of synchronizing within the method, use @GuardedBy(\"mAttachedUseCaseLock\") on the method since you\u0027re only calling it while already locked.",
+      "range": {
+        "startLine": 410,
+        "startChar": 8,
+        "endLine": 410,
+        "endChar": 43
+      },
+      "revId": "75949621791fbcf42608e123a6de8b0ede6d6b2c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
