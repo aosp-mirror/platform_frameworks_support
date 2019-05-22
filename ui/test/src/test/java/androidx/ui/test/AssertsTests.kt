@@ -29,7 +29,7 @@ class AssertsTests {
                 it.isHidden = false
             })
             .findByTag("test")
-            .assertIsVisible()
+            .assertVisible()
     }
 
     @Test(expected = AssertionError::class)
@@ -40,7 +40,7 @@ class AssertsTests {
                 it.isHidden = true
             })
             .findByTag("test")
-            .assertIsVisible()
+            .assertVisible()
     }
 
     @Test
@@ -51,7 +51,7 @@ class AssertsTests {
                 it.isHidden = true
             })
             .findByTag("test")
-            .assertIsHidden()
+            .assertHidden()
     }
 
     @Test(expected = AssertionError::class)
@@ -62,7 +62,7 @@ class AssertsTests {
                 it.isHidden = false
             })
             .findByTag("test")
-            .assertIsHidden()
+            .assertHidden()
     }
 
     @Test
@@ -73,7 +73,7 @@ class AssertsTests {
                 it.isChecked = true
             })
             .findByTag("test")
-            .assertIsChecked()
+            .assertChecked()
     }
 
     @Test(expected = AssertionError::class)
@@ -84,7 +84,7 @@ class AssertsTests {
                 it.isChecked = false
             })
             .findByTag("test")
-            .assertIsHidden()
+            .assertHidden()
     }
 
     @Test(expected = AssertionError::class)
@@ -97,7 +97,7 @@ class AssertsTests {
                 }
             )
             .findByTag("test")
-            .assertIsSelected(true)
+            .assertSelected(true)
     }
 
     @Test
@@ -110,7 +110,7 @@ class AssertsTests {
                 }
             )
             .findByTag("test")
-            .assertIsSelected(true)
+            .assertSelected(true)
     }
 
     @Test(expected = AssertionError::class)
@@ -123,7 +123,7 @@ class AssertsTests {
                 }
             )
             .findByTag("test")
-            .assertIsSelected(false)
+            .assertSelected(false)
     }
 
     @Test
@@ -136,7 +136,7 @@ class AssertsTests {
                 }
             )
             .findByTag("test")
-            .assertIsSelected(false)
+            .assertSelected(false)
     }
 
     @Test(expected = AssertionError::class)
@@ -149,7 +149,7 @@ class AssertsTests {
                 }
             )
             .findByTag("test")
-            .assertIsInMutuallyExclusiveGroup()
+            .assertInMutuallyExclusiveGroup()
     }
 
     @Test
@@ -162,6 +162,6 @@ class AssertsTests {
                 }
             )
             .findByTag("test")
-            .assertIsInMutuallyExclusiveGroup()
+            .assertInMutuallyExclusiveGroup()
     }
 }
