@@ -69,6 +69,7 @@ object LibraryGroups {
     val PRINT = LibraryGroup("androidx.print", false)
     val RECOMMENDATION = LibraryGroup("androidx.recommendation", false)
     val RECYCLERVIEW = LibraryGroup("androidx.recyclerview", false)
+    val ROLE = LibraryGroup("androidx.role", false)
     val SAVEDSTATE = LibraryGroup("androidx.savedstate", false)
     val SECURITY = LibraryGroup("androidx.security", false)
     val SHARETARGET = LibraryGroup("androidx.sharetarget", false)
