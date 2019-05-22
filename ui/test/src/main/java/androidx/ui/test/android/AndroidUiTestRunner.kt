@@ -35,6 +35,7 @@ import androidx.ui.core.CraneWrapper
 import androidx.ui.core.Density
 import androidx.ui.core.SemanticsTreeNode
 import androidx.ui.core.SemanticsTreeProvider
+import androidx.ui.core.semantics.SemanticsConfiguration
 import androidx.ui.test.UiTestRunner
 import org.junit.After
 import org.junit.Before
@@ -183,8 +184,10 @@ open class AndroidUiTestRunner : UiTestRunner {
         })
     }
 
-    override fun findSemantics(selector: (SemanticsTreeNode) -> Boolean): List<SemanticsTreeNode> {
-        return rootProvider.getAllSemanticNodes().filter { selector(it) }.toList()
+    override fun findSemantics(
+        selector: SemanticsConfiguration.() -> Boolean
+    ): List<SemanticsTreeNode> {
+        return rootProvider.getAllSemanticNodes().filter { it.data.selector() }.toList()
     }
 
     override fun performClick(x: Float, y: Float) {

@@ -28,7 +28,7 @@ import androidx.ui.core.withDensity
 import androidx.ui.layout.Container
 import androidx.ui.layout.DpConstraints
 import androidx.ui.test.android.AndroidUiTestRunner
-import androidx.ui.test.assertIsVisible
+import androidx.ui.test.assertVisible
 import androidx.ui.test.assertValueEquals
 import androidx.ui.test.findByTag
 import com.google.common.truth.Truth
@@ -65,7 +65,7 @@ class ProgressIndicatorTest : AndroidUiTestRunner() {
         }
 
         findByTag(tag)
-            .assertIsVisible()
+            .assertVisible()
             .assertValueEquals("0.0")
 
         runOnUiAndWaitForRecompose {
@@ -73,7 +73,7 @@ class ProgressIndicatorTest : AndroidUiTestRunner() {
         }
 
         findByTag(tag)
-            .assertIsVisible()
+            .assertVisible()
             .assertValueEquals("0.5")
     }
 
@@ -125,7 +125,7 @@ class ProgressIndicatorTest : AndroidUiTestRunner() {
         }
 
         findByTag(tag)
-            .assertIsVisible()
+            .assertVisible()
             .assertValueEquals("0.0")
 
         runOnUiAndWaitForRecompose {
@@ -133,7 +133,7 @@ class ProgressIndicatorTest : AndroidUiTestRunner() {
         }
 
         findByTag(tag)
-            .assertIsVisible()
+            .assertVisible()
             .assertValueEquals("0.5")
     }
 

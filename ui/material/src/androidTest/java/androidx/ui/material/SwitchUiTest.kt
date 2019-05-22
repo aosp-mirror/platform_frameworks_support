@@ -28,8 +28,8 @@ import androidx.ui.layout.Container
 import androidx.ui.layout.DpConstraints
 import androidx.ui.test.DisableTransitions
 import androidx.ui.test.android.AndroidUiTestRunner
-import androidx.ui.test.assertIsChecked
-import androidx.ui.test.assertIsNotChecked
+import androidx.ui.test.assertChecked
+import androidx.ui.test.assertNotChecked
 import androidx.ui.test.assertSemanticsIsEqualTo
 import androidx.ui.test.copyWith
 import androidx.ui.test.createFullSemantics
@@ -87,9 +87,9 @@ class SwitchUiTest : AndroidUiTestRunner() {
             }
         }
         findByTag(defaultSwitchTag)
-            .assertIsNotChecked()
+            .assertNotChecked()
             .doClick()
-            .assertIsChecked()
+            .assertChecked()
     }
 
     @Test
@@ -102,11 +102,11 @@ class SwitchUiTest : AndroidUiTestRunner() {
             }
         }
         findByTag(defaultSwitchTag)
-            .assertIsNotChecked()
+            .assertNotChecked()
             .doClick()
-            .assertIsChecked()
+            .assertChecked()
             .doClick()
-            .assertIsNotChecked()
+            .assertNotChecked()
     }
 
     @Test
@@ -118,9 +118,9 @@ class SwitchUiTest : AndroidUiTestRunner() {
             }
         }
         findByTag(defaultSwitchTag)
-            .assertIsNotChecked()
+            .assertNotChecked()
             .doClick()
-            .assertIsNotChecked()
+            .assertNotChecked()
     }
 
     @Test

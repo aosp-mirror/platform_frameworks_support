@@ -16,7 +16,8 @@
 
 package androidx.ui.test
 
-fun SemanticsTreeQuery.dumpSemantics(consumer: (String) -> Unit) {
+// TODO(b/133217292)
+fun NodeQuery.dumpSemantics(consumer: (String) -> Unit) {
     var builder = StringBuilder()
 
     findAllMatching().forEach {

@@ -26,8 +26,8 @@ import androidx.ui.layout.Column
 import androidx.ui.layout.Container
 import androidx.ui.layout.DpConstraints
 import androidx.ui.test.android.AndroidUiTestRunner
-import androidx.ui.test.assertIsInMutuallyExclusiveGroup
-import androidx.ui.test.assertIsSelected
+import androidx.ui.test.assertInMutuallyExclusiveGroup
+import androidx.ui.test.assertSelected
 import androidx.ui.test.assertSemanticsIsEqualTo
 import androidx.ui.test.copyWith
 import androidx.ui.test.createFullSemantics
@@ -97,14 +97,14 @@ class RadioGroupUiTest : AndroidUiTestRunner() {
         findByTag(itemThree).assertSemanticsIsEqualTo(unselectedRadioGroupItemSemantics)
 
         findByTag(itemOne)
-            .assertIsInMutuallyExclusiveGroup()
-            .assertIsSelected(true)
+            .assertInMutuallyExclusiveGroup()
+            .assertSelected(true)
         findByTag(itemTwo)
-            .assertIsInMutuallyExclusiveGroup()
-            .assertIsSelected(false)
+            .assertInMutuallyExclusiveGroup()
+            .assertSelected(false)
         findByTag(itemThree)
-            .assertIsInMutuallyExclusiveGroup()
-            .assertIsSelected(false)
+            .assertInMutuallyExclusiveGroup()
+            .assertSelected(false)
     }
 
     @Test

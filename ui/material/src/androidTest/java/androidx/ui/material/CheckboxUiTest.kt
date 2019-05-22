@@ -30,17 +30,21 @@ import androidx.ui.layout.Container
 import androidx.ui.layout.DpConstraints
 import androidx.ui.test.DisableTransitions
 import androidx.ui.test.android.AndroidUiTestRunner
-import androidx.ui.test.assertIsChecked
-import androidx.ui.test.assertIsNotChecked
+import androidx.ui.test.assertChecked
+import androidx.ui.test.assertNotChecked
 import androidx.ui.test.assertSemanticsIsEqualTo
 import androidx.ui.test.copyWith
 import androidx.ui.test.createFullSemantics
 import androidx.ui.test.doClick
 import androidx.ui.test.findByTag
+import androidx.ui.test.isCheckable
 import com.google.common.truth.Truth
 import androidx.compose.Model
 import androidx.compose.composer
 import androidx.ui.core.round
+import androidx.ui.test.assertDoesNotExist
+import androidx.ui.test.expectExactly
+import androidx.ui.test.find
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -116,9 +120,9 @@ class CheckboxUiTest : AndroidUiTestRunner() {
         }
 
         findByTag(defaultTag)
-            .assertIsNotChecked()
+            .assertNotChecked()
             .doClick()
-            .assertIsChecked()
+            .assertChecked()
     }
 
     @Test
@@ -136,11 +140,11 @@ class CheckboxUiTest : AndroidUiTestRunner() {
         }
 
         findByTag(defaultTag)
-            .assertIsNotChecked()
+            .assertNotChecked()
             .doClick()
-            .assertIsChecked()
+            .assertChecked()
             .doClick()
-            .assertIsNotChecked()
+            .assertNotChecked()
     }
 
     @Test
@@ -154,9 +158,9 @@ class CheckboxUiTest : AndroidUiTestRunner() {
         }
 
         findByTag(defaultTag)
-            .assertIsNotChecked()
+            .assertNotChecked()
             .doClick()
-            .assertIsNotChecked()
+            .assertNotChecked()
     }
 
     @Test
@@ -191,5 +195,56 @@ class CheckboxUiTest : AndroidUiTestRunner() {
             Truth.assertThat(checkboxSize?.height?.round())
                 .isEqualTo(materialCheckboxSize.toIntPx())
         }
+    }
+
+    @Test
+    fun checkBoxTest_twoComponents_areChecked() {
+        setMaterialContent {
+            Column {
+                Checkbox(value = Checked)
+                Checkbox(value = Checked)
+            }
+        }
+
+        find(expectExactly(2)) { isCheckable() && isChecked == true }
+            .assertChecked()
+    }
+
+    @Test
+    fun checkBoxTest_twoComponents_toggle() {
+        val state1 = CheckboxState(value = Unchecked)
+        val state2 = CheckboxState(value = Unchecked)
+
+        setMaterialContent {
+            Column {
+                Checkbox(
+                    value = state1.value,
+                    onClick = {
+                        state1.toggle()
+                    })
+                Checkbox(
+                    value = state2.value,
+                    onClick = {
+                        state2.toggle()
+                    })
+            }
+        }
+
+        find(expectExactly(2)) { isCheckable() }
+            .doClick()
+            .assertChecked()
+    }
+
+    @Test
+    fun checkBoxTest_doesNotExist() {
+        setMaterialContent {
+            Column {
+                Checkbox(value = Checked)
+                Checkbox(value = Checked)
+            }
+        }
+
+        find(expectExactly(0)) { isCheckable() && isChecked == false }
+            .assertDoesNotExist()
     }
 }

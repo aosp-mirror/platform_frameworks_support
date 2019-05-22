@@ -16,18 +16,21 @@
 
 package androidx.ui.test
 
-fun NodeQuery.doClick(): NodeQuery {
-    val nodes = findAndCheckExpectation()
+class Expectation internal constructor(
+    internal val errorMessage: (actualCount: Int) -> String,
+    internal val condition: (actualCount: Int) -> Boolean
+)
 
-    nodes.forEach {
-        // TODO(catalintudor): get real coordinates after Semantics API is ready (b/125702443)
-        val globalCoordinates = it.globalPosition
-            ?: throw AssertionError("Semantic Node has no child layout to perform click on!")
-        val x = globalCoordinates.x.value + 1f
-        val y = globalCoordinates.y.value + 1f
+fun expectExactly(expectedCount: Int): Expectation {
+    return expect(
+        { actualCount -> "Found '$actualCount' nodes but exactly '$expectedCount' was expected!" },
+        { actualCount -> actualCount == expectedCount }
+    )
+}
 
-        sendClick(x, y)
-    }
-
-    return this
+fun expect(
+    errorMessage: (actualCount: Int) -> String,
+    condition: (actualCount: Int) -> Boolean
+): Expectation {
+    return Expectation(errorMessage, condition)
 }
