@@ -21,6 +21,7 @@ import androidx.compose.Composable
 import androidx.compose.composer
 import androidx.compose.unaryPlus
 import androidx.ui.baseui.Clickable
+import androidx.ui.baseui.shape.Shape
 import androidx.ui.core.CurrentTextStyleProvider
 import androidx.ui.core.Dp
 import androidx.ui.core.Text
@@ -29,8 +30,6 @@ import androidx.ui.graphics.Color
 import androidx.ui.layout.Container
 import androidx.ui.layout.DpConstraints
 import androidx.ui.layout.EdgeInsets
-import androidx.ui.material.borders.BorderStyle
-import androidx.ui.material.borders.ShapeBorder
 import androidx.ui.material.ripple.Ripple
 import androidx.ui.material.surface.Surface
 import androidx.ui.painting.TextStyle
@@ -60,7 +59,7 @@ import androidx.ui.painting.TextStyle
  * @param onClick Will be called when user clicked on the button. The button will be disabled
  *  when it is null.
  * @param shape Defines the Button's shape as well its shadow. When null is provided it uses
- *  the [Shapes.button] from [CurrentShapeAmbient].
+ *  the [Shapes.button] value from the theme.
  * @param color The background color. [MaterialColors.primary] is used when null
  *  is provided. Provide [Color.Transparent] to have no color.
  * @param elevation The z-coordinate at which to place this button. This controls the size
@@ -69,7 +68,7 @@ import androidx.ui.painting.TextStyle
 @Composable
 fun Button(
     onClick: (() -> Unit)? = null,
-    shape: ShapeBorder = +themeShape { button },
+    shape: Shape = +themeShape { button },
     color: Color = +themeColor { primary },
     elevation: Dp = 0.dp,
     @Children children: @Composable() () -> Unit
@@ -117,7 +116,7 @@ fun Button(
  * @param onClick Will be called when user clicked on the button. The button will be disabled
  *  when it is null.
  * @param shape Defines the Button's shape as well its shadow. When null is provided it uses
- *  the [Shapes.button] from [CurrentShapeAmbient].
+ *  the [Shapes.button] value from the theme.
  * @param color The background color. [MaterialColors.primary] is used when null
  *  is provided. Use [TransparentButton] to have no color.
  * @param elevation The z-coordinate at which to place this button. This controls the size
@@ -128,11 +127,11 @@ fun Button(
     text: String,
     textStyle: TextStyle? = null,
     onClick: (() -> Unit)? = null,
-    shape: ShapeBorder = +themeShape { button },
+    shape: Shape = +themeShape { button },
     color: Color = +themeColor { primary },
     elevation: Dp = 0.dp
 ) {
-    val hasBackground = color.alpha > 0 || shape.borderStyle != BorderStyle.None
+    val hasBackground = color.alpha > 0 || shape.border != null
     val horPaddings = if (hasBackground) ButtonHorPadding else ButtonHorPaddingNoBg
     Button(onClick = onClick, elevation = elevation, color = color, shape = shape) {
         val constraints = DpConstraints
@@ -169,7 +168,7 @@ fun TransparentButton(
     text: String,
     textStyle: TextStyle? = null,
     onClick: (() -> Unit)? = null,
-    shape: ShapeBorder = +themeShape { button },
+    shape: Shape = +themeShape { button },
     elevation: Dp = 0.dp
 ) {
     val finalTextStyle = TextStyle(color = +themeColor { primary }).merge(textStyle)

@@ -14,27 +14,21 @@
  * limitations under the License.
  */
 
-package androidx.ui.material.surface
+package androidx.ui.baseui.shape
 
-import androidx.ui.core.Draw
+import androidx.ui.core.DensityReceiver
+import androidx.ui.core.PxSize
 import androidx.ui.core.toRect
-import androidx.ui.material.borders.ShapeBorder
-import androidx.compose.Composable
-import androidx.compose.composer
+import androidx.ui.engine.geometry.Outline
 
 /**
- * Draws the border of the provided [shape].
+ * A shape describing the rectangle.
  *
- * TODO("Andrey: Find the proper module and package for it")
+ * @param border optional border to draw on top of the shape
  */
-@Composable
-fun DrawBorder(shape: ShapeBorder) {
-    Draw { canvas, parentSize ->
-        shape.paint(
-            canvas,
-            density,
-            parentSize.toRect(),
-            null
-        )
-    }
+data class RectangleShape(
+    override val border: Border? = null
+) : Shape {
+    override fun DensityReceiver.createOutline(size: PxSize) =
+        Outline.Rectangle(size.toRect())
 }
