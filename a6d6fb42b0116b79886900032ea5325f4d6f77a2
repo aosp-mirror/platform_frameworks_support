@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f9d81105_e56d2b39",
+        "filename": "ui/text/src/androidTest/java/androidx/ui/engine/text/ParagraphIntegrationTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 1305,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-05-22T18:32:48Z",
+      "side": 1,
+      "message": "the enums have changed to be Left",
+      "range": {
+        "startLine": 1305,
+        "startChar": 67,
+        "endLine": 1305,
+        "endChar": 72
+      },
+      "revId": "a6d6fb42b0116b79886900032ea5325f4d6f77a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
