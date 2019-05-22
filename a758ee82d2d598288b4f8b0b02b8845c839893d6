@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cce501ca_9d40a6d1",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 861,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-22T02:28:54Z",
+      "side": 1,
+      "message": "Not needed because mPlayer is always used before this call. Should be added before L837?",
+      "range": {
+        "startLine": 861,
+        "startChar": 8,
+        "endLine": 861,
+        "endChar": 32
+      },
+      "revId": "a758ee82d2d598288b4f8b0b02b8845c839893d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd670f8c_6a4a1602",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1658,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-22T02:28:54Z",
+      "side": 1,
+      "message": "Q) Why not just return?",
+      "range": {
+        "startLine": 1658,
+        "startChar": 0,
+        "endLine": 1658,
+        "endChar": 72
+      },
+      "revId": "a758ee82d2d598288b4f8b0b02b8845c839893d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
