@@ -18,7 +18,6 @@ package androidx.media2.widget;
 
 import static android.content.Context.KEYGUARD_SERVICE;
 
-import static androidx.media2.widget.MediaControlView.KEY_SUBTITLE_TRACK_LANGUAGE_LIST;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
@@ -41,9 +40,7 @@ import android.content.Context;
 import android.content.res.AssetFileDescriptor;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
-import android.text.TextUtils;
 import android.view.View;
 import android.view.WindowManager;
 
@@ -54,10 +51,9 @@ import androidx.media2.common.FileMediaItem;
 import androidx.media2.common.MediaItem;
 import androidx.media2.common.MediaMetadata;
 import androidx.media2.common.SessionPlayer;
+import androidx.media2.common.SessionPlayer.TrackInfo;
 import androidx.media2.common.UriMediaItem;
 import androidx.media2.session.MediaController;
-import androidx.media2.session.SessionCommand;
-import androidx.media2.session.SessionResult;
 import androidx.media2.widget.test.R;
 import androidx.test.annotation.UiThreadTest;
 import androidx.test.core.app.ApplicationProvider;
@@ -362,15 +358,10 @@ public class MediaControlViewTest {
         final CountDownLatch latch = new CountDownLatch(1);
         final MediaController controller =
                 createController(new MediaController.ControllerCallback() {
-                    @NonNull
                     @Override
-                    public SessionResult onCustomCommand(@NonNull MediaController controller,
-                            @NonNull SessionCommand command, @Nullable Bundle args) {
-                        if (command.getCustomAction()
-                                == MediaControlView.EVENT_UPDATE_TRACK_STATUS) {
-                            latch.countDown();
-                        }
-                        return new SessionResult(SessionResult.RESULT_SUCCESS, null);
+                    public void onTrackInfoChanged(@NonNull MediaController controller,
+                            @NonNull List<TrackInfo> trackInfos) {
+                        latch.countDown();
                     }
                 });
         mActivityRule.runOnUiThread(new Runnable() {
@@ -389,7 +380,6 @@ public class MediaControlViewTest {
                 + R.raw.testvideo_with_2_subtitle_tracks);
 
         final int subtitleTrackCount = 2;
-        final int selectedSubtitleTrackIndex = 0;
         final String subtitleTrack1Text = mContext.getResources().getString(
                 R.string.MediaControlView_subtitle_track_number_text, 1);
 
@@ -399,26 +389,33 @@ public class MediaControlViewTest {
         final CountDownLatch latchForSubtitleSelect = new CountDownLatch(1);
         final MediaController controller =
                 createController(new MediaController.ControllerCallback() {
-                    @NonNull
+                    private List<TrackInfo> mTrackInfos;
+
                     @Override
-                    public SessionResult onCustomCommand(@NonNull MediaController controller,
-                            @NonNull SessionCommand command, @Nullable Bundle args) {
-                        if (TextUtils.equals(command.getCustomAction(),
-                                MediaControlView.EVENT_UPDATE_TRACK_STATUS)) {
-                            List<String> list = (args != null)
-                                    ? args.getStringArrayList(KEY_SUBTITLE_TRACK_LANGUAGE_LIST)
-                                    : null;
-                            if (list != null && list.size() == subtitleTrackCount) {
-                                latchForTrackUpdate.countDown();
+                    public void onTrackInfoChanged(@NonNull MediaController controller,
+                            @NonNull List<TrackInfo> trackInfos) {
+                        mTrackInfos = trackInfos;
+
+                        int count = 0;
+                        for (int i = 0; i < trackInfos.size(); i++) {
+                            if (trackInfos.get(i).getTrackType()
+                                    == TrackInfo.MEDIA_TRACK_TYPE_SUBTITLE) {
+                                count++;
                             }
-                        } else if (TextUtils.equals(command.getCustomAction(),
-                                MediaControlView.EVENT_UPDATE_SUBTITLE_SELECTED)) {
-                            int subtitleIndex = args != null ? args.getInt(
-                                    MediaControlView.KEY_SELECTED_SUBTITLE_INDEX) : -1;
-                            assertEquals(selectedSubtitleTrackIndex, subtitleIndex);
-                            latchForSubtitleSelect.countDown();
                         }
-                        return new SessionResult(SessionResult.RESULT_SUCCESS, null);
+                        if (count == subtitleTrackCount) {
+                            latchForTrackUpdate.countDown();
+                        }
+                    }
+
+                    @Override
+                    public void onTrackSelected(@NonNull MediaController controller,
+                            @NonNull TrackInfo trackInfo) {
+                        for (int i = 0; i < mTrackInfos.size(); i++) {
+                            if (mTrackInfos.get(i).equals(trackInfo)) {
+                                latchForSubtitleSelect.countDown();
+                            }
+                        }
                     }
                 });
         mActivityRule.runOnUiThread(new Runnable() {

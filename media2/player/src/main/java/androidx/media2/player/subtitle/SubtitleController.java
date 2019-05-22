@@ -364,6 +364,15 @@ public class SubtitleController {
     }
 
     /**
+     * Checks if the subtitle track exists in the cache.
+     */
+    boolean containsTrack(SubtitleTrack track) {
+        synchronized (mTracksLock) {
+            return mTracks.contains(track);
+        }
+    }
+
+    /**
      * Show the selected (or default) subtitle track.
      *
      * Should be called from the anchor's (UI) thread. {@see #Anchor.getSubtitleLooper}

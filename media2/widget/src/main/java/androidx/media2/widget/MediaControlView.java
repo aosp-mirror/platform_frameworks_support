@@ -16,9 +16,6 @@
 
 package androidx.media2.widget;
 
-import static androidx.media2.session.SessionResult.RESULT_ERROR_INVALID_STATE;
-import static androidx.media2.session.SessionResult.RESULT_ERROR_NOT_SUPPORTED;
-import static androidx.media2.session.SessionResult.RESULT_SUCCESS;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -29,7 +26,6 @@ import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
-import android.os.Bundle;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.SparseArray;
@@ -58,12 +54,13 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 import androidx.media2.common.MediaItem;
 import androidx.media2.common.SessionPlayer;
+import androidx.media2.common.SessionPlayer.TrackInfo;
 import androidx.media2.common.UriMediaItem;
+import androidx.media2.common.VideoSize;
 import androidx.media2.session.MediaController;
 import androidx.media2.session.MediaSession;
 import androidx.media2.session.SessionCommand;
 import androidx.media2.session.SessionCommandGroup;
-import androidx.media2.session.SessionResult;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -99,14 +96,10 @@ public class MediaControlView extends ViewGroup {
     private static final String TAG = "MediaControlView";
     static final boolean DEBUG = Log.isLoggable(TAG, Log.DEBUG);
 
-    static final String KEY_HAS_VIDEO = "HasVideo";
-    static final String KEY_AUDIO_TRACK_COUNT = "AudioTrackCount";
     static final String KEY_SUBTITLE_TRACK_LANGUAGE_LIST = "SubtitleTrackLanguageList";
-    static final String KEY_SELECTED_AUDIO_INDEX = "SelectedAudioIndex";
     static final String KEY_SELECTED_SUBTITLE_INDEX = "SelectedSubtitleIndex";
     static final String EVENT_UPDATE_TRACK_STATUS = "UpdateTrackStatus";
     static final String KEY_STATE_IS_ADVERTISEMENT = "MediaTypeAdvertisement";
-    static final String EVENT_UPDATE_MEDIA_TYPE_STATUS = "UpdateMediaTypeStatus";
     static final String EVENT_UPDATE_SUBTITLE_SELECTED = "UpdateSubtitleSelected";
     static final String EVENT_UPDATE_SUBTITLE_DESELECTED = "UpdateSubtitleDeselected";
 
@@ -163,8 +156,6 @@ public class MediaControlView extends ViewGroup {
     private int mFullSettingsItemWidth;
     private int mSettingsItemHeight;
     private int mSettingsWindowMargin;
-    boolean mHasVideo;
-    int mAudioTrackCount;
     int mSettingsMode;
     int mSelectedSubtitleTrackIndex;
     int mSelectedAudioTrackIndex;
@@ -236,7 +227,10 @@ public class MediaControlView extends ViewGroup {
     List<String> mSettingsSubTextsList;
     private List<Integer> mSettingsIconIdsList;
     List<String> mSubtitleDescriptionsList;
-    List<String> mAudioTrackList;
+    int mVideoTrackCount;
+    List<TrackInfo> mAudioTracks;
+    List<TrackInfo> mSubtitleTracks;
+    List<String> mAudioTrackDescriptionList;
     List<String> mPlaybackSpeedTextList;
     List<Integer> mPlaybackSpeedMultBy100List;
     int mCustomPlaybackSpeedIndex;
@@ -1245,7 +1239,7 @@ public class MediaControlView extends ViewGroup {
             switch (mSettingsMode) {
                 case SETTINGS_MODE_MAIN:
                     if (position == SETTINGS_MODE_AUDIO_TRACK) {
-                        mSubSettingsAdapter.setTexts(mAudioTrackList);
+                        mSubSettingsAdapter.setTexts(mAudioTrackDescriptionList);
                         mSubSettingsAdapter.setCheckPosition(mSelectedAudioTrackIndex);
                         mSettingsMode = SETTINGS_MODE_AUDIO_TRACK;
                     } else if (position == SETTINGS_MODE_PLAYBACK_SPEED) {
@@ -1258,8 +1252,8 @@ public class MediaControlView extends ViewGroup {
                 case SETTINGS_MODE_AUDIO_TRACK:
                     if (position != mSelectedAudioTrackIndex) {
                         mSelectedAudioTrackIndex = position;
-                        if (mAudioTrackCount > 0) {
-                            mPlayer.selectAudioTrack(position);
+                        if (mAudioTracks.size() > 0) {
+                            mPlayer.selectTrack(mAudioTracks.get(mSelectedAudioTrackIndex));
                         }
                         mSettingsSubTextsList.set(SETTINGS_MODE_AUDIO_TRACK,
                                 mSubSettingsAdapter.getMainText(position));
@@ -1276,9 +1270,9 @@ public class MediaControlView extends ViewGroup {
                 case SETTINGS_MODE_SUBTITLE_TRACK:
                     if (position != mSelectedSubtitleTrackIndex) {
                         if (position > 0) {
-                            mPlayer.showSubtitle(position - 1);
+                            mPlayer.selectTrack(mSubtitleTracks.get(position - 1));
                         } else {
-                            mPlayer.hideSubtitle();
+                            mPlayer.deselectTrack(mSubtitleTracks.get(mSelectedSubtitleTrackIndex));
                         }
                     }
                     dismissSettingsWindow();
@@ -1426,8 +1420,8 @@ public class MediaControlView extends ViewGroup {
         mSettingsIconIdsList.add(R.drawable.ic_audiotrack);
         mSettingsIconIdsList.add(R.drawable.ic_speed);
 
-        mAudioTrackList = new ArrayList<String>();
-        mAudioTrackList.add(
+        mAudioTrackDescriptionList = new ArrayList<String>();
+        mAudioTrackDescriptionList.add(
                 mResources.getString(R.string.MediaControlView_audio_track_none_text));
 
         mPlaybackSpeedTextList = new ArrayList<String>(Arrays.asList(
@@ -1785,6 +1779,7 @@ public class MediaControlView extends ViewGroup {
         }
     }
 
+    // TODO (b/122440911): Enable advertisement mode
     class PlayerCallback extends PlayerWrapper.PlayerCallback {
         @Override
         public void onPlayerStateChanged(@NonNull PlayerWrapper player, int state) {
@@ -1952,119 +1947,138 @@ public class MediaControlView extends ViewGroup {
         }
 
         @Override
-        @NonNull
-        public SessionResult onCustomCommand(@NonNull PlayerWrapper player,
-                @NonNull SessionCommand command, @Nullable Bundle args) {
-            if (player != mPlayer) return new SessionResult(RESULT_ERROR_INVALID_STATE, null);
-
+        void onTrackInfoChanged(@NonNull PlayerWrapper player,
+                @NonNull List<TrackInfo> trackInfos) {
             if (DEBUG) {
-                Log.d(TAG, "onCustomCommand(): command: " + command);
+                Log.d(TAG, "onTrackInfoChanged(): trackInfos: " + trackInfos);
             }
-            switch (command.getCustomAction()) {
-                case EVENT_UPDATE_TRACK_STATUS:
-                    mHasVideo = (args != null) ? args.getBoolean(KEY_HAS_VIDEO) : false;
-                    // If there is one or more audio tracks, and this information has not been
-                    // reflected into the Settings window yet, automatically check the first
-                    // track.
-                    // Otherwise, the Audio Track selection will be defaulted to "None".
-                    mAudioTrackCount = (args != null) ? args.getInt(KEY_AUDIO_TRACK_COUNT) : 0;
-                    mAudioTrackList = new ArrayList<String>();
-                    if (mAudioTrackCount > 0) {
-                        for (int i = 0; i < mAudioTrackCount; i++) {
-                            String track = mResources.getString(
-                                    R.string.MediaControlView_audio_track_number_text, i + 1);
-                            mAudioTrackList.add(track);
-                        }
-                        // Change sub text inside the Settings window.
-                        mSettingsSubTextsList.set(SETTINGS_MODE_AUDIO_TRACK,
-                                mAudioTrackList.get(0));
-                    } else {
-                        mAudioTrackList.add(mResources.getString(
-                                R.string.MediaControlView_audio_track_none_text));
-                    }
-                    if (!mHasVideo && mAudioTrackCount > 0) {
-                        mMediaType = MEDIA_TYPE_MUSIC;
-                    } else {
-                        mMediaType = MEDIA_TYPE_DEFAULT;
-                    }
-                    List<String> subtitleTracksList = (args != null)
-                            ? args.getStringArrayList(KEY_SUBTITLE_TRACK_LANGUAGE_LIST) : null;
-                    if (subtitleTracksList == null || subtitleTracksList.isEmpty()) {
-                        // For Audio only media item, CC button will not be shown when there's
-                        // no subtitle tracks.
-                        if (mMediaType == MEDIA_TYPE_MUSIC) {
-                            mSubtitleButton.setVisibility(View.GONE);
-                        } else {
-                            mSubtitleButton.setVisibility(View.VISIBLE);
-                            mSubtitleButton.setAlpha(0.5f);
-                            mSubtitleButton.setEnabled(false);
-                        }
-                    } else {
-                        mSubtitleDescriptionsList = new ArrayList<String>();
-                        mSubtitleDescriptionsList.add(mResources.getString(
-                                R.string.MediaControlView_subtitle_off_text));
-                        for (int i = 0; i < subtitleTracksList.size(); i++) {
-                            String lang = subtitleTracksList.get(i);
-                            String trackDescription;
-                            if (lang.equals("und")) {
-                                trackDescription = mResources.getString(
-                                        R.string.MediaControlView_subtitle_track_number_text,
-                                        i + 1);
-                            } else {
-                                trackDescription = mResources.getString(
-                                        R.string
-                                        .MediaControlView_subtitle_track_number_and_lang_text,
-                                        i + 1, lang);
-                            }
-                            mSubtitleDescriptionsList.add(trackDescription);
-                        }
-                        mSubtitleButton.setVisibility(View.VISIBLE);
-                        mSubtitleButton.setAlpha(1.0f);
-                        mSubtitleButton.setEnabled(true);
-                    }
-                    break;
-                case EVENT_UPDATE_MEDIA_TYPE_STATUS:
-                    boolean isAd = (args != null)
-                            && args.getBoolean(KEY_STATE_IS_ADVERTISEMENT);
-                    if (isAd != mIsAdvertisement) {
-                        mIsAdvertisement = isAd;
-                        updateLayoutForAd();
-                    }
-                    break;
-                case EVENT_UPDATE_SUBTITLE_SELECTED:
-                    int selectedTrackIndex = args != null
-                            ? args.getInt(KEY_SELECTED_SUBTITLE_INDEX, -1)
-                            : -1;
-                    if (selectedTrackIndex < 0
-                            || selectedTrackIndex >= mSubtitleDescriptionsList.size()) {
-                        Log.w(TAG, "Selected subtitle track index (" + selectedTrackIndex
-                                + ") is out of range.");
-                        break;
-                    }
-                    mSelectedSubtitleTrackIndex = selectedTrackIndex + 1;
-                    if (mSettingsMode == SETTINGS_MODE_SUBTITLE_TRACK) {
-                        mSubSettingsAdapter.setCheckPosition(mSelectedSubtitleTrackIndex);
-                    }
-                    mSubtitleButton.setImageDrawable(
-                            mResources.getDrawable(R.drawable.ic_subtitle_on));
-                    mSubtitleButton.setContentDescription(
-                            mResources.getString(R.string.mcv2_cc_is_on));
-                    break;
-                case EVENT_UPDATE_SUBTITLE_DESELECTED:
-                    mSelectedSubtitleTrackIndex = 0;
-                    if (mSettingsMode == SETTINGS_MODE_SUBTITLE_TRACK) {
-                        mSubSettingsAdapter.setCheckPosition(mSelectedSubtitleTrackIndex);
-                    }
-                    mSubtitleButton.setImageDrawable(
-                            mResources.getDrawable(R.drawable.ic_subtitle_off));
-                    mSubtitleButton.setContentDescription(
-                            mResources.getString(R.string.mcv2_cc_is_off));
-                    break;
-                default:
-                    return new SessionResult(
-                            RESULT_ERROR_NOT_SUPPORTED, null);
+            // Update video track count, audio & subtitle track lists.
+            mVideoTrackCount = 0;
+            mAudioTracks = new ArrayList<>();
+            mSubtitleTracks = new ArrayList<>();
+            for (int i = 0; i < trackInfos.size(); i++) {
+                int trackType = trackInfos.get(i).getTrackType();
+                if (trackType == TrackInfo.MEDIA_TRACK_TYPE_VIDEO) {
+                    mVideoTrackCount++;
+                } else if (trackType == TrackInfo.MEDIA_TRACK_TYPE_AUDIO) {
+                    mAudioTracks.add(trackInfos.get(i));
+                } else if (trackType == TrackInfo.MEDIA_TRACK_TYPE_SUBTITLE) {
+                    mSubtitleTracks.add(trackInfos.get(i));
+                }
             }
-            return new SessionResult(RESULT_SUCCESS, null);
+
+            // Update index for selected Audio & Subtitle tracks.
+            TrackInfo audioTrack = player.getSelectedTrack(TrackInfo.MEDIA_TRACK_TYPE_AUDIO);
+            mSelectedAudioTrackIndex = (audioTrack == null)
+                    ? 0 : audioTrack.getId() - mVideoTrackCount;
+            TrackInfo subtitleTrack = player.getSelectedTrack(TrackInfo.MEDIA_TRACK_TYPE_SUBTITLE);
+            mSelectedSubtitleTrackIndex = (subtitleTrack == null)
+                    ? 0 : subtitleTrack.getId() - mVideoTrackCount - mAudioTracks.size();
+
+            // Update media type.
+            boolean hasVideo = false;
+            if (mVideoTrackCount > 0) {
+                hasVideo = true;
+            } else {
+                VideoSize size = player.getVideoSize();
+                if (size != null && size.getHeight() > 0 && size.getWidth() > 0) {
+                    Log.w(TAG, "video track count is zero, but it renders video. size: "
+                            + size.getWidth() + "/" + size.getHeight());
+                    hasVideo = true;
+                }
+            }
+            if (!hasVideo && mAudioTracks.size() > 0) {
+                mMediaType = MEDIA_TYPE_MUSIC;
+            } else {
+                mMediaType = MEDIA_TYPE_DEFAULT;
+            }
+
+            // Update audio description list.
+            mAudioTrackDescriptionList = new ArrayList<>();
+            if (mAudioTracks.isEmpty()) {
+                mAudioTrackDescriptionList.add(
+                        mResources.getString(R.string.MediaControlView_audio_track_none_text));
+            } else {
+                for (int i = 0; i < mAudioTracks.size(); i++) {
+                    mAudioTrackDescriptionList.add(mResources.getString(
+                            R.string.MediaControlView_audio_track_number_text, i + 1));
+                }
+            }
+
+            // Update text for audio displayed inside the Settings window.
+            mSettingsSubTextsList.set(SETTINGS_MODE_AUDIO_TRACK,
+                    mAudioTrackDescriptionList.get(mSelectedAudioTrackIndex));
+
+            // Update subtitle description list and subtitle button visibility.
+            mSubtitleDescriptionsList = new ArrayList<>();
+            if (mSubtitleTracks.isEmpty()) {
+                // For Audio only media item, CC button will not be shown when there's
+                // no subtitle tracks.
+                if (mMediaType == MEDIA_TYPE_MUSIC) {
+                    mSubtitleButton.setVisibility(View.GONE);
+                } else {
+                    mSubtitleButton.setVisibility(View.VISIBLE);
+                    mSubtitleButton.setAlpha(0.5f);
+                    mSubtitleButton.setEnabled(false);
+                }
+            } else {
+                mSubtitleDescriptionsList.add(mResources.getString(
+                        R.string.MediaControlView_subtitle_off_text));
+                for (int i = 0; i < mSubtitleTracks.size(); i++) {
+                    String lang = trackInfos.get(i).getLanguage().getISO3Language();
+                    String trackDescription;
+                    if (lang.equals("und")) {
+                        trackDescription = mResources.getString(
+                                R.string.MediaControlView_subtitle_track_number_text, i + 1);
+                    } else {
+                        trackDescription = mResources.getString(
+                                R.string.MediaControlView_subtitle_track_number_and_lang_text,
+                                i + 1, lang);
+                    }
+                    mSubtitleDescriptionsList.add(trackDescription);
+                }
+                mSubtitleButton.setVisibility(View.VISIBLE);
+                mSubtitleButton.setAlpha(1.0f);
+                mSubtitleButton.setEnabled(true);
+            }
+        }
+
+        @Override
+        void onTrackSelected(@NonNull PlayerWrapper player, @NonNull TrackInfo trackInfo) {
+            if (trackInfo.getTrackType() == TrackInfo.MEDIA_TRACK_TYPE_SUBTITLE) {
+                for (int i = 0; i < mSubtitleTracks.size(); i++) {
+                    if (mSubtitleTracks.get(i).equals(trackInfo)) {
+                        mSelectedSubtitleTrackIndex = i + 1;
+                        continue;
+                    }
+                }
+                if (mSettingsMode == SETTINGS_MODE_SUBTITLE_TRACK) {
+                    mSubSettingsAdapter.setCheckPosition(mSelectedSubtitleTrackIndex);
+                }
+                mSubtitleButton.setImageDrawable(
+                        mResources.getDrawable(R.drawable.ic_subtitle_on));
+                mSubtitleButton.setContentDescription(
+                        mResources.getString(R.string.mcv2_cc_is_on));
+            }
+        }
+
+        @Override
+        void onTrackDeselected(@NonNull PlayerWrapper player, @NonNull TrackInfo trackInfo) {
+            if (trackInfo.getTrackType() == TrackInfo.MEDIA_TRACK_TYPE_SUBTITLE) {
+                for (int i = 0; i < mSubtitleTracks.size(); i++) {
+                    if (mSubtitleTracks.get(i).equals(trackInfo)) {
+                        mSelectedSubtitleTrackIndex = 0;
+                        continue;
+                    }
+                }
+                if (mSettingsMode == SETTINGS_MODE_SUBTITLE_TRACK) {
+                    mSubSettingsAdapter.setCheckPosition(mSelectedSubtitleTrackIndex);
+                }
+                mSubtitleButton.setImageDrawable(
+                        mResources.getDrawable(R.drawable.ic_subtitle_off));
+                mSubtitleButton.setContentDescription(
+                        mResources.getString(R.string.mcv2_cc_is_off));
+            }
         }
     }
 }
