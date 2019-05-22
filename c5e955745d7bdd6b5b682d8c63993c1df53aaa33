@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f7fa9727_ee113fe7",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/DiffUtil.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 631,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-05-22T22:32:06Z",
+      "side": 1,
+      "message": "this only happens when items match. we should never be getting here in the first place if we didn\u0027t know those two items match.\n\nidk how we do but that is something that needs to be figured out first instead of guarding the call as a workaround.",
+      "range": {
+        "startLine": 630,
+        "startChar": 16,
+        "endLine": 631,
+        "endChar": 68
+      },
+      "revId": "c5e955745d7bdd6b5b682d8c63993c1df53aaa33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
