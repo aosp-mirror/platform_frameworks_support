@@ -57,6 +57,30 @@
       "revId": "9280055d1d9f8521ffeba8edb5e42797cba2857e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e5106a1_216eb713",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 2064,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-22T08:06:46Z",
+      "side": 1,
+      "message": "\u003e did you make it to reduce the cost of calling getCurrentMediaItem()?\n\nYes. Please refer to the comment https://android-review.googlesource.com/c/platform/frameworks/support/+/964477/7/media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java#1946",
+      "parentUuid": "97d78698_b1fcf63e",
+      "range": {
+        "startLine": 2064,
+        "startChar": 16,
+        "endLine": 2064,
+        "endChar": 42
+      },
+      "revId": "9280055d1d9f8521ffeba8edb5e42797cba2857e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
