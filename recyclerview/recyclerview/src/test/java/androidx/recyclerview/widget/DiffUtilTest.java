@@ -35,7 +35,9 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 import java.util.UUID;
 
@@ -88,6 +90,40 @@ public class DiffUtilTest {
         }
     };
 
+
+    @Test
+    public void testRepeatingItems() {
+        final List<Integer> before = Arrays.asList(1, 2);
+        final List<Integer> after = Arrays.asList(1, 2, 3, 2);
+
+        DiffUtil.calculateDiff(new DiffUtil.Callback() {
+            private final List<Integer> mAreItemsTheSameCalls = new ArrayList<>();
+
+            @Override
+            public int getOldListSize() {
+                return before.size();
+            }
+
+            @Override
+            public int getNewListSize() {
+                return after.size();
+            }
+
+            @Override
+            public boolean areItemsTheSame(int oldItemIndex, int newItemIndex) {
+                mAreItemsTheSameCalls.add(Objects.hash(oldItemIndex, newItemIndex));
+                return Objects.equals(before.get(oldItemIndex), after.get(newItemIndex));
+            }
+
+            @Override
+            public boolean areContentsTheSame(int oldItemIndex, int newItemIndex) {
+                if (!mAreItemsTheSameCalls.contains(Objects.hash(oldItemIndex, newItemIndex))) {
+                    fail("areItemsTheSame should be called");
+                }
+                return false;
+            }
+        });
+    }
 
     @Test
     public void testNoChange() {
