@@ -117,6 +117,30 @@
       "revId": "22d01c6877d08b8dd01c945cf21d9f9647d7c7e4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4cff50d_4138fc24",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaControllerImplBase.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1289,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-05-22T08:21:55Z",
+      "side": 1,
+      "message": "I think selectedTimedTextTrack should be removed at least. (Maybe selectedMetadataTrack as well, since metadata track selection is not really functioned yet.)",
+      "parentUuid": "e5872962_e2d3897e",
+      "range": {
+        "startLine": 1285,
+        "startChar": 0,
+        "endLine": 1289,
+        "endChar": 52
+      },
+      "revId": "22d01c6877d08b8dd01c945cf21d9f9647d7c7e4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
