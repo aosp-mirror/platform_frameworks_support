@@ -47,7 +47,7 @@ class Camera2PreviewSessionStateCallback(
      *
      */
     override fun onActive(session: CameraCaptureSession?) {
-        if (!params.isOpen) {
+        if (!params.isOpen || (params.state != CameraState.PREVIEW_RUNNING)) {
             return
         }
 
