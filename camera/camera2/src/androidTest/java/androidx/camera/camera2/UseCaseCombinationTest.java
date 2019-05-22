@@ -30,10 +30,10 @@ import android.os.Looper;
 import android.util.Size;
 import android.view.Surface;
 
-import androidx.camera.camera2.impl.Camera2CameraFactory;
 import androidx.camera.camera2.impl.util.SemaphoreReleasingCamera2Callbacks;
+import androidx.camera.core.AppConfig;
+import androidx.camera.core.BaseCamera;
 import androidx.camera.core.CameraFactory;
-import androidx.camera.core.CameraRepository;
 import androidx.camera.core.CameraX;
 import androidx.camera.core.CameraX.LensFacing;
 import androidx.camera.core.ImageAnalysis;
@@ -45,7 +45,6 @@ import androidx.camera.core.ImmediateSurface;
 import androidx.camera.core.Preview;
 import androidx.camera.core.PreviewConfig;
 import androidx.camera.core.SessionConfig;
-import androidx.camera.core.UseCaseGroup;
 import androidx.camera.testing.CameraUtil;
 import androidx.camera.testing.fakes.FakeLifecycleOwner;
 import androidx.lifecycle.MutableLiveData;
@@ -84,9 +83,8 @@ public final class UseCaseCombinationTest {
     private ImageAnalysis mImageAnalysis;
     private Preview mPreview;
     private ImageAnalysis.Analyzer mImageAnalyzer;
-    private CameraRepository mCameraRepository;
-    private CameraFactory mCameraFactory;
-    private UseCaseGroup mUseCaseGroup;
+    private BaseCamera mCamera;
+    private String mCameraId;
 
     private Observer<Long> createCountIncrementingObserver() {
         return new Observer<Long>() {
@@ -100,8 +98,20 @@ public final class UseCaseCombinationTest {
     @Before
     public void setUp() {
         assumeTrue(CameraUtil.deviceHasCamera());
+
         Context context = ApplicationProvider.getApplicationContext();
-        CameraX.init(context, Camera2AppConfig.create(context));
+        AppConfig config = Camera2AppConfig.create(context);
+        CameraFactory cameraFactory = config.getCameraFactory(/*valueIfMissing=*/ null);
+        try {
+            mCameraId = cameraFactory.cameraIdForLensFacing(LensFacing.BACK);
+        } catch (Exception e) {
+            throw new IllegalArgumentException(
+                    "Unable to attach to camera with LensFacing " + LensFacing.BACK, e);
+        }
+        mCamera = cameraFactory.getCamera(mCameraId);
+
+        CameraX.init(context, config);
+
         mLifecycle = new FakeLifecycleOwner();
         mHandlerThread = new HandlerThread("ErrorHandlerThread");
         mHandlerThread.start();
@@ -131,14 +141,8 @@ public final class UseCaseCombinationTest {
         initPreview();
         initImageCapture();
 
-        mUseCaseGroup.addUseCase(mImageCapture);
-        mUseCaseGroup.addUseCase(mPreview);
-
         CameraX.bindToLifecycle(mLifecycle, mPreview, mImageCapture);
         mLifecycle.startAndResume();
-
-        mImageCapture.doNotifyActive();
-        mCameraRepository.onGroupActive(mUseCaseGroup);
 
         // Wait for the CameraCaptureSession.onConfigured callback.
         mImageCapture.mSessionStateCallback.waitForOnConfigured(1);
@@ -184,13 +188,6 @@ public final class UseCaseCombinationTest {
         initPreview();
         initImageAnalysis();
         initImageCapture();
-
-        mUseCaseGroup.addUseCase(mImageCapture);
-        mUseCaseGroup.addUseCase(mImageAnalysis);
-        mUseCaseGroup.addUseCase(mPreview);
-
-        mImageCapture.doNotifyActive();
-        mCameraRepository.onGroupActive(mUseCaseGroup);
 
         mMainThreadHandler.post(new Runnable() {
             @Override
@@ -238,20 +235,15 @@ public final class UseCaseCombinationTest {
     }
 
     private void initImageCapture() {
-        mCameraRepository = new CameraRepository();
-        mCameraFactory = new Camera2CameraFactory(ApplicationProvider.getApplicationContext());
-        mCameraRepository.init(mCameraFactory);
-        mUseCaseGroup = new UseCaseGroup();
+        mHandlerThread = new HandlerThread("CaptureThread");
+        mHandlerThread.start();
 
         ImageCaptureConfig imageCaptureConfig =
                 new ImageCaptureConfig.Builder().setLensFacing(LensFacing.BACK).build();
-        String cameraId = getCameraIdForLensFacingUnchecked(imageCaptureConfig.getLensFacing());
-        mImageCapture = new CallbackAttachingImageCapture(imageCaptureConfig, cameraId);
 
-        mImageCapture.addStateChangeListener(
-                mCameraRepository.getCamera(
-                        getCameraIdForLensFacingUnchecked(
-                                imageCaptureConfig.getLensFacing())));
+        mImageCapture = new CallbackAttachingImageCapture(imageCaptureConfig, mCameraId);
+        mImageCapture.addStateChangeListener(mCamera);
+
     }
 
     private void initPreview() {
@@ -262,15 +254,6 @@ public final class UseCaseCombinationTest {
                         .build();
 
         mPreview = new Preview(previewConfig);
-    }
-
-    private String getCameraIdForLensFacingUnchecked(LensFacing lensFacing) {
-        try {
-            return mCameraFactory.cameraIdForLensFacing(lensFacing);
-        } catch (Exception e) {
-            throw new IllegalArgumentException(
-                    "Unable to attach to camera with LensFacing " + lensFacing, e);
-        }
     }
 
     /** A use case which attaches to a camera with various callbacks. */
@@ -297,10 +280,6 @@ public final class UseCaseCombinationTest {
         protected Map<String, Size> onSuggestedResolutionUpdated(
                 Map<String, Size> suggestedResolutionMap) {
             return suggestedResolutionMap;
-        }
-
-        void doNotifyActive() {
-            super.notifyActive();
         }
     }
 }
