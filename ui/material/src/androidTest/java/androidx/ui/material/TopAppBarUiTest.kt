@@ -31,7 +31,7 @@ import androidx.ui.core.LayoutCoordinates
 import androidx.ui.core.currentTextStyle
 import androidx.ui.painting.TextStyle
 import androidx.ui.test.assertDoesNotExist
-import androidx.ui.test.assertIsVisible
+import androidx.ui.test.assertVisible
 import androidx.ui.test.createComposeRule
 import androidx.ui.test.findByTag
 import androidx.ui.test.findByText
@@ -80,7 +80,7 @@ class TopAppBarUiTest {
         composeTestRule.setMaterialContent {
             TopAppBar()
         }
-        findByTag("Leading icon").assertIsVisible()
+        findByTag("Leading icon").assertVisible()
     }
 
     @Test
@@ -97,7 +97,7 @@ class TopAppBarUiTest {
         composeTestRule.setMaterialContent {
             TopAppBar(title = title)
         }
-        findByText(title).assertIsVisible()
+        findByText(title).assertVisible()
     }
 
     @Test
@@ -246,7 +246,7 @@ class TopAppBarUiTest {
                 }
             }
         }
-        findByTag("Trailing icon").assertIsVisible()
+        findByTag("Trailing icon").assertVisible()
         findByTag("Overflow icon").assertDoesNotExist()
 
         withDensity(composeTestRule.density) {
@@ -293,7 +293,7 @@ class TopAppBarUiTest {
         }
         // TODO: need API to assert I can find 3 items
         // findByTag("Trailing icon").assertIsVisible()
-        findByTag("Overflow icon").assertIsVisible()
+        findByTag("Overflow icon").assertVisible()
 
         withDensity(composeTestRule.density) {
             val trailingIconExpectedWidth = (24.dp * 2) + (24.dp * 3) + // icons and spacers

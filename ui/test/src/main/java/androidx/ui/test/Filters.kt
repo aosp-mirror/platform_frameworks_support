@@ -16,14 +16,8 @@
 
 package androidx.ui.test
 
-fun SemanticsNodeInteraction.doClick(): SemanticsNodeInteraction {
-    // TODO(catalintudor): get real coordinates after Semantics API is ready (b/125702443)
-    val globalCoordinates = semanticsTreeNode.globalPosition
-        ?: throw AssertionError("Semantic Node has no child layout to perform click on!")
-    val x = globalCoordinates.x.value + 1f
-    val y = globalCoordinates.y.value + 1f
+import androidx.ui.core.semantics.SemanticsConfiguration
 
-    semanticsTreeInteraction.sendClick(x, y)
-
-    return this
+fun SemanticsConfiguration.isCheckable(): Boolean {
+    return isChecked != null
 }

@@ -29,8 +29,8 @@ import androidx.ui.core.withDensity
 import androidx.ui.layout.Column
 import androidx.ui.layout.Container
 import androidx.ui.layout.DpConstraints
-import androidx.ui.test.assertIsChecked
-import androidx.ui.test.assertIsNotChecked
+import androidx.ui.test.assertChecked
+import androidx.ui.test.assertNotChecked
 import androidx.ui.test.assertSemanticsIsEqualTo
 import androidx.ui.test.copyWith
 import androidx.ui.test.createComposeRule
@@ -85,9 +85,9 @@ class SwitchUiTest {
             }
         }
         findByTag(defaultSwitchTag)
-            .assertIsNotChecked()
+            .assertNotChecked()
             .doClick()
-            .assertIsChecked()
+            .assertChecked()
     }
 
     @Test
@@ -100,11 +100,11 @@ class SwitchUiTest {
             }
         }
         findByTag(defaultSwitchTag)
-            .assertIsNotChecked()
+            .assertNotChecked()
             .doClick()
-            .assertIsChecked()
+            .assertChecked()
             .doClick()
-            .assertIsNotChecked()
+            .assertNotChecked()
     }
 
     @Test
@@ -116,9 +116,9 @@ class SwitchUiTest {
             }
         }
         findByTag(defaultSwitchTag)
-            .assertIsNotChecked()
+            .assertNotChecked()
             .doClick()
-            .assertIsNotChecked()
+            .assertNotChecked()
     }
 
     @Test
