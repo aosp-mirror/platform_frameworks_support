@@ -70,6 +70,30 @@
       "revId": "63126432803d9205ee8d0905689573173eeb82bd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73cf2381_a697d8f1",
+        "filename": "development/history/AndroidX-Release-2019-04-25.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-05-22T18:23:12Z",
+      "side": 1,
+      "message": "Good question.\n\nI guess that if we have a history file containing a line of the form:\n\n  \u003c$hash:$groupId:$version\u003e\n\nand if this is intended to mean that all libraries having group of $group were released with version $version at git commit $hash, then it would mean that in order to get the full list of libraries, we would have to specifically check out $hash and determine which libraries existed at that hash, in case new libraries were created after this history file was created but before the git tags were created.\n\nAlthough if the tagger script at development/history/add_release_commit_tags.sh will support that or if the latency between generating the history file and generating the tags will be small then I think that would be enough reason to ignore that problem, in which case it would make sense to me to specify only the groupId.\n\nWhen we actually do the git tagging, I would assume that we\u0027d want to have our tagging scheme be easy to predict so that a developer can easily execute `git log $someTagNameThatTheDeveloperGuessed` and see the code for that tag. My thought would be that that would entail creating a git tag for each individual library even if that is redundant (which probably would be most convenient to do if this file has a line for each individual library).\n\nThoughts?\n\n+cc some other people that might have opinions about tagging schemes",
+      "parentUuid": "757b4ec2_694dc280",
+      "range": {
+        "startLine": 4,
+        "startChar": 41,
+        "endLine": 4,
+        "endChar": 50
+      },
+      "revId": "63126432803d9205ee8d0905689573173eeb82bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
