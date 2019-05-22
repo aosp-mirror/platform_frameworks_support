@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "dfe25b80_44a34cf4",
+        "filename": "ui/text/src/androidTest/java/androidx/ui/engine/text/ParagraphIntegrationTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 1035,
+      "author": {
+        "id": 1362035
+      },
+      "writtenOn": "2019-05-22T22:16:52Z",
+      "side": 1,
+      "message": "Tests with TextSpan as input is hard here. Because the last component that receive TextSpan is TextPainter. And it doesn\u0027t have getLineRight() functions to do the tests. I added some cases which will be the same as TextSpan tree but with TextStyleIndex. Does it work for you?",
+      "parentUuid": "53c7b41c_2ca4b0a8",
+      "revId": "ef23a4e89d238fef207b36694bf1243929583c13",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d8d9180b_786f3d93",
         "filename": "ui/text/src/main/java/androidx/ui/engine/text/TextStyle.kt",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2019-05-21T23:58:27Z",
       "side": 1,
       "message": "this needs more description that defines what happens when fontSize is defined and not defined. \n\n(I believe it will be the closest fontSize will be used in case of TextSpan tree)",
+      "revId": "ef23a4e89d238fef207b36694bf1243929583c13",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4bcd10fe_a4c1ef89",
+        "filename": "ui/text/src/main/java/androidx/ui/engine/text/TextStyle.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1362035
+      },
+      "writtenOn": "2019-05-22T22:16:52Z",
+      "side": 1,
+      "message": "I added some comments on what will happen when fontSize is also given. But when it\u0027s missing, the term \"current fontSize times fontSizeScale\" might suit better than saying \"closest parent\u0027s fontSize\". Because fontScale can also be nested, in that case cloest parent\u0027s fontSize times this fontScale is actually wrong.",
+      "parentUuid": "d8d9180b_786f3d93",
       "revId": "ef23a4e89d238fef207b36694bf1243929583c13",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
