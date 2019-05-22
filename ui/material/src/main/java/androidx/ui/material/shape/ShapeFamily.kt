@@ -14,27 +14,10 @@
  * limitations under the License.
  */
 
-package androidx.ui.material.surface
+package androidx.ui.material.shape
 
-import androidx.ui.core.Draw
-import androidx.ui.core.toRect
-import androidx.ui.material.borders.ShapeBorder
-import androidx.compose.Composable
-import androidx.compose.composer
-
-/**
- * Draws the border of the provided [shape].
- *
- * TODO("Andrey: Find the proper module and package for it")
- */
-@Composable
-fun DrawBorder(shape: ShapeBorder) {
-    Draw { canvas, parentSize ->
-        shape.paint(
-            canvas,
-            density,
-            parentSize.toRect(),
-            null
-        )
-    }
+// TODO(Andrey: Documentation)
+enum class ShapeFamily {
+    Rounded,
+    Cut
 }
