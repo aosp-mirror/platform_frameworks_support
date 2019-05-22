@@ -20,6 +20,9 @@ import androidx.compose.Children
 import androidx.compose.Composable
 import androidx.compose.composer
 import androidx.compose.unaryPlus
+import androidx.ui.baseui.shape.DrawShape
+import androidx.ui.baseui.shape.RectangleShape
+import androidx.ui.baseui.shape.Shape
 import androidx.ui.core.CurrentTextStyleProvider
 import androidx.ui.core.Dp
 import androidx.ui.core.Layout
@@ -28,11 +31,6 @@ import androidx.ui.core.dp
 import androidx.ui.core.ipx
 import androidx.ui.graphics.Color
 import androidx.ui.material.MaterialColors
-import androidx.ui.material.borders.RoundedRectangleBorder
-import androidx.ui.material.borders.ShapeBorder
-import androidx.ui.material.clip.ClipPath
-import androidx.ui.material.clip.ShapeBorderClipper
-import androidx.ui.material.clip.cache.CachingClipper
 import androidx.ui.material.ripple.RippleEffect
 import androidx.ui.material.ripple.RippleSurface
 import androidx.ui.material.ripple.RippleSurfaceOwner
@@ -77,36 +75,31 @@ import androidx.ui.painting.TextStyle
  */
 @Composable
 fun Surface(
-    shape: ShapeBorder = RoundedRectangleBorder(),
+    shape: Shape = RectangleShape(),
     color: Color = +themeColor { surface },
     elevation: Dp = 0.dp,
     @Children children: @Composable() () -> Unit
 ) {
     SurfaceLayout {
-        CachingClipper(
-            clipper = ShapeBorderClipper(shape)) { clipper ->
-            DrawShadow(elevation = elevation, clipper = clipper)
-            ClipPath(clipper = clipper) {
-                DrawColor(color = color)
+        DrawShape(shape, color) {
+            SurfaceLayout { // this layout is temporary while Draw doesn't accept multiple children
                 RippleSurface(color = color) {
                     val textColor = +textColorForBackground(color)
                     if (textColor != null) {
-                        CurrentTextStyleProvider(value = TextStyle(color = textColor)) {
-                            children()
-                        }
+                        CurrentTextStyleProvider(TextStyle(color = textColor), children)
                     } else {
                         children()
                     }
                 }
             }
         }
-        DrawBorder(shape = shape)
+        DrawShadow(elevation, shape)
     }
 }
 
 /**
  * A simple layout which just reserves a space for a [Surface].
- * It position the only child in the left top corner.
+ * It positions the only child in the left top corner.
  *
  * TODO("Andrey: Should be replaced with some basic layout implementation when we have it")
  */

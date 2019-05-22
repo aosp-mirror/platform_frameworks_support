@@ -494,7 +494,8 @@ class TextPainter(
         // TODO(haoyuchang): check if move this paint to parameter is better
         val selectionPaint = Paint()
         selectionPaint.color = selectionColor
-        canvas.drawPath(selectionPath.shift(offset), selectionPaint)
+        selectionPath.shift(offset)
+        canvas.drawPath(selectionPath, selectionPaint)
     }
 
     /** Returns the position within the text for the given pixel offset. */
