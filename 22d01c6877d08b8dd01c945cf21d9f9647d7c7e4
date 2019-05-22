@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "84437a26_adfaeb99",
+        "filename": "media2/common/src/main/java/androidx/media2/common/SessionPlayer.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 902,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-05-22T05:38:35Z",
+      "side": 1,
+      "message": "remove period(.) here and other *Internal methods for consistency with other exception messages.",
+      "range": {
+        "startLine": 902,
+        "startChar": 66,
+        "endLine": 902,
+        "endChar": 67
+      },
+      "revId": "22d01c6877d08b8dd01c945cf21d9f9647d7c7e4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f752c38e_57f767ac",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaControllerImplBase.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1289,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-05-22T05:38:35Z",
+      "side": 1,
+      "message": "Q) why should we add these? is it better than adding \"boolean selected\" in TrackInfo?\n\nAnother thing: AFAIK, the previous plan in framework MediaPlayer2 and androidx mediaplayer2 was deprecating timedtext related apis. So, let\u0027s do not consider timed text track.",
+      "range": {
+        "startLine": 1285,
+        "startChar": 0,
+        "endLine": 1289,
+        "endChar": 52
+      },
+      "revId": "22d01c6877d08b8dd01c945cf21d9f9647d7c7e4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
