@@ -19,8 +19,6 @@ package androidx.ui.material.ripple
 import androidx.ui.core.LayoutCoordinates
 import androidx.ui.core.Px
 import androidx.ui.core.PxBounds
-import androidx.ui.material.borders.BorderRadius
-import androidx.ui.material.borders.BoxShape
 import androidx.compose.Children
 import androidx.compose.Composable
 import androidx.compose.composer
@@ -48,12 +46,6 @@ fun BoundedRipple(
      */
     finalRadius: Px? = null,
     /**
-     * The clipping radius of the containing rect.
-     *
-     * If this is null, it is interpreted as [BorderRadius.Zero].
-     */
-    clippingBorderRadius: BorderRadius? = null,
-    /**
      * Called when this part of the surface either becomes highlighted or stops
      * being highlighted.
      *
@@ -77,13 +69,11 @@ fun BoundedRipple(
     @Children children: @Composable() () -> Unit
 ) {
     Ripple(
-        shape = BoxShape.Rectangle,
         bounded = true,
         onHighlightChanged = onHighlightChanged,
         finalRadius = finalRadius,
-        clippingBorderRadius = clippingBorderRadius,
         boundsCallback = boundsCallback
-        ) {
+    ) {
         children()
     }
 }

@@ -24,8 +24,6 @@ import androidx.ui.core.PxBounds
 import androidx.ui.core.PxPosition
 import androidx.ui.core.ambientDensity
 import androidx.ui.core.gesture.PressIndicatorGestureDetector
-import androidx.ui.material.borders.BorderRadius
-import androidx.ui.material.borders.BoxShape
 import androidx.compose.Children
 import androidx.compose.Composable
 import androidx.compose.ambient
@@ -74,23 +72,6 @@ fun Ripple(
      */
     bounded: Boolean = false,
     /**
-     * The shape (e.g., circle, rectangle) to use for the highlight drawn around
-     * this surface.
-     *
-     * If the shape is [BoxShape.Circle], then the highlight is centered on the
-     * [Ripple]. If the shape is [BoxShape.Rectangle], then the highlight
-     * fills the [Ripple], or the rectangle provided by [boundsCallback] if
-     * the callback is specified.
-     *
-     * See also:
-     *
-     *  * [bounded], which controls clipping behavior.
-     *  * [clippingBorderRadius], which controls the corners when the box is a rectangle.
-     *  * [boundsCallback], which controls the size and position of the box when
-     *    it is a rectangle.
-     */
-    shape: BoxShape = BoxShape.Circle,
-    /**
      * The radius of the Ripple.
      *
      * Effects grow up to this size. By default, this size is determined from
@@ -98,12 +79,6 @@ fun Ripple(
      * the [Ripple] itself.
      */
     finalRadius: Px? = null,
-    /**
-     * The clipping radius of the containing rect.
-     *
-     * If this is null, it is interpreted as [BorderRadius.Zero].
-     */
-    clippingBorderRadius: BorderRadius? = null,
     /**
      * The bounds to use for the highlight effect and for clipping
      * the ripple effects if [bounded] is true.
@@ -132,8 +107,7 @@ fun Ripple(
         PressIndicatorGestureDetector(
             onStart = { position ->
                 state.handleStart(
-                    position, rippleSurface, theme, density, bounded, boundsCallback,
-                    clippingBorderRadius, shape, finalRadius
+                    position, rippleSurface, theme, density, bounded, boundsCallback, finalRadius
                 )
             },
             onStop = { state.handleFinish(false, onHighlightChanged) },
@@ -162,8 +136,6 @@ internal class RippleState {
         density: Density,
         bounded: Boolean,
         boundsCallback: ((LayoutCoordinates) -> PxBounds)?,
-        borderRadius: BorderRadius?,
-        shape: BoxShape,
         finalRadius: Px?
     ) {
         val coordinates = coordinates ?: throw IllegalStateException(
@@ -186,11 +158,9 @@ internal class RippleState {
             position,
             color,
             density,
-            shape,
             finalRadius,
             bounded,
             callback,
-            borderRadius,
             onRemoved
         )
 
