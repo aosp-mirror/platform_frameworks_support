@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8d81b987_a1fd7d91",
+        "filename": "camera/integration-tests/timingtestapp/src/androidTest/java/androidx/camera/integration/antelope/AntelopeInstrumentedTests.kt",
+        "patchSetId": 30
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1269804
+      },
+      "writtenOn": "2019-05-22T23:06:45Z",
+      "side": 1,
+      "message": "I don\u0027t think I want to make global variables for the activity, context, res, and preEditor. Moved the log clean-up out of here.",
+      "parentUuid": "ae0909c9_011bb44a",
+      "range": {
+        "startLine": 152,
+        "startChar": 8,
+        "endLine": 162,
+        "endChar": 31
+      },
+      "revId": "996cd96a6b42a216361d83109ed15e885fad906d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5261cde3_d3d0fc34",
         "filename": "camera/integration-tests/timingtestapp/src/androidTest/java/androidx/camera/integration/antelope/AntelopeInstrumentedTests.kt",
         "patchSetId": 30
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "e629bd67_329281f2",
+        "filename": "camera/integration-tests/timingtestapp/src/androidTest/java/androidx/camera/integration/antelope/AntelopeInstrumentedTests.kt",
+        "patchSetId": 30
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1269804
+      },
+      "writtenOn": "2019-05-22T23:06:45Z",
+      "side": 1,
+      "message": "I see. My thought was to clear the logs, run the test, and then make sure the logs are there. The first assert was to ensure the log directory was clear (otherwise the final check doesn\u0027t do anything).\n\nI have removed the asserts to check if the logs are cleared - this method is already tested in test 2 so we can assume it works and doesn\u0027t need to be repeatedly checked.",
+      "parentUuid": "5261cde3_d3d0fc34",
+      "range": {
+        "startLine": 251,
+        "startChar": 8,
+        "endLine": 251,
+        "endChar": 31
+      },
+      "revId": "996cd96a6b42a216361d83109ed15e885fad906d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "57d5fb57_234280b6",
         "filename": "camera/integration-tests/timingtestapp/src/androidTest/java/androidx/camera/integration/antelope/AntelopeInstrumentedTests.kt",
         "patchSetId": 30
@@ -68,6 +116,30 @@
       "revId": "996cd96a6b42a216361d83109ed15e885fad906d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "baba663a_93a9bb76",
+        "filename": "camera/integration-tests/timingtestapp/src/androidTest/java/androidx/camera/integration/antelope/AntelopeInstrumentedTests.kt",
+        "patchSetId": 30
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 1269804
+      },
+      "writtenOn": "2019-05-22T23:06:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "57d5fb57_234280b6",
+      "range": {
+        "startLine": 364,
+        "startChar": 8,
+        "endLine": 364,
+        "endChar": 32
+      },
+      "revId": "996cd96a6b42a216361d83109ed15e885fad906d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
