@@ -14,13 +14,26 @@
  * limitations under the License.
  */
 
-package androidx.ui.material.borders
+package androidx.ui.baseui.shape
 
-/** The style of line to draw for a [BorderSide] in a [Border]. */
-enum class BorderStyle {
-    /** Skip the border. */
-    None,
-    /** Draw the border as a solid line. */
-    Solid
-    // if you add more, think about how they will lerp
+import androidx.ui.core.DensityReceiver
+import androidx.ui.core.PxSize
+import androidx.ui.engine.geometry.Outline
+
+/**
+ * Defines a generic shape.
+ */
+interface Shape {
+
+    /**
+     * @param size the size of the shape boundary.
+     *
+     * @return [Outline] of this shape for the given [size].
+     */
+    fun DensityReceiver.createOutline(size: PxSize): Outline
+
+    /**
+     * Optional border to draw on top. Null means this shape has no border.
+     */
+    val border: Border? get() = null
 }
