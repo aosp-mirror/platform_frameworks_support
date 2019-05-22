@@ -14,29 +14,26 @@
  * limitations under the License.
  */
 
-package androidx.ui.material.surface
+package androidx.ui.baseui.shape.corner
 
-import androidx.ui.core.Draw
+import androidx.ui.baseui.shape.Shape
+import androidx.ui.core.DensityReceiver
+import androidx.ui.core.PxSize
 import androidx.ui.core.toRect
-import androidx.ui.graphics.Color
-import androidx.ui.painting.Paint
-import androidx.ui.painting.PaintingStyle
-import androidx.compose.Composable
-import androidx.compose.composer
+import androidx.ui.engine.geometry.Outline
 
-/**
- * Draws the provided [color] within the parent layout's bounds.
- *
- * TODO("Andrey: Find the proper module and package for it")
- */
-@Composable
-fun DrawColor(color: Color?) {
-    if (color != null && color.alpha > 0) {
-        val paint = Paint()
-        paint.color = color
-        paint.style = PaintingStyle.fill
-        Draw { canvas, parentSize ->
-            canvas.drawRect(parentSize.toRect(), paint)
+abstract class CornerBasedShape(
+    private val corners: CornerSizes
+) : Shape {
+
+    final override fun DensityReceiver.createOutline(size: PxSize): Outline {
+        val corners = PxCornerSizes(corners, size)
+        return if (corners.isEmpty()) {
+            Outline.Rectangle(size.toRect())
+        } else {
+            createOutline(corners, size)
         }
     }
+
+    abstract fun DensityReceiver.createOutline(corners: PxCornerSizes, size: PxSize): Outline
 }

@@ -14,27 +14,19 @@
  * limitations under the License.
  */
 
-package androidx.ui.material.surface
+package androidx.ui.baseui.shape
 
-import androidx.ui.core.Draw
-import androidx.ui.core.toRect
-import androidx.ui.material.borders.ShapeBorder
-import androidx.compose.Composable
-import androidx.compose.composer
+import androidx.ui.core.Dp
+import androidx.ui.core.dp
+import androidx.ui.graphics.Color
 
 /**
- * Draws the border of the provided [shape].
+ * A border of a shape.
  *
- * TODO("Andrey: Find the proper module and package for it")
+ * @param color the background color of the border.
+ * @param width the width of the border. Use [Dp.Hairline] for a hairline border.
  */
-@Composable
-fun DrawBorder(shape: ShapeBorder) {
-    Draw { canvas, parentSize ->
-        shape.paint(
-            canvas,
-            density,
-            parentSize.toRect(),
-            null
-        )
-    }
-}
+data class Border(
+    val color: Color,
+    val width: Dp = 1.dp
+)
