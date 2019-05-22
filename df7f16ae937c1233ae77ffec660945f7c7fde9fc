@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5315c391_0ac063f4",
+        "filename": "camera/integration-tests/timingtestapp/src/main/java/androidx/camera/integration/antelope/CameraUtils.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1269804
+      },
+      "writtenOn": "2019-05-22T16:15:47Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8284dc79_8b232006",
+      "range": {
+        "startLine": 67,
+        "startChar": 8,
+        "endLine": 67,
+        "endChar": 17
+      },
+      "revId": "df7f16ae937c1233ae77ffec660945f7c7fde9fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7abe0f1f_751ef8f5",
         "filename": "camera/integration-tests/timingtestapp/src/main/java/androidx/camera/integration/antelope/cameracontrollers/Camera2CaptureCallback.kt",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "df7f16ae937c1233ae77ffec660945f7c7fde9fc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bff21af1_2af584bb",
+        "filename": "camera/integration-tests/timingtestapp/src/main/java/androidx/camera/integration/antelope/cameracontrollers/Camera2CaptureCallback.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1269804
+      },
+      "writtenOn": "2019-05-22T16:15:47Z",
+      "side": 1,
+      "message": "Good call, I think it was an automatic generation thing that I just left.",
+      "parentUuid": "7abe0f1f_751ef8f5",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 32
+      },
+      "revId": "df7f16ae937c1233ae77ffec660945f7c7fde9fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "80c79392_d50ff0ec",
+        "filename": "camera/integration-tests/timingtestapp/src/main/java/androidx/camera/integration/antelope/cameracontrollers/Camera2CaptureSessionCallback.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1269804
+      },
+      "writtenOn": "2019-05-22T16:15:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bd47c83c_32d1f50e",
+      "range": {
+        "startLine": 43,
+        "startChar": 8,
+        "endLine": 43,
+        "endChar": 38
+      },
+      "revId": "df7f16ae937c1233ae77ffec660945f7c7fde9fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d834b30f_db461451",
         "filename": "camera/integration-tests/timingtestapp/src/main/java/androidx/camera/integration/antelope/cameracontrollers/Camera2DeviceStateCallback.kt",
         "patchSetId": 1
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "887826ee_5ba091c5",
+        "filename": "camera/integration-tests/timingtestapp/src/main/java/androidx/camera/integration/antelope/cameracontrollers/Camera2DeviceStateCallback.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1269804
+      },
+      "writtenOn": "2019-05-22T16:15:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d834b30f_db461451",
+      "range": {
+        "startLine": 65,
+        "startChar": 26,
+        "endLine": 65,
+        "endChar": 47
+      },
+      "revId": "df7f16ae937c1233ae77ffec660945f7c7fde9fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e74f7011_42feac39",
         "filename": "camera/integration-tests/timingtestapp/src/main/java/androidx/camera/integration/antelope/cameracontrollers/Camera2PreviewSessionStateCallback.kt",
         "patchSetId": 1
@@ -114,6 +210,30 @@
       "revId": "df7f16ae937c1233ae77ffec660945f7c7fde9fc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29642436_203bba29",
+        "filename": "camera/integration-tests/timingtestapp/src/main/java/androidx/camera/integration/antelope/cameracontrollers/Camera2PreviewSessionStateCallback.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1269804
+      },
+      "writtenOn": "2019-05-22T16:15:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e74f7011_42feac39",
+      "range": {
+        "startLine": 45,
+        "startChar": 26,
+        "endLine": 45,
+        "endChar": 56
+      },
+      "revId": "df7f16ae937c1233ae77ffec660945f7c7fde9fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
