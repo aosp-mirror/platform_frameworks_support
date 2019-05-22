@@ -19,6 +19,7 @@ package androidx.ui.core
 import androidx.compose.Children
 import androidx.compose.Composable
 import androidx.compose.composer
+import androidx.ui.engine.geometry.Outline
 
 /**
  * A repaint boundary blocks parents from having to repaint when contained children
@@ -33,6 +34,18 @@ import androidx.compose.composer
 @Composable
 fun RepaintBoundary(name: String? = null, @Children children: @Composable() () -> Unit) {
     <RepaintBoundaryNode name=name>
+        <children/>
+    </RepaintBoundaryNode>
+}
+
+@Composable
+fun OutlinedArea(
+    outlineProvider: (PxSize) -> Outline,
+    elevation: Dp,
+    @Children children: @Composable() () -> Unit
+) {
+    print(outlineProvider)
+    <RepaintBoundaryNode name=null outlineProvider=outlineProvider elevation=elevation>
         <children/>
     </RepaintBoundaryNode>
 }

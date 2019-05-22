@@ -20,6 +20,7 @@ import androidx.ui.core.semantics.SemanticsConfiguration
 import androidx.ui.engine.text.TextDirection
 import androidx.ui.painting.Canvas
 import androidx.compose.Emittable
+import androidx.ui.engine.geometry.Outline
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
@@ -34,7 +35,7 @@ interface Owner {
      * redraw of the given [drawNode] is required. It may cause other nodes to redraw, if
      * necessary.
      */
-    fun onInvalidate(drawNode: DrawNode)
+    fun onInvalidate(node: ComponentNode)
 
     /**
      * Called by [LayoutNode] to indicate the new size of [layoutNode].
@@ -285,6 +286,19 @@ class RepaintBoundaryNode(val name: String?) : ComponentNode() {
      * The vertical position relative to its containing RepaintBoundary or root container
      */
     var containerY: IntPx = 0.ipx
+
+    var outlineProvider: ((PxSize) -> Outline)? = null
+        set(value) {
+            field = value
+            owner?.onInvalidate(this)
+        }
+
+    var elevation: Dp = 0.dp
+        set(value) {
+            field = value
+            owner?.onInvalidate(this)
+        }
+
 
     override val repaintBoundary: RepaintBoundaryNode? get() = this
 }

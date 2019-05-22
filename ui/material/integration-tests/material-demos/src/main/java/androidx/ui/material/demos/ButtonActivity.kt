@@ -33,6 +33,8 @@
 package androidx.ui.material.demos
 
 import android.app.Activity
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import androidx.compose.setContent
 import androidx.compose.composer
@@ -41,6 +43,7 @@ class ButtonActivity : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        window.setBackgroundDrawable(ColorDrawable(Color.WHITE))
         setContent { ButtonDemo()}
     }
 }
