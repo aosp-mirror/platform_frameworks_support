@@ -16,35 +16,39 @@
 
 package androidx.ui.test
 
+import androidx.ui.core.SemanticsTreeNode
 import androidx.ui.core.semantics.SemanticsConfiguration
 
 /**
  * Asserts that current component is visible.
  */
 // TODO(b/123702531): Provide guarantees of being visible VS being actually displayed
-fun SemanticsTreeQuery.assertIsVisible() =
-    verifyAssertOnExactlyOne("The component is not visible!") {
+fun SingleNodeQuery.assertIsVisible(): SingleNodeQuery {
+    verify(findExactlyOne(), { "The component is not visible!" }) {
         !it.isHidden
     }
+    return this
+}
 
 /**
  * Asserts that current component is hidden. This requires that the component actually exists in
  * the hierarchy and is hidden. If you want to actually verify that the component does not  exist
  * at all, please use [assertDoesNotExist]
  */
-fun SemanticsTreeQuery.assertIsHidden() =
-    verifyAssertOnExactlyOne("The component is visible!") {
+fun SingleNodeQuery.assertIsHidden(): SingleNodeQuery {
+    verify(findExactlyOne(), { "The component is visible!" }) {
         it.isHidden
     }
+    return this
+}
 
 /**
  * Asserts that there is no component that was matched by the query. If the component exists but is
  * hidden use [assertIsHidden] instead.
  */
-fun SemanticsTreeQuery.assertDoesNotExist(): SemanticsTreeQuery {
-    val foundNodes = findAllMatching()
-    if (foundNodes.isNotEmpty()) {
-        throw AssertionError("Found '${foundNodes.size}' nodes but 0 was expected!")
+fun SingleNodeQuery.assertDoesNotExist(): SingleNodeQuery {
+    verify(findNone(), { "The component does exist!" }) {
+        true
     }
     return this
 }
@@ -53,69 +57,83 @@ fun SemanticsTreeQuery.assertDoesNotExist(): SemanticsTreeQuery {
  * Asserts that current component is visible.
  */
 // TODO(pavlis): Provide guarantees of being visible VS being actually displayed
-fun SemanticsTreeQuery.assertIsChecked() =
-    // TODO(pavlis): Throw exception if component is not checkable
-    verifyAssertOnExactlyOne("The component is not checked!") {
+fun SingleNodeQuery.assertIsChecked(): SingleNodeQuery {
+        // TODO(pavlis): Throw exception if component is not checkable
+    verify(findExactlyOne(), { "The component is not checked!" }) {
         it.isChecked == true
     }
+    return this
+}
 
-fun SemanticsTreeQuery.assertIsNotChecked() =
-    // TODO(pavlis): Throw exception if component is not checkable
-    verifyAssertOnExactlyOne("The component is checked!") {
+fun SingleNodeQuery.assertIsNotChecked(): SingleNodeQuery {
+        // TODO(pavlis): Throw exception if component is not checkable
+    verify(findExactlyOne(), { "The component is checked!" }) {
         it.isChecked != true
     }
+    return this
+}
 
-fun SemanticsTreeQuery.assertIsSelected(expected: Boolean) =
-    // TODO(pavlis): Throw exception if component is not selectable
-    verifyAssertOnExactlyOne(
-        "The component is expected to be selected = '$expected', but it's not!"
-    ) {
+fun SingleNodeQuery.assertIsSelected(expected: Boolean): SingleNodeQuery {
+        // TODO(pavlis): Throw exception if component is not selectable
+    verify(
+        findExactlyOne(),
+        { "The component is expected to be selected = '$expected', but it's not!" }) {
         it.isSelected == expected
     }
+    return this
+}
 
-fun SemanticsTreeQuery.assertIsInMutuallyExclusiveGroup() =
+fun SingleNodeQuery.assertIsInMutuallyExclusiveGroup(): SingleNodeQuery {
     // TODO(pavlis): Throw exception if component is not selectable
-    verifyAssertOnExactlyOne(
-        "The component is expected to be mutually exclusive group, but it's not!"
-    ) {
+    verify(
+        findExactlyOne(),
+        { "The component is expected to be mutually exclusive group, but it's not!" }) {
         it.isInMutuallyExclusiveGroup
     }
+    return this
+}
 
-fun SemanticsTreeQuery.assertValueEquals(value: String) =
-    verifyAssertOnExactlyOne({ node -> "Expected value: $value Actual value: ${node.value}" }) {
+fun SingleNodeQuery.assertValueEquals(value: String): SingleNodeQuery {
+        verify(findExactlyOne(), { node -> "Expected value: $value Actual value: ${node.value}" }) {
         it.value == value
     }
-
-fun SemanticsTreeQuery.assertSemanticsIsEqualTo(
-    expectedProperties: SemanticsConfiguration
-): SemanticsTreeQuery {
-    val foundNodes = findAllMatching()
-    if (foundNodes.size != 1) {
-        throw AssertionError("Found '${foundNodes.size}' nodes but 1 was expected!")
-    }
-    val nodeSemanticProperties = foundNodes.first().data
-    nodeSemanticProperties.assertEquals(expectedProperties)
     return this
 }
 
-internal fun SemanticsTreeQuery.verifyAssertOnExactlyOne(
-    assertionMessage: String,
-    condition: (SemanticsConfiguration) -> Boolean
-): SemanticsTreeQuery {
-    return verifyAssertOnExactlyOne({ assertionMessage }, condition)
+fun SingleNodeQuery.assertSemanticsIsEqualTo(
+    expectedProperties: SemanticsConfiguration
+): SingleNodeQuery {
+    verifyNoThrow(findExactlyOne()) {
+        it.assertEquals(expectedProperties)
+    }
+    return this
 }
 
-internal fun SemanticsTreeQuery.verifyAssertOnExactlyOne(
+fun MultipleNodesQuery.assertAreChecked(): MultipleNodesQuery {
+    verify(findAtLeastOne(), { "The component is not checked!" }) {
+        it.isChecked == true
+    }
+    return this
+}
+
+internal fun verifyNoThrow(
+    nodes: List<SemanticsTreeNode>,
+    condition: (SemanticsConfiguration) -> Unit
+) {
+    nodes.forEach {
+        condition.invoke(it.data)
+    }
+}
+
+internal fun verify(
+    nodes: List<SemanticsTreeNode>,
     assertionMessage: (SemanticsConfiguration) -> String,
     condition: (SemanticsConfiguration) -> Boolean
-): SemanticsTreeQuery {
-    val foundNodes = findAllMatching()
-    if (foundNodes.size != 1) {
-        throw AssertionError("Found '${foundNodes.size}' nodes but 1 was expected!")
+) {
+    nodes.forEach {
+        if (!condition.invoke(it.data)) {
+            // TODO(b/133217292)
+            throw AssertionError("Assert failed: ${assertionMessage(it.data)}")
+        }
     }
-    val node = foundNodes.first().data
-    if (!condition.invoke(node)) {
-        throw AssertionError("Assert failed: ${assertionMessage(node)}")
-    }
-    return this
 }

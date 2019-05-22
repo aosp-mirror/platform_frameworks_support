@@ -16,7 +16,7 @@
 
 package androidx.ui.test
 
-import androidx.ui.core.SemanticsTreeNode
+import androidx.ui.core.semantics.SemanticsConfiguration
 
 /**
  * Extension methods that provide the entry point for the testing APIs.
@@ -25,32 +25,44 @@ import androidx.ui.core.SemanticsTreeNode
 /**
  * Finds a component identified by the given tag.
  *
- * For usage patterns see [SemanticsTreeQuery]
+ * For usage patterns see [SingleNodeQuery]
  */
-fun UiTestRunner.findByTag(testTag: String): SemanticsTreeQuery {
-    return findByCondition { node ->
-        node.data.testTag == testTag
+fun UiTestRunner.findByTag(testTag: String): SingleNodeQuery {
+    return findOne {
+        this.testTag == testTag
     }
 }
 
 /**
  * Finds a component by the given text.
  *
- * For usage patterns see [SemanticsTreeQuery]
+ * For usage patterns see [SingleNodeQuery]
  */
-fun UiTestRunner.findByText(text: String): SemanticsTreeQuery {
-    return findByCondition { node ->
-        node.data.label == text
+fun UiTestRunner.findByText(text: String): SingleNodeQuery {
+    return findOne {
+        label == text
     }
 }
 
 /**
  * Finds a component that matches the given condition
  *
- * For usage patterns see [SemanticsTreeQuery]
+ * For usage patterns see [SingleNodeQuery]
  */
-fun UiTestRunner.findByCondition(
-    selector: (SemanticsTreeNode) -> Boolean
-): SemanticsTreeQuery {
-    return SemanticsTreeQuery(this, selector)
+fun UiTestRunner.findOne(
+    selector: SemanticsConfiguration.() -> Boolean
+): SingleNodeQuery {
+    return SingleNodeQuery(this, selector)
+}
+
+/**
+ * **
+ * Finds all components that match the given condition
+ *
+ * For usage patterns see [MultipleNodesQuery]
+ */
+fun UiTestRunner.findAll(
+    selector: SemanticsConfiguration.() -> Boolean
+): MultipleNodesQuery {
+    return MultipleNodesQuery(this, selector)
 }

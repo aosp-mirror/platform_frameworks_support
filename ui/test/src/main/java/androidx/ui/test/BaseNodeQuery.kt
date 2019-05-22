@@ -18,19 +18,12 @@ package androidx.ui.test
 
 import android.view.MotionEvent
 import androidx.ui.core.SemanticsTreeNode
+import androidx.ui.core.semantics.SemanticsConfiguration
 
-/**
- * The flow pattern for using [SemanticsTreeQuery] would be:
- * - use findByX extension methods such us [findByTag]
- * - optionally perform an action e.g. [doClick]
- * - assert properties e.g. [assertIsChecked]
- */
-
-class SemanticsTreeQuery internal constructor(
+internal class BaseNodeQuery internal constructor(
     private val uiTestRunner: UiTestRunner,
-    private val selector: (SemanticsTreeNode) -> Boolean
+    private val selector: SemanticsConfiguration.() -> Boolean
 ) {
-
 // TODO(pavlis): Caching needs to be done only between operations that do not mutate the  tree.
 // Disabling it for now.
 //    private var cachedNodes: List<SemanticsTreeNode>? = null

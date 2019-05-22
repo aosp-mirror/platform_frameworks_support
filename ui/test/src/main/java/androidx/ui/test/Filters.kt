@@ -16,13 +16,8 @@
 
 package androidx.ui.test
 
-import android.view.MotionEvent
-import androidx.ui.core.SemanticsTreeNode
 import androidx.ui.core.semantics.SemanticsConfiguration
 
-interface UiTestRunner {
-
-    fun findSemantics(selector: SemanticsConfiguration.() -> Boolean): List<SemanticsTreeNode>
-    fun sendEvent(event: MotionEvent)
-    fun performClick(x: Float, y: Float)
+fun SemanticsConfiguration.isCheckable(): Boolean {
+    return isChecked != null
 }

@@ -16,13 +16,29 @@
 
 package androidx.ui.test
 
-import android.view.MotionEvent
 import androidx.ui.core.SemanticsTreeNode
 import androidx.ui.core.semantics.SemanticsConfiguration
 
-interface UiTestRunner {
+/**
+ * The flow pattern for using [MultipleNodesQuery] would be:
+ * - use findX extension methods such us [findAll]
+ * - optionally perform an action e.g. [doClickAll]
+ * - assert properties e.g. [assertAreChecked]
+ */
 
-    fun findSemantics(selector: SemanticsConfiguration.() -> Boolean): List<SemanticsTreeNode>
-    fun sendEvent(event: MotionEvent)
-    fun performClick(x: Float, y: Float)
+class MultipleNodesQuery internal constructor(
+    uiTestRunner: UiTestRunner,
+    selector: SemanticsConfiguration.() -> Boolean
+) {
+    internal var baseNodeQuery = BaseNodeQuery(uiTestRunner, selector)
+
+    internal fun findAtLeastOne(): List<SemanticsTreeNode> {
+        val foundNodes = baseNodeQuery.findAllMatching()
+
+        if (foundNodes.isEmpty()) {
+            throw AssertionError("Found '${foundNodes.size}' nodes but at least 1 was expected!")
+        }
+
+        return foundNodes
+    }
 }

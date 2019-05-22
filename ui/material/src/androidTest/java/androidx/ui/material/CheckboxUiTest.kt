@@ -30,13 +30,18 @@ import androidx.ui.layout.Container
 import androidx.ui.layout.DpConstraints
 import androidx.ui.test.DisableTransitions
 import androidx.ui.test.android.AndroidUiTestRunner
+import androidx.ui.test.assertAreChecked
 import androidx.ui.test.assertIsChecked
 import androidx.ui.test.assertIsNotChecked
 import androidx.ui.test.assertSemanticsIsEqualTo
 import androidx.ui.test.copyWith
 import androidx.ui.test.createFullSemantics
 import androidx.ui.test.doClick
+import androidx.ui.test.doClickAll
+import androidx.ui.test.findAll
 import androidx.ui.test.findByTag
+import androidx.ui.test.findOne
+import androidx.ui.test.isCheckable
 import com.google.common.truth.Truth
 import androidx.compose.Model
 import androidx.compose.composer
@@ -191,5 +196,56 @@ class CheckboxUiTest : AndroidUiTestRunner() {
             Truth.assertThat(checkboxSize?.height?.round())
                 .isEqualTo(materialCheckboxSize.toIntPx())
         }
+    }
+
+    @Test
+    fun checkBoxTest_twoComponents_areChecked() {
+        setMaterialContent {
+            Column {
+                Checkbox(value = Checked)
+                Checkbox(value = Checked)
+            }
+        }
+
+        findAll { isCheckable() }
+            .assertAreChecked()
+    }
+
+    @Test
+    fun checkBoxTest_twoComponents_isChecked() {
+        setMaterialContent {
+            Column {
+                Checkbox(value = Checked)
+                Checkbox(value = Unchecked)
+            }
+        }
+
+        findOne { isCheckable() && isChecked == true }
+            .assertIsChecked()
+    }
+
+    @Test
+    fun checkBoxTest_twoComponents_toggle() {
+        val state1 = CheckboxState(value = Unchecked)
+        val state2 = CheckboxState(value = Unchecked)
+
+        setMaterialContent {
+            Column {
+                Checkbox(
+                    value = state1.value,
+                    onClick = {
+                        state1.toggle()
+                    })
+                Checkbox(
+                    value = state2.value,
+                    onClick = {
+                        state2.toggle()
+                    })
+            }
+        }
+
+        findAll { isCheckable() }
+            .doClickAll()
+            .assertAreChecked()
     }
 }
