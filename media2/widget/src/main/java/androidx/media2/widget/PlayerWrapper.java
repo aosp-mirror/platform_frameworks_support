@@ -178,29 +178,15 @@ class PlayerWrapper {
         }
     }
 
-    void selectAudioTrack(int trackIndex) {
+    void selectTrack(TrackInfo trackInfo) {
         if (mController != null) {
-            Bundle extra = new Bundle();
-            extra.putInt(MediaControlView.KEY_SELECTED_AUDIO_INDEX, trackIndex);
-            mController.sendCustomCommand(
-                    new SessionCommand(MediaControlView.COMMAND_SELECT_AUDIO_TRACK, null),
-                    extra);
+            mController.selectTrack(trackInfo);
         }
     }
 
-    void showSubtitle(int trackIndex) {
+    void deselectTrack(TrackInfo trackInfo) {
         if (mController != null) {
-            Bundle extra = new Bundle();
-            extra.putInt(MediaControlView.KEY_SELECTED_SUBTITLE_INDEX, trackIndex);
-            mController.sendCustomCommand(
-                    new SessionCommand(MediaControlView.COMMAND_SHOW_SUBTITLE, null), extra);
-        }
-    }
-
-    void hideSubtitle() {
-        if (mController != null) {
-            mController.sendCustomCommand(
-                    new SessionCommand(MediaControlView.COMMAND_HIDE_SUBTITLE, null), null);
+            mController.deselectTrack(trackInfo);
         }
     }
 
@@ -241,6 +227,20 @@ class PlayerWrapper {
         mAllowedCommands = mController.getAllowedCommands();
         MediaItem item = mController.getCurrentMediaItem();
         mMediaMetadata = item == null ? null : item.getMetadata();
+    }
+
+    VideoSize getVideoSize() {
+        if (mController != null) {
+            return mController.getVideoSize();
+        }
+        return null;
+    }
+
+    TrackInfo getSelectedTrack(int trackType) {
+        if (mController != null) {
+            return mController.getSelectedTrack(trackType);
+        }
+        return null;
     }
 
     private class MediaControllerCallback extends MediaController.ControllerCallback {
