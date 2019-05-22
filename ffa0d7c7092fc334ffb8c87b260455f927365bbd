@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b07aca9b_4df87d9f",
+        "filename": "webkit/integration-tests/testapp/src/androidTest/java/com/example/androidx/webkit/WebkitIntegrationTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1501025
+      },
+      "writtenOn": "2019-05-22T12:04:50Z",
+      "side": 1,
+      "message": "Regarding using the checkFeature method in WebkitUtils for this, apparently gradle doesn\u0027t like depending on something inside of another project\u0027s androidTest directory.  So to make WebkitUtils reusable in this case, we should refactor it into another subproject.  Would also need to add a checkNoFeature method to support assumeFalse case.  I can do that in a follow up cl.",
+      "revId": "ffa0d7c7092fc334ffb8c87b260455f927365bbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
