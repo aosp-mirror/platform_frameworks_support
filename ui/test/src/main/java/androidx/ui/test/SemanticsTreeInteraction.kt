@@ -17,6 +17,7 @@
 package androidx.ui.test
 
 import androidx.ui.core.SemanticsTreeNode
+import androidx.ui.core.semantics.SemanticsConfiguration
 import androidx.ui.test.android.AndroidSemanticsTreeInteraction
 
 /**
@@ -36,17 +37,19 @@ import androidx.ui.test.android.AndroidSemanticsTreeInteraction
  */
 abstract class SemanticsTreeInteraction {
 
-    internal abstract fun addSelector(
-        selector: (SemanticsTreeNode) -> Boolean
-    ): SemanticsTreeInteraction
-
     internal abstract fun findAllMatching(): List<SemanticsTreeNode>
+
+    internal abstract fun find(): List<SemanticsTreeNode>
 
     internal abstract fun sendClick(x: Float, y: Float)
 }
 
-internal var semanticsTreeInteractionFactory: () -> SemanticsTreeInteraction = {
-    AndroidSemanticsTreeInteraction(throwOnRecomposeTimeout)
+internal var semanticsTreeInteractionFactory: (
+    expectation: ExpectationCount,
+    selector: SemanticsConfiguration.() -> Boolean
+) -> SemanticsTreeInteraction = {
+        expectation, selector ->
+    AndroidSemanticsTreeInteraction(throwOnRecomposeTimeout, expectation, selector)
 }
 
 /**

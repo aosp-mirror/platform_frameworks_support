@@ -25,8 +25,8 @@ import org.junit.Test
 class FindersTests {
     @Test
     fun findByTag_zeroOutOfOne_findsNone() {
-        semanticsTreeInteractionFactory = {
-            FakeSemanticsTreeInteraction()
+        semanticsTreeInteractionFactory = { expectation, selector ->
+            FakeSemanticsTreeInteraction(expectation, selector)
                 .withSemantics(newNode(
                     SemanticsConfiguration().apply {
                         testTag = "not_myTestTag"
@@ -45,12 +45,12 @@ class FindersTests {
         val node1 = newNode(SemanticsConfiguration().apply {
             testTag = "myTestTag"
         })
-        var node2 = newNode(SemanticsConfiguration().apply {
+        val node2 = newNode(SemanticsConfiguration().apply {
             testTag = "myTestTag2"
         })
 
-        semanticsTreeInteractionFactory = {
-            FakeSemanticsTreeInteraction()
+        semanticsTreeInteractionFactory = { expectation, selector ->
+            FakeSemanticsTreeInteraction(expectation, selector)
                 .withSemantics(node1, node2)
         }
 
@@ -67,14 +67,14 @@ class FindersTests {
                 testTag = "myTestTag"
             }
         )
-        var node2 = newNode(
+        val node2 = newNode(
             SemanticsConfiguration().apply {
                 testTag = "myTestTag"
             }
         )
 
-        semanticsTreeInteractionFactory = {
-            FakeSemanticsTreeInteraction()
+        semanticsTreeInteractionFactory = { expectation, selector ->
+            FakeSemanticsTreeInteraction(expectation, selector)
                 .withSemantics(node1, node2)
         }
 

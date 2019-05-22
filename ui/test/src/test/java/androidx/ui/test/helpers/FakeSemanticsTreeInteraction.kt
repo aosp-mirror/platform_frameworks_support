@@ -18,14 +18,16 @@ package androidx.ui.test.helpers
 
 import androidx.ui.core.SemanticsTreeNode
 import androidx.ui.core.semantics.SemanticsConfiguration
+import androidx.ui.test.ExpectationCount
 import androidx.ui.test.SemanticsTreeInteraction
 import androidx.ui.test.SemanticsTreeNodeStub
 
-class FakeSemanticsTreeInteraction : SemanticsTreeInteraction() {
+class FakeSemanticsTreeInteraction internal constructor(
+    private val expectation: ExpectationCount,
+    private val selector: SemanticsConfiguration.() -> Boolean
+) : SemanticsTreeInteraction() {
 
     private lateinit var semanticsToUse: List<SemanticsTreeNode>
-
-    private val selectors = mutableListOf<(SemanticsTreeNode) -> Boolean>()
 
     fun withProperties(
         vararg properties: SemanticsConfiguration
@@ -41,19 +43,22 @@ class FakeSemanticsTreeInteraction : SemanticsTreeInteraction() {
         return this
     }
 
-    override fun addSelector(
-        selector: (SemanticsTreeNode) -> Boolean
-    ): SemanticsTreeInteraction {
-        selectors.add(selector)
-        return this
-    }
-
     override fun findAllMatching(): List<SemanticsTreeNode> {
         // TODO(pavlis): This is too simplified, use more of the real code so we test more than
         // just a lambda correctness.
         return semanticsToUse
-            .filter { node -> selectors.all { selector -> selector(node) } }
+            .filter { node -> node.data.selector() }
             .toList()
+    }
+
+    override fun find(): List<SemanticsTreeNode> {
+        val foundNodes = findAllMatching()
+
+        if (!expectation.condition(foundNodes.size)) {
+            throw AssertionError(expectation.errorMessage(foundNodes.size))
+        }
+
+        return foundNodes
     }
 
     override fun sendClick(x: Float, y: Float) {

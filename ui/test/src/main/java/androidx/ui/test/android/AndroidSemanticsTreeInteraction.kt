@@ -34,6 +34,8 @@ import androidx.test.espresso.ViewAssertion
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.ui.core.SemanticsTreeNode
 import androidx.ui.core.SemanticsTreeProvider
+import androidx.ui.core.semantics.SemanticsConfiguration
+import androidx.ui.test.ExpectationCount
 import androidx.ui.test.SemanticsTreeInteraction
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
@@ -48,7 +50,9 @@ import java.util.concurrent.TimeUnit
  * @param throwOnRecomposeTimeout Will throw exception if waiting for recomposition timeouts.
  */
 internal class AndroidSemanticsTreeInteraction internal constructor(
-    private val throwOnRecomposeTimeOut: Boolean
+    private val throwOnRecomposeTimeOut: Boolean,
+    private val expectation: ExpectationCount,
+    private val selector: SemanticsConfiguration.() -> Boolean
 ) : SemanticsTreeInteraction() {
 
     /**
@@ -62,8 +66,6 @@ internal class AndroidSemanticsTreeInteraction internal constructor(
     // than 32ms when we skip a few, so "better" 10x number should work here
     private val defaultRecomposeWaitTimeMs = 1000L
 
-    private val selectors = mutableListOf<(SemanticsTreeNode) -> Boolean>()
-
     private val handler = Handler(Looper.getMainLooper())
 
     override fun findAllMatching(): List<SemanticsTreeNode> {
@@ -71,13 +73,18 @@ internal class AndroidSemanticsTreeInteraction internal constructor(
 
         val collectedInfo = findActivityAndTreeProvider()
         return collectedInfo.treeProvider.getAllSemanticNodes()
-            .filter { node -> selectors.all { selector -> selector(node) } }
+            .filter { node -> node.data.selector() }
             .toList()
     }
 
-    override fun addSelector(selector: (SemanticsTreeNode) -> Boolean): SemanticsTreeInteraction {
-        selectors.add(selector)
-        return this
+    override fun find(): List<SemanticsTreeNode> {
+        val foundNodes = findAllMatching()
+
+        if (!expectation.condition(foundNodes.size)) {
+            throw AssertionError(expectation.errorMessage(foundNodes.size))
+        }
+
+        return foundNodes
     }
 
     private fun performAction(action: (SemanticsTreeProvider) -> Unit) {
