@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a3666187_e4fc6fbe",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/ImageCaptureExtensionsCameraIdFilter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-22T18:51:48Z",
+      "side": 1,
+      "message": "It would probably be a good idea to make ImageCaptureExtensionsCameraIdFilter and PreviewExtensionsCameraIdFilter into a single class. That way there isn\u0027t a duplicate class.\n\nThe way to accomplish this is to make ImageCaptureExtenderImpl and PreviewExtenderImpl both extend a new interface, say ExtensionAvailability, which contains the isExtensionAvailable(...) method. This is where we would be able to put other availability queries, such as potential error handling that is common to all extensions.",
+      "revId": "cf23e7c6ea5dc9a9bf17ba86f7fc7c219c1cdcf2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
