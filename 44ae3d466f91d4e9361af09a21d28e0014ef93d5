@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "434ddffa_4ff9a5d4",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1767,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-22T02:36:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "62fb6c15_48078f88",
+      "range": {
+        "startLine": 1765,
+        "startChar": 16,
+        "endLine": 1767,
+        "endChar": 33
+      },
+      "revId": "44ae3d466f91d4e9361af09a21d28e0014ef93d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8ce6fc12_84399566",
         "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
         "patchSetId": 7
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "8bd90ae7_102371b2",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1784,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-22T02:36:09Z",
+      "side": 1,
+      "message": "Oops, don\u0027t need to. Actually, it have been changed when I moved mPlaybackState into MediaControllerCallback before. Reverted.",
+      "parentUuid": "8ce6fc12_84399566",
+      "range": {
+        "startLine": 1781,
+        "startChar": 12,
+        "endLine": 1784,
+        "endChar": 25
+      },
+      "revId": "44ae3d466f91d4e9361af09a21d28e0014ef93d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "297b9a46_3e4d4397",
         "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
         "patchSetId": 7
@@ -59,6 +107,30 @@
       "writtenOn": "2019-05-22T02:08:26Z",
       "side": 1,
       "message": "merge into one?",
+      "range": {
+        "startLine": 1946,
+        "startChar": 0,
+        "endLine": 1946,
+        "endChar": 38
+      },
+      "revId": "44ae3d466f91d4e9361af09a21d28e0014ef93d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ecefd04_c73158df",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1946,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-22T02:36:09Z",
+      "side": 1,
+      "message": "The reason I\u0027ve added two methods was saving one extra call of mController.getAllowedCommands() when updating mAllowedCommands if it already has a SessionCommandGroup instance. BTW, these methods will be removed in the next CL. Do you mind if we keep two methods in this CL?",
+      "parentUuid": "297b9a46_3e4d4397",
       "range": {
         "startLine": 1946,
         "startChar": 0,
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "2a210648_d2d6ccb6",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1966,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-22T02:36:09Z",
+      "side": 1,
+      "message": "same as updateAllowedCommands",
+      "parentUuid": "ceb48cc3_f86dfe41",
+      "range": {
+        "startLine": 1957,
+        "startChar": 7,
+        "endLine": 1966,
+        "endChar": 9
+      },
+      "revId": "44ae3d466f91d4e9361af09a21d28e0014ef93d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fc6ee29f_19801269",
         "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
         "patchSetId": 7
@@ -114,6 +210,30 @@
       "revId": "44ae3d466f91d4e9361af09a21d28e0014ef93d5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c13e58c3_37876bce",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 2083,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-22T02:36:09Z",
+      "side": 1,
+      "message": "ditto",
+      "parentUuid": "fc6ee29f_19801269",
+      "range": {
+        "startLine": 2083,
+        "startChar": 16,
+        "endLine": 2083,
+        "endChar": 33
+      },
+      "revId": "44ae3d466f91d4e9361af09a21d28e0014ef93d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
