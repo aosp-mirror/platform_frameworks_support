@@ -32,14 +32,13 @@ import androidx.test.rule.ActivityTestRule
 import androidx.ui.baseui.selection.ToggleableState
 import androidx.ui.core.CraneWrapper
 import androidx.ui.core.TestTag
-import androidx.ui.material.Checkbox
 import androidx.ui.material.MaterialTheme
 import androidx.ui.material.TriStateCheckbox
 import androidx.ui.material.surface.Surface
 import androidx.ui.test.DisableTransitions
 import androidx.ui.test.android.DefaultTestActivity
-import androidx.ui.test.assertIsChecked
-import androidx.ui.test.assertIsNotChecked
+import androidx.ui.test.assertChecked
+import androidx.ui.test.assertNotChecked
 import androidx.ui.test.doClick
 import androidx.ui.test.findByTag
 import org.junit.Rule
@@ -98,7 +97,7 @@ class MultipleComposeRootsTest {
                 val state1 = CheckboxState(value = ToggleableState.Unchecked)
                 val state2 = CheckboxState(value = ToggleableState.Checked)
 
-                val linearLayout  = LinearLayout(activity)
+                val linearLayout = LinearLayout(activity)
                     .apply { orientation = LinearLayout.VERTICAL }
 
                 val textView1 = TextView(activity).apply { text = "Compose 1" }
@@ -166,10 +165,10 @@ class MultipleComposeRootsTest {
 
         findByTag("checkbox1")
             .doClick()
-            .assertIsChecked()
+            .assertChecked()
 
         findByTag("checkbox2")
-            .assertIsNotChecked()
+            .assertNotChecked()
 
         Espresso.onView(withText("Compose 1 - Checked")).check(matches(isDisplayed()))
         Espresso.onView(withText("Compose 2 - Unchecked")).check(matches(isDisplayed()))
@@ -177,10 +176,10 @@ class MultipleComposeRootsTest {
         // Version 1:
         findByTag("checkbox1")
             .doClick()
-            .assertIsNotChecked()
+            .assertNotChecked()
 
         findByTag("checkbox2")
-            .assertIsChecked()
+            .assertChecked()
 
         // Version 2: - TODO(pavlis): Why this does not work?
 //        findByTag("checkbox2")

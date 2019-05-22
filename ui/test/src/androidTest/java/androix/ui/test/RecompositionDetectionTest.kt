@@ -20,13 +20,12 @@ import androidx.compose.composer
 import androidx.compose.state
 import androidx.compose.unaryPlus
 import androidx.test.filters.MediumTest
-import androidx.ui.baseui.selection.ToggleableState
 import androidx.ui.core.TestTag
 import androidx.ui.material.Checkbox
 import androidx.ui.material.MaterialTheme
 import androidx.ui.material.surface.Surface
 import androidx.ui.test.android.AndroidSemanticsTreeInteraction
-import androidx.ui.test.assertIsChecked
+import androidx.ui.test.assertChecked
 import androidx.ui.test.createComposeRule
 import androidx.ui.test.doClick
 import androidx.ui.test.findByTag
@@ -72,6 +71,6 @@ class RecompositionDetectionTest {
 
         Truth.assertThat(interaction.hadPendingChangesAfterLastAction).isTrue()
 
-        interaction.assertIsChecked()
+        interaction.assertChecked()
     }
 }

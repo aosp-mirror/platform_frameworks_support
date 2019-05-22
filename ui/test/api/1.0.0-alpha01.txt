@@ -8,15 +8,16 @@ package androidx.ui.test {
 
   public final class AssertionsKt {
     ctor public AssertionsKt();
-    method public static androidx.ui.test.SemanticsTreeInteraction assertDoesNotExist(androidx.ui.test.SemanticsTreeInteraction);
-    method public static androidx.ui.test.SemanticsTreeInteraction assertIsChecked(androidx.ui.test.SemanticsTreeInteraction);
-    method public static androidx.ui.test.SemanticsTreeInteraction assertIsHidden(androidx.ui.test.SemanticsTreeInteraction);
-    method public static androidx.ui.test.SemanticsTreeInteraction assertIsInMutuallyExclusiveGroup(androidx.ui.test.SemanticsTreeInteraction);
-    method public static androidx.ui.test.SemanticsTreeInteraction assertIsNotChecked(androidx.ui.test.SemanticsTreeInteraction);
-    method public static androidx.ui.test.SemanticsTreeInteraction assertIsSelected(androidx.ui.test.SemanticsTreeInteraction, boolean expected);
-    method public static androidx.ui.test.SemanticsTreeInteraction assertIsVisible(androidx.ui.test.SemanticsTreeInteraction);
+    method public static androidx.ui.test.SemanticsTreeInteraction assertChecked(androidx.ui.test.SemanticsTreeInteraction);
+    method public static void assertDoesNotExist(androidx.ui.test.SemanticsTreeInteraction);
+    method public static androidx.ui.test.SemanticsTreeInteraction assertHidden(androidx.ui.test.SemanticsTreeInteraction);
+    method public static androidx.ui.test.SemanticsTreeInteraction assertInMutuallyExclusiveGroup(androidx.ui.test.SemanticsTreeInteraction);
+    method public static androidx.ui.test.SemanticsTreeInteraction assertNotChecked(androidx.ui.test.SemanticsTreeInteraction);
+    method public static androidx.ui.test.SemanticsTreeInteraction assertNotSelected(androidx.ui.test.SemanticsTreeInteraction);
+    method public static androidx.ui.test.SemanticsTreeInteraction assertSelected(androidx.ui.test.SemanticsTreeInteraction);
     method public static androidx.ui.test.SemanticsTreeInteraction assertSemanticsIsEqualTo(androidx.ui.test.SemanticsTreeInteraction, androidx.ui.core.semantics.SemanticsConfiguration expectedProperties);
     method public static androidx.ui.test.SemanticsTreeInteraction assertValueEquals(androidx.ui.test.SemanticsTreeInteraction, String value);
+    method public static androidx.ui.test.SemanticsTreeInteraction assertVisible(androidx.ui.test.SemanticsTreeInteraction);
   }
 
   public interface ComposeTestRule extends org.junit.rules.TestRule {
@@ -43,9 +44,24 @@ package androidx.ui.test {
     method public void evaluate();
   }
 
+  public final class ExpectationCount {
+  }
+
+  public final class ExpectationsKt {
+    ctor public ExpectationsKt();
+    method public static androidx.ui.test.ExpectationCount expect(kotlin.jvm.functions.Function1<? super java.lang.Integer,java.lang.String> errorMessage, kotlin.jvm.functions.Function1<? super java.lang.Integer,java.lang.Boolean> condition);
+    method public static androidx.ui.test.ExpectationCount expectExactly(int expectedCount);
+  }
+
+  public final class FiltersKt {
+    ctor public FiltersKt();
+    method public static boolean isCheckable(androidx.ui.core.semantics.SemanticsConfiguration);
+  }
+
   public final class FindersKt {
     ctor public FindersKt();
-    method public static androidx.ui.test.SemanticsTreeInteraction findByCondition(kotlin.jvm.functions.Function1<? super androidx.ui.core.SemanticsTreeNode,java.lang.Boolean> selector);
+    method public static androidx.ui.test.SemanticsTreeInteraction find(kotlin.jvm.functions.Function1<? super androidx.ui.core.semantics.SemanticsConfiguration,java.lang.Boolean> selector);
+    method public static androidx.ui.test.SemanticsTreeInteraction find(androidx.ui.test.ExpectationCount expectedCount, kotlin.jvm.functions.Function1<? super androidx.ui.core.semantics.SemanticsConfiguration,java.lang.Boolean> selector);
     method public static androidx.ui.test.SemanticsTreeInteraction findByTag(String testTag);
     method public static androidx.ui.test.SemanticsTreeInteraction findByText(String text, boolean ignoreCase = false);
   }
