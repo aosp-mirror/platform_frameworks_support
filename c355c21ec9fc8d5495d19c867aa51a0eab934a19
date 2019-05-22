@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d3d6fb8c_92dbddbe",
+        "filename": "paging/common/api/restricted_2.2.0-alpha01.txt",
+        "patchSetId": 14
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-05-22T22:16:13Z",
+      "side": 1,
+      "message": "Somehow this class has been implicitly marked restricted.",
+      "revId": "c355c21ec9fc8d5495d19c867aa51a0eab934a19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
