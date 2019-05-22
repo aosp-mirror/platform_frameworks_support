@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cf5b0e13_90a73921",
+        "filename": "webkit/integration-tests/testapp/build.gradle",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-05-22T17:57:50Z",
+      "side": 1,
+      "message": "This is set automatically for you in AndroidXPlugin.kt in buildSrc.",
+      "range": {
+        "startLine": 40,
+        "startChar": 8,
+        "endLine": 40,
+        "endChar": 75
+      },
+      "revId": "15f63af730661d0d2d3aa8436127f1ed795d3831",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8557db63_9a72dd05",
+        "filename": "webkit/integration-tests/testapp/build.gradle",
+        "patchSetId": 3
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-05-22T17:57:50Z",
+      "side": 1,
+      "message": "Why do we need a new variant? Just use existing debug and release. You can just turn off minification for debug builds.",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 9
+      },
+      "revId": "15f63af730661d0d2d3aa8436127f1ed795d3831",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
