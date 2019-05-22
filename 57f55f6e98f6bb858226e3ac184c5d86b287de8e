@@ -1,0 +1,228 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2aeab568_56de67ce",
+        "filename": "ui/framework/api/current.txt",
+        "patchSetId": 8
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-05-22T18:30:08Z",
+      "side": 1,
+      "message": "should not be public, make it internal (private)",
+      "range": {
+        "startLine": 126,
+        "startChar": 21,
+        "endLine": 126,
+        "endChar": 45
+      },
+      "revId": "57f55f6e98f6bb858226e3ac184c5d86b287de8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33afc45a_8b765f79",
+        "filename": "ui/framework/api/current.txt",
+        "patchSetId": 8
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-05-22T18:30:08Z",
+      "side": 1,
+      "message": "should not be public, make it internal (private)",
+      "revId": "57f55f6e98f6bb858226e3ac184c5d86b287de8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c098c94_413c60c5",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Selection.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-05-22T18:30:08Z",
+      "side": 1,
+      "message": "you probably dont need a new class.\nmy comments on the naming in Text.kt applies to this class as well.",
+      "range": {
+        "startLine": 53,
+        "startChar": 6,
+        "endLine": 53,
+        "endChar": 30
+      },
+      "revId": "57f55f6e98f6bb858226e3ac184c5d86b287de8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "776e777f_f159c62b",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Selection.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-05-22T18:30:08Z",
+      "side": 1,
+      "message": "comment on why 0 is passed.",
+      "range": {
+        "startLine": 136,
+        "startChar": 44,
+        "endLine": 136,
+        "endChar": 60
+      },
+      "revId": "57f55f6e98f6bb858226e3ac184c5d86b287de8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce856fde_32a3b71e",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Text.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-05-22T18:30:08Z",
+      "side": 1,
+      "message": "Why do we need a class? Can we not just record PxPosition?",
+      "range": {
+        "startLine": 53,
+        "startChar": 6,
+        "endLine": 53,
+        "endChar": 16
+      },
+      "revId": "57f55f6e98f6bb858226e3ac184c5d86b287de8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb3e732b_3eae4991",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Text.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-05-22T18:30:08Z",
+      "side": 1,
+      "message": "rename as globalPosition",
+      "range": {
+        "startLine": 102,
+        "startChar": 8,
+        "endLine": 102,
+        "endChar": 14
+      },
+      "revId": "57f55f6e98f6bb858226e3ac184c5d86b287de8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cee12e25_943c3ba9",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Text.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-05-22T18:30:08Z",
+      "side": 1,
+      "message": "since this is always 0, I am a little confused why we pass a parameter.\nadd a comment about what you are passing to localToGlobal and why.",
+      "range": {
+        "startLine": 151,
+        "startChar": 58,
+        "endLine": 151,
+        "endChar": 75
+      },
+      "revId": "57f55f6e98f6bb858226e3ac184c5d86b287de8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e49ba4b_bf303d02",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Text.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-05-22T18:30:08Z",
+      "side": 1,
+      "message": "please add a comment describing what first, and second are in here.",
+      "range": {
+        "startLine": 165,
+        "startChar": 54,
+        "endLine": 165,
+        "endChar": 82
+      },
+      "revId": "57f55f6e98f6bb858226e3ac184c5d86b287de8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5e62117_da98283a",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Text.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-05-22T18:30:08Z",
+      "side": 1,
+      "message": "this is not a good naming (related to the creation of the class, we probably dont need it)",
+      "range": {
+        "startLine": 168,
+        "startChar": 52,
+        "endLine": 168,
+        "endChar": 65
+      },
+      "revId": "57f55f6e98f6bb858226e3ac184c5d86b287de8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93346c97_81d3cb0d",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Text.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-05-22T18:30:08Z",
+      "side": 1,
+      "message": "what is second? what value does it contain?\nmaybe we can use some object for this. Do we currently have an object that semantically carries the same information?\n\nif not please add a comment about what second is.",
+      "range": {
+        "startLine": 193,
+        "startChar": 80,
+        "endLine": 193,
+        "endChar": 86
+      },
+      "revId": "57f55f6e98f6bb858226e3ac184c5d86b287de8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
