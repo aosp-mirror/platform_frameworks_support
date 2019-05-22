@@ -25,8 +25,8 @@ import org.junit.Test
 class FindersTests {
     @Test
     fun findByTag_zeroOutOfOne_findsNone() {
-        semanticsTreeInteractionFactory = {
-            FakeSemanticsTreeInteraction()
+        semanticsTreeInteractionFactory = { expectedCount, selector ->
+            FakeSemanticsTreeInteraction(expectedCount, selector)
                 .withSemantics(newNode(
                     SemanticsConfiguration().apply {
                         testTag = "not_myTestTag"
@@ -35,7 +35,7 @@ class FindersTests {
         }
 
         val foundNodes = findByTag("myTestTag")
-            .findAllMatching()
+            .find(ignoreCountLimit = true)
 
         Truth.assertThat(foundNodes).isEmpty()
     }
@@ -45,17 +45,17 @@ class FindersTests {
         val node1 = newNode(SemanticsConfiguration().apply {
             testTag = "myTestTag"
         })
-        var node2 = newNode(SemanticsConfiguration().apply {
+        val node2 = newNode(SemanticsConfiguration().apply {
             testTag = "myTestTag2"
         })
 
-        semanticsTreeInteractionFactory = {
-            FakeSemanticsTreeInteraction()
+        semanticsTreeInteractionFactory = { expectedCount, selector ->
+            FakeSemanticsTreeInteraction(expectedCount, selector)
                 .withSemantics(node1, node2)
         }
 
         val foundNodes = findByTag("myTestTag")
-            .findAllMatching()
+            .find(ignoreCountLimit = true)
 
         Truth.assertThat(foundNodes).containsExactly(node1)
     }
@@ -67,19 +67,19 @@ class FindersTests {
                 testTag = "myTestTag"
             }
         )
-        var node2 = newNode(
+        val node2 = newNode(
             SemanticsConfiguration().apply {
                 testTag = "myTestTag"
             }
         )
 
-        semanticsTreeInteractionFactory = {
-            FakeSemanticsTreeInteraction()
+        semanticsTreeInteractionFactory = { expectedCount, selector ->
+            FakeSemanticsTreeInteraction(expectedCount, selector)
                 .withSemantics(node1, node2)
         }
 
         val foundNodes = findByTag("myTestTag")
-            .findAllMatching()
+            .find(ignoreCountLimit = true)
 
         Truth.assertThat(foundNodes).containsExactly(node1, node2)
     }

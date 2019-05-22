@@ -16,8 +16,7 @@
 
 package androidx.ui.test
 
-import androidx.ui.core.SemanticsTreeNode
-import androidx.ui.test.android.AndroidSemanticsTreeInteraction
+import androidx.ui.core.semantics.SemanticsConfiguration
 
 /**
  * Extension methods that provide the entry point for the testing APIs.
@@ -29,8 +28,8 @@ import androidx.ui.test.android.AndroidSemanticsTreeInteraction
  * For usage patterns see [SemanticsTreeInteraction]
  */
 fun findByTag(testTag: String): SemanticsTreeInteraction {
-    return findByCondition { node ->
-        node.data.testTag == testTag
+    return find {
+        this.testTag == testTag
     }
 }
 
@@ -40,18 +39,37 @@ fun findByTag(testTag: String): SemanticsTreeInteraction {
  * For usage patterns see [SemanticsTreeInteraction]
  */
 fun findByText(text: String, ignoreCase: Boolean = false): SemanticsTreeInteraction {
-    return findByCondition { node ->
-        node.data.label.equals(text, ignoreCase)
+    return find {
+        label.equals(text, ignoreCase)
     }
 }
 
 /**
- * Finds a component that matches the given condition
+ * Finds a component that matches the given condition.
+ * This tries to match exactly one element and throws [AssertionError] if more than one is matched.
+ * To find multiple element please check
+ * [find(ExpectationCount, SemanticsConfiguration.() -> Boolean)]
  *
  * For usage patterns see [SemanticsTreeInteraction]
  */
-fun findByCondition(
-    selector: (SemanticsTreeNode) -> Boolean
+fun find(
+    selector: SemanticsConfiguration.() -> Boolean
 ): SemanticsTreeInteraction {
-    return semanticsTreeInteractionFactory().addSelector(selector)
+    return find(
+        expectExactly(1),
+        selector
+    )
+}
+
+/**
+ * **
+ * Finds all components that match the given condition
+ *
+ * For usage patterns see [SemanticsTreeInteraction]
+ */
+fun find(
+    expectedCount: ExpectationCount,
+    selector: SemanticsConfiguration.() -> Boolean
+): SemanticsTreeInteraction {
+    return semanticsTreeInteractionFactory(expectedCount, selector)
 }

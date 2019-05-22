@@ -27,7 +27,7 @@ import androidx.ui.layout.DpConstraints
 import com.google.common.truth.Truth
 import androidx.compose.composer
 import androidx.ui.test.assertDoesNotExist
-import androidx.ui.test.assertIsVisible
+import androidx.ui.test.assertVisible
 import androidx.ui.test.createComposeRule
 import androidx.ui.test.findByTag
 import androidx.ui.test.findByText
@@ -76,7 +76,7 @@ class TopAppBarUiTest {
         composeTestRule.setMaterialContent {
             TopAppBar()
         }
-        findByTag("Leading icon").assertIsVisible()
+        findByTag("Leading icon").assertVisible()
     }
 
     @Test
@@ -93,9 +93,9 @@ class TopAppBarUiTest {
         composeTestRule.setMaterialContent {
             TopAppBar(title = title)
         }
-        findByTag("Title text label").assertIsVisible()
+        findByTag("Title text label").assertVisible()
         // TODO: I want to assert this is the same as the item above instead of visible
-        findByText(title).assertIsVisible()
+        findByText(title).assertVisible()
     }
 
     @Test
@@ -111,7 +111,7 @@ class TopAppBarUiTest {
         composeTestRule.setMaterialContent {
             TopAppBar(icons = listOf(24.dp))
         }
-        findByTag("Trailing icon").assertIsVisible()
+        findByTag("Trailing icon").assertVisible()
         findByTag("Overflow icon").assertDoesNotExist()
     }
 
@@ -132,7 +132,7 @@ class TopAppBarUiTest {
         }
         // TODO: need API to assert I can find 3 items
         // findByTag("Trailing icon").assertIsVisible()
-        findByTag("Overflow icon").assertIsVisible()
+        findByTag("Overflow icon").assertVisible()
     }
 
     // TODO: test icons are attached to the "end" side
