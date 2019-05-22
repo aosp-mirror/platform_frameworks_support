@@ -16,13 +16,26 @@
 
 package androidx.ui.test
 
-import android.view.MotionEvent
 import androidx.ui.core.SemanticsTreeNode
 import androidx.ui.core.semantics.SemanticsConfiguration
 
-interface UiTestRunner {
+/**
+ * The flow pattern for using [SingleNodeQuery] would be:
+ * - use findByX extension methods such us [findByTag]
+ * - optionally perform an action e.g. [doClick]
+ * - assert properties e.g. [assertIsChecked]
+ */
 
-    fun findSemantics(selector: SemanticsConfiguration.() -> Boolean): List<SemanticsTreeNode>
-    fun sendEvent(event: MotionEvent)
-    fun performClick(x: Float, y: Float)
+class SingleNodeQuery internal constructor(
+    uiTestRunner: UiTestRunner,
+    selector: SemanticsConfiguration.() -> Boolean
+) {
+
+    internal var mBaseNodeQuery = BaseNodeQuery(uiTestRunner, selector)
+
+    internal fun sanityCheck(nodes: List<SemanticsTreeNode>) {
+        if (nodes.size != 1) {
+            throw AssertionError("Found '${nodes.size}' nodes but 1 was expected!")
+        }
+    }
 }

@@ -38,11 +38,11 @@ class FakeUiTestRunner : UiTestRunner {
     }
 
     override fun findSemantics(
-        selector: (SemanticsTreeNode) -> Boolean
+        selector: SemanticsConfiguration.() -> Boolean
     ): List<SemanticsTreeNode> {
         // TODO(pavlis): This is too simplified, use more of the real code so we test more than
         // just a lambda correctness.
-        return semanticsToUse.filter { selector(it) }.toList()
+        return semanticsToUse.filter { it.data.selector() }.toList()
     }
 
     override fun sendEvent(event: MotionEvent) {

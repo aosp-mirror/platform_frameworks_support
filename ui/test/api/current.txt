@@ -3,20 +3,25 @@ package androidx.ui.test {
 
   public final class ActionsKt {
     ctor public ActionsKt();
-    method public static androidx.ui.test.SemanticsTreeQuery doClick(androidx.ui.test.SemanticsTreeQuery);
+    method public static androidx.ui.test.SingleNodeQuery doClick(androidx.ui.test.SingleNodeQuery);
+    method public static androidx.ui.test.MultipleNodesQuery doClickAll(androidx.ui.test.MultipleNodesQuery);
   }
 
   public final class AssertionsKt {
     ctor public AssertionsKt();
-    method public static androidx.ui.test.SemanticsTreeQuery assertDoesNotExist(androidx.ui.test.SemanticsTreeQuery);
-    method public static androidx.ui.test.SemanticsTreeQuery assertIsChecked(androidx.ui.test.SemanticsTreeQuery);
-    method public static androidx.ui.test.SemanticsTreeQuery assertIsHidden(androidx.ui.test.SemanticsTreeQuery);
-    method public static androidx.ui.test.SemanticsTreeQuery assertIsInMutuallyExclusiveGroup(androidx.ui.test.SemanticsTreeQuery);
-    method public static androidx.ui.test.SemanticsTreeQuery assertIsNotChecked(androidx.ui.test.SemanticsTreeQuery);
-    method public static androidx.ui.test.SemanticsTreeQuery assertIsSelected(androidx.ui.test.SemanticsTreeQuery, boolean expected);
-    method public static androidx.ui.test.SemanticsTreeQuery assertIsVisible(androidx.ui.test.SemanticsTreeQuery);
-    method public static androidx.ui.test.SemanticsTreeQuery assertSemanticsIsEqualTo(androidx.ui.test.SemanticsTreeQuery, androidx.ui.core.semantics.SemanticsConfiguration expectedProperties);
-    method public static androidx.ui.test.SemanticsTreeQuery assertValueEquals(androidx.ui.test.SemanticsTreeQuery, String value);
+    method public static androidx.ui.test.MultipleNodesQuery assertAreChecked(androidx.ui.test.MultipleNodesQuery);
+    method public static androidx.ui.test.SingleNodeQuery assertDoesNotExist(androidx.ui.test.SingleNodeQuery);
+    method public static androidx.ui.test.SingleNodeQuery assertIsChecked(androidx.ui.test.SingleNodeQuery);
+    method public static androidx.ui.test.SingleNodeQuery assertIsHidden(androidx.ui.test.SingleNodeQuery);
+    method public static androidx.ui.test.SingleNodeQuery assertIsInMutuallyExclusiveGroup(androidx.ui.test.SingleNodeQuery);
+    method public static androidx.ui.test.SingleNodeQuery assertIsNotChecked(androidx.ui.test.SingleNodeQuery);
+    method public static androidx.ui.test.SingleNodeQuery assertIsSelected(androidx.ui.test.SingleNodeQuery, boolean expected);
+    method public static androidx.ui.test.SingleNodeQuery assertIsVisible(androidx.ui.test.SingleNodeQuery);
+    method public static androidx.ui.test.SingleNodeQuery assertSemanticsIsEqualTo(androidx.ui.test.SingleNodeQuery, androidx.ui.core.semantics.SemanticsConfiguration expectedProperties);
+    method public static androidx.ui.test.SingleNodeQuery assertValueEquals(androidx.ui.test.SingleNodeQuery, String value);
+  }
+
+  public final class BaseNodeQuery {
   }
 
   public final class DisableTransitions implements org.junit.rules.TestRule {
@@ -29,11 +34,17 @@ package androidx.ui.test {
     method public void evaluate();
   }
 
+  public final class FiltersKt {
+    ctor public FiltersKt();
+    method public static boolean isCheckable(androidx.ui.core.semantics.SemanticsConfiguration);
+  }
+
   public final class FindersKt {
     ctor public FindersKt();
-    method public static androidx.ui.test.SemanticsTreeQuery findByCondition(androidx.ui.test.UiTestRunner, kotlin.jvm.functions.Function1<? super androidx.ui.core.SemanticsTreeNode,java.lang.Boolean> selector);
-    method public static androidx.ui.test.SemanticsTreeQuery findByTag(androidx.ui.test.UiTestRunner, String testTag);
-    method public static androidx.ui.test.SemanticsTreeQuery findByText(androidx.ui.test.UiTestRunner, String text);
+    method public static androidx.ui.test.MultipleNodesQuery findAll(androidx.ui.test.UiTestRunner, kotlin.jvm.functions.Function1<? super androidx.ui.core.semantics.SemanticsConfiguration,java.lang.Boolean> selector);
+    method public static androidx.ui.test.SingleNodeQuery findByTag(androidx.ui.test.UiTestRunner, String testTag);
+    method public static androidx.ui.test.SingleNodeQuery findByText(androidx.ui.test.UiTestRunner, String text);
+    method public static androidx.ui.test.SingleNodeQuery findOne(androidx.ui.test.UiTestRunner, kotlin.jvm.functions.Function1<? super androidx.ui.core.semantics.SemanticsConfiguration,java.lang.Boolean> selector);
   }
 
   public final class GoldenSemanticsKt {
@@ -43,16 +54,20 @@ package androidx.ui.test {
     method public static androidx.ui.core.semantics.SemanticsConfiguration createFullSemantics(Boolean? isEnabled = null, Boolean? isChecked = null, boolean isSelected = false, boolean isButton = false, boolean inMutuallyExclusiveGroup = false);
   }
 
-  public final class OutputKt {
-    ctor public OutputKt();
-    method public static void dumpSemantics(androidx.ui.test.SemanticsTreeQuery, kotlin.jvm.functions.Function1<? super java.lang.String,kotlin.Unit> consumer);
+  public final class MultipleNodesQuery {
+    method public androidx.ui.test.SingleNodeQuery asOne();
   }
 
-  public final class SemanticsTreeQuery {
+  public final class OutputKt {
+    ctor public OutputKt();
+    method public static void dumpSemantics(androidx.ui.test.SingleNodeQuery, kotlin.jvm.functions.Function1<? super java.lang.String,kotlin.Unit> consumer);
+  }
+
+  public final class SingleNodeQuery {
   }
 
   public interface UiTestRunner {
-    method public java.util.List<androidx.ui.core.SemanticsTreeNode> findSemantics(kotlin.jvm.functions.Function1<? super androidx.ui.core.SemanticsTreeNode,java.lang.Boolean> selector);
+    method public java.util.List<androidx.ui.core.SemanticsTreeNode> findSemantics(kotlin.jvm.functions.Function1<? super androidx.ui.core.semantics.SemanticsConfiguration,java.lang.Boolean> selector);
     method public void performClick(float x, float y);
     method public void sendEvent(android.view.MotionEvent event);
   }
@@ -64,7 +79,7 @@ package androidx.ui.test.android {
   public class AndroidUiTestRunner implements androidx.ui.test.UiTestRunner {
     ctor public AndroidUiTestRunner();
     method public final void TestWrapper(kotlin.jvm.functions.Function0<kotlin.Unit> children);
-    method public java.util.List<androidx.ui.core.SemanticsTreeNode> findSemantics(kotlin.jvm.functions.Function1<? super androidx.ui.core.SemanticsTreeNode,java.lang.Boolean> selector);
+    method public java.util.List<androidx.ui.core.SemanticsTreeNode> findSemantics(kotlin.jvm.functions.Function1<? super androidx.ui.core.semantics.SemanticsConfiguration,java.lang.Boolean> selector);
     method public final androidx.test.rule.ActivityTestRule<androidx.ui.test.android.DefaultTestActivity> getActivityTestRule();
     method public final androidx.ui.core.Density getDensity();
     method public void performClick(float x, float y);

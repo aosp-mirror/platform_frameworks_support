@@ -16,10 +16,11 @@
 
 package androidx.ui.test
 
-fun SemanticsTreeQuery.dumpSemantics(consumer: (String) -> Unit) {
+// TODO(b/133217292)
+fun SingleNodeQuery.dumpSemantics(consumer: (String) -> Unit) {
     var builder = StringBuilder()
 
-    findAllMatching().forEach {
+    mBaseNodeQuery.findAllMatching().forEach {
         builder.appendln("Label: '${it.data.testTag}'")
     }
 

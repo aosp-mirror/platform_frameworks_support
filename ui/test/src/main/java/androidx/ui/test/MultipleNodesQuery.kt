@@ -16,13 +16,26 @@
 
 package androidx.ui.test
 
-import android.view.MotionEvent
 import androidx.ui.core.SemanticsTreeNode
 import androidx.ui.core.semantics.SemanticsConfiguration
 
-interface UiTestRunner {
+class MultipleNodesQuery internal constructor(
+    uiTestRunner: UiTestRunner,
+    selector: SemanticsConfiguration.() -> Boolean
+) {
 
-    fun findSemantics(selector: SemanticsConfiguration.() -> Boolean): List<SemanticsTreeNode>
-    fun sendEvent(event: MotionEvent)
-    fun performClick(x: Float, y: Float)
+    internal var mBaseNodeQuery = BaseNodeQuery(uiTestRunner, selector)
+
+    internal fun sanityCheck(nodes: List<SemanticsTreeNode>) {
+        if (nodes.isEmpty()) {
+            throw AssertionError("Found '${nodes.size}' nodes but at least 1 was expected!")
+        }
+    }
+
+    fun asOne(): SingleNodeQuery {
+        return SingleNodeQuery(
+            mBaseNodeQuery.uiTestRunner,
+            mBaseNodeQuery.selector
+        )
+    }
 }
