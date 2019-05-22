@@ -114,6 +114,9 @@ public final class UseCaseCombinationTest {
     public void tearDown() throws InterruptedException {
         if (mHandlerThread != null) {
             CameraX.unbindAll();
+            if (mCameraRepository != null) {
+                mCameraRepository.onGroupInactive(mUseCaseGroup);
+            }
             mHandlerThread.quitSafely();
 
             // Wait some time for the cameras to close.
@@ -137,7 +140,6 @@ public final class UseCaseCombinationTest {
         CameraX.bindToLifecycle(mLifecycle, mPreview, mImageCapture);
         mLifecycle.startAndResume();
 
-        mImageCapture.doNotifyActive();
         mCameraRepository.onGroupActive(mUseCaseGroup);
 
         // Wait for the CameraCaptureSession.onConfigured callback.
@@ -189,7 +191,6 @@ public final class UseCaseCombinationTest {
         mUseCaseGroup.addUseCase(mImageAnalysis);
         mUseCaseGroup.addUseCase(mPreview);
 
-        mImageCapture.doNotifyActive();
         mCameraRepository.onGroupActive(mUseCaseGroup);
 
         mMainThreadHandler.post(new Runnable() {
