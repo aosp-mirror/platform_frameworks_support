@@ -64,6 +64,25 @@ package androidx.ui.baseui.selection {
 
 }
 
+package androidx.ui.baseui.shape {
+
+  public final class Border {
+    ctor public Border(androidx.ui.graphics.Color color, androidx.ui.core.Dp width);
+    method public androidx.ui.graphics.Color component1();
+    method public androidx.ui.core.Dp component2();
+    method public androidx.ui.baseui.shape.Border copy(androidx.ui.graphics.Color color, androidx.ui.core.Dp width);
+    method public androidx.ui.graphics.Color getColor();
+    method public androidx.ui.core.Dp getWidth();
+  }
+
+  public interface Shape {
+    method public androidx.ui.engine.geometry.Outline createOutline(androidx.ui.core.DensityReceiver, androidx.ui.core.PxSize size);
+    method public default androidx.ui.baseui.shape.Border? getBorder();
+    property public default androidx.ui.baseui.shape.Border? border;
+  }
+
+}
+
 package androidx.ui.material {
 
   public final class AppBarKt {
@@ -504,6 +523,50 @@ package androidx.ui.material.ripple {
   public final class RippleThemeKt {
     ctor public RippleThemeKt();
     method public static androidx.compose.Ambient<androidx.ui.material.ripple.RippleTheme> getCurrentRippleTheme();
+  }
+
+}
+
+package androidx.ui.material.shape {
+
+  public final class CornerKt {
+    ctor public CornerKt();
+    method public static kotlin.jvm.functions.Function2<androidx.ui.core.DensityReceiver,androidx.ui.core.PxSize,androidx.ui.core.Px> Corner(androidx.ui.core.Dp size);
+    method public static kotlin.jvm.functions.Function2<androidx.ui.core.DensityReceiver,androidx.ui.core.PxSize,androidx.ui.core.Px> Corner(androidx.ui.core.Px size);
+    method public static kotlin.jvm.functions.Function2<androidx.ui.core.DensityReceiver,androidx.ui.core.PxSize,androidx.ui.core.Px> Corner(float percent);
+    method public static kotlin.jvm.functions.Function2<androidx.ui.core.DensityReceiver,androidx.ui.core.PxSize,androidx.ui.core.Px> Corner(int percent);
+    method public static kotlin.jvm.functions.Function2<androidx.ui.core.DensityReceiver,androidx.ui.core.PxSize,androidx.ui.core.Px> getSharpCorner();
+  }
+
+  public enum ShapeFamily {
+    enum_constant public static final androidx.ui.material.shape.ShapeFamily Cut;
+    enum_constant public static final androidx.ui.material.shape.ShapeFamily Rounded;
+  }
+
+  public final class ShapeModel implements androidx.ui.baseui.shape.Shape {
+    ctor public ShapeModel(androidx.ui.material.shape.ShapeFamily family, kotlin.jvm.functions.Function2<? super androidx.ui.core.DensityReceiver,? super androidx.ui.core.PxSize,androidx.ui.core.Px> topLeftCorner, kotlin.jvm.functions.Function2<? super androidx.ui.core.DensityReceiver,? super androidx.ui.core.PxSize,androidx.ui.core.Px> topRightCorner, kotlin.jvm.functions.Function2<? super androidx.ui.core.DensityReceiver,? super androidx.ui.core.PxSize,androidx.ui.core.Px> bottomRightCorner, kotlin.jvm.functions.Function2<? super androidx.ui.core.DensityReceiver,? super androidx.ui.core.PxSize,androidx.ui.core.Px> bottomLeftCorner, androidx.ui.baseui.shape.Border? border);
+    method public androidx.ui.material.shape.ShapeFamily component1();
+    method public kotlin.jvm.functions.Function2<androidx.ui.core.DensityReceiver,androidx.ui.core.PxSize,androidx.ui.core.Px> component2();
+    method public kotlin.jvm.functions.Function2<androidx.ui.core.DensityReceiver,androidx.ui.core.PxSize,androidx.ui.core.Px> component3();
+    method public kotlin.jvm.functions.Function2<androidx.ui.core.DensityReceiver,androidx.ui.core.PxSize,androidx.ui.core.Px> component4();
+    method public kotlin.jvm.functions.Function2<androidx.ui.core.DensityReceiver,androidx.ui.core.PxSize,androidx.ui.core.Px> component5();
+    method public androidx.ui.baseui.shape.Border? component6();
+    method public androidx.ui.material.shape.ShapeModel copy(androidx.ui.material.shape.ShapeFamily family, kotlin.jvm.functions.Function2<? super androidx.ui.core.DensityReceiver,? super androidx.ui.core.PxSize,androidx.ui.core.Px> topLeftCorner, kotlin.jvm.functions.Function2<? super androidx.ui.core.DensityReceiver,? super androidx.ui.core.PxSize,androidx.ui.core.Px> topRightCorner, kotlin.jvm.functions.Function2<? super androidx.ui.core.DensityReceiver,? super androidx.ui.core.PxSize,androidx.ui.core.Px> bottomRightCorner, kotlin.jvm.functions.Function2<? super androidx.ui.core.DensityReceiver,? super androidx.ui.core.PxSize,androidx.ui.core.Px> bottomLeftCorner, androidx.ui.baseui.shape.Border? border);
+    method public androidx.ui.engine.geometry.Outline createOutline(androidx.ui.core.DensityReceiver, androidx.ui.core.PxSize size);
+    method public kotlin.jvm.functions.Function2<androidx.ui.core.DensityReceiver,androidx.ui.core.PxSize,androidx.ui.core.Px> getBottomLeftCorner();
+    method public kotlin.jvm.functions.Function2<androidx.ui.core.DensityReceiver,androidx.ui.core.PxSize,androidx.ui.core.Px> getBottomRightCorner();
+    method public androidx.ui.material.shape.ShapeFamily getFamily();
+    method public kotlin.jvm.functions.Function2<androidx.ui.core.DensityReceiver,androidx.ui.core.PxSize,androidx.ui.core.Px> getTopLeftCorner();
+    method public kotlin.jvm.functions.Function2<androidx.ui.core.DensityReceiver,androidx.ui.core.PxSize,androidx.ui.core.Px> getTopRightCorner();
+  }
+
+  public final class ShapeModelKt {
+    ctor public ShapeModelKt();
+    method public static androidx.ui.material.shape.ShapeModel CutShapeModel(kotlin.jvm.functions.Function2<? super androidx.ui.core.DensityReceiver,? super androidx.ui.core.PxSize,androidx.ui.core.Px> corner, androidx.ui.baseui.shape.Border? border = null);
+    method public static androidx.ui.material.shape.ShapeModel RoundedShapeModel(kotlin.jvm.functions.Function2<? super androidx.ui.core.DensityReceiver,? super androidx.ui.core.PxSize,androidx.ui.core.Px> corner, androidx.ui.baseui.shape.Border? border = null);
+    method public static androidx.ui.material.shape.ShapeModel ShapeModel(androidx.ui.material.shape.ShapeFamily family, kotlin.jvm.functions.Function2<? super androidx.ui.core.DensityReceiver,? super androidx.ui.core.PxSize,androidx.ui.core.Px> corner, androidx.ui.baseui.shape.Border? border = null);
+    method public static androidx.ui.material.shape.ShapeModel getCircleShapeModel();
+    method public static androidx.ui.material.shape.ShapeModel getRectShapeModel();
   }
 
 }
