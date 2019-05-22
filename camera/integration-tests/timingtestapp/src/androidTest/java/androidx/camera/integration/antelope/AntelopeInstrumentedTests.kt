@@ -31,7 +31,6 @@ import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
 import org.junit.Before
 import android.os.Environment
 import androidx.appcompat.app.AppCompatActivity
-import androidx.test.espresso.Espresso.pressBackUnconditionally
 import androidx.test.espresso.IdlingPolicies
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import java.io.File
@@ -44,6 +43,7 @@ import org.junit.runners.MethodSorters
 import java.util.concurrent.TimeUnit
 import androidx.camera.integration.antelope.MainActivity.Companion.antelopeIdlingResource
 import org.junit.After
+import com.google.common.truth.Truth.assertThat
 
 /**
  * Suite of tests that cover the major use cases for Antelope.
@@ -83,6 +83,15 @@ class AntelopeInstrumentedTests {
         getInstrumentation().getUiAutomation().executeShellCommand(
             "pm grant " + activityRule.activity.applicationContext +
                 " android.permission.WRITE_EXTERNAL_STORAGE")
+    }
+
+    /**
+     * Delete any pre-existing logs
+     */
+    @Before
+    fun deleteLogs() {
+        val activity = activityRule.activity as MainActivity
+        deleteCSVFiles(activity)
     }
 
     /**
@@ -135,11 +144,11 @@ class AntelopeInstrumentedTests {
 
         // Write a fake log file
         writeCSV(activity, "fakelogfile", "This is a fake log file")
-        assert(!isLogDirEmpty())
+        assertThat(isLogDirEmpty()).isFalse()
 
         // Delete all logs from the device
         deleteCSVFiles(activity)
-        assert(isLogDirEmpty())
+        assertThat(isLogDirEmpty()).isTrue()
     }
 
     /**
@@ -157,10 +166,6 @@ class AntelopeInstrumentedTests {
         // If device has no camera, skip this test
         assumeTrue(hasAnyCamera())
 
-        // Delete any logs on the device
-        deleteCSVFiles(activity)
-        assert(isLogDirEmpty())
-
         // Set up capture
         prefEditor.putString(res.getString(R.string.settings_single_test_type_key), "PHOTO")
         prefEditor.putString(res.getString(R.string.settings_single_test_api_key), "Camera2")
@@ -172,16 +177,13 @@ class AntelopeInstrumentedTests {
         prefEditor.putBoolean(res.getString(R.string.settings_autodelete_key), true)
         prefEditor.commit()
 
-        // Tell Espresso to wait until test run is complete
-        antelopeIdlingResource.increment()
-
         activity.runOnUiThread {
             activity.startSingleTest()
         }
 
         // Check if test was successful
         onView(withId(R.id.text_log)).check(matches(withSubstring("Single Capture\nCamera")))
-        assert(!isLogDirEmpty())
+        assertThat(isLogDirEmpty()).isFalse()
     }
 
     /**
@@ -199,10 +201,6 @@ class AntelopeInstrumentedTests {
         // If device has no camera, skip this test
         assumeTrue(hasAnyCamera())
 
-        // Delete any logs on the device
-        deleteCSVFiles(activity)
-        assert(isLogDirEmpty())
-
         // Set up capture
         prefEditor.putString(res.getString(R.string.settings_single_test_type_key), "MULTI_PHOTO")
         prefEditor.putString(res.getString(R.string.settings_single_test_api_key), "Camera2")
@@ -219,16 +217,13 @@ class AntelopeInstrumentedTests {
 
         prefEditor.commit()
 
-        // Tell Espresso to wait until test run is complete
-        antelopeIdlingResource.increment()
-
         activity.runOnUiThread {
             activity.startSingleTest()
         }
 
         // Check if test was successful
         onView(withId(R.id.text_log)).check(matches(withSubstring("Multiple Captures\nCamera")))
-        assert(!isLogDirEmpty())
+        assertThat(isLogDirEmpty()).isFalse()
     }
 
     /**
@@ -246,10 +241,6 @@ class AntelopeInstrumentedTests {
         // If device has no camera, skip this test
         assumeTrue(hasAnyCamera())
 
-        // Delete any logs on the device
-        deleteCSVFiles(activity)
-        assert(isLogDirEmpty())
-
         // Set up capture
         prefEditor.putString(res.getString(R.string.settings_single_test_type_key),
             "MULTI_PHOTO_CHAIN")
@@ -263,9 +254,6 @@ class AntelopeInstrumentedTests {
         prefEditor.putBoolean(res.getString(R.string.settings_autodelete_key), true)
         prefEditor.commit()
 
-        // Tell Espresso to wait until test run is complete
-        antelopeIdlingResource.increment()
-
         activity.runOnUiThread {
             activity.startSingleTest()
         }
@@ -273,7 +261,7 @@ class AntelopeInstrumentedTests {
         // Check if test was successful
         onView(withId(R.id.text_log)).check(matches(
             withSubstring("Multiple Captures (Chained)\nCamera")))
-        assert(!isLogDirEmpty())
+        assertThat(isLogDirEmpty()).isFalse()
     }
 
     /**
@@ -291,10 +279,6 @@ class AntelopeInstrumentedTests {
         // If device has no camera, skip this test
         assumeTrue(hasAnyCamera())
 
-        // Delete any logs on the device
-        deleteCSVFiles(activity)
-        assert(isLogDirEmpty())
-
         // Set up capture
         prefEditor.putString(res.getString(R.string.settings_single_test_type_key), "MULTI_PHOTO")
         prefEditor.putString(res.getString(R.string.settings_single_test_api_key), "Camera2")
@@ -307,9 +291,6 @@ class AntelopeInstrumentedTests {
         prefEditor.putBoolean(res.getString(R.string.settings_autodelete_key), true)
         prefEditor.commit()
 
-        // Tell Espresso to wait until test run is complete
-        antelopeIdlingResource.increment()
-
         activity.runOnUiThread {
             activity.startSingleTest()
 
@@ -319,7 +300,7 @@ class AntelopeInstrumentedTests {
 
         // Check if test was aborted successfully and log directory is still empty
         onView(withId(R.id.text_log)).check(matches(withSubstring("ABORTED")))
-        assert(isLogDirEmpty())
+        assertThat(isLogDirEmpty()).isTrue()
     }
 
     /**
@@ -337,10 +318,6 @@ class AntelopeInstrumentedTests {
         // If device doesn't have both a front and back camera, skip this test
         assumeTrue(hasFrontAndBackCamera())
 
-        // Delete any logs on the device
-        deleteCSVFiles(activity)
-        assert(isLogDirEmpty())
-
         // Set up switch test
         prefEditor.putString(res.getString(R.string.settings_single_test_type_key), "SWITCH_CAMERA")
         prefEditor.putString(res.getString(R.string.settings_single_test_api_key), "Camera2")
@@ -352,16 +329,13 @@ class AntelopeInstrumentedTests {
         prefEditor.putBoolean(res.getString(R.string.settings_autodelete_key), true)
         prefEditor.commit()
 
-        // Tell Espresso to wait until test run is complete
-        antelopeIdlingResource.increment()
-
         activity.runOnUiThread {
             activity.startSingleTest()
         }
 
         // Check if test was successful
         onView(withId(R.id.text_log)).check(matches(withSubstring("Switch Cameras\nCamera")))
-        assert(!isLogDirEmpty())
+        assertThat(isLogDirEmpty()).isFalse()
     }
 
     /**
@@ -392,9 +366,6 @@ class AntelopeInstrumentedTests {
         prefEditor.putBoolean(res.getString(R.string.settings_autodelete_key), false)
         prefEditor.commit()
 
-        // Tell Espresso to wait until test run is complete
-        antelopeIdlingResource.increment()
-
         activity.runOnUiThread {
             activity.startSingleTest()
         }
@@ -403,14 +374,11 @@ class AntelopeInstrumentedTests {
         onView(withId(R.id.text_log)).check(matches(withSubstring("Single Capture\nCamera")))
 
         // Check photo is on disk
-        assert(!isPhotoDirEmpty())
+        assertThat(isPhotoDirEmpty()).isFalse()
 
         // Delete all photos on the device
         deleteTestPhotos(activity)
-        assert(isPhotoDirEmpty())
-
-        // Close options menu
-        pressBackUnconditionally()
+        assertThat(isPhotoDirEmpty()).isTrue()
     }
 
     /**
@@ -428,10 +396,6 @@ class AntelopeInstrumentedTests {
         // If device has no camera, skip this test
         assumeTrue(hasAnyCamera())
 
-        // Delete any logs on the device
-        deleteCSVFiles(activity)
-        assert(isLogDirEmpty())
-
         // Set up capture
         prefEditor.putString(res.getString(R.string.settings_single_test_type_key), "MULTI_PHOTO")
         prefEditor.putString(res.getString(R.string.settings_single_test_api_key), "Camera1")
@@ -444,16 +408,13 @@ class AntelopeInstrumentedTests {
         prefEditor.putBoolean(res.getString(R.string.settings_autodelete_key), true)
         prefEditor.commit()
 
-        // Tell Espresso to wait until test run is complete
-        antelopeIdlingResource.increment()
-
         activity.runOnUiThread {
             activity.startSingleTest()
         }
 
         // Check if test was successful
         onView(withId(R.id.text_log)).check(matches(withSubstring("Multiple Captures\nCamera")))
-        assert(!isLogDirEmpty())
+        assertThat(isLogDirEmpty()).isFalse()
     }
 
     /**
@@ -471,10 +432,6 @@ class AntelopeInstrumentedTests {
         // If device has no camera, skip this test
         assumeTrue(hasAnyCamera())
 
-        // Delete any logs on the device
-        deleteCSVFiles(activity)
-        assert(isLogDirEmpty())
-
         // Set up capture
         prefEditor.putString(res.getString(R.string.settings_single_test_type_key), "MULTI_PHOTO")
         prefEditor.putString(res.getString(R.string.settings_single_test_api_key), "CameraX")
@@ -487,16 +444,13 @@ class AntelopeInstrumentedTests {
         prefEditor.putBoolean(res.getString(R.string.settings_autodelete_key), true)
         prefEditor.commit()
 
-        // Tell Espresso to wait until test run is complete
-        antelopeIdlingResource.increment()
-
         activity.runOnUiThread {
             activity.startSingleTest()
         }
 
         // Check if test was successful
         onView(withId(R.id.text_log)).check(matches(withSubstring("Multiple Captures\nCamera")))
-        assert(!isLogDirEmpty())
+        assertThat(isLogDirEmpty()).isFalse()
     }
 
     /**
@@ -513,10 +467,6 @@ class AntelopeInstrumentedTests {
 
         // If device has no camera, skip this test
         assumeTrue(hasAnyCamera())
-
-        // Delete any logs on the device
-        deleteCSVFiles(activity)
-        assert(isLogDirEmpty())
 
         // Set up maximum test coverage for Camera2
         prefEditor.putStringSet(res.getString(R.string.settings_autotest_api_key),
@@ -537,16 +487,13 @@ class AntelopeInstrumentedTests {
         prefEditor.putString(res.getString(R.string.settings_previewbuffer_key), "250")
         prefEditor.commit()
 
-        // Tell Espresso to wait until test run is complete
-        antelopeIdlingResource.increment()
-
         activity.runOnUiThread {
             activity.startMultiTest()
         }
 
         // Check if test was successful
         onView(withId(R.id.text_log)).check(matches(withSubstring("DATE:")))
-        assert(!isLogDirEmpty())
+        assertThat(isLogDirEmpty()).isFalse()
     }
 
     /**
@@ -563,10 +510,6 @@ class AntelopeInstrumentedTests {
 
         // If device has no camera, skip this test
         assumeTrue(hasAnyCamera())
-
-        // Delete any logs on the device
-        deleteCSVFiles(activity)
-        assert(isLogDirEmpty())
 
         // Set up maximum test coverage for CameraX
         prefEditor.putStringSet(res.getString(R.string.settings_autotest_api_key),
@@ -587,16 +530,13 @@ class AntelopeInstrumentedTests {
         prefEditor.putString(res.getString(R.string.settings_previewbuffer_key), "250")
         prefEditor.commit()
 
-        // Tell Espresso to wait until test run is complete
-        antelopeIdlingResource.increment()
-
         activity.runOnUiThread {
             activity.startMultiTest()
         }
 
         // Check if test was successful
         onView(withId(R.id.text_log)).check(matches(withSubstring("DATE:")))
-        assert(!isLogDirEmpty())
+        assertThat(isLogDirEmpty()).isFalse()
     }
 
     /**
@@ -613,10 +553,6 @@ class AntelopeInstrumentedTests {
 
         // If device has no camera, skip this test
         assumeTrue(hasAnyCamera())
-
-        // Delete any logs on the device
-        deleteCSVFiles(activity)
-        assert(isLogDirEmpty())
 
         // Set up maximum test coverage for Camera1
         prefEditor.putStringSet(res.getString(R.string.settings_autotest_api_key),
@@ -637,16 +573,13 @@ class AntelopeInstrumentedTests {
         prefEditor.putString(res.getString(R.string.settings_previewbuffer_key), "250")
         prefEditor.commit()
 
-        // Tell Espresso to wait until test run is complete
-        antelopeIdlingResource.increment()
-
         activity.runOnUiThread {
             activity.startMultiTest()
         }
 
         // Check if test was successful
         onView(withId(R.id.text_log)).check(matches(withSubstring("DATE:")))
-        assert(!isLogDirEmpty())
+        assertThat(isLogDirEmpty()).isFalse()
     }
 
     /**
