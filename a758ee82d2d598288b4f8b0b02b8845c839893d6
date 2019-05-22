@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "edf18c88_c7756a69",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 861,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-22T04:32:21Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "7a627c5b_075ae0d4",
+      "range": {
+        "startLine": 861,
+        "startChar": 8,
+        "endLine": 861,
+        "endChar": 32
+      },
+      "revId": "a758ee82d2d598288b4f8b0b02b8845c839893d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fd670f8c_6a4a1602",
         "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
         "patchSetId": 4
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "ensurePlayerIsNotNull is inteneded to be used only for checking methods meet the precondition of mPlayer !\u003d null not for ignoring the illegal invocation of the methods.",
       "parentUuid": "fd670f8c_6a4a1602",
+      "range": {
+        "startLine": 1658,
+        "startChar": 0,
+        "endLine": 1658,
+        "endChar": 72
+      },
+      "revId": "a758ee82d2d598288b4f8b0b02b8845c839893d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "af3a96a5_42a2601f",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1658,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-22T04:32:21Z",
+      "side": 1,
+      "message": "Got it. Thanks!",
+      "parentUuid": "35e7fb01_bb78204f",
       "range": {
         "startLine": 1658,
         "startChar": 0,
