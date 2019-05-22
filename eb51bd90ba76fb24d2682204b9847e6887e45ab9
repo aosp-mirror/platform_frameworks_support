@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "0ae9831b_f93c06db",
+        "filename": "media2/common/src/main/java/androidx/media2/common/SessionPlayer.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1078,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-22T04:12:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "68bdf087_7ddafbf7",
+      "range": {
+        "startLine": 1078,
+        "startChar": 20,
+        "endLine": 1078,
+        "endChar": 29
+      },
+      "revId": "eb51bd90ba76fb24d2682204b9847e6887e45ab9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "78bb2fd3_d5c0058c",
         "filename": "media2/session/src/androidTest/java/androidx/media2/session/MediaControllerTest.java",
         "patchSetId": 7
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "89b63bbd_5ca8fc95",
+        "filename": "media2/session/src/androidTest/java/androidx/media2/session/MediaControllerTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1663,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-22T04:12:59Z",
+      "side": 1,
+      "message": "Added",
+      "parentUuid": "78bb2fd3_d5c0058c",
+      "range": {
+        "startLine": 1663,
+        "startChar": 16,
+        "endLine": 1663,
+        "endChar": 32
+      },
+      "revId": "eb51bd90ba76fb24d2682204b9847e6887e45ab9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b07e03a6_52f24d55",
         "filename": "media2/session/src/androidTest/java/androidx/media2/session/MockPlayer.java",
         "patchSetId": 7
@@ -59,6 +107,30 @@
       "writtenOn": "2019-05-21T09:26:51Z",
       "side": 1,
       "message": "Will it be better to have a Map\u003cTRACK_TYPE, TrackInfo\u003e?",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 44
+      },
+      "revId": "eb51bd90ba76fb24d2682204b9847e6887e45ab9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e00b0174_6b3b2b01",
+        "filename": "media2/session/src/androidTest/java/androidx/media2/session/MockPlayer.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-22T04:12:59Z",
+      "side": 1,
+      "message": "Not sure of the advantages of making the change?",
+      "parentUuid": "b07e03a6_52f24d55",
       "range": {
         "startLine": 70,
         "startChar": 0,
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "e398dc62_2f7f67e0",
+        "filename": "media2/session/src/androidTest/java/androidx/media2/session/MockPlayer.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-22T04:12:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "178442db_349f20c0",
+      "range": {
+        "startLine": 269,
+        "startChar": 16,
+        "endLine": 269,
+        "endChar": 40
+      },
+      "revId": "eb51bd90ba76fb24d2682204b9847e6887e45ab9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "17d0dc3b_a5a7983b",
         "filename": "media2/session/src/androidTest/java/androidx/media2/session/MockPlayer.java",
         "patchSetId": 7
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "f6d2c4f6_69cfdb37",
+        "filename": "media2/session/src/androidTest/java/androidx/media2/session/MockPlayer.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 556,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-22T04:12:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "17d0dc3b_a5a7983b",
+      "range": {
+        "startLine": 556,
+        "startChar": 16,
+        "endLine": 556,
+        "endChar": 25
+      },
+      "revId": "eb51bd90ba76fb24d2682204b9847e6887e45ab9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "91b26024_86ed0598",
         "filename": "media2/session/src/main/java/androidx/media2/session/MediaSessionImplBase.java",
         "patchSetId": 7
@@ -137,6 +257,30 @@
       "revId": "eb51bd90ba76fb24d2682204b9847e6887e45ab9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce8845b2_4c4ca91e",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaSessionImplBase.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1499,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-22T04:12:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "91b26024_86ed0598",
+      "range": {
+        "startLine": 1499,
+        "startChar": 8,
+        "endLine": 1499,
+        "endChar": 14
+      },
+      "revId": "eb51bd90ba76fb24d2682204b9847e6887e45ab9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
