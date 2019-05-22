@@ -45,7 +45,6 @@ import androidx.camera.core.ImmediateSurface;
 import androidx.camera.core.Preview;
 import androidx.camera.core.PreviewConfig;
 import androidx.camera.core.SessionConfig;
-import androidx.camera.core.UseCaseGroup;
 import androidx.camera.testing.CameraUtil;
 import androidx.camera.testing.fakes.FakeLifecycleOwner;
 import androidx.lifecycle.MutableLiveData;
@@ -86,7 +85,6 @@ public final class UseCaseCombinationTest {
     private ImageAnalysis.Analyzer mImageAnalyzer;
     private CameraRepository mCameraRepository;
     private CameraFactory mCameraFactory;
-    private UseCaseGroup mUseCaseGroup;
 
     private Observer<Long> createCountIncrementingObserver() {
         return new Observer<Long>() {
@@ -131,14 +129,8 @@ public final class UseCaseCombinationTest {
         initPreview();
         initImageCapture();
 
-        mUseCaseGroup.addUseCase(mImageCapture);
-        mUseCaseGroup.addUseCase(mPreview);
-
         CameraX.bindToLifecycle(mLifecycle, mPreview, mImageCapture);
         mLifecycle.startAndResume();
-
-        mImageCapture.doNotifyActive();
-        mCameraRepository.onGroupActive(mUseCaseGroup);
 
         // Wait for the CameraCaptureSession.onConfigured callback.
         mImageCapture.mSessionStateCallback.waitForOnConfigured(1);
@@ -184,13 +176,6 @@ public final class UseCaseCombinationTest {
         initPreview();
         initImageAnalysis();
         initImageCapture();
-
-        mUseCaseGroup.addUseCase(mImageCapture);
-        mUseCaseGroup.addUseCase(mImageAnalysis);
-        mUseCaseGroup.addUseCase(mPreview);
-
-        mImageCapture.doNotifyActive();
-        mCameraRepository.onGroupActive(mUseCaseGroup);
 
         mMainThreadHandler.post(new Runnable() {
             @Override
@@ -241,7 +226,6 @@ public final class UseCaseCombinationTest {
         mCameraRepository = new CameraRepository();
         mCameraFactory = new Camera2CameraFactory(ApplicationProvider.getApplicationContext());
         mCameraRepository.init(mCameraFactory);
-        mUseCaseGroup = new UseCaseGroup();
 
         ImageCaptureConfig imageCaptureConfig =
                 new ImageCaptureConfig.Builder().setLensFacing(LensFacing.BACK).build();
@@ -297,10 +281,6 @@ public final class UseCaseCombinationTest {
         protected Map<String, Size> onSuggestedResolutionUpdated(
                 Map<String, Size> suggestedResolutionMap) {
             return suggestedResolutionMap;
-        }
-
-        void doNotifyActive() {
-            super.notifyActive();
         }
     }
 }
