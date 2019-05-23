@@ -299,8 +299,42 @@ package androidx.ui.core {
 
 package androidx.ui.core.input {
 
+  public class EditOperation {
+    ctor public EditOperation(androidx.ui.core.input.OpType type);
+    method public final androidx.ui.core.input.OpType getType();
+  }
+
   public final class EditableUtilKt {
     ctor public EditableUtilKt();
+  }
+
+  public enum OpType {
+    enum_constant public static final androidx.ui.core.input.OpType REPLACE;
+    enum_constant public static final androidx.ui.core.input.OpType SET_COMPOSITION;
+    enum_constant public static final androidx.ui.core.input.OpType SET_SELECTION;
+  }
+
+  public final class ReplaceEdit extends androidx.ui.core.input.EditOperation {
+    ctor public ReplaceEdit(androidx.ui.core.TextRange range, String text);
+    method public androidx.ui.core.TextRange component1();
+    method public String component2();
+    method public androidx.ui.core.input.ReplaceEdit copy(androidx.ui.core.TextRange range, String text);
+    method public androidx.ui.core.TextRange getRange();
+    method public String getText();
+  }
+
+  public final class SetCompositionEdit extends androidx.ui.core.input.EditOperation {
+    ctor public SetCompositionEdit(androidx.ui.core.TextRange? range);
+    method public androidx.ui.core.TextRange? component1();
+    method public androidx.ui.core.input.SetCompositionEdit copy(androidx.ui.core.TextRange? range);
+    method public androidx.ui.core.TextRange? getRange();
+  }
+
+  public final class SetSelectionEdit extends androidx.ui.core.input.EditOperation {
+    ctor public SetSelectionEdit(androidx.ui.core.TextRange range);
+    method public androidx.ui.core.TextRange component1();
+    method public androidx.ui.core.input.SetSelectionEdit copy(androidx.ui.core.TextRange range);
+    method public androidx.ui.core.TextRange getRange();
   }
 
 }
