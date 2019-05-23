@@ -16,6 +16,8 @@
 
 package androidx.webkit.internal;
 
+import static androidx.webkit.internal.AssetHelper.FileNotInMountedDirectoryException;
+
 import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
@@ -30,6 +32,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -114,6 +118,72 @@ public class AssetHelperTest {
                           mAssetHelper.openAsset(Uri.parse("/android_asset/test.txt")));
     }
 
+    @Test
+    @SmallTest
+    public void testOpenFileFromInternalStorage() throws Throwable {
+        Context context = InstrumentationRegistry.getContext();
+        final String testPath = "some_file.txt";
+        writeToInternalStorage(testPath, TEST_STRING);
+
+        InputStream stream = mAssetHelper.openFile(context.getFilesDir(), testPath);
+        Assert.assertNotNull("failed to open file from internal storage", stream);
+        Assert.assertEquals(readAsString(stream), TEST_STRING);
+    }
+
+    @Test
+    @SmallTest
+    public void testOpenFileInDirInInternalStorage() throws Throwable {
+        Context context = InstrumentationRegistry.getContext();
+        final String testPath = "some/path/to/some_file.txt";
+        writeToInternalStorage(testPath, TEST_STRING);
+        InputStream stream = mAssetHelper.openFile(context.getFilesDir(), testPath);
+        Assert.assertNotNull("failed to open a nested file path from internal storage", stream);
+        Assert.assertEquals(readAsString(stream), TEST_STRING);
+    }
+
+    @Test
+    @SmallTest
+    public void testOpenNonExistingFileInInternalStorage() throws Throwable {
+        Context context = InstrumentationRegistry.getContext();
+        final String testPath = "some/path/to/non_exist_file.txt";
+        InputStream stream = mAssetHelper.openFile(context.getFilesDir(), testPath);
+        Assert.assertNull("opened a non existing file from internal storage, should fail", stream);
+    }
+
+    @Test
+    @SmallTest
+    public void testOpenFileInDifferentSubdirectoryInInternalStorage_validAccess() throws Throwable {
+        Context context = InstrumentationRegistry.getContext();
+        writeToInternalStorage("/some/path/to/file_1.txt", TEST_STRING);
+        writeToInternalStorage("/some/path/file_2.txt", TEST_STRING);
+
+        InputStream stream = mAssetHelper.openFile(new File(context.getFilesDir(), "/some/path/"),
+                "/to/./file_1.txt");
+        Assert.assertNotNull(
+                "failed to opened a file_1 from the mounted subdirectory in internal storage",
+                 stream);
+        Assert.assertEquals(readAsString(stream), TEST_STRING);
+
+        stream = mAssetHelper.openFile(new File(context.getFilesDir(), "/some/path/"),
+                 "/to/../file_2.txt");
+        Assert.assertNotNull(
+                 "failed to opened a file_2 from the mounted subdirectory in internal storage",
+                 stream);
+        Assert.assertEquals(readAsString(stream), TEST_STRING);
+    }
+
+    @Test(expected = FileNotInMountedDirectoryException.class)
+    @SmallTest
+    public void testOpenFileInDifferentSubdirectoryInInternalStorage_invalidAccess()
+            throws Throwable {
+        Context context = InstrumentationRegistry.getContext();
+        writeToInternalStorage("/some/path/to/file_1.txt", TEST_STRING);
+        writeToInternalStorage("/some/path/file_2.txt", TEST_STRING);
+
+        InputStream stream = mAssetHelper.openFile(new File(context.getFilesDir(), "/some/path/to"),
+                "/../file_2.txt");
+    }
+
     private static String readAsString(InputStream is) {
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         byte[] buffer = new byte[512];
@@ -166,5 +236,19 @@ public class AssetHelperTest {
             data.write(buf, 0, len);
         }
         return data.toByteArray();
+    }
+
+    private static void writeToInternalStorage(String path, String content)
+                  throws IOException {
+        Context context = InstrumentationRegistry.getContext();
+        File file = new File(context.getFilesDir(), path);
+        File parentDir = new File(file.getParent());
+        parentDir.mkdirs();
+        FileOutputStream fos = new FileOutputStream(file);
+        try {
+            fos.write(content.getBytes("utf-8"));
+        } finally {
+            fos.close();
+        }
     }
 }

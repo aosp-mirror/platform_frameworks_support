@@ -108,7 +108,7 @@ public class WebViewAssetLoaderIntegrationTest {
         final WebViewTestActivity activity = mActivityRule.getActivity();
 
         WebViewAssetLoader assetLoader = new WebViewAssetLoader.Builder()
-                .register(new ResourcesPathHandler("/res/", activity))
+                .register("/res/", new ResourcesPathHandler(activity))
                 .build();
 
         mOnUiThread.setWebViewClient(new AssetLoadingWebViewClient(mOnUiThread, assetLoader));

@@ -82,14 +82,9 @@ public class WebViewAssetLoaderTest {
         }
     }
 
-    private static class TestPathHandler extends PathHandler {
-
-        public TestPathHandler(@NonNull String registeredPath) {
-            super(registeredPath);
-        }
-
+    private static class TestPathHandler implements PathHandler {
         @Override
-        public WebResourceResponse handle(Uri url) {
+        public WebResourceResponse handle(@NonNull String path) {
             try {
                 InputStream is = new ByteArrayInputStream(CONTENTS.getBytes(ENCODING));
                 return new WebResourceResponse(null, null, is);
@@ -102,15 +97,14 @@ public class WebViewAssetLoaderTest {
     @Test
     @SmallTest
     public void testCustomPathHandler() throws Throwable {
-        PathHandler pathHandler = new TestPathHandler("/test/");
+        PathHandler pathHandler = new TestPathHandler();
         WebViewAssetLoader assetLoader = new WebViewAssetLoader.Builder()
-                                                .register(pathHandler)
+                                                .register("/test/", pathHandler)
                                                 .build();
 
         WebResourceResponse response = assetLoader.shouldInterceptRequest(
                 Uri.parse("https://appassets.androidplatform.net/test/"));
-        Assert.assertNotNull("didn't match the registered URL", response);
-        Assert.assertEquals(CONTENTS, readAsString(response.getData(), ENCODING));
+        assertResponse(response, CONTENTS);
 
         Assert.assertNull("opened a non-registered URL - should return null",
                 assetLoader.shouldInterceptRequest(Uri.parse("https://foo.bar/")));
@@ -119,16 +113,15 @@ public class WebViewAssetLoaderTest {
     @Test
     @SmallTest
     public void testCustomDomain() throws Throwable {
-        PathHandler pathHandler = new TestPathHandler("/test/");
+        PathHandler pathHandler = new TestPathHandler();
         WebViewAssetLoader assetLoader = new WebViewAssetLoader.Builder()
                                                 .onDomain("test.myDomain.net")
-                                                .register(pathHandler)
+                                                .register("/test/", pathHandler)
                                                 .build();
 
         WebResourceResponse response = assetLoader.shouldInterceptRequest(
                 Uri.parse("https://test.myDomain.net/test/"));
-        Assert.assertNotNull("didn't match the registered URL", response);
-        Assert.assertEquals(CONTENTS, readAsString(response.getData(), ENCODING));
+        assertResponse(response, CONTENTS);
 
         Assert.assertNull("opened a non-registered URL - should return null",
                 assetLoader.shouldInterceptRequest(
@@ -138,16 +131,15 @@ public class WebViewAssetLoaderTest {
     @Test
     @SmallTest
     public void testAllowingHttp() throws Throwable {
-        PathHandler pathHandler = new TestPathHandler("/test/");
+        PathHandler pathHandler = new TestPathHandler();
         WebViewAssetLoader assetLoader = new WebViewAssetLoader.Builder()
                                                 .allowHttp(true)
-                                                .register(pathHandler)
+                                                .register("/test/", pathHandler)
                                                 .build();
 
         WebResourceResponse response = assetLoader.shouldInterceptRequest(
                 Uri.parse("https://appassets.androidplatform.net/test/"));
-        Assert.assertNotNull("didn't match the registered URL", response);
-        Assert.assertEquals(CONTENTS, readAsString(response.getData(), ENCODING));
+        assertResponse(response, CONTENTS);
 
         Assert.assertNotNull("didn't match HTTP URL despite allowing HTTP",
                 assetLoader.shouldInterceptRequest(
@@ -157,15 +149,14 @@ public class WebViewAssetLoaderTest {
     @Test
     @SmallTest
     public void testDisallowingHttp() throws Throwable {
-        PathHandler pathHandler = new TestPathHandler("/test/");
+        PathHandler pathHandler = new TestPathHandler();
         WebViewAssetLoader assetLoader = new WebViewAssetLoader.Builder()
-                                                .register(pathHandler)
+                                                .register("/test/", pathHandler)
                                                 .build();
 
         WebResourceResponse response = assetLoader.shouldInterceptRequest(
                 Uri.parse("https://appassets.androidplatform.net/test/"));
-        Assert.assertNotNull("didn't match the registered URL", response);
-        Assert.assertEquals(CONTENTS, readAsString(response.getData(), ENCODING));
+        assertResponse(response, CONTENTS);
 
         Assert.assertNull("matched HTTP URL despite disallowing HTTP",
                 assetLoader.shouldInterceptRequest(
@@ -177,30 +168,26 @@ public class WebViewAssetLoaderTest {
     public void testHostAssets() throws Throwable {
         final String testHtmlContents = "<body><div>test</div></body>";
 
-        PathHandler assetsPathHandler = new AssetsPathHandler("/assets/",
-                new MockAssetHelper() {
-                    @Override
-                    public InputStream openAsset(Uri url) {
-                        if (url.getPath().equals("www/test.html")) {
-                            try {
-                                return new ByteArrayInputStream(testHtmlContents.getBytes(ENCODING));
-                            } catch (IOException e) {
-                                throw new RuntimeException(e);
-                            }
-                        }
-                        return null;
+        PathHandler assetsPathHandler = new AssetsPathHandler( new MockAssetHelper() {
+            @Override
+            public InputStream openAsset(Uri url) {
+                if (url.getPath().equals("www/test.html")) {
+                    try {
+                        return new ByteArrayInputStream(testHtmlContents.getBytes(ENCODING));
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
                     }
-                });
+                }
+                return null;
+            }
+        });
         WebViewAssetLoader assetLoader = new WebViewAssetLoader.Builder()
-                                                      .register(assetsPathHandler)
+                                                      .register("/assets/", assetsPathHandler)
                                                       .build();
 
         WebResourceResponse response = assetLoader.shouldInterceptRequest(
                 Uri.parse("https://appassets.androidplatform.net/assets/www/test.html"));
-        Assert.assertNotNull("failed to match the URL and returned null response", response);
-        Assert.assertNotNull("matched the URL but not the file and returned a null InputStream",
-                response.getData());
-        Assert.assertEquals(testHtmlContents, readAsString(response.getData(), ENCODING));
+        assertResponse(response, testHtmlContents);
     }
 
     @Test
@@ -208,30 +195,26 @@ public class WebViewAssetLoaderTest {
     public void testHostResources() throws Throwable {
         final String testHtmlContents = "<body><div>test</div></body>";
 
-        PathHandler resourcesPathHandler = new ResourcesPathHandler("/res/",
-                new MockAssetHelper() {
-                    @Override
-                    public InputStream openResource(Uri uri) {
-                        if (uri.getPath().equals("raw/test.html")) {
-                            try {
-                                return new ByteArrayInputStream(testHtmlContents.getBytes(ENCODING));
-                            } catch (IOException e) {
-                                throw new RuntimeException(e);
-                            }
-                        }
-                        return null;
+        PathHandler resourcesPathHandler = new ResourcesPathHandler(new MockAssetHelper() {
+            @Override
+            public InputStream openResource(Uri uri) {
+                if (uri.getPath().equals("raw/test.html")) {
+                    try {
+                        return new ByteArrayInputStream(testHtmlContents.getBytes(ENCODING));
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
                     }
-                });
+                }
+                return null;
+            }
+        });
         WebViewAssetLoader assetLoader = new WebViewAssetLoader.Builder()
-                                                      .register(resourcesPathHandler)
+                                                      .register("/res/", resourcesPathHandler)
                                                       .build();
 
         WebResourceResponse response = assetLoader.shouldInterceptRequest(
                 Uri.parse("https://appassets.androidplatform.net/res/raw/test.html"));
-        Assert.assertNotNull("failed to match the URL and returned null response", response);
-        Assert.assertNotNull("matched the URL but not the file and returned a null InputStream",
-                response.getData());
-        Assert.assertEquals(testHtmlContents, readAsString(response.getData(), ENCODING));
+        assertResponse(response, testHtmlContents);
     }
 
     @Test
@@ -240,9 +223,9 @@ public class WebViewAssetLoaderTest {
         WebViewAssetLoader.Builder builder = new WebViewAssetLoader.Builder();
         for (int i = 1; i <= 5; ++i) {
             final String testContent = CONTENTS + Integer.toString(i);
-            builder.register(new PathHandler("/test_path_" + Integer.toString(i) + "/") {
+            builder.register("/test_path_" + Integer.toString(i) + "/", new PathHandler() {
                 @Override
-                public WebResourceResponse handle(Uri url) {
+                public WebResourceResponse handle(@NonNull String path) {
                     try {
                         InputStream is = new ByteArrayInputStream(testContent.getBytes(ENCODING));
                         return new WebResourceResponse(null, null, is);
@@ -258,11 +241,7 @@ public class WebViewAssetLoaderTest {
             WebResourceResponse response = assetLoader.shouldInterceptRequest(
                     Uri.parse("https://appassets.androidplatform.net/test_path_"
                             + Integer.toString(i) + "/"));
-            Assert.assertNotNull("failed to match the URL and returned null response", response);
-            Assert.assertNotNull("matched the URL but not the file and returned a null InputStream",
-                    response.getData());
-            Assert.assertEquals(CONTENTS + Integer.toString(i),
-                    readAsString(response.getData(), ENCODING));
+            assertResponse(response, CONTENTS + Integer.toString(i));
         }
     }
 
@@ -271,11 +250,12 @@ public class WebViewAssetLoaderTest {
     public void testMultiplePathHandlersOnTheSamePath() throws Throwable {
         WebViewAssetLoader.Builder builder = new WebViewAssetLoader.Builder();
         List<PathHandler> pathHandlers = new ArrayList<>();
-        pathHandlers.add(new PathHandler("/test_path/") {
+        // PathHandler for files ending with .zip
+        pathHandlers.add(new PathHandler() {
             @Override
-            public WebResourceResponse handle(Uri url) {
+            public WebResourceResponse handle(@NonNull String path) {
                 try {
-                    if (url.getPath().endsWith(".zip")) {
+                    if (path.endsWith(".zip")) {
                         InputStream is = new ByteArrayInputStream("this is zip".getBytes(ENCODING));
                         return new WebResourceResponse(null, null, is);
                     }
@@ -285,11 +265,12 @@ public class WebViewAssetLoaderTest {
                 return null;
             }
         });
-        pathHandlers.add(new PathHandler("/test_path/") {
+        // PathHandler for files ending with .txt
+        pathHandlers.add(new PathHandler() {
             @Override
-            public WebResourceResponse handle(Uri url) {
+            public WebResourceResponse handle(@NonNull String path) {
                 try {
-                    if (url.getPath().endsWith(".txt")) {
+                    if (path.endsWith(".txt")) {
                         InputStream is = new ByteArrayInputStream("this is txt".getBytes(ENCODING));
                         return new WebResourceResponse(null, null, is);
                     }
@@ -301,26 +282,20 @@ public class WebViewAssetLoaderTest {
         });
         // Should always work regardless of the order handlers are registered.
         Collections.shuffle(pathHandlers);
-        builder.register(pathHandlers.get(0));
-        builder.register(pathHandlers.get(1));
+        builder.register("/test_path/", pathHandlers.get(0));
+        builder.register("/test_path/", pathHandlers.get(1));
         WebViewAssetLoader assetLoader = builder.build();
 
         {
             WebResourceResponse response = assetLoader.shouldInterceptRequest(
                     Uri.parse("https://appassets.androidplatform.net/test_path/file.zip"));
-            Assert.assertNotNull("failed to match the URL and returned null response", response);
-            Assert.assertNotNull("matched the URL but not the file and returned a null InputStream",
-                    response.getData());
-            Assert.assertEquals("this is zip", readAsString(response.getData(), ENCODING));
+            assertResponse(response, "this is zip");
         }
 
         {
             WebResourceResponse response = assetLoader.shouldInterceptRequest(
                     Uri.parse("https://appassets.androidplatform.net/test_path/file.txt"));
-            Assert.assertNotNull("failed to match the URL and returned null response", response);
-            Assert.assertNotNull("matched the URL but not the file and returned a null InputStream",
-                    response.getData());
-            Assert.assertEquals("this is txt", readAsString(response.getData(), ENCODING));
+            assertResponse(response, "this is txt");
         }
 
         {
@@ -328,5 +303,13 @@ public class WebViewAssetLoaderTest {
                     Uri.parse("https://appassets.androidplatform.net/test_path/file.img"));
             Assert.assertNull("handled .img file, should return a null response", response);
         }
+    }
+
+    private static void assertResponse(@Nullable WebResourceResponse response,
+              @NonNull String expectedContent) throws IOException {
+        Assert.assertNotNull("failed to match the URL and returned null response", response);
+        Assert.assertNotNull("matched the URL but returned a null InputStream",
+                response.getData());
+        Assert.assertEquals(expectedContent, readAsString(response.getData(), ENCODING));
     }
 }
