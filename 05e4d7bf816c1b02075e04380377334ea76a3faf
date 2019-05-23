@@ -22,6 +22,30 @@
       "revId": "05e4d7bf816c1b02075e04380377334ea76a3faf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9615b712_172c266a",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/PublishDocsRules.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1411450
+      },
+      "writtenOn": "2019-05-23T15:33:05Z",
+      "side": 0,
+      "message": "I tried that originally but when trying to run any tasks involving the new artifact get\n\n```\nA problem occurred configuring project \u0027:enterprise-feedback-testing\u0027.\n\u003e Could not resolve all dependencies for configuration \u0027:docs-runner:detachedConfiguration1\u0027.\n   \u003e Could not find androidx.enterprise:enterprise-feedback-testing:1.0.0-alpha01.\n```\n\n(because there\u0027s a 1.0.0-alpha01 of the main artifact but not of the -testing one)\n\nMy plan was to remove this line - then pull the prebuilts back in and re-add it. That would work, right?",
+      "parentUuid": "f1951e7d_07eab873",
+      "range": {
+        "startLine": 61,
+        "startChar": 4,
+        "endLine": 61,
+        "endChar": 56
+      },
+      "revId": "05e4d7bf816c1b02075e04380377334ea76a3faf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
