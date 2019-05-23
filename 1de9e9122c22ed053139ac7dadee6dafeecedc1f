@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "0df786fa_8935985b",
+        "filename": "appcompat/benchmark/build.gradle",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-05-23T23:33:45Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "a9f7c6e6_bb28f361",
+      "revId": "1de9e9122c22ed053139ac7dadee6dafeecedc1f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "852288cf_06f2ecf8",
         "filename": "appcompat/benchmark/src/androidTest/AndroidManifest.xml",
         "patchSetId": 3
@@ -30,6 +48,30 @@
       "writtenOn": "2019-05-23T23:30:58Z",
       "side": 1,
       "message": "just \"androidx.appcompat.benchmark\"",
+      "range": {
+        "startLine": 20,
+        "startChar": 45,
+        "endLine": 20,
+        "endChar": 50
+      },
+      "revId": "1de9e9122c22ed053139ac7dadee6dafeecedc1f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eddbeb0d_ac56d4e0",
+        "filename": "appcompat/benchmark/src/androidTest/AndroidManifest.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-05-23T23:33:45Z",
+      "side": 1,
+      "message": "This will cause issues when we enable namespaced resources. Each R has to have unique package and this would collide with R in src/main. Thoughts?",
+      "parentUuid": "852288cf_06f2ecf8",
       "range": {
         "startLine": 20,
         "startChar": 45,
