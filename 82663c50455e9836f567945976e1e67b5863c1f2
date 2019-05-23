@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6140cc10_557d346f",
+        "filename": "security/identity-credential/OWNERS",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1043663
+      },
+      "writtenOn": "2019-05-23T19:00:08Z",
+      "side": 1,
+      "message": "It\u0027d be good to add one or two others.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 7
+      },
+      "revId": "82663c50455e9836f567945976e1e67b5863c1f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
