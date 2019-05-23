@@ -270,17 +270,23 @@ public class AppCompatSpinnerTest
             final int offset,
             final boolean isVerticalOffset,
             final boolean isRtl) {
-        int spinnerId = R.id.spinner_dropdown_popup_small;
-
+        final int spinnerId = R.id.spinner_dropdown_popup_small;
         final AppCompatSpinner spinner = mContainer.findViewById(spinnerId);
-        if (isVerticalOffset) {
-            spinner.setDropDownVerticalOffset(offset);
-        } else {
-            spinner.setDropDownHorizontalOffset(offset);
-        }
+
+        mInstrumentation.runOnMainSync(new Runnable() {
+            @Override
+            public void run() {
+                if (isVerticalOffset) {
+                    spinner.setDropDownVerticalOffset(offset);
+                } else {
+                    spinner.setDropDownHorizontalOffset(offset);
+                }
+            }
+        });
 
         onView(withId(spinnerId)).perform(click());
         SystemClock.sleep(250);
+        waitUntilPopupIsShown(spinner);
 
         int computedOffset;
         if (isVerticalOffset) {
@@ -363,7 +369,7 @@ public class AppCompatSpinnerTest
     }
 
     private void waitUntilPopupIsShown(final AppCompatSpinner spinner) {
-        PollingCheck.waitFor(new PollingCheck.PollingCheckCondition() {
+        PollingCheck.waitFor(5000, new PollingCheck.PollingCheckCondition() {
             @Override
             public boolean canProceed() {
                 return spinner.getInternalPopup().isShowing();
@@ -372,7 +378,7 @@ public class AppCompatSpinnerTest
     }
 
     private void waitUntilPopupIsHidden(final AppCompatSpinner spinner) {
-        PollingCheck.waitFor(new PollingCheck.PollingCheckCondition() {
+        PollingCheck.waitFor(5000, new PollingCheck.PollingCheckCondition() {
             @Override
             public boolean canProceed() {
                 return !spinner.getInternalPopup().isShowing();
