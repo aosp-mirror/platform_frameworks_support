@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa4da416_d40c2ebb",
+        "filename": "role/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-05-23T17:42:35Z",
+      "side": 1,
+      "message": "Let\u0027s move this to CORE as a submodule, e.g. androidx.core:core-role",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 35
+      },
+      "revId": "94b9417323a8e76f50ad102f3a5c99f101e1a41e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac043c75_6a73868b",
+        "filename": "role/src/main/java/androidx/role/RoleManagerCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-05-23T17:42:35Z",
+      "side": 1,
+      "message": "typo",
+      "range": {
+        "startLine": 17,
+        "startChar": 7,
+        "endLine": 17,
+        "endChar": 21
+      },
+      "revId": "94b9417323a8e76f50ad102f3a5c99f101e1a41e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79cb3c99_1b46232b",
+        "filename": "role/src/main/java/androidx/role/RoleManagerCompat.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-05-23T17:42:35Z",
+      "side": 1,
+      "message": "If these aren\u0027t copies of APIs exposed on RoleManager, please find a different name without \"Compat\" in it. Compat implies parity with platform APIs.",
+      "range": {
+        "startLine": 29,
+        "startChar": 13,
+        "endLine": 29,
+        "endChar": 30
+      },
+      "revId": "94b9417323a8e76f50ad102f3a5c99f101e1a41e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
