@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "29932297_726e9926",
+        "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1214,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-23T05:08:54Z",
+      "side": 1,
+      "message": "remove?",
+      "range": {
+        "startLine": 1214,
+        "startChar": 28,
+        "endLine": 1214,
+        "endChar": 55
+      },
+      "revId": "1b40a2d01e47ea63766134727eaaa13cf264ded1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57e48a81_fb76dc91",
+        "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1252,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-23T05:08:54Z",
+      "side": 1,
+      "message": "remove?",
+      "range": {
+        "startLine": 1252,
+        "startChar": 12,
+        "endLine": 1252,
+        "endChar": 39
+      },
+      "revId": "1b40a2d01e47ea63766134727eaaa13cf264ded1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
