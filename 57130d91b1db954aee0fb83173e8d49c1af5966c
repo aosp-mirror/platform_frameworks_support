@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7b677b51_f90bde8e",
+        "filename": "media2/session/src/main/java/androidx/media2/session/ConnectionResult.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-05-23T04:16:17Z",
+      "side": 1,
+      "message": "Wouldn\u0027t it increase parceling / unparceling cost?",
+      "range": {
+        "startLine": 87,
+        "startChar": 0,
+        "endLine": 94,
+        "endChar": 37
+      },
+      "revId": "57130d91b1db954aee0fb83173e8d49c1af5966c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80fa85f7_16231b03",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaControllerImplBase.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 1276,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-05-23T04:16:17Z",
+      "side": 1,
+      "message": "Thanks for removing TimedText parameter and I agree with on metadata track..!\nKeeping selected tracks for each track type sounds good, too.\n\nOn the other hand, it looks awkward to me to add bunch of parameters to a method. \n- One way would be having \"boolean selected\" in TrackInfo regardless of keeping the separate member variables internally.\n- Another way to reduce the parameter would be returning those for into one SparseArray.\n\nI slightly leaning toward the previous one and keeping each selected track in the local member variables (or one SparseArray member variable).",
+      "range": {
+        "startLine": 1273,
+        "startChar": 0,
+        "endLine": 1276,
+        "endChar": 49
+      },
+      "revId": "57130d91b1db954aee0fb83173e8d49c1af5966c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d6b3c6d5_de9149c8",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaControllerStub.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-05-23T04:16:17Z",
+      "side": 1,
+      "message": "Same here. Adding these will increase cost.",
+      "range": {
+        "startLine": 406,
+        "startChar": 0,
+        "endLine": 407,
+        "endChar": 92
+      },
+      "revId": "57130d91b1db954aee0fb83173e8d49c1af5966c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
