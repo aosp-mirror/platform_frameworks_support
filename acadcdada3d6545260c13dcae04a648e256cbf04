@@ -46,6 +46,30 @@
       "revId": "acadcdada3d6545260c13dcae04a648e256cbf04",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25cdfbbc_3f513083",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 554,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-05-23T22:18:57Z",
+      "side": 1,
+      "message": "I cannot find any usages anywhere. Can you point me to where it is used?",
+      "parentUuid": "96bfaa21_eb95b29e",
+      "range": {
+        "startLine": 552,
+        "startChar": 16,
+        "endLine": 554,
+        "endChar": 17
+      },
+      "revId": "acadcdada3d6545260c13dcae04a648e256cbf04",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
