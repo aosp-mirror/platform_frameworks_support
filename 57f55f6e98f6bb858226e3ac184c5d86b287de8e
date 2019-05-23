@@ -249,6 +249,30 @@
     },
     {
       "key": {
+        "uuid": "82829c66_01e227dd",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Text.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1477013
+      },
+      "writtenOn": "2019-05-23T06:07:29Z",
+      "side": 1,
+      "message": "Quote Andrey:\nyou can\u0027t just use +memo { PxPosition.Origin } because the PxPosition is immutable. When you change the value you want to change in inside some wrapper object. It is where +state is helping, as it is wrapping your value into a helper model data class, so you can replace the value with the updated one",
+      "parentUuid": "b70a24e4_1566450b",
+      "range": {
+        "startLine": 53,
+        "startChar": 6,
+        "endLine": 53,
+        "endChar": 16
+      },
+      "revId": "57f55f6e98f6bb858226e3ac184c5d86b287de8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eb3e732b_3eae4991",
         "filename": "ui/framework/src/main/java/androidx/ui/core/Text.kt",
         "patchSetId": 8
