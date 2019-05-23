@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a147d1a3_61012d74",
+        "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1214,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-05-23T06:29:07Z",
+      "side": 1,
+      "message": "Nice finding. Done",
+      "parentUuid": "29932297_726e9926",
+      "range": {
+        "startLine": 1214,
+        "startChar": 28,
+        "endLine": 1214,
+        "endChar": 55
+      },
+      "revId": "1b40a2d01e47ea63766134727eaaa13cf264ded1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "57e48a81_fb76dc91",
         "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer2.java",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "1b40a2d01e47ea63766134727eaaa13cf264ded1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "37d325ca_f0d54f5f",
+        "filename": "media2/player/src/main/java/androidx/media2/player/MediaPlayer2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1252,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-05-23T06:29:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "57e48a81_fb76dc91",
+      "range": {
+        "startLine": 1252,
+        "startChar": 12,
+        "endLine": 1252,
+        "endChar": 39
+      },
+      "revId": "1b40a2d01e47ea63766134727eaaa13cf264ded1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
