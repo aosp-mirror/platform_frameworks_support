@@ -39,15 +39,11 @@ import java.util.concurrent.Executor;
  * <pre class="prettyprint">
  * ProxyConfig proxyConfig = new ProxyConfig.Builder().addProxyRule("proxy1.com")
  *                                                    .addProxyRule("proxy2.com")
- *                                                    .addProxyRule(ProxyConfig.DIRECT)
+ *                                                    .addDirect()
  *                                                    .build();
  * </pre>
  */
 public class ProxyConfig {
-    /**
-     * Connect to URLs directly instead of using a proxy server.
-     */
-    public static final String DIRECT = "direct://";
     /**
      * HTTP scheme.
      */
@@ -65,8 +61,9 @@ public class ProxyConfig {
     @StringDef({MATCH_HTTP, MATCH_HTTPS, MATCH_ALL_SCHEMES})
     @Retention(RetentionPolicy.SOURCE)
     public @interface ProxyScheme {}
+    private static final String DIRECT = "direct://";
     private static final String BYPASS_RULE_SIMPLE_NAMES = "<local>";
-    private static final String BYPASS_RULE_SUBTRACT_IMPLICIT = "<-loopback>";
+    private static final String BYPASS_RULE_REMOVE_IMPLICIT = "<-loopback>";
 
     private List<String[]> mProxyRules;
     private List<String> mBypassRules;
@@ -80,21 +77,13 @@ public class ProxyConfig {
         mBypassRules = bypassRules;
     }
 
-    /**
-     * @hide Internal use only
-     */
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
     @NonNull
-    public List<String[]> proxyRules() {
+    public List<String[]> getProxyRules() {
         return mProxyRules;
     }
 
-    /**
-     * @hide Internal use only
-     */
-    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
     @NonNull
-    public List<String> bypassRules() {
+    public List<String> getBypassRules() {
         return mBypassRules;
     }
 
@@ -123,8 +112,8 @@ public class ProxyConfig {
          * Create a ProxyConfig Builder from an existing ProxyConfig object.
          */
         public Builder(@NonNull ProxyConfig proxyConfig) {
-            mProxyRules = proxyConfig.proxyRules();
-            mBypassRules = proxyConfig.bypassRules();
+            mProxyRules = proxyConfig.getProxyRules();
+            mBypassRules = proxyConfig.getBypassRules();
         }
 
         /**
@@ -136,7 +125,8 @@ public class ProxyConfig {
         }
 
         /**
-         * Adds a proxy to be used for all URLs.
+         * Adds a proxy to be used for all URLs. This method can be called multiple times to add
+         * multiple rules.
          * <p>Proxy is either {@link ProxyConfig#DIRECT} or a string in the format
          * {@code [scheme://]host[:port]}. Scheme is optional, if present must be {@code HTTP},
          * {@code HTTPS} or <a href="https://tools.ietf.org/html/rfc1928">SOCKS</a> and defaults to
@@ -186,16 +176,25 @@ public class ProxyConfig {
 
         /**
          * Adds a new bypass rule that describes URLs that should skip proxy override settings
-         * and make a direct connection instead. Wildcards are accepted. For instance, the rule
-         * {@code "*example.com"} would mean that requests to {@code "http://example.com"} and
-         * {@code "www.example.com"} would not be directed to any proxy, instead, would be made
-         * directly to the origin specified by the URL.
+         * and make a direct connection instead. These can be URLs or IP addresses. Wildcards are
+         * accepted. For instance, the rule {@code "*example.com"} would mean that requests to
+         * {@code "http://example.com"} and {@code "www.example.com"} would not be directed to any
+         * proxy, instead, would be made directly to the origin specified by the URL.
          *
          * @param bypassRule Rule to be added to the exclusion list
          */
         @NonNull
         public Builder addBypassRule(@NonNull String bypassRule) {
             mBypassRules.add(bypassRule);
+            return this;
+        }
+
+        /**
+         * Adds a proxy rule for a direct connection.
+         */
+        @NonNull
+        public Builder addDirect() {
+            mProxyRules.add(new String[]{DIRECT, MATCH_ALL_SCHEMES});
             return this;
         }
 
@@ -227,8 +226,8 @@ public class ProxyConfig {
          * URLs to be sent through the proxy.
          */
         @NonNull
-        public Builder subtractImplicitRules() {
-            return addBypassRule(BYPASS_RULE_SUBTRACT_IMPLICIT);
+        public Builder removeImplicitRules() {
+            return addBypassRule(BYPASS_RULE_REMOVE_IMPLICIT);
         }
 
         @NonNull
