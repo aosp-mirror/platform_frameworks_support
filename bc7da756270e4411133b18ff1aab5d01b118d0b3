@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1e36f2c9_64829d25",
+        "filename": "settings.gradle",
+        "patchSetId": 7
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-05-23T17:06:38Z",
+      "side": 1,
+      "message": "Actually, this should be a separate module for proto.\n\ntest-screenshot \u003c- all APIs for screenshots\ntest-screenshot-proto \u003c- just the generated proto message with jar",
+      "range": {
+        "startLine": 192,
+        "startChar": 17,
+        "endLine": 192,
+        "endChar": 32
+      },
+      "revId": "bc7da756270e4411133b18ff1aab5d01b118d0b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
