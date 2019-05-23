@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "6ea75fc1_f626cacd",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/RoomProcessor.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1101693
+      },
+      "writtenOn": "2019-05-23T14:09:02Z",
+      "side": 1,
+      "message": "Cool! (Also, as discussed, Room is not ready to be an isolating AP yet.)",
+      "parentUuid": "e3b49d19_02b89586",
+      "range": {
+        "startLine": 43,
+        "startChar": 42,
+        "endLine": 43,
+        "endChar": 53
+      },
+      "revId": "1075183e45660c7f2011d70687373e3d66b2bf58",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6deec267_908d50e9",
         "filename": "room/compiler/src/main/kotlin/androidx/room/processor/Context.kt",
         "patchSetId": 2

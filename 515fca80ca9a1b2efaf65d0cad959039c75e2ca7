@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f94535cb_31cc0f87",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/RoomProcessor.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1101693
+      },
+      "writtenOn": "2019-05-23T14:09:02Z",
+      "side": 1,
+      "message": "I\u0027ve checked the embedded JDK versions of Studio releases:\n\n3.5.0-beta02: 1.8.0_202-release-1483-b39-5509098\n3.5.0-beta01: 1.8.0_202-release-1483-b39-5396753\n3.5.0-alpha13: 1.8.0_202-release-1483-b39-5396753\n3.5.0-alpha12: 1.8.0_202-release-1483-b39-5396753\n3.5.0-alpha11: 1.8.0_202-release-1483-b39-5396753\n3.5.0-alpha10: 1.8.0_202-release-1483-b39-5396753\n3.5.0-alpha09: 1.8.0_152-release-1343-b16-5323222\n3.5.0-alpha08: 1.8.0_152-release-1343-b16-5323222\n3.4.1: 1.8.0_152-release-1343-b16-5323222\n3.4.0: 1.8.0_152-release-1343-b16-5323222\n\nIt shows that in this specific case, it is safe to compare with 1.8.0_202 only. I\u0027ve added a code comment to explain this.",
+      "parentUuid": "45e7bbcc_4cf35d17",
+      "range": {
+        "startLine": 93,
+        "startChar": 75,
+        "endLine": 93,
+        "endChar": 86
+      },
+      "revId": "515fca80ca9a1b2efaf65d0cad959039c75e2ca7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "43900802_cf594aa5",
         "filename": "room/compiler/src/main/kotlin/androidx/room/util/JavaVersion.kt",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2019-05-14T13:33:55Z",
       "side": 1,
       "message": "I don\u0027t think we want to fail if we are unable to parse current version of the JVM. Probably just logging is enough.",
+      "range": {
+        "startLine": 99,
+        "startChar": 25,
+        "endLine": 99,
+        "endChar": 49
+      },
+      "revId": "515fca80ca9a1b2efaf65d0cad959039c75e2ca7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f06cddeb_0ca9c1dd",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/util/JavaVersion.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1101693
+      },
+      "writtenOn": "2019-05-23T14:09:02Z",
+      "side": 1,
+      "message": "Right, we won\u0027t fail. We use tryParse() to parse the Java version from the environment (line 50 above), which won\u0027t throw any exceptions. This parse() method is used to parse String constants in our code like \"11.0.0\", which we intentionally require not to fail.",
+      "parentUuid": "43900802_cf594aa5",
       "range": {
         "startLine": 99,
         "startChar": 25,
