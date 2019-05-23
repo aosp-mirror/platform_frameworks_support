@@ -41,6 +41,9 @@ android {
     buildTypes {
         debug {
             testCoverageEnabled true
+            minifyEnabled true
+
+            proguardFiles 'proguard-rules.pro'
         }
 
         release {
