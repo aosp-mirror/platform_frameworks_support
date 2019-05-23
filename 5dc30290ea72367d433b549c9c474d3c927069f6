@@ -402,6 +402,30 @@
       "revId": "5dc30290ea72367d433b549c9c474d3c927069f6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "009db991_9a55b664",
+        "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/ComplexGestureDetetorInteractionsDemo.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1053203
+      },
+      "writtenOn": "2019-05-23T00:01:06Z",
+      "side": 1,
+      "message": "per f2f discussion:\n1) PressIndicatorGestureDetector is a bit unclear as to what it does\n2) Two recommendations for restructuring: 1. Call this PressIndicator, and move this outside of gesture detector package, to ensure all the callbacks used to create it are public APIs. 2 Make this a strict tap gesture detector (configurable via parameters) that treats any movement as cancel.",
+      "parentUuid": "e2981a82_419c1547",
+      "range": {
+        "startLine": 165,
+        "startChar": 4,
+        "endLine": 165,
+        "endChar": 33
+      },
+      "revId": "5dc30290ea72367d433b549c9c474d3c927069f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
