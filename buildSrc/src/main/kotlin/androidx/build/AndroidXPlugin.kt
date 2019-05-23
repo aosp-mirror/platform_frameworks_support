@@ -471,9 +471,24 @@ class AndroidXPlugin : Plugin<Project> {
         project: Project,
         androidXExtension: AndroidXExtension
     ) {
-        compileOptions.apply {
-            sourceCompatibility = VERSION_1_7
-            targetCompatibility = VERSION_1_7
+        project.afterEvaluate {
+            if (androidXExtension.legacyTargetJava7) {
+                if ((project.version as String).contains("alpha")) {
+                    throw IllegalStateException("You moved a library that was targeting " +
+                    "Java 7 to alpha version. Please remove `legacyJava7Targetting = true`" +
+                    "from build.gradle")
+                } else {
+                    compileOptions.apply {
+                        sourceCompatibility = VERSION_1_7
+                        targetCompatibility = VERSION_1_7
+                    }
+                }
+            } else {
+                compileOptions.apply {
+                    sourceCompatibility = VERSION_1_8
+                    targetCompatibility = VERSION_1_8
+                }
+            }
         }
 
         project.configurations.all { config ->
@@ -495,16 +510,6 @@ class AndroidXPlugin : Plugin<Project> {
         }
 
         project.afterEvaluate {
-            // Java 8 is only fully supported on API 24+ and not all Java 8 features are
-            // binary compatible with API < 24
-            val compilesAgainstJava8 = compileOptions.sourceCompatibility > VERSION_1_7 ||
-                    compileOptions.targetCompatibility > VERSION_1_7
-            val minSdkLessThan24 = defaultConfig.minSdkVersion.apiLevel < 24
-            if (compilesAgainstJava8 && minSdkLessThan24) {
-                throw IllegalArgumentException(
-                        "Libraries can only support Java 8 if minSdkVersion is 24 or higher")
-            }
-
             libraryVariants.all { libraryVariant ->
                 if (libraryVariant.buildType.name == "debug") {
                     libraryVariant.javaCompileProvider.configure { javaCompile ->

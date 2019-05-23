@@ -60,4 +60,5 @@ androidx {
     mavenGroup = LibraryGroups.FRAGMENT
     inceptionYear = "2018"
     description = "Extensions for testing 'fragment' artifact"
+    legacyTargetJava7 = true
 }

@@ -37,6 +37,7 @@ open class AndroidXExtension(val project: Project) {
     var publish = false
     var failOnUncheckedWarnings = true
     var failOnDeprecationWarnings = true
+    var legacyTargetJava7 = false
 
     var compilationTarget: CompilationTarget = CompilationTarget.DEVICE
 

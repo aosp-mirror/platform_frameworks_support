@@ -52,4 +52,5 @@ androidx {
     description = "Provides a stable but relatively compact binary serialization format that can be passed across processes or persisted safely."
     failOnUncheckedWarnings = false
     failOnDeprecationWarnings = false
+    legacyTargetJava7 = true
 }

@@ -42,4 +42,5 @@ androidx {
     mavenGroup = LibraryGroups.ACTIVITY
     inceptionYear = "2018"
     description = "Provides the base Activity subclass and the relevant hooks to build a composable structure on top."
+    legacyTargetJava7 = true
 }

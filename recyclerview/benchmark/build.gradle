@@ -34,12 +34,3 @@ dependencies {
     androidTestImplementation(ANDROIDX_TEST_RULES)
     androidTestImplementation(KOTLIN_STDLIB)
 }
-
-androidx {
-    name = "RecyclerView Benchmarks"
-    publish = false
-    mavenVersion = LibraryVersions.RECYCLERVIEW
-    mavenGroup = LibraryGroups.RECYCLERVIEW
-    inceptionYear = "2018"
-    description = "RecyclerView Benchmarks"
-}

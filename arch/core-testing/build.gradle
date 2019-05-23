@@ -47,4 +47,5 @@ androidx {
     inceptionYear = "2017"
     description = "Android Core-Testing"
     url = AndroidXExtension.ARCHITECTURE_URL
+    legacyTargetJava7 = true
 }
