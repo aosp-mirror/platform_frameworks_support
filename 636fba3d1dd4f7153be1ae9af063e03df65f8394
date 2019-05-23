@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a3bd7281_4a53b8fb",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/RoomProcessor.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1106303
+      },
+      "writtenOn": "2019-05-23T16:39:22Z",
+      "side": 1,
+      "message": "nit: Remove else to reduce indentation.",
+      "range": {
+        "startLine": 99,
+        "startChar": 10,
+        "endLine": 99,
+        "endChar": 14
+      },
+      "revId": "636fba3d1dd4f7153be1ae9af063e03df65f8394",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e79ab3a3_005d0edd",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/RoomProcessor.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1106303
+      },
+      "writtenOn": "2019-05-23T16:39:22Z",
+      "side": 1,
+      "message": "nit: Pull out return from if.",
+      "range": {
+        "startLine": 111,
+        "startChar": 16,
+        "endLine": 111,
+        "endChar": 22
+      },
+      "revId": "636fba3d1dd4f7153be1ae9af063e03df65f8394",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
