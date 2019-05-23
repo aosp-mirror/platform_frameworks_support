@@ -22,6 +22,30 @@
       "revId": "2e65f465b63a3a37348ab08e50936b9a519403a1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d024026_824d7888",
+        "filename": "appcompat/src/androidTest/java/androidx/appcompat/widget/AppCompatSpinnerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2019-05-23T15:29:55Z",
+      "side": 1,
+      "message": "Surprisingly yes, otherwise I would sometimes get the tests to pass and other times they would fail due to very small differences when comparing the offset (e.g. expected: 500, actual: 498).\n\nI could try sleeping for less than 250, or maybe change the tests to account for a small delta that is acceptable. Thoughts?",
+      "parentUuid": "ae8d72b0_a3a3dc89",
+      "range": {
+        "startLine": 288,
+        "startChar": 8,
+        "endLine": 288,
+        "endChar": 31
+      },
+      "revId": "2e65f465b63a3a37348ab08e50936b9a519403a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
