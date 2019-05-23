@@ -25,6 +25,8 @@ import android.webkit.WebResourceResponse;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.annotation.RestrictTo;
+import androidx.annotation.RestrictTo.Scope;
 import androidx.annotation.VisibleForTesting;
 import androidx.webkit.internal.AssetHelper;
 
@@ -94,6 +96,7 @@ public class WebViewAssetLoader {
 
     @NonNull private final PathHandler mAssetsHandler;
     @NonNull private final PathHandler mResourcesHandler;
+    @NonNull private final PathHandler mInternalStorageHandler;
 
     /**
      * A handler that produces responses for the registered paths.
@@ -219,6 +222,29 @@ public class WebViewAssetLoader {
         }
     }
 
+    static class InternalStoragePathHandler extends PathHandler {
+        @NonNull private final AssetHelper mAssetHelper;
+        @NonNull private final String mSubdirectory;
+
+        InternalStoragePathHandler(@NonNull final String authority, @NonNull final String path,
+                                boolean httpEnabled, @NonNull final String subdirectory,
+                                @NonNull AssetHelper assetHelper) {
+            super(authority, path, httpEnabled);
+            mAssetHelper = assetHelper;
+            mSubdirectory = subdirectory;
+        }
+
+        @Override
+        public InputStream handle(Uri url) {
+            String path = url.getPath().replaceFirst(this.mPath, mSubdirectory);
+            Uri.Builder uriBuilder = new Uri.Builder();
+            uriBuilder.path(path);
+            Uri uri = uriBuilder.build();
+
+            return mAssetHelper.openFile(mSubdirectory, uri);
+        }
+    }
+
 
     /**
      * A builder class for constructing {@link WebViewAssetLoader} objects.
@@ -229,6 +255,8 @@ public class WebViewAssetLoader {
         boolean mAllowHttp;
         @NonNull Uri mAssetsUri;
         @NonNull Uri mResourcesUri;
+        @Nullable Uri mInternalStorageUri;
+        @Nullable String mInternalStorageSubdirectory;
 
         /**
          * @param context {@link Context} used to resolve resources/assets.
@@ -289,6 +317,40 @@ public class WebViewAssetLoader {
         }
 
         /**
+         * Set the prefix path under which app's internal storage should be hosted.
+         * App internal storage is not hosted by default. A path must be set to enable hosting files
+         * from app internal storage. It's highly recommended to only expose the subdirectory that
+         * contains the files that are needed to be accessed in WebView.
+         *
+         * The path must start and end with {@code "/"}. A custom prefix
+         * path can be used in conjunction with a custom domain, to avoid conflicts with real paths
+         * which may be hosted at that domain.
+         *
+         * @param subdirectory internal storage subdirectory to be exposed under this path.
+         * @param path the path under which app internal storage should be hosted.
+         * @return {@link Builder} object.
+         * @throws IllegalArgumentException if the path is invalid.
+         *
+         * @hide
+         */
+        @RestrictTo(Scope.LIBRARY_GROUP)
+        @NonNull
+        public Builder setInternalStorageHostingPath(@NonNull String subdirectory,
+                     @NonNull String path) {
+            if (subdirectory.isEmpty() || subdirectory.charAt(0) != '/') {
+                throw new IllegalArgumentException("subdirectory should start with a slash '/'.");
+            }
+            if (!subdirectory.endsWith("/")) {
+                throw new IllegalArgumentException("subdirectory should end with a slash '/'.");
+            }
+            mInternalStorageSubdirectory = subdirectory;
+            // Using assets authority because assets, resources and internal storage share the
+            // same domain.
+            mInternalStorageUri = createUriPrefix(mAssetsUri.getAuthority(), path);
+            return this;
+        }
+
+        /**
          * Allow using the HTTP scheme in addition to HTTPS.
          * The default is to not allow HTTP.
          *
@@ -310,15 +372,27 @@ public class WebViewAssetLoader {
         public WebViewAssetLoader build() {
             String assetsPath = mAssetsUri.getPath();
             String resourcesPath = mResourcesUri.getPath();
-            if (assetsPath.startsWith(resourcesPath)) {
+            String internalStoragePath = mInternalStorageUri == null ? null
+                                                 : mInternalStorageUri.getPath();
+            if (assetsPath.startsWith(resourcesPath)
+                        || assetsPath.startsWith(internalStoragePath)) {
                 throw new
-                    IllegalArgumentException("Resources path cannot be prefix of assets path");
+                    IllegalArgumentException("Assets path should be unique and can't start with a "
+                                             + "prefix of resources path or internal storage path");
             }
-            if (resourcesPath.startsWith(assetsPath)) {
+            if (resourcesPath.startsWith(assetsPath)
+                        || resourcesPath.startsWith(internalStoragePath)) {
                 throw new
-                    IllegalArgumentException("Assets path cannot be prefix of resources path");
+                    IllegalArgumentException("Resources path should be unique and can't start with"
+                                             + "a prefix of assets path or internal storage path");
             }
-
+            if (internalStoragePath != null && (internalStoragePath.startsWith(assetsPath)
+                        || internalStoragePath.startsWith(resourcesPath))) {
+                throw new
+                    IllegalArgumentException("Internal storage path should be unique and can't "
+                                             + "start with a prefix of assets path or resources "
+                                             + "path");
+            }
             AssetHelper assetHelper = new AssetHelper(mContext);
             PathHandler assetHandler = new AssetsPathHandler(mAssetsUri.getAuthority(),
                                                 mAssetsUri.getPath(), mAllowHttp, assetHelper);
@@ -327,7 +401,15 @@ public class WebViewAssetLoader {
                                                     mResourcesUri.getPath(), mAllowHttp,
                                                     assetHelper);
 
-            return new WebViewAssetLoader(assetHandler, resourceHandler);
+            PathHandler internalStorageHandler = null;
+            if (mInternalStorageUri != null) {
+                internalStorageHandler = new InternalStoragePathHandler(
+                        mInternalStorageUri.getAuthority(),
+                        mInternalStorageUri.getPath(),
+                        mAllowHttp, mInternalStorageSubdirectory, assetHelper);
+            }
+
+            return new WebViewAssetLoader(assetHandler, resourceHandler, internalStorageHandler);
         }
 
         @VisibleForTesting
@@ -340,14 +422,31 @@ public class WebViewAssetLoader {
                                                     mResourcesUri.getPath(), mAllowHttp,
                                                     assetHelper);
 
-            return new WebViewAssetLoader(assetHandler, resourceHandler);
+            PathHandler internalStorageHandler = null;
+            if (mInternalStorageUri != null) {
+                internalStorageHandler = new InternalStoragePathHandler(
+                        mInternalStorageUri.getAuthority(),
+                        mInternalStorageUri.getPath(), mAllowHttp,
+                        mInternalStorageSubdirectory, assetHelper);
+            }
+
+            return new WebViewAssetLoader(assetHandler, resourceHandler, internalStorageHandler);
         }
 
         @VisibleForTesting
         @NonNull
         /*package*/ WebViewAssetLoader buildForTest(@NonNull PathHandler assetHandler,
                                                         @NonNull PathHandler resourceHandler) {
-            return new WebViewAssetLoader(assetHandler, resourceHandler);
+            return new WebViewAssetLoader(assetHandler, resourceHandler, null);
+        }
+
+        @VisibleForTesting
+        @NonNull
+        /*package*/ WebViewAssetLoader buildForTest(@NonNull PathHandler assetHandler,
+                                                        @NonNull PathHandler resourceHandler,
+                                                        @Nullable PathHandler
+                                                            internalStorageHandler) {
+            return new WebViewAssetLoader(assetHandler, resourceHandler, internalStorageHandler);
         }
 
         @NonNull
@@ -374,9 +473,11 @@ public class WebViewAssetLoader {
     }
 
     /*package*/ WebViewAssetLoader(@NonNull PathHandler assetHandler,
-                                        @NonNull PathHandler resourceHandler) {
+                                        @NonNull PathHandler resourceHandler,
+                                        @Nullable PathHandler internalStorageHandler) {
         this.mAssetsHandler = assetHandler;
         this.mResourcesHandler = resourceHandler;
+        this.mInternalStorageHandler = internalStorageHandler;
     }
 
     @Nullable
@@ -458,6 +559,8 @@ public class WebViewAssetLoader {
             handler = mAssetsHandler;
         } else if (mResourcesHandler.match(url)) {
             handler = mResourcesHandler;
+        } else if (mInternalStorageHandler != null && mInternalStorageHandler.match(url)) {
+            handler = mInternalStorageHandler;
         } else {
             return null;
         }
@@ -547,6 +650,58 @@ public class WebViewAssetLoader {
         Uri.Builder uriBuilder = new Uri.Builder();
         uriBuilder.authority(mResourcesHandler.mAuthority);
         uriBuilder.path(mResourcesHandler.mPath);
+        uriBuilder.scheme(HTTPS_SCHEME);
+
+        return uriBuilder.build();
+    }
+
+    /**
+     * Get the HTTP URL prefix under which app internal storage are hosted.
+     * <p>
+     * If HTTP is allowed, the prefix will be on the format:
+     * {@code "http://<domain>/<prefix-path>/"}, for example
+     * {@code "http://appassets.androidplatform.net/<prefix-path>/"}.
+     *
+     * @return the HTTP URL prefix under which app internal storage is hosted, or {@code null} if
+     *         HTTP is not enabled or no path has been set to host app internal storage.
+     * @hide
+     */
+    @RestrictTo(Scope.LIBRARY_GROUP)
+    @Nullable
+    public Uri getInternalStorageHttpPrefix() {
+        if (mInternalStorageHandler == null || !mInternalStorageHandler.mHttpEnabled) {
+            return null;
+        }
+
+        Uri.Builder uriBuilder = new Uri.Builder();
+        uriBuilder.authority(mInternalStorageHandler.mAuthority);
+        uriBuilder.path(mInternalStorageHandler.mPath);
+        uriBuilder.scheme(HTTP_SCHEME);
+
+        return uriBuilder.build();
+    }
+
+    /**
+     * Get the HTTPS URL prefix under which app internal storage are hosted.
+     * <p>
+     * The prefix will be on the format: {@code "https://<domain>/<prefix-path>/"}, if the default
+     * values are used then it will be:
+     * {@code "https://appassets.androidplatform.net/<prefix-path>/"}.
+     *
+     * @return the HTTPs URL prefix under which app internal storage are hosted, or {@code null} if
+     *         no path has been set to host app internal storage.
+     * @hide
+     */
+    @RestrictTo(Scope.LIBRARY_GROUP)
+    @Nullable
+    public Uri getInternalStorageHttpsPrefix() {
+        if (mInternalStorageHandler == null) {
+            return null;
+        }
+
+        Uri.Builder uriBuilder = new Uri.Builder();
+        uriBuilder.authority(mInternalStorageHandler.mAuthority);
+        uriBuilder.path(mInternalStorageHandler.mPath);
         uriBuilder.scheme(HTTPS_SCHEME);
 
         return uriBuilder.build();

@@ -26,6 +26,8 @@ import android.util.TypedValue;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -123,5 +125,51 @@ public class AssetHelper {
             Log.e(TAG, "Unable to open asset URL: " + uri);
             return null;
         }
+    }
+
+    /**
+     * Open an InputStream for a file in application internal storage.
+     *
+     * @param subdirectory the mounted subdirectory in internal storage.
+     * @param uri The uri to load.
+     * @return An InputStream to the requested file or null if an error happens.
+     */
+    @Nullable
+    public InputStream openFile(@NonNull String subdirectory, @NonNull Uri uri) {
+        String path = uri.getPath();
+        try {
+            File subdirectoryFile = new File(mContext.getFilesDir(), subdirectory);
+            if (!subdirectoryFile.isDirectory() || !subdirectoryFile.exists()) {
+                Log.w(TAG, "the mounted internal storage subdirectory doesn't exist");
+                return null;
+            }
+
+            File file = new File(mContext.getFilesDir(), uri.getPath());
+            if (file.isDirectory() || !file.exists()) {
+                return null;
+            }
+
+            if (!isCanonicalParentOf(subdirectoryFile, file)) {
+                Log.w(TAG, "the requested file doesn't exist under the mounted internal storage "
+                           + "subdirectory");
+                return null;
+            }
+            FileInputStream fis = new FileInputStream(file);
+            return handleSvgzStream(uri, fis);
+        } catch (IOException e) {
+            Log.w(TAG, "error while opening the requested file " + uri
+                     + " or the mounted subdirectory " + subdirectory);
+            return null;
+        }
+    }
+
+    private static boolean isCanonicalParentOf(File parent, File child) throws IOException {
+        String parentCanonicalPath = parent.getCanonicalPath();
+        String childCanonicalPath = child.getCanonicalPath();
+
+        if (parent.isDirectory() && !parentCanonicalPath.endsWith("/")) parentCanonicalPath += "/";
+        if (child.isDirectory() && !childCanonicalPath.endsWith("/")) childCanonicalPath += "/";
+
+        return childCanonicalPath.startsWith(parentCanonicalPath);
     }
 }
