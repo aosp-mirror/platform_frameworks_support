@@ -22,6 +22,30 @@
       "revId": "0144010181738c07fdaf7e6ab223bab0e1dcdd0f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70169209_bf7aa024",
+        "filename": "concurrent/listenablefuture/api/current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-05-23T15:08:23Z",
+      "side": 1,
+      "message": "Maybe? It\u0027s unclear to me what the intent of the Guava authors was for the Executor. Our own API guidelines allow a single-arg method with no Executor to default to the main thread.",
+      "parentUuid": "22240364_745cb790",
+      "range": {
+        "startLine": 5,
+        "startChar": 35,
+        "endLine": 5,
+        "endChar": 43
+      },
+      "revId": "0144010181738c07fdaf7e6ab223bab0e1dcdd0f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
