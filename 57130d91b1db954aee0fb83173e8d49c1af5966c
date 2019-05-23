@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6c7d3f6c_47a49a06",
+        "filename": "media2/session/src/main/java/androidx/media2/session/ConnectionResult.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-23T08:19:57Z",
+      "side": 1,
+      "message": "Discussed this offline. This is an optimization issue and will be dealt with along with an existing bug. Copied the comment in in b/131873726 for reference.",
+      "parentUuid": "7b677b51_f90bde8e",
+      "range": {
+        "startLine": 87,
+        "startChar": 0,
+        "endLine": 94,
+        "endChar": 37
+      },
+      "revId": "57130d91b1db954aee0fb83173e8d49c1af5966c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "80fa85f7_16231b03",
         "filename": "media2/session/src/main/java/androidx/media2/session/MediaControllerImplBase.java",
         "patchSetId": 12
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "ed2091b5_a857b0cb",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaControllerImplBase.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 1276,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-23T08:19:57Z",
+      "side": 1,
+      "message": "Discussed this offline. This is an optimization issue and will be dealt with along with an existing bug. Copied the comment in in b/131873726 for reference.",
+      "parentUuid": "80fa85f7_16231b03",
+      "range": {
+        "startLine": 1273,
+        "startChar": 0,
+        "endLine": 1276,
+        "endChar": 49
+      },
+      "revId": "57130d91b1db954aee0fb83173e8d49c1af5966c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d6b3c6d5_de9149c8",
         "filename": "media2/session/src/main/java/androidx/media2/session/MediaControllerStub.java",
         "patchSetId": 12
@@ -68,6 +116,30 @@
       "revId": "57130d91b1db954aee0fb83173e8d49c1af5966c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f942742_e866a53b",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaControllerStub.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-23T08:19:57Z",
+      "side": 1,
+      "message": "Discussed this offline. This is an optimization issue and will be dealt with along with an existing bug. Copied the comment in in b/131873726 for reference.",
+      "parentUuid": "d6b3c6d5_de9149c8",
+      "range": {
+        "startLine": 406,
+        "startChar": 0,
+        "endLine": 407,
+        "endChar": 92
+      },
+      "revId": "57130d91b1db954aee0fb83173e8d49c1af5966c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
