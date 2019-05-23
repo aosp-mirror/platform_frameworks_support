@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f1951e7d_07eab873",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/PublishDocsRules.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-05-23T15:21:44Z",
+      "side": 0,
+      "message": "Removing this line will complete remove androidx.enterprise from the reference docs, is that intended?\n\nIf you want to not just publish enterprise-feedback-testing docs,  you add a line before it:\nignore(LibraryGroups.ENTERPRISE.group, \"enterprise-feedback-testing\")",
+      "range": {
+        "startLine": 61,
+        "startChar": 4,
+        "endLine": 61,
+        "endChar": 56
+      },
+      "revId": "05e4d7bf816c1b02075e04380377334ea76a3faf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
