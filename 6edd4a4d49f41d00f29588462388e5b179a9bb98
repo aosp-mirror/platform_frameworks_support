@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3491a681_232a1af3",
+        "filename": "media2/common/api/restricted_current.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-23T04:00:23Z",
+      "side": 1,
+      "message": "Could you let me know why these files are added to the libraries (media2-common, media2-player, and media2-session) that temporarily disable tracking restricted apis?",
+      "revId": "6edd4a4d49f41d00f29588462388e5b179a9bb98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
