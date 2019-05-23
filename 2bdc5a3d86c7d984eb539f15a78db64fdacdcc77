@@ -16,6 +16,24 @@
       "revId": "2bdc5a3d86c7d984eb539f15a78db64fdacdcc77",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a52fb347_07f81e43",
+        "filename": "webkit/integration-tests/testapp/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1470382
+      },
+      "writtenOn": "2019-05-23T19:44:35Z",
+      "side": 1,
+      "message": "I just ran both variants and don\u0027t see a difference in the build scan so this seems fine!",
+      "parentUuid": "12ea03d4_f98307df",
+      "revId": "2bdc5a3d86c7d984eb539f15a78db64fdacdcc77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
