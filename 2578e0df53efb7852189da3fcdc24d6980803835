@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "adfbf031_cace55c2",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/SupportedSurfaceCombination.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 1482091
+      },
+      "writtenOn": "2019-05-23T10:04:29Z",
+      "side": 1,
+      "message": "This space line can be removed.",
+      "revId": "2578e0df53efb7852189da3fcdc24d6980803835",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50e29638_117be727",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/SupportedSurfaceCombination.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 1482091
+      },
+      "writtenOn": "2019-05-23T10:04:29Z",
+      "side": 1,
+      "message": "Will it be better to add the mod16 info in the function name like checkAspectRatioMatchForMod16? It will be more clear to know the different since there is an exactly match check in front of it. Or maybe the exactly match check should be moved into checkAspectRatioMatch function. And, it seems the \u0027s\u0027 should be removed.",
+      "revId": "2578e0df53efb7852189da3fcdc24d6980803835",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8710945_b348dcbd",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/SupportedSurfaceCombination.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 1482091
+      },
+      "writtenOn": "2019-05-23T10:04:29Z",
+      "side": 1,
+      "message": "As I know, the size for 16 alignment is to be a multiple of 16 for both width and height, but not numbers in the interval? Usually it will be the ceiling one to make sure the space is enough to store the frame data. Is there some reference for the check logic used here?",
+      "revId": "2578e0df53efb7852189da3fcdc24d6980803835",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
