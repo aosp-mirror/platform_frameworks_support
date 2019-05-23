@@ -22,6 +22,30 @@
       "revId": "82663c50455e9836f567945976e1e67b5863c1f2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7263ac6e_f0df7111",
+        "filename": "security/identity-credential/OWNERS",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1364182
+      },
+      "writtenOn": "2019-05-23T19:09:47Z",
+      "side": 1,
+      "message": "Actually, do we want an OWNERS file?  I don\u0027t have an opinion on the matter so I default to the library owner",
+      "parentUuid": "6140cc10_557d346f",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 7
+      },
+      "revId": "82663c50455e9836f567945976e1e67b5863c1f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
