@@ -46,6 +46,30 @@
       "revId": "0144010181738c07fdaf7e6ab223bab0e1dcdd0f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6830cca4_6d8828ad",
+        "filename": "concurrent/listenablefuture/api/current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-05-23T20:05:40Z",
+      "side": 1,
+      "message": "I think there\u0027s a really good case to turn these into @NonNull.  Looking at existing usages in this CL, it looks like AbstractResolvableFuture does checkNonNull on both these fields.  Other implementations like SafeFuture and ImmediateFuture both explicitly annotate these fields with @NonNull.  I didn\u0027t see anyone using these as truly nullable.  One test just assumes they\u0027re not-null without checking or annotating.",
+      "parentUuid": "70169209_bf7aa024",
+      "range": {
+        "startLine": 5,
+        "startChar": 35,
+        "endLine": 5,
+        "endChar": 43
+      },
+      "revId": "0144010181738c07fdaf7e6ab223bab0e1dcdd0f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
