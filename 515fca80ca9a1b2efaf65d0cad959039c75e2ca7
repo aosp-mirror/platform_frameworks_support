@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "f5c934ea_186e6f86",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/RoomProcessor.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1101693
+      },
+      "writtenOn": "2019-05-23T16:00:16Z",
+      "side": 1,
+      "message": "Actually, as discussed offline, Android Studio 3.5.0-alpha10 up to 3.5.0-beta01 do not have the cherry-picked fix (the \"b39\" part was misleading).\n\nWe will now consider the minimum acceptable embedded JDK version to be 1.8.0_202-release-1483-b39-5509098 (shipped with Android Studio 3.5.0-beta02), which I\u0027ve verified locally is the first version to have fixed the JDK bug.\n\nI\u0027ve updated the code to filter out \"1.8.0_202-release-1483-b39-5396753\" (instead of parsing 1.8.0_202 versions, which will make the code more convoluted).",
+      "parentUuid": "f94535cb_31cc0f87",
+      "range": {
+        "startLine": 93,
+        "startChar": 75,
+        "endLine": 93,
+        "endChar": 86
+      },
+      "revId": "515fca80ca9a1b2efaf65d0cad959039c75e2ca7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "43900802_cf594aa5",
         "filename": "room/compiler/src/main/kotlin/androidx/room/util/JavaVersion.kt",
         "patchSetId": 3
