@@ -426,6 +426,30 @@
       "revId": "5dc30290ea72367d433b549c9c474d3c927069f6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0e91a51_7d2375b7",
+        "filename": "ui/framework/integration-tests/framework-demos/src/main/java/androidx/ui/framework/demos/ComplexGestureDetetorInteractionsDemo.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-05-23T16:17:14Z",
+      "side": 1,
+      "message": "Tracked in: b/133418753",
+      "parentUuid": "009db991_9a55b664",
+      "range": {
+        "startLine": 165,
+        "startChar": 4,
+        "endLine": 165,
+        "endChar": 33
+      },
+      "revId": "5dc30290ea72367d433b549c9c474d3c927069f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
