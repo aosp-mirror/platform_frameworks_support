@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f1538f67_2d0c6c9f",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/adapter/FragmentStateAdapter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-05-23T16:54:56Z",
+      "side": 1,
+      "message": "Contractually obligated to be a new object every time, or could it be coming from a cache?",
+      "range": {
+        "startLine": 119,
+        "startChar": 17,
+        "endLine": 119,
+        "endChar": 22
+      },
+      "revId": "5ee05e00a7e36fce5541f990c0750464c456ef25",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
