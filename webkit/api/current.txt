@@ -125,6 +125,8 @@ package androidx.webkit {
   public class WebViewAssetLoader {
     method public android.net.Uri? getAssetsHttpPrefix();
     method public android.net.Uri getAssetsHttpsPrefix();
+    method public android.net.Uri? getInternalStorageHttpPrefix();
+    method public android.net.Uri? getInternalStorageHttpsPrefix();
     method public android.net.Uri? getResourcesHttpPrefix();
     method public android.net.Uri getResourcesHttpsPrefix();
     method @RequiresApi(21) public android.webkit.WebResourceResponse? shouldInterceptRequest(android.webkit.WebResourceRequest);
@@ -138,6 +140,7 @@ package androidx.webkit {
     method public androidx.webkit.WebViewAssetLoader build();
     method public androidx.webkit.WebViewAssetLoader.Builder setAssetsHostingPath(String);
     method public androidx.webkit.WebViewAssetLoader.Builder setDomain(String);
+    method public androidx.webkit.WebViewAssetLoader.Builder setInternalStorageHostingPath(String);
     method public androidx.webkit.WebViewAssetLoader.Builder setResourcesHostingPath(String);
   }
 
