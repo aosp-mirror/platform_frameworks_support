@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "182269c5_cc346fe1",
+        "filename": "camera/integration-tests/timingtestapp/build.gradle",
+        "patchSetId": 4
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-05-23T17:56:52Z",
+      "side": 1,
+      "message": "This can be androidTestImplementation().",
+      "range": {
+        "startLine": 82,
+        "startChar": 4,
+        "endLine": 82,
+        "endChar": 25
+      },
+      "revId": "29bba25b1ebb031d84f77046a147eb77a99f7ead",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
