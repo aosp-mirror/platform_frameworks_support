@@ -46,6 +46,30 @@
       "revId": "5ee05e00a7e36fce5541f990c0750464c456ef25",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4191d56a_69bfef57",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/adapter/FragmentStateAdapter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-05-23T17:31:25Z",
+      "side": 1,
+      "message": "Maybe to add to it:\n- We\u0027re keeping the Fragment objects alive while they are within the offscreenPageLimit which is configurable. When set to a sufficiently large value, we won\u0027t cause any Fragment objects memory churn.\n- We might need to be able to have two Fragments responsible for the same item alive to animate a transition in onItemChanged (b/133409010). Most likely not, but better not to block it just yet.\n\nA new Fragment object in this method makes for an easier to implement / maintain contract.",
+      "parentUuid": "7b2ba60d_7bda29cc",
+      "range": {
+        "startLine": 119,
+        "startChar": 17,
+        "endLine": 119,
+        "endChar": 22
+      },
+      "revId": "5ee05e00a7e36fce5541f990c0750464c456ef25",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
