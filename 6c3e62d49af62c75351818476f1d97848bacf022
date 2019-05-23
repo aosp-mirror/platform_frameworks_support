@@ -22,6 +22,30 @@
       "revId": "6c3e62d49af62c75351818476f1d97848bacf022",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30ac2077_74acb91f",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/WidgetPlayer.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-23T03:12:38Z",
+      "side": 1,
+      "message": "PlayerWrapper sounds clearer. Changed.",
+      "parentUuid": "c6088251_48af92a7",
+      "range": {
+        "startLine": 40,
+        "startChar": 6,
+        "endLine": 40,
+        "endChar": 18
+      },
+      "revId": "6c3e62d49af62c75351818476f1d97848bacf022",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
