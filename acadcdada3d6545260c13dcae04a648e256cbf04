@@ -70,6 +70,30 @@
       "revId": "acadcdada3d6545260c13dcae04a648e256cbf04",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6473839a_db244585",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 554,
+      "author": {
+        "id": 1501025
+      },
+      "writtenOn": "2019-05-23T22:33:32Z",
+      "side": 1,
+      "message": "There\u0027s no usage of this right now, I\u0027m saying if someone were to set it in their gradle file, it would not get built.",
+      "parentUuid": "25cdfbbc_3f513083",
+      "range": {
+        "startLine": 552,
+        "startChar": 16,
+        "endLine": 554,
+        "endChar": 17
+      },
+      "revId": "acadcdada3d6545260c13dcae04a648e256cbf04",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
