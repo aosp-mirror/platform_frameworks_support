@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "cd9441e5_6270099c",
+        "filename": "media2/session/src/main/java/androidx/media2/session/ConnectionResult.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-23T09:38:22Z",
+      "side": 1,
+      "message": "Done. Changes should be applied to other files as well but I think one TODO comment is enough.",
+      "parentUuid": "1047bee7_9bec5de3",
+      "range": {
+        "startLine": 87,
+        "startChar": 0,
+        "endLine": 94,
+        "endChar": 37
+      },
+      "revId": "57130d91b1db954aee0fb83173e8d49c1af5966c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "778680e5_6cb3e7a1",
         "filename": "media2/session/src/main/java/androidx/media2/session/MediaControllerImplBase.java",
         "patchSetId": 12
@@ -93,6 +117,30 @@
       "revId": "57130d91b1db954aee0fb83173e8d49c1af5966c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c90445e7_96d8500c",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaControllerImplBase.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-23T09:38:22Z",
+      "side": 1,
+      "message": "It seems SparseArray\u003cE\u003e is not supported in VersionedParcelable?\n\nAlso see,\nhttps://docs.google.com/document/d/1_CrYKvJkeDjz2HFO2xma1ck1QVX-6gxhWxVWQBqwkCk/edit#",
+      "parentUuid": "778680e5_6cb3e7a1",
+      "range": {
+        "startLine": 163,
+        "startChar": 0,
+        "endLine": 170,
+        "endChar": 45
+      },
+      "revId": "57130d91b1db954aee0fb83173e8d49c1af5966c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
