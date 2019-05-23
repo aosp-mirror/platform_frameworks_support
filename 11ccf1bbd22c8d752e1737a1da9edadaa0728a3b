@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "df19c811_bb01afee",
+        "filename": "camera/integration-tests/coretestapp/src/androidTest/java/androidx/camera/integration/core/BasicUITest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1452466
+      },
+      "writtenOn": "2019-05-23T06:37:08Z",
+      "side": 1,
+      "message": "nit: remove redundant code.",
+      "revId": "11ccf1bbd22c8d752e1737a1da9edadaa0728a3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed023456_4ecc2b5e",
+        "filename": "camera/integration-tests/coretestapp/src/androidTest/java/androidx/camera/integration/core/BasicUITest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1452466
+      },
+      "writtenOn": "2019-05-23T06:37:08Z",
+      "side": 1,
+      "message": "nit: remove redundant code.",
+      "revId": "11ccf1bbd22c8d752e1737a1da9edadaa0728a3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
