@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7c2e0851_931a4a50",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1789,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-05-23T07:48:05Z",
+      "side": 1,
+      "message": "let\u0027s check if player \u003d\u003d mPlayer (same to other callbacks)",
+      "range": {
+        "startLine": 1789,
+        "startChar": 41,
+        "endLine": 1789,
+        "endChar": 70
+      },
+      "revId": "ea6edee6657e6b0208e5515f13db3b2aa0d20efc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
