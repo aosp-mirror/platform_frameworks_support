@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "70b70b42_2ff1635f",
+        "filename": "ui/material/src/androidTest/java/androidx/ui/material/CheckboxUiTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2019-05-23T16:10:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2783c5c4_79716f65",
+      "range": {
+        "startLine": 223,
+        "startChar": 8,
+        "endLine": 224,
+        "endChar": 20
+      },
+      "revId": "49c83bacd5ba184ddfeb9338d98e5b23b34264ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d96d918a_d72e1864",
         "filename": "ui/test/api/1.0.0-alpha01.txt",
         "patchSetId": 1
@@ -95,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "1ddf263b_0418dec4",
+        "filename": "ui/test/api/1.0.0-alpha01.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2019-05-23T16:10:25Z",
+      "side": 1,
+      "message": "This class only has public extensions and I\u0027m not quite sure we should move them here.\n\nI logged a bug for this b/133419100 as I think this will take some time to figure out and I\u0027d rather not block the CL on this.\n\nIs this ok?",
+      "parentUuid": "89332835_c93e6eda",
+      "range": {
+        "startLine": 66,
+        "startChar": 2,
+        "endLine": 67,
+        "endChar": 3
+      },
+      "revId": "49c83bacd5ba184ddfeb9338d98e5b23b34264ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "073c18c7_a2e78027",
         "filename": "ui/test/src/main/java/androidx/ui/test/Actions.kt",
         "patchSetId": 1
@@ -115,6 +163,30 @@
       "revId": "49c83bacd5ba184ddfeb9338d98e5b23b34264ac",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f4ea8c9_9b6b18d8",
+        "filename": "ui/test/src/main/java/androidx/ui/test/Actions.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2019-05-23T16:10:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "073c18c7_a2e78027",
+      "range": {
+        "startLine": 28,
+        "startChar": 3,
+        "endLine": 28,
+        "endChar": 49
+      },
+      "revId": "49c83bacd5ba184ddfeb9338d98e5b23b34264ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -141,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "4f899e37_d7bc0858",
+        "filename": "ui/test/src/main/java/androidx/ui/test/Assertions.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2019-05-23T16:10:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a57065e0_2c69aec0",
+      "range": {
+        "startLine": 119,
+        "startChar": 7,
+        "endLine": 119,
+        "endChar": 22
+      },
+      "revId": "49c83bacd5ba184ddfeb9338d98e5b23b34264ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e6765759_1c56c078",
         "filename": "ui/test/src/main/java/androidx/ui/test/BaseNodeQuery.kt",
         "patchSetId": 1
@@ -152,6 +248,30 @@
       "writtenOn": "2019-05-22T12:48:50Z",
       "side": 1,
       "message": "Can this be internal?\n\nAlso it is called Base but we don\u0027t inherit from it. Can we figure name that would fit more here?",
+      "range": {
+        "startLine": 23,
+        "startChar": 6,
+        "endLine": 23,
+        "endChar": 19
+      },
+      "revId": "49c83bacd5ba184ddfeb9338d98e5b23b34264ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c29f74f0_d1b38a7c",
+        "filename": "ui/test/src/main/java/androidx/ui/test/BaseNodeQuery.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2019-05-23T16:10:25Z",
+      "side": 1,
+      "message": "It can be internal, my bad.\nRegarding the name, this will actually be the AndroidSemanticsTreeInteraction class after aosp/963256 gets merged. Is that ok?",
+      "parentUuid": "e6765759_1c56c078",
       "range": {
         "startLine": 23,
         "startChar": 6,
@@ -187,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "a520ed62_d9dfa11b",
+        "filename": "ui/test/src/main/java/androidx/ui/test/Finders.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2019-05-23T16:10:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2d3aadb2_92a2b220",
+      "range": {
+        "startLine": 60,
+        "startChar": 45,
+        "endLine": 60,
+        "endChar": 54
+      },
+      "revId": "49c83bacd5ba184ddfeb9338d98e5b23b34264ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6f82fd39_80fc28ee",
         "filename": "ui/test/src/main/java/androidx/ui/test/MultipleNodesQuery.kt",
         "patchSetId": 1
@@ -207,6 +351,30 @@
       "revId": "49c83bacd5ba184ddfeb9338d98e5b23b34264ac",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74d8ccf6_d5d7106c",
+        "filename": "ui/test/src/main/java/androidx/ui/test/MultipleNodesQuery.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2019-05-23T16:10:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6f82fd39_80fc28ee",
+      "range": {
+        "startLine": 22,
+        "startChar": 6,
+        "endLine": 22,
+        "endChar": 24
+      },
+      "revId": "49c83bacd5ba184ddfeb9338d98e5b23b34264ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -233,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "151105b3_b059a9ae",
+        "filename": "ui/test/src/main/java/androidx/ui/test/MultipleNodesQuery.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2019-05-23T16:10:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d6832a52_aa90a700",
+      "range": {
+        "startLine": 27,
+        "startChar": 17,
+        "endLine": 27,
+        "endChar": 31
+      },
+      "revId": "49c83bacd5ba184ddfeb9338d98e5b23b34264ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b0f62446_1fd87d6f",
         "filename": "ui/test/src/main/java/androidx/ui/test/MultipleNodesQuery.kt",
         "patchSetId": 1
@@ -244,6 +436,30 @@
       "writtenOn": "2019-05-22T12:48:50Z",
       "side": 1,
       "message": "Let\u0027s be more specific in naming otherwise usages of this method might be unclear (happened to me when reading the previous methods that use this). E.g. throwAssertIfEmpty(). Also this could be an extension method on list as it does not need anything from this class.",
+      "range": {
+        "startLine": 29,
+        "startChar": 17,
+        "endLine": 29,
+        "endChar": 28
+      },
+      "revId": "49c83bacd5ba184ddfeb9338d98e5b23b34264ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee52f466_85d016cd",
+        "filename": "ui/test/src/main/java/androidx/ui/test/MultipleNodesQuery.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2019-05-23T16:10:25Z",
+      "side": 1,
+      "message": "Renamed and refactored the method, we now have findExactlyOne, findNone and findAtLeastOne internal functions. These actually return the list of nodes so no need for any new extension functions on list.",
+      "parentUuid": "b0f62446_1fd87d6f",
       "range": {
         "startLine": 29,
         "startChar": 17,
@@ -279,6 +495,30 @@
     },
     {
       "key": {
+        "uuid": "ac8f998f_ad0e4ed5",
+        "filename": "ui/test/src/main/java/androidx/ui/test/MultipleNodesQuery.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2019-05-23T16:10:25Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "dcd7c906_1f75a2d7",
+      "range": {
+        "startLine": 35,
+        "startChar": 8,
+        "endLine": 35,
+        "endChar": 13
+      },
+      "revId": "49c83bacd5ba184ddfeb9338d98e5b23b34264ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bd1bcc81_438f97a2",
         "filename": "ui/test/src/main/java/androidx/ui/test/SingleNodeQuery.kt",
         "patchSetId": 1
@@ -299,6 +539,30 @@
       "revId": "49c83bacd5ba184ddfeb9338d98e5b23b34264ac",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b94dc97_fd830269",
+        "filename": "ui/test/src/main/java/androidx/ui/test/SingleNodeQuery.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1360983
+      },
+      "writtenOn": "2019-05-23T16:10:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bd1bcc81_438f97a2",
+      "range": {
+        "startLine": 36,
+        "startChar": 4,
+        "endLine": 40,
+        "endChar": 5
+      },
+      "revId": "49c83bacd5ba184ddfeb9338d98e5b23b34264ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
