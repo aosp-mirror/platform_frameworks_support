@@ -37,4 +37,5 @@ androidx {
     inceptionYear = "2015"
     description = "Android Support VectorDrawable"
     failOnDeprecationWarnings = false
+    legacyTargetJava7 = true
 }

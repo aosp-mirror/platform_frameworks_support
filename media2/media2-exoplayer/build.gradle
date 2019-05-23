@@ -43,4 +43,5 @@ androidx {
     mavenGroup = LibraryGroups.MEDIA2
     inceptionYear = "2018"
     description = "Repackaged ExoPlayer for 'media2' artifact"
+    legacyTargetJava7 = true
 }

@@ -49,4 +49,5 @@ androidx {
     description = "Android Support RecyclerView v7"
     failOnUncheckedWarnings = false
     failOnDeprecationWarnings = false
+    legacyTargetJava7 = true
 }

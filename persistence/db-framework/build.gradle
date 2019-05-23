@@ -37,4 +37,5 @@ androidx {
     inceptionYear = "2017"
     description = "The implementation of Support SQLite library using the framework code."
     url = AndroidXExtension.ARCHITECTURE_URL
+    legacyTargetJava7 = true
 }

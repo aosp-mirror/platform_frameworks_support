@@ -40,4 +40,5 @@ androidx {
     failOnUncheckedWarnings = false
     failOnDeprecationWarnings = false
     trackRestrictedAPIs = false // TODO: Remove it (b/131561173)
+    legacyTargetJava7 = true
 }

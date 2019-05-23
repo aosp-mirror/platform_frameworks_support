@@ -38,4 +38,5 @@ androidx {
     inceptionYear = "2017"
     description = "Android Room-Common"
     url = AndroidXExtension.ARCHITECTURE_URL
+    legacyTargetJava7 = true
 }

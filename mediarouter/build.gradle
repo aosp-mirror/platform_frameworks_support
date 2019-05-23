@@ -44,4 +44,5 @@ androidx {
     description = "Android MediaRouter Support Library"
     failOnUncheckedWarnings = false
     failOnDeprecationWarnings = false
+    legacyTargetJava7 = true
 }
