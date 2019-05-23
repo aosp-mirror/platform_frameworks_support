@@ -16,6 +16,8 @@
 
 package androidx.webkit.internal;
 
+import static androidx.webkit.internal.AssetHelper.FileOutsideMountedDirectoryException;
+
 import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
@@ -24,14 +26,18 @@ import androidx.test.InstrumentationRegistry;
 import androidx.test.filters.SmallTest;
 import androidx.test.runner.AndroidJUnit4;
 
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Stack;
 
 @RunWith(AndroidJUnit4.class)
 public class AssetHelperTest {
@@ -39,11 +45,34 @@ public class AssetHelperTest {
 
     private static final String TEST_STRING = "Just a test";
     private AssetHelper mAssetHelper;
+    private File mInternalStorageTestDir;
 
     @Before
     public void setup() {
         Context context = InstrumentationRegistry.getContext();
         mAssetHelper = new AssetHelper(context);
+        mInternalStorageTestDir = new File(context.getFilesDir(), "test_dir");
+        mInternalStorageTestDir.mkdirs();
+    }
+
+    @After
+    public void tearDown() {
+        Stack<File> deleteStack = new Stack<>();
+        deleteStack.push(mInternalStorageTestDir);
+        while (!deleteStack.isEmpty()) {
+            File topDir = deleteStack.peek();
+            for (File f : topDir.listFiles()) {
+                if (f.isFile()) {
+                    f.delete();
+                } else {
+                    deleteStack.push(f);
+                }
+            }
+            if (topDir.listFiles().length == 0) {
+                topDir.delete();
+                deleteStack.pop();
+            }
+        }
     }
 
     @Test
@@ -114,6 +143,61 @@ public class AssetHelperTest {
                           mAssetHelper.openAsset(Uri.parse("/android_asset/test.txt")));
     }
 
+    @Test
+    @SmallTest
+    public void testOpenFileFromInternalStorage() throws Throwable {
+        final String testPath = "some_file.txt";
+        writeToInternalStorage(testPath, TEST_STRING);
+
+        InputStream stream = mAssetHelper.openFile(mInternalStorageTestDir, testPath);
+        Assert.assertNotNull("Should be able to open \"some_file.txt\" from internal storage"
+                , stream);
+        Assert.assertEquals(readAsString(stream), TEST_STRING);
+    }
+
+    @Test
+    @SmallTest
+    public void testOpenNonExistingFileInInternalStorage() throws Throwable {
+        final String testPath = "some/path/to/non_exist_file.txt";
+        InputStream stream = mAssetHelper.openFile(mInternalStorageTestDir, testPath);
+        Assert.assertNull("Should not be able to open a non existing file from internal storage",
+                stream);
+    }
+
+    @Test
+    @SmallTest
+    public void testOpenFileOutsideSubdirectoryInInternalStorage_validAccess() throws Throwable {
+        writeToInternalStorage("/some/path/to/file_1.txt", TEST_STRING);
+        writeToInternalStorage("/some/path/file_2.txt", TEST_STRING);
+
+        InputStream stream = mAssetHelper.openFile(new File(mInternalStorageTestDir, "/some/path/"),
+                "/to/./file_1.txt");
+        Assert.assertNotNull(
+                "Should be able to open \"file_1.txt\" from the mounted internal storage directory",
+                 stream);
+        Assert.assertEquals(readAsString(stream), TEST_STRING);
+
+        stream = mAssetHelper.openFile(new File(mInternalStorageTestDir, "/some/path/"),
+                 "/to/../file_2.txt");
+        Assert.assertNotNull(
+                "Should be able to open \"file_2.txt\" from the mounted internal storage directory",
+                 stream);
+        Assert.assertEquals(readAsString(stream), TEST_STRING);
+    }
+
+    @Test(expected = FileOutsideMountedDirectoryException.class)
+    @SmallTest
+    public void testOpenFileOutsideSubdirectoryInInternalStorage_invalidAccess() throws Throwable {
+        writeToInternalStorage("/some/path/to/file_1.txt", TEST_STRING);
+        writeToInternalStorage("/some/path/file_2.txt", TEST_STRING);
+
+        // Should fail with a FileOutsideMountedDirectoryException thrown as it is accessing a file
+        // outside the parent directory.
+        InputStream stream =
+                mAssetHelper.openFile(new File(mInternalStorageTestDir, "/some/path/to"),
+                        "/../file_2.txt");
+    }
+
     private static String readAsString(InputStream is) {
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         byte[] buffer = new byte[512];
@@ -166,5 +250,18 @@ public class AssetHelperTest {
             data.write(buf, 0, len);
         }
         return data.toByteArray();
+    }
+
+    private void writeToInternalStorage(String path, String content)
+                  throws IOException {
+        File file = new File(mInternalStorageTestDir, path);
+        File parentDir = new File(file.getParent());
+        parentDir.mkdirs();
+        FileOutputStream fos = new FileOutputStream(file);
+        try {
+            fos.write(content.getBytes("utf-8"));
+        } finally {
+            fos.close();
+        }
     }
 }
