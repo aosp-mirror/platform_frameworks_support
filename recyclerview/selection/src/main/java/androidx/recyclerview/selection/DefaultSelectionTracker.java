@@ -16,7 +16,8 @@
 
 package androidx.recyclerview.selection;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY;
+import static androidx.annotation.VisibleForTesting.PACKAGE_PRIVATE;
 import static androidx.core.util.Preconditions.checkArgument;
 import static androidx.core.util.Preconditions.checkState;
 import static androidx.recyclerview.selection.Shared.DEBUG;
@@ -49,7 +50,8 @@ import java.util.Set;
  *
  * @hide
  */
-@RestrictTo(LIBRARY_GROUP_PREFIX)
+@RestrictTo(LIBRARY)
+@VisibleForTesting(otherwise = PACKAGE_PRIVATE)
 public class DefaultSelectionTracker<K> extends SelectionTracker<K> {
 
     private static final String TAG = "DefaultSelectionTracker";
