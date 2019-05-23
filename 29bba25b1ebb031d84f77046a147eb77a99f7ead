@@ -22,6 +22,30 @@
       "revId": "29bba25b1ebb031d84f77046a147eb77a99f7ead",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5110f740_4c02f9e7",
+        "filename": "camera/integration-tests/timingtestapp/build.gradle",
+        "patchSetId": 4
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1269804
+      },
+      "writtenOn": "2019-05-23T18:08:52Z",
+      "side": 1,
+      "message": "I had this initially, however tests cannot run when it is only in androidTestImplementation, looks like Guava (used in the main activity) uses a different version of Truth internally so they couldn\u0027t co-exist.\n\n \u003e Could not resolve org.checkerframework:checker-compat-qual:{strictly 2.5.2}.\n     Required by:\n         project :camera:integration-tests:camera-testapp-timing\n      \u003e Cannot find a version of \u0027org.checkerframework:checker-compat-qual\u0027 that satisfies the version constraints: \n           Dependency path \u0027support.camera.integration-tests:camera-testapp-timing:unspecified\u0027 --\u003e \u0027com.google.truth:truth:0.44\u0027 --\u003e \u0027org.checkerframework:checker-compat-qual:2.5.5\u0027\n           Constraint path \u0027support.camera.integration-tests:camera-testapp-timing:unspecified\u0027 --\u003e \u0027org.checkerframework:checker-compat-qual:{strictly 2.5.2}\u0027 because of the following reason: debugRuntimeClasspath uses version 2.5.2\n           Dependency path \u0027support.camera.integration-tests:camera-testapp-timing:unspecified\u0027 --\u003e \u0027com.google.guava:guava:27.0.1-android\u0027 --\u003e \u0027org.checkerframework:checker-compat-qual:2.5.2\u0027\n\nDo you know another way around it?",
+      "parentUuid": "182269c5_cc346fe1",
+      "range": {
+        "startLine": 82,
+        "startChar": 4,
+        "endLine": 82,
+        "endChar": 25
+      },
+      "revId": "29bba25b1ebb031d84f77046a147eb77a99f7ead",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
