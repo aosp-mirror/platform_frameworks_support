@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "36e1c3ad_ef5826ee",
+        "filename": "camera/camera2/src/test/java/androidx/camera/camera2/impl/SupportedSurfaceCombinationTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 1482091
+      },
+      "writtenOn": "2019-05-23T07:05:28Z",
+      "side": 1,
+      "message": "May add a check here to confirm the targetAspectRatio and maxJpegAspectRatio is not equal to make sure the test case is valid.",
+      "revId": "e8e5d2238cc45c9b310709ff08a928c4869f7423",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
