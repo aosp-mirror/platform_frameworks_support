@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a9f7c6e6_bb28f361",
+        "filename": "appcompat/benchmark/build.gradle",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-05-23T23:30:58Z",
+      "side": 1,
+      "message": "remove, no longer needed: https://android-review.googlesource.com/c/platform/frameworks/support/+/968432",
+      "revId": "1de9e9122c22ed053139ac7dadee6dafeecedc1f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "852288cf_06f2ecf8",
+        "filename": "appcompat/benchmark/src/androidTest/AndroidManifest.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1010334
+      },
+      "writtenOn": "2019-05-23T23:30:58Z",
+      "side": 1,
+      "message": "just \"androidx.appcompat.benchmark\"",
+      "range": {
+        "startLine": 20,
+        "startChar": 45,
+        "endLine": 20,
+        "endChar": 50
+      },
+      "revId": "1de9e9122c22ed053139ac7dadee6dafeecedc1f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
