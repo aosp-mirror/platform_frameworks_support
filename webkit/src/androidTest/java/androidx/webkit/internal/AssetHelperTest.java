@@ -30,6 +30,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -114,6 +116,27 @@ public class AssetHelperTest {
                           mAssetHelper.openAsset(Uri.parse("/android_asset/test.txt")));
     }
 
+    @Test
+    @SmallTest
+    public void testOpenFileFromInternalStorage() throws IOException {
+        final Uri testUri = Uri.parse("some_file.txt");
+        writeToInternalStorage(testUri, TEST_STRING);
+
+        InputStream stream = mAssetHelper.openFile(testUri);
+        Assert.assertNotNull("failed to open file from internal storage", stream);
+        Assert.assertEquals(readAsString(stream), TEST_STRING);
+    }
+
+    @Test
+    @SmallTest
+    public void testOpenFileInDirInInternalStorage() throws IOException {
+        final Uri testUri = Uri.parse("some/path/to/some_file.txt");
+        writeToInternalStorage(testUri, TEST_STRING);
+        InputStream stream = mAssetHelper.openFile(testUri);
+        Assert.assertNotNull("failed to open a nested file path from internal storage", stream);
+        Assert.assertEquals(readAsString(stream), TEST_STRING);
+    }
+
     private static String readAsString(InputStream is) {
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         byte[] buffer = new byte[512];
@@ -166,5 +189,17 @@ public class AssetHelperTest {
             data.write(buf, 0, len);
         }
         return data.toByteArray();
+    }
+
+    private static void writeToInternalStorage(Uri uri, String content)
+                  throws IOException {
+        Context context = InstrumentationRegistry.getContext();
+        File file = AssetHelper.openNestedPath(context.getFilesDir(), uri.getPathSegments(), true);
+        FileOutputStream fos = new FileOutputStream(file);
+        try {
+            fos.write(content.getBytes("utf-8"));
+        } finally {
+            fos.close();
+        }
     }
 }
