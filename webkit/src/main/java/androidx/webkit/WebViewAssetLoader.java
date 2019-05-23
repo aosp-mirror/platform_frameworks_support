@@ -31,6 +31,7 @@ import androidx.annotation.WorkerThread;
 import androidx.webkit.internal.AssetHelper;
 
 import java.io.InputStream;
+import java.io.File;
 import java.net.URLConnection;
 
 /**
@@ -99,7 +100,7 @@ public final class WebViewAssetLoader {
      * A handler that produces responses for the registered paths.
      *
      * <p>
-     * This class can be extended to handle other cases according to application needs.
+     * Implement this class to handle other use-cases according to your application needs.
      * <p>
      * Methods of this handler will be invoked on a background thread and care must be taken to
      * correctly synchronize access to any shared state.
@@ -112,81 +113,53 @@ public final class WebViewAssetLoader {
      * means that the amount of time spent blocking in this method should be kept to an absolute
      * minimum.
      */
-    public abstract static class PathHandler {
-        private final @NonNull String mRegisteredPath;
-
+    public static interface PathHandler {
         /**
-         * Constructor for the PathHandler.
+         * Handles the requested URL by returning the appropriate response.
          *
-         * The path must start and end with {@code "/"}.
-         * <p>
-         * A custom prefix path can be used in conjunction with a custom domain, to
-         * avoid conflicts with real paths which may be hosted at that domain.
-         *
-         * @param registeredPath the registered path prefix that this class handles reguestes to.
-         */
-        public PathHandler(@NonNull String registeredPath) {
-            mRegisteredPath = registeredPath;
-        }
-
-        /**
-         * Handles the requested URL by opening the appropriate file.
-         *
-         * @param url the URL to be handled.
-         * @return {@link WebResourceResponse} for the requested URL or {@code null} if it can't
-         *                                     handle this url.
+         * @param path the suffix path to be handled.
+         * @return {@link WebResourceResponse} for the requested path or {@code null} if it can't
+         *                                     handle this path.
          */
         @Nullable
-        public abstract WebResourceResponse handle(@NonNull Uri url);
-
-        /**
-         * @return the registeredPath where this handler would be called.
-         */
-        @NonNull
-        public String getRegisteredPath() {
-            return mRegisteredPath;
-        }
+        public WebResourceResponse handle(@NonNull String path);
     }
 
     /**
      * Handler class to open a file from application assets directory.
      */
-    public static final class AssetsPathHandler extends PathHandler {
+    public static final class AssetsPathHandler implements PathHandler {
         private AssetHelper mAssetHelper;
 
         /**
          * @param registeredPath the registered path prefix where apps assets are hosted.
          * @param context {@link Context} used to resolve assets.
          */
-        public AssetsPathHandler(@NonNull String registeredPath, @NonNull Context context) {
-            super(registeredPath);
+        public AssetsPathHandler(@NonNull Context context) {
             mAssetHelper = new AssetHelper(context);
         }
 
         @VisibleForTesting
-        /*package*/ AssetsPathHandler(@NonNull String registeredPath,
-                @NonNull AssetHelper assetHelper) {
-            super(registeredPath);
+        /*package*/ AssetsPathHandler(@NonNull AssetHelper assetHelper) {
             mAssetHelper = assetHelper;
         }
 
         /**
          * Opens the requested file from application's assets directory.
          *
-         * @param url the URL to be handled.
+         * @param url the suffix path to be handled.
          * @return {@link WebResourceResponse} for the requested file, the data {@link InputStream}
          *                                     will be null if file is not found.
          */
         @Override
         @Nullable
-        public WebResourceResponse handle(Uri url) {
-            String path = url.getPath().replaceFirst(getRegisteredPath(), "");
+        public WebResourceResponse handle(@NonNull String path) {
             Uri uri = new Uri.Builder()
                     .path(path)
                     .build();
 
             InputStream is = mAssetHelper.openAsset(uri);
-            String mimeType = URLConnection.guessContentTypeFromName(url.getPath());
+            String mimeType = URLConnection.guessContentTypeFromName(path);
             return new WebResourceResponse(mimeType, null, is);
         }
     }
@@ -194,45 +167,77 @@ public final class WebViewAssetLoader {
     /**
      * Handler class to open a file from application resources directory.
      */
-    public static final class ResourcesPathHandler extends PathHandler {
+    public static final class ResourcesPathHandler implements PathHandler {
         private AssetHelper mAssetHelper;
 
         /**
          * @param registeredPath the registered path prefix where apps resources are hosted.
          * @param context {@link Context} used to resolve resources.
          */
-        public ResourcesPathHandler(@NonNull String registeredPath, @NonNull Context context) {
-            super(registeredPath);
+        public ResourcesPathHandler(@NonNull Context context) {
             mAssetHelper = new AssetHelper(context);
         }
 
         @VisibleForTesting
-        /*package*/ ResourcesPathHandler(@NonNull String registeredPath,
-                @NonNull AssetHelper assetHelper) {
-            super(registeredPath);
+        /*package*/ ResourcesPathHandler(@NonNull AssetHelper assetHelper) {
             mAssetHelper = assetHelper;
         }
 
         /**
          * Opens the requested file from application's resources directory.
          *
-         * @param url the URL to be handled.
+         * @param url the suffix path to be handled.
          * @return {@link WebResourceResponse} for the requested file, the data {@link InputStream}
          *                                     will be null if file is not found.
          */
         @Override
-        public WebResourceResponse handle(Uri url) {
-            String path = url.getPath().replaceFirst(getRegisteredPath(), "");
+        @Nullable
+        public WebResourceResponse handle(@NonNull String path) {
             Uri uri = new Uri.Builder()
                     .path(path)
                     .build();
 
             InputStream is = mAssetHelper.openResource(uri);
-            String mimeType = URLConnection.guessContentTypeFromName(url.getPath());
+            String mimeType = URLConnection.guessContentTypeFromName(path);
             return new WebResourceResponse(mimeType, null, is);
         }
 
     }
+
+    public static final class InternalStoragePathHandler implements PathHandler {
+        @NonNull private final File mDirectory;
+
+        /**
+         * @param directory the exposed directory under that path
+         * @param context {@link Context} used to resolve resources.
+         */
+        public InternalStoragePathHandler(@NonNull File directory) {
+            mDirectory = directory;
+        }
+
+        /**
+         * Opens the requested file from the exposed data directory.
+         *
+         * The data {@link InputStream} will be null if file is not found.
+         *
+         * @param path the suffix path to be handled.
+         * @return {@link WebResourceResponse} for the requested file or {@code null} if the
+         *         canonical path of the requested file is not in the registered directory.
+         */
+        @Override
+        @Nullable
+        public WebResourceResponse handle(@NonNull String path) {
+            try {
+                InputStream is = AssetHelper.openFile(mDirectory, path);
+                String mimeType = URLConnection.guessContentTypeFromName(path);
+                return new WebResourceResponse(mimeType, null, is);
+            } catch (AssetHelper.FileNotInMountedDirectoryException e) {
+                Log.w(TAG, e);
+                return null;
+            }
+        }
+    }
+
 
     /**
      * Matches URIs on the form: {@code "http(s)://authority/path/**"}, HTTPS is always enabled.
@@ -415,13 +420,14 @@ public final class WebViewAssetLoader {
          * {@code "/"}. A custom prefix path can be used in conjunction with a custom domain, to
          * avoid conflicts with real paths which may be hosted at that domain.
          *
+         * @param path the prefix path where this handler should be register.
+         * @param handler {@link PathHandler} that handles requests for this path.
          * @return {@link Builder} object.
          * @throws IllegalArgumentException if the path is invalid.
          */
         @NonNull
-        public Builder register(@NonNull PathHandler handler) {
-            mBuilderMatcherList.add(new PathMatcher(mDomain, handler.getRegisteredPath(),
-                      mAllowHttp, handler));
+        public Builder register(@NonNull String path, @NonNull PathHandler handler) {
+            mBuilderMatcherList.add(new PathMatcher(mDomain, path, mAllowHttp, handler));
             return this;
         }
 
@@ -574,7 +580,8 @@ public final class WebViewAssetLoader {
             PathHandler handler = matcher.match(url);
             // found a match.
             if (handler != null) {
-                WebResourceResponse response = handler.handle(url);
+                String suffixPath = matcher.getSuffixPath(url.getPath());
+                WebResourceResponse response = handler.handle(suffixPath);
                 if (response != null) {
                     return response;
                 }
