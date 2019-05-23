@@ -46,6 +46,30 @@
       "revId": "4ef52ace7441ac3fad9a7faea752f5f3e81bfaac",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c504859_aac53513",
+        "filename": "room/common/api/2.1.0-beta02.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-05-23T17:10:38Z",
+      "side": 0,
+      "message": "Its merged! \u003dD",
+      "parentUuid": "dbf997a9_d7a371af",
+      "range": {
+        "startLine": 74,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 311
+      },
+      "revId": "4ef52ace7441ac3fad9a7faea752f5f3e81bfaac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
