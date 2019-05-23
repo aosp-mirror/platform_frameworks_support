@@ -18,6 +18,7 @@ package androidx.webkit;
 
 import android.content.Context;
 import android.net.Uri;
+import android.util.Log;
 import android.webkit.WebResourceResponse;
 
 import androidx.annotation.NonNull;
@@ -28,6 +29,7 @@ import androidx.annotation.VisibleForTesting;
 import androidx.annotation.WorkerThread;
 import androidx.webkit.internal.AssetHelper;
 
+import java.io.File;
 import java.io.InputStream;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -214,6 +216,58 @@ public final class WebViewAssetLoader {
         }
 
     }
+
+    /**
+     * Handler class to open file from applicaltion internal storage.
+     * For more information about android storage please refer to
+     * <a href="https://developer.android.com/guide/topics/data/data-storage">Android Developers
+     * Docs: Data and file storage overview</a>.
+     * <p>
+     * To avoid leaking user or app data to the web, make sure to choose {@code directory}
+     * carefully, and assume any file under this directory could be leaked.
+     * @hide
+     */
+    // TODO(b/132880733) unhide the API when it's ready.
+    @RestrictTo(Scope.LIBRARY_GROUP_PREFIX)
+    public static final class InternalStoragePathHandler implements PathHandler {
+        @NonNull private final File mDirectory;
+
+        /**
+         * @param directory the exposed directory under that path.
+         */
+        public InternalStoragePathHandler(@NonNull File directory) {
+            mDirectory = directory;
+        }
+
+        /**
+         * Opens the requested file from the exposed data directory.
+         * <p>
+         * The matched prefix path used shouldn't be a prefix of a real web path. Thus, if the
+         * requested file cannot be found a {@link WebResourceResponse} object with a {@code null}
+         * {@link InputStream} will be returned instead of {@code null}. This saves the time of
+         * falling back to network and trying to resolve a path that doesn't exist. A
+         * {@link WebResourceResponse} with {@code null} {@link InputStream} will be received as an
+         * HTTP response with status code {@code 404} and no body.
+         *
+         * @param path the suffix path to be handled.
+         * @return {@link WebResourceResponse} for the requested file or {@code null} if the
+         *         canonical path of the requested file is not in the registered directory.
+         */
+        @Override
+        @WorkerThread
+        @Nullable
+        public WebResourceResponse handle(@NonNull String path) {
+            try {
+                InputStream is = AssetHelper.openFile(mDirectory, path);
+                String mimeType = URLConnection.guessContentTypeFromName(path);
+                return new WebResourceResponse(mimeType, null, is);
+            } catch (AssetHelper.FileOutsideMountedDirectoryException e) {
+                Log.e(TAG, e.getMessage());
+                return null;
+            }
+        }
+    }
+
 
     /**
      * Matches URIs on the form: {@code "http(s)://authority/path/**"}, HTTPS is always enabled.

@@ -26,6 +26,8 @@ import android.util.TypedValue;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -123,5 +125,54 @@ public class AssetHelper {
             Log.e(TAG, "Unable to open asset URL: " + uri);
             return null;
         }
+    }
+
+    /**
+     * An Exception when trying to access a file out side the mounted directory.
+     * Usually this will happen if the file path contains "../" segments.
+     */
+    public static final class FileOutsideMountedDirectoryException extends Exception {
+        public FileOutsideMountedDirectoryException(String msg) {
+            super(msg);
+        }
+    }
+
+    /**
+     * Open an InputStream for a file in application data directories.
+     *
+     * @param directory The mounted directory.
+     * @param suffixPath The path to the file to be loaded under the given directory.
+     * @return An InputStream to the requested file or null if an error happens.
+     */
+    @Nullable
+    public static InputStream openFile(@NonNull File directory, @NonNull String suffixPath)
+            throws FileOutsideMountedDirectoryException {
+        try {
+            File file = new File(directory, suffixPath);
+            if (!isCanonicalChildOf(directory, file)) {
+                throw new FileOutsideMountedDirectoryException("the requested file: "
+                        + file.getPath() + " is outside the mounted directory: "
+                        + directory.getCanonicalPath());
+            }
+
+            if (file.isDirectory() || !file.exists()) {
+                return null;
+            }
+
+            FileInputStream fis = new FileInputStream(file);
+            return handleSvgzStream(Uri.parse(file.getPath()), fis);
+        } catch (IOException e) {
+            Log.e(TAG, "error opening the requested file " + suffixPath, e);
+            return null;
+        }
+    }
+
+    private static boolean isCanonicalChildOf(File parent, File child) throws IOException {
+        String parentCanonicalPath = parent.getCanonicalPath();
+        String childCanonicalPath = child.getCanonicalPath();
+
+        if (!parentCanonicalPath.endsWith("/")) parentCanonicalPath += "/";
+
+        return childCanonicalPath.startsWith(parentCanonicalPath);
     }
 }
