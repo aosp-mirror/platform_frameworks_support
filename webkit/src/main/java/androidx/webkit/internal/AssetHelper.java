@@ -26,6 +26,9 @@ import android.util.TypedValue;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -121,6 +124,28 @@ public class AssetHelper {
             return handleSvgzStream(uri, assets.open(path, AssetManager.ACCESS_STREAMING));
         } catch (IOException e) {
             Log.e(TAG, "Unable to open asset URL: " + uri);
+            return null;
+        }
+    }
+
+    /**
+     * Open an InputStream for a file in application internal storage.
+     *
+     * @param uri The uri to load.
+     * @return An InputStream to the requested file or null if an error happens.
+     */
+    @Nullable
+    public InputStream openFile(@NonNull Uri uri) {
+        String path = uri.getPath();
+        try {
+            File file = new File(mContext.getFilesDir(), uri.getPath());
+            if (file.isDirectory() || !file.exists()) {
+                return null;
+            }
+            FileInputStream fis = new FileInputStream(file);
+            return handleSvgzStream(uri, fis);
+        } catch (FileNotFoundException e) {
+            Log.e(TAG, "file is not found in application storage from URL: " + uri);
             return null;
         }
     }
