@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3cabb92f_7ca700c7",
+        "filename": "navigation/integration-tests/testapp/src/main/res/navigation/nav_main.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-05-23T17:35:53Z",
+      "side": 1,
+      "message": "I\u0027d suggest popUpTo\u003d\"@+id/learn_more\" and popUpToInclusive\u003d\"true\" to make it clear you are popping exactly just this dialog.",
+      "range": {
+        "startLine": 40,
+        "startChar": 12,
+        "endLine": 40,
+        "endChar": 35
+      },
+      "revId": "27a88226c8b3d71a4f5ad4e03b5909020f0500c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
