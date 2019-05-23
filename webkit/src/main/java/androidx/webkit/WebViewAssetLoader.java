@@ -29,6 +29,7 @@ import androidx.annotation.WorkerThread;
 import androidx.webkit.internal.AssetHelper;
 
 import java.io.InputStream;
+import java.io.File;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
@@ -214,6 +215,41 @@ public final class WebViewAssetLoader {
         }
 
     }
+
+    public static final class InternalStoragePathHandler implements PathHandler {
+        @NonNull private final File mDirectory;
+
+        /**
+         * @param directory the exposed directory under that path
+         * @param context {@link Context} used to resolve resources.
+         */
+        public InternalStoragePathHandler(@NonNull File directory) {
+            mDirectory = directory;
+        }
+
+        /**
+         * Opens the requested file from the exposed data directory.
+         *
+         * The data {@link InputStream} will be null if file is not found.
+         *
+         * @param path the suffix path to be handled.
+         * @return {@link WebResourceResponse} for the requested file or {@code null} if the
+         *         canonical path of the requested file is not in the registered directory.
+         */
+        @Override
+        @Nullable
+        public WebResourceResponse handle(@NonNull String path) {
+            try {
+                InputStream is = AssetHelper.openFile(mDirectory, path);
+                String mimeType = URLConnection.guessContentTypeFromName(path);
+                return new WebResourceResponse(mimeType, null, is);
+            } catch (AssetHelper.FileNotInMountedDirectoryException e) {
+                Log.w(TAG, e);
+                return null;
+            }
+        }
+    }
+
 
     /**
      * Matches URIs on the form: {@code "http(s)://authority/path/**"}, HTTPS is always enabled.
