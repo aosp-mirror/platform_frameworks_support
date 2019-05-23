@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "1047bee7_9bec5de3",
+        "filename": "media2/session/src/main/java/androidx/media2/session/ConnectionResult.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-05-23T08:26:37Z",
+      "side": 1,
+      "message": "Thanks. Could you add TODO comment in the code as well? Something like this:\n\nTODO: Reduce parceling / un-parceling cost. It might be done with (b/...).",
+      "parentUuid": "6c7d3f6c_47a49a06",
+      "range": {
+        "startLine": 87,
+        "startChar": 0,
+        "endLine": 94,
+        "endChar": 37
+      },
+      "revId": "57130d91b1db954aee0fb83173e8d49c1af5966c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "778680e5_6cb3e7a1",
         "filename": "media2/session/src/main/java/androidx/media2/session/MediaControllerImplBase.java",
         "patchSetId": 12
