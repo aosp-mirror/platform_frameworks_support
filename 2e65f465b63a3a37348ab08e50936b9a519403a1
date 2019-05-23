@@ -46,6 +46,30 @@
       "revId": "2e65f465b63a3a37348ab08e50936b9a519403a1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f35581ba_a92c624e",
+        "filename": "appcompat/src/androidTest/java/androidx/appcompat/widget/AppCompatSpinnerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-05-23T17:39:06Z",
+      "side": 1,
+      "message": "Can we just change the test to have no popup animation?\n\n\u003citem name\u003d\"android:popupAnimationStyle\"\u003e@null\u003c/item\u003e",
+      "parentUuid": "1d024026_824d7888",
+      "range": {
+        "startLine": 288,
+        "startChar": 8,
+        "endLine": 288,
+        "endChar": 31
+      },
+      "revId": "2e65f465b63a3a37348ab08e50936b9a519403a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
