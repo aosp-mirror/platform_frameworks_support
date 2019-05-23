@@ -46,6 +46,30 @@
       "revId": "29bba25b1ebb031d84f77046a147eb77a99f7ead",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d7c4a59_167ba560",
+        "filename": "camera/integration-tests/timingtestapp/build.gradle",
+        "patchSetId": 4
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-05-23T18:39:40Z",
+      "side": 1,
+      "message": "Ah. We ran into the same problem when we were dependent on Guava. I think the only way to fix it will be to update the Guava prebuilts to a newer version, which may break other things, so I wouldn\u0027t suggest it.\n\nWhat you have now should be fine as a workaround.",
+      "parentUuid": "5110f740_4c02f9e7",
+      "range": {
+        "startLine": 82,
+        "startChar": 4,
+        "endLine": 82,
+        "endChar": 25
+      },
+      "revId": "29bba25b1ebb031d84f77046a147eb77a99f7ead",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
