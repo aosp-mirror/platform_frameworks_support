@@ -38,8 +38,8 @@ public class ProxyControllerImpl extends ProxyController {
                 WebViewFeatureInternal.getFeature(WebViewFeature.PROXY_OVERRIDE);
         if (webViewFeature.isSupportedByWebView()) {
             getBoundaryInterface().setProxyOverride(
-                    proxyConfig.proxyRules().toArray(new String[0][]),
-                    proxyConfig.bypassRules().toArray(new String[0]), listener, executor);
+                    proxyConfig.getProxyRules().toArray(new String[0][]),
+                    proxyConfig.getBypassRules().toArray(new String[0]), listener, executor);
         } else {
             throw WebViewFeatureInternal.getUnsupportedOperationException();
         }
