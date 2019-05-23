@@ -22,6 +22,30 @@
       "revId": "5ee05e00a7e36fce5541f990c0750464c456ef25",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b2ba60d_7bda29cc",
+        "filename": "viewpager2/src/main/java/androidx/viewpager2/adapter/FragmentStateAdapter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1344408
+      },
+      "writtenOn": "2019-05-23T17:04:59Z",
+      "side": 1,
+      "message": "The contract where we ask for a new object is safer, as we perform a fair amount of Fragment manipulation on it, and having a Fragment manipulated somewhere else might lead to issues.\n\nIf you think that limitation is too constraining, I could look into identifying other allowed conditions.",
+      "parentUuid": "f1538f67_2d0c6c9f",
+      "range": {
+        "startLine": 119,
+        "startChar": 17,
+        "endLine": 119,
+        "endChar": 22
+      },
+      "revId": "5ee05e00a7e36fce5541f990c0750464c456ef25",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
