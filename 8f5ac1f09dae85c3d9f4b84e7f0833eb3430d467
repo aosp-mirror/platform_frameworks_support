@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "acc85b1e_1712d5f4",
+        "filename": "room/integration-tests/incremental-annotation-processing/build.gradle",
+        "patchSetId": 5
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-05-23T23:56:27Z",
+      "side": 1,
+      "message": "9",
+      "range": {
+        "startLine": 2,
+        "startChar": 17,
+        "endLine": 2,
+        "endChar": 21
+      },
+      "revId": "8f5ac1f09dae85c3d9f4b84e7f0833eb3430d467",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41bfa0c9_3b74306f",
+        "filename": "room/integration-tests/incremental-annotation-processing/build.gradle",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-05-23T23:56:27Z",
+      "side": 1,
+      "message": "i think we already have these (prebuilts dir etc) in the global config.\neven if not, we should add them there and use here so that if things move around, it will still work.",
+      "range": {
+        "startLine": 30,
+        "startChar": 24,
+        "endLine": 30,
+        "endChar": 42
+      },
+      "revId": "8f5ac1f09dae85c3d9f4b84e7f0833eb3430d467",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3371fa9d_04450496",
+        "filename": "room/integration-tests/incremental-annotation-processing/build.gradle",
+        "patchSetId": 5
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-05-23T23:56:27Z",
+      "side": 1,
+      "message": "make this a real task class instead of doLast?",
+      "range": {
+        "startLine": 49,
+        "startChar": 5,
+        "endLine": 49,
+        "endChar": 24
+      },
+      "revId": "8f5ac1f09dae85c3d9f4b84e7f0833eb3430d467",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
