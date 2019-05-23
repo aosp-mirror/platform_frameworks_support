@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3cbd8014_cde8d6f8",
+        "filename": "ui/framework/api/current.txt",
+        "patchSetId": 8
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1477013
+      },
+      "writtenOn": "2019-05-23T04:16:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2aeab568_56de67ce",
+      "range": {
+        "startLine": 126,
+        "startChar": 21,
+        "endLine": 126,
+        "endChar": 45
+      },
+      "revId": "57f55f6e98f6bb858226e3ac184c5d86b287de8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "33afc45a_8b765f79",
         "filename": "ui/framework/api/current.txt",
         "patchSetId": 8
@@ -39,6 +63,24 @@
       "revId": "57f55f6e98f6bb858226e3ac184c5d86b287de8e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5d78871_1513dbc1",
+        "filename": "ui/framework/api/current.txt",
+        "patchSetId": 8
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1477013
+      },
+      "writtenOn": "2019-05-23T04:16:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "33afc45a_8b765f79",
+      "revId": "57f55f6e98f6bb858226e3ac184c5d86b287de8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "e80a0660_f713a457",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Selection.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1477013
+      },
+      "writtenOn": "2019-05-23T04:16:36Z",
+      "side": 1,
+      "message": "deleted.",
+      "parentUuid": "4c098c94_413c60c5",
+      "range": {
+        "startLine": 53,
+        "startChar": 6,
+        "endLine": 53,
+        "endChar": 30
+      },
+      "revId": "57f55f6e98f6bb858226e3ac184c5d86b287de8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "776e777f_f159c62b",
         "filename": "ui/framework/src/main/java/androidx/ui/core/Selection.kt",
         "patchSetId": 8
@@ -85,6 +151,30 @@
       "revId": "57f55f6e98f6bb858226e3ac184c5d86b287de8e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "007384ae_0769c353",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Selection.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1477013
+      },
+      "writtenOn": "2019-05-23T04:16:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "776e777f_f159c62b",
+      "range": {
+        "startLine": 136,
+        "startChar": 44,
+        "endLine": 136,
+        "endChar": 60
+      },
+      "revId": "57f55f6e98f6bb858226e3ac184c5d86b287de8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -111,6 +201,30 @@
     },
     {
       "key": {
+        "uuid": "b72a093e_2e6251f6",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Text.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1477013
+      },
+      "writtenOn": "2019-05-23T04:16:36Z",
+      "side": 1,
+      "message": "I discussed with other team members. Can use +state here. So no new class is needed.",
+      "parentUuid": "ce856fde_32a3b71e",
+      "range": {
+        "startLine": 53,
+        "startChar": 6,
+        "endLine": 53,
+        "endChar": 16
+      },
+      "revId": "57f55f6e98f6bb858226e3ac184c5d86b287de8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eb3e732b_3eae4991",
         "filename": "ui/framework/src/main/java/androidx/ui/core/Text.kt",
         "patchSetId": 8
@@ -131,6 +245,30 @@
       "revId": "57f55f6e98f6bb858226e3ac184c5d86b287de8e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "937f8d78_5ca98cbb",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Text.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1477013
+      },
+      "writtenOn": "2019-05-23T04:16:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eb3e732b_3eae4991",
+      "range": {
+        "startLine": 102,
+        "startChar": 8,
+        "endLine": 102,
+        "endChar": 14
+      },
+      "revId": "57f55f6e98f6bb858226e3ac184c5d86b287de8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -157,6 +295,30 @@
     },
     {
       "key": {
+        "uuid": "d884e083_fb19a1f6",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Text.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1477013
+      },
+      "writtenOn": "2019-05-23T04:16:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cee12e25_943c3ba9",
+      "range": {
+        "startLine": 151,
+        "startChar": 58,
+        "endLine": 151,
+        "endChar": 75
+      },
+      "revId": "57f55f6e98f6bb858226e3ac184c5d86b287de8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3e49ba4b_bf303d02",
         "filename": "ui/framework/src/main/java/androidx/ui/core/Text.kt",
         "patchSetId": 8
@@ -177,6 +339,30 @@
       "revId": "57f55f6e98f6bb858226e3ac184c5d86b287de8e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d8e04cc_f20a5d61",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Text.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1477013
+      },
+      "writtenOn": "2019-05-23T04:16:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3e49ba4b_bf303d02",
+      "range": {
+        "startLine": 165,
+        "startChar": 54,
+        "endLine": 165,
+        "endChar": 82
+      },
+      "revId": "57f55f6e98f6bb858226e3ac184c5d86b287de8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -203,6 +389,30 @@
     },
     {
       "key": {
+        "uuid": "d47ed5bc_533ed08f",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Text.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1477013
+      },
+      "writtenOn": "2019-05-23T04:16:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c5e62117_da98283a",
+      "range": {
+        "startLine": 168,
+        "startChar": 52,
+        "endLine": 168,
+        "endChar": 65
+      },
+      "revId": "57f55f6e98f6bb858226e3ac184c5d86b287de8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "93346c97_81d3cb0d",
         "filename": "ui/framework/src/main/java/androidx/ui/core/Text.kt",
         "patchSetId": 8
@@ -223,6 +433,30 @@
       "revId": "57f55f6e98f6bb858226e3ac184c5d86b287de8e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2260fbbe_5dd676af",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Text.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1477013
+      },
+      "writtenOn": "2019-05-23T04:16:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "93346c97_81d3cb0d",
+      "range": {
+        "startLine": 193,
+        "startChar": 80,
+        "endLine": 193,
+        "endChar": 86
+      },
+      "revId": "57f55f6e98f6bb858226e3ac184c5d86b287de8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
