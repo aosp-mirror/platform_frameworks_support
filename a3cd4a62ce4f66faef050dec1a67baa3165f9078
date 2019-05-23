@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5b4f5624_af4d865a",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaControllerStub.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-23T03:17:40Z",
+      "side": 1,
+      "message": "Please fully remove timed text from newly added codes.",
+      "range": {
+        "startLine": 407,
+        "startChar": 12,
+        "endLine": 407,
+        "endChar": 52
+      },
+      "revId": "a3cd4a62ce4f66faef050dec1a67baa3165f9078",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
