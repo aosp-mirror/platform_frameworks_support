@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "72981056_1c2712e6",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageUtil.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-05-23T17:53:04Z",
+      "side": 1,
+      "message": "We should probably wrap this exception in an EncodeFailedException and throw it.",
+      "range": {
+        "startLine": 76,
+        "startChar": 12,
+        "endLine": 77,
+        "endChar": 24
+      },
+      "revId": "d32cc68e1c6aef2620bc9fceabb684c8a2ab22b7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc41a8ee_0c53e412",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageUtil.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-05-23T17:53:04Z",
+      "side": 1,
+      "message": "What would cause this condition?",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 9
+      },
+      "revId": "d32cc68e1c6aef2620bc9fceabb684c8a2ab22b7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
