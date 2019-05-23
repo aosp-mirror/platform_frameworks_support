@@ -144,6 +144,30 @@
     },
     {
       "key": {
+        "uuid": "4a898bbc_37ca45cc",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaControllerImplBase.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-05-23T23:01:06Z",
+      "side": 1,
+      "message": "MediaCOntrollerImplBase is not a versioned parcelable class.",
+      "parentUuid": "c90445e7_96d8500c",
+      "range": {
+        "startLine": 163,
+        "startChar": 0,
+        "endLine": 170,
+        "endChar": 45
+      },
+      "revId": "57130d91b1db954aee0fb83173e8d49c1af5966c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "80fa85f7_16231b03",
         "filename": "media2/session/src/main/java/androidx/media2/session/MediaControllerImplBase.java",
         "patchSetId": 12
