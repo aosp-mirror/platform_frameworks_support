@@ -16,6 +16,24 @@
       "revId": "6edd4a4d49f41d00f29588462388e5b179a9bb98",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2ab7f38_67f390d8",
+        "filename": "media2/common/api/restricted_current.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1137668
+      },
+      "writtenOn": "2019-05-23T22:28:06Z",
+      "side": 1,
+      "message": "Oops, sorry about that. I think that I probably ran `./gradlew updateApi` many times during the life of this change and didn\u0027t realize that I should\u0027ve deleted these files when they were no longer being generated.\n\nRemoving them in aosp/969549",
+      "parentUuid": "3491a681_232a1af3",
+      "revId": "6edd4a4d49f41d00f29588462388e5b179a9bb98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
