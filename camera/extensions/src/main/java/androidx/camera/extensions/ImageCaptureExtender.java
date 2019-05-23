@@ -52,7 +52,8 @@ abstract class ImageCaptureExtender {
         CameraX.LensFacing lensFacing = mBuilder.build().getLensFacing();
         String cameraId = CameraUtil.getCameraId(lensFacing);
         CameraCharacteristics cameraCharacteristics = CameraUtil.getCameraCharacteristics(cameraId);
-        return mImpl.isExtensionAvailable(cameraId, cameraCharacteristics);
+        return mImpl.isExtensionAvailable(cameraId, cameraCharacteristics)
+                && ExtenderVersioningManager.getInstance().isExtensionVersionSupported();
     }
 
     public void enableExtension() {
