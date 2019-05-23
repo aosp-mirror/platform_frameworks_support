@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "2d6f379b_e3eb5daf",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/RoomProcessor.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-05-23T20:24:58Z",
+      "side": 1,
+      "message": "nit: Can be just `jdkVersionHasBugReported \u003d false`",
+      "range": {
+        "startLine": 48,
+        "startChar": 16,
+        "endLine": 48,
+        "endChar": 57
+      },
+      "revId": "636fba3d1dd4f7153be1ae9af063e03df65f8394",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a3bd7281_4a53b8fb",
         "filename": "room/compiler/src/main/kotlin/androidx/room/RoomProcessor.kt",
         "patchSetId": 5

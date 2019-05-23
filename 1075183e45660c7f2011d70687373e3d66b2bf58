@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "6f3af9b3_ddb52ffa",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/RoomProcessor.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-05-23T20:24:58Z",
+      "side": 1,
+      "message": "Are you sure we can\u0027t make this isolating now?\n\nBased on the Gradle IAP docs both aggregating and isolating must use the Filer API, what makes aggregating a better fit for the lack of usage of the Filer API vs isolating? Note that I understand we still need to solve the Filer API issue overall for Room to be correctly IAP, I\u0027m just trying to understand why can\u0027t we make this isolating now and add the Database class as the originating element.",
+      "parentUuid": "6ea75fc1_f626cacd",
+      "range": {
+        "startLine": 43,
+        "startChar": 42,
+        "endLine": 43,
+        "endChar": 53
+      },
+      "revId": "1075183e45660c7f2011d70687373e3d66b2bf58",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6deec267_908d50e9",
         "filename": "room/compiler/src/main/kotlin/androidx/room/processor/Context.kt",
         "patchSetId": 2
