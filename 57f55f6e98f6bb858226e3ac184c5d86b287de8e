@@ -225,6 +225,30 @@
     },
     {
       "key": {
+        "uuid": "b70a24e4_1566450b",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Text.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-05-23T05:36:55Z",
+      "side": 1,
+      "message": "I currently don\u0027t know the diff between state and memo now, but with memo you should be able to use PxPosition. Why can you not memoize the PxPosition?",
+      "parentUuid": "b72a093e_2e6251f6",
+      "range": {
+        "startLine": 53,
+        "startChar": 6,
+        "endLine": 53,
+        "endChar": 16
+      },
+      "revId": "57f55f6e98f6bb858226e3ac184c5d86b287de8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eb3e732b_3eae4991",
         "filename": "ui/framework/src/main/java/androidx/ui/core/Text.kt",
         "patchSetId": 8
