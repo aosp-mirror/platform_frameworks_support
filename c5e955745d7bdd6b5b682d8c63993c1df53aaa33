@@ -70,6 +70,30 @@
       "revId": "c5e955745d7bdd6b5b682d8c63993c1df53aaa33",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "166066a2_b52020f1",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/DiffUtil.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 631,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2019-05-23T01:13:10Z",
+      "side": 1,
+      "message": "a quick update. debugging the sample reveals that we are in fact calculating the snake wrong.\nIt is either hitting a case where the algorithm does not handle properly OR i\u0027ve simply implemented it wrong. More likely the latter. \nI need to re-study the algorithm and figure out what is wrong :/ \nBtw, here is the paper for those interested: http://www.xmailserver.org/diff2.pdf",
+      "parentUuid": "74c5c3f2_1fa596cb",
+      "range": {
+        "startLine": 630,
+        "startChar": 16,
+        "endLine": 631,
+        "endChar": 68
+      },
+      "revId": "c5e955745d7bdd6b5b682d8c63993c1df53aaa33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
