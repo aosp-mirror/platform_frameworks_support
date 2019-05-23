@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "325ed589_be2caf2c",
+        "filename": "jetifier/jetifier/core/src/main/resources/default.config",
+        "patchSetId": 2
+      },
+      "lineNbr": 952,
+      "author": {
+        "id": 1044446
+      },
+      "writtenOn": "2019-05-23T16:53:07Z",
+      "side": 1,
+      "message": "Still getting this error:\n\u003e Task :partiallyDejetifyArchive\nException in thread \"main\" java.lang.IllegalArgumentException: There were 2708 errors found during the de-jetification.",
+      "range": {
+        "startLine": 949,
+        "startChar": 0,
+        "endLine": 952,
+        "endChar": 10
+      },
+      "revId": "933bd46cf0d2dd3a9f73e7ae2d61c2c298f1fd73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
