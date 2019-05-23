@@ -46,6 +46,30 @@
       "revId": "05e4d7bf816c1b02075e04380377334ea76a3faf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c3020b8_7ae2234d",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/PublishDocsRules.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1411450
+      },
+      "writtenOn": "2019-05-23T21:44:30Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "9615b712_172c266a",
+      "range": {
+        "startLine": 61,
+        "startChar": 4,
+        "endLine": 61,
+        "endChar": 56
+      },
+      "revId": "05e4d7bf816c1b02075e04380377334ea76a3faf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
