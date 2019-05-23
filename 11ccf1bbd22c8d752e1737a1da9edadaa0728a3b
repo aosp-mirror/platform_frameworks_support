@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "e8bb8867_7fdf7fe5",
+        "filename": "camera/integration-tests/coretestapp/src/androidTest/java/androidx/camera/integration/core/BasicUITest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1482725
+      },
+      "writtenOn": "2019-05-23T08:05:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "df19c811_bb01afee",
+      "revId": "11ccf1bbd22c8d752e1737a1da9edadaa0728a3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ed023456_4ecc2b5e",
         "filename": "camera/integration-tests/coretestapp/src/androidTest/java/androidx/camera/integration/core/BasicUITest.java",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "11ccf1bbd22c8d752e1737a1da9edadaa0728a3b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5bfb63f3_233ba8b5",
+        "filename": "camera/integration-tests/coretestapp/src/androidTest/java/androidx/camera/integration/core/BasicUITest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1482725
+      },
+      "writtenOn": "2019-05-23T08:05:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ed023456_4ecc2b5e",
+      "revId": "11ccf1bbd22c8d752e1737a1da9edadaa0728a3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
