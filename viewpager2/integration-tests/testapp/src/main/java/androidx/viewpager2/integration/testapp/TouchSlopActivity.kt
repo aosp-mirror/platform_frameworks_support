@@ -17,6 +17,7 @@
 package androidx.viewpager2.integration.testapp
 
 import android.os.Bundle
+import android.view.View
 import android.widget.Switch
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.integration.testapp.cards.CardViewAdapter
@@ -30,13 +31,11 @@ class TouchSlopActivity : FragmentActivity() {
         val viewPager: ViewPager2 = findViewById(R.id.view_pager)
         viewPager.adapter = CardViewAdapter()
 
-        val switch: Switch = findViewById(R.id.use_paging_slop)
-        switch.isChecked = true // VP default is TOUCH_SLOP_PAGING
-        switch.setOnCheckedChangeListener { _, isChecked ->
-            viewPager.setScrollingTouchSlop(when (isChecked) {
-                true -> ViewPager2.TOUCH_SLOP_PAGING
-                false -> ViewPager2.TOUCH_SLOP_CONTINUOUS
-            })
-        }
+        val parentSwitch: Switch = findViewById(R.id.use_paging_slop_parent)
+        parentSwitch.isChecked = true // VP default is TOUCH_SLOP_PAGING
+        TouchSlopController(viewPager, parentSwitch).setUp()
+
+        val childrenSwitch: Switch = findViewById(R.id.use_paging_slop_children)
+        childrenSwitch.visibility = View.GONE
     }
 }
