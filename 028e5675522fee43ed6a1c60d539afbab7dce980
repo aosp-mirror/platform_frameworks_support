@@ -22,6 +22,30 @@
       "revId": "028e5675522fee43ed6a1c60d539afbab7dce980",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9460665_020d8955",
+        "filename": "exifinterface/src/androidTest/java/androidx/exifinterface/media/ExifInterfaceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2019-05-24T09:52:17Z",
+      "side": 1,
+      "message": "Thanks for pointing out. \nAs you mentioned, it is okay to remove read permission.",
+      "parentUuid": "59bd6db6_5cd809f1",
+      "range": {
+        "startLine": 81,
+        "startChar": 58,
+        "endLine": 81,
+        "endChar": 80
+      },
+      "revId": "028e5675522fee43ed6a1c60d539afbab7dce980",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
