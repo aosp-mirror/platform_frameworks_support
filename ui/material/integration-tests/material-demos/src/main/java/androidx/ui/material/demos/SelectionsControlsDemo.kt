@@ -16,9 +16,7 @@
 
 package androidx.ui.material.demos
 
-import androidx.ui.baseui.selection.ToggleableState
 import androidx.ui.baseui.selection.ToggleableState.Checked
-import androidx.ui.baseui.selection.ToggleableState.Unchecked
 import androidx.ui.core.Text
 import androidx.ui.core.dp
 import androidx.ui.layout.Column
@@ -28,7 +26,6 @@ import androidx.ui.layout.MainAxisAlignment
 import androidx.ui.layout.MainAxisSize
 import androidx.ui.layout.Padding
 import androidx.ui.layout.Row
-import androidx.ui.material.Checkbox
 import androidx.ui.material.RadioButton
 import androidx.ui.material.RadioGroup
 import androidx.ui.material.Switch
@@ -37,17 +34,11 @@ import androidx.ui.material.surface.Surface
 import androidx.ui.material.themeTextStyle
 import androidx.ui.graphics.Color
 import androidx.compose.Composable
-import androidx.compose.Model
 import androidx.compose.composer
 import androidx.compose.state
 import androidx.compose.unaryPlus
-
-@Model
-class CheckboxState(var value: ToggleableState) {
-    fun toggle() {
-        value = if (value == Checked) Unchecked else Checked
-    }
-}
+import androidx.ui.material.Checkbox
+import androidx.ui.material.ThreeStateCheckbox
 
 private val customColor = Color(0xFFFF5722.toInt())
 private val customColor2 = Color(0xFFE91E63.toInt())
@@ -62,7 +53,7 @@ fun SelectionsControlsDemo() {
     Surface {
         Padding(padding = padding) {
             Column(crossAxisAlignment = CrossAxisAlignment.Start) {
-                Text(text = "Checkbox", style = headerStyle)
+                Text(text = "ParentCheckbox", style = headerStyle)
                 Padding(padding = padding) {
                     CheckboxDemo()
                 }
@@ -127,40 +118,25 @@ fun CustomRadioGroup() {
 @Composable
 fun CheckboxDemo() {
     Column(crossAxisAlignment = CrossAxisAlignment.Start) {
-        val state = CheckboxState(Checked)
-        val state2 = CheckboxState(Checked)
-        val state3 = CheckboxState(Checked)
-        fun calcParentState() = parentCheckboxState(state.value, state2.value, state3.value)
+        val (state, onStateChange) = +state { true }
+        val (state2, onStateChange2) = +state { true }
+        val (state3, onStateChange3) = +state { true }
+        fun calcParentState() = parentCheckboxState(state, state2, state3)
         val onParentClick = {
-            val s = if (calcParentState() == Checked) {
-                Unchecked
-            } else {
-                Checked
-            }
-            state.value = s
-            state2.value = s
-            state3.value = s
+            val s = calcParentState() != Checked
+            onStateChange(s)
+            onStateChange2(s)
+            onStateChange3(s)
         }
         Row {
-            Checkbox(value = calcParentState(), onClick = onParentClick)
+            ThreeStateCheckbox(value = calcParentState(), onClick = onParentClick)
             Text(text = "This is parent", style = +themeTextStyle { body1 })
         }
         Padding(left = 10.dp) {
             Column(crossAxisAlignment = CrossAxisAlignment.Start) {
-                Checkbox(
-                    value = state.value,
-                    color = customColor,
-                    onClick = { state.toggle() })
-                Checkbox(
-                    value = state2.value,
-                    onClick = { state2.toggle() },
-                    color = customColor2
-                )
-                Checkbox(
-                    value = state3.value,
-                    onClick = { state3.toggle() },
-                    color = customColor3
-                )
+                Checkbox(state, onStateChange, customColor)
+                Checkbox(state2, onStateChange2, customColor2)
+                Checkbox(state3, onStateChange3, customColor3)
             }
         }
     }
@@ -176,10 +152,10 @@ fun SwitchDemo() {
         val (checked2, onChecked2) = +state { false }
         val (checked3, onChecked3) = +state { true }
         val (checked4, onChecked4) = +state { true }
-        Switch(checked = checked, onClick = { onChecked(!checked) })
-        Switch(checked = checked2, onClick = { onChecked2(!checked2) }, color = customColor)
-        Switch(checked = checked3, onClick = { onChecked3(!checked3) }, color = customColor2)
-        Switch(checked = checked4, onClick = { onChecked4(!checked4) }, color = customColor3)
+        Switch(checked, onChecked)
+        Switch(checked2, onChecked2, customColor)
+        Switch(checked3, onChecked3, customColor2)
+        Switch(checked4, onChecked4, customColor3)
     }
 }
 

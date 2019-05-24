@@ -46,6 +46,7 @@ package androidx.ui.baseui.selection {
   public final class ToggleableKt {
     ctor public ToggleableKt();
     method public static void Toggleable(androidx.ui.baseui.selection.ToggleableState value = ToggleableState.Checked, kotlin.jvm.functions.Function0<kotlin.Unit>? onToggle = null, kotlin.jvm.functions.Function0<kotlin.Unit> children);
+    method public static androidx.ui.baseui.selection.ToggleableState ToggleableState(boolean checked);
   }
 
   public enum ToggleableState {
@@ -67,8 +68,9 @@ package androidx.ui.material {
 
   public final class CheckboxKt {
     ctor public CheckboxKt();
-    method public static void Checkbox(androidx.ui.baseui.selection.ToggleableState value, kotlin.jvm.functions.Function0<kotlin.Unit>? onClick = null, androidx.ui.graphics.Color? color = null);
-    method public static androidx.ui.baseui.selection.ToggleableState parentCheckboxState(androidx.ui.baseui.selection.ToggleableState... childrenStates);
+    method public static void Checkbox(boolean checked, kotlin.jvm.functions.Function1<? super java.lang.Boolean,kotlin.Unit>? onCheckedChange, androidx.ui.graphics.Color? color = null);
+    method public static void ThreeStateCheckbox(androidx.ui.baseui.selection.ToggleableState value, kotlin.jvm.functions.Function0<kotlin.Unit>? onClick, androidx.ui.graphics.Color? color = null);
+    method public static androidx.ui.baseui.selection.ToggleableState parentCheckboxState(boolean... childrenStates);
   }
 
   public final class DividerKt {
@@ -184,7 +186,7 @@ package androidx.ui.material {
 
   public final class SwitchKt {
     ctor public SwitchKt();
-    method public static void Switch(boolean checked, kotlin.jvm.functions.Function0<kotlin.Unit>? onClick = null, androidx.ui.graphics.Color? color = null);
+    method public static void Switch(boolean checked, kotlin.jvm.functions.Function1<? super java.lang.Boolean,kotlin.Unit>? onCheckedChange, androidx.ui.graphics.Color? color = null);
   }
 
   public final class TextKt {
