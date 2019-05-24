@@ -46,6 +46,30 @@
       "revId": "bbc0da57d6141a194f540965ab074444f10e4b5e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f03410e8_c580c3fc",
+        "filename": "camera/integration-tests/timingtestapp/src/main/java/androidx/camera/integration/antelope/cameracontrollers/Camera2Controller.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1141048
+      },
+      "writtenOn": "2019-05-24T15:19:28Z",
+      "side": 1,
+      "message": "Not exactly, we can leave SF release the way it is, my suggestion is to wait before the release (and also before leaving \"createTemporaryPreviewSession\") for the session to close.",
+      "parentUuid": "501b143c_1ba2fd2f",
+      "range": {
+        "startLine": 325,
+        "startChar": 16,
+        "endLine": 325,
+        "endChar": 17
+      },
+      "revId": "bbc0da57d6141a194f540965ab074444f10e4b5e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
