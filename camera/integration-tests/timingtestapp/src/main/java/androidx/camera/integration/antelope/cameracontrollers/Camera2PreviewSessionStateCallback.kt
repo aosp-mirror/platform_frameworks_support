@@ -19,6 +19,7 @@ package androidx.camera.integration.antelope.cameracontrollers
 import android.hardware.camera2.CameraAccessException
 import android.hardware.camera2.CameraCaptureSession
 import android.hardware.camera2.CaptureRequest
+import android.os.Build
 import androidx.annotation.NonNull
 import androidx.camera.integration.antelope.CameraParams
 import androidx.camera.integration.antelope.FocusMode
@@ -145,6 +146,11 @@ class Camera2PreviewSessionStateCallback(
     override fun onClosed(session: CameraCaptureSession) {
         params.timer.previewCloseEnd = System.currentTimeMillis()
         params.isPreviewing = false
+
+        if ((Build.VERSION.SDK_INT > Build.VERSION_CODES.M) && (params.isLegacy)) {
+            createTemporaryPreviewSession(activity, params)
+        }
+
         params.timer.cameraCloseStart = System.currentTimeMillis()
         params.device?.close()
         super.onClosed(session)
