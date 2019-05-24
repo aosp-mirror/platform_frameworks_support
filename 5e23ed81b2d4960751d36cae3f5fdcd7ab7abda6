@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cb7fa28e_e4c5c3c0",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Selection.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-05-24T18:18:35Z",
+      "side": 1,
+      "message": "Based on Andrey\u0027s comment and does it make sense to change this into measurables.firstOrNull()?",
+      "range": {
+        "startLine": 181,
+        "startChar": 31,
+        "endLine": 181,
+        "endChar": 46
+      },
+      "revId": "5e23ed81b2d4960751d36cae3f5fdcd7ab7abda6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d758a66c_ef8165f6",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Text.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-05-24T18:18:35Z",
+      "side": 1,
+      "message": "nit: please change the var name to startOffset in a later CL. Currently there are three start/end groups in the code.",
+      "range": {
+        "startLine": 169,
+        "startChar": 24,
+        "endLine": 169,
+        "endChar": 29
+      },
+      "revId": "5e23ed81b2d4960751d36cae3f5fdcd7ab7abda6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
