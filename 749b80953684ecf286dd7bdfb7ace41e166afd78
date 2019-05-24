@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "07b64163_c0859d0a",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Wrapper.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-05-24T22:56:44Z",
+      "side": 1,
+      "message": "You need to exec ./gradlew updateApi so api files will become up to date.\n\nAlso, why crane? Maybe CraneWrapper should be renamed first, but as this is subsctitution for it, let\u0027s name it setComposeContent or smth like that",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 30
+      },
+      "revId": "749b80953684ecf286dd7bdfb7ace41e166afd78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
