@@ -17,7 +17,6 @@
 package androidx.camera.testing.fakes;
 
 import android.graphics.Rect;
-import android.os.Handler;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
@@ -28,6 +27,7 @@ import androidx.camera.core.OnFocusListener;
 import androidx.camera.core.SessionConfig;
 
 import java.util.List;
+import java.util.concurrent.Executor;
 
 /**
  * A fake implementation for the CameraControl interface.
@@ -53,8 +53,8 @@ public final class FakeCameraControl implements CameraControl {
     public void focus(
             final Rect focus,
             final Rect metering,
-            @Nullable final OnFocusListener listener,
-            @Nullable final Handler listenerHandler) {
+            @Nullable final Executor listenerExecutor,
+            @Nullable final OnFocusListener listener) {
         Log.d(TAG, "focus(\n    " + focus + ",\n    " + metering + ")");
     }
 
