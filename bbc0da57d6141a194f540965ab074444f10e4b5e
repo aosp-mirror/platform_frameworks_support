@@ -70,6 +70,30 @@
       "revId": "bbc0da57d6141a194f540965ab074444f10e4b5e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "02d77c08_8ec90f23",
+        "filename": "camera/integration-tests/timingtestapp/src/main/java/androidx/camera/integration/antelope/cameracontrollers/Camera2Controller.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1269804
+      },
+      "writtenOn": "2019-05-24T15:45:21Z",
+      "side": 1,
+      "message": "Gotcha. Added proper async handling. It will now wait for the dummy session to be closed before closing the camera device.",
+      "parentUuid": "f03410e8_c580c3fc",
+      "range": {
+        "startLine": 325,
+        "startChar": 16,
+        "endLine": 325,
+        "endChar": 17
+      },
+      "revId": "bbc0da57d6141a194f540965ab074444f10e4b5e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
