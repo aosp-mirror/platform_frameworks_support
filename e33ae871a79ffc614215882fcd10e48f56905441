@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f9101a4b_b888dc16",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedListView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 542,
+      "author": {
+        "id": 1206625
+      },
+      "writtenOn": "2019-05-24T20:07:55Z",
+      "side": 1,
+      "message": "perhaps we should update the javadoc? \n\nIIUC, isScrollBarEnabled() returning true doesn\u0027t necessarily mean scrollbar is visible - scrollbar will be hidden when there\u0027s not enough items on screen for scrolling.\n\nIf we were to change the name, can you also update style attribute, and internal var name?\nhttps://cs.corp.google.com/aosp-androidx/car/core/res/values/attrs.xml?type\u003dcs\u0026q\u003dscrollBarEnabled+f:xml\u0026sq\u003dpackage:android\u0026g\u003d0\u0026l\u003d50",
+      "range": {
+        "startLine": 542,
+        "startChar": 49,
+        "endLine": 542,
+        "endChar": 57
+      },
+      "revId": "e33ae871a79ffc614215882fcd10e48f56905441",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
