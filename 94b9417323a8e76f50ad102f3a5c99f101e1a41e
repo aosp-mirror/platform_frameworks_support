@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "e2465457_479c5970",
+        "filename": "role/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1351609
+      },
+      "writtenOn": "2019-05-24T21:59:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cdea9e27_4817ccaf",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 35
+      },
+      "revId": "94b9417323a8e76f50ad102f3a5c99f101e1a41e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ac043c75_6a73868b",
         "filename": "role/src/main/java/androidx/role/RoleManagerCompat.java",
         "patchSetId": 1
