@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "029cc77d_81e258ac",
+        "filename": "ui/test/src/main/java/androidx/ui/test/android/AndroidUiTestRunner.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-05-24T08:16:35Z",
+      "side": 1,
+      "message": "Idle has a historical meaning in our testing in that we were just waiting for no pending work to be left on the UI thread, might be best to make this a bit more descriptive, e.g. runOnUiAndWaitForRecomposeComplete or something like that (will not block CL on this)",
+      "range": {
+        "startLine": 111,
+        "startChar": 25,
+        "endLine": 111,
+        "endChar": 29
+      },
+      "revId": "ac530be749603c3616cf0d2d6bf38462f6c5c759",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75aa1545_b885a013",
+        "filename": "ui/test/src/main/java/androidx/ui/test/android/AndroidUiTestRunner.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-05-24T08:16:35Z",
+      "side": 1,
+      "message": "waitForAllPendingCompositions?",
+      "range": {
+        "startLine": 125,
+        "startChar": 8,
+        "endLine": 125,
+        "endChar": 25
+      },
+      "revId": "ac530be749603c3616cf0d2d6bf38462f6c5c759",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cff9b54c_d337ea9a",
+        "filename": "ui/text/src/main/java/androidx/ui/painting/TextSpanComposeNonIR.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-05-24T08:16:35Z",
+      "side": 1,
+      "message": "is this change necessary?",
+      "range": {
+        "startLine": 76,
+        "startChar": 16,
+        "endLine": 76,
+        "endChar": 26
+      },
+      "revId": "ac530be749603c3616cf0d2d6bf38462f6c5c759",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
