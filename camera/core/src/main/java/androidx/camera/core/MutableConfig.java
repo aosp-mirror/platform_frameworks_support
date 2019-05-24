@@ -34,22 +34,20 @@ public interface MutableConfig extends Config {
      *
      * @param opt      The option to be added or modified
      * @param value    The value to insert for this option.
-     * @param <ValueT> The type of the value being inserted.
      * @hide
      */
     @RestrictTo(Scope.LIBRARY_GROUP)
-    <ValueT> void insertOption(Option<ValueT> opt, ValueT value);
+    void insertOption(Option opt, Object value);
 
     /**
      * Removes an option from the configuration if it exists.
      *
      * @param opt      The option to remove from the configuration.
-     * @param <ValueT> The type of the value being removed.
      * @return The value that previously existed for <code>opt</code>, or <code>null</code> if the
      * option did not exist in this configuration.
      * @hide
      */
     @RestrictTo(Scope.LIBRARY_GROUP)
     @Nullable
-    <ValueT> ValueT removeOption(Option<ValueT> opt);
+    Object removeOption(Option opt);
 }

@@ -30,7 +30,6 @@ import org.robolectric.annotation.Config;
 import org.robolectric.annotation.internal.DoNotInstrument;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @SmallTest
@@ -45,48 +44,28 @@ public class OptionTest {
 
     @Test
     public void canCreateOption_andRetrieveId() {
-        Option<Integer> option = Option.create(OPTION_1_ID, Integer.class);
+        Option option = Option.create(OPTION_1_ID);
         assertThat(option.getId()).isEqualTo(OPTION_1_ID);
     }
 
     @Test
-    public void canCreateOption_fromClass_andRetrieveClass() {
-        Option<Integer> option = Option.create(OPTION_1_ID, Integer.class);
-        assertThat(option.getValueClass()).isEqualTo(Integer.class);
-    }
-
-    @Test
-    public void canCreateOption_fromPrimitiveClass_andRetrievePrimitiveClass() {
-        Option<Integer> option = Option.create(OPTION_1_ID, int.class);
-        assertThat(option.getValueClass()).isEqualTo(int.class);
-    }
-
-    @Test
-    public void canCreateOption_fromTypeReference() {
-        Option<List<Integer>> option =
-                Option.create(OPTION_1_ID, new TypeReference<List<Integer>>() {
-                });
-        assertThat(option).isNotNull();
-    }
-
-    @Test
     public void canCreateOption_withNullToken() {
-        Option<Integer> option = Option.create(OPTION_1_ID, Integer.class);
+        Option option = Option.create(OPTION_1_ID);
         assertThat(option.getToken()).isNull();
     }
 
     @Test
     public void canCreateOption_withToken() {
-        Option<Integer> option = Option.create(OPTION_1_ID, Integer.class, TOKEN);
+        Option option = Option.create(OPTION_1_ID, TOKEN);
         assertThat(option.getToken()).isSameInstanceAs(TOKEN);
     }
 
     @Test
     public void canRetrieveOption_fromMap_usingSeparateOptionInstances() {
-        Option<Integer> option = Option.create(OPTION_1_ID, Integer.class);
-        Option<Integer> optionCopy = Option.create(OPTION_1_ID, Integer.class);
+        Option option = Option.create(OPTION_1_ID);
+        Option optionCopy = Option.create(OPTION_1_ID);
 
-        Map<Option<?>, Object> map = new HashMap<>();
+        Map<Option, Object> map = new HashMap<>();
         map.put(option, 1);
 
         assertThat(map).containsKey(optionCopy);

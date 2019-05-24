@@ -40,10 +40,10 @@ public final class ImageAnalysisConfig
     // Option Declarations:
     // *********************************************************************************************
 
-    static final Option<ImageReaderMode> OPTION_IMAGE_READER_MODE =
-            Option.create("camerax.core.imageAnalysis.imageReaderMode", ImageReaderMode.class);
-    static final Option<Integer> OPTION_IMAGE_QUEUE_DEPTH =
-            Option.create("camerax.core.imageAnalysis.imageQueueDepth", int.class);
+    static final Option OPTION_IMAGE_READER_MODE =
+            Option.create("camerax.core.imageAnalysis.imageReaderMode");
+    static final Option OPTION_IMAGE_QUEUE_DEPTH =
+            Option.create("camerax.core.imageAnalysis.imageQueueDepth");
 
     // *********************************************************************************************
 
@@ -65,7 +65,7 @@ public final class ImageAnalysisConfig
      */
     @Nullable
     public ImageReaderMode getImageReaderMode(@Nullable ImageReaderMode valueIfMissing) {
-        return retrieveOption(OPTION_IMAGE_READER_MODE, valueIfMissing);
+        return (ImageReaderMode) retrieveOption(OPTION_IMAGE_READER_MODE, valueIfMissing);
     }
 
     /**
@@ -78,7 +78,7 @@ public final class ImageAnalysisConfig
      * @throws IllegalArgumentException if the option does not exist in this configuration.
      */
     public ImageReaderMode getImageReaderMode() {
-        return retrieveOption(OPTION_IMAGE_READER_MODE);
+        return (ImageReaderMode) retrieveOption(OPTION_IMAGE_READER_MODE);
     }
 
     /**
@@ -93,7 +93,7 @@ public final class ImageAnalysisConfig
      * configuration.
      */
     public int getImageQueueDepth(int valueIfMissing) {
-        return retrieveOption(OPTION_IMAGE_QUEUE_DEPTH, valueIfMissing);
+        return (int) retrieveOption(OPTION_IMAGE_QUEUE_DEPTH, valueIfMissing);
     }
 
     /**
@@ -107,7 +107,7 @@ public final class ImageAnalysisConfig
      * @throws IllegalArgumentException if the option does not exist in this configuration.
      */
     public int getImageQueueDepth() {
-        return retrieveOption(OPTION_IMAGE_QUEUE_DEPTH);
+        return (int) retrieveOption(OPTION_IMAGE_QUEUE_DEPTH);
     }
 
     // Start of the default implementation of Config
@@ -118,7 +118,7 @@ public final class ImageAnalysisConfig
     /** @hide */
     @RestrictTo(Scope.LIBRARY_GROUP)
     @Override
-    public boolean containsOption(Option<?> id) {
+    public boolean containsOption(Option id) {
         return mConfig.containsOption(id);
     }
 
@@ -126,7 +126,7 @@ public final class ImageAnalysisConfig
     @RestrictTo(Scope.LIBRARY_GROUP)
     @Override
     @Nullable
-    public <ValueT> ValueT retrieveOption(Option<ValueT> id) {
+    public Object retrieveOption(Option id) {
         return mConfig.retrieveOption(id);
     }
 
@@ -134,7 +134,7 @@ public final class ImageAnalysisConfig
     @RestrictTo(Scope.LIBRARY_GROUP)
     @Override
     @Nullable
-    public <ValueT> ValueT retrieveOption(Option<ValueT> id, @Nullable ValueT valueIfMissing) {
+    public Object retrieveOption(Option id, @Nullable Object valueIfMissing) {
         return mConfig.retrieveOption(id, valueIfMissing);
     }
 
@@ -148,7 +148,7 @@ public final class ImageAnalysisConfig
     /** @hide */
     @RestrictTo(Scope.LIBRARY_GROUP)
     @Override
-    public Set<Option<?>> listOptions() {
+    public Set<Option> listOptions() {
         return mConfig.listOptions();
     }
 
@@ -192,7 +192,7 @@ public final class ImageAnalysisConfig
     @Override
     @Nullable
     public String getTargetName(@Nullable String valueIfMissing) {
-        return retrieveOption(OPTION_TARGET_NAME, valueIfMissing);
+        return (String) retrieveOption(OPTION_TARGET_NAME, valueIfMissing);
     }
 
     /**
@@ -206,7 +206,7 @@ public final class ImageAnalysisConfig
      */
     @Override
     public String getTargetName() {
-        return retrieveOption(OPTION_TARGET_NAME);
+        return (String) retrieveOption(OPTION_TARGET_NAME);
     }
 
     // Implementations of CameraDeviceConfig default methods
@@ -221,7 +221,7 @@ public final class ImageAnalysisConfig
     @Override
     @Nullable
     public CameraX.LensFacing getLensFacing(@Nullable CameraX.LensFacing valueIfMissing) {
-        return retrieveOption(OPTION_LENS_FACING, valueIfMissing);
+        return (CameraX.LensFacing) retrieveOption(OPTION_LENS_FACING, valueIfMissing);
     }
 
     /**
@@ -232,7 +232,7 @@ public final class ImageAnalysisConfig
      */
     @Override
     public CameraX.LensFacing getLensFacing() {
-        return retrieveOption(OPTION_LENS_FACING);
+        return (CameraX.LensFacing) retrieveOption(OPTION_LENS_FACING);
     }
 
     // Implementations of ImageOutputConfig default methods
@@ -251,7 +251,7 @@ public final class ImageAnalysisConfig
     @Override
     @Nullable
     public Rational getTargetAspectRatio(@Nullable Rational valueIfMissing) {
-        return retrieveOption(OPTION_TARGET_ASPECT_RATIO, valueIfMissing);
+        return (Rational) retrieveOption(OPTION_TARGET_ASPECT_RATIO, valueIfMissing);
     }
 
     /**
@@ -266,7 +266,7 @@ public final class ImageAnalysisConfig
      */
     @Override
     public Rational getTargetAspectRatio() {
-        return retrieveOption(OPTION_TARGET_ASPECT_RATIO);
+        return (Rational) retrieveOption(OPTION_TARGET_ASPECT_RATIO);
     }
 
     /**
@@ -283,7 +283,7 @@ public final class ImageAnalysisConfig
     @Override
     @RotationValue
     public int getTargetRotation(int valueIfMissing) {
-        return retrieveOption(OPTION_TARGET_ROTATION, valueIfMissing);
+        return (int) retrieveOption(OPTION_TARGET_ROTATION, valueIfMissing);
     }
 
     /**
@@ -299,7 +299,7 @@ public final class ImageAnalysisConfig
     @Override
     @RotationValue
     public int getTargetRotation() {
-        return retrieveOption(OPTION_TARGET_ROTATION);
+        return (int) retrieveOption(OPTION_TARGET_ROTATION);
     }
 
     /**
@@ -311,7 +311,7 @@ public final class ImageAnalysisConfig
      */
     @Override
     public Size getTargetResolution(Size valueIfMissing) {
-        return retrieveOption(ImageOutputConfig.OPTION_TARGET_RESOLUTION, valueIfMissing);
+        return (Size) retrieveOption(ImageOutputConfig.OPTION_TARGET_RESOLUTION, valueIfMissing);
     }
 
     /**
@@ -322,21 +322,21 @@ public final class ImageAnalysisConfig
      */
     @Override
     public Size getTargetResolution() {
-        return retrieveOption(ImageOutputConfig.OPTION_TARGET_RESOLUTION);
+        return (Size) retrieveOption(ImageOutputConfig.OPTION_TARGET_RESOLUTION);
     }
 
     /** @hide */
     @RestrictTo(Scope.LIBRARY_GROUP)
     @Override
     public Size getMaxResolution(Size valueIfMissing) {
-        return retrieveOption(OPTION_MAX_RESOLUTION, valueIfMissing);
+        return (Size) retrieveOption(OPTION_MAX_RESOLUTION, valueIfMissing);
     }
 
     /** @hide */
     @RestrictTo(Scope.LIBRARY_GROUP)
     @Override
     public Size getMaxResolution() {
-        return retrieveOption(OPTION_MAX_RESOLUTION);
+        return (Size) retrieveOption(OPTION_MAX_RESOLUTION);
     }
 
     // Implementations of ThreadConfig default methods
@@ -351,7 +351,7 @@ public final class ImageAnalysisConfig
     @Override
     @Nullable
     public Handler getCallbackHandler(@Nullable Handler valueIfMissing) {
-        return retrieveOption(OPTION_CALLBACK_HANDLER, valueIfMissing);
+        return (Handler) retrieveOption(OPTION_CALLBACK_HANDLER, valueIfMissing);
     }
 
     /**
@@ -362,7 +362,7 @@ public final class ImageAnalysisConfig
      */
     @Override
     public Handler getCallbackHandler() {
-        return retrieveOption(OPTION_CALLBACK_HANDLER);
+        return (Handler) retrieveOption(OPTION_CALLBACK_HANDLER);
     }
 
     // Implementations of UseCaseConfig default methods
@@ -372,14 +372,14 @@ public final class ImageAnalysisConfig
     @Override
     @Nullable
     public SessionConfig getDefaultSessionConfig(@Nullable SessionConfig valueIfMissing) {
-        return retrieveOption(OPTION_DEFAULT_SESSION_CONFIG, valueIfMissing);
+        return (SessionConfig) retrieveOption(OPTION_DEFAULT_SESSION_CONFIG, valueIfMissing);
     }
 
     /** @hide */
     @RestrictTo(Scope.LIBRARY_GROUP)
     @Override
     public SessionConfig getDefaultSessionConfig() {
-        return retrieveOption(OPTION_DEFAULT_SESSION_CONFIG);
+        return (SessionConfig) retrieveOption(OPTION_DEFAULT_SESSION_CONFIG);
     }
 
     /** @hide */
@@ -388,14 +388,15 @@ public final class ImageAnalysisConfig
     @Nullable
     public SessionConfig.OptionUnpacker getSessionOptionUnpacker(
             @Nullable SessionConfig.OptionUnpacker valueIfMissing) {
-        return retrieveOption(OPTION_SESSION_CONFIG_UNPACKER, valueIfMissing);
+        return (SessionConfig.OptionUnpacker) retrieveOption(OPTION_SESSION_CONFIG_UNPACKER,
+                valueIfMissing);
     }
 
     /** @hide */
     @RestrictTo(Scope.LIBRARY_GROUP)
     @Override
     public SessionConfig.OptionUnpacker getSessionOptionUnpacker() {
-        return retrieveOption(OPTION_SESSION_CONFIG_UNPACKER);
+        return (SessionConfig.OptionUnpacker) retrieveOption(OPTION_SESSION_CONFIG_UNPACKER);
     }
 
     /** @hide */
@@ -403,14 +404,14 @@ public final class ImageAnalysisConfig
     @Override
     @Nullable
     public CaptureConfig getDefaultCaptureConfig(@Nullable CaptureConfig valueIfMissing) {
-        return retrieveOption(OPTION_DEFAULT_CAPTURE_CONFIG, valueIfMissing);
+        return (CaptureConfig) retrieveOption(OPTION_DEFAULT_CAPTURE_CONFIG, valueIfMissing);
     }
 
     /** @hide */
     @RestrictTo(Scope.LIBRARY_GROUP)
     @Override
     public CaptureConfig getDefaultCaptureConfig() {
-        return retrieveOption(OPTION_DEFAULT_CAPTURE_CONFIG);
+        return (CaptureConfig) retrieveOption(OPTION_DEFAULT_CAPTURE_CONFIG);
     }
 
     /** @hide */
@@ -419,26 +420,27 @@ public final class ImageAnalysisConfig
     @Nullable
     public CaptureConfig.OptionUnpacker getCaptureOptionUnpacker(
             @Nullable CaptureConfig.OptionUnpacker valueIfMissing) {
-        return retrieveOption(OPTION_CAPTURE_CONFIG_UNPACKER, valueIfMissing);
+        return (CaptureConfig.OptionUnpacker) retrieveOption(OPTION_CAPTURE_CONFIG_UNPACKER,
+                valueIfMissing);
     }
 
     /** @hide */
     @RestrictTo(Scope.LIBRARY_GROUP)
     @Override
     public CaptureConfig.OptionUnpacker getCaptureOptionUnpacker() {
-        return retrieveOption(OPTION_CAPTURE_CONFIG_UNPACKER);
+        return (CaptureConfig.OptionUnpacker) retrieveOption(OPTION_CAPTURE_CONFIG_UNPACKER);
     }
 
     /** @hide */
     @RestrictTo(Scope.LIBRARY_GROUP)
     public int getSurfaceOccupancyPriority(int valueIfMissing) {
-        return retrieveOption(OPTION_SURFACE_OCCUPANCY_PRIORITY, valueIfMissing);
+        return (int) retrieveOption(OPTION_SURFACE_OCCUPANCY_PRIORITY, valueIfMissing);
     }
 
     /** @hide */
     @RestrictTo(Scope.LIBRARY_GROUP)
     public int getSurfaceOccupancyPriority() {
-        return retrieveOption(OPTION_SURFACE_OCCUPANCY_PRIORITY);
+        return (int) retrieveOption(OPTION_SURFACE_OCCUPANCY_PRIORITY);
     }
 
     /** @hide */
@@ -447,7 +449,8 @@ public final class ImageAnalysisConfig
     @Override
     public UseCase.EventListener getUseCaseEventListener(
             @Nullable UseCase.EventListener valueIfMissing) {
-        return retrieveOption(OPTION_USE_CASE_EVENT_LISTENER, valueIfMissing);
+        return (UseCase.EventListener) retrieveOption(OPTION_USE_CASE_EVENT_LISTENER,
+                valueIfMissing);
     }
 
     /** @hide */
@@ -455,7 +458,7 @@ public final class ImageAnalysisConfig
     @Nullable
     @Override
     public UseCase.EventListener getUseCaseEventListener() {
-        return retrieveOption(OPTION_USE_CASE_EVENT_LISTENER);
+        return (UseCase.EventListener) retrieveOption(OPTION_USE_CASE_EVENT_LISTENER);
     }
 
     // End of the default implementation of Config
@@ -479,7 +482,7 @@ public final class ImageAnalysisConfig
             mMutableConfig = mutableConfig;
 
             Class<?> oldConfigClass =
-                    mutableConfig.retrieveOption(TargetConfig.OPTION_TARGET_CLASS, null);
+                    (Class<?>) mutableConfig.retrieveOption(TargetConfig.OPTION_TARGET_CLASS, null);
             if (oldConfigClass != null && !oldConfigClass.equals(ImageAnalysis.class)) {
                 throw new IllegalArgumentException(
                         "Invalid target class configuration for "

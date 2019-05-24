@@ -38,16 +38,16 @@ public interface UseCaseConfig<T extends UseCase> extends TargetConfig<T>, Confi
      * @hide
      */
     @RestrictTo(Scope.LIBRARY_GROUP)
-    Option<SessionConfig> OPTION_DEFAULT_SESSION_CONFIG =
-            Option.create("camerax.core.useCase.defaultSessionConfig", SessionConfig.class);
+    Option OPTION_DEFAULT_SESSION_CONFIG =
+            Option.create("camerax.core.useCase.defaultSessionConfig");
     /**
      * Option: camerax.core.useCase.defaultCaptureConfig
      *
      * @hide
      */
     @RestrictTo(Scope.LIBRARY_GROUP)
-    Option<CaptureConfig> OPTION_DEFAULT_CAPTURE_CONFIG =
-            Option.create("camerax.core.useCase.defaultCaptureConfig", CaptureConfig.class);
+    Option OPTION_DEFAULT_CAPTURE_CONFIG =
+            Option.create("camerax.core.useCase.defaultCaptureConfig");
     /**
      * Option: camerax.core.useCase.sessionConfigUnpacker
      *
@@ -57,9 +57,8 @@ public interface UseCaseConfig<T extends UseCase> extends TargetConfig<T>, Confi
      * @hide
      */
     @RestrictTo(Scope.LIBRARY_GROUP)
-    Option<SessionConfig.OptionUnpacker> OPTION_SESSION_CONFIG_UNPACKER =
-            Option.create("camerax.core.useCase.sessionConfigUnpacker",
-                    SessionConfig.OptionUnpacker.class);
+    Option OPTION_SESSION_CONFIG_UNPACKER =
+            Option.create("camerax.core.useCase.sessionConfigUnpacker");
     /**
      * Option: camerax.core.useCase.captureConfigUnpacker
      *
@@ -69,17 +68,16 @@ public interface UseCaseConfig<T extends UseCase> extends TargetConfig<T>, Confi
      * @hide
      */
     @RestrictTo(Scope.LIBRARY_GROUP)
-    Option<CaptureConfig.OptionUnpacker> OPTION_CAPTURE_CONFIG_UNPACKER =
-            Option.create("camerax.core.useCase.captureConfigUnpacker",
-                    CaptureConfig.OptionUnpacker.class);
+    Option OPTION_CAPTURE_CONFIG_UNPACKER =
+            Option.create("camerax.core.useCase.captureConfigUnpacker");
     /**
      * Option: camerax.core.useCase.surfaceOccypyPriority
      *
      * @hide
      */
     @RestrictTo(Scope.LIBRARY_GROUP)
-    Option<Integer> OPTION_SURFACE_OCCUPANCY_PRIORITY =
-            Option.create("camerax.core.useCase.surfaceOccupancyPriority", int.class);
+    Option OPTION_SURFACE_OCCUPANCY_PRIORITY =
+            Option.create("camerax.core.useCase.surfaceOccupancyPriority");
 
     // *********************************************************************************************
 

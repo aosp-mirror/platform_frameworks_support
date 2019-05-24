@@ -21,7 +21,6 @@ import androidx.annotation.RestrictTo;
 import androidx.annotation.RestrictTo.Scope;
 
 import com.google.auto.value.AutoValue;
-import com.google.auto.value.extension.memoized.Memoized;
 
 import java.util.Set;
 
@@ -43,7 +42,7 @@ public interface Config {
      * @hide
      */
     @RestrictTo(Scope.LIBRARY_GROUP)
-    boolean containsOption(Option<?> id);
+    boolean containsOption(Option id);
 
     /**
      * Retrieves the value for the specified option if it exists in the configuration.
@@ -51,13 +50,12 @@ public interface Config {
      * <p>If the option does not exist, an exception will be thrown.
      *
      * @param id       The {@link Option} to search for in this configuration.
-     * @param <ValueT> The type for the value associated with the supplied {@link Option}.
      * @return The value stored in this configuration, or <code>null</code> if it does not exist.
      * @throws IllegalArgumentException if the given option does not exist in this configuration.
      * @hide
      */
     @RestrictTo(Scope.LIBRARY_GROUP)
-    <ValueT> ValueT retrieveOption(Option<ValueT> id);
+    Object retrieveOption(Option id);
 
     /**
      * Retrieves the value for the specified option if it exists in the configuration.
@@ -67,13 +65,12 @@ public interface Config {
      * @param id             The {@link Option} to search for in this configuration.
      * @param valueIfMissing The value to return if the specified {@link Option} does not exist in
      *                       this configuration.
-     * @param <ValueT>       The type for the value associated with the supplied {@link Option}.
      * @return The value stored in this configuration, or <code>null</code> if it does not exist.
      * @hide
      */
     @RestrictTo(Scope.LIBRARY_GROUP)
     @Nullable
-    <ValueT> ValueT retrieveOption(Option<ValueT> id, @Nullable ValueT valueIfMissing);
+    Object retrieveOption(Option id, @Nullable Object valueIfMissing);
 
     /**
      * Search the configuration for {@link Option}s whose id match the supplied search string.
@@ -101,7 +98,7 @@ public interface Config {
      * @hide
      */
     @RestrictTo(Scope.LIBRARY_GROUP)
-    Set<Option<?>> listOptions();
+    Set<Option> listOptions();
 
     /**
      * Extendable builders are used to add externally defined options to a configuration.
@@ -134,7 +131,7 @@ public interface Config {
          * @param option The matched option.
          * @return <code>false</code> if no further results are needed; <code>true</code> otherwise.
          */
-        boolean onOptionMatched(Option<?> option);
+        boolean onOptionMatched(Option option);
     }
 
     /**
@@ -145,12 +142,11 @@ public interface Config {
      * As the name suggests, {@link Option}s are optional, and may or may not exist inside a {@link
      * Config}.
      *
-     * @param <T> The type of the value for this option.
      * @hide
      */
     @RestrictTo(Scope.LIBRARY_GROUP)
     @AutoValue
-    abstract class Option<T> {
+    abstract class Option {
 
         /** Prevent subclassing */
         Option() {
@@ -162,14 +158,11 @@ public interface Config {
          * @param id         A unique string identifier for this option. This generally follows
          *                   the scheme
          *                   <code>&lt;owner&gt;.[optional.subCategories.]&lt;optionId&gt;</code>.
-         * @param valueClass The class of the value stored by this option.
-         * @param <T>        The type of the value stored by this option.
          * @return An {@link Option} object which can be used to store/retrieve values from a {@link
          * Config}.
          */
-        public static <T> Option<T> create(String id, Class<T> valueClass) {
-            TypeReference<T> valueType = TypeReference.createSpecializedTypeReference(valueClass);
-            return create(id, valueType, /*token=*/ null);
+        public static Option create(String id) {
+            return create(id, /*token=*/ null);
         }
 
         /**
@@ -178,8 +171,6 @@ public interface Config {
          * @param id         A unique string identifier for this option. This generally follows
          *                   the scheme
          *                   <code>&lt;owner&gt;.[optional.subCategories.]&lt;optionId&gt;</code>.
-         * @param valueClass The class of the value stored by this option.
-         * @param <T>        The type of the value stored by this option.
          * @param token      An optional, type-erased object for storing more context for this
          *                   specific
          *                   option. Generally this object should have static scope and be
@@ -187,22 +178,8 @@ public interface Config {
          * @return An {@link Option} object which can be used to store/retrieve values from a {@link
          * Config}.
          */
-        public static <T> Option<T> create(String id, Class<T> valueClass, @Nullable Object token) {
-            TypeReference<T> valueType = TypeReference.createSpecializedTypeReference(valueClass);
-            return create(id, valueType, token);
-        }
-
-        /** @hide */
-        @RestrictTo(Scope.LIBRARY_GROUP)
-        public static <T> Option<T> create(String name, TypeReference<T> valueType) {
-            return create(name, valueType, /*token=*/ null);
-        }
-
-        /** @hide */
-        @RestrictTo(Scope.LIBRARY_GROUP)
-        public static <T> Option<T> create(
-                String name, TypeReference<T> valueType, @Nullable Object token) {
-            return new AutoValue_Config_Option<>(name, valueType, token);
+        public static Option create(String id, @Nullable Object token) {
+            return new AutoValue_Config_Option(id, token);
         }
 
         /**
@@ -216,8 +193,6 @@ public interface Config {
          */
         public abstract String getId();
 
-        abstract TypeReference<T> getTypeReference();
-
         /**
          * Returns the optional type-erased context object for this option.
          *
@@ -227,16 +202,5 @@ public interface Config {
          */
         @Nullable
         public abstract Object getToken();
-
-        /**
-         * Returns the class object associated with the value for this option.
-         *
-         * @return The class object for the value's type.
-         */
-        @Memoized
-        @SuppressWarnings("unchecked")
-        public Class<T> getValueClass() {
-            return (Class<T>) getTypeReference().getRawType();
-        }
     }
 }

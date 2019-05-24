@@ -470,8 +470,7 @@ public final class CameraX {
         // Collect new use cases for different camera devices
         for (UseCase useCase : useCases) {
             String cameraId = null;
-            LensFacing lensFacing =
-                    useCase.getUseCaseConfig()
+            LensFacing lensFacing = (LensFacing) useCase.getUseCaseConfig()
                             .retrieveOption(CameraDeviceConfig.OPTION_LENS_FACING);
             try {
                 cameraId = getCameraWithLensFacing(lensFacing);

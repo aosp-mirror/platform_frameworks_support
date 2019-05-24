@@ -38,16 +38,16 @@ import java.util.TreeMap;
 public class OptionsBundle implements Config {
 
     private static final OptionsBundle EMPTY_BUNDLE =
-            new OptionsBundle(new TreeMap<>(new Comparator<Option<?>>() {
+            new OptionsBundle(new TreeMap<>(new Comparator<Option>() {
                 @Override
-                public int compare(Option<?> o1, Option<?> o2) {
+                public int compare(Option o1, Option o2) {
                     return o1.getId().compareTo(o2.getId());
                 }
             }));
     // TODO: Make these options parcelable
-    protected final TreeMap<Option<?>, Object> mOptions;
+    protected final TreeMap<Option, Object> mOptions;
 
-    OptionsBundle(TreeMap<Option<?>, Object> options) {
+    OptionsBundle(TreeMap<Option, Object> options) {
         mOptions = options;
     }
 
@@ -65,14 +65,14 @@ public class OptionsBundle implements Config {
             return (OptionsBundle) otherConfig;
         }
 
-        TreeMap<Option<?>, Object> persistentOptions =
-                new TreeMap<>(new Comparator<Option<?>>() {
+        TreeMap<Option, Object> persistentOptions =
+                new TreeMap<>(new Comparator<Option>() {
                     @Override
-                    public int compare(Option<?> o1, Option<?> o2) {
+                    public int compare(Option o1, Option o2) {
                         return o1.getId().compareTo(o2.getId());
                     }
                 });
-        for (Option<?> opt : otherConfig.listOptions()) {
+        for (Option opt : otherConfig.listOptions()) {
             persistentOptions.put(opt, otherConfig.retrieveOption(opt));
         }
 
@@ -91,18 +91,18 @@ public class OptionsBundle implements Config {
     }
 
     @Override
-    public Set<Option<?>> listOptions() {
+    public Set<Option> listOptions() {
         return Collections.unmodifiableSet(mOptions.keySet());
     }
 
     @Override
-    public boolean containsOption(Option<?> id) {
+    public boolean containsOption(Option id) {
         return mOptions.containsKey(id);
     }
 
     @Override
-    public <ValueT> ValueT retrieveOption(Option<ValueT> id) {
-        ValueT value = retrieveOption(id, /*valueIfMissing=*/ null);
+    public Object retrieveOption(Option id) {
+        Object value = retrieveOption(id, /*valueIfMissing=*/ null);
         if (value == null) {
             throw new IllegalArgumentException("Option does not exist: " + id);
         }
@@ -112,9 +112,8 @@ public class OptionsBundle implements Config {
 
     @Nullable
     @Override
-    public <ValueT> ValueT retrieveOption(Option<ValueT> id, @Nullable ValueT valueIfMissing) {
-        @SuppressWarnings("unchecked") // Options should have only been inserted via insertOption()
-                ValueT value = (ValueT) mOptions.get(id);
+    public Object retrieveOption(Option id, @Nullable Object valueIfMissing) {
+        Object value = mOptions.get(id);
         if (value == null) {
             value = valueIfMissing;
         }
@@ -124,14 +123,14 @@ public class OptionsBundle implements Config {
 
     @Override
     public void findOptions(String idStem, OptionMatcher matcher) {
-        Option<Void> query = Option.create(idStem, Void.class);
-        for (Entry<Option<?>, Object> entry : mOptions.tailMap(query).entrySet()) {
+        Option query = Option.create(idStem);
+        for (Entry<Option, Object> entry : mOptions.tailMap(query).entrySet()) {
             if (!entry.getKey().getId().startsWith(idStem)) {
                 // We've reached the end of the range that contains our search stem.
                 break;
             }
 
-            Option<?> option = entry.getKey();
+            Option option = entry.getKey();
             if (!matcher.onOptionMatched(option)) {
                 // Caller does not need further results
                 break;

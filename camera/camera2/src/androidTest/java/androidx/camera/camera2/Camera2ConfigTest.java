@@ -149,7 +149,7 @@ public final class Camera2ConfigTest {
                 "camera2.captureRequest.option",
                 new Config.OptionMatcher() {
                     @Override
-                    public boolean onOptionMatched(Config.Option<?> option) {
+                    public boolean onOptionMatched(Config.Option option) {
                         // The token should be the capture request key
                         assertThat(option.getToken())
                                 .isAnyOf(

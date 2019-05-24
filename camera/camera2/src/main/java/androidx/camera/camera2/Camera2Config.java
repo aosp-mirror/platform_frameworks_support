@@ -17,9 +17,7 @@
 package androidx.camera.camera2;
 
 import android.hardware.camera2.CameraCaptureSession;
-import android.hardware.camera2.CameraCaptureSession.CaptureCallback;
 import android.hardware.camera2.CameraDevice;
-import android.hardware.camera2.CameraDevice.StateCallback;
 import android.hardware.camera2.CaptureRequest;
 import android.hardware.camera2.CaptureResult;
 import android.view.Surface;
@@ -46,21 +44,19 @@ public final class Camera2Config implements Config {
     // Option Declarations:
     // *********************************************************************************************
 
-    static final Option<Integer> TEMPLATE_TYPE_OPTION =
-            Option.create("camera2.captureRequest.templateType", int.class);
-    static final Option<StateCallback> DEVICE_STATE_CALLBACK_OPTION =
-            Option.create("camera2.cameraDevice.stateCallback", StateCallback.class);
-    static final Option<CameraCaptureSession.StateCallback> SESSION_STATE_CALLBACK_OPTION =
-            Option.create(
-                    "camera2.cameraCaptureSession.stateCallback",
-                    CameraCaptureSession.StateCallback.class);
-    static final Option<CaptureCallback> SESSION_CAPTURE_CALLBACK_OPTION =
-            Option.create("camera2.cameraCaptureSession.captureCallback", CaptureCallback.class);
+    static final Option TEMPLATE_TYPE_OPTION =
+            Option.create("camera2.captureRequest.templateType");
+    static final Option DEVICE_STATE_CALLBACK_OPTION =
+            Option.create("camera2.cameraDevice.stateCallback");
+    static final Option SESSION_STATE_CALLBACK_OPTION =
+            Option.create("camera2.cameraCaptureSession.stateCallback");
+    static final Option SESSION_CAPTURE_CALLBACK_OPTION =
+            Option.create("camera2.cameraCaptureSession.captureCallback");
 
     /** @hide */
     @RestrictTo(Scope.LIBRARY)
-    public static final Option<CameraEventCallbacks> CAMERA_EVENT_CALLBACK_OPTION =
-            Option.create("camera2.cameraEvent.callback", CameraEventCallbacks.class);
+    public static final Option CAMERA_EVENT_CALLBACK_OPTION =
+            Option.create("camera2.cameraEvent.callback");
     // *********************************************************************************************
 
     private final Config mConfig;
@@ -77,8 +73,8 @@ public final class Camera2Config implements Config {
     // Unfortunately, we can't get the Class<T> from the CaptureRequest.Key, so we're forced to
     // erase the type. This shouldn't be a problem as long as we are only using these options
     // within the Camera2Config and Camera2Config.Builder classes.
-    static Option<Object> createCaptureRequestOption(CaptureRequest.Key<?> key) {
-        return Option.create(CAPTURE_REQUEST_ID_STEM + key.getName(), Object.class, key);
+    static Option createCaptureRequestOption(CaptureRequest.Key<?> key) {
+        return Option.create(CAPTURE_REQUEST_ID_STEM + key.getName(), key);
     }
 
     /**
@@ -86,15 +82,11 @@ public final class Camera2Config implements Config {
      *
      * @param key            The key to retrieve.
      * @param valueIfMissing The value to return if this configuration option has not been set.
-     * @param <ValueT>       The type of the value.
      * @return The stored value or <code>valueIfMissing</code> if the value does not exist in this
      * configuration.
      */
-    public <ValueT> ValueT getCaptureRequestOption(
-            CaptureRequest.Key<ValueT> key, @Nullable ValueT valueIfMissing) {
-        @SuppressWarnings(
-                "unchecked") // Type should have been only set via Builder#setCaptureRequestOption()
-                Option<ValueT> opt = (Option<ValueT>) Camera2Config.createCaptureRequestOption(key);
+    public Object getCaptureRequestOption(CaptureRequest.Key key, @Nullable Object valueIfMissing) {
+        Option opt = Camera2Config.createCaptureRequestOption(key);
         return mConfig.retrieveOption(opt, valueIfMissing);
     }
 
@@ -103,13 +95,13 @@ public final class Camera2Config implements Config {
      * @hide
      */
     @RestrictTo(Scope.LIBRARY)
-    public Set<Option<?>> getCaptureRequestOptions() {
-        final Set<Option<?>> optionSet = new HashSet<>();
+    public Set<Option> getCaptureRequestOptions() {
+        final Set<Option> optionSet = new HashSet<>();
         findOptions(
                 Camera2Config.CAPTURE_REQUEST_ID_STEM,
                 new OptionMatcher() {
                     @Override
-                    public boolean onOptionMatched(Option<?> option) {
+                    public boolean onOptionMatched(Option option) {
                         optionSet.add(option);
                         return true;
                     }
@@ -130,7 +122,7 @@ public final class Camera2Config implements Config {
      */
     @RestrictTo(Scope.LIBRARY)
     public int getCaptureRequestTemplate(int valueIfMissing) {
-        return mConfig.retrieveOption(TEMPLATE_TYPE_OPTION, valueIfMissing);
+        return (int) mConfig.retrieveOption(TEMPLATE_TYPE_OPTION, valueIfMissing);
     }
 
     /**
@@ -142,7 +134,8 @@ public final class Camera2Config implements Config {
      */
     public CameraDevice.StateCallback getDeviceStateCallback(
             CameraDevice.StateCallback valueIfMissing) {
-        return mConfig.retrieveOption(DEVICE_STATE_CALLBACK_OPTION, valueIfMissing);
+        return (CameraDevice.StateCallback) mConfig.retrieveOption(DEVICE_STATE_CALLBACK_OPTION,
+                valueIfMissing);
     }
 
     /**
@@ -154,7 +147,8 @@ public final class Camera2Config implements Config {
      */
     public CameraCaptureSession.StateCallback getSessionStateCallback(
             CameraCaptureSession.StateCallback valueIfMissing) {
-        return mConfig.retrieveOption(SESSION_STATE_CALLBACK_OPTION, valueIfMissing);
+        return (CameraCaptureSession.StateCallback) mConfig.retrieveOption(
+                SESSION_STATE_CALLBACK_OPTION, valueIfMissing);
     }
 
     /**
@@ -166,7 +160,8 @@ public final class Camera2Config implements Config {
      */
     public CameraCaptureSession.CaptureCallback getSessionCaptureCallback(
             CameraCaptureSession.CaptureCallback valueIfMissing) {
-        return mConfig.retrieveOption(SESSION_CAPTURE_CALLBACK_OPTION, valueIfMissing);
+        return (CameraCaptureSession.CaptureCallback) mConfig.retrieveOption(
+                SESSION_CAPTURE_CALLBACK_OPTION, valueIfMissing);
     }
 
     /**
@@ -177,7 +172,8 @@ public final class Camera2Config implements Config {
      * configuration.
      */
     public CameraEventCallbacks getCameraEventCallback(CameraEventCallbacks valueIfMissing) {
-        return mConfig.retrieveOption(CAMERA_EVENT_CALLBACK_OPTION, valueIfMissing);
+        return (CameraEventCallbacks) mConfig.retrieveOption(CAMERA_EVENT_CALLBACK_OPTION,
+                valueIfMissing);
     }
 
     // Start of the default implementation of Config
@@ -188,7 +184,7 @@ public final class Camera2Config implements Config {
     /** @hide */
     @RestrictTo(Scope.LIBRARY_GROUP)
     @Override
-    public boolean containsOption(Option<?> id) {
+    public boolean containsOption(Option id) {
         return mConfig.containsOption(id);
     }
 
@@ -196,7 +192,7 @@ public final class Camera2Config implements Config {
     @RestrictTo(Scope.LIBRARY_GROUP)
     @Override
     @Nullable
-    public <ValueT> ValueT retrieveOption(Option<ValueT> id) {
+    public Object retrieveOption(Option id) {
         return mConfig.retrieveOption(id);
     }
 
@@ -204,7 +200,7 @@ public final class Camera2Config implements Config {
     @RestrictTo(Scope.LIBRARY_GROUP)
     @Override
     @Nullable
-    public <ValueT> ValueT retrieveOption(Option<ValueT> id, @Nullable ValueT valueIfMissing) {
+    public Object retrieveOption(Option id, @Nullable Object valueIfMissing) {
         return mConfig.retrieveOption(id, valueIfMissing);
     }
 
@@ -218,7 +214,7 @@ public final class Camera2Config implements Config {
     /** @hide */
     @RestrictTo(Scope.LIBRARY_GROUP)
     @Override
-    public Set<Option<?>> listOptions() {
+    public Set<Option> listOptions() {
         return mConfig.listOptions();
     }
 
@@ -244,13 +240,11 @@ public final class Camera2Config implements Config {
          *
          * @param key      The {@link CaptureRequest.Key} which will be set.
          * @param value    The value for the key.
-         * @param <ValueT> The type of the value.
          * @return The current Extender.
          */
-        public <ValueT> Extender setCaptureRequestOption(
-                CaptureRequest.Key<ValueT> key, ValueT value) {
+        public Extender setCaptureRequestOption(CaptureRequest.Key<?> key, Object value) {
             // Reify the type so we can obtain the class
-            Option<Object> opt = Camera2Config.createCaptureRequestOption(key);
+            Option opt = Camera2Config.createCaptureRequestOption(key);
             mBaseBuilder.getMutableConfig().insertOption(opt, value);
             return this;
         }
@@ -374,19 +368,16 @@ public final class Camera2Config implements Config {
         /**
          * Inserts new capture request option with specific {@link CaptureRequest.Key} setting.
          */
-        public <ValueT> Builder setCaptureRequestOption(
-                CaptureRequest.Key<ValueT> key, ValueT value) {
-            Option<Object> opt = Camera2Config.createCaptureRequestOption(key);
+        public Builder setCaptureRequestOption(CaptureRequest.Key<?> key, Object value) {
+            Option opt = Camera2Config.createCaptureRequestOption(key);
             mMutableOptionsBundle.insertOption(opt, value);
             return this;
         }
 
         /** Inserts options from other {@link Config} object. */
         public Builder insertAllOptions(Config config) {
-            for (Option<?> option : config.listOptions()) {
-                @SuppressWarnings("unchecked") // Options/values are being copied directly
-                        Option<Object> objectOpt = (Option<Object>) option;
-                mMutableOptionsBundle.insertOption(objectOpt, config.retrieveOption(objectOpt));
+            for (Option option : config.listOptions()) {
+                mMutableOptionsBundle.insertOption(option, config.retrieveOption(option));
             }
             return this;
         }
