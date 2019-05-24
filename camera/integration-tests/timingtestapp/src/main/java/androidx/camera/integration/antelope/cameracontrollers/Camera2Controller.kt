@@ -17,11 +17,14 @@
 package androidx.camera.integration.antelope.cameracontrollers
 
 import android.content.Context
+import android.graphics.SurfaceTexture
 import android.hardware.camera2.CameraAccessException
+import android.hardware.camera2.CameraCaptureSession
 import android.hardware.camera2.CameraDevice
 import android.hardware.camera2.CameraManager
 import android.hardware.camera2.CameraMetadata
 import android.hardware.camera2.CaptureRequest
+import android.view.Surface
 import androidx.camera.integration.antelope.CameraParams
 import androidx.camera.integration.antelope.FocusMode
 import androidx.camera.integration.antelope.MainActivity
@@ -303,4 +306,35 @@ fun camera2CloseCamera(activity: MainActivity, params: CameraParams?, testConfig
 fun camera2Abort(activity: MainActivity, params: CameraParams, testConfig: TestConfig) {
     params.camera2CaptureSession?.abortCaptures()
     activity.stopBackgroundThread(params)
+}
+
+/**
+ * Create a dummy preview session to workaround a bug where an ImageReader can stay active after
+ * a device close. For example on Pixel 1 with Android 8.0.0 during a SWITCH_CAMERA test.
+ */
+fun createTemporaryPreviewSession(activity: MainActivity, params: CameraParams) {
+    val surfaceTexture = SurfaceTexture(0)
+    surfaceTexture.setDefaultBufferSize(640, 480)
+
+    val surface = Surface(surfaceTexture)
+    try {
+        params.device?.createCaptureSession(Arrays.asList(surface),
+            object : CameraCaptureSession.StateCallback() {
+                override fun onConfigured(session: CameraCaptureSession) {
+                    session.close()
+                }
+                override fun onConfigureFailed(session: CameraCaptureSession) {
+                    session.close()
+                }
+                override fun onClosed(session: CameraCaptureSession) {
+                    surfaceTexture.release()
+                }
+            }, null)
+    } catch (e: CameraAccessException) {
+        logd("createCameraPreviewSession CameraAccessException: " + e.message)
+        e.printStackTrace()
+    } catch (e: IllegalStateException) {
+        logd("createCameraPreviewSession IllegalStateException: " + e.message)
+        e.printStackTrace()
+    }
 }
