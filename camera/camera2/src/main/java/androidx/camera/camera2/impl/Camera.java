@@ -52,6 +52,7 @@ import androidx.core.os.BuildCompat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
@@ -126,7 +127,8 @@ final class Camera implements BaseCamera {
         mHandler = handler;
         mUseCaseAttachState = new UseCaseAttachState(cameraId);
         mState.set(State.INITIALIZED);
-        mCameraControl = new Camera2CameraControl(this, handler);
+        ScheduledExecutorService handlerExecutor = CameraXExecutors.newHandlerExecutor(mHandler);
+        mCameraControl = new Camera2CameraControl(this, handlerExecutor, handlerExecutor);
         mCaptureSession = new CaptureSession(CameraXExecutors.newHandlerExecutor(mHandler));
     }
 
