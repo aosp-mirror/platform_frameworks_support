@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c44d78ef_ec56dde7",
+        "filename": "camera/extensions-stub/src/main/java/androidx/camera/extensions/impl/AutoPreviewExtenderImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-24T17:56:29Z",
+      "side": 1,
+      "message": "view finder -\u003e preview",
+      "revId": "ff54dd809ffbd6ea19cbee8eb508272c9bd03488",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a94a545_e055a366",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/AutoPreviewExtender.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-24T17:56:29Z",
+      "side": 1,
+      "message": "No auto view finder extender found. -\u003e\nNo auto preview extender found.",
+      "revId": "ff54dd809ffbd6ea19cbee8eb508272c9bd03488",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24086d6b_c36d6f9a",
+        "filename": "camera/integration-tests/extensionstestapp/src/main/java/androidx/camera/integration/extensions/CameraExtensionsActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-24T17:56:29Z",
+      "side": 1,
+      "message": "view finder -\u003e preview\n\nLooks like all the other log messages were not updated previously.",
+      "revId": "ff54dd809ffbd6ea19cbee8eb508272c9bd03488",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
