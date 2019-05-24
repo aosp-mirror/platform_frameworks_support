@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "100426dc_9fb77ed9",
+        "filename": "ui/layout/src/main/java/androidx/ui/layout/AspectRatio.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2019-05-24T15:27:23Z",
+      "side": 1,
+      "message": "Yep, here I am suggesting that the child lambda might not emit a Layout child. I changed to \"a potential layout child\". What do you think?",
+      "parentUuid": "fb0fa89c_1eae3cb7",
+      "range": {
+        "startLine": 30,
+        "startChar": 54,
+        "endLine": 30,
+        "endChar": 62
+      },
+      "revId": "5d47035508957666c53bd189b9b98838ad2a9255",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9d785722_878c5d6d",
         "filename": "ui/layout/src/main/java/androidx/ui/layout/AspectRatio.kt",
         "patchSetId": 3
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "92418afa_c37a3ef6",
+        "filename": "ui/layout/src/main/java/androidx/ui/layout/AspectRatio.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2019-05-24T15:27:23Z",
+      "side": 1,
+      "message": "Great suggestion, thanks!",
+      "parentUuid": "9d785722_878c5d6d",
+      "range": {
+        "startLine": 32,
+        "startChar": 3,
+        "endLine": 34,
+        "endChar": 0
+      },
+      "revId": "5d47035508957666c53bd189b9b98838ad2a9255",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "be5dc7c2_bc15fcef",
         "filename": "ui/layout/src/main/java/androidx/ui/layout/AspectRatio.kt",
         "patchSetId": 3
@@ -68,6 +116,30 @@
       "revId": "5d47035508957666c53bd189b9b98838ad2a9255",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5831a0a_b934bf37",
+        "filename": "ui/layout/src/main/java/androidx/ui/layout/AspectRatio.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2019-05-24T15:27:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "be5dc7c2_bc15fcef",
+      "range": {
+        "startLine": 42,
+        "startChar": 7,
+        "endLine": 47,
+        "endChar": 8
+      },
+      "revId": "5d47035508957666c53bd189b9b98838ad2a9255",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
