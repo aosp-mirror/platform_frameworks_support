@@ -62,10 +62,8 @@ public class OptionTest {
     }
 
     @Test
-    public void canCreateOption_fromTypeReference() {
-        Option<List<Integer>> option =
-                Option.create(OPTION_1_ID, new TypeReference<List<Integer>>() {
-                });
+    public void canCreateOption_fromGenericClass() {
+        Option<List<Integer>> option = Option.create(OPTION_1_ID, List.class);
         assertThat(option).isNotNull();
     }
 
