@@ -53,6 +53,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.Executor;
+import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
@@ -126,10 +127,11 @@ final class Camera implements BaseCamera {
         mCameraManager = cameraManager;
         mCameraId = cameraId;
         mHandler = handler;
-        mExecutor = CameraXExecutors.newHandlerExecutor(mHandler);
+        ScheduledExecutorService executorScheduler = CameraXExecutors.newHandlerExecutor(mHandler);
+        mExecutor = executorScheduler;
         mUseCaseAttachState = new UseCaseAttachState(cameraId);
         mState.set(State.INITIALIZED);
-        mCameraControl = new Camera2CameraControl(this, handler);
+        mCameraControl = new Camera2CameraControl(this, mExecutor, executorScheduler);
         mCaptureSession = new CaptureSession(mExecutor);
     }
 
