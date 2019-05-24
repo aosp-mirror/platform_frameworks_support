@@ -88,17 +88,11 @@ final class Camera2SessionOptionUnpacker implements SessionConfig.OptionUnpacker
                 Camera2Config.CAPTURE_REQUEST_ID_STEM,
                 new Config.OptionMatcher() {
                     @Override
-                    public boolean onOptionMatched(Option<?> option) {
-                        @SuppressWarnings(
-                                "unchecked")
-                        // No way to get actual type info here, so treat as Object
-                                Option<Object> typeErasedOption = (Option<Object>) option;
+                    public boolean onOptionMatched(Option option) {
                         @SuppressWarnings("unchecked")
                         CaptureRequest.Key<Object> key =
                                 (CaptureRequest.Key<Object>) option.getToken();
-
-                        builder.addCharacteristic(key,
-                                camera2Config.retrieveOption(typeErasedOption));
+                        builder.addCharacteristic(key, camera2Config.retrieveOption(option));
                         return true;
                     }
                 });

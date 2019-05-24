@@ -39,16 +39,14 @@ public interface TargetConfig<T> {
      * @hide
      */
     @RestrictTo(Scope.LIBRARY_GROUP)
-    Option<String> OPTION_TARGET_NAME = Option.create("camerax.core.target.name", String.class);
+    Option OPTION_TARGET_NAME = Option.create("camerax.core.target.name");
     /**
      * Option: camerax.core.target.class
      *
      * @hide
      */
     @RestrictTo(Scope.LIBRARY_GROUP)
-    Option<Class<?>> OPTION_TARGET_CLASS =
-            Option.create("camerax.core.target.class", new TypeReference<Class<?>>() {
-            });
+    Option OPTION_TARGET_CLASS = Option.create("camerax.core.target.class");
 
     // *********************************************************************************************
 

@@ -40,19 +40,18 @@ public final class ImageCaptureConfig
     // Option Declarations:
     // *********************************************************************************************
 
-    static final Option<CaptureMode> OPTION_IMAGE_CAPTURE_MODE =
-            Option.create(
-                    "camerax.core.imageCapture.captureMode", CaptureMode.class);
-    static final Option<FlashMode> OPTION_FLASH_MODE =
-            Option.create("camerax.core.imageCapture.flashMode", FlashMode.class);
-    static final Option<CaptureBundle> OPTION_CAPTURE_BUNDLE =
-            Option.create("camerax.core.imageCapture.captureBundle", CaptureBundle.class);
-    static final Option<CaptureProcessor> OPTION_CAPTURE_PROCESSOR =
-            Option.create("camerax.core.imageCapture.captureProcessor", CaptureProcessor.class);
-    static final Option<Integer> OPTION_BUFFER_FORMAT =
-            Option.create("camerax.core.imageCapture.bufferFormat", Integer.class);
-    static final Option<Integer> OPTION_MAX_CAPTURE_STAGES =
-            Option.create("camerax.core.imageCapture.maxCaptureStages", Integer.class);
+    static final Option OPTION_IMAGE_CAPTURE_MODE =
+            Option.create("camerax.core.imageCapture.captureMode");
+    static final Option OPTION_FLASH_MODE =
+            Option.create("camerax.core.imageCapture.flashMode");
+    static final Option OPTION_CAPTURE_BUNDLE =
+            Option.create("camerax.core.imageCapture.captureBundle");
+    static final Option OPTION_CAPTURE_PROCESSOR =
+            Option.create("camerax.core.imageCapture.captureProcessor");
+    static final Option OPTION_BUFFER_FORMAT =
+            Option.create("camerax.core.imageCapture.bufferFormat");
+    static final Option OPTION_MAX_CAPTURE_STAGES =
+            Option.create("camerax.core.imageCapture.maxCaptureStages");
 
     // *********************************************************************************************
 
@@ -70,10 +69,10 @@ public final class ImageCaptureConfig
      * @return The stored value or <code>valueIfMissing</code> if the value does not exist in this
      * configuration.
      */
+    @SuppressWarnings("unchecked")
     @Nullable
-    public CaptureMode getCaptureMode(
-            @Nullable CaptureMode valueIfMissing) {
-        return retrieveOption(OPTION_IMAGE_CAPTURE_MODE, valueIfMissing);
+    public CaptureMode getCaptureMode(@Nullable CaptureMode valueIfMissing) {
+        return (CaptureMode) retrieveOption(OPTION_IMAGE_CAPTURE_MODE, valueIfMissing);
     }
 
     /**
@@ -82,8 +81,9 @@ public final class ImageCaptureConfig
      * @return The stored value, if it exists in this configuration.
      * @throws IllegalArgumentException if the option does not exist in this configuration.
      */
+    @SuppressWarnings("unchecked")
     public CaptureMode getCaptureMode() {
-        return retrieveOption(OPTION_IMAGE_CAPTURE_MODE);
+        return (CaptureMode) retrieveOption(OPTION_IMAGE_CAPTURE_MODE);
     }
 
     /**
@@ -93,9 +93,10 @@ public final class ImageCaptureConfig
      * @return The stored value or <code>valueIfMissing</code> if the value does not exist in this
      * configuration.
      */
+    @SuppressWarnings("unchecked")
     @Nullable
     public FlashMode getFlashMode(@Nullable FlashMode valueIfMissing) {
-        return retrieveOption(OPTION_FLASH_MODE, valueIfMissing);
+        return (FlashMode) retrieveOption(OPTION_FLASH_MODE, valueIfMissing);
     }
 
     /**
@@ -104,8 +105,9 @@ public final class ImageCaptureConfig
      * @return The stored value, if it exists in this configuration.
      * @throws IllegalArgumentException if the option does not exist in this configuration.
      */
+    @SuppressWarnings("unchecked")
     public FlashMode getFlashMode() {
-        return retrieveOption(OPTION_FLASH_MODE);
+        return (FlashMode) retrieveOption(OPTION_FLASH_MODE);
     }
 
     /**
@@ -117,9 +119,10 @@ public final class ImageCaptureConfig
      * @hide
      */
     @RestrictTo(Scope.LIBRARY_GROUP)
+    @SuppressWarnings("unchecked")
     @Nullable
     public CaptureBundle getCaptureBundle(@Nullable CaptureBundle valueIfMissing) {
-        return retrieveOption(OPTION_CAPTURE_BUNDLE, valueIfMissing);
+        return (CaptureBundle) retrieveOption(OPTION_CAPTURE_BUNDLE, valueIfMissing);
     }
 
     /**
@@ -130,8 +133,9 @@ public final class ImageCaptureConfig
      * @hide
      */
     @RestrictTo(Scope.LIBRARY_GROUP)
+    @SuppressWarnings("unchecked")
     public CaptureBundle getCaptureBundle() {
-        return retrieveOption(OPTION_CAPTURE_BUNDLE);
+        return (CaptureBundle) retrieveOption(OPTION_CAPTURE_BUNDLE);
     }
 
     /**
@@ -143,9 +147,10 @@ public final class ImageCaptureConfig
      * @hide
      */
     @RestrictTo(Scope.LIBRARY_GROUP)
+    @SuppressWarnings("unchecked")
     @Nullable
     public CaptureProcessor getCaptureProcessor(@Nullable CaptureProcessor valueIfMissing) {
-        return retrieveOption(OPTION_CAPTURE_PROCESSOR, valueIfMissing);
+        return (CaptureProcessor) retrieveOption(OPTION_CAPTURE_PROCESSOR, valueIfMissing);
     }
 
     /**
@@ -156,8 +161,9 @@ public final class ImageCaptureConfig
      * @hide
      */
     @RestrictTo(Scope.LIBRARY_GROUP)
+    @SuppressWarnings("unchecked")
     public CaptureProcessor getCaptureProcessor() {
-        return retrieveOption(OPTION_CAPTURE_PROCESSOR);
+        return (CaptureProcessor) retrieveOption(OPTION_CAPTURE_PROCESSOR);
     }
 
     /**
@@ -169,9 +175,10 @@ public final class ImageCaptureConfig
      * @hide
      */
     @RestrictTo(Scope.LIBRARY_GROUP)
+    @SuppressWarnings("unchecked")
     @Nullable
     public Integer getBufferFormat(@Nullable Integer valueIfMissing) {
-        return retrieveOption(OPTION_BUFFER_FORMAT, valueIfMissing);
+        return (Integer) retrieveOption(OPTION_BUFFER_FORMAT, valueIfMissing);
     }
 
     /**
@@ -182,9 +189,10 @@ public final class ImageCaptureConfig
      * @hide
      */
     @RestrictTo(Scope.LIBRARY_GROUP)
+    @SuppressWarnings("unchecked")
     @Nullable
     public Integer getBufferFormat() {
-        return retrieveOption(OPTION_BUFFER_FORMAT);
+        return (Integer) retrieveOption(OPTION_BUFFER_FORMAT);
     }
 
     /**
@@ -196,9 +204,10 @@ public final class ImageCaptureConfig
      * @hide
      */
     @RestrictTo(Scope.LIBRARY_GROUP)
+    @SuppressWarnings("unchecked")
     @Nullable
     public int getMaxCaptureStages(int valueIfMissing) {
-        return retrieveOption(OPTION_MAX_CAPTURE_STAGES, valueIfMissing);
+        return (int) retrieveOption(OPTION_MAX_CAPTURE_STAGES, valueIfMissing);
     }
 
     /**
@@ -209,8 +218,9 @@ public final class ImageCaptureConfig
      * @hide
      */
     @RestrictTo(Scope.LIBRARY_GROUP)
+    @SuppressWarnings("unchecked")
     public int getMaxCaptureStages() {
-        return retrieveOption(OPTION_MAX_CAPTURE_STAGES);
+        return (int) retrieveOption(OPTION_MAX_CAPTURE_STAGES);
     }
 
     // Start of the default implementation of Config
@@ -221,7 +231,7 @@ public final class ImageCaptureConfig
     /** @hide */
     @RestrictTo(Scope.LIBRARY_GROUP)
     @Override
-    public boolean containsOption(Option<?> id) {
+    public boolean containsOption(Option id) {
         return mConfig.containsOption(id);
     }
 
@@ -229,7 +239,7 @@ public final class ImageCaptureConfig
     @RestrictTo(Scope.LIBRARY_GROUP)
     @Override
     @Nullable
-    public <ValueT> ValueT retrieveOption(Option<ValueT> id) {
+    public Object retrieveOption(Option id) {
         return mConfig.retrieveOption(id);
     }
 
@@ -237,7 +247,7 @@ public final class ImageCaptureConfig
     @RestrictTo(Scope.LIBRARY_GROUP)
     @Override
     @Nullable
-    public <ValueT> ValueT retrieveOption(Option<ValueT> id, @Nullable ValueT valueIfMissing) {
+    public Object retrieveOption(Option id, @Nullable Object valueIfMissing) {
         return mConfig.retrieveOption(id, valueIfMissing);
     }
 
@@ -251,7 +261,7 @@ public final class ImageCaptureConfig
     /** @hide */
     @RestrictTo(Scope.LIBRARY_GROUP)
     @Override
-    public Set<Option<?>> listOptions() {
+    public Set<Option> listOptions() {
         return mConfig.listOptions();
     }
 
@@ -293,9 +303,10 @@ public final class ImageCaptureConfig
      * configuration.
      */
     @Override
+    @SuppressWarnings("unchecked")
     @Nullable
     public String getTargetName(@Nullable String valueIfMissing) {
-        return retrieveOption(OPTION_TARGET_NAME, valueIfMissing);
+        return (String) retrieveOption(OPTION_TARGET_NAME, valueIfMissing);
     }
 
     /**
@@ -308,8 +319,9 @@ public final class ImageCaptureConfig
      * @throws IllegalArgumentException if the option does not exist in this configuration.
      */
     @Override
+    @SuppressWarnings("unchecked")
     public String getTargetName() {
-        return retrieveOption(OPTION_TARGET_NAME);
+        return (String) retrieveOption(OPTION_TARGET_NAME);
     }
 
     // Implementations of CameraDeviceConfig default methods
@@ -322,9 +334,10 @@ public final class ImageCaptureConfig
      * configuration.
      */
     @Override
+    @SuppressWarnings("unchecked")
     @Nullable
     public CameraX.LensFacing getLensFacing(@Nullable CameraX.LensFacing valueIfMissing) {
-        return retrieveOption(OPTION_LENS_FACING, valueIfMissing);
+        return (CameraX.LensFacing) retrieveOption(OPTION_LENS_FACING, valueIfMissing);
     }
 
     /**
@@ -334,8 +347,9 @@ public final class ImageCaptureConfig
      * @throws IllegalArgumentException if the option does not exist in this configuration.
      */
     @Override
+    @SuppressWarnings("unchecked")
     public CameraX.LensFacing getLensFacing() {
-        return retrieveOption(OPTION_LENS_FACING);
+        return (CameraX.LensFacing) retrieveOption(OPTION_LENS_FACING);
     }
 
     // Implementations of ImageOutputConfig default methods
@@ -352,9 +366,10 @@ public final class ImageCaptureConfig
      * configuration.
      */
     @Override
+    @SuppressWarnings("unchecked")
     @Nullable
     public Rational getTargetAspectRatio(@Nullable Rational valueIfMissing) {
-        return retrieveOption(OPTION_TARGET_ASPECT_RATIO, valueIfMissing);
+        return (Rational) retrieveOption(OPTION_TARGET_ASPECT_RATIO, valueIfMissing);
     }
 
     /**
@@ -368,8 +383,9 @@ public final class ImageCaptureConfig
      * @throws IllegalArgumentException if the option does not exist in this configuration.
      */
     @Override
+    @SuppressWarnings("unchecked")
     public Rational getTargetAspectRatio() {
-        return retrieveOption(OPTION_TARGET_ASPECT_RATIO);
+        return (Rational) retrieveOption(OPTION_TARGET_ASPECT_RATIO);
     }
 
     /**
@@ -384,9 +400,10 @@ public final class ImageCaptureConfig
      * configuration.
      */
     @Override
+    @SuppressWarnings("unchecked")
     @RotationValue
     public int getTargetRotation(int valueIfMissing) {
-        return retrieveOption(OPTION_TARGET_ROTATION, valueIfMissing);
+        return (int) retrieveOption(OPTION_TARGET_ROTATION, valueIfMissing);
     }
 
     /**
@@ -400,9 +417,10 @@ public final class ImageCaptureConfig
      * @throws IllegalArgumentException if the option does not exist in this configuration.
      */
     @Override
+    @SuppressWarnings("unchecked")
     @RotationValue
     public int getTargetRotation() {
-        return retrieveOption(OPTION_TARGET_ROTATION);
+        return (int) retrieveOption(OPTION_TARGET_ROTATION);
     }
 
     /**
@@ -413,8 +431,9 @@ public final class ImageCaptureConfig
      * configuration.
      */
     @Override
+    @SuppressWarnings("unchecked")
     public Size getTargetResolution(Size valueIfMissing) {
-        return retrieveOption(ImageOutputConfig.OPTION_TARGET_RESOLUTION, valueIfMissing);
+        return (Size) retrieveOption(ImageOutputConfig.OPTION_TARGET_RESOLUTION, valueIfMissing);
     }
 
     /**
@@ -424,22 +443,25 @@ public final class ImageCaptureConfig
      * @throws IllegalArgumentException if the option does not exist in this configuration.
      */
     @Override
+    @SuppressWarnings("unchecked")
     public Size getTargetResolution() {
-        return retrieveOption(ImageOutputConfig.OPTION_TARGET_RESOLUTION);
+        return (Size) retrieveOption(ImageOutputConfig.OPTION_TARGET_RESOLUTION);
     }
 
     /** @hide */
     @RestrictTo(Scope.LIBRARY_GROUP)
     @Override
+    @SuppressWarnings("unchecked")
     public Size getMaxResolution(Size valueIfMissing) {
-        return retrieveOption(OPTION_MAX_RESOLUTION, valueIfMissing);
+        return (Size) retrieveOption(OPTION_MAX_RESOLUTION, valueIfMissing);
     }
 
     /** @hide */
     @RestrictTo(Scope.LIBRARY_GROUP)
     @Override
+    @SuppressWarnings("unchecked")
     public Size getMaxResolution() {
-        return retrieveOption(OPTION_MAX_RESOLUTION);
+        return (Size) retrieveOption(OPTION_MAX_RESOLUTION);
     }
 
     // Implementations of ThreadConfig default methods
@@ -452,9 +474,10 @@ public final class ImageCaptureConfig
      * configuration.
      */
     @Override
+    @SuppressWarnings("unchecked")
     @Nullable
     public Handler getCallbackHandler(@Nullable Handler valueIfMissing) {
-        return retrieveOption(OPTION_CALLBACK_HANDLER, valueIfMissing);
+        return (Handler) retrieveOption(OPTION_CALLBACK_HANDLER, valueIfMissing);
     }
 
     /**
@@ -464,8 +487,9 @@ public final class ImageCaptureConfig
      * @throws IllegalArgumentException if the option does not exist in this configuration.
      */
     @Override
+    @SuppressWarnings("unchecked")
     public Handler getCallbackHandler() {
-        return retrieveOption(OPTION_CALLBACK_HANDLER);
+        return (Handler) retrieveOption(OPTION_CALLBACK_HANDLER);
     }
 
     // Implementations of UseCaseConfig default methods
@@ -473,92 +497,107 @@ public final class ImageCaptureConfig
     /** @hide */
     @RestrictTo(Scope.LIBRARY_GROUP)
     @Override
+    @SuppressWarnings("unchecked")
     @Nullable
     public SessionConfig getDefaultSessionConfig(@Nullable SessionConfig valueIfMissing) {
-        return retrieveOption(OPTION_DEFAULT_SESSION_CONFIG, valueIfMissing);
+        return (SessionConfig) retrieveOption(OPTION_DEFAULT_SESSION_CONFIG, valueIfMissing);
     }
 
     /** @hide */
     @RestrictTo(Scope.LIBRARY_GROUP)
     @Override
+    @SuppressWarnings("unchecked")
     public SessionConfig getDefaultSessionConfig() {
-        return retrieveOption(OPTION_DEFAULT_SESSION_CONFIG);
+        return (SessionConfig) retrieveOption(OPTION_DEFAULT_SESSION_CONFIG);
     }
 
     /** @hide */
     @RestrictTo(Scope.LIBRARY_GROUP)
     @Override
+    @SuppressWarnings("unchecked")
     @Nullable
     public CaptureConfig getDefaultCaptureConfig(@Nullable CaptureConfig valueIfMissing) {
-        return retrieveOption(OPTION_DEFAULT_CAPTURE_CONFIG, valueIfMissing);
+        return (CaptureConfig) retrieveOption(OPTION_DEFAULT_CAPTURE_CONFIG, valueIfMissing);
     }
 
     /** @hide */
     @RestrictTo(Scope.LIBRARY_GROUP)
     @Override
+    @SuppressWarnings("unchecked")
     public CaptureConfig getDefaultCaptureConfig() {
-        return retrieveOption(OPTION_DEFAULT_CAPTURE_CONFIG);
+        return (CaptureConfig) retrieveOption(OPTION_DEFAULT_CAPTURE_CONFIG);
     }
 
     /** @hide */
     @RestrictTo(Scope.LIBRARY_GROUP)
     @Override
+    @SuppressWarnings("unchecked")
     @Nullable
     public SessionConfig.OptionUnpacker getSessionOptionUnpacker(
             @Nullable SessionConfig.OptionUnpacker valueIfMissing) {
-        return retrieveOption(OPTION_SESSION_CONFIG_UNPACKER, valueIfMissing);
+        return (SessionConfig.OptionUnpacker) retrieveOption(OPTION_SESSION_CONFIG_UNPACKER,
+                valueIfMissing);
     }
 
     /** @hide */
     @RestrictTo(Scope.LIBRARY_GROUP)
     @Override
+    @SuppressWarnings("unchecked")
     public SessionConfig.OptionUnpacker getSessionOptionUnpacker() {
-        return retrieveOption(OPTION_SESSION_CONFIG_UNPACKER);
+        return (SessionConfig.OptionUnpacker) retrieveOption(OPTION_SESSION_CONFIG_UNPACKER);
     }
 
     /** @hide */
     @RestrictTo(Scope.LIBRARY_GROUP)
     @Override
+    @SuppressWarnings("unchecked")
     @Nullable
     public CaptureConfig.OptionUnpacker getCaptureOptionUnpacker(
             @Nullable CaptureConfig.OptionUnpacker valueIfMissing) {
-        return retrieveOption(OPTION_CAPTURE_CONFIG_UNPACKER, valueIfMissing);
+        return (CaptureConfig.OptionUnpacker) retrieveOption(OPTION_CAPTURE_CONFIG_UNPACKER,
+                valueIfMissing);
     }
 
     /** @hide */
     @RestrictTo(Scope.LIBRARY_GROUP)
     @Override
+    @SuppressWarnings("unchecked")
     public CaptureConfig.OptionUnpacker getCaptureOptionUnpacker() {
-        return retrieveOption(OPTION_CAPTURE_CONFIG_UNPACKER);
+        return (CaptureConfig.OptionUnpacker) retrieveOption(OPTION_CAPTURE_CONFIG_UNPACKER);
     }
 
     /** @hide */
     @RestrictTo(Scope.LIBRARY_GROUP)
+    @SuppressWarnings("unchecked")
     public int getSurfaceOccupancyPriority(int valueIfMissing) {
-        return retrieveOption(OPTION_SURFACE_OCCUPANCY_PRIORITY, valueIfMissing);
+        return (int) retrieveOption(OPTION_SURFACE_OCCUPANCY_PRIORITY, valueIfMissing);
     }
 
     /** @hide */
     @RestrictTo(Scope.LIBRARY_GROUP)
+    @SuppressWarnings("unchecked")
     public int getSurfaceOccupancyPriority() {
-        return retrieveOption(OPTION_SURFACE_OCCUPANCY_PRIORITY);
+        return (int) retrieveOption(OPTION_SURFACE_OCCUPANCY_PRIORITY);
     }
 
     /** @hide */
     @RestrictTo(Scope.LIBRARY_GROUP)
-    @Nullable
     @Override
+    @SuppressWarnings("unchecked")
+    @Nullable
     public UseCase.EventListener getUseCaseEventListener(
             @Nullable UseCase.EventListener valueIfMissing) {
-        return retrieveOption(OPTION_USE_CASE_EVENT_LISTENER, valueIfMissing);
+        return (UseCase.EventListener) retrieveOption(OPTION_USE_CASE_EVENT_LISTENER,
+                valueIfMissing);
     }
 
     /** @hide */
     @RestrictTo(Scope.LIBRARY_GROUP)
-    @Nullable
     @Override
+    @SuppressWarnings("unchecked")
+    @Nullable
     public UseCase.EventListener getUseCaseEventListener() {
-        return retrieveOption(OPTION_USE_CASE_EVENT_LISTENER);
+        return (UseCase.EventListener) retrieveOption(OPTION_USE_CASE_EVENT_LISTENER);
     }
 
     // End of the default implementation of Config
@@ -581,9 +620,9 @@ public final class ImageCaptureConfig
 
         private Builder(MutableOptionsBundle mutableConfig) {
             mMutableConfig = mutableConfig;
-
+            @SuppressWarnings("unchecked")
             Class<?> oldConfigClass =
-                    mutableConfig.retrieveOption(TargetConfig.OPTION_TARGET_CLASS, null);
+                    (Class<?>) mutableConfig.retrieveOption(TargetConfig.OPTION_TARGET_CLASS, null);
             if (oldConfigClass != null && !oldConfigClass.equals(ImageCapture.class)) {
                 throw new IllegalArgumentException(
                         "Invalid target class configuration for "

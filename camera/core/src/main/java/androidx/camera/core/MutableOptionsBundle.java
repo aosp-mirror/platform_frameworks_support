@@ -31,15 +31,15 @@ import java.util.TreeMap;
 @RestrictTo(Scope.LIBRARY_GROUP)
 public final class MutableOptionsBundle extends OptionsBundle implements MutableConfig {
 
-    private static final Comparator<Option<?>> ID_COMPARE =
-            new Comparator<Option<?>>() {
+    private static final Comparator<Option> ID_COMPARE =
+            new Comparator<Option>() {
                 @Override
-                public int compare(Option<?> o1, Option<?> o2) {
+                public int compare(Option o1, Option o2) {
                     return o1.getId().compareTo(o2.getId());
                 }
             };
 
-    private MutableOptionsBundle(TreeMap<Option<?>, Object> persistentOptions) {
+    private MutableOptionsBundle(TreeMap<Option, Object> persistentOptions) {
         super(persistentOptions);
     }
 
@@ -59,8 +59,8 @@ public final class MutableOptionsBundle extends OptionsBundle implements Mutable
      * @return a MutableOptionsBundle prepopulated with configuration options.
      */
     public static MutableOptionsBundle from(Config otherConfig) {
-        TreeMap<Option<?>, Object> persistentOptions = new TreeMap<>(ID_COMPARE);
-        for (Option<?> opt : otherConfig.listOptions()) {
+        TreeMap<Option, Object> persistentOptions = new TreeMap<>(ID_COMPARE);
+        for (Option opt : otherConfig.listOptions()) {
             persistentOptions.put(opt, otherConfig.retrieveOption(opt));
         }
 
@@ -69,15 +69,13 @@ public final class MutableOptionsBundle extends OptionsBundle implements Mutable
 
     @Nullable
     @Override
-    public <ValueT> ValueT removeOption(Option<ValueT> opt) {
-        @SuppressWarnings("unchecked") // Options should have only been inserted via insertOption()
-                ValueT value = (ValueT) mOptions.remove(opt);
-
+    public Object removeOption(Option opt) {
+        Object value = mOptions.remove(opt);
         return value;
     }
 
     @Override
-    public <ValueT> void insertOption(Option<ValueT> opt, ValueT value) {
+    public void insertOption(Option opt, Object value) {
         mOptions.put(opt, value);
     }
 }

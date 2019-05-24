@@ -41,8 +41,7 @@ public interface CameraDeviceConfig {
      * @hide
      */
     @RestrictTo(Scope.LIBRARY_GROUP)
-    Option<LensFacing> OPTION_LENS_FACING =
-            Option.create("camerax.core.camera.lensFacing", CameraX.LensFacing.class);
+    Option OPTION_LENS_FACING = Option.create("camerax.core.camera.lensFacing");
 
     // *********************************************************************************************
 

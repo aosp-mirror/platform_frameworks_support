@@ -36,16 +36,12 @@ public final class AppConfig implements TargetConfig<CameraX>, Config {
     // Option Declarations:
     // *********************************************************************************************
 
-    static final Option<CameraFactory> OPTION_CAMERA_FACTORY =
-            Option.create("camerax.core.appConfig.cameraFactory", CameraFactory.class);
-    static final Option<CameraDeviceSurfaceManager> OPTION_DEVICE_SURFACE_MANAGER =
-            Option.create(
-                    "camerax.core.appConfig.deviceSurfaceManager",
-                    CameraDeviceSurfaceManager.class);
-    static final Option<UseCaseConfigFactory> OPTION_USECASE_CONFIG_FACTORY =
-            Option.create(
-                    "camerax.core.appConfig.useCaseConfigFactory",
-                    UseCaseConfigFactory.class);
+    static final Option OPTION_CAMERA_FACTORY =
+            Option.create("camerax.core.appConfig.cameraFactory");
+    static final Option OPTION_DEVICE_SURFACE_MANAGER =
+            Option.create("camerax.core.appConfig.deviceSurfaceManager");
+    static final Option OPTION_USECASE_CONFIG_FACTORY =
+            Option.create("camerax.core.appConfig.useCaseConfigFactory");
 
     // *********************************************************************************************
 
@@ -61,8 +57,9 @@ public final class AppConfig implements TargetConfig<CameraX>, Config {
      * @hide
      */
     @RestrictTo(Scope.LIBRARY_GROUP)
+    @SuppressWarnings("unchecked")
     public CameraFactory getCameraFactory(@Nullable CameraFactory valueIfMissing) {
-        return mConfig.retrieveOption(OPTION_CAMERA_FACTORY, valueIfMissing);
+        return (CameraFactory) mConfig.retrieveOption(OPTION_CAMERA_FACTORY, valueIfMissing);
     }
 
     /**
@@ -71,9 +68,11 @@ public final class AppConfig implements TargetConfig<CameraX>, Config {
      * @hide
      */
     @RestrictTo(Scope.LIBRARY_GROUP)
+    @SuppressWarnings("unchecked")
     public CameraDeviceSurfaceManager getDeviceSurfaceManager(
             @Nullable CameraDeviceSurfaceManager valueIfMissing) {
-        return mConfig.retrieveOption(OPTION_DEVICE_SURFACE_MANAGER, valueIfMissing);
+        return (CameraDeviceSurfaceManager) mConfig.retrieveOption(OPTION_DEVICE_SURFACE_MANAGER,
+                valueIfMissing);
     }
 
     /**
@@ -84,9 +83,11 @@ public final class AppConfig implements TargetConfig<CameraX>, Config {
      * @hide
      */
     @RestrictTo(Scope.LIBRARY_GROUP)
+    @SuppressWarnings("unchecked")
     public UseCaseConfigFactory getUseCaseConfigRepository(
             @Nullable UseCaseConfigFactory valueIfMissing) {
-        return mConfig.retrieveOption(OPTION_USECASE_CONFIG_FACTORY, valueIfMissing);
+        return (UseCaseConfigFactory) mConfig.retrieveOption(OPTION_USECASE_CONFIG_FACTORY,
+                valueIfMissing);
     }
 
     // Start of the default implementation of Config
@@ -97,7 +98,7 @@ public final class AppConfig implements TargetConfig<CameraX>, Config {
     /** @hide */
     @RestrictTo(Scope.LIBRARY_GROUP)
     @Override
-    public boolean containsOption(Option<?> id) {
+    public boolean containsOption(Option id) {
         return mConfig.containsOption(id);
     }
 
@@ -106,7 +107,7 @@ public final class AppConfig implements TargetConfig<CameraX>, Config {
     @RestrictTo(Scope.LIBRARY_GROUP)
     @Override
     @Nullable
-    public <ValueT> ValueT retrieveOption(Option<ValueT> id) {
+    public Object retrieveOption(Option id) {
         return mConfig.retrieveOption(id);
     }
 
@@ -114,7 +115,7 @@ public final class AppConfig implements TargetConfig<CameraX>, Config {
     @RestrictTo(Scope.LIBRARY_GROUP)
     @Override
     @Nullable
-    public <ValueT> ValueT retrieveOption(Option<ValueT> id, @Nullable ValueT valueIfMissing) {
+    public Object retrieveOption(Option id, @Nullable Object valueIfMissing) {
         return mConfig.retrieveOption(id, valueIfMissing);
     }
 
@@ -128,7 +129,7 @@ public final class AppConfig implements TargetConfig<CameraX>, Config {
     /** @hide */
     @RestrictTo(Scope.LIBRARY_GROUP)
     @Override
-    public Set<Option<?>> listOptions() {
+    public Set<Option> listOptions() {
         return mConfig.listOptions();
     }
 
@@ -138,8 +139,7 @@ public final class AppConfig implements TargetConfig<CameraX>, Config {
     @RestrictTo(Scope.LIBRARY_GROUP)
     @Override
     @Nullable
-    public Class<CameraX> getTargetClass(
-            @Nullable Class<CameraX> valueIfMissing) {
+    public Class<CameraX> getTargetClass(@Nullable Class<CameraX> valueIfMissing) {
         @SuppressWarnings("unchecked") // Value should only be added via Builder#setTargetClass()
                 Class<CameraX> storedClass = (Class<CameraX>) retrieveOption(
                 OPTION_TARGET_CLASS,
@@ -160,16 +160,18 @@ public final class AppConfig implements TargetConfig<CameraX>, Config {
     /** @hide */
     @RestrictTo(Scope.LIBRARY_GROUP)
     @Override
+    @SuppressWarnings("unchecked")
     @Nullable
     public String getTargetName(@Nullable String valueIfMissing) {
-        return retrieveOption(OPTION_TARGET_NAME, valueIfMissing);
+        return (String) retrieveOption(OPTION_TARGET_NAME, valueIfMissing);
     }
 
     /** @hide */
     @RestrictTo(Scope.LIBRARY_GROUP)
     @Override
+    @SuppressWarnings("unchecked")
     public String getTargetName() {
-        return retrieveOption(OPTION_TARGET_NAME);
+        return (String) retrieveOption(OPTION_TARGET_NAME);
     }
 
     // End of the default implementation of Config
@@ -189,9 +191,9 @@ public final class AppConfig implements TargetConfig<CameraX>, Config {
 
         private Builder(MutableOptionsBundle mutableConfig) {
             mMutableConfig = mutableConfig;
-
+            @SuppressWarnings("unchecked")
             Class<?> oldConfigClass =
-                    mutableConfig.retrieveOption(TargetConfig.OPTION_TARGET_CLASS, null);
+                    (Class<?>) mutableConfig.retrieveOption(TargetConfig.OPTION_TARGET_CLASS, null);
             if (oldConfigClass != null && !oldConfigClass.equals(CameraX.class)) {
                 throw new IllegalArgumentException(
                         "Invalid target class configuration for "

@@ -18,6 +18,7 @@ package androidx.camera.core;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
+import androidx.camera.core.Config.Option;
 
 /** Configuration containing options pertaining to EventListener object. */
 public interface UseCaseEventConfig {
@@ -28,8 +29,7 @@ public interface UseCaseEventConfig {
      * @hide
      */
     @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
-    Config.Option<UseCase.EventListener> OPTION_USE_CASE_EVENT_LISTENER =
-            Config.Option.create("camerax.core.useCaseEventListener", UseCase.EventListener.class);
+    Option OPTION_USE_CASE_EVENT_LISTENER = Option.create("camerax.core.useCaseEventListener");
 
     /**
      * Returns the EventListener.

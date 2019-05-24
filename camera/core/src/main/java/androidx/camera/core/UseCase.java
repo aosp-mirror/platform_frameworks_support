@@ -161,17 +161,13 @@ public abstract class UseCase {
 
         // If any options need special handling, this is the place to do it. For now we'll just copy
         // over all options.
-        for (Option<?> opt : userConfig.listOptions()) {
-            @SuppressWarnings("unchecked") // Options/values are being copied directly
-                    Option<Object> objectOpt = (Option<Object>) opt;
-
+        for (Option opt : userConfig.listOptions()) {
             defaultConfigBuilder.getMutableConfig().insertOption(
-                    objectOpt, userConfig.retrieveOption(objectOpt));
+                    opt, userConfig.retrieveOption(opt));
         }
 
-        @SuppressWarnings(
-                "unchecked") // Since builder is a UseCaseConfig.Builder, it should produce a
-                // UseCaseConfig
+        @SuppressWarnings("unchecked")
+        // Since builder is a UseCaseConfig.Builder, it should produce a UseCaseConfig
                 UseCaseConfig<?> defaultConfig = defaultConfigBuilder.build();
         return defaultConfig;
     }
@@ -527,7 +523,8 @@ public abstract class UseCase {
 
     private String getCameraIdUnchecked() {
         String cameraId = null;
-        LensFacing lensFacing = mUseCaseConfig.retrieveOption(
+        @SuppressWarnings("unchecked")
+        LensFacing lensFacing = (LensFacing) mUseCaseConfig.retrieveOption(
                 CameraDeviceConfig.OPTION_LENS_FACING);
         try {
             cameraId = CameraX.getCameraWithLensFacing(lensFacing);

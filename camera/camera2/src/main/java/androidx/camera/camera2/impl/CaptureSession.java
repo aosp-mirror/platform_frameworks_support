@@ -451,15 +451,7 @@ final class CaptureSession {
     private void applyImplementationOptionTCaptureBuilder(
             CaptureRequest.Builder builder, Config config) {
         Camera2Config camera2Config = new Camera2Config(config);
-        for (Option<?> option : camera2Config.getCaptureRequestOptions()) {
-            /* Although type is erased below, it is safe to pass it to CaptureRequest.Builder
-            because
-            these option are created via Camera2Config.Extender.setCaptureRequestOption
-            (CaptureRequest.Key<ValueT> key, ValueT value) and hence the type compatibility of
-            key and
-            value are ensured by the compiler. */
-            @SuppressWarnings("unchecked")
-            Option<Object> typeErasedOption = (Option<Object>) option;
+        for (Option option : camera2Config.getCaptureRequestOptions()) {
             @SuppressWarnings("unchecked")
             CaptureRequest.Key<Object> key = (CaptureRequest.Key<Object>) option.getToken();
 
@@ -467,7 +459,7 @@ final class CaptureSession {
             //  send back out to the developer
             try {
                 // Ignores keys that don't exist
-                builder.set(key, camera2Config.retrieveOption(typeErasedOption));
+                builder.set(key, camera2Config.retrieveOption(option));
             } catch (IllegalArgumentException e) {
                 Log.e(TAG, "CaptureRequest.Key is not supported: " + key);
             }

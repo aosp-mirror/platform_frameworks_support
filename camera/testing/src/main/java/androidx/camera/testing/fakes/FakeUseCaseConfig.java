@@ -47,19 +47,19 @@ public class FakeUseCaseConfig
     // Implementations of Config.Reader default methods
 
     @Override
-    public boolean containsOption(Option<?> id) {
+    public boolean containsOption(Option id) {
         return mConfig.containsOption(id);
     }
 
     @Override
     @Nullable
-    public <ValueT> ValueT retrieveOption(Option<ValueT> id) {
+    public Object retrieveOption(Option id) {
         return mConfig.retrieveOption(id);
     }
 
     @Override
     @Nullable
-    public <ValueT> ValueT retrieveOption(Option<ValueT> id, @Nullable ValueT valueIfMissing) {
+    public Object retrieveOption(Option id, @Nullable Object valueIfMissing) {
         return mConfig.retrieveOption(id, valueIfMissing);
     }
 
@@ -69,7 +69,7 @@ public class FakeUseCaseConfig
     }
 
     @Override
-    public Set<Option<?>> listOptions() {
+    public Set<Option> listOptions() {
         return mConfig.listOptions();
     }
 
@@ -95,98 +95,117 @@ public class FakeUseCaseConfig
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     @Nullable
     public String getTargetName(@Nullable String valueIfMissing) {
-        return retrieveOption(OPTION_TARGET_NAME, valueIfMissing);
+        return (String) retrieveOption(OPTION_TARGET_NAME, valueIfMissing);
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public String getTargetName() {
-        return retrieveOption(OPTION_TARGET_NAME);
+        return (String) retrieveOption(OPTION_TARGET_NAME);
     }
 
     // Implementations of CameraDeviceConfig default methods
 
     @Override
+    @SuppressWarnings("unchecked")
     @Nullable
     public CameraX.LensFacing getLensFacing(@Nullable CameraX.LensFacing valueIfMissing) {
-        return retrieveOption(OPTION_LENS_FACING, valueIfMissing);
+        return (CameraX.LensFacing) retrieveOption(OPTION_LENS_FACING, valueIfMissing);
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public CameraX.LensFacing getLensFacing() {
-        return retrieveOption(OPTION_LENS_FACING);
+        return (CameraX.LensFacing) retrieveOption(OPTION_LENS_FACING);
     }
 
     // Implementations of UseCaseConfig default methods
 
     @Override
+    @SuppressWarnings("unchecked")
     @Nullable
     public SessionConfig getDefaultSessionConfig(@Nullable SessionConfig valueIfMissing) {
-        return retrieveOption(OPTION_DEFAULT_SESSION_CONFIG, valueIfMissing);
+        return (SessionConfig) retrieveOption(OPTION_DEFAULT_SESSION_CONFIG, valueIfMissing);
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public SessionConfig getDefaultSessionConfig() {
-        return retrieveOption(OPTION_DEFAULT_SESSION_CONFIG);
+        return (SessionConfig) retrieveOption(OPTION_DEFAULT_SESSION_CONFIG);
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     @Nullable
     public CaptureConfig getDefaultCaptureConfig(@Nullable CaptureConfig valueIfMissing) {
-        return retrieveOption(OPTION_DEFAULT_CAPTURE_CONFIG, valueIfMissing);
+        return (CaptureConfig) retrieveOption(OPTION_DEFAULT_CAPTURE_CONFIG, valueIfMissing);
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public CaptureConfig getDefaultCaptureConfig() {
-        return retrieveOption(OPTION_DEFAULT_CAPTURE_CONFIG);
+        return (CaptureConfig) retrieveOption(OPTION_DEFAULT_CAPTURE_CONFIG);
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     @Nullable
     public SessionConfig.OptionUnpacker getSessionOptionUnpacker(
             @Nullable SessionConfig.OptionUnpacker valueIfMissing) {
-        return retrieveOption(OPTION_SESSION_CONFIG_UNPACKER, valueIfMissing);
+        return (SessionConfig.OptionUnpacker) retrieveOption(OPTION_SESSION_CONFIG_UNPACKER,
+                valueIfMissing);
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public SessionConfig.OptionUnpacker getSessionOptionUnpacker() {
-        return retrieveOption(OPTION_SESSION_CONFIG_UNPACKER);
+        return (SessionConfig.OptionUnpacker) retrieveOption(OPTION_SESSION_CONFIG_UNPACKER);
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     @Nullable
     public CaptureConfig.OptionUnpacker getCaptureOptionUnpacker(
             @Nullable CaptureConfig.OptionUnpacker valueIfMissing) {
-        return retrieveOption(OPTION_CAPTURE_CONFIG_UNPACKER, valueIfMissing);
+        return (CaptureConfig.OptionUnpacker) retrieveOption(OPTION_CAPTURE_CONFIG_UNPACKER,
+                valueIfMissing);
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public CaptureConfig.OptionUnpacker getCaptureOptionUnpacker() {
-        return retrieveOption(OPTION_CAPTURE_CONFIG_UNPACKER);
+        return (CaptureConfig.OptionUnpacker) retrieveOption(OPTION_CAPTURE_CONFIG_UNPACKER);
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public int getSurfaceOccupancyPriority(int valueIfMissing) {
-        return retrieveOption(OPTION_SURFACE_OCCUPANCY_PRIORITY, valueIfMissing);
+        return (int) retrieveOption(OPTION_SURFACE_OCCUPANCY_PRIORITY, valueIfMissing);
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public int getSurfaceOccupancyPriority() {
-        return retrieveOption(OPTION_SURFACE_OCCUPANCY_PRIORITY);
+        return (int) retrieveOption(OPTION_SURFACE_OCCUPANCY_PRIORITY);
     }
 
-    @Nullable
     @Override
+    @SuppressWarnings("unchecked")
+    @Nullable
     public UseCase.EventListener getUseCaseEventListener(
             @Nullable UseCase.EventListener valueIfMissing) {
-        return retrieveOption(OPTION_USE_CASE_EVENT_LISTENER, valueIfMissing);
+        return (UseCase.EventListener) retrieveOption(OPTION_USE_CASE_EVENT_LISTENER,
+                valueIfMissing);
     }
 
-    @Nullable
     @Override
+    @SuppressWarnings("unchecked")
+    @Nullable
     public UseCase.EventListener getUseCaseEventListener() {
-        return retrieveOption(OPTION_USE_CASE_EVENT_LISTENER);
+        return (UseCase.EventListener) retrieveOption(OPTION_USE_CASE_EVENT_LISTENER);
     }
 
     // End of the default implementation of Config

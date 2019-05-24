@@ -88,11 +88,9 @@ public abstract class PreviewExtender {
 
                 final Camera2Config camera2Config = camera2ConfigurationBuilder.build();
 
-                for (Config.Option<?> option : camera2Config.listOptions()) {
-                    @SuppressWarnings("unchecked") // Options/values are being copied directly
-                            Config.Option<Object> objectOpt = (Config.Option<Object>) option;
-                    mBuilder.getMutableConfig().insertOption(objectOpt,
-                            camera2Config.retrieveOption(objectOpt));
+                for (Config.Option option : camera2Config.listOptions()) {
+                    mBuilder.getMutableConfig().insertOption(option,
+                            camera2Config.retrieveOption(option));
                 }
                 break;
             case PROCESSOR_TYPE_REQUEST_UPDATE_ONLY:

@@ -34,9 +34,9 @@ import org.robolectric.annotation.internal.DoNotInstrument;
 @org.robolectric.annotation.Config(minSdk = Build.VERSION_CODES.LOLLIPOP)
 public class MutableOptionsBundleTest {
 
-    private static final Option<Object> OPTION_1 = Option.create("option.1", Object.class);
-    private static final Option<Object> OPTION_1_A = Option.create("option.1.a", Object.class);
-    private static final Option<Object> OPTION_2 = Option.create("option.2", Object.class);
+    private static final Option OPTION_1 = Option.create("option.1");
+    private static final Option OPTION_1_A = Option.create("option.1.a");
+    private static final Option OPTION_2 = Option.create("option.2");
 
     private static final Object VALUE_1 = new Object();
     private static final Object VALUE_1_A = new Object();

@@ -53,32 +53,28 @@ public interface ImageOutputConfig {
      * @hide
      */
     @RestrictTo(Scope.LIBRARY_GROUP)
-    Option<Rational> OPTION_TARGET_ASPECT_RATIO =
-            Option.create("camerax.core.imageOutput.targetAspectRatio", Rational.class);
+    Option OPTION_TARGET_ASPECT_RATIO = Option.create("camerax.core.imageOutput.targetAspectRatio");
     /**
      * Option: camerax.core.imageOutput.targetRotation
      *
      * @hide
      */
     @RestrictTo(Scope.LIBRARY_GROUP)
-    Option<Integer> OPTION_TARGET_ROTATION =
-            Option.create("camerax.core.imageOutput.targetRotation", int.class);
+    Option OPTION_TARGET_ROTATION = Option.create("camerax.core.imageOutput.targetRotation");
     /**
      * Option: camerax.core.imageOutput.targetResolution
      *
      * @hide
      */
     @RestrictTo(Scope.LIBRARY_GROUP)
-    Option<Size> OPTION_TARGET_RESOLUTION =
-            Option.create("camerax.core.imageOutput.targetResolution", Size.class);
+    Option OPTION_TARGET_RESOLUTION = Option.create("camerax.core.imageOutput.targetResolution");
     /**
      * Option: camerax.core.imageOutput.maxResolution
      *
      * @hide
      */
     @RestrictTo(Scope.LIBRARY_GROUP)
-    Option<Size> OPTION_MAX_RESOLUTION =
-            Option.create("camerax.core.imageOutput.maxResolution", Size.class);
+    Option OPTION_MAX_RESOLUTION = Option.create("camerax.core.imageOutput.maxResolution");
 
     // *********************************************************************************************
 

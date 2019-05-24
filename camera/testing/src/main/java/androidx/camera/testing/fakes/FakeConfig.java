@@ -48,7 +48,7 @@ public final class FakeConfig implements Config {
     /** @hide */
     @RestrictTo(Scope.LIBRARY_GROUP)
     @Override
-    public boolean containsOption(Option<?> id) {
+    public boolean containsOption(Option id) {
         return mConfig.containsOption(id);
     }
 
@@ -56,7 +56,7 @@ public final class FakeConfig implements Config {
     @RestrictTo(Scope.LIBRARY_GROUP)
     @Override
     @Nullable
-    public <ValueT> ValueT retrieveOption(Option<ValueT> id) {
+    public Object retrieveOption(Option id) {
         return mConfig.retrieveOption(id);
     }
 
@@ -64,7 +64,7 @@ public final class FakeConfig implements Config {
     @RestrictTo(Scope.LIBRARY_GROUP)
     @Override
     @Nullable
-    public <ValueT> ValueT retrieveOption(Option<ValueT> id, @Nullable ValueT valueIfMissing) {
+    public Object retrieveOption(Option id, @Nullable Object valueIfMissing) {
         return mConfig.retrieveOption(id, valueIfMissing);
     }
 
@@ -78,7 +78,7 @@ public final class FakeConfig implements Config {
     /** @hide */
     @RestrictTo(Scope.LIBRARY_GROUP)
     @Override
-    public Set<Option<?>> listOptions() {
+    public Set<Option> listOptions() {
         return mConfig.listOptions();
     }
 

@@ -337,19 +337,16 @@ public final class CaptureConfig {
 
         /** Add a set of implementation specific options to the request. */
         public void addImplementationOptions(Config config) {
-            for (Option<?> option : config.listOptions()) {
-                @SuppressWarnings("unchecked") // Options/values are being copied directly
-                        Option<Object> objectOpt = (Option<Object>) option;
-
-                Object existValue = mImplementationOptions.retrieveOption(objectOpt, null);
-                Object newValue = config.retrieveOption(objectOpt);
+            for (Option option : config.listOptions()) {
+                Object existValue = mImplementationOptions.retrieveOption(option, null);
+                Object newValue = config.retrieveOption(option);
                 if (existValue instanceof MultiValueSet) {
                     ((MultiValueSet) existValue).addAll(((MultiValueSet) newValue).getAllItems());
                 } else {
                     if (newValue instanceof MultiValueSet) {
                         newValue = ((MultiValueSet) newValue).clone();
                     }
-                    mImplementationOptions.insertOption(objectOpt, newValue);
+                    mImplementationOptions.insertOption(option, newValue);
                 }
             }
         }

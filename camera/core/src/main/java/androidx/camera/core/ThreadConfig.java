@@ -40,8 +40,7 @@ interface ThreadConfig {
      * @hide
      */
     @RestrictTo(Scope.LIBRARY_GROUP)
-    Option<Handler> OPTION_CALLBACK_HANDLER =
-            Option.create("camerax.core.thread.callbackHandler", Handler.class);
+    Option OPTION_CALLBACK_HANDLER = Option.create("camerax.core.thread.callbackHandler");
 
     // *********************************************************************************************
 
