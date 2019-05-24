@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9d107c53_5db87e24",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/CameraUtil.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-24T23:15:55Z",
+      "side": 1,
+      "message": "Why change the behavior of this to return null instead of throwing an exception?",
+      "revId": "ba946a2a95dc9385e29acffa1a42e64a213a1868",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4385660f_da24f1df",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/ImageCaptureExtender.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-24T23:15:55Z",
+      "side": 1,
+      "message": "Lets rethink this, because this means that the top level enableExtension() can throw an Exception if the effect doesn\u0027t exist for the camera combination.\n\nWe can choose to do so, but this would mean that we need to update the 3P facing API to say so, because the public docs state that they are just no-ops.",
+      "revId": "ba946a2a95dc9385e29acffa1a42e64a213a1868",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6622f7b9_2473bbff",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/PreviewExtender.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-24T23:15:55Z",
+      "side": 1,
+      "message": "See comment in ImageExtender.enableExtension()",
+      "revId": "ba946a2a95dc9385e29acffa1a42e64a213a1868",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
