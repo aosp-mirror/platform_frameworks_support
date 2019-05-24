@@ -29,6 +29,7 @@ import java.util.concurrent.CancellationException;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Future;
+import java.util.concurrent.ScheduledFuture;
 
 /**
  * Utility class for generating specific implementations of {@link ListenableFuture}.
@@ -61,6 +62,19 @@ public final class Futures {
      */
     public static <V> ListenableFuture<V> immediateFailedFuture(@NonNull Throwable cause) {
         return new ImmediateFuture.ImmediateFailedFuture<>(cause);
+    }
+
+    /**
+     * Returns an implementation of {@link ScheduledFuture} which immediately contains an
+     * exception that will be thrown by {@link Future#get()}.
+     *
+     * @param cause The cause of the {@link ExecutionException} that will be thrown by
+     * {@link Future#get()}.
+     * @param <V>   The type of the result.
+     * @return A future which immediately contains an exception.
+     */
+    public static <V> ScheduledFuture<V> immediateFailedScheduledFuture(@NonNull Throwable cause) {
+        return new ImmediateFuture.ImmediateFailedScheduledFuture<>(cause);
     }
 
     /**
