@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a7a4d35_d4681037",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Selection.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-05-24T17:42:16Z",
+      "side": 1,
+      "message": "there is the special method HANDLE_WIDTH.round() for it",
+      "range": {
+        "startLine": 187,
+        "startChar": 28,
+        "endLine": 187,
+        "endChar": 58
+      },
+      "revId": "5ff510281455eef53acc4e49df376b75f4e6a9ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "155192fa_b576b90c",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Selection.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-05-24T17:42:16Z",
+      "side": 1,
+      "message": "and the same here. please use if (selection !\u003d null) as you are not using selection object as \"it\" anymore",
+      "range": {
+        "startLine": 200,
+        "startChar": 20,
+        "endLine": 200,
+        "endChar": 36
+      },
+      "revId": "5ff510281455eef53acc4e49df376b75f4e6a9ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8375a65_1801dd22",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Selection.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-05-24T17:42:16Z",
+      "side": 1,
+      "message": "please use syntax if (startLayoutCoordinates !\u003d null \u0026\u0026 endLayoutCoordinates !\u003d null). it will be more readable",
+      "range": {
+        "startLine": 204,
+        "startChar": 24,
+        "endLine": 205,
+        "endChar": 55
+      },
+      "revId": "5ff510281455eef53acc4e49df376b75f4e6a9ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
