@@ -94,6 +94,30 @@
       "revId": "bbc0da57d6141a194f540965ab074444f10e4b5e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8c53fc5f_08b37632",
+        "filename": "camera/integration-tests/timingtestapp/src/main/java/androidx/camera/integration/antelope/cameracontrollers/Camera2Controller.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1141048
+      },
+      "writtenOn": "2019-05-24T15:50:13Z",
+      "side": 1,
+      "message": "That works too, in this case we only need to change the function name to something like \"createTemporaryPreviewSessionAndClose\".",
+      "parentUuid": "02d77c08_8ec90f23",
+      "range": {
+        "startLine": 325,
+        "startChar": 16,
+        "endLine": 325,
+        "endChar": 17
+      },
+      "revId": "bbc0da57d6141a194f540965ab074444f10e4b5e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
