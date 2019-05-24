@@ -18,6 +18,7 @@ package androidx.compose
 
 import android.os.Handler
 import android.os.Looper
+import android.os.Trace
 import androidx.compose.frames.open
 import androidx.compose.frames.commit
 import androidx.compose.frames.suspend
@@ -133,20 +134,24 @@ object FrameManager {
     }
 
     private val commitObserver: (committed: Set<Any>) -> Unit = { committed ->
+        Trace.beginSection("Model:commitTransaction")
         val currentInvalidations = synchronized(this) { invalidations[committed] }
         currentInvalidations.forEach { scope -> scope.invalidate?.invoke(false) }
+        Trace.endSection()
     }
 
     /**
      * Remove all invalidation scopes not currently part of a composition
      */
     private val reclaimInvalid: () -> Unit = {
+        Trace.beginSection("Model:reclaimInvalid")
         synchronized(this) {
             if (reclaimPending) {
                 reclaimPending = false
                 invalidations.clearValues { !it.valid }
             }
         }
+        Trace.endSection()
     }
 
     private fun open() {

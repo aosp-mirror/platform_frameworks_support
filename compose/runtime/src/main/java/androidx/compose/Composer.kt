@@ -16,6 +16,7 @@
 
 package androidx.compose
 
+import android.os.Trace
 import java.util.Stack
 
 internal typealias Change<N> = (
@@ -204,9 +205,11 @@ open class Composer<N>(
     private val changesAppliedObservers = mutableListOf<() -> Unit>()
 
     private fun dispatchChangesAppliedObservers() {
+        Trace.beginSection("Compose:dispatchChangesAppliedObservers")
         val listeners = changesAppliedObservers.toTypedArray()
         changesAppliedObservers.clear()
         listeners.forEach { it() }
+        Trace.endSection()
     }
 
     internal fun addChangesAppliedObserver(l: () -> Unit) {
@@ -245,6 +248,7 @@ open class Composer<N>(
     override val inserting: Boolean get() = slots.inEmpty
 
     fun applyChanges() {
+        Trace.beginSection("Compose:applyChanges")
         invalidateStack.clear()
         val enters = mutableSetOf<CompositionLifecycleObserverHolder>()
         val leaves = mutableSetOf<CompositionLifecycleObserverHolder>()
@@ -277,6 +281,7 @@ open class Composer<N>(
             invalidation.location = slotTable.anchorLocation(anchor)
         }
 
+        Trace.beginSection("Compose:lifecycles")
         // Send lifecycle leaves
         for (holder in leaves.reversed()) {
             // The count of the holder might be greater than 0 here as it might leave one part
@@ -292,7 +297,10 @@ open class Composer<N>(
         for (holder in enters) {
             holder.instance.onEnter()
         }
+        Trace.endSection()
+
         dispatchChangesAppliedObservers()
+        Trace.endSection()
     }
 
     override fun startGroup(key: Any) = start(key, START_GROUP)
@@ -438,11 +446,13 @@ open class Composer<N>(
     }
 
     internal fun <T> consume(key: Ambient<T>): T {
+        Trace.beginSection("Compose:consumeAmbient:$key")
         startGroup(consumer)
         changed(key)
         changed(invalidateStack.peek())
         val result = parentAmbient(key)
         endGroup()
+        Trace.endSection()
         return result
     }
 
@@ -538,6 +548,7 @@ open class Composer<N>(
     private fun <T> invalidateConsumers(key: Ambient<T>) {
         // Inserting components don't have children yet.
         if (!inserting) {
+            Trace.beginSection("Compose:invalidateAmbient:$key")
             // Get the parent size from the slot table
             val startStack = slots.startStack
             val containingGroupIndex = if (startStack.isEmpty()) 1 else startStack.peek()
@@ -581,6 +592,7 @@ open class Composer<N>(
                 }
                 index += 1
             }
+            Trace.endSection()
         }
     }
 
@@ -990,6 +1002,7 @@ open class Composer<N>(
 
     fun recompose() {
         if (invalidations.isNotEmpty()) {
+            Trace.beginSection("Compose:recompose")
             slotTable.read {
                 slots = it
                 nodeIndex = 0
@@ -998,6 +1011,7 @@ open class Composer<N>(
 
                 finalizeCompose()
             }
+            Trace.endSection()
         }
     }
 
