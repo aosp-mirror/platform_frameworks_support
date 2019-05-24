@@ -22,6 +22,30 @@
       "revId": "bdcddfea219d48095afe40c0155e6ff782b1f79f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b41a6a7_33eafe74",
+        "filename": "ui/layout/src/main/java/androidx/ui/layout/AspectRatio.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2019-05-24T14:12:19Z",
+      "side": 1,
+      "message": "Fixed :)",
+      "parentUuid": "9dc4a9cf_764b8783",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 3
+      },
+      "revId": "bdcddfea219d48095afe40c0155e6ff782b1f79f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
