@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9027bcac_84851a52",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CaptureSession.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-24T18:25:53Z",
+      "side": 1,
+      "message": "I presume it\u0027ll be a future CL that changes the Handler to an Executor? And then enforce the Executor to be nonnull?",
+      "revId": "c3642585ad4889c11a5d9a074617536c3f5ea0a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
