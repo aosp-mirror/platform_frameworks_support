@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0558a385_618ea7ef",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentManagerImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2067,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-05-24T21:21:58Z",
+      "side": 1,
+      "message": "Couldn\u0027t you have called popBackStack() twice? I think this needs to be smarter about what types of records are going to be executed, looking at isRecordPop().\n\nThis also precludes the case where a newly added Fragment executes another FragmentTransaction in one of its lifecycle methods (i.e., it calls navigate() to another destination in onStart()), since those operations won\u0027t be in this list, but put into the pending list for the next pass.",
+      "range": {
+        "startLine": 2067,
+        "startChar": 19,
+        "endLine": 2067,
+        "endChar": 74
+      },
+      "revId": "2ba8028f7eb8c49499f2b5d258fed07303bc1597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
