@@ -34,4 +34,5 @@
     <string name="choose_a_page">Choose a page:</string>
     <string name="toolbox">Toolbox</string>
     <string name="viewpager2">ViewPager2</string>
+    <string name="use_paging_slop">Use paging touch slop</string>
 </resources>

@@ -284,7 +284,7 @@ class FakeDragTest(private val config: TestConfig) : BaseTest() {
     @Test
     fun test_startManualPeekAfterFakeDrag1Page() {
         val vc = ViewConfiguration.get(test.viewPager.context)
-        val touchSlop = vc.scaledTouchSlop
+        val touchSlop = vc.scaledPagingTouchSlop
         startManualDragDuringFakeDrag(1.8f, 700, 1) {
             PageSwiperManual(test.viewPager).swipeForward(touchSlop * 5f, quadInterpolator)
         }
