@@ -34,17 +34,21 @@ import android.graphics.Rect;
 import android.hardware.camera2.CaptureRequest;
 import android.hardware.camera2.params.MeteringRectangle;
 import android.os.Handler;
+import android.os.HandlerThread;
 import android.os.Looper;
+import android.os.MessageQueue;
 
 import androidx.camera.camera2.Camera2Config;
 import androidx.camera.core.CameraControl;
 import androidx.camera.core.CaptureConfig;
 import androidx.camera.core.FlashMode;
 import androidx.camera.core.SessionConfig;
-import androidx.test.annotation.UiThreadTest;
+import androidx.camera.core.impl.utils.executor.CameraXExecutors;
+import androidx.core.os.HandlerCompat;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.SmallTest;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -52,35 +56,68 @@ import org.mockito.ArgumentCaptor;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.Semaphore;
 
 @SmallTest
 @RunWith(AndroidJUnit4.class)
 public final class Camera2CameraControlTest {
 
+    private static final long NO_TIMEOUT = 0;
+    private final Semaphore mSemaphore = new Semaphore(0);
     private Camera2CameraControl mCamera2CameraControl;
     private CameraControl.ControlUpdateListener mControlUpdateListener;
     private ArgumentCaptor<SessionConfig> mSessionConfigArgumentCaptor =
             ArgumentCaptor.forClass(SessionConfig.class);
     private ArgumentCaptor<List<CaptureConfig>> mCaptureConfigArgumentCaptor =
             ArgumentCaptor.forClass(List.class);
+    private HandlerThread mHandlerThread;
+    private MessageQueue mMessageQueue;
+    private Handler mHandler;
 
     @Before
-    @UiThreadTest
-    public void setUp() {
+    public void setUp() throws InterruptedException {
         mControlUpdateListener = mock(CameraControl.ControlUpdateListener.class);
-        mCamera2CameraControl = new Camera2CameraControl(mControlUpdateListener, new Handler(
-                Looper.getMainLooper()));
+        mHandlerThread = new HandlerThread("ControlThread");
+        mHandlerThread.start();
+        mHandler = HandlerCompat.createAsync(mHandlerThread.getLooper());
+        mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                mMessageQueue = Looper.myQueue();
+                mSemaphore.release();
+            }
+        });
+
+        // Wait to retrieve the message queue
+        mSemaphore.acquire();
+
+        Executor executor = CameraXExecutors.newHandlerExecutor(mHandler);
+        ScheduledExecutorService executorService = CameraXExecutors.newHandlerScheduler(mHandler);
+        mCamera2CameraControl = new Camera2CameraControl(mControlUpdateListener, executor,
+                executorService, NO_TIMEOUT);
+
+        waitForLooperToIdle();
+
         // Reset the method call onCameraControlUpdateSessionConfig() in Camera2CameraControl
         // constructor.
         reset(mControlUpdateListener);
     }
 
+    @After
+    public void tearDown() {
+        mHandlerThread.quitSafely();
+    }
+
     @Test
-    @UiThreadTest
-    public void setCropRegion_cropRectSetAndRepeatingRequestUpdated() {
+    public void setCropRegion_cropRectSetAndRepeatingRequestUpdated() throws InterruptedException {
         Rect rect = new Rect(0, 0, 10, 10);
 
         mCamera2CameraControl.setCropRegion(rect);
+
+        waitForLooperToIdle();
+
         verify(mControlUpdateListener, times(1)).onCameraControlUpdateSessionConfig(
                 mSessionConfigArgumentCaptor.capture());
         SessionConfig sessionConfig = mSessionConfigArgumentCaptor.getValue();
@@ -94,12 +131,13 @@ public final class Camera2CameraControlTest {
     }
 
     @Test
-    @UiThreadTest
-    public void focus_focusRectSetAndRequestsExecuted() {
+    public void focus_focusRectSetAndRequestsExecuted() throws InterruptedException {
         Rect focusRect = new Rect(0, 0, 10, 10);
         Rect meteringRect = new Rect(20, 20, 30, 30);
 
         mCamera2CameraControl.focus(focusRect, meteringRect);
+
+        waitForLooperToIdle();
 
         verify(mControlUpdateListener, times(1)).onCameraControlUpdateSessionConfig(
                 mSessionConfigArgumentCaptor.capture());
@@ -174,13 +212,14 @@ public final class Camera2CameraControlTest {
     }
 
     @Test
-    @UiThreadTest
-    public void cancelFocus_regionRestored() {
+    public void cancelFocus_regionRestored() throws InterruptedException {
         Rect focusRect = new Rect(0, 0, 10, 10);
         Rect meteringRect = new Rect(20, 20, 30, 30);
 
         mCamera2CameraControl.focus(focusRect, meteringRect);
         mCamera2CameraControl.cancelFocus();
+
+        waitForLooperToIdle();
 
         verify(mControlUpdateListener, times(2)).onCameraControlUpdateSessionConfig(
                 mSessionConfigArgumentCaptor.capture());
@@ -229,7 +268,6 @@ public final class Camera2CameraControlTest {
     }
 
     @Test
-    @UiThreadTest
     public void defaultAFAWBMode_ShouldBeCAFWhenNotFocusLocked() {
         Camera2Config singleConfig = new Camera2Config(mCamera2CameraControl.getSharedOptions());
         assertThat(
@@ -248,20 +286,24 @@ public final class Camera2CameraControlTest {
     }
 
     @Test
-    @UiThreadTest
-    public void focus_afModeSetToAuto() {
+    public void focus_afModeSetToAuto() throws InterruptedException {
         Rect focusRect = new Rect(0, 0, 10, 10);
         mCamera2CameraControl.focus(focusRect, focusRect);
 
+        waitForLooperToIdle();
+
         Camera2Config singleConfig = new Camera2Config(mCamera2CameraControl.getSharedOptions());
+
+        mCamera2CameraControl.cancelFocus();
+
+        waitForLooperToIdle();
+
+        Camera2Config singleConfig2 = new Camera2Config(mCamera2CameraControl.getSharedOptions());
+
         assertThat(
                 singleConfig.getCaptureRequestOption(
                         CaptureRequest.CONTROL_AF_MODE, CaptureRequest.CONTROL_AF_MODE_OFF))
                 .isEqualTo(CaptureRequest.CONTROL_AF_MODE_AUTO);
-
-        mCamera2CameraControl.cancelFocus();
-
-        Camera2Config singleConfig2 = new Camera2Config(mCamera2CameraControl.getSharedOptions());
         assertThat(
                 singleConfig2.getCaptureRequestOption(
                         CaptureRequest.CONTROL_AF_MODE, CaptureRequest.CONTROL_AF_MODE_OFF))
@@ -269,9 +311,10 @@ public final class Camera2CameraControlTest {
     }
 
     @Test
-    @UiThreadTest
-    public void setFlashModeAuto_aeModeSetAndRequestUpdated() {
+    public void setFlashModeAuto_aeModeSetAndRequestUpdated() throws InterruptedException {
         mCamera2CameraControl.setFlashMode(FlashMode.AUTO);
+
+        waitForLooperToIdle();
 
         verify(mControlUpdateListener, times(1)).onCameraControlUpdateSessionConfig(
                 mSessionConfigArgumentCaptor.capture());
@@ -285,9 +328,10 @@ public final class Camera2CameraControlTest {
     }
 
     @Test
-    @UiThreadTest
-    public void setFlashModeOff_aeModeSetAndRequestUpdated() {
+    public void setFlashModeOff_aeModeSetAndRequestUpdated() throws InterruptedException {
         mCamera2CameraControl.setFlashMode(FlashMode.OFF);
+
+        waitForLooperToIdle();
 
         verify(mControlUpdateListener, times(1)).onCameraControlUpdateSessionConfig(
                 mSessionConfigArgumentCaptor.capture());
@@ -301,9 +345,10 @@ public final class Camera2CameraControlTest {
     }
 
     @Test
-    @UiThreadTest
-    public void setFlashModeOn_aeModeSetAndRequestUpdated() {
+    public void setFlashModeOn_aeModeSetAndRequestUpdated() throws InterruptedException {
         mCamera2CameraControl.setFlashMode(FlashMode.ON);
+
+        waitForLooperToIdle();
 
         verify(mControlUpdateListener, times(1)).onCameraControlUpdateSessionConfig(
                 mSessionConfigArgumentCaptor.capture());
@@ -317,9 +362,10 @@ public final class Camera2CameraControlTest {
     }
 
     @Test
-    @UiThreadTest
-    public void enableTorch_aeModeSetAndRequestUpdated() {
+    public void enableTorch_aeModeSetAndRequestUpdated() throws InterruptedException {
         mCamera2CameraControl.enableTorch(true);
+
+        waitForLooperToIdle();
 
         verify(mControlUpdateListener, times(1)).onCameraControlUpdateSessionConfig(
                 mSessionConfigArgumentCaptor.capture());
@@ -337,10 +383,11 @@ public final class Camera2CameraControlTest {
     }
 
     @Test
-    @UiThreadTest
-    public void disableTorchFlashModeAuto_aeModeSetAndRequestUpdated() {
+    public void disableTorchFlashModeAuto_aeModeSetAndRequestUpdated() throws InterruptedException {
         mCamera2CameraControl.setFlashMode(FlashMode.AUTO);
         mCamera2CameraControl.enableTorch(false);
+
+        waitForLooperToIdle();
 
         verify(mControlUpdateListener, times(2)).onCameraControlUpdateSessionConfig(
                 mSessionConfigArgumentCaptor.capture());
@@ -366,9 +413,10 @@ public final class Camera2CameraControlTest {
     }
 
     @Test
-    @UiThreadTest
-    public void triggerAf_captureRequestSent() {
+    public void triggerAf_captureRequestSent() throws InterruptedException {
         mCamera2CameraControl.triggerAf();
+
+        waitForLooperToIdle();
 
         verify(mControlUpdateListener).onCameraControlCaptureRequests(
                 mCaptureConfigArgumentCaptor.capture());
@@ -382,9 +430,10 @@ public final class Camera2CameraControlTest {
     }
 
     @Test
-    @UiThreadTest
-    public void triggerAePrecapture_captureRequestSent() {
+    public void triggerAePrecapture_captureRequestSent() throws InterruptedException {
         mCamera2CameraControl.triggerAePrecapture();
+
+        waitForLooperToIdle();
 
         verify(mControlUpdateListener).onCameraControlCaptureRequests(
                 mCaptureConfigArgumentCaptor.capture());
@@ -398,10 +447,11 @@ public final class Camera2CameraControlTest {
     }
 
     @Test
-    @UiThreadTest
-    public void cancelAfAeTrigger_captureRequestSent() {
+    public void cancelAfAeTrigger_captureRequestSent() throws InterruptedException {
         mCamera2CameraControl.cancelAfAeTrigger(true, true);
 
+        waitForLooperToIdle();
+
         verify(mControlUpdateListener).onCameraControlCaptureRequests(
                 mCaptureConfigArgumentCaptor.capture());
         CaptureConfig captureConfig = mCaptureConfigArgumentCaptor.getValue().get(0);
@@ -418,10 +468,11 @@ public final class Camera2CameraControlTest {
     }
 
     @Test
-    @UiThreadTest
-    public void cancelAfTrigger_captureRequestSent() {
+    public void cancelAfTrigger_captureRequestSent() throws InterruptedException {
         mCamera2CameraControl.cancelAfAeTrigger(true, false);
 
+        waitForLooperToIdle();
+
         verify(mControlUpdateListener).onCameraControlCaptureRequests(
                 mCaptureConfigArgumentCaptor.capture());
         CaptureConfig captureConfig = mCaptureConfigArgumentCaptor.getValue().get(0);
@@ -438,9 +489,10 @@ public final class Camera2CameraControlTest {
     }
 
     @Test
-    @UiThreadTest
-    public void cancelAeTrigger_captureRequestSent() {
+    public void cancelAeTrigger_captureRequestSent() throws InterruptedException {
         mCamera2CameraControl.cancelAfAeTrigger(false, true);
+
+        waitForLooperToIdle();
 
         verify(mControlUpdateListener).onCameraControlCaptureRequests(
                 mCaptureConfigArgumentCaptor.capture());
@@ -459,14 +511,15 @@ public final class Camera2CameraControlTest {
     }
 
     @Test
-    @UiThreadTest
-    public void submitCaptureRequest_overrideBySharedOptions() {
+    public void submitCaptureRequest_overrideBySharedOptions() throws InterruptedException {
         CaptureConfig.Builder builder = new CaptureConfig.Builder();
         Camera2Config.Builder configBuilder = new Camera2Config.Builder();
         configBuilder.setCaptureRequestOption(CaptureRequest.CONTROL_AF_MODE,
                 CaptureRequest.CONTROL_AF_MODE_MACRO);
         builder.setImplementationOptions(configBuilder.build());
         mCamera2CameraControl.submitCaptureRequests(Collections.singletonList(builder.build()));
+
+        waitForLooperToIdle();
 
         verify(mControlUpdateListener).onCameraControlCaptureRequests(
                 mCaptureConfigArgumentCaptor.capture());
@@ -480,5 +533,26 @@ public final class Camera2CameraControlTest {
         assertThat(resultCaptureConfig.getCaptureRequestOption(CaptureRequest.CONTROL_AF_MODE,
                 null)).isEqualTo(
                 sharedOptions.getCaptureRequestOption(CaptureRequest.CONTROL_AF_MODE, null));
+    }
+
+    private void waitForLooperToIdle() throws InterruptedException {
+        // Post a message that will add the idle handler. This will ensure the handler is not
+        // already idle before setting the idle handler, causing the idle handler to never be
+        // called.
+        mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                mMessageQueue.addIdleHandler(new MessageQueue.IdleHandler() {
+                    @Override
+                    public boolean queueIdle() {
+                        mSemaphore.release();
+                        return false;
+                    }
+                });
+            }
+        });
+
+        // Wait for idle
+        mSemaphore.acquire();
     }
 }
