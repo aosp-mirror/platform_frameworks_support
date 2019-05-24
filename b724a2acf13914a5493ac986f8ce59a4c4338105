@@ -1,0 +1,147 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ce2d3232_46c758f2",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1021004
+      },
+      "writtenOn": "2019-05-24T19:45:42Z",
+      "side": 1,
+      "message": "I don\u0027t think it\u0027s a good idea for the API to expose the app\u0027s whole data directory - that\u0027s likely to lead to security issues for the app in many cases, since this will expose their preference files, databases, etc, not just downloaded/generated assets they may want to use in WebView.\n\nWhat I\u0027d suggest is allowing the app to mount a specified *subdirectory* of their data directory on a path. We might need to let them mount more than one subdirectory, in that case (on different paths). We probably would also want to allow a subdirectory of their cache directory too, and maybe the app\u0027s files dir on external storage? (though probably *not* other directories on the external storage even if the app has the required permission to access them, to avoid accidentally exposing files belonging to *other* apps?)\n\nWe may also want to validate that the subdirectory is not one of the \"standard\" ones Android creates for databases/etc, as those files don\u0027t seem likely to be that useful when exposed to the web (as they\u0027re not typically in easily-handleable formats), and using them to store web assets is probably undesirable.\n\nBasically I think it\u0027s safest to start with a fairly restricted form of this that encourages usages we are confident are sensible and reasonable, and then consider relaxing the restrictions or adding other variants later if developers ask us and explain their use cases.",
+      "revId": "b724a2acf13914a5493ac986f8ce59a4c4338105",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e89ed18_f0aea85f",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 1021004
+      },
+      "writtenOn": "2019-05-24T19:45:42Z",
+      "side": 1,
+      "message": "spelling",
+      "range": {
+        "startLine": 383,
+        "startChar": 24,
+        "endLine": 383,
+        "endChar": 45
+      },
+      "revId": "b724a2acf13914a5493ac986f8ce59a4c4338105",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df3670d0_f0f4960a",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 404,
+      "author": {
+        "id": 1021004
+      },
+      "writtenOn": "2019-05-24T19:45:42Z",
+      "side": 1,
+      "message": "spelling again",
+      "range": {
+        "startLine": 404,
+        "startChar": 24,
+        "endLine": 404,
+        "endChar": 45
+      },
+      "revId": "b724a2acf13914a5493ac986f8ce59a4c4338105",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b658816_febf2bcf",
+        "filename": "webkit/src/main/java/androidx/webkit/WebViewAssetLoader.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 634,
+      "author": {
+        "id": 1021004
+      },
+      "writtenOn": "2019-05-24T19:45:42Z",
+      "side": 1,
+      "message": "is",
+      "range": {
+        "startLine": 634,
+        "startChar": 68,
+        "endLine": 634,
+        "endChar": 71
+      },
+      "revId": "b724a2acf13914a5493ac986f8ce59a4c4338105",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0ee3d39_bc14d84f",
+        "filename": "webkit/src/main/java/androidx/webkit/internal/AssetHelper.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1021004
+      },
+      "writtenOn": "2019-05-24T19:45:42Z",
+      "side": 1,
+      "message": "Somewhere in this code we need to protect against directory traversal, though ideally without totally forbidding \"..\" from appearing in paths since webservers often do support that?\n\ne.g. it should be valid to do https://foo.com/mountprefix/foo/../bar\nbut not valid to do https://foo.com/mountprefix/../bar\n\nProbably the best way to do this is to construct a File from the path, and then canonicalise it with getCanonicalPath or similar, and verify that the canonical path is within the top-level directory we were mounting. This deals with basically all cases of ., .., symlinks, etc all at once.",
+      "revId": "b724a2acf13914a5493ac986f8ce59a4c4338105",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba286547_a4f9dc34",
+        "filename": "webkit/src/main/java/androidx/webkit/internal/AssetHelper.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1021004
+      },
+      "writtenOn": "2019-05-24T19:45:42Z",
+      "side": 1,
+      "message": "Rather than adding this parameter which is only used by the test, I\u0027d suggest simplifying this function to only handle the things that the production code needs and having the recursive-mkdir behaviour in an actual test function.",
+      "range": {
+        "startLine": 165,
+        "startChar": 20,
+        "endLine": 165,
+        "endChar": 36
+      },
+      "revId": "b724a2acf13914a5493ac986f8ce59a4c4338105",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df338668_1f0002f7",
+        "filename": "webkit/src/main/java/androidx/webkit/internal/AssetHelper.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1021004
+      },
+      "writtenOn": "2019-05-24T19:45:42Z",
+      "side": 1,
+      "message": "You can just join the segments as strings with File.pathSeparator all at once, which won\u0027t create as many temporary objects and will be simpler/shorter. If you also remove the mkdir behaviour here, then this code could probably just be inlined directly into openFile.",
+      "revId": "b724a2acf13914a5493ac986f8ce59a4c4338105",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
