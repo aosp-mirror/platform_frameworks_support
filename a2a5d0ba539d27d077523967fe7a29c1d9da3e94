@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c4dd61d4_736410d0",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Selection.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1477013
+      },
+      "writtenOn": "2019-05-24T17:34:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ae47130b_917dfd1c",
+      "range": {
+        "startLine": 31,
+        "startChar": 33,
+        "endLine": 32,
+        "endChar": 38
+      },
+      "revId": "a2a5d0ba539d27d077523967fe7a29c1d9da3e94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1da6e3c7_29af02c9",
         "filename": "ui/framework/src/main/java/androidx/ui/core/Selection.kt",
         "patchSetId": 14
@@ -45,6 +69,30 @@
       "revId": "a2a5d0ba539d27d077523967fe7a29c1d9da3e94",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab0c5bf6_b2382e73",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Selection.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1477013
+      },
+      "writtenOn": "2019-05-24T17:34:29Z",
+      "side": 1,
+      "message": "This class is only half done. onSelectionChange could be expensive in future. \nAdd a TODO to evaluate in future, for now remove +memo wrapping.",
+      "parentUuid": "1da6e3c7_29af02c9",
+      "range": {
+        "startLine": 142,
+        "startChar": 3,
+        "endLine": 143,
+        "endChar": 78
+      },
+      "revId": "a2a5d0ba539d27d077523967fe7a29c1d9da3e94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "e3129044_9525dee6",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Selection.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1477013
+      },
+      "writtenOn": "2019-05-24T17:34:29Z",
+      "side": 1,
+      "message": "Thank you! This is very useful suggestion.",
+      "parentUuid": "2564e9a4_f4a1e5cd",
+      "range": {
+        "startLine": 168,
+        "startChar": 32,
+        "endLine": 168,
+        "endChar": 46
+      },
+      "revId": "a2a5d0ba539d27d077523967fe7a29c1d9da3e94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "025fa9a7_536ee1db",
         "filename": "ui/framework/src/main/java/androidx/ui/core/Selection.kt",
         "patchSetId": 14
@@ -91,6 +163,30 @@
       "revId": "a2a5d0ba539d27d077523967fe7a29c1d9da3e94",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e37f62a0_8a78f983",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Selection.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1477013
+      },
+      "writtenOn": "2019-05-24T17:34:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "025fa9a7_536ee1db",
+      "range": {
+        "startLine": 189,
+        "startChar": 28,
+        "endLine": 189,
+        "endChar": 55
+      },
+      "revId": "a2a5d0ba539d27d077523967fe7a29c1d9da3e94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "20dd588c_258fb975",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Selection.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1477013
+      },
+      "writtenOn": "2019-05-24T17:34:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0abf8169_31110ccc",
+      "range": {
+        "startLine": 207,
+        "startChar": 4,
+        "endLine": 207,
+        "endChar": 23
+      },
+      "revId": "a2a5d0ba539d27d077523967fe7a29c1d9da3e94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e3cd120a_6eaca988",
         "filename": "ui/framework/src/main/java/androidx/ui/core/Selection.kt",
         "patchSetId": 14
@@ -137,6 +257,30 @@
       "revId": "a2a5d0ba539d27d077523967fe7a29c1d9da3e94",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f582d27_6eea8031",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Selection.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1477013
+      },
+      "writtenOn": "2019-05-24T17:34:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3cd120a_6eaca988",
+      "range": {
+        "startLine": 211,
+        "startChar": 46,
+        "endLine": 211,
+        "endChar": 82
+      },
+      "revId": "a2a5d0ba539d27d077523967fe7a29c1d9da3e94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
