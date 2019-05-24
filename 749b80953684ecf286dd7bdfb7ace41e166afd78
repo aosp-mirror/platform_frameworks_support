@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "b755bdfa_eabe2be1",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Text.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1106808
+      },
+      "writtenOn": "2019-05-24T23:41:24Z",
+      "side": 1,
+      "message": "as we talked offline let\u0027s make this class private",
+      "range": {
+        "startLine": 118,
+        "startChar": 1,
+        "endLine": 118,
+        "endChar": 9
+      },
+      "revId": "749b80953684ecf286dd7bdfb7ace41e166afd78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "07b64163_c0859d0a",
         "filename": "ui/framework/src/main/java/androidx/ui/core/Wrapper.kt",
         "patchSetId": 5
