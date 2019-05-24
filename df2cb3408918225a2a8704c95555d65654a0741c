@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b399eed4_869d62ae",
+        "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-05-24T16:08:36Z",
+      "side": 1,
+      "message": "I guess we decided(and I am going to replace all other usages soon) to move forward with the default params be provided as a default value in constructor instead of nullable values. like\ncolor: Color \u003d +themeColor{ primary },",
+      "range": {
+        "startLine": 48,
+        "startChar": 20,
+        "endLine": 48,
+        "endChar": 28
+      },
+      "revId": "df2cb3408918225a2a8704c95555d65654a0741c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57a339d7_9531b0fd",
+        "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-05-24T16:08:36Z",
+      "side": 1,
+      "message": "maybe emptyList() instead?",
+      "range": {
+        "startLine": 50,
+        "startChar": 27,
+        "endLine": 50,
+        "endChar": 31
+      },
+      "revId": "df2cb3408918225a2a8704c95555d65654a0741c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c8b79ab_5d0859f3",
+        "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-05-24T16:08:36Z",
+      "side": 1,
+      "message": "can be more efficient if you provide the padding as a param for Container",
+      "range": {
+        "startLine": 77,
+        "startChar": 16,
+        "endLine": 77,
+        "endChar": 43
+      },
+      "revId": "df2cb3408918225a2a8704c95555d65654a0741c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf4f8c33_eb2c0a29",
+        "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-05-24T16:08:36Z",
+      "side": 1,
+      "message": "it feels to me this spacer shouldn\u0027t be inside LeadingIcon as doesn\u0027t directly related to it. maybe to move it one level up?",
+      "range": {
+        "startLine": 92,
+        "startChar": 4,
+        "endLine": 92,
+        "endChar": 30
+      },
+      "revId": "df2cb3408918225a2a8704c95555d65654a0741c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4976eda2_a4fb4773",
+        "filename": "ui/material/src/main/java/androidx/ui/material/AppBar.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-05-24T16:08:36Z",
+      "side": 1,
+      "message": "it will look nicer with another for each syntax\nicons.forEachIndexed { index, dp -\u003e }",
+      "range": {
+        "startLine": 109,
+        "startChar": 12,
+        "endLine": 109,
+        "endChar": 41
+      },
+      "revId": "df2cb3408918225a2a8704c95555d65654a0741c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
