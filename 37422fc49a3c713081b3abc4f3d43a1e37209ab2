@@ -16,6 +16,23 @@
       "revId": "37422fc49a3c713081b3abc4f3d43a1e37209ab2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a84b3bb_b3728602",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CameraIdFilterSet.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-24T22:36:06Z",
+      "side": 1,
+      "message": "Perhaps CameraIdFilterSet should implement CameraIdFilter?",
+      "revId": "37422fc49a3c713081b3abc4f3d43a1e37209ab2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
