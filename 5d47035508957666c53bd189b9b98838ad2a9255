@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fb0fa89c_1eae3cb7",
+        "filename": "ui/layout/src/main/java/androidx/ui/layout/AspectRatio.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-05-24T14:26:44Z",
+      "side": 1,
+      "message": "why is this optional? API wise you are forcing a child lambda",
+      "range": {
+        "startLine": 30,
+        "startChar": 54,
+        "endLine": 30,
+        "endChar": 62
+      },
+      "revId": "5d47035508957666c53bd189b9b98838ad2a9255",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d785722_878c5d6d",
+        "filename": "ui/layout/src/main/java/androidx/ui/layout/AspectRatio.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-05-24T14:26:44Z",
+      "side": 1,
+      "message": "it is not clear what direction the ratio is applied. is it always width/height or does it depend on whether it applies to a maxWidth, Height, etc?",
+      "range": {
+        "startLine": 32,
+        "startChar": 3,
+        "endLine": 34,
+        "endChar": 0
+      },
+      "revId": "5d47035508957666c53bd189b9b98838ad2a9255",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be5dc7c2_bc15fcef",
+        "filename": "ui/layout/src/main/java/androidx/ui/layout/AspectRatio.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-05-24T14:26:44Z",
+      "side": 1,
+      "message": "include the result in the comment, \"This produces a rectangle with width twice it\u0027s height\" or something like that",
+      "range": {
+        "startLine": 42,
+        "startChar": 7,
+        "endLine": 47,
+        "endChar": 8
+      },
+      "revId": "5d47035508957666c53bd189b9b98838ad2a9255",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
