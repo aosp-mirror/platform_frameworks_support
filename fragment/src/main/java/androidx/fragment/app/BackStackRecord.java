@@ -502,6 +502,18 @@ final class BackStackRecord extends FragmentTransaction implements
     }
 
     /**
+     * Swap the normal and pop animations for all Ops in the record.
+     */
+    void swapOpsAnimations() {
+        for (Op op : mOps) {
+            op.mEnterAnim = mPopEnterAnim;
+            op.mExitAnim = mPopExitAnim;
+            op.mPopEnterAnim = mEnterAnim;
+            op.mPopExitAnim = mExitAnim;
+        }
+    }
+
+    /**
      * Expands all meta-ops into their more primitive equivalents. This must be called prior to
      * {@link #executeOps()} or any other call that operations on mOps for forward navigation.
      * It should not be called for pop/reverse navigation operations.

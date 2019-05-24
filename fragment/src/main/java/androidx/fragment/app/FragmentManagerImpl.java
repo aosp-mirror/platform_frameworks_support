@@ -2064,6 +2064,10 @@ final class FragmentManagerImpl extends FragmentManager implements LayoutInflate
                 // Only execute the add operations at the end of
                 // all transactions.
                 boolean moveToState = i == (endIndex - 1);
+                // If a pop is not the last record, reverse its animations.
+                if (i + 1 < endIndex) {
+                    record.swapOpsAnimations();
+                }
                 record.executePopOps(moveToState);
             } else {
                 record.bumpBackStackNesting(1);
