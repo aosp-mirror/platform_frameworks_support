@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d744587a_3720c3ee",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CameraX.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-24T22:36:26Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be rolled into a CameraIdFilter?",
+      "revId": "e265ba6376517055f7b11512cbb9d4e080c55bb4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7f699e4_783758ee",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CameraX.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-24T22:36:26Z",
+      "side": 1,
+      "message": "Why isn\u0027t iterating through the set of filters part of the CameraIdFilterSet class?",
+      "revId": "e265ba6376517055f7b11512cbb9d4e080c55bb4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6beb7e3c_015c6cfe",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageAnalysisConfig.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 638,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-24T22:36:26Z",
+      "side": 1,
+      "message": "Do we really still need this? Because this means that we are storing lens facing as both an option and as a CameraIdFilter.\n\nIt would be better for there only to be one. Perhaps remove the OPTION_LENS_FACING?",
+      "revId": "e265ba6376517055f7b11512cbb9d4e080c55bb4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46df90e8_28532f15",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageCaptureConfig.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 787,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-24T22:36:26Z",
+      "side": 1,
+      "message": "See comment in ImageAnalysisConfig regarding duplicated ways of storing lens facing.",
+      "revId": "e265ba6376517055f7b11512cbb9d4e080c55bb4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "230bf54a_b5a9bf58",
+        "filename": "camera/core/src/main/java/androidx/camera/core/PreviewConfig.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 550,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-24T22:36:26Z",
+      "side": 1,
+      "message": "See comment in ImageAnalysisConfig regarding duplicated ways of storing lens facing.",
+      "revId": "e265ba6376517055f7b11512cbb9d4e080c55bb4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "daa31535_98ba1666",
+        "filename": "camera/core/src/main/java/androidx/camera/core/VideoCaptureConfig.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 832,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-24T22:36:26Z",
+      "side": 1,
+      "message": "See comment in ImageAnalysisConfig regarding duplicated ways of storing lens facing.",
+      "revId": "e265ba6376517055f7b11512cbb9d4e080c55bb4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
