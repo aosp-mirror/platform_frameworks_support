@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "b9c44fa0_305c0253",
+        "filename": "media2/session/src/main/java/androidx/media2/session/MediaControllerImplBase.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 821,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-05-24T04:15:13Z",
+      "side": 1,
+      "message": "Sorry, we don\u0027t need it. Thanks for asking. :)",
+      "parentUuid": "0a2bc863_21517ce0",
+      "revId": "3f6c57c9e59a600f2ab536d2377f06deb92a569c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e0be1aed_3bb2a504",
         "filename": "media2/session/src/main/java/androidx/media2/session/MediaControllerImplBase.java",
         "patchSetId": 14
