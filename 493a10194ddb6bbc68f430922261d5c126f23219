@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "40261318_af738c78",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/Camera.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-24T18:32:50Z",
+      "side": 1,
+      "message": "Does a new Executor instance need to be created every single time? Because can we keep around a single instance that we reuse?",
+      "revId": "493a10194ddb6bbc68f430922261d5c126f23219",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
