@@ -22,6 +22,30 @@
       "revId": "e33ae871a79ffc614215882fcd10e48f56905441",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f1529dd0_859b14bc",
+        "filename": "car/core/src/main/java/androidx/car/widget/PagedListView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 542,
+      "author": {
+        "id": 1455326
+      },
+      "writtenOn": "2019-05-24T22:52:29Z",
+      "side": 1,
+      "message": "Rolled back API change and updated the JavaDocs instead. Thoughts?",
+      "parentUuid": "f9101a4b_b888dc16",
+      "range": {
+        "startLine": 542,
+        "startChar": 49,
+        "endLine": 542,
+        "endChar": 57
+      },
+      "revId": "e33ae871a79ffc614215882fcd10e48f56905441",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
