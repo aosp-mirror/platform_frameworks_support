@@ -46,7 +46,7 @@ import androidx.ui.material.ripple.Ripple
  * A Switch is a two state toggleable component that provides on/off like options
  *
  * @param checked whether or not this components is checked
- * @param onClick callback to be invoked when Switch is clicked.
+ * @param onCheckedChange callback to be invoked when Switch is clicked.
  * if [null], Switch will show static [checked] state and remain disabled
  * @param color optional active color for Switch,
  * by default [androidx.ui.material.MaterialColors.secondaryVariant] will be used
@@ -54,13 +54,13 @@ import androidx.ui.material.ripple.Ripple
 @Composable
 fun Switch(
     checked: Boolean,
-    onClick: (() -> Unit)? = null,
+    onCheckedChange: ((Boolean) -> Unit)?,
     color: Color? = null
 ) {
     val value = if (checked) ToggleableState.Checked else ToggleableState.Unchecked
     Wrap {
         Ripple {
-            Toggleable(value = value, onToggle = onClick) {
+            Toggleable(value = value, onToggle = onCheckedChange?.let { { it(!checked) } }) {
                 Padding(padding = DefaultSwitchPadding) {
                     Container(width = SwitchWidth, height = SwitchHeight) {
                         DrawSwitch(checked = checked, color = color)
