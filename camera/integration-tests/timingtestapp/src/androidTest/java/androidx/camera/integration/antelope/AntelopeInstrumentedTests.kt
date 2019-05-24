@@ -18,6 +18,7 @@ package androidx.camera.integration.antelope
 
 import android.content.Intent
 import android.hardware.camera2.CameraManager
+import android.os.Build
 import android.preference.PreferenceManager
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.matcher.ViewMatchers.withId
@@ -44,6 +45,9 @@ import org.junit.runners.MethodSorters
 import java.util.concurrent.TimeUnit
 import androidx.camera.integration.antelope.MainActivity.Companion.antelopeIdlingResource
 import org.junit.After
+import org.junit.Assume.assumeFalse
+
+const val PREVIEW_BUFFER = "1500"
 
 /**
  * Suite of tests that cover the major use cases for Antelope.
@@ -168,7 +172,7 @@ class AntelopeInstrumentedTests {
         prefEditor.putString(res.getString(R.string.settings_single_test_focus_key), "Auto")
         prefEditor.putString(res.getString(R.string.settings_single_test_camera_key),
             getFirstCamera())
-        prefEditor.putString(res.getString(R.string.settings_previewbuffer_key), "250")
+        prefEditor.putString(res.getString(R.string.settings_previewbuffer_key), PREVIEW_BUFFER)
         prefEditor.putBoolean(res.getString(R.string.settings_autodelete_key), true)
         prefEditor.commit()
 
@@ -209,7 +213,7 @@ class AntelopeInstrumentedTests {
         prefEditor.putString(res.getString(R.string.settings_single_test_imagesize_key), "Max")
         prefEditor.putString(res.getString(R.string.settings_single_test_focus_key), "Auto")
         prefEditor.putString(res.getString(R.string.settings_numtests_key), "3")
-        prefEditor.putString(res.getString(R.string.settings_previewbuffer_key), "250")
+        prefEditor.putString(res.getString(R.string.settings_previewbuffer_key), PREVIEW_BUFFER)
         prefEditor.putBoolean(res.getString(R.string.settings_autodelete_key), true)
 
         if (hasCamera("1"))
@@ -259,7 +263,7 @@ class AntelopeInstrumentedTests {
         prefEditor.putString(res.getString(R.string.settings_single_test_camera_key),
             getFirstCamera())
         prefEditor.putString(res.getString(R.string.settings_numtests_key), "3")
-        prefEditor.putString(res.getString(R.string.settings_previewbuffer_key), "250")
+        prefEditor.putString(res.getString(R.string.settings_previewbuffer_key), PREVIEW_BUFFER)
         prefEditor.putBoolean(res.getString(R.string.settings_autodelete_key), true)
         prefEditor.commit()
 
@@ -303,7 +307,7 @@ class AntelopeInstrumentedTests {
         prefEditor.putString(res.getString(R.string.settings_single_test_camera_key),
             getFirstCamera())
         prefEditor.putString(res.getString(R.string.settings_numtests_key), "30")
-        prefEditor.putString(res.getString(R.string.settings_previewbuffer_key), "1500")
+        prefEditor.putString(res.getString(R.string.settings_previewbuffer_key), PREVIEW_BUFFER)
         prefEditor.putBoolean(res.getString(R.string.settings_autodelete_key), true)
         prefEditor.commit()
 
@@ -348,7 +352,7 @@ class AntelopeInstrumentedTests {
         prefEditor.putString(res.getString(R.string.settings_single_test_focus_key), "Auto")
         prefEditor.putString(res.getString(R.string.settings_single_test_camera_key),
             getFirstCamera())
-        prefEditor.putString(res.getString(R.string.settings_previewbuffer_key), "250")
+        prefEditor.putString(res.getString(R.string.settings_previewbuffer_key), PREVIEW_BUFFER)
         prefEditor.putBoolean(res.getString(R.string.settings_autodelete_key), true)
         prefEditor.commit()
 
@@ -388,7 +392,7 @@ class AntelopeInstrumentedTests {
         prefEditor.putString(res.getString(R.string.settings_single_test_focus_key), "Auto")
         prefEditor.putString(res.getString(R.string.settings_single_test_camera_key),
             getFirstCamera())
-        prefEditor.putString(res.getString(R.string.settings_previewbuffer_key), "250")
+        prefEditor.putString(res.getString(R.string.settings_previewbuffer_key), PREVIEW_BUFFER)
         prefEditor.putBoolean(res.getString(R.string.settings_autodelete_key), false)
         prefEditor.commit()
 
@@ -428,6 +432,10 @@ class AntelopeInstrumentedTests {
         // If device has no camera, skip this test
         assumeTrue(hasAnyCamera())
 
+        // There is a bug in sailfish 8.0.0 that crashes the camera with Camera 1 tests, skip them
+        assumeFalse(Build.VERSION.SDK_INT == Build.VERSION_CODES.O &&
+                Build.BOARD.equals("sailfish"))
+
         // Delete any logs on the device
         deleteCSVFiles(activity)
         assert(isLogDirEmpty())
@@ -440,7 +448,7 @@ class AntelopeInstrumentedTests {
         prefEditor.putString(res.getString(R.string.settings_single_test_camera_key),
             getFirstCamera())
         prefEditor.putString(res.getString(R.string.settings_numtests_key), "3")
-        prefEditor.putString(res.getString(R.string.settings_previewbuffer_key), "250")
+        prefEditor.putString(res.getString(R.string.settings_previewbuffer_key), PREVIEW_BUFFER)
         prefEditor.putBoolean(res.getString(R.string.settings_autodelete_key), true)
         prefEditor.commit()
 
@@ -448,6 +456,7 @@ class AntelopeInstrumentedTests {
         antelopeIdlingResource.increment()
 
         activity.runOnUiThread {
+            MainActivity.camViewModel.getShouldOutputLog().value = true
             activity.startSingleTest()
         }
 
@@ -483,7 +492,7 @@ class AntelopeInstrumentedTests {
         prefEditor.putString(res.getString(R.string.settings_single_test_camera_key),
             getFirstCamera())
         prefEditor.putString(res.getString(R.string.settings_numtests_key), "3")
-        prefEditor.putString(res.getString(R.string.settings_previewbuffer_key), "250")
+        prefEditor.putString(res.getString(R.string.settings_previewbuffer_key), PREVIEW_BUFFER)
         prefEditor.putBoolean(res.getString(R.string.settings_autodelete_key), true)
         prefEditor.commit()
 
@@ -534,7 +543,7 @@ class AntelopeInstrumentedTests {
         prefEditor.putBoolean(res.getString(R.string.settings_autotest_cameras_key), true)
         prefEditor.putBoolean(res.getString(R.string.settings_autodelete_key), true)
         prefEditor.putString(res.getString(R.string.settings_numtests_key), "1")
-        prefEditor.putString(res.getString(R.string.settings_previewbuffer_key), "250")
+        prefEditor.putString(res.getString(R.string.settings_previewbuffer_key), PREVIEW_BUFFER)
         prefEditor.commit()
 
         // Tell Espresso to wait until test run is complete
@@ -584,7 +593,7 @@ class AntelopeInstrumentedTests {
         prefEditor.putBoolean(res.getString(R.string.settings_autotest_cameras_key), true)
         prefEditor.putBoolean(res.getString(R.string.settings_autodelete_key), true)
         prefEditor.putString(res.getString(R.string.settings_numtests_key), "1")
-        prefEditor.putString(res.getString(R.string.settings_previewbuffer_key), "250")
+        prefEditor.putString(res.getString(R.string.settings_previewbuffer_key), PREVIEW_BUFFER)
         prefEditor.commit()
 
         // Tell Espresso to wait until test run is complete
@@ -614,6 +623,10 @@ class AntelopeInstrumentedTests {
         // If device has no camera, skip this test
         assumeTrue(hasAnyCamera())
 
+        // There is a bug in sailfish 8.0.0 that crashes the camera with Camera 1 tests, skip them
+        assumeFalse(Build.VERSION.SDK_INT == Build.VERSION_CODES.O &&
+                Build.BOARD.equals("sailfish"))
+
         // Delete any logs on the device
         deleteCSVFiles(activity)
         assert(isLogDirEmpty())
@@ -634,7 +647,7 @@ class AntelopeInstrumentedTests {
         prefEditor.putBoolean(res.getString(R.string.settings_autotest_cameras_key), true)
         prefEditor.putBoolean(res.getString(R.string.settings_autodelete_key), true)
         prefEditor.putString(res.getString(R.string.settings_numtests_key), "1")
-        prefEditor.putString(res.getString(R.string.settings_previewbuffer_key), "250")
+        prefEditor.putString(res.getString(R.string.settings_previewbuffer_key), PREVIEW_BUFFER)
         prefEditor.commit()
 
         // Tell Espresso to wait until test run is complete
