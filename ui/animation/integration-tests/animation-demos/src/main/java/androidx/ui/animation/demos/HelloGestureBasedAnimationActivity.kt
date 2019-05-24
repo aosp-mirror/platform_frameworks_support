@@ -86,7 +86,7 @@ fun TransitionExample() {
     }
 }
 
-val paint: Paint = Paint()
+private val paint: Paint = Paint()
 const val halfSize = 200f
 
 @Suppress("FunctionName")
