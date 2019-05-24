@@ -21,6 +21,7 @@ import android.os.Build
 import android.util.Log
 import android.view.View
 import android.view.View.OVER_SCROLL_NEVER
+import android.view.ViewConfiguration
 import androidx.core.os.BuildCompat.isAtLeastQ
 import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -152,11 +153,11 @@ open class BaseTest {
         val viewPager: ViewPager2 get() = activity.findViewById(R.id.view_pager)
 
         fun peekForward() {
-            peek(adjustForRtl(-50f))
+            peek(adjustForRtl(adjustForTouchSlop(-50f)))
         }
 
         fun peekBackward() {
-            peek(adjustForRtl(50f))
+            peek(adjustForRtl(adjustForTouchSlop(50f)))
         }
 
         enum class SwipeMethod {
@@ -212,6 +213,15 @@ open class BaseTest {
                 SwipeMethod.ESPRESSO -> PageSwiperEspresso(viewPager)
                 SwipeMethod.MANUAL -> PageSwiperManual(viewPager)
                 SwipeMethod.FAKE_DRAG -> PageSwiperFakeDrag(viewPager) { viewPager.pageSize }
+            }
+        }
+
+        private fun adjustForTouchSlop(offset: Float): Float {
+            val touchSlop = ViewConfiguration.get(viewPager.context).scaledPagingTouchSlop
+            return when {
+                offset < 0 -> offset - touchSlop
+                offset > 0 -> offset + touchSlop
+                else -> 0f
             }
         }
 
