@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "57f61955_93b9ff6f",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/Camera2DeviceSurfaceManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1486234
+      },
+      "writtenOn": "2019-05-24T09:01:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "341c0341_de4923d7",
+      "range": {
+        "startLine": 159,
+        "startChar": 25,
+        "endLine": 159,
+        "endChar": 34
+      },
+      "revId": "5a410139ca7b3b4d6eee7093d5c6e08b89d96e19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bad67cf7_fb035ccf",
         "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/SupportedSurfaceCombination.java",
         "patchSetId": 6
@@ -45,6 +69,30 @@
       "revId": "5a410139ca7b3b4d6eee7093d5c6e08b89d96e19",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9fa2aa7d_f74f8720",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/SupportedSurfaceCombination.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1486234
+      },
+      "writtenOn": "2019-05-24T09:01:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bad67cf7_fb035ccf",
+      "range": {
+        "startLine": 208,
+        "startChar": 29,
+        "endLine": 208,
+        "endChar": 38
+      },
+      "revId": "5a410139ca7b3b4d6eee7093d5c6e08b89d96e19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "2e7476df_4ff7a6cc",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CameraX.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 1486234
+      },
+      "writtenOn": "2019-05-24T09:01:30Z",
+      "side": 1,
+      "message": "Changed in another CL.",
+      "parentUuid": "b985bed3_23762daf",
+      "range": {
+        "startLine": 274,
+        "startChar": 57,
+        "endLine": 274,
+        "endChar": 75
+      },
+      "revId": "5a410139ca7b3b4d6eee7093d5c6e08b89d96e19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3bd380f0_60548be7",
         "filename": "camera/core/src/main/java/androidx/camera/core/CameraX.java",
         "patchSetId": 6
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "3d40b22e_63af97ea",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CameraX.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1486234
+      },
+      "writtenOn": "2019-05-24T09:01:30Z",
+      "side": 1,
+      "message": "Now I have another approach for this purpose. PTAL.",
+      "parentUuid": "3bd380f0_60548be7",
+      "range": {
+        "startLine": 276,
+        "startChar": 39,
+        "endLine": 276,
+        "endChar": 54
+      },
+      "revId": "5a410139ca7b3b4d6eee7093d5c6e08b89d96e19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4e852b73_9365ef7f",
         "filename": "camera/core/src/main/java/androidx/camera/core/CameraX.java",
         "patchSetId": 6
@@ -114,6 +210,30 @@
       "revId": "5a410139ca7b3b4d6eee7093d5c6e08b89d96e19",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f592573_fd7e4d74",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CameraX.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1486234
+      },
+      "writtenOn": "2019-05-24T09:01:30Z",
+      "side": 1,
+      "message": "Now I have another approach for this purpose. PTAL.",
+      "parentUuid": "4e852b73_9365ef7f",
+      "range": {
+        "startLine": 277,
+        "startChar": 33,
+        "endLine": 277,
+        "endChar": 51
+      },
+      "revId": "5a410139ca7b3b4d6eee7093d5c6e08b89d96e19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
