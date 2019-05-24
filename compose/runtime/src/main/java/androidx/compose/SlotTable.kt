@@ -16,6 +16,8 @@
 
 package androidx.compose
 
+import android.os.Trace
+
 /**
  * A buffer-gap editor implementation of a composition slot space. A slot space can be thought of as
  * a custom List<Any?> that optimizes around inserts and removes.
@@ -574,6 +576,7 @@ class SlotWriter internal constructor(table: SlotTable) : SlotEditor(table) {
 
     private fun moveGapTo(index: Int) {
         if (table.gapLen > 0 && table.gapStart != index) {
+            Trace.beginSection("SlotTable:moveGap")
             pendingClear = false
             if (table.anchors.isNotEmpty()) table.updateAnchors(index)
             if (index < table.gapStart) {
@@ -590,6 +593,7 @@ class SlotWriter internal constructor(table: SlotTable) : SlotEditor(table) {
             }
             table.gapStart = index
             pendingClear = true
+            Trace.endSection()
         } else {
             table.gapStart = index
         }
@@ -599,6 +603,7 @@ class SlotWriter internal constructor(table: SlotTable) : SlotEditor(table) {
         if (size > 0) {
             moveGapTo(current)
             if (table.gapLen < size) {
+                Trace.beginSection("SlotTable:grow")
                 // Create a bigger gap
                 val oldCapacity = slots.size
                 val oldSize = slots.size - table.gapLen
@@ -620,6 +625,7 @@ class SlotWriter internal constructor(table: SlotTable) : SlotEditor(table) {
                 // Update the gap and slots
                 table.slots = newSlots
                 table.gapLen = newGapLen
+                Trace.endSection()
             }
             if (currentEnd >= table.gapStart) currentEnd += size
             table.gapStart += size
