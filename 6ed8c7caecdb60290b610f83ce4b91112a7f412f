@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "661fbabd_bb16b3b0",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageSaver.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-05-24T22:42:02Z",
+      "side": 1,
+      "message": "UNKNOWN_FAILED -\u003e UNKNOWN",
+      "range": {
+        "startLine": 149,
+        "startChar": 8,
+        "endLine": 149,
+        "endChar": 22
+      },
+      "revId": "6ed8c7caecdb60290b610f83ce4b91112a7f412f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4245b7aa_9f79cd93",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageUtil.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-05-24T22:42:02Z",
+      "side": 1,
+      "message": "FailureType",
+      "range": {
+        "startLine": 273,
+        "startChar": 13,
+        "endLine": 273,
+        "endChar": 23
+      },
+      "revId": "6ed8c7caecdb60290b610f83ce4b91112a7f412f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1062f411_2eb33606",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageUtil.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-05-24T22:42:02Z",
+      "side": 1,
+      "message": "getFailureType",
+      "range": {
+        "startLine": 291,
+        "startChar": 26,
+        "endLine": 291,
+        "endChar": 39
+      },
+      "revId": "6ed8c7caecdb60290b610f83ce4b91112a7f412f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
