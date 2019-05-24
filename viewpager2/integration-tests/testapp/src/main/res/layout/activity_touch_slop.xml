@@ -21,12 +21,25 @@
     android:orientation="vertical"
     tools:background="#FFFFFF">
 
-    <Switch
-        android:id="@+id/use_paging_slop"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:text="@string/use_paging_slop" />
+        android:orientation="vertical">
+
+        <Switch
+            android:id="@+id/use_paging_slop_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/use_paging_slop_parent" />
+
+        <Switch
+            android:id="@+id/use_paging_slop_children"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/use_paging_slop_children" />
+
+    </LinearLayout>
 
     <View
         android:layout_width="match_parent"

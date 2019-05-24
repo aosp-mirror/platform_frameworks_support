@@ -55,6 +55,8 @@ class BrowseActivity : ListActivity() {
                 "intent" to activityToIntent(PageTransformerActivity::class.java.name)))
         myData.add(mapOf("title" to "ViewPager2 with touch slop controls",
                 "intent" to activityToIntent(TouchSlopActivity::class.java.name)))
+        myData.add(mapOf("title" to "RecyclerView inside ViewPager2 with touch slop controls",
+                "intent" to activityToIntent(TouchSlopRvInVpActivity::class.java.name)))
 
         return myData
     }
