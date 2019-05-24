@@ -16,6 +16,24 @@
       "revId": "cf23e7c6ea5dc9a9bf17ba86f7fc7c219c1cdcf2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43fa9251_425f6e61",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/ImageCaptureExtensionsCameraIdFilter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1486234
+      },
+      "writtenOn": "2019-05-24T08:06:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a3666187_e4fc6fbe",
+      "revId": "cf23e7c6ea5dc9a9bf17ba86f7fc7c219c1cdcf2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
