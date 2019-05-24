@@ -22,6 +22,30 @@
       "revId": "bbc0da57d6141a194f540965ab074444f10e4b5e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "501b143c_1ba2fd2f",
+        "filename": "camera/integration-tests/timingtestapp/src/main/java/androidx/camera/integration/antelope/cameracontrollers/Camera2Controller.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1269804
+      },
+      "writtenOn": "2019-05-24T15:10:20Z",
+      "side": 1,
+      "message": "Do you mean moving the surfaceTexture.release call into an onClosed handler? That makes sense to me.",
+      "parentUuid": "76ab674a_59f448f0",
+      "range": {
+        "startLine": 325,
+        "startChar": 16,
+        "endLine": 325,
+        "endChar": 17
+      },
+      "revId": "bbc0da57d6141a194f540965ab074444f10e4b5e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
