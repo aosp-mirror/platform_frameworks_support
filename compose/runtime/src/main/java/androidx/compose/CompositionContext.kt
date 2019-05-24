@@ -18,6 +18,7 @@ package androidx.compose
 
 import android.content.Context
 import android.view.Choreographer
+import android.os.Trace
 
 // TODO(lmr): this is really only needed for "composition management", but that could maybe move
 // somewhere else. Consider ways to remove this class. Maybe should merge with FrameManager?
@@ -94,6 +95,7 @@ class CompositionContext private constructor(
         runWithCurrent {
             val previousComposing = isComposing
             try {
+                Trace.beginSection("Compose:recompose")
                 isComposing = true
                 val composer = composer
                 composer.startRoot()
@@ -105,6 +107,7 @@ class CompositionContext private constructor(
                 FrameManager.nextFrame()
             } finally {
                 isComposing = previousComposing
+                Trace.endSection()
             }
         }
     }

@@ -16,6 +16,7 @@
 
 package androidx.compose
 
+import android.os.Trace
 import java.util.Stack
 
 internal typealias Change<N> = (
@@ -204,9 +205,14 @@ open class Composer<N>(
     private val changesAppliedObservers = mutableListOf<() -> Unit>()
 
     private fun dispatchChangesAppliedObservers() {
-        val listeners = changesAppliedObservers.toTypedArray()
-        changesAppliedObservers.clear()
-        listeners.forEach { it() }
+        try {
+            Trace.beginSection("Compose:dispatchChangesAppliedObservers")
+            val listeners = changesAppliedObservers.toTypedArray()
+            changesAppliedObservers.clear()
+            listeners.forEach { it() }
+        } finally {
+            Trace.endSection()
+        }
     }
 
     internal fun addChangesAppliedObserver(l: () -> Unit) {
@@ -245,54 +251,69 @@ open class Composer<N>(
     override val inserting: Boolean get() = slots.inEmpty
 
     fun applyChanges() {
-        invalidateStack.clear()
-        val enters = mutableSetOf<CompositionLifecycleObserverHolder>()
-        val leaves = mutableSetOf<CompositionLifecycleObserverHolder>()
-        val manager = object : LifeCycleManager {
-            override fun entering(
-                holder: CompositionLifecycleObserverHolder
-            ): CompositionLifecycleObserverHolder {
-                return lifecycleObservers.getOrPut(holder) {
-                    enters.add(holder)
-                    holder
-                }.apply { count++ }
-            }
+        try {
+            Trace.beginSection("Compose:applyChanges")
+            invalidateStack.clear()
+            val enters = mutableSetOf<CompositionLifecycleObserverHolder>()
+            val leaves = mutableSetOf<CompositionLifecycleObserverHolder>()
+            val manager = object : LifeCycleManager {
+                override fun entering(
+                    holder: CompositionLifecycleObserverHolder
+                ): CompositionLifecycleObserverHolder {
+                    return lifecycleObservers.getOrPut(holder) {
+                        enters.add(holder)
+                        holder
+                    }.apply { count++ }
+                }
 
-            override fun leaving(holder: CompositionLifecycleObserverHolder) {
-                if (--holder.count == 0) {
-                    leaves.add(holder)
+                override fun leaving(holder: CompositionLifecycleObserverHolder) {
+                    if (--holder.count == 0) {
+                        leaves.add(holder)
+                    }
                 }
             }
-        }
 
-        val invalidationAnchors = invalidations.map { slotTable.anchor(it.location) to it }
+            val invalidationAnchors = invalidations.map { slotTable.anchor(it.location) to it }
 
-        // Apply all changes
-        slotTable.write { slots ->
-            changes.forEach { change -> change(applier, slots, manager) }
-            changes.clear()
-        }
-
-        for ((anchor, invalidation) in invalidationAnchors) {
-            invalidation.location = slotTable.anchorLocation(anchor)
-        }
-
-        // Send lifecycle leaves
-        for (holder in leaves.reversed()) {
-            // The count of the holder might be greater than 0 here as it might leave one part
-            // of the composition and reappear in another. Only send a leave if the count is still
-            // 0 after all changes have been applied.
-            if (holder.count == 0) {
-                holder.instance.onLeave()
-                lifecycleObservers.remove(holder)
+            // Apply all changes
+            slotTable.write { slots ->
+                changes.forEach { change -> change(applier, slots, manager) }
+                changes.clear()
             }
-        }
 
-        // Send lifecycle enters
-        for (holder in enters) {
-            holder.instance.onEnter()
+            for ((anchor, invalidation) in invalidationAnchors) {
+                invalidation.location = slotTable.anchorLocation(anchor)
+            }
+
+            try {
+                Trace.beginSection("Compose:lifecycles:onLeave")
+                // Send lifecycle leaves
+                for (holder in leaves.reversed()) {
+                    // The count of the holder might be greater than 0 here as it might leave one part
+                    // of the composition and reappear in another. Only send a leave if the count is still
+                    // 0 after all changes have been applied.
+                    if (holder.count == 0) {
+                        holder.instance.onLeave()
+                        lifecycleObservers.remove(holder)
+                    }
+                }
+            } finally {
+                Trace.endSection()
+            }
+
+            try {
+                Trace.beginSection("Compose:lifecycles:onEnter")
+                // Send lifecycle enters
+                for (holder in enters) {
+                    holder.instance.onEnter()
+                }
+            } finally {
+                Trace.endSection()
+            }
+            dispatchChangesAppliedObservers()
+        } finally {
+            Trace.endSection()
         }
-        dispatchChangesAppliedObservers()
     }
 
     override fun startGroup(key: Any) = start(key, START_GROUP)
@@ -438,12 +459,17 @@ open class Composer<N>(
     }
 
     internal fun <T> consume(key: Ambient<T>): T {
-        startGroup(consumer)
-        changed(key)
-        changed(invalidateStack.peek())
-        val result = parentAmbient(key)
-        endGroup()
-        return result
+        try {
+            Trace.beginSection("Compose:consumeAmbient:$key")
+            startGroup(consumer)
+            changed(key)
+            changed(invalidateStack.peek())
+            val result = parentAmbient(key)
+            endGroup()
+            return result
+        } finally {
+            Trace.endSection()
+        }
     }
 
     /**
@@ -538,48 +564,53 @@ open class Composer<N>(
     private fun <T> invalidateConsumers(key: Ambient<T>) {
         // Inserting components don't have children yet.
         if (!inserting) {
-            // Get the parent size from the slot table
-            val startStack = slots.startStack
-            val containingGroupIndex = if (startStack.isEmpty()) 1 else startStack.peek()
-            val start = containingGroupIndex + 1
-            val end = start + slots.groupSize(containingGroupIndex)
-            var index = start
+            try {
+                Trace.beginSection("Compose:invalidateAmbient:$key")
+                // Get the parent size from the slot table
+                val startStack = slots.startStack
+                val containingGroupIndex = if (startStack.isEmpty()) 1 else startStack.peek()
+                val start = containingGroupIndex + 1
+                val end = start + slots.groupSize(containingGroupIndex)
+                var index = start
 
-            // Check the slots in range for recomposabile instances
-            loop@ while (index < end) {
-                // A recomposable (i.e. a component) will always be in the first slot after the
-                // group marker.  This is true because that is where the recompose routine will look
-                // for it. If the slot does not hold a recomposable it is not a recomposable group
-                // so skip it.
-                if (slots.isGroup(index)) {
-                    val sentinel = slots.get(index - 1)
-                    when {
-                        sentinel === consumer -> {
-                            val ambient = slots.get(index + 1)
-                            if (ambient == key) {
-                                val scope = slots.get(index + 2)
-                                if (scope is RecomposeScope) {
-                                    scope.invalidate?.let { it(false) }
+                // Check the slots in range for recomposabile instances
+                loop@ while (index < end) {
+                    // A recomposable (i.e. a component) will always be in the first slot after the
+                    // group marker.  This is true because that is where the recompose routine will look
+                    // for it. If the slot does not hold a recomposable it is not a recomposable group
+                    // so skip it.
+                    if (slots.isGroup(index)) {
+                        val sentinel = slots.get(index - 1)
+                        when {
+                            sentinel === consumer -> {
+                                val ambient = slots.get(index + 1)
+                                if (ambient == key) {
+                                    val scope = slots.get(index + 2)
+                                    if (scope is RecomposeScope) {
+                                        scope.invalidate?.let { it(false) }
+                                    }
+                                }
+                            }
+                            sentinel === provider -> {
+                                val element = slots.get(index + 1)
+                                if (element is Ambient.Holder<*> && element.ambient == key) {
+                                    index += slots.groupSize(index)
+                                    continue@loop
+                                }
+                            }
+                            sentinel === reference -> {
+                                val element = slots.get(index + 1)
+                                if (element is CompositionLifecycleObserverHolder) {
+                                    val subElement = element.instance as CompositionReference
+                                    subElement.invalidateConsumers(key)
                                 }
                             }
                         }
-                        sentinel === provider -> {
-                            val element = slots.get(index + 1)
-                            if (element is Ambient.Holder<*> && element.ambient == key) {
-                                index += slots.groupSize(index)
-                                continue@loop
-                            }
-                        }
-                        sentinel === reference -> {
-                            val element = slots.get(index + 1)
-                            if (element is CompositionLifecycleObserverHolder) {
-                                val subElement = element.instance as CompositionReference
-                                subElement.invalidateConsumers(key)
-                            }
-                        }
                     }
+                    index += 1
                 }
-                index += 1
+            } finally {
+                Trace.endSection()
             }
         }
     }
@@ -990,13 +1021,18 @@ open class Composer<N>(
 
     fun recompose() {
         if (invalidations.isNotEmpty()) {
-            slotTable.read {
-                slots = it
-                nodeIndex = 0
+            try {
+                Trace.beginSection("Compose:recompose")
+                slotTable.read {
+                    slots = it
+                    nodeIndex = 0
 
-                recomposeComponentRange(0, Int.MAX_VALUE)
+                    recomposeComponentRange(0, Int.MAX_VALUE)
 
-                finalizeCompose()
+                    finalizeCompose()
+                }
+            } finally {
+                Trace.endSection()
             }
         }
     }
