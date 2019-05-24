@@ -16,6 +16,24 @@
       "revId": "493a10194ddb6bbc68f430922261d5c126f23219",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "812b48e1_83570da2",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/Camera.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-05-24T22:20:03Z",
+      "side": 1,
+      "message": "Switched to storing it in an instance variable.",
+      "parentUuid": "40261318_af738c78",
+      "revId": "493a10194ddb6bbc68f430922261d5c126f23219",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
