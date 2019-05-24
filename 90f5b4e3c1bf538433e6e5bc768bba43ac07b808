@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d0b1fd5c_7587e1f5",
+        "filename": "fragment/src/main/java/androidx/fragment/app/FragmentManagerImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 3106,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-05-24T22:38:26Z",
+      "side": 1,
+      "message": "I don\u0027t think this is safe. These Fragments have no idea what this animation resource is (it was never set on this FragmentManager, much less on this Fragment!). This means that calls to onCreateAnimator, etc will be getting inputs that they are not prepared to handle.",
+      "range": {
+        "startLine": 3106,
+        "startChar": 9,
+        "endLine": 3106,
+        "endChar": 20
+      },
+      "revId": "90f5b4e3c1bf538433e6e5bc768bba43ac07b808",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
