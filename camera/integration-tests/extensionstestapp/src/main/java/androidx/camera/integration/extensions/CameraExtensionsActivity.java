@@ -39,6 +39,8 @@ import androidx.camera.core.ImageCaptureConfig;
 import androidx.camera.core.Preview;
 import androidx.camera.core.PreviewConfig;
 import androidx.camera.core.UseCase;
+import androidx.camera.extensions.AutoImageCaptureExtender;
+import androidx.camera.extensions.AutoPreviewExtender;
 import androidx.camera.extensions.BeautyImageCaptureExtender;
 import androidx.camera.extensions.BeautyPreviewExtender;
 import androidx.camera.extensions.BokehImageCaptureExtender;
@@ -129,6 +131,13 @@ public class CameraExtensionsActivity extends AppCompatActivity
             if (extender.isExtensionAvailable()) {
                 extender.enableExtension();
             }
+        } else if (mCurrentImageCaptureType == ImageCaptureType.IMAGE_CAPTURE_TYPE_AUTO) {
+            Log.d(TAG, "Enabling the extended preview in auto mode.");
+
+            AutoPreviewExtender extender = AutoPreviewExtender.create(builder);
+            if (extender.isExtensionAvailable()) {
+                extender.enableExtension();
+            }
         }
 
         mPreview = new Preview(builder.build());
@@ -154,6 +163,7 @@ public class CameraExtensionsActivity extends AppCompatActivity
         IMAGE_CAPTURE_TYPE_BOKEH,
         IMAGE_CAPTURE_TYPE_NIGHT,
         IMAGE_CAPTURE_TYPE_BEAUTY,
+        IMAGE_CAPTURE_TYPE_AUTO,
         IMAGE_CAPTURE_TYPE_DEFAULT,
         IMAGE_CAPTURE_TYPE_NONE,
     }
@@ -186,6 +196,10 @@ public class CameraExtensionsActivity extends AppCompatActivity
                                 enablePreview();
                                 break;
                             case IMAGE_CAPTURE_TYPE_BEAUTY:
+                                enableImageCapture(ImageCaptureType.IMAGE_CAPTURE_TYPE_AUTO);
+                                enablePreview();
+                                break;
+                            case IMAGE_CAPTURE_TYPE_AUTO:
                                 enableImageCapture(ImageCaptureType.IMAGE_CAPTURE_TYPE_DEFAULT);
                                 enablePreview();
                                 break;
@@ -241,6 +255,13 @@ public class CameraExtensionsActivity extends AppCompatActivity
                         builder);
                 if (beautyImageCapture.isExtensionAvailable()) {
                     beautyImageCapture.enableExtension();
+                }
+                break;
+            case IMAGE_CAPTURE_TYPE_AUTO:
+                AutoImageCaptureExtender autoImageCapture = AutoImageCaptureExtender.create(
+                        builder);
+                if (autoImageCapture.isExtensionAvailable()) {
+                    autoImageCapture.enableExtension();
                 }
                 break;
             case IMAGE_CAPTURE_TYPE_DEFAULT:
