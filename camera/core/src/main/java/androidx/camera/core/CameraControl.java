@@ -17,13 +17,13 @@
 package androidx.camera.core;
 
 import android.graphics.Rect;
-import android.os.Handler;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.annotation.RestrictTo.Scope;
 
 import java.util.List;
+import java.util.concurrent.Executor;
 
 /**
  * The CameraControl Interface.
@@ -54,14 +54,15 @@ public interface CameraControl {
      *
      * @param focus    rectangle with dimensions in sensor coordinate frame for focus
      * @param metering rectangle with dimensions in sensor coordinate frame for metering
-     * @param listener listener for when focus has completed
-     * @param handler  the handler where the listener will execute.
+     * @param executor the executor which will be used to call the listener. If {@code null}, the
+     *                 listener will be called on the main thread.
+     * @param listener listener for when focus has completed.
      */
     void focus(
             Rect focus,
             Rect metering,
-            @Nullable OnFocusListener listener,
-            @Nullable Handler handler);
+            @Nullable Executor executor,
+            @Nullable OnFocusListener listener);
 
     /**
      * Adjusts the camera output according to the properties in some local regions.
@@ -108,8 +109,6 @@ public interface CameraControl {
 
     /**
      * Performs capture requests.
-     *
-     * @param captureConfigs
      */
     void submitCaptureRequests(List<CaptureConfig> captureConfigs);
 
@@ -119,8 +118,8 @@ public interface CameraControl {
         }
 
         @Override
-        public void focus(Rect focus, Rect metering, @Nullable OnFocusListener listener,
-                @Nullable Handler handler) {
+        public void focus(Rect focus, Rect metering, @Nullable Executor executor,
+                @Nullable OnFocusListener listener) {
         }
 
         @Override
