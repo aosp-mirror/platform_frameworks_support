@@ -18,12 +18,15 @@ package androidx.animation
 
 import androidx.animation.Physics.Companion.DampingRatioNoBouncy
 import androidx.animation.Physics.Companion.StiffnessVeryLow
+import androidx.ui.lerp
+import kotlin.math.abs
 import kotlin.math.min
+import kotlin.math.sign
 
-const val DEBUG = false
+const val DEBUG = true
 
 /**
- * This animation class is intended to be stateless. Once they are configured, they know how to
+ * This animation interface is intended to be stateless. Once they are configured, they know how to
  * calculate animation values at any given time, when provided with start/end values and velocity.
  * It is stateless in that it doesn't manage its own lifecycle: it doesn't know when it started, or
  * should finish. It only reacts to the given playtime (i.e. time elapsed since the start of the
@@ -57,6 +60,100 @@ internal interface Animation<T> {
         startVelocity: Float,
         interpolator: (T, T, Float) -> T
     ): Float
+}
+
+/**
+ * This animation interface is intended to be stateless, just like Animation<T>. But unlike
+ * Animation<T>, DecayAnimation does not have an end value defined. The end value is a
+ * result of the animation rather than an input.
+ */
+// TODO: Figure out a better story for non-floats
+interface DecayAnimation {
+    val absVelocityThreshold : Float
+    fun isFinished(
+        playTime: Long,
+        start: Float,
+        startVelocity: Float
+    ): Boolean
+
+    fun getValue(
+        playTime: Long,
+        start: Float,
+        startVelocity: Float,
+        interpolator: (Float, Float, Float) -> Float = ::lerp
+    ): Float
+
+    fun getVelocity(
+        playTime: Long,
+        start: Float,
+        startVelocity: Float,
+        interpolator: (Float, Float, Float) -> Float = ::lerp
+    ): Float
+
+    fun getTarget(
+        start: Float,
+        startVelocity: Float,
+        interpolator: (Float, Float, Float) -> Float = ::lerp
+    ) : Float
+}
+
+/**
+ * This is a decay animation where the friction/deceleration is always proportional to the velocity.
+ * As a result, the velocity goes under an exponential decay. The constructor parameter, friction
+ * multiplier, can be tuned to adjust the amount of friction applied in the decay. The higher the
+ * multiplier, the higher the friction, the sooner the animation will stop, and the shorter distance
+ * the animation will travel with the same starting condition.
+ */
+class ExponentialDecay(
+    frictionMultiplier: Float = 1f,
+    absVelocityThreshold : Float = 0.1f
+) : DecayAnimation {
+
+    override val absVelocityThreshold : Float = Math.max(0.0000001f, Math.abs(absVelocityThreshold))
+    private val friction: Float = -4.2f * frictionMultiplier
+
+    override fun isFinished(
+        playTime: Long,
+        start: Float,
+        startVelocity: Float
+    ): Boolean {
+        return abs(getVelocity(playTime, start, startVelocity)) <= absVelocityThreshold
+    }
+
+    override fun getValue(
+        playTime: Long,
+        start: Float,
+        startVelocity: Float,
+        interpolator: (Float, Float, Float) -> Float
+    ): Float {
+        return (start - startVelocity / friction +
+                startVelocity / friction * Math.exp((friction * playTime / 1000f).toDouble()))
+            .toFloat()
+    }
+
+    override fun getVelocity(
+        playTime: Long,
+        start: Float,
+        startVelocity: Float,
+        interpolator: (Float, Float, Float) -> Float
+    ): Float {
+        return (startVelocity * Math.exp(((playTime / 1000f) * friction).toDouble())).toFloat()
+    }
+
+    override fun getTarget(
+        start: Float,
+        startVelocity: Float,
+        interpolator: (Float, Float, Float) -> Float
+    ) : Float {
+        if (Math.abs(startVelocity) <= absVelocityThreshold) {
+            return start
+        }
+        val duration : Double =
+            Math.log(Math.abs(absVelocityThreshold / startVelocity).toDouble())/ friction * 1000
+
+        return start - startVelocity / friction +
+                startVelocity / friction * Math.exp((friction * duration / 1000f)).toFloat()
+    }
 }
 
 /**
@@ -230,6 +327,7 @@ internal class Physics<T>(
     stiffness: Float = StiffnessVeryLow
 ) : Animation<T> {
 
+    // TODO: Make all of these consts public.
     companion object {
         /**
          * Stiffness constant for extremely stiff spring
@@ -409,4 +507,86 @@ internal class Repeatable<T>(
             repetitionStartVelocity(playTime, startVelocity),
             interpolator)
     }
+}
+
+/**
+ * Stateless wrapper around a (target based, or decay) animation, that caches the start value and
+ * velocity, and target value for target based animations. This wrapper is purely for the
+ * convenience for 1) not having to pass in the same static set of values for each query, 2) not
+ * needing to distinguish target-based or decay animations at the call site.
+ */
+interface AnimationWrapper<T> {
+    fun getValue(playTime: Long): T
+    fun getVelocity(playTime: Long): Float
+    fun isFinished(playTime: Long): Boolean
+}
+
+/**
+ * This is a custom animation wrapper for all target based animations, i.e. animations that have a
+ * target value defined. All the values that don't change throughout the animation, such as start
+ * value, end value, start velocity, and interpolator are cached in this wrapper. So once
+ * the wrapper is setup, the getValue/Velocity calls should only need to provide the changing input
+ * into the animation, i.e. play time.
+ */
+internal class TargetBasedAnimationWrapper<T>(
+    private val startValue: T,
+    private val startVelocity: Float = 0f,
+    private val endValue: T,
+    private val valueInterpolator: (T, T, Float) -> T,
+    private val anim: Animation<T>
+) : AnimationWrapper<T> {
+
+    override fun getValue(playTime: Long): T =
+        anim.getValue(playTime, startValue, endValue, startVelocity, valueInterpolator)
+    override fun getVelocity(playTime: Long): Float =
+        anim.getVelocity(playTime, startValue, endValue, startVelocity, valueInterpolator)
+    override fun isFinished(playTime: Long): Boolean {
+        return anim.isFinished(playTime, startValue, endValue, startVelocity)
+    }
+}
+
+/**
+ * Decay animation wrapper contains a decay animation as well as the animations values that remain
+ * the same throughout the animation: start value/velocity.
+ */
+internal class DecayAnimationWrapper(
+    private val startValue: Float,
+    private val startVelocity: Float = 0f,
+    private val anim: DecayAnimation
+) : AnimationWrapper<Float> {
+    private val target : Float = anim.getTarget(startValue, startVelocity)
+
+    override fun getValue(playTime: Long): Float {
+        if (!isFinished(playTime)) {
+            return anim.getValue(playTime, startValue, startVelocity)
+        } else {
+            return target
+        }
+    }
+    override fun getVelocity(playTime: Long): Float{
+        if (!isFinished(playTime)) {
+            return anim.getVelocity(playTime, startValue, startVelocity)
+        } else {
+            return anim.absVelocityThreshold * sign(startVelocity)
+        }
+    }
+    override fun isFinished(playTime: Long): Boolean =
+        anim.isFinished(playTime, startValue, startVelocity)
+}
+
+internal fun <T> AnimationBuilder<T>.createWrapper(
+    startValue: T,
+    startVelocity: Float,
+    endValue: T,
+    valueInterpolator: (T, T, Float) -> T
+): AnimationWrapper<T> {
+    return TargetBasedAnimationWrapper(startValue, startVelocity, endValue, valueInterpolator,
+        this.build())
+}
+
+internal fun DecayAnimation.createWrapper(
+    startValue: Float,
+    startVelocity: Float = 0f
+): AnimationWrapper<Float> {
+    return DecayAnimationWrapper(startValue, startVelocity, this)
 }
