@@ -79,6 +79,26 @@ public final class ViewPager2 extends ViewGroup {
     /** @hide */
     @RestrictTo(LIBRARY_GROUP_PREFIX)
     @Retention(SOURCE)
+    @IntDef({TOUCH_SLOP_PAGING, TOUCH_SLOP_CONTINUOUS})
+    public @interface TouchSlop {
+    }
+
+    /**
+     * Constant for use with {@link #setScrollingTouchSlop(int)}. Indicates that the ViewPager2
+     * should use the standard touch slop for smooth, continuous scrolling.
+     */
+    public static final int TOUCH_SLOP_CONTINUOUS = RecyclerView.TOUCH_SLOP_DEFAULT;
+
+    /**
+     * Constant for use with {@link #setScrollingTouchSlop(int)}. Indicates that the ViewPager2
+     * should use the standard touch slop for scrolling widgets that snap to a page or other
+     * coarse-grained barrier.
+     */
+    public static final int TOUCH_SLOP_PAGING = RecyclerView.TOUCH_SLOP_PAGING;
+
+    /** @hide */
+    @RestrictTo(LIBRARY_GROUP_PREFIX)
+    @Retention(SOURCE)
     @IntDef({SCROLL_STATE_IDLE, SCROLL_STATE_DRAGGING, SCROLL_STATE_SETTLING})
     public @interface ScrollState {
     }
@@ -163,6 +183,7 @@ public final class ViewPager2 extends ViewGroup {
         mLayoutManager = new LinearLayoutManagerImpl(context);
         mRecyclerView.setLayoutManager(mLayoutManager);
         setOrientation(context, attrs);
+        mRecyclerView.setScrollingTouchSlop(TOUCH_SLOP_PAGING);
 
         mRecyclerView.setLayoutParams(
                 new ViewGroup.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
@@ -688,6 +709,19 @@ public final class ViewPager2 extends ViewGroup {
      */
     public boolean isUserInputEnabled() {
         return mUserInputEnabled;
+    }
+
+    /**
+     * Configure the scrolling touch slop for a specific use case.
+     *
+     * Set up the ViewPager2's scrolling motion threshold. Valid arguments are {@link
+     * #TOUCH_SLOP_PAGING} and {@link #TOUCH_SLOP_CONTINUOUS}. Set to {@code TOUCH_SLOP_PAGING} by
+     * default.
+     *
+     * @param slopConstant One of the {@code TOUCH_SLOP_} constants
+     */
+    public void setScrollingTouchSlop(@TouchSlop int slopConstant) {
+        mRecyclerView.setScrollingTouchSlop(slopConstant);
     }
 
     /**
