@@ -579,7 +579,8 @@ public class CameraImplTest {
 
         // we need to set Camera2OptionUnpacker to the Config to enable the camera2 callback hookup.
         @Override
-        protected UseCaseConfig.Builder<?, ?, ?> getDefaultBuilder(CameraX.LensFacing lensFacing) {
+        protected UseCaseConfig.Builder<?, ?, ?> getDefaultBuilder(CameraX.LensFacing lensFacing,
+                int displayRotation) {
             return new FakeUseCaseConfig.Builder()
                     .setLensFacing(lensFacing)
                     .setSessionOptionUnpacker(new Camera2SessionOptionUnpacker());

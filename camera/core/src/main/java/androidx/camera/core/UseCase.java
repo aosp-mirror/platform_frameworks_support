@@ -16,8 +16,10 @@
 
 package androidx.camera.core;
 
+import android.content.Context;
 import android.util.Log;
 import android.util.Size;
+import android.view.WindowManager;
 
 import androidx.annotation.CallSuper;
 import androidx.annotation.Nullable;
@@ -102,13 +104,14 @@ public abstract class UseCase {
      * configuration will be used directly.
      *
      * @param lensFacing The {@link LensFacing} that the default builder will target to.
+     * @param displayRotation The display rotation that the default builder will target to.
      * @return A builder pre-populated with use case default options.
      * @hide
      */
     @RestrictTo(Scope.LIBRARY_GROUP)
     @Nullable
     protected UseCaseConfig.Builder<?, ?, ?> getDefaultBuilder(
-            CameraX.LensFacing lensFacing) {
+            CameraX.LensFacing lensFacing, int displayRotation) {
         return null;
     }
 
@@ -131,11 +134,13 @@ public abstract class UseCase {
     @RestrictTo(Scope.LIBRARY_GROUP)
     protected void updateUseCaseConfig(UseCaseConfig<?> useCaseConfig) {
         CameraX.LensFacing lensFacing = ((CameraDeviceConfig) useCaseConfig).getLensFacing(null);
+        WindowManager windowManager = (WindowManager) CameraX.getContext().getSystemService(
+                Context.WINDOW_SERVICE);
 
-        UseCaseConfig.Builder<?, ?, ?> defaultBuilder = getDefaultBuilder(lensFacing);
+        UseCaseConfig.Builder<?, ?, ?> defaultBuilder = getDefaultBuilder(lensFacing,
+                windowManager.getDefaultDisplay().getRotation());
         if (defaultBuilder == null) {
-            Log.w(
-                    TAG,
+            Log.w(TAG,
                     "No default configuration available. Relying solely on user-supplied options.");
             mUseCaseConfig = useCaseConfig;
         } else {

@@ -28,6 +28,7 @@ import android.graphics.ImageFormat;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.util.Size;
+import android.view.Surface;
 
 import androidx.camera.core.AppConfig;
 import androidx.camera.core.BaseCamera;
@@ -70,7 +71,8 @@ public final class ImageAnalysisTest {
     // especially for legacy devices.
     private static final Size DEFAULT_RESOLUTION = new Size(640, 480);
     private static final Size SECONDARY_RESOLUTION = new Size(320, 240);
-    private final ImageAnalysisConfig mDefaultConfig = ImageAnalysis.DEFAULT_CONFIG.getConfig(null);
+    private final ImageAnalysisConfig mDefaultConfig = ImageAnalysis.DEFAULT_CONFIG.getConfig(null,
+            Surface.ROTATION_0);
     private final StateChangeListener mMockListener = Mockito.mock(StateChangeListener.class);
     private final Analyzer mMockAnalyzer = Mockito.mock(Analyzer.class);
     private Set<ImageProperties> mAnalysisResults;
@@ -242,7 +244,8 @@ public final class ImageAnalysisTest {
 
     @Test
     public void defaultsIncludeImageReaderMode() {
-        ImageAnalysisConfig defaultConfig = ImageAnalysis.DEFAULT_CONFIG.getConfig(null);
+        ImageAnalysisConfig defaultConfig = ImageAnalysis.DEFAULT_CONFIG.getConfig(null,
+                Surface.ROTATION_0);
 
         // Will throw if mode does not exist
         ImageReaderMode mode = defaultConfig.getImageReaderMode();
@@ -253,7 +256,8 @@ public final class ImageAnalysisTest {
 
     @Test
     public void defaultsIncludeImageQueueDepth() {
-        ImageAnalysisConfig defaultConfig = ImageAnalysis.DEFAULT_CONFIG.getConfig(null);
+        ImageAnalysisConfig defaultConfig = ImageAnalysis.DEFAULT_CONFIG.getConfig(null,
+                Surface.ROTATION_0);
 
         // Will throw if depth does not exist
         int depth = defaultConfig.getImageQueueDepth();

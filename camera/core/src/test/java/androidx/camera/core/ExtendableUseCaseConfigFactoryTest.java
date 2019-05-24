@@ -19,6 +19,7 @@ package androidx.camera.core;
 import static com.google.common.truth.Truth.assertThat;
 
 import android.os.Build;
+import android.view.Surface;
 
 import androidx.camera.testing.fakes.FakeUseCase;
 import androidx.camera.testing.fakes.FakeUseCaseConfig;
@@ -48,7 +49,8 @@ public class ExtendableUseCaseConfigFactoryTest {
     public void canInstallProvider_andRetrieveConfig() {
         mFactory.installDefaultProvider(FakeUseCaseConfig.class, new FakeUseCaseConfigProvider());
 
-        FakeUseCaseConfig config = mFactory.getConfig(FakeUseCaseConfig.class, null);
+        FakeUseCaseConfig config = mFactory.getConfig(FakeUseCaseConfig.class, null,
+                Surface.ROTATION_0);
         assertThat(config).isNotNull();
         assertThat(config.getTargetClass(null)).isEqualTo(FakeUseCase.class);
     }
@@ -56,7 +58,7 @@ public class ExtendableUseCaseConfigFactoryTest {
     private static class FakeUseCaseConfigProvider implements ConfigProvider<FakeUseCaseConfig> {
 
         @Override
-        public FakeUseCaseConfig getConfig(CameraX.LensFacing lensFacing) {
+        public FakeUseCaseConfig getConfig(CameraX.LensFacing lensFacing, int displayRotation) {
             return new FakeUseCaseConfig.Builder().build();
         }
     }

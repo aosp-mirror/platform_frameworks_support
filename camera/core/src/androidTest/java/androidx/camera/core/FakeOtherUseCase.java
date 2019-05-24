@@ -48,7 +48,8 @@ class FakeOtherUseCase extends UseCase {
     }
 
     @Override
-    protected UseCaseConfig.Builder<?, ?, ?> getDefaultBuilder(CameraX.LensFacing lensFacing) {
+    protected UseCaseConfig.Builder<?, ?, ?> getDefaultBuilder(CameraX.LensFacing lensFacing,
+            int displayRotation) {
         return new FakeOtherUseCaseConfig.Builder().setLensFacing(
                 lensFacing == null ? CameraX.LensFacing.BACK : lensFacing);
     }

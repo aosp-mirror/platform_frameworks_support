@@ -223,9 +223,10 @@ public final class ImageAnalysis extends UseCase {
     @Override
     @Nullable
     @RestrictTo(Scope.LIBRARY_GROUP)
-    protected UseCaseConfig.Builder<?, ?, ?> getDefaultBuilder(LensFacing lensFacing) {
+    protected UseCaseConfig.Builder<?, ?, ?> getDefaultBuilder(LensFacing lensFacing,
+            int displayRotation) {
         ImageAnalysisConfig defaults = CameraX.getDefaultUseCaseConfig(
-                ImageAnalysisConfig.class, lensFacing);
+                ImageAnalysisConfig.class, lensFacing, displayRotation);
         if (defaults != null) {
             return ImageAnalysisConfig.Builder.fromConfig(defaults);
         }
@@ -404,7 +405,7 @@ public final class ImageAnalysis extends UseCase {
         }
 
         @Override
-        public ImageAnalysisConfig getConfig(LensFacing lensFacing) {
+        public ImageAnalysisConfig getConfig(LensFacing lensFacing, int displayRotation) {
             return DEFAULT_CONFIG;
         }
     }

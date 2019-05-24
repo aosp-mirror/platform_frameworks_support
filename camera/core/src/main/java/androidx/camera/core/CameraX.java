@@ -334,6 +334,7 @@ public final class CameraX {
      *
      * @param configType the configuration type
      * @param lensFacing The {@link LensFacing} that the default configuration will target to.
+     * @param displayRotation The display rotation that the default configuration will target to.
      * @return the default configuration for the given configuration type
      * @throws IllegalStateException if Camerax has not yet been initialized.
      * @hide
@@ -341,8 +342,9 @@ public final class CameraX {
     @RestrictTo(Scope.LIBRARY_GROUP)
     @Nullable
     public static <C extends UseCaseConfig<?>> C getDefaultUseCaseConfig(
-            Class<C> configType, LensFacing lensFacing) {
-        return INSTANCE.getDefaultConfigFactory().getConfig(configType, lensFacing);
+            Class<C> configType, LensFacing lensFacing, int displayRotation) {
+        return INSTANCE.getDefaultConfigFactory().getConfig(configType, lensFacing,
+                displayRotation);
     }
 
     /**

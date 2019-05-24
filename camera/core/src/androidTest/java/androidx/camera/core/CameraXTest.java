@@ -25,6 +25,7 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.util.Size;
+import android.view.Surface;
 
 import androidx.camera.core.CameraX.ErrorCode;
 import androidx.camera.core.CameraX.ErrorListener;
@@ -89,7 +90,8 @@ public final class CameraXTest {
         defaultConfigFactory.installDefaultProvider(FakeUseCaseConfig.class,
                 new ConfigProvider<FakeUseCaseConfig>() {
                     @Override
-                    public FakeUseCaseConfig getConfig(CameraX.LensFacing lensFacing) {
+                    public FakeUseCaseConfig getConfig(CameraX.LensFacing lensFacing,
+                            int displayRotation) {
                         return new FakeUseCaseConfig.Builder().build();
                     }
                 });
@@ -199,7 +201,7 @@ public final class CameraXTest {
     public void requestingDefaultConfiguration_returnsDefaultConfiguration() {
         // Requesting a default configuration will throw if CameraX is not initialized.
         FakeUseCaseConfig config = CameraX.getDefaultUseCaseConfig(
-                FakeUseCaseConfig.class, LensFacing.BACK);
+                FakeUseCaseConfig.class, LensFacing.BACK, Surface.ROTATION_0);
         assertThat(config).isNotNull();
         assertThat(config.getTargetClass(null)).isEqualTo(FakeUseCase.class);
     }

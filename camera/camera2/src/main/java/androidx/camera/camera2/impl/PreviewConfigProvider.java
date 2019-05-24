@@ -16,10 +16,8 @@
 
 package androidx.camera.camera2.impl;
 
-import android.content.Context;
 import android.hardware.camera2.CameraDevice;
 import android.util.Log;
-import android.view.WindowManager;
 
 import androidx.annotation.RestrictTo;
 import androidx.annotation.RestrictTo.Scope;
@@ -43,17 +41,15 @@ public final class PreviewConfigProvider implements ConfigProvider<PreviewConfig
     private static final String TAG = "PreviewConfigProvider";
 
     private final CameraFactory mCameraFactory;
-    private final WindowManager mWindowManager;
 
-    public PreviewConfigProvider(CameraFactory cameraFactory, Context context) {
+    public PreviewConfigProvider(CameraFactory cameraFactory) {
         mCameraFactory = cameraFactory;
-        mWindowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
     }
 
     @Override
-    public PreviewConfig getConfig(LensFacing lensFacing) {
-        PreviewConfig.Builder builder =
-                PreviewConfig.Builder.fromConfig(Preview.DEFAULT_CONFIG.getConfig(lensFacing));
+    public PreviewConfig getConfig(LensFacing lensFacing, int displayRotation) {
+        PreviewConfig.Builder builder = PreviewConfig.Builder.fromConfig(
+                Preview.DEFAULT_CONFIG.getConfig(lensFacing, displayRotation));
 
         // SessionConfig containing all intrinsic properties needed for Preview
         SessionConfig.Builder sessionBuilder = new SessionConfig.Builder();
@@ -88,8 +84,7 @@ public final class PreviewConfigProvider implements ConfigProvider<PreviewConfig
                 }
             }
 
-            int targetRotation = mWindowManager.getDefaultDisplay().getRotation();
-            builder.setTargetRotation(targetRotation);
+            builder.setTargetRotation(displayRotation);
         } catch (Exception e) {
             Log.w(TAG, "Unable to determine default lens facing for Preview.", e);
         }

@@ -25,6 +25,7 @@ import static org.mockito.Mockito.verify;
 import android.Manifest;
 import android.content.Context;
 import android.util.Size;
+import android.view.Surface;
 
 import androidx.camera.core.AppConfig;
 import androidx.camera.core.CameraFactory;
@@ -82,7 +83,7 @@ public final class VideoCaptureTest {
     @Before
     public void setUp() {
         assumeTrue(CameraUtil.deviceHasCamera());
-        mDefaultConfig = VideoCapture.DEFAULT_CONFIG.getConfig(null);
+        mDefaultConfig = VideoCapture.DEFAULT_CONFIG.getConfig(null, Surface.ROTATION_0);
         Context context = ApplicationProvider.getApplicationContext();
         AppConfig appConfig = Camera2AppConfig.create(context);
         CameraFactory cameraFactory = appConfig.getCameraFactory(/*valueIfMissing=*/ null);

@@ -34,5 +34,5 @@ public interface ConfigProvider<C extends Config> {
      * @param lensFacing The {@link CameraX.LensFacing} that the configuration provider will
      *                   target to.
      * */
-    C getConfig(CameraX.LensFacing lensFacing);
+    C getConfig(CameraX.LensFacing lensFacing, int displayRotation);
 }

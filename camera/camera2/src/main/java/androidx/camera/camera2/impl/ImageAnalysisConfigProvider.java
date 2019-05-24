@@ -16,11 +16,9 @@
 
 package androidx.camera.camera2.impl;
 
-import android.content.Context;
 import android.hardware.camera2.CameraDevice;
 import android.util.Log;
 import android.util.Rational;
-import android.view.WindowManager;
 
 import androidx.annotation.RestrictTo;
 import androidx.annotation.RestrictTo.Scope;
@@ -47,18 +45,15 @@ public final class ImageAnalysisConfigProvider implements ConfigProvider<ImageAn
     private static final Rational DEFAULT_ASPECT_RATIO_3_4 = new Rational(3, 4);
 
     private final CameraFactory mCameraFactory;
-    private final WindowManager mWindowManager;
 
-    public ImageAnalysisConfigProvider(CameraFactory cameraFactory, Context context) {
+    public ImageAnalysisConfigProvider(CameraFactory cameraFactory) {
         mCameraFactory = cameraFactory;
-        mWindowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
     }
 
     @Override
-    public ImageAnalysisConfig getConfig(LensFacing lensFacing) {
-        ImageAnalysisConfig.Builder builder =
-                ImageAnalysisConfig.Builder.fromConfig(
-                        ImageAnalysis.DEFAULT_CONFIG.getConfig(lensFacing));
+    public ImageAnalysisConfig getConfig(LensFacing lensFacing, int displayRotation) {
+        ImageAnalysisConfig.Builder builder = ImageAnalysisConfig.Builder.fromConfig(
+                ImageAnalysis.DEFAULT_CONFIG.getConfig(lensFacing, displayRotation));
 
         // SessionConfig containing all intrinsic properties needed for ImageAnalysis
         SessionConfig.Builder sessionBuilder = new SessionConfig.Builder();
@@ -94,11 +89,10 @@ public final class ImageAnalysisConfigProvider implements ConfigProvider<ImageAn
                 }
             }
 
-            int targetRotation = mWindowManager.getDefaultDisplay().getRotation();
             int rotationDegrees = CameraX.getCameraInfo(defaultId).getSensorRotationDegrees(
-                    targetRotation);
+                    displayRotation);
             boolean isRotateNeeded = (rotationDegrees == 90 || rotationDegrees == 270);
-            builder.setTargetRotation(targetRotation);
+            builder.setTargetRotation(displayRotation);
             builder.setTargetAspectRatio(
                     isRotateNeeded ? DEFAULT_ASPECT_RATIO_3_4 : DEFAULT_ASPECT_RATIO_4_3);
         } catch (Exception e) {
