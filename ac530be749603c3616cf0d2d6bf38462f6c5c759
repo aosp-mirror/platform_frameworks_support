@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "65c6ae82_a0c5a35f",
+        "filename": "ui/test/src/main/java/androidx/ui/test/android/AndroidUiTestRunner.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-05-24T19:14:51Z",
+      "side": 1,
+      "message": "The problem is that sometimes we are not waiting for recompose to happen, as we won\u0027t cause any of recomposes. for example, you click on disabled button and there should be no recompose, so you just wait for things to settle down to reduce frakiness (if there\u0027s other stuff involved).\n\nWhat\u0027s also important, as this is just temporary draft for testing API and it will be immediately replaced with Filips changes. I think as well that this method won\u0027t be public, so there should be no problems.",
+      "parentUuid": "029cc77d_81e258ac",
+      "range": {
+        "startLine": 111,
+        "startChar": 25,
+        "endLine": 111,
+        "endChar": 29
+      },
+      "revId": "ac530be749603c3616cf0d2d6bf38462f6c5c759",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "75aa1545_b885a013",
         "filename": "ui/test/src/main/java/androidx/ui/test/android/AndroidUiTestRunner.kt",
         "patchSetId": 9
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "ab27d827_69ccb0aa",
+        "filename": "ui/test/src/main/java/androidx/ui/test/android/AndroidUiTestRunner.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-05-24T19:14:51Z",
+      "side": 1,
+      "message": "Please, see my answer above. I really hope that this will be not a public API and it will change right after I\u0027ll submit this :)",
+      "parentUuid": "75aa1545_b885a013",
+      "range": {
+        "startLine": 125,
+        "startChar": 8,
+        "endLine": 125,
+        "endChar": 25
+      },
+      "revId": "ac530be749603c3616cf0d2d6bf38462f6c5c759",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cff9b54c_d337ea9a",
         "filename": "ui/text/src/main/java/androidx/ui/painting/TextSpanComposeNonIR.kt",
         "patchSetId": 9
@@ -68,6 +116,30 @@
       "revId": "ac530be749603c3616cf0d2d6bf38462f6c5c759",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93ba4f87_563bf928",
+        "filename": "ui/text/src/main/java/androidx/ui/painting/TextSpanComposeNonIR.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-05-24T19:14:51Z",
+      "side": 1,
+      "message": "Yep, because Composer now requires non-null Recomposer, which makes sense as there\u0027s no purpose for composer if it cannot recompose :)",
+      "parentUuid": "cff9b54c_d337ea9a",
+      "range": {
+        "startLine": 76,
+        "startChar": 16,
+        "endLine": 76,
+        "endChar": 26
+      },
+      "revId": "ac530be749603c3616cf0d2d6bf38462f6c5c759",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
