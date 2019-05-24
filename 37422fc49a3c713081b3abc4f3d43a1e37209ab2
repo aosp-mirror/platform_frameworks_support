@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8979941b_80be8456",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CameraIdFilterSet.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-24T22:25:23Z",
+      "side": 1,
+      "message": "Looking at aosp/964487 why isn\u0027t the functionality to take in a list of cameras and filter part of the CameraIdFilterSet class?\n\nOtherwise CameraIdFilter set is just a nice wrapper over a Set\u003cCameraIdFilter\u003e",
+      "revId": "37422fc49a3c713081b3abc4f3d43a1e37209ab2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
