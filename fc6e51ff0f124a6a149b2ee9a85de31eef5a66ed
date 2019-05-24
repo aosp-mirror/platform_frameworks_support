@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "84ce1a34_0fd2eae6",
+        "filename": "camera/core/src/main/java/androidx/camera/core/Preview.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-05-24T02:19:53Z",
+      "side": 1,
+      "message": "We shouldn\u0027t be including workarounds for camera2 in the core classes. This needs to be moved to the the camera2 package somehow.",
+      "range": {
+        "startLine": 347,
+        "startChar": 0,
+        "endLine": 353,
+        "endChar": 11
+      },
+      "revId": "fc6e51ff0f124a6a149b2ee9a85de31eef5a66ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
