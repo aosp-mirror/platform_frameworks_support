@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fc1bc3c6_75c020e8",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Selection.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1477013
+      },
+      "writtenOn": "2019-05-24T17:58:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a7a4d35_d4681037",
+      "range": {
+        "startLine": 187,
+        "startChar": 28,
+        "endLine": 187,
+        "endChar": 58
+      },
+      "revId": "5ff510281455eef53acc4e49df376b75f4e6a9ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "155192fa_b576b90c",
         "filename": "ui/framework/src/main/java/androidx/ui/core/Selection.kt",
         "patchSetId": 15
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "4c0cb597_020da7ce",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Selection.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1477013
+      },
+      "writtenOn": "2019-05-24T17:58:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "155192fa_b576b90c",
+      "range": {
+        "startLine": 200,
+        "startChar": 20,
+        "endLine": 200,
+        "endChar": 36
+      },
+      "revId": "5ff510281455eef53acc4e49df376b75f4e6a9ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b8375a65_1801dd22",
         "filename": "ui/framework/src/main/java/androidx/ui/core/Selection.kt",
         "patchSetId": 15
@@ -68,6 +116,30 @@
       "revId": "5ff510281455eef53acc4e49df376b75f4e6a9ed",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bba8a2fe_d4fac94c",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Selection.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1477013
+      },
+      "writtenOn": "2019-05-24T17:58:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b8375a65_1801dd22",
+      "range": {
+        "startLine": 204,
+        "startChar": 24,
+        "endLine": 205,
+        "endChar": 55
+      },
+      "revId": "5ff510281455eef53acc4e49df376b75f4e6a9ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
