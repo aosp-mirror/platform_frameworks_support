@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d82155b4_8537e1f8",
+        "filename": "ui/material/api/1.0.0-alpha01.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-05-24T08:13:28Z",
+      "side": 1,
+      "message": "onClick",
+      "range": {
+        "startLine": 168,
+        "startChar": 105,
+        "endLine": 168,
+        "endChar": 115
+      },
+      "revId": "dad053d385690f707b842d07e927c55185373976",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4475d1ec_7fe1f1e6",
+        "filename": "ui/material/integration-tests/material-demos/src/main/java/androidx/ui/material/demos/SelectionsControlsDemo.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-05-24T08:13:28Z",
+      "side": 1,
+      "message": "onOptionClicked as the option hasn\u0027t been selected yet",
+      "range": {
+        "startLine": 114,
+        "startChar": 35,
+        "endLine": 114,
+        "endChar": 51
+      },
+      "revId": "dad053d385690f707b842d07e927c55185373976",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
