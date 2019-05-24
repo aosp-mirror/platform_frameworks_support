@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fe7887f4_6849b956",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/CaptureSessionTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 441,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-24T17:45:09Z",
+      "side": 1,
+      "message": "I thought the purpose was that we would no longer be refreshing the DeferrableSurface anymore. Or is that going to be part of a separate change?",
+      "revId": "28b1e5782e34ce3ad833f845121363abdefd7194",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00d36c10_a863b415",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/Camera.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-24T17:45:09Z",
+      "side": 1,
+      "message": "Why does the Camera need to be the one responsible for clearing the config? Seems like this should be a responsibility of the CaptureSession.\n\nSo can clearCaptureConfigs() be automatically called in mCaptureSession.close()?",
+      "revId": "28b1e5782e34ce3ad833f845121363abdefd7194",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "49cad7ed_126ce7f6",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/Camera2CaptureRequestBuilder.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-24T17:45:09Z",
+      "side": 1,
+      "message": "Is there any circumstance where we actually want a null CameraDevice?\n\nBecause the expectation is that we are always building for a valid CameraDevice.",
+      "revId": "28b1e5782e34ce3ad833f845121363abdefd7194",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b7e3c9d_ceaa83df",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/Camera2CaptureRequestBuilder.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-24T17:45:09Z",
+      "side": 1,
+      "message": "Why are there extra implementation options. These look like they should just be part of the initial mCaptureConfig.\n\nAlso then is there a need for an instance to be created? Because the only methods would be a constructor \u0026 build___(). Some it might make sense to make the build___() methods static functions.",
+      "revId": "28b1e5782e34ce3ad833f845121363abdefd7194",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a47cffc_cb6cc5a6",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/Camera2CaptureRequestBuilder.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-24T17:45:09Z",
+      "side": 1,
+      "message": "Should this really just be an error log?\n\nIf the DeferrableSurface is not in the SessionConfig this seems to imply we should throw an IllegalArgumentException because somehow the inputs were incorrect.",
+      "revId": "28b1e5782e34ce3ad833f845121363abdefd7194",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d68a939_52a118f9",
+        "filename": "camera/camera2/src/test/java/androidx/camera/camera2/impl/Camera2CaptureRequestBuilderTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-24T17:45:09Z",
+      "side": 1,
+      "message": "Are there tests for successfully building a CaptureRequest?",
+      "revId": "28b1e5782e34ce3ad833f845121363abdefd7194",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ffe9f99_e6051c77",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CaptureConfig.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-24T17:45:09Z",
+      "side": 1,
+      "message": "Can this method be removed since it is implemented in Camera2CaptureRequestBuilder?",
+      "revId": "28b1e5782e34ce3ad833f845121363abdefd7194",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "222b2207_7549732f",
+        "filename": "camera/core/src/test/java/androidx/camera/core/MutableOptionsBundleTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-24T17:45:09Z",
+      "side": 1,
+      "message": "Probably should be renamed as canInsertFromConfig() since that is the name of the method.\n\nAlso this test looks like it tests for 2 functionalities.\n1) What happens when an option already exists. (OPTION_1)\n2) What happens if an option doesn\u0027t exist. (OPTION_2)\n\nThis would be better to be split into 2 tests.\n\nMaybe something like\n1) appendsDuplicateInsertFromConfig()\n2) canInsertFromConfig()",
+      "revId": "28b1e5782e34ce3ad833f845121363abdefd7194",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
