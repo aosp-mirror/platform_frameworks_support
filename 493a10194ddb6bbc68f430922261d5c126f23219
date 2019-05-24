@@ -34,6 +34,24 @@
       "revId": "493a10194ddb6bbc68f430922261d5c126f23219",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c6cdc93_9194adfc",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/Camera.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-05-24T22:22:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "812b48e1_83570da2",
+      "revId": "493a10194ddb6bbc68f430922261d5c126f23219",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
