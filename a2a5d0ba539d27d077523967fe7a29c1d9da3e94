@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ae47130b_917dfd1c",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Selection.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-05-24T15:44:49Z",
+      "side": 1,
+      "message": "please do not use floats. or IntPx, or Dp will work better for you. I guess you want to specify them in Dps, right?",
+      "range": {
+        "startLine": 31,
+        "startChar": 33,
+        "endLine": 32,
+        "endChar": 38
+      },
+      "revId": "a2a5d0ba539d27d077523967fe7a29c1d9da3e94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1da6e3c7_29af02c9",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Selection.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-05-24T15:44:49Z",
+      "side": 1,
+      "message": "even if this code is correct it is not efficient. \nyour operation is very cheap, you just assign the variable \"manager.selection \u003d selection\", but the memo construction is quite expensive and will result in equals calls for the selection objects on every recomposition. so to make it more efficient you can just write\nmanager.selection \u003d selection\nmanager.onSelectionChange \u003d onSelectionChange",
+      "range": {
+        "startLine": 142,
+        "startChar": 3,
+        "endLine": 143,
+        "endChar": 78
+      },
+      "revId": "a2a5d0ba539d27d077523967fe7a29c1d9da3e94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2564e9a4_f4a1e5cd",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Selection.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-05-24T15:44:49Z",
+      "side": 1,
+      "message": "it is incorrect as you assume you will always have exactly one layout node emitted by `content` composable. It is not always true, if you will not add a Text component inside SelectionContainer in your example then measurables[0] will return your startHandle layout. \ninstead you need something like \nval placeable \u003d measurables[content].firstOrNull()?.measure(constraints)\n\nbut exactly in your example looks like this will also not fully work for you.\nlater in layout block you use manager.containerLayoutCoordinates, which is in fact the size of the Layout you are measuring right now. and it can work incorrectly if you use the layout coordinates for the layout not yet measured and positioned. \n\nI would suggest to add another layout here and use it\u0027s coordinates. like: \nval content \u003d @Composable {\n    val children \u003d @Composable() {\n            // Get the layout coordinates of the selection container. This is for hit test of\n            // cross-widget selection.\n            OnPositioned(onPositioned \u003d { manager.containerLayoutCoordinates \u003d it })\n            PressIndicatorGestureDetector(onStart \u003d { position -\u003e manager.onPress(position) }) {\n                children()\n            }\n    }\n    Layout(children \u003d children, layoutBlock \u003d { _, constraints -\u003e\n        val placeable \u003d measurables.firstOrNull()?.measure(constraints)\n        val width \u003d placeable?.width ?: constraints.minWidth\n        val height \u003d placeable?.height ?: constraints.minHeight\n        layout(width, height) {\n            placeable?.place(0.ipx, 0.ipx)\n        }\n    }\n}\n\nand then inside your main SelectionContainer\u0027s layout you now know for sure there is only one layout so you can again have\nval placeable \u003d measurables[0].measure(constraints)\nyou already had before and as inside layout block you first doing \nplaceable.place(IntPx.Zero, IntPx.Zero)\nthis will also call the layout coordinates callback and your manager.containerLayoutCoordinates should already be non null",
+      "range": {
+        "startLine": 168,
+        "startChar": 32,
+        "endLine": 168,
+        "endChar": 46
+      },
+      "revId": "a2a5d0ba539d27d077523967fe7a29c1d9da3e94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "025fa9a7_536ee1db",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Selection.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-05-24T15:44:49Z",
+      "side": 1,
+      "message": "the documentation for this field(and endLayoutCoordinates) mentioned it is ok for them to be null if this component does not contain the start of the selection. so looks like you have to wrap this with null checks and not position the start placeable at all in this case.",
+      "range": {
+        "startLine": 189,
+        "startChar": 28,
+        "endLine": 189,
+        "endChar": 55
+      },
+      "revId": "a2a5d0ba539d27d077523967fe7a29c1d9da3e94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0abf8169_31110ccc",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Selection.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-05-24T15:44:49Z",
+      "side": 1,
+      "message": "here it will be a good idea to use memo to not recreate a heavy Paint object every time. \nval paint \u003d +memo { Paint() }\npaint.color \u003d ...",
+      "range": {
+        "startLine": 207,
+        "startChar": 4,
+        "endLine": 207,
+        "endChar": 23
+      },
+      "revId": "a2a5d0ba539d27d077523967fe7a29c1d9da3e94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3cd120a_6eaca988",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Selection.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1361834
+      },
+      "writtenOn": "2019-05-24T15:44:49Z",
+      "side": 1,
+      "message": "you already specified this size (HANDLE_WIDTH, HANDLE_WIDTH) as the constraints for you layout it means you will receive exactly this size as a parentSize param on Draw (the parameter you renamed to \"_\"). Please use it instead. You can simply do canvas.drawRect(parentSize.toRect(), paint)",
+      "range": {
+        "startLine": 211,
+        "startChar": 46,
+        "endLine": 211,
+        "endChar": 82
+      },
+      "revId": "a2a5d0ba539d27d077523967fe7a29c1d9da3e94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
