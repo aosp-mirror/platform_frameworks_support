@@ -30,7 +30,6 @@ import androidx.ui.engine.geometry.Rect
 import androidx.ui.graphics.Color
 import androidx.ui.painting.Paint
 import androidx.compose.Composable
-import androidx.compose.composer
 import androidx.compose.setContent
 import androidx.compose.state
 import androidx.compose.unaryPlus
@@ -84,7 +83,7 @@ fun TransitionExample() {
     }
 }
 
-val paint: Paint = Paint()
+private val paint: Paint = Paint()
 const val halfSize = 200f
 
 @Composable
