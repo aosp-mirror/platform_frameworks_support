@@ -45,15 +45,17 @@ import androidx.ui.material.ripple.Ripple
 
 // TODO(malkov): think about how to abstract it better
 /**
- * Function to resolve parent [Checkbox] state based on children checkboxes' state
+ * Function to resolve parent [ThreeStateCheckbox] state based on children checkboxes' state
  * Use it when you have a hierarchy relationship between checkboxes in different levels
  *
  * @param childrenStates states of children checkboxes this parent is responsible for
  */
-fun parentCheckboxState(vararg childrenStates: ToggleableState): ToggleableState {
-    return if (childrenStates.all { it == ToggleableState.Checked }) ToggleableState.Checked
-    else if (childrenStates.all { it == ToggleableState.Unchecked }) ToggleableState.Unchecked
-    else ToggleableState.Indeterminate
+fun parentCheckboxState(vararg childrenStates: Boolean): ToggleableState {
+    return when {
+        childrenStates.all { it } -> ToggleableState.Checked
+        childrenStates.all { !it } -> ToggleableState.Unchecked
+        else -> ToggleableState.Indeterminate
+    }
 }
 
 /**
@@ -69,9 +71,9 @@ fun parentCheckboxState(vararg childrenStates: ToggleableState): ToggleableState
  * @param color custom color for checkbox. By default [MaterialColors.secondary] will be used
  */
 @Composable
-fun Checkbox(
+fun ThreeStateCheckbox(
     value: ToggleableState,
-    onClick: (() -> Unit)? = null,
+    onClick: (() -> Unit)?,
     color: Color? = null
 ) {
     Wrap {
@@ -85,6 +87,28 @@ fun Checkbox(
             }
         }
     }
+}
+
+/**
+ * A simplified version of [ThreeStateCheckbox] that represents only two states (checked / unchecked)
+ * The most common usecase for checkbox is two reflect binary state, so does this component.
+ *
+ * @param checked whether Checkbox is checked or unchecked
+ * @param onCheckedChange callback to be invoked when checkbox is being clicked.
+ * If [null], Checkbox will show static [checked] and remain disabled
+ * @param color custom color for checkbox. By default [MaterialColors.secondary] will be used
+ */
+@Composable
+fun Checkbox(
+    checked: Boolean,
+    onCheckedChange: ((Boolean) -> Unit)?,
+    color: Color? = null
+) {
+    ThreeStateCheckbox(
+        value = ToggleableState(checked),
+        onClick = onCheckedChange?.let { { it(!checked) } },
+        color = color
+    )
 }
 
 @Composable
