@@ -34,6 +34,7 @@ import androidx.annotation.RestrictTo.Scope;
 import androidx.annotation.UiThread;
 import androidx.camera.core.CameraX.LensFacing;
 import androidx.camera.core.ImageOutputConfig.RotationValue;
+import androidx.camera.core.impl.utils.executor.CameraXExecutors;
 
 import com.google.auto.value.AutoValue;
 
@@ -242,7 +243,14 @@ public class Preview extends UseCase {
      * @param listener listener for when focus has completed
      */
     public void focus(Rect focus, Rect metering, @Nullable OnFocusListener listener) {
-        getCurrentCameraControl().focus(focus, metering, listener, mMainHandler);
+        // Pass a null executor so the listener will be called back on the main thread.
+        if (listener == null) {
+            getCurrentCameraControl().focus(focus, metering);
+        } else {
+            getCurrentCameraControl().focus(focus, metering, CameraXExecutors.mainThreadExecutor(),
+                    listener);
+        }
+
     }
 
     /**
