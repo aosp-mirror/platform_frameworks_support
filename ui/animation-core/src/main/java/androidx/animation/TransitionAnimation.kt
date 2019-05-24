@@ -143,7 +143,7 @@ class TransitionAnimation<T> : Choreographer.FrameCallback {
         }
     }
 
-    // Start animation if not running, otherwise reset start time
+    // Start animation if not isRunning, otherwise reset start time
     private fun startAnimation() {
         if (!isRunning) {
             isRunning = true
