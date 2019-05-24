@@ -165,7 +165,7 @@ package androidx.ui.material {
 
   public final class RadioButtonKt {
     ctor public RadioButtonKt();
-    method public static void RadioButton(boolean selected, androidx.ui.graphics.Color? color = null);
+    method public static void RadioButton(boolean selected, kotlin.jvm.functions.Function0<kotlin.Unit>? onSelected, androidx.ui.graphics.Color? color = null);
     method public static void RadioGroup(kotlin.jvm.functions.Function1<? super androidx.ui.material.RadioGroupScope,kotlin.Unit> children);
     method public static void RadioGroup(java.util.List<java.lang.String> options, String? selectedOption, kotlin.jvm.functions.Function1<? super java.lang.String,kotlin.Unit> onOptionSelected, androidx.ui.graphics.Color? radioColor = null, androidx.ui.painting.TextStyle? textStyle = null);
   }

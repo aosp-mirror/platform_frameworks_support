@@ -34,7 +34,6 @@ import androidx.ui.engine.geometry.shift
 import androidx.ui.engine.geometry.shrink
 import androidx.ui.layout.Column
 import androidx.ui.layout.Container
-import androidx.ui.layout.EdgeInsets
 import androidx.ui.layout.MainAxisAlignment
 import androidx.ui.layout.MainAxisSize
 import androidx.ui.layout.Padding
@@ -49,7 +48,11 @@ import androidx.compose.Composable
 import androidx.compose.composer
 import androidx.compose.memo
 import androidx.compose.unaryPlus
+import androidx.ui.baseui.selection.Toggleable
+import androidx.ui.baseui.selection.ToggleableState
+import androidx.ui.layout.Wrap
 import androidx.ui.material.ripple.BoundedRipple
+import androidx.ui.material.ripple.Ripple
 
 /**
  * Components for creating mutually exclusive set of [RadioButton]s.
@@ -175,11 +178,9 @@ class RadioGroupScope internal constructor() {
         textStyle: TextStyle? = null
     ) {
         RadioGroupItem(selected = selected, onSelected = onSelected) {
-            val padding =
-                EdgeInsets(top = DefaultRadioItemPadding, bottom = DefaultRadioItemPadding)
-            Padding(padding = padding) {
+            Padding(padding = DefaultRadioItemPadding) {
                 Row(mainAxisSize = MainAxisSize.Max, mainAxisAlignment = MainAxisAlignment.Start) {
-                    RadioButton(selected = selected, color = radioColor)
+                    RadioButton(selected = selected, onSelected = onSelected, color = radioColor)
                     Padding(left = DefaultRadioLabelOffset) {
                         Text(text = text, style = +themeTextStyle { body1.merge(textStyle) })
                     }
@@ -202,22 +203,33 @@ class RadioGroupScope internal constructor() {
 @Composable
 fun RadioButton(
     selected: Boolean,
+    onSelected: (() -> Unit)?,
     color: Color? = null
 ) {
-    Padding(padding = RadioButtonPadding) {
-        Container(width = RadioButtonSize, height = RadioButtonSize) {
-            val selectedColor = +color.orFromTheme { secondary }
-            val unselectedColor = (+themeColor { onSurface }).copy(alpha = UnselectedOpacity)
-            val definition = +memo(selectedColor, unselectedColor) {
-                generateTransitionDefinition(selectedColor, unselectedColor)
-            }
-            Transition(definition = definition, toState = selected) { state ->
-                DrawRadioButton(
-                    color = state[ColorProp],
-                    outerRadius = state[OuterRadiusProp],
-                    innerRadius = state[InnerRadiusProp],
-                    gap = state[GapProp]
-                )
+    Wrap {
+        Ripple {
+            Toggleable(
+                value = if (selected) ToggleableState.Checked else ToggleableState.Unchecked,
+                onToggle = onSelected
+            ) {
+                Padding(padding = RadioButtonPadding) {
+                    Container(width = RadioButtonSize, height = RadioButtonSize) {
+                        val selectedColor = +color.orFromTheme { secondary }
+                        val unselectedColor =
+                            (+themeColor { onSurface }).copy(alpha = UnselectedOpacity)
+                        val definition = +memo(selectedColor, unselectedColor) {
+                            generateTransitionDefinition(selectedColor, unselectedColor)
+                        }
+                        Transition(definition = definition, toState = selected) { state ->
+                            DrawRadioButton(
+                                color = state[ColorProp],
+                                outerRadius = state[OuterRadiusProp],
+                                innerRadius = state[InnerRadiusProp],
+                                gap = state[GapProp]
+                            )
+                        }
+                    }
+                }
             }
         }
     }

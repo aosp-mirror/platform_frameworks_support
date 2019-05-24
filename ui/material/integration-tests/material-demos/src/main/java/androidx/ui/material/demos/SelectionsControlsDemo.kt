@@ -114,7 +114,9 @@ fun CustomRadioGroup() {
                     onSelected = { onOptionSelected(text) }) {
                     Padding(padding = 10.dp) {
                         Column {
-                            RadioButton(selected = selected)
+                            RadioButton(
+                                selected = selected,
+                                onSelected = { onOptionSelected(text) })
                             Text(text = text, style = textStyle)
                         }
                     }
@@ -189,9 +191,9 @@ fun RadioButtonDemo() {
         mainAxisAlignment = MainAxisAlignment.SpaceAround,
         mainAxisSize = MainAxisSize.Min
     ) {
-        RadioButton(selected = true)
-        RadioButton(selected = false)
-        RadioButton(selected = true, color = customColor)
-        RadioButton(selected = false, color = customColor)
+        RadioButton(selected = true, onSelected = null)
+        RadioButton(selected = false, onSelected = null)
+        RadioButton(selected = true, color = customColor, onSelected = null)
+        RadioButton(selected = false, color = customColor, onSelected = null)
     }
 }
