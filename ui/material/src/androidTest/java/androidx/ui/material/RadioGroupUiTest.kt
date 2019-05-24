@@ -222,7 +222,7 @@ class RadioGroupUiTest : AndroidUiTestRunner() {
                 OnChildPositioned(onPositioned = { coordinates ->
                     radioSize = coordinates.size
                 }) {
-                    RadioButton(selected = selected)
+                    RadioButton(selected = selected, onSelected = null)
                 }
             }
         }
