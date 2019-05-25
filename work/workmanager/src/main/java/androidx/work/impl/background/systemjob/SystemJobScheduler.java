@@ -126,26 +126,41 @@ public class SystemJobScheduler implements Scheduler {
                 // in SystemJobService as needed.
                 if (Build.VERSION.SDK_INT == 23) {
                     // Get pending jobIds that might be currently being used.
-                    // This is useful only for API 23, because we double schedule jobs.
-                    List<Integer> jobIds = getPendingJobIds(mJobScheduler, workSpec.id);
+                    List<Integer> jobIds = null;
 
-                    // Remove the jobId which has been used from the list of eligible jobIds.
-                    int index = jobIds.indexOf(jobId);
-                    if (index >= 0) {
-                        jobIds.remove(index);
+                    // Wrapping the call to getPendingJobs() in a try..catch because there are
+                    // bugs in the implementation of JobScheduler for many OEMs in API 23.
+                    // For reference: b/133556574, b/133556809, b/133556535
+                    try {
+                        // This is useful only for API 23, because we double schedule jobs.
+                        jobIds = getPendingJobIds(mJobScheduler, workSpec.id);
+                    } catch (Throwable throwable) {
+                        Logger.get().error(TAG,
+                                "Ignoring an exception with getPendingJobIds", throwable);
                     }
 
-                    int nextJobId;
-                    if (!jobIds.isEmpty()) {
-                        // Use the next eligible jobId
-                        nextJobId = jobIds.get(0);
-                    } else {
-                        // Create a new jobId
-                        nextJobId = mIdGenerator.nextJobSchedulerIdWithRange(
-                                mWorkManager.getConfiguration().getMinJobSchedulerId(),
-                                mWorkManager.getConfiguration().getMaxJobSchedulerId());
+                    // jobIds can be null if getPendingJobIds() throws an Exception.
+                    // When this happens this will not setup a second job, and hence might delay
+                    // execution, but it's better than crashing the app.
+                    if (jobIds != null) {
+                        // Remove the jobId which has been used from the list of eligible jobIds.
+                        int index = jobIds.indexOf(jobId);
+                        if (index >= 0) {
+                            jobIds.remove(index);
+                        }
+
+                        int nextJobId;
+                        if (!jobIds.isEmpty()) {
+                            // Use the next eligible jobId
+                            nextJobId = jobIds.get(0);
+                        } else {
+                            // Create a new jobId
+                            nextJobId = mIdGenerator.nextJobSchedulerIdWithRange(
+                                    mWorkManager.getConfiguration().getMinJobSchedulerId(),
+                                    mWorkManager.getConfiguration().getMaxJobSchedulerId());
+                        }
+                        scheduleInternal(workSpec, nextJobId);
                     }
-                    scheduleInternal(workSpec, nextJobId);
                 }
                 workDatabase.setTransactionSuccessful();
             } finally {
@@ -245,6 +260,13 @@ public class SystemJobScheduler implements Scheduler {
         }
     }
 
+    /**
+     * Always wrap a call to getPendingJobs() with a try catch as there are platform bugs with
+     * several OEMs in API 23, which cause this method to throw Exceptions.
+     *
+     * For reference: b/133556574, b/133556809, b/133556535
+     */
+    @NonNull
     private static List<Integer> getPendingJobIds(
             @NonNull JobScheduler jobScheduler,
             @NonNull String workSpecId) {
