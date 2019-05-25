@@ -68,6 +68,8 @@ package androidx.room {
     method public androidx.room.RoomDatabase.Builder<T!> addMigrations(androidx.room.migration.Migration!...);
     method public androidx.room.RoomDatabase.Builder<T!> allowMainThreadQueries();
     method public T build();
+    method public androidx.room.RoomDatabase.Builder<T!> createFromAsset();
+    method public androidx.room.RoomDatabase.Builder<T!> createFromFile(String);
     method public androidx.room.RoomDatabase.Builder<T!> enableMultiInstanceInvalidation();
     method public androidx.room.RoomDatabase.Builder<T!> fallbackToDestructiveMigration();
     method public androidx.room.RoomDatabase.Builder<T!> fallbackToDestructiveMigrationFrom(int...);

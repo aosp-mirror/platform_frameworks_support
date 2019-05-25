@@ -508,6 +508,7 @@ public abstract class RoomDatabase {
         private final Class<T> mDatabaseClass;
         private final String mName;
         private final Context mContext;
+        private String mCopyFromFilePath;
         private ArrayList<Callback> mCallbacks;
 
         /** The Executor used to run database queries. This should be background-threaded. */
@@ -539,6 +540,54 @@ public abstract class RoomDatabase {
             mJournalMode = JournalMode.AUTOMATIC;
             mRequireMigration = true;
             mMigrationContainer = new MigrationContainer();
+        }
+
+        /**
+         * Configures Room to create and open the database using a pre-packaged database from the
+         * assets folder.
+         * <p>
+         * The pre-packaged database file must be located in the 'assets/databases/' folder of your
+         * application and must have the same name as the database name given to this builder.
+         * <p>
+         * Room does not open the pre-packaged database, instead it copies it into the internal
+         * app database folder and then opens it.
+         * <p>
+         * The pre-packaged database schema will be validated. It might be best to create your
+         * pre-packaged database schema utilizing the exported schema files generated when
+         * {@link Database#exportSchema()} is enabled.
+         * <p>
+         * Specifying a open-helper with {@link #openHelperFactory(SupportSQLiteOpenHelper.Factory)}
+         * invalidates the configuration set by this method.
+         *
+         * @return this
+         */
+        @NonNull
+        public Builder<T> createFromAsset() {
+            mCopyFromFilePath = SQLiteCopyOpenHelper.FROM_ASSETS_PATH;
+            return this;
+        }
+
+        /**
+         * Configures Room to create and open the database using a pre-packaged database from the
+         * given path.
+         * <p>
+         * Room does not open the pre-packaged database, instead it copies it into the internal
+         * app database folder and then opens it. Therefore, the given path must be accessible and
+         * the right permissions must be granted for Room to copy the file.
+         * <p>
+         * The pre-packaged database schema will be validated. It might be best to create your
+         * pre-packaged database schema utilizing the exported schema files generated when
+         * {@link Database#exportSchema()} is enabled.
+         * <p>
+         * Specifying a open-helper with {@link #openHelperFactory(SupportSQLiteOpenHelper.Factory)}
+         * invalidates the configuration set by this method.
+         *
+         * @return this
+         */
+        @NonNull
+        public Builder<T> createFromFile(@NonNull String databaseFilePath) {
+            mCopyFromFilePath = databaseFilePath;
+            return this;
         }
 
         /**
@@ -831,7 +880,11 @@ public abstract class RoomDatabase {
             }
 
             if (mFactory == null) {
-                mFactory = new FrameworkSQLiteOpenHelperFactory();
+                if (mCopyFromFilePath != null) {
+                    mFactory = new SQLiteCopyOpenHelperFactory(mCopyFromFilePath);
+                } else {
+                    mFactory = new FrameworkSQLiteOpenHelperFactory();
+                }
             }
             DatabaseConfiguration configuration =
                     new DatabaseConfiguration(
