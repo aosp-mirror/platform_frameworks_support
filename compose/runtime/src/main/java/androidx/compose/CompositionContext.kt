@@ -93,11 +93,13 @@ class CompositionContext private constructor(
 
     fun recompose() {
         runWithCurrent {
-            val previousComposing = isComposing
+            val wasComposing = isComposing
+            val composer = composer
+            val composerWasComposing = composer.isComposing
             try {
                 Trace.beginSection("Compose:recompose")
                 isComposing = true
-                val composer = composer
+                composer.isComposing = true
                 composer.startRoot()
                 composer.startGroup(invocation)
                 rootComponent()
@@ -106,7 +108,8 @@ class CompositionContext private constructor(
                 composer.applyChanges()
                 FrameManager.nextFrame()
             } finally {
-                isComposing = previousComposing
+                isComposing = wasComposing
+                composer.isComposing = composerWasComposing
                 Trace.endSection()
             }
         }

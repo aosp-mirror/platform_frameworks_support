@@ -34,8 +34,8 @@ import java.util.WeakHashMap
  */
 private class Root : Component() {
     @Suppress("DEPRECATION")
-    fun update() = recomposeSync()
     lateinit var scope: TextSpanScope
+    lateinit var composer: CompositionContext
     lateinit var composable: @Composable() TextSpanScope.() -> Unit
     @Suppress("PLUGIN_ERROR")
     override fun compose() {
@@ -91,12 +91,13 @@ fun compose(
         val scope = TextSpanScope(TextSpanComposition(composer))
 
         root.scope = scope
+        root.composer = cc
         root.composable = composable
 
         cc.recompose()
     } else {
         root.composable = composable
-        root.update()
+        root.composer.recompose()
     }
 }
 
