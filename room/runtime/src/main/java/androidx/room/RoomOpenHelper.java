@@ -72,6 +72,8 @@ public class RoomOpenHelper extends SupportSQLiteOpenHelper.Callback {
     public void onCreate(SupportSQLiteDatabase db) {
         updateIdentity(db);
         mDelegate.createAllTables(db);
+        // TODO: Use better error message indicating pre-packaged DB issue instead of migration
+        mDelegate.validateMigration(db);
         mDelegate.onCreate(db);
     }
 
@@ -123,8 +125,8 @@ public class RoomOpenHelper extends SupportSQLiteOpenHelper.Callback {
     }
 
     private void checkIdentity(SupportSQLiteDatabase db) {
-        String identityHash = null;
         if (hasRoomMasterTable(db)) {
+            String identityHash = null;
             Cursor cursor = db.query(new SimpleSQLiteQuery(RoomMasterTable.READ_QUERY));
             //noinspection TryFinallyCanBeTryWithResources
             try {
@@ -134,11 +136,18 @@ public class RoomOpenHelper extends SupportSQLiteOpenHelper.Callback {
             } finally {
                 cursor.close();
             }
-        }
-        if (!mIdentityHash.equals(identityHash) && !mLegacyHash.equals(identityHash)) {
-            throw new IllegalStateException("Room cannot verify the data integrity. Looks like"
-                    + " you've changed schema but forgot to update the version number. You can"
-                    + " simply fix this by increasing the version number.");
+            if (!mIdentityHash.equals(identityHash) && !mLegacyHash.equals(identityHash)) {
+                throw new IllegalStateException("Room cannot verify the data integrity. Looks like"
+                        + " you've changed schema but forgot to update the version number. You can"
+                        + " simply fix this by increasing the version number.");
+            }
+        } else {
+            // Database has no room_master_table, maybe it's a pre-packaged database, we must then
+            // validate it.
+            // TODO: Use better error message indicating pre-packaged DB issue instead of migration
+            mDelegate.validateMigration(db);
+            mDelegate.onPostMigrate(db);
+            updateIdentity(db);
         }
     }
 

@@ -484,8 +484,6 @@ public class MigrationTestHelper extends TestWatcher {
 
         @Override
         protected void validateMigration(SupportSQLiteDatabase db) {
-            throw new UnsupportedOperationException("This open helper just creates the database but"
-                    + " it received a migration request.");
         }
     }
 
