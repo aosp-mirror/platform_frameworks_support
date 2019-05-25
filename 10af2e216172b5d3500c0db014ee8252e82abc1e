@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "979d4662_73cb1a6d",
+        "filename": "compose/runtime/src/main/java/androidx/compose/Composer.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1048725
+      },
+      "writtenOn": "2019-05-25T17:53:41Z",
+      "side": 1,
+      "message": "The try/finally blocks seem a bit excessive for performance markers. First, it only makes a difference to the marker when an exception is thrown through this call and, second, it introduce some overhead to have them at all. However, if this is the standard for Android keep it.",
+      "revId": "10af2e216172b5d3500c0db014ee8252e82abc1e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b0702db7_7db2dc94",
+        "filename": "compose/runtime/src/main/java/androidx/compose/Composer.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 1048725
+      },
+      "writtenOn": "2019-05-25T17:53:41Z",
+      "side": 1,
+      "message": "I am not sure how valuable separating the lifecycle events are. Probably just having just one is sufficient",
+      "revId": "10af2e216172b5d3500c0db014ee8252e82abc1e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03161cda_d17b306a",
+        "filename": "compose/runtime/src/main/java/androidx/compose/SlotTable.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 579,
+      "author": {
+        "id": 1048725
+      },
+      "writtenOn": "2019-05-25T17:53:41Z",
+      "side": 1,
+      "message": "We should either have try/finally everywhere (including here) or nowhere.",
+      "revId": "10af2e216172b5d3500c0db014ee8252e82abc1e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
