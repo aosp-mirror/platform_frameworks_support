@@ -15,6 +15,8 @@
  */
 package androidx.work.impl.background.systemjob;
 
+import static androidx.work.impl.background.systemjob.SystemJobInfoConverter.EXTRA_WORK_SPEC_ID;
+
 import android.app.job.JobInfo;
 import android.app.job.JobScheduler;
 import android.content.Context;
@@ -126,26 +128,41 @@ public class SystemJobScheduler implements Scheduler {
                 // in SystemJobService as needed.
                 if (Build.VERSION.SDK_INT == 23) {
                     // Get pending jobIds that might be currently being used.
-                    // This is useful only for API 23, because we double schedule jobs.
-                    List<Integer> jobIds = getPendingJobIds(mJobScheduler, workSpec.id);
+                    List<Integer> jobIds = null;
 
-                    // Remove the jobId which has been used from the list of eligible jobIds.
-                    int index = jobIds.indexOf(jobId);
-                    if (index >= 0) {
-                        jobIds.remove(index);
+                    // Wrapping the call to getPendingJobs() in a try..catch because there are
+                    // bugs in the implementation of JobScheduler for many OEMs in API 23.
+                    // For reference: b/133556574, b/133556809, b/133556535
+                    try {
+                        // This is useful only for API 23, because we double schedule jobs.
+                        jobIds = getPendingJobIds(mJobScheduler, workSpec.id);
+                    } catch (Throwable throwable) {
+                        Logger.get().error(TAG,
+                                "Ignoring an exception with getPendingJobIds", throwable);
                     }
 
-                    int nextJobId;
-                    if (!jobIds.isEmpty()) {
-                        // Use the next eligible jobId
-                        nextJobId = jobIds.get(0);
-                    } else {
-                        // Create a new jobId
-                        nextJobId = mIdGenerator.nextJobSchedulerIdWithRange(
-                                mWorkManager.getConfiguration().getMinJobSchedulerId(),
-                                mWorkManager.getConfiguration().getMaxJobSchedulerId());
+                    // jobIds can be null if getPendingJobIds() throws an Exception.
+                    // When this happens this will not setup a second job, and hence might delay
+                    // execution, but it's better than crashing the app.
+                    if (jobIds != null) {
+                        // Remove the jobId which has been used from the list of eligible jobIds.
+                        int index = jobIds.indexOf(jobId);
+                        if (index >= 0) {
+                            jobIds.remove(index);
+                        }
+
+                        int nextJobId;
+                        if (!jobIds.isEmpty()) {
+                            // Use the next eligible jobId
+                            nextJobId = jobIds.get(0);
+                        } else {
+                            // Create a new jobId
+                            nextJobId = mIdGenerator.nextJobSchedulerIdWithRange(
+                                    mWorkManager.getConfiguration().getMinJobSchedulerId(),
+                                    mWorkManager.getConfiguration().getMaxJobSchedulerId());
+                        }
+                        scheduleInternal(workSpec, nextJobId);
                     }
-                    scheduleInternal(workSpec, nextJobId);
                 }
                 workDatabase.setTransactionSuccessful();
             } finally {
@@ -174,8 +191,8 @@ public class SystemJobScheduler implements Scheduler {
             List<JobInfo> allJobInfos = mJobScheduler.getAllPendingJobs();
             if (allJobInfos != null) {  // Apparently this CAN be null on API 23?
                 for (JobInfo currentJobInfo : allJobInfos) {
-                    if (currentJobInfo.getExtras().getString(
-                            SystemJobInfoConverter.EXTRA_WORK_SPEC_ID) != null) {
+                    PersistableBundle extras = currentJobInfo.getExtras();
+                    if (extras != null && extras.getString(EXTRA_WORK_SPEC_ID) != null) {
                         ++numWorkManagerJobs;
                     }
                 }
@@ -204,9 +221,8 @@ public class SystemJobScheduler implements Scheduler {
         List<JobInfo> allJobInfos = mJobScheduler.getAllPendingJobs();
         if (allJobInfos != null) {  // Apparently this CAN be null on API 23?
             for (JobInfo jobInfo : allJobInfos) {
-                if (workSpecId.equals(
-                        jobInfo.getExtras().getString(SystemJobInfoConverter.EXTRA_WORK_SPEC_ID))) {
-
+                PersistableBundle extras = jobInfo.getExtras();
+                if (extras != null && workSpecId.equals(extras.getString(EXTRA_WORK_SPEC_ID))) {
                     // Its safe to call this method twice.
                     mWorkManager.getWorkDatabase()
                             .systemIdInfoDao()
@@ -237,7 +253,7 @@ public class SystemJobScheduler implements Scheduler {
                 for (JobInfo jobInfo : jobInfos) {
                     PersistableBundle extras = jobInfo.getExtras();
                     // This is a job scheduled by WorkManager.
-                    if (extras.containsKey(SystemJobInfoConverter.EXTRA_WORK_SPEC_ID)) {
+                    if (extras != null && extras.containsKey(EXTRA_WORK_SPEC_ID)) {
                         jobScheduler.cancel(jobInfo.getId());
                     }
                 }
@@ -245,9 +261,15 @@ public class SystemJobScheduler implements Scheduler {
         }
     }
 
+    /**
+     * Always wrap a call to getPendingJobs() with a try catch as there are platform bugs with
+     * several OEMs in API 23, which cause this method to throw Exceptions.
+     * For reference: b/133556574, b/133556809, b/133556535
+     */
+    @NonNull
     private static List<Integer> getPendingJobIds(
             @NonNull JobScheduler jobScheduler,
-            @NonNull String workSpecId) {
+            @NonNull String workSpecId) throws Exception {
 
         // We have atmost 2 jobs per WorkSpec
         List<Integer> pendingJobs = new ArrayList<>(2);
@@ -258,9 +280,9 @@ public class SystemJobScheduler implements Scheduler {
             for (JobInfo jobInfo : jobInfos) {
                 PersistableBundle extras = jobInfo.getExtras();
                 if (extras != null
-                        && extras.containsKey(SystemJobInfoConverter.EXTRA_WORK_SPEC_ID)) {
+                        && extras.containsKey(EXTRA_WORK_SPEC_ID)) {
                     if (workSpecId.equals(
-                            extras.getString(SystemJobInfoConverter.EXTRA_WORK_SPEC_ID))) {
+                            extras.getString(EXTRA_WORK_SPEC_ID))) {
                         pendingJobs.add(jobInfo.getId());
                     }
                 }
