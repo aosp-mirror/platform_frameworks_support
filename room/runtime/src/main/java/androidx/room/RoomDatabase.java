@@ -157,6 +157,10 @@ public abstract class RoomDatabase {
     @CallSuper
     public void init(@NonNull DatabaseConfiguration configuration) {
         mOpenHelper = createOpenHelper(configuration);
+        if (mOpenHelper instanceof SQLiteCopyOpenHelper) {
+            SQLiteCopyOpenHelper copyOpenHelper = (SQLiteCopyOpenHelper) mOpenHelper;
+            copyOpenHelper.setDatabaseConfiguration(configuration);
+        }
         boolean wal = false;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             wal = configuration.journalMode == JournalMode.WRITE_AHEAD_LOGGING;
@@ -532,6 +536,9 @@ public abstract class RoomDatabase {
          */
         private Set<Integer> mMigrationStartAndEndVersions;
 
+        private String mCopyFromPath;
+        private boolean mCopyFromExternalAsset;
+
         Builder(@NonNull Context context, @NonNull Class<T> klass, @Nullable String name) {
             mContext = context;
             mDatabaseClass = klass;
@@ -539,6 +546,41 @@ public abstract class RoomDatabase {
             mJournalMode = JournalMode.AUTOMATIC;
             mRequireMigration = true;
             mMigrationContainer = new MigrationContainer();
+        }
+
+        /**
+         * Configures Room to create and open the database using a pre-packaged database from the
+         * given path.
+         * <p>
+         * Room does not open the pre-packaged database, instead it copies it into the internal
+         * app database folder and then opens it. If {@code fromExternalAsset} is true then the
+         * pre-packaged database file must be located in the "assets/" folder of your
+         * application. For example, the file path for a file located in
+         * "assets/databases/products.db" would be "databases/products.db". Otherwise, the given
+         * path must be accessible and the right permissions must be granted for Room to copy the
+         * file.
+         * <p>
+         * The pre-packaged database schema will be validated. It might be best to create your
+         * pre-packaged database schema utilizing the exported schema files generated when
+         * {@link Database#exportSchema()} is enabled.
+         * <p>
+         * Specifying a open-helper with {@link #openHelperFactory(SupportSQLiteOpenHelper.Factory)}
+         * invalidates the configuration set by this method.
+         * <p>
+         * This method has no effect if this {@link Builder} is for an in memory database.
+         *
+         * @param databaseFilePath The file path of where the database file is located.
+         * @param fromExternalAsset True if the file path is located outside of the application's
+         *                          'assets/' directory.
+         *
+         * @return this
+         */
+        @NonNull
+        public Builder<T> createFromFile(@NonNull String databaseFilePath,
+                boolean fromExternalAsset) {
+            mCopyFromPath = databaseFilePath;
+            mCopyFromExternalAsset = fromExternalAsset;
+            return this;
         }
 
         /**
@@ -831,7 +873,12 @@ public abstract class RoomDatabase {
             }
 
             if (mFactory == null) {
-                mFactory = new FrameworkSQLiteOpenHelperFactory();
+                if (mCopyFromPath != null && mName != null) {
+                    mFactory = new SQLiteCopyOpenHelperFactory(mCopyFromPath,
+                            mCopyFromExternalAsset);
+                } else {
+                    mFactory = new FrameworkSQLiteOpenHelperFactory();
+                }
             }
             DatabaseConfiguration configuration =
                     new DatabaseConfiguration(
@@ -847,7 +894,9 @@ public abstract class RoomDatabase {
                             mMultiInstanceInvalidation,
                             mRequireMigration,
                             mAllowDestructiveMigrationOnDowngrade,
-                            mMigrationsNotRequiredFrom);
+                            mMigrationsNotRequiredFrom,
+                            mCopyFromPath,
+                            mCopyFromExternalAsset);
             T db = Room.getGeneratedImplementation(mDatabaseClass, DB_IMPL_SUFFIX);
             db.init(configuration);
             return db;
