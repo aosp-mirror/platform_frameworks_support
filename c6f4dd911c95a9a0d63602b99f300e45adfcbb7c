@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "12f2cd00_f191a996",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/Camera2CameraControl.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 1482448
+      },
+      "writtenOn": "2019-05-25T00:45:50Z",
+      "side": 1,
+      "message": "Is this generally applicable to all devices and causes no different for non-pixel devices?\n\nBecause if it is so, then we can call this out as a general fix.",
+      "revId": "c6f4dd911c95a9a0d63602b99f300e45adfcbb7c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
