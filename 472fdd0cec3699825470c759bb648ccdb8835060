@@ -70,6 +70,30 @@
       "revId": "472fdd0cec3699825470c759bb648ccdb8835060",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2839f547_56d9bed6",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/background/systemjob/SystemJobScheduler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2019-05-25T20:14:08Z",
+      "side": 1,
+      "message": "You are right, we are not consistent. I will make the change in the current CL.",
+      "parentUuid": "f308ee6c_4e64f4e5",
+      "range": {
+        "startLine": 203,
+        "startChar": 38,
+        "endLine": 203,
+        "endChar": 44
+      },
+      "revId": "472fdd0cec3699825470c759bb648ccdb8835060",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
