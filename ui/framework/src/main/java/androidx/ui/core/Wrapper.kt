@@ -15,6 +15,7 @@
  */
 package androidx.ui.core
 
+import android.app.Activity
 import android.content.Context
 import androidx.annotation.CheckResult
 import androidx.ui.core.input.FocusManager
@@ -36,7 +37,7 @@ fun CraneWrapper(@Children children: @Composable() () -> Unit) {
 
     // TODO(nona): Tie the focus manger lifecycle to Window, otherwise FocusManager won't work with
     //             nested AndroidCraneView case
-    val focusManager = FocusManager()
+    val focusManager = +memo { FocusManager() }
 
     <AndroidCraneView ref=rootRef>
         val reference = +compositionReference()
@@ -54,6 +55,24 @@ fun CraneWrapper(@Children children: @Composable() () -> Unit) {
             }
         }
     </AndroidCraneView>
+}
+
+fun Activity.setComposeContent(composable: @Composable() () -> Unit) {
+    val root = AndroidCraneView(this)
+    setContentView(root)
+    Compose.composeInto(root.root, context = this) {
+        val focusManager = +memo { FocusManager() }
+        ContextAmbient.Provider(value = this) {
+            DensityAmbient.Provider(value = Density(this)) {
+                FocusManagerAmbient.Provider(value = focusManager) {
+                    TextInputServiceAmbient.Provider(value = root.textInputService) {
+                        composable()
+                    }
+                }
+            }
+        }
+    }
+
 }
 
 val ContextAmbient = Ambient.of<Context>()
