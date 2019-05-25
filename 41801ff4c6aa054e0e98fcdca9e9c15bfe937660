@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1b29685d_227ae847",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/background/systemjob/SystemJobScheduler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2019-05-25T20:04:42Z",
+      "side": 1,
+      "message": "Just wanted to avoid an extra allocation. I cannot use Collections.emptyList() because I am actually mutating the list afterwards. Also helps the code below distinguish between a raised exception vs. a call to getPendingJobs() actually returning no-jobs (because there were none scheduled) without having to use an extra flag.",
+      "parentUuid": "4e45977b_e4f5ab90",
+      "range": {
+        "startLine": 129,
+        "startChar": 43,
+        "endLine": 129,
+        "endChar": 47
+      },
+      "revId": "41801ff4c6aa054e0e98fcdca9e9c15bfe937660",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4ddfa550_c4b99793",
         "filename": "work/workmanager/src/main/java/androidx/work/impl/background/systemjob/SystemJobScheduler.java",
         "patchSetId": 1
