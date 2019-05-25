@@ -22,6 +22,30 @@
       "revId": "472fdd0cec3699825470c759bb648ccdb8835060",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c430c434_25681498",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/background/systemjob/SystemJobScheduler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2019-05-25T19:59:12Z",
+      "side": 1,
+      "message": "It should not. The bugs you created are due to an OEM specific implementation JobScheduler bug.",
+      "parentUuid": "f2920fed_112f3850",
+      "range": {
+        "startLine": 203,
+        "startChar": 38,
+        "endLine": 203,
+        "endChar": 44
+      },
+      "revId": "472fdd0cec3699825470c759bb648ccdb8835060",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
