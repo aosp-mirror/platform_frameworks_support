@@ -72,6 +72,14 @@ public class RoomOpenHelper extends SupportSQLiteOpenHelper.Callback {
     public void onCreate(SupportSQLiteDatabase db) {
         updateIdentity(db);
         mDelegate.createAllTables(db);
+        if (mConfiguration != null
+                && (mConfiguration.copyFromPath != null || !mConfiguration.isDatabaseInternal())) {
+            // A 0 version pre-packaged database goes through the create path because the
+            // framework's SQLiteOpenHelper thinks the database was just created from scratch. For
+            // such case perform an extra schema validation just be safe.
+            // TODO: Use better error message indicating pre-packaged DB issue instead of migration.
+            mDelegate.validateMigration(db);
+        }
         mDelegate.onCreate(db);
     }
 
@@ -123,8 +131,8 @@ public class RoomOpenHelper extends SupportSQLiteOpenHelper.Callback {
     }
 
     private void checkIdentity(SupportSQLiteDatabase db) {
-        String identityHash = null;
         if (hasRoomMasterTable(db)) {
+            String identityHash = null;
             Cursor cursor = db.query(new SimpleSQLiteQuery(RoomMasterTable.READ_QUERY));
             //noinspection TryFinallyCanBeTryWithResources
             try {
@@ -134,11 +142,21 @@ public class RoomOpenHelper extends SupportSQLiteOpenHelper.Callback {
             } finally {
                 cursor.close();
             }
-        }
-        if (!mIdentityHash.equals(identityHash) && !mLegacyHash.equals(identityHash)) {
-            throw new IllegalStateException("Room cannot verify the data integrity. Looks like"
-                    + " you've changed schema but forgot to update the version number. You can"
-                    + " simply fix this by increasing the version number.");
+            if (!mIdentityHash.equals(identityHash) && !mLegacyHash.equals(identityHash)) {
+                throw new IllegalStateException("Room cannot verify the data integrity. Looks like"
+                        + " you've changed schema but forgot to update the version number. You can"
+                        + " simply fix this by increasing the version number.");
+            }
+        } else if (mConfiguration != null
+                && (mConfiguration.copyFromPath != null || !mConfiguration.isDatabaseInternal())) {
+            // No room_master_table, if opening a pre-packaged database then we must validate it.
+            // TODO: Use better error message indicating pre-packaged DB issue instead of migration
+            mDelegate.validateMigration(db);
+            mDelegate.onPostMigrate(db);
+            updateIdentity(db);
+        } else {
+            throw new IllegalStateException("Room cannot verify the data integrity. Database was"
+                    + " missing room_master_table.");
         }
     }
 

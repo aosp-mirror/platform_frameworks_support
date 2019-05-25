@@ -2,12 +2,15 @@
 package androidx.room {
 
   public class DatabaseConfiguration {
+    method public boolean isDatabaseInternal();
     method public boolean isMigrationRequired(int, int);
     method @Deprecated public boolean isMigrationRequiredFrom(int);
     field public final boolean allowDestructiveMigrationOnDowngrade;
     field public final boolean allowMainThreadQueries;
     field public final java.util.List<androidx.room.RoomDatabase.Callback!>? callbacks;
     field public final android.content.Context context;
+    field public final boolean copyFromAsset;
+    field public final String? copyFromPath;
     field public final androidx.room.RoomDatabase.JournalMode! journalMode;
     field public final androidx.room.RoomDatabase.MigrationContainer migrationContainer;
     field public final boolean multiInstanceInvalidation;
@@ -68,6 +71,8 @@ package androidx.room {
     method public androidx.room.RoomDatabase.Builder<T!> addMigrations(androidx.room.migration.Migration!...);
     method public androidx.room.RoomDatabase.Builder<T!> allowMainThreadQueries();
     method public T build();
+    method public androidx.room.RoomDatabase.Builder<T!> createFromAsset(String);
+    method public androidx.room.RoomDatabase.Builder<T!> createFromFile(String);
     method public androidx.room.RoomDatabase.Builder<T!> enableMultiInstanceInvalidation();
     method public androidx.room.RoomDatabase.Builder<T!> fallbackToDestructiveMigration();
     method public androidx.room.RoomDatabase.Builder<T!> fallbackToDestructiveMigrationFrom(int...);
