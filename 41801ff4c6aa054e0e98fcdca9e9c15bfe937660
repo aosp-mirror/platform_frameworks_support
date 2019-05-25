@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4e45977b_e4f5ab90",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/background/systemjob/SystemJobScheduler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1040035
+      },
+      "writtenOn": "2019-05-25T20:00:40Z",
+      "side": 1,
+      "message": "using an empty list by default saves you a null check below.\ngenerally better to use empty collections vs null.",
+      "range": {
+        "startLine": 129,
+        "startChar": 43,
+        "endLine": 129,
+        "endChar": 47
+      },
+      "revId": "41801ff4c6aa054e0e98fcdca9e9c15bfe937660",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ddfa550_c4b99793",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/background/systemjob/SystemJobScheduler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 1040035
+      },
+      "writtenOn": "2019-05-25T20:00:40Z",
+      "side": 1,
+      "message": "add throws Exception so caller is forced to catch it?",
+      "range": {
+        "startLine": 272,
+        "startChar": 0,
+        "endLine": 272,
+        "endChar": 41
+      },
+      "revId": "41801ff4c6aa054e0e98fcdca9e9c15bfe937660",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
