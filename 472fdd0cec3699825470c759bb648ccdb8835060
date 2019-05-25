@@ -46,6 +46,30 @@
       "revId": "472fdd0cec3699825470c759bb648ccdb8835060",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f308ee6c_4e64f4e5",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/background/systemjob/SystemJobScheduler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1040035
+      },
+      "writtenOn": "2019-05-25T20:02:14Z",
+      "side": 1,
+      "message": "so I don\u0027t get the null check on line 222 below then.",
+      "parentUuid": "c430c434_25681498",
+      "range": {
+        "startLine": 203,
+        "startChar": 38,
+        "endLine": 203,
+        "endChar": 44
+      },
+      "revId": "472fdd0cec3699825470c759bb648ccdb8835060",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
