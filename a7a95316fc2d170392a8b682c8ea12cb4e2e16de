@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d8de73eb_87d4bdc4",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/background/systemjob/SystemJobScheduler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-05-26T05:53:44Z",
+      "side": 1,
+      "message": "Why don\u0027t you just catch it here and return null, making this method @Nullable instead?  It seems pointless to catch it at the call site.",
+      "range": {
+        "startLine": 265,
+        "startChar": 7,
+        "endLine": 267,
+        "endChar": 59
+      },
+      "revId": "a7a95316fc2d170392a8b682c8ea12cb4e2e16de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
