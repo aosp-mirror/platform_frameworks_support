@@ -37,9 +37,9 @@ import androidx.sqlite.db.SupportSQLiteStatement;
 
 import java.lang.ref.WeakReference;
 import java.util.Arrays;
-import java.util.BitSet;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
@@ -91,10 +91,6 @@ public class InvalidationTracker {
 
     @NonNull
     private Map<String, Set<String>> mViewTables;
-
-    @NonNull
-    @VisibleForTesting
-    final BitSet mTableInvalidStatus;
 
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     final RoomDatabase mDatabase;
@@ -164,7 +160,6 @@ public class InvalidationTracker {
                 mTableIdLookup.put(tableName, mTableIdLookup.get(shadowTableName));
             }
         }
-        mTableInvalidStatus = new BitSet(tableNames.length);
     }
 
     /**
@@ -367,7 +362,7 @@ public class InvalidationTracker {
         @Override
         public void run() {
             final Lock closeLock = mDatabase.getCloseLock();
-            boolean hasUpdatedTable = false;
+            Set<Integer> invalidatedTableIds = null;
             try {
                 closeLock.lock();
 
@@ -393,13 +388,13 @@ public class InvalidationTracker {
                     SupportSQLiteDatabase db = mDatabase.getOpenHelper().getWritableDatabase();
                     db.beginTransaction();
                     try {
-                        hasUpdatedTable = checkUpdatedTable();
+                        invalidatedTableIds = checkUpdatedTable();
                         db.setTransactionSuccessful();
                     } finally {
                         db.endTransaction();
                     }
                 } else {
-                    hasUpdatedTable = checkUpdatedTable();
+                    invalidatedTableIds = checkUpdatedTable();
                 }
             } catch (IllegalStateException | SQLiteException exception) {
                 // may happen if db is closed. just log.
@@ -408,34 +403,31 @@ public class InvalidationTracker {
             } finally {
                 closeLock.unlock();
             }
-            if (hasUpdatedTable) {
+            if (invalidatedTableIds != null && !invalidatedTableIds.isEmpty()) {
                 synchronized (mObserverMap) {
                     for (Map.Entry<Observer, ObserverWrapper> entry : mObserverMap) {
-                        entry.getValue().notifyByTableInvalidStatus(mTableInvalidStatus);
+                        entry.getValue().notifyByTableInvalidStatus(invalidatedTableIds);
                     }
                 }
-                // Reset invalidated status flags.
-                mTableInvalidStatus.clear();
             }
         }
 
-        private boolean checkUpdatedTable() {
-            boolean hasUpdatedTable = false;
+        private Set<Integer> checkUpdatedTable() {
+            HashSet<Integer> invalidatedTableIds = new HashSet<>();
             Cursor cursor = mDatabase.query(new SimpleSQLiteQuery(SELECT_UPDATED_TABLES_SQL));
             //noinspection TryFinallyCanBeTryWithResources
             try {
                 while (cursor.moveToNext()) {
                     final int tableId = cursor.getInt(0);
-                    mTableInvalidStatus.set(tableId);
-                    hasUpdatedTable = true;
+                    invalidatedTableIds.add(tableId);
                 }
             } finally {
                 cursor.close();
             }
-            if (hasUpdatedTable) {
+            if (!invalidatedTableIds.isEmpty()) {
                 mCleanupStatement.executeUpdateDelete();
             }
-            return hasUpdatedTable;
+            return invalidatedTableIds;
         }
     };
 
@@ -622,14 +614,14 @@ public class InvalidationTracker {
          * Notifies the underlying {@link #mObserver} if any of the observed tables are invalidated
          * based on the given invalid status set.
          *
-         * @param tableInvalidStatus The table invalid statuses.
+         * @param invalidatedTablesIds The table ids of the tables that are invalidated.
          */
-        void notifyByTableInvalidStatus(BitSet tableInvalidStatus) {
+        void notifyByTableInvalidStatus(Set<Integer> invalidatedTablesIds) {
             Set<String> invalidatedTables = null;
             final int size = mTableIds.length;
             for (int index = 0; index < size; index++) {
                 final int tableId = mTableIds[index];
-                if (tableInvalidStatus.get(tableId)) {
+                if (invalidatedTablesIds.contains(tableId)) {
                     if (size == 1) {
                         // Optimization for a single-table observer
                         invalidatedTables = mSingleTableSet;
