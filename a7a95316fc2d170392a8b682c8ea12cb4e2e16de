@@ -22,6 +22,30 @@
       "revId": "a7a95316fc2d170392a8b682c8ea12cb4e2e16de",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dde7f79e_368573ba",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/background/systemjob/SystemJobScheduler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2019-05-26T15:56:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d8de73eb_87d4bdc4",
+      "range": {
+        "startLine": 265,
+        "startChar": 7,
+        "endLine": 267,
+        "endChar": 59
+      },
+      "revId": "a7a95316fc2d170392a8b682c8ea12cb4e2e16de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
