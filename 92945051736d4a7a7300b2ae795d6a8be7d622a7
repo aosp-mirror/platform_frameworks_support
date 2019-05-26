@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "342df067_703ba71e",
+        "filename": "exifinterface/src/main/java/androidx/exifinterface/media/ExifInterface.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 7037,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-05-26T22:32:00Z",
+      "side": 1,
+      "message": "Please leave a comment why it is ok with no-op for under API21.",
+      "revId": "92945051736d4a7a7300b2ae795d6a8be7d622a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
