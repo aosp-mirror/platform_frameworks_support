@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "65803eac_81c75ca6",
+        "filename": "exifinterface/src/main/java/androidx/exifinterface/media/ExifInterface.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 7037,
+      "author": {
+        "id": 1018371
+      },
+      "writtenOn": "2019-05-27T23:04:47Z",
+      "side": 1,
+      "message": "So the leak is existing under API 21, isn\u0027t it?",
+      "range": {
+        "startLine": 7036,
+        "startChar": 8,
+        "endLine": 7037,
+        "endChar": 23
+      },
+      "revId": "ae2e820884f4d3ca260037bcc3f25c6a52f7eaed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
