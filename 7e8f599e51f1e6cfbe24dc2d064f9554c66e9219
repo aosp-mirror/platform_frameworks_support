@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "a3a3f81f_179a3a1e",
+        "filename": "media2/widget/src/androidTest/java/androidx/media2/widget/MediaControlViewTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-27T09:57:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "389bdf1c_2c0f467a",
+      "range": {
+        "startLine": 421,
+        "startChar": 0,
+        "endLine": 422,
+        "endChar": 97
+      },
+      "revId": "7e8f599e51f1e6cfbe24dc2d064f9554c66e9219",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "51a21a88_93ef2a7a",
         "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
         "patchSetId": 4
@@ -658,6 +682,30 @@
       "revId": "7e8f599e51f1e6cfbe24dc2d064f9554c66e9219",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56173e13_7b76058d",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 577,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-27T09:57:54Z",
+      "side": 1,
+      "message": "Understood. Changed to PlayerCallback methods.",
+      "parentUuid": "f796708c_26863b87",
+      "range": {
+        "startLine": 577,
+        "startChar": 66,
+        "endLine": 577,
+        "endChar": 89
+      },
+      "revId": "7e8f599e51f1e6cfbe24dc2d064f9554c66e9219",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
