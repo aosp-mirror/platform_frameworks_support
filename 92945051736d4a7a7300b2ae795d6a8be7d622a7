@@ -16,6 +16,24 @@
       "revId": "92945051736d4a7a7300b2ae795d6a8be7d622a7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e897a287_9a673467",
+        "filename": "exifinterface/src/main/java/androidx/exifinterface/media/ExifInterface.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 7037,
+      "author": {
+        "id": 1379942
+      },
+      "writtenOn": "2019-05-27T02:53:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "342df067_703ba71e",
+      "revId": "92945051736d4a7a7300b2ae795d6a8be7d622a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
