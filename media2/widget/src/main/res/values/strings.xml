@@ -61,6 +61,8 @@
         Track <xliff:g id="audio_number" example="1">%1$d</xliff:g>
     </string>
     <!-- Text for displaying unknown song title. -->
+    <string name="mcv2_non_music_title_unknown_text">Unknown media</string>
+    <!-- Text for displaying unknown song title. -->
     <string name="mcv2_music_title_unknown_text">Song title unknown</string>
     <!-- Text for displaying unknown artist name. -->
     <string name="mcv2_music_artist_unknown_text">Artist unknown</string>
