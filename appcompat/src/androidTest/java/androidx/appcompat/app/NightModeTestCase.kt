@@ -17,6 +17,7 @@
 package androidx.appcompat.app
 
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
 import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO
 import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES
@@ -42,9 +43,11 @@ import android.webkit.WebView
 import androidx.appcompat.test.R
 import androidx.appcompat.testutils.NightModeUtils.NightSetMode
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Lifecycle
 import androidx.test.filters.LargeTest
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.rule.ActivityTestRule
+import androidx.testutils.LifecycleOwnerUtils.waitUntilState
 
 import org.junit.After
 import org.junit.Before
@@ -288,6 +291,33 @@ class NightModeTestCase(private val setMode: NightSetMode) {
         setNightModeAndWait(rule, MODE_NIGHT_NO, setMode)
         // Assert that onConfigurationChange was not called
         assertNull(activity.lastConfigurationChangeAndClear)
+    }
+
+    @Test
+    fun testNightModeChangeWhenInBackground() {
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        val firstActivity = rule.activity
+
+        // Start a new Activity, so that the original Activity goes into the background
+        val intent = Intent(rule.activity, NightModeActivity::class.java).apply {
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        }
+        val secondActivity = instrumentation.startActivitySync(intent) as NightModeActivity
+
+        // Now wait until the new activity is resumed, and the original activity is stopped
+        waitUntilState(secondActivity, rule, Lifecycle.State.RESUMED)
+        waitUntilState(firstActivity, rule, Lifecycle.State.CREATED)
+
+        // Now change the DayNight mode on the background activity
+        setNightModeAndWait(firstActivity, rule, MODE_NIGHT_YES, setMode)
+
+        // Now finish the foreground activity and wait until it is destroyed,
+        // allowing the recreated activity to come to the foreground
+        secondActivity.finish()
+        waitUntilState(secondActivity, rule, Lifecycle.State.DESTROYED)
+
+        // Assert that the recreated Activity becomes resumed
+        waitUntilState(rule, Lifecycle.State.RESUMED)
     }
 
     @After
