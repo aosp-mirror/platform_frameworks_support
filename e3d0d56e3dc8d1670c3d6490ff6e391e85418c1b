@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f7025778_d727dba7",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 804,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-27T05:41:22Z",
+      "side": 0,
+      "message": "Q) Is it safe to be removed? As far as I know, the code was for updating tracks when hasActualVideo is changed as it may change the result of isCurrentItemMusic.",
+      "range": {
+        "startLine": 804,
+        "startChar": 20,
+        "endLine": 804,
+        "endChar": 53
+      },
+      "revId": "e3d0d56e3dc8d1670c3d6490ff6e391e85418c1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
