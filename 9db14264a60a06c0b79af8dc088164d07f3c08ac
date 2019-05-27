@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7d82ad64_44197741",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ConfigProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1481635
+      },
+      "writtenOn": "2019-05-27T10:26:44Z",
+      "side": 1,
+      "message": "Missing java doc @param",
+      "range": {
+        "startLine": 37,
+        "startChar": 47,
+        "endLine": 37,
+        "endChar": 66
+      },
+      "revId": "9db14264a60a06c0b79af8dc088164d07f3c08ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
