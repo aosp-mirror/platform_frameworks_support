@@ -1,0 +1,7 @@
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Code-Review+2: Trevor McGuire <trevormcguire@google.com>
+Submitted-by: Wegin Lee <weginlee@google.com>
+Submitted-at: Mon, 27 May 2019 02:50:12 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/frameworks/support/+/970307
+Project: platform/frameworks/support
+Branch: refs/heads/androidx-master-dev
