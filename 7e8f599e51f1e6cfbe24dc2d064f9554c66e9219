@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "389bdf1c_2c0f467a",
+        "filename": "media2/widget/src/androidTest/java/androidx/media2/widget/MediaControlViewTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-27T09:09:54Z",
+      "side": 1,
+      "message": "Let\u0027s remove the comments.",
+      "parentUuid": "956f69e3_f6f2cb72",
+      "range": {
+        "startLine": 421,
+        "startChar": 0,
+        "endLine": 422,
+        "endChar": 97
+      },
+      "revId": "7e8f599e51f1e6cfbe24dc2d064f9554c66e9219",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "51a21a88_93ef2a7a",
         "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
         "patchSetId": 4
@@ -601,6 +625,30 @@
       "side": 1,
       "message": "You mean change mMediaController to mPlayer? Can we do that in the next CL?",
       "parentUuid": "73441307_b27b8938",
+      "range": {
+        "startLine": 577,
+        "startChar": 66,
+        "endLine": 577,
+        "endChar": 89
+      },
+      "revId": "7e8f599e51f1e6cfbe24dc2d064f9554c66e9219",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f796708c_26863b87",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 577,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-27T09:09:54Z",
+      "side": 1,
+      "message": "I was thinking that the methods such as onTrackInfoChanged could be methods of mMediaPlayerCallback since they are all SessionPlayer.PlayerCallback methods. There is no need to set a new ControllerCallback, isn\u0027t it?",
+      "parentUuid": "75929330_baf0581d",
       "range": {
         "startLine": 577,
         "startChar": 66,
