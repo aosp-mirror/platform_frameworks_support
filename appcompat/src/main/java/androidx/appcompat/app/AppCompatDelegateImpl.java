@@ -368,6 +368,8 @@ class AppCompatDelegateImpl extends AppCompatDelegate
         }
 
         mCreated = true;
+
+        markActive(this);
     }
 
     @Override
@@ -508,15 +510,11 @@ class AppCompatDelegateImpl extends AppCompatDelegate
         // This will apply day/night if the time has changed, it will also call through to
         // setupAutoNightModeIfNeeded()
         applyDayNight();
-
-        markStarted(this);
     }
 
     @Override
     public void onStop() {
         mStarted = false;
-
-        markStopped(this);
 
         ActionBar ab = getSupportActionBar();
         if (ab != null) {
@@ -583,8 +581,7 @@ class AppCompatDelegateImpl extends AppCompatDelegate
 
     @Override
     public void onDestroy() {
-        // There are cases where onStop is not called on all API levels. We make sure here.
-        markStopped(this);
+        markInactive(this);
 
         if (mInvalidatePanelMenuPosted) {
             mWindow.getDecorView().removeCallbacks(mInvalidatePanelMenuRunnable);
