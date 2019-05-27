@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "956f69e3_f6f2cb72",
+        "filename": "media2/widget/src/androidTest/java/androidx/media2/widget/MediaControlViewTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-27T08:43:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d05f52b2_be88904e",
+      "range": {
+        "startLine": 421,
+        "startChar": 0,
+        "endLine": 422,
+        "endChar": 97
+      },
+      "revId": "7e8f599e51f1e6cfbe24dc2d064f9554c66e9219",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "51a21a88_93ef2a7a",
         "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "7e8f599e51f1e6cfbe24dc2d064f9554c66e9219",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0790feb_e6caf93c",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-27T08:43:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "51a21a88_93ef2a7a",
+      "range": {
+        "startLine": 216,
+        "startChar": 8,
+        "endLine": 216,
+        "endChar": 24
+      },
+      "revId": "7e8f599e51f1e6cfbe24dc2d064f9554c66e9219",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "7975234b_0497d7d0",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1934,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-27T08:43:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b4c8151_551932f9",
+      "range": {
+        "startLine": 1934,
+        "startChar": 53,
+        "endLine": 1934,
+        "endChar": 54
+      },
+      "revId": "7e8f599e51f1e6cfbe24dc2d064f9554c66e9219",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9c45867d_b123eae1",
         "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
         "patchSetId": 4
@@ -91,6 +163,30 @@
       "revId": "7e8f599e51f1e6cfbe24dc2d064f9554c66e9219",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a163b1ed_0834f03e",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1960,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-27T08:43:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9c45867d_b123eae1",
+      "range": {
+        "startLine": 1953,
+        "startChar": 0,
+        "endLine": 1960,
+        "endChar": 85
+      },
+      "revId": "7e8f599e51f1e6cfbe24dc2d064f9554c66e9219",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "ae973b4d_049a4d08",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1970,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-27T08:43:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6bffbfa2_839731d3",
+      "range": {
+        "startLine": 1970,
+        "startChar": 30,
+        "endLine": 1970,
+        "endChar": 70
+      },
+      "revId": "7e8f599e51f1e6cfbe24dc2d064f9554c66e9219",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1457003a_6c0e34f5",
         "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
         "patchSetId": 4
@@ -137,6 +257,30 @@
       "revId": "7e8f599e51f1e6cfbe24dc2d064f9554c66e9219",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f6f9f7c_baae1c6b",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2012,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-27T08:43:06Z",
+      "side": 1,
+      "message": "Oops.. Done",
+      "parentUuid": "1457003a_6c0e34f5",
+      "range": {
+        "startLine": 2012,
+        "startChar": 34,
+        "endLine": 2012,
+        "endChar": 44
+      },
+      "revId": "7e8f599e51f1e6cfbe24dc2d064f9554c66e9219",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "13a9841a_098f2220",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2031,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-27T08:43:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4dd36a1e_6c8a318a",
+      "range": {
+        "startLine": 2031,
+        "startChar": 90,
+        "endLine": 2031,
+        "endChar": 91
+      },
+      "revId": "7e8f599e51f1e6cfbe24dc2d064f9554c66e9219",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ceb5797b_ff6ee8f3",
         "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
         "patchSetId": 4
@@ -183,6 +351,30 @@
       "revId": "7e8f599e51f1e6cfbe24dc2d064f9554c66e9219",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e67f951e_9e4ad84e",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2036,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-27T08:43:06Z",
+      "side": 1,
+      "message": "Good point.. I think we should ignore the callback in that case. Moved the code below to inside this if statement.",
+      "parentUuid": "ceb5797b_ff6ee8f3",
+      "range": {
+        "startLine": 2036,
+        "startChar": 24,
+        "endLine": 2036,
+        "endChar": 32
+      },
+      "revId": "7e8f599e51f1e6cfbe24dc2d064f9554c66e9219",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "6a5478fd_4d95b792",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2059,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-27T08:43:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0aca0219_fa7909bc",
+      "range": {
+        "startLine": 2059,
+        "startChar": 92,
+        "endLine": 2059,
+        "endChar": 93
+      },
+      "revId": "7e8f599e51f1e6cfbe24dc2d064f9554c66e9219",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "60931d49_1926edd9",
         "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
         "patchSetId": 4
@@ -229,6 +445,30 @@
       "revId": "7e8f599e51f1e6cfbe24dc2d064f9554c66e9219",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db4ee039_d1c819cf",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2064,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-27T08:43:06Z",
+      "side": 1,
+      "message": "Good point.. I think we should ignore the callback in that case. Moved the code below to inside this if statement.",
+      "parentUuid": "60931d49_1926edd9",
+      "range": {
+        "startLine": 2064,
+        "startChar": 24,
+        "endLine": 2064,
+        "endChar": 32
+      },
+      "revId": "7e8f599e51f1e6cfbe24dc2d064f9554c66e9219",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -255,6 +495,30 @@
     },
     {
       "key": {
+        "uuid": "f6fa3855_6fd6329f",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/PlayerWrapper.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-27T08:43:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b6638aa9_0fb883b6",
+      "range": {
+        "startLine": 339,
+        "startChar": 22,
+        "endLine": 339,
+        "endChar": 37
+      },
+      "revId": "7e8f599e51f1e6cfbe24dc2d064f9554c66e9219",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4b5af5bf_9ade1087",
         "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
         "patchSetId": 4
@@ -278,6 +542,30 @@
     },
     {
       "key": {
+        "uuid": "53b36f12_a7ab4aaa",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-27T08:43:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4b5af5bf_9ade1087",
+      "range": {
+        "startLine": 186,
+        "startChar": 16,
+        "endLine": 186,
+        "endChar": 21
+      },
+      "revId": "7e8f599e51f1e6cfbe24dc2d064f9554c66e9219",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "73441307_b27b8938",
         "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
         "patchSetId": 4
@@ -289,6 +577,30 @@
       "writtenOn": "2019-05-27T05:41:22Z",
       "side": 1,
       "message": "I think they could be PlayerCallback methods.",
+      "range": {
+        "startLine": 577,
+        "startChar": 66,
+        "endLine": 577,
+        "endChar": 89
+      },
+      "revId": "7e8f599e51f1e6cfbe24dc2d064f9554c66e9219",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75929330_baf0581d",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 577,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-27T08:43:06Z",
+      "side": 1,
+      "message": "You mean change mMediaController to mPlayer? Can we do that in the next CL?",
+      "parentUuid": "73441307_b27b8938",
       "range": {
         "startLine": 577,
         "startChar": 66,
