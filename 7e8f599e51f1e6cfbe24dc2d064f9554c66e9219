@@ -1,0 +1,234 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d05f52b2_be88904e",
+        "filename": "media2/widget/src/androidTest/java/androidx/media2/widget/MediaControlViewTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-27T05:28:24Z",
+      "side": 1,
+      "message": "How about saving the index of the first subtitle track (e.g. mFirstSubtitleTrackIndex) instead of counting non-subtitle tracks?",
+      "range": {
+        "startLine": 421,
+        "startChar": 0,
+        "endLine": 422,
+        "endChar": 97
+      },
+      "revId": "7e8f599e51f1e6cfbe24dc2d064f9554c66e9219",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51a21a88_93ef2a7a",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-27T05:28:24Z",
+      "side": 1,
+      "message": "Can it be a local variable?",
+      "range": {
+        "startLine": 216,
+        "startChar": 8,
+        "endLine": 216,
+        "endChar": 24
+      },
+      "revId": "7e8f599e51f1e6cfbe24dc2d064f9554c66e9219",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b4c8151_551932f9",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1934,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-27T05:28:24Z",
+      "side": 1,
+      "message": "Could you add `if (player !\u003d mPlayer) return;`?",
+      "range": {
+        "startLine": 1934,
+        "startChar": 53,
+        "endLine": 1934,
+        "endChar": 54
+      },
+      "revId": "7e8f599e51f1e6cfbe24dc2d064f9554c66e9219",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c45867d_b123eae1",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1960,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-27T05:28:24Z",
+      "side": 1,
+      "message": "Does this code assume the tracks are sorted by track type? I think it would be better to update the selected track indexes while iterating all tracks checking equality.",
+      "range": {
+        "startLine": 1953,
+        "startChar": 0,
+        "endLine": 1960,
+        "endChar": 85
+      },
+      "revId": "7e8f599e51f1e6cfbe24dc2d064f9554c66e9219",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6bffbfa2_839731d3",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1970,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-27T05:28:24Z",
+      "side": 1,
+      "message": "How about just `size` since VideoSize implements toString?",
+      "range": {
+        "startLine": 1970,
+        "startChar": 30,
+        "endLine": 1970,
+        "endChar": 70
+      },
+      "revId": "7e8f599e51f1e6cfbe24dc2d064f9554c66e9219",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1457003a_6c0e34f5",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2012,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-27T05:28:24Z",
+      "side": 1,
+      "message": "mSubtitleTracks?",
+      "range": {
+        "startLine": 2012,
+        "startChar": 34,
+        "endLine": 2012,
+        "endChar": 44
+      },
+      "revId": "7e8f599e51f1e6cfbe24dc2d064f9554c66e9219",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4dd36a1e_6c8a318a",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2031,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-27T05:28:24Z",
+      "side": 1,
+      "message": "Could you add `if (player !\u003d mPlayer) return;`?",
+      "range": {
+        "startLine": 2031,
+        "startChar": 90,
+        "endLine": 2031,
+        "endChar": 91
+      },
+      "revId": "7e8f599e51f1e6cfbe24dc2d064f9554c66e9219",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ceb5797b_ff6ee8f3",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2036,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-27T05:28:24Z",
+      "side": 1,
+      "message": "break?\n\nWhat if there is a corner case that trackInfo is not in mSubtitleTracks?",
+      "range": {
+        "startLine": 2036,
+        "startChar": 24,
+        "endLine": 2036,
+        "endChar": 32
+      },
+      "revId": "7e8f599e51f1e6cfbe24dc2d064f9554c66e9219",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0aca0219_fa7909bc",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2059,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-27T05:28:24Z",
+      "side": 1,
+      "message": "Could you add `if (player !\u003d mPlayer) return;`?",
+      "range": {
+        "startLine": 2059,
+        "startChar": 92,
+        "endLine": 2059,
+        "endChar": 93
+      },
+      "revId": "7e8f599e51f1e6cfbe24dc2d064f9554c66e9219",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60931d49_1926edd9",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2064,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-27T05:28:24Z",
+      "side": 1,
+      "message": "break?\n\nWhat if there is a corner case that trackInfo is not in mSubtitleTracks?",
+      "range": {
+        "startLine": 2064,
+        "startChar": 24,
+        "endLine": 2064,
+        "endChar": 32
+      },
+      "revId": "7e8f599e51f1e6cfbe24dc2d064f9554c66e9219",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
