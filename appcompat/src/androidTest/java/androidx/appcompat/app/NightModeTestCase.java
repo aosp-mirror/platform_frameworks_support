@@ -32,6 +32,7 @@ import static androidx.testutils.LifecycleOwnerUtils.waitUntilState;
 import static org.junit.Assert.assertEquals;
 
 import android.app.Instrumentation;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.webkit.WebView;
 
@@ -268,6 +269,34 @@ public class NightModeTestCase {
         assertConfigurationNightModeEquals(
                 Configuration.UI_MODE_NIGHT_YES,
                 mActivityTestRule.getActivity().getResources().getConfiguration());
+    }
+
+    @Test
+    public void testNightModeChangeWhenInBackground() throws Throwable {
+        final Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
+        final NightModeActivity firstActivity = mActivityTestRule.getActivity();
+
+        // Start a new Activity, so that the original Activity goes into the background
+        final Intent intent = new Intent(mActivityTestRule.getActivity(),
+                NightModeActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        final NightModeActivity secondActivity =
+                (NightModeActivity) instrumentation.startActivitySync(intent);
+
+        // Now wait until the new activity is resumed, and the original activity is stopped
+        waitUntilState(secondActivity, mActivityTestRule, Lifecycle.State.RESUMED);
+        waitUntilState(firstActivity, mActivityTestRule, Lifecycle.State.CREATED);
+
+        // Now change the DayNight mode on the background activity
+        setNightModeAndWait(firstActivity, mActivityTestRule, MODE_NIGHT_YES, mSetMode);
+
+        // Now finish the foreground activity and wait until it is destroyed,
+        // allowing the recreated activity to come to the foreground
+        secondActivity.finish();
+        waitUntilState(secondActivity, mActivityTestRule, Lifecycle.State.DESTROYED);
+
+        // Assert that the recreated Activity becomes resumed
+        waitUntilState(mActivityTestRule, Lifecycle.State.RESUMED);
     }
 
     @After
