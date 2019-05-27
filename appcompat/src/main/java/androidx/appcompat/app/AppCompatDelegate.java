@@ -618,7 +618,7 @@ public abstract class AppCompatDelegate {
         return VectorEnabledTintResources.isCompatVectorFromResourcesEnabled();
     }
 
-    static void markStarted(@NonNull AppCompatDelegate delegate) {
+    static void markActive(@NonNull AppCompatDelegate delegate) {
         synchronized (sActiveDelegatesLock) {
             // Remove any existing records pointing to the delegate.
             // There should not be any, but we'll make sure
@@ -628,7 +628,7 @@ public abstract class AppCompatDelegate {
         }
     }
 
-    static void markStopped(@NonNull AppCompatDelegate delegate) {
+    static void markInactive(@NonNull AppCompatDelegate delegate) {
         synchronized (sActiveDelegatesLock) {
             // Remove any WeakRef records pointing to the delegate in the set
             removeDelegateFromActives(delegate);
