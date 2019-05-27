@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "421fe265_d69732ac",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageSaver.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1486234
+      },
+      "writtenOn": "2019-05-27T06:40:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "661fbabd_bb16b3b0",
+      "range": {
+        "startLine": 149,
+        "startChar": 8,
+        "endLine": 149,
+        "endChar": 22
+      },
+      "revId": "6ed8c7caecdb60290b610f83ce4b91112a7f412f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4245b7aa_9f79cd93",
         "filename": "camera/core/src/main/java/androidx/camera/core/ImageUtil.java",
         "patchSetId": 4
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "1ce878f1_b830d6b1",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageUtil.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 1486234
+      },
+      "writtenOn": "2019-05-27T06:40:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4245b7aa_9f79cd93",
+      "range": {
+        "startLine": 273,
+        "startChar": 13,
+        "endLine": 273,
+        "endChar": 23
+      },
+      "revId": "6ed8c7caecdb60290b610f83ce4b91112a7f412f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1062f411_2eb33606",
         "filename": "camera/core/src/main/java/androidx/camera/core/ImageUtil.java",
         "patchSetId": 4
@@ -68,6 +116,30 @@
       "revId": "6ed8c7caecdb60290b610f83ce4b91112a7f412f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dba33962_f07fa4e7",
+        "filename": "camera/core/src/main/java/androidx/camera/core/ImageUtil.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1486234
+      },
+      "writtenOn": "2019-05-27T06:40:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1062f411_2eb33606",
+      "range": {
+        "startLine": 291,
+        "startChar": 26,
+        "endLine": 291,
+        "endChar": 39
+      },
+      "revId": "6ed8c7caecdb60290b610f83ce4b91112a7f412f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
