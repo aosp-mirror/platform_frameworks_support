@@ -22,6 +22,30 @@
       "revId": "fc6e51ff0f124a6a149b2ee9a85de31eef5a66ed",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18c1bd6e_cb5934bf",
+        "filename": "camera/core/src/main/java/androidx/camera/core/Preview.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1482193
+      },
+      "writtenOn": "2019-05-27T10:15:52Z",
+      "side": 1,
+      "message": "OK, I have moved the workarounds for camera2 to the SupportedSurfaceCombination class of the camera2 package, and add an new API checkPreviewAspectRatio for checking the suggested aspect ratio for specific camera device in the CameraDeviceSurfaceManager.",
+      "parentUuid": "84ce1a34_0fd2eae6",
+      "range": {
+        "startLine": 347,
+        "startChar": 0,
+        "endLine": 353,
+        "endChar": 11
+      },
+      "revId": "fc6e51ff0f124a6a149b2ee9a85de31eef5a66ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
