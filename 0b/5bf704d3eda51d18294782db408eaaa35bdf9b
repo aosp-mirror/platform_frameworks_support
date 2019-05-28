@@ -1,0 +1,9 @@
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Code-Review+2: Andrey Kulikov <andreykulikov@google.com>
+Code-Review+2: Haoyu Zhang <haoyuchang@google.com>
+Code-Review+2: Matvei Malkov <malkov@google.com>
+Submitted-by: Leland Richardson <lelandr@google.com>
+Submitted-at: Tue, 28 May 2019 22:49:38 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/frameworks/support/+/968799
+Project: platform/frameworks/support
+Branch: refs/heads/androidx-master-dev
