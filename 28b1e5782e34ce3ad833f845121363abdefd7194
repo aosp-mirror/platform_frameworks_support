@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "18a5728f_fc51672a",
+        "filename": "camera/camera2/src/androidTest/java/androidx/camera/camera2/impl/CaptureSessionTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 441,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-05-28T04:14:45Z",
+      "side": 1,
+      "message": "Yes, It should be a separate change.  For this CL, the test ensures refreshing DeferrableSurface is working normally when capture session is recreated.",
+      "parentUuid": "fe7887f4_6849b956",
+      "revId": "28b1e5782e34ce3ad833f845121363abdefd7194",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "00d36c10_a863b415",
         "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/Camera.java",
         "patchSetId": 7
@@ -33,6 +51,24 @@
       "revId": "28b1e5782e34ce3ad833f845121363abdefd7194",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "67fe6ee5_5f713ef8",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/Camera.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-05-28T04:14:45Z",
+      "side": 1,
+      "message": "Changed the logic to below: \nResetCaptureSession() now only does \"reset\", it does not do handing the pending requests over to the new capture session.  \n\nInstead ,  OpenCaptureSession() will do the hand over.",
+      "parentUuid": "00d36c10_a863b415",
+      "revId": "28b1e5782e34ce3ad833f845121363abdefd7194",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "07cb206d_a97d36b5",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/Camera2CaptureRequestBuilder.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-05-28T04:14:45Z",
+      "side": 1,
+      "message": "Yes when CameraDevice is not opened yet and we are trying to build a request.",
+      "parentUuid": "49cad7ed_126ce7f6",
+      "revId": "28b1e5782e34ce3ad833f845121363abdefd7194",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8b7e3c9d_ceaa83df",
         "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/Camera2CaptureRequestBuilder.java",
         "patchSetId": 7
@@ -67,6 +121,24 @@
       "revId": "28b1e5782e34ce3ad833f845121363abdefd7194",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1bd21c99_db6b82de",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/Camera2CaptureRequestBuilder.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-05-28T04:14:45Z",
+      "side": 1,
+      "message": "Removed extra implementation options and made the build_() as static methods.   \n\nIt needs to merged all implementations options to CaptureConfig first.",
+      "parentUuid": "8b7e3c9d_ceaa83df",
+      "revId": "28b1e5782e34ce3ad833f845121363abdefd7194",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "fba87101_06cd4bac",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/Camera2CaptureRequestBuilder.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-05-28T04:14:45Z",
+      "side": 1,
+      "message": "Changed to throwing IllegalArgumentException.   The exception will be thrown if useCase uses different DeferrableSurface for capture request.   But if it is because use case is unbound, it will not throw exception, instead the request will be skipped and a error is reported via the listener[TODO: b/133710422 for reporting error]",
+      "parentUuid": "4a47cffc_cb6cc5a6",
+      "revId": "28b1e5782e34ce3ad833f845121363abdefd7194",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7d68a939_52a118f9",
         "filename": "camera/camera2/src/test/java/androidx/camera/camera2/impl/Camera2CaptureRequestBuilderTest.java",
         "patchSetId": 7
@@ -101,6 +191,24 @@
       "revId": "28b1e5782e34ce3ad833f845121363abdefd7194",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8d71006_2120e887",
+        "filename": "camera/camera2/src/test/java/androidx/camera/camera2/impl/Camera2CaptureRequestBuilderTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-05-28T04:14:45Z",
+      "side": 1,
+      "message": "The only tests here is moved from CaptureConfigTest.  We can add more tests to ensure capture request is built successfully later.",
+      "parentUuid": "7d68a939_52a118f9",
+      "revId": "28b1e5782e34ce3ad833f845121363abdefd7194",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "3dac5d12_afdc44ec",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CaptureConfig.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-05-28T04:14:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7ffe9f99_e6051c77",
+      "revId": "28b1e5782e34ce3ad833f845121363abdefd7194",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "222b2207_7549732f",
         "filename": "camera/core/src/test/java/androidx/camera/core/MutableOptionsBundleTest.java",
         "patchSetId": 7
@@ -135,6 +261,24 @@
       "revId": "28b1e5782e34ce3ad833f845121363abdefd7194",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5deb0c9f_80273e08",
+        "filename": "camera/core/src/test/java/androidx/camera/core/MutableOptionsBundleTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-05-28T04:14:45Z",
+      "side": 1,
+      "message": "I\u0027ve reverted the modification in MutableOptionsBundle / MutableConfig since I don\u0027t need the insertOptionsFromConfig anymore.  so the test is removed too.",
+      "parentUuid": "222b2207_7549732f",
+      "revId": "28b1e5782e34ce3ad833f845121363abdefd7194",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
