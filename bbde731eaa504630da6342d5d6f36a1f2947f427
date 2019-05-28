@@ -16,6 +16,24 @@
       "revId": "bbde731eaa504630da6342d5d6f36a1f2947f427",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22d43788_360f159b",
+        "filename": "room/runtime/src/main/java/androidx/room/DatabaseConfiguration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-05-28T19:11:07Z",
+      "side": 1,
+      "message": "Turns out the @deprecated document tag is enough for updateApi to pick it up. Funny thing, if you add @Deprecated (the annotation) but not the @deprecated (comment tag), updateApi complains you should also have the tag.",
+      "parentUuid": "4c82f5c4_7efeb99b",
+      "revId": "bbde731eaa504630da6342d5d6f36a1f2947f427",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
