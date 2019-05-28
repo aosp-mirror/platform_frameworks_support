@@ -52,6 +52,24 @@
       "revId": "d7aca8cc0e5f9db089ad0d707055615d50ea6c72",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "67d49995_0e6a9b23",
+        "filename": "compose/runtime/src/main/java/androidx/compose/Compose.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-05-28T17:37:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2d31cf29_2744eac8",
+      "revId": "d7aca8cc0e5f9db089ad0d707055615d50ea6c72",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
