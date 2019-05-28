@@ -19,16 +19,17 @@ package androidx.build
 import groovy.lang.Closure
 import org.gradle.api.Project
 import java.util.ArrayList
-import kotlin.properties.Delegates
 
 /**
  * Extension for [AndroidXPlugin].
  */
 open class AndroidXExtension(val project: Project) {
     var name: String? = null
-    var mavenVersion: Version? by Delegates.observable<Version?>(null) { _, _, new: Version? ->
-        project.version = new?.toString() as Any
-    }
+    var mavenVersion: Version? = null
+        set(value) {
+            field = if (isSnapshotBuild()) value?.copy(extra = "-SNAPSHOT") else value
+            project.version = field?.toString() as Any
+        }
     var mavenGroup: LibraryGroup? = null
     var description: String? = null
     var inceptionYear: String? = null
