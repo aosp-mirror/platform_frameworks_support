@@ -46,6 +46,30 @@
       "revId": "2654f7050388e4d96f8de17d95af6148f724caa0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9416d5df_f4513c14",
+        "filename": "test/screenshot/proto/build.gradle",
+        "patchSetId": 8
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-05-28T13:08:46Z",
+      "side": 1,
+      "message": "I think Aurimas means something like this:\n\ntask(\"assemble\").configure {\n   destinationDir \u003d BuildServerConfigurationKt.getDistributionDirectory(rootProject)\n}\n\nand removing the copy task.\n\nI have also seen:\ntasks.withType(Jar) {\n    destinationDir \u003d BuildServerConfigurationKt.getDistributionDirectory(rootProject)\n}\n\nNot sure which one works.",
+      "parentUuid": "96371d55_279cccca",
+      "range": {
+        "startLine": 35,
+        "startChar": 14,
+        "endLine": 35,
+        "endChar": 22
+      },
+      "revId": "2654f7050388e4d96f8de17d95af6148f724caa0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
