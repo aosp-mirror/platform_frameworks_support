@@ -117,6 +117,30 @@
       "revId": "01027000943a1dce5acc6a6387e9b0706cc69cf7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f454fbbd_51460d4d",
+        "filename": "ui/layout/src/androidTest/java/androidx/ui/layout/test/LayoutTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2019-05-28T17:22:51Z",
+      "side": 1,
+      "message": "Resolving.",
+      "parentUuid": "b882ad39_0e93acc9",
+      "range": {
+        "startLine": 136,
+        "startChar": 12,
+        "endLine": 136,
+        "endChar": 29
+      },
+      "revId": "01027000943a1dce5acc6a6387e9b0706cc69cf7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
