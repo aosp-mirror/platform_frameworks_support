@@ -1401,12 +1401,21 @@ public class NestedScrollView extends FrameLayout implements NestedScrollingPare
     }
 
     /**
+     * Convenience overload of {@link #smoothScrollBy(int, int, boolean)} that passes in
+     * {@code false} for {@code withNestedScrolling}.
+     */
+    public final void smoothScrollBy(int dx, int dy) {
+        smoothScrollBy(dx, dy, false);
+    }
+
+    /**
      * Like {@link View#scrollBy}, but scroll smoothly instead of immediately.
      *
      * @param dx the number of pixels to scroll by on the X axis
      * @param dy the number of pixels to scroll by on the Y axis
+     * @param withNestedScrolling whether to include nested scrolling operations.
      */
-    public final void smoothScrollBy(int dx, int dy) {
+    public final void smoothScrollBy(int dx, int dy, boolean withNestedScrolling) {
         if (getChildCount() == 0) {
             // Nothing to do.
             return;
@@ -1421,7 +1430,7 @@ public class NestedScrollView extends FrameLayout implements NestedScrollingPare
             final int maxY = Math.max(0, childSize - parentSpace);
             dy = Math.max(0, Math.min(scrollY + dy, maxY)) - scrollY;
             mScroller.startScroll(getScrollX(), scrollY, 0, dy);
-            runAnimatedScroll(false);
+            runAnimatedScroll(withNestedScrolling);
         } else {
             if (!mScroller.isFinished()) {
                 abortAnimatedScroll();
@@ -1432,13 +1441,22 @@ public class NestedScrollView extends FrameLayout implements NestedScrollingPare
     }
 
     /**
+     * Convenience overload of {@link #smoothScrollTo(int, int, boolean)} that passes in
+     * {@code false} for {@code withNestedScrolling}.
+     */
+    public final void smoothScrollTo(int x, int y) {
+        smoothScrollBy(x - getScrollX(), y - getScrollY(), false);
+    }
+
+    /**
      * Like {@link #scrollTo}, but scroll smoothly instead of immediately.
      *
      * @param x the position where to scroll on the X axis
      * @param y the position where to scroll on the Y axis
+     * @param withNestedScrolling whether to include nested scrolling operations.
      */
-    public final void smoothScrollTo(int x, int y) {
-        smoothScrollBy(x - getScrollX(), y - getScrollY());
+    public final void smoothScrollTo(int x, int y, boolean withNestedScrolling) {
+        smoothScrollBy(x - getScrollX(), y - getScrollY(), withNestedScrolling);
     }
 
     /**
@@ -2084,7 +2102,7 @@ public class NestedScrollView extends FrameLayout implements NestedScrollingPare
                     final int targetScrollY = Math.min(nsvHost.getScrollY() + viewportHeight,
                             nsvHost.getScrollRange());
                     if (targetScrollY != nsvHost.getScrollY()) {
-                        nsvHost.smoothScrollTo(0, targetScrollY);
+                        nsvHost.smoothScrollTo(0, targetScrollY, true);
                         return true;
                     }
                 }
@@ -2094,7 +2112,7 @@ public class NestedScrollView extends FrameLayout implements NestedScrollingPare
                             - nsvHost.getPaddingTop();
                     final int targetScrollY = Math.max(nsvHost.getScrollY() - viewportHeight, 0);
                     if (targetScrollY != nsvHost.getScrollY()) {
-                        nsvHost.smoothScrollTo(0, targetScrollY);
+                        nsvHost.smoothScrollTo(0, targetScrollY, true);
                         return true;
                     }
                 }
