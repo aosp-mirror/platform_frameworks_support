@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "26a9c5ff_e949d5a4",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/background/systemalarm/DelayMetCommandHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-05-28T21:57:44Z",
+      "side": 1,
+      "message": "This isn\u0027t going to work unless you negotiate between mHasPendingStartCommand and mHasPendingStopWorkCommand (also, you should name them consistently).  Don\u0027t allow for weird cases like both of them being true.",
+      "range": {
+        "startLine": 92,
+        "startChar": 17,
+        "endLine": 92,
+        "endChar": 40
+      },
+      "revId": "b0d32ca78ea02bb63bb0b1f5e653873aa54b20d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c17f658_d55fa7ea",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/background/systemalarm/SystemAlarmService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-05-28T21:57:44Z",
+      "side": 1,
+      "message": "Very nit: lowercase d.",
+      "range": {
+        "startLine": 40,
+        "startChar": 27,
+        "endLine": 40,
+        "endChar": 28
+      },
+      "revId": "b0d32ca78ea02bb63bb0b1f5e653873aa54b20d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b11f09b_7fe77ce8",
+        "filename": "work/workmanager/src/main/java/androidx/work/impl/background/systemalarm/SystemAlarmService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1060206
+      },
+      "writtenOn": "2019-05-28T21:57:44Z",
+      "side": 1,
+      "message": "This (and other destroy methods) can get called multiple times now.  It\u0027s worth documenting this in their Javadocs so that we don\u0027t make assumptions there.",
+      "range": {
+        "startLine": 64,
+        "startChar": 12,
+        "endLine": 64,
+        "endChar": 36
+      },
+      "revId": "b0d32ca78ea02bb63bb0b1f5e653873aa54b20d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
