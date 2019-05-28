@@ -121,6 +121,30 @@
     },
     {
       "key": {
+        "uuid": "a20ac833_5d851519",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/RoomProcessor.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-05-28T21:15:57Z",
+      "side": 1,
+      "message": "I see - We do accept the scenarios where the Schema won\u0027t behave as expected (won\u0027t get deleted or won\u0027t get generated if deleted and the task is UP-TO-DATE). Me and Yigit chatted with Jerome to try to explain our use-case of the schema files and we don\u0027t treat them as equal output as the generated source files, that is, we are really OK with the odd behavior due to not using the Filer API, of course this is something we\u0027ll document along with the incremental feature flag. With that in mind, can we make Room isolating?",
+      "parentUuid": "8695e78c_00a6aa6f",
+      "range": {
+        "startLine": 43,
+        "startChar": 42,
+        "endLine": 43,
+        "endChar": 53
+      },
+      "revId": "1075183e45660c7f2011d70687373e3d66b2bf58",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6deec267_908d50e9",
         "filename": "room/compiler/src/main/kotlin/androidx/room/processor/Context.kt",
         "patchSetId": 2
