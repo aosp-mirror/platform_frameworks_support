@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d7dd79df_f6f60e81",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-05-28T20:16:13Z",
+      "side": 1,
+      "message": "Is this title right anymore? I was expecting something like \"Avoid child Fragment animations running during parent Fragment transactions\"",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 44
+      },
+      "revId": "516617b0b6dbad49a487cc5ef622cc63808609ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fbe0c23f_2d1845cf",
+        "filename": "fragment/src/androidTest/java/androidx/fragment/app/FragmentAnimationTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-05-28T20:16:13Z",
+      "side": 1,
+      "message": "Is this actually needed? Or could you use activityRule.executePendingTransactions()?\n\nSame for the below usages.",
+      "range": {
+        "startLine": 231,
+        "startChar": 8,
+        "endLine": 231,
+        "endChar": 39
+      },
+      "revId": "516617b0b6dbad49a487cc5ef622cc63808609ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
