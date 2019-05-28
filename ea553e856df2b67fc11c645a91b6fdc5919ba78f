@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c4e8db7e_52b5f253",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Layout.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-05-28T15:51:26Z",
+      "side": 1,
+      "message": "I\u0027ll trust you on this. I don\u0027t know what the logic should be, but that is reasonable.",
+      "range": {
+        "startLine": 302,
+        "startChar": 48,
+        "endLine": 302,
+        "endChar": 59
+      },
+      "revId": "ea553e856df2b67fc11c645a91b6fdc5919ba78f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "250307e5_10639105",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Layout.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-05-28T15:51:26Z",
+      "side": 1,
+      "message": "Can you explain why we don\u0027t want tight constraints for height anymore?",
+      "range": {
+        "startLine": 305,
+        "startChar": 30,
+        "endLine": 305,
+        "endChar": 56
+      },
+      "revId": "ea553e856df2b67fc11c645a91b6fdc5919ba78f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
