@@ -61,3 +61,20 @@ private fun getRootDirectory(project: Project): File {
     val actualRootProject = if (project.isRoot) project else project.rootProject
     return actualRootProject.extensions.extraProperties.get("supportRootFolder") as File
 }
+
+/**
+ * Whether the build should force all versions to be snapshots.
+ */
+fun isSnapshotBuild() = System.getenv("SNAPSHOT") != null
+
+/**
+ * Directory in a maven format to put all the publishing libraries.
+ */
+fun Project.getRepositoryDirectory(): File {
+    val actualRootProject = if (project.isRoot) project else project.rootProject
+    return if (isSnapshotBuild()) {
+        File(actualRootProject.getDistributionDirectory(), "repository")
+    } else {
+        File(actualRootProject.buildDir, "support_repo")
+    }
+}

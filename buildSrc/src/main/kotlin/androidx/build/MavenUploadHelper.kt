@@ -19,17 +19,17 @@ package androidx.build
 import com.android.build.gradle.LibraryPlugin
 import org.gradle.api.GradleException
 import org.gradle.api.Project
-import org.gradle.api.artifacts.ProjectDependency
 import org.gradle.api.artifacts.Dependency
+import org.gradle.api.artifacts.ProjectDependency
 import org.gradle.api.artifacts.maven.MavenDeployer
 import org.gradle.api.artifacts.maven.MavenPom
 import org.gradle.api.tasks.Upload
 import org.gradle.kotlin.dsl.withGroovyBuilder
-import java.io.File
 
 fun Project.configureMavenArtifactUpload(extension: AndroidXExtension) {
     afterEvaluate {
-        if (extension.publish) {
+        if (extension.publish == Publish.SNAPSHOT_ONLY ||
+            extension.publish == Publish.SNAPSHOT_AND_RELEASE) {
             val mavenGroup = extension.mavenGroup?.group
             if (mavenGroup == null) {
                 throw Exception("You must specify mavenGroup for $name project")
@@ -50,19 +50,18 @@ fun Project.configureMavenArtifactUpload(extension: AndroidXExtension) {
     // Set uploadArchives options.
     val uploadTask = tasks.getByName("uploadArchives") as Upload
 
-    val repo = uri(rootProject.property("supportRepoOut") as File)
-            ?: throw Exception("supportRepoOut not set")
-
     uploadTask.repositories {
         it.withGroovyBuilder {
             "mavenDeployer" {
-                "repository"(mapOf("url" to repo))
+                "repository"(mapOf("url" to uri(getRepositoryDirectory())))
             }
         }
     }
 
     afterEvaluate {
-        if (extension.publish) {
+        if (extension.publish == Publish.SNAPSHOT_ONLY ||
+            extension.publish == Publish.SNAPSHOT_AND_RELEASE
+        ) {
             uploadTask.repositories.withType(MavenDeployer::class.java) { mavenDeployer ->
                 mavenDeployer.getPom().project {
                     it.withGroovyBuilder {
@@ -118,8 +117,10 @@ fun Project.configureMavenArtifactUpload(extension: AndroidXExtension) {
                 }
             }
 
-            // Register it as part of release so that we create a Zip file for it
-            Release.register(this, extension)
+            if (extension.publish == Publish.SNAPSHOT_AND_RELEASE) {
+                // Register it as part of release so that we create a Zip file for it
+                Release.register(this, extension)
+            }
         } else {
             uploadTask.enabled = false
         }
