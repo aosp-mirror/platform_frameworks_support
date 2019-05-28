@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dc0e16d2_248b82be",
+        "filename": "compose/runtime/src/main/java/androidx/compose/Composer.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-05-28T17:12:47Z",
+      "side": 1,
+      "message": "I would just wrap this with our lambda:\n\ntrace {\n\n\n}\n\nInside that lambda we would have try / catch.\n\nWithout try / catch the traces will be quite unreliable if error occur.",
+      "range": {
+        "startLine": 208,
+        "startChar": 8,
+        "endLine": 208,
+        "endChar": 69
+      },
+      "revId": "c4fec617790c0b93c6314ff1c23844211b2b2556",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
