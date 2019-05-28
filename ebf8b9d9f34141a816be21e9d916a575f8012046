@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "509c2af3_727f1a58",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/Camera2CameraControl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-05-28T15:54:46Z",
+      "side": 1,
+      "message": "Is this for ensuring that we only process the latest timeout event and skip the old events ?",
+      "range": {
+        "startLine": 386,
+        "startChar": 0,
+        "endLine": 386,
+        "endChar": 68
+      },
+      "revId": "ebf8b9d9f34141a816be21e9d916a575f8012046",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
