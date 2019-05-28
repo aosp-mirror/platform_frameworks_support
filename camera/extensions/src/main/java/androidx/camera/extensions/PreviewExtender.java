@@ -49,6 +49,8 @@ public abstract class PreviewExtender {
     private PreviewConfig.Builder mBuilder;
     PreviewExtenderImpl mImpl;
 
+
+
     void init(PreviewConfig.Builder builder, PreviewExtenderImpl implementation) {
         mBuilder = builder;
         mImpl = implementation;
