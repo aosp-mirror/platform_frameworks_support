@@ -117,6 +117,30 @@
       "revId": "2f0250e3aa5735fb5e9d8a45a1e844a46b97b130",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14af7c51_92d42e50",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/CaptureSession.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 1481938
+      },
+      "writtenOn": "2019-05-28T04:44:13Z",
+      "side": 1,
+      "message": "Agreed that this will make cameracontrol has too many responsibilities. \nLet\u0027s keep it simple:\nCameraControl:   Attach shared parameters to all requests  \n\nCamera:  Merge and validate repeating parameters from all active use case.   Update the merged repeating parameters to CaptureSession. \n\nCaptureSession:  Apply CaptuerConfig\u0027s own paramters(including shared parameters) and repeating parameters to Single(burst) reuqests.",
+      "parentUuid": "1d5016eb_1659edb7",
+      "range": {
+        "startLine": 496,
+        "startChar": 0,
+        "endLine": 496,
+        "endChar": 95
+      },
+      "revId": "2f0250e3aa5735fb5e9d8a45a1e844a46b97b130",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
