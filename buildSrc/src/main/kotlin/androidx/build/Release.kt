@@ -256,8 +256,6 @@ object Release {
             name = taskName,
             onConfigure = {
                 GMavenZipTask.ConfigAction(getParams(project)).execute(it)
-            },
-            onRegister = {
             }
         )
     }
@@ -275,8 +273,6 @@ object Release {
                         includeMetadata = true
                     )
                 ).execute(it)
-            },
-            onRegister = {
             }
         )
     }
@@ -293,8 +289,6 @@ object Release {
             name = taskName,
             onConfigure = {
                 GMavenZipTask.ConfigAction(getParams(project, group)).execute(it)
-            },
-            onRegister = {
             }
         )
     }

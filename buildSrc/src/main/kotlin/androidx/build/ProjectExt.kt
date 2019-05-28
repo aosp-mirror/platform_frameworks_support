@@ -55,13 +55,12 @@ data class LazyTaskRegistry(
 
 inline fun <reified T : Task> Project.maybeRegister(
     name: String,
-    crossinline onConfigure: (T) -> Unit,
-    crossinline onRegister: (TaskProvider<T>) -> Unit
+    crossinline onConfigure: (T) -> Unit
 ): TaskProvider<T> {
     @Suppress("UNCHECKED_CAST")
     return LazyTaskRegistry.get(project).once(name) {
         tasks.register(name, T::class.java) {
             onConfigure(it)
-        }.also(onRegister)
+        }
     } ?: tasks.named(name) as TaskProvider<T>
 }
