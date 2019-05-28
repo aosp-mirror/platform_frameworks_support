@@ -16,6 +16,8 @@
 
 package androidx.work.impl.background.systemalarm;
 
+import static androidx.work.impl.background.systemalarm.CommandHandler.WORK_PROCESSING_TIME_IN_MS;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.PowerManager;
@@ -54,6 +56,7 @@ public class DelayMetCommandHandler implements
     private final SystemAlarmDispatcher mDispatcher;
     private final WorkConstraintsTracker mWorkConstraintsTracker;
     private final Object mLock;
+    private boolean mHasPendingStartCommand;
     private boolean mHasPendingStopWorkCommand;
 
     @Nullable private PowerManager.WakeLock mWakeLock;
@@ -71,6 +74,7 @@ public class DelayMetCommandHandler implements
         mWorkSpecId = workSpecId;
         mWorkConstraintsTracker = new WorkConstraintsTracker(mContext, this);
         mHasConstraints = false;
+        mHasPendingStartCommand = false;
         mHasPendingStopWorkCommand = false;
         mLock = new Object();
     }
@@ -84,32 +88,36 @@ public class DelayMetCommandHandler implements
             return;
         }
 
-        Logger.get().debug(TAG, String.format("onAllConstraintsMet for %s", mWorkSpecId));
-        // Constraints met, schedule execution
+        synchronized (mLock) {
+            if (!mHasPendingStartCommand) {
+                mHasPendingStartCommand = true;
 
-        // Not using WorkManagerImpl#startWork() here because we need to know if the processor
-        // actually enqueued the work here.
-        // TODO(rahulrav@) Once WorkManagerImpl provides a callback for acknowledging if
-        // work was enqueued, call WorkManagerImpl#startWork().
-        boolean isEnqueued = mDispatcher.getProcessor().startWork(mWorkSpecId);
+                Logger.get().debug(TAG, String.format("onAllConstraintsMet for %s", mWorkSpecId));
+                // Constraints met, schedule execution
 
-        if (isEnqueued) {
-            // setup timers to enforce quotas on workers that have
-            // been enqueued
-            mDispatcher.getWorkTimer()
-                    .startTimer(mWorkSpecId, CommandHandler.WORK_PROCESSING_TIME_IN_MS, this);
-        } else {
-            // if we did not actually enqueue the work, it was enqueued before
-            // cleanUp and pretend this never happened.
-            cleanUp();
+                // Not using WorkManagerImpl#startWork() here because we need to know if the
+                // processor actually enqueued the work here.
+                boolean isEnqueued = mDispatcher.getProcessor().startWork(mWorkSpecId);
+
+                if (isEnqueued) {
+                    // setup timers to enforce quotas on workers that have
+                    // been enqueued
+                    mDispatcher.getWorkTimer()
+                            .startTimer(mWorkSpecId, WORK_PROCESSING_TIME_IN_MS, this);
+                } else {
+                    // if we did not actually enqueue the work, it was enqueued before
+                    // cleanUp and pretend this never happened.
+                    cleanUp();
+                }
+            } else {
+                Logger.get().debug(TAG, String.format("Already started work for %s", mWorkSpecId));
+            }
         }
     }
 
     @Override
     public void onExecuted(@NonNull String workSpecId, boolean needsReschedule) {
-
         Logger.get().debug(TAG, String.format("onExecuted %s, %s", workSpecId, needsReschedule));
-
         cleanUp();
 
         if (needsReschedule) {
@@ -189,7 +197,7 @@ public class DelayMetCommandHandler implements
             if (!mHasPendingStopWorkCommand) {
                 Logger.get().debug(
                         TAG,
-                        String.format("Stopping work for workspec %s", mWorkSpecId));
+                        String.format("Stopping work for WorkSpec %s", mWorkSpecId));
                 Intent stopWork = CommandHandler.createStopWorkIntent(mContext, mWorkSpecId);
                 mDispatcher.postOnMainThread(
                         new SystemAlarmDispatcher.AddRunnable(mDispatcher, stopWork, mStartId));

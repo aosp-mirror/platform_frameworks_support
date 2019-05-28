@@ -94,9 +94,11 @@ class WorkTimer {
     }
 
     void onDestroy() {
-        // Calling shutdown() waits for pending scheduled WorkTimerRunnable's which is not
-        // something we care about. Hence call shutdownNow().
-        mExecutorService.shutdownNow();
+        if (!mExecutorService.isShutdown()) {
+            // Calling shutdown() waits for pending scheduled WorkTimerRunnable's which is not
+            // something we care about. Hence call shutdownNow().
+            mExecutorService.shutdownNow();
+        }
     }
 
     @VisibleForTesting

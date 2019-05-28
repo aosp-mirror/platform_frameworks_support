@@ -92,6 +92,7 @@ public class SystemAlarmDispatcher implements ExecutionListener {
     }
 
     void onDestroy() {
+        Logger.get().debug(TAG, "Destroying SystemAlarmDispatcher");
         mProcessor.removeExecutionListener(this);
         mWorkTimer.onDestroy();
         mCompletedListener = null;
