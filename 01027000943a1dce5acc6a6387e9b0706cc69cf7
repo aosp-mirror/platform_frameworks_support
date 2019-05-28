@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "14386eb2_d64e277d",
+        "filename": "ui/layout/src/androidTest/java/androidx/ui/layout/test/LayoutTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2019-05-28T15:37:06Z",
+      "side": 1,
+      "message": "All layout tests are currently comparing PxPosition and PxSize, even though it would be better to compare IntPxPosition and IntPxSize. This was initially just because OnPositioned and OnChildPositioned are working with those, and then for consistency.. :) I believe we should update OnPositioned and OnChildPositioned to work with IntPx* and revisit the layout tests to account for that, but probably in a later CL. Will file a bug for this if you agree.\nRegarding the nullable parameters, the values should be non-null and in tests the way we use latches should guarantee this. However, Kotlin cannot know this, and I wanted this change to be as non invasive as possible, as it\u0027s probably temporary anyways. I can make them non-nullable and add !! allover in tests, if you think this would be better. What do you think?",
+      "parentUuid": "2392af10_5bf66e4f",
+      "range": {
+        "startLine": 134,
+        "startChar": 17,
+        "endLine": 134,
+        "endChar": 29
+      },
+      "revId": "01027000943a1dce5acc6a6387e9b0706cc69cf7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ef71c57e_d308d2e9",
         "filename": "ui/layout/src/androidTest/java/androidx/ui/layout/test/LayoutTest.kt",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2019-05-28T14:53:02Z",
       "side": 1,
       "message": "static import org.junit.Assert.assertEquals?",
+      "range": {
+        "startLine": 136,
+        "startChar": 12,
+        "endLine": 136,
+        "endChar": 29
+      },
+      "revId": "01027000943a1dce5acc6a6387e9b0706cc69cf7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b882ad39_0e93acc9",
+        "filename": "ui/layout/src/androidTest/java/androidx/ui/layout/test/LayoutTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2019-05-28T15:37:06Z",
+      "side": 1,
+      "message": "I\u0027m now avoiding the name clash, please take a look :)",
+      "parentUuid": "ef71c57e_d308d2e9",
       "range": {
         "startLine": 136,
         "startChar": 12,
