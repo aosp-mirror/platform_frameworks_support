@@ -942,7 +942,7 @@ public class NestedScrollView extends FrameLayout implements NestedScrollingPare
                 final VelocityTracker velocityTracker = mVelocityTracker;
                 velocityTracker.computeCurrentVelocity(1000, mMaximumVelocity);
                 int initialVelocity = (int) velocityTracker.getYVelocity(mActivePointerId);
-                if ((Math.abs(initialVelocity) > mMinimumVelocity)) {
+                if ((Math.abs(initialVelocity) >= mMinimumVelocity)) {
                     if (!dispatchNestedPreFling(0, -initialVelocity)) {
                         dispatchNestedFling(0, -initialVelocity, true);
                         fling(-initialVelocity);
@@ -1407,6 +1407,17 @@ public class NestedScrollView extends FrameLayout implements NestedScrollingPare
      * @param dy the number of pixels to scroll by on the Y axis
      */
     public final void smoothScrollBy(int dx, int dy) {
+        smoothScrollBy(dx, dy, false);
+    }
+
+    /**
+     * Like {@link View#scrollBy}, but scroll smoothly instead of immediately.
+     *
+     * @param dx the number of pixels to scroll by on the X axis
+     * @param dy the number of pixels to scroll by on the Y axis
+     * @param withNestedScrolling whether to include nested scrolling operations.
+     */
+    private void smoothScrollBy(int dx, int dy, boolean withNestedScrolling) {
         if (getChildCount() == 0) {
             // Nothing to do.
             return;
@@ -1421,7 +1432,7 @@ public class NestedScrollView extends FrameLayout implements NestedScrollingPare
             final int maxY = Math.max(0, childSize - parentSpace);
             dy = Math.max(0, Math.min(scrollY + dy, maxY)) - scrollY;
             mScroller.startScroll(getScrollX(), scrollY, 0, dy);
-            runAnimatedScroll(false);
+            runAnimatedScroll(withNestedScrolling);
         } else {
             if (!mScroller.isFinished()) {
                 abortAnimatedScroll();
@@ -1438,7 +1449,19 @@ public class NestedScrollView extends FrameLayout implements NestedScrollingPare
      * @param y the position where to scroll on the Y axis
      */
     public final void smoothScrollTo(int x, int y) {
-        smoothScrollBy(x - getScrollX(), y - getScrollY());
+        smoothScrollTo(x, y, false);
+    }
+
+    /**
+     * Like {@link #scrollTo}, but scroll smoothly instead of immediately.
+     *
+     * @param x the position where to scroll on the X axis
+     * @param y the position where to scroll on the Y axis
+     * @param withNestedScrolling whether to include nested scrolling operations.
+     */
+    // This should be considered private, it is package private to avoid a synthetic ancestor.
+    void smoothScrollTo(int x, int y, boolean withNestedScrolling) {
+        smoothScrollBy(x - getScrollX(), y - getScrollY(), withNestedScrolling);
     }
 
     /**
@@ -1589,6 +1612,8 @@ public class NestedScrollView extends FrameLayout implements NestedScrollingPare
 
         if (!mScroller.isFinished()) {
             ViewCompat.postInvalidateOnAnimation(this);
+        } else {
+            stopNestedScroll(ViewCompat.TYPE_NON_TOUCH);
         }
     }
 
@@ -2084,7 +2109,7 @@ public class NestedScrollView extends FrameLayout implements NestedScrollingPare
                     final int targetScrollY = Math.min(nsvHost.getScrollY() + viewportHeight,
                             nsvHost.getScrollRange());
                     if (targetScrollY != nsvHost.getScrollY()) {
-                        nsvHost.smoothScrollTo(0, targetScrollY);
+                        nsvHost.smoothScrollTo(0, targetScrollY, true);
                         return true;
                     }
                 }
@@ -2094,7 +2119,7 @@ public class NestedScrollView extends FrameLayout implements NestedScrollingPare
                             - nsvHost.getPaddingTop();
                     final int targetScrollY = Math.max(nsvHost.getScrollY() - viewportHeight, 0);
                     if (targetScrollY != nsvHost.getScrollY()) {
-                        nsvHost.smoothScrollTo(0, targetScrollY);
+                        nsvHost.smoothScrollTo(0, targetScrollY, true);
                         return true;
                     }
                 }
