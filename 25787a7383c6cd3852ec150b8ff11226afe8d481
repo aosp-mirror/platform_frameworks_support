@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d203f6b5_8c0d64df",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1060389
+      },
+      "writtenOn": "2019-05-28T12:14:21Z",
+      "side": 1,
+      "message": "how confident are we on this statement? I recall discussions on how many apps out there don\u0027t proguard/r8 so this will be a problem. Can you double check on the team chat?",
+      "range": {
+        "startLine": 12,
+        "startChar": 45,
+        "endLine": 12,
+        "endChar": 75
+      },
+      "revId": "25787a7383c6cd3852ec150b8ff11226afe8d481",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
