@@ -54,6 +54,8 @@ public final class ExtensionsManager {
         AUTO
     }
 
+    private static ExtensionsErrorListener sExtensionsErrorListener = null;
+
     /**
      * Indicates whether the camera device with the {@link LensFacing} can support the specific
      * extension function.
@@ -118,6 +120,20 @@ public final class ExtensionsManager {
         }
 
         return extender.isExtensionAvailable();
+    }
+
+    /**
+     * Sets an {@link ExtensionsErrorListener} which will get called any time a
+     * {@link ImageCaptureExtender} specific error is encountered.
+     *
+     * @param listener The {@link ExtensionsErrorListener} listener that will be run.
+     */
+    public static void setExtensionsErrorListener(ExtensionsErrorListener listener) {
+        sExtensionsErrorListener = listener;
+    }
+
+    static ExtensionsErrorListener getExtensionsErrorListener() {
+        return sExtensionsErrorListener;
     }
 
     private static boolean checkPreviewExtensionCapability(EffectMode effectMode,
