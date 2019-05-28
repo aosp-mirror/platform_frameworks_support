@@ -1365,7 +1365,7 @@ public abstract class VersionedParcel {
                     break;
                 case TYPE_VERSIONED_PARCELABLE:
                     while (n > 0) {
-                        list.add((T) readVersionedParcelable());
+                        list.add((T) readVersionedParcelableInCollection());
                         n--;
                     }
                     break;
@@ -1511,6 +1511,29 @@ public abstract class VersionedParcel {
             return null;
         }
         return readFromParcel(name, createSubParcel());
+    }
+
+    /**
+     * Read a VersionedParcelable in a collection of VersionedParcelables.
+     *
+     * The default implementation delegates to {@link #readVersionedParcelable()}. Implementing
+     * classes should use this method to ensure their underlying data pointer is correctly aligned
+     * to the start of the next VersionedParcelable after they have fully read the current one.
+     *
+     * Items in a collection are not prefixed with their length, so {@link #createSubParcel()} is
+     * not able to correctly determine the length of the item, instead using the length of the
+     * collection field as a whole. Additionally, if fields have been added to the end of the
+     * VersionedParcelable since a Parcelizer was generated, the parcelizer may not consume all the
+     * fields present in a parcel written by a newer Parcelizer, leaving the underlying data
+     * pointer somewhere in the middle of the item.
+     *
+     * An implementation of this method will likely either modify {@link #createSubParcel()} to
+     * look ahead and attempt to find the Parcelizer class name at the start of the next item and
+     * set the length of the subparcel appropriately, or attempt to find the Parcelizer class name
+     * after reading the subparcel and advance its data pointer appropriately.
+     */
+    protected <T extends VersionedParcelable> T readVersionedParcelableInCollection() {
+        return readVersionedParcelable();
     }
 
     /**
