@@ -24,7 +24,7 @@ object LibraryGroups {
     val ANIMATION = LibraryGroup("androidx.animation", false)
     val ANNOTATION = LibraryGroup("androidx.annotation")
     val APPCOMPAT = LibraryGroup("androidx.appcompat", false)
-    val ARCH_CORE = LibraryGroup("androidx.arch.core", false)
+    val ARCH_CORE = LibraryGroup("androidx.arch.core")
     val ASYNCLAYOUTINFLATER = LibraryGroup("androidx.asynclayoutinflater")
     val AUTOFILL = LibraryGroup("androidx.autofill")
     val BIOMETRIC = LibraryGroup("androidx.biometric")
@@ -61,10 +61,10 @@ object LibraryGroups {
     val MEDIA2 = LibraryGroup("androidx.media2", false)
     val MEDIAROUTER = LibraryGroup("androidx.mediarouter")
     val NAVIGATION = LibraryGroup("androidx.navigation", false)
-    val PAGING = LibraryGroup("androidx.paging", false)
+    val PAGING = LibraryGroup("androidx.paging")
     val PALETTE = LibraryGroup("androidx.palette")
     val PERCENTLAYOUT = LibraryGroup("androidx.percentlayout")
-    val PERSISTENCE = LibraryGroup("androidx.sqlite", false)
+    val PERSISTENCE = LibraryGroup("androidx.sqlite")
     val PREFERENCE = LibraryGroup("androidx.preference")
     val PRINT = LibraryGroup("androidx.print")
     val RECOMMENDATION = LibraryGroup("androidx.recommendation")
@@ -87,7 +87,7 @@ object LibraryGroups {
     val VIEWPAGER2 = LibraryGroup("androidx.viewpager2")
     val WEAR = LibraryGroup("androidx.wear")
     val WEBKIT = LibraryGroup("androidx.webkit")
-    val WORKMANAGER = LibraryGroup("androidx.work", false)
+    val WORKMANAGER = LibraryGroup("androidx.work")
 }
 
 /**
