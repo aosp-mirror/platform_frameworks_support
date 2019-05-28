@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e5087db6_667dd82e",
+        "filename": "media2/widget/src/androidTest/java/androidx/media2/widget/MediaControlViewTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-28T09:50:59Z",
+      "side": 1,
+      "message": "Q) In that case, how best to test this? I think one way would be to extract the metadata here using URI and calling MediaItem#setMetadata. WDYT?",
+      "parentUuid": "ba6c21c1_edb5d20a",
+      "range": {
+        "startLine": 242,
+        "startChar": 4,
+        "endLine": 242,
+        "endChar": 77
+      },
+      "revId": "9ebcb156f49367f1c565c796a370f29bb96069b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0f0a2496_688a9e4f",
         "filename": "media2/widget/src/androidTest/java/androidx/media2/widget/MediaControlViewTest.java",
         "patchSetId": 3
@@ -59,6 +83,30 @@
       "writtenOn": "2019-05-28T08:11:56Z",
       "side": 1,
       "message": "A few suggestions (might be handled in other CLs):\n- Use METADATA_KEY_MEDIA_URI as a default title if no METADATA_KEY_TITLE given.\n- Provide a default title instead of empty string by adding a string resource like for music case.",
+      "range": {
+        "startLine": 108,
+        "startChar": 87,
+        "endLine": 109,
+        "endChar": 49
+      },
+      "revId": "9ebcb156f49367f1c565c796a370f29bb96069b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "975f5924_f03dd3da",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-28T09:50:59Z",
+      "side": 1,
+      "message": "Q) What if there is no URI (e.g. FileMediaItem)?",
+      "parentUuid": "09b205f0_a16bfe3d",
       "range": {
         "startLine": 108,
         "startChar": 87,
