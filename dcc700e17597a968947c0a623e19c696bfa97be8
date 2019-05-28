@@ -16,6 +16,24 @@
       "revId": "dcc700e17597a968947c0a623e19c696bfa97be8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e6533f8_74f36d58",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/LibraryGroups.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-05-28T17:14:43Z",
+      "side": 1,
+      "message": "There are multiple work artifacts so I didn\u0027t want to assume anything. Once this lands we can update the multi-artifact libraries given the owners\u0027 consent.",
+      "parentUuid": "aa7b4207_3715eae3",
+      "revId": "dcc700e17597a968947c0a623e19c696bfa97be8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
