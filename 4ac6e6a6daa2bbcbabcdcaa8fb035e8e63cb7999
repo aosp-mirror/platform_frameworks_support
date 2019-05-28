@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "05a4ea85_986f8fb2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-05-28T23:49:10Z",
+      "side": 1,
+      "message": "you are right, we discussed this before, maybe even several times I think :) \nAnd I agree with your point that by naming param onFooChangED we will end up with incorrect semantics. However, this CL renames param to onFooChange without past tense, and I think this makes overall API feel more natural. \n\nAs per discussion, we still have to chose between onFooChangeRequested and onFooChange, but I\u0027ll leave it with the latter here and I can fix it if we will decide to go with the first one",
+      "parentUuid": "451de28c_5d280001",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 30
+      },
+      "revId": "4ac6e6a6daa2bbcbabcdcaa8fb035e8e63cb7999",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7d905836_eab4a590",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "4ac6e6a6daa2bbcbabcdcaa8fb035e8e63cb7999",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63189593_5f0f6e4a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-05-28T23:49:10Z",
+      "side": 1,
+      "message": "This CL is indeed doing two things. I think they are quite tightly coupled, as this Checkbox overload naturally shows the naming changes in real examples, so I\u0027ve decided to put them together. It\u0027s quite hard to split Selection Controls into different CLs usually, as they are all share same ideas and same changes, at least API-wise\n\nI\u0027ll make another CL with Checkbox if it makes easier for everyone to discuss it.",
+      "parentUuid": "7d905836_eab4a590",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 43
+      },
+      "revId": "4ac6e6a6daa2bbcbabcdcaa8fb035e8e63cb7999",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
