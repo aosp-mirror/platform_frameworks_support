@@ -45,6 +45,30 @@
       "revId": "ea553e856df2b67fc11c645a91b6fdc5919ba78f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "806e21a2_175675c7",
+        "filename": "ui/framework/src/main/java/androidx/ui/core/Layout.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 1292888
+      },
+      "writtenOn": "2019-05-28T16:31:51Z",
+      "side": 1,
+      "message": "I realised I needed this change in this CL because when asking minIntrinsicWidth(IntPx.Infinity) for example, here we were trying to create tight infinite constraints.\nBut I think the change makes sense theoretically: the parent asks you the intrinsic measurement when this height is available, but you don\u0027t need to occupy the entire height if you don\u0027t want to. For example in text minIntrinsicHeight(w) might not occupy the whole width if none of the lines ends exactly at width w.\nThis is the first CL where I\u0027m actually testing intrinsic measurements :) I\u0027ve started looking one by one at layout widgets to understand whether the defaults are useful indeed. I\u0027ll keep you updated what I find out.",
+      "parentUuid": "250307e5_10639105",
+      "range": {
+        "startLine": 305,
+        "startChar": 30,
+        "endLine": 305,
+        "endChar": 56
+      },
+      "revId": "ea553e856df2b67fc11c645a91b6fdc5919ba78f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
