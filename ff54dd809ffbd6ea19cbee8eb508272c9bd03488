@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "af810189_ba8f227c",
+        "filename": "camera/extensions-stub/src/main/java/androidx/camera/extensions/impl/AutoPreviewExtenderImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1482458
+      },
+      "writtenOn": "2019-05-28T21:09:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c44d78ef_ec56dde7",
+      "revId": "ff54dd809ffbd6ea19cbee8eb508272c9bd03488",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a94a545_e055a366",
         "filename": "camera/extensions/src/main/java/androidx/camera/extensions/AutoPreviewExtender.java",
         "patchSetId": 1
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "753804e8_bc11a521",
+        "filename": "camera/extensions/src/main/java/androidx/camera/extensions/AutoPreviewExtender.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1482458
+      },
+      "writtenOn": "2019-05-28T21:09:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a94a545_e055a366",
+      "revId": "ff54dd809ffbd6ea19cbee8eb508272c9bd03488",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "24086d6b_c36d6f9a",
         "filename": "camera/integration-tests/extensionstestapp/src/main/java/androidx/camera/integration/extensions/CameraExtensionsActivity.java",
         "patchSetId": 1
@@ -50,6 +86,24 @@
       "revId": "ff54dd809ffbd6ea19cbee8eb508272c9bd03488",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "454dcf7f_c7f0e0fd",
+        "filename": "camera/integration-tests/extensionstestapp/src/main/java/androidx/camera/integration/extensions/CameraExtensionsActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1482458
+      },
+      "writtenOn": "2019-05-28T21:09:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "24086d6b_c36d6f9a",
+      "revId": "ff54dd809ffbd6ea19cbee8eb508272c9bd03488",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
