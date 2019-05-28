@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b58dfc98_3b91ef20",
+        "filename": "fragment/src/androidTest/java/androidx/fragment/app/FragmentAnimationTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-05-28T21:12:46Z",
+      "side": 1,
+      "message": "You\u0027ll want to use executePendingTransactions(parent.childFragmentManager), otherwise this is just going to execute pending transactions on the Activity\u0027s FragmentManager.",
+      "range": {
+        "startLine": 238,
+        "startChar": 21,
+        "endLine": 238,
+        "endChar": 49
+      },
+      "revId": "4b1d733e498adc68a5ac39d49cfbfafbce7fbb2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
