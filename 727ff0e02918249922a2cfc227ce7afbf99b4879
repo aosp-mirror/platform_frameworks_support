@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "79d06048_c2f6f236",
+        "filename": "recyclerview/selection/src/main/java/androidx/recyclerview/selection/ItemDetailsLookup.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1086769
+      },
+      "writtenOn": "2019-05-28T22:04:01Z",
+      "side": 1,
+      "message": "I think making this default access will break DocumentsUI. Despite the existence of @RestrictTo(LIBRARY_GROUP_PREFIX) on the previous version of the lib, the method is being called from DocumentsUI. Maybe the RestrictTo is simply informative?\n\nEither way the intention is that this method is accessible to sub-classes in any package.",
+      "revId": "727ff0e02918249922a2cfc227ce7afbf99b4879",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
