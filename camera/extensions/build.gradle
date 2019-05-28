@@ -30,6 +30,17 @@ dependencies {
     compileOnly(project(":camera:camera-extensions-stub"))
     implementation(GUAVA_LISTENABLE_FUTURE)
 
+    androidTestImplementation(ANDROIDX_TEST_EXT_JUNIT)
+    androidTestImplementation(ANDROIDX_TEST_CORE)
+    androidTestImplementation(ANDROIDX_TEST_RUNNER)
+    androidTestImplementation(ANDROIDX_TEST_RULES)
+    androidTestImplementation(TRUTH)
+    androidTestImplementation(MOCKITO_CORE, libs.exclude_bytebuddy) // DexMaker has it's own MockMaker
+    androidTestImplementation(DEXMAKER_MOCKITO, libs.exclude_bytebuddy) // DexMaker has it's own MockMaker
+    androidTestImplementation project(":camera:camera-testing"), {
+        exclude group: "androidx.camera", module: "camera-core"
+    }
+    androidTestImplementation project(":camera:integration-tests:camera-testlib-extensions")
 }
 
 android {

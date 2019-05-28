@@ -84,6 +84,12 @@ public abstract class PreviewExtender {
             case PROCESSOR_TYPE_NONE:
                 CaptureStageImpl captureStage = mImpl.getCaptureStage();
 
+                // captureStage could be null since the extension feature could be enabled in
+                // other extender states.
+                if (captureStage == null) {
+                    break;
+                }
+
                 Camera2Config.Builder camera2ConfigurationBuilder =
                         new Camera2Config.Builder();
 
