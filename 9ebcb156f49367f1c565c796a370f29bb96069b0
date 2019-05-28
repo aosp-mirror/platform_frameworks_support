@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "b63567f3_bde5ed24",
+        "filename": "media2/widget/src/androidTest/java/androidx/media2/widget/MediaControlViewTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-28T09:59:47Z",
+      "side": 1,
+      "message": "I think just setting arbitrary metadata would be fine not the real metadata from the files.",
+      "parentUuid": "e5087db6_667dd82e",
+      "range": {
+        "startLine": 242,
+        "startChar": 4,
+        "endLine": 242,
+        "endChar": 77
+      },
+      "revId": "9ebcb156f49367f1c565c796a370f29bb96069b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0f0a2496_688a9e4f",
         "filename": "media2/widget/src/androidTest/java/androidx/media2/widget/MediaControlViewTest.java",
         "patchSetId": 3
@@ -107,6 +131,30 @@
       "side": 1,
       "message": "Q) What if there is no URI (e.g. FileMediaItem)?",
       "parentUuid": "09b205f0_a16bfe3d",
+      "range": {
+        "startLine": 108,
+        "startChar": 87,
+        "endLine": 109,
+        "endChar": 49
+      },
+      "revId": "9ebcb156f49367f1c565c796a370f29bb96069b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e01085f_d6cb484d",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-28T09:59:47Z",
+      "side": 1,
+      "message": "Maybe,\n1. METADATA_KEY_TITLE\n2. If no 1, METADATA_KEY_MEDIA_URI\n3. If no 2, \"Unknown media\"",
+      "parentUuid": "975f5924_f03dd3da",
       "range": {
         "startLine": 108,
         "startChar": 87,
