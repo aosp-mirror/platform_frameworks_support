@@ -46,8 +46,12 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * Class for using an OEM provided extension on view finder.
  */
 public abstract class PreviewExtender {
+    static final Config.Option<String> OPTION_PREVIEW_EXTENDER_TYPE = Config.Option.create(
+            "camerax.extensions.previewExtender.type", String.class);
+
     private PreviewConfig.Builder mBuilder;
     PreviewExtenderImpl mImpl;
+    private ExtenderErrorListener mExtenderErrorListener = null;
 
     void init(PreviewConfig.Builder builder, PreviewExtenderImpl implementation) {
         mBuilder = builder;
@@ -67,6 +71,9 @@ public abstract class PreviewExtender {
         return mImpl.isExtensionAvailable(cameraId, cameraCharacteristics);
     }
 
+    /**
+     * Enables the derived {@link PreviewExtender} feature.
+     */
     public void enableExtension() {
         CameraX.LensFacing lensFacing = mBuilder.build().getLensFacing();
         String cameraId = CameraUtil.getCameraId(lensFacing);
@@ -137,8 +144,19 @@ public abstract class PreviewExtender {
         new Camera2Config.Extender(mBuilder).setCameraEventCallback(
                 new CameraEventCallbacks(previewExtenderAdapter));
         mBuilder.setUseCaseEventListener(previewExtenderAdapter);
+        mBuilder.getMutableConfig().insertOption(OPTION_PREVIEW_EXTENDER_TYPE,
+                getClass().toString());
     }
 
+    /**
+     * Sets an {@link ExtenderErrorListener} which will get called any time a
+     * {@link PreviewExtender} specific error is encountered.
+     *
+     * @param listener The {@link ExtenderErrorListener} listener that will be run.
+     */
+    public void setExtenderErrorListener(ExtenderErrorListener listener) {
+        mExtenderErrorListener = listener;
+    }
 
     /**
      * An implementation to adapt the OEM provided implementation to core.
