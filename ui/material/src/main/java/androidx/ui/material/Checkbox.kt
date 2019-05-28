@@ -43,35 +43,23 @@ import androidx.compose.unaryPlus
 import androidx.ui.layout.Wrap
 import androidx.ui.material.ripple.Ripple
 
-// TODO(malkov): think about how to abstract it better
 /**
- * Function to resolve parent [Checkbox] state based on children checkboxes' state
- * Use it when you have a hierarchy relationship between checkboxes in different levels
+ * A TriStateCheckbox is a toggleable component that provides
+ * checked / unchecked / indeterminate options
+ * A TriStateCheckbox should be used when there are
+ * dependent checkboxes associated to this component and those can have different values.
  *
- * @param childrenStates states of children checkboxes this parent is responsible for
- */
-fun parentCheckboxState(vararg childrenStates: ToggleableState): ToggleableState {
-    return if (childrenStates.all { it == ToggleableState.Checked }) ToggleableState.Checked
-    else if (childrenStates.all { it == ToggleableState.Unchecked }) ToggleableState.Unchecked
-    else ToggleableState.Indeterminate
-}
-
-/**
- * A Checkbox is a toggleable component that provides checked / unchecked / indeterminate options
- * A Checkbox can only reach an indeterminate state when it has
- * child checkboxes with different state values.
+ * @see [Checkbox] if you want a simple component that represents Boolean state
  *
- * @see [parentCheckboxState] to create parent checkbox state based on children's state
- *
- * @param value whether Checkbox is checked, unchecked or in indeterminate state
+ * @param value whether TriStateCheckbox is checked, unchecked or in indeterminate state
  * @param onClick callback to be invoked when checkbox is being clicked.
- * If [null], Checkbox will show static [value] and remain disabled
+ * If [null], TriStateCheckbox appear in the [value] state and remain disabled
  * @param color custom color for checkbox. By default [MaterialColors.secondary] will be used
  */
 @Composable
-fun Checkbox(
+fun TriStateCheckbox(
     value: ToggleableState,
-    onClick: (() -> Unit)? = null,
+    onClick: (() -> Unit)?,
     color: Color? = null
 ) {
     Wrap {
@@ -85,6 +73,29 @@ fun Checkbox(
             }
         }
     }
+}
+
+/**
+ * A component that represents only two states (checked / unchecked).
+ *
+ * @see [TriStateCheckbox] if you require support for an indeterminate state.
+ *
+ * @param checked whether Checkbox is checked or unchecked
+ * @param onCheckedChange callback to be invoked when checkbox is being clicked.
+ * If [null], Checkbox will appear in the [checked] state and remain disabled
+ * @param color custom color for checkbox. By default [MaterialColors.secondary] will be used
+ */
+@Composable
+fun Checkbox(
+    checked: Boolean,
+    onCheckedChange: ((Boolean) -> Unit)?,
+    color: Color? = null
+) {
+    TriStateCheckbox(
+        value = ToggleableState(checked),
+        onClick = onCheckedChange?.let { { it(!checked) } },
+        color = color
+    )
 }
 
 @Composable
