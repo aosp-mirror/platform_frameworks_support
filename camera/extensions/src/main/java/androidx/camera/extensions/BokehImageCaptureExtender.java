@@ -19,6 +19,7 @@ package androidx.camera.extensions;
 import android.util.Log;
 
 import androidx.camera.core.ImageCaptureConfig;
+import androidx.camera.extensions.ExtensionsManager.EffectMode;
 import androidx.camera.extensions.impl.BokehImageCaptureExtenderImpl;
 
 /**
@@ -63,7 +64,7 @@ public class BokehImageCaptureExtender extends ImageCaptureExtender {
 
         VendorBokehImageCaptureExtender(ImageCaptureConfig.Builder builder) {
             mImpl = new BokehImageCaptureExtenderImpl();
-            init(builder, mImpl);
+            init(builder, mImpl, EffectMode.BOKEH);
         }
     }
 
