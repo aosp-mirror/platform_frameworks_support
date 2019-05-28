@@ -35,8 +35,11 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 import java.util.UUID;
 
 @RunWith(JUnit4.class)
@@ -87,6 +90,48 @@ public class DiffUtilTest {
             System.err.println(mLog.toString());
         }
     };
+
+    @Test
+    public void duplicates2() {
+        initWithSize(2);
+        add(2);
+        duplicate(1, 3);
+        check();
+    }
+    @Test
+    public void duplicates() {
+        final List<Integer> before = Arrays.asList(1, 2);
+//        final List<Integer> after = Arrays.asList(1, 2, 3, 2);
+        final List<Integer> after = Arrays.asList(1, 2, 3, 2);
+
+        DiffUtil.calculateDiff(new DiffUtil.Callback() {
+            private final Set<String> mAreItemsTheSameCalls = new HashSet<>();
+
+            @Override
+            public int getOldListSize() {
+                return before.size();
+            }
+
+            @Override
+            public int getNewListSize() {
+                return after.size();
+            }
+
+            @Override
+            public boolean areItemsTheSame(int oldItemIndex, int newItemIndex) {
+                mAreItemsTheSameCalls.add(oldItemIndex + "-" + newItemIndex);
+                return before.get(oldItemIndex) ==  after.get(newItemIndex);
+            }
+
+            @Override
+            public boolean areContentsTheSame(int oldItemIndex, int newItemIndex) {
+                if (!mAreItemsTheSameCalls.contains(oldItemIndex + "-" + newItemIndex)) {
+                    fail("areItemsTheSame should be called " + oldItemIndex + " " + newItemIndex);
+                }
+                return false;
+            }
+        }, false);
+    }
 
 
     @Test
@@ -507,6 +552,12 @@ public class DiffUtilTest {
         Item removed = mAfter.remove(from);
         mAfter.add(to, removed);
         mLog.append("move(").append(from).append(",").append(to).append(");\n");
+    }
+
+    private void duplicate(int afterIndex, int targetIndex) {
+        Item toBeDuplicated = mAfter.get(afterIndex);
+        mAfter.add(targetIndex, new Item(toBeDuplicated));
+        mLog.append("duplicate(").append(afterIndex).append(",").append(targetIndex).append(");\n");
     }
 
     static class Item {
