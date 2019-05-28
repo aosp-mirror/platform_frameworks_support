@@ -59,6 +59,7 @@ import org.gradle.api.logging.configuration.ShowStacktrace
 import org.gradle.api.plugins.JavaLibraryPlugin
 import org.gradle.api.plugins.JavaPlugin
 import org.gradle.api.plugins.JavaPluginConvention
+import org.gradle.api.tasks.Copy
 import org.gradle.api.tasks.TaskProvider
 import org.gradle.api.tasks.bundling.Jar
 import org.gradle.api.tasks.bundling.Zip
@@ -232,6 +233,12 @@ class AndroidXPlugin : Plugin<Project> {
 
         extra.set("versionChecker", GMavenVersionChecker(logger))
         val createArchiveTask = Release.getGlobalFullZipTask(this)
+
+        tasks.register("snapshot", Copy::class.java) {
+            it.dependsOn(createArchiveTask)
+            it.from(createArchiveTask.get().source)
+            it.destinationDir = File(getDistributionDirectory(), "repository")
+        }
 
         val buildOnServerTask = tasks.create(BUILD_ON_SERVER_TASK, BuildOnServer::class.java)
         buildOnServerTask.dependsOn(createArchiveTask)
