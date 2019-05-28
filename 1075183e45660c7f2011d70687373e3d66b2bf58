@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "8695e78c_00a6aa6f",
+        "filename": "room/compiler/src/main/kotlin/androidx/room/RoomProcessor.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1101693
+      },
+      "writtenOn": "2019-05-28T11:30:14Z",
+      "side": 1,
+      "message": "Aggregating APs do not have to use the Filer API. Gradle did not mention this in their current doc because this is a fairly recent development: https://github.com/gradle/gradle/issues/9401#issuecomment-492590130\n\nIsolating APs require the Filer API because it allows setting the originating element of a resource, Gradle needs that for proper output cleanup.\n\nTake this example: With user class A, Room generates source file S and resource file R. With user class A\u0027, Room generates S\u0027 and R\u0027. Setting the originating element allows Gradle to see (A, S, R) as one group and (A\u0027, S\u0027, R\u0027) as another group, and any change in one group affects that group only and not the other group. This tracking wouldn\u0027t be possible without using Filer.\n\nI\u0027m planning to create several tests to demonstrate these subtleties (once https://android-review.googlesource.com/c/platform/frameworks/support/+/941741 is merged).\n\n-----------------------\n\nThat said, we could still make Room isolating if we understand and *accept* the scenarios where Room/Gradle wouldn\u0027t behave as expected (e.g., skipping the deletion of the schema files). Then, we\u0027ll probably need to document these scenarios to set the expectations for users.\n\nThis topic may be easier to discuss once we have the test that I\u0027ll be creating.",
+      "parentUuid": "6f3af9b3_ddb52ffa",
+      "range": {
+        "startLine": 43,
+        "startChar": 42,
+        "endLine": 43,
+        "endChar": 53
+      },
+      "revId": "1075183e45660c7f2011d70687373e3d66b2bf58",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6deec267_908d50e9",
         "filename": "room/compiler/src/main/kotlin/androidx/room/processor/Context.kt",
         "patchSetId": 2
