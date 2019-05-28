@@ -177,6 +177,24 @@
     },
     {
       "key": {
+        "uuid": "ed149f10_85b52e7b",
+        "filename": "recyclerview/selection/src/main/java/androidx/recyclerview/selection/ItemDetailsLookup.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-05-28T23:43:11Z",
+      "side": 1,
+      "message": "Also, turns out this method is already overriden in Google3... so changed back to protected.  :(",
+      "parentUuid": "6f91feab_2896bb80",
+      "revId": "1a7663d2affdf8d258510b6f9a360e2fed972c2d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e32c87d8_59535cb5",
         "filename": "recyclerview/selection/src/main/java/androidx/recyclerview/selection/SelectionTracker.java",
         "patchSetId": 2

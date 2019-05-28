@@ -16,6 +16,24 @@
       "revId": "727ff0e02918249922a2cfc227ce7afbf99b4879",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f531e6c_d58a4615",
+        "filename": "recyclerview/selection/src/main/java/androidx/recyclerview/selection/ItemDetailsLookup.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-05-28T23:43:11Z",
+      "side": 1,
+      "message": "Ok, I won\u0027t mess with changing that for now.  (I think the javadocs should likely be updated before making this public).  I\u0027ll just put this method back to where it was before.  :)",
+      "parentUuid": "79d06048_c2f6f236",
+      "revId": "727ff0e02918249922a2cfc227ce7afbf99b4879",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
