@@ -34,6 +34,24 @@
       "revId": "f6056f92e351f53437c1feaf9a5390f2b58c43dc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "893080c4_01cdfa8f",
+        "filename": "camera/core/src/main/java/androidx/camera/core/CaptureConfig.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1481635
+      },
+      "writtenOn": "2019-05-28T15:44:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "49334384_aa3f081f",
+      "revId": "f6056f92e351f53437c1feaf9a5390f2b58c43dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

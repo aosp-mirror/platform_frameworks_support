@@ -16,6 +16,24 @@
       "revId": "c6f4dd911c95a9a0d63602b99f300e45adfcbb7c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42e119be_e8f39416",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/Camera2CameraControl.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 1481635
+      },
+      "writtenOn": "2019-05-28T15:44:54Z",
+      "side": 1,
+      "message": "Yes, it is. Just some devices do not need this capture request and can turn off torch by next repeating request. However, since we take it as a generic patch and apply it to all devices, modify the comment to be simple.",
+      "parentUuid": "12f2cd00_f191a996",
+      "revId": "c6f4dd911c95a9a0d63602b99f300e45adfcbb7c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
