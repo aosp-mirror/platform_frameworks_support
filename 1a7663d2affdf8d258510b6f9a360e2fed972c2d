@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "99a59c51_d5e42d67",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2156,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-05-28T17:31:21Z",
+      "side": 1,
+      "message": "This should be removed. The class is designed wrong.\n\nLinearLayoutManager is a public type which implements ItemTouchHelper.ViewDropHandler which is a public type which has a public definition of this method. Putting @hide / @RestrictTo isn\u0027t doing anything.\n\nIf this type wanted to hide this method it should have implemented ItemTouchHelper.ViewDropHandler as an anonymous class stored in a field, not implemented on the type. But that would now be a breaking API change.",
+      "revId": "1a7663d2affdf8d258510b6f9a360e2fed972c2d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5bf02f07_6a7d5ef4",
+        "filename": "recyclerview/selection/src/main/java/androidx/recyclerview/selection/AutoScroller.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-05-28T17:31:21Z",
+      "side": 1,
+      "message": "This entire library is in a single package. Can this just be made package scope?",
+      "revId": "1a7663d2affdf8d258510b6f9a360e2fed972c2d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6dda2817_ed5af082",
+        "filename": "recyclerview/selection/src/main/java/androidx/recyclerview/selection/DefaultSelectionTracker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-05-28T17:31:21Z",
+      "side": 1,
+      "message": "Seems like it can be package scope as well",
+      "revId": "1a7663d2affdf8d258510b6f9a360e2fed972c2d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d999a4a_c74a4ee3",
+        "filename": "recyclerview/selection/src/main/java/androidx/recyclerview/selection/EventBridge.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-05-28T17:31:21Z",
+      "side": 1,
+      "message": "Package scope?",
+      "revId": "1a7663d2affdf8d258510b6f9a360e2fed972c2d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98cc5caf_8df3ba6c",
+        "filename": "recyclerview/selection/src/main/java/androidx/recyclerview/selection/ItemDetailsLookup.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-05-28T17:31:21Z",
+      "side": 1,
+      "message": "No one is overriding this which means it probably should be final and package scoped to match the other helpers above and below",
+      "revId": "1a7663d2affdf8d258510b6f9a360e2fed972c2d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e32c87d8_59535cb5",
+        "filename": "recyclerview/selection/src/main/java/androidx/recyclerview/selection/SelectionTracker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-05-28T17:31:21Z",
+      "side": 1,
+      "message": "Restricted / @hide abstract methods means it\u0027s impossible for user code to actually subclass this type. If that\u0027s the intent (such as the only valid subtypes are part of the library), it should have had a package-private constructor. Adding that would be a breaking API change though. So... I\u0027m not sure what I\u0027m saying here other than the design of this class is problematic and we should probably write a lint check to prevent it in the future.",
+      "revId": "1a7663d2affdf8d258510b6f9a360e2fed972c2d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
