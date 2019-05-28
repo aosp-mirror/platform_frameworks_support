@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a9ae33f4_a5a0d1e0",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/AndroidXPlugin.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-05-28T21:27:16Z",
+      "side": 1,
+      "message": "I\u0027m not happy with this as it makes it non lazy. Zip task does not seem to use a provider for the input",
+      "range": {
+        "startLine": 239,
+        "startChar": 37,
+        "endLine": 239,
+        "endChar": 43
+      },
+      "revId": "01901370d1c21ffdb9676557032cc95dcada120a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
