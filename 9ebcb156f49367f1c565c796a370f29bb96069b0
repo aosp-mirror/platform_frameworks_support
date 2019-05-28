@@ -1,0 +1,234 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba6c21c1_edb5d20a",
+        "filename": "media2/widget/src/androidTest/java/androidx/media2/widget/MediaControlViewTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-28T08:11:56Z",
+      "side": 1,
+      "message": "In my opinion, MCV needs to test the metadata set by setMetadata to the MediaItem it plays is properly displayed. If metadata were retrieved by player, getting metadata from file would be tested in the player tests.",
+      "range": {
+        "startLine": 242,
+        "startChar": 4,
+        "endLine": 242,
+        "endChar": 77
+      },
+      "revId": "9ebcb156f49367f1c565c796a370f29bb96069b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f0a2496_688a9e4f",
+        "filename": "media2/widget/src/androidTest/java/androidx/media2/widget/MediaControlViewTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-28T08:11:56Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 278,
+        "startChar": 4,
+        "endLine": 278,
+        "endChar": 77
+      },
+      "revId": "9ebcb156f49367f1c565c796a370f29bb96069b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "09b205f0_a16bfe3d",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-28T08:11:56Z",
+      "side": 1,
+      "message": "A few suggestions (might be handled in other CLs):\n- Use METADATA_KEY_MEDIA_URI as a default title if no METADATA_KEY_TITLE given.\n- Provide a default title instead of empty string by adding a string resource like for music case.",
+      "range": {
+        "startLine": 108,
+        "startChar": 87,
+        "endLine": 109,
+        "endChar": 49
+      },
+      "revId": "9ebcb156f49367f1c565c796a370f29bb96069b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3f6d212_6b1b1f8b",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1325,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-28T08:11:56Z",
+      "side": 1,
+      "message": "It\u0027s not related to this CL, shouldn\u0027t we reset mTitleView\u0027s text if title is null to prevent from displaying the previous item\u0027s title?",
+      "range": {
+        "startLine": 1325,
+        "startChar": 16,
+        "endLine": 1325,
+        "endChar": 29
+      },
+      "revId": "9ebcb156f49367f1c565c796a370f29bb96069b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c520f371_be060479",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 714,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-28T08:11:56Z",
+      "side": 1,
+      "message": "minor) How about taking MediaMetadata?",
+      "range": {
+        "startLine": 714,
+        "startChar": 29,
+        "endLine": 714,
+        "endChar": 48
+      },
+      "revId": "9ebcb156f49367f1c565c796a370f29bb96069b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "88c1c5b7_ca144f98",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 735,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-28T08:11:56Z",
+      "side": 1,
+      "message": "minor) How about adding @NonNull and removing nullity check in this method since L719 already checks nullity.",
+      "range": {
+        "startLine": 735,
+        "startChar": 33,
+        "endLine": 735,
+        "endChar": 55
+      },
+      "revId": "9ebcb156f49367f1c565c796a370f29bb96069b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34c84e55_e4b68a80",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 742,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-28T08:11:56Z",
+      "side": 1,
+      "message": "It\u0027s not very related to this CL but shouldn\u0027t we reset background color if bitmap is null?",
+      "range": {
+        "startLine": 742,
+        "startChar": 12,
+        "endLine": 742,
+        "endChar": 26
+      },
+      "revId": "9ebcb156f49367f1c565c796a370f29bb96069b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bad72ea6_0ceae175",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 756,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-28T08:11:56Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 756,
+        "startChar": 29,
+        "endLine": 756,
+        "endChar": 51
+      },
+      "revId": "9ebcb156f49367f1c565c796a370f29bb96069b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d55ce0ae_bd5df4a0",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 764,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-28T08:11:56Z",
+      "side": 1,
+      "message": "I guess metadata.getString(stringKey) is enough.",
+      "range": {
+        "startLine": 757,
+        "startChar": 23,
+        "endLine": 764,
+        "endChar": 9
+      },
+      "revId": "9ebcb156f49367f1c565c796a370f29bb96069b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0226917c_7c338c6b",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 921,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-28T08:11:56Z",
+      "side": 1,
+      "message": "minor) Could you share code with L929-L934? They are similar.",
+      "range": {
+        "startLine": 916,
+        "startChar": 0,
+        "endLine": 921,
+        "endChar": 21
+      },
+      "revId": "9ebcb156f49367f1c565c796a370f29bb96069b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
