@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4c82f5c4_7efeb99b",
+        "filename": "room/runtime/src/main/java/androidx/room/DatabaseConfiguration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1098853
+      },
+      "writtenOn": "2019-05-28T18:32:02Z",
+      "side": 1,
+      "message": "how come that it is already deprecated in current.txt?",
+      "revId": "bbde731eaa504630da6342d5d6f36a1f2947f427",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
