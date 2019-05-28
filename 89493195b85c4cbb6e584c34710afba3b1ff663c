@@ -16,6 +16,24 @@
       "revId": "89493195b85c4cbb6e584c34710afba3b1ff663c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ae12398_d0c59ee6",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/PlayerWrapper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-28T02:05:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7336b753_a2c316f4",
+      "revId": "89493195b85c4cbb6e584c34710afba3b1ff663c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
