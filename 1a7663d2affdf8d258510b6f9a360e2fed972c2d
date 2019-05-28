@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5e184a50_690c5906",
+        "filename": "recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/LinearLayoutManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2156,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-05-28T21:49:37Z",
+      "side": 1,
+      "message": "I see that @RestrictTo doesn\u0027t do anything. \n\nHowever, @hide does seem to remove the source code documentation from LinearLayoutManager\u0027s javadocs (which is a bit silly given that the docs still report that it implements the method) and provides the documentation on the interface\u0027s method definition.\n\nI went ahead and refactored the javadoc stuff to make what I believe was intended a bit more explicit.",
+      "parentUuid": "99a59c51_d5e42d67",
+      "revId": "1a7663d2affdf8d258510b6f9a360e2fed972c2d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5bf02f07_6a7d5ef4",
         "filename": "recyclerview/selection/src/main/java/androidx/recyclerview/selection/AutoScroller.java",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2019-05-28T17:31:21Z",
       "side": 1,
       "message": "This entire library is in a single package. Can this just be made package scope?",
+      "revId": "1a7663d2affdf8d258510b6f9a360e2fed972c2d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f20a8cd3_19ddcaa6",
+        "filename": "recyclerview/selection/src/main/java/androidx/recyclerview/selection/AutoScroller.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-05-28T21:49:37Z",
+      "side": 1,
+      "message": "The tests are setup with some helpers that are in a different sub package...  I don\u0027t want to make larger changes to the organization given that I\u0027m not the maintainer.",
+      "parentUuid": "5bf02f07_6a7d5ef4",
       "revId": "1a7663d2affdf8d258510b6f9a360e2fed972c2d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "408361df_eca867c6",
+        "filename": "recyclerview/selection/src/main/java/androidx/recyclerview/selection/DefaultSelectionTracker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-05-28T21:49:37Z",
+      "side": 1,
+      "message": "The tests are setup with some helpers that are in a different sub package...  I don\u0027t want to make larger changes to the organization given that I\u0027m not the maintainer.",
+      "parentUuid": "6dda2817_ed5af082",
+      "revId": "1a7663d2affdf8d258510b6f9a360e2fed972c2d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2d999a4a_c74a4ee3",
         "filename": "recyclerview/selection/src/main/java/androidx/recyclerview/selection/EventBridge.java",
         "patchSetId": 2
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "cc1663c9_e43b6adf",
+        "filename": "recyclerview/selection/src/main/java/androidx/recyclerview/selection/EventBridge.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-05-28T21:49:37Z",
+      "side": 1,
+      "message": "The tests are setup with some helpers that are in a different sub package...  I don\u0027t want to make larger changes to the organization given that I\u0027m not the maintainer.",
+      "parentUuid": "2d999a4a_c74a4ee3",
+      "revId": "1a7663d2affdf8d258510b6f9a360e2fed972c2d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "98cc5caf_8df3ba6c",
         "filename": "recyclerview/selection/src/main/java/androidx/recyclerview/selection/ItemDetailsLookup.java",
         "patchSetId": 2
@@ -81,6 +153,24 @@
       "writtenOn": "2019-05-28T17:31:21Z",
       "side": 1,
       "message": "No one is overriding this which means it probably should be final and package scoped to match the other helpers above and below",
+      "revId": "1a7663d2affdf8d258510b6f9a360e2fed972c2d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f91feab_2896bb80",
+        "filename": "recyclerview/selection/src/main/java/androidx/recyclerview/selection/ItemDetailsLookup.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-05-28T21:49:37Z",
+      "side": 1,
+      "message": "Leaving the @RestrictTo for now because lint says that @hide must be paired with @RestrictTo and I don\u0027t think the documentation is correct and thus I don\u0027t think it should be published.  With check with the library owner before submission.",
+      "parentUuid": "98cc5caf_8df3ba6c",
       "revId": "1a7663d2affdf8d258510b6f9a360e2fed972c2d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
@@ -116,6 +206,24 @@
       "side": 1,
       "message": "Filed https://issuetracker.google.com/issues/133730693",
       "parentUuid": "e32c87d8_59535cb5",
+      "revId": "1a7663d2affdf8d258510b6f9a360e2fed972c2d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ebcec17c_8fae722f",
+        "filename": "recyclerview/selection/src/main/java/androidx/recyclerview/selection/SelectionTracker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1344416
+      },
+      "writtenOn": "2019-05-28T21:49:37Z",
+      "side": 1,
+      "message": "Ok, going to let the author know to get his perspective / input.",
+      "parentUuid": "b03a3f17_a86b26de",
       "revId": "1a7663d2affdf8d258510b6f9a360e2fed972c2d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
