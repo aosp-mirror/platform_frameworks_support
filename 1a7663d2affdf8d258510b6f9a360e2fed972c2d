@@ -101,6 +101,24 @@
       "revId": "1a7663d2affdf8d258510b6f9a360e2fed972c2d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b03a3f17_a86b26de",
+        "filename": "recyclerview/selection/src/main/java/androidx/recyclerview/selection/SelectionTracker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1232209
+      },
+      "writtenOn": "2019-05-28T17:36:22Z",
+      "side": 1,
+      "message": "Filed https://issuetracker.google.com/issues/133730693",
+      "parentUuid": "e32c87d8_59535cb5",
+      "revId": "1a7663d2affdf8d258510b6f9a360e2fed972c2d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
