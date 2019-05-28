@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4af833fd_93ea149c",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Checkbox.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-05-28T21:45:55Z",
+      "side": 1,
+      "message": "see comment about finalRadius in DefaultRippleFactory. I think Ripple(radius \u003d CheckboxRadius) will be better. It case we will need to add \"radius at the beginning\", I\u0027d prefer to have \"initialRadius\" for more rare case and concise and short \"radius\" for common usecases",
+      "range": {
+        "startLine": 78,
+        "startChar": 15,
+        "endLine": 78,
+        "endChar": 26
+      },
+      "revId": "d34ab91b6a12230383aa290a0741b7888bea6f1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0032698_ce7c908c",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Checkbox.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-05-28T21:45:55Z",
+      "side": 1,
+      "message": "Is this is spec? I failed to find it anywhere. But by rough look at https://material.io/design/components/selection-controls.html#checkboxes it seems like it should be bigger :)",
+      "range": {
+        "startLine": 270,
+        "startChar": 0,
+        "endLine": 270,
+        "endChar": 40
+      },
+      "revId": "d34ab91b6a12230383aa290a0741b7888bea6f1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7134e938_8eb19b2a",
+        "filename": "ui/material/src/main/java/androidx/ui/material/Switch.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-05-28T21:45:55Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 190,
+        "startChar": 15,
+        "endLine": 190,
+        "endChar": 32
+      },
+      "revId": "d34ab91b6a12230383aa290a0741b7888bea6f1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e10adcd4_36ee4f0a",
+        "filename": "ui/material/src/main/java/androidx/ui/material/ripple/DefaultRippleEffect.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-05-28T21:45:55Z",
+      "side": 1,
+      "message": "Is it really required to be a parent coordinates? It can be anyone up in hierarchy, right? With your changes (removed boundedCallback and clipCallbacks, etc.) it\u0027s basically just the coordinates where the ripple effect happens? It\u0027s a bounds for bounded ripple and it\u0027s a source for radiuses and epicenter for unbounded one.\n\nMaybe we should reflect this in naming and / or documentation",
+      "range": {
+        "startLine": 96,
+        "startChar": 11,
+        "endLine": 96,
+        "endChar": 75
+      },
+      "revId": "d34ab91b6a12230383aa290a0741b7888bea6f1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8570fa79_1a893fc7",
+        "filename": "ui/material/src/main/java/androidx/ui/material/ripple/DefaultRippleEffect.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-05-28T21:45:55Z",
+      "side": 1,
+      "message": "This is required non-null param, which will be ignored in bounded\u003dtrue case, which is confusing. What do you think if we will create DefaultBoundedRipleEffect that will reuse this one and pass only what it needs, we will reduce amount of if-else code here and API-wise it will be more clear whats where I believe",
+      "range": {
+        "startLine": 110,
+        "startChar": 4,
+        "endLine": 110,
+        "endChar": 30
+      },
+      "revId": "d34ab91b6a12230383aa290a0741b7888bea6f1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51f01ad4_a6dc7faa",
+        "filename": "ui/material/src/main/java/androidx/ui/material/ripple/DefaultRippleEffect.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-05-28T21:45:55Z",
+      "side": 1,
+      "message": "I\u0027m not sure if I like finalRadius as a name here. It\u0027s basically just a radius, right? As a user I don\u0027t care about intermediate radiuses, just the \"overall\", \"final\" radius, so this is exactly what it is. Maybe we can name it \"radius\"?",
+      "range": {
+        "startLine": 113,
+        "startChar": 4,
+        "endLine": 113,
+        "endChar": 15
+      },
+      "revId": "d34ab91b6a12230383aa290a0741b7888bea6f1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77572f81_d60094d9",
+        "filename": "ui/material/src/main/java/androidx/ui/material/ripple/Ripple.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-05-28T21:45:55Z",
+      "side": 1,
+      "message": "maybe use \"parent\" instead?",
+      "range": {
+        "startLine": 35,
+        "startChar": 71,
+        "endLine": 35,
+        "endChar": 77
+      },
+      "revId": "d34ab91b6a12230383aa290a0741b7888bea6f1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

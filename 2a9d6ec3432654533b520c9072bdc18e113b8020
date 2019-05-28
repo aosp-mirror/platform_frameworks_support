@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1943d600_b97f0b4b",
+        "filename": "ui/material/src/test/java/androidx/ui/material/ripple/DefaultRippleEffectTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-05-28T21:45:55Z",
+      "side": 0,
+      "message": "These are outdated or you plan to write the same but new ones later?",
+      "range": {
+        "startLine": 38,
+        "startChar": 3,
+        "endLine": 60,
+        "endChar": 9
+      },
+      "revId": "2a9d6ec3432654533b520c9072bdc18e113b8020",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
