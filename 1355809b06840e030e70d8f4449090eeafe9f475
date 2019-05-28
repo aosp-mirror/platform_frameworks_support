@@ -2,6 +2,126 @@
   "comments": [
     {
       "key": {
+        "uuid": "b6ec5b7d_3d5e3cae",
+        "filename": "media2/common/src/main/java/androidx/media2/common/SessionPlayer.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 873,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-05-28T02:39:57Z",
+      "side": 1,
+      "message": "Let\u0027s move the doc from onTrackSelected to here.\n\nSelects a track.\n\n..\n\n@see PlayerCallback#onTrackSelected",
+      "revId": "1355809b06840e030e70d8f4449090eeafe9f475",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ef9eadb_5f247b44",
+        "filename": "media2/common/src/main/java/androidx/media2/common/SessionPlayer.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 884,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-05-28T02:39:57Z",
+      "side": 1,
+      "message": "Let\u0027s move the doc from onTrackDeselected to here.\n\nDeselects a track.\n\nA track should already be selected in order to be deselected and audio and video tracks\nshould not be deselected.\n\n@see PlayerCallback#onTrackDeselected",
+      "revId": "1355809b06840e030e70d8f4449090eeafe9f475",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "858db1ef_f0b6dae1",
+        "filename": "media2/common/src/main/java/androidx/media2/common/SessionPlayer.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 895,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-05-28T02:39:57Z",
+      "side": 1,
+      "message": "Gets currently selected track\u0027s {@link TrackInfo} for given track type.\n\n         * @see TrackInfo#MEDIA_TRACK_TYPE_VIDEO\n         * @see TrackInfo#MEDIA_TRACK_TYPE_AUDIO\n         * @see TrackInfo#MEDIA_TRACK_TYPE_SUBTITLE\n         * @see TrackInfo#MEDIA_TRACK_TYPE_METADATA",
+      "revId": "1355809b06840e030e70d8f4449090eeafe9f475",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46259647_5bd9ff18",
+        "filename": "media2/common/src/main/java/androidx/media2/common/SessionPlayer.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1320,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-05-28T02:39:57Z",
+      "side": 1,
+      "message": "@see getTrackInfoInternal",
+      "range": {
+        "startLine": 1314,
+        "startChar": 0,
+        "endLine": 1320,
+        "endChar": 51
+      },
+      "revId": "1355809b06840e030e70d8f4449090eeafe9f475",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5fce060b_039b4d32",
+        "filename": "media2/common/src/main/java/androidx/media2/common/SessionPlayer.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1340,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-05-28T02:39:57Z",
+      "side": 1,
+      "message": "@see selectTrackInternal",
+      "range": {
+        "startLine": 1337,
+        "startChar": 0,
+        "endLine": 1340,
+        "endChar": 51
+      },
+      "revId": "1355809b06840e030e70d8f4449090eeafe9f475",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e8399e6_ce0aadfb",
+        "filename": "media2/common/src/main/java/androidx/media2/common/SessionPlayer.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1364,
+      "author": {
+        "id": 1018419
+      },
+      "writtenOn": "2019-05-28T02:39:57Z",
+      "side": 1,
+      "message": "Replace these with\n\n@see deselectTrackInternal(TrackInfo)",
+      "range": {
+        "startLine": 1360,
+        "startChar": 0,
+        "endLine": 1364,
+        "endChar": 10
+      },
+      "revId": "1355809b06840e030e70d8f4449090eeafe9f475",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "73adbf15_426f1230",
         "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
         "patchSetId": 9
