@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e9f4392c_381cb26c",
+        "filename": "fragment/src/androidTest/java/androidx/fragment/app/FragmentAnimationTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1060451
+      },
+      "writtenOn": "2019-05-28T21:23:39Z",
+      "side": 1,
+      "message": "This layout uses a \u003cfragment\u003e tag at child_fragment, which means you shouldn\u0027t be using a FragmentTransaction to change that view. Consider using R.layout.simple_container and the R.id.fragmentContainer.",
+      "range": {
+        "startLine": 226,
+        "startChar": 47,
+        "endLine": 226,
+        "endChar": 78
+      },
+      "revId": "91043b75a01368610bd6419b3a31cbe8cce766bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
