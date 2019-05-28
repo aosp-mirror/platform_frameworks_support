@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "73adbf15_426f1230",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1086,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-05-28T02:33:37Z",
+      "side": 1,
+      "message": "It seems that VideoViewTest is flaky because this can be null.",
+      "range": {
+        "startLine": 1086,
+        "startChar": 57,
+        "endLine": 1086,
+        "endChar": 70
+      },
+      "revId": "1355809b06840e030e70d8f4449090eeafe9f475",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
