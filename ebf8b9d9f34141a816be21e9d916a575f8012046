@@ -22,6 +22,30 @@
       "revId": "ebf8b9d9f34141a816be21e9d916a575f8012046",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "087d8cac_4d7020c3",
+        "filename": "camera/camera2/src/main/java/androidx/camera/camera2/impl/Camera2CameraControl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 1377888
+      },
+      "writtenOn": "2019-05-28T18:08:30Z",
+      "side": 1,
+      "message": "That\u0027s right. It\u0027s so that a previous timeout event doesn\u0027t cancel the latest timeout. Even though we have cancelled the previous event, there is not guarantee that the executor won\u0027t still run the runnable.",
+      "parentUuid": "509c2af3_727f1a58",
+      "range": {
+        "startLine": 386,
+        "startChar": 0,
+        "endLine": 386,
+        "endChar": 68
+      },
+      "revId": "ebf8b9d9f34141a816be21e9d916a575f8012046",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
