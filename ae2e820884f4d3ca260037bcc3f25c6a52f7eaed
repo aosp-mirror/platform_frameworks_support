@@ -22,6 +22,30 @@
       "revId": "ae2e820884f4d3ca260037bcc3f25c6a52f7eaed",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e83ee0c_d5cc0b23",
+        "filename": "exifinterface/src/main/java/androidx/exifinterface/media/ExifInterface.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 7037,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-28T01:05:32Z",
+      "side": 1,
+      "message": "Basically the dup will not be called in API \u003c 21, so a leak will not be happening.\n\nBut the problem is that for API \u003c 21, initializing ExifInterface with a FileDescriptor will keep mSeekableFileDescriptor as null, which means calling saveAttributes() will throw an IOException (\"ExifInterface does not support saving attributes for the current input.\")\n\nI asked Chatty if there are known alternatives for Os.dup in API \u003c 21 (https://groups.google.com/a/google.com/forum/#!topic/android-chatty-eng/dVZkN2ik6oY) and I\u0027ll work on this as a separate issue.",
+      "parentUuid": "65803eac_81c75ca6",
+      "range": {
+        "startLine": 7036,
+        "startChar": 8,
+        "endLine": 7037,
+        "endChar": 23
+      },
+      "revId": "ae2e820884f4d3ca260037bcc3f25c6a52f7eaed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
