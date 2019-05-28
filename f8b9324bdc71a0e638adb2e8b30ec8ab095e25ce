@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2ef81049_13b0730f",
+        "filename": "ui/layout/src/androidTest/java/androidx/ui/layout/test/LayoutTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1060493
+      },
+      "writtenOn": "2019-05-28T15:27:24Z",
+      "side": 1,
+      "message": "oh, sorry. I didn\u0027t realize you were getting a naming conflict.",
+      "range": {
+        "startLine": 37,
+        "startChar": 24,
+        "endLine": 37,
+        "endChar": 57
+      },
+      "revId": "f8b9324bdc71a0e638adb2e8b30ec8ab095e25ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
