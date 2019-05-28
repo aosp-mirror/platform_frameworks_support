@@ -16,6 +16,8 @@
 
 package androidx.camera.extensions;
 
+import static androidx.camera.extensions.PreviewExtender.OPTION_PREVIEW_EXTENDER_TYPE;
+
 import android.hardware.camera2.CameraCharacteristics;
 
 import androidx.annotation.GuardedBy;
@@ -26,13 +28,16 @@ import androidx.camera.core.CameraX;
 import androidx.camera.core.CaptureBundle;
 import androidx.camera.core.CaptureConfig;
 import androidx.camera.core.CaptureStage;
+import androidx.camera.core.Config;
 import androidx.camera.core.ImageCaptureConfig;
 import androidx.camera.core.UseCase;
+import androidx.camera.extensions.ExtenderErrorListener.ExtenderErrorCode;
 import androidx.camera.extensions.impl.CaptureProcessorImpl;
 import androidx.camera.extensions.impl.CaptureStageImpl;
 import androidx.camera.extensions.impl.ImageCaptureExtenderImpl;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -40,14 +45,25 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * Class for using an OEM provided extension on image capture.
  */
 abstract class ImageCaptureExtender {
+    static final Config.Option<String> OPTION_IMAGE_CAPTURE_EXTENDER_TYPE = Config.Option.create(
+            "camerax.extensions.imageCaptureExtender.type", String.class);
+
     private ImageCaptureConfig.Builder mBuilder;
     private ImageCaptureExtenderImpl mImpl;
+    private String mDependenceExtenderClass = null;
+    private ExtenderErrorListener mExtenderErrorListener = null;
 
     void init(ImageCaptureConfig.Builder builder, ImageCaptureExtenderImpl implementation) {
         mBuilder = builder;
         mImpl = implementation;
+        mDependenceExtenderClass = getClass().toString().replace("ImageCapture", "Preview");
     }
 
+    /**
+     * Indicates whether extension function can support with {@link ImageCaptureConfig.Builder}
+     *
+     * @return True if the specific extension function is supported for the camera device.
+     */
     public boolean isExtensionAvailable() {
         CameraX.LensFacing lensFacing = mBuilder.build().getLensFacing();
         String cameraId = CameraUtil.getCameraId(lensFacing);
@@ -55,6 +71,13 @@ abstract class ImageCaptureExtender {
         return mImpl.isExtensionAvailable(cameraId, cameraCharacteristics);
     }
 
+    /**
+     * Enables the derived {@link ImageCaptureExtender} feature.
+     *
+     * <p>{@link ImageCaptureExtender} has dependence on {@link PreviewExtender}.
+     * {@link ImageCaptureExtender} will receive PREVIEW_EXTENSION_REQUIRED error if
+     * corresponding {@link PreviewExtender} is not enabled together.
+     */
     public void enableExtension() {
         CameraX.LensFacing lensFacing = mBuilder.build().getLensFacing();
         String cameraId = CameraUtil.getCameraId(lensFacing);
@@ -75,12 +98,58 @@ abstract class ImageCaptureExtender {
                 new CameraEventCallbacks(imageCaptureAdapter));
         mBuilder.setUseCaseEventListener(imageCaptureAdapter);
         mBuilder.setCaptureBundle(imageCaptureAdapter);
+        mBuilder.getMutableConfig().insertOption(OPTION_IMAGE_CAPTURE_EXTENDER_TYPE,
+                getClass().toString());
+    }
+
+    /**
+     * Sets an {@link ExtenderErrorListener} which will get called any time a
+     * {@link ImageCaptureExtender} specific error is encountered.
+     *
+     * @param listener The {@link ExtenderErrorListener} listener that will be run.
+     */
+    public void setExtenderErrorListener(ExtenderErrorListener listener) {
+        mExtenderErrorListener = listener;
+    }
+
+    void checkPreviewEnabled() {
+        if (mExtenderErrorListener != null) {
+            Collection<UseCase> activeUseCases = CameraX.getActiveUseCases();
+
+            if (activeUseCases != null && activeUseCases.size() > 0) {
+                boolean bIsImageCaptureExtenderEnabled = false;
+                boolean bIsPreviewExtenderEnabled = false;
+
+                for (UseCase useCase : activeUseCases) {
+                    String imageCaptureExtenderType = useCase.getUseCaseConfig().retrieveOption(
+                            OPTION_IMAGE_CAPTURE_EXTENDER_TYPE, null);
+                    if (getClass().toString().equals(imageCaptureExtenderType)) {
+                        bIsImageCaptureExtenderEnabled = true;
+                        break;
+                    }
+                }
+
+                for (UseCase useCase : activeUseCases) {
+                    String previewExtenderType = useCase.getUseCaseConfig().retrieveOption(
+                            OPTION_PREVIEW_EXTENDER_TYPE, null);
+                    if (mDependenceExtenderClass != null && mDependenceExtenderClass.equals(
+                            previewExtenderType)) {
+                        bIsPreviewExtenderEnabled = true;
+                        break;
+                    }
+                }
+
+                if (bIsImageCaptureExtenderEnabled && !bIsPreviewExtenderEnabled) {
+                    mExtenderErrorListener.onError(ExtenderErrorCode.PREVIEW_EXTENSION_REQUIRED);
+                }
+            }
+        }
     }
 
     /**
      * An implementation to adapt the OEM provided implementation to core.
      */
-    static class ImageCaptureAdapter extends CameraEventCallback implements UseCase.EventListener,
+    class ImageCaptureAdapter extends CameraEventCallback implements UseCase.EventListener,
             CaptureBundle {
 
         private final ImageCaptureExtenderImpl mImpl;
@@ -124,6 +193,7 @@ abstract class ImageCaptureExtender {
         @Override
         public CaptureConfig onPresetSession() {
             if (mActive.get()) {
+                checkPreviewEnabled();
                 CaptureStageImpl captureStageImpl = mImpl.onPresetSession();
                 if (captureStageImpl != null) {
                     return new AdaptingCaptureStage(captureStageImpl).getCaptureConfig();

@@ -43,6 +43,7 @@ import androidx.camera.extensions.BeautyImageCaptureExtender;
 import androidx.camera.extensions.BeautyPreviewExtender;
 import androidx.camera.extensions.BokehImageCaptureExtender;
 import androidx.camera.extensions.BokehPreviewExtender;
+import androidx.camera.extensions.ExtenderErrorListener;
 import androidx.camera.extensions.HdrImageCaptureExtender;
 import androidx.camera.extensions.HdrPreviewExtender;
 import androidx.camera.extensions.NightImageCaptureExtender;
@@ -100,6 +101,13 @@ public class CameraExtensionsActivity extends AppCompatActivity
                         .setLensFacing(LensFacing.BACK)
                         .setTargetName("Preview");
 
+        ExtenderErrorListener extenderErrorListener = new ExtenderErrorListener() {
+            @Override
+            public void onError(ExtenderErrorCode errorCode) {
+                Log.d(TAG, "PreviewExtender error in ExtenderErrorCode: " + errorCode);
+            }
+        };
+
         Log.d(TAG, "Enabling the extended view finder");
         if (mCurrentImageCaptureType == ImageCaptureType.IMAGE_CAPTURE_TYPE_BOKEH) {
             Log.d(TAG, "Enabling the extended view finder in bokeh mode.");
@@ -107,6 +115,7 @@ public class CameraExtensionsActivity extends AppCompatActivity
             BokehPreviewExtender extender = BokehPreviewExtender.create(builder);
             if (extender.isExtensionAvailable()) {
                 extender.enableExtension();
+                extender.setExtenderErrorListener(extenderErrorListener);
             }
         } else if (mCurrentImageCaptureType == ImageCaptureType.IMAGE_CAPTURE_TYPE_HDR) {
             Log.d(TAG, "Enabling the extended view finder in HDR mode.");
@@ -114,6 +123,7 @@ public class CameraExtensionsActivity extends AppCompatActivity
             HdrPreviewExtender extender = HdrPreviewExtender.create(builder);
             if (extender.isExtensionAvailable()) {
                 extender.enableExtension();
+                extender.setExtenderErrorListener(extenderErrorListener);
             }
         } else if (mCurrentImageCaptureType == ImageCaptureType.IMAGE_CAPTURE_TYPE_NIGHT) {
             Log.d(TAG, "Enabling the extended view finder in night mode.");
@@ -121,6 +131,7 @@ public class CameraExtensionsActivity extends AppCompatActivity
             NightPreviewExtender extender = NightPreviewExtender.create(builder);
             if (extender.isExtensionAvailable()) {
                 extender.enableExtension();
+                extender.setExtenderErrorListener(extenderErrorListener);
             }
         } else if (mCurrentImageCaptureType == ImageCaptureType.IMAGE_CAPTURE_TYPE_BEAUTY) {
             Log.d(TAG, "Enabling the extended view finder in beauty mode.");
@@ -128,6 +139,7 @@ public class CameraExtensionsActivity extends AppCompatActivity
             BeautyPreviewExtender extender = BeautyPreviewExtender.create(builder);
             if (extender.isExtensionAvailable()) {
                 extender.enableExtension();
+                extender.setExtenderErrorListener(extenderErrorListener);
             }
         }
 
@@ -214,12 +226,20 @@ public class CameraExtensionsActivity extends AppCompatActivity
         Button toggleButton = findViewById(R.id.PhotoToggle);
         toggleButton.setText(mCurrentImageCaptureType.toString());
 
+        ExtenderErrorListener extenderErrorListener = new ExtenderErrorListener() {
+            @Override
+            public void onError(ExtenderErrorCode errorCode) {
+                Log.d(TAG, "ImageCaptureExtender error in ExtenderErrorCode: " + errorCode);
+            }
+        };
+
         switch (imageCaptureType) {
             case IMAGE_CAPTURE_TYPE_HDR:
                 HdrImageCaptureExtender hdrImageCaptureExtender = HdrImageCaptureExtender.create(
                         builder);
                 if (hdrImageCaptureExtender.isExtensionAvailable()) {
                     hdrImageCaptureExtender.enableExtension();
+                    hdrImageCaptureExtender.setExtenderErrorListener(extenderErrorListener);
                 }
                 break;
             case IMAGE_CAPTURE_TYPE_BOKEH:
@@ -227,6 +247,7 @@ public class CameraExtensionsActivity extends AppCompatActivity
                         builder);
                 if (bokehImageCapture.isExtensionAvailable()) {
                     bokehImageCapture.enableExtension();
+                    bokehImageCapture.setExtenderErrorListener(extenderErrorListener);
                 }
                 break;
             case IMAGE_CAPTURE_TYPE_NIGHT:
@@ -234,6 +255,7 @@ public class CameraExtensionsActivity extends AppCompatActivity
                         builder);
                 if (nightImageCapture.isExtensionAvailable()) {
                     nightImageCapture.enableExtension();
+                    nightImageCapture.setExtenderErrorListener(extenderErrorListener);
                 }
                 break;
             case IMAGE_CAPTURE_TYPE_BEAUTY:
@@ -241,6 +263,7 @@ public class CameraExtensionsActivity extends AppCompatActivity
                         builder);
                 if (beautyImageCapture.isExtensionAvailable()) {
                     beautyImageCapture.enableExtension();
+                    beautyImageCapture.setExtenderErrorListener(extenderErrorListener);
                 }
                 break;
             case IMAGE_CAPTURE_TYPE_DEFAULT:
