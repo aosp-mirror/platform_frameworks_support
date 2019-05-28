@@ -43,7 +43,7 @@ import java.util.Arrays
  */
 @RunWith(Parameterized::class)
 @LargeTest
-class NestedScrollViewNestedScrollingFlingTest(
+class NestedScrollViewNestedScrollingFlingVelocityTest(
     private val fingerDirectionUp: Boolean,
     private val parentIntercepts: Boolean,
     private val preScrollConsumption: Int,

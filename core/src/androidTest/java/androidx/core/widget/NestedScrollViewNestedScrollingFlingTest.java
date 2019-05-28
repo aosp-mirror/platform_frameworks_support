@@ -56,12 +56,12 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Large integration tests that verify correct {@link NestedScrollView} scrolling behavior,
- * including interaction with nested scrolling.
+ * Large integration tests that verify correct {@link NestedScrollView} flinging behavior related to
+ * nested scrolling.
 */
 @RunWith(AndroidJUnit4.class)
 @LargeTest
-public class NestedScrollViewScrollingTest extends
+public class NestedScrollViewNestedScrollingFlingTest extends
         BaseInstrumentationTestCase<TestContentViewActivity> {
 
     private static final int CHILD_HEIGHT = 800;
@@ -76,7 +76,7 @@ public class NestedScrollViewScrollingTest extends
     private View mChild;
     private NestedScrollingSpyView mParent;
 
-    public NestedScrollViewScrollingTest() {
+    public NestedScrollViewNestedScrollingFlingTest() {
         super(TestContentViewActivity.class);
     }
 
@@ -309,36 +309,6 @@ public class NestedScrollViewScrollingTest extends
         verify(mParent, never()).onNestedFling(any(View.class),  anyFloat(), anyFloat(),
                 anyBoolean());
         verify(mParent, never()).onStopNestedScroll(any(View.class), eq(ViewCompat.TYPE_TOUCH));
-    }
-
-    @Test
-    public void smoothScrollBy_scrollsEntireDistanceIncludingMargins() throws Throwable {
-        setup();
-        setChildMargins(20, 30);
-        attachToActivity();
-
-        final CountDownLatch countDownLatch = new CountDownLatch(1);
-        final int expectedTarget = TOTAL_SCROLL_DISTANCE + 20 + 30;
-        final int scrollDistance = TOTAL_SCROLL_DISTANCE + 20 + 30;
-        mActivityTestRule.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                mNestedScrollView.setOnScrollChangeListener(
-                        new NestedScrollView.OnScrollChangeListener() {
-                            @Override
-                            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY,
-                                    int oldScrollX, int oldScrollY) {
-                                if (scrollY == expectedTarget) {
-                                    countDownLatch.countDown();
-                                }
-                            }
-                        });
-                mNestedScrollView.smoothScrollBy(0, scrollDistance);
-            }
-        });
-        assertThat(countDownLatch.await(2, TimeUnit.SECONDS), is(true));
-
-        assertThat(mNestedScrollView.getScrollY(), is(expectedTarget));
     }
 
     private void setup() {
