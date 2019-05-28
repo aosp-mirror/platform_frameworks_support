@@ -130,4 +130,56 @@ open class LayoutTest {
             positionedLatch.countDown()
         })
     }
+
+    internal fun assertEquals(expected: PxSize?, actual: PxSize?) {
+        if (expected == null || actual == null) {
+            org.junit.Assert.assertEquals(expected, actual)
+            return
+        }
+
+        org.junit.Assert.assertEquals(
+            "Expected width ${expected.width.value} but obtained ${actual.width.value}",
+            expected.width.value,
+            actual.width.value,
+            1f
+        )
+        org.junit.Assert.assertEquals(
+            "Expected height ${expected.height.value} but obtained ${actual.height.value}",
+            expected.height.value,
+            actual.height.value,
+            1f
+        )
+        if (actual.width.value != actual.width.value.toInt().toFloat()) {
+            org.junit.Assert.fail("Expected integer width")
+        }
+        if (actual.height.value != actual.height.value.toInt().toFloat()) {
+            org.junit.Assert.fail("Expected integer height")
+        }
+    }
+
+    internal fun assertEquals(expected: PxPosition?, actual: PxPosition?) {
+        if (expected == null || actual == null) {
+            org.junit.Assert.assertEquals(expected, actual)
+            return
+        }
+
+        org.junit.Assert.assertEquals(
+            "Expected x ${expected.x.value} but obtained ${actual.x.value}",
+            expected.x.value,
+            actual.x.value,
+            1f
+        )
+        org.junit.Assert.assertEquals(
+            "Expected y ${expected.y.value} but obtained ${actual.y.value}",
+            expected.y.value,
+            actual.y.value,
+            1f
+        )
+        if (actual.x.value != actual.x.value.toInt().toFloat()) {
+            org.junit.Assert.fail("Expected integer x coordinate")
+        }
+        if (actual.y.value != actual.y.value.toInt().toFloat()) {
+            org.junit.Assert.fail("Expected integer y coodinate")
+        }
+    }
 }
