@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ec56f71_23ee355f",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/LibraryGroups.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1258207
+      },
+      "writtenOn": "2019-05-28T22:40:13Z",
+      "side": 1,
+      "message": "Lets make Room also enforce same-version, coroutines alpha04 was replaced by room-ktx",
+      "range": {
+        "startLine": 73,
+        "startChar": 8,
+        "endLine": 73,
+        "endChar": 12
+      },
+      "revId": "10236228f4b75e9744d661e37d3879c93230ae9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
