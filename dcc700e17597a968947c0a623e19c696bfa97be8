@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aa7b4207_3715eae3",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/LibraryGroups.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1344433
+      },
+      "writtenOn": "2019-05-28T17:04:52Z",
+      "side": 1,
+      "message": "Should this also be true ?",
+      "revId": "dcc700e17597a968947c0a623e19c696bfa97be8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
