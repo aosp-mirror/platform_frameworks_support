@@ -22,6 +22,30 @@
       "revId": "25787a7383c6cd3852ec150b8ff11226afe8d481",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "49de2957_e73750d6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1343300
+      },
+      "writtenOn": "2019-05-28T12:58:31Z",
+      "side": 1,
+      "message": "We disabled the synthetic accessor warnings in lint (gradlew :lint) a few months ago, I think the decision was that too many Kotlin features, and a lot of composable functions would require synthetic accessors, so we need to rely on R8 to remove these methods. This CL only disables the (weaker) warnings from the IDE side.",
+      "parentUuid": "d203f6b5_8c0d64df",
+      "range": {
+        "startLine": 12,
+        "startChar": 45,
+        "endLine": 12,
+        "endChar": 75
+      },
+      "revId": "25787a7383c6cd3852ec150b8ff11226afe8d481",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
