@@ -51,14 +51,14 @@ interface RippleSurfaceOwner {
     /**
      * Add an [RippleEffect].
      *
-     * The effect will be drawns as part of this [RippleSurface].
+     * The [effect] will be drawn as part of this [RippleSurface].
      */
-    fun addEffect(feature: RippleEffect)
+    fun addEffect(effect: RippleEffect)
 
     /**
      * Removes added previously effects. Called by [RippleEffect] in onDispose()
      */
-    fun removeEffect(feature: RippleEffect)
+    fun removeEffect(effect: RippleEffect)
 
     /** Notifies the [RippleSurface] that one of its effects needs to redraw. */
     fun markNeedsRedraw()
@@ -82,12 +82,11 @@ fun ambientRippleSurface() =
 
 /**
  * A surface used to draw [RippleEffect]s on top of it.
+ *
+ * @param color The surface background color.
  */
 @Composable
 fun RippleSurface(
-    /**
-     * The surface background backgroundColor.
-     */
     color: Color?,
     @Children children: @Composable() () -> Unit
 ) {
@@ -124,16 +123,16 @@ private class RippleSurfaceOwnerImpl : RippleSurfaceOwner {
         recomposeModel.recompose()
     }
 
-    override fun addEffect(feature: RippleEffect) {
-        assert(!feature.debugDisposed)
-        assert(feature.rippleSurface == this)
-        assert(!effects.contains(feature))
-        effects.add(feature)
+    override fun addEffect(effect: RippleEffect) {
+        assert(!effect.debugDisposed)
+        assert(effect.rippleSurface == this)
+        assert(!effects.contains(effect))
+        effects.add(effect)
         markNeedsRedraw()
     }
 
-    override fun removeEffect(feature: RippleEffect) {
-        effects.remove(feature)
+    override fun removeEffect(effect: RippleEffect) {
+        effects.remove(effect)
         markNeedsRedraw()
     }
 }

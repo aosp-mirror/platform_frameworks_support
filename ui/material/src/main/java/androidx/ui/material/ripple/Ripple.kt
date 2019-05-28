@@ -19,13 +19,9 @@ package androidx.ui.material.ripple
 import androidx.ui.core.Density
 import androidx.ui.core.LayoutCoordinates
 import androidx.ui.core.OnChildPositioned
-import androidx.ui.core.Px
-import androidx.ui.core.PxBounds
 import androidx.ui.core.PxPosition
 import androidx.ui.core.ambientDensity
 import androidx.ui.core.gesture.PressIndicatorGestureDetector
-import androidx.ui.material.borders.BorderRadius
-import androidx.ui.material.borders.BoxShape
 import androidx.compose.Children
 import androidx.compose.Composable
 import androidx.compose.ambient
@@ -33,90 +29,41 @@ import androidx.compose.composer
 import androidx.compose.memo
 import androidx.compose.onDispose
 import androidx.compose.unaryPlus
+import androidx.ui.core.Dp
 
 /**
- * An area of a [RippleSurface] that responds to touch. Has a configurable shape and
- * can be configured to clip effects that extend outside its bounds or not.
+ * A bounded version of [Ripple] which is clipped by the bounds of the target layout.
+ */
+@Composable
+fun BoundedRipple(
+    @Children children: @Composable() () -> Unit
+) {
+    Ripple(bounded = true, children = children)
+}
+
+/**
+ * An area of a [RippleSurface] that responds to touch.
  *
- * For a variant of this widget that is specialized for rectangular areas that
- * always clip effects, see [BoundedRipple].
+ * For an bounded version (clipped by the current surface shape)
+ * use [BoundedRipple].
  *
- * An [Ripple] widget responds to a tap by starting a current [RippleEffect]'s
+ * A [Ripple] widget responds to a tap by starting a new [RippleEffect]'s
  * animation. For creating an effect it uses the [RippleTheme.factory].
  *
- * The [Ripple] widget must have a [RippleSurface] ancestor. The
+ * The [Ripple] widget must have a [RippleSurface] ancestor as the
  * [RippleSurface] is where the [Ripple]s are actually drawn.
+ *
+ * @param bounded ripples are clipped by the bounds of the target layout.
+ *  Unbounded ripples always animates from from the center position instead
+ *  of the touch position for the bounded ones. False is the default.
+ *  You can also use [BoundedRipple] instead of passing true.
+ * @param finalRadius Effects grow up to this size. By default the size is
+ *  determined from the size of the layout itself.
  */
 @Composable
 fun Ripple(
-    /**
-     * Called when this surface either becomes highlighted or stops being highlighted.
-     *
-     * The value passed to the callback is true if this part of the surface has
-     * become highlighted and false if this part of the surface has stopped
-     * being highlighted.
-     */
-    onHighlightChanged: ((Boolean) -> Unit)? = null,
-    /**
-     * Whether this ripple should be bounded.
-     *
-     * This flag also controls whether the ripple migrates to the center of the
-     * [Ripple] or not. If [bounded] is true, the ripple remains centered around
-     * the tap location. If it is false, the effect migrates to the center of
-     * the [Ripple] as it grows.
-     *
-     * See also:
-     *
-     *  * [shape], which determines the shape of the ripple.
-     *  * [clippingBorderRadius], which controls the corners when the box is a rectangle.
-     *  * [boundsCallback], which controls the size and position of the box when
-     *    it is a rectangle.
-     */
+    finalRadius: Dp? = null,
     bounded: Boolean = false,
-    /**
-     * The shape (e.g., circle, rectangle) to use for the highlight drawn around
-     * this surface.
-     *
-     * If the shape is [BoxShape.Circle], then the highlight is centered on the
-     * [Ripple]. If the shape is [BoxShape.Rectangle], then the highlight
-     * fills the [Ripple], or the rectangle provided by [boundsCallback] if
-     * the callback is specified.
-     *
-     * See also:
-     *
-     *  * [bounded], which controls clipping behavior.
-     *  * [clippingBorderRadius], which controls the corners when the box is a rectangle.
-     *  * [boundsCallback], which controls the size and position of the box when
-     *    it is a rectangle.
-     */
-    shape: BoxShape = BoxShape.Circle,
-    /**
-     * The radius of the Ripple.
-     *
-     * Effects grow up to this size. By default, this size is determined from
-     * the size of the rectangle provided by [boundsCallback], or the size of
-     * the [Ripple] itself.
-     */
-    finalRadius: Px? = null,
-    /**
-     * The clipping radius of the containing rect.
-     *
-     * If this is null, it is interpreted as [BorderRadius.Zero].
-     */
-    clippingBorderRadius: BorderRadius? = null,
-    /**
-     * The bounds to use for the highlight effect and for clipping
-     * the ripple effects if [bounded] is true.
-     *
-     * This function is intended to be provided for unusual cases.
-     * For example, you can provide this for Table layouts to return
-     * the bounds corresponding to the row that the item is in.
-     *
-     * The default value is null, which is equivalent to
-     * returning the target layout argument's bounding box (though
-     * slightly more efficient).
-     */
-    boundsCallback: ((LayoutCoordinates) -> PxBounds)? = null,
     @Children children: @Composable() () -> Unit
 ) {
     val density = +ambientDensity()
@@ -131,15 +78,12 @@ fun Ripple(
     OnChildPositioned(onPositioned = { state.coordinates = it }) {
         PressIndicatorGestureDetector(
             onStart = { position ->
-                state.handleStart(
-                    position, rippleSurface, theme, density, bounded, boundsCallback,
-                    clippingBorderRadius, shape, finalRadius
-                )
+                state.handleStart(position, rippleSurface, theme, density, bounded, finalRadius)
             },
-            onStop = { state.handleFinish(false, onHighlightChanged) },
-            onCancel = { state.handleFinish(true, onHighlightChanged) }) {
-            children()
-        }
+            onStop = { state.handleFinish(false) },
+            onCancel = { state.handleFinish(true) },
+            children = children
+        )
     }
 
     +onDispose {
@@ -149,27 +93,23 @@ fun Ripple(
     }
 }
 
-internal class RippleState {
+private class RippleState {
 
-    internal var coordinates: LayoutCoordinates? = null
-    internal var effects = mutableSetOf<RippleEffect>()
-    internal var currentEffect: RippleEffect? = null
+    var coordinates: LayoutCoordinates? = null
+    var effects = mutableSetOf<RippleEffect>()
+    var currentEffect: RippleEffect? = null
 
-    internal fun handleStart(
+    fun handleStart(
         position: PxPosition,
         rippleSurface: RippleSurfaceOwner,
         theme: RippleTheme,
         density: Density,
         bounded: Boolean,
-        boundsCallback: ((LayoutCoordinates) -> PxBounds)?,
-        borderRadius: BorderRadius?,
-        shape: BoxShape,
-        finalRadius: Px?
+        finalRadius: Dp?
     ) {
         val coordinates = coordinates ?: throw IllegalStateException(
             "handleStart() called before the layout coordinates were provided!"
         )
-        val callback = if (bounded) boundsCallback else null
         val color = theme.colorCallback.invoke(rippleSurface.backgroundColor)
         var effect: RippleEffect? = null
         val onRemoved = {
@@ -186,11 +126,8 @@ internal class RippleState {
             position,
             color,
             density,
-            shape,
             finalRadius,
             bounded,
-            callback,
-            borderRadius,
             onRemoved
         )
 
@@ -198,9 +135,8 @@ internal class RippleState {
         currentEffect = effect
     }
 
-    internal fun handleFinish(canceled: Boolean, onHighlightChanged: ((Boolean) -> Unit)?) {
+    fun handleFinish(canceled: Boolean) {
         currentEffect?.finish(canceled)
         currentEffect = null
-        onHighlightChanged?.invoke(false)
     }
 }

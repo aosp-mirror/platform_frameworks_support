@@ -59,7 +59,7 @@ fun Switch(
 ) {
     val value = if (checked) ToggleableState.Checked else ToggleableState.Unchecked
     Wrap {
-        Ripple {
+        Ripple(finalRadius = RippleRadius) {
             Toggleable(value = value, onToggle = onClick) {
                 Padding(padding = DefaultSwitchPadding) {
                     Container(width = SwitchWidth, height = SwitchHeight) {
@@ -186,6 +186,8 @@ private val TrackWidth = 34.dp
 private val TrackStrokeWidth = 14.dp
 
 private val ThumbDiameter = 20.dp
+
+private val RippleRadius = 20.dp
 
 // TODO(malkov): clarify this padding for Switch
 private val DefaultSwitchPadding = 2.dp

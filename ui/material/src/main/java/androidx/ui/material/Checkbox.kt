@@ -75,7 +75,7 @@ fun Checkbox(
     color: Color? = null
 ) {
     Wrap {
-        Ripple {
+        Ripple(finalRadius = CheckboxRippleRadius) {
             Toggleable(value = value, onToggle = onClick) {
                 Padding(padding = CheckboxDefaultPadding) {
                     Container(width = CheckboxSize, height = CheckboxSize) {
@@ -267,6 +267,7 @@ private fun TransitionSpec<ToggleableState>.boxTransitionToUnchecked() {
 
 private val CheckboxDefaultPadding = 2.dp
 private val CheckboxSize = 20.dp
+private val CheckboxRippleRadius = 25.dp
 private val StrokeWidth = 2.dp
 private val RadiusSize = 2.dp
 
