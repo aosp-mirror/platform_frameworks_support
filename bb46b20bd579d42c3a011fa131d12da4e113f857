@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7719f03e_a76c3fb3",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/VideoView.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 853,
+      "author": {
+        "id": 1339423
+      },
+      "writtenOn": "2019-05-28T01:58:47Z",
+      "side": 1,
+      "message": "nit) onPrepared",
+      "range": {
+        "startLine": 853,
+        "startChar": 28,
+        "endLine": 853,
+        "endChar": 46
+      },
+      "revId": "bb46b20bd579d42c3a011fa131d12da4e113f857",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
