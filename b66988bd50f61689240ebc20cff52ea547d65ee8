@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c7b07ac9_8fe55caf",
+        "filename": "ui/material/src/androidTest/java/androidx/ui/material/CheckboxUiTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-05-28T11:41:39Z",
+      "side": 1,
+      "message": "nit: use just \u0027isChecked\u0027",
+      "range": {
+        "startLine": 223,
+        "startChar": 35,
+        "endLine": 223,
+        "endChar": 52
+      },
+      "revId": "b66988bd50f61689240ebc20cff52ea547d65ee8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd116db7_46304126",
+        "filename": "ui/test/src/main/java/androidx/ui/test/Assertions.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-05-28T11:41:39Z",
+      "side": 1,
+      "message": "This will be never used as findNone is the one that is doing the checking. \n\nSo you can just replace all this with findNone().",
+      "range": {
+        "startLine": 50,
+        "startChar": 23,
+        "endLine": 50,
+        "endChar": 54
+      },
+      "revId": "b66988bd50f61689240ebc20cff52ea547d65ee8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "042eea2d_5bd3c8ba",
+        "filename": "ui/test/src/main/java/androidx/ui/test/Assertions.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1238792
+      },
+      "writtenOn": "2019-05-28T11:41:39Z",
+      "side": 1,
+      "message": "So 99% of our asserts for single node will be verify(findExactlyOne(), ...). ANy reason we can\u0027t have a method that combines these two together? Like we previously had \"verifyAssertOnExactlyOne\"?",
+      "range": {
+        "startLine": 78,
+        "startChar": 3,
+        "endLine": 79,
+        "endChar": 25
+      },
+      "revId": "b66988bd50f61689240ebc20cff52ea547d65ee8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
